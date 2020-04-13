@@ -42,6 +42,7 @@ class Updates implements Runner {
 		'1.0.37.3' => 'updates/update-1.0.37.3.php',
 		'1.0.39'   => 'updates/update-1.0.39.php',
 		'1.0.40'   => 'updates/update-1.0.40.php',
+		'1.0.42'   => 'updates/update-1.0.42.php',
 	];
 
 	/**
@@ -55,7 +56,7 @@ class Updates implements Runner {
 	 * Check if any update is required.
 	 */
 	public function do_updates() {
-		$installed_version = get_option( 'rank_math_version' );
+		$installed_version = get_option( 'rank_math_version', '1.0.0' );
 
 		// Maybe it's the first install.
 		if ( ! $installed_version ) {
@@ -71,7 +72,7 @@ class Updates implements Runner {
 	 * Perform all updates.
 	 */
 	public function perform_updates() {
-		$installed_version = get_option( 'rank_math_version' );
+		$installed_version = get_option( 'rank_math_version', '1.0.0' );
 
 		foreach ( self::$updates as $version => $path ) {
 			if ( version_compare( $installed_version, $version, '<' ) ) {

@@ -172,7 +172,9 @@ class Client {
 			return $sitemaps;
 		}
 
-		$with_index = $with_index ? '?sitemapIndex=' . urlencode( trailingslashit( $this->profile ) . 'sitemap_index.xml' ) : '';
+		$sitemap_index_uri = apply_filters( 'rank_math/sitemap/sitemap_index_uri', 'sitemap_index.xml' );
+
+		$with_index = $with_index ? '?sitemapIndex=' . urlencode( trailingslashit( $this->profile ) . $sitemap_index_uri ) : '';
 
 		$api      = $this->get_google_client();
 		$response = $api->get( 'https://www.googleapis.com/webmasters/v3/sites/' . urlencode( $this->profile ) . '/sitemaps' . $with_index );

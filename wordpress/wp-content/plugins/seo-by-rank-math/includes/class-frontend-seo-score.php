@@ -9,9 +9,11 @@
 
 namespace RankMath;
 
+use RankMath\Post;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Traits\Shortcode;
+use RankMath\Admin\Admin_Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -94,7 +96,7 @@ class Frontend_SEO_Score {
 		/*
 		 * The loop_start check ensures this only runs after wp_head.
 		 */
-		if ( ! is_singular() || ! did_action( 'loop_start' ) ) {
+		if ( is_front_page() || ! is_singular() || ! did_action( 'loop_start' ) ) {
 			return false;
 		}
 
@@ -155,9 +157,11 @@ class Frontend_SEO_Score {
 					<div class="backlink">
 						<span class="poweredby">
 							<?php
-							/* translators: %s is a Rank Math link. */
-							printf( __( 'Powered by %s', 'rank-math' ),
-							$this->do_filter( 'frontend/seo_score/backlink', $backlink ) );
+							printf(
+								/* translators: %s is a Rank Math link. */
+								__( 'Powered by %s', 'rank-math' ),
+								$this->do_filter( 'frontend/seo_score/backlink', $backlink )
+							);
 							?>
 						</span>
 					</div>
@@ -222,8 +226,12 @@ class Frontend_SEO_Score {
 	 * @return boolean
 	 */
 	public static function show_on( $field = array() ) {
-		$post_type = get_post_type();
+		// Early Bail if is sttic homepage.
+		if ( Admin_Helper::is_home_page() ) {
+			return false;
+		}
 
+		$post_type = get_post_type();
 		return Helper::get_settings( 'general.frontend_seo_score' ) &&
 			in_array( $post_type, (array) Helper::get_settings( 'general.frontend_seo_score_post_types' ), true );
 	}
@@ -234,17 +242,19 @@ class Frontend_SEO_Score {
 	 * @param \CMB2 $cmb The CMB2 metabox object.
 	 */
 	public function metabox_settings_advanced( $cmb ) {
-		$cmb->add_field( array(
-			'id'         => 'rank_math_dont_show_seo_score',
-			'type'       => 'switch',
-			'name'       => esc_html__( 'Show SEO Score on Front-end', 'rank-math' ),
-			'options'    => [
-				'on'  => esc_html__( 'Off', 'rank-math' ),
-				'off' => esc_html__( 'On', 'rank-math' ),
-			],
-			'show_on_cb' => [ $this, 'show_on' ],
-			'default'    => 'off',
-		) );
+		$cmb->add_field(
+			[
+				'id'         => 'rank_math_dont_show_seo_score',
+				'type'       => 'switch',
+				'name'       => esc_html__( 'Show SEO Score on Front-end', 'rank-math' ),
+				'options'    => [
+					'on'  => esc_html__( 'Off', 'rank-math' ),
+					'off' => esc_html__( 'On', 'rank-math' ),
+				],
+				'show_on_cb' => [ $this, 'show_on' ],
+				'default'    => Admin_Helper::is_home_page() ? 'on' : 'off',
+			]
+		);
 	}
 
 	/**
@@ -256,11 +266,15 @@ class Frontend_SEO_Score {
 		if ( ! $this->score_enabled() ) {
 			return '';
 		}
-		if ( ! isset( $atts['class'] ) ) {
-			$atts['class'] = '';
-		}
 
-		$atts['class'] = $atts['class'] . ' as-shortcode';
+		$atts = shortcode_atts(
+			[
+				'class' => 'as-shortcode',
+			],
+			$atts,
+			'rank-math-seo-score'
+		);
+
 		return $this->get_output( $atts );
 	}
 

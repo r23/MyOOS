@@ -17,6 +17,8 @@ use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Controller;
 use RankMath\Helper;
+use RankMath\Traits\Meta;
+use MyThemeShop\Helpers\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,6 +26,8 @@ defined( 'ABSPATH' ) || exit;
  * Admin class.
  */
 class Admin extends WP_REST_Controller {
+
+	use Meta;
 
 	/**
 	 * Constructor.
@@ -163,6 +167,10 @@ class Admin extends WP_REST_Controller {
 			unset( $meta['permalink'] );
 		}
 
+		// Add protection.
+		remove_all_filters( 'is_protected_meta' );
+		add_filter( 'is_protected_meta', [ $this, 'only_this_plugin' ], 10, 2 );
+
 		$sanitizer = Sanitize::get();
 		foreach ( $meta as $meta_key => $meta_value ) {
 			if ( empty( $meta_value ) ) {
@@ -170,10 +178,22 @@ class Admin extends WP_REST_Controller {
 				continue;
 			}
 
-			update_metadata( $object_type, $object_id, $meta_key, $sanitizer->sanitize( $meta_key, $meta_value ) );
+			$this->update_meta( $object_type, $object_id, $meta_key, $sanitizer->sanitize( $meta_key, $meta_value ) );
 		}
 
 		return $new_slug;
+	}
+
+	/**
+	 * Allow only rank math meta keys
+	 *
+	 * @param bool   $protected Whether the key is considered protected.
+	 * @param string $meta_key  Meta key.
+	 *
+	 * @return bool
+	 */
+	public function only_this_plugin( $protected, $meta_key ) {
+		return Str::starts_with( 'rank_math_', $meta_key );
 	}
 
 	/**

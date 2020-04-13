@@ -46,10 +46,12 @@ class Export {
 		header( 'Pragma: no-cache' );
 		header( 'Expires: 0' );
 
-		$items = DB::get_redirections([
-			'limit'  => 1000,
-			'status' => 'active',
-		]);
+		$items = DB::get_redirections(
+			[
+				'limit'  => 1000,
+				'status' => 'active',
+			]
+		);
 
 		if ( 0 === $items['count'] ) {
 			return;
@@ -95,7 +97,7 @@ class Export {
 	 * @param array $output Output array.
 	 */
 	private function apache_item( $item, &$output ) {
-		$target = '410' === $item['header_code'] ? '- [G]' : sprintf( '%s [R=%d,L]', $this->encode2nd( $item['url_to'] ), $item['header_code'] );
+		$target  = '410' === $item['header_code'] ? '- [G]' : sprintf( '%s [R=%d,L]', $this->encode2nd( $item['url_to'] ), $item['header_code'] );
 		$sources = maybe_unserialize( $item['sources'] );
 
 		foreach ( $sources as $from ) {

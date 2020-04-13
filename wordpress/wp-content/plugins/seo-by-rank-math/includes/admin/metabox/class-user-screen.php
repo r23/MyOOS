@@ -52,10 +52,7 @@ class User_Screen implements IScreen {
 	/**
 	 * Enqueue Styles and Scripts required for screen.
 	 */
-	public function enqueue() {
-		$js = rank_math()->plugin_url() . 'assets/admin/js/';
-		wp_enqueue_script( 'rank-math-user-metabox', $js . 'user-metabox.js', [ 'wp-hooks', 'rank-math-common', 'rank-math-analyzer', 'jquery-tag-editor' ], rank_math()->version, true );
-	}
+	public function enqueue() {}
 
 	/**
 	 * Get analysis to run.

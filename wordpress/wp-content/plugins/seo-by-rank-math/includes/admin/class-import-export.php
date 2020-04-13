@@ -181,6 +181,7 @@ class Import_Export implements Runner {
 	 */
 	public function create_backup() {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
+		$this->has_cap_ajax( 'general' );
 
 		$key = $this->run_backup();
 		if ( is_null( $key ) ) {
@@ -200,6 +201,7 @@ class Import_Export implements Runner {
 	 */
 	public function delete_backup() {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
+		$this->has_cap_ajax( 'general' );
 
 		$key = Param::post( 'key' );
 		if ( ! $key ) {
@@ -215,6 +217,7 @@ class Import_Export implements Runner {
 	 */
 	public function restore_backup() {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
+		$this->has_cap_ajax( 'general' );
 
 		$key = Param::post( 'key' );
 		if ( ! $key ) {
@@ -401,7 +404,7 @@ class Import_Export implements Runner {
 			\RankMath\Redirections\DB::add(
 				[
 					'url_to'      => $redirection['url_to'],
-					'sources'     => unserialize( $redirection['sources'] ),
+					'sources'     => maybe_unserialize( $redirection['sources'] ),
 					'header_code' => $redirection['header_code'],
 					'hits'        => $redirection['hits'],
 					'created'     => $redirection['created'],

@@ -1,4 +1,4 @@
-/*global RankMathApp*/
+/*global rankMathEditor*/
 
 /**
  * External dependencies
@@ -25,12 +25,7 @@ class App {
 	}
 
 	maybeRefresh() {
-		if ( 'undefined' !== typeof rankMathGutenberg ) {
-			rankMathGutenberg.refresh( 'content' )
-			return
-		}
-
-		RankMathApp.refresh( 'content' )
+		rankMathEditor.refresh( 'content' )
 	}
 }
 window.RankMathACFAnalysis = new App

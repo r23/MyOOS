@@ -498,7 +498,7 @@ abstract class Plugin_Importer {
 		}
 
 		foreach ( $this->table_names as $table ) {
-			$wpdb->query( "DROP TABLE {$wpdb->prefix}{$table}" ); // phpcs:ignore
+			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}{$table}" );
 		}
 
 		return true;

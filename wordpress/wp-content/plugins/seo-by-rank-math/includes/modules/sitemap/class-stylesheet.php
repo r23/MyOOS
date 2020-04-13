@@ -39,7 +39,7 @@ class Stylesheet extends XML {
 			 * Fires for the output of XSL for XML sitemaps, other than type "main".
 			 */
 			$this->do_action( "sitemap/xsl_{$type}", $title );
-			return;
+			die;
 		}
 
 		require_once 'sitemap-xsl.php';

@@ -29,7 +29,7 @@ trait Meta {
 	 *
 	 * @return mixed
 	 */
-	protected function get_meta( $object_type, $object_id, $key = '', $single = true ) {
+	public function get_meta( $object_type, $object_id, $key = '', $single = true ) {
 		$func = "get_{$object_type}_meta";
 
 		return $func( $object_id, $key, $single );
@@ -45,9 +45,13 @@ trait Meta {
 	 *
 	 * @return mixed
 	 */
-	protected function update_meta( $object_type, $object_id, $key, $value ) {
+	public function update_meta( $object_type, $object_id, $key, $value ) {
 		$func = "update_{$object_type}_meta";
 
-		return $func( $object_id, $key, $value );
+		if ( is_string( $key ) && is_protected_meta( $key ) && ( is_scalar( $value ) || is_array( $value ) ) ) {
+			return $func( $object_id, $key, $value );
+		}
+
+		return false;
 	}
 }

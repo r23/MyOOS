@@ -89,7 +89,7 @@ class Common {
 		}
 
 		$term_ids = array_column( $terms, 'term_id' );
-		if ( ! in_array( $primary_term->term_id, $term_ids, true ) ) {
+		if ( ! is_object( $primary_term ) || ! in_array( $primary_term->term_id, $term_ids, true ) ) {
 			return $term;
 		}
 
@@ -146,9 +146,13 @@ class Common {
 	 * AJAX function to generate overlay image. Used in social thumbnails.
 	 */
 	public function generate_overlay_thumbnail() {
-		$thumbnail_id  = Param::request( 'id', 0, FILTER_VALIDATE_INT );
-		$type          = Param::request( 'type', 'play' );
-		$overlay_image = Helper::choices_overlay_images()[ $type ]['url'];
+		$thumbnail_id = Param::request( 'id', 0, FILTER_VALIDATE_INT );
+		$type         = Param::request( 'type', 'play' );
+		$choices      = Helper::choices_overlay_images();
+		if ( ! isset( $choices[ $type ] ) ) {
+			die();
+		}
+		$overlay_image = $choices[ $type ]['url'];
 		$image         = wp_get_attachment_image_src( $thumbnail_id, 'full' );
 
 		if ( ! empty( $image ) ) {

@@ -16,6 +16,7 @@ use RankMath\Sitemap\Router;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Url;
+use RankMath\Helpers\Security;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -403,7 +404,7 @@ class Paper {
 		}
 
 		if ( ! $wp_rewrite->using_permalinks() ) {
-			return add_query_arg(
+			return Security::add_query_arg_raw(
 				'paged',
 				get_query_var( 'paged' ),
 				is_front_page() ? trailingslashit( $canonical ) : $canonical

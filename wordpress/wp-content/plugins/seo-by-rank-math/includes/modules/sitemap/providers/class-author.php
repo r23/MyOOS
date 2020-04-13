@@ -24,6 +24,15 @@ class Author implements Provider {
 	use Hooker;
 
 	/**
+	 * The constructor.
+	 */
+	public function __construct() {
+		$this->filter( 'rank_math/sitemap/author/query', 'exclude_users', 5 );
+		$this->filter( 'rank_math/sitemap/author/query', 'exclude_roles', 5 );
+		$this->filter( 'rank_math/sitemap/author/query', 'exclude_post_types', 5 );
+	}
+
+	/**
 	 * Check if provider supports given item type.
 	 *
 	 * @param  string $type Type string to check for.
@@ -158,17 +167,63 @@ class Author implements Provider {
 			],
 		];
 
+		$args = $this->do_filter( 'sitemap/author/query', wp_parse_args( $args, $defaults ) );
+
+		return get_users( $args );
+	}
+
+	/**
+	 * Exclude users.
+	 *
+	 * @param array $args Array of user query arguments.
+	 *
+	 * @return array
+	 */
+	public function exclude_users( $args ) {
+		$exclude = Helper::get_settings( 'sitemap.exclude_users' );
+		if ( ! empty( $exclude ) ) {
+			$args['exclude'] = wp_parse_id_list( $exclude );
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Exclude roles.
+	 *
+	 * @param array $args Array of user query arguments.
+	 *
+	 * @return array
+	 */
+	public function exclude_roles( $args ) {
 		$exclude_roles = Helper::get_settings( 'sitemap.exclude_roles' );
 		if ( ! empty( $exclude_roles ) ) {
-			$defaults['role__not_in'] = $exclude_roles;
+			$args['role__not_in'] = $exclude_roles;
 		}
 
-		$exclude = Helper::get_settings( 'sitemap.exclude_users' );
-		$exclude = ! $exclude ? $exclude : wp_parse_id_list( $exclude );
-		if ( ! empty( $exclude ) ) {
-			$defaults['exclude'] = $exclude;
-		}
+		return $args;
+	}
 
-		return get_users( wp_parse_args( $args, $defaults ) );
+	/**
+	 * Exclude post types.
+	 *
+	 * @param array $args Array of user query arguments.
+	 *
+	 * @return array
+	 */
+	public function exclude_post_types( $args ) {
+		// Exclude post types.
+		$public_post_types = get_post_types(
+			array(
+				'public' => true,
+			)
+		);
+
+		// We're not supporting sitemaps for author pages for attachments.
+		unset( $public_post_types['attachment'] );
+
+		$args['has_published_posts'] = array_keys( $public_post_types );
+
+		return $args;
 	}
 }

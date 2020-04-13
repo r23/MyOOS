@@ -15,6 +15,7 @@ use RankMath\Paper\Paper;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Url;
 use MyThemeShop\Helpers\Conditional;
+use MyThemeShop\Helpers\WordPress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -227,8 +228,8 @@ class JsonLD {
 			'reviewRating'  => [
 				'@type'       => 'Rating',
 				'ratingValue' => $rating,
-				'bestRating'  => Helper::get_post_meta( "snippet_{$schema}_rating_max" ),
-				'worstRating' => Helper::get_post_meta( "snippet_{$schema}_rating_min" ),
+				'bestRating'  => Helper::get_post_meta( "snippet_{$schema}_rating_max" ) ? Helper::get_post_meta( "snippet_{$schema}_rating_max" ) : 5,
+				'worstRating' => Helper::get_post_meta( "snippet_{$schema}_rating_min" ) ? Helper::get_post_meta( "snippet_{$schema}_rating_min" ) : 1,
 			],
 		];
 	}
@@ -406,12 +407,14 @@ class JsonLD {
 	 * @return array
 	 */
 	public function get_comments( $post_id = 0 ) {
-		$post_comments = get_comments([
-			'post_id' => $post_id,
-			'number'  => 10,
-			'status'  => 'approve',
-			'type'    => 'comment',
-		]);
+		$post_comments = get_comments(
+			[
+				'post_id' => $post_id,
+				'number'  => 10,
+				'status'  => 'approve',
+				'type'    => 'comment',
+			]
+		);
 
 		if ( empty( $post_comments ) ) {
 			return '';
@@ -584,16 +587,38 @@ class JsonLD {
 	/**
 	 * Get product description.
 	 *
-	 * @param  int $post_id Post ID to get url for.
+	 * @param  object $product Product Object.
 	 * @return string
 	 */
-	public function get_product_desc( $post_id = 0 ) {
-		$product = wc_get_product( $post_id );
+	public function get_product_desc( $product = [] ) {
 		if ( empty( $product ) ) {
 			return;
 		}
 
+		if ( $description = Helper::get_post_meta( 'description', $product->get_id() ) ) { //phpcs:ignore
+			return $description;
+		}
+
 		$description = $product->get_short_description() ? $product->get_short_description() : $product->get_description();
-		return wp_strip_all_tags( do_shortcode( $description ), true );
+		$description = $this->do_filter( 'product_description/appy_shortcode', false ) ? do_shortcode( $description ) : WordPress::strip_shortcodes( $description );
+		return wp_strip_all_tags( $description, true );
+	}
+
+	/**
+	 * Get product title.
+	 *
+	 * @param  object $product Product Object.
+	 * @return string
+	 */
+	public function get_product_title( $product = [] ) {
+		if ( empty( $product ) ) {
+			return '';
+		}
+
+		if ( $title = Helper::get_post_meta( 'title', $product->get_id() ) ) { //phpcs:ignore
+			return $title;
+		}
+
+		return $product->get_name();
 	}
 }

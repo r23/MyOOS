@@ -15,6 +15,7 @@ use RankMath\Term;
 use RankMath\User;
 use RankMath\Helper;
 use MyThemeShop\Helpers\Str;
+use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\WordPress as WP_Helper;
 use RankMath\Role_Manager\Capability_Manager;
 
@@ -103,7 +104,7 @@ trait WordPress {
 		$page = $page ? 'rank-math-' . $page : 'rank-math';
 		$args = wp_parse_args( $args, [ 'page' => $page ] );
 
-		return add_query_arg( $args, admin_url( 'admin.php' ) );
+		return Security::add_query_arg_raw( $args, admin_url( 'admin.php' ) );
 	}
 
 	/**
@@ -118,7 +119,7 @@ trait WordPress {
 			'view' => 'help',
 		];
 		if ( ! is_multisite() ) {
-			return add_query_arg( $args, admin_url( 'admin.php' ) );
+			return Security::add_query_arg_raw( $args, admin_url( 'admin.php' ) );
 		}
 
 		// Makes sure the plugin functions are defined before trying to use them.
@@ -126,7 +127,9 @@ trait WordPress {
 			require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 		}
 
-		return is_plugin_active_for_network( plugin_basename( RANK_MATH_FILE ) ) ? add_query_arg( $args, network_admin_url( 'admin.php' ) ) : add_query_arg( $args, admin_url( 'admin.php' ) );
+		return is_plugin_active_for_network( plugin_basename( RANK_MATH_FILE ) ) ?
+			Security::add_query_arg_raw( $args, network_admin_url( 'admin.php' ) ) :
+			Security::add_query_arg_raw( $args, admin_url( 'admin.php' ) );
 	}
 
 	/**

@@ -15,6 +15,7 @@ use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Admin\Admin_Helper;
 use MyThemeShop\Helpers\Param;
+use RankMath\Helpers\Security;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -91,13 +92,13 @@ class Registration {
 		if ( 'cancel' === $status ) {
 			// User canceled activation.
 			Helper::add_notification( __( 'Rank Math plugin could not be connected.', 'rank-math' ), [ 'type' => 'error' ] );
-			return remove_query_arg( array( 'rankmath_connect', 'rankmath_auth' ) );
+			return Security::remove_query_arg_raw( array( 'rankmath_connect', 'rankmath_auth' ) );
 		}
 
 		if ( 'banned' === $status ) {
 			// User or site banned.
 			Helper::add_notification( __( 'Unable to connect Rank Math.', 'rank-math' ), [ 'type' => 'error' ] );
-			return remove_query_arg( array( 'rankmath_connect', 'rankmath_auth' ) );
+			return Security::remove_query_arg_raw( array( 'rankmath_connect', 'rankmath_auth' ) );
 		}
 
 		if ( 'ok' === $status && $auth_data = $this->get_registration_params() ) { // phpcs:ignore
@@ -115,7 +116,7 @@ class Registration {
 				return Helper::get_admin_url( 'wizard' );
 			}
 
-			return remove_query_arg( array( 'rankmath_connect', 'rankmath_auth' ) );
+			return Security::remove_query_arg_raw( array( 'rankmath_connect', 'rankmath_auth' ) );
 		}
 
 		return false;
@@ -296,12 +297,15 @@ class Registration {
 	public function save_registration() {
 
 		// If no form submission, bail.
-		$referer = Param::post( '_wp_http_referer' );
+		$referer = Param::post( '_wp_http_referer', get_dashboard_url() );
 		if ( Param::post( 'step' ) !== 'register' ) {
 			return wp_safe_redirect( $referer );
 		}
 
 		check_admin_referer( 'rank-math-wizard', 'security' );
+		if ( ! Helper::has_cap( 'general' ) ) {
+			return wp_safe_redirect( $referer );
+		}
 
 		Admin_Helper::allow_tracking();
 
@@ -313,6 +317,9 @@ class Registration {
 	 */
 	public function skip_wizard() {
 		check_admin_referer( 'rank-math-wizard', 'security' );
+		if ( ! Helper::has_cap( 'general' ) ) {
+			exit;
+		}
 		add_option( 'rank_math_registration_skip', true );
 		Admin_Helper::allow_tracking();
 		wp_safe_redirect( Helper::get_admin_url( 'wizard' ) );

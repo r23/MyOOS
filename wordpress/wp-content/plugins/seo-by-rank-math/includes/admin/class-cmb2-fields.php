@@ -180,7 +180,7 @@ class CMB2_Fields implements Runner {
 			if ( 'max-image-preview' === $id ) {
 				echo $field_type_object->select([
 					'name'    => $field_type_object->_name( "[{$id}][length]" ),
-					'id'      => $field_type_object->_id( '_' . $id . '_name' ),
+					'id'      => $field_type_object->_id( '_' . $id . '_length' ),
 					'options' => $this->get_image_sizes( $value ),
 				]);
 			}

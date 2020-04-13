@@ -307,4 +307,22 @@ class CMB2 {
 
 		return $advanced_robots;
 	}
+
+	/**
+	 * Handles sanitization of Focus Keywords.
+	 *
+	 * @param mixed $value The unsanitized focus keywords.
+	 *
+	 * @return string Sanitized focus keywords to be stored.
+	 */
+	public static function sanitize_focus_keywords( $value ) {
+		$values = json_decode( stripslashes( $value ), true );
+		if ( empty( $values ) ) {
+			return '';
+		}
+
+		return implode(',', array_map( function ( $entry ) {
+			return $entry['value'];
+		}, $values ) );
+	}
 }

@@ -33,6 +33,7 @@ module.exports = {
 		ElementorConfig: true,
 		elementor: true,
 		$e: true,
+		tinymce: true,
 	},
 	settings: {
 		react: {

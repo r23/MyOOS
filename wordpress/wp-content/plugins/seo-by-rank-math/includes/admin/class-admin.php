@@ -124,6 +124,7 @@ class Admin implements Runner {
 	public function save_checklist_layout() {
 
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
+		$this->has_cap_ajax( 'onpage_general' );
 
 		if ( empty( $_POST['layout'] ) || ! is_array( $_POST['layout'] ) ) {
 			return;
@@ -149,6 +150,7 @@ class Admin implements Runner {
 		global $wpdb;
 
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
+		$this->has_cap_ajax( 'onpage_general' );
 
 		$result = [ 'isNew' => true ];
 		if ( empty( $_GET['keyword'] ) ) {
@@ -322,6 +324,9 @@ class Admin implements Runner {
 	 */
 	public function deactivate_plugins() {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			$this->error( esc_html__( 'You are not authorized to perform this action.', 'rank-math' ) );
+		}
 		$plugin = Param::post( 'plugin' );
 		if ( 'all' !== $plugin ) {
 			deactivate_plugins( $plugin );

@@ -157,6 +157,9 @@ msgstr ""
 msgid "Insert Link in Content"
 msgstr ""
 
+msgid "You are not authorized to perform this action."
+msgstr ""
+
 msgid "Rate Rank Math SEO"
 msgstr ""
 
@@ -599,308 +602,6 @@ msgid "Account Successfully Connected"
 msgstr ""
 
 msgid "You have successfully activated Rank Math."
-msgstr ""
-
-msgid "Toggle tests: %s"
-msgstr ""
-
-msgid "Hurray! You're using Focus Keyword in the SEO Title."
-msgstr ""
-
-msgid "Focus Keyword does not appear in the SEO title."
-msgstr ""
-
-msgid "Add Focus Keyword to the SEO title."
-msgstr ""
-
-msgid "Make sure the focus keyword appears in the SEO post title too."
-msgstr ""
-
-msgid "Focus Keyword used inside SEO Meta Description."
-msgstr ""
-
-msgid "Focus Keyword not found in your SEO Meta Description."
-msgstr ""
-
-msgid "Add Focus Keyword to your SEO Meta Description."
-msgstr ""
-
-msgid "Make sure the focus keyword appears in the SEO description too."
-msgstr ""
-
-msgid "Focus Keyword used in the URL."
-msgstr ""
-
-msgid "Focus Keyword not found in the URL."
-msgstr ""
-
-msgid "Use Focus Keyword in the URL."
-msgstr ""
-
-msgid "Include the focus keyword in the slug (permalink) of this post."
-msgstr ""
-
-msgid "Focus Keyword appears in the first 10% of the content."
-msgstr ""
-
-msgid "Focus Keyword doesn't appear at the beginning of your content."
-msgstr ""
-
-msgid "Use Focus Keyword at the beginning of your content."
-msgstr ""
-
-msgid "The first 10% of the content should contain the Focus Keyword preferably at the beginning."
-msgstr ""
-
-msgid "Focus Keyword found in the content."
-msgstr ""
-
-msgid "Focus Keyword doesn't appear in the content."
-msgstr ""
-
-msgid "Use Focus Keyword in the content."
-msgstr ""
-
-msgid "It is recommended to make the focus keyword appear in the post content too."
-msgstr ""
-
-msgid "Your content is {0} words long. Good job!"
-msgstr ""
-
-msgid "Your content is {0} words long. Consider using at least 600 words."
-msgstr ""
-
-#. translators: link to kb article
-msgid "Content should be %s long."
-msgstr ""
-
-msgid "Minimum recommended content length should be 600 words."
-msgstr ""
-
-msgid "URL is {0} characters long. Kudos!"
-msgstr ""
-
-msgid "URL is {0} characters long. Considering shortening it."
-msgstr ""
-
-msgid "URL unavailable. Add a short URL."
-msgstr ""
-
-msgid "Permalink should be at most 75 characters long."
-msgstr ""
-
-msgid "Focus Keyword found in the subheading(s)."
-msgstr ""
-
-msgid "Focus Keyword not found in subheading(s) like H2, H3, H4, etc.."
-msgstr ""
-
-msgid "Use Focus Keyword in subheading(s) like H2, H3, H4, etc.."
-msgstr ""
-
-msgid "It is recommended to add the focus keyword as part of one or more subheadings in the content."
-msgstr ""
-
-msgid "Focus Keyword found in image alt attribute(s)."
-msgstr ""
-
-msgid "Focus Keyword not found in image alt attribute(s)."
-msgstr ""
-
-msgid "Add an image with your Focus Keyword as alt text."
-msgstr ""
-
-msgid "We detected a gallery in your content & assuming that you added Focus Keyword in alt in at least one of the gallery images."
-msgstr ""
-
-msgid "It is recommended to add the focus keyword in the alt attribute of one or more images."
-msgstr ""
-
-msgid "Great! You are linking to external resources."
-msgstr ""
-
-msgid "No outbound links were found. Link out to external resources."
-msgstr ""
-
-msgid "Link out to external resources."
-msgstr ""
-
-msgid "It helps visitors read more about a topic and prevents pogosticking."
-msgstr ""
-
-msgid "At least one external link with DoFollow found in your content."
-msgstr ""
-
-msgid "We found {0} outbound links in your content and all of them are nofollow."
-msgstr ""
-
-msgid "Add DoFollow links pointing to external resources."
-msgstr ""
-
-msgid "PageRank Sculpting no longer works. Your posts should have a mix of nofollow and DoFollow links."
-msgstr ""
-
-msgid "Keyword Density is {0}, the Focus Keyword and combination appears {1} times."
-msgstr ""
-
-msgid "Keyword Density is {0}. Aim for around 1% Keyword Density."
-msgstr ""
-
-msgid "There is no ideal keyword density percentage, but it should not be too high. The most important thing is to keep the copy natural."
-msgstr ""
-
-msgid "You are linking to other resources on your website which is great."
-msgstr ""
-
-msgid "We couldn't find any internal links in your content."
-msgstr ""
-
-msgid "Add internal links in your content."
-msgstr ""
-
-msgid "Internal links decrease your bounce rate and improve SEO."
-msgstr ""
-
-msgid "You haven't used this Focus Keyword before."
-msgstr ""
-
-#. translators: focus keyword link
-msgid "You have %s this Focus Keyword."
-msgstr ""
-
-msgid "already used"
-msgstr ""
-
-msgid "Set a Focus Keyword for this content."
-msgstr ""
-
-msgid "We are searching in database."
-msgstr ""
-
-msgid "Focus Keyword used at the beginning of SEO title."
-msgstr ""
-
-msgid "Focus Keyword doesn't appear at the beginning of SEO title."
-msgstr ""
-
-msgid "Use the Focus Keyword near the beginning of SEO title."
-msgstr ""
-
-msgid "The SEO page title should contain the Focus Keyword preferably at the beginning."
-msgstr ""
-
-msgid "Your title has a positive or a negative sentiment."
-msgstr ""
-
-#. translators: link to kb article
-msgid "Your title doesn't contain a %s word."
-msgstr ""
-
-msgid "Titles with positive or negative sentiment work best for higher CTR."
-msgstr ""
-
-msgid "Headlines with a strong emotional sentiment (positive or negative) tend to receive more clicks."
-msgstr ""
-
-msgid "Your title contains {0} power word(s). Booyah!"
-msgstr ""
-
-#. translators: link to kb article
-msgid "Your title doesn't contain a %s. Add at least one."
-msgstr ""
-
-#. translators: link to kb article
-msgid "Add %s to your title to increase CTR."
-msgstr ""
-
-#. translators: link to registration screen
-msgid "Power Words are tried-and-true words that copywriters use to attract more clicks."
-msgstr ""
-
-msgid "You are using a number in your SEO title."
-msgstr ""
-
-msgid "Your SEO title doesn't contain a number."
-msgstr ""
-
-msgid "Add a number to your title to improve CTR."
-msgstr ""
-
-msgid "Headlines with numbers are 36% more likely to generate clicks, according to research by Conductor."
-msgstr ""
-
-#. translators: link to kb article
-msgid "You seem to be using a <a href=\"%s\" target=\"_blank\">Table of Contents plugin</a> to break-down your text."
-msgstr ""
-
-#. translators: link to kb article
-msgid "You don't seem to be using a <a href=\"%s\" target=\"_blank\">Table of Contents plugin</a>."
-msgstr ""
-
-msgid "Use Table of Content to break-down your text."
-msgstr ""
-
-msgid " Table of Contents help break down content into smaller, digestible chunks. It makes reading easier which in turn results in better rankings."
-msgstr ""
-
-msgid "Kudos! You are using short paragraphs."
-msgstr ""
-
-msgid "At least one paragraph is long. Consider using short paragraphs."
-msgstr ""
-
-msgid "Add short and concise paragraphs for better readability and UX."
-msgstr ""
-
-msgid "Short paragraphs are easier to read and more pleasing to the eye. Long paragraphs scare the visitor, and they might result to SERPs looking for better readable content."
-msgstr ""
-
-msgid "Your content contains images and/or video(s)."
-msgstr ""
-
-msgid "You are not using rich media like images or videos."
-msgstr ""
-
-msgid "Add a few images and/or videos to make your content appealing."
-msgstr ""
-
-msgid "Content with images and/or video feels more inviting to users. It also helps supplement your textual content."
-msgstr ""
-
-msgid "Make sure the focus keyword appears in the SEO Term too."
-msgstr ""
-
-msgid "Include the focus keyword in the slug (permalink) of this term."
-msgstr ""
-
-msgid "The SEO Term title should contain the Focus Keyword preferably at the beginning."
-msgstr ""
-
-msgid "You have already used this Focus Keyword."
-msgstr ""
-
-msgid "Make sure the focus keyword appears in the SEO Author too."
-msgstr ""
-
-msgid "Include the focus keyword in the slug (permalink) of this author."
-msgstr ""
-
-msgid "The SEO Author title should contain the Focus Keyword preferably at the beginning."
-msgstr ""
-
-msgid "Basic SEO"
-msgstr ""
-
-msgid "Additional"
-msgstr ""
-
-msgid "Title Readability"
-msgstr ""
-
-msgid "Content Readability"
-msgstr ""
-
-msgid "Unkown"
 msgstr ""
 
 msgid "Preview"
@@ -2010,6 +1711,9 @@ msgid "Breadcrumb Title to use for this post"
 msgstr ""
 
 msgid "This is what will appear in the first line when this post shows up in the search results."
+msgstr ""
+
+msgid "Editing Homepage permalink is not possible."
 msgstr ""
 
 msgid "This is the unique URL of this page, displayed below the post title in the search results."
@@ -3750,9 +3454,6 @@ msgstr ""
 msgid "Top Admin Bar"
 msgstr ""
 
-msgid "You are not authorized to perform this action."
-msgstr ""
-
 msgid "In this knowledge base article, we are going to discuss one of the most amazing features of Rank Math, the Role Manager."
 msgstr ""
 
@@ -4052,6 +3753,9 @@ msgstr ""
 msgid "Advanced SEO"
 msgstr ""
 
+msgid "Basic SEO"
+msgstr ""
+
 msgid "Performance"
 msgstr ""
 
@@ -4342,24 +4046,6 @@ msgid "%s archives"
 msgstr ""
 
 msgid "Special Sitemaps:"
-msgstr ""
-
-msgid "News Sitemap - Genres"
-msgstr ""
-
-msgid "A comma-separated list of properties characterizing the content of the article, such as \"PressRelease\" or \"UserGenerated.\" See <a href=\"https://support.google.com/news/publisher/answer/93992\" target=\"_blank\">Google News content properties</a> for a list of possible values."
-msgstr ""
-
-msgid "News Sitemap - Keywords"
-msgstr ""
-
-msgid "A comma-separated list of keywords describing the topic of the article. Keywords may be drawn from, but are not limited to, the list of existing Google News keywords. More information: <a href=\"https://support.google.com/news/publisher/answer/116037\" target=\"_blank\">Google News keywords</a>."
-msgstr ""
-
-msgid "News Sitemap - Stock Tickers"
-msgstr ""
-
-msgid "A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Relevant primarily for business articles. More information: <a href=\"https://support.google.com/news/publisher/answer/74288\" target=\"_blank\">Creating a Google News Sitemap</a>."
 msgstr ""
 
 msgid "Exclude this image from sitemap"
@@ -4837,10 +4523,8 @@ msgstr ""
 msgid "Remove base"
 msgstr ""
 
-msgid "Remove prefix from product URL."
-msgstr ""
-
-msgid "default: /product/accessories/action-figures/acme/ - changed: /accessories/action-figures/acme/"
+#. translators: 1. Example text 2. Example text
+msgid "Remove prefix like %1$s from product URL chosen at %2$s"
 msgstr ""
 
 msgid "Remove category base"
@@ -5292,9 +4976,6 @@ msgstr ""
 msgid "Module state either on or off"
 msgstr ""
 
-msgid "Site token didn't match."
-msgstr ""
-
 msgid "Site disconnected successfully."
 msgstr ""
 
@@ -5537,8 +5218,11 @@ msgstr ""
 msgid "Support Us with a Link"
 msgstr ""
 
-#. translators: %s is th word "nofollow" inside a HTML tag
-msgid "If you are showing the SEO scores on the front end, this option will insert a %s backlink to RankMath.com to show your support."
+#. translators: %s is the word "nofollow" code tag and second one for the filter link
+msgid "If you are showing the SEO scores on the front end, this option will insert a %1$s backlink to RankMath.com to show your support. You can change the link & the text by using this %2$s."
+msgstr ""
+
+msgid "filter"
 msgstr ""
 
 msgid "RSS Before Content"

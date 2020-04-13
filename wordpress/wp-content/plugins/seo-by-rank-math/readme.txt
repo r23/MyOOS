@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.41.2
+Stable tag: 1.0.42
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,23 +460,31 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.41.2 [Mar 31, 2020] =
-* Added: A new auto-update test in the SEO Analyzer tool
-* Improved: The performance of the option to edit the `.htaccess` file inside the WordPress admin area
-* Improved: It should now be easier to locate the tests that require further improvements. Such tests would now display an orange color
-* Improved: Removed rotating effect from the beta warning. Now users can manually update to a beta version if they rolled back to an older version
-* Improved: Removed 'Schema Type' select dropdown from the Elementor Editor for WooCommerce products
-* Improved: 'Category' taxonomy in the Sitemap step of the Setup Wizard now shows the correct state, matching the value from the database
-* Fixed: Newly published posts showing 404 error on some installations due to default value set in the Global Redirections setting
-* Fixed: Social image was not getting fetched by Facebook on some installations
-* Fixed: 'Author' role was unable to save/edit Focus Keywords in the Gutenberg and Elementor editor
-* Fixed: Social tab not working in the Elementor editor
-* Fixed: Missing Schema tab icon in the Block editor when `No Schema` type was selected in the global settings
-* Fixed: Permalink field was not accepting a hyphen or space in the Block Editor and Elementor
-* Fixed: The `%category%` variable was not working in the new Block Editor
-* Fixed: `Software Application Schema's` rating was not displaying on the frontend
-* Fixed: A problem with the `Auto Post redirect` option where it was throwing an error
-* Fixed: A glitch with the rolled-back versions where an update notice was showing even if someone was on the latest version of the plugin
-* Fixed: An edge-case where forcing an update check inside WordPress was throwing a warning on some servers
+= 1.0.42 [Apr 14th, 2020] =
+* Added: HUGE! Classic Editor now uses Gutenberg aka Block Editor's content analysis library to avoid test mismatch
+* Added: Dedicated SEO tests for the static page set as a homepage
+* Added: Text explanations in few areas to help understand options better
+* Added: A way to detect if a site was compromised and remove any data related to it in the redirections
+* Added: A [filter to decode Shortcodes in the Schema data](https://rankmath.com/kb/filters-hooks-api-developer/#allow-shortcodes-in-product-description)
+* Updated: List of German [power words](https://rankmath.com/blog/power-words/)
+* Improved: Sitemap's code by adding new filters and hooks. [Check all the Sitemap filters and hooks here](https://rankmath.com/kb/filters-hooks-api-developer/#sitemap)
+* Improved: [SEO score](https://rankmath.com/kb/filters-hooks-api-developer/#seo-score) on the homepage won't show up by default even if the option is turned on. One has to add a Shortcode in the homepage's content to show the SEO score
+* Improved: Schema Pro plugin's import now imports the default settings strategically
+* Improved: Strengthened the plugin security further
+* Improved: If a newer stable version is detected, the [Beta update](https://rankmath.com/kb/version-control/#beta-updates) does not show anymore
+* Improved: Excerpt preview trims properly in the Titles & Meta options in the options panel
+* Improved: Changed ALT text's default value to use the filename instead of the post's title. One can change the setting to any other variable
+* Fixed: Address field not getting saved in [Job Posting Schema](https://rankmath.com/kb/rich-snippets/#job-posting) in the Block Editor
+* Fixed: An issue where the redirection type wasn't allowed to be changed on saved posts using the dropdown. Though, the redirections were getting saved correctly
+* Fixed: Schema auto description not matching with the Custom SEO Meta description set in the WooCommerce products
+* Fixed: A problem with WooCommerce's `Remove Category Base` & `Remove Parent slug` options where an extra slash was getting added into the product's category URL. Though, the canonical URL was printing correctly
+* Fixed: An error related to SEO Score Shortcode in the frontend
+* Fixed: Quick edit save breaking Rank Math columns
+* Fixed: The Schema data is not updating unless the default value is changed in the Block Editor options
+* Fixed: `How To` Section of the Recipe Schema not saving the data in the block editor
+* Fixed: `wp_rank_math_internal_meta` related error appearing in the Query Monitor on some installations
+* Fixed: Sitemap showing a blank page if Query Monitor and Debug is enabled
+* Fixed: A PHP Error on the Help & Support Page
+* Fixed: Small visual issue related to the Search form in the Add Link popup
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

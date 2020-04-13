@@ -14,6 +14,7 @@ use RankMath\CMB2;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Traits\Wizard;
+use RankMath\Helpers\Security;
 use RankMath\Admin\Importers\Detector;
 use MyThemeShop\Helpers\Param;
 
@@ -211,6 +212,9 @@ class Setup_Wizard {
 		}
 
 		check_admin_referer( 'rank-math-wizard', 'security' );
+		if ( ! Helper::has_cap( 'general' ) ) {
+			return false;
+		}
 
 		$values       = $this->cmb->get_sanitized_values( $_POST );
 		$show_content = $this->wizard_step->save( $values, $this );
@@ -232,7 +236,12 @@ class Setup_Wizard {
 		}
 
 		$this->hook_suffix = add_submenu_page(
-			null, esc_html__( 'Setup Wizard', 'rank-math' ), esc_html__( 'Setup Wizard', 'rank-math' ), 'manage_options', $this->slug, [ $this, 'admin_page' ]
+			null,
+			esc_html__( 'Setup Wizard', 'rank-math' ),
+			esc_html__( 'Setup Wizard', 'rank-math' ),
+			'manage_options',
+			$this->slug,
+			[ $this, 'admin_page' ]
 		);
 	}
 
@@ -309,7 +318,7 @@ class Setup_Wizard {
 	 * @param string $step Name of the step, appended to the URL.
 	 */
 	public function get_step_link( $step ) {
-		return add_query_arg( 'step', $step );
+		return Security::add_query_arg( 'step', $step );
 	}
 
 	/**

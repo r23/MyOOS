@@ -86,7 +86,7 @@ class Base {
 			'sitemap'        => 'sitemap',
 		];
 
-		return Helper::has_cap( $caps[ $this->id ] );
+		return isset( $caps[ $this->id ] ) ? Helper::has_cap( $caps[ $this->id ] ) : true;
 	}
 
 	/**

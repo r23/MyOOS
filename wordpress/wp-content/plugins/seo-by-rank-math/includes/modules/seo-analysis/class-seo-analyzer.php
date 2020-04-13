@@ -16,6 +16,7 @@ use RankMath\Traits\Ajax;
 use RankMath\Traits\Hooker;
 use Rollbar\Payload\Level;
 use MyThemeShop\Helpers\Str;
+use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
@@ -217,7 +218,7 @@ class SEO_Analyzer {
 	private function maybe_clear_storage() {
 		if ( '1' === Param::request( 'clear_results' ) ) {
 			delete_option( 'rank_math_seo_analysis_results' );
-			wp_safe_redirect( remove_query_arg( 'clear_results' ) );
+			wp_safe_redirect( Security::remove_query_arg_raw( 'clear_results' ) );
 			exit;
 		}
 	}
@@ -287,6 +288,8 @@ class SEO_Analyzer {
 	 * Enable auto update ajax handler.
 	 */
 	public function enable_auto_update() {
+		$this->has_cap_ajax( 'general' );
+
 		$settings                       = get_option( 'rank-math-options-general', array() );
 		$settings['enable_auto_update'] = '1';
 		rank_math()->settings->set( 'general', 'enable_auto_update', true );
@@ -355,7 +358,7 @@ class SEO_Analyzer {
 	 * @return bool|array
 	 */
 	private function get_api_results() {
-		$api_url = add_query_arg(
+		$api_url = Security::add_query_arg_raw(
 			[
 				'u'          => $this->analyse_url,
 				'locale'     => get_locale(),

@@ -71,6 +71,7 @@ class Metabox implements Runner {
 		$screen = get_current_screen();
 		$js     = rank_math()->plugin_url() . 'assets/admin/js/';
 
+		$this->enqueue_commons();
 		$this->screen->enqueue();
 		$this->screen->localize();
 		rank_math()->variables->setup_json();
@@ -80,15 +81,66 @@ class Metabox implements Runner {
 
 		if ( ! $is_gutenberg && ! $is_elementor ) {
 			\CMB2_Hookup::enqueue_cmb_css();
-			wp_enqueue_style( 'rank-math-metabox', rank_math()->plugin_url() . 'assets/admin/css/metabox.css', [ 'rank-math-common', 'rank-math-cmb2' ], rank_math()->version );
+			wp_enqueue_style(
+				'rank-math-metabox',
+				rank_math()->plugin_url() . 'assets/admin/css/metabox.css',
+				[
+					'rank-math-common',
+					'rank-math-cmb2',
+				],
+				rank_math()->version
+			);
 
-			$caret_handle = class_exists( 'BuddyPress' ) ? 'rank-math-caret' : 'jquery-caret';
-			wp_enqueue_script( $caret_handle, rank_math()->plugin_url() . 'assets/vendor/jquery.caret.min.js', [ 'jquery' ], '1.3.3', true );
-			wp_enqueue_script( 'jquery-tag-editor', $js . 'jquery.tag-editor.js', [ 'jquery-ui-autocomplete', $caret_handle ], '1.0.21', true );
-			wp_enqueue_script( 'rank-math-analyzer', $js . 'assessor.js', [ 'lodash' ], rank_math()->version, true );
+			wp_enqueue_script(
+				'rank-math-metabox',
+				rank_math()->plugin_url() . 'assets/admin/js/classic.js',
+				[
+					'clipboard',
+					'wp-hooks',
+					'wp-url',
+					'wp-element',
+					'rank-math-common',
+					'rank-math-analyzer',
+					'rank-math-validate',
+					'tagify',
+				],
+				rank_math()->version,
+				true
+			);
 		}
 
 		$this->do_action( 'enqueue_scripts/assessor' );
+	}
+
+	/**
+	 * Enqueque scripts common for all builders.
+	 */
+	private function enqueue_commons() {
+		wp_register_script( 'rank-math-analyzer', rank_math()->plugin_url() . 'assets/admin/js/analyzer.js', [ 'lodash', 'wp-autop', 'wp-wordcount' ], rank_math()->version, true );
+
+		if ( function_exists( 'wp_set_script_translations' ) ) {
+			$this->filter( 'load_script_translation_file', 'load_script_translation_file', 10, 3 );
+			wp_set_script_translations( 'rank-math-analyzer', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
+			wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
+		}
+	}
+
+	/**
+	 * Function to replace domain with seo-by-rank-math in translation file.
+	 *
+	 * @param string|false $file   Path to the translation file to load. False if there isn't one.
+	 * @param string       $handle Name of the script to register a translation domain to.
+	 * @param string       $domain The text domain.
+	 */
+	public function load_script_translation_file( $file, $handle, $domain ) {
+		if ( 'rank-math' !== $domain ) {
+			return $file;
+		}
+
+		$data                       = explode( '/', $file );
+		$data[ count( $data ) - 1 ] = preg_replace( '/rank-math/', 'seo-by-rank-math', $data[ count( $data ) - 1 ], 1 );
+
+		return implode( '/', $data );
 	}
 
 	/**

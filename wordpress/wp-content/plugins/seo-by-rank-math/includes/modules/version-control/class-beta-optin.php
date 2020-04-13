@@ -169,7 +169,9 @@ class Beta_Optin {
 	 */
 	public function transient_update_plugins( $value ) {
 		$beta_version = $this->get_latest_beta_version();
-		if ( version_compare( $beta_version, rank_math()->version, '>' ) ) {
+		$new_version  = isset( $value->response['seo-by-rank-math/rank-math.php'] ) && ! empty( $value->response['seo-by-rank-math/rank-math.php']->new_version ) ? $value->response['seo-by-rank-math/rank-math.php']->new_version : 0;
+
+		if ( version_compare( $beta_version, rank_math()->version, '>' ) && version_compare( $beta_version, $new_version, '>' ) ) {
 			$value = $this->inject_beta( $value, $beta_version );
 		}
 

@@ -49,8 +49,7 @@ class Product_WooCommerce {
 			}
 		}
 
-		$entity['url']         = $product->get_permalink();
-		$entity['name']        = $product->get_name();
+		$entity['name']        = $jsonld->get_product_title( $product );
 		$entity['description'] = $jsonld->get_product_desc( $product );
 		$entity['sku']         = $product->get_sku() ? $product->get_sku() : '';
 		$entity['category']    = Product::get_category( $product->get_id(), 'product_cat' );
@@ -214,12 +213,14 @@ class Product_WooCommerce {
 		];
 
 		// Reviews.
-		$comments  = get_comments([
-			'post_type' => 'product',
-			'post_id'   => get_the_ID(),
-			'status'    => 'approve',
-			'parent'    => 0,
-		]);
+		$comments  = get_comments(
+			[
+				'post_type' => 'product',
+				'post_id'   => get_the_ID(),
+				'status'    => 'approve',
+				'parent'    => 0,
+			]
+		);
 		$permalink = $product->get_permalink();
 
 		foreach ( $comments as $comment ) {

@@ -12,6 +12,7 @@ namespace RankMath\Admin;
 
 use RankMath\Runner;
 use RankMath\Traits\Hooker;
+use RankMath\Helpers\Security;
 use RankMath\Helper as GlobalHelper;
 
 defined( 'ABSPATH' ) || exit;
@@ -106,7 +107,7 @@ class Watcher implements Runner {
 			}
 		}
 
-		wp_redirect( remove_query_arg( "rank_math_deactivate_{$type}_plugins" ) );
+		wp_redirect( Security::remove_query_arg_raw( "rank_math_deactivate_{$type}_plugins" ) );
 	}
 
 	/**
@@ -118,21 +119,24 @@ class Watcher implements Runner {
 		$message = sprintf(
 			/* translators: deactivation link */
 			esc_html__( 'Please keep only one SEO plugin active, otherwise, you might lose your rankings and traffic. %s.', 'rank-math' ),
-			'<a href="' . add_query_arg( 'rank_math_deactivate_seo_plugins', '1', admin_url( 'plugins.php' ) ) . '">Click here to Deactivate</a>'
+			'<a href="' . Security::add_query_arg( 'rank_math_deactivate_seo_plugins', '1', admin_url( 'plugins.php' ) ) . '">Click here to Deactivate</a>'
 		);
 
 		if ( 'sitemap' === $type ) {
 			$message = sprintf(
 				/* translators: deactivation link */
 				esc_html__( 'Please keep only one Sitemap plugin active, otherwise, you might lose your rankings and traffic. %s.', 'rank-math' ),
-				'<a href="' . add_query_arg( 'rank_math_deactivate_sitemap_plugins', '1', admin_url( 'plugins.php' ) ) . '">Click here to Deactivate</a>'
+				'<a href="' . Security::add_query_arg( 'rank_math_deactivate_sitemap_plugins', '1', admin_url( 'plugins.php' ) ) . '">Click here to Deactivate</a>'
 			);
 		}
 
-		GlobalHelper::add_notification( $message, [
-			'id'   => "conflicting_{$type}_plugins",
-			'type' => 'error',
-		] );
+		GlobalHelper::add_notification(
+			$message,
+			[
+				'id'   => "conflicting_{$type}_plugins",
+				'type' => 'error',
+			]
+		);
 	}
 
 	/**

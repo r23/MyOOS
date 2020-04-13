@@ -11,6 +11,7 @@
 namespace RankMath\Traits;
 
 use RankMath\Helper as GlobalHelper;
+use RankMath\Helpers\Security;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,7 +48,11 @@ trait Wizard {
 		$keys = array_keys( $this->steps );
 		$step = array_search( $this->step, $keys, true ) + 1;
 
-		return add_query_arg( 'step', isset( $keys[ $step ] ) ? $keys[ $step ] : '', GlobalHelper::get_admin_url( 'wizard' ) );
+		return Security::add_query_arg_raw(
+			'step',
+			isset( $keys[ $step ] ) ? $keys[ $step ] : '',
+			GlobalHelper::get_admin_url( 'wizard' )
+		);
 	}
 
 	/**

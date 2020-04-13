@@ -22,7 +22,7 @@ $cmb->add_field([
 	'name'            => esc_html__( 'Alt attribute format', 'rank-math' ),
 	'desc'            => wp_kses_post( __( 'Format used for the new <code>alt</code> attribute values.', 'rank-math' ) ),
 	'classes'         => 'large-text rank-math-supports-variables',
-	'default'         => '%title% %count(alt)%',
+	'default'         => ' %filename%',
 	'dep'             => [ [ 'add_img_alt', 'on' ] ],
 	'sanitization_cb' => false,
 	'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],

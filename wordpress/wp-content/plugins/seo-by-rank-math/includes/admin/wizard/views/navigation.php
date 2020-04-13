@@ -32,7 +32,7 @@ $current_step = array_search( $this->step, $array_keys, true );
 		}
 		?>
 
-		<a class="<?php echo esc_attr( $class_attr ); ?>" href="<?php echo esc_url( $this->get_step_link( $step_key ) ); ?>" title="<?php echo esc_attr( $step['name'] ); ?>"><span><?php echo $counter; ?></span></a>
+		<a class="<?php echo esc_attr( $class_attr ); ?>" href="<?php echo $this->get_step_link( $step_key ); ?>" title="<?php echo esc_attr( $step['name'] ); ?>"><span><?php echo $counter; ?></span></a>
 
 	<?php endforeach; ?>
 

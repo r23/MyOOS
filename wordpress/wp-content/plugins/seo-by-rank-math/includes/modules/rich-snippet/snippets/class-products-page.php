@@ -43,14 +43,15 @@ class Products_Page implements Snippet {
 			the_post();
 
 			$post_id = get_the_ID();
+			$product = wc_get_product( $post_id );
 			$url     = $jsonld->get_post_url( $post_id );
 
 			$part = [
 				'@type'       => 'Product',
-				'name'        => $jsonld->get_post_title( $post_id ),
+				'name'        => $jsonld->get_product_title( $product ),
 				'url'         => $url,
 				'@id'         => $url,
-				'description' => $jsonld->get_product_desc( $post_id ),
+				'description' => $jsonld->get_product_desc( $product ),
 			];
 
 			$data['ProductsPage']['@graph'][] = $part;

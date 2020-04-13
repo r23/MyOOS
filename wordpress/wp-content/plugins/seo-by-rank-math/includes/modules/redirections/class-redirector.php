@@ -262,13 +262,15 @@ class Redirector {
 		}
 
 		if ( $redirection ) {
-			Cache::add([
-				'from_url'       => $this->uri,
-				'redirection_id' => $redirection['id'],
-				'object_id'      => 0,
-				'object_type'    => 'any',
-				'is_redirected'  => '1',
-			]);
+			Cache::add(
+				[
+					'from_url'       => $this->uri,
+					'redirection_id' => $redirection['id'],
+					'object_id'      => 0,
+					'object_type'    => 'any',
+					'is_redirected'  => '1',
+				]
+			);
 			$this->set_redirection( $redirection );
 		}
 	}

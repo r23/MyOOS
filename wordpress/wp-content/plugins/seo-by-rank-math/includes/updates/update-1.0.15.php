@@ -14,8 +14,11 @@
 function rank_math_1_0_15_rseset_options() {
 	global $wpdb;
 
-	// Clear sitemap transients.
-	$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_sitemap_%'" );
+	$wpdb->delete(
+		$wpdb->options,
+		[ 'option_name' => $wpdb->esc_like( '_transient_sitemap_' ) . '%' ],
+		[ '%s' ]
+	);
 
 	// Clear SEO Analysis result.
 	delete_option( 'rank_math_seo_analysis_results' );

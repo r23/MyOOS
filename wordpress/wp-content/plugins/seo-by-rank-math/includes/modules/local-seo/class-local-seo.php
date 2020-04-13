@@ -66,6 +66,8 @@ class Local_Seo {
 	 * Ajax search pages.
 	 */
 	public function search_pages() {
+		$this->has_cap_ajax( 'general' );
+
 		$term = Param::get( 'term' );
 		if ( empty( $term ) ) {
 			exit;

@@ -49,6 +49,13 @@ class Redirection {
 	private $domain = null;
 
 	/**
+	 * Hold state.
+	 *
+	 * @var string
+	 */
+	private $is_new = true;
+
+	/**
 	 * Retrieve Redirection instance.
 	 *
 	 * @param integer $id Redirection ID.
@@ -109,6 +116,10 @@ class Redirection {
 	public function __construct( $data, $nocache = false ) {
 		$this->data    = $data;
 		$this->nocache = $nocache;
+
+		if ( isset( $data['id'] ) && $data['id'] > 0 ) {
+			$this->is_new = false;
+		}
 	}
 
 	/**
@@ -155,6 +166,15 @@ class Redirection {
 	 */
 	public function set_nocache( $nocache ) {
 		$this->nocache = $nocache;
+	}
+
+	/**
+	 * Is new redirection.
+	 *
+	 * @return int
+	 */
+	public function is_new() {
+		return $this->is_new;
 	}
 
 	/**

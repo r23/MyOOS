@@ -12,6 +12,7 @@ namespace RankMath\Paper;
 
 use RankMath\Post;
 use RankMath\Helper;
+use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\WordPress;
 
 defined( 'ABSPATH' ) || exit;
@@ -80,7 +81,7 @@ class Singular implements IPaper {
 			$num_pages = ( substr_count( get_queried_object()->post_content, '<!--nextpage-->' ) + 1 );
 			if ( $num_pages && get_query_var( 'page' ) <= $num_pages ) {
 				global $wp_rewrite;
-				$canonical = ! $wp_rewrite->using_permalinks() ? add_query_arg( 'page', get_query_var( 'page' ), $canonical ) :
+				$canonical = ! $wp_rewrite->using_permalinks() ? Security::add_query_arg_raw( 'page', get_query_var( 'page' ), $canonical ) :
 					user_trailingslashit( trailingslashit( $canonical ) . get_query_var( 'page' ) );
 			}
 		}

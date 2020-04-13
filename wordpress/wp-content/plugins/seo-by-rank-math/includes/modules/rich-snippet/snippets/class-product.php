@@ -51,7 +51,7 @@ class Product implements Snippet {
 				'@type'           => 'Offer',
 				'priceCurrency'   => Helper::get_post_meta( 'snippet_product_currency' ),
 				'price'           => $price ? $price : '0',
-				'url'             => get_the_permalink(),
+				'url'             => $jsonld->parts['url'],
 				'priceValidUntil' => Helper::get_post_meta( 'snippet_product_price_valid' ),
 				'availability'    => Helper::get_post_meta( 'snippet_product_instock' ) ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
 			],

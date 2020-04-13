@@ -72,6 +72,14 @@ class Block_Parser {
 	private function get_parsed_blocks() {
 		$post          = get_post();
 		$parsed_blocks = parse_blocks( $post->post_content );
+
+		/**
+		 * Filter: 'rank_math/schema/block/before_filter'
+		 *
+		 * @param array $parsed_blocks Array of parsed blocks.
+		 */
+		$parsed_blocks = $this->do_filter( 'schema/block/before_filter', $parsed_blocks );
+
 		$this->filter_blocks( $parsed_blocks );
 	}
 

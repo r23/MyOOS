@@ -79,6 +79,10 @@ class Conditional {
 		$rest_url    = wp_parse_url( trailingslashit( rest_url() ) );
 		$current_url = wp_parse_url( add_query_arg( [] ) );
 
+		if ( ! isset( $current_url['path'] ) || ! isset( $rest_url['path'] ) ) {
+			return false;
+		}
+
 		return 0 === strpos( $current_url['path'], $rest_url['path'], 0 );
 	}
 

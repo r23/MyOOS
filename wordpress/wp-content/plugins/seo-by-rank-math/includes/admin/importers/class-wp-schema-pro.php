@@ -49,6 +49,34 @@ class WP_Schema_Pro extends Plugin_Importer {
 	protected $choices = [ 'settings', 'postmeta' ];
 
 	/**
+	 * Convert SEOPress variables if needed.
+	 *
+	 * @param string $string Value to convert.
+	 *
+	 * @return string
+	 */
+	public function convert_variables( $string ) {
+		$string = str_replace( 'blogname', '%sitename%', $string );
+		$string = str_replace( 'blogdescription', '%sitedesc%', $string );
+		$string = str_replace( 'site_url', get_bloginfo( 'url' ), $string );
+		$string = str_replace( 'site_logo', get_theme_mod( 'custom_logo' ), $string );
+		$string = str_replace( 'featured_image', '', $string );
+		$string = str_replace( 'featured_img', '', $string );
+		$string = str_replace( 'post_title', '%seo_title%', $string );
+		$string = str_replace( 'post_excerpt', '%seo_description%', $string );
+		$string = str_replace( 'post_content', '%seo_description%', $string );
+		$string = str_replace( 'post_date', '%date%', $string );
+		$string = str_replace( 'post_modified', '%modified%', $string );
+		$string = str_replace( 'post_permalink', '', $string );
+		$string = str_replace( 'author_name', '%name%', $string );
+		$string = str_replace( 'author_first_name', '%name%', $string );
+		$string = str_replace( 'author_last_name', '%name%', $string );
+		$string = str_replace( 'author_image', '', $string );
+
+		return $string;
+	}
+
+	/**
 	 * Import settings of plugin.
 	 *
 	 * @return bool
@@ -125,46 +153,184 @@ class WP_Schema_Pro extends Plugin_Importer {
 	 * @param array $snippet Snippet data.
 	 */
 	private function update_postmeta( $post_id, $snippet ) {
-		$type    = $snippet['type'];
-		$details = $snippet['details'];
-		$hash    = $this->get_schema_types();
-
+		$type = $snippet['type'];
+		$hash = $this->get_schema_types();
 		if ( ! isset( $hash[ $type ] ) ) {
 			return;
 		}
 
+		$schema_type = $this->sanitize_schema_type( $type );
+		$details     = $snippet['details'];
+		$methods     = [
+			'work-example' => 'get_book_editions',
+			'address'      => 'get_address',
+		];
+
 		foreach ( $hash[ $type ] as $snippet_key => $snippet_value ) {
-			$value = $this->get_schema_meta( $details, $snippet_key, $post_id );
+
+			if ( 'address' === $snippet_key ) {
+				$value = $this->get_address( $details, $snippet_key, $post_id, $snippet, $snippet_value );
+				update_post_meta( $post_id, 'rank_math_snippet_' . $schema_type . '_address', $value );
+				continue;
+			}
+
+			$method = isset( $methods[ $snippet_key ] ) ? $methods[ $snippet_key ] : 'get_schema_meta';
+			$value  = $this->$method( $details, $snippet_key, $post_id, $snippet, $snippet_value );
 			update_post_meta( $post_id, 'rank_math_snippet_' . $snippet_value, $value );
 		}
 
-		update_post_meta( $post_id, 'rank_math_rich_snippet', $this->sanitize_schema_type( $type ) );
+		update_post_meta( $post_id, 'rank_math_rich_snippet', $schema_type );
+	}
+
+	/**
+	 * Get address
+	 *
+	 * @param  array  $details       Array of details.
+	 * @param  string $snippet_key   Snippet key.
+	 * @param  string $post_id       Post id.
+	 * @param  array  $snippet       Snippet data.
+	 * @param  string $snippet_value Snippet value.
+	 * @return string
+	 */
+	private function get_address( $details, $snippet_key, $post_id, $snippet, $snippet_value ) {
+		if ( empty( $snippet_value ) ) {
+			return '';
+		}
+
+		$address = [];
+		foreach ( $snippet_value as $key => $meta ) {
+			$address[ $meta ] = $this->get_schema_meta( $details, $key, $post_id, $snippet, $snippet_value );
+		}
+
+		return $address;
 	}
 
 	/**
 	 * Get post meta for schema plugin
 	 *
-	 * @param  array  $details     Array of details.
-	 * @param  string $snippet_key Snippet key.
-	 * @param  string $post_id     Post id.
+	 * @param  array  $details       Array of details.
+	 * @param  string $snippet_key   Snippet key.
+	 * @param  string $post_id       Post id.
+	 * @param  array  $snippet       Snippet data.
+	 * @param  string $snippet_value Snippet value.
 	 * @return string
 	 */
-	private function get_schema_meta( $details, $snippet_key, $post_id ) {
+	private function get_schema_meta( $details, $snippet_key, $post_id, $snippet, $snippet_value ) {
 		$value = isset( $details[ $snippet_key ] ) ? $details[ $snippet_key ] : '';
 		if ( 'custom-text' === $value ) {
-			return isset( $details[ $snippet_key . '-custom-text' ] ) ? $details[ $snippet_key . '-custom-text' ] : '';
+			$value = isset( $details[ $snippet_key . '-custom-text' ] ) ? $details[ $snippet_key . '-custom-text' ] : '';
 		}
 
 		if ( 'create-field' === $value ) {
-			return get_post_meta( $post_id, $type . '-' . $snippet['id'] . '-' . $snippet_key, true );
+			$value = get_post_meta( $post_id, $snippet['type'] . '-' . $snippet['id'] . '-' . $snippet_key, true );
 		}
 
 		if ( 'specific-field' === $value ) {
-			$key = isset( $details[ $snippet_key . '-specific-field' ] ) ? $details[ $snippet_key . '-specific-field' ] : '';
-			return get_post_meta( $post_id, $key, true );
+			$key   = isset( $details[ $snippet_key . '-specific-field' ] ) ? $details[ $snippet_key . '-specific-field' ] : '';
+			$value = get_post_meta( $post_id, $key, true );
 		}
 
-		return $value;
+		return $this->convert_variables( $value );
+	}
+
+	/**
+	 * Get Book Editions.
+	 *
+	 * @param  array  $details       Array of details.
+	 * @param  string $snippet_key   Snippet key.
+	 * @param  string $post_id       Post id.
+	 * @param  array  $snippet       Snippet data.
+	 * @param  string $snippet_value Snippet value.
+	 * @return string
+	 */
+	private function get_book_editions( $details, $snippet_key, $post_id, $snippet, $snippet_value ) {
+		if ( empty( $details[ $snippet_key ] ) ) {
+			return '';
+		}
+
+		$editions = [];
+		$data     = [
+			'details'       => $details,
+			'snippet_key'   => $snippet_key,
+			'post_id'       => $post_id,
+			'snippet'       => $snippet,
+			'snippet_value' => $snippet_value,
+		];
+		foreach ( $details[ $snippet_key ] as $key => $edition ) {
+			$editions[] = [
+				'book_edition' => $this->normalize_edition( $key . '-book-edition', $edition['book-edition'], $data ),
+				'isbn'         => $this->normalize_edition( $key . '-serial-number', $edition['serial-number'], $data ),
+				'url'          => $this->normalize_edition( $key . '-url-template', $edition['url-template'], $data ),
+				'book_format'  => $this->normalize_edition( $key . '-book-format', $edition['book-format'], $data ),
+			];
+		}
+
+		return $editions;
+	}
+
+	/**
+	 * Normalize Book Edition.
+	 *
+	 * @param  string $key   Custom field key.
+	 * @param  string $value Custom field value.
+	 * @param  array  $data  Snippet data.
+	 * @return string
+	 */
+	private function normalize_edition( $key, $value, $data ) {
+		if ( ! $value ) {
+			return '';
+		}
+
+		$hash = [
+			'custom-text'    => 'get_custom_text',
+			'create-field'   => 'get_created_field',
+			'specific-field' => 'get_specific_field',
+		];
+		if ( isset( $hash[ $value ] ) ) {
+			$method = $hash[ $value ];
+			$value  = $this->$method( $key, $value, $data );
+		}
+
+		return $this->convert_variables( $value );
+	}
+
+	/**
+	 * Get Custom Text added in the Settings.
+	 *
+	 * @param  string $key   Custom field key.
+	 * @param  string $value Custom field value.
+	 * @param  array  $data  Snippet data.
+	 * @return string
+	 */
+	private function get_custom_text( $key, $value, $data ) {
+		$key = $data['snippet_key'] . '-custom-text';
+		return isset( $data['details'][ $key ] ) ? $data['details'][ $key ] : '';
+	}
+
+	/**
+	 * Get Created field value added in the post metabox.
+	 *
+	 * @param  string $key   Custom field key.
+	 * @param  string $value Custom field value.
+	 * @param  array  $data  Snippet data.
+	 * @return string
+	 */
+	private function get_created_field( $key, $value, $data ) {
+		$meta_key = $data['snippet']['type'] . '-' . $data['snippet']['id'] . '-' . $data['snippet_key'] . '-' . $key;
+		return get_post_meta( $data['post_id'], $meta_key, true );
+	}
+
+	/**
+	 * Get Specific Custom field value.
+	 *
+	 * @param  string $key   Custom field key.
+	 * @param  string $value Custom field value.
+	 * @param  array  $data  Snippet data.
+	 * @return string
+	 */
+	private function get_specific_field( $key, $value, $data ) {
+		$key = isset( $data['details'][ $data[ $snippet_key . '-specific-field' ] ] ) ? $data['details'][ $data[ $snippet_key . '-specific-field' ] ] : '';
+		return get_post_meta( $data['post_id'], $key, true );
 	}
 
 	/**
@@ -246,7 +412,7 @@ class WP_Schema_Pro extends Plugin_Importer {
 			'product'              => $this->get_product_fields(),
 			'recipe'               => $this->get_recipe_fields(),
 			'software-application' => $this->get_software_fields(),
-			'video-object'         => $this->get_event_fields(),
+			'video-object'         => $this->get_video_fields(),
 			'article'              => [
 				'name'        => 'name',
 				'description' => 'desc',
@@ -262,6 +428,8 @@ class WP_Schema_Pro extends Plugin_Importer {
 				'name'             => 'name',
 				'description'      => 'desc',
 				'orgnization-name' => 'provider',
+				'same-as'          => 'course_provider_url',
+				'rating'           => 'course_rating',
 			],
 			'review'               => [
 				'item'        => 'name',
@@ -272,15 +440,20 @@ class WP_Schema_Pro extends Plugin_Importer {
 				'name'      => 'name',
 				'email'     => 'person_email',
 				'gender'    => 'person_gender',
-				'job-title' => 'job_title',
+				'job-title' => 'person_job_title',
+				'address'   => [
+					'street'   => 'streetAddress',
+					'locality' => 'addressLocality',
+					'region'   => 'addressRegion',
+					'postal'   => 'postalCode',
+					'country'  => 'addressCountry',
+				],
 			],
 			'service'              => [
-				'name'         => 'name',
-				'description'  => 'desc',
-				'type'         => 'service_type',
-				'price-range'  => 'price',
-				'rating'       => 'service_rating_value',
-				'review-count' => 'service_rating_count',
+				'name'        => 'name',
+				'description' => 'desc',
+				'type'        => 'service_type',
+				'price-range' => 'price',
 			],
 		];
 	}
@@ -292,15 +465,19 @@ class WP_Schema_Pro extends Plugin_Importer {
 	 */
 	private function get_event_fields() {
 		return [
-			'name'           => 'name',
-			'description'    => 'desc',
-			'ticket-buy-url' => 'event_ticketurl',
-			'location'       => 'event_venue',
-			'start-date'     => 'event_startdate',
-			'end-date'       => 'event_enddate',
-			'price'          => 'event_price',
-			'currency'       => 'event_currency',
-			'avail'          => 'event_availability',
+			'name'                  => 'name',
+			'description'           => 'desc',
+			'schema-type'           => 'event_type',
+			'event-status'          => 'event_status',
+			'event-attendance-mode' => 'event_attendance_mode',
+			'ticket-buy-url'        => 'event_ticketurl',
+			'location'              => 'event_venue',
+			'start-date'            => 'event_startdate',
+			'end-date'              => 'event_enddate',
+			'price'                 => 'event_price',
+			'currency'              => 'event_currency',
+			'avail'                 => 'event_availability',
+			'performer'             => 'event_performer',
 		];
 	}
 
@@ -311,14 +488,24 @@ class WP_Schema_Pro extends Plugin_Importer {
 	 */
 	private function get_job_posting_fields() {
 		return [
-			'title'                   => 'name',
-			'description'             => 'desc',
-			'salary'                  => 'jobposting_salary',
-			'salary-currency'         => 'jobposting_currency',
-			'salary-unit'             => 'jobposting_payroll',
-			'job-type'                => 'jobposting_employment_type',
-			'jobposting_organization' => 'orgnization-name',
-			'jobposting_url'          => 'jobposting_url',
+			'title'             => 'name',
+			'description'       => 'desc',
+			'salary'            => 'jobposting_salary',
+			'salary-currency'   => 'jobposting_currency',
+			'salary-unit'       => 'jobposting_payroll',
+			'job-type'          => 'jobposting_employment_type',
+			'orgnization-name'  => 'jobposting_organization',
+			'same-as'           => 'jobposting_url',
+			'organization-logo' => 'jobposting_logo',
+			'start-date'        => 'jobposting_startdate',
+			'expiry-date'       => 'jobposting_expirydate',
+			'address'           => [
+				'location-street'   => 'streetAddress',
+				'location-locality' => 'addressLocality',
+				'location-region'   => 'addressRegion',
+				'location-postal'   => 'postalCode',
+				'location-country'  => 'addressCountry',
+			],
 		];
 	}
 
@@ -329,11 +516,14 @@ class WP_Schema_Pro extends Plugin_Importer {
 	 */
 	private function get_product_fields() {
 		return [
-			'brand-name' => 'product_brand',
-			'name'       => 'name',
-			'price'      => 'product_currency',
-			'currency'   => 'product_price',
-			'avail'      => 'product_instock',
+			'name'              => 'name',
+			'description'       => 'desc',
+			'brand-name'        => 'product_brand',
+			'price'             => 'product_price',
+			'currency'          => 'product_currency',
+			'avail'             => 'product_instock',
+			'sku'               => 'product_sku',
+			'price-valid-until' => 'price_valid',
 		];
 	}
 
@@ -344,16 +534,15 @@ class WP_Schema_Pro extends Plugin_Importer {
 	 */
 	private function get_recipe_fields() {
 		return [
-			'name'              => 'name',
-			'description'       => 'desc',
-			'recipe-category'   => 'recipe_type',
-			'recipe-cuisine'    => 'recipe_cuisine',
-			'recipe-keywords'   => 'recipe_keywords',
-			'nutrition'         => 'recipe_calories',
-			'preperation-time'  => 'recipe_preptime',
-			'cook-time'         => 'recipe_cooktime',
-			'recipes_totaltime' => 'recipe_totaltime',
-			'ingredients'       => 'recipe_ingredients',
+			'name'             => 'name',
+			'description'      => 'desc',
+			'recipe-category'  => 'recipe_type',
+			'recipe-cuisine'   => 'recipe_cuisine',
+			'recipe-keywords'  => 'recipe_keywords',
+			'nutrition'        => 'recipe_calories',
+			'preperation-time' => 'recipe_preptime',
+			'cook-time'        => 'recipe_cooktime',
+			'ingredients'      => 'recipe_ingredients',
 		];
 	}
 

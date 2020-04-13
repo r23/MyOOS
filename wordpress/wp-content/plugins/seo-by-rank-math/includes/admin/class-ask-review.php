@@ -62,6 +62,7 @@ class Ask_Review {
 	 * Set "already reviewed" flag.
 	 */
 	public function already_reviewed() {
+		$this->has_cap_ajax( 'onpage_general' );
 		update_option( 'rank_math_already_reviewed', current_time( 'timestamp' ) );
 		$this->success( 'success' );
 	}
@@ -83,7 +84,7 @@ class Ask_Review {
 			<div class="stars-wrapper">
 
 				<div class="face">
-					<div class="smiley normal">
+					<div class="smiley happy">
 						<div class="eyes">
 							<div class="eye"></div>
 							<div class="eye"></div>
@@ -94,7 +95,7 @@ class Ask_Review {
 
 				<div class="stars">
 					<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
-						<a href="https://s.rankmath.com/reviewrankmath" target="_blank">
+						<a href="https://s.rankmath.com/wpreview" target="_blank" class="highlighted">
 							<span class="dashicons dashicons-star-filled"></span>
 						</a>
 					<?php } ?>

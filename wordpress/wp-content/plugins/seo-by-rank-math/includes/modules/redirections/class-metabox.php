@@ -50,51 +50,61 @@ class Metabox {
 		$message = ! empty( $redirection['id'] ) ? esc_html__( 'Edit redirection for the URL of this post.', 'rank-math' ) :
 			esc_html__( 'Create new redirection for the URL of this post.', 'rank-math' );
 
-		$cmb->add_field([
-			'id'         => 'rank_math_enable_redirection',
-			'type'       => 'switch',
-			'name'       => esc_html__( 'Redirection', 'rank-math' ),
-			'desc'       => $message . ' ' . esc_html__( 'Publish or update the post to save the redirection.', 'rank-math' ),
-			'default'    => empty( $redirection['id'] ) ? 'off' : 'on',
-			'save_field' => false,
-		]);
+		$cmb->add_field(
+			[
+				'id'         => 'rank_math_enable_redirection',
+				'type'       => 'switch',
+				'name'       => esc_html__( 'Redirection', 'rank-math' ),
+				'desc'       => $message . ' ' . esc_html__( 'Publish or update the post to save the redirection.', 'rank-math' ),
+				'default'    => empty( $redirection['id'] ) ? 'off' : 'on',
+				'save_field' => false,
+			]
+		);
 
-		$cmb->add_field([
-			'id'         => 'redirection_header_code',
-			'type'       => 'select',
-			'name'       => esc_html__( 'Redirection Type', 'rank-math' ),
-			'options'    => Helper::choices_redirection_types(),
-			'default'    => isset( $redirection['header_code'] ) ? $redirection['header_code'] : '',
-			'save_field' => false,
-			'dep'        => [ [ 'rank_math_enable_redirection', 'on' ] ],
-		]);
+		$cmb->add_field(
+			[
+				'id'         => 'redirection_header_code',
+				'type'       => 'select',
+				'name'       => esc_html__( 'Redirection Type', 'rank-math' ),
+				'options'    => Helper::choices_redirection_types(),
+				'default'    => isset( $redirection['header_code'] ) ? $redirection['header_code'] : '',
+				'save_field' => false,
+				'dep'        => [ [ 'rank_math_enable_redirection', 'on' ] ],
+			]
+		);
 
-		$cmb->add_field([
-			'id'         => 'redirection_url_to',
-			'type'       => 'text',
-			'name'       => esc_html__( 'Destination URL', 'rank-math' ),
-			'save_field' => false,
-			'dep'        => [
-				'relation' => 'and',
-				[ 'rank_math_enable_redirection', 'on' ],
-				[ 'redirection_header_code', '410,451', '!=' ],
-			],
-			'default'    => isset( $redirection['url_to'] ) ? $redirection['url_to'] : '',
-		]);
+		$cmb->add_field(
+			[
+				'id'         => 'redirection_url_to',
+				'type'       => 'text',
+				'name'       => esc_html__( 'Destination URL', 'rank-math' ),
+				'save_field' => false,
+				'dep'        => [
+					'relation' => 'and',
+					[ 'rank_math_enable_redirection', 'on' ],
+					[ 'redirection_header_code', '410,451', '!=' ],
+				],
+				'default'    => isset( $redirection['url_to'] ) ? $redirection['url_to'] : '',
+			]
+		);
 
-		$cmb->add_field([
-			'id'         => 'redirection_id',
-			'type'       => 'hidden',
-			'save_field' => false,
-			'default'    => isset( $redirection['id'] ) ? $redirection['id'] : '',
-		]);
+		$cmb->add_field(
+			[
+				'id'         => 'redirection_id',
+				'type'       => 'hidden',
+				'save_field' => false,
+				'default'    => isset( $redirection['id'] ) ? $redirection['id'] : '',
+			]
+		);
 
-		$cmb->add_field([
-			'id'         => 'redirection_sources',
-			'type'       => 'hidden',
-			'save_field' => false,
-			'default'    => $url,
-		]);
+		$cmb->add_field(
+			[
+				'id'         => 'redirection_sources',
+				'type'       => 'hidden',
+				'save_field' => false,
+				'default'    => $url,
+			]
+		);
 
 		Helper::add_json(
 			'assessor',
@@ -131,38 +141,43 @@ class Metabox {
 			];
 		}
 
-		$values = [
-			'id'          => isset( $cmb->data_to_save['redirection_id'] ) ? $cmb->data_to_save['redirection_id'] : '',
-			'url_to'      => $cmb->data_to_save['redirection_url_to'],
-			'sources'     => [
-				[
-					'pattern'    => $cmb->data_to_save['redirection_sources'],
-					'comparison' => 'exact',
+		$redirection = Redirection::from(
+			[
+				'id'          => isset( $cmb->data_to_save['redirection_id'] ) ? $cmb->data_to_save['redirection_id'] : '',
+				'url_to'      => $cmb->data_to_save['redirection_url_to'],
+				'sources'     => [
+					[
+						'pattern'    => $cmb->data_to_save['redirection_sources'],
+						'comparison' => 'exact',
+					],
 				],
-			],
-			'header_code' => $cmb->data_to_save['redirection_header_code'],
-		];
+				'header_code' => $cmb->data_to_save['redirection_header_code'],
+			]
+		);
+		$redirection->set_nocache( true );
+		$redirection->save();
 
-		$redirection_id = DB::update_iff( $values );
-		$response       = [
+		$response = [
 			'action'  => 'update',
 			'message' => esc_html__( 'Redirection updated successfully.', 'rank-math' ),
 		];
 
-		if ( ! isset( $values['id'] ) ) {
+		if ( $redirection->is_new() ) {
 			Helper::add_notification( esc_html__( 'New redirection created.', 'rank-math' ) );
 			$response = [
-				'id'      => $redirection_id,
+				'id'      => $redirection->get_id(),
 				'action'  => 'new',
 				'message' => esc_html__( 'New redirection created.', 'rank-math' ),
 			];
 		}
 
-		Cache::add([
-			'from_url'       => $cmb->data_to_save['redirection_sources'],
-			'redirection_id' => $redirection_id,
-			'object_id'      => $cmb->object_id,
-		]);
+		Cache::add(
+			[
+				'from_url'       => $cmb->data_to_save['redirection_sources'],
+				'redirection_id' => $redirection->get_id(),
+				'object_id'      => $cmb->object_id,
+			]
+		);
 
 		return $response;
 	}
@@ -210,6 +225,9 @@ class Metabox {
 
 		$redirection = DB::get_redirection_by_id( $values['redirection_id'] );
 
-		return ! ( $values['redirection_url_to'] === $redirection['url_to'] );
+		return ! (
+			$values['redirection_url_to'] === $redirection['url_to'] &&
+			$values['redirection_header_code'] === $redirection['header_code']
+		);
 	}
 }

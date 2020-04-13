@@ -13,7 +13,7 @@ $redirections = Helper::get_module( 'redirections' )->admin;
 $redirections->table->prepare_items();
 
 $is_new     = isset( $_GET['new'] );
-$is_editing = ! empty( $_GET['url'] ) || ! empty( $_REQUEST['log'] ) || ! empty( $_REQUEST['redirect_uri'] ) || $redirections->form->is_editing();
+$is_editing = ! empty( $_GET['url'] ) || ! empty( $_GET['urls'] ) || ! empty( $_REQUEST['log'] ) || ! empty( $_REQUEST['redirect_uri'] ) || $redirections->form->is_editing();
 ?>
 <div class="wrap rank-math-redirections-wrap">
 

@@ -41,10 +41,9 @@ class Admin extends Base {
 		parent::__construct();
 
 		$this->action( 'init', 'register_setting_page', 999 );
-		$this->filter( 'rank_math/sitemap/settings', 'post_type_settings' );
-		$this->filter( 'rank_math/sitemap/settings', 'taxonomy_settings' );
-		$this->filter( 'rank_math/sitemap/settings', 'special_seprator' );
-		$this->action( 'rank_math/metabox/settings/advanced', 'metabox_settings_advanced', 9 );
+		$this->filter( 'rank_math/settings/sitemap', 'post_type_settings' );
+		$this->filter( 'rank_math/settings/sitemap', 'taxonomy_settings' );
+		$this->filter( 'rank_math/settings/sitemap', 'special_seprator' );
 
 		// Attachment.
 		$this->filter( 'media_send_to_editor', 'media_popup_html', 10, 2 );
@@ -79,7 +78,7 @@ class Admin extends Base {
 			);
 		}
 
-		$tabs = $this->do_filter( 'sitemap/settings', $tabs );
+		$tabs = $this->do_filter( 'settings/sitemap', $tabs );
 
 		new Options( array(
 			'key'        => 'rank-math-options-sitemap',
@@ -219,57 +218,6 @@ class Admin extends Base {
 	/**
 	 * Metabox API -----------------------------------------------------------
 	 */
-
-	/**
-	 * Metabox settings in advanced tab.
-	 *
-	 * @param \CMB2 $cmb The CMB2 metabox object.
-	 */
-	public function metabox_settings_advanced( $cmb ) {
-		$cmb->add_field( array(
-			'id'         => 'rank_math_news_sitemap_genres',
-			'type'       => 'text',
-			'name'       => esc_html__( 'News Sitemap - Genres', 'rank-math' ),
-			'desc'       => wp_kses_post( __( 'A comma-separated list of properties characterizing the content of the article, such as "PressRelease" or "UserGenerated." See <a href="https://support.google.com/news/publisher/answer/93992" target="_blank">Google News content properties</a> for a list of possible values.', 'rank-math' ) ),
-			'default'    => 'Blog',
-			'show_on_cb' => array( $this, 'show_on' ),
-		) );
-
-		$cmb->add_field( array(
-			'id'         => 'rank_math_news_sitemap_keywords',
-			'type'       => 'text',
-			'name'       => esc_html__( 'News Sitemap - Keywords', 'rank-math' ),
-			'desc'       => wp_kses_post( __( 'A comma-separated list of keywords describing the topic of the article. Keywords may be drawn from, but are not limited to, the list of existing Google News keywords. More information: <a href="https://support.google.com/news/publisher/answer/116037" target="_blank">Google News keywords</a>.', 'rank-math' ) ),
-			'show_on_cb' => array( $this, 'show_on' ),
-		) );
-
-		$cmb->add_field( array(
-			'id'         => 'rank_math_news_sitemap_stock_tickers',
-			'type'       => 'text',
-			'name'       => esc_html__( 'News Sitemap - Stock Tickers', 'rank-math' ),
-			'desc'       => wp_kses_post( __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Relevant primarily for business articles. More information: <a href="https://support.google.com/news/publisher/answer/74288" target="_blank">Creating a Google News Sitemap</a>.', 'rank-math' ) ),
-			'show_on_cb' => array( $this, 'show_on' ),
-		) );
-	}
-
-	/**
-	 * Show field check callback.
-	 *
-	 * @param CMB2_Field $field The current field.
-	 *
-	 * @return boolean
-	 */
-	public function show_on( $field ) {
-
-		$news_sitemap_enabled = Helper::is_module_active( 'news-sitemap' );
-		$is_post_type_news    = in_array( get_post_type(), (array) Helper::get_settings( 'sitemap.news_sitemap_post_type' ), true );
-
-		if ( $news_sitemap_enabled && $is_post_type_news ) {
-			return true;
-		}
-
-		return false;
-	}
 
 	/**
 	 * Adds new "exclude from sitemap" checkbox to media popup in the post editor.

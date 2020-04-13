@@ -65,7 +65,7 @@ class Admin_Init {
 	 * Load out post list and edit screen class.
 	 */
 	private function load_post_columns_and_filters() {
-		if ( Admin_Helper::is_post_list() || Admin_Helper::is_media_library() ) {
+		if ( Admin_Helper::is_post_list() || Admin_Helper::is_media_library() || wp_doing_ajax() ) {
 			$this->run([
 				new Post_Columns,
 				new Post_Filters,

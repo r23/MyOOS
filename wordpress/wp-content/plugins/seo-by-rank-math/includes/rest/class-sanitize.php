@@ -74,7 +74,7 @@ class Sanitize {
 	public function loop_sanitize( $array ) {
 		$sanitized_value = [];
 		foreach ( $array  as $key => $value ) {
-			$sanitized_value[ $key ] = $this->sanitize( $key, $value );
+			$sanitized_value[ $key ] = is_array( $value ) ? $this->loop_sanitize( $value ) : $this->sanitize( $key, $value );
 		}
 
 		return $sanitized_value;

@@ -40,6 +40,9 @@ class Deactivate_Survey implements Runner {
 	public function deactivate_feedback() {
 
 		check_ajax_referer( 'rank_math_deactivate_feedback_nonce', 'security' );
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			$this->error( esc_html__( 'You are not authorized to perform this action.', 'rank-math' ) );
+		}
 
 		$reason_key  = Param::post( 'reason_key', '' );
 		$reason_text = Param::post(

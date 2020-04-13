@@ -10,9 +10,11 @@
 
 namespace RankMath\Admin;
 
+use WP_Meta_Query;
 use RankMath\Helper;
 use RankMath\Runner;
 use RankMath\Traits\Hooker;
+use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
@@ -162,7 +164,7 @@ class Post_Filters implements Runner {
 			return;
 		}
 
-		$options  = [
+		$options = [
 			''          => esc_html__( 'All Posts', 'rank-math' ),
 			'great-seo' => esc_html__( 'SEO Score: Great', 'rank-math' ),
 			'good-seo'  => esc_html__( 'SEO Score: Good', 'rank-math' ),
@@ -170,9 +172,11 @@ class Post_Filters implements Runner {
 			'empty-fk'  => esc_html__( 'Focus Keyword Not Set', 'rank-math' ),
 			'noindexed' => esc_html__( 'Articles noindexed', 'rank-math' ),
 		];
+
+		$options = $this->do_filter( 'manage_posts/seo_filter_options', $options, $post_type );
 		$selected = Param::get( 'seo-filter' );
 		?>
-		<select name="seo-filter">
+		<select name="seo-filter" id="rank-math-seo-filter">
 			<?php foreach ( $options as $val => $option ) : ?>
 				<option value="<?php echo esc_attr( $val ); ?>" <?php selected( $selected, $val, true ); ?>><?php echo esc_html( $option ); ?></option>
 			<?php endforeach; ?>
@@ -189,20 +193,24 @@ class Post_Filters implements Runner {
 		global $typenow;
 
 		$current = empty( $_GET['pillar_content'] ) ? '' : ' class="current" aria-current="page"';
-		$pillars = get_posts([
-			'post_type'      => $typenow,
-			'fields'         => 'ids',
-			'posts_per_page' => -1,
-			'meta_key'       => 'rank_math_pillar_content',
-			'meta_value'     => 'on',
-		]);
+		$pillars = get_posts(
+			[
+				'post_type'      => $typenow,
+				'fields'         => 'ids',
+				'posts_per_page' => -1,
+				'meta_key'       => 'rank_math_pillar_content',
+				'meta_value'     => 'on',
+			]
+		);
 
 		$views['pillar_content'] = sprintf(
 			'<a href="%1$s"%2$s>%3$s <span class="count">(%4$s)</span></a>',
-			add_query_arg([
-				'post_type'      => $typenow,
-				'pillar_content' => 1,
-			]),
+			Security::add_query_arg(
+				[
+					'post_type'      => $typenow,
+					'pillar_content' => 1,
+				]
+			),
 			$current,
 			esc_html__( 'Pillar Content', 'rank-math' ),
 			number_format_i18n( count( $pillars ) )
@@ -306,24 +314,26 @@ class Post_Filters implements Runner {
 		}
 
 		$screen     = get_current_screen();
-		$meta_query = new \WP_Meta_Query([
+		$meta_query = new WP_Meta_Query(
 			[
-				'key'     => 'rank_math_focus_keyword',
-				'compare' => 'EXISTS',
-			],
-			[
-				'relation' => 'OR',
 				[
-					'key'     => 'rank_math_robots',
-					'value'   => 'noindex',
-					'compare' => 'NOT LIKE',
+					'key'     => 'rank_math_focus_keyword',
+					'compare' => 'EXISTS',
 				],
 				[
-					'key'     => 'rank_math_robots',
-					'compare' => 'NOT EXISTS',
+					'relation' => 'OR',
+					[
+						'key'     => 'rank_math_robots',
+						'value'   => 'noindex',
+						'compare' => 'NOT LIKE',
+					],
+					[
+						'key'     => 'rank_math_robots',
+						'compare' => 'NOT EXISTS',
+					],
 				],
-			],
-		]);
+			]
+		);
 
 		$meta_query = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
 		return $wpdb->get_col( "SELECT {$wpdb->posts}.ID FROM $wpdb->posts {$meta_query['join']} WHERE 1=1 {$meta_query['where']} AND {$wpdb->posts}.post_type = '$screen->post_type' AND ({$wpdb->posts}.post_status = 'publish') AND {$wpdb->posts}.post_title NOT REGEXP REPLACE({$wpdb->postmeta}.meta_value, ',', '|')" ); // phpcs:ignore

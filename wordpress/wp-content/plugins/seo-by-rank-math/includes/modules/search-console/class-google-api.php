@@ -10,6 +10,8 @@
 
 namespace RankMath\Search_Console;
 
+use RankMath\Helpers\Security;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -69,7 +71,7 @@ class Google_Api {
 	public function get_auth_url() {
 		$config = $this->get_config();
 
-		return add_query_arg(
+		return Security::add_query_arg_raw(
 			[
 				'response_type' => 'code',
 				'client_id'     => $config['client_id'],
@@ -161,7 +163,7 @@ class Google_Api {
 		}
 
 		$this->post(
-			add_query_arg( [ 'token' => $token ], 'https://oauth2.googleapis.com/revoke' )
+			Security::add_query_arg_raw( [ 'token' => $token ], 'https://oauth2.googleapis.com/revoke' )
 		);
 
 		return $this->is_success();

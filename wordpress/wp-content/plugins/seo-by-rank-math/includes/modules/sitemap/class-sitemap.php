@@ -13,7 +13,6 @@ namespace RankMath\Sitemap;
 use RankMath\Helper;
 use RankMath\Helpers\Sitepress;
 use RankMath\Traits\Hooker;
-use MyThemeShop\Helpers\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -35,10 +34,14 @@ class Sitemap {
 		}
 
 		new Router;
-		$this->filter( 'robots_txt', 'add_sitemap_directive', 99 );
-		add_filter( 'rank_math/admin/notice/new_post_type', array( $this, 'new_post_type_notice' ) );
+		$this->index = new Sitemap_Index;
+		$this->index->hooks();
+
 		add_action( 'rank_math/sitemap/hit_index', array( __CLASS__, 'hit_sitemap_index' ) );
 		add_action( 'rank_math/sitemap/ping_search_engines', array( __CLASS__, 'ping_search_engines' ) );
+
+		$this->filter( 'rank_math/admin/notice/new_post_type', 'new_post_type_notice' );
+
 		if ( class_exists( 'SitePress' ) ) {
 			$this->filter( 'rank_math/sitemap/build_type', 'rank_math_build_sitemap_filter' );
 			$this->filter( 'rank_math/sitemap/xml_post_url', 'exclude_hidden_language_posts', 10, 2 );
@@ -101,21 +104,6 @@ class Sitemap {
 		Sitepress::get()->remove_term_filters();
 
 		return $type;
-	}
-
-	/**
-	 * Add sitemap directive in robots.txt
-	 *
-	 * @param  string $output Robots.txt output.
-	 * @return string
-	 */
-	public function add_sitemap_directive( $output ) {
-
-		if ( Str::contains( 'Sitemap:', $output ) || Str::contains( 'sitemap:', $output ) ) {
-			return $output;
-		}
-
-		return $output . "\n" . 'Sitemap: ' . Router::get_base_url( 'sitemap_index.xml' );
 	}
 
 	/**

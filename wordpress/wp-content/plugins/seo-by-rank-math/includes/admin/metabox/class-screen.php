@@ -13,6 +13,7 @@ namespace RankMath\Admin\Metabox;
 use RankMath\KB;
 use RankMath\Helper;
 use RankMath\Traits\Meta;
+use RankMath\Traits\Hooker;
 use RankMath\Helpers\Locale;
 use RankMath\Admin\Admin_Helper;
 
@@ -24,6 +25,7 @@ defined( 'ABSPATH' ) || exit;
 class Screen implements IScreen {
 
 	use Meta;
+	use Hooker;
 
 	/**
 	 * Current screen object.
@@ -88,8 +90,8 @@ class Screen implements IScreen {
 	 * @return array
 	 */
 	public function get_analysis() {
-		$analyses = apply_filters(
-			'rank_math/researches/tests',
+		$analyses = $this->do_filter(
+			'researches/tests',
 			$this->screen->get_analysis(),
 			$this->screen->get_object_type()
 		);
@@ -112,7 +114,7 @@ class Screen implements IScreen {
 	 * @return array
 	 */
 	public function get_values() {
-		return array_merge_recursive(
+		$values = array_merge_recursive(
 			$this->screen->get_values(),
 			[
 				'objectID'         => $this->get_object_id(),
@@ -123,7 +125,7 @@ class Screen implements IScreen {
 				'defautOgImage'    => Helper::get_settings( 'titles.open_graph_image', '' ),
 				'customPermalinks' => (bool) get_option( 'permalink_structure', false ),
 				'isUserRegistered' => Helper::is_site_connected(),
-				'maxTags'          => apply_filters( 'rank_math/focus_keyword/maxtags', 5 ),
+				'maxTags'          => $this->do_filter( 'focus_keyword/maxtags', 5 ),
 				'showScore'        => Helper::is_score_enabled(),
 				'canUser'          => [
 					'general'  => Helper::has_cap( 'onpage_general' ),
@@ -139,8 +141,11 @@ class Screen implements IScreen {
 					'hundredScoreLink' => KB::get( 'score-100' ),
 					'researchesTests'  => $this->get_analysis(),
 				],
+				'is_front_page'    => Admin_Helper::is_home_page(),
 			]
 		);
+
+		return $this->do_filter( 'metabox/' . $this->get_object_type() . '/values', $values, $this );
 	}
 
 	/**
@@ -149,53 +154,56 @@ class Screen implements IScreen {
 	 * @return array
 	 */
 	public function get_object_values() {
-		$keys = [
-			'title'                    => 'title',
-			'description'              => 'description',
-			'focusKeywords'            => 'focus_keyword',
-			'pillarContent'            => 'pillar_content',
-			'canonicalUrl'             => 'canonical_url',
-			'breadcrumbTitle'          => 'breadcrumb_title',
-			'advancedRobots'           => 'advanced_robots',
+		$keys = $this->do_filter(
+			'metabox/' . $this->get_object_type() . '/meta_keys',
+			[
+				'title'                    => 'title',
+				'description'              => 'description',
+				'focusKeywords'            => 'focus_keyword',
+				'pillarContent'            => 'pillar_content',
+				'canonicalUrl'             => 'canonical_url',
+				'breadcrumbTitle'          => 'breadcrumb_title',
+				'advancedRobots'           => 'advanced_robots',
 
-			// Facebook.
-			'facebookTitle'            => 'facebook_title',
-			'facebookDescription'      => 'facebook_description',
-			'facebookImage'            => 'facebook_image',
-			'facebookImageID'          => 'facebook_image_id',
-			'facebookHasOverlay'       => 'facebook_enable_image_overlay',
-			'facebookImageOverlay'     => 'facebook_image_overlay',
-			'facebookAuthor'           => 'facebook_author',
+				// Facebook.
+				'facebookTitle'            => 'facebook_title',
+				'facebookDescription'      => 'facebook_description',
+				'facebookImage'            => 'facebook_image',
+				'facebookImageID'          => 'facebook_image_id',
+				'facebookHasOverlay'       => 'facebook_enable_image_overlay',
+				'facebookImageOverlay'     => 'facebook_image_overlay',
+				'facebookAuthor'           => 'facebook_author',
 
-			// Twitter.
-			'twitterCardType'          => 'twitter_card_type',
-			'twitterUseFacebook'       => 'twitter_use_facebook',
-			'twitterTitle'             => 'twitter_title',
-			'twitterDescription'       => 'twitter_description',
-			'twitterImage'             => 'twitter_image',
-			'twitterImageID'           => 'twitter_image_id',
-			'twitterHasOverlay'        => 'twitter_enable_image_overlay',
-			'twitterImageOverlay'      => 'twitter_image_overlay',
+				// Twitter.
+				'twitterCardType'          => 'twitter_card_type',
+				'twitterUseFacebook'       => 'twitter_use_facebook',
+				'twitterTitle'             => 'twitter_title',
+				'twitterDescription'       => 'twitter_description',
+				'twitterImage'             => 'twitter_image',
+				'twitterImageID'           => 'twitter_image_id',
+				'twitterHasOverlay'        => 'twitter_enable_image_overlay',
+				'twitterImageOverlay'      => 'twitter_image_overlay',
 
-			// Player.
-			'twitterPlayerUrl'         => 'twitter_player_url',
-			'twitterPlayerSize'        => 'twitter_player_size',
-			'twitterPlayerStream'      => 'twitter_player_stream',
-			'twitterPlayerStreamCtype' => 'twitter_player_stream_ctype',
+				// Player.
+				'twitterPlayerUrl'         => 'twitter_player_url',
+				'twitterPlayerSize'        => 'twitter_player_size',
+				'twitterPlayerStream'      => 'twitter_player_stream',
+				'twitterPlayerStreamCtype' => 'twitter_player_stream_ctype',
 
-			// App.
-			'twitterAppDescription'    => 'twitter_app_description',
-			'twitterAppIphoneName'     => 'twitter_app_iphone_name',
-			'twitterAppIphoneID'       => 'twitter_app_iphone_id',
-			'twitterAppIphoneUrl'      => 'twitter_app_iphone_url',
-			'twitterAppIpadName'       => 'twitter_app_ipad_name',
-			'twitterAppIpadID'         => 'twitter_app_ipad_id',
-			'twitterAppIpadUrl'        => 'twitter_app_ipad_url',
-			'twitterAppGoogleplayName' => 'twitter_app_googleplay_name',
-			'twitterAppGoogleplayID'   => 'twitter_app_googleplay_id',
-			'twitterAppGoogleplayUrl'  => 'twitter_app_googleplay_url',
-			'twitterAppCountry'        => 'twitter_app_country',
-		];
+				// App.
+				'twitterAppDescription'    => 'twitter_app_description',
+				'twitterAppIphoneName'     => 'twitter_app_iphone_name',
+				'twitterAppIphoneID'       => 'twitter_app_iphone_id',
+				'twitterAppIphoneUrl'      => 'twitter_app_iphone_url',
+				'twitterAppIpadName'       => 'twitter_app_ipad_name',
+				'twitterAppIpadID'         => 'twitter_app_ipad_id',
+				'twitterAppIpadUrl'        => 'twitter_app_ipad_url',
+				'twitterAppGoogleplayName' => 'twitter_app_googleplay_name',
+				'twitterAppGoogleplayID'   => 'twitter_app_googleplay_id',
+				'twitterAppGoogleplayUrl'  => 'twitter_app_googleplay_url',
+				'twitterAppCountry'        => 'twitter_app_country',
+			]
+		);
 
 		// Generate data.
 		$data        = [];
@@ -256,7 +264,7 @@ class Screen implements IScreen {
 		}
 
 		$words = include_once $file;
-		return apply_filters( 'rank_math/metabox/power_words', array_map( 'strtolower', $words ), $locale );
+		return $this->do_filter( 'metabox/power_words', array_map( 'strtolower', $words ), $locale );
 	}
 
 	/**

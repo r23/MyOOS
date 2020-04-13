@@ -57,6 +57,10 @@ class Links {
 	 * @param int $post_id The post ID.
 	 */
 	public function delete_post( $post_id ) {
+		if ( ! $this->is_processable( get_post( $post_id ) ) ) {
+			return;
+		}
+
 		$processor = new ContentProcessor;
 
 		// Get links to update linked objects.

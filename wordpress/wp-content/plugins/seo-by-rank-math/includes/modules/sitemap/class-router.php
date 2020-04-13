@@ -29,9 +29,10 @@ class Router {
 	public function __construct() {
 		$this->action( 'init', 'init', 1 );
 		$this->action( 'parse_query', 'request_sitemap', 1 );
-		$this->filter( 'redirect_canonical', 'redirect_canonical' );
+		$this->filter( 'user_has_cap', 'filter_user_has_cap' );
 		$this->action( 'template_redirect', 'template_redirect', 0 );
 		$this->action( 'after_setup_theme', 'reduce_query_load', 99 );
+		$this->filter( 'user_has_cap', 'filter_user_has_cap' );
 	}
 
 	/**
@@ -47,17 +48,6 @@ class Router {
 		add_rewrite_rule( 'sitemap_index\.xml$', 'index.php?sitemap=1', 'top' );
 		add_rewrite_rule( '([^/]+?)-sitemap([0-9]+)?\.xml$', 'index.php?sitemap=$matches[1]&sitemap_n=$matches[2]', 'top' );
 		add_rewrite_rule( '([a-z]+)?-?sitemap\.xsl$', 'index.php?xsl=$matches[1]', 'top' );
-	}
-
-	/**
-	 * Stop trailing slashes on sitemap.xml URLs.
-	 *
-	 * @param string $redirect The redirect URL currently determined.
-	 *
-	 * @return boolean|string $redirect
-	 */
-	public function redirect_canonical( $redirect ) {
-		return ( get_query_var( 'sitemap' ) || get_query_var( 'xsl' ) ) ? false : $redirect;
 	}
 
 	/**

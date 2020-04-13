@@ -13,6 +13,7 @@
 namespace RankMath\Admin;
 
 use RankMath\Helper;
+use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\WordPress;
 
@@ -114,15 +115,18 @@ class Admin_Helper {
 	 * @return bool
 	 */
 	private static function authenticate_user( $username, $password ) {
-		$response = wp_remote_post( 'https://rankmath.com/wp-json/rankmath/v1/token', [
-			'timeout'    => 10,
-			'user-agent' => 'RankMath/' . md5( esc_url( home_url( '/' ) ) ),
-			'body'       => [
-				'username' => $username,
-				'password' => $password,
-				'site_url' => esc_url( site_url() ),
-			],
-		]);
+		$response = wp_remote_post(
+			'https://rankmath.com/wp-json/rankmath/v1/token',
+			[
+				'timeout'    => 10,
+				'user-agent' => 'RankMath/' . md5( esc_url( home_url( '/' ) ) ),
+				'body'       => [
+					'username' => $username,
+					'password' => $password,
+					'site_url' => esc_url( site_url() ),
+				],
+			]
+		);
 
 		$body = wp_remote_retrieve_body( $response );
 		$body = json_decode( $body, true );
@@ -261,16 +265,22 @@ class Admin_Helper {
 		/* translators: sitename */
 		$fb_message = urlencode( esc_html__( 'I just installed Rank Math SEO WordPress Plugin. It looks promising!', 'rank-math' ) );
 
-		$tweet_url = add_query_arg([
-			'text'     => $tw_message,
-			'hashtags' => 'SEO',
-		], 'https://twitter.com/intent/tweet' );
+		$tweet_url = Security::add_query_arg(
+			[
+				'text'     => $tw_message,
+				'hashtags' => 'SEO',
+			],
+			'https://twitter.com/intent/tweet'
+		);
 
-		$fb_share_url = add_query_arg([
-			'u'       => $fb_link,
-			'quote'   => $fb_message,
-			'caption' => esc_html__( 'SEO by Rank Math', 'rank-math' ),
-		], 'https://www.facebook.com/sharer/sharer.php' );
+		$fb_share_url = Security::add_query_arg(
+			[
+				'u'       => $fb_link,
+				'quote'   => $fb_message,
+				'caption' => esc_html__( 'SEO by Rank Math', 'rank-math' ),
+			],
+			'https://www.facebook.com/sharer/sharer.php'
+		);
 		?>
 		<div class="wizard-share">
 			<a href="#" onclick="window.open('<?php echo $tweet_url; ?>', 'sharewindow', 'resizable,width=600,height=300'); return false;" class="share-twitter">
@@ -292,7 +302,7 @@ class Admin_Helper {
 	 */
 	public static function get_activate_url( $redirect_to = null ) {
 		if ( empty( $redirect_to ) ) {
-			$redirect_to = add_query_arg(
+			$redirect_to = Security::add_query_arg_raw(
 				[
 					'page' => 'rank-math',
 					'view' => 'help',
@@ -301,13 +311,26 @@ class Admin_Helper {
 			);
 		}
 
-		$activate_args = [
+		$args = [
 			'site' => urlencode( home_url() ),
 			'r'    => urlencode( $redirect_to ),
 		];
-		$activate_url  = add_query_arg( $activate_args, 'https://rankmath.com/auth/' );
-		$activate_url  = apply_filters( 'rank_math/license/activate_url', $activate_url, $activate_args );
 
-		return $activate_url;
+		return apply_filters(
+			'rank_math/license/activate_url',
+			Security::add_query_arg_raw( $args, 'https://rankmath.com/auth/' ),
+			$args
+		);
+	}
+
+	/**
+	 * Check if page is set as Homepage.
+	 *
+	 * @since 1.0.42
+	 *
+	 * @return boolean
+	 */
+	public static function is_home_page() {
+		return self::is_post_edit() && (int) Param::get( 'post' ) === (int) get_option( 'page_on_front' );
 	}
 }

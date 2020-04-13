@@ -11,6 +11,7 @@
 namespace RankMath\Admin;
 
 use RankMath\Helper;
+use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
@@ -49,10 +50,13 @@ class Admin_Dashboard_Nav {
 	 */
 	public function get_link_url( $link ) {
 		return is_network_admin() ?
-			add_query_arg( [
-				'page' => 'rank-math',
-				'view' => $link['id'],
-			], network_admin_url( 'admin.php' ) ) :
+			Security::add_query_arg(
+				[
+					'page' => 'rank-math',
+					'view' => $link['id'],
+				],
+				network_admin_url( 'admin.php' )
+			) :
 			Helper::get_admin_url( $link['url'], $link['args'] );
 	}
 

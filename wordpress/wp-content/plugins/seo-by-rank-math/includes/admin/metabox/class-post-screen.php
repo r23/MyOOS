@@ -37,6 +37,13 @@ class Post_Screen implements IScreen {
 	private $primary_taxonomy = null;
 
 	/**
+	 * Class construct
+	 */
+	public function __construct() {
+		$this->filter( 'rank_math/researches/tests', 'remove_tests', 10, 2 );
+	}
+
+	/**
 	 * Get object id
 	 *
 	 * @return int
@@ -103,8 +110,6 @@ class Post_Screen implements IScreen {
 			wp_enqueue_script( 'rank-math-formats' );
 			wp_enqueue_script( 'rank-math-primary-term', rank_math()->plugin_url() . 'assets/admin/js/gutenberg-primary-term.js', [], rank_math()->version, true );
 		}
-
-		wp_enqueue_script( 'rank-math-post-metabox', rank_math()->plugin_url() . 'assets/admin/js/post-metabox.js', [ 'clipboard', 'wp-hooks', 'rank-math-common', 'rank-math-analyzer', 'jquery-tag-editor', 'rank-math-validate' ], rank_math()->version, true );
 	}
 
 	/**
@@ -167,7 +172,7 @@ class Post_Screen implements IScreen {
 	 * @return array
 	 */
 	public function get_analysis() {
-		return [
+		$tests = [
 			'contentHasTOC'             => true,
 			'contentHasShortParagraphs' => true,
 			'contentHasAssets'          => true,
@@ -190,6 +195,35 @@ class Post_Screen implements IScreen {
 			'titleHasPowerWords'        => true,
 			'titleHasNumber'            => true,
 		];
+
+		return $tests;
+	}
+
+	/**
+	 * Remove few tests on static Homepage.
+	 *
+	 * @since 1.0.42
+	 *
+	 * @param array  $tests Array of tests with score.
+	 * @param string $type  Object type. Can be post, user or term.
+	 */
+	public function remove_tests( $tests, $type ) {
+		if ( ! Admin_Helper::is_home_page() ) {
+			return $tests;
+		}
+
+		$remove = [
+			'contentHasTOC'        => true,
+			'keywordInPermalink'   => true,
+			'lengthPermalink'      => true,
+			'linksHasExternals'    => true,
+			'linksNotAllExternals' => true,
+			'titleSentiment'       => true,
+			'titleHasPowerWords'   => true,
+			'titleHasNumber'       => true,
+		];
+
+		return array_diff_assoc( $tests, $remove );
 	}
 
 	/**
@@ -208,13 +242,6 @@ class Post_Screen implements IScreen {
 	 */
 	private function enqueue_commons() {
 		wp_register_style( 'rank-math-post-metabox', rank_math()->plugin_url() . 'assets/admin/css/sidebar.css', [], rank_math()->version );
-		wp_register_script( 'rank-math-analyzer', rank_math()->plugin_url() . 'assets/admin/js/analyzer.js', [ 'lodash' ], rank_math()->version, true );
-
-		if ( function_exists( 'wp_set_script_translations' ) ) {
-			$this->filter( 'load_script_translation_file', 'load_script_translation_file', 10, 3 );
-			wp_set_script_translations( 'rank-math-analyzer', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
-			wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
-		}
 	}
 
 	/**
@@ -230,7 +257,7 @@ class Post_Screen implements IScreen {
 
 		$file = Helper::is_block_editor() ? 'glue-custom-fields.js' : 'custom-fields.js';
 
-		wp_enqueue_script( 'rank-math-custom-fields', rank_math()->plugin_url() . 'assets/admin/js/' . $file, [ 'wp-hooks' ], rank_math()->version, true );
+		wp_enqueue_script( 'rank-math-custom-fields', rank_math()->plugin_url() . 'assets/admin/js/' . $file, [ 'wp-hooks', 'rank-math-analyzer' ], rank_math()->version, true );
 		Helper::add_json( 'analyzeFields', $custom_fields );
 	}
 
@@ -311,10 +338,13 @@ class Post_Screen implements IScreen {
 		 *
 		 * @param array TOC plugins.
 		 */
-		$toc_plugins = $this->do_filter( 'researches/toc_plugins', [
-			'wp-shortcode/wp-shortcode.php'         => 'WP Shortcode by MyThemeShop',
-			'wp-shortcode-pro/wp-shortcode-pro.php' => 'WP Shortcode Pro by MyThemeShop',
-		] );
+		$toc_plugins = $this->do_filter(
+			'researches/toc_plugins',
+			[
+				'wp-shortcode/wp-shortcode.php'         => 'WP Shortcode by MyThemeShop',
+				'wp-shortcode-pro/wp-shortcode-pro.php' => 'WP Shortcode Pro by MyThemeShop',
+			]
+		);
 
 		foreach ( $toc_plugins as $plugin_slug => $plugin_name ) {
 			if ( in_array( $plugin_slug, $active_plugins, true ) !== false ) {
@@ -352,7 +382,7 @@ class Post_Screen implements IScreen {
 		 *
 		 * @param bool $return True to disable.
 		 */
-		if ( false === apply_filters( 'rank_math/primary_term', false ) ) {
+		if ( false === $this->do_filter( 'primary_term', false ) ) {
 			$taxonomy = Helper::get_settings( 'titles.pt_' . $post_type . '_primary_taxonomy', false );
 		}
 

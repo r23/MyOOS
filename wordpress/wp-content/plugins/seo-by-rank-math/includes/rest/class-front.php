@@ -41,11 +41,25 @@ class Front extends WP_REST_Controller {
 			$this->namespace,
 			'/disconnectSite',
 			[
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => [ $this, 'disconnect_site' ],
-				'args'     => $this->get_disconnect_site_args(),
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ $this, 'disconnect_site' ],
+				'permission_callback' => [ $this, 'check_api_key' ],
+				'args'                => $this->get_disconnect_site_args(),
 			]
 		);
+	}
+
+	/**
+	 * Check API key in request.
+	 *
+	 * @param  WP_REST_Request $request Full details about the request.
+	 * @return bool                     Whether the API key matches or not.
+	 */
+	public function check_api_key( WP_REST_Request $request ) {
+		$token = $request->get_param( 'token' );
+		$data  = Admin_Helper::get_registration_data();
+
+		return isset( $data['api_key'] ) && $token === $data['api_key'];
 	}
 
 	/**
@@ -56,16 +70,6 @@ class Front extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function disconnect_site( WP_REST_Request $request ) {
-		$token = $request->get_param( 'token' );
-		$data  = Admin_Helper::get_registration_data();
-
-		if ( $token !== $data['api_key'] ) {
-			return new WP_Error(
-				'token_not_matched',
-				esc_html__( 'Site token didn\'t match.', 'rank-math' ),
-				[ 'status' => 403 ]
-			);
-		}
 
 		Admin_Helper::get_registration_data(
 			[

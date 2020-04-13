@@ -91,6 +91,7 @@ $cmb->add_field([
 	'name'              => esc_html__( 'Employment Type (Recommended)', 'rank-math' ),
 	'desc'              => esc_html__( 'Type of employment. You can choose more than one value.', 'rank-math' ),
 	'options'           => [
+		''           => esc_html__( 'None', 'rank-math' ),
 		'FULL_TIME'  => esc_html__( 'Full Time', 'rank-math' ),
 		'PART_TIME'  => esc_html__( 'Part Time', 'rank-math' ),
 		'CONTRACTOR' => esc_html__( 'Contractor', 'rank-math' ),

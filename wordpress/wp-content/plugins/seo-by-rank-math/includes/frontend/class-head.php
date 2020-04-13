@@ -16,6 +16,7 @@ use RankMath\Paper\Paper;
 use RankMath\Traits\Hooker;
 use RankMath\Sitemap\Router;
 use MyThemeShop\Helpers\Str;
+use RankMath\Helpers\Security;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -320,7 +321,7 @@ class Head {
 		global $wp_rewrite;
 
 		if ( $page > 1 ) {
-			$url = ! $wp_rewrite->using_permalinks() ? add_query_arg( $query_arg, $page, $url ) : user_trailingslashit( trailingslashit( $url ) . $this->get_pagination_base() . $page );
+			$url = ! $wp_rewrite->using_permalinks() ? Security::add_query_arg_raw( $query_arg, $page, $url ) : user_trailingslashit( trailingslashit( $url ) . $this->get_pagination_base() . $page );
 		}
 
 		/**

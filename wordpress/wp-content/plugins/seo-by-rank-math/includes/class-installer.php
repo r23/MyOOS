@@ -326,7 +326,7 @@ class Installer {
 			'nofollow_image_links'                => 'off',
 			'new_window_external_links'           => 'on',
 			'add_img_alt'                         => 'off',
-			'img_alt_format'                      => '%title% %count(alt)%',
+			'img_alt_format'                      => ' %filename%',
 			'add_img_title'                       => 'off',
 			'img_title_format'                    => '%title% %count(title)%',
 			'breadcrumbs'                         => 'off',

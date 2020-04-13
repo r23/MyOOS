@@ -98,7 +98,8 @@ class Watcher {
 			$message = sprintf(
 				// translators: %1$s: post type label, %2$s: edit redirection URL.
 				__( 'SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href="%2$s">clicking here</a>.', 'rank-math' ),
-				Helper::get_post_type_label( $post->post_type, true ), $this->get_edit_redirection_url( $redirection_id )
+				Helper::get_post_type_label( $post->post_type, true ),
+				$this->get_edit_redirection_url( $redirection_id )
 			);
 			$this->add_notification( $message, true );
 
@@ -147,7 +148,8 @@ class Watcher {
 			$message = sprintf(
 				// translators: %1$s: term name, %2$s: edit redirection URL.
 				__( 'SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href="%2$s">clicking here</a>.', 'rank-math' ),
-				$term->name, $this->get_edit_redirection_url( $redirection_id )
+				$term->name,
+				$this->get_edit_redirection_url( $redirection_id )
 			);
 			$this->add_notification( $message, true );
 
@@ -178,10 +180,12 @@ class Watcher {
 		// If found update that record.
 		$redirection = $this->has_existing_redirection( $object_id, $type );
 		if ( false === $redirection ) {
-			$redirection = Redirection::from([
-				'url_to'      => $url_to,
-				'header_code' => $header_code,
-			]);
+			$redirection = Redirection::from(
+				[
+					'url_to'      => $url_to,
+					'header_code' => $header_code,
+				]
+			);
 		}
 
 		$redirection->set_nocache( true );
@@ -194,12 +198,14 @@ class Watcher {
 		if ( $from_url ) {
 			$from_url = parse_url( $from_url, PHP_URL_PATH );
 			$from_url = Redirection::strip_subdirectory( $from_url );
-			Cache::add([
-				'from_url'       => $from_url,
-				'redirection_id' => $redirection->get_id(),
-				'object_id'      => $object_id,
-				'object_type'    => $type,
-			]);
+			Cache::add(
+				[
+					'from_url'       => $from_url,
+					'redirection_id' => $redirection->get_id(),
+					'object_id'      => $object_id,
+					'object_type'    => $type,
+				]
+			);
 		}
 
 		return $redirection->get_id();
@@ -253,10 +259,13 @@ class Watcher {
 	 * @return string
 	 */
 	private function get_edit_redirection_url( $redirection_id ) {
-		return Helper::get_admin_url( 'redirections', [
-			'redirection' => $redirection_id,
-			'security'    => wp_create_nonce( 'redirection_list_action' ),
-		]);
+		return Helper::get_admin_url(
+			'redirections',
+			[
+				'redirection' => $redirection_id,
+				'security'    => wp_create_nonce( 'redirection_list_action' ),
+			]
+		);
 	}
 
 	/**
@@ -361,9 +370,12 @@ class Watcher {
 			return;
 		}
 
-		Helper::add_notification( $message, [
-			'type'    => 'warning',
-			'classes' => $is_dismissible ? 'is-dismissible' : '',
-		] );
+		Helper::add_notification(
+			$message,
+			[
+				'type'    => 'warning',
+				'classes' => $is_dismissible ? 'is-dismissible' : '',
+			]
+		);
 	}
 }

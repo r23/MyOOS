@@ -32,7 +32,7 @@ $cmb->add_field( array(
 $cmb->add_field( array(
 	'id'   => 'rank_math_permalink',
 	'type' => 'text',
-	'desc' => esc_html__( 'This is the unique URL of this page, displayed below the post title in the search results.', 'rank-math' ),
+	'desc' => Admin_Helper::is_home_page() ? esc_html__( 'Editing Homepage permalink is not possible.', 'rank-math' ) : esc_html__( 'This is the unique URL of this page, displayed below the post title in the search results.', 'rank-math' ),
 ) );
 
 $cmb->add_field( array(
@@ -66,6 +66,7 @@ $cmb->add_field( array(
 	'attributes'  => array(
 		'placeholder' => esc_html__( 'Example: Rank Math SEO', 'rank-math' ),
 	),
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_focus_keywords' ],
 ) );
 
 if ( ! Admin_Helper::is_term_profile_page() ) {
@@ -76,14 +77,6 @@ if ( ! Admin_Helper::is_term_profile_page() ) {
 		'classes' => 'nob nopt',
 		'desc'    => '<strong>' . esc_html__( 'This post is a Pillar Content', 'rank-math' ) . '</strong>' .
 			Admin_Helper::get_tooltip( esc_html__( 'Select one or more Pillar Content posts for each post tag or category to show them in the Link Suggestions meta box.', 'rank-math' ) ),
-	) );
-}
-
-if ( Helper::has_cap( 'onpage_analysis' ) ) {
-	$cmb->add_field( array(
-		'id'   => 'rank_math_serp_checklist',
-		'type' => 'raw',
-		'file' => rank_math()->includes_dir() . 'metaboxes/serp-checklist.php',
 	) );
 }
 

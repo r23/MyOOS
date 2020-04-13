@@ -90,7 +90,7 @@ class Permalink_Watcher {
 		}
 
 		$permalink_structure  = wc_get_permalink_structure();
-		$category_base        = trailingslashit( $permalink_structure['category_rewrite_slug'] );
+		$category_base        = user_trailingslashit( $permalink_structure['category_rewrite_slug'] );
 		$is_language_switcher = ( class_exists( 'Sitepress' ) && strpos( $link, 'lang=' ) );
 
 		if ( $this->remove_category_base ) {
@@ -99,7 +99,7 @@ class Permalink_Watcher {
 		}
 
 		if ( $this->remove_parent_slugs && ! $is_language_switcher ) {
-			$link = home_url( trailingslashit( $category_base . $term->slug ) );
+			$link = home_url( user_trailingslashit( $category_base . $term->slug ) );
 		}
 
 		return $link;
