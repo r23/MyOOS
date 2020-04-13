@@ -1352,16 +1352,16 @@
         },
         {
             "name": "graham-campbell/guzzle-factory",
-            "version": "v3.0.2",
+            "version": "v3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Guzzle-Factory.git",
-                "reference": "6ccf9d73c4c2a55b9576f3a6edcf42af44c99fbb"
+                "reference": "de49ec514107b43f3a770743421c9bb78d01d3e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Guzzle-Factory/zipball/6ccf9d73c4c2a55b9576f3a6edcf42af44c99fbb",
-                "reference": "6ccf9d73c4c2a55b9576f3a6edcf42af44c99fbb",
+                "url": "https://api.github.com/repos/GrahamCampbell/Guzzle-Factory/zipball/de49ec514107b43f3a770743421c9bb78d01d3e2",
+                "reference": "de49ec514107b43f3a770743421c9bb78d01d3e2",
                 "shasum": ""
             },
             "require": {
@@ -1369,7 +1369,7 @@
                 "php": "^7.0"
             },
             "require-dev": {
-                "graham-campbell/analyzer": "^2.1",
+                "graham-campbell/analyzer": "^2.4",
                 "phpunit/phpunit": "^6.5|^7.0|^8.0"
             },
             "type": "library",
@@ -1402,7 +1402,7 @@
                 "Guzzle-Factory",
                 "http"
             ],
-            "time": "2019-08-23T13:19:30+00:00"
+            "time": "2020-04-13T13:12:06+00:00"
         },
         {
             "name": "grpc/grpc",
@@ -3716,23 +3716,24 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.34",
+            "version": "v3.1.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "c9f0de05f41b9e52798b268ab1e625fac3b8578c"
+                "reference": "97f700971f7df65f66564b4ce14801f1059bcd8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/c9f0de05f41b9e52798b268ab1e625fac3b8578c",
-                "reference": "c9f0de05f41b9e52798b268ab1e625fac3b8578c",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/97f700971f7df65f66564b4ce14801f1059bcd8a",
+                "reference": "97f700971f7df65f66564b4ce14801f1059bcd8a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "6.4.1"
+                "phpunit/phpunit": "6.4.1",
+                "smarty/smarty-lexer": "^3.1"
             },
             "type": "library",
             "extra": {
@@ -3768,7 +3769,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-02-28T06:42:20+00:00"
+            "time": "2020-04-13T22:02:48+00:00"
         },
         {
             "name": "spatie/dropbox-api",
