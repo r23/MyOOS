@@ -88,18 +88,27 @@ function oos_random_select($query, $limit = '') {
     return $random_product;
 }
 
-  function oos_prepare_input($sStr) {
-    if (!is_array($sStr)) {
-       if (get_magic_quotes_gpc()) {
-         $sStr = stripslashes($sStr);
-       }
-       $sStr = strip_tags($sStr);
-       $sStr = trim($sStr);
+
+function oos_prepare_input($sStr) {
+    if (is_string($sStr)) {
+        return trim(oos_sanitize_string(stripslashes($sStr)));
+    } elseif (is_array($sStr)) {
+        foreach($sStr as $key => $value) {
+            $sStr[$key] = oos_prepare_input($value);
+        }
+        return $sStr;
+    } else {
+        return $sStr;
     }
-    return $sStr;
-  }
+}
 
 
+function oos_sanitize_string($sStr) {
+    $aPatterns = array ('/ +/','/[<>]/');
+    $aReplace = array (' ', '_');
+    return preg_replace($aPatterns, $aReplace, trim($sStr));
+}
+  
 
  /**
   * strip slashes
