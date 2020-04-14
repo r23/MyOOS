@@ -73,7 +73,7 @@ class language {
 		
 			$customerstable = $oostable['customers'];
 			$query = "UPDATE $customerstable SET customers_language =? WHERE customers_id =?";
-			$result = $dbconn->Execute($query, array($sLanguage, (int)$_SESSION['customer_id']));
+			$dbconn->Execute($query, array($sLanguage, (int)$_SESSION['customer_id']));
 		}
 	}
 

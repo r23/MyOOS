@@ -95,11 +95,11 @@
       $new_gv_amount = $customer_gv['amount'] + $coupon_amount;
 
       $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-      $gv_result = $dbconn->Execute("UPDATE $coupon_gv_customertable
+      $dbconn->Execute("UPDATE $coupon_gv_customertable
                                      SET amount = '" . oos_db_input($new_gv_amount) . "'");
     } else {
       $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-      $gv_result = $dbconn->Execute("INSERT INTO $coupon_gv_customertable
+      $dbconn->Execute("INSERT INTO $coupon_gv_customertable
                                     (customer_id,
                                      amount) VALUES ('" . intval($customer_id) . "',
                                                      '" . oos_db_input($coupon_amount) . "')");

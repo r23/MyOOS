@@ -3716,16 +3716,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.35",
+            "version": "v3.1.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "97f700971f7df65f66564b4ce14801f1059bcd8a"
+                "reference": "fd148f7ade295014fff77f89ee3d5b20d9d55451"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/97f700971f7df65f66564b4ce14801f1059bcd8a",
-                "reference": "97f700971f7df65f66564b4ce14801f1059bcd8a",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/fd148f7ade295014fff77f89ee3d5b20d9d55451",
+                "reference": "fd148f7ade295014fff77f89ee3d5b20d9d55451",
                 "shasum": ""
             },
             "require": {
@@ -3769,7 +3769,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2020-04-13T22:02:48+00:00"
+            "time": "2020-04-14T14:44:26+00:00"
         },
         {
             "name": "spatie/dropbox-api",

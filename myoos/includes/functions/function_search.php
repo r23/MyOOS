@@ -225,7 +225,6 @@
   * @return boolean
   */
   function oos_checkdate($date_to_check, $format_string, &$date_array) {
-    $separator_idx = -1;
 
     $separators = array('-', ' ', '/', '.');
     $month_abbr = array('jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec');

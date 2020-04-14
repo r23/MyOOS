@@ -196,9 +196,8 @@ function oos_var_prep_for_os() {
       $ourvar = preg_replace($search, $replace, $ourvar);
 
       // Prepare var
-      if (!get_magic_quotes_runtime()) {
-        $ourvar = addslashes($ourvar);
-      }
+      $ourvar = oos_sanitize_string($ourvar);
+
 
       // Add to array
       array_push($resarray, $ourvar);
@@ -211,8 +210,6 @@ function oos_var_prep_for_os() {
 		return $resarray;
     }
 }
-
-
 
 
 function oos_get_content() {
@@ -955,16 +952,26 @@ function oos_get_serialized_variable(&$serialization_data, $variable_name, $vari
 }
 
 
-function oos_prepare_input($string) {
-    if (is_array ($string))  return $string;
-
-    if (get_magic_quotes_gpc()) {
-		$string = stripslashes($string);
+function oos_prepare_input($sStr) {
+    if (is_string($sStr)) {
+        return trim(oos_sanitize_string(stripslashes($sStr)));
+    } elseif (is_array($sStr)) {
+        foreach($sStr as $key => $value) {
+            $sStr[$key] = oos_prepare_input($value);
+        }
+        return $sStr;
+    } else {
+        return $sStr;
     }
-    $string = trim($string);
-
-    return $string;
 }
+
+
+function oos_sanitize_string($sStr) {
+    $aPatterns = array ('/ +/','/[<>]/');
+    $aReplace = array (' ', '_');
+    return preg_replace($aPatterns, $aReplace, trim($sStr));
+}
+
 
 
 /**
