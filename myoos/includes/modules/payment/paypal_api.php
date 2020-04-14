@@ -115,7 +115,7 @@ class paypal_api {
     }
 
     function process_button() {
-		global $oOrder, $oCurrencies, $aUser;
+		global $oOrder, $aUser;
 
 		$my_currency = $_SESSION['currency'];
 
@@ -194,6 +194,8 @@ class paypal_api {
 			echo $exc->getData();
 			die($exc);
 */		
+			$aContents = oos_get_content();
+			
 			$_SESSION['error_message'] = MODULE_PAYMENT_PAYPAL_API_ERROR;
 			oos_redirect(oos_href_link($aContents['checkout_payment']));		
 			
@@ -306,7 +308,8 @@ class paypal_api {
 		echo $ex->getData();
 		die($ex);
 */		
-
+			$aContents = oos_get_content();
+			
 			$_SESSION['error_message'] = MODULE_PAYMENT_PAYPAL_API_ERROR;
 			oos_redirect(oos_href_link($aContents['checkout_payment']));
 		}
