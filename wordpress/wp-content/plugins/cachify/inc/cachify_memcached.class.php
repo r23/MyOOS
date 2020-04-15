@@ -1,72 +1,59 @@
 <?php
 
-
-/* Quit */
-defined('ABSPATH') OR exit;
-
-
 /**
 * Cachify_MEMCACHED
 */
-
 final class Cachify_MEMCACHED {
 
-
 	/**
-	* Memcached-Object
-	*
-	* @since  2.0.7
-	* @var    object
-	*/
+	 * Memcached-Object
+	 *
+	 * @since  2.0.7
+	 * @var    object
+	 */
 
 	private static $_memcached;
 
-
 	/**
-	* Availability check
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*
-	* @return  boolean  true/false  TRUE when installed
-	*/
-
-	public static function is_available()
-	{
-		return class_exists('Memcached') && isset($_SERVER['SERVER_SOFTWARE']) && strpos(strtolower($_SERVER['SERVER_SOFTWARE']), 'nginx') !== false;
+	 * Availability check
+	 *
+	 * @since   2.0.7
+	 * @change  2.0.7
+	 *
+	 * @return  boolean  true/false  TRUE when installed
+	 */
+	public static function is_available() {
+		return class_exists( 'Memcached' ) && isset( $_SERVER['SERVER_SOFTWARE'] ) && strpos( strtolower( $_SERVER['SERVER_SOFTWARE'] ), 'nginx' ) !== false;
 	}
 
-
 	/**
-	* Caching method as string
-	*
-	* @since   2.1.2
-	* @change  2.1.2
-	*
-	* @return  string  Caching method
-	*/
-
-	public static function stringify‎_method() {
+	 * Caching method as string
+	 *
+	 * @since   2.1.2
+	 * @change  2.1.2
+	 *
+	 * @return  string  Caching method
+	 */
+	public static function stringify_method() {
 		return 'Memcached';
 	}
 
-
 	/**
-	* Speicherung im Cache
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*
-	* @param   string   $hash      Hash des Eintrags
-	* @param   string   $data      Inhalt des Eintrags
-	* @param   integer  $lifetime  Lebensdauer des Eintrags
-	*/
-
-	public static function store_item($hash, $data, $lifetime)
-	{
-		/* Empty? */
-		if ( empty($data) ) {
-			wp_die('MEMCACHE add item: Empty input.');
+	 * Store item in cache
+	 *
+	 * @since   2.0.7
+	 * @change  2.3.0
+	 *
+	 * @param   string  $hash       Hash of the entry [ignored].
+	 * @param   string  $data       Content of the entry.
+	 * @param   integer $lifetime   Lifetime of the entry.
+	 * @param   bool    $sigDetail  Show details in signature.
+	 */
+	public static function store_item( $hash, $data, $lifetime, $sigDetail ) {
+		/* Do not store empty data. */
+		if ( empty( $data ) ) {
+			trigger_error( __METHOD__ . ": Empty input.", E_USER_WARNING );
+			return;
 		}
 
 		/* Server connect */
@@ -77,24 +64,21 @@ final class Cachify_MEMCACHED {
 		/* Add item */
 		self::$_memcached->set(
 			self::_file_path(),
-			$data . self::_cache_signatur(),
+			$data . self::_cache_signature( $sigDetail ),
 			$lifetime
 		);
 	}
 
-
 	/**
-	* Lesen aus dem Cache
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*
-	* @param   string  $hash  Hash des Eintrags
-	* @return  mixed   $diff  Wert des Eintrags
-	*/
-
-	public static function get_item($hash)
-	{
+	 * Read item from cache
+	 *
+	 * @since   2.0.7
+	 * @change  2.0.7
+	 *
+	 * @param   string $hash  Hash of the entry.
+	 * @return  mixed         Content of the entry
+	 */
+	public static function get_item( $hash ) {
 		/* Server connect */
 		if ( ! self::_connect_server() ) {
 			return;
@@ -106,19 +90,16 @@ final class Cachify_MEMCACHED {
 		);
 	}
 
-
 	/**
-	* Entfernung aus dem Cache
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*
-	* @param   string  $hash  Hash des Eintrags
-	* @param   string  $url   URL des Eintrags [optional]
-	*/
-
-	public static function delete_item($hash, $url = '')
-	{
+	 * Delete item from cache
+	 *
+	 * @since   2.0.7
+	 * @change  2.0.7
+	 *
+	 * @param   string $hash  Hash of the entry.
+	 * @param   string $url   URL of the entry [optional].
+	 */
+	public static function delete_item( $hash, $url = '' ) {
 		/* Server connect */
 		if ( ! self::_connect_server() ) {
 			return;
@@ -126,20 +107,17 @@ final class Cachify_MEMCACHED {
 
 		/* Delete */
 		self::$_memcached->delete(
-			self::_file_path($url)
+			self::_file_path( $url )
 		);
 	}
 
-
 	/**
-	* Leerung des Cache
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*/
-
-	public static function clear_cache()
-	{
+	 * Clear the cache
+	 *
+	 * @since   2.0.7
+	 * @change  2.0.7
+	 */
+	public static function clear_cache() {
 		/* Server connect */
 		if ( ! self::_connect_server() ) {
 			return;
@@ -149,124 +127,109 @@ final class Cachify_MEMCACHED {
 		@self::$_memcached->flush();
 	}
 
-
 	/**
-	* Ausgabe des Cache
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*/
-
-	public static function print_cache()
-	{
+	 * Print the cache
+	 *
+	 * @since   2.0.7
+	 * @change  2.0.7
+	 */
+	public static function print_cache() {
 		return;
 	}
 
-
 	/**
-	* Ermittlung der Cache-Größe
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*
-	* @return  mixed  $diff  Cache-Größe
-	*/
-
-	public static function get_stats()
-	{
+	 * Get the cache size
+	 *
+	 * @since   2.0.7
+	 * @change  2.0.7
+	 *
+	 * @return  mixed  Cache size
+	 */
+	public static function get_stats() {
 		/* Server connect */
 		if ( ! self::_connect_server() ) {
-			wp_die('MEMCACHE: Not enabled.');
+			return null;
 		}
 
-		/* Infos */
+		/* Info */
 		$data = self::$_memcached->getStats();
 
 		/* No stats? */
-		if ( empty($data) ) {
-			return NULL;
+		if ( empty( $data ) ) {
+			return null;
 		}
 
 		/* Get first key */
-		$data = $data[key($data)];
+		$data = $data[ key( $data ) ];
 
-		/* Leer */
-		if ( empty($data['bytes']) ) {
-			return NULL;
+		/* Empty */
+		if ( empty( $data['bytes'] ) ) {
+			return null;
 		}
 
 		return $data['bytes'];
 	}
 
-
 	/**
-	* Generierung der Signatur
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*
-	* @return  string  $diff  Signatur als String
-	*/
-
-	private static function _cache_signatur()
-	{
+	 * Generate signature
+	 *
+	 * @since   2.0.7
+	 * @change  2.3.0
+	 *
+	 * @param   bool $detail  Show details in signature.
+	 * @return  string        Signature string
+	 */
+	private static function _cache_signature( $detail ) {
 		return sprintf(
 			"\n\n<!-- %s\n%s @ %s -->",
 			'Cachify | http://cachify.de',
-			'Memcached',
+			( $detail ? 'Memcached' : __( 'Generated', 'cachify' ) ),
 			date_i18n(
 				'd.m.Y H:i:s',
-				current_time('timestamp')
+				current_time( 'timestamp' )
 			)
 		);
 	}
 
-
 	/**
-	* Pfad der Cache-Datei
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*
-	* @param   string  $path  Request-URI oder Permalink [optional]
-	* @return  string  $diff  Pfad zur Cache-Datei
-	*/
+	 * Path of cache file
+	 *
+	 * @since   2.0.7
+	 * @change  2.0.7
+	 *
+	 * @param   string $path  Request URI or permalink [optional].
+	 * @return  string        Path to cache file
+	 */
+	private static function _file_path( $path = null ) {
+		$path_parts = wp_parse_url( $path ? $path : $_SERVER['REQUEST_URI'] );
 
-	private static function _file_path($path = NULL)
-	{
 		return trailingslashit(
 			sprintf(
 				'%s%s',
 				$_SERVER['HTTP_HOST'],
-				parse_url(
-					( $path ? $path : $_SERVER['REQUEST_URI'] ),
-					PHP_URL_PATH
-				)
+				$path_parts['path']
 			)
 		);
 	}
 
-
 	/**
-	* Connect to Memcached server
-	*
-	* @since   2.0.7
-	* @change  2.1.8
-	*
-	* @hook    array  cachify_memcached_servers  Array with memcached servers
-	*
-	* @return  boolean  true/false  TRUE bei Erfolg
-	*/
-
-	private static function _connect_server()
-	{
+	 * Connect to Memcached server
+	 *
+	 * @since   2.0.7
+	 * @change  2.1.8
+	 *
+	 * @hook    array  cachify_memcached_servers  Array with memcached servers
+	 *
+	 * @return  boolean  true/false  TRUE on success
+	 */
+	private static function _connect_server() {
 		/* Not enabled? */
 		if ( ! self::is_available() ) {
 			return false;
 		}
 
 		/* Already connected */
-		if ( is_object(self::$_memcached) ) {
+		if ( is_object( self::$_memcached ) ) {
 			return true;
 		}
 
@@ -274,7 +237,7 @@ final class Cachify_MEMCACHED {
 		self::$_memcached = new Memcached();
 
 		/* Set options */
-		if ( defined('HHVM_VERSION') ) {
+		if ( defined( 'HHVM_VERSION' ) ) {
 			self::$_memcached->setOption( Memcached::OPT_COMPRESSION, false );
 			self::$_memcached->setOption( Memcached::OPT_BUFFER_WRITES, true );
 			self::$_memcached->setOption( Memcached::OPT_BINARY_PROTOCOL, true );
@@ -283,20 +246,20 @@ final class Cachify_MEMCACHED {
 				array(
 					Memcached::OPT_COMPRESSION => false,
 					Memcached::OPT_BUFFER_WRITES => true,
-					Memcached::OPT_BINARY_PROTOCOL => true
+					Memcached::OPT_BINARY_PROTOCOL => true,
 				)
 			);
 		}
 
 		/* Connect */
 		self::$_memcached->addServers(
-			(array)apply_filters(
+			(array) apply_filters(
 				'cachify_memcached_servers',
 				array(
 					array(
 						'127.0.0.1',
-						11211
-					)
+						11211,
+					),
 				)
 			)
 		);

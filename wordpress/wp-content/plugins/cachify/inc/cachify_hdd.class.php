@@ -1,392 +1,419 @@
 <?php
 
-
-/* Quit */
-defined('ABSPATH') OR exit;
-
-
 /**
 * Cachify_HDD
 */
-
 final class Cachify_HDD {
 
-
 	/**
-	* Availability check
-	*
-	* @since   2.0.7
-	* @change  2.0.7
-	*
-	* @return  boolean  true/false  TRUE when installed
-	*/
-
-	public static function is_available()
-	{
-		return get_option('permalink_structure');
+	 * Availability check
+	 *
+	 * @since   2.0.7
+	 * @change  2.0.7
+	 *
+	 * @return  boolean  true/false  TRUE when installed
+	 */
+	public static function is_available() {
+		$option = get_option( 'permalink_structure' );
+		return ! empty( $option );
 	}
 
-
 	/**
-	* Caching method as string
-	*
-	* @since   2.1.2
-	* @change  2.1.2
-	*
-	* @return  string  Caching method
-	*/
-
-	public static function stringify‎_method() {
+	 * Caching method as string
+	 *
+	 * @since   2.1.2
+	 * @change  2.1.2
+	 *
+	 * @return  string  Caching method
+	 */
+	public static function stringify_method() {
 		return 'HDD';
 	}
 
-
 	/**
-	* Speicherung im Cache
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @param   string   $hash      Hash des Eintrags [optional]
-	* @param   string   $data      Inhalt des Eintrags
-	* @param   integer  $lifetime  Lebensdauer des Eintrags [optional]
-	*/
-
-	public static function store_item($hash, $data, $lifetime)
-	{
-		/* Leer? */
-		if ( empty($data) ) {
-			wp_die('HDD add item: Empty input.');
+	 * Store item in cache
+	 *
+	 * @since   2.0
+	 * @change  2.3.0
+	 *
+	 * @param   string  $hash        Hash  of the entry [ignored].
+	 * @param   string  $data        Content of the entry.
+	 * @param   integer $lifetime    Lifetime of the entry [ignored].
+	 * @param   bool    $sig_detail  Show details in signature.
+	 */
+	public static function store_item( $hash, $data, $lifetime, $sig_detail ) {
+		/* Do not store empty data. */
+		if ( empty( $data ) ) {
+			trigger_error( __METHOD__ . ": Empty input.", E_USER_WARNING );
+			return;
 		}
 
-		/* Speichern */
+		/* Store data */
 		self::_create_files(
-			$data . self::_cache_signatur()
+			$data . self::_cache_signature( $sig_detail )
 		);
 	}
 
-
 	/**
-	* Lesen aus dem Cache
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @return  boolean  $diff  TRUE wenn Cache vorhanden
-	*/
-
-	public static function get_item()
-	{
+	 * Read item from cache
+	 *
+	 * @since   2.0
+	 * @change  2.0
+	 *
+	 * @return  boolean  True if cache is present.
+	 */
+	public static function get_item() {
 		return is_readable(
 			self::_file_html()
 		);
 	}
 
+	/**
+	 * Delete item from cache
+	 *
+	 * @since   2.0
+	 * @change  2.0
+	 *
+	 * @param   string $hash  Hash of the entry [ignored].
+	 * @param   string $url   URL of the entry.
+	 */
+	public static function delete_item( $hash, $url ) {
+		self::_clear_dir(
+			self::_file_path( $url )
+		);
+	}
 
 	/**
-	* Entfernen aus dem Cache
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @param   string   $hash  Hash des Eintrags [optional]
-	* @param   string   $url   URL des Eintrags
-	*/
+	 * Clear the cache
+	 *
+	 * @since   2.0
+	 * @change  2.0
+	 */
+	public static function clear_cache() {
+		self::_clear_dir(
+			CACHIFY_CACHE_DIR,
+			true
+		);
+	}
 
-	public static function delete_item($hash = '', $url)
-	{
-		/* Leer? */
-		if ( empty($url) ) {
-			wp_die('HDD delete item: Empty input.');
+	/**
+	 * Print the cache
+	 *
+	 * @since   2.0
+	 * @change  2.3
+	 */
+	public static function print_cache() {
+		$filename = self::_file_html();
+		$size = is_readable( $filename ) ? readfile( $filename ) : false;
+		if ( ! empty ( $size ) ) {
+			/* Ok, cache file has been sent to output. */
+			exit;
 		}
-
-		/* Löschen */
-		self::_clear_dir(
-			self::_file_path($url)
-		);
 	}
 
-
 	/**
-	* Leerung des Cache
-	*
-	* @since   2.0
-	* @change  2.0
-	*/
-
-	public static function clear_cache()
-	{
-		self::_clear_dir(
-			CACHIFY_CACHE_DIR
-		);
-	}
-
-
-	/**
-	* Ausgabe des Cache
-	*
-	* @since   2.0
-	* @change  2.0
-	*/
-
-	public static function print_cache()
-	{
-		return;
-	}
-
-
-	/**
-	* Ermittlung der Cache-Größe
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @return  integer  $diff  Ordnergröße
-	*/
-
-	public static function get_stats()
-	{
+	 * Get the cache size
+	 *
+	 * @since   2.0
+	 * @change  2.0
+	 *
+	 * @return  integer  Directory size
+	 */
+	public static function get_stats() {
 		return self::_dir_size( CACHIFY_CACHE_DIR );
 	}
 
-
 	/**
-	* Generierung der Signatur
-	*
-	* @since   2.0
-	* @change  2.0.5
-	*
-	* @return  string  $diff  Signatur als String
-	*/
-
-	private static function _cache_signatur()
-	{
+	 * Generate signature
+	 *
+	 * @since   2.0
+	 * @change  2.3.0
+	 *
+	 * @param   bool $detail  Show details in signature.
+	 * @return  string        Signature string
+	 */
+	private static function _cache_signature( $detail ) {
 		return sprintf(
 			"\n\n<!-- %s\n%s @ %s -->",
 			'Cachify | http://cachify.de',
-			'HDD Cache',
+			( $detail ? 'HDD Cache' : __( 'Generated', 'cachify' ) ),
 			date_i18n(
 				'd.m.Y H:i:s',
-				current_time('timestamp')
+				current_time( 'timestamp' )
 			)
 		);
 	}
 
-
 	/**
-	* Initialisierung des Cache-Speichervorgangs
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @param   string  $data  Cache-Inhalt
-	*/
+	 * Initialize caching process
+	 *
+	 * @since   2.0
+	 * @change  2.0
+	 *
+	 * @param   string $data  Cache content.
+	 */
+	private static function _create_files( $data ) {
+		$file_path = self::_file_path();
 
-	private static function _create_files($data)
-	{
-		/* Ordner anlegen */
-		if ( ! wp_mkdir_p( self::_file_path() ) ) {
-			wp_die('Unable to create directory.');
+		/* Create directory */
+		if ( ! wp_mkdir_p( $file_path ) ) {
+			trigger_error( __METHOD__ . ": Unable to create directory {$file_path}.", E_USER_WARNING );
+			return;
 		}
 
-		/* Dateien schreiben */
-		self::_create_file( self::_file_html(), $data );
-		self::_create_file( self::_file_gzip(), gzencode($data, 9) );
+		/* Write to file */
+		self::_create_file( self::_file_html( $file_path ), $data );
+		self::_create_file( self::_file_gzip( $file_path ), gzencode( $data, 9 ) );
 	}
 
-
 	/**
-	* Anlegen der Cache-Datei
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @param   string  $file  Pfad der Cache-Datei
-	* @param   string  $data  Cache-Inhalt
-	*/
-
-	private static function _create_file($file, $data)
-	{
-		/* Beschreibbar? */
-		if ( ! $handle = @fopen($file, 'wb') ) {
-			wp_die('Could not write file.');
+	 * Create cache file
+	 *
+	 * @since   2.0
+	 * @change  2.0
+	 *
+	 * @param   string $file  Path to cache file.
+	 * @param   string $data  Cache content.
+	 */
+	private static function _create_file( $file, $data ) {
+		/* Writable? */
+		if ( ! $handle = @fopen( $file, 'wb' ) ) {
+			trigger_error( __METHOD__ . ": Could not write file {$file}.", E_USER_WARNING );
+			return;
 		}
 
-		/* Schreiben */
-		@fwrite($handle, $data);
-		fclose($handle);
+		/* Write */
+		@fwrite( $handle, $data );
+		fclose( $handle );
 		clearstatcache();
 
 		/* Permissions */
-		$stat = @stat( dirname($file) );
+		$stat = @stat( dirname( $file ) );
 		$perms = $stat['mode'] & 0007777;
 		$perms = $perms & 0000666;
-		@chmod($file, $perms);
+		@chmod( $file, $perms );
 		clearstatcache();
 	}
 
-
 	/**
-	* Rekrusive Leerung eines Ordners
-	*
-	* @since   2.0
-	* @change  2.0.5
-	*
-	* @param   string  $dir  Ordnerpfad
-	*/
+	 * Clear directory
+	 *
+	 * @since   2.0
+	 * @change  2.0.5
+	 *
+	 * @param   string  $dir        Directory path.
+	 * @param   boolean $recursive  Clear subdirectories?
+	 */
+	private static function _clear_dir( $dir, $recursive = false ) {
+		/* Remote training slash */
+		$dir = untrailingslashit( $dir );
 
-	private static function _clear_dir($dir) {
-		/* Weg mit dem Slash */
-		$dir = untrailingslashit($dir);
-
-		/* Ordner? */
-		if ( ! is_dir($dir) ) {
+		/* Is directory? */
+		if ( ! is_dir( $dir ) ) {
 			return;
 		}
 
-		/* Einlesen */
+		/* Read */
 		$objects = array_diff(
-			scandir($dir),
-			array('..', '.')
+			scandir( $dir ),
+			array( '..', '.' )
 		);
 
-		/* Leer? */
-		if ( empty($objects) ) {
+		/* Empty? */
+		if ( empty( $objects ) ) {
 			return;
 		}
 
-		/* Loopen */
+		/* Loop over items */
 		foreach ( $objects as $object ) {
-			/* Um Pfad erweitern */
-			$object = $dir. DIRECTORY_SEPARATOR .$object;
+			/* Expand path */
+			$object = $dir . DIRECTORY_SEPARATOR . $object;
 
-			/* Ordner/Datei */
-			if ( is_dir($object) ) {
-				self::_clear_dir($object);
+			/* Directory or file */
+			if ( is_dir( $object ) && $recursive ) {
+				self::_clear_dir( $object, $recursive );
 			} else {
-				unlink($object);
+				if ( self::_user_can_delete( $object ) ) {
+					unlink( $object );
+				}
 			}
 		}
 
-		/* Killen */
-		@rmdir($dir);
+		/* Remove directory */
+		if ( $recursive ) {
+			if ( self::_user_can_delete( $dir ) && 0 === count( glob( trailingslashit( $dir ) . '*' ) ) ) {
+				@rmdir( $dir );
+			}
+		}
 
-		/* Aufräumen */
+		/* Clean up */
 		clearstatcache();
 	}
 
-
 	/**
-	* Ermittlung der Ordnergröße
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @param   string  $dir   Ordnerpfad
-	* @return  mixed   $size  Ordnergröße
-	*/
-
-	public static function _dir_size($dir = '.')
-	{
-		/* Ordner? */
-		if ( ! is_dir($dir) ) {
+	 * Get directory size
+	 *
+	 * @since   2.0
+	 * @change  2.0
+	 *
+	 * @param   string $dir   Directory path.
+	 * @return  mixed         Directory size
+	 */
+	public static function _dir_size( $dir = '.' ) {
+		/* Is directory? */
+		if ( ! is_dir( $dir ) ) {
 			return;
 		}
 
-		/* Einlesen */
+		/* Read */
 		$objects = array_diff(
-			scandir($dir),
-			array('..', '.')
+			scandir( $dir ),
+			array( '..', '.' )
 		);
 
-		/* Leer? */
-		if ( empty($objects) ) {
+		/* Empty? */
+		if ( empty( $objects ) ) {
 			return;
 		}
 
 		/* Init */
 		$size = 0;
 
-		/* Loopen */
+		/* Loop over items */
 		foreach ( $objects as $object ) {
-			/* Um Pfad erweitern */
-			$object = $dir. DIRECTORY_SEPARATOR .$object;
+			/* Expand path */
+			$object = $dir . DIRECTORY_SEPARATOR . $object;
 
-			/* Ordner/Datei */
-			if ( is_dir($object) ) {
-				$size += self::_dir_size($object);
+			/* Directory or file */
+			if ( is_dir( $object ) ) {
+				$size += self::_dir_size( $object );
 			} else {
-				$size += filesize($object);
+				$size += filesize( $object );
 			}
 		}
 
 		return $size;
 	}
 
-
 	/**
-	* Pfad der Cache-Datei
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @param   string  $path  Request-URI oder Permalink [optional]
-	* @return  string  $diff  Pfad zur Cache-Datei
-	*/
-
-	private static function _file_path($path = NULL)
-	{
+	 * Path to cache file
+	 *
+	 * @since   2.0
+	 * @change  2.0
+	 *
+	 * @param   string $path  Request URI or permalink [optional].
+	 * @return  string        Path to cache file
+	 */
+	private static function _file_path( $path = null ) {
 		$prefix = is_ssl() ? 'https-' : '';
+
+		$path_parts = wp_parse_url( $path ? $path : $_SERVER['REQUEST_URI'] );
 
 		$path = sprintf(
 			'%s%s%s%s%s',
 			CACHIFY_CACHE_DIR,
 			DIRECTORY_SEPARATOR,
 			$prefix,
-			parse_url(
-				'http://' .strtolower($_SERVER['HTTP_HOST']),
-				PHP_URL_HOST
-			),
-			parse_url(
-				( $path ? $path : $_SERVER['REQUEST_URI'] ),
-				PHP_URL_PATH
-			)
+			strtolower( $_SERVER['HTTP_HOST'] ),
+			$path_parts['path']
 		);
 
-		if ( validate_file($path) > 0 ) {
-			wp_die('Invalide file path.');
+		if ( validate_file( $path ) > 0 ) {
+			wp_die( 'Invalid file path.' );
 		}
 
-		return trailingslashit($path);
+		return trailingslashit( $path );
 	}
 
-
 	/**
-	* Pfad der HTML-Datei
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @return  string  $diff  Pfad zur HTML-Datei
-	*/
-
-	private static function _file_html()
-	{
-		return self::_file_path(). 'index.html';
+	 * Path to HTML file
+	 *
+	 * @since   2.0
+	 * @change  2.3.0
+	 *
+	 * @param   string $file_path   File path [optional].
+	 * @return  string              Path to HTML file
+	 */
+	private static function _file_html( $file_path = '' ) {
+		return ( empty( $file_path ) ? self::_file_path() : $file_path ) . 'index.html';
 	}
 
+	/**
+	 * Path to GZIP file
+	 *
+	 * @since   2.0
+	 * @change  2.3.0
+	 *
+	 * @param   string $file_path   File path [optional].
+	 * @return  string              Path to GZIP file
+	 */
+	private static function _file_gzip( $file_path = '' ) {
+		return ( empty( $file_path ) ? self::_file_path() : $file_path )  . 'index.html.gz';
+	}
 
 	/**
-	* Pfad der GZIP-Datei
-	*
-	* @since   2.0
-	* @change  2.0
-	*
-	* @return  string  $diff  Pfad zur GZIP-Datei
-	*/
+	 * Does the user has the right to delete this file?
+	 *
+	 * @param string $file
+	 *
+	 * @return bool
+	 */
+	private static function _user_can_delete( $file ) {
 
-	private static function _file_gzip()
-	{
-		return self::_file_path(). 'index.html.gz';
+		if ( ! is_file( $file ) && ! is_dir( $file ) ) {
+			return false;
+		}
+
+		if ( 0 !== strpos( $file, CACHIFY_CACHE_DIR ) ) {
+			return false;
+		}
+
+		// If its just a single blog, the user has the right to delete this file.
+		// But also, if you are in the network admin, you should be able to delete all files.
+		if ( ! is_multisite() || is_network_admin() ) {
+			return true;
+		}
+
+		if ( is_dir( $file ) ) {
+			$file = trailingslashit( $file );
+		}
+
+		$ssl_prefix = is_ssl() ? 'https-' : '';
+		$current_blog = get_blog_details( get_current_blog_id() );
+		$blog_path = CACHIFY_CACHE_DIR . DIRECTORY_SEPARATOR . $ssl_prefix . $current_blog->domain . $current_blog->path;
+
+		if ( 0 !== strpos( $file, $blog_path ) ) {
+			return false;
+		}
+
+		// We are on a subdirectory installation and the current blog is in a subdirectory
+		if ( '/' !== $current_blog->path ) {
+			return true;
+		}
+
+		// If we are on the root blog in a subdirectory multisite we check if the current dir is the root dir
+		$root_site_dir = CACHIFY_CACHE_DIR . DIRECTORY_SEPARATOR . $ssl_prefix . DOMAIN_CURRENT_SITE . DIRECTORY_SEPARATOR;
+		if ( $root_site_dir === $file )  {
+			return false;
+		}
+
+		// If we are on the root blog in a subdirectory multisite, we check, if the current file
+		// is part of another blog.
+		global $wpdb;
+		$sql = $wpdb->prepare(
+			'select path from ' . $wpdb->base_prefix . 'blogs where domain = %s && blog_id != %d',
+			$current_blog->domain,
+			$current_blog->blog_id
+		);
+		$results = $wpdb->get_col( $sql );
+		foreach ( $results as $site ) {
+			$forbidden_path = CACHIFY_CACHE_DIR . DIRECTORY_SEPARATOR . $ssl_prefix . $current_blog->domain . $site;
+			if ( 0 === strpos( $file, $forbidden_path ) ) {
+				return false;
+			}
+		}
+
+		return true;
+
 	}
 }
