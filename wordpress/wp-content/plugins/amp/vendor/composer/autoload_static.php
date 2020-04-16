@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef
+class ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df
 {
     public static $files = array (
         '6f5653f9af3eab04254ad2c7f20515c8' => __DIR__ . '/../..' . '/back-compat/back-compat.php',
@@ -56,6 +56,7 @@ class ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef
     );
 
     public static $classMap = array (
+        'AMP_Accessibility_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-accessibility-sanitizer.php',
         'AMP_Admin_Pointer' => __DIR__ . '/../..' . '/includes/admin/class-amp-admin-pointer.php',
         'AMP_Admin_Pointers' => __DIR__ . '/../..' . '/includes/admin/class-amp-admin-pointers.php',
         'AMP_Allowed_Tags_Generated' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-allowed-tags-generated.php',
@@ -140,6 +141,7 @@ class ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef
         'AMP_WordPress_TV_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-wordpress-tv-embed-handler.php',
         'AMP_YouTube_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-youtube-embed-handler.php',
         'AmpProject\\Amp' => __DIR__ . '/..' . '/ampproject/common/src/Amp.php',
+        'AmpProject\\AmpWP\\Admin\\ReenableCssTransientCachingAjaxAction' => __DIR__ . '/../..' . '/src/Admin/ReenableCssTransientCachingAjaxAction.php',
         'AmpProject\\AmpWP\\Admin\\SiteHealth' => __DIR__ . '/../..' . '/src/Admin/SiteHealth.php',
         'AmpProject\\AmpWP\\BackgroundTask\\CronBasedBackgroundTask' => __DIR__ . '/../..' . '/src/BackgroundTask/CronBasedBackgroundTask.php',
         'AmpProject\\AmpWP\\BackgroundTask\\MonitorCssTransientCaching' => __DIR__ . '/../..' . '/src/BackgroundTask/MonitorCssTransientCaching.php',
@@ -204,6 +206,7 @@ class ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef
         'AmpProject\\RemoteRequest\\RemoteGetRequestResponse' => __DIR__ . '/..' . '/ampproject/common/src/RemoteRequest/RemoteGetRequestResponse.php',
         'AmpProject\\RemoteRequest\\StubbedRemoteGetRequest' => __DIR__ . '/..' . '/ampproject/common/src/RemoteRequest/StubbedRemoteGetRequest.php',
         'AmpProject\\Response' => __DIR__ . '/..' . '/ampproject/common/src/Response.php',
+        'AmpProject\\Role' => __DIR__ . '/..' . '/ampproject/common/src/Role.php',
         'AmpProject\\RuntimeVersion' => __DIR__ . '/..' . '/ampproject/common/src/RuntimeVersion.php',
         'AmpProject\\Tag' => __DIR__ . '/..' . '/ampproject/common/src/Tag.php',
         'FasterImage\\Exception\\InvalidImageException' => __DIR__ . '/..' . '/fasterimage/fasterimage/src/FasterImage/Exception/InvalidImageException.php',
@@ -255,10 +258,10 @@ class ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit0c4a9bc9296b6e3c5b3991f4494de9ef::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df::$classMap;
 
         }, null, ClassLoader::class);
     }

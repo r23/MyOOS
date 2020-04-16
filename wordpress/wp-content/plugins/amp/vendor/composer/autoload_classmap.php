@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AMP_Accessibility_Sanitizer' => $baseDir . '/includes/sanitizers/class-amp-accessibility-sanitizer.php',
     'AMP_Admin_Pointer' => $baseDir . '/includes/admin/class-amp-admin-pointer.php',
     'AMP_Admin_Pointers' => $baseDir . '/includes/admin/class-amp-admin-pointers.php',
     'AMP_Allowed_Tags_Generated' => $baseDir . '/includes/sanitizers/class-amp-allowed-tags-generated.php',
@@ -90,6 +91,7 @@ return array(
     'AMP_WordPress_TV_Embed_Handler' => $baseDir . '/includes/embeds/class-amp-wordpress-tv-embed-handler.php',
     'AMP_YouTube_Embed_Handler' => $baseDir . '/includes/embeds/class-amp-youtube-embed-handler.php',
     'AmpProject\\Amp' => $vendorDir . '/ampproject/common/src/Amp.php',
+    'AmpProject\\AmpWP\\Admin\\ReenableCssTransientCachingAjaxAction' => $baseDir . '/src/Admin/ReenableCssTransientCachingAjaxAction.php',
     'AmpProject\\AmpWP\\Admin\\SiteHealth' => $baseDir . '/src/Admin/SiteHealth.php',
     'AmpProject\\AmpWP\\BackgroundTask\\CronBasedBackgroundTask' => $baseDir . '/src/BackgroundTask/CronBasedBackgroundTask.php',
     'AmpProject\\AmpWP\\BackgroundTask\\MonitorCssTransientCaching' => $baseDir . '/src/BackgroundTask/MonitorCssTransientCaching.php',
@@ -154,6 +156,7 @@ return array(
     'AmpProject\\RemoteRequest\\RemoteGetRequestResponse' => $vendorDir . '/ampproject/common/src/RemoteRequest/RemoteGetRequestResponse.php',
     'AmpProject\\RemoteRequest\\StubbedRemoteGetRequest' => $vendorDir . '/ampproject/common/src/RemoteRequest/StubbedRemoteGetRequest.php',
     'AmpProject\\Response' => $vendorDir . '/ampproject/common/src/Response.php',
+    'AmpProject\\Role' => $vendorDir . '/ampproject/common/src/Role.php',
     'AmpProject\\RuntimeVersion' => $vendorDir . '/ampproject/common/src/RuntimeVersion.php',
     'AmpProject\\Tag' => $vendorDir . '/ampproject/common/src/Tag.php',
     'FasterImage\\Exception\\InvalidImageException' => $vendorDir . '/fasterimage/fasterimage/src/FasterImage/Exception/InvalidImageException.php',
