@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.42
+Stable tag: 1.0.42.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -459,6 +459,20 @@ We look forward to helping you.
 12. Rank Math Comes with 10+ FREE Module.
 
 == Changelog ==
+
+= 1.0.42.1 [Apr 16th, 2020] =
+* Added: One can add the permalink to a new post/page in Rank Math without saving it as a draft first
+* Improved: The output code of Recipe Schema now includes more data
+* Fixed: Classic Editor's content analysis wasn't working when an apostrophe was used in the focus keyword field
+* Fixed: An issue with Gutenberg plugin's latest version, v7.9.0
+* Fixed: Some tests were missing in the newly created pages
+* Fixed: An inability to add a hyphen at the end of the permalink
+* Fixed: Social previews were not showing the auto description. Though, the social media sites were picking them just fine
+* Fixed: Incorrect word-count when the text from the main content was copied into WooCommerce product's short description field
+* Fixed: Missing save/cancel buttons in the SEO details post-column when using the bulk editing feature
+* Fixed: HTML code was not stripped from the SEO title in the Classic Editor
+* Fixed: `Trying to get property 'slug'` error on the Post list page when there was no category set, and debug was turned on
+* Fixed: Added missing arguments in the `save_post`
 
 = 1.0.42 [Apr 14th, 2020] =
 * Added: HUGE! Classic Editor now uses Gutenberg aka Block Editor's content analysis library to avoid test mismatch

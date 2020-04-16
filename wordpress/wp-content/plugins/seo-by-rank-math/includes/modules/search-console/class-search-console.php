@@ -441,7 +441,7 @@ class Search_Console extends Base {
 		$cookie_key       = 'rank_math_sc_' . sanitize_title( $filter );
 		$set_filter_value = sanitize_title( Param::post( $filter ) );
 		if ( $set_filter_value ) {
-			setcookie( $cookie_key, $set_filter_value, time() + ( HOUR_IN_SECONDS * 30 ), COOKIEPATH, COOKIE_DOMAIN );
+			setcookie( $cookie_key, $set_filter_value, time() + ( HOUR_IN_SECONDS * 30 ), COOKIEPATH, COOKIE_DOMAIN, false, true );
 			return $set_filter_value;
 		}
 

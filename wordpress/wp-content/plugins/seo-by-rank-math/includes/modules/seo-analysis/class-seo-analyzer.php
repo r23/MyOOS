@@ -288,6 +288,7 @@ class SEO_Analyzer {
 	 * Enable auto update ajax handler.
 	 */
 	public function enable_auto_update() {
+		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'general' );
 
 		$settings                       = get_option( 'rank-math-options-general', array() );

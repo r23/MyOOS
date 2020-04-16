@@ -29,10 +29,8 @@ class Router {
 	public function __construct() {
 		$this->action( 'init', 'init', 1 );
 		$this->action( 'parse_query', 'request_sitemap', 1 );
-		$this->filter( 'user_has_cap', 'filter_user_has_cap' );
 		$this->action( 'template_redirect', 'template_redirect', 0 );
 		$this->action( 'after_setup_theme', 'reduce_query_load', 99 );
-		$this->filter( 'user_has_cap', 'filter_user_has_cap' );
 	}
 
 	/**
@@ -62,6 +60,7 @@ class Router {
 
 		$xsl = get_query_var( 'xsl' );
 		if ( ! empty( $xsl ) ) {
+			$this->filter( 'user_has_cap', 'filter_user_has_cap' );
 			$stylesheet = new Stylesheet;
 			$stylesheet->output( $xsl );
 			return;

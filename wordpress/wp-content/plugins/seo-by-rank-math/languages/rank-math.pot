@@ -1777,12 +1777,6 @@ msgstr ""
 msgid "Image is smaller than the minimum size, please select a different image."
 msgstr ""
 
-msgid "RankMath -- Test Drive"
-msgstr ""
-
-msgid "RankMath -- Description"
-msgstr ""
-
 msgid "Add icon overlay to thumbnail"
 msgstr ""
 

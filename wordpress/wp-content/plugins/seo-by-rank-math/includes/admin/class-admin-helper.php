@@ -331,6 +331,8 @@ class Admin_Helper {
 	 * @return boolean
 	 */
 	public static function is_home_page() {
-		return self::is_post_edit() && (int) Param::get( 'post' ) === (int) get_option( 'page_on_front' );
+		$front_page = (int) get_option( 'page_on_front' );
+
+		return $front_page && self::is_post_edit() && (int) Param::get( 'post' ) === $front_page;
 	}
 }

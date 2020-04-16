@@ -253,6 +253,11 @@ class Post_Columns implements Runner {
 
 		<?php $this->do_action( 'post/column/seo_details', $post_id ); ?>
 
+		<div class="rank-math-column-edit">
+			<a href="#" class="rank-math-column-save"><?php esc_html_e( 'Save', 'rank-math' ); ?></a>
+			<a href="#" class="button-link-delete rank-math-column-cancel"><?php esc_html_e( 'Cancel', 'rank-math' ); ?></a>
+		</div>
+
 		<?php
 	}
 

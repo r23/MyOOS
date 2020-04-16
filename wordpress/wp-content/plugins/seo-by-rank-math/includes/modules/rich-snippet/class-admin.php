@@ -149,10 +149,10 @@ class Admin extends Base {
 			}
 
 			$values[ $this->camelize( $id ) ] = 'group' === $type ? $cmb->get_field( $id )->value :
-				$cmb->get_field( $id )->escaped_value();
+				$cmb->get_field( $id )->value();
 		}
 
-		$values['snippetType'] = $cmb->get_field( 'rank_math_rich_snippet' )->escaped_value();
+		$values['snippetType'] = $cmb->get_field( 'rank_math_rich_snippet' )->value();
 
 		// Default values.
 		$post_type                    = \RankMath\CMB2::current_object_type();

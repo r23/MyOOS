@@ -62,6 +62,7 @@ class Ask_Review {
 	 * Set "already reviewed" flag.
 	 */
 	public function already_reviewed() {
+		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'onpage_general' );
 		update_option( 'rank_math_already_reviewed', current_time( 'timestamp' ) );
 		$this->success( 'success' );
@@ -151,7 +152,10 @@ class Ask_Review {
 					$( '#already-reviewed' ).change(function() {
 						$.ajax({
 							url: ajaxurl,
-							data: { action: 'rank_math_already_reviewed' },
+							data: {
+								action: 'rank_math_already_reviewed',
+								security: rankMath.security,
+							},
 						});
 						rating_contents.animate({
 							opacity: 0.01

@@ -64,6 +64,7 @@ class Sitemap_XML extends XML {
 	 */
 	public function __construct( $type ) {
 		remove_all_actions( 'widgets_init' );
+		$this->filter( 'user_has_cap', 'filter_user_has_cap' );
 
 		$this->type  = $type;
 		$this->cache = new Cache;

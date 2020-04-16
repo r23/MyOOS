@@ -43,8 +43,8 @@ class Links {
 	 * @param int     $post_id The post ID to check.
 	 * @param WP_Post $post    The post object.
 	 */
-	public function save_post( $post_id, WP_Post $post ) {
-		if ( ! $this->is_processable( $post ) ) {
+	public function save_post( $post_id, $post ) {
+		if ( ! $post instanceof WP_Post || ! $this->is_processable( $post ) ) {
 			return;
 		}
 

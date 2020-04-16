@@ -77,11 +77,14 @@ class Base {
 	 * @return string Either a single term field or a comma delimited list of terms.
 	 */
 	private function get_the_terms( $id, $taxonomy, $return_single = false, $args = [], $field = 'name' ) {
-		$args = wp_parse_args( $args, array(
-			'limit'     => 99,
-			'separator' => ', ',
-			'exclude'   => [],
-		) );
+		$args = wp_parse_args(
+			$args,
+			[
+				'limit'     => 99,
+				'separator' => ', ',
+				'exclude'   => [],
+			]
+		);
 
 		if ( ! empty( $args['exclude'] ) ) {
 			$args['exclude'] = array_map( 'intval', explode( ',', $args['exclude'] ) );
@@ -95,6 +98,10 @@ class Base {
 		array_splice( $terms, $args['limit'] );
 		$output = [];
 		$terms  = $this->filter_exclude( $terms, $args['exclude'] );
+
+		if ( empty( $terms ) ) {
+			return '';
+		}
 
 		return $return_single ? $terms[0]->{$field} :
 			join( $args['separator'], wp_list_pluck( $terms, $field ) );
@@ -113,9 +120,12 @@ class Base {
 			return $terms;
 		}
 
-		return array_filter( $terms, function( $term ) use ( $exclude ) {
-			return in_array( $term->term_id, $exclude, true ) ? false : true;
-		});
+		return array_filter(
+			$terms,
+			function( $term ) use ( $exclude ) {
+				return in_array( $term->term_id, $exclude, true ) ? false : true;
+			}
+		);
 	}
 
 	/**
