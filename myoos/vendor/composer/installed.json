@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.134.6",
-        "version_normalized": "3.134.6.0",
+        "version": "3.134.7",
+        "version_normalized": "3.134.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "3ebf1d8b24dc38339d93d943971d7d3e1102327b"
+            "reference": "346cafeec89fc2f2e2cfe54eb5326a943a65bcc2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3ebf1d8b24dc38339d93d943971d7d3e1102327b",
-            "reference": "3ebf1d8b24dc38339d93d943971d7d3e1102327b",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/346cafeec89fc2f2e2cfe54eb5326a943a65bcc2",
+            "reference": "346cafeec89fc2f2e2cfe54eb5326a943a65bcc2",
             "shasum": ""
         },
         "require": {
@@ -101,7 +101,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-04-08T18:27:07+00:00",
+        "time": "2020-04-16T18:12:26+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1969,17 +1969,17 @@
     },
     {
         "name": "league/flysystem",
-        "version": "1.0.66",
-        "version_normalized": "1.0.66.0",
+        "version": "1.0.67",
+        "version_normalized": "1.0.67.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "021569195e15f8209b1c4bebb78bd66aa4f08c21"
+            "reference": "5b1f36c75c4bdde981294c2a0ebdb437ee6f275e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/021569195e15f8209b1c4bebb78bd66aa4f08c21",
-            "reference": "021569195e15f8209b1c4bebb78bd66aa4f08c21",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/5b1f36c75c4bdde981294c2a0ebdb437ee6f275e",
+            "reference": "5b1f36c75c4bdde981294c2a0ebdb437ee6f275e",
             "shasum": ""
         },
         "require": {
@@ -2009,7 +2009,7 @@
             "spatie/flysystem-dropbox": "Allows you to use Dropbox storage",
             "srmklive/flysystem-dropbox-v2": "Allows you to use Dropbox storage for PHP 5 applications"
         },
-        "time": "2020-03-17T18:58:12+00:00",
+        "time": "2020-04-16T13:21:26+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
