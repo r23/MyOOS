@@ -33,18 +33,18 @@ class Ai1wm_Export_Enumerate_Media {
 
 		$exclude_filters = $user_filters = array();
 
-		// Get total files count
-		if ( isset( $params['total_files_count'] ) ) {
-			$total_files_count = (int) $params['total_files_count'];
+		// Get total media files count
+		if ( isset( $params['total_media_files_count'] ) ) {
+			$total_media_files_count = (int) $params['total_media_files_count'];
 		} else {
-			$total_files_count = 0;
+			$total_media_files_count = 0;
 		}
 
-		// Get total files size
-		if ( isset( $params['total_files_size'] ) ) {
-			$total_files_size = (int) $params['total_files_size'];
+		// Get total media files size
+		if ( isset( $params['total_media_files_size'] ) ) {
+			$total_media_files_size = (int) $params['total_media_files_size'];
 		} else {
-			$total_files_size = 0;
+			$total_media_files_size = 0;
 		}
 
 		// Set progress
@@ -82,10 +82,10 @@ class Ai1wm_Export_Enumerate_Media {
 				foreach ( $iterator as $item ) {
 					if ( $item->isFile() ) {
 						if ( ai1wm_write( $media_list, $iterator->getSubPathname() . PHP_EOL ) ) {
-							$total_files_count++;
+							$total_media_files_count++;
 
 							// Add current file size
-							$total_files_size += $iterator->getSize();
+							$total_media_files_size += $iterator->getSize();
 						}
 					}
 				}
@@ -95,11 +95,11 @@ class Ai1wm_Export_Enumerate_Media {
 		// Set progress
 		Ai1wm_Status::info( __( 'Done retrieving a list of WordPress media files.', AI1WM_PLUGIN_NAME ) );
 
-		// Set total files count
-		$params['total_files_count'] = $total_files_count;
+		// Set total media files count
+		$params['total_media_files_count'] = $total_media_files_count;
 
-		// Set total files size
-		$params['total_files_size'] = $total_files_size;
+		// Set total media files size
+		$params['total_media_files_size'] = $total_media_files_size;
 
 		// Close the media list file
 		ai1wm_close( $media_list );

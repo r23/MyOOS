@@ -59,25 +59,29 @@ class Ai1wm_Export_Content {
 			$processed_files_size = 0;
 		}
 
-		// Get total files size
-		if ( isset( $params['total_files_size'] ) ) {
-			$total_files_size = (int) $params['total_files_size'];
+		// Get total content files size
+		if ( isset( $params['total_content_files_size'] ) ) {
+			$total_content_files_size = (int) $params['total_content_files_size'];
 		} else {
-			$total_files_size = 1;
+			$total_content_files_size = 1;
 		}
 
-		// Get total files count
-		if ( isset( $params['total_files_count'] ) ) {
-			$total_files_count = (int) $params['total_files_count'];
+		// Get total content files count
+		if ( isset( $params['total_content_files_count'] ) ) {
+			$total_content_files_count = (int) $params['total_content_files_count'];
 		} else {
-			$total_files_count = 1;
+			$total_content_files_count = 1;
 		}
 
 		// What percent of files have we processed?
-		$progress = (int) min( ( $processed_files_size / $total_files_size ) * 100, 100 );
+		if ( empty( $total_content_files_size ) ) {
+			$progress = 100;
+		} else {
+			$progress = (int) min( ( $processed_files_size / $total_content_files_size ) * 100, 100 );
+		}
 
 		// Set progress
-		Ai1wm_Status::info( sprintf( __( 'Archiving %d files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total_files_count, $progress ) );
+		Ai1wm_Status::info( sprintf( __( 'Archiving %d content files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total_content_files_count, $progress ) );
 
 		// Flag to hold if file data has been processed
 		$completed = true;
@@ -113,10 +117,14 @@ class Ai1wm_Export_Content {
 				$processed_files_size += $file_bytes_written;
 
 				// What percent of files have we processed?
-				$progress = (int) min( ( $processed_files_size / $total_files_size ) * 100, 100 );
+				if ( empty( $total_content_files_size ) ) {
+					$progress = 100;
+				} else {
+					$progress = (int) min( ( $processed_files_size / $total_content_files_size ) * 100, 100 );
+				}
 
 				// Set progress
-				Ai1wm_Status::info( sprintf( __( 'Archiving %d content files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total_files_count, $progress ) );
+				Ai1wm_Status::info( sprintf( __( 'Archiving %d content files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total_content_files_count, $progress ) );
 
 				// More than 10 seconds have passed, break and do another request
 				if ( ( $timeout = apply_filters( 'ai1wm_completed_timeout', 10 ) ) ) {
@@ -152,11 +160,11 @@ class Ai1wm_Export_Content {
 			// Unset processed files size
 			unset( $params['processed_files_size'] );
 
-			// Unset total files size
-			unset( $params['total_files_size'] );
+			// Unset total content files size
+			unset( $params['total_content_files_size'] );
 
-			// Unset total files count
-			unset( $params['total_files_count'] );
+			// Unset total content files count
+			unset( $params['total_content_files_count'] );
 
 			// Unset completed flag
 			unset( $params['completed'] );
@@ -175,11 +183,11 @@ class Ai1wm_Export_Content {
 			// Set processed files size
 			$params['processed_files_size'] = $processed_files_size;
 
-			// Set total files size
-			$params['total_files_size'] = $total_files_size;
+			// Set total content files size
+			$params['total_content_files_size'] = $total_content_files_size;
 
-			// Set total files count
-			$params['total_files_count'] = $total_files_count;
+			// Set total content files count
+			$params['total_content_files_count'] = $total_content_files_count;
 
 			// Set completed flag
 			$params['completed'] = $completed;

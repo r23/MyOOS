@@ -33,18 +33,18 @@ class Ai1wm_Export_Enumerate_Content {
 
 		$exclude_filters = array( ai1wm_get_uploads_dir() );
 
-		// Get total files count
-		if ( isset( $params['total_files_count'] ) ) {
-			$total_files_count = (int) $params['total_files_count'];
+		// Get total content files count
+		if ( isset( $params['total_content_files_count'] ) ) {
+			$total_content_files_count = (int) $params['total_content_files_count'];
 		} else {
-			$total_files_count = 0;
+			$total_content_files_count = 0;
 		}
 
-		// Get total files size
-		if ( isset( $params['total_files_size'] ) ) {
-			$total_files_size = (int) $params['total_files_size'];
+		// Get total content files size
+		if ( isset( $params['total_content_files_size'] ) ) {
+			$total_content_files_size = (int) $params['total_content_files_size'];
 		} else {
-			$total_files_size = 0;
+			$total_content_files_size = 0;
 		}
 
 		// Set progress
@@ -135,10 +135,10 @@ class Ai1wm_Export_Enumerate_Content {
 			foreach ( $iterator as $item ) {
 				if ( $item->isFile() ) {
 					if ( ai1wm_write( $content_list, $iterator->getSubPathname() . PHP_EOL ) ) {
-						$total_files_count++;
+						$total_content_files_count++;
 
 						// Add current file size
-						$total_files_size += $iterator->getSize();
+						$total_content_files_size += $iterator->getSize();
 					}
 				}
 			}
@@ -147,11 +147,11 @@ class Ai1wm_Export_Enumerate_Content {
 		// Set progress
 		Ai1wm_Status::info( __( 'Done retrieving a list of WordPress content files.', AI1WM_PLUGIN_NAME ) );
 
-		// Set total files count
-		$params['total_files_count'] = $total_files_count;
+		// Set total content files count
+		$params['total_content_files_count'] = $total_content_files_count;
 
-		// Set total files size
-		$params['total_files_size'] = $total_files_size;
+		// Set total content files size
+		$params['total_content_files_size'] = $total_content_files_size;
 
 		// Close the content list file
 		ai1wm_close( $content_list );
