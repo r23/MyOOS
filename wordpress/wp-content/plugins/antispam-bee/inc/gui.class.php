@@ -54,7 +54,6 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 			'dashboard_count'          => (int) ( ! empty( $_POST['ab_dashboard_count'] ) ),
 			'dashboard_chart'          => (int) ( ! empty( $_POST['ab_dashboard_chart'] ) ),
-			'advanced_check'           => (int) ( ! empty( $_POST['ab_advanced_check'] ) ),
 			'regexp_check'             => (int) ( ! empty( $_POST['ab_regexp_check'] ) ),
 			'spam_ip'                  => (int) ( ! empty( $_POST['ab_spam_ip'] ) ),
 			'already_commented'        => (int) ( ! empty( $_POST['ab_already_commented'] ) ),
@@ -213,7 +212,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 									$link1 = sprintf(
 										'<a href="%s" target="_blank" rel="noopener noreferrer">',
 										esc_url(
-											__( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#trust-commenters-with-a-gravatar', 'antispam-bee' ),
+											__( 'https://antispambee.pluginkollektiv.org/documentation#gravatar', 'antispam-bee' ),
 											'https'
 										)
 									);
@@ -245,13 +244,6 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								</label>
 							</li>
 
-							<li>
-								<input type="checkbox" name="ab_advanced_check" id="ab_advanced_check" value="1" <?php checked( $options['advanced_check'], 1 ); ?> />
-								<label for="ab_advanced_check">
-									<?php esc_html_e( 'Validate the ip address of commenters', 'antispam-bee' ); ?>
-									<span><?php esc_html_e( 'Validation of the IP address used', 'antispam-bee' ); ?></span>
-								</label>
-							</li>
 
 							<li>
 								<input type="checkbox" name="ab_regexp_check" id="ab_regexp_check" value="1" <?php checked( $options['regexp_check'], 1 ); ?> />
@@ -278,7 +270,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 									$link1 = sprintf(
 										'<a href="%s" target="_blank" rel="noopener noreferrer">',
 										esc_url(
-											__( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#block-comments-from-specific-countries', 'antispam-bee' ),
+											__( 'https://antispambee.pluginkollektiv.org/documentation#country', 'antispam-bee' ),
 											'https'
 										)
 									);
@@ -308,7 +300,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 											<?php
 												printf(
 													/* translators: 1: opening <a> tag with link to ISO codes reference. 2: closing </a> tag. */
-													esc_html__( 'Blacklist  %1$sISO Codes%2$s for this option.', 'antispam-bee' ),
+													esc_html__( 'Denied  %1$sISO country codes%2$s for this option.', 'antispam-bee' ),
 													wp_kses_post( $iso_codes_link ),
 													'</a>'
 												);
@@ -323,7 +315,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 											<?php
 												printf(
 													/* translators: 1: opening <a> tag with link to ISO codes reference. 2: closing </a> tag. */
-													esc_html__( 'Whitelist  %1$sISO Codes%2$s for this option.', 'antispam-bee' ),
+													esc_html__( 'Allowed  %1$sISO country codes%2$s for this option.', 'antispam-bee' ),
 													wp_kses_post( $iso_codes_link ),
 													'</a>'
 												);
@@ -343,7 +335,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 										$link1 = sprintf(
 											'<a href="%s" target="_blank" rel="noopener noreferrer">',
 											esc_url(
-												__( 'https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation#allow-comments-only-in-certain-language', 'antispam-bee' ),
+												__( 'https://antispambee.pluginkollektiv.org/documentation#language', 'antispam-bee' ),
 												'https'
 											)
 										);
@@ -459,14 +451,14 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 								<ul>
 									<li>
-										<select name="ab_ignore_reasons[]" id="ab_ignore_reasons" size="2" multiple>
+										<label for="ab_ignore_reasons">
+											<?php esc_html_e( 'Spam Reason', 'antispam-bee' ); ?>
+										</label>
+										<select name="ab_ignore_reasons[]" id="ab_ignore_reasons" size="5" multiple>
 											<?php foreach ( self::$defaults['reasons'] as $k => $v ) { ?>
 												<option <?php selected( in_array( $k, $options['ignore_reasons'], true ), true ); ?> value="<?php echo esc_attr( $k ); ?>"><?php echo esc_html( $v ); ?></option>
 											<?php } ?>
 										</select>
-										<label for="ab_ignore_reasons">
-											<?php esc_html_e( 'Spam Reason', 'antispam-bee' ); ?>
-										</label>
 									</li>
 								</ul>
 							</li>
@@ -534,7 +526,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 							<a href="<?php echo esc_url( __( 'https://wordpress.org/plugins/antispam-bee/faq/', 'antispam-bee' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'FAQ', 'antispam-bee' ); ?></a>
 						</p>
 						<p>
-							<a href="<?php echo esc_url( __( 'https://github.com/pluginkollektiv/antispam-bee/wiki/', 'antispam-bee' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Manual', 'antispam-bee' ); ?></a>
+							<a href="<?php echo esc_url( __( 'https://antispambee.pluginkollektiv.org/documentation', 'antispam-bee' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Manual', 'antispam-bee' ); ?></a>
 						</p>
 						<p>
 							<a href="<?php echo esc_url( __( 'https://wordpress.org/support/plugin/antispam-bee', 'antispam-bee' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Support', 'antispam-bee' ); ?></a>

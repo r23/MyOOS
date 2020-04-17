@@ -69,24 +69,75 @@ final class Antispam_Bee_Columns {
 		return $columns;
 	}
 
+    // phpcs:disable WordPress.VIP.SlowDBQuery.slow_db_query_meta_key
+    // phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
 	/**
 	 * Adjust orderby query
 	 *
 	 * @since   2.6.3
 	 * @change  2.6.3
 	 *
-	 * @param   \WP_Query $query  Current WordPress query.
+	 * @param   \WP_Comment_Query $query  Current WordPress query.
 	 */
 	public static function set_orderby_query( $query ) {
-		$orderby = $query->get( 'orderby' );
+		$orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : '';
 
 		if ( empty( $orderby ) || 'antispam_bee_reason' !== $orderby ) {
 			return;
 		}
 
-		$query->set( 'meta_key', 'antispam_bee_reason' );
-		$query->set( 'orderby', 'meta_value' );
+		$query->query_vars['meta_key'] = 'antispam_bee_reason';
+		$query->query_vars['orderby']  = 'meta_value';
 	}
+    // phpcs:enable WordPress.VIP.SlowDBQuery.slow_db_query_meta_key
+    // phpcs:enable WordPress.CSRF.NonceVerification.NoNonceVerification
+
+	//phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
+	/**
+	 * Filter comments by the spam reason
+	 *
+	 * @global \wpdb $wpdb
+	 */
+	public static function filter_columns() {
+		global $wpdb;
+		?>
+		<label class="screen-reader-text" for="filter-by-comment-spam-reason"><?php esc_html_e( 'Filter by spam reason', 'antispam-bee' ); ?></label>
+		<select id="filter-by-comment-spam-reason" name="comment_spam_reason">
+			<option value=""><?php esc_html_e( 'All spam reasons', 'antispam-bee' ); ?></option>
+			<?php
+			$spam_reason = isset( $_GET['comment_spam_reason'] ) ? sanitize_text_field( wp_unslash( $_GET['comment_spam_reason'] ) ) : '';
+			$reasons     = $wpdb->get_results( "SELECT meta_value FROM {$wpdb->prefix}commentmeta WHERE meta_key = 'antispam_bee_reason' group by meta_value", ARRAY_A );
+
+			foreach ( $reasons as $reason ) {
+				$label = Antispam_Bee::$defaults['reasons'][ $reason['meta_value'] ];
+				echo "\t" . '<option value="' . esc_attr( $reason['meta_value'] ) . '"' . selected( $spam_reason, $reason['meta_value'], false ) . '>' . esc_html( $label ) . "</option>\n";
+			}
+			?>
+		</select>
+		<?php
+	}
+    //phpcs:enable WordPress.CSRF.NonceVerification.NoNonceVerification
+
+    //phpcs:disable WordPress.CSRF.NonceVerification.NoNonceVerification
+    //phpcs:disable WordPress.VIP.SlowDBQuery.slow_db_query_meta_value
+    //phpcs:disable WordPress.VIP.SlowDBQuery.slow_db_query_meta_key
+	/**
+	 * Filter comments by the spam reason
+	 *
+	 * @param \WP_Comment_Query $query  Current WordPress query.
+	 */
+	public static function filter_by_spam_reason( $query ) {
+		$spam_reason = isset( $_GET['comment_spam_reason'] ) ? sanitize_text_field( wp_unslash( $_GET['comment_spam_reason'] ) ) : '';
+		if ( empty( $spam_reason ) || ! in_array( $spam_reason, array_keys( Antispam_Bee::$defaults['reasons'] ), true ) ) {
+			return;
+		}
+
+		$query->query_vars['meta_key']   = 'antispam_bee_reason';
+		$query->query_vars['meta_value'] = $spam_reason;
+	}
+    //phpcs:enable WordPress.VIP.SlowDBQuery.slow_db_query_meta_key
+    //phpcs:enable WordPress.VIP.SlowDBQuery.slow_db_query_meta_value
+    //phpcs:enable WordPress.CSRF.NonceVerification.NoNonceVerification
 
 	/**
 	 * Print CSS for the plugin column
@@ -94,7 +145,8 @@ final class Antispam_Bee_Columns {
 	 * @since   2.6.1
 	 * @change  2.6.1
 	 */
-	public static function print_column_styles() { ?>
+	public static function print_column_styles() {
+		?>
 		<style>
 			.column-antispam_bee_reason {
 				width: 10%;

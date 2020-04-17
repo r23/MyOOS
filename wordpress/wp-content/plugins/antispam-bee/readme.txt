@@ -3,8 +3,8 @@
 * Tags:              anti-spam, antispam, block spam, comment, comments, comment spam, pingback, spam, spam filter, trackback, GDPR
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Requires at least: 4.5
-* Tested up to:      5.0
-* Stable tag:        2.9.1
+* Tested up to:      5.4
+* Stable tag:        2.9.2
 * License:           GPLv2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,7 @@ Say Goodbye to comment spam on your WordPress blog or website. *Antispam Bee* bl
 
 ### Support ###
 * Community support via the [support forums on wordpress.org](https://wordpress.org/support/plugin/antispam-bee)
-* Read [the documentation](https://github.com/pluginkollektiv/antispam-bee/wiki/en-Documentation)
+* Read [the documentation](https://antispambee.pluginkollektiv.org/documentation/)
 * We don’t handle support via e-mail, Twitter, GitHub issues etc.
 
 ### Contribute ###
@@ -51,7 +51,7 @@ Say Goodbye to comment spam on your WordPress blog or website. *Antispam Bee* bl
 
 ### Requirements ###
 * PHP 5.2.4 or greater
-* WordPress 3.8 or greater
+* WordPress 4.5 or greater
 
 ### Settings ###
 After you have activated *Antispam Bee* the plugin will block spam comments out of the box. However, you may want to visit *Settings → Antispam Bee* to configure your custom set of anti-spam options that works best for your site.
@@ -86,14 +86,32 @@ if (req.restarts == 0) {
 ### Are there some paid services or limitations? ###
 No, Antispam Bee is free forever, for both private and commercial projects. You can use it on as many sites as you want. There is no limitation to the number of sites you use the plugin on.
 
-A complete documentation is available in the [GitHub repository Wiki](https://github.com/pluginkollektiv/antispam-bee/wiki).
+A complete documentation is available on [pluginkollektiv.org](https://antispambee.pluginkollektiv.org/documentation/.
 
 ## Changelog ##
+
+### 2.9.2 ###
+* **English**
+  * Fix: Delete comment meta for deleted old spam. For the cleanup of older orphaned comment meta we suggest the usage of [WP Sweep](https://wordpress.org/plugins/wp-sweep/)
+  * Fix: Statistic in dashboard showed wrong value
+  * Tweak: Change autocomplete attribute to "new-password"
+  * Tweak: Autoptimize compatibility improved
+  * Tweak: Renamed blacklist/whitelist to a better phrase
+  * Tweak: Added new pattern
+  * Tweak: UI and text optimizations
+  * Tweak: Better compatibility with some server configurations
+  * Tweak: Make spam reason sortable and filterable
+  * Tweak: Add spam reason for manually marked spam
+  * Maintenance: Deleted unused code
+  * Maintenance: Removed Fake IP check (unreliable and producing false positives)
+  * Maintenance: Fix some coding standard issues
+  * Maintenance: Tested up to WordPress 5.4
+  * Maintenance: Tested up to PHP 7.4
 
 ### 2.9.1 ###
   * Improved backend accessibility
   * Prefilled comment textareas do now work with the honeypot
-  * AMP compatibility
+  * Compatible with the AMP plugin (https://wordpress.org/plugins/amp/)
   * Improved dashboard tooltips
   * Improvements for the language detection API
   * Scalable IP look up for local spam database
@@ -158,13 +176,13 @@ A complete documentation is available in the [GitHub repository Wiki](https://gi
    * updated plugin text domain to include a dash instead of an underscore
    * updated, translated + formatted README.md
    * updated expired link URLs in plugin and languages files
-   * updated [plugin authors](https://gist.github.com/glueckpress/f058c0ab973d45a72720)
+   * updated [plugin authors](https://pluginkollektiv.org/hello-world/)
 
 ### 2.6.7 ###
-   * Removal of functions *Block comments from specific countries* and *Allow comments only in certain language* for financial reasons - [more information](https://plus.google.com/u/0/+SergejMüller/posts/ZyquhoYjUyF) (only german)
+   * Removal of functions *Block comments from specific countries* and *Allow comments only in certain language* for financial reasons - [more information](https://antispambee.pluginkollektiv.org/news/2015/removal-of-allow-comments-only-in-certain-language/)
 
 ### 2.6.6 ###
-   * Switch to the official Google Translation API - [more information](https://plus.google.com/u/0/+SergejMüller/posts/ZyquhoYjUyF) (only german)
+   * Switch to the official Google Translation API
    * *Release time investment (Development & QA): 2.5 h*
 
 ### 2.6.5 ###
@@ -174,7 +192,7 @@ A complete documentation is available in the [GitHub repository Wiki](https://gi
    * *Release time investment (Development & QA): 12 h*
 
 ### 2.6.4 ###
-   * Consideration of the comment time (Spam if a comment was written in less than 5 seconds) - [more information on Google+](https://plus.google.com/+SergejMüller/posts/73EbP6F1BgC) (only german)
+   * Consideration of the comment time (Spam if a comment was written in less than 5 seconds) - [more information](https://antispambee.pluginkollektiv.org/news/2014/antispam-bee-2-6-4/)
    * *Release time investment (Development & QA): 6.25 h*
 
 ### 2.6.3 ###
