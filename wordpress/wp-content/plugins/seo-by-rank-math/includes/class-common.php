@@ -194,10 +194,13 @@ class Common {
 	public function reorder_the_terms( $terms, $post_id, $taxonomy ) {
 		/**
 		 * Filter: Allow disabling the primary term feature.
+		 * 'rank_math/primary_term' is deprecated,
+		 * use 'rank_math/admin/disable_primary_term' instead.
 		 *
 		 * @param bool $return True to disable.
 		 */
-		if ( true === $this->do_filter( 'primary_term', false ) ) {
+		if ( true === apply_filters_deprecated( 'rank_math/primary_term', array( false ), '1.0.43', 'rank_math/admin/disable_primary_term' )
+			|| true === $this->do_filter( 'admin/disable_primary_term', false ) ) {
 			return $terms;
 		}
 

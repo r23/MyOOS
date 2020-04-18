@@ -13,6 +13,7 @@ namespace RankMath\Admin;
 use RankMath\Runner;
 use RankMath\Traits\Hooker;
 use RankMath\Helpers\Security;
+use MyThemeShop\Helpers\Param;
 use RankMath\Helper as GlobalHelper;
 
 defined( 'ABSPATH' ) || exit;
@@ -28,7 +29,7 @@ class Watcher implements Runner {
 	 * Register hooks.
 	 */
 	public function hooks() {
-		$this->action( 'init', 'init' );
+		$this->action( 'init', 'maybe_deactivate_plugins' );
 		$this->action( 'activated_plugin', 'check_activated_plugin' );
 		$this->action( 'deactivated_plugin', 'check_deactivated_plugin' );
 	}
@@ -36,16 +37,25 @@ class Watcher implements Runner {
 	/**
 	 * Set/Deactivate conflicting SEO or Sitemap plugins.
 	 */
-	public function init() {
-		if ( isset( $_GET['rank_math_deactivate_seo_plugins'] ) ) {
-			$this->deactivate_conflicting_plugins( 'seo' );
+	public function maybe_deactivate_plugins() {
+		if ( ! Param::get( 'rank_math_deactivate_plugins' ) ) {
 			return;
 		}
 
-		if ( isset( $_GET['rank_math_deactivate_sitemap_plugins'] ) ) {
-			$this->deactivate_conflicting_plugins( 'sitemap' );
+		if ( ! current_user_can( 'deactivate_plugins' ) ) {
+			wp_die( __( 'Sorry, you are not allowed to deactivate plugins for this site.', 'rank-math' ) );
+		}
+
+		check_admin_referer( 'rank_math_deactivate_plugins' );
+
+		$type    = Param::get( 'plugin_type', 'seo', FILTER_SANITIZE_STRING );
+		$allowed = [ 'seo', 'sitemap' ];
+		if ( ! in_array( $type, $allowed, true ) ) {
 			return;
 		}
+		$this->deactivate_conflicting_plugins( $type );
+
+		return;
 	}
 
 	/**
@@ -103,11 +113,26 @@ class Watcher implements Runner {
 	private function deactivate_conflicting_plugins( $type ) {
 		foreach ( self::get_conflicting_plugins() as $plugin => $plugin_type ) {
 			if ( $type === $plugin_type && is_plugin_active( $plugin ) ) {
+				if ( ! current_user_can( 'deactivate_plugin', $plugin ) ) {
+					$message = sprintf(
+						/* translators: plugin name */
+						esc_html__( 'You are not allowed to deactivate this plugin: %s.', 'rank-math' ),
+						esc_html( $plugin )
+					);
+					GlobalHelper::add_notification(
+						$message,
+						[
+							'type'    => 'error',
+							'classes' => 'is-dismissible',
+						]
+					);
+					continue;
+				}
 				deactivate_plugins( $plugin );
 			}
 		}
 
-		wp_redirect( Security::remove_query_arg_raw( "rank_math_deactivate_{$type}_plugins" ) );
+		wp_redirect( Security::remove_query_arg_raw( [ 'rank_math_deactivate_plugins', 'plugin_type', '_wpnonce' ] ) );
 	}
 
 	/**
@@ -116,25 +141,44 @@ class Watcher implements Runner {
 	 * @param string $type Plugin type.
 	 */
 	private static function set_notification( $type ) {
+		$deactivate_url = Security::add_query_arg(
+			[
+				'rank_math_deactivate_plugins' => '1',
+				'plugin_type'                  => 'seo',
+				'_wpnonce'                     => wp_create_nonce( 'rank_math_deactivate_plugins' ),
+			],
+			admin_url( 'plugins.php' )
+		);
+
 		$message = sprintf(
 			/* translators: deactivation link */
 			esc_html__( 'Please keep only one SEO plugin active, otherwise, you might lose your rankings and traffic. %s.', 'rank-math' ),
-			'<a href="' . Security::add_query_arg( 'rank_math_deactivate_seo_plugins', '1', admin_url( 'plugins.php' ) ) . '">Click here to Deactivate</a>'
+			'<a href="' . $deactivate_url . '">' . __( 'Click here to Deactivate', 'rank-math' ) . '</a>'
 		);
 
 		if ( 'sitemap' === $type ) {
+			$deactivate_url = Security::add_query_arg(
+				[
+					'rank_math_deactivate_plugins' => '1',
+					'plugin_type'                  => 'sitemap',
+					'_wpnonce'                     => wp_create_nonce( 'rank_math_deactivate_plugins' ),
+				],
+				admin_url( 'plugins.php' )
+			);
+
 			$message = sprintf(
 				/* translators: deactivation link */
 				esc_html__( 'Please keep only one Sitemap plugin active, otherwise, you might lose your rankings and traffic. %s.', 'rank-math' ),
-				'<a href="' . Security::add_query_arg( 'rank_math_deactivate_sitemap_plugins', '1', admin_url( 'plugins.php' ) ) . '">Click here to Deactivate</a>'
+				'<a href="' . $deactivate_url . '">' . __( 'Click here to Deactivate', 'rank-math' ) . '</a>'
 			);
 		}
 
 		GlobalHelper::add_notification(
 			$message,
 			[
-				'id'   => "conflicting_{$type}_plugins",
-				'type' => 'error',
+				'id'      => "conflicting_{$type}_plugins",
+				'type'    => 'error',
+				'classes' => 'is-dismissible',
 			]
 		);
 	}

@@ -147,6 +147,15 @@ class Admin_Menu implements Runner {
 	 * Check for deactivation.
 	 */
 	private function maybe_deregister() {
+		if ( ! Helper::has_cap( 'general' ) ) {
+			return;
+		}
+
+		$nonce = Param::post( '_wpnonce' );
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'rank_math_register_product' ) ) {
+			return;
+		}
+
 		if ( 'deregister' === Param::post( 'registration-action' ) ) {
 			Admin_Helper::get_registration_data( false );
 		}

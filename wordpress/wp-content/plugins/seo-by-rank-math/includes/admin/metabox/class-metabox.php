@@ -98,7 +98,7 @@ class Metabox implements Runner {
 					'clipboard',
 					'wp-hooks',
 					'wp-url',
-					'wp-element',
+					'wp-i18n',
 					'rank-math-common',
 					'rank-math-analyzer',
 					'rank-math-validate',

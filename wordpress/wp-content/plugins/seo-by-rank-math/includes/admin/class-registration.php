@@ -69,13 +69,28 @@ class Registration {
 			$this->action( 'admin_init', 'render_page', 30 );
 		}
 
-		$this->action( 'init', 'handle_registration' );
+		$this->action( 'admin_init', 'handle_registration' );
 	}
 
 	/**
 	 * Check for activation.
 	 */
 	public function handle_registration() {
+
+		// Bail if already connected.
+		if ( Helper::is_site_connected() ) {
+			return;
+		}
+
+		if ( ! Helper::has_cap( 'general' ) ) {
+			return;
+		}
+
+		$nonce = Param::get( 'nonce' );
+		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'rank_math_register_product' ) ) {
+			return;
+		}
+
 		$status = Param::get( 'rankmath_connect' );
 		if ( $status && $redirect_to = $this->get_registration_url( $status ) ) { //phpcs:ignore
 			\wp_safe_redirect( $redirect_to );
@@ -116,7 +131,7 @@ class Registration {
 				return Helper::get_admin_url( 'wizard' );
 			}
 
-			return Security::remove_query_arg_raw( array( 'rankmath_connect', 'rankmath_auth' ) );
+			return Security::remove_query_arg_raw( array( 'rankmath_connect', 'rankmath_auth', 'nonce' ) );
 		}
 
 		return false;

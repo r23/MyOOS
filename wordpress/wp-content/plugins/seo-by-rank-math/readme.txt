@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.42.1
+Stable tag: 1.0.42.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,45 +460,13 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.42.1 [Apr 16th, 2020] =
-* Added: One can add the permalink to a new post/page in Rank Math without saving it as a draft first
-* Improved: The output code of Recipe Schema now includes more data
-* Fixed: Classic Editor's content analysis wasn't working when an apostrophe was used in the focus keyword field
-* Fixed: An issue with Gutenberg plugin's latest version, v7.9.0
-* Fixed: Some tests were missing in the newly created pages
-* Fixed: An inability to add a hyphen at the end of the permalink
-* Fixed: Social previews were not showing the auto description. Though, the social media sites were picking them just fine
-* Fixed: Incorrect word-count when the text from the main content was copied into WooCommerce product's short description field
-* Fixed: Missing save/cancel buttons in the SEO details post-column when using the bulk editing feature
-* Fixed: HTML code was not stripped from the SEO title in the Classic Editor
-* Fixed: `Trying to get property 'slug'` error on the Post list page when there was no category set, and debug was turned on
-* Fixed: Added missing arguments in the `save_post`
-
-= 1.0.42 [Apr 14th, 2020] =
-* Added: HUGE! Classic Editor now uses Gutenberg aka Block Editor's content analysis library to avoid test mismatch
-* Added: Dedicated SEO tests for the static page set as a homepage
-* Added: Text explanations in few areas to help understand options better
-* Added: A way to detect if a site was compromised and remove any data related to it in the redirections
-* Added: A [filter to decode Shortcodes in the Schema data](https://rankmath.com/kb/filters-hooks-api-developer/#allow-shortcodes-in-product-description)
-* Updated: List of German [power words](https://rankmath.com/blog/power-words/)
-* Improved: Sitemap's code by adding new filters and hooks. [Check all the Sitemap filters and hooks here](https://rankmath.com/kb/filters-hooks-api-developer/#sitemap)
-* Improved: [SEO score](https://rankmath.com/kb/filters-hooks-api-developer/#seo-score) on the homepage won't show up by default even if the option is turned on. One has to add a Shortcode in the homepage's content to show the SEO score
-* Improved: Schema Pro plugin's import now imports the default settings strategically
-* Improved: Strengthened the plugin security further
-* Improved: If a newer stable version is detected, the [Beta update](https://rankmath.com/kb/version-control/#beta-updates) does not show anymore
-* Improved: Excerpt preview trims properly in the Titles & Meta options in the options panel
-* Improved: Changed ALT text's default value to use the filename instead of the post's title. One can change the setting to any other variable
-* Fixed: Address field not getting saved in [Job Posting Schema](https://rankmath.com/kb/rich-snippets/#job-posting) in the Block Editor
-* Fixed: An issue where the redirection type wasn't allowed to be changed on saved posts using the dropdown. Though, the redirections were getting saved correctly
-* Fixed: Schema auto description not matching with the Custom SEO Meta description set in the WooCommerce products
-* Fixed: A problem with WooCommerce's `Remove Category Base` & `Remove Parent slug` options where an extra slash was getting added into the product's category URL. Though, the canonical URL was printing correctly
-* Fixed: An error related to SEO Score Shortcode in the frontend
-* Fixed: Quick edit save breaking Rank Math columns
-* Fixed: The Schema data is not updating unless the default value is changed in the Block Editor options
-* Fixed: `How To` Section of the Recipe Schema not saving the data in the block editor
-* Fixed: `wp_rank_math_internal_meta` related error appearing in the Query Monitor on some installations
-* Fixed: Sitemap showing a blank page if Query Monitor and Debug is enabled
-* Fixed: A PHP Error on the Help & Support Page
-* Fixed: Small visual issue related to the Search form in the Add Link popup
+= 1.0.42.2 [Apr 18th, 2020] =
+* Changed: `primary_term` filter to `admin/disable_primary_term`
+* Improved: Strengthened security further
+* Fixed: A security issue that allowed deactivation of the conflicting plugins added inside the importer of Rank Math (AIO SEO, Yoast, Redirection, SEOPress, Schema Pro, All In One Schema Rich Snippets, etc.) even if user kept them enabled. Props to WordPress plugins team for notifying
+* Fixed: Rank Math meta box stopped working in WordPress 4.9 and ClassicPress
+* Fixed: An issue with `TinyMCE` script when the visual editor was disabled
+* Fixed: A problem with the previews in the backend when accented letters like, â, î or ô, etc., were used
+* Fixed: Social image set in the Author Profile was not working
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

@@ -29,6 +29,7 @@ $activate_url  = Admin_Helper::get_activate_url();
 		<form method="post" action="">
 
 			<input type="hidden" name="registration-action" value="<?php echo $is_registered ? 'deregister' : 'register'; ?>">
+			<?php wp_nonce_field( 'rank_math_register_product' ); ?>
 
 			<?php if ( ! $is_registered ) : ?>
 			<a href="<?php echo esc_url( $activate_url ); ?>" class="button button-primary button-xlarge" ><?php esc_html_e( 'Activate Now', 'rank-math' ); ?></a>

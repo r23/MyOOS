@@ -304,8 +304,9 @@ class Admin_Helper {
 		if ( empty( $redirect_to ) ) {
 			$redirect_to = Security::add_query_arg_raw(
 				[
-					'page' => 'rank-math',
-					'view' => 'help',
+					'page'  => 'rank-math',
+					'view'  => 'help',
+					'nonce' => wp_create_nonce( 'rank_math_register_product' ),
 				],
 				admin_url( 'admin.php' )
 			);

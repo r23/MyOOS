@@ -130,6 +130,10 @@ class Import_Export implements Runner {
 			return;
 		}
 
+		if ( ! Helper::has_cap( 'general' ) ) {
+			return false;
+		}
+
 		if ( 'export-plz' === $object_id && check_admin_referer( 'rank-math-export-settings' ) ) {
 			$this->export();
 		}

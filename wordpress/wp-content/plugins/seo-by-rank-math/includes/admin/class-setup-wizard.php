@@ -205,14 +205,18 @@ class Setup_Wizard {
 	 */
 	public function save_wizard() {
 
-		// If no form submission, bail.
-		$referer = Param::post( '_wp_http_referer' );
+		// If no form submission, bail!
 		if ( empty( $_POST ) ) {
-			return wp_safe_redirect( $referer );
+			return false;
 		}
 
 		check_admin_referer( 'rank-math-wizard', 'security' );
 		if ( ! Helper::has_cap( 'general' ) ) {
+			return false;
+		}
+
+		$referer = Param::post( '_wp_http_referer' );
+		if ( empty( $referer ) ) {
 			return false;
 		}
 

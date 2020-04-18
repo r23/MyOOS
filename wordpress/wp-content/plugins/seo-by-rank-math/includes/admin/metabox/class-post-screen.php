@@ -378,11 +378,14 @@ class Post_Screen implements IScreen {
 		$post_type = $this->get_current_post_type();
 
 		/**
-		 * Allow disabling the primary term feature.
+		 * Filter: Allow disabling the primary term feature.
+		 * 'rank_math/primary_term' is deprecated,
+		 * use 'rank_math/admin/disable_primary_term' instead.
 		 *
 		 * @param bool $return True to disable.
 		 */
-		if ( false === $this->do_filter( 'primary_term', false ) ) {
+		if ( false === apply_filters_deprecated( 'rank_math/primary_term', array( false ), '1.0.43', 'rank_math/admin/disable_primary_term' )
+			&& false === $this->do_filter( 'admin/disable_primary_term', false ) ) {
 			$taxonomy = Helper::get_settings( 'titles.pt_' . $post_type . '_primary_taxonomy', false );
 		}
 

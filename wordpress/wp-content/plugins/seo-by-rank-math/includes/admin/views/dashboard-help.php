@@ -8,11 +8,15 @@
 
 use RankMath\KB;
 
+use RankMath\Helper;
+
 if ( ! current_user_can( 'manage_options' ) ) {
 	return;
 }
 
-include_once 'plugin-activation.php';
+if ( Helper::has_cap( 'general' ) ) {
+	include_once 'plugin-activation.php';
+}
 ?>
 
 <div class="two-col rank-math-box-help">

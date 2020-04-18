@@ -291,6 +291,9 @@ class Image {
 			case is_tax():
 				$this->set_taxonomy_image();
 				break;
+			case is_author():
+				$this->set_author_image();
+				break;
 		}
 
 		/**
@@ -489,6 +492,14 @@ class Image {
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Check if Author has an image and add this image.
+	 */
+	private function set_author_image() {
+		$image_id = Helper::get_user_meta( "{$this->opengraph->prefix}_image_id" );
+		$this->add_image_by_id( $image_id );
 	}
 
 	/**
