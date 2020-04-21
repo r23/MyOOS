@@ -423,6 +423,7 @@ class Installer {
 		$post_types   = Helper::get_accessible_post_types();
 		$post_types[] = 'product';
 
+		$titles[ 'pt_download_default_rich_snippet' ] = 'product';
 		foreach ( $post_types as $post_type ) {
 			$defaults = $this->get_post_type_defaults( $post_type );
 

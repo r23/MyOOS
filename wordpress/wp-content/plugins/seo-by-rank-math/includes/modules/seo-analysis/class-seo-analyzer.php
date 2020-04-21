@@ -10,11 +10,9 @@
 
 namespace RankMath\SEO_Analysis;
 
-use Rollbar\Rollbar;
 use RankMath\Helper;
 use RankMath\Traits\Ajax;
 use RankMath\Traits\Hooker;
-use Rollbar\Payload\Level;
 use MyThemeShop\Helpers\Str;
 use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\Param;
@@ -244,7 +242,7 @@ class SEO_Analyzer {
 	private function move_priority_results_to_top() {
 		$priority = [];
 		foreach ( $this->results as $id => $result ) {
-			if ( is_array( $result ) && $result['category'] === 'priority' ) {
+			if ( is_array( $result ) && 'priority' === $result['category'] ) {
 				$priority[ $id ] = $result;
 				unset( $this->results[ $id ] );
 			}
@@ -257,14 +255,13 @@ class SEO_Analyzer {
 	 * Analyze page.
 	 */
 	public function analyze_me() {
-		$success = true;
+		$success   = true;
 		$directory = dirname( __FILE__ );
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'site_analysis' );
 
 		if ( ! $this->run_api_tests() ) {
 			error_log( $this->api_error );
-			Rollbar::log( Level::WARNING, $this->api_error );
 			/* translators: API error */
 			echo '<div class="notice notice-error is-dismissible notice-seo-analysis-error"><p>' . sprintf( __( '<strong>API Error:</strong> %s', 'rank-math' ), $this->api_error ) . '</p></div>';
 			$success = false;

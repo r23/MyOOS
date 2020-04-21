@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.42.2
+Stable tag: 1.0.42.3
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,13 +460,12 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.42.2 [Apr 18th, 2020] =
-* Changed: `primary_term` filter to `admin/disable_primary_term`
+= 1.0.42.3 [Apr 20th, 2020] =
+* Improved: Styling of the focus keyword field in the Classic Editor if keywords expanded to 2 rows
 * Improved: Strengthened security further
-* Fixed: A security issue that allowed deactivation of the conflicting plugins added inside the importer of Rank Math (AIO SEO, Yoast, Redirection, SEOPress, Schema Pro, All In One Schema Rich Snippets, etc.) even if user kept them enabled. Props to WordPress plugins team for notifying
-* Fixed: Rank Math meta box stopped working in WordPress 4.9 and ClassicPress
-* Fixed: An issue with `TinyMCE` script when the visual editor was disabled
-* Fixed: A problem with the previews in the backend when accented letters like, â, î or ô, etc., were used
-* Fixed: Social image set in the Author Profile was not working
+* Improved: New posts where custom titles are not used, will now be generating the titles on the fly using the global variable template
+* Improved: Auto-update emails won't contain the site name anymore
+* Improved: Removed Rollbar's library from the plugin to make the plugin much smaller and faster
+* Fixed: Single posts' Schema type was not honoring the global settings and needed a manual selection. That should not be the case now
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

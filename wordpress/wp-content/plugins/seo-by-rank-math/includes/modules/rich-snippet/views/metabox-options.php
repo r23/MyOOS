@@ -25,6 +25,7 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 		'content' => '<span class="dashicons dashicons-yes"></span> ' . esc_html__( 'Rank Math automatically inserts additional Schema meta data for WooCommerce products. You can set the Schema Type to "None" to disable this feature and just use the default data added by WooCommerce.', 'rank-math' ),
 	]);
 
+	$default = Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" );
 	$cmb->add_field([
 		'id'      => 'rank_math_rich_snippet',
 		'type'    => 'radio_inline',
@@ -35,7 +36,7 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 			'off'     => esc_html__( 'None', 'rank-math' ),
 			'product' => esc_html__( 'Product', 'rank-math' ),
 		],
-		'default' => Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" ),
+		'default' => $default ? $default : 'off',
 	]);
 
 	return;

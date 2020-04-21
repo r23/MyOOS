@@ -11,6 +11,7 @@
 namespace RankMath\Admin\Metabox;
 
 use RankMath\Helper;
+use RankMath\Traits\Hooker;
 use RankMath\Admin\Admin_Helper;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,6 +20,15 @@ defined( 'ABSPATH' ) || exit;
  * User metabox class.
  */
 class User_Screen implements IScreen {
+
+	use Hooker;
+
+	/**
+	 * Class construct
+	 */
+	public function __construct() {
+		$this->action( 'rank_math/metabox/process_fields', 'save_general_meta' );
+	}
 
 	/**
 	 * Get object id
@@ -96,5 +106,18 @@ class User_Screen implements IScreen {
 		return false === Helper::get_settings( 'titles.disable_author_archives' ) &&
 			Helper::get_settings( 'titles.author_add_meta_box' ) &&
 			Admin_Helper::is_user_edit();
+	}
+
+	/**
+	 * Save handler for metadata.
+	 *
+	 * @param CMB2 $cmb CMB2 instance.
+	 */
+	public function save_general_meta( $cmb ) {
+		if ( Helper::get_settings( 'titles.author_archive_title' ) === $cmb->data_to_save['rank_math_title'] ) {
+			$cmb->data_to_save['rank_math_title'] = '';
+		}
+
+		return $cmb;
 	}
 }

@@ -98,17 +98,20 @@ class Singular implements Snippet {
 	 * @return string
 	 */
 	private function get_default_schema( $jsonld ) {
-
 		$schema = Helper::get_settings( "titles.pt_{$jsonld->post->post_type}_default_rich_snippet" );
 		if ( ! $schema ) {
-			return '';
+			return false;
 		}
 
-		$use_default = Conditional::is_woocommerce_active() && is_product() ||
-					Conditional::is_edd_active() && is_singular( 'download' ) ||
-					'article' === $schema;
+		if (
+			'article' === $schema ||
+			( Conditional::is_woocommerce_active() && is_singular( 'product' ) ) ||
+			( Conditional::is_edd_active() && is_singular( 'download' ) )
+		) {
+			return $schema;
+		}
 
-		return $use_default ? $schema : '';
+		return false;
 	}
 
 	/**

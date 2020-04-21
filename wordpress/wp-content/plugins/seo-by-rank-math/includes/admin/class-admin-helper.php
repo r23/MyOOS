@@ -310,6 +310,13 @@ class Admin_Helper {
 				],
 				admin_url( 'admin.php' )
 			);
+		} else {
+			$redirect_to = Security::add_query_arg_raw(
+				[
+					'nonce' => wp_create_nonce( 'rank_math_register_product' ),
+				],
+				$redirect_to
+			);
 		}
 
 		$args = [

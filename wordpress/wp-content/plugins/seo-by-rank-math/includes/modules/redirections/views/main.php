@@ -20,8 +20,8 @@ $is_editing = ! empty( $_GET['url'] ) || ! empty( $_GET['urls'] ) || ! empty( $_
 	<h1 class="wp-heading-inline">
 		<?php echo esc_html( get_admin_page_title() ); ?>
 		<a class="rank-math-add-new-redirection<?php echo $is_editing ? '-refresh' : ''; ?> page-title-action" href="<?php echo Helper::get_admin_url( 'redirections', 'new=1' ); ?>"><?php esc_html_e( 'Add New', 'rank-math' ); ?></a>
-		<a class="page-title-action" href="<?php echo Helper::get_admin_url( 'redirections', 'export=apache' ); ?>"><?php esc_html_e( 'Export to .htaccess', 'rank-math' ); ?></a>
-		<a class="page-title-action" href="<?php echo Helper::get_admin_url( 'redirections', 'export=nginx' ); ?>"><?php esc_html_e( 'Export to Nginx config file', 'rank-math' ); ?></a>
+		<a class="page-title-action" href="<?php echo wp_nonce_url( Helper::get_admin_url( 'redirections', 'export=apache' ), 'rank-math-export-redirections' ); ?>"><?php esc_html_e( 'Export to .htaccess', 'rank-math' ); ?></a>
+		<a class="page-title-action" href="<?php echo wp_nonce_url( Helper::get_admin_url( 'redirections', 'export=nginx' ), 'rank-math-export-redirections' ); ?>"><?php esc_html_e( 'Export to Nginx config file', 'rank-math' ); ?></a>
 		<a class="page-title-action" href="<?php KB::the( 'redirections' ); ?>" target="_blank"><?php esc_html_e( 'Learn More', 'rank-math' ); ?></a>
 		<a class="page-title-action" href="<?php echo Helper::get_admin_url( 'options-general#setting-panel-redirections' ); ?>"><?php esc_html_e( 'Settings', 'rank-math' ); ?></a>
 	</h1>

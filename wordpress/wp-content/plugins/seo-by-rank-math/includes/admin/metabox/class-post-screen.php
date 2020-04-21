@@ -41,6 +41,7 @@ class Post_Screen implements IScreen {
 	 */
 	public function __construct() {
 		$this->filter( 'rank_math/researches/tests', 'remove_tests', 10, 2 );
+		$this->action( 'rank_math/metabox/process_fields', 'save_general_meta' );
 	}
 
 	/**
@@ -224,6 +225,19 @@ class Post_Screen implements IScreen {
 		];
 
 		return array_diff_assoc( $tests, $remove );
+	}
+
+	/**
+	 * Save handler for metadata.
+	 *
+	 * @param CMB2 $cmb CMB2 instance.
+	 */
+	public function save_general_meta( $cmb ) {
+		if ( Helper::get_settings( "titles.pt_{$cmb->data_to_save['post_type']}_title" ) === $cmb->data_to_save['rank_math_title'] ) {
+			$cmb->data_to_save['rank_math_title'] = '';
+		}
+
+		return $cmb;
 	}
 
 	/**

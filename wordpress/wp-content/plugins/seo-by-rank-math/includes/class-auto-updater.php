@@ -94,15 +94,20 @@ class Auto_Updater {
 			$to_address = $registered['email'];
 		}
 
-		$subject    = sprintf( __( '(!) [%1$s] Rank Math SEO has been updated to %2$s', 'rank-math' ), wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $version );
-		$body       = sprintf( __( 'Hi! The Rank Math plugin installed on %1$s has been automatically updated to version %2$s.', 'rank-math' ), home_url(), $version );
-		$body      .= "\n\n";
-		$body      .= sprintf( __( 'No further action is needed on your part. For more on version %1$s, see the official changelog: https://rankmath.com/changelog/', 'rank-math' ), $version );
-		$body      .= "\n\n";
-		$body      .= __( 'If you experience any issues or need support, we are here to help: https://support.rankmath.com/', 'rank-math' );
-		$body      .= "\n\n";
-		$body      .= __( 'Thank you for using Rank Math.', 'rank-math' );
-		$headers    = '';
+		// Translators: placeholder is the new version number.
+		$subject = sprintf( __( '(!) Rank Math SEO has been updated to %1$s', 'rank-math' ), $version );
+
+		// Translators: 1 is the site URL, 2 is the new version number.
+		$body  = sprintf( __( 'Hi! The Rank Math plugin installed on %1$s has been automatically updated to version %2$s.', 'rank-math' ), home_url(), $version );
+		$body .= "\n\n";
+
+		// Translators: placeholder is the new version number.
+		$body   .= sprintf( __( 'No further action is needed on your part. For more on version %1$s, see the official changelog: https://rankmath.com/changelog/', 'rank-math' ), $version );
+		$body   .= "\n\n";
+		$body   .= __( 'If you experience any issues or need support, we are here to help: https://support.rankmath.com/', 'rank-math' );
+		$body   .= "\n\n";
+		$body   .= __( 'Thank you for using Rank Math.', 'rank-math' );
+		$headers = '';
 
 		$email = compact( 'to_address', 'subject', 'body', 'headers' );
 		$email = $this->do_filter( 'auto_update_email', $email, $version, $plugin_upgrader_obj );

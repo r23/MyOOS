@@ -10,6 +10,7 @@
 
 namespace RankMath\Redirections;
 
+use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Param;
 
@@ -26,7 +27,7 @@ class Export {
 	 * The Constructor.
 	 */
 	public function __construct() {
-		$this->action( 'init', 'export' );
+		$this->action( 'admin_init', 'export' );
 	}
 
 	/**
@@ -37,6 +38,12 @@ class Export {
 		if ( ! $server || ! in_array( $server, [ 'apache', 'nginx' ], true ) ) {
 			return;
 		}
+
+		if ( ! Helper::has_cap( 'general' ) ) {
+			return;
+		}
+
+		check_admin_referer( 'rank-math-export-redirections' );
 
 		$filename = "rank-math-redirections-{$server}-" . date_i18n( 'Y-m-d-H-i-s' ) . ( 'apache' === $server ? '.htaccess' : '.conf' );
 
