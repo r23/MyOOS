@@ -51,9 +51,8 @@ $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_title, 
                         WHERE p.products_setting = '2'
                           AND p.products_id = '" . intval($nProductsID) . "'
                           AND pd.products_id = p.products_id
-                          AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
+                          AND pd.products_languages_id = '" . intval($nLanguageID) . "'";			  
 $product_info_result = $dbconn->Execute($product_info_sql);
-
 if (!$product_info_result->RecordCount()) {
 	// product not found
 	header('HTTP/1.0 404 Not Found');
@@ -402,13 +401,15 @@ if (!$product_info_result->RecordCount()) {
 
 		$smarty->assign('products_images', $aProductsImages);
 	}
-	
-	
+					  
 	// 3-D Model
 	$products_modelstable = $oostable['products_models'];
-	$products_models_sql = "SELECT models_id, models_name
-							FROM $products_modelstable 
-							WHERE products_id = '" . intval($nProductsID) . "'";
+	$products_models_descriptiontable = $oostable['products_models_description'];
+	$products_models_sql = "SELECT pm.models_id, pmd.models_name
+							FROM $products_modelstable pm,
+								$products_models_descriptiontable pmd
+							WHERE pm.products_id = '" . intval($nProductsID) . "'
+							AND pmd.models_id = pm.models_id";
 	$products_models_result = $dbconn->Execute($products_models_sql);	
 	if ($products_models_result->RecordCount()) {
 		
