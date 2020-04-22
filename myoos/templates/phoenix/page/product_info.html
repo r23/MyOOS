@@ -28,6 +28,51 @@
             <div class="product-carousel owl-carousel"><a href="http://localhost/ent/image/dist/img/shop/apparel/single/01.jpg" data-fancybox="prod-gallery" data-hash="one"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/01.jpg" alt="Product"></a><a href="http://localhost/ent/image/dist/img/shop/apparel/single/02.jpg" data-fancybox="prod-gallery" data-hash="two"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/02.jpg" alt="Product"></a><a href="http://localhost/ent/image/dist/img/shop/apparel/single/03.jpg" data-fancybox="prod-gallery" data-hash="three"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/03.jpg" alt="Product"></a><a href="http://localhost/ent/image/dist/img/shop/apparel/single/04.jpg" data-fancybox="prod-gallery" data-hash="four"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/04.jpg" alt="Product"></a><a href="http://localhost/ent/image/dist/img/shop/apparel/single/05.jpg" data-fancybox="prod-gallery" data-hash="five"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/05.jpg" alt="Product"></a></div>
           </div>
 
+##
+			<!-- Product gallery-->
+			<div class="product-gallery">
+				<ul class="product-thumbnails">
+					{foreach $products_images as $images}
+						<li {if $images@first}class="active"{/if}><a href="{$image_link}#{$images@iteration|number_to_word}" aria-controls="{$images@iteration|number_to_word}">{product_image dir=small height="100" image=$images.image alt=$product_info.products_name}</a></li>
+					{/foreach}
+				</ul>
+				<div class="product-carousel owl-carousel">
+					{foreach $products_images as $images}
+					<a href="{product_image_link dir=large image=$images.image}" data-fancybox="prod-gallery" data-hash="{$images@iteration|number_to_word}">{product_image dir=large image=$images.image alt=$product_info.products_name}</a>
+					{/foreach}
+				</div>
+			</div>
+
+
+##
+			{if !empty($product_info.products_image) }
+			<!-- IMAGE -->
+			<div class="col-12 col-md-4">		
+				<div class="thumbnail relative mb-3">
+					<figure id="zoom-primary" class="zoom" data-mode="{$smarty.const.IMAGE_ZOOM|default:'mouseover'}">
+						<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
+						{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
+					</figure>
+				</div>
+				{if $products_images}				
+					<!-- Thumbnails -->
+					<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{literal}{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}{/literal}'>
+						<a class="thumbnail active" href="{product_image_link dir=large image=$product_info.products_image}">
+							{product_image dir=small height="100" image=$product_info.products_image alt=$product_info.products_name}
+						</a>
+					{foreach $products_images as $images}
+						<a class="thumbnail active" href="{product_image_link dir=large image=$images.image}">
+							{product_image dir=small height="100" image=$images.image alt=$product_info.products_name}
+						</a>
+					{/foreach}
+					</div>
+					<!-- /Thumbnails -->
+				{/if}
+
+			
+			</div>
+			<!-- /IMAGE -->	
+			{/if}
 			
 			</div>
 			<!-- /IMAGE -->	
@@ -236,7 +281,7 @@
 
 						<h2>{$model.name}</h2>
 						<div class="embed-responsive embed-responsive-16by9">
-							<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.product_info_webgl_gltf models_id=$model.models_id products_id=$product_info.products_id}"  frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen="allowfullscreen"></iframe>			
+							<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.product_info_webgl_gltf models_id=$model.models_id products_id=$product_info.products_id}" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen="allowfullscreen"></iframe>			
 						</div>
 						
 						

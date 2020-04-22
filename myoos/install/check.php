@@ -81,6 +81,11 @@ function oosCheckPHP() {
   </td>
 </tr>
 <tr>
+  <td>&nbsp; - Internationalization Functions</td>
+  <td align="left"><?php echo extension_loaded( 'intl' ) ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
+  </td>
+</tr>
+<tr>
   <td>&nbsp; - cURL support</td>
   <td align="left"><?php echo extension_loaded( 'curl' ) ? '<b><font color="green">Available</font></b>' : '<b><font color="red">Unavailable</font></b>';?>
   </td>
