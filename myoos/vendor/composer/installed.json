@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.135.1",
-        "version_normalized": "3.135.1.0",
+        "version": "3.135.2",
+        "version_normalized": "3.135.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "59587a4f3fc88b36ce7f2e1a102bfcd7a816b27c"
+            "reference": "1810725052836683d0cfd2907d515173058e710e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/59587a4f3fc88b36ce7f2e1a102bfcd7a816b27c",
-            "reference": "59587a4f3fc88b36ce7f2e1a102bfcd7a816b27c",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1810725052836683d0cfd2907d515173058e710e",
+            "reference": "1810725052836683d0cfd2907d515173058e710e",
             "shasum": ""
         },
         "require": {
@@ -101,14 +101,14 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-04-21T18:14:29+00:00",
+        "time": "2020-04-22T18:11:15+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "3.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Aws\\": "src/"
@@ -4001,17 +4001,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.28.1",
-        "version_normalized": "7.28.1.0",
+        "version": "v7.29.0",
+        "version_normalized": "7.29.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "0f4af8bd7dc2e143a4a6983a8451b96429e747e1"
+            "reference": "657c8ec888d8bcb58dd8f4fa227809108b406a44"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/0f4af8bd7dc2e143a4a6983a8451b96429e747e1",
-            "reference": "0f4af8bd7dc2e143a4a6983a8451b96429e747e1",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/657c8ec888d8bcb58dd8f4fa227809108b406a44",
+            "reference": "657c8ec888d8bcb58dd8f4fa227809108b406a44",
             "shasum": ""
         },
         "require": {
@@ -4021,20 +4021,20 @@
             "php": ">=5.6.0"
         },
         "require-dev": {
-            "friendsofphp/php-cs-fixer": "^2.15",
+            "friendsofphp/php-cs-fixer": "2.16.1",
             "php-coveralls/php-coveralls": "^2.1",
             "phpunit/phpunit": "^5.7",
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-04-10T17:05:40+00:00",
+        "time": "2020-04-22T19:35:10+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "2.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Stripe\\": "lib/"

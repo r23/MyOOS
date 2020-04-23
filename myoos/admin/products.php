@@ -217,7 +217,7 @@ if (!empty($action)) {
 				if ( ($_POST['remove_products_image'][$i] == 'yes') && (isset($_POST['products_previous_large_image'][$i])) ) {
 					$products_previous_large_image = oos_db_prepare_input($_POST['products_previous_large_image'][$i]);
 
-					$dbconn->Execute("DELETE FROM " . $oostable['products_images'] . " WHERE image_name = '" . oos_db_input($products_previous_large_image) . "'");		
+					$dbconn->Execute("DELETE FROM " . $oostable['product_gallery'] . " WHERE image_name = '" . oos_db_input($products_previous_large_image) . "'");		
 				
 					oos_remove_category_image($products_previous_large_image);				
 				}
@@ -308,7 +308,7 @@ if (!empty($action)) {
 						$sql_data_array = array('products_id' => intval($products_id),
 												'image_name' => oos_db_prepare_input($value),
 												'sort_order' => intval($sort_order));
-						oos_db_perform($oostable['products_images'], $sql_data_array);		
+						oos_db_perform($oostable['product_gallery'], $sql_data_array);		
 					}
 				}
 			}
@@ -410,15 +410,15 @@ if ($action == 'new_product') {
 
 		$pInfo = new objectInfo($product);
 
-		$products_imagestable = $oostable['products_images'];
-		$products_images_result =  $dbconn->Execute("SELECT products_id, image_name, sort_order FROM $products_imagestable WHERE products_id = '" . intval($product['products_id']) . "' ORDER BY sort_order");
+		$product_gallerytable = $oostable['product_gallery'];
+		$product_gallery_result =  $dbconn->Execute("SELECT products_id, image_name, sort_order FROM $product_gallerytable WHERE products_id = '" . intval($product['products_id']) . "' ORDER BY sort_order");
 			
-		while ($product_images = $products_images_result->fields) {
+		while ($product_images = $product_gallery_result->fields) {
 			$pInfo->products_larger_images[] = array('products_id' => $product_images['products_id'],
 													'image' => $product_images['image_name'],
 													'sort_order' => $product_images['sort_order']);
 			// Move that ADOdb pointer!
-			$products_images_result->MoveNext();
+			$product_gallery_result->MoveNext();
 		}
     } 
 	

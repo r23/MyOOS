@@ -27,6 +27,17 @@ global $db, $prefix_table, $currentlang;
 
 if (!$prefix_table == '') $prefix_table = $prefix_table . '_';
 
+// product_gallery
+$table = $prefix_table . 'products_images';
+$new_name = $prefix_table . 'product_gallery';
+$result = $db->Execute("ALTER TABLE " . $table . " TO " . $table . "");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} 
+
+
+
+
 // products_model_viewer
 $table = $prefix_table . 'products_model_viewer';
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `model_viewer_scale` VARCHAR(5) NOT NULL DEFAULT 'auto' AFTER `model_viewer_auto_rotate`");

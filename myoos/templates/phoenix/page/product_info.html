@@ -32,12 +32,12 @@
 			<!-- Product gallery-->
 			<div class="product-gallery">
 				<ul class="product-thumbnails">
-					{foreach $products_images as $data}
+					{foreach $product_gallery as $data}
 						<li {if $data@first}class="active"{/if}><a href="{$image_link}#{$data@iteration|number_to_word}" aria-controls="{$data@iteration|number_to_word}">{product_gallery_image dir=small image=$data.image alt=$product_info.products_name}</a></li>
 					{/foreach}				
 				</ul>
 				<div class="product-carousel owl-carousel">
-					{foreach $products_images as $data}
+					{foreach $product_gallery as $data}
 					<a href="{product_image_link dir=large image=$data.image}" data-fancybox="prod-gallery" data-hash="{$data@iteration|number_to_word}">{product_gallery_image dir=large image=$data.image alt=$product_info.products_name}</a>
 					{/foreach}
 				</div>
