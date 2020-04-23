@@ -382,25 +382,25 @@ if (!$product_info_result->RecordCount()) {
     }	
 
 	// more products images
-	$products_imagestable = $oostable['products_images'];
-	$products_images_sql = "SELECT image_name, sort_order
-                        FROM $products_imagestable
+	$product_gallerytable = $oostable['product_gallery'];
+	$product_gallery_sql = "SELECT image_name, sort_order
+                        FROM $product_gallerytable
                         WHERE products_id = '" . intval($nProductsID) . "'
 						ORDER BY sort_order";
-	$products_images_result = $dbconn->Execute($products_images_sql);	
-	if ($products_images_result->RecordCount()) {
+	$product_gallery_result = $dbconn->Execute($product_gallery_sql);	
+	if ($product_gallery_result->RecordCount()) {
 		
 		$aProductsImages = array();
 		$aProductsImages[] = array('image' => $product_info['products_image']);
-		while ($products_images = $products_images_result->fields) {
+		while ($product_gallery = $product_gallery_result->fields) {
 
-			$aProductsImages[] = array('image' => $products_images['image_name']);
+			$aProductsImages[] = array('image' => $product_gallery['image_name']);
 			
 			// Move that ADOdb pointer!
-			$products_images_result->MoveNext();
+			$product_gallery_result->MoveNext();
 		}
 
-		$smarty->assign('products_images', $aProductsImages);
+		$smarty->assign('product_gallery', $aProductsImages);
 	}
 					  
 	// 3-D Model
