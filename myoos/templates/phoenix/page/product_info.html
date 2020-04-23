@@ -33,7 +33,7 @@
 			<div class="product-gallery">
 				<ul class="product-thumbnails">
 					{foreach $products_images as $data}
-						<li {if $data@first}class="active"{/if}><a href="{$image_link}#{$data@iteration|number_to_word}" aria-controls="{$data@iteration|number_to_word}">{product_gallery_image dir=small height="100" image=$data.image alt=$product_info.products_name}</a></li>
+						<li {if $data@first}class="active"{/if}><a href="{$image_link}#{$data@iteration|number_to_word}" aria-controls="{$data@iteration|number_to_word}">{product_gallery_image dir=small image=$data.image alt=$product_info.products_name}</a></li>
 					{/foreach}				
 				</ul>
 				<div class="product-carousel owl-carousel">

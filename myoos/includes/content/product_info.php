@@ -391,6 +391,7 @@ if (!$product_info_result->RecordCount()) {
 	if ($products_images_result->RecordCount()) {
 		
 		$aProductsImages = array();
+		$aProductsImages[] = array('image' => $product_info['products_image']);
 		while ($products_images = $products_images_result->fields) {
 
 			$aProductsImages[] = array('image' => $products_images['image_name']);
