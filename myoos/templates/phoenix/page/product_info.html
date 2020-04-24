@@ -12,23 +12,12 @@
 	<div class="container">
 		<div class="row">
 		
-			{if !empty($product_info.products_image) }
+	{if !empty($product_info.products_image) }
 			<!-- IMAGE -->
 			<div class="col-lg-7">
 
-          <!-- Product gallery-->
-          <div class="product-gallery">
-            <ul class="product-thumbnails">
-              <li class="active"><a href="{$image_link}#one" aria-controls="one"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/th01.jpg" alt="Product thumb"></a></li>
-              <li><a href="{$image_link}#two" aria-controls="two"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/th02.jpg" alt="Product thumb"></a></li>
-              <li><a href="{$image_link}#three"aria-controls="three"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/th03.jpg" alt="Product thumb"></a></li>
-              <li><a href="{$image_link}#four" aria-controls="four"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/th04.jpg" alt="Product thumb"></a></li>
-              <li><a href="{$image_link}#five" aria-controls="five"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/th05.jpg" alt="Product thumb"></a></li>
-            </ul>
-            <div class="product-carousel owl-carousel"><a href="http://localhost/ent/image/dist/img/shop/apparel/single/01.jpg" data-fancybox="prod-gallery" data-hash="one"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/01.jpg" alt="Product"></a><a href="http://localhost/ent/image/dist/img/shop/apparel/single/02.jpg" data-fancybox="prod-gallery" data-hash="two"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/02.jpg" alt="Product"></a><a href="http://localhost/ent/image/dist/img/shop/apparel/single/03.jpg" data-fancybox="prod-gallery" data-hash="three"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/03.jpg" alt="Product"></a><a href="http://localhost/ent/image/dist/img/shop/apparel/single/04.jpg" data-fancybox="prod-gallery" data-hash="four"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/04.jpg" alt="Product"></a><a href="http://localhost/ent/image/dist/img/shop/apparel/single/05.jpg" data-fancybox="prod-gallery" data-hash="five"><img src="http://localhost/ent/image/dist/img/shop/apparel/single/05.jpg" alt="Product"></a></div>
-          </div>
+		{if !empty($product_gallery) }
 
-##
 			<!-- Product gallery-->
 			<div class="product-gallery">
 				<ul class="product-thumbnails">
@@ -42,10 +31,7 @@
 					{/foreach}
 				</div>
 			</div>
-
-
-##
-			{if !empty($product_info.products_image) }
+		{else}
 			<!-- IMAGE -->
 			<div class="col-12 col-md-4">		
 				<div class="thumbnail relative mb-3">
@@ -53,30 +39,14 @@
 						<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
 						{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
 					</figure>
-				</div>
-				{if $products_images}				
-					<!-- Thumbnails -->
-					<div data-for="zoom-primary" class="zoom-more owl-carousel owl-padding-3 featured" data-plugin-options='{literal}{"singleItem": false, "autoPlay": false, "navigation": true, "pagination": false}{/literal}'>
-						<a class="thumbnail active" href="{product_image_link dir=large image=$product_info.products_image}">
-							{product_image dir=small height="100" image=$product_info.products_image alt=$product_info.products_name}
-						</a>
-					{foreach $products_images as $images}
-						<a class="thumbnail active" href="{product_image_link dir=large image=$images.image}">
-							{product_image dir=small height="100" image=$images.image alt=$product_info.products_name}
-						</a>
-					{/foreach}
-					</div>
-					<!-- /Thumbnails -->
-				{/if}
-
+				</div>			
+			</div>
+			<!-- /IMAGE -->	
+		{/if}
 			
 			</div>
 			<!-- /IMAGE -->	
-			{/if}
-			
-			</div>
-			<!-- /IMAGE -->	
-			{/if}
+	{/if}
 			
 			<div class="col-12 col-lg-5">
 				<div class="product_details_desc">
