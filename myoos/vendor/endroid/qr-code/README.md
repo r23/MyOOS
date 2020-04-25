@@ -13,6 +13,8 @@ to generate the matrix and [khanamiryan/qrcode-detector-decoder](https://github.
 for validating generated QR codes. Further extended with Twig extensions, generation routes, a factory and a
 Symfony bundle for easy installation and configuration.
 
+Different writers are provided to generate the QR code as PNG, SVG, EPS or in binary format.
+
 ## Installation
 
 Use [Composer](https://getcomposer.org/) to install the library.
@@ -46,7 +48,6 @@ $qrCode->setSize(300);
 
 // Set advanced options
 $qrCode->setWriterByName('png');
-$qrCode->setMargin(10);
 $qrCode->setEncoding('UTF-8');
 $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH());
 $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
@@ -54,8 +55,14 @@ $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
 $qrCode->setLabel('Scan the code', 16, __DIR__.'/../assets/fonts/noto_sans.otf', LabelAlignment::CENTER());
 $qrCode->setLogoPath(__DIR__.'/../assets/images/symfony.png');
 $qrCode->setLogoSize(150, 200);
-$qrCode->setRoundBlockSize(true);
 $qrCode->setValidateResult(false);
+
+// Apply a margin and round block sizes to improve readability
+// Please note that rounding block sizes can result in additional margin
+$qrCode->setRoundBlockSize(true);
+$qrCode->setMargin(10); 
+
+// Set additional writer options (SvgWriter example)
 $qrCode->setWriterOptions(['exclude_xml_declaration' => true]);
 
 // Directly output the QR code
@@ -65,11 +72,20 @@ echo $qrCode->writeString();
 // Save it to a file
 $qrCode->writeFile(__DIR__.'/qrcode.png');
 
-// Create a response object
-$response = new QrCodeResponse($qrCode);
+// Generate a data URI to include image data inline (i.e. inside an <img> tag)
+$dataUri = $qrCode->writeDataUri();
 ```
 
 ![QR Code](https://endroid.nl/qr-code/Life%20is%20too%20short%20to%20be%20generating%20QR%20codes.png)
+
+## Readability
+
+The readability of a QR code is primarily determined by the size, the input
+length, the error correction level and any possible logo over the image so you
+can tweak these parameters if you are looking for optimal results. You can also
+check $qrCode->getRoundBlockSize() value to see if block dimensions are rounded
+so that the image is more sharp and readable. Please note that rounding block
+size can result in additional padding to compensate for the rounding difference.
 
 ## Built-in validation reader
 
@@ -77,12 +93,6 @@ You can enable the built-in validation reader (disabled by default) by calling
 setValidateResult(true). This validation reader does not guarantee that the QR
 code will be readable by all readers but it helps you provide a minimum level
 of quality.
- 
-The readability of a QR code is primarily determined by the size, the input
-length, the error correction level and any possible logo over the image so you
-can tweak these parameters if you are looking for optimal results. You can also
-check $qrCode->getRoundBlockSize() value to see if block dimensions are rounded
-so that the image is more sharp and readable.
 
 Take note that the validator can consume quite amount of additional resources.
 
