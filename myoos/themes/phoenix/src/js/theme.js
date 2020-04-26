@@ -1,4 +1,11 @@
-/**
+/*
+ * MyOOS [Shopsystem]
+ * https://www.oos-shop.de
+ *
+ * Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+ * ----------------------------------------------------------------------
+ * Based on:
+ *
  * MStore | Modern Bootstrap E-Commerce Template
  * Theme core scripts
  * 
