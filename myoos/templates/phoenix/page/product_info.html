@@ -12,41 +12,36 @@
 	<div class="container">
 		<div class="row">
 		
-	{if !empty($product_info.products_image) }
-			<!-- IMAGE -->
+		{if !empty($product_info.products_image)}
 			<div class="col-lg-7">
-
-		{if !empty($product_gallery) }
-
-			<!-- Product gallery-->
-			<div class="product-gallery">
-				<ul class="product-thumbnails">
-					{foreach $product_gallery as $data}
-						<li {if $data@first}class="active"{/if}><a href="{$image_link}#{$data@iteration|number_to_word}" aria-controls="{$data@iteration|number_to_word}">{product_gallery_image dir=small image=$data.image alt=$product_info.products_name}</a></li>
-					{/foreach}				
-				</ul>
-				<div class="product-carousel owl-carousel">
-					{foreach $product_gallery as $data}
-					<a href="{product_image_link dir=large image=$data.image}" data-fancybox="prod-gallery" data-hash="{$data@iteration|number_to_word}">{product_gallery_image dir=large image=$data.image alt=$product_info.products_name}</a>
-					{/foreach}
-				</div>
-			</div>
-		{else}
-			<!-- IMAGE -->
-			<div class="col-12 col-md-4">		
-				<div class="thumbnail relative mb-3">
-					<figure id="zoom-primary" class="zoom" data-mode="{$smarty.const.IMAGE_ZOOM|default:'mouseover'}">
-						<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
-						{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
-					</figure>
+			{if !empty($product_gallery) }
+				<!-- Product gallery-->
+				<div class="product-gallery">
+					<ul class="product-thumbnails">
+						{foreach $product_gallery as $data}
+							<li {if $data@first}class="active"{/if}><a href="{$image_link}#{$data@iteration|number_to_word}" aria-controls="{$data@iteration|number_to_word}">{product_gallery_image dir=small image=$data.image alt=$product_info.products_name}</a></li>
+						{/foreach}				
+					</ul>
+					<div class="product-carousel owl-carousel">
+						{foreach $product_gallery as $data}
+							<a href="{product_image_link dir=large image=$data.image}" data-fancybox="prod-gallery" data-hash="{$data@iteration|number_to_word}">{product_gallery_image dir=large image=$data.image alt=$product_info.products_name}</a>
+						{/foreach}
+					</div>
 				</div>			
+			{else}
+				<!-- IMAGE -->
+				<div class="col-12 col-md-4">		
+					<div class="thumbnail relative mb-3">
+						<figure id="zoom-primary" class="zoom" data-mode="{$smarty.const.IMAGE_ZOOM|default:'mouseover'}">
+							<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
+							{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
+						</figure>
+					</div>			
+				</div>
+				<!-- /IMAGE -->	
+			{/if}		
 			</div>
-			<!-- /IMAGE -->	
 		{/if}
-			
-			</div>
-			<!-- /IMAGE -->	
-	{/if}
 			
 			<div class="col-12 col-lg-5">
 				<div class="product_details_desc">

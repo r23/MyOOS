@@ -514,7 +514,7 @@
         var i = e.item.index;
         var $activeHash = $('.owl-item').eq(i).find('[data-hash]').attr('data-hash');
         $('.product-thumbnails li').removeClass('active');
-        $('[href="#' + $activeHash + '"]').parent().addClass('active');
+        $('[href*="#' + $activeHash + '"]').parent().addClass('active');
         $('[data-hash="' + $activeHash + '"]').parent().addClass('active');
       }
 
