@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2
+class ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -769,6 +769,7 @@ class ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2
         'Piwik\\CronArchive\\SegmentArchivingRequestUrlProvider' => __DIR__ . '/../..' . '/core/CronArchive/SegmentArchivingRequestUrlProvider.php',
         'Piwik\\CronArchive\\SharedSiteIds' => __DIR__ . '/../..' . '/core/CronArchive/SharedSiteIds.php',
         'Piwik\\CronArchive\\SitesToReprocessDistributedList' => __DIR__ . '/../..' . '/core/CronArchive/SitesToReprocessDistributedList.php',
+        'Piwik\\CronArchive\\StopArchiverException' => __DIR__ . '/../..' . '/core/CronArchive/StopArchiverException.php',
         'Piwik\\DataAccess\\Actions' => __DIR__ . '/../..' . '/core/DataAccess/Actions.php',
         'Piwik\\DataAccess\\ArchiveSelector' => __DIR__ . '/../..' . '/core/DataAccess/ArchiveSelector.php',
         'Piwik\\DataAccess\\ArchiveTableCreator' => __DIR__ . '/../..' . '/core/DataAccess/ArchiveTableCreator.php',
@@ -2846,6 +2847,7 @@ class ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2
         'Piwik\\Updates\\Updates_3_12_0_b7' => __DIR__ . '/../..' . '/core/Updates/3.12.0-b7.php',
         'Piwik\\Updates\\Updates_3_13_1_b2' => __DIR__ . '/../..' . '/core/Updates/3.13.1-b2.php',
         'Piwik\\Updates\\Updates_3_13_4_b1' => __DIR__ . '/../..' . '/core/Updates/3.13.4-b1.php',
+        'Piwik\\Updates\\Updates_3_13_5_rc1' => __DIR__ . '/../..' . '/core/Updates/3.13.5-rc1.php',
         'Piwik\\Updates\\Updates_3_5_0_b2' => __DIR__ . '/../..' . '/core/Updates/3.5.0-b2.php',
         'Piwik\\Updates\\Updates_3_5_0_b4' => __DIR__ . '/../..' . '/core/Updates/3.5.0-b4.php',
         'Piwik\\Updates\\Updates_3_5_0_rc2' => __DIR__ . '/../..' . '/core/Updates/3.5.0-rc2.php',
@@ -3604,11 +3606,11 @@ class ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInit1e371aa692998ac8fcd74c116c8bd2b2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$classMap;
 
         }, null, ClassLoader::class);
     }
