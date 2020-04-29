@@ -61,16 +61,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.135.5",
+            "version": "3.135.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a721de5e39eb584aa74611b07564bedba166893c"
+                "reference": "ba5a7fe1f4f7c4c38b5804c4779dad23399fccab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a721de5e39eb584aa74611b07564bedba166893c",
-                "reference": "a721de5e39eb584aa74611b07564bedba166893c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ba5a7fe1f4f7c4c38b5804c4779dad23399fccab",
+                "reference": "ba5a7fe1f4f7c4c38b5804c4779dad23399fccab",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-04-27T18:11:22+00:00"
+            "time": "2020-04-28T18:15:08+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -4498,16 +4498,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.0.7",
+            "version": "v5.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "93313a03cfdb3b9c994ae8e414267efcc010262d"
+                "reference": "be593537f4a1e7e7741104cfc551a85635fa9acf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/93313a03cfdb3b9c994ae8e414267efcc010262d",
-                "reference": "93313a03cfdb3b9c994ae8e414267efcc010262d",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/be593537f4a1e7e7741104cfc551a85635fa9acf",
+                "reference": "be593537f4a1e7e7741104cfc551a85635fa9acf",
                 "shasum": ""
             },
             "require": {
@@ -4622,7 +4622,7 @@
                 "predis/predis": "~1.1",
                 "psr/http-client": "^1.0",
                 "psr/simple-cache": "^1.0",
-                "symfony/phpunit-bridge": "^3.4.31|^4.3.4|~5.0",
+                "symfony/phpunit-bridge": "^5.0.8",
                 "symfony/security-acl": "~2.8|~3.0",
                 "twig/cssinliner-extra": "^2.12",
                 "twig/inky-extra": "^2.12",
@@ -4669,7 +4669,21 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2020-03-30T15:05:17+00:00"
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-04-28T18:53:47+00:00"
         },
         {
             "name": "twig/twig",
