@@ -382,7 +382,7 @@ if (!$product_info_result->RecordCount()) {
     }	
 
 	// more products images
-	$product_gallerytable = $oostable['product_gallery'];
+	$product_gallerytable = $oostable['products_gallery'];
 	$product_gallery_sql = "SELECT image_name, sort_order
                         FROM $product_gallerytable
                         WHERE products_id = '" . intval($nProductsID) . "'
@@ -400,7 +400,7 @@ if (!$product_info_result->RecordCount()) {
 			$product_gallery_result->MoveNext();
 		}
 
-		$smarty->assign('product_gallery', $aProductsImages);
+		$smarty->assign('products_gallery', $aProductsImages);
 	}
 					  
 	// 3-D Model

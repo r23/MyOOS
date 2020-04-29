@@ -1026,7 +1026,7 @@ $idxname = 'idx_products_name';
 $idxflds = 'products_name';
 idxsql($idxname, $table, $idxflds);
 
-$table = $prefix_table . 'product_gallery';
+$table = $prefix_table . 'products_gallery';
 $flds = "
   image_id I NOTNULL AUTO PRIMARY,
   products_id I NOTNULL DEFAULT '1' PRIMARY,

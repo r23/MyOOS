@@ -30,10 +30,9 @@ if (!$prefix_table == '') $prefix_table = $prefix_table . '_';
 
 // product_gallery
 $table = $prefix_table . 'products_images';
-$new_name = $prefix_table . 'product_gallery';
-$result = $db->Execute("ALTER TABLE " . $table . " TO " . $table . "");
+$new_name = $prefix_table . 'products_gallery';
+$result = $db->Execute("RENAME TABLE " . $table . " TO " . $new_name . "");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 
-
 
