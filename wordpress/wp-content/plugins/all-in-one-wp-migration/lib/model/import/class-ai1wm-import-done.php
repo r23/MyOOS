@@ -241,20 +241,11 @@ class Ai1wm_Import_Done {
 		}
 
 		// Set progress
-		Ai1wm_Status::done(
-			__(
-				'Your site has been imported successfully!',
-				AI1WM_PLUGIN_NAME
-			),
-			sprintf(
-				__(
-					'» <a class="ai1wm-no-underline" href="%s" target="_blank">Save permalinks structure</a>.</strong> (opens a new window)<br />' .
-					'» <a class="ai1wm-no-underline" href="https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform" target="_blank">Optionally, review the plugin</a>.</strong> (opens a new window)',
-					AI1WM_PLUGIN_NAME
-				),
-				admin_url( 'options-permalink.php#submit' )
-			)
-		);
+		if ( ai1wm_validate_plugin_basename( 'oxygen/functions.php' ) ) {
+			Ai1wm_Status::done( __( 'Your site has been imported successfully!', AI1WM_PLUGIN_NAME ), Ai1wm_Template::get_content( 'import/oxygen' ) );
+		} else {
+			Ai1wm_Status::done( __( 'Your site has been imported successfully!', AI1WM_PLUGIN_NAME ), Ai1wm_Template::get_content( 'import/done' ) );
+		}
 
 		return $params;
 	}

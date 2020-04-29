@@ -79,6 +79,20 @@ abstract class Ai1wm_Database {
 	protected $new_replace_values = array();
 
 	/**
+	 * Old raw replace values
+	 *
+	 * @var array
+	 */
+	protected $old_replace_raw_values = array();
+
+	/**
+	 * New raw replace values
+	 *
+	 * @var array
+	 */
+	protected $new_replace_raw_values = array();
+
+	/**
 	 * Table where clauses
 	 *
 	 * @var array
@@ -119,6 +133,13 @@ abstract class Ai1wm_Database {
 	 * @var boolean
 	 */
 	protected $visual_composer = false;
+
+	/**
+	 * Oxygen Builder
+	 *
+	 * @var boolean
+	 */
+	protected $oxygen_builder = false;
 
 	/**
 	 * BeTheme Responsive
@@ -475,6 +496,27 @@ abstract class Ai1wm_Database {
 	 */
 	public function get_visual_composer() {
 		return $this->visual_composer;
+	}
+
+	/**
+	 * Set Oxygen Builder
+	 *
+	 * @param  boolean $active Is Oxygen Builder Active?
+	 * @return object
+	 */
+	public function set_oxygen_builder( $active ) {
+		$this->oxygen_builder = $active;
+
+		return $this;
+	}
+
+	/**
+	 * Get Oxygen Builder
+	 *
+	 * @return boolean
+	 */
+	public function get_oxygen_builder() {
+		return $this->oxygen_builder;
 	}
 
 	/**
@@ -1362,6 +1404,11 @@ abstract class Ai1wm_Database {
 			$input = preg_replace_callback( '/\[vc_raw_html\]([a-zA-Z0-9\/+]+={0,2})\[\/vc_raw_html\]/S', array( $this, 'replace_visual_composer_values_callback' ), $input );
 		}
 
+		// Replace base64 encoded values (Oxygen Builder)
+		if ( $this->get_oxygen_builder() ) {
+			$input = preg_replace_callback( '/\\\\"(code-php|code-css|code-js)\\\\":\\\\"([a-zA-Z0-9\/+]+={0,2})\\\\"/S', array( $this, 'replace_oxygen_builder_values_callback' ), $input );
+		}
+
 		// Replace base64 encoded values (BeTheme Responsive and Optimize Press)
 		if ( $this->get_betheme_responsive() || $this->get_optimize_press() ) {
 			$input = preg_replace_callback( "/'([a-zA-Z0-9\/+]+={0,2})'/S", array( $this, 'replace_base64_values_callback' ), $input );
@@ -1399,6 +1446,29 @@ abstract class Ai1wm_Database {
 		}
 
 		return '[vc_raw_html]' . $matches[1] . '[/vc_raw_html]';
+	}
+
+	/**
+	 * Replace base64 values callback (Oxygen Builder)
+	 *
+	 * @param  array  $matches List of matches
+	 * @return string
+	 */
+	protected function replace_oxygen_builder_values_callback( $matches ) {
+		// Validate base64 data
+		if ( Ai1wm_Database_Utility::base64_validate( $matches[2] ) ) {
+
+			// Decode base64 characters
+			$matches[2] = Ai1wm_Database_Utility::base64_decode( $matches[2] );
+
+			// Replace values
+			$matches[2] = Ai1wm_Database_Utility::replace_values( $this->get_old_replace_values(), $this->get_new_replace_values(), $matches[2] );
+
+			// Encode base64 characters
+			$matches[2] = Ai1wm_Database_Utility::base64_encode( $matches[2] );
+		}
+
+		return '\"' . $matches[1] . '\":\"' . $matches[2] . '\"';
 	}
 
 	/**

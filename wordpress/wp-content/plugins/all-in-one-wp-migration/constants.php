@@ -35,7 +35,7 @@ define( 'AI1WM_DEBUG', false );
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '7.20' );
+define( 'AI1WM_VERSION', '7.21' );
 
 // ===============
 // = Plugin Name =
@@ -515,6 +515,43 @@ if ( ! defined( 'AI1WMAE_PLUGIN_KEY' ) ) {
 // ================================
 if ( ! defined( 'AI1WMAE_PLUGIN_SHORT' ) ) {
 	define( 'AI1WMAE_PLUGIN_SHORT', 'b2' );
+}
+
+// ==========================
+// = Backup Plugin Base Dir =
+// ==========================
+if ( defined( 'AI1WMVE_PLUGIN_BASENAME' ) ) {
+	define( 'AI1WMVE_PLUGIN_BASEDIR', dirname( AI1WMVE_PLUGIN_BASENAME ) );
+} else {
+	define( 'AI1WMVE_PLUGIN_BASEDIR', 'all-in-one-wp-migration-backup' );
+}
+
+// =======================
+// = Backup Plugin Title =
+// =======================
+if ( ! defined( 'AI1WMVE_PLUGIN_TITLE' ) ) {
+	define( 'AI1WMVE_PLUGIN_TITLE', 'Backup Plugin' );
+}
+
+// =======================
+// = Backup Plugin About =
+// =======================
+if ( ! defined( 'AI1WMVE_PLUGIN_ABOUT' ) ) {
+	define( 'AI1WMVE_PLUGIN_ABOUT', 'https://plugin-updates.wp-migration.com/backup-plugin.json' );
+}
+
+// =====================
+// = Backup Plugin Key =
+// =====================
+if ( ! defined( 'AI1WMVE_PLUGIN_KEY' ) ) {
+	define( 'AI1WMVE_PLUGIN_KEY', 'ai1wmve_plugin_key' );
+}
+
+// =======================
+// = Backup Plugin Short =
+// =======================
+if ( ! defined( 'AI1WMVE_PLUGIN_SHORT' ) ) {
+	define( 'AI1WMVE_PLUGIN_SHORT', 'backup' );
 }
 
 // ==========================
