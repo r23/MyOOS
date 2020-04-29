@@ -400,7 +400,7 @@ if (!$product_info_result->RecordCount()) {
 			$product_gallery_result->MoveNext();
 		}
 
-		$smarty->assign('products_gallery', $aProductsImages);
+		$smarty->assign('product_gallery', $aProductsImages);
 	}
 					  
 	// 3-D Model
