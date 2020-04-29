@@ -19,6 +19,10 @@ msgstr "Twenty Sixteen"
 msgid "Twenty Sixteen is a modernized take on an ever-popular WordPress layout — the horizontal masthead with an optional right sidebar that works perfectly for blogs and websites. It has custom color options with beautiful default color schemes, a harmonious fluid grid using a mobile-first approach, and impeccable polish in every detail. Twenty Sixteen will make your WordPress look beautiful everywhere."
 msgstr "Twenty Sixteen ist die moderne Interpretation eines allzeit beliebten WordPress-Layouts – einer horizontalen Kopfzeile mit einer optionalen rechten Seitenleiste, die gleichermaßen bei Blogs wie klassischen Websites perfekt funktioniert. Das Theme bietet Einstellungsmöglichkeiten für individuelle​ Farben mit schönen Standard-Farbvorlagen​, ein harmonisches, flexibles​ Raster mit einem Mobile-First-Ansatz und einem makellosen Schliff in jedem Detail. Twenty Sixteen sorgt für einen tollen Look ​bei​ all deinen WordPress-Websites."
 
+#: functions.php:204
+msgid "Bright Red"
+msgstr "Helles Rot"
+
 #: functions.php:199
 msgid "Dark Red"
 msgstr "Dunkelrot"
@@ -31,6 +35,22 @@ msgstr "Mittelbraun"
 msgid "Dark Brown"
 msgstr "Dunkelbraun"
 
+#: functions.php:184
+msgid "Light Blue"
+msgstr "Helles Blau"
+
+#: functions.php:179
+msgid "Bright Blue"
+msgstr "Strahlendes Blau"
+
+#: functions.php:174
+msgid "Blue Gray"
+msgstr "Blau-Grau"
+
+#: functions.php:169
+msgid "White"
+msgstr "Weiß"
+
 #: functions.php:164
 msgid "Light Gray"
 msgstr "Hellgrau"
@@ -42,26 +62,6 @@ msgstr "Mittelgrau"
 #: functions.php:154
 msgid "Dark Gray"
 msgstr "Dunkelgrau"
-
-#: functions.php:169
-msgid "White"
-msgstr "Weiß"
-
-#: functions.php:179
-msgid "Bright Blue"
-msgstr "Strahlendes Blau"
-
-#: functions.php:184
-msgid "Light Blue"
-msgstr "Helles Blau"
-
-#: functions.php:174
-msgid "Blue Gray"
-msgstr "Blau-Grau"
-
-#: functions.php:204
-msgid "Bright Red"
-msgstr "Helles Rot"
 
 #. translators: %s: Post title.
 #: template-parts/content.php:29 inc/template-tags.php:195
@@ -146,13 +146,13 @@ msgstr "Autor:"
 msgid "Previous post:"
 msgstr "Vorheriger Beitrag:"
 
-#: single.php:39
-msgid "Next post:"
-msgstr "Nächster Beitrag:"
-
 #: single.php:41
 msgid "Previous"
 msgstr "Zurück"
+
+#: single.php:39
+msgid "Next post:"
+msgstr "Nächster Beitrag:"
 
 #: single.php:38
 msgid "Next"
@@ -210,6 +210,10 @@ msgstr "Grau"
 msgid "Dark"
 msgstr "Dunkel"
 
+#: inc/customizer.php:221
+msgid "Main Text Color"
+msgstr "Primäre Textfarbe"
+
 #: inc/customizer.php:315
 msgid "Default"
 msgstr "Standard"
@@ -217,10 +221,6 @@ msgstr "Standard"
 #: inc/customizer.php:242
 msgid "Secondary Text Color"
 msgstr "Sekundäre Textfarbe"
-
-#: inc/customizer.php:221
-msgid "Main Text Color"
-msgstr "Primäre Textfarbe"
 
 #: inc/customizer.php:200
 msgid "Link Color"
@@ -278,16 +278,6 @@ msgstr "Untermenü anzeigen"
 msgid "collapse child menu"
 msgstr "Untermenü verbergen"
 
-#: functions.php:322
-msgctxt "Merriweather font: on or off"
-msgid "on"
-msgstr "on"
-
-#: functions.php:330
-msgctxt "Montserrat font: on or off"
-msgid "on"
-msgstr "on"
-
 #: functions.php:338
 msgctxt "Inconsolata font: on or off"
 msgid "on"
@@ -297,13 +287,23 @@ msgstr "on"
 msgid "Content Bottom 1"
 msgstr "Unterhalb des Inhalts 1"
 
+#: functions.php:281 functions.php:293
+msgid "Appears at the bottom of the content on posts and pages."
+msgstr "Erscheint unterhalb des Inhalts von Beiträgen und Seiten."
+
 #: functions.php:291
 msgid "Content Bottom 2"
 msgstr "Unterhalb des Inhalts 2"
 
-#: functions.php:281 functions.php:293
-msgid "Appears at the bottom of the content on posts and pages."
-msgstr "Erscheint unterhalb des Inhalts von Beiträgen und Seiten."
+#: functions.php:322
+msgctxt "Merriweather font: on or off"
+msgid "on"
+msgstr "on"
+
+#: functions.php:330
+msgctxt "Montserrat font: on or off"
+msgid "on"
+msgstr "on"
 
 #: functions.php:267
 msgid "Sidebar"
