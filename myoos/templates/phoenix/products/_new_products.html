@@ -60,3 +60,53 @@
 </section>
 <!-- end new products -->	
 {/if}
+
+{if $new_products_array}
+ <!-- Featured products grid-->
+    <section class="container pt-3 pb-4">
+      <h2 class="h3 text-center pb-4">{$block_heading_new_products}</h2>
+      <div class="row">
+	  
+	  {foreach item=new_product from=$new_products_array}
+        <!-- Product-->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card mb-4">
+            <div class="product-thumb"><a class="product-thumb-link" href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}"><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="Add to wishlist"><i data-feather="heart"></i></span></a><img src="http://localhost/ent/store_gestaltung/MStore/dist/img/shop/apparel/01.jpg" alt="Product"></div>
+            <div class="product-card-body text-center"><a class="product-meta" href="#">Men's jeans</a>
+              <h3 class="product-card-title"><a href="{product_link products_id=$new_product.products_id}">Gues Slim Taper Fit Jeans</a></h3><span class="text-primary">$124.99</span>
+            </div>
+            <div class="product-card-body body-hidden">
+              <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast">Add to cart</button><a class="quick-view-btn" href="#quick-view" data-toggle="modal"><i class="mr-1" data-feather="eye"></i>Quick view</a>
+            </div>
+          </div>
+        </div>
+		{/foreach}		
+        <!-- Product-->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card mb-4">
+            <div class="product-thumb"><a class="product-thumb-link" href="shop-single-apparel.html"></a><span class="badge badge-success rounded-0">&starf; Popular</span><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="Add to wishlist"><i data-feather="heart"></i></span><img src="http://localhost/ent/store_gestaltung/MStore/dist/img/shop/apparel/04.jpg" alt="Product"></div>
+            <div class="product-card-body text-center"><a class="product-meta" href="#">Hats &amp; Caps</a>
+              <h3 class="product-card-title"><a href="shop-single-apparel.html">47Brand Denim Cap</a></h3><span class="text-primary">$21.50</span>
+            </div>
+            <div class="product-card-body body-hidden">
+              <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast">Add to cart</button><a class="quick-view-btn" href="#quick-view" data-toggle="modal"><i class="mr-1" data-feather="eye"></i>Quick view</a>
+            </div>
+          </div>
+        </div>
+        <!-- Product-->
+        <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="product-card mb-4">
+            <div class="product-thumb"><a class="product-thumb-link" href="shop-single-apparel.html"></a><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="Add to wishlist"><i data-feather="heart"></i></span><img src="http://localhost/ent/store_gestaltung/MStore/dist/img/shop/apparel/03.jpg" alt="Product"></div>
+            <div class="product-card-body text-center"><a class="product-meta" href="#">Men's shoes</a>
+              <h3 class="product-card-title"><a href="shop-single-apparel.html">Calvin Klein Jeans Keds</a></h3><span class="text-primary">$125.00</span>
+            </div>
+            <div class="product-card-body body-hidden">
+              <div class="pb-2 text-center">
+              <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast">Add to cart</button><a class="quick-view-btn" href="#quick-view" data-toggle="modal"><i class="mr-1" data-feather="eye"></i>Quick view</a>
+            </div>
+          </div>
+        </div>
+      </div>
+	  </div>
+    </section>
+{/if}
