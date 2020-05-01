@@ -55,7 +55,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 define('OOS_VALID_MOD', true);
 // Version information
-define('OOS_VERSION', 'MyOOS 2.4.5 -dev');
+define('OOS_VERSION', 'MyOOS 2.4.6 -dev');
 
 // Set the local configuration parameters - mainly for developers
 if (is_readable('../includes/local/configure.php')) {
