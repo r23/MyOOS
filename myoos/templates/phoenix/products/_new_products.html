@@ -24,7 +24,7 @@
                                 <li><a href="{product_link products_id=$new_product.products_id}" class="btn btn-default" role="button"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
                               </ul>
 						</div>						
-						
+					
 					</div>
                 </div> 
                 <div class="product-summary text-center">
@@ -74,7 +74,7 @@
             <div class="product-thumb">
 				<a class="product-thumb-link" href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}"><span class="badge badge-success rounded-0">&starf; Popular</span><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="{$lang.button_add_wishlist}"><i data-feather="heart"></i></span></a>{product_image dir=medium image=$new_product.products_image alt=$new_product.products_name}
 			</div>
-            <div class="product-card-body text-center"><a class="product-meta" href="#">Men's jeans</a>
+            <div class="product-card-body text-center"><a class="product-meta" href="{html_href_link content=$filename.shop category=$new_product.products_path}" title="{$new_product.categories_name}">{$new_product.categories_name}</a>
               <h3 class="product-card-title"><a href="{product_link products_id=$new_product.products_id}">{$new_product.products_name|truncate:18:"":true|close_tags}</a></h3>
 			  
 					{if $myUser.show_price eq 1 }

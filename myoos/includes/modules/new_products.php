@@ -118,9 +118,14 @@ while ($new_products = $new_products_result->fields) {
 	$order_min = number_format($new_products['products_quantity_order_min']);
 	$order_max = number_format($new_products['products_quantity_order_max']);
 
+	$aCategoryPath = array();
+	$aCategoryPath = oos_get_category_path($new_products['products_id']);
+
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],
                                   'products_image' => $new_products['products_image'],
                                   'products_name' => $new_products['products_name'],
+								  'products_path' => $aCategoryPath['path'],
+								  'categories_name' => $aCategoryPath['name'],
                                   'products_short_description' => $new_products['products_short_description'],
 								  'order_min' => $order_min,
 								  'order_max' => $order_max,
@@ -138,6 +143,7 @@ while ($new_products = $new_products_result->fields) {
     // Move that ADOdb pointer!
 	$new_products_result->MoveNext();
 }
+
 
 // assign Smarty variables;
 $smarty->assign(

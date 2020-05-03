@@ -888,7 +888,7 @@ function oos_get_parent_categories(&$categories, $categories_id) {
   * @param $products_id
   * @return string
   */
-  function oos_get_product_path($products_id) {
+function oos_get_product_path($products_id) {
 
     $sCategory = '';
 
@@ -923,8 +923,58 @@ function oos_get_parent_categories(&$categories, $categories_id) {
     }
 
     return $sCategory;
-  }
+}
 
+
+ /**
+  * Construct a category path to the product
+  *
+  * @param $products_id
+  * @return array
+  */
+function oos_get_category_path($nProductsId) {
+
+    $aCategory = array();
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+	$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
+
+    $products_to_categoriestable = $oostable['products_to_categories'];
+    $query = "SELECT categories_id
+              FROM $products_to_categoriestable
+              WHERE products_id = '" . intval($nProductsId) . "'";
+    $cat_id_sql = $dbconn->SelectLimit($query, 1);
+    $cat_id_data = $cat_id_sql->fields;
+	
+
+	$categories_arr = array();
+    oos_get_parent_categories($categories_arr, $cat_id_data['categories_id']);
+
+	$sCategory = '';
+	$size = count($categories_arr)-1;
+	for ($i = $size; $i >= 0; $i--) {
+		if ($sCategory != '') $sCategory .= '_';
+		$sCategory .= $categories_arr[$i];
+	}
+	if ($sCategory != '') $sCategory .= '_';
+	$sCategory .= $cat_id_data['categories_id'];
+
+    $categories_descriptiontable = $oostable['categories_description'];
+    $query = "SELECT categories_name
+              FROM $categories_descriptiontable
+              WHERE categories_id = '" .  intval($cat_id_data['categories_id']) . "'
+                AND categories_languages_id = '" .  intval($nLanguageID) . "'";
+    $result = $dbconn->SelectLimit($query, 1);
+	$result_data = $result->fields;
+
+	$aCategory = array('path' => $sCategory,
+						'name' => $result_data['categories_name']);
+
+    return $aCategory;
+}
 
 
 
