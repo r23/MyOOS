@@ -1,35 +1,19 @@
 {if $new_products_array}
-<!-- new products -->
-<section>
-	<div class="container">
-
-		<div class="heading mb-40">
-			<h2>{$block_heading_new_products}</h2>
-		</div>
-		
-		<ul class="product-list row list-inline m-0">
-
-		{foreach item=new_product from=$new_products_array}
-			<!-- item -->
-			<li class="col-sm-3 col-12">
-                <div class="imageBox">
-					<div class="productImage clearfix">
-						<a href="{product_link products_id=$new_product.products_id}">
-							{product_image dir=medium image=$new_product.products_image alt=$new_product.products_name}
-						</a>
-						<div class="productMasking">
-                              <ul class="list-inline btn-group" role="group">
-                                <li><a href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}" class="btn btn-default btn-wishlist" role="button"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                <li><a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$new_product.order_min  products_id=$new_product.products_id}" class="btn btn-default" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
-                                <li><a href="{product_link products_id=$new_product.products_id}" class="btn btn-default" role="button"><i class="fa fa-eye" aria-hidden="true"></i></a></li>
-                              </ul>
-						</div>						
-					
-					</div>
-                </div> 
-                <div class="product-summary text-center">
-                    <h4><a href="{product_link products_id=$new_product.products_id}" title="{$new_product.products_name}">{$new_product.products_name|truncate:18:"":true|close_tags}</a></h4>
-
+<!-- New products grid-->
+<section class="container pt-3 pb-4">
+	<h2 class="h3 text-center pb-4">{$block_heading_new_products}</h2>
+	<div class="row">
+	  
+	{foreach item=new_product from=$new_products_array}
+		<!-- Product-->
+		<div class="col-lg-3 col-md-4 col-sm-6">
+			<div class="product-card mb-4">
+				<div class="product-thumb">
+					<a class="product-thumb-link" href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}"><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="{$lang.button_add_wishlist}"><i data-feather="heart"></i></span></a>{product_image dir=medium image=$new_product.products_image alt=$new_product.products_name}
+				</div>
+				<div class="product-card-body text-center"><a class="product-meta" href="{html_href_link content=$filename.shop category=$new_product.products_path}" title="{$new_product.categories_name}">{$new_product.categories_name}</a>
+					<h3 class="product-card-title"><a href="{product_link products_id=$new_product.products_id}">{$new_product.products_name|truncate:18:"":true|close_tags}</a></h3>
+			  
 					<div class="product-price clearfix">
 					{if $myUser.show_price eq 1 }
 						{if (!empty($new_product.new_product_special_price))}
@@ -49,88 +33,16 @@
 						{/if}					
 
 						{if $new_product.products_base_price != 1}<br>{$new_product.product_quantity} {$products_units[$new_product.new_product_units]} <span class="base_price">({$new_product.new_base_product_price}/{$products_units[$new_product.products_base_unit]})</span><br>{/if}
-					{/if}		
+					{/if}			  
 					</div>
-                </div>
-            </li>
-		{/foreach}
-		
-		</ul>
+				</div>
+				<div class="product-card-body body-hidden">
+					<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$new_product.order_min  products_id=$new_product.products_id}" class="btn btn-primary btn-sm btn-block" role="button" data-toggle="toast" data-target="#cart-toast">{$lang.button_hp_buy}</a><a class="quick-view-btn" href="{product_link products_id=$new_product.products_id}" ><i class="mr-1" data-feather="eye"></i>{$lang.button_hp_more}</a>
+				</div>
+			</div>
+		</div>
+		{/foreach}		
 	</div>
 </section>
-<!-- end new products -->	
-{/if}
-
-{if $new_products_array}
- <!-- Featured products grid-->
-    <section class="container pt-3 pb-4">
-      <h2 class="h3 text-center pb-4">{$block_heading_new_products}</h2>
-      <div class="row">
-	  
-	  {foreach item=new_product from=$new_products_array}
-        <!-- Product-->
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="product-card mb-4">
-            <div class="product-thumb">
-				<a class="product-thumb-link" href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}"><span class="badge badge-success rounded-0">&starf; Popular</span><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="{$lang.button_add_wishlist}"><i data-feather="heart"></i></span></a>{product_image dir=medium image=$new_product.products_image alt=$new_product.products_name}
-			</div>
-            <div class="product-card-body text-center"><a class="product-meta" href="{html_href_link content=$filename.shop category=$new_product.products_path}" title="{$new_product.categories_name}">{$new_product.categories_name}</a>
-              <h3 class="product-card-title"><a href="{product_link products_id=$new_product.products_id}">{$new_product.products_name|truncate:18:"":true|close_tags}</a></h3>
-			  
-					{if $myUser.show_price eq 1 }
-						{if (!empty($new_product.new_product_special_price))}
-							<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$new_product.new_product_price}</span></span><br>
-							<span class="price-offer">{$new_product.new_product_special_price}</span>
-						{elseif $new_product.new_product_price_list ne 0}
-							<span class="price-old">{$lang.price_rrp} <span class="line-through">{$new_product.new_product_price_list}</span></span><br>
-							{$new_product.new_product_price}										
-						{else}
-							{if (!empty($new_product.new_product_discount_price))}
-								<p class="clearfix"></p>
-								{$lang.price_from} {$new_product.new_product_discount_price}											
-							{else}
-								<p class="clearfix"></p>	
-								{$new_product.new_product_price}
-							{/if}	
-						{/if}					
-
-						{if $new_product.products_base_price != 1}<br>{$new_product.product_quantity} {$products_units[$new_product.new_product_units]} <span class="base_price">({$new_product.new_base_product_price}/{$products_units[$new_product.products_base_unit]})</span><br>{/if}
-					{/if}			  
-			  
-			  <span class="text-primary">$124.99</span>
-            </div>
-            <div class="product-card-body body-hidden">
-			   <a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$new_product.order_min  products_id=$new_product.products_id}" class="btn btn-primary btn-sm btn-block" role="button" data-toggle="toast" data-target="#cart-toast">{$lang.button_hp_buy}</a><a class="quick-view-btn" href="{product_link products_id=$new_product.products_id}" ><i class="mr-1" data-feather="eye"></i>{$lang.button_hp_more}</a>
-            </div>
-          </div>
-        </div>
-		{/foreach}		
-        <!-- Product-->
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="product-card mb-4">
-            <div class="product-thumb"><a class="product-thumb-link" href="shop-single-apparel.html"></a><span class="badge badge-success rounded-0">&starf; Popular</span><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="Add to wishlist"><i data-feather="heart"></i></span><img src="http://localhost/ent/store_gestaltung/MStore/dist/img/shop/apparel/04.jpg" alt="Product"></div>
-            <div class="product-card-body text-center"><a class="product-meta" href="#">Hats &amp; Caps</a>
-              <h3 class="product-card-title"><a href="shop-single-apparel.html">47Brand Denim Cap</a></h3><span class="text-primary">$21.50</span>
-            </div>
-            <div class="product-card-body body-hidden">
-              <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast">Add to cart</button><a class="quick-view-btn" href="#quick-view" data-toggle="modal"><i class="mr-1" data-feather="eye"></i>Quick view</a>
-            </div>
-          </div>
-        </div>
-        <!-- Product-->
-        <div class="col-lg-3 col-md-4 col-sm-6">
-          <div class="product-card mb-4">
-            <div class="product-thumb"><a class="product-thumb-link" href="shop-single-apparel.html"></a><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="Add to wishlist"><i data-feather="heart"></i></span><img src="http://localhost/ent/store_gestaltung/MStore/dist/img/shop/apparel/03.jpg" alt="Product"></div>
-            <div class="product-card-body text-center"><a class="product-meta" href="#">Men's shoes</a>
-              <h3 class="product-card-title"><a href="shop-single-apparel.html">Calvin Klein Jeans Keds</a></h3><span class="text-primary">$125.00</span>
-            </div>
-            <div class="product-card-body body-hidden">
-              <div class="pb-2 text-center">
-              <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast">Add to cart</button><a class="quick-view-btn" href="#quick-view" data-toggle="modal"><i class="mr-1" data-feather="eye"></i>Quick view</a>
-            </div>
-          </div>
-        </div>
-      </div>
-	  </div>
-    </section>
+<!-- End new products grid-->
 {/if}
