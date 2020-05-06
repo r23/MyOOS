@@ -61,16 +61,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.137.2",
+            "version": "3.137.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "af91c2fc467a326e5bcb5665e4e2ad3d84d28be2"
+                "reference": "d70ccd508c9a9fa5a1579f80fd1f6b8fff79a7c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/af91c2fc467a326e5bcb5665e4e2ad3d84d28be2",
-                "reference": "af91c2fc467a326e5bcb5665e4e2ad3d84d28be2",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d70ccd508c9a9fa5a1579f80fd1f6b8fff79a7c8",
+                "reference": "d70ccd508c9a9fa5a1579f80fd1f6b8fff79a7c8",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-05-04T18:13:52+00:00"
+            "time": "2020-05-05T18:14:48+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -3958,7 +3958,7 @@
         },
         {
             "name": "symfony/contracts",
-            "version": "v2.0.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
