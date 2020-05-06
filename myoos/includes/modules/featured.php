@@ -25,7 +25,7 @@ if (!is_numeric(MAX_DISPLAY_FEATURED_PRODUCTS)) return FALSE;
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
 $featuredtable = $oostable['featured'];
-$sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_tax_class_id,
+$sql = "SELECT p.products_id, p.products_image, p.products_price ,p.products_price_list, p.products_tax_class_id,
                  p.products_units_id, p.products_base_price, p.products_base_unit, 
 				 p.products_quantity_order_min, p.products_quantity_order_max,
 				 p.products_product_quantity, pd.products_name,
@@ -48,6 +48,7 @@ if ($featured_result->RecordCount() >= 1) {
     while ($featured = $featured_result->fields) {
 
 		$featured_product_price = NULL;
+		$featured_price_list = NULL;
 		$featured_product_special_price = NULL;
 		$featured_base_product_price = NULL;
 		$featured_special_price = NULL;
@@ -56,6 +57,8 @@ if ($featured_result->RecordCount() >= 1) {
 			$base_product_price = $featured['products_price'];
 			
 			$featured_product_price = $oCurrencies->display_price($featured['products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
+			$featured_price_list = $oCurrencies->display_price($featured['products_price_list'], oos_get_tax_rate($featured['products_tax_class_id']));
+
 			$featured_special_price = oos_get_products_special_price($featured['products_id']);
 
 			if (oos_is_not_null($featured_special_price)) {
@@ -71,19 +74,25 @@ if ($featured_result->RecordCount() >= 1) {
 		$order_min = number_format($featured['products_quantity_order_min']);
 		$order_max = number_format($listing['products_quantity_order_max']);
 
+		$aCategoryPath = array();
+		$aCategoryPath = oos_get_category_path($new_products['products_id']);
+
 		$aFeatured[] = array('products_id' => $featured['products_id'],
-                           'products_image' => $featured['products_image'],
-                           'products_name' => $featured['products_name'],
-                           'products_short_description' => $featured['products_short_description'],
-                           'order_min' => $order_min,
-                           'order_max' => $order_max,
-						   'product_quantity' => $featured['products_product_quantity'],
-                           'products_base_price' => $featured['products_base_price'],
-                           'products_base_unit' => $featured['products_base_unit'],
-                           'products_units' => $featured['products_units_id'],
-                           'featured_product_price' => $featured_product_price,
-                           'featured_product_special_price' => $featured_product_special_price,
-                           'featured_base_product_price' => $featured_base_product_price);
+							'products_image' => $featured['products_image'],
+							'products_name' => $featured['products_name'],
+							'products_short_description' => $featured['products_short_description'],
+							'products_path' => $aCategoryPath['path'],
+							'categories_name' => $aCategoryPath['name'],						   
+							'order_min' => $order_min,
+							'order_max' => $order_max,
+							'product_quantity' => $featured['products_product_quantity'],
+							'products_base_price' => $featured['products_base_price'],
+							'products_base_unit' => $featured['products_base_unit'],
+							'products_units' => $featured['products_units_id'],
+							'featured_product_price_list' => $featured_price_list,
+							'featured_product_price' => $featured_product_price,
+							'featured_product_special_price' => $featured_product_special_price,
+							'featured_base_product_price' => $featured_base_product_price);
 		// Move that ADOdb pointer!
 		$featured_result->MoveNext();
     }

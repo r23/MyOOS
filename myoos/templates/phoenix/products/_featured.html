@@ -1,57 +1,48 @@
 {if $featured}
-<!-- featured -->
-<section>
-	<div class="container">
-
-		<div class="heading mb-40">
-			<h2>{$lang.table_heading_featured_products}</h2>
-		</div>
-		
-		<ul class="product-list row list-inline m-0">
-
-		{foreach item=featur from=$featured}
-          
-			<!-- item -->
-			<li class="col-sm-3 col-12">
-                <div class="imageBox">
-					<div class="productImage clearfix">
-						<a href="{product_link products_id=$featur.products_id}">
-							{product_image dir=medium image=$featur.products_image alt=$featur.products_name}
-						</a>
-						{if $myUser.show_price eq 1 }
-						<div class="productMasking">
-                              <ul class="list-inline btn-group" role="group">
-                                <li><a href="{html_href_link content=$page_file action=add_wishlist products_id=$featur.products_id}" class="btn btn-default btn-wishlist" role="button"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                <li><a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$featur.order_min  products_id=$featur.products_id}" class="btn btn-default" role="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
-                                <li><a href="{product_link products_id=$featur.products_id}" class="btn btn-default"><i class="fa fa-eye" aria-hidden="true" role="button"></i></a></li>
-                              </ul>
-						</div>
-						{/if}						
-						
-					</div>
-                </div> 
-                <div class="product-summary text-center">
-                    <h4><a href="{product_link products_id=$featur.products_id}" title="{$featur.products_name}">{$featur.products_name|truncate:18:"":true|close_tags}</a></h4>
-
+<!-- Featured products grid-->
+<section class="container pt-3 pb-4">
+	<h2 class="h3 text-center pb-4">{$lang.table_heading_featured_products}</h2>
+	<div class="row">
+	  
+	{foreach item=featur from=$featured}
+		<!-- Product-->
+		<div class="col-lg-3 col-md-4 col-sm-6">
+			<div class="product-card mb-4">
+				<div class="product-thumb">
+					<a class="product-thumb-link" href="{html_href_link content=$page_file action=add_wishlist products_id=$featur.products_id}"><span class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="{$lang.button_add_wishlist}"><i data-feather="heart"></i></span></a>{product_image dir=medium image=$featur.products_image alt=$featur.products_name}
+				</div>
+				<div class="product-card-body text-center"><a class="product-meta" href="{html_href_link content=$filename.shop category=$featur.products_path}" title="{$featur.categories_name}">{$featur.categories_name}</a>
+					<h3 class="product-card-title"><a href="{product_link products_id=$featur.products_id}">{$featur.products_name|truncate:18:"":true|close_tags}</a></h3>
+			  
 					<div class="product-price clearfix">
-					{if $myUser.show_price eq 1 }	
+					{if $myUser.show_price eq 1 }
 						{if (!empty($featur.featured_product_special_price))}
-							<span class="price-offer">{$featur.featured_product_special_price}</span> <span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$featur.featured_product_price}</span></span>
+							<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$featur.featured_product_price}</span></span><br>
+							<span class="price-offer">{$featur.featured_product_special_price}</span>
+						{elseif $featur.featured_product_price_list ne 0}
+							<span class="price-old">{$lang.price_rrp} <span class="line-through">{$featur.featured_product_price_list}</span></span><br>
+							{$featur.featured_product_price}										
 						{else}
-							{$featur.featured_product_price}
+							{if (!empty($featur.featured_product_discount_price))}
+								<p class="clearfix"></p>
+								{$lang.price_from} {$featur.featured_product_discount_price}											
+							{else}
+								<p class="clearfix"></p>	
+								{$featur.featured_product_price}
+							{/if}	
 						{/if}					
-						
-						{if $featur.products_base_price != 1}<br>{$featur.product_quantity} {$products_units[$featur.products_units]} <span class="base_price">({$featur.featured_base_product_price}/{$products_units[$featur.products_base_unit]})</span>{/if}
-					{/if}	
-					</div>
-                </div>
-            </li>		
-		    <!-- end item -->
 
-		{/foreach}
-		
-		</ul>
+						{if $featur.products_base_price != 1}<br>{$featur.product_quantity} {$products_units[$featur.featured_product_units]} <span class="base_price">({$featur.featured_base_product_price}/{$products_units[$featur.products_base_unit]})</span><br>{/if}
+					{/if}			  
+					</div>
+				</div>
+				<div class="product-card-body body-hidden">
+					<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$featur.order_min  products_id=$featur.products_id}" class="btn btn-primary btn-sm btn-block" role="button" data-toggle="toast" data-target="#cart-toast">{$lang.button_hp_buy}</a><a class="quick-view-btn" href="{product_link products_id=$featur.products_id}" ><i class="mr-1" data-feather="eye"></i>{$lang.button_hp_more}</a>
+				</div>
+			</div>
+		</div>
+		{/foreach}		
 	</div>
 </section>
-<!-- end specials -->
+<!-- End featured products grid-->
 {/if}
