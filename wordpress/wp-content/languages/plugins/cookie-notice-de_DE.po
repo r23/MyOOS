@@ -2,14 +2,18 @@
 # This file is distributed under the same license as the Plugins - Cookie Notice for GDPR &amp; CCPA - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-01-31 15:18:56+0000\n"
+"PO-Revision-Date: 2020-05-03 20:04:59+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Cookie Notice for GDPR &amp; CCPA - Stable (latest release)\n"
+
+#: cookie-notice.php:1195
+msgid "Bar opacity"
+msgstr "Deckkraft der Leiste"
 
 #: cookie-notice.php:204
 msgid "Dark"

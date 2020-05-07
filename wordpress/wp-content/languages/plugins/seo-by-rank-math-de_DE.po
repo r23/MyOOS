@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - WordPress SEO Plugin &#8211; Rank Math - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-04-30 21:56:31+0000\n"
+"PO-Revision-Date: 2020-05-06 23:28:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - WordPress SEO Plugin &#8211; Rank Math - Stable (latest release)\n"
 
@@ -3484,10 +3484,6 @@ msgstr "Autorenarchiv Meta-Beschreibung. SEO-Optionen für bestimmte Autorenarch
 #: includes/modules/seo-analysis/class-seo-analyzer.php:431
 msgid "Youtube Connected"
 msgstr "Youtube verbunden"
-
-#: includes/modules/seo-analysis/class-seo-analyzer.php:430
-msgid "Youtube"
-msgstr "Youtube"
 
 #: includes/modules/seo-analysis/class-seo-analyzer.php:427
 msgid "Twitter Connected"
@@ -8306,6 +8302,10 @@ msgstr "Rank Math Dashboard"
 #: includes/modules/redirections/class-metabox.php:57
 msgid "Redirection"
 msgstr "Weiterleitung"
+
+#: includes/modules/seo-analysis/class-seo-analyzer.php:430
+msgid "Youtube"
+msgstr "YouTube"
 
 #: assets/admin/js/analyzer.js:1
 msgid "PageRank Sculpting no longer works. Your posts should have a mix of nofollow and DoFollow links."
