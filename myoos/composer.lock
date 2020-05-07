@@ -61,16 +61,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.137.3",
+            "version": "3.137.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d70ccd508c9a9fa5a1579f80fd1f6b8fff79a7c8"
+                "reference": "0bed146e6336ca1260e937fce2f4931681ceb3ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d70ccd508c9a9fa5a1579f80fd1f6b8fff79a7c8",
-                "reference": "d70ccd508c9a9fa5a1579f80fd1f6b8fff79a7c8",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0bed146e6336ca1260e937fce2f4931681ceb3ce",
+                "reference": "0bed146e6336ca1260e937fce2f4931681ceb3ce",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-05-05T18:14:48+00:00"
+            "time": "2020-05-06T18:19:09+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -3962,12 +3962,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "b3b9b70bfacfd204d352e7e7350e02c02c0fff78"
+                "reference": "cf1da70384da0d4e98593760955c4397a22175cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/b3b9b70bfacfd204d352e7e7350e02c02c0fff78",
-                "reference": "b3b9b70bfacfd204d352e7e7350e02c02c0fff78",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/cf1da70384da0d4e98593760955c4397a22175cc",
+                "reference": "cf1da70384da0d4e98593760955c4397a22175cc",
                 "shasum": ""
             },
             "require": {
