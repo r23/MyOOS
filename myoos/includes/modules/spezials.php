@@ -60,11 +60,16 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
 
 		$order_min = number_format($new_spezials['products_quantity_order_min']);
 		$order_max = number_format($new_spezials['products_quantity_order_max']);
+
+		$aCategoryPath = array();
+		$aCategoryPath = oos_get_category_path($new_products['products_id']);
 		
 		$aSpezials[] = array('products_id' => $new_spezials['products_id'],
                                     'products_image' => $new_spezials['products_image'],
                                     'products_name' => $new_spezials['products_name'],
                                     'products_short_description' => $new_spezials['products_short_description'],
+									'products_path' => $aCategoryPath['path'],
+									'categories_name' => $aCategoryPath['name'],										
                                     'order_min' => $order_min,
                                     'order_max' => $order_max,
                                     'product_quantity' => $new_spezials['products_product_quantity'],
