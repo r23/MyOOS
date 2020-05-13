@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 3.138.0 - 2020-05-13
+
+* `Aws\ElastiCache` - Amazon ElastiCache now supports auto-update of ElastiCache clusters after the "recommended apply by date" of service update has passed. ElastiCache will use your maintenance window to schedule the auto-update of applicable clusters. For more information, see https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/Self-Service-Updates.html and https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Self-Service-Updates.html
+* `Aws\Macie2` - This release introduces a new major version of the Amazon Macie API. You can use this version of the API to develop tools and applications that interact with the new Amazon Macie.
+
+## 3.137.8 - 2020-05-12
+
+* `Aws\IoTSiteWise` - Documentation updates for iot-bifrost
+* `Aws\WorkMail` - Minor API fixes and updates to the documentation.
+
+## 3.137.7 - 2020-05-11
+
+* `Aws\CodeGuruReviewer` - Add Bitbucket integration APIs
+* `Aws\EC2` - M6g instances are our next-generation general purpose instances powered by AWS Graviton2 processors
+* `Aws\kendra` - Amazon Kendra is now generally available. As part of general availability, we are launching * Developer edition * Ability to scale your Amazon Kendra index with capacity units * Support for new connectors * Support for new tagging API's * Support for Deleting data source * Metrics for data source sync operations * Metrics for query & storage utilization
+
 ## 3.137.6 - 2020-05-08
 
 * `Aws\GuardDuty` - Documentation updates for GuardDuty

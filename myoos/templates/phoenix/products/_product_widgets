@@ -1,0 +1,85 @@
+    <!-- Product widgets-->
+    <section class="container pt-sm-3 pb-4 pb-md-5">
+      <div class="row">
+        <div class="col-md-4 col-sm-6 d-block d-sm-none d-md-block mb-3">
+          <a class="d-block text-decoration-0 mx-auto" href="#" style="max-width: 24rem;">
+            <div class="bg-secondary">
+              <div class="px-3 pt-4 text-center">
+                <h4 class="font-size-sm font-weight-normal pt-1 mb-2">2019 Spring / Summer</h4>
+                <h4 class="h5 pb-2">Hoodie Collection</h4>
+                <div class="btn btn-primary btn-sm">Shop now</div>
+              </div><img src="img/shop/banner01.jpg" alt="Promo banner">
+            </div></a>
+        </div>
+        <div class="col-md-4 col-sm-6 mb-2 py-3">
+          <div class="widget widget-featured-entries">
+            <h3 class="widget-title font-size-lg">Best sellers</h3>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/01.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Keds - Kickstart Pom Pom</a></h6>
+                <p class="featured-entry-meta">$42.99</p>
+              </div>
+            </div>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/02.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Nike - Brasilia Medium Backpack</a></h6>
+                <p class="featured-entry-meta">$27.99</p>
+              </div>
+            </div>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/03.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Guess - GU7295</a></h6>
+                <p class="featured-entry-meta">$38.00</p>
+              </div>
+            </div>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/11.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Adidas Originals Cap</a></h6>
+                <p class="featured-entry-meta">$35.00</p>
+              </div>
+            </div>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/13.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Big Star Flip Tops</a></h6>
+                <p class="featured-entry-meta">$10.60</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 mb-2 py-3">
+          <div class="widget widget-featured-entries">
+            <h3 class="widget-title font-size-lg">New arrivals</h3>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/08.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">The North Face Hoodie</a></h6>
+                <p class="featured-entry-meta">$134.00</p>
+              </div>
+            </div>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/09.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Medicine Chameleon Sunglasses</a></h6>
+                <p class="featured-entry-meta">$47.00</p>
+              </div>
+            </div>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/10.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Adidas Performance Hat</a></h6>
+                <p class="featured-entry-meta">$19.00</p>
+              </div>
+            </div>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/07.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Calvin Klein Jeans Keds</a></h6>
+                <p class="featured-entry-meta">$125.00</p>
+              </div>
+            </div>
+            <div class="media"><a class="featured-entry-thumb" href="#"><img src="img/shop/widget/12.jpg" width="64" alt="Product thumb"></a>
+              <div class="media-body">
+                <h6 class="featured-entry-title"><a href="#">Roxy Cotton Handbag</a></h6>
+                <p class="featured-entry-meta">$52.00</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
