@@ -136,42 +136,7 @@
 		}
 
 		// Character Count
-		$( '.wpcf7-character-count', $form ).each( function() {
-			var $count = $( this );
-			var name = $count.attr( 'data-target-name' );
-			var down = $count.hasClass( 'down' );
-			var starting = parseInt( $count.attr( 'data-starting-value' ), 10 );
-			var maximum = parseInt( $count.attr( 'data-maximum-value' ), 10 );
-			var minimum = parseInt( $count.attr( 'data-minimum-value' ), 10 );
-
-			var updateCount = function( target ) {
-				var $target = $( target );
-				var length = $target.val().length;
-				var count = down ? starting - length : length;
-				$count.attr( 'data-current-value', count );
-				$count.text( count );
-
-				if ( maximum && maximum < length ) {
-					$count.addClass( 'too-long' );
-				} else {
-					$count.removeClass( 'too-long' );
-				}
-
-				if ( minimum && length < minimum ) {
-					$count.addClass( 'too-short' );
-				} else {
-					$count.removeClass( 'too-short' );
-				}
-			};
-
-			$( ':input[name="' + name + '"]', $form ).each( function() {
-				updateCount( this );
-
-				$( this ).keyup( function() {
-					updateCount( this );
-				} );
-			} );
-		} );
+		wpcf7.resetCounter( $form );
 
 		// URL Input Correction
 		$form.on( 'change', '.wpcf7-validates-as-url', function() {
@@ -303,6 +268,7 @@
 				} );
 
 				wpcf7.toggleSubmit( $form );
+				wpcf7.resetCounter( $form );
 			}
 
 			if ( ! wpcf7.supportHtml5.placeholder ) {
@@ -400,11 +366,56 @@
 		} );
 	};
 
+	wpcf7.resetCounter = function( form ) {
+		var $form = $( form );
+
+		$( '.wpcf7-character-count', $form ).each( function() {
+			var $count = $( this );
+			var name = $count.attr( 'data-target-name' );
+			var down = $count.hasClass( 'down' );
+			var starting = parseInt( $count.attr( 'data-starting-value' ), 10 );
+			var maximum = parseInt( $count.attr( 'data-maximum-value' ), 10 );
+			var minimum = parseInt( $count.attr( 'data-minimum-value' ), 10 );
+
+			var updateCount = function( target ) {
+				var $target = $( target );
+				var length = $target.val().length;
+				var count = down ? starting - length : length;
+				$count.attr( 'data-current-value', count );
+				$count.text( count );
+
+				if ( maximum && maximum < length ) {
+					$count.addClass( 'too-long' );
+				} else {
+					$count.removeClass( 'too-long' );
+				}
+
+				if ( minimum && length < minimum ) {
+					$count.addClass( 'too-short' );
+				} else {
+					$count.removeClass( 'too-short' );
+				}
+			};
+
+			$( ':input[name="' + name + '"]', $form ).each( function() {
+				updateCount( this );
+
+				$( this ).keyup( function() {
+					updateCount( this );
+				} );
+			} );
+		} );
+	};
+
 	wpcf7.notValidTip = function( target, message ) {
 		var $target = $( target );
 		$( '.wpcf7-not-valid-tip', $target ).remove();
-		$( '<span role="alert" class="wpcf7-not-valid-tip"></span>' )
-			.text( message ).appendTo( $target );
+
+		$( '<span></span>' ).attr( {
+			'class': 'wpcf7-not-valid-tip',
+			'role': 'alert',
+			'aria-hidden': 'true',
+		} ).text( message ).appendTo( $target );
 
 		if ( $target.is( '.use-floating-validation-tip *' ) ) {
 			var fadeOut = function( target ) {

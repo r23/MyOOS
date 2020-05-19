@@ -27,12 +27,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
 
-printf(
-	__(
-		'» <a class="ai1wm-no-underline" href="%s" target="_blank">Save permalinks structure</a>. (opens a new window)<br />' .
+if ( ai1wm_got_url_rewrite() ) {
+	printf(
+		__(
+			'» <a class="ai1wm-no-underline" href="%s" target="_blank">Save permalinks structure</a>. (opens a new window)<br />' .
+			'» <a class="ai1wm-no-underline" href="https://oxygenbuilder.com/documentation/other/importing-exporting/#resigning" target="_blank">Re-sign Oxygen Builder shortcodes</a>. (opens a new window)<br />' .
+			'» <a class="ai1wm-no-underline" href="https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform" target="_blank">Optionally, review the plugin</a>. (opens a new window)',
+			AI1WM_PLUGIN_NAME
+		),
+		admin_url( 'options-permalink.php#submit' )
+	);
+} else {
+	_e(
+		'» Permalinks are set to default. <a class="ai1wm-no-underline" href="https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/" target="_blank">Why?</a> (opens a new window)<br />' .
 		'» <a class="ai1wm-no-underline" href="https://oxygenbuilder.com/documentation/other/importing-exporting/#resigning" target="_blank">Re-sign Oxygen Builder shortcodes</a>. (opens a new window)<br />' .
 		'» <a class="ai1wm-no-underline" href="https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform" target="_blank">Optionally, review the plugin</a>. (opens a new window)',
 		AI1WM_PLUGIN_NAME
-	),
-	admin_url( 'options-permalink.php#submit' )
-);
+	);
+}

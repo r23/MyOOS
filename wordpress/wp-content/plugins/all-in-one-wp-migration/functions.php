@@ -1779,3 +1779,19 @@ function ai1wm_replace_directory_separator_with_forward_slash( $path ) {
 function ai1wm_escape_windows_directory_separator( $path ) {
 	return preg_replace( '/[\\\\]+/', '\\\\\\\\', $path );
 }
+
+/**
+ * Returns whether the server supports URL rewriting.
+ * Detects Apache's mod_rewrite, IIS 7.0+ permalink support, and nginx.
+ *
+ * @return boolean Whether the server supports URL rewriting.
+ */
+function ai1wm_got_url_rewrite() {
+	if ( iis7_supports_permalinks() ) {
+		return true;
+	} elseif ( ! empty( $GLOBALS['is_nginx'] ) ) {
+		return true;
+	}
+
+	return apache_mod_loaded( 'mod_rewrite', false );
+}

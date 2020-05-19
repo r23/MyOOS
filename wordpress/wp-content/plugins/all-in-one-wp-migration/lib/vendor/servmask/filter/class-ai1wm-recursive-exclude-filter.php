@@ -49,6 +49,10 @@ class Ai1wm_Recursive_Exclude_Filter extends RecursiveFilterIterator {
 			return false;
 		}
 
+		if ( in_array( ai1wm_replace_forward_slash_with_directory_separator( $this->getInnerIterator()->getPath() ), $this->exclude ) ) {
+			return false;
+		}
+
 		if ( strpos( $this->getInnerIterator()->getSubPathname(), "\n" ) !== false ) {
 			return false;
 		}
