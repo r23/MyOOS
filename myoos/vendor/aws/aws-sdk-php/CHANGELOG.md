@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 3.138.4 - 2020-05-19
+
+* `Aws\Chime` - You can now receive Voice Connector call events through SNS or SQS.
+* `Aws\EC2` - This release adds support for Federated Authentication via SAML-2.0 in AWS ClientVPN.
+* `Aws\Health` - Feature: Health: AWS Health added a new field to differentiate Public events from Account-Specific events in the API request and response. Visit https://docs.aws.amazon.com/health/latest/APIReference/API_Event.html to learn more.
+* `Aws\TranscribeService` - Documentation updates for Amazon Transcribe.
+
+## 3.138.3 - 2020-05-18
+
+* `Aws\Chime` - Amazon Chime now supports redacting chat messages.
+* `Aws\DynamoDB` - Documentation updates for dynamodb 
+* `Aws\EC2` - This release changes the RunInstances CLI and SDK's so that if you do not specify a client token, a randomly generated token is used for the request to ensure idempotency.
+* `Aws\ECS` - This release adds support for specifying environment files to add environment variables to your containers.
+* `Aws\Macie2` - Documentation updates for Amazon Macie
+* `Aws\QLDB` - Amazon QLDB now supports Amazon Kinesis data streams. You can now emit QLDB journal data, via the new QLDB Streams feature, directly to Amazon Kinesis supporting event processing and analytics among related use cases.
+
 ## 3.138.2 - 2020-05-15
 
 * `Aws\CloudFormation` - This release adds support for the following features: 1. DescribeType and ListTypeVersions APIs now output a field IsDefaultVersion, indicating if a version is the default version for its type; 2. Add StackRollbackComplete waiter feature to wait until stack status is UPDATE_ROLLBACK_COMPLETE; 3. Add paginators in DescribeAccountLimits, ListChangeSets, ListStackInstances, ListStackSetOperationResults, ListStackSetOperations, ListStackSets APIs.
