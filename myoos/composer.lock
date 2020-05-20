@@ -61,16 +61,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.138.4",
+            "version": "3.138.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2294604d4edb967249c4e41ab775a72d6baa247a"
+                "reference": "2c9ce7a12991e983e009ac9db453036000188ddd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2294604d4edb967249c4e41ab775a72d6baa247a",
-                "reference": "2294604d4edb967249c4e41ab775a72d6baa247a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2c9ce7a12991e983e009ac9db453036000188ddd",
+                "reference": "2c9ce7a12991e983e009ac9db453036000188ddd",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-05-19T18:15:45+00:00"
+            "time": "2020-05-20T18:12:57+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -1883,16 +1883,16 @@
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
-                "reference": "bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9"
+                "reference": "fcd87520e4943d968557803919523772475e8ea3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9",
-                "reference": "bfbbdb6c998d50dbf69d2187cb78a5f1fa36e1e9",
+                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/fcd87520e4943d968557803919523772475e8ea3",
+                "reference": "fcd87520e4943d968557803919523772475e8ea3",
                 "shasum": ""
             },
             "require": {
@@ -1931,7 +1931,13 @@
                 "laminas",
                 "zf"
             ],
-            "time": "2020-04-03T16:01:00+00:00"
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2020-05-20T16:45:56+00:00"
         },
         {
             "name": "league/flysystem",
