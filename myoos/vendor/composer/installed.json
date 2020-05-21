@@ -1351,17 +1351,17 @@
     },
     {
         "name": "google/protobuf",
-        "version": "v3.12.0",
-        "version_normalized": "3.12.0.0",
+        "version": "v3.12.1",
+        "version_normalized": "3.12.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/protocolbuffers/protobuf-php.git",
-            "reference": "88f40ab54cea4764fbeeaf673217e113f99cf5f3"
+            "reference": "60f57530e64537a1fbec50e1ad47d87befd2d0fd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/88f40ab54cea4764fbeeaf673217e113f99cf5f3",
-            "reference": "88f40ab54cea4764fbeeaf673217e113f99cf5f3",
+            "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/60f57530e64537a1fbec50e1ad47d87befd2d0fd",
+            "reference": "60f57530e64537a1fbec50e1ad47d87befd2d0fd",
             "shasum": ""
         },
         "require": {
@@ -1373,7 +1373,7 @@
         "suggest": {
             "ext-bcmath": "Need to support JSON deserialization"
         },
-        "time": "2020-05-15T23:56:30+00:00",
+        "time": "2020-05-21T01:33:38+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -4033,17 +4033,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.34.0",
-        "version_normalized": "7.34.0.0",
+        "version": "v7.35.0",
+        "version_normalized": "7.35.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "32fc43b518b4e2ad248968ae637a36b7680db7f3"
+            "reference": "937bd36cb7b385e4511def0d1520b477ed5ffa68"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/32fc43b518b4e2ad248968ae637a36b7680db7f3",
-            "reference": "32fc43b518b4e2ad248968ae637a36b7680db7f3",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/937bd36cb7b385e4511def0d1520b477ed5ffa68",
+            "reference": "937bd36cb7b385e4511def0d1520b477ed5ffa68",
             "shasum": ""
         },
         "require": {
@@ -4059,7 +4059,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-05-19T00:26:11+00:00",
+        "time": "2020-05-20T20:30:12+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
