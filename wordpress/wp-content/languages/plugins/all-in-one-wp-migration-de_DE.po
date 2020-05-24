@@ -2,20 +2,34 @@
 # This file is distributed under the same license as the Plugins - All-in-One WP Migration - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-04-10 04:52:40+0000\n"
+"PO-Revision-Date: 2020-05-23 15:10:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - All-in-One WP Migration - Stable (latest release)\n"
 
-#: lib/model/export/class-ai1wm-export-media.php:119
+#: lib/view/import/done.php:40
+msgid "» Permalinks are set to default. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Why?</a> (opens a new window)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optionally, review the plugin</a>. (opens a new window)"
+msgstr "» Permalinks sind auf Standard eingestellt. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Warum? (engl.)</a> (öffnet ein neues Fenster)<br />\" <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optional, schau dir das Plugin an</a>. (öffnet ein neues Fenster)"
+
+#: lib/view/import/oxygen.php:41
+msgid "» Permalinks are set to default. <a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Why?</a> (opens a new window)<br />» <a class=\"ai1wm-no-underline\" href=\"https://oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Re-sign Oxygen Builder shortcodes</a>. (opens a new window)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optionally, review the plugin</a>. (opens a new window)"
+msgstr "» Permalinks sind auf Standard eingestellt.<a class=\"ai1wm-no-underline\" href=\"https://help.servmask.com/knowledgebase/permalinks-are-set-to-default/\" target=\"_blank\">Warum? (engl.)</a> (öffnet ein neues Fenster)<br />\" <a class=\"ai1wm-no-underline\" href=\"https://oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Oxygen Builder-Shortcodes neu signieren</a>. (öffnet ein neues Fenster)<br />\" <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optional, überprüfe das Plugin</a>.  (öffnet ein neues Fenster)"
+
+#: lib/view/import/oxygen.php:32
+msgid "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Save permalinks structure</a>. (opens a new window)<br />» <a class=\"ai1wm-no-underline\" href=\"https://oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Re-sign Oxygen Builder shortcodes</a>. (opens a new window)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optionally, review the plugin</a>. (opens a new window)"
+msgstr "»<a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Permalinks-Struktur speichern</a>. (öffnet ein neues Fenster)<br />\" <a class=\"ai1wm-no-underline\" href=\"https://oxygenbuilder.com/documentation/other/importing-exporting/#resigning\" target=\"_blank\">Shortcodes für Oxygen Builder neu signieren</a>.  (öffnet ein neues Fenster)<br />\" <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optional, überprüfe das Plugin</a>.  (öffnet ein neues Fenster)"
+
+#: lib/model/export/class-ai1wm-export-media.php:84
+#: lib/model/export/class-ai1wm-export-media.php:127
 msgid "Archiving %d media files...<br />%d%% complete"
 msgstr "Archivieren von %d Medien-Dateien...<br />%d%% abgeschlossen"
 
-#: lib/model/export/class-ai1wm-export-content.php:119
+#: lib/model/export/class-ai1wm-export-content.php:84
+#: lib/model/export/class-ai1wm-export-content.php:127
 msgid "Archiving %d content files...<br />%d%% complete"
 msgstr "Archivieren von %d Inhalts-Dateien...<br />%d%% abgeschlossen"
 
@@ -97,9 +111,9 @@ msgstr "Backup herunterladen"
 msgid "To choose a file please go inside the link and click on the browse button."
 msgstr "Um eine Datei auszuwählen, gehe bitte in den Link und klicken Sie auf den Button Durchsuchen."
 
-#: lib/model/import/class-ai1wm-import-done.php:250
-msgid "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Save permalinks structure</a>.</strong> (opens a new window)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optionally, review the plugin</a>.</strong> (opens a new window)"
-msgstr "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Permalink-Struktur speichern</a>.</strong> (öffnet ein neues Fenster)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Wenn du magst kannst du das Plugin auch bewerten</a>.</strong> (öffnet ein neues Fenster)"
+#: lib/view/import/done.php:32
+msgid "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Save permalinks structure</a>. (opens a new window)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Optionally, review the plugin</a>. (opens a new window)"
+msgstr "» <a class=\"ai1wm-no-underline\" href=\"%s\" target=\"_blank\">Permalink-Struktur speichern</a>.</strong> (Öffnet ein neues Fenster)<br />» <a class=\"ai1wm-no-underline\" href=\"https://wordpress.org/support/view/plugin-reviews/all-in-one-wp-migration?rate=5#postform\" target=\"_blank\">Wenn du magst, kannst du das Plugin auch bewerten</a>.</strong> (Öffnet ein neues Fenster)"
 
 #: lib/controller/class-ai1wm-main-controller.php:1062
 msgid "\"Restore\" functionality is available in a <a href=\"https://servmask.com/products/unlimited-extension\" target=\"_blank\">paid extension</a>.<br />You could also download the backup and then use \"Import from file\"."
@@ -171,17 +185,17 @@ msgstr "Der Dateityp, den du versucht hast hochzuladen, ist nicht kompatibel mit
 msgid "WordPress Multisite is supported via our All-in-One WP Migration Multisite Extension. You can get a copy of it here"
 msgstr "WordPress Multisite wird über unsere All-in-One-WP-Migration-Multisite-Extension unterstützt. Du kannst eine Kopie davon hier erhalten."
 
-#: lib/view/main/backups-path-notice.php:35
 #: lib/view/main/storage-path-notice.php:35
+#: lib/view/main/backups-path-notice.php:35
 msgid "All-in-One WP Migration is not able to create <strong>%s</strong> folder. You will need to create this folder and grant it read/write/execute permissions (0777) for the All-in-One WP Migration plugin to function properly."
 msgstr "All in One WP Migration ist nicht in der Lage den <strong>%s</strong> Ordner zu erstellen. Du musst diesen Ordner erstellen und ihm Lese-/Schreib-/Ausführungsrechte (0777) gewähren, damit das All in One WP Migration Plugin ordnungsgemäß funktioniert."
 
 #: lib/view/main/storage-index-php-notice.php:35
-#: lib/view/main/wordpress-htaccess-notice.php:35
-#: lib/view/main/backups-htaccess-notice.php:35
+#: lib/view/main/backups-index-html-notice.php:35
 #: lib/view/main/storage-index-html-notice.php:35
 #: lib/view/main/backups-index-php-notice.php:35
-#: lib/view/main/backups-index-html-notice.php:35
+#: lib/view/main/wordpress-htaccess-notice.php:35
+#: lib/view/main/backups-htaccess-notice.php:35
 #: lib/view/main/backups-webconfig-notice.php:35
 msgid "All-in-One WP Migration is not able to create <strong>%s</strong> file. Try to change permissions of the parent folder or send us an email at <a href=\"mailto:support@servmask.com\">support@servmask.com</a> for assistance."
 msgstr "All in One WP Migration ist nicht in der Lage die <strong>%s</strong> Datei zu erstellen. Versuche, die Berechtigungen des übergeordneten Ordners zu ändern oder sende eine E-Mail an <a href=\"mailto:support@servmask.com\">support@servmask.com</a> um Hilfe zu erhalten."
@@ -363,19 +377,19 @@ msgstr "Danke für das Übermitteln deines Feedbacks!"
 msgid "Leave plugin developers any feedback here"
 msgstr "Schreib hier ein Feeback für die Plugin-Entwickler"
 
-#: functions.php:1572
+#: functions.php:1584
 msgid "Unable to authenticate the secret key. <a href=\"https://help.servmask.com/knowledgebase/invalid-secret-key/\" target=\"_blank\">Technical details</a>"
 msgstr "Der geheime Schlüssel kann nicht authentifiziert werden. <a href=\"https://help.servmask.com/knowledgebase/invalid-secret-key/\" target=\"_blank\">Technische Details</a>"
 
-#: functions.php:1472
+#: functions.php:1484
 msgid "Unable to get current pointer position of %s. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technical details</a>"
 msgstr "Aktuelle Zeigerposition von %s kann nicht abgerufen werden. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technische Details</a>"
 
-#: functions.php:1419
+#: functions.php:1431
 msgid "Out of disk space. Unable to write to: %s. <a href=\"https://help.servmask.com/knowledgebase/out-of-disk-space/\" target=\"_blank\">Technical details</a>"
 msgstr "Kein Speicherplatz mehr. Kann auf %s nicht schreiben. <a href=\"https://help.servmask.com/knowledgebase/out-of-disk-space/\" target=\"_blank\">Technische Details</a>"
 
-#: functions.php:1415
+#: functions.php:1427
 msgid "Unable to write to: %s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
 msgstr "Kann auf %s nicht schreiben. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technische Details</a>"
 
@@ -391,15 +405,15 @@ msgstr "Kann Archivpfad nicht finden. <a href=\"https://help.servmask.com/knowle
 msgid "Unable to locate storage path. <a href=\"https://help.servmask.com/knowledgebase/invalid-storage-path/\" target=\"_blank\">Technical details</a>"
 msgstr "Kann Speicherpfad nicht finden. <a href=\"https://help.servmask.com/knowledgebase/invalid-storage-path/\" target=\"_blank\">Technische Details</a>"
 
-#: functions.php:1396
+#: functions.php:1408
 msgid "Unable to open %s with mode %s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
 msgstr "Kann %s mit Modus %s nicht öffnen. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technische Details</a>"
 
-#: functions.php:1438
+#: functions.php:1450
 msgid "Unable to read file: %s. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technical details</a>"
 msgstr "Kann Datei: %s nicht lesen. <a href=\"https://help.servmask.com/knowledgebase/invalid-file-permissions/\" target=\"_blank\">Technische Details</a>"
 
-#: functions.php:1455
+#: functions.php:1467
 msgid "Unable to seek to offset %d on %s. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technical details</a>"
 msgstr "Kann Offset %d auf %s nicht suchen. <a href=\"https://help.servmask.com/knowledgebase/php-32bit/\" target=\"_blank\">Technische Details</a>"
 
@@ -447,7 +461,7 @@ msgid "Archiving database...<br />%d%% complete"
 msgstr "Datenbank archivieren...<br />%d%% abgeschlossen"
 
 #: lib/model/import/class-ai1wm-import-database.php:78
-#: lib/model/import/class-ai1wm-import-database.php:989
+#: lib/model/import/class-ai1wm-import-database.php:984
 msgid "Restoring database...<br />%d%% complete"
 msgstr "Datenbank wiederherstellen...<br />%d%% abgeschlossen"
 
@@ -464,7 +478,7 @@ msgstr "Monatlich"
 msgid "Weekly"
 msgstr "Wöchentlich"
 
-#: lib/model/import/class-ai1wm-import-database.php:969
+#: lib/model/import/class-ai1wm-import-database.php:964
 msgid "Done restoring database."
 msgstr "Datenbank-Wiederherstellung abgeschlossen."
 
@@ -597,8 +611,8 @@ msgstr "Keine Kauf-ID? Du findest deine Kauf-ID"
 msgid "Get Support"
 msgstr "Support anfordern"
 
-#: lib/controller/class-ai1wm-main-controller.php:1115
 #: lib/view/updater/check.php:31
+#: lib/controller/class-ai1wm-main-controller.php:1115
 msgid "Check for updates"
 msgstr "Nach Updates suchen"
 
@@ -713,9 +727,9 @@ msgstr "Ersetzen mit"
 msgid "Advanced options"
 msgstr "Erweiterte Optionen"
 
+#: lib/view/backups/index.php:37
 #: lib/controller/class-ai1wm-main-controller.php:610
 #: lib/controller/class-ai1wm-main-controller.php:611
-#: lib/view/backups/index.php:37
 msgid "Backups"
 msgstr "Sicherungen"
 
@@ -748,8 +762,8 @@ msgstr "Zur Zeit sind keine Backups verfügbar. Warum nicht ein neues erstellen?
 msgid "Create backup"
 msgstr "Ein Backup erstellen"
 
-#: lib/view/import/index.php:71 lib/view/export/index.php:75
-#: lib/view/backups/index.php:83
+#: lib/view/import/index.php:71 lib/view/backups/index.php:83
+#: lib/view/export/index.php:75
 msgid "Leave Feedback"
 msgstr "Einen Kommentar schreiben"
 
@@ -789,17 +803,17 @@ msgstr "Gib deine E-Mail-Adresse ein.."
 msgid "(click to expand)"
 msgstr "(Klicken zum Erweitern)"
 
-#: lib/controller/class-ai1wm-main-controller.php:860
-#: lib/controller/class-ai1wm-main-controller.php:1043
 #: lib/controller/class-ai1wm-import-controller.php:96
 #: lib/controller/class-ai1wm-import-controller.php:97
+#: lib/controller/class-ai1wm-main-controller.php:860
+#: lib/controller/class-ai1wm-main-controller.php:1043
 msgid "Unable to import"
 msgstr "Kann nicht importieren"
 
-#: lib/controller/class-ai1wm-main-controller.php:737
-#: lib/controller/class-ai1wm-main-controller.php:1034
 #: lib/controller/class-ai1wm-export-controller.php:79
 #: lib/controller/class-ai1wm-export-controller.php:80
+#: lib/controller/class-ai1wm-main-controller.php:737
+#: lib/controller/class-ai1wm-main-controller.php:1034
 msgid "Unable to export"
 msgstr "Kann nicht exportieren"
 
@@ -843,11 +857,6 @@ msgstr "Exportiere <strong>keine</strong> Spam-Kommentare"
 msgid "Do <strong>not</strong> export plugins (files)"
 msgstr "Exportiere <strong>keine</strong> Plugins (Dateien)"
 
-#: lib/model/export/class-ai1wm-export-content.php:80
-#: lib/model/export/class-ai1wm-export-media.php:80
-msgid "Archiving %d files...<br />%d%% complete"
-msgstr "%d Dateien archivieren ... <br />%d%% vollständig"
-
 #. Description of the plugin
 msgid "Migration tool for all your blog data. Import or Export your blog content with a single click."
 msgstr "Das Migrations-Werkzeug für alle Ihre Blogdaten. Importiere oder exportiere deinen Blog-Inhalt mit einem einzigen Klick."
@@ -868,6 +877,7 @@ msgstr "Du kannst die Importfunktion, die dieses Plugin bereitstellt, dann benut
 msgid "<another-text>"
 msgstr "<another-text>"
 
-#: lib/model/import/class-ai1wm-import-done.php:245
+#: lib/model/import/class-ai1wm-import-done.php:251
+#: lib/model/import/class-ai1wm-import-done.php:253
 msgid "Your site has been imported successfully!"
 msgstr "Deine Website wurde erfolgreich importiert!"
