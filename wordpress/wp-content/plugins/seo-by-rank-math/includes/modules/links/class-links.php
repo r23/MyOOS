@@ -94,7 +94,7 @@ class Links {
 			<span class="divider"></span>
 			<span title="<?php esc_html_e( 'External Links', 'rank-math' ); ?>" class="dashicons dashicons-external"></span> <span><?php echo isset( $counts->external_link_count ) ? $counts->external_link_count : ''; ?></span>
 			<span class="divider"></span>
-			<span title="<?php esc_html_e( 'Incoming Links', 'rank-math' ); ?>" class="dashicons dashicons-randomize"></span> <span><?php echo isset( $counts->incoming_link_count ) ? $counts->incoming_link_count : ''; ?></span>
+			<span title="<?php esc_html_e( 'Incoming Links', 'rank-math' ); ?>" class="dashicons dashicons-external internal"></span> <span><?php echo isset( $counts->incoming_link_count ) ? $counts->incoming_link_count : ''; ?></span>
 		</span>
 		<?php
 	}

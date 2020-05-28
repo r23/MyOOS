@@ -172,6 +172,7 @@ class Recipe implements Snippet {
 			$entity['video'] = [
 				'@type'        => 'VideoObject',
 				'embedUrl'     => $video,
+				'contentUrl'   => Helper::get_post_meta( 'snippet_recipe_video_content_url' ),
 				'description'  => Helper::get_post_meta( 'snippet_recipe_video_description' ),
 				'name'         => Helper::get_post_meta( 'snippet_recipe_video_name' ),
 				'thumbnailUrl' => Helper::get_post_meta( 'snippet_recipe_video_thumbnail' ),

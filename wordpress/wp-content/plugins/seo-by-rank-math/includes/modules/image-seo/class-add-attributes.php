@@ -8,7 +8,7 @@
  * @author     Rank Math <support@rankmath.com>
  */
 
-namespace RankMath\Frontend;
+namespace RankMath\Image_Seo;
 
 use stdClass;
 use RankMath\Helper;
@@ -240,6 +240,14 @@ class Add_Attributes {
 			}
 
 			$post->filename = $attrs['src'];
+
+			// Lazy load support.
+			if ( ! empty( $attrs['data-src'] ) ) {
+				$post->filename = $attrs['data-src'];
+			} elseif ( ! empty( $attrs['data-layzr'] ) ) {
+				$post->filename = $attrs['data-layzr'];
+			}
+
 			$this->set_image_attribute( $attrs, 'alt', $this->is_alt, $is_dirty, $post );
 			$this->set_image_attribute( $attrs, 'title', $this->is_title, $is_dirty, $post );
 

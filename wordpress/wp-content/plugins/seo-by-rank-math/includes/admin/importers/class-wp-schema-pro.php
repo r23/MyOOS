@@ -104,12 +104,8 @@ class WP_Schema_Pro extends Plugin_Importer {
 
 		// Social.
 		$hash = [
-			'facebook'  => 'social_url_facebook',
-			'twitter'   => 'twitter_author_names',
-			'instagram' => 'social_url_instagram',
-			'linkedin'  => 'social_url_linkedin',
-			'youtube'   => 'social_url_youtube',
-			'pinterest' => 'social_url_pinterest',
+			'facebook' => 'social_url_facebook',
+			'twitter'  => 'twitter_author_names',
 		];
 		$this->replace( $hash, $schema_social, $this->titles );
 

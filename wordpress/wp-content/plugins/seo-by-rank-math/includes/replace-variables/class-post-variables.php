@@ -298,31 +298,11 @@ class Post_Variables extends Advanced_Variables {
 		$object = $this->args;
 
 		// Early Bail!
-		if ( empty( $object ) || empty( $object->post_content ) ) {
+		if ( empty( $object ) ) {
 			return '';
 		}
 
-		$keywords     = Post::get_meta( 'focus_keyword', $object->ID );
-		$post_content = Paper::should_apply_shortcode() ? do_shortcode( $object->post_content ) : $object->post_content;
-		$post_content = \preg_replace( '/<!--[\s\S]*?-->/iu', '', $post_content );
-		$post_content = wpautop( WordPress::strip_shortcodes( $post_content ) );
-		$post_content = wp_kses( $post_content, [ 'p' => [] ] );
-
-		// Remove empty paragraph tags.
-		$post_content = preg_replace( '/<p[^>]*>[\s|&nbsp;]*<\/p>/', '', $post_content );
-
-		// 4. Paragraph with the focus keyword.
-		if ( ! empty( $keywords ) ) {
-			$regex = '/<p>(.*' . str_replace( [ ',', ' ', '/' ], [ '|', '.', '\/' ], $keywords ) . '.*)<\/p>/iu';
-			\preg_match_all( $regex, $post_content, $matches );
-			if ( isset( $matches[1], $matches[1][0] ) ) {
-				return $matches[1][0];
-			}
-		}
-
-		// 5. The First paragraph of the content.
-		\preg_match_all( '/<p>(.*)<\/p>/iu', $post_content, $matches );
-		return isset( $matches[1], $matches[1][0] ) ? $matches[1][0] : $post_content;
+		return ! empty( $object->post_excerpt ) ? wp_strip_all_tags( $object->post_excerpt ) : $this->get_post_content( $object );
 	}
 
 	/**
@@ -443,6 +423,40 @@ class Post_Variables extends Advanced_Variables {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Get the auto generated post content.
+	 *
+	 * @param array $object Post Object.
+	 * @return string|null
+	 */
+	private function get_post_content( $object ) {
+		if ( empty( $object->post_content ) ) {
+			return '';
+		}
+
+		$keywords     = Post::get_meta( 'focus_keyword', $object->ID );
+		$post_content = Paper::should_apply_shortcode() ? do_shortcode( $object->post_content ) : $object->post_content;
+		$post_content = \preg_replace( '/<!--[\s\S]*?-->/iu', '', $post_content );
+		$post_content = wpautop( WordPress::strip_shortcodes( $post_content ) );
+		$post_content = wp_kses( $post_content, [ 'p' => [] ] );
+
+		// Remove empty paragraph tags.
+		$post_content = preg_replace( '/<p[^>]*>[\s|&nbsp;]*<\/p>/', '', $post_content );
+
+		// 4. Paragraph with the focus keyword.
+		if ( ! empty( $keywords ) ) {
+			$regex = '/<p>(.*' . str_replace( [ ',', ' ', '/' ], [ '|', '.', '\/' ], $keywords ) . '.*)<\/p>/iu';
+			\preg_match_all( $regex, $post_content, $matches );
+			if ( isset( $matches[1], $matches[1][0] ) ) {
+				return $matches[1][0];
+			}
+		}
+
+		// 5. The First paragraph of the content.
+		\preg_match_all( '/<p>(.*)<\/p>/iu', $post_content, $matches );
+		return isset( $matches[1], $matches[1][0] ) ? $matches[1][0] : $post_content;
 	}
 
 	/**

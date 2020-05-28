@@ -153,19 +153,7 @@ $phones = $cmb->add_field([
 $cmb->add_group_field( $phones, [
 	'id'      => 'type',
 	'type'    => 'select',
-	'options' => [
-		'customer support'    => esc_html__( 'Customer Service', 'rank-math' ),
-		'technical support'   => esc_html__( 'Technical Support', 'rank-math' ),
-		'billing support'     => esc_html__( 'Billing Support', 'rank-math' ),
-		'bill payment'        => esc_html__( 'Bill Payment', 'rank-math' ),
-		'sales'               => esc_html__( 'Sales', 'rank-math' ),
-		'reservations'        => esc_html__( 'Reservations', 'rank-math' ),
-		'credit card support' => esc_html__( 'Credit Card Support', 'rank-math' ),
-		'emergency'           => esc_html__( 'Emergency', 'rank-math' ),
-		'baggage tracking'    => esc_html__( 'Baggage Tracking', 'rank-math' ),
-		'roadside assistance' => esc_html__( 'Roadside Assistance', 'rank-math' ),
-		'package tracking'    => esc_html__( 'Package Tracking', 'rank-math' ),
-	],
+	'options' => Helper::choices_phone_types(),
 	'default' => 'customer_support',
 ]);
 $cmb->add_group_field( $phones, [

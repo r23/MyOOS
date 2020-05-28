@@ -70,7 +70,10 @@ class Search_Console extends Base {
 
 		if ( is_admin() ) {
 			if ( Helper::has_cap( 'search_console' ) ) {
-				$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 10 );
+
+				if ( Client::get()->is_authenticated() ) {
+					$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 10 );
+				}
 				$this->filter( 'rank_math/settings/general', 'add_settings' );
 			}
 
@@ -105,6 +108,10 @@ class Search_Console extends Base {
 			'sitemaps'  => esc_html__( 'Sitemaps', 'rank-math' ),
 			'tracker'   => esc_html__( 'Keyword Tracker', 'rank-math' ),
 		];
+
+		if ( ! Helper::is_advanced_mode() ) {
+			unset( $this->tabs['sitemaps'] );
+		}
 
 		if ( ! $this->page->is_current_page() ) {
 			return;
@@ -186,7 +193,7 @@ class Search_Console extends Base {
 				],
 				'assets'     => [
 					'styles'  => [
-						'font-awesome'             => rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css',
+						'rank-math-common'         => '',
 						'jquery-date-range-picker' => rank_math()->plugin_url() . 'assets/vendor/date-range-picker/daterangepicker.min.css',
 						'rank-math-search-console' => $plugin_uri . '/assets/search-console.css',
 					],
@@ -214,10 +221,10 @@ class Search_Console extends Base {
 			$tabs,
 			[
 				'search-console' => [
-					'icon'  => 'fa fa-search-plus',
+					'icon'  => 'rm-icon rm-icon-search-console',
 					'title' => esc_html__( 'Search Console', 'rank-math' ),
 					/* translators: Link to kb article */
-					'desc'  => sprintf( esc_html__( 'Connect Rank Math with your Google Search Console profile to see the most important information from Google directly in your WordPress dashboard. %s.', 'rank-math' ), '<a href="' . \RankMath\KB::get( 'search-console-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+					'desc'  => sprintf( esc_html__( 'See your Google Search data without leaving your WP dashboard. %s.', 'rank-math' ), '<a href="' . \RankMath\KB::get( 'search-console-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 					'file'  => $this->directory . '/views/options.php',
 				],
 			],

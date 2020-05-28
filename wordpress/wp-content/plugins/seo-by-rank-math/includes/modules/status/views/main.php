@@ -1,8 +1,8 @@
 <?php
 /**
- * SEO Analysis admin page contents.
+ * Different tabs like Version Control, DB Tools, System Status, Import/Export etc
  *
- * @package   MTS_SEO
+ * @package   RANK_MATH
  * @author    Rank Math <support@rankmath.com>
  * @license   GPL-2.0+
  * @link      https://rankmath.com/wordpress/plugin/seo-suite/
@@ -12,18 +12,26 @@
 use RankMath\Helper;
 use MyThemeShop\Helpers\Param;
 
-$default_tab = apply_filters( 'rank_math/tools/default_tab', 'tools' );
+$default_tab = apply_filters( 'rank_math/tools/default_tab', 'status' );
 $module      = Helper::get_module( 'status' );
 $current     = Param::get( 'view', $default_tab );
+
+if ( ! in_array( $current, array_keys( apply_filters( 'rank_math/tools/pages', [] ) ), true ) ) {
+	wp_redirect( Helper::get_admin_url( 'status' ) );
+	exit;
+}
+
+// Header.
+rank_math()->admin->display_admin_header();
 ?>
-<div class='wrap rank-math-wrap rank-math-status-wrap'>
+<div class="wrap rank-math-wrap rank-math-tools-wrap dashboard">
 
 	<span class='wp-header-end'></span>
 
-	<h1 class="page-title"><?php echo esc_html( get_admin_page_title() ); ?></h1>
-
 	<?php $module->display_nav(); ?>
 
-	<?php $module->display_body( $current ); ?>
+	<div class="rank-math-ui dashboard-wrapper container <?php echo esc_attr( $current ); ?>">
+		<?php $module->display_body( $current ); ?>
+	</div>
 
 </div>

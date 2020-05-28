@@ -345,16 +345,17 @@ trait WordPress {
 	/**
 	 * Convert timestamp and ISO to date.
 	 *
-	 * @param string $value Value to convert.
+	 * @param string  $value            Value to convert.
+	 * @param boolean $include_timezone Whether to include timezone.
 	 *
 	 * @return string
 	 */
-	public static function convert_date( $value ) {
+	public static function convert_date( $value, $include_timezone = false ) {
 		if ( Str::contains( 'T', $value ) ) {
 			$value = \strtotime( $value );
 		}
 
-		return date_i18n( 'Y-m-d H:i', $value );
+		return $include_timezone ? date_i18n( 'Y-m-d H:i-T', $value ) : date_i18n( 'Y-m-d H:i', $value );
 	}
 
 	/**

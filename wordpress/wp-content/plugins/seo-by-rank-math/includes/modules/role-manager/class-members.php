@@ -42,12 +42,15 @@ class Members {
 	 * Registers cap group.
 	 */
 	public function register_cap_groups() {
-		members_register_cap_group( self::GROUP, [
-			'label'    => esc_html__( 'Rank Math', 'rank-math' ),
-			'caps'     => [],
-			'icon'     => 'dashicons-chart-area',
-			'priority' => 30,
-		]);
+		members_register_cap_group(
+			self::GROUP,
+			[
+				'label'    => esc_html__( 'Rank Math', 'rank-math' ),
+				'caps'     => [],
+				'icon'     => 'dashicons-chart-area',
+				'priority' => 30,
+			]
+		);
 	}
 
 	/**
@@ -60,10 +63,13 @@ class Members {
 		}
 
 		foreach ( $caps as $key => $value ) {
-			members_register_cap( $key, [
-				'label' => html_entity_decode( $value ),
-				'group' => self::GROUP,
-			]);
+			members_register_cap(
+				$key,
+				[
+					'label' => html_entity_decode( $value ),
+					'group' => self::GROUP,
+				]
+			);
 		}
 	}
 }

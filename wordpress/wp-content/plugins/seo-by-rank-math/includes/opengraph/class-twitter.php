@@ -173,7 +173,7 @@ class Twitter extends OpenGraph {
 	 * Output the Twitter account for the site.
 	 */
 	public function website() {
-		$this->site = $this->get_twitter_id( Helper::get_settings( 'titles.social_url_twitter' ) );
+		$this->site = Helper::get_settings( 'titles.twitter_author_names' );
 		if ( Str::is_non_empty( $this->site ) ) {
 			$this->tag( 'twitter:site', '@' . $this->site );
 		}
@@ -197,9 +197,7 @@ class Twitter extends OpenGraph {
 	 */
 	public function article_author() {
 		$author = Helper::get_user_meta( 'twitter_author', $GLOBALS['post']->post_author );
-		if ( ! $author && ! $author = get_user_meta( $GLOBALS['post']->post_author, 'twitter', true ) ) { // phpcs:ignore
-			$author = Helper::get_settings( 'titles.twitter_author_names' );
-		}
+		$author = $author ? $author : get_user_meta( $GLOBALS['post']->post_author, 'twitter', true );
 		$author = $this->get_twitter_id( ltrim( trim( $author ), '@' ) );
 
 		if ( Str::is_non_empty( $author ) ) {

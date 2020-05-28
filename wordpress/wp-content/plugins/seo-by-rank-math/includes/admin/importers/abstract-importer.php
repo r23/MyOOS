@@ -213,7 +213,11 @@ abstract class Plugin_Importer {
 	 * @return mixed
 	 */
 	private function format_message( $result, $action, $message ) {
-		if ( 'postmeta' === $action || 'usermeta' === $action || 'blocks' === $action ) {
+		if ( 'blocks' === $action ) {
+			return is_array( $result ) ? sprintf( $message, $result['start'], $result['end'], $result['total_items'] ) : $result;
+		}
+
+		if ( 'postmeta' === $action || 'usermeta' === $action ) {
 			return sprintf( $message, $result['start'], $result['end'], $result['total_items'] );
 		}
 

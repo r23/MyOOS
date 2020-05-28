@@ -266,18 +266,18 @@ class Registration {
 	 */
 	private function show_connect_button() {
 		?>
-		<div class="text-center wp-core-ui rank-math-ui" style="margin-bottom: 30px;">
-			<input type="submit" class="button button-primary button-xlarge" name="rank_math_activate" value="<?php echo esc_attr__( 'Activate Rank Math', 'rank-math' ); ?>">
-		</div>
 		<label for="rank-math-usage-tracking" class="cmb2-id-rank-math-usage-tracking">
-			<div>
+			<div class="consent-box">
 				<div class="alignleft" style="height: 80px; margin-right: 4px;">
 					<input type="checkbox" name="rank-math-usage-tracking" id="rank-math-usage-tracking" value="on" <?php checked( Helper::get_settings( 'general.usage_tracking' ) ); ?>>
 				</div>
 				<?php // translators: placeholder is a link to the Knowledge Base. ?>
-				<p class="description"><?php printf( __( 'Gathering usage data helps us make Rank Math SEO plugin better - for you. By understanding how you use Rank Math, we can introduce new features and find out if existing features are working well for you. If you don’t want us to collect data from your website, uncheck the tickbox. Please note that licensing information may still be sent back to us for authentication. We collect data anonymously, read more %s.', 'rank-math' ), '<a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">here</a>' ); ?><p>
+				<p><?php printf( __( 'Gathering usage data helps us make Rank Math SEO plugin better - for you. By understanding how you use Rank Math, we can introduce new features and find out if existing features are working well for you. If you don’t want us to collect data from your website, uncheck the tickbox. Please note that licensing information may still be sent back to us for authentication. We collect data anonymously, read more %s.', 'rank-math' ), '<a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">' . esc_attr__( 'here', 'rank-math' ) . '</a>' ); ?></p>
 			</div>
 		</label>
+		<div class="text-center wp-core-ui rank-math-ui" style="margin-top: 30px;">
+			<button type="submit" class="button button-primary button-animated" name="rank_math_activate"><?php echo esc_attr__( 'Activate Rank Math', 'rank-math' ); ?></button>
+		</div>
 		<?php
 	}
 
@@ -288,7 +288,7 @@ class Registration {
 		if ( $this->invalid ) :
 			?>
 			<h1><?php esc_html_e( 'Connect FREE Account', 'rank-math' ); ?></h1>
-			<div class="notice notice-warning rank-math-registration-notice inline">
+			<div class="notice notice-warning rank-math-notice rank-math-registration-notice inline">
 				<p>
 					<?php
 					/* translators: Link to Rank Math signup page */
@@ -349,7 +349,7 @@ class Registration {
 	private function redirect_to_connect( $values ) {
 
 		if ( ! isset( $values['rank_math_activate'] ) ) {
-			Admin_Helper::get_registration_data( false );
+			Admin_Helper::deregister_user();
 			return;
 		}
 

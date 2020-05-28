@@ -60,12 +60,6 @@ class Admin extends Base {
 				'capability' => 'rank_math_site_analysis',
 				'classes'    => [ 'rank-math-page' ],
 				'render'     => $this->directory . '/views/main.php',
-				'help'       => [
-					'seo-analysis-overview' => [
-						'title'   => esc_html__( 'SEO Analysis', 'rank-math' ),
-						'content' => '<p>' . esc_html__( 'Run the SEO Analysis to see suggestions on improving your rank in search engines.', 'rank-math' ) . '</p>',
-					],
-				],
 				'assets'     => [
 					'styles'  => [
 						'rank-math-common'       => '',

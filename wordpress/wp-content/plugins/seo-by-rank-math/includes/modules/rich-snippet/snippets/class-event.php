@@ -46,7 +46,7 @@ class Event implements Snippet {
 		];
 
 		if ( $start_date = Helper::get_post_meta( 'snippet_event_startdate' ) ) { // phpcs:ignore
-			$entity['startDate'] = str_replace( ' ', 'T', Helper::convert_date( $start_date ) );
+			$entity['startDate'] = str_replace( ' ', 'T', Helper::convert_date( $start_date, 'offline' !== $this->event_mode ) );
 		}
 		if ( $end_date = Helper::get_post_meta( 'snippet_event_enddate' ) ) { // phpcs:ignore
 			$entity['endDate'] = str_replace( ' ', 'T', Helper::convert_date( $end_date ) );
@@ -54,14 +54,17 @@ class Event implements Snippet {
 
 		$jsonld->add_ratings( 'event', $entity );
 
-		$jsonld->set_data([
-			'snippet_event_price'               => 'price',
-			'snippet_event_currency'            => 'priceCurrency',
-			'snippet_event_ticketurl'           => 'url',
-			'snippet_event_inventory'           => 'inventoryLevel',
-			'snippet_event_availability'        => 'availability',
-			'snippet_event_availability_starts' => 'validFrom',
-		], $entity['offers'] );
+		$jsonld->set_data(
+			[
+				'snippet_event_price'               => 'price',
+				'snippet_event_currency'            => 'priceCurrency',
+				'snippet_event_ticketurl'           => 'url',
+				'snippet_event_inventory'           => 'inventoryLevel',
+				'snippet_event_availability'        => 'availability',
+				'snippet_event_availability_starts' => 'validFrom',
+			],
+			$entity['offers']
+		);
 
 		if ( ! empty( $entity['offers']['validFrom'] ) ) {
 			$entity['offers']['validFrom'] = str_replace( ' ', 'T', Helper::convert_date( $entity['offers']['validFrom'] ) );

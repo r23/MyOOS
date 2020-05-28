@@ -29,14 +29,9 @@ class Monitor_Redirection implements Wizard_Step {
 	 */
 	public function render( $wizard ) {
 		?>
-		<header>
-			<h1><?php esc_html_e( '404 Monitor', 'rank-math' ); ?> </h1>
-			<p><?php esc_html_e( 'Set default values for the 404 error monitor here.', 'rank-math' ); ?> <a href="<?php KB::the( '404-monitor' ); ?>" target="_blank"><?php esc_html_e( 'Learn about the options here.', 'rank-math' ); ?></a></p>
-		</header>
-
 		<?php $wizard->cmb->show_form(); ?>
 
-		<footer class="form-footer wp-core-ui rank-math-ui">
+		<footer class="form-footer wp-core-ui">
 			<?php $wizard->get_skip_link(); ?>
 			<button type="submit" class="button button-primary"><?php esc_html_e( 'Save and Continue', 'rank-math' ); ?></button>
 		</footer>
@@ -52,10 +47,17 @@ class Monitor_Redirection implements Wizard_Step {
 	 */
 	public function form( $wizard ) {
 
+		// 404 Monitor Title.
+		$wizard->cmb->add_field([
+			'id'      => '404_monitor_title',
+			'type'    => 'raw',
+			'content' => sprintf( '<div class="cmb-row monitor-header text-center"><h1>%1$s</h1><div class="monitor-desc text-center">%2$s</div>', esc_html__( '404 Monitor', 'rank-math' ), esc_html__( 'Set default values for the 404 error monitor here.', 'rank-math' ) . '</div>' ),
+		]);
+
 		// 404 Monitor.
 		$wizard->cmb->add_field([
 			'id'      => '404_monitor',
-			'type'    => 'switch',
+			'type'    => 'toggle',
 			'name'    => esc_html__( '404 Monitor', 'rank-math' ),
 			/* translators: Link to kb article */
 			'desc'    => __( 'The 404 monitor will let you see if visitors or search engines bump into any <code>404 Not Found</code> error while browsing your site.', 'rank-math' ),
@@ -66,12 +68,12 @@ class Monitor_Redirection implements Wizard_Step {
 		$wizard->cmb->add_field([
 			'id'      => 'redirection_title',
 			'type'    => 'raw',
-			'content' => sprintf( '<br><header class="redirections-header"><h1 class="text-center">%1$s</h1><p class="text-center redirections-desc">%2$s %3$s</p>', esc_html__( 'Redirections', 'rank-math' ), esc_html__( 'Set default values for the redirection module from here.', 'rank-math' ), '<a href="' . KB::get( 'redirections' ) . '" target="_blank">' . esc_html__( 'Learn more about Redirections.', 'rank-math' ) . '</a></header>' ),
+			'content' => sprintf( '<br><div class="cmb-row redirections-header text-center" style="border-top:0;"><h1>%1$s</h1><div class="redirections-desc text-center">%2$s %3$s</div>', esc_html__( 'Redirections', 'rank-math' ), esc_html__( 'Set default values for the redirection module from here.', 'rank-math' ), '<a href="' . KB::get( 'redirections' ) . '" target="_blank">' . esc_html__( 'Learn more about Redirections.', 'rank-math' ) . '</a></div>' ),
 		]);
 
 		$wizard->cmb->add_field([
 			'id'      => 'redirections',
-			'type'    => 'switch',
+			'type'    => 'toggle',
 			'name'    => esc_html__( 'Redirections', 'rank-math' ),
 			'desc'    => esc_html__( 'Set up temporary or permanent redirections. Combined with the 404 monitor, you can easily redirect faulty URLs on your site, or add custom redirections.', 'rank-math' ),
 			'default' => Helper::is_module_active( 'redirections' ) ? 'on' : 'off',

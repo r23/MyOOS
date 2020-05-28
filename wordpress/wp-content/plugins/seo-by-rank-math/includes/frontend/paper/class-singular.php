@@ -14,6 +14,7 @@ use RankMath\Post;
 use RankMath\Helper;
 use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\WordPress;
+use MyThemeShop\Helpers\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -165,7 +166,7 @@ class Singular implements IPaper {
 		// 3. Description template set in the Titles & Meta.
 		$post_type = isset( $object->post_type ) ? $object->post_type : $object->query_var;
 
-		return wp_html_excerpt( Paper::get_from_options( "pt_{$post_type}_description", $object ), 160 );
+		return Str::truncate( Paper::get_from_options( "pt_{$post_type}_description", $object ), 160 );
 	}
 
 	/**

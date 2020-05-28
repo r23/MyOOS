@@ -52,8 +52,8 @@ class Form {
 				$cmb->show_form();
 			?>
 			<footer class="form-footer rank-math-ui">
-				<button type="button" class="button button-link-delete button-xlarge alignleft"><?php esc_html_e( 'Cancel', 'rank-math' ); ?></button>
-				<button type="submit" class="button button-primary button-xlarge"><?php echo $this->is_editing() ? esc_html__( 'Update Redirection', 'rank-math' ) : esc_html__( 'Add Redirection', 'rank-math' ); ?></button>
+				<button type="button" class="button button-secondary button-link-delete alignleft"><?php esc_html_e( 'Cancel', 'rank-math' ); ?></button>
+				<button type="submit" class="button button-primary"><?php echo $this->is_editing() ? esc_html__( 'Update Redirection', 'rank-math' ) : esc_html__( 'Add Redirection', 'rank-math' ); ?></button>
 			</footer>
 		</form>
 
@@ -97,7 +97,7 @@ class Form {
 					[
 						'id'              => 'pattern',
 						'type'            => 'text',
-						'escape_cb'       => [ $this, 'stripslashes' ],
+						'escape_cb'       => [ $this, 'escape_sources' ],
 						'sanitization_cb' => false,
 					],
 					[
@@ -264,7 +264,7 @@ class Form {
 	 *
 	 * @return mixed                  Escaped value to be displayed.
 	 */
-	public function stripslashes( $value, $field_args, $field ) {
-		return \stripslashes( $value );
+	public function escape_sources( $value, $field_args, $field ) {
+		return esc_attr( \stripslashes( $value ) );
 	}
 }

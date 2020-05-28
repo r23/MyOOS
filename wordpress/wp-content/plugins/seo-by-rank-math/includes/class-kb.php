@@ -100,6 +100,10 @@ class KB {
 			'https://s.rankmath.com/setup-gsc',
 			'https://rankmath.com/kb/how-to-setup/#Google_Search_Console'
 		],
+		'custom-gsc-project' => [
+			'https://s.rankmath.com/custom-gsc-project',
+			'https://rankmath.com/kb/create-a-google-api-project/'
+		],
 		'remove-category-base' => [
 			'https://s.rankmath.com/stripbase',
 			'https://rankmath.com/kb/how-to-setup/#strip-category-base'
@@ -127,6 +131,10 @@ class KB {
 		'edit-htaccess' => [
 			'https://s.rankmath.com/htaccess',
 			'https://rankmath.com/kb/general-settings/#edit-htaccess'
+		],
+		'woocommerce-settings' => [
+			'https://s.rankmath.com/wocommerce',
+			'https://rankmath.com/kb/general-settings/#woo-commerce'
 		],
 		'404-monitor-settings' => [
 			'https://s.rankmath.com/404monitor',
@@ -319,6 +327,14 @@ class KB {
 		'product-tags-settings' => [
 			'https://s.rankmath.com/producttags',
 			'https://rankmath.com/kb/titles-and-meta/#product-tags'
+		],
+		'version-control' => [
+			'https://rankmath.com/kb/version-control/',
+			'https://rankmath.com/kb/version-control/'
+		],
+		'general-settings' => [
+			'https://rankmath.com/kb/general-settings/',
+			'https://rankmath.com/kb/general-settings/'
 		],
 		// phpcs:enable
 	];

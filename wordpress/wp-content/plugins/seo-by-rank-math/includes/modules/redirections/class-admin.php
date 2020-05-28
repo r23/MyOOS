@@ -117,7 +117,6 @@ class Admin extends Base {
 				'parent'     => 'rank-math',
 				'capability' => 'rank_math_redirections',
 				'render'     => $dir . 'main.php',
-				'classes'    => [ 'rank-math-page' ],
 				'help'       => [
 					'redirections-overview'       => [
 						'title' => esc_html__( 'Overview', 'rank-math' ),
@@ -170,10 +169,10 @@ class Admin extends Base {
 			$tabs,
 			[
 				'redirections' => [
-					'icon'  => 'dashicons dashicons-controls-forward',
+					'icon'  => 'rm-icon rm-icon-redirection',
 					'title' => esc_html__( 'Redirections', 'rank-math' ),
 					/* translators: Link to kb article */
-					'desc'  => sprintf( esc_html__( 'Enable Redirections to set up custom 301, 302, 307, 410, or 451 redirections. %s.', 'rank-math' ), '<a href="' . \RankMath\KB::get( 'redirections-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+					'desc'  => sprintf( esc_html__( 'Easily create redirects without fiddling with tedious code. %s.', 'rank-math' ), '<a href="' . \RankMath\KB::get( 'redirections-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 					'file'  => $this->directory . '/views/options.php',
 				],
 			],

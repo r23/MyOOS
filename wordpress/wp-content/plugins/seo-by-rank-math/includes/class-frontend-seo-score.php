@@ -245,7 +245,7 @@ class Frontend_SEO_Score {
 		$cmb->add_field(
 			[
 				'id'         => 'rank_math_dont_show_seo_score',
-				'type'       => 'switch',
+				'type'       => 'toggle',
 				'name'       => esc_html__( 'Show SEO Score on Front-end', 'rank-math' ),
 				'options'    => [
 					'on'  => esc_html__( 'Off', 'rank-math' ),

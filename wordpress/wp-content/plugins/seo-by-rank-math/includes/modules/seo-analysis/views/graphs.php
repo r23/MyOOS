@@ -2,7 +2,7 @@
 /**
  * SEO Analysis graphs.
  *
- * @package   MTS_SEO
+ * @package   RANK_MATH
  * @author    Rank Math <support@rankmath.com>
  * @license   GPL-2.0+
  * @link      https://rankmath.com/wordpress/plugin/seo-suite/
@@ -51,11 +51,5 @@ use RankMath\Helper;
 		</div>
 
 	</div>
-
-	<?php if ( ! $this->analyse_subpage ) : ?>
-	<footer class="rank-math-ui">
-		<button data-what="website" class="button button-primary button-xlarge rank-math-recheck"><?php esc_html_e( 'Start Site-Wide Analysis', 'rank-math' ); ?></button>
-	</footer>
-	<?php endif; ?>
 
 </div>

@@ -12,6 +12,7 @@ namespace RankMath\Redirections;
 
 use WP_Query;
 use RankMath\Helper;
+use RankMath\Helpers\Sitepress;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Param;
@@ -292,7 +293,7 @@ class Redirector {
 
 		if ( 'homepage' === $behavior ) {
 			$this->matched     = [];
-			$this->redirect_to = site_url();
+			$this->redirect_to = Sitepress::get()->get_site_url();
 			return;
 		}
 

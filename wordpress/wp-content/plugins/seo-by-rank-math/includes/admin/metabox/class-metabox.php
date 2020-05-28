@@ -74,6 +74,7 @@ class Metabox implements Runner {
 		$this->enqueue_commons();
 		$this->screen->enqueue();
 		$this->screen->localize();
+		$this->enqueue_translation();
 		rank_math()->variables->setup_json();
 
 		$is_gutenberg = Helper::is_block_editor() && \rank_math_is_gutenberg();
@@ -117,7 +118,12 @@ class Metabox implements Runner {
 	 */
 	private function enqueue_commons() {
 		wp_register_script( 'rank-math-analyzer', rank_math()->plugin_url() . 'assets/admin/js/analyzer.js', [ 'lodash', 'wp-autop', 'wp-wordcount' ], rank_math()->version, true );
+	}
 
+	/**
+	 * Enqueue translation.
+	 */
+	private function enqueue_translation() {
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			$this->filter( 'load_script_translation_file', 'load_script_translation_file', 10, 3 );
 			wp_set_script_translations( 'rank-math-analyzer', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
@@ -139,7 +145,6 @@ class Metabox implements Runner {
 
 		$data                       = explode( '/', $file );
 		$data[ count( $data ) - 1 ] = preg_replace( '/rank-math/', 'seo-by-rank-math', $data[ count( $data ) - 1 ], 1 );
-
 		return implode( '/', $data );
 	}
 
@@ -349,27 +354,31 @@ class Metabox implements Runner {
 	private function get_tabs() {
 		$tabs = [
 			'general'  => [
-				'icon'       => 'dashicons dashicons-admin-generic',
+				'icon'       => 'rm-icon rm-icon-settings',
 				'title'      => esc_html__( 'General', 'rank-math' ),
 				'desc'       => esc_html__( 'This tab contains general options.', 'rank-math' ),
 				'file'       => rank_math()->includes_dir() . 'metaboxes/general.php',
 				'capability' => 'onpage_general',
 			],
 			'advanced' => [
-				'icon'       => 'dashicons dashicons-admin-tools',
+				'icon'       => 'rm-icon rm-icon-toolbox',
 				'title'      => esc_html__( 'Advanced', 'rank-math' ),
 				'desc'       => esc_html__( 'This tab contains advance options.', 'rank-math' ),
 				'file'       => rank_math()->includes_dir() . 'metaboxes/advanced.php',
 				'capability' => 'onpage_advanced',
 			],
 			'social'   => [
-				'icon'       => 'dashicons dashicons-share',
+				'icon'       => 'rm-icon rm-icon-social',
 				'title'      => esc_html__( 'Social', 'rank-math' ),
 				'desc'       => esc_html__( 'This tab contains social options.', 'rank-math' ),
 				'file'       => rank_math()->includes_dir() . 'metaboxes/social.php',
 				'capability' => 'onpage_social',
 			],
 		];
+
+		if ( ! Helper::is_advanced_mode() ) {
+			unset( $tabs['advanced'] );
+		}
 
 		/**
 		 * Allow developers to add new tabs in the main metabox.

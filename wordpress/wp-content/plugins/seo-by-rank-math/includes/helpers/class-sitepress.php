@@ -104,6 +104,18 @@ class Sitepress {
 	}
 
 	/**
+	 * Get Site URL.
+	 */
+	public function get_site_url() {
+		if ( ! $this->is_active() ) {
+			return site_url();
+		}
+
+		$sitepress = $this->get_var();
+		return $sitepress->language_url();
+	}
+
+	/**
 	 * Is plugin active.
 	 *
 	 * @return boolean

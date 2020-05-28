@@ -14,6 +14,7 @@ namespace RankMath;
 
 use RankMath\Traits\Hooker;
 use RankMath\Admin\Watcher;
+use RankMath\Admin\Admin_Helper;
 use MyThemeShop\Helpers\WordPress;
 use RankMath\Role_Manager\Capability_Manager;
 
@@ -172,6 +173,7 @@ class Installer {
 		$this->clear_rewrite_rules( false );
 		$this->remove_cron_jobs();
 		Helper::clear_cache();
+		Admin_Helper::deregister_user();
 		$this->do_action( 'deactivate' );
 	}
 
@@ -274,10 +276,13 @@ class Installer {
 	 * Create misc options.
 	 */
 	private function create_misc_options() {
-		add_option( 'rank_math_search_console_data', [
-			'authorized' => false,
-			'profiles'   => [],
-		]);
+		add_option(
+			'rank_math_search_console_data',
+			[
+				'authorized' => false,
+				'profiles'   => [],
+			]
+		);
 
 		// Update "known CPTs" list, so we can send notice about new ones later.
 		add_option( 'rank_math_known_post_types', Helper::get_accessible_post_types() );
@@ -317,52 +322,58 @@ class Installer {
 	 * Add defaults for general options.
 	 */
 	private function create_general_options() {
-		add_option( 'rank-math-options-general', $this->do_filter( 'settings/defaults/general', [
-			'strip_category_base'                 => 'off',
-			'attachment_redirect_urls'            => 'on',
-			'attachment_redirect_default'         => get_home_url(),
-			'url_strip_stopwords'                 => 'off',
-			'nofollow_external_links'             => 'off',
-			'nofollow_image_links'                => 'off',
-			'new_window_external_links'           => 'on',
-			'add_img_alt'                         => 'off',
-			'img_alt_format'                      => ' %filename%',
-			'add_img_title'                       => 'off',
-			'img_title_format'                    => '%title% %count(title)%',
-			'breadcrumbs'                         => 'off',
-			'breadcrumbs_separator'               => '-',
-			'breadcrumbs_home'                    => 'on',
-			'breadcrumbs_home_label'              => esc_html__( 'Home', 'rank-math' ),
-			/* translators: Archive title */
-			'breadcrumbs_archive_format'          => esc_html__( 'Archives for %s', 'rank-math' ),
-			/* translators: Search query term */
-			'breadcrumbs_search_format'           => esc_html__( 'Results for %s', 'rank-math' ),
-			'breadcrumbs_404_label'               => esc_html__( '404 Error: page not found', 'rank-math' ),
-			'breadcrumbs_ancestor_categories'     => 'off',
-			'breadcrumbs_blog_page'               => 'off',
-			'404_monitor_mode'                    => 'simple',
-			'404_monitor_limit'                   => 100,
-			'404_monitor_ignore_query_parameters' => 'on',
-			'redirections_header_code'            => '301',
-			'redirections_debug'                  => 'off',
-			'console_profile'                     => '',
-			'console_caching_control'             => '90',
-			'link_builder_links_per_page'         => '7',
-			'link_builder_links_per_target'       => '1',
-			'wc_remove_product_base'              => 'off',
-			'wc_remove_category_base'             => 'off',
-			'wc_remove_category_parent_slugs'     => 'off',
-			'rss_before_content'                  => '',
-			'rss_after_content'                   => '',
-			'usage_tracking'                      => 'off',
-			'wc_remove_generator'                 => 'on',
-			'remove_shop_snippet_data'            => 'on',
-			'frontend_seo_score'                  => 'off',
-			'frontend_seo_score_post_types'       => [ 'post' ],
-			'frontend_seo_score_position'         => 'top',
-			'frontend_seo_score'                  => 'off',
-			'enable_auto_update'                  => 'off',
-		]));
+		add_option(
+			'rank-math-options-general',
+			$this->do_filter(
+				'settings/defaults/general',
+				[
+					'strip_category_base'                 => 'off',
+					'attachment_redirect_urls'            => 'on',
+					'attachment_redirect_default'         => get_home_url(),
+					'nofollow_external_links'             => 'off',
+					'nofollow_image_links'                => 'off',
+					'new_window_external_links'           => 'on',
+					'add_img_alt'                         => 'off',
+					'img_alt_format'                      => ' %filename%',
+					'add_img_title'                       => 'off',
+					'img_title_format'                    => '%title% %count(title)%',
+					'breadcrumbs'                         => 'off',
+					'breadcrumbs_separator'               => '-',
+					'breadcrumbs_home'                    => 'on',
+					'breadcrumbs_home_label'              => esc_html__( 'Home', 'rank-math' ),
+					/* translators: Archive title */
+					'breadcrumbs_archive_format'          => esc_html__( 'Archives for %s', 'rank-math' ),
+					/* translators: Search query term */
+					'breadcrumbs_search_format'           => esc_html__( 'Results for %s', 'rank-math' ),
+					'breadcrumbs_404_label'               => esc_html__( '404 Error: page not found', 'rank-math' ),
+					'breadcrumbs_ancestor_categories'     => 'off',
+					'breadcrumbs_blog_page'               => 'off',
+					'404_monitor_mode'                    => 'simple',
+					'404_monitor_limit'                   => 100,
+					'404_monitor_ignore_query_parameters' => 'on',
+					'redirections_header_code'            => '301',
+					'redirections_debug'                  => 'off',
+					'console_profile'                     => '',
+					'console_caching_control'             => '90',
+					'link_builder_links_per_page'         => '7',
+					'link_builder_links_per_target'       => '1',
+					'wc_remove_product_base'              => 'off',
+					'wc_remove_category_base'             => 'off',
+					'wc_remove_category_parent_slugs'     => 'off',
+					'rss_before_content'                  => '',
+					'rss_after_content'                   => '',
+					'usage_tracking'                      => 'off',
+					'wc_remove_generator'                 => 'on',
+					'remove_shop_snippet_data'            => 'on',
+					'frontend_seo_score'                  => 'off',
+					'frontend_seo_score_post_types'       => [ 'post' ],
+					'frontend_seo_score_position'         => 'top',
+					'frontend_seo_score'                  => 'off',
+					'enable_auto_update'                  => 'off',
+					'setup_mode'                          => 'easy',
+				]
+			)
+		);
 	}
 
 	/**
@@ -423,7 +434,7 @@ class Installer {
 		$post_types   = Helper::get_accessible_post_types();
 		$post_types[] = 'product';
 
-		$titles[ 'pt_download_default_rich_snippet' ] = 'product';
+		$titles['pt_download_default_rich_snippet'] = 'product';
 		foreach ( $post_types as $post_type ) {
 			$defaults = $this->get_post_type_defaults( $post_type );
 

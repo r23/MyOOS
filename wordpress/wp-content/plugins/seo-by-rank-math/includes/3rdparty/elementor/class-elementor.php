@@ -28,6 +28,7 @@ class Elementor {
 	 */
 	public function __construct() {
 		$this->action( 'init', 'init' );
+		$this->filter( 'rank_math/frontend/robots', 'robots' );
 	}
 
 	/**
@@ -140,5 +141,21 @@ class Elementor {
 		}
 
 		return Editor::can_add_editor();
+	}
+
+	/**
+	 * Change robots for Elementor Templates pages
+	 *
+	 * @param array $robots Array of robots to sanitize.
+	 *
+	 * @return array Modified robots.
+	 */
+	public function robots( $robots ) {
+		if ( is_singular( 'elementor_library' ) ) {
+			$robots['index']  = 'noindex';
+			$robots['follow'] = 'nofollow';
+		}
+
+		return $robots;
 	}
 }

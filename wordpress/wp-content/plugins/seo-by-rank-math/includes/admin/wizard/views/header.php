@@ -6,6 +6,7 @@
  * @subpackage RankMath\Admin\Wizard
  */
 
+use RankMath\Helper;
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -16,4 +17,4 @@
 	<?php wp_print_head_scripts(); ?>
 	<?php wp_print_styles( 'rank-math-wizard' ); ?>
 </head>
-<body class="rank-math-wizard rank-math-wizard-body--<?php echo sanitize_html_class( $this->step_slug ); ?><?php echo is_rtl() ? ' rtl' : ''; ?>">
+<body class="rank-math-wizard rank-math-page rank-math-wizard-body--<?php echo sanitize_html_class( $this->step_slug ); ?><?php echo is_rtl() ? ' rtl' : ''; ?><?php echo Helper::is_advanced_mode() ? ' rank-math-mode-advanced' : ' rank-math-mode-basic'; ?>">

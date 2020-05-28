@@ -176,7 +176,7 @@ class WooCommerce extends WC_Vars {
 		}
 
 		$long_desc = $this->get_long_description( $product );
-		return '' !== $long_desc ? wp_html_excerpt( $long_desc, 156 ) : '';
+		return '' !== $long_desc ? Str::truncate( $long_desc, 156 ) : '';
 	}
 
 	/**

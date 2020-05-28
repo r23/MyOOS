@@ -118,7 +118,7 @@ class Shortcodes {
 			return [ 'address' ];
 		}
 
-		$allowed = [ 'address', 'hours', 'phone', 'social', 'map' ];
+		$allowed = [ 'address', 'hours', 'phone', 'map' ];
 		if ( ! empty( $args['show'] ) && 'all' !== $args['show'] ) {
 			$allowed = array_intersect( array_map( 'trim', explode( ',', $args['show'] ) ), $allowed );
 		}
@@ -212,7 +212,8 @@ class Shortcodes {
 
 				printf(
 					'<div class="rank-math-opening-hours"><span class="rank-math-opening-days">%1$s</span><span class="rank-math-opening-time">%2$s</span></div>',
-					join( ', ', $days ), $time
+					join( ', ', $days ),
+					$time
 				);
 			}
 			?>
@@ -272,49 +273,18 @@ class Shortcodes {
 			return;
 		}
 
+		$choices = Helper::choices_phone_types();
+
 		foreach ( $phones as $phone ) :
 			$number = esc_html( $phone['number'] );
+			$label  = isset( $choices[ $phone['type'] ] ) ? $choices[ $phone['type'] ] : ''
 			?>
 			<div class="rank-math-phone-number type-<?php echo sanitize_html_class( $phone['type'] ); ?>">
-				<label><?php esc_html_e( ucwords( $phone['type'] ) ); ?>:</label> <span><?php echo isset( $phone['number'] ) ? '<a href="tel://' . $number . '">' . $number . '</a>' : ''; ?></span>
+				<label><?php echo $label; ?>:</label>
+				<span><?php echo isset( $phone['number'] ) ? '<a href="tel://' . $number . '">' . $number . '</a>' : ''; ?></span>
 			</div>
 			<?php
 		endforeach;
-	}
-
-	/**
-	 * Output social identities.
-	 */
-	private function display_social() {
-		$networks = [
-			'facebook'      => 'Facebook',
-			'twitter'       => 'Twitter',
-			'google_places' => 'Google Places',
-			'yelp'          => 'Yelp',
-			'foursquare'    => 'FourSquare',
-			'flickr'        => 'Flickr',
-			'reddit'        => 'Reddit',
-			'linkedin'      => 'LinkedIn',
-			'instagram'     => 'Instagram',
-			'youtube'       => 'YouTube',
-			'pinterest'     => 'Pinterest',
-			'soundcloud'    => 'SoundClound',
-			'tumblr'        => 'Tumblr',
-			'myspace'       => 'MySpace',
-		];
-		?>
-		<div class="rank-math-social-networks">
-			<?php
-			foreach ( $networks as $id => $label ) :
-				if ( $url = Helper::get_settings( 'titles.social_url_' . $id ) ) : // phpcs:ignore
-					?>
-					<a class="social-item type-<?php echo $id; ?>" href="<?php echo esc_url( $url ); ?>"><?php echo $label; ?></a>
-					<?php
-				endif;
-			endforeach;
-			?>
-		</div>
-		<?php
 	}
 
 	/**

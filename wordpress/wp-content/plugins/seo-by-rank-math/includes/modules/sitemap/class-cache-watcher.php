@@ -11,6 +11,7 @@
 namespace RankMath\Sitemap;
 
 use RankMath\Helper;
+use RankMath\Sitemap\Sitemap;
 use RankMath\Traits\Hooker;
 
 defined( 'ABSPATH' ) || exit;
@@ -80,7 +81,7 @@ class Cache_Watcher {
 	 * @param int $post_id Post ID to possibly invalidate for.
 	 */
 	public function save_post( $post_id ) {
-		if ( false === Helper::is_post_indexable( $post_id ) ) {
+		if ( false === Sitemap::is_object_indexable( $post_id ) ) {
 			return false;
 		}
 
@@ -143,7 +144,7 @@ class Cache_Watcher {
 
 		// None of our interest..
 		// If the post type is excluded in options, we can stop.
-		return 'nav_menu_item' === $post_type || ! Helper::is_post_indexable( $post->ID );
+		return 'nav_menu_item' === $post_type || ! Sitemap::is_object_indexable( $post->ID );
 	}
 
 	/**

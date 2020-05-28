@@ -157,7 +157,7 @@ class Admin_Menu implements Runner {
 		}
 
 		if ( 'deregister' === Param::post( 'registration-action' ) ) {
-			Admin_Helper::get_registration_data( false );
+			Admin_Helper::deregister_user();
 		}
 	}
 }

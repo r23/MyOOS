@@ -14,6 +14,7 @@ use RankMath\Helper;
 use RankMath\Traits\Ajax;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Arr;
+use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,6 +32,34 @@ class Ask_Review {
 		Helper::add_json( 'showReviewTab', true );
 		$this->ajax( 'already_reviewed', 'already_reviewed' );
 		$this->filter( 'rank_math/metabox/tabs', 'add_metabox_tab' );
+		$this->filter( 'admin_footer_text', 'admin_footer_text', 20 );
+	}
+
+	/**
+	 * Add footer credit on admin pages.
+	 *
+	 * @param string $text Default text for admin footer.
+	 * @return string
+	 */
+	public function admin_footer_text( $text ) {
+		if ( substr( Param::get( 'page' ), 0, 9 ) !== 'rank-math' ) {
+			return $text;
+		}
+
+		if ( Helper::is_whitelabel() ) {
+			return $text;
+		}
+
+		// Add dismiss JS.
+		$this->filter( 'admin_footer', 'print_footer_script', 20 );
+
+		$star  = '<i class="rm-icon rm-icon-star-filled"></i>';
+		$stars = '<a href="https://wordpress.org/support/plugin/seo-by-rank-math/reviews/#new-post" target="_blank" style="color:#FF9800;font-size:9px;text-decoration:none;letter-spacing:2px;">' . str_repeat( $star, 5 ) . '</a>';
+
+		/* translators: placeholder is a wp.org review link */
+		$new_text = sprintf( wp_kses_post( __( 'If you like Rank Math, please take a minute to rate it on WordPress.org: %s', 'rank-math' ) ), $stars );
+
+		return  '<span id="rank-math-footer-ask-review" data-original-text="' . esc_attr( $text ) . '">' . $new_text . '</span>';
 	}
 
 	/**
@@ -45,7 +74,7 @@ class Ask_Review {
 			$tabs,
 			[
 				'askreview' => [
-					'icon'       => 'dashicons dashicons-heart',
+					'icon'       => 'rm-icon rm-icon-heart-filled',
 					'title'      => '',
 					'desc'       => '',
 					'file'       => rank_math()->includes_dir() . 'metaboxes/ask-review.php',
@@ -96,7 +125,7 @@ class Ask_Review {
 
 				<div class="stars">
 					<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
-						<a href="https://s.rankmath.com/wpreview" target="_blank" class="highlighted">
+						<a href="https://s.rankmath.com/wpreview" target="_blank">
 							<span class="dashicons dashicons-star-filled"></span>
 						</a>
 					<?php } ?>
@@ -162,6 +191,36 @@ class Ask_Review {
 						}, 1500, function() {
 							$( '.rank-math-tabs-navigation > a' ).first().click();
 							$( '.rank-math-tabs-navigation' ).children( '[href = "#setting-panel-askreview"]' ).remove();
+						});
+					});
+				});
+			})(jQuery);
+		</script>
+		<?php
+	}
+
+	/**
+	 * Print javascript for footer notice dismiss functionality.
+	 */
+	public static function print_footer_script() {
+		?>
+		<script>
+			(function( $ ) {
+				$( function() {
+					var rating_wrapper  = $( '#rank-math-footer-ask-review' );
+
+					$( 'a', rating_wrapper ).on( 'mousedown', function() {
+						$.ajax({
+							url: ajaxurl,
+							data: {
+								action: 'rank_math_already_reviewed',
+								security: rankMath.security,
+							},
+						});
+						rating_wrapper.animate({
+							opacity: 0.01
+						}, 1500, function() {
+							rating_wrapper.html( rating_wrapper.data('original-text') ).css( 'opacity', '1' );
 						});
 					});
 				});

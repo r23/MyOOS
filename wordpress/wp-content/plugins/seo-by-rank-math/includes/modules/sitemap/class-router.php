@@ -39,13 +39,14 @@ class Router {
 	public function init() {
 		global $wp;
 
+		$base = self::get_sitemap_base();
 		$wp->add_query_var( 'sitemap' );
 		$wp->add_query_var( 'sitemap_n' );
 		$wp->add_query_var( 'xsl' );
 
-		add_rewrite_rule( 'sitemap_index\.xml$', 'index.php?sitemap=1', 'top' );
-		add_rewrite_rule( '([^/]+?)-sitemap([0-9]+)?\.xml$', 'index.php?sitemap=$matches[1]&sitemap_n=$matches[2]', 'top' );
-		add_rewrite_rule( '([a-z]+)?-?sitemap\.xsl$', 'index.php?xsl=$matches[1]', 'top' );
+		add_rewrite_rule( '^' . $base . 'sitemap_index\.xml$', 'index.php?sitemap=1', 'top' );
+		add_rewrite_rule( '^' . $base . '([^/]+?)-sitemap([0-9]+)?\.xml$', 'index.php?sitemap=$matches[1]&sitemap_n=$matches[2]', 'top' );
+		add_rewrite_rule( '^' . $base . '([a-z]+)?-?sitemap\.xsl$', 'index.php?xsl=$matches[1]', 'top' );
 	}
 
 	/**
@@ -120,19 +121,29 @@ class Router {
 	 * @return string base URL (incl page)
 	 */
 	public static function get_base_url( $page ) {
+		$page = self::get_page_url( $page );
+		$base = self::get_sitemap_base();
+		return home_url( $base . $page );
+	}
+
+	/**
+	 * Create base URL for the sitemap.
+	 *
+	 * @since 1.0.43
+	 *
+	 * @return string Sitemap base.
+	 */
+	public static function get_sitemap_base() {
 		global $wp_rewrite;
 
-		$page = self::get_page_url( $page );
-		$base = $wp_rewrite->using_index_permalinks() ? $wp_rewrite->index . '/' : '/';
+		$base = $wp_rewrite->using_index_permalinks() ? $wp_rewrite->index . '/' : '';
 
 		/**
 		 * Filter the base URL of the sitemaps
 		 *
 		 * @param string $base The string that should be added to home_url() to make the full base URL.
 		 */
-		$base = apply_filters( 'rank_math/sitemap/base_url', $base );
-
-		return home_url( $base . $page );
+		return apply_filters( 'rank_math/sitemap/base_url', $base );
 	}
 
 	/**

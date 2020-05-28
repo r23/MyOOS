@@ -160,7 +160,7 @@ class Taxonomy implements Provider {
 
 		foreach ( $terms as $term ) {
 			$url = [];
-			if ( ! Helper::is_term_indexable( $term ) ) {
+			if ( ! Sitemap::is_object_indexable( $term, 'term' ) ) {
 				continue;
 			}
 

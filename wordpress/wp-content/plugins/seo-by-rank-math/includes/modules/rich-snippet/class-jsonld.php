@@ -16,6 +16,7 @@ use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Url;
 use MyThemeShop\Helpers\Conditional;
 use MyThemeShop\Helpers\WordPress;
+use MyThemeShop\Helpers\Str;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -569,7 +570,9 @@ class JsonLD {
 			$title = Helper::replace_vars( Helper::get_settings( "titles.pt_{$this->post->post_type}_default_snippet_name", '%seo_title%' ), $this->post );
 		}
 
-		return $title ? $title : Paper::get()->get_title();
+		$title = $title ? $title : Paper::get()->get_title();
+
+		return Str::truncate( $title );
 	}
 
 	/**

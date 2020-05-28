@@ -58,7 +58,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'      => 'rank_math_snippet_product_instock',
-	'type'    => 'switch',
+	'type'    => 'toggle',
 	'name'    => esc_html__( 'Product In-Stock', 'rank-math' ),
 	'dep'     => $product,
 	'classes' => 'nob',

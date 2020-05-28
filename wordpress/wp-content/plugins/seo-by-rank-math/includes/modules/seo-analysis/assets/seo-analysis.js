@@ -1,15 +1,13 @@
 /*!
-* Rank Math - SEO Analysis
-*
-* @version 0.9.0
-* @author  Rank Math
-*/
+ * Rank Math - SEO Analysis
+ *
+ * @version 0.9.0
+ * @author  Rank Math
+ */
 ;( function( $ ) {
-
 	'use strict'
 
 	$( function() {
-
 		var RankMathSeoAnalysis = {
 			init: function() {
 				this.wrap     = $( '.rank-math-seo-analysis-wrap' )
@@ -39,7 +37,7 @@
 						if ( notice.length === 0 ) {
 							return;
 						}
-						self.wrap.find( '> h2' ).after( notice )
+						self.wrap.find( '.rank-math-analyzer-result' ).first().prepend( notice )
 						notice.slideDown()
 					}
 
@@ -72,11 +70,11 @@
 								self.wrap.addClass( 'is-loaded' ).removeClass( 'is-loading' )
 								self.graphs()
 							} else {
-								recheck_button.show()
 								self.wrap.removeClass( 'is-loaded is-loading' )
 								self.progress.css( 'width', '0%' )
 								self.counter.html( '0%' )
 							}
+							recheck_button.show()
 							showError( notice )
 						}
 					})

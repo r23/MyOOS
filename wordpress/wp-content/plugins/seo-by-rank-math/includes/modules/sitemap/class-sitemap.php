@@ -273,4 +273,30 @@ class Sitemap {
 		$xml_sitemap_caching = apply_filters( 'rank_math/sitemap/enable_caching', true );
 		return $xml_sitemap_caching;
 	}
+
+	/**
+	 * Check if Object is indexable.
+	 *
+	 * @param int/object $object Post|Term Object.
+	 * @param string     $type   Object Type.
+	 *
+	 * @return boolean
+	 */
+	public static function is_object_indexable( $object, $type = 'post' ) {
+		/**
+		 * Filter: 'rank_math/sitemap/include_noindex' - Include noindex data in Sitemap.
+		 *
+		 * @param bool   $value Whether to include noindex terms in Sitemap.
+		 * @param string $type  Object Type.
+		 *
+		 * @return boolean
+		 */
+		if ( apply_filters( 'rank_math/sitemap/include_noindex', false, $type ) ) {
+			return true;
+		}
+
+		$method = 'post' === $type ? 'is_post_indexable' : 'is_term_indexable';
+
+		return Helper::$method( $object );
+	}
 }

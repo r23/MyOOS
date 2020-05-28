@@ -9,9 +9,11 @@
 namespace RankMath;
 
 ?>
-<form class="rank-math-export-form rank-math-rollback-form cmb2-form" action="" method="post">
+<form class="rank-math-rollback-form cmb2-form rank-math-box" action="" method="post">
 
-	<h3><?php esc_html_e( 'Rollback to Previous Version', 'rank-math' ); ?></h3>
+	<header>
+		<h3><?php esc_html_e( 'Rollback to Previous Version', 'rank-math' ); ?></h3>
+	</header>
 
 	<p><?php esc_html_e( 'If you are facing issues after an update, you can reinstall a previous version with this tool.', 'rank-math' ); ?></p>
 	<?php // translators: placeholder is the word "warning". ?>

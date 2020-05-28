@@ -8,10 +8,9 @@
  * @author     Rank Math <support@rankmath.com>
  */
 
-namespace RankMath\Status;
+namespace RankMath\Tools;
 
 use RankMath\Helper;
-use RankMath\Traits\Hooker;
 
 /**
  * Yoast_Blocks class.
@@ -82,8 +81,9 @@ class Yoast_Blocks extends \WP_Background_Process {
 		Helper::add_notification(
 			sprintf( 'Converted %d posts successfully.', $posts['count'] ),
 			[
-				'type' => 'success',
-				'id'   => 'rank_math_yoast_block_posts',
+				'type'    => 'success',
+				'id'      => 'rank_math_yoast_block_posts',
+				'classes' => 'rank-math-notice',
 			]
 		);
 
@@ -153,6 +153,11 @@ class Yoast_Blocks extends \WP_Background_Process {
 	 * @return array
 	 */
 	public function find_posts() {
+		$posts = get_option( 'rank_math_yoast_block_posts' );
+		if ( false !== $posts ) {
+			return $posts;
+		}
+
 		// FAQs Posts.
 		$args = [
 			's'             => 'wp:yoast/faq-block',
@@ -166,8 +171,15 @@ class Yoast_Blocks extends \WP_Background_Process {
 		// HowTo Posts.
 		$args['s'] = 'wp:yoast/how-to-block';
 		$howto     = get_posts( $args );
+		$posts     = array_merge( $faqs, $howto );
 
-		return array_merge( $faqs, $howto );
+		$posts_data = [
+			'posts' => $posts,
+			'count' => count( $posts ),
+		];
+		update_option( 'rank_math_yoast_block_posts', $posts_data );
+
+		return $posts_data;
 	}
 
 	/**

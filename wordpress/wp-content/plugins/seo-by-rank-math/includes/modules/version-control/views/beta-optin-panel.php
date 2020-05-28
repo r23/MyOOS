@@ -8,9 +8,11 @@
 
 ?>
 
-<form id="cmb2-metabox-rank-math-beta-optin" class="rank-math-export-form rank-math-beta-optin-form cmb2-form" action="" method="post">
+<form id="cmb2-metabox-rank-math-beta-optin" class="rank-math-beta-optin-form cmb2-form rank-math-box" action="" method="post">
 
-	<h3><?php esc_html_e( 'Beta Opt-in', 'rank-math' ); ?></h3>
+	<header>
+		<h3><?php esc_html_e( 'Beta Opt-in', 'rank-math' ); ?></h3>
+	</header>
 
 	<p><?php esc_html_e( 'You can take part in shaping Rank Math by test-driving the newest features and letting us know what you think. Turn on the Beta Tester feature to get notified about new beta releases. The beta version will not install automatically and you always have the option to ignore it.', 'rank-math' ); ?></p>
 	<?php // translators: Warning. ?>
@@ -38,7 +40,7 @@
 
 	<footer>
 		<?php wp_nonce_field( 'rank-math-beta-optin' ); ?>
-		<button type="submit" class="button button-primary button-large"><?php esc_html_e( 'Save Changes', 'rank-math' ); ?></button>
+		<button type="submit" class="button button-primary button-xlarge"><?php esc_html_e( 'Save Changes', 'rank-math' ); ?></button>
 	</footer>
 
 </form>

@@ -42,11 +42,13 @@ if ( ! $data['writable'] || ! Helper::is_edit_allowed() ) {
 		'type'    => 'notice',
 		'what'    => 'error',
 		'content' => wp_kses_post( __( 'Be careful when editing the htaccess file, it is easy to make mistakes and break your site. If that happens, you can restore the file to its state <strong>before the last edit</strong> by replacing the htaccess file with the backup copy created by Rank Math in the same directory (<em>.htaccess_back_xxxxxx</em>) using an FTP client.', 'rank-math' ) ) . $consent_checkbox,
+		'classes' => 'rank-math-notice',
 	]);
 }
 $cmb->add_field([
 	'id'         => 'htaccess_content',
 	'type'       => 'textarea',
+	'classes'    => 'rank-math-code-box',
 	'save_field' => false,
 	'attributes' => $attrs,
 ]);

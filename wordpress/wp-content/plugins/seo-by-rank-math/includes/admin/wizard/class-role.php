@@ -37,7 +37,7 @@ class Role implements Wizard_Step {
 
 		<?php $wizard->cmb->show_form(); ?>
 
-		<footer class="form-footer wp-core-ui rank-math-ui">
+		<footer class="form-footer wp-core-ui">
 			<?php $wizard->get_skip_link(); ?>
 			<button type="submit" class="button button-primary"><?php esc_html_e( 'Save and Continue', 'rank-math' ); ?></button>
 		</footer>
@@ -52,20 +52,34 @@ class Role implements Wizard_Step {
 	 * @return void
 	 */
 	public function form( $wizard ) {
+		$wizard->cmb->add_field(
+			[
+				'id'      => 'role_manager',
+				'type'    => 'toggle',
+				'name'    => esc_html__( 'Role Manager', 'rank-math' ),
+				/* translators: Link to kb article */
+				'desc'    => __( 'The Role Manager allows you to use WordPress roles to control which of your site users can have edit or view access to Rank Math\'s settings.', 'rank-math' ),
+				'default' => Helper::is_module_active( 'role-manager' ) ? 'on' : 'off',
+			]
+		);
+
 		$defaults  = Helper::get_roles_capabilities();
 		$caps      = Capability_Manager::get()->get_capabilities();
 		$cap_count = count( $caps );
 
 		foreach ( WordPress::get_roles() as $role => $label ) {
 			$default = isset( $defaults[ $role ] ) ? $defaults[ $role ] : [];
-			$wizard->cmb->add_field([
-				'id'      => esc_attr( $role ),
-				'type'    => 'multicheck_inline',
-				'name'    => translate_user_role( $label ),
-				'options' => $caps,
-				'default' => $default,
-				'classes' => 'cmb-big-labels' . ( count( $default ) === $cap_count ? ' multicheck-checked' : '' ),
-			]);
+			$wizard->cmb->add_field(
+				[
+					'id'      => esc_attr( $role ),
+					'type'    => 'multicheck_inline',
+					'name'    => translate_user_role( $label ),
+					'options' => $caps,
+					'default' => $default,
+					'classes' => 'cmb-big-labels' . ( count( $default ) === $cap_count ? ' multicheck-checked' : '' ),
+					'dep'     => [ [ 'role_manager', 'on' ] ],
+				]
+			);
 		}
 	}
 
@@ -82,6 +96,7 @@ class Role implements Wizard_Step {
 			return false;
 		}
 
+		Helper::update_modules( [ 'role-manager' => $values['role_manager'] ] );
 		Helper::set_capabilities( $values );
 		return true;
 	}

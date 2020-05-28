@@ -163,4 +163,15 @@ trait Conditional {
 	public static function is_elementor_editor() {
 		return 'elementor' === \MyThemeShop\Helpers\Param::get( 'action' );
 	}
+
+	/**
+	 * Is Advanced Mode.
+	 *
+	 * @since 1.0.43
+	 *
+	 * @return boolean
+	 */
+	public static function is_advanced_mode() {
+		return 'advanced' === apply_filters( 'rank_math/setup_mode', Helper::get_settings( 'general.setup_mode', 'easy' ) );
+	}
 }

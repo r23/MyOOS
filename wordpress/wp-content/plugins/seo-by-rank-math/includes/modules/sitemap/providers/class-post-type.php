@@ -187,7 +187,7 @@ class Post_Type implements Provider {
 
 			foreach ( $posts as $post ) {
 				$post_id = (int) $post->ID;
-				if ( ! Helper::is_post_indexable( $post_id ) ) {
+				if ( ! Sitemap::is_object_indexable( $post_id ) ) {
 					continue;
 				}
 
@@ -281,7 +281,7 @@ class Post_Type implements Provider {
 			$links[]       = array( 'loc' => $this->get_home_url() );
 		} elseif ( $this->get_page_on_front_id() && 'post' === $post_type && $this->get_page_for_posts_id() ) {
 			$needs_archive = false;
-			$links[]       = Helper::is_post_indexable( $this->get_page_for_posts_id() ) ? array( 'loc' => get_permalink( $this->get_page_for_posts_id() ) ) : '';
+			$links[]       = Sitemap::is_object_indexable( $this->get_page_for_posts_id() ) ? array( 'loc' => get_permalink( $this->get_page_for_posts_id() ) ) : '';
 		}
 
 		if ( ! $needs_archive ) {

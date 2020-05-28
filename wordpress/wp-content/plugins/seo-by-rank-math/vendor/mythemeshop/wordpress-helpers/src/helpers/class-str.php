@@ -189,4 +189,25 @@ class Str {
 
 		return $number;
 	}
+
+	/**
+	 * Truncate text for given length.
+	 *
+	 * @param {string} $str    Text to truncate.
+	 * @param {number} $length Length to truncate for.
+	 *
+	 * @return {string} Truncated text.
+	 */
+	public static function truncate( $str, $length = 110 ) {
+		$str     = wp_strip_all_tags( $str, true );
+		$excerpt = mb_substr( $str, 0, $length );
+
+		// Remove part of an entity at the end.
+		$excerpt = preg_replace( '/&[^;\s]{0,6}$/', '', $excerpt );
+		if ( $str !== $excerpt ) {
+			$excerpt = mb_substr( $str, 0, mb_strrpos( trim( $excerpt ), ' ' ) );
+		}
+
+    return $excerpt;
+	}
 }

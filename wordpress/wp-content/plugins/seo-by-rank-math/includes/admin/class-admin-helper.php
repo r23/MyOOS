@@ -13,6 +13,7 @@
 namespace RankMath\Admin;
 
 use RankMath\Helper;
+use RankMath\Data_Encryption;
 use RankMath\Helpers\Security;
 use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\WordPress;
@@ -61,7 +62,15 @@ class Admin_Helper {
 	 * @return string Complete path to view
 	 */
 	public static function get_view( $view ) {
-		return apply_filters( 'rank_math/admin/get_view', rank_math()->admin_dir() . "views/{$view}.php", $view );
+		$view = sanitize_key( $view );
+		$view = rank_math()->admin_dir() . "views/{$view}.php";
+
+		if ( ! file_exists( $view ) ) {
+			wp_redirect( Helper::get_admin_url() );
+			exit;
+		}
+
+		return $view;
 	}
 
 	/**
@@ -88,22 +97,45 @@ class Admin_Helper {
 	 * @return array
 	 */
 	public static function get_registration_data( $data = null ) {
-		$key = 'rank_math_connect_data';
+		$encryption = new Data_Encryption();
+
+		$row  = 'rank_math_connect_data';
+		$keys = [
+			'username',
+			'email',
+			'api_key',
+		];
 
 		// Setter.
 		if ( ! is_null( $data ) ) {
 			if ( false === $data ) {
 				update_option( 'rank_math_registration_skip', 1 );
-				return delete_option( $key );
+				return delete_option( $row );
+			}
+
+			foreach ( $keys as $key ) {
+				if ( isset( $data[ $key ] ) ) {
+					$data[ $key ] = $encryption->encrypt( $data[ $key ] );
+				}
 			}
 
 			update_option( 'rank_math_registration_skip', 1 );
-			return update_option( $key, $data );
+			return update_option( $row, $data );
 		}
 
 		// Getter.
-		$options = Helper::is_plugin_active_for_network() ? get_blog_option( get_main_site_id(), $key, false ) : get_option( $key, false );
-		return empty( $options ) ? false : $options;
+		$options = Helper::is_plugin_active_for_network() ? get_blog_option( get_main_site_id(), $row, false ) : get_option( $row, false );
+		if ( empty( $options ) ) {
+			return false;
+		}
+
+		foreach ( $keys as $key ) {
+			if ( isset( $options[ $key ] ) ) {
+				$options[ $key ] = $encryption->decrypt( $options[ $key ] );
+			}
+		}
+
+		return $options;
 	}
 
 	/**
@@ -142,6 +174,30 @@ class Admin_Helper {
 		}
 
 		return $body;
+	}
+
+	/**
+	 * Remove registration data and disconnect from RankMath.com.
+	 */
+	public static function deregister_user() {
+		$registered = self::get_registration_data();
+		if ( $registered && isset( $registered['username'] ) && isset( $registered['api_key'] ) ) {
+			wp_remote_post(
+				'https://rankmath.com/wp-json/rankmath/v1/deactivateSite',
+				[
+					'timeout'    => defined( 'DOING_CRON' ) && DOING_CRON ? 30 : 10,
+					'user-agent' => 'RankMath/' . md5( esc_url( home_url( '/' ) ) ),
+					'blocking'   => false,
+					'body'       => [
+						'username' => $registered['username'],
+						'api_key'  => $registered['api_key'],
+						'site_url' => esc_url( site_url() ),
+					],
+				]
+			);
+			self::get_registration_data( false );
+		}
+		return;
 	}
 
 	/**
@@ -282,14 +338,14 @@ class Admin_Helper {
 			'https://www.facebook.com/sharer/sharer.php'
 		);
 		?>
-		<div class="wizard-share">
+		<span class="wizard-share">
 			<a href="#" onclick="window.open('<?php echo $tweet_url; ?>', 'sharewindow', 'resizable,width=600,height=300'); return false;" class="share-twitter">
 				<span class="dashicons dashicons-twitter"></span> <?php esc_html_e( 'Tweet', 'rank-math' ); ?>
 			</a>
 			<a href="#" onclick="window.open('<?php echo $fb_share_url; ?>', 'sharewindow', 'resizable,width=600,height=300'); return false;" class="share-facebook">
 				<span class="dashicons dashicons-facebook-alt"></span> <?php esc_html_e( 'Share', 'rank-math' ); ?>
 			</a>
-		</div>
+		</span>
 		<?php
 	}
 
@@ -342,5 +398,18 @@ class Admin_Helper {
 		$front_page = (int) get_option( 'page_on_front' );
 
 		return $front_page && self::is_post_edit() && (int) Param::get( 'post' ) === $front_page;
+	}
+
+	/**
+	 * Check if page is set as Posts Page.
+	 *
+	 * @since 1.0.43
+	 *
+	 * @return boolean
+	 */
+	public static function is_posts_page() {
+		$posts_page = (int) get_option( 'page_for_posts' );
+
+		return $posts_page && self::is_post_edit() && (int) Param::get( 'post' ) === $posts_page;
 	}
 }

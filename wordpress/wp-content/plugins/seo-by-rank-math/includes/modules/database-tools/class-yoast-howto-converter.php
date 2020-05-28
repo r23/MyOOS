@@ -8,10 +8,7 @@
  * @author     Rank Math <support@rankmath.com>
  */
 
-namespace RankMath\Status;
-
-use RankMath\Helper;
-use RankMath\Traits\Hooker;
+namespace RankMath\Tools;
 
 /**
  * Yoast_HowTo_Converter class.

@@ -4,11 +4,7 @@
  * URL:		https://rankmath.com/wordpress/plugin/seo-suite/
  * Name:	version-control.css
  */
-
-.rank-math-export-form {
-	.rank-math-export-form h3 {
-		margin: 5px 0 0;
-	}
+.rank-math-rollback-form {
 
 	.loading-indicator-text {
 		line-height: 2;
@@ -27,9 +23,6 @@
 		color: #FF9800;
 		font-weight: 500;
 	}
-}
-
-.rank-math-rollback-form {
 
 	th, td {
 		padding: 10px 5px 10px 0;
@@ -42,8 +35,9 @@
 
 .rank-math-beta-optin-form,
 .rank-math-auto-update-form {
-	th {
+	th, td {
 		vertical-align: middle;
+		padding: 0 10px 0 0;
 	}
 
 	.cmb-row {

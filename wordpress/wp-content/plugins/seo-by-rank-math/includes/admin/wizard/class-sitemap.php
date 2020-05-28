@@ -58,7 +58,7 @@ class Sitemap implements Wizard_Step {
 	public function form( $wizard ) {
 		$wizard->cmb->add_field([
 			'id'      => 'sitemap',
-			'type'    => 'switch',
+			'type'    => 'toggle',
 			'name'    => esc_html__( 'Sitemaps', 'rank-math' ),
 			'desc'    => esc_html__( 'XML Sitemaps help search engines index your website&#039;s content more effectively.', 'rank-math' ),
 			'default' => Helper::is_module_active( 'sitemap' ) ? 'on' : 'off',
@@ -66,7 +66,7 @@ class Sitemap implements Wizard_Step {
 
 		$wizard->cmb->add_field([
 			'id'      => 'include_images',
-			'type'    => 'switch',
+			'type'    => 'toggle',
 			'name'    => esc_html__( 'Include Images', 'rank-math' ),
 			'desc'    => esc_html__( 'Include reference to images from the post content in sitemaps. This helps search engines index your images better.', 'rank-math' ),
 			'default' => Helper::get_settings( 'sitemap.include_images' ) ? 'on' : 'off',

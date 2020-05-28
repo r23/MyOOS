@@ -63,7 +63,7 @@ $cmb->add_group_field( $monitor_exclude, array(
 
 $cmb->add_field( array(
 	'id'      => '404_monitor_ignore_query_parameters',
-	'type'    => 'switch',
+	'type'    => 'toggle',
 	'name'    => esc_html__( 'Ignore Query Parameters', 'rank-math' ),
 	'desc'    => esc_html__( 'Turn ON to ignore all query parameters (the part after a question mark in a URL) when logging 404 errors.', 'rank-math' ),
 	'default' => 'off',

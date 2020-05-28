@@ -126,7 +126,6 @@ class Admin extends Base {
 			'parent'     => 'rank-math',
 			'capability' => 'rank_math_404_monitor',
 			'render'     => $dir . 'main.php',
-			'classes'    => [ 'rank-math-page' ],
 			'help'       => [
 				'404-overview'       => [
 					'title' => esc_html__( 'Overview', 'rank-math' ),
@@ -170,10 +169,10 @@ class Admin extends Base {
 
 		Arr::insert( $tabs, [
 			'404-monitor' => [
-				'icon'  => 'dashicons dashicons-no',
+				'icon'  => 'rm-icon rm-icon-404',
 				'title' => esc_html__( '404 Monitor', 'rank-math' ),
 				/* translators: 1. Link to kb article 2. Link to redirection setting scree */
-				'desc'  => sprintf( esc_html__( 'The 404 monitor lets you see the URLs where visitors and search engine crawlers run into 404 not found errors on your site. %1$s. Turn on %2$s too to redirect the faulty URLs easily.', 'rank-math' ), '<a href="' . \RankMath\KB::get( '404-monitor-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>', '<a href="' . Helper::get_admin_url( 'options-general#setting-panel-redirections' ) . '" target="_blank">' . esc_html__( 'Redirections', 'rank-math' ) . '</a>' ),
+				'desc'  => sprintf( esc_html__( 'Monitor broken pages that ruin user-experience and affect SEO. %s.', 'rank-math' ), '<a href="' . \RankMath\KB::get( '404-monitor-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 				'file'  => $this->directory . '/views/options.php',
 			],
 		], 7 );

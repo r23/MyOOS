@@ -2,7 +2,7 @@
 /**
  * SEO Analysis admin page contents.
  *
- * @package   MTS_SEO
+ * @package   RANK_MATH
  * @author    Rank Math <support@rankmath.com>
  * @license   GPL-2.0+
  * @link      https://rankmath.com/wordpress/plugin/seo-suite/

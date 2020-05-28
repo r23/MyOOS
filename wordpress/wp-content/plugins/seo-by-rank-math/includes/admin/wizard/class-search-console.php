@@ -61,32 +61,29 @@ class Search_Console implements Wizard_Step {
 		$data = Helper::search_console_data();
 
 		if ( ! Helper::is_module_active( 'search-console' ) ) {
-			$wizard->cmb->add_field([
-				'id'      => 'search-console',
-				'type'    => 'switch',
-				'name'    => esc_html__( 'Search Console', 'rank-math' ),
-				'desc'    => esc_html__( 'Connect Rank Math with Google Search Console to see the most important information from Google directly in your WordPress dashboard.', 'rank-math' ),
-				'default' => 'off',
-			]);
+			$wizard->cmb->add_field(
+				[
+					'id'      => 'search-console',
+					'type'    => 'toggle',
+					'name'    => esc_html__( 'Search Console', 'rank-math' ),
+					'desc'    => esc_html__( 'Connect Rank Math with Google Search Console to see the most important information from Google directly in your WordPress dashboard.', 'rank-math' ),
+					'default' => 'off',
+				]
+			);
 			$dep = [ [ 'search-console', 'on' ] ];
 		}
 
-		$wizard->cmb->add_field([
-			'id'      => 'rank_math_sc_step2',
-			'type'    => 'raw',
-			/* translators: count */
-			'content' => '<br>',
-		]);
-
-		$wizard->cmb->add_field([
-			'id'         => 'console_authorization_code',
-			'type'       => 'text',
-			'name'       => esc_html__( 'Search Console', 'rank-math' ),
-			'desc'       => esc_html__( 'Authorize Rank Math to access data from the Google Search Console.', 'rank-math' ),
-			'attributes' => [ 'data-authorized' => $data['authorized'] ? 'true' : 'false' ],
-			'after'      => $this->get_buttons(),
-			'dep'        => $dep,
-		]);
+		$wizard->cmb->add_field(
+			[
+				'id'         => 'console_authorization_code',
+				'type'       => 'text',
+				'name'       => esc_html__( 'Search Console', 'rank-math' ),
+				'attributes' => [ 'data-authorized' => $data['authorized'] ? 'true' : 'false' ],
+				'after'      => $this->get_buttons(),
+				'dep'        => $dep,
+				'classes'    => $data['authorized'] ? 'authorized' : 'unauthorized',
+			]
+		);
 
 		$profile       = Helper::get_settings( 'general.console_profile' );
 		$profile_label = str_replace( 'sc-domain:', __( 'Domain Property: ', 'rank-math' ), $profile );
@@ -94,23 +91,25 @@ class Search_Console implements Wizard_Step {
 			$data['profiles'][ $key ] = str_replace( 'sc-domain:', __( 'Domain Property: ', 'rank-math' ), $value );
 		}
 
-		$wizard->cmb->add_field([
-			'id'         => 'console_profile',
-			'type'       => 'select',
-			'name'       => esc_html__( 'Search Console Profile', 'rank-math' ),
-			'desc'       => esc_html__( 'After authenticating with Google Search Console, select your website from the dropdown list.', 'rank-math' ) .
-				' <span id="gsc-dp-info" class="hidden">' . __( 'Please note that the Sitemaps overview in the Search Console module will not be available when using a Domain Property.', 'rank-math' ) . '</span>' .
-				/* translators: Link to setting screen */
-				'<br><br><span style="color: orange;">' . sprintf( __( 'Is your site not listed? <a href="%1$s" target="_blank">Click here</a> to get your website verified.', 'rank-math' ), Helper::get_admin_url( 'options-general#setting-panel-webmaster' ) ) . '</span>',
-			'options'    => $profile ? [ $profile => $profile_label ] : $data['profiles'],
-			'default'    => $profile,
-			'after'      => '<button class="button button-primary hidden" ' . ( $data['authorized'] ? '' : 'disabled="disabled"' ) . '>' . esc_html__( 'Refresh Sites', 'rank-math' ) . '</button>',
-			'attributes' => $data['authorized'] ? [ 'data-s2' => '' ] : [
-				'disabled' => 'disabled',
-				'data-s2'  => '',
-			],
-			'dep'        => $dep,
-		]);
+		$wizard->cmb->add_field(
+			[
+				'id'           => 'console_profile',
+				'type'         => 'select',
+				'name'         => esc_html__( 'Search Console Profile', 'rank-math' ),
+				'desc'         => esc_html__( 'After authenticating with Google Search Console, select your website from the dropdown list.', 'rank-math' ) .
+					' <span id="gsc-dp-info" class="hidden">' . __( 'Please note that the Sitemaps overview in the Search Console module will not be available when using a Domain Property.', 'rank-math' ) . '</span>' .
+					/* translators: Link to setting screen */
+					'<br><br><span style="color: orange;">' . sprintf( __( 'Is your site not listed? <a href="%1$s" target="_blank">Click here</a> to get your website verified.', 'rank-math' ), Helper::get_admin_url( 'options-general#setting-panel-webmaster' ) ) . '</span>',
+				'options'      => $profile ? [ $profile => $profile_label ] : $data['profiles'],
+				'default'      => $profile,
+				'before_field' => '<button class="button button-primary hidden rank-math-refresh" ' . ( $data['authorized'] ? '' : 'disabled="disabled"' ) . '>' . esc_html__( 'Refresh Sites', 'rank-math' ) . '</button>',
+				'attributes'   => $data['authorized'] ? [ 'data-s2' => '' ] : [
+					'disabled' => 'disabled',
+					'data-s2'  => '',
+				],
+				'dep'          => $dep,
+			]
+		);
 	}
 
 	/**
@@ -144,9 +143,10 @@ class Search_Console implements Wizard_Step {
 	 */
 	private function get_buttons() {
 		$data      = Helper::search_console_data();
-		$primary   = '<button class="button button-primary">' . ( $data['authorized'] ? esc_html__( 'De-authorize Account', 'rank-math' ) : esc_html__( 'Authorize', 'rank-math' ) ) . '</button>';
-		$secondary = '<a href="' . esc_url( Helper::get_console_auth_url() ) . '" class="button button-secondary custom"' . ( $data['authorized'] ? ' style="display:none;"' : '' ) . '>' . esc_html__( 'Get Authorization Code', 'rank-math' ) . '</a><br />';
-
-		return $primary . $secondary;
+		$primary   = '<button class="button button-primary rank-math-authorize-account">' . ( $data['authorized'] ? esc_html__( 'De-authorize Account', 'rank-math' ) : esc_html__( 'Authorize', 'rank-math' ) ) . '</button>';
+		$secondary = '<a href="' . esc_url( Helper::get_console_auth_url() ) . '" class="button button-primary custom rank-math-get-authorization-code"' . ( $data['authorized'] ? ' style="display:none;"' : '' ) . '>' . esc_html__( 'Get Authorization Code', 'rank-math' ) . '</a><br />';
+		/* translators: Link to 'How To Create a Google API Project For Connecting Search Console' KB article */
+		$desc = '<div class="cmb2-metabox-description">' . sprintf( esc_html__( 'You can also create your own app and connect that instead. %s', 'rank-math' ), '<a href="' . KB::get( 'custom-gsc-project' ) . '" target="_blank">' . esc_html__( 'Follow this tutorial.', 'rank-math' ) . '</a>' ) . '</div>';
+		return $primary . $secondary . $desc;
 	}
 }

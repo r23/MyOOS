@@ -38,6 +38,24 @@ class Compatibility implements Wizard_Step {
 	 * @return void
 	 */
 	public function form( $wizard ) {
+		$wizard->cmb->add_field(
+			[
+				'id'      => 'setup_mode',
+				'name'    => '',
+				'type'    => 'radio',
+				'options' => [
+					/* translators: Option Description */
+					'easy'     => '<div class="rank-math-mode-title">' . sprintf( __( 'Easy %s', 'rank-math' ), '</div><p>' . __( 'For websites where you only want to change the basics and let Rank Math do most of the heavy lifting. Most settings are set to default as per industry best practices. One just has to set it and forget it.', 'rank-math' ) . '</p>' ),
+					/* translators: Option Description */
+					'advanced' => '<div class="rank-math-mode-title">' . sprintf( __( 'Advanced %s', 'rank-math' ), '</div><p>' . __( 'For the advanced users who want to control every SEO aspect of the website. You are offered options to change everything and have full control over the website’s SEO.', 'rank-math' ) . '</p>' ),
+					/* translators: Option Description */
+					'custom'   => '<div class="rank-math-mode-title">' . sprintf( __( 'Custom Mode %s', 'rank-math' ), '</div><p><strong>' . __( 'Coming Soon', 'rank-math' ) . '</strong></p>' ),
+				],
+				'default' => Helper::get_settings( 'general.setup_mode', 'easy' ),
+				'classes' => 'rank-math-setup-mode',
+				'desc'    => __( '<strong>Note</strong> You can easily switch between modes at any point.', 'rank-math' ),
+			]
+		);
 	}
 
 	/**
@@ -49,6 +67,15 @@ class Compatibility implements Wizard_Step {
 	 * @return bool
 	 */
 	public function save( $values, $wizard ) {
+		$settings = wp_parse_args(
+			rank_math()->settings->all_raw(),
+			[ 'general' => '' ]
+		);
+
+		$settings['general']['setup_mode'] = ! empty( $values['setup_mode'] ) ? $values['setup_mode'] : 'easy';
+
+		Helper::update_all_settings( $settings['general'], null, null );
+
 		return true;
 	}
 

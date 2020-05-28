@@ -51,7 +51,7 @@ class Permalink_Watcher {
 		}
 
 		if ( $this->remove_category_base || $this->remove_parent_slugs ) {
-			$this->filter( 'term_link', 'term_link', 1, 3 );
+			$this->filter( 'term_link', 'term_link', 0, 3 );
 			add_action( 'created_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
 			add_action( 'delete_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
 			add_action( 'edited_product_cat', 'RankMath\\Helper::schedule_flush_rewrite' );
@@ -90,7 +90,7 @@ class Permalink_Watcher {
 		}
 
 		$permalink_structure  = wc_get_permalink_structure();
-		$category_base        = user_trailingslashit( $permalink_structure['category_rewrite_slug'] );
+		$category_base        = trailingslashit( $permalink_structure['category_rewrite_slug'] );
 		$is_language_switcher = ( class_exists( 'Sitepress' ) && strpos( $link, 'lang=' ) );
 
 		if ( $this->remove_category_base ) {

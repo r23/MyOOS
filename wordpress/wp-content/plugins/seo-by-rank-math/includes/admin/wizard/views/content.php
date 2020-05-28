@@ -9,13 +9,15 @@
 use RankMath\KB;
 use MyThemeShop\Helpers\Param;
 ?>
-<div class="wrapper">
-
+<div class="header">
 	<div class="logo text-center">
 		<a href="<?php KB::the( 'logo' ); ?>" target="_blank"><img src="<?php echo esc_url( rank_math()->plugin_url() . 'assets/admin/img/logo.svg' ); ?>" width="245"></a>
 	</div>
 
 	<?php include_once $this->get_view( 'navigation' ); ?>
+</div>
+
+<div class="wrapper">
 
 	<div class="main-content wizard-content--<?php echo esc_attr( $this->step_slug ); ?>">
 
@@ -34,6 +36,6 @@ use MyThemeShop\Helpers\Param;
 
 <?php
 if ( ! in_array( $this->step_slug, [ 'register', 'ready' ], true ) ) :
-	echo sprintf( '<div class="return-to-dashboard"><a href="%s"><i class="dashicons dashicons-arrow-left-alt2"></i> %s</a></div>', esc_url( 'rank-math-registration' === Param::get( 'page' ) ? admin_url( '/' ) : RankMath\Helper::get_dashboard_url() ), esc_html__( 'Return to dashboard', 'rank-math' ) );
+	echo sprintf( '<div class="return-to-dashboard"><a href="%s">%s</a></div>', esc_url( 'rank-math-registration' === Param::get( 'page' ) ? admin_url( '/' ) : RankMath\Helper::get_dashboard_url() ), esc_html__( 'Return to dashboard', 'rank-math' ) );
 endif;
 ?>

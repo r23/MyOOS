@@ -52,13 +52,15 @@ class Import_Export implements Runner {
 	 * @return array       New pages.
 	 */
 	public function add_status_page( $pages ) {
-		$pages['import_export'] = [
-			'url'   => 'status',
-			'args'  => 'view=import_export',
-			'cap'   => 'manage_options',
-			'title' => __( 'Import & Export', 'rank-math' ),
-			'class' => '\\RankMath\\Admin\\Import_Export',
-		];
+		if ( Helper::is_advanced_mode() ) {
+			$pages['import_export'] = [
+				'url'   => 'status',
+				'args'  => 'view=import_export',
+				'cap'   => 'manage_options',
+				'title' => __( 'Import & Export', 'rank-math' ),
+				'class' => '\\RankMath\\Admin\\Import_Export',
+			];
+		}
 
 		return $pages;
 	}
@@ -69,7 +71,19 @@ class Import_Export implements Runner {
 	 * @return void
 	 */
 	public function display() {
-		include( Admin_Helper::get_view( 'import-export/main' ) );
+		include( $this->get_view( 'main' ) );
+	}
+
+	/**
+	 * Get view file.
+	 *
+	 * @param string $view View filename.
+	 *
+	 * @return string Complete path to view
+	 */
+	public function get_view( $view ) {
+		$view = sanitize_key( $view );
+		return rank_math()->admin_dir() . "views/import-export/{$view}.php";
 	}
 
 	/**
@@ -88,38 +102,6 @@ class Import_Export implements Runner {
 		Helper::add_json( 'deleteBackupConfirm', esc_html__( 'Are you sure you want to delete this backup?', 'rank-math' ) );
 		Helper::add_json( 'cleanPluginConfirm', esc_html__( 'Are you sure you want erase traces of plugin?', 'rank-math' ) );
 	}
-
-	/**
-	 * Register admin pages for plugin.
-	 */
-	/*
-	public function register_page() {
-		new Page(
-			'rank-math-import-export',
-			esc_html__( 'Import &amp; Export', 'rank-math' ),
-			[
-				'position' => 99,
-				'parent'   => 'rank-math',
-				'render'   => Admin_Helper::get_view( 'import-export/main' ),
-				'onsave'   => [ $this, 'handler' ],
-				'classes'  => [ 'rank-math-page' ],
-				'assets'   => [
-					'styles'  => [
-						'cmb2-styles'      => '',
-						'rank-math-common' => '',
-						'rank-math-cmb2'   => '',
-					],
-					'scripts' => [ 'rank-math-import-export' => rank_math()->plugin_url() . 'assets/admin/js/import-export.js' ],
-				],
-			]
-		);
-
-		Helper::add_json( 'importConfirm', esc_html__( 'Are you sure you want to import settings into Rank Math? Don\'t worry, your current configuration will be saved as a backup.', 'rank-math' ) );
-		Helper::add_json( 'restoreConfirm', esc_html__( 'Are you sure you want to restore this backup? Your current configuration will be overwritten.', 'rank-math' ) );
-		Helper::add_json( 'deleteBackupConfirm', esc_html__( 'Are you sure you want to delete this backup?', 'rank-math' ) );
-		Helper::add_json( 'cleanPluginConfirm', esc_html__( 'Are you sure you want erase traces of plugin?', 'rank-math' ) );
-	}
-	*/
 
 	/**
 	 * Handle import or export.
@@ -148,6 +130,7 @@ class Import_Export implements Runner {
 	 */
 	public function clean_plugin() {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
+		$this->has_cap_ajax( 'general' );
 
 		$result = Detector::run_by_slug( Param::post( 'pluginSlug' ), 'cleanup' );
 
@@ -192,12 +175,14 @@ class Import_Export implements Runner {
 			$this->error( esc_html__( 'Unable to create backup this time.', 'rank-math' ) );
 		}
 
-		$this->success([
-			'key'     => $key,
-			/* translators: Backup formatted date */
-			'backup'  => sprintf( esc_html__( 'Backup: %s', 'rank-math' ), date_i18n( 'M jS Y, H:i a', $key ) ),
-			'message' => esc_html__( 'Backup created successfully.', 'rank-math' ),
-		]);
+		$this->success(
+			[
+				'key'     => $key,
+				/* translators: Backup formatted date */
+				'backup'  => sprintf( esc_html__( 'Backup: %s', 'rank-math' ), date_i18n( 'M jS Y, H:i a', $key ) ),
+				'message' => esc_html__( 'Backup created successfully.', 'rank-math' ),
+			]
+		);
 	}
 
 	/**
@@ -307,7 +292,7 @@ class Import_Export implements Runner {
 		\unlink( $file['file'] );
 
 		if ( $this->do_import_data( $settings ) ) {
-			Helper::add_notification( esc_html__( 'Settings successfully imported. Your old configuration has been saved as a backup.', 'rank-math' ), 'success' );
+			Helper::add_notification( esc_html__( 'Settings successfully imported. Your old configuration has been saved as a backup.', 'rank-math' ), [ 'type' => 'success' ] );
 			return;
 		}
 
@@ -405,10 +390,15 @@ class Import_Export implements Runner {
 				continue;
 			}
 
+			$sources = maybe_unserialize( $redirection['sources'] );
+			if ( ! is_array( $sources ) ) {
+				continue;
+			}
+
 			\RankMath\Redirections\DB::add(
 				[
 					'url_to'      => $redirection['url_to'],
-					'sources'     => maybe_unserialize( $redirection['sources'] ),
+					'sources'     => $sources,
 					'header_code' => $redirection['header_code'],
 					'hits'        => $redirection['hits'],
 					'created'     => $redirection['created'],

@@ -217,7 +217,7 @@ class AIOSEO extends Plugin_Importer {
 	 * @param string $link Link to check.
 	 */
 	private function convert_social_link( $link ) {
-		$services = [ 'facebook', 'twitter', 'linkedin', 'instagram', 'youtube', 'pinterest', 'soundcloud', 'tumblr', 'myspace' ];
+		$services = [ 'facebook', 'twitter' ];
 		foreach ( $services as $service ) {
 			if ( Str::contains( $service, $social_link ) ) {
 				$this->titles[ 'social_url_' . $service ] = $social_link;

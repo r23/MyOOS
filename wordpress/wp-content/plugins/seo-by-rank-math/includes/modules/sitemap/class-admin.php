@@ -30,14 +30,16 @@ class Admin extends Base {
 	public function __construct() {
 
 		$directory = dirname( __FILE__ );
-		$this->config(array(
-			'id'        => 'sitemap',
-			'directory' => $directory,
-			'help'      => array(
-				'title' => esc_html__( 'Sitemap', 'rank-math' ),
-				'view'  => $directory . '/views/help.php',
-			),
-		));
+		$this->config(
+			[
+				'id'        => 'sitemap',
+				'directory' => $directory,
+				'help'      => array(
+					'title' => esc_html__( 'Sitemap', 'rank-math' ),
+					'view'  => $directory . '/views/help.php',
+				),
+			]
+		);
 		parent::__construct();
 
 		$this->action( 'init', 'register_setting_page', 999 );
@@ -57,38 +59,40 @@ class Admin extends Base {
 	public function register_setting_page() {
 		$sitemap_url = Router::get_base_url( 'sitemap_index.xml' );
 
-		$tabs = array(
-			'general' => array(
-				'icon'  => 'fa fa-cogs',
-				'title' => esc_html__( 'General', 'rank-math' ),
-				'file'  => $this->directory . '/settings/general.php',
-				'desc'  => esc_html__( 'This tab contains settings related to the XML sitemaps.', 'rank-math' ) . ' <a href="' . KB::get( 'sitemap-general' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>',
+		$tabs = [
+			'general' => [
+				'icon'      => 'rm-icon rm-icon-settings',
+				'title'     => esc_html__( 'General', 'rank-math' ),
+				'file'      => $this->directory . '/settings/general.php',
+				'desc'      => esc_html__( 'This tab contains General settings related to the XML sitemaps.', 'rank-math' ) . ' <a href="' . KB::get( 'sitemap-general' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>',
 				/* translators: sitemap url */
-				'after' => $this->get_notice_start() . sprintf( esc_html__( 'Your sitemap index can be found here: %s', 'rank-math' ), '<a href="' . $sitemap_url . '" target="_blank">' . $sitemap_url . '</a>' ) . '</p></div>' . $this->get_nginx_notice(),
-			),
-		);
+				'after_row' => $this->get_notice_start() . sprintf( esc_html__( 'Your sitemap index can be found here: %s', 'rank-math' ), '<a href="' . $sitemap_url . '" target="_blank">' . $sitemap_url . '</a>' ) . '</p></div>' . $this->get_nginx_notice(),
+			],
+		];
 
 		if ( Helper::is_author_archive_indexable() ) {
-			$tabs['authors'] = array(
-				'icon'  => 'fa fa-users',
+			$tabs['authors'] = [
+				'icon'  => 'rm-icon rm-icon-users',
 				'title' => esc_html__( 'Authors', 'rank-math' ),
 				/* translators: Learn more link. */
 				'desc'  => sprintf( esc_html__( 'Set the sitemap options for author archive pages. %s.', 'rank-math' ), '<a href="https://s.rankmath.com/sitemaps" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 				'file'  => $this->directory . '/settings/authors.php',
-			);
+			];
 		}
 
 		$tabs = $this->do_filter( 'settings/sitemap', $tabs );
 
-		new Options( array(
-			'key'        => 'rank-math-options-sitemap',
-			'title'      => esc_html__( 'Sitemap Settings', 'rank-math' ),
-			'menu_title' => esc_html__( 'Sitemap Settings', 'rank-math' ),
-			'capability' => 'rank_math_sitemap',
-			'folder'     => 'titles',
-			'position'   => 99,
-			'tabs'       => $tabs,
-		));
+		new Options(
+			[
+				'key'        => 'rank-math-options-sitemap',
+				'title'      => esc_html__( 'Sitemap Settings', 'rank-math' ),
+				'menu_title' => esc_html__( 'Sitemap Settings', 'rank-math' ),
+				'capability' => 'rank_math_sitemap',
+				'folder'     => 'titles',
+				'position'   => 99,
+				'tabs'       => $tabs,
+			]
+		);
 	}
 
 	/**
@@ -129,15 +133,16 @@ class Admin extends Base {
 				'title'     => $object->label,
 				'icon'      => isset( $icons[ $object->name ] ) ? $icons[ $object->name ] : $icons['default'],
 				/* translators: %1$s: thing, %2$s: Learn more link. */
-				'desc'      => sprintf( esc_html__( 'Sitemap settings for %1$s. %2$s.', 'rank-math' ), $thing, '<a href="' . $url . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'desc'      => sprintf( esc_html__( 'Change Sitemap settings of %1$s. %2$s.', 'rank-math' ), $thing, '<a href="' . $url . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 				'post_type' => $object->name,
 				'file'      => $this->directory . '/settings/post-types.php',
 				/* translators: Post Type Sitemap Url */
-				'after'     => $this->get_notice_start() . sprintf( esc_html__( 'Sitemap URL: %s', 'rank-math' ), '<a href="' . $sitemap_url . '" target="_blank">' . $sitemap_url . '</a>' ) . $notice_end,
+				'after_row' => $this->get_notice_start() . sprintf( esc_html__( 'Sitemap URL: %s', 'rank-math' ), '<a href="' . $sitemap_url . '" target="_blank">' . $sitemap_url . '</a>' ) . $notice_end,
 			);
 
 			if ( 'attachment' === $post_type ) {
-				$tabs[ 'sitemap-post-type-' . $object->name ]['after'] = $this->get_notice_start() . esc_html__( 'Please note that this will add the attachment page URLs to the sitemap, not direct image URLs.', 'rank-math' ) . $notice_end;
+				$tabs[ 'sitemap-post-type-' . $object->name ]['after_row'] = $this->get_notice_start() . esc_html__( 'Please note that this will add the attachment page URLs to the sitemap, not direct image URLs.', 'rank-math' ) . $notice_end;
+				$tabs[ 'sitemap-post-type-' . $object->name ]['classes']   = 'rank-math-advanced-option';
 			}
 		}
 
@@ -183,14 +188,14 @@ class Admin extends Base {
 			}
 
 			$tabs[ 'sitemap-taxonomy-' . $taxonomy->name ] = array(
-				'icon'     => isset( $icons[ $taxonomy->name ] ) ? $icons[ $taxonomy->name ] : $icons['default'],
-				'title'    => $taxonomy->label,
+				'icon'      => isset( $icons[ $taxonomy->name ] ) ? $icons[ $taxonomy->name ] : $icons['default'],
+				'title'     => $taxonomy->label,
 				/* translators: %1$s: thing, %2$s: Learn more link. */
-				'desc'     => sprintf( esc_html__( 'Sitemap settings for %1$s. %2$s.', 'rank-math' ), $thing, '<a href="' . $url . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
-				'taxonomy' => $taxonomy->name,
-				'file'     => $this->directory . '/settings/taxonomies.php',
+				'desc'      => sprintf( esc_html__( 'Change Sitemap settings of %1$s. %2$s.', 'rank-math' ), $thing, '<a href="' . $url . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'taxonomy'  => $taxonomy->name,
+				'file'      => $this->directory . '/settings/taxonomies.php',
 				/* translators: Taxonomy Sitemap Url */
-				'after'    => $this->get_notice_start() . sprintf( esc_html__( 'Sitemap URL: %s', 'rank-math' ), '<a href="' . $sitemap_url . '" target="_blank">' . $sitemap_url . '</a>' ) . $notice_end,
+				'after_row' => $this->get_notice_start() . sprintf( esc_html__( 'Sitemap URL: %s', 'rank-math' ), '<a href="' . $sitemap_url . '" target="_blank">' . $sitemap_url . '</a>' ) . $notice_end,
 			);
 		}
 
@@ -281,7 +286,7 @@ class Admin extends Base {
 	 * @return string
 	 */
 	private function get_notice_start() {
-		return '<div class="cmb-row notice notice-alt notice-info info inline" style="border:0;margin:15px 0 -10px;padding: 1px 12px"><p>';
+		return '<div class="notice notice-alt notice-info info inline rank-math-notice"><p>';
 	}
 
 	/**
@@ -301,15 +306,17 @@ class Admin extends Base {
 			return '';
 		}
 
-		return '<div class="sitemap-nginx-notice notice-warning">
-		<p>' . sprintf( __( 'Since you are using NGINX, add this code to your NGINX %s <strong>if your Sitemap pages are not loading</strong> or you can ask your hosting support to add it.', 'rank-math' ), '<a href="https://help.dreamhost.com/hc/en-us/articles/216455077-Nginx-configuration-file-locations/?utm_campaign=Rank+Math" target="_blank">' . __( 'configuration file', 'rank-math' ) . '</a>' ) . '
-		<a href="#"><span class="show">' . __( 'Click here to see the code.', 'rank-math' ) . '</span><span class="hide">' . __( 'Hide', 'rank-math' ) . '</span></a></p>
-<pre>
-# START Nginx Rewrites for Rank Math Sitemaps
-rewrite ^/sitemap_index.xml$ /index.php?sitemap=1 last;
-rewrite ^/([^/]+?)-sitemap([0-9]+)?.xml$ /index.php?sitemap=$1&sitemap_n=$2 last;
-# END Nginx Rewrites for Rank Math Sitemaps
-</pre>
-		</div>';
+		$sitemap_base = Router::get_sitemap_base() ? Router::get_sitemap_base() : '';
+
+		return '<div class="sitemap-nginx-notice notice notice-alt notice-warning rank-math-notice">
+ 		<p>' . sprintf( __( 'Since you are using NGINX, add this code to your NGINX %s <strong>if your Sitemap pages are not loading</strong> or you can ask your hosting support to add it.', 'rank-math' ), '<a href="https://help.dreamhost.com/hc/en-us/articles/216455077-Nginx-configuration-file-locations/?utm_campaign=Rank+Math" target="_blank">' . __( 'configuration file', 'rank-math' ) . '</a>' ) . '
+ 		<a href="#"><span class="show">' . __( 'Click here to see the code.', 'rank-math' ) . '</span><span class="hide">' . __( 'Hide', 'rank-math' ) . '</span></a></p>
+ <pre>
+ # START Nginx Rewrites for Rank Math Sitemaps
+ rewrite ^/' . $sitemap_base . 'sitemap_index.xml$ /index.php?sitemap=1 last;
+ rewrite ^/' . $sitemap_base . '([^/]+?)-sitemap([0-9]+)?.xml$ /index.php?sitemap=$1&sitemap_n=$2 last;
+ # END Nginx Rewrites for Rank Math Sitemaps
+ </pre>
+ 		</div>';
 	}
 }

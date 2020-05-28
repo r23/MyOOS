@@ -24,6 +24,7 @@ trait Api {
 	 * @param array  $options Set of options.
 	 */
 	public static function add_notification( $message, $options = [] ) {
+		$options['classes'] = ! empty( $options['classes'] ) ? $options['classes'] . ' rank-math-notice' : 'rank-math-notice';
 		rank_math()->notification->add( $message, $options );
 	}
 

@@ -6,7 +6,6 @@
  * @subpackage RankMath\Admin\Wizard
  */
 
-$counter      = 0;
 $output_steps = $this->steps;
 $array_keys   = array_keys( $this->steps );
 $current_step = array_search( $this->step, $array_keys, true );
@@ -22,7 +21,6 @@ $current_step = array_search( $this->step, $array_keys, true );
 			continue;
 		}
 
-		$counter++;
 		$class_attr = '';
 
 		if ( $step_key === $this->step ) {
@@ -32,7 +30,7 @@ $current_step = array_search( $this->step, $array_keys, true );
 		}
 		?>
 
-		<a class="<?php echo esc_attr( $class_attr ); ?>" href="<?php echo $this->get_step_link( $step_key ); ?>" title="<?php echo esc_attr( $step['name'] ); ?>"><span><?php echo $counter; ?></span></a>
+		<a class="<?php echo esc_attr( $class_attr ); ?>" href="<?php echo esc_url( $this->get_step_link( $step_key ) ); ?>" title="<?php echo esc_attr( $step['name'] ); ?>"><span></span></a>
 
 	<?php endforeach; ?>
 

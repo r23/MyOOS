@@ -36,6 +36,11 @@ class Metabox {
 	 * @param CMB2 $cmb The CMB2 metabox object.
 	 */
 	public function metabox_settings_advanced( $cmb ) {
+		// Early Bai!!
+		if ( ! $this->can_add_setting( $cmb ) ) {
+			return;
+		}
+
 		$redirection = Cache::get_by_object_id( $cmb->object_id, $cmb->object_type() );
 
 		$url = parse_url( get_permalink( $cmb->object_id ), PHP_URL_PATH );
@@ -53,7 +58,7 @@ class Metabox {
 		$cmb->add_field(
 			[
 				'id'         => 'rank_math_enable_redirection',
-				'type'       => 'switch',
+				'type'       => 'toggle',
 				'name'       => esc_html__( 'Redirection', 'rank-math' ),
 				'desc'       => $message . ' ' . esc_html__( 'Publish or update the post to save the redirection.', 'rank-math' ),
 				'default'    => empty( $redirection['id'] ) ? 'off' : 'on',
@@ -183,6 +188,24 @@ class Metabox {
 	}
 
 	/**
+	 * Whether to add Redirection Settings.
+	 *
+	 * @param CMB2 $cmb The CMB2 metabox object.
+	 */
+	private function can_add_setting( $cmb ) {
+		if ( 'post' !== $cmb->object_type ) {
+			return true;
+		}
+
+		$post = get_post( $cmb->object_id );
+		if ( empty( $post ) || 'publish' !== $post->post_status ) {
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Check if can delete.
 	 *
 	 * @param array $values Values.
@@ -190,7 +213,7 @@ class Metabox {
 	 * @return boolean
 	 */
 	private function can_delete( $values ) {
-		if ( 'off' === $values['rank_math_enable_redirection'] ) {
+		if ( ! isset( $values['rank_math_enable_redirection'] ) || 'off' === $values['rank_math_enable_redirection'] ) {
 			return true;
 		}
 

@@ -32,7 +32,7 @@ class Admin_Dashboard_Nav {
 			return;
 		}
 		?>
-		<h2 class="nav-tab-wrapper">
+		<h2 class="nav-tab-wrapper container">
 			<?php
 			foreach ( $nav_links as $id => $link ) {
 				$this->nav_link( $link );
@@ -89,35 +89,38 @@ class Admin_Dashboard_Nav {
 	 */
 	private function get_nav_links() {
 		$links = [
-			'modules'       => [
+			'modules' => [
 				'id'    => 'modules',
 				'url'   => '',
 				'args'  => 'view=modules',
 				'cap'   => 'manage_options',
 				'title' => esc_html__( 'Modules', 'rank-math' ),
 			],
-			'help'          => [
+			'help'    => [
 				'id'    => 'help',
 				'url'   => '',
 				'args'  => 'view=help',
 				'cap'   => 'manage_options',
 				'title' => esc_html__( 'Help', 'rank-math' ),
 			],
-			'wizard'        => [
+			'wizard'  => [
 				'id'    => 'wizard',
 				'url'   => 'wizard',
 				'args'  => '',
 				'cap'   => 'manage_options',
 				'title' => esc_html__( 'Setup Wizard', 'rank-math' ),
 			],
-			'import-export' => [
+		];
+
+		if ( Helper::is_advanced_mode() ) {
+			$links['import-export'] = [
 				'id'    => 'import-export',
 				'url'   => 'status',
 				'args'  => 'view=import_export',
 				'cap'   => 'install_plugins',
 				'title' => esc_html__( 'Import &amp; Export', 'rank-math' ),
-			],
-		];
+			];
+		}
 
 		if ( Helper::is_plugin_active_for_network() ) {
 			unset( $links['help'] );

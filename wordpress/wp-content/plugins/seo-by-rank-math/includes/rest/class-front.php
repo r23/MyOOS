@@ -70,14 +70,7 @@ class Front extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function disconnect_site( WP_REST_Request $request ) {
-
-		Admin_Helper::get_registration_data(
-			[
-				'username'  => $data['username'],
-				'api_key'   => $data['api_key'],
-				'connected' => false,
-			]
-		);
+		Admin_Helper::get_registration_data( false );
 
 		return [
 			'code'    => 'site_disconnected',

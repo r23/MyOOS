@@ -12,6 +12,7 @@ namespace RankMath\Status;
 
 use RankMath\Helper;
 use RankMath\Module\Base;
+use RankMath\Traits\Hooker;
 use MyThemeShop\Admin\Page;
 use MyThemeShop\Helpers\Param;
 use MyThemeShop\Helpers\Conditional;
@@ -23,20 +24,13 @@ defined( 'ABSPATH' ) || exit;
  */
 class Status extends Base {
 
+	use Hooker;
+
 	/**
 	 * Class constructor.
 	 */
 	public function __construct() {
 		if ( Conditional::is_heartbeat() ) {
-			return;
-		}
-
-		Yoast_Blocks::get();
-
-		if ( Conditional::is_rest() ) {
-			$tools = $this->get_page_views();
-			$tools = new $tools['tools']['class'];
-			$tools->hooks();
 			return;
 		}
 
@@ -47,6 +41,8 @@ class Status extends Base {
 				'directory' => $directory,
 			]
 		);
+
+		$this->filter( 'rank_math/tools/pages', 'add_status_page', 12 );
 
 		parent::__construct();
 	}
@@ -78,7 +74,8 @@ class Status extends Base {
 						'rank-math-status' => $uri . '/assets/status.css',
 					],
 					'scripts' => [
-						'rank-math-status' => $uri . '/assets/status.js',
+						'rank-math-dashboard' => '',
+						'rank-math-status'    => $uri . '/assets/status.js',
 					],
 				],
 			]
@@ -89,11 +86,11 @@ class Status extends Base {
 	 * Display dashabord tabs.
 	 */
 	public function display_nav() {
-		$default_tab = apply_filters( 'rank_math/tools/default_tab', 'tools' );
+		$default_tab = $this->do_filter( 'tools/default_tab', 'status' );
 		?>
 		<h2 class="nav-tab-wrapper">
 			<?php
-			foreach ( $this->get_page_views() as $id => $link ) :
+			foreach ( $this->get_views() as $id => $link ) :
 				if ( isset( $link['cap'] ) && ! current_user_can( $link['cap'] ) ) {
 					continue;
 				}
@@ -110,9 +107,27 @@ class Status extends Base {
 	 * @param string $view Current view.
 	 */
 	public function display_body( $view ) {
-		$hash = $this->get_page_views();
+		$hash = $this->get_views();
 		$hash = new $hash[ $view ]['class'];
 		$hash->display();
+	}
+
+	/**
+	 * Add subpage to Status & Tools screen.
+	 *
+	 * @param array $pages Pages.
+	 * @return array       New pages.
+	 */
+	public function add_status_page( $pages ) {
+		$pages['status'] = [
+			'url'   => 'status',
+			'args'  => 'view=status',
+			'cap'   => 'manage_options',
+			'title' => __( 'System Status', 'rank-math' ),
+			'class' => '\\RankMath\\Status\\System_Status',
+		];
+
+		return $pages;
 	}
 
 	/**
@@ -120,22 +135,7 @@ class Status extends Base {
 	 *
 	 * @return array
 	 */
-	private function get_page_views() {
-		return apply_filters( 'rank_math/tools/pages', [
-			'tools'  => [
-				'url'   => 'status',
-				'args'  => 'view=tools',
-				'cap'   => 'manage_options',
-				'title' => __( 'Database Tools', 'rank-math' ),
-				'class' => '\\RankMath\\Status\\Tools',
-			],
-			'status' => [
-				'url'   => 'status',
-				'args'  => 'view=status',
-				'cap'   => 'manage_options',
-				'title' => __( 'System Status', 'rank-math' ),
-				'class' => '\\RankMath\\Status\\System_Status',
-			],
-		] );
+	private function get_views() {
+		return $this->do_filter( 'tools/pages', [] );
 	}
 }

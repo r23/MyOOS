@@ -49,34 +49,31 @@ class Option_Center implements Runner {
 	public function register_general_settings() {
 		$tabs = [
 			'links'       => [
-				'icon'  => 'fa fa-link',
+				'icon'  => 'rm-icon rm-icon-link',
 				'title' => esc_html__( 'Links', 'rank-math' ),
 				/* translators: Link to kb article */
-				'desc'  => sprintf( esc_html__( 'This tab contains the options related to links and URLs. %s.', 'rank-math' ), '<a href="' . KB::get( 'link-settings' ) . '" target="_blank">' . esc_html__( 'Learn More', 'rank-math' ) . '</a>' ),
-			],
-			'images'      => [
-				'icon'  => 'dashicons dashicons-images-alt2',
-				'title' => esc_html__( 'Images', 'rank-math' ),
-				/* translators: Link to kb article */
-				'desc'  => sprintf( esc_html__( 'SEO options related to featured images and media appearing in your post content. %s.', 'rank-math' ), '<a href="' . KB::get( 'image-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'desc'  => sprintf( esc_html__( 'Change how some of the links open and operate on your website. %s.', 'rank-math' ), '<a href="' . KB::get( 'link-settings' ) . '" target="_blank">' . esc_html__( 'Learn More', 'rank-math' ) . '</a>' ),
 			],
 			'breadcrumbs' => [
-				'icon'  => 'fa fa-angle-double-right',
-				'title' => esc_html__( 'Breadcrumbs', 'rank-math' ),
+				'icon'      => 'rm-icon rm-icon-direction',
+				'title'     => esc_html__( 'Breadcrumbs', 'rank-math' ),
+				'classes'   => 'rank-math-advanced-option',
 				/* translators: Link to kb article */
-				'desc'  => sprintf( esc_html__( 'Here you can set up the breadcrumbs function. %s Use the following code in your theme template files to display breadcrumbs:', 'rank-math' ), '<a href="' . KB::get( 'breadcrumbs' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>. <br/>' ) . '<br /><code>&lt;?php if (function_exists(\'rank_math_the_breadcrumbs\')) rank_math_the_breadcrumbs(); ?&gt;</code><br /> OR <br /><code>[rank_math_breadcrumb]</code>',
+				'desc'      => sprintf( esc_html__( 'Here you can set up the breadcrumbs function. %s', 'rank-math' ), '<a href="' . KB::get( 'breadcrumbs' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>. <br/>' ),
+				'after_row' => '<div class="notice notice-alt notice-warning warning inline rank-math-notice"><p>' . esc_html__( 'Use the following code in your theme template files to display breadcrumbs:', 'rank-math' ) . '<br /><code>&lt;?php if (function_exists(\'rank_math_the_breadcrumbs\')) rank_math_the_breadcrumbs(); ?&gt;</code><br /> OR <br /><code>[rank_math_breadcrumb]</code>' . '</p></div>',
 			],
 			'webmaster'   => [
-				'icon'  => 'fa fa-external-link',
+				'icon'  => 'rm-icon rm-icon-toolbox',
 				'title' => esc_html__( 'Webmaster Tools', 'rank-math' ),
 				/* translators: Link to kb article */
-				'desc'  => sprintf( esc_html__( 'Here you can enter verification codes for various third-party webmaster tools. %s You can safely paste the full HTML tags, or just the ID codes.', 'rank-math' ), '<a href="' . KB::get( 'webmaster-tools' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>.<br />' ),
+				'desc'  => sprintf( esc_html__( 'Enter verification codes for third-party webmaster tools. %s', 'rank-math' ), '<a href="' . KB::get( 'webmaster-tools' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>.<br />' ),
 			],
 			'others'      => [
-				'icon'  => 'fa fa-dot-circle-o',
-				'title' => esc_html__( 'Others', 'rank-math' ),
+				'icon'    => 'rm-icon rm-icon-misc',
+				'title'   => esc_html__( 'Others', 'rank-math' ),
 				/* translators: Link to kb article */
-				'desc'  => sprintf( esc_html__( 'Control how your plugin communicates with Rank Math and change how your RSS content looks. %s.', 'rank-math' ), '<a href="' . KB::get( 'other-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'desc'    => sprintf( esc_html__( 'Change some uncommon but essential settings here. %s.', 'rank-math' ), '<a href="' . KB::get( 'other-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'classes' => 'rank-math-advanced-option',
 			],
 		];
 
@@ -85,10 +82,11 @@ class Option_Center implements Runner {
 				$tabs,
 				[
 					'htaccess' => [
-						'icon'  => 'fa fa-file',
-						'title' => esc_html__( 'Edit .htaccess', 'rank-math' ),
+						'icon'    => 'rm-icon rm-icon-htaccess',
+						'title'   => esc_html__( 'Edit .htaccess', 'rank-math' ),
 						/* translators: Link to kb article */
-						'desc'  => sprintf( esc_html__( 'Here you can edit the contents of your .htaccess file. This file is mainly used by WordPress to control permalinks and redirections, but it may be useful to edit it in a number of cases. %s.', 'rank-math' ), '<a href="' . KB::get( 'edit-htaccess' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+						'desc'    => sprintf( esc_html__( 'Edit the contents of your .htaccess file easily. %s.', 'rank-math' ), '<a href="' . KB::get( 'edit-htaccess' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+						'classes' => 'rank-math-advanced-option',
 					],
 				],
 				5
@@ -102,14 +100,16 @@ class Option_Center implements Runner {
 		 */
 		$tabs = $this->do_filter( 'settings/general', $tabs );
 
-		new Options([
-			'key'        => 'rank-math-options-general',
-			'title'      => esc_html__( 'SEO Settings', 'rank-math' ),
-			'menu_title' => esc_html__( 'General Settings', 'rank-math' ),
-			'capability' => 'rank_math_general',
-			'folder'     => 'general',
-			'tabs'       => $tabs,
-		]);
+		new Options(
+			[
+				'key'        => 'rank-math-options-general',
+				'title'      => esc_html__( 'SEO Settings', 'rank-math' ),
+				'menu_title' => esc_html__( 'General Settings', 'rank-math' ),
+				'capability' => 'rank_math_general',
+				'folder'     => 'general',
+				'tabs'       => $tabs,
+			]
+		);
 	}
 
 	/**
@@ -136,43 +136,44 @@ class Option_Center implements Runner {
 	public function register_title_settings() {
 		$tabs = [
 			'global'   => [
-				'icon'  => 'fa fa-cogs',
+				'icon'  => 'rm-icon rm-icon-settings',
 				'title' => esc_html__( 'Global Meta', 'rank-math' ),
 				/* translators: Link to KB article */
-				'desc'  => sprintf( esc_html__( 'This tab contains SEO titles and meta options related to all the pages of your site. %s.', 'rank-math' ), '<a href="' . KB::get( 'titles-meta' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'desc'  => sprintf( esc_html__( 'Change Global meta settings that take effect across your website. %s.', 'rank-math' ), '<a href="' . KB::get( 'titles-meta' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 			],
 			'local'    => [
-				'icon'  => 'fa fa-map-marker',
-				'title' => esc_html__( 'Local SEO', 'rank-math' ),
+				'icon'      => 'rm-icon rm-icon-local-seo',
+				'title'     => esc_html__( 'Local SEO', 'rank-math' ),
 				/* translators: Redirection page url */
-				'desc'  => sprintf( wp_kses_post( __( 'This tab contains settings related to contact information & opening hours of your local business. Use the <code>[rank_math_contact_info]</code> shortcode to display contact information in a nicely formatted way. %s. You should also claim your business on Google if you have not already.', 'rank-math' ) ), '<a href="' . KB::get( 'local-seo-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'desc'      => sprintf( wp_kses_post( __( 'Optimize for local searches and Knowledge Graph using these settings. %s.', 'rank-math' ) ), '<a href="' . KB::get( 'local-seo-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'after_row' => '<div class="notice notice-alt notice-info info inline rank-math-notice"><p>' . __( 'Use the <code>[rank_math_contact_info]</code> shortcode to display contact information in a nicely formatted way. You should also claim your business on Google if you have not already.', 'rank-math' ) . '</p></div>',
 			],
 			'social'   => [
-				'icon'  => 'fa fa-retweet',
+				'icon'  => 'rm-icon rm-icon-social',
 				'title' => esc_html__( 'Social Meta', 'rank-math' ),
 				/* translators: Link to social setting KB article */
-				'desc'  => sprintf( esc_html__( 'This tab contains settings related to social networks and feeds. Social page URLs will be displayed in the contact shortcode and added to the pages as metadata to be displayed in Knowledge Graph cards. Unable to find the details? %s for the tutorial.', 'rank-math' ), '<a href="' . KB::get( 'social-meta-settings' ) . '" target="_blank">' . esc_html__( 'Click here', 'rank-math' ) . '</a>' ),
+				'desc'  => sprintf( esc_html__( "Add social meta to your website's Schema for Knowledge Graph cards. %s.", 'rank-math' ), '<a href="' . KB::get( 'social-meta-settings' ) . '" target="_blank">' . esc_html__( 'Learn More', 'rank-math' ) . '</a>' ),
 			],
 			'homepage' => [
-				'icon'  => 'fa fa-home',
+				'icon'  => 'rm-icon rm-icon-home',
 				'title' => esc_html__( 'Homepage', 'rank-math' ),
-				'desc'  => 'page' === get_option( 'show_on_front' ) ?
-					/* translators: something */
-					sprintf( wp_kses_post( __( 'A static page is used as front page (as set in Settings &gt; Reading). To set up the title, description, and meta of the homepage, use the meta box in the page editor.<br><br><a href="%1$s">Edit Page: %2$s</a>', 'rank-math' ) ), admin_url( 'post.php?post=' . get_option( 'page_on_front' ) ) . '&action=edit', get_the_title( get_option( 'page_on_front' ) ) ) :
+				'desc'  => sprintf(
 					/* translators: Link to KB article */
-					sprintf( esc_html__( 'This tab contains SEO options for your website\'s homepage. Change options like homepage title and homepage meta description here. %s.', 'rank-math' ), '<a href="' . KB::get( 'homepage-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+					esc_html__( 'Add SEO meta and OpenGraph details to your homepage. %s.', 'rank-math' ),
+					'<a href="' . KB::get( 'homepage-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>'
+				),
 			],
 			'author'   => [
-				'icon'  => 'fa fa-users',
+				'icon'  => 'rm-icon rm-icon-users',
 				'title' => esc_html__( 'Authors', 'rank-math' ),
 				/* translators: Link to KB article */
-				'desc'  => sprintf( esc_html__( 'Change SEO options related to the author archive pages. Author archives list the posts from a particular author in chronological order. %s.', 'rank-math' ), '<a href="' . KB::get( 'author-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'desc'  => sprintf( esc_html__( 'Change SEO options related to the author archives. %s.', 'rank-math' ), '<a href="' . KB::get( 'author-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 			],
 			'misc'     => [
-				'icon'  => 'fa fa-map-signs',
+				'icon'  => 'rm-icon rm-icon-misc',
 				'title' => esc_html__( 'Misc Pages', 'rank-math' ),
 				/* translators: Link to KB article */
-				'desc'  => sprintf( esc_html__( 'This tab contains meta data settings related to pages like search results, 404 error pages etc. %s.', 'rank-math' ), '<a href="' . KB::get( 'misc-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
+				'desc'  => sprintf( esc_html__( 'Customize SEO meta settings of pages like search results, 404s, etc. %s.', 'rank-math' ), '<a href="' . KB::get( 'misc-settings' ) . '" target="_blank">' . esc_html__( 'Learn more', 'rank-math' ) . '</a>' ),
 			],
 		];
 
@@ -183,14 +184,16 @@ class Option_Center implements Runner {
 		 */
 		$tabs = $this->do_filter( 'settings/title', $tabs );
 
-		new Options([
-			'key'        => 'rank-math-options-titles',
-			'title'      => esc_html__( 'SEO Titles &amp; Meta', 'rank-math' ),
-			'menu_title' => esc_html__( 'Titles &amp; Meta', 'rank-math' ),
-			'capability' => 'rank_math_titles',
-			'folder'     => 'titles',
-			'tabs'       => $tabs,
-		]);
+		new Options(
+			[
+				'key'        => 'rank-math-options-titles',
+				'title'      => esc_html__( 'SEO Titles &amp; Meta', 'rank-math' ),
+				'menu_title' => esc_html__( 'Titles &amp; Meta', 'rank-math' ),
+				'capability' => 'rank_math_titles',
+				'folder'     => 'titles',
+				'tabs'       => $tabs,
+			]
+		);
 
 		if ( is_admin() ) {
 			Helper::add_json( 'postTitle', 'Post Title' );
@@ -235,9 +238,10 @@ class Option_Center implements Runner {
 				'title'     => 'attachment' === $post_type ? esc_html__( 'Attachments', 'rank-math' ) : $obj->label,
 				'icon'      => isset( $icons[ $obj->name ] ) ? $icons[ $obj->name ] : $icons['default'],
 				/* translators: 1. post type name 2. link */
-				'desc'      => sprintf( esc_html__( 'This tab contains SEO options for %1$s. %2$s', 'rank-math' ), $obj_name, $link ),
+				'desc'      => sprintf( esc_html__( 'Change Global SEO, Schema, and other settings for %1$s. %2$s', 'rank-math' ), $obj_name, $link ),
 				'post_type' => $obj->name,
 				'file'      => rank_math()->includes_dir() . 'settings/titles/post-types.php',
+				'classes'   => 'attachment' === $post_type ? 'rank-math-advanced-option' : '',
 			];
 		}
 
@@ -282,7 +286,7 @@ class Option_Center implements Runner {
 				'icon'     => isset( $icons[ $taxonomy->name ] ) ? $icons[ $taxonomy->name ] : $icons['default'],
 				'title'    => $taxonomy->label,
 				/* translators: 1. taxonomy name 2. link */
-				'desc'     => sprintf( esc_html__( 'This tab contains SEO options for %1$s. %2$s', 'rank-math' ), $taxonomy_name, $link ),
+				'desc'     => sprintf( esc_html__( 'Change Global SEO, Schema, and other settings for %1$s. %2$s', 'rank-math' ), $taxonomy_name, $link ),
 				'taxonomy' => $taxonomy->name,
 				'file'     => rank_math()->includes_dir() . 'settings/titles/taxonomies.php',
 			];
@@ -321,7 +325,6 @@ class Option_Center implements Runner {
 				'url_author_base',
 				'attachment_redirect_urls',
 				'attachment_redirect_default',
-				'url_strip_stopwords',
 				'nofollow_external_links',
 				'nofollow_image_links',
 				'nofollow_domains',

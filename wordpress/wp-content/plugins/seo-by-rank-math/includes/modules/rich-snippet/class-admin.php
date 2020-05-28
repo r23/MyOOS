@@ -58,7 +58,7 @@ class Admin extends Base {
 	 */
 	public function add_metabox_tab( $tabs ) {
 
-		if ( Admin_Helper::is_term_profile_page() ) {
+		if ( Admin_Helper::is_term_profile_page() || Admin_Helper::is_posts_page() ) {
 			return $tabs;
 		}
 
@@ -73,7 +73,7 @@ class Admin extends Base {
 					'capability' => 'onpage_snippet',
 				],
 			],
-			3
+			Helper::is_advanced_mode() ? 3 : 2
 		);
 
 		return $tabs;
@@ -105,18 +105,18 @@ class Admin extends Base {
 	 */
 	public function display_schema_type( $post_id ) {
 		$schema = get_post_meta( $post_id, 'rank_math_rich_snippet', true );
-		if ( ! $schema ) {
+		if ( ! $schema && Helper::can_use_default_schema( $post_id ) ) {
 			$post_type = get_post_type( $post_id );
 			$schema    = Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" );
 		}
 
-		if ( $schema ) : ?>
+		$schema = $schema ? $schema : __( 'Off', 'rank-math' );
+		?>
 			<span class="rank-math-column-display schema-type">
 				<strong><?php _e( 'Schema', 'rank-math' ); ?>:</strong>
 				<?php echo ucfirst( $schema ); ?>
 			</span>
-			<?php
-		endif;
+		<?php
 	}
 
 	/**
@@ -138,7 +138,7 @@ class Admin extends Base {
 	 * Enqueue Styles and Scripts required for metabox.
 	 */
 	public function enqueue() {
-		if ( ! Helper::has_cap( 'onpage_snippet' ) ) {
+		if ( ! Helper::has_cap( 'onpage_snippet' ) || Admin_Helper::is_posts_page() ) {
 			return;
 		}
 

@@ -77,7 +77,7 @@ $cmb->add_field([
 
 $cmb->add_field([
 	'id'      => 'rank_math_snippet_jobposting_unpublish',
-	'type'    => 'switch',
+	'type'    => 'toggle',
 	'name'    => esc_html__( 'Unpublish when expired', 'rank-math' ),
 	'desc'    => esc_html__( 'If checked, post status will be changed to Draft and its URL will return a 404 error, as required by the Rich Result guidelines.', 'rank-math' ),
 	'classes' => 'cmb-row-33',

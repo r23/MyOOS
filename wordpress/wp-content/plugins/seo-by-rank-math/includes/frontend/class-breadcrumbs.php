@@ -116,7 +116,7 @@ class Breadcrumbs {
 				$args,
 				[
 					'delimiter'   => '&nbsp;&#47;&nbsp;',
-					'wrap_before' => '<nav class="rank-math-breadcrumb"><p>',
+					'wrap_before' => '<nav aria-label="breadcrumbs" class="rank-math-breadcrumb"><p>',
 					'wrap_after'  => '</p></nav>',
 					'before'      => '',
 					'after'       => '',

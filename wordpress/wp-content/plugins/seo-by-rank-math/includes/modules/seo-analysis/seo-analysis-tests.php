@@ -162,8 +162,8 @@ function rank_math_analyze_auto_update() {
 		'status'  => 'warning',
 		'message' => '<div class="auto-update-disabled">' . sprintf(
 			// Translators: placeholder is an activate button.
-			__( 'Automatic updates are not enabled on your site. Click here to activate it now: %s', 'rank-math' ),
-			'<a href="#" class="button button-secondary enable-auto-update">' . __( 'Enable Auto Updates', 'rank-math' ) . '</a>'
+			__( 'Automatic updates are not enabled on your site. %s', 'rank-math' ),
+			'<a href="#" class="button button-primary button-small enable-auto-update">' . __( 'Enable Auto Updates', 'rank-math' ) . '</a>'
 		) . '</div>' .
 		'<div class="auto-update-enabled hidden">' .
 		esc_html__( 'Rank Math auto-update option is enabled on your site.', 'rank-math' ) .
@@ -185,7 +185,7 @@ function rank_math_analyze_site_description() {
 			'message' => sprintf(
 				/* translators: 1: link open tag; 2: link close tag. */
 				esc_html__( 'You have not entered a tagline yet. It is a good idea to choose one. %1$sYou can fix this in the customizer%2$s.', 'rank-math' ),
-				'<a href="' . esc_attr( admin_url( 'customize.php' ) ) . '" target="_blank">',
+				'<a href="' . esc_url( admin_url( 'customize.php' ) ) . '" target="_blank">',
 				'</a>'
 			),
 		];

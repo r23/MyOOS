@@ -146,6 +146,11 @@ class Setup_Wizard {
 			],
 		];
 
+		if ( ! Helper::is_advanced_mode() ) {
+			unset( $this->steps['sitemaps'] );
+			unset( $this->steps['optimization'] );
+		}
+
 		$this->set_current_step();
 	}
 
@@ -326,7 +331,7 @@ class Setup_Wizard {
 	 */
 	public function get_skip_link() {
 		?>
-		<a href="<?php echo esc_url( $this->step_next_link() ); ?>" class="button button-secondary button-skip"><?php esc_html_e( 'Skip step', 'rank-math' ); ?></a>
+		<a href="<?php echo esc_url( $this->step_next_link() ); ?>" class="button button-secondary button-skip"><?php esc_html_e( 'Skip Step', 'rank-math' ); ?></a>
 		<?php
 	}
 
@@ -336,10 +341,6 @@ class Setup_Wizard {
 	private function set_current_step() {
 		if ( $this->maybe_remove_import() ) {
 			unset( $this->steps['import'] );
-		}
-
-		if ( ! Helper::is_module_active( 'role-manager' ) ) {
-			unset( $this->steps['role'] );
 		}
 
 		$this->steps       = $this->do_filter( 'wizard/steps', $this->steps );

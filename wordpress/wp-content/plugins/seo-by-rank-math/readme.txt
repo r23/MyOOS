@@ -2,10 +2,10 @@
 Contributors: rankmath
 Plugin link: https://s.rankmath.com/homepage
 Tags: seo, sitemap, google search console, schema, redirection
-Tested up to: 5.4
+Tested up to: 5.4.1
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.42.3
+Stable tag: 1.0.43
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,12 +460,65 @@ We look forward to helping you.
 
 == Changelog ==
 
-= 1.0.42.3 [Apr 20th, 2020] =
-* Improved: Styling of the focus keyword field in the Classic Editor if keywords expanded to 2 rows
-* Improved: Strengthened security further
-* Improved: New posts where custom titles are not used, will now be generating the titles on the fly using the global variable template
-* Improved: Auto-update emails won't contain the site name anymore
-* Improved: Removed Rollbar's library from the plugin to make the plugin much smaller and faster
-* Fixed: Single posts' Schema type was not honoring the global settings and needed a manual selection. That should not be the case now
+= 1.0.43 [May 27, 2020] =
+* Added: [NEW & HUGE!] A completely new design with best in class user experience. Setting and using the plugin can never be more comfortable. [Check the preview here](https://twitter.com/rankmathseo/status/1265715000733315074)
+* Added: Easy & Advanced modes for better option handling. One can choose between the two to make the interface simpler or advanced. Easy mode is what we would recommend to 99% of the users
+* Added: A brand new Image SEO module by moving all the image SEO-related options into it
+* Added: An On/Off toggle for the [Role Manager](https://rankmath.com/kb/role-manager/) in the [setup wizard](https://rankmath.com/kb/how-to-setup/)
+* Added: If error logging is turned on a site, the error log's data shows up inside the System Status page of Rank Math. Will come in handy when debugging issues
+* Added: A new filter is added to [show NoIndexed posts/pages in the Sitemap](https://rankmath.com/kb/filters-hooks-api-developer/#show-noindexed-urls-in-the-sitemap). It is only for advanced users having an edge-case. For normal users, it is not recommended to use
+* Improved: Strengthened the plugin's `SECURITY` further
+* Improved: The performance by removing the FontAwesome library from the backend and from the posts where ratings were shown on the frontend. [Use any of the Schema types from here to show star ratings on the search results](https://rankmath.com/kb/how-to-fix-review-schema-errors/)
+* Improved: The working of the [focus keyword](https://rankmath.com/kb/score-100-in-tests/#first-step-choosing-focus-keywords) field. Now, as soon as you paste the keyword or click outside the focus keyword area, the keyword gets registered. No more requirement to press the enter key
+* Improved: The styling of the focus keyword area with long keywords not fitting perfectly in the Gutenberg sidebar
+* Improved: The confusing layout of the Search Console related options to make it easier to follow by showing just a single button on the first instance
+* Improved: Added a tutorial link in the Search Console step of setup wizard to let users use their Google App. It is highly recommended to the Agency owners. [Read here](https://rankmath.com/kb/create-a-google-api-project/)
+* Improved: Updated the text inside the options panel to make them easier to understand
+* Improved: Schema Markup output now limits the title characters to 110. Props to [Saijo George](https://tldrmarketing.com/)
+* Improved: Query performance related to the Rank Math Variables by running it on only required pages
+* Improved: Allow only one Focus keyword in the Taxonomy pages(Category/Tag etc.), as there are no tests for the secondary keywords
+* Improved: Internal linking SEO test now considers relative URLs as well when assigning a score to the page
+* Improved: Compatibility with the WPML plugin
+* Improved: Score calculating formula in the SEO Analyzer, you will see the slight score difference on the next run
+* Improved: [Breadcrumbs](https://rankmath.com/kb/general-settings/#bread-crumbs) code by adding better support for accessibility
+* Improved: SEO Meta can be changed even if a post is set to `noindex`
+* Improved: By default, the Elementor page builder's templates are now set to `noindex`, this will not affect the posts/pages created using Elementor
+* Improved: As soon as someone deactivates the plugin, the site connected to the Rank Math's account also gets removed
+* Improved: [Recipe Schema](https://rankmath.com/kb/rich-snippets/#recipe) to include `contentURL` as a required field in the Recipe Video
+* Improved: The options panel search is much more meaningful now and shows the options from all the Rank Math related settings
+* Improved: The Schema type for pages like Home, Contact Us, About Us, etc. will now have `None` selected by default
+* Improved: For the page set as the Blog page from the WordPress 'Reading' settings, there won't be any content related tests. They made no sense on that page and users were finding it impossible to get a good score on that page
+* Removed: Stopwords functionality completely, as it is not relevant anymore due to the updates like [BERT](https://www.blog.google/products/search/search-language-understanding-bert/)
+* Removed: Multiple Social meta options, as they are not required anymore for the Knowledge Graph by [Google](https://developers.google.com/search/docs/data-types/social-profile) & [Bing](https://www.bing.com/webmaster/help/markup-businesses-and-organizations-cc507c09). You should only see the needed options in the Global [Social Meta](https://rankmath.com/kb/titles-and-meta/#social-meta) settings page
+* Removed: Social tests from the SEO Analyzer as those are not needed anymore
+* Removed: `isSimilarTo` Schema code from the single WooCommerce products to comply with [Google's demands](https://www.seroundtable.com/google-isrelatedto-issimilarto-product-schema-26546.html)
+* Fixed: Score was not updating immediately after adding new Focus Keyword in some cases
+* Fixed: Keyword density test not working when diacritics were used in the focus keyword
+* Fixed: URL count was not updating immediately and correctly. It should be displaying the count as expected
+* Fixed: Text in the contact info Shortcode was not translation-ready
+* Fixed: Filter to [disable Gutenberg Sidebar](https://rankmath.com/kb/filters-hooks-api-developer/#disable-gutenberg-sidebar) works fine again. Sorry about this and we would recommend to try and get used to the sidebar version as that is more productive
+* Fixed: An issue with the lazy loading image scripts, where the automatic ALT & Titles tags were adding gibberish characters instead of the proper values
+* Fixed: Bulk image ALT edit was not working properly in the Media page[List View]
+* Fixed: Missing timezone error in [`onlineEvent` Schema Markup](https://rankmath.com/kb/rich-snippets/#event)
+* Fixed: The preview section was showing `In Stock` status for [WooCommerce](https://rankmath.com/kb/titles-and-meta/#products) products even though products were out of stock. Frontend Schema Markup was printing correctly. They should be in sync now
+* Fixed: For WooCommerce, when the `Remove Product Category Base` option was enabled, double slashes were incorrectly getting added to the URLs
+* Fixed: Wrong homepage URL was showing in the [Elementor](https://rankmath.com/blog/elementor-seo/) Editor's preview if the static page was set as the homepage
+* Fixed: Phone Number label in the Contact Info shortcode was not localized
+* Fixed: Score and color of the secondary keyword in the Classic Editor was not matching with the Gutenberg Score
+* Fixed: Yoast's [HowTo](https://rankmath.com/blog/howto-schema/) Block importer not working from the Status & Tools page. it was working fine from the setup wizard
+* Fixed: OG & Twitter description tags were missing on the archive pages
+* Fixed: Conflict with the WPML plugin and `Remove Product Category Base` option
+* Fixed: Rank Math was not detecting videos added using the Divi Builder because the builder adds `video` tag instead of `embed` tag
+* Fixed: The output of the `%excerpt%` variable in the SEO Description field will use custom post excerpt before creating an auto-generated description
+* Fixed: Some strings were not translating in the Gutenberg(block Editor)
+* Fixed: [Importing the settings](https://rankmath.com/kb/import-export-settings/) via a TXT file was throwing an illegal string error
+* Fixed: The filter to change the Sitemap's base URL was not working
+* Fixed: The Classic Editor was not responding when special characters were used in the Permalink field
+* Fixed: Missing forward slash in the preview area if WPML plugin was active
+* Fixed: An issue where diacritics were not getting detected in the [Power Words](https://rankmath.com/blog/power-words/) test
+* Fixed: Missing `twitter:site` tag in single posts added from the [Twitter Profile URL](https://rankmath.com/kb/titles-and-meta/#twitter-profile-url) was not working
+* Fixed: `Ignore Case` option in the Redirection module where it was getting selected automatically for the last source when two or more sources were added
+* Fixed: Elementor's preview wasn't displaying the category slug even though the URL after publishing an article was generating correctly
+* Fixed: Added some missing strings in the translation file. **[Please help in translating the plugin by contributing here](https://translate.wordpress.org/projects/wp-plugins/seo-by-rank-math/)**
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/)**

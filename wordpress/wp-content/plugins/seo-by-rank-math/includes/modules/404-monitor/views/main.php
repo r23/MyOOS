@@ -16,7 +16,7 @@ $monitor->table->prepare_items();
 
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
-	<p>
+	<p style="width:540px;max-width:100%;margin-bottom:0;font-size:15px;">
 		<?php
 		printf(
 			/* Translators: 1: link to Monitor docs 2: link to Fix 404 docs */

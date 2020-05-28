@@ -14,7 +14,7 @@ use RankMath\Helper;
 use MyThemeShop\Helpers\DB;
 use MyThemeShop\Helpers\WordPress;
 use RankMath\Redirections\Redirection;
-use RankMath\Status\Yoast_Blocks;
+use RankMath\Tools\Yoast_Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -484,16 +484,18 @@ class Yoast extends Plugin_Importer {
 			return false;
 		}
 
-		$item = Redirection::from([
-			'sources'     => [
-				[
-					'pattern'    => $redirection['origin'],
-					'comparison' => isset( $redirection['format'] ) && 'regex' === $redirection['format'] ? 'regex' : 'exact',
+		$item = Redirection::from(
+			[
+				'sources'     => [
+					[
+						'pattern'    => $redirection['origin'],
+						'comparison' => isset( $redirection['format'] ) && 'regex' === $redirection['format'] ? 'regex' : 'exact',
+					],
 				],
-			],
-			'url_to'      => isset( $redirection['url'] ) ? $redirection['url'] : '',
-			'header_code' => isset( $redirection['type'] ) ? $redirection['type'] : '301',
-		]);
+				'url_to'      => isset( $redirection['url'] ) ? $redirection['url'] : '',
+				'header_code' => isset( $redirection['type'] ) ? $redirection['type'] : '301',
+			]
+		);
 
 		return $item->save();
 	}
@@ -547,7 +549,6 @@ class Yoast extends Plugin_Importer {
 		$hash = [
 			'redirectattachment' => 'attachment_redirect_urls',
 			'stripcategorybase'  => 'strip_category_base',
-			'cleanslugs'         => 'url_strip_stopwords',
 		];
 		$this->replace( $hash, $yoast_permalink, $this->settings, 'convert_bool' );
 		$this->replace( [ 'disable-author' => 'disable_author_archives' ], $yoast_titles, $this->titles, 'convert_bool' );
@@ -557,7 +558,6 @@ class Yoast extends Plugin_Importer {
 		$hash = [
 			'redirectattachment' => 'attachment_redirect_urls',
 			'stripcategorybase'  => 'strip_category_base',
-			'cleanslugs'         => 'url_strip_stopwords',
 		];
 		$this->replace( $hash, $yoast_permalink, $this->settings, 'convert_bool' );
 		$this->replace( [ 'disable-author' => 'disable_author_archives' ], $yoast_titles, $this->titles, 'convert_bool' );
@@ -736,11 +736,6 @@ class Yoast extends Plugin_Importer {
 		$hash = [
 			'facebook_site' => 'social_url_facebook',
 			'twitter_site'  => 'twitter_author_names',
-			'instagram_url' => 'social_url_instagram',
-			'linkedin_url'  => 'social_url_linkedin',
-			'youtube_url'   => 'social_url_youtube',
-			'pinterest_url' => 'social_url_pinterest',
-			'myspace_url'   => 'social_url_myspace',
 			'fbadminapp'    => 'facebook_app_id',
 		];
 		$this->replace( $hash, $yoast_social, $this->titles );
@@ -783,7 +778,7 @@ class Yoast extends Plugin_Importer {
 	 * @return array
 	 */
 	protected function blocks() {
-		$posts = $this->get_block_posts();
+		$posts = Yoast_Blocks::get()->find_posts();
 		if ( empty( $posts['posts'] ) ) {
 			return __( 'No post found.', 'rank-math' );
 		}
@@ -793,26 +788,5 @@ class Yoast extends Plugin_Importer {
 		Yoast_Blocks::get()->wizard( array_slice( $posts['posts'], ( $this->items_per_page * ( $this->get_pagination_arg( 'page' ) - 1 ) ), $this->items_per_page ) );
 
 		return $this->get_pagination_arg();
-	}
-
-	/**
-	 * Get block posts from storage.
-	 *
-	 * @return array?boolean
-	 */
-	private function get_block_posts() {
-		$posts = get_option( 'rank_math_yoast_block_posts' );
-		if ( false === $posts ) {
-			$posts = Yoast_Blocks::get()->find_posts();
-			$count = count( $posts );
-
-			$posts = [
-				'posts' => $posts,
-				'count' => $count,
-			];
-			update_option( 'rank_math_yoast_block_posts', $posts );
-		}
-
-		return $posts;
 	}
 }

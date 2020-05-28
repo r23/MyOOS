@@ -28,7 +28,7 @@ $is_editing = ! empty( $_GET['url'] ) || ! empty( $_GET['urls'] ) || ! empty( $_
 
 	<div class="clear"></div>
 
-	<div class="rank-math-redirections-form<?php echo $is_editing || $is_new ? ' is-editing' : ''; ?>">
+	<div class="rank-math-redirections-form<?php echo $is_editing || $is_new ? ' is-editing' : ''; ?> rank-math-page rank-math-box">
 
 		<?php $redirections->form->display(); ?>
 

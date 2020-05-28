@@ -45,8 +45,8 @@ class Serp_Preview {
 
 			<div class="serp-preview-title" data-title="<?php esc_attr_e( 'Preview', 'rank-math' ); ?>" data-desktop="<?php esc_attr_e( 'Desktop Preview', 'rank-math' ); ?>" data-mobile="<?php esc_attr_e( 'Mobile Preview', 'rank-math' ); ?>">
 				<div class="alignright">
-					<a href="#" class="button button-secondary rank-math-select-device device-desktop" data-device="desktop"><span class="dashicons dashicons-desktop"></span></a>
-					<a href="#" class="button button-secondary rank-math-select-device device-mobile" data-device="mobile"><span class="dashicons dashicons-smartphone"></span></a>
+					<a href="#" class="button button-secondary button-small rank-math-select-device device-desktop" data-device="desktop"><span class="rm-icon rm-icon-desktop"></span></a>
+					<a href="#" class="button button-secondary button-small rank-math-select-device device-mobile" data-device="mobile"><span class="rm-icon rm-icon-mobile"></span></a>
 				</div>
 			</div>
 
@@ -107,16 +107,6 @@ class Serp_Preview {
 					<h3><?php esc_html_e( 'Noindex robots meta is enabled', 'rank-math' ); ?></h3>
 					<p><?php esc_html_e( 'This page will not appear in search results. You can disable noindex in the Advanced tab.', 'rank-math' ); ?></p>
 				</div>
-
-				<div class="serp-preview-footer wp-clearfix">
-
-					<div class="rank-math-ui">
-						<a href="#" class="button button-secondary rank-math-edit-snippet"><span class="dashicons dashicons-edit"></span><?php esc_html_e( 'Edit Snippet', 'rank-math' ); ?></a>
-						<a href="#" class="button button-secondary rank-math-edit-snippet hidden"><span class="dashicons dashicons-no-alt"></span> <?php esc_html_e( 'Close Editor', 'rank-math' ); ?></a>
-					</div>
-
-				</div>
-
 			</div>
 		</div>
 		<?php
@@ -184,7 +174,7 @@ class Serp_Preview {
 			$termlink         = $this->get_termlink( $termlink, $term->taxonomy );
 			$slugs[]          = '%postname%';
 			$termlink         = str_replace( "%$term->taxonomy%", implode( '/', $slugs ), $termlink );
-			$permalink_format = $this->get_home_url() . user_trailingslashit( $termlink, 'category' );
+			$permalink_format = $this->get_home_url( user_trailingslashit( $termlink, 'category' ) );
 		}
 
 		$url = untrailingslashit( esc_url( $permalink ) );
@@ -195,14 +185,16 @@ class Serp_Preview {
 	/**
 	 * Get Home URL based on the language if Polylang plugin is active.
 	 *
+	 * @param string $path Optional. Path relative to the home URL. Default empty.
+	 *
 	 * @return string
 	 */
-	private function get_home_url() {
+	private function get_home_url( $path = '' ) {
 		if ( ! function_exists( 'pll_home_url' ) ) {
-			return home_url();
+			return home_url( $path );
 		}
 
-		return untrailingslashit( pll_home_url() );
+		return trailingslashit( pll_home_url() ) . $path;
 	}
 
 	/**
@@ -323,7 +315,6 @@ class Serp_Preview {
 		$labels  = [
 			'price_range' => esc_html__( 'Price range: ', 'rank-math' ),
 			'calories'    => esc_html__( 'Calories: ', 'rank-math' ),
-			'in_stock'    => esc_html__( 'In stock', 'rank-math' ),
 		];
 
 		if ( $rating ) {
@@ -350,9 +341,7 @@ class Serp_Preview {
 				$preview .= $labels[ $key ];
 			}
 
-			if ( 'in_stock' !== $key ) {
-				$preview .= $value;
-			}
+			$preview .= $value;
 
 			$preview .= '</span>';
 		}
@@ -464,7 +453,7 @@ class Serp_Preview {
 			$snippet_data['data'] = [
 				'price'    => $product->get_price(),
 				'currency' => get_woocommerce_currency_symbol(),
-				'in_stock' => $product->get_stock_status(),
+				'in_stock' => 'outofstock' === $product->get_stock_status() ? esc_html__( 'Out of stock', 'rank-math' ) : __( 'In stock', 'rank-math' ),
 			];
 		} else {
 			if ( 'book' === $snippet ) {
@@ -530,6 +519,10 @@ class Serp_Preview {
 
 				if ( 'event_date' === $key ) {
 					$value = date_i18n( 'j M Y', $value );
+				}
+
+				if ( 'in_stock' === $key ) {
+					$value = 'off' === $value ? __( 'Out of stock', 'rank-math' ) : __( 'In stock', 'rank-math' );
 				}
 				$snippet_data['data'][ $key ] = $value;
 			}

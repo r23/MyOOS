@@ -10,6 +10,8 @@
 
 namespace RankMath\SEO_Analysis;
 
+use RankMath\Helper;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -77,7 +79,7 @@ class Result {
 			<div class="row-content">
 
 				<?php if ( $this->has_fix() ) : ?>
-				<a href="#" class="button button-secondary result-action"><?php esc_html_e( 'How to fix', 'rank-math' ); ?></a>
+				<a href="#" class="button button-secondary button-small result-action"><?php esc_html_e( 'How to fix', 'rank-math' ); ?></a>
 				<?php endif; ?>
 
 				<?php echo wp_kses_post( $this->result['message'] ); ?>
@@ -196,7 +198,7 @@ class Result {
 
 		$explode = [ 'h1_heading', 'h2_headings', 'title_length', 'description_length', 'canonical' ];
 		if ( in_array( $this->id, $explode, true ) ) {
-			echo '<br><code>' . join( ', ', (array) $data ) . '</code>';
+			echo '<code class="full-width">' . join( ', ', (array) $data ) . '</code>';
 			return;
 		}
 	}
@@ -286,6 +288,47 @@ class Result {
 	}
 
 	/**
+	 * Is test hidden.
+	 *
+	 * @return bool
+	 */
+	public function is_hidden() {
+		$hidden_tests = [
+			'img_alt',
+			'keywords_meta',
+			'links_ratio',
+			'permalink_structure',
+			'focus_keywords',
+			'post_titles',
+			'serp_preview',
+			'mobile_serp_preview',
+
+			// Advanced SEO.
+			'canonical',
+			'non_www',
+			'opengraph',
+			'schema',
+
+			// Performance.
+			'image_header',
+			'minify_css',
+			'minify_js',
+			'page_objects',
+			'page_size',
+			'response_time',
+
+			// Security.
+			'directory_listing',
+			'safe_browsing',
+			'ssl',
+			'active_plugins',
+			'active_theme',
+		];
+
+		return ! Helper::is_advanced_mode() && in_array( $this->id, $hidden_tests, true );
+	}
+
+	/**
 	 * Get tests score.
 	 *
 	 * @return int
@@ -297,7 +340,7 @@ class Result {
 			'img_alt'             => 4,
 			'keywords_meta'       => 5,
 			'links_ratio'         => 3,
-			'title_length'        => 3,
+			'title_length'        => 4,
 			'permalink_structure' => 7,
 			'focus_keywords'      => 3,
 			'post_titles'         => 4,
@@ -324,13 +367,6 @@ class Result {
 			'directory_listing'   => 1,
 			'safe_browsing'       => 8,
 			'ssl'                 => 7,
-
-			// Social SEO.
-			'facebook_connected'  => 1,
-			'instagram_connected' => 1,
-			'linkedin_connected'  => 1,
-			'twitter_connected'   => 1,
-			'youtube_connected'   => 1,
 		];
 
 		return isset( $score[ $this->id ] ) ? $score[ $this->id ] : 0;

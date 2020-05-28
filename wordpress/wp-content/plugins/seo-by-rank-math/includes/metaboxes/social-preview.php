@@ -12,7 +12,7 @@ use MyThemeShop\Helpers\Param;
 
 global $post;
 
-$thumbnail = has_post_thumbnail() ? absint( get_post_thumbnail_id() ) : '//via.placeholder.com/526x292?text=Social+Preview+Image';
+$thumbnail = has_post_thumbnail() ? absint( get_post_thumbnail_id() ) : '';
 
 // Facebook Image.
 $fb_thumbnail = '';
@@ -114,7 +114,7 @@ $twitter_username = $twitter_username ? $twitter_username : esc_html( 'username'
 
 	</div>
 
-	<div class="notice notice-alt notice-info info inline">
+	<div class="notice notice-alt notice-info info inline rank-math-notice">
 		<?php /* translators: link to title setting screen */ ?>
 		<p><?php printf( wp_kses_post( __( 'Customize the title, description and images of your post used while sharing on Facebook and Twitter. <a href="%s" target="_blank">Read more</a>', 'rank-math' ) ), \RankMath\KB::get( 'social-tab' ) ); ?></p>
 	</div>

@@ -241,7 +241,6 @@ class Snippet_Shortcode {
 		if ( empty( $rating ) ) {
 			return;
 		}
-		wp_enqueue_style( 'font-awesome', rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css', null, '4.7.0' );
 		?>
 		<div class="rank-math-total-wrapper">
 
@@ -253,10 +252,10 @@ class Snippet_Shortcode {
 
 				<div class="rank-math-review-result-wrapper">
 
-					<?php echo \str_repeat( '<i class="fa fa-star"></i>', 5 ); ?>
+					<?php echo \str_repeat( '<i class="rank-math-star"></i>', 5 ); ?>
 
 					<div class="rank-math-review-result" style="width:<?php echo ( $rating * 20 ); ?>%;">
-						<?php echo \str_repeat( '<i class="fa fa-star"></i>', 5 ); ?>
+						<?php echo \str_repeat( '<i class="rank-math-star"></i>', 5 ); ?>
 					</div>
 
 				</div>
@@ -426,6 +425,7 @@ class Snippet_Shortcode {
 			'recipe_cooktime'            => esc_html__( 'Cooking Time', 'rank-math' ),
 			'recipe_totaltime'           => esc_html__( 'Total Time', 'rank-math' ),
 			'recipe_video'               => esc_html__( 'Recipe Video', 'rank-math' ),
+			'recipe_video_content_url'   => esc_html__( 'Video Content URL', 'rank-math' ),
 			'recipe_video_thumbnail'     => esc_html__( 'Recipe Video Thumbnail', 'rank-math' ),
 			'recipe_video_name'          => esc_html__( 'Recipe Video Name', 'rank-math' ),
 			'recipe_video_date'          => esc_html__( 'Video Upload Date', 'rank-math' ),

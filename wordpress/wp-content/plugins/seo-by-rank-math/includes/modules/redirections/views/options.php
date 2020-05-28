@@ -10,7 +10,7 @@ use RankMath\Helper;
 
 $cmb->add_field( array(
 	'id'      => 'redirections_debug',
-	'type'    => 'switch',
+	'type'    => 'toggle',
 	'name'    => esc_html__( 'Debug Redirections', 'rank-math' ),
 	'desc'    => esc_html__( 'Display the Debug Console instead of being redirected. Administrators only.', 'rank-math' ),
 	'default' => 'off',
@@ -46,7 +46,7 @@ $cmb->add_field( array(
 
 $cmb->add_field( array(
 	'id'      => 'redirections_post_redirect',
-	'type'    => 'switch',
+	'type'    => 'toggle',
 	'name'    => esc_html__( 'Auto Post Redirect', 'rank-math' ),
 	'desc'    => esc_html__( 'Extend the functionality of WordPress by creating redirects in our plugin when you change the slug of a post, page, category or a CPT. You can modify the redirection further according to your needs.', 'rank-math' ),
 	'default' => 'off',

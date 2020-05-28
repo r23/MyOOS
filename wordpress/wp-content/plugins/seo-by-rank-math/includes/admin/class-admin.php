@@ -92,6 +92,22 @@ class Admin implements Runner {
 	}
 
 	/**
+	 * Display admin header.
+	 */
+	public function display_admin_header() {
+		$nav_tabs = new Admin_Header();
+		$nav_tabs->display();
+	}
+
+	/**
+	 * Display admin breadcrumbs.
+	 */
+	public function display_admin_breadcrumbs() {
+		$nav_tabs = new Admin_Breadcrumbs();
+		$nav_tabs->display();
+	}
+
+	/**
 	 * Display dashabord tabs.
 	 */
 	public function display_dashboard_nav() {

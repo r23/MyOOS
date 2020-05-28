@@ -119,9 +119,10 @@ class Post_Screen implements IScreen {
 	 * @return array
 	 */
 	public function get_values() {
-		$post_type = $this->get_current_post_type();
+		$post_type        = $this->get_current_post_type();
+		$sample_permalink = get_sample_permalink( $this->get_object_id(), null, null );
+
 		return [
-			'homeUrl'                => home_url(),
 			'parentDomain'           => Url::get_domain( home_url() ),
 			'noFollowDomains'        => Str::to_arr_no_empty( Helper::get_settings( 'general.nofollow_domains' ) ),
 			'noFollowExcludeDomains' => Str::to_arr_no_empty( Helper::get_settings( 'general.nofollow_exclude_domains' ) ),
@@ -135,6 +136,7 @@ class Post_Screen implements IScreen {
 			'siteFavIcon'            => $this->get_site_icon(),
 			'frontEndScore'          => Frontend_SEO_Score::show_on(),
 			'postName'               => get_post_field( 'post_name', get_post() ),
+			'permalinkFormat'        => isset( $sample_permalink[0] ) ? $sample_permalink[0] : home_url(),
 			'assessor'               => [
 				'hasTOCPlugin'     => $this->has_toc_plugin(),
 				'sentimentKbLink'  => KB::get( 'sentiments' ),
@@ -145,7 +147,6 @@ class Post_Screen implements IScreen {
 				'isUserEdit'       => Admin_Helper::is_user_edit(),
 				'socialPanelLink'  => Helper::get_admin_url( 'options-titles#setting-panel-social' ),
 				'primaryTaxonomy'  => $this->get_primary_taxonomy(),
-				'stopwords'        => Helper::get_settings( 'general.url_strip_stopwords' ) ? $this->get_stopwords() : false,
 			],
 		];
 	}
@@ -209,22 +210,11 @@ class Post_Screen implements IScreen {
 	 * @param string $type  Object type. Can be post, user or term.
 	 */
 	public function remove_tests( $tests, $type ) {
-		if ( ! Admin_Helper::is_home_page() ) {
+		if ( ! Admin_Helper::is_home_page() && ! Admin_Helper::is_posts_page() ) {
 			return $tests;
 		}
 
-		$remove = [
-			'contentHasTOC'        => true,
-			'keywordInPermalink'   => true,
-			'lengthPermalink'      => true,
-			'linksHasExternals'    => true,
-			'linksNotAllExternals' => true,
-			'titleSentiment'       => true,
-			'titleHasPowerWords'   => true,
-			'titleHasNumber'       => true,
-		];
-
-		return array_diff_assoc( $tests, $remove );
+		return array_diff_assoc( $tests, $this->exclude_tests() );
 	}
 
 	/**
@@ -238,6 +228,41 @@ class Post_Screen implements IScreen {
 		}
 
 		return $cmb;
+	}
+
+	/**
+	 * Tests to exclude on Homepage and Blog page.
+	 *
+	 * @since 1.0.43
+	 *
+	 * @return array Array of excluded tests.
+	 */
+	private function exclude_tests() {
+		if ( Admin_Helper::is_home_page() ) {
+			return [
+				'contentHasTOC'        => true,
+				'keywordInPermalink'   => true,
+				'lengthPermalink'      => true,
+				'linksHasExternals'    => true,
+				'linksNotAllExternals' => true,
+				'titleSentiment'       => true,
+				'titleHasPowerWords'   => true,
+				'titleHasNumber'       => true,
+			];
+		}
+
+		return [
+			'contentHasTOC'             => true,
+			'contentHasShortParagraphs' => true,
+			'keywordIn10Percent'        => true,
+			'keywordInContent'          => true,
+			'keywordInSubheadings'      => true,
+			'keywordDensity'            => true,
+			'lengthContent'             => true,
+			'linksHasInternal'          => true,
+			'linksHasExternals'         => true,
+			'linksNotAllExternals'      => true,
+		];
 	}
 
 	/**
@@ -300,24 +325,6 @@ class Post_Screen implements IScreen {
 			rank_math()->version,
 			true
 		);
-	}
-
-	/**
-	 * Function to replace domain with seo-by-rank-math in translation file.
-	 *
-	 * @param string|false $file   Path to the translation file to load. False if there isn't one.
-	 * @param string       $handle Name of the script to register a translation domain to.
-	 * @param string       $domain The text domain.
-	 */
-	public function load_script_translation_file( $file, $handle, $domain ) {
-		if ( 'rank-math' !== $domain ) {
-			return $file;
-		}
-
-		$data                       = explode( '/', $file );
-		$data[ count( $data ) - 1 ] = preg_replace( '/rank-math/', 'seo-by-rank-math', $data[ count( $data ) - 1 ], 1 );
-
-		return implode( '/', $data );
 	}
 
 	/**
@@ -433,21 +440,5 @@ class Post_Screen implements IScreen {
 		$id = Helper::get_post_meta( 'primary_' . $taxonomy['name'], $this->get_object_id() );
 
 		return $id ? absint( $id ) : 0;
-	}
-
-	/**
-	 * Get stop words.
-	 *
-	 * @return array List of stop words.
-	 */
-	private function get_stopwords() {
-
-		/* translators: this should be an array of stop words for your language, separated by comma's. */
-		$stopwords = explode( ',', esc_html__( "a,about,above,after,again,against,all,am,an,and,any,are,as,at,be,because,been,before,being,below,between,both,but,by,could,did,do,does,doing,down,during,each,few,for,from,further,had,has,have,having,he,he'd,he'll,he's,her,here,here's,hers,herself,him,himself,his,how,how's,i,i'd,i'll,i'm,i've,if,in,into,is,it,it's,its,itself,let's,me,more,most,my,myself,nor,of,on,once,only,or,other,ought,our,ours,ourselves,out,over,own,same,she,she'd,she'll,she's,should,so,some,such,than,that,that's,the,their,theirs,them,themselves,then,there,there's,these,they,they'd,they'll,they're,they've,this,those,through,to,too,under,until,up,very,was,we,we'd,we'll,we're,we've,were,what,what's,when,when's,where,where's,which,while,who,who's,whom,why,why's,with,would,you,you'd,you'll,you're,you've,your,yours,yourself,yourselves", 'rank-math' ) );
-
-		$custom = Helper::get_settings( 'general.stopwords' );
-		$custom = Str::to_arr_no_empty( $custom );
-
-		return array_unique( array_merge( $stopwords, $custom ) );
 	}
 }

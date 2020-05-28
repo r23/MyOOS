@@ -65,6 +65,7 @@ trait Choices {
 	 */
 	public static function choices_robots() {
 		return [
+			'index'        => esc_html__( 'Index', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Instructs search engines to index and show these pages in the search results.', 'rank-math' ) ),
 			'noindex'      => esc_html__( 'No Index', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Prevents pages from being indexed and displayed in search engine result pages', 'rank-math' ) ),
 			'nofollow'     => esc_html__( 'No Follow', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Prevents search engines from following links on the pages', 'rank-math' ) ),
 			'noarchive'    => esc_html__( 'No Archive', 'rank-math' ) . Admin_Helper::get_tooltip( esc_html__( 'Prevents search engines from showing Cached links for pages', 'rank-math' ) ),
@@ -110,10 +111,13 @@ trait Choices {
 
 		if ( ! isset( $choices_post_types ) ) {
 			$choices_post_types = Helper::get_accessible_post_types();
-			$choices_post_types = \array_map( function( $post_type ) {
-				$object = get_post_type_object( $post_type );
-				return $object->label;
-			}, $choices_post_types );
+			$choices_post_types = \array_map(
+				function( $post_type ) {
+					$object = get_post_type_object( $post_type );
+					return $object->label;
+				},
+				$choices_post_types
+			);
 		}
 
 		return $choices_post_types;
@@ -525,11 +529,11 @@ trait Choices {
 		return apply_filters(
 			'rank_math/post_type_icons',
 			[
-				'default'    => 'dashicons dashicons-admin-post',
-				'post'       => 'dashicons dashicons-admin-post',
-				'page'       => 'dashicons dashicons-admin-page',
-				'attachment' => 'dashicons dashicons-admin-media',
-				'product'    => 'fa fa-shopping-cart',
+				'default'    => 'rm-icon rm-icon-post',
+				'post'       => 'rm-icon rm-icon-post',
+				'page'       => 'rm-icon rm-icon-page',
+				'attachment' => 'rm-icon rm-icon-attachment',
+				'product'    => 'rm-icon rm-icon-cart',
 			]
 		);
 	}
@@ -550,12 +554,12 @@ trait Choices {
 		return apply_filters(
 			'rank_math/taxonomy_icons',
 			[
-				'default'     => 'dashicons dashicons-tag',
-				'category'    => 'dashicons dashicons-category',
-				'post_tag'    => 'dashicons dashicons-tag',
-				'product_cat' => 'dashicons dashicons-category',
-				'product_tag' => 'dashicons dashicons-tag',
-				'post_format' => 'dashicons dashicons-format-image',
+				'default'     => 'rm-icon rm-icon-category',
+				'category'    => 'rm-icon rm-icon-category',
+				'post_tag'    => 'rm-icon rm-icon-tag',
+				'product_cat' => 'rm-icon rm-icon-category',
+				'product_tag' => 'rm-icon rm-icon-tag',
+				'post_format' => 'rm-icon rm-icon-post-format',
 			]
 		);
 	}
@@ -581,13 +585,15 @@ trait Choices {
 			return $posts;
 		}
 
-		$meta_query = new \WP_Meta_Query([
-			'relation' => 'AND',
+		$meta_query = new \WP_Meta_Query(
 			[
-				'key'   => 'rank_math_rich_snippet',
-				'value' => 'review',
-			],
-		]);
+				'relation' => 'AND',
+				[
+					'key'   => 'rank_math_rich_snippet',
+					'value' => 'review',
+				],
+			]
+		);
 
 		$meta_query = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
 		$posts = $wpdb->get_col( "SELECT {$wpdb->posts}.ID FROM $wpdb->posts {$meta_query['join']} WHERE 1=1 {$meta_query['where']} AND ({$wpdb->posts}.post_status = 'publish')" ); // phpcs:ignore
@@ -600,5 +606,26 @@ trait Choices {
 		set_transient( 'rank_math_any_review_posts', $posts, DAY_IN_SECONDS );
 
 		return $posts;
+	}
+
+	/**
+	 * Phones types for schema.
+	 *
+	 * @return array
+	 */
+	public static function choices_phone_types() {
+		return array(
+			'customer support'    => esc_html__( 'Customer Service', 'rank-math' ),
+			'technical support'   => esc_html__( 'Technical Support', 'rank-math' ),
+			'billing support'     => esc_html__( 'Billing Support', 'rank-math' ),
+			'bill payment'        => esc_html__( 'Bill Payment', 'rank-math' ),
+			'sales'               => esc_html__( 'Sales', 'rank-math' ),
+			'reservations'        => esc_html__( 'Reservations', 'rank-math' ),
+			'credit card support' => esc_html__( 'Credit Card Support', 'rank-math' ),
+			'emergency'           => esc_html__( 'Emergency', 'rank-math' ),
+			'baggage tracking'    => esc_html__( 'Baggage Tracking', 'rank-math' ),
+			'roadside assistance' => esc_html__( 'Roadside Assistance', 'rank-math' ),
+			'package tracking'    => esc_html__( 'Package Tracking', 'rank-math' ),
+		);
 	}
 }

@@ -240,7 +240,15 @@ class Beta_Optin {
 	 */
 	public function beta_changelog_link_js() {
 		$screen = get_current_screen();
-		if ( 'update-core' !== $screen->base && 'plugins' !== $screen->base ) {
+
+		$applicable_screens = [
+			'update-core',
+			'plugins',
+			'update-core-network',
+			'plugins-network',
+		];
+
+		if ( ! in_array( $screen->base, $applicable_screens ) ) {
 			return;
 		}
 
@@ -264,7 +272,7 @@ class Beta_Optin {
 				} );
 
 				// Change our notice.
-				<?php if ( 'update-core' === $screen->base ) { ?>
+				<?php if ( 'update-core' === $screen->base || 'update-core-network' === $screen->base ) { ?>
 					$('td.plugin-title').each( function( index, element ) {
 						var contents = $( element ).html();
 						if ( contents.indexOf( '<?php echo esc_js( html_entity_decode( self::NOTICE_START_MARKER ) ); ?>' ) !== -1 && contents.indexOf( '<?php echo esc_js( html_entity_decode( self::NOTICE_END_MARKER ) ); ?>' ) !== -1 ) {

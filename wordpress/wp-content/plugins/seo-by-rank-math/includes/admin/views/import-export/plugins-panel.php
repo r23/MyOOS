@@ -28,8 +28,8 @@ $plugins  = $detector->detect();
 							<strong><?php echo $importer['name']; ?></strong>
 						</th>
 						<td>
-							<button type="button" class="button button-primary rank-math-action" data-action="importPlugin" data-slug="<?php echo esc_attr( $slug ); ?>" data-active="<?php echo esc_attr( is_plugin_active( $importer['file'] ) ); ?>"><?php esc_html_e( 'Import', 'rank-math' ); ?></button>
-							<button type="button" class="button button-link-delete rank-math-action" data-action="cleanPlugin" data-slug="<?php echo esc_attr( $slug ); ?>"><?php esc_html_e( 'Clean', 'rank-math' ); ?></button>
+							<button type="button" class="button button-secondary button-small rank-math-action" data-action="importPlugin" data-slug="<?php echo esc_attr( $slug ); ?>" data-active="<?php echo esc_attr( is_plugin_active( $importer['file'] ) ); ?>"><?php esc_html_e( 'Import', 'rank-math' ); ?></button>
+							<button type="button" class="button button-link-delete button-small rank-math-action" data-action="cleanPlugin" data-slug="<?php echo esc_attr( $slug ); ?>"><?php esc_html_e( 'Clean', 'rank-math' ); ?></button>
 						</td>
 					</tr>
 					<tr class="choices">

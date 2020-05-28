@@ -39,7 +39,6 @@
 			<key name="tax_post_tag_description"/>
 		</key>
 		<key name="rank-math-options-general">
-			<key name="stopwords"/>
 			<key name="img_alt_format"/>
 			<key name="img_title_format"/>
 			<key name="breadcrumbs_separator"/>

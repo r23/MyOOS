@@ -54,7 +54,6 @@ class Frontend {
 			add_filter( 'bbp_get_breadcrumb', '__return_false' );
 		}
 
-		new Add_Attributes;
 		new Comments;
 	}
 

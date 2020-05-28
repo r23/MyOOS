@@ -104,7 +104,11 @@ class SEO_Analyzer {
 		}
 
 		$this->display_graphs();
-		$this->display_results();
+		?>
+		<div class="rank-math-result-tables">
+		<?php $this->display_results(); ?>
+		</div>
+		<?php
 	}
 
 	/**
@@ -124,9 +128,10 @@ class SEO_Analyzer {
 	 * @return array
 	 */
 	private function get_graph_metrices() {
-		$total    = 0;
-		$percent  = 0;
-		$statuses = [
+		$total       = 0;
+		$percent     = 0;
+		$total_score = 0;
+		$statuses    = [
 			'ok'      => 0,
 			'fail'    => 0,
 			'info'    => 0,
@@ -137,16 +142,24 @@ class SEO_Analyzer {
 				continue;
 			}
 
+			if ( $result->is_hidden() ) {
+				continue;
+			}
+
 			$statuses[ $result->get_status() ]++;
 			$total++;
+
+			$total_score = $total_score + $result->get_score();
 
 			if ( 'ok' !== $result->get_status() ) {
 				continue;
 			}
+
 			$percent = $percent + $result->get_score();
 		}
 
-		$grade = $this->get_graph_grade( $percent );
+		$percent = round( ( $percent / $total_score ) * 100 );
+		$grade   = $this->get_graph_grade( $percent );
 
 		return compact( 'total', 'percent', 'statuses', 'grade' );
 	}
@@ -259,19 +272,18 @@ class SEO_Analyzer {
 		$directory = dirname( __FILE__ );
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'site_analysis' );
+		delete_option( 'rank_math_seo_analysis_results' );
 
 		if ( ! $this->run_api_tests() ) {
 			error_log( $this->api_error );
 			/* translators: API error */
-			echo '<div class="notice notice-error is-dismissible notice-seo-analysis-error"><p>' . sprintf( __( '<strong>API Error:</strong> %s', 'rank-math' ), $this->api_error ) . '</p></div>';
+			echo '<div class="notice notice-error is-dismissible notice-seo-analysis-error rank-math-notice"><p>' . sprintf( __( '<strong>API Error:</strong> %s', 'rank-math' ), $this->api_error ) . '</p></div>';
 			$success = false;
-			delete_option( 'rank_math_seo_analysis_results' );
 			die;
 		}
 
 		if ( ! $this->analyse_subpage ) {
 			$this->run_local_tests();
-			$this->run_social_tests();
 			update_option( 'rank_math_seo_analysis_results', $this->results );
 		}
 
@@ -396,59 +408,12 @@ class SEO_Analyzer {
 					'api_test'    => false,
 					'title'       => $test['title'],
 					'description' => $test['description'],
-					'how_to_fix'  => $test['how_to_fix'],
+					'how_to_fix'  => isset( $test['how_to_fix'] ) ? $test['how_to_fix'] : '',
 					'category'    => $test['category'],
 					'info'        => [],
 				],
 				call_user_func( $test['callback'], $this )
 			);
-		}
-	}
-
-	/**
-	 * Run Social SEO Tests
-	 */
-	private function run_social_tests() {
-		$social_seo = [
-			'facebook'  => [
-				'name'  => esc_html__( 'Facebook', 'rank-math' ),
-				'title' => esc_html__( 'Facebook Connected', 'rank-math' ),
-			],
-			'instagram' => [
-				'name'  => esc_html__( 'Instagram', 'rank-math' ),
-				'title' => esc_html__( 'Instagram Connected', 'rank-math' ),
-			],
-			'linkedin'  => [
-				'name'  => esc_html__( 'Linkedin', 'rank-math' ),
-				'title' => esc_html__( 'Linkedin Connected', 'rank-math' ),
-			],
-			'twitter'   => [
-				'name'  => esc_html__( 'Twitter', 'rank-math' ),
-				'title' => esc_html__( 'Twitter Connected', 'rank-math' ),
-			],
-			'youtube'   => [
-				'name'  => esc_html__( 'Youtube', 'rank-math' ),
-				'title' => esc_html__( 'Youtube Connected', 'rank-math' ),
-			],
-		];
-
-		/* translators: link to social option setting */
-		$fix_content = sprintf( __( 'Add Social Schema to your website by linking your social profiles <a href="%s">here</a>.', 'rank-math' ), Helper::get_admin_url( 'options-titles#setting-panel-social' ) );
-		foreach ( $social_seo as $id => $social ) {
-			$found = Helper::get_settings( 'titles.social_url_' . $id );
-			$id    = $id . '_connected';
-
-			$this->results[ $id ] = [
-				'test_id'  => $id,
-				'api_test' => false,
-				'title'    => $social['title'],
-				'category' => 'social',
-				'info'     => [],
-				'status'   => $found ? 'ok' : 'fail',
-				/* translators: social name */
-				'message'  => $found ? sprintf( esc_html__( 'Your website has a %s page connected to it.', 'rank-math' ), $social['name'] ) : sprintf( esc_html__( 'Your website has no %s connected to it.', 'rank-math' ), $social['name'] ),
-				'fix'      => $found ? null : $fix_content,
-			];
 		}
 	}
 
@@ -480,6 +445,9 @@ class SEO_Analyzer {
 	private function sort_results_by_category() {
 		$data = [];
 		foreach ( $this->results as $result ) {
+			if ( $result->is_hidden() ) {
+				continue;
+			}
 			$category = $result->get_category();
 			if ( ! isset( $data[ $category ] ) ) {
 				$data[ $category ] = [];
@@ -503,7 +471,6 @@ class SEO_Analyzer {
 			'basic'       => esc_html__( 'Basic SEO', 'rank-math' ),
 			'performance' => esc_html__( 'Performance', 'rank-math' ),
 			'security'    => esc_html__( 'Security', 'rank-math' ),
-			'social'      => esc_html__( 'Social SEO', 'rank-math' ),
 		];
 
 		return isset( $category_map[ $category ] ) ? $category_map[ $category ] : '';

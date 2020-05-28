@@ -15,8 +15,8 @@
 		function addNotice( msg, which, fadeout = 3000 ) {
 			which   = which || 'error'
 			var notice = $( '<div class="notice notice-' + which + ' is-dismissible"><p>' + msg + '</p></div>' ).hide()
-			after.next( '.notice' ).remove()
-			after.after( notice )
+			after.prev( '.notice' ).remove()
+			after.before( notice )
 			notice.slideDown()
 			$('html,body').animate({
 				scrollTop: notice.offset().top - 50

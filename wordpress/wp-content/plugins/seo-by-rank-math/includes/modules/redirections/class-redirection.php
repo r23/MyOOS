@@ -211,7 +211,7 @@ class Redirection {
 	public function add_sources( $sources ) {
 		foreach ( $sources as $key => $value ) {
 			$value['comparison'] = empty( $value['comparison'] ) ? 'exact' : $value['comparison'];
-			$this->add_source( $value['pattern'], $value['comparison'], isset( $value['ignore'] ) ? 'case' : '' );
+			$this->add_source( $value['pattern'], $value['comparison'], ! empty( $value['ignore'] ) ? 'case' : '' );
 		}
 	}
 
@@ -228,7 +228,7 @@ class Redirection {
 			return;
 		}
 
-		$pattern = $this->sanitize_source( $pattern, $comparison );
+		$pattern = $this->sanitize_source( wp_strip_all_tags( $pattern, true ), $comparison );
 		if ( ! $pattern ) {
 			return;
 		}
@@ -246,7 +246,7 @@ class Redirection {
 	 * @param string $url URL to process.
 	 */
 	public function add_destination( $url ) {
-		$processed = trim( $url );
+		$processed = trim( wp_strip_all_tags( $url, true ) );
 
 		// If beginning looks like a domain but without protocol then let's add site_url().
 		if ( ! empty( $processed ) && Url::is_relative( $processed ) ) {

@@ -131,10 +131,9 @@ class OpenGraph {
 			$desc = '' !== $desc ? $desc : $this->fallback_description( 'term_description' );
 		} elseif ( is_author() ) {
 			$desc = User::get_meta( $key );
-			$desc = '' !== $desc ? $desc : $this->fallback_description();
 		}
 
-		return $desc;
+		return $desc ? $desc : $this->fallback_description();
 	}
 
 	/**

@@ -285,7 +285,7 @@ class Post_Columns implements Runner {
 			$alt = get_post_meta( $post_id, '_wp_attachment_image_alt', true );
 			?>
 			<span class="rank-math-column-display"><?php echo esc_html( $alt ); ?></span>
-			<span class="rank-math-column-value" data-field="image_alt" contenteditable="true" tabindex="11"><?php esc_html( $alt ); ?></span>
+			<span class="rank-math-column-value" data-field="image_alt" contenteditable="true" tabindex="11"><?php echo esc_html( $alt ); ?></span>
 			<div class="rank-math-column-edit">
 				<a href="#" class="rank-math-column-save"><?php esc_html_e( 'Save', 'rank-math' ); ?></a>
 				<a href="#" class="button-link-delete rank-math-column-cancel"><?php esc_html_e( 'Cancel', 'rank-math' ); ?></a>

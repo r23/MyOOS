@@ -10,6 +10,9 @@
 
 namespace RankMath\Status;
 
+use MyThemeShop\Helpers\WordPress as WordPress_Helper;
+use MyThemeShop\Helpers\Str;
+
 /**
  * System_Status class.
  */
@@ -22,6 +25,7 @@ class System_Status {
 		$this->prepare_info();
 
 		$this->display_system_info();
+		( new Error_Log )->display();
 	}
 
 	/**
@@ -29,21 +33,23 @@ class System_Status {
 	 */
 	private function display_system_info() {
 		?>
-		<h3>
-			<?php esc_html_e( 'System Info', 'rank-math' ); ?>
-		</h3>
+		<div class="rank-math-system-status rank-math-box">
+			<header>
+				<h3><?php esc_html_e( 'System Info', 'rank-math' ); ?></h3>
+			</header>
 
-		<div class="site-health-copy-buttons">
-			<div class="copy-button-wrapper">
-				<button type="button" class="button copy-button" data-clipboard-text="<?php echo esc_attr( \WP_Debug_Data::format( $this->wp_info, 'debug' ) ); ?>">
-					<?php esc_html_e( 'Copy System Info to Clipboard', 'rank-math' ); ?>
-				</button>
-				<span class="success" aria-hidden="true"><?php esc_html_e( 'Copied!', 'rank-math' ); ?></span>
+			<div class="site-health-copy-buttons">
+				<div class="copy-button-wrapper">
+					<button type="button" class="button copy-button" data-clipboard-text="<?php echo esc_attr( \WP_Debug_Data::format( $this->wp_info, 'debug' ) ); ?>">
+						<?php esc_html_e( 'Copy System Info to Clipboard', 'rank-math' ); ?>
+					</button>
+					<span class="success" aria-hidden="true"><?php esc_html_e( 'Copied!', 'rank-math' ); ?></span>
+				</div>
 			</div>
-		</div>
 
-		<div id="health-check-debug" class="health-check-accordion">
-			<?php $this->display_system_info_list(); ?>
+			<div id="health-check-debug" class="health-check-accordion">
+				<?php $this->display_system_info_list(); ?>
+			</div>
 		</div>
 		<?php
 	}
@@ -153,17 +159,5 @@ class System_Status {
 		wp_enqueue_script( 'site-health' );
 		$this->wp_info = \WP_Debug_Data::debug_data();
 		unset( $this->wp_info['wp-paths-sizes'] );
-	}
-
-	/**
-	 * Adding prefix to the tables array.
-	 *
-	 * @param  string $table Table name.
-	 *
-	 * @return $table Table name with prefix.
-	 */
-	private function add_db_table_prefix( $table ) {
-		global $wpdb;
-		return $wpdb->prefix . $table;
 	}
 }

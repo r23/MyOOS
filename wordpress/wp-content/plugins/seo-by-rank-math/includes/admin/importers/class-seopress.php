@@ -201,12 +201,14 @@ class SEOPress extends Plugin_Importer {
 	 */
 	protected function termmeta() {
 		$count = 0;
-		$terms = new \WP_Term_Query([
-			'meta_key'   => '_seopress_titles_title',
-			'fields'     => 'ids',
-			'hide_empty' => false,
-			'get'        => 'all',
-		]);
+		$terms = new \WP_Term_Query(
+			[
+				'meta_key'   => '_seopress_titles_title',
+				'fields'     => 'ids',
+				'hide_empty' => false,
+				'get'        => 'all',
+			]
+		);
 
 		if ( empty( $terms ) || is_wp_error( $terms ) ) {
 			return false;
@@ -243,10 +245,12 @@ class SEOPress extends Plugin_Importer {
 	 * @return array
 	 */
 	protected function redirections() {
-		$redirections = get_posts([
-			'posts_per_page' => -1,
-			'post_type'      => 'seopress_404',
-		]);
+		$redirections = get_posts(
+			[
+				'posts_per_page' => -1,
+				'post_type'      => 'seopress_404',
+			]
+		);
 
 		if ( empty( $redirections ) ) {
 			return false;
@@ -302,17 +306,19 @@ class SEOPress extends Plugin_Importer {
 			return false;
 		}
 
-		$item = Redirection::from([
-			'sources'     => [
-				[
-					'pattern'    => $redirection['source'],
-					'comparison' => 'exact',
+		$item = Redirection::from(
+			[
+				'sources'     => [
+					[
+						'pattern'    => $redirection['source'],
+						'comparison' => 'exact',
+					],
 				],
-			],
-			'url_to'      => $redirection['destination'],
-			'header_code' => $redirection['code'],
-			'status'      => $redirection['status'] ? 'active' : 'inactive',
-		]);
+				'url_to'      => $redirection['destination'],
+				'header_code' => $redirection['code'],
+				'status'      => $redirection['status'] ? 'active' : 'inactive',
+			]
+		);
 
 		return $item->save();
 	}
@@ -329,13 +335,6 @@ class SEOPress extends Plugin_Importer {
 			'seopress_social_facebook_admin_id'          => 'facebook_admin_id',
 			'seopress_social_facebook_app_id'            => 'facebook_app_id',
 			'seopress_social_accounts_twitter'           => 'twitter_author_names',
-			'seopress_social_accounts_instagram'         => 'social_url_instagram',
-			'seopress_social_accounts_linkedin'          => 'social_url_linkedin',
-			'seopress_social_accounts_youtube'           => 'social_url_youtube',
-			'seopress_social_accounts_pinterest'         => 'social_url_pinterest',
-			'seopress_social_accounts_myspace'           => 'social_url_myspace',
-			'seopress_social_accounts_soundcloud'        => 'social_url_soundcloud',
-			'seopress_social_accounts_tumblr'            => 'social_url_tumblr',
 			'seopress_social_knowledge_name'             => 'knowledgegraph_name',
 			'seopress_social_knowledge_img'              => 'knowledgegraph_logo',
 		];
@@ -458,7 +457,6 @@ class SEOPress extends Plugin_Importer {
 		$this->replace( $hash, $seopress_advanced, $this->settings, 'convert_bool' );
 
 		$this->settings['attachment_redirect_urls'] = ! empty( $seopress_advanced['seopress_advanced_advanced_attachments'] ) ? 'on' : 'off';
-		$this->settings['url_strip_stopwords']      = ! empty( $seopress_advanced['seopress_advanced_advanced_stop_words'] ) ? 'on' : 'off';
 		$this->settings['strip_category_base']      = ! empty( $seopress_advanced['seopress_advanced_advanced_category_url'] ) ? 'on' : 'off';
 
 		$set_alt   = ! empty( $seopress_advanced['seopress_advanced_advanced_image_auto_alt_editor'] ) ? 'on' : 'off';

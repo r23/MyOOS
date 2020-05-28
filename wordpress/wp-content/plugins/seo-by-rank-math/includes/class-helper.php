@@ -131,19 +131,43 @@ class Helper {
 	 * @return bool|array
 	 */
 	public static function search_console_data( $data = null ) {
-		$key = 'rank_math_search_console_data';
+		$encryption   = new Data_Encryption();
+		$key          = 'rank_math_search_console_data';
+		$encrypt_keys = [
+			'access_token',
+			'refresh_token',
+			'profiles'
+		];
 
+		// Clear data.
 		if ( false === $data ) {
 			delete_option( $key );
 			return false;
 		}
 
 		$saved = get_option( $key, [] );
+		foreach ( $encrypt_keys as $enc_key ) {
+			if ( isset( $saved[ $enc_key ] ) ) {
+				$saved[ $enc_key ] = $encryption->deep_decrypt( $saved[ $enc_key ] );
+			}
+		}
+
+		// Getter.
 		if ( is_null( $data ) ) {
 			return wp_parse_args( $saved, array(
 				'authorized' => false,
 				'profiles'   => [],
 			) );
+		}
+
+		// Setter.
+		foreach ( $encrypt_keys as $enc_key ) {
+			if ( isset( $saved[ $enc_key ] ) ) {
+				$saved[ $enc_key ] = $encryption->deep_encrypt( $saved[ $enc_key ] );
+			}
+			if ( isset( $data[ $enc_key ] ) ) {
+				$data[ $enc_key ] = $encryption->deep_encrypt( $data[ $enc_key ] );
+			}
 		}
 
 		$data = wp_parse_args( $data, $saved );
@@ -219,7 +243,7 @@ class Helper {
 			wp_cache_clean_cache( $file_prefix );
 		}
 
-		// If SG CachePress is installed, rese its caches.
+		// If SG CachePress is installed, reset its caches.
 		if ( class_exists( 'SG_CachePress_Supercacher' ) && is_callable( array( 'SG_CachePress_Supercacher', 'purge_cache' ) ) ) {
 			\SG_CachePress_Supercacher::purge_cache();
 		}

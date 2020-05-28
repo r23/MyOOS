@@ -37,7 +37,7 @@ class Schema_Markup implements Wizard_Step {
 		<?php $wizard->cmb->show_form(); ?>
 
 		<footer class="form-footer wp-core-ui rank-math-ui">
-			<a href="<?php echo esc_url( Helper::get_admin_url() ); ?>" class="button button-secondary button-skip"><?php esc_html_e( 'Skip step', 'rank-math' ); ?></a>
+			<a href="<?php echo esc_url( Helper::get_admin_url() ); ?>" class="button button-secondary button-skip"><?php esc_html_e( 'Skip Step', 'rank-math' ); ?></a>
 			<button type="submit" class="button button-primary"><?php esc_html_e( 'Save and Continue', 'rank-math' ); ?></button>
 		</footer>
 		<?php
@@ -51,13 +51,15 @@ class Schema_Markup implements Wizard_Step {
 	 * @return void
 	 */
 	public function form( $wizard ) {
-		$wizard->cmb->add_field([
-			'id'      => 'rich_snippet',
-			'type'    => 'switch',
-			'name'    => esc_html__( 'Schema Type', 'rank-math' ),
-			'desc'    => esc_html__( 'Use automatic structured data to mark up content, to help Google better understand your content\'s context for display in Search. You can set different defaults for your posts here.', 'rank-math' ),
-			'default' => Helper::is_module_active( 'rich-snippet' ) ? 'on' : 'off',
-		]);
+		$wizard->cmb->add_field(
+			[
+				'id'      => 'rich_snippet',
+				'type'    => 'toggle',
+				'name'    => esc_html__( 'Schema Type', 'rank-math' ),
+				'desc'    => esc_html__( 'Use automatic structured data to mark up content, to help Google better understand your content\'s context for display in Search. You can set different defaults for your posts here.', 'rank-math' ),
+				'default' => Helper::is_module_active( 'rich-snippet' ) ? 'on' : 'off',
+			]
+		);
 
 		foreach ( Helper::get_accessible_post_types() as $post_type ) {
 			if ( 'attachment' === $post_type ) {
@@ -70,20 +72,22 @@ class Schema_Markup implements Wizard_Step {
 			$article_dep   = [ 'relation' => 'and' ] + [ [ 'rich_snippet', 'on' ] ];
 			$article_dep[] = [ 'pt_' . $post_type . '_default_rich_snippet', 'article' ];
 			/* translators: Google article snippet doc link */
-			$article_desc = 'person' === Helper::get_settings( 'titles.knowledgegraph_type' ) ? '<div class="notice notice-warning inline" style="margin-left:0;"><p>' . sprintf( __( 'Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this <a href="%s" target="_blank">here</a>.', 'rank-math' ), KB::get( 'article' ) ) . '</p></div>' : '';
-			$wizard->cmb->add_field([
-				'id'      => 'pt_' . $post_type . '_default_article_type',
-				'type'    => 'radio_inline',
-				'name'    => esc_html__( 'Article Type', 'rank-math' ),
-				'options' => [
-					'Article'     => esc_html__( 'Article', 'rank-math' ),
-					'BlogPosting' => esc_html__( 'Blog Post', 'rank-math' ),
-					'NewsArticle' => esc_html__( 'News Article', 'rank-math' ),
-				],
-				'default' => Helper::get_settings( 'titles.pt_' . $post_type . '_default_article_type', 'post' === $post_type ? 'BlogPosting' : 'Article' ),
-				'dep'     => $article_dep,
-				'desc'    => $article_desc,
-			]);
+			$article_desc = 'person' === Helper::get_settings( 'titles.knowledgegraph_type' ) ? '<div class="notice notice-warning inline rank-math-notice" style="margin-left:0;"><p>' . sprintf( __( 'Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this <a href="%s" target="_blank">here</a>.', 'rank-math' ), KB::get( 'article' ) ) . '</p></div>' : '';
+			$wizard->cmb->add_field(
+				[
+					'id'      => 'pt_' . $post_type . '_default_article_type',
+					'type'    => 'radio_inline',
+					'name'    => esc_html__( 'Article Type', 'rank-math' ),
+					'options' => [
+						'Article'     => esc_html__( 'Article', 'rank-math' ),
+						'BlogPosting' => esc_html__( 'Blog Post', 'rank-math' ),
+						'NewsArticle' => esc_html__( 'News Article', 'rank-math' ),
+					],
+					'default' => Helper::get_settings( 'titles.pt_' . $post_type . '_default_article_type', 'post' === $post_type ? 'BlogPosting' : 'Article' ),
+					'dep'     => $article_dep,
+					'desc'    => $article_desc,
+				]
+			);
 		}
 	}
 
@@ -163,13 +167,14 @@ class Schema_Markup implements Wizard_Step {
 		}
 
 		return [
-			'id'      => $field_id,
-			'type'    => 'select',
-			'name'    => $field_name,
-			'desc'    => esc_html__( 'Default rich snippet selected when creating a new post of this type. ', 'rank-math' ),
-			'options' => Helper::choices_rich_snippet_types( esc_html__( 'None (Click here to set one)', 'rank-math' ) ),
-			'dep'     => [ [ 'rich_snippet', 'on' ] ],
-			'default' => Helper::get_settings( 'titles.pt_' . $post_type . '_default_rich_snippet', ( isset( $richsnp_default[ $post_type ] ) ? $richsnp_default[ $post_type ] : 'none' ) ),
+			'id'         => $field_id,
+			'type'       => 'select',
+			'name'       => $field_name,
+			'desc'       => esc_html__( 'Default rich snippet selected when creating a new post of this type. ', 'rank-math' ),
+			'options'    => Helper::choices_rich_snippet_types( esc_html__( 'None (Click here to set one)', 'rank-math' ) ),
+			'dep'        => [ [ 'rich_snippet', 'on' ] ],
+			'default'    => Helper::get_settings( 'titles.pt_' . $post_type . '_default_rich_snippet', ( isset( $richsnp_default[ $post_type ] ) ? $richsnp_default[ $post_type ] : 'none' ) ),
+			'attributes' => [ 'data-s2' => '' ],
 		];
 	}
 }

@@ -57,7 +57,7 @@ class Assets implements Runner {
 		wp_register_style( self::PREFIX . 'common', $css . 'common.css', null, rank_math()->version );
 		wp_register_style( self::PREFIX . 'cmb2', $css . 'cmb2.css', null, rank_math()->version );
 		wp_register_style( self::PREFIX . 'dashboard', $css . 'dashboard.css', [ 'rank-math-common' ], rank_math()->version );
-		wp_register_style( self::PREFIX . 'plugin-feedback', $css . 'feedback.css', [ 'rank-math-common' ], rank_math()->version );
+		wp_register_style( self::PREFIX . 'plugin-feedback', $css . 'feedback.css', null, rank_math()->version );
 
 		// Scripts.
 		wp_register_script( 'clipboard', rank_math()->plugin_url() . 'assets/vendor/clipboard.min.js', null, '2.0.0', true );
@@ -158,7 +158,7 @@ class Assets implements Runner {
 	 */
 	public function admin_footer_text( $text ) {
 		/* translators: plugin url */
-		return Helper::is_whitelabel() ? $text : '<em>' . sprintf( wp_kses_post( __( 'Thank you for using <a href="%s" target="_blank">Rank Math</a>', 'rank-math' ) ), 'https://s.rankmath.com/home' ) . '</em>';
+		return Helper::is_whitelabel() ? $text : sprintf( wp_kses_post( __( 'Thank you for using <a href="%s" target="_blank">Rank Math</a>', 'rank-math' ) ), 'https://s.rankmath.com/home' );
 	}
 
 	/**

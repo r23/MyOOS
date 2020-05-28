@@ -54,7 +54,6 @@ class Product_WooCommerce {
 		$entity['sku']         = $product->get_sku() ? $product->get_sku() : '';
 		$entity['category']    = Product::get_category( $product->get_id(), 'product_cat' );
 
-		$this->set_upsell_products( $product, $entity );
 		$this->set_weight( $product, $entity );
 		$this->set_dimensions( $product, $entity );
 		$this->set_images( $product, $entity );
@@ -72,27 +71,6 @@ class Product_WooCommerce {
 
 		// Remaining Attributes.
 		$this->attributes->assign_remaining( $entity );
-	}
-
-	/**
-	 * Set upsell products.
-	 *
-	 * @param object $product Product instance.
-	 * @param array  $entity  Array of json-ld entity.
-	 */
-	private function set_upsell_products( $product, &$entity ) {
-		$upsells = $product->get_upsell_ids();
-		if ( empty( $upsells ) ) {
-			return;
-		}
-
-		foreach ( $upsells as $upsell_id ) {
-			$entity['isSimilarTo'][] = [
-				'@type' => 'Product',
-				'url'   => get_permalink( $upsell_id ),
-				'name'  => get_the_title( $upsell_id ),
-			];
-		}
 	}
 
 	/**

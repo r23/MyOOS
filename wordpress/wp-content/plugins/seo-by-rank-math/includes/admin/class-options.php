@@ -130,9 +130,10 @@ class Options {
 
 		$cmb->add_field(
 			[
-				'id'   => 'setting-panel-container-' . $this->cmb_id,
-				'type' => 'tab_container_open',
-				'tabs' => $tabs,
+				'id'      => 'setting-panel-container-' . $this->cmb_id,
+				'type'    => 'tab_container_open',
+				'classes' => 'before-header',
+				'tabs'    => $tabs,
 			]
 		);
 
@@ -144,21 +145,23 @@ class Options {
 
 			$cmb->add_field(
 				[
-					'name' => esc_html__( 'Panel', 'rank-math' ),
-					'id'   => 'setting-panel-' . $id,
-					'type' => 'tab',
-					'open' => true,
+					'name'    => esc_html__( 'Panel', 'rank-math' ),
+					'id'      => 'setting-panel-' . $id,
+					'type'    => 'tab',
+					'open'    => true,
+					'classes' => isset( $tab['classes'] ) ? $tab['classes'] : '',
 				]
 			);
 
 			$cmb->add_field(
 				[
-					'id'      => $id . '_section_title',
-					'type'    => 'title',
-					'name'    => isset( $tab['page_title'] ) ? $tab['page_title'] : ( isset( $tab['title'] ) ? $tab['title'] : '' ),
-					'desc'    => isset( $tab['desc'] ) ? $tab['desc'] : '',
-					'after'   => isset( $tab['after'] ) ? $tab['after'] : '',
-					'classes' => 'main',
+					'id'        => $id . '_section_title',
+					'type'      => 'title',
+					'name'      => isset( $tab['page_title'] ) ? $tab['page_title'] : ( isset( $tab['title'] ) ? $tab['title'] : '' ),
+					'desc'      => isset( $tab['desc'] ) ? $tab['desc'] : '',
+					'after'     => isset( $tab['after'] ) ? $tab['after'] : '',
+					'classes'   => 'tab-header',
+					'after_row' => isset( $tab['after_row'] ) ? $tab['after_row'] : '',
 				]
 			);
 
@@ -234,7 +237,6 @@ class Options {
 
 		\CMB2_Hookup::enqueue_cmb_css();
 		rank_math()->variables->setup_json();
-		wp_enqueue_style( 'font-awesome', rank_math()->plugin_url() . 'assets/vendor/font-awesome/css/font-awesome.min.css', null, '4.7.0' );
 		wp_enqueue_style( 'rank-math-options', rank_math()->plugin_url() . 'assets/admin/css/option-panel.css', [ 'select2-rm', 'rank-math-common', 'rank-math-cmb2' ], rank_math()->version );
 		wp_enqueue_script( 'rank-math-options', rank_math()->plugin_url() . 'assets/admin/js/option-panel.js', [ 'underscore', 'select2-rm', 'rank-math-common', 'rank-math-validate' ], rank_math()->version, true );
 
@@ -250,7 +252,8 @@ class Options {
 	 * @return string
 	 */
 	public function body_class( $classes = '' ) {
-		return $classes . ' rank-math-page';
+		$mode = Helper::is_advanced_mode() ? 'advanced' : 'basic';
+		return $classes . ' rank-math-page rank-math-mode-' . $mode;
 	}
 
 	/**
@@ -260,25 +263,13 @@ class Options {
 	 */
 	public function display( $machine ) {
 		$cmb = $machine->cmb;
+
+		// Header.
+		rank_math()->admin->display_admin_header();
 		?>
 		<div class="wrap rank-math-wrap rank-math-wrap-settings">
 
 			<span class="wp-header-end"></span>
-
-			<div class="rank-math-search-options">
-				<div class="search-field">
-					<i class="dashicons dashicons-search"></i>
-					<input type="text" value="" placeholder="<?php esc_attr_e( 'Search Options', 'rank-math' ); ?>">
-					<em class="clear-search dashicons dashicons-no-alt"></em>
-				</div>
-				<select>
-					<option value="general"><?php esc_html_e( 'General Settings', 'rank-math' ); ?></option>
-					<option value="titles"><?php esc_html_e( 'Titles Settings', 'rank-math' ); ?></option>
-					<option value="sitemap"><?php esc_html_e( 'Sitemap Settings', 'rank-math' ); ?></option>
-				</select>
-			</div>
-
-			<h1 class="page-title"><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
 			<form class="cmb-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="POST" id="<?php echo $cmb->cmb_id; ?>" enctype="multipart/form-data" encoding="multipart/form-data">
 
@@ -287,8 +278,8 @@ class Options {
 
 				<footer class="form-footer rank-math-ui settings-footer wp-clearfix">
 					<?php wp_nonce_field( 'rank-math-reset-options' ); ?>
-					<input type="submit" name="submit-cmb" id="submit-cmb" class="button button-primary button-xlarge save-options" value="<?php esc_attr_e( 'Save Changes', 'rank-math' ); ?>">
-					<input type="submit" name="reset-cmb" id="rank-math-reset-cmb" value="<?php esc_attr_e( 'Reset Options', 'rank-math' ); ?>" class="button button-secondary button-xlarge reset-options alignleft">
+					<input type="submit" name="submit-cmb" id="submit-cmb" class="button button-primary save-options" value="<?php esc_attr_e( 'Save Changes', 'rank-math' ); ?>">
+					<input type="submit" name="reset-cmb" id="rank-math-reset-cmb" value="<?php esc_attr_e( 'Reset Options', 'rank-math' ); ?>" class="button button-secondary reset-options alignleft">
 				</footer>
 
 			</form>

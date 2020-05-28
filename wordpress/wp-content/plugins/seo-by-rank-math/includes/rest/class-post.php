@@ -62,7 +62,12 @@ class Post extends WP_REST_Controller {
 
 		foreach ( $rows as $post_id => $data ) {
 			$post_id = absint( $post_id );
-			if ( ! $post_id || ! Helper::is_post_type_accessible( get_post_type( $post_id ) ) ) {
+			if ( ! $post_id ) {
+				continue;
+			}
+
+			$post_type = get_post_type( $post_id );
+			if ( ! Helper::is_post_type_accessible( $post_type ) && 'attachment' !== $post_type ) {
 				continue;
 			}
 
