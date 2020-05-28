@@ -853,10 +853,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
     );
 
-    public static $fallbackDirsPsr4 = array (
-        0 => __DIR__ . '/..' . '/google/grpc-gcp/src/generated',
-    );
-
     public static $prefixesPsr0 = array (
         'S' => 
         array (
@@ -890,6 +886,12 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
 
     public static $classMap = array (
         'Collator' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/Collator.php',
+        'GPBMetadata\\GrpcGcp' => __DIR__ . '/..' . '/google/grpc-gcp/src/generated/GPBMetadata/GrpcGcp.php',
+        'Grpc\\Gcp\\AffinityConfig' => __DIR__ . '/..' . '/google/grpc-gcp/src/generated/Grpc/Gcp/AffinityConfig.php',
+        'Grpc\\Gcp\\AffinityConfig_Command' => __DIR__ . '/..' . '/google/grpc-gcp/src/generated/Grpc/Gcp/AffinityConfig_Command.php',
+        'Grpc\\Gcp\\ApiConfig' => __DIR__ . '/..' . '/google/grpc-gcp/src/generated/Grpc/Gcp/ApiConfig.php',
+        'Grpc\\Gcp\\ChannelPoolConfig' => __DIR__ . '/..' . '/google/grpc-gcp/src/generated/Grpc/Gcp/ChannelPoolConfig.php',
+        'Grpc\\Gcp\\MethodConfig' => __DIR__ . '/..' . '/google/grpc-gcp/src/generated/Grpc/Gcp/MethodConfig.php',
         'IntlDateFormatter' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/IntlDateFormatter.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Locale' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/Intl/Resources/stubs/Locale.php',
@@ -1077,7 +1079,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789::$prefixDirsPsr4;
-            $loader->fallbackDirsPsr4 = ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789::$fallbackDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789::$classMap;
 

@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 3.138.9 - 2020-05-27
+
+* `Aws\ElasticLoadBalancingv2` - This release added support for HTTP/2 ALPN preference lists for Network Load Balancers
+* `Aws\GuardDuty` - Documentation updates for GuardDuty
+* `Aws\build/packager` - Adds package symfony/polyfill-intl-idn to .zip and .phar releases if the package exists in vendor directory.
+
+## 3.138.8 - 2020-05-26
+
+* `Aws\DLM` - Allowing cron expression in the DLM policy creation schedule. 
+* `Aws\EC2` - ebsOptimizedInfo, efaSupported and supportedVirtualizationTypes added to DescribeInstanceTypes API
+* `Aws\ElastiCache` - Amazon ElastiCache now allows you to use resource based policies to manage access to operations performed on ElastiCache resources. Also, Amazon ElastiCache now exposes ARN (Amazon Resource Names) for ElastiCache resources such as Cache Clusters and Parameter Groups. ARNs can be used to apply IAM policies to ElastiCache resources.
+* `Aws\Macie` - This is a documentation-only update to the Amazon Macie Classic API. This update corrects out-of-date references to the service name.
+* `Aws\QuickSight` - Add DataSetArns to QuickSight DescribeDashboard API response.
+* `Aws\SSM` - The AWS Systems Manager GetOpsSummary API action now supports multiple OpsResultAttributes in the request. Currently, this feature only supports OpsResultAttributes with the following TypeNames: [AWS:EC2InstanceComputeOptimizer] or [AWS:EC2InstanceInformation, AWS:EC2InstanceComputeOptimizer]. These TypeNames can be used along with either or both of the following: [AWS:EC2InstanceRecommendation, AWS:RecommendationSource]
+
 ## 3.138.7 - 2020-05-22
 
 * `Aws\AutoScaling` - Documentation updates for Amazon EC2 Auto Scaling
