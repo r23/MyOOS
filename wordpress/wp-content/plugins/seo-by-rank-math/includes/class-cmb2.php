@@ -289,7 +289,7 @@ class CMB2 {
 			return '';
 		}
 
-		return apply_filters( 'sanitize_title', remove_accents( $value ) );
+		return sanitize_title( $value );
 	}
 
 	/**

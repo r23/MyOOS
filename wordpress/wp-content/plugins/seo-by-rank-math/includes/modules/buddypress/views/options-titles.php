@@ -24,12 +24,15 @@ $cmb->add_field(
 $cmb->add_field(
 	[
 		'id'              => 'bp_group_description',
-		'type'            => 'textarea_small',
+		'type'            => 'textarea',
 		'name'            => esc_html__( 'Group Description', 'rank-math' ),
 		'desc'            => esc_html__( 'BuddyPress group description', 'rank-math' ),
 		'classes'         => 'rank-math-supports-variables rank-math-description',
 		'sanitization_cb' => false,
-		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
+		'attributes'      => [
+			'data-exclude-variables' => 'seo_title,seo_description',
+			'rows'                   => 2,
+		],
 	]
 );
 

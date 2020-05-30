@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4.1
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.43
+Stable tag: 1.0.43.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -460,8 +460,16 @@ We look forward to helping you.
 
 == Changelog ==
 
+= 1.0.43.1 [May 29, 2020] =
+* Added: Check for the `MBstring` PHP extension in the Setup Wizard
+* Improved: Right to Left(RTL) language support with the new design
+* Fixed: Synced the SEO Score's color in the posts' list view with the single post editor view
+* Fixed: A PHP warning showing up on some installations related to `WP_Screen`
+* Fixed: A fatal error occurring on some sites where translation plugins like TranslatePress, Polylang, WPML, etc. were used
+* Fixed: `openssl_decrypt` error showing on some websites. You might need to reconnect the Search Console account if you still see the error
+
 = 1.0.43 [May 27, 2020] =
-* Added: [NEW & HUGE!] A completely new design with best in class user experience. Setting and using the plugin can never be more comfortable. [Check the preview here](https://twitter.com/rankmathseo/status/1265715000733315074)
+* Added: [NEW & HUGE!] A completely new design with best in class user experience. Setting and using the plugin can never be more comfortable. [Check the preview here](https://www.facebook.com/groups/rankmathseopluginwordpress/permalink/592547928284204/)
 * Added: Easy & Advanced modes for better option handling. One can choose between the two to make the interface simpler or advanced. Easy mode is what we would recommend to 99% of the users
 * Added: A brand new Image SEO module by moving all the image SEO-related options into it
 * Added: An On/Off toggle for the [Role Manager](https://rankmath.com/kb/role-manager/) in the [setup wizard](https://rankmath.com/kb/how-to-setup/)

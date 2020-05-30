@@ -94,23 +94,23 @@
     },
     {
         "name": "mythemeshop/wordpress-helpers",
-        "version": "1.0.12",
-        "version_normalized": "1.0.12.0",
+        "version": "1.1.3",
+        "version_normalized": "1.1.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/MyThemeShopTeam/wordpress-helpers.git",
-            "reference": "bc5baf9c827b7f77ce946a9e50150f5982252055"
+            "reference": "bbe0a23c0492698478d9bc9760c9647c5c341bb2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/bc5baf9c827b7f77ce946a9e50150f5982252055",
-            "reference": "bc5baf9c827b7f77ce946a9e50150f5982252055",
+            "url": "https://api.github.com/repos/MyThemeShopTeam/wordpress-helpers/zipball/bbe0a23c0492698478d9bc9760c9647c5c341bb2",
+            "reference": "bbe0a23c0492698478d9bc9760c9647c5c341bb2",
             "shasum": ""
         },
         "require": {
             "php": ">=5.6"
         },
-        "time": "2020-04-11T14:38:39+00:00",
+        "time": "2020-05-28T21:45:09+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

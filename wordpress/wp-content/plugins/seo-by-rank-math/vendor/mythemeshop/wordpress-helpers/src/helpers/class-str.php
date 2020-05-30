@@ -84,12 +84,12 @@ class Str {
 	 */
 	public static function comparison( $needle, $haystack, $comparison = '' ) {
 
-		$hash = [
+		$hash = array(
 			'regex'    => 'preg_match',
-			'end'      => [ __CLASS__, 'ends_with' ],
-			'start'    => [ __CLASS__, 'starts_with' ],
-			'contains' => [ __CLASS__, 'contains' ],
-		];
+			'end'      => array( __CLASS__, 'ends_with' ),
+			'start'    => array( __CLASS__, 'starts_with' ),
+			'contains' => array( __CLASS__, 'contains' ),
+		);
 
 		if ( $comparison && isset( $hash[ $comparison ] ) ) {
 			return call_user_func( $hash[ $comparison ], $needle, $haystack );
@@ -122,7 +122,7 @@ class Str {
 	 * @return array
 	 */
 	public static function to_arr_no_empty( $str, $sep_pattern = '\r\n|[\r\n]' ) {
-		$array = empty( $str ) ? [] : preg_split( '/' . $sep_pattern . '/', $str, -1, PREG_SPLIT_NO_EMPTY );
+		$array = empty( $str ) ? array() : preg_split( '/' . $sep_pattern . '/', $str, -1, PREG_SPLIT_NO_EMPTY );
 		$array = array_filter( array_map( 'trim', $array ) );
 
 		return $array;
@@ -181,7 +181,7 @@ class Str {
 		}
 
 		$unit  = intval( log( $number, 1000 ) );
-		$units = [ '', 'K', 'M', 'B', 'T', 'Q' ];
+		$units = array( '', 'K', 'M', 'B', 'T', 'Q' );
 
 		if ( array_key_exists( $unit, $units ) ) {
 			return sprintf( '%s%s%s', $negative, rtrim( number_format( $number / pow( 1000, $unit ), 1 ), '.0' ), $units[ $unit ] );
@@ -205,9 +205,10 @@ class Str {
 		// Remove part of an entity at the end.
 		$excerpt = preg_replace( '/&[^;\s]{0,6}$/', '', $excerpt );
 		if ( $str !== $excerpt ) {
-			$excerpt = mb_substr( $str, 0, mb_strrpos( trim( $excerpt ), ' ' ) );
+			$strrpos = function_exists( 'mb_strrpos' ) ? 'mb_strrpos' : 'strrpos';
+			$excerpt = mb_substr( $str, 0, $strrpos( trim( $excerpt ), ' ' ) );
 		}
 
-    return $excerpt;
+		return $excerpt;
 	}
 }

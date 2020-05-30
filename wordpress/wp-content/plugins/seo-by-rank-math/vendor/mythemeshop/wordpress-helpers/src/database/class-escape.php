@@ -23,7 +23,7 @@ trait Escape {
 	 * @return array
 	 */
 	public function esc_array( $arr ) {
-		return array_map( [ $this, 'esc_value' ], $arr );
+		return array_map( array( $this, 'esc_value' ), $arr );
 	}
 
 	/**
@@ -44,7 +44,7 @@ trait Escape {
 			return $wpdb->prepare( '%f', $value );
 		}
 
-		return 'null' === $value ? $value : $wpdb->prepare( '%s', $value );
+		return 'NULL' === $value ? $value : $wpdb->prepare( '%s', $value );
 	}
 
 	/**

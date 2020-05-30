@@ -23,9 +23,11 @@ class ComposerStaticInit65a0993a63c917989297698ea08a315e
     public static $classMap = array (
         'MyThemeShop\\Admin\\List_Table' => __DIR__ . '/../..' . '/src/admin/class-list-table.php',
         'MyThemeShop\\Admin\\Page' => __DIR__ . '/../..' . '/src/admin/class-page.php',
+        'MyThemeShop\\Database\\Clauses' => __DIR__ . '/../..' . '/src/database/class-clauses.php',
         'MyThemeShop\\Database\\Database' => __DIR__ . '/../..' . '/src/database/class-database.php',
         'MyThemeShop\\Database\\Escape' => __DIR__ . '/../..' . '/src/database/class-escape.php',
         'MyThemeShop\\Database\\GroupBy' => __DIR__ . '/../..' . '/src/database/class-groupby.php',
+        'MyThemeShop\\Database\\Joins' => __DIR__ . '/../..' . '/src/database/class-joins.php',
         'MyThemeShop\\Database\\OrderBy' => __DIR__ . '/../..' . '/src/database/class-orderby.php',
         'MyThemeShop\\Database\\Query_Builder' => __DIR__ . '/../..' . '/src/database/class-query-builder.php',
         'MyThemeShop\\Database\\Select' => __DIR__ . '/../..' . '/src/database/class-select.php',

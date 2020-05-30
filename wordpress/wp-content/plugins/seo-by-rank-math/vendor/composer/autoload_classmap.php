@@ -8,9 +8,11 @@ $baseDir = dirname($vendorDir);
 return array(
     'MyThemeShop\\Admin\\List_Table' => $vendorDir . '/mythemeshop/wordpress-helpers/src/admin/class-list-table.php',
     'MyThemeShop\\Admin\\Page' => $vendorDir . '/mythemeshop/wordpress-helpers/src/admin/class-page.php',
+    'MyThemeShop\\Database\\Clauses' => $vendorDir . '/mythemeshop/wordpress-helpers/src/database/class-clauses.php',
     'MyThemeShop\\Database\\Database' => $vendorDir . '/mythemeshop/wordpress-helpers/src/database/class-database.php',
     'MyThemeShop\\Database\\Escape' => $vendorDir . '/mythemeshop/wordpress-helpers/src/database/class-escape.php',
     'MyThemeShop\\Database\\GroupBy' => $vendorDir . '/mythemeshop/wordpress-helpers/src/database/class-groupby.php',
+    'MyThemeShop\\Database\\Joins' => $vendorDir . '/mythemeshop/wordpress-helpers/src/database/class-joins.php',
     'MyThemeShop\\Database\\OrderBy' => $vendorDir . '/mythemeshop/wordpress-helpers/src/database/class-orderby.php',
     'MyThemeShop\\Database\\Query_Builder' => $vendorDir . '/mythemeshop/wordpress-helpers/src/database/class-query-builder.php',
     'MyThemeShop\\Database\\Select' => $vendorDir . '/mythemeshop/wordpress-helpers/src/database/class-select.php',

@@ -28,12 +28,12 @@ trait Select {
 		}
 
 		if ( is_string( $fields ) ) {
-			$this->statements['select'][] = $fields;
+			$this->add_sql_clause( 'select', $fields );
 			return $this;
 		}
 
 		foreach ( $fields as $key => $field ) {
-			$this->statements['select'][] = is_string( $key ) ? "$key as $field" : $field;
+			$this->add_sql_clause( 'select', is_string( $key ) ? "$key AS $field" : $field );
 		}
 
 		return $this;
@@ -94,11 +94,13 @@ trait Select {
 	 * @return self The current query builder.
 	 */
 	public function selectFunc( $func, $field, $alias = null ) { // @codingStandardsIgnoreLine
+		$func  = \strtoupper( $func );
 		$field = "$func({$field})";
 		if ( ! is_null( $alias ) ) {
-			$field .= " as {$alias}";
+			$field .= " AS {$alias}";
 		}
-		$this->statements['select'][] = $field;
+
+		$this->add_sql_clause( 'select', $field );
 
 		return $this;
 	}

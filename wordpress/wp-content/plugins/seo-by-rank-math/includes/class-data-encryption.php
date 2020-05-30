@@ -118,6 +118,10 @@ class Data_Encryption {
 
 		$raw_value = substr( $raw_value, $ivlen );
 
+		if ( ! $raw_value || strlen( $iv ) !== $ivlen ) {
+			return false;
+		}
+
 		$value = openssl_decrypt( $raw_value, $method, $this->key, 0, $iv );
 		if ( ! $value || substr( $value, - strlen( $this->salt ) ) !== $this->salt ) {
 			return false;

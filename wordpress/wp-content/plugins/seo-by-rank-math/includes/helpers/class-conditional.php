@@ -73,7 +73,7 @@ trait Conditional {
 	public static function is_site_connected() {
 		$registered = Admin_Helper::get_registration_data();
 
-		return false !== $registered && $registered['connected'];
+		return false !== $registered && ! empty( $registered['connected'] ) && ! empty( $registered['api_key'] );
 	}
 
 	/**

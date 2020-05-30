@@ -48,6 +48,7 @@ $cmb->add_field(
 		'attributes'      => [
 			'class'                  => 'cmb2_textarea wp-exclude-emoji',
 			'data-gramm_editor'      => 'false',
+			'rows'                   => 2,
 			'data-exclude-variables' => 'seo_title,seo_description',
 		],
 	]

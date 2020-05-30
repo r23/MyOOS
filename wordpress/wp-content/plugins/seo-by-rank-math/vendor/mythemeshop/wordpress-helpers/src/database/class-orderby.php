@@ -21,10 +21,10 @@ trait OrderBy {
 	 *     ->orderBy('created_at')
 	 *     ->orderBy('modified_at', 'desc')
 	 *
-	 *     // multiple order statements
+	 *     // multiple order clauses
 	 *     ->orderBy(['firstname', 'lastname'], 'desc')
 	 *
-	 *     // muliple order statements with diffrent directions
+	 *     // muliple order clauses with diffrent directions
 	 *     ->orderBy(['firstname' => 'asc', 'lastname' => 'desc'])
 	 *
 	 * @param array|string $columns   Columns.
@@ -32,21 +32,39 @@ trait OrderBy {
 	 *
 	 * @return self The current query builder.
 	 */
-	public function orderBy( $columns, $direction = 'asc' ) { // @codingStandardsIgnoreLine
+	public function orderBy( $columns, $direction = 'ASC' ) { // @codingStandardsIgnoreLine
 		if ( is_string( $columns ) ) {
 			$columns = $this->argument_to_array( $columns );
 		}
 
+		$direction = $this->sanitize_direction( $direction );
+
 		foreach ( $columns as $key => $column ) {
 			if ( is_numeric( $key ) ) {
-				$this->statements['orders'][ $column ] = $direction;
+				$this->add_sql_clause( 'order_by', "{$column}{$direction}" );
 				continue;
 			}
 
-			$this->statements['orders'][ $key ] = $column;
+			$column = $this->sanitize_direction( $column );
+			$this->add_sql_clause( 'order_by', "{$key}{$column}" );
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Sanitize direction
+	 *
+	 * @param string $direction Value to sanitize.
+	 *
+	 * @return string Sanitized value
+	 */
+	protected function sanitize_direction( $direction ) {
+		if ( empty( $direction ) || 'ASC' === $direction || 'asc' === $direction ) {
+			return '';
+		}
+
+		return ' ' . \strtoupper( $direction );
 	}
 
 	/**
@@ -61,6 +79,6 @@ trait OrderBy {
 			return array_map( 'trim', explode( ',', $argument ) );
 		}
 
-		return [ $argument ];
+		return array( $argument );
 	}
 }

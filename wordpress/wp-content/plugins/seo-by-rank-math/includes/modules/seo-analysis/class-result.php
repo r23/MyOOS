@@ -294,21 +294,6 @@ class Result {
 	 */
 	public function is_hidden() {
 		$hidden_tests = [
-			'img_alt',
-			'keywords_meta',
-			'links_ratio',
-			'permalink_structure',
-			'focus_keywords',
-			'post_titles',
-			'serp_preview',
-			'mobile_serp_preview',
-
-			// Advanced SEO.
-			'canonical',
-			'non_www',
-			'opengraph',
-			'schema',
-
 			// Performance.
 			'image_header',
 			'minify_css',

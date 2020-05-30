@@ -20,7 +20,7 @@ class Database {
 	 *
 	 * @var array
 	 */
-	protected static $instances = [];
+	protected static $instances = array();
 
 	/**
 	 * Retrieve a Database instance by table name.

@@ -307,7 +307,7 @@ class Post_Columns implements Runner {
 			return 'great';
 		}
 
-		if ( $score > 51 && $score < 81 ) {
+		if ( $score > 50 && $score < 81 ) {
 			return 'good';
 		}
 

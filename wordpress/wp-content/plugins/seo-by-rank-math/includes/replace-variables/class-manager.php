@@ -129,9 +129,10 @@ class Manager extends Post_Variables {
 			return false;
 		}
 
+		$current_screen = \function_exists( 'get_current_screen' ) ? get_current_screen() : false;
 		if (
-			\function_exists( 'get_current_screen' ) &&
-			\in_array( get_current_screen()->base, [ 'themes' ], true )
+			$current_screen instanceof \WP_Screen &&
+			\in_array( $current_screen->base, [ 'themes' ], true )
 		) {
 			return false;
 		}
@@ -151,8 +152,9 @@ class Manager extends Post_Variables {
 		$this->is_setup = true;
 
 		// Internal variables.
-		if ( \function_exists( 'get_current_screen' ) ) {
-			$screen_base        = get_current_screen()->base;
+		$current_screen = \function_exists( 'get_current_screen' ) ? get_current_screen() : false;
+		if ( $current_screen instanceof \WP_Screen ) {
+			$screen_base        = $current_screen->base;
 			$this->is_post_edit = is_admin() && 'post' === $screen_base;
 			$this->is_term_edit = is_admin() && 'term' === $screen_base;
 		}

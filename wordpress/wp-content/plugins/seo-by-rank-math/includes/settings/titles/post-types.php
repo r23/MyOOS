@@ -58,6 +58,7 @@ $cmb->add_field(
 		'attributes'      => [
 			'class'                  => 'cmb2-textarea-small wp-exclude-emoji',
 			'data-gramm_editor'      => 'false',
+			'rows'                   => 2,
 			'data-exclude-variables' => 'seo_title,seo_description',
 		],
 	]
@@ -88,7 +89,10 @@ $cmb->add_field(
 		'desc'            => sprintf( esc_html__( 'Description for %s archive pages.', 'rank-math' ), $name ),
 		'classes'         => 'rank-math-supports-variables rank-math-description',
 		'sanitization_cb' => false,
-		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
+		'attributes'      => [
+			'data-exclude-variables' => 'seo_title,seo_description',
+			'rows'                   => 2,
+		],
 	]
 );
 
