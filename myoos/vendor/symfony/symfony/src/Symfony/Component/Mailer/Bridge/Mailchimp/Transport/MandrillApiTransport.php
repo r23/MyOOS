@@ -14,6 +14,8 @@ namespace Symfony\Component\Mailer\Bridge\Mailchimp\Transport;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\Mailer\Exception\HttpTransportException;
+use Symfony\Component\Mailer\Header\MetadataHeader;
+use Symfony\Component\Mailer\Header\TagHeader;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mailer\Transport\AbstractApiTransport;
 use Symfony\Component\Mime\Email;
@@ -51,7 +53,7 @@ class MandrillApiTransport extends AbstractApiTransport
         $result = $response->toArray(false);
         if (200 !== $response->getStatusCode()) {
             if ('error' === ($result['status'] ?? false)) {
-                throw new HttpTransportException(sprintf('Unable to send an email: '.$result['message'].' (code %d).', $result['code']), $response);
+                throw new HttpTransportException('Unable to send an email: '.$result['message'].sprintf(' (code %d).', $result['code']), $response);
             }
 
             throw new HttpTransportException(sprintf('Unable to send an email (code %d).', $result['code']), $response);
@@ -108,6 +110,18 @@ class MandrillApiTransport extends AbstractApiTransport
         $headersToBypass = ['from', 'to', 'cc', 'bcc', 'subject', 'content-type'];
         foreach ($email->getHeaders()->all() as $name => $header) {
             if (\in_array($name, $headersToBypass, true)) {
+                continue;
+            }
+
+            if ($header instanceof TagHeader) {
+                $payload['message']['tags'] = explode(',', $header->getValue());
+
+                continue;
+            }
+
+            if ($header instanceof MetadataHeader) {
+                $payload['message']['metadata'][$header->getKey()] = $header->getValue();
+
                 continue;
             }
 

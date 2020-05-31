@@ -26,10 +26,8 @@ use Symfony\Component\String\Exception\RuntimeException;
  * @author Hugo Hamon <hugohamon@neuf.fr>
  *
  * @throws ExceptionInterface
- *
- * @experimental in 5.0
  */
-abstract class AbstractString implements \JsonSerializable
+abstract class AbstractString implements \Stringable, \JsonSerializable
 {
     public const PREG_PATTERN_ORDER = PREG_PATTERN_ORDER;
     public const PREG_SET_ORDER = PREG_SET_ORDER;
@@ -257,6 +255,14 @@ abstract class AbstractString implements \JsonSerializable
     }
 
     /**
+     * @param string|string[] $needle
+     */
+    public function containsAny($needle): bool
+    {
+        return null !== $this->indexOf($needle);
+    }
+
+    /**
      * @param string|string[] $suffix
      */
     public function endsWith($suffix): bool
@@ -470,6 +476,11 @@ abstract class AbstractString implements \JsonSerializable
     /**
      * @return static
      */
+    abstract public function reverse(): self;
+
+    /**
+     * @return static
+     */
     abstract public function slice(int $start = 0, int $length = null): self;
 
     /**
@@ -617,7 +628,7 @@ abstract class AbstractString implements \JsonSerializable
     /**
      * @return static
      */
-    public function truncate(int $length, string $ellipsis = ''): self
+    public function truncate(int $length, string $ellipsis = '', bool $cut = true): self
     {
         $stringLength = $this->length();
 
@@ -631,6 +642,10 @@ abstract class AbstractString implements \JsonSerializable
             $ellipsisLength = 0;
         }
 
+        if (!$cut) {
+            $length = $ellipsisLength + ($this->indexOf([' ', "\r", "\n", "\t"], ($length ?: 1) - 1) ?? $stringLength);
+        }
+
         $str = $this->slice(0, $length - $ellipsisLength);
 
         return $ellipsisLength ? $str->trimEnd()->append($ellipsis) : $str;
@@ -641,6 +656,9 @@ abstract class AbstractString implements \JsonSerializable
      */
     abstract public function upper(): self;
 
+    /**
+     * Returns the printable length on a terminal.
+     */
     abstract public function width(bool $ignoreAnsiDecoration = true): int;
 
     /**

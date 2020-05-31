@@ -82,7 +82,7 @@ class PdoAdapter extends AbstractAdapter implements PruneableInterface
         } elseif (\is_string($connOrDsn)) {
             $this->dsn = $connOrDsn;
         } else {
-            throw new InvalidArgumentException(sprintf('"%s" requires PDO or Doctrine\DBAL\Connection instance or DSN string as first argument, "%s" given.', __CLASS__, \is_object($connOrDsn) ? \get_class($connOrDsn) : \gettype($connOrDsn)));
+            throw new InvalidArgumentException(sprintf('"%s" requires PDO or Doctrine\DBAL\Connection instance or DSN string as first argument, "%s" given.', __CLASS__, get_debug_type($connOrDsn)));
         }
 
         $this->table = isset($options['db_table']) ? $options['db_table'] : $this->table;
@@ -115,24 +115,8 @@ class PdoAdapter extends AbstractAdapter implements PruneableInterface
         $conn = $this->getConnection();
 
         if ($conn instanceof Connection) {
-            $types = [
-                'mysql' => 'binary',
-                'sqlite' => 'text',
-                'pgsql' => 'string',
-                'oci' => 'string',
-                'sqlsrv' => 'string',
-            ];
-            if (!isset($types[$this->driver])) {
-                throw new \DomainException(sprintf('Creating the cache table is currently not implemented for PDO driver "%s".', $this->driver));
-            }
-
             $schema = new Schema();
-            $table = $schema->createTable($this->table);
-            $table->addColumn($this->idCol, $types[$this->driver], ['length' => 255]);
-            $table->addColumn($this->dataCol, 'blob', ['length' => 16777215]);
-            $table->addColumn($this->lifetimeCol, 'integer', ['unsigned' => true, 'notnull' => false]);
-            $table->addColumn($this->timeCol, 'integer', ['unsigned' => true]);
-            $table->setPrimaryKey([$this->idCol]);
+            $this->addTableToSchema($schema);
 
             foreach ($schema->toSql($conn->getDatabasePlatform()) as $sql) {
                 $conn->exec($sql);
@@ -167,6 +151,23 @@ class PdoAdapter extends AbstractAdapter implements PruneableInterface
         }
 
         $conn->exec($sql);
+    }
+
+    /**
+     * Adds the Table to the Schema if the adapter uses this Connection.
+     */
+    public function configureSchema(Schema $schema, Connection $forConnection): void
+    {
+        // only update the schema for this connection
+        if ($forConnection !== $this->getConnection()) {
+            return;
+        }
+
+        if ($schema->hasTable($this->table)) {
+            return;
+        }
+
+        $this->addTableToSchema($schema);
     }
 
     /**
@@ -218,7 +219,13 @@ class PdoAdapter extends AbstractAdapter implements PruneableInterface
         }
         $stmt->execute();
 
-        while ($row = $stmt->fetch(\PDO::FETCH_NUM)) {
+        if (method_exists($stmt, 'iterateNumeric')) {
+            $stmt = $stmt->iterateNumeric();
+        } else {
+            $stmt->setFetchMode(\PDO::FETCH_NUM);
+        }
+
+        foreach ($stmt as $row) {
             if (null === $row[1]) {
                 $expired[] = $row[0];
             } else {
@@ -250,7 +257,7 @@ class PdoAdapter extends AbstractAdapter implements PruneableInterface
         $stmt->bindValue(':time', time(), \PDO::PARAM_INT);
         $stmt->execute();
 
-        return (bool) $stmt->fetchColumn();
+        return (bool) (method_exists($stmt, 'fetchOne') ? $stmt->fetchOne() : $stmt->fetchColumn());
     }
 
     /**
@@ -466,5 +473,26 @@ class PdoAdapter extends AbstractAdapter implements PruneableInterface
         }
 
         return $this->serverVersion;
+    }
+
+    private function addTableToSchema(Schema $schema): void
+    {
+        $types = [
+            'mysql' => 'binary',
+            'sqlite' => 'text',
+            'pgsql' => 'string',
+            'oci' => 'string',
+            'sqlsrv' => 'string',
+        ];
+        if (!isset($types[$this->driver])) {
+            throw new \DomainException(sprintf('Creating the cache table is currently not implemented for PDO driver "%s".', $this->driver));
+        }
+
+        $table = $schema->createTable($this->table);
+        $table->addColumn($this->idCol, $types[$this->driver], ['length' => 255]);
+        $table->addColumn($this->dataCol, 'blob', ['length' => 16777215]);
+        $table->addColumn($this->lifetimeCol, 'integer', ['unsigned' => true, 'notnull' => false]);
+        $table->addColumn($this->timeCol, 'integer', ['unsigned' => true]);
+        $table->setPrimaryKey([$this->idCol]);
     }
 }

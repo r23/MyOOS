@@ -2173,6 +2173,75 @@
         "description": "Flysystem adapter for the AWS S3 SDK v3.x"
     },
     {
+        "name": "maennchen/zipstream-php",
+        "version": "2.1.0",
+        "version_normalized": "2.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/maennchen/ZipStream-PHP.git",
+            "reference": "c4c5803cc1f93df3d2448478ef79394a5981cc58"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/maennchen/ZipStream-PHP/zipball/c4c5803cc1f93df3d2448478ef79394a5981cc58",
+            "reference": "c4c5803cc1f93df3d2448478ef79394a5981cc58",
+            "shasum": ""
+        },
+        "require": {
+            "myclabs/php-enum": "^1.5",
+            "php": ">= 7.1",
+            "psr/http-message": "^1.0",
+            "symfony/polyfill-mbstring": "^1.0"
+        },
+        "require-dev": {
+            "ext-zip": "*",
+            "guzzlehttp/guzzle": ">= 6.3",
+            "mikey179/vfsstream": "^1.6",
+            "phpunit/phpunit": ">= 7.5"
+        },
+        "time": "2020-05-30T13:11:16+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "ZipStream\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Paul Duncan",
+                "email": "pabs@pablotron.org"
+            },
+            {
+                "name": "Jonatan Männchen",
+                "email": "jonatan@maennchen.ch"
+            },
+            {
+                "name": "Jesse Donat",
+                "email": "donatj@gmail.com"
+            },
+            {
+                "name": "András Kolesár",
+                "email": "kolesar@kolesar.hu"
+            }
+        ],
+        "description": "ZipStream is a library for dynamically streaming dynamic zip files from PHP without writing to the disk at all on the server.",
+        "keywords": [
+            "stream",
+            "zip"
+        ],
+        "funding": [
+            {
+                "url": "https://opencollective.com/zipstream",
+                "type": "open_collective"
+            }
+        ]
+    },
+    {
         "name": "markbaker/complex",
         "version": "1.4.8",
         "version_normalized": "1.4.8.0",
@@ -2980,17 +3049,17 @@
     },
     {
         "name": "phpoffice/phpspreadsheet",
-        "version": "1.12.0",
-        "version_normalized": "1.12.0.0",
+        "version": "1.13.0",
+        "version_normalized": "1.13.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/PHPOffice/PhpSpreadsheet.git",
-            "reference": "f79611d6dc1f6b7e8e30b738fc371b392001dbfd"
+            "reference": "21bfb5b3243b8ceb9eda499a4d699fc42c11a9d1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/f79611d6dc1f6b7e8e30b738fc371b392001dbfd",
-            "reference": "f79611d6dc1f6b7e8e30b738fc371b392001dbfd",
+            "url": "https://api.github.com/repos/PHPOffice/PhpSpreadsheet/zipball/21bfb5b3243b8ceb9eda499a4d699fc42c11a9d1",
+            "reference": "21bfb5b3243b8ceb9eda499a4d699fc42c11a9d1",
             "shasum": ""
         },
         "require": {
@@ -3007,18 +3076,19 @@
             "ext-xmlwriter": "*",
             "ext-zip": "*",
             "ext-zlib": "*",
+            "maennchen/zipstream-php": "^2.0",
             "markbaker/complex": "^1.4",
             "markbaker/matrix": "^1.2",
-            "php": "^7.1",
+            "php": "^7.2",
             "psr/simple-cache": "^1.0"
         },
         "require-dev": {
-            "dompdf/dompdf": "^0.8.3",
+            "dompdf/dompdf": "^0.8.5",
             "friendsofphp/php-cs-fixer": "^2.16",
             "jpgraph/jpgraph": "^4.0",
             "mpdf/mpdf": "^8.0",
             "phpcompatibility/php-compatibility": "^9.3",
-            "phpunit/phpunit": "^7.5",
+            "phpunit/phpunit": "^8.5",
             "squizlabs/php_codesniffer": "^3.5",
             "tecnickcom/tcpdf": "^6.3"
         },
@@ -3028,7 +3098,7 @@
             "mpdf/mpdf": "Option for rendering PDF with PDF Writer",
             "tecnickcom/tcpdf": "Option for rendering PDF with PDF Writer"
         },
-        "time": "2020-04-27T08:12:48+00:00",
+        "time": "2020-05-31T13:49:28+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -4838,31 +4908,184 @@
         ]
     },
     {
-        "name": "symfony/symfony",
-        "version": "v5.0.8",
-        "version_normalized": "5.0.8.0",
+        "name": "symfony/polyfill-php80",
+        "version": "v1.17.0",
+        "version_normalized": "1.17.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/symfony.git",
-            "reference": "be593537f4a1e7e7741104cfc551a85635fa9acf"
+            "url": "https://github.com/symfony/polyfill-php80.git",
+            "reference": "5e30b2799bc1ad68f7feb62b60a73743589438dd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/be593537f4a1e7e7741104cfc551a85635fa9acf",
-            "reference": "be593537f4a1e7e7741104cfc551a85635fa9acf",
+            "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/5e30b2799bc1ad68f7feb62b60a73743589438dd",
+            "reference": "5e30b2799bc1ad68f7feb62b60a73743589438dd",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=7.0.8"
+        },
+        "time": "2020-05-12T16:47:27+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.17-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Polyfill\\Php80\\": ""
+            },
+            "files": [
+                "bootstrap.php"
+            ],
+            "classmap": [
+                "Resources/stubs"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ion Bazan",
+                "email": "ion.bazan@gmail.com"
+            },
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "compatibility",
+            "polyfill",
+            "portable",
+            "shim"
+        ],
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "symfony/polyfill-uuid",
+        "version": "v1.17.0",
+        "version_normalized": "1.17.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/polyfill-uuid.git",
+            "reference": "6dbf0269e8aeab8253a5059c51c1760fb4034e87"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/polyfill-uuid/zipball/6dbf0269e8aeab8253a5059c51c1760fb4034e87",
+            "reference": "6dbf0269e8aeab8253a5059c51c1760fb4034e87",
+            "shasum": ""
+        },
+        "require": {
+            "paragonie/random_compat": "~1.0|~2.0|~9.99",
+            "php": ">=5.3.3"
+        },
+        "suggest": {
+            "ext-uuid": "For best performance"
+        },
+        "time": "2020-05-12T16:47:27+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.17-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Polyfill\\Uuid\\": ""
+            },
+            "files": [
+                "bootstrap.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Grégoire Pineau",
+                "email": "lyrixx@lyrixx.info"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony polyfill for uuid functions",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "compatibility",
+            "polyfill",
+            "portable",
+            "uuid"
+        ],
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
+        ]
+    },
+    {
+        "name": "symfony/symfony",
+        "version": "v5.1.0",
+        "version_normalized": "5.1.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/symfony.git",
+            "reference": "729e21c65356880bd9488588e726aa8735dcb52f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/729e21c65356880bd9488588e726aa8735dcb52f",
+            "reference": "729e21c65356880bd9488588e726aa8735dcb52f",
             "shasum": ""
         },
         "require": {
             "doctrine/event-manager": "~1.0",
             "doctrine/persistence": "^1.3",
             "ext-xml": "*",
-            "php": "^7.2.5",
+            "php": ">=7.2.5",
             "psr/cache": "~1.0",
             "psr/container": "^1.0",
             "psr/event-dispatcher": "^1.0",
             "psr/link": "^1.0",
             "psr/log": "~1.0",
-            "symfony/contracts": "^2",
+            "symfony/contracts": "^2.1",
             "symfony/polyfill-ctype": "~1.8",
             "symfony/polyfill-intl-grapheme": "~1.0",
             "symfony/polyfill-intl-icu": "~1.0",
@@ -4870,6 +5093,8 @@
             "symfony/polyfill-intl-normalizer": "~1.0",
             "symfony/polyfill-mbstring": "~1.0",
             "symfony/polyfill-php73": "^1.11",
+            "symfony/polyfill-php80": "^1.15",
+            "symfony/polyfill-uuid": "^1.15",
             "twig/twig": "^2.10|^3.0"
         },
         "conflict": {
@@ -4934,6 +5159,7 @@
             "symfony/translation": "self.version",
             "symfony/twig-bridge": "self.version",
             "symfony/twig-bundle": "self.version",
+            "symfony/uid": "self.version",
             "symfony/validator": "self.version",
             "symfony/var-dumper": "self.version",
             "symfony/var-exporter": "self.version",
@@ -4943,6 +5169,10 @@
             "symfony/yaml": "self.version"
         },
         "require-dev": {
+            "amphp/http-client": "^4.2",
+            "amphp/http-tunnel": "^1.0",
+            "async-aws/ses": "^1.0",
+            "async-aws/sqs": "^1.0",
             "cache/integration-tests": "dev-master",
             "doctrine/annotations": "~1.0",
             "doctrine/cache": "~1.6",
@@ -4970,11 +5200,11 @@
             "twig/inky-extra": "^2.12",
             "twig/markdown-extra": "^2.12"
         },
-        "time": "2020-04-28T18:53:47+00:00",
+        "time": "2020-05-31T06:14:54+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "5.0-dev"
+                "dev-master": "5.1-dev"
             }
         },
         "installation-source": "dist",

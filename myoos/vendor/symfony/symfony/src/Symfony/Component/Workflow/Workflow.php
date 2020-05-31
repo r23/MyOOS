@@ -33,6 +33,8 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class Workflow implements WorkflowInterface
 {
+    public const DISABLE_ANNOUNCE_EVENT = 'workflow_disable_announce_event';
+
     private $definition;
     private $markingStore;
     private $dispatcher;
@@ -187,11 +189,11 @@ class Workflow implements WorkflowInterface
         }
 
         if (!$transitionExist) {
-            throw new UndefinedTransitionException($subject, $transitionName, $this);
+            throw new UndefinedTransitionException($subject, $transitionName, $this, $context);
         }
 
         if (!$approvedTransitions) {
-            throw new NotEnabledTransitionException($subject, $transitionName, $this, $bestTransitionBlockerList);
+            throw new NotEnabledTransitionException($subject, $transitionName, $this, $bestTransitionBlockerList, $context);
         }
 
         foreach ($approvedTransitions as $transition) {
@@ -207,7 +209,9 @@ class Workflow implements WorkflowInterface
 
             $this->completed($subject, $transition, $marking);
 
-            $this->announce($subject, $transition, $marking);
+            if (!($context[self::DISABLE_ANNOUNCE_EVENT] ?? false)) {
+                $this->announce($subject, $transition, $marking);
+            }
         }
 
         return $marking;

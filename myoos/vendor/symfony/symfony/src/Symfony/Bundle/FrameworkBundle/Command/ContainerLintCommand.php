@@ -22,6 +22,7 @@ use Symfony\Component\DependencyInjection\Compiler\CheckTypeDeclarationsPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ParameterBag\EnvPlaceholderParameterBag;
 use Symfony\Component\HttpKernel\Kernel;
@@ -64,7 +65,15 @@ final class ContainerLintCommand extends Command
 
         $container->setParameter('container.build_time', time());
 
-        $container->compile();
+        try {
+            $container->compile();
+        } catch (InvalidArgumentException $e) {
+            $errorIo->error($e->getMessage());
+
+            return 1;
+        }
+
+        $io->success('The container was lint successfully: all services are injected with values that are compatible with their type declarations.');
 
         return 0;
     }
@@ -80,7 +89,7 @@ final class ContainerLintCommand extends Command
 
         if (!$kernel->isDebug() || !(new ConfigCache($kernelContainer->getParameter('debug.container.dump'), true))->isFresh()) {
             if (!$kernel instanceof Kernel) {
-                throw new RuntimeException(sprintf('This command does not support the application kernel: "%s" does not extend "%s".', \get_class($kernel), Kernel::class));
+                throw new RuntimeException(sprintf('This command does not support the application kernel: "%s" does not extend "%s".', get_debug_type($kernel), Kernel::class));
             }
 
             $buildContainer = \Closure::bind(function (): ContainerBuilder {
@@ -93,7 +102,7 @@ final class ContainerLintCommand extends Command
             $skippedIds = [];
         } else {
             if (!$kernelContainer instanceof Container) {
-                throw new RuntimeException(sprintf('This command does not support the application container: "%s" does not extend "%s".', \get_class($kernelContainer), Container::class));
+                throw new RuntimeException(sprintf('This command does not support the application container: "%s" does not extend "%s".', get_debug_type($kernelContainer), Container::class));
             }
 
             (new XmlFileLoader($container = new ContainerBuilder($parameterBag = new EnvPlaceholderParameterBag()), new FileLocator()))->load($kernelContainer->getParameter('debug.container.dump'));

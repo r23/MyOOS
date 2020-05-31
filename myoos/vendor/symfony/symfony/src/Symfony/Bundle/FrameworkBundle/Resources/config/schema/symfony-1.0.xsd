@@ -169,6 +169,7 @@
         <xsd:sequence>
             <xsd:element name="fallback" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="path" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="enabled-locale" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
         <xsd:attribute name="enabled" type="xsd:boolean" />
         <xsd:attribute name="fallback" type="xsd:string" />
@@ -561,6 +562,7 @@
             <xsd:element name="envelope" type="mailer_envelope" minOccurs="0" maxOccurs="1" />
         </xsd:sequence>
         <xsd:attribute name="dsn" type="xsd:string" />
+        <xsd:attribute name="message-bus" type="xsd:string" />
     </xsd:complexType>
 
     <xsd:complexType name="mailer_envelope">

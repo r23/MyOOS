@@ -95,7 +95,7 @@ class PdoStore implements PersistingStoreInterface
         } elseif (\is_string($connOrDsn)) {
             $this->dsn = $connOrDsn;
         } else {
-            throw new InvalidArgumentException(sprintf('"%s" requires PDO or Doctrine\DBAL\Connection instance or DSN string as first argument, "%s" given.', __CLASS__, \is_object($connOrDsn) ? \get_class($connOrDsn) : \gettype($connOrDsn)));
+            throw new InvalidArgumentException(sprintf('"%s" requires PDO or Doctrine\DBAL\Connection instance or DSN string as first argument, "%s" given.', __CLASS__, get_debug_type($connOrDsn)));
         }
 
         $this->table = $options['db_table'] ?? $this->table;
@@ -146,7 +146,7 @@ class PdoStore implements PersistingStoreInterface
     public function putOffExpiration(Key $key, float $ttl)
     {
         if ($ttl < 1) {
-            throw new InvalidTtlException(sprintf('"%s()" expects a TTL greater or equals to 1 second. Got %s.', __METHOD__, $ttl));
+            throw new InvalidTtlException(sprintf('"%s()" expects a TTL greater or equals to 1 second. Got "%s".', __METHOD__, $ttl));
         }
 
         $key->reduceLifetime($ttl);
@@ -193,7 +193,7 @@ class PdoStore implements PersistingStoreInterface
         $stmt->bindValue(':token', $this->getUniqueToken($key));
         $stmt->execute();
 
-        return (bool) $stmt->fetchColumn();
+        return (bool) (method_exists($stmt, 'fetchOne') ? $stmt->fetchOne() : $stmt->fetchColumn());
     }
 
     /**
@@ -249,11 +249,7 @@ class PdoStore implements PersistingStoreInterface
 
         if ($conn instanceof Connection) {
             $schema = new Schema();
-            $table = $schema->createTable($this->table);
-            $table->addColumn($this->idCol, 'string', ['length' => 64]);
-            $table->addColumn($this->tokenCol, 'string', ['length' => 44]);
-            $table->addColumn($this->expirationCol, 'integer', ['unsigned' => true]);
-            $table->setPrimaryKey([$this->idCol]);
+            $this->addTableToSchema($schema);
 
             foreach ($schema->toSql($conn->getDatabasePlatform()) as $sql) {
                 $conn->exec($sql);
@@ -283,6 +279,22 @@ class PdoStore implements PersistingStoreInterface
         }
 
         $conn->exec($sql);
+    }
+
+    /**
+     * Adds the Table to the Schema if it doesn't exist.
+     */
+    public function configureSchema(Schema $schema): void
+    {
+        if (!$this->getConnection() instanceof Connection) {
+            throw new \BadMethodCallException(sprintf('"%s::%s()" is only supported when using a doctrine/dbal Connection.', __CLASS__, __METHOD__));
+        }
+
+        if ($schema->hasTable($this->table)) {
+            return;
+        }
+
+        $this->addTableToSchema($schema);
     }
 
     /**
@@ -350,5 +362,14 @@ class PdoStore implements PersistingStoreInterface
             default:
                 return time();
         }
+    }
+
+    private function addTableToSchema(Schema $schema): void
+    {
+        $table = $schema->createTable($this->table);
+        $table->addColumn($this->idCol, 'string', ['length' => 64]);
+        $table->addColumn($this->tokenCol, 'string', ['length' => 44]);
+        $table->addColumn($this->expirationCol, 'integer', ['unsigned' => true]);
+        $table->setPrimaryKey([$this->idCol]);
     }
 }

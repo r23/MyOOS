@@ -16,6 +16,7 @@ use Symfony\Component\Console\Exception\LogicException;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\StyleInterface;
+use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
 /**
@@ -63,6 +64,22 @@ abstract class AbstractConfigCommand extends ContainerDebugCommand
     {
         $bundles = $this->initializeBundles();
         $minScore = INF;
+
+        $kernel = $this->getApplication()->getKernel();
+        if ($kernel instanceof ExtensionInterface && ($kernel instanceof ConfigurationInterface || $kernel instanceof ConfigurationExtensionInterface)) {
+            if ($name === $kernel->getAlias()) {
+                return $kernel;
+            }
+
+            if ($kernel->getAlias()) {
+                $distance = levenshtein($name, $kernel->getAlias());
+
+                if ($distance < $minScore) {
+                    $guess = $kernel->getAlias();
+                    $minScore = $distance;
+                }
+            }
+        }
 
         foreach ($bundles as $bundle) {
             if ($name === $bundle->getName()) {
@@ -116,7 +133,7 @@ abstract class AbstractConfigCommand extends ContainerDebugCommand
         }
 
         if (!$configuration instanceof ConfigurationInterface) {
-            throw new \LogicException(sprintf('Configuration class "%s" should implement ConfigurationInterface in order to be dumpable.', \get_class($configuration)));
+            throw new \LogicException(sprintf('Configuration class "%s" should implement ConfigurationInterface in order to be dumpable.', get_debug_type($configuration)));
         }
     }
 
