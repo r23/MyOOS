@@ -1319,37 +1319,18 @@ FileETag None
 </ifModule>
 
 
-# BEGINN CACHIFY
-# <IfModule mod_rewrite.c>
-#   RewriteEngine On
- 
-# <IfModule mod_mime.c>
-#   RewriteCond %{REQUEST_URI} /$
-#   RewriteCond %{REQUEST_URI} !^/wp-admin/.*
-#   RewriteCond %{REQUEST_METHOD} !=POST
-#   RewriteCond %{QUERY_STRING} =""
-#   RewriteCond %{HTTP_COOKIE} !(wp-postpass|wordpress_logged_in|comment_author)_
-#   RewriteCond %{HTTP:Accept-Encoding} gzip
-#   RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/cachify/%{HTTP_HOST}%{REQUEST_URI}/index.html.gz -f
-#   RewriteRule ^(.*) /wp-content/cache/cachify/%{HTTP_HOST}/$1/index.html.gz [L]
- 
-#   AddType text/html .gz
-#   AddEncoding gzip .gz
-# </IfModule>	
- 
-#  RewriteCond %{REQUEST_URI} /$
-#  RewriteCond %{REQUEST_URI} !^/wp-admin/.*
-#  RewriteCond %{REQUEST_METHOD} !=POST
-#  RewriteCond %{QUERY_STRING} =""
-#  RewriteCond %{HTTP_COOKIE} !(wp-postpass|wordpress_logged_in|comment_author)_
-#  RewriteCond %{DOCUMENT_ROOT}/wp-content/cache/cachify/%{HTTP_HOST}%{REQUEST_URI}/index.html -f
-#  RewriteRule ^(.*) /wp-content/cache/cachify/%{HTTP_HOST}/$1/index.html [L]
-# </IfModule>
-
 
 # BEGIN WordPress
 # Die Anweisungen (Zeilen) zwischen `BEGIN WordPress` und `END WordPress` sind
 # dynamisch generiert und sollten nur über WordPress-Filter geändert werden.
 # Alle Änderungen an den Anweisungen zwischen diesen Markierungen werden überschrieben.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /ent/MyOOS/wordpress/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /ent/MyOOS/wordpress/index.php [L]
+</IfModule>
 
 # END WordPress
