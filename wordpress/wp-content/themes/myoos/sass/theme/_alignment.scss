@@ -1,0 +1,138 @@
+#{$el-align-full}, 
+#{$el-align-wide} {
+	margin-bottom: $spacer;
+	margin-top: $spacer;
+	@include media-breakpoint-up(md) {
+		margin-bottom: $spacer*2;
+		margin-top: $spacer*2;
+	}
+	.entry-col-boxed .entry-content &, .site-boxed &, .has-sidebar .entry-content & {
+		max-width: 100%;
+		left: initial;
+		width: auto;
+	}
+}
+#{$el-align-wide} {
+	position: relative;
+	max-width: calc(100vw - #{$grid-gutter-width});
+	left: calc(50% - 50vw + #{$grid-gutter-width/2});
+	width: calc(100vw - #{$grid-gutter-width});
+	@include media-breakpoint-up(md) {
+		+ #{$el-align-wide} {
+			margin-top: -$spacer;
+		}
+	}
+	@include media-breakpoint-up(xl) {
+		.entry-col-boxed .entry-content &, .site-boxed & {
+			max-width: 100%;
+			left: initial;
+			width: auto;
+		}
+	}
+	@include media-breakpoint-up(xxl) {
+		max-width: calc(#{map-get($grid-breakpoints, 'xxl')} - #{$grid-gutter-width});
+		left: calc(50% - #{map-get($grid-breakpoints, 'xxl')/2} + #{$grid-gutter-width/2});
+		width: calc(#{map-get($grid-breakpoints, 'xxl')} - #{$grid-gutter-width});
+	}
+}
+
+#{$el-align-full} {
+	left: calc(50% - 50vw);
+	max-width: 100vw;
+	position: relative;
+	width: 100vw;
+	@include media-breakpoint-up(md) {
+		+ #{$el-align-full} {
+			margin-top: -$spacer;
+		}
+	}
+	@include media-breakpoint-down(md) {
+		&:not([class*="has-background"]) > {
+			.wp-block-group__inner-container > p:not(.has-background-color) {
+				padding-left: $spacer*2/3;
+				padding-right: $spacer*2/3;
+			}
+		}
+	}
+	#{$el-align-full} {
+		@include media-breakpoint-down(sm) {
+			left: 0;
+			max-width: 100%;
+			width: 100%;
+		}
+	}
+}
+
+#{$el-align-none},
+#{$el-align-center} {
+	max-width: 100%;
+	margin-bottom: $spacer * 0.5;
+	margin-top: $spacer * 0.5;
+}
+#{$el-align-center} {
+	margin-left: auto;
+	margin-right: auto;
+	img {
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+.alignleft,
+.alignright {
+	margin-top: $spacer * 0.5;
+	margin-bottom: $spacer * 0.5;
+	&, .entry-content & {
+		max-width: 100%;
+	}
+	@include media-breakpoint-up(sm) {
+		&, .entry-content & {
+			max-width: 50%;
+		}
+	}
+	@include media-breakpoint-up(lg) {
+        margin-bottom: $spacer * 0.5;
+		margin-top: $spacer * 0.5;
+    }
+    @include media-breakpoint-up(xl) {
+        margin-bottom: $spacer * 0.5;
+        margin-top: $spacer * 0.5;
+    }
+}
+.alignleft {
+	@include media-breakpoint-up(sm) {
+		float: left;
+		margin-right: $spacer * 0.5;
+	}
+	@include media-breakpoint-up(xl) {
+		.entry-content > & {
+			margin-left: calc(-1*(100vw - var(--content-width))/2);
+		}
+		.entry-col-boxed .entry-content &, .site-boxed .entry-content &, .has-sidebar .entry-content & {
+			margin-left: 0px;
+		}
+	}
+	@include media-breakpoint-up(xxl) {
+		.entry-content > & {
+			margin-left: calc( -1*(#{map-get($grid-breakpoints, 'xxl')} - var(--content-width))/2);
+		}
+	}
+}
+.alignright {
+	@include media-breakpoint-up(sm) {
+		float: right;
+		margin-left: $spacer * 0.5;
+	}
+	@include media-breakpoint-up(xl) {
+		.entry-content > & {
+			margin-right: calc(-1*(100vw - var(--content-width))/2);
+		}
+		.entry-col-boxed .entry-content &, .site-boxed .entry-content &, .has-sidebar .entry-content & {
+			margin-right: 0px;
+		}
+	}
+	@include media-breakpoint-up(xxl) {
+		.entry-content > & {
+			margin-right: calc( -1*(#{map-get($grid-breakpoints, 'xxl')} - var(--content-width))/2);
+		}
+	}
+}

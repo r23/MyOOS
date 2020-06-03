@@ -1,0 +1,75 @@
+@include editor-wrap(true) {
+    h1, .h1 { @include adjusted-size($font-size-base * 2.5, '--body-font-size', '--headers-font-size') }
+    h2, .h2 { @include adjusted-size($font-size-base * 2, '--body-font-size', '--headers-font-size') }
+    h3, .h3 { @include adjusted-size($font-size-base * 1.75, '--body-font-size', '--headers-font-size') }
+    h4, .h4 { @include adjusted-size($font-size-base * 1.5, '--body-font-size', '--headers-font-size') }
+    h5, .h5 { @include adjusted-size($font-size-base * 1.25, '--body-font-size', '--headers-font-size') }
+    h6, .h6 { @include adjusted-size($font-size-base, '--body-font-size', '--headers-font-size') }
+    h1, h2, h3, h4, h5, h6,
+    .h {
+      margin-bottom: $headings-margin-bottom;
+      font-weight: $headings-font-weight;
+      line-height: $headings-line-height;
+    }
+}
+
+%h-separator {
+    content: "";
+    display: block;
+    width: 3em;
+    height: 0.1em;
+    background-color: currentColor;
+    border-radius: var(--roundness);
+}
+
+h1, h2, h3, h4, h5, h6, .h { 
+    body.h-style-separator:not(.h-style-separator-bottom) &::before {
+        @extend %h-separator;
+        margin-bottom: .5em;
+        background-color: var(--color-accent);
+    }
+    body.h-style-separator.h-style-separator-bottom &::after {
+        @extend %h-separator;
+        margin-top: .5em;
+        background-color: var(--color-accent);
+    }
+    body.h-style-separator.h-style-separator-hl & {
+        &::before, &::after {
+            background-color: var(--color-accent-hl);
+        }
+    }
+    body.h-style-separator .text-center &,
+    body.h-style-separator &[style*="text-align: center"],
+    body.h-style-separator &.has-text-align-center {
+        &::before, &::after {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    body.h-style-separator .text-right &, 
+    body.h-style-separator &[style*="text-align: right"],
+    body.h-style-separator &.has-text-align-right {
+        &::before, &::after {
+            margin-left: auto;
+        }
+    }
+    body.h-style-separator .text-left &,
+    body.h-style-separator &[style*="text-align: left"],
+    body.h-style-separator &.has-text-align-left {
+        &::before, &::after {
+            margin-left: auto;
+        }
+    }
+}
+.h-style-disable,
+.h-style-disable-top {
+    &::before {
+        display: none !important;
+    }
+}
+.h-style-disable,
+.h-style-disable-bottom {
+    &::after {
+        display: none !important;
+    }
+}

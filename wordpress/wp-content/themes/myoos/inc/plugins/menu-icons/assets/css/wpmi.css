@@ -1,0 +1,19 @@
+i.wpmi-icon {
+  display: inline-block;
+}
+i.wpmi-icon:not(.wpmi-label-1).wpmi-position-before {
+  margin-right: 0.5em;
+}
+i.wpmi-icon:not(.wpmi-label-1).wpmi-position-after {
+  margin-left: 0.5em;
+}
+i.wpmi-icon.wpmi-align-top {
+  vertical-align: top;
+}
+i.wpmi-icon.wpmi-align-middle {
+  vertical-align: middle;
+}
+i.wpmi-icon.wpmi-align-bottom {
+  vertical-align: bottom;
+}
+/*# sourceMappingURL=wpmi.css.map */

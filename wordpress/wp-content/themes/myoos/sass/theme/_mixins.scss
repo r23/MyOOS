@@ -1,0 +1,47 @@
+@mixin bg-solid-layer($bg-color) {
+    position: absolute;
+    background-color: $bg-color;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+@mixin adjusted-size($size, $adjust, $adjust2: false, $prop: 'font-size') {
+    @if $adjust2 {
+        #{$prop}: calc( #{$size} * (var(#{$adjust}) / 100) * (var(#{$adjust2}) / 100) );
+    }
+    @else {
+        #{$prop}: calc( #{$size} * (var(#{$adjust}) / 100) );
+    }
+}
+
+@mixin adjusted-shadow($adjust: 1, $position: false) {
+    // Usless calc is a for IE11 to disable shadows as they can't be handled. We might fix it one day if necessary.
+    @if $position == 'bottom' {
+        box-shadow:0 calc( var(--shadows) * #{$adjust} ) calc(#{30px*$adjust}) #{-30px*$adjust} rgba(0,0,0,.5);
+    }
+    @else {
+        box-shadow:0 0 calc(#{30px*$adjust}) calc(#{-30px*$adjust} + var(--shadows) * #{$adjust} ) rgba(0,0,0,.5);
+    }
+}
+
+@mixin editor-wrap($strong: false) {
+    @if($editor) {
+        @if($strong) {
+            .edit-post-visual-editor.editor-styles-wrapper {
+                @content;
+            }
+        }
+        @else {
+            .editor-styles-wrapper {
+                @content;
+            }
+        }
+    }
+    @else {
+      @content;
+    }
+}

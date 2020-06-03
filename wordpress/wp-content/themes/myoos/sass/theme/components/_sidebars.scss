@@ -1,0 +1,84 @@
+body.sidebars-check-sticky {
+    #right-sidebar, #left-sidebar {
+        .sidebar-widget-area-content {
+            top: $spacer;
+        }
+    }
+    &.navbar-main-sticky-top {
+        #right-sidebar .sidebar-widget-area-content {
+            top: calc( var(--header-main-height) + #{$spacer - 1.5rem} );
+        }
+        #left-sidebar .sidebar-widget-area-content {
+            top: calc( var(--header-main-gap-height) + var(--header-main-height) + #{$spacer*1.25  - 1.5rem} );
+        }
+        &.admin-bar {
+            #right-sidebar .sidebar-widget-area-content {
+                top: calc(  #{$wp-admin-bar-height} + var(--header-main-height) + #{$spacer - 1.5rem} );
+            }
+            #left-sidebar .sidebar-widget-area-content {
+                top: calc( #{$wp-admin-bar-height} + var(--header-main-gap-height) + var(--header-main-height) + #{$spacer*1.25  - 1.5rem} );
+            }
+        }
+    }
+    @include media-breakpoint-up(md) {
+        .sidebar-widget-area-content.sidebar-sticky {
+            position: sticky;
+        }
+    }
+}
+
+.sidebar-widget-area-boxed {
+    .sidebar-widget-area-content {
+        @extend %color-boxes;
+        padding: $spacer * 0.5 $spacer*2/3;
+        border-radius: $border-radius;
+        body:not(.shadows-disabled) & {
+            @include adjusted-shadow();
+        }
+    }
+}
+
+.sidebar-widget-area {
+    table {
+        th, td {
+            padding: $spacer/8;
+        }
+    }
+}
+
+.widget {
+    margin-bottom: $spacer * 0.5;
+    ul {
+        list-style: none;
+        padding-left: 0px;
+        ul {
+            padding-left: $spacer;
+        }
+    }
+    a {
+        font-weight: bold;
+    }
+    .widget-title {
+        &::before, &::after {
+            display: none;
+        }
+    }
+    .sidebar-widget &:first-child .widget-title {
+        margin-top: 0;
+    }
+}
+
+.widget_nav_menu a {
+    &, &:hover {
+        text-decoration: none;
+    }
+    .menu-item-text {
+        text-decoration: underline;
+    }
+    .nav-icon-position-after {
+        margin-left: 0.5em;
+    }
+    .nav-icon-position-before {
+        margin-right: 0.5em;
+    }
+}

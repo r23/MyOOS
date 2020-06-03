@@ -1,0 +1,312 @@
+@include editor-wrap() {
+	a, %a {
+		transition: opacity 0.5s ease, color 0.5s ease;
+		&:hover {
+			text-decoration: underline;
+			opacity: 0.8;
+		}
+	}
+
+	figure,
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	hr {
+		margin-top: $hr-margin-y;
+		margin-bottom: $hr-margin-y;
+		border: 0;
+		border-top-style: solid;
+		border-top-width: $hr-border-width;
+		border-color: currentColor;
+
+		// This will not work in IE11. Its gonna use regular font color instead.
+		border-color: var(--color-accent);
+		color: var(--color-accent);
+	}
+
+	input[type="text"]:not(.form-control), 
+	input[type="tel"]:not(.form-control), 
+	input[type="email"]:not(.form-control), 
+	input[type="search"]:not(.form-control), 
+	textarea:not(.form-control),
+	select:not(.form-control) {
+		@extend .form-control;
+	}
+	input[type="button"]:not(.btn):not(.form-control) {
+		@extend .btn;
+		@extend .btn-secondary;
+	}
+	input[type="submit"]:not(.btn):not(.form-control) {
+		@extend .btn;
+		@extend .btn-primary;
+	}
+
+	i {
+		font-style: normal;
+	}
+
+	small,
+	.small {
+		@include font-size($small-font-size);
+		font-weight: $font-weight-normal;
+	}
+
+	mark,
+	.mark {
+		padding: $mark-padding;
+		background-color: $mark-bg;
+	}
+
+	p.has-background {
+		padding: $spacer*1/2;
+		@include media-breakpoint-up(md) {
+			padding: $spacer*2/3;
+		}
+	}
+
+	blockquote {
+		border-color: currentColor;
+		border-color: var(--color-accent-hl);
+		border-style: solid;
+		border-width: 0 0 0 2px;
+		margin: $spacer 0;
+		padding: $spacer/6 0 $spacer/6 $spacer * 0.5;
+		cite {
+			display: block;
+			margin: $spacer * 0.5 0 0;
+		}
+		p:last-child {
+			margin: 0;
+		}
+	}
+	cite {
+		opacity: 0.8;
+		font-size: 0.8em;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1.25;
+	}
+	samp, code, kbd {
+		color: var(--color-boxes-contrast);
+		font-family: monospace;
+		font-size: 0.9em;
+		padding: $spacer/12 $spacer/10;
+		background: var(--color-boxes);
+	}
+	pre {
+		font-family: monospace;
+		font-size: 0.9em;
+		padding: $spacer/6 $spacer/5;
+		line-height: 1.5;
+		margin: $spacer*4/3 0;
+		overflow: auto;
+		padding: $spacer $spacer*2/3;
+		text-align: left;
+		border-style: solid;
+		border-width: 2px;
+		border-color: currentColor;
+		border-color: var(--color-accent);
+		code {
+			background: transparent;
+			padding: 0;
+		}
+	}
+
+	figure {
+		display: block;
+		margin: 0;
+	}
+	iframe {
+		display: block;
+		max-width: 100%;
+	}
+	video {
+		display: block;
+	}
+	svg {
+		display: block;
+		height: auto;
+		max-width: 100%;
+	}
+	img {
+		//display: block;
+		height: auto;
+		max-width: 100%;
+	}
+	embed {
+		display: block;
+		height: auto;
+		max-width: 100%;
+	}
+	object {
+		display: block;
+		height: auto;
+		max-width: 100%;
+	}
+	figcaption, %figcaption {
+		a {
+			color: inherit;
+		}
+		opacity: 0.8;
+		font-size: 0.8em;
+		margin-bottom: 0;
+		margin-top: $spacer * 0.5;
+		@include media-breakpoint-up(md) {
+			font-size: 1em;
+		}
+	}
+
+	table {
+		background-color: var(--color-bg);
+		border-collapse: collapse;
+		border-spacing: 0;
+		empty-cells: show;
+		max-width: 100%;
+		width: 100%;
+		a:not(.btn) {
+			@extend %a;
+			color: var(--color-bg-accent) !important;
+		}
+		&, & tbody {
+			color: var(--color-bg-contrast);
+		}
+		thead {
+			vertical-align: bottom;
+			white-space: nowrap;
+		}
+		th {
+			background: var(--color-boxes);
+			color: var(--color-boxes-contrast);
+			border: 1px solid var(--color-bg);
+			border-bottom: none;
+			line-height: 1.4;
+			margin: 0;
+			overflow: visible;
+			padding: $spacer/4;
+			font-weight: 700;
+			a {
+				color: inherit !important;
+			}
+			&:first-child {
+				border-left: 1px solid var(--color-boxes);
+			}
+			&:last-child {
+				border-right: 1px solid var(--color-boxes);
+			}
+		}
+
+		td {
+			border: 1px solid var(--color-boxes);
+			line-height: 1.4;
+			margin: 0;
+			overflow: visible;
+			padding: $spacer/4;
+		}
+
+		tfoot {
+			background-color: var(--color-boxes);
+			td {
+				a {
+					@extend %a;
+					color: var(--color-boxes-accent) !important;
+				}
+			}
+		}
+
+		caption {
+			caption-side: top;
+			background-color: var(--color-boxes);
+			color: var(--color-boxes-contrast);
+		}
+	}
+
+	caption {
+		background: var(--color-boxes-accent);
+		color: var(--color-boxes-accent-contrast);
+		font-weight: 600;
+		padding: $spacer/4;
+		text-align: center;
+	}
+}
+
+.gallery {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 3em 0 3em -0.8em;
+	width: calc(100% +1.6em);
+}
+.gallery-item {
+	margin: 0.8em 0;
+	padding: 0 0.8em;
+	width: 100%;
+}
+.gallery-caption {
+	display: block;
+	margin-top: 0.8em;
+}
+
+.list-unstyled {
+	@include list-unstyled();
+}
+
+.list-inline {
+	@include list-unstyled();
+}
+.list-inline-item {
+	display: inline-block;
+
+	&:not(:last-child) {
+		margin-right: $list-inline-padding;
+	}
+}
+
+.has-drop-cap {
+	&:not(:focus)::first-letter {
+		color: currentColor;
+		color: var(--color-accent-hl);
+		font-size: 5.1em;
+		font-weight: 800;
+		margin: 0.05em 0.1em 0 0;
+	}
+	&:not(:focus)::first-letter::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	&:not(:focus)::after {
+		padding: 0;
+	}
+}
+
+.has-text-align-left {
+	text-align: left;
+}
+.has-text-align-center {
+	text-align: center;
+}
+.has-text-align-right {
+	text-align: right;
+}
+
+.has-small-font-size {
+	font-size: 0.813em;
+}
+.has-medium-font-size {
+	font-size: 1.250em;
+}
+.has-large-font-size {
+	font-size: 2.250em;
+}
+.has-huge-font-size {
+	font-size: 2.625em;
+}
+
+.form-control {
+	background-clip: initial;
+}
+
+.pt-header-main-height {
+	padding-top: calc( var(--header-main-gap-height) + var(--header-main-height) );
+}

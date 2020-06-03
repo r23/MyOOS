@@ -1,0 +1,109 @@
+.modal {
+    body.admin-bar & {
+        padding-top: $wp-admin-bar-height-sm;
+        @include media-breakpoint-up(md) {
+            padding-top: $wp-admin-bar-height;
+        }
+    }
+    .close {
+        transition: opacity 0.5s;
+        opacity: 1;
+        &:not(:disabled):not(.disabled):hover {
+            opacity: 0.8;
+        }
+    }
+
+    .modal-content {
+        body:not(.shadows-disabled) & {
+            @include adjusted-shadow();
+        }
+    }
+}
+
+.modal.fade.modal-slide-in-right {
+    padding-right: 0px !important;
+
+    &.show .modal-dialog {
+        transform: none;
+    }
+    .modal-dialog {
+        transform: translate(50px,0);
+        margin: 0 0 0 auto;
+    }
+    .modal-content {
+        min-height: 100vh;
+        body.admin-bar & {
+            min-height: calc( 100vh - #{$wp-admin-bar-height-sm} );
+            @include media-breakpoint-up(md) {
+                min-height: calc( 100vh - #{$wp-admin-bar-height} );
+            }
+        }
+    }
+
+    .wp-block-columns {
+        flex-wrap: wrap;
+    }
+    .wp-block-column {
+        flex-basis: 100% !important;
+        margin-bottom: $spacer * 0.5;
+        margin-left: 0;
+    }
+    .alignwide, .alignfull {
+        width: 100%;
+        left: auto;
+    }
+    .alignfull:not([class*=has-background]) .wp-block-column:nth-child(odd)>p:not(.has-background-color) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .dropdown-megamenu-menu-container {
+        padding-left: $spacer;
+        padding-right: $spacer;
+        padding-bottom: $spacer * 0.5;
+        > :first-child {
+            margin-top: 0;
+        }
+        > :last-child, .wp-block-column:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.modal-slide-in-top {
+    &.show .modal-dialog {
+        transform: none;
+    }
+    .modal-dialog {
+        transform: translate(0,50px);
+        margin-top: 0px;
+    }
+}
+
+.modal-padding-lg {
+    .modal-body {
+        padding: $spacer;
+    }
+}
+
+.btn-modal-slide-in-menu-holder {
+    display: none;
+    @include media-breakpoint-down(md) {
+        &.has-mobile {
+            display: block;
+        }
+    }
+    @include media-breakpoint-up(md) {
+        &.has-desktop {
+            display: block;
+        }
+    }
+}
+
+#modal-slide-in-menu nav {
+    @include media-breakpoint-down(md) {
+        &:not(.menu-mobile) {
+            display: none;
+        }
+    }
+}

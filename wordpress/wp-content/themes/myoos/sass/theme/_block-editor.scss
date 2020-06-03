@@ -1,0 +1,56 @@
+// WordPress admin uses 13px at document root instead of default 16px font size.
+.edit-post-visual-editor.editor-styles-wrapper {
+    @include adjusted-size(16px, '--body-font-size');
+}
+
+.wp-block {
+    max-width: calc( var(--content-width) - #{$grid-gutter-width} );
+}
+
+[data-align=wide] {
+    left: 0;
+    .wp-block {
+        max-width: 100%;
+    }
+}
+
+[data-align=full] {
+    max-width: none;
+    left: 0;
+    width: auto;
+    [data-align=full] .wp-block {
+        max-width: 100%;
+    }
+}
+
+[data-align=left], [data-align=right] {
+    margin: 0 auto;
+    max-width: var(--site-width);
+
+    .wp-block-cover {
+        width: calc( var(--content-width) / 2 );
+        max-width: calc( var(--content-width) / 2 );
+    }
+}
+
+.wp-block-group__inner-container .editor-inner-blocks > .editor-block-list__layout > {
+    .wp-block:first-child {
+        margin-top: 0;
+    }
+    .wp-block:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.wp-block-search .wp-block-search__button .wp-block-search__button-rich-text {
+    padding: 0;
+}
+
+.wp-block-cover .block-editor-block-list__block {
+    color: inherit;
+}
+
+.block-editor-block-preview__content .block-editor-block-list__block {
+    margin-top: 0;
+    margin-bottom: 0;
+}

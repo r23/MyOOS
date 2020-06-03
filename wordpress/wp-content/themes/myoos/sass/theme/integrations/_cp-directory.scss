@@ -1,0 +1,17 @@
+/*
+ * Adds basic styling to directory module included with theme.
+ */
+
+.cp-dir-controls {
+    display: flex;
+    background-color: var(--color-boxes);
+}
+.cp-dir-control {
+    margin: $spacer/5;
+}
+.cp-dir-control-search {
+    flex-grow: 2;
+}
+.cp-dir-control-select {
+    flex-grow: 1;
+}

@@ -1,0 +1,137 @@
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+#menu-to-edit > li .menu-item-bar .menu-item-wpmi_open {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  line-height: 42px;
+  height: 42px;
+  cursor: pointer;
+}
+#menu-to-edit > li .menu-item-bar .menu-item-wpmi_open > i {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+  width: 42px;
+  height: 42px;
+  line-height: 42px;
+  vertical-align: middle;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.5;
+  text-align: center;
+}
+#menu-to-edit > li .menu-item-bar .menu-item-wpmi_open > i.menu-item-wpmi_plus {
+  font-size: 14px;
+  vertical-align: bottom;
+  margin: 2px 0 0 0;
+}
+#menu-to-edit > li .menu-item-bar .menu-item-wpmi_open > i.menu-item-wpmi_icon + i.menu-item-wpmi_plus {
+  opacity: 0;
+  -webkit-transform: scale(0.5);
+  -moz-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  -o-transform: scale(0.5);
+}
+#menu-to-edit > li .menu-item-bar .menu-item-wpmi_open:hover > i.menu-item-wpmi_icon {
+  opacity: 0;
+  -webkit-transform: scale(0.1);
+  -moz-transform: scale(0.1);
+  -ms-transform: scale(0.1);
+  -o-transform: scale(0.1);
+}
+#menu-to-edit > li .menu-item-bar .menu-item-wpmi_open:hover > i.menu-item-wpmi_plus,
+#menu-to-edit > li .menu-item-bar .menu-item-wpmi_open:hover > i.menu-item-wpmi_icon + i.menu-item-wpmi_plus {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+}
+#menu-to-edit > li .menu-item-bar .item-title {
+  margin-left: 24px;
+}
+#wpmi_modal .wp-core-ui .attachment .thumbnail,
+#wpmi_modal .wp-core-ui .attachment-info .thumbnail {
+  vertical-align: middle;
+  text-align: center;
+}
+#wpmi_modal .wp-core-ui .attachment .thumbnail:before,
+#wpmi_modal .wp-core-ui .attachment-info .thumbnail:before {
+  content: '';
+  display: inline-block;
+  width: 0px;
+  height: 100%;
+  vertical-align: middle;
+}
+#wpmi_modal .wp-core-ui .attachment .thumbnail > i,
+#wpmi_modal .wp-core-ui .attachment-info .thumbnail > i {
+  text-align: center;
+  font-size: 3vw;
+  display: inline-block;
+  vertical-align: middle;
+  height: auto;
+  width: auto;
+}
+#wpmi_modal .wp-core-ui .attachment-info .thumbnail {
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+}
+#wpmi_modal .wp-core-ui .attachment-info .thumbnail > i {
+  font-size: 2em;
+  position: relative;
+  left: -1px;
+}
+#wpmi_modal .setting > label, #wpmi_modal .setting-color-picker > label {
+  display: block;
+  margin-bottom: 8px;
+}
+#wpmi_modal .setting-color-picker {
+  margin-bottom: 10px;
+}
+#wpmi_modal .setting-color-picker .wp-picker-input-wrap label {
+  margin-right: 6px;
+}
+/*# sourceMappingURL=admin.css.map */

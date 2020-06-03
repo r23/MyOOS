@@ -1,0 +1,80 @@
+// Modified bootstrap _buttons.sccs.
+
+%btn, 
+.btn {
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.5s ease, background-color 0.5s ease;
+    font-weight: 600;
+    font-variation-settings: 'wght' 600;
+    border-style: solid;
+    border-width: 0;
+    display: inline-block;
+    color: $body-color;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
+    body:not(.shadows-disabled) &:not(:focus) {
+        @include adjusted-shadow(0.7);
+    }
+    i {
+        display:inline-block;
+        text-decoration: none;
+        vertical-align: middle;
+        font-size: 1.35em;
+    }
+    &:hover {
+        text-decoration: underline;
+        opacity: 0.85;
+    }
+
+    p &:not(:first-child) {
+        margin-left: $spacer/6;
+    }
+    p &:not(:last-child) {
+        margin-right: $spacer/6;
+    }
+
+    /*
+    @supports ( font-variation-settings: normal ) {
+        body.font-up & {
+            padding-bottom: $btn-padding-y+0.15rem;
+        }
+        body.font-down & {
+            padding-top: $btn-padding-y+0.15rem;
+        }
+    }
+    */
+}
+
+body.btn-style-outline .btn,
+.is-style-outline .btn,
+%btn-outline {
+    border-width: $btn-padding-y*0.4;
+    padding: $btn-padding-y*0.6 $btn-padding-x*0.9;
+    &:not(:hover) {
+        background-color: transparent !important;
+        border-color: currentColor !important;
+    }
+    &:hover {
+        text-decoration: none;
+        opacity: 1;
+    }
+}
+
+.btn-lg {
+    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
+}
+
+.btn-sm {
+    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    + .btn-block {
+        margin-top: $btn-block-spacing-y;
+    }
+}

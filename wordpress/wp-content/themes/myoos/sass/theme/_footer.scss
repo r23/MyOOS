@@ -1,0 +1,44 @@
+#wrapper-footer {
+    overflow: hidden;
+    position: relative;
+    body:not(.shadows-disabled) & {
+        @include adjusted-shadow();
+    }
+    @include media-breakpoint-up(xl) {
+        padding-top: $spacer;
+        padding-bottom: $spacer;
+    }
+}
+#footer-full-content {
+    position: relative;
+    padding-bottom: $spacer * 0.5;
+    margin-bottom: $spacer * 0.5;
+}
+#footer-content {
+    z-index: 2;
+    position: relative;
+}
+
+#footer-image-holder {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    &::after {
+        position: absolute;
+        background-color: var(--footer-main-bg-color);
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity:0.9;
+    }
+}

@@ -1,0 +1,119 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 782px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1330px
+);
+
+$spacer: 3rem;
+
+$font-size-base: 1em;
+$font-size-lg: $font-size-base * 1.25;
+$font-size-sm: $font-size-base * .875;
+
+$close-font-size: 1.5rem;
+
+$grid-gutter-width: $spacer;
+
+$enable-gradients: false;
+$enable-shadows: false;
+
+$border-radius: var(--roundness);
+$border-radius-lg: 0;
+$border-radius-sm: 0;
+//$enable-rounded: false;
+
+$box-shadow-sm: none;
+$box-shadow: none;
+$box-shadow-lg: none;
+
+$link-decoration: underline;
+$link-color: null;
+$link-hover-color: null;
+$link-hover-decoration: null;
+
+$nav-link-height: 0;
+$navbar-brand-height: 0;
+$navbar-brand-padding-y: 0;
+$navbar-brand-font-size: null;
+
+$navbar-nav-link-padding-x: 0rem; 
+$navbar-padding-y: $spacer * 0.5; 
+$navbar-padding-x: $spacer * 0.5; 
+
+$nav-link-padding-y: .5em;
+$nav-link-padding-x: 1em;
+
+$dropdown-spacer: $spacer/5;
+$caret-width: .3em;
+$caret-spacing: $caret-width*1.5;
+$dropdown-border-width: 0;
+$dropdown-bg: null;
+$dropdown-link-active-bg: null;
+$dropdown-link-hover-bg: null;
+$dropdown-color: null;
+
+$btn-active-box-shadow: none;
+$btn-font-size: 1em;
+$btn-font-size-lg: 1.25em;
+$btn-font-size-sm: 0.75em;
+$btn-focus-box-shadow: null;
+$btn-transition: null;
+$btn-font-weight: null;
+
+$headings-margin-bottom: $spacer / 2;
+$headings-font-weight: 500;
+$headings-line-height: 1.15;
+
+$input-font-size: calc( #{$font-size-base} * (var(--body-font-size) / 100) );
+$input-font-size-lg: calc( #{$font-size-lg} * (var(--body-font-size) / 100) );
+$input-font-size-sm: calc( #{$font-size-sm} * (var(--body-font-size) / 100) );
+
+$hr-border-width: 2px;
+
+//jumbotron
+$jumbotron-bg: null;
+
+// Breadcrumb
+$breadcrumb-padding-y: 0.25rem;
+$breadcrumb-padding-x: 0.5rem;
+$breadcrumb-bg: null;
+$breadcrumb-divider-color: null;
+$breadcrumb-active-color: null;
+$breadcrumb-margin-bottom: null;
+//$breadcrumb-border-radius
+
+// Modals
+$modal-inner-padding: 1rem;
+$modal-dialog-margin: .5rem ;
+$modal-dialog-margin-y-sm-up: 1.75rem;
+$modal-content-color: null;
+$modal-content-bg: null;
+$modal-backdrop-bg: var(--color-bg);
+$modal-backdrop-opacity: .8;
+$modal-content-border-width: 0;
+$modal-header-border-width: 0;
+$modal-footer-border-width: 0;
+$modal-show-transform: none;
+$modal-transition: transform .3s ease-out;
+
+$close-color: currentColor;
+
+$theme-colors: ();
+$colors: ();
+$body-color: null;
+$h1-font-size: null;
+$h2-font-size: null;
+$h3-font-size: null;
+$h4-font-size: null;
+$h5-font-size: null;
+$h6-font-size: null;
+$hr-margin-y: null;
+
+
+// Its impossible to use this concept while supporting IE.
+//$link-color: var(--link-color);
+//$dropdown-bg: var(--bg-color);
+//$dropdown-color: var(--text-color);

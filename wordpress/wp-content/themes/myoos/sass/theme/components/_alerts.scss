@@ -1,0 +1,14 @@
+#site-alert {
+    border-radius: 0;
+    margin-bottom: 0;
+    :last-child {
+        margin-bottom: 0;
+    }
+    .close {
+        transition: opacity 0.5s;
+        opacity: 0.8;
+        &:not(:disabled):not(.disabled):hover {
+            opacity: 1;
+        }
+    }
+}

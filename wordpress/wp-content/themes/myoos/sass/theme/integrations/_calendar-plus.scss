@@ -1,0 +1,164 @@
+/*
+ * Adds integration with Calendar Plus plugin.
+ */
+
+body .calendar-plus {
+    .calendar-plus-calendar-wrap {
+        @extend %block-spacing;
+    }
+    .calendar-plus-filter-bar {
+        overflow: initial;
+        @include media-breakpoint-up(sm) {
+            display: flex;
+            > p {
+                flex-grow: 1;
+            }
+            p:not(:last-child) {
+                margin-right: $spacer/3;
+                margin-bottom: $spacer/3;
+            }
+        }
+    }
+    #calendar-plus-search,
+    #calendar-plus-category {
+        @extend .form-control;
+    }
+    .rbc-toolbar {
+        flex-wrap: initial;
+        margin-bottom: $spacer/3;
+        button {
+            background: var(--color-boxes);
+            color: var(--color-boxes-contrast);
+            border: none;
+            outline-color: var(--color-boxes-accent-a);
+            font-size: 0.9em * .875;
+            margin: 0;
+            &.rbc-active, &.rbc-active:focus {
+                background: var(--color-boxes-accent-hl);
+                color: var(--color-boxes-accent-hl-contrast);
+                opacity: 1;
+            }
+            &:hover {
+                background: var(--color-boxes-accent);
+                color: var(--color-boxes-accent-contrast);
+            }
+        }
+        @include media-breakpoint-down(sm) {
+            justify-content: left;
+            > *:not(:last-child) {
+                margin-bottom: $spacer/3;
+            }
+        }
+    }
+    .rbc-date-cell,
+    .rbc-header {
+        background: var(--color-boxes);
+        color: var(--color-boxes-contrast);
+    }
+    .rbc-header {
+        padding: $spacer/6 $spacer/12;
+        border-bottom-color: var(--color-bg);
+        font-weight: bold;
+        font-size: 1em;
+        > a {
+            color: var(--color-boxes-contrast);
+        }
+    }
+    .rbc-header+.rbc-header {
+        border-left-color: var(--color-bg);
+
+    }
+    .rbc-month-view {
+        border-color: var(--color-boxes);
+    }
+    .rbc-month-row+.rbc-month-row {
+        border-top: none;
+    }
+    .rbc-off-range {
+        opacity: 0.50;
+    }
+    .rbc-off-range-bg {
+        background: var(--color-bg);
+    }
+    .rbc-date-cell {
+        text-align: center;
+        border-bottom: var(--color-bg) 1px solid;
+        a {
+            color: var(--color-boxes-contrast);
+        }
+    }
+    .rbc-day-bg+.rbc-day-bg {
+        border-left-color: var(--color-boxes);
+    }
+    .rbc-today {
+        background: var(--color-boxes);
+    }
+    .rbc-event, .rbc-event.rbc-selected {
+        background: var(--color-bg-accent);
+        color: var(--color-bg-accent-contrast);
+        transition: opacity 0.2s ease-in;
+        &:hover {
+            opacity: 0.8;
+            background: var(--color-bg-accent);
+        }
+    }
+    .rbc-row-segment {
+        padding: 0 4px 1px 2px;
+    }
+
+    .rbc-month-view .rbc-today {
+        border-bottom: var(--color-bg) 1px solid;
+    }
+
+    .rbc-time-view {
+        border-bottom: none;
+    }
+
+    .rbc-time-view,
+    .rbc-time-content>*+*>*,
+    .rbc-time-content,
+    .rbc-timeslot-group,
+    .rbc-time-header-content {
+        border-color: var(--color-boxes);
+    }
+    .rbc-time-view .rbc-row {
+        min-height: auto;
+    }
+    .rbc-day-slot .rbc-time-slot {
+        border-color: var(--color-bg);
+    }
+    .rbc-current-time-indicator {
+        background-color: var(--color-boxes-accent-hl);
+    }
+
+    .rbc-agenda-table {
+        margin-bottom: 0;
+    }
+    .rbc-agenda-view table.rbc-agenda-table thead>tr>th {
+        border-bottom: none;
+    }
+}
+
+.calendarp-event-shortcode,
+.calendarp-events-by-cat {
+    @extend %block-spacing;
+}
+.calendarp-event-shortcode-header {
+    img {
+        margin-bottom: $spacer/3;
+    }
+    .dashicons {
+        text-decoration: none;
+    }
+}
+
+body .calendarp:not(#nocalendarp) .agenda-minified-calendar .calendarp-date-item .calendarp-date {
+    .calendarp-date-month {
+        background: var(--color-boxes);
+        color: var(--color-boxes-contrast);
+        border-color: var(--color-boxes);
+    }
+    .calendarp-date-day {
+        border-color: var(--color-boxes);
+    }
+}
