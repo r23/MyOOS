@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3819058339b46e8ce2b5097ede32915",
+    "content-hash": "97f854f5412798d631615ec80ad10d1e",
     "packages": [
         {
             "name": "aws/aws-php-sns-message-validator",
@@ -61,16 +61,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.138.10",
+            "version": "3.139.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "cf197a033ad75cd9e3a90a207cf5ec8935aafa48"
+                "reference": "31fc7fc73d550e237b34f7c6802250fd4ade9a01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/cf197a033ad75cd9e3a90a207cf5ec8935aafa48",
-                "reference": "cf197a033ad75cd9e3a90a207cf5ec8935aafa48",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/31fc7fc73d550e237b34f7c6802250fd4ade9a01",
+                "reference": "31fc7fc73d550e237b34f7c6802250fd4ade9a01",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-05-28T18:12:07+00:00"
+            "time": "2020-06-02T18:12:38+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -793,16 +793,16 @@
         },
         {
             "name": "endroid/qr-code",
-            "version": "3.8.0",
+            "version": "3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endroid/qr-code.git",
-                "reference": "a44bae807b5f3722695920e4e494a466cbd79bec"
+                "reference": "a7e07d26fad46d7032b39a076f6c85e07757028d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endroid/qr-code/zipball/a44bae807b5f3722695920e4e494a466cbd79bec",
-                "reference": "a44bae807b5f3722695920e4e494a466cbd79bec",
+                "url": "https://api.github.com/repos/endroid/qr-code/zipball/a7e07d26fad46d7032b39a076f6c85e07757028d",
+                "reference": "a7e07d26fad46d7032b39a076f6c85e07757028d",
                 "shasum": ""
             },
             "require": {
@@ -858,7 +858,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-05-25T20:02:47+00:00"
+            "time": "2020-06-02T20:10:27+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -2070,16 +2070,16 @@
         },
         {
             "name": "league/flysystem-aws-s3-v3",
-            "version": "1.0.24",
+            "version": "1.0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-aws-s3-v3.git",
-                "reference": "4382036bde5dc926f9b8b337e5bdb15e5ec7b570"
+                "reference": "d409b97a50bf85fbde30cbc9fc10237475e696ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-aws-s3-v3/zipball/4382036bde5dc926f9b8b337e5bdb15e5ec7b570",
-                "reference": "4382036bde5dc926f9b8b337e5bdb15e5ec7b570",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-aws-s3-v3/zipball/d409b97a50bf85fbde30cbc9fc10237475e696ea",
+                "reference": "d409b97a50bf85fbde30cbc9fc10237475e696ea",
                 "shasum": ""
             },
             "require": {
@@ -2113,7 +2113,7 @@
                 }
             ],
             "description": "Flysystem adapter for the AWS S3 SDK v3.x",
-            "time": "2020-02-23T13:31:58+00:00"
+            "time": "2020-06-02T18:41:58+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
