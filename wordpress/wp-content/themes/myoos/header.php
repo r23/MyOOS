@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 <?php do_action( 'wp_body_open' ); ?>
 
 <div <?php cpschool_class( 'site-page-wrapper', 'site' ); ?> id="page">
-	<a class="skip-link sr-only sr-only-focusable" href="#content"><?php esc_html_e( 'Skip to content', 'cpschool' ); ?></a>
+	<a class="skip-link sr-only sr-only-focusable" href="#content"><?php esc_html_e( 'Skip to content', 'myoos' ); ?></a>
 
 	<?php get_template_part( 'template-parts/global-templates/bar', 'alert' ); ?>
 
@@ -31,7 +31,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<div id="wrapper-navbar-main-top" <?php cpschool_class( 'navbar-main-wrapper-top' ); ?>></div><?php // This is used to detect stickness of navigation ?>
 	<div id="wrapper-navbar-main" <?php cpschool_class( 'navbar-main-wrapper', 'wrapper-navbar' ); ?> itemscope itemtype="http://schema.org/WebSite">
-		<nav id="navbar-main" <?php cpschool_class( 'navbar-main', 'navbar navbar-expand-md nav-styling-underline has-background has-header-main-bg-color-background-color' ); ?> aria-label="<?php esc_html_e( 'main', 'cpschool' ); ?>">
+		<nav id="navbar-main" <?php cpschool_class( 'navbar-main', 'navbar navbar-expand-md nav-styling-underline has-background has-header-main-bg-color-background-color' ); ?> aria-label="<?php esc_html_e( 'main', 'myoos' ); ?>">
 			<div <?php cpschool_class( 'navbar-main-container', 'navbar-container' ); ?>>
 				<?php do_action( 'cpschool_navbar_main_container_start' ); ?>
 
@@ -93,7 +93,7 @@ defined( 'ABSPATH' ) || exit;
 									<button type="button" class="btn btn-secondary nav-link has-styling" data-toggle="modal" data-target="#modal-search">
 										<i aria-hidden="true" class="cps-icon cps-icon-search"></i>
 										<span aria-hidden="true" class="d-none"><?php _e( 'Search' ); ?></span>
-										<span class="sr-only"><?php _e( 'Toggle search interface', 'cpschool' ); ?></span>
+										<span class="sr-only"><?php _e( 'Toggle search interface', 'myoos' ); ?></span>
 									</button>
 								</li>
 							<?php } ?>
@@ -111,7 +111,7 @@ defined( 'ABSPATH' ) || exit;
 								<button type="button" class="btn btn-secondary nav-link has-styling" data-toggle="modal" data-target="#modal-slide-in-menu">
 									<i aria-hidden="true" class="cps-icon cps-icon-menu"></i>
 									<span aria-hidden="true" class="d-none"><?php _e( 'Menu' ); ?></span>
-									<span class="sr-only"><?php _e( 'Toggle extended navigation', 'cpschool' ); ?></span>
+									<span class="sr-only"><?php _e( 'Toggle extended navigation', 'myoos' ); ?></span>
 								</button>
 							</li>
 						</ul>

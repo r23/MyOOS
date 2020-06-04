@@ -1,7 +1,7 @@
 <?php
 if ( has_nav_menu( 'secondary-left' ) || has_nav_menu( 'secondary-right' ) || apply_filters( 'navbar-secondary-force-show', false ) ) {
 	?>
-	<nav id="navbar-secondary" <?php cpschool_class( 'navbar-secondary', 'navbar navbar-expand-md nav-styling-underline has-background has-header-secondary-bg-color-background-color' ); ?> aria-label="<?php esc_html_e( 'secondary', 'cpschool' ); ?>">
+	<nav id="navbar-secondary" <?php cpschool_class( 'navbar-secondary', 'navbar navbar-expand-md nav-styling-underline has-background has-header-secondary-bg-color-background-color' ); ?> aria-label="<?php esc_html_e( 'secondary', 'myoos' ); ?>">
 		<div <?php cpschool_class( 'navbar-secondary-container', 'navbar-container' ); ?>>
 			<?php do_action( 'cpschool_navbar_secondary_container_start' ); ?>
 

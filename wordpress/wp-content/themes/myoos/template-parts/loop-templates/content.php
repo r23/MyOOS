@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
 			if ( $icon_class ) {
 				$post_type_object  = get_post_type_object( get_post_type() );
 				$label             = $post_type_object->labels->singular_name;
-				$content_indicator = '<span class="entry-type-idicator cps-icon ' . $icon_class . '" aria-hidden="true" title="' . sprintf( esc_html__( 'This is a "%s"', 'cpschool' ), $label ) . '"></span><span class="screen-reader-text">' . sprintf( esc_html__( '(This is a "%s")', 'cpschool' ), $label ) . '</span>';
+				$content_indicator = '<span class="entry-type-idicator cps-icon ' . $icon_class . '" aria-hidden="true" title="' . sprintf( esc_html__( 'This is a "%s"', 'myoos' ), $label ) . '"></span><span class="screen-reader-text">' . sprintf( esc_html__( '(This is a "%s")', 'myoos' ), $label ) . '</span>';
 			}
 			the_title(
 				sprintf( '<h2 class="entry-title">%s<a href="%s" rel="bookmark">', $content_indicator, esc_url( get_permalink() ) ),

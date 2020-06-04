@@ -28,7 +28,7 @@ get_header();
 				}
 				?>
 
-				<h2><?php echo esc_html( 'Posts by', 'cpschool' ) . ' ' . esc_html( $curauth->nickname ); ?>:</h2>
+				<h2><?php echo esc_html( 'Posts by', 'myoos' ) . ' ' . esc_html( $curauth->nickname ); ?>:</h2>
 
 				<ul class="mb-3">
 					<!-- The Loop -->
@@ -42,12 +42,12 @@ get_header();
 								printf(
 									'<a rel="bookmark" href="%1$s" title="%2$s %3$s">%3$s</a>',
 									esc_url( apply_filters( 'the_permalink', get_permalink( $post ), $post ) ),
-									esc_attr( __( 'Permanent Link:', 'cpschool' ) ),
+									esc_attr( __( 'Permanent Link:', 'myoos' ) ),
 									the_title( '', '', false )
 								);
 								?>
 								<?php cpschool_posted_on(); ?>
-								<?php esc_html_e( 'in', 'cpschool' ); ?>
+								<?php esc_html_e( 'in', 'myoos' ); ?>
 								<?php the_category( '&' ); ?>
 							</li>
 						<?php endwhile; ?>

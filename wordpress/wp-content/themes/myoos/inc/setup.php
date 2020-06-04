@@ -25,9 +25,9 @@ if ( ! function_exists( 'cpschool_setup' ) ) {
 		 * Make theme available for translation.
 		 * Translations can be filed in the /languages/ directory.
 		 * If you're building a theme based on CampuPress Flex, use a find and replace
-		 * to change 'cpschool' to the name of your theme in all the template files
+		 * to change 'myoos' to the name of your theme in all the template files
 		 */
-		load_theme_textdomain( 'cpschool', get_template_directory() . '/inc/languages' );
+		load_theme_textdomain( 'myoos', get_template_directory() . '/inc/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -43,11 +43,11 @@ if ( ! function_exists( 'cpschool_setup' ) ) {
 		// Refister all menus used in theme.
 		register_nav_menus(
 			array(
-				'desktop'          => __( 'Desktop Main Menu', 'cpschool' ),
-				'desktop-extended' => __( 'Desktop Slide-In Menu', 'cpschool' ),
-				'mobile'           => __( 'Mobile Menu', 'cpschool' ),
-				'secondary-left'   => __( 'Secondary Header - Left', 'cpschool' ),
-				'secondary-right'  => __( 'Secondary Header - Right', 'cpschool' ),
+				'desktop'          => __( 'Desktop Main Menu', 'myoos' ),
+				'desktop-extended' => __( 'Desktop Slide-In Menu', 'myoos' ),
+				'mobile'           => __( 'Mobile Menu', 'myoos' ),
+				'secondary-left'   => __( 'Secondary Header - Left', 'myoos' ),
+				'secondary-right'  => __( 'Secondary Header - Right', 'myoos' ),
 			)
 		);
 
@@ -106,37 +106,37 @@ if ( ! function_exists( 'cpschool_setup' ) ) {
 		// Add custom colors to blocks.
 		$color_pallete = array(
 			array(
-				'name'  => __( 'Main', 'cpschool' ),
+				'name'  => __( 'Main', 'myoos' ),
 				'slug'  => 'color-bg-alt',
 				'color' => get_theme_mod( 'color_bg_alt' ),
 			),
 			array(
-				'name'  => __( 'Main Header', 'cpschool' ),
+				'name'  => __( 'Main Header', 'myoos' ),
 				'slug'  => 'header-main-bg-color',
 				'color' => get_theme_mod( 'header_main_bg_color' ),
 			),
 			array(
-				'name'  => __( 'Secondary Header', 'cpschool' ),
+				'name'  => __( 'Secondary Header', 'myoos' ),
 				'slug'  => 'header-secondary-bg-color',
 				'color' => get_theme_mod( 'header_secondary_bg_color' ),
 			),
 			array(
-				'name'  => __( 'Hero', 'cpschool' ),
+				'name'  => __( 'Hero', 'myoos' ),
 				'slug'  => 'hero-main-bg-color',
 				'color' => get_theme_mod( 'hero_main_bg_color' ),
 			),
 			array(
-				'name'  => __( 'Entries', 'cpschool' ),
+				'name'  => __( 'Entries', 'myoos' ),
 				'slug'  => 'color-boxes',
 				'color' => get_theme_mod( 'color_boxes' ),
 			),
 			array(
-				'name'  => __( 'Footer', 'cpschool' ),
+				'name'  => __( 'Footer', 'myoos' ),
 				'slug'  => 'footer-main-bg-color',
 				'color' => get_theme_mod( 'footer_main_bg_color' ),
 			),
 			array(
-				'name'  => __( 'Background', 'cpschool' ),
+				'name'  => __( 'Background', 'myoos' ),
 				'slug'  => 'color-bg',
 				'color' => get_theme_mod( 'color_bg' ),
 			),
@@ -158,26 +158,26 @@ if ( ! function_exists( 'cpschool_setup' ) ) {
 			'editor-font-sizes',
 			array(
 				array(
-					'name' => __( 'Small', 'cpschool' ),
+					'name' => __( 'Small', 'myoos' ),
 					'size' => 13 * $font_size_modifier / 100,
 					'slug' => 'small',
 				),
 				array(
-					'name' => __( 'Normal', 'cpschool' ),
+					'name' => __( 'Normal', 'myoos' ),
 					'slug' => 'normal',
 				),
 				array(
-					'name' => __( 'Medium', 'cpschool' ),
+					'name' => __( 'Medium', 'myoos' ),
 					'size' => 20 * $font_size_modifier / 100,
 					'slug' => 'medium',
 				),
 				array(
-					'name' => __( 'Large', 'cpschool' ),
+					'name' => __( 'Large', 'myoos' ),
 					'size' => 36 * $font_size_modifier / 100,
 					'slug' => 'large',
 				),
 				array(
-					'name' => __( 'Huge', 'cpschool' ),
+					'name' => __( 'Huge', 'myoos' ),
 					'size' => 48 * $font_size_modifier / 100,
 					'slug' => 'larger',
 				),
@@ -220,7 +220,7 @@ if ( ! function_exists( 'cpschool_setup' ) ) {
 				'default-image' => array(
 					'url'           => '%s/img/header.jpg',
 					'thumbnail_url' => '%s/img/header.jpg',
-					'description'   => __( 'Default Header Image', 'cpschool' ),
+					'description'   => __( 'Default Header Image', 'myoos' ),
 				),
 			)
 		);

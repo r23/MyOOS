@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php
 		wp_link_pages(
 			array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'cpschool' ),
+				'before' => '<div class="page-links">' . __( 'Pages:', 'myoos' ),
 				'after'  => '</div>',
 			)
 		);

@@ -27,7 +27,7 @@ if ( is_active_sidebar( 'hero' ) ) :
 
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 
-			<span class="sr-only"><?php esc_html_e( 'Previous', 'cpschool' ); ?></span>
+			<span class="sr-only"><?php esc_html_e( 'Previous', 'myoos' ); ?></span>
 
 		</a>
 
@@ -35,7 +35,7 @@ if ( is_active_sidebar( 'hero' ) ) :
 
 			<span class="carousel-control-next-icon" aria-hidden="true"></span>
 
-			<span class="sr-only"><?php esc_html_e( 'Next', 'cpschool' ); ?></span>
+			<span class="sr-only"><?php esc_html_e( 'Next', 'myoos' ); ?></span>
 
 		</a>
 

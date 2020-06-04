@@ -35,7 +35,7 @@ if ( ! function_exists( 'cpschool_cplus_post_meta_list' ) ) {
 			if ( in_array( 'event-date', $post_meta, true ) && ! empty( calendarp_event_human_read_dates( 'date' ) ) ) {
 				?>
 				<li class="post-date list-inline-item">
-					<span class="screen-reader-text"><?php _e( 'Event date', 'cpschool' ); ?></span>
+					<span class="screen-reader-text"><?php _e( 'Event date', 'myoos' ); ?></span>
 					<span class="meta-icon" aria-hidden="true">
 						<i class="cps-icon cps-icon-calendar"></i>
 					</span>
@@ -50,7 +50,7 @@ if ( ! function_exists( 'cpschool_cplus_post_meta_list' ) ) {
 			if ( in_array( 'event-recurrence', $post_meta, true ) && ! empty( calendarp_event_human_read_dates( 'recurrence' ) ) ) {
 				?>
 				<li class="event-date list-inline-item">
-					<span class="screen-reader-text"><?php _e( 'Event recurrence', 'cpschool' ); ?></span>
+					<span class="screen-reader-text"><?php _e( 'Event recurrence', 'myoos' ); ?></span>
 					<span class="meta-icon" aria-hidden="true">
 						<i class="cps-icon cps-icon-calendar"></i>
 					</span>
@@ -65,7 +65,7 @@ if ( ! function_exists( 'cpschool_cplus_post_meta_list' ) ) {
 			if ( in_array( 'event-time', $post_meta, true ) && ! empty( calendarp_event_human_read_dates( 'time' ) ) ) {
 				?>
 				<li class="event-time list-inline-item">
-					<span class="screen-reader-text"><?php _e( 'Event time', 'cpschool' ); ?></span>
+					<span class="screen-reader-text"><?php _e( 'Event time', 'myoos' ); ?></span>
 					<span class="meta-icon" aria-hidden="true">
 						<i class="cps-icon cps-icon-clock"></i>
 					</span>
@@ -82,7 +82,7 @@ if ( ! function_exists( 'cpschool_cplus_post_meta_list' ) ) {
 				if ( $categories ) {
 					?>
 					<li class="event-categories list-inline-item">
-						<span class="screen-reader-text"><?php _e( 'Event categories', 'cpschool' ); ?></span>
+						<span class="screen-reader-text"><?php _e( 'Event categories', 'myoos' ); ?></span>
 						<span class="meta-icon" aria-hidden="true">
 							<i class="cps-icon cps-icon-category"></i>
 						</span>
@@ -106,7 +106,7 @@ if ( ! function_exists( 'cpschool_cplus_post_meta_list' ) ) {
 						<i class="cps-icon cps-icon-bookmark"></i>
 					</span>
 					<span class="meta-text">
-					<?php _e( 'Add To: ', 'cpschool' ); ?><?php calendarp_event_add_to_calendars_links(); ?>
+					<?php _e( 'Add To: ', 'myoos' ); ?><?php calendarp_event_add_to_calendars_links(); ?>
 					</span>
 				</li>
 				<?php
@@ -120,7 +120,7 @@ if ( ! function_exists( 'cpschool_cplus_post_meta_list' ) ) {
 						<i class="cps-icon cps-icon-file-text-o"></i>
 					</span>
 					<span class="meta-text">
-						<?php echo '<a href="' . esc_url( calendarp_get_ical_file_url( array( 'event' => get_the_ID() ) ) ) . '" title="' . esc_attr__( 'Download iCal file for this event', 'cpschool' ) . '"> ' . __( 'Download iCal file for this event', 'cpschool' ) . '</a>'; ?>
+						<?php echo '<a href="' . esc_url( calendarp_get_ical_file_url( array( 'event' => get_the_ID() ) ) ) . '" title="' . esc_attr__( 'Download iCal file for this event', 'myoos' ) . '"> ' . __( 'Download iCal file for this event', 'myoos' ) . '</a>'; ?>
 					</span>
 				</li>
 				<?php

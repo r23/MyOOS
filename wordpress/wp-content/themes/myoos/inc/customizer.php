@@ -19,7 +19,7 @@ require_once 'customizer/helpers.php';
 require_once 'customizer/custom-controls.php';
 
 // Configure Kiri framework.
-Kirki::add_config( 'cpschool', array(
+Kirki::add_config( 'myoos', array(
 	'capability'  => 'edit_theme_options',
 	'option_type' => 'theme_mod',
 	'gutenberg_support' => true
@@ -130,17 +130,17 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 		// PANEL - General
 		Kirki::add_panel( 'general', array(
 			'priority'    => 10,
-			'title'       => esc_html__( 'General', 'cpschool' ),
-			'description' => esc_html__( 'Settings related to all elements on site.', 'cpschool' ),
+			'title'       => esc_html__( 'General', 'myoos' ),
+			'description' => esc_html__( 'Settings related to all elements on site.', 'myoos' ),
 		) );
 
 			// SECTION - Site Identity (WP)
 
 				// SETTING - Site Title Font Family
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'site_title_font_family',
-					'label'       => __( 'Site Title Font Family', 'cpschool' ),
+					'label'       => __( 'Site Title Font Family', 'myoos' ),
 					'section'     => 'title_tagline',
 					'transport'   => 'auto',
 					'choices'     => cpschool_get_customizer_fonts_options('header', true),
@@ -162,18 +162,18 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 			// SECTION - Site Layout & Stylings
 			Kirki::add_section( 'site_layout', array(
-				'title'       => esc_html__( 'Site Layout & Stylings', 'cpschool' ),
-				'description' => esc_html__( 'Settings related to site layout and general stylings.', 'cpschool' ),
+				'title'       => esc_html__( 'Site Layout & Stylings', 'myoos' ),
+				'description' => esc_html__( 'Settings related to site layout and general stylings.', 'myoos' ),
 				'panel'       => 'general',
 				'priority'    => 20,
 			) );
 
 				// SETTING - Site Width
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'site_width',
-					'label'       => esc_html__( 'Site Width (px)', 'cpschool' ),
-					'description' => esc_html__( 'Maximum site container width.', 'cpschool' ),
+					'label'       => esc_html__( 'Site Width (px)', 'myoos' ),
+					'description' => esc_html__( 'Maximum site container width.', 'myoos' ),
 					'section'     => 'site_layout',
 					'default'     => 1140,
 					'choices'     => array(
@@ -198,11 +198,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Content Width
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'content_width',
-					'label'       => esc_html__( 'Content Width (px)', 'cpschool' ),
-					'description' => esc_html__( 'Maximum content container width. This only works for single posts and pages without sidebar.', 'cpschool' ),
+					'label'       => esc_html__( 'Content Width (px)', 'myoos' ),
+					'description' => esc_html__( 'Maximum content container width. This only works for single posts and pages without sidebar.', 'myoos' ),
 					'section'     => 'site_layout',
 					'default'     => '1140',
 					'choices'     => array(
@@ -222,11 +222,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Boxed Design
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'boxed_design',
-					'label'       => esc_html__( 'Boxed Design', 'cpschool' ),
-					'description' => esc_html__( 'Wraps everything in a container and adds the same width for all elements on the site.', 'cpschool' ),
+					'label'       => esc_html__( 'Boxed Design', 'myoos' ),
+					'description' => esc_html__( 'Wraps everything in a container and adds the same width for all elements on the site.', 'myoos' ),
 					'section'     => 'site_layout',
 					'default'     => false,
 					'transport'   => 'postMessage',
@@ -249,11 +249,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Box Width
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'box_width',
-					'label'       => esc_html__( 'Box Width (px)', 'cpschool' ),
-					'description' => esc_html__( 'Maximum box width.', 'cpschool' ),
+					'label'       => esc_html__( 'Box Width (px)', 'myoos' ),
+					'description' => esc_html__( 'Maximum box width.', 'myoos' ),
 					'section'     => 'site_layout',
 					'default'     => '1280',
 					'choices'     => array(
@@ -285,20 +285,20 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 
 				// SEPARATOR - Fonts
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'layout_fonts',
 					'type'        => 'separator',
-					'label'       => __( 'Fonts', 'cpschool' ),
-					'description'       => __( 'Default font settings applied on site. Some elements like headings can have font customized in their own settings sections.', 'cpschool' ),
+					'label'       => __( 'Fonts', 'myoos' ),
+					'description'       => __( 'Default font settings applied on site. Some elements like headings can have font customized in their own settings sections.', 'myoos' ),
 					'section'     => 'site_layout',
 				) );
 
 				// SETTING - Default Font Family
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'body_font_family',
-					'label'       => __( 'Default Font Family', 'cpschool' ),
-					'description' => __( 'Choose default font used on site.', 'cpschool' ),
+					'label'       => __( 'Default Font Family', 'myoos' ),
+					'description' => __( 'Choose default font used on site.', 'myoos' ),
 					'section'     => 'site_layout',
 					'transport'   => 'postMessage',
 					'choices'     => cpschool_get_customizer_fonts_options(),
@@ -335,11 +335,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTINGS - Default Font Size
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'body_font_size',
-					'label'       => esc_html__( 'Default Font Size', 'cpschool' ),
-					'description' => esc_attr__( 'Customize default font size.', 'cpschool' ),
+					'label'       => esc_html__( 'Default Font Size', 'myoos' ),
+					'description' => esc_attr__( 'Customize default font size.', 'myoos' ),
 					'section'     => 'site_layout',
 					'default'     => 100,
 					'choices'     => array(
@@ -359,19 +359,19 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 
 				// SEPARATOR - Others
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'layout_others',
 					'type'        => 'separator',
-					'label'       => __( 'Others', 'cpschool' ),
+					'label'       => __( 'Others', 'myoos' ),
 					'section'     => 'site_layout',
 				) );
 
 				// SETTING - Roundness
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'roundness',
-					'label'       => esc_html__( 'Roundness', 'cpschool' ),
-					'description' => esc_html__( 'Choose how strongly various elements across the site should be rounded.', 'cpschool' ),
+					'label'       => esc_html__( 'Roundness', 'myoos' ),
+					'description' => esc_html__( 'Choose how strongly various elements across the site should be rounded.', 'myoos' ),
 					'section'     => 'site_layout',
 					'default'     => 3,
 					'choices'     => array(
@@ -391,11 +391,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Shadows
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'shadows',
-					'label'       => esc_html__( 'Shadows', 'cpschool' ),
-					'description' => esc_html__( 'Choose how big shadows should be applied to various elements across the site.', 'cpschool' ),
+					'label'       => esc_html__( 'Shadows', 'myoos' ),
+					'description' => esc_html__( 'Choose how big shadows should be applied to various elements across the site.', 'myoos' ),
 					'section'     => 'site_layout',
 					'default'     => 4,
 					'choices'     => array(
@@ -431,11 +431,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Animations
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'animations',
-					'label'       => __( 'Animations', 'cpschool' ),
-					'description'       => __( 'Automatically adds animations to some main site elements and aligned content blocks.', 'cpschool' ),
+					'label'       => __( 'Animations', 'myoos' ),
+					'description'       => __( 'Automatically adds animations to some main site elements and aligned content blocks.', 'myoos' ),
 					'section'     => 'site_layout',
 					'transport'   => 'refresh',
 					'default' => true,
@@ -454,19 +454,19 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			// SECTION - Colors (WP)
 
 				// SEPARATOR - Primary Colors
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'colors_primary',
 					'type'        => 'separator',
-					'label'       => __( 'Primary Colors', 'cpschool' ),
+					'label'       => __( 'Primary Colors', 'myoos' ),
 					'section'     => 'colors',
 				) );
 
 				// SETTING - Primary Background (partially handled by WP)
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'color',
 					'settings'    => 'color_bg',
-					'label'       => __( 'Primary Background', 'cpschool' ),
-					'description' => esc_html__( 'Background color used for main content.', 'cpschool' ),
+					'label'       => __( 'Primary Background', 'myoos' ),
+					'description' => esc_html__( 'Background color used for main content.', 'myoos' ),
 					'section'     => 'colors',
 					'default'     => '#ffffff',
 					'transport'   => 'auto',
@@ -480,11 +480,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Secondary Background (used for boxed design)
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'color',
 					'settings'    => 'color_bg_secondary',
-					'label'       => __( 'Secondary Background', 'cpschool' ),
-					'description' => esc_html__( 'Background color used under content in box.', 'cpschool' ),
+					'label'       => __( 'Secondary Background', 'myoos' ),
+					'description' => esc_html__( 'Background color used under content in box.', 'myoos' ),
 					'section'     => 'colors',
 					'default'     => '#eaeaea',
 					'transport'   => 'auto',
@@ -505,11 +505,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Primary Accent
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'color',
 					'settings'    => 'color_accent_source',
-					'label'       => __( 'Primary Accent', 'cpschool' ),
-					'description' => esc_html__( 'Color used to style various site elements like buttons.', 'cpschool' ),
+					'label'       => __( 'Primary Accent', 'myoos' ),
+					'description' => esc_html__( 'Color used to style various site elements like buttons.', 'myoos' ),
 					'default' => '#b41111',
 					'section'     => 'colors',
 					//'mode'        => 'hue',
@@ -517,11 +517,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Highlight Accent
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'color',
 					'settings'    => 'color_accent_hl_source',
-					'label'       => __( 'Highlight Accent', 'cpschool' ),
-					'description' => esc_html__( 'Color used to highlight important elements like primary buttons.', 'cpschool' ),
+					'label'       => __( 'Highlight Accent', 'myoos' ),
+					'description' => esc_html__( 'Color used to highlight important elements like primary buttons.', 'myoos' ),
 					'section'     => 'colors',
 					'default' => '#216890',
 					'transport'   => 'postMessage',
@@ -531,19 +531,19 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SEPARATOR - Alternative Colors
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'colors_alternative',
 					'type'        => 'separator',
-					'label'       => __( 'Alternative Colors', 'cpschool' ),
+					'label'       => __( 'Alternative Colors', 'myoos' ),
 					'section'     => 'colors',
 				) );
 				
 				// SETTING - Alternative Background
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'color',
 					'settings'    => 'color_bg_alt',
-					'label'       => __( 'Alternative Background', 'cpschool' ),
-					'description' => esc_html__( 'Alternative background color used mainly for header and footer.', 'cpschool' ),
+					'label'       => __( 'Alternative Background', 'myoos' ),
+					'description' => esc_html__( 'Alternative background color used mainly for header and footer.', 'myoos' ),
 					'section'     => 'colors',
 					'default'     => '#eeeeec',
 					'transport'   => 'auto',
@@ -557,11 +557,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Custom Accent For Alternative Background
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'color',
 					'settings'    => 'color_bg_alt_accent_source',
-					'label'       => __( 'Custom Accent For Alternative Background', 'cpschool' ),
-					'description' => esc_html__( 'Overwrites primary accent color in areas that are using alternative background.', 'cpschool' ),
+					'label'       => __( 'Custom Accent For Alternative Background', 'myoos' ),
+					'description' => esc_html__( 'Overwrites primary accent color in areas that are using alternative background.', 'myoos' ),
 					'section'     => 'colors',
 					'transport'   => 'postMessage',
 					'choices'     => array(
@@ -573,19 +573,19 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 					cpschool_generate_customizer_color_settings('color-bg-alt');
 
 				// SEPARATOR - Other Colors
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'colors_boxes',
 					'type'        => 'separator',
-					'label'       => __( 'Other Colors', 'cpschool' ),
+					'label'       => __( 'Other Colors', 'myoos' ),
 					'section'     => 'colors',
 				) );
 
 				// SETTING - Content Boxes Background
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'color',
 					'settings'    => 'color_boxes',
-					'label'       => __( 'Content Boxes Background', 'cpschool' ),
-					'description' => esc_html__( 'Background color for elements in boxes like pagination or sidebar.', 'cpschool' ),
+					'label'       => __( 'Content Boxes Background', 'myoos' ),
+					'description' => esc_html__( 'Background color for elements in boxes like pagination or sidebar.', 'myoos' ),
 					'section'     => 'colors',
 					'transport'   => 'auto',
 					'default'     => '',
@@ -607,12 +607,12 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 		// PANEL - Main Header
 		Kirki::add_section( 'header_main', array(
 			'priority'    => 20,
-			'title'       => esc_html__( 'Main Header', 'cpschool' ),
-			'description' => esc_html__( 'Settings for main header, place that holds logo and main navigation links.', 'cpschool' ),
+			'title'       => esc_html__( 'Main Header', 'myoos' ),
+			'description' => esc_html__( 'Settings for main header, place that holds logo and main navigation links.', 'myoos' ),
 		) );
 
 			// Hidden - Higlighted text color for main color
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'hidden',
 				'settings'    => 'header_main_height',
 				'section'     => 'header_main',
@@ -627,17 +627,17 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Logo Positon
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'select',
 				'settings'    => 'header_main_logo_position',
-				'label'       => esc_attr__( 'Logo Positon', 'cpschool' ),
-				'description' => esc_html__( 'Choose how logo should be positioned and styled in header.', 'cpschool' ),
+				'label'       => esc_attr__( 'Logo Positon', 'myoos' ),
+				'description' => esc_html__( 'Choose how logo should be positioned and styled in header.', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'postMessage',
 				'choices'     => array(
-					'left'   => esc_html__( 'On The Left', 'cpschool' ),
-					'center' => esc_html__( 'In The Center With Menu Underneath', 'cpschool' ),
-					'dropbox'  => esc_html__( 'On The Left In Drop Box', 'cpschool' ),
+					'left'   => esc_html__( 'On The Left', 'myoos' ),
+					'center' => esc_html__( 'In The Center With Menu Underneath', 'myoos' ),
+					'dropbox'  => esc_html__( 'On The Left In Drop Box', 'myoos' ),
 				),
 				'js_vars'   => array(
 					array(
@@ -666,11 +666,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 			// SETTING - Custom Logo Image Size
 			// TODO overwrite default with actual logo image width on the fly
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'slider',
 				'settings'    => 'header_main_logo_image_width',
-				'label'       => esc_html__( 'Custom Logo Image Size (px)', 'cpschool' ),
-				'description' => esc_html__( 'Width of the logo image.', 'cpschool' ),
+				'label'       => esc_html__( 'Custom Logo Image Size (px)', 'myoos' ),
+				'description' => esc_html__( 'Width of the logo image.', 'myoos' ),
 				'section'     => 'header_main',
 				'default'     => '250',
 				'choices'     => array(
@@ -696,11 +696,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Drop Box Max Width
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'slider',
 				'settings'    => 'header_main_dropbox_max_width',
-				'label'       => esc_html__( 'Drop Box Max Width (px)', 'cpschool' ),
-				'description' => esc_html__( 'Maximum width Drop Box can have.', 'cpschool' ),
+				'label'       => esc_html__( 'Drop Box Max Width (px)', 'myoos' ),
+				'description' => esc_html__( 'Maximum width Drop Box can have.', 'myoos' ),
 				'section'     => 'header_main',
 				'default'     => 250,
 				'choices'     => array(
@@ -726,7 +726,7 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// Hidden - Header Main Gap Height
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'hidden',
 				'settings'    => 'header_main_gap_height',
 				'section'     => 'header_main',
@@ -741,10 +741,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Show Tagline
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'toggle',
 				'settings'    => 'header_main_show_tagline',
-				'label'       => __( 'Show Tagline', 'cpschool' ),
+				'label'       => __( 'Show Tagline', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'postMessage',
 				'default' => true,
@@ -768,10 +768,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Show Search Button
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'toggle',
 				'settings'    => 'header_main_enable_search',
-				'label'       => __( 'Show Search Button', 'cpschool' ),
+				'label'       => __( 'Show Search Button', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'postMessage',
 				'default' => true,
@@ -788,10 +788,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Stick To The Top
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'toggle',
 				'settings'    => 'header_main_stick',
-				'label'       => __( 'Stick To The Top', 'cpschool' ),
+				'label'       => __( 'Stick To The Top', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'postMessage',
 				'default' => false,
@@ -807,10 +807,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Stretch To Full Width
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'toggle',
 				'settings'    => 'header_main_stretch',
-				'label'       => __( 'Stretch To Full Width', 'cpschool' ),
+				'label'       => __( 'Stretch To Full Width', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'postMessage',
 				'default' => false,
@@ -840,18 +840,18 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SEPARATOR - Colors
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'settings' => 'main_header_colors',
 				'type'        => 'separator',
-				'label'       => __( 'Colors', 'cpschool' ),
+				'label'       => __( 'Colors', 'myoos' ),
 				'section'     => 'header_main',
 			) );
 
 			// SETTING - Custom Background Color
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'color',
 				'settings'    => 'header_main_bg_color',
-				'label'       => __( 'Custom Background Color', 'cpschool' ),
+				'label'       => __( 'Custom Background Color', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'auto',
 				'output' => array(
@@ -869,10 +869,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				cpschool_generate_customizer_color_settings('header-main-bg-color');
 
 			// SETTING - Custom Logo Text Color
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'color',
 				'settings'    => 'header_main_logo_text_color',
-				'label'       => __( 'Custom Logo Text Color', 'cpschool' ),
+				'label'       => __( 'Custom Logo Text Color', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'auto',
 				'active_callback' => array(
@@ -895,10 +895,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Custom Logo Drop Box Background Color
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'color',
 				'settings'    => 'header_main_logo_dropbox_bg_color',
-				'label'       => __( 'Custom Logo Drop Box Background Color', 'cpschool' ),
+				'label'       => __( 'Custom Logo Drop Box Background Color', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'postMessage',
 				'choices'     => array(
@@ -935,10 +935,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Custom Logo Drop Box Shadow Color
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'color',
 				'settings'    => 'header_main_logo_dropbox_shadow_color',
-				'label'       => __( 'Custom Logo Drop Box Shadow Color', 'cpschool' ),
+				'label'       => __( 'Custom Logo Drop Box Shadow Color', 'myoos' ),
 				'section'     => 'header_main',
 				'default' => '',
 				'choices'     => array(
@@ -962,19 +962,19 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// Hidden - Fonts
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'settings' => 'main_header_fonts',
 				'type'        => 'separator',
-				'label'       => __( 'Fonts', 'cpschool' ),
+				'label'       => __( 'Fonts', 'myoos' ),
 				'section'     => 'header_main',
 			) );
 
 			// SETTING - Logo Font Size
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'slider',
 				'settings'    => 'header_main_logo_text_size',
-				'label'       => esc_html__( 'Logo Font Size', 'cpschool' ),
-				'description' => esc_html__( 'Logo can have font family customized in "General" > "Site Identity" > "Site Title Font Family".', 'cpschool' ),
+				'label'       => esc_html__( 'Logo Font Size', 'myoos' ),
+				'description' => esc_html__( 'Logo can have font family customized in "General" > "Site Identity" > "Site Title Font Family".', 'myoos' ),
 				'section'     => 'header_main',
 				'default'     => '100',
 				'choices'     => array(
@@ -999,10 +999,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Navigation Font Family
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'select',
 				'settings'    => 'header_main_font_family',
-				'label'       => __( 'Navigation Font Family', 'cpschool' ),
+				'label'       => __( 'Navigation Font Family', 'myoos' ),
 				'section'     => 'header_main',
 				'transport'   => 'auto',
 				'choices'     => cpschool_get_customizer_fonts_options('text', true),
@@ -1017,10 +1017,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTINGS - Navigation Font Size
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'slider',
 				'settings'    => 'header_main_font_size',
-				'label'       => esc_html__( 'Navigation Font Size', 'cpschool' ),
+				'label'       => esc_html__( 'Navigation Font Size', 'myoos' ),
 				'section'     => 'header_main',
 				'default'     => 100,
 				'choices'     => array(
@@ -1040,15 +1040,15 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 		// PANEL - Secondary Header
 		Kirki::add_section( 'header_secondary', array(
 			'priority'    => 30,
-			'title'       => esc_html__( 'Secondary Header', 'cpschool' ),
-			'description' => esc_html__( 'Settings for secondary header, place for less important navigation elements. Please keep in mind that it will be visible only when it has at least one menu attached.', 'cpschool' ),
+			'title'       => esc_html__( 'Secondary Header', 'myoos' ),
+			'description' => esc_html__( 'Settings for secondary header, place for less important navigation elements. Please keep in mind that it will be visible only when it has at least one menu attached.', 'myoos' ),
 		) );
 			
 			// SETTING - Stretch To Full Width
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'toggle',
 				'settings'    => 'header_secondary_stretch',
-				'label'       => __( 'Stretch To Full Width', 'cpschool' ),
+				'label'       => __( 'Stretch To Full Width', 'myoos' ),
 				'section'     => 'header_secondary',
 				'transport'   => 'postMessage',
 				'default' => false,
@@ -1078,10 +1078,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Custom Background Color
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'color',
 				'settings'    => 'header_secondary_bg_color',
-				'label'       => __( 'Custom Background Color', 'cpschool' ),
+				'label'       => __( 'Custom Background Color', 'myoos' ),
 				'section'     => 'header_secondary',
 				'transport'   => 'auto',
 				'choices'     => array(
@@ -1099,10 +1099,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				cpschool_generate_customizer_color_settings('header-secondary-bg-color');
 
 			// SETTINGS - Font Size
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'slider',
 				'settings'    => 'header_secondary_font_size',
-				'label'       => esc_html__( 'Font Size', 'cpschool' ),
+				'label'       => esc_html__( 'Font Size', 'myoos' ),
 				'section'     => 'header_secondary',
 				'default'     => 100,
 				'choices'     => array(
@@ -1122,22 +1122,22 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 		// Section - Hero
 		Kirki::add_section( 'hero_main', array(
 			'priority'    => 40,
-			'title'       => esc_html__( 'Hero', 'cpschool' ),
-			'description' => esc_html__( 'Settings for hero, place where current page details are put in center of attention.', 'cpschool' ),
+			'title'       => esc_html__( 'Hero', 'myoos' ),
+			'description' => esc_html__( 'Settings for hero, place where current page details are put in center of attention.', 'myoos' ),
 		) );
 
 			// SETTING - Style
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'select',
 				'settings'    => 'hero_main_style',
-				'label'       => __( 'Style', 'cpschool' ),
+				'label'       => __( 'Style', 'myoos' ),
 				'section'     => 'hero_main',
 				'default' => 'full-title-over-img',
 				'transport'   => 'postMessage',
 				'choices'     => array(
-					'full-title-over-img'   => esc_html__( 'Full Width Image With Title Over It', 'cpschool' ),
-					'full-title-under-img' => esc_html__( 'Full Width Image With Title Under It', 'cpschool' ),
-					'img-under-title'  => esc_html__( 'Image Under Title', 'cpschool' ),
+					'full-title-over-img'   => esc_html__( 'Full Width Image With Title Over It', 'myoos' ),
+					'full-title-under-img' => esc_html__( 'Full Width Image With Title Under It', 'myoos' ),
+					'img-under-title'  => esc_html__( 'Image Under Title', 'myoos' ),
 					'disabled'  => esc_html__( 'Disabled' ),
 				),
 				'js_vars'   => array(
@@ -1214,16 +1214,16 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Content Align
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'select',
 				'settings'    => 'hero_main_content_align',
-				'label'       => __( 'Content Align', 'cpschool' ),
+				'label'       => __( 'Content Align', 'myoos' ),
 				'section'     => 'hero_main',
 				'transport'   => 'postMessage',
 				'default' => 'center',
 				'choices'     => array(
-					'left'   => esc_html__( 'Left', 'cpschool' ),
-					'center' => esc_html__( 'Center', 'cpschool' ),
+					'left'   => esc_html__( 'Left', 'myoos' ),
+					'center' => esc_html__( 'Center', 'myoos' ),
 				),
 				'active_callback' => array(
 					array(
@@ -1244,10 +1244,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 			/*
 			// SETTING - Parallax Effect For Image
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'toggle',
 				'settings'    => 'hero_main_parallax',
-				'label'       => __( 'Parallax Effect For Image', 'cpschool' ),
+				'label'       => __( 'Parallax Effect For Image', 'myoos' ),
 				'section'     => 'hero_main',
 				'transport'   => 'postMessage',
 				'default' => false,
@@ -1262,11 +1262,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			*/
 
 			// SETTING - Background Color
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'color',
 				'settings'    => 'hero_main_bg_color',
-				'label'       => __( 'Background Color', 'cpschool' ),
-				'description' => esc_html__( 'Hero background color that is also used as overlay when image is part of background.', 'cpschool' ),
+				'label'       => __( 'Background Color', 'myoos' ),
+				'description' => esc_html__( 'Hero background color that is also used as overlay when image is part of background.', 'myoos' ),
 				'section'     => 'hero_main',
 				'transport'   => 'auto',
 				'choices'     => array(
@@ -1291,11 +1291,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				cpschool_generate_customizer_color_settings('hero-main-bg-color');
 
 			// SETTING - Featured Image Opacity
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'slider',
 				'settings'    => 'hero_main_img_opacity',
-				'label'       => esc_html__( 'Featured Image Opacity', 'cpschool' ),
-				'description' => esc_html__( 'Opacity used for hero featured image.', 'cpschool' ),
+				'label'       => esc_html__( 'Featured Image Opacity', 'myoos' ),
+				'description' => esc_html__( 'Opacity used for hero featured image.', 'myoos' ),
 				'section'     => 'hero_main',
 				'default'     => '10',
 				'choices'     => array(
@@ -1321,11 +1321,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Main Header Opacity
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'slider',
 				'settings'    => 'hero_main_header_main_opacity',
-				'label'       => esc_html__( 'Main Header Opacity', 'cpschool' ),
-				'description' => esc_html__( 'Choose main header opacity set when hero area uses image in background.', 'cpschool' ),
+				'label'       => esc_html__( 'Main Header Opacity', 'myoos' ),
+				'description' => esc_html__( 'Choose main header opacity set when hero area uses image in background.', 'myoos' ),
 				'section'     => 'hero_main',
 				'default'     => '100',
 				'choices'     => array(
@@ -1351,7 +1351,7 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 				// Hidden - Hero Main Header Main BG Transparent
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'hidden',
 					'settings'    => 'hero_main_header_main_bg_transparent',
 					'section'     => 'hero_main',
@@ -1369,21 +1369,21 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 			// SETTING - Defaul Hero Images
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'repeater',
-				'label'       => esc_html__( 'Defaul Hero Images', 'cpschool' ),
-				'description' => esc_html__( 'Set images that will be randomly used when featured image is not set.', 'cpschool' ),
+				'label'       => esc_html__( 'Defaul Hero Images', 'myoos' ),
+				'description' => esc_html__( 'Set images that will be randomly used when featured image is not set.', 'myoos' ),
 				'section'     => 'hero_main',
 				'row_label' => array(
 					'type'  => 'text',
-					'value' => esc_html__( 'Image', 'cpschool' ),
+					'value' => esc_html__( 'Image', 'myoos' ),
 				),
-				'button_label' => esc_html__('Add Image', 'cpschool' ),
+				'button_label' => esc_html__('Add Image', 'myoos' ),
 				'settings'     => 'hero_main_default_images',
 				'fields' => array(
 					'id' => array(
 						'type'        => 'image',
-						'label'       => esc_html__( 'Image', 'cpschool' ),
+						'label'       => esc_html__( 'Image', 'myoos' ),
 					),
 				),
 				'active_callback' => array(
@@ -1396,17 +1396,17 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Breadcrumb Styling
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'select',
 				'settings'    => 'hero_main_breadcrumb_style',
-				'label'       => __( 'Breadcrumb Styling', 'cpschool' ),
-				'description' => esc_html__( 'Please keep in mind that breadcrumb will only be visible when enabled for currently viewed page type in "Content" section.', 'cpschool' ),
+				'label'       => __( 'Breadcrumb Styling', 'myoos' ),
+				'description' => esc_html__( 'Please keep in mind that breadcrumb will only be visible when enabled for currently viewed page type in "Content" section.', 'myoos' ),
 				'section'     => 'hero_main',
 				'transport'   => 'postMessage',
 				'default' => 'above_title_no_bg',
 				'choices'     => array(
-					'above_title_no_bg'   => esc_html__( 'Above Title', 'cpschool' ),
-					'top_right' => esc_html__( 'Top Right Corner', 'cpschool' ),
+					'above_title_no_bg'   => esc_html__( 'Above Title', 'myoos' ),
+					'top_right' => esc_html__( 'Top Right Corner', 'myoos' ),
 				),
 				'active_callback' => array(
 					array(
@@ -1444,14 +1444,14 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 		// Panel - Content
 		Kirki::add_panel( 'content_area', array(
 			'priority'    => 50,
-			'title'       => esc_html__( 'Content', 'cpschool' ),
-			'description' => esc_html__( 'Settings related to content area.', 'cpschool' ),
+			'title'       => esc_html__( 'Content', 'myoos' ),
+			'description' => esc_html__( 'Settings related to content area.', 'myoos' ),
 		) );
 
 			// Section - Posts List
 			Kirki::add_section( 'entries_lists', array(
-				'title'       => esc_html__( 'Posts List', 'cpschool' ),
-				'description' => esc_html__( 'Settings related to pages that are listing posts.', 'cpschool' ),
+				'title'       => esc_html__( 'Posts List', 'myoos' ),
+				'description' => esc_html__( 'Settings related to pages that are listing posts.', 'myoos' ),
 				'panel' => 'content_area'
 			) );
 			
@@ -1461,10 +1461,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Posts In a Row
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'entries_lists_row_count',
-					'label'       => esc_html__( 'Posts In a Row', 'cpschool' ),
+					'label'       => esc_html__( 'Posts In a Row', 'myoos' ),
 					'section'     => 'entries_lists',
 					'default'     => 1,
 					'choices'     => array(
@@ -1502,11 +1502,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Boxed Design
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'entries_lists_enable_bg',
-					'label'       => __( 'Boxed Design', 'cpschool' ),
-					'description' => __( 'Enable to put posts content in a box. Background for boxes can be customized under "General" > "Colors" > "Content Boxes Background". ', 'cpschool' ),
+					'label'       => __( 'Boxed Design', 'myoos' ),
+					'description' => __( 'Enable to put posts content in a box. Background for boxes can be customized under "General" > "Colors" > "Content Boxes Background". ', 'myoos' ),
 					'section'     => 'entries_lists',
 					'transport'   => 'postMessage',
 					'default' => false,
@@ -1521,26 +1521,26 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Content Type
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'entries_lists_content_type',
-					'label'       => __( 'Content Type', 'cpschool' ),
+					'label'       => __( 'Content Type', 'myoos' ),
 					'section'     => 'entries_lists',
 					'default' => 'excerpt',
 					'transport'   => 'refresh',
 					'choices'     => array(
-						'excerpt'   => esc_html__( 'Excerpt', 'cpschool' ),
-						'content' => esc_html__( 'Content', 'cpschool' ),
-						'no-content' => esc_html__( 'No Content', 'cpschool' ),
+						'excerpt'   => esc_html__( 'Excerpt', 'myoos' ),
+						'content' => esc_html__( 'Content', 'myoos' ),
+						'no-content' => esc_html__( 'No Content', 'myoos' ),
 					),
 				) );
 
 				// SETTING - Hide "Continue Reading"
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'entries_lists_hide_continue_reading',
-					'label'       => __( 'Hide "Continue Reading"', 'cpschool' ),
-					'description' => __( 'Enable to remove "Continue Reading" button. Posts can still be opened by clicking on title. ', 'cpschool' ),
+					'label'       => __( 'Hide "Continue Reading"', 'myoos' ),
+					'description' => __( 'Enable to remove "Continue Reading" button. Posts can still be opened by clicking on title. ', 'myoos' ),
 					'section'     => 'entries_lists',
 					'transport'   => 'postMessage',
 					'default' => false,
@@ -1564,17 +1564,17 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Featured Image Style
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'entries_lists_featured_image_style',
-					'label'       => __( 'Featured Image Style', 'cpschool' ),
+					'label'       => __( 'Featured Image Style', 'myoos' ),
 					'section'     => 'entries_lists',
 					'default'     => 'on_top',
 					'transport'   => 'postMessage',
 					'choices'     => array(
 						''  => 'Under Title',
-						'on_top' => esc_html__( 'Above Title', 'cpschool' ),
-						'disabled' => esc_html__( 'Disabled', 'cpschool' ),
+						'on_top' => esc_html__( 'Above Title', 'myoos' ),
+						'disabled' => esc_html__( 'Disabled', 'myoos' ),
 					),
 					'js_vars'   => array(
 						array(
@@ -1596,10 +1596,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Fixed Featured Image Height
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'entries_lists_featured_image_height_enable',
-					'label'       => esc_html__( 'Fixed Featured Image Height', 'cpschool' ),
+					'label'       => esc_html__( 'Fixed Featured Image Height', 'myoos' ),
 					'section'     => 'entries_lists',
 					'default'     => false,
 					'transport'   => 'postMessage',
@@ -1622,10 +1622,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Featured Image Height
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'entries_lists_featured_image_height',
-					'label'       => esc_html__( 'Featured Image Height (px)', 'cpschool' ),
+					'label'       => esc_html__( 'Featured Image Height (px)', 'myoos' ),
 					'section'     => 'entries_lists',
 					'default'     => '240',
 					'choices'     => array(
@@ -1651,10 +1651,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Show Breadcrumb
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'entries_lists_breadcrumb',
-					'label'       => __( 'Show Breadcrumb', 'cpschool' ),
+					'label'       => __( 'Show Breadcrumb', 'myoos' ),
 					'section'     => 'entries_lists',
 					'transport'   => 'postMessage',
 					'default' => true,
@@ -1672,19 +1672,19 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SEPARATOR - Main Posts Page
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'posts_main',
 					'type'        => 'separator',
-					'label'       => __( 'Main Posts Page', 'cpschool' ),
-					'description' => esc_html__( 'Configure settings for main page displaying recent posts. It can be homepage or "Posts page" configured in "Homepage Settings" section.', 'cpschool' ),
+					'label'       => __( 'Main Posts Page', 'myoos' ),
+					'description' => esc_html__( 'Configure settings for main page displaying recent posts. It can be homepage or "Posts page" configured in "Homepage Settings" section.', 'myoos' ),
 					'section'     => 'entries_lists',
 				) );
 
 				// SETTING - Show Page Title / Hero Area
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'posts_main_hero',
-					'label'       => __( 'Show Page Title / Hero Area', 'cpschool' ),
+					'label'       => __( 'Show Page Title / Hero Area', 'myoos' ),
 					'section'     => 'entries_lists',
 					'transport'   => 'postMessage',
 					'default' => false,
@@ -1711,10 +1711,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Custom Page Title
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'text',
 					'settings'    => 'posts_main_hero_title',
-					'label'       => __( 'Custom Page Title', 'cpschool' ),
+					'label'       => __( 'Custom Page Title', 'myoos' ),
 					'section'     => 'entries_lists',
 					'transport'   => 'postMessage',
 					'default' => '',
@@ -1727,10 +1727,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Custom Sub Title
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'text',
 					'settings'    => 'posts_main_hero_subtitle',
-					'label'       => __( 'Custom Sub Title', 'cpschool' ),
+					'label'       => __( 'Custom Sub Title', 'myoos' ),
 					'section'     => 'entries_lists',
 					'transport'   => 'postMessage',
 					'default' => '',
@@ -1744,8 +1744,8 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 			// Section - Single Posts
 			Kirki::add_section( 'posts', array(
-				'title'       => esc_html__( 'Single Posts', 'cpschool' ),
-				'description' => esc_html__( 'Settings related to single posts.', 'cpschool' ),
+				'title'       => esc_html__( 'Single Posts', 'myoos' ),
+				'description' => esc_html__( 'Settings related to single posts.', 'myoos' ),
 				'panel' => 'content_area'
 			) );
 
@@ -1756,10 +1756,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Show Breadcrumb
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'posts_breadcrumb',
-					'label'       => __( 'Show Breadcrumb', 'cpschool' ),
+					'label'       => __( 'Show Breadcrumb', 'myoos' ),
 					'section'     => 'posts',
 					'transport'   => 'postMessage',
 					'default' => true,
@@ -1778,8 +1778,8 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 			// Section - Pages
 			Kirki::add_section( 'pages', array(
-				'title'       => esc_html__( 'Pages', 'cpschool' ),
-				'description' => esc_html__( 'Settings related to pages.', 'cpschool' ),
+				'title'       => esc_html__( 'Pages', 'myoos' ),
+				'description' => esc_html__( 'Settings related to pages.', 'myoos' ),
 				'panel' => 'content_area'
 			) );
 
@@ -1789,10 +1789,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Show Breadcrumb
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'pages_breadcrumb',
-					'label'       => __( 'Show Breadcrumb', 'cpschool' ),
+					'label'       => __( 'Show Breadcrumb', 'myoos' ),
 					'section'     => 'pages',
 					'transport'   => 'postMessage',
 					'default' => true,
@@ -1811,35 +1811,35 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 			// Section - Alerts
 			Kirki::add_section( 'alerts', array(
-				'title'       => esc_html__( 'Alerts', 'cpschool' ),
-				'description' => esc_html__( 'Configure alerts visible for all visitors.', 'cpschool' ),
+				'title'       => esc_html__( 'Alerts', 'myoos' ),
+				'description' => esc_html__( 'Configure alerts visible for all visitors.', 'myoos' ),
 				'panel' => 'content_area'
 			) );
 
 				// SEPARATOR - Alert Bar
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'alert_bar',
 					'type'        => 'separator',
-					'label'       => __( 'Alert Bar', 'cpschool' ),
-					'description' => esc_html__( 'Configure dismissable alert visible at the top of the page.', 'cpschool' ),
+					'label'       => __( 'Alert Bar', 'myoos' ),
+					'description' => esc_html__( 'Configure dismissable alert visible at the top of the page.', 'myoos' ),
 					'section'     => 'alerts',
 				) );
 
 				// SETTING - Content
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'editor',
 					'settings'    => 'alert_html',
-					'label'       => __( 'Content', 'cpschool' ),
-					'description' => esc_html__( 'Leave empty to disable.', 'cpschool' ),
+					'label'       => __( 'Content', 'myoos' ),
+					'description' => esc_html__( 'Leave empty to disable.', 'myoos' ),
 					'section'     => 'alerts',
 					'transport'   => 'refresh',
 				) );
 				
 				// SETTING - Custom Alert Bar Background Color
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'color',
 					'settings'    => 'alert_bg_color',
-					'label'       => __( 'Custom Alert Bar Background Color', 'cpschool' ),
+					'label'       => __( 'Custom Alert Bar Background Color', 'myoos' ),
 					'section'     => 'alerts',
 					'transport'   => 'auto',
 					'default'     => '',
@@ -1857,11 +1857,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 					cpschool_generate_customizer_color_settings('alert-bg-color');
 
 				// SETTING - Allow Dismissal
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'alerts_dismissable',
-					'label'       => __( 'Allow Dismissal', 'cpschool' ),
-					'description' => esc_html__( 'Enable to allow alert to be dismissed. Changing the content will result in the alert showing up again after it has been dismissed.', 'cpschool' ),
+					'label'       => __( 'Allow Dismissal', 'myoos' ),
+					'description' => esc_html__( 'Enable to allow alert to be dismissed. Changing the content will result in the alert showing up again after it has been dismissed.', 'myoos' ),
 					'section'     => 'alerts',
 					'transport'   => 'postMessage',
 					'default' => false,
@@ -1878,19 +1878,19 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 
 				// SEPARATOR - Popup With Alert
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'alert_popup',
 					'type'        => 'separator',
-					'label'       => __( 'Popup With Alert', 'cpschool' ),
+					'label'       => __( 'Popup With Alert', 'myoos' ),
 					'section'     => 'alerts',
 				) );
 
 				// SETTING - Content
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'alert_popup_block',
-					'label'       => __( 'Content', 'cpschool' ),
-					'description' => __( 'Choose "Reusable Block" to display as dismissable popup. You can create new ones in WordPress Admin > "Reusable Blocks". Changing block content will result in popup showing up again.', 'cpschool' ),
+					'label'       => __( 'Content', 'myoos' ),
+					'description' => __( 'Choose "Reusable Block" to display as dismissable popup. You can create new ones in WordPress Admin > "Reusable Blocks". Changing block content will result in popup showing up again.', 'myoos' ),
 					'section'     => 'alerts',
 					'transport'   => 'refresh',
 					'choices'     => array(),
@@ -1899,28 +1899,28 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 		// Panel - Elements
 		Kirki::add_panel( 'elements', array(
 			'priority'    => 60,
-			'title'       => esc_html__( 'Elements', 'cpschool' ),
-			'description' => esc_html__( 'Settings for elements used across site.', 'cpschool' ),
+			'title'       => esc_html__( 'Elements', 'myoos' ),
+			'description' => esc_html__( 'Settings for elements used across site.', 'myoos' ),
 		) );
 
 			// Section - Headings
 			Kirki::add_section( 'headers', array(
-				'title'       => esc_html__( 'Headings', 'cpschool' ),
-				'description' => esc_html__( 'Settings related to appearance of headers.', 'cpschool' ),
+				'title'       => esc_html__( 'Headings', 'myoos' ),
+				'description' => esc_html__( 'Settings related to appearance of headers.', 'myoos' ),
 				'panel' => 'elements'
 			) );
 
 				// SETTING - Header Styling
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'h_style',
-					'label'       => __( 'Header Styling', 'cpschool' ),
+					'label'       => __( 'Header Styling', 'myoos' ),
 					'section'     => 'headers',
 					'default'     => 'separator',
 					'transport'   => 'postMessage',
 					'choices'     => array(
-						''   => esc_html__( 'Default', 'cpschool' ),
-						'separator' => esc_html__( 'With Separator', 'cpschool' ),
+						''   => esc_html__( 'Default', 'myoos' ),
+						'separator' => esc_html__( 'With Separator', 'myoos' ),
 					),
 					'js_vars'   => array(
 						array(
@@ -1934,16 +1934,16 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Header Separator Position
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'h_sep_pos',
-					'label'       => __( 'Header Separator Position', 'cpschool' ),
+					'label'       => __( 'Header Separator Position', 'myoos' ),
 					'section'     => 'headers',
 					'default'     => 'bottom',
 					'transport'   => 'postMessage',
 					'choices'     => array(
-						''   => esc_html__( 'Top', 'cpschool' ),
-						'bottom' => esc_html__( 'Bottom', 'cpschool' ),
+						''   => esc_html__( 'Top', 'myoos' ),
+						'bottom' => esc_html__( 'Bottom', 'myoos' ),
 					),
 					'active_callback' => array(
 						array(
@@ -1964,16 +1964,16 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Header Separator Color
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'h_sep_color',
-					'label'       => __( 'Header Separator Color', 'cpschool' ),
+					'label'       => __( 'Header Separator Color', 'myoos' ),
 					'section'     => 'headers',
 					'default'     => '',
 					'transport'   => 'postMessage',
 					'choices'     => array(
-						''   => esc_html__( 'Accent', 'cpschool' ),
-						'hl' => esc_html__( 'Highlight Accent', 'cpschool' ),
+						''   => esc_html__( 'Accent', 'myoos' ),
+						'hl' => esc_html__( 'Highlight Accent', 'myoos' ),
 					),
 					'active_callback' => array(
 						array(
@@ -1994,18 +1994,18 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SEPARATOR - Fonts
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'settings' => 'headers_font',
 					'type'        => 'separator',
-					'label'       => __( 'Fonts', 'cpschool' ),
+					'label'       => __( 'Fonts', 'myoos' ),
 					'section'     => 'headers',
 				) );
 				
 				// SETTING - Font Family
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'headers_font_family',
-					'label'       => __( 'Font Family', 'cpschool' ),
+					'label'       => __( 'Font Family', 'myoos' ),
 					'section'     => 'headers',
 					'transport'   => 'auto',
 					'choices'     => cpschool_get_customizer_fonts_options('header', true),
@@ -2020,10 +2020,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Font Size
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'slider',
 					'settings'    => 'headers_font_size',
-					'label'       => esc_html__( 'Font Size', 'cpschool' ),
+					'label'       => esc_html__( 'Font Size', 'myoos' ),
 					'section'     => 'headers',
 					'default'     => 100,
 					'choices'     => array(
@@ -2043,22 +2043,22 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 			// Section - Buttons
 			Kirki::add_section( 'buttons', array(
-				'title'       => esc_html__( 'Buttons', 'cpschool' ),
-				'description' => esc_html__( 'Settings related to buttons appearance.', 'cpschool' ),
+				'title'       => esc_html__( 'Buttons', 'myoos' ),
+				'description' => esc_html__( 'Settings related to buttons appearance.', 'myoos' ),
 				'panel' => 'elements'
 			) );
 
 				// SETTING - Buttons Styling
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'select',
 					'settings'    => 'buttons_style',
-					'label'       => __( 'Buttons Styling', 'cpschool' ),
+					'label'       => __( 'Buttons Styling', 'myoos' ),
 					'section'     => 'buttons',
 					'default'     => '',
 					'transport'   => 'postMessage',
 					'choices'     => array(
-						''   => esc_html__( 'Default', 'cpschool' ),
-						'outline' => esc_html__( 'Outline', 'cpschool' ),
+						''   => esc_html__( 'Default', 'myoos' ),
+						'outline' => esc_html__( 'Outline', 'myoos' ),
 					),
 					'js_vars'   => array(
 						array(
@@ -2073,17 +2073,17 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 
 			// Section - Sidebars
 			Kirki::add_section( 'sidebars', array(
-				'title'       => esc_html__( 'Sidebars', 'cpschool' ),
-				'description' => esc_html__( 'Settings related to sidebars appearance and behavior.', 'cpschool' ),
+				'title'       => esc_html__( 'Sidebars', 'myoos' ),
+				'description' => esc_html__( 'Settings related to sidebars appearance and behavior.', 'myoos' ),
 				'panel' => 'elements'
 			) );
 
 				// SETTING - Sticky Sidebars
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'sidebars_sticky',
-					'label'       => esc_html__( 'Sticky Sidebars', 'cpschool' ),
-					'description' => esc_html__( 'Stick sidebars to the top when scrolling. Only works when sidebar content can fit in browser window.', 'cpschool' ),
+					'label'       => esc_html__( 'Sticky Sidebars', 'myoos' ),
+					'description' => esc_html__( 'Stick sidebars to the top when scrolling. Only works when sidebar content can fit in browser window.', 'myoos' ),
 					'section'     => 'sidebars',
 					'default'     => true,
 					'transport'   => 'postMessage',
@@ -2099,11 +2099,11 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				) );
 
 				// SETTING - Boxed Design
-				Kirki::add_field( 'cpschool', array(
+				Kirki::add_field( 'myoos', array(
 					'type'        => 'toggle',
 					'settings'    => 'sidebars_enable_bg',
-					'label'       => __( 'Boxed Design', 'cpschool' ),
-					'description' => __( 'Enable to put sidebar content in a box. Background can be customized under "General" > "Colors" > "Content Boxes Background". ', 'cpschool' ),
+					'label'       => __( 'Boxed Design', 'myoos' ),
+					'description' => __( 'Enable to put sidebar content in a box. Background can be customized under "General" > "Colors" > "Content Boxes Background". ', 'myoos' ),
 					'section'     => 'sidebars',
 					'transport'   => 'postMessage',
 					'default' => true,
@@ -2121,15 +2121,15 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 		// Section - Footer
 		Kirki::add_section( 'footer_main_area', array(
 			'priority'    => 70,
-			'title'       => esc_html__( 'Footer', 'cpschool' ),
-			'description' => esc_html__( 'Settings for footer.', 'cpschool' ),
+			'title'       => esc_html__( 'Footer', 'myoos' ),
+			'description' => esc_html__( 'Settings for footer.', 'myoos' ),
 		) );
 
 			// SETTING - Background/Overlay Color
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'color',
 				'settings'    => 'footer_main_bg_color',
-				'label'       => __( 'Background/Overlay Color', 'cpschool' ),
+				'label'       => __( 'Background/Overlay Color', 'myoos' ),
 				'section'     => 'footer_main_area',
 				'transport'   => 'auto',
 				'choices'     => array(
@@ -2147,10 +2147,10 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 				cpschool_generate_customizer_color_settings('footer-main-bg-color');
 
 			// SETTING - Background Image
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'image',
 				'settings'    => 'footer_main_bg_image',
-				'label'       => __( 'Background Image', 'cpschool' ),
+				'label'       => __( 'Background Image', 'myoos' ),
 				'section'     => 'footer_main_area',
 				'transport'   => 'refresh',
 				'default' => '',
@@ -2160,21 +2160,21 @@ if ( ! function_exists( 'cpschool_theme_customizer' ) ) {
 			) );
 
 			// SETTING - Include Reusable Block
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'select',
 				'settings'    => 'footer_main_block',
-				'label'       => __( 'Include Reusable Block', 'cpschool' ),
-				'description' => __( 'Choose "Reusable Block" that will be displayed in footer after widgets. You can create new ones in WordPress Admin > "Reusable Blocks".', 'cpschool' ),
+				'label'       => __( 'Include Reusable Block', 'myoos' ),
+				'description' => __( 'Choose "Reusable Block" that will be displayed in footer after widgets. You can create new ones in WordPress Admin > "Reusable Blocks".', 'myoos' ),
 				'section'     => 'footer_main_area',
 				'transport'   => 'refresh',
 				'choices'     => array(),
 			) );
 
 			// SETTING - Custom Footer Text
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'editor',
 				'settings'    => 'footer_main_custom_html',
-				'label'       => __( 'Custom Footer Text', 'cpschool' ),
+				'label'       => __( 'Custom Footer Text', 'myoos' ),
 				'section'     => 'footer_main_area',
 				'transport'   => 'refresh',
 			) );
@@ -2196,7 +2196,7 @@ if ( ! function_exists( 'cpschool_reusable_block_integration' ) ) {
 		if( in_array($settings['default']->id, $settings_with_blocks)) {
 			static $reusable_blocks_choices = array();
 			if( !$reusable_blocks_choices ) {
-				$reusable_blocks_choices =  array(0 => __( 'Disable', 'cpschool' )) + Kirki_Helper::get_posts( array('post_type' => 'wp_block', 'numberposts' => 100) );
+				$reusable_blocks_choices =  array(0 => __( 'Disable', 'myoos' )) + Kirki_Helper::get_posts( array('post_type' => 'wp_block', 'numberposts' => 100) );
 			}
 
 			$json['choices'] = $reusable_blocks_choices;

@@ -20,16 +20,16 @@ if ( ! function_exists( 'cpschool_add_site_info' ) ) {
 		if ( ! $site_info ) {
 			$site_info = sprintf(
 				'<a href="%1$s">%2$s</a><span class="sep"> | </span>%3$s',
-				esc_url( __( 'http://wordpress.org/', 'cpschool' ) ),
+				esc_url( __( 'http://wordpress.org/', 'myoos' ) ),
 				sprintf(
 					/* translators:*/
-					esc_html__( 'Powered by %s', 'cpschool' ),
+					esc_html__( 'Powered by %s', 'myoos' ),
 					'WordPress'
 				),
 				sprintf( // WPCS: XSS ok.
 					/* translators:*/
-					esc_html__( 'Theme created by %1$s.', 'cpschool' ),
-					'<a href="' . esc_url( __( 'https://campuspress.com/', 'cpschool' ) ) . '">CampusPress</a>'
+					esc_html__( 'Theme created by %1$s.', 'myoos' ),
+					'<a href="' . esc_url( __( 'https://campuspress.com/', 'myoos' ) ) . '">CampusPress</a>'
 				)
 			);
 		}
@@ -65,15 +65,15 @@ if ( ! function_exists( 'cpschool_get_menu_icons_colors' ) ) {
 		$colors = array(
 			''          => array(
 				'hex'  => $default,
-				'name' => esc_html__( 'Default', 'cpschool' ),
+				'name' => esc_html__( 'Default', 'myoos' ),
 			),
 			'accent'    => array(
 				'hex'  => $accent,
-				'name' => esc_html__( 'Accent', 'cpschool' ),
+				'name' => esc_html__( 'Accent', 'myoos' ),
 			),
 			'accent-hl' => array(
 				'hex'  => $accent_hl,
-				'name' => esc_html__( 'Highlight Accent', 'cpschool' ),
+				'name' => esc_html__( 'Highlight Accent', 'myoos' ),
 			),
 		);
 

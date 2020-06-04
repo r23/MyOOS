@@ -1,8 +1,8 @@
-<div id="modal-slide-in-menu" class="modal fade modal-slide-in-right modal-full-height nav-styling-underline" tabindex="-1" role="dialog" aria-label="<?php echo esc_attr( 'slide-in menu', 'cpschool' ); ?>" aria-hidden="true">
+<div id="modal-slide-in-menu" class="modal fade modal-slide-in-right modal-full-height nav-styling-underline" tabindex="-1" role="dialog" aria-label="<?php echo esc_attr( 'slide-in menu', 'myoos' ); ?>" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content has-background has-header-main-bg-color-background-color">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="<?php esc_attr( 'Close Menu', 'cpschool' ); ?>">
+				<button type="button" class="close" data-dismiss="modal" aria-label="<?php esc_attr( 'Close Menu', 'myoos' ); ?>">
 					<i aria-hidden="true" class="cps-icon cps-icon-close"></i>
 				</button>
 			</div>
@@ -25,7 +25,7 @@
 					}
 					?>
 
-					<nav class="<?php echo esc_attr( $expanded_nav_classes ); ?>" aria-label="<?php esc_attr_e( 'Expanded', 'cpschool' ); ?>" role="navigation">
+					<nav class="<?php echo esc_attr( $expanded_nav_classes ); ?>" aria-label="<?php esc_attr_e( 'Expanded', 'myoos' ); ?>" role="navigation">
 						<?php
 						if ( has_nav_menu( 'desktop-extended' ) ) {
 							wp_nav_menu(
@@ -44,7 +44,7 @@
 
 				if ( 'desktop-expanded' !== $mobile_menu_location ) {
 					?>
-					<nav class="menu-mobile" aria-label="<?php esc_attr_e( 'Mobile', 'cpschool' ); ?>" role="navigation">
+					<nav class="menu-mobile" aria-label="<?php esc_attr_e( 'Mobile', 'myoos' ); ?>" role="navigation">
 						<?php
 						if ( $mobile_menu_location ) {
 							wp_nav_menu(

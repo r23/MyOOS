@@ -1,12 +1,20 @@
-/*
-Theme Name: CampusPress Flex
-Theme URI: https://campuspress.com/wordpress-theme-for-schools/
-Author: CampusPress
-Author URI: https://www.campuspress.com
-Description: New, flexible theme from CampusPress for accessible, fast, and an easy-to-navigate site. Perfect for your new school, district, or department.
-Version: 0.9.0.1
+/**
+Theme Name: myoos
+Theme URI: http://oos-shop.de
+Author: r23
+Author URI: http://blog.r23.de
+Description: MyOOS is a clean minimal and responsive WordPress theme well suited for business, finance, portfolio, design, art and any other creative websites and blogs.
+Version: 1.0.0
 License: GNU GPL version 2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: cpschool
+Text Domain: myoos
+Domain Path: /languages/
 Tags: one-column, custom-menu, featured-images, theme-options, translation-ready, accessible
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+myoos is based on CampusPress Flex, https://campuspress.com/wordpress-theme-for-schools/ CampusPress
+Text Domain: cpschool
+Tags: 
 */

@@ -35,14 +35,14 @@ if ( ! function_exists( 'cpschool_post_nav' ) ) {
 		}
 		?>
 		<nav class="container navigation post-navigation">
-			<h2 class="sr-only"><?php esc_html_e( 'Post navigation', 'cpschool' ); ?></h2>
+			<h2 class="sr-only"><?php esc_html_e( 'Post navigation', 'myoos' ); ?></h2>
 			<div class="row nav-links justify-content-between">
 				<?php
 				if ( get_previous_post_link() ) {
-					previous_post_link( '<span class="nav-previous">%link</span>', _x( '<i aria-hidden="true" class="cps-icon cps-icon-chevron-left"></i>%title', 'Previous post link', 'cpschool' ) );
+					previous_post_link( '<span class="nav-previous">%link</span>', _x( '<i aria-hidden="true" class="cps-icon cps-icon-chevron-left"></i>%title', 'Previous post link', 'myoos' ) );
 				}
 				if ( get_next_post_link() ) {
-					next_post_link( '<span class="nav-next">%link</span>', _x( '%title<i aria-hidden="true" class="cps-icon cps-icon-chevron-right"></i>', 'Next post link', 'cpschool' ) );
+					next_post_link( '<span class="nav-next">%link</span>', _x( '%title<i aria-hidden="true" class="cps-icon cps-icon-chevron-right"></i>', 'Next post link', 'myoos' ) );
 				}
 				?>
 			</div><!-- .nav-links -->
@@ -91,7 +91,7 @@ if ( ! function_exists( 'cpschool_posted_on' ) ) {
 			'cpschool_posted_on',
 			sprintf(
 				'<span class="posted-on">%1$s <a href="%2$s" rel="bookmark">%3$s</a></span>',
-				esc_html_x( 'Posted on', 'post date', 'cpschool' ),
+				esc_html_x( 'Posted on', 'post date', 'myoos' ),
 				esc_url( get_permalink() ),
 				apply_filters( 'cpschool_posted_on_time', $time_string )
 			)
@@ -100,7 +100,7 @@ if ( ! function_exists( 'cpschool_posted_on' ) ) {
 			'cpschool_posted_by',
 			sprintf(
 				'<span class="byline"> %1$s<span class="author vcard"><a class="url fn n" href="%2$s"> %3$s</a></span></span>',
-				$posted_on ? esc_html_x( 'by', 'post author', 'cpschool' ) : esc_html_x( 'Posted by', 'post author', 'cpschool' ),
+				$posted_on ? esc_html_x( 'by', 'post author', 'myoos' ) : esc_html_x( 'Posted by', 'post author', 'myoos' ),
 				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 				esc_html( get_the_author() )
 			)
@@ -116,13 +116,13 @@ if ( ! function_exists( 'cpschool_entry_footer' ) ) {
 	function cpschool_entry_footer() {
 		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
 			echo '<span class="comments-link">';
-			comments_popup_link( esc_html__( 'Leave a comment', 'cpschool' ), esc_html__( '1 Comment', 'cpschool' ), esc_html__( '% Comments', 'cpschool' ) );
+			comments_popup_link( esc_html__( 'Leave a comment', 'myoos' ), esc_html__( '1 Comment', 'myoos' ), esc_html__( '% Comments', 'myoos' ) );
 			echo '</span>';
 		}
 		edit_post_link(
 			sprintf(
 				/* translators: %s: Name of current post */
-				esc_html__( 'Edit %s', 'cpschool' ),
+				esc_html__( 'Edit %s', 'myoos' ),
 				the_title( '<span class="screen-reader-text">"', '"</span>', false )
 			),
 			'<span class="edit-link">',
@@ -227,7 +227,7 @@ if ( ! function_exists( 'cpschool_get_post_meta' ) ) {
 				if ( in_array( 'author', $post_meta, true ) ) {
 					?>
 					<li class="post-author list-inline-item<?php echo in_array( 'author-avatar', $post_meta, true ) ? ' post-author-has-avatar' : ''; ?>">
-						<span class="screen-reader-text"><?php _e( 'Author', 'cpschool' ); ?></span>
+						<span class="screen-reader-text"><?php _e( 'Author', 'myoos' ); ?></span>
 						<?php if ( in_array( 'author-avatar', $post_meta, true ) ) { ?>
 							<?php echo get_avatar( $post, 48 ); ?>
 						<?php } else { ?>
@@ -239,7 +239,7 @@ if ( ! function_exists( 'cpschool_get_post_meta' ) ) {
 							<?php
 							printf(
 								/* translators: %s: Author name */
-								__( 'By %s', 'cpschool' ),
+								__( 'By %s', 'myoos' ),
 								'<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author_meta( 'display_name' ) ) . '</a>'
 							);
 							?>
@@ -252,7 +252,7 @@ if ( ! function_exists( 'cpschool_get_post_meta' ) ) {
 				if ( in_array( 'post-date', $post_meta, true ) ) {
 					?>
 					<li class="post-date list-inline-item">
-						<span class="screen-reader-text"><?php _e( 'Publication date', 'cpschool' ); ?></span>
+						<span class="screen-reader-text"><?php _e( 'Publication date', 'myoos' ); ?></span>
 						<span class="meta-icon" aria-hidden="true">
 							<i class="cps-icon cps-icon-calendar"></i>
 						</span>
@@ -266,7 +266,7 @@ if ( ! function_exists( 'cpschool_get_post_meta' ) ) {
 						<li class="post-modified list-inline-item">
 							<span class="meta-text">
 								<small>
-									(<?php _e( 'Updated On ', 'cpschool' ); ?> <?php the_modified_date( get_option( 'date_format' ) ); ?>)
+									(<?php _e( 'Updated On ', 'myoos' ); ?> <?php the_modified_date( get_option( 'date_format' ) ); ?>)
 								</small>
 							</span>
 						</li>
@@ -278,12 +278,12 @@ if ( ! function_exists( 'cpschool_get_post_meta' ) ) {
 				if ( in_array( 'post-modified', $post_meta, true ) && ! in_array( 'post-date', $post_meta, true ) ) {
 					?>
 					<li class="post-modified list-inline-item">
-						<span class="screen-reader-text"><?php _e( 'Last modification date', 'cpschool' ); ?></span>
+						<span class="screen-reader-text"><?php _e( 'Last modification date', 'myoos' ); ?></span>
 							<span class="meta-icon" aria-hidden="true">
 								<i class="cps-icon cps-icon-calendar"></i>
 							</span>
 						<span class="meta-text">
-							<?php _e( 'Updated On ', 'cpschool' ); ?>
+							<?php _e( 'Updated On ', 'myoos' ); ?>
 							<?php the_modified_date( get_option( 'date_format' ) ); ?>
 						</span>
 					</li>
@@ -294,7 +294,7 @@ if ( ! function_exists( 'cpschool_get_post_meta' ) ) {
 				if ( in_array( 'tax-category', $post_meta, true ) && has_category() ) {
 					?>
 					<li class="post-categories list-inline-item">
-						<span class="screen-reader-text"><?php _e( 'Categories:', 'cpschool' ); ?></span>
+						<span class="screen-reader-text"><?php _e( 'Categories:', 'myoos' ); ?></span>
 						<span class="meta-icon" aria-hidden="true">
 							<i class="cps-icon cps-icon-category"></i>
 						</span>
@@ -309,7 +309,7 @@ if ( ! function_exists( 'cpschool_get_post_meta' ) ) {
 				if ( in_array( 'tax-post_tag', $post_meta, true ) && has_tag() ) {
 					?>
 					<li class="post-tags list-inline-item">
-						<span class="screen-reader-text"><?php _e( 'Tags:', 'cpschool' ); ?></span>
+						<span class="screen-reader-text"><?php _e( 'Tags:', 'myoos' ); ?></span>
 						<span class="meta-icon" aria-hidden="true">
 							<i class="cps-icon cps-icon-tag"></i>
 						</span>
@@ -342,7 +342,7 @@ if ( ! function_exists( 'cpschool_get_post_meta' ) ) {
 							<i class="cps-icon cps-icon-pin"></i>
 						</span>
 						<span class="meta-text">
-							<?php _e( 'Sticky post', 'cpschool' ); ?>
+							<?php _e( 'Sticky post', 'myoos' ); ?>
 						</span>
 					</li>
 					<?php
@@ -387,9 +387,9 @@ if ( ! function_exists( 'cpschool_pagination' ) ) {
 			array(
 				'mid_size'           => 2,
 				'prev_next'          => true,
-				'prev_text'          => __( '&laquo;', 'cpschool' ),
-				'next_text'          => __( '&raquo;', 'cpschool' ),
-				'screen_reader_text' => __( 'Posts navigation', 'cpschool' ),
+				'prev_text'          => __( '&laquo;', 'myoos' ),
+				'next_text'          => __( '&raquo;', 'myoos' ),
+				'screen_reader_text' => __( 'Posts navigation', 'myoos' ),
 				'type'               => 'array',
 				'current'            => max( 1, get_query_var( 'paged' ) ),
 			)
@@ -427,13 +427,13 @@ if ( ! function_exists( 'cpschool_get_page_title' ) ) {
 		if ( is_search() ) {
 			$title = sprintf(
 				'%1$s %2$s',
-				'<span class="color-accent">' . __( 'Search:', 'cpschool' ) . '</span>',
+				'<span class="color-accent">' . __( 'Search:', 'myoos' ) . '</span>',
 				'&ldquo;' . get_search_query() . '&rdquo;'
 			);
 		} elseif ( is_singular() ) {
 			$title = get_the_title();
 		} elseif ( is_404() ) {
-			$title = __( 'Oops! That page can&rsquo;t be found.', 'cpschool' );
+			$title = __( 'Oops! That page can&rsquo;t be found.', 'myoos' );
 		} elseif ( is_archive() ) {
 			$title = get_the_archive_title();
 		} elseif ( is_home() ) {
@@ -464,19 +464,19 @@ if ( ! function_exists( 'cpschool_get_page_subtitle' ) ) {
 						'We found %s result for your search.',
 						'We found %s results for your search.',
 						$wp_query->found_posts,
-						'cpschool'
+						'myoos'
 					),
 					number_format_i18n( $wp_query->found_posts )
 				);
 			} else {
-				$subtitle = __( 'We could not find any results for your search. You can give it another try through the search form below.', 'cpschool' );
+				$subtitle = __( 'We could not find any results for your search. You can give it another try through the search form below.', 'myoos' );
 			}
 		} elseif ( is_singular() ) {
 			if ( is_page() && has_excerpt() ) {
 				$subtitle = $post->post_excerpt;
 			}
 		} elseif ( is_404() ) {
-			$subtitle = __( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'cpschool' );
+			$subtitle = __( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'myoos' );
 		} elseif ( is_archive() ) {
 			$subtitle = get_the_archive_description();
 		} elseif ( is_home() ) {

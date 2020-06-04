@@ -78,7 +78,7 @@ function cp_dir_get_available_filters( $source ) {
 
     $filters['search'] = array(
         'name' => 'search',
-        'label' => __( 'Search', 'cpschool' ),
+        'label' => __( 'Search', 'myoos' ),
         'type' => 'search',
     );
 
@@ -119,7 +119,7 @@ function cp_dir_get_available_fields( $source ) {
 
     $fields['post_title'] = array(
         'name' => 'post_title',
-        'label' => __( 'Title', 'cpschool' ),
+        'label' => __( 'Title', 'myoos' ),
         'type' => 'post',
         'value_type' => 'text',
         'default' => true,
@@ -129,7 +129,7 @@ function cp_dir_get_available_fields( $source ) {
     /*
     $fields['post_excerpt'] = array(
         'name' => 'post_excerpt',
-        'label' => __( 'Excerpt', 'cpschool' ),
+        'label' => __( 'Excerpt', 'myoos' ),
         'type' => 'post',
         'value_type' => 'text',
         'default' => false,

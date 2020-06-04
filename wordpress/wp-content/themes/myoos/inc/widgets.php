@@ -97,9 +97,9 @@ if ( ! function_exists( 'cpschool_widgets_init' ) ) {
 	function cpschool_widgets_init() {
 		register_sidebar(
 			array(
-				'name'          => __( 'Right Sidebar', 'cpschool' ),
+				'name'          => __( 'Right Sidebar', 'myoos' ),
 				'id'            => 'sidebar-right',
-				'description'   => __( 'Right sidebar widget area. Used by default with single posts and pages that are listing posts.', 'cpschool' ),
+				'description'   => __( 'Right sidebar widget area. Used by default with single posts and pages that are listing posts.', 'myoos' ),
 				'before_widget' => '<div id="%1$s" class="sidebar-widget widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
@@ -109,9 +109,9 @@ if ( ! function_exists( 'cpschool_widgets_init' ) ) {
 
 		register_sidebar(
 			array(
-				'name'          => __( 'Left Sidebar', 'cpschool' ),
+				'name'          => __( 'Left Sidebar', 'myoos' ),
 				'id'            => 'sidebar-left',
-				'description'   => __( 'Left sidebar widget area. Used by default with pages.', 'cpschool' ),
+				'description'   => __( 'Left sidebar widget area. Used by default with pages.', 'myoos' ),
 				'before_widget' => '<div id="%1$s" class="sidebar-widget widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h3 class="widget-title">',
@@ -121,9 +121,9 @@ if ( ! function_exists( 'cpschool_widgets_init' ) ) {
 
 		register_sidebar(
 			array(
-				'name'          => __( 'Footer Full', 'cpschool' ),
+				'name'          => __( 'Footer Full', 'myoos' ),
 				'id'            => 'footerfull',
-				'description'   => __( 'Full sized footer widget with dynamic grid', 'cpschool' ),
+				'description'   => __( 'Full sized footer widget with dynamic grid', 'myoos' ),
 				'before_widget' => '<div id="%1$s" class="footer-widget widget %2$s dynamic-classes">',
 				'after_widget'  => '</div><!-- .footer-widget -->',
 				'before_title'  => '<h3 class="widget-title">',

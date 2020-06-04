@@ -34,7 +34,7 @@ if ( post_password_required() ) {
 			if ( 1 === (int) $comments_number ) {
 				printf(
 					/* translators: %s: post title */
-					esc_html_x( 'One thought on &ldquo;%s&rdquo;', 'comments title', 'cpschool' ),
+					esc_html_x( 'One thought on &ldquo;%s&rdquo;', 'comments title', 'myoos' ),
 					'<span>' . get_the_title() . '</span>'
 				);
 			} else {
@@ -46,7 +46,7 @@ if ( post_password_required() ) {
 							'%1$s thoughts on &ldquo;%2$s&rdquo;',
 							$comments_number,
 							'comments title',
-							'cpschool'
+							'myoos'
 						)
 					),
 					number_format_i18n( $comments_number ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -61,17 +61,17 @@ if ( post_password_required() ) {
 
 			<nav class="comment-navigation" id="comment-nav-above">
 
-				<h1 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'cpschool' ); ?></h1>
+				<h1 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'myoos' ); ?></h1>
 
 				<?php if ( get_previous_comments_link() ) { ?>
 					<div class="nav-previous">
-						<?php previous_comments_link( __( '&larr; Older Comments', 'cpschool' ) ); ?>
+						<?php previous_comments_link( __( '&larr; Older Comments', 'myoos' ) ); ?>
 					</div>
 				<?php } ?>
 
 				<?php	if ( get_next_comments_link() ) { ?>
 					<div class="nav-next">
-						<?php next_comments_link( __( 'Newer Comments &rarr;', 'cpschool' ) ); ?>
+						<?php next_comments_link( __( 'Newer Comments &rarr;', 'myoos' ) ); ?>
 					</div>
 				<?php } ?>
 
@@ -96,17 +96,17 @@ if ( post_password_required() ) {
 
 			<nav class="comment-navigation" id="comment-nav-below">
 
-				<h1 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'cpschool' ); ?></h1>
+				<h1 class="screen-reader-text"><?php esc_html_e( 'Comment navigation', 'myoos' ); ?></h1>
 
 				<?php if ( get_previous_comments_link() ) { ?>
 					<div class="nav-previous">
-						<?php previous_comments_link( __( '&larr; Older Comments', 'cpschool' ) ); ?>
+						<?php previous_comments_link( __( '&larr; Older Comments', 'myoos' ) ); ?>
 					</div>
 				<?php } ?>
 
 				<?php	if ( get_next_comments_link() ) { ?>
 					<div class="nav-next">
-						<?php next_comments_link( __( 'Newer Comments &rarr;', 'cpschool' ) ); ?>
+						<?php next_comments_link( __( 'Newer Comments &rarr;', 'myoos' ) ); ?>
 					</div>
 				<?php } ?>
 

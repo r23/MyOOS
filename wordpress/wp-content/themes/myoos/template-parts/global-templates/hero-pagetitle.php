@@ -4,7 +4,7 @@ $hero_style = cpschool_get_hero_style();
 if ( $hero_style || ( is_customize_preview() && ( ! is_singular() || ! get_post_meta( get_the_ID(), 'cps_hero_title_disable', true ) ) ) ) {
 	$title = cpschool_get_page_title();
 	?>
-	<header id="hero-main" <?php cpschool_class( 'hero-main', 'hero jumbotron jumbotron-fluid has-background has-hero-main-bg-color-background-color' ); ?> aria-label="<?php esc_html_e( 'page title and basic information', 'cpschool' ); ?>">
+	<header id="hero-main" <?php cpschool_class( 'hero-main', 'hero jumbotron jumbotron-fluid has-background has-hero-main-bg-color-background-color' ); ?> aria-label="<?php esc_html_e( 'page title and basic information', 'myoos' ); ?>">
 		<div class="hero-content container" data-aos="fade" data-aos-delay="500" data-aos-duration="1000">
 			<?php
 			if ( cpschool_is_breadcrumb_enabled( 'hero' ) || is_customize_preview() ) {

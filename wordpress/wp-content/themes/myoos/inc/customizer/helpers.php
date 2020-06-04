@@ -6,7 +6,7 @@ if ( ! function_exists( 'cpschool_get_customizer_fonts_options' ) ) {
 	// Generates array with options used with typography control so all font lists have the same choises.
 	function cpschool_get_customizer_fonts_options($context = false, $default = false) {
 		if($default) {
-			$default = array('inherit' => esc_html__( 'Default font', 'cpschool' ));
+			$default = array('inherit' => esc_html__( 'Default font', 'myoos' ));
 		}
 		else {
 			$default = array();
@@ -70,7 +70,7 @@ if ( ! function_exists( 'cpschool_generate_customizer_color_settings' ) ) {
 			$css_name = '--'.$name;
 			$setting_name = str_replace( '-', '_', $name );
 
-			Kirki::add_field( 'cpschool', [
+			Kirki::add_field( 'myoos', [
 				'type'        => 'hidden',
 				'settings'    => $setting_name,
 				'section'     => 'colors',
@@ -92,16 +92,16 @@ if ( ! function_exists( 'cpschool_generate_content_common_settings' ) ) {
 	function cpschool_generate_content_common_settings( $section, $post_type, $options = array() ) {
 		// Sidebar settings.
 		if( isset( $options['sidebars'] ) ) {
-			Kirki::add_field( 'cpschool', [
+			Kirki::add_field( 'myoos', [
 				'type'        => 'multicheck',
 				'settings'    => $section.'_sidebars',
-				'label'       => esc_html__( 'Sidebars', 'cpschool' ),
-				'description' => esc_html__( 'Choose which sidebars should be displayed on this page type. Empty sidebars won\'t be visible even when enabled.', 'cpschool' ),
+				'label'       => esc_html__( 'Sidebars', 'myoos' ),
+				'description' => esc_html__( 'Choose which sidebars should be displayed on this page type. Empty sidebars won\'t be visible even when enabled.', 'myoos' ),
 				'section'     => $section,
 				'default' =>  $options['sidebars'],
 				'choices'     => [
-					'sidebar-left' => esc_html__( 'Left Sidebar', 'cpschool' ),
-					'sidebar-right' => esc_html__( 'Right Sidebar', 'cpschool' ),
+					'sidebar-left' => esc_html__( 'Left Sidebar', 'myoos' ),
+					'sidebar-right' => esc_html__( 'Right Sidebar', 'myoos' ),
 				],
 			] );
 		}
@@ -110,12 +110,12 @@ if ( ! function_exists( 'cpschool_generate_content_common_settings' ) ) {
 		if( isset( $options['meta'] ) ) {
 			$choices = array();
 			if( post_type_supports( $post_type, 'author' ) ) {
-				$choices['author'] = esc_html__( 'Author', 'cpschool' );
-				$choices['author-avatar'] = esc_html__( 'Author Avatar', 'cpschool' );
+				$choices['author'] = esc_html__( 'Author', 'myoos' );
+				$choices['author-avatar'] = esc_html__( 'Author Avatar', 'myoos' );
 			}
 
-			$choices['post-date'] = esc_html__( 'Publication Date', 'cpschool' );
-			$choices['post-modified'] = esc_html__( 'Latest Modification Date', 'cpschool' );
+			$choices['post-date'] = esc_html__( 'Publication Date', 'myoos' );
+			$choices['post-modified'] = esc_html__( 'Latest Modification Date', 'myoos' );
 
 			$taxonomies = get_object_taxonomies( $post_type, 'objects' );
 			foreach( $taxonomies as $taxonomy ) {
@@ -125,18 +125,18 @@ if ( ! function_exists( 'cpschool_generate_content_common_settings' ) ) {
 			}
 
 			if( post_type_supports( $post_type, 'comments' ) ) {
-				$choices['comments'] = esc_html__( 'Comments', 'cpschool' );
+				$choices['comments'] = esc_html__( 'Comments', 'myoos' );
 			}
 
 			if( $post_type == 'post' ) {
-				$choices['sticky'] = esc_html__( 'Sticky', 'cpschool' );
+				$choices['sticky'] = esc_html__( 'Sticky', 'myoos' );
 			} 
 	
-			Kirki::add_field( 'cpschool', [
+			Kirki::add_field( 'myoos', [
 				'type'        => 'multicheck',
 				'settings'    => $section.'_meta',
-				'label'       => esc_html__( 'Meta', 'cpschool' ),
-				'description' => esc_html__( 'Choose which meta data elements to display.', 'cpschool' ),
+				'label'       => esc_html__( 'Meta', 'myoos' ),
+				'description' => esc_html__( 'Choose which meta data elements to display.', 'myoos' ),
 				'section'     => $section,
 				'default' =>  $options['meta'],
 				'choices'     => $choices,
@@ -145,11 +145,11 @@ if ( ! function_exists( 'cpschool_generate_content_common_settings' ) ) {
 
 		// Post Navigation Settings.
 		if( isset( $options['navigation'] ) ) {
-			Kirki::add_field( 'cpschool', array(
+			Kirki::add_field( 'myoos', array(
 				'type'        => 'toggle',
 				'settings'    => $section.'_navigation',
-				'label'       => __( 'Show Navigation', 'cpschool' ),
-				'description' => esc_html__( 'Shows previous and next button for easy navigation.', 'cpschool' ),
+				'label'       => __( 'Show Navigation', 'myoos' ),
+				'description' => esc_html__( 'Shows previous and next button for easy navigation.', 'myoos' ),
 				'section'     => $section,
 				'default' => $options['navigation'],
 			) );

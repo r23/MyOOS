@@ -17,7 +17,7 @@
 		<?php do_action( 'calendarp_content_event_content', $event ); ?>
 		<div>
 			<a class="btn btn-secondary cpschool-read-more-link" href="<?php echo esc_attr( get_permalink( $event->ID ) ); ?>">
-				<?php _e( 'Open Event', 'cpschool' ); ?>
+				<?php _e( 'Open Event', 'myoos' ); ?>
 			</a>
 		</div>
 	</div>

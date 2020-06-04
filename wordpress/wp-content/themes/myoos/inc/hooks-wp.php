@@ -210,7 +210,7 @@ if ( ! function_exists( 'cpschool_all_excerpts_get_more_link' ) ) {
 				$classes      = cpschool_class( 'read-more-link', 'btn btn-secondary cpschool-read-more-link', true );
 				$post_excerpt = $post_excerpt . '<div><a class="' . implode( ' ', $classes ) . '" href="' . esc_url( get_permalink( get_the_ID() ) ) . '">' . __(
 					'Continue Reading',
-					'cpschool'
+					'myoos'
 				) . '</a></div>';
 			}
 		}

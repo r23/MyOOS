@@ -12,7 +12,7 @@ if ( ! function_exists( 'cpschool_cp_directory_setup' ) ) {
 		register_post_type(
 			'cp_school_directory',
 			array(
-				'label'     => __( 'Directory', 'cpschool' ),
+				'label'     => __( 'Directory', 'myoos' ),
 				'public'    => true,
 				'supports'  => array( 'thumbnail', 'title', 'editor' ),
 				'menu_icon' => 'dashicons-index-card',
@@ -22,7 +22,7 @@ if ( ! function_exists( 'cpschool_cp_directory_setup' ) ) {
 			'cp_directory_category',
 			'cp_school_directory',
 			array(
-				'label'        => __( 'Categories', 'cpschool' ),
+				'label'        => __( 'Categories', 'myoos' ),
 				'public'       => true,
 				'hierarchical' => true,
 				'show_in_rest' => true,
