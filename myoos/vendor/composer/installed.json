@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.139.1",
-        "version_normalized": "3.139.1.0",
+        "version": "3.140.1",
+        "version_normalized": "3.140.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "31fc7fc73d550e237b34f7c6802250fd4ade9a01"
+            "reference": "52645498aea4dd2d090884322121270daf3e0f06"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/31fc7fc73d550e237b34f7c6802250fd4ade9a01",
-            "reference": "31fc7fc73d550e237b34f7c6802250fd4ade9a01",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/52645498aea4dd2d090884322121270daf3e0f06",
+            "reference": "52645498aea4dd2d090884322121270daf3e0f06",
             "shasum": ""
         },
         "require": {
@@ -101,7 +101,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-06-02T18:12:38+00:00",
+        "time": "2020-06-04T18:19:47+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1912,17 +1912,17 @@
     },
     {
         "name": "laminas/laminas-httphandlerrunner",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laminas/laminas-httphandlerrunner.git",
-            "reference": "296f5ff35074dd981d1570a66b95596c81808087"
+            "reference": "e1a5dad040e0043135e8095ee27d1fbf6fb640e1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laminas/laminas-httphandlerrunner/zipball/296f5ff35074dd981d1570a66b95596c81808087",
-            "reference": "296f5ff35074dd981d1570a66b95596c81808087",
+            "url": "https://api.github.com/repos/laminas/laminas-httphandlerrunner/zipball/e1a5dad040e0043135e8095ee27d1fbf6fb640e1",
+            "reference": "e1a5dad040e0043135e8095ee27d1fbf6fb640e1",
             "shasum": ""
         },
         "require": {
@@ -1933,19 +1933,19 @@
             "psr/http-server-handler": "^1.0"
         },
         "replace": {
-            "zendframework/zend-httphandlerrunner": "self.version"
+            "zendframework/zend-httphandlerrunner": "^1.1.0"
         },
         "require-dev": {
             "laminas/laminas-coding-standard": "~1.0.0",
             "laminas/laminas-diactoros": "^1.7 || ^2.1.1",
             "phpunit/phpunit": "^7.0.2"
         },
-        "time": "2019-12-31T17:06:16+00:00",
+        "time": "2020-06-03T15:52:17+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.1.x-dev",
-                "dev-develop": "1.2.x-dev"
+                "dev-master": "1.2.x-dev",
+                "dev-develop": "1.3.x-dev"
             },
             "laminas": {
                 "config-provider": "Laminas\\HttpHandlerRunner\\ConfigProvider"
@@ -1969,6 +1969,12 @@
             "mezzio",
             "psr-15",
             "psr-7"
+        ],
+        "funding": [
+            {
+                "url": "https://funding.communitybridge.org/projects/laminas-project",
+                "type": "community_bridge"
+            }
         ]
     },
     {
@@ -4152,17 +4158,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.36.1",
-        "version_normalized": "7.36.1.0",
+        "version": "v7.36.2",
+        "version_normalized": "7.36.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "80979c8959dff86bf7b0610e44599a67132ebcd3"
+            "reference": "a8981c169e6842fc6a4d4e7028b706b8291ad4ec"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/80979c8959dff86bf7b0610e44599a67132ebcd3",
-            "reference": "80979c8959dff86bf7b0610e44599a67132ebcd3",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/a8981c169e6842fc6a4d4e7028b706b8291ad4ec",
+            "reference": "a8981c169e6842fc6a4d4e7028b706b8291ad4ec",
             "shasum": ""
         },
         "require": {
@@ -4178,7 +4184,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-05-28T18:11:30+00:00",
+        "time": "2020-06-03T19:16:18+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 3.140.1 - 2020-06-04
+
+* `Aws\EC2` - New C5a instances, the latest generation of EC2's compute-optimized instances featuring AMD's 2nd Generation EPYC processors. C5a instances offer up to 96 vCPUs, 192 GiB of instance memory, 20 Gbps in Network bandwidth; New G4dn.metal bare metal instance with 8 NVIDIA T4 GPUs.
+* `Aws\Lightsail` - This release adds the BurstCapacityPercentage and BurstCapacityTime instance metrics, which allow you to track the burst capacity available to your instance.
+* `Aws\MarketplaceMetering` - Documentation updates for meteringmarketplace
+* `Aws\MediaPackageVod` - You can now restrict direct access to AWS Elemental MediaPackage by securing requests for VOD content using CDN authorization. With CDN authorization, content requests require a specific HTTP header and authorization code.
+* `Aws\SSM` - SSM State Manager support for executing an association only at specified CRON schedule after creating/updating an association.
+
+## 3.140.0 - 2020-06-03
+
+* `Aws\Build\Docs` - Tweak docs redirect logic to use uid if possible.
+* `Aws\DirectConnect` - This release supports the virtual interface failover test, which allows you to verify that traffic routes over redundant virtual interfaces when you bring your primary virtual interface out of service.
+* `Aws\ElastiCache` - This release improves the Multi-AZ feature in ElastiCache by adding a separate flag and proper validations.
+* `Aws\ElasticsearchService` - Amazon Elasticsearch Service now offers support for cross-cluster search, enabling you to perform searches, aggregations, and visualizations across multiple Amazon Elasticsearch Service domains with a single query or from a single Kibana interface. New feature includes the ability to setup connection, required to perform cross-cluster search, between domains using an approval workflow.
+* `Aws\Glue` - Adding databaseName in the response for GetUserDefinedFunctions() API.
+* `Aws\IAM` - GenerateServiceLastAccessedDetails will now return ActionLastAccessed details for certain S3 control plane actions
+* `Aws\MediaConvert` - AWS Elemental MediaConvert SDK has added support for the encoding of VP8 or VP9 video in WebM container with Vorbis or Opus audio.
+* `Aws\S3` - Modified Content-MD5 checksum logic to use modeled httpChecksumRequired trait instead of a hard-coded list of operations.
+
 ## 3.139.1 - 2020-06-02
 
 * `Aws\GuardDuty` - Amazon GuardDuty findings now include S3 bucket details under the resource section if an S3 Bucket was one of the affected resources
