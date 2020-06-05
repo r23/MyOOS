@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4
+class ComposerStaticInitee0b45c3276b4ff8a8cf2aaba0c6725b
 {
     public static $files = array (
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
@@ -1249,6 +1249,7 @@ class ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4
         'Piwik\\Plugins\\CoreHome\\Widgets\\GetSystemSummary' => __DIR__ . '/../..' . '/plugins/CoreHome/Widgets/GetSystemSummary.php',
         'Piwik\\Plugins\\CoreHome\\Widgets\\QuickLinks' => __DIR__ . '/../..' . '/plugins/CoreHome/Widgets/QuickLinks.php',
         'Piwik\\Plugins\\CoreHome\\tests\\Integration\\Column\\UserIdTest' => __DIR__ . '/../..' . '/plugins/CoreHome/tests/Integration/Column/UserIdTest.php',
+        'Piwik\\Plugins\\CoreHome\\tests\\Integration\\Column\\VisitLastActionTimeTest' => __DIR__ . '/../..' . '/plugins/CoreHome/tests/Integration/Column/VisitLastActionTimeTest.php',
         'Piwik\\Plugins\\CoreHome\\tests\\Integration\\CoreHomeTest' => __DIR__ . '/../..' . '/plugins/CoreHome/tests/Integration/CoreHomeTest.php',
         'Piwik\\Plugins\\CoreHome\\tests\\Integration\\CustomLoginWhitelist' => __DIR__ . '/../..' . '/plugins/CoreHome/tests/Integration/LoginWhitelistTest.php',
         'Piwik\\Plugins\\CoreHome\\tests\\Integration\\LoginWhitelistTest' => __DIR__ . '/../..' . '/plugins/CoreHome/tests/Integration/LoginWhitelistTest.php',
@@ -1717,6 +1718,7 @@ class ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4
         'Piwik\\Plugins\\Installation\\FormSuperUser' => __DIR__ . '/../..' . '/plugins/Installation/FormSuperUser.php',
         'Piwik\\Plugins\\Installation\\Installation' => __DIR__ . '/../..' . '/plugins/Installation/Installation.php',
         'Piwik\\Plugins\\Installation\\Menu' => __DIR__ . '/../..' . '/plugins/Installation/Menu.php',
+        'Piwik\\Plugins\\Installation\\Onboarding' => __DIR__ . '/../..' . '/plugins/Installation/Onboarding.php',
         'Piwik\\Plugins\\Installation\\Rule_checkUserPrivileges' => __DIR__ . '/../..' . '/plugins/Installation/FormDatabaseSetup.php',
         'Piwik\\Plugins\\Installation\\Rule_isValidEmailString' => __DIR__ . '/../..' . '/plugins/Installation/FormSuperUser.php',
         'Piwik\\Plugins\\Installation\\Rule_isValidLoginString' => __DIR__ . '/../..' . '/plugins/Installation/FormSuperUser.php',
@@ -2034,6 +2036,7 @@ class ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4
         'Piwik\\Plugins\\Referrers\\tests\\Integration\\Columns\\ReferrerKeywordTest' => __DIR__ . '/../..' . '/plugins/Referrers/tests/Integration/Columns/ReferrerKeywordTest.php',
         'Piwik\\Plugins\\Referrers\\tests\\Integration\\Columns\\ReferrerNameTest' => __DIR__ . '/../..' . '/plugins/Referrers/tests/Integration/Columns/ReferrerNameTest.php',
         'Piwik\\Plugins\\Referrers\\tests\\Integration\\Columns\\ReferrerTypeTest' => __DIR__ . '/../..' . '/plugins/Referrers/tests/Integration/Columns/ReferrerTypeTest.php',
+        'Piwik\\Plugins\\Referrers\\tests\\Integration\\Columns\\ReferrerUrlTest' => __DIR__ . '/../..' . '/plugins/Referrers/tests/Integration/Columns/ReferrerUrlTest.php',
         'Piwik\\Plugins\\Referrers\\tests\\ReferrersTest' => __DIR__ . '/../..' . '/plugins/Referrers/tests/Unit/ReferrersTest.php',
         'Piwik\\Plugins\\Referrers\\tests\\SearchEngineTest' => __DIR__ . '/../..' . '/plugins/Referrers/tests/Unit/SearchEngineTest.php',
         'Piwik\\Plugins\\Referrers\\tests\\SocialTest' => __DIR__ . '/../..' . '/plugins/Referrers/tests/Unit/SocialTest.php',
@@ -2660,6 +2663,7 @@ class ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4
         'Piwik\\Tracker\\Db\\Pdo\\Mysql' => __DIR__ . '/../..' . '/core/Tracker/Db/Pdo/Mysql.php',
         'Piwik\\Tracker\\Db\\Pdo\\Pgsql' => __DIR__ . '/../..' . '/core/Tracker/Db/Pdo/Pgsql.php',
         'Piwik\\Tracker\\Failures' => __DIR__ . '/../..' . '/core/Tracker/Failures.php',
+        'Piwik\\Tracker\\FingerprintSalt' => __DIR__ . '/../..' . '/core/Tracker/FingerprintSalt.php',
         'Piwik\\Tracker\\GoalManager' => __DIR__ . '/../..' . '/core/Tracker/GoalManager.php',
         'Piwik\\Tracker\\Handler' => __DIR__ . '/../..' . '/core/Tracker/Handler.php',
         'Piwik\\Tracker\\Handler\\Factory' => __DIR__ . '/../..' . '/core/Tracker/Handler/Factory.php',
@@ -3606,11 +3610,11 @@ class ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$prefixesPsr0;
-            $loader->fallbackDirsPsr0 = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInita8faae0a70df8daf07cd00505c5d37b4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitee0b45c3276b4ff8a8cf2aaba0c6725b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitee0b45c3276b4ff8a8cf2aaba0c6725b::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitee0b45c3276b4ff8a8cf2aaba0c6725b::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInitee0b45c3276b4ff8a8cf2aaba0c6725b::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInitee0b45c3276b4ff8a8cf2aaba0c6725b::$classMap;
 
         }, null, ClassLoader::class);
     }
