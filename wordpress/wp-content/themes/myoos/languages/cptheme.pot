@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: campuspress-flex\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/theme/_s\n"
-"POT-Creation-Date: 2020-05-13 12:04+0200\n"
+"POT-Creation-Date: 2020-06-04 22:03+0200\n"
 "POT-Revision-Date: Mon Jul 04 2016 09:13:18 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
@@ -67,10 +67,6 @@ msgstr ""
 
 #: comments.php:74 comments.php:109
 msgid "Newer Comments &rarr;"
-msgstr ""
-
-#: comments.php:124
-msgid "Comments are closed."
 msgstr ""
 
 #: header.php:26
@@ -277,7 +273,7 @@ msgstr ""
 msgid "Color used to style various site elements like buttons."
 msgstr ""
 
-#: inc/customizer.php:523 inc/customizer.php:1976 inc/hooks-custom.php:85
+#: inc/customizer.php:523 inc/customizer.php:1976 inc/hooks-custom.php:76
 msgid "Highlight Accent"
 msgstr ""
 
@@ -319,7 +315,7 @@ msgstr ""
 msgid "Background color for elements in boxes like pagination or sidebar."
 msgstr ""
 
-#: inc/customizer.php:610 inc/setup.php:117
+#: inc/customizer.php:610 inc/setup.php:114
 msgid "Main Header"
 msgstr ""
 
@@ -414,7 +410,7 @@ msgstr ""
 msgid "Navigation Font Size"
 msgstr ""
 
-#: inc/customizer.php:1043 inc/setup.php:122
+#: inc/customizer.php:1043 inc/setup.php:119
 msgid "Secondary Header"
 msgstr ""
 
@@ -429,7 +425,7 @@ msgstr ""
 msgid "Font Size"
 msgstr ""
 
-#: inc/customizer.php:1125 inc/setup.php:127
+#: inc/customizer.php:1125 inc/setup.php:124
 msgid "Hero"
 msgstr ""
 
@@ -699,7 +695,7 @@ msgstr ""
 msgid "Header Styling"
 msgstr ""
 
-#: inc/customizer.php:1922 inc/customizer.php:2060 inc/hooks-custom.php:77
+#: inc/customizer.php:1922 inc/customizer.php:2060 inc/hooks-custom.php:68
 msgid "Default"
 msgstr ""
 
@@ -723,7 +719,7 @@ msgstr ""
 msgid "Header Separator Color"
 msgstr ""
 
-#: inc/customizer.php:1975 inc/hooks-custom.php:81
+#: inc/customizer.php:1975 inc/hooks-custom.php:72
 msgid "Accent"
 msgstr ""
 
@@ -771,7 +767,7 @@ msgid ""
 "\"General\" > \"Colors\" > \"Content Boxes Background\". "
 msgstr ""
 
-#: inc/customizer.php:2124 inc/setup.php:137
+#: inc/customizer.php:2124 inc/setup.php:134
 msgid "Footer"
 msgstr ""
 
@@ -859,33 +855,29 @@ msgstr ""
 msgid "Shows previous and next button for easy navigation."
 msgstr ""
 
-#: inc/hooks-custom.php:32
+#: inc/hooks-custom.php:23
 msgid "http://wordpress.org/"
 msgstr ""
 
-#: inc/hooks-custom.php:35
+#: inc/hooks-custom.php:26
 #, php-format
 msgid "Powered by %s"
 msgstr ""
 
-#: inc/hooks-custom.php:40
+#: inc/hooks-custom.php:31
 #, php-format
 msgid "Theme created by %1$s."
 msgstr ""
 
-#: inc/hooks-custom.php:41
+#: inc/hooks-custom.php:32
 msgid "https://campuspress.com/"
 msgstr ""
 
-#: inc/hooks-wp.php:141
-msgid "Mega Menu"
-msgstr ""
-
-#: inc/hooks-wp.php:184 inc/hooks-wp.php:185
+#: inc/hooks-wp.php:164 inc/hooks-wp.php:165
 msgid "Reusable Blocks"
 msgstr ""
 
-#: inc/hooks-wp.php:232
+#: inc/hooks-wp.php:212
 msgid "Continue Reading"
 msgstr ""
 
@@ -1005,55 +997,55 @@ msgstr ""
 msgid "Categories"
 msgstr ""
 
-#: inc/setup.php:49
+#: inc/setup.php:46
 msgid "Desktop Main Menu"
 msgstr ""
 
-#: inc/setup.php:50
+#: inc/setup.php:47
 msgid "Desktop Slide-In Menu"
 msgstr ""
 
-#: inc/setup.php:51
+#: inc/setup.php:48
 msgid "Mobile Menu"
 msgstr ""
 
-#: inc/setup.php:52
+#: inc/setup.php:49
 msgid "Secondary Header - Left"
 msgstr ""
 
-#: inc/setup.php:53
+#: inc/setup.php:50
 msgid "Secondary Header - Right"
 msgstr ""
 
-#: inc/setup.php:112
+#: inc/setup.php:109
 msgid "Main"
 msgstr ""
 
-#: inc/setup.php:132
+#: inc/setup.php:129
 msgid "Entries"
 msgstr ""
 
-#: inc/setup.php:142
+#: inc/setup.php:139
 msgid "Background"
 msgstr ""
 
-#: inc/setup.php:164
+#: inc/setup.php:161
 msgid "Small"
 msgstr ""
 
-#: inc/setup.php:169
+#: inc/setup.php:166
 msgid "Normal"
 msgstr ""
 
-#: inc/setup.php:173
+#: inc/setup.php:170
 msgid "Medium"
 msgstr ""
 
-#: inc/setup.php:178
+#: inc/setup.php:175
 msgid "Large"
 msgstr ""
 
-#: inc/setup.php:183
+#: inc/setup.php:180
 msgid "Huge"
 msgstr ""
 
@@ -1213,11 +1205,11 @@ msgstr ""
 msgid "page title and basic information"
 msgstr ""
 
-#: template-parts/global-templates/modal-slide-in-menu.php:27
+#: template-parts/global-templates/modal-slide-in-menu.php:28
 msgid "Expanded"
 msgstr ""
 
-#: template-parts/global-templates/modal-slide-in-menu.php:46
+#: template-parts/global-templates/modal-slide-in-menu.php:47
 msgid "Mobile"
 msgstr ""
 
