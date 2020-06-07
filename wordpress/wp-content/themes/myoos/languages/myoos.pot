@@ -1,19 +1,19 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: campuspress-flex\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/theme/_s\n"
-"POT-Creation-Date: 2020-06-04 22:03+0200\n"
-"POT-Revision-Date: Mon Jul 04 2016 09:13:18 GMT+0200 (CEST)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: myoos\n"
+"POT-Creation-Date: 2020-06-04 22:35+0200\n"
+"PO-Revision-Date: 2020-06-04 22:28+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 2.3.1\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
 "__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
 "_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
@@ -43,6 +43,7 @@ msgstr ""
 msgid "in"
 msgstr ""
 
+#. translators: %s: post title
 #: comments.php:37
 #, php-format
 msgctxt "comments title"
@@ -859,11 +860,13 @@ msgstr ""
 msgid "http://wordpress.org/"
 msgstr ""
 
+#. translators:
 #: inc/hooks-custom.php:26
 #, php-format
 msgid "Powered by %s"
 msgstr ""
 
+#. translators:
 #: inc/hooks-custom.php:31
 #, php-format
 msgid "Theme created by %1$s."
@@ -1092,11 +1095,13 @@ msgstr ""
 msgid "% Comments"
 msgstr ""
 
+#. translators: %s: Name of current post
 #: inc/template-tags.php:125
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
+#. translators: %s: Author name
 #: inc/template-tags.php:242
 #, php-format
 msgid "By %s"
@@ -1221,6 +1226,7 @@ msgstr ""
 msgid "Most Used Categories"
 msgstr ""
 
+#. translators: %1$s: smiley
 #: template-parts/loop-templates/content-none.php:52
 #, php-format
 msgid "Try looking in the monthly archives. %1$s"
@@ -1246,4 +1252,27 @@ msgstr ""
 
 #: template-parts/sidebar-templates/sidebar-hero.php:38
 msgid "Next"
+msgstr ""
+
+#. Theme Name of the plugin/theme
+msgid "myoos"
+msgstr ""
+
+#. Theme URI of the plugin/theme
+msgid "http://oos-shop.de"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"MyOOS is a clean minimal and responsive WordPress theme well suited for "
+"business, finance, portfolio, design, art and any other creative websites "
+"and blogs."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "r23"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://blog.r23.de"
 msgstr ""
