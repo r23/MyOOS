@@ -1197,14 +1197,6 @@ function ai1wm_deactivate_jetpack_modules( $modules ) {
  * @return boolean
  */
 function ai1wm_deactivate_sitewide_revolution_slider( $basename ) {
-	global $wp_version;
-
-	// Do not deactivate Revolution Slider (WordPress >= 5.2)
-	if ( version_compare( $wp_version, '5.2', '>=' ) ) {
-		return false;
-	}
-
-	// Deactivate Revolution Slider
 	if ( ( $plugins = get_plugins() ) ) {
 		if ( isset( $plugins[ $basename ]['Version'] ) && ( $version = $plugins[ $basename ]['Version'] ) ) {
 			if ( version_compare( PHP_VERSION, '7.3', '>=' ) && version_compare( $version, '5.4.8.3', '<' ) ) {
@@ -1235,14 +1227,6 @@ function ai1wm_deactivate_sitewide_revolution_slider( $basename ) {
  * @return boolean
  */
 function ai1wm_deactivate_revolution_slider( $basename ) {
-	global $wp_version;
-
-	// Do not deactivate Revolution Slider (WordPress >= 5.2)
-	if ( version_compare( $wp_version, '5.2', '>=' ) ) {
-		return false;
-	}
-
-	// Deactivate Revolution Slider
 	if ( ( $plugins = get_plugins() ) ) {
 		if ( isset( $plugins[ $basename ]['Version'] ) && ( $version = $plugins[ $basename ]['Version'] ) ) {
 			if ( version_compare( PHP_VERSION, '7.3', '>=' ) && version_compare( $version, '5.4.8.3', '<' ) ) {
