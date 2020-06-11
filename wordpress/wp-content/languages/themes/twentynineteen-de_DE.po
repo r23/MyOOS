@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Themes - Twenty Nineteen\n"
 
@@ -41,8 +41,8 @@ msgctxt "Parent post link"
 msgid "<span class=\"meta-nav\">Published in</span><br><span class=\"post-title\">%title</span>"
 msgstr "<span class=\"meta-nav\">Veröffentlicht in</span><br><span class=\"post-title\">%title</span>"
 
-#: template-parts/content/content-excerpt.php:18
 #: template-parts/content/content.php:18
+#: template-parts/content/content-excerpt.php:18
 msgctxt "post"
 msgid "Featured"
 msgstr "Hervorgehoben"
@@ -122,7 +122,7 @@ msgstr "Klein"
 msgid "S"
 msgstr "S"
 
-#: footer.php:37 functions.php:60
+#: functions.php:60 footer.php:37
 msgid "Footer Menu"
 msgstr "Footer-Menü"
 
@@ -139,7 +139,7 @@ msgstr "Seite"
 msgid "Add widgets here to appear in your footer."
 msgstr "Füge hier Widgets hinzu, die in deinem Footer erscheinen sollen."
 
-#: template-parts/footer/footer-widgets.php:12 functions.php:190
+#: functions.php:190 template-parts/footer/footer-widgets.php:12
 msgid "Footer"
 msgstr "Footer"
 
@@ -172,14 +172,14 @@ msgid "Top Menu"
 msgstr "Oberes Menü"
 
 #. translators: %s: Post title. Only visible to screen readers.
-#: template-parts/content/content-single.php:27
 #: template-parts/content/content.php:36
+#: template-parts/content/content-single.php:27
 msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "<span class=\"screen-reader-text\">\"%s\"</span> weiterlesen"
 
-#: template-parts/content/content-single.php:40
+#: image.php:52 template-parts/content/content-page.php:27
 #: template-parts/content/content.php:49
-#: template-parts/content/content-page.php:27 image.php:52
+#: template-parts/content/content-single.php:40
 msgid "Pages:"
 msgstr "Seiten:"
 
@@ -298,8 +298,8 @@ msgid "Category Archives: "
 msgstr "Kategorie-Archive:"
 
 #. translators: %s: Post title. Only visible to screen readers.
-#: template-parts/header/entry-header.php:32
-#: template-parts/content/content-page.php:41 inc/template-tags.php:120
+#: template-parts/content/content-page.php:41
+#: template-parts/header/entry-header.php:32 inc/template-tags.php:120
 msgid "Edit <span class=\"screen-reader-text\">%s</span>"
 msgstr "<span class=\"screen-reader-text\">%s</span> bearbeiten"
 
@@ -307,7 +307,7 @@ msgstr "<span class=\"screen-reader-text\">%s</span> bearbeiten"
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
 
-#: template-parts/header/site-branding.php:46 functions.php:61
+#: functions.php:61 template-parts/header/site-branding.php:46
 msgid "Social Links Menu"
 msgstr "Social-Links-Menü"
 

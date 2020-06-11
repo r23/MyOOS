@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.4.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-05-23 08:19:53+0000\n"
+"PO-Revision-Date: 2020-06-10 22:50:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1746,7 +1746,7 @@ msgstr "Hinzugefügt:"
 msgid "Unchanged:"
 msgstr "Unverändert:"
 
-#: wp-includes/comment.php:3498
+#: wp-includes/comment.php:3503
 msgid "User&#8217;s comment data."
 msgstr "Kommentardaten des Benutzers."
 
@@ -1759,7 +1759,7 @@ msgstr "Der Metawert von %s in der Datenbank konnte nicht aktualisiert werden."
 
 #: wp-includes/meta.php:1210
 msgid "When registering an \"array\" meta type to show in the REST API, you must specify the schema for each array item in \"show_in_rest.schema.items\"."
-msgstr "Wenn du einen „array“-Metatyp  registrierst, der in der REST-API angezeigt wird, musst du das Schema für jedes Array-Element in „show_in_rest.schema.items“ angeben."
+msgstr "Wenn du einen Metatyp „array“ registrierst, der in der REST-API angezeigt wird, musst du das Schema für jedes Array-Element in „show_in_rest.schema.items“ angeben."
 
 #. translators: %s: taxonomy name
 #: wp-includes/blocks/tag-cloud.php:37
@@ -1897,7 +1897,7 @@ msgstr "https://wordpress.org/support/article/resetting-your-password/"
 #. translators: %s: Documentation URL.
 #: wp-login.php:462
 msgid "<strong>Error</strong>: The email could not be sent. Your site may not be correctly configured to send emails. <a href=\"%s\">Get support for resetting your password</a>."
-msgstr "<strong>Fehler</strong>: Die E-Mail konnte nicht gesendet werden. Möglicherweise ist deine Website nicht korrekt für den Versand von E-Mails konfiguriert. <a href=\"%s\">Unterstützung für das Zurücksetzen deines Passwortes erhalten  (engl.)</a>."
+msgstr "<strong>Fehler</strong>: Die E-Mail konnte nicht gesendet werden. Möglicherweise ist deine Website nicht korrekt für den Versand von E-Mails konfiguriert. <a href=\"%s\">Unterstützung für das Zurücksetzen deines Passwortes erhalten (engl.)</a>."
 
 #: wp-includes/customize/class-wp-customize-theme-control.php:97
 msgid "New version available."
@@ -2477,11 +2477,6 @@ msgstr "Crowdsignal-Inhalt (ehemals Polldaddy) einbetten."
 msgid "REST API routes must be registered on the %s action."
 msgstr "REST-API-Routen müssen für die Aktion %s registriert werden."
 
-#. translators: Used to join last two items in a list with more than 2 times.
-#: wp-includes/formatting.php:5070
-msgid "%1$s, and %2$s"
-msgstr "%1$s, und %2$s"
-
 #. translators: %s: Number of failed requests.
 #: wp-includes/post.php:456
 msgid "Failed <span class=\"count\">(%s)</span>"
@@ -2489,13 +2484,18 @@ msgid_plural "Failed <span class=\"count\">(%s)</span>"
 msgstr[0] "Fehlgeschlagen <span class=\"count\">(%s)</span>"
 msgstr[1] "Fehlgeschlagen <span class=\"count\">(%s)</span>"
 
+#. translators: Used to join last two items in a list with more than 2 times.
+#: wp-includes/formatting.php:5070
+msgid "%1$s, and %2$s"
+msgstr "%1$s und %2$s"
+
 #. translators: %s: Database table name.
 #: wp-includes/ms-site.php:1322
 msgid "The %s table is not installed. Please run the network database upgrade."
 msgstr "Die %s-Tabelle ist nicht installiert. Bitte führe das Upgrade der Netzwerkdatenbank durch."
 
-#: wp-includes/class-walker-comment.php:271
-#: wp-includes/class-walker-comment.php:361
+#: wp-includes/class-walker-comment.php:304
+#: wp-includes/class-walker-comment.php:402
 msgid "Your comment is awaiting moderation. This is a preview, your comment will be visible after it has been approved."
 msgstr "Dein Kommentar wartet auf die Moderation. Dies ist eine Vorschau, dein Kommentar wird sichtbar, nachdem er genehmigt wurde."
 
@@ -3590,10 +3590,6 @@ msgstr "Button"
 msgid "Categories settings"
 msgstr "Kategorie-Einstellungen"
 
-#: wp-includes/js/dist/block-library.js:11525
-msgid "A single column within a columns block."
-msgstr "Eine einzelne Spalte innerhalb eines Spaltenblocks."
-
 #: wp-includes/js/dist/block-library.js:9910
 msgid "Outline"
 msgstr "Kontur"
@@ -3646,6 +3642,10 @@ msgstr "Classic"
 #: wp-includes/js/dist/block-library.js:10449
 msgid "Write code…"
 msgstr "Schreibe etwas Code…"
+
+#: wp-includes/js/dist/block-library.js:11525
+msgid "A single column within a columns block."
+msgstr "Eine einzelne Spalte innerhalb eines Spalten-Blocks."
 
 #: wp-includes/js/dist/edit-post.js:3878 wp-includes/js/dist/edit-post.js:5599
 msgid "Discussion"
@@ -4628,10 +4628,6 @@ msgstr "Pingbacks und Trackbacks erlauben"
 msgid "This color combination may be hard for people to read. Try using a darker background color and/or a brighter text color."
 msgstr "Diese Farbkombination ist unter Umständen für manche Menschen schwer lesbar. Wähle eine dunklere Hintergrundfarbe und/oder eine hellere Textfarbe."
 
-#: wp-includes/js/dist/block-editor.js:7459
-msgid "This color combination may be hard for people to read. Try using a brighter background color and/or a darker text color."
-msgstr "Diese Farbkombination ist unter Umständen für manche Menschen schwer lesbar.  Wähle eine hellere Hintergrundfarbe und/oder eine dunklere Textfarbe."
-
 #: wp-includes/js/dist/block-editor.js:24627
 msgid "Remove Block"
 msgid_plural "Remove Blocks"
@@ -4651,6 +4647,10 @@ msgid "Move %1$d block from position %2$d up by one place"
 msgid_plural "Move %1$d blocks from position %2$d up by one place"
 msgstr[0] "%1$d Block von Position %2$d um einen Platz nach oben verschieben"
 msgstr[1] "%1$d Blöcke von Position %2$d um einen Platz nach oben verschieben"
+
+#: wp-includes/js/dist/block-editor.js:7459
+msgid "This color combination may be hard for people to read. Try using a brighter background color and/or a darker text color."
+msgstr "Diese Farbkombination ist unter Umständen für manche Menschen schwer lesbar. Wähle eine hellere Hintergrundfarbe und/oder eine dunklere Textfarbe."
 
 #. translators: 1: Type of block (i.e. Text, Image etc)
 #: wp-includes/js/dist/block-editor.js:23725
@@ -5546,7 +5546,7 @@ msgid "Invalid action name."
 msgstr "Ungültiger Aktions-Name."
 
 #. translators: %d: Comment ID.
-#: wp-includes/comment.php:3599
+#: wp-includes/comment.php:3604
 msgid "Comment %d contains personal data but could not be anonymized."
 msgstr "Kommentar %d beinhaltet personenbezogene Daten, konnte aber nicht anonymisiert werden."
 
@@ -5628,39 +5628,39 @@ msgctxt "request status"
 msgid "Pending"
 msgstr "Ausstehend"
 
-#: wp-includes/comment.php:3454
+#: wp-includes/comment.php:3459
 msgid "Comment URL"
 msgstr "Kommentar-URL"
 
-#: wp-includes/comment.php:3453
+#: wp-includes/comment.php:3458
 msgid "Comment Content"
 msgstr "Kommentar-Inhalt"
 
-#: wp-includes/comment.php:3452
+#: wp-includes/comment.php:3457
 msgid "Comment Date"
 msgstr "Kommentar-Datum"
 
-#: wp-includes/comment.php:3451
+#: wp-includes/comment.php:3456
 msgid "Comment Author User Agent"
 msgstr "Kommentar-Autor-User-Agent"
 
-#: wp-includes/comment.php:3450
+#: wp-includes/comment.php:3455
 msgid "Comment Author IP"
 msgstr "Kommentar-Autor-IP"
 
-#: wp-includes/comment.php:3449
+#: wp-includes/comment.php:3454
 msgid "Comment Author URL"
 msgstr "Kommentar-Autor-URL"
 
-#: wp-includes/comment.php:3448
+#: wp-includes/comment.php:3453
 msgid "Comment Author Email"
 msgstr "Kommentar-Autor-E-Mail"
 
-#: wp-includes/comment.php:3447
+#: wp-includes/comment.php:3452
 msgid "Comment Author"
 msgstr "Kommentar-Autor"
 
-#: wp-includes/comment.php:3412 wp-includes/comment.php:3522
+#: wp-includes/comment.php:3417 wp-includes/comment.php:3527
 msgid "WordPress Comments"
 msgstr "WordPress-Kommentare"
 
@@ -5759,7 +5759,7 @@ msgstr "%1$s ist keine gültige Eigenschaft des Objekts."
 #. translators: %s: URL to Add Themes admin screen.
 #: wp-includes/script-loader.php:1207
 msgid "You won&#8217;t be able to install new themes from here yet since your install requires SFTP credentials. For now, please <a href=\"%s\">add themes in the admin</a>."
-msgstr "Du kannst hier leider noch keine neuen Themes installieren, da deine Installation SFTP Zugangsdaten benötigt. Füge bitte vorerst <a href=\"%s\">Themes im Administrationsbereich hinzu</a>."
+msgstr "Du kannst hier leider noch keine neuen Themes installieren, da deine Installation SFTP-Zugangsdaten benötigt. Füge bitte vorerst <a href=\"%s\">Themes im Administrationsbereich hinzu</a>."
 
 #. translators: Tab heading when selecting from the most used terms.
 #: wp-includes/taxonomy.php:571
@@ -7236,7 +7236,7 @@ msgstr ""
 msgid "Sorry, you are not allowed to make proxied oEmbed requests."
 msgstr "Du bist leider nicht berechtigt, oEmbed-Anfragen über Proxy zu machen."
 
-#: wp-includes/comment.php:3295
+#: wp-includes/comment.php:3300
 msgid "Sorry, comments are not allowed for this item."
 msgstr "Kommentare sind für diesen Beitrag nicht erlaubt."
 
@@ -8709,7 +8709,7 @@ msgstr "Kommentar erstellen fehlgeschlagen."
 #: wp-includes/class-wp-xmlrpc-server.php:3852
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:446
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:468
-#: wp-includes/comment.php:3347
+#: wp-includes/comment.php:3352
 msgid "Sorry, you must be logged in to comment."
 msgstr "Du musst angemeldet sein, um zu kommentieren."
 
@@ -9117,15 +9117,15 @@ msgctxt "Repeat Image"
 msgid "Repeat"
 msgstr "Wiederholen"
 
-#: wp-includes/class-wp-customize-manager.php:5439
-msgctxt "Custom Preset"
-msgid "Custom"
-msgstr "Benutzerdefiniert"
-
 #: wp-includes/class-wp-customize-manager.php:5437
 #: wp-includes/class-wp-customize-manager.php:5494
 msgid "Fit to Screen"
 msgstr "Bildschirmpassend"
+
+#: wp-includes/class-wp-customize-manager.php:5439
+msgctxt "Custom Preset"
+msgid "Custom"
+msgstr "Individuell"
 
 #: wp-includes/class-wp-customize-manager.php:5354
 msgid "Header Video"
@@ -9617,7 +9617,7 @@ msgstr "Plugin-Details"
 
 #: wp-includes/media.php:3929
 msgid "No media items found."
-msgstr "Keine Medien-Dateien gefunden."
+msgstr "Keine Mediendateien gefunden."
 
 #. translators: 1: Post title, 2: Site title.
 #: wp-includes/embed.php:482
@@ -10004,7 +10004,7 @@ msgctxt "genitive"
 msgid "February"
 msgstr "Februar"
 
-#: wp-includes/embed.php:1143
+#: wp-includes/embed.php:1156
 msgid "Sharing options"
 msgstr "Einstellungen zum Teilen"
 
@@ -10062,7 +10062,7 @@ msgid "It looks like nothing was found at this location. Maybe try visiting %s d
 msgstr "An diesem Ort konnte nichts gefunden werden. Möchtest du vielleicht versuchen, %s direkt aufzurufen?"
 
 #. translators: %s: Post title.
-#: wp-includes/embed.php:943 wp-includes/post-template.php:296
+#: wp-includes/embed.php:956 wp-includes/post-template.php:296
 msgid "Continue reading %s"
 msgstr "%s weiterlesen"
 
@@ -10432,7 +10432,7 @@ msgstr "Ältere Kommentare"
 msgid "Posts published on %s"
 msgstr "Beiträge veröffentlicht am %s"
 
-#: wp-includes/embed.php:1165
+#: wp-includes/embed.php:1178
 msgid "Copy and paste this code into your site to embed"
 msgstr "Füge diesen Code in deine Website ein, um ihn einzubinden"
 
@@ -10441,30 +10441,30 @@ msgstr "Füge diesen Code in deine Website ein, um ihn einzubinden"
 msgid "Use the %s filter instead."
 msgstr "Benutze stattdessen den %s Filter."
 
-#: wp-includes/embed.php:1170
+#: wp-includes/embed.php:1183
 msgid "Close sharing dialog"
 msgstr "Teilen-Dialog schließen"
 
 #. translators: %s: Number of comments.
-#: wp-includes/embed.php:1102
+#: wp-includes/embed.php:1115
 msgid "%s <span class=\"screen-reader-text\">Comment</span>"
 msgid_plural "%s <span class=\"screen-reader-text\">Comments</span>"
 msgstr[0] "%s <span class=\"screen-reader-text\">Kommentar</span>"
 msgstr[1] "%s <span class=\"screen-reader-text\">Kommentare</span>"
 
-#: wp-includes/embed.php:1151
+#: wp-includes/embed.php:1164
 msgid "HTML Embed"
 msgstr "HTML-Einbettung"
 
-#: wp-includes/embed.php:1148
+#: wp-includes/embed.php:1161
 msgid "WordPress Embed"
 msgstr "WordPress-Einbettung"
 
-#: wp-includes/embed.php:1126
+#: wp-includes/embed.php:1139
 msgid "Open sharing dialog"
 msgstr "Teilen-Dialog öffnen"
 
-#: wp-includes/embed.php:1158
+#: wp-includes/embed.php:1171
 msgid "Copy and paste this URL into your WordPress site to embed"
 msgstr "Füge diese URL in deine WordPress-Website ein, um sie einzubetten"
 
@@ -10794,7 +10794,7 @@ msgid ""
 "All at ###SITENAME###\n"
 "###SITEURL###"
 msgstr ""
-"Hey ###USERNAME###,\n"
+"Hallo ###USERNAME###,\n"
 "\n"
 "diese Nachricht bestätigt die Änderung deines Passworts auf ###SITENAME###.\n"
 "\n"
@@ -11290,6 +11290,36 @@ msgstr "Der Name eines Inhaltstyps muss aus mindestens einem und maximal 20 Zeic
 msgid "<strong>Database tables are missing.</strong> This means that MySQL is not running, WordPress was not installed properly, or someone deleted %s. You really should look at your database now."
 msgstr "<strong>Datenbanktabellen fehlen.</strong> Das heißt, dass MySQL nicht läuft, WordPress nicht richtig installiert wurde oder %s von jemandem gelöscht wurde. Du solltest jetzt ernsthaft einen Blick auf deine Datenbank werfen."
 
+#. translators: Do not translate USERNAME, PASSWORD, LOGINLINK, SITE_NAME:
+#. those are placeholders.
+#: wp-includes/ms-functions.php:2280
+msgid ""
+"Howdy USERNAME,\n"
+"\n"
+"Your new account is set up.\n"
+"\n"
+"You can log in with the following information:\n"
+"Username: USERNAME\n"
+"Password: PASSWORD\n"
+"LOGINLINK\n"
+"\n"
+"Thanks!\n"
+"\n"
+"--The Team @ SITE_NAME"
+msgstr ""
+"Hallo USERNAME,\n"
+"\n"
+"dein neues Benutzerkonto wurde eingerichtet.\n"
+"\n"
+"Du kannst dich mit folgenden Angaben anmelden:\n"
+"Benutzername: USERNAME\n"
+"Passwort: PASSWORD\n"
+"LOGINLINK\n"
+"\n"
+"Vielen Dank!\n"
+"\n"
+"-- Das Team @ SITE_NAME"
+
 #. translators: Do not translate USERNAME, SITE_NAME, BLOG_URL, PASSWORD: those
 #. are placeholders.
 #: wp-includes/ms-functions.php:1594
@@ -11324,36 +11354,6 @@ msgstr ""
 "\n"
 "-- Das Team @ SITE_NAME"
 
-#. translators: Do not translate USERNAME, PASSWORD, LOGINLINK, SITE_NAME:
-#. those are placeholders.
-#: wp-includes/ms-functions.php:2280
-msgid ""
-"Howdy USERNAME,\n"
-"\n"
-"Your new account is set up.\n"
-"\n"
-"You can log in with the following information:\n"
-"Username: USERNAME\n"
-"Password: PASSWORD\n"
-"LOGINLINK\n"
-"\n"
-"Thanks!\n"
-"\n"
-"--The Team @ SITE_NAME"
-msgstr ""
-"Hallo USERNAME,\n"
-"\n"
-"dein neues Benutzerkonto wurde eingerichtet.\n"
-"\n"
-"Du kannst dich mit folgenden Angaben anmelden:\n"
-"Benutzername: USERNAME\n"
-"Passwort: PASSWORD\n"
-"LOGINLINK\n"
-"\n"
-"Vielen Dank!\n"
-"\n"
-"-- Das Team @ SITE_NAME"
-
 #. translators: Revision date format, see https://www.php.net/date
 #: wp-includes/post-template.php:1819 wp-includes/post-template.php:1861
 msgctxt "revision date format"
@@ -11362,7 +11362,7 @@ msgstr "j. F Y, G:i:s"
 
 #: wp-includes/media.php:3893
 msgid "Drag and drop to reorder media files."
-msgstr "Nutze Drag-and-drop zum Umsortieren der Medien-Dateien."
+msgstr "Nutze Drag-and-drop zum Umsortieren der Mediendateien."
 
 #: wp-includes/widgets/class-wp-widget-archives.php:98
 #: wp-includes/blocks/archives.php:65
@@ -11924,7 +11924,7 @@ msgstr "Deine Anpassungen für %s"
 msgid "Widgets are independent sections of content that can be placed into widgetized areas provided by your theme (commonly called sidebars)."
 msgstr "Widgets sind unabhängige Inhaltsabschnitte und können in dafür vorgesehene Bereiche platziert werden, die von deinem Theme zur Verfügung gestellt werden (üblicherweise Seitenleiste genannt)."
 
-#: wp-includes/comment.php:3396
+#: wp-includes/comment.php:3401
 msgid "<strong>Error</strong>: The comment could not be saved. Please try again later."
 msgstr "<strong>Fehler</strong>: Der Kommentar konnte nicht gespeichert werden. Bitte versuche es später nochmal."
 
@@ -13135,8 +13135,8 @@ msgid "The login page will open in a new tab. After logging in you can close it 
 msgstr "Die Anmelde-Seite wird sich in einem neuen Tab öffnen. Nach dem Anmelden kannst du das Tab schließen und zu dieser Seite zurückkehren."
 
 #. translators: %s: Comment author link.
-#: wp-includes/class-walker-comment.php:287
-#: wp-includes/class-walker-comment.php:377
+#: wp-includes/class-walker-comment.php:326
+#: wp-includes/class-walker-comment.php:423
 msgid "%s <span class=\"says\">says:</span>"
 msgstr "%s <span class=\"says\">sagt:</span>"
 
@@ -14128,15 +14128,15 @@ msgstr "%s überschreitet das Upload-Limit für diese Website."
 msgid "Feedback"
 msgstr "Feedback"
 
-#: wp-includes/comment.php:3355
+#: wp-includes/comment.php:3360
 msgid "<strong>Error</strong>: Please fill the required fields (name, email)."
 msgstr "<strong>Fehler</strong>: Bitte fülle die erforderlichen Felder aus (Name, E-Mail-Adresse).\t"
 
-#: wp-includes/comment.php:3382
+#: wp-includes/comment.php:3387
 msgid "<strong>Error</strong>: Please type a comment."
 msgstr "<strong>Fehler</strong>: Bitte gib einen Kommentar ein."
 
-#: wp-includes/comment.php:3357
+#: wp-includes/comment.php:3362
 msgid "<strong>Error</strong>: Please enter a valid email address."
 msgstr "<strong>Fehler</strong>: Bitte gib eine gültige E-Mail-Adresse ein."
 
@@ -14278,7 +14278,7 @@ msgstr "Alle Beiträge"
 msgid "Link"
 msgstr "Link"
 
-#: wp-includes/class-walker-comment.php:242
+#: wp-includes/class-walker-comment.php:250
 msgid "Pingback:"
 msgstr "Pingback:"
 
@@ -15029,7 +15029,7 @@ msgstr "Links für %s"
 #: wp-includes/js/dist/components.js:35309
 #: wp-includes/js/dist/components.js:35314
 msgid "Custom"
-msgstr "Benutzerdefiniert"
+msgstr "Individuell"
 
 #. translators: %s: URL to create a new menu.
 #: wp-includes/widgets/class-wp-nav-menu-widget.php:147
@@ -16135,7 +16135,7 @@ msgstr "Gib die URL des Bildes an"
 msgid "Enter a description of the image"
 msgstr "Gib eine Beschreibung des Bildes an"
 
-#: wp-includes/comment.php:2279
+#: wp-includes/comment.php:2284
 msgid "Could not update comment status"
 msgstr "Der Kommentarstatus konnte nicht aktualisiert werden"
 
@@ -16973,10 +16973,6 @@ msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zurzeit nicht. Vers
 msgid "Recent Posts"
 msgstr "Neueste Beiträge"
 
-#: wp-includes/user.php:322
-msgid "<strong>Error</strong>: Your account has been marked as a spammer."
-msgstr "<strong>Fehler</strong>: Dein Account wurde als Spam markiert."
-
 #: wp-includes/user.php:137
 msgid "<strong>Error</strong>: The username field is empty."
 msgstr "<strong>Fehler</strong>: Das Benutzerfeld ist leer."
@@ -17010,6 +17006,10 @@ msgstr "Die eingegebene URL scheint ein externer Link zu sein. Soll „https://�
 #: wp-includes/class-wp-editor.php:1267
 msgid "The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?"
 msgstr "Die eingegebene URL scheint eine E-Mail-Adresse zu sein. Soll „mailto:“ vorangestellt werden?"
+
+#: wp-includes/user.php:322
+msgid "<strong>Error</strong>: Your account has been marked as a spammer."
+msgstr "<strong>Fehler</strong>: Dein Konto wurde als Spam-Versender markiert."
 
 #: wp-includes/link-template.php:2457 wp-includes/link-template.php:2510
 msgid "&laquo; Previous Page"
@@ -17058,12 +17058,12 @@ msgstr "Lesezeichen"
 msgid "No categories"
 msgstr "Keine Kategorien"
 
-#: wp-includes/class-walker-comment.php:269
-#: wp-includes/class-walker-comment.php:359
+#: wp-includes/class-walker-comment.php:302
+#: wp-includes/class-walker-comment.php:400
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Kommentar wartet auf Freischaltung."
 
-#: wp-includes/class-walker-comment.php:304
+#: wp-includes/class-walker-comment.php:343
 msgid "(Edit)"
 msgstr "(Bearbeiten)"
 
@@ -17312,7 +17312,7 @@ msgstr "Plugin:"
 
 #: wp-includes/class-wp-xmlrpc-server.php:3875
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:549
-#: wp-includes/comment.php:3268
+#: wp-includes/comment.php:3273
 msgid "Sorry, comments are closed for this item."
 msgstr "Die Kommentarfunktion für diesen Beitrag wurde deaktiviert."
 
@@ -17352,8 +17352,8 @@ msgid "Visit %s&#8217;s website"
 msgstr "Website von %s besuchen"
 
 #. translators: 1: Comment date, 2: Comment time.
-#: wp-includes/class-walker-comment.php:300
-#: wp-includes/class-walker-comment.php:388
+#: wp-includes/class-walker-comment.php:339
+#: wp-includes/class-walker-comment.php:434
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s&nbsp;Uhr"
 
@@ -17515,7 +17515,7 @@ msgid "Done"
 msgstr "Fertig"
 
 #. translators: Name of a comment's author after being anonymized.
-#: wp-includes/comment.php:3568 wp-includes/class-wp-theme.php:897
+#: wp-includes/comment.php:3573 wp-includes/class-wp-theme.php:897
 #: wp-includes/comment-template.php:32
 msgid "Anonymous"
 msgstr "Anonymous"
@@ -17663,8 +17663,8 @@ msgid "Comment"
 msgstr "Kommentar"
 
 #: wp-includes/class-wp-editor.php:1388
-#: wp-includes/class-walker-comment.php:242
-#: wp-includes/class-walker-comment.php:392 wp-includes/js/dist/editor.js:12394
+#: wp-includes/class-walker-comment.php:250
+#: wp-includes/class-walker-comment.php:438 wp-includes/js/dist/editor.js:12394
 #: wp-includes/js/dist/block-editor.js:20123
 #: wp-includes/js/dist/block-editor.js:20742
 #: wp-includes/js/dist/block-editor.js:22523
@@ -17676,7 +17676,7 @@ msgstr "Bearbeiten"
 msgid "Update Category"
 msgstr "Kategorie aktualisieren"
 
-#: wp-includes/script-loader.php:1274 wp-includes/comment.php:3497
+#: wp-includes/script-loader.php:1274 wp-includes/comment.php:3502
 #: wp-includes/link-template.php:3047 wp-includes/link-template.php:3107
 msgid "Comments"
 msgstr "Kommentare"
