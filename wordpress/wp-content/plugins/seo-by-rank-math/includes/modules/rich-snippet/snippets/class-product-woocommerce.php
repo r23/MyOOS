@@ -238,7 +238,7 @@ class Product_WooCommerce {
 
 		$offer = [
 			'@type'           => 'Offer',
-			'price'           => $product->get_price() ? $product->get_price() : '0',
+			'price'           => $product->get_price() ? wc_format_decimal( $product->get_price(), wc_get_price_decimals() ) : '0',
 			'priceCurrency'   => get_woocommerce_currency(),
 			'priceValidUntil' => ! empty( $product->get_date_on_sale_to() ) ? date_i18n( 'Y-m-d', strtotime( $product->get_date_on_sale_to() ) ) : '',
 			'availability'    => $product->is_in_stock() ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
@@ -262,38 +262,40 @@ class Product_WooCommerce {
 	 * @param array  $seller  Seller info.
 	 */
 	private function set_offers_variable( $product, &$entity, $seller ) {
-		$permalink  = $product->get_permalink();
-		$variations = $this->has_variations( $product );
-		if ( false === $variations ) {
+		$permalink = $product->get_permalink();
+		if ( false === $this->has_variations( $product ) ) {
 			return false;
 		}
 
-		$entity['offers'] = [];
-		foreach ( $variations as $variation ) {
-			$price_valid_until = get_post_meta( $variation['variation_id'], '_sale_price_dates_to', true );
+		$lowest  = wc_format_decimal( $product->get_variation_price( 'min', false ), wc_get_price_decimals() );
+		$highest = wc_format_decimal( $product->get_variation_price( 'max', false ), wc_get_price_decimals() );
 
+		if ( $lowest === $highest ) {
 			$offer = [
 				'@type'           => 'Offer',
-				'description'     => strip_tags( $variation['variation_description'] ),
-				'price'           => $variation['display_price'],
-				'priceCurrency'   => get_woocommerce_currency(),
-				'availability'    => $variation['is_in_stock'] ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-				'itemCondition'   => 'NewCondition',
-				'seller'          => $seller,
-				'priceValidUntil' => $price_valid_until ? date_i18n( 'Y-m-d', $price_valid_until ) : '',
-				'url'             => $permalink,
+				'price'           => $lowest,
+				'priceValidUntil' => date( 'Y-12-31', time() + YEAR_IN_SECONDS ),
 			];
 
 			// Set Price Specification.
-			$this->set_price_specification( $variation['display_price'], $offer );
-
-			// Generate a unique variation ID.
-			$this->set_variation_unique_id( $variation, $offer, $permalink );
-
-			// Look for itemCondition override by variation.
-			$this->set_variation_condition( $variation, $offer );
-			$entity['offers'][] = $offer;
+			$this->set_price_specification( $lowest, $offer );
+		} else {
+			$offer = [
+				'@type'      => 'AggregateOffer',
+				'lowPrice'   => $lowest,
+				'highPrice'  => $highest,
+				'offerCount' => count( $product->get_children() ),
+			];
 		}
+
+		$offer += [
+			'priceCurrency' => get_woocommerce_currency(),
+			'availability'  => 'http://schema.org/' . ( $product->is_in_stock() ? 'InStock' : 'OutOfStock' ),
+			'seller'        => $seller,
+			'url'           => $permalink,
+		];
+
+		$entity['offers'] = $offer;
 
 		return true;
 	}
@@ -314,41 +316,6 @@ class Product_WooCommerce {
 			'priceCurrency'         => get_woocommerce_currency(),
 			'valueAddedTaxIncluded' => wc_prices_include_tax() ? 'true' : 'false',
 		];
-	}
-
-	/**
-	 * Set product variation condition.
-	 *
-	 * @param object $variation Product variation.
-	 * @param array  $entity    Array of json-ld entity.
-	 * @param string $permalink Permalink of product.
-	 */
-	private function set_variation_unique_id( $variation, &$entity, $permalink ) {
-		if ( '' !== $variation['sku'] ) {
-			$entity['sku'] = $variation['sku'];
-			$entity['@id'] = $permalink . '#' . $variation['sku'];
-			return;
-		}
-
-		foreach ( $variation['attributes'] as $key => $value ) {
-			if ( '' !== $value ) {
-				$entity['@id'] = $permalink . '#' . substr( $key, 10 ) . '-' . filter_var( $value, FILTER_SANITIZE_URL );
-			}
-		}
-	}
-
-	/**
-	 * Set product variation condition.
-	 *
-	 * @param object $variation Product variation.
-	 * @param array  $entity  Array of json-ld entity.
-	 */
-	private function set_variation_condition( $variation, &$entity ) {
-		foreach ( $variation['attributes'] as $key => $value ) {
-			if ( stristr( $key, 'itemCondition' ) ) {
-				$entity['itemCondition'] = $value;
-			}
-		}
 	}
 
 	/**

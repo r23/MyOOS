@@ -54,7 +54,7 @@ $cmb->add_field(
 		'desc'            => sprintf( esc_html__( 'Default description for single %s pages. This can be changed on a per-post basis on the post editor screen.', 'rank-math' ), $name ),
 		'classes'         => 'rank-math-supports-variables rank-math-description',
 		'default'         => '%excerpt%',
-		'sanitization_cb' => true,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [
 			'class'                  => 'cmb2-textarea-small wp-exclude-emoji',
 			'data-gramm_editor'      => 'false',
@@ -74,7 +74,7 @@ $cmb->add_field(
 		'desc'            => sprintf( esc_html__( 'Title for %s archive pages.', 'rank-math' ), $name ),
 		'classes'         => 'rank-math-supports-variables rank-math-title',
 		'default'         => '%title% %page% %sep% %sitename%',
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 	]
 );
@@ -88,7 +88,7 @@ $cmb->add_field(
 		/* translators: post type name */
 		'desc'            => sprintf( esc_html__( 'Description for %s archive pages.', 'rank-math' ), $name ),
 		'classes'         => 'rank-math-supports-variables rank-math-description',
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [
 			'data-exclude-variables' => 'seo_title,seo_description',
 			'rows'                   => 2,
@@ -135,7 +135,7 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 			'dep'             => [ [ 'pt_' . $post_type . '_default_rich_snippet', 'off', '!=' ] ],
 			'classes'         => 'rank-math-supports-variables rank-math-advanced-option',
 			'default'         => '%seo_title%',
-			'sanitization_cb' => false,
+			'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		]
 	);
 
@@ -152,7 +152,7 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 			'classes'         => 'rank-math-supports-variables rank-math-advanced-option',
 			'default'         => '%seo_description%',
 			'dep'             => [ [ 'pt_' . $post_type . '_default_rich_snippet', 'off,book,local', '!=' ] ],
-			'sanitization_cb' => false,
+			'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		]
 	);
 }
@@ -200,7 +200,8 @@ $cmb->add_field(
 		'type'              => 'multicheck',
 		/* translators: post type name */
 		'name'              => sprintf( esc_html__( '%s Robots Meta', 'rank-math' ), $name ),
-		'desc'              => esc_html__( 'Custom values for robots meta tag on homepage.', 'rank-math' ),
+		/* translators: post type name */
+		'desc'              => sprintf( esc_html__( 'Custom values for robots meta tag on %s.', 'rank-math' ), $name ),
 		'options'           => Helper::choices_robots(),
 		'select_all_button' => false,
 		'dep'               => [ [ 'pt_' . $post_type . '_custom_robots', 'on' ] ],

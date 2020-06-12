@@ -27,7 +27,7 @@ class SEOPress extends Plugin_Importer {
 	 *
 	 * @var string
 	 */
-	protected $plugin_name = 'SEOPress SEO';
+	protected $plugin_name = 'SEOPress';
 
 	/**
 	 * Plugin options meta key.

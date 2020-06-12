@@ -233,6 +233,8 @@ class Screen implements IScreen {
 		$twitter_username           = Helper::get_settings( 'titles.twitter_author_names' );
 		$data['twitterAuthor']      = $twitter_username ? $twitter_username : esc_html__( 'username', 'rank-math' );
 		$data['twitterUseFacebook'] = 'off' === $data['twitterUseFacebook'] ? false : true;
+		$data['facebookHasOverlay'] = empty( $data['facebookHasOverlay'] ) || 'off' === $data['facebookHasOverlay'] ? false : true;
+		$data['twitterHasOverlay']  = empty( $data['twitterHasOverlay'] ) || 'off' === $data['twitterHasOverlay'] ? false : true;
 
 		return wp_parse_args( $this->screen->get_object_values(), $data );
 	}
@@ -275,17 +277,17 @@ class Screen implements IScreen {
 	 */
 	private function load_screen( $manual = '' ) {
 		if ( Admin_Helper::is_post_edit() || 'post' === $manual ) {
-			$this->screen = new Post_Screen;
+			$this->screen = new Post_Screen();
 			return;
 		}
 
 		if ( Admin_Helper::is_term_edit() || 'term' === $manual ) {
-			$this->screen = new Taxonomy_Screen;
+			$this->screen = new Taxonomy_Screen();
 			return;
 		}
 
 		if ( User_Screen::is_enable() || 'user' === $manual ) {
-			$this->screen = new User_Screen;
+			$this->screen = new User_Screen();
 			return;
 		}
 	}

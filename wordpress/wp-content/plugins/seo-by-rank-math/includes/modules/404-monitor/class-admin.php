@@ -146,7 +146,7 @@ class Admin extends Base {
 			],
 			'assets'     => [
 				'styles'  => [ 'rank-math-common' => '' ],
-				'scripts' => [ 'rank-math-404-monitor' => $uri . '/assets/404-monitor.js' ],
+				'scripts' => [ 'rank-math-404-monitor' => $uri . '/assets/js/404-monitor.js' ],
 			],
 		]);
 

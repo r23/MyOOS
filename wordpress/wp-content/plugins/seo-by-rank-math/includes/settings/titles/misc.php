@@ -33,7 +33,7 @@ $cmb->add_field(
 		'classes'         => 'rank-math-supports-variables rank-math-title rank-math-advanced-option',
 		'default'         => '%date% %page% %sep% %sitename%',
 		'dep'             => $dep,
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 	]
 );
@@ -46,7 +46,7 @@ $cmb->add_field(
 		'desc'            => esc_html__( 'Date archive description.', 'rank-math' ),
 		'classes'         => 'rank-math-supports-variables rank-math-description rank-math-advanced-option',
 		'dep'             => $dep,
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [
 			'class'                  => 'cmb2-textarea-small wp-exclude-emoji',
 			'data-gramm_editor'      => 'false',
@@ -89,7 +89,7 @@ $cmb->add_field(
 		'desc'            => esc_html__( 'Title tag on 404 Not Found error page.', 'rank-math' ),
 		'classes'         => 'rank-math-supports-variables rank-math-title rank-math-advanced-option',
 		'default'         => 'Page Not Found %sep% %sitename%',
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 	]
 );
@@ -102,7 +102,7 @@ $cmb->add_field(
 		'desc'            => esc_html__( 'Title tag on search results page.', 'rank-math' ),
 		'classes'         => 'rank-math-supports-variables rank-math-title rank-math-advanced-option',
 		'default'         => '%search_query% %page% %sep% %sitename%',
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 	]
 );

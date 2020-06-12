@@ -92,16 +92,6 @@ class Admin extends WP_REST_Controller {
 			]
 		);
 
-		register_rest_route(
-			$this->namespace,
-			'/updateTracking',
-			[
-				'methods'             => WP_REST_Server::EDITABLE,
-				'callback'            => [ $this, 'update_tracking' ],
-				'permission_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'can_manage_options' ],
-			]
-		);
-
 		$this->gutenberg_routes();
 	}
 
@@ -345,25 +335,6 @@ class Admin extends WP_REST_Controller {
 		);
 
 		$settings['general']['setup_mode'] = $request->get_param( 'mode' );
-		Helper::update_all_settings( $settings['general'], null, null );
-
-		return true;
-	}
-
-	/**
-	 * Update Usage Tracking.
-	 *
-	 * @param WP_REST_Request $request Full details about the request.
-	 *
-	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
-	 */
-	public function update_tracking( WP_REST_Request $request ) {
-		$settings = wp_parse_args(
-			rank_math()->settings->all_raw(),
-			[ 'general' => '' ]
-		);
-
-		$settings['general']['usage_tracking'] = 'true' === $request->get_param( 'enable' ) ? 'on' : 'off';
 		Helper::update_all_settings( $settings['general'], null, null );
 
 		return true;

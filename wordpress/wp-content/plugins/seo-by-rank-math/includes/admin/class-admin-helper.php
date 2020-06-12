@@ -201,16 +201,6 @@ class Admin_Helper {
 	}
 
 	/**
-	 * Change tracking status.
-	 */
-	public static function allow_tracking() {
-		$settings                   = get_option( 'rank-math-options-general' );
-		$settings['usage_tracking'] = Param::post( 'rank-math-usage-tracking', false, FILTER_VALIDATE_BOOLEAN ) ? 'on' : 'off';
-
-		update_option( 'rank-math-options-general', $settings );
-	}
-
-	/**
 	 * Compare values.
 	 *
 	 * @param integer $value1     Old value.

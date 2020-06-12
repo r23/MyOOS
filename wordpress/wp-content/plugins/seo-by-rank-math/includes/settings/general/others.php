@@ -11,16 +11,6 @@ use RankMath\Helper;
 
 $cmb->add_field(
 	[
-		'id'      => 'usage_tracking',
-		'type'    => 'toggle',
-		'name'    => esc_html__( 'Usage Tracking', 'rank-math' ),
-		'desc'    => esc_html__( 'Help make Rank Math even more powerful by allowing us to collect non-sensitive diagnostic data and usage information.', 'rank-math' ) . ' <a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">' . esc_html__( 'Find out more.', 'rank-math' ) . '</a>',
-		'default' => 'on',
-	]
-);
-
-$cmb->add_field(
-	[
 		'id'      => 'frontend_seo_score',
 		'type'    => 'toggle',
 		'name'    => esc_html__( 'Show SEO Score', 'rank-math' ),
@@ -100,7 +90,7 @@ $cmb->add_field(
 		'type'            => 'textarea_small',
 		'name'            => esc_html__( 'RSS Before Content', 'rank-math' ),
 		'desc'            => esc_html__( 'Add content before each post in your site feeds.', 'rank-math' ),
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 
@@ -110,7 +100,7 @@ $cmb->add_field(
 		'type'            => 'textarea_small',
 		'name'            => esc_html__( 'RSS After Content', 'rank-math' ),
 		'desc'            => esc_html__( 'Add content after each post in your site feeds.', 'rank-math' ),
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 
@@ -121,7 +111,7 @@ $cmb->add_field(
 		'name'            => esc_html__( 'RSS After Content', 'rank-math' ),
 		'desc'            => esc_html__( 'Add content after each post in your site feeds.', 'rank-math' ),
 		'classes'         => 'nob',
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 

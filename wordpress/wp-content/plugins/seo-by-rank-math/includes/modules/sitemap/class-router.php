@@ -44,9 +44,9 @@ class Router {
 		$wp->add_query_var( 'sitemap_n' );
 		$wp->add_query_var( 'xsl' );
 
-		add_rewrite_rule( '^' . $base . 'sitemap_index\.xml$', 'index.php?sitemap=1', 'top' );
-		add_rewrite_rule( '^' . $base . '([^/]+?)-sitemap([0-9]+)?\.xml$', 'index.php?sitemap=$matches[1]&sitemap_n=$matches[2]', 'top' );
-		add_rewrite_rule( '^' . $base . '([a-z]+)?-?sitemap\.xsl$', 'index.php?xsl=$matches[1]', 'top' );
+		add_rewrite_rule( $base . 'sitemap_index\.xml$', 'index.php?sitemap=1', 'top' );
+		add_rewrite_rule( $base . '([^/]+?)-sitemap([0-9]+)?\.xml$', 'index.php?sitemap=$matches[1]&sitemap_n=$matches[2]', 'top' );
+		add_rewrite_rule( $base . '([a-z]+)?-?sitemap\.xsl$', 'index.php?xsl=$matches[1]', 'top' );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class Router {
 		$xsl = get_query_var( 'xsl' );
 		if ( ! empty( $xsl ) ) {
 			$this->filter( 'user_has_cap', 'filter_user_has_cap' );
-			$stylesheet = new Stylesheet;
+			$stylesheet = new Stylesheet();
 			$stylesheet->output( $xsl );
 			return;
 		}

@@ -139,11 +139,11 @@ class Admin extends Base {
 					'styles'  => [
 						'rank-math-common'       => '',
 						'rank-math-cmb2'         => '',
-						'rank-math-redirections' => $uri . '/assets/redirections.css',
+						'rank-math-redirections' => $uri . '/assets/css/redirections.css',
 					],
 					'scripts' => [
 						'rank-math-common'       => '',
-						'rank-math-redirections' => $uri . '/assets/redirections.js',
+						'rank-math-redirections' => $uri . '/assets/js/redirections.js',
 					],
 				],
 			]

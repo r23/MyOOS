@@ -81,7 +81,7 @@ class Version_Control {
 		// Sanitize input.
 		$new_value = Param::post( 'beta_optin' ) === 'on' ? 'on' : 'off';
 
-		$settings               = get_option( 'rank-math-options-general', array() );
+		$settings               = get_option( 'rank-math-options-general', [] );
 		$settings['beta_optin'] = $new_value;
 		rank_math()->settings->set( 'general', 'beta_optin', 'on' === $new_value ? true : false );
 		update_option( 'rank-math-options-general', $settings );
@@ -110,7 +110,7 @@ class Version_Control {
 		// Sanitize input.
 		$new_value = Param::post( 'enable_auto_update' ) === 'on' ? 'on' : 'off';
 
-		$settings                       = get_option( 'rank-math-options-general', array() );
+		$settings                       = get_option( 'rank-math-options-general', [] );
 		$settings['enable_auto_update'] = $new_value;
 		rank_math()->settings->set( 'general', 'enable_auto_update', 'on' === $new_value ? true : false );
 		update_option( 'rank-math-options-general', $settings );
@@ -269,8 +269,8 @@ class Version_Control {
 		}
 		$uri = untrailingslashit( plugin_dir_url( __FILE__ ) );
 		wp_enqueue_style( 'rank-math-cmb2' );
-		wp_enqueue_style( 'rank-math-version-control', $uri . '/assets/version-control.css', array(), rank_math()->version );
-		wp_enqueue_script( 'rank-math-version-control', $uri . '/assets/version-control.js', array( 'jquery' ), rank_math()->version, true );
+		wp_enqueue_style( 'rank-math-version-control', $uri . '/assets/css/version-control.css', [], rank_math()->version );
+		wp_enqueue_script( 'rank-math-version-control', $uri . '/assets/js/version-control.js', [ 'jquery' ], rank_math()->version, true );
 	}
 
 	/**
@@ -329,7 +329,7 @@ class Version_Control {
 	 */
 	public function display() {
 		$directory = dirname( __FILE__ );
-		include_once( $directory . '/display.php' );
+		include_once $directory . '/display.php';
 	}
 
 }

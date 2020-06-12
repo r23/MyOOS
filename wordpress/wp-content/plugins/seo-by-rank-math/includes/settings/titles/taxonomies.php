@@ -56,7 +56,7 @@ $cmb->add_field(
 			'data-exclude-variables' => 'seo_title,seo_description',
 		],
 		'default'         => '%term_description%',
-		'sanitization_cb' => true,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 
@@ -83,7 +83,8 @@ $cmb->add_field(
 		'type'              => 'multicheck',
 		/* translators: taxonomy name */
 		'name'              => sprintf( esc_html__( '%s Archives Robots Meta', 'rank-math' ), $name ),
-		'desc'              => esc_html__( 'Custom values for robots meta tag on homepage.', 'rank-math' ),
+		/* translators: taxonomy name */
+		'desc'              => sprintf( esc_html__( 'Custom values for robots meta tag on %s archives.', 'rank-math' ), $name ),
 		'options'           => Helper::choices_robots(),
 		'select_all_button' => false,
 		'dep'               => [ [ 'tax_' . $taxonomy . '_custom_robots', 'on' ] ],

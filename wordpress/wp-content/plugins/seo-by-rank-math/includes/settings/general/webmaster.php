@@ -86,7 +86,7 @@ $cmb->add_field(
 		'type'            => 'text',
 		'name'            => esc_html__( 'Norton Safe Web Verification ID', 'rank-math' ),
 		/* translators: Norton webmaster link */
-		'desc'            => sprintf( esc_html__( 'Enter your Norton Safe Web verification HTML code or ID. Get it from here: %s', 'rank-math' ), '<a href="https://login.norton.com/sso/idp/" target="_blank">' . esc_html__( 'Norton Ownership Verification Page', 'rank-math' ) . '</a>' ) .
+		'desc'            => sprintf( esc_html__( 'Enter your Norton Safe Web verification HTML code or ID. Get it from here: %s', 'rank-math' ), '<a href="https://support.norton.com/sp/en/in/home/current/solutions/kb20090410134005EN" target="_blank">' . esc_html__( 'Norton Ownership Verification Page', 'rank-math' ) . '</a>' ) .
 			'<br><code>' . htmlspecialchars( '<meta name="norton-safeweb-site-verification" content="your-id" />' ) . '</code>',
 		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_webmaster_tags' ],
 		'classes'         => 'rank-math-advanced-option',

@@ -362,7 +362,6 @@ class Installer {
 					'wc_remove_category_parent_slugs'     => 'off',
 					'rss_before_content'                  => '',
 					'rss_after_content'                   => '',
-					'usage_tracking'                      => 'off',
 					'wc_remove_generator'                 => 'on',
 					'remove_shop_snippet_data'            => 'on',
 					'frontend_seo_score'                  => 'off',
@@ -597,7 +596,6 @@ class Installer {
 	 */
 	private function get_cron_jobs() {
 		return [
-			'tracker/send_event'           => 'weekly', // Add cron job for Usage Tracking (clear it first).
 			'search_console/get_analytics' => 'daily',  // Add cron job for Get Search Console Analytics Data.
 			'redirection/clean_trashed'    => 'daily',  // Add cron for cleaning trashed redirects.
 			'links/internal_links'         => 'daily',  // Add cron for counting links.

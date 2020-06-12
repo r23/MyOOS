@@ -14,6 +14,7 @@ use RankMath\Runner;
 use RankMath\Helper;
 use RankMath\Traits\Ajax;
 use RankMath\Traits\Hooker;
+use RankMath\Helpers\Sitepress;
 use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
@@ -39,6 +40,7 @@ class Notices implements Runner {
 	public function notices() {
 		$this->is_plugin_configured();
 		$this->new_post_type();
+		$this->convert_wpml_settings();
 	}
 
 	/**
@@ -47,15 +49,18 @@ class Notices implements Runner {
 	 * @param string $notification_id Notification id.
 	 */
 	public function notice_dismissible( $notification_id ) {
-		if ( 'new_post_type' !== $notification_id ) {
+		if ( 'new_post_type' === $notification_id ) {
+			$current = get_post_types( [ 'public' => true ] );
+			update_option( 'rank_math_known_post_types', $current );
+
+			if ( Helper::is_module_active( 'sitemap' ) ) {
+				\RankMath\Sitemap\Cache::invalidate_storage();
+			}
 			return;
 		}
 
-		$current = get_post_types( [ 'public' => true ] );
-		update_option( 'rank_math_known_post_types', $current );
-
-		if ( Helper::is_module_active( 'sitemap' ) ) {
-			\RankMath\Sitemap\Cache::invalidate_storage();
+		if ( 'convert_wpml_settings' === $notification_id ) {
+			update_option( 'rank_math_wpml_notice_dismissed', true );
 		}
 	}
 
@@ -105,5 +110,110 @@ class Notices implements Runner {
 				'id'   => 'new_post_type',
 			]
 		);
+	}
+
+	/**
+	 * Function to show Show String Translation plugin notice and convert the settings.
+	 */
+	private function convert_wpml_settings() {
+		if ( ! Sitepress::get()->is_active() || get_option( 'rank_math_wpml_data_converted' ) ) {
+			return;
+		}
+
+		if ( ! function_exists( 'icl_add_string_translation' ) ) {
+			if ( ! get_option( 'rank_math_wpml_notice_dismissed' ) ) {
+				Helper::add_notification(
+					__( 'Please activate the WPML String Translation plugin to convert Rank Math Setting values in different languages.', 'rank-math' ),
+					[
+						'type' => 'error',
+						'id'   => 'convert_wpml_settings',
+					]
+				);
+			}
+			return;
+		}
+
+		$languages = icl_get_languages();
+		foreach ( $languages as $lang_code => $language ) {
+
+			foreach ( [ 'general', 'titles' ] as $option ) {
+				$data = get_option( "rank-math-options-{$option}_$lang_code" );
+				if ( empty( $data ) ) {
+					continue;
+				}
+
+				$common_data = array_intersect( array_keys( $data ), $this->get_translatable_options() );
+				if ( empty( $common_data ) ) {
+					continue;
+				}
+
+				foreach ( $common_data as $option_key ) {
+					$string_id = icl_get_string_id( Helper::get_settings( "$option.$option_key" ), "admin_texts_rank-math-options-$option" );
+					icl_add_string_translation( $string_id, $lang_code, $data[ $option_key ], 10 );
+				}
+			}
+		}
+
+		update_option( 'rank_math_wpml_data_converted', true );
+	}
+
+	/**
+	 * Get Translatable option keys.
+	 *
+	 * @return array
+	 */
+	private function get_translatable_options() {
+		$options = [
+			'img_alt_format',
+			'img_title_format',
+			'breadcrumbs_separator',
+			'breadcrumbs_prefix',
+			'breadcrumbs_home_label',
+			'breadcrumbs_archive_format',
+			'breadcrumbs_search_format',
+			'breadcrumbs_404_label',
+			'rss_before_content',
+			'rss_after_content',
+
+			'title_separator',
+			'homepage_title',
+			'homepage_description',
+			'homepage_facebook_title',
+			'homepage_facebook_description',
+			'author_archive_title',
+			'author_archive_description',
+			'date_archive_title',
+			'date_archive_description',
+			'search_title',
+			'404_title',
+		];
+
+		$post_types = Helper::get_accessible_post_types();
+		foreach ( $post_types as $post_type => $data ) {
+			$options = array_merge(
+				$options,
+				[
+					"pt_{$post_type}_title",
+					"pt_{$post_type}_description",
+					"pt_{$post_type}_archive_title",
+					"pt_{$post_type}_archive_description",
+					"pt_{$post_type}_default_snippet_name",
+					"pt_{$post_type}_default_snippet_desc",
+				]
+			);
+		}
+
+		$taxonomies = Helper::get_accessible_taxonomies();
+		foreach ( $taxonomies as $taxonomy => $data ) {
+			$options = array_merge(
+				$options,
+				[
+					"tax_{$taxonomy}_title",
+					"tax_{$taxonomy}_description",
+				]
+			);
+		}
+
+		return $options;
 	}
 }

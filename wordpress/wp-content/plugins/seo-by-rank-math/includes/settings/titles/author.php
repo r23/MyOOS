@@ -94,7 +94,7 @@ $cmb->add_field(
 		'classes'         => 'rank-math-supports-variables rank-math-title rank-math-advanced-option',
 		'default'         => '%name% %sep% %sitename% %page%',
 		'dep'             => $dep,
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 	]
 );
@@ -113,7 +113,7 @@ $cmb->add_field(
 			'rows'                   => 2,
 			'data-exclude-variables' => 'seo_title,seo_description',
 		],
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 

@@ -59,7 +59,7 @@ class Database_Tools {
 					<tr class='<?php echo sanitize_html_class( $id ); ?>'>
 						<th>
 							<h4 class='name'><?php echo esc_html( $tool['title'] ); ?></h4>
-							<p class="description"><?php echo $tool['description']; ?></p>
+							<p class="description"><?php echo esc_html( $tool['description'] ); ?></p>
 						</th>
 						<td class='run-tool'>
 							<a href='#' class='button button-large button-link-delete tools-action' data-action='<?php echo esc_attr( $id ); ?>' data-confirm="<?php echo isset( $tool['confirm_text'] ) ? esc_attr( $tool['confirm_text'] ) : 'false'; ?>"><?php echo esc_html( $tool['button_text'] ); ?></a>
@@ -103,7 +103,7 @@ class Database_Tools {
 	public function clear_seo_analysis() {
 		delete_option( 'rank_math_seo_analysis_results' );
 
-		return  __( 'SEO Analysis data successfully deleted.', 'rank-math' );
+		return __( 'SEO Analysis data successfully deleted.', 'rank-math' );
 	}
 
 	/**

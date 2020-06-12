@@ -195,14 +195,14 @@ class Search_Console extends Base {
 					'styles'  => [
 						'rank-math-common'         => '',
 						'jquery-date-range-picker' => rank_math()->plugin_url() . 'assets/vendor/date-range-picker/daterangepicker.min.css',
-						'rank-math-search-console' => $plugin_uri . '/assets/search-console.css',
+						'rank-math-search-console' => $plugin_uri . '/assets/css/search-console.css',
 					],
 					'scripts' => [
 						'rank-math-common' => '',
 						'moment'           => '',
 						'date-picker'      => rank_math()->plugin_url() . 'assets/vendor/date-range-picker/jquery.daterangepicker.min.js',
 						'google-charts'    => '//www.gstatic.com/charts/loader.js',
-						'rank-math-sc'     => $plugin_uri . '/assets/search-console.js',
+						'rank-math-sc'     => $plugin_uri . '/assets/js/search-console.js',
 					],
 				],
 			]

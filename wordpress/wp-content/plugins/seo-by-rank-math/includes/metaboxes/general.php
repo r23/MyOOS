@@ -59,7 +59,7 @@ $cmb->add_field(
 		'name'            => esc_html__( 'Description', 'rank-math' ),
 		'desc'            => esc_html__( 'This is what will appear as the description when this post shows up in the search results.', 'rank-math' ),
 		'classes'         => 'rank-math-supports-variables',
-		'sanitization_cb' => true,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'escape_cb'       => 'esc_html',
 		'attributes'      => [
 			'class'                  => 'cmb2_textarea wp-exclude-emoji',

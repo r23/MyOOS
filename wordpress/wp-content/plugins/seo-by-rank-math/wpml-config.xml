@@ -27,16 +27,14 @@
 			<key name="date_archive_description"/>
 			<key name="search_title"/>
 			<key name="404_title"/>
-			<key name="pt_post_title"/>
-			<key name="pt_post_description"/>
-			<key name="pt_page_title"/>
-			<key name="pt_page_description"/>
-			<key name="pt_attachment_title"/>
-			<key name="pt_attachment_description"/>
-			<key name="tax_category_title"/>
-			<key name="tax_category_description"/>
-			<key name="tax_post_tag_title"/>
-			<key name="tax_post_tag_description"/>
+			<key name="pt_*_title"/>
+			<key name="pt_*_description"/>
+			<key name="pt_*_archive_title"/>
+			<key name="pt_*_archive_description"/>
+			<key name="pt_*_default_snippet_name"/>
+			<key name="pt_*_default_snippet_desc"/>
+			<key name="tax_*_title"/>
+			<key name="tax_*_description"/>
 		</key>
 		<key name="rank-math-options-general">
 			<key name="img_alt_format"/>

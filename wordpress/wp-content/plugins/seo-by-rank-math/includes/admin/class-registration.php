@@ -247,8 +247,6 @@ class Registration {
 			<?php $this->header_content(); ?>
 		</header>
 
-		<span class="wp-header-end"></span>
-
 		<?php rank_math()->notification->display(); ?>
 
 		<?php $this->show_connect_button(); ?>
@@ -266,17 +264,8 @@ class Registration {
 	 */
 	private function show_connect_button() {
 		?>
-		<label for="rank-math-usage-tracking" class="cmb2-id-rank-math-usage-tracking">
-			<div class="consent-box">
-				<div class="alignleft" style="height: 80px; margin-right: 4px;">
-					<input type="checkbox" name="rank-math-usage-tracking" id="rank-math-usage-tracking" value="on" <?php checked( Helper::get_settings( 'general.usage_tracking' ) ); ?>>
-				</div>
-				<?php // translators: placeholder is a link to the Knowledge Base. ?>
-				<p><?php printf( __( 'Gathering usage data helps us make Rank Math SEO plugin better - for you. By understanding how you use Rank Math, we can introduce new features and find out if existing features are working well for you. If you don’t want us to collect data from your website, uncheck the tickbox. Please note that licensing information may still be sent back to us for authentication. We collect data anonymously, read more %s.', 'rank-math' ), '<a href="' . KB::get( 'rm-privacy' ) . '" target="_blank">' . esc_attr__( 'here', 'rank-math' ) . '</a>' ); ?></p>
-			</div>
-		</label>
 		<div class="text-center wp-core-ui rank-math-ui" style="margin-top: 30px;">
-			<button type="submit" class="button button-primary button-animated" name="rank_math_activate"><?php echo esc_attr__( 'Activate Rank Math', 'rank-math' ); ?></button>
+			<button type="submit" class="button button-primary button-animated" name="rank_math_activate"><?php echo esc_attr__( 'Connect Your Account', 'rank-math' ); ?></button>
 		</div>
 		<?php
 	}
@@ -288,14 +277,12 @@ class Registration {
 		if ( $this->invalid ) :
 			?>
 			<h1><?php esc_html_e( 'Connect FREE Account', 'rank-math' ); ?></h1>
-			<div class="notice notice-warning rank-math-notice rank-math-registration-notice inline">
-				<p>
-					<?php
-					/* translators: Link to Rank Math signup page */
-					printf( wp_kses_post( __( 'You need to connect with your <a href="%s" target="_blank"><strong>FREE Rank Math account</strong></a> to use Rank Math on this site.', 'rank-math' ) ), KB::get( 'free-account' ) );
-					?>
-				</p>
-			</div>
+			<p class="rank-math-gray-box">
+				<?php
+				/* translators: Link to Free Account Benefits KB article */
+				printf( esc_html__( 'By connecting your free account, you get keyword suggestions directly from Google when entering the focus keywords. Not only that, get access to our revolutionary SEO Analyzer inside WordPress that scans your website for SEO errors and suggest improvements. %s', 'rank-math' ), '<a href="' . KB::get( 'free-account-benefits' ) . '" target="_blank">' . esc_html__( 'Read more by following this link.', 'rank-math' ) . '</a>' );
+				?>
+			</p>
 			<?php
 			return;
 		endif;
@@ -322,8 +309,6 @@ class Registration {
 			return wp_safe_redirect( $referer );
 		}
 
-		Admin_Helper::allow_tracking();
-
 		$this->redirect_to_connect( $_POST );
 	}
 
@@ -336,7 +321,6 @@ class Registration {
 			exit;
 		}
 		add_option( 'rank_math_registration_skip', true );
-		Admin_Helper::allow_tracking();
 		wp_safe_redirect( Helper::get_admin_url( 'wizard' ) );
 		exit;
 	}

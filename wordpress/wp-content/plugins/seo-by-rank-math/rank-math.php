@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Rank Math SEO
- * Version:           1.0.43.1
+ * Version:           1.0.44
  * Plugin URI:        https://s.rankmath.com/home
  * Description:       Rank Math is a revolutionary SEO product that combines the features of many SEO tools and lets you multiply your traffic in the easiest way possible.
  * Author:            Rank Math
@@ -34,7 +34,7 @@ final class RankMath {
 	 *
 	 * @var string
 	 */
-	public $version = '1.0.43.1';
+	public $version = '1.0.44';
 
 	/**
 	 * Rank Math database version.
@@ -226,8 +226,8 @@ final class RankMath {
 	 */
 	public function auto_deactivate() {
 		deactivate_plugins( plugin_basename( RANK_MATH_FILE ) );
-		if ( isset( $_GET['activate'] ) ) {
-			unset( $_GET['activate'] );
+		if ( isset( $_GET['activate'] ) ) { // phpcs:ignore
+			unset( $_GET['activate'] ); // phpcs:ignore
 		}
 	}
 
@@ -238,7 +238,7 @@ final class RankMath {
 		?>
 		<div class="notice rank-math-notice notice-error">
 			<p>
-				<?php echo join( '<br>', $this->messages ); ?>
+				<?php echo join( '<br>', $this->messages ); // phpcs:ignore ?>
 			</p>
 		</div>
 		<?php
@@ -272,38 +272,33 @@ final class RankMath {
 	 * Instantiate classes.
 	 */
 	private function instantiate() {
-		new \RankMath\Installer;
+		new \RankMath\Installer();
 
 		// Setting Manager.
-		$this->container['settings'] = new \RankMath\Settings;
+		$this->container['settings'] = new \RankMath\Settings();
 
 		// JSON Manager.
-		$this->container['json'] = new \MyThemeShop\Json_Manager;
+		$this->container['json'] = new \MyThemeShop\Json_Manager();
 
 		// Notification Manager.
 		$this->container['notification'] = new \MyThemeShop\Notification_Center( 'rank_math_notifications' );
 
 		// Product Registration.
-		$this->container['registration'] = new \RankMath\Admin\Registration;
+		$this->container['registration'] = new \RankMath\Admin\Registration();
 		if ( $this->container['registration']->invalid ) {
 			return;
 		}
 
-		$this->container['manager']   = new \RankMath\Module\Manager;
-		$this->container['variables'] = new \RankMath\Replace_Variables\Manager;
+		$this->container['manager']   = new \RankMath\Module\Manager();
+		$this->container['variables'] = new \RankMath\Replace_Variables\Manager();
 
 		// Just init without storing it in the container.
-		new \RankMath\Common;
-		$this->container['rewrite'] = new \RankMath\Rewrite;
-		new \RankMath\Compatibility;
-
-		// Usage Tracking, if it's enabled and this is a CRON request.
-		if ( defined( 'DOING_CRON' ) && ! defined( 'DOING_AJAX' ) && \RankMath\Helper::get_settings( 'general.usage_tracking' ) ) {
-			new \RankMath\Tracking;
-		}
+		new \RankMath\Common();
+		$this->container['rewrite'] = new \RankMath\Rewrite();
+		new \RankMath\Compatibility();
 
 		// Frontend SEO Score.
-		$this->container['frontend_seo_score'] = new \RankMath\Frontend_SEO_Score;
+		$this->container['frontend_seo_score'] = new \RankMath\Frontend_SEO_Score();
 		$this->load_3rd_party();
 	}
 
@@ -345,9 +340,9 @@ final class RankMath {
 	 */
 	public function init_rest_api() {
 		$controllers = [
-			new \RankMath\Rest\Admin,
-			new \RankMath\Rest\Front,
-			new \RankMath\Rest\Post,
+			new \RankMath\Rest\Admin(),
+			new \RankMath\Rest\Front(),
+			new \RankMath\Rest\Post(),
 		];
 
 		foreach ( $controllers as $controller ) {
@@ -363,7 +358,7 @@ final class RankMath {
 		if ( $this->container['registration']->invalid ) {
 			return;
 		}
-		new \RankMath\Admin\Admin_Init;
+		new \RankMath\Admin\Admin_Init();
 	}
 
 	/**
@@ -374,7 +369,7 @@ final class RankMath {
 		if ( $this->container['registration']->invalid ) {
 			return;
 		}
-		$this->container['frontend'] = new \RankMath\Frontend\Frontend;
+		$this->container['frontend'] = new \RankMath\Frontend\Frontend();
 	}
 
 	/**
@@ -383,7 +378,7 @@ final class RankMath {
 	private function load_3rd_party() {
 
 		if ( defined( 'ELEMENTOR_VERSION' ) ) {
-			new \RankMath\Elementor\Elementor;
+			new \RankMath\Elementor\Elementor();
 		}
 	}
 
@@ -458,7 +453,7 @@ final class RankMath {
 	 */
 	public function localization_setup() {
 		$locale = is_admin() && function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
-		$locale = apply_filters( 'plugin_locale', $locale, 'rank-math' );
+		$locale = apply_filters( 'plugin_locale', $locale, 'rank-math' ); // phpcs:ignore
 
 		unload_textdomain( 'rank-math' );
 		if ( false === load_textdomain( 'rank-math', WP_LANG_DIR . '/plugins/seo-by-rank-math-' . $locale . '.mo' ) ) {
@@ -484,10 +479,10 @@ final class RankMath {
 	 */
 	public function cron_schedules( $schedules ) {
 
-		$schedules['weekly'] = array(
+		$schedules['weekly'] = [
 			'interval' => DAY_IN_SECONDS * 7,
 			'display'  => esc_html__( 'Once Weekly', 'rank-math' ),
-		);
+		];
 
 		return $schedules;
 	}

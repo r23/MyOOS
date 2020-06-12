@@ -113,36 +113,42 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
-		'id'      => 'rank_math_snippet_recipe_rating',
-		'type'    => 'text',
-		'name'    => esc_html__( 'Rating', 'rank-math' ),
-		'desc'    => esc_html__( 'Rating score of the recipe. Optional.', 'rank-math' ),
-		'classes' => 'cmb-row-33',
-		'dep'     => $recipe,
+		'id'              => 'rank_math_snippet_recipe_rating',
+		'type'            => 'text',
+		'name'            => esc_html__( 'Rating', 'rank-math' ),
+		'desc'            => esc_html__( 'Rating score of the recipe. Optional.', 'rank-math' ),
+		'classes'         => 'cmb-row-33',
+		'dep'             => $recipe,
+		'escape_cb'       => [ '\RankMath\CMB2', 'sanitize_float' ],
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_float' ],
 	]
 );
 
 $cmb->add_field(
 	[
-		'id'      => 'rank_math_snippet_recipe_rating_min',
-		'type'    => 'text',
-		'name'    => esc_html__( 'Rating Minimum', 'rank-math' ),
-		'desc'    => esc_html__( 'Rating minimum score of the recipe.', 'rank-math' ),
-		'classes' => 'cmb-row-33',
-		'default' => 1,
-		'dep'     => $recipe,
+		'id'              => 'rank_math_snippet_recipe_rating_min',
+		'type'            => 'text',
+		'name'            => esc_html__( 'Rating Minimum', 'rank-math' ),
+		'desc'            => esc_html__( 'Rating minimum score of the recipe.', 'rank-math' ),
+		'classes'         => 'cmb-row-33',
+		'default'         => 1,
+		'dep'             => $recipe,
+		'escape_cb'       => 'absint',
+		'sanitization_cb' => 'absint',
 	]
 );
 
 $cmb->add_field(
 	[
-		'id'      => 'rank_math_snippet_recipe_rating_max',
-		'type'    => 'text',
-		'name'    => esc_html__( 'Rating Maximum', 'rank-math' ),
-		'desc'    => esc_html__( 'Rating maximum score of the recipe.', 'rank-math' ),
-		'classes' => 'cmb-row-33',
-		'default' => 5,
-		'dep'     => $recipe,
+		'id'              => 'rank_math_snippet_recipe_rating_max',
+		'type'            => 'text',
+		'name'            => esc_html__( 'Rating Maximum', 'rank-math' ),
+		'desc'            => esc_html__( 'Rating maximum score of the recipe.', 'rank-math' ),
+		'classes'         => 'cmb-row-33',
+		'default'         => 5,
+		'dep'             => $recipe,
+		'escape_cb'       => 'absint',
+		'sanitization_cb' => 'absint',
 	]
 );
 
@@ -186,12 +192,13 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
-		'id'      => 'rank_math_snippet_recipe_video_name',
-		'type'    => 'text',
-		'name'    => esc_html__( 'Recipe Video Name', 'rank-math' ),
-		'desc'    => esc_html__( 'A recipe video Name.', 'rank-math' ),
-		'classes' => 'cmb-row-50',
-		'dep'     => $recipe,
+		'id'              => 'rank_math_snippet_recipe_video_name',
+		'type'            => 'text',
+		'name'            => esc_html__( 'Recipe Video Name', 'rank-math' ),
+		'desc'            => esc_html__( 'A recipe video Name.', 'rank-math' ),
+		'classes'         => 'cmb-row-50',
+		'dep'             => $recipe,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 
@@ -211,31 +218,35 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
-		'id'         => 'rank_math_snippet_recipe_video_description',
-		'type'       => 'textarea',
-		'name'       => esc_html__( 'Recipe Video Description', 'rank-math' ),
-		'desc'       => esc_html__( 'A recipe video Description.', 'rank-math' ),
-		'classes'    => 'cmb-row-50',
-		'attributes' => [
+		'id'              => 'rank_math_snippet_recipe_video_description',
+		'type'            => 'textarea',
+		'name'            => esc_html__( 'Recipe Video Description', 'rank-math' ),
+		'desc'            => esc_html__( 'A recipe video Description.', 'rank-math' ),
+		'classes'         => 'cmb-row-50',
+		'attributes'      => [
 			'rows'            => 4,
 			'data-autoresize' => true,
 		],
-		'dep'        => $recipe,
+		'dep'             => $recipe,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
+		'escape_cb'       => 'esc_textarea',
 	]
 );
 
 $cmb->add_field(
 	[
-		'id'         => 'rank_math_snippet_recipe_ingredients',
-		'type'       => 'textarea',
-		'name'       => esc_html__( 'Recipe Ingredients', 'rank-math' ),
-		'desc'       => esc_html__( 'Recipe ingredients, add one item per line', 'rank-math' ),
-		'attributes' => [
+		'id'              => 'rank_math_snippet_recipe_ingredients',
+		'type'            => 'textarea',
+		'name'            => esc_html__( 'Recipe Ingredients', 'rank-math' ),
+		'desc'            => esc_html__( 'Recipe ingredients, add one item per line', 'rank-math' ),
+		'attributes'      => [
 			'rows'            => 4,
 			'data-autoresize' => true,
 		],
-		'classes'    => 'cmb-row-50',
-		'dep'        => $recipe,
+		'classes'         => 'cmb-row-50',
+		'dep'             => $recipe,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
+		'escape_cb'       => 'esc_textarea',
 	]
 );
 
@@ -257,16 +268,17 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
-		'id'      => 'rank_math_snippet_recipe_instruction_name',
-		'type'    => 'text',
-		'name'    => esc_html__( 'Recipe Instruction Name', 'rank-math' ),
-		'desc'    => esc_html__( 'Instruction name of the recipe.', 'rank-math' ),
-		'classes' => 'nob',
-		'dep'     => [
+		'id'              => 'rank_math_snippet_recipe_instruction_name',
+		'type'            => 'text',
+		'name'            => esc_html__( 'Recipe Instruction Name', 'rank-math' ),
+		'desc'            => esc_html__( 'Instruction name of the recipe.', 'rank-math' ),
+		'classes'         => 'nob',
+		'dep'             => [
 			'relation' => 'and',
 			[ 'rank_math_rich_snippet', 'recipe' ],
 			[ 'rank_math_snippet_recipe_instruction_type', 'HowToStep' ],
 		],
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 

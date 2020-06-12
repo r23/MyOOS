@@ -51,7 +51,7 @@ $cmb->add_field(
 		'options'         => Helper::choices_separator( Helper::get_settings( 'titles.title_separator' ) ),
 		'default'         => '-',
 		'attributes'      => [ 'data-preview' => 'title' ],
-		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_htmlentities' ],
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_separator' ],
 	]
 );
 

@@ -27,7 +27,7 @@ $cmb->add_field(
 		'classes'         => 'large-text rank-math-supports-variables',
 		'default'         => ' %filename%',
 		'dep'             => [ [ 'add_img_alt', 'on' ] ],
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 	]
 );
@@ -51,7 +51,7 @@ $cmb->add_field(
 		'classes'         => 'large-text rank-math-supports-variables dropdown-up',
 		'default'         => '%title% %count(title)%',
 		'dep'             => [ [ 'add_img_title', 'on' ] ],
-		'sanitization_cb' => false,
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 		'attributes'      => [ 'data-exclude-variables' => 'seo_title,seo_description' ],
 	]
 );

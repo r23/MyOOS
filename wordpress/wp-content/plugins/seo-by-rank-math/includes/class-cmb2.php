@@ -237,6 +237,17 @@ class CMB2 {
 	}
 
 	/**
+	 * Handles sanitization for Separator Character option.
+	 *
+	 * @param mixed $value The unsanitized value from the form.
+	 *
+	 * @return mixed Sanitized value to be stored.
+	 */
+	public static function sanitize_separator( $value ) {
+		return htmlentities( wp_strip_all_tags( $value, true ) );
+	}
+
+	/**
 	 * Handles sanitization for text fields.
 	 *
 	 * @param string $value The unsanitized value from the form.
@@ -293,6 +304,21 @@ class CMB2 {
 	}
 
 	/**
+	 * Handles sanitization of floating point values.
+	 *
+	 * @param string $value The unsanitized value from the form.
+	 *
+	 * @return string Sanitized value to be stored.
+	 */
+	public static function sanitize_float( $value ) {
+		if ( empty( $value ) ) {
+			return 0;
+		}
+
+		return filter_var( $value, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION );
+	}
+
+	/**
 	 * Handles sanitization for webmaster tag and remove <meta> tag.
 	 *
 	 * @param mixed $value The unsanitized value from the form.
@@ -307,7 +333,7 @@ class CMB2 {
 			$value = $matches[1];
 		}
 
-		return $value;
+		return htmlentities( wp_strip_all_tags( $value ) );
 	}
 
 	/**
@@ -343,7 +369,7 @@ class CMB2 {
 			',',
 			array_map(
 				function ( $entry ) {
-					return $entry['value'];
+					return sanitize_text_field( $entry['value']  );
 				},
 				$values
 			)

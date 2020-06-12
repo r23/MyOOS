@@ -43,7 +43,7 @@ class Watcher implements Runner {
 		}
 
 		if ( ! current_user_can( 'deactivate_plugins' ) ) {
-			wp_die( __( 'Sorry, you are not allowed to deactivate plugins for this site.', 'rank-math' ) );
+			wp_die( esc_html__( 'Sorry, you are not allowed to deactivate plugins for this site.', 'rank-math' ) );
 		}
 
 		check_admin_referer( 'rank_math_deactivate_plugins' );
@@ -54,8 +54,6 @@ class Watcher implements Runner {
 			return;
 		}
 		$this->deactivate_conflicting_plugins( $type );
-
-		return;
 	}
 
 	/**
@@ -70,6 +68,10 @@ class Watcher implements Runner {
 				$set[ $type ] = true;
 				self::set_notification( $type );
 			}
+		}
+
+		if ( in_array( 'wpml-string-translation/plugin.php', $plugins, true ) ) {
+			GlobalHelper::remove_notification( 'convert_wpml_settings' );
 		}
 	}
 
@@ -205,13 +207,13 @@ class Watcher implements Runner {
 	 * @return array
 	 */
 	private static function get_conflicting_plugins() {
-		$plugins = array(
+		$plugins = [
 			'wordpress-seo/wp-seo.php'                    => 'seo',
 			'wordpress-seo-premium/wp-seo-premium.php'    => 'seo',
 			'all-in-one-seo-pack/all_in_one_seo_pack.php' => 'seo',
 			'wp-seopress/seopress.php'                    => 'seo',
 			'wp-seopress-pro/seopress-pro.php'            => 'seo',
-		);
+		];
 
 		if ( GlobalHelper::is_module_active( 'redirections' ) ) {
 			$plugins['redirection/redirection.php'] = 'seo';

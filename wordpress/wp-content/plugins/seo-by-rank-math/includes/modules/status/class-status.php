@@ -71,11 +71,11 @@ class Status extends Base {
 				'assets'   => [
 					'styles'  => [
 						'rank-math-common' => '',
-						'rank-math-status' => $uri . '/assets/status.css',
+						'rank-math-status' => $uri . '/assets/css/status.css',
 					],
 					'scripts' => [
 						'rank-math-dashboard' => '',
-						'rank-math-status'    => $uri . '/assets/status.js',
+						'rank-math-status'    => $uri . '/assets/js/status.js',
 					],
 				],
 			]

@@ -45,7 +45,7 @@ class Frontend {
 	 */
 	private function includes() {
 
-		rank_math()->shortcodes = new Shortcodes;
+		rank_math()->shortcodes = new Shortcodes();
 
 		if ( Helper::get_settings( 'general.breadcrumbs' ) ) {
 			/**
@@ -54,7 +54,8 @@ class Frontend {
 			add_filter( 'bbp_get_breadcrumb', '__return_false' );
 		}
 
-		new Comments;
+		new Link_Attributes();
+		new Comments();
 	}
 
 	/**
@@ -88,11 +89,11 @@ class Frontend {
 		}
 
 		Paper::get();
-		new Facebook;
-		new Twitter;
+		new Facebook();
+		new Twitter();
 
 		// Leave this for backwards compatibility as AMP plugin uses head function. We can remove this in the future update.
-		rank_math()->head = new Head;
+		rank_math()->head = new Head();
 	}
 
 	/**

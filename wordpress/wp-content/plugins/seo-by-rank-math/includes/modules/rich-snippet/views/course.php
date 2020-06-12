@@ -22,48 +22,55 @@ $cmb->add_field([
 ]);
 
 $cmb->add_field([
-	'id'   => 'rank_math_snippet_course_provider',
-	'type' => 'text',
-	'name' => esc_html__( 'Course Provider Name', 'rank-math' ),
-	'dep'  => $course_dep,
+	'id'              => 'rank_math_snippet_course_provider',
+	'type'            => 'text',
+	'name'            => esc_html__( 'Course Provider Name', 'rank-math' ),
+	'dep'             => $course_dep,
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 ]);
 
 $cmb->add_field([
-	'id'         => 'rank_math_snippet_course_provider_url',
-	'type'       => 'text_url',
-	'name'       => esc_html__( 'Course Provider URL', 'rank-math' ),
-	'dep'        => $course_dep,
-	'attributes' => [
+	'id'              => 'rank_math_snippet_course_provider_url',
+	'type'            => 'text_url',
+	'name'            => esc_html__( 'Course Provider URL', 'rank-math' ),
+	'dep'             => $course_dep,
+	'attributes'      => [
 		'data-rule-url' => 'true',
 	],
-	'classes'    => 'nob rank-math-validate-field',
+	'classes'         => 'nob rank-math-validate-field',
 ]);
 
 $cmb->add_field([
-	'id'      => 'rank_math_snippet_course_rating',
-	'type'    => 'text',
-	'name'    => esc_html__( 'Rating', 'rank-math' ),
-	'desc'    => esc_html__( 'Rating score of the course. Optional.', 'rank-math' ),
-	'classes' => 'cmb-row-33',
-	'dep'     => $course_dep,
+	'id'              => 'rank_math_snippet_course_rating',
+	'type'            => 'text',
+	'name'            => esc_html__( 'Rating', 'rank-math' ),
+	'desc'            => esc_html__( 'Rating score of the course. Optional.', 'rank-math' ),
+	'classes'         => 'cmb-row-33',
+	'dep'             => $course_dep,
+	'escape_cb'       => [ '\RankMath\CMB2', 'sanitize_float' ],
+	'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_float' ],
 ]);
 
 $cmb->add_field([
-	'id'      => 'rank_math_snippet_course_rating_min',
-	'type'    => 'text',
-	'name'    => esc_html__( 'Rating Minimum', 'rank-math' ),
-	'desc'    => esc_html__( 'Rating minimum score of the course.', 'rank-math' ),
-	'classes' => 'cmb-row-33',
-	'default' => 1,
-	'dep'     => $course_dep,
+	'id'              => 'rank_math_snippet_course_rating_min',
+	'type'            => 'text',
+	'name'            => esc_html__( 'Rating Minimum', 'rank-math' ),
+	'desc'            => esc_html__( 'Rating minimum score of the course.', 'rank-math' ),
+	'classes'         => 'cmb-row-33',
+	'default'         => 1,
+	'dep'             => $course_dep,
+	'escape_cb'       => 'absint',
+	'sanitization_cb' => 'absint',
 ]);
 
 $cmb->add_field([
-	'id'      => 'rank_math_snippet_course_rating_max',
-	'type'    => 'text',
-	'name'    => esc_html__( 'Rating Maximum', 'rank-math' ),
-	'desc'    => esc_html__( 'Rating maximum score of the course.', 'rank-math' ),
-	'classes' => 'cmb-row-33',
-	'default' => 5,
-	'dep'     => $course_dep,
+	'id'              => 'rank_math_snippet_course_rating_max',
+	'type'            => 'text',
+	'name'            => esc_html__( 'Rating Maximum', 'rank-math' ),
+	'desc'            => esc_html__( 'Rating maximum score of the course.', 'rank-math' ),
+	'classes'         => 'cmb-row-33',
+	'default'         => 5,
+	'dep'             => $course_dep,
+	'escape_cb'       => 'absint',
+	'sanitization_cb' => 'absint',
 ]);

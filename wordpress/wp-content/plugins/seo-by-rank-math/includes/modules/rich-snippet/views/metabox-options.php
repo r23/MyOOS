@@ -113,55 +113,59 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
-		'id'         => 'rank_math_snippet_name',
-		'type'       => 'text',
-		'name'       => esc_html__( 'Headline', 'rank-math' ),
-		'dep'        => [ [ 'rank_math_rich_snippet', 'off', '!=' ] ],
-		'attributes' => [ 'placeholder' => Helper::get_settings( "titles.pt_{$post_type}_default_snippet_name", '' ) ],
-		'classes'    => 'rank-math-supports-variables',
+		'id'              => 'rank_math_snippet_name',
+		'type'            => 'text',
+		'name'            => esc_html__( 'Headline', 'rank-math' ),
+		'dep'             => [ [ 'rank_math_rich_snippet', 'off', '!=' ] ],
+		'attributes'      => [ 'placeholder' => Helper::get_settings( "titles.pt_{$post_type}_default_snippet_name", '' ) ],
+		'classes'         => 'rank-math-supports-variables',
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 
 $cmb->add_field(
 	[
-		'id'         => 'rank_math_snippet_desc',
-		'type'       => 'textarea',
-		'name'       => esc_html__( 'Description', 'rank-math' ),
-		'attributes' => [
+		'id'              => 'rank_math_snippet_desc',
+		'type'            => 'textarea',
+		'name'            => esc_html__( 'Description', 'rank-math' ),
+		'attributes'      => [
 			'rows'            => 3,
 			'data-autoresize' => true,
 			'placeholder'     => Helper::get_settings( "titles.pt_{$post_type}_default_snippet_desc", '' ),
 		],
-		'classes'    => 'rank-math-supports-variables',
-		'dep'        => [ [ 'rank_math_rich_snippet', 'off,book,local', '!=' ] ],
+		'classes'         => 'rank-math-supports-variables',
+		'dep'             => [ [ 'rank_math_rich_snippet', 'off,book,local', '!=' ] ],
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
+		'escape_cb'       => 'esc_textarea',
 	]
 );
 
 $cmb->add_field(
 	[
-		'id'         => 'rank_math_snippet_url',
-		'type'       => 'text_url',
-		'name'       => esc_html__( 'URL', 'rank-math' ),
-		'attributes' => [
+		'id'              => 'rank_math_snippet_url',
+		'type'            => 'text_url',
+		'name'            => esc_html__( 'URL', 'rank-math' ),
+		'attributes'      => [
 			'rows'            => 3,
 			'data-autoresize' => true,
 			'data-rule-url'   => true,
 		],
-		'classes'    => 'rank-math-validate-field',
-		'dep'        => [ [ 'rank_math_rich_snippet', 'book,local,music' ] ],
+		'classes'         => 'rank-math-validate-field',
+		'dep'             => [ [ 'rank_math_rich_snippet', 'book,local,music' ] ],
 	]
 );
 
 $cmb->add_field(
 	[
-		'id'         => 'rank_math_snippet_author',
-		'type'       => 'text',
-		'name'       => esc_html__( 'Author', 'rank-math' ),
-		'attributes' => [
+		'id'              => 'rank_math_snippet_author',
+		'type'            => 'text',
+		'name'            => esc_html__( 'Author', 'rank-math' ),
+		'attributes'      => [
 			'rows'            => 3,
 			'data-autoresize' => true,
 		],
-		'dep'        => [ [ 'rank_math_rich_snippet', 'book' ] ],
+		'dep'             => [ [ 'rank_math_rich_snippet', 'book' ] ],
+		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
 	]
 );
 
