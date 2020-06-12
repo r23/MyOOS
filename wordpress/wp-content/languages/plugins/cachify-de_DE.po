@@ -2,104 +2,23 @@
 # This file is distributed under the same license as the Plugins - Cachify - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-04-19 18:28:52+0000\n"
+"PO-Revision-Date: 2020-06-12 18:52:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/2.4.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Cachify - Stable (latest release)\n"
-
-#: inc/setup/cachify.hdd.htaccess.php:69
-msgid "If there are partial errors in the redirects within the blog, the shutdown of the Apache Content Cache can help:"
-msgstr "Wenn es teilweise zu Fehlern bei den Weiterleitungen innerhalb des Blogs kommt, kann das Abschalten des Apache-Content-Cache helfen:"
-
-#: inc/setup/cachify.hdd.htaccess.php:66
-msgid "Changes to the .htaccess file can not be made if PHP is run as fcgi."
-msgstr "Änderungen an der .htaccess-Datei können nicht vorgenommen werden, wenn PHP als fcgi ausgeführt wird."
-
-#: inc/setup/cachify.hdd.htaccess.php:63
-msgid "Within .htaccess, the extension has a higher priority and must be placed above the WordPress Rewrite rules (marked mostly by # BEGIN WordPress … # END WordPress)."
-msgstr "Innerhalb von .htaccess hat die Erweiterung eine höhere Priorität und muss über den WordPress-Rewrite-Regeln platziert werden (meistens gekennzeichnet durch # BEGIN WordPress … # END WordPress)."
-
-#: inc/setup/cachify.hdd.htaccess.php:49
-msgid ".htaccess HDD setup"
-msgstr ".htaccess-HDD-Einrichtung"
-
-#: inc/setup/cachify.hdd.nginx.php:9
-msgid "nginx HDD setup"
-msgstr "nginx-HDD-Einrichtung"
-
-#: inc/setup/cachify.memcached.nginx.php:79 inc/setup/cachify.hdd.nginx.php:74
-msgid "You might need to adjust the location directives to your needs."
-msgstr "Möglicherweise musst du die Speicherortsrichtlinien an deine Bedürfnisse anpassen."
-
-#: inc/setup/cachify.memcached.nginx.php:33
-msgid "If you have errors please try to change %1$s to %2$s This forces IPv4 because some servers that allow IPv4 and IPv6 are configured to bind memcached to IPv4 only."
-msgstr "Wenn du Fehler hast, versuche bitte %1$s mit %2$s zu ersetzen. Dies erzwingt IPv4, da einige Server, die IPv4 und IPv6 zulassen, so konfiguriert sind, dass sie memcached nur an IPv4 binden."
-
-#: inc/setup/cachify.memcached.nginx.php:26 inc/setup/cachify.hdd.nginx.php:26
-msgid "For domains with FQDN, the variable %s must be used instead of %s."
-msgstr "Für Domains mit FQDN muss die Variable %s anstelle von %s verwendet werden."
 
 #: inc/setup/cachify.memcached.nginx.php:20 inc/setup/cachify.hdd.nginx.php:20
 #: inc/setup/cachify.hdd.htaccess.php:58
 msgid "Notes"
 msgstr "Hinweise"
 
-#: inc/setup/cachify.memcached.nginx.php:13 inc/setup/cachify.hdd.nginx.php:13
-msgid "Please add the following lines to your nginx.conf"
-msgstr "Bitte füge die folgenden Zeilen zu deiner nginx.conf hinzu"
-
-#: inc/setup/cachify.memcached.nginx.php:9
-msgid "nginx Memcached setup"
-msgstr "nginx-Memcached-Einrichtung"
-
-#: inc/setup/cachify.apc.htaccess.php:20 inc/setup/cachify.hdd.htaccess.php:52
-msgid "Please add the following lines to your .htaccess file"
-msgstr "Bitte füge die folgenden Zeilen zu deiner .htaccess-Datei hinzu"
-
-#: inc/setup/cachify.apc.htaccess.php:16
-msgid ".htaccess APC setup"
-msgstr ".htaccess-APC-Einrichtung"
-
-#: inc/setup/cachify.apc.nginx.php:41
-msgid "You might need to adjust the non-highlighted lines to your needs."
-msgstr "Möglicherweise musst du die nicht hervorgehobenen Zeilen an deine Bedürfnisse anpassen."
-
-#: inc/setup/cachify.apc.nginx.php:28
-msgid "Please add the following lines to your nginx PHP configuration"
-msgstr "Bitte füge die folgenden Zeilen zu deiner nginx-PHP-Konfiguration hinzu"
-
-#: inc/setup/cachify.apc.nginx.php:24
-msgid "nginx APC setup"
-msgstr "nginx-APC-Einrichtung"
-
 #: inc/cachify.settings_footer.php:7
 msgid "FAQ"
-msgstr "Häufige Fragen (FAQ)"
-
-#: inc/cachify.settings_footer.php:7
-msgid "https://cachify.pluginkollektiv.org/documentation#faq"
-msgstr "https://cachify.pluginkollektiv.org/de/documentation/faq/"
-
-#: inc/cachify.class.php:1651 inc/cachify.class.php:1657
-#: inc/cachify.class.php:1663
-msgid "Setup"
-msgstr "Einrichtung"
-
-#: inc/cachify.class.php:1569
-msgid "The server configuration file (e.g. .htaccess) needs to be adjusted. Please have a look at the setup tab."
-msgstr "Die Server-Konfigurationsdatei (z.B. .htaccess) muss angepasst werden. Bitte wirf einen Blick auf den Einrichungs-Tab."
-
-#: inc/cachify.class.php:1511
-msgid "HTML + Inline JavaScript"
-msgstr "HTML + Inline-JavaScript"
-
-#: inc/cachify.class.php:1510
-msgid "HTML"
-msgstr "HTML"
+msgstr "Häufige Fragen"
 
 #: inc/cachify.class.php:1478
 msgid "Memcached"
@@ -109,162 +28,243 @@ msgstr "Memcached"
 msgid "APC"
 msgstr "APC"
 
-#: inc/cachify.class.php:670
-msgid "Flush site cache"
-msgstr "Website-Cache leeren"
-
-#. translators: %s: cache size
-#: inc/cachify.class.php:587
-msgid "%s Cache"
-msgstr "%s Cache"
-
-#: inc/cachify.class.php:585
-msgid "Empty Cache"
-msgstr "Leerer Cache"
-
-#: inc/cachify.class.php:552 inc/cachify.settings_footer.php:9
-msgid "Support"
-msgstr "Support"
-
 #: inc/cachify.class.php:551 inc/cachify.settings_footer.php:10
 msgid "Donate"
 msgstr "Spenden"
-
-#: inc/cachify.settings.php:123
-msgid "Add additional details to Cachify signature (HTML comment)"
-msgstr "Zusätzliche Angaben zur Cachify-Signatur hinzufügen (HTML-Kommentar)"
-
-#: inc/cachify.settings.php:119
-msgid "Cache signature"
-msgstr "Cache-Signatur"
-
-#: inc/cachify.settings.php:96
-msgid "Browser User-Agents"
-msgstr "Browser User Agents"
-
-#: inc/cachify.settings.php:95
-msgid "e.g. MSIE 6, Opera"
-msgstr "z.B. MSIE 6, Opera"
-
-#: inc/cachify.settings.php:89
-msgid "Post/Pages-IDs"
-msgstr "Beitrags-/Seiten-IDs"
 
 #: inc/cachify.settings.php:88
 msgid "e.g. 1, 2, 3"
 msgstr "z.B. 1, 2, 3"
 
-#: inc/cachify.settings.php:75
-msgid "If selected, the site cache will be flushed, otherwise only the corresponding post is removed from the cache."
-msgstr "Falls ausgewählt, wird der Website-Cache geleert, andernfalls wird nur der entsprechende Beitrag aus dem Cache entfernt."
+#: inc/cachify.class.php:1510
+msgid "HTML"
+msgstr "HTML"
 
-#: inc/cachify.settings.php:65
-msgid "If selected, the site cache will be flushed, otherwise only the modified post is removed from the cache."
-msgstr "Falls ausgewählt, wird der Website-Cache geleert, andernfalls wird nur der geänderte Beitrag aus dem Cache entfernt."
+#: inc/cachify.settings.php:95
+msgid "e.g. MSIE 6, Opera"
+msgstr "z.B. MSIE 6, Opera"
 
-#: inc/cachify.settings.php:62
-msgid "Flush the cache at modified posts"
-msgstr "Cache bei modifizierten Beiträgen leeren"
+#: inc/setup/cachify.hdd.nginx.php:9
+msgid "nginx HDD setup"
+msgstr "nginx-HDD-Einrichtung"
 
-#: inc/cachify.settings.php:43
-msgid "Flush cache now"
-msgstr "Cache jetzt leeren"
+#: inc/setup/cachify.memcached.nginx.php:9
+msgid "nginx Memcached setup"
+msgstr "nginx-Memcached-Einrichtung"
 
-#. translators: Placeholder is the trash icon itself as dashicon
-#: inc/cachify.settings.php:38
-msgid "Flush the cache by clicking the button below or the %1$s icon in the admin bar."
-msgstr "Leere den Cache, indem du auf den Button unten oder auf das Symbol %1$s in der Adminleiste klickst."
+#: inc/setup/cachify.apc.nginx.php:24
+msgid "nginx APC setup"
+msgstr "nginx-APC-Einrichtung"
 
-#: inc/cachify.settings.php:29
-msgid "HDD cache will only expire as you update posts or flush it yourself."
-msgstr "Der HDD-Cache verfällt nur dann, wenn du Beiträge aktualisierst oder ihn selbst leeren."
+#: inc/cachify.settings_footer.php:7
+msgid "https://cachify.pluginkollektiv.org/documentation#faq"
+msgstr "https://cachify.pluginkollektiv.org/de/documentation/faq/"
+
+#. Plugin URI of the plugin
+msgid "https://cachify.pluginkollektiv.org/"
+msgstr "https://cachify.pluginkollektiv.org/de/"
+
+#: inc/setup/cachify.hdd.htaccess.php:49
+msgid ".htaccess HDD setup"
+msgstr ".htaccess-HDD-Einrichtung"
+
+#: inc/setup/cachify.apc.htaccess.php:16
+msgid ".htaccess APC setup"
+msgstr ".htaccess-APC-Einrichtung"
+
+#: inc/cachify.class.php:1651 inc/cachify.class.php:1657
+#: inc/cachify.class.php:1663
+msgid "Setup"
+msgstr "Einrichtung"
+
+#: inc/cachify.class.php:552 inc/cachify.settings_footer.php:9
+msgid "Support"
+msgstr "Support"
 
 #: inc/cachify_hdd.class.php:139 inc/cachify_apc.class.php:141
 #: inc/cachify_db.class.php:192 inc/cachify_memcached.class.php:186
 msgid "Generated"
 msgstr "Generiert"
 
-#. Plugin URI of the plugin
-msgid "https://cachify.pluginkollektiv.org/"
-msgstr "https://cachify.pluginkollektiv.org/de/"
+#: inc/cachify.settings.php:89
+msgid "Post/Pages-IDs"
+msgstr "Beitrags-/Seiten-IDs"
 
-#. Author URI of the plugin
-msgid "https://pluginkollektiv.org"
-msgstr "https://pluginkollektiv.org/de/"
+#: inc/cachify.class.php:670
+msgid "Flush site cache"
+msgstr "Website-Cache leeren"
 
-#. Author of the plugin
-msgid "pluginkollektiv"
-msgstr "pluginkollektiv"
+#: inc/cachify.settings.php:119
+msgid "Cache signature"
+msgstr "Cache-Signatur"
 
-#. Description of the plugin
-msgid "Easy to use WordPress caching plugin. Serving static blog pages from database, disk, Memcached or APC."
-msgstr "Smarter Cache für WordPress. Zwischenspeicherung der Inhalte als statische Dateien. Wahlweise in der Datenbank, Festplatte, Memcached oder APC."
+#: inc/cachify.settings.php:43
+msgid "Flush cache now"
+msgstr "Cache jetzt leeren"
 
-#: inc/cachify.settings_footer.php:8
-msgid "Manual"
-msgstr "Dokumentation"
+#: inc/setup/cachify.apc.htaccess.php:20 inc/setup/cachify.hdd.htaccess.php:52
+msgid "Please add the following lines to your .htaccess file"
+msgstr "Bitte füge die folgenden Zeilen zu deiner .htaccess-Datei hinzu"
 
-#: inc/cachify.settings.php:104
-msgid "Cache minify"
-msgstr "Cache-Minimierung"
+#: inc/setup/cachify.memcached.nginx.php:13 inc/setup/cachify.hdd.nginx.php:13
+msgid "Please add the following lines to your nginx.conf"
+msgstr "Bitte füge die folgenden Zeilen zu deiner nginx.conf hinzu"
 
-#: inc/cachify.settings.php:83
-msgid "Cache exceptions"
-msgstr "Cache-Ausnahmen"
+#: inc/cachify.class.php:1511
+msgid "HTML + Inline JavaScript"
+msgstr "HTML + Inline-JavaScript"
 
-#: inc/cachify.settings.php:72
-msgid "Flush the cache at new comments"
-msgstr "Cache bei neuen Kommentaren leeren"
+#: inc/cachify.settings.php:123
+msgid "Add additional details to Cachify signature (HTML comment)"
+msgstr "Zusätzliche Angaben zur Cachify-Signatur hinzufügen (HTML-Kommentar)"
 
-#: inc/cachify.settings.php:55
-msgid "No cache generation by logged in users"
-msgstr "Kein Cache-Aufbau durch angemeldete Benutzer"
+#: inc/cachify.settings.php:65
+msgid "If selected, the site cache will be flushed, otherwise only the modified post is removed from the cache."
+msgstr "Falls ausgewählt, wird der Website-Cache geleert, andernfalls wird nur der geänderte Beitrag aus dem Cache entfernt."
 
-#: inc/cachify.settings.php:49
-msgid "Cache generation"
-msgstr "Cache-Generierung"
+#: inc/cachify.settings.php:75
+msgid "If selected, the site cache will be flushed, otherwise only the corresponding post is removed from the cache."
+msgstr "Falls ausgewählt, wird der Website-Cache geleert, andernfalls wird nur der entsprechende Beitrag aus dem Cache entfernt."
 
-#: inc/cachify.settings.php:32
-msgid "Hours"
-msgstr "Stunden"
+#: inc/cachify.class.php:1569
+msgid "The server configuration file (e.g. .htaccess) needs to be adjusted. Please have a look at the setup tab."
+msgstr "Die Server-Konfigurationsdatei (z.B. .htaccess) muss angepasst werden. Bitte wirf einen Blick auf den Einrichungs-Tab."
 
-#: inc/cachify.settings.php:24
-msgid "Cache expiration"
-msgstr "Cache-Gültigkeit"
+#: inc/setup/cachify.apc.nginx.php:28
+msgid "Please add the following lines to your nginx PHP configuration"
+msgstr "Bitte füge die folgenden Zeilen zu deiner nginx-PHP-Konfiguration hinzu"
 
-#: inc/cachify.settings.php:11
-msgid "Cache method"
-msgstr "Cache-Methode"
+#: inc/setup/cachify.memcached.nginx.php:79 inc/setup/cachify.hdd.nginx.php:74
+msgid "You might need to adjust the location directives to your needs."
+msgstr "Möglicherweise musst du die Speicherortsrichtlinien an deine Bedürfnisse anpassen."
 
-#: inc/cachify.class.php:1509
-msgid "No minify"
-msgstr "Keine Minimierung"
+#: inc/setup/cachify.hdd.htaccess.php:66
+msgid "Changes to the .htaccess file can not be made if PHP is run as fcgi."
+msgstr "Änderungen an der .htaccess-Datei können nicht vorgenommen werden, wenn PHP als fcgi ausgeführt wird."
 
-#: inc/cachify.class.php:1477
-msgid "Hard disk"
-msgstr "Festplatte"
+#: inc/setup/cachify.apc.nginx.php:41
+msgid "You might need to adjust the non-highlighted lines to your needs."
+msgstr "Möglicherweise musst du die nicht hervorgehobenen Zeilen an deine Bedürfnisse anpassen."
 
-#: inc/cachify.class.php:1475
-msgid "Database"
-msgstr "Datenbank"
+#. translators: Placeholder is the trash icon itself as dashicon
+#: inc/cachify.settings.php:38
+msgid "Flush the cache by clicking the button below or the %1$s icon in the admin bar."
+msgstr "Leere den Cache, indem du auf den Button unten oder auf das Symbol %1$s in der Adminleiste klickst."
+
+#. translators: %s: cache size
+#: inc/cachify.class.php:587
+msgid "%s Cache"
+msgstr "%s Cache"
+
+#: inc/cachify.settings.php:96
+msgid "Browser User-Agents"
+msgstr "Browser User Agents"
+
+#: inc/setup/cachify.memcached.nginx.php:26 inc/setup/cachify.hdd.nginx.php:26
+msgid "For domains with FQDN, the variable %s must be used instead of %s."
+msgstr "Für Domains mit FQDN muss die Variable %s anstelle von %s verwendet werden."
+
+#: inc/cachify.class.php:585
+msgid "Empty Cache"
+msgstr "Leerer Cache"
+
+#: inc/setup/cachify.hdd.htaccess.php:69
+msgid "If there are partial errors in the redirects within the blog, the shutdown of the Apache Content Cache can help:"
+msgstr "Wenn es teilweise zu Fehlern bei den Weiterleitungen innerhalb des Blogs kommt, kann das Abschalten des Apache-Content-Cache helfen:"
+
+#: inc/cachify.settings.php:62
+msgid "Flush the cache at modified posts"
+msgstr "Cache bei bearbeiteten Beiträgen leeren"
+
+#: inc/cachify.settings.php:29
+msgid "HDD cache will only expire as you update posts or flush it yourself."
+msgstr "Der HDD-Cache verfällt nur dann, wenn du Beiträge aktualisierst oder ihn selbst leerst."
+
+#: inc/setup/cachify.memcached.nginx.php:33
+msgid "If you have errors please try to change %1$s to %2$s This forces IPv4 because some servers that allow IPv4 and IPv6 are configured to bind memcached to IPv4 only."
+msgstr "Wenn du Fehler feststellst, versuche bitte %1$s mit %2$s zu ersetzen. Dies erzwingt IPv4, da einige Server, die IPv4 und IPv6 zulassen, so konfiguriert sind, dass sie memcached nur an IPv4 binden."
+
+#: inc/setup/cachify.hdd.htaccess.php:63
+msgid "Within .htaccess, the extension has a higher priority and must be placed above the WordPress Rewrite rules (marked mostly by # BEGIN WordPress … # END WordPress)."
+msgstr "Innerhalb der .htaccess-Datei hat die Erweiterung eine höhere Priorität und muss über den WordPress-Rewrite-Regeln platziert werden (meistens gekennzeichnet durch # BEGIN WordPress … # END WordPress)."
+
+#: inc/cachify.class.php:526 inc/cachify.class.php:1643
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: inc/cachify.class.php:602
+msgid "Caching method"
+msgstr "Caching-Methode"
+
+#: inc/cachify.settings.php:39 inc/cachify.class.php:676
+msgid "Flush the cachify cache"
+msgstr "Cachify-Cache leeren"
 
 #. Plugin Name of the plugin
 #: inc/cachify.class.php:1452 inc/cachify.class.php:1453
 msgid "Cachify"
 msgstr "Cachify"
 
+#: inc/cachify.class.php:1475
+msgid "Database"
+msgstr "Datenbank"
+
+#: inc/cachify.class.php:1477
+msgid "Hard disk"
+msgstr "Festplatte"
+
+#: inc/cachify.class.php:1509
+msgid "No minify"
+msgstr "Keine Minimierung"
+
+#: inc/cachify.settings.php:32
+msgid "Hours"
+msgstr "Stunden"
+
+#: inc/cachify.settings.php:49
+msgid "Cache generation"
+msgstr "Cache-Generierung"
+
+#: inc/cachify.settings.php:83
+msgid "Cache exceptions"
+msgstr "Cache-Ausnahmen"
+
+#: inc/cachify.settings.php:104
+msgid "Cache minify"
+msgstr "Cache-Minimierung"
+
+#. Author of the plugin
+msgid "pluginkollektiv"
+msgstr "pluginkollektiv"
+
+#: inc/cachify.settings.php:72
+msgid "Flush the cache at new comments"
+msgstr "Cache bei neuen Kommentaren leeren"
+
+#. Description of the plugin
+msgid "Easy to use WordPress caching plugin. Serving static blog pages from database, disk, Memcached or APC."
+msgstr "Smarter Cache für WordPress. Zwischenspeicherung der Inhalte als statische Dateien. Wahlweise in der Datenbank, Festplatte, Memcached oder APC."
+
 #: inc/cachify.class.php:782
 msgid "Cachify cache is flushed."
 msgstr "Der Cachify-Cache wurde geleert."
 
-#: inc/cachify.settings.php:39 inc/cachify.class.php:676
-msgid "Flush the cachify cache"
-msgstr "Cachify-Cache leeren"
+#: inc/cachify.settings.php:55
+msgid "No cache generation by logged in users"
+msgstr "Kein Cache-Aufbau durch angemeldete Benutzer"
 
-#: inc/cachify.class.php:602
-msgid "Caching method"
-msgstr "Caching-Methode"
+#: inc/cachify.settings.php:11
+msgid "Cache method"
+msgstr "Cache-Methode"
 
-#: inc/cachify.class.php:526 inc/cachify.class.php:1643
-msgid "Settings"
-msgstr "Einstellungen"
+#. Author URI of the plugin
+msgid "https://pluginkollektiv.org"
+msgstr "https://pluginkollektiv.org/de/"
+
+#: inc/cachify.settings.php:24
+msgid "Cache expiration"
+msgstr "Cache-Ablauf"
+
+#: inc/cachify.settings_footer.php:8
+msgid "Manual"
+msgstr "Anleitung"
