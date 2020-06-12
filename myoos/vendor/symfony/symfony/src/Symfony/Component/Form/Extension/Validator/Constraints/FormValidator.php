@@ -72,7 +72,6 @@ class FormValidator extends ConstraintValidator
             if ($groups instanceof GroupSequence) {
                 // Validate the data, the form AND nested fields in sequence
                 $violationsCount = $this->context->getViolations()->count();
-                $fieldPropertyPath = \is_object($data) ? 'children[%s]' : 'children%s';
 
                 foreach ($groups->groups as $group) {
                     if ($validateDataGraph) {
@@ -91,7 +90,8 @@ class FormValidator extends ConstraintValidator
                             // in different steps without breaking early enough
                             $this->resolvedGroups[$field] = (array) $group;
                             $fieldFormConstraint = new Form();
-                            $validator->atPath(sprintf($fieldPropertyPath, $field->getPropertyPath()))->validate($field, $fieldFormConstraint);
+                            $this->context->setNode($this->context->getValue(), $field, $this->context->getMetadata(), $this->context->getPropertyPath());
+                            $validator->atPath(sprintf('children[%s]', $field->getName()))->validate($field, $fieldFormConstraint);
                         }
                     }
 
@@ -100,8 +100,6 @@ class FormValidator extends ConstraintValidator
                     }
                 }
             } else {
-                $fieldPropertyPath = \is_object($data) ? 'children[%s]' : 'children%s';
-
                 if ($validateDataGraph) {
                     $validator->atPath('data')->validate($data, null, $groups);
                 }
@@ -138,7 +136,8 @@ class FormValidator extends ConstraintValidator
                     if ($field->isSubmitted()) {
                         $this->resolvedGroups[$field] = $groups;
                         $fieldFormConstraint = new Form();
-                        $validator->atPath(sprintf($fieldPropertyPath, $field->getPropertyPath()))->validate($field, $fieldFormConstraint);
+                        $this->context->setNode($this->context->getValue(), $field, $this->context->getMetadata(), $this->context->getPropertyPath());
+                        $validator->atPath(sprintf('children[%s]', $field->getName()))->validate($field, $fieldFormConstraint);
                     }
                 }
             }

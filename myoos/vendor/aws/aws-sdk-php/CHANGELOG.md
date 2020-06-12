@@ -1,5 +1,38 @@
 # CHANGELOG
 
+## 3.142.1 - 2020-06-12
+
+* `Aws\APIGateway` - Documentation updates for Amazon API Gateway
+* `Aws\CloudFormation` - The following parameters now return the organization root ID or organizational unit (OU) IDs that you specified for DeploymentTargets: the OrganizationalUnitIds parameter on StackSet and the OrganizationalUnitId parameter on StackInstance, StackInstanceSummary, and StackSetOperationResultSummary
+* `Aws\Glue` - You can now choose to crawl the entire table or just a sample of records in DynamoDB when using AWS Glue crawlers. Additionally, you can also specify a scanning rate for crawling DynamoDB tables.
+* `Aws\StorageGateway` - Display EndpointType in DescribeGatewayInformation
+
+## 3.142.0 - 2020-06-11
+
+* `Aws\Crypto` - This implements a pure-PHP implementation of GMAC, which, when combined with OpenSSL's AES implementations (both AES-ECB and AES-CTR) allows the support of AES-GCM on PHP versions older than 7.1.
+* `Aws\DynamoDb` - Marshal empty strings.
+* `Aws\ECS` - This release adds support for deleting capacity providers.
+* `Aws\IoTDataPlane` - As part of this release, we are introducing a new feature called named shadow, which extends the capability of AWS IoT Device Shadow to support multiple shadows for a single IoT device. With this release, customers can store different device state data into different shadows, and as a result access only the required state data when needed and reduce individual shadow size.
+* `Aws\LexModelBuildingService` - This change adds the built-in AMAZON.KendraSearchIntent that enables integration with Amazon Kendra.
+* `Aws\imagebuilder` - EC2 Image Builder now supports specifying a custom working directory for your build and test workflows. In addition, Image Builder now supports defining tags that are applied to ephemeral resources created by EC2 Image Builder as part of the image creation workflow. 
+
+## 3.141.0 - 2020-06-10
+
+* `Aws\` - Made the getSignatureProvider method public.
+* `Aws\AppConfig` - This release allows customers to choose from a list of predefined deployment strategies while starting deployments.
+* `Aws\CodeArtifact` - Added support for AWS CodeArtifact.
+* `Aws\ComputeOptimizer` - Compute Optimizer supports exporting recommendations to Amazon S3.
+* `Aws\DLM` - Reducing the schedule name of DLM Lifecycle policy from 500 to 120 characters. 
+* `Aws\EC2` - New C6g instances powered by AWS Graviton2 processors and ideal for running advanced, compute-intensive workloads; New R6g instances powered by AWS Graviton2 processors and ideal for running memory-intensive workloads.
+* `Aws\Lightsail` - Documentation updates for lightsail
+* `Aws\Macie2` - This release of the Amazon Macie API removes support for the ArchiveFindings and UnarchiveFindings operations. This release also adds UNKNOWN as an encryption type for S3 bucket metadata.
+* `Aws\ServiceCatalog` - Service Catalog Documentation Update for Integration with AWS Organizations Delegated Administrator feature
+* `Aws\Shield` - Corrections to the supported format for contact phone numbers and to the description for the create subscription action.
+
+## 3.140.4 - 2020-06-09
+
+* `Aws\Transfer` - This release updates the API so customers can test use of Source IP to allow, deny or limit access to data in their S3 buckets after integrating their identity provider.
+
 ## 3.140.3 - 2020-06-08
 
 * `Aws\ServiceDiscovery` - Added support for tagging Service and Namespace type resources in Cloud Map

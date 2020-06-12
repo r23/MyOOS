@@ -13,7 +13,7 @@ namespace Symfony\Component\Messenger\Bridge\Doctrine\Transport;
 
 use Doctrine\DBAL\Connection as DBALConnection;
 use Doctrine\DBAL\DBALException;
-use Doctrine\DBAL\Driver\ResultStatement;
+use Doctrine\DBAL\Driver\Result;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Schema\Schema;
@@ -175,7 +175,7 @@ class Connection implements ResetInterface
                 $query->getParameters(),
                 $query->getParameterTypes()
             );
-            $doctrineEnvelope = method_exists($stmt, 'fetchAssociative') ? $stmt->fetchAssociative() : $stmt->fetch();
+            $doctrineEnvelope = $stmt instanceof Result ? $stmt->fetchAssociative() : $stmt->fetch();
 
             if (false === $doctrineEnvelope) {
                 $this->driverConnection->commit();
@@ -267,7 +267,7 @@ class Connection implements ResetInterface
 
         $stmt = $this->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters(), $queryBuilder->getParameterTypes());
 
-        return method_exists($stmt, 'fetchOne') ? $stmt->fetchOne() : $stmt->fetchColumn();
+        return $stmt instanceof Result ? $stmt->fetchOne() : $stmt->fetchColumn();
     }
 
     public function findAll(int $limit = null): array
@@ -278,7 +278,7 @@ class Connection implements ResetInterface
         }
 
         $stmt = $this->executeQuery($queryBuilder->getSQL(), $queryBuilder->getParameters(), $queryBuilder->getParameterTypes());
-        $data = method_exists($stmt, 'fetchAllAssociative') ? $stmt->fetchAllAssociative() : $stmt->fetchAll();
+        $data = $stmt instanceof Result ? $stmt->fetchAllAssociative() : $stmt->fetchAll();
 
         return array_map(function ($doctrineEnvelope) {
             return $this->decodeEnvelopeHeaders($doctrineEnvelope);
@@ -291,7 +291,7 @@ class Connection implements ResetInterface
             ->where('m.id = ?');
 
         $stmt = $this->executeQuery($queryBuilder->getSQL(), [$id]);
-        $data = method_exists($stmt, 'fetchAssociative') ? $stmt->fetchAssociative() : $stmt->fetch();
+        $data = $stmt instanceof Result ? $stmt->fetchAssociative() : $stmt->fetch();
 
         return false === $data ? null : $this->decodeEnvelopeHeaders($data);
     }
@@ -350,7 +350,7 @@ class Connection implements ResetInterface
             ->from($this->configuration['table_name'], 'm');
     }
 
-    private function executeQuery(string $sql, array $parameters = [], array $types = []): ResultStatement
+    private function executeQuery(string $sql, array $parameters = [], array $types = [])
     {
         try {
             $stmt = $this->driverConnection->executeQuery($sql, $parameters, $types);
@@ -390,6 +390,7 @@ class Connection implements ResetInterface
         $table->addColumn('headers', self::$useDeprecatedConstants ? Type::TEXT : Types::TEXT)
             ->setNotnull(true);
         $table->addColumn('queue_name', self::$useDeprecatedConstants ? Type::STRING : Types::STRING)
+            ->setLength(190) // mysql 5.6 only supports 191 characters on an indexed column in utf8mb4 mode
             ->setNotnull(true);
         $table->addColumn('created_at', self::$useDeprecatedConstants ? Type::DATETIME : Types::DATETIME_MUTABLE)
             ->setNotnull(true);
