@@ -27,7 +27,7 @@ if ( ! function_exists( 'cpschool_setup' ) ) {
 		 * If you're building a theme based on CampuPress Flex, use a find and replace
 		 * to change 'myoos' to the name of your theme in all the template files
 		 */
-		load_theme_textdomain( 'myoos', get_template_directory() . '/inc/languages' );
+		load_theme_textdomain( 'myoos', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );

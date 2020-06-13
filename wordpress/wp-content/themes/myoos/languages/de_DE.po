@@ -1,0 +1,1483 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: myoos\n"
+"POT-Creation-Date: 2020-06-04 22:35+0200\n"
+"PO-Revision-Date: 2020-06-13 22:43+0200\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: style.css\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
+"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
+"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
+"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"Last-Translator: \n"
+"Language: de_DE\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: inc/plugins/advanced-custom-fields\n"
+"X-Poedit-SearchPathExcluded-1: inc/plugins/breadcrumb-trail\n"
+"X-Poedit-SearchPathExcluded-2: inc/plugins/cp-directory\n"
+"X-Poedit-SearchPathExcluded-3: inc/plugins/kirki\n"
+"X-Poedit-SearchPathExcluded-4: inc/plugins/menu-icons\n"
+"X-Poedit-SearchPathExcluded-5: inc/plugins/plugin-update-checker\n"
+"X-Poedit-SearchPathExcluded-6: vendor\n"
+"X-Poedit-SearchPathExcluded-7: node_modules\n"
+"X-Poedit-SearchPathExcluded-8: css\n"
+"X-Poedit-SearchPathExcluded-9: fonts\n"
+"X-Poedit-SearchPathExcluded-10: js\n"
+"X-Poedit-SearchPathExcluded-11: sass\n"
+"X-Poedit-SearchPathExcluded-12: src\n"
+
+#: author.php:45
+msgid "Permanent Link:"
+msgstr "Permanenter Link:"
+
+#: author.php:50
+msgid "in"
+msgstr "in"
+
+#. translators: %s: post title
+#: comments.php:37
+#, php-format
+msgctxt "comments title"
+msgid "One thought on &ldquo;%s&rdquo;"
+msgstr "Ein Kommentar zu &ldquo;%s&rdquo;"
+
+#: comments.php:45
+#, php-format
+msgctxt "comments title"
+msgid "%1$s thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s Kommentar zu &ldquo;%2$s&rdquo;"
+msgstr[1] "%1$s Kommentare zu &ldquo;%2$s&rdquo;"
+
+#: comments.php:64 comments.php:99
+msgid "Comment navigation"
+msgstr "Kommentar Navigation"
+
+#: comments.php:68 comments.php:103
+msgid "&larr; Older Comments"
+msgstr "&larr; Ältere Kommentare"
+
+#: comments.php:74 comments.php:109
+msgid "Newer Comments &rarr;"
+msgstr "Neuere Kommentare &rarr;"
+
+#: header.php:26
+msgid "Skip to content"
+msgstr "Zum Inhalt springen"
+
+#: header.php:34
+msgid "main"
+msgstr "Main"
+
+#: header.php:95 searchform.php:13 searchform.php:20
+#: template-parts/global-templates/modal-search.php:15
+msgid "Search"
+msgstr "Suche"
+
+#: header.php:96
+#, fuzzy
+msgid "Toggle search interface"
+msgstr "Umschalten der Suchschnittstelle"
+
+#: header.php:113
+msgid "Menu"
+msgstr "Menü"
+
+#: header.php:114
+#, fuzzy
+msgid "Toggle extended navigation"
+msgstr "Umschalten der erweiterten Navigation"
+
+#: inc/class-wp-bootstrap-navwalker.php:479
+msgid "Add a menu"
+msgstr "Menü hinzufügen"
+
+#: inc/comments.php:33
+msgid "Name"
+msgstr "Name"
+
+#: inc/comments.php:38
+msgid "Email"
+msgstr "E-Mail"
+
+#: inc/comments.php:43
+msgid "Website"
+msgstr "Webseite"
+
+#: inc/comments.php:48
+msgid ""
+"Save my name, email, and website in this browser for the next time I comment"
+msgstr ""
+"Speichern Sie meinen Namen, E-Mail und Website in diesem Browser für meinen "
+"nächsten Besuch"
+
+#: inc/comments.php:69
+msgctxt "noun"
+msgid "Comment"
+msgstr "Kommentar"
+
+#: inc/customizer.php:88
+msgid "Site Identity"
+msgstr "Seiten-Identität"
+
+#: inc/customizer.php:99 inc/customizer.php:846
+msgid "Colors"
+msgstr "Farben"
+
+#: inc/customizer.php:112 inc/customizer.php:2153
+msgid "Background Image"
+msgstr "Hintergrundbild"
+
+#: inc/customizer.php:133
+msgid "General"
+msgstr "Allgemein"
+
+#: inc/customizer.php:134
+#, fuzzy
+msgid "Settings related to all elements on site."
+msgstr "Einstellungen für alle Elemente vor Ort."
+
+#: inc/customizer.php:143
+msgid "Site Title Font Family"
+msgstr "Website Titel Schriftart"
+
+#: inc/customizer.php:165
+#, fuzzy
+msgid "Site Layout & Stylings"
+msgstr "Site Layout & Stylings"
+
+#: inc/customizer.php:166
+#, fuzzy
+msgid "Settings related to site layout and general stylings."
+msgstr ""
+"Einstellungen im Zusammenhang mit dem Websitelayout und allgemeinen Stylings."
+
+#: inc/customizer.php:175
+#, fuzzy
+msgid "Site Width (px)"
+msgstr "Standortbreite (px)"
+
+#: inc/customizer.php:176
+#, fuzzy
+msgid "Maximum site container width."
+msgstr "Maximale Standortcontainerbreite."
+
+#: inc/customizer.php:204
+msgid "Content Width (px)"
+msgstr "Inhaltsbreite (px)"
+
+#: inc/customizer.php:205
+#, fuzzy
+msgid ""
+"Maximum content container width. This only works for single posts and pages "
+"without sidebar."
+msgstr ""
+"Maximale Inhaltscontainerbreite. Dies funktioniert nur für einzelne Beiträge "
+"und Seiten ohne Seitenleiste."
+
+#: inc/customizer.php:228 inc/customizer.php:1508 inc/customizer.php:2105
+#, fuzzy
+msgid "Boxed Design"
+msgstr "Boxed Design"
+
+#: inc/customizer.php:229
+#, fuzzy
+msgid ""
+"Wraps everything in a container and adds the same width for all elements on "
+"the site."
+msgstr ""
+"Umschließt alles in einem Container und fügt die gleiche Breite für alle "
+"Elemente auf der Website hinzu."
+
+#: inc/customizer.php:255
+#, fuzzy
+msgid "Box Width (px)"
+msgstr "Box breite (px)"
+
+#: inc/customizer.php:256
+#, fuzzy
+msgid "Maximum box width."
+msgstr "Maximale Boxbreite."
+
+#: inc/customizer.php:291 inc/customizer.php:968 inc/customizer.php:2000
+msgid "Fonts"
+msgstr "Schriftarten"
+
+#: inc/customizer.php:292
+#, fuzzy
+msgid ""
+"Default font settings applied on site. Some elements like headings can have "
+"font customized in their own settings sections."
+msgstr ""
+"Standardschriftarteinstellungen, die vor Ort angewendet werden. Einige "
+"Elemente wie Überschriften können Schriftart in ihren eigenen "
+"Einstellungsabschnitten angepasst haben."
+
+#: inc/customizer.php:300
+msgid "Default Font Family"
+msgstr "Standard Schriftfamilie"
+
+#: inc/customizer.php:301
+#, fuzzy
+msgid "Choose default font used on site."
+msgstr "Wählen Sie die Vorschrift, die vor Ort verwendet wird."
+
+#: inc/customizer.php:341
+msgid "Default Font Size"
+msgstr "Standard Schriftgröße"
+
+#: inc/customizer.php:342
+#, fuzzy
+msgid "Customize default font size."
+msgstr "Passen Sie die Standardschriftgröße an."
+
+#: inc/customizer.php:365
+msgid "Others"
+msgstr "Andere"
+
+#: inc/customizer.php:373
+msgid "Roundness"
+msgstr "Rundheit"
+
+#: inc/customizer.php:374
+#, fuzzy
+msgid "Choose how strongly various elements across the site should be rounded."
+msgstr ""
+"Wählen Sie aus, wie stark verschiedene Elemente auf der Website gerundet "
+"werden sollen."
+
+#: inc/customizer.php:397
+msgid "Shadows"
+msgstr "Schatten"
+
+#: inc/customizer.php:398
+#, fuzzy
+msgid ""
+"Choose how big shadows should be applied to various elements across the site."
+msgstr ""
+"Wählen Sie aus, wie große Schatten auf verschiedene Elemente auf der Website "
+"angewendet werden sollen."
+
+#: inc/customizer.php:437
+msgid "Animations"
+msgstr "Animationen"
+
+#: inc/customizer.php:438
+#, fuzzy
+msgid ""
+"Automatically adds animations to some main site elements and aligned content "
+"blocks."
+msgstr ""
+"Fügt automatisch Animationen zu einigen Hauptwebsiteelementen und "
+"ausgerichteten Inhaltsblöcken hinzu."
+
+#: inc/customizer.php:460
+msgid "Primary Colors"
+msgstr "Grundfarbe"
+
+#: inc/customizer.php:468
+msgid "Primary Background"
+msgstr "Primärer Hintergrund"
+
+#: inc/customizer.php:469
+#, fuzzy
+msgid "Background color used for main content."
+msgstr "Hintergrundfarbe, die für den Hauptinhalt verwendet wird."
+
+#: inc/customizer.php:486
+#, fuzzy
+msgid "Secondary Background"
+msgstr "Sekundärer Hintergrund"
+
+#: inc/customizer.php:487
+#, fuzzy
+msgid "Background color used under content in box."
+msgstr "Hintergrundfarbe, die unter Inhalt im Feld verwendet wird."
+
+#: inc/customizer.php:511
+msgid "Primary Accent"
+msgstr "Primäre Akzentfarbe"
+
+#: inc/customizer.php:512
+#, fuzzy
+msgid "Color used to style various site elements like buttons."
+msgstr ""
+"Farbe, die zum Formatieren verschiedener Websiteelemente wie Schaltflächen "
+"verwendet wird."
+
+#: inc/customizer.php:523 inc/customizer.php:1976 inc/hooks-custom.php:76
+#, fuzzy
+msgid "Highlight Accent"
+msgstr "Highlight-Akzent"
+
+#: inc/customizer.php:524
+#, fuzzy
+msgid "Color used to highlight important elements like primary buttons."
+msgstr ""
+"Farbe, die verwendet wird, um wichtige Elemente wie primäre Schaltflächen "
+"hervorzuheben."
+
+#: inc/customizer.php:537
+#, fuzzy
+msgid "Alternative Colors"
+msgstr "Alternative Farben"
+
+#: inc/customizer.php:545
+#, fuzzy
+msgid "Alternative Background"
+msgstr "Alternativer Hintergrund"
+
+#: inc/customizer.php:546
+#, fuzzy
+msgid "Alternative background color used mainly for header and footer."
+msgstr ""
+"Alternative Hintergrundfarbe, die hauptsächlich für Kopf- und Fußzeile "
+"verwendet wird."
+
+#: inc/customizer.php:563
+#, fuzzy
+msgid "Custom Accent For Alternative Background"
+msgstr "Benutzerdefinierte Akzent für alternativen Hintergrund"
+
+#: inc/customizer.php:564
+#, fuzzy
+msgid ""
+"Overwrites primary accent color in areas that are using alternative "
+"background."
+msgstr ""
+"Überschreibt die primäre Akzentfarbe in Bereichen, die alternativen "
+"Hintergrund verwenden."
+
+#: inc/customizer.php:579
+msgid "Other Colors"
+msgstr "Andere Farben"
+
+#: inc/customizer.php:587
+#, fuzzy
+msgid "Content Boxes Background"
+msgstr "Content Boxes Hintergrund"
+
+#: inc/customizer.php:588
+#, fuzzy
+msgid "Background color for elements in boxes like pagination or sidebar."
+msgstr ""
+"Hintergrundfarbe für Elemente in Feldern wie Paginierung oder Seitenleiste."
+
+#: inc/customizer.php:610 inc/setup.php:114
+msgid "Main Header"
+msgstr "Haupt-Header"
+
+#: inc/customizer.php:611
+#, fuzzy
+msgid ""
+"Settings for main header, place that holds logo and main navigation links."
+msgstr ""
+"Einstellungen für Hauptkopf, Ort, der Logo und Haupt-Navigationslinks "
+"enthält."
+
+#: inc/customizer.php:633
+#, fuzzy
+msgid "Logo Positon"
+msgstr "Logo Positon"
+
+#: inc/customizer.php:634
+#, fuzzy
+msgid "Choose how logo should be positioned and styled in header."
+msgstr ""
+"Wählen Sie aus, wie das Logo in der Kopfzeile positioniert und gestylt "
+"werden soll."
+
+#: inc/customizer.php:638
+#, fuzzy
+msgid "On The Left"
+msgstr "Auf der linken Seite"
+
+#: inc/customizer.php:639
+#, fuzzy
+msgid "In The Center With Menu Underneath"
+msgstr "In der Mitte mit Menü darunter"
+
+#: inc/customizer.php:640
+#, fuzzy
+msgid "On The Left In Drop Box"
+msgstr "Auf der linken Seite in Drop Box"
+
+#: inc/customizer.php:672
+#, fuzzy
+msgid "Custom Logo Image Size (px)"
+msgstr "Benutzerdefinierte Logo-Bildgröße (px)"
+
+#: inc/customizer.php:673
+#, fuzzy
+msgid "Width of the logo image."
+msgstr "Breite des Logobildes."
+
+#: inc/customizer.php:702
+#, fuzzy
+msgid "Drop Box Max Width (px)"
+msgstr "Drop Box Max Breite (px)"
+
+#: inc/customizer.php:703
+#, fuzzy
+msgid "Maximum width Drop Box can have."
+msgstr "Maximale Breite Drop Box kann haben."
+
+#: inc/customizer.php:747
+msgid "Show Tagline"
+msgstr "Tagzeile anzeigen"
+
+#: inc/customizer.php:774
+msgid "Show Search Button"
+msgstr "Such-Button anzeigen"
+
+#: inc/customizer.php:794
+#, fuzzy
+msgid "Stick To The Top"
+msgstr "Stick To The Top"
+
+#: inc/customizer.php:813 inc/customizer.php:1051
+#, fuzzy
+msgid "Stretch To Full Width"
+msgstr "Dehnen bis zur vollen Breite"
+
+#: inc/customizer.php:854 inc/customizer.php:1084
+msgid "Custom Background Color"
+msgstr "Benutzerdefinierte Hintergrundfarbe"
+
+#: inc/customizer.php:875
+#, fuzzy
+msgid "Custom Logo Text Color"
+msgstr "Benutzerdefinierte Logo Text Farbe"
+
+#: inc/customizer.php:901
+#, fuzzy
+msgid "Custom Logo Drop Box Background Color"
+msgstr "Benutzerdefinierte Logo Drop Box Hintergrundfarbe"
+
+#: inc/customizer.php:941
+#, fuzzy
+msgid "Custom Logo Drop Box Shadow Color"
+msgstr "Benutzerdefinierte Logo Drop Box Schatten Farbe"
+
+#: inc/customizer.php:976
+msgid "Logo Font Size"
+msgstr "Logo Schriftgröße"
+
+#: inc/customizer.php:977
+#, fuzzy
+msgid ""
+"Logo can have font family customized in \"General\" > \"Site Identity\" > "
+"\"Site Title Font Family\"."
+msgstr ""
+"Das Logo kann die Schriftfamilie in \"Allgemein\" > \"Site Identity\" > "
+"\"Site Title Font Family\" anpassen."
+
+#: inc/customizer.php:1005
+msgid "Navigation Font Family"
+msgstr "Navigation-Schriftart"
+
+#: inc/customizer.php:1023
+msgid "Navigation Font Size"
+msgstr "Schriftgröße Navigation"
+
+#: inc/customizer.php:1043 inc/setup.php:119
+msgid "Secondary Header"
+msgstr "Nebenkopfkopf"
+
+#: inc/customizer.php:1044
+#, fuzzy
+msgid ""
+"Settings for secondary header, place for less important navigation elements. "
+"Please keep in mind that it will be visible only when it has at least one "
+"menu attached."
+msgstr ""
+"Einstellungen für sekundäre Kopfzeile, Ort für weniger wichtige "
+"Navigationselemente. Bitte beachten Sie, dass es nur sichtbar ist, wenn "
+"mindestens ein Menü angeschlossen ist."
+
+#: inc/customizer.php:1105 inc/customizer.php:2026
+msgid "Font Size"
+msgstr "Schriftgröße"
+
+#: inc/customizer.php:1125 inc/setup.php:124
+msgid "Hero"
+msgstr "Hero"
+
+#: inc/customizer.php:1126
+#, fuzzy
+msgid ""
+"Settings for hero, place where current page details are put in center of "
+"attention."
+msgstr ""
+"Einstellungen für Held, Ort, wo aktuelle Seitendetails in den Mittelpunkt "
+"der Aufmerksamkeit gestellt werden."
+
+#: inc/customizer.php:1133
+msgid "Style"
+msgstr "Stil"
+
+#: inc/customizer.php:1138
+#, fuzzy
+msgid "Full Width Image With Title Over It"
+msgstr "Vollständige breite Bild mit Titel über ihm"
+
+#: inc/customizer.php:1139
+#, fuzzy
+msgid "Full Width Image With Title Under It"
+msgstr "Vollständige breite Bild mit Titel unter ihm"
+
+#: inc/customizer.php:1140
+#, fuzzy
+msgid "Image Under Title"
+msgstr "Bild unter Titel"
+
+#: inc/customizer.php:1141 inc/customizer.php:1577
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: inc/customizer.php:1220
+msgid "Content Align"
+msgstr "Inhalt ausrichten"
+
+#: inc/customizer.php:1225
+msgid "Left"
+msgstr "Links"
+
+#: inc/customizer.php:1226
+msgid "Center"
+msgstr "Zentriert"
+
+#: inc/customizer.php:1268
+msgid "Background Color"
+msgstr "Hintergrundfarbe"
+
+#: inc/customizer.php:1269
+#, fuzzy
+msgid ""
+"Hero background color that is also used as overlay when image is part of "
+"background."
+msgstr ""
+"Heldenhintergrundfarbe, die auch als Overlay verwendet wird, wenn das Bild "
+"Teil des Hintergrunds ist."
+
+#: inc/customizer.php:1297
+#, fuzzy
+msgid "Featured Image Opacity"
+msgstr "Empfohlene Bild-Opazität"
+
+#: inc/customizer.php:1298
+#, fuzzy
+msgid "Opacity used for hero featured image."
+msgstr "Opazität für Helden-Bild verwendet."
+
+#: inc/customizer.php:1327
+#, fuzzy
+msgid "Main Header Opacity"
+msgstr "Hauptkopf-Opazität"
+
+#: inc/customizer.php:1328
+#, fuzzy
+msgid "Choose main header opacity set when hero area uses image in background."
+msgstr ""
+"Wählen Sie die Hauptheader-Opazität seim, wenn der Heldenbereich das Bild im "
+"Hintergrund verwendet."
+
+#: inc/customizer.php:1374
+#, fuzzy
+msgid "Defaul Hero Images"
+msgstr "Defaul Hero Bilder"
+
+#: inc/customizer.php:1375
+#, fuzzy
+msgid "Set images that will be randomly used when featured image is not set."
+msgstr ""
+"Legen Sie Bilder fest, die nach dem Zufallsprinzip verwendet werden, wenn "
+"das ausgewählte Bild nicht festgelegt ist."
+
+#: inc/customizer.php:1379 inc/customizer.php:1386
+msgid "Image"
+msgstr "Bild"
+
+#: inc/customizer.php:1381
+msgid "Add Image"
+msgstr "Bild hinzufügen"
+
+#: inc/customizer.php:1402
+#, fuzzy
+msgid "Breadcrumb Styling"
+msgstr "Breadcrumb Styling"
+
+#: inc/customizer.php:1403
+#, fuzzy
+msgid ""
+"Please keep in mind that breadcrumb will only be visible when enabled for "
+"currently viewed page type in \"Content\" section."
+msgstr ""
+"Bitte beachten Sie, dass Breadcrumb nur sichtbar ist, wenn er für den "
+"aktuell angezeigten Seitentyp im Abschnitt \"Inhalt\" aktiviert ist."
+
+#: inc/customizer.php:1408 inc/customizer.php:1576
+msgid "Above Title"
+msgstr "Über dem Titel"
+
+#: inc/customizer.php:1409
+msgid "Top Right Corner"
+msgstr "Obere rechte Ecke"
+
+#: inc/customizer.php:1447 inc/customizer.php:1533 inc/customizer.php:1832
+#: inc/customizer.php:1892
+msgid "Content"
+msgstr "Inhalt"
+
+#: inc/customizer.php:1448
+#, fuzzy
+msgid "Settings related to content area."
+msgstr "Einstellungen für den Inhaltsbereich."
+
+#: inc/customizer.php:1453
+msgid "Posts List"
+msgstr "Beitragsliste"
+
+#: inc/customizer.php:1454
+#, fuzzy
+msgid "Settings related to pages that are listing posts."
+msgstr "Einstellungen für Seiten, die Beiträge auflisten."
+
+#: inc/customizer.php:1467
+#, fuzzy
+msgid "Posts In a Row"
+msgstr "Beiträge in einer Reihe"
+
+#: inc/customizer.php:1509
+#, fuzzy
+msgid ""
+"Enable to put posts content in a box. Background for boxes can be customized "
+"under \"General\" > \"Colors\" > \"Content Boxes Background\". "
+msgstr ""
+"Aktivieren Sie das Setzen von Beiträgen in einem Feld. Hintergrund für Boxen "
+"kann unter \"Allgemein\" > \"Farben\" > \"Inhaltsboxen Hintergrund\" "
+"angepasst werden."
+
+#: inc/customizer.php:1527
+msgid "Content Type"
+msgstr "Inhaltstyp"
+
+#: inc/customizer.php:1532
+msgid "Excerpt"
+msgstr "Auszug"
+
+#: inc/customizer.php:1534
+msgid "No Content"
+msgstr "Kein Inhalt"
+
+#: inc/customizer.php:1542
+#, fuzzy
+msgid "Hide \"Continue Reading\""
+msgstr "Ausblenden von \"Weiter lesen\""
+
+#: inc/customizer.php:1543
+#, fuzzy
+msgid ""
+"Enable to remove \"Continue Reading\" button. Posts can still be opened by "
+"clicking on title. "
+msgstr ""
+"Aktivieren Sie, um die Schaltfläche \"Weiter lesen\" zu entfernen. Beiträge "
+"können weiterhin geöffnet werden, indem Sie auf Titel klicken."
+
+#: inc/customizer.php:1570
+msgid "Featured Image Style"
+msgstr "Stil des Beitragsbildes"
+
+#: inc/customizer.php:1602
+#, fuzzy
+msgid "Fixed Featured Image Height"
+msgstr "Feste empfohlene Bildhöhe"
+
+#: inc/customizer.php:1628
+#, fuzzy
+msgid "Featured Image Height (px)"
+msgstr "Empfohlene Bildhöhe (px)"
+
+#: inc/customizer.php:1657 inc/customizer.php:1762 inc/customizer.php:1795
+msgid "Show Breadcrumb"
+msgstr "Breadcrumbs anzeigen"
+
+#: inc/customizer.php:1678
+#, fuzzy
+msgid "Main Posts Page"
+msgstr "Hauptbeiträge Seite"
+
+#: inc/customizer.php:1679
+#, fuzzy
+msgid ""
+"Configure settings for main page displaying recent posts. It can be homepage "
+"or \"Posts page\" configured in \"Homepage Settings\" section."
+msgstr ""
+"Konfigurieren Sie die Einstellungen für die Hauptseite, auf der die letzten "
+"Beiträge angezeigt werden. Es kann Homepage oder \"Posts-Seite\" im Bereich "
+"\"Homepage-Einstellungen\" konfiguriert sein."
+
+#: inc/customizer.php:1687
+#, fuzzy
+msgid "Show Page Title / Hero Area"
+msgstr "Seite Titel anzeigen / Heldenbereich"
+
+#: inc/customizer.php:1717
+msgid "Custom Page Title"
+msgstr "Benutzerdefinierter Seitentitel"
+
+#: inc/customizer.php:1733
+#, fuzzy
+msgid "Custom Sub Title"
+msgstr "Benutzerdefinierter Untertitel"
+
+#: inc/customizer.php:1747
+msgid "Single Posts"
+msgstr "Einzelne Beiträge"
+
+#: inc/customizer.php:1748
+#, fuzzy
+msgid "Settings related to single posts."
+msgstr "Einstellungen für einzelne Beiträge."
+
+#: inc/customizer.php:1781
+msgid "Pages"
+msgstr "Seiten"
+
+#: inc/customizer.php:1782
+#, fuzzy
+msgid "Settings related to pages."
+msgstr "Einstellungen für Seiten."
+
+#: inc/customizer.php:1814
+msgid "Alerts"
+msgstr "Benachrichtigungen"
+
+#: inc/customizer.php:1815
+#, fuzzy
+msgid "Configure alerts visible for all visitors."
+msgstr "Konfigurieren Sie Warnungen, die für alle Besucher sichtbar sind."
+
+#: inc/customizer.php:1823
+#, fuzzy
+msgid "Alert Bar"
+msgstr "Alarmleiste"
+
+#: inc/customizer.php:1824
+#, fuzzy
+msgid "Configure dismissable alert visible at the top of the page."
+msgstr ""
+"Konfigurieren Sie die nicht verschreibbare Warnung, die oben auf der Seite "
+"sichtbar ist."
+
+#: inc/customizer.php:1833
+msgid "Leave empty to disable."
+msgstr "Zum Deaktivieren leer lassen."
+
+#: inc/customizer.php:1842
+#, fuzzy
+msgid "Custom Alert Bar Background Color"
+msgstr "Benutzerdefinierte Warnleiste Hintergrundfarbe"
+
+#: inc/customizer.php:1863
+#, fuzzy
+msgid "Allow Dismissal"
+msgstr "Entlassung zulassen"
+
+#: inc/customizer.php:1864
+#, fuzzy
+msgid ""
+"Enable to allow alert to be dismissed. Changing the content will result in "
+"the alert showing up again after it has been dismissed."
+msgstr ""
+"Aktivieren, um das Ablassen der Warnung zuzulassen. Wenn Sie den Inhalt "
+"ändern, wird die Warnung erneut angezeigt, nachdem sie verworfen wurde."
+
+#: inc/customizer.php:1884
+#, fuzzy
+msgid "Popup With Alert"
+msgstr "Popup mit Warnung"
+
+#: inc/customizer.php:1893
+#, fuzzy
+msgid ""
+"Choose \"Reusable Block\" to display as dismissable popup. You can create "
+"new ones in WordPress Admin > \"Reusable Blocks\". Changing block content "
+"will result in popup showing up again."
+msgstr ""
+"Wählen Sie \"Wiederverwendbarer Block\", um es als ablesbares Popup "
+"anzuzeigen. Sie können neue in WordPress Admin > \"Wiederverwendbare Blöcke"
+"\" erstellen. Wenn Sie den Blockinhalt ändern, wird das Popup-Popup erneut "
+"angezeigt."
+
+#: inc/customizer.php:1902
+msgid "Elements"
+msgstr "Elemente"
+
+#: inc/customizer.php:1903
+#, fuzzy
+msgid "Settings for elements used across site."
+msgstr "Einstellungen für Elemente, die standortweit verwendet werden."
+
+#: inc/customizer.php:1908
+msgid "Headings"
+msgstr "Überschriften"
+
+#: inc/customizer.php:1909
+#, fuzzy
+msgid "Settings related to appearance of headers."
+msgstr "Einstellungen im Zusammenhang mit der Darstellung von Headern."
+
+#: inc/customizer.php:1917
+msgid "Header Styling"
+msgstr "Kopfzeilen Styling"
+
+#: inc/customizer.php:1922 inc/customizer.php:2060 inc/hooks-custom.php:68
+msgid "Default"
+msgstr "Standard"
+
+#: inc/customizer.php:1923
+#, fuzzy
+msgid "With Separator"
+msgstr "Mit Separator"
+
+#: inc/customizer.php:1940
+#, fuzzy
+msgid "Header Separator Position"
+msgstr "Kopftrennposition"
+
+#: inc/customizer.php:1945
+msgid "Top"
+msgstr "Oben"
+
+#: inc/customizer.php:1946
+msgid "Bottom"
+msgstr "Unten"
+
+#: inc/customizer.php:1970
+#, fuzzy
+msgid "Header Separator Color"
+msgstr "Header-Trennzeichenfarbe"
+
+#: inc/customizer.php:1975 inc/hooks-custom.php:72
+msgid "Accent"
+msgstr "Akzent"
+
+#: inc/customizer.php:2008
+msgid "Font Family"
+msgstr "Schriftfamilie"
+
+#: inc/customizer.php:2046
+msgid "Buttons"
+msgstr "Buttons"
+
+#: inc/customizer.php:2047
+#, fuzzy
+msgid "Settings related to buttons appearance."
+msgstr "Einstellungen im Zusammenhang mit der Darstellung von Schaltflächen."
+
+#: inc/customizer.php:2055
+msgid "Buttons Styling"
+msgstr "Buttons Styling"
+
+#: inc/customizer.php:2061
+msgid "Outline"
+msgstr "Outline"
+
+#: inc/customizer.php:2076 inc/customizer/helpers.php:98
+msgid "Sidebars"
+msgstr "Seitenleisten"
+
+#: inc/customizer.php:2077
+#, fuzzy
+msgid "Settings related to sidebars appearance and behavior."
+msgstr ""
+"Einstellungen im Zusammenhang mit der Darstellung und dem Verhalten von "
+"Seitenleisten."
+
+#: inc/customizer.php:2085
+msgid "Sticky Sidebars"
+msgstr "Fixierte Seitenleisten"
+
+#: inc/customizer.php:2086
+#, fuzzy
+msgid ""
+"Stick sidebars to the top when scrolling. Only works when sidebar content "
+"can fit in browser window."
+msgstr ""
+"Halten Sie beim Scrollen Dieseitenleisten nach oben. Funktioniert nur, wenn "
+"Sidebar-Inhalte in das Browserfenster passen können."
+
+#: inc/customizer.php:2106
+#, fuzzy
+msgid ""
+"Enable to put sidebar content in a box. Background can be customized under "
+"\"General\" > \"Colors\" > \"Content Boxes Background\". "
+msgstr ""
+"Aktivieren Sie das Setzen von Sidebar-Inhalten in einem Feld. Hintergrund "
+"kann unter \"Allgemein\" > \"Farben\" > \"Inhaltsboxen Hintergrund\" "
+"angepasst werden."
+
+#: inc/customizer.php:2124 inc/setup.php:134
+msgid "Footer"
+msgstr "Footer"
+
+#: inc/customizer.php:2125
+#, fuzzy
+msgid "Settings for footer."
+msgstr "Einstellungen für Fußzeile."
+
+#: inc/customizer.php:2132
+#, fuzzy
+msgid "Background/Overlay Color"
+msgstr "Hintergrund/Overlay-Farbe"
+
+#: inc/customizer.php:2166
+#, fuzzy
+msgid "Include Reusable Block"
+msgstr "Wiederverwendbare Block einschließen"
+
+#: inc/customizer.php:2167
+#, fuzzy
+msgid ""
+"Choose \"Reusable Block\" that will be displayed in footer after widgets. "
+"You can create new ones in WordPress Admin > \"Reusable Blocks\"."
+msgstr ""
+"Wählen Sie \"Wiederverwendbarer Block\", der in der Fußzeile nach Widgets "
+"angezeigt wird. Sie können neue in WordPress Admin > \"Wiederverwendbare "
+"Blöcke\" erstellen."
+
+#: inc/customizer.php:2177
+msgid "Custom Footer Text"
+msgstr "Eigener Fußzeilentext"
+
+#: inc/customizer.php:2199
+msgid "Disable"
+msgstr "Deaktivieren"
+
+#: inc/customizer/helpers.php:9
+#, fuzzy
+msgid "Default font"
+msgstr "Standardschriftart"
+
+#: inc/customizer/helpers.php:99
+#, fuzzy
+msgid ""
+"Choose which sidebars should be displayed on this page type. Empty sidebars "
+"won't be visible even when enabled."
+msgstr ""
+"Wählen Sie aus, welche Seitenleisten auf diesem Seitentyp angezeigt werden "
+"sollen. Leere Seitenleisten sind auch dann nicht sichtbar, wenn sie "
+"aktiviert sind."
+
+#: inc/customizer/helpers.php:103 inc/widgets.php:112
+msgid "Left Sidebar"
+msgstr "Linke Seitenleiste"
+
+#: inc/customizer/helpers.php:104 inc/widgets.php:100
+msgid "Right Sidebar"
+msgstr "Rechte Seitenleiste"
+
+#: inc/customizer/helpers.php:113 inc/template-tags.php:230
+msgid "Author"
+msgstr "Autor"
+
+#: inc/customizer/helpers.php:114
+msgid "Author Avatar"
+msgstr "Autor Avatar"
+
+#: inc/customizer/helpers.php:117
+msgid "Publication Date"
+msgstr "Publikationsdatum"
+
+#: inc/customizer/helpers.php:118
+#, fuzzy
+msgid "Latest Modification Date"
+msgstr "Datum der letzten Änderung"
+
+#: inc/customizer/helpers.php:128
+msgid "Comments"
+msgstr "Kommentare"
+
+#: inc/customizer/helpers.php:132
+msgid "Sticky"
+msgstr "Sticky"
+
+#: inc/customizer/helpers.php:138
+msgid "Meta"
+msgstr "Meta"
+
+#: inc/customizer/helpers.php:139
+#, fuzzy
+msgid "Choose which meta data elements to display."
+msgstr "Wählen Sie aus, welche Metadatenelemente angezeigt werden sollen."
+
+#: inc/customizer/helpers.php:151
+msgid "Show Navigation"
+msgstr "Navigation anzeigen"
+
+#: inc/customizer/helpers.php:152
+#, fuzzy
+msgid "Shows previous and next button for easy navigation."
+msgstr ""
+"Zeigt die vorherige und die nächste Schaltfläche für eine einfache "
+"Navigation an."
+
+#: inc/hooks-custom.php:23
+msgid "http://wordpress.org/"
+msgstr "http://wordpress.org/"
+
+#. translators:
+#: inc/hooks-custom.php:26
+#, php-format
+msgid "Powered by %s"
+msgstr "Bereitgestellt von %s"
+
+#. translators:
+#: inc/hooks-custom.php:31
+#, fuzzy, php-format
+msgid "Theme created by %1$s."
+msgstr "Design, das von %1 es erstellt wurde."
+
+#: inc/hooks-custom.php:32
+#, fuzzy
+msgid "https://campuspress.com/"
+msgstr "https://campuspress.com/"
+
+#: inc/hooks-wp.php:164 inc/hooks-wp.php:165
+#, fuzzy
+msgid "Reusable Blocks"
+msgstr "Wiederverwendbare Blöcke"
+
+#: inc/hooks-wp.php:212
+msgid "Continue Reading"
+msgstr "Weiterlesen"
+
+#: inc/plugins/breadcrumbs.php:296
+msgid "Browse:"
+msgstr "Durchsuchen:"
+
+#: inc/plugins/breadcrumbs.php:297
+msgctxt "breadcrumbs aria label"
+msgid "Breadcrumbs"
+msgstr "Breadcrumbs"
+
+#: inc/plugins/breadcrumbs.php:298 inc/template-tags.php:637
+msgid "Home"
+msgstr "Startseite"
+
+#: inc/plugins/breadcrumbs.php:299 inc/template-tags.php:638
+msgid "404 Not Found"
+msgstr "404 Nicht gefunden"
+
+#: inc/plugins/breadcrumbs.php:300 inc/template-tags.php:639
+msgid "Archives"
+msgstr "Archive"
+
+#: inc/plugins/breadcrumbs.php:302 inc/template-tags.php:641
+#, php-format
+msgid "Search results for: %s"
+msgstr "Suchergebnisse für: %s"
+
+#: inc/plugins/breadcrumbs.php:304 inc/template-tags.php:643
+#, php-format
+msgid "Page %s"
+msgstr "Seite %s"
+
+#: inc/plugins/breadcrumbs.php:306 inc/template-tags.php:645
+#, php-format
+msgid "Comment Page %s"
+msgstr "Kommentarseite %s"
+
+#: inc/plugins/breadcrumbs.php:308 inc/template-tags.php:647
+#, php-format
+msgid "Minute %s"
+msgstr "Minute %s"
+
+#: inc/plugins/breadcrumbs.php:310 inc/template-tags.php:649
+#, php-format
+msgid "Week %s"
+msgstr "Woche %s"
+
+#: inc/plugins/breadcrumbs.php:795
+msgctxt "minute and hour archives time format"
+msgid "g:i a"
+msgstr "g:i a"
+
+#: inc/plugins/breadcrumbs.php:813
+msgctxt "minute archives time format"
+msgid "i"
+msgstr "i"
+
+#: inc/plugins/breadcrumbs.php:831
+msgctxt "hour archives time format"
+msgid "g a"
+msgstr "g a"
+
+#: inc/plugins/breadcrumbs.php:848 inc/plugins/breadcrumbs.php:878
+#: inc/plugins/breadcrumbs.php:918 inc/plugins/breadcrumbs.php:946
+#: inc/plugins/breadcrumbs.php:1300
+msgctxt "yearly archives date format"
+msgid "Y"
+msgstr "Y"
+
+#: inc/plugins/breadcrumbs.php:849 inc/plugins/breadcrumbs.php:919
+#: inc/plugins/breadcrumbs.php:1305
+msgctxt "monthly archives date format"
+msgid "F"
+msgstr "F"
+
+#: inc/plugins/breadcrumbs.php:850 inc/plugins/breadcrumbs.php:1310
+msgctxt "daily archives date format"
+msgid "j"
+msgstr "j"
+
+#: inc/plugins/breadcrumbs.php:879
+msgctxt "weekly archives date format"
+msgid "W"
+msgstr "W"
+
+#: inc/plugins/calendar-plus.php:38
+msgid "Event date"
+msgstr "Veranstaltungsdatum"
+
+#: inc/plugins/calendar-plus.php:53
+#, fuzzy
+msgid "Event recurrence"
+msgstr "Ereigniswiederholung"
+
+#: inc/plugins/calendar-plus.php:68
+msgid "Event time"
+msgstr "Veranstaltungszeit"
+
+#: inc/plugins/calendar-plus.php:85
+msgid "Event categories"
+msgstr "Veranstaltungskategorien"
+
+#: inc/plugins/calendar-plus.php:109
+msgid "Add To: "
+msgstr "Hinzufügen"
+
+#: inc/plugins/calendar-plus.php:123
+msgid "Download iCal file for this event"
+msgstr "ICal-Datei für dieses Ereignis herunterladen"
+
+#: inc/plugins/cp-directory-setup.php:15
+msgid "Directory"
+msgstr "Verzeichnis"
+
+#: inc/plugins/cp-directory-setup.php:25
+msgid "Categories"
+msgstr "Kategorien"
+
+#: inc/setup.php:46
+#, fuzzy
+msgid "Desktop Main Menu"
+msgstr "Desktop-Hauptmenü"
+
+#: inc/setup.php:47
+#, fuzzy
+msgid "Desktop Slide-In Menu"
+msgstr "Desktop-Slide-In-Menü"
+
+#: inc/setup.php:48
+msgid "Mobile Menu"
+msgstr "Mobiles Menü"
+
+#: inc/setup.php:49
+#, fuzzy
+msgid "Secondary Header - Left"
+msgstr "Sekundärer Header - Links"
+
+#: inc/setup.php:50
+#, fuzzy
+msgid "Secondary Header - Right"
+msgstr "Sekundärer Header - Rechts"
+
+#: inc/setup.php:109
+msgid "Main"
+msgstr "Allgemein"
+
+#: inc/setup.php:129
+msgid "Entries"
+msgstr "Einträge"
+
+#: inc/setup.php:139
+msgid "Background"
+msgstr "Hintergrund"
+
+#: inc/setup.php:161
+msgid "Small"
+msgstr "Klein"
+
+#: inc/setup.php:166
+msgid "Normal"
+msgstr "Normal"
+
+#: inc/setup.php:170
+msgid "Medium"
+msgstr "Mittel"
+
+#: inc/setup.php:175
+msgid "Large"
+msgstr "Groß"
+
+#: inc/setup.php:180
+msgid "Huge"
+msgstr "Riesig"
+
+#: inc/template-tags.php:38
+msgid "Post navigation"
+msgstr "Beitragsnavigation"
+
+#: inc/template-tags.php:42
+#, fuzzy
+msgctxt "Previous post link"
+msgid ""
+"<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-left\"></i>%title"
+msgstr ""
+"<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-left\"></i>%Titel"
+
+#: inc/template-tags.php:45
+#, fuzzy
+msgctxt "Next post link"
+msgid ""
+"%title<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-right\"></i>"
+msgstr ""
+"%Titel<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-right\"></i>"
+
+#: inc/template-tags.php:94
+msgctxt "post date"
+msgid "Posted on"
+msgstr "Veröffentlicht am"
+
+#: inc/template-tags.php:103
+msgctxt "post author"
+msgid "by"
+msgstr "von"
+
+#: inc/template-tags.php:103
+msgctxt "post author"
+msgid "Posted by"
+msgstr "Veröffentlicht von"
+
+#: inc/template-tags.php:119
+msgid "Leave a comment"
+msgstr "Hinterlasse einen Kommentar"
+
+#: inc/template-tags.php:119
+msgid "1 Comment"
+msgstr "1 Kommentar"
+
+#: inc/template-tags.php:119
+msgid "% Comments"
+msgstr "% Kommentare"
+
+#. translators: %s: Name of current post
+#: inc/template-tags.php:125
+#, php-format
+msgid "Edit %s"
+msgstr "%s bearbeiten"
+
+#. translators: %s: Author name
+#: inc/template-tags.php:242
+#, php-format
+msgid "By %s"
+msgstr "Von %s"
+
+#: inc/template-tags.php:255
+msgid "Publication date"
+msgstr "Publikationsdatum"
+
+#: inc/template-tags.php:269 inc/template-tags.php:286
+msgid "Updated On "
+msgstr "Aktualisiert auf "
+
+#: inc/template-tags.php:281
+msgid "Last modification date"
+msgstr "Datum der letzten Änderung"
+
+#: inc/template-tags.php:297
+msgid "Categories:"
+msgstr "Kategorien:"
+
+#: inc/template-tags.php:312
+msgid "Tags:"
+msgstr "Tags:"
+
+#: inc/template-tags.php:345
+msgid "Sticky post"
+msgstr "Angepinnt"
+
+#: inc/template-tags.php:390
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: inc/template-tags.php:391
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: inc/template-tags.php:392
+msgid "Posts navigation"
+msgstr "Beitrags-Navigation"
+
+#: inc/template-tags.php:430
+msgid "Search:"
+msgstr "Suche:"
+
+#: inc/template-tags.php:436
+msgid "Oops! That page can&rsquo;t be found."
+msgstr "Oje! Die Seite wurde nicht gefunden."
+
+#: inc/template-tags.php:464
+#, php-format
+msgid "We found %s result for your search."
+msgid_plural "We found %s results for your search."
+msgstr[0] "Wir haben %s Ergebnis für Ihre Suche gefunden."
+msgstr[1] "Wir haben %s-Ergebnisse für Ihre Suche gefunden."
+
+#: inc/template-tags.php:472
+msgid ""
+"We could not find any results for your search. You can give it another try "
+"through the search form below."
+msgstr ""
+"Wir konnten keine Ergebnisse für Ihre Suche finden. Sie können es einen "
+"weiteren Versuch durch das Suchformular unten geben."
+
+#: inc/template-tags.php:479
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links "
+"below or a search?"
+msgstr ""
+"Es sieht so aus, als wäre hier nichts. Vielleicht einen der folgenden Links "
+"oder eine Suche probieren?"
+
+#: inc/template-tags.php:636
+msgctxt "breadcrumbs aria label"
+msgid "Breadcrumb"
+msgstr "Breadcrumb"
+
+#: inc/widgets.php:102
+#, fuzzy
+msgid ""
+"Right sidebar widget area. Used by default with single posts and pages that "
+"are listing posts."
+msgstr ""
+"Rechte Seitenleiste Widget-Bereich. Wird standardmäßig bei einzelnen "
+"Beiträgen und Seiten verwendet, die Beiträge auflisten."
+
+#: inc/widgets.php:114
+#, fuzzy
+msgid "Left sidebar widget area. Used by default with pages."
+msgstr ""
+"Linker Seitenleisten-Widget-Bereich. Wird standardmäßig mit Seiten verwendet."
+
+#: inc/widgets.php:124
+#, fuzzy
+msgid "Footer Full"
+msgstr "Footer Full"
+
+#: inc/widgets.php:126
+#, fuzzy
+msgid "Full sized footer widget with dynamic grid"
+msgstr "Full-Size-Fußzeilen-Widget mit dynamischem Raster"
+
+#: searchform.php:16
+msgid "Search &hellip;"
+msgstr "Suche &hellip;"
+
+#: template-parts/calendar-plus/shortcodes/event-single.php:6
+#, php-format
+msgid "Permalink to %s"
+msgstr "Permalink zu %s"
+
+#: template-parts/calendar-plus/shortcodes/event-single.php:20
+#, fuzzy
+msgid "Open Event"
+msgstr "Open Event"
+
+#: template-parts/global-templates/hero-pagetitle.php:7
+#, fuzzy
+msgid "page title and basic information"
+msgstr "Seitentitel und grundlegende Informationen"
+
+#: template-parts/global-templates/modal-slide-in-menu.php:28
+msgid "Expanded"
+msgstr "Erweitert"
+
+#: template-parts/global-templates/modal-slide-in-menu.php:47
+msgid "Mobile"
+msgstr "Mobil"
+
+#: template-parts/global-templates/navbar-secondary.php:4
+#, fuzzy
+msgid "secondary"
+msgstr "Sekundären"
+
+#: template-parts/loop-templates/content-none.php:29
+msgid "Most Used Categories"
+msgstr "Meistgenutzte Kategorien"
+
+#. translators: %1$s: smiley
+#: template-parts/loop-templates/content-none.php:52
+#, php-format
+msgid "Try looking in the monthly archives. %1$s"
+msgstr "Versuchen Sie es mal im monatlichen Archiv. %1$s"
+
+#: template-parts/loop-templates/content-singular.php:25
+msgid "Pages:"
+msgstr "Seiten:"
+
+#: template-parts/loop-templates/content.php:20
+#, fuzzy, php-format
+msgid "This is a \"%s\""
+msgstr "Dies ist ein \"%s\""
+
+#: template-parts/loop-templates/content.php:20
+#, fuzzy, php-format
+msgid "(This is a \"%s\")"
+msgstr "(Dies ist ein \"%s\")"
+
+#: template-parts/sidebar-templates/sidebar-hero.php:30
+msgid "Previous"
+msgstr "Zurück"
+
+#: template-parts/sidebar-templates/sidebar-hero.php:38
+msgid "Next"
+msgstr "Weiter"
+
+#. Theme Name of the plugin/theme
+msgid "myoos"
+msgstr "Myoos"
+
+#. Theme URI of the plugin/theme
+#, fuzzy
+msgid "http://oos-shop.de"
+msgstr "http://oos-shop.de"
+
+#. Description of the plugin/theme
+msgid ""
+"MyOOS is a clean minimal and responsive WordPress theme well suited for "
+"business, finance, portfolio, design, art and any other creative websites "
+"and blogs."
+msgstr ""
+"MyOOS ist ein minimales und reaktionsschnelles WordPress-Theme, das gut für "
+"Unternehmen, E-Ecommerce, Portfolio, Design, Kunst und andere kreative "
+"Websites und Blogs geeignet ist."
+
+#. Author of the plugin/theme
+msgid "r23"
+msgstr "r23"
+
+#. Author URI of the plugin/theme
+msgid "http://blog.r23.de"
+msgstr "http://blog.r23.de"
