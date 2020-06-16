@@ -1,13 +1,15 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: myoos\n"
-"POT-Creation-Date: 2020-06-04 22:35+0200\n"
-"PO-Revision-Date: 2020-06-13 22:43+0200\n"
+"POT-Creation-Date: 2020-06-14 02:24+0200\n"
+"PO-Revision-Date: 2020-06-14 21:28+0200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3.1\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: style.css\n"
@@ -18,8 +20,6 @@ msgstr ""
 "esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
 "esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
 "X-Poedit-Basepath: ..\n"
-"Last-Translator: \n"
-"Language: de_DE\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: inc/plugins/advanced-custom-fields\n"
 "X-Poedit-SearchPathExcluded-1: inc/plugins/breadcrumb-trail\n"
@@ -84,7 +84,6 @@ msgid "Search"
 msgstr "Suche"
 
 #: header.php:96
-#, fuzzy
 msgid "Toggle search interface"
 msgstr "Umschalten der Suchschnittstelle"
 
@@ -93,7 +92,6 @@ msgid "Menu"
 msgstr "Menü"
 
 #: header.php:114
-#, fuzzy
 msgid "Toggle extended navigation"
 msgstr "Umschalten der erweiterten Navigation"
 
@@ -142,7 +140,6 @@ msgid "General"
 msgstr "Allgemein"
 
 #: inc/customizer.php:134
-#, fuzzy
 msgid "Settings related to all elements on site."
 msgstr "Einstellungen für alle Elemente vor Ort."
 
@@ -151,23 +148,19 @@ msgid "Site Title Font Family"
 msgstr "Website Titel Schriftart"
 
 #: inc/customizer.php:165
-#, fuzzy
 msgid "Site Layout & Stylings"
 msgstr "Site Layout & Stylings"
 
 #: inc/customizer.php:166
-#, fuzzy
 msgid "Settings related to site layout and general stylings."
 msgstr ""
 "Einstellungen im Zusammenhang mit dem Websitelayout und allgemeinen Stylings."
 
 #: inc/customizer.php:175
-#, fuzzy
 msgid "Site Width (px)"
 msgstr "Standortbreite (px)"
 
 #: inc/customizer.php:176
-#, fuzzy
 msgid "Maximum site container width."
 msgstr "Maximale Standortcontainerbreite."
 
@@ -176,7 +169,6 @@ msgid "Content Width (px)"
 msgstr "Inhaltsbreite (px)"
 
 #: inc/customizer.php:205
-#, fuzzy
 msgid ""
 "Maximum content container width. This only works for single posts and pages "
 "without sidebar."
@@ -185,12 +177,10 @@ msgstr ""
 "und Seiten ohne Seitenleiste."
 
 #: inc/customizer.php:228 inc/customizer.php:1508 inc/customizer.php:2105
-#, fuzzy
 msgid "Boxed Design"
 msgstr "Boxed Design"
 
 #: inc/customizer.php:229
-#, fuzzy
 msgid ""
 "Wraps everything in a container and adds the same width for all elements on "
 "the site."
@@ -199,12 +189,10 @@ msgstr ""
 "Elemente auf der Website hinzu."
 
 #: inc/customizer.php:255
-#, fuzzy
 msgid "Box Width (px)"
 msgstr "Box breite (px)"
 
 #: inc/customizer.php:256
-#, fuzzy
 msgid "Maximum box width."
 msgstr "Maximale Boxbreite."
 
@@ -213,7 +201,6 @@ msgid "Fonts"
 msgstr "Schriftarten"
 
 #: inc/customizer.php:292
-#, fuzzy
 msgid ""
 "Default font settings applied on site. Some elements like headings can have "
 "font customized in their own settings sections."
@@ -227,16 +214,14 @@ msgid "Default Font Family"
 msgstr "Standard Schriftfamilie"
 
 #: inc/customizer.php:301
-#, fuzzy
 msgid "Choose default font used on site."
-msgstr "Wählen Sie die Vorschrift, die vor Ort verwendet wird."
+msgstr "Wählen Sie die Schrift, die auf der Seite verwendet wird."
 
 #: inc/customizer.php:341
 msgid "Default Font Size"
 msgstr "Standard Schriftgröße"
 
 #: inc/customizer.php:342
-#, fuzzy
 msgid "Customize default font size."
 msgstr "Passen Sie die Standardschriftgröße an."
 
@@ -249,7 +234,6 @@ msgid "Roundness"
 msgstr "Rundheit"
 
 #: inc/customizer.php:374
-#, fuzzy
 msgid "Choose how strongly various elements across the site should be rounded."
 msgstr ""
 "Wählen Sie aus, wie stark verschiedene Elemente auf der Website gerundet "
@@ -260,7 +244,6 @@ msgid "Shadows"
 msgstr "Schatten"
 
 #: inc/customizer.php:398
-#, fuzzy
 msgid ""
 "Choose how big shadows should be applied to various elements across the site."
 msgstr ""
@@ -272,7 +255,6 @@ msgid "Animations"
 msgstr "Animationen"
 
 #: inc/customizer.php:438
-#, fuzzy
 msgid ""
 "Automatically adds animations to some main site elements and aligned content "
 "blocks."
@@ -289,17 +271,14 @@ msgid "Primary Background"
 msgstr "Primärer Hintergrund"
 
 #: inc/customizer.php:469
-#, fuzzy
 msgid "Background color used for main content."
 msgstr "Hintergrundfarbe, die für den Hauptinhalt verwendet wird."
 
 #: inc/customizer.php:486
-#, fuzzy
 msgid "Secondary Background"
 msgstr "Sekundärer Hintergrund"
 
 #: inc/customizer.php:487
-#, fuzzy
 msgid "Background color used under content in box."
 msgstr "Hintergrundfarbe, die unter Inhalt im Feld verwendet wird."
 
@@ -315,7 +294,6 @@ msgstr ""
 "verwendet wird."
 
 #: inc/customizer.php:523 inc/customizer.php:1976 inc/hooks-custom.php:76
-#, fuzzy
 msgid "Highlight Accent"
 msgstr "Highlight-Akzent"
 
@@ -536,7 +514,6 @@ msgid "Full Width Image With Title Under It"
 msgstr "Vollständige breite Bild mit Titel unter ihm"
 
 #: inc/customizer.php:1140
-#, fuzzy
 msgid "Image Under Title"
 msgstr "Bild unter Titel"
 
@@ -612,7 +589,6 @@ msgid "Add Image"
 msgstr "Bild hinzufügen"
 
 #: inc/customizer.php:1402
-#, fuzzy
 msgid "Breadcrumb Styling"
 msgstr "Breadcrumb Styling"
 
@@ -639,7 +615,6 @@ msgid "Content"
 msgstr "Inhalt"
 
 #: inc/customizer.php:1448
-#, fuzzy
 msgid "Settings related to content area."
 msgstr "Einstellungen für den Inhaltsbereich."
 
@@ -846,7 +821,6 @@ msgid "Default"
 msgstr "Standard"
 
 #: inc/customizer.php:1923
-#, fuzzy
 msgid "With Separator"
 msgstr "Mit Separator"
 
@@ -864,7 +838,6 @@ msgid "Bottom"
 msgstr "Unten"
 
 #: inc/customizer.php:1970
-#, fuzzy
 msgid "Header Separator Color"
 msgstr "Header-Trennzeichenfarbe"
 
@@ -881,7 +854,6 @@ msgid "Buttons"
 msgstr "Buttons"
 
 #: inc/customizer.php:2047
-#, fuzzy
 msgid "Settings related to buttons appearance."
 msgstr "Einstellungen im Zusammenhang mit der Darstellung von Schaltflächen."
 
@@ -898,7 +870,6 @@ msgid "Sidebars"
 msgstr "Seitenleisten"
 
 #: inc/customizer.php:2077
-#, fuzzy
 msgid "Settings related to sidebars appearance and behavior."
 msgstr ""
 "Einstellungen im Zusammenhang mit der Darstellung und dem Verhalten von "
@@ -909,16 +880,14 @@ msgid "Sticky Sidebars"
 msgstr "Fixierte Seitenleisten"
 
 #: inc/customizer.php:2086
-#, fuzzy
 msgid ""
 "Stick sidebars to the top when scrolling. Only works when sidebar content "
 "can fit in browser window."
 msgstr ""
-"Halten Sie beim Scrollen Dieseitenleisten nach oben. Funktioniert nur, wenn "
+"Halten Sie beim Scrollen die Seitenleisten nach oben. Funktioniert nur, wenn "
 "Sidebar-Inhalte in das Browserfenster passen können."
 
 #: inc/customizer.php:2106
-#, fuzzy
 msgid ""
 "Enable to put sidebar content in a box. Background can be customized under "
 "\"General\" > \"Colors\" > \"Content Boxes Background\". "
@@ -932,22 +901,18 @@ msgid "Footer"
 msgstr "Footer"
 
 #: inc/customizer.php:2125
-#, fuzzy
 msgid "Settings for footer."
 msgstr "Einstellungen für Fußzeile."
 
 #: inc/customizer.php:2132
-#, fuzzy
 msgid "Background/Overlay Color"
 msgstr "Hintergrund/Overlay-Farbe"
 
 #: inc/customizer.php:2166
-#, fuzzy
 msgid "Include Reusable Block"
 msgstr "Wiederverwendbare Block einschließen"
 
 #: inc/customizer.php:2167
-#, fuzzy
 msgid ""
 "Choose \"Reusable Block\" that will be displayed in footer after widgets. "
 "You can create new ones in WordPress Admin > \"Reusable Blocks\"."
@@ -965,12 +930,10 @@ msgid "Disable"
 msgstr "Deaktivieren"
 
 #: inc/customizer/helpers.php:9
-#, fuzzy
 msgid "Default font"
-msgstr "Standardschriftart"
+msgstr "Standard-Schriftart"
 
 #: inc/customizer/helpers.php:99
-#, fuzzy
 msgid ""
 "Choose which sidebars should be displayed on this page type. Empty sidebars "
 "won't be visible even when enabled."
@@ -1000,7 +963,6 @@ msgid "Publication Date"
 msgstr "Publikationsdatum"
 
 #: inc/customizer/helpers.php:118
-#, fuzzy
 msgid "Latest Modification Date"
 msgstr "Datum der letzten Änderung"
 
@@ -1017,7 +979,6 @@ msgid "Meta"
 msgstr "Meta"
 
 #: inc/customizer/helpers.php:139
-#, fuzzy
 msgid "Choose which meta data elements to display."
 msgstr "Wählen Sie aus, welche Metadatenelemente angezeigt werden sollen."
 
@@ -1026,7 +987,6 @@ msgid "Show Navigation"
 msgstr "Navigation anzeigen"
 
 #: inc/customizer/helpers.php:152
-#, fuzzy
 msgid "Shows previous and next button for easy navigation."
 msgstr ""
 "Zeigt die vorherige und die nächste Schaltfläche für eine einfache "
@@ -1044,17 +1004,15 @@ msgstr "Bereitgestellt von %s"
 
 #. translators:
 #: inc/hooks-custom.php:31
-#, fuzzy, php-format
+#, php-format
 msgid "Theme created by %1$s."
-msgstr "Design, das von %1 es erstellt wurde."
+msgstr "Design, das von %1$s erstellt wurde."
 
 #: inc/hooks-custom.php:32
-#, fuzzy
 msgid "https://campuspress.com/"
 msgstr "https://campuspress.com/"
 
 #: inc/hooks-wp.php:164 inc/hooks-wp.php:165
-#, fuzzy
 msgid "Reusable Blocks"
 msgstr "Wiederverwendbare Blöcke"
 
@@ -1151,7 +1109,6 @@ msgid "Event date"
 msgstr "Veranstaltungsdatum"
 
 #: inc/plugins/calendar-plus.php:53
-#, fuzzy
 msgid "Event recurrence"
 msgstr "Ereigniswiederholung"
 
@@ -1165,7 +1122,7 @@ msgstr "Veranstaltungskategorien"
 
 #: inc/plugins/calendar-plus.php:109
 msgid "Add To: "
-msgstr "Hinzufügen"
+msgstr "Hinzufügen "
 
 #: inc/plugins/calendar-plus.php:123
 msgid "Download iCal file for this event"
@@ -1180,12 +1137,10 @@ msgid "Categories"
 msgstr "Kategorien"
 
 #: inc/setup.php:46
-#, fuzzy
 msgid "Desktop Main Menu"
 msgstr "Desktop-Hauptmenü"
 
 #: inc/setup.php:47
-#, fuzzy
 msgid "Desktop Slide-In Menu"
 msgstr "Desktop-Slide-In-Menü"
 
@@ -1194,12 +1149,10 @@ msgid "Mobile Menu"
 msgstr "Mobiles Menü"
 
 #: inc/setup.php:49
-#, fuzzy
 msgid "Secondary Header - Left"
 msgstr "Sekundärer Header - Links"
 
 #: inc/setup.php:50
-#, fuzzy
 msgid "Secondary Header - Right"
 msgstr "Sekundärer Header - Rechts"
 
@@ -1240,7 +1193,6 @@ msgid "Post navigation"
 msgstr "Beitragsnavigation"
 
 #: inc/template-tags.php:42
-#, fuzzy
 msgctxt "Previous post link"
 msgid ""
 "<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-left\"></i>%title"
@@ -1248,7 +1200,6 @@ msgstr ""
 "<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-left\"></i>%Titel"
 
 #: inc/template-tags.php:45
-#, fuzzy
 msgctxt "Next post link"
 msgid ""
 "%title<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-right\"></i>"
@@ -1367,7 +1318,6 @@ msgid "Breadcrumb"
 msgstr "Breadcrumb"
 
 #: inc/widgets.php:102
-#, fuzzy
 msgid ""
 "Right sidebar widget area. Used by default with single posts and pages that "
 "are listing posts."
@@ -1376,18 +1326,15 @@ msgstr ""
 "Beiträgen und Seiten verwendet, die Beiträge auflisten."
 
 #: inc/widgets.php:114
-#, fuzzy
 msgid "Left sidebar widget area. Used by default with pages."
 msgstr ""
 "Linker Seitenleisten-Widget-Bereich. Wird standardmäßig mit Seiten verwendet."
 
 #: inc/widgets.php:124
-#, fuzzy
 msgid "Footer Full"
 msgstr "Footer Full"
 
 #: inc/widgets.php:126
-#, fuzzy
 msgid "Full sized footer widget with dynamic grid"
 msgstr "Full-Size-Fußzeilen-Widget mit dynamischem Raster"
 
@@ -1401,12 +1348,10 @@ msgid "Permalink to %s"
 msgstr "Permalink zu %s"
 
 #: template-parts/calendar-plus/shortcodes/event-single.php:20
-#, fuzzy
 msgid "Open Event"
 msgstr "Open Event"
 
 #: template-parts/global-templates/hero-pagetitle.php:7
-#, fuzzy
 msgid "page title and basic information"
 msgstr "Seitentitel und grundlegende Informationen"
 
@@ -1419,7 +1364,6 @@ msgid "Mobile"
 msgstr "Mobil"
 
 #: template-parts/global-templates/navbar-secondary.php:4
-#, fuzzy
 msgid "secondary"
 msgstr "Sekundären"
 
@@ -1438,14 +1382,14 @@ msgid "Pages:"
 msgstr "Seiten:"
 
 #: template-parts/loop-templates/content.php:20
-#, fuzzy, php-format
+#, php-format
 msgid "This is a \"%s\""
-msgstr "Dies ist ein \"%s\""
+msgstr "Von %s"
 
 #: template-parts/loop-templates/content.php:20
-#, fuzzy, php-format
+#, php-format
 msgid "(This is a \"%s\")"
-msgstr "(Dies ist ein \"%s\")"
+msgstr "Von %s"
 
 #: template-parts/sidebar-templates/sidebar-hero.php:30
 msgid "Previous"
@@ -1457,12 +1401,11 @@ msgstr "Weiter"
 
 #. Theme Name of the plugin/theme
 msgid "myoos"
-msgstr "Myoos"
+msgstr "MyOOS"
 
 #. Theme URI of the plugin/theme
-#, fuzzy
-msgid "http://oos-shop.de"
-msgstr "http://oos-shop.de"
+msgid "https://oos-shop.de"
+msgstr "https://oos-shop.de"
 
 #. Description of the plugin/theme
 msgid ""
@@ -1479,5 +1422,5 @@ msgid "r23"
 msgstr "r23"
 
 #. Author URI of the plugin/theme
-msgid "http://blog.r23.de"
-msgstr "http://blog.r23.de"
+msgid "https://blog.r23.de"
+msgstr "https://blog.r23.de"

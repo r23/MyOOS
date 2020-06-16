@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.4.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-03-05 11:51:33+0000\n"
+"PO-Revision-Date: 2020-06-16 11:42:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,8 +30,8 @@ msgstr[1] "Spam <span class=\"count\">(%s)</span>"
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:242
 msgid "Mature <span class=\"count\">(%s)</span>"
 msgid_plural "Mature <span class=\"count\">(%s)</span>"
-msgstr[0] "Vollständig <span class=\"count\">(%s)</span>"
-msgstr[1] "Vollständig <span class=\"count\">(%s)</span>"
+msgstr[0] "Erwachseneninhalt <span class=\"count\">(%s)</span>"
+msgstr[1] "Erwachseneninhalt <span class=\"count\">(%s)</span>"
 
 #. translators: %s: Number of sites.
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:236
