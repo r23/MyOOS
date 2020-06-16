@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.142.1",
-        "version_normalized": "3.142.1.0",
+        "version": "3.142.2",
+        "version_normalized": "3.142.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "ab92ec111132712417cc97be06275553b10a76ab"
+            "reference": "92cf325bfabc80d919282729a25063876a73205e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ab92ec111132712417cc97be06275553b10a76ab",
-            "reference": "ab92ec111132712417cc97be06275553b10a76ab",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/92cf325bfabc80d919282729a25063876a73205e",
+            "reference": "92cf325bfabc80d919282729a25063876a73205e",
             "shasum": ""
         },
         "require": {
@@ -102,7 +102,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-06-12T18:16:31+00:00",
+        "time": "2020-06-15T18:17:20+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -5069,17 +5069,17 @@
     },
     {
         "name": "symfony/symfony",
-        "version": "v5.1.1",
-        "version_normalized": "5.1.1.0",
+        "version": "v5.1.2",
+        "version_normalized": "5.1.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/symfony.git",
-            "reference": "c093c648ae0ff1c295998fee40b78315a865cdd0"
+            "reference": "b551cb4c4573ea36fd924c1394ed09c453272470"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/symfony/zipball/c093c648ae0ff1c295998fee40b78315a865cdd0",
-            "reference": "c093c648ae0ff1c295998fee40b78315a865cdd0",
+            "url": "https://api.github.com/repos/symfony/symfony/zipball/b551cb4c4573ea36fd924c1394ed09c453272470",
+            "reference": "b551cb4c4573ea36fd924c1394ed09c453272470",
             "shasum": ""
         },
         "require": {
@@ -5197,7 +5197,7 @@
             "ocramius/proxy-manager": "^2.1",
             "paragonie/sodium_compat": "^1.8",
             "php-http/httplug": "^1.0|^2.0",
-            "phpdocumentor/reflection-docblock": "^3.0|^4.0",
+            "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
             "predis/predis": "~1.1",
             "psr/http-client": "^1.0",
             "psr/simple-cache": "^1.0",
@@ -5207,7 +5207,7 @@
             "twig/inky-extra": "^2.12",
             "twig/markdown-extra": "^2.12"
         },
-        "time": "2020-06-12T11:26:14+00:00",
+        "time": "2020-06-15T13:51:55+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
