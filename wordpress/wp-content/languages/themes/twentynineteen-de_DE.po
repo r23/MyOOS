@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Nineteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-03-31 21:17:02+0000\n"
+"PO-Revision-Date: 2020-06-20 11:21:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #. Description of the theme
 msgid "Our 2019 default theme is designed to show off the power of the block editor. It features custom styles for all the default blocks, and is built so that what you see in the editor looks like what you'll see on your website. Twenty Nineteen is designed to be adaptable to a wide range of websites, whether you’re running a photo blog, launching a new business, or supporting a non-profit. Featuring ample whitespace and modern sans-serif headlines paired with classic serif body text, it's built to be beautiful on all screen sizes."
-msgstr "Unser Standard-Theme für 2019 wurde entwickelt, um die Leistungsfähigkeit des Block-Editors zu präsentieren. Es bietet individuelle Stile für alle Standardblöcke und ist so aufgebaut, dass das, was du im Editor siehst, auch genauso auf deiner Website sehen wirst. Twenty Nineteen wurde so konzipiert, dass es sich für eine Vielzahl von Websites anpassen lässt; egal ob du einen Fotoblog betreibst, ein neues Unternehmen startest oder eine gemeinnützige Organisation unterstützt. Mit reichlich Whitespace und modernen serifenlosen Überschriften, gepaart mit klassischem serifenbetontem Fließtext wird es auf allen Bildschirmgrößen schön aussehen."
+msgstr "Unser Standard-Theme für 2019 wurde entwickelt, um die Leistungsfähigkeit des Block-Editors zu präsentieren. Es bietet individuelle Styles für alle Standardblöcke und ist so aufgebaut, dass du das, was du im Editor siehst, auch genauso auf deiner Website sehen wirst. Twenty Nineteen wurde so konzipiert, dass es sich für eine Vielzahl von Websites anpassen lässt; egal ob du einen Fotoblog betreibst, ein neues Unternehmen startest oder eine gemeinnützige Organisation unterstützt. Mit viel Freiraum und modernen serifenlosen Überschriften, gepaart mit klassischem serifenbetontem Fließtext, ist es so gestaltet, dass es auf allen Bildschirmgrößen schön aussieht."
 
 #. Theme Name of the theme
 msgid "Twenty Nineteen"
@@ -21,7 +21,7 @@ msgstr "Twenty Nineteen"
 
 #: classes/class-twentynineteen-walker-comment.php:96
 msgid "Your comment is awaiting moderation. This is a preview, your comment will be visible after it has been approved."
-msgstr "Dein Kommentar wartet auf Moderation. Dies ist eine Vorschau, dein Kommentar wird sichtbar, nachdem er freigegeben wurde."
+msgstr "Dein Kommentar wartet auf Freigabe. Dies ist eine Vorschau, dein Kommentar wird nach der Moderation sichtbar sein."
 
 #: functions.php:153
 msgid "Dark Blue"
@@ -218,7 +218,7 @@ msgstr "Nächster Beitrag"
 
 #: search.php:22
 msgid "Search results for: "
-msgstr "Suchergebnisse für: "
+msgstr "Suchergebnisse für:"
 
 #: inc/template-tags.php:234
 msgid "Older posts"
