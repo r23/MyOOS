@@ -49,13 +49,13 @@ class Common {
 		// Auto-update the plugin.
 		if ( Helper::get_settings( 'general.enable_auto_update' ) && false === boolval( get_option( 'rank_math_rollback_version', false ) ) ) {
 			$this->filter( 'auto_update_plugin', 'auto_update_plugin', 10, 2 );
-			new Auto_Updater;
+			new Auto_Updater();
 		}
 
 		$this->filter( 'is_protected_meta', 'hide_rank_math_meta', 10, 2 );
 
-		new Defaults;
-		new Admin_Bar_Menu;
+		new Defaults();
+		new Admin_Bar_Menu();
 	}
 
 	/**
@@ -172,7 +172,7 @@ class Common {
 		 *
 		 * @param bool $return True to disable.
 		 */
-		if ( true === apply_filters_deprecated( 'rank_math/primary_term', array( false ), '1.0.43', 'rank_math/admin/disable_primary_term' )
+		if ( true === apply_filters_deprecated( 'rank_math/primary_term', [ false ], '1.0.43', 'rank_math/admin/disable_primary_term' )
 			|| true === $this->do_filter( 'admin/disable_primary_term', false ) ) {
 			return $terms;
 		}
@@ -274,7 +274,7 @@ class Common {
 		}
 
 		$primary = get_term( $primary, $taxonomy );
-		return is_wp_error( $primary ) ? false : $primary;
+		return is_wp_error( $primary ) || empty( $primary ) ? false : $primary;
 	}
 
 	/**

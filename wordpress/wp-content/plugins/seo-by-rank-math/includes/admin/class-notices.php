@@ -168,6 +168,7 @@ class Notices implements Runner {
 			'img_title_format',
 			'breadcrumbs_separator',
 			'breadcrumbs_prefix',
+			'breadcrumbs_home_link',
 			'breadcrumbs_home_label',
 			'breadcrumbs_archive_format',
 			'breadcrumbs_search_format',

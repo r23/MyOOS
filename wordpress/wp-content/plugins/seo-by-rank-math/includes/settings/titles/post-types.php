@@ -46,16 +46,15 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
-		'id'              => 'pt_' . $post_type . '_description',
-		'type'            => 'textarea_small',
+		'id'         => 'pt_' . $post_type . '_description',
+		'type'       => 'textarea_small',
 		/* translators: post type name */
-		'name'            => sprintf( esc_html__( 'Single %s Description', 'rank-math' ), $name ),
+		'name'       => sprintf( esc_html__( 'Single %s Description', 'rank-math' ), $name ),
 		/* translators: post type name */
-		'desc'            => sprintf( esc_html__( 'Default description for single %s pages. This can be changed on a per-post basis on the post editor screen.', 'rank-math' ), $name ),
-		'classes'         => 'rank-math-supports-variables rank-math-description',
-		'default'         => '%excerpt%',
-		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
-		'attributes'      => [
+		'desc'       => sprintf( esc_html__( 'Default description for single %s pages. This can be changed on a per-post basis on the post editor screen.', 'rank-math' ), $name ),
+		'classes'    => 'rank-math-supports-variables rank-math-description',
+		'default'    => '%excerpt%',
+		'attributes' => [
 			'class'                  => 'cmb2-textarea-small wp-exclude-emoji',
 			'data-gramm_editor'      => 'false',
 			'rows'                   => 2,
@@ -81,15 +80,14 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
-		'id'              => 'pt_' . $post_type . '_archive_description',
-		'type'            => 'textarea_small',
+		'id'         => 'pt_' . $post_type . '_archive_description',
+		'type'       => 'textarea_small',
 		/* translators: post type name */
-		'name'            => sprintf( esc_html__( '%s Archive Description', 'rank-math' ), $name ),
+		'name'       => sprintf( esc_html__( '%s Archive Description', 'rank-math' ), $name ),
 		/* translators: post type name */
-		'desc'            => sprintf( esc_html__( 'Description for %s archive pages.', 'rank-math' ), $name ),
-		'classes'         => 'rank-math-supports-variables rank-math-description',
-		'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
-		'attributes'      => [
+		'desc'       => sprintf( esc_html__( 'Description for %s archive pages.', 'rank-math' ), $name ),
+		'classes'    => 'rank-math-supports-variables rank-math-description',
+		'attributes' => [
 			'data-exclude-variables' => 'seo_title,seo_description',
 			'rows'                   => 2,
 		],
@@ -141,18 +139,17 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 
 	$cmb->add_field(
 		[
-			'id'              => 'pt_' . $post_type . '_default_snippet_desc',
-			'type'            => 'textarea',
-			'name'            => esc_html__( 'Description', 'rank-math' ),
-			'attributes'      => [
+			'id'         => 'pt_' . $post_type . '_default_snippet_desc',
+			'type'       => 'textarea',
+			'name'       => esc_html__( 'Description', 'rank-math' ),
+			'attributes' => [
 				'class'           => 'cmb2_textarea wp-exclude-emoji',
 				'rows'            => 3,
 				'data-autoresize' => true,
 			],
-			'classes'         => 'rank-math-supports-variables rank-math-advanced-option',
-			'default'         => '%seo_description%',
-			'dep'             => [ [ 'pt_' . $post_type . '_default_rich_snippet', 'off,book,local', '!=' ] ],
-			'sanitization_cb' => [ '\RankMath\CMB2', 'sanitize_textfield' ],
+			'classes'    => 'rank-math-supports-variables rank-math-advanced-option',
+			'default'    => '%seo_description%',
+			'dep'        => [ [ 'pt_' . $post_type . '_default_rich_snippet', 'off,book,local', '!=' ] ],
 		]
 	);
 }

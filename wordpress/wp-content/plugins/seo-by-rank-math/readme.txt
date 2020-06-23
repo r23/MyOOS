@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection
 Tested up to: 5.4.1
 Requires at least: 4.9.0
 Requires PHP: 5.6
-Stable tag: 1.0.44
+Stable tag: 1.0.44.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -473,27 +473,13 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.44 [Jun 12, 2020] =
-* Added: [NEW!] Added [Social share buttons](https://i.rankmath.com/5YCVsq) in the Gutenberg publish flow, now you will see the share buttons after publishing the post
-* Added: Title attribute for the sidebar tabs for better usability
-* Added: Full compatibility with the WPML plugin [WPML String Translation Plugin is required]
-* Added: Some missing strings in the translation file
-* Improved: The variable [Product Schema](https://rankmath.com/kb/rich-snippets/#product) output by replacing `Offer` with `AggregateOffer`
-* Improved: Made the registration step simpler to understand as to why a [FREE account](https://rankmath.com/#signup) is needed and the benefits
-* Improved: The [new UI's](https://www.facebook.com/RankMath/videos/237502667553008/) checkbox styling was getting applied in the Classic Editor's sidebar
-* Improved: We've tinkered with the internal workings and polished some rough edges. The plugin is now **better & secure** than it was
-* Removed: The [usage tracking](https://rankmath.com/usage-tracking/) option is not needed as the data received was not stored on the servers or utilized
-* Removed: Unused JS files
-* Fixed: Option to set custom data in the [Twitter's social tab](https://rankmath.com/kb/meta-box-social-tab/#twitter-options) was not working in the Classic Editor
-* Fixed: [Open links in a new tab](https://rankmath.com/kb/how-to-setup/#open-external-links-new-tab-window) and [nofollow](https://rankmath.com/kb/how-to-setup/#nofollow-external-links) options were not working if the [Image SEO](https://rankmath.com/kb/general-settings/#add-missing-alt-attributes) module was deactivated
-* Fixed: The [strip category base](https://rankmath.com/kb/general-settings/#strip-category-base) option was not getting [imported from Yoast](https://rankmath.com/kb/how-to-setup/#step-1-import-data-from-other-plugins)
-* Fixed: The option to select multiple Employment Types in the [JobPosting Schema](https://rankmath.com/kb/rich-snippets/#job-posting) was not working in the Gutenberg
-* Fixed: [Sitemap](https://rankmath.com/kb/fix-sitemap-issues/) was not working when a custom permalink structure with `index.php` was used before the `%postname%` variable
-* Fixed: Content analysis not working on the taxonomy pages when quotes were used in the title
-* Fixed: A redirection conflict with BuddyPress when the [Redirect 404 to Homepage](https://rankmath.com/kb/general-settings/#fallback-behaviour) option was enabled in the [General Settings](https://rankmath.com/kb/general-settings/)
-* Fixed: The Gutenberg editor was incorrectly displaying the [Icon Overlay](https://rankmath.com/kb/meta-box-social-tab/#add-icon-overlay-to-thumbnails) in the [Social preview](https://rankmath.com/kb/meta-box-social-tab/#checking-the-facebook-preview) when the overlay option value was set to off. This was not affecting the frontend output
-* Fixed: [Redirections](https://rankmath.com/kb/setting-up-redirections/) were not working from the advanced tab of the category/term edit page
-* Fixed: The URL preview in the Classic Editor was incorrect for languages like Arabic but the output, for the search engines, was correct
-* Fixed: An issue with the Members plugin where the general settings were not accessible when creating a new role using that plugin
+= 1.0.44.1 [Jun 17, 2020] =
+* Added: In the WPML config file, added [Breadcrumb's](https://rankmath.com/kb/general-settings/#bread-crumbs) homepage link option
+* Improved: Hardened security further. Props to [Tanner Hodges](https://github.com/tannerhodges)
+* Fixed: An issue with the  [Recipe Schema](https://rankmath.com/kb/rich-snippets/#recipe) where the `Recipe Instructions` field was not respecting the line breaks upon saving a post
+* Fixed: The [Primary Category](https://rankmath.com/kb/titles-and-meta/#primary-taxonomy) feature was not working properly when someone changed the default category in the [WooCommerce](https://rankmath.com/kb/general-settings/#woo-commerce)
+* Fixed: The [TOC test](https://rankmath.com/kb/score-100-in-tests/#table-of-contents) was failing on multisite installations when a plugin was activated on the entire network
+* Fixed: A problem where the custom rewrites were not displaying correctly inside the [Canonical URL field](https://rankmath.com/kb/advanced-tab/#canonical-url) in the backend. Though, it was working fine for the search engines
+* Removed: The `sourceMap` comments from the CSS files so users won't get 404 warnings on their site
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=LP&utm_campaign=WP)**

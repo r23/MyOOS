@@ -304,6 +304,21 @@ class CMB2 {
 	}
 
 	/**
+	 * Handles escaping of rank_math_permalink.
+	 *
+	 * @param string $value The value from the DB.
+	 *
+	 * @return string Escaped value.
+	 */
+	public static function escape_permalink( $value ) {
+		if ( empty( $value ) ) {
+			return '';
+		}
+
+		return esc_attr( urldecode( $value ) );
+	}
+
+	/**
 	 * Handles sanitization of floating point values.
 	 *
 	 * @param string $value The unsanitized value from the form.
@@ -369,7 +384,7 @@ class CMB2 {
 			',',
 			array_map(
 				function ( $entry ) {
-					return sanitize_text_field( $entry['value']  );
+					return sanitize_text_field( $entry['value'] );
 				},
 				$values
 			)
