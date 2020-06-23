@@ -76,6 +76,7 @@ class Ai1wm_Import_Done {
 					ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
 					ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
 					ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
+					ai1wm_discover_plugin_basename( 'wordpress-starter/siteground-wizard.php' ),
 					ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 				)
 			);
@@ -148,6 +149,7 @@ class Ai1wm_Import_Done {
 						ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
 						ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
 						ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
+						ai1wm_discover_plugin_basename( 'wordpress-starter/siteground-wizard.php' ),
 						ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 					)
 				);
@@ -223,6 +225,7 @@ class Ai1wm_Import_Done {
 						ai1wm_discover_plugin_basename( 'join-my-multisite/joinmymultisite.php' ),
 						ai1wm_discover_plugin_basename( 'multisite-clone-duplicator/multisite-clone-duplicator.php' ),
 						ai1wm_discover_plugin_basename( 'wordpress-mu-domain-mapping/domain_mapping.php' ),
+						ai1wm_discover_plugin_basename( 'wordpress-starter/siteground-wizard.php' ),
 						ai1wm_discover_plugin_basename( 'pro-sites/pro-sites.php' ),
 					)
 				);
