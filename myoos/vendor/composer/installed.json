@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.142.6",
-        "version_normalized": "3.142.6.0",
+        "version": "3.142.7",
+        "version_normalized": "3.142.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "09a2e1ef4e684c9636d27029e1b163d90c4c166a"
+            "reference": "42f1b348f28388233aa6a0c395f8adc29e8cb752"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/09a2e1ef4e684c9636d27029e1b163d90c4c166a",
-            "reference": "09a2e1ef4e684c9636d27029e1b163d90c4c166a",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/42f1b348f28388233aa6a0c395f8adc29e8cb752",
+            "reference": "42f1b348f28388233aa6a0c395f8adc29e8cb752",
             "shasum": ""
         },
         "require": {
@@ -102,7 +102,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-06-19T18:20:04+00:00",
+        "time": "2020-06-22T18:15:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1500,17 +1500,17 @@
     },
     {
         "name": "grpc/grpc",
-        "version": "1.27.0",
-        "version_normalized": "1.27.0.0",
+        "version": "1.30.0",
+        "version_normalized": "1.30.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/grpc/grpc-php.git",
-            "reference": "a461cb1a975dde305c73168aa4494b90c3801c62"
+            "reference": "31952d18884d91c674b73f8b4da831f708706f20"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/grpc/grpc-php/zipball/a461cb1a975dde305c73168aa4494b90c3801c62",
-            "reference": "a461cb1a975dde305c73168aa4494b90c3801c62",
+            "url": "https://api.github.com/repos/grpc/grpc-php/zipball/31952d18884d91c674b73f8b4da831f708706f20",
+            "reference": "31952d18884d91c674b73f8b4da831f708706f20",
             "shasum": ""
         },
         "require": {
@@ -1523,7 +1523,7 @@
             "ext-protobuf": "For better performance, install the protobuf C extension.",
             "google/protobuf": "To get started using grpc quickly, install the native protobuf library."
         },
-        "time": "2020-01-23T19:27:18+00:00",
+        "time": "2020-06-23T01:49:02+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
