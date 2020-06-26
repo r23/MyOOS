@@ -134,7 +134,7 @@ final class Document extends DOMDocument
     const PROPERTY_GETTER_ERROR_MESSAGE = 'Undefined property: AmpProject\\Dom\\Document::';
 
     // Regex patterns and values used for adding and removing http-equiv charsets for compatibility.
-    const HTML_GET_HEAD_OPENING_TAG_PATTERN     = '/(?><!--.*?-->\s*)*<head(?>\s+[^>]*)?>/is'; // This pattern contains a comment to make sure we don't match a <head> tag within a comment.    const HTML_GET_HEAD_OPENING_TAG_REPLACEMENT = '$0<meta http-equiv="content-type" content="text/html; charset=utf-8">';
+    const HTML_GET_HEAD_OPENING_TAG_PATTERN     = '/(?><!--.*?-->\s*)*<head(?>\s+[^>]*)?>/is'; // This pattern contains a comment to make sure we don't match a <head> tag within a comment.
     const HTML_GET_HEAD_OPENING_TAG_REPLACEMENT = '$0<meta http-equiv="content-type" content="text/html; charset=utf-8">';
     const HTML_GET_HTTP_EQUIV_TAG_PATTERN       = '#<meta http-equiv=([\'"])content-type\1 content=([\'"])text/html; charset=utf-8\2>#i';
     const HTML_HTTP_EQUIV_VALUE                 = 'content-type';
@@ -838,26 +838,26 @@ final class Document extends DOMDocument
      */
     private function maybeReplaceNoscriptElements($html)
     {
-        if (! version_compare(LIBXML_DOTTED_VERSION, '2.8', '<')) {
-            return $html;
+        if (version_compare(LIBXML_DOTTED_VERSION, '2.8', '<')) {
+            $html = preg_replace_callback(
+                '#^.+?(?=<body)#is',
+                function ($headMatches) {
+                    return preg_replace_callback(
+                        '#<noscript[^>]*>.*?</noscript>#si',
+                        function ($noscriptMatches) {
+                            $placeholder = sprintf('<!--noscript:%s-->', (string)$this->rand());
+
+                            $this->noscriptPlaceholderComments[$placeholder] = $noscriptMatches[0];
+                            return $placeholder;
+                        },
+                        $headMatches[0]
+                    );
+                },
+                $html
+            );
         }
 
-        return preg_replace_callback(
-            '#^.+?(?=<body)#is',
-            function ($headMatches) {
-                return preg_replace_callback(
-                    '#<noscript[^>]*>.*?</noscript>#si',
-                    function ($noscriptMatches) {
-                        $placeholder = sprintf('<!--noscript:%s-->', (string)$this->rand());
-
-                        $this->noscriptPlaceholderComments[$placeholder] = $noscriptMatches[0];
-                        return $placeholder;
-                    },
-                    $headMatches[0]
-                );
-            },
-            $html
-        );
+        return $html;
     }
 
     /**
@@ -1411,7 +1411,7 @@ final class Document extends DOMDocument
         /**
          * Main tag to keep.
          *
-         * @var DOMElement $mainTag
+         * @var DOMElement|null $mainTag
          */
         $mainTag = $tags->item(0);
 

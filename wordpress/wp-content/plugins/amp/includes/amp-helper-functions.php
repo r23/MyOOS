@@ -786,6 +786,14 @@ function amp_register_default_scripts( $wp_scripts ) {
 			null
 		);
 	}
+
+	if ( $wp_scripts->query( 'amp-experiment', 'registered' ) ) {
+		/*
+		 * Version 1.0 of amp-experiment is still experimental and requires the user to enable it.
+		 * @todo Revisit once amp-experiment is no longer experimental.
+		 */
+		$wp_scripts->registered['amp-experiment']->src = 'https://cdn.ampproject.org/v0/amp-experiment-0.1.js';
+	}
 }
 
 /**
@@ -1209,8 +1217,9 @@ function amp_get_content_sanitizers( $post = null ) {
 		'AMP_Playbuzz_Sanitizer'          => [],
 		'AMP_Embed_Sanitizer'             => [],
 		'AMP_Iframe_Sanitizer'            => [
-			'add_placeholder' => true,
-			'current_origin'  => $current_origin,
+			'add_placeholder'    => true,
+			'current_origin'     => $current_origin,
+			'align_wide_support' => current_theme_supports( 'align-wide' ),
 		],
 		'AMP_Gallery_Block_Sanitizer'     => [ // Note: Gallery block sanitizer must come after image sanitizers since itś logic is using the already sanitized images.
 			'carousel_required' => ! is_array( $theme_support_args ), // For back-compat.
@@ -1459,20 +1468,20 @@ function amp_get_schemaorg_metadata() {
 		$metadata['publisher']['logo'] = $publisher_logo;
 	}
 
-	$post = get_queried_object();
-	if ( $post instanceof WP_Post ) {
+	$queried_object = get_queried_object();
+	if ( $queried_object instanceof WP_Post ) {
 		$metadata = array_merge(
 			$metadata,
 			[
 				'@type'            => is_page() ? 'WebPage' : 'BlogPosting',
 				'mainEntityOfPage' => get_permalink(),
 				'headline'         => get_the_title(),
-				'datePublished'    => mysql2date( 'c', $post->post_date_gmt, false ),
-				'dateModified'     => mysql2date( 'c', $post->post_modified_gmt, false ),
+				'datePublished'    => mysql2date( 'c', $queried_object->post_date_gmt, false ),
+				'dateModified'     => mysql2date( 'c', $queried_object->post_modified_gmt, false ),
 			]
 		);
 
-		$post_author = get_userdata( $post->post_author );
+		$post_author = get_userdata( $queried_object->post_author );
 		if ( $post_author ) {
 			$metadata['author'] = [
 				'@type' => 'Person',
@@ -1480,7 +1489,7 @@ function amp_get_schemaorg_metadata() {
 			];
 		}
 
-		$image_metadata = amp_get_post_image_metadata( $post );
+		$image_metadata = amp_get_post_image_metadata( $queried_object );
 		if ( $image_metadata ) {
 			$metadata['image'] = $image_metadata['url'];
 		}
@@ -1493,10 +1502,12 @@ function amp_get_schemaorg_metadata() {
 		 *
 		 * @since 0.3
 		 *
-		 * @param array   $metadata Metadata.
-		 * @param WP_Post $post     Post.
+		 * @param array   $metadata       Metadata.
+		 * @param WP_Post $queried_object Post.
 		 */
-		$metadata = apply_filters( 'amp_post_template_metadata', $metadata, $post );
+		$metadata = apply_filters( 'amp_post_template_metadata', $metadata, $queried_object );
+	} elseif ( is_archive() ) {
+		$metadata['@type'] = 'CollectionPage';
 	}
 
 	/**

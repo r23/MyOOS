@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df
+class ComposerStaticInitd9baa440e9e56e97be99543689d7a8f5
 {
     public static $files = array (
         '6f5653f9af3eab04254ad2c7f20515c8' => __DIR__ . '/../..' . '/back-compat/back-compat.php',
@@ -171,7 +171,6 @@ class ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df
         'AmpProject\\Extension' => __DIR__ . '/..' . '/ampproject/common/src/Extension.php',
         'AmpProject\\Fonts' => __DIR__ . '/..' . '/ampproject/common/src/Fonts.php',
         'AmpProject\\Layout' => __DIR__ . '/..' . '/ampproject/common/src/Layout.php',
-        'AmpProject\\Optimizer\\Configurable' => __DIR__ . '/..' . '/ampproject/optimizer/src/Configurable.php',
         'AmpProject\\Optimizer\\Configuration' => __DIR__ . '/..' . '/ampproject/optimizer/src/Configuration.php',
         'AmpProject\\Optimizer\\Configuration\\AmpRuntimeCssConfiguration' => __DIR__ . '/..' . '/ampproject/optimizer/src/Configuration/AmpRuntimeCssConfiguration.php',
         'AmpProject\\Optimizer\\Configuration\\BaseTransformerConfiguration' => __DIR__ . '/..' . '/ampproject/optimizer/src/Configuration/BaseTransformerConfiguration.php',
@@ -190,7 +189,6 @@ class ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df
         'AmpProject\\Optimizer\\Exception\\UnknownConfigurationClass' => __DIR__ . '/..' . '/ampproject/optimizer/src/Exception/UnknownConfigurationClass.php',
         'AmpProject\\Optimizer\\Exception\\UnknownConfigurationKey' => __DIR__ . '/..' . '/ampproject/optimizer/src/Exception/UnknownConfigurationKey.php',
         'AmpProject\\Optimizer\\LocalFallback' => __DIR__ . '/..' . '/ampproject/optimizer/src/LocalFallback.php',
-        'AmpProject\\Optimizer\\MakesRemoteRequests' => __DIR__ . '/..' . '/ampproject/optimizer/src/MakesRemoteRequests.php',
         'AmpProject\\Optimizer\\TransformationEngine' => __DIR__ . '/..' . '/ampproject/optimizer/src/TransformationEngine.php',
         'AmpProject\\Optimizer\\Transformer' => __DIR__ . '/..' . '/ampproject/optimizer/src/Transformer.php',
         'AmpProject\\Optimizer\\TransformerConfiguration' => __DIR__ . '/..' . '/ampproject/optimizer/src/TransformerConfiguration.php',
@@ -258,10 +256,10 @@ class ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit4ec3764ba81323ddf112cd91ef3337df::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd9baa440e9e56e97be99543689d7a8f5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd9baa440e9e56e97be99543689d7a8f5::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd9baa440e9e56e97be99543689d7a8f5::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitd9baa440e9e56e97be99543689d7a8f5::$classMap;
 
         }, null, ClassLoader::class);
     }

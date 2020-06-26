@@ -1,12 +1,12 @@
 [
     {
         "name": "ampproject/common",
-        "version": "dev-develop",
-        "version_normalized": "dev-develop",
+        "version": "1.5.x-dev",
+        "version_normalized": "1.5.9999999.9999999-dev",
         "dist": {
             "type": "path",
             "url": "lib/common",
-            "reference": "2374941a564bc35ed22d8bd6e520c5d05b5e026f"
+            "reference": "630737c71b1e0708d2fde85d04826581c04d41da"
         },
         "require": {
             "ext-dom": "*",
@@ -32,7 +32,7 @@
             },
             "downloads": {
                 "phpstan": {
-                    "url": "https://github.com/phpstan/phpstan/releases/download/0.12.14/phpstan.phar",
+                    "url": "https://github.com/phpstan/phpstan/releases/latest/download/phpstan.phar",
                     "path": "vendor/bin/phpstan",
                     "type": "phar"
                 }
@@ -66,7 +66,7 @@
                 "@analyze"
             ],
             "analyze": [
-                "if [ -z $TEST_SKIP_PHPSTAN ]; then phpstan analyze --ansi; fi"
+                "if [ -z $TEST_SKIP_PHPSTAN ]; then phpstan --version; phpstan analyze --ansi; fi"
             ],
             "unit": [
                 "if [ -z $TEST_SKIP_PHPUNIT ]; then phpunit --colors=always; fi"
@@ -77,17 +77,18 @@
         ],
         "description": "PHP library with common base functionality for AMP integrations.",
         "transport-options": {
-            "symlink": true
+            "symlink": true,
+            "relative": true
         }
     },
     {
         "name": "ampproject/optimizer",
-        "version": "dev-develop",
-        "version_normalized": "dev-develop",
+        "version": "1.5.x-dev",
+        "version_normalized": "1.5.9999999.9999999-dev",
         "dist": {
             "type": "path",
             "url": "lib/optimizer",
-            "reference": "92ee306a1e4a15e21d9091d9946f1cb124e833e2"
+            "reference": "2659539ed2f0a42a6b974fce469ff3278e7fe55f"
         },
         "require": {
             "ampproject/common": "^1",
@@ -114,7 +115,7 @@
             },
             "downloads": {
                 "phpstan": {
-                    "url": "https://github.com/phpstan/phpstan/releases/download/0.12.14/phpstan.phar",
+                    "url": "https://github.com/phpstan/phpstan/releases/latest/download/phpstan.phar",
                     "path": "vendor/bin/phpstan",
                     "type": "phar"
                 }
@@ -142,7 +143,7 @@
                 "if [ -z $TEST_SKIP_LINTING ]; then parallel-lint -j 10 --colors --exclude vendor .; fi"
             ],
             "post-update-cmd": [
-                "rm -rf tests/spec && bin/sync-amp-toolbox-test-suite.php",
+                "@update-test-specs",
                 "bin/sync-amp-runtime-local-fallback-resources.php"
             ],
             "test": [
@@ -152,10 +153,13 @@
                 "@analyze"
             ],
             "analyze": [
-                "if [ -z $TEST_SKIP_PHPSTAN ]; then phpstan analyze --ansi; fi"
+                "if [ -z $TEST_SKIP_PHPSTAN ]; then phpstan version; phpstan analyze --ansi; fi"
             ],
             "unit": [
                 "if [ -z $TEST_SKIP_PHPUNIT ]; then phpunit --colors=always; fi"
+            ],
+            "update-test-specs": [
+                "rm -rf tests/spec && bin/sync-amp-toolbox-test-suite.php"
             ]
         },
         "license": [
@@ -163,7 +167,8 @@
         ],
         "description": "PHP library for optimizing AMP pages.",
         "transport-options": {
-            "symlink": true
+            "symlink": true,
+            "relative": true
         }
     },
     {
