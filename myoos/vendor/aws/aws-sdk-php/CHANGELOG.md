@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## 3.143.2 - 2020-06-26
+
+* `Aws\CloudFormation` - ListStackInstances and DescribeStackInstance now return a new `StackInstanceStatus` object that contains `DetailedStatus` values: a disambiguation of the more generic `Status` value. ListStackInstances output can now be filtered on `DetailedStatus` using the new `Filters` parameter.
+* `Aws\CognitoIdentityProvider` - Don't require Authorization for InitiateAuth and RespondToAuthChallenge.
+* `Aws\DatabaseMigrationService` - This release contains miscellaneous API documentation updates for AWS DMS in response to several customer reported issues.
+* `Aws\QuickSight` - Added support for cross-region DataSource credentials copying.
+* `Aws\SageMaker` - The new 'ModelClientConfig' parameter being added for CreateTransformJob and DescribeTransformJob api actions enable customers to configure model invocation related parameters such as timeout and retry.
+
+## 3.143.1 - 2020-06-25
+
+* `Aws\EC2` - Added support for tag-on-create for Host Reservations in Dedicated Hosts. You can now specify tags when you create a Host Reservation for a Dedicated Host. For more information about tagging, see AWS Tagging Strategies.
+* `Aws\Glue` - This release adds new APIs to support column level statistics in AWS Glue Data Catalog
+
+## 3.143.0 - 2020-06-24
+
+* `Aws\Amplify` - This release of AWS Amplify Console introduces support for automatically creating custom subdomains for branches based on user-defined glob patterns, as well as automatically cleaning up Amplify branches when their corresponding git branches are deleted.
+* `Aws\AutoScaling` - Documentation updates for Amazon EC2 Auto Scaling.
+* `Aws\Backup` - Customers can now manage and monitor their backups in a policied manner across their AWS accounts, via an integration between AWS Backup and AWS Organizations
+* `Aws\CodeCommit` - This release introduces support for reactions to CodeCommit comments. Users will be able to select from a pre-defined list of emojis to express their reaction to any comments.
+* `Aws\EMR` - Amazon EMR customers can now set allocation strategies for On-Demand and Spot instances in their EMR clusters with instance fleets. These allocation strategies use real-time capacity insights to provision clusters faster and make the most efficient use of available spare capacity to allocate Spot instances to reduce interruptions. 
+* `Aws\FSx` - This release adds the capability to take highly-durable, incremental backups of your FSx for Lustre persistent file systems. This capability makes it easy to further protect your file system data and to meet business and regulatory compliance requirements.
+* `Aws\Honeycode` - Introducing Amazon Honeycode - a fully managed service that allows you to quickly build mobile and web apps for teams without programming.
+* `Aws\IAM` - Documentation updates for iam
+* `Aws\Organizations` - This release adds support for a new backup policy type for AWS Organizations.
+
+## 3.142.8 - 2020-06-23
+
+* `Aws\MediaTailor` - AWS Elemental MediaTailor SDK now allows configuration of Bumper.
+* `Aws\Organizations` - Added a new error message to support the requirement for a Business License on AWS accounts in China to create an organization.
+
 ## 3.142.7 - 2020-06-22
 
 * `Aws\EC2` - This release adds Tag On Create feature support for the ImportImage, ImportSnapshot, ExportImage and CreateInstanceExportTask APIs.
