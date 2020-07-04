@@ -35,24 +35,6 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 		return;
 	}
 
-	$fields_senseless =
-		$contact_form->scan_form_tags( array( 'feature' => 'do-not-store' ) );
-
-	$exclude_names = array();
-
-	foreach ( $fields_senseless as $tag ) {
-		$exclude_names[] = $tag['name'];
-	}
-
-	$exclude_names[] = 'g-recaptcha-response';
-
-	foreach ( $posted_data as $key => $value ) {
-		if ( '_' == substr( $key, 0, 1 )
-		or in_array( $key, $exclude_names ) ) {
-			unset( $posted_data[$key] );
-		}
-	}
-
 	$email = wpcf7_flamingo_get_value( 'email', $contact_form );
 	$name = wpcf7_flamingo_get_value( 'name', $contact_form );
 	$subject = wpcf7_flamingo_get_value( 'subject', $contact_form );
@@ -122,6 +104,7 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 
 	$args = array(
 		'channel' => $channel,
+		'status' => $submission->get_status(),
 		'subject' => $subject,
 		'from' => trim( sprintf( '%s <%s>', $name, $email ) ),
 		'from_name' => $name,
@@ -131,6 +114,8 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 		'akismet' => $akismet,
 		'spam' => ( 'spam' == $result['status'] ),
 		'consent' => $submission->collect_consent(),
+		'timestamp' => $submission->get_meta( 'timestamp' ),
+		'posted_data_hash' => $submission->get_posted_data_hash(),
 	);
 
 	if ( $args['spam'] ) {
@@ -162,19 +147,20 @@ function wpcf7_flamingo_get_value( $field, $contact_form ) {
 	$value = '';
 
 	if ( in_array( $field, array( 'email', 'name', 'subject' ) ) ) {
-		$templates = $contact_form->additional_setting( 'flamingo_' . $field );
+		$template = $contact_form->pref( 'flamingo_' . $field );
 
-		if ( empty( $templates[0] ) ) {
+		if ( null === $template ) {
 			$template = sprintf( '[your-%s]', $field );
 		} else {
-			$template = trim( wpcf7_strip_quote( $templates[0] ) );
+			$template = trim( wpcf7_strip_quote( $template ) );
 		}
 
 		$value = wpcf7_mail_replace_tags( $template );
 	}
 
 	$value = apply_filters( 'wpcf7_flamingo_get_value', $value,
-		$field, $contact_form );
+		$field, $contact_form
+	);
 
 	return $value;
 }

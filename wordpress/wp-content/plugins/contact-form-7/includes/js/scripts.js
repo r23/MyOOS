@@ -45,6 +45,8 @@
 	wpcf7.initForm = function( form ) {
 		var $form = $( form );
 
+		wpcf7.setStatus( $form, 'init' );
+
 		$form.submit( function( event ) {
 			if ( ! wpcf7.supportHtml5.placeholder ) {
 				$( '[placeholder].placeheld', $form ).each( function( i, n ) {
@@ -161,7 +163,6 @@
 		var $form = $( form );
 
 		$( '.ajax-loader', $form ).addClass( 'is-active' );
-
 		wpcf7.clearResponse( $form );
 
 		var formData = new FormData( $form.get( 0 ) );
@@ -184,12 +185,6 @@
 				detail.unitTag = field.value;
 			} else if ( '_wpcf7_container_post' == field.name ) {
 				detail.containerPostId = field.value;
-			} else if ( field.name.match( /^_wpcf7_\w+_free_text_/ ) ) {
-				var owner = field.name.replace( /^_wpcf7_\w+_free_text_/, '' );
-				detail.inputs.push( {
-					name: owner + '-free-text',
-					value: field.value
-				} );
 			} else if ( field.name.match( /^_/ ) ) {
 				// do nothing
 			} else {
@@ -204,11 +199,12 @@
 			detail.status = data.status;
 			detail.apiResponse = data;
 
-			var $message = $( '.wpcf7-response-output', $form );
-
 			switch ( data.status ) {
+				case 'init':
+					wpcf7.setStatus( $form, 'init' );
+					break;
 				case 'validation_failed':
-					$.each( data.invalidFields, function( i, n ) {
+					$.each( data.invalid_fields, function( i, n ) {
 						$( n.into, $form ).each( function() {
 							wpcf7.notValidTip( this, n.message );
 							$( '.wpcf7-form-control', this ).addClass( 'wpcf7-not-valid' );
@@ -216,46 +212,33 @@
 						} );
 					} );
 
-					$message.addClass( 'wpcf7-validation-errors' );
-					$form.addClass( 'invalid' );
-
+					wpcf7.setStatus( $form, 'invalid' );
 					wpcf7.triggerEvent( data.into, 'invalid', detail );
 					break;
 				case 'acceptance_missing':
-					$message.addClass( 'wpcf7-acceptance-missing' );
-					$form.addClass( 'unaccepted' );
-
+					wpcf7.setStatus( $form, 'unaccepted' );
 					wpcf7.triggerEvent( data.into, 'unaccepted', detail );
 					break;
 				case 'spam':
-					$message.addClass( 'wpcf7-spam-blocked' );
-					$form.addClass( 'spam' );
-
+					wpcf7.setStatus( $form, 'spam' );
 					wpcf7.triggerEvent( data.into, 'spam', detail );
 					break;
 				case 'aborted':
-					$message.addClass( 'wpcf7-aborted' );
-					$form.addClass( 'aborted' );
-
+					wpcf7.setStatus( $form, 'aborted' );
 					wpcf7.triggerEvent( data.into, 'aborted', detail );
 					break;
 				case 'mail_sent':
-					$message.addClass( 'wpcf7-mail-sent-ok' );
-					$form.addClass( 'sent' );
-
+					wpcf7.setStatus( $form, 'sent' );
 					wpcf7.triggerEvent( data.into, 'mailsent', detail );
 					break;
 				case 'mail_failed':
-					$message.addClass( 'wpcf7-mail-sent-ng' );
-					$form.addClass( 'failed' );
-
+					wpcf7.setStatus( $form, 'failed' );
 					wpcf7.triggerEvent( data.into, 'mailfailed', detail );
 					break;
 				default:
-					var customStatusClass = 'custom-'
-						+ data.status.replace( /[^0-9a-z]+/i, '-' );
-					$message.addClass( 'wpcf7-' + customStatusClass );
-					$form.addClass( customStatusClass );
+					wpcf7.setStatus( $form,
+						'custom-' + data.status.replace( /[^0-9a-z]+/i, '-' )
+					);
 			}
 
 			wpcf7.refill( $form, data );
@@ -277,17 +260,17 @@
 				} );
 			}
 
-			$message.html( '' ).append( data.message ).slideDown( 'fast' );
-			$message.attr( 'role', 'alert' );
+			$( '.wpcf7-response-output', $form )
+				.html( '' ).append( data.message ).slideDown( 'fast' );
 
 			$( '.screen-reader-response', $form.closest( '.wpcf7' ) ).each( function() {
 				var $response = $( this );
-				$response.html( '' ).attr( 'role', '' ).append( data.message );
+				$response.html( '' ).append( data.message );
 
-				if ( data.invalidFields ) {
+				if ( data.invalid_fields ) {
 					var $invalids = $( '<ul></ul>' );
 
-					$.each( data.invalidFields, function( i, n ) {
+					$.each( data.invalid_fields, function( i, n ) {
 						if ( n.idref ) {
 							var $li = $( '<li></li>' ).append( $( '<a></a>' ).attr( 'href', '#' + n.idref ).append( n.message ) );
 						} else {
@@ -300,8 +283,13 @@
 					$response.append( $invalids );
 				}
 
-				$response.attr( 'role', 'alert' ).focus();
+				$response.focus();
 			} );
+
+			if ( data.posted_data_hash ) {
+				$form.find( 'input[name="_wpcf7_posted_data_hash"]' ).first()
+					.val( data.posted_data_hash );
+			}
 		};
 
 		$.ajax( {
@@ -322,20 +310,25 @@
 	};
 
 	wpcf7.triggerEvent = function( target, name, detail ) {
-		var $target = $( target );
-
-		/* DOM event */
 		var event = new CustomEvent( 'wpcf7' + name, {
 			bubbles: true,
 			detail: detail
 		} );
 
-		$target.get( 0 ).dispatchEvent( event );
-
-		/* jQuery event */
-		$target.trigger( 'wpcf7:' + name, detail );
-		$target.trigger( name + '.wpcf7', detail ); // deprecated
+		$( target ).get( 0 ).dispatchEvent( event );
 	};
+
+	wpcf7.setStatus = function( form, status ) {
+		var $form = $( form );
+		var prevStatus = $form.data( 'status' );
+
+		$form.data( 'status', status );
+		$form.addClass( status );
+
+		if ( prevStatus && prevStatus !== status ) {
+			$form.removeClass( prevStatus );
+		}
+	}
 
 	wpcf7.toggleSubmit = function( form, state ) {
 		var $form = $( form );
@@ -492,16 +485,13 @@
 
 	wpcf7.clearResponse = function( form ) {
 		var $form = $( form );
-		$form.removeClass( 'invalid spam sent failed' );
-		$form.siblings( '.screen-reader-response' ).html( '' ).attr( 'role', '' );
+		$form.siblings( '.screen-reader-response' ).html( '' );
 
 		$( '.wpcf7-not-valid-tip', $form ).remove();
 		$( '[aria-invalid]', $form ).attr( 'aria-invalid', 'false' );
 		$( '.wpcf7-form-control', $form ).removeClass( 'wpcf7-not-valid' );
 
-		$( '.wpcf7-response-output', $form )
-			.hide().empty().removeAttr( 'role' )
-			.removeClass( 'wpcf7-mail-sent-ok wpcf7-mail-sent-ng wpcf7-validation-errors wpcf7-spam-blocked' );
+		$( '.wpcf7-response-output', $form ).hide().empty();
 	};
 
 	wpcf7.apiSettings.getRoute = function( path ) {

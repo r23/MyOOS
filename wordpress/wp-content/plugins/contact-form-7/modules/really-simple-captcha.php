@@ -176,8 +176,8 @@ function wpcf7_captcha_validation_filter( $result, $tag ) {
 
 /* Ajax echo filter */
 
-add_filter( 'wpcf7_ajax_onload', 'wpcf7_captcha_ajax_refill', 10, 1 );
-add_filter( 'wpcf7_ajax_json_echo', 'wpcf7_captcha_ajax_refill', 10, 1 );
+add_filter( 'wpcf7_refill_response', 'wpcf7_captcha_ajax_refill', 10, 1 );
+add_filter( 'wpcf7_feedback_response', 'wpcf7_captcha_ajax_refill', 10, 1 );
 
 function wpcf7_captcha_ajax_refill( $items ) {
 	if ( ! is_array( $items ) ) {
@@ -552,7 +552,7 @@ function wpcf7_cleanup_captcha_files() {
 
 			$stat = stat( path_join( $dir, $file ) );
 
-			if ( $stat['mtime'] + 3600 < time() ) { // 3600 secs == 1 hour
+			if ( $stat['mtime'] + HOUR_IN_SECONDS < time() ) {
 				@unlink( path_join( $dir, $file ) );
 			}
 		}

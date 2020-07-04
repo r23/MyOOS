@@ -105,7 +105,8 @@ class WPCF7_Mail {
 		);
 
 		$components = apply_filters( 'wpcf7_mail_components',
-			$components, wpcf7_get_current_contact_form(), $this );
+			$components, wpcf7_get_current_contact_form(), $this
+		);
 
 		if ( ! $send ) {
 			return $components;
@@ -340,11 +341,14 @@ class WPCF7_MailTaggedText {
 
 				$replaced = apply_filters(
 					"wpcf7_mail_tag_replaced_{$type}", $replaced,
-					$submitted, $html, $mail_tag );
+					$submitted, $html, $mail_tag
+				);
 			}
 
-			$replaced = apply_filters( 'wpcf7_mail_tag_replaced', $replaced,
-				$submitted, $html, $mail_tag );
+			$replaced = apply_filters(
+				'wpcf7_mail_tag_replaced', $replaced,
+				$submitted, $html, $mail_tag
+			);
 
 			$replaced = wp_unslash( trim( $replaced ) );
 
@@ -369,7 +373,11 @@ class WPCF7_MailTaggedText {
 
 		foreach ( $original as $key => $value ) {
 			if ( preg_match( '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/', $value ) ) {
-				$original[$key] = mysql2date( $format, $value );
+				$datetime = date_create( $value, wp_timezone() );
+
+				if ( false !== $datetime ) {
+					$original[$key] = wp_date( $format, $datetime->getTimestamp() );
+				}
 			}
 		}
 

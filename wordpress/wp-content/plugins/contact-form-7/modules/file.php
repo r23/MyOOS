@@ -87,7 +87,7 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 
 	$file = isset( $_FILES[$name] ) ? $_FILES[$name] : null;
 
-	if ( $file['error'] and UPLOAD_ERR_NO_FILE !== $file['error'] ) {
+	if ( ! empty( $file['error'] ) and UPLOAD_ERR_NO_FILE !== $file['error'] ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'upload_failed_php_error' ) );
 		return $result;
 	}
@@ -97,20 +97,25 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 		return $result;
 	}
 
-	if ( ! is_uploaded_file( $file['tmp_name'] ) ) {
+	if ( empty( $file['tmp_name'] )
+	or ! is_uploaded_file( $file['tmp_name'] ) ) {
 		return $result;
 	}
 
 	/* File type validation */
 
 	$file_type_pattern = wpcf7_acceptable_filetypes(
-		$tag->get_option( 'filetypes' ), 'regex' );
+		$tag->get_option( 'filetypes' ), 'regex'
+	);
 
 	$file_type_pattern = '/\.(' . $file_type_pattern . ')$/i';
 
-	if ( ! preg_match( $file_type_pattern, $file['name'] ) ) {
+	if ( empty( $file['name'] )
+	or ! preg_match( $file_type_pattern, $file['name'] ) ) {
 		$result->invalidate( $tag,
-			wpcf7_get_message( 'upload_file_type_invalid' ) );
+			wpcf7_get_message( 'upload_file_type_invalid' )
+		);
+
 		return $result;
 	}
 
@@ -118,7 +123,7 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 
 	$allowed_size = $tag->get_limit_option();
 
-	if ( $allowed_size < $file['size'] ) {
+	if ( ! empty( $file['size'] ) and $allowed_size < $file['size'] ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'upload_file_too_large' ) );
 		return $result;
 	}
@@ -132,7 +137,8 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 	$filename = wpcf7_antiscript_file_name( $filename );
 
 	$filename = apply_filters( 'wpcf7_upload_file_name', $filename,
-		$file['name'], $tag );
+		$file['name'], $tag
+	);
 
 	$filename = wp_unique_filename( $uploads_dir, $filename );
 	$new_file = path_join( $uploads_dir, $filename );
@@ -150,6 +156,21 @@ function wpcf7_file_validation_filter( $result, $tag ) {
 	}
 
 	return $result;
+}
+
+add_filter( 'wpcf7_mail_tag_replaced_file', 'wpcf7_file_mail_tag', 10, 4 );
+add_filter( 'wpcf7_mail_tag_replaced_file*', 'wpcf7_file_mail_tag', 10, 4 );
+
+function wpcf7_file_mail_tag( $replaced, $submitted, $html, $mail_tag ) {
+	$submission = WPCF7_Submission::get_instance();
+	$uploaded_files = $submission->uploaded_files();
+	$name = $mail_tag->field_name();
+
+	if ( ! empty( $uploaded_files[$name] ) ) {
+		$replaced = wp_basename( $uploaded_files[$name] );
+	}
+
+	return $replaced;
 }
 
 
