@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.145.0",
-        "version_normalized": "3.145.0.0",
+        "version": "3.145.2",
+        "version_normalized": "3.145.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "df5406b49f4f5774045e51e8fecc75717c4d6454"
+            "reference": "6b802a3fc49f51d99ad95659d47950ae1a8f57ec"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/df5406b49f4f5774045e51e8fecc75717c4d6454",
-            "reference": "df5406b49f4f5774045e51e8fecc75717c4d6454",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6b802a3fc49f51d99ad95659d47950ae1a8f57ec",
+            "reference": "6b802a3fc49f51d99ad95659d47950ae1a8f57ec",
             "shasum": ""
         },
         "require": {
@@ -102,7 +102,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-07-02T18:12:35+00:00",
+        "time": "2020-07-07T18:31:43+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -393,17 +393,17 @@
     },
     {
         "name": "doctrine/collections",
-        "version": "1.6.5",
-        "version_normalized": "1.6.5.0",
+        "version": "1.6.6",
+        "version_normalized": "1.6.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/collections.git",
-            "reference": "fc0206348e17e530d09463fef07ba8968406cd6d"
+            "reference": "5f0470363ff042d0057006ae7acabc5d7b5252d5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/collections/zipball/fc0206348e17e530d09463fef07ba8968406cd6d",
-            "reference": "fc0206348e17e530d09463fef07ba8968406cd6d",
+            "url": "https://api.github.com/repos/doctrine/collections/zipball/5f0470363ff042d0057006ae7acabc5d7b5252d5",
+            "reference": "5f0470363ff042d0057006ae7acabc5d7b5252d5",
             "shasum": ""
         },
         "require": {
@@ -415,7 +415,7 @@
             "phpunit/phpunit": "^7.0",
             "vimeo/psalm": "^3.8.1"
         },
-        "time": "2020-05-25T19:24:35+00:00",
+        "time": "2020-06-22T19:14:02+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -4067,17 +4067,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.39.0",
-        "version_normalized": "7.39.0.0",
+        "version": "v7.40.0",
+        "version_normalized": "7.40.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "350e4f4db026bd0627925885b30c09d054777b68"
+            "reference": "04aedea5ad95b9722aa394a41787751b2b478310"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/350e4f4db026bd0627925885b30c09d054777b68",
-            "reference": "350e4f4db026bd0627925885b30c09d054777b68",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/04aedea5ad95b9722aa394a41787751b2b478310",
+            "reference": "04aedea5ad95b9722aa394a41787751b2b478310",
             "shasum": ""
         },
         "require": {
@@ -4093,7 +4093,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-06-25T23:56:19+00:00",
+        "time": "2020-07-06T17:51:30+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

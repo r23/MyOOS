@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 3.145.2 - 2020-07-07
+
+* `Aws\CloudFront` - Amazon CloudFront adds support for a new security policy, TLSv1.2_2019.
+* `Aws\EC2` - DescribeAvailabilityZones now returns additional data about Availability Zones and Local Zones.
+* `Aws\EFS` - This release adds support for automatic backups of Amazon EFS file systems to further simplify backup management. 
+* `Aws\Glue` - AWS Glue Data Catalog supports cross account sharing of tables through AWS Lake Formation
+* `Aws\LakeFormation` -  AWS Lake Formation supports sharing tables with other AWS accounts and organizations
+* `Aws\StorageGateway` - Adding support for file-system driven directory refresh, Case Sensitivity toggle for SMB File Shares, and S3 Prefixes and custom File Share names
+
+## 3.145.1 - 2020-07-06
+
+* `Aws\IoTSiteWise` - This release supports optional start date and end date parameters for the GetAssetPropertyValueHistory API.
+* `Aws\QuickSight` - Add Theme APIs and update Dashboard APIs to support theme overrides.
+* `Aws\RDS` - Adds support for Amazon RDS on AWS Outposts.
+
 ## 3.145.0 - 2020-07-02
 
 * `Aws\Api` - Fixed bug with marshalling empty strings from dynamodb
