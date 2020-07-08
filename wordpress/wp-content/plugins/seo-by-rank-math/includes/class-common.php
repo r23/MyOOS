@@ -48,7 +48,6 @@ class Common {
 
 		// Auto-update the plugin.
 		if ( Helper::get_settings( 'general.enable_auto_update' ) && false === boolval( get_option( 'rank_math_rollback_version', false ) ) ) {
-			$this->filter( 'auto_update_plugin', 'auto_update_plugin', 10, 2 );
 			new Auto_Updater();
 		}
 
@@ -132,27 +131,6 @@ class Common {
 			$this->create_overlay_image( $image[0], $overlay_image );
 		}
 		die();
-	}
-
-	/**
-	 * Auto update the plugin.
-	 *
-	 * @param bool  $update Whether to update the plugin or not.
-	 * @param array $item  The update plugin object.
-	 *
-	 * @return bool
-	 */
-	public function auto_update_plugin( $update, $item ) {
-		if (
-			isset( $item->slug ) &&
-			'seo-by-rank-math' === $item->slug &&
-			isset( $item->new_version ) &&
-			false === stripos( $item->new_version, 'beta' )
-		) {
-			return true;
-		}
-
-		return $update;
 	}
 
 	/**

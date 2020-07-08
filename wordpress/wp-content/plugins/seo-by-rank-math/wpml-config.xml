@@ -2,6 +2,10 @@
 	<custom-fields>
 		<custom-field action="translate">rank_math_title</custom-field>
 		<custom-field action="translate">rank_math_description</custom-field>
+		<custom-field action="translate">rank_math_facebook_title</custom-field>
+		<custom-field action="translate">rank_math_facebook_description</custom-field>
+		<custom-field action="translate">rank_math_twitter_title</custom-field>
+		<custom-field action="translate">rank_math_twitter_description</custom-field>
 		<custom-field action="translate">rank_math_focus_keyword</custom-field>
 		<custom-field action="ignore">rank_math_canonical_url</custom-field>
 		<custom-field action="copy-once">rank_math_robots</custom-field>

@@ -8,7 +8,19 @@
 
 use RankMath\Helper;
 
-$post_type     = $tab['post_type'];
+$post_type = $tab['post_type'];
+if ( 'attachment' === $post_type && Helper::get_settings( 'general.attachment_redirect_urls', true ) ) {
+	$cmb->add_field(
+		[
+			'id'      => 'redirect_attachment_notice',
+			'type'    => 'notice',
+			'what'    => 'warning',
+			'content' => esc_html__( 'To configure attachment-related meta tags disable attachment redirection to parent.', 'rank-math' ),
+		]
+	);
+	return;
+}
+
 $post_type_obj = get_post_type_object( $post_type );
 $name          = $post_type_obj->labels->singular_name;
 
@@ -112,17 +124,34 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 	);
 
 } else {
-	$cmb->add_field(
-		[
-			'id'         => 'pt_' . $post_type . '_default_rich_snippet',
-			'type'       => 'select',
-			'name'       => esc_html__( 'Schema Type', 'rank-math' ),
-			'desc'       => esc_html__( 'Default rich snippet selected when creating a new post of this type. ', 'rank-math' ),
-			'options'    => Helper::choices_rich_snippet_types( esc_html__( 'None (Click here to set one)', 'rank-math' ) ),
-			'default'    => $this->do_filter( 'settings/snippet/type', isset( $richsnp_default[ $post_type ] ) ? $richsnp_default[ $post_type ] : 'off', $post_type ),
-			'attributes' => [ 'data-s2' => '' ],
-		]
-	);
+	if ( defined( 'WEBSTORIES_VERSION' ) && 'web-story' === $post_type ) {
+		$cmb->add_field(
+			[
+				'id'      => 'pt_' . $post_type . '_default_rich_snippet',
+				'type'    => 'select',
+				'name'    => esc_html__( 'Schema Type', 'rank-math' ),
+				/* translators: link to title setting screen */
+				'desc'    => __( 'Default rich snippet selected when creating a new story.', 'rank-math' ),
+				'options' => [
+					'off'     => esc_html__( 'None', 'rank-math' ),
+					'article' => esc_html__( 'Article', 'rank-math' ),
+				],
+				'default' => $this->do_filter( 'settings/snippet/type', 'article', $post_type ),
+			]
+		);
+	} else {
+		$cmb->add_field(
+			[
+				'id'         => 'pt_' . $post_type . '_default_rich_snippet',
+				'type'       => 'select',
+				'name'       => esc_html__( 'Schema Type', 'rank-math' ),
+				'desc'       => esc_html__( 'Default rich snippet selected when creating a new post of this type. ', 'rank-math' ),
+				'options'    => Helper::choices_rich_snippet_types( esc_html__( 'None (Click here to set one)', 'rank-math' ) ),
+				'default'    => $this->do_filter( 'settings/snippet/type', isset( $richsnp_default[ $post_type ] ) ? $richsnp_default[ $post_type ] : 'off', $post_type ),
+				'attributes' => [ 'data-s2' => '' ],
+			]
+		);
+	}
 
 	// Common fields.
 	$cmb->add_field(
@@ -339,4 +368,13 @@ if ( ! $post_type_obj->has_archive ) {
 if ( 'attachment' === $post_type ) {
 	$cmb->remove_field( 'pt_' . $post_type . '_link_suggestions' );
 	$cmb->remove_field( 'pt_' . $post_type . '_ls_use_fk' );
+}
+
+if ( defined( 'WEBSTORIES_VERSION' ) && 'web-story' === $post_type ) {
+	$cmb->remove_field( 'pt_' . $post_type . '_description' );
+	$cmb->remove_field( 'pt_' . $post_type . '_link_suggestions' );
+	$cmb->remove_field( 'pt_' . $post_type . '_ls_use_fk' );
+	$cmb->remove_field( 'pt_' . $post_type . '_analyze_fields' );
+	$cmb->remove_field( 'pt_' . $post_type . '_bulk_editing' );
+	$cmb->remove_field( 'pt_' . $post_type . '_add_meta_box' );
 }
