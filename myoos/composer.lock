@@ -61,16 +61,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.145.3",
+            "version": "3.145.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "69b7e99246c64d75b16dd3e926da0ea9f73088ad"
+                "reference": "3c5a921f0de917f9fc3d51b2970106d3abfc6b8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/69b7e99246c64d75b16dd3e926da0ea9f73088ad",
-                "reference": "69b7e99246c64d75b16dd3e926da0ea9f73088ad",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3c5a921f0de917f9fc3d51b2970106d3abfc6b8f",
+                "reference": "3c5a921f0de917f9fc3d51b2970106d3abfc6b8f",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +142,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-07-08T18:13:01+00:00"
+            "time": "2020-07-09T18:13:42+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
@@ -752,16 +752,16 @@
         },
         {
             "name": "endroid/qr-code",
-            "version": "3.8.2",
+            "version": "3.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endroid/qr-code.git",
-                "reference": "1616778c697238b16e1b7592ea824bafcf7d108c"
+                "reference": "8605e2c958ed568788da4e16bd8a9502e32f375f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endroid/qr-code/zipball/1616778c697238b16e1b7592ea824bafcf7d108c",
-                "reference": "1616778c697238b16e1b7592ea824bafcf7d108c",
+                "url": "https://api.github.com/repos/endroid/qr-code/zipball/8605e2c958ed568788da4e16bd8a9502e32f375f",
+                "reference": "8605e2c958ed568788da4e16bd8a9502e32f375f",
                 "shasum": ""
             },
             "require": {
@@ -774,10 +774,12 @@
                 "symfony/property-access": "^3.4||^4.4||^5.0"
             },
             "require-dev": {
-                "endroid/quality": "dev-master"
+                "endroid/quality": "dev-master",
+                "setasign/fpdf": "^1.8"
             },
             "suggest": {
                 "roave/security-advisories": "Avoids installation of package versions with vulnerabilities",
+                "setasign/fpdf": "Required to use the FPDF writer.",
                 "symfony/security-checker": "Checks your composer.lock for vulnerabilities"
             },
             "type": "library",
@@ -811,7 +813,7 @@
                 "qr",
                 "qrcode"
             ],
-            "time": "2020-06-19T08:57:37+00:00"
+            "time": "2020-07-10T10:16:06+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -3837,21 +3839,21 @@
         },
         {
             "name": "spatie/dropbox-api",
-            "version": "1.14.0",
+            "version": "1.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/dropbox-api.git",
-                "reference": "0df470c072f707c5e9934cb156bbadc4d41ec4ea"
+                "reference": "0cac9d3b613514cba2fef7b8f00b41a7b9d2b2a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/dropbox-api/zipball/0df470c072f707c5e9934cb156bbadc4d41ec4ea",
-                "reference": "0df470c072f707c5e9934cb156bbadc4d41ec4ea",
+                "url": "https://api.github.com/repos/spatie/dropbox-api/zipball/0cac9d3b613514cba2fef7b8f00b41a7b9d2b2a3",
+                "reference": "0cac9d3b613514cba2fef7b8f00b41a7b9d2b2a3",
                 "shasum": ""
             },
             "require": {
-                "graham-campbell/guzzle-factory": "^3.0",
-                "guzzlehttp/guzzle": "^6.2",
+                "graham-campbell/guzzle-factory": "^3.0||^4.0",
+                "guzzlehttp/guzzle": "^6.2||^7.0",
                 "php": "^7.1"
             },
             "require-dev": {
@@ -3890,7 +3892,7 @@
                 "spatie",
                 "v2"
             ],
-            "time": "2020-05-19T06:51:13+00:00"
+            "time": "2020-07-10T15:17:57+00:00"
         },
         {
             "name": "spatie/flysystem-dropbox",
