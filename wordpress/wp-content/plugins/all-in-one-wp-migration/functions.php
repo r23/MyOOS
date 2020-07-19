@@ -1779,3 +1779,22 @@ function ai1wm_got_url_rewrite() {
 
 	return apache_mod_loaded( 'mod_rewrite', false );
 }
+
+/**
+ * Returns whether the server supports URL permalinks.
+ * Detects Apache's mod_rewrite and URL permalinks.
+ *
+ * @return boolean Whether the server supports URL permalinks.
+ */
+function ai1wm_got_url_permalinks() {
+	global $wp_rewrite, $is_apache;
+	if ( $wp_rewrite->using_permalinks() ) {
+		return true;
+	}
+
+	if ( $is_apache ) {
+		return apache_mod_loaded( 'mod_rewrite', false );
+	}
+
+	return true;
+}

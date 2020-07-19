@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( 'Kangaroos cannot jump here' );
 }
 
-if ( ai1wm_got_url_rewrite() ) {
+if ( ai1wm_got_url_permalinks() ) {
 	printf(
 		__(
 			'» <a class="ai1wm-no-underline" href="%s" target="_blank">Save permalinks structure</a>. (opens a new window)<br />' .

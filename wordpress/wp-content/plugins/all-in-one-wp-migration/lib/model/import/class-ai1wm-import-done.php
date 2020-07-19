@@ -245,7 +245,7 @@ class Ai1wm_Import_Done {
 		}
 
 		// Switch to default permalink structure
-		if ( ! ai1wm_got_url_rewrite() ) {
+		if ( ! ai1wm_got_url_permalinks() ) {
 			$wp_rewrite->set_permalink_structure( '' );
 		}
 
