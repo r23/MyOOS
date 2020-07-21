@@ -4,6 +4,19 @@ This is the Developer Changelog for Matomo platform developers. All changes in o
 
 The Product Changelog at **[matomo.org/changelog](https://matomo.org/changelog)** lets you see more details about any Matomo release, such as the list of new guides and FAQs, security fixes, and links to all closed issues. 
 
+## Matomo 3.14.0
+
+### New API
+
+The following new JavaScript tracker methods have been added:
+
+* `_paq.push(['setVisitorId', visitorId]);`. This can be used to force a specific visitorId. It takes a 16 digit hexadecimal string.
+* `_paq.push(['requireCookieConsent']);`. Call this method if cookies should be only used when consent was given.
+* `_paq.push(['rememberCookieConsentGiven']);`. Call this method when a user gives you cookie consent.
+* `_paq.push(['forgetCookieConsentGiven']);`. Call this method when a user revokes cookie consent.
+* `_paq.push(['setCookieConsentGiven']);`. Call this method to let the tracker know consent was given for the current page view (won't be remembered across requests).
+* For more info on consent have a look at https://developer.matomo.org/guides/tracking-javascript-guide#asking-for-consent
+
 ## Matomo 3.13.6
 
 ### API Changes

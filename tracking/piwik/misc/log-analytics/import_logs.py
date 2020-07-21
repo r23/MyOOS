@@ -48,6 +48,7 @@ import functools
 import traceback
 import socket
 import textwrap
+import glob
 
 try:
     import json
@@ -212,6 +213,9 @@ class RegexFormat(BaseFormat):
         match_result = self.regex.match(line)
         if match_result:
             self.matched = match_result.groupdict()
+            if 'time' in self.matched:
+                self.matched['date'] = self.matched['date'] + ' ' + self.matched['time']
+                del self.matched['time']
         else:
             self.matched = None
         return match_result
@@ -232,10 +236,11 @@ class RegexFormat(BaseFormat):
 class W3cExtendedFormat(RegexFormat):
 
     FIELDS_LINE_PREFIX = '#Fields: '
+    REGEX_UNKNOWN_FIELD = r'(?:".*?"|\S+)'
 
     fields = {
-        'date': r'(?P<date>\d+[-\d+]+',
-        'time': r'[\d+:]+)[.\d]*?', # TODO should not assume date & time will be together not sure how to fix ATM.
+        'date': r'"?(?P<date>\d+[-\d+]+)"?',
+        'time': r'"?(?P<time>[\d+:]+)[.\d]*?"?',
         'cs-uri-stem': r'(?P<path>/\S*)',
         'cs-uri-query': r'(?P<query_string>\S*)',
         'c-ip': r'"?(?P<ip>[\w*.:-]*)"?',
@@ -290,7 +295,7 @@ class W3cExtendedFormat(RegexFormat):
             if not line.startswith('#'):
                 break
 
-            if line.startswith(W3cExtendedFormat.FIELDS_LINE_PREFIX):
+            if line.startswith(self.FIELDS_LINE_PREFIX):
                 fields_line = line
             else:
                 header_lines.append(line)
@@ -324,7 +329,7 @@ class W3cExtendedFormat(RegexFormat):
             try:
                 regex = expected_fields[field]
             except KeyError:
-                regex = r'(?:".*?"|\S+)'
+                regex = self.REGEX_UNKNOWN_FIELD
             full_regex.append(regex)
         full_regex = r'\s+'.join(full_regex)
 
@@ -359,6 +364,36 @@ class IisFormat(W3cExtendedFormat):
         super(IisFormat, self).__init__()
 
         self.name = 'iis'
+
+class IncapsulaW3CFormat(W3cExtendedFormat):
+
+    # use custom unknown field regex to make resulting regex much simpler
+    REGEX_UNKNOWN_FIELD = r'".*?"'
+
+    fields = W3cExtendedFormat.fields.copy()
+    # redefines all fields as they are always encapsulated with "
+    fields.update({
+        'cs-uri': '"(?P<host>[^\/\s]+)(?P<path>\S+)"',
+        'cs-uri-query': '"(?P<query_string>\S*)"',
+        'c-ip': '"(?P<ip>[\w*.:-]*)"',
+        'cs(User-Agent)': '"(?P<user_agent>.*?)"',
+        'cs(Referer)': '"(?P<referrer>\S+)"',
+        'sc-status': '(?P<status>"\d*")',
+        'cs-bytes': '(?P<length>"\d*")',
+    })
+
+    def __init__(self):
+        super(IncapsulaW3CFormat, self).__init__()
+
+        self.name = 'incapsula_w3c'
+
+    def get(self, key):
+        value = super(IncapsulaW3CFormat, self).get(key);
+        if key == 'status' or key == 'length':
+            value = value.strip('"')
+        if key == 'status' and value == '':
+            value = '200'
+        return value
 
 class ShoutcastFormat(W3cExtendedFormat):
 
@@ -441,6 +476,11 @@ _OVH_FORMAT = (
     r'\s+"(?P<referrer>.*?)"\s+"(?P<user_agent>.*?)"'
 )
 
+# We need to double escape the word-boundry to work correctly, because https://docs.python.org/2/reference/lexical_analysis.html#string-literals
+_HAPROXY_FORMAT = (
+    '.*:\ (?P<ip>[\w*.]+).*\[(?P<date>.*)\].*\ (?P<status>\\b\d{3}\\b)\ (?P<length>\d+)\ -.*\"(?P<method>\S+)\ (?P<path>\S+).*'
+)
+
 FORMATS = {
     'common': RegexFormat('common', _COMMON_LOG_FORMAT),
     'common_vhost': RegexFormat('common_vhost', _HOST_PREFIX + _COMMON_LOG_FORMAT),
@@ -448,13 +488,15 @@ FORMATS = {
     'common_complete': RegexFormat('common_complete', _HOST_PREFIX + _NCSA_EXTENDED_LOG_FORMAT),
     'w3c_extended': W3cExtendedFormat(),
     'amazon_cloudfront': AmazonCloudFrontFormat(),
+    'incapsula_w3c': IncapsulaW3CFormat(),
     'iis': IisFormat(),
     'shoutcast': ShoutcastFormat(),
     's3': RegexFormat('s3', _S3_LOG_FORMAT),
     'icecast2': RegexFormat('icecast2', _ICECAST2_LOG_FORMAT),
     'elb': RegexFormat('elb', _ELB_LOG_FORMAT, '%Y-%m-%dT%H:%M:%S'),
     'nginx_json': JsonFormat('nginx_json'),
-    'ovh': RegexFormat('ovh', _OVH_FORMAT)
+    'ovh': RegexFormat('ovh', _OVH_FORMAT),
+    'haproxy': RegexFormat('haproxy', _HAPROXY_FORMAT, '%d/%b/%Y:%H:%M:%S.%f')
 }
 
 ##
@@ -533,7 +575,7 @@ class Configuration(object):
         )
         option_parser.add_option(
             '--show-progress', dest='show_progress',
-            action='store_true', default=os.isatty(sys.stdout.fileno()),
+            action='store_true', default=hasattr(sys.stdout, 'fileno') and os.isatty(sys.stdout.fileno()),
             help="Print a progress report X seconds (default: 1, use --show-progress-delay to override)"
         )
         option_parser.add_option(
@@ -860,10 +902,8 @@ class Configuration(object):
         if not re.match('[-+][0-9]{4}', timezone):
             fatal_error("Invalid date value '%s': expected valid timzeone like +0100 or -1200, got '%s'" % (value, timezone))
 
-        timezone = float(timezone)
-
         date = datetime.datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-        date -= datetime.timedelta(hours=timezone/100)
+        date -= TimeHelper.timedelta_from_timezone(timezone)
 
         setattr(parser.values, option_attr_name, date)
 
@@ -891,11 +931,14 @@ class Configuration(object):
 
         getattr(parser.values, option_attr_name)[key] = value
 
-    def _parse_args(self, option_parser):
+    def _parse_args(self, option_parser, argv = None):
         """
         Parse the command line args and create self.options and self.filenames.
         """
-        self.options, self.filenames = option_parser.parse_args(sys.argv[1:])
+        if not argv:
+            argv = sys.argv[1:]
+
+        self.options, self.filenames = option_parser.parse_args(argv)
 
         if self.options.output:
             sys.stdout = sys.stderr = open(self.options.output, 'a+', 0)
@@ -903,6 +946,11 @@ class Configuration(object):
         if not self.filenames:
             print(option_parser.format_help())
             sys.exit(1)
+
+        all_filenames = []
+        for self.filename in self.filenames:
+            all_filenames = all_filenames + glob.glob(self.filename)
+        self.filenames = all_filenames
 
         # Configure logging before calling logging.{debug,info}.
         logging.basicConfig(
@@ -993,8 +1041,8 @@ class Configuration(object):
         if self.options.regex_groups_to_ignore:
             self.options.regex_groups_to_ignore = set(self.options.regex_groups_to_ignore.split(','))
 
-    def __init__(self):
-        self._parse_args(self._create_parser())
+    def __init__(self, argv = None):
+        self._parse_args(self._create_parser(), argv)
 
     def _get_token_auth(self):
         """
@@ -1329,6 +1377,19 @@ Processing your log data
 
     def stop_monitor(self):
         self.monitor_stop = True
+
+class TimeHelper(object):
+
+    @staticmethod
+    def timedelta_from_timezone(timezone):
+        timezone = int(timezone)
+        sign = 1 if timezone >= 0 else -1
+        n = abs(timezone)
+
+        hours = n / 100 * sign
+        minutes = n % 100 * sign
+
+        return datetime.timedelta(hours=hours, minutes=minutes)
 
 class UrlHelper(object):
 
@@ -2520,15 +2581,14 @@ class Parser(object):
 
             # Parse timezone and substract its value from the date
             try:
-                timezone = float(format.get('timezone'))
+                timezone = format.get('timezone')
+                if timezone:
+                    hit.date -= TimeHelper.timedelta_from_timezone(timezone)
             except BaseFormatException:
-                timezone = 0
+                pass
             except ValueError:
                 invalid_line(line, 'invalid timezone')
                 continue
-
-            if timezone:
-                hit.date -= datetime.timedelta(hours=timezone/100)
 
             if config.options.replay_tracking:
                 # we need a query string and we only consider requests with piwik.php
@@ -2546,6 +2606,11 @@ class Parser(object):
                 except UnicodeDecodeError:
                     invalid_line(line, 'invalid encoding')
                     continue
+
+                if config.options.seconds_to_add_to_date:
+                    for param in ['_idts', '_viewts', '_ects', '_refts']:
+                        if param in hit.args:
+                            hit.args[param] = int(hit.args[param]) + config.options.seconds_to_add_to_date
 
             (is_filtered, reason) = self.is_filtered(hit)
             if is_filtered:
