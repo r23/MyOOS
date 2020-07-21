@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.147.0",
-        "version_normalized": "3.147.0.0",
+        "version": "3.147.1",
+        "version_normalized": "3.147.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "e63974c002c0f6520da597d44a3f83ce46d7a612"
+            "reference": "8a561a4a1645ccdd06413a4f2defe55d35e0eecc"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e63974c002c0f6520da597d44a3f83ce46d7a612",
-            "reference": "e63974c002c0f6520da597d44a3f83ce46d7a612",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8a561a4a1645ccdd06413a4f2defe55d35e0eecc",
+            "reference": "8a561a4a1645ccdd06413a4f2defe55d35e0eecc",
             "shasum": ""
         },
         "require": {
@@ -102,7 +102,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-07-17T18:14:13+00:00",
+        "time": "2020-07-20T18:18:31+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -4176,17 +4176,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.43.0",
-        "version_normalized": "7.43.0.0",
+        "version": "v7.44.0",
+        "version_normalized": "7.44.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "7f516261bc496706a03b9443107532b552efa9d8"
+            "reference": "b39ccc77358fbe0d462e6cc89ac01b7a0c896f35"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/7f516261bc496706a03b9443107532b552efa9d8",
-            "reference": "7f516261bc496706a03b9443107532b552efa9d8",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/b39ccc77358fbe0d462e6cc89ac01b7a0c896f35",
+            "reference": "b39ccc77358fbe0d462e6cc89ac01b7a0c896f35",
             "shasum": ""
         },
         "require": {
@@ -4202,7 +4202,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-07-18T00:01:06+00:00",
+        "time": "2020-07-20T21:25:50+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
