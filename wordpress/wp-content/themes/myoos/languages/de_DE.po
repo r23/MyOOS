@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: myoos\n"
 "POT-Creation-Date: 2020-06-14 02:24+0200\n"
-"PO-Revision-Date: 2020-06-14 21:28+0200\n"
+"PO-Revision-Date: 2020-07-21 22:33+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -1197,14 +1197,14 @@ msgctxt "Previous post link"
 msgid ""
 "<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-left\"></i>%title"
 msgstr ""
-"<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-left\"></i>%Titel"
+"<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-left\"></i>%title"
 
 #: inc/template-tags.php:45
 msgctxt "Next post link"
 msgid ""
 "%title<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-right\"></i>"
 msgstr ""
-"%Titel<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-right\"></i>"
+"%title<i aria-hidden=\"true\" class=\"cps-icon cps-icon-chevron-right\"></i>"
 
 #: inc/template-tags.php:94
 msgctxt "post date"
@@ -1223,7 +1223,7 @@ msgstr "Veröffentlicht von"
 
 #: inc/template-tags.php:119
 msgid "Leave a comment"
-msgstr "Hinterlasse einen Kommentar"
+msgstr "Hinterlassen Sie einen Kommentar"
 
 #: inc/template-tags.php:119
 msgid "1 Comment"
