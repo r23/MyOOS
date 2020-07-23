@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.147.1",
-        "version_normalized": "3.147.1.0",
+        "version": "3.147.3",
+        "version_normalized": "3.147.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "8a561a4a1645ccdd06413a4f2defe55d35e0eecc"
+            "reference": "a563bb8bd83ec232db6b0b230832e3a6bde8a838"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8a561a4a1645ccdd06413a4f2defe55d35e0eecc",
-            "reference": "8a561a4a1645ccdd06413a4f2defe55d35e0eecc",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a563bb8bd83ec232db6b0b230832e3a6bde8a838",
+            "reference": "a563bb8bd83ec232db6b0b230832e3a6bde8a838",
             "shasum": ""
         },
         "require": {
@@ -102,7 +102,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-07-20T18:18:31+00:00",
+        "time": "2020-07-22T18:18:26+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -886,17 +886,17 @@
     },
     {
         "name": "google/auth",
-        "version": "v1.10.0",
-        "version_normalized": "1.10.0.0",
+        "version": "v1.11.0",
+        "version_normalized": "1.11.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/googleapis/google-auth-library-php.git",
-            "reference": "077d6ae98d550161d3b2a0ba283bdce785c74d85"
+            "reference": "f6752236dbb2d641d50dffee789e553e2fda129d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/077d6ae98d550161d3b2a0ba283bdce785c74d85",
-            "reference": "077d6ae98d550161d3b2a0ba283bdce785c74d85",
+            "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/f6752236dbb2d641d50dffee789e553e2fda129d",
+            "reference": "f6752236dbb2d641d50dffee789e553e2fda129d",
             "shasum": ""
         },
         "require": {
@@ -918,7 +918,7 @@
         "suggest": {
             "phpseclib/phpseclib": "May be used in place of OpenSSL for signing strings or for token management. Please require version ^2."
         },
-        "time": "2020-07-08T19:11:36+00:00",
+        "time": "2020-07-22T18:24:05+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -2392,17 +2392,17 @@
     },
     {
         "name": "monolog/monolog",
-        "version": "2.1.0",
-        "version_normalized": "2.1.0.0",
+        "version": "2.1.1",
+        "version_normalized": "2.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Seldaek/monolog.git",
-            "reference": "38914429aac460e8e4616c8cb486ecb40ec90bb1"
+            "reference": "f9eee5cec93dfb313a38b6b288741e84e53f02d5"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/38914429aac460e8e4616c8cb486ecb40ec90bb1",
-            "reference": "38914429aac460e8e4616c8cb486ecb40ec90bb1",
+            "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f9eee5cec93dfb313a38b6b288741e84e53f02d5",
+            "reference": "f9eee5cec93dfb313a38b6b288741e84e53f02d5",
             "shasum": ""
         },
         "require": {
@@ -2441,7 +2441,7 @@
             "rollbar/rollbar": "Allow sending log messages to Rollbar",
             "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
         },
-        "time": "2020-05-22T08:12:19+00:00",
+        "time": "2020-07-23T08:41:23+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2471,6 +2471,16 @@
             "log",
             "logging",
             "psr-3"
+        ],
+        "funding": [
+            {
+                "url": "https://github.com/Seldaek",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
+                "type": "tidelift"
+            }
         ]
     },
     {
