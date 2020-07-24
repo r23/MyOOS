@@ -18,6 +18,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestSuite;
 use PHPUnit\Runner\BaseTestRunner;
 use PHPUnit\Util\Blacklist;
+use PHPUnit\Util\ExcludeList;
 use PHPUnit\Util\Test;
 use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Bridge\PhpUnit\DnsMock;
@@ -50,7 +51,10 @@ class SymfonyTestsListenerTrait
      */
     public function __construct(array $mockedNamespaces = [])
     {
-        if (method_exists(Blacklist::class, 'addDirectory')) {
+        if (class_exists(ExcludeList::class)) {
+            (new ExcludeList())->getExcludedDirectories();
+            ExcludeList::addDirectory(\dirname((new \ReflectionClass(__CLASS__))->getFileName(), 2));
+        } elseif (method_exists(Blacklist::class, 'addDirectory')) {
             (new BlackList())->getBlacklistedDirectories();
             Blacklist::addDirectory(\dirname((new \ReflectionClass(__CLASS__))->getFileName(), 2));
         } else {
@@ -204,6 +208,7 @@ class SymfonyTestsListenerTrait
             if ($this->willBeIsolated($test)) {
                 $this->runsInSeparateProcess = tempnam(sys_get_temp_dir(), 'deprec');
                 putenv('SYMFONY_DEPRECATIONS_SERIALIZE='.$this->runsInSeparateProcess);
+                putenv('SYMFONY_EXPECTED_DEPRECATIONS_SERIALIZE='.tempnam(sys_get_temp_dir(), 'expectdeprec'));
             }
 
             $groups = Test::getGroups(\get_class($test), $test->getName(false));
@@ -227,7 +232,7 @@ class SymfonyTestsListenerTrait
             if (isset($annotations['class']['expectedDeprecation'])) {
                 $test->getTestResultObject()->addError($test, new AssertionFailedError('`@expectedDeprecation` annotations are not allowed at the class level.'), 0);
             }
-            if (isset($annotations['method']['expectedDeprecation']) || $this->checkNumAssertions = \in_array(ExpectDeprecationTrait::class, class_uses($test), true)) {
+            if (isset($annotations['method']['expectedDeprecation']) || $this->checkNumAssertions = method_exists($test, 'expectDeprecation') && (new \ReflectionMethod($test, 'expectDeprecation'))->getFileName() === (new \ReflectionMethod(ExpectDeprecationTrait::class, 'expectDeprecation'))->getFileName()) {
                 if (isset($annotations['method']['expectedDeprecation'])) {
                     self::$expectedDeprecations = $annotations['method']['expectedDeprecation'];
                     self::$previousErrorHandler = set_error_handler([self::class, 'handleError']);
@@ -245,6 +250,17 @@ class SymfonyTestsListenerTrait
 
     public function endTest($test, $time)
     {
+        if ($file = getenv('SYMFONY_EXPECTED_DEPRECATIONS_SERIALIZE')) {
+            putenv('SYMFONY_EXPECTED_DEPRECATIONS_SERIALIZE');
+            $expectedDeprecations = file_get_contents($file);
+            if ($expectedDeprecations) {
+                self::$expectedDeprecations = array_merge(self::$expectedDeprecations, unserialize($expectedDeprecations));
+                if (!self::$previousErrorHandler) {
+                    self::$previousErrorHandler = set_error_handler([self::class, 'handleError']);
+                }
+            }
+        }
+
         if (class_exists(DebugClassLoader::class, false)) {
             DebugClassLoader::checkClasses();
         }

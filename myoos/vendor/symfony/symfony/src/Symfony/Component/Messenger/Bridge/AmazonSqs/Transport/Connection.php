@@ -94,19 +94,20 @@ class Connection
         if (isset($parsedUrl['query'])) {
             parse_str($parsedUrl['query'], $query);
         }
-
+        $options = $query + $options + self::DEFAULT_OPTIONS;
         $configuration = [
-            'buffer_size' => $options['buffer_size'] ?? (int) ($query['buffer_size'] ?? self::DEFAULT_OPTIONS['buffer_size']),
-            'wait_time' => $options['wait_time'] ?? (int) ($query['wait_time'] ?? self::DEFAULT_OPTIONS['wait_time']),
-            'poll_timeout' => $options['poll_timeout'] ?? ($query['poll_timeout'] ?? self::DEFAULT_OPTIONS['poll_timeout']),
-            'visibility_timeout' => $options['visibility_timeout'] ?? ($query['visibility_timeout'] ?? self::DEFAULT_OPTIONS['visibility_timeout']),
-            'auto_setup' => $options['auto_setup'] ?? (bool) ($query['auto_setup'] ?? self::DEFAULT_OPTIONS['auto_setup']),
+            'buffer_size' => (int) $options['buffer_size'],
+            'wait_time' => (int) $options['wait_time'],
+            'poll_timeout' => $options['poll_timeout'],
+            'visibility_timeout' => $options['visibility_timeout'],
+            'auto_setup' => (bool) $options['auto_setup'],
+            'queue_name' => (string) $options['queue_name'],
         ];
 
         $clientConfiguration = [
-            'region' => $options['region'] ?? ($query['region'] ?? self::DEFAULT_OPTIONS['region']),
-            'accessKeyId' => $options['access_key'] ?? (urldecode($parsedUrl['user'] ?? '') ?: self::DEFAULT_OPTIONS['access_key']),
-            'accessKeySecret' => $options['secret_key'] ?? (urldecode($parsedUrl['pass'] ?? '') ?: self::DEFAULT_OPTIONS['secret_key']),
+            'region' => $options['region'],
+            'accessKeyId' => urldecode($parsedUrl['user'] ?? '') ?: $options['access_key'] ?? self::DEFAULT_OPTIONS['access_key'],
+            'accessKeySecret' => urldecode($parsedUrl['pass'] ?? '') ?: $options['secret_key'] ?? self::DEFAULT_OPTIONS['secret_key'],
         ];
         unset($query['region']);
 
@@ -116,13 +117,15 @@ class Connection
                 $clientConfiguration['region'] = $matches[1];
             }
             unset($query['sslmode']);
+        } elseif (self::DEFAULT_OPTIONS['endpoint'] !== $options['endpoint'] ?? self::DEFAULT_OPTIONS['endpoint']) {
+            $clientConfiguration['endpoint'] = $options['endpoint'];
         }
 
         $parsedPath = explode('/', ltrim($parsedUrl['path'] ?? '/', '/'));
-        if (\count($parsedPath) > 0) {
-            $configuration['queue_name'] = end($parsedPath);
+        if (\count($parsedPath) > 0 && !empty($queueName = end($parsedPath))) {
+            $configuration['queue_name'] = $queueName;
         }
-        $configuration['account'] = 2 === \count($parsedPath) ? $parsedPath[0] : null;
+        $configuration['account'] = 2 === \count($parsedPath) ? $parsedPath[0] : $options['account'] ?? self::DEFAULT_OPTIONS['account'];
 
         // check for extra keys in options
         $optionsExtraKeys = array_diff(array_keys($options), array_keys(self::DEFAULT_OPTIONS));

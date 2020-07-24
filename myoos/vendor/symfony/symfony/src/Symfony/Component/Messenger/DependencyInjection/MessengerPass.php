@@ -228,11 +228,24 @@ class MessengerPass implements CompilerPassInterface
             throw new RuntimeException(sprintf('Invalid handler service "%s": argument "$%s" of method "%s::__invoke()" must have a type-hint corresponding to the message class it handles.', $serviceId, $parameters[0]->getName(), $handlerClass->getName()));
         }
 
+        if ($type instanceof \ReflectionUnionType) {
+            $types = [];
+            foreach ($type->getTypes() as $type) {
+                if (!$type->isBuiltin()) {
+                    $types[] = (string) $type;
+                }
+            }
+
+            if ($types) {
+                return $types;
+            }
+        }
+
         if ($type->isBuiltin()) {
             throw new RuntimeException(sprintf('Invalid handler service "%s": type-hint of argument "$%s" in method "%s::__invoke()" must be a class , "%s" given.', $serviceId, $parameters[0]->getName(), $handlerClass->getName(), $type instanceof \ReflectionNamedType ? $type->getName() : (string) $type));
         }
 
-        return [$parameters[0]->getType()->getName()];
+        return [$type->getName()];
     }
 
     private function registerReceivers(ContainerBuilder $container, array $busIds)
@@ -326,15 +339,18 @@ class MessengerPass implements CompilerPassInterface
             if ($container->findDefinition($messengerMiddlewareId)->isAbstract()) {
                 $childDefinition = new ChildDefinition($messengerMiddlewareId);
                 $childDefinition->setArguments($arguments);
-                $container->setDefinition($messengerMiddlewareId = $busId.'.middleware.'.$id, $childDefinition);
+                if (isset($middlewareReferences[$messengerMiddlewareId = $busId.'.middleware.'.$id])) {
+                    $messengerMiddlewareId .= '.'.ContainerBuilder::hash($arguments);
+                }
+                $container->setDefinition($messengerMiddlewareId, $childDefinition);
             } elseif ($arguments) {
                 throw new RuntimeException(sprintf('Invalid middleware factory "%s": a middleware factory must be an abstract definition.', $id));
             }
 
-            $middlewareReferences[] = new Reference($messengerMiddlewareId);
+            $middlewareReferences[$messengerMiddlewareId] = new Reference($messengerMiddlewareId);
         }
 
-        $container->getDefinition($busId)->replaceArgument(0, new IteratorArgument($middlewareReferences));
+        $container->getDefinition($busId)->replaceArgument(0, new IteratorArgument(array_values($middlewareReferences)));
     }
 
     private function getServiceClass(ContainerBuilder $container, string $serviceId): string

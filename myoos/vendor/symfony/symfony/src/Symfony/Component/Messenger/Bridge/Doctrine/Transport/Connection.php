@@ -96,7 +96,7 @@ class Connection implements ResetInterface
         }
 
         $configuration = ['connection' => $components['host']];
-        $configuration += $options + $query + static::DEFAULT_OPTIONS;
+        $configuration += $query + $options + static::DEFAULT_OPTIONS;
 
         $configuration['auto_setup'] = filter_var($configuration['auto_setup'], FILTER_VALIDATE_BOOLEAN);
 
@@ -137,7 +137,7 @@ class Connection implements ResetInterface
                 'available_at' => '?',
             ]);
 
-        $this->executeQuery($queryBuilder->getSQL(), [
+        $this->executeStatement($queryBuilder->getSQL(), [
             $body,
             json_encode($headers),
             $this->configuration['queue_name'],
@@ -194,7 +194,7 @@ class Connection implements ResetInterface
                 ->set('delivered_at', '?')
                 ->where('id = ?');
             $now = new \DateTime();
-            $this->executeQuery($queryBuilder->getSQL(), [
+            $this->executeStatement($queryBuilder->getSQL(), [
                 $now,
                 $doctrineEnvelope['id'],
             ], [
@@ -364,6 +364,33 @@ class Connection implements ResetInterface
                 $this->setup();
             }
             $stmt = $this->driverConnection->executeQuery($sql, $parameters, $types);
+        }
+
+        return $stmt;
+    }
+
+    private function executeStatement(string $sql, array $parameters = [], array $types = [])
+    {
+        try {
+            if (method_exists($this->driverConnection, 'executeStatement')) {
+                $stmt = $this->driverConnection->executeStatement($sql, $parameters, $types);
+            } else {
+                $stmt = $this->driverConnection->executeUpdate($sql, $parameters, $types);
+            }
+        } catch (TableNotFoundException $e) {
+            if ($this->driverConnection->isTransactionActive()) {
+                throw $e;
+            }
+
+            // create table
+            if ($this->autoSetup) {
+                $this->setup();
+            }
+            if (method_exists($this->driverConnection, 'executeStatement')) {
+                $stmt = $this->driverConnection->executeStatement($sql, $parameters, $types);
+            } else {
+                $stmt = $this->driverConnection->executeUpdate($sql, $parameters, $types);
+            }
         }
 
         return $stmt;
