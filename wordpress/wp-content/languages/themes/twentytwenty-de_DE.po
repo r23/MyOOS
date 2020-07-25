@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-03-31 21:20:19+0000\n"
+"PO-Revision-Date: 2020-07-23 00:34:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Themes - Twenty Twenty\n"
 
@@ -154,13 +154,6 @@ msgstr "Nach oben %s"
 msgid "Up %s"
 msgstr "Hoch %s"
 
-#. translators: %s: Number of search results.
-#: index.php:39
-msgid "We found %s result for your search."
-msgid_plural "We found %s results for your search."
-msgstr[0] "Es gibt %s Treffer für diese Suche."
-msgstr[1] "Es gibt %s Treffer für diese Suche."
-
 #: index.php:99
 msgid "search again"
 msgstr "erneut suchen"
@@ -172,6 +165,13 @@ msgstr "Suche nach:"
 #: 404.php:24
 msgid "404 not found"
 msgstr "404 - Datei nicht gefunden"
+
+#. translators: %s: Number of search results.
+#: index.php:39
+msgid "We found %s result for your search."
+msgid_plural "We found %s results for your search."
+msgstr[0] "Es gibt %s Treffer für deine Suche."
+msgstr[1] "Es gibt %s Treffer für deine Suche."
 
 #. translators: 1: Comment date, 2: Comment time.
 #: classes/class-twentytwenty-walker-comment.php:69
@@ -495,14 +495,6 @@ msgctxt "comments title"
 msgid "One reply on &ldquo;%s&rdquo;"
 msgstr "Eine Antwort auf „%s“"
 
-#. translators: 1: Number of comments, 2: Post title.
-#: comments.php:41
-msgctxt "comments title"
-msgid "%1$s reply on &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s replies on &ldquo;%2$s&rdquo;"
-msgstr[0] "%1$s Anwort auf „%2$s“"
-msgstr[1] "%1$s Antworten auf „%2$s“"
-
 #: comments.php:34
 msgid "Leave a comment"
 msgstr "Schreibe einen Kommentar"
@@ -522,6 +514,14 @@ msgstr "Template für weite Breite"
 #: classes/class-twentytwenty-customize.php:396
 msgid "Make sure that the contrast is high enough so that the text is readable."
 msgstr "Achte darauf, den Kontrast so hoch einzustellen, dass der Text gut lesbar bleibt."
+
+#. translators: 1: Number of comments, 2: Post title.
+#: comments.php:41
+msgctxt "comments title"
+msgid "%1$s reply on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s replies on &ldquo;%2$s&rdquo;"
+msgstr[0] "%1$s Antwort auf „%2$s“"
+msgstr[1] "%1$s Antworten auf „%2$s“"
 
 #. Author URI of the theme
 #: footer.php:32

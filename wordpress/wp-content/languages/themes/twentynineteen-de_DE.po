@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Themes - Twenty Nineteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-06-20 11:21:50+0000\n"
+"PO-Revision-Date: 2020-07-23 00:26:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Themes - Twenty Nineteen\n"
 
@@ -50,7 +50,7 @@ msgstr "Hervorgehoben"
 #. translators: %s: WordPress version.
 #: inc/back-compat.php:40 inc/back-compat.php:55 inc/back-compat.php:76
 msgid "Twenty Nineteen requires at least WordPress version 4.7. You are running version %s. Please upgrade and try again."
-msgstr "Twenty Nineteen erfordert mindestens WordPress Version 4.7. Deine Version ist %s. Bitte führe ein Upgrade durch und versuche es erneut."
+msgstr "Twenty Nineteen erfordert mindestens WordPress Version 4.7. Deine Version ist %s. Bitte aktualisiere WordPress und versuche es erneut."
 
 #: inc/template-functions.php:143
 msgid "Back"
@@ -244,7 +244,7 @@ msgstr ", "
 #. translators: %s: Post title. Only visible to screen readers.
 #: inc/template-tags.php:63
 msgid "Leave a comment<span class=\"screen-reader-text\"> on %s</span>"
-msgstr "Veröffentliche einen Kommentar <span class=\"screen-reader-text\">zu %s</span>"
+msgstr "Schreibe einen Kommentar <span class=\"screen-reader-text\">zu %s</span>"
 
 #: inc/template-tags.php:46
 msgid "Posted by"
@@ -352,7 +352,7 @@ msgstr "Eine Antwort auf &‌#8222;%s&‌#8220;"
 
 #: comments.php:35 comments.php:105 comments.php:107
 msgid "Leave a comment"
-msgstr "Schreib einen Kommentar"
+msgstr "Schreibe einen Kommentar"
 
 #: comments.php:33
 msgid "Join the Conversation"

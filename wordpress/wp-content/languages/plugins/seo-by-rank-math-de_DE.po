@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WordPress SEO Plugin &#8211; Rank Math - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-07-20 12:18:55+0000\n"
+"PO-Revision-Date: 2020-07-23 12:37:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,6 +35,36 @@ msgstr "PHP OpenSSL-Erweiterung fehlt"
 msgid "Google Web Stories"
 msgstr "Google Web Stories"
 
+#: includes/module/class-manager.php:278
+msgid "Please activate Web Stories plugin to use this module."
+msgstr "Bitte aktiviere das Plugin Web Stories, um dieses Modul zu verwenden."
+
+#. Translators: placeholders are opening and closing tag for link.
+#: includes/modules/seo-analysis/views/main.php:54
+msgid "Analyze your site by %1$s linking your Rank Math account %2$s"
+msgstr "Analysiere deine Website durch %1$s Verbinden deines Rank Math-Kontos %2$s"
+
+#. translators: link to title setting screen
+#: includes/settings/titles/post-types.php:134
+msgid "Default rich snippet selected when creating a new story."
+msgstr "Standard Rich-Snippet, das beim Erstellen einer neuen Story ausgewählt wurde."
+
+#: includes/settings/titles/post-types.php:18
+msgid "To configure attachment-related meta tags disable attachment redirection to parent."
+msgstr "Um eine Sitemap für Anhänge zu erstellen, deaktiviere die Weiterleitung von Anhängen an übergeordnete Elemente."
+
+#: includes/admin/class-notices.php:126
+msgid "From the next update, you'll need atleast WordPress 5.0 to run the Rank Math plugin. Please update to the latest version."
+msgstr "Ab dem nächsten Update benötigst du mindestens WordPress 5.0, um das Rank Math-Plugin auszuführen. Bitte aktualisiere auf die neueste Version."
+
+#: includes/admin/wizard/views/ready.php:33
+msgid "Email me every time the plugin auto-updates."
+msgstr "Schicke mir jedes Mal eine E-Mail, wenn das Plugin automatisch aktualisiert wird."
+
+#: includes/module/class-manager.php:274
+msgid "Make any Story created with the Web Stories WordPress plugin SEO-Ready with automatic support for Schema and Meta tags."
+msgstr "Mache jede Story, die mit dem Web Stories WordPress-Plugin erstellt wurde, SEO-Ready mit automatischer Unterstützung für Schema- und Meta-Tags."
+
 #: includes/admin/views/plugin-activation.php:38
 msgid "Connect Now"
 msgstr "Jetzt verbinden"
@@ -46,6 +76,30 @@ msgstr "PHP MBstring-Erweiterung fehlt"
 #: includes/admin/wizard/views/compatibility.php:105
 msgid "PHP MBstring Extension installed"
 msgstr "PHP MBstring-Erweiterung installiert"
+
+#: includes/admin/views/plugin-activation.php:43
+msgid "Disconnect Account"
+msgstr "Konto trennen"
+
+#: includes/admin/views/plugin-activation.php:22
+msgid "Account"
+msgstr "Konto"
+
+#: assets/admin/js/gutenberg.js:1
+msgid "Notify your readers by sharing!"
+msgstr "Benachrichtige deine Leser durch Teilen!"
+
+#: includes/admin/views/plugin-activation.php:24
+msgid "Not Connected"
+msgstr "Nicht verbunden"
+
+#: includes/admin/views/plugin-activation.php:24
+msgid "Connected"
+msgstr "Verbunden"
+
+#: includes/admin/class-notices.php:146
+msgid "Please activate the WPML String Translation plugin to convert Rank Math Setting values in different languages."
+msgstr "Bitte aktiviere das WPML-String-Übersetzungs-Plugin, um Werte der Rank Math-Einstellung in verschiedenen Sprachen zu konvertieren."
 
 #: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
 #: assets/admin/js/elementor.js:1
@@ -2060,10 +2114,6 @@ msgstr "Es gibt verschiedene Methoden zur Optimierung deiner Website für das lo
 msgid "Local SEO is a way for you to rank better for searches made by your people in the area where you operate. It is the best way for you to get your products and services in front of the local customers."
 msgstr "Lokales SEO ist eine Möglichkeit für die du besser für die Suche deiner Kunden in dem Gebiet, in dem du tätig sind, zu bewerten. Es ist der beste Weg für dich, deine Produkte und Dienstleistungen vor den lokalen Kunden zu platzieren."
 
-#: includes/admin/views/help/amp.php:43
-msgid "If you face any issues with it, simply <a rel=\"nofollow noopener noreferrer\" href=\"https://support.rankmath.com/\" target=\"_blank\">open a support ticket here</a>."
-msgstr "Wenn du damit Probleme hast, <a rel=\"nofollow noopener noreferrer\" href=\"https://support.rankmath.com/\" target=\"_blank\">öffne einfach ein Support Ticket hier</a>."
-
 #. translators: link to module dashboard
 #: includes/admin/views/help/amp.php:29
 msgid "To get the most out of AMP along with Rank Math - simply install any of the below AMP plugin and then <a href=\"%1$s\" target=\"_blank\">enable the AMP module of Rank Math</a>."
@@ -2139,6 +2189,10 @@ msgstr "Sobald du Rank Math so eingerichtet hast, dass es mit der Google Search 
 #: includes/admin/views/help/amp.php:17
 msgid "Because they work so well and help pages load fast, Google has come to love the AMP enabled websites over their counterparts when it comes to rankings in the SERPs."
 msgstr "Weil sie so gut funktionieren und helfen, Seiten schnell zu laden, wertet Google die AMP-fähigen Websites besser als ihre Kollegen, wenn es um Rankings in den SERPs geht."
+
+#: includes/admin/views/help/amp.php:43
+msgid "If you face any issues with it, simply <a rel=\"nofollow noopener noreferrer\" href=\"https://support.rankmath.com/\" target=\"_blank\">open a support ticket here</a>."
+msgstr "Falls du mit irgendwelchen Problemen konfrontiert sein solltest, <a rel=\"nofollow noopener noreferrer\" href=\"https://support.rankmath.com/\" target=\"_blank\">eröffne einfach hier ein Support-Ticket</a>."
 
 #: includes/modules/rich-snippet/views/help.php:13
 msgid "Google has changed over the years. They've made their results pages more interesting and more useful at the same time. New kinds of content were added."
@@ -3659,17 +3713,6 @@ msgstr "404 Monitor"
 msgid "Save and Continue"
 msgstr "Speichern und Fortfahren"
 
-#: includes/module/class-manager.php:151
-#: includes/admin/wizard/class-role.php:34
-#: includes/admin/wizard/class-role.php:59
-#: includes/admin/class-setup-wizard.php:133
-#: includes/modules/role-manager/class-role-manager.php:36
-#: includes/modules/role-manager/class-role-manager.php:70
-#: includes/modules/role-manager/class-capability-manager.php:65
-#: includes/modules/role-manager/views/help.php:11
-msgid "Role Manager"
-msgstr "Rollenmanager"
-
 #: includes/admin/class-setup-wizard.php:139
 msgid "404 + Redirection"
 msgstr "404 + Umleitungen"
@@ -3932,19 +3975,6 @@ msgstr "Seiten aktualisieren"
 msgid "Product"
 msgstr "Produkt"
 
-#: includes/module/class-manager.php:100
-#: includes/admin/wizard/class-monitor-redirection.php:71
-#: includes/admin/wizard/class-monitor-redirection.php:77
-#: includes/admin/views/import-export/export-panel.php:19
-#: includes/modules/role-manager/class-capability-manager.php:64
-#: includes/modules/redirections/class-admin.php:45
-#: includes/modules/redirections/class-admin.php:114
-#: includes/modules/redirections/class-admin.php:173
-#: includes/modules/redirections/class-redirections.php:91
-#: includes/modules/redirections/views/help.php:11
-msgid "Redirections"
-msgstr "Umleitungen"
-
 #: includes/admin/wizard/views/header.php:16
 msgid "Setup Wizard - Rank Math"
 msgstr "Einrichtungsassistent - Rank Math"
@@ -3975,10 +4005,6 @@ msgstr "Einstellungen erfolgreich importiert."
 #: includes/admin/importers/abstract-importer.php:176
 msgid "Unable to perform action this time."
 msgstr "Diesmal kann keine Aktion ausgeführt werden."
-
-#: includes/admin/importers/abstract-importer.php:131
-msgid "Import Redirections"
-msgstr "Umleitungen importieren"
 
 #: includes/admin/class-option-center.php:146
 #: includes/admin/views/help/local-seo.php:12
@@ -5962,11 +5988,6 @@ msgstr "Es ist keine Umleitung zum Importieren vorhanden."
 msgid "Settings import failed."
 msgstr "Einstellungsimport fehlgeschlagen."
 
-#. translators: total
-#: includes/admin/importers/class-status.php:117
-msgid "Imported %s redirections."
-msgstr "%s importierte Umleitungen."
-
 #: includes/admin/wizard/class-schema-markup.php:84
 #: includes/settings/titles/post-types.php:198
 #: includes/modules/rich-snippet/views/article.php:22
@@ -6896,11 +6917,6 @@ msgstr "Format, das verwendet wird, wenn die Adresse unter Verwendung des <code>
 msgid "Starts at 1 and increments by 1."
 msgstr "Beginnt bei 1 und erhöht sich um 1."
 
-#: includes/metaboxes/social.php:288 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1
-msgid "Optional URL to raw stream that will be rendered in Twitter’s mobile applications directly. If provided, the stream must be delivered in the MPEG-4 container format (the .mp4 extension). The container can store a mix of audio and video with the following codecs: Video: H.264, Baseline Profile (BP), Level 3.0, up to 640 x 480 at 30 fps. Audio: AAC, Low Complexity Profile (LC)."
-msgstr "Optionale URL zum Rohdatenstrom, die direkt in den mobilen Anwendungen von Twitter gerendert wird. Falls vorgesehen, muss der Stream im MPEG-4 Containerformat (die Erweiterung .mp4) geliefert werden. Der Container kann eine Mischung aus Audio und Video mit den folgenden Codecs speichern: Video: H.264, Baseline Profile (BP), Level 3.0, bis zu 640 x 480 bei 30 fps. Audio: AAC, Low Complexity Profile (LC)."
-
 #: includes/modules/404-monitor/class-admin.php:200
 msgid "404 Monitor Stats"
 msgstr "404 Statistiken überwachen"
@@ -6921,6 +6937,11 @@ msgstr "Social-Meta"
 #: assets/admin/js/elementor.js:1
 msgid "The MIME type/subtype combination that describes the content contained in twitter:player:stream. Takes the form specified in RFC 6381. Currently supported content_type values are those defined in RFC 4337 (MIME Type Registration for MP4)."
 msgstr "Die MIME-Typ/Subtyp Kombination, die den Inhalt von twitter:player:stream beschreibt. Er nimmt die in RFC 6381 angegebene Form an. Derzeit werden die Werte von content_type unterstützt, die in RFC 4337 (MIME-Typ-Registrierung für MP4) definiert sind."
+
+#: includes/metaboxes/social.php:288 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/elementor.js:1
+msgid "Optional URL to raw stream that will be rendered in Twitter’s mobile applications directly. If provided, the stream must be delivered in the MPEG-4 container format (the .mp4 extension). The container can store a mix of audio and video with the following codecs: Video: H.264, Baseline Profile (BP), Level 3.0, up to 640 x 480 at 30 fps. Audio: AAC, Low Complexity Profile (LC)."
+msgstr "Optionale URL zum Rohdatenstrom, die direkt in den mobilen Anwendungen von Twitter gerendert wird. Falls vorgesehen, muss der Stream im MPEG-4 Containerformat (die Erweiterung .mp4) geliefert werden. Der Container kann eine Mischung aus Audio und Video mit den folgenden Codecs speichern: Video: H.264, Baseline Profile (BP), Level 3.0, bis zu 640 x 480 bei 30 fps. Audio: AAC, Low Complexity Profile (LC)."
 
 #: includes/modules/woocommerce/views/options-general.php:33
 msgid "default: /product-category/accessories/action-figures/ - changed: /accessories/action-figures/"
@@ -7208,10 +7229,6 @@ msgid "Set up temporary or permanent redirections. Combined with the 404 monitor
 msgstr "Richte temporäre oder permanente Umleitungen ein. In Kombination mit dem 404-Monitor kannst du fehlerhafte URLs auf deiner Website ganz einfach umleiten oder eigene Umleitungen hinzufügen."
 
 #: includes/admin/wizard/class-monitor-redirection.php:71
-msgid "Learn more about Redirections."
-msgstr "Erfahre mehr über Umleitungen."
-
-#: includes/admin/wizard/class-monitor-redirection.php:71
 msgid "Set default values for the redirection module from here."
 msgstr "Lege hier die Standardwerte für das Umleitungsmodul fest."
 
@@ -7431,6 +7448,10 @@ msgstr "Füge Archivseiten von Begriffen ein, denen keine Beiträge zugeordnet s
 msgid "Include this post type in the XML sitemap."
 msgstr "Füge diesen Beitrags-Typ in die XML-Sitemap ein."
 
+#: includes/modules/seo-analysis/seo-analysis-tests.php:117
+msgid "If you don't have an XML sitemap, the best option is to install a plugin that creates sitemaps for you. That way you'll know the sitemap will always be up-to-date. Plugins can also automatically ping the search engines when the XML file is updated. The Rank Math WordPress plugin gives you complete control over your site's XML sitemaps. You can control the settings for each page as you write or edit it, and Rank Math will ping Google as soon as you submit your edits. This results in fast crawls and indexing."
+msgstr "Wenn du keine XML-Sitemap hast, ist die beste Option, ein Plugin zu installieren, das Sitemaps für dich erstellt. Auf diese Weise weisst du, dass die Sitemap immer aktuell ist. Plugins können auch automatisch die Suchmaschinen pingen, wenn die XML-Datei aktualisiert wird. Das Rank Math WordPress Plugin gibt dir die volle Kontrolle über die XML-Sitemaps deiner Website. Du kannst die Einstellungen für jede Seite steuern, während du sie schreibst oder bearbeitest, und Rank Math wird Google an pingen, sobald deine Änderungen übermittelt sind. Dies führt zu schnellen Crawls und Indexierungen."
+
 #: includes/helpers/class-choices.php:511
 msgid "End With"
 msgstr "Endet mit"
@@ -7438,10 +7459,6 @@ msgstr "Endet mit"
 #: includes/modules/404-monitor/class-admin.php:202
 msgid "404 Monitor Log Count"
 msgstr "404 Anzahl der Logs"
-
-#: includes/modules/seo-analysis/seo-analysis-tests.php:117
-msgid "If you don't have an XML sitemap, the best option is to install a plugin that creates sitemaps for you. That way you'll know the sitemap will always be up-to-date. Plugins can also automatically ping the search engines when the XML file is updated. The Rank Math WordPress plugin gives you complete control over your site's XML sitemaps. You can control the settings for each page as you write or edit it, and Rank Math will ping Google as soon as you submit your edits. This results in fast crawls and indexing."
-msgstr "Wenn du keine XML-Sitemap hast, ist die beste Option, ein Plugin zu installieren, das Sitemaps für dich erstellt. Auf diese Weise weisst du, dass die Sitemap immer aktuell ist. Plugins können auch automatisch die Suchmaschinen pingen, wenn die XML-Datei aktualisiert wird. Das Rank Math WordPress Plugin gibt dir die volle Kontrolle über die XML-Sitemaps deiner Website. Du kannst die Einstellungen für jede Seite steuern, während du sie schreibst oder bearbeitest, und Rank Math wird Google an pingen, sobald deine Änderungen übermittelt sind. Dies führt zu schnellen Crawls und Indexierungen."
 
 #: includes/modules/404-monitor/class-admin.php:203
 msgid "404 URL Hits"
@@ -8117,6 +8134,43 @@ msgstr "Du hast Rank Math erfolgreich aktiviert. Wenn du das Plugin nützlich fi
 #: assets/admin/js/classic.js:1
 msgid "Error"
 msgstr "Fehler"
+
+#: includes/module/class-manager.php:151
+#: includes/admin/wizard/class-role.php:34
+#: includes/admin/wizard/class-role.php:59
+#: includes/admin/class-setup-wizard.php:133
+#: includes/modules/role-manager/class-role-manager.php:36
+#: includes/modules/role-manager/class-role-manager.php:70
+#: includes/modules/role-manager/class-capability-manager.php:65
+#: includes/modules/role-manager/views/help.php:11
+msgid "Role Manager"
+msgstr "Rollenverwaltung"
+
+#: includes/module/class-manager.php:100
+#: includes/admin/wizard/class-monitor-redirection.php:71
+#: includes/admin/wizard/class-monitor-redirection.php:77
+#: includes/admin/views/import-export/export-panel.php:19
+#: includes/modules/role-manager/class-capability-manager.php:64
+#: includes/modules/redirections/class-admin.php:45
+#: includes/modules/redirections/class-admin.php:114
+#: includes/modules/redirections/class-admin.php:173
+#: includes/modules/redirections/class-redirections.php:91
+#: includes/modules/redirections/views/help.php:11
+msgid "Redirections"
+msgstr "Weiterleitungen"
+
+#: includes/admin/importers/abstract-importer.php:131
+msgid "Import Redirections"
+msgstr "Weiterleitungen importieren"
+
+#: includes/admin/wizard/class-monitor-redirection.php:71
+msgid "Learn more about Redirections."
+msgstr "Erfahre mehr über Weiterleitungen."
+
+#. translators: total
+#: includes/admin/importers/class-status.php:117
+msgid "Imported %s redirections."
+msgstr "%s importierte Weiterleitungen."
 
 #: assets/admin/js/analyzer.js:1
 msgid "PageRank Sculpting no longer works. Your posts should have a mix of nofollow and DoFollow links."
