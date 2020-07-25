@@ -19,3 +19,13 @@ if ( ! function_exists( 'cpschool_add_editor_styles' ) ) {
 		wp_enqueue_style( 'cpschool-gutenberg', get_theme_file_uri( 'css/block-editor.min.css' ), false, $css_version );
 	}
 }
+
+if ( ! function_exists( 'cpschool_block_editor_settings' ) ) {
+	add_filter( 'block_editor_settings', 'cpschool_block_editor_settings', 10, 2 );
+
+	function cpschool_block_editor_settings( $editor_settings, $post ) {
+		$editor_settings['styles'][] = array( 'css' => 'body { font-family: "Inter var"; }' );
+
+		return $editor_settings;
+	}
+}

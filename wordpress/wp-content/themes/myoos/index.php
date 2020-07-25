@@ -21,11 +21,11 @@ get_header();
 	<div <?php cpschool_class( 'content', 'container' ); ?> id="content">
 		<div class="row">
 			<!-- Do the left sidebar check and opens the primary div -->
-			<?php get_template_part( 'template-parts/global-templates/left-sidebar-check' ); ?>
+			<?php get_template_part( 'template-parts/global-templates/left-sidebar-check', get_post_type() ); ?>
 
 			<main class="site-main" id="main">
 					<?php if ( have_posts() ) : ?>
-						<?php get_template_part( 'template-parts/global-templates/pagetitle' ); ?>
+						<?php get_template_part( 'template-parts/global-templates/pagetitle', get_post_type() ); ?>
 
 						<?php /* Start the Loop */ ?>
 
@@ -54,7 +54,7 @@ get_header();
 			<?php cpschool_pagination(); ?>
 
 			<!-- Do the right sidebar check -->
-			<?php get_template_part( 'template-parts/global-templates/right-sidebar-check' ); ?>
+			<?php get_template_part( 'template-parts/global-templates/right-sidebar-check', get_post_type() ); ?>
 		</div><!-- .row -->
 	</div><!-- #content -->
 </div><!-- #index-wrapper -->
