@@ -192,7 +192,7 @@ if ( ! function_exists( 'cpschool_all_excerpts_get_more_link' ) ) {
 	 * @return string
 	 */
 	function cpschool_all_excerpts_get_more_link( $post_excerpt ) {
-		if ( ! is_admin() || wp_doing_ajax() {
+		if ( ! is_admin() || wp_doing_ajax() ) {
 			$post_excerpt = $post_excerpt . '...';
 
 			$hide = get_theme_mod( 'entries_lists_hide_continue_reading' );
