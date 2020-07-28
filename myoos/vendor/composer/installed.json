@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.147.5",
-        "version_normalized": "3.147.5.0",
+        "version": "3.147.7",
+        "version_normalized": "3.147.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "8a2612f740f16e3ba8fa90dd9fb2ed5cc87c0689"
+            "reference": "0d637e7cbc795996a75531ed8dd2272f2672b2f2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8a2612f740f16e3ba8fa90dd9fb2ed5cc87c0689",
-            "reference": "8a2612f740f16e3ba8fa90dd9fb2ed5cc87c0689",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0d637e7cbc795996a75531ed8dd2272f2672b2f2",
+            "reference": "0d637e7cbc795996a75531ed8dd2272f2672b2f2",
             "shasum": ""
         },
         "require": {
@@ -102,7 +102,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-07-24T18:12:22+00:00",
+        "time": "2020-07-28T18:13:27+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -393,17 +393,17 @@
     },
     {
         "name": "doctrine/collections",
-        "version": "1.6.6",
-        "version_normalized": "1.6.6.0",
+        "version": "1.6.7",
+        "version_normalized": "1.6.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/collections.git",
-            "reference": "5f0470363ff042d0057006ae7acabc5d7b5252d5"
+            "reference": "55f8b799269a1a472457bd1a41b4f379d4cfba4a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/collections/zipball/5f0470363ff042d0057006ae7acabc5d7b5252d5",
-            "reference": "5f0470363ff042d0057006ae7acabc5d7b5252d5",
+            "url": "https://api.github.com/repos/doctrine/collections/zipball/55f8b799269a1a472457bd1a41b4f379d4cfba4a",
+            "reference": "55f8b799269a1a472457bd1a41b4f379d4cfba4a",
             "shasum": ""
         },
         "require": {
@@ -415,7 +415,7 @@
             "phpunit/phpunit": "^7.0",
             "vimeo/psalm": "^3.8.1"
         },
-        "time": "2020-06-22T19:14:02+00:00",
+        "time": "2020-07-27T17:53:49+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -901,17 +901,17 @@
     },
     {
         "name": "google/auth",
-        "version": "v1.11.0",
-        "version_normalized": "1.11.0.0",
+        "version": "v1.11.1",
+        "version_normalized": "1.11.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/googleapis/google-auth-library-php.git",
-            "reference": "f6752236dbb2d641d50dffee789e553e2fda129d"
+            "reference": "bb959e91bd8ffbd352ab76cbf11d656ce6435088"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/f6752236dbb2d641d50dffee789e553e2fda129d",
-            "reference": "f6752236dbb2d641d50dffee789e553e2fda129d",
+            "url": "https://api.github.com/repos/googleapis/google-auth-library-php/zipball/bb959e91bd8ffbd352ab76cbf11d656ce6435088",
+            "reference": "bb959e91bd8ffbd352ab76cbf11d656ce6435088",
             "shasum": ""
         },
         "require": {
@@ -933,7 +933,7 @@
         "suggest": {
             "phpseclib/phpseclib": "May be used in place of OpenSSL for signing strings or for token management. Please require version ^2."
         },
-        "time": "2020-07-22T18:24:05+00:00",
+        "time": "2020-07-27T18:33:35+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1360,17 +1360,17 @@
     },
     {
         "name": "google/protobuf",
-        "version": "v3.12.2",
-        "version_normalized": "3.12.2.0",
+        "version": "v3.12.4",
+        "version_normalized": "3.12.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/protocolbuffers/protobuf-php.git",
-            "reference": "571f9a4ba39826a18611ae568d97b6007954c070"
+            "reference": "e8316b6aaf62a4dc506b8f88a88e506280c8538d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/571f9a4ba39826a18611ae568d97b6007954c070",
-            "reference": "571f9a4ba39826a18611ae568d97b6007954c070",
+            "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/e8316b6aaf62a4dc506b8f88a88e506280c8538d",
+            "reference": "e8316b6aaf62a4dc506b8f88a88e506280c8538d",
             "shasum": ""
         },
         "require": {
@@ -1382,7 +1382,7 @@
         "suggest": {
             "ext-bcmath": "Need to support JSON deserialization"
         },
-        "time": "2020-05-27T17:57:58+00:00",
+        "time": "2020-07-28T18:31:07+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -1987,17 +1987,17 @@
     },
     {
         "name": "league/flysystem",
-        "version": "1.0.69",
-        "version_normalized": "1.0.69.0",
+        "version": "1.0.70",
+        "version_normalized": "1.0.70.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/flysystem.git",
-            "reference": "7106f78428a344bc4f643c233a94e48795f10967"
+            "reference": "585824702f534f8d3cf7fab7225e8466cc4b7493"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/7106f78428a344bc4f643c233a94e48795f10967",
-            "reference": "7106f78428a344bc4f643c233a94e48795f10967",
+            "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/585824702f534f8d3cf7fab7225e8466cc4b7493",
+            "reference": "585824702f534f8d3cf7fab7225e8466cc4b7493",
             "shasum": ""
         },
         "require": {
@@ -2008,7 +2008,7 @@
             "league/flysystem-sftp": "<1.0.6"
         },
         "require-dev": {
-            "phpspec/phpspec": "^3.4",
+            "phpspec/phpspec": "^3.4 || ^4.0 || ^5.0 || ^6.0",
             "phpunit/phpunit": "^5.7.26"
         },
         "suggest": {
@@ -2027,7 +2027,7 @@
             "spatie/flysystem-dropbox": "Allows you to use Dropbox storage",
             "srmklive/flysystem-dropbox-v2": "Allows you to use Dropbox storage for PHP 5 applications"
         },
-        "time": "2020-05-18T15:13:39+00:00",
+        "time": "2020-07-26T07:20:36+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2069,6 +2069,12 @@
             "s3",
             "sftp",
             "storage"
+        ],
+        "funding": [
+            {
+                "url": "https://offset.earth/frankdejonge",
+                "type": "other"
+            }
         ]
     },
     {
