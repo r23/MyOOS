@@ -18,7 +18,11 @@ if ( ! function_exists( 'cpschool_add_site_info' ) ) {
 		$site_info = get_theme_mod( 'footer_main_custom_html' );
 
 		if ( ! $site_info ) {
+			$sYear = date('Y');
 			$site_info = sprintf(
+			    'Copyright &#x000A9;&nbsp;%1$s',
+				 $sYear,
+				),
 				'<a href="%1$s">%2$s</a><span class="sep"> | </span>%3$s',
 				esc_url( __( 'http://wordpress.org/', 'myoos' ) ),
 				sprintf(

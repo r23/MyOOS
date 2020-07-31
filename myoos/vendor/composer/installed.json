@@ -56,17 +56,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.147.7",
-        "version_normalized": "3.147.7.0",
+        "version": "3.147.9",
+        "version_normalized": "3.147.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "0d637e7cbc795996a75531ed8dd2272f2672b2f2"
+            "reference": "da548c59c87b0a54d2cd1a43e5e149e56ca2569b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0d637e7cbc795996a75531ed8dd2272f2672b2f2",
-            "reference": "0d637e7cbc795996a75531ed8dd2272f2672b2f2",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/da548c59c87b0a54d2cd1a43e5e149e56ca2569b",
+            "reference": "da548c59c87b0a54d2cd1a43e5e149e56ca2569b",
             "shasum": ""
         },
         "require": {
@@ -102,7 +102,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-07-28T18:13:27+00:00",
+        "time": "2020-07-30T18:13:38+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -143,17 +143,17 @@
     },
     {
         "name": "bacon/bacon-qr-code",
-        "version": "2.0.1",
-        "version_normalized": "2.0.1.0",
+        "version": "2.0.2",
+        "version_normalized": "2.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Bacon/BaconQrCode.git",
-            "reference": "6e53ced3d2499cee4a0ef23a7c4d6449607ac7da"
+            "reference": "add6d9ff97336b62f95a3b94f75cea4e085465b2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/Bacon/BaconQrCode/zipball/6e53ced3d2499cee4a0ef23a7c4d6449607ac7da",
-            "reference": "6e53ced3d2499cee4a0ef23a7c4d6449607ac7da",
+            "url": "https://api.github.com/repos/Bacon/BaconQrCode/zipball/add6d9ff97336b62f95a3b94f75cea4e085465b2",
+            "reference": "add6d9ff97336b62f95a3b94f75cea4e085465b2",
             "shasum": ""
         },
         "require": {
@@ -163,13 +163,13 @@
         },
         "require-dev": {
             "phly/keep-a-changelog": "^1.4",
-            "phpunit/phpunit": "^6.4",
-            "squizlabs/php_codesniffer": "^3.1"
+            "phpunit/phpunit": "^7 | ^8 | ^9",
+            "squizlabs/php_codesniffer": "^3.4"
         },
         "suggest": {
             "ext-imagick": "to generate QR code images"
         },
-        "time": "2020-07-14T11:04:05+00:00",
+        "time": "2020-07-30T16:40:58+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -185,7 +185,7 @@
             {
                 "name": "Ben Scholzen 'DASPRiD'",
                 "email": "mail@dasprids.de",
-                "homepage": "http://www.dasprids.de",
+                "homepage": "https://dasprids.de/",
                 "role": "Developer"
             }
         ],
@@ -194,24 +194,24 @@
     },
     {
         "name": "dasprid/enum",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/DASPRiD/Enum.git",
-            "reference": "631ef6e638e9494b0310837fa531bedd908fc22b"
+            "reference": "6ccc0d7141a7f149e3c56cb0ce5f05d9152cfd07"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/DASPRiD/Enum/zipball/631ef6e638e9494b0310837fa531bedd908fc22b",
-            "reference": "631ef6e638e9494b0310837fa531bedd908fc22b",
+            "url": "https://api.github.com/repos/DASPRiD/Enum/zipball/6ccc0d7141a7f149e3c56cb0ce5f05d9152cfd07",
+            "reference": "6ccc0d7141a7f149e3c56cb0ce5f05d9152cfd07",
             "shasum": ""
         },
         "require-dev": {
-            "phpunit/phpunit": "^6.4",
-            "squizlabs/php_codesniffer": "^3.1"
+            "phpunit/phpunit": "^7 | ^8 | ^9",
+            "squizlabs/php_codesniffer": "^3.4"
         },
-        "time": "2017-10-25T22:45:27+00:00",
+        "time": "2020-07-30T16:37:13+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -227,7 +227,8 @@
             {
                 "name": "Ben Scholzen 'DASPRiD'",
                 "email": "mail@dasprids.de",
-                "homepage": "https://dasprids.de/"
+                "homepage": "https://dasprids.de/",
+                "role": "Developer"
             }
         ],
         "description": "PHP 7.1 enum implementation",
@@ -4207,17 +4208,17 @@
     },
     {
         "name": "stripe/stripe-php",
-        "version": "v7.44.0",
-        "version_normalized": "7.44.0.0",
+        "version": "v7.45.0",
+        "version_normalized": "7.45.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/stripe/stripe-php.git",
-            "reference": "b39ccc77358fbe0d462e6cc89ac01b7a0c896f35"
+            "reference": "21e5001f5e0d787e4755c8bfc00e578dce9ae058"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/b39ccc77358fbe0d462e6cc89ac01b7a0c896f35",
-            "reference": "b39ccc77358fbe0d462e6cc89ac01b7a0c896f35",
+            "url": "https://api.github.com/repos/stripe/stripe-php/zipball/21e5001f5e0d787e4755c8bfc00e578dce9ae058",
+            "reference": "21e5001f5e0d787e4755c8bfc00e578dce9ae058",
             "shasum": ""
         },
         "require": {
@@ -4233,7 +4234,7 @@
             "squizlabs/php_codesniffer": "^3.3",
             "symfony/process": "~3.4"
         },
-        "time": "2020-07-20T21:25:50+00:00",
+        "time": "2020-07-29T04:29:52+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -4266,17 +4267,17 @@
     },
     {
         "name": "symfony/contracts",
-        "version": "v2.1.2",
-        "version_normalized": "2.1.2.0",
+        "version": "v2.1.3",
+        "version_normalized": "2.1.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/contracts.git",
-            "reference": "69e01844e38445cb15631cfe49949ecc08605576"
+            "reference": "64342f7faf49d26a959ea223f83170f00d9699c7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/contracts/zipball/69e01844e38445cb15631cfe49949ecc08605576",
-            "reference": "69e01844e38445cb15631cfe49949ecc08605576",
+            "url": "https://api.github.com/repos/symfony/contracts/zipball/64342f7faf49d26a959ea223f83170f00d9699c7",
+            "reference": "64342f7faf49d26a959ea223f83170f00d9699c7",
             "shasum": ""
         },
         "require": {
@@ -4303,7 +4304,7 @@
             "symfony/service-implementation": "",
             "symfony/translation-implementation": ""
         },
-        "time": "2020-05-27T08:34:37+00:00",
+        "time": "2020-07-29T14:54:40+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -4345,6 +4346,20 @@
             "interfaces",
             "interoperability",
             "standards"
+        ],
+        "funding": [
+            {
+                "url": "https://symfony.com/sponsor",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+            },
+            {
+                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                "type": "tidelift"
+            }
         ]
     },
     {
