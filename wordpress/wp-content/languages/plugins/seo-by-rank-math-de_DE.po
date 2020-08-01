@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WordPress SEO Plugin &#8211; Rank Math - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-07-23 12:37:30+0000\n"
+"PO-Revision-Date: 2020-07-27 19:35:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -85,10 +85,6 @@ msgstr "Konto trennen"
 msgid "Account"
 msgstr "Konto"
 
-#: assets/admin/js/gutenberg.js:1
-msgid "Notify your readers by sharing!"
-msgstr "Benachrichtige deine Leser durch Teilen!"
-
 #: includes/admin/views/plugin-activation.php:24
 msgid "Not Connected"
 msgstr "Nicht verbunden"
@@ -100,11 +96,6 @@ msgstr "Verbunden"
 #: includes/admin/class-notices.php:146
 msgid "Please activate the WPML String Translation plugin to convert Rank Math Setting values in different languages."
 msgstr "Bitte aktiviere das WPML-String-Übersetzungs-Plugin, um Werte der Rank Math-Einstellung in verschiedenen Sprachen zu konvertieren."
-
-#: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1
-msgid "300 words"
-msgstr "300 Wörter"
 
 #: includes/metaboxes/social.php:254
 msgid "Author Twitter Username"
@@ -124,6 +115,26 @@ msgstr "Einfaches %s"
 #: includes/admin/wizard/class-compatibility.php:50
 msgid "Advanced %s"
 msgstr "Erweitertes %s"
+
+#: includes/admin/class-deactivate-survey.php:97
+msgid "Help Us Improve"
+msgstr "Hilf mit, uns zu verbessern:"
+
+#: includes/admin/class-cmb2-fields.php:223
+msgid "Image Preview"
+msgstr "Bildvorschau"
+
+#: includes/admin/class-cmb2-fields.php:222
+msgid "Video Preview"
+msgstr "Videovorschau"
+
+#: includes/admin/class-cmb2-fields.php:221
+msgid "Snippet"
+msgstr "Snippet"
+
+#: includes/admin/class-deactivate-survey.php:112
+msgid "Please share why you are deactivating Rank Math"
+msgstr "Bitte teile uns mit, warum du Rank Math deaktivierst"
 
 #: includes/admin/class-admin-header.php:104
 msgid "Advanced Mode"
@@ -188,33 +199,20 @@ msgstr "Du bist leider nicht berechtigt, Plugins dieser Website zu deaktivieren.
 msgid "Click here to Deactivate"
 msgstr "Hier klicken, um es zu deaktivieren."
 
-#. Translators: %s is the word "nofollow" code tag and second one for the
-#. filter link
-#: includes/settings/general/others.php:81
-msgid "filter"
-msgstr "Filter"
-
 #: includes/metaboxes/general.php:52 assets/admin/js/gutenberg.js:1
 #: assets/admin/js/elementor.js:1
 msgid "Editing Homepage permalink is not possible."
 msgstr "Das Bearbeiten von Homepage-Permalink ist nicht möglich."
 
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Add New Instructions"
-msgstr "Neue Anweisung hinzufügen"
+#. Translators: %s is the word "nofollow" code tag and second one for the
+#. filter link
+#: includes/settings/general/others.php:81
+msgid "filter"
+msgstr "Auswahl einschränken"
 
 #: includes/modules/seo-analysis/class-seo-analyzer.php:469
 msgid "Priority"
 msgstr "Priorität"
-
-#. Translators: placeholder is an activate button.
-#: includes/modules/seo-analysis/seo-analysis-tests.php:166
-msgid "Enable Auto Updates"
-msgstr "Automatische Updates aktivieren"
-
-#: includes/modules/seo-analysis/seo-analysis-tests.php:136
-msgid "Automatic Updates"
-msgstr "Automatische Updates"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:157
 #: includes/modules/seo-analysis/seo-analysis-tests.php:169
@@ -225,6 +223,15 @@ msgstr "Die Option zur automatischen Aktualisierung von Rank Math ist auf deiner
 #: includes/modules/seo-analysis/seo-analysis-tests.php:137
 msgid "Enable automatic updates to ensure you are always using the latest version of Rank Math."
 msgstr "Aktiviere automatische Updates, um sicherzustellen, dass du immer die neueste Version von Rank Math verwendest."
+
+#. Translators: placeholder is an activate button.
+#: includes/modules/seo-analysis/seo-analysis-tests.php:166
+msgid "Enable Auto Updates"
+msgstr "Automatische Aktualisierungen aktivieren"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:136
+msgid "Automatic Updates"
+msgstr "Automatische Aktualisierungen"
 
 #: includes/rest/class-rest-helper.php:123
 msgid "Invalid post ID."
@@ -242,10 +249,6 @@ msgstr "Entschuldigung, du hast keine Erlaubnis Weiterleitungen zu erstellen ode
 msgid "Ignore Case"
 msgstr "Fall ignorieren"
 
-#: includes/rest/class-rest-helper.php:108
-msgid "Sorry, you are not allowed to edit this post."
-msgstr "Du bist nicht berechtigt, diesen Beitrag zu bearbeiten."
-
 #: includes/rest/class-rest-helper.php:92
 msgid "Sorry, you are not allowed to edit this post type."
 msgstr "Entschuldigung, du darfst diesen Beitragstyp nicht bearbeiten."
@@ -257,6 +260,10 @@ msgstr "Klicke hier, um den Code zu sehen."
 #: includes/modules/sitemap/class-admin.php:312
 msgid "Since you are using NGINX, add this code to your NGINX %s <strong>if your Sitemap pages are not loading</strong> or you can ask your hosting support to add it."
 msgstr "Da du NGINX verwendest, füge diesen Code zu deinem NGINX %s hinzu <strong>wenn deine Sitemap Seiten nicht geladen werden</strong> oder du kannst deinen Hosting-Support bitten, ihn hinzuzufügen."
+
+#: includes/rest/class-rest-helper.php:108
+msgid "Sorry, you are not allowed to edit this post."
+msgstr "Du bist leider nicht berechtigt, diesen Beitrag zu bearbeiten."
 
 #: includes/modules/rich-snippet/views/event.php:72
 #: includes/modules/rich-snippet/class-snippet-shortcode.php:281
@@ -288,26 +295,6 @@ msgstr "Die URL der Online-Veranstaltung, an der man teilnehmen kann. Diese Eige
 msgid "Event Attendance Mode"
 msgstr "Veranstaltungsteilnahme-Modus"
 
-#: assets/admin/js/blocks.js:1
-msgid "Total time:"
-msgstr "Gesamtzeit:"
-
-#: assets/admin/js/blocks.js:1
-msgid "MM"
-msgstr "MM"
-
-#: assets/admin/js/blocks.js:1
-msgid "HH"
-msgstr "HH"
-
-#: assets/admin/js/blocks.js:1
-msgid "DD"
-msgstr "DD"
-
-#: assets/admin/js/blocks.js:1
-msgid "Enter a main description"
-msgstr "Gib eine Hauptbeschreibung ein"
-
 #: includes/modules/rich-snippet/blocks/class-block-howto.php:437
 msgid "Total Time:"
 msgstr "Gesamtzeit:"
@@ -319,38 +306,6 @@ msgstr "[Warnung] Dieses Update installiert eine Beta-Version von Rank Math."
 #: includes/admin/importers/class-yoast.php:772
 msgid "No post found."
 msgstr "Es wurden keine Beiträge gefunden."
-
-#: assets/admin/js/blocks.js:1
-msgid "Hide Step"
-msgstr "Schritt ausblenden"
-
-#: assets/admin/js/blocks.js:1
-msgid "Delete Step"
-msgstr "Schritt löschen"
-
-#: assets/admin/js/blocks.js:1
-msgid "Easily add Schema-ready, SEO-friendly, HowTo block to your content."
-msgstr "Einfaches Hinzufügen von schemafähigen, SEO-freundlichen HowTo-Blocks zu deinem Inhalt."
-
-#: assets/admin/js/blocks.js:1
-msgid "Add New Step"
-msgstr "Neuen Schritt hinzufügen"
-
-#: assets/admin/js/blocks.js:1
-msgid "HowTo by Rank Math"
-msgstr "HowTo von Rank Math"
-
-#: assets/admin/js/blocks.js:1
-msgid "HowTo"
-msgstr "HowTo"
-
-#: assets/admin/js/blocks.js:1
-msgid "Add Final Image"
-msgstr "Endgültiges Bild hinzufügen"
-
-#: assets/admin/js/blocks.js:1
-msgid "Optional, use first field to describe the duration."
-msgstr "Optional, verwende das erste Feld zur Beschreibung der Dauer."
 
 #. translators: %s expands to a unit of time (e.g. 1 minute).
 #: includes/modules/rich-snippet/blocks/class-block-howto.php:422
@@ -372,10 +327,6 @@ msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d Stunde"
 msgstr[1] "%d Stunden"
-
-#: assets/admin/js/blocks.js:1
-msgid "HowTo Options"
-msgstr "HowTo Einstellungen"
 
 #. translators: %s expands to a unit of time (e.g. 1 day).
 #: includes/modules/rich-snippet/blocks/class-block-howto.php:431
@@ -400,130 +351,6 @@ msgstr "Blöcke importieren"
 msgid "Your sitemap index can be found here: %s"
 msgstr "Deinen Sitemap-Index findest du hier: %s"
 
-#: assets/admin/js/blocks.js:1
-msgid "Add the Schema generated by Rank Math anywhere on your page using this Block."
-msgstr "Füge das von Rank Math erzeugte Schema mit Hilfe dieses Blocks an beliebiger Stelle auf deiner Seite ein."
-
-#: assets/admin/js/blocks.js:1
-msgid "Schema by Rank Math"
-msgstr "Schema von Rank Math"
-
-#: assets/admin/js/blocks.js:1
-msgid "FAQ by Rank Math"
-msgstr "FAQ von Rank Math"
-
-#: assets/admin/js/blocks.js:1
-msgid "Markup"
-msgstr "Markierung"
-
-#: assets/admin/js/blocks.js:1
-msgid "Block"
-msgstr "Block"
-
-#: assets/admin/js/blocks.js:1
-msgid "Yoast"
-msgstr "Yoast"
-
-#: assets/admin/js/blocks.js:1
-msgid "Structured Data"
-msgstr "Strukturierte Daten"
-
-#: assets/admin/js/blocks.js:1
-msgid "SEO"
-msgstr "SEO"
-
-#: assets/admin/js/blocks.js:1
-msgid "Frequently Asked Questions"
-msgstr "Häufig gestellte Fragen"
-
-#: assets/admin/js/blocks.js:1
-msgid "FAQ"
-msgstr "FAQ"
-
-#: assets/admin/js/blocks.js:1
-msgid "More Info"
-msgstr "Mehr Informationen"
-
-#: assets/admin/js/blocks.js:1
-msgid "Add New FAQ"
-msgstr "Neue FAQ hinzufügen"
-
-#: assets/admin/js/blocks.js:1
-msgid "Enter the answer to the question"
-msgstr "Gebe die Antwort auf die Frage ein"
-
-#: assets/admin/js/blocks.js:1
-msgid "Question..."
-msgstr "Eine Frage..."
-
-#: assets/admin/js/blocks.js:1
-msgid "Delete Question"
-msgstr "Frage löschen"
-
-#: assets/admin/js/blocks.js:1
-msgid "Hide Question"
-msgstr "Frage ausblenden"
-
-#: assets/admin/js/blocks.js:1
-msgid "List CSS Class(es)"
-msgstr "CSS-Klasse(n) auflisten"
-
-#: assets/admin/js/blocks.js:1
-msgid "Content Wrapper CSS Class(es)"
-msgstr "Verpackung für den Inhalt CSS-Klasse(n)"
-
-#: assets/admin/js/blocks.js:1
-msgid "Title Wrapper CSS Class(es)"
-msgstr "Titelverpackung CSS-Klasse(n)"
-
-#: assets/admin/js/blocks.js:1
-msgid "Styling Options"
-msgstr "Styling-Optionen"
-
-#: assets/admin/js/blocks.js:1
-msgid "Image Size"
-msgstr "Bildgröße"
-
-#: assets/admin/js/blocks.js:1
-msgid "DIV"
-msgstr "DIV"
-
-#: assets/admin/js/blocks.js:1
-msgid "P"
-msgstr "P"
-
-#: assets/admin/js/blocks.js:1
-msgid "H6"
-msgstr "H6"
-
-#: assets/admin/js/blocks.js:1
-msgid "H5"
-msgstr "H5"
-
-#: assets/admin/js/blocks.js:1
-msgid "H4"
-msgstr "H4"
-
-#: assets/admin/js/blocks.js:1
-msgid "H3"
-msgstr "H3"
-
-#: assets/admin/js/blocks.js:1
-msgid "H2"
-msgstr "H2"
-
-#: assets/admin/js/blocks.js:1
-msgid "Title Wrapper"
-msgstr "Titel-Verpackung"
-
-#: assets/admin/js/blocks.js:1
-msgid "Numbered"
-msgstr "Nummeriert"
-
-#: assets/admin/js/blocks.js:1
-msgid "FAQ Options"
-msgstr "FAQ-Optionen"
-
 #: includes/modules/database-tools/class-database-tools.php:173
 msgid "No posts found to convert."
 msgstr "Es wurden keine Stellen zur Umwandlung gefunden."
@@ -535,14 +362,6 @@ msgstr "Blöcke konvertieren"
 #: includes/modules/database-tools/class-database-tools.php:207
 msgid "Yoast Block Converter"
 msgstr "Yoast Block-Konverter"
-
-#: assets/admin/js/blocks.js:1
-msgid "Unordered"
-msgstr "Ungeordnet"
-
-#: assets/admin/js/blocks.js:1
-msgid "List Style"
-msgstr "Listen-Style"
 
 #: includes/modules/database-tools/class-database-tools.php:209
 msgid "Are you sure you want to convert Yoast blocks into Rank Math blocks? This action is irreversible."
@@ -734,16 +553,6 @@ msgstr "On-Page Schema Einstellungen"
 msgid "The review or rating must be displayed on the page to comply with Google's Schema guidelines."
 msgstr "Die Bewertung muss auf der Seite angezeigt werden, um den Google Schema Richtlinien zu entsprechen."
 
-#: includes/admin/wizard/class-schema-markup.php:58
-#: includes/settings/titles/post-types.php:115
-#: includes/settings/titles/post-types.php:132
-#: includes/settings/titles/post-types.php:147
-#: includes/modules/rich-snippet/views/metabox-options.php:36
-#: includes/modules/rich-snippet/views/metabox-options.php:55
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Schema Type"
-msgstr "Schema Typ"
-
 #: includes/modules/rich-snippet/views/help.php:33
 msgid "Click here to read full Schema tutorial"
 msgstr "Klicke hier, um das vollständige Schema-Tutorial zu lesen."
@@ -753,13 +562,19 @@ msgstr "Klicke hier, um das vollständige Schema-Tutorial zu lesen."
 msgid "Schema (Structured Data)"
 msgstr "Schema (Strukturierte Daten)"
 
+#: includes/admin/wizard/class-schema-markup.php:58
+#: includes/settings/titles/post-types.php:115
+#: includes/settings/titles/post-types.php:132
+#: includes/settings/titles/post-types.php:147
+#: includes/modules/rich-snippet/views/metabox-options.php:36
+#: includes/modules/rich-snippet/views/metabox-options.php:55
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
+msgid "Schema Type"
+msgstr "Schema-Typ"
+
 #: includes/modules/buddypress/class-admin.php:49
 msgid "This tab contains SEO options for BuddyPress Group pages."
 msgstr "Diese Registerkarte enthält SEO-Optionen für BuddyPress-Gruppenseiten."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Review (unsupported)"
-msgstr "Überprüfung (nicht unterstützt)"
 
 #: includes/rest/class-post.php:135
 msgid "No meta rows found to update."
@@ -774,14 +589,6 @@ msgstr "Benutzerdefinierter oder generierter SEO-Titel der aktuellen Postseite"
 msgid "Show SEO Score on Front-end"
 msgstr "SEO-Punktzahl am Frontend anzeigen"
 
-#: includes/helpers/class-choices.php:467
-msgid "Review (Unsupported)"
-msgstr "Überprüfung (Nicht unterstützt)"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Google does not support this Schema type anymore, please use different type or use {{link}}this tool{{/link}} to convert all the old posts."
-msgstr "Google unterstützt diesen Schematyp nicht mehr, bitte verwende einen anderen Typ oder verwende {{link}}dieses Tool{{link}}, um alle alten Beiträge zu konvertieren."
-
 #: includes/replace-variables/class-post-variables.php:90
 msgid "Custom or Generated SEO Description of the current post/page"
 msgstr "Benutzerdefinierte oder generierte SEO Beschreibung des aktuellen Beitrags/Seite"
@@ -790,105 +597,19 @@ msgstr "Benutzerdefinierte oder generierte SEO Beschreibung des aktuellen Beitra
 msgid "SEO Description"
 msgstr "SEO-Beschreibung"
 
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Rating: "
-msgstr "Bewertung:"
-
 #. translators: 1. Bold text 2. Bold text
 #: includes/admin/class-deactivate-survey.php:106
 msgid "%1$s A filter to remove the Rank Math data from the database is present in your theme. Deactivating & Deleting this plugin will remove everything related to the Rank Math plugin. %2$s"
 msgstr "%1$s In deinem Theme ist ein Filter zum Entfernen der Rank Math-Daten aus der Datenbank vorhanden. Das Deaktivieren dieses Plugins entfernt alles, was mit dem Rank Math-Plugin zusammenhängt. %2$s"
 
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Copy & paste this shortcode in the content"
-msgstr "Kopiere diesen Shortcode und füge ihn in den Inhalt ein"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "The canonical URL informs search crawlers which page is the main page if you have double content"
-msgstr "Die kanonische URL informiert die Such-Crawler, welche Seite die Hauptseite ist, wenn diese doppelten Inhalt haben"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "The venue name"
-msgstr "Der Name des Veranstaltungsortes"
-
-#: assets/admin/js/gutenberg.js:1
-msgid "Auto redirection created."
-msgstr "Automatische Umleitung erstellt."
-
-#: assets/admin/js/gutenberg-primary-term.js:1 assets/admin/js/gutenberg.js:1
-msgid "Select Primary Term"
-msgstr "Primärbegriff auswählen"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "PM"
-msgstr "PM"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "AM"
-msgstr "AM"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Preview & Edit Social Media"
-msgstr "Vorschau & Bearbeitung von Social Media"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Social Media Preview"
-msgstr "Social-Media-Vorschau"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Instruction name of the recipe"
-msgstr "Anweisungsname des Rezepts"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "ISO 8601 duration format. Example: 1H30M"
-msgstr "ISO 8601 Dauerformat. Beispiel: 1H30M"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "A URL where visitors can purchase tickets for the event"
-msgstr "Eine URL, unter der Besucher Tickets für die Veranstaltung kaufen können"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "End date and time of the event"
-msgstr "Enddatum und -zeit der Veranstaltung"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Date and time of the event"
-msgstr "Datum und Uhrzeit der Veranstaltung"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Type of the event"
-msgstr "Art der Veranstaltung"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Country"
-msgstr "Land"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Region"
-msgstr "Region"
+#: includes/helpers/class-choices.php:467
+msgid "Review (Unsupported)"
+msgstr "Rezension (Nicht unterstützt)"
 
 #: includes/metaboxes/general.php:49 assets/admin/js/gutenberg.js:1
 #: assets/admin/js/elementor.js:1
 msgid "Permalink"
 msgstr "Permalink"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/common.js:1
-msgid "Search &hellip;"
-msgstr "Suche &hellip;"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "About 43,700,000 results (0.32 seconds) "
-msgstr "Etwa 43.700.000 Ergebnisse (0,32 Sekunden) "
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Videos"
-msgstr "Videos"
-
-#: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1
-msgid "All Good"
-msgstr "Alles gut"
 
 #: includes/metaboxes/social-preview.php:78 assets/admin/js/gutenberg.js:1
 #: assets/admin/js/elementor.js:1
@@ -915,48 +636,6 @@ msgstr "Benutzername"
 msgid "Unable to connect Rank Math."
 msgstr "Verbindung mit Rank Math nicht möglich."
 
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Instructs search engines to index and show these pages in the search results"
-msgstr "Weist Suchmaschinen an, diese Seiten zu indizieren und in den Suchergebnissen anzuzeigen"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Close"
-msgstr "Schließen"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Card Type"
-msgstr "Kartentyp"
-
-#: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/analyzer.js:1
-msgid "Content should be %1$s long."
-msgstr "Der Inhalt sollte %1$s lang sein."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Table of Contents help break down content into smaller, digestible chunks. It makes reading easier which in turn results in better rankings."
-msgstr "Das Inhaltsverzeichnis hilft, den Inhalt in kleinere, verdauliche Stücke zu zerlegen. Das erleichtert das Lesen, was wiederum zu besseren Platzierungen führt."
-
-#: assets/admin/js/gutenberg-formats.js:1
-msgid "Link"
-msgstr "Link"
-
-#: assets/admin/js/gutenberg-formats.js:1
-msgid "Link removed."
-msgstr "Link entfernt."
-
-#: assets/admin/js/gutenberg-formats.js:1
-msgid "Sponsored"
-msgstr "Gesponsert"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg-formats.js:1
-msgid "Nofollow"
-msgstr "Nofollow"
-
-#: assets/admin/js/gutenberg-formats.js:1
-msgid "Open in New Tab"
-msgstr "In neuem Tab öffnen"
-
 #: includes/modules/woocommerce/views/options-general.php:66
 msgid "Remove Schema Markup on Shop Archives"
 msgstr "Schema-Markup in Shop-Archiven entfernen"
@@ -969,111 +648,10 @@ msgstr "Umleitung erfolgreich aktualisiert."
 msgid "Can't update redirection."
 msgstr "Ich kann die Umleitung nicht aktualisieren."
 
-#: assets/admin/js/analyzer.js:1
-msgid "Keyword Density is 0. Aim for around 1% Keyword Density."
-msgstr "Die Keyword-Dichte ist 0, angestrebt wird etwa 1% Keyword-Dichte."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Click on the button below to view and edit the preview."
-msgstr "Klicke auf die Schaltfläche unten, um die Vorschau anzuzeigen und zu bearbeiten."
-
 #. Translators: 1 is the site URL, 2 is the new version number.
 #: includes/class-auto-updater.php:102
 msgid "Hi! The Rank Math plugin installed on %1$s has been automatically updated to version %2$s."
 msgstr "Hi! Das Rank Math Plugin, dass auf %1$s installiert ist, wurde automatisch auf Version %2$s aktualisiert."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Customize the title, description and images of your post used while sharing on Facebook and Twitter."
-msgstr "Passe den Titel, die Beschreibung und die Bilder deines Beitrags an, die beim Teilen auf Facebook und Twitter verwendet werden."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Get keyword suggestions from Google by {{link}}connecting your Rank Math account{{/link}}."
-msgstr "Hole dir Stichwortvorschläge von Google, {{link}}indem du dein Rank Math Konto verbindest{{/link}}."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Insert keywords you want to rank for. Try to {{link}}attain 100/100 points{{/link}} for better chances of ranking."
-msgstr "Füge Schlüsselwörter ein mit denen du ranken möchtest. Versuche {{{{link}}}100/100 Punkte{{{{{link}}} zu erreichen, um bessere Chancen auf ein Ranking zu haben."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Your title doesn't contain a %1$s word."
-msgstr "Dein Titel enthält kein %1$s Wort."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Your title doesn't contain a %1$s. Add at least one."
-msgstr "Dein Titel enthält keine %1$s. Füge mindestens eines hinzu."
-
-#: assets/admin/js/gutenberg-formats.js:1
-msgid "Warning: the link has been inserted but may have errors. Please test it."
-msgstr "Warnung: Der Link wurde eingefügt, kann aber Fehler enthalten. Bitte teste ihn."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/analyzer.js:1 assets/admin/js/gutenberg-formats.js:1
-msgid "rank-math"
-msgstr "rank-math"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Here  you can view and edit the thumbnail, title and description that will be displayed when your site is shared on social media."
-msgstr "Hier kannst du die Miniaturansicht, den Titel und die Beschreibung, die angezeigt werden, wenn deine Website in sozialen Medien geteilt wird, ansehen und bearbeiten."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Street Address"
-msgstr "Adresse"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "The format of the book"
-msgstr "Das Format des Buchs"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "The author(s) of the tome. Use if the author(s) of the tome differ from the related book. Provide one Person entity per author. *Optional when the tome has the same set of authors as the book."
-msgstr "Die Autoren des Bandes. Verwende diese Option, wenn sich die Autoren des Bandes vom zugehörigen Buch unterscheiden. Gebe eine Personenentität pro Autor an. *Optional, wenn der Band die gleichen Autoren wie das Buch hat."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "*Optional when tome has the same title as the book."
-msgstr "*Optional, wenn der Band den gleichen Titel wie das Buch hat."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "The title of the tome. Use for the title of the tome if it differs from the book."
-msgstr "Der Titel des Bandes. Verwenden Sie den Titel des Bandes, wenn er vom Buch abweicht."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Your app's custom URL scheme (must include ://)."
-msgstr "Das benutzerdefinierte URL-Schema deiner App (muss :// enthalten)."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Please be careful with this option. Although this option will help increase CTR on Facebook, it might get you penalised if over-used."
-msgstr "Bitte sei vorsichtig mit dieser Option. Obwohl diese Option dazu beiträgt, die CTR auf Facebook zu erhöhen, kann es sein, dass du bestraft wirst, wenn du diese zu oft benutzt."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Specify a maximum size of image preview to be shown for images on this page"
-msgstr "Gebe eine maximale Größe der Bildvorschau an, die für Bilder auf dieser Seite angezeigt werden soll"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Specify a maximum duration in seconds of an animated video preview"
-msgstr "Gebe eine maximale Dauer einer animierten Videovorschau in Sekunden an"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Specify a maximum text-length, in characters, of a snippet for your page"
-msgstr "Gebe eine maximale Textlänge, in Zeichen, eines Snippets für deine Seite an"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Hey, we noticed you are using Rank Math SEO plugin for more than 2 weeks –{{em}}that's awesome!{{/em}} Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
-msgstr "Hey, wir haben bemerkt, dass du das Rank Math SEO-Plugin seit mehr als 2 Wochen benutzt - <em>das ist fantastisch!</em> Könntest du uns bitte einen GROSSEN Gefallen tun und ihm eine <strong>5- Sterne</strong> Bewertung auf WordPress geben, um uns zu helfen, beliebter zu werden und unsere Motivation zu steigern?"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "The card for your website will look little something like this!"
-msgstr "Die Karte für deine Website wird in etwa so aussehen!"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Please be careful with this option. Although this option will help increase CTR on Twitter, it might get you penalised if over-used."
-msgstr "Bitte sei vorsichtig mit dieser Option. Obwohl diese Option dazu beiträgt, die CTR auf Twitter zu erhöhen, könnte sie bei übermäßiger Nutzung zu einer Bestrafung führen."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Your app ID in the Google Play (.i.e. com.android.app)"
-msgstr "Deine App-ID im Google Play (.z.B. com.android.app)"
-
-#: assets/admin/js/gutenberg-formats.js:1
-msgid "%s (opens in a new tab)"
-msgstr "%s (öffnet in neuem Tab)"
 
 #: includes/admin/class-registration.php:109
 msgid "Rank Math plugin could not be connected."
@@ -1083,26 +661,6 @@ msgstr "Das Rank Math Plugin konnte nicht verbunden werden."
 #: includes/modules/rich-snippet/views/metabox-options.php:71
 msgid "Google does not support this Schema type anymore, please use different type or use <a href=\"%s\" target=\"_blank\">this tool</a> to convert all the old posts."
 msgstr "Google unterstützt diesen Schematyp nicht mehr, bitte verwende einen anderen Typ oder verwende <a href=\"%s\" target=\"_blank\">dieses Tool</a> , um alle alten Beiträge zu konvertieren."
-
-#: assets/admin/js/gutenberg-formats.js:1
-msgid "Unlink"
-msgstr "Link entfernen"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Add New Edition"
-msgstr "Neue Ausgabe hinzufügen"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this {{link}}here{{/link}}."
-msgstr "Google erlaubt keine Person als Herausgeber für Artikel. Stattdessen wird die Organisation verwendet. Du kannst {{{{link}}} hier {{{{link}}} mehr darüber lesen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "You have %1$s this Focus Keyword."
-msgstr "Du hast %1$s dieses Fokus-Keyword."
-
-#: assets/admin/js/analyzer.js:1
-msgid "You are using short paragraphs."
-msgstr "Du verwendest kurze Absätze."
 
 #: includes/class-auto-updater.php:110
 msgid "Thank you for using Rank Math."
@@ -1116,58 +674,10 @@ msgstr "Aktiviere das BuddyPress-Modul für Rank Math SEO, um dein BuddyPress-Fo
 msgid "Remove Schema Markup Data from WooCommerce Shop archive pages."
 msgstr "Entferne die Schema-Markup-Daten aus den Archivseiten des WooCommerce Shops."
 
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Schema help you stand out in SERPs. {{link}}Learn more{{/link}}."
-msgstr "Schema Rich Snippets helfen dir, sich in SERPs abzuheben. {{link}}Lerne mehr{{/link}}."
-
 #. Translators: placeholder is the new version number.
 #: includes/class-auto-updater.php:106
 msgid "No further action is needed on your part. For more on version %1$s, see the official changelog: https://rankmath.com/changelog/"
 msgstr "Es sind keine weiteren Maßnahmen Deinerseits erforderlich. Mehr zur Version %1$s findest du im offiziellen Changelog: https://rankmath.com/changelog/"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Number of views."
-msgstr "Anzahl der Aufrufe"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Hours"
-msgstr "Öffnungszeiten"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Postal Code"
-msgstr "PLZ"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Locality"
-msgstr "Ort"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Read more"
-msgstr "Weiterlesen"
-
-#: assets/admin/js/analyzer.js:1
-msgid "URL is %1$d characters long. Kudos!"
-msgstr "Die URL ist %1$d Zeichen lang. Hut ab!"
-
-#: assets/admin/js/analyzer.js:1
-msgid "Content is %1$d words long. Good job!"
-msgstr "Der Inhalt ist %1$d Wörter lang. Gute Arbeit!"
-
-#: assets/admin/js/analyzer.js:1
-msgid "Your title contains %1$d power word(s). Booyah!"
-msgstr "Dein Titel enthält %1$d kraftvolle Begriff(e). Booyah!"
-
-#: assets/admin/js/analyzer.js:1
-msgid "We found %1$d outbound links in your content and all of them are nofollow."
-msgstr "Wir haben %1$d ausgehende Links in deinem Inhalt gefunden und alle sind nofollow."
-
-#: assets/admin/js/analyzer.js:1
-msgid "URL is %1$d characters long. Consider shortening it."
-msgstr "Die URL ist %1$d Zeichen lang. Überlege, ob du diese kürzen willst."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Content is %1$d words long. Consider using at least 600 words."
-msgstr "Dein Inhalt ist %1$d Wörter lang. Erwäge, mindestens 600 Wörter zu verwenden."
 
 #. Translators: placeholder is the new version number.
 #: includes/class-auto-updater.php:99
@@ -1355,14 +865,6 @@ msgstr "Bewertung der Mindestpunktzahl des Produkts."
 msgid "Rating maximum score of the software."
 msgstr "Bewertung der maximalen Punktzahl der Software."
 
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Max Image Preview"
-msgstr "Vorschau des Max-Bildes"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Max Video Preview"
-msgstr "Maximale Video-Vorschau"
-
 #: includes/admin/class-cmb2-fields.php:278 assets/admin/js/gutenberg.js:1
 #: assets/admin/js/elementor.js:1
 msgid "Standard"
@@ -1395,10 +897,6 @@ msgstr "Blog-Seite in Breadcrumb anzeigen."
 #: includes/settings/titles/author.php:77
 msgid "Author Advanced Robots"
 msgstr "Autor Erweiterte Roboter"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Max Snippet"
-msgstr "Max Snippet"
 
 #. translators: taxonomy name
 #: includes/settings/titles/taxonomies.php:100
@@ -1443,10 +941,6 @@ msgstr "%1$d Review Beiträge aktualisiert. Du findest die Liste aller konvertie
 #: includes/modules/database-tools/class-database-tools.php:253
 msgid "Are you sure you want to convert %d posts with review schema into new schema type? This action is irreversible."
 msgstr "Bist du sicher, dass Du %d Beiträge mit Review-Schema in einen neuen Schema-Typ verbergen möchtest? Diese Aktion lässt sich nicht rückgängig machen."
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Tools"
-msgstr "Werkzeuge"
 
 #: includes/modules/database-tools/class-database-tools.php:222
 msgid "Clear SEO Analysis"
@@ -2493,11 +1987,6 @@ msgstr "Beide Vorteile machen Rich Snippets äußerst attraktiv. Google kann jed
 msgid "Search Engine Optimization by Rank Math - https://s.rankmath.com/home"
 msgstr "Suchmaschinenoptimierung von Rank Math - https://s.rankmath.com/home"
 
-#. Plugin URI of the plugin
-#. Author URI of the plugin
-msgid "https://s.rankmath.com/home"
-msgstr "https://s.rankmath.com/home"
-
 #: includes/modules/rich-snippet/class-admin.php:70
 #: includes/modules/rich-snippet/class-admin.php:116
 #: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
@@ -2633,10 +2122,6 @@ msgstr "Das Datum, ab dem der Preis nicht mehr verfügbar ist."
 msgid "Is Pillar"
 msgstr "Ist Säule"
 
-#: assets/admin/js/analyzer.js:1
-msgid "We detected a gallery in your content & assuming that you added Focus Keyword in alt in at least one of the gallery images."
-msgstr "Wir haben eine Galerie in deinem Inhalt gefunden und sind davon ausgegangen, dass du in mindestens einem der Galeriebilder das Fokus-Keyword in den Alt-Text hinzugefügt hast."
-
 #: includes/modules/rich-snippet/views/event.php:158
 #: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
 msgid "A performer at the event"
@@ -2652,14 +2137,6 @@ msgstr "Darsteller"
 msgid "Not Set"
 msgstr "Nicht festgelegt"
 
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Time"
-msgstr "Zeit"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Remove Image"
-msgstr "Bild entfernen"
-
 #. translators: taxonomy name
 #: includes/settings/titles/taxonomies.php:35
 msgid "Title tag for %s archives"
@@ -2669,10 +2146,6 @@ msgstr "Titel Tag für %s Archive"
 #: includes/settings/titles/taxonomies.php:33
 msgid "%s Archive Titles"
 msgstr "%s Archiv-Titel"
-
-#. Description of the plugin
-msgid "Rank Math is a revolutionary SEO product that combines the features of many SEO tools and lets you multiply your traffic in the easiest way possible."
-msgstr "Rank Math ist ein revolutionäres SEO-Produkt, welches die Funktionen vieler SEO-Tools vereint. Es vervielfacht deinen Traffic auf dem einfachsten Weg überhaupt."
 
 #: includes/settings/titles/social.php:43
 msgid "Facebook App"
@@ -2904,10 +2377,6 @@ msgstr "Facebook-Secret"
 #: includes/settings/titles/social.php:33
 msgid "Facebook Admin"
 msgstr "Facebook-Admin"
-
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-msgid "Minutes"
-msgstr "Minuten"
 
 #: includes/modules/rich-snippet/class-admin.php:71
 msgid "This tab contains snippet options."
@@ -5995,10 +5464,6 @@ msgstr "Einstellungsimport fehlgeschlagen."
 msgid "News Article"
 msgstr "Nachrichtenartikel"
 
-#: assets/admin/js/blocks.js:1
-msgid "Rich Snippet"
-msgstr "Rich Snippet"
-
 #: includes/admin/views/dashboard-help.php:97
 msgid "Browse FAQ's"
 msgstr "FAQs durchsuchen"
@@ -8131,10 +7596,6 @@ msgstr "Lass das Feld leer, damit WordPress den Inhalt dynamisch verarbeiten kan
 msgid "You have successfully activated Rank Math. If you find the plugin useful, %1$s feel free to recommend it to your friends or colleagues %2$s."
 msgstr "Du hast Rank Math erfolgreich aktiviert. Wenn du das Plugin nützlich findest, %1$s zögern Sie nicht, es Ihren Freunden oder Kollegen zu empfehlen %2$s."
 
-#: assets/admin/js/classic.js:1
-msgid "Error"
-msgstr "Fehler"
-
 #: includes/module/class-manager.php:151
 #: includes/admin/wizard/class-role.php:34
 #: includes/admin/wizard/class-role.php:59
@@ -8171,10 +7632,6 @@ msgstr "Erfahre mehr über Weiterleitungen."
 #: includes/admin/importers/class-status.php:117
 msgid "Imported %s redirections."
 msgstr "%s importierte Weiterleitungen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "PageRank Sculpting no longer works. Your posts should have a mix of nofollow and DoFollow links."
-msgstr "PageRank Sculpting funktioniert nicht mehr. Deine Beiträge sollten eine Mischung aus nofollow und DoFollow Links haben."
 
 #: includes/metaboxes/general.php:60 includes/metaboxes/social.php:65
 #: includes/metaboxes/social.php:213
@@ -8476,71 +7933,6 @@ msgstr "Artikel ohne Indexierung"
 msgid "Rank Math Product Registration"
 msgstr "Rank Math Produkt-Registrierung"
 
-#: assets/admin/js/analyzer.js:1
-msgid "Permalink should be at most 75 characters long."
-msgstr "Der Permalink sollte mindestens 75 Zeichen lang sein."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Minimum recommended content length should be 600 words."
-msgstr "Die empfohlene Mindestlänge des Inhalts sollte 600 Wörter betragen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Your title has a positive or a negative sentiment."
-msgstr "Dein Titel hat eine positive oder negative Stimmung."
-
-#: assets/admin/js/analyzer.js:1
-msgid "We are searching in database."
-msgstr "Wir suchen in der Datenbank."
-
-#: assets/admin/js/analyzer.js:1
-msgid "already used"
-msgstr "wird bereits verwendet"
-
-#: assets/admin/js/analyzer.js:1
-msgid "Internal links decrease your bounce rate and improve SEO."
-msgstr "Interne Links verringern die Absprung-Rate und verbessern die SEO."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Headlines with numbers are 36% more likely to generate clicks, according to research by Conductor."
-msgstr "Laut einer Studie von Conductor erzeugen Überschriften mit Zahlen 36% mehr Klicks."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Headlines with a strong emotional sentiment (positive or negative) tend to receive more clicks."
-msgstr "Überschriften mit einer starken emotionalen Stimmung (positiv oder negativ) neigen dazu, mehr Klicks zu erhalten."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Titles with positive or negative sentiment work best for higher CTR."
-msgstr "Titel mit positiver oder negativer Stimmung eignen sich am besten für eine höhere CTR."
-
-#: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1
-msgid "Additional"
-msgstr "Zusätzlich"
-
-#: assets/admin/js/analyzer.js:1
-msgid "Content with images and/or video feels more inviting to users. It also helps supplement your textual content."
-msgstr "Inhalte mit Bildern und/oder Videos wirken für die Nutzer einladender. Es hilft auch, deine Textinhalte zu ergänzen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add a few images and/or videos to make your content appealing."
-msgstr "Füge ein paar Bilder und/oder Videos hinzu, um deinen Inhalt ansprechend zu gestalten."
-
-#: assets/admin/js/analyzer.js:1
-msgid "You are not using rich media like images or videos."
-msgstr "Du verwendest keine Rich Media wie Bilder oder Videos."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Your content contains images and/or video(s)."
-msgstr "Deine Inhalte enthalten Bilder und/oder Videos."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Short paragraphs are easier to read and more pleasing to the eye. Long paragraphs scare the visitor, and they might result to SERPs looking for better readable content."
-msgstr "Kurze Absätze sind leichter zu lesen und sind ansprechender für das Auge. Lange Absätze erschrecken den Besucher, und sie könnten dazu führen, dass SERPs nach besser lesbaren Inhalten suchen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add short and concise paragraphs for better readability and UX."
-msgstr "Füge kurze und prägnante Absätze für eine bessere Lesbarkeit und UX hinzu."
-
 #: includes/admin/class-serp-preview.php:410
 #: includes/admin/class-serp-preview.php:479
 msgid "In stock"
@@ -8562,16 +7954,6 @@ msgstr "Klicke hier, um einen Permalink einzugeben"
 #: assets/admin/js/elementor.js:1
 msgid "Preview"
 msgstr "Vorschau"
-
-#: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1
-msgid "Content Readability"
-msgstr "Lesbarkeit des Inhalts"
-
-#: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1
-msgid "Title Readability"
-msgstr "Lesbarkeit des Titels"
 
 #: includes/admin/wizard/class-import.php:84
 msgid "Input Data From:"
@@ -8700,10 +8082,6 @@ msgstr "Hilfe und Support"
 msgid "Twitter username (without @)"
 msgstr "Twitter-Benutzername (ohne @)"
 
-#: assets/admin/js/analyzer.js:1
-msgid "It helps visitors read more about a topic and prevents pogosticking."
-msgstr "Es hilft den Besuchern, mehr über ein Thema zu lesen und verhindert Pogo Sticking (Pogo Sticking ist ein Verhaltensmuster von Nutzern, das als negatives Signal für Suchmaschinen betrachtet wird)."
-
 #: includes/admin/class-admin-header.php:76
 msgid "Search Options"
 msgstr "Suchoptionen"
@@ -8724,10 +8102,6 @@ msgstr "Einstellungen erfolgreich importiert. Ihre alte Konfiguration wurde als 
 #: includes/admin/class-post-filters.php:168
 msgid "All Posts"
 msgstr "Alle Beiträge"
-
-#: assets/admin/js/analyzer.js:1
-msgid "There is no ideal keyword density percentage, but it should not be too high. The most important thing is to keep the copy natural."
-msgstr "Es gibt keinen idealen Prozentsatz der Keyword-Dichte, aber er sollte nicht zu hoch sein. Das Wichtigste ist, dass die Verhältnis natürlich bleibt."
 
 #: includes/admin/wizard/class-your-site.php:56
 #: includes/modules/local-seo/views/titles-options.php:88
@@ -8756,10 +8130,6 @@ msgstr "Persönliches Portfolio"
 msgid "Basic SEO"
 msgstr "Grundlegende SEO"
 
-#: assets/admin/js/analyzer.js:1
-msgid "We couldn't find any internal links in your content."
-msgstr "Wir konnten keine internen Links in Ihren Inhalten finden."
-
 #. translators: sitename
 #: includes/admin/wizard/class-your-site.php:48
 msgid "%1$s is a&hellip;"
@@ -8783,89 +8153,13 @@ msgstr "Webseite für kleine Unternehmen"
 msgid "This tab contains social options."
 msgstr "Diese Registerkarte enthält Soziale Optionen."
 
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword doesn't appear in the content."
-msgstr "Das Fokus-Keyword erscheint nicht im Inhalt."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword appears in the first 10% of the content."
-msgstr "Das Fokus-Keyword erscheint in den ersten 10 % des Inhalts."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword used in the URL."
-msgstr "Das Fokus-Keyword wird in der URL verwendet."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword does not appear in the SEO title."
-msgstr "Das Fokus-Keyword erscheint nicht im SEO-Titel."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword not found in image alt attribute(s)."
-msgstr "Das Fokus-Keyword wurde nicht im Alt-Attribut eines Bildes gefunden."
-
-#: assets/admin/js/analyzer.js:1
-msgid "It is recommended to add the focus keyword as part of one or more subheadings in the content."
-msgstr "Es wird empfohlen, das Fokus-Keyword als Teil einer Unterüberschrift oder mehrerer Unterüberschriften im Inhalt zu verwenden."
-
-#: assets/admin/js/analyzer.js:1
-msgid "The SEO page title should contain the Focus Keyword preferably at the beginning."
-msgstr "Der Titel der SEO-Seite sollte vorzugsweise am Anfang das Fokus-Keyword enthalten."
-
-#: assets/admin/js/analyzer.js:1
-msgid "The first 10% of the content should contain the Focus Keyword preferably at the beginning."
-msgstr "Die ersten 10 % des Inhalts sollten vorzugsweise am Anfang das Fokus-Keyword enthalten."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword doesn't appear at the beginning of SEO title."
-msgstr "Das Fokus-Keyword erscheint nicht am Anfang des SEO-Titels."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword found in the content."
-msgstr "Das Fokus-Keyword wurde im Inhalt gefunden."
-
-#: assets/admin/js/analyzer.js:1
-msgid "It is recommended to make the focus keyword appear in the post content too."
-msgstr "Es wird empfohlen, das Fokus-Keyword auch im Beitragsinhalt erscheinen zu lassen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "It is recommended to add the focus keyword in the alt attribute of one or more images."
-msgstr "Es wird empfohlen, das Fokus-Keyword im Alt-Attribut eines Bildes oder mehrerer Bilder zu verwenden."
-
 #: includes/admin/class-post-columns.php:246
 msgid "Keyword"
 msgstr "Keyword"
 
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword used inside SEO Meta Description."
-msgstr "Fokus-Keyword, welches in der SEO Meta-Beschreibung verwendet wird."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword not found in the URL."
-msgstr "Das Fokus-Keyword wurde nicht in der URL gefunden."
-
 #: includes/admin/class-post-filters.php:172
 msgid "Focus Keyword Not Set"
 msgstr "Fokus-Keyword nicht gesetzt"
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword used at the beginning of SEO title."
-msgstr "Fokus-Keyword, das zu Beginn des SEO-Titels verwendet wird."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Power Words are tried-and-true words that copywriters use to attract more clicks."
-msgstr "Kraftwörter sind bewährte Wörter, mit denen Texter mehr Klicks erzielen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add an image with your Focus Keyword as alt text."
-msgstr "Fügen Sie ein Bild mit Ihrem Fokus-Keyword als Alt-Text hinzu."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword found in image alt attribute(s)."
-msgstr "Fokus-Keyword gefunden in Bild Alt-Attribut(en)."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword not found in subheading(s) like H2, H3, H4, etc.."
-msgstr "Das Fokus-Keyword ist nicht in Zwischenüberschrift(en) wie H2, H3, H4, etc. zu finden."
 
 #: includes/admin/metabox/class-post-screen.php:130
 msgid "The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites."
@@ -8914,129 +8208,9 @@ msgstr "Wir können keine Linkvorschläge für diesen Beitrag machen. Versuche, 
 msgid "You have successfully activated Rank Math."
 msgstr "Du hast Rank Math erfolgreich aktiviert."
 
-#: assets/admin/js/analyzer.js:1
-msgid "Include the focus keyword in the slug (permalink) of this post."
-msgstr "Nehme das Fokus-Keyword in den Slug (Permalink) dieses Beitrags auf."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Use Focus Keyword in the URL."
-msgstr "Verwende das Fokus-Keyword in der URL."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Make sure the focus keyword appears in the SEO description too."
-msgstr "Stelle sicher, dass das Fokus-Keyword auch in der SEO-Beschreibung enthalten ist."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add Focus Keyword to your SEO Meta Description."
-msgstr "Füge das Focus-Keyword zu deiner SEO Meta-Beschreibung hinzu."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword not found in your SEO Meta Description."
-msgstr "Das Fokus-Keyword ist nicht in deiner SEO-Meta-Beschreibung enthalten."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Make sure the focus keyword appears in the SEO post title too."
-msgstr "Stelle sicher, dass das Fokus-Keyword auch im SEO Betrags-Titel erscheint."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add Focus Keyword to the SEO title."
-msgstr "Füge das Fokus-Keyword zum SEO-Titel hinzu."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Hurray! You're using Focus Keyword in the SEO Title."
-msgstr "Hurra! Du verwendest das Fokus-Keyword im SEO-Titel."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword doesn't appear at the beginning of your content."
-msgstr "Das Fokus-Keyword erscheint nicht am Anfang deines Inhalts."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Use Focus Keyword at the beginning of your content."
-msgstr "Verwende das Fokus-Keyword am Anfang deines Inhalts."
-
 #: includes/admin/class-registration.php:279
 msgid "Connect FREE Account"
 msgstr "KOSTENLOSES Konto verbinden"
-
-#: assets/admin/js/analyzer.js:1
-msgid "URL unavailable. Add a short URL."
-msgstr "URL nicht verfügbar. Füge eine kurze URL hinzu."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Use Focus Keyword in the content."
-msgstr "Verwende das Fokus-Keyword im Inhalt."
-
-#: assets/admin/js/analyzer.js:1
-msgid "At least one external link with DoFollow found in your content."
-msgstr "Es ist mindestens ein externer Link mit DoFollow in deinen Inhalten enthalten."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Link out to external resources."
-msgstr "Verlinke auf externe Ressourcen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "No outbound links were found. Link out to external resources."
-msgstr "Es wurden keine ausgehenden Links gefunden. Verlinke auf externe Ressourcen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Great! You are linking to external resources."
-msgstr "Großartig! Du verlinkst auf externe Ressourcen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Use Focus Keyword in subheading(s) like H2, H3, H4, etc.."
-msgstr "Verwende das Fokus-Keyword in Zwischenüberschrift(en) wie H2, H3, H4, etc."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Focus Keyword found in the subheading(s)."
-msgstr "Das Fokus-Keyword in der/den Unterrubrik(en) gefunden."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Set a Focus Keyword for this content."
-msgstr "Lege ein Fokus-Keyword für diesen Inhalt fest."
-
-#: assets/admin/js/analyzer.js:1
-msgid "You haven't used this Focus Keyword before."
-msgstr "Du hast dieses Fokus-Keyword noch nicht verwendet."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add internal links in your content."
-msgstr "Füge deinem Inhalt interne Links hinzu."
-
-#: assets/admin/js/analyzer.js:1
-msgid "You are linking to other resources on your website which is great."
-msgstr "Du verlinkst auf andere Ressourcen auf Ihrer Website, was großartig ist."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add DoFollow links pointing to external resources."
-msgstr "Füge DoFollow-Links hinzu, die auf externe Ressourcen verweisen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add a number to your title to improve CTR."
-msgstr "Fügen deinem Titel eine Zahl hinzu, um die Klickrate zu verbessern."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Your SEO title doesn't contain a number."
-msgstr "Dein SEO-Titel enthält keine Zahl."
-
-#: assets/admin/js/analyzer.js:1
-msgid "You are using a number in your SEO title."
-msgstr "Du verwendest eine Zahl in deinem SEO-Titel."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Add %s to your title to increase CTR."
-msgstr "Fügen %s zu deinem Titel hinzu, um die Klickrate zu erhöhen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Use the Focus Keyword near the beginning of SEO title."
-msgstr "Verwende das Fokus-Keyword am Anfang des SEO-Titels."
-
-#: assets/admin/js/analyzer.js:1
-msgid "Use Table of Content to break-down your text."
-msgstr "Verwende das Inhaltsverzeichnis, um deinen Text aufzuschlüsseln."
-
-#: assets/admin/js/analyzer.js:1
-msgid "At least one paragraph is long. Consider using short paragraphs."
-msgstr "Mindestens ein Absatz ist zu lang. Erwäge die Verwendung kurzer Absätze."
 
 #: includes/admin/class-serp-preview.php:83
 msgid "Click to enter custom title"
@@ -9051,19 +8225,6 @@ msgstr "Klicke hier, um eine benutzerdefinierte Meta-Beschreibung einzugeben"
 msgid "This page will not appear in search results. You can disable noindex in the Advanced tab."
 msgstr "Diese Seite wird nicht in den Suchergebnissen angezeigt. Du kannst noindex auf der Registerkarte Erweitert deaktivieren."
 
-#: assets/admin/js/analyzer.js:1
-msgid "You don't seem to be using a %1$s."
-msgstr "Du scheinst keinen %1$s zu benutzen."
-
-#: assets/admin/js/analyzer.js:1
-msgid "You seem to be using a %1$s to break-down your text."
-msgstr "Du scheinst einen %1$s zu verwenden, um deinen Text aufzuschlüsseln."
-
 #: includes/admin/class-registration.php:255
 msgid "Skip Now"
 msgstr "Jetzt überspringen"
-
-#: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1
-msgid "Content is %1$d words long. Consider using at least 300 words."
-msgstr "Dein Inhalt ist %1$d Wörter lang. Erwäge, mindestens 300 Wörter zu verwenden."
