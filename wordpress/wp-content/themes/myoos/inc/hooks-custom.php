@@ -17,21 +17,27 @@ if ( ! function_exists( 'cpschool_add_site_info' ) ) {
 	function cpschool_add_site_info() {
 		$site_info = get_theme_mod( 'footer_main_custom_html' );
 
-		if ( ! $site_info ) {
+		if ( ! $site_info ) {			
 			$sYear = date('Y');
+					
 			$site_info = sprintf(
-				'<a href="%1$s">%2$s</a><span class="sep"> | </span>%3$s',
-				esc_url( __( 'http://wordpress.org/', 'myoos' ) ),
+				'Copyright © %1$s <span class="sep"> | </span>%2$s <span class="sep"> | </span>%3$s<span class="sep"> | </span>%4$s',
+				$sYear,
 				sprintf(
 					/* translators:*/
 					esc_html__( 'Powered by %s', 'myoos' ),
-					'WordPress'
+					'<a href="' . esc_url( __( 'hhttp://wordpress.org/', 'myoos' ) ) . '">Wordpress</a>'
 				),
 				sprintf( // WPCS: XSS ok.
 					/* translators:*/
-					esc_html__( 'Theme created by %1$s.', 'myoos' ),
+					esc_html__( 'Designed by %1$s', 'myoos' ),
 					'<a href="' . esc_url( __( 'https://campuspress.com/', 'myoos' ) ) . '">CampusPress</a>'
-				)
+				),
+				sprintf( // WPCS: XSS ok.
+					/* translators:*/
+					esc_html__( 'Modified by %1$s.', 'myoos' ),
+					'<a href="' . esc_url( __( 'https://blog.r23.de/', 'myoos' ) ) . '">R23</a>'
+				)				
 			);
 		}
 
