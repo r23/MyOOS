@@ -1712,59 +1712,6 @@
         ]
     },
     {
-        "name": "php-console/php-console",
-        "version": "3.1.8",
-        "version_normalized": "3.1.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/barbushin/php-console.git",
-            "reference": "aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/barbushin/php-console/zipball/aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff",
-            "reference": "aa1d71d4ea3dc91e126edc9aa4f3c10eb8559cff",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.0"
-        },
-        "require-dev": {
-            "ext-mbstring": "*",
-            "phpunit/phpunit": "^4.8",
-            "psr/log": "^1.0"
-        },
-        "time": "2019-07-25T03:43:28+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "PhpConsole\\": "src/PhpConsole"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Sergey Barbushin",
-                "email": "barbushin@gmail.com",
-                "homepage": "http://linkedin.com/in/barbushin"
-            }
-        ],
-        "description": "PHP library for Google Chrome extension \"PHP Console\".",
-        "homepage": "https://github.com/barbushin/php-console",
-        "keywords": [
-            "chrome",
-            "debug",
-            "error handler",
-            "errors",
-            "google chrome",
-            "php"
-        ]
-    },
-    {
         "name": "phpoffice/common",
         "version": "0.2.9",
         "version_normalized": "0.2.9.0",
