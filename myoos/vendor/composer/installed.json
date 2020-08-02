@@ -2061,63 +2061,6 @@
         ]
     },
     {
-        "name": "php-ai/php-ml",
-        "version": "0.8.0",
-        "version_normalized": "0.8.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://gitlab.com/php-ai/php-ml.git",
-            "reference": "5e02b893e904761cd7e2415b11778cd421494c07"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://gitlab.com/api/v4/projects/php-ai%2Fphp-ml/repository/archive.zip?sha=5e02b893e904761cd7e2415b11778cd421494c07",
-            "reference": "5e02b893e904761cd7e2415b11778cd421494c07",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^7.1"
-        },
-        "require-dev": {
-            "phpbench/phpbench": "^0.14.0",
-            "phpstan/phpstan-phpunit": "^0.10",
-            "phpstan/phpstan-shim": "^0.10",
-            "phpstan/phpstan-strict-rules": "^0.10",
-            "phpunit/phpunit": "^7.0.0",
-            "symplify/coding-standard": "^5.1",
-            "symplify/easy-coding-standard": "^5.1"
-        },
-        "time": "2019-03-20T22:22:45+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Phpml\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Arkadiusz Kondas",
-                "email": "arkadiusz.kondas@gmail.com"
-            }
-        ],
-        "description": "PHP-ML - Machine Learning library for PHP",
-        "homepage": "https://github.com/php-ai/php-ml",
-        "keywords": [
-            "Neural network",
-            "artificial intelligence",
-            "computational learning theory",
-            "data science",
-            "feature extraction",
-            "machine learning",
-            "pattern recognition"
-        ]
-    },
-    {
         "name": "php-amqplib/php-amqplib",
         "version": "v2.11.3",
         "version_normalized": "2.11.3.0",
