@@ -48,7 +48,6 @@
 		"laminas/laminas-escaper": "^2.6",
 		"laminas/laminas-httphandlerrunner": "^1.1",
 		"league/flysystem": "^1.0",
-		"intervention/image": "^2.5",
 		"symfony/intl": "^5.0",
 		"symfony/polyfill-uuid": "^1.17"
     }	
