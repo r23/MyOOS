@@ -53,7 +53,6 @@
 		"spatie/flysystem-dropbox": "^1.2",
 		"league/flysystem-aws-s3-v3": "^1.0",
 		"intervention/image": "^2.5",
-		"aws/aws-php-sns-message-validator": "^1.6",
 		"symfony/intl": "^5.0",
 		"symfony/polyfill-uuid": "^1.17"
     }	

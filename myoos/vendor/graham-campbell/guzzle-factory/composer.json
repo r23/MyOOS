@@ -10,12 +10,12 @@
         }
     ],
     "require": {
-        "php": "^7.0|^8.0",
-        "guzzlehttp/guzzle": "^6.2"
+        "php": "^7.2.5 || ^8.0",
+        "guzzlehttp/guzzle": "^7.0.1"
     },
     "require-dev": {
-        "graham-campbell/analyzer": "^2.4",
-        "phpunit/phpunit": "^6.5|^7.0|^8.0"
+        "graham-campbell/analyzer": "^3.0",
+        "phpunit/phpunit": "^8.5 || ^9.0"
     },
     "autoload": {
         "psr-4": {
@@ -28,12 +28,6 @@
         }
     },
     "config": {
-        "preferred-install": "dist",
-        "platform-check": false
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "3.0-dev"
-        }
+        "preferred-install": "dist"
     }
 }
