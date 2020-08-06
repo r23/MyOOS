@@ -128,11 +128,25 @@ function wpcf7_flamingo_submit( $contact_form, $result ) {
 
 	$flamingo_inbound = Flamingo_Inbound_Message::add( $args );
 
+	if ( empty( $flamingo_contact ) ) {
+		$flamingo_contact_id = 0;
+	} elseif ( method_exists( $flamingo_contact, 'id' ) ) {
+		$flamingo_contact_id = $flamingo_contact->id();
+	} else {
+		$flamingo_contact_id = $flamingo_contact->id;
+	}
+
+	if ( empty( $flamingo_inbound ) ) {
+		$flamingo_inbound_id = 0;
+	} elseif ( method_exists( $flamingo_inbound, 'id' ) ) {
+		$flamingo_inbound_id = $flamingo_inbound->id();
+	} else {
+		$flamingo_inbound_id = $flamingo_inbound->id;
+	}
+
 	$result += array(
-		'flamingo_contact_id' =>
-			empty( $flamingo_contact ) ? 0 : absint( $flamingo_contact->id ),
-		'flamingo_inbound_id' =>
-			empty( $flamingo_inbound ) ? 0 : absint( $flamingo_inbound->id ),
+		'flamingo_contact_id' => absint( $flamingo_contact_id ),
+		'flamingo_inbound_id' => absint( $flamingo_inbound_id ),
 	);
 
 	do_action( 'wpcf7_after_flamingo', $result );
@@ -242,9 +256,9 @@ function wpcf7_flamingo_update_channel( $contact_form ) {
 	}
 }
 
-add_filter( 'wpcf7_special_mail_tags', 'wpcf7_flamingo_serial_number', 10, 3 );
+add_filter( 'wpcf7_special_mail_tags', 'wpcf7_flamingo_serial_number', 10, 4 );
 
-function wpcf7_flamingo_serial_number( $output, $name, $html ) {
+function wpcf7_flamingo_serial_number( $output, $name, $html, $mail_tag ) {
 	if ( '_serial_number' != $name ) {
 		return $output;
 	}
