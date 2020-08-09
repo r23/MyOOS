@@ -142,6 +142,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'L' => 
         array (
+            'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\' => 17,
             'Laminas\\ZendFrameworkBridge\\' => 28,
             'Laminas\\HttpHandlerRunner\\' => 26,
@@ -324,6 +325,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
+        ),
+        'League\\MimeTypeDetection\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
         ),
         'League\\Flysystem\\' => 
         array (
