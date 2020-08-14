@@ -991,16 +991,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "481c0174b9c99b189959e2bb9d6f52188ed1f692"
+                "reference": "6e96f54d82e71f71c4108da33ee96a7f57083710"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/481c0174b9c99b189959e2bb9d6f52188ed1f692",
-                "reference": "481c0174b9c99b189959e2bb9d6f52188ed1f692",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/6e96f54d82e71f71c4108da33ee96a7f57083710",
+                "reference": "6e96f54d82e71f71c4108da33ee96a7f57083710",
                 "shasum": ""
             },
             "require": {
@@ -1078,7 +1078,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2020-08-09T15:57:10+00:00"
+            "time": "2020-08-12T14:23:41+00:00"
         },
         {
             "name": "league/mime-type-detection",
@@ -2603,16 +2603,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.46.1",
+            "version": "v7.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "fd57205d3e3a1dccab80538654128d5c46a1f5ac"
+                "reference": "b51656cb398d081fcee53a76f6edb8fd5c1a5306"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/fd57205d3e3a1dccab80538654128d5c46a1f5ac",
-                "reference": "fd57205d3e3a1dccab80538654128d5c46a1f5ac",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/b51656cb398d081fcee53a76f6edb8fd5c1a5306",
+                "reference": "b51656cb398d081fcee53a76f6edb8fd5c1a5306",
                 "shasum": ""
             },
             "require": {
@@ -2656,7 +2656,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2020-08-07T22:11:58+00:00"
+            "time": "2020-08-13T22:35:56+00:00"
         },
         {
             "name": "symfony/contracts",
