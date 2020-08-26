@@ -4,7 +4,7 @@ Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
 Requires at least: 5.3
 Tested up to: 5.5
-Stable tag: 5.2.1
+Stable tag: 5.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -74,6 +74,13 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 == Changelog ==
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
+
+= 5.2.2 =
+
+* Fixed: A REST API call aborted with a PHP fatal error when the `WPCF7_USE_PIPE` constant value was false.
+* Introduces the `wpcf7_doing_it_wrong()` function.
+* Sets the `trigger_error()` function’s `$error_type` parameter explicitly.
+* Makes the `wpcf7_special_mail_tags` filter functions’ `$mail_tag` parameter optional.
 
 = 5.2.1 =
 
