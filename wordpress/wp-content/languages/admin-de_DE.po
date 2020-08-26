@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.5.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-08-17 12:42:26+0000\n"
+"PO-Revision-Date: 2020-08-21 07:03:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -38,7 +38,7 @@ msgstr "Umgebungstyp"
 
 #: wp-admin/about.php:129
 msgid "Video: An image is added with an image block. In the block toolbar, an icon called \"Crop\" is selected, which changes the toolbar to show image resizing tools. First, zoom is used to zoom into the center of the image. Next, aspect ratio is clicked. This shows a dropdown of common aspect ratios. Square is chosen, and the image is moved within the new square outline. The crop is completed by clicking \"Apply.\""
-msgstr "Video: Ein Bild wird mit einem Bild-Block hinzugefügt. In der Block-Werkzeugleiste wird das Icon \"Zuschneiden\" ausgewählt, wodurch sich die Werkzeugleiste verändert und die Werkzeuge für die Bearbeitung von Bildern angezeigt werden. Zunächst wird der Zoom verwendet, um in die Mitte des Bildes zu zoomen. Als nächstes wird das Icon „Seitenverhältnis\" angeklickt, wodurch eine Drop-down-Liste mit gängigen, auswählbaren Seitenverhältnissen aufklappt. Hier wird „Quadratisch\" ausgewählt und das Bild innerhalb des neuen quadratischen Umrisses verschoben. Das Zuschneiden wird durch einen Klick auf „Übernehmen“ abgeschlossen."
+msgstr "Video: Ein Bild wird mit einem Bild-Block hinzugefügt. In der Block-Werkzeugleiste wird das Icon „Zuschneiden“ ausgewählt, wodurch sich die Werkzeugleiste verändert und die Werkzeuge für die Bearbeitung von Bildern angezeigt werden. Zunächst wird der Zoom verwendet, um in die Mitte des Bildes zu zoomen. Als nächstes wird das Icon „Seitenverhältnis“ angeklickt, wodurch eine Drop-down-Liste mit gängigen, auswählbaren Seitenverhältnissen aufklappt. Hier wird „Quadrat“ ausgewählt und das Bild innerhalb des neuen quadratischen Umrisses verschoben. Das Zuschneiden wird durch einen Klick auf „Übernehmen“ abgeschlossen."
 
 #: wp-admin/about.php:121
 msgid "Video: In the editor, the block inserter shows two tabs, Blocks and Patterns. The Patterns tab is selected. There are different block layouts in this tab. After scrolling through options including buttons and columns, a pattern called \"Large header with a heading\" is chosen. This adds a cover block, which is customized with a photo and the name of the WordPress 5.5 jazz musician."
@@ -149,7 +149,7 @@ msgid "You can also move meta boxes with the keyboard, and edit images in WordPr
 msgstr "Du kannst auch Metaboxen mit der Tastatur verschieben und Bilder in WordPress mit deinem Hilfsgerät bearbeiten, da es dir die Anweisungen im Bildeditor vorlesen kann."
 
 #: wp-admin/about.php:152
-msgid "Every release adds improvements to the accessible publishing experience, and that remains true for WordPress 5.5."
+msgid "Every release adds improvements to the accessible publishing experience, and that remains true for WordPress 5.5. "
 msgstr "Mit jeder neuen Version wird das barrierefreie Veröffentlichen verbessert, und das gilt auch für WordPress&nbsp;5.5. "
 
 #: wp-admin/about.php:142
@@ -217,7 +217,7 @@ msgid "So more people will find your site sooner, giving you more time to engage
 msgstr "So werden mehr Menschen deine Website schneller finden, was dir mehr Zeit gibt, sie anzusprechen, zu binden und in Abonnenten, Kunden oder was auch immer deiner Definition von Erfolg entspricht, umzuwandeln."
 
 #: wp-admin/about.php:78
-msgid "WordPress sites work well with search engines."
+msgid "WordPress sites work well with search engines. "
 msgstr "WordPress-Websites arbeiten gut mit Suchmaschinen zusammen."
 
 #: wp-admin/about.php:77
@@ -233,7 +233,7 @@ msgid "Now, by default, WordPress 5.5 includes an XML sitemap that helps search 
 msgstr "Jetzt enthält WordPress&nbsp;5.5 standardmäßig eine XML-Sitemap, die den Suchmaschinen hilft, deine wichtigsten Seiten von der ersten Minute an zu finden."
 
 #: wp-admin/about.php:69
-msgid "In WordPress 5.5, images wait to load until they’re just about to scroll into view. The technical term is ‘lazy loading’."
+msgid "In WordPress 5.5, images wait to load until they’re just about to scroll into view. The technical term is ‘lazy loading.’"
 msgstr "In WordPress&nbsp;5.5 werden Bilder erst geladen, wenn sie im sichtbaren Bereich sind. Der technische Begriff dafür lautet „Lazy Loading“."
 
 #: wp-admin/about.php:66
