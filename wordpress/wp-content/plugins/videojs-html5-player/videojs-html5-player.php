@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Videojs HTML5 Player
-Version: 1.1.3
+Version: 1.1.4
 Plugin URI: https://wphowto.net/videojs-html5-player-for-wordpress-757
 Author: naa986
 Author URI: https://wphowto.net/
@@ -17,7 +17,7 @@ if (!class_exists('VIDEOJS_HTML5_PLAYER')) {
 
     class VIDEOJS_HTML5_PLAYER {
 
-        var $plugin_version = '1.1.3';
+        var $plugin_version = '1.1.4';
         var $videojs_version = '5.0.0';
 
         function __construct() {
@@ -102,7 +102,7 @@ function videojs_html5_player_header() {
 }
 
 function videojs_html5_video_embed_handler($atts) {
-    extract(shortcode_atts(array(
+    $atts = shortcode_atts(array(
         'url' => '',
         'webm' => '',
         'ogv' => '',
@@ -114,7 +114,9 @@ function videojs_html5_video_embed_handler($atts) {
         'muted' => '',
         'poster' => '',
         'class' => '',
-    ), $atts));
+    ), $atts);
+    $atts = array_map('sanitize_text_field', $atts);
+    extract($atts);
     if(empty($url)){
         return __('you need to specify the src of the video file', 'videojs-html5-player');
     }
