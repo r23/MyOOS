@@ -4,7 +4,7 @@ Plugin link: https://bing.com/webmasters
 Tags: seo, crawling
 Requires at least: 5.3
 Tested up to: 5.5
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 Requires PHP: 5.6.20
@@ -74,14 +74,17 @@ You can go to 'Plugins' page from your WordPress sidebar and click on Deactivate
 
 == Changelog ==
 
-= 1.0.0 =
-* Initial release.
+= 1.0.4 =
+* Fix encoded URLs being displayed in URL Submissions table.
 
-= 1.0.1 =
-* Update readme to reflect support for WordPress v5.5.
+= 1.0.3 =
+* Update root element name. Fixes issue loading plugin settings page.
 
 = 1.0.2 =
 * Rename root element of settings page to avoid conflicts with other plugins.
 
-= 1.0.3 =
-* Update root element name. Fixes issue loading plugin settings page.
+= 1.0.1 =
+* Update readme to reflect support for WordPress v5.5.
+
+= 1.0.0 =
+* Initial release.
