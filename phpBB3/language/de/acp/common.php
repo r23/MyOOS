@@ -228,7 +228,7 @@ $lang = array_merge($lang, array(
 
 	'BACK'					=> 'Zurück',
 
-	'CONTAINER_EXCEPTION' => 'Beim Aufbau des Containers durch phpBB ist wegen einer installierten Erweiterung ein Fehler aufgetreten. Aus diesem Grund wurden alle Erweiterungen vorrübergehend deaktiviert. Bitte versuche das Problem zu beheben, in dem du den Cache des Boards leerst. Alle Erweiterungen werden automatisch wieder aktiviert, sobald der Container-Fehler behoben ist. Wenn das Problem dauerhaft auftritt, besuche bitte <a href="https://www.phpbb.com/support">phpBB.com (englisch)</a> für Support (<a href="https://www.phpbb.de/go/3.2/supportforum">deutschsprachiger Support auf phpBB.de</a>).',
+	'CONTAINER_EXCEPTION' => 'Beim Aufbau des Containers durch phpBB ist wegen einer installierten Erweiterung ein Fehler aufgetreten. Aus diesem Grund wurden alle Erweiterungen vorrübergehend deaktiviert. Bitte versuche das Problem zu beheben, in dem du den Cache des Boards leerst. Alle Erweiterungen werden automatisch wieder aktiviert, sobald der Container-Fehler behoben ist. Wenn das Problem dauerhaft auftritt, besuche bitte <a href="https://www.phpbb.com/support">phpBB.com (englisch)</a> für Support (<a href="https://www.phpbb.de/go/3.3/supportforum">deutschsprachiger Support auf phpBB.de</a>).',
 	'EXCEPTION' => 'Fehler',
 
 	'COLOUR_SWATCH'			=> 'Websichere Farbpalette',
@@ -502,18 +502,18 @@ $lang = array_merge($lang, array(
 	'LOG_ACL_ADD_ADMIN_GLOBAL_A_'		=> '<strong>Administratoren hinzugefügt oder geändert</strong><br />» %s',
 	'LOG_ACL_ADD_MOD_GLOBAL_M_'			=> '<strong>Globale Moderatoren hinzugefügt oder geändert</strong><br />» %s',
 
-	'LOG_ACL_ADD_USER_LOCAL_F_'			=> '<strong>Forenrechte eines Benutzers hinzugefügt oder geändert</strong> von %1$s<br />» %2$s',
-	'LOG_ACL_ADD_USER_LOCAL_M_'			=> '<strong>Moderationsrechte eines Benutzer für ein Forum hinzugefügt oder geändert</strong> von %1$s<br />» %2$s',
-	'LOG_ACL_ADD_GROUP_LOCAL_F_'		=> '<strong>Forenrechte einer Gruppe hinzugefügt oder geändert</strong> von %1$s<br />» %2$s',
-	'LOG_ACL_ADD_GROUP_LOCAL_M_'		=> '<strong>Moderationsrechte einer Gruppe für ein Forum hinzugefügt oder geändert</strong> von %1$s<br />» %2$s',
+	'LOG_ACL_ADD_USER_LOCAL_F_'			=> '<strong>Forenrechte eines Benutzers hinzugefügt oder geändert</strong> in %1$s<br />» %2$s',
+	'LOG_ACL_ADD_USER_LOCAL_M_'			=> '<strong>Moderationsrechte eines Benutzer für ein Forum hinzugefügt oder geändert</strong> in %1$s<br />» %2$s',
+	'LOG_ACL_ADD_GROUP_LOCAL_F_'		=> '<strong>Forenrechte einer Gruppe hinzugefügt oder geändert</strong> in %1$s<br />» %2$s',
+	'LOG_ACL_ADD_GROUP_LOCAL_M_'		=> '<strong>Moderationsrechte einer Gruppe für ein Forum hinzugefügt oder geändert</strong> in %1$s<br />» %2$s',
 
-	'LOG_ACL_ADD_MOD_LOCAL_M_'			=> '<strong>Moderatoren hinzugefügt oder geändert</strong> von %1$s<br />» %2$s',
-	'LOG_ACL_ADD_FORUM_LOCAL_F_'		=> '<strong>Forenrechte hinzugefügt oder geändert</strong> von %1$s<br />» %2$s',
+	'LOG_ACL_ADD_MOD_LOCAL_M_'			=> '<strong>Moderatoren hinzugefügt oder geändert</strong> in %1$s<br />» %2$s',
+	'LOG_ACL_ADD_FORUM_LOCAL_F_'		=> '<strong>Forenrechte hinzugefügt oder geändert</strong> in %1$s<br />» %2$s',
 
 	'LOG_ACL_DEL_ADMIN_GLOBAL_A_'		=> '<strong>Administratoren entfernt</strong><br />» %s',
 	'LOG_ACL_DEL_MOD_GLOBAL_M_'			=> '<strong>Globale Moderatoren entfernt</strong><br />» %s',
-	'LOG_ACL_DEL_MOD_LOCAL_M_'			=> '<strong>Moderatoren entfernt</strong> von %1$s<br />» %2$s',
-	'LOG_ACL_DEL_FORUM_LOCAL_F_'		=> '<strong>Forums-Berechtigung von Benutzer/Gruppe entfernt</strong> von %1$s<br />» %2$s',
+	'LOG_ACL_DEL_MOD_LOCAL_M_'			=> '<strong>Moderatoren entfernt</strong> in %1$s<br />» %2$s',
+	'LOG_ACL_DEL_FORUM_LOCAL_F_'		=> '<strong>Forums-Berechtigung von Benutzer/Gruppe entfernt</strong> in %1$s<br />» %2$s',
 
 	'LOG_ACL_TRANSFER_PERMISSIONS'		=> '<strong>Berechtigungen übernommen</strong><br />» %s',
 	'LOG_ACL_RESTORE_PERMISSIONS'		=> '<strong>Eigene Berechtigungen wiederhergestellt nach Übernahme von</strong><br />» %s',

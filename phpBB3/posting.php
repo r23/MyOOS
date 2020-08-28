@@ -434,7 +434,7 @@ if ($post_data['forum_type'] != FORUM_POST && in_array($mode, array('post', 'bum
 }
 
 // Forum/Topic locked?
-if (($post_data['forum_status'] == ITEM_LOCKED || (isset($post_data['topic_status']) && $post_data['topic_status'] == ITEM_LOCKED)) && !$auth->acl_get('m_edit', $forum_id))
+if (($post_data['forum_status'] == ITEM_LOCKED || (isset($post_data['topic_status']) && $post_data['topic_status'] == ITEM_LOCKED)) && !$auth->acl_get($mode == 'reply' ? 'm_lock' : 'm_edit', $forum_id))
 {
 	trigger_error(($post_data['forum_status'] == ITEM_LOCKED) ? 'FORUM_LOCKED' : 'TOPIC_LOCKED');
 }
@@ -736,6 +736,12 @@ if ($save && $user->data['is_registered'] && $auth->acl_get('u_savedrafts') && (
 	$subject = (!$subject && $mode != 'post') ? $post_data['topic_title'] : $subject;
 	$message = $request->variable('message', '', true);
 
+	/**
+	 * Replace Emojis and other 4bit UTF-8 chars not allowed by MySQL to UCR/NCR.
+	 * Using their Numeric Character Reference's Hexadecimal notation.
+	 */
+	$subject = utf8_encode_ucr($subject);
+
 	if ($subject && $message)
 	{
 		if (confirm_box(true))
@@ -752,6 +758,10 @@ if ($save && $user->data['is_registered'] && $auth->acl_get('u_savedrafts') && (
 				'draft_message'	=> (string) $message_parser->message)
 			);
 			$db->sql_query($sql);
+
+			/** @var \phpbb\attachment\manager $attachment_manager */
+			$attachment_manager = $phpbb_container->get('attachment.manager');
+			$attachment_manager->delete('attach', array_column($message_parser->attachment_data, 'attach_id'));
 
 			$meta_info = ($mode == 'post') ? append_sid("{$phpbb_root_path}viewforum.$phpEx", 'f=' . $forum_id) : append_sid("{$phpbb_root_path}viewtopic.$phpEx", "f=$forum_id&amp;t=$topic_id");
 
@@ -1162,10 +1172,10 @@ if ($submit || $preview || $refresh)
 		$error[] = $user->lang['FORM_INVALID'];
 	}
 
-	if ($submit && $mode == 'edit' && $post_data['post_visibility'] == ITEM_DELETED && !isset($_POST['soft_delete']) && $auth->acl_get('m_approve', $forum_id))
+	if ($submit && $mode == 'edit' && $post_data['post_visibility'] == ITEM_DELETED && !$request->is_set_post('delete') && $auth->acl_get('m_approve', $forum_id))
 	{
-		$is_first_post = ($post_id == $post_data['topic_first_post_id'] || !$post_data['topic_posts_approved']);
-		$is_last_post = ($post_id == $post_data['topic_last_post_id'] || !$post_data['topic_posts_approved']);
+		$is_first_post = ($post_id <= $post_data['topic_first_post_id'] || !$post_data['topic_posts_approved']);
+		$is_last_post = ($post_id >= $post_data['topic_last_post_id'] || !$post_data['topic_posts_approved']);
 		$updated_post_data = $phpbb_content_visibility->set_post_visibility(ITEM_APPROVED, $post_id, $post_data['topic_id'], $post_data['forum_id'], $user->data['user_id'], time(), '', $is_first_post, $is_last_post);
 
 		if (!empty($updated_post_data))
@@ -1535,7 +1545,7 @@ if ($submit || $preview || $refresh)
 			}
 
 			// Handle delete mode...
-			if ($request->is_set_post('delete') || $request->is_set_post('delete_permanent'))
+			if ($request->is_set_post('delete_permanent') || ($request->is_set_post('delete') && $post_data['post_visibility'] != ITEM_DELETED))
 			{
 				$delete_reason = $request->variable('delete_reason', '', true);
 				phpbb_handle_post_delete($forum_id, $topic_id, $post_id, $post_data, !$request->is_set_post('delete_permanent'), $delete_reason);
@@ -1893,7 +1903,7 @@ $page_data = array(
 	'S_LOCK_POST_ALLOWED'		=> ($mode == 'edit' && $auth->acl_get('m_edit', $forum_id)) ? true : false,
 	'S_LOCK_POST_CHECKED'		=> ($lock_post_checked) ? ' checked="checked"' : '',
 	'S_SOFTDELETE_CHECKED'		=> ($mode == 'edit' && $post_data['post_visibility'] == ITEM_DELETED) ? ' checked="checked"' : '',
-	'S_SOFTDELETE_ALLOWED'		=> ($mode == 'edit' && $phpbb_content_visibility->can_soft_delete($forum_id, $post_data['poster_id'], $lock_post_checked)) ? true : false,
+	'S_SOFTDELETE_ALLOWED'		=> ($mode == 'edit' && $phpbb_content_visibility->can_soft_delete($forum_id, $post_data['poster_id'], $lock_post_checked) && $post_id == $post_data['topic_last_post_id'] && ($post_data['post_time'] > time() - ($config['delete_time'] * 60) || !$config['delete_time'])) ? true : false,
 	'S_RESTORE_ALLOWED'			=> $auth->acl_get('m_approve', $forum_id),
 	'S_IS_DELETED'				=> ($mode == 'edit' && $post_data['post_visibility'] == ITEM_DELETED) ? true : false,
 	'S_LINKS_ALLOWED'			=> $url_status,

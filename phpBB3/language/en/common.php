@@ -168,6 +168,7 @@ $lang = array_merge($lang, array(
 	),
 	'COLLAPSE_VIEW'			=> 'Collapse view',
 	'CLOSE_WINDOW'			=> 'Close window',
+	'CODE'					=> 'Code',
 	'COLOUR_SWATCH'			=> 'Colour swatch',
 	'COLON'					=> ':',
 	'COMMA_SEPARATOR'		=> ', ',	// Comma used to join lists into a single string, use localised comma if appropriate, eg: Ideographic or Arabic
@@ -205,6 +206,7 @@ $lang = array_merge($lang, array(
 	'DISPLAY_MESSAGES'		=> 'Display messages from previous',
 	'DISPLAY_POSTS'			=> 'Display posts from previous',
 	'DISPLAY_TOPICS'		=> 'Display topics from previous',
+	'DOMAIN_NO_MX_RECORD_EMAIL'	=> 'The entered email domain has no valid MX record.',
 	'DOWNLOADED'			=> 'Downloaded',
 	'DOWNLOADING_FILE'		=> 'Downloading file',
 	'DOWNLOAD_COUNTS'		=> array(
@@ -309,7 +311,6 @@ $lang = array_merge($lang, array(
 	'GB'						=> 'GB',
 	'GIB'						=> 'GiB',
 	'GO'						=> 'Go',
-	'GOOGLEPLUS'				=> 'Google+',
 	'GOTO_FIRST_POST'			=> 'Go to first post',
 	'GOTO_LAST_POST'			=> 'Go to last post',
 	'GOTO_PAGE'					=> 'Go to page',
@@ -618,6 +619,9 @@ $lang = array_merge($lang, array(
 	'POST_UNAPPROVED'		=> 'This post has not been approved.',
 	'POST_UNAPPROVED_EXPLAIN'	=> 'This post is not visible to other users until it has been approved by a moderator.',
 	'POWERED_BY'			=> 'Powered by %s',
+
+	'QUOTE'					=> 'Quote',
+
 	'PREVIEW'				=> 'Preview',
 	'PREVIOUS'				=> 'Previous',		// Used in pagination
 	'PREVIOUS_STEP'			=> 'Previous',

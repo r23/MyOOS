@@ -1664,4 +1664,14 @@ class session
 			}
 		}
 	}
+
+	/**
+	 * Get user ID
+	 *
+	 * @return int User ID
+	 */
+	public function id() : int
+	{
+		return isset($this->data['user_id']) ? (int) $this->data['user_id'] : ANONYMOUS;
+	}
 }

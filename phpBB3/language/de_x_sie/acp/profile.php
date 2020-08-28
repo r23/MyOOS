@@ -96,7 +96,6 @@ $lang = array_merge($lang, array(
 	'FIELD_DESCRIPTION'			=> 'Feld-Beschreibung',
 	'FIELD_DESCRIPTION_EXPLAIN'	=> 'Die dem Benutzer angezeigte Beschreibung für das Feld.',
 	'FIELD_DROPDOWN'			=> 'Auswahlfeld',
-	'FIELD_GOOGLEPLUS'			=> 'Google+',
 	'FIELD_IDENT'				=> 'Feld-Kennung',
 	'FIELD_IDENT_ALREADY_EXIST'	=> 'Die ausgewählte Feld-Kennung existiert bereits. Bitte geben Sie eine andere an.',
 	'FIELD_IDENT_EXPLAIN'		=> 'Die Feld-Kennung dient Ihnen zur Identifizierung des Feldes. Sie wird den Benutzern nicht angezeigt.',

@@ -1229,7 +1229,6 @@ FileETag None
 </files>
 
 
-
 <IfModule mod_rewrite.c>
 RewriteEngine on
 

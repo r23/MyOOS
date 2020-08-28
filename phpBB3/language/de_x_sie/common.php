@@ -171,6 +171,7 @@ $lang = array_merge($lang, array(
 	),
 	'COLLAPSE_VIEW'			=> 'Zusammenklappen',
 	'CLOSE_WINDOW'			=> 'Fenster schließen',
+	'CODE'					=> 'Code',
 	'COLOUR_SWATCH'			=> 'Farbpalette',
 	'COLON'					=> ':',
 	'COMMA_SEPARATOR'		=> ', ',	// Comma used to join lists into a single string, use localised comma if appropriate, eg: Ideographic or Arabic
@@ -208,6 +209,7 @@ $lang = array_merge($lang, array(
 	'DISPLAY_MESSAGES'		=> 'Nachrichten der letzten Zeit anzeigen',
 	'DISPLAY_POSTS'			=> 'Beiträge der letzten Zeit anzeigen',
 	'DISPLAY_TOPICS'		=> 'Themen der letzten Zeit anzeigen',
+	'DOMAIN_NO_MX_RECORD_EMAIL'	=> 'Die Domain der eingegebenen E-Mail-Adresse hat keinen gültigen MX-Eintrag.',
 	'DOWNLOADED'			=> 'Heruntergeladen',
 	'DOWNLOADING_FILE'		=> 'Lädt eine Datei herunter',
 	'DOWNLOAD_COUNTS'		=> array(
@@ -312,7 +314,6 @@ $lang = array_merge($lang, array(
 	'GB'						=> 'GB',
 	'GIB'						=> 'GiB',
 	'GO'						=> 'Los',
-	'GOOGLEPLUS'				=> 'Google+',
 	'GOTO_FIRST_POST'			=> 'Gehe zum ersten Beitrag',
 	'GOTO_LAST_POST'			=> 'Gehe zum letzten Beitrag',
 	'GOTO_PAGE'					=> 'Gehe zu Seite',
@@ -625,6 +626,9 @@ $lang = array_merge($lang, array(
 	'POST_UNAPPROVED'		=> 'Dieser Beitrag wurde noch nicht freigegeben.',
 	'POST_UNAPPROVED_EXPLAIN'	=> 'Dieser Beitrag kann von anderen Benutzer nicht gelesen werden, bis er von einem Moderator freigegeben wurde.',
 	'POWERED_BY'			=> 'Powered by %s',
+
+	'QUOTE'					=> 'Zitat',
+
 	'PREVIEW'				=> 'Vorschau',
 	'PREVIOUS'				=> 'Vorherige',		// Used in pagination
 	'PREVIOUS_STEP'			=> 'Zurück',

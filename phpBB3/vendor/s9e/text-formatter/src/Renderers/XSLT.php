@@ -2,7 +2,7 @@
 
 /**
 * @package   s9e\TextFormatter
-* @copyright Copyright (c) 2010-2019 The s9e Authors
+* @copyright Copyright (c) 2010-2020 The s9e authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\TextFormatter\Renderers;
@@ -117,7 +117,9 @@ class XSLT extends Renderer
 
 		// Perform the transformation and cast it as a string because it may return NULL if the
 		// transformation didn't output anything
+		$this->setLocale();
 		$output = (string) $this->proc->transformToXml($dom);
+		$this->restoreLocale();
 
 		// XSLTProcessor does not correctly identify <embed> as a void element. We fix it by
 		// removing </embed> end tags

@@ -7,15 +7,18 @@ $baseDir = dirname($vendorDir);
 
 return array(
     's9e\\TextFormatter\\' => array($vendorDir . '/s9e/text-formatter/src'),
+    's9e\\SweetDOM\\' => array($vendorDir . '/s9e/sweetdom/src'),
     's9e\\RegexpBuilder\\' => array($vendorDir . '/s9e/regexp-builder/src'),
     'bantu\\IniGetWrapper\\' => array($vendorDir . '/bantu/ini-get-wrapper/src'),
     'Zend\\EventManager\\' => array($vendorDir . '/zendframework/zend-eventmanager/src'),
     'Zend\\Code\\' => array($vendorDir . '/zendframework/zend-code/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Symfony\\Polyfill\\Util\\' => array($vendorDir . '/symfony/polyfill-util'),
+    'Symfony\\Polyfill\\Php72\\' => array($vendorDir . '/symfony/polyfill-php72'),
     'Symfony\\Polyfill\\Php70\\' => array($vendorDir . '/symfony/polyfill-php70'),
     'Symfony\\Polyfill\\Php56\\' => array($vendorDir . '/symfony/polyfill-php56'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
+    'Symfony\\Polyfill\\Intl\\Idn\\' => array($vendorDir . '/symfony/polyfill-intl-idn'),
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Symfony\\Component\\Routing\\' => array($vendorDir . '/symfony/routing'),
