@@ -49,7 +49,7 @@ msgstr "https://wordpress.org/support/article/nginx/"
 msgid "Y/m/d g:i:s a"
 msgstr "d.m.Y G:i:s"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:278
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:321
 msgid "No themes are currently available."
 msgstr "Momentan sind keine Themes verfügbar."
 
@@ -106,7 +106,7 @@ msgid "<a href=\"https://wordpress.org/support/article/network-admin/\">Document
 msgstr "<a href=\"https://wordpress.org/support/article/network-admin/\">Dokumentation zur Netzwerkverwaltung (engl.)</a>"
 
 #. translators: %s: Number of themes.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:363
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:406
 msgctxt "themes"
 msgid "Update Available <span class=\"count\">(%s)</span>"
 msgid_plural "Update Available <span class=\"count\">(%s)</span>"
@@ -155,7 +155,7 @@ msgstr "Subdomain-Installation"
 msgid "Sub-directory Installation"
 msgstr "Unterverzeichnis-Installation"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:849
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:909
 msgid "Active Child Theme"
 msgstr "Aktives Child-Theme"
 
@@ -174,7 +174,7 @@ msgid "%s Sites"
 msgstr "%s Websites"
 
 #. translators: %s: Theme name.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:581
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:624
 msgctxt "theme"
 msgid "Delete %s"
 msgstr "%s löschen"
@@ -324,56 +324,56 @@ msgctxt "user"
 msgid "Mark as spam"
 msgstr "Als Spam markieren"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:684
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:727
 msgid "Visit Theme Site"
 msgstr "Theme Seite besuchen"
 
 #. translators: %s: Theme name.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:678
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:721
 msgid "Visit %s homepage"
 msgstr "%s Homepage besuchen"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:647
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:690
 msgid "Broken Theme:"
 msgstr "Fehlerhaftes Theme:"
 
 #. translators: %s: Theme name.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:553
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:596
 msgid "Network Disable %s"
 msgstr "%s netzwerkweit deaktivieren"
 
 #. translators: %s: Theme name.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:550
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:593
 msgid "Disable %s"
 msgstr "%s deaktivieren"
 
 #. translators: %s: Theme name.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:527
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:570
 msgid "Network Enable %s"
 msgstr "%s netzwerkweit aktivieren"
 
 #. translators: %s: Theme name.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:524
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:567
 msgid "Enable %s"
 msgstr "%s aktivieren"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:429
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:560
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:472
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:603
 msgid "Network Disable"
 msgstr "Netzwerkweit deaktivieren"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:429
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:560
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:472
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:603
 msgid "Disable"
 msgstr "Deaktivieren"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:426
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:534
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:469
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:577
 msgid "Enable"
 msgstr "Freischalten"
 
 #. translators: %s: Number of themes.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:372
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:415
 msgctxt "themes"
 msgid "Broken <span class=\"count\">(%s)</span>"
 msgid_plural "Broken <span class=\"count\">(%s)</span>"
@@ -381,7 +381,7 @@ msgstr[0] "Fehlerhaft <span class=\"count\">(%s)</span>"
 msgstr[1] "Fehlerhaft <span class=\"count\">(%s)</span>"
 
 #. translators: %s: Number of themes.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:354
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:397
 msgctxt "themes"
 msgid "Disabled <span class=\"count\">(%s)</span>"
 msgid_plural "Disabled <span class=\"count\">(%s)</span>"
@@ -389,7 +389,7 @@ msgstr[0] "Deaktiviert <span class=\"count\">(%s)</span>"
 msgstr[1] "Deaktiviert <span class=\"count\">(%s)</span>"
 
 #. translators: %s: Number of themes.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:345
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:388
 msgctxt "themes"
 msgid "Enabled <span class=\"count\">(%s)</span>"
 msgid_plural "Enabled <span class=\"count\">(%s)</span>"
@@ -397,18 +397,18 @@ msgstr[0] "Aktiviert <span class=\"count\">(%s)</span>"
 msgstr[1] "Aktiviert <span class=\"count\">(%s)</span>"
 
 #. translators: %s: Number of themes.
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:336
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:379
 msgctxt "themes"
 msgid "All <span class=\"count\">(%s)</span>"
 msgid_plural "All <span class=\"count\">(%s)</span>"
 msgstr[0] "Alle <span class=\"count\">(%s)</span>"
 msgstr[1] "Alle <span class=\"count\">(%s)</span>"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:288
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:331
 msgid "Theme"
 msgstr "Theme"
 
-#: wp-admin/includes/class-wp-ms-themes-list-table.php:276
+#: wp-admin/includes/class-wp-ms-themes-list-table.php:319
 msgid "No themes found."
 msgstr "Keine Themes gefunden."
 
