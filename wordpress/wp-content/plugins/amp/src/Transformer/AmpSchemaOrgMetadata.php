@@ -18,6 +18,8 @@ use AmpProject\Tag;
  * Ensure there is a schema.org script in the document.
  *
  * @package AmpProject\AmpWP
+ * @since 2.0
+ * @internal
  */
 final class AmpSchemaOrgMetadata implements Transformer {
 
@@ -51,7 +53,7 @@ final class AmpSchemaOrgMetadata implements Transformer {
 	 * @param ErrorCollection $errors   Collection of errors that are collected during transformation.
 	 * @return void
 	 */
-	public function transform( Document $document, ErrorCollection $errors ) {
+	public function transform( Document $document, ErrorCollection $errors ) { // phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		// @todo How should we handle an existing schema.org script?
 		$schema_org_meta_script = $document->xpath->query( self::SCHEMA_ORG_XPATH )->item( 0 );
 

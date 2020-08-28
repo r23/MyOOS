@@ -5,7 +5,7 @@
  * Plugin URI: https://amp-wp.org
  * Author: AMP Project Contributors
  * Author URI: https://github.com/ampproject/amp-wp/graphs/contributors
- * Version: 1.5.5
+ * Version: 2.0.0
  * Text Domain: amp
  * Domain Path: /languages/
  * License: GPLv2 or later
@@ -17,7 +17,7 @@
 
 define( 'AMP__FILE__', __FILE__ );
 define( 'AMP__DIR__', dirname( __FILE__ ) );
-define( 'AMP__VERSION', '1.5.5' );
+define( 'AMP__VERSION', '2.0.0' );
 
 /**
  * Errors encountered while loading the plugin.
@@ -157,6 +157,7 @@ unset( $_amp_required_extensions, $_amp_missing_extensions, $_amp_required_const
  * Displays an admin notice about why the plugin is unable to load.
  *
  * @since 1.1.2
+ * @internal
  * @global WP_Error $_amp_load_errors
  */
 function _amp_show_load_errors_admin_notice() {
@@ -208,6 +209,7 @@ if ( ! empty( $_amp_load_errors->errors ) ) {
  * Print admin notice if plugin installed with incorrect slug (which impacts WordPress's auto-update system).
  *
  * @since 1.0
+ * @internal
  */
 function _amp_incorrect_plugin_slug_admin_notice() {
 	$actual_slug = basename( AMP__DIR__ );
@@ -239,4 +241,4 @@ register_activation_hook( __FILE__, 'amp_activate' );
 
 register_deactivation_hook( __FILE__, 'amp_deactivate' );
 
-amp_bootstrap_plugin();
+add_action( 'plugins_loaded', 'amp_bootstrap_plugin', defined( 'PHP_INT_MIN' ) ? PHP_INT_MIN : ~PHP_INT_MAX ); // phpcs:ignore PHPCompatibility.Constants.NewConstants.php_int_minFound

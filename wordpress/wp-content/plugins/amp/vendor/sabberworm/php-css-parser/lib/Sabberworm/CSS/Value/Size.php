@@ -6,7 +6,7 @@ use Sabberworm\CSS\Parsing\ParserState;
 
 class Size extends PrimitiveValue {
 
-	const ABSOLUTE_SIZE_UNITS = 'px/cm/mm/mozmm/in/pt/pc/vh/vw/vm/vmin/vmax/rem'; //vh/vw/vm(ax)/vmin/rem are absolute insofar as they don’t scale to the immediate parent (only the viewport)
+	const ABSOLUTE_SIZE_UNITS = 'px/cm/mm/mozmm/in/pt/pc/vh/vw/vmin/vmax/rem'; //vh/vw/vm(ax)/vmin/rem are absolute insofar as they don’t scale to the immediate parent (only the viewport)
 	const RELATIVE_SIZE_UNITS = '%/em/ex/ch/fr';
 	const NON_SIZE_UNITS = 'deg/grad/rad/s/ms/turns/Hz/kHz';
 
@@ -61,8 +61,7 @@ class Size extends PrimitiveValue {
 				self::$SIZE_UNITS[$iSize][strtolower($val)] = $val;
 			}
 
-			// FIXME: Should we not order the longest units first?
-			ksort(self::$SIZE_UNITS, SORT_NUMERIC);
+			krsort(self::$SIZE_UNITS, SORT_NUMERIC);
 		}
 
 		return self::$SIZE_UNITS;
@@ -116,7 +115,8 @@ class Size extends PrimitiveValue {
 	public function render(\Sabberworm\CSS\OutputFormat $oOutputFormat) {
 		$l = localeconv();
 		$sPoint = preg_quote($l['decimal_point'], '/');
-		return preg_replace(array("/$sPoint/", "/^(-?)0\./"), array('.', '$1.'), $this->fSize) . ($this->sUnit === null ? '' : $this->sUnit);
+		$sSize = preg_match("/[\d\.]+e[+-]?\d+/i", (string)$this->fSize) ? preg_replace("/$sPoint?0+$/", "", sprintf("%f", $this->fSize)) : $this->fSize;
+		return preg_replace(array("/$sPoint/", "/^(-?)0\./"), array('.', '$1.'), $sSize) . ($this->sUnit === null ? '' : $this->sUnit);
 	}
 
 }

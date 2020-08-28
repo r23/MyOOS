@@ -13,6 +13,8 @@ use AmpProject\Layout;
  * Class AMP_Iframe_Sanitizer
  *
  * Converts <iframe> tags to <amp-iframe>
+ *
+ * @internal
  */
 class AMP_Iframe_Sanitizer extends AMP_Base_Sanitizer {
 	use AMP_Noscript_Fallback;
@@ -169,7 +171,7 @@ class AMP_Iframe_Sanitizer extends AMP_Base_Sanitizer {
 			// Add placeholder.
 			if ( $placeholder_node || true === $this->args['add_placeholder'] ) {
 				if ( ! $placeholder_node ) {
-					$placeholder_node = $this->build_placeholder( $normalized_attributes ); // @todo Can a better placeholder default be devised?
+					$placeholder_node = $this->build_placeholder(); // @todo Can a better placeholder default be devised?
 				}
 				$new_node->appendChild( $placeholder_node );
 			}
@@ -363,16 +365,10 @@ class AMP_Iframe_Sanitizer extends AMP_Base_Sanitizer {
 	 *
 	 * @since 0.2
 	 *
-	 * @param string[] $parent_attributes {
-	 *      Attributes.
-	 *
-	 *      @type string $placeholder AMP HTML <amp-iframe> `placeholder` attribute; default to 'amp-wp-iframe-placeholder'
-	 *      @type string $class AMP HTML <amp-iframe> `class` attribute; default to 'amp-wp-iframe-placeholder'
-	 * }
 	 * @return DOMElement|false
 	 */
-	private function build_placeholder( $parent_attributes ) {
-		$placeholder_node = AMP_DOM_Utils::create_node(
+	private function build_placeholder() {
+		return AMP_DOM_Utils::create_node(
 			$this->dom,
 			'span',
 			[
@@ -380,8 +376,6 @@ class AMP_Iframe_Sanitizer extends AMP_Base_Sanitizer {
 				'class'       => 'amp-wp-iframe-placeholder',
 			]
 		);
-
-		return $placeholder_node;
 	}
 
 	/**

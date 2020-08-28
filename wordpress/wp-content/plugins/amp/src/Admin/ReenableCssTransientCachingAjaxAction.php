@@ -8,14 +8,18 @@
 namespace AmpProject\AmpWP\Admin;
 
 use AMP_Options_Manager;
+use AmpProject\AmpWP\Infrastructure\Registerable;
+use AmpProject\AmpWP\Infrastructure\Service;
 use AmpProject\AmpWP\Option;
 
 /**
  * Base class to define a new AJAX action.
  *
  * @package AmpProject\AmpWP
+ * @since 2.0
+ * @internal
  */
-final class ReenableCssTransientCachingAjaxAction {
+final class ReenableCssTransientCachingAjaxAction implements Service, Registerable {
 
 	/**
 	 * Action to use for enqueueing the JS logic at the backend.

@@ -11,6 +11,10 @@ use AMP_Options_Manager;
 use AMP_Theme_Support;
 use AMP_Post_Type_Support;
 use AmpProject\AmpWP\BackgroundTask\MonitorCssTransientCaching;
+use AmpProject\AmpWP\Infrastructure\Conditional;
+use AmpProject\AmpWP\Infrastructure\Delayed;
+use AmpProject\AmpWP\Infrastructure\Registerable;
+use AmpProject\AmpWP\Infrastructure\Service;
 use AmpProject\AmpWP\Option;
 
 /**
@@ -19,19 +23,53 @@ use AmpProject\AmpWP\Option;
  * Adds tests and debugging information for Site Health.
  *
  * @since 1.5.0
+ * @internal
  */
-final class SiteHealth {
+final class SiteHealth implements Service, Registerable, Delayed, Conditional {
+
+	/**
+	 * Service that monitors and controls the CSS transient caching.
+	 *
+	 * @var MonitorCssTransientCaching
+	 */
+	private $css_transient_caching;
+
+	/**
+	 * Check whether the conditional object is currently needed.
+	 *
+	 * @return bool Whether the conditional object is needed.
+	 */
+	public static function is_needed() {
+		return is_admin() && ! wp_doing_ajax();
+	}
+
+	/**
+	 * Get the action to use for registering the service.
+	 *
+	 * @return string Registration action to use.
+	 */
+	public static function get_registration_action() {
+		return 'wp_loaded';
+	}
+
+	/**
+	 * SiteHealth constructor.
+	 *
+	 * @param MonitorCssTransientCaching $css_transient_caching CSS transient caching monitoring service.
+	 */
+	public function __construct( MonitorCssTransientCaching $css_transient_caching ) {
+		$this->css_transient_caching = $css_transient_caching;
+	}
 
 	/**
 	 * Adds the filters.
 	 */
-	public function init() {
+	public function register() {
 		add_filter( 'site_status_tests', [ $this, 'add_tests' ] );
 		add_filter( 'debug_information', [ $this, 'add_debug_information' ] );
+		add_filter( 'site_status_test_result', [ $this, 'modify_test_result' ] );
 		add_filter( 'site_status_test_php_modules', [ $this, 'add_extensions' ] );
 		add_action( 'admin_print_styles-site-health.php', [ $this, 'add_styles' ] );
-
-		( new ReenableCssTransientCachingAjaxAction() )->register();
 	}
 
 	/**
@@ -363,7 +401,12 @@ final class SiteHealth {
 					'fields'      => [
 						'amp_mode_enabled'        => [
 							'label'   => 'AMP mode enabled',
-							'value'   => AMP_Theme_Support::get_support_mode(),
+							'value'   => AMP_Options_Manager::get_option( Option::THEME_SUPPORT ),
+							'private' => false,
+						],
+						'amp_reader_theme'        => [
+							'label'   => 'AMP Reader theme',
+							'value'   => AMP_Options_Manager::get_option( Option::READER_THEME ),
 							'private' => false,
 						],
 						'amp_templates_enabled'   => [
@@ -393,12 +436,17 @@ final class SiteHealth {
 						],
 						'amp_css_transient_caching_transient_count' => [
 							'label'   => esc_html__( 'Number of stylesheet transient cache entries', 'amp' ),
-							'value'   => MonitorCssTransientCaching::query_css_transient_count(),
+							'value'   => $this->css_transient_caching->query_css_transient_count(),
 							'private' => false,
 						],
 						'amp_css_transient_caching_time_series' => [
 							'label'   => esc_html__( 'Calculated time series for monitoring the stylesheet caching', 'amp' ),
-							'value'   => MonitorCssTransientCaching::get_time_series(),
+							'value'   => $this->css_transient_caching->get_time_series(),
+							'private' => false,
+						],
+						'amp_libxml_version'      => [
+							'label'   => 'libxml Version',
+							'value'   => LIBXML_DOTTED_VERSION,
 							'private' => false,
 						],
 					],
@@ -408,39 +456,46 @@ final class SiteHealth {
 	}
 
 	/**
+	 * Modify test results.
+	 *
+	 * @param array $test_result Site Health test result.
+	 *
+	 * @return array Modified test result.
+	 */
+	public function modify_test_result( $test_result ) {
+		// Set the `https_status` test status to critical if its current status is recommended, along with adding to the
+		// description for why its required for AMP.
+		if (
+			isset( $test_result['test'], $test_result['status'], $test_result['description'] )
+			&& 'https_status' === $test_result['test']
+			&& 'recommended' === $test_result['status']
+		) {
+			$test_result['status']       = 'critical';
+			$test_result['description'] .= '<p>' . __( 'Additionally, AMP requires HTTPS for most components to work properly, including iframes and videos.', 'amp' ) . '</p>';
+		}
+
+		return $test_result;
+	}
+
+	/**
 	 * Gets the templates that support AMP.
 	 *
 	 * @return string The supported template(s), in a comma-separated string.
 	 */
 	private function get_supported_templates() {
-		$possible_post_types = AMP_Options_Manager::get_option( 'supported_post_types' );
 
 		// Get the supported content types, like 'post'.
-		$supported_templates = array_filter(
-			AMP_Post_Type_Support::get_eligible_post_types(),
-			static function( $template ) use ( $possible_post_types ) {
-				$post_type = get_post_type_object( $template );
-				return (
-					post_type_supports( $post_type->name, AMP_Post_Type_Support::SLUG )
-					||
-					in_array( $post_type->name, $possible_post_types, true )
-				);
-			}
-		);
+		$supported_templates = AMP_Post_Type_Support::get_supported_post_types();
 
 		// Add the supported templates, like 'is_author', if not in 'Reader' mode.
-		if ( AMP_Theme_Support::READER_MODE_SLUG !== AMP_Theme_Support::get_support_mode() ) {
+		if ( ! amp_is_legacy() ) {
 			$supported_templates = array_merge(
 				$supported_templates,
 				array_keys(
 					array_filter(
 						AMP_Theme_Support::get_supportable_templates(),
 						static function( $option ) {
-							return (
-								( empty( $option['immutable'] ) && ! empty( $option['user_supported'] ) )
-								||
-								! empty( $option['supported'] )
-							);
+							return ! empty( $option['supported'] );
 						}
 					)
 				)
@@ -460,12 +515,12 @@ final class SiteHealth {
 	 * @return string The value of the option to serve all templates.
 	 */
 	private function get_serve_all_templates() {
-		if ( AMP_Theme_Support::READER_MODE_SLUG === AMP_Theme_Support::get_support_mode() ) {
+		if ( amp_is_legacy() ) {
 			return esc_html__( 'This option does not apply to Reader mode.', 'amp' );
 		}
 
 		// Not translated, as this is debugging information, and it could be confusing getting this from different languages.
-		return AMP_Options_Manager::get_option( 'all_templates_supported' ) ? 'true' : 'false';
+		return AMP_Options_Manager::get_option( Option::ALL_TEMPLATES_SUPPORTED ) ? 'true' : 'false';
 	}
 
 	/**
@@ -492,7 +547,7 @@ final class SiteHealth {
 		/** This filter is documented in src/BackgroundTask/MonitorCssTransientCaching.php */
 		$threshold = (float) apply_filters(
 			'amp_css_transient_monitoring_threshold',
-			MonitorCssTransientCaching::DEFAULT_THRESHOLD
+			$this->css_transient_caching->get_default_threshold()
 		);
 
 		return "{$threshold} transients per day";
@@ -507,7 +562,7 @@ final class SiteHealth {
 		/** This filter is documented in src/BackgroundTask/MonitorCssTransientCaching.php */
 		$sampling_range = (float) apply_filters(
 			'amp_css_transient_monitoring_sampling_range',
-			MonitorCssTransientCaching::DEFAULT_SAMPLING_RANGE
+			$this->css_transient_caching->get_default_sampling_range()
 		);
 
 		return "{$sampling_range} days";
