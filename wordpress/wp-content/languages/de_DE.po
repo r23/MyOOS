@@ -16,7 +16,7 @@ msgctxt "Google Font Name and Variants"
 msgid "Noto Serif:400,400i,700,700i"
 msgstr "Noto Serif:400,400i,700,700i"
 
-#: wp-includes/comment-template.php:917
+#: wp-includes/comment-template.php:915
 msgctxt "Comment number declension: on or off"
 msgid "off"
 msgstr "off"
@@ -485,7 +485,7 @@ msgctxt "unit symbol"
 msgid "TB"
 msgstr "TB"
 
-#: wp-includes/general-template.php:4449
+#: wp-includes/general-template.php:4445
 msgctxt "admin color scheme"
 msgid "Modern"
 msgstr "Modern"
@@ -1297,7 +1297,7 @@ msgstr "Registrierung abgeschlossen. Bitte überprüfe deine E-Mail und rufe dan
 msgid "Check your email for the confirmation link, then visit the <a href=\"%s\">login page</a>."
 msgstr "Überprüfe deine E-Mail auf einen Bestätigungslink und rufe dann die <a href=\"%s\">Anmelde-Seite</a> auf."
 
-#: wp-includes/comment-template.php:605 wp-admin/includes/meta-boxes.php:172
+#: wp-includes/comment-template.php:603 wp-admin/includes/meta-boxes.php:172
 #: wp-admin/includes/meta-boxes.php:201
 msgid "Password protected"
 msgstr "Passwortgeschützt"
@@ -1349,7 +1349,7 @@ msgid "The post status %1$s is not registered, so it may not be reliable to chec
 msgstr "Der Beitragsstatus %1$s wurde nicht registriert. Es könnte deshalb unzuverlässig sein, die Berechtigung „%2$s“ mit einem Inhalt dieses Status abzugleichen."
 
 #. translators: %s: Comment link.
-#: wp-includes/comment-template.php:983
+#: wp-includes/comment-template.php:981
 #: wp-admin/includes/class-wp-comments-list-table.php:871
 #: wp-admin/comment.php:200
 msgid "In reply to %s."
@@ -1604,11 +1604,11 @@ msgstr "Listenansicht"
 msgid "Retry"
 msgstr "Erneut versuchen"
 
-#: wp-includes/js/dist/editor.js:8000 wp-admin/includes/template.php:2544
+#: wp-includes/js/dist/editor.js:8000 wp-admin/includes/template.php:2547
 msgid "Restore the backup"
 msgstr "Das Backup wiederherstellen"
 
-#: wp-includes/js/dist/editor.js:7997 wp-admin/includes/template.php:2543
+#: wp-includes/js/dist/editor.js:7997 wp-admin/includes/template.php:2546
 msgid "The backup of this post in your browser is different from the version below."
 msgstr "Das Backup dieses Beitrags in deinem Browser unterscheidet sich von der untenstehenden Version."
 
@@ -1882,7 +1882,7 @@ msgid "Original"
 msgstr "Original"
 
 #. translators: Maximum number of words used in a comment excerpt.
-#: wp-includes/comment-template.php:609
+#: wp-includes/comment-template.php:607
 msgctxt "comment_excerpt_length"
 msgid "20"
 msgstr "20"
@@ -2064,8 +2064,8 @@ msgstr "Aus dem Papierkorb wiederherstellen"
 #: wp-admin/includes/update.php:141 wp-admin/includes/plugin-install.php:181
 #: wp-admin/includes/plugin-install.php:196
 #: wp-admin/includes/plugin-install.php:211
-#: wp-admin/includes/class-wp-automatic-updater.php:786
-#: wp-admin/includes/class-wp-automatic-updater.php:1155
+#: wp-admin/includes/class-wp-automatic-updater.php:788
+#: wp-admin/includes/class-wp-automatic-updater.php:1157
 #: wp-admin/theme-install.php:63
 msgid "https://wordpress.org/support/forums/"
 msgstr "https://de.wordpress.org/support/forums/"
@@ -2555,7 +2555,7 @@ msgid "Order"
 msgstr "Reihenfolge"
 
 #: wp-includes/js/dist/block-editor.js:17671
-#: wp-admin/includes/class-theme-installer-skin.php:246
+#: wp-admin/includes/class-theme-installer-skin.php:248
 #: wp-admin/includes/class-plugin-installer-skin.php:224
 msgid "Current"
 msgstr "Aktuell"
@@ -3041,7 +3041,7 @@ msgstr "[%1$s] Aktion bestätigen: %2$s"
 msgid "Erase Personal Data"
 msgstr "Personenbezogene Daten löschen"
 
-#: wp-includes/comment-template.php:2389
+#: wp-includes/comment-template.php:2385
 msgid "Save my name, email, and website in this browser for the next time I comment."
 msgstr "Meinen Namen, E-Mail und Website in diesem Browser speichern, bis ich wieder kommentiere."
 
@@ -3301,7 +3301,7 @@ msgstr "Du benötigst eine höhere Berechtigungsstufe."
 #: wp-admin/includes/file.php:618 wp-admin/customize.php:79
 #: wp-admin/themes.php:27 wp-admin/themes.php:70 wp-admin/users.php:145
 #: wp-admin/media-upload.php:38 wp-admin/js/tags.js:62
-#: wp-admin/js/updates.js:1784 wp-admin/network/site-users.php:163
+#: wp-admin/js/updates.js:1859 wp-admin/network/site-users.php:163
 msgid "Something went wrong."
 msgstr "Etwas ging schief."
 
@@ -6770,7 +6770,7 @@ msgstr "Warnung: Der Link wurde eingefügt, könnte aber fehlerhaft sein. Bitte 
 #: wp-includes/js/dist/block-editor.js:25426
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:102
 #: wp-admin/includes/class-wp-theme-install-list-table.php:61
-#: wp-admin/includes/file.php:32 wp-admin/js/updates.js:2418
+#: wp-admin/includes/file.php:32 wp-admin/js/updates.js:2493
 msgid "Search Results"
 msgstr "Suchergebnisse"
 
@@ -7024,13 +7024,13 @@ msgid "1 result found. Use up and down arrow keys to navigate."
 msgstr "1 Ergebnis gefunden. Benutze die Pfeiltasten zum Navigieren."
 
 #. translators: %s: User name.
-#: wp-includes/comment-template.php:2440
+#: wp-includes/comment-template.php:2436
 msgid "Logged in as %s. Edit your profile."
 msgstr "Angemeldet als %s. Profil bearbeiten."
 
 #. translators: 1: Edit user link, 2: Accessibility text, 3: User name, 4:
 #. Logout URL.
-#: wp-includes/comment-template.php:2437
+#: wp-includes/comment-template.php:2433
 msgid "<a href=\"%1$s\" aria-label=\"%2$s\">Logged in as %3$s</a>. <a href=\"%4$s\">Log out?</a>"
 msgstr "<a href=\"%1$s\" aria-label=\"%2$s\">Angemeldet als %3$s</a>. <a href=\"%4$s\">Abmelden?</a>"
 
@@ -7131,7 +7131,7 @@ msgstr "<strong>Fehler</strong>: Ungültiger Benutzername, E-Mail-Adresse oder u
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Term name, 4: Taxonomy
 #. singular name.
-#: wp-includes/general-template.php:3109
+#: wp-includes/general-template.php:3105
 msgid "%1$s %2$s %3$s %4$s Feed"
 msgstr "%1$s %2$s %3$s %4$s Feed"
 
@@ -7219,7 +7219,7 @@ msgid "Paste URL or type to search"
 msgstr "URL einfügen oder zum Suchen tippen"
 
 #: wp-includes/class-wp-customize-manager.php:5186
-#: wp-admin/includes/template.php:2281
+#: wp-admin/includes/template.php:2284
 msgid "Logo"
 msgstr "Logo"
 
@@ -7297,7 +7297,7 @@ msgstr "Verwende stattdessen %s."
 
 #. translators: %s: get_trackback_url()
 #. translators: %s: get_the_author()
-#: wp-includes/comment-template.php:1186 wp-includes/author-template.php:71
+#: wp-includes/comment-template.php:1182 wp-includes/author-template.php:71
 msgid "Use %s instead if you do not want the value echoed."
 msgstr "Verwende %s, wenn du den Wert nicht ausgeben möchtest."
 
@@ -7996,7 +7996,7 @@ msgid "Hide header image"
 msgstr "Header-Bild ausblenden"
 
 #: wp-includes/class-wp-customize-manager.php:5157
-#: wp-admin/includes/template.php:2277
+#: wp-admin/includes/template.php:2280
 msgid "Site Icon"
 msgstr "Website-Icon"
 
@@ -8676,19 +8676,19 @@ msgid "Link Text"
 msgstr "Link-Text"
 
 #. translators: %s: Post title.
-#: wp-includes/comment-template.php:1570
+#: wp-includes/comment-template.php:1566
 msgid "1 Comment<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "1 Kommentar<span class=\"screen-reader-text\"> zu %s</span>"
 
 #. translators: 1: Number of comments, 2: Post title.
-#: wp-includes/comment-template.php:1575
+#: wp-includes/comment-template.php:1571
 msgid "%1$s Comment<span class=\"screen-reader-text\"> on %2$s</span>"
 msgid_plural "%1$s Comments<span class=\"screen-reader-text\"> on %2$s</span>"
 msgstr[0] "%1$s Kommentar<span class=\"screen-reader-text\"> zu %2$s</span>"
 msgstr[1] "%1$s Kommentare<span class=\"screen-reader-text\"> zu %2$s</span>"
 
 #. translators: %s: Post title.
-#: wp-includes/comment-template.php:1581
+#: wp-includes/comment-template.php:1577
 msgid "Comments Off<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Kommentare deaktiviert<span class=\"screen-reader-text\"> für %s</span>"
 
@@ -8713,7 +8713,7 @@ msgid "Select Post"
 msgstr "Beitrag auswählen"
 
 #. translators: %s: Post title.
-#: wp-includes/comment-template.php:1565
+#: wp-includes/comment-template.php:1561
 msgid "No Comments<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Keine Kommentare<span class=\"screen-reader-text\"> zu %s</span>"
 
@@ -8749,7 +8749,7 @@ msgstr "Vorschau für:"
 #: wp-admin/themes.php:553 wp-admin/themes.php:891 wp-admin/themes.php:898
 #: wp-admin/themes.php:1106 wp-admin/themes.php:1115
 #: wp-admin/theme-install.php:361 wp-admin/theme-install.php:377
-#: wp-admin/js/updates.js:1302
+#: wp-admin/js/updates.js:1377
 msgid "Live Preview"
 msgstr "Live-Vorschau"
 
@@ -8903,7 +8903,7 @@ msgid "Invalid value %1$s for %2$s. Expected value should be between %3$s and %4
 msgstr "Ungültiger Wert %1$s für %2$s. Der Wert sollte zwischen %3$s und %4$s liegen."
 
 #. translators: Comment reply button text. %s: Comment author name.
-#: wp-includes/comment-template.php:1664
+#: wp-includes/comment-template.php:1660
 msgid "Reply to %s"
 msgstr "Antworte auf %s"
 
@@ -9973,7 +9973,7 @@ msgstr "Rechtsbündig"
 #: wp-includes/class-wp-customize-widgets.php:779
 #: wp-admin/includes/ajax-actions.php:1075
 #: wp-admin/includes/ajax-actions.php:2305 wp-admin/js/media.js:127
-#: wp-admin/js/media.js:132 wp-admin/js/updates.js:1793
+#: wp-admin/js/media.js:132 wp-admin/js/updates.js:1868
 msgid "An error has occurred. Please reload the page and try again."
 msgstr "Ein Fehler ist aufgetreten. Bitte lade die Seite neu und versuche es nochmal."
 
@@ -10090,22 +10090,22 @@ msgstr "Spalten-Gruppe"
 msgid "Could not find the specified string."
 msgstr "Die angegebene Zeichenfolge konnte nicht gefunden werden."
 
-#: wp-includes/general-template.php:4521
+#: wp-includes/general-template.php:4517
 msgctxt "admin color scheme"
 msgid "Coffee"
 msgstr "Kaffee"
 
-#: wp-includes/general-template.php:4509
+#: wp-includes/general-template.php:4505
 msgctxt "admin color scheme"
 msgid "Ocean"
 msgstr "Meer"
 
-#: wp-includes/general-template.php:4497
+#: wp-includes/general-template.php:4493
 msgctxt "admin color scheme"
 msgid "Ectoplasm"
 msgstr "Ektoplasma"
 
-#: wp-includes/general-template.php:4485
+#: wp-includes/general-template.php:4481
 msgctxt "admin color scheme"
 msgid "Sunrise"
 msgstr "Sonnenaufgang"
@@ -10175,17 +10175,17 @@ msgstr "no-subset"
 msgid "Use commas instead of %s to separate excluded terms."
 msgstr "Benutze Kommas anstelle von %s, um ausgeschlossene Begriffe zu trennen."
 
-#: wp-includes/general-template.php:4473
+#: wp-includes/general-template.php:4469
 msgctxt "admin color scheme"
 msgid "Midnight"
 msgstr "Mitternacht"
 
-#: wp-includes/general-template.php:4437
+#: wp-includes/general-template.php:4433
 msgctxt "admin color scheme"
 msgid "Light"
 msgstr "Hell"
 
-#: wp-includes/general-template.php:4425
+#: wp-includes/general-template.php:4421
 msgctxt "admin color scheme"
 msgid "Default"
 msgstr "Standard"
@@ -10851,7 +10851,7 @@ msgid "Display post date?"
 msgstr "Veröffentlichungsdatum anzeigen?"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Post type name.
-#: wp-includes/general-template.php:3115
+#: wp-includes/general-template.php:3111
 msgid "%1$s %2$s %3$s Feed"
 msgstr "%1$s %2$s %3$s Feed"
 
@@ -10924,7 +10924,7 @@ msgstr "Du bist leider nicht berechtigt, diese Seite zu veröffentlichen."
 #: wp-includes/class-wp-customize-manager.php:5316
 #: wp-admin/includes/class-custom-image-header.php:107
 #: wp-admin/includes/class-custom-image-header.php:502
-#: wp-admin/includes/template.php:2246 wp-admin/includes/template.php:2253
+#: wp-admin/includes/template.php:2249 wp-admin/includes/template.php:2256
 msgid "Header Image"
 msgstr "Header-Bild"
 
@@ -10974,7 +10974,7 @@ msgstr "Eine statische Seite"
 #: wp-includes/customize/class-wp-customize-background-image-control.php:33
 #: wp-includes/class-wp-customize-manager.php:5425
 #: wp-admin/includes/class-custom-background.php:253
-#: wp-admin/includes/template.php:2267
+#: wp-admin/includes/template.php:2270
 msgid "Background Image"
 msgstr "Hintergrundbild"
 
@@ -11440,7 +11440,7 @@ msgstr "<strong>Fehler</strong>: Bitte gib deinen Kommentartext ein."
 msgid "Documentation"
 msgstr "Dokumentation"
 
-#: wp-includes/general-template.php:4327 wp-includes/formatting.php:3872
+#: wp-includes/general-template.php:4323 wp-includes/formatting.php:3872
 #: wp-admin/themes.php:249
 msgid "&hellip;"
 msgstr "&hellip;"
@@ -11455,7 +11455,7 @@ msgid "Database Error"
 msgstr "Datenbankfehler"
 
 #. translators: %s: Number of comments.
-#: wp-includes/comment-template.php:910 wp-includes/comment-template.php:925
+#: wp-includes/comment-template.php:908 wp-includes/comment-template.php:923
 #: wp-admin/includes/ajax-actions.php:465
 #: wp-admin/includes/ajax-actions.php:1372 wp-admin/includes/dashboard.php:305
 msgid "%s Comment"
@@ -11507,7 +11507,7 @@ msgstr "Diese Datei ist keine Bilddatei. Bitte probiere eine andere Datei."
 msgid "This is larger than the maximum size. Please try another."
 msgstr "Die Datei ist größer als die Maximalgröße. Bitte verwende eine kleinere Datei."
 
-#: wp-includes/general-template.php:4461
+#: wp-includes/general-template.php:4457
 msgctxt "admin color scheme"
 msgid "Blue"
 msgstr "Blau"
@@ -12035,7 +12035,7 @@ msgid "<strong>Error</strong>: This username is invalid because it uses illegal 
 msgstr "<strong>Fehler</strong>: Dieser Benutzername kann nicht verwendet werden, da er ungültige Zeichen enthält. Bitte gib einen gültigen Benutzernamen an."
 
 #. translators: %s: Asterisk symbol (*).
-#: wp-includes/comment-template.php:2401 wp-admin/includes/media.php:1683
+#: wp-includes/comment-template.php:2397 wp-admin/includes/media.php:1683
 #: wp-admin/includes/media.php:2011 wp-admin/includes/media.php:2906
 #: wp-admin/network/site-new.php:223
 msgid "Required fields are marked %s"
@@ -12196,7 +12196,7 @@ msgstr "Ein Begriff mit dem angegebenen Namen existiert bereits für diese über
 msgid "An error occurred adding you to this site. Back to the <a href=\"%s\">homepage</a>."
 msgstr "Beim Versuch, dich zu dieser Website hinzufügen, trat ein Fehler auf. Hier geht's <a href=\"%s\">zurück</a>."
 
-#: wp-includes/comment-template.php:2450
+#: wp-includes/comment-template.php:2446
 msgid "Your email address will not be published."
 msgstr "Deine E-Mail-Adresse wird nicht veröffentlicht."
 
@@ -13767,51 +13767,51 @@ msgstr "Der Benutzer hat Anfragen über HTTP blockiert."
 msgid "Gray"
 msgstr "Grau"
 
-#: wp-includes/general-template.php:4224
+#: wp-includes/general-template.php:4220
 msgid "Next &raquo;"
 msgstr "Weiter &raquo;"
 
-#: wp-includes/general-template.php:4223
+#: wp-includes/general-template.php:4219
 msgid "&laquo; Previous"
 msgstr "&laquo; Zurück"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Search query.
-#: wp-includes/general-template.php:3113
+#: wp-includes/general-template.php:3109
 msgid "%1$s %2$s Search Results for &#8220;%3$s&#8221; Feed"
 msgstr "%1$s %2$s Suchergebnisse für &#8222;%3$s&#8220; Feed"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Author name.
-#: wp-includes/general-template.php:3111
+#: wp-includes/general-template.php:3107
 msgid "%1$s %2$s Posts by %3$s Feed"
 msgstr "%1$s %2$s Beiträge nach %3$s Feed"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Tag name.
-#: wp-includes/general-template.php:3107
+#: wp-includes/general-template.php:3103
 msgid "%1$s %2$s %3$s Tag Feed"
 msgstr "%1$s %2$s %3$s Schlagwort-Feed"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Category name.
-#: wp-includes/general-template.php:3105
+#: wp-includes/general-template.php:3101
 msgid "%1$s %2$s %3$s Category Feed"
 msgstr "%1$s %2$s %3$s Kategorie-Feed"
 
 #. translators: 1: Blog name, 2: Separator (raquo), 3: Post title.
-#: wp-includes/general-template.php:3103
+#: wp-includes/general-template.php:3099
 msgid "%1$s %2$s %3$s Comments Feed"
 msgstr "%1$s %2$s %3$s Kommentar-Feed"
 
 #. translators: 1: Blog title, 2: Separator (raquo).
-#: wp-includes/general-template.php:3063
+#: wp-includes/general-template.php:3059
 msgid "%1$s %2$s Comments Feed"
 msgstr "%1$s %2$s Kommentar-Feed"
 
 #. translators: 1: Blog title, 2: Separator (raquo).
-#: wp-includes/general-template.php:3061
+#: wp-includes/general-template.php:3057
 msgid "%1$s %2$s Feed"
 msgstr "%1$s %2$s Feed"
 
 #. translators: Separator between blog name and feed type in feed links.
-#: wp-includes/general-template.php:3059 wp-includes/general-template.php:3101
+#: wp-includes/general-template.php:3055 wp-includes/general-template.php:3097
 msgctxt "feed link"
 msgid "&raquo;"
 msgstr "&raquo;"
@@ -14174,36 +14174,36 @@ msgstr "Doppelter Kommentar wurde entdeckt. Es sieht stark danach aus, dass du d
 msgid "Unapproved"
 msgstr "Nicht freigegeben"
 
-#: wp-includes/comment-template.php:2470
+#: wp-includes/comment-template.php:2466
 msgid "Post Comment"
 msgstr "Kommentar abschicken"
 
-#: wp-includes/comment-template.php:2469
+#: wp-includes/comment-template.php:2465
 msgid "Cancel reply"
 msgstr "Antworten abbrechen"
 
 #. translators: %s: Author of the comment being replied to.
-#: wp-includes/comment-template.php:1985 wp-includes/comment-template.php:2464
+#: wp-includes/comment-template.php:1981 wp-includes/comment-template.php:2460
 msgid "Leave a Reply to %s"
 msgstr "Schreibe einen Kommentar zu %s"
 
-#: wp-includes/comment-template.php:1980 wp-includes/comment-template.php:2462
+#: wp-includes/comment-template.php:1976 wp-includes/comment-template.php:2458
 msgid "Leave a Reply"
 msgstr "Schreibe einen Kommentar"
 
-#: wp-includes/comment-template.php:1877
+#: wp-includes/comment-template.php:1873
 msgid "Click here to cancel reply."
 msgstr "Hier klicken, um das Antworten abzubrechen."
 
-#: wp-includes/comment-template.php:1804
+#: wp-includes/comment-template.php:1800
 msgid "Log in to leave a Comment"
 msgstr "Melde dich an, um einen Kommentar zu schreiben"
 
-#: wp-includes/comment-template.php:1803
+#: wp-includes/comment-template.php:1799
 msgid "Leave a Comment"
 msgstr "Schreibe einen Kommentar"
 
-#: wp-includes/comment-template.php:1665
+#: wp-includes/comment-template.php:1661
 msgid "Log in to Reply"
 msgstr "Zum Antworten anmelden"
 
@@ -14278,7 +14278,7 @@ msgid "Tags: "
 msgstr "Schlagwörter: "
 
 #. translators: %s: Login URL.
-#: wp-includes/comment-template.php:2428
+#: wp-includes/comment-template.php:2424
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
 msgstr "Du musst <a href=\"%s\">angemeldet</a> sein, um einen Kommentar abzugeben."
 
@@ -14287,15 +14287,15 @@ msgstr "Du musst <a href=\"%s\">angemeldet</a> sein, um einen Kommentar abzugebe
 msgid "Edit This"
 msgstr "Bearbeiten"
 
-#: wp-includes/comment-template.php:940
+#: wp-includes/comment-template.php:938
 msgid "1 Comment"
 msgstr "1 Kommentar"
 
-#: wp-includes/comment-template.php:938
+#: wp-includes/comment-template.php:936
 msgid "No Comments"
 msgstr "Keine Kommentare"
 
-#: wp-includes/comment-template.php:1590
+#: wp-includes/comment-template.php:1586
 msgid "Enter your password to view comments."
 msgstr "Um die Kommentare zu sehen, musst du dein Passwort eingeben."
 
@@ -14349,7 +14349,7 @@ msgid_plural "Confirmed <span class=\"count\">(%s)</span>"
 msgstr[0] "Bestätigt <span class=\"count\">(%s)</span>"
 msgstr[1] "Bestätigt <span class=\"count\">(%s)</span>"
 
-#: wp-includes/comment-template.php:2368 wp-admin/user-new.php:498
+#: wp-includes/comment-template.php:2364 wp-admin/user-new.php:498
 #: wp-admin/user-edit.php:537
 msgid "Website"
 msgstr "Website"
@@ -14404,7 +14404,7 @@ msgstr "Zeitformat"
 msgid "Date Format"
 msgstr "Datumsformat"
 
-#: wp-login.php:1106 wp-includes/comment-template.php:2354
+#: wp-login.php:1106 wp-includes/comment-template.php:2350
 #: wp-admin/includes/class-wp-users-list-table.php:358
 #: wp-admin/includes/template.php:481 wp-admin/comment.php:171
 #: wp-admin/user-new.php:389 wp-admin/user-new.php:485
@@ -14679,7 +14679,7 @@ msgstr "Von %s"
 #: wp-admin/includes/class-wp-debug-data.php:67
 #: wp-admin/includes/class-wp-debug-data.php:1080
 #: wp-admin/includes/class-wp-debug-data.php:1177
-#: wp-admin/includes/class-theme-installer-skin.php:238
+#: wp-admin/includes/class-theme-installer-skin.php:240
 #: wp-admin/includes/class-plugin-installer-skin.php:217
 msgid "Version"
 msgstr "Version"
@@ -14927,15 +14927,15 @@ msgstr "Unbekannter Feed"
 msgid "Number of comments to show:"
 msgstr "Anzahl der Kommentare, die angezeigt werden:"
 
-#: wp-includes/comment-template.php:1124 wp-admin/includes/dashboard.php:828
+#: wp-includes/comment-template.php:1120 wp-admin/includes/dashboard.php:828
 msgid "Trackback"
 msgstr "Trackback"
 
-#: wp-includes/comment-template.php:1127 wp-admin/includes/dashboard.php:825
+#: wp-includes/comment-template.php:1123 wp-admin/includes/dashboard.php:825
 msgid "Pingback"
 msgstr "Pingback"
 
-#: wp-includes/comment-template.php:1662
+#: wp-includes/comment-template.php:1658
 #: wp-admin/includes/class-wp-comments-list-table.php:791
 #: wp-admin/includes/dashboard.php:708 wp-admin/js/edit-comments.js:373
 #: wp-admin/js/edit-comments.js:1015
@@ -15091,7 +15091,7 @@ msgstr "Keine"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: wp-includes/comment-template.php:2341
+#: wp-includes/comment-template.php:2337
 #: wp-admin/includes/class-wp-debug-data.php:1071
 #: wp-admin/includes/class-wp-debug-data.php:1168
 #: wp-admin/includes/class-wp-users-list-table.php:357
@@ -15274,7 +15274,7 @@ msgid "Are you sure you want to do this?"
 msgstr "Bist du sicher, dass du das tun möchtest?"
 
 #. translators: Field name in comment form.
-#: wp-includes/comment-template.php:1121 wp-includes/comment-template.php:2420
+#: wp-includes/comment-template.php:1117 wp-includes/comment-template.php:2416
 #: wp-admin/comment.php:228
 msgctxt "noun"
 msgid "Comment"
@@ -15306,7 +15306,7 @@ msgstr "URL"
 #: wp-includes/js/dist/components.js:43009 wp-includes/js/dist/editor.js:8532
 #: wp-admin/includes/class-wp-debug-data.php:1085
 #: wp-admin/includes/class-wp-debug-data.php:1182
-#: wp-admin/includes/class-theme-installer-skin.php:239
+#: wp-admin/includes/class-theme-installer-skin.php:241
 #: wp-admin/includes/class-plugin-installer-skin.php:218
 #: wp-admin/includes/meta-boxes.php:906 wp-admin/includes/meta-boxes.php:1567
 #: wp-admin/includes/class-wp-media-list-table.php:312
@@ -15405,7 +15405,7 @@ msgstr "Dein Benutzerkonto ist nun aktiviert!"
 #: wp-admin/includes/class-theme-upgrader-skin.php:113 wp-admin/themes.php:542
 #: wp-admin/themes.php:890 wp-admin/themes.php:1104
 #: wp-admin/theme-install.php:354 wp-admin/theme-install.php:416
-#: wp-admin/js/updates.js:670 wp-admin/js/updates.js:1291
+#: wp-admin/js/updates.js:745 wp-admin/js/updates.js:1366
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:696
 msgid "Activate"
 msgstr "Aktivieren"
