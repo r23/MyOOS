@@ -161,7 +161,7 @@ class Inline
                 return 'false';
             case ctype_digit($value):
                 return \is_string($value) ? "'$value'" : (int) $value;
-            case is_numeric($value):
+            case is_numeric($value) && false === strpos($value, "\f") && false === strpos($value, "\n") && false === strpos($value, "\r") && false === strpos($value, "\t") && false === strpos($value, "\v"):
                 $locale = setlocale(LC_NUMERIC, 0);
                 if (false !== $locale) {
                     setlocale(LC_NUMERIC, 'C');
@@ -631,6 +631,7 @@ class Inline
                     default:
                         throw new ParseException(sprintf('The string "%s" could not be parsed as it uses an unsupported built-in tag.', $scalar), self::$parsedLineNumber, $scalar, self::$parsedFilename);
                 }
+                // no break
             case preg_match('/^(?:\+|-)?0o(?P<value>[0-7_]++)$/', $scalar, $matches):
                 $value = str_replace('_', '', $matches['value']);
 

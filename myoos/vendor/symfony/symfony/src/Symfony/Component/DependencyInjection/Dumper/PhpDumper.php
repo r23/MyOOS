@@ -886,6 +886,7 @@ EOF;
         if ($asFile) {
             $code = str_replace('$this', '$container', $code);
             $code = str_replace('function () {', 'function () use ($container) {', $code);
+            $code = str_replace('function ($lazyLoad = true) {', 'function ($lazyLoad = true) use ($container) {', $code);
         }
 
         $code .= "    }\n";
@@ -926,6 +927,10 @@ EOF;
         }
 
         if ('service_container' === $targetId || isset($this->referenceVariables[$targetId])) {
+            return '';
+        }
+
+        if ($this->container->hasDefinition($targetId) && ($def = $this->container->getDefinition($targetId)) && !$def->isShared()) {
             return '';
         }
 
