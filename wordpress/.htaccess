@@ -1321,8 +1321,16 @@ FileETag None
 
 
 # BEGIN WordPress
-# Die Anweisungen (Zeilen) zwischen `BEGIN WordPress` und `END WordPress` sind
+# Die Anweisungen (Zeilen) zwischen „BEGIN WordPress“ und „END WordPress“ sind
 # dynamisch generiert und sollten nur über WordPress-Filter geändert werden.
 # Alle Änderungen an den Anweisungen zwischen diesen Markierungen werden überschrieben.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /ent/MyOOS/MyOOS/wordpress/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /ent/MyOOS/MyOOS/wordpress/index.php [L]
+</IfModule>
 
 # END WordPress

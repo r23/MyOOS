@@ -69,6 +69,11 @@ class Ai1wm_Updater {
 	public static function update_plugins( $transient ) {
 		global $wp_version;
 
+		// Creating default object from empty value
+		if ( ! is_object( $transient ) ) {
+			$transient = (object) array();
+		}
+
 		// Get extensions
 		$extensions = Ai1wm_Extensions::get();
 
@@ -79,25 +84,30 @@ class Ai1wm_Updater {
 		foreach ( $updates as $slug => $update ) {
 			if ( isset( $extensions[ $slug ] ) && ( $extension = $extensions[ $slug ] ) ) {
 				if ( ( $purchase_id = get_option( $extension['key'] ) ) ) {
+
+					// Get download URL
+					if ( $update['slug'] === 'file-extension' ) {
+						$download_url = add_query_arg( array( 'siteurl' => get_site_url() ), sprintf( '%s', $update['download_link'] ) );
+					} else {
+						$download_url = add_query_arg( array( 'siteurl' => get_site_url() ), sprintf( '%s/%s', $update['download_link'], $purchase_id ) );
+					}
+
+					// Set plugin details
+					$plugin_details = (object) array(
+						'slug'        => $slug,
+						'new_version' => $update['version'],
+						'url'         => $update['homepage'],
+						'plugin'      => $extension['basename'],
+						'package'     => $download_url,
+						'tested'      => $wp_version,
+						'icons'       => $update['icons'],
+					);
+
+					// Enable manual and auto updates
 					if ( version_compare( $extension['version'], $update['version'], '<' ) ) {
-
-						// Get download URL
-						if ( $update['slug'] === 'file-extension' ) {
-							$download_url = add_query_arg( array( 'siteurl' => get_site_url() ), sprintf( '%s', $update['download_link'] ) );
-						} else {
-							$download_url = add_query_arg( array( 'siteurl' => get_site_url() ), sprintf( '%s/%s', $update['download_link'], $purchase_id ) );
-						}
-
-						// Set plugin details
-						$transient->response[ $extension['basename'] ] = (object) array(
-							'slug'        => $slug,
-							'new_version' => $update['version'],
-							'url'         => $update['homepage'],
-							'plugin'      => $extension['basename'],
-							'package'     => $download_url,
-							'tested'      => $wp_version,
-							'icons'       => $update['icons'],
-						);
+						$transient->response[ $extension['basename'] ] = $plugin_details;
+					} else {
+						$transient->no_update[ $extension['basename'] ] = $plugin_details;
 					}
 				}
 			}
