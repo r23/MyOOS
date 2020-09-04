@@ -351,80 +351,80 @@
 
     public function cleanup() {
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $check_quantity = 1;
+		$check_quantity = 1;
 
-      reset($this->contents);
-      foreach ( array_keys($this->contents) as $key ) {		  
-        if ($this->contents[$key]['qty'] < $check_quantity) {
-          unset($this->contents[$key]);
-          // remove from database
-          if (isset($_SESSION['customer_id'])) {
-            $customers_baskettable = $oostable['customers_basket'];
-            $dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($key) . "'");
-            $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-            $dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($key) . "'");
-          }
-        }
-      }
+		reset($this->contents);
+		foreach ( array_keys($this->contents) as $key ) {		  
+			if ($this->contents[$key]['qty'] < $check_quantity) {
+				unset($this->contents[$key]);
+				// remove from database
+				if (isset($_SESSION['customer_id'])) {
+					$customers_baskettable = $oostable['customers_basket'];
+					$dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($key) . "'");
+					$customers_basket_attributestable = $oostable['customers_basket_attributes'];
+					$dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($key) . "'");
+				}
+			}
+		}
     }
 
 
     public function count_contents() {  // get total number of items in cart
-      $total_items = 0;
-      if (is_array($this->contents)) {
-        reset($this->contents);
-		foreach ( array_keys($this->contents) as $products_id ) {		
-          $total_items += $this->get_quantity($products_id);
-        }
-      }
+		$total_items = 0;
+		if (is_array($this->contents)) {
+			reset($this->contents);
+			foreach ( array_keys($this->contents) as $products_id ) {		
+				$total_items += $this->get_quantity($products_id);
+			}
+		}
 
-      return $total_items;
+		return $total_items;
     }
 
 
     public function get_quantity($products_id) {
-      if (isset($this->contents[$products_id])) {
-        $nQuantity = $this->contents[$products_id]['qty'];
-        $nQuantity = intval($nQuantity);
-        return $nQuantity;
-      } else {
-        return 0;
-      }
+		if (isset($this->contents[$products_id])) {
+			$nQuantity = $this->contents[$products_id]['qty'];
+			$nQuantity = intval($nQuantity);
+			return $nQuantity;
+		} else {
+			return 0;
+		}
     }
 
     public function in_cart($products_id) {
-      if (isset($this->contents[$products_id])) {
-        return TRUE;
-      } else {
-        return FALSE;
-      }
+		if (isset($this->contents[$products_id])) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
     }
 
-    public function remove($products_id) {
+	public function remove($products_id) {
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      unset($this->contents[$products_id]);
-      // remove from database
-      if (isset($_SESSION['customer_id'])) {
-        $customers_baskettable = $oostable['customers_basket'];
-        $dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($products_id) . "'");
-        $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-        $dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($products_id) . "'");
-      }
+		unset($this->contents[$products_id]);
+		// remove from database
+		if (isset($_SESSION['customer_id'])) {
+			$customers_baskettable = $oostable['customers_basket'];
+			$dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($products_id) . "'");
+			$customers_basket_attributestable = $oostable['customers_basket_attributes'];
+			$dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($products_id) . "'");
+		}
 
-      // assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
-      $this->cartID = $this->generate_cart_id();
+		// assign a temporary unique ID to the order contents to prevent hack attempts during the checkout procedure
+		$this->cartID = $this->generate_cart_id();
     }
 
     public function remove_all() {
-      $this->reset();
+		$this->reset();
     }
 
     public function get_product_id_list() {
@@ -646,78 +646,79 @@
 
 
 
-    public function get_products() {
-      global $aUser;
+	public function get_products() {
+		global $aUser;
 	
-      if (!is_array($this->contents)) return FALSE;
+		if (!is_array($this->contents)) return FALSE;
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
+		$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
-      $aProducts = array();
-      reset($this->contents);
-      foreach ( array_keys($this->contents) as $products_id ) {
-        $nQuantity = $this->contents[$products_id]['qty'];
-        $productstable = $oostable['products'];
-        $products_descriptiontable = $oostable['products_description'];
-        $sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
+		$aProducts = array();
+		reset($this->contents);
+		foreach ( array_keys($this->contents) as $products_id ) {
+			$nQuantity = $this->contents[$products_id]['qty'];
+			$productstable = $oostable['products'];
+			$products_descriptiontable = $oostable['products_description'];
+			$sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
 					   p.products_ean, p.products_price, p.products_weight, p.products_tax_class_id, p.products_quantity
-                FROM $productstable p,
-                     $products_descriptiontable pd
-                WHERE p.products_id = '" . oos_get_product_id($products_id) . "' AND
+					FROM $productstable p,
+						$products_descriptiontable pd
+					WHERE p.products_status >= '1' AND 
+					  p.products_id = '" . oos_get_product_id($products_id) . "' AND
                       pd.products_id = p.products_id AND
                       pd.products_languages_id = '" .  intval($nLanguageID) . "'";
-        $products_result = $dbconn->Execute($sql);
-        if ($products = $products_result->fields) {
-          $prid = $products['products_id'];
-          if ($aUser['qty_discounts'] == 1) {
-            $products_price = $this->products_price_actual($prid, $products['products_price'], $nQuantity);
-          } else {
-            $products_price = $products['products_price'];
-          }
+			$products_result = $dbconn->Execute($sql);
+			if ($products = $products_result->fields) {
+				$prid = $products['products_id'];
+				if ($aUser['qty_discounts'] == 1) {
+					$products_price = $this->products_price_actual($prid, $products['products_price'], $nQuantity);
+				} else {
+					$products_price = $products['products_price'];
+				}
 
-          $bSpezialPrice = FALSE;
-          $specialstable = $oostable['specials'];
-          $sql = "SELECT specials_new_products_price
-                  FROM $specialstable
-                  WHERE products_id = '" . intval($prid) . "' AND
+				$bSpezialPrice = FALSE;
+				$specialstable = $oostable['specials'];
+				$sql = "SELECT specials_new_products_price
+						FROM $specialstable
+						WHERE products_id = '" . intval($prid) . "' AND
                         status = '1'";
-          $specials_result = $dbconn->Execute($sql);
-          if ($specials_result->RecordCount()) {
-            $bSpezialPrice = TRUE;
-            $specials = $specials_result->fields;
-            $products_price = $specials['specials_new_products_price'];
-          }
+				$specials_result = $dbconn->Execute($sql);
+				if ($specials_result->RecordCount()) {
+					$bSpezialPrice = TRUE;
+					$specials = $specials_result->fields;
+					$products_price = $specials['specials_new_products_price'];
+				}
 
-			$attributes_model = '';
-			if (isset($this->contents[$products_id]['attributes'])) {
-				$attributes_model = $this->attributes_model($products_id);
-			}
+				$attributes_model = '';
+				if (isset($this->contents[$products_id]['attributes'])) {
+					$attributes_model = $this->attributes_model($products_id);
+				}
+	
+				if ($attributes_model != ''){
+					$model = $attributes_model;
+				} else {
+					$model = $products['products_model'];
+				}
 
-			if ($attributes_model != ''){
-				$model = $attributes_model;
-			} else {
-				$model = $products['products_model'];
-			}
-
-			$attributes_image = '';
-			if (isset($this->contents[$products_id]['attributes'])) {
-				$attributes_image = $this->attributes_image($products_id);
-			}
+				$attributes_image = '';
+				if (isset($this->contents[$products_id]['attributes'])) {
+					$attributes_image = $this->attributes_image($products_id);
+				}
 
 
-			if ($attributes_image != ''){
-				$image = $attributes_image;
-			} else {
-				$image = $products['products_image'];
-			}
+				if ($attributes_image != ''){
+					$image = $attributes_image;
+				} else {
+					$image = $products['products_image'];
+				}
 
-			$final_price = $products_price + $this->attributes_price($products_id);
+				$final_price = $products_price + $this->attributes_price($products_id);
 			
-          $aProducts[] = array('id' => $products_id,
+				$aProducts[] = array('id' => $products_id,
                                     'name' => $products['products_name'],
 									'essential_characteristics' => $products['products_essential_characteristics'],
                                     'model' => $model,
@@ -735,11 +736,22 @@
                                     'towlid' => $this->contents[$products_id]['towlid']);
 									
 															
-        }
-      }
+			} else {
+				// product not found
+				// remove from database
+				unset($this->contents[$products_id]);
+				// remove from database
+				if (isset($_SESSION['customer_id'])) {
+					$customers_baskettable = $oostable['customers_basket'];
+					$dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($products_id) . "'");
+					$customers_basket_attributestable = $oostable['customers_basket_attributes'];
+					$dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND products_id = '" . oos_db_input($products_id) . "'");
+				}
+			}
+		}
 
-      return $aProducts;
-    }
+		return $aProducts;
+	}
 
     public function show_total() {
       $this->calculate();
