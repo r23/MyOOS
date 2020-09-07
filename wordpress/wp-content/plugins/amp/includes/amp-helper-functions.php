@@ -235,7 +235,10 @@ function amp_init() {
  * @internal
  */
 function amp_after_setup_theme() {
-	amp_get_slug(); // Ensure AMP_QUERY_VAR is set.
+	// Ensure AMP_QUERY_VAR is set since some plugins still try reading it instead of using amp_get_slug().
+	if ( ! defined( 'AMP_QUERY_VAR' ) ) {
+		define( 'AMP_QUERY_VAR', amp_get_slug() );
+	}
 
 	/** This filter is documented in includes/amp-helper-functions.php */
 	if ( false === apply_filters( 'amp_is_enabled', true ) ) {
@@ -1043,6 +1046,14 @@ function amp_register_default_scripts( $wp_scripts ) {
  * @param WP_Styles $styles Styles.
  */
 function amp_register_default_styles( WP_Styles $styles ) {
+	$styles->add(
+		'amp-default',
+		amp_get_asset_url( 'css/amp-default.css' ),
+		[],
+		AMP__VERSION
+	);
+	$styles->add_data( 'amp-default', 'rtl', 'replace' );
+
 	$styles->add(
 		'amp-icons',
 		amp_get_asset_url( 'css/amp-icons.css' ),

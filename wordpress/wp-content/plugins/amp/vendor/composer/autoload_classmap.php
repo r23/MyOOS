@@ -110,6 +110,7 @@ return array(
     'AmpProject\\AmpWP\\ConfigurationArgument' => $baseDir . '/src/ConfigurationArgument.php',
     'AmpProject\\AmpWP\\Dom\\ElementList' => $baseDir . '/src/Dom/ElementList.php',
     'AmpProject\\AmpWP\\Embed\\HandlesGalleryEmbed' => $baseDir . '/src/Embed/HandlesGalleryEmbed.php',
+    'AmpProject\\AmpWP\\ErrorPage' => $baseDir . '/src/ErrorPage.php',
     'AmpProject\\AmpWP\\Exception\\AmpWpException' => $baseDir . '/src/Exception/AmpWpException.php',
     'AmpProject\\AmpWP\\Exception\\FailedToMakeInstance' => $baseDir . '/src/Exception/FailedToMakeInstance.php',
     'AmpProject\\AmpWP\\Exception\\InvalidEventProperties' => $baseDir . '/src/Exception/InvalidEventProperties.php',

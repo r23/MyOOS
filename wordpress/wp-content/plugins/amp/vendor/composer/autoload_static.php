@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit561cee8a3f7a4290b148b77e372bc34c
+class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
 {
     public static $files = array (
         '6f5653f9af3eab04254ad2c7f20515c8' => __DIR__ . '/../..' . '/back-compat/back-compat.php',
@@ -160,6 +160,7 @@ class ComposerStaticInit561cee8a3f7a4290b148b77e372bc34c
         'AmpProject\\AmpWP\\ConfigurationArgument' => __DIR__ . '/../..' . '/src/ConfigurationArgument.php',
         'AmpProject\\AmpWP\\Dom\\ElementList' => __DIR__ . '/../..' . '/src/Dom/ElementList.php',
         'AmpProject\\AmpWP\\Embed\\HandlesGalleryEmbed' => __DIR__ . '/../..' . '/src/Embed/HandlesGalleryEmbed.php',
+        'AmpProject\\AmpWP\\ErrorPage' => __DIR__ . '/../..' . '/src/ErrorPage.php',
         'AmpProject\\AmpWP\\Exception\\AmpWpException' => __DIR__ . '/../..' . '/src/Exception/AmpWpException.php',
         'AmpProject\\AmpWP\\Exception\\FailedToMakeInstance' => __DIR__ . '/../..' . '/src/Exception/FailedToMakeInstance.php',
         'AmpProject\\AmpWP\\Exception\\InvalidEventProperties' => __DIR__ . '/../..' . '/src/Exception/InvalidEventProperties.php',
@@ -335,10 +336,10 @@ class ComposerStaticInit561cee8a3f7a4290b148b77e372bc34c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit561cee8a3f7a4290b148b77e372bc34c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit561cee8a3f7a4290b148b77e372bc34c::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit561cee8a3f7a4290b148b77e372bc34c::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit561cee8a3f7a4290b148b77e372bc34c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit57d19f5052543b19b9e0265b051a331f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit57d19f5052543b19b9e0265b051a331f::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit57d19f5052543b19b9e0265b051a331f::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit57d19f5052543b19b9e0265b051a331f::$classMap;
 
         }, null, ClassLoader::class);
     }
