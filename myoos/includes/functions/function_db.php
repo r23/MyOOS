@@ -218,13 +218,9 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     }
   }
 
-  function oosDBOutput($sStr) {
-    if (get_magic_quotes_gpc()) {
-      return mysqli::escape_string (stripslashes($sStr));
-    } else {
-      return mysqli::escape_string ($sStr);
-    }
-  }
+function oosDBOutput($sStr) {
+	return mysqli::escape_string ($sStr);
+}
 
 function dosql($table, $flds) {
 
