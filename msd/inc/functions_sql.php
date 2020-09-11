@@ -53,7 +53,7 @@ function WriteSQL()
 		if (substr($str,-1) != "\n" && $i != ( count($SQL_ARRAY) - 1 )) $str.="\n";
 
 	}
-	if ($config['magic_quotes_gpc']) $str=stripslashes($str);
+
 	$fp=fopen($sf,"wb");
 	fwrite($fp,$str);
 	fclose($fp);

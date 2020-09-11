@@ -72,7 +72,6 @@ else
 	//$_POST-Parameter lesen
 	$dump['kommentar']=(isset($_GET['comment'])) ? urldecode($_GET['comment']):'';
 	if (isset($_POST['kommentar'])) $dump['kommentar']=urldecode($_POST['kommentar']);
-	if (get_magic_quotes_gpc()) $dump['kommentar']=stripslashes($dump['kommentar']);
 
 	$dump['backupdatei']=(isset($_POST['backupdatei'])) ? $_POST['backupdatei']:'';
 	$dump['part']=(isset($_POST['part'])) ? $_POST['part']:1;

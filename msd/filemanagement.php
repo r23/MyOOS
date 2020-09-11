@@ -37,7 +37,8 @@ $expand=(isset($_GET['expand'])) ? $_GET['expand'] : -1;
 $selectfile=(isset($_POST['selectfile'])) ? $_POST['selectfile'] : "";
 $destfile=(isset($_POST['destfile'])) ? $_POST['destfile'] : "";
 $compressed=(isset($_POST['compressed'])) ? $_POST['compressed'] : "";
-$dk=(isset($_POST['dumpKommentar'])) ? ((get_magic_quotes_gpc()) ? stripslashes($_POST['dumpKommentar']) : $_POST['dumpKommentar']) : "";
+$dk=(isset($_POST['dumpKommentar'])) ?  $_POST['dumpKommentar']) : "";
+
 $dk=str_replace(':','|',$dk); // remove : because of statusline
 $dump['sel_dump_encoding']=(isset($_POST['sel_dump_encoding'])) ? $_POST['sel_dump_encoding'] : get_index($config['mysql_possible_character_sets'],$config['mysql_standard_character_set']);
 $dump['dump_encoding']=isset($config['mysql_possible_character_sets'][$dump['sel_dump_encoding']]) ? $config['mysql_possible_character_sets'][$dump['sel_dump_encoding']] : 0;

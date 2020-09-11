@@ -24,9 +24,9 @@ if ($import == 1)
 {
 	//IMPORT
 	CheckcsvOptions();
-	if (isset($_POST['f_import_csvtrenn'])) $sql['import']['trenn']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_import_csvtrenn']) : $_POST['f_import_csvtrenn'];
-	if (isset($_POST['f_import_csvenc'])) $sql['import']['enc']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_import_csvenc']) : $_POST['f_import_csvenc'];
-	if (isset($_POST['f_import_csvesc'])) $sql['import']['esc']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_import_csvesc']) : $_POST['f_import_csvesc'];
+	if (isset($_POST['f_import_csvtrenn'])) $sql['import']['trenn']= $_POST['f_import_csvtrenn'];
+	if (isset($_POST['f_import_csvenc'])) $sql['import']['enc']= $_POST['f_import_csvenc'];
+	if (isset($_POST['f_import_csvesc'])) $sql['import']['esc']= $_POST['f_import_csvesc'];
 	if (empty($sql['import']['endline']))
 	{
 		$sql['import']['endline']=$nl;
@@ -38,13 +38,13 @@ if ($import == 1)
 		$sql['import']['endline']=str_replace('\\t',"\011",$sql['import']['endline']);
 	}
 	$sql['import']['endline']=str_replace('\\t',"\011",$sql['import']['endline']);
-	if (isset($_POST['f_import_csvnull'])) $sql['import']['null']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_import_csvnull']) : $_POST['f_import_csvnull'];
+	if (isset($_POST['f_import_csvnull'])) $sql['import']['null']=$_POST['f_import_csvnull'];
 	$sql['import']['namefirstline']=( isset($_POST['f_import_namefirstline']) ) ? $_POST['f_import_namefirstline'] : 0;
 	$sql['import']['emptydb']=( isset($_POST['import_emptydb']) ) ? 1 : 0;
 	$sql['import']['createindex']=( isset($_POST['import_createindex']) ) ? 1 : 0;
 	$sql['import']['table']=( isset($_POST['import_table']) ) ? $_POST['import_table'] : "";
 	$sql['import']['import_source']=isset($_POST['import_source']) ? $_POST['import_source'] : 0;
-	$sql['import']['text']=isset($_POST['import_text']) ? ( ( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['import_text']) : $_POST['import_text'] ) : "";
+	$sql['import']['text']=isset($_POST['import_text']) ? $_POST['import_text'] ) : "";
 	$sql['import']['csv']="";
 
 	if (isset($_POST['do_import']))
@@ -151,15 +151,15 @@ else
 		$sql['export']['header_sent']="";
 		$sql['export']['lines']=0;
 		$sql['export']['format']=$_POST['f_export_format'];
-		$sql['export']['ztrenn']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_export_csvztrenn']) : $_POST['f_export_csvztrenn'];
+		$sql['export']['ztrenn']=$_POST['f_export_csvztrenn'];
 		$sql['endline']['ztrenn']=$sql['export']['ztrenn'];
 		if ($sql['export']['format'] == 0)
 		{
 			//CSV
 			$format=0;
-			$sql['export']['trenn']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_export_csvtrenn']) : $_POST['f_export_csvtrenn'];
-			$sql['export']['enc']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_export_csvenc']) : $_POST['f_export_csvenc'];
-			$sql['export']['esc']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_export_csvesc']) : $_POST['f_export_csvesc'];
+			$sql['export']['trenn']= $_POST['f_export_csvtrenn'];
+			$sql['export']['enc']= $_POST['f_export_csvenc'];
+			$sql['export']['esc']= $_POST['f_export_csvesc'];
 			if (empty($sql['export']['endline']))
 			{
 				$sql['export']['endline']=$nl;
@@ -202,7 +202,7 @@ else
 			$format=5;
 			CheckcsvOptions();
 		}
-		if ($format < 3) $sql['export']['null']=( $config['magic_quotes_gpc'] ) ? stripslashes($_POST['f_export_csvnull' . $format]) : $_POST['f_export_csvnull' . $format];
+		if ($format < 3) $sql['export']['null']= $_POST['f_export_csvnull' . $format];
 		$sql['export']['namefirstline']=( isset($_POST['f_export_namefirstline' . $format]) ) ? $_POST['f_export_namefirstline' . $format] : 0;
 
 		$sql['export']['sendfile']=$_POST['f_export_sendresult'];

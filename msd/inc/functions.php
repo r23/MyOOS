@@ -271,19 +271,11 @@ function WriteParams($as=0, $restore_values=false)
 				$pars_all.='$config[\'' . $var . '\']=array();' . $nl;
 				foreach ($val as $var2=>$val2)
 				{
-					if ($config['magic_quotes_gpc'] == 1)
-					{
-						$val2=stripslashes($val2);
-					}
 					$pars_all.='$config[\'' . $var . '\'][' . ( ( is_int($var2) ) ? $var2 : "'" . $var2 . "'" ) . '] = \'' . my_addslashes($val2) . "';$nl";
 				}
 			}
 			else
 			{
-				if ($config['magic_quotes_gpc'] == 1)
-				{
-					$val=stripslashes($val);
-				}
 				if (!in_array($var,$config_dontsave)) $pars_all.='$config[\'' . $var . '\'] = \'' . my_addslashes($val) . "';$nl";
 			}
 		}
@@ -295,7 +287,7 @@ function WriteParams($as=0, $restore_values=false)
 			$pars_all.='$databases[\'' . $var . '\']=array();' . $nl;
 			foreach ($val as $var2=>$val2)
 			{
-				if ($config['magic_quotes_gpc'] == 1 || $as == 1)
+				if ($as == 1)
 				{
 					$pars_all.='$databases[\'' . $var . '\'][' . ( ( is_int($var2) ) ? $var2 : "'" . $var2 . "'" ) . '] = \'' . my_addslashes(stripslashes($val2)) . "';$nl";
 				}
@@ -307,7 +299,7 @@ function WriteParams($as=0, $restore_values=false)
 		}
 		else
 		{
-			if ($config['magic_quotes_gpc'] == 0 || $as == 1)
+			if ($as == 1)
 			{
 				$pars_all.='$databases[\'' . $var . '\'] = \'' . addslashes($val) . "';$nl";
 			}

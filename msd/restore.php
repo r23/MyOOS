@@ -33,9 +33,7 @@ if (isset($_GET['filename']))
 		{
 			foreach ($val as $key2=>$val2)
 			{
-				if ($config['magic_quotes_gpc']) $restore[stripslashes($key)][stripslashes($key2)]=stripslashes($val2);
-				else
-					$restore[$key][$key2]=$val2;
+				$restore[$key][$key2]=$val2;
 			}
 		}
 	}

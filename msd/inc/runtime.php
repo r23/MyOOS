@@ -62,7 +62,6 @@ $config['max_execution_time']=( $config['max_execution_time'] <= 0 ) ? 30 : $con
 if ($config['max_execution_time'] > 30) $config['max_execution_time']=30;
 $config['upload_max_filesize']=get_cfg_var('upload_max_filesize');
 $config['safe_mode']=get_cfg_var('safe_mode');
-$config['magic_quotes_gpc']=get_magic_quotes_gpc();
 $config['disabled']=get_cfg_var('disable_functions');
 $config['phpextensions']=implode(', ',get_loaded_extensions());
 $m=trim(str_replace('M','',ini_get('memory_limit')));
@@ -98,7 +97,6 @@ $config_dontsave=Array(
 					'homepage',
 					'max_execution_time',
 					'safe_mode',
-					'magic_quotes_gpc',
 					'disabled',
 					'phpextensions',
 					'php_ram',
@@ -123,11 +121,6 @@ $config_dontsave=Array(
 $dontBackupDatabases = array('mysql', 'information_schema');
 
 // Automatisches entfernen von Slashes und Leerzeichen vorn und hinten abschneiden
-if (1==get_magic_quotes_gpc())
-{
-	$_POST=stripslashes_deep($_POST);
-	$_GET=stripslashes_deep($_GET);
-}
 $_POST=trim_deep($_POST);
 $_GET=trim_deep($_GET);
 
