@@ -1,5 +1,0 @@
-{
-    "GeoIp2": {
-        "CannotUnzipGeoIPFile": "Nepavyko išpakuoti GeoIP failo ties %1$s: %2$s"
-    }
-}

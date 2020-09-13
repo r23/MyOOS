@@ -1,5 +1,0 @@
-{
-    "GeoIp2": {
-        "CannotUnzipGeoIPFile": "Không thể giải nén tệp GeoIP trong %1$s: %2$s"
-    }
-}
