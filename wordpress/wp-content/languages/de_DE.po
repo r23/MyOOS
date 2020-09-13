@@ -858,7 +858,7 @@ msgid "Cannot delete an active plugin. Please deactivate it first."
 msgstr "Ein aktives Plugin kann nicht gelöscht werden. Bitte deaktiviere es zuerst."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:488
-#: wp-admin/includes/ajax-actions.php:4538 wp-admin/plugins.php:268
+#: wp-admin/includes/ajax-actions.php:4539 wp-admin/plugins.php:268
 msgid "Sorry, you are not allowed to delete plugins for this site."
 msgstr "Du bist leider nicht berechtigt, Plugins dieser Website zu löschen."
 
@@ -867,12 +867,12 @@ msgid "Unable to determine what plugin was installed."
 msgstr "Es lässt sich nicht feststellen, welches Plugin installiert wurde."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:336
-#: wp-admin/includes/ajax-actions.php:4072
-#: wp-admin/includes/ajax-actions.php:4202
-#: wp-admin/includes/ajax-actions.php:4266
-#: wp-admin/includes/ajax-actions.php:4366
-#: wp-admin/includes/ajax-actions.php:4493
-#: wp-admin/includes/ajax-actions.php:4562
+#: wp-admin/includes/ajax-actions.php:4073
+#: wp-admin/includes/ajax-actions.php:4203
+#: wp-admin/includes/ajax-actions.php:4267
+#: wp-admin/includes/ajax-actions.php:4367
+#: wp-admin/includes/ajax-actions.php:4494
+#: wp-admin/includes/ajax-actions.php:4563
 msgid "Unable to connect to the filesystem. Please confirm your credentials."
 msgstr "Es ist nicht möglich, eine Verbindung mit dem Dateisystem herzustellen. Bitte überprüfe deine Anmeldedaten."
 
@@ -881,7 +881,7 @@ msgid "Sorry, you are not allowed to activate plugins."
 msgstr "Du bist leider nicht berechtigt, das Plugin zu aktivieren."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:243
-#: wp-admin/includes/ajax-actions.php:4319 wp-admin/update.php:106
+#: wp-admin/includes/ajax-actions.php:4320 wp-admin/update.php:106
 #: wp-admin/update.php:149 wp-admin/update.php:181
 #: wp-admin/plugin-install.php:19
 msgid "Sorry, you are not allowed to install plugins on this site."
@@ -896,8 +896,8 @@ msgstr "Plugin nicht gefunden."
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:166
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:410
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:480
-#: wp-admin/includes/ajax-actions.php:4614
-#: wp-admin/includes/ajax-actions.php:4666 wp-admin/plugins.php:13
+#: wp-admin/includes/ajax-actions.php:4615
+#: wp-admin/includes/ajax-actions.php:4667 wp-admin/plugins.php:13
 msgid "Sorry, you are not allowed to manage plugins for this site."
 msgstr "Du bist leider nicht berechtigt, Plugins dieser Website zu verwalten."
 
@@ -1351,7 +1351,7 @@ msgstr "Der Beitragsstatus %1$s wurde nicht registriert. Es könnte deshalb unzu
 #. translators: %s: Comment link.
 #: wp-includes/comment-template.php:981
 #: wp-admin/includes/class-wp-comments-list-table.php:871
-#: wp-admin/comment.php:200
+#: wp-admin/comment.php:204
 msgid "In reply to %s."
 msgstr "Als Antwort auf %s."
 
@@ -2043,7 +2043,7 @@ msgstr "[%s] Anmeldedaten"
 #: wp-admin/includes/meta-boxes.php:441 wp-admin/includes/media.php:1710
 #: wp-admin/includes/class-wp-media-list-table.php:177
 #: wp-admin/includes/class-wp-comments-list-table.php:374
-#: wp-admin/includes/class-wp-posts-list-table.php:420 wp-admin/comment.php:132
+#: wp-admin/includes/class-wp-posts-list-table.php:420 wp-admin/comment.php:136
 #: wp-admin/edit-form-comment.php:205
 msgid "Move to Trash"
 msgstr "In den Papierkorb verschieben"
@@ -2289,8 +2289,8 @@ msgstr "https://wordpress.org/support/article/cookies/"
 msgid "Missing confirm key."
 msgstr "Fehlender Bestätigungsschlüssel."
 
-#: wp-login.php:1174 wp-admin/includes/ajax-actions.php:4729
-#: wp-admin/includes/ajax-actions.php:4919
+#: wp-login.php:1174 wp-admin/includes/ajax-actions.php:4730
+#: wp-admin/includes/ajax-actions.php:4920
 msgid "Missing request ID."
 msgstr "Fehlende Anforderungs-ID."
 
@@ -3409,8 +3409,8 @@ msgid "Take over"
 msgstr "Übernehmen"
 
 #: wp-includes/class-wp-customize-manager.php:4293
-#: wp-admin/includes/post.php:1690 wp-admin/comment.php:74
-#: wp-admin/comment.php:272 wp-admin/theme-editor.php:376
+#: wp-admin/includes/post.php:1690 wp-admin/comment.php:78
+#: wp-admin/comment.php:276 wp-admin/theme-editor.php:376
 #: wp-admin/plugin-editor.php:330
 msgid "Go back"
 msgstr "Zurück gehen"
@@ -7868,7 +7868,7 @@ msgid "Live Preview: %s"
 msgstr "Live-Vorschau: %s"
 
 #: wp-includes/class-wp-customize-manager.php:580
-#: wp-admin/includes/ajax-actions.php:4251 wp-admin/includes/file.php:430
+#: wp-admin/includes/ajax-actions.php:4252 wp-admin/includes/file.php:430
 #: wp-admin/includes/file.php:440 wp-admin/theme-editor.php:69
 #: wp-admin/theme-editor.php:73 wp-admin/themes.php:28 wp-admin/themes.php:71
 msgid "The requested theme does not exist."
@@ -10327,11 +10327,11 @@ msgstr "j. F Y G:i"
 #: wp-includes/class-wp-locale.php:365 wp-admin/includes/schema.php:428
 #: wp-admin/includes/class-wp-comments-list-table.php:953
 #: wp-admin/includes/ajax-actions.php:1564
-#: wp-admin/includes/ajax-actions.php:2802
-#: wp-admin/includes/ajax-actions.php:2805
+#: wp-admin/includes/ajax-actions.php:2803
+#: wp-admin/includes/ajax-actions.php:2806
 #: wp-admin/includes/class-wp-posts-list-table.php:1087
 #: wp-admin/options-general.php:292 wp-admin/options-general.php:355
-#: wp-admin/comment.php:217 wp-admin/update-core.php:879 wp-admin/admin.php:114
+#: wp-admin/comment.php:221 wp-admin/update-core.php:879 wp-admin/admin.php:114
 #: wp-admin/edit-form-advanced.php:625 wp-admin/edit-form-advanced.php:628
 msgid "g:i a"
 msgstr "G:i"
@@ -10349,8 +10349,8 @@ msgstr "G:i"
 #: wp-admin/includes/class-wp-privacy-policy-content.php:379
 #: wp-admin/includes/schema.php:426 wp-admin/includes/media.php:1668
 #: wp-admin/includes/ajax-actions.php:1564
-#: wp-admin/includes/ajax-actions.php:2801
-#: wp-admin/includes/ajax-actions.php:2804 wp-admin/includes/dashboard.php:623
+#: wp-admin/includes/ajax-actions.php:2802
+#: wp-admin/includes/ajax-actions.php:2805 wp-admin/includes/dashboard.php:623
 #: wp-admin/options-general.php:292 wp-admin/options-general.php:318
 #: wp-admin/update-core.php:879 wp-admin/admin.php:113
 #: wp-admin/edit-form-advanced.php:625 wp-admin/edit-form-advanced.php:628
@@ -10467,7 +10467,7 @@ msgstr "Zufällig"
 #: wp-admin/includes/class-wp-themes-list-table.php:93
 #: wp-admin/includes/class-wp-list-table.php:335
 #: wp-admin/includes/ajax-actions.php:2180
-#: wp-admin/includes/ajax-actions.php:3783
+#: wp-admin/includes/ajax-actions.php:3784
 msgid "No items found."
 msgstr "Keine Elemente gefunden."
 
@@ -11005,7 +11005,7 @@ msgid "Remove image"
 msgstr "Bild entfernen"
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:784
-#: wp-admin/comment.php:78
+#: wp-admin/comment.php:82
 msgid "Sorry, you are not allowed to edit this comment."
 msgstr "Du bist leider nicht berechtigt, diesen Kommentar zu bearbeiten."
 
@@ -12595,8 +12595,8 @@ msgstr "Ungültiger Kommentarstatus."
 #: wp-includes/class-wp-xmlrpc-server.php:3675
 #: wp-includes/class-wp-xmlrpc-server.php:3743
 #: wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php:341
-#: wp-includes/comment.php:2444 wp-admin/comment.php:74
-#: wp-admin/comment.php:272 wp-admin/edit-comments.php:250
+#: wp-includes/comment.php:2444 wp-admin/comment.php:78
+#: wp-admin/comment.php:276 wp-admin/edit-comments.php:250
 msgid "Invalid comment ID."
 msgstr "Ungültige Kommentar-ID."
 
@@ -14255,7 +14255,7 @@ msgstr "(Bearbeiten)"
 #: wp-admin/includes/meta-boxes.php:216 wp-admin/includes/meta-boxes.php:408
 #: wp-admin/includes/class-wp-comments-list-table.php:949
 #: wp-admin/includes/class-wp-posts-list-table.php:1083
-#: wp-admin/comment.php:213 wp-admin/edit-form-advanced.php:171
+#: wp-admin/comment.php:217 wp-admin/edit-form-advanced.php:171
 #: wp-admin/edit-form-comment.php:126
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s&nbsp;Uhr"
@@ -14406,7 +14406,7 @@ msgstr "Datumsformat"
 
 #: wp-login.php:1106 wp-includes/comment-template.php:2350
 #: wp-admin/includes/class-wp-users-list-table.php:358
-#: wp-admin/includes/template.php:481 wp-admin/comment.php:171
+#: wp-admin/includes/template.php:481 wp-admin/comment.php:175
 #: wp-admin/user-new.php:389 wp-admin/user-new.php:485
 #: wp-admin/user-edit.php:502 wp-admin/edit-form-comment.php:53
 #: wp-admin/includes/class-wp-ms-users-list-table.php:199
@@ -14974,7 +14974,7 @@ msgstr "Inhalt"
 #: wp-admin/includes/template.php:862 wp-admin/includes/file.php:2268
 #: wp-admin/includes/class-wp-posts-list-table.php:1915
 #: wp-admin/includes/dashboard.php:187 wp-admin/includes/dashboard.php:1325
-#: wp-admin/options-general.php:129 wp-admin/comment.php:240
+#: wp-admin/options-general.php:129 wp-admin/comment.php:244
 #: wp-admin/nav-menus.php:1076 wp-admin/user-new.php:549
 #: wp-admin/widgets.php:352 wp-admin/widgets.php:565 wp-admin/user-edit.php:527
 #: wp-admin/user-edit.php:642 wp-admin/js/post.js:989
@@ -15250,7 +15250,7 @@ msgstr "vor %s"
 #: wp-admin/includes/class-wp-comments-list-table.php:769
 #: wp-admin/includes/class-wp-posts-list-table.php:412
 #: wp-admin/includes/class-wp-posts-list-table.php:1348
-#: wp-admin/includes/dashboard.php:700 wp-admin/comment.php:231
+#: wp-admin/includes/dashboard.php:700 wp-admin/comment.php:235
 #: wp-admin/edit-form-comment.php:139
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:692
 #: wp-admin/includes/class-wp-ms-users-list-table.php:396
@@ -15275,7 +15275,7 @@ msgstr "Bist du sicher, dass du das tun möchtest?"
 
 #. translators: Field name in comment form.
 #: wp-includes/comment-template.php:1117 wp-includes/comment-template.php:2416
-#: wp-admin/comment.php:228
+#: wp-admin/comment.php:232
 msgctxt "noun"
 msgid "Comment"
 msgstr "Kommentar"
@@ -15296,7 +15296,7 @@ msgstr "Kommentar"
 #: wp-admin/includes/class-wp-links-list-table.php:132
 #: wp-admin/includes/class-walker-nav-menu-edit.php:187
 #: wp-admin/includes/media.php:2911 wp-admin/includes/template.php:486
-#: wp-admin/includes/nav-menu.php:301 wp-admin/comment.php:177
+#: wp-admin/includes/nav-menu.php:301 wp-admin/comment.php:181
 #: wp-admin/edit-form-comment.php:59
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:361
 msgid "URL"
@@ -15316,7 +15316,7 @@ msgstr "URL"
 #: wp-admin/includes/class-wp-post-comments-list-table.php:26
 #: wp-admin/includes/class-wp-posts-list-table.php:624
 #: wp-admin/includes/class-wp-posts-list-table.php:1595
-#: wp-admin/comment.php:166 wp-admin/edit-form-comment.php:43
+#: wp-admin/comment.php:170 wp-admin/edit-form-comment.php:43
 msgid "Author"
 msgstr "Autor"
 
@@ -15337,7 +15337,7 @@ msgstr "Zur Website"
 #: wp-admin/includes/class-wp-comments-list-table.php:951
 #: wp-admin/includes/ajax-actions.php:2209
 #: wp-admin/includes/class-wp-posts-list-table.php:1085
-#: wp-admin/comment.php:215
+#: wp-admin/comment.php:219
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:473
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:494
 #: wp-admin/includes/class-wp-ms-users-list-table.php:334
