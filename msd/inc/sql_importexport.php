@@ -44,7 +44,7 @@ if ($import == 1)
 	$sql['import']['createindex']=( isset($_POST['import_createindex']) ) ? 1 : 0;
 	$sql['import']['table']=( isset($_POST['import_table']) ) ? $_POST['import_table'] : "";
 	$sql['import']['import_source']=isset($_POST['import_source']) ? $_POST['import_source'] : 0;
-	$sql['import']['text']=isset($_POST['import_text']) ? $_POST['import_text'] ) : "";
+	$sql['import']['text']=isset($_POST['import_text']) ? $_POST['import_text'] : "";
 	$sql['import']['csv']="";
 
 	if (isset($_POST['do_import']))
