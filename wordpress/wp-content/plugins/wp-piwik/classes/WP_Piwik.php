@@ -12,7 +12,7 @@ class WP_Piwik {
 	 *
 	 * @var Runtime environment variables
 	 */
-	private static $revisionId = 2019072901, $version = '1.0.22', $blog_id, $pluginBasename = NULL, $logger, $settings, $request, $optionsPageId;
+	private static $revisionId = 2019110501, $version = '1.0.23', $blog_id, $pluginBasename = NULL, $logger, $settings, $request, $optionsPageId;
 
 	/**
 	 * Constructor class to configure and register all WP-Piwik components
@@ -1261,8 +1261,9 @@ class WP_Piwik {
 		global $post;
 		$postUrl = get_permalink ( $post->ID );
 		$this->log ( 'Load per post statistics: ' . $postUrl );
+		$locations = apply_filters( 'wp-piwik_meta_boxes_locations', array( 'post', 'page', 'custom_post_type' ) );
 		array (
-				new \WP_Piwik\Widget\Post ( $this, self::$settings, array('post', 'page', 'custom_post_type'), 'side', 'default', array (
+				new \WP_Piwik\Widget\Post ( $this, self::$settings, $locations, 'side', 'default', array (
 						'url' => $postUrl
 				) ),
 				'show'
