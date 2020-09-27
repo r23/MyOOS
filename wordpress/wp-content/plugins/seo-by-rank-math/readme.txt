@@ -1,11 +1,11 @@
-=== WordPress SEO Plugin - Rank Math ===
+=== Rank Math - SEO Plugin for WordPress ===
 Contributors: rankmath
 Plugin link: https://s.rankmath.com/homepage
 Tags: seo, sitemap, google search console, schema, redirection
-Tested up to: 5.5
+Tested up to: 5.5.1
 Requires at least: 5.2
 Requires PHP: 7.0
-Stable tag: 1.0.47.1
+Stable tag: 1.0.48.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -97,7 +97,7 @@ Even with significantly more features than other plugins, Rank Math loads amazin
 
 * **Super Fast SEO Plugin** — Even after packing so many features, Rank Math has a negligible load on your server, thus making it one of the fastest SEO plugins for WordPress.
 
-* **Automatic Keyword Suggestions from Google ** — Get keyword suggestions from Google as you start typing letters in the focus keyword field of Rank Math.
+* **Automatic Keyword Suggestions from Google** — Get keyword suggestions from Google as you start typing letters in the focus keyword field of Rank Math.
 
 * **New SEO Analyzer** — Rank Math's built-in SEO analysis will give you SEO recommendations that you'd normally spend hundreds of dollars to get.
 
@@ -108,6 +108,8 @@ Even with significantly more features than other plugins, Rank Math loads amazin
 * **Optimize UNLIMITED Keywords At Once** — You can optimize your post for up to 5 different keywords by default with the Rank Math plugin and can use a filter to optimize for unlimited keywords.
 
 * **Image SEO** - With Rank Math's perfect solution to add ALT & Title tags on the fly, to optimize images, showing inside the content, and that too for FREE, there is no reason to choose any other SEO solution that does not provide all the essential SEO features.
+
+* **[Web Stories SEO](https://rankmath.com/kb/google-web-stories/)** - Make any Story created with the Google's Web Stories plugin SEO-Ready. Automatically adds AMP friendly Schema markup and Meta tags.
 
 * **Translation Plugins Support** — Rank Math works flawlessly with the top translations plugins like WPML, TranslatePress, Weglot, Polylang, etc., making it a perfect companion.
 
@@ -473,13 +475,37 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.47.1 [Aug 25, 2020] =
-* Added: Proper credits and attribution wherever they were missing. We are incredibly sorry about missing them in the first place. That should not have happened. Please feel free to reach out to us in case the credits are still missing anywhere in the plugin. We would be more than obliged to add.
-* Improved: Excluded image caption text from the auto-generated SEO descriptions
-* Improved: Added more automation to the Open Graph Image tag(`og:image`) functionality. It can now pick the first external image from the content as well
-* Improved: Fixed PHPCS warnings throughout the plugin
-* Removed: Unused `remove_stopwords` function from the [Redirection](https://rankmath.com/kb/setting-up-redirections/) module
-* Removed: Some unused `error_log()` calls from the plugin
-* Fixed: [SERP preview](https://rankmath.com/kb/general-tab/#the-preview-section) section not showing Hindi characters properly
+= 1.0.48.1 [Sep 27, 2020] =
+* Added: A Filter hook in the Setup Wizard steps
+* Fixed: External Redirections were not working on some installations
+* Fixed: Content analysis was not detecting the content added in the Elementor editor
+* Fixed: Hidden Primary Category option in the Classic Editor due to small CSS bug
+* Fixed: Breaking of Rank Math metabox after using `rank_math/gutenberg/enabled` filter in the Block editor
+* Fixed: jQuery Migrate Helper deprecated warning appearing after the last update
+
+= 1.0.48 [Sep 26, 2020] =
+* Added: [HUGE] Completely revamped the UI for our [Schema](https://rankmath.com/kb/rich-snippets/) module. Introducing tree structure UI, now anyone can easily understand the Schema markup in a visual format. Comes with required field validation.
+* Added: [NEW] [Entity Graph](https://www.w3.org/TR/json-ld/#named-graphs) for the Schema markup. Now all the nodes are connected by edges
+* Added: Code to make [upcoming PRO version](https://rankmath.com/pro/) compatible with the free version
+* Improved: UI of the export option in the Redirections page
+* Improved: Some missing text in the translation file
+* Improved: Added a condition to check if a method exists in the `Paper` class
+* Improved: Use `site_url()` instead of `home_url()`
+* Improved: Beta functionality now downloads [beta version](https://rankmath.com/kb/version-control/#beta-updates) from the Trunk folder of WordPress.org SVN
+* Changed: Time options in the Recipe Schema now need `PT` as a prefix, example: PT1H30M
+* Changed: Default mode to 'Advanced' on new installations
+* Fixed: [Contact shortcode](https://rankmath.com/kb/titles-and-meta/#displaying-your-contact-information) was not showing some contact info like Email & Phone number
+* Fixed: `%name%` variable was not working in the backend of single posts and pages
+* Fixed: `%name%` variable was showing the wrong user name in the profile edit page
+* Fixed: Variation Products were showing price mismatch warning in the Google Merchant Centre
+* Fixed: PHP warnings related to [beta testing](https://rankmath.com/kb/version-control/#beta-updates) functionality on some installations
+* Fixed: Schema markup issue when `BankOrCreditUnion` is selected in the Local SEO settings
+* Fixed: Removed non-archive CPT pages from the breadcrumb's schema markup code
+* Fixed: Shortcodes were not rendering on the frontend for the Category/Taxonomy description text
+* Fixed: CPTs created by some third party plugins in the [Titles & Meta](https://rankmath.com/kb/titles-and-meta/) global settings were not displaying
+* Fixed: Datepicker styling issue with the Coupon theme from PremiumPress
+* Fixed: Opening Days in the Restaurant Schema were not available for the block editor & Elementor
+* Fixed: Minimum required WordPress version notice in the Setup Wizard
+* Fixed: Icon styling in the FAQ and HowTo blocks
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=LP&utm_campaign=WP)**

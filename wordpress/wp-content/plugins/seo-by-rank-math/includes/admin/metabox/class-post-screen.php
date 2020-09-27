@@ -80,6 +80,8 @@ class Post_Screen implements IScreen {
 		$is_elementor    = Helper::is_elementor_editor();
 		$is_block_editor = Helper::is_block_editor() && \rank_math_is_gutenberg();
 
+		Helper::add_json( 'postType', get_post_type() );
+
 		if ( ! $is_elementor ) {
 			$this->enqueue_custom_fields();
 		}
@@ -94,7 +96,6 @@ class Post_Screen implements IScreen {
 
 		if ( $is_block_editor || $is_elementor ) {
 			$this->enqueue_commons();
-			Helper::add_json( 'postType', get_post_type() );
 		}
 
 		if ( $is_block_editor && ! $is_elementor && Editor::can_add_editor() ) {
@@ -109,6 +110,9 @@ class Post_Screen implements IScreen {
 		// Classic.
 		if ( Helper::is_block_editor() ) {
 			wp_enqueue_script( 'rank-math-formats' );
+		}
+
+		if ( $is_block_editor ) {
 			wp_enqueue_script( 'rank-math-primary-term', rank_math()->plugin_url() . 'assets/admin/js/gutenberg-primary-term.js', [], rank_math()->version, true );
 		}
 	}
@@ -141,7 +145,7 @@ class Post_Screen implements IScreen {
 				'hasTOCPlugin'     => $this->has_toc_plugin(),
 				'sentimentKbLink'  => KB::get( 'sentiments' ),
 				'focusKeywordLink' => admin_url( 'edit.php?focus_keyword=%focus_keyword%&post_type=%post_type%' ),
-				'registrationUrl'  => Helper::get_connect_url(),
+				'futureSeo'        => KB::get( 'pro-general-g' ),
 				'hasBreadcrumb'    => Helper::get_settings( 'general.breadcrumbs' ),
 				'hasRedirection'   => Helper::is_module_active( 'redirections' ),
 				'isUserEdit'       => Admin_Helper::is_user_edit(),
@@ -310,6 +314,7 @@ class Post_Screen implements IScreen {
 			'rank-math-gutenberg',
 			rank_math()->plugin_url() . 'assets/admin/js/gutenberg.js',
 			[
+				'clipboard',
 				'tagify',
 				'wp-autop',
 				'wp-blocks',

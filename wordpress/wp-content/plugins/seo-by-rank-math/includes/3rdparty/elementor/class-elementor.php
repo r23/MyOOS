@@ -80,6 +80,7 @@ class Elementor {
 			'wp-data',
 			'wp-api-fetch',
 			'wp-media-utils',
+			'site-health',
 			'rank-math-analyzer',
 			'backbone-marionette',
 			'elementor-common-modules',
@@ -89,6 +90,7 @@ class Elementor {
 		wp_deregister_style( 'rank-math-post-metabox' );
 
 		wp_enqueue_style( 'wp-components' );
+		wp_enqueue_style( 'site-health' );
 		wp_enqueue_style( 'rank-math-elementor', rank_math()->plugin_url() . 'assets/admin/css/elementor.css', [], rank_math()->version );
 
 		if ( 'light' !== $mode ) {

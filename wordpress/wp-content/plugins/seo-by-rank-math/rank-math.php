@@ -9,7 +9,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Rank Math SEO
- * Version:           1.0.47.1
+ * Version:           1.0.48.1
  * Plugin URI:        https://s.rankmath.com/home
  * Description:       Rank Math is a revolutionary SEO product that combines the features of many SEO tools and lets you multiply your traffic in the easiest way possible.
  * Author:            Rank Math
@@ -34,7 +34,7 @@ final class RankMath {
 	 *
 	 * @var string
 	 */
-	public $version = '1.0.47.1';
+	public $version = '1.0.48.1';
 
 	/**
 	 * Rank Math database version.
@@ -48,7 +48,7 @@ final class RankMath {
 	 *
 	 * @var string
 	 */
-	private $wordpress_version = '4.9';
+	private $wordpress_version = '5.2';
 
 	/**
 	 * Minimum version of PHP required to run Rank Math.
@@ -201,7 +201,7 @@ final class RankMath {
 		// Check WordPress version.
 		if ( version_compare( get_bloginfo( 'version' ), $this->wordpress_version, '<' ) ) {
 			/* translators: WordPress Version */
-			$this->messages[] = sprintf( esc_html__( 'Rank Math requires WordPress version %s or above. Please update WordPress to run this plugin.', 'rank-math' ), $this->wordpress_version );
+			$this->messages[] = sprintf( esc_html__( 'You are using the outdated WordPress, please update it to version %s or higher.', 'rank-math' ), $this->wordpress_version );
 		}
 
 		// Check PHP version.
