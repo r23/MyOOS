@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
+class ComposerStaticInit077d68b2d63f451581ca59f0f5e291a0
 {
     public static $files = array (
         '6f5653f9af3eab04254ad2c7f20515c8' => __DIR__ . '/../..' . '/back-compat/back-compat.php',
@@ -17,6 +17,10 @@ class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
         'W' => 
         array (
             'WillWashburn\\' => 13,
+        ),
+        'S' => 
+        array (
+            'Sabberworm\\CSS\\' => 15,
         ),
         'A' => 
         array (
@@ -31,6 +35,10 @@ class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
         array (
             0 => __DIR__ . '/..' . '/willwashburn/stream/src',
         ),
+        'Sabberworm\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib/Sabberworm/CSS',
+        ),
         'AmpProject\\Optimizer\\' => 
         array (
             0 => __DIR__ . '/..' . '/ampproject/optimizer/src',
@@ -42,16 +50,6 @@ class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
         'AmpProject\\' => 
         array (
             0 => __DIR__ . '/..' . '/ampproject/common/src',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'S' => 
-        array (
-            'Sabberworm\\CSS\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
-            ),
         ),
     );
 
@@ -116,6 +114,7 @@ class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
         'AMP_Script_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-script-sanitizer.php',
         'AMP_Service_Worker' => __DIR__ . '/../..' . '/includes/class-amp-service-worker.php',
         'AMP_SoundCloud_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-soundcloud-embed-handler.php',
+        'AMP_Srcset_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-srcset-sanitizer.php',
         'AMP_String_Utils' => __DIR__ . '/../..' . '/includes/utils/class-amp-string-utils.php',
         'AMP_Style_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-style-sanitizer.php',
         'AMP_Tag_And_Attribute_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-tag-and-attribute-sanitizer.php',
@@ -137,7 +136,6 @@ class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
         'AMP_YouTube_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-youtube-embed-handler.php',
         'AmpProject\\Amp' => __DIR__ . '/..' . '/ampproject/common/src/Amp.php',
         'AmpProject\\AmpWP\\Admin\\AnalyticsOptionsSubmenu' => __DIR__ . '/../..' . '/src/Admin/AnalyticsOptionsSubmenu.php',
-        'AmpProject\\AmpWP\\Admin\\DevToolsUserAccess' => __DIR__ . '/../..' . '/src/Admin/DevToolsUserAccess.php',
         'AmpProject\\AmpWP\\Admin\\GoogleFonts' => __DIR__ . '/../..' . '/src/Admin/GoogleFonts.php',
         'AmpProject\\AmpWP\\Admin\\OnboardingWizardSubmenu' => __DIR__ . '/../..' . '/src/Admin/OnboardingWizardSubmenu.php',
         'AmpProject\\AmpWP\\Admin\\OnboardingWizardSubmenuPage' => __DIR__ . '/../..' . '/src/Admin/OnboardingWizardSubmenuPage.php',
@@ -158,9 +156,13 @@ class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
         'AmpProject\\AmpWP\\Component\\Carousel' => __DIR__ . '/../..' . '/src/Component/Carousel.php',
         'AmpProject\\AmpWP\\Component\\HasCaption' => __DIR__ . '/../..' . '/src/Component/HasCaption.php',
         'AmpProject\\AmpWP\\ConfigurationArgument' => __DIR__ . '/../..' . '/src/ConfigurationArgument.php',
+        'AmpProject\\AmpWP\\DevTools\\CallbackReflection' => __DIR__ . '/../..' . '/src/DevTools/CallbackReflection.php',
+        'AmpProject\\AmpWP\\DevTools\\ErrorPage' => __DIR__ . '/../..' . '/src/DevTools/ErrorPage.php',
+        'AmpProject\\AmpWP\\DevTools\\FileReflection' => __DIR__ . '/../..' . '/src/DevTools/FileReflection.php',
+        'AmpProject\\AmpWP\\DevTools\\LikelyCulpritDetector' => __DIR__ . '/../..' . '/src/DevTools/LikelyCulpritDetector.php',
+        'AmpProject\\AmpWP\\DevTools\\UserAccess' => __DIR__ . '/../..' . '/src/DevTools/UserAccess.php',
         'AmpProject\\AmpWP\\Dom\\ElementList' => __DIR__ . '/../..' . '/src/Dom/ElementList.php',
         'AmpProject\\AmpWP\\Embed\\HandlesGalleryEmbed' => __DIR__ . '/../..' . '/src/Embed/HandlesGalleryEmbed.php',
-        'AmpProject\\AmpWP\\ErrorPage' => __DIR__ . '/../..' . '/src/ErrorPage.php',
         'AmpProject\\AmpWP\\Exception\\AmpWpException' => __DIR__ . '/../..' . '/src/Exception/AmpWpException.php',
         'AmpProject\\AmpWP\\Exception\\FailedToMakeInstance' => __DIR__ . '/../..' . '/src/Exception/FailedToMakeInstance.php',
         'AmpProject\\AmpWP\\Exception\\InvalidEventProperties' => __DIR__ . '/../..' . '/src/Exception/InvalidEventProperties.php',
@@ -336,10 +338,9 @@ class ComposerStaticInit57d19f5052543b19b9e0265b051a331f
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit57d19f5052543b19b9e0265b051a331f::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit57d19f5052543b19b9e0265b051a331f::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit57d19f5052543b19b9e0265b051a331f::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit57d19f5052543b19b9e0265b051a331f::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit077d68b2d63f451581ca59f0f5e291a0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit077d68b2d63f451581ca59f0f5e291a0::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit077d68b2d63f451581ca59f0f5e291a0::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'WillWashburn\\' => array($vendorDir . '/willwashburn/stream/src'),
+    'Sabberworm\\CSS\\' => array($vendorDir . '/sabberworm/php-css-parser/lib/Sabberworm/CSS'),
     'AmpProject\\Optimizer\\' => array($vendorDir . '/ampproject/optimizer/src'),
     'AmpProject\\AmpWP\\' => array($baseDir . '/src'),
     'AmpProject\\' => array($vendorDir . '/ampproject/common/src'),
