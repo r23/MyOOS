@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.5.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-09-09 20:03:16+0000\n"
+"PO-Revision-Date: 2020-09-23 11:19:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5059,7 +5059,7 @@ msgstr "Suche Plugins nach:"
 
 #: wp-admin/includes/import.php:227
 msgid "Import posts, pages, comments, custom fields, categories, and tags from a WordPress export file."
-msgstr "Beiträge, Seiten, Kommentare, Individuelle Felder, Kategorien und Tags aus einer WordPress-Export-Datei importieren."
+msgstr "Beiträge, Seiten, Kommentare, individuelle Felder, Kategorien und Tags aus einer WordPress-Export-Datei importieren."
 
 #: wp-admin/includes/import.php:221
 msgid "Import posts &amp; media from Tumblr using their API."
@@ -6619,7 +6619,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Links_Screen\">Dokumentation zu Li
 
 #: wp-admin/includes/class-custom-image-header.php:134
 msgid "<a href=\"https://codex.wordpress.org/Appearance_Header_Screen\">Documentation on Custom Header</a>"
-msgstr "<a href=\"https://codex.wordpress.org/Appearance_Header_Screen\">Dokumentation zu Header (engl.)</a>"
+msgstr "<a href=\"https://codex.wordpress.org/Appearance_Header_Screen\">Dokumentation über individuelle Header (engl.)</a>"
 
 #: wp-admin/my-sites.php:51
 msgid "<a href=\"https://codex.wordpress.org/Dashboard_My_Sites_Screen\">Documentation on My Sites</a>"
@@ -7046,12 +7046,12 @@ msgstr "<strong>Beitrags-Editor</strong> &ndash; Gib den Text für deinen Beitra
 #. translators: %s: URL to header image configuration in Customizer.
 #: wp-admin/includes/class-custom-image-header.php:483
 msgid "You can now manage and live-preview Custom Header in the <a href=\"%s\">Customizer</a>."
-msgstr "Du kannst jetzt Individuelle Header über den <a href=\"%s\">Customizer</a> verwalten und in einer Live-Vorschau ansehen."
+msgstr "Du kannst jetzt individuelle Header über den <a href=\"%s\">Customizer</a> verwalten und in einer Live-Vorschau ansehen."
 
 #. translators: %s: URL to background image configuration in Customizer.
 #: wp-admin/includes/class-custom-background.php:234
 msgid "You can now manage and live-preview Custom Backgrounds in the <a href=\"%s\">Customizer</a>."
-msgstr "Du kannst jetzt Individuelle Hintergründe über den <a href=\"%s\">Customizer</a> verwalten und in einer Live-Vorschau ansehen."
+msgstr "Du kannst jetzt individuelle Hintergründe über den <a href=\"%s\">Customizer</a> verwalten und in einer Live-Vorschau ansehen."
 
 #: wp-admin/includes/class-wp-screen.php:1132
 msgctxt "Welcome panel"
@@ -10590,7 +10590,7 @@ msgstr "Autoren:"
 
 #: wp-admin/export.php:181
 msgid "This will contain all of your posts, pages, comments, custom fields, terms, navigation menus, and custom posts."
-msgstr "Der Export enthält dann alle Beiträge, Seiten, Kommentare, Individuelle Felder, Kategorien, Schlagwörter, Navigationsmenüs und Individuelle Inhaltstypen."
+msgstr "Der Export enthält dann alle Beiträge, Seiten, Kommentare, individuelle Felder, Kategorien, Schlagwörter, Navigationsmenüs und individuelle Inhaltstypen."
 
 #: wp-admin/export.php:180
 msgid "All content"
@@ -10799,7 +10799,7 @@ msgstr "Viele Themes zeigen bereits von Haus aus bestimmte widgetähnliche Navig
 #. translators: %s: URL to create a new page.
 #: wp-admin/options-reading.php:28
 msgid "You can choose what&#8217;s displayed on the homepage of your site. It can be posts in reverse chronological order (classic blog), or a fixed/static page. To set a static homepage, you first need to create two <a href=\"%s\">Pages</a>. One will become the homepage, and the other will be where your posts are displayed."
-msgstr "Du kannst auswählen, was auf der Startseite deiner Website angezeigt wird. Entweder die letzten Beiträge in umgekehrt chronologischer Sortierung (also ein klassischer Blog) oder eine bestimmte (statische) Seite. Willst du eine statische Seite als Startseite festlegen, so solltest du zwei <a href=\"%s\">Seiten</a> anlegen. Eine wird die Startseite, auf der anderen werden dann die Beiträge angezeigt werden. Beachte dazu auch den weiterführenden Link rechts in der Seitenleiste dieser Hilfe."
+msgstr "Du kannst auswählen, was auf der Homepage deiner Website angezeigt wird. Entweder die letzten Beiträge in umgekehrt chronologischer Sortierung (also ein klassischer Blog) oder eine bestimmte (statische) Seite. Willst du eine statische Seite als Homepage festlegen, so solltest du zwei <a href=\"%s\">Seiten</a> anlegen. Eine wird die Homepage, auf der anderen werden dann die Beiträge angezeigt werden. Beachte dazu auch den weiterführenden Link rechts in der Seitenleiste dieser Hilfe."
 
 #: wp-admin/options-permalink.php:53
 msgid "The Optional fields let you customize the &#8220;category&#8221; and &#8220;tag&#8221; base names that will appear in archive URLs. For example, the page listing all posts in the &#8220;Uncategorized&#8221; category could be <code>/topics/uncategorized</code> instead of <code>/category/uncategorized</code>."
@@ -14114,7 +14114,7 @@ msgstr "Altes Theme konnte nicht entfernt werden."
 #: wp-admin/includes/class-theme-upgrader.php:61
 #: wp-admin/includes/class-theme-upgrader.php:78
 msgid "Removing the old version of the theme&#8230;"
-msgstr "Entfernung der alten Version des Themes&#160;&hellip;"
+msgstr "Die alte Version des Themes wird entfernt&#8230;"
 
 #: wp-admin/includes/class-theme-upgrader.php:56
 msgid "The theme is at the latest version."
@@ -14144,7 +14144,7 @@ msgstr "Altes Plugin konnte nicht entfernt werden."
 
 #: wp-admin/includes/class-plugin-upgrader.php:62
 msgid "Removing the old version of the plugin&#8230;"
-msgstr "Entfernung der alten Version des Plugins&#160;&hellip;"
+msgstr "Die alte Version des Plugins wird entfernt&#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:61
 #: wp-admin/includes/class-theme-upgrader.php:60

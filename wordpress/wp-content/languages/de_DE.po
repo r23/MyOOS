@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.5.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-08-28 08:13:59+0000\n"
+"PO-Revision-Date: 2020-09-23 11:09:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3547,7 +3547,7 @@ msgstr "Individuelles HTML-Widget"
 
 #: wp-includes/widgets/class-wp-widget-custom-html.php:304
 msgid "Use the Custom HTML widget to add arbitrary HTML code to your widget areas."
-msgstr "Verwende das HTML-Widget, um in den Widget-Bereichen beliebigen HTML-Code einzufügen."
+msgstr "Verwende das individuelle HTML-Widget, um in den Widget-Bereichen beliebigen HTML-Code einzufügen."
 
 #. translators: %s: New email address.
 #: wp-includes/user.php:2922
@@ -3610,7 +3610,7 @@ msgstr "Plane deine Änderungen im Customizer so, dass sie zu einem späteren Ze
 
 #: wp-includes/script-loader.php:1137
 msgid "Homepage and posts page must be different."
-msgstr "Startseite und Beitragsseite müssen unterschiedlich sein."
+msgstr "Homepage und Beitragsseite müssen unterschiedlich sein."
 
 #. translators: %d: Error count.
 #: wp-includes/script-loader.php:1132 wp-includes/script-loader.php:1134
@@ -4228,15 +4228,15 @@ msgstr "Füge hier deinen eigenen CSS-Code ein, um das Erscheinungsbild und Layo
 #: wp-includes/class-wp-customize-manager.php:5606
 #: wp-admin/options-reading.php:85 wp-admin/options-reading.php:86
 msgid "Your homepage displays"
-msgstr "Deine Startseite zeigt"
+msgstr "Deine Homepage zeigt"
 
 #: wp-includes/class-wp-customize-manager.php:5589
 msgid "You can choose what&#8217;s displayed on the homepage of your site. It can be posts in reverse chronological order (classic blog), or a fixed/static page. To set a static homepage, you first need to create two Pages. One will become the homepage, and the other will be where your posts are displayed."
-msgstr "Du kannst auswählen, was auf der Startseite deiner Website angezeigt wird. Das können Beiträge in umgekehrter chronologischer Reihenfolge (klassischer Blog) oder eine feststehende/statische Seite sein. Um eine statische Startseite festzulegen, musst du erst zwei Seiten erstellen. Eine wird die Startseite (Home) und die andere wird die, wo deine Beiträge angezeigt werden."
+msgstr "Du kannst auswählen, was auf der Homepage deiner Website angezeigt wird. Das können Beiträge in umgekehrter chronologischer Reihenfolge (klassischer Blog) oder eine feststehende/statische Seite sein. Um eine statische Homepage festzulegen, musst du erst zwei Seiten erstellen. Eine wird die Homepage und die andere wird die, wo deine Beiträge angezeigt werden."
 
 #: wp-includes/class-wp-customize-manager.php:5587
 msgid "Homepage Settings"
-msgstr "Startseiten-Einstellungen"
+msgstr "Homepage-Einstellungen"
 
 #. translators: %s: Site icon size in pixels.
 #: wp-includes/class-wp-customize-manager.php:5161
@@ -4325,11 +4325,11 @@ msgstr "Benutzer anzeigen"
 
 #: wp-includes/widgets/class-wp-widget-text.php:498
 msgid "This widget may have contained code that may work better in the &#8220;Custom HTML&#8221; widget. If you haven&#8217;t yet, how about trying that widget instead?"
-msgstr "Dieses Widget enthielt anscheinend Code, der vermutlich besser im neuen &#8222;HTML&#8220;-Widget funktioniert. Falls du es noch nicht kennst: was hältst du davon, es auszuprobieren?"
+msgstr "Dieses Widget enthielt anscheinend Code, der vermutlich besser im neuen &#8222;individuellen HTML&#8220;-Widget funktioniert. Falls du es noch nicht kennst: was hältst du davon, es auszuprobieren?"
 
 #: wp-includes/widgets/class-wp-widget-text.php:551
 msgid "Hey there, looks like you just pasted HTML into the &#8220;Visual&#8221; tab of the Text widget. You may want to paste your code into the &#8220;Text&#8221; tab instead. Alternately, try out the new &#8220;Custom HTML&#8221; widget!"
-msgstr "Anscheinend hast du HTML-Code in den Tab &#8222;Visuell&#8220; des Text-Widgets eingefügt. Füge deinen Code besser in den Tab &#8222;Text&#8220; ein. Oder probiere das neue &#8222;HTML&#8220;-Widget aus!"
+msgstr "Anscheinend hast du HTML-Code in den Tab &#8222;Visuell&#8220; des Text-Widgets eingefügt. Füge deinen Code besser in den Tab &#8222;Text&#8220; ein. Oder probiere das neue &#8222;individuelle HTML&#8220;-Widget aus!"
 
 #: wp-includes/widgets/class-wp-widget-text.php:550
 msgid "Did you just paste HTML?"
@@ -4349,7 +4349,7 @@ msgstr "Neues Widget für individuelles HTML"
 
 #: wp-includes/widgets/class-wp-widget-text.php:496
 msgid "This widget may contain code that may work better in the &#8220;Custom HTML&#8221; widget. How about trying that widget instead?"
-msgstr "Dieses Widget scheint Code zu enthalten, der vermutlich besser im neuen &#8222;HTML&#8220;-Widget funktioniert. Was hältst du davon, es auszuprobieren?"
+msgstr "Dieses Widget scheint Code zu enthalten, der vermutlich besser im neuen &#8222;individuellen HTML&#8220;-Widget funktioniert. Was hältst du davon, es auszuprobieren?"
 
 #: wp-includes/widgets/class-wp-widget-text.php:35
 msgid "Arbitrary text."
@@ -4362,7 +4362,7 @@ msgstr "Einige HTML-Tags sind nicht erlaubt, darunter:"
 #: wp-includes/widgets/class-wp-widget-custom-html.php:53
 #: wp-includes/js/dist/block-library.js:15487
 msgid "Custom HTML"
-msgstr "HTML"
+msgstr "Individuelles HTML"
 
 #: wp-includes/widgets/class-wp-widget-custom-html.php:46
 msgid "Arbitrary HTML code."
@@ -5132,7 +5132,7 @@ msgstr "Archive"
 #: wp-includes/theme.php:2327
 msgctxt "Theme starter content"
 msgid "This is an example of a homepage section. Homepage sections can be any page other than the homepage itself, including the page that shows your latest blog posts."
-msgstr "Hier ist als Beispiel ein Abschnitt deiner Startseite. Ein Startseiten-Abschnitt kann jede Seite sein; ausgenommen die Startseite selbst, aber einschließlich der Seite, die deine neuen Blog-Beiträge zeigt."
+msgstr "Hier ist als Beispiel ein Abschnitt deiner Homepage. Ein Homepage-Abschnitt kann jede Seite sein; ausgenommen die Homepage selbst, aber einschließlich der Seite, die deine neuen Blog-Beiträge zeigt."
 
 #: wp-includes/theme.php:2319
 msgctxt "Theme starter content"
@@ -5152,7 +5152,7 @@ msgstr "Möglicherweise bist du künstlerisch tätig und möchtest dich und dein
 #: wp-includes/theme.php:2294
 msgctxt "Theme starter content"
 msgid "Welcome to your site! This is your homepage, which is what most visitors will see when they come to your site for the first time."
-msgstr "Willkommen auf deiner Website! Das ist die Startseite, die die meisten deiner Besucher sehen werden, wenn sie deine Website zum ersten Mal aufrufen."
+msgstr "Willkommen auf deiner Website! Das ist die Homepage, die die meisten deiner Besucher sehen werden, wenn sie deine Website zum ersten Mal aufrufen."
 
 #: wp-includes/theme.php:2205
 msgctxt "Theme starter content"
@@ -5316,7 +5316,7 @@ msgstr "Video auswählen"
 #: wp-includes/theme.php:2324
 msgctxt "Theme starter content"
 msgid "A homepage section"
-msgstr "Ein Startseiten-Abschnitt"
+msgstr "Ein Homepage-Abschnitt"
 
 #: wp-includes/theme.php:2315
 msgctxt "Theme starter content"
@@ -5557,7 +5557,7 @@ msgstr "Kontaktiere uns"
 #: wp-includes/class-wp-customize-manager.php:5627
 #: wp-admin/includes/file.php:38
 msgid "Homepage"
-msgstr "Startseite"
+msgstr "Homepage"
 
 #: wp-includes/script-loader.php:777
 msgid "Item selected."
@@ -11493,7 +11493,7 @@ msgstr "Skripte und Styles sollten nicht vor den Hooks %1$s, %2$s oder %3$s regi
 #. translators: 1: Home URL, 2: Admin URL.
 #: wp-includes/ms-functions.php:2173
 msgid "You have been added to this site. Please visit the <a href=\"%1$s\">homepage</a> or <a href=\"%2$s\">log in</a> using your username and password."
-msgstr "Du wurdest zu dieser Website hinzugefügt. Du kannst nun die <a href=\"%1$s\">Startseite</a> besuchen oder dich mit deinem Benutzernamen und Passwort <a href=\"%2$s\">anmelden</a>."
+msgstr "Du wurdest zu dieser Website hinzugefügt. Du kannst nun die <a href=\"%1$s\">Homepage</a> besuchen oder dich mit deinem Benutzernamen und Passwort <a href=\"%2$s\">anmelden</a>."
 
 #: wp-includes/script-loader.php:829
 msgid "Memory exceeded. Please try another smaller file."
@@ -11541,7 +11541,7 @@ msgstr "Um verifiziert zu werden, gib bitte eine Nonce-Aktion als ersten Paramet
 #. translators: 1: Login URL, 2: Network home URL.
 #: wp-activate.php:202
 msgid "Your account is now activated. <a href=\"%1$s\">Log in</a> or go back to the <a href=\"%2$s\">homepage</a>."
-msgstr "Dein Benutzerkonto ist jetzt aktiviert. <a href=\"%1$s\">Melde dich an</a> oder gehe zurück <a href=\"%2$s\">zur Startseite</a>."
+msgstr "Dein Benutzerkonto ist jetzt aktiviert. <a href=\"%1$s\">Melde dich an</a> oder gehe zurück <a href=\"%2$s\">zur Homepage</a>."
 
 #. translators: 1: Site URL, 2: Login URL.
 #: wp-activate.php:194
