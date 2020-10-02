@@ -57,16 +57,16 @@
         },
         {
             "name": "dasprid/enum",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DASPRiD/Enum.git",
-                "reference": "6ccc0d7141a7f149e3c56cb0ce5f05d9152cfd07"
+                "reference": "5abf82f213618696dda8e3bf6f64dd042d8542b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DASPRiD/Enum/zipball/6ccc0d7141a7f149e3c56cb0ce5f05d9152cfd07",
-                "reference": "6ccc0d7141a7f149e3c56cb0ce5f05d9152cfd07",
+                "url": "https://api.github.com/repos/DASPRiD/Enum/zipball/5abf82f213618696dda8e3bf6f64dd042d8542b2",
+                "reference": "5abf82f213618696dda8e3bf6f64dd042d8542b2",
                 "shasum": ""
             },
             "require-dev": {
@@ -96,7 +96,7 @@
                 "enum",
                 "map"
             ],
-            "time": "2020-07-30T16:37:13+00:00"
+            "time": "2020-10-02T16:03:48+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -710,16 +710,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.6.1",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "239400de7a173fe9901b9ac7c06497751f00727a"
+                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/239400de7a173fe9901b9ac7c06497751f00727a",
-                "reference": "239400de7a173fe9901b9ac7c06497751f00727a",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/53330f47520498c0ae1f61f7e2c90f55690c06a3",
+                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3",
                 "shasum": ""
             },
             "require": {
@@ -732,15 +732,15 @@
             },
             "require-dev": {
                 "ext-zlib": "*",
-                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.8"
+                "phpunit/phpunit": "~4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.10"
             },
             "suggest": {
-                "zendframework/zend-httphandlerrunner": "Emit PSR-7 responses"
+                "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6-dev"
+                    "dev-master": "1.7-dev"
                 }
             },
             "autoload": {
@@ -777,7 +777,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2019-07-01T23:21:34+00:00"
+            "time": "2020-09-30T07:37:11+00:00"
         },
         {
             "name": "khanamiryan/qrcode-detector-decoder",
@@ -2618,16 +2618,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.56.0",
+            "version": "v7.57.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "987596ad7ca747ce498e13bc1e3d1a57fbeb94cc"
+                "reference": "e2475efff624c6b9b62e8ea14ba7ee4e417cbfe5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/987596ad7ca747ce498e13bc1e3d1a57fbeb94cc",
-                "reference": "987596ad7ca747ce498e13bc1e3d1a57fbeb94cc",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/e2475efff624c6b9b62e8ea14ba7ee4e417cbfe5",
+                "reference": "e2475efff624c6b9b62e8ea14ba7ee4e417cbfe5",
                 "shasum": ""
             },
             "require": {
@@ -2671,20 +2671,20 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2020-09-25T18:15:04+00:00"
+            "time": "2020-09-30T05:53:53+00:00"
         },
         {
             "name": "symfony/contracts",
-            "version": "v2.1.3",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/contracts.git",
-                "reference": "64342f7faf49d26a959ea223f83170f00d9699c7"
+                "reference": "be3a8c232b594e48774fe3aca1ed732f34f47d5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/contracts/zipball/64342f7faf49d26a959ea223f83170f00d9699c7",
-                "reference": "64342f7faf49d26a959ea223f83170f00d9699c7",
+                "url": "https://api.github.com/repos/symfony/contracts/zipball/be3a8c232b594e48774fe3aca1ed732f34f47d5f",
+                "reference": "be3a8c232b594e48774fe3aca1ed732f34f47d5f",
                 "shasum": ""
             },
             "require": {
@@ -2714,7 +2714,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "2.2-dev"
                 }
             },
             "autoload": {
@@ -2766,7 +2766,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-29T14:54:40+00:00"
+            "time": "2020-09-07T11:33:47+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3626,16 +3626,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.1.5",
+            "version": "v5.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "31b6a95fc288617ccfa27aa819d30c0c2201416a"
+                "reference": "c54f3c05013854b99cbca06282f187a76a8792e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/31b6a95fc288617ccfa27aa819d30c0c2201416a",
-                "reference": "31b6a95fc288617ccfa27aa819d30c0c2201416a",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/c54f3c05013854b99cbca06282f187a76a8792e4",
+                "reference": "c54f3c05013854b99cbca06282f187a76a8792e4",
                 "shasum": ""
             },
             "require": {
@@ -3819,7 +3819,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-09-02T08:15:35+00:00"
+            "time": "2020-09-27T04:33:37+00:00"
         },
         {
             "name": "twig/twig",

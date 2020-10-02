@@ -326,7 +326,7 @@ EOF;
             $this->asFiles = false;
 
             if ($this->preload && null !== $autoloadFile = $this->getAutoloadFile()) {
-                $autoloadFile = substr($this->export($autoloadFile), 2, -1);
+                $autoloadFile = trim($this->export($autoloadFile), '()\\');
 
                 $preloadedFiles = array_reverse($preloadedFiles);
                 $preloadedFiles = implode("';\nrequire __DIR__.'/", $preloadedFiles);
@@ -2052,11 +2052,19 @@ EOF;
      */
     private function export($value)
     {
-        if (null !== $this->targetDirRegex && \is_string($value) && preg_match($this->targetDirRegex, $value, $matches, PREG_OFFSET_CAPTURE)) {
+        if (null !== $this->targetDirRegex && \is_string($value) && preg_match($this->targetDirRegex, $value, $matches, \PREG_OFFSET_CAPTURE)) {
             $suffix = $matches[0][1] + \strlen($matches[0][0]);
             $matches[0][1] += \strlen($matches[1][0]);
             $prefix = $matches[0][1] ? $this->doExport(substr($value, 0, $matches[0][1]), true).'.' : '';
-            $suffix = isset($value[$suffix]) ? '.'.$this->doExport(substr($value, $suffix), true) : '';
+
+            if ('\\' === \DIRECTORY_SEPARATOR && isset($value[$suffix])) {
+                $cookie = '\\'.random_int(100000, \PHP_INT_MAX);
+                $suffix = '.'.$this->doExport(str_replace('\\', $cookie, substr($value, $suffix)), true);
+                $suffix = str_replace('\\'.$cookie, "'.\\DIRECTORY_SEPARATOR.'", $suffix);
+            } else {
+                $suffix = isset($value[$suffix]) ? '.'.$this->doExport(substr($value, $suffix), true) : '';
+            }
+
             $dirname = $this->asFiles ? '$this->containerDir' : '__DIR__';
             $offset = 2 + $this->targetDirMaxMatches - \count($matches);
 
@@ -2123,9 +2131,7 @@ EOF;
 
     private function getAutoloadFile(): ?string
     {
-        if (null === $this->targetDirRegex) {
-            return null;
-        }
+        $file = null;
 
         foreach (spl_autoload_functions() as $autoloader) {
             if (!\is_array($autoloader)) {
@@ -2144,14 +2150,14 @@ EOF;
                 if (0 === strpos($class, 'ComposerAutoloaderInit') && $class::getLoader() === $autoloader[0]) {
                     $file = \dirname((new \ReflectionClass($class))->getFileName(), 2).'/autoload.php';
 
-                    if (preg_match($this->targetDirRegex.'A', $file)) {
+                    if (null !== $this->targetDirRegex && preg_match($this->targetDirRegex.'A', $file)) {
                         return $file;
                     }
                 }
             }
         }
 
-        return null;
+        return $file;
     }
 
     private function getClasses(Definition $definition, string $id): array
