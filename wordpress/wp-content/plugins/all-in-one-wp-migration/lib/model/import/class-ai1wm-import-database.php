@@ -993,6 +993,9 @@ class Ai1wm_Import_Database {
 			$params['completed'] = false;
 		}
 
+		// Delete active plugins
+		delete_option( AI1WM_ACTIVE_PLUGINS );
+
 		// Flush WP cache
 		ai1wm_cache_flush();
 
