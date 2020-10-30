@@ -43,6 +43,10 @@ class Admin implements Runner {
 		$this->ajax( 'is_keyword_new', 'is_keyword_new' );
 		$this->ajax( 'save_checklist_layout', 'save_checklist_layout' );
 		$this->ajax( 'deactivate_plugins', 'deactivate_plugins' );
+
+		// POST.
+		$this->action( 'admin_init', 'process_oauth' );
+		$this->action( 'admin_init', 'reconnect_google' );
 	}
 
 	/**
@@ -53,6 +57,46 @@ class Admin implements Runner {
 			flush_rewrite_rules();
 			delete_option( 'rank_math_flush_rewrite' );
 		}
+	}
+
+	/**
+	 * Reconnect Google.
+	 */
+	public function reconnect_google() {
+		if ( ! isset( $_GET['reconnect'] ) || 'google' !== $_GET['reconnect'] ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'rank_math_reconnect_google' ) ) {
+			wp_nonce_ays( 'rank_math_reconnect_google' );
+			die();
+		}
+
+		if ( ! Helper::has_cap( 'analytics' ) ) {
+			return;
+		}
+
+		\RankMath\Google\Api::get()->revoke_token();
+		\RankMath\Analytics\Data_Fetcher::get()->kill_process();
+
+		wp_redirect( \RankMath\Google\Authentication::get_auth_url() );
+		die();
+	}
+
+	/**
+	 * OAuth reply back
+	 */
+	public function process_oauth() {
+		if ( ! isset( $_GET['process_oauth'] ) ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( $_GET['security'], 'rank_math_oauth_token' ) ) {
+			wp_nonce_ays( 'rank_math_oauth_token' );
+			die();
+		}
+
+		\RankMath\Google\Authentication::get_tokens_from_server();
 	}
 
 	/**
@@ -334,6 +378,7 @@ class Admin implements Runner {
 		if ( 0 !== strpos( $cmb_id, 'rank_math' ) && 0 !== strpos( $cmb_id, 'rank-math' ) ) {
 			return;
 		}
+
 		Helper::is_configured( true );
 	}
 

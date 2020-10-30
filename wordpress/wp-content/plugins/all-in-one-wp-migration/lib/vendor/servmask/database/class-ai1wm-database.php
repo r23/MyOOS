@@ -781,6 +781,9 @@ abstract class Ai1wm_Database {
 					// Replace create table name
 					$create_table = $this->replace_table_name( $create_table, $table_name, $new_table_name );
 
+					// Replace create table comments
+					$create_table = $this->replace_table_comments( $create_table );
+
 					// Replace create table constraints
 					$create_table = $this->replace_table_constraints( $create_table );
 
@@ -1550,6 +1553,16 @@ abstract class Ai1wm_Database {
 	 */
 	protected function replace_raw_values( $input ) {
 		return Ai1wm_Database_Utility::replace_values( $this->get_old_replace_raw_values(), $this->get_new_replace_raw_values(), $input );
+	}
+
+	/**
+	 * Replace table comments
+	 *
+	 * @param  string $input SQL statement
+	 * @return string
+	 */
+	protected function replace_table_comments( $input ) {
+		return preg_replace( '/\/\*(.+?)\*\//s', '', $input );
 	}
 
 	/**

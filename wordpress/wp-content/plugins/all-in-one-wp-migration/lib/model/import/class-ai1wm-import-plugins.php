@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Ai1wm_Import_Plugins {
 
-	public static function execute( $params, $mysql = null ) {
+	public static function execute( $params, Ai1wm_Database $mysql = null ) {
 		global $wpdb;
 
 		// Set progress

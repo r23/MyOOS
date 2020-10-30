@@ -4,7 +4,7 @@ Donate link: https://wphowto.net/
 Tags: videojs, video, player, embed, html5
 Requires at least: 4.2
 Tested up to: 5.5
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -136,6 +136,9 @@ Yes.
 none
 
 == Changelog ==
+
+= 1.1.5 =
+* Updated Videojs to 7.10.1.
 
 = 1.1.4 =
 * Made some security related improvements in the plugin

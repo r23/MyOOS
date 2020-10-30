@@ -54,13 +54,13 @@ class Ai1wm_Export_Config {
 		$config['HomeURL'] = home_url();
 
 		// Set internal site URL
-		if ( isset( $options['siteurl'] ) && ( untrailingslashit( $options['siteurl'] ) !== site_url() ) ) {
-			$config['InternalSiteURL'] = untrailingslashit( $options['siteurl'] );
+		if ( isset( $options['siteurl'] ) ) {
+			$config['InternalSiteURL'] = $options['siteurl'];
 		}
 
 		// Set internal home URL
-		if ( isset( $options['home'] ) && ( untrailingslashit( $options['home'] ) !== home_url() ) ) {
-			$config['InternalHomeURL'] = untrailingslashit( $options['home'] );
+		if ( isset( $options['home'] ) ) {
+			$config['InternalHomeURL'] = $options['home'];
 		}
 
 		// Set replace old and new values

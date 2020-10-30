@@ -112,6 +112,10 @@ class Admin extends Base {
 	 * @param CMB2 $cmb CMB2 instance.
 	 */
 	public function delete_schemas( $cmb ) {
+		if ( empty( $cmb->data_to_save['rank-math-schemas-delete'] ) ) {
+			return;
+		}
+
 		$schemas = \json_decode( stripslashes( $cmb->data_to_save['rank-math-schemas-delete'] ), true );
 		if ( empty( $schemas ) ) {
 			return;
@@ -133,14 +137,14 @@ class Admin extends Base {
 		$schema = $post_id !== absint( get_option( 'page_for_posts' ) ) ? $this->get_schema_types( $post_id ) : 'CollectionPage';
 		if ( ! $schema && ! metadata_exists( 'post', $post_id, 'rank_math_rich_snippet' ) && Helper::can_use_default_schema( $post_id ) ) {
 			$post_type = get_post_type( $post_id );
-			$schema    = Helper::get_settings( "titles.pt_{$post_type}_default_rich_snippet" );
+			$schema    = Helper::get_default_schema_type( $post_type );
 		}
 
 		$schema = $schema ? $schema : esc_html__( 'Off', 'rank-math' );
 		?>
 			<span class="rank-math-column-display schema-type">
 				<strong><?php esc_html_e( 'Schema', 'rank-math' ); ?>:</strong>
-				<?php echo esc_html( ucfirst( $schema ) ); ?>
+				<?php echo esc_html( $this->sanitize_schema_title( $schema ) ); ?>
 			</span>
 		<?php
 	}
@@ -175,7 +179,8 @@ class Admin extends Base {
 			wp_enqueue_script( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/js/schema-gutenberg.js', null, rank_math()->version, true );
 		}
 
-		if ( ! $is_gutenberg && ! $is_elementor ) {
+		$screen = get_current_screen();
+		if ( ! $is_gutenberg && ! $is_elementor && 'rank_math_schema' !== $screen->post_type ) {
 			wp_enqueue_script( 'rank-math-schema-classic', rank_math()->plugin_url() . 'includes/modules/schema/assets/js/schema-classic.js', [ 'rank-math-metabox', 'clipboard' ], rank_math()->version, true );
 		}
 	}
@@ -222,47 +227,55 @@ class Admin extends Base {
 		}
 
 		$screen       = get_current_screen();
-		$default_type = Helper::get_settings( "titles.pt_{$screen->post_type}_default_rich_snippet" );
+		$default_type = ucfirst( Helper::get_default_schema_type( $screen->post_type ) );
 		if ( ! $default_type ) {
 			return [];
 		}
 
-		if ( class_exists( 'WooCommerce' ) && 'product' === $screen->post_type ) {
-			$schemas['new-9999'] = [
-				'@type'    => 'WooCommerceProduct',
-				'metadata' => [
-					'title'     => 'WooCommerceProduct',
-					'type'      => 'template',
-					'isPrimary' => true,
-				],
-			];
-
-			return $schemas;
-		}
-
-		if ( class_exists( 'Easy_Digital_Downloads' ) && 'download' === $screen->post_type ) {
-			$schemas['new-9999'] = [
-				'@type'    => 'EDDProduct',
-				'metadata' => [
-					'title'     => 'EDDProduct',
-					'type'      => 'template',
-					'isPrimary' => true,
-				],
-			];
-
-			return $schemas;
-		}
-
 		$schemas['new-9999'] = [
-			'@type'    => 'article' === $default_type ? Helper::get_settings( "titles.pt_{$screen->post_type}_default_article_type" ) : ucfirst( $default_type ),
+			'@type'    => $default_type,
 			'metadata' => [
-				'title'     => ucfirst( $default_type ),
+				'title'     => $this->sanitize_schema_title( $default_type ),
 				'type'      => 'template',
 				'isPrimary' => true,
 			],
 		];
 
 		return $schemas;
+	}
+
+	/**
+	 * Sanitize schema title.
+	 *
+	 * @param  string $schema Schema.
+	 * @return string
+	 */
+	private function sanitize_schema_title( $schema ) {
+		if ( in_array( $schema, [ 'BlogPosting', 'NewsArticle' ], true ) ) {
+			return esc_html__( 'Article', 'rank-math' );
+		}
+
+		if ( 'WooCommerceProduct' === $schema ) {
+			return esc_html__( 'WooCommerce Product', 'rank-math' );
+		}
+
+		if ( 'EDDProduct' === $schema ) {
+			return esc_html__( 'EDD Product', 'rank-math' );
+		}
+
+		if ( 'VideoObject' === $schema ) {
+			return esc_html__( 'Video', 'rank-math' );
+		}
+
+		if ( 'JobPosting' === $schema ) {
+			return esc_html__( 'Job Posting', 'rank-math' );
+		}
+
+		if ( 'MusicGroup' === $schema || 'MusicAlbum' === $schema ) {
+			return esc_html__( 'Music', 'rank-math' );
+		}
+
+		return $schema;
 	}
 
 	/**
@@ -301,7 +314,7 @@ class Admin extends Base {
 
 		$types = [];
 		foreach ( $schemas as $schema ) {
-			$types[] = $schema['@type'];
+			$types[] = $this->sanitize_schema_title( $schema['@type'] );
 		}
 
 		return implode( ', ', $types );

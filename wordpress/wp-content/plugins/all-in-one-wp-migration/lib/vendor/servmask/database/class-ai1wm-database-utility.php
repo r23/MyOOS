@@ -76,7 +76,9 @@ class Ai1wm_Database_Utility {
 					$tmp   = $data;
 					$props = get_object_vars( $data );
 					foreach ( $props as $key => $value ) {
-						$tmp->$key = self::replace_serialized_values( $from, $to, $value, false );
+						if ( ! empty( $tmp->$key ) ) {
+							$tmp->$key = self::replace_serialized_values( $from, $to, $value, false );
+						}
 					}
 
 					$data = $tmp;

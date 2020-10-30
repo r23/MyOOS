@@ -40,33 +40,6 @@ function wpcf7_create_nonce( $action = 'wp_rest' ) {
 	return wp_create_nonce( $action );
 }
 
-function wpcf7_blacklist_check( $target ) {
-	$mod_keys = trim( get_option( 'blacklist_keys' ) );
-
-	if ( empty( $mod_keys ) ) {
-		return false;
-	}
-
-	$words = explode( "\n", $mod_keys );
-
-	foreach ( (array) $words as $word ) {
-		$word = trim( $word );
-
-		if ( empty( $word )
-		or 256 < strlen( $word ) ) {
-			continue;
-		}
-
-		$pattern = sprintf( '#%s#i', preg_quote( $word, '#' ) );
-
-		if ( preg_match( $pattern, $target ) ) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 function wpcf7_array_flatten( $input ) {
 	if ( ! is_array( $input ) ) {
 		return array( $input );

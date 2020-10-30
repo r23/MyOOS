@@ -881,6 +881,13 @@ function ai1wm_plugin_filters( $filters = array() ) {
 		$filters[] = 'plugins' . DIRECTORY_SEPARATOR . 'all-in-one-wp-migration-pcloud-extension';
 	}
 
+	// Pro Plugin
+	if ( defined( 'AI1WMKE_PLUGIN_BASENAME' ) ) {
+		$filters[] = 'plugins' . DIRECTORY_SEPARATOR . dirname( AI1WMKE_PLUGIN_BASENAME );
+	} else {
+		$filters[] = 'plugins' . DIRECTORY_SEPARATOR . 'all-in-one-wp-migration-pro';
+	}
+
 	// S3 Client Extension
 	if ( defined( 'AI1WNE_PLUGIN_BASENAME' ) ) {
 		$filters[] = 'plugins' . DIRECTORY_SEPARATOR . dirname( AI1WMNE_PLUGIN_BASENAME );
@@ -1008,6 +1015,11 @@ function ai1wm_active_servmask_plugins( $plugins = array() ) {
 	// pCloud Extension
 	if ( defined( 'AI1WMPE_PLUGIN_BASENAME' ) ) {
 		$plugins[] = AI1WMPE_PLUGIN_BASENAME;
+	}
+
+	// Pro Plugin
+	if ( defined( 'AI1WMKE_PLUGIN_BASENAME' ) ) {
+		$plugins[] = AI1WMKE_PLUGIN_BASENAME;
 	}
 
 	// S3 Client Extension
@@ -1188,6 +1200,23 @@ function ai1wm_deactivate_jetpack_modules( $modules ) {
 	}
 
 	return update_option( AI1WM_JETPACK_ACTIVE_MODULES, $current );
+}
+
+/**
+ * Deactivate Swift Optimizer rules
+ *
+ * @param  array   $rules List of rules
+ * @return boolean
+ */
+function ai1wm_deactivate_swift_optimizer_rules( $rules ) {
+	$current = get_option( AI1WM_SWIFT_OPTIMIZER_PLUGIN_ORGANIZER, array() );
+
+	// Remove rules
+	foreach ( $rules as $rule ) {
+		unset( $current['rules'][ $rule ] );
+	}
+
+	return update_option( AI1WM_SWIFT_OPTIMIZER_PLUGIN_ORGANIZER, $current );
 }
 
 /**
