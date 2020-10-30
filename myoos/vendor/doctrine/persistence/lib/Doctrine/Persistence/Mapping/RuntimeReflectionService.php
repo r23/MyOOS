@@ -2,12 +2,13 @@
 
 namespace Doctrine\Persistence\Mapping;
 
-use Doctrine\Common\Reflection\RuntimePublicReflectionProperty;
-use Doctrine\Common\Reflection\TypedNoDefaultReflectionProperty;
+use Doctrine\Persistence\Reflection\RuntimePublicReflectionProperty;
+use Doctrine\Persistence\Reflection\TypedNoDefaultReflectionProperty;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
 use ReflectionProperty;
+
 use function array_key_exists;
 use function class_exists;
 use function class_parents;

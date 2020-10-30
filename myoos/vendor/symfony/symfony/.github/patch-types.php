@@ -5,7 +5,7 @@ if (false === getenv('SYMFONY_PATCH_TYPE_DECLARATIONS')) {
     exit(1);
 }
 
-require __DIR__.'/../.phpunit/phpunit-8.3-0/vendor/autoload.php';
+require __DIR__.'/../.phpunit/phpunit/vendor/autoload.php';
 
 $loader = require __DIR__.'/../vendor/autoload.php';
 
@@ -24,6 +24,7 @@ foreach ($loader->getClassMap() as $class => $file) {
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/autowiring_classes.php'):
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/uniontype_classes.php'):
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/ParentNotExists.php'):
+        case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/Preload/'):
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/Prototype/BadClasses/MissingParent.php'):
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/WitherStaticReturnType.php'):
         case false !== strpos($file, '/src/Symfony/Component/DependencyInjection/Tests/Fixtures/php/'):

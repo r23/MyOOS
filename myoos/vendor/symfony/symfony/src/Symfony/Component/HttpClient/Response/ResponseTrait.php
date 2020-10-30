@@ -37,6 +37,7 @@ trait ResponseTrait
 {
     private $logger;
     private $headers = [];
+    private $canary;
 
     /**
      * @var callable|null A callback that initializes the two previous properties
@@ -115,15 +116,13 @@ trait ResponseTrait
                 return $content;
             }
 
-            if ('HEAD' === $this->info['http_method'] || \in_array($this->info['http_code'], [204, 304], true)) {
-                return '';
+            if (null === $this->content) {
+                throw new TransportException('Cannot get the content of the response twice: buffering is disabled.');
             }
-
-            throw new TransportException('Cannot get the content of the response twice: buffering is disabled.');
-        }
-
-        foreach (self::stream([$this]) as $chunk) {
-            // Chunks are buffered in $this->content already
+        } else {
+            foreach (self::stream([$this]) as $chunk) {
+                // Chunks are buffered in $this->content already
+            }
         }
 
         rewind($this->content);
@@ -142,12 +141,6 @@ trait ResponseTrait
 
         if (null !== $this->jsonData) {
             return $this->jsonData;
-        }
-
-        $contentType = $this->headers['content-type'][0] ?? 'application/json';
-
-        if (!preg_match('/\bjson\b/i', $contentType)) {
-            throw new JsonException(sprintf('Response content-type is "%s" while a JSON-compatible one was expected for "%s".', $contentType, $this->getInfo('url')));
         }
 
         try {
@@ -209,7 +202,11 @@ trait ResponseTrait
     /**
      * Closes the response and all its network handles.
      */
-    abstract protected function close(): void;
+    private function close(): void
+    {
+        $this->canary->cancel();
+        $this->inflate = null;
+    }
 
     /**
      * Adds pending responses to the activity list.
@@ -376,6 +373,10 @@ trait ResponseTrait
 
                                 $chunk = new ErrorChunk($response->offset, $e);
                             } else {
+                                if (0 === $response->offset && null === $response->content) {
+                                    $response->content = fopen('php://memory', 'w+');
+                                }
+
                                 $chunk = new LastChunk($response->offset);
                             }
                         } elseif ($chunk instanceof ErrorChunk) {
