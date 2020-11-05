@@ -6,19 +6,19 @@
     'aliases' => 
     array (
     ),
-    'reference' => '5b03adda8f4c5ee29d0e481411ddd9f26f19bec0',
+    'reference' => '1521d3f979f6c0f9917a8d77f7c4991412404342',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
   array (
     'bacon/bacon-qr-code' => 
     array (
-      'pretty_version' => '2.0.2',
-      'version' => '2.0.2.0',
+      'pretty_version' => '2.0.3',
+      'version' => '2.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'add6d9ff97336b62f95a3b94f75cea4e085465b2',
+      'reference' => '3e9d791b67d0a2912922b7b7c7312f4b37af41e4',
     ),
     'dasprid/enum' => 
     array (
@@ -207,7 +207,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '5b03adda8f4c5ee29d0e481411ddd9f26f19bec0',
+      'reference' => '1521d3f979f6c0f9917a8d77f7c4991412404342',
     ),
     'paypal/rest-api-sdk-php' => 
     array (
