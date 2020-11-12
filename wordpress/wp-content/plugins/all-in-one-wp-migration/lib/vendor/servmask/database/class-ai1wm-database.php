@@ -156,6 +156,13 @@ abstract class Ai1wm_Database {
 	protected $optimize_press = false;
 
 	/**
+	 * Avada Fusion Builder
+	 *
+	 * @var boolean
+	 */
+	protected $avada_fusion_builder = false;
+
+	/**
 	 * Constructor
 	 *
 	 * @param object $wpdb WPDB instance
@@ -559,6 +566,27 @@ abstract class Ai1wm_Database {
 	 */
 	public function get_optimize_press() {
 		return $this->optimize_press;
+	}
+
+	/**
+	 * Set Avada Fusion Builder
+	 *
+	 * @param  boolean $active Is Avada Fusion Builder Active?
+	 * @return object
+	 */
+	public function set_avada_fusion_builder( $active ) {
+		$this->avada_fusion_builder = $active;
+
+		return $this;
+	}
+
+	/**
+	 * Get Avada Fusion Builder
+	 *
+	 * @return boolean
+	 */
+	public function get_avada_fusion_builder() {
+		return $this->avada_fusion_builder;
 	}
 
 	/**
@@ -1412,8 +1440,8 @@ abstract class Ai1wm_Database {
 			$input = preg_replace_callback( '/\\\\"(code-php|code-css|code-js)\\\\":\\\\"([a-zA-Z0-9\/+]+={0,2})\\\\"/S', array( $this, 'replace_oxygen_builder_values_callback' ), $input );
 		}
 
-		// Replace base64 encoded values (BeTheme Responsive and Optimize Press)
-		if ( $this->get_betheme_responsive() || $this->get_optimize_press() ) {
+		// Replace base64 encoded values (BeTheme Responsive, Optimize Press and Avada Fusion Builder)
+		if ( $this->get_betheme_responsive() || $this->get_optimize_press() || $this->get_avada_fusion_builder() ) {
 			$input = preg_replace_callback( "/'([a-zA-Z0-9\/+]+={0,2})'/S", array( $this, 'replace_base64_values_callback' ), $input );
 		}
 

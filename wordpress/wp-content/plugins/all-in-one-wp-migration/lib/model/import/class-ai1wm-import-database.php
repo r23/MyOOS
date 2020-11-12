@@ -1052,6 +1052,9 @@ class Ai1wm_Import_Database {
 		// Set Optimize Press
 		$mysql->set_optimize_press( ai1wm_validate_plugin_basename( 'optimizePressPlugin/optimizepress.php' ) );
 
+		// Set Avada Fusion Builder
+		$mysql->set_avada_fusion_builder( ai1wm_validate_plugin_basename( 'fusion-builder/fusion-builder.php' ) );
+
 		// Set BeTheme Responsive
 		$mysql->set_betheme_responsive( ai1wm_validate_theme_basename( 'betheme/style.css' ) );
 
