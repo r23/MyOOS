@@ -45,7 +45,11 @@ class Snippet_Shortcode {
 			[
 				'render_callback' => [ $this, 'rich_snippet' ],
 				'attributes'      => [
-					'id' => [
+					'id'      => [
+						'default' => '',
+						'type'    => 'string',
+					],
+					'post_id' => [
 						'default' => '',
 						'type'    => 'integer',
 					],
@@ -64,7 +68,10 @@ class Snippet_Shortcode {
 	 */
 	public function rich_snippet( $atts ) {
 		$atts = shortcode_atts(
-			[ 'id' => false ],
+			[
+				'id'      => false,
+				'post_id' => Param::get( 'post_id' ) ? Param::get( 'post_id' ) : get_the_ID(),
+			],
 			$atts,
 			'rank_math_rich_snippet'
 		);
@@ -73,34 +80,45 @@ class Snippet_Shortcode {
 			rank_math()->variables->setup();
 		}
 
-		$data = $this->get_data( $atts['id'] );
-		if ( empty( $data ) ) {
+		$data = $this->get_data( $atts['id'], $atts['post_id'] );
+		if ( empty( $data ) || empty( $data['schema'] ) ) {
 			return esc_html__( 'No schema found.', 'rank-math' );
 		}
 
-		$post   = get_post( $data['post_id'] );
-		$schema = $this->replace_variables( $data['schema'], $post );
-		$schema = $this->do_filter( 'schema/shortcode/filter_attributes', $schema, $atts );
+		$post    = get_post( $data['post_id'] );
+		$schemas = ! empty( $atts['id'] ) ? [ $data['schema'] ] : $data['schema'];
 
-		return $this->do_filter( 'snippet/html', $this->get_snippet_content( $schema, $post ), $schema, $post, $this );
+		ob_start();
+		foreach ( $schemas as $schema ) {
+			$schema = $this->replace_variables( $schema, $post );
+			$schema = $this->do_filter( 'schema/shortcode/filter_attributes', $schema, $atts );
+
+			echo $this->do_filter( 'snippet/html', $this->get_snippet_content( $schema, $post ), $schema, $post, $this );
+		}
+
+		return ob_get_clean();
 	}
 
 	/**
 	 * Get schema data.
 	 *
-	 * @param  string $id Shortcode id.
+	 * @param  string $schema_id Schema id.
+	 * @param  string $post_id   Shortcode id.
 	 * @return array
 	 */
-	private function get_data( $id ) {
-		if ( ! empty( $id ) && is_string( $id ) ) {
-			return DB::get_schema_by_shortcode_id( $id );
+	private function get_data( $schema_id, $post_id = false ) {
+		if ( ! empty( $schema_id ) && is_string( $schema_id ) ) {
+			return DB::get_schema_by_shortcode_id( $schema_id );
 		}
 
-		$post_id = Param::get( 'post_id' ) ? Param::get( 'post_id' ) : get_the_ID();
-		$data    = DB::get_schemas( $post_id );
+		if ( ! $post_id ) {
+			$post_id = Param::get( 'post_id' ) ? Param::get( 'post_id' ) : get_the_ID();
+		}
+
+		$data = DB::get_schemas( $post_id );
 		return empty( $data ) ? false : [
 			'post_id' => $post_id,
-			'schema'  => current( $data ),
+			'schema'  => $data,
 		];
 	}
 
@@ -112,8 +130,11 @@ class Snippet_Shortcode {
 	 * @return array
 	 */
 	private function replace_variables( $schemas, $post ) {
-		$new_schemas = [];
+		if ( ! is_array( $schemas ) && ! is_object( $schemas ) ) {
+			return [];
+		}
 
+		$new_schemas = [];
 		foreach ( $schemas as $key => $schema ) {
 			if ( 'metadata' === $key ) {
 				continue;
@@ -184,6 +205,10 @@ class Snippet_Shortcode {
 	public function get_field_value( $field_id, $default = null ) {
 		$array = $this->schema;
 		if ( isset( $array[ $field_id ] ) ) {
+			if ( isset( $array[ $field_id ]['@type'] ) ) {
+				unset( $array[ $field_id ]['@type'] );
+			}
+
 			return $array[ $field_id ];
 		}
 
@@ -217,6 +242,50 @@ class Snippet_Shortcode {
 		}
 
 		$this->output_field( $title, $value );
+	}
+
+	/**
+	 * Get Opening hours data.
+	 *
+	 * @param string $field_id Field id to get value.
+	 */
+	public function get_opening_hours( $field_id ) {
+		$opening_hours = $this->get_field_value( $field_id );
+		if ( empty( $opening_hours ) ) {
+			return;
+		}
+
+		if ( count( array_filter( array_keys( $opening_hours ), 'is_string' ) ) > 0 ) {
+			$this->get_opening_hour( $opening_hours );
+			return;
+		}
+
+		echo '<div>';
+		echo '<strong>' . esc_html__( 'Opening Hours', 'rank-math' ) . '</strong><br />';
+		foreach ( $opening_hours as $opening_hour ) {
+			$this->get_opening_hour( $opening_hour );
+		}
+		echo '</div>';
+	}
+
+	/**
+	 * Get Opening hours.
+	 *
+	 * @param array $opening_hour Opening hours data.
+	 */
+	public function get_opening_hour( $opening_hour ) {
+		$labels = [
+			'dayOfWeek' => esc_html__( 'Days', 'rank-math' ),
+			'opens'     => esc_html__( 'Opening Time', 'rank-math' ),
+			'closes'    => esc_html__( 'Closing Time', 'rank-math' ),
+		];
+		foreach ( $labels as $key => $label ) {
+			if ( empty( $opening_hour[ $key ] ) ) {
+				continue;
+			}
+
+			$this->output_field( $label, $opening_hour[ $key ] );
+		}
 	}
 
 	/**
@@ -366,7 +435,7 @@ class Snippet_Shortcode {
 			return false;
 		}
 
-		$schema = $data['schema'];
+		$schema = current( $data['schema'] );
 		$type   = \strtolower( $schema['@type'] );
 		if ( ! in_array( $type, [ 'book', 'review', 'course', 'event', 'product', 'recipe', 'softwareapplication' ], true ) ) {
 			return false;

@@ -206,6 +206,24 @@ msgstr ""
 msgid "Facebook profile URL"
 msgstr ""
 
+msgid "Rank Math Overview"
+msgstr ""
+
+msgid "Latest Blog Posts from Rank Math"
+msgstr ""
+
+msgid "Error in fetching."
+msgstr ""
+
+msgid "Blog"
+msgstr ""
+
+msgid "(opens in a new window)"
+msgstr ""
+
+msgid "Go Pro"
+msgstr ""
+
 msgid "The canonical URL you entered does not seem to be a valid URL. Please double check it in the SEO meta box &raquo; Advanced tab."
 msgstr ""
 
@@ -760,6 +778,9 @@ msgstr ""
 msgid "Page %s"
 msgstr ""
 
+msgid "Search Engine Optimization by Rank Math PRO - https://s.rankmath.com/home"
+msgstr ""
+
 msgid "Search Engine Optimization by Rank Math - https://s.rankmath.com/home"
 msgstr ""
 
@@ -1121,11 +1142,11 @@ msgstr ""
 msgid "Insert keywords you want to rank for. Try to <a href=\"%s\" target=\"_blank\">attain 100/100 points</a> for better chances of ranking."
 msgstr ""
 
-#. translators: link to connect page.
-msgid "Want more? PRO version is coming soon. %s"
+#. translators: link to pricing page.
+msgid "Want more? %s version"
 msgstr ""
 
-msgid "Notify me!"
+msgid "Upgrade today to the PRO"
 msgstr ""
 
 msgid "Trends"
@@ -1883,7 +1904,13 @@ msgstr ""
 msgid "Import News Settings"
 msgstr ""
 
-msgid "Import News Settings from Yoast news"
+msgid "Import News Settings from Yoast News Add-on."
+msgstr ""
+
+msgid "Import Video Sitemap Settings"
+msgstr ""
+
+msgid "Import Video Sitemap Settings from Yoast Video Add-on."
 msgstr ""
 
 msgid "Unable to perform action this time."
@@ -1905,6 +1932,9 @@ msgid "Settings imported successfully."
 msgstr ""
 
 msgid "News Settings imported successfully."
+msgstr ""
+
+msgid "Video Settings imported successfully."
 msgstr ""
 
 msgid "Plugin deactivated successfully."
@@ -2093,7 +2123,7 @@ msgstr ""
 msgid "Custom Mode %s"
 msgstr ""
 
-msgid "Coming Soon"
+msgid "Select this if you have a custom Rank Math settings file you want to use."
 msgstr ""
 
 msgid "<strong>Note</strong> You can easily switch between modes at any point."
@@ -2341,13 +2371,19 @@ msgstr ""
 msgid "Monitor broken pages that ruin user-experience and affect SEO. %s."
 msgstr ""
 
-msgid "404 Monitor Stats"
+msgid "View Report"
 msgstr ""
 
-msgid "404 Monitor Log Count"
+msgid "Log Count"
 msgstr ""
 
-msgid "404 URL Hits"
+msgid "Total number of 404 pages opened by the users."
+msgstr ""
+
+msgid "URL Hits"
+msgstr ""
+
+msgid "Total number visits received on all the 404 pages."
 msgstr ""
 
 msgid "Review 404 errors on your site"
@@ -2411,6 +2447,33 @@ msgid "Analytics cache cleared."
 msgstr ""
 
 msgid "Post re-index in progress."
+msgstr ""
+
+msgid "Last 30 Days"
+msgstr ""
+
+msgid "Search Traffic"
+msgstr ""
+
+msgid "This is the number of pageviews carried out by visitors from Google."
+msgstr ""
+
+msgid "Total Impressions"
+msgstr ""
+
+msgid "How many times your site showed up in the search results."
+msgstr ""
+
+msgid "Total Clicks"
+msgstr ""
+
+msgid "Total Keywords"
+msgstr ""
+
+msgid "Total number of keywords your site ranking below 100 position."
+msgstr ""
+
+msgid "Average Position"
 msgstr ""
 
 #. translators: delete counter
@@ -2683,13 +2746,16 @@ msgstr ""
 msgid "Easily create redirects without fiddling with tedious code. %s."
 msgstr ""
 
-msgid "Redirections Stats"
+msgid "Redirection Count"
 msgstr ""
 
-msgid "Redirections Count"
+msgid "Total number of Redirections created in the Rank Math."
 msgstr ""
 
-msgid "Redirections Hits"
+msgid "Redirection Hits"
+msgstr ""
+
+msgid "Total number of hits received by all the Redirections."
 msgstr ""
 
 msgid "No valid ID found."
@@ -2928,6 +2994,18 @@ msgid "EDD Product"
 msgstr ""
 
 msgid "No schema found."
+msgstr ""
+
+msgid "Opening Hours"
+msgstr ""
+
+msgid "Days"
+msgstr ""
+
+msgid "Opening Time"
+msgstr ""
+
+msgid "Closing Time"
 msgstr ""
 
 msgid "Editor's Rating:"
@@ -4420,6 +4498,18 @@ msgstr ""
 msgid "Sorry, no post id found."
 msgstr ""
 
+#. translators: number of days
+msgid "Storage Days: %s"
+msgstr ""
+
+#. translators: number of rows
+msgid "Data Rows: %s"
+msgstr ""
+
+#. translators: database size
+msgid "Size: %s"
+msgstr ""
+
 #. translators: date
 msgid "Next data fetch on %s"
 msgstr ""
@@ -4444,18 +4534,6 @@ msgid "Update Data manually"
 msgstr ""
 
 msgid "Fetching in Progress"
-msgstr ""
-
-#. translators: number of days
-msgid "Storage Days: %s"
-msgstr ""
-
-#. translators: number of rows
-msgid "Data Rows: %s"
-msgstr ""
-
-#. translators: database size
-msgid "Size: %s"
 msgstr ""
 
 msgid "Group Title"
@@ -4498,9 +4576,6 @@ msgid "Address Format"
 msgstr ""
 
 msgid "Format used when the address is displayed using the <code>[rank_math_contact_info]</code> shortcode.<br><strong>Available Tags: {address}, {locality}, {region}, {postalcode}, {country}, {gps}</strong>"
-msgstr ""
-
-msgid "Opening Hours"
 msgstr ""
 
 msgid "Select opening hours. You can add multiple sets if you have different opening or closing hours on some days or if you have a mid-day break. Times are specified using 24:00 time."
@@ -4582,7 +4657,7 @@ msgstr ""
 msgid "Latitude and longitude values separated by comma."
 msgstr ""
 
-msgid "*Multiple Location option is coming soon."
+msgid "Multiple Locations are available in the %s."
 msgstr ""
 
 msgid "Redirection Debugger"
@@ -4869,15 +4944,6 @@ msgid "Recipe Ingredients"
 msgstr ""
 
 msgid "Recipe Instructions"
-msgstr ""
-
-msgid "Opening Time"
-msgstr ""
-
-msgid "Closing Time"
-msgstr ""
-
-msgid "Open Days"
 msgstr ""
 
 msgid "Serves Cuisine"

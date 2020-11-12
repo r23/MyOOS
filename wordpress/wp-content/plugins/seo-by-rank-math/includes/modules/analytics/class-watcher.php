@@ -12,6 +12,7 @@ namespace RankMath\Analytics;
 
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
+use RankMath\Google\Console;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -44,8 +45,10 @@ class Watcher {
 	 * Hooks
 	 */
 	public function hooks() {
-		$this->action( 'save_post', 'update_post_info', 99 );
-		$this->action( 'rank_math/schema/update', 'update_post_schema_info', 99 );
+		if ( Console::is_console_connected() ) {
+			$this->action( 'save_post', 'update_post_info', 99 );
+			$this->action( 'rank_math/schema/update', 'update_post_schema_info', 99 );
+		}
 	}
 
 	/**
@@ -72,6 +75,10 @@ class Watcher {
 		$id      = get_post_meta( $post_id, 'rank_math_analytic_object_id', true );
 		$fk      = get_post_meta( $post_id, 'rank_math_focus_keyword', true );
 		$schemas = \RankMath\Schema\DB::get_schema_types( $post_id );
+
+		if ( 'off' === get_post_meta( $post_id, 'rank_math_rich_snippet', true ) ) {
+			$schemas = __( 'None', 'rank-math' );
+		}
 
 		// Update post.
 		$id = DB::update_object(

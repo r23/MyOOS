@@ -2,10 +2,10 @@
 Contributors: rankmath
 Plugin link: https://rankmath.com/?utm_source=LP&utm_campaign=WP
 Tags: seo, sitemap, google search console, schema, redirection
-Tested up to: 5.5.1
+Tested up to: 5.5.3
 Requires at least: 5.2
 Requires PHP: 7.0
-Stable tag: 1.0.50.1
+Stable tag: 1.0.52.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -475,33 +475,18 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.50.1 [Oct 22, 2020] =
-* Fixed: 'Add Image' button was not working in the [Social tab](https://rankmath.com/kb/meta-box-social-tab/)
-* Fixed: Typo in the Restaurant schema type
-* Fixed: Old EDD product schema converting to the `WooCommerce Product` Schema; this will not affect the frontend output
-* Fixed: `Product` Schema was set on the newly created WooCommerce products instead of `WooCommerce Product` Schema
-* Fixed: Already reviewed checkbox was not working in the Elementor Modal's Ask review tab
+= 1.0.52.1 [Nov 09, 2020] =
+* Squashed a couple of small issues
 
-= 1.0.50 [Oct 20, 2020] =
-* Added: Reconnect button on the Analytics settings page. This option can be used to refresh the property list
-* Added: Individual WooCommerce Product reviews in the [Schema markup](https://rankmath.com/kb/rich-snippets/) code along with the aggregate rating
-* Improved: Removed some unused code and **reduced the plugin zip file from `2.8 MB` to `2.06 MB`**
-* Improved: Made Analytics menu dot red if Google services are disconnected
-* Improved: Hide the rest of the Google Analytics and Google Search Console properties once settings are saved so no one else can see which websites are verified under your account
-* Improved: Red color dot shows up beside the Analytics menu item if Google Services are not connected
-* Improved: The CTA action box styling in the Schema popups
-* Improved: Google Maps API Key option field now uses a password type to hide the key from showing up to everyone
-* Improved: Replaced multi-select fields in the Schema types with checkboxes
-* Improved: Schema module's performance by optimizing the code further
-* Improved: Remove default border from the contact shortcode Map and also remove some unused CSS
-* Removed: Google Analytics traffic stats introduced in the last update as they were causing issue due to high usage on several installations
-* Removed: Adsense account and few other scopes as those are not required in the free version
-* Fixed: Encoded category URLs were throwing 404 error when the Remove Category Base option was enabled [Thanks to [@dawnbirth](https://github.com/dawnbirth)]
-* Fixed: Schema `@type` set as `false` if the business type is set as none
-* Fixed: An issue where the Google services were disconnecting on some installations
-* Fixed: Date Archive enable/disable option labels were showing in the reverse order
-* Fixed: 404 Monitor page title shows as a link
-* Fixed: UI issues in the Elementor dark mode
-* Fixed: System Info tab showing "Copied!" text all the time
+= 1.0.52 [Nov 09, 2020] =
+* Added: External icon in the Help & Support sidebar menu to [Rank Math's KB](https://rankmath.com/kb/)
+* Improved: CSS related to the block editor's sidebar tabs and Analytics
+* Improved: Frontend score styling
+* Fixed: Analytics disconnection issue happening on some servers
+* Fixed: A bug causing discrepancies in Clicks, Impressions, CTR and Position in the [Analytics module](https://rankmath.com/kb/analytics/)
+* Fixed: 'Getting Invalid argument supplied for foreach' error on posts using old [Schema format](https://rankmath.com/kb/rich-snippets/)
+* Fixed: A Syntax error in PHP 7.2
+* Removed: Excerpt from the dashboard widget's blog posts section
+
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=LP&utm_campaign=WP)**
