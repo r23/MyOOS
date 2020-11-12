@@ -9,7 +9,7 @@
  * Domain Path: /lang
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     2.9.2
+ * Version:     2.9.3
  *
  * [](http://coderisk.com/wp/plugin/antispam-bee/RIPS-lAHLcgvqY8)
  *
@@ -449,6 +449,7 @@ class Antispam_Bee {
 				'time'          => esc_attr__( 'Comment time', 'antispam-bee' ),
 				'empty'         => esc_attr__( 'Empty Data', 'antispam-bee' ),
 				'localdb'       => esc_attr__( 'Local DB Spam', 'antispam-bee' ),
+				'server'        => esc_attr__( 'Fake IP', 'antispam-bee' ),
 				'country'       => esc_attr__( 'Country Check', 'antispam-bee' ),
 				'bbcode'        => esc_attr__( 'BBCode', 'antispam-bee' ),
 				'lang'          => esc_attr__( 'Comment Language', 'antispam-bee' ),
@@ -1221,15 +1222,17 @@ class Antispam_Bee {
 
 		$id_script = '';
 		if ( ! empty( $matches['id1'] ) || ! empty( $matches['id2'] ) ) {
-			$output   .= 'id="' . self::get_secret_id_for_post( self::$_current_post_id ) . '" ';
-			$id_script = '<script data-noptimize type="text/javascript">document.getElementById("comment").setAttribute( "id", "a' . substr( esc_js( md5( time() ) ), 0, 31 ) . '" );document.getElementById("' . esc_js( self::get_secret_id_for_post( self::$_current_post_id ) ) . '").setAttribute( "id", "comment" );</script>';
+			$output .= 'id="' . self::get_secret_id_for_post( self::$_current_post_id ) . '" ';
+			if ( ! self::_is_amp() ) {
+				$id_script = '<script data-noptimize type="text/javascript">document.getElementById("comment").setAttribute( "id", "a' . substr( esc_js( md5( time() ) ), 0, 31 ) . '" );document.getElementById("' . esc_js( self::get_secret_id_for_post( self::$_current_post_id ) ) . '").setAttribute( "id", "comment" );</script>';
+			}
 		}
 
 		$output .= ' name="' . esc_attr( self::get_secret_name_for_post( self::$_current_post_id ) ) . '" ';
 		$output .= $matches['between1'] . $matches['between2'] . $matches['between3'];
 		$output .= $matches['after'] . '>';
 		$output .= $matches['content'];
-		$output .= '</textarea><textarea id="comment" aria-hidden="true" name="comment" autocomplete="new-password" style="padding:0;clip:rect(1px, 1px, 1px, 1px);position:absolute !important;white-space:nowrap;height:1px;width:1px;overflow:hidden;" tabindex="-1"></textarea>';
+		$output .= '</textarea><textarea id="comment" aria-hidden="true" name="comment" autocomplete="new-password" style="padding:0 !important;clip:rect(1px, 1px, 1px, 1px) !important;position:absolute !important;white-space:nowrap !important;height:1px !important;width:1px !important;overflow:hidden !important;" tabindex="-1"></textarea>';
 
 		$output .= $id_script;
 		$output .= $init_time_field;
@@ -2188,6 +2191,18 @@ class Antispam_Bee {
 		return strpos( get_template_directory(), 'wptouch' );
 	}
 
+	/**
+	 * Testing if we are on an AMP site.
+	 *
+	 * Starting with v2.0, amp_is_request() is the preferred method to check,
+	 * but we fall back to the then deprecated is_amp_endpoint() as needed.
+	 *
+	 * @return bool
+	 */
+	private static function _is_amp() {
+		return ( function_exists( 'amp_is_request' ) && amp_is_request() ) || ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() );
+	}
+
 
 
 	/*
@@ -2488,6 +2503,15 @@ class Antispam_Bee {
 			);
 		}
 
+		// Prepare Comment Type.
+		$comment_name = __( 'Comment', 'antispam-bee' );
+		if ( 'trackback' === $comment['comment_type'] ) {
+			$comment_name = __( 'Trackback', 'antispam-bee' );
+		}
+		if ( 'pingback' === $comment['comment_type'] ) {
+			$comment_name = __( 'Pingback', 'antispam-bee' );
+		}
+
 		// Body.
 		$body = sprintf(
 			"%s \"%s\"\r\n\r\n",
@@ -2504,7 +2528,7 @@ class Antispam_Bee {
 		) . sprintf(
 			"%s: %s\r\n",
 			esc_html__( 'Type', 'antispam-bee' ),
-			esc_html( ( empty( $comment['comment_type'] ) ? __( 'Comment', 'antispam-bee' ) : __( 'Trackback', 'antispam-bee' ) ) )
+			esc_html( $comment_name )
 		) . sprintf(
 			"Whois: http://whois.arin.net/rest/ip/%s\r\n",
 			$comment['comment_author_IP']

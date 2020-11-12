@@ -1,10 +1,11 @@
 # Antispam Bee #
-* Contributors:      pluginkollektiv
+* Contributors:      pluginkollektiv, websupporter, schlessera, zodiac1978, swissspidy, krafit, kau-boy
 * Tags:              anti-spam, antispam, block spam, comment, comments, comment spam, pingback, spam, spam filter, trackback, GDPR
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Requires at least: 4.5
-* Tested up to:      5.4
-* Stable tag:        2.9.2
+* Tested up to:      5.5
+* Requires PHP:      5.2
+* Stable tag:        2.9.3
 * License:           GPLv2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +59,9 @@ After you have activated *Antispam Bee* the plugin will block spam comments out 
 
 ## Frequently Asked Questions ##
 
+### Does Antispam Bee prevents spam registrations or protects form plugins? ###
+Antispam Bee works best with default WordPress comments. It does not help to protect form plugins and does not prevent spam registrations. Hopefully we can provide better hooks for third party plugins to use Antispam Bee to fill this gap in the forthcoming new major version.
+
 ### Does Antispam Bee work with Jetpack, Disqus Comments and other comment plugins? ###
 Antispam Bee works best with default WordPress comments. It is not compatible with Jetpack or Disqus Comments as those plugins load the comment form within an iframe. Thus Antispam Bee can not access the comment form directly.
 It also won’t work with any AJAX-powered comment forms.
@@ -77,21 +81,25 @@ If the antispam plugin has passed some spam comments, these comments can be repo
 ### Antispam Bee with Varnish? ###
 If WordPress is operated with Apache + Varnish, the actual IP address of the visitors does not appear in WordPress. Accordingly the Antispam-Plugin lacks the base for the correct functionality. An adaptation in the Varnish configuration file /etc/varnish/default.vcl provides a remedy and forwards the original (not from Apache) IP address in the HTTP header X-Forwarded-For:
 
-```
-if (req.restarts == 0) {
-    set req.http.X-Forwarded-For = client.ip;
-}
-```
+> if (req.restarts == 0) {
+>     set req.http.X-Forwarded-For = client.ip;
+> }
 
 ### Are there some paid services or limitations? ###
 No, Antispam Bee is free forever, for both private and commercial projects. You can use it on as many sites as you want. There is no limitation to the number of sites you use the plugin on.
 
-A complete documentation is available on [pluginkollektiv.org](https://antispambee.pluginkollektiv.org/documentation/.
+A complete documentation is available on [pluginkollektiv.org](https://antispambee.pluginkollektiv.org/documentation/).
 
 ## Changelog ##
 
+### 2.9.3 ###
+  * Fixed: Compatibility with WordPress 5.5
+  * Fixed: Undefined index on spam list page
+  * Tweak: Better wording on settings page
+  * Tweak: AMP compatibility
+  * Tweak: Protect CSS from overwrite through bad themes
+
 ### 2.9.2 ###
-* **English**
   * Fix: Delete comment meta for deleted old spam. For the cleanup of older orphaned comment meta we suggest the usage of [WP Sweep](https://wordpress.org/plugins/wp-sweep/)
   * Fix: Statistic in dashboard showed wrong value
   * Tweak: Change autocomplete attribute to "new-password"
@@ -130,7 +138,7 @@ A complete documentation is available on [pluginkollektiv.org](https://antispamb
   * Introduction of behat tests.
   * Updates the used JavaScript library for the statistics widget.
   * Bugfix in the "Comment form used outside of posts" option.
-  
+
 ### 2.8.1 ###
   * PHP 5.3 compatibility
   * Bugfix where a spam trackback produced a fatal error
@@ -145,7 +153,7 @@ A complete documentation is available on [pluginkollektiv.org](https://antispamb
    * Minor interface improvements
    * Remove old russian and Dutch translation files
    * For more details see https://github.com/pluginkollektiv/antispam-bee/milestone/4?closed=1
-  
+
 ### 2.7.1 ###
    * Fixes an incompatibility with Chrome autofill
    * Fixes some incompatibilities with other plugins/themes where the comment field was left empty
