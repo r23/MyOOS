@@ -67,8 +67,8 @@ class Ai1wm_Compressor extends Ai1wm_Archiver {
 		// Start time
 		$start = microtime( true );
 
-		// Open the file for reading in binary mode
-		if ( ( $file_handle = @fopen( $file_name, 'rb' ) ) !== false ) {
+		// Open the file for reading in binary mode (fopen may return null for quarantined files)
+		if ( ( $file_handle = @fopen( $file_name, 'rb' ) ) ) {
 			$file_bytes = 0;
 
 			// Get header block

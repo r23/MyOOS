@@ -448,8 +448,8 @@ class Ai1wm_Extractor extends Ai1wm_Archiver {
 		// Set file size
 		$file_size -= $file_offset;
 
-		// Should the extract overwrite the file if it exists?
-		if ( ( $file_handle = @fopen( $file_name, ( $file_offset === 0 ? 'wb' : 'ab' ) ) ) !== false ) {
+		// Should the extract overwrite the file if it exists? (fopen may return null for quarantined files)
+		if ( ( $file_handle = @fopen( $file_name, ( $file_offset === 0 ? 'wb' : 'ab' ) ) ) ) {
 			$file_bytes = 0;
 
 			// Is the filesize more than 0 bytes?
