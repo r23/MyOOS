@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '2f7890d0d9817a2ef50c8d8e282edb86416e3526',
+    'reference' => '922ca54b37bc9e19b49e447d274bc438db6ccdb4',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -112,21 +112,21 @@
     ),
     'laminas/laminas-escaper' => 
     array (
-      'pretty_version' => '2.6.1',
-      'version' => '2.6.1.0',
+      'pretty_version' => '2.7.0',
+      'version' => '2.7.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '25f2a053eadfa92ddacb609dcbbc39362610da70',
+      'reference' => '5e04bc5ae5990b17159d79d331055e2c645e5cc5',
     ),
     'laminas/laminas-httphandlerrunner' => 
     array (
-      'pretty_version' => '1.2.0',
-      'version' => '1.2.0.0',
+      'pretty_version' => '1.3.0',
+      'version' => '1.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e1a5dad040e0043135e8095ee27d1fbf6fb640e1',
+      'reference' => 'e8f850bd12cb82b268ff235fe74b2df906e8bfe8',
     ),
     'laminas/laminas-zendframework-bridge' => 
     array (
@@ -207,7 +207,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '2f7890d0d9817a2ef50c8d8e282edb86416e3526',
+      'reference' => '922ca54b37bc9e19b49e447d274bc438db6ccdb4',
     ),
     'paypal/rest-api-sdk-php' => 
     array (
@@ -389,12 +389,12 @@
     ),
     'stripe/stripe-php' => 
     array (
-      'pretty_version' => 'v7.62.0',
-      'version' => '7.62.0.0',
+      'pretty_version' => 'v7.66.0',
+      'version' => '7.66.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9c2fc846d5b2719945e825228474f15314c0fed6',
+      'reference' => '0dc50f42b06be83fe7029410616bda6e89c6d2be',
     ),
     'symfony/amazon-mailer' => 
     array (
@@ -1000,7 +1000,7 @@
     array (
       'replaced' => 
       array (
-        0 => '2.6.1',
+        0 => '^2.6.1',
       ),
     ),
     'zendframework/zend-httphandlerrunner' => 
