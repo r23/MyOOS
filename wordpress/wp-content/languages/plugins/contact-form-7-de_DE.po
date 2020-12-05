@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-10-26 08:44:55+0000\n"
+"PO-Revision-Date: 2020-11-25 10:04:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,26 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
+
+#: includes/contact-form-template.php:42
+msgid "Submit"
+msgstr "Senden"
+
+#: includes/contact-form-template.php:37
+msgid "(optional)"
+msgstr "(optional)"
+
+#: admin/includes/welcome-panel.php:40
+msgid "disallowed list"
+msgstr "Sperrliste"
+
+#: modules/disallowed-list.php:35
+msgid "Disallowed words (%s) are used."
+msgstr "Es werden Wörter von der Sperrliste verwendet (%s)."
+
+#: modules/disallowed-list.php:32
+msgid "Disallowed words are used."
+msgstr "Es werden Wörter von der Sperrliste verwendet."
 
 #: includes/contact-form-functions.php:142
 msgid "Not Found"
@@ -24,7 +44,7 @@ msgstr "%1$s wurde fehlerhaft aufgerufen. %2$s %3$s"
 #. translators: %s: Contact Form 7 version number.
 #: includes/functions.php:390
 msgid "(This message was added in Contact Form 7 version %s.)"
-msgstr "(Dieser Hinweis wurde in Contact Form 7 Version %s hinzugefügt.)"
+msgstr "(Dieser Hinweis wurde in Contact&nbsp;Form&nbsp;7 Version&nbsp;%s hinzugefügt.)"
 
 #: modules/flamingo.php:275 includes/special-mail-tags.php:22
 #: includes/special-mail-tags.php:97 includes/special-mail-tags.php:164
@@ -145,7 +165,7 @@ msgstr "reCAPTCHA (v3)"
 
 #: modules/recaptcha/recaptcha.php:172
 msgid "API keys for reCAPTCHA v3 are different from those for v2; keys for v2 don&#8217;t work with the v3 API. You need to register your sites again to get new keys for v3. For details, see %s."
-msgstr "API-Schlüssel für reCAPTCHA v3 unterscheiden sich von denen für v2; Schlüssel für v2 funktionieren nicht mit der API von v3. Du musst deine Websites erneut registrieren, um neue Schlüssel für die v3 zu erhalten. Für mehr Informationen siehe %s."
+msgstr "API-Schlüssel für reCAPTCHA v3 unterscheiden sich von denen für v2; Schlüssel für v2 funktionieren nicht mit der API von v3. Du musst deine Websites erneut registrieren, um neue Schlüssel für die v3 zu erhalten. Weitere Informationen unter %s (engl.)."
 
 #: modules/constant-contact.php:573
 msgid "Connect to the Constant Contact API"
@@ -186,7 +206,7 @@ msgstr "https://contactform7.com/constant-contact-integration/"
 
 #: modules/constant-contact.php:484
 msgid "The Constant Contact integration module allows you to send contact data collected through your contact forms to the Constant Contact API. You can create reliable email subscription services in a few easy steps. For details, see %s."
-msgstr "Mit dem Integrations-Modul für Constant Contact kannst du Daten aus gesendeten Kontaktformularen an die Constant-Contact-API senden. Du kannst zuverlässige E-Mail-Abonnement-Dienste in wenigen einfachen Schritten erstellen. Für mehr Informationen siehe %s."
+msgstr "Mit dem Integrations-Modul für Constant Contact kannst du Daten aus gesendeten Kontaktformularen an die Constant-Contact-API senden. Du kannst zuverlässige E-Mail-Abonnement-Dienste in wenigen einfachen Schritten erstellen. Weitere Informationen unter %s (engl.)."
 
 #: modules/constant-contact.php:236
 msgid "Constant Contact"
@@ -862,15 +882,15 @@ msgstr "Das Hochladen der Datei verursachte einen PHP-Fehler"
 
 #: modules/file.php:201
 msgid "Uploaded file is too large"
-msgstr "Die hochgeladene Datei ist zu groß"
+msgstr "Die hochgeladene Datei ist zu groß."
 
 #: modules/file.php:196
 msgid "Uploaded file is not allowed for file type"
-msgstr "Das Hochladen ist für den Dateityp nicht erlaubt"
+msgstr "Das Hochladen ist für den Dateityp nicht erlaubt."
 
 #: modules/file.php:191
 msgid "Uploading a file fails for any reason"
-msgstr "Das Hochladen einer Datei scheitert aus irgendeinem Grund"
+msgstr "Das Hochladen einer Datei scheitert aus irgendeinem Grund."
 
 #: modules/date.php:215 modules/number.php:212
 msgid "Max"
