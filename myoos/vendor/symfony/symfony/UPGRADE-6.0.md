@@ -26,6 +26,7 @@ DependencyInjection
  * Removed `Alias::getDeprecationMessage()`, use `Alias::getDeprecation()` instead.
  * The `inline()` function from the PHP-DSL has been removed, use `inline_service()` instead.
  * The `ref()` function from the PHP-DSL has been removed, use `service()` instead.
+ * Removed `Definition::setPrivate()` and `Alias::setPrivate()`, use `setPublic()` instead
 
 Dotenv
 ------
@@ -47,6 +48,7 @@ Form
  * Added argument `callable|null $filter` to `ChoiceListFactoryInterface::createListFromChoices()` and `createListFromLoader()`.
  * The `Symfony\Component\Form\Extension\Validator\Util\ServerParams` class has been removed, use its parent `Symfony\Component\Form\Util\ServerParams` instead.
  * The `NumberToLocalizedStringTransformer::ROUND_*` constants have been removed, use `\NumberFormatter::ROUND_*` instead.
+ * Removed `PropertyPathMapper` in favor of `DataMapper` and `PropertyPathAccessor`.
 
 FrameworkBundle
 ---------------
@@ -54,13 +56,18 @@ FrameworkBundle
  * `MicroKernelTrait::configureRoutes()` is now always called with a `RoutingConfigurator`
  * The "framework.router.utf8" configuration option defaults to `true`
  * Removed `session.attribute_bag` service and `session.flash_bag` service.
+ * The `form.factory`, `form.type.file`, `translator`, `security.csrf.token_manager`, `serializer`,
+   `cache_clearer`, `filesystem` and `validator` services are now private.
+ * Removed the `lock.RESOURCE_NAME` and `lock.RESOURCE_NAME.store` services and the `lock`, `LockInterface`, `lock.store` and `PersistingStoreInterface` aliases, use `lock.RESOURCE_NAME.factory`, `lock.factory` or `LockFactory` instead.
 
 HttpFoundation
 --------------
 
  * Removed `Response::create()`, `JsonResponse::create()`,
-   `RedirectResponse::create()`, and `StreamedResponse::create()` methods (use
-   `__construct()` instead)
+   `RedirectResponse::create()`, `StreamedResponse::create()` and
+   `BinaryFileResponse::create()` methods (use `__construct()` instead)
+ * Not passing a `Closure` together with `FILTER_CALLBACK` to `ParameterBag::filter()` throws an `InvalidArgumentException`; wrap your filter in a closure instead.
+ * Removed the `Request::HEADER_X_FORWARDED_ALL` constant, use either `Request::HEADER_X_FORWARDED_FOR | Request::HEADER_X_FORWARDED_HOST | Request::HEADER_X_FORWARDED_PORT | Request::HEADER_X_FORWARDED_PROTO` or `Request::HEADER_X_FORWARDED_AWS_ELB` or `Request::HEADER_X_FORWARDED_TRAEFIK`constants instead.
 
 HttpKernel
 ----------
@@ -72,6 +79,12 @@ Inflector
 ---------
 
  * The component has been removed, use `EnglishInflector` from the String component instead.
+
+Lock
+----
+
+ * Removed the `NotSupportedException`. It shouldn't be thrown anymore.
+ * Removed the `RetryTillSaveStore`. Logic has been moved in `Lock` and is not needed anymore.
 
 Mailer
 ------
@@ -89,6 +102,17 @@ Messenger
  * The signature of method `RetryStrategyInterface::isRetryable()` has been updated to `RetryStrategyInterface::isRetryable(Envelope $message, \Throwable $throwable = null)`.
  * The signature of method `RetryStrategyInterface::getWaitingTime()` has been updated to `RetryStrategyInterface::getWaitingTime(Envelope $message, \Throwable $throwable = null)`.
 
+Mime
+----
+
+ * Removed `Address::fromString()`, use `Address::create()` instead
+
+Monolog
+-------
+
+ * The `$actionLevel` constructor argument of `Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy` has been replaced by the `$inner` one which expects an ActivationStrategyInterface to decorate instead. `Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy` is now final.
+ * The `$actionLevel` constructor argument of `Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy` has been replaced by the `$inner` one which expects an ActivationStrategyInterface to decorate instead. `Symfony\Bridge\Monolog\Handler\FingersCrossed\HttpCodeActivationStrategy` is now final.
+
 OptionsResolver
 ---------------
 
@@ -99,6 +123,17 @@ PhpUnitBridge
 -------------
 
  * Removed support for `@expectedDeprecation` annotations, use the `ExpectDeprecationTrait::expectDeprecation()` method instead.
+
+PropertyAccess
+--------------
+
+ * Dropped support of a boolean as the first argument of `PropertyAccessor::__construct()`.
+   Pass a combination of bitwise flags instead.
+
+PropertyInfo
+------------
+
+ * Dropped the `enable_magic_call_extraction` context option in `ReflectionExtractor::getWriteInfo()` and `ReflectionExtractor::getReadInfo()` in favor of `enable_magic_methods_extraction`.
 
 Routing
 -------
@@ -114,6 +149,75 @@ Security
  * Removed `LogoutSuccessHandlerInterface` and `LogoutHandlerInterface`, register a listener on the `LogoutEvent` event instead.
  * Removed `DefaultLogoutSuccessHandler` in favor of `DefaultLogoutListener`.
  * Added a `logout(Request $request, Response $response, TokenInterface $token)` method to the `RememberMeServicesInterface`.
+ * Removed `setProviderKey()`/`getProviderKey()` in favor of `setFirewallName()/getFirewallName()`
+   in `PreAuthenticatedToken`, `RememberMeToken`, `SwitchUserToken`, `UsernamePasswordToken`,
+   `DefaultAuthenticationSuccessHandler`.
+ * Removed the `AbstractRememberMeServices::$providerKey` property in favor of `AbstractRememberMeServices::$firewallName`
+
+TwigBundle
+----------
+
+ * The `twig` service is now private.
+
+Validator
+---------
+
+ * Removed the `allowEmptyString` option from the `Length` constraint.
+
+   Before:
+
+   ```php
+   use Symfony\Component\Validator\Constraints as Assert;
+
+   /**
+    * @Assert\Length(min=5, allowEmptyString=true)
+    */
+   ```
+
+   After:
+
+   ```php
+   use Symfony\Component\Validator\Constraints as Assert;
+
+   /**
+    * @Assert\AtLeastOneOf({
+    *     @Assert\Blank(),
+    *     @Assert\Length(min=5)
+    * })
+    */
+   ```
+
+ * Removed the `NumberConstraintTrait` trait.
+
+* `ValidatorBuilder::enableAnnotationMapping()` does not accept a Doctrine annotation reader anymore.
+
+  Before:
+
+  ```php
+  $builder->enableAnnotationMapping($reader);
+  ```
+
+  After:
+
+  ```php
+  $builder->enableAnnotationMapping(true)
+      ->setDoctrineAnnotationReader($reader);
+  ```
+
+* `ValidatorBuilder::enableAnnotationMapping()` won't automatically setup a Doctrine annotation reader anymore.
+
+  Before:
+
+  ```php
+  $builder->enableAnnotationMapping();
+  ```
+
+  After:
+
+  ```php
+  $builder->enableAnnotationMapping(true)
+      ->addDefaultDoctrineAnnotationReader();
+  ```
 
 Yaml
 ----

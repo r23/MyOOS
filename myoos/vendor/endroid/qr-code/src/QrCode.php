@@ -14,6 +14,7 @@ namespace Endroid\QrCode;
 use BaconQrCode\Encoder\Encoder;
 use Endroid\QrCode\Exception\InvalidFontException;
 use Endroid\QrCode\Exception\UnsupportedExtensionException;
+use Endroid\QrCode\Exception\ValidationException;
 use Endroid\QrCode\Writer\WriterInterface;
 
 class QrCode implements QrCodeInterface
@@ -185,15 +186,28 @@ class QrCode implements QrCodeInterface
         return $this->encoding;
     }
 
-    public function setRoundBlockSize(bool $roundBlockSize, string $mode = self::ROUND_BLOCK_SIZE_MODE_MARGIN): void
+    public function setRoundBlockSize(bool $roundBlockSize, string $roundBlockSizeMode = self::ROUND_BLOCK_SIZE_MODE_MARGIN): void
     {
         $this->roundBlockSize = $roundBlockSize;
-        $this->roundBlockSizeMode = $mode;
+        $this->setRoundBlockSizeMode($roundBlockSizeMode);
     }
 
     public function getRoundBlockSize(): bool
     {
         return $this->roundBlockSize;
+    }
+
+    public function setRoundBlockSizeMode(string $roundBlockSizeMode): void
+    {
+        if (!in_array($roundBlockSizeMode, [
+            self::ROUND_BLOCK_SIZE_MODE_ENLARGE,
+            self::ROUND_BLOCK_SIZE_MODE_MARGIN,
+            self::ROUND_BLOCK_SIZE_MODE_SHRINK,
+        ])) {
+            throw new ValidationException('Invalid round block size mode: '.$roundBlockSizeMode);
+        }
+
+        $this->roundBlockSizeMode = $roundBlockSizeMode;
     }
 
     public function setErrorCorrectionLevel(ErrorCorrectionLevel $errorCorrectionLevel): void
@@ -430,7 +444,7 @@ class QrCode implements QrCodeInterface
         $data['block_count'] = count($matrix[0]);
         $data['block_size'] = $this->size / $data['block_count'];
         if ($this->roundBlockSize) {
-            switch($this->roundBlockSizeMode) {
+            switch ($this->roundBlockSizeMode) {
                 case self::ROUND_BLOCK_SIZE_MODE_ENLARGE:
                     $data['block_size'] = intval(ceil($data['block_size']));
                     $this->size = $data['block_size'] * $data['block_count'];

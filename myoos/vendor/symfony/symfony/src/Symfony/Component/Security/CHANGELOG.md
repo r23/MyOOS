@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+5.2.0
+-----
+
+ * Added attributes on `Passport`
+ * Changed `AuthorizationChecker` to call the access decision manager in unauthenticated sessions with a `NullToken`
+ * [BC break] Removed `AccessListener::PUBLIC_ACCESS` in favor of `AuthenticatedVoter::PUBLIC_ACCESS`
+ * Added `Passport` to `LoginFailureEvent`.
+ * Deprecated `setProviderKey()`/`getProviderKey()` in favor of `setFirewallName()/getFirewallName()` in `PreAuthenticatedToken`, `RememberMeToken`, `SwitchUserToken`, `UsernamePasswordToken`, `DefaultAuthenticationSuccessHandler`; and deprecated the `AbstractRememberMeServices::$providerKey` property in favor of `AbstractRememberMeServices::$firewallName`
+ * Added `FirewallListenerInterface` to make the execution order of firewall listeners configurable
+ * Added translator to `\Symfony\Component\Security\Http\Authenticator\JsonLoginAuthenticator` and `\Symfony\Component\Security\Http\Firewall\UsernamePasswordJsonAuthenticationListener` to translate authentication failure messages
+ * Added a CurrentUser attribute to force the UserValueResolver to resolve an argument to the current user.
+ * Added `LoginThrottlingListener`.
+ * Added `LoginLinkAuthenticator`.
+ * Moved methods `supports()` and `authenticate()` from `AbstractListener` to `FirewallListenerInterface`.
+ * [BC break] `PasswordUpgradeBadge::getPasswordUpgrader()` changed its return type to return null or a `PasswordUpgraderInterface` implementation.
+
 5.1.0
 -----
 

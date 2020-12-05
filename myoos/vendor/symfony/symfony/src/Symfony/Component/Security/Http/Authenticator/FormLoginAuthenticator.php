@@ -14,6 +14,7 @@ namespace Symfony\Component\Security\Http\Authenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -28,6 +29,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\PasswordUpgradeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
@@ -39,7 +41,7 @@ use Symfony\Component\Security\Http\ParameterBagUtils;
  * @author Fabien Potencier <fabien@symfony.com>
  *
  * @final
- * @experimental in 5.1
+ * @experimental in 5.2
  */
 class FormLoginAuthenticator extends AbstractLoginFormAuthenticator
 {
@@ -48,6 +50,7 @@ class FormLoginAuthenticator extends AbstractLoginFormAuthenticator
     private $successHandler;
     private $failureHandler;
     private $options;
+    private $httpKernel;
 
     public function __construct(HttpUtils $httpUtils, UserProviderInterface $userProvider, AuthenticationSuccessHandlerInterface $successHandler, AuthenticationFailureHandlerInterface $failureHandler, array $options)
     {
@@ -80,12 +83,15 @@ class FormLoginAuthenticator extends AbstractLoginFormAuthenticator
     public function authenticate(Request $request): PassportInterface
     {
         $credentials = $this->getCredentials($request);
-        $user = $this->userProvider->loadUserByUsername($credentials['username']);
-        if (!$user instanceof UserInterface) {
-            throw new AuthenticationServiceException('The user provider must return a UserInterface object.');
-        }
 
-        $passport = new Passport($user, new PasswordCredentials($credentials['password']), [new RememberMeBadge()]);
+        $passport = new Passport(new UserBadge($credentials['username'], function ($username) {
+            $user = $this->userProvider->loadUserByUsername($username);
+            if (!$user instanceof UserInterface) {
+                throw new AuthenticationServiceException('The user provider must return a UserInterface object.');
+            }
+
+            return $user;
+        }), new PasswordCredentials($credentials['password']), [new RememberMeBadge()]);
         if ($this->options['enable_csrf']) {
             $passport->addBadge(new CsrfTokenBadge($this->options['csrf_token_id'], $credentials['csrf_token']));
         }
@@ -141,5 +147,25 @@ class FormLoginAuthenticator extends AbstractLoginFormAuthenticator
         $request->getSession()->set(Security::LAST_USERNAME, $credentials['username']);
 
         return $credentials;
+    }
+
+    public function setHttpKernel(HttpKernelInterface $httpKernel): void
+    {
+        $this->httpKernel = $httpKernel;
+    }
+
+    public function start(Request $request, AuthenticationException $authException = null): Response
+    {
+        if (!$this->options['use_forward']) {
+            return parent::start($request, $authException);
+        }
+
+        $subRequest = $this->httpUtils->createRequest($request, $this->options['login_path']);
+        $response = $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        if (200 === $response->getStatusCode()) {
+            $response->setStatusCode(401);
+        }
+
+        return $response;
     }
 }

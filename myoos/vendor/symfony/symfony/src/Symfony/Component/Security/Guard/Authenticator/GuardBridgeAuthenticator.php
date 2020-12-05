@@ -24,10 +24,12 @@ use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Authenticator\InteractiveAuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\PasswordUpgradeBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\UserPassportInterface;
+use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
 /**
  * This authenticator is used to bridge Guard authenticators with
@@ -37,7 +39,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\UserPassportInterface
  *
  * @internal
  */
-class GuardBridgeAuthenticator implements InteractiveAuthenticatorInterface
+class GuardBridgeAuthenticator implements InteractiveAuthenticatorInterface, AuthenticationEntryPointInterface
 {
     private $guard;
     private $userProvider;
@@ -46,6 +48,11 @@ class GuardBridgeAuthenticator implements InteractiveAuthenticatorInterface
     {
         $this->guard = $guard;
         $this->userProvider = $userProvider;
+    }
+
+    public function start(Request $request, AuthenticationException $authException = null)
+    {
+        return $this->guard->start($request, $authException);
     }
 
     public function supports(Request $request): ?bool
@@ -62,14 +69,11 @@ class GuardBridgeAuthenticator implements InteractiveAuthenticatorInterface
         }
 
         // get the user from the GuardAuthenticator
-        $user = $this->guard->getUser($credentials, $this->userProvider);
-
-        if (null === $user) {
-            throw new UsernameNotFoundException(sprintf('Null returned from "%s::getUser()".', get_debug_type($this->guard)));
-        }
-
-        if (!$user instanceof UserInterface) {
-            throw new \UnexpectedValueException(sprintf('The "%s::getUser()" method must return a UserInterface. You returned "%s".', get_debug_type($this->guard), get_debug_type($user)));
+        if (class_exists(UserBadge::class)) {
+            $user = new UserBadge('guard_authenticator_'.md5(serialize($credentials)), function () use ($credentials) { return $this->getUser($credentials); });
+        } else {
+            // BC with symfony/security-http:5.1
+            $user = $this->getUser($credentials);
         }
 
         $passport = new Passport($user, new CustomCredentials([$this->guard, 'checkCredentials'], $credentials));
@@ -82,6 +86,21 @@ class GuardBridgeAuthenticator implements InteractiveAuthenticatorInterface
         }
 
         return $passport;
+    }
+
+    private function getUser($credentials): UserInterface
+    {
+        $user = $this->guard->getUser($credentials, $this->userProvider);
+
+        if (null === $user) {
+            throw new UsernameNotFoundException(sprintf('Null returned from "%s::getUser()".', get_debug_type($this->guard)));
+        }
+
+        if (!$user instanceof UserInterface) {
+            throw new \UnexpectedValueException(sprintf('The "%s::getUser()" method must return a UserInterface. You returned "%s".', get_debug_type($this->guard), get_debug_type($user)));
+        }
+
+        return $user;
     }
 
     public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface

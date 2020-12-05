@@ -1,6 +1,18 @@
 CHANGELOG
 =========
 
+5.2.0
+-----
+
+ * added `AsyncDecoratorTrait` to ease processing responses without breaking async
+ * added support for pausing responses with a new `pause_handler` callable exposed as an info item
+ * added `StreamableInterface` to ease turning responses into PHP streams
+ * added `MockResponse::getRequestMethod()` and `getRequestUrl()` to allow inspecting which request has been sent
+ * added `EventSourceHttpClient` a Server-Sent events stream implementing the [EventSource specification](https://www.w3.org/TR/eventsource/#eventsource)
+ * added option "extra.curl" to allow setting additional curl options in `CurlHttpClient`
+ * added `RetryableHttpClient` to automatically retry failed HTTP requests.
+ * added `extra.trace_content` option to `TraceableHttpClient` to prevent it from keeping the content in memory
+
 5.1.0
 -----
 

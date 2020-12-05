@@ -79,6 +79,7 @@ EOF
         $io = new SymfonyStyle($input, $output);
 
         $kernel = $this->getApplication()->getKernel();
+        $realBuildDir = $kernel->getContainer()->getParameter('kernel.build_dir');
         $realCacheDir = $kernel->getContainer()->getParameter('kernel.cache_dir');
         // the old cache dir name must not be longer than the real one to avoid exceeding
         // the maximum length of a directory or file path within it (esp. Windows MAX_PATH)
@@ -89,7 +90,20 @@ EOF
             throw new RuntimeException(sprintf('Unable to write in the "%s" directory.', $realCacheDir));
         }
 
+        $useBuildDir = $realBuildDir !== $realCacheDir;
+        if ($useBuildDir) {
+            $oldBuildDir = substr($realBuildDir, 0, -1).('~' === substr($realBuildDir, -1) ? '+' : '~');
+            $fs->remove($oldBuildDir);
+
+            if (!is_writable($realBuildDir)) {
+                throw new RuntimeException(sprintf('Unable to write in the "%s" directory.', $realBuildDir));
+            }
+        }
+
         $io->comment(sprintf('Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
+        if ($useBuildDir) {
+            $this->cacheClearer->clear($realBuildDir);
+        }
         $this->cacheClearer->clear($realCacheDir);
 
         // The current event dispatcher is stale, let's not use it anymore
@@ -135,7 +149,7 @@ EOF
             }
 
             if (!$fs->exists($warmupDir.'/'.$containerDir)) {
-                $fs->rename($realCacheDir.'/'.$containerDir, $warmupDir.'/'.$containerDir);
+                $fs->rename($realBuildDir.'/'.$containerDir, $warmupDir.'/'.$containerDir);
                 touch($warmupDir.'/'.$containerDir.'.legacy');
             }
 
@@ -162,8 +176,24 @@ EOF
             }
             $fs->rename($warmupDir, $realCacheDir);
 
+            if ($useBuildDir) {
+                $fs->rename($realBuildDir, $oldBuildDir);
+                // Copy the content of the warmed cache in the build dir
+                $fs->mirror($realCacheDir, $realBuildDir);
+            }
+
             if ($output->isVerbose()) {
-                $io->comment('Removing old cache directory...');
+                $io->comment('Removing old build and cache directory...');
+            }
+
+            if ($useBuildDir) {
+                try {
+                    $fs->remove($oldBuildDir);
+                } catch (IOException $e) {
+                    if ($output->isVerbose()) {
+                        $io->warning($e->getMessage());
+                    }
+                }
             }
 
             try {
@@ -184,7 +214,7 @@ EOF
         return 0;
     }
 
-    private function warmup(string $warmupDir, string $realCacheDir, bool $enableOptionalWarmers = true)
+    private function warmup(string $warmupDir, string $realBuildDir, bool $enableOptionalWarmers = true)
     {
         // create a temporary kernel
         $kernel = $this->getApplication()->getKernel();
@@ -207,7 +237,7 @@ EOF
 
         // fix references to cached files with the real cache directory name
         $search = [$warmupDir, str_replace('\\', '\\\\', $warmupDir)];
-        $replace = str_replace('\\', '/', $realCacheDir);
+        $replace = str_replace('\\', '/', $realBuildDir);
         foreach (Finder::create()->files()->in($warmupDir) as $file) {
             $content = str_replace($search, $replace, file_get_contents($file), $count);
             if ($count) {

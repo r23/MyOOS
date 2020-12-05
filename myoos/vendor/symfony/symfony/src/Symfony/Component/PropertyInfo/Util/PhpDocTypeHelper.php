@@ -12,6 +12,7 @@
 namespace Symfony\Component\PropertyInfo\Util;
 
 use phpDocumentor\Reflection\Type as DocType;
+use phpDocumentor\Reflection\Types\Array_;
 use phpDocumentor\Reflection\Types\Collection;
 use phpDocumentor\Reflection\Types\Compound;
 use phpDocumentor\Reflection\Types\Null_;
@@ -90,7 +91,7 @@ final class PhpDocTypeHelper
         $docType = $docType ?? (string) $type;
 
         if ($type instanceof Collection) {
-            list($phpType, $class) = $this->getPhpTypeAndClass((string) $type->getFqsen());
+            [$phpType, $class] = $this->getPhpTypeAndClass((string) $type->getFqsen());
 
             $key = $this->getTypes($type->getKeyType());
             $value = $this->getTypes($type->getValueType());
@@ -109,19 +110,30 @@ final class PhpDocTypeHelper
         }
 
         if ('[]' === substr($docType, -2)) {
-            if ('mixed[]' === $docType) {
-                $collectionKeyType = null;
+            $collectionKeyType = new Type(Type::BUILTIN_TYPE_INT);
+            $collectionValueType = $this->createType($type, false, substr($docType, 0, -2));
+
+            return new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true, $collectionKeyType, $collectionValueType);
+        }
+
+        if (0 === strpos($docType, 'array<') && $type instanceof Array_) {
+            // array<value> is converted to x[] which is handled above
+            // so it's only necessary to handle array<key, value> here
+            $collectionKeyType = $this->getTypes($type->getKeyType())[0];
+
+            $collectionValueTypes = $this->getTypes($type->getValueType());
+            if (\count($collectionValueTypes) != 1) {
+                // the Type class does not support union types yet, so assume that no type was defined
                 $collectionValueType = null;
             } else {
-                $collectionKeyType = new Type(Type::BUILTIN_TYPE_INT);
-                $collectionValueType = $this->createType($type, false, substr($docType, 0, -2));
+                $collectionValueType = $collectionValueTypes[0];
             }
 
             return new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true, $collectionKeyType, $collectionValueType);
         }
 
         $docType = $this->normalizeType($docType);
-        list($phpType, $class) = $this->getPhpTypeAndClass($docType);
+        [$phpType, $class] = $this->getPhpTypeAndClass($docType);
 
         if ('array' === $docType) {
             return new Type(Type::BUILTIN_TYPE_ARRAY, $nullable, null, true, null, null);
@@ -160,6 +172,6 @@ final class PhpDocTypeHelper
             return [$docType, null];
         }
 
-        return ['object', substr($docType, 1)];
+        return ['object', substr($docType, 1)]; // substr to strip the namespace's `\`-prefix
     }
 }

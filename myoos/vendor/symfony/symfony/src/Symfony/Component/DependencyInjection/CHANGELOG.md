@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+5.2.0
+-----
+
+ * added `param()` and `abstract_arg()` in the PHP-DSL
+ * deprecated `Definition::setPrivate()` and `Alias::setPrivate()`, use `setPublic()` instead
+ * added support for the `#[Required]` attribute
+
 5.1.0
 -----
 

@@ -11,11 +11,10 @@
 
 namespace Symfony\Component\Notifier\Channel;
 
-use Symfony\Component\Notifier\Exception\LogicException;
 use Symfony\Component\Notifier\Message\ChatMessage;
 use Symfony\Component\Notifier\Notification\ChatNotificationInterface;
 use Symfony\Component\Notifier\Notification\Notification;
-use Symfony\Component\Notifier\Recipient\Recipient;
+use Symfony\Component\Notifier\Recipient\RecipientInterface;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -24,12 +23,8 @@ use Symfony\Component\Notifier\Recipient\Recipient;
  */
 class ChatChannel extends AbstractChannel
 {
-    public function notify(Notification $notification, Recipient $recipient, string $transportName = null): void
+    public function notify(Notification $notification, RecipientInterface $recipient, string $transportName = null): void
     {
-        if (null === $transportName) {
-            throw new LogicException('A Chat notification must have a transport defined.');
-        }
-
         $message = null;
         if ($notification instanceof ChatNotificationInterface) {
             $message = $notification->asChatMessage($recipient, $transportName);
@@ -39,7 +34,9 @@ class ChatChannel extends AbstractChannel
             $message = ChatMessage::fromNotification($notification);
         }
 
-        $message->transport($transportName);
+        if (null !== $transportName) {
+            $message->transport($transportName);
+        }
 
         if (null === $this->bus) {
             $this->transport->send($message);
@@ -48,7 +45,7 @@ class ChatChannel extends AbstractChannel
         }
     }
 
-    public function supports(Notification $notification, Recipient $recipient): bool
+    public function supports(Notification $notification, RecipientInterface $recipient): bool
     {
         return true;
     }

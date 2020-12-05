@@ -84,7 +84,7 @@ class LogoutUrlGenerator
      */
     private function generateLogoutUrl(?string $key, int $referenceType): string
     {
-        list($logoutPath, $csrfTokenId, $csrfParameter, $csrfTokenManager) = $this->getListener($key);
+        [$logoutPath, $csrfTokenId, $csrfParameter, $csrfTokenManager] = $this->getListener($key);
 
         if (null === $logoutPath) {
             throw new \LogicException('Unable to generate the logout URL without a path.');
@@ -136,8 +136,14 @@ class LogoutUrlGenerator
                 throw new \InvalidArgumentException('Unable to generate a logout url for an anonymous token.');
             }
 
-            if (null !== $token && method_exists($token, 'getProviderKey')) {
-                $key = $token->getProviderKey();
+            if (null !== $token) {
+                if (method_exists($token, 'getFirewallName')) {
+                    $key = $token->getFirewallName();
+                } elseif (method_exists($token, 'getProviderKey')) {
+                    trigger_deprecation('symfony/security-http', '5.2', 'Method "%s::getProviderKey()" has been deprecated, rename it to "getFirewallName()" instead.', \get_class($token));
+
+                    $key = $token->getProviderKey();
+                }
 
                 if (isset($this->listeners[$key])) {
                     return $this->listeners[$key];
@@ -146,7 +152,7 @@ class LogoutUrlGenerator
         }
 
         // Fetch from injected current firewall information, if possible
-        list($key, $context) = $this->currentFirewall;
+        [$key, $context] = $this->currentFirewall;
 
         if (isset($this->listeners[$key])) {
             return $this->listeners[$key];

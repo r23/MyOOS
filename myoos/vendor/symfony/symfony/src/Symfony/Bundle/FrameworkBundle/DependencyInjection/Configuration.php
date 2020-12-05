@@ -17,6 +17,7 @@ use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FullStack;
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -30,10 +31,12 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Notifier\Notifier;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
+use Symfony\Component\RateLimiter\Policy\TokenBucketLimiter;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\WebLink\HttpHeaderSerializer;
+use Symfony\Component\Workflow\WorkflowEvents;
 
 /**
  * FrameworkExtension configuration structure.
@@ -85,6 +88,19 @@ class Configuration implements ConfigurationInterface
                     ->beforeNormalization()->ifString()->then(function ($v) { return [$v]; })->end()
                     ->prototype('scalar')->end()
                 ->end()
+                ->scalarNode('trusted_proxies')->end()
+                ->arrayNode('trusted_headers')
+                    ->fixXmlConfig('trusted_header')
+                    ->performNoDeepMerging()
+                    ->defaultValue(['x-forwarded-for', 'x-forwarded-port', 'x-forwarded-proto'])
+                    ->beforeNormalization()->ifString()->then(function ($v) { return $v ? array_map('trim', explode(',', $v)) : []; })->end()
+                    ->enumPrototype()
+                        ->values([
+                            'forwarded',
+                            'x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port',
+                        ])
+                    ->end()
+                ->end()
                 ->scalarNode('error_controller')
                     ->defaultValue('error_controller')
                 ->end()
@@ -93,6 +109,7 @@ class Configuration implements ConfigurationInterface
 
         $this->addCsrfSection($rootNode);
         $this->addFormSection($rootNode);
+        $this->addHttpCacheSection($rootNode);
         $this->addEsiSection($rootNode);
         $this->addSsiSection($rootNode);
         $this->addFragmentsSection($rootNode);
@@ -118,6 +135,7 @@ class Configuration implements ConfigurationInterface
         $this->addMailerSection($rootNode);
         $this->addSecretsSection($rootNode);
         $this->addNotifierSection($rootNode);
+        $this->addRateLimiterSection($rootNode);
 
         return $treeBuilder;
     }
@@ -129,7 +147,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('secrets')
                     ->canBeDisabled()
                     ->children()
-                        ->scalarNode('vault_directory')->defaultValue('%kernel.project_dir%/config/secrets/%kernel.environment%')->cannotBeEmpty()->end()
+                        ->scalarNode('vault_directory')->defaultValue('%kernel.project_dir%/config/secrets/%kernel.runtime_environment%')->cannotBeEmpty()->end()
                         ->scalarNode('local_dotenv_file')->defaultValue('%kernel.project_dir%/.env.%kernel.environment%.local')->end()
                         ->scalarNode('decryption_env_var')->defaultValue('base64:default::SYMFONY_DECRYPTION_SECRET')->end()
                     ->end()
@@ -174,6 +192,47 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('field_name')->defaultValue('_token')->end()
                             ->end()
                         ->end()
+                        // to be set to false in Symfony 6.0
+                        ->booleanNode('legacy_error_messages')
+                            ->defaultTrue()
+                            ->validate()
+                                ->ifTrue()
+                                ->then(function ($v) {
+                                    @trigger_error('Since symfony/framework-bundle 5.2: Setting the "framework.form.legacy_error_messages" option to "true" is deprecated. It will have no effect as of Symfony 6.0.', \E_USER_DEPRECATED);
+
+                                    return $v;
+                                })
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addHttpCacheSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('http_cache')
+                    ->info('HTTP cache configuration')
+                    ->canBeEnabled()
+                    ->fixXmlConfig('private_header')
+                    ->children()
+                        ->booleanNode('debug')->defaultValue('%kernel.debug%')->end()
+                        ->enumNode('trace_level')
+                            ->values(['none', 'short', 'full'])
+                        ->end()
+                        ->scalarNode('trace_header')->end()
+                        ->integerNode('default_ttl')->end()
+                        ->arrayNode('private_headers')
+                            ->performNoDeepMerging()
+                            ->scalarPrototype()->end()
+                        ->end()
+                        ->booleanNode('allow_reload')->end()
+                        ->booleanNode('allow_revalidate')->end()
+                        ->integerNode('stale_while_revalidate')->end()
+                        ->integerNode('stale_if_error')->end()
                     ->end()
                 ->end()
             ->end()
@@ -282,6 +341,7 @@ class Configuration implements ConfigurationInterface
                                 ->fixXmlConfig('support')
                                 ->fixXmlConfig('place')
                                 ->fixXmlConfig('transition')
+                                ->fixXmlConfig('event_to_dispatch', 'events_to_dispatch')
                                 ->children()
                                     ->arrayNode('audit_trail')
                                         ->canBeEnabled()
@@ -323,6 +383,33 @@ class Configuration implements ConfigurationInterface
                                         ->beforeNormalization()->castToArray()->end()
                                         ->defaultValue([])
                                         ->prototype('scalar')->end()
+                                    ->end()
+                                    ->variableNode('events_to_dispatch')
+                                        ->defaultValue(null)
+                                        ->validate()
+                                            ->ifTrue(function ($v) {
+                                                if (null === $v) {
+                                                    return false;
+                                                }
+                                                if (!\is_array($v)) {
+                                                    return true;
+                                                }
+
+                                                foreach ($v as $value) {
+                                                    if (!\is_string($value)) {
+                                                        return true;
+                                                    }
+                                                    if (class_exists(WorkflowEvents::class) && !\in_array($value, WorkflowEvents::ALIASES)) {
+                                                        return true;
+                                                    }
+                                                }
+
+                                                return false;
+                                            })
+                                            ->thenInvalid('The value must be "null" or an array of workflow events (like ["workflow.enter"]).')
+                                        ->end()
+                                        ->info('Select which Transition events should be dispatched for this Workflow')
+                                        ->example(['workflow.enter', 'workflow.transition'])
                                     ->end()
                                     ->arrayNode('places')
                                         ->beforeNormalization()
@@ -451,6 +538,18 @@ class Configuration implements ConfigurationInterface
                                         return !$v['supports'] && !isset($v['support_strategy']);
                                     })
                                     ->thenInvalid('"supports" or "support_strategy" should be configured.')
+                                ->end()
+                                ->beforeNormalization()
+                                        ->always()
+                                        ->then(function ($values) {
+                                            // Special case to deal with XML when the user wants an empty array
+                                            if (\array_key_exists('event_to_dispatch', $values) && null === $values['event_to_dispatch']) {
+                                                $values['events_to_dispatch'] = [];
+                                                unset($values['event_to_dispatch']);
+                                            }
+
+                                            return $values;
+                                        })
                                 ->end()
                             ->end()
                         ->end()
@@ -686,6 +785,22 @@ class Configuration implements ConfigurationInterface
                             ->prototype('scalar')->end()
                             ->defaultValue([])
                         ->end()
+                        ->arrayNode('pseudo_localization')
+                            ->canBeEnabled()
+                            ->fixXmlConfig('localizable_html_attribute')
+                            ->children()
+                                ->booleanNode('accents')->defaultTrue()->end()
+                                ->floatNode('expansion_factor')
+                                    ->min(1.0)
+                                    ->defaultValue(1.0)
+                                ->end()
+                                ->booleanNode('brackets')->defaultTrue()->end()
+                                ->booleanNode('parse_html')->defaultFalse()->end()
+                                ->arrayNode('localizable_html_attributes')
+                                    ->prototype('scalar')->end()
+                                ->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end()
@@ -835,6 +950,8 @@ class Configuration implements ConfigurationInterface
                     ->info('Property access configuration')
                     ->children()
                         ->booleanNode('magic_call')->defaultFalse()->end()
+                        ->booleanNode('magic_get')->defaultTrue()->end()
+                        ->booleanNode('magic_set')->defaultTrue()->end()
                         ->booleanNode('throw_exception_on_invalid_index')->defaultFalse()->end()
                         ->booleanNode('throw_exception_on_invalid_property_path')->defaultTrue()->end()
                     ->end()
@@ -866,7 +983,8 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('prefix_seed')
                             ->info('Used to namespace cache keys when using several apps with the same shared backend')
-                            ->example('my-application-name')
+                            ->defaultValue('_%kernel.project_dir%.%kernel.container_class%')
+                            ->example('my-application-name/%kernel.environment%')
                         ->end()
                         ->scalarNode('app')
                             ->info('App related cache pools configuration')
@@ -920,9 +1038,15 @@ class Configuration implements ConfigurationInterface
                                     ->end()
                                     ->scalarNode('tags')->defaultNull()->end()
                                     ->booleanNode('public')->defaultFalse()->end()
-                                    ->integerNode('default_lifetime')->end()
+                                    ->scalarNode('default_lifetime')
+                                        ->info('Default lifetime of the pool')
+                                        ->example('"600" for 5 minutes expressed in seconds, "PT5M" for five minutes expressed as ISO 8601 time interval, or "5 minutes" as a date expression')
+                                    ->end()
                                     ->scalarNode('provider')
                                         ->info('Overwrite the setting from the default provider for this adapter.')
+                                    ->end()
+                                    ->scalarNode('early_expiration_message_bus')
+                                        ->example('"messenger.default_bus" to send early expiration events to the default Messenger bus.')
                                     ->end()
                                     ->scalarNode('clearer')->end()
                                 ->end()
@@ -1247,6 +1371,25 @@ class Configuration implements ConfigurationInterface
                     ->info('HTTP Client configuration')
                     ->{!class_exists(FullStack::class) && class_exists(HttpClient::class) ? 'canBeDisabled' : 'canBeEnabled'}()
                     ->fixXmlConfig('scoped_client')
+                    ->beforeNormalization()
+                        ->always(function ($config) {
+                            if (empty($config['scoped_clients']) || !\is_array($config['default_options']['retry_failed'] ?? null)) {
+                                return $config;
+                            }
+
+                            foreach ($config['scoped_clients'] as &$scopedConfig) {
+                                if (!isset($scopedConfig['retry_failed']) || true === $scopedConfig['retry_failed']) {
+                                    $scopedConfig['retry_failed'] = $config['default_options']['retry_failed'];
+                                    continue;
+                                }
+                                if (\is_array($scopedConfig['retry_failed'])) {
+                                    $scopedConfig['retry_failed'] = $scopedConfig['retry_failed'] + $config['default_options']['retry_failed'];
+                                }
+                            }
+
+                            return $config;
+                        })
+                    ->end()
                     ->children()
                         ->integerNode('max_host_connections')
                             ->info('The maximum number of connections to a single host.')
@@ -1332,7 +1475,11 @@ class Configuration implements ConfigurationInterface
                                         ->variableNode('md5')->end()
                                     ->end()
                                 ->end()
+                                ->append($this->addHttpClientRetrySection())
                             ->end()
+                        ->end()
+                        ->scalarNode('mock_response_factory')
+                            ->info('The id of the service that should generate mock responses. It should be either an invokable or an iterable.')
                         ->end()
                         ->arrayNode('scoped_clients')
                             ->useAttributeAsKey('name')
@@ -1471,6 +1618,7 @@ class Configuration implements ConfigurationInterface
                                             ->variableNode('md5')->end()
                                         ->end()
                                     ->end()
+                                    ->append($this->addHttpClientRetrySection())
                                 ->end()
                             ->end()
                         ->end()
@@ -1478,6 +1626,77 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+    }
+
+    private function addHttpClientRetrySection()
+    {
+        $root = new NodeBuilder();
+
+        return $root
+            ->arrayNode('retry_failed')
+                ->fixXmlConfig('http_code')
+                ->canBeEnabled()
+                ->addDefaultsIfNotSet()
+                ->beforeNormalization()
+                    ->always(function ($v) {
+                        if (isset($v['retry_strategy']) && (isset($v['http_codes']) || isset($v['delay']) || isset($v['multiplier']) || isset($v['max_delay']) || isset($v['jitter']))) {
+                            throw new \InvalidArgumentException('The "retry_strategy" option cannot be used along with the "http_codes", "delay", "multiplier", "max_delay" or "jitter" options.');
+                        }
+
+                        return $v;
+                    })
+                ->end()
+                ->children()
+                    ->scalarNode('retry_strategy')->defaultNull()->info('service id to override the retry strategy')->end()
+                    ->arrayNode('http_codes')
+                        ->performNoDeepMerging()
+                        ->beforeNormalization()
+                            ->ifArray()
+                            ->then(static function ($v) {
+                                $list = [];
+                                foreach ($v as $key => $val) {
+                                    if (is_numeric($val)) {
+                                        $list[] = ['code' => $val];
+                                    } elseif (\is_array($val)) {
+                                        if (isset($val['code']) || isset($val['methods'])) {
+                                            $list[] = $val;
+                                        } else {
+                                            $list[] = ['code' => $key, 'methods' => $val];
+                                        }
+                                    } elseif (true === $val || null === $val) {
+                                        $list[] = ['code' => $key];
+                                    }
+                                }
+
+                                return $list;
+                            })
+                        ->end()
+                        ->useAttributeAsKey('code')
+                        ->arrayPrototype()
+                            ->fixXmlConfig('method')
+                            ->children()
+                                ->integerNode('code')->end()
+                                ->arrayNode('methods')
+                                    ->beforeNormalization()
+                                    ->ifArray()
+                                        ->then(function ($v) {
+                                            return array_map('strtoupper', $v);
+                                        })
+                                    ->end()
+                                    ->prototype('scalar')->end()
+                                    ->info('A list of HTTP methods that triggers a retry for this status code. When empty, all methods are retried')
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->info('A list of HTTP status code that triggers a retry')
+                    ->end()
+                    ->integerNode('max_retries')->defaultValue(3)->min(0)->end()
+                    ->integerNode('delay')->defaultValue(1000)->min(0)->info('Time in ms to delay (or the initial value when multiplier is used)')->end()
+                    ->floatNode('multiplier')->defaultValue(2)->min(1)->info('If greater than 1, delay will grow exponentially for each retry: delay * (multiple ^ retries)')->end()
+                    ->integerNode('max_delay')->defaultValue(0)->min(0)->info('Max time in ms that a retry should ever be delayed (0 = infinite)')->end()
+                    ->floatNode('jitter')->defaultValue(0.1)->min(0)->max(1)->info('Randomness in percent (between 0 and 1) to apply to the delay')->end()
+                ->end()
+            ;
     }
 
     private function addMailerSection(ArrayNodeDefinition $rootNode)
@@ -1492,6 +1711,7 @@ class Configuration implements ConfigurationInterface
                         ->thenInvalid('"dsn" and "transports" cannot be used together.')
                     ->end()
                     ->fixXmlConfig('transport')
+                    ->fixXmlConfig('header')
                     ->children()
                         ->scalarNode('message_bus')->defaultNull()->info('The message bus to use. Defaults to the default bus if the Messenger component is installed.')->end()
                         ->scalarNode('dsn')->defaultNull()->end()
@@ -1512,6 +1732,20 @@ class Configuration implements ConfigurationInterface
                                         })
                                     ->end()
                                     ->prototype('scalar')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('headers')
+                            ->normalizeKeys(false)
+                            ->useAttributeAsKey('name')
+                            ->prototype('array')
+                                ->normalizeKeys(false)
+                                ->beforeNormalization()
+                                    ->ifTrue(function ($v) { return !\is_array($v) || array_keys($v) !== ['value']; })
+                                    ->then(function ($v) { return ['value' => $v]; })
+                                ->end()
+                                ->children()
+                                    ->variableNode('value')->end()
                                 ->end()
                             ->end()
                         ->end()
@@ -1561,6 +1795,74 @@ class Configuration implements ConfigurationInterface
                                 ->children()
                                     ->scalarNode('email')->cannotBeEmpty()->end()
                                     ->scalarNode('phone')->defaultValue('')->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addRateLimiterSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('rate_limiter')
+                    ->info('Rate limiter configuration')
+                    ->{!class_exists(FullStack::class) && class_exists(TokenBucketLimiter::class) ? 'canBeDisabled' : 'canBeEnabled'}()
+                    ->fixXmlConfig('limiter')
+                    ->beforeNormalization()
+                        ->ifTrue(function ($v) { return \is_array($v) && !isset($v['limiters']) && !isset($v['limiter']); })
+                        ->then(function (array $v) {
+                            $newV = [
+                                'enabled' => $v['enabled'],
+                            ];
+                            unset($v['enabled']);
+
+                            $newV['limiters'] = $v;
+
+                            return $newV;
+                        })
+                    ->end()
+                    ->children()
+                        ->arrayNode('limiters')
+                            ->useAttributeAsKey('name')
+                            ->arrayPrototype()
+                                ->children()
+                                    ->scalarNode('lock_factory')
+                                        ->info('The service ID of the lock factory used by this limiter')
+                                        ->defaultValue('lock.factory')
+                                    ->end()
+                                    ->scalarNode('cache_pool')
+                                        ->info('The cache pool to use for storing the current limiter state')
+                                        ->defaultValue('cache.rate_limiter')
+                                    ->end()
+                                    ->scalarNode('storage_service')
+                                        ->info('The service ID of a custom storage implementation, this precedes any configured "cache_pool"')
+                                        ->defaultNull()
+                                    ->end()
+                                    ->enumNode('policy')
+                                        ->info('The rate limiting algorithm to use for this rate')
+                                        ->isRequired()
+                                        ->values(['fixed_window', 'token_bucket', 'sliding_window', 'no_limit'])
+                                    ->end()
+                                    ->integerNode('limit')
+                                        ->info('The maximum allowed hits in a fixed interval or burst')
+                                        ->isRequired()
+                                    ->end()
+                                    ->scalarNode('interval')
+                                        ->info('Configures the fixed interval if "policy" is set to "fixed_window" or "sliding_window". The value must be a number followed by "second", "minute", "hour", "day", "week" or "month" (or their plural equivalent).')
+                                    ->end()
+                                    ->arrayNode('rate')
+                                        ->info('Configures the fill rate if "policy" is set to "token_bucket"')
+                                        ->children()
+                                            ->scalarNode('interval')
+                                                ->info('Configures the rate interval. The value must be a number followed by "second", "minute", "hour", "day", "week" or "month" (or their plural equivalent).')
+                                            ->end()
+                                            ->integerNode('amount')->info('Amount of tokens to add each interval')->defaultValue(1)->end()
+                                        ->end()
+                                    ->end()
                                 ->end()
                             ->end()
                         ->end()

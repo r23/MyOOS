@@ -16,6 +16,7 @@ use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Notifier\Event\MessageEvent;
 use Symfony\Component\Notifier\Message\MessageInterface;
+use Symfony\Component\Notifier\Message\SentMessage;
 use Symfony\Component\Notifier\Transport\TransportInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -47,12 +48,12 @@ final class Chatter implements ChatterInterface
         return $this->transport->supports($message);
     }
 
-    public function send(MessageInterface $message): void
+    public function send(MessageInterface $message): ?SentMessage
     {
         if (null === $this->bus) {
             $this->transport->send($message);
 
-            return;
+            return null;
         }
 
         if (null !== $this->dispatcher) {
@@ -60,5 +61,7 @@ final class Chatter implements ChatterInterface
         }
 
         $this->bus->dispatch($message);
+
+        return null;
     }
 }

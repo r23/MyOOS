@@ -16,12 +16,15 @@ use Symfony\Component\Mailer\Bridge\Amazon\Transport\SesTransportFactory;
 use Symfony\Component\Mailer\Bridge\Google\Transport\GmailTransportFactory;
 use Symfony\Component\Mailer\Bridge\Mailchimp\Transport\MandrillTransportFactory;
 use Symfony\Component\Mailer\Bridge\Mailgun\Transport\MailgunTransportFactory;
+use Symfony\Component\Mailer\Bridge\Mailjet\Transport\MailjetTransportFactory;
 use Symfony\Component\Mailer\Bridge\Postmark\Transport\PostmarkTransportFactory;
 use Symfony\Component\Mailer\Bridge\Sendgrid\Transport\SendgridTransportFactory;
+use Symfony\Component\Mailer\Bridge\Sendinblue\Transport\SendinblueTransportFactory;
 use Symfony\Component\Mailer\Exception\InvalidArgumentException;
 use Symfony\Component\Mailer\Exception\UnsupportedSchemeException;
 use Symfony\Component\Mailer\Transport\Dsn;
 use Symfony\Component\Mailer\Transport\FailoverTransport;
+use Symfony\Component\Mailer\Transport\NativeTransportFactory;
 use Symfony\Component\Mailer\Transport\NullTransportFactory;
 use Symfony\Component\Mailer\Transport\RoundRobinTransport;
 use Symfony\Component\Mailer\Transport\SendmailTransportFactory;
@@ -45,6 +48,8 @@ class Transport
         MailgunTransportFactory::class,
         PostmarkTransportFactory::class,
         SendgridTransportFactory::class,
+        MailjetTransportFactory::class,
+        SendinblueTransportFactory::class,
     ];
 
     private $factories;
@@ -83,7 +88,7 @@ class Transport
 
     public function fromString(string $dsn): TransportInterface
     {
-        list($transport, $offset) = $this->parseDsn($dsn);
+        [$transport, $offset] = $this->parseDsn($dsn);
         if ($offset !== \strlen($dsn)) {
             throw new InvalidArgumentException(sprintf('The DSN has some garbage at the end: "%s".', substr($dsn, $offset)));
         }
@@ -111,7 +116,7 @@ class Transport
                     ++$offset;
                     $args = [];
                     while (true) {
-                        list($arg, $offset) = $this->parseDsn($dsn, $offset);
+                        [$arg, $offset] = $this->parseDsn($dsn, $offset);
                         $args[] = $arg;
                         if (\strlen($dsn) === $offset) {
                             break;
@@ -162,5 +167,7 @@ class Transport
         yield new SendmailTransportFactory($dispatcher, $client, $logger);
 
         yield new EsmtpTransportFactory($dispatcher, $client, $logger);
+
+        yield new NativeTransportFactory($dispatcher, $client, $logger);
     }
 }

@@ -79,11 +79,11 @@ class TranslationUpdateCommand extends Command
                 new InputOption('output-format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format', 'xlf'),
                 new InputOption('dump-messages', null, InputOption::VALUE_NONE, 'Should the messages be dumped in the console'),
                 new InputOption('force', null, InputOption::VALUE_NONE, 'Should the update be done'),
-                new InputOption('no-backup', null, InputOption::VALUE_NONE, 'Should backup be disabled'),
                 new InputOption('clean', null, InputOption::VALUE_NONE, 'Should clean not found messages'),
                 new InputOption('domain', null, InputOption::VALUE_OPTIONAL, 'Specify the domain to update'),
                 new InputOption('xliff-version', null, InputOption::VALUE_OPTIONAL, 'Override the default xliff version', '1.2'),
                 new InputOption('sort', null, InputOption::VALUE_OPTIONAL, 'Return list of messages sorted alphabetically', 'asc'),
+                new InputOption('as-tree', null, InputOption::VALUE_OPTIONAL, 'Dump the messages as a tree-like structure: The given value defines the level where to switch to inline YAML'),
             ])
             ->setDescription('Updates the translation file')
             ->setHelp(<<<'EOF'
@@ -108,6 +108,12 @@ You can sort the output with the <comment>--sort</> flag:
 
     <info>php %command.full_name% --dump-messages --sort=asc en AcmeBundle</info>
     <info>php %command.full_name% --dump-messages --sort=desc fr</info>
+
+You can dump a tree-like structure using the yaml format with <comment>--as-tree</> flag:
+
+    <info>php %command.full_name% --force --output-format=yaml --as-tree=3 en AcmeBundle</info>
+    <info>php %command.full_name% --force --output-format=yaml --sort=asc --as-tree=3 fr</info>
+
 EOF
             )
         ;
@@ -283,10 +289,6 @@ EOF
             $resultMessage = sprintf('%d message%s successfully extracted', $extractedMessagesCount, $extractedMessagesCount > 1 ? 's were' : ' was');
         }
 
-        if (true === $input->getOption('no-backup')) {
-            $this->writer->disableBackup();
-        }
-
         // save the files
         if (true === $input->getOption('force')) {
             $io->comment('Writing files...');
@@ -302,7 +304,7 @@ EOF
                 $bundleTransPath = end($transPaths);
             }
 
-            $this->writer->write($operation->getResult(), $input->getOption('output-format'), ['path' => $bundleTransPath, 'default_locale' => $this->defaultLocale, 'xliff_version' => $input->getOption('xliff-version')]);
+            $this->writer->write($operation->getResult(), $input->getOption('output-format'), ['path' => $bundleTransPath, 'default_locale' => $this->defaultLocale, 'xliff_version' => $input->getOption('xliff-version'), 'as_tree' => $input->getOption('as-tree'), 'inline' => $input->getOption('as-tree') ?? 0]);
 
             if (true === $input->getOption('dump-messages')) {
                 $resultMessage .= ' and translation files were updated';

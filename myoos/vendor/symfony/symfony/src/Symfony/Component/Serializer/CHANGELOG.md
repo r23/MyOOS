@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+5.2.0
+-----
+
+ * added `CompiledClassMetadataFactory` and `ClassMetadataFactoryCompiler` for faster metadata loading.
+ * added `UidNormalizer`
+ * added `FormErrorNormalizer`
+ * added `MimeMessageNormalizer`
+ * serializer mapping can be configured using php attributes
+
 5.1.0
 -----
 

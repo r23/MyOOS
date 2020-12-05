@@ -16,13 +16,13 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Driver\Result as DriverResult;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\TableNotFoundException;
+use Doctrine\DBAL\LockMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Result;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Synchronizer\SchemaSynchronizer;
 use Doctrine\DBAL\Schema\Table;
-use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Messenger\Exception\InvalidArgumentException;
 use Symfony\Component\Messenger\Exception\TransportException;
@@ -62,18 +62,12 @@ class Connection implements ResetInterface
     private $schemaSynchronizer;
     private $autoSetup;
 
-    private static $useDeprecatedConstants;
-
     public function __construct(array $configuration, DBALConnection $driverConnection, SchemaSynchronizer $schemaSynchronizer = null)
     {
         $this->configuration = array_replace_recursive(static::DEFAULT_OPTIONS, $configuration);
         $this->driverConnection = $driverConnection;
         $this->schemaSynchronizer = $schemaSynchronizer;
         $this->autoSetup = $this->configuration['auto_setup'];
-
-        if (null === self::$useDeprecatedConstants) {
-            self::$useDeprecatedConstants = !class_exists(Types::class);
-        }
     }
 
     public function reset()
@@ -146,13 +140,7 @@ class Connection implements ResetInterface
             $this->configuration['queue_name'],
             $now,
             $availableAt,
-        ], self::$useDeprecatedConstants ? [
-            null,
-            null,
-            null,
-            Type::DATETIME,
-            Type::DATETIME,
-        ] : [
+        ], [
             null,
             null,
             null,
@@ -172,9 +160,23 @@ class Connection implements ResetInterface
                 ->orderBy('available_at', 'ASC')
                 ->setMaxResults(1);
 
+            // Append pessimistic write lock to FROM clause if db platform supports it
+            $sql = $query->getSQL();
+            if (($fromPart = $query->getQueryPart('from')) &&
+                ($table = $fromPart[0]['table'] ?? null) &&
+                ($alias = $fromPart[0]['alias'] ?? null)
+            ) {
+                $fromClause = sprintf('%s %s', $table, $alias);
+                $sql = str_replace(
+                    sprintf('FROM %s WHERE', $fromClause),
+                    sprintf('FROM %s WHERE', $this->driverConnection->getDatabasePlatform()->appendLockHint($fromClause, LockMode::PESSIMISTIC_WRITE)),
+                    $sql
+                );
+            }
+
             // use SELECT ... FOR UPDATE to lock table
             $stmt = $this->executeQuery(
-                $query->getSQL().' '.$this->driverConnection->getDatabasePlatform()->getWriteLockSQL(),
+                $sql.' '.$this->driverConnection->getDatabasePlatform()->getWriteLockSQL(),
                 $query->getParameters(),
                 $query->getParameterTypes()
             );
@@ -201,7 +203,7 @@ class Connection implements ResetInterface
                 $now,
                 $doctrineEnvelope['id'],
             ], [
-                self::$useDeprecatedConstants ? Type::DATETIME : Types::DATETIME_MUTABLE,
+                Types::DATETIME_MUTABLE,
             ]);
 
             $this->driverConnection->commit();
@@ -240,25 +242,10 @@ class Connection implements ResetInterface
     public function setup(): void
     {
         $configuration = $this->driverConnection->getConfiguration();
-        // Since Doctrine 2.9 the getFilterSchemaAssetsExpression is deprecated
-        $hasFilterCallback = method_exists($configuration, 'getSchemaAssetsFilter');
-
-        if ($hasFilterCallback) {
-            $assetFilter = $this->driverConnection->getConfiguration()->getSchemaAssetsFilter();
-            $this->driverConnection->getConfiguration()->setSchemaAssetsFilter(null);
-        } else {
-            $assetFilter = $this->driverConnection->getConfiguration()->getFilterSchemaAssetsExpression();
-            $this->driverConnection->getConfiguration()->setFilterSchemaAssetsExpression(null);
-        }
-
+        $assetFilter = $configuration->getSchemaAssetsFilter();
+        $configuration->setSchemaAssetsFilter(null);
         $this->updateSchema();
-
-        if ($hasFilterCallback) {
-            $this->driverConnection->getConfiguration()->setSchemaAssetsFilter($assetFilter);
-        } else {
-            $this->driverConnection->getConfiguration()->setFilterSchemaAssetsExpression($assetFilter);
-        }
-
+        $configuration->setSchemaAssetsFilter($assetFilter);
         $this->autoSetup = false;
     }
 
@@ -337,10 +324,7 @@ class Connection implements ResetInterface
                 $redeliverLimit,
                 $now,
                 $this->configuration['queue_name'],
-            ], self::$useDeprecatedConstants ? [
-                Type::DATETIME,
-                Type::DATETIME,
-            ] : [
+            ], [
                 Types::DATETIME_MUTABLE,
                 Types::DATETIME_MUTABLE,
             ]);
@@ -372,7 +356,7 @@ class Connection implements ResetInterface
         return $stmt;
     }
 
-    private function executeStatement(string $sql, array $parameters = [], array $types = [])
+    protected function executeStatement(string $sql, array $parameters = [], array $types = [])
     {
         try {
             if (method_exists($this->driverConnection, 'executeStatement')) {
@@ -412,21 +396,21 @@ class Connection implements ResetInterface
         $table = $schema->createTable($this->configuration['table_name']);
         // add an internal option to mark that we created this & the non-namespaced table name
         $table->addOption(self::TABLE_OPTION_NAME, $this->configuration['table_name']);
-        $table->addColumn('id', self::$useDeprecatedConstants ? Type::BIGINT : Types::BIGINT)
+        $table->addColumn('id', Types::BIGINT)
             ->setAutoincrement(true)
             ->setNotnull(true);
-        $table->addColumn('body', self::$useDeprecatedConstants ? Type::TEXT : Types::TEXT)
+        $table->addColumn('body', Types::TEXT)
             ->setNotnull(true);
-        $table->addColumn('headers', self::$useDeprecatedConstants ? Type::TEXT : Types::TEXT)
+        $table->addColumn('headers', Types::TEXT)
             ->setNotnull(true);
-        $table->addColumn('queue_name', self::$useDeprecatedConstants ? Type::STRING : Types::STRING)
+        $table->addColumn('queue_name', Types::STRING)
             ->setLength(190) // MySQL 5.6 only supports 191 characters on an indexed column in utf8mb4 mode
             ->setNotnull(true);
-        $table->addColumn('created_at', self::$useDeprecatedConstants ? Type::DATETIME : Types::DATETIME_MUTABLE)
+        $table->addColumn('created_at', Types::DATETIME_MUTABLE)
             ->setNotnull(true);
-        $table->addColumn('available_at', self::$useDeprecatedConstants ? Type::DATETIME : Types::DATETIME_MUTABLE)
+        $table->addColumn('available_at', Types::DATETIME_MUTABLE)
             ->setNotnull(true);
-        $table->addColumn('delivered_at', self::$useDeprecatedConstants ? Type::DATETIME : Types::DATETIME_MUTABLE)
+        $table->addColumn('delivered_at', Types::DATETIME_MUTABLE)
             ->setNotnull(false);
         $table->setPrimaryKey(['id']);
         $table->addIndex(['queue_name']);

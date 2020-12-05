@@ -15,6 +15,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpClient\Response\ResponseStream;
 use Symfony\Component\HttpClient\Response\TraceableResponse;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 use Symfony\Contracts\HttpClient\ResponseStreamInterface;
@@ -27,10 +28,12 @@ final class TraceableHttpClient implements HttpClientInterface, ResetInterface, 
 {
     private $client;
     private $tracedRequests = [];
+    private $stopwatch;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, Stopwatch $stopwatch = null)
     {
         $this->client = $client;
+        $this->stopwatch = $stopwatch;
     }
 
     /**
@@ -49,6 +52,11 @@ final class TraceableHttpClient implements HttpClientInterface, ResetInterface, 
         ];
         $onProgress = $options['on_progress'] ?? null;
 
+        if (false === ($options['extra']['trace_content'] ?? true)) {
+            unset($content);
+            $content = false;
+        }
+
         $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use (&$traceInfo, $onProgress) {
             $traceInfo = $info;
 
@@ -57,7 +65,7 @@ final class TraceableHttpClient implements HttpClientInterface, ResetInterface, 
             }
         };
 
-        return new TraceableResponse($this->client, $this->client->request($method, $url, $options), $content);
+        return new TraceableResponse($this->client, $this->client->request($method, $url, $options), $content, null === $this->stopwatch ? null : $this->stopwatch->start("$method $url", 'http_client'));
     }
 
     /**
