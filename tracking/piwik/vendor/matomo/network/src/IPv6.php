@@ -1,12 +1,12 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  */
 
-namespace Piwik\Network;
+namespace Matomo\Network;
 
 /**
  * IP v6 address.
@@ -42,7 +42,8 @@ class IPv6 extends IP
             'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff',
             'ffff:ffff:ffff:ffff::',
             'ffff:ffff:ffff:0000::',
-            'ffff:ff00:0000:0000::'
+            'ffff:ff00:0000:0000::',
+            '0000::'
         );
 
         $newBinaryIp = $newBinaryIp & pack('a16', inet_pton($masks[$byteCount]));

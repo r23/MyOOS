@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
  * @link https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -228,7 +228,9 @@ class SettingsServer
     {
         // in the event one or the other is disabled...
         @ini_set('max_execution_time', $executionTime);
-        @set_time_limit($executionTime);
+        if (function_exists('set_time_limit')) {
+            @set_time_limit($executionTime);
+        }
     }
 
     public static function isMac()

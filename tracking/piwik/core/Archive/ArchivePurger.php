@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
  * @link https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -9,13 +9,11 @@
 namespace Piwik\Archive;
 
 use Piwik\ArchiveProcessor\Rules;
-use Piwik\Common;
 use Piwik\Config;
 use Piwik\Container\StaticContainer;
 use Piwik\DataAccess\ArchiveTableCreator;
 use Piwik\DataAccess\Model;
 use Piwik\Date;
-use Piwik\Db;
 use Piwik\Piwik;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -101,6 +99,9 @@ class ArchivePurger
             return 0;
         }
 
+        $emptyIdArchives = $this->model->getPlaceholderArchiveIds($numericTable);
+        $archiveIds = array_merge($archiveIds, $emptyIdArchives);
+
         $this->logger->info("Found {countArchiveIds} invalidated archives safe to delete in {table}.", array(
             'table' => $numericTable, 'countArchiveIds' => count($archiveIds)
         ));
@@ -138,10 +139,10 @@ class ArchivePurger
             $this->logger->debug("No outdated archives found in archive numeric table for {date}.", array('date' => $dateStart));
         }
 
-        $this->logger->debug("Purging temporary archives: done [ purged archives older than {date} in {yearMonth} ] [Deleted IDs: {deletedIds}]", array(
+        $this->logger->debug("Purging temporary archives: done [ purged archives older than {date} in {yearMonth} ] [Deleted IDs count: {deletedIds}]", array(
             'date' => $purgeArchivesOlderThan,
             'yearMonth' => $dateStart->toString('Y-m'),
-            'deletedIds' => implode(',', $idArchivesToDelete)
+            'deletedIds' => count($idArchivesToDelete),
         ));
 
         return $deletedRowCount;
@@ -190,8 +191,8 @@ class ArchivePurger
                 )
             );
 
-            $this->logger->debug("[Deleted IDs: {deletedIds}]", array(
-                'deletedIds' => implode(',', $idArchivesToDelete)
+            $this->logger->debug("[Deleted IDs count: {deletedIds}]", array(
+                'deletedIds' => count($idArchivesToDelete),
             ));
         } else {
             $this->logger->debug(

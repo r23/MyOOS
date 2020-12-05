@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
  * @link https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -20,6 +20,7 @@ use Piwik\Filesystem;
 use Piwik\FrontController;
 use Piwik\Http;
 use Piwik\Option;
+use Piwik\Piwik;
 use Piwik\Plugin\Manager as PluginManager;
 use Piwik\Plugin\ReleaseChannels;
 use Piwik\Plugins\CorePluginsAdmin\PluginInstaller;
@@ -182,10 +183,10 @@ class Updater
             return $messages;
         }
 
-        if (empty($newVersion)) {
+        if (!isset($newVersion)) {
             $newVersion = Version::VERSION;
         }
-
+        
         // we also need to make sure to create a new instance here as otherwise we would change the "global"
         // environment, but we only want to change piwik version temporarily for this task here
         $environment = StaticContainer::getContainer()->make('Piwik\Plugins\Marketplace\Environment');
@@ -299,7 +300,7 @@ class Updater
         foreach ($plugins as $plugin) {
             $plugin->reloadPluginInformation();
         }
-
+        
         $incompatiblePlugins = $this->getIncompatiblePlugins($version);
         $disabledPluginNames = array();
 

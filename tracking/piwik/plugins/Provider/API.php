@@ -1,15 +1,15 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Provider;
 
 use Piwik\Archive;
-use Piwik\Metrics;
 use Piwik\Piwik;
 
 /**
@@ -27,17 +27,19 @@ class API extends \Piwik\Plugin\API
     public function getProvider($idSite, $period, $date, $segment = false)
     {
         Piwik::checkUserHasViewAccess($idSite);
-        $archive = Archive::build($idSite, $period, $date, $segment);
+        $archive   = Archive::build($idSite, $period, $date, $segment);
         $dataTable = $archive->getDataTable(Archiver::PROVIDER_RECORD_NAME);
-        $dataTable->filter('ColumnCallbackAddMetadata', array('label', 'url', __NAMESPACE__ . '\getHostnameUrl'));
-        $dataTable->filter('GroupBy', array('label', __NAMESPACE__ . '\getPrettyProviderName'));
-        $dataTable->filter('AddSegmentValue', array(function ($label) {
-            if ($label === Piwik::translate('General_Unknown')) {
-                return '';
-            }
+        $dataTable->filter('ColumnCallbackAddMetadata', ['label', 'url', __NAMESPACE__ . '\getHostnameUrl']);
+        $dataTable->filter('GroupBy', ['label', __NAMESPACE__ . '\getPrettyProviderName']);
+        $dataTable->filter('AddSegmentValue', [
+            function ($label) {
+                if ($label === Piwik::translate('General_Unknown')) {
+                    return '';
+                }
 
-            return $label;
-        }));
+                return $label;
+            },
+        ]);
         $dataTable->queueFilter('ReplaceColumnNames');
         $dataTable->queueFilter('ReplaceSummaryRowLabel');
         return $dataTable;

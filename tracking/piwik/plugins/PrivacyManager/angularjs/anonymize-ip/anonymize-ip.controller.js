@@ -1,7 +1,7 @@
 /*!
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 (function () {
@@ -22,6 +22,8 @@
                 anonymizeIPEnable: this.enabled ? '1' : '0',
                 anonymizeUserId: this.anonymizeUserId ? '1' : '0',
                 anonymizeOrderId: this.anonymizeOrderId ? '1' : '0',
+                forceCookielessTracking: this.forceCookielessTracking ? '1' : '0',
+                anonymizeReferrer: this.anonymizeReferrer ? this.anonymizeReferrer : '',
                 maskLength: this.maskLength,
                 useAnonymizedIpForVisitEnrichment: parseInt(this.useAnonymizedIpForVisitEnrichment, 10) ? '1' : '0'
             }).then(function (success) {

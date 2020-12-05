@@ -69,7 +69,6 @@
         "SuperUserSetupSuccess": "Konto Super Użytkownika utworzono pomyślnie!",
         "SystemCheck": "Sprawdzenie systemu",
         "SystemCheckAutoUpdateHelp": "Uwaga: automatyczna aktualizacja statystyk Matomo wymaga praw do zapisu w folderze Matomo i w jego podkatalogach.",
-        "SystemCheckCreateFunctionHelp": "Matomo używa funkcji anonimowych dla wywołań zwrotnych.",
         "SystemCheckDatabaseExtensions": "Rozszerzenia MySQL",
         "SystemCheckDatabaseHelp": "Do prawidłowego działania Matomo wymaga rozszerzenia mysqli lub jednocześnie działających rozszerzeń PDO i pdo_mysql.",
         "SystemCheckDatabaseSSL": "Połączenie SSL z bazą danych",
@@ -92,7 +91,6 @@
         "SystemCheckGzuncompressHelp": "Musisz włączyć rozszerzenie zlib i funkcję gzuncompress.",
         "SystemCheckHashHelp": "Musisz skonfigurować i przebudować swoją instalację PHP usuwając opcję --disable-hash, aby włączyć wsparcie dla funkcji hash().",
         "SystemCheckIconvHelp": "Potrzebujesz skonfigurować i przebudować środowisko PHP, z włączonym wsparciem dla \"iconv\", --with-iconv.",
-        "SystemCheckJsonHelp": "Rozszeżenie php5-json jest wymagane przez Matomo do odczytywania i zapisywania danych w formacie JSON.",
         "SystemCheckMailHelp": "Informacje zwrotne i wiadomości odzyskiwania hasła nie będą wysyłane bez funkcji mail().",
         "SystemCheckMbstring": "mbstring",
         "SystemCheckMemoryLimit": "Limit pamięci",
@@ -126,7 +124,6 @@
         "SystemCheckWriteDirs": "Katalogi z prawem do zapisu",
         "SystemCheckWriteDirsHelp": "Aby naprawić ten błąd w swoim systemie Linux, próbuj wpisać następującą komendę(y)",
         "SystemCheckZlibHelp": "Potrzebujesz skonfigurować i przebudować środowisko PHP, z włączonym wsparciem dla \"zlib\", --with-zlib.",
-        "SystemCheckCronArchiveProcess": "Cron archiwizujący",
         "SystemCheckCronArchiveProcessCLI": "Zarządzaj procesami z wiersza poleceń",
         "SystemCheckPhpSetting": "Aby zapobiec kilku krytycznym problemom, musisz skonfigurować php.ini zgodnie z tymi wytycznymi: %s",
         "SystemCheckUpdateHttps": "Aktualizacja przez HTTPS",
@@ -146,7 +143,6 @@
         "WelcomeHelp": "<p>Matomo to bezpłatne\/wolne statystyki dla stron www pozwalające Ci łatwo uzyskać informacje o Twoich odwiedzających.<\/p><p>Ten proces jest podzielony na %s proste kroki i zajmie około 5 minut.<\/p>",
         "WelcomeToCommunity": "Witamy w społeczności Matomo",
         "CannotConnectToDb": "Nie można połączyć się z bazą danych",
-        "CannotConnectToDbResolvingExplanation": "To może być sytuacja przejściowa, spróbuj %1$sodświeżyć stronę%2$s. Jeśli to nie rozwiąże sytuacji skontaktuj się ze swoim administratorem Matomo.",
-        "EmailPrivacyNotice": "Twój adres e-mail posłuży jedynie do wysyłki newslettera Matomo. Możesz zrezygnować w dowolnym momencie klikając link rezygnacji. Nie przekażemy Twojego adresu nikomu, ani nie użyjemy go w żadnym innym celu niż wysyłka newslettera Matomo. Przeczytaj naszą %1$spolitykę prywatności%2$s, aby poznać szczegóły."
+        "CannotConnectToDbResolvingExplanation": "To może być sytuacja przejściowa, spróbuj %1$sodświeżyć stronę%2$s. Jeśli to nie rozwiąże sytuacji skontaktuj się ze swoim administratorem Matomo."
     }
 }

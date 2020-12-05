@@ -69,7 +69,6 @@
         "SuperUserSetupSuccess": "スーパーユーザーの作成に成功しました！",
         "SystemCheck": "システムの確認",
         "SystemCheckAutoUpdateHelp": "注意： Matomo のワンクリックアップデートには、Matomo のフォルダとその内容に書き込み権限が必要となります。",
-        "SystemCheckCreateFunctionHelp": "Matomo はコールバックに匿名関数を使用します。",
         "SystemCheckDatabaseExtensions": "MySQL 拡張モジュール",
         "SystemCheckDatabaseHelp": "Matomo には、mysqli エクステンションか、PDO と pdo_mysql エクステンションの両方の、どちらかが必要です。",
         "SystemCheckDatabaseSSL": "データベース SSL 接続",
@@ -92,7 +91,6 @@
         "SystemCheckGzuncompressHelp": "zlib エクステンションと gzuncompress機能を有効にする必要があります。",
         "SystemCheckHashHelp": "--disable-hash オプションを除外し、hash() サポートを有効にして PHP を設定して再構築する必要があります。",
         "SystemCheckIconvHelp": "\"iconv\" のサポートを有効にして、PHP の再構築と設定を行う必要があります（--with-iconv）。",
-        "SystemCheckJsonHelp": "JSON データの読取と書込には、Matomo に php5-json エクステンションが必要です。",
         "SystemCheckMailHelp": "mail() 関数がない場合、フィードバックとパスワード紛失のメッセージを送信することができません。",
         "SystemCheckMbstring": "mbstring",
         "SystemCheckMbstringHelp": "mbstring 拡張子は、ユーザーインターフェイスと API レスポンスでマルチバイト文字を処理するために必要です。 また、php.ini で mbstring.func_overload が \" 0 \" に設定されていることを確認してください。",
@@ -128,7 +126,6 @@
         "SystemCheckWriteDirs": "書き込み権限のあるディレクトリ",
         "SystemCheckWriteDirsHelp": "この Linux システムでこの問題を修正するには、次のコマンドを打ち込んでみてください",
         "SystemCheckZlibHelp": "\"zlib\" のサポートを有効にして、PHP の再構築と設定を行う必要があります（--with-zlib）。",
-        "SystemCheckCronArchiveProcess": "アーカイブ cron",
         "SystemCheckCronArchiveProcessCLI": "CLI を経由してプロセス管理する",
         "SystemCheckPhpSetting": "いくつかの重大な問題を防ぐためには、php.ini ファイルで以下を設定する必要があります: %s　",
         "SystemCheckUpdateHttps": "HTTPS 経由で更新",
@@ -149,7 +146,6 @@
         "WelcomeHelp": "<p>Matomo は無料\/自由な Web 解析ソフトウェアで、ビジターから必要な情報を簡単に取得することができます。<\/p> <p>このプロセスは%sの簡単なステップに分割され、約 5 分かかります。<\/p>",
         "WelcomeToCommunity": "Matomo コミュニティへようこそ！",
         "CannotConnectToDb": "データベースに接続できません",
-        "CannotConnectToDbResolvingExplanation": "これは一時的な問題の可能性があります。%1$srefreshing the page%2$s をお試しください。問題が続く場合、Matomo 管理者にお問い合わせください。",
-        "EmailPrivacyNotice": "あなたのメールアドレスは、Matomo ニュースレターの送信にのみ使用されます。 退会リンクをクリックすると、いつでも退会できます。 私たちはあなたのメールを他の人と共有したり、Matomo のニュースレターを送る以外の目的で使用したりしません。 詳細については、当社の%1$sプライバシーポリシー%2$sを参照してください。"
+        "CannotConnectToDbResolvingExplanation": "これは一時的な問題の可能性があります。%1$srefreshing the page%2$s をお試しください。問題が続く場合、Matomo 管理者にお問い合わせください。"
     }
 }

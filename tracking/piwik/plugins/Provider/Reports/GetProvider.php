@@ -1,11 +1,12 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Provider\Reports;
 
 use Piwik\Common;
@@ -20,11 +21,11 @@ class GetProvider extends Report
 {
     protected function init()
     {
-        $this->categoryId      = 'General_Visitors';
+        $this->categoryId    = 'General_Visitors';
         $this->dimension     = new Provider();
         $this->name          = Piwik::translate('Provider_ColumnProvider');
         $this->documentation = Piwik::translate('Provider_ProviderReportDocumentation', '<br />');
-        $this->order = 50;
+        $this->order         = 50;
 
         $this->subcategoryId = 'UserCountry_SubmenuLocations';
     }
@@ -41,10 +42,10 @@ class GetProvider extends Report
         $view->config->addTranslation('label', $this->dimension->getName());
 
         $message = Piwik::translate("General_Note") . ': ' . Piwik::translate('Provider_ProviderReportFooter', '');
-        if (! Common::getRequestVar('disableLink', 0, 'int')) {
+        if (!Common::getRequestVar('disableLink', 0, 'int')) {
             $message .= ' ' . Piwik::translate(
                     'General_SeeThisFaq',
-                    array('<a href="https://matomo.org/faq/general/faq_52/" rel="noreferrer noopener" target="_blank">', '</a>')
+                    ['<a href="https://matomo.org/faq/general/faq_52/" rel="noreferrer noopener" target="_blank">', '</a>']
                 );
         }
         $view->config->show_footer_message = $message;

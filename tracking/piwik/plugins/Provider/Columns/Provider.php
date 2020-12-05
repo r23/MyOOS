@@ -1,22 +1,23 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Provider\Columns;
 
+use Matomo\Network\IP;
+use Matomo\Network\IPUtils;
 use Piwik\Common;
-use Piwik\Network\IP;
-use Piwik\Network\IPUtils;
 use Piwik\Plugin\Dimension\VisitDimension;
+use Piwik\Plugins\PrivacyManager\Config as PrivacyManagerConfig;
+use Piwik\Plugins\Provider\Provider as ProviderPlugin;
 use Piwik\Tracker\Action;
 use Piwik\Tracker\Request;
 use Piwik\Tracker\Visitor;
-use Piwik\Plugins\PrivacyManager\Config as PrivacyManagerConfig;
-use Piwik\Plugins\Provider\Provider as ProviderPlugin;
 
 class Provider extends VisitDimension
 {
@@ -29,8 +30,8 @@ class Provider extends VisitDimension
     protected $type = self::TYPE_TEXT;
 
     /**
-     * @param Request $request
-     * @param Visitor $visitor
+     * @param Request     $request
+     * @param Visitor     $visitor
      * @param Action|null $action
      * @return mixed
      */
@@ -64,18 +65,16 @@ class Provider extends VisitDimension
             return false;
         }
 
-        $hostname = $this->getHost($ip);
+        $hostname          = $this->getHost($ip);
         $hostnameExtension = ProviderPlugin::getCleanHostname($hostname);
 
         // add the provider value in the table log_visit
-        $locationProvider = substr($hostnameExtension, 0, 100);
-
-        return $locationProvider;
+        return substr($hostnameExtension, 0, 200);
     }
 
     public function getRequiredVisitFields()
     {
-        return array('location_ip');
+        return ['location_ip'];
     }
 
     /**

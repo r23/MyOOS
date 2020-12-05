@@ -1,10 +1,10 @@
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
  * DataTable UI class for JqplotGraph/Evolution.
  *
  * @link http://www.jqplot.com
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  */
 
@@ -114,7 +114,7 @@
 
                         var seriesColor = self.jqplotParams.seriesColors[d];
 
-                        dataByAxis[axis].push('<span class="tooltip-series-color" style="background-color: ' + seriesColor + ';"/>' + '<strong>' + value + '</strong> ' + piwikHelper.htmlEntities(series));
+                        dataByAxis[axis].push('<span class="tooltip-series-color" style="background-color: ' + seriesColor + ';"></span>' + '<strong>' + value + '</strong> ' + piwikHelper.htmlEntities(series));
                     }
 
                     var xAxisCount = 0;

@@ -1,14 +1,14 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link http://piwik.org
+ * @link https://matomo.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL v3 or later
  *
  */
-namespace Piwik\Cache\Backend;
+namespace Matomo\Cache\Backend;
 
-use Piwik\Cache\Backend;
+use Matomo\Cache\Backend;
 
 /**
  * TODO: extend Doctrine ChainCache as soon as available
@@ -40,6 +40,7 @@ class Chained implements Backend
         foreach ($this->backends as $key => $backend) {
             $value = $backend->doFetch($id);
             if ($value !== false) {
+
                 // EG If chain is ARRAY => REDIS => DB and we find result in DB we will update REDIS and ARRAY
                 for ($subKey = $key - 1 ; $subKey >= 0 ; $subKey--) {
                     $this->backends[$subKey]->doSave($id, $value, 300); // TODO we should use the actual TTL here

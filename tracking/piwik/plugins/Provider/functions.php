@@ -1,17 +1,17 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Matomo - free/libre analytics platform
  *
- * @link https://matomo.org
+ * @link    https://matomo.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
+
 namespace Piwik\Plugins\Provider;
 
 use Piwik\Common;
 use Piwik\DataTable;
 use Piwik\Piwik;
-use Zend_Validate_Hostname as HostnameValidator;
 
 /**
  * Return hostname portion of a domain name
@@ -24,7 +24,7 @@ function getHostnameName($in)
     if (empty($in) || strtolower($in) === 'ip') {
         return Piwik::translate('General_Unknown');
     }
-    if (($positionDot = strpos($in, '.')) !== false) {
+    if (strpos($in, ' ') === false && ($positionDot = strpos($in, '.')) !== false) {
         return ucfirst(substr($in, 0, $positionDot));
     }
     return $in;
@@ -41,10 +41,9 @@ function getHostnameUrl($in)
     if ($in == DataTable::LABEL_SUMMARY_ROW || empty($in) || strtolower($in) === 'ip') {
         return null;
     }
-    
+
     // if the name is a valid hostname, return a URL - otherwise link to startpage
-    $validator = new HostnameValidator;
-    if ($validator->isValid($in)) {
+    if (filter_var($in, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME)) {
         return "http://" . $in . "/";
     } else {
         return "https://startpage.com/do/search?q=" . urlencode(getPrettyProviderName($in));

@@ -22,6 +22,10 @@
         "GoBackAndDefinePrefix": "返回并为 Matomo 数据表定义数据表前缀",
         "HappyAnalysing": "分析快乐！",
         "Installation": "安装",
+        "InformationalResults": "信息性结果",
+        "CopyBelowInfoForSupport": "如果我们的支持团队要求您提供此信息，请复制或下载以下信息。",
+        "CopySystemCheck": "复制系统检查",
+        "DownloadSystemCheck": "下载系统检查",
         "InstallationStatus": "安装状态",
         "InsufficientPrivilegesHelp": "您可以用类似 phpMyAdmin 的工具或自己运行合适的 SQL 语句，来添加权限。如果您不知道如何操作，请联系您的系统管理员帮忙设置权限。",
         "InsufficientPrivilegesMain": "要么数据库不存在（且无法创建），要么该账号权限不够。数据库账号必须具有以下权限: %s",
@@ -69,7 +73,6 @@
         "SuperUserSetupSuccess": "超级用户已创建成功！",
         "SystemCheck": "系统检查",
         "SystemCheckAutoUpdateHelp": "注意: Matomo 的一键更新功能必须要有 Matomo 文件夹及内容的写入权限。",
-        "SystemCheckCreateFunctionHelp": "Matomo 使用匿名函数用作回调。",
         "SystemCheckDatabaseExtensions": "MySQL 扩展",
         "SystemCheckDatabaseHelp": "Matomo 正常工作要么需要 mysqli 扩展，要么需要 PDO 及 pdo_mysql 两个扩展。",
         "SystemCheckDatabaseSSL": "数据库SSL连接",
@@ -92,7 +95,7 @@
         "SystemCheckGzuncompressHelp": "需要启用 zlib 扩展和 gzuncompress 功能。",
         "SystemCheckHashHelp": "您需要配置禁用 --disable-hash 参数并重新编译 PHP，以启用 hash() 支持。",
         "SystemCheckIconvHelp": "您需要配置使用 --with-iconv 参数并重新编译 PHP，来启用“iconv”支持。",
-        "SystemCheckJsonHelp": "Matomo 需要 php5-json 扩展来读写 JSON 数据。",
+        "SystemCheckJsonHelp": "Matomo需要php-json扩展名才能读取和写入JSON数据。",
         "SystemCheckMailHelp": "若沒有 mail()，意见反馈及忘记密码的信息将无法寄出。",
         "SystemCheckMbstring": "mbstring",
         "SystemCheckMbstringHelp": "需要mbstring扩展来处理用户界面和API响应中的多字节字符。 另外，请检查php.ini中的mbstring.func_overload是否设置为“0”。",
@@ -128,7 +131,8 @@
         "SystemCheckWriteDirs": "具有写入权限的文件夹",
         "SystemCheckWriteDirsHelp": "要在您的 GNU\/Linux 系统中修正这个错误，可以试试输入以下命令",
         "SystemCheckZlibHelp": "您需要设置 --with-zlib 并重新编译 PHP，以启用“zlib”支持。",
-        "SystemCheckCronArchiveProcess": "归档计划",
+        "SystemCheckCronArchiveProcess": "设定Cron",
+        "FasterReportLoading": "更快的报告加载",
         "SystemCheckCronArchiveProcessCLI": "通过 CLI 管理进程",
         "SystemCheckPhpSetting": "为预防某些严重问题，您必须在 php.ini 文件中加入如下几行：%s",
         "SystemCheckUpdateHttps": "通过 HTTPS 更新",
@@ -150,6 +154,8 @@
         "WelcomeToCommunity": "欢迎来到 Matomo 社区！",
         "CannotConnectToDb": "无法连接数据库",
         "CannotConnectToDbResolvingExplanation": "这可能是暂时的问题，试试%1$s刷新页面%2$s。如果问题仍然存在，请联系您的 Matomo 管理员。",
-        "EmailPrivacyNotice": "您的电子邮件地址仅用于向您发送Matomo新闻通讯。 您可以随时点击取消订阅链接取消订阅。 我们不会与其他任何人分享您的电子邮件，也不会将您的电子邮件用于向您发送Matomo简报以外的任何其他目的。 有关更多信息，请参阅我们的%1$sprivacy政策%2$s。"
+        "EmailPrivacyNotice": "您的电子邮件地址将仅用于向您发送新闻通讯。 为此，我们必须与第三方提供商共享您的电子邮件。 该提供者当前是Mad Mimi，但是将来可能会有所变化。 除了向您发送新闻稿之外，我们不会与其他任何人共享您的电子邮件或将您的电子邮件用于其他任何目的。 您可以随时取消订阅。 有关更多信息，请查阅我们的%1$s隐私政策%2$s。",
+        "PerformanceSettingsDesc1": "关于性能的最后一点说明：您的Matomo已设置好，可以跟踪和报告网站的流量，但是如果您发现Matomo速度较慢，则需要采取额外的步骤来设置 %1$sCLI归档%2$s。这将在以下位置生成报告 定期而不是按需提供背景信息。",
+        "PerformanceSettingsDesc2": "这需要向cron中添加Matomo命令，该命令无法由安装程序自动完成，但是您可以%1$s阅读我们的常见问题解答以了解如何自行设置。%2$s"
     }
 }
