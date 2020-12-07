@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-11-25 10:04:29+0000\n"
+"PO-Revision-Date: 2020-12-07 20:48:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -46,7 +46,7 @@ msgstr "%1$s wurde fehlerhaft aufgerufen. %2$s %3$s"
 msgid "(This message was added in Contact Form 7 version %s.)"
 msgstr "(Dieser Hinweis wurde in Contact&nbsp;Form&nbsp;7 Version&nbsp;%s hinzugefügt.)"
 
-#: modules/flamingo.php:275 includes/special-mail-tags.php:22
+#: modules/flamingo.php:285 includes/special-mail-tags.php:22
 #: includes/special-mail-tags.php:97 includes/special-mail-tags.php:164
 #: includes/special-mail-tags.php:206
 msgid "The fourth parameter ($mail_tag) must be an instance of the WPCF7_MailTag class."
@@ -197,7 +197,7 @@ msgid "Setup Integration"
 msgstr "Integration konfigurieren"
 
 #: modules/constant-contact.php:490
-msgid "Constant Contact Integration"
+msgid "Constant Contact integration"
 msgstr "Integration von Constant Contact"
 
 #: modules/constant-contact.php:486
@@ -213,7 +213,7 @@ msgid "Constant Contact"
 msgstr "Constant Contact"
 
 #: modules/constant-contact.php:9
-msgid "Email Marketing"
+msgid "Email marketing"
 msgstr "E-Mail-Marketing"
 
 #: includes/config-validator.php:649
@@ -1548,6 +1548,6 @@ msgid "Contact"
 msgstr "Formulare"
 
 #. Plugin Name of the plugin
-#: modules/flamingo.php:191 admin/admin.php:21 includes/block-editor/index.js:1
+#: modules/flamingo.php:201 admin/admin.php:21 includes/block-editor/index.js:1
 msgid "Contact Form 7"
 msgstr "Contact Form 7"
