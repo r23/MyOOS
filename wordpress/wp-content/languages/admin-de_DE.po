@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.5.x - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-11-18 15:16:12+0000\n"
+"PO-Revision-Date: 2020-12-08 21:50:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,7 +17,7 @@ msgstr "Repariere und optimiere die Datenbank"
 
 #: wp-admin/maint/repair.php:168
 msgid "WordPress can also attempt to optimize the database. This improves performance in some situations. Repairing and optimizing the database can take a long time and the database will be locked while optimizing."
-msgstr "WordPress kann versuchen, die Datenbank zu optimieren. In einigen Situationen kann das die Website beschleunigen. Die Datenbank zu reparieren und zu optimieren, kann längere Zeit dauern, in der die Datenbank nicht erreichbar ist."
+msgstr "WordPress kann versuchen, die Datenbank zu optimieren. In einigen Situationen kann das die Website beschleunigen. Das Reparieren und Optimieren der Datenbank kann längere Zeit dauern. In dieser Zeit ist die Datenbank nicht erreichbar."
 
 #: wp-admin/maint/repair.php:167
 msgid "Repair Database"
@@ -894,7 +894,7 @@ msgstr "Du kannst die Beitragsliste nach Beitragsstatus filtern, indem du die Te
 
 #: wp-admin/edit.php:243
 msgid "You can hide/display columns based on your needs and decide how many posts to list per screen using the Screen Options tab."
-msgstr "Über &#8222;Ansicht anpassen&#8220; kannst du Spalten aus- oder einblenden, sowie die Anzahl der angezeigten Beiträge ändern."
+msgstr "Du kannst – basierend auf deinen Bedürfnissen – mit Hilfe des Tabs „Ansicht anpassen“ Spalten aus- oder einblenden und entscheiden, wie viele Beiträge pro Ansicht gelistet werden."
 
 #: wp-admin/edit.php:241
 msgid "You can customize the display of this screen&#8217;s contents in a number of ways:"
@@ -934,7 +934,7 @@ msgstr "Geheimnisvolle Person"
 
 #: wp-admin/options-discussion.php:270
 msgid "For users without a custom avatar of their own, you can either display a generic logo or a generated one based on their email address."
-msgstr "Für Benutzer, die selbst keinen eigenen, individuellen Avatar haben, kann wahlweise ein allgemeines Logo oder ein auf Basis der E-Mail-Adresse erzeugter Avatar angezeigt werden."
+msgstr "Für Benutzer, die keinen eigenen, individuellen Avatar haben, kann wahlweise ein allgemeines Logo oder ein auf Basis der E-Mail-Adresse erzeugter Avatar angezeigt werden."
 
 #: wp-admin/options-discussion.php:266 wp-admin/options-discussion.php:267
 msgid "Default Avatar"
@@ -2462,7 +2462,7 @@ msgstr "<strong>Veröffentlichen</strong> &ndash; Du kannst die Konditionen zur 
 
 #: wp-admin/edit-form-advanced.php:372
 msgid "Several boxes on this screen contain settings for how your content will be published, including:"
-msgstr "Einige Boxen in dieser Ansicht enthalten Einstellungen dafür, wie der Inhalt veröffentlicht wird. Das betrifft: "
+msgstr "Einige Boxen in dieser Ansicht enthalten Einstellungen dafür, wie der Inhalt veröffentlicht wird. Das betrifft:"
 
 #: wp-admin/edit-form-advanced.php:365
 msgid "Inserting Media"
@@ -2715,7 +2715,7 @@ msgstr "Alle über die Oberfläche von WordPress hochgeladenen Dateien werden in
 #. translators: %s: List view URL.
 #: wp-admin/upload.php:102
 msgid "The grid view for the Media Library requires JavaScript. <a href=\"%s\">Switch to the list view</a>."
-msgstr "Die Raster-Ansicht der Mediathek benötigt JavaScript. <a href=\"%s\">Zur Listenansicht wechseln</a>"
+msgstr "Die Raster-Ansicht der Mediathek benötigt JavaScript. <a href=\"%s\">Zur Listenansicht wechseln</a>."
 
 #: wp-admin/upload.php:75 wp-admin/upload.php:252
 msgid "<a href=\"https://wordpress.org/support/article/media-library-screen/\">Documentation on Media Library</a>"
@@ -3367,7 +3367,7 @@ msgstr "Falls du weitere Plugins installieren möchtest, kannst du auf den Butto
 
 #: wp-admin/plugins.php:546
 msgid "The search for installed plugins will search for terms in their name, description, or author."
-msgstr "Die Suche nach installierte Plugins beinhaltet die Suche in deren Namen, Beschreibung oder Autor."
+msgstr "Die Suche nach installierten Plugins sucht nach Begriffen in deren Namen, in der Beschreibung oder sucht nach Autor."
 
 #: wp-admin/plugins.php:545
 msgid "Plugins extend and expand the functionality of WordPress. Once a plugin is installed, you may activate it or deactivate it here."
@@ -3434,7 +3434,7 @@ msgstr "Du bist dabei, das folgende Plugin zu entfernen:"
 
 #: wp-admin/plugins.php:342
 msgid "This plugin may be active on other sites in the network."
-msgstr "Dieses Plugin könnte noch auf anderen Seiten dieses Netzwerks aktiv sein."
+msgstr "Dieses Plugin könnte noch auf anderen Websites dieses Netzwerks aktiv sein."
 
 #: wp-admin/plugins.php:340
 msgid "Delete Plugin"
@@ -3481,7 +3481,7 @@ msgstr "<strong>Willkommen</strong> &ndash; Zeigt Links für einige der häufigs
 #. translators: %s: WordPress Planet URL.
 #: wp-admin/index.php:87
 msgid "<strong>WordPress Events and News</strong> &mdash; Upcoming events near you as well as the latest news from the official WordPress project and the <a href=\"%s\">WordPress Planet</a>."
-msgstr "<strong>WordPress-Veranstaltungen und Neuigkeiten</strong> &ndash; Beinhaltet kommende Veranstaltungen in deiner Nähe, sowie die neuesten Nachrichten aus dem offiziellen WordPress-Projekt und dem <a href=\"%s\">WordPress Planet</a>."
+msgstr "<strong>WordPress-Veranstaltungen und Neuigkeiten</strong> &ndash; Beinhaltet kommende Veranstaltungen in deiner Nähe sowie die neuesten Nachrichten aus dem offiziellen WordPress-Projekt und dem <a href=\"%s\">WordPress Planet</a>."
 
 #: wp-admin/index.php:82
 msgid "<strong>Quick Draft</strong> &mdash; Allows you to create a new post and save it as a draft. Also displays links to the 3 most recent draft posts you've started."
@@ -3489,7 +3489,7 @@ msgstr "<strong>Schneller Entwurf</strong> &ndash; Ermöglicht dir, neue Beiträ
 
 #: wp-admin/index.php:79
 msgid "<strong>Activity</strong> &mdash; Shows the upcoming scheduled posts, recently published posts, and the most recent comments on your posts and allows you to moderate them."
-msgstr "<strong>Aktivität</strong> &ndash; Zeigt anstehende, geplante und vor kurzem veröffentlichte Beiträge, sowie die neuesten Kommentare auf deine Beiträge und ermöglicht dir, diese zu moderieren."
+msgstr "<strong>Aktivität</strong> &ndash; Zeigt anstehende, geplante und vor kurzem veröffentlichte Beiträge sowie die neuesten Kommentare auf deine Beiträge und ermöglicht dir, diese zu moderieren."
 
 #: wp-admin/index.php:76
 msgid "<strong>At A Glance</strong> &mdash; Displays a summary of the content on your site and identifies which theme and version of WordPress you are using."
@@ -3640,7 +3640,7 @@ msgstr "Administratoren haben vollen Zugriff auf alle administrativen Funktionen
 
 #: wp-admin/user-new.php:260
 msgid "Editors can publish posts, manage posts as well as manage other people&#8217;s posts, etc."
-msgstr "Redakteure können Beiträge und Seiten veröffentlichen und verwalten, und auch die Beiträge, Seiten etc. von anderen Benutzern verwalten."
+msgstr "Redakteure können Beiträge und Seiten veröffentlichen und verwalten sowie auch die Beiträge, Seiten etc. von anderen Benutzern verwalten."
 
 #: wp-admin/user-new.php:259
 msgid "Authors can publish and manage their own posts, and are able to upload files."
@@ -4388,7 +4388,7 @@ msgstr "Wähle ein Menü zum Bearbeiten:"
 
 #: wp-admin/nav-menus.php:845 wp-admin/nav-menus.php:910
 msgid "Click the Save Menu button to save your changes."
-msgstr "Den Menü-Button „Speichern“ klicken, um die Änderungen zu speichern."
+msgstr "Klicke den Button „Menü speichern“, um die Änderungen zu speichern."
 
 #. translators: %s: URL to create a new menu.
 #: wp-admin/nav-menus.php:833
@@ -4845,7 +4845,7 @@ msgstr "Pluginreaktivierung"
 
 #: wp-admin/theme-editor.php:377 wp-admin/plugin-editor.php:331
 msgid "I understand"
-msgstr "Ich verstehe"
+msgstr "Verstanden"
 
 #: wp-admin/theme-editor.php:373
 msgid "If you decide to go ahead with direct edits anyway, use a file manager to create a copy with a new name and hang on to the original. That way, you can re-enable a functional version if something goes wrong."
@@ -5194,7 +5194,7 @@ msgstr "Der Website-URL und der WordPress-URL können sowohl gleich (example.com
 
 #: wp-admin/options-general.php:27
 msgid "Most themes display the site title at the top of every page, in the title bar of the browser, and as the identifying name for syndicated feeds. The tagline is also displayed by many themes."
-msgstr "Der Titel der Website ist wichtig, da er zum Beispiel in der Titelleiste des Browsers und auch meist direkt auf der Startseite sowie in Newsfeeds angezeigt wird. Der Untertitel (eine weitere Beschreibung der Seite) wird ebenfalls von vielen Themes angezeigt. Sowohl Titel als auch Beschreibung sollten im Hinblick auf die Darstellung in Suchmaschinen, sinnvoll gewählt werden."
+msgstr "Der Titel der Website ist wichtig, da er zum Beispiel in der Titelleiste des Browsers und auch meist direkt auf der Startseite sowie in Newsfeeds angezeigt wird. Der Untertitel wird ebenfalls von vielen Themes angezeigt."
 
 #: wp-admin/options-general.php:26
 msgid "The fields on this screen determine some of the basics of your site setup."
@@ -5284,7 +5284,7 @@ msgstr "<a href=\"https://codex.wordpress.org/Dashboard_My_Sites_Screen\">Dokume
 
 #: wp-admin/my-sites.php:45
 msgid "This screen shows an individual user all of their sites in this network, and also allows that user to set a primary site. They can use the links under each site to visit either the front end or the dashboard for that site."
-msgstr "In dieser Ansicht werden einem Benutzer alle Websites angezeigt, auf die er in diesem Netzwerk Zugriff hat. Des Weiteren kann hier eine Website als primäre Website (auch: Haupt-Website) festgelegt werden. Die Links unter jeder Website ermöglichen den Zugriff auf das Dashboard oder Frontend der jeweiligen Website."
+msgstr "In dieser Ansicht werden einem Benutzer alle Websites in diesem Netzwerk angezeigt und dieser Benutzer kann hier auch eine primäre Website (auch: Haupt-Website) festlegen. Die Links unter jeder Website ermöglichen den Zugriff auf das Dashboard oder das Frontend der jeweiligen Website."
 
 #: wp-admin/my-sites.php:33
 msgid "The primary site you chose does not exist."
@@ -6851,7 +6851,7 @@ msgstr "Das Plugin-Verzeichnis von WordPress kann nicht gefunden werden."
 
 #: wp-admin/includes/class-wp-upgrader.php:153
 msgid "Unable to locate WordPress content directory (wp-content)."
-msgstr "Das Inhalts-Verzeichnis von WordPress (wp-content) kann nicht gefunden werden."
+msgstr "Das Verzeichnis für die WordPress-Inhalte (wp-content) kann nicht gefunden werden."
 
 #: wp-admin/includes/class-wp-upgrader.php:152
 msgid "Unable to locate WordPress root directory."
@@ -6865,7 +6865,7 @@ msgstr "Ungültige Daten eingegeben."
 #: wp-admin/includes/deprecated.php:1382
 msgctxt "plugin"
 msgid "Install %s"
-msgstr "%s installieren "
+msgstr "%s installieren"
 
 #: wp-admin/includes/deprecated.php:1379
 msgid "Popular Plugin"
@@ -7508,8 +7508,8 @@ msgstr[1] "%d Sterne"
 #: wp-admin/includes/plugin-install.php:741
 msgid "Reviews with %1$d star: %2$s. Opens in a new tab."
 msgid_plural "Reviews with %1$d stars: %2$s. Opens in a new tab."
-msgstr[0] "Bewertungen mit %1$d Stern: %2$s. Wird in neuem Fenster geöffnet."
-msgstr[1] "Bewertungen mit %1$d Sternen: %2$s. Wird in neuem Fenster geöffnet."
+msgstr[0] "Bewertungen mit %1$d Stern: %2$s. Wird in neuem Tab geöffnet."
+msgstr[1] "Bewertungen mit %1$d Sternen: %2$s. Wird in neuem Tab geöffnet."
 
 #: wp-admin/includes/plugin-install.php:733
 msgid "Read all reviews on WordPress.org or write your own!"
@@ -7700,7 +7700,7 @@ msgstr "Vorschau %s"
 #: wp-admin/theme-install.php:386
 msgctxt "theme"
 msgid "Install %s"
-msgstr "%s installieren "
+msgstr "%s installieren"
 
 #: wp-admin/includes/class-wp-theme-install-list-table.php:316
 #: wp-admin/includes/class-wp-theme-install-list-table.php:474
@@ -8208,7 +8208,7 @@ msgstr "<strong><em>Notiere dir bitte das Passwort!</em></strong> Dies ist ein <
 
 #: wp-admin/includes/import.php:227
 msgid "Import posts, pages, comments, custom fields, categories, and tags from a WordPress export file."
-msgstr "Beiträge, Seiten, Kommentare, individuelle Felder, Kategorien und Tags aus einer WordPress-Export-Datei importieren."
+msgstr "Beiträge, Seiten, Kommentare, individuelle Felder, Kategorien und Schlagwörter aus einer WordPress-Export-Datei importieren."
 
 #: wp-admin/includes/import.php:221
 msgid "Import posts &amp; media from Tumblr using their API."
@@ -8547,7 +8547,7 @@ msgstr "MySQL-utf8mb4-Unterstützung"
 
 #: wp-admin/includes/class-wp-site-health.php:2118
 msgid "Database Server version"
-msgstr "Datenbankserver-Version"
+msgstr "Datenbank-Server-Version"
 
 #: wp-admin/includes/class-wp-site-health.php:2114
 msgid "PHP Sessions"
@@ -9993,7 +9993,7 @@ msgstr "Datei-URL"
 
 #: wp-admin/includes/media.php:984
 msgid "Invalid image URL."
-msgstr "Ungültige Bild-URL"
+msgstr "Ungültige Bild-URL."
 
 #: wp-admin/includes/media.php:518
 msgid "Uploads"
@@ -11281,7 +11281,7 @@ msgstr "Anleitung zur Datenschutzerklärung anzeigen."
 
 #: wp-admin/includes/class-wp-privacy-policy-content.php:330
 msgid "Need help putting together your new Privacy Policy page? Check out our guide for recommendations on what content to include, along with policies suggested by your plugins and theme."
-msgstr "Brauchst du Hilfe beim Zusammenstellen deiner neuen Seite zur Datenschutzerklärung? Informiere dich in unserem Leitfaden über Empfehlungen zu den zu integrierenden Inhalten, sowie über die von deinen Plugins und deinem Theme vorgeschlagenen Richtlinien."
+msgstr "Brauchst du Hilfe beim Zusammenstellen deiner neuen Seite zur Datenschutzerklärung? Informiere dich in unserem Leitfaden über Empfehlungen zu den zu integrierenden Inhalten sowie über die von deinen Plugins und deinem Theme vorgeschlagenen Richtlinien."
 
 #. translators: %s: Privacy Policy Guide URL.
 #: wp-admin/includes/class-wp-privacy-policy-content.php:144
@@ -13100,7 +13100,7 @@ msgstr "Du kannst jetzt individuelle Hintergründe über den <a href=\"%s\">Cust
 #: wp-admin/includes/class-custom-background.php:226
 #: wp-admin/includes/theme.php:306
 msgid "Custom Background"
-msgstr "Hintergrund anpassen"
+msgstr "Individueller Hintergrund"
 
 #: wp-admin/includes/class-custom-background.php:99
 msgid "<a href=\"https://codex.wordpress.org/Appearance_Background_Screen\">Documentation on Custom Background</a>"
@@ -13363,7 +13363,7 @@ msgstr "Automatische Aktualisierungen deaktiviert"
 #: wp-admin/themes.php:682 wp-admin/js/updates.js:2900
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:777
 msgid "Auto-updates enabled"
-msgstr "Automatische Aktualisierung aktiviert"
+msgstr "Automatische Aktualisierungen aktiviert"
 
 #. translators: %s: Plugin version number.
 #. translators: %s: Theme version number.
@@ -13650,7 +13650,7 @@ msgstr "Lädt&#160;&hellip;"
 #. returned by the lookup.
 #: wp-admin/includes/class-wp-debug-data.php:424
 msgid "Unable to reach WordPress.org at %1$s: %2$s"
-msgstr "Es ist nicht möglich, WordPress.org unter %1$s zu erreichen: %2$s"
+msgstr "WordPress.org kann unter %1$s: %2$s nicht erreicht werden"
 
 #: wp-admin/includes/class-wp-debug-data.php:416
 msgid "WordPress.org is reachable"
@@ -14408,7 +14408,7 @@ msgstr "Du kannst über den Ansicht-anpassen-Tab festlegen, wie viele Elemente p
 
 #: wp-admin/edit-tags.php:291
 msgid "<strong>Description</strong> &mdash; The description is not prominent by default; however, some themes may display it."
-msgstr "<strong>Beschreibung</strong> &ndash; Die Beschreibung wird normalerweise nicht angezeigt. In manchen Themes kann das aber eventuell der Fall sein."
+msgstr "<strong>Beschreibung</strong> &ndash; Die Beschreibung wird standardmäßig nicht hervorgehoben; bei einigen Themes kann sie jedoch angezeigt werden."
 
 #: wp-admin/edit-tags.php:288
 msgid "<strong>Parent</strong> &mdash; Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have child categories for Bebop and Big Band. Totally optional. To create a subcategory, just choose another category from the Parent dropdown."
