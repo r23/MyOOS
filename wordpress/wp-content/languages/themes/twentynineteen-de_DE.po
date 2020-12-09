@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Nineteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-07-23 00:26:25+0000\n"
+"PO-Revision-Date: 2020-12-09 10:13:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,18 +16,142 @@ msgid "Our 2019 default theme is designed to show off the power of the block edi
 msgstr "Unser Standard-Theme für 2019 wurde entwickelt, um die Leistungsfähigkeit des Block-Editors zu präsentieren. Es bietet individuelle Styles für alle Standardblöcke und ist so aufgebaut, dass du das, was du im Editor siehst, auch genauso auf deiner Website sehen wirst. Twenty Nineteen wurde so konzipiert, dass es sich für eine Vielzahl von Websites anpassen lässt; egal ob du einen Fotoblog betreibst, ein neues Unternehmen startest oder eine gemeinnützige Organisation unterstützt. Mit viel Freiraum und modernen serifenlosen Überschriften, gepaart mit klassischem serifenbetontem Fließtext, ist es so gestaltet, dass es auf allen Bildschirmgrößen schön aussieht."
 
 #. Theme Name of the theme
+#: inc/block-patterns.php:20
 msgid "Twenty Nineteen"
 msgstr "Twenty Nineteen"
 
-#: classes/class-twentynineteen-walker-comment.php:96
-msgid "Your comment is awaiting moderation. This is a preview, your comment will be visible after it has been approved."
-msgstr "Dein Kommentar wartet auf Freigabe. Dies ist eine Vorschau, dein Kommentar wird nach der Moderation sichtbar sein."
+#: inc/block-patterns.php:195
+msgid "We help companies communicate with their customers."
+msgstr "Wir helfen Unternehmen bei der Kommunikation mit ihren Kunden."
 
-#: functions.php:153
+#: inc/block-patterns.php:195
+msgid "Spark interest on social media"
+msgstr "Interesse über sozialen Medien wecken"
+
+#: inc/block-patterns.php:192
+msgid "We help businesses grow."
+msgstr "Wir helfen Unternehmen zu wachsen."
+
+#: inc/block-patterns.php:192
+msgid "Activate new customers"
+msgstr "Neue Kunden aktivieren"
+
+#: inc/block-patterns.php:189
+msgid "We help startups define (or refine) a clear brand identity."
+msgstr "Wir helfen Startups, eine klare Marken-Identität zu definieren (oder zu verfeinern)."
+
+#: inc/block-patterns.php:189
+msgid "Redefine brands"
+msgstr "Marken neu definieren"
+
+#: inc/block-patterns.php:179 inc/block-patterns.php:186
+msgid "What We Do"
+msgstr "Was wir tun"
+
+#: inc/block-patterns.php:167
+msgid "Oddly enough, Doug Watson also grew up working alongside his parents at a family-owned restaurant in Queens, NY. He &nbsp;worked on digital campaigns for Fortune 500 Companies before joining Eva Green Consulting."
+msgstr "Interessanterweise wuchs auch Dirk Wodsen an der an der Seite seiner Eltern in einem Restaurant in Familienbesitz in Musterstadt aufwuchs. Er arbeitete an digitalen Kampagnen für Fortune-500-Unternehmen, bevor er zu Eva Jung Consulting kam."
+
+#: inc/block-patterns.php:164
+msgid "Doug Watson"
+msgstr "Dirk Wodsen"
+
+#: inc/block-patterns.php:159
+msgid "Eva Young grew up working alongside her parents at their restaurant in Queens, NY. She opened Eva Young Consulting in 2014 to help small businesses like her parents’ restaurant adapt to the digital age."
+msgstr "Eva Jung wuchs mit ihren Eltern in deren Restaurant in Musterstadt auf. Sie eröffnete Eva Jung Consulting im Jahr 2014, um kleine Unternehmen, wie beispielsweise das Restaurant ihrer Eltern, bei der Bewältigung diverser Herausforderungen des digitalen Zeitalters zu unterstützen."
+
+#: inc/block-patterns.php:156
+msgid "Eva Young"
+msgstr "Eva Jung"
+
+#: inc/block-patterns.php:145 inc/block-patterns.php:152
+msgid "Team"
+msgstr "Team"
+
+#: inc/block-patterns.php:131
+msgid "Content Strategy"
+msgstr "Content-Strategie"
+
+#: inc/block-patterns.php:126
+msgid "Copywriting"
+msgstr "Texterstellung"
+
+#: inc/block-patterns.php:121
+msgid "Marketing"
+msgstr "Marketing"
+
+#: inc/block-patterns.php:114
+msgid "Social Media"
+msgstr "Soziale Medien"
+
+#: inc/block-patterns.php:109
+msgid "Mobile"
+msgstr "Mobil"
+
+#: inc/block-patterns.php:104
+msgid "Website Design"
+msgstr "Website-Design"
+
+#: inc/block-patterns.php:103 inc/block-patterns.php:108
+#: inc/block-patterns.php:113 inc/block-patterns.php:120
+#: inc/block-patterns.php:125 inc/block-patterns.php:130
+#: inc/block-patterns.php:155 inc/block-patterns.php:163
+msgid "Gradient"
+msgstr "Farbverlauf"
+
+#: inc/block-patterns.php:92 inc/block-patterns.php:98
+msgid "Services"
+msgstr "Dienstleistungen"
+
+#: inc/block-patterns.php:80
+msgid "Contact Us"
+msgstr "Kontaktiere uns"
+
+#: inc/block-patterns.php:74
+msgid "example@example.com"
+msgstr "mail@beispiel.de"
+
+#: inc/block-patterns.php:74
+msgid "(555) 555-5555"
+msgstr "(+49) 123 - 44 55 77"
+
+#: inc/block-patterns.php:69
+msgid "New York, New York 10023"
+msgstr "20201 Großstadtbeispiel"
+
+#: inc/block-patterns.php:69
+msgid "20 Cooper Avenue"
+msgstr "Promenadenplatz 20"
+
+#: inc/block-patterns.php:58 inc/block-patterns.php:64
+msgid "Get In Touch"
+msgstr "Kontakt aufnehmen"
+
+#: inc/block-patterns.php:46
+msgid "Learn More"
+msgstr "Mehr erfahren"
+
+#: inc/block-patterns.php:42
+msgid "Eva Young Consulting was founded in 2014 to meet the needs of small businesses in the San Francisco Bay Area. We help startups define a clear brand identity and digital strategy that will carry them through their financing rounds and scale as their business grows. Discover how we can boost your brand with a unique and powerful digital marketing strategy."
+msgstr "Eva Jung Consulting wurde 2014 gegründet, um den Bedürfnissen von Kleinunternehmen in der Beispielgroßstadt gerecht zu werden. Wir unterstützen Startups bei der Definition einer klaren Markenidentität und einer digitalen Strategie, die sie durch ihre Finanzierungsrunden führen und mit dem Wachstum ihres Unternehmens skalieren können. Entdecke, wie wir deine Marke mit einer einzigartigen und leistungsstarken digitalen Marketingstrategie stärken können."
+
+#: inc/block-patterns.php:39
+msgid "Advocating for Businesses and Entrepreneurs since 2014"
+msgstr "Interessensvertretung für Unternehmen und Unternehmer seit 2014"
+
+#: inc/block-patterns.php:33
+msgid "About"
+msgstr "Über"
+
+#: classes/class-twentynineteen-walker-comment.php:98
+msgid "Your comment is awaiting moderation. This is a preview; your comment will be visible after it has been approved."
+msgstr "Dein Kommentar wartet auf Moderation. Dies ist eine Vorschau; dein Kommentar wird sichtbar, nachdem er freigegeben wurde."
+
+#: functions.php:154
 msgid "Dark Blue"
 msgstr "Dunkelblau"
 
-#: functions.php:148
+#: functions.php:149
 msgid "Blue"
 msgstr "Blau"
 
@@ -78,47 +202,47 @@ msgctxt "primary color"
 msgid "Default"
 msgstr "Standard"
 
-#: functions.php:168
+#: functions.php:169
 msgid "White"
 msgstr "Weiß"
 
-#: functions.php:163
+#: functions.php:164
 msgid "Light Gray"
 msgstr "Hellgrau"
 
-#: functions.php:158
+#: functions.php:159
 msgid "Dark Gray"
 msgstr "Dunkelgrau"
 
-#: functions.php:136
+#: functions.php:137
 msgid "XL"
 msgstr "XL"
 
-#: functions.php:135
+#: functions.php:136
 msgid "Huge"
 msgstr "Riesig"
 
-#: functions.php:130
+#: functions.php:131
 msgid "L"
 msgstr "L"
 
-#: functions.php:129
+#: functions.php:130
 msgid "Large"
 msgstr "Groß"
 
-#: functions.php:124
+#: functions.php:125
 msgid "M"
 msgstr "M"
 
-#: functions.php:123
+#: functions.php:124
 msgid "Normal"
 msgstr "Normal"
 
-#: functions.php:118
+#: functions.php:119
 msgid "S"
 msgstr "S"
 
-#: functions.php:117
+#: functions.php:118
 msgid "Small"
 msgstr "Klein"
 
@@ -135,11 +259,11 @@ msgstr "Vollständige Größe"
 msgid "Page"
 msgstr "Seite"
 
-#: functions.php:192
+#: functions.php:196
 msgid "Add widgets here to appear in your footer."
 msgstr "Füge hier Widgets hinzu, die in deinem Footer erscheinen sollen."
 
-#: functions.php:190 template-parts/footer/footer-widgets.php:12
+#: functions.php:194 template-parts/footer/footer-widgets.php:12
 msgid "Footer"
 msgstr "Footer"
 
@@ -358,16 +482,16 @@ msgstr "Schreibe einen Kommentar"
 msgid "Join the Conversation"
 msgstr "Beteilige dich an der Unterhaltung"
 
-#: classes/class-twentynineteen-walker-comment.php:94
+#: classes/class-twentynineteen-walker-comment.php:96
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Kommentar wartet auf Freigabe."
 
-#: classes/class-twentynineteen-walker-comment.php:87
+#: classes/class-twentynineteen-walker-comment.php:89
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #. translators: 1: Comment date, 2: Comment time.
-#: classes/class-twentynineteen-walker-comment.php:79
+#: classes/class-twentynineteen-walker-comment.php:78
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s"
 
