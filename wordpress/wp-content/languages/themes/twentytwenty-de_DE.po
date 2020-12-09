@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-12-09 11:19:47+0000\n"
+"PO-Revision-Date: 2020-12-09 17:45:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -56,15 +56,15 @@ msgstr "Hervorgehobener Inhalt"
 
 #: inc/block-patterns.php:128
 msgid "<em>Price</em><br>Included"
-msgstr "<em>Preis</em><br>Inklusive"
+msgstr "<em>Preis</em><br>inklusive"
 
 #: inc/block-patterns.php:123
 msgid "<em>Location</em><br>Exhibit Hall B"
-msgstr "<em>Ort</em><br>Ausstellungshalle B"
+msgstr "<em>Ort</em><br>Halle B"
 
 #: inc/block-patterns.php:118
 msgid "<em>Dates</em><br>Aug 1 — Dec 1"
-msgstr "<em>Datum</em><br>1. August – 1. Dezember"
+msgstr "<em>Datum</em><br>1. Aug. – 1. Dez."
 
 #: inc/block-patterns.php:108
 msgid "Event Details"
@@ -76,7 +76,7 @@ msgstr "Jetzt einkaufen"
 
 #: inc/block-patterns.php:89
 msgid "An awe-inspiring collection of books, prints, and gifts from our exhibitions."
-msgstr "Eine beeindruckende Sammlung von Büchern, Drucken und Geschenken aus unseren Ausstellungen."
+msgstr "Eine beeindruckende Sammlung an Büchern, Drucken und Geschenken aus unseren Ausstellungen."
 
 #: inc/block-patterns.php:86
 msgid "The Store"
