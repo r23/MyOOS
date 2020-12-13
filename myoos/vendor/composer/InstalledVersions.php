@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '518070d6df862f9ee8f65c98fd4d503be92f2156',
+    'reference' => 'b2a868f2d772995947efe7f4107d2a8d9eb6ef04',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -139,7 +139,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '518070d6df862f9ee8f65c98fd4d503be92f2156',
+      'reference' => 'b2a868f2d772995947efe7f4107d2a8d9eb6ef04',
     ),
     'paypal/rest-api-sdk-php' => 
     array (
@@ -224,12 +224,12 @@ private static $installed = array (
     ),
     'stripe/stripe-php' => 
     array (
-      'pretty_version' => 'v7.66.1',
-      'version' => '7.66.1.0',
+      'pretty_version' => 'v7.67.0',
+      'version' => '7.67.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a2ebaa272a8797b21e81afaf8d5ba0953ff15e13',
+      'reference' => '935d2c67912007f6d17b6c08a62050252c509129',
     ),
     'symfony/amazon-mailer' => 
     array (
