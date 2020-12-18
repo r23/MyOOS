@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-11-21 20:13:41+0000\n"
+"PO-Revision-Date: 2020-12-13 09:14:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - AMP - Stable (latest release)\n"
+
+#: includes/admin/class-amp-template-customizer.php:227
+msgid "While dark mode works on AMP pages, the toggle button is not currently available. It appears here only for preview purposes."
+msgstr "Während der Dark Mode auf AMP-Seiten funktioniert, ist der Umschalt-Button aktuell nicht verfügbar. Er erscheint hier nur für die Vorschau."
 
 #. translators: %s is the invalid attribute value
 #: includes/validation/class-amp-validation-error-taxonomy.php:3233
@@ -28,15 +32,9 @@ msgstr "Als geprüft markieren"
 msgid "AMP functionality is not available since your version of the Block Editor is too old. Please either update WordPress core to the latest version or activate the Gutenberg plugin. As a last resort, you may use the Classic Editor plugin instead."
 msgstr "AMP-Funktionen sind nicht verfügbar, da deine Version des Block-Editors zu alt ist. Aktualisiere entweder WordPress Core auf die aktuelle Version oder aktiviere das Gutenberg-Plugin. Als letzte Möglichkeit könntest du stattdessen das Plugin für den klassischen Editor verwenden."
 
-#. translators: 1: the current hook, 2: the wp action, 4: the WP_Query class,
-#. 4: the amp_skip_post() function
-#: includes/amp-helper-functions.php:438
-msgid "WordPress is currently doing the %1$s hook. Calling this function before the %2$s action means it will not have access to %3$s and the queried object to determine if it is an AMP response, thus neither the %4$s filter nor the AMP enabled toggle will be considered."
-msgstr "WordPress führt derzeit den Hook %1$s aus. Wenn diese Funktion vor der Aktion %2$s aufgerufen wird, hat sie keinen Zugriff auf %3$s und das abgefragte Objekt, um zu bestimmen, ob es sich um eine AMP-Antwort handelt. Somit werden weder der Filter %4$s noch der AMP-fähige Umschalter berücksichtigt."
-
 #. translators: 1: amp_is_available() function, 2: amp_is_request() function,
 #. 3: is_amp_endpoint() function
-#: includes/amp-helper-functions.php:430
+#: includes/amp-helper-functions.php:438
 msgid "%1$s (or %2$s, formerly %3$s) was called too early and so it will not work properly."
 msgstr "%1$s (oder %2$s, zuvor %3$s) wurde zu früh aufgerufen und funktioniert daher nicht ordnungsgemäß."
 
@@ -75,17 +73,17 @@ msgid "All Validated URLs"
 msgstr "Alle überprüften URLs"
 
 #. translators: placeholder is the slug of the theme
-#: includes/amp-helper-functions.php:459 src/DevTools/ErrorPage.php:278
+#: src/DevTools/ErrorPage.php:278 includes/amp-helper-functions.php:477
 msgid "It appears the theme with slug %s is responsible; please contact the author."
 msgstr "Anscheinend ist das Theme mit der Titelform %s verantwortlich; wende dich an den Autor."
 
 #. translators: placeholder is the slug of the must-use plugin
-#: includes/amp-helper-functions.php:455 src/DevTools/ErrorPage.php:274
+#: src/DevTools/ErrorPage.php:274 includes/amp-helper-functions.php:473
 msgid "It appears the must-use plugin with slug %s is responsible; please contact the author."
 msgstr "Anscheinend ist das Must-Use-Plugin mit der Titelform %s verantwortlich; wende dich an den Autor."
 
 #. translators: placeholder is the slug of the plugin
-#: includes/amp-helper-functions.php:451 src/DevTools/ErrorPage.php:270
+#: src/DevTools/ErrorPage.php:270 includes/amp-helper-functions.php:469
 msgid "It appears the plugin with slug %s is responsible; please contact the author."
 msgstr "Anscheinend ist das Plugin mit der Titelform %s verantwortlich; wende dich an den Autor."
 
@@ -117,49 +115,49 @@ msgstr "Die genauen Details des Fehlers sind aus Sicherheitsgründen versteckt. 
 msgid "Error:"
 msgstr "Fehler:"
 
-#: includes/admin/class-amp-post-meta-box.php:543
+#: includes/admin/class-amp-post-meta-box.php:587
 msgid "The AMP enabled status failed to be updated."
 msgstr "Der AMP-Aktivierungsstatus konnte nicht aktualisiert werden."
 
-#: includes/admin/class-amp-post-meta-box.php:526
+#: includes/admin/class-amp-post-meta-box.php:570
 msgid "Insufficient permissions to change whether AMP is enabled."
 msgstr "Du hast nicht die erforderlichen Berechtigungen, um AMP zu aktivieren."
 
 #. translators: %s: The name of the post type.
-#: includes/admin/class-amp-post-meta-box.php:516
+#: includes/admin/class-amp-post-meta-box.php:560
 msgid "AMP is not supported for the \"%s\" post type."
 msgstr "AMP wird für den Beitragstyp „%s“ nicht unterstützt."
 
 #. translators: %s is a link to the AMP settings screen
-#: includes/admin/class-amp-post-meta-box.php:390
+#: includes/admin/class-amp-post-meta-box.php:434
 msgid "This post type is not <a href=\"%s\" target=\"_blank\">enabled</a>."
 msgstr "Dieser Beitragstyp ist nicht <a href=\"%s\" target=\"_blank\">aktiviert</a>."
 
 #. translators: %s is a link to the AMP settings screen
-#: includes/admin/class-amp-post-meta-box.php:383
+#: includes/admin/class-amp-post-meta-box.php:427
 msgid "There are no <a href=\"%s\" target=\"_blank\">supported templates</a>."
 msgstr "Es gibt keine <a href=\"%s\" target=\"_blank\">unterstützten Templates</a>."
 
-#: includes/admin/class-amp-template-customizer.php:542
+#: includes/admin/class-amp-template-customizer.php:562
 msgid "You can import some settings from the primary Active theme into the corresponding Reader theme settings."
 msgstr "Du kannst einige Einstellungen von deinem primären aktiven Theme in das entsprechende Lesemodus-Theme importieren."
 
-#: includes/admin/class-amp-template-customizer.php:536
+#: includes/admin/class-amp-template-customizer.php:556
 msgctxt "theme"
 msgid "Import"
 msgstr "Import"
 
-#: includes/admin/class-amp-template-customizer.php:535
+#: includes/admin/class-amp-template-customizer.php:555
 msgid "Import settings"
 msgstr "Einstellungen importieren"
 
 #. translators: placeholder is URL to non-AMP Customizer.
-#: includes/admin/class-amp-template-customizer.php:355
+#: includes/admin/class-amp-template-customizer.php:375
 msgid "You are customizing the AMP version of your site. <a href=\"%s\">Customize non-AMP version</a>."
 msgstr "Du passt die AMP-Version deiner Website an. <a href=\"%s\">Die Nicht-AMP-Version anpassen</a>."
 
 #. translators: 1: URL to AMP project, 2: URL to admin settings screen
-#: includes/admin/class-amp-template-customizer.php:274
+#: includes/admin/class-amp-template-customizer.php:294
 msgid "While <a href=\"%1$s\" target=\"_blank\">AMP</a> works well on both desktop and mobile pages, your site is <a href=\"%2$s\" target=\"_blank\">currently configured</a> in Reader mode to serve AMP pages to mobile visitors. These settings customize the experience for these users."
 msgstr "Während <a href=\"%1$s\" target=\"_blank\">AMP</a> sowohl am Desktop als auch für mobile Seiten problemlos funktioniert, ist deine Website <a href=\"%2$s\" target=\"_blank\">aktuell im Lesemodus konfiguriert</a>, um mobilen Besuchern AMP-Seiten auszuliefern. Diese Einstellungen passen die Erfahrung für diese Benutzer an."
 
@@ -351,7 +349,7 @@ msgid "The AMP plugin no longer allows `amp_supportable_templates` filters to sp
 msgstr "Das AMP-Plugin erlaubt nicht länger, dass die Template-Unterstützung per „amp_supportable_templates“ auf „supported“ gestellt werden. Das wird nun über die AMP-Einstellungen verwaltet."
 
 #: includes/templates/amp-enabled-classic-editor-toggle.php:44
-#: assets/js/amp-block-editor.js:15
+#: assets/js/amp-block-editor.js:25
 msgid "AMP Unavailable"
 msgstr "AMP nicht verfügbar"
 
@@ -362,18 +360,18 @@ msgid "The AMP Reader theme %1$s cannot be found. Your site is currently falling
 msgstr "Das AMP-Lesemodus-Theme %1$s konnte nicht gefunden werden. Deine Website greift aktuell auf die Legacy-Templates für AMP-Seiten zurück. Bitte <a href=\"%2$s\">wähle</a> das gewünschte Lesemodus-Theme erneut aus."
 
 #. translators: %s: $post
-#: includes/amp-helper-functions.php:1485
+#: includes/amp-helper-functions.php:1506
 msgid "The %s argument is deprecated."
 msgstr "Das Argument %s ist veraltet."
 
 #. translators: 1: amphtml, 2: amp_add_amphtml_link(), 3: wp_head, 4:
 #. template_redirect
-#: includes/amp-helper-functions.php:822
+#: includes/amp-helper-functions.php:843
 msgid "Removal of %1$s link should be done by removing %2$s from the %3$s action at %4$s."
 msgstr "Das Entfernen des link-Elements %1$s sollte geschehen, indem %2$s von der Action %3$s innerhalb von %4$s entfernt wird."
 
 #. translators: 1: amp_is_enabled filter name, 2: plugins_loaded action
-#: includes/amp-helper-functions.php:251
+#: includes/amp-helper-functions.php:252
 msgid "Filter for \"%1$s\" added too late. To disable AMP, this filter must be added before the \"%2$s\" action."
 msgstr "Der Filter für „%1$s“ wurde zu spät hinzugefügt. Um AMP zu deaktivieren, muss dieser Filter vor der Action „%2$s“ hinzugefügt werden."
 
@@ -392,24 +390,24 @@ msgid "This has been <a href=\"%s\">selected</a> as the AMP Reader theme."
 msgstr "Dieses wurde als das AMP-Lesemodus-Theme <a href=\"%s\">ausgewählt</a>."
 
 #. translators: text is describing validation issue(s)
-#: includes/validation/class-amp-validation-manager.php:1861
 #: src/PluginSuppression.php:330
+#: includes/validation/class-amp-validation-manager.php:1861
 msgid "unreviewed"
 msgid_plural "all unreviewed"
 msgstr[0] "nicht überprüft"
 msgstr[1] "alle überprüft"
 
 #. translators: text is describing validation issue(s)
-#: includes/validation/class-amp-validation-manager.php:1904
 #: src/PluginSuppression.php:330
+#: includes/validation/class-amp-validation-manager.php:1904
 msgid "reviewed"
 msgid_plural "all reviewed"
 msgstr[0] "überprüft"
 msgstr[1] "alle überprüft"
 
 #. translators: text is describing validation issue(s)
-#: includes/validation/class-amp-validation-manager.php:1883
 #: src/PluginSuppression.php:329
+#: includes/validation/class-amp-validation-manager.php:1883
 msgid "kept"
 msgid_plural "all kept"
 msgstr[0] "behalten"
@@ -425,20 +423,20 @@ msgstr "entfernt"
 msgid "Invalid markup causing the validation error is %1$s and %2$s. See all validated URL(s) with this validation error."
 msgstr "Ungültiges Markup, das den Überprüfungsfehler verursacht, wird %1$s und %2$s. Alle überprüften URL(s) mit diesem Überprüfungsfehler anzeigen."
 
-#: src/MobileRedirection.php:474
+#: src/MobileRedirection.php:485
 msgid "This link is not applicable in this context. It remains here for preview purposes only."
 msgstr "Dieser Link ist in diesem Kontext nicht anwendbar. Er verbleibt hier nur zu Vorschauzwecken."
 
-#: src/MobileRedirection.php:436
+#: src/MobileRedirection.php:447
 msgid "Go to mobile version"
 msgstr "Zur mobilen Version gehen"
 
-#: src/MobileRedirection.php:432
+#: src/MobileRedirection.php:443
 msgid "Exit mobile version"
 msgstr "Die mobile Version verlassen"
 
-#: includes/options/class-amp-reader-theme-rest-controller.php:67
 #: src/OptionsRESTController.php:153
+#: includes/options/class-amp-reader-theme-rest-controller.php:67
 msgid "Sorry, you are not allowed to manage options for the AMP plugin for WordPress."
 msgstr "Du hast leider keine Berechtigung, um Einstellungen für das AMP-Plugin für WordPress zu verwalten."
 
@@ -475,9 +473,9 @@ msgstr "Den Einführungsassistenten öffnen"
 msgid "Bring the speed and capabilities of the AMP web framework to your site; support content authoring and website development with the effective tools the AMP plugin provides."
 msgstr "Bringe die Geschwindigkeit und Fähigkeiten des AMP-Web-Frameworks auf deine Website. Unterstütze Inhaltserstellung und Website-Entwicklung mit effektiven Werkzeugen, die das AMP-Plugin bietet."
 
+#: src/Admin/OnboardingWizardSubmenuPage.php:121
 #: src/Admin/OnboardingWizardSubmenu.php:54
 #: src/Admin/OnboardingWizardSubmenu.php:55
-#: src/Admin/OnboardingWizardSubmenuPage.php:121
 msgid "AMP Onboarding Wizard"
 msgstr "AMP-Einführungsassistent"
 
@@ -1146,7 +1144,7 @@ msgstr "Persistenter Objekt-Cache ist aktiviert"
 #. translators: The accessibility text.
 #. translators: accessibility text
 #: src/Admin/SiteHealth.php:121 src/Admin/SiteHealth.php:184
-#: src/Admin/SiteHealth.php:263 assets/js/amp-block-editor.js:17
+#: src/Admin/SiteHealth.php:263 assets/js/amp-block-editor.js:27
 msgid "(opens in a new tab)"
 msgstr "(öffnet in neuem Tab)"
 
@@ -1608,7 +1606,7 @@ msgid "%1$s functionality has been moved to %2$s."
 msgstr "Die Funktionalität von %1$s wurde nach %2$s verschoben."
 
 #. translators: %s: WP_Service_Worker_Cache_Registry.
-#: includes/class-amp-service-worker.php:89
+#: includes/class-amp-service-worker.php:110
 msgid "Please update to PWA v0.2. Expected argument to be %s."
 msgstr "Bitte aktualisiere auf Version 0.2 des PWA-Plugins. Erwartete als Argument %s."
 
@@ -1648,27 +1646,27 @@ msgstr "Embed-Handler (%1$s) muss „%2$s“ erweitern"
 msgid "Sanitizer (%1$s) must extend `%2$s`"
 msgstr "Sanitizer (%1$s) muss „%2$s“ erweitern"
 
-#: includes/class-amp-service-worker.php:320
+#: includes/class-amp-service-worker.php:343
 msgid "Installing service worker..."
 msgstr "Installiere Service Worker…"
 
-#: includes/class-amp-service-worker.php:305
-#: includes/class-amp-service-worker.php:317
+#: includes/class-amp-service-worker.php:328
+#: includes/class-amp-service-worker.php:340
 msgid "Service Worker Installation"
 msgstr "Service-Worker-Installation"
 
-#: includes/class-amp-service-worker.php:304
+#: includes/class-amp-service-worker.php:327
 msgid "No service workers registered for the requested scope."
 msgstr "Keine Service Worker für den angefragten Bereich registriert."
 
-#: includes/class-amp-service-worker.php:131
-#: includes/class-amp-service-worker.php:164
+#: includes/class-amp-service-worker.php:151
+#: includes/class-amp-service-worker.php:185
 msgid "Please update to PWA v0.2. Expected argument to be WP_Service_Worker_Scripts."
 msgstr "Bitte aktualisiere auf PWA 0.2. Erwartete WP_Service_Worker_Scripts als Argument."
 
 #. translators: 1: the analytics entry ID. 2: type. 3: attributes. 4:
 #. config_data. 5: comma-separated list of the actual entry keys.
-#: includes/amp-helper-functions.php:1336
+#: includes/amp-helper-functions.php:1357
 msgid "Analytics entry for %1$s is missing one of the following keys: `%2$s` or `%3$s` (array keys: %4$s)"
 msgstr "Im Analyse-Eintrag für %1$s fehlt einer der folgenden Schlüssel: „%2$s“ oder „%3$s“ (Array-Schlüssel: %4$s)"
 
@@ -1693,7 +1691,7 @@ msgstr "AMP-CSS-Verarbeitung ist eingeschränkt, weil ein anderes Plugin oder Th
 msgid "All AMP Validation Errors"
 msgstr "Alle AMP-Validierungsfehler"
 
-#: includes/amp-helper-functions.php:834
+#: includes/amp-helper-functions.php:855
 msgid "There is no amphtml version available for this URL."
 msgstr "Es ist keine amphtml-Version verfügbar für diese URL."
 
@@ -1702,18 +1700,18 @@ msgstr "Es ist keine amphtml-Version verfügbar für diese URL."
 msgid "It is not a best practice to use %1$s to load font CDN stylesheets. Please use %2$s to enqueue %3$s as its own separate script."
 msgstr "CSS für Schriftarten sollte nicht über %1$s geladen werden. Verwende stattdessen %2$s um %3$s als eigenes Skript einzubinden."
 
-#: includes/sanitizers/class-amp-core-theme-sanitizer.php:346
-#: includes/sanitizers/class-amp-core-theme-sanitizer.php:372
-#: includes/sanitizers/class-amp-core-theme-sanitizer.php:388
-#: includes/sanitizers/class-amp-core-theme-sanitizer.php:404
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:382
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:408
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:424
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:440
 #: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:155
 msgid "collapse child menu"
 msgstr "Untermenü einklappen"
 
-#: includes/sanitizers/class-amp-core-theme-sanitizer.php:345
-#: includes/sanitizers/class-amp-core-theme-sanitizer.php:371
-#: includes/sanitizers/class-amp-core-theme-sanitizer.php:387
-#: includes/sanitizers/class-amp-core-theme-sanitizer.php:403
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:381
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:407
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:423
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:439
 #: includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php:152
 msgid "expand child menu"
 msgstr "Untermenü ausklappen"
@@ -1726,7 +1724,7 @@ msgstr "Fehlerseite (404)"
 msgid "Search"
 msgstr "Suche"
 
-#: includes/class-amp-theme-support.php:836 assets/js/amp-block-editor.js:15
+#: includes/class-amp-theme-support.php:836 assets/js/amp-block-editor.js:25
 msgid "Date"
 msgstr "Datumsarchiv"
 
@@ -1782,13 +1780,13 @@ msgstr "Es gibt Inhalt mit AMP-Validierungsfehlern."
 msgid "AMP validity status"
 msgstr "AMP-Validierungsstatus"
 
+#: includes/amp-helper-functions.php:1961
 #: includes/validation/class-amp-validation-manager.php:402
-#: includes/amp-helper-functions.php:1940
 msgid "View AMP version"
 msgstr "AMP-Version ansehen"
 
+#: includes/amp-helper-functions.php:1961
 #: includes/validation/class-amp-validation-manager.php:402
-#: includes/amp-helper-functions.php:1940
 msgid "View non-AMP version"
 msgstr "Nicht-AMP-Version ansehen"
 
@@ -2076,8 +2074,8 @@ msgid "The parent element of where the error occurred."
 msgstr "Das übergeordnete Element dessen, in dem der Fehler auftrat. "
 
 #: includes/validation/class-amp-validated-url-post-type.php:1222
-#: includes/validation/class-amp-validation-manager.php:471
 #: includes/validation/class-amp-validation-error-taxonomy.php:869
+#: includes/validation/class-amp-validation-manager.php:471
 msgid "Error"
 msgstr "Fehler"
 
@@ -2106,8 +2104,8 @@ msgstr "Quellen"
 msgid "AMP disabled"
 msgstr "AMP deaktiviert"
 
-#: includes/admin/class-amp-post-meta-box.php:471
 #: includes/validation/class-amp-validated-url-post-type.php:2187
+#: includes/admin/class-amp-post-meta-box.php:515
 msgid "AMP enabled"
 msgstr "AMP aktiviert"
 
@@ -2156,15 +2154,14 @@ msgstr "Mehr erfahren"
 msgid "Welcome to AMP for WordPress"
 msgstr "Willkommen bei AMP für WordPress"
 
-#: includes/validation/class-amp-validation-manager.php:440
 #: src/Admin/OptionsMenu.php:117 src/Admin/OptionsMenu.php:153
+#: includes/validation/class-amp-validation-manager.php:440
 msgid "Settings"
 msgstr "Einstellungen"
 
 #. translators: %s: the human-readable time difference.
-#: templates/meta-time.php:28
+#: back-compat/templates-v0-3/meta-time.php:21 templates/meta-time.php:28
 #: includes/validation/class-amp-validation-error-taxonomy.php:1893
-#: back-compat/templates-v0-3/meta-time.php:21
 msgid "%s ago"
 msgstr "vor %s"
 
@@ -2175,7 +2172,7 @@ msgid "You appear to have installed the AMP plugin incorrectly. It is currently 
 msgstr "Das AMP-Plugin scheint nicht korrekt installiert zu sein. Es liegt aktuell im <code>%1$s</code>-Verzeichnis, sollte aber im <code>%2$s</code>-Verzeichnis sein. Bitte benenne den Ordner um. Dies ist wichtig für die WordPress-Plugin-Aktualisierungen."
 
 #: includes/validation/class-amp-validated-url-post-type.php:1443
-#: assets/js/amp-block-editor.js:15
+#: assets/js/amp-block-editor.js:25
 msgid "Embed"
 msgstr "Einbetten"
 
@@ -2219,8 +2216,8 @@ msgstr "Monat auswählen"
 msgid "Select Year"
 msgstr "Jahr auswählen"
 
-#: includes/widgets/class-amp-widget-archives.php:49
 #: includes/class-amp-theme-support.php:829
+#: includes/widgets/class-amp-widget-archives.php:49
 msgid "Archives"
 msgstr "Archiv"
 
@@ -2309,7 +2306,7 @@ msgid "Your comment has been posted."
 msgstr "Dein Kommentar wurde veröffentlicht."
 
 #. translators: %s: $post
-#: includes/amp-helper-functions.php:1384
+#: includes/amp-helper-functions.php:1405
 msgid "The %s argument is deprecated when theme supports AMP."
 msgstr "Das Argument %s ist veraltet, wenn das Theme AMP unterstützt."
 
@@ -2334,11 +2331,11 @@ msgstr "Abbrechen"
 msgid "OK"
 msgstr "OK"
 
-#: includes/admin/class-amp-post-meta-box.php:398
+#: includes/admin/class-amp-post-meta-box.php:442
 msgid "Unavailable for an unknown reason."
 msgstr "Aus unbekannten Gründen nicht verfügbar."
 
-#: includes/admin/class-amp-post-meta-box.php:395
+#: includes/admin/class-amp-post-meta-box.php:439
 msgid "A plugin or theme has disabled AMP support."
 msgstr "Ein Plugin oder Theme hat Unterstützung für AMP deaktiviert."
 
@@ -2355,16 +2352,16 @@ msgid "AMP:"
 msgstr "AMP:"
 
 #: src/Admin/OptionsMenu.php:142 src/Admin/OptionsMenu.php:152
-#: src/ReaderThemeLoader.php:224 assets/js/amp-block-editor.js:9
+#: src/ReaderThemeLoader.php:224 assets/js/amp-block-editor.js:13
 #: assets/js/amp-block-validation.js:1
 msgid "AMP Settings"
 msgstr "AMP-Einstellungen"
 
-#: includes/admin/class-amp-post-meta-box.php:328
+#: includes/admin/class-amp-post-meta-box.php:372
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: includes/admin/class-amp-post-meta-box.php:327
+#: includes/admin/class-amp-post-meta-box.php:371
 msgid "Enabled"
 msgstr "Aktiviert"
 
@@ -2376,15 +2373,15 @@ msgstr "Änderungsvorschau in AMP (öffnet neues Fenster)"
 msgid "AMP status."
 msgstr "AMP-Status."
 
-#: includes/admin/class-amp-template-customizer.php:729
+#: includes/admin/class-amp-template-customizer.php:749
 msgid "AMP preview enabled"
 msgstr "AMP-Vorschau aktiviert"
 
-#: includes/admin/class-amp-template-customizer.php:588
+#: includes/admin/class-amp-template-customizer.php:608
 msgid "Navigate to an AMP compatible page"
 msgstr "Zu AMP-kompatibler Seite navigieren"
 
-#: includes/admin/class-amp-template-customizer.php:587
+#: includes/admin/class-amp-template-customizer.php:607
 msgid "AMP is not available for the page currently being previewed."
 msgstr "AMP ist für die aktuelle Seite nicht verfügbar."
 
@@ -2457,22 +2454,22 @@ msgid "Leave a Comment"
 msgstr "Schreibe einen Kommentar"
 
 #. Plugin Name of the plugin
-#: includes/admin/functions.php:126 includes/admin/functions.php:127
-#: includes/admin/class-amp-admin-pointers.php:66
-#: includes/admin/class-amp-template-customizer.php:247
-#: includes/validation/class-amp-validation-manager.php:379
+#: src/Admin/OptionsMenu.php:143 src/Admin/SiteHealth.php:134
+#: src/Admin/SiteHealth.php:175 src/Admin/SiteHealth.php:248
+#: src/Admin/SiteHealth.php:315 src/Admin/SiteHealth.php:380
+#: src/Admin/SiteHealth.php:399 includes/amp-helper-functions.php:1952
 #: includes/templates/amp-paired-browsing.php:30
-#: includes/amp-helper-functions.php:1931 src/Admin/OptionsMenu.php:143
-#: src/Admin/SiteHealth.php:134 src/Admin/SiteHealth.php:175
-#: src/Admin/SiteHealth.php:248 src/Admin/SiteHealth.php:315
-#: src/Admin/SiteHealth.php:380 src/Admin/SiteHealth.php:399
+#: includes/validation/class-amp-validation-manager.php:379
+#: includes/admin/class-amp-admin-pointers.php:66
+#: includes/admin/functions.php:126 includes/admin/functions.php:127
+#: includes/admin/class-amp-template-customizer.php:267
 #: assets/js/amp-onboarding-wizard.js:5
 msgid "AMP"
 msgstr "AMP"
 
-#: templates/meta-taxonomy.php:21 templates/meta-taxonomy.php:35
 #: back-compat/templates-v0-3/meta-taxonomy.php:8
 #: back-compat/templates-v0-3/meta-taxonomy.php:17
+#: templates/meta-taxonomy.php:21 templates/meta-taxonomy.php:35
 msgctxt "Used between list items, there is a space after the comma."
 msgid ", "
 msgstr ", "
