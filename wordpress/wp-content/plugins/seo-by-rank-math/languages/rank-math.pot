@@ -319,43 +319,6 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-msgid "Help Us Improve"
-msgstr ""
-
-#. translators: 1. Bold text 2. Bold text
-msgid "%1$s A filter to remove the Rank Math data from the database is present in your theme. Deactivating & Deleting this plugin will remove everything related to the Rank Math plugin. %2$s"
-msgstr ""
-
-msgid "Please share why you are deactivating Rank Math"
-msgstr ""
-
-msgid "Skip & Deactivate"
-msgstr ""
-
-msgid "Submit & Deactivate"
-msgstr ""
-
-msgid "I no longer need the plugin"
-msgstr ""
-
-msgid "I found a better plugin"
-msgstr ""
-
-msgid "Please share which plugin"
-msgstr ""
-
-msgid "I couldn't get the plugin to work"
-msgstr ""
-
-msgid "It's a temporary deactivation"
-msgstr ""
-
-msgid "Other"
-msgstr ""
-
-msgid "Please share the reason"
-msgstr ""
-
 msgid "Import & Export"
 msgstr ""
 
@@ -1615,6 +1578,12 @@ msgid "Organization Logo"
 msgstr ""
 
 msgid "Organization Logo added in Local SEO Settings."
+msgstr ""
+
+msgid "Organization URL"
+msgstr ""
+
+msgid "Organization URL added in Local SEO Settings."
 msgstr ""
 
 msgid "Variable names can only contain alphanumeric characters, underscores and dashes."
@@ -4964,9 +4933,6 @@ msgstr ""
 msgid "Hiring Organization "
 msgstr ""
 
-msgid "Organization URL"
-msgstr ""
-
 msgid "Gender"
 msgstr ""
 
@@ -5055,9 +5021,6 @@ msgid "Embed URL"
 msgstr ""
 
 msgid "Duration"
-msgstr ""
-
-msgid "Views"
 msgstr ""
 
 msgid "Start Site-Wide Analysis"
