@@ -63,8 +63,6 @@ class ZulipTransport extends AbstractTransport
             throw new LogicException(sprintf('The "%s" transport only supports instances of "%s" for options.', __CLASS__, ZulipOptions::class));
         }
 
-        $endpoint = sprintf('https://%s/api/v1/messages', $this->getEndpoint());
-
         $options = ($opts = $message->getOptions()) ? $opts->toArray() : [];
         $options['content'] = $message->getSubject();
 
@@ -80,6 +78,8 @@ class ZulipTransport extends AbstractTransport
             $options['to'] = $message->getRecipientId();
         }
 
+        $endpoint = sprintf('https://%s/api/v1/messages', $this->getEndpoint());
+
         $response = $this->client->request('POST', $endpoint, [
             'auth_basic' => $this->email.':'.$this->token,
             'body' => $options,
@@ -93,9 +93,9 @@ class ZulipTransport extends AbstractTransport
 
         $success = $response->toArray(false);
 
-        $message = new SentMessage($message, (string) $this);
-        $message->setMessageId($success['id']);
+        $sentMessage = new SentMessage($message, (string) $this);
+        $sentMessage->setMessageId($success['id']);
 
-        return $message;
+        return $sentMessage;
     }
 }

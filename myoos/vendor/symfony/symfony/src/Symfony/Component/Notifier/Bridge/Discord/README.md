@@ -1,20 +1,18 @@
 Discord Notifier
 ================
 
-Provides Discord integration for Symfony Notifier.
+Provides [Discord](https://discord.com) integration for Symfony Notifier.
 
 DSN example
 -----------
 
 ```
-// .env file
 DISCORD_DSN=discord://TOKEN@default?webhook_id=ID
 ```
 
 where:
  - `TOKEN` the secure token of the webhook (returned for Incoming Webhooks)
  - `ID` the id of the webhook
-
 
 Resources
 ---------

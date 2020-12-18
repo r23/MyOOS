@@ -17,7 +17,7 @@ use Symfony\Component\Notifier\Transport\Dsn;
 /**
  * @author Konstantin Myakshin <molodchick@gmail.com>
  *
- * @experimental in 5.1
+ * @experimental in 5.2
  */
 class UnsupportedSchemeException extends LogicException
 {
@@ -36,7 +36,7 @@ class UnsupportedSchemeException extends LogicException
         ],
         'googlechat' => [
             'class' => Bridge\GoogleChat\GoogleChatTransportFactory::class,
-            'package' => 'symfony/googlechat-notifier',
+            'package' => 'symfony/google-chat-notifier',
         ],
         'nexmo' => [
             'class' => Bridge\Nexmo\NexmoTransportFactory::class,
@@ -44,7 +44,7 @@ class UnsupportedSchemeException extends LogicException
         ],
         'rocketchat' => [
             'class' => Bridge\RocketChat\RocketChatTransportFactory::class,
-            'package' => 'rocketchat-notifier',
+            'package' => 'symfony/rocket-chat-notifier',
         ],
         'twilio' => [
             'class' => Bridge\Twilio\TwilioTransportFactory::class,
@@ -58,13 +58,13 @@ class UnsupportedSchemeException extends LogicException
             'class' => Bridge\Firebase\FirebaseTransportFactory::class,
             'package' => 'symfony/firebase-notifier',
         ],
-        'free-mobile' => [
+        'freemobile' => [
             'class' => Bridge\FreeMobile\FreeMobileTransportFactory::class,
             'package' => 'symfony/free-mobile-notifier',
         ],
         'ovhcloud' => [
             'class' => Bridge\OvhCloud\OvhCloudTransportFactory::class,
-            'package' => 'symfony/ovhcloud-notifier',
+            'package' => 'symfony/ovh-cloud-notifier',
         ],
         'sinch' => [
             'class' => Bridge\Sinch\SinchTransportFactory::class,

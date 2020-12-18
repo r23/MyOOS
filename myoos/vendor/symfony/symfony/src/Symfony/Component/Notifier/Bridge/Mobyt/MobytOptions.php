@@ -21,11 +21,11 @@ use Symfony\Component\Notifier\Notification\Notification;
  */
 final class MobytOptions implements MessageOptionsInterface
 {
-    const MESSAGE_TYPE_QUALITY_HIGH = 'N';
-    const MESSAGE_TYPE_QUALITY_MEDIUM = 'L';
-    const MESSAGE_TYPE_QUALITY_LOW = 'LL';
+    public const MESSAGE_TYPE_QUALITY_HIGH = 'N';
+    public const MESSAGE_TYPE_QUALITY_MEDIUM = 'L';
+    public const MESSAGE_TYPE_QUALITY_LOW = 'LL';
 
-    private $options = [];
+    private $options;
 
     public function __construct(array $options = [])
     {

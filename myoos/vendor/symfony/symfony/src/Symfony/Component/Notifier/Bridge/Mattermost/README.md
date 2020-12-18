@@ -1,18 +1,19 @@
 Mattermost Notifier
 ===================
 
-Provides Mattermost integration for Symfony Notifier.
+Provides [Mattermost](https://mattermost.com) integration for Symfony Notifier.
 
 DSN example
 -----------
 
 ```
-// .env file
-MATTERMOST_DSN=mattermost://ACCESS_TOKEN@default?channel=CHANNEL
+MATTERMOST_DSN=mattermost://ACCESS_TOKEN@HOST/PATH?channel=CHANNEL
 ```
 
 where:
  - `ACCESS_TOKEN` is your Mattermost access token
+ - `HOST` is your Mattermost host
+ - `PATH` is your Mattermost sub-path (optional)
  - `CHANNEL` is your Mattermost channel
 
 Resources

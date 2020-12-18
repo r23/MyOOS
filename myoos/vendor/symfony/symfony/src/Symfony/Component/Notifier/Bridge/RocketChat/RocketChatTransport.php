@@ -23,9 +23,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * @author Jeroen Spee <https://github.com/Jeroeny>
  *
- * @internal
- *
- * @experimental in 5.1
+ * @experimental in 5.2
  */
 final class RocketChatTransport extends AbstractTransport
 {
@@ -45,6 +43,10 @@ final class RocketChatTransport extends AbstractTransport
 
     public function __toString(): string
     {
+        if (null === $this->chatChannel) {
+            return sprintf('rocketchat://%s', $this->getEndpoint());
+        }
+
         return sprintf('rocketchat://%s?channel=%s', $this->getEndpoint(), $this->chatChannel);
     }
 
@@ -54,7 +56,7 @@ final class RocketChatTransport extends AbstractTransport
     }
 
     /**
-     * @see https://rocket.chat/docs/administrator-guides/integrations/
+     * @see https://rocket.chat/docs/administrator-guides/integrations
      */
     protected function doSend(MessageInterface $message): SentMessage
     {
@@ -90,9 +92,9 @@ final class RocketChatTransport extends AbstractTransport
 
         $success = $response->toArray(false);
 
-        $message = new SentMessage($message, (string) $this);
-        $message->setMessageId($success['message']['_id']);
+        $sentMessage = new SentMessage($message, (string) $this);
+        $sentMessage->setMessageId($success['message']['_id']);
 
-        return $message;
+        return $sentMessage;
     }
 }

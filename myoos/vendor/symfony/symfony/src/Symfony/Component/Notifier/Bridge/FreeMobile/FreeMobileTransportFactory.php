@@ -20,7 +20,7 @@ use Symfony\Component\Notifier\Transport\TransportInterface;
 /**
  * @author Antoine Makdessi <amakdessi@me.com>
  *
- * @experimental in 5.1
+ * @experimental in 5.2
  */
 final class FreeMobileTransportFactory extends AbstractTransportFactory
 {
@@ -30,6 +30,11 @@ final class FreeMobileTransportFactory extends AbstractTransportFactory
     public function create(Dsn $dsn): TransportInterface
     {
         $scheme = $dsn->getScheme();
+
+        if ('freemobile' !== $scheme) {
+            throw new UnsupportedSchemeException($dsn, 'freemobile', $this->getSupportedSchemes());
+        }
+
         $login = $this->getUser($dsn);
         $password = $this->getPassword($dsn);
         $phone = $dsn->getOption('phone');
@@ -38,11 +43,10 @@ final class FreeMobileTransportFactory extends AbstractTransportFactory
             throw new IncompleteDsnException('Missing phone.', $dsn->getOriginalDsn());
         }
 
-        if ('freemobile' === $scheme) {
-            return new FreeMobileTransport($login, $password, $phone, $this->client, $this->dispatcher);
-        }
+        $host = 'default' === $dsn->getHost() ? null : $dsn->getHost();
+        $port = $dsn->getPort();
 
-        throw new UnsupportedSchemeException($dsn, 'freemobile', $this->getSupportedSchemes());
+        return (new FreeMobileTransport($login, $password, $phone, $this->client, $this->dispatcher))->setHost($host)->setPort($port);
     }
 
     protected function getSupportedSchemes(): array

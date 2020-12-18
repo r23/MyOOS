@@ -23,9 +23,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  *
- * @internal
- *
- * @experimental in 5.1
+ * @experimental in 5.2
  */
 final class SlackTransport extends AbstractTransport
 {
@@ -61,6 +59,7 @@ final class SlackTransport extends AbstractTransport
         if (!$message instanceof ChatMessage) {
             throw new LogicException(sprintf('The "%s" transport only supports instances of "%s" (instance of "%s" given).', __CLASS__, ChatMessage::class, get_debug_type($message)));
         }
+
         if ($message->getOptions() && !$message->getOptions() instanceof SlackOptions) {
             throw new LogicException(sprintf('The "%s" transport only supports instances of "%s" for options.', __CLASS__, SlackOptions::class));
         }

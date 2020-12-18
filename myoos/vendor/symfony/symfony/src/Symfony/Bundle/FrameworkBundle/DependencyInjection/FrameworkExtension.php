@@ -810,9 +810,7 @@ class FrameworkExtension extends Extension
             // Create Workflow
             $workflowDefinition = new ChildDefinition(sprintf('%s.abstract', $type));
             $workflowDefinition->replaceArgument(0, new Reference(sprintf('%s.definition', $workflowId)));
-            if (isset($markingStoreDefinition)) {
-                $workflowDefinition->replaceArgument(1, $markingStoreDefinition);
-            }
+            $workflowDefinition->replaceArgument(1, $markingStoreDefinition ?? null);
             $workflowDefinition->replaceArgument(3, $name);
             $workflowDefinition->replaceArgument(4, $workflow['events_to_dispatch']);
 
@@ -901,7 +899,7 @@ class FrameworkExtension extends Extension
         $debug = $container->getParameter('kernel.debug');
 
         if ($debug) {
-            $container->setParameter('debug.container.dump', '%kernel.cache_dir%/%kernel.container_class%.xml');
+            $container->setParameter('debug.container.dump', '%kernel.build_dir%/%kernel.container_class%.xml');
         }
 
         if ($debug && class_exists(Stopwatch::class)) {
@@ -2071,8 +2069,8 @@ class FrameworkExtension extends Extension
         }
 
         if ($responseFactoryId = $config['mock_response_factory'] ?? null) {
-            $container->getDefinition($httpClientId)
-                ->setClass(MockHttpClient::class)
+            $container->register($httpClientId.'.mock_client', MockHttpClient::class)
+                ->setDecoratedService($httpClientId, null, -10) // lower priority than TraceableHttpClient
                 ->setArguments([new Reference($responseFactoryId)]);
         }
     }

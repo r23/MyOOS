@@ -23,7 +23,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * @author Iliya Miroslavov Iliev <i.miroslavov@gmail.com>
  *
- * @experimental in 5.1
+ * @experimental in 5.2
  */
 final class SinchTransport extends AbstractTransport
 {
@@ -76,9 +76,9 @@ final class SinchTransport extends AbstractTransport
 
         $success = $response->toArray(false);
 
-        $message = new SentMessage($message, (string) $this);
-        $message->setMessageId($success['id']);
+        $sentMessage = new SentMessage($message, (string) $this);
+        $sentMessage->setMessageId($success['id']);
 
-        return $message;
+        return $sentMessage;
     }
 }

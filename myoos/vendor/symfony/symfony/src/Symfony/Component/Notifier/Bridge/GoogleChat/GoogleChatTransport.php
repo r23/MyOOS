@@ -24,8 +24,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * @author Jérôme Tamarelle <jerome@tamarelle.net>
  *
- * @internal
- *
  * @experimental in 5.2
  */
 final class GoogleChatTransport extends AbstractTransport
@@ -91,6 +89,7 @@ final class GoogleChatTransport extends AbstractTransport
         if (!$message instanceof ChatMessage) {
             throw new LogicException(sprintf('The "%s" transport only supports instances of "%s" (instance of "%s" given).', __CLASS__, ChatMessage::class, \get_class($message)));
         }
+
         if ($message->getOptions() && !$message->getOptions() instanceof GoogleChatOptions) {
             throw new LogicException(sprintf('The "%s" transport only supports instances of "%s" for options.', __CLASS__, GoogleChatOptions::class));
         }
@@ -125,7 +124,7 @@ final class GoogleChatTransport extends AbstractTransport
         try {
             $result = $response->toArray(false);
         } catch (JsonException $jsonException) {
-            throw new TransportException(sprintf('Unable to post the Google Chat message: Invalid response.'), $response, $response->getStatusCode(), $jsonException);
+            throw new TransportException('Unable to post the Google Chat message: Invalid response.', $response, $response->getStatusCode(), $jsonException);
         }
 
         if (200 !== $response->getStatusCode()) {

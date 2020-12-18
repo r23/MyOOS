@@ -63,6 +63,7 @@ final class LinkedInTransport extends AbstractTransport
         if (!$message instanceof ChatMessage) {
             throw new LogicException(sprintf('The "%s" transport only supports instances of "%s" (instance of "%s" given).', __CLASS__, ChatMessage::class, \get_class($message)));
         }
+
         if ($message->getOptions() && !$message->getOptions() instanceof LinkedInOptions) {
             throw new LogicException(sprintf('The "%s" transport only supports instances of "%s" for options.', __CLASS__, LinkedInOptions::class));
         }
@@ -87,27 +88,30 @@ final class LinkedInTransport extends AbstractTransport
         $result = $response->toArray(false);
 
         if (!$result['id']) {
-            throw new TransportException(sprintf('Unable to post the Linkedin message : "%s".', $result['error']), $response);
+            throw new TransportException(sprintf('Unable to post the Linkedin message: "%s".', $result['error']), $response);
         }
 
-        return new SentMessage($message, (string) $this);
+        $sentMessage = new SentMessage($message, (string) $this);
+        $sentMessage->setMessageId($result['id']);
+
+        return $sentMessage;
     }
 
     private function bodyFromMessageWithNoOption(MessageInterface $message): array
     {
         return [
             'specificContent' => [
-                    'com.linkedin.ugc.ShareContent' => [
-                            'shareCommentary' => [
-                                    'attributes' => [],
-                                    'text' => $message->getSubject(),
-                                ],
-                            'shareMediaCategory' => 'NONE',
-                        ],
+                'com.linkedin.ugc.ShareContent' => [
+                    'shareCommentary' => [
+                        'attributes' => [],
+                        'text' => $message->getSubject(),
                     ],
-            'visibility' => [
-                    'com.linkedin.ugc.MemberNetworkVisibility' => 'PUBLIC',
+                    'shareMediaCategory' => 'NONE',
                 ],
+            ],
+            'visibility' => [
+                'com.linkedin.ugc.MemberNetworkVisibility' => 'PUBLIC',
+            ],
             'lifecycleState' => 'PUBLISHED',
             'author' => sprintf('urn:li:person:%s', $this->accountId),
         ];

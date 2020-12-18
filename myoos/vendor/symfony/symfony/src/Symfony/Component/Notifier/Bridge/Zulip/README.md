@@ -1,20 +1,20 @@
 Zulip Notifier
 ==============
 
-Provides Zulip integration for Symfony Notifier.
+Provides [Zulip](https://zulip.comw) integration for Symfony Notifier.
 
 DSN example
 -----------
 
 ```
-// .env file
-ZULIP_DSN=zulip://EMAIL:TOKEN@default?channel=Channel
+ZULIP_DSN=zulip://EMAIL:TOKEN@HOST?channel=CHANNEL
 ```
 
 where:
  - `EMAIL` is your Zulip email
  - `TOKEN` is your Zulip token
- - `Channel` is the channel
+ - `HOST` is your Zulip host
+ - `CHANNEL` is the channel
 
 Resources
 ---------

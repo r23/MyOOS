@@ -23,7 +23,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * @author Thomas Ferney <thomas.ferney@gmail.com>
  *
- * @experimental in 5.1
+ * @experimental in 5.2
  */
 final class OvhCloudTransport extends AbstractTransport
 {
@@ -94,10 +94,10 @@ final class OvhCloudTransport extends AbstractTransport
 
         $success = $response->toArray(false);
 
-        $message = new SentMessage($message, (string) $this);
-        $message->setMessageId($success['ids'][0]);
+        $sentMessage = new SentMessage($message, (string) $this);
+        $sentMessage->setMessageId($success['ids'][0]);
 
-        return $message;
+        return $sentMessage;
     }
 
     /**

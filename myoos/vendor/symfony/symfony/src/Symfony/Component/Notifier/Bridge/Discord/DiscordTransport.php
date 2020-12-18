@@ -23,18 +23,18 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * @author Mathieu Piot <math.piot@gmail.com>
  *
- * @internal
- *
  * @experimental in 5.2
  */
 final class DiscordTransport extends AbstractTransport
 {
     protected const HOST = 'discord.com';
 
+    private const SUBJECT_LIMIT = 2000;
+
     private $token;
     private $webhookId;
 
-    public function __construct(string $token, string $webhookId = null, HttpClientInterface $client = null, EventDispatcherInterface $dispatcher = null)
+    public function __construct(string $token, string $webhookId, HttpClientInterface $client = null, EventDispatcherInterface $dispatcher = null)
     {
         $this->token = $token;
         $this->webhookId = $webhookId;
@@ -67,8 +67,8 @@ final class DiscordTransport extends AbstractTransport
 
         $content = $message->getSubject();
 
-        if (\strlen($content) > 2000) {
-            throw new LogicException(sprintf('The subject length of "%s" transport must be less than 2000 characters.', __CLASS__, ChatMessage::class, get_debug_type($message)));
+        if (mb_strlen($content, 'UTF-8') > self::SUBJECT_LIMIT) {
+            throw new LogicException('The subject length of a Discord message must not exceed 2000 characters.');
         }
 
         $endpoint = sprintf('https://%s/api/webhooks/%s/%s', $this->getEndpoint(), $this->webhookId, $this->token);
