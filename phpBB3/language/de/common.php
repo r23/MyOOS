@@ -51,7 +51,7 @@ $lang = array_merge($lang, array(
 	'USER_LANG'			=> 'de',
 
 	// You can define different rules for the determination of plural forms here.
-	// See https://area51.phpbb.com/docs/dev/32x/language/plurals.html for more information
+	// See https://area51.phpbb.com/docs/dev/3.3.x/language/plurals.html for more information
 	// or ask the translation manager for help.
 	'PLURAL_RULE'		=> 1,
 
@@ -113,6 +113,8 @@ $lang = array_merge($lang, array(
 	'AVATAR_NOT_UPLOADED'			=> 'Der Avatar konnte nicht hochgeladen werden.',
 	'AVATAR_NO_TEMP_DIR'			=> 'Der temporäre Ordner konnte nicht gefunden werden oder ist nicht beschreibbar.',
 	'AVATAR_NO_SIZE'				=> 'Die Breite oder die Höhe des verlinkten Avatars konnte nicht ermittelt werden. Bitte gib sie manuell an.',
+	'AVATAR_NO_UPLOAD_DIR'			=> 'Der Ordner zur Ablage der Avatare konnte nicht gefunden werden oder ist nicht beschreibbar.',
+	'AVATAR_NO_UPLOAD_PATH'			=> 'Das Hochladen von Avataren wurde aktiviert, es wurde aber kein Ablage-Ordner festgelegt.',
 	'AVATAR_PARTIAL_UPLOAD'			=> 'Die ausgewählte Datei wurde nur unvollständig hochgeladen.',
 	'AVATAR_PHP_SIZE_NA'			=> 'Die Avatar-Datei ist zu groß.<br />Die durch PHP in der php.ini festgelegte maximale Größe konnte nicht ermittelt werden.',
 	'AVATAR_PHP_SIZE_OVERRUN'		=> 'Die Avatar-Datei ist zu groß, sie darf maximal %1$d %2$s groß sein.<br />Dieser Wert ist in der php.ini festgelegt und kann nicht überschrieben werden.',
@@ -496,6 +498,7 @@ $lang = array_merge($lang, array(
 	'NOTIFICATION_REFERENCE'			=> '„%1$s“',
 	'NOTIFICATION_REASON'				=> '<em>Grund:</em> %1$s.',
 	'NOTIFICATION_REPORT_PM'			=> '<strong>Private Nachricht gemeldet</strong> von %1$s:',
+	'NOTIFICATION_REPORT_PM_CLOSED'		=> '<strong>Meldung zu Privater Nachricht geschlossen</strong> von %1$s:',
 	'NOTIFICATION_REPORT_POST'			=> '<strong>Beitrag gemeldet</strong> von %1$s:',
 	'NOTIFICATION_REPORT_CLOSED'		=> '<strong>Meldung geschlossen</strong> von %1$s für:',
 	'NOTIFICATION_TOPIC'				=> '<strong>Neues Thema</strong> von %1$s:',

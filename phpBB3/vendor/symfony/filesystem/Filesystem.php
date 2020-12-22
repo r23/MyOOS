@@ -47,7 +47,7 @@ class Filesystem
         $this->mkdir(\dirname($targetFile));
 
         $doCopy = true;
-        if (!$overwriteNewerFiles && null === parse_url($originFile, PHP_URL_HOST) && is_file($targetFile)) {
+        if (!$overwriteNewerFiles && null === parse_url($originFile, \PHP_URL_HOST) && is_file($targetFile)) {
             $doCopy = filemtime($originFile) > filemtime($targetFile);
         }
 
@@ -118,7 +118,7 @@ class Filesystem
      */
     public function exists($files)
     {
-        $maxPathLength = PHP_MAXPATHLEN - 2;
+        $maxPathLength = \PHP_MAXPATHLEN - 2;
 
         foreach ($this->toIterable($files) as $file) {
             if (\strlen($file) > $maxPathLength) {
@@ -198,7 +198,7 @@ class Filesystem
     public function chmod($files, $mode, $umask = 0000, $recursive = false)
     {
         foreach ($this->toIterable($files) as $file) {
-            if (true !== @chmod($file, $mode & ~$umask)) {
+            if ((\PHP_VERSION_ID < 80000 || \is_int($mode)) && true !== @chmod($file, $mode & ~$umask)) {
                 throw new IOException(sprintf('Failed to chmod file "%s".', $file), 0, null, $file);
             }
             if ($recursive && is_dir($file) && !is_link($file)) {
@@ -301,7 +301,7 @@ class Filesystem
      */
     private function isReadable($filename)
     {
-        $maxPathLength = PHP_MAXPATHLEN - 2;
+        $maxPathLength = \PHP_MAXPATHLEN - 2;
 
         if (\strlen($filename) > $maxPathLength) {
             throw new IOException(sprintf('Could not check if file is readable because path length exceeds %d characters.', $maxPathLength), 0, null, $filename);
@@ -446,7 +446,7 @@ class Filesystem
     public function makePathRelative($endPath, $startPath)
     {
         if (!$this->isAbsolutePath($endPath) || !$this->isAbsolutePath($startPath)) {
-            @trigger_error(sprintf('Support for passing relative paths to %s() is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), E_USER_DEPRECATED);
+            @trigger_error(sprintf('Support for passing relative paths to %s() is deprecated since Symfony 3.4 and will be removed in 4.0.', __METHOD__), \E_USER_DEPRECATED);
         }
 
         // Normalize separators on Windows
@@ -604,7 +604,7 @@ class Filesystem
                 && ':' === $file[1]
                 && strspn($file, '/\\', 2, 1)
             )
-            || null !== parse_url($file, PHP_URL_SCHEME)
+            || null !== parse_url($file, \PHP_URL_SCHEME)
         ;
     }
 
@@ -713,7 +713,7 @@ class Filesystem
             throw new IOException(sprintf('Unable to write to the "%s" directory.', $dir), 0, null, $dir);
         }
 
-        if (false === @file_put_contents($filename, $content, FILE_APPEND)) {
+        if (false === @file_put_contents($filename, $content, \FILE_APPEND)) {
             throw new IOException(sprintf('Failed to write file "%s".', $filename), 0, null, $filename);
         }
     }

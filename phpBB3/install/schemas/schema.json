@@ -2201,10 +2201,6 @@
             "pf_phpbb_yahoo": [
                 "VCHAR",
                 ""
-            ],
-            "pf_phpbb_aol": [
-                "VCHAR",
-                ""
             ]
         },
         "PRIMARY_KEY": "user_id"

@@ -770,10 +770,11 @@ function posting_gen_attachment_entry($attachment_data, &$filename_data, $show_a
 
 	// Some default template variables
 	$template->assign_vars(array(
-		'S_SHOW_ATTACH_BOX'	=> $show_attach_box,
-		'S_HAS_ATTACHMENTS'	=> count($attachment_data),
-		'FILESIZE'			=> $config['max_filesize'],
-		'FILE_COMMENT'		=> (isset($filename_data['filecomment'])) ? $filename_data['filecomment'] : '',
+		'S_SHOW_ATTACH_BOX'				=> $show_attach_box,
+		'S_HAS_ATTACHMENTS'				=> count($attachment_data),
+		'FILESIZE'						=> $config['max_filesize'],
+		'FILE_COMMENT'					=> (isset($filename_data['filecomment'])) ? $filename_data['filecomment'] : '',
+		'MAX_ATTACHMENT_FILESIZE'		=> $config['max_filesize'] > 0 ? $user->lang('MAX_ATTACHMENT_FILESIZE', get_formatted_filesize($config['max_filesize'])) : '',
 	));
 
 	if (count($attachment_data))
@@ -2399,6 +2400,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 					'notification.type.quote',
 					'notification.type.bookmark',
 					'notification.type.post',
+					'notification.type.forum',
 				), $notification_data);
 			break;
 
@@ -2417,6 +2419,7 @@ function submit_post($mode, $subject, $username, $topic_type, &$poll_ary, &$data
 					'notification.type.bookmark',
 					'notification.type.topic',
 					'notification.type.post',
+					'notification.type.forum',
 				), $notification_data);
 			break;
 		}

@@ -237,6 +237,7 @@ $lang = array_merge($lang, array(
 	'CRON_NO_SUCH_TASK'		=> 'Cron-Job „%s“ konnte nicht gefunden werden.',
 	'CRON_NO_TASK'			=> 'Momentan muss kein Cron-Job ausgeführt werden.',
 	'CRON_NO_TASKS'			=> 'Es konnten keine Cron-Jobs gefunden werden.',
+	'CSV_INVALID'			=> 'Die ausgewählte CSV-Einstellung „%1$s“ ist ungültig. Die Werte dürfen nur durch Kommatas getrennt sein und es dürfen keine führenden oder abschließenden Trennzeichen enthalten sein.',
 	'CURRENT_VERSION'		=> 'Aktuelle Version',
 
 	'DEACTIVATE'				=> 'Deaktivieren',
@@ -318,6 +319,7 @@ $lang = array_merge($lang, array(
 
 	'UCP'					=> 'Persönlicher Bereich',
 	'URL_INVALID'			=> 'Die für die Einstellung „%1$s“ angegebene URL ist ungültig.',
+	'URL_SCHEME_INVALID'	=> 'Das in der CSV-Einstellung „%1$s“ verwendete Schema „%2$s“ ist ungültig. Das Schema muss mit einem lateinischen Buchstaben anfangen und der Name darf nur aus alphanumerischen Zeichen, Bindestrichen und Punkten bestehen.',
 	'USERNAMES_EXPLAIN'		=> 'Verwende für jeden Benutzernamen eine neue Zeile.',
 	'USER_CONTROL_PANEL'	=> 'Persönlicher Bereich',
 

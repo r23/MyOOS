@@ -1228,7 +1228,6 @@ FileETag None
 	Require all denied
 </files>
 
-
 <IfModule mod_rewrite.c>
 RewriteEngine on
 
