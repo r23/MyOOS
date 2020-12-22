@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-12-13 09:14:58+0000\n"
+"PO-Revision-Date: 2020-12-19 19:56:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,14 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - AMP - Stable (latest release)\n"
+
+#: includes/amp-helper-functions.php:480
+msgid "The function was called too early (before the plugins_loaded action) to determine the plugin source."
+msgstr "Die Funktion wurde zu früh aufgerufen (vor der Aktion plugins_loaded), um die Plugin-Quelle zu ermitteln."
+
+#: includes/amp-helper-functions.php:452
+msgid "WordPress is not currently doing any hook."
+msgstr "WordPress führt aktuell keinen Hook aus."
 
 #: includes/admin/class-amp-template-customizer.php:227
 msgid "While dark mode works on AMP pages, the toggle button is not currently available. It appears here only for preview purposes."
@@ -31,6 +39,12 @@ msgstr "Als geprüft markieren"
 #: includes/admin/class-amp-post-meta-box.php:231
 msgid "AMP functionality is not available since your version of the Block Editor is too old. Please either update WordPress core to the latest version or activate the Gutenberg plugin. As a last resort, you may use the Classic Editor plugin instead."
 msgstr "AMP-Funktionen sind nicht verfügbar, da deine Version des Block-Editors zu alt ist. Aktualisiere entweder WordPress Core auf die aktuelle Version oder aktiviere das Gutenberg-Plugin. Als letzte Möglichkeit könntest du stattdessen das Plugin für den klassischen Editor verwenden."
+
+#. translators: 1: the wp action, 2: the WP_Query class, 3: the amp_skip_post()
+#. function
+#: includes/amp-helper-functions.php:457
+msgid "Calling this function before the %1$s action means it will not have access to %2$s and the queried object to determine if it is an AMP response, thus neither the %3$s filter nor the AMP enabled toggle will be considered."
+msgstr "Wenn diese Funktion vor der Aktion %1$s aufgerufen wird, hat sie keinen Zugriff auf %2$s und das abgefragte Objekt, um zu bestimmen, ob es sich um eine AMP-Antwort handelt. Somit werden weder der Filter %3$s noch der AMP-fähige Umschalter berücksichtigt."
 
 #. translators: 1: amp_is_available() function, 2: amp_is_request() function,
 #. 3: is_amp_endpoint() function
