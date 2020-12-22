@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '4.0.5',
-    'version' => '4.0.5.0',
+    'pretty_version' => '4.1.0',
+    'version' => '4.1.0.0',
     'aliases' => 
     array (
     ),
-    'reference' => '5f7eb3e1f655ec2aa0d0360c3f5deb89688a4344',
+    'reference' => '6d891da9c9b0b120e91ba27f66ebd270f5a9ab82',
     'name' => 'matomo/matomo',
   ),
   'versions' => 
@@ -56,15 +56,6 @@
       ),
       'reference' => 'd01be5894a5c1a3381c58c9b1795cd07f96c30f7',
     ),
-    'leafo/lessphp' => 
-    array (
-      'pretty_version' => 'dev-php74-compat',
-      'version' => 'dev-php74-compat',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '1c1bf226f6d394f28cc676a6c2893556a5dcb495',
-    ),
     'matomo/cache' => 
     array (
       'pretty_version' => '2.0.2',
@@ -103,12 +94,12 @@
     ),
     'matomo/matomo' => 
     array (
-      'pretty_version' => '4.0.5',
-      'version' => '4.0.5.0',
+      'pretty_version' => '4.1.0',
+      'version' => '4.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5f7eb3e1f655ec2aa0d0360c3f5deb89688a4344',
+      'reference' => '6d891da9c9b0b120e91ba27f66ebd270f5a9ab82',
     ),
     'matomo/matomo-php-tracker' => 
     array (
@@ -453,6 +444,15 @@
       array (
       ),
       'reference' => 'b02fa41f3783a2616eccef7b92fbc2343ffed737',
+    ),
+    'wikimedia/less.php' => 
+    array (
+      'pretty_version' => 'v3.1.0',
+      'version' => '3.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a486d78b9bd16b72f237fc6093aa56d69ce8bd13',
     ),
   ),
 );
