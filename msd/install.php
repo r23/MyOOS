@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -334,10 +334,9 @@ switch ($phase)
 		$ret=true;
 		if ($fp=fopen("config.php","wb"))
 		{
-			# if (!fwrite($fp,implode($tmp,array()))) $ret=false;
                     if (!fwrite($fp, print_r($tmp, TRUE))) $ret=false;
-			if (!fclose($fp)) $ret=false;
-			@chmod("config.php",0644);
+                    if (!fclose($fp)) $ret=false;
+                    @chmod("config.php",0644);
 		}
 		if (!$ret)
 		{
