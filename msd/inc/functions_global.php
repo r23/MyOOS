@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -839,9 +839,9 @@ function GetLanguageArray()
 
 function headline($title, $mainframe=1)
 {
-	global $config,$lang;
-	$s='';
-	if ($config['interface_server_caption']==1)
+	global $config, $lang;
+	$s = '';
+	if ( (isset($config['interface_server_caption'])) && ($config['interface_server_caption']==1) )
 	{
 		if ($config['interface_server_caption_position']==$mainframe)
 		{
