@@ -128,9 +128,10 @@ if (( isset($_POST['testFTP0']) ) || ( isset($_POST['testFTP1']) ) || ( isset($_
 	}
 }
 
-$showVP=false;
-$oldtheme=$config['theme'];
-$oldscposition=$config['interface_server_caption_position'];
+$showVP = false;
+$oldtheme = ( !isset($config['theme']) ) ? 'msd' : $config['theme'];
+$oldscposition = ( !isset($config['interface_server_caption_position']) ) ? '' : $config['interface_server_caption_position'];
+
 
 if ($ftptested > -1)
 {
