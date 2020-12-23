@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -19,7 +19,7 @@
 if (!defined('MSD_VERSION')) die('No direct access.');
 
 //Feldspezifikationen
-$feldtypen=Array(
+$feldtypen = array(
 				"VARCHAR",
 				"TINYINT",
 				"TEXT",
@@ -46,27 +46,27 @@ $feldtypen=Array(
 				"ENUM",
 				"SET"
 );
-$feldattribute= array (
+$feldattribute = array (
 					"",
 					"BINARY",
 					"UNSIGNED",
 					"UNSIGNED ZEROFILL"
 );
-$feldnulls=Array(
+$feldnulls = array (
 				"NOT NULL",
 				"NULL"
 );
-$feldextras=Array(
+$feldextras = array (
 				"",
 				"AUTO_INCREMENT"
 );
-$feldkeys=Array(
+$feldkeys = array (
 				"",
 				"PRIMARY KEY",
 				"UNIQUE KEY",
 				"FULLTEXT"
 );
-$feldrowformat=Array(
+$feldrowformat = array (
 
 					"",
 					"FIXED",
@@ -74,21 +74,21 @@ $feldrowformat=Array(
 					"COMPRESSED"
 );
 
-$rechte_daten=Array(
+$rechte_daten = array (
 					"SELECT",
 					"INSERT",
 					"UPDATE",
 					"DELETE",
 					"FILE"
 );
-$rechte_struktur=Array(
+$rechte_struktur = array (
 					"CREATE",
 					"ALTER",
 					"INDEX",
 					"DROP",
 					"CREATE TEMPORARY TABLES"
 );
-$rechte_admin=Array(
+$rechte_admin = array (
 					"GRANT",
 					"SUPER",
 					"PROCESS",
@@ -101,13 +101,13 @@ $rechte_admin=Array(
 					"REPLICATION CLIENT",
 					"REPLICATION SLAVE"
 );
-$rechte_resourcen=Array(
+$rechte_resourcen = array (
 						"MAX QUERIES PER HOUR",
 						"MAX UPDATES PER HOUR",
 						"MAX CONNECTIONS PER HOUR"
 );
 
-$sql_keywords=array(
+$sql_keywords = array (
 					'ALTER',
 					'AND',
 					'ADD',
@@ -235,7 +235,7 @@ $sql_keywords=array(
 					'IS',
 					'IF'
 );
-$mysql_doc=Array(
+$mysql_doc = array (
 				"Feldtypen" => "http://dev.mysql.com/doc/mysql/de/Column_types.html"
 );
 $mysql_string_types = array(
@@ -254,7 +254,7 @@ $mysql_string_types = array(
     'enum',
     'set'
 );
-$mysql_SQLhasRecords=array(
+$mysql_SQLhasRecords = array (
 
 						'SELECT',
 						'SHOW',
@@ -265,24 +265,25 @@ $mysql_SQLhasRecords=array(
 
 function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table='')
 {
-	global $config,$databases;
+    global $config,$databases;
+        
     if (isset($config['dbconnection']) && is_resource($config['dbconnection'])) {
         return $config['dbconnection'];
     }
-	$port=( isset($config['dbport']) && !empty($config['dbport']) ) ? ':' . $config['dbport'] : '';
-	$socket=( isset($config['dbsocket']) && !empty($config['dbsocket']) ) ? ':' . $config['dbsocket'] : '';
+
+    $port = ( isset($config['dbport']) && !empty($config['dbport']) ) ? ':' . $config['dbport'] : '';
+    $socket = ( isset($config['dbsocket']) && !empty($config['dbsocket']) ) ? ':' . $config['dbsocket'] : '';
 
 	$config['dbconnection'] = @mysqli_connect($config['dbhost'] . $port . $socket, $config['dbuser'], $config['dbpass']);
 
-	if ( mysqli_connect_errno($config['dbconnection']) ) {
-		die(SQLError("Error establishing a database connection!", mysqli_connect_error($config['dbconnection'])));
+	if (!$config['dbconnection']) {
+		die(SQLError("Error establishing a database connection!", mysqli_connect_error()));
 	}
 	if (!defined('MSD_MYSQL_VERSION')) GetMySQLVersion();
 
 	if (!isset($config['mysql_standard_character_set']) || $config['mysql_standard_character_set'] == '') get_sql_encodings();
 
-	if ($config['mysql_standard_character_set'] != $encoding)
-	{
+	if ($config['mysql_standard_character_set'] != $encoding) {
 		$set_encoding=@mysqli_query($config['dbconnection'],'SET NAMES \'' . $encoding . '\'');
 		if ($set_encoding === false) $config['mysql_can_change_encoding']=false;
 		else $config['mysql_can_change_encoding']=true;
