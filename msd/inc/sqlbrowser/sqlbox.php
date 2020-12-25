@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -58,7 +58,7 @@ $tpl->assign_vars(array(
 	'LANG_SQL_WARNING' => $lang['L_SQL_WARNING'],
 	'ICONPATH' => $config['files']['iconpath'],
 	'MYSQL_REF' => $mysql_help_ref,
-	'BOXSIZE' => $config['interface_sqlboxsize'],
+	'BOXSIZE' => ((isset($config['interface_sqlboxsize'])) ? $config['interface_sqlboxsize'] : ''),
 	'BOXCONTENT' => ((isset($sql_loaded)) ? $sql_loaded : $sql['sql_statement'].$sql['order_statement']),
 	'LANG_SQL_BEFEHLE' => $lang['L_SQL_BEFEHLE'],
 	'TABLE_COMBOBOX' => Table_ComboBox(),
