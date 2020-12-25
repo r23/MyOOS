@@ -36,6 +36,6 @@ read_config($config['config_file']);
 include ( MSD_PATH . 'language/lang_list.php' );
 if (!isset($databases['db_selected_index'])) $databases['db_selected_index']=0;
 SelectDB($databases['db_selected_index']);
-$config['theme']=( !isset($config['theme']) ) ? 'msd' : $config['theme'];
+$config['theme'] = isset($config['theme']) ? $config['theme'] : 'msd';
 $config['files']['iconpath']='./css/' . $config['theme'] . '/icons/';
 if (isset($error)) echo $error;

@@ -129,8 +129,8 @@ if (( isset($_POST['testFTP0']) ) || ( isset($_POST['testFTP1']) ) || ( isset($_
 }
 
 $showVP = false;
-$oldtheme = ( !isset($config['theme']) ) ? 'msd' : $config['theme'];
-$oldscposition = ( !isset($config['interface_server_caption_position']) ) ? '' : $config['interface_server_caption_position'];
+$oldtheme = isset($config['theme']) ? $config['theme'] : 'msd';
+$oldscposition = isset($config['interface_server_caption_position']) ? $config['interface_server_caption_position'] : '';
 
 
 if ($ftptested > -1)
@@ -620,16 +620,16 @@ if (sizeof($configs) > 0)
 		}
 
 		// DB-Liste fuer PHP
-		if ($config['multi_dump'] == 1) // Multidump
+		if ( isset($config['multi_dump']) && ($config['multi_dump'] == 1) ) // Multidump
 		{
-			$aus['conf'].=table_output($lang['L_BACKUP_DBS_PHP'],$toolboxstring);
+			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PHP'],$toolboxstring);
 		}
 		else
 		{
 			// aktuelle DB
 			$text=isset($databases['db_actual']) ? $databases['db_actual'] : '';
 			if (isset($databases['db_selected_index']) && isset($databases['praefix'][$databases['db_selected_index']]) && $databases['praefix'][$databases['db_selected_index']] > '') $text.=" ('<i>" . $databases['praefix'][$databases['db_selected_index']] . "</i>')";
-			$aus['conf'].=table_output($lang['L_BACKUP_DBS_PHP'],$text);
+			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PHP'],$text);
 		}
 
 		// DB-Liste fuer Perl
@@ -637,34 +637,34 @@ if (sizeof($configs) > 0)
 		if (!isset($config['cron_dbindex'])) $config['cron_dbindex']=-3;
 		if ($config['cron_dbindex'] == -2)
 		{
-			$aus['conf'].=table_output($lang['L_BACKUP_DBS_PERL'],$toolboxstring);
+			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PERL'],$toolboxstring);
 		}
 		elseif ($config['cron_dbindex'] == -3)
 		{
-			$text=$lang['L_ALL'];
-			$aus['conf'].=table_output($lang['L_BACKUP_DBS_PERL'],$text);
+			$text = $lang['L_ALL'];
+			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PERL'],$text);
 		}
 		else
 		{
-			$text=isset($databases['Name'][$config['cron_dbindex']]) ? $databases['Name'][$config['cron_dbindex']] : '';
+			$text = isset($databases['Name'][$config['cron_dbindex']]) ? $databases['Name'][$config['cron_dbindex']] : '';
 			if (isset($databases['praefix'][$config['cron_dbindex']]) && $databases['praefix'][$config['cron_dbindex']] > '') $text.=" ('<i>" . $databases['praefix'][$config['cron_dbindex']] . "</i>')";
-			$aus['conf'].=table_output($lang['L_BACKUP_DBS_PERL'],$text);
+			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PERL'],$text);
 		}
 
-		if ($config['multi_part'] == 1) // Multipart
+		if ( isset($config['multi_part']) && ($config['multi_part'] == 1) ) // Multipart
 		{
-			$aus['conf'].=table_output($lang['L_MULTI_PART'],$lang['L_YES'] . ", " . $lang['L_FILESIZE'] . " " . byte_output($config['multipart_groesse']));
+			$aus['conf'] .= table_output($lang['L_MULTI_PART'],$lang['L_YES'] . ", " . $lang['L_FILESIZE'] . " " . byte_output($config['multipart_groesse']));
 		}
 
-		if ($config['send_mail'] == 1) //Email
+		if ( isset($config['send_mail']) && ($config['send_mail'] == 1) ) // Email
 		{
-			$aus['conf'].=table_output($lang['L_SEND_MAIL_FORM'],$lang['L_YES'] . ", " . $lang['L_EMAIL_ADRESS'] . ": " . $config['email_recipient']);
-			if ($config['email_recipient_cc'] > '') $aus['conf'].=table_output($lang['L_EMAIL_CC'],$config['email_recipient_cc']);
+			$aus['conf'] .= table_output($lang['L_SEND_MAIL_FORM'],$lang['L_YES'] . ", " . $lang['L_EMAIL_ADRESS'] . ": " . $config['email_recipient']);
+			if ($config['email_recipient_cc'] > '') $aus['conf'] .= table_output($lang['L_EMAIL_CC'],$config['email_recipient_cc']);
 			$text=$lang['L_YES'] . ", " . $lang['L_MAX_UPLOAD_SIZE'] . ": ";
 			$bytes=$config['email_maxsize1'] * 1024;
 			if ($config['email_maxsize2'] == 2) $bytes=$bytes * 1024;
 			$text.=byte_output($bytes);
-			if ($config['send_mail_dump'] == 1) $aus['conf'].=table_output($lang['L_SEND_MAIL_DUMP'],$text);
+			if ($config['send_mail_dump'] == 1) $aus['conf'] .= table_output($lang['L_SEND_MAIL_DUMP'],$text);
 
 		}
 
@@ -672,8 +672,8 @@ if (sizeof($configs) > 0)
 		{
 			if (isset($config['ftp_transfer'][$x]) && $config['ftp_transfer'][$x] > 0)
 			{
-				//$aus['conf'].=table_output($lang['L_FTP'],sprintf($lang['L_FTP_SEND_TO'],$config['ftp_server'][$x],$config['ftp_dir'][$x]),1,2);
-				$aus['conf'].=table_output($lang['L_FTP'],sprintf($lang['L_FTP_SEND_TO'],$config['ftp_server'][$x],$config['ftp_dir'][$x]));
+				//$aus['conf'] .= table_output($lang['L_FTP'],sprintf($lang['L_FTP_SEND_TO'],$config['ftp_server'][$x],$config['ftp_dir'][$x]),1,2);
+				$aus['conf'] .= table_output($lang['L_FTP'],sprintf($lang['L_FTP_SEND_TO'],$config['ftp_server'][$x],$config['ftp_dir'][$x]));
 			}
 		}
 		$aus['conf'].='</table></td><td>';
@@ -742,7 +742,7 @@ if (isset($databases['Name'][0]) && $databases['Name'][0] > '')
         $disabled = '';
         if (in_array($databases['db_actual'], $dontBackupDatabases)) $disabled = ' disabled="disabled"';
 
-		$aus['db'].='<tr><td>' . Help($lang['L_HELP_DB'],"conf1") . $lang['L_LIST_DB'] . '</td><td><input type="checkbox" class="checkbox" name="MultiDBDump" value="1" ' . ( ( $config['multi_dump'] == 1 ) ? "CHECKED" : "" ) . '>&nbsp;' . $lang['L_ACTIVATE_MULTIDUMP'] . '</td>';
+		$aus['db'].='<tr><td>' . Help($lang['L_HELP_DB'],"conf1") . $lang['L_LIST_DB'] . '</td><td><input type="checkbox" class="checkbox" name="MultiDBDump" value="1" ' . ( ( isset($config['multi_dump']) && ($config['multi_dump'] == 1) ) ? "CHECKED" : "" ) . '>&nbsp;' . $lang['L_ACTIVATE_MULTIDUMP'] . '</td>';
 		$aus['db'].='<tr><td colspan="2"><table class="bdr">';
 		$aus['db'].='<tr class="thead"><th>' . $lang['L_DB'] . '</th><th>Multidump<br><span class="ssmall">(<a href="javascript:SelectMD(true,' . count($databases['Name']) . ')" class="small">' . $lang['L_ALL'] . '</a>&nbsp;<a href="javascript:SelectMD(false,' . count($databases['Name']) . ')" class="small">' . $lang['L_NONE'] . '</a>)</span></th>';
 		$aus['db'].='<th>' . Help($lang['L_HELP_PRAEFIX'],"conf2") . $lang['L_PRAEFIX'] . '</th><th>' . Help($lang['L_HELP_COMMANDS'],"",11) . 'Command before Dump</th><th>' . Help($lang['L_HELP_COMMANDS'],"",11) . 'Command after Dump</th><th>' . $lang['L_SQL_BEFEHLE'] . '</th></tr>';
@@ -791,7 +791,7 @@ $aus['db'].='</table></fieldset></div>';
 $aus['global1']='<div id="global1"><fieldset><legend>' . $lang['L_GENERAL'] . '</legend><table>';
 
 $aus['global1'].='<tr><td>' . Help("","") . 'Logfiles:&nbsp;</td>';
-$aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="logcompression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( ( $config['logcompression'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_COMPRESSED'] . '<br>';
+$aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="logcompression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( (isset($config['logcompression']) && ($config['logcompression'] == 1) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_COMPRESSED'] . '<br>';
 $aus['global1'].='' . $lang['L_MAXSIZE'] . ':&nbsp;&nbsp;<input type="text" class="text" name="log_maxsize1" size="3" maxlength="3" value="' . $config['log_maxsize1'] . '">&nbsp;&nbsp;';
 $aus['global1'].='<select name="log_maxsize2"><option value="1" ' . ( ( $config['log_maxsize2'] == 1 ) ? ' SELECTED' : '' ) . '>Kilobytes</option>';
 $aus['global1'].='<option value="2" ' . ( ( $config['log_maxsize2'] == 2 ) ? ' SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
@@ -807,8 +807,8 @@ $aus['global1'].='<td><input type="text" class="text" size="6" name="minspeed" m
 $aus['global1'].='</table></fieldset><fieldset><legend>' . $lang['L_DUMP'] . '</legend><table>';
 
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_ZIP'],"conf3") . $lang['L_GZIP'] . ':&nbsp;</td>';
-$aus['global1'].='<td><input type="radio" class="radio" value="1" name="compression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( ( $config['compression'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="compression" ' . ( ( $config['compression'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
+$aus['global1'].='<td><input type="radio" class="radio" value="1" name="compression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( (isset($config['logcompression']) && ($config['logcompression'] == 1) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
+$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="compression" ' . ( (isset($config['logcompression']) && ($config['logcompression'] == 0) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
 //Multipart-Backup -->
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_MULTIPART'],"") . $lang['L_MULTI_PART'] . ':&nbsp;</td><td>';
 $aus['global1'].='<input type="radio" class="radio" value="1" name="multi_part" onclick="obj_enable(\'multipartgroesse1\');obj_enable(\'multipartgroesse2\');" ' . ( ( $config['multi_part'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
