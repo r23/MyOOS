@@ -63,7 +63,8 @@ if (!$download)
 $mysql_help_ref = 'http://dev.mysql.com/doc/';
 $mysqli_errorhelp_ref = 'http://dev.mysql.com/doc/mysql/en/error-handling.html';
 $no_order = false;
-$tdcompact = (isset($_GET['tdc'])) ? $_GET['tdc'] : isset($config['interface_table_compact']) ? $config['interface_table_compact'] : 1;
+$config['interface_table_compact'] = isset($config['interface_table_compact']) ? $config['interface_table_compact'] : 1;
+$tdcompact = (isset($_GET['tdc'])) ? $_GET['tdc'] : $config['interface_table_compact'];
 $db = (!isset($_GET['db'])) ? $databases['db_actual'] : $_GET['db'];
 $dbid = (!isset($_GET['dbid'])) ? $databases['db_selected_index'] : $_GET['dbid'];
 $context = (!isset($_GET['context'])) ? 0 : $_GET['context'];
