@@ -153,5 +153,5 @@ if ($msg>'') $tpl->assign_block_vars('MSG',array(
 $tpl->pparse('show');
 
 echo MSDFooter();
-ob_end_flush();
+
 die();

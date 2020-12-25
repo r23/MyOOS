@@ -25,7 +25,6 @@ $tblr=( $tblfrage_refer == 'dump' ) ? 'Backup' : 'Restore';
 $filename=( isset($_GET['filename']) ) ? $_GET['filename'] : '';
 if (isset($_POST['file'][0])) $filename=$_POST['file'][0];
 
-ob_start();
 $tpl=new MSDTemplate();
 $sel_dump_encoding=isset($_POST['sel_dump_encoding']) ? $_POST['sel_dump_encoding'] : '';
 $tpl=new MSDtemplate();
@@ -186,4 +185,3 @@ $tpl->assign_vars(array(
 ));
 
 $tpl->pparse('show');
-ob_end_flush();

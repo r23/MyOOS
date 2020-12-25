@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,7 +18,6 @@
 
 define('OOS_VALID_MOD', true);
 
-if (!@ob_start("ob_gzhandler")) @ob_start();
 include ( './inc/header.php' );
 include_once ( './language/' . $config['language'] . '/lang_log.php' );
 echo MSDHeader();
@@ -162,4 +161,4 @@ if ($out != "")
 
 echo '</form>';
 echo MSDFooter();
-ob_end_flush();
+

@@ -18,7 +18,6 @@
 
 define('OOS_VALID_MOD', true);
 
-if (!@ob_start("ob_gzhandler")) @ob_start();
 function print_save_button()
 {
 	global $lang;
@@ -1022,4 +1021,4 @@ if (( $showVP ) || ( !isset($databases['Name']) ) || ( isset($databases['name'])
 echo '</script>';
 echo MSDFooter();
 $_SESSION['config']=$config;
-ob_end_flush();
+

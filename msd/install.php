@@ -18,7 +18,6 @@
 
 define('OOS_VALID_MOD', true);
 
-if (!@ob_start("ob_gzhandler")) @ob_start();
 $install_ftp_server=$install_ftp_user_name=$install_ftp_user_pass=$install_ftp_path="";
 $dbhost=$dbuser=$dbpass=$dbport=$dbsocket=$manual_db='';
 foreach ($_GET as $getvar=>$getval)
@@ -682,4 +681,4 @@ function extractValue($s)
 	return $r;
 }
 
-ob_end_flush();
+

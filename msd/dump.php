@@ -18,7 +18,6 @@
 
 define('OOS_VALID_MOD', true);
 
-if (!@ob_start("ob_gzhandler")) @ob_start();
 session_name('MyOOSDumperID');
 session_start();
 $aus2=$page_parameter=$a=$out='';
@@ -467,4 +466,4 @@ else
 }
 $complete_page=$pageheader.implode("\n",$aus)."\n".$selbstaufruf."\n".$pagefooter;
 echo $complete_page;
-ob_end_flush();
+

@@ -18,7 +18,6 @@
 
 define('OOS_VALID_MOD', true);
 
-if (!@ob_start("ob_gzhandler")) @ob_start();
 include_once ('./inc/header.php');
 include_once ('./inc/runtime.php');
 include_once ('./language/'.$config['language'].'/lang_main.php');
@@ -55,4 +54,4 @@ elseif ($action=='sys') include ('./inc/home/system.php');
 elseif ($action=='vars') include ('./inc/home/mysql_variables.php');
 
 echo MSDFooter();
-ob_end_flush();
+

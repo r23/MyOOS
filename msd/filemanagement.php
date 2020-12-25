@@ -70,7 +70,7 @@ if ($action=='dl')
 	//readfile($file);
 	exit();
 }
-if (!@ob_start("ob_gzhandler")) @ob_start();
+
 echo MSDHeader();
 
 $toolboxstring='';
@@ -557,4 +557,4 @@ switch ($action)
 
 }
 echo MSDFooter();
-ob_end_flush();
+

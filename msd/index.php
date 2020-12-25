@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -18,13 +18,11 @@
 
 define('OOS_VALID_MOD', true);
 
-if (!@ob_start("ob_gzhandler")) @ob_start();
 include ('./inc/functions.php');
 $page=(isset($_GET['page'])) ? $_GET['page'] : 'main.php';
 if (!file_exists("./work/config/myoosdumper.php"))
 {
 	header("location: install.php");
-	ob_end_flush();
 	die();
 }
 ?>
@@ -47,5 +45,4 @@ if (!file_exists("./work/config/myoosdumper.php"))
 		scrolling="auto" frameborder="0" marginwidth="0" marginheight="0">
 </frameset>
 </html>
-<?php
-ob_end_flush();
+
