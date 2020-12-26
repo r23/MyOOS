@@ -72,12 +72,14 @@ elseif ($r == 3)
 	$lfile=$config['paths']['log'] . "error.log";
 	$lcap="PHP Error-Log";
 }
-if ($config['logcompression'] == 1) $lfile.=".gz";
+
+if ( isset($config['logcompression']) && $config['logcompression'] == 1) $lfile.=".gz";
 if (!file_exists($lfile) && $r == 0)
 {
 	DeleteLog();
 }
-$loginfo=LogFileInfo($config['logcompression']);
+$nLogcompression = isset($config['logcompression']) ? $config['logcompression'] : 0;
+$loginfo = LogFileInfo($nLogcompression );
 
 echo headline($lcap);
 if (!is_writable($config['paths']['log'])) die('<p class="error">ERROR !<br>Logdir is not writable</p>');
