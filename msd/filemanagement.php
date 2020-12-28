@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,7 +28,7 @@ include_once ('./inc/functions_files.php');
 include_once ('./inc/functions_sql.php');
 $msg='';
 $dump=array();
-if ($config['auto_delete']==1) $msg=AutoDelete();
+if (isset($config['auto_delete']) && ($config['auto_delete'] == 1)) $msg = AutoDelete();
 get_sql_encodings(); // get possible sql charsets and also get default charset
 //0=Datenbank  1=Struktur
 $action=(isset($_GET['action'])) ? $_GET['action'] : 'files';
@@ -301,7 +301,7 @@ if (isset($_POST['upload']))
 //Seitenteile vordefinieren
 $href='filemanagement.php?action='.$action.'&amp;kind='.$kind;
 $tbl_abfrage='';
-if ($config['multi_dump']==0) $tbl_abfrage='<tr><td>'.$lang['L_FM_SELECTTABLES'].'</td><td><input type="checkbox" class="checkbox" name="tblfrage" value="1"></td></tr>';
+if (isset($config['multi_dump']) && ($config['multi_dump'] == 0)) $tbl_abfrage='<tr><td>'.$lang['L_FM_SELECTTABLES'].'</td><td><input type="checkbox" class="checkbox" name="tblfrage" value="1"></td></tr>';
 $dk=(isset($_POST['dumpKommentar'])) ? htmlentities($_POST['dumpKommentar']) : '';
 $tbl_abfrage.='<tr><td>'.$lang['L_FM_COMMENT'].':</td><td><input type="text" class="text" style="width:260px;" name="dumpKommentar" value="'.$dk.'"></td></tr>';
 $autodel='<p class="autodel">'.$lang['L_AUTODELETE'].": ";
@@ -313,12 +313,12 @@ switch ($action)
 {
 	case 'dump':
         $dbName = $databases['Name'][$databases['db_selected_index']];
-        if ($config['multi_dump']==0 && in_array($dbName, $dontBackupDatabases)) {
+        if ((isset($config['multi_dump']) && ($config['multi_dump'] == 0)) && in_array($dbName, $dontBackupDatabases)) {
             echo headline($lang['L_FM_DUMP_HEADER'].' <span class="small">("'.$lang['L_CONFIG_HEADLINE'].': '.$config['config_file'].'")</span>');
             echo '<span class="error">'.sprintf($lang['L_BACKUP_NOT_POSSIBLE'], $dbName).'</span>';
             break;
         }
-		if ($config['multi_dump']==0) DBDetailInfo($databases['db_selected_index']);
+		if (isset($config['multi_dump']) && ($config['multi_dump'] == 0)) DBDetailInfo($databases['db_selected_index']);
 		$cext=($config['cron_extender']==0) ? "pl" : "cgi";
 		$actualUrl=substr($_SERVER['SCRIPT_NAME'],0,strrpos($_SERVER['SCRIPT_NAME'],"/")+1);
 		if (substr($actualUrl,-1)!="/") $actualUrl.="/";

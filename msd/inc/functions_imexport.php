@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -94,6 +94,7 @@ function ExportCSV()
 				}
 				$t.=$sql['export']['endline'];
 				$sql['export']['lines']++;
+				if ($config['memory_limit'] == "") $config['memory_limit'] = 0;
 				if (strlen($t) > $config['memory_limit'])
 				{
 					CSVOutput($t);
@@ -311,6 +312,7 @@ function ExportXML()
 				}
 				$t.=str_repeat($tab,--$level) . "</row>\n";
 				$sql['export']['lines']++;
+				if ($config['memory_limit'] == "") $config['memory_limit'] = 0;
 				if (strlen($t) > $config['memory_limit'])
 				{
 					CSVOutput($t);
