@@ -100,7 +100,7 @@ echo "\n" . $errorbutton . "\n" . $perlbutton . "\n" . $perlbutton2 . "\n";
 echo '</tr></table><br>';
 
 //Status Logfiles
-echo '<div align="left"><table class="bdr"><tr><td><table><tr><td valign="top"><strong>' . $lang['L_LOGFILEFORMAT'] . '</strong><br><br>' . ( ( $config['logcompression'] == 1 ) ? '<img src="' . $config['files']['iconpath'] . 'gz.gif" width="32" height="32" alt="compressed" align="left">' : '<img src="' . $icon['blank'].'" width="32" height="32" alt="" align="left">' );
+echo '<div align="left"><table class="bdr"><tr><td><table><tr><td valign="top"><strong>' . $lang['L_LOGFILEFORMAT'] . '</strong><br><br>' . ( (isset($config['logcompression']) && ($config['logcompression'] == 1) ) ? '<img src="' . $config['files']['iconpath'] . 'gz.gif" width="32" height="32" alt="compressed" align="left">' : '<img src="' . $icon['blank'].'" width="32" height="32" alt="" align="left">' );
 echo '' . ( ( $config['logcompression'] == 1 ) ? $lang['L_COMPRESSED'] : $lang['L_NOTCOMPRESSED'] ) . '</td>';
 echo '<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td valign="top" align="right">';
 echo '<a href="' . $loginfo['log'] . '">' . substr($loginfo['log'],strrpos($loginfo['log'],"/") + 1) . '</a><br>';

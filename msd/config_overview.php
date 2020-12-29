@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -721,68 +721,69 @@ $aus['db'].='</table></div><div><a class="small" href="#" onclick="SwitchVP();">
 $aus['db'].='<table>';
 
 //Wenn Datenbanken vorhanden sind
-if (isset($databases['Name'][0]) && $databases['Name'][0] > '')
-{
-	if (!isset($databases['multi']) || ( !is_array($databases['multi']) )) $databases['multi']=array();
-	if (count($databases['Name']) == 1)
-	{
-		$databases['db_actual']=$databases['Name'][0];
-		$databases['db_selected_index']=0;
-		$aus['db'].='<tr><td>' . Help($lang['L_HELP_DB'],"conf1") . $lang['L_LIST_DB'] . '</td>';
-		$aus['db'].='<td><strong>' . $databases['db_actual'] . '</strong></td></tr>';
-		$aus['db'].='<tr><td>' . Help($lang['L_HELP_PRAEFIX'],"conf2") . $lang['L_PRAEFIX'] . '</td><td><input type="text" class="text" name="dbpraefix_' . $databases['db_selected_index'] . '" size="10" value="' . $databases['praefix'][$databases['db_selected_index']] . '"></td></tr>';
-		$aus['db'].='<tr><td>' . Help($lang['L_HELP_COMMANDS'],"") . 'Command before Dump</td><td>' . ComboCommandDump(0,$databases['db_selected_index']) . '</td></tr>';
-		$aus['db'].='<tr><td>' . Help($lang['L_HELP_COMMANDS'],"") . 'Command after Dump</td><td>' . ComboCommandDump(1,$databases['db_selected_index']) . '</td>';
-		$aus['db'].='<td><a href="sql.php?context=1">' . $lang['L_SQL_BEFEHLE'] . '</a></td>';
-		$aus['db'].='</tr>';
-	}
-	else
-	{
+if (isset($databases['Name'][0]) && $databases['Name'][0] > '') {
+    if (!isset($databases['multi']) || (!is_array($databases['multi']) ))
+        $databases['multi'] = array();
+    if (count($databases['Name']) == 1) {
+        $databases['db_actual'] = $databases['Name'][0];
+        $databases['db_selected_index'] = 0;
+        $aus['db'] .= '<tr><td>' . Help($lang['L_HELP_DB'], "conf1") . $lang['L_LIST_DB'] . '</td>';
+        $aus['db'] .= '<td><strong>' . $databases['db_actual'] . '</strong></td></tr>';
+        $aus['db'] .= '<tr><td>' . Help($lang['L_HELP_PRAEFIX'], "conf2") . $lang['L_PRAEFIX'] . '</td><td><input type="text" class="text" name="dbpraefix_' . $databases['db_selected_index'] . '" size="10" value="' . $databases['praefix'][$databases['db_selected_index']] . '"></td></tr>';
+        $aus['db'] .= '<tr><td>' . Help($lang['L_HELP_COMMANDS'], "") . 'Command before Dump</td><td>' . ComboCommandDump(0, $databases['db_selected_index']) . '</td></tr>';
+        $aus['db'] .= '<tr><td>' . Help($lang['L_HELP_COMMANDS'], "") . 'Command after Dump</td><td>' . ComboCommandDump(1, $databases['db_selected_index']) . '</td>';
+        $aus['db'] .= '<td><a href="sql.php?context=1">' . $lang['L_SQL_BEFEHLE'] . '</a></td>';
+        $aus['db'] .= '</tr>';
+    } else {
         $disabled = '';
-        if (in_array($databases['db_actual'], $dontBackupDatabases)) $disabled = ' disabled="disabled"';
+        if (in_array($databases['db_actual'], $dontBackupDatabases)) {
+            $disabled = ' disabled="disabled"';
+        }
 
-		$aus['db'].='<tr><td>' . Help($lang['L_HELP_DB'],"conf1") . $lang['L_LIST_DB'] . '</td><td><input type="checkbox" class="checkbox" name="MultiDBDump" value="1" ' . ( ( isset($config['multi_dump']) && ($config['multi_dump'] == 1) ) ? "CHECKED" : "" ) . '>&nbsp;' . $lang['L_ACTIVATE_MULTIDUMP'] . '</td>';
-		$aus['db'].='<tr><td colspan="2"><table class="bdr">';
-		$aus['db'].='<tr class="thead"><th>' . $lang['L_DB'] . '</th><th>Multidump<br><span class="ssmall">(<a href="javascript:SelectMD(true,' . count($databases['Name']) . ')" class="small">' . $lang['L_ALL'] . '</a>&nbsp;<a href="javascript:SelectMD(false,' . count($databases['Name']) . ')" class="small">' . $lang['L_NONE'] . '</a>)</span></th>';
-		$aus['db'].='<th>' . Help($lang['L_HELP_PRAEFIX'],"conf2") . $lang['L_PRAEFIX'] . '</th><th>' . Help($lang['L_HELP_COMMANDS'],"",11) . 'Command before Dump</th><th>' . Help($lang['L_HELP_COMMANDS'],"",11) . 'Command after Dump</th><th>' . $lang['L_SQL_BEFEHLE'] . '</th></tr>';
+        $aus['db'] .= '<tr><td>' . Help($lang['L_HELP_DB'], "conf1") . $lang['L_LIST_DB'] . '</td><td><input type="checkbox" class="checkbox" name="MultiDBDump" value="1" ' . ( ( isset($config['multi_dump']) && ($config['multi_dump'] == 1) ) ? "CHECKED" : "" ) . '>&nbsp;' . $lang['L_ACTIVATE_MULTIDUMP'] . '</td>';
+        $aus['db'] .= '<tr><td colspan="2"><table class="bdr">';
+        $aus['db'] .= '<tr class="thead"><th>' . $lang['L_DB'] . '</th><th>Multidump<br><span class="ssmall">(<a href="javascript:SelectMD(true,' . count($databases['Name']) . ')" class="small">' . $lang['L_ALL'] . '</a>&nbsp;<a href="javascript:SelectMD(false,' . count($databases['Name']) . ')" class="small">' . $lang['L_NONE'] . '</a>)</span></th>';
+        $aus['db'] .= '<th>' . Help($lang['L_HELP_PRAEFIX'], "conf2") . $lang['L_PRAEFIX'] . '</th><th>' . Help($lang['L_HELP_COMMANDS'], "", 11) . 'Command before Dump</th><th>' . Help($lang['L_HELP_COMMANDS'], "", 11) . 'Command after Dump</th><th>' . $lang['L_SQL_BEFEHLE'] . '</th></tr>';
 
-		//erst die aktuelle DB
-		$aus['db'].='<tr class="dbrowsel"><td><strong>' . $databases['db_actual'] . '</strong></td>';
-		$aus['db'].='<td align="center"><input type="checkbox" class="checkbox" name="db_multidump_' . $databases['db_selected_index'] . '" value="db_multidump_' . $databases['db_selected_index'] . '" ' . ( ( in_array($databases['db_actual'],$databases['multi']) ) ? "CHECKED" : "" );
-		$aus['db'].= $disabled . '></td>';
-		$aus['db'].='<td><img src="' . $icon['blank'] . '" width="40" height="1" alt=""><input type="text" class="text" name="dbpraefix_' . $databases['db_selected_index'] . '" size="10" value="'
-		  . $databases['praefix'][$databases['db_selected_index']] . '"' . $disabled . '></td>';
-		$aus['db'].='<td>' . ComboCommandDump(0,$databases['db_selected_index'], $disabled)
-		  . '</td><td>' . ComboCommandDump(1,$databases['db_selected_index'], $disabled) . '</td>';
-		$aus['db'].='<td><a href="sql.php?context=1">' . $lang['L_SQL_BEFEHLE'] . '</a></td>';
-		$aus['db'].='</tr>';
+        //erst die aktuelle DB
+        $aus['db'] .= '<tr class="dbrowsel"><td><strong>' . $databases['db_actual'] . '</strong></td>';
+        $aus['db'] .= '<td align="center"><input type="checkbox" class="checkbox" name="db_multidump_' . $databases['db_selected_index'] . '" value="db_multidump_' . $databases['db_selected_index'] . '" ' . ( ( in_array($databases['db_actual'], $databases['multi']) ) ? "CHECKED" : "" );
+        $aus['db'] .= $disabled . '></td>';
+        $aus['db'] .= '<td><img src="' . $icon['blank'] . '" width="40" height="1" alt=""><input type="text" class="text" name="dbpraefix_' . $databases['db_selected_index'] . '" size="10" value="'
+                . $databases['praefix'][$databases['db_selected_index']] . '"' . $disabled . '></td>';
+        $aus['db'] .= '<td>' . ComboCommandDump(0, $databases['db_selected_index'], $disabled)
+                . '</td><td>' . ComboCommandDump(1, $databases['db_selected_index'], $disabled) . '</td>';
+        $aus['db'] .= '<td><a href="sql.php?context=1">' . $lang['L_SQL_BEFEHLE'] . '</a></td>';
+        $aus['db'] .= '</tr>';
 
-		$dbacombo=$dbbcombo="";
-		$j=0;
-		for ($i=0; $i < count($databases['Name']); $i++)
-		{
-			if ($i != $databases['db_selected_index'])
-			{
-				$j++;
-				$disabled = '';
-                if (in_array($databases['Name'][$i], $dontBackupDatabases)) $disabled = ' disabled="disabled"';
-				if (!isset($databases['praefix'][$i])) $databases['praefix'][$i] = '';
-				$aus['db'].='<tr class="' . ( ( $i % 2 ) ? 'dbrow' : 'dbrow1' ) . '"><td>' . $databases['Name'][$i] . '</td>';
-				$aus['db'].='<td align="center"><input type="checkbox" class="checkbox" name="db_multidump_' . $i . '" value="db_multidump_' . $i . '" ' . ( ( in_array($databases['Name'][$i],$databases['multi']) ) ? "CHECKED" : "" );
-				$aus['db'] .= $disabled.'></td>';
-				$aus['db'].='<td><img src="' . $icon['blank'] . '" width="40" height="1" alt=""><input type="text" class="text" name="dbpraefix_' . $i . '" size="10" value="'
-				    . $databases['praefix'][$i] . '"';
+        $dbacombo = $dbbcombo = "";
+        $j = 0;
+        for ($i = 0; $i < count($databases['Name']); $i++) {
+            if ($i != $databases['db_selected_index']) {
+                $j++;
+                $disabled = '';
+                if (in_array($databases['Name'][$i], $dontBackupDatabases)) {
+                    $disabled = ' disabled="disabled"';
+                }
+                if (!isset($databases['praefix'][$i])) {
+                    $databases['praefix'][$i] = '';
+                }
+                $aus['db'] .= '<tr class="' . ( ( $i % 2 ) ? 'dbrow' : 'dbrow1' ) . '"><td>' . $databases['Name'][$i] . '</td>';
+                $aus['db'] .= '<td align="center"><input type="checkbox" class="checkbox" name="db_multidump_' . $i . '" value="db_multidump_' . $i . '" ' . ( ( in_array($databases['Name'][$i], $databases['multi']) ) ? "CHECKED" : "" );
+                $aus['db'] .= $disabled . '></td>';
+                $aus['db'] .= '<td><img src="' . $icon['blank'] . '" width="40" height="1" alt=""><input type="text" class="text" name="dbpraefix_' . $i . '" size="10" value="'
+                        . $databases['praefix'][$i] . '"';
 
-				$aus['db'] .= $disabled . '></td><td>' . ComboCommandDump(0,$i, $disabled) . '</td><td>'
-				    . ComboCommandDump(1,$i, $disabled) . '</td>';
-				$aus['db'].='<td><a href="sql.php?context=1">' . $lang['L_SQL_BEFEHLE'] . '</a></td>';
-				$aus['db'].='</tr>';
-			}
-		}
-	}
+                $aus['db'] .= $disabled . '></td><td>' . ComboCommandDump(0, $i, $disabled) . '</td><td>'
+                        . ComboCommandDump(1, $i, $disabled) . '</td>';
+                $aus['db'] .= '<td><a href="sql.php?context=1">' . $lang['L_SQL_BEFEHLE'] . '</a></td>';
+                $aus['db'] .= '</tr>';
+            }
+        }
+    }
+} else {
+    $aus['db'] .= '<tr><td>' . $lang['L_NO_DB_FOUND'] . '</td></tr>';
 }
-else
-	$aus['db'].='<tr><td>' . $lang['L_NO_DB_FOUND'] . '</td></tr>';
 $aus['db'].='</table></td></tr>';
 $aus['db'].='</table></fieldset></div>';
 
@@ -952,16 +953,16 @@ $aus['transfer2'].='</fieldset></div>';
 //Crondump
 $aus['cron']='<div id="cron"><fieldset><legend>' . $lang['L_CONFIG_CRONPERL'] . '</legend><table>';
 $aus['cron'].='<tr><td>' . Help($lang['L_HELP_CRONEXTENDER'],"") . $lang['L_CRON_EXTENDER'] . ':&nbsp;</td>';
-$aus['cron'].='<td><input type="radio" class="radio" value="0" name="cron_extender" ' . ( ( $config['cron_extender'] == 0 ) ? " checked" : "" ) . '>&nbsp;.pl';
-$aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="1" name="cron_extender" ' . ( ( $config['cron_extender'] == 1 ) ? " checked" : "" ) . '>&nbsp;.cgi';
+$aus['cron'].='<td><input type="radio" class="radio" value="0" name="cron_extender" ' . ( (isset($config['cron_extender']) && ($config['cron_extender'] == 0 ) ) ? " checked" : "" ) . '>&nbsp;.pl';
+$aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="1" name="cron_extender" ' . ( (isset($config['cron_extender']) && ($config['cron_extender'] == 1 ) )  ? " checked" : "" ) . '>&nbsp;.cgi';
 $aus['cron'].='</tr><tr><td>' . Help($lang['L_HELP_CRONEXECPATH'],"") . $lang['L_CRON_EXECPATH'] . ':&nbsp;</td>';
 $aus['cron'].='<td><input type="text" class="text" size="30" name="cron_execution_path" value="' . $config['cron_execution_path'] . '"></td>';
 $aus['cron'].='</tr><tr><td>' . Help($lang['L_HELP_CRONPRINTOUT'],"") . $lang['L_CRON_PRINTOUT'] . ':&nbsp;</td>';
-$aus['cron'].='<td><input type="radio" class="radio" value="1" name="cron_printout" ' . ( ( $config['cron_printout'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="cron_printout" ' . ( ( $config['cron_printout'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'] . '</td></tr>';
+$aus['cron'].='<td><input type="radio" class="radio" value="1" name="cron_printout" ' . ( (isset($config['cron_printout']) && ($config['cron_printout'] == 1 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
+$aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="cron_printout" ' . ( (isset($config['cron_printout']) && ($config['cron_printout'] == 0 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'] . '</td></tr>';
 $aus['cron'].='<tr><td>' . Help($lang['L_HELP_CRONCOMPLETELOG'],"") . $lang['L_CRON_COMPLETELOG'] . ':&nbsp;</td>';
-$aus['cron'].='<td><input type="radio" class="radio" value="1" name="cron_completelog" ' . ( ( $config['cron_completelog'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="cron_completelog" ' . ( ( $config['cron_completelog'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'] . '</td></tr>';
+$aus['cron'].='<td><input type="radio" class="radio" value="1" name="cron_completelog" ' . ( (isset($config['cron_completelog']) && ($config['cron_completelog'] == 1 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
+$aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="cron_completelog" ' . ( (isset($config['cron_completelog']) && ($config['cron_completelog'] == 0 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'] . '</td></tr>';
 
 $aus['cron'].='<tr><td>' . Help($lang['L_HELP_CRONDBINDEX'],"conf14") . $lang['L_CRON_CRONDBINDEX'] . ':&nbsp;</td>';
 $aus['cron'].='<td><select name="cron_dbindex" id="cron_dbindex">';
