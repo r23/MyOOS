@@ -305,7 +305,7 @@ if (isset($config['multi_dump']) && ($config['multi_dump'] == 0)) $tbl_abfrage='
 $dk=(isset($_POST['dumpKommentar'])) ? htmlentities($_POST['dumpKommentar']) : '';
 $tbl_abfrage.='<tr><td>'.$lang['L_FM_COMMENT'].':</td><td><input type="text" class="text" style="width:260px;" name="dumpKommentar" value="'.$dk.'"></td></tr>';
 $autodel='<p class="autodel">'.$lang['L_AUTODELETE'].": ";
-$autodel.=($config['auto_delete']==0) ? $lang['L_NOT_ACTIVATED'] : $lang['L_ACTIVATED'].' ('.$config['max_backup_files'].' '.$lang['L_MAX_BACKUP_FILES_EACH2'].')';
+$autodel.= (isset($config['auto_delete']) && ($config['auto_delete'] == 0 ) ) ? $lang['L_NOT_ACTIVATED'] : $lang['L_ACTIVATED'].' ('.$config['max_backup_files'].' '.$lang['L_MAX_BACKUP_FILES_EACH2'].')';
 $autodel.='</p>';
 
 //Fallunterscheidung

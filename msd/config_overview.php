@@ -792,17 +792,17 @@ $aus['global1']='<div id="global1"><fieldset><legend>' . $lang['L_GENERAL'] . '<
 
 $aus['global1'].='<tr><td>' . Help("","") . 'Logfiles:&nbsp;</td>';
 $aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="logcompression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( (isset($config['logcompression']) && ($config['logcompression'] == 1) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_COMPRESSED'] . '<br>';
-$aus['global1'].='' . $lang['L_MAXSIZE'] . ':&nbsp;&nbsp;<input type="text" class="text" name="log_maxsize1" size="3" maxlength="3" value="' . $config['log_maxsize1'] . '">&nbsp;&nbsp;';
-$aus['global1'].='<select name="log_maxsize2"><option value="1" ' . ( ( $config['log_maxsize2'] == 1 ) ? ' SELECTED' : '' ) . '>Kilobytes</option>';
-$aus['global1'].='<option value="2" ' . ( ( $config['log_maxsize2'] == 2 ) ? ' SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
+$aus['global1'].='' . $lang['L_MAXSIZE'] . ':&nbsp;&nbsp;<input type="text" class="text" name="log_maxsize1" size="3" maxlength="3" value="' . ( (isset($config['log_maxsize1'])) ? $config['log_maxsize1'] : "" ) . '">&nbsp;&nbsp;';
+$aus['global1'].='<select name="log_maxsize2"><option value="1" ' . ( (isset($config['log_maxsize2']) && ($config['log_maxsize2'] == 1) )  ? ' SELECTED' : '' ) . '>Kilobytes</option>';
+$aus['global1'].='<option value="2" ' . ( (isset($config['log_maxsize2']) && ($config['log_maxsize2'] == 2) ) ? ' SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
 
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_MEMORYLIMIT'],"") . $lang['L_MEMORY_LIMIT'] . ':&nbsp;&nbsp;</td>';
 $aus['global1'].='<td>';
-$aus['global1'].='<input type="text" class="text" size="10" id="mlimit" name="memory_limit" maxlength="10" style="text-align:right;font-size:11px;" value="' . $config['memory_limit'] . '"> Bytes&nbsp;&nbsp;&nbsp;<a href="#" onclick="WriteMem();" class="small">' . $lang['L_AUTODETECT'] . '</a>';
+$aus['global1'].='<input type="text" class="text" size="10" id="mlimit" name="memory_limit" maxlength="10" style="text-align:right;font-size:11px;" value="' . ( (isset($config['memory_limit'])) ? $config['memory_limit'] : "" ) . '"> Bytes&nbsp;&nbsp;&nbsp;<a href="#" onclick="WriteMem();" class="small">' . $lang['L_AUTODETECT'] . '</a>';
 $aus['global1'].='</td></tr>';
 
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_SPEED'],"") . $lang['L_SPEED'] . ':&nbsp;</td>';
-$aus['global1'].='<td><input type="text" class="text" size="6" name="minspeed" maxlength="6" style="text-align:right;" value="' . $config['minspeed'] . '">&nbsp;' . $lang['L_TO'] . '&nbsp;<input type="text" class="text" size="6" name="maxspeed" maxlength="9" style="text-align:right;" value="' . $config['maxspeed'] . '"></td></tr>';
+$aus['global1'].='<td><input type="text" class="text" size="6" name="minspeed" maxlength="6" style="text-align:right;" value="' . ( (isset($config['minspeed'])) ? $config['minspeed'] : "" ) . '">&nbsp;' . $lang['L_TO'] . '&nbsp;<input type="text" class="text" size="6" name="maxspeed" maxlength="9" style="text-align:right;" value="' . ( (isset($config['maxspeed'])) ? $config['maxspeed'] : "" ) . '"></td></tr>';
 
 $aus['global1'].='</table></fieldset><fieldset><legend>' . $lang['L_DUMP'] . '</legend><table>';
 
@@ -811,12 +811,12 @@ $aus['global1'].='<td><input type="radio" class="radio" value="1" name="compress
 $aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="compression" ' . ( (isset($config['logcompression']) && ($config['logcompression'] == 0) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
 //Multipart-Backup -->
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_MULTIPART'],"") . $lang['L_MULTI_PART'] . ':&nbsp;</td><td>';
-$aus['global1'].='<input type="radio" class="radio" value="1" name="multi_part" onclick="obj_enable(\'multipartgroesse1\');obj_enable(\'multipartgroesse2\');" ' . ( ( $config['multi_part'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['global1'].='&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="multi_part" onclick="obj_disable(\'multipartgroesse1\');obj_disable(\'multipartgroesse2\');" ' . ( ( $config['multi_part'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
+$aus['global1'].='<input type="radio" class="radio" value="1" name="multi_part" onclick="obj_enable(\'multipartgroesse1\');obj_enable(\'multipartgroesse2\');" ' . ( (isset($config['multi_part']) && ( $config['multi_part'] == 1 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
+$aus['global1'].='&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="multi_part" onclick="obj_disable(\'multipartgroesse1\');obj_disable(\'multipartgroesse2\');" ' . ( (isset($config['multi_part']) && ( $config['multi_part'] == 0 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
 $aus['global1'].='</td></tr><tr><td>' . Help($lang['L_HELP_MULTIPARTGROESSE'],"") . $lang['L_MULTI_PART_GROESSE'] . ':&nbsp;</td>';
 $aus['global1'].='<td>&nbsp;';
 
-$aus['global1'].='<input type="text" class="text" id="multipartgroesse1" name="multipartgroesse1" size="3" maxlength="8" value="' . $config['multipartgroesse1'] . '"';
+$aus['global1'].='<input type="text" class="text" id="multipartgroesse1" name="multipartgroesse1" size="3" maxlength="8" value="' . ( (isset($config['multipartgroesse1'])) ? $config['multipartgroesse1'] : "" ) . '"';
 if ($config['multi_part'] == 0) $aus['global1'].=' disabled';
 
 $aus['global1'].='>&nbsp;&nbsp;';
