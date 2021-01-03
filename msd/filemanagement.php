@@ -305,7 +305,11 @@ if (isset($config['multi_dump']) && ($config['multi_dump'] == 0)) $tbl_abfrage='
 $dk=(isset($_POST['dumpKommentar'])) ? htmlentities($_POST['dumpKommentar']) : '';
 $tbl_abfrage.='<tr><td>'.$lang['L_FM_COMMENT'].':</td><td><input type="text" class="text" style="width:260px;" name="dumpKommentar" value="'.$dk.'"></td></tr>';
 $autodel='<p class="autodel">'.$lang['L_AUTODELETE'].": ";
-$autodel.= (isset($config['auto_delete']) && ($config['auto_delete'] == 0 ) ) ? $lang['L_NOT_ACTIVATED'] : $lang['L_ACTIVATED'].' ('.$config['max_backup_files'].' '.$lang['L_MAX_BACKUP_FILES_EACH2'].')';
+$autodel.= (isset($config['auto_delete']) && ($config['auto_delete'] == 0 ) ) ? $lang['L_NOT_ACTIVATED'] : $lang['L_ACTIVATED'];
+if (isset($config['max_backup_files'])) { 
+	$autodel.= '  ('.$config['max_backup_files'].' '.$lang['L_MAX_BACKUP_FILES_EACH2'].')';
+}
+
 $autodel.='</p>';
 
 //Fallunterscheidung
@@ -319,7 +323,7 @@ switch ($action)
             break;
         }
 		if (isset($config['multi_dump']) && ($config['multi_dump'] == 0)) DBDetailInfo($databases['db_selected_index']);
-		$cext=($config['cron_extender']==0) ? "pl" : "cgi";
+		$cext = (isset($config['cron_extender']) && ($config['cron_extender']==0)) ? "pl" : "cgi";
 		$actualUrl=substr($_SERVER['SCRIPT_NAME'],0,strrpos($_SERVER['SCRIPT_NAME'],"/")+1);
 		if (substr($actualUrl,-1)!="/") $actualUrl.="/";
 		if (substr($actualUrl,0,1)!="/") $actualUrl="/$actualUrl";
@@ -368,7 +372,7 @@ switch ($action)
 
 		echo '<table>';
 		echo '<tr><td>'.$lang['L_DB'].':</td><td><strong>';
-		if ($config['multi_dump']==1)
+		if (isset($config['multi_dump']) &&  ($config['multi_dump']==1))
 		{
 			echo 'Multidump ('.count($databases['multi']).' '.$lang['L_DBS'].')</strong>';
 			echo '<span class="small">'.$toolboxstring.'</span>';
@@ -380,29 +384,29 @@ switch ($action)
 		}
 		echo '</td></tr>';
 
-		if ($config['multi_dump']==0&&$databases['praefix'][$databases['db_selected_index']]>'')
+		if ((isset($config['multi_dump']) && ($config['multi_dump'] == 0 )) && $databases['praefix'][$databases['db_selected_index']] > '')
 		{
 			echo '<tr><td>'.$lang['L_PRAEFIX'].':</td><td><strong>';
 			echo $databases['praefix'][$databases['db_selected_index']];
 			echo '</strong></td></tr>';
 		}
 
-		echo '<tr><td>'.$lang['L_GZIP'].':</td><td><strong>'.(($config['compression']==1) ? $lang['L_ACTIVATED'] : $lang['L_NOT_ACTIVATED']);
+		echo '<tr><td>'.$lang['L_GZIP'].':</td><td><strong>'.((isset($config['compression']) && ($config['compression']==1)) ? $lang['L_ACTIVATED'] : $lang['L_NOT_ACTIVATED']);
 		echo '</strong></td></tr>';
 
-		echo '<tr><td>'.$lang['L_MULTI_PART'].':</td><td><strong>'.(($config['multi_part']==1) ? $lang['L_YES'] : $lang['L_NO']);
+		echo '<tr><td>'.$lang['L_MULTI_PART'].':</td><td><strong>'.((isset($config['multi_part']) && ($config['multi_part']==1)) ? $lang['L_YES'] : $lang['L_NO']);
 		echo '</strong></td></tr>';
 
-		if ($config['multi_part']==1)
+		if (isset($config['multi_part']) &&  ($config['multi_part']==1))
 		{
 			echo '<tr><td>'.$lang['L_MULTI_PART_GROESSE'].':</td><td><strong>'.byte_output($config['multipart_groesse']).'</strong></td></tr>';
 		}
 
-		if ($config['send_mail']==1)
+		if (isset($config['send_mail']) && ($config['send_mail']==1))
 		{
 			$t=$config['email_recipient'].(($config['send_mail_dump']==1) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
 		}
-		echo '<tr><td>'.$lang['L_SEND_MAIL_FORM'].':</td><td><strong>'.(($config['send_mail']==1) ? $t : $lang['L_NOT_ACTIVATED']);
+		echo '<tr><td>'.$lang['L_SEND_MAIL_FORM'].':</td><td><strong>'.((isset($config['send_mail']) && ($config['send_mail']==1)) ? $t : $lang['L_NOT_ACTIVATED']);
 		echo '</strong></td></tr>';
 
 		for ($x=0; $x<3; $x++)
