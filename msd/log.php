@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2020 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -100,8 +100,9 @@ echo "\n" . $errorbutton . "\n" . $perlbutton . "\n" . $perlbutton2 . "\n";
 echo '</tr></table><br>';
 
 //Status Logfiles
+$icon['blank'] = isset($icon['blank']) ? $icon['blank'] : $config['files']['iconpath'] . 'blank.gif';
 echo '<div align="left"><table class="bdr"><tr><td><table><tr><td valign="top"><strong>' . $lang['L_LOGFILEFORMAT'] . '</strong><br><br>' . ( (isset($config['logcompression']) && ($config['logcompression'] == 1) ) ? '<img src="' . $config['files']['iconpath'] . 'gz.gif" width="32" height="32" alt="compressed" align="left">' : '<img src="' . $icon['blank'].'" width="32" height="32" alt="" align="left">' );
-echo '' . ( ( $config['logcompression'] == 1 ) ? $lang['L_COMPRESSED'] : $lang['L_NOTCOMPRESSED'] ) . '</td>';
+echo '' . ( ((isset($config['logcompression']) && $config['logcompression'] == 1 )) ? $lang['L_COMPRESSED'] : $lang['L_NOTCOMPRESSED'] ) . '</td>';
 echo '<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td valign="top" align="right">';
 echo '<a href="' . $loginfo['log'] . '">' . substr($loginfo['log'],strrpos($loginfo['log'],"/") + 1) . '</a><br>';
 echo ( $loginfo['errorlog_size'] > 0 ) ? '<a href="' . $loginfo['errorlog'] . '">' . substr($loginfo['errorlog'],strrpos($loginfo['errorlog'],"/") + 1) . '</a><br>' : substr($loginfo['errorlog'],strrpos($loginfo['errorlog'],"/") + 1) . '<br>';
@@ -115,7 +116,7 @@ if ($r != 2) $out.='<pre>';
 
 if (file_exists($lfile))
 {
-	$zeilen=( $config['logcompression'] == 1 ) ? gzfile($lfile) : file($lfile);
+	$zeilen=( (isset($config['logcompression']) && $config['logcompression'] == 1 )) ? gzfile($lfile) : file($lfile);
 	if ($r == 30)
 	{
 		echo '<pre>' . print_r($zeilen,true) . '</pre>';
