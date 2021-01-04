@@ -108,7 +108,7 @@ if ($databases['db_actual_tableselected']!=''&&$config['multi_dump']==0)
 	$msgTbl=sprintf($lang['L_NR_TABLES_SELECTED'],count($dump['tblArray']));
 }
 // Korrektur -> Multi-DB-Array ist gefuellt (damit die Infos in der Konfig nicht verloren gehen), aber Multidump ist nicht aktiviert)
-if ($config['multi_dump']==0)
+if (isset($config['multi_dump']) && ($config['multi_dump']==0))
 {
 	unset($databases['multi']);
 	$databases['multi']=array();

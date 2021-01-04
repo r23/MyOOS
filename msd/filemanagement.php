@@ -113,7 +113,7 @@ if (isset($_POST['dump_tbl']))
 //*** Abfrage ob Dump ***
 if (isset($_POST['dump']))
 {
-	if (isset($_POST['tblfrage'])&&$_POST['tblfrage']==1)
+	if (isset($_POST['tblfrage'])&&$_POST['tblfrage'] == 1 )
 	{
 		//Tabellenabfrage
 		$tblfrage_refer="dump";
@@ -148,7 +148,7 @@ if (isset($_POST['restore']))
 {
 	if (isset($_POST['file']))
 	{
-		if (isset($_POST['tblfrage'])&&$_POST['tblfrage']==1)
+		if (isset($_POST['tblfrage'])&&$_POST['tblfrage'] == 1 )
 		{
 			//Tabellenabfrage
 			$tblfrage_refer="restore";
@@ -372,14 +372,19 @@ switch ($action)
 
 		echo '<table>';
 		echo '<tr><td>'.$lang['L_DB'].':</td><td><strong>';
-		if (isset($config['multi_dump']) &&  ($config['multi_dump']==1))
+		if (isset($config['multi_dump']) &&  ($config['multi_dump'] == 1 ))
 		{
 			echo 'Multidump ('.count($databases['multi']).' '.$lang['L_DBS'].')</strong>';
 			echo '<span class="small">'.$toolboxstring.'</span>';
 		}
 		else
 		{
-			echo $databases['db_actual'].'&nbsp;&nbsp;<span>('.$databases['Detailinfo']['tables']." Tables, ".$databases['Detailinfo']['records']." Records, ".byte_output($databases['Detailinfo']['size']).')</span></strong>';
+			echo $databases['db_actual'];
+			if (isset($databases['Detailinfo'])) 
+			{
+				echo '&nbsp;&nbsp;<span> ('.$databases['Detailinfo']['tables']." Tables, ".$databases['Detailinfo']['records']." Records, ".byte_output($databases['Detailinfo']['size']).')</span>';
+			}	
+			echo '</strong>';
 
 		}
 		echo '</td></tr>';
@@ -391,22 +396,22 @@ switch ($action)
 			echo '</strong></td></tr>';
 		}
 
-		echo '<tr><td>'.$lang['L_GZIP'].':</td><td><strong>'.((isset($config['compression']) && ($config['compression']==1)) ? $lang['L_ACTIVATED'] : $lang['L_NOT_ACTIVATED']);
+		echo '<tr><td>'.$lang['L_GZIP'].':</td><td><strong>'.((isset($config['compression']) && ($config['compression'] == 1 )) ? $lang['L_ACTIVATED'] : $lang['L_NOT_ACTIVATED']);
 		echo '</strong></td></tr>';
 
-		echo '<tr><td>'.$lang['L_MULTI_PART'].':</td><td><strong>'.((isset($config['multi_part']) && ($config['multi_part']==1)) ? $lang['L_YES'] : $lang['L_NO']);
+		echo '<tr><td>'.$lang['L_MULTI_PART'].':</td><td><strong>'.((isset($config['multi_part']) && ($config['multi_part'] == 1 )) ? $lang['L_YES'] : $lang['L_NO']);
 		echo '</strong></td></tr>';
 
-		if (isset($config['multi_part']) &&  ($config['multi_part']==1))
+		if (isset($config['multi_part']) &&  ($config['multi_part'] == 1 ))
 		{
 			echo '<tr><td>'.$lang['L_MULTI_PART_GROESSE'].':</td><td><strong>'.byte_output($config['multipart_groesse']).'</strong></td></tr>';
 		}
 
-		if (isset($config['send_mail']) && ($config['send_mail']==1))
+		if (isset($config['send_mail']) && ($config['send_mail'] == 1 ))
 		{
-			$t=$config['email_recipient'].(($config['send_mail_dump']==1) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
+			$t=$config['email_recipient'].(($config['send_mail_dump'] == 1 ) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
 		}
-		echo '<tr><td>'.$lang['L_SEND_MAIL_FORM'].':</td><td><strong>'.((isset($config['send_mail']) && ($config['send_mail']==1)) ? $t : $lang['L_NOT_ACTIVATED']);
+		echo '<tr><td>'.$lang['L_SEND_MAIL_FORM'].':</td><td><strong>'.((isset($config['send_mail']) && ($config['send_mail'] == 1 )) ? $t : $lang['L_NOT_ACTIVATED']);
 		echo '</strong></td></tr>';
 
 		for ($x=0; $x<3; $x++)
@@ -459,23 +464,23 @@ switch ($action)
 			echo $cron_dbpraefix.'</strong></td></tr>';
 		}
 
-		echo '<tr><td>'.$lang['L_GZIP'].":</td><td><strong>".(($config['cron_compression']==1) ? $lang['L_ACTIVATED'] : $lang['L_NOT_ACTIVATED']);
+		echo '<tr><td>'.$lang['L_GZIP'].":</td><td><strong>".((isset($config['cron_compression']) && ($config['cron_compression'] == 1)) ? $lang['L_ACTIVATED'] : $lang['L_NOT_ACTIVATED']);
 		echo '</strong></td></tr>';
 
-		echo '<tr><td>'.$lang['L_MULTI_PART'].":</td><td><strong>".(($config['multi_part']==1) ? $lang['L_YES'] : $lang['L_NO']);
+		echo '<tr><td>'.$lang['L_MULTI_PART'].":</td><td><strong>".((isset($config['multi_part']) && ($config['multi_part'] == 1)) ? $lang['L_YES'] : $lang['L_NO']);
 		echo '</strong></td></tr>';
 
-		if ($config['multi_part']==1)
+		if (isset($config['multi_part']) && ($config['multi_part'] == 1))
 		{
 			echo '<tr><td>'.$lang['L_MULTI_PART_GROESSE'].':</td><td><strong>'.byte_output($config['multipart_groesse']).'</td></tr>';
 		}
-		echo '<tr><td>'.$lang['L_CRON_PRINTOUT'].':</td><td><strong>'.(($config['cron_printout']==1) ? $lang['L_ACTIVATED'] : $lang['L_NOT_ACTIVATED']).'</strong></td></tr>';
+		echo '<tr><td>'.$lang['L_CRON_PRINTOUT'].':</td><td><strong>'. ((isset($config['cron_printout']) && ($config['cron_printout'] == 1)) ? $lang['L_ACTIVATED'] : $lang['L_NOT_ACTIVATED']).'</strong></td></tr>';
 
-		if ($config['send_mail']==1)
+		if (isset($config['send_mail']) && ($config['send_mail'] == 1 ))
 		{
-			$t=$config['email_recipient'].(($config['send_mail_dump']==1) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
+			$t=$config['email_recipient'].(($config['send_mail_dump'] == 1 ) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
 		}
-		echo '<tr><td>'.$lang['L_SEND_MAIL_FORM'].':</td><td><strong>'.(($config['send_mail']==1) ? $t : $lang['L_NOT_ACTIVATED']).'</strong></td></tr>';
+		echo '<tr><td>'.$lang['L_SEND_MAIL_FORM'].':</td><td><strong>'.((isset($config['send_mail']) && ($config['send_mail'] == 1 )) ? $t : $lang['L_NOT_ACTIVATED']).'</strong></td></tr>';
 
 		for ($x=0; $x<3; $x++)
 		{
