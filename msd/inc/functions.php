@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -254,7 +254,9 @@ function WriteParams($as=0, $restore_values=false)
 	FillMultiDBArrays();
 
 	//Parameter zusammensetzen
-	$config['multipart_groesse']=$config['multipartgroesse1'] * ( ( $config['multipartgroesse2'] == 1 ) ? 1024 : 1024 * 1024 );
+	$config['multipartgroesse1'] = isset($config['multipartgroesse1']) ? $config['multipartgroesse1'] : '1';
+	$config['multipartgroesse2'] = isset($config['multipartgroesse2']) ? $config['multipartgroesse2'] : '1';
+	$config['multipart_groesse'] = $config['multipartgroesse1'] * ( ( $config['multipartgroesse2'] == 1 ) ? 1024 : 1024 * 1024 );
 	$param=$pars_all='<?php ' . $nl;
 	if (!isset($config['email_maxsize'])) $config['email_maxsize']=$config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
 	if (!isset($config['cron_execution_path'])) $config['cron_execution_path']="msd_cron/";
@@ -425,8 +427,8 @@ function WriteCronScript($restore_values=false)
 	$r=str_replace("\\\\","/",$config['paths']['root']);
 	$r=str_replace("@","\@",$r);
 	$p1=$r . $config['paths']['backup'];
-	$p2=$r . $config['files']['perllog'] . ( ( $config['logcompression'] == 1 ) ? '.gz' : '' );
-	$p3=$r . $config['files']['perllogcomplete'] . ( ( $config['logcompression'] == 1 ) ? '.gz' : '' );
+	$p2=$r . $config['files']['perllog'] . ( (isset($config['logcompression']) && ($config['logcompression'] == 1 )) ? '.gz' : '' );
+	$p3=$r . $config['files']['perllogcomplete'] . ( (isset($config['logcompression']) && ( $config['logcompression'] == 1 )) ? '.gz' : '' );
 
 	// auf manchen Server wird statt 0 ein leerer String gespeichert -> fuehrt zu einem Syntax-Fehler
 	// hier die entsprechenden Ja/Nein-Variablen sicherheitshalber in intvalues aendern
@@ -457,10 +459,30 @@ function WriteCronScript($restore_values=false)
 			}
 		}
 		else
-			$config[$i]=intval($config[$i]);
+			$config[$i] = isset($config[$i]) ? intval($config[$i]) : 0;
 	}
 	if ($config['dbport'] == 0) $config['dbport']=3306;
 
+	$config['cron_sendmail'] = isset($config['cron_sendmail']) ? $config['cron_sendmail'] : '';
+	$config['cron_printout'] = isset($config['cron_printout']) ? $config['cron_printout'] : '';
+	$config['send_mail'] = isset($config['send_mail']) ? $config['send_mail'] : '';
+	$config['send_mail_dump'] = isset($config['send_mail_dump']) ? $config['send_mail_dump'] : '';
+	$config['email_recipient'] = isset($config['email_recipient']) ? $config['email_recipient'] : '';
+	$config['email_recipient_cc'] = isset($config['email_recipient_cc']) ? $config['email_recipient_cc'] : '';
+	$config['email_sender'] = isset($config['email_sender']) ? $config['email_sender'] : '';
+	$config['cron_smtp'] = isset($config['cron_smtp']) ? $config['cron_smtp'] : '';
+	$config['ftp_server'] = isset($config['ftp_server']) ? $config['ftp_server'] : '';
+	$config['ftp_port'] = isset($config['ftp_port']) ? $config['ftp_port'] : '';
+	$config['ftp_mode'] = isset($config['ftp_mode']) ? $config['ftp_mode'] : '';
+	$config['ftp_user'] = isset($config['ftp_user']) ? $config['ftp_user'] : '';
+	$config['ftp_pass'] = isset($config['ftp_pass']) ? $config['ftp_pass'] : '';
+	$config['ftp_dir'] = isset($config['ftp_dir']) ? $config['ftp_dir'] : '';
+	$config['ftp_timeout'] = isset($config['ftp_timeout']) ? $config['ftp_timeout'] : '';
+	$config['ftp_useSSL'] = isset($config['ftp_useSSL']) ? $config['ftp_useSSL'] : '';	
+	$config['ftp_transfer'] = isset($config['ftp_transfer']) ? $config['ftp_transfer'] : '';
+	$config['cron_comment'] = isset($config['cron_comment']) ? $config['cron_comment'] : '';
+	
+	
 	$cronscript="<?php\n#Vars - written at " . date("Y-m-d") . $nl;
 	$cronscript.='$dbhost="' . $config['dbhost'] . '";' . $nl;
 	$cronscript.='$dbname="' . $cron_dbname . '";' . $nl;
