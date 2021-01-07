@@ -7,7 +7,7 @@ $link=MSD_mysql_connect();
 $res=mysqli_query($link, $sql);
 if (!$res===false)
 {
-	while ($row=mysqli_fetch_array($res,MYSQL_NUM))
+	while ($row=mysqli_fetch_array($res,MYSQLI_NUM))
 	{
 		$tables[]=$row[0];
 	}
