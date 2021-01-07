@@ -571,7 +571,7 @@ function LogFileInfo($logcompression)
 
 	$l=Array();
 	$sum=$s=$l['log_size']=$l['perllog_size']=$l['perllogcomplete_size']=$l['errorlog_size']=$l['log_totalsize']=0;
-	if ($logcompression == 1)
+	if ((isset($config['logcompression']) && $config['logcompression'] == 1))
 	{
 		$l['log']=$config['files']['log'] . ".gz";
 		$l['perllog']=$config['files']['perllog'] . ".gz";
@@ -605,7 +605,7 @@ function DeleteLog()
 	$log=date('d.m.Y H:i:s') . " Log created.\n";
 	if (file_exists($config['files']['log'] . '.gz')) @unlink($config['files']['log'] . '.gz');
 	if (file_exists($config['files']['log'] . '.gz')) @unlink($config['files']['log']);
-	if ($config['logcompression'] == 1)
+	if ((isset($config['logcompression']) && $config['logcompression'] == 1))
 	{
 		$fp=@gzopen($config['files']['log'] . '.gz',"wb");
 		@gzwrite($fp,$log);

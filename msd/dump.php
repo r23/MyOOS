@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -137,12 +137,15 @@ if (!isset($_SESSION['dump'])) getDBInfos();
 
 $num_tables=count($dump['tables']);
 
-if ($config['optimize_tables_beforedump']==1&&$dump['table_offset']==-1) $out.=sprintf($lang['L_NR_TABLES_OPTIMIZED'],$num_tables).'<br>';
+if ((isset($config['optimize_tables_beforedump']) && ($config['optimize_tables_beforedump']==1)) && $dump['table_offset']==-1)
+{
+	$out.=sprintf($lang['L_NR_TABLES_OPTIMIZED'],$num_tables).'<br>';
+}
 $dump['data']='';
 $dump['dbindex']=(isset($_POST['dbindex'])) ? $_POST['dbindex']:$flipped[$databases['multi'][0]];
 
 //Ausgaben-Header bauen
-$aus_header[]=headline('Backup: '.(($config['multi_dump']==1) ? 'Multidump ('.count($databases['multi']).' '.$lang['L_DBS'].')':$lang['L_DB'].': '.$databases['Name'][$dump['dbindex']].(($databases['praefix'][$dump['dbindex']]!='') ? ' ('.$lang['L_WITHPRAEFIX'].' <span>'.$databases['praefix'][$dump['dbindex']].'</span>)':'')));
+$aus_header[]=headline('Backup: '.((isset($config['multi_dump']) && ($config['multi_dump']==1)) ? 'Multidump ('.count($databases['multi']).' '.$lang['L_DBS'].')':$lang['L_DB'].': '.$databases['Name'][$dump['dbindex']].(($databases['praefix'][$dump['dbindex']]!='') ? ' ('.$lang['L_WITHPRAEFIX'].' <span>'.$databases['praefix'][$dump['dbindex']].'</span>)':'')));
 if (isset($aus_error)&&count($aus_error)>0) $aus_header=array_merge($aus_header,$aus_error);
 
 if ($num_tables==0)
@@ -264,7 +267,7 @@ else
 	/////////////////////////////////
 	// Anzeige - Fortschritt
 	/////////////////////////////////
-	if ($config['multi_dump']==1)
+	if (isset($config['multi_dump']) && ($config['multi_dump']==1))
 	{
 		$mudbs='';
 		$count_dbs=count($databases['multi']);

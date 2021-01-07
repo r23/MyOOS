@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2020 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -817,34 +817,34 @@ $aus['global1'].='</td></tr><tr><td>' . Help($lang['L_HELP_MULTIPARTGROESSE'],""
 $aus['global1'].='<td>&nbsp;';
 
 $aus['global1'].='<input type="text" class="text" id="multipartgroesse1" name="multipartgroesse1" size="3" maxlength="8" value="' . ( (isset($config['multipartgroesse1'])) ? $config['multipartgroesse1'] : "" ) . '"';
-if ($config['multi_part'] == 0) $aus['global1'].=' disabled';
+if (isset($config['multi_part']) && ($config['multi_part'] == 0)) $aus['global1'].=' disabled';
 
 $aus['global1'].='>&nbsp;&nbsp;';
 $aus['global1'].='<select id="multipartgroesse2" name="multipartgroesse2"';
-if ($config['multi_part'] == 0) $aus['global1'].=' disabled';
+if (isset($config['multi_part']) && ($config['multi_part'] == 0)) $aus['global1'].=' disabled';
 $aus['global1'].='><option value="1" ' . ( ( $config['multipartgroesse2'] == 1 ) ? 'SELECTED' : '' ) . '>Kilobytes</option><option value="2" ' . ( ( $config['multipartgroesse2'] == 2 ) ? 'SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
 
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_OPTIMIZE'],"") . $lang['L_OPTIMIZE'] . ':</td>';
-$aus['global1'].='<td><input type="radio" class="radio" value="1" name="optimize_tables" ' . ( ( $config['optimize_tables_beforedump'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="optimize_tables" ' . ( ( $config['optimize_tables_beforedump'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
+$aus['global1'].='<td><input type="radio" class="radio" value="1" name="optimize_tables" ' . ( (isset($config['optimize_tables_beforedump']) && ( $config['optimize_tables_beforedump'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
+$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="optimize_tables" ' . ( (isset($config['optimize_tables_beforedump']) && ( $config['optimize_tables_beforedump'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
 
 $aus['global1'].='</table></fieldset><fieldset><legend>' . $lang['L_RESTORE'] . '</legend><table>';
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_EMPTY_DB_BEFORE_RESTORE'],"conf4") . $lang['L_EMPTY_DB_BEFORE_RESTORE'] . ':&nbsp;</td><td>';
-$aus['global1'].='<input type="radio" class="radio" value="1" name="empty_db_before_restore" ' . ( ( $config['empty_db_before_restore'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="empty_db_before_restore" ' . ( ( $config['empty_db_before_restore'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
+$aus['global1'].='<input type="radio" class="radio" value="1" name="empty_db_before_restore" ' . ( (isset($config['empty_db_before_restore']) && ( $config['empty_db_before_restore'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
+$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="empty_db_before_restore" ' . ( (isset($config['empty_db_before_restore']) && ( $config['empty_db_before_restore'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
 $aus['global1'].='</td></tr>';
 
 $aus['global1'].='<tr><td>' . Help("","") . $lang['L_ERRORHANDLING_RESTORE'] . ':</td><td>';
-$aus['global1'].='<input type="radio" class="radio" name="stop_with_error" value="0" ' . ( ( $config['stop_with_error'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_EHRESTORE_CONTINUE'] . '<br>';
-$aus['global1'].='<input type="radio" class="radio" name="stop_with_error" value="1" ' . ( ( $config['stop_with_error'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_EHRESTORE_STOP'];
+$aus['global1'].='<input type="radio" class="radio" name="stop_with_error" value="0" ' . ( (isset($config['stop_with_error']) && ( $config['stop_with_error'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_EHRESTORE_CONTINUE'] . '<br>';
+$aus['global1'].='<input type="radio" class="radio" name="stop_with_error" value="1" ' . ( (isset($config['stop_with_error']) && ( $config['stop_with_error'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_EHRESTORE_STOP'];
 $aus['global1'].='</td></tr>';
 
 if (!isset($config['ignore_enable_keys'])) {
     $config['ignore_enable_keys'] = 0;
 }
 $aus['global1'].='<tr><td>Ignore "ENABLE KEYS":</td><td>';
-$aus['global1'].='<input type="radio" class="radio" name="ignore_enable_keys" value="1" ' . ( ( $config['ignore_enable_keys'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" name="ignore_enable_keys" value="0" ' . ( ( $config['ignore_enable_keys'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
+$aus['global1'].='<input type="radio" class="radio" name="ignore_enable_keys" value="1" ' . ( (isset($config['ignore_enable_keys']) && ( $config['ignore_enable_keys'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
+$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" name="ignore_enable_keys" value="0" ' . ( (isset($config['ignore_enable_keys']) && ( $config['ignore_enable_keys'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
 $aus['global1'].='</td></tr>';
 
 $aus['global1'].='</table></fieldset>';
