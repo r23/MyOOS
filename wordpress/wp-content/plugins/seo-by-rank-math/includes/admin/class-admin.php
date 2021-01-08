@@ -43,10 +43,6 @@ class Admin implements Runner {
 		$this->ajax( 'is_keyword_new', 'is_keyword_new' );
 		$this->ajax( 'save_checklist_layout', 'save_checklist_layout' );
 		$this->ajax( 'deactivate_plugins', 'deactivate_plugins' );
-
-		// POST.
-		$this->action( 'admin_init', 'process_oauth' );
-		$this->action( 'admin_init', 'reconnect_google' );
 	}
 
 	/**
@@ -60,106 +56,13 @@ class Admin implements Runner {
 	}
 
 	/**
-	 * Reconnect Google.
-	 */
-	public function reconnect_google() {
-		if ( ! isset( $_GET['reconnect'] ) || 'google' !== $_GET['reconnect'] ) {
-			return;
-		}
-
-		if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'rank_math_reconnect_google' ) ) {
-			wp_nonce_ays( 'rank_math_reconnect_google' );
-			die();
-		}
-
-		if ( ! Helper::has_cap( 'analytics' ) ) {
-			return;
-		}
-
-		\RankMath\Google\Api::get()->revoke_token();
-		\RankMath\Analytics\Data_Fetcher::get()->kill_process();
-
-		wp_redirect( \RankMath\Google\Authentication::get_auth_url() );
-		die();
-	}
-
-	/**
-	 * OAuth reply back
-	 */
-	public function process_oauth() {
-
-		$security      = filter_input( INPUT_GET, 'rankmath_security', FILTER_SANITIZE_STRING );
-		$process_oauth = filter_input( INPUT_GET, 'process_oauth', FILTER_SANITIZE_STRING );
-		$access_token  = filter_input( INPUT_GET, 'access_token', FILTER_SANITIZE_STRING );
-
-		if ( empty( $process_oauth ) && empty( $access_token ) ) {
-			return;
-		}
-
-		if ( empty( $security ) || ! wp_verify_nonce( $security, 'rank_math_oauth_token' ) ) {
-			wp_nonce_ays( 'rank_math_oauth_token' );
-			die();
-		}
-
-		if ( ! empty( $process_oauth ) ) {
-			\RankMath\Google\Authentication::get_tokens_from_server();
-		}
-
-		if ( ! empty( $access_token ) ) {
-
-			$data = [
-				'access_token'  => urldecode( filter_input( INPUT_GET, 'access_token', FILTER_SANITIZE_STRING ) ),
-				'refresh_token' => urldecode( filter_input( INPUT_GET, 'refresh_token', FILTER_SANITIZE_STRING ) ),
-				'expire'        => urldecode( filter_input( INPUT_GET, 'expire', FILTER_SANITIZE_STRING ) ),
-			];
-
-			\RankMath\Google\Authentication::tokens( $data );
-
-			$current_request = self::get_current_request();
-			$current_request = home_url( $current_request );
-			$current_request = remove_query_arg(
-				[
-					'access_token',
-					'refresh_token',
-					'expire',
-					'security',
-				],
-				$current_request
-			);
-
-			// Remove possible admin notice if we have new access token.
-			delete_option( 'rankmath_google_api_failed_attempts_data' );
-			delete_option( 'rankmath_google_api_reconnect' );
-
-			wp_safe_redirect( $current_request );
-			exit();
-
-		}
-
-	}
-
-	/**
-	 * To get current requested URL path.
-	 *
-	 * @return string current requested path.
-	 */
-	protected function get_current_request() {
-
-		$current_request = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING );
-		$current_request = sanitize_text_field( $current_request );
-
-		return $current_request;
-
-	}
-
-	/**
 	 * Add Facebook and Twitter as user contact methods.
 	 *
 	 * @param array $contactmethods Current contact methods.
 	 * @return array New contact methods with extra items.
 	 *
 	 * @copyright Copyright (C) 2008-2019, Yoast BV
- 	 * The following code is a derivative work of the code from the Yoast(https://github.com/Yoast/wordpress-seo/), which is licensed under GPL v3.
+	 * The following code is a derivative work of the code from the Yoast(https://github.com/Yoast/wordpress-seo/), which is licensed under GPL v3.
 	 */
 	public function update_user_contactmethods( $contactmethods ) {
 		$contactmethods['twitter']  = esc_html__( 'Twitter username (without @)', 'rank-math' );
@@ -179,7 +82,15 @@ class Admin implements Runner {
 
 		$icon = '<span class="rank-math-icon"><svg viewBox="0 0 462.03 462.03" xmlns="http://www.w3.org/2000/svg" width="20"><g><path d="m462 234.84-76.17 3.43 13.43 21-127 81.18-126-52.93-146.26 60.97 10.14 24.34 136.1-56.71 128.57 54 138.69-88.61 13.43 21z"></path><path d="m54.1 312.78 92.18-38.41 4.49 1.89v-54.58h-96.67zm210.9-223.57v235.05l7.26 3 89.43-57.05v-181zm-105.44 190.79 96.67 40.62v-165.19h-96.67z"></path></g></svg></span>';
 
-		wp_add_dashboard_widget( 'rank_math_dashboard_widget', $icon . esc_html__( 'Rank Math Overview', 'rank-math' ), [ $this, 'render_dashboard_widget' ] );
+		wp_add_dashboard_widget(
+			'rank_math_dashboard_widget',
+			$icon . esc_html__( 'Rank Math Overview', 'rank-math' ),
+			[ $this, 'render_dashboard_widget' ],
+			null,
+			null,
+			'normal',
+			'high'
+		);
 	}
 
 	/**
@@ -198,12 +109,22 @@ class Admin implements Runner {
 		endif;
 
 		echo '<ul class="rank-math-blog-list">';
+		$is_new = time() - strtotime( $posts[0]['date'] ) < 15 * DAY_IN_SECONDS;
+
 		foreach ( $posts as $post ) :
 			?>
 			<li class="rank-math-blog-post">
-				<h4><a target="_blank" href="<?php echo esc_url( $post['link'] ); ?>?utm_source=Plugin&utm_medium=Dashboard%20Widget&utm_campaign=WP"><?php echo esc_html( $post['title']['rendered'] ); ?></a></h4>
+				<h4>
+					<?php if ( $is_new ) : ?>
+						<span class="rank-math-new-badge"><?php esc_html_e( 'NEW', 'rank-math' ); ?></span>
+					<?php endif; ?>
+					<a target="_blank" href="<?php echo esc_url( $post['link'] ); ?>?utm_source=Plugin&utm_medium=Dashboard%20Widget&utm_campaign=WP">
+						<?php echo esc_html( $post['title']['rendered'] ); ?>
+					</a>
+				</h4>
 			</li>
 			<?php
+			$is_new = false;
 		endforeach;
 		echo '</ul>';
 		?>
@@ -480,7 +401,9 @@ class Admin implements Runner {
 					<span class="suggestion-title" data-fk=\'%1$s\'><a target="_blank" href="%2$s" title="%3$s">%4$s</a></span>
 				</div>',
 				esc_attr( wp_json_encode( $suggestion['focus_keywords'] ) ),
-				$suggestion['url'], $suggestion['title'], $label,
+				$suggestion['url'],
+				$suggestion['title'],
+				$label,
 				esc_attr__( 'Copy Link URL to Clipboard', 'rank-math' ),
 				esc_attr__( 'Insert Link in Content', 'rank-math' ),
 				esc_attr( $label )
