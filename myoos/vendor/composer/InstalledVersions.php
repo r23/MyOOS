@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'a4fcb7826e895d5b487d19f3e101dcf103467f8c',
+    'reference' => 'b361136a7279ee2d995a25a42f271e6e216496d1',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -139,7 +139,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'a4fcb7826e895d5b487d19f3e101dcf103467f8c',
+      'reference' => 'b361136a7279ee2d995a25a42f271e6e216496d1',
     ),
     'paypal/rest-api-sdk-php' => 
     array (
@@ -215,12 +215,12 @@ private static $installed = array (
     ),
     'smarty/smarty' => 
     array (
-      'pretty_version' => 'v3.1.37.1',
-      'version' => '3.1.37.1',
+      'pretty_version' => 'v3.1.38',
+      'version' => '3.1.38.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f65e7ddd22acde2f09da82cb64f8b51d414b75f0',
+      'reference' => '63b3c0aed0f614880cda21a5c08c606e97b489bb',
     ),
     'stripe/stripe-php' => 
     array (

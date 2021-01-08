@@ -1353,16 +1353,16 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.37.1",
+            "version": "v3.1.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "f65e7ddd22acde2f09da82cb64f8b51d414b75f0"
+                "reference": "63b3c0aed0f614880cda21a5c08c606e97b489bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/f65e7ddd22acde2f09da82cb64f8b51d414b75f0",
-                "reference": "f65e7ddd22acde2f09da82cb64f8b51d414b75f0",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/63b3c0aed0f614880cda21a5c08c606e97b489bb",
+                "reference": "63b3c0aed0f614880cda21a5c08c606e97b489bb",
                 "shasum": ""
             },
             "require": {
@@ -1410,9 +1410,9 @@
                 "forum": "http://www.smarty.net/forums/",
                 "irc": "irc://irc.freenode.org/smarty",
                 "issues": "https://github.com/smarty-php/smarty/issues",
-                "source": "https://github.com/smarty-php/smarty/tree/v3.1.37.1"
+                "source": "https://github.com/smarty-php/smarty/tree/v3.1.38"
             },
-            "time": "2021-01-06T23:34:08+00:00"
+            "time": "2021-01-08T14:05:42+00:00"
         },
         {
             "name": "stripe/stripe-php",

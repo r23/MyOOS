@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.38] - 2021-01-08
+
+### Fixed
+- Smarty::SMARTY_VERSION wasn't updated https://github.com/smarty-php/smarty/issues/628
+
 ## [3.1.37] - 2021-01-07
 
 ### Changed
