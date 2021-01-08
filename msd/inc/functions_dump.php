@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2016 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -30,13 +30,13 @@ function new_file($last_groesse=0)
 
 	// Dateiname aus Datum und Uhrzeit bilden
 	if ($dump['part']-$dump['part_offset']==1) $dump['filename_stamp']=date("Y_m_d_H_i",time());
-	if ($config['multi_part']==1)
+	if (isset($config['multi_part']) && ($config['multi_part']==1))
 	{
 		$dateiname=$databases['Name'][$dump['dbindex']].'_'.$dump['filename_stamp'].'_part_'.($dump['part']-$dump['part_offset']);
 	}
 	else
 		$dateiname=$databases['Name'][$dump['dbindex']].'_'.date("Y_m_d_H_i",time());
-	$endung=($config['compression']) ? '.sql.gz':'.sql';
+	$endung=(isset($config['compression']) && ($config['compression'])) ? '.sql.gz':'.sql';
 	$dump['backupdatei']=$dateiname.$endung;
 
 	if (file_exists($config['paths']['backup'].$dump['backupdatei'])) unlink($config['paths']['backup'].$dump['backupdatei']);
@@ -47,9 +47,9 @@ function new_file($last_groesse=0)
 
 	if ($dump['part']-$dump['part_offset']==1)
 	{
-		if ($config['multi_part']==0)
+		if (isset($config['multi_part']) && ($config['multi_part']==0))
 		{
-			if ($config['multi_dump']==1 && $dump['dbindex']==0) WriteLog('starting Multidump with '.count($databases['multi']).' Datenbases.');
+			if (isset($config['multi_part']) && $config['multi_dump']==1 && $dump['dbindex']==0) WriteLog('starting Multidump with '.count($databases['multi']).' Datenbases.');
 			WriteLog('Start Dump \''.$dump['backupdatei'].'\'');
 		}
 		else
@@ -130,7 +130,7 @@ function GetStatusLine($kind="php")
 	//$dump['totalrecords']=$r;
 	$flags=1;
 
-	$mp=($config['multi_part']==1) ? $mp="MP_".($dump['part']-$dump['part_offset']):'MP_0';
+	$mp=(isset($config['multi_part']) && ($config['multi_part']==1)) ? $mp="MP_".($dump['part']-$dump['part_offset']):'MP_0';
 	$statusline="$mysql_commentstring Status:$t:$r:$mp:".$databases['Name'][$dump['dbindex']].":$kind:".MSD_VERSION.":".$dump['kommentar'].":";
 	$statusline.=MSD_MYSQL_VERSION.":$flags:::".$dump['dump_encoding'].":EXTINFO\n".$t_zeile."$mysql_commentstring"." EOF TABLE-INFO\n$mysql_commentstring";
 	return $statusline;
@@ -216,6 +216,7 @@ function get_content($db,$table)
 			$insert=substr($insert,0,-1).');'.$nl;
 			$dump['data'].=$insert;
 			$dump['countdata']++;
+			$config['memory_limit'] = isset($config['memory_limit']) ? $config['memory_limit'] : 0;
 			if (strlen($dump['data'])>$config['memory_limit']||($config['multi_part']==1&&strlen($dump['data'])+$buffer>$config['multipart_groesse']))
 			{
 				WriteToDumpFile();
@@ -245,7 +246,7 @@ function WriteToDumpFile()
 
 	$df=$config['paths']['backup'].$dump['backupdatei'];
 
-	if ($config['compression']==1)
+	if (isset($config['compression']) && ($config['compression']==1))
 	{
 		if ($dump['data']!='')
 		{
@@ -267,9 +268,9 @@ function WriteToDumpFile()
 	if (!isset($dump['fileoperations'])) $dump['fileoperations']=0;
 	$dump['fileoperations']++;
 
-	if ($config['multi_part']==1) clearstatcache();
+	if (isset($config['multi_part']) && ($config['multi_part']==1)) clearstatcache();
 	$dump['filesize']=filesize($df);
-	if ($config['multi_part']==1&&$dump['filesize']+$buffer>$config['multipart_groesse'])
+	if ((isset($config['multi_part']) && $config['multi_part']==1) && ($dump['filesize']+$buffer>$config['multipart_groesse']))
 	{
 		@chmod($df,0777);
 		new_file($dump['filesize']); // Wenn maximale Dateigroesse erreicht -> neues File starten

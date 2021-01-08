@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2020 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -427,7 +427,7 @@ function getDBInfos()
 				{
 					$dump['skip_data'][]=$databases['Name'][$dump['dbindex']] . '|' . $row['Name'];
 				}
-                    if ($config['optimize_tables_beforedump'] == 1 && $dump['table_offset'] == -1
+                    if ((isset($config['optimize_tables_beforedump']) && ($config['optimize_tables_beforedump'] == 1)) && $dump['table_offset'] == -1
                         && $databases['Name'][$dump['dbindex']]!='information_schema') {
                         mysqli_select_db($config['dbconnection'], $databases['Name'][$dump['dbindex']]);
                         $opt = 'OPTIMIZE TABLE `' . $row['Name'] . '`';

@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2020 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -271,11 +271,13 @@ function WriteLog($aktion)
 	global $config,$lang;
 	$log=date('d.m.Y H:i:s').' '.htmlspecialchars($aktion)."\n";
 
-	$logfile=($config['logcompression']==1) ? $config['files']['log'].'.gz' : $config['files']['log'];
+	$logfile=(isset($config['logcompression']) && ($config['logcompression']==1)) ? $config['files']['log'].'.gz' : $config['files']['log'];
+	$config['log_maxsize'] = isset($config['log_maxsize']) ? $config['log_maxsize'] : 0;
+
 	if (@filesize($logfile)+strlen($log)>$config['log_maxsize']) @unlink($logfile);
 
 	//Datei öffnen und schreiben
-	if ($config['logcompression']==1)
+	if (isset($config['logcompression']) && ($config['logcompression']==1))
 	{
 
 		$fp=@gzopen($logfile,'a');

@@ -80,7 +80,7 @@ else
 	$dump['table_offset']=(isset($_POST['table_offset'])) ? $_POST['table_offset']:-1;
 	$dump['zeilen_offset']=(isset($_POST['zeilen_offset'])) ? $_POST['zeilen_offset']:0;
 	$dump['filename_stamp']=(isset($_POST['filename_stamp'])) ? $_POST['filename_stamp']:'';
-	$dump['anzahl_zeilen']=(isset($_POST['anzahl_zeilen'])) ? $_POST['anzahl_zeilen']:(($config['minspeed']>0) ? $config['minspeed']:50);
+	$dump['anzahl_zeilen']=(isset($_POST['anzahl_zeilen'])) ? $_POST['anzahl_zeilen']:(((isset($config['minspeed']) && $config['minspeed']>0)) ? $config['minspeed']:50);
 	$dump['dump_encoding']=(isset($_POST['dump_encoding'])) ? urldecode($_POST['dump_encoding']):'';
 
 	if (isset($_GET['sel_dump_encoding']))
@@ -220,7 +220,7 @@ else
 			$aktuelle_tabelle=$dump['table_offset'];
 			if ($dump['zeilen_offset']==0)
 			{
-				if ($config['minspeed']>0)
+				if (isset($config['minspeed']) && ($config['minspeed']>0))
 				{
 					$dump['anzahl_zeilen']=$config['minspeed'];
 					$dump['restzeilen']=$config['minspeed'];
@@ -260,7 +260,7 @@ else
 				WriteToDumpFile();
 				$dump['table_offset']++;
 			}
-			if ($config['memory_limit']>0&&strlen($dump['data'])>$config['memory_limit']) WriteToDumpFile();
+			if ((isset($config['memory_limit']) && $config['memory_limit']>0)&&strlen($dump['data'])>$config['memory_limit']) WriteToDumpFile();
 		}
 	}
 
@@ -278,16 +278,16 @@ else
 				$mudbs.='<span class="success">'.$databases['multi'][$i].'&nbsp;&nbsp;</span> ';
 		}
 	}
-	if ($config['multi_part']==1) $aus[]='<h5>Multipart-Backup: '.$config['multipartgroesse1'].' '.$mp2[$config['multipartgroesse2']].'</h5>';
+	if (isset($config['multi_part']) && ($config['multi_part']==1)) $aus[]='<h5>Multipart-Backup: '.$config['multipartgroesse1'].' '.$mp2[$config['multipartgroesse2']].'</h5>';
 
 	$aus[]='<h4>'.$lang['L_DUMP_HEADLINE'].'</h4>';
 
 	if ($dump['kommentar']>'') $aus[]=$lang['L_COMMENT'].': <span><em>'.$dump['kommentar'].'</em></span><br>';
-	$aus[]=($config['multi_dump']==1) ? $lang['L_DB'].': '.$mudbs:$lang['L_DB'].': <strong>'.$databases['Name'][$dump['dbindex']].'</strong>';
+	$aus[]=(( isset($config['multi_dump']) &&  $config['multi_dump']==1)) ? $lang['L_DB'].': '.$mudbs:$lang['L_DB'].': <strong>'.$databases['Name'][$dump['dbindex']].'</strong>';
 	$aus[]=(($databases['praefix'][$dump['dbindex']]!='') ? ' ('.$lang['L_WITHPRAEFIX'].' <span>'.$databases['praefix'][$dump['dbindex']].'</span>)':'').'<br>';
 	if (isset($tbl_sel)) $aus[]=$msgTbl.'<br><br>';
 
-	if ($config['multi_part']==1)
+	if (isset($config['multi_part']) && ($config['multi_part']==1))
 	{
 		$aus[]='<span>Multipart-Backup File <strong>'.($dump['part']-$dump['part_offset']-1).'</strong></span><br>';
 		$aus2=', '.($dump['part']-1).' files';
@@ -295,7 +295,7 @@ else
 	$aus[]=$lang['L_DUMP_FILENAME'].'<b>'.$dump['backupdatei'].'</b><br>'.$lang['L_CHARSET'].': <strong>'.$dump['dump_encoding'].'</strong>'.
 
 	'<br>'.$lang['L_FILESIZE'].': <b>'.byte_output($dump['filesize']).'</b><br><br>'.$lang['L_GZIP_COMPRESSION'].' <b>';
-	$aus[]=($config['compression']==1) ? $lang['L_ACTIVATED']:$lang['L_NOT_ACTIVATED'];
+	$aus[]= (isset($config['compression']) && ($config['compression']==1)) ? $lang['L_ACTIVATED']:$lang['L_NOT_ACTIVATED'];
 	$aus[]='</b>.<br>';
 	if ($out>'') $aus[]='<br><span class="smallgrey">'.$out.'</span>';
 
@@ -340,7 +340,9 @@ else
 		$aus[]="\n".'<br>'.$lang['L_PROGRESS_OVER_ALL'].':'."\n".'<table border="0" width="550" cellpadding="0" cellspacing="0"><tr>'.'<td width="'.(5*(100-$prozent)).'"><img src="'.$config['files']['iconpath'].'progressbar_dump.gif" alt="" width="'.(5*(100-$prozent)).'" height="16" border="0"></td>'.'<td width="'.($prozent*5).'" align="center"></td>'.'<td width="50">'.(100-$prozent).'%</td></tr></table>';
 
 		//Speed-Anzeige
-		$fw=($config['maxspeed']==$config['minspeed']) ? 300:round(($dump['anzahl_zeilen']-$config['minspeed'])/($config['maxspeed']-$config['minspeed'])*300,0);
+		$config['maxspeed'] = isset($config['maxspeed']) ? $config['maxspeed'] : '1';
+		$config['minspeed'] = isset($config['minspeed']) ? $config['minspeed'] : '1';
+		$fw= ($config['maxspeed']==$config['minspeed']) ? 300:round(($dump['anzahl_zeilen']-$config['minspeed'])/($config['maxspeed']-$config['minspeed'])*300,0);
 		if ($fw>300) $fw=300;
 		$aus[]='<br><table border="0" cellpadding="0" cellspacing="0"><tr>'.'<td class="nomargin" width="60" valign="top" align="center" style="font-size:10px;" >'.'<strong>Speed</strong><br>'.$dump['anzahl_zeilen'].'</td><td class="nomargin" width="300">'.'<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>'.'<td class="nomargin small" align="left" width="300" nowrap="nowrap">'.'<img src="'.$config['files']['iconpath'].'progressbar_speed.gif" alt="" width="'.$fw.'" height="14" border="0" vspace="0" hspace="0">'.'</td></tr></table><table border="0" width="100%" cellpadding="0" cellspacing="0"><tr>'.'<td class="nomargin" align="left" nowrap="nowrap" style="font-size:10px;" >'.$config['minspeed'].'</td>'.'<td class="nomargin" nowrap="nowrap" style="font-size:10px;text-align:right;" >'.$config['maxspeed'].'</td>'.'</tr></table>'."\n".'</td></tr></table>'.
 
@@ -384,7 +386,7 @@ else
 		WriteToDumpFile();
 		ExecuteCommand('a');
 		chmod($config['paths']['backup'].$dump['backupdatei'],0777);
-		if ($config['multi_part']==1)
+		if (isset($config['multi_part']) && ($config['multi_part']==1))
 		{
 			$out.="\n".'<br><div class="backupmsg">';
 			$dateistamm=substr($dump['backupdatei'],0,strrpos($dump['backupdatei'],'part_')).'part_';
@@ -404,7 +406,7 @@ else
 		$xtime=time()-$xtime;
 		$aus=Array();
 		$aus[]='<br>'."\n";
-		if ($config['multi_dump']==1)
+		if (isset($config['multi_dump']) && ($config['multi_dump']==1))
 		{
 			WriteLog('Dump \''.$dump['backupdatei'].'\' finished.');
 			WriteLog('Multidump: '.count($databases['multi']).' Databases in '.zeit_format($xtime).'.');
@@ -412,15 +414,15 @@ else
 		else
 			WriteLog('Dump \''.$dump['backupdatei'].'\' finished in '.zeit_format($xtime).'.');
 
-		if ($config['send_mail']==1) DoEmail();
+		if (isset($config['send_mail']) && ($config['send_mail']==1)) DoEmail();
 		for($i=0;$i<3;$i++)
 		{
-			if ($config['ftp_transfer'][$i]==1) DoFTP($i);
+			if (isset($config['ftp_transfer'][$i]) && ($config['ftp_transfer'][$i]==1)) DoFTP($i);
 		}
 
 		$aus[]='<strong>'.$lang['L_DONE'].'</strong><br>';
 
-		if ($config['multi_dump']==1)
+		if (isset($config['multi_dump']) && ($config['multi_dump']==1))
 		{
 			$aus[]=sprintf($lang['L_MULTIDUMP'],count($databases['multi'])).': ';
 			$aus[]='<strong>'.implode(', ',$databases['multi']).'</strong>';
