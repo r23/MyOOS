@@ -855,17 +855,22 @@ $aus['global1'].='</div>';
 $aus['global3']='<div id="global3"><fieldset><legend>' . $lang['L_CONFIG_INTERFACE'] . '</legend><table>';
 $aus['global3'].='<tr><td>' . Help($lang['L_HELP_LANG'],"conf11") . $lang['L_LANGUAGE'] . ':&nbsp;</td>';
 $aus['global3'].='<td><select name="language">' . GetLanguageCombo("op");
+
+$config['interface_server_caption'] = isset($config['interface_server_caption']) ? $config['interface_server_caption'] : '';
 $aus['global3'].='</select><input type="hidden" name="lang_old" value="' . $config['language'] . '"><input type="hidden" name="scaption_old" value="' . $config['interface_server_caption'] . '"></td></tr>';
 
 $aus['global3'].='<tr><td>' . Help($lang['L_HELP_SERVERCAPTION'],"") . $lang['L_SERVERCAPTION'] . ':</td>';
-$aus['global3'].='<td><input type="checkbox" class="checkbox" value="1" name="server_caption" ' . ( ( $config['interface_server_caption'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'] . '&nbsp;&nbsp;&nbsp;';
-$aus['global3'].='<input type="radio" class="radio" name="server_caption_position" value="1" ' . ( ( $config['interface_server_caption_position'] == 1 ) ? "checked" : "" ) . '>&nbsp;' . $lang['L_IN_MAINFRAME'] . '&nbsp;&nbsp;<input type="radio" class="radio" name="server_caption_position" value="0" ' . ( ( $config['interface_server_caption_position'] == 0 ) ? "checked" : "" ) . '>&nbsp;' . $lang['L_IN_LEFTFRAME'] . '';
+$aus['global3'].='<td><input type="checkbox" class="checkbox" value="1" name="server_caption" ' . ( (isset($config['interface_server_caption']) && ( $config['interface_server_caption'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'] . '&nbsp;&nbsp;&nbsp;';
+$aus['global3'].='<input type="radio" class="radio" name="server_caption_position" value="1" ' . ( (isset($config['interface_server_caption_position']) && ( $config['interface_server_caption_position'] == 1 )) ? "checked" : "" ) . '>&nbsp;' . $lang['L_IN_MAINFRAME'] . '&nbsp;&nbsp;<input type="radio" class="radio" name="server_caption_position" value="0" ' . ( (isset($config['interface_server_caption_position']) &&  ( $config['interface_server_caption_position'] == 0 )) ? "checked" : "" ) . '>&nbsp;' . $lang['L_IN_LEFTFRAME'] . '';
 $aus['global3'].='</td></tr>';
 $aus['global3'].='<tr><td>' . Help("","") . 'Theme:</td><td><select name="theme">' . GetThemes() . '</select></td></tr>';
 
 $aus['global3'].='</table></fieldset><fieldset><legend>' . $lang['L_SQL_BROWSER'] . '</legend><table>';
 $aus['global3'].='<tr><td>' . Help("","") . $lang['L_SQLBOXHEIGHT'] . ':&nbsp;</td>';
+
+$config['interface_sqlboxsize'] = isset($config['interface_sqlboxsize']) ? $config['interface_sqlboxsize'] : '';
 $aus['global3'].='<td><input type="text" class="text" name="sqlboxsize" value="' . $config['interface_sqlboxsize'] . '" size="3" maxlength="3">&nbsp;Pixel</td></tr>';
+
 $aus['global3'].='<tr><td>' . Help("","") . $lang['L_SQLLIMIT'] . ':&nbsp;</td>';
 $aus['global3'].='<td><input type="text" class="text" name="sql_limit" value="' . $config['sql_limit'] . '" size="3" maxlength="6">&nbsp;</td></tr>';
 $aus['global3'].='<tr><td>' . Help("","") . $lang['L_BBPARAMS'] . ':&nbsp;</td>';
@@ -882,16 +887,16 @@ $aus['global3'].='<td><select name="bb_textcolor">
 <option value="#999999" style="color :#999999;" ' . ( ( $config['bb_textcolor'] == "#999999" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
 </select></td></tr></table>';
 $aus['global3'].='</td></tr><tr><td>' . Help("","") . 'SQL-Grid:&nbsp;</td>';
-$aus['global3'].='<td><input type="radio" class="radio" name="interface_table_compact" value="0" ' . ( ( $config['interface_table_compact'] == 0 ) ? 'checked' : '' ) . '>&nbsp;normal&nbsp;&nbsp;&nbsp;';
-$aus['global3'].='<input type="radio" class="radio" name="interface_table_compact" value="1" ' . ( ( $config['interface_table_compact'] == 1 ) ? 'checked' : '' ) . '>&nbsp;compact</td></tr>';
+$aus['global3'].='<td><input type="radio" class="radio" name="interface_table_compact" value="0" ' . ( (isset($config['interface_table_compact']) && ( $config['interface_table_compact'] == 0 )) ? 'checked' : '' ) . '>&nbsp;normal&nbsp;&nbsp;&nbsp;';
+$aus['global3'].='<input type="radio" class="radio" name="interface_table_compact" value="1" ' . ( (isset($config['interface_table_compact']) && ( $config['interface_table_compact'] == 1 )) ? 'checked' : '' ) . '>&nbsp;compact</td></tr>';
 
 $aus['global3'].='</table></fieldset>' . print_save_button() . '</div>';
 
 //automatisches L&ouml;schen-->
 $aus['global2']='<div id="global2"><fieldset><legend>' . $lang['L_CONFIG_AUTODELETE'] . '</legend><table>';
 $aus['global2'].='<tr><td>' . Help($lang['L_HELP_AD1'],"conf8") . $lang['L_AUTODELETE'] . ':&nbsp;</td>';
-$aus['global2'].='<td><input type="radio" class="radio" value="1" name="auto_delete" ' . ( ( $config['auto_delete'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global2'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="auto_delete" ' . ( ( $config['auto_delete'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'];
+$aus['global2'].='<td><input type="radio" class="radio" value="1" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 1 ) ? " checked" : "" )) . '>&nbsp;' . $lang['L_ACTIVATED'];
+$aus['global2'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 0 ) ? " checked" : "" )) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'];
 $aus['global2'].='</td>';
 $aus['global2'].='</tr><tr><td>' . Help($lang['L_HELP_AD3'],"conf10") . $lang['L_NUMBER_OF_FILES_FORM'] . ':&nbsp;</td>';
 $aus['global2'].='<td><input type="text" class="text" size="3" name="max_backup_files" value="' . $config['max_backup_files'] . '">   ';
