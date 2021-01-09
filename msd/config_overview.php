@@ -921,7 +921,7 @@ $aus['transfer1'].='<select name="email_maxsize2"><option value="1" ' . ( ( $con
 $aus['transfer1'].='<option value="2" ' . ( ( $config['email_maxsize2'] == 2 ) ? ' SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
 $aus['transfer1'].='<tr><td>' . $lang['L_CRON_MAILPRG'] . ':&nbsp;</td>';
 $aus['transfer1'].='<td><table><tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="1" ' . ( (isset($config['cron_use_sendmail']) && ( $config['cron_use_sendmail'] == 1 )) ? " checked" : "" ) . '>&nbsp;sendmail</td><td><input type="text" class="text" size="30" name="cron_sendmail" value="' . ( (isset($config['cron_sendmail'])) ? $config['cron_sendmail'] : "" )  . '"></td></tr>';
-$aus['transfer1'].='<tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="0" ' . ( ( $config['cron_use_sendmail'] == 0 ) ? " checked" : "" ) . '>&nbsp;SMTP</td><td><input type="text" class="text" size="30" name="cron_smtp" value="' . $config['cron_smtp'] . '"></td></tr><tr><td>&nbsp;</td><td>SMTP-Port: <strong>' . $config['cron_smtp_port'] . '</strong></td></tr>';
+$aus['transfer1'].='<tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="0" ' . ( (isset($config['cron_use_sendmail']) && ( $config['cron_use_sendmail'] == 0 )) ? " checked" : "" ) . '>&nbsp;SMTP</td><td><input type="text" class="text" size="30" name="cron_smtp" value="' . ( (isset($config['cron_smtp'])) ? $config['cron_smtp'] : "" ) . '"></td></tr><tr><td>&nbsp;</td><td>SMTP-Port: <strong>' . $config['cron_smtp_port'] . '</strong></td></tr>';
 $aus['transfer1'].='</table></td></tr></table></fieldset>' . print_save_button() . '</div>';
 
 //FTP-->
@@ -931,26 +931,26 @@ for ($i=0; $i < 3; $i++)
 	$aus['transfer2'].='<fieldset><legend>FTP-Connection ' . ( $i + 1 ) . '</legend><table>';
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPTRANSFER'],"") . $lang['L_FTP_TRANSFER'] . ':&nbsp;</td>';
-	$aus['transfer2'].='<td><input type="radio" class="radio" value="1" name="ftp_transfer[' . $i . ']" ' . ( ( !extension_loaded("ftp") ) ? "disabled " : "" ) . ( ( $config['ftp_transfer'][$i] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-	$aus['transfer2'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="ftp_transfer[' . $i . ']" ' . ( ( $config['ftp_transfer'][$i] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
+	$aus['transfer2'].='<td><input type="radio" class="radio" value="1" name="ftp_transfer[' . $i . ']" ' . ( ( !extension_loaded("ftp") ) ? "disabled " : "" ) . ( (isset($config['ftp_transfer'][$i]) && ( $config['ftp_transfer'][$i] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
+	$aus['transfer2'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="ftp_transfer[' . $i . ']" ' . ( (isset($config['ftp_transfer'][$i]) && ( $config['ftp_transfer'][$i] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPTIMEOUT'],"") . $lang['L_FTP_TIMEOUT'] . ':&nbsp;</td>';
-	$aus['transfer2'].='<td><input type="text" class="text" size="10" name="ftp_timeout[' . $i . ']" maxlength="3" style="text-align:right;" value="' . $config['ftp_timeout'][$i] . '">&nbsp;sec</td></tr>';
+	$aus['transfer2'].='<td><input type="text" class="text" size="10" name="ftp_timeout[' . $i . ']" maxlength="3" style="text-align:right;" value="' . ( (isset($config['ftp_timeout'][$i])) ? $config['ftp_timeout'][$i] : "" ) . '">&nbsp;sec</td></tr>';
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTP_MODE'],"") . $lang['L_FTP_CHOOSE_MODE'] . ':&nbsp;</td>';
-	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" name="ftp_mode[' . $i . ']" value="1" ' . ( ( $config['ftp_mode'][$i] == 1 ) ? 'checked' : '' ) . '>&nbsp;';
+	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" name="ftp_mode[' . $i . ']" value="1" ' . ( (isset($config['ftp_mode'][$i]) && ( $config['ftp_mode'][$i] == 1 )) ? 'checked' : '' ) . '>&nbsp;';
 	$aus['transfer2'].=$lang['L_FTP_PASSIVE'] . '</td></tr><tr><td colspan="2">';
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPSSL'],"") . $lang['L_FTP_SSL'] . ':&nbsp;</td>';
-	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" name="ftp_useSSL[' . $i . ']" value="1" ' . ( ( $config['ftp_useSSL'][$i] == 1 ) ? 'checked' : '' ) . ' ' . ( ( !extension_loaded("openssl") ) ? "disabled " : "" ) . '>';
+	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" name="ftp_useSSL[' . $i . ']" value="1" ' . ( (isset($config['ftp_useSSL'][$i]) && ( $config['ftp_useSSL'][$i] == 1 )) ? 'checked' : '' ) . ' ' . ( ( !extension_loaded("openssl") ) ? "disabled " : "" ) . '>';
 	$aus['transfer2'].='&nbsp;<span ' . ( ( !extension_loaded("openssl") ) ? 'style="color:#999999;"' : '' ) . '>' . $lang['L_FTP_USESSL'] . '</span></td></tr><tr><td colspan="2">';
 
 	$aus['transfer2'].='<tr><td><input type="submit" name="testFTP' . $i . '" value="' . $lang['L_TESTCONNECTION'] . '" class="Formbutton"><br>' . $checkFTP[$i] . '</td><td><table>';
-	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPSERVER'],"conf14",12) . $lang['L_FTP_SERVER'] . ':&nbsp;</td><td><input class="text" type="text" size="30" name="ftp_server[' . $i . ']" value="' . $config['ftp_server'][$i] . '"></td></tr>';
-	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPPORT'],"conf15",12) . $lang['L_FTP_PORT'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_port[' . $i . ']" value="' . $config['ftp_port'][$i] . '"></td></tr>';
-	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPUSER'],"conf16",12) . $lang['L_FTP_USER'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_user[' . $i . ']" value="' . $config['ftp_user'][$i] . '"></td></tr>';
-	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPPASS'],"conf17",12) . $lang['L_FTP_PASS'] . ':&nbsp;</td><td class="small"><input class="text" type="password" size="30" name="ftp_pass[' . $i . ']" value="' . $config['ftp_pass'][$i] . '"></td></tr>';
-	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPDIR'],"conf18",12) . $lang['L_FTP_DIR'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_dir[' . $i . ']" value="' . $config['ftp_dir'][$i] . '"></td></tr>';
+	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPSERVER'],"conf14",12) . $lang['L_FTP_SERVER'] . ':&nbsp;</td><td><input class="text" type="text" size="30" name="ftp_server[' . $i . ']" value="' . ( (isset($config['ftp_port'][$i])) ? $config['ftp_port'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPPORT'],"conf15",12) . $lang['L_FTP_PORT'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_port[' . $i . ']" value="' . ( (isset($config['ftp_port'][$i])) ? $config['ftp_port'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPUSER'],"conf16",12) . $lang['L_FTP_USER'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_user[' . $i . ']" value="' . ( (isset($config['ftp_user'][$i])) ? $config['ftp_user'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPPASS'],"conf17",12) . $lang['L_FTP_PASS'] . ':&nbsp;</td><td class="small"><input class="text" type="password" size="30" name="ftp_pass[' . $i . ']" value="' . ( (isset($config['ftp_pass'][$i])) ? $config['ftp_pass'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPDIR'],"conf18",12) . $lang['L_FTP_DIR'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_dir[' . $i . ']" value="' . ( (isset($config['ftp_dir'][$i])) ? $config['ftp_dir'][$i] : "" )  . '"></td></tr>';
 	$aus['transfer2'].='</table></td></tr></table>' . print_save_button() . '</fieldset>';
 }
 $aus['transfer2'].='</fieldset></div>';
@@ -1000,6 +1000,7 @@ $aus['cron'].='</select>' . "\n";
 $aus['cron'].='</td></tr>';
 
 // comment
+$config['cron_comment'] = isset($config['cron_comment']) ? $config['cron_comment'] : '';
 $aus['cron'].='<tr><td>' . $lang['L_CRON_COMMENT'] . ':&nbsp;</td>';
 $aus['cron'].='<td><input type="text" class="text" name="cron_comment" size="30" maxlength="100" value="' . htmlspecialchars($config['cron_comment']) . '"></td></tr>';
 $aus['cron'].='</table></fieldset>' . print_save_button() . '</div>';
