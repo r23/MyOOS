@@ -895,32 +895,32 @@ $aus['global3'].='</table></fieldset>' . print_save_button() . '</div>';
 //automatisches L&ouml;schen-->
 $aus['global2']='<div id="global2"><fieldset><legend>' . $lang['L_CONFIG_AUTODELETE'] . '</legend><table>';
 $aus['global2'].='<tr><td>' . Help($lang['L_HELP_AD1'],"conf8") . $lang['L_AUTODELETE'] . ':&nbsp;</td>';
-$aus['global2'].='<td><input type="radio" class="radio" value="1" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 1 ) ? " checked" : "" )) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global2'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 0 ) ? " checked" : "" )) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'];
+$aus['global2'].='<td><input type="radio" class="radio" value="1" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
+$aus['global2'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'];
 $aus['global2'].='</td>';
 $aus['global2'].='</tr><tr><td>' . Help($lang['L_HELP_AD3'],"conf10") . $lang['L_NUMBER_OF_FILES_FORM'] . ':&nbsp;</td>';
-$aus['global2'].='<td><input type="text" class="text" size="3" name="max_backup_files" value="' . $config['max_backup_files'] . '">   ';
+$aus['global2'].='<td><input type="text" class="text" size="3" name="max_backup_files" value="' . ( (isset($config['max_backup_files'])) ? $config['max_backup_files'] : "" ) . '">   ';
 $aus['global2'].='</td></tr></table></fieldset>' . print_save_button() . '</div>';
 
 //Email-->
 if (!isset($config['email_recipient_cc'])) $config['email_recipient_cc']=''; // backwards compatibility if field is undefined
 $aus['transfer1']='<div id="transfer1"><fieldset><legend>' . $lang['L_CONFIG_EMAIL'] . '</legend><table>';
 $aus['transfer1'].='<tr><td>' . $lang['L_SEND_MAIL_FORM'] . ':&nbsp;</td>';
-$aus['transfer1'].='<td><input type="radio" class="radio" value="1" name="send_mail" ' . ( ( $config['send_mail'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['transfer1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="send_mail" ' . ( ( $config['send_mail'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
-$aus['transfer1'].='</td></tr><tr><td>' . $lang['L_EMAIL_ADRESS'] . ':&nbsp;</td><td><input type="text" class="text" name="email0" value="' . $config['email_recipient'] . '" size="30"></td></tr>';
-$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_CC'] . ':&nbsp;</td><td><input type="text" class="text" name="email_recipient_cc" value="' . $config['email_recipient_cc'] . '" size="60" maxlength="255"></td></tr>';
+$aus['transfer1'].='<td><input type="radio" class="radio" value="1" name="send_mail" ' . ( (isset($config['send_mail']) && ( $config['send_mail'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
+$aus['transfer1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="send_mail" ' . ( (isset($config['send_mail']) && ( $config['send_mail'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
+$aus['transfer1'].='</td></tr><tr><td>' . $lang['L_EMAIL_ADRESS'] . ':&nbsp;</td><td><input type="text" class="text" name="email0" value="' . ( (isset($config['email_recipient'])) ? $config['email_recipient'] : "" ) . '" size="30"></td></tr>';
+$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_CC'] . ':&nbsp;</td><td><input type="text" class="text" name="email_recipient_cc" value="' . ( (isset($config['email_recipient_cc'])) ? $config['email_recipient_cc'] : "" ) . '" size="60" maxlength="255"></td></tr>';
 
-$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_SENDER'] . ':&nbsp;</td><td><input type="text" class="text" name="email1" value="' . $config['email_sender'] . '" size="30"></td></tr>';
+$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_SENDER'] . ':&nbsp;</td><td><input type="text" class="text" name="email1" value="' . ( (isset($config['email_sender'])) ? $config['email_sender'] : "" ) . '" size="30"></td></tr>';
 $aus['transfer1'].='<tr><td>' . $lang['L_SEND_MAIL_DUMP'] . ':&nbsp;</td><td>';
-$aus['transfer1'].='<input type="radio" class="radio" value="1" name="send_mail_dump" ' . ( ( $config['send_mail_dump'] == 1 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['transfer1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="send_mail_dump"' . ( ( $config['send_mail_dump'] == 0 ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
+$aus['transfer1'].='<input type="radio" class="radio" value="1" name="send_mail_dump" ' . ( (isset($config['send_mail_dump']) && ( $config['send_mail_dump'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
+$aus['transfer1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="send_mail_dump"' . ( (isset($config['send_mail_dump']) && ( $config['send_mail_dump'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
 $aus['transfer1'].='</td></tr><tr><td>' . $lang['L_EMAIL_MAXSIZE'] . ':&nbsp;</td><td>';
-$aus['transfer1'].='<input type="text" class="text" name="email_maxsize1" size="3" maxlength="3" value="' . $config['email_maxsize1'] . '">&nbsp;&nbsp;';
+$aus['transfer1'].='<input type="text" class="text" name="email_maxsize1" size="3" maxlength="3" value="' . ( (isset($config['email_maxsize1'])) ? $config['email_maxsize1'] : "" )  . '">&nbsp;&nbsp;';
 $aus['transfer1'].='<select name="email_maxsize2"><option value="1" ' . ( ( $config['email_maxsize2'] == 1 ) ? ' SELECTED' : '' ) . '>Kilobytes</option>';
 $aus['transfer1'].='<option value="2" ' . ( ( $config['email_maxsize2'] == 2 ) ? ' SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
 $aus['transfer1'].='<tr><td>' . $lang['L_CRON_MAILPRG'] . ':&nbsp;</td>';
-$aus['transfer1'].='<td><table><tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="1" ' . ( ( $config['cron_use_sendmail'] == 1 ) ? " checked" : "" ) . '>&nbsp;sendmail</td><td><input type="text" class="text" size="30" name="cron_sendmail" value="' . $config['cron_sendmail'] . '"></td></tr>';
+$aus['transfer1'].='<td><table><tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="1" ' . ( (isset($config['cron_use_sendmail']) && ( $config['cron_use_sendmail'] == 1 )) ? " checked" : "" ) . '>&nbsp;sendmail</td><td><input type="text" class="text" size="30" name="cron_sendmail" value="' . ( (isset($config['cron_sendmail'])) ? $config['cron_sendmail'] : "" )  . '"></td></tr>';
 $aus['transfer1'].='<tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="0" ' . ( ( $config['cron_use_sendmail'] == 0 ) ? " checked" : "" ) . '>&nbsp;SMTP</td><td><input type="text" class="text" size="30" name="cron_smtp" value="' . $config['cron_smtp'] . '"></td></tr><tr><td>&nbsp;</td><td>SMTP-Port: <strong>' . $config['cron_smtp_port'] . '</strong></td></tr>';
 $aus['transfer1'].='</table></td></tr></table></fieldset>' . print_save_button() . '</div>';
 
