@@ -470,7 +470,7 @@ function AutoDelete()
 {
 	global $del_files,$config,$lang,$out;
 	$out='';
-	if ($config['max_backup_files']>0)
+	if (isset($config['max_backup_files']) && ($config['max_backup_files']>0))
 	{
 		//Files einlesen
 		$dh=opendir($config['paths']['backup']);

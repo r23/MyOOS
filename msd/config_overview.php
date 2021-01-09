@@ -179,27 +179,29 @@ if (isset($_POST['save']))
 	$config['theme']=$_POST['theme'];
 	$config['interface_table_compact']=( isset($_POST['interface_table_compact']) ) ? $_POST['interface_table_compact'] : 1;
 
-	$config['email_recipient']=$_POST['email0'];
-	$config['email_recipient_cc']=$_POST['email_recipient_cc'];
-	$config['email_sender']=$_POST['email1'];
-	$config['send_mail']=$_POST['send_mail'];
-	$config['send_mail_dump']=$_POST['send_mail_dump'];
+# if (isset($_POST['selected_config'])) $new_config=$_POST['selected_config'];
 
-	$config['email_maxsize1']=$_POST['email_maxsize1'];
+	if (isset($_POST['email0'])) $config['email_recipient']=$_POST['email0'];
+	if (isset($_POST['email_recipient_cc']))	$config['email_recipient_cc']=$_POST['email_recipient_cc'];
+	if (isset($_POST['email1'])) $config['email_sender']=$_POST['email1'];
+	if (isset($_POST['send_mail']))	$config['send_mail']=$_POST['send_mail'];
+	if (isset($_POST['send_mail_dump'])) $config['send_mail_dump']=$_POST['send_mail_dump'];
+
+	if (isset($_POST['email_maxsize1'])) $config['email_maxsize1']=$_POST['email_maxsize1'];
 	if ($config['email_maxsize1'] == "") $config['email_maxsize1']=0;
-	$config['email_maxsize2']=$_POST['email_maxsize2'];
+	if (isset($_POST['selected_config'])) $config['email_maxsize2']=$_POST['email_maxsize2'];
 	$config['email_maxsize']=$config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
 
-	$config['memory_limit']=$_POST['memory_limit'];
+	if (isset($_POST['memory_limit'])) $config['memory_limit']=$_POST['memory_limit'];
 	if ($config['memory_limit'] == "") $config['memory_limit']=0;
-	$config['minspeed']=$_POST['minspeed'];
+	if (isset($_POST['minspeed'])) $config['minspeed']=$_POST['minspeed'];
 	if ($config['minspeed'] < 50) $config['minspeed']=50;
-	$config['maxspeed']=$_POST['maxspeed'];
+	if (isset($_POST['maxspeed'])) $config['maxspeed']=$_POST['maxspeed'];
 	if ($config['maxspeed'] < $config['minspeed']) $config['maxspeed']=$config['minspeed'] * 2;
-    $config['stop_with_error']=$_POST['stop_with_error'];
+ 	if (isset($_POST['stop_with_error'])) $config['stop_with_error']=$_POST['stop_with_error'];
     $config['ignore_enable_keys']=isset($_POST['ignore_enable_keys']) ? (int) $_POST['ignore_enable_keys']:0;
 
-	$config['multi_part']=$_POST['multi_part'];
+	if (isset($_POST['multi_part'])) $config['multi_part']=$_POST['multi_part'];
 	$config['multipartgroesse1']=isset($_POST['multipartgroesse1']) ? floatval(str_replace(',','.',$_POST['multipartgroesse1'])) : 0;
 	$config['multipartgroesse2']=isset($_POST['multipartgroesse2']) ? intval($_POST['multipartgroesse2']) : 0;
 	if ($config['multipartgroesse1'] < 100 && $config['multipartgroesse2'] == 1) $config['multipartgroesse1']=100;
@@ -207,20 +209,20 @@ if (isset($_POST['save']))
 
 	$oldlogcompression=$config['logcompression'];
 	$config['logcompression']=( isset($_POST['logcompression']) && $_POST['logcompression'] == 1 ) ? 1 : 0;
-	$config['log_maxsize1']=$_POST['log_maxsize1'];
+	if (isset($_POST['log_maxsize1']))	$config['log_maxsize1']=$_POST['log_maxsize1'];
 	if ($config['log_maxsize1'] == "") $config['log_maxsize1']=0;
-	$config['log_maxsize2']=$_POST['log_maxsize2'];
+	if (isset($_POST['log_maxsize2']))	$config['log_maxsize2']=$_POST['log_maxsize2'];
 	$config['log_maxsize']=$config['log_maxsize1'] * ( ( $config['log_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
 
-	$config['auto_delete']=$_POST['auto_delete'];
-	$config['max_backup_files']=$_POST['max_backup_files'];
+	if (isset($_POST['auto_delete'])) $config['auto_delete']=$_POST['auto_delete'];
+	if (isset($_POST['max_backup_files'])) $config['max_backup_files']=$_POST['max_backup_files'];
 
-	$config['empty_db_before_restore']=$_POST['empty_db_before_restore'];
-	$config['optimize_tables_beforedump']=$_POST['optimize_tables'];
-	$config['cron_dbindex']=$_POST['cron_dbindex'];
-	$config['cron_comment']=$_POST['cron_comment'];
+	if (isset($_POST['empty_db_before_restore'])) $config['empty_db_before_restore']=$_POST['empty_db_before_restore'];
+	if (isset($_POST['optimize_tables'])) $config['optimize_tables_beforedump']=$_POST['optimize_tables'];
+	if (isset($_POST['cron_dbindex'])) $config['cron_dbindex']=$_POST['cron_dbindex'];
+	if (isset($_POST['cron_comment'])) $config['cron_comment']=$_POST['cron_comment'];
 
-	$config['cron_extender']=$_POST['cron_extender'];
+	if (isset($_POST['cron_extender'])) $config['cron_extender']=$_POST['cron_extender'];
 	// cron_select_savepath/
 	if (!isset($_POST['cron_select_savepath'])) $_POST['cron_select_savepath']=$config['config_file'];
 	if (isset($_POST['cron_savepath_new']) && !empty($_POST['cron_savepath_new']))
@@ -238,18 +240,18 @@ if (isset($_POST['save']))
 		}
 	}
 
-	$config['cron_execution_path']=$_POST['cron_execution_path'];
+	if (isset($_POST['cron_execution_path'])) $config['cron_execution_path']=$_POST['cron_execution_path'];
 	if ($config['cron_execution_path'] == "") $config['cron_execution_path']="msd_cron/";
 	if (strlen($config['cron_execution_path']) > 1 && substr($config['cron_execution_path'],-1) != "/") $config['cron_execution_path'].="/";
 
-	$config['cron_use_sendmail']=$_POST['cron_use_sendmail'];
-	$config['cron_sendmail']=$_POST['cron_sendmail'];
+	if (isset($_POST['cron_use_sendmail'])) $config['cron_use_sendmail']=$_POST['cron_use_sendmail'];
+	if (isset($_POST['cron_sendmail'])) $config['cron_sendmail']=$_POST['cron_sendmail'];
 	$config['cron_smtp']=isset($_POST['cron_smtp']) ? $_POST['cron_smtp'] : 'localhost';
 
-	$config['cron_printout']=$_POST['cron_printout'];
-	$config['cron_completelog']=$_POST['cron_completelog'];
-	$config['cron_compression']=$_POST['compression'];
-	$config['cron_completelog']=$_POST['cron_completelog'];
+	if (isset($_POST['cron_printout'])) $config['cron_printout']=$_POST['cron_printout'];
+	if (isset($_POST['cron_completelog'])) $config['cron_completelog']=$_POST['cron_completelog'];
+	if (isset($_POST['compression'])) $config['cron_compression']=$_POST['compression'];
+	if (isset($_POST['cron_completelog'])) $config['cron_completelog']=$_POST['cron_completelog'];
 
 	$databases['multi']=Array();
 	$databases['multi_praefix']=Array();
@@ -302,6 +304,7 @@ if (isset($_POST['save']))
 	for ($i=0; $i < 3; $i++)
 	{
 		$checkFTP[$i]="";
+		$config['ftp_transfer'][$i] = isset($config['ftp_transfer'][$i]) ? $config['ftp_transfer'][$i] : 0;
 		$config['ftp_transfer'][$i]=isset($_POST['ftp_transfer'][$i]) ? $_POST['ftp_transfer'][$i] : $config['ftp_transfer'][$i];
 		$config['ftp_timeout'][$i]=isset($_POST['ftp_timeout'][$i]) ? $_POST['ftp_timeout'][$i] : 30;
 		$config['ftp_useSSL'][$i]=isset($_POST['ftp_useSSL'][$i]) ? 1 : 0;
