@@ -24,6 +24,10 @@ function nl2null($string)
 	return trim(str_replace($search,$replace,$string));
 }
 //SQL-Strings
+	if ( !is_array($SQL_ARRAY) )
+	{
+		$SQL_ARRAY = array();
+	}
 echo $aus.='<h4>' . $lang['L_SQL_BEFEHLE'] . ' (' . count($SQL_ARRAY) . ')</h4>';
 echo '<a href="' . $params . '&amp;sqlconfig=1&amp;new=1">' . $lang['L_SQL_BEFEHLNEU'] . '</a><br><br>';
 if (isset($_POST['sqlnewupdate']))
