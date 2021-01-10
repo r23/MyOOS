@@ -301,6 +301,12 @@ if (isset($_POST['save']))
 	$config['ftp_mode']=array();
 	$config['ftp_useSSL']=array();
 
+	$config['ftp_server']=array();
+	$config['ftp_port']=array();
+	$config['ftp_user']=array();
+	$config['ftp_pass']=array();
+	$config['ftp_dir']=array();
+	
 	for ($i=0; $i < 3; $i++)
 	{
 		$checkFTP[$i]="";
@@ -310,11 +316,11 @@ if (isset($_POST['save']))
 		$config['ftp_useSSL'][$i]=isset($_POST['ftp_useSSL'][$i]) ? 1 : 0;
 
 		$config['ftp_mode'][$i]=isset($_POST['ftp_mode'][$i]) ? 1 : 0;
-		$config['ftp_server'][$i]=$_POST['ftp_server'][$i];
-		$config['ftp_port'][$i]=$_POST['ftp_port'][$i];
-		$config['ftp_user'][$i]=$_POST['ftp_user'][$i];
-		$config['ftp_pass'][$i]=$_POST['ftp_pass'][$i];
-		$config['ftp_dir'][$i]=stripslashes($_POST['ftp_dir'][$i]);
+		$config['ftp_server'][$i]=isset($_POST['ftp_server'][$i]) ? $_POST['ftp_server'][$i] : '';
+		$config['ftp_port'][$i]=isset($_POST['ftp_port'][$i]) ? $_POST['ftp_port'][$i] : '';
+		$config['ftp_user'][$i]=isset($_POST['ftp_user'][$i]) ? $_POST['ftp_user'][$i] : '';
+		$config['ftp_pass'][$i]=isset($_POST['ftp_pass'][$i]) ? $_POST['ftp_pass'][$i] : '';
+		$config['ftp_dir'][$i]=isset($_POST['ftp_dir'][$i]) ? stripslashes($_POST['ftp_dir'][$i]) : '';
 		if ($config['ftp_port'][$i] == 0) $config['ftp_port'][$i]=21;
 		if ($config['ftp_dir'][$i] == "" || ( strlen($config['ftp_dir'][$i]) > 1 && substr($config['ftp_dir'][$i],-1) != "/" )) $config['ftp_dir'][$i].="/";
 	}
