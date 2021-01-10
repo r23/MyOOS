@@ -23,31 +23,34 @@ $tpl->set_filenames(array(
 
 $sqledit="SHOW FIELDS FROM `$tablename`";
 $res=MSD_query($sqledit);
-$num=mysqli_num_rows($res);
-
-$feldnamen="";
-for ($x=0; $x<$num; $x++)
+if ($res)
 {
-	$row=mysqli_fetch_object($res);
-	$feldnamen.=$row->Field.'|';
-	$tpl->assign_block_vars('ROW',array(
-		'CLASS' => ($x%2) ? 1 : 2,
-		'FIELD_NAME' => $row->Field,
-		'FIELD_ID' => correct_post_index($row->Field)));
+	$num=mysqli_num_rows($res);
 
-	$type=strtoupper($row->Type);
-
-	if (strtoupper($row->Null)=='YES')
+	$feldnamen="";
+	for ($x=0; $x<$num; $x++)
 	{
-		//field is nullable
-		$tpl->assign_block_vars('ROW.IS_NULLABLE',array());
-	}
+		$row=mysqli_fetch_object($res);
+		$feldnamen.=$row->Field.'|';
+		$tpl->assign_block_vars('ROW',array(
+			'CLASS' => ($x%2) ? 1 : 2,
+			'FIELD_NAME' => $row->Field,
+			'FIELD_ID' => correct_post_index($row->Field)));
 
-	if (in_array($type,array(
-		'BLOB',
-		'TEXT'))) $tpl->assign_block_vars('ROW.IS_TEXTAREA',array());
-	else
-		$tpl->assign_block_vars('ROW.IS_TEXTINPUT',array());
+		$type=strtoupper($row->Type);
+
+		if (strtoupper($row->Null)=='YES')
+		{
+			//field is nullable
+			$tpl->assign_block_vars('ROW.IS_NULLABLE',array());
+		}
+
+		if (in_array($type,array(
+			'BLOB',
+			'TEXT'))) $tpl->assign_block_vars('ROW.IS_TEXTAREA',array());
+		else
+			$tpl->assign_block_vars('ROW.IS_TEXTINPUT',array());
+	}
 }
 
 $tpl->assign_vars(array(
