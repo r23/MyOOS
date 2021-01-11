@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team
    ----------------------------------------------------------------------
    Based on:
 
@@ -82,7 +82,7 @@ function modify_file($src, $reg_src, $reg_rep) {
     fclose($out_original);
 
     // Success!
-    return "$src updated with $lines lines of changes, backup is called $dest";
+    return "$src updated with $lines lines of changes";
 }
 
 // Two global arrays
@@ -139,11 +139,6 @@ function oosUpdateConfigShop($db_prefs = false) {
     add_src_rep("OOS_DB_PASSWORD", base64_encode($dbpass));
     add_src_rep("OOS_DB_DATABASE", $dbname);
     add_src_rep("OOS_DB_PREFIX", $prefix_table);
-    if (strstr($HTTP_ENV_VARS["OS"],"Win")) {
-        add_src_rep("OOS_SYSTEM", '1');
-    } else {
-        add_src_rep("OOS_SYSTEM", '0');
-    }
     add_src_rep("OOS_ENCODED", '1');
 
     $ret = modify_file("../includes/configure.php", $reg_src, $reg_rep);

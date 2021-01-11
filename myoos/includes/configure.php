@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -60,5 +60,4 @@ define('OOS_DB_PASSWORD', '');
 define('OOS_DB_DATABASE', '');
 define('OOS_DB_PREFIX', '');
 define('OOS_ENCODED', '');
-define('OOS_SYSTEM', '');
 

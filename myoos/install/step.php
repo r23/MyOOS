@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team
    ----------------------------------------------------------------------
    Based on:
 
@@ -73,7 +73,7 @@ if (version_compare(PHP_VERSION, '7.2.0', '<')) {
 
 define('OOS_VALID_MOD', true);
 // Version information
-define('OOS_VERSION', 'MyOOS 2.4.11 -dev');
+define('OOS_VERSION', 'MyOOS 2.4.16 -dev');
 
 require_once '../includes/functions/function_global.php';
 require_once '../includes/functions/function_kernel.php';
@@ -124,6 +124,7 @@ require_once '../includes/lib/adodb/adodb.inc.php';
 
     case 'Set Login':
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+	  $update = isset($_POST['update']) ? oos_prepare_input($_POST['update']) : NULL;
       oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $prefix_table, $update);
       oosUpdateConfigShop(true); // Scott - added
 
@@ -144,6 +145,7 @@ require_once '../includes/lib/adodb/adodb.inc.php';
 
 
     case 'Start':
+	  $dbmake = isset($_POST['dbmake']) ? oos_prepare_input($_POST['dbmake']) : NULL;
       make_db($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype, $dbmake);
       print_Start();
       break;
