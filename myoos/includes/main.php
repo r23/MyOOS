@@ -95,11 +95,8 @@ oosDB_importTables($oostable);
 $configurationtable = $oostable['configuration'];
 $configuration_query = "SELECT configuration_key AS cfg_key, configuration_value AS cfg_value
 FROM $configurationtable";
-if (USE_CACHE == 'true') {
-    $configuration_result = $dbconn->CacheExecute(3600, $configuration_query);
-} else {
-    $configuration_result = $dbconn->Execute($configuration_query);
-}
+$configuration_result = $dbconn->Execute($configuration_query);
+
 
 while ($configuration = $configuration_result->fields) {
     define($configuration['cfg_key'], $configuration['cfg_value']);
