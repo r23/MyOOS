@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'b361136a7279ee2d995a25a42f271e6e216496d1',
+    'reference' => '090dc811427e2767c755ec0f2cee3d3b69c8004e',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -126,7 +126,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'b361136a7279ee2d995a25a42f271e6e216496d1',
+      'reference' => '090dc811427e2767c755ec0f2cee3d3b69c8004e',
     ),
     'paypal/rest-api-sdk-php' => 
     array (
