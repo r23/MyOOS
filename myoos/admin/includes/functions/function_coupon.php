@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -129,21 +129,21 @@ function oos_create_coupon_code($salt="secret", $length=SECURITY_CODE_LENGTH) {
     $date_selector = '<select name="'. $prefix .'_day">';
     for ($i=1;$i<32;$i++){
       $date_selector .= '<option value="' . $i . '"';
-      if ($i==$day) $date_selector .= 'selected';
+      if ($i==$day) $date_selector .= ' selected="selected"';
       $date_selector .= '>' . $i . '</option>';
     }
     $date_selector .= '</select>';
     $date_selector .= '<select name="'. $prefix .'_month">';
     for ($i=1;$i<13;$i++){
       $date_selector .= '<option value="' . $i . '"';
-      if ($i==$month) $date_selector .= 'selected';
+      if ($i==$month) $date_selector .= ' selected="selected"';
       $date_selector .= '>' . $month_array[$i] . '</option>';
     }
     $date_selector .= '</select>';
     $date_selector .= '<select name="'. $prefix .'_year">';
-    for ($i=2018;$i<2029;$i++){
+    for ($i=2021;$i<2029;$i++){
       $date_selector .= '<option value="' . $i . '"';
-      if ($i==$year) $date_selector .= 'selected';
+      if ($i==$year) $date_selector .= ' selected="selected"';
       $date_selector .= '>' . $i . '</option>';
     }
     $date_selector .= '</select>';
