@@ -6,7 +6,7 @@
    https://www.oos-shop.de
    
    
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -25,8 +25,6 @@ define('HEADING_TITLE', 'Anmeldebereich');
 
 define('HEADING_RETURNING_ADMIN', 'Anmeldebereich:');
 define('TEXT_RETURNING_ADMIN', 'Nur für Mitarbeiter!');
-define('ENTRY_EMAIL_ADDRESS', 'E-Mail-Adresse:');
-define('ENTRY_PASSWORD', 'Passwort:');
 define('ENTRY_FIRSTNAME', 'Vorname:');
 define('IMAGE_BUTTON_LOGIN', 'Übertragen');
 

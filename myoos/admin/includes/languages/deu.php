@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -71,7 +71,6 @@ define('HEADER_TITLE_TOP', 'Home');
 define('HEADER_TITLE_SUPPORT_SITE', 'Supportseite');
 define('HEADER_TITLE_ONLINE_CATALOG', 'Online Katalog');
 define('HEADER_TITLE_ADMINISTRATION', 'Administration');
-define('HEADER_TITLE_LOGOFF', 'Logoff');
 
 $aLang['header_title_top'] = 'Willkommen bei MyOOS [Shopsystem]';
 $aLang['header_title_support_site'] = 'Supportseite';
@@ -220,7 +219,7 @@ define('ENTRY_FIRST_NAME', 'Vorname:');
 define('ENTRY_LAST_NAME', 'Nachname:');
 define('ENTRY_NUMBER', 'Kundennummer:');
 define('ENTRY_DATE_OF_BIRTH', 'Geburtsdatum:');
-define('ENTRY_EMAIL_ADDRESS', 'eMail Adresse:');
+define('ENTRY_EMAIL_ADDRESS', 'E-Mail Adresse:');
 define('ENTRY_COMPANY', 'Firmenname:');
 define('ENTRY_OWNER', 'Inhaber:');
 define('ENTRY_VAT_ID', 'Umsatzsteuer ID:');
@@ -428,9 +427,6 @@ define('TEXT_VALID_PRODUCTS_MODEL', 'Produkt Model');
 define('TEXT_VALID_CATEGORIES_LIST', 'Kategorie Liste');
 define('TEXT_VALID_CATEGORIES_ID', 'Kategorie ID');
 define('TEXT_VALID_CATEGORIES_NAME', 'Kategorie Name');
-
-define('HEADER_TITLE_TOP', 'Redaktion');
-define('HEADER_TITLE_ADMINISTRATION', 'Redaktion');
 
 define('HEADER_TITLE_ACCOUNT', 'Mein Konto');
 define('HEADER_TITLE_LOGOFF', 'Abmelden');

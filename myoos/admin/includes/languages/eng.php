@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -421,7 +421,7 @@ define('TEXT_VALID_CATEGORIES_ID', 'Category ID');
 define('TEXT_VALID_CATEGORIES_NAME', 'Category Name');
 
 define('HEADER_TITLE_ACCOUNT', 'My Account');
-define('HEADER_TITLE_LOGOFF', 'Logoff');
+
 
 // Admin Account
 define('BOX_HEADING_MY_ACCOUNT', 'My Account');

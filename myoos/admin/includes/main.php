@@ -159,7 +159,7 @@ require 'includes/classes/class_object_info.php';
 
 
 // calculate category path
-$cPath = oos_db_prepare_input($_GET['cPath']);
+$cPath = isset($_GET['cPath']) ? oos_db_prepare_input($_GET['cPath']) : '';
 if (strlen($cPath) > 0) {
 	$aPath = explode('_', $cPath);
 	$current_category_id = $aPath[(count($aPath)-1)];
