@@ -162,9 +162,8 @@ function oos_sanitize_string($sStr) {
       $ourvar = preg_replace($search, $replace, $ourvar);
 
       // Prepare var
-      if (!get_magic_quotes_runtime()) {
-        $ourvar = addslashes($ourvar);
-      }
+      $ourvar = addslashes($ourvar);
+
 
       // Add to array
       array_push($resarray, $ourvar);
