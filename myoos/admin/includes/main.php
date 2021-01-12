@@ -61,7 +61,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
 require 'includes/functions/function_kernel.php';
-
+require 'includes/functions/function_validations.php';
 
 // Load server utilities
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_server.php';
@@ -138,10 +138,6 @@ if (file_exists('includes/languages/' . $sLanguage . '/' . $current_page)) {
 // define our general functions used application-wide
 require 'includes/functions/function_output.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
-
-// email classes
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 
 // setup our boxes
 require 'includes/classes/class_table_block.php';

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -119,7 +119,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
 		$bError = TRUE;
 		$oMessage->add('create_account', $aLang['entry_email_address_error']);
-    } elseif (oos_validate_is_email($email_address) == FALSE) {
+    } elseif (is_email($email_address) == FALSE) {
 		$bError = TRUE;
 		$oMessage->add('create_account', $aLang['entry_email_address_check_error']);
     } else {

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -36,7 +36,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * @param $value
  * @return boolean
  */
-function oos_validate_is_email($value) {
+function is_email($value) {
  
     if (!is_string($value)) return FALSE;
 

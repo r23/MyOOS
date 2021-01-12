@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,7 +35,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) {
 
 	$email_address = strtolower($email_address);
 		
-	if (oos_validate_is_email(trim($email_address))) {
+	if (is_email(trim($email_address))) {
 
 		if ( empty( $subject )) {
 			$subject = $aLang['email_subject'];

@@ -1681,7 +1681,7 @@ function oos_newsletter_subscribe_mail ($email_address) {
 	
 	$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 	
-	if (oos_validate_is_email($email_address)) {	
+	if (is_email($email_address)) {	
 	
 		$aContents = oos_get_content();
 

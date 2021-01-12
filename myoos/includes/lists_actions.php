@@ -34,7 +34,7 @@ if ( empty( $email_address ) || !is_string( $email_address ) ) {
 				'text' => $aLang['error_email_address']	);
 } 
 
-if ( ($bError === FALSE) && (!oos_validate_is_email($email_address)) ) {
+if ( ($bError === FALSE) && (!is_email($email_address)) ) {
 	$bError = TRUE;
 	$aInfoMessage[] = array('type' => 'danger',
 							'text' => $aLang['error_email_address']);
