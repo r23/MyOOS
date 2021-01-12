@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -86,7 +86,7 @@ if (is_array($aBlocks)) {
 		'		</li>' . "\n";				
 				
 	foreach ($aBlocks as $panels ) {
-		if ($panels['active'] == TRUE) {
+		if (isset($panels['active']) && ($panels['active'] == TRUE)) {
 			echo '<li class="active">' . "\n";
 		} else {
 			echo '<li class=" ">' . "\n";
@@ -99,7 +99,7 @@ if (is_array($aBlocks)) {
 				'</a>' . "\n";			
 		}
 			
-		if (is_array($panels['contents'])) {
+		if (isset($panels['contents']) && (is_array($panels['contents']))) {
 			echo '<ul class="sidebar-nav sidebar-subnav collapse" id="' . oos_strtolower($panels['heading']) . '">' . "\n" .
 				 '	<li class="sidebar-subnav-header">' . $panels['heading'] . '</li>' . "\n";
 				foreach ($panels['contents'] as $contents) {
