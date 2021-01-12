@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -51,7 +51,7 @@
       );
     }
 
-    function create_plugin_instance() {
+    static function create_plugin_instance() {
 
       include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_featured.php';
       oos_expire_featured();

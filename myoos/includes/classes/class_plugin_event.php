@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -38,39 +38,39 @@
 
     public function load_plugin($sInstance, $sPluginPath = '') {
 
-      $sName = 'oos_event_' . $sInstance;
+		$sName = 'oos_event_' . $sInstance;
 
-      if (!class_exists($sName)) {
-        if (empty($sPluginPath)) {
-          if (empty($sPluginPath)) {
-            $sPluginPath = $sName;
-          }
+		if (!class_exists($sName)) {
+			if (empty($sPluginPath)) {
+				if (empty($sPluginPath)) {
+					$sPluginPath = $sName;
+				}
+			}
+
+
+			$sPluginPath = oos_var_prep_for_os($sPluginPath);
+			$sName = oos_var_prep_for_os($sName);
+
+			if (file_exists('includes/plugins/' . $sPluginPath . '/' . $sName . '.php')) {
+				include_once 'includes/plugins/' . $sPluginPath . '/' . $sName . '.php';
+			}
+
+			if (isset($_SESSION['language']) &&  file_exists('includes/plugins/' . $sPluginPath . '/lang/' . oos_var_prep_for_os($_SESSION['language']) . '.php')) {
+				include_once 'includes/plugins/' . $sPluginPath . '/lang/' . oos_var_prep_for_os($_SESSION['language']) . '.php';
+			} elseif (file_exists('includes/plugins/' . $sPluginPath . '/lang/' . DEFAULT_LANGUAGE . '.php')) {
+				include_once 'includes/plugins/' . $sPluginPath . '/lang/' . DEFAULT_LANGUAGE . '.php';
+			}
+
+			if (!class_exists($sName)) {
+				return FALSE;
+			}
+		}
+
+		if (@call_user_func($sName .'::create_plugin_instance')) { 
+			$this->aPlugins[] = $sName;
         }
 
-
-        $sPluginPath = oos_var_prep_for_os($sPluginPath);
-        $sName = oos_var_prep_for_os($sName);
-
-        if (file_exists('includes/plugins/' . $sPluginPath . '/' . $sName . '.php')) {
-          include_once 'includes/plugins/' . $sPluginPath . '/' . $sName . '.php';
-        }
-
-        if (isset($_SESSION['language']) &&  file_exists('includes/plugins/' . $sPluginPath . '/lang/' . oos_var_prep_for_os($_SESSION['language']) . '.php')) {
-          include_once 'includes/plugins/' . $sPluginPath . '/lang/' . oos_var_prep_for_os($_SESSION['language']) . '.php';
-        } elseif (file_exists('includes/plugins/' . $sPluginPath . '/lang/' . DEFAULT_LANGUAGE . '.php')) {
-          include_once 'includes/plugins/' . $sPluginPath . '/lang/' . DEFAULT_LANGUAGE . '.php';
-        }
-
-        if (!class_exists($sName)) {
-          return FALSE;
-        }
-      }
-
-      if (@call_user_func(array('oos_event_' . $sInstance, 'create_plugin_instance'))) {
-        $this->aPlugins[] = $sName;
-      }
-
-      return TRUE;
+		return TRUE;
     }
 
 
