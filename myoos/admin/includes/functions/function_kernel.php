@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -36,7 +36,7 @@ function oos_admin_check_login() {
 		$filename = $filename[0];
 		$page_key = array_search($filename, $aContents);
 
-		if ($filename != $aContents['default'] && $filename != $aContents['forbiden'] && $filename != $aContents['logoff'] && $filename != $aContents['admin_account']  && $filename != $aContents['packingslip'] && $filename != $aContents['popup_image_product']  && $filename != $aContents['invoice'] && $filename != $aContents['edit_orders']) {
+		if ($filename != $aContents['default'] && $filename != $aContents['forbiden'] && $filename != $aContents['logoff'] && $filename != $aContents['admin_account']  && $filename != $aContents['packingslip'] && $filename != $aContents['invoice'] && $filename != $aContents['edit_orders']) {
   
 			$admin_filestable = $oostable['admin_files'];
 			$query = "SELECT admin_files_name
