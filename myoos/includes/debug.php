@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -32,13 +32,12 @@ set_error_handler('oos_error_log_handler');
  * @param   string
  * @param   string
  * @param   string
- * @param   string
  * @return  boolean
  *
  * @author  r23 <info@r23.de>
  * @since   OOS 1.3.1
  */
-function oos_error_log_handler($sErrNo, $sErrMsg, $sErrFile, $sErrLine, $sErrVars) {
+function oos_error_log_handler($sErrNo, $sErrMsg, $sErrFile, $sErrLine) {
 	if (substr($sErrMsg, 0, 4) == 'stat') {
 		return true;
 	}
