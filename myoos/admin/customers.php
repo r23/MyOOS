@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -19,7 +19,7 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-error_reporting(E_ALL);	
+
  
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
@@ -704,8 +704,8 @@ function check_form() {
 <?php
     $search = '';
     if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
-      $keywords = oos_db_input(oos_db_prepare_input($_GET['search']));
-      $search = "WHERE c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . $keywords . "%' or c.customers_email_address like '%" . $keywords . "'";
+      $keywords = oos_db_prepare_input($_GET['search']);
+      $search = "WHERE c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . oos_db_input($keywords) . "%' or c.customers_email_address like '%" . oos_db_input($keywords) . "'";
     }
     if (isset($_GET['status'])) {
       $status = oos_db_prepare_input($_GET['status']);
@@ -721,7 +721,7 @@ function check_form() {
                                   $address_booktable a
                                ON c.customers_id = a.customers_id AND
                                   c.customers_default_address_id = a.address_book_id
-                                  " . $search . "
+                                  " . oos_db_input($search) . "
                              ORDER BY c.customers_lastname,
                                    c.customers_firstname";
     $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_result_raw, $customers_result_numrows);
@@ -733,20 +733,20 @@ function check_form() {
                                               customers_info_date_of_last_logon AS date_last_logon,
                                               customers_info_number_of_logons AS number_of_logons
                                        FROM $customers_infotable
-                                       WHERE customers_info_id = '" . $customers['customers_id'] . "'");
+                                       WHERE customers_info_id = '" . intval($customers['customers_id']) . "'");
       $info = $info_result->fields;
 
       if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $customers['customers_id']))) && !isset($cInfo)) {
         $countriestable = $oostable['countries'];
         $country_result = $dbconn->Execute("SELECT countries_name
                                             FROM $countriestable
-                                            WHERE countries_id = '" . $customers['entry_country_id'] . "'");
+                                            WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");
         $country = $country_result->fields;
 
         $reviewstable = $oostable['reviews'];
         $reviews_result = $dbconn->Execute("SELECT COUNT(*) AS number_of_reviews
                                             FROM $reviewstable
-                                            WHERE customers_id = '" . $customers['customers_id'] . "'");
+                                            WHERE customers_id = '" . intval($customers['customers_id']) . "'");
         $reviews = $reviews_result->fields;
 
         $customer_info = array_merge($country, $info, $reviews);
@@ -788,7 +788,7 @@ function check_form() {
                     <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
                   </tr>
 <?php
-    if (oos_is_not_null($_GET['search'])) {
+    if (isset($_GET['search'])) {
 ?>
                   <tr>
                     <td align="right" colspan="7"><?php echo '<a href="' . oos_href_link_admin($aContents['customers']) . '">' . oos_button(BUTTON_RESET) . '</a>'; ?></td>
@@ -843,13 +843,6 @@ function check_form() {
       break;
 
     default:
-      $customer_status = oos_get_customers_status ($cID);
-      $cs_id           = $customer_status['customers_status'];
-      $cs_name         = $customer_status['customers_status_name'];
-      $cs_ot_discount_flag  = $customer_status['customers_status_ot_discount_flag'];
-      $cs_ot_discount       = $customer_status['customers_status_ot_discount'];
-      $cs_qty_discounts     = $customer_status['customers_status_qty_discounts'];
-      $cs_payment = $customer_status['customers_status_payment'];
 
       if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
@@ -864,9 +857,12 @@ function check_form() {
         $login_result = $dbconn->Execute($sql);
         $login = $login_result->fields;
         if ($login['status'] != '0') {
-          $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
+			$contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
         }
+		
+		$customer_status = oos_get_customers_status ($cInfo->customers_id);	
         $contents[] = array('text' => '<br />'  . oos_customers_payment($customer_status['customers_status_payment']));
+		
         $contents[] = array('text' => '<br />' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created));
         $contents[] = array('text' => '<br />' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . oos_date_short($cInfo->date_account_last_modified));
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_LAST_LOGON . ' '  . oos_date_short($cInfo->date_last_logon));
