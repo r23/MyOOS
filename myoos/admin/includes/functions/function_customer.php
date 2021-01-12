@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -80,10 +80,8 @@
       $i = $customers_statuses['customers_status_id'];
       $customers_statuses_array[$i] = array('id' => $customers_statuses['customers_status_id'],
                                             'text' => $customers_statuses['customers_status_name'],
-                                            'cs_public' => $customers_statuses['customers_status_public'],
                                             'cs_ot_discount_flag' => $customers_statuses['customers_status_ot_discount_flag'],
                                             'cs_ot_discount' => $customers_statuses['customers_status_ot_discount'],
-                                            'cs_staffelpreis' => $customers_statuses['customers_status_qty_discounts'],
                                             'cs_payment_unallowed' => $customers_statuses['customers_status_payment']);
       // Move that ADOdb pointer!
       $result->MoveNext();
