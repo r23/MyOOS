@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -38,8 +38,8 @@
       $this->sort_order = (defined('MODULE_XMEMBERS_SORT_ORDER') ? MODULE_XMEMBERS_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_XMEMBERS_INC_SHIPPING') ? MODULE_XMEMBERS_INC_SHIPPING : null);
       $this->include_tax = (defined('MODULE_XMEMBERS_INC_TAX') ? MODULE_XMEMBERS_INC_TAX : null);
-      $this->percentage = $aUser['ot_discount'];
-      $this->minimum = $aUser['ot_minimum'];
+      $this->percentage = isset($aUser['ot_discount']) ? $aUser['ot_discount'] : 1; 
+      $this->minimum = isset($aUser['ot_minimum']) ? $aUser['ot_minimum'] : 0; 
       $this->calculate_tax = (defined('MODULE_XMEMBERS_CALC_TAX') ? MODULE_XMEMBERS_CALC_TAX : null);
 
       $this->output = array();
