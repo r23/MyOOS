@@ -6,7 +6,7 @@
    https://www.oos-shop.de
    
    
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -41,7 +41,6 @@ define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_INFO_EXPIRES_DATE', 'Expires At:');
 define('TEXT_INFO_STATUS_CHANGE', 'Status Change:');
-define('IMAGE_LOGIN', 'Admin Login');
 define('HEADING_SET_FLAG', 'In order To Do a Manual Entry, set the flag status to active (Green).<br />For added security, set flag status to inactive (Red) when you are done with this utility');
 define('MAN_LOGIN_ADMIN', 'Admin Login to Catalog');
 define('MAN_LOGIN_ADMIN_EXPLAIN', 'You can login now to the catalog under an admin account.');

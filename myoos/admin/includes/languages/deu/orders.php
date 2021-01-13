@@ -50,8 +50,6 @@ define('TABLE_HEADING_DATE_ADDED', 'hinzugefügt am:');
 
 define('ENTRY_CUSTOMER', 'Kunde:');
 define('ENTRY_SOLD_TO', 'Kunde:');
-define('ENTRY_COUNTRY', 'Land:');
-define('ENTRY_TELEPHONE', 'Telefon:');
 define('ENTRY_DELIVERY_TO', 'Lieferanschrift:');
 define('ENTRY_SHIP_TO', 'Lieferanschrift:');
 define('ENTRY_SHIPPING_ADDRESS', 'Versandadresse:');

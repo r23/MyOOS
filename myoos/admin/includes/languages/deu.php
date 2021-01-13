@@ -377,6 +377,10 @@ define('TEXT_INFO_PASSWORD', 'Password:');
 define('TEXT_NONE', '--keine--');
 define('TEXT_TOP', 'Top');
 
+define('ENTRY_TAX_YES', 'incl. MwSt.');
+define('ENTRY_TAX_NO','excl. MwSt.');
+
+
 define('ENTRY_YES','ja');
 define('ENTRY_NO','nein');
 

@@ -61,12 +61,6 @@ define('ENTRY_CUSTOMERS_STATUS_SHOW_PRICE', 'Show Price : ');
 define('TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE__TAX_INTRO', 'You can set for this customers status if the price will be displayed including tax or not. ');
 define('ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX', 'Price with Tax : ');
 
-define('ENTRY_TAX_YES','Yes');
-define('ENTRY_TAX_NO','No');
-
-define('ENTRY_YES','Yes');
-define('ENTRY_NO','No');
-
 define('ERROR_REMOVE_DEFAULT_CUSTOMER_STATUS', 'Error: The default customer status can not be removed. Please set another customer status as default, and try again.');
 define('ERROR_STATUS_USED_IN_CUSTOMERS', 'Error: This order status is currently used in customers.');
 define('ERROR_STATUS_USED_IN_HISTORY', 'Error: This order status is currently used in the order status history.');

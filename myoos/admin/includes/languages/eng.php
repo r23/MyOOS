@@ -377,6 +377,8 @@ define('ENTRY_TAX_NO', 'No');
 define('ENTRY_ON', 'On');
 define('ENTRY_OFF', 'Off');
 
+define('ENTRY_YES','Yes');
+define('ENTRY_NO','No');
 
 $aLang['error_destination_does_not_exist'] = 'Error: Destination does not exist.';
 $aLang['error_destination_not_writeable'] = 'Error: Destination not writeable.';

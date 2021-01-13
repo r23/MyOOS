@@ -61,12 +61,6 @@ define('ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX', 'Preise : ');
 define('TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO', 'Legen Sie die Zahlungsarten dieser Kundengruppe fest.');
 define('ENTRY_CUSTOMERS_STATUS_PAYMENT', 'Zahlungsweise : ');
 
-define('ENTRY_YES','ja');
-define('ENTRY_NO','nein');
-
-define('ENTRY_TAX_YES', 'incl. MwSt.');
-define('ENTRY_TAX_NO','excl. MwSt.');
-
 define('ERROR_REMOVE_DEFAULT_CUSTOMER_STATUS', 'Fehler: Die Standardgruppe darf nicht gelöscht werden. Bitte definieren Sie eine neue Standardgruppe und wiederholen Sie den Vorgang.');
 define('ERROR_STATUS_USED_IN_CUSTOMERS', 'Fehler: Diese Kundengruppe wird zur Zeit bei Kunden verwendet.');
 define('ERROR_STATUS_USED_IN_HISTORY', 'Fehler: Diese Kundengruppe wird zur Zeit in der Bestellübersicht verwendet.');
