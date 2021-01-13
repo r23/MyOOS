@@ -24,9 +24,11 @@ require 'includes/main.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
 
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = (isset($_GET['action']) ? oos_prepare_input($_GET['action']) : '');
+$sCustomer = isset($_GET['customer']) ? oos_prepare_input($_GET['customer']) : '';
 
-  if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address']) && !isset($_POST['back_x']) ) {
+
+if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address']) && !isset($_POST['back_x']) ) {
     switch ($_POST['customers_email_address']) {
       case '***':
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM " . $oostable['customers']);
@@ -240,7 +242,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifi
 ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
-                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $_GET['customer']);?></td>
+                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer);?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
