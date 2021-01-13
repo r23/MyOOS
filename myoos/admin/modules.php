@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -189,10 +189,10 @@
           $key_value = $key_value_result->fields;
 
           $keys_extra[$module_keys[$j]]['title'] = constant(strtoupper($module_keys[$j] . '_TITLE'));
-          $keys_extra[$module_keys[$j]]['value'] = $key_value['configuration_value'];
+          $keys_extra[$module_keys[$j]]['value'] = isset($key_value['configuration_value']) ? $key_value['configuration_value'] : ''; 
           $keys_extra[$module_keys[$j]]['description'] = constant(strtoupper($module_keys[$j] . '_DESC'));
-          $keys_extra[$module_keys[$j]]['use_function'] = $key_value['use_function'];
-          $keys_extra[$module_keys[$j]]['set_function'] = $key_value['set_function'];
+          $keys_extra[$module_keys[$j]]['use_function'] = isset($key_value['use_function']) ? $key_value['use_function'] : '';
+          $keys_extra[$module_keys[$j]]['set_function'] = isset($key_value['set_function']) ? $key_value['set_function'] : '';
         }
 
         $module_info['keys'] = $keys_extra;
