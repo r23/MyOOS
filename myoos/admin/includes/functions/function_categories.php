@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -672,8 +672,9 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
 
 		$category = $category_result->fields;
 
+		$category['categories_name'] = isset($category['categories_name']) ? $category['categories_name'] : '';
 		$categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
-		if ( (oos_is_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
+		if ( (isset($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
 	}
 
 	return $categories_array;

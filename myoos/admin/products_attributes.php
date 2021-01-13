@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -413,7 +413,7 @@ if (!empty($action)) {
 <script language="javascript"><!--
 function go_option() {
   if (document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value != "none") {
-    location = "<?php echo oos_href_link_admin($aContents['products_attributes'], 'option_page=' . ($_GET['option_page'] ? $_GET['option_page'] : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
+    location = "<?php echo oos_href_link_admin($aContents['products_attributes'], 'option_page=' . (isset($_GET['option_page']) ? intval($_GET['option_page']) : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
   }
 }
 //--></script>
@@ -1231,7 +1231,12 @@ function calcBasePriceFactor() {
     }
 ?>
             </select>&nbsp;</td>
-			<td class="smallText"><?php echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
+			<td class="smallText"><?php
+		
+			$attributes_values['options_values_model'] = isset($attributes_values['options_values_model']) ? $attributes_values['options_values_model'] : '';
+			echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); 
+
+			?></td>
             <td class="smallText">&nbsp;<select name="options_id">
 <?php
     $products_optionstable = $oostable['products_options'];

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -33,6 +33,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+
+$sSearch = (isset($_GET['search']) ? oos_prepare_input($_GET['search']) : '');
 
 if (!empty($action)) {
     switch ($action) {
@@ -601,7 +603,7 @@ if (!empty($action)) {
 
 
 $cPath_back = '';
-if (is_array($aPath) && count($aPath) > 0) {
+if (isset($aPath) && is_array($aPath) && count($aPath) > 0) {
 	for ($i = 0, $n = count($aPath) - 1; $i < $n; $i++) {
 		if (empty($cPath_back)) {
 			$cPath_back .= $aPath[$i];
@@ -1297,7 +1299,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 					<?php echo oos_draw_form('id', 'search', $aContents['categories'], '', 'get', FALSE, 'class="form-inline"'); ?>
 						<div id="DataTables_Table_0_filter" class="dataTables_filter">
 							<label><?php echo HEADING_TITLE_SEARCH; ?></label>
-							<?php echo oos_draw_input_field('search', $_GET['search']); ?>
+							<?php echo oos_draw_input_field('search', $sSearch); ?>
 						</div>
 					</form>
 					<?php echo oos_draw_form('id', 'goto', $aContents['categories'], '', 'get', FALSE, 'class="form-inline"'); ?>
