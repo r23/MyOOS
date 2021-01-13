@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -209,19 +209,23 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
             </table></td>
 <?php
+	$unique_id = isset($gInfo->unique_id) ? $gInfo->unique_id : '';
+	$date_created = isset($gInfo->date_created) ? $gInfo->date_created : '';
+	$amount = isset($gInfo->amount) ? $gInfo->amount : 0;
+	
   $heading = array();
   $contents = array();
   switch ($action) {
     case 'release':
-      $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . oos_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
+      $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));
 
-      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $gInfo->unique_id) . '">'.oos_button(IMAGE_CONFIRM) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_queue'],'action=cancel&gid=' . $gInfo->unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $unique_id) . '">'.oos_button(IMAGE_CONFIRM) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_queue'],'action=cancel&gid=' . $unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     default:
-      $heading[] = array('text' => '[' . $gInfo->unique_id . '] ' . oos_datetime_short($gInfo->date_created) . ' ' . $currencies->format($gInfo->amount));
+      $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));
 
-      $contents[] = array('align' => 'center','text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $gInfo->unique_id) . '">' . oos_button(IMAGE_RELEASE) . '</a>');
+      $contents[] = array('align' => 'center','text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $unique_id) . '">' . oos_button(IMAGE_RELEASE) . '</a>');
       break;
    }
 
