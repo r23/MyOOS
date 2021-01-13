@@ -40,22 +40,16 @@ define('TABLE_HEADING_PRODUCTS_MODEL', 'Artikel-Nr.');
 define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_TAX', 'MwSt.');
 define('TABLE_HEADING_TOTAL', 'Gesamtsumme');
-define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_PRICE_EXCLUDING_TAX', 'Preis (exkl.)');
 define('TABLE_HEADING_PRICE_INCLUDING_TAX', 'Preis (inkl.)');
 define('TABLE_HEADING_TOTAL_EXCLUDING_TAX', 'Total (exkl.)');
 define('TABLE_HEADING_TOTAL_INCLUDING_TAX', 'Total (inkl.)');
 
-define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Kunde benachrichtigt');
 define('TABLE_HEADING_DATE_ADDED', 'hinzugefügt am:');
 
 define('ENTRY_CUSTOMER', 'Kunde:');
 define('ENTRY_SOLD_TO', 'Kunde:');
-define('ENTRY_STREET_ADDRESS', 'Strasse:');
-define('ENTRY_CITY', 'Stadt:');
-define('ENTRY_POST_CODE', 'PLZ:');
-define('ENTRY_STATE', 'Bundesland:');
 define('ENTRY_COUNTRY', 'Land:');
 define('ENTRY_TELEPHONE', 'Telefon:');
 define('ENTRY_DELIVERY_TO', 'Lieferanschrift:');
