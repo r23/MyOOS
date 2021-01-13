@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -28,9 +28,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifi
 
 $currencies = new currencies();
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$sCustomer = isset($_GET['customer']) ? oos_prepare_input($_GET['customer']) : '';
 
-  if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!$_POST['back_x']) ) {
+
+if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!$_POST['back_x']) ) {
     switch ($_POST['customers_email_address']) {
       case '***':
         $customerstable = $oostable['customers'];
@@ -334,7 +336,7 @@ $currencies = new currencies();
 ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
-                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $_GET['customer']);?></td>
+                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer);?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
