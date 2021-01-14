@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -102,6 +102,5 @@ $aCatalog['default'] = $prefix_catalog_filename . 'home';
 $aCatalog['gv_redeem'] = $prefix_catalog_filename . 'gv_redeem';
 $aCatalog['product_info'] = $prefix_catalog_filename . 'product_info'; 
 $aCatalog['login_admin'] = $prefix_catalog_filename . 'admin_login';
-$aCatalog['wishlist'] = $prefix_catalog_filename . 'wishlist'; 
 $aCatalog['login'] = $prefix_catalog_filename . 'login';
 
