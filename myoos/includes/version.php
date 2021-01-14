@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -16,7 +16,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * Currently version.
  * use SemVer - https://semver.org
  */
-define('OOS_VERSION', '2.4.11 -dev');
+define('OOS_VERSION', '2.4.16 -dev');
 
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
