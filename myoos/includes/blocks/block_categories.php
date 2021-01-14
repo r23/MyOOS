@@ -258,7 +258,7 @@ if (!empty($sCategory)) {
 	}
 }
 
-if (sizeof($list_of_categories_ids) > 0 ) {
+if (isset($list_of_categories_ids) && (sizeof($list_of_categories_ids) > 0 )) {
 	$select_list_of_cat_ids = implode(",", $list_of_categories_ids);
 
 	$categoriestable = $oostable['categories'];
