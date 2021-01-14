@@ -4,8 +4,7 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+     
    Copyright (c) 2003 - 2020 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -20,9 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if ($_GET['gID']) {
+if (isset($_GET['gID']) && ($_GET['gID'])) {
   define('HEADING_TITLE', 'Admin Groups');
-} elseif ($_GET['gPath']) {
+} elseif (isset($_GET['gPath']) && ($_GET['gPath'])) {
   define('HEADING_TITLE', 'Define Groups');
 } else {
   define('HEADING_TITLE', 'Admin Members');
@@ -62,7 +61,6 @@ define('TEXT_INFO_FULLNAME', 'Name: ');
 define('TEXT_INFO_FIRSTNAME', 'Firstname: ');
 define('TEXT_INFO_LASTNAME', 'Lastname: ');
 define('TEXT_INFO_EMAIL', 'Email Address: ');
-define('TEXT_INFO_PASSWORD', 'Password: ');
 define('TEXT_INFO_CONFIRM', 'Confirm Password: ');
 define('TEXT_INFO_CREATED', 'Account Created: ');
 define('TEXT_INFO_MODIFIED', 'Account Modified: ');
@@ -98,7 +96,7 @@ define('TEXT_INFO_GROUPS_BOXES', '<b>Boxes Permission:</b><br />Give access to s
 define('TEXT_INFO_GROUPS_BOXES_INCLUDE', 'Include files stored in: ');
 
 define('TEXT_INFO_HEADING_DEFINE', 'Define Group');
-if ($_GET['gPath'] == 1) {
+if (isset($_GET['gPath']) && ($_GET['gPath'] == 1)) {
   define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />You can not change file permission for this group.<br /><br />');
 } else {
   define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />Change permission for this group by selecting or unselecting boxes and files provided. Click <b>save</b> to save the changes.<br /><br />');

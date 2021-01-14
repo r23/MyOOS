@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -27,7 +27,6 @@ define('TEXT_INFO_FULLNAME', '<b>Name: </b>');
 define('TEXT_INFO_FIRSTNAME', '<b>Vorname: </b>');
 define('TEXT_INFO_LASTNAME', '<b>Nachname: </b>');
 define('TEXT_INFO_EMAIL', '<b>Email Adresse: </b>');
-define('TEXT_INFO_PASSWORD', '<b>Passwort: </b>');
 define('TEXT_INFO_PASSWORD_HIDDEN', '-Versteckt-');
 define('TEXT_INFO_PASSWORD_CONFIRM', '<b>Bestätige Passwort: </b>');
 define('TEXT_INFO_CREATED', '<b>Konto angelegt: </b>');
