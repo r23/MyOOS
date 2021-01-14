@@ -1536,7 +1536,7 @@ if ( $q1 < $q0 ) {
 	</section>
 	<!-- Page footer //-->
 	<footer>
-		<span>&copy; 2020 - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+		<span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
 	</footer>
 </div>
 
