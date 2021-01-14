@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -132,18 +132,25 @@ require 'includes/header.php';
               </tr>
             </table></td>
 <?php
-  $heading = array();
+	$coupon_id = isset($gInfo->coupon_id) ? $gInfo->coupon_id : '';
+	$coupon_amount = isset($gInfo->coupon_amount) ? $gInfo->coupon_amount : 0;
+	$customer_id_sent = isset($gInfo->customer_id_sent) ? $gInfo->customer_id_sent : '';
+	$date_sent = isset($gInfo->date_sent) ? $gInfo->date_sent : '';
+	$coupon_code = isset($gInfo->coupon_code) ? $gInfo->coupon_code : '';
+	$emailed_to = isset($gInfo->emailed_to) ? $gInfo->emailed_to : '';
+ 
+ $heading = array();
   $contents = array();
 
-  $heading[] = array('text' => '[' . $gInfo->coupon_id . '] ' . ' ' . $currencies->format($gInfo->coupon_amount));
-  $redeem_result = $dbconn->Execute("SELECT * FROM " . $oostable['coupon_redeem_track'] . " WHERE coupon_id = '" . $gInfo->coupon_id . "'");
+  $heading[] = array('text' => '[' . $coupon_id . '] ' . ' ' . $currencies->format($coupon_amount));
+  $redeem_result = $dbconn->Execute("SELECT * FROM " . $oostable['coupon_redeem_track'] . " WHERE coupon_id = '" . intval($coupon_id) . "'");
   $redeemed = 'No';
   if ($redeem_result->RecordCount() > 0) $redeemed = 'Yes';
-  $contents[] = array('text' => TEXT_INFO_SENDERS_ID . ' ' . $gInfo->customer_id_sent);
-  $contents[] = array('text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($gInfo->coupon_amount));
-  $contents[] = array('text' => TEXT_INFO_DATE_SENT . ' ' . oos_date_short($gInfo->date_sent));
-  $contents[] = array('text' => TEXT_INFO_VOUCHER_CODE . ' ' . $gInfo->coupon_code);
-  $contents[] = array('text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $gInfo->emailed_to);
+  $contents[] = array('text' => TEXT_INFO_SENDERS_ID . ' ' . $customer_id_sent);
+  $contents[] = array('text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($coupon_amount));
+  $contents[] = array('text' => TEXT_INFO_DATE_SENT . ' ' . oos_date_short($date_sent));
+  $contents[] = array('text' => TEXT_INFO_VOUCHER_CODE . ' ' . $coupon_code);
+  $contents[] = array('text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $emailed_to);
   if ($redeemed=='Yes') {
     $redeem = $redeem_result->fields;
     $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date']));
