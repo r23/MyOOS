@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -185,9 +185,6 @@ define('SUBCATEGORY_IMAGE_WIDTH_DESC', 'Die Breite von Unterkategorie-Bildern in
 
 define('SUBCATEGORY_IMAGE_HEIGHT_TITLE', 'Höhe Unterkategorie-Bilder');
 define('SUBCATEGORY_IMAGE_HEIGHT_DESC', 'Die Höhe von Unterkategorie-Bildern in Pixeln');
-
-define('IMAGE_ZOOM_TITLE', 'Bild auf der Produktinfo Seite vergrößern.');
-define('IMAGE_ZOOM_DESC', 'Bild vergrößern bei:');
 
 define('IMAGE_ZOOM_TITLE', 'Bild auf der Produktinfo Seite vergrößern.');
 define('IMAGE_ZOOM_DESC', 'Bild vergrößern bei:');

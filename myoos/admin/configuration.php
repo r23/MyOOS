@@ -23,14 +23,13 @@ require 'includes/main.php';
 
 require 'includes/functions/function_modules.php';
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
-$cID = oos_db_prepare_input($_GET['cID']);
+$cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
 
 
 if (!empty($action)) {
     switch ($action) {
       case 'save':
         $configuration_value = oos_db_prepare_input($_POST['configuration_value']);
-        $cID = oos_db_prepare_input($_GET['cID']);
 
         $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($configuration_value) . "', last_modified = now() WHERE configuration_id = '" . intval($cID) . "'");
 		
