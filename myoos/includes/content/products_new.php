@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -39,16 +39,18 @@ $nContentCacheID = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $s
 
 $sCanonical = oos_href_link($aContents['products_new'], 'page='. $nPage, FALSE, TRUE);
 
-
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
+
 if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
+
+
 
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 	$productstable  = $oostable['products'];
