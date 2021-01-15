@@ -209,14 +209,12 @@
 			</div><!-- .row -->
 		</div><!--end container-->
 	</footer>	
-	
+{if $cart_count_contents gt 0 }
+	{include file="phoenix/canvas/_cart.html"}
+{/if}		
 {if (!isset($smarty.session.customer_id)) }
 	{include file="phoenix/canvas/_account.html"}
 {/if}		
-
-{if ($cart_count_contents gt ) }
-	{include file="phoenix/canvas/_cart.html"}
-{/if}	
 
 <div id="cookie-notice" role="banner" class="cn-bottom" style="color: #666; background-color: #f3f3f3;">
 	<div class="cookie-notice-container">

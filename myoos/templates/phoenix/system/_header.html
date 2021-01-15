@@ -70,17 +70,40 @@
 
 <header class="navbar navbar-expand-lg navbar-light bg-light px-0">
 	<div class="container flex-sm-nowrap px-3">
-		<!-- navbar brand--><a class="navbar-brand mr-0 mr-sm-4" style="min-width: 100px;" href="index.html"><img width="100" src="img/logo-dark.png" alt="MStore"/></a>
+		<!-- Logo -->
+			<a class="navbar-brand mr-0 mr-sm-4" style="min-width: 100px;" href="{html_href_link content=$filename.home}">{logo dir=small}</a>
+
 		<!-- navbar buttons-->
 		<div class="navbar-btns d-flex position-relative order-sm-3">
-			<div class="navbar-toggler navbar-btn collapsed bg-0 border-left-0 my-3" data-toggle="collapse" data-target="#menu"><i class="mx-auto mb-2" data-feather="menu"></i>Menu</div><a class="navbar-btn bg-0 my-3 border-left-0 navbar-collapse-hidden" href="product-comparison.html"><span class="d-block position-relative"><span class="navbar-btn-badge bg-secondary border">3</span><i class="mx-auto mb-1" data-feather="repeat"></i>Compare</span></a><a class="navbar-btn bg-0 my-3" href="#offcanvas-account" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="log-in"></i>Sign In/Up</a><a class="navbar-btn bg-0 my-3" href="#offcanvas-cart" data-toggle="offcanvas"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">4</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>$325.00</span></a>
+			<div class="navbar-toggler navbar-btn collapsed bg-0 border-left-0 my-3" data-toggle="collapse" data-target="#menu"><i class="mx-auto mb-2" data-feather="menu"></i>Menu</div>
+			<a class="navbar-btn bg-0 my-3 border-left-0 navbar-collapse-hidden" href="{html_href_link content=$filename.account_wishlist page=1}" rel="nofollow"><span class="d-block position-relative"><i class="mx-auto mb-1" data-feather="heart"></i>{$lang.button_wishlist}</span></a>
+			
+			{if (isset($smarty.session.customer_id)) }
+				<a class="navbar-btn bg-0 my-3" href="{html_href_link content=$filename.logoff}"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_logoff}</a>
+			{else}
+				<a class="navbar-btn bg-0 my-3" href="#offcanvas-account" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_login}</a>
+			{/if}	
+			{if $cart_count_contents gt 0 }
+				<a class="navbar-btn bg-0 my-3" href="#offcanvas-cart" data-toggle="offcanvas"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
+			{else}
+				<a class="navbar-btn bg-0 my-3" href="{html_href_link content=$filename.shopping_cart}"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
+			{/if}				
 		</div>
 		<!-- search-box-->
 		<div class="flex-grow-1 pb-3 pt-sm-3 my-1 px-sm-2 pr-lg-4 order-sm-2">
-			<div class="input-group flex-nowrap">
-				<div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i data-feather="search"></i></span></div>
-				<input class="form-control rounded-right" type="text" id="site-search" placeholder="Search site" aria-label="Search site" aria-describedby="search-icon">
-			</div>
+			<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global input-group mb-0" method="GET">
+				{if $mySystem.sed}
+					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+					<input type="hidden" name="formid" value="{$mySystem.formid}">
+				{/if}			
+					<input type="hidden" name="content" value="{$filename.advanced_search_result}">					
+					<input type="text" name="s" class="form-control" placeholder="{$lang.text_search}">
+					
+					<button class="btn btn-default" type="submit">
+						<i class="fa fa-search" aria-hidden="true"></i>
+					</button>
+			</form>
+			
 		</div>
 	</div>
 </header>

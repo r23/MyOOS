@@ -128,7 +128,7 @@ $sNavMenue = $oNavMenu->build();
 $smarty->assign('nav_menu', $sNavMenue);
 
 $cart_products = array();
-$cart_count_contents = 0;
+$cart_count_contents = 1;
 $cart_show_total = 0;
 
 $aSystem = array();
@@ -153,7 +153,6 @@ if (isset($_SESSION)) {
 		$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
 	}
 }
-
 
 $smarty->assign(
 	array(
