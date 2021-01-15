@@ -11,11 +11,7 @@ namespace Piwik\Plugins\Provider;
 
 use Piwik\Archive;
 use Piwik\Piwik;
-
-/**
- * @see plugins/Provider/functions.php
- */
-require_once PIWIK_INCLUDE_PATH . '/plugins/Provider/functions.php';
+use Piwik\Plugin;
 
 /**
  * The Provider API lets you access reports for your visitors Internet Providers.
@@ -26,6 +22,9 @@ class API extends \Piwik\Plugin\API
 {
     public function getProvider($idSite, $period, $date, $segment = false)
     {
+        $dir = Plugin\Manager::getPluginDirectory('Provider');
+        require_once $dir . '/functions.php';
+
         Piwik::checkUserHasViewAccess($idSite);
         $archive   = Archive::build($idSite, $period, $date, $segment);
         $dataTable = $archive->getDataTable(Archiver::PROVIDER_RECORD_NAME);

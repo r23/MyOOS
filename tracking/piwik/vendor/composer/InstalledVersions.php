@@ -24,12 +24,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '4.1.0',
-    'version' => '4.1.0.0',
+    'pretty_version' => '4.1.1',
+    'version' => '4.1.1.0',
     'aliases' => 
     array (
     ),
-    'reference' => '6d891da9c9b0b120e91ba27f66ebd270f5a9ab82',
+    'reference' => '0a0d7ea3b85264e6b5aff757a6283949217a2ddd',
     'name' => 'matomo/matomo',
   ),
   'versions' => 
@@ -99,12 +99,12 @@ private static $installed = array (
     ),
     'matomo/device-detector' => 
     array (
-      'pretty_version' => '4.0.2',
-      'version' => '4.0.2.0',
+      'pretty_version' => '4.1.0',
+      'version' => '4.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '20572bbf8607cfc2f91a11fc75e9a3c6592bdc7a',
+      'reference' => '6b3facc35e7a465bc4223fddfa5fa88c5b327554',
     ),
     'matomo/ini' => 
     array (
@@ -117,12 +117,12 @@ private static $installed = array (
     ),
     'matomo/matomo' => 
     array (
-      'pretty_version' => '4.1.0',
-      'version' => '4.1.0.0',
+      'pretty_version' => '4.1.1',
+      'version' => '4.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6d891da9c9b0b120e91ba27f66ebd270f5a9ab82',
+      'reference' => '0a0d7ea3b85264e6b5aff757a6283949217a2ddd',
     ),
     'matomo/matomo-php-tracker' => 
     array (
@@ -288,7 +288,7 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => '4.0.2',
+        0 => '4.1.0',
       ),
     ),
     'piwik/referrer-spam-blacklist' => 

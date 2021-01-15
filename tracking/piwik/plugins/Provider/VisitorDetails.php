@@ -12,14 +12,20 @@ namespace Piwik\Plugins\Provider;
 use Piwik\Piwik;
 use Piwik\Plugins\Live\VisitorDetailsAbstract;
 use Piwik\View;
+use Piwik\Plugin;
 
 /**
  * @see plugins/Provider/functions.php
  */
-require_once PIWIK_INCLUDE_PATH . '/plugins/Provider/functions.php';
 
 class VisitorDetails extends VisitorDetailsAbstract
 {
+    public function __construct()
+    {
+        $dir = Plugin\Manager::getPluginDirectory('Provider');
+        require_once $dir . '/functions.php';
+    }
+
     public function extendVisitorDetails(&$visitor)
     {
         $visitor['provider']     = $this->details['location_provider'];
