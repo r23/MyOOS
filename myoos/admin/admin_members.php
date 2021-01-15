@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -244,7 +244,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           <tr>
             <td valign="top">
 <?php
- if ($_GET['gPath']) {
+if (isset($_GET['gPath']) && ($_GET['gPath'])) {
    $admin_groupstable = $oostable['admin_groups'];
    $group_name_query = "SELECT admin_groups_name FROM $admin_groupstable WHERE admin_groups_id = " . intval($_GET['gPath']);
    $group_name = $dbconn->GetRow($group_name_query);
@@ -342,7 +342,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
             </table></form>
 <?php
- } elseif ($_GET['gID']) {
+ } elseif (isset($_GET['gID']) && ($_GET['gID'])) {
 ?>
 		<table class="table table-striped w-100">
 			<thead class="thead-dark">
