@@ -27,6 +27,7 @@
 				<div class="font-size-sm"> <span class="mr-2">{$lang.sub_title_total}</span><span class="font-weight-semibold text-dark">{$cart_show_total}</span></div><a class="btn btn-outline-secondary btn-sm" href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents}<i class="mr-n2" data-feather="chevron-right"></i></a>
 				</div>{if $myUser.show_price eq 1 }<a class="btn btn-primary btn-sm btn-block" href="{html_href_link content=$filename.checkout_shipping}"><i class="mr-1" data-feather="credit-card"></i>{$lang.button_checkout}</a>{/if}
 			</div>
+		{/if}
 		</div>
 	</div>
 </div>
