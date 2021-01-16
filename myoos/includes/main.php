@@ -104,7 +104,7 @@ while ($configuration = $configuration_result->fields) {
     $configuration_result->MoveNext();
 }
 
-require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();
 
 // set the session name and save path
