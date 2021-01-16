@@ -1,0 +1,25 @@
+<!-- Off-canvas search-->
+<div class="offcanvas offcanvas-reverse" id="offcanvas-search">
+	<div class="offcanvas-header d-flex justify-content-between align-items-center">
+		<h3 class="offcanvas-title">Search site</h3>
+		<button class="close" type="button" data-dismiss="offcanvas" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	</div>
+	<div class="offcanvas-body">
+		<div class="offcanvas-body-inner">
+			<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global input-group mb-0" method="GET">
+				{if $mySystem.sed}
+					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+					<input type="hidden" name="formid" value="{$mySystem.formid}">
+				{/if}			
+					<input type="hidden" name="content" value="{$filename.advanced_search_result}">					
+					<input type="text"  class="form-control" placeholder="{$lang.text_search}">		
+		
+			<div class="input-group pt-3">
+				<div class="input-group-prepend"><span class="input-group-text" id="search-icon"><i data-feather="search"></i></span></div>
+				<input class="form-control" type="text" name="s" id="site-search" placeholder="{$lang.text_search}" aria-label="Search site" aria-describedby="search-icon">
+			</div>
+			
+			</form>			
+		</div>
+	</div>
+</div>
