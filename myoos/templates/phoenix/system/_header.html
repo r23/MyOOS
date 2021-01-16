@@ -377,55 +377,10 @@
 						</a>
 					</li>
 					
-					<!-- quick shop cart -->
-					<li class="quick-cart list-inline-item">
-						<a href="{html_href_link content=$filename.shopping_cart}">
-							<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-							<span class="badge badge-default">{$cart_count_contents}</span>
-							{$lang.header_title_cart_contents}
-						</a>
-						<div class="quick-cart-box">
-							<h4>{$lang.block_service_shopping_cart}</h4>
-							{if $cart_count_contents > 0}
-								<div class="quick-cart-wrapper">
-								{foreach item=products from=$cart_products}
-									<a href="{product_link products_id=$products.id}"><!-- cart item -->
-										{product_image dir=min image=$products.image alt=$products.name}
-										<h6><span>{$products.quantity|quantity}&nbsp;x&nbsp;</span> {$products.name|truncate:25:"...":true|close_tags}</h6>
-										<small>{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</small>
-									</a><!-- /cart item -->
-								{/foreach}
-								</div>
-									
-								<!-- quick cart footer -->
-								<div class="quick-cart-footer clearfix">
-									<a href="{html_href_link content=$filename.shopping_cart}" class="btn btn-primary btn-sm float-right">{$lang.header_title_cart_contents}</a>
-									<span class="float-left"><strong>{$lang.sub_title_total}</strong> {$cart_show_total}</span>
-								</div>
-								<!-- /quick cart footer -->
-							{else}	
-								<!-- cart no items -->
-								<a class="text-center" href="{html_href_link content=$filename.shopping_cart}">
-									<h6>{$lang.block_shopping_cart_empty}</h6>
-								</a>
-							{/if}	
-								
-
-						</div>
-					</li>
-					<!-- /quick shop cart -->
+					
 				</ul>
 
 
-				<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global hidden-sm-down" method="GET">
-				{if $mySystem.sed}
-					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-					<input type="hidden" name="formid" value="{$mySystem.formid}">
-				{/if}			
-					<input type="hidden" name="content" value="{$filename.advanced_search_result}">					
-					<input type="text" name="s" class="form-control" placeholder="{$lang.text_search}">
-					<button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-				</form>
 
 
 				<!-- main-nav -->

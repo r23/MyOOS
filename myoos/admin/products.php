@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -275,8 +275,8 @@ if (!empty($action)) {
 						// 'jpeg_quality' => 82,
 						// 'no_cache' => TRUE, (there's a caching option, but this remembers thumbnail sizes from a previous action!)
 						// 'strip' => TRUE, (this strips EXIF tags, such as geolocation)
-						'max_width' => 45, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
-						'max_height' => 45 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
+						'max_width' => 64, // either specify width, or set to 0. Then width is automatically adjusted - keeping aspect ratio to a specified max_height.
+						'max_height' => 64 // either specify height, or set to 0. Then height is automatically adjusted - keeping aspect ratio to a specified max_width.
 					),				
 				),
 			);
