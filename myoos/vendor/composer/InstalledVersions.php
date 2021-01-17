@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'd561a0dd8a4aeb257f04875943263fadade44471',
+    'reference' => 'a6f495dbc01638ad4e200b8696331607183edc39',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -139,7 +139,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'd561a0dd8a4aeb257f04875943263fadade44471',
+      'reference' => 'a6f495dbc01638ad4e200b8696331607183edc39',
     ),
     'paypal/rest-api-sdk-php' => 
     array (
