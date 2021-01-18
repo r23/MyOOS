@@ -128,7 +128,7 @@ $sNavMenue = $oNavMenu->build();
 $smarty->assign('nav_menu', $sNavMenue);
 
 $cart_products = array();
-$cart_count_contents = 1;
+$cart_count_contents = 0;
 $cart_show_total = 0;
 
 $aSystem = array();

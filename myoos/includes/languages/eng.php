@@ -77,6 +77,7 @@ $aLang = [
 'header_title_logoff'          => 'Log Off',
 'header_title_login'           => 'Log In',
 'header_title_contact'         => 'Kontakt',
+'header_title_search'          => 'Suche',
 'header_title_whats_new'       => 'What\'s New?',
 'header_select_language'       => 'Your Language',
 'header_select_currencies'      => 'Currency',
