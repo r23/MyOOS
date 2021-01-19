@@ -196,74 +196,14 @@
                 </div>
               </div>
             </li>
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Pages</a>
-              <ul class="dropdown-menu">
-                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">User Account</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="account-orders.html">Orders History</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="account-profile.html">Profile Settings</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="account-address.html">Account Addresses</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="account-payment.html">Payment Methods</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="account-wishlist.html">Wishlist</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="account-tickets.html">My Tickets</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="account-single-ticket.html">Single Ticket</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="account-signin.html">Sign In / Sign Up Page</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="account-password-recovery.html">Password Recovery</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="about.html">About Us</a></li>
-                <li class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="contacts.html">Contacts</a></li>
-                <li class="dropdown-divider"></li>
-                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">Help Center</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="help-topics.html">Help Topics</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="help-single-topic.html">Single Topic</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="help-submit-request.html">Submit a Request</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="product-comparison.html">Product Comparison</a></li>
-                <li class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="order-tracking.html">Order Tracking</a></li>
-                <li class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="404.html">404 Not Found</a></li>
-              </ul>
+		{if !empty($smarty.const.PHPBB_URL)}
+            <li class="nav-item dropdown"><a class="nav-link " href="{$smarty.const.PHPBB_URL}">Pages</a>
             </li>
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Blog</a>
-              <ul class="dropdown-menu">
-                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">Blog Layout</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="blog-rs.html">Blog Right Sidebar</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="blog-ls.html">Blog Left Sidebar</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="blog-ns.html">Blog No Sidebar</a></li>
-                  </ul>
-                </li>
-                <li class="dropdown-divider"></li>
-                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown">Single Post Layout</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="blog-single-rs.html">Post Right Sidebar</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="blog-single-ls.html">Post Left Sidebar</a></li>
-                    <li class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="blog-single-ns.html">Post No Sidebar</a></li>
-                  </ul>
-                </li>
-              </ul>
+		{/if}
+		{if !empty($smarty.const.BLOG_URL)}	
+            <li class="nav-item dropdown"><a class="nav-link" href="{$smarty.const.BLOG_URL}">Blog</a>
             </li>
+		{/if}
             <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><i class="mr-1" data-feather="file-text"></i>Docs</a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="docs/dev-setup.html">
@@ -279,11 +219,6 @@
                 <li><a class="dropdown-item" href="docs/changelog.html">
                     <div class="d-flex py-1"><i class="mt-1 ml-n2" data-feather="edit" style="width: 1.375rem; height: 1.375rem;"></i>
                       <div class="ml-2"><span class="d-block mb-n1">Changelog <span class='badge badge-pill badge-warning'>v2.0</span></span><small class="text-muted">Regular updates</small></div>
-                    </div></a></li>
-                <li class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="mailto:contact@createx.studio">
-                    <div class="d-flex py-1"><i class="mt-1 ml-n2" data-feather="life-buoy" style="width: 1.4375rem; height: 1.4375rem;"></i>
-                      <div class="ml-2"><span class="d-block mb-n1">Support</span><small class="text-muted">contact@createx.studio</small></div>
                     </div></a></li>
               </ul>
             </li>

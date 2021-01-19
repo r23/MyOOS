@@ -278,7 +278,7 @@ define('BLOG_URL_TITLE', 'Blog');
 define('BLOG_URL_DESC', 'URL der Blog Seite');
 
 define('PHPBB_URL_TITLE', 'phpBB 3');
-define('SPHPBB_URL_DESC', 'URL der phpBB 3 Seite');
+define('PHPBB_URL_DESC', 'URL der phpBB 3 Seite');
 
 define('DOWNLOAD_ENABLED_TITLE', 'Ermögliche Download');
 define('DOWNLOAD_ENABLED_DESC', 'Aktiviert die Shop-Funktionen, die es ermöglichen Datei herunterzuladen.');

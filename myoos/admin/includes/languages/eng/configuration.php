@@ -283,7 +283,7 @@ define('BLOG_URL_TITLE', 'Blog');
 define('BLOG_URL_DESC', 'URL of the Blog 3 page:');
 
 define('PHPBB_URL_TITLE', 'phpBB 3');
-define('SPHPBB_URL_DESC', 'URL of the phpBB 3 page:');
+define('PHPBB_URL_DESC', 'URL of the phpBB 3 page:');
 
 
 define('DOWNLOAD_ENABLED_TITLE', 'Enable download');
