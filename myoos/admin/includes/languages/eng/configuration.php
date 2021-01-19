@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -278,6 +278,13 @@ define('DISPLAY_PAGE_PARSE_TIME_DESC', 'Display the page parse time (store page 
 
 define('USE_CACHE_TITLE', 'Use Cache');
 define('USE_CACHE_DESC', 'Use caching features');
+
+define('BLOG_URL_TITLE', 'Blog');
+define('BLOG_URL_DESC', 'URL of the Blog 3 page:');
+
+define('PHPBB_URL_TITLE', 'phpBB 3');
+define('SPHPBB_URL_DESC', 'URL of the phpBB 3 page:');
+
 
 define('DOWNLOAD_ENABLED_TITLE', 'Enable download');
 define('DOWNLOAD_ENABLED_DESC', 'Enable the products download functions.');
