@@ -79,8 +79,8 @@
 				<!-- language/currency switcher-->
 				{if $languages_block}  
 					<div class="navbar-lang-switcher dropdown pr-2">
-						<div class="dropdown-toggle" data-toggle="dropdown"><img width="20" src="images/flags/{$language}.png" alt="{$language_name}"/><span>{$language_name}</span>
-							</div>
+						<div class="dropdown-toggle" data-toggle="dropdown"><img width="20" src="images/flags/{$language}.png" alt="{$language_name}"/><span>{$smarty.session.currency}</span>
+							</div>	
 						<ul class="dropdown-menu">
 							<li class="dropdown-item">
 								<select class="custom-select custom-select-sm">
@@ -90,11 +90,27 @@
 									<option value="usd">¥ JPY</option>
 								</select>
 							</li>
+						{if $currency_block}
+						<li>
+							<ul class="dropdown-langs dropdown-menu">
+							{foreach item=currencies from=$currencies_contents}
+								{if $currencies.id != $currency}					
+										<a tabindex="-1" class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id}">
+											{$currencies.text} {if $currencies.id == $currency} <i class="fa fa-check" aria-hidden="true"></i>{/if}
+										</a>
+									</li>
+								{/if}	
+							{/foreach}
+							</ul>
+						</li>
+					{/if}						
+							
+							
 						{foreach item=languages from=$languages_contents}
 							{if $languages.iso_639_2 != $language}
 								<li>
 									<a class="dropdown-item" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2}">
-										<img class="mr-2" width="20" src="images/flags/{$languages.iso_639_2}.png" alt="{$languages.name}"/><span>USD</span>
+										<img class="mr-2" width="20" src="images/flags/{$languages.iso_639_2}.png" alt="{$languages.name}"/><span>{$languages.name}</span>
 									</a>
 								</li>
 								<li class="dropdown-divider"></li>
