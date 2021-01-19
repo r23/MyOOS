@@ -24,7 +24,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 
 // debug
-$debug = '1';
+$debug = false;
 
 // for debug set the level of error reporting
 // error_reporting(E_ALL);
@@ -67,7 +67,7 @@ require 'includes/functions/function_validations.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_server.php';
 
 
-require_once MYOOS_INCLUDE_PATH . '/core/lib/Phoenix/Core/Session.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();
 $session->setName('PHOENIXADMINSID');
 $session->start();
