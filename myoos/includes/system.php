@@ -103,7 +103,9 @@ $smarty->assign(
 
 		'lang'				=> $aLang,
 		'language'			=> $sLanguage,
+		'language_id'		=> $nLanguageID,
 		'content_language'	=> $sLanguageCode,
+		'language_name'		=> $sLanguageName,		
 		'currency'			=> $sCurrency,
 		
 		'locale'			=> $locale,
@@ -121,6 +123,7 @@ $smarty->assign(
 	)
 
 );
+
 
 $smarty->assign('oos_base', OOS_HTTPS_SERVER . OOS_SHOP);
 

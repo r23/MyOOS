@@ -68,34 +68,42 @@
 </head>
 <body>
 
-    <!-- Navbar Light-->
-    <header class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
-      <div class="container-fluid navbar-inner">
+	<!-- Navbar Light-->
+	<header class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+		<div class="container-fluid navbar-inner">
 	  
-		<a class="navbar-brand" style="min-width: 100px;" href="{html_href_link content=$filename.home}">{logo dir=small}</a>
+			<a class="navbar-brand" style="min-width: 100px;" href="{html_href_link content=$filename.home}">{logo dir=small}</a>
 			
-        <!-- navbar collapse area-->
-        <div class="collapse navbar-collapse" id="menu">
-          <!-- language/currency switcher-->
-          <div class="navbar-lang-switcher dropdown pr-2">
-            <div class="dropdown-toggle" data-toggle="dropdown"><img width="20" src="images/flags/eng.png" alt="English"/><span>USD</span>
-            </div>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item">
-                <select class="custom-select custom-select-sm">
-                  <option value="usd">$ USD</option>
-                  <option value="usd">€ EUR</option>
-                  <option value="usd">£ UKP</option>
-                  <option value="usd">¥ JPY</option>
-                </select>
-              </li>
-              <li><a class="dropdown-item" href="index.html"><img class="mr-2" width="20" src="images/flags/fra.png" alt="Français"/>Français</a></li>
-              <li class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#"><img class="mr-2" width="20" src="images/flags/deu.png" alt="Deutsch"/>Deutsch</a></li>
-              <li class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#"><img class="mr-2" width="20" src="images/flags/ita.png" alt="Italiano"/>Italiano</a></li>
-            </ul>
-          </div>
+			<!-- navbar collapse area-->
+			<div class="collapse navbar-collapse" id="menu">
+				<!-- language/currency switcher-->
+				{if $languages_block}  
+					<div class="navbar-lang-switcher dropdown pr-2">
+						<div class="dropdown-toggle" data-toggle="dropdown"><img width="20" src="images/flags/{$language}.png" alt="{$language_name}"/><span>{$language_name}</span>
+							</div>
+						<ul class="dropdown-menu">
+							<li class="dropdown-item">
+								<select class="custom-select custom-select-sm">
+									<option value="usd">$ USD</option>
+									<option value="usd">€ EUR</option>
+									<option value="usd">£ UKP</option>
+									<option value="usd">¥ JPY</option>
+								</select>
+							</li>
+						{foreach item=languages from=$languages_contents}
+							{if $languages.iso_639_2 != $language}
+								<li>
+									<a class="dropdown-item" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2}">
+										<img class="mr-2" width="20" src="images/flags/{$languages.iso_639_2}.png" alt="{$languages.name}"/><span>USD</span>
+									</a>
+								</li>
+								<li class="dropdown-divider"></li>
+							{/if}
+						{/foreach}			  
+						</ul>
+					</div>
+				{/if}
+				
           <!-- Site menu-->
           <ul class="navbar-nav">
             <li class="nav-item dropdown mega-dropdown dropdown-more"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Categories<i data-feather="more-horizontal"></i></a>
