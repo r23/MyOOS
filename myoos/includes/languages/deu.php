@@ -358,7 +358,7 @@ $aLang = [
 'text_required'              => 'erforderlich',
 'text_more'                  => 'mehr...',
 'text_new'                   => 'NEU',
-'text_categories' 			 => 'KATEGORIEN',
+'text_categories' 			 => 'Kategorien',
 
 'text_no_longer_available'	=> 'Nicht mehr verfügbar',
 'text_replacement_product'	=> 'Es gibt ein Ersatzprodukt',
