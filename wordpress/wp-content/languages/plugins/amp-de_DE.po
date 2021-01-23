@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-12-19 19:56:13+0000\n"
+"PO-Revision-Date: 2021-01-19 16:41:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,11 +11,11 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - AMP - Stable (latest release)\n"
 
-#: includes/amp-helper-functions.php:480
+#: includes/amp-helper-functions.php:473
 msgid "The function was called too early (before the plugins_loaded action) to determine the plugin source."
 msgstr "Die Funktion wurde zu früh aufgerufen (vor der Aktion plugins_loaded), um die Plugin-Quelle zu ermitteln."
 
-#: includes/amp-helper-functions.php:452
+#: includes/amp-helper-functions.php:445
 msgid "WordPress is not currently doing any hook."
 msgstr "WordPress führt aktuell keinen Hook aus."
 
@@ -42,13 +42,13 @@ msgstr "AMP-Funktionen sind nicht verfügbar, da deine Version des Block-Editors
 
 #. translators: 1: the wp action, 2: the WP_Query class, 3: the amp_skip_post()
 #. function
-#: includes/amp-helper-functions.php:457
+#: includes/amp-helper-functions.php:450
 msgid "Calling this function before the %1$s action means it will not have access to %2$s and the queried object to determine if it is an AMP response, thus neither the %3$s filter nor the AMP enabled toggle will be considered."
 msgstr "Wenn diese Funktion vor der Aktion %1$s aufgerufen wird, hat sie keinen Zugriff auf %2$s und das abgefragte Objekt, um zu bestimmen, ob es sich um eine AMP-Antwort handelt. Somit werden weder der Filter %3$s noch der AMP-fähige Umschalter berücksichtigt."
 
 #. translators: 1: amp_is_available() function, 2: amp_is_request() function,
 #. 3: is_amp_endpoint() function
-#: includes/amp-helper-functions.php:438
+#: includes/amp-helper-functions.php:431
 msgid "%1$s (or %2$s, formerly %3$s) was called too early and so it will not work properly."
 msgstr "%1$s (oder %2$s, zuvor %3$s) wurde zu früh aufgerufen und funktioniert daher nicht ordnungsgemäß."
 
@@ -87,17 +87,17 @@ msgid "All Validated URLs"
 msgstr "Alle überprüften URLs"
 
 #. translators: placeholder is the slug of the theme
-#: src/DevTools/ErrorPage.php:278 includes/amp-helper-functions.php:477
+#: src/DevTools/ErrorPage.php:278 includes/amp-helper-functions.php:470
 msgid "It appears the theme with slug %s is responsible; please contact the author."
 msgstr "Anscheinend ist das Theme mit der Titelform %s verantwortlich; wende dich an den Autor."
 
 #. translators: placeholder is the slug of the must-use plugin
-#: src/DevTools/ErrorPage.php:274 includes/amp-helper-functions.php:473
+#: src/DevTools/ErrorPage.php:274 includes/amp-helper-functions.php:466
 msgid "It appears the must-use plugin with slug %s is responsible; please contact the author."
 msgstr "Anscheinend ist das Must-Use-Plugin mit der Titelform %s verantwortlich; wende dich an den Autor."
 
 #. translators: placeholder is the slug of the plugin
-#: src/DevTools/ErrorPage.php:270 includes/amp-helper-functions.php:469
+#: src/DevTools/ErrorPage.php:270 includes/amp-helper-functions.php:462
 msgid "It appears the plugin with slug %s is responsible; please contact the author."
 msgstr "Anscheinend ist das Plugin mit der Titelform %s verantwortlich; wende dich an den Autor."
 
@@ -176,15 +176,15 @@ msgid "While <a href=\"%1$s\" target=\"_blank\">AMP</a> works well on both deskt
 msgstr "Während <a href=\"%1$s\" target=\"_blank\">AMP</a> sowohl am Desktop als auch für mobile Seiten problemlos funktioniert, ist deine Website <a href=\"%2$s\" target=\"_blank\">aktuell im Lesemodus konfiguriert</a>, um mobilen Besuchern AMP-Seiten auszuliefern. Diese Einstellungen passen die Erfahrung für diese Benutzer an."
 
 #. translators: %s is WP_DEBUG_DISPLAY
-#: includes/validation/class-amp-validation-manager.php:2286
+#: includes/validation/class-amp-validation-manager.php:2293
 msgid "Alternatively, you may enable %s to show the error details below."
 msgstr "Alternativ kannst du %s aktivieren, um Fehlerdetails unten einzusehen."
 
-#: includes/validation/class-amp-validation-manager.php:2284
+#: includes/validation/class-amp-validation-manager.php:2291
 msgid "The error details appear below."
 msgstr "Die Fehlerdetails erscheinen unten."
 
-#: includes/validation/class-amp-validation-manager.php:2282
+#: includes/validation/class-amp-validation-manager.php:2289
 msgid "A PHP fatal error occurred while validating the URL. This may indicate either a bug in theme/plugin code or it may be due to an issue in the AMP plugin itself."
 msgstr "Ein fataler PHP-Fehler trat während der URL-Überprüfung auf. Dies deutet möglicherweise entweder auf einen Fehler innerhalb von Theme-/Plugin-Code hin oder ist ein Problem innerhalb des AMP-Plugins selbst."
 
@@ -374,13 +374,13 @@ msgid "The AMP Reader theme %1$s cannot be found. Your site is currently falling
 msgstr "Das AMP-Lesemodus-Theme %1$s konnte nicht gefunden werden. Deine Website greift aktuell auf die Legacy-Templates für AMP-Seiten zurück. Bitte <a href=\"%2$s\">wähle</a> das gewünschte Lesemodus-Theme erneut aus."
 
 #. translators: %s: $post
-#: includes/amp-helper-functions.php:1506
+#: includes/amp-helper-functions.php:1499
 msgid "The %s argument is deprecated."
 msgstr "Das Argument %s ist veraltet."
 
 #. translators: 1: amphtml, 2: amp_add_amphtml_link(), 3: wp_head, 4:
 #. template_redirect
-#: includes/amp-helper-functions.php:843
+#: includes/amp-helper-functions.php:836
 msgid "Removal of %1$s link should be done by removing %2$s from the %3$s action at %4$s."
 msgstr "Das Entfernen des link-Elements %1$s sollte geschehen, indem %2$s von der Action %3$s innerhalb von %4$s entfernt wird."
 
@@ -558,20 +558,20 @@ msgstr "Gepaartes Browsing ist nur verfügbar, wenn der AMP-Entwicklungsmodus ak
 msgid "AMP optimization could not be completed due to the following:"
 msgstr "AMP-Optimierung konnte aufgrund des folgenden nicht abgeschlossen werden:"
 
-#: includes/validation/class-amp-validation-manager.php:2302
+#: includes/validation/class-amp-validation-manager.php:2309
 msgid "URL validation failed due to unexpected JSON in AMP validation response."
 msgstr "URL-Überprüfung aufgrund eines nicht erwarteten JSON in der AMP-Überprüfungssantwort fehlgeschlagen."
 
-#: includes/validation/class-amp-validation-manager.php:2293
+#: includes/validation/class-amp-validation-manager.php:2300
 msgid "URL validation failed due to the AMP validation request not returning JSON data. This may be due to a PHP fatal error occurring."
 msgstr "URL-Überprüfung fehlgeschlagen, weil die AMP-Überprüfungsanfrage keine JSON-Daten zurückgegeben hat. Dies kann auf einen fatalen PHP-Fehler zurückzuführen sein."
 
-#: includes/validation/class-amp-validation-manager.php:2256
+#: includes/validation/class-amp-validation-manager.php:2263
 msgid "Unable to validate URL. A white screen of death was encountered which is likely due to a PHP fatal error."
 msgstr "URL konnte nicht überprüft werden. Ein White Screen of Death ist aufgetreten, was auf einen fatalen PHP-Fehler hindeutet."
 
 #. translators: %1$s is link to Debugging in WordPress, %2$s is WP_DEBUG_LOG
-#: includes/validation/class-amp-validation-manager.php:2203
+#: includes/validation/class-amp-validation-manager.php:2210
 msgid "Please check your server PHP error logs; to do this you may need to <a href=\"%1$s\" target=\"_blank\">enable</a> %2$s."
 msgstr "Bitte überprüfe deine Server-PHP-Logs. Um das zu tun, musst du möglicherweise %2$s <a href=\"%1$s\" target=\"_blank\">aktivieren (engl.)</a>."
 
@@ -1190,23 +1190,23 @@ msgstr "cURL-Multifunktionen"
 msgid "Persistent object cache"
 msgstr "Persistenter Objekt-Cache"
 
-#: includes/validation/class-amp-validation-manager.php:2247
+#: includes/validation/class-amp-validation-manager.php:2254
 msgid "Failed to fetch URL to validate."
 msgstr "URL zur Validierung konnte nicht abgerufen werden."
 
 #. translators: %s is the URL to Site Health Info.
-#: includes/validation/class-amp-validation-manager.php:2228
+#: includes/validation/class-amp-validation-manager.php:2235
 msgid "Please include your <a href=\"%s\">Site Health Info</a>."
 msgstr "Bitte gib auch deine <a href=\"%s\">Website-Zustand-Info</a> an."
 
 #. translators: %s is link to Site Health
-#: includes/validation/class-amp-validation-manager.php:2223
+#: includes/validation/class-amp-validation-manager.php:2230
 msgid "Please check your <a href=\"%s\">Site Health</a> to verify it can perform loopback requests."
 msgstr "Bitte überprüfe deinen <a href=\"%s\">Website-Zustand</a>, um zu verifizieren, dass Loopback-Anfragen durchgeführt werden können."
 
 #. translators: %1$s: Link to support forum. %2$s: Link to new topic form in
 #. support forum.
-#: includes/validation/class-amp-validation-manager.php:2214
+#: includes/validation/class-amp-validation-manager.php:2221
 msgid "If you are stuck, please search the <a href=\"%1$s\">support forum</a> for possible related topics, or otherwise start a <a href=\"%2$s\">new support topic</a> including the error message, the URL to your site, and your active theme/plugins."
 msgstr "Wenn du ein Problem hast, suche bitte im <a href=\"%1$s\">Supportforum</a> nach ähnlichen Problemen oder erstelle ein <a href=\"%2$s\">neues Thema</a> mit der Fehlermeldung, der URL zu deiner Website und deinem aktiven Theme bzw. aktiven Plugins."
 
@@ -1302,7 +1302,7 @@ msgstr "(Priorität %d)"
 
 #: includes/validation/class-amp-validation-error-taxonomy.php:2582
 msgid "Core"
-msgstr "Core"
+msgstr "Kern"
 
 #: includes/validation/class-amp-validation-error-taxonomy.php:2578
 msgid "Must-Use Plugin"
@@ -1625,7 +1625,7 @@ msgid "Please update to PWA v0.2. Expected argument to be %s."
 msgstr "Bitte aktualisiere auf Version 0.2 des PWA-Plugins. Erwartete als Argument %s."
 
 #. translators: %s is error code
-#: includes/validation/class-amp-validation-manager.php:2311
+#: includes/validation/class-amp-validation-manager.php:2318
 msgid "URL validation failed. Error code: %s."
 msgstr "URL-Validierung ist fehlgeschlagen. Fehlercode: %s."
 
@@ -1680,7 +1680,7 @@ msgstr "Bitte aktualisiere auf PWA 0.2. Erwartete WP_Service_Worker_Scripts als 
 
 #. translators: 1: the analytics entry ID. 2: type. 3: attributes. 4:
 #. config_data. 5: comma-separated list of the actual entry keys.
-#: includes/amp-helper-functions.php:1357
+#: includes/amp-helper-functions.php:1350
 msgid "Analytics entry for %1$s is missing one of the following keys: `%2$s` or `%3$s` (array keys: %4$s)"
 msgstr "Im Analyse-Eintrag für %1$s fehlt einer der folgenden Schlüssel: „%2$s“ oder „%3$s“ (Array-Schlüssel: %4$s)"
 
@@ -1705,7 +1705,7 @@ msgstr "AMP-CSS-Verarbeitung ist eingeschränkt, weil ein anderes Plugin oder Th
 msgid "All AMP Validation Errors"
 msgstr "Alle AMP-Validierungsfehler"
 
-#: includes/amp-helper-functions.php:855
+#: includes/amp-helper-functions.php:848
 msgid "There is no amphtml version available for this URL."
 msgstr "Es ist keine amphtml-Version verfügbar für diese URL."
 
@@ -1773,11 +1773,11 @@ msgstr "Das Template \"%s\" hat einen ungültigen Callback."
 msgid "No WP_Query available."
 msgstr "Kein WP_Query verfügbar."
 
-#: includes/validation/class-amp-validation-manager.php:2273
+#: includes/validation/class-amp-validation-manager.php:2280
 msgid "An internal server error occurred when fetching the URL for validation."
 msgstr "Während dem Aufruf der URL zur Validierung ist ein interner Serverfehler aufgetreten."
 
-#: includes/validation/class-amp-validation-manager.php:2265
+#: includes/validation/class-amp-validation-manager.php:2272
 msgid "The fetched URL was not found. It may have been deleted. If so, you can trash this."
 msgstr "Die aufgerufene URL wurde nicht gefunden. Falls sie gelöscht wurde, kannst du das hier in den Papierkorb legen."
 
@@ -1794,12 +1794,12 @@ msgstr "Es gibt Inhalt mit AMP-Validierungsfehlern."
 msgid "AMP validity status"
 msgstr "AMP-Validierungsstatus"
 
-#: includes/amp-helper-functions.php:1961
+#: includes/amp-helper-functions.php:1954
 #: includes/validation/class-amp-validation-manager.php:402
 msgid "View AMP version"
 msgstr "AMP-Version ansehen"
 
-#: includes/amp-helper-functions.php:1961
+#: includes/amp-helper-functions.php:1954
 #: includes/validation/class-amp-validation-manager.php:402
 msgid "View non-AMP version"
 msgstr "Nicht-AMP-Version ansehen"
@@ -2273,13 +2273,13 @@ msgid "--"
 msgstr "--"
 
 #. translators: %s is comma-separated list of one or more plugins
-#: includes/validation/class-amp-validation-manager.php:2360
+#: includes/validation/class-amp-validation-manager.php:2367
 msgid "Warning: The following plugin may be incompatible with AMP: %s."
 msgid_plural "Warning: The following plugins may be incompatible with AMP: %s."
 msgstr[0] "Achtung: Das folgende Plugin könnte mit AMP inkompatibel sein: %s"
 msgstr[1] "Achtung: Die folgenden Plugins könnten mit AMP inkompatibel sein: %s"
 
-#: includes/validation/class-amp-validation-manager.php:2352
+#: includes/validation/class-amp-validation-manager.php:2359
 #: assets/js/amp-settings.js:27
 msgid "More details"
 msgstr "Mehr Details"
@@ -2320,7 +2320,7 @@ msgid "Your comment has been posted."
 msgstr "Dein Kommentar wurde veröffentlicht."
 
 #. translators: %s: $post
-#: includes/amp-helper-functions.php:1405
+#: includes/amp-helper-functions.php:1398
 msgid "The %s argument is deprecated when theme supports AMP."
 msgstr "Das Argument %s ist veraltet, wenn das Theme AMP unterstützt."
 
@@ -2402,7 +2402,7 @@ msgstr "AMP ist für die aktuelle Seite nicht verfügbar."
 #: includes/validation/class-amp-validated-url-post-type.php:1607
 #: includes/validation/class-amp-validated-url-post-type.php:1638
 #: includes/validation/class-amp-validated-url-post-type.php:1660
-#: includes/validation/class-amp-validation-manager.php:2370
+#: includes/validation/class-amp-validation-manager.php:2377
 msgid "Dismiss this notice."
 msgstr "Hinweis ausblenden."
 
@@ -2471,7 +2471,7 @@ msgstr "Schreibe einen Kommentar"
 #: src/Admin/OptionsMenu.php:143 src/Admin/SiteHealth.php:134
 #: src/Admin/SiteHealth.php:175 src/Admin/SiteHealth.php:248
 #: src/Admin/SiteHealth.php:315 src/Admin/SiteHealth.php:380
-#: src/Admin/SiteHealth.php:399 includes/amp-helper-functions.php:1952
+#: src/Admin/SiteHealth.php:399 includes/amp-helper-functions.php:1945
 #: includes/templates/amp-paired-browsing.php:30
 #: includes/validation/class-amp-validation-manager.php:379
 #: includes/admin/class-amp-admin-pointers.php:66
