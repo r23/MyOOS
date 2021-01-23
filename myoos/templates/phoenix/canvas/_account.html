@@ -50,7 +50,7 @@
 				</div>
 				
 				<div class="tab-pane fade" id="signup" role="tabpanel">
-					<form name="create_account" id="create_account" class="form-horizontal" action="{html_get_link}" method="POST" class="needs-validation" novalidate>
+					<form name="create_account" id="create_account" class="form-horizontal needs-validation" action="{html_get_link}" method="POST" novalidate>
 						<input type="hidden" name="action" value="process">
 						<input type="hidden" name="content" value="{$filename.create_account}">	
 					{if $mySystem.sed}
