@@ -127,3 +127,6 @@ prepros-6.config
 /myoos/themes/phoenix/src/prepros.config
 /msd/work/config/myoosdumper.php
 /msd/work/config/myoosdumper.conf.php
+/nbproject
+/msd/work/backup
+/msd/work
