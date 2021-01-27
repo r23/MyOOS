@@ -28,7 +28,7 @@ class nav_menu {
 		$count_col = 0,
 		$submenu = 0,
         $data = array(),
-        $root_start_string = '<li class="nav-item dropdown mega-dropdown dropdown-more">',
+        $root_start_string = '<li class="main-nav-item main-nav-expanded">',
         $root_end_string = '</li>',
         $parent_start_string = '<li>',
         $parent_end_string = '</li>',
@@ -42,8 +42,8 @@ class nav_menu {
         $spacer_multiplier = 1,
         $follow_cpath = FALSE,
         $cpath_array = array(),
-        $cpath_start_string = '<i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">',
-        $cpath_end_string = '</span>',
+        $cpath_start_string = '',
+        $cpath_end_string = '',
 		$banner_image = '',
 		$banner_link = '',
 		$banner_name = '';
@@ -101,15 +101,7 @@ class nav_menu {
 					$category_link = $category_id;
 				}
 
-				$sLink = '<a ';
-				
-				if ($level == 0) $sLink .= 'class="nav-link dropdown-toggle" ';
-
-				$sLink .= 'href="' . oos_href_link($aContents['shop'], 'category=' . $category_link) . '" title="' . $category['name'] . '"';
-				
-				if ($level == 0) $sLink .= ' data-toggle="dropdown"';
-		
-				$sLink .= '>';
+				$sLink = '<a href="' . oos_href_link($aContents['shop'], 'category=' . $category_link) . '" title="' . $category['name'] . '">';
 				
 				if ($category['banner'] != '') {
 					$this->banner_image = OOS_IMAGES . 'banners/large/' . $category['banner'];
@@ -147,14 +139,10 @@ class nav_menu {
 
 				$result .= $sLink;
 
-/*
 				if ($level == 0) {
-					// todo $category['color']
-					$result .= '<i data-feather="more-horizontal"></i>';
+					$result .= '<i class="fa fa-circle-o-notch ' . $category['color'] . '" aria-hidden="true"></i>';
 				} 
-*/
-
-
+				
 				switch ($category['menu_type'] ) {				
 					case 'NEW':
 						$result .= '<span class="badge badge-danger float-right">NEW</span>';
