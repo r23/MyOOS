@@ -330,36 +330,18 @@
 				
           <!-- Site menu-->
           <ul class="navbar-nav">
-            <li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{$lang.header_title_top}</a>
+            <li class="nav-item dropdown active"><a class="nav-link" href="{html_href_link content=$filename.home}" title="{$lang.header_title_top}">{$lang.header_title_top}</a>
             </li>
 			{$nav_menu}
 
 		{if !empty($smarty.const.PHPBB_URL)}
-            <li class="nav-item dropdown"><a class="nav-link " href="{$smarty.const.PHPBB_URL}">Pages</a>
+            <li class="nav-item dropdown"><a class="nav-link" href="{$smarty.const.PHPBB_URL}" title="phpBB3">phpBB3</a>
             </li>
 		{/if}
 		{if !empty($smarty.const.BLOG_URL)}	
-            <li class="nav-item dropdown"><a class="nav-link" href="{$smarty.const.BLOG_URL}">Blog</a>
+            <li class="nav-item dropdown"><a class="nav-link" href="{$smarty.const.BLOG_URL}" title="Blog">Blog</a>
             </li>
 		{/if}
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><i class="mr-1" data-feather="file-text"></i>Docs</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="docs/dev-setup.html">
-                    <div class="d-flex py-1"><i class="mt-1 ml-n2" data-feather="file-text" style="width: 1.4375rem; height: 1.4375rem;"></i>
-                      <div class="ml-2"><span class="d-block mb-n1">Documentation</span><small class="text-muted">Kick-start customization</small></div>
-                    </div></a></li>
-                <li class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="components/alerts.html">
-                    <div class="d-flex py-1"><i class="mt-1 ml-n2" data-feather="grid" style="width: 1.375rem; height: 1.375rem;"></i>
-                      <div class="ml-2"><span class="d-block mb-n1">Components <span class='badge badge-pill badge-success'>40+</span></span><small class="text-muted">Faster page building</small></div>
-                    </div></a></li>
-                <li class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="docs/changelog.html">
-                    <div class="d-flex py-1"><i class="mt-1 ml-n2" data-feather="edit" style="width: 1.375rem; height: 1.375rem;"></i>
-                      <div class="ml-2"><span class="d-block mb-n1">Changelog <span class='badge badge-pill badge-warning'>v2.0</span></span><small class="text-muted">Regular updates</small></div>
-                    </div></a></li>
-              </ul>
-            </li>
           </ul>
         </div>
         <!-- navbar buttons-->

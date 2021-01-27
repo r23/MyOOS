@@ -42,8 +42,8 @@ class nav_menu {
         $spacer_multiplier = 1,
         $follow_cpath = FALSE,
         $cpath_array = array(),
-        $cpath_start_string = '',
-        $cpath_end_string = '',
+        $cpath_start_string = '<i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">',
+        $cpath_end_string = '</span>',
 		$banner_image = '',
 		$banner_link = '',
 		$banner_name = '';
@@ -153,6 +153,7 @@ class nav_menu {
 					$result .= '<i data-feather="more-horizontal"></i>';
 				} 
 */
+
 
 				switch ($category['menu_type'] ) {				
 					case 'NEW':

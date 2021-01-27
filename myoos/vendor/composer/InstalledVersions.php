@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '26daa0d70ab4f690c7da5737ec2f0b26939823bf',
+    'reference' => 'c5958fe38406855dda403af8dd0588a50cdeea57',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -116,12 +116,12 @@ private static $installed = array (
     ),
     'mobiledetect/mobiledetectlib' => 
     array (
-      'pretty_version' => '2.8.34',
-      'version' => '2.8.34.0',
+      'pretty_version' => '2.8.35',
+      'version' => '2.8.35.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6f8113f57a508494ca36acbcfa2dc2d923c7ed5b',
+      'reference' => '68a35170fdf36e7b35f9c125e5102338dbc3ff65',
     ),
     'myclabs/php-enum' => 
     array (
@@ -139,7 +139,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '26daa0d70ab4f690c7da5737ec2f0b26939823bf',
+      'reference' => 'c5958fe38406855dda403af8dd0588a50cdeea57',
     ),
     'paypal/rest-api-sdk-php' => 
     array (
