@@ -71,85 +71,24 @@
 	<!-- Navbar Light-->
 	<header class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
 		<div class="container-fluid navbar-inner">
-	  
-			<a class="navbar-brand" style="min-width: 100px;" href="{html_href_link content=$filename.home}">{logo dir=small}</a>
+
+			<button class="nav-toggle"></button>
+
+			<!-- 
+				LOGO 
+			-->
+			<a class="navbar-brand" style="min-width: 100px;" href="{html_href_link content=$filename.home}">
+				{logo dir=small}
+			</a>  
 			
 			<!-- navbar collapse area-->
 			<div class="collapse navbar-collapse" id="menu">
-				<!-- language/currency switcher-->
-				{if $languages_block}  
-					<div class="navbar-lang-switcher dropdown pr-2">
-						<div class="dropdown-toggle" data-toggle="dropdown"><img width="20" src="images/flags/{$language}.png" alt="{$language_name}"/><span>{$smarty.session.currency}</span>
-							</div>	
-						<ul class="dropdown-menu">
-							<li class="dropdown-item">
-								<select class="custom-select custom-select-sm">
-									<option value="usd">$ USD</option>
-									<option value="usd">€ EUR</option>
-									<option value="usd">£ UKP</option>
-									<option value="usd">¥ JPY</option>
-								</select>
-							</li>
-						{if $currency_block}
-						<li>
-							<ul class="dropdown-langs dropdown-menu">
-							{foreach item=currencies from=$currencies_contents}
-								{if $currencies.id != $currency}					
-										<a tabindex="-1" class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id}">
-											{$currencies.text} {if $currencies.id == $currency} <i class="fa fa-check" aria-hidden="true"></i>{/if}
-										</a>
-									</li>
-								{/if}	
-							{/foreach}
-							</ul>
-						</li>
-					{/if}						
-							
-							
-						{foreach item=languages from=$languages_contents}
-							{if $languages.iso_639_2 != $language}
-								<li>
-									<a class="dropdown-item" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2}">
-										<img class="mr-2" width="20" src="images/flags/{$languages.iso_639_2}.png" alt="{$languages.name}"/><span>{$languages.name}</span>
-									</a>
-								</li>
-								<li class="dropdown-divider"></li>
-							{/if}
-						{/foreach}			  
-						</ul>
-					</div>
-				{/if}
+
+				{$nav_menu}
+						
 				
           <!-- Site menu-->
           <ul class="navbar-nav">
-            <li class="nav-item dropdown mega-dropdown dropdown-more"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{$lang.text_categories}<i data-feather="more-horizontal"></i></a>
-              </li>
-            <li class="nav-item dropdown mega-dropdown active"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">{$lang.header_title_top}</a>
-              <div class="dropdown-menu">
-                <div class="dropdown-inner"><a class="dropdown-column text-decoration-0" href="home-apparel.html"><img class="d-block img-thumbnail mb-2" src="img/megamenu/home-apparel.jpg" alt="Home Apparel Shop">
-                    <div class="text-center font-weight-semibold text-dark">Home Apparel Shop</div></a><a class="dropdown-column text-decoration-0" href="home-electronics.html"><img class="d-block img-thumbnail mb-2" src="img/megamenu/home-electronics.jpg" alt="Home Electronics Store">
-                    <div class="text-center font-weight-semibold text-dark">Home Electronics Store</div></a></div>
-              </div>
-            </li>
-            <li class="nav-item dropdown mega-dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Shop</a>
-              <div class="dropdown-menu">
-                <div class="dropdown-inner">
-                  <div class="dropdown-column">
-                    <div class="widget widget-links">
-                      <h3 class="widget-title">Shop layouts</h3>
-
-                    </div>
-                  </div>
-                  <div class="dropdown-column">
-                    <div class="widget widget-links">
-                      <h3 class="widget-title">Shop pages</h3>
-
-                    </div>
-                  </div>
-                  <div class="dropdown-column"><a class="d-block mx-auto" href="#" style="max-width: 228px;"><img class="d-block" src="img/megamenu/promo-banner.jpg" alt="Promo banner"></a></div>
-                </div>
-              </div>
-            </li>
 		{if !empty($smarty.const.PHPBB_URL)}
             <li class="nav-item dropdown"><a class="nav-link " href="{$smarty.const.PHPBB_URL}">Pages</a>
             </li>
@@ -158,105 +97,7 @@
             <li class="nav-item dropdown"><a class="nav-link" href="{$smarty.const.BLOG_URL}">Blog</a>
             </li>
 		{/if}
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><i class="mr-1" data-feather="file-text"></i>Docs</a>
 
-            </li>
-          </ul>
-        </div>
-        <!-- navbar buttons-->
-        <div class="navbar-btns">
-			<div class="navbar-btns-inner">
-				<div class="navbar-toggler navbar-btn collapsed" data-toggle="collapse" data-target="#menu"><i class="mx-auto mb-1" data-feather="menu"></i>Menu</div>
-				
-				<a class="navbar-btn" href="#offcanvas-search" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="search"></i>Search</a>
-				<a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.account_wishlist page=1}" rel="nofollow"><span class="d-block position-relative"><i class="mx-auto mb-1" data-feather="heart"></i>{$lang.button_wishlist}</span></a>
-	
-			{if (isset($smarty.session.customer_id)) }
-				<a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.logoff}"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_logoff}</a>
-			{else}
-				<a class="navbar-btn navbar-collapse-hidden" href="#offcanvas-account" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_login}</a>
-			{/if}				
-				
-			{if $cart_count_contents gt 0 }
-				<a class="navbar-btn" href="#offcanvas-cart" data-toggle="offcanvas"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
-			{else}
-				<a class="navbar-btn" href="{html_href_link content=$filename.shopping_cart}"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
-			{/if}				
-				
-			</div>
-		</div>		
-	</div>
-</header>
-
-
-<!-- Menue work -->
-
-	<!-- Navbar Light-->
-	<header class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
-		<div class="container-fluid navbar-inner">
-	  
-			<a class="navbar-brand" style="min-width: 100px;" href="{html_href_link content=$filename.home}">{logo dir=small}</a>
-			
-			<!-- navbar collapse area-->
-			<div class="collapse navbar-collapse" id="menu">
-				<!-- language/currency switcher-->
-				{if $languages_block}  
-					<div class="navbar-lang-switcher dropdown pr-2">
-						<div class="dropdown-toggle" data-toggle="dropdown"><img width="20" src="images/flags/{$language}.png" alt="{$language_name}"/><span>{$smarty.session.currency}</span>
-							</div>	
-						<ul class="dropdown-menu">
-							<li class="dropdown-item">
-								<select class="custom-select custom-select-sm">
-									<option value="usd">$ USD</option>
-									<option value="usd">€ EUR</option>
-									<option value="usd">£ UKP</option>
-									<option value="usd">¥ JPY</option>
-								</select>
-							</li>
-						{if $currency_block}
-						<li>
-							<ul class="dropdown-langs dropdown-menu">
-							{foreach item=currencies from=$currencies_contents}
-								{if $currencies.id != $currency}					
-										<a tabindex="-1" class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$page_file oos_get=$currency_get_parameters currency=$currencies.id}">
-											{$currencies.text} {if $currencies.id == $currency} <i class="fa fa-check" aria-hidden="true"></i>{/if}
-										</a>
-									</li>
-								{/if}	
-							{/foreach}
-							</ul>
-						</li>
-					{/if}						
-							
-							
-						{foreach item=languages from=$languages_contents}
-							{if $languages.iso_639_2 != $language}
-								<li>
-									<a class="dropdown-item" href="{html_href_link content=$page_file oos_get=$lang_get_parameters language=$languages.iso_639_2}">
-										<img class="mr-2" width="20" src="images/flags/{$languages.iso_639_2}.png" alt="{$languages.name}"/><span>{$languages.name}</span>
-									</a>
-								</li>
-								<li class="dropdown-divider"></li>
-							{/if}
-						{/foreach}			  
-						</ul>
-					</div>
-				{/if}
-				
-          <!-- Site menu-->
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown active"><a class="nav-link" href="{html_href_link content=$filename.home}" title="{$lang.header_title_top}">{$lang.header_title_top}</a>
-            </li>
-			{$nav_menu}
-
-		{if !empty($smarty.const.PHPBB_URL)}
-            <li class="nav-item dropdown"><a class="nav-link" href="{$smarty.const.PHPBB_URL}" title="phpBB3">phpBB3</a>
-            </li>
-		{/if}
-		{if !empty($smarty.const.BLOG_URL)}	
-            <li class="nav-item dropdown"><a class="nav-link" href="{$smarty.const.BLOG_URL}" title="Blog">Blog</a>
-            </li>
-		{/if}
           </ul>
         </div>
         <!-- navbar buttons-->
