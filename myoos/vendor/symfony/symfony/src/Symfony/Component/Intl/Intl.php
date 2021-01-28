@@ -71,7 +71,7 @@ final class Intl
      */
     public static function isExtensionLoaded(): bool
     {
-        return class_exists('\ResourceBundle');
+        return class_exists(\ResourceBundle::class);
     }
 
     /**
@@ -125,7 +125,7 @@ final class Intl
      */
     public static function getIcuStubVersion(): string
     {
-        return '68.1';
+        return '68.2';
     }
 
     /**

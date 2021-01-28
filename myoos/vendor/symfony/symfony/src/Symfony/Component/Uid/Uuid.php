@@ -18,11 +18,11 @@ namespace Symfony\Component\Uid;
  */
 class Uuid extends AbstractUid
 {
-    protected const TYPE = \UUID_TYPE_DEFAULT;
+    protected const TYPE = 0;
 
     public function __construct(string $uuid)
     {
-        $type = uuid_type($uuid);
+        $type = uuid_is_valid($uuid) ? uuid_type($uuid) : false;
 
         if (false === $type || \UUID_TYPE_INVALID === $type || (static::TYPE ?: $type) !== $type) {
             throw new \InvalidArgumentException(sprintf('Invalid UUID%s: "%s".', static::TYPE ? 'v'.static::TYPE : '', $uuid));
@@ -53,6 +53,10 @@ class Uuid extends AbstractUid
 
         if (__CLASS__ !== static::class || 36 !== \strlen($uuid)) {
             return new static($uuid);
+        }
+
+        if (!uuid_is_valid($uuid)) {
+            throw new \InvalidArgumentException(sprintf('Invalid UUID%s: "%s".', static::TYPE ? 'v'.static::TYPE : '', $uuid));
         }
 
         switch (uuid_type($uuid)) {
@@ -104,7 +108,7 @@ class Uuid extends AbstractUid
             return uuid_is_valid($uuid);
         }
 
-        return static::TYPE === uuid_type($uuid);
+        return uuid_is_valid($uuid) && static::TYPE === uuid_type($uuid);
     }
 
     public function toBinary(): string

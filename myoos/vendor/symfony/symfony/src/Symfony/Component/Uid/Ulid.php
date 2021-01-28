@@ -59,7 +59,7 @@ class Ulid extends AbstractUid
     public static function fromString(string $ulid): parent
     {
         if (36 === \strlen($ulid) && Uuid::isValid($ulid)) {
-            $ulid = Uuid::fromString($ulid)->toBinary();
+            $ulid = (new Uuid($ulid))->toBinary();
         } elseif (22 === \strlen($ulid) && 22 === strspn($ulid, BinaryUtil::BASE58[''])) {
             $ulid = BinaryUtil::fromBase($ulid, BinaryUtil::BASE58);
         }
@@ -79,7 +79,7 @@ class Ulid extends AbstractUid
             base_convert(substr($ulid, 27, 5), 16, 32)
         );
 
-        return new self(strtr($ulid, 'abcdefghijklmnopqrstuv', 'ABCDEFGHJKMNPQRSTVWXYZ'));
+        return new static(strtr($ulid, 'abcdefghijklmnopqrstuv', 'ABCDEFGHJKMNPQRSTVWXYZ'));
     }
 
     public function toBinary(): string
@@ -104,6 +104,9 @@ class Ulid extends AbstractUid
         return $this->uid;
     }
 
+    /**
+     * @return float Seconds since the Unix epoch 1970-01-01 00:00:00
+     */
     public function getTime(): float
     {
         $time = strtr(substr($this->uid, 0, 10), 'ABCDEFGHJKMNPQRSTVWXYZ', 'abcdefghijklmnopqrstuv');
@@ -150,7 +153,7 @@ class Ulid extends AbstractUid
         if (\PHP_INT_SIZE >= 8) {
             $time = base_convert($time, 10, 32);
         } else {
-            $time = bin2hex(BinaryUtil::fromBase($time, BinaryUtil::BASE10));
+            $time = str_pad(bin2hex(BinaryUtil::fromBase($time, BinaryUtil::BASE10)), 12, '0', \STR_PAD_LEFT);
             $time = sprintf('%s%04s%04s',
                 base_convert(substr($time, 0, 2), 16, 32),
                 base_convert(substr($time, 2, 5), 16, 32),

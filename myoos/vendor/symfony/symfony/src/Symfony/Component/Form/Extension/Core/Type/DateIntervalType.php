@@ -37,7 +37,7 @@ class DateIntervalType extends AbstractType
         'minutes',
         'seconds',
     ];
-    private static $widgets = [
+    private const WIDGETS = [
         'text' => TextType::class,
         'integer' => IntegerType::class,
         'choice' => ChoiceType::class,
@@ -105,14 +105,14 @@ class DateIntervalType extends AbstractType
                         'required' => $options['required'],
                         'translation_domain' => $options['translation_domain'],
                         // when compound the array entries are ignored, we need to cascade the configuration here
-                        'empty_data' => isset($options['empty_data'][$part]) ? $options['empty_data'][$part] : null,
+                        'empty_data' => $options['empty_data'][$part] ?? null,
                     ];
                     if ('choice' === $options['widget']) {
                         $childOptions['choice_translation_domain'] = false;
                         $childOptions['choices'] = $options[$part];
                         $childOptions['placeholder'] = $options['placeholder'][$part];
                     }
-                    $childForm = $builder->create($part, self::$widgets[$options['widget']], $childOptions);
+                    $childForm = $builder->create($part, self::WIDGETS[$options['widget']], $childOptions);
                     if ('integer' === $options['widget']) {
                         $childForm->addModelTransformer(
                             new ReversedTransformer(

@@ -21,13 +21,11 @@ env:
 matrix:
     include:
         - php: 7.2
-          env: php_extra="7.4"
-        - php: 7.3
-          env: deps=high
+          env: php_extra="7.3 8.0"
         - php: 7.4
-          env: deps=low
+          env: deps=high
         - php: 8.0
-          services: [memcached]
+          env: deps=low
     fast_finish: true
 
 cache:
@@ -71,7 +69,7 @@ before_install:
 
       # tfold is a helper to create folded reports
       tfold () {
-          local title="🐘 $PHP $1 $FLIP"
+          local title="$PHP $1 $FLIP"
           local fold=$(echo $title | sed -r 's/[^-_A-Za-z0-9]+/./g')
           shift
           local id=$(printf %08x $(( RANDOM * RANDOM )))
@@ -105,7 +103,7 @@ before_install:
           else
               rm ~/.pearrc /tmp/pear 2>/dev/null || true
               mkdir -p $ext_cache
-              echo $input | pecl install -f $ext_name &&
+              echo $input | pecl -q install -f $ext_name &&
               cp $ext_dir/$ext_so $ext_cache
           fi
       }
@@ -149,11 +147,11 @@ before_install:
           if [[ $PHP = 8.* ]]; then
               tfold ext.memcached tpecl memcached-3.1.5 memcached.so $INI
           else
-              tfold ext.mongodb tpecl mongodb-1.6.16 mongodb.so $INI
               tfold ext.zookeeper tpecl zookeeper-0.7.2 zookeeper.so $INI
               tfold ext.amqp tpecl amqp-1.10.2 amqp.so $INI
           fi
 
+          tfold ext.mongodb tpecl mongodb-1.9.0 mongodb.so $INI
           tfold ext.apcu tpecl apcu-5.1.19 apcu.so $INI
           tfold ext.igbinary tpecl igbinary-3.1.6 igbinary.so $INI
           tfold ext.redis tpecl redis-5.2.3 redis.so $INI "no"
@@ -183,9 +181,10 @@ install:
       git config --global user.name "Symfony"
 
       export SYMFONY_VERSION=$(grep branch-version composer.json | grep -o '[0-9.x]*')
+      SYMFONY_VERSIONS=$(git ls-remote -q --heads);
 
       if [[ ! $deps ]]; then
-          php .github/build-packages.php HEAD^ $SYMFONY_VERSION src/Symfony/Bridge/PhpUnit src/Symfony/Contracts
+          php .github/build-packages.php HEAD^ $SYMFONY_VERSION src/Symfony/Bridge/PhpUnit
       else
           export SYMFONY_DEPRECATIONS_HELPER=weak &&
           cp composer.json composer.json.orig &&
@@ -202,8 +201,8 @@ install:
     - |
       # For the feature-branch, when deps=high, the version before it is checked out and tested with the locally patched components
       if [[ $deps = high && $TRAVIS_BRANCH = *.x ]]; then
-          export FLIP='🙃'
-          export SYMFONY_VERSION=$(git ls-remote -q --heads | grep -o '/[1-9]\.[0-9].*' | tail -n 1 | sed s/.//) &&
+          export FLIP='^'
+          export SYMFONY_VERSION=$(echo "$SYMFONY_VERSIONS" | grep -o '/[1-9]\.[0-9].*' | tail -n 1 | sed s/.//) &&
           git fetch --depth=2 origin $SYMFONY_VERSION &&
           git checkout -m FETCH_HEAD &&
           export COMPONENTS=$(find src/Symfony -mindepth 2 -type f -name phpunit.xml.dist -printf '%h\n' | sort)
@@ -213,13 +212,6 @@ install:
       # Skip the phpunit-bridge on bugfix-branches when $deps is empty
       if [[ ! $deps && ! $TRAVIS_BRANCH = *.x ]]; then
           export COMPONENTS=$(find src/Symfony -mindepth 2 -type f -name phpunit.xml.dist -not -wholename '*/Bridge/PhpUnit/*' -printf '%h\n' | sort)
-      fi
-
-    - |
-      # Set composer's platform to php 7.4 if we're on php 8.
-      if [[ $PHP = 8.* ]]; then
-          composer config platform.php 7.4.99
-          export SYMFONY_DEPRECATIONS_HELPER=max[total]=999
       fi
 
     - |
@@ -233,9 +225,8 @@ install:
 
     - |
       # Legacy tests are skipped when deps=high and when the current branch version has not the same major version number as the next one
-      [[ $deps = high && ${SYMFONY_VERSION%.*} != $(git ls-remote -q --heads | cut -f2 | grep -FA1 /$SYMFONY_VERSION | tail -n 1 | grep -o '[0-9]*' | head -n 1) ]] && export LEGACY=,legacy
+      [[ $deps = high && ${SYMFONY_VERSION%.*} != $(echo "$SYMFONY_VERSIONS" | cut -f2 | grep -FA1 /$SYMFONY_VERSION | tail -n 1 | grep -o '[0-9]*' | head -n 1) ]] && export LEGACY=,legacy
 
-      export COMPOSER_ROOT_VERSION=$SYMFONY_VERSION.x-dev
       if [[ $deps ]]; then mv composer.json.phpunit composer.json; fi
 
     - |
@@ -256,13 +247,13 @@ install:
           set -e
           export PHP=$1
 
-          if [[ $PHP != 7.4* && $PHP != $TRAVIS_PHP_VERSION && $TRAVIS_PULL_REQUEST != false ]]; then
+          if [[ $PHP != 8.0* && $PHP != $TRAVIS_PHP_VERSION && $TRAVIS_PULL_REQUEST != false ]]; then
               echo -e "\\n\\e[33;1mIntermediate PHP version $PHP is skipped for pull requests.\\e[0m"
               return
           fi
           phpenv global $PHP
           rm vendor/composer/package-versions-deprecated -Rf
-          ([[ $deps ]] && cd src/Symfony/Component/HttpFoundation; cp composer.json composer.bak; composer config platform.ext-mongodb 1.6.99; composer require --dev --no-update mongodb/mongodb ~1.5.0)
+          ([[ $deps ]] && cd src/Symfony/Component/HttpFoundation; cp composer.json composer.bak; composer require --dev --no-update mongodb/mongodb ^1.9.0)
           tfold 'composer update' $COMPOSER_UP
           tfold 'phpunit install' ./phpunit install
           if [[ $deps = high ]]; then
@@ -270,16 +261,15 @@ install:
               (cd src/Symfony/Component/HttpFoundation; mv composer.bak composer.json)
               COMPONENTS=$(git diff --name-only src/ | grep composer.json || true)
 
-              if [[ $COMPONENTS && $LEGACY && ! $TRAVIS_BRANCH = *.x && $TRAVIS_PULL_REQUEST != false ]]; then
-                  export FLIP='🙃'
+              if [[ $COMPONENTS && $LEGACY && ! $TRAVIS_BRANCH = *.x && $TRAVIS_PULL_REQUEST != false && $(echo "$SYMFONY_VERSIONS" | cut -f2 | grep -FA1 /$SYMFONY_VERSION | tail -n 1) = *.x ]]; then
+                  export FLIP='^'
                   SYMFONY_VERSION=$(echo $SYMFONY_VERSION | awk '{print $1 - 1}')
                   echo -e "\\n\\e[33;1mChecking out Symfony $SYMFONY_VERSION and running tests with patched components as deps\\e[0m"
                   export SYMFONY_REQUIRE=">=$SYMFONY_VERSION"
-                  export COMPOSER_ROOT_VERSION=$SYMFONY_VERSION.x-dev
                   git fetch --depth=2 origin $SYMFONY_VERSION
                   git checkout -m FETCH_HEAD
                   COMPONENTS=$(echo "$COMPONENTS" | xargs dirname | xargs -n1 -I{} bash -c "[ -e '{}/phpunit.xml.dist' ] && echo '{}'" | sort)
-                  (cd src/Symfony/Component/HttpFoundation; composer config platform.ext-mongodb 1.6.99; composer require --dev --no-update mongodb/mongodb)
+                  (cd src/Symfony/Component/HttpFoundation; composer require --dev --no-update mongodb/mongodb)
                   [[ ! $COMPONENTS ]] || tfold 'phpunit install' SYMFONY_PHPUNIT_REMOVE_RETURN_TYPEHINT=1 ./phpunit install
                   [[ ! $COMPONENTS ]] || echo "$COMPONENTS" | parallel --gnu "tfold {} 'cd {} && rm composer.lock vendor/ -Rf && $COMPOSER_UP && $PHPUNIT_X$LEGACY'" || X=1
               fi
@@ -292,14 +282,12 @@ install:
               echo "$COMPONENTS" | parallel --gnu "tfold {} 'cd {} && ([ -e composer.lock ] && ${COMPOSER_UP/update/install} || $COMPOSER_UP --prefer-lowest --prefer-stable) && $PHPUNIT_X'"
               echo "$COMPONENTS" | xargs -n1 -I{} tar --append -f ~/php-ext/composer-lowest.lock.tar {}/composer.lock
           else
-              if [[ $PHP = 7.4* ]]; then
+              if [[ $PHP = 8.0* ]]; then
                   # add return types before running the test suite
-                  rm src/Symfony/Contracts -Rf && mv vendor/symfony/contracts src/Symfony/Contracts
-                  ln -sd $(realpath src/Symfony/Contracts) vendor/symfony/contracts
                   sed -i 's/"\*\*\/Tests\/"//' composer.json
                   composer install --optimize-autoloader
-                  SYMFONY_PATCH_TYPE_DECLARATIONS=force=object php .github/patch-types.php
-                  SYMFONY_PATCH_TYPE_DECLARATIONS=force=object php .github/patch-types.php # ensure the script is idempotent
+                  SYMFONY_PATCH_TYPE_DECLARATIONS=force=1 php .github/patch-types.php
+                  SYMFONY_PATCH_TYPE_DECLARATIONS=force=1 php .github/patch-types.php # ensure the script is idempotent
                   PHPUNIT_X="$PHPUNIT_X,legacy"
               fi
 

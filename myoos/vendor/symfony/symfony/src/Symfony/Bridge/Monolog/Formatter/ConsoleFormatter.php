@@ -30,7 +30,7 @@ class ConsoleFormatter implements FormatterInterface
     public const SIMPLE_FORMAT = "%datetime% %start_tag%%level_name%%end_tag% <comment>[%channel%]</> %message%%context%%extra%\n";
     public const SIMPLE_DATE = 'H:i:s';
 
-    private static $levelColorMap = [
+    private const LEVEL_COLOR_MAP = [
         Logger::DEBUG => 'fg=white',
         Logger::INFO => 'fg=green',
         Logger::NOTICE => 'fg=blue',
@@ -70,7 +70,7 @@ class ConsoleFormatter implements FormatterInterface
                 '*' => [$this, 'castObject'],
             ]);
 
-            $this->outputBuffer = fopen('php://memory', 'r+b');
+            $this->outputBuffer = fopen('php://memory', 'r+');
             if ($this->options['multiline']) {
                 $output = $this->outputBuffer;
             } else {
@@ -83,6 +83,8 @@ class ConsoleFormatter implements FormatterInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return mixed
      */
     public function formatBatch(array $records)
     {
@@ -95,12 +97,12 @@ class ConsoleFormatter implements FormatterInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return mixed
      */
     public function format(array $record)
     {
         $record = $this->replacePlaceHolder($record);
-
-        $levelColor = self::$levelColorMap[$record['level']];
 
         if (!$this->options['ignore_empty_context_and_extra'] || !empty($record['context'])) {
             $context = ($this->options['multiline'] ? "\n" : ' ').$this->dumpData($record['context']);
@@ -118,7 +120,7 @@ class ConsoleFormatter implements FormatterInterface
             '%datetime%' => $record['datetime'] instanceof \DateTimeInterface
                 ? $record['datetime']->format($this->options['date_format'])
                 : $record['datetime'],
-            '%start_tag%' => sprintf('<%s>', $levelColor),
+            '%start_tag%' => sprintf('<%s>', self::LEVEL_COLOR_MAP[$record['level']]),
             '%level_name%' => sprintf($this->options['level_name_format'], $record['level_name']),
             '%end_tag%' => '</>',
             '%channel%' => $record['channel'],

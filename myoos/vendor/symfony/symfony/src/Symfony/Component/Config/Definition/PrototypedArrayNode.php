@@ -227,6 +227,10 @@ class PrototypedArrayNode extends ArrayNode
                 } elseif (isset($v[$this->keyAttribute])) {
                     $k = $v[$this->keyAttribute];
 
+                    if (\is_float($k)) {
+                        $k = var_export($k, true);
+                    }
+
                     // remove the key attribute when required
                     if ($this->removeKeyAttribute) {
                         unset($v[$this->keyAttribute]);
@@ -357,7 +361,7 @@ class PrototypedArrayNode extends ArrayNode
      */
     private function getPrototypeForChild(string $key)
     {
-        $prototype = isset($this->valuePrototypes[$key]) ? $this->valuePrototypes[$key] : $this->prototype;
+        $prototype = $this->valuePrototypes[$key] ?? $this->prototype;
         $prototype->setName($key);
 
         return $prototype;

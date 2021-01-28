@@ -31,14 +31,14 @@ class DateType extends AbstractType
     public const DEFAULT_FORMAT = \IntlDateFormatter::MEDIUM;
     public const HTML5_FORMAT = 'yyyy-MM-dd';
 
-    private static $acceptedFormats = [
+    private const ACCEPTED_FORMATS = [
         \IntlDateFormatter::FULL,
         \IntlDateFormatter::LONG,
         \IntlDateFormatter::MEDIUM,
         \IntlDateFormatter::SHORT,
     ];
 
-    private static $widgets = [
+    private const WIDGETS = [
         'text' => 'Symfony\Component\Form\Extension\Core\Type\TextType',
         'choice' => 'Symfony\Component\Form\Extension\Core\Type\ChoiceType',
     ];
@@ -51,14 +51,14 @@ class DateType extends AbstractType
         $dateFormat = \is_int($options['format']) ? $options['format'] : self::DEFAULT_FORMAT;
         $timeFormat = \IntlDateFormatter::NONE;
         $calendar = \IntlDateFormatter::GREGORIAN;
-        $pattern = \is_string($options['format']) ? $options['format'] : null;
+        $pattern = \is_string($options['format']) ? $options['format'] : '';
 
-        if (!\in_array($dateFormat, self::$acceptedFormats, true)) {
+        if (!\in_array($dateFormat, self::ACCEPTED_FORMATS, true)) {
             throw new InvalidOptionsException('The "format" option must be one of the IntlDateFormatter constants (FULL, LONG, MEDIUM, SHORT) or a string representing a custom format.');
         }
 
         if ('single_text' === $options['widget']) {
-            if (null !== $pattern && false === strpos($pattern, 'y') && false === strpos($pattern, 'M') && false === strpos($pattern, 'd')) {
+            if ('' !== $pattern && false === strpos($pattern, 'y') && false === strpos($pattern, 'M') && false === strpos($pattern, 'd')) {
                 throw new InvalidOptionsException(sprintf('The "format" option should contain the letters "y", "M" or "d". Its current value is "%s".', $pattern));
             }
 
@@ -71,7 +71,7 @@ class DateType extends AbstractType
                 $pattern
             ));
         } else {
-            if (null !== $pattern && (false === strpos($pattern, 'y') || false === strpos($pattern, 'M') || false === strpos($pattern, 'd'))) {
+            if ('' !== $pattern && (false === strpos($pattern, 'y') || false === strpos($pattern, 'M') || false === strpos($pattern, 'd'))) {
                 throw new InvalidOptionsException(sprintf('The "format" option should contain the letters "y", "M" and "d". Its current value is "%s".', $pattern));
             }
 
@@ -88,7 +88,7 @@ class DateType extends AbstractType
                     return static function (FormInterface $form) use ($emptyData, $option) {
                         $emptyData = $emptyData($form->getParent());
 
-                        return isset($emptyData[$option]) ? $emptyData[$option] : '';
+                        return $emptyData[$option] ?? '';
                     };
                 };
 
@@ -124,7 +124,7 @@ class DateType extends AbstractType
                 $dateFormat,
                 $timeFormat,
                 // see https://bugs.php.net/66323
-                class_exists('IntlTimeZone', false) ? \IntlTimeZone::createDefault() : null,
+                class_exists(\IntlTimeZone::class, false) ? \IntlTimeZone::createDefault() : null,
                 $calendar,
                 $pattern
             );
@@ -155,9 +155,9 @@ class DateType extends AbstractType
             }
 
             $builder
-                ->add('year', self::$widgets[$options['widget']], $yearOptions)
-                ->add('month', self::$widgets[$options['widget']], $monthOptions)
-                ->add('day', self::$widgets[$options['widget']], $dayOptions)
+                ->add('year', self::WIDGETS[$options['widget']], $yearOptions)
+                ->add('month', self::WIDGETS[$options['widget']], $monthOptions)
+                ->add('day', self::WIDGETS[$options['widget']], $dayOptions)
                 ->addViewTransformer(new DateTimeToArrayTransformer(
                     $options['model_timezone'], $options['view_timezone'], ['year', 'month', 'day']
                 ))

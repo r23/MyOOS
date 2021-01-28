@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Validator\Constraints;
 
+use Egulias\EmailValidator\EmailValidator as EguliasEmailValidator;
 use Egulias\EmailValidator\Validation\EmailValidation;
 use Egulias\EmailValidator\Validation\NoRFCWarningsValidation;
 use Symfony\Component\Validator\Constraint;
@@ -26,7 +27,7 @@ class EmailValidator extends ConstraintValidator
     private const PATTERN_HTML5 = '/^[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/';
     private const PATTERN_LOOSE = '/^.+\@\S+\.\S+$/';
 
-    private static $emailPatterns = [
+    private const EMAIL_PATTERNS = [
         Email::VALIDATION_MODE_LOOSE => self::PATTERN_LOOSE,
         Email::VALIDATION_MODE_HTML5 => self::PATTERN_HTML5,
     ];
@@ -77,7 +78,7 @@ class EmailValidator extends ConstraintValidator
         }
 
         if (Email::VALIDATION_MODE_STRICT === $constraint->mode) {
-            $strictValidator = new \Egulias\EmailValidator\EmailValidator();
+            $strictValidator = new EguliasEmailValidator();
 
             if (interface_exists(EmailValidation::class) && !$strictValidator->isValid($value, new NoRFCWarningsValidation())) {
                 $this->context->buildViolation($constraint->message)
@@ -94,7 +95,7 @@ class EmailValidator extends ConstraintValidator
 
                 return;
             }
-        } elseif (!preg_match(self::$emailPatterns[$constraint->mode], $value)) {
+        } elseif (!preg_match(self::EMAIL_PATTERNS[$constraint->mode], $value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->setCode(Email::INVALID_FORMAT_ERROR)
