@@ -115,23 +115,20 @@
 		
         <!-- navbar buttons-->
         <div class="navbar-btns">
-			<div class="navbar-btns-inner">
-				<div class="navbar-toggler navbar-btn collapsed" data-toggle="collapse" data-target="#menu"><i class="mx-auto mb-1" data-feather="menu"></i>Menu</div>
-				
-				<a class="navbar-btn" href="#offcanvas-search" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="search"></i>Search</a>
-				<a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.account_wishlist page=1}" rel="nofollow"><span class="d-block position-relative"><i class="mx-auto mb-1" data-feather="heart"></i>{$lang.button_wishlist}</span></a>
-	
-			{if (isset($smarty.session.customer_id)) }
-				<a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.logoff}"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_logoff}</a>
-			{else}
-				<a class="navbar-btn navbar-collapse-hidden" href="#offcanvas-account" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_login}</a>
-			{/if}				
+			<div class="navbar-btns-inner">			
+				<a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.account_wishlist page=1}" rel="nofollow"><span class="d-block position-relative"><i class="mx-auto mb-1" data-feather="heart"></i>{$lang.button_wishlist}</span></a>		
 				
 			{if $cart_count_contents gt 0 }
 				<a class="navbar-btn" href="#offcanvas-cart" data-toggle="offcanvas"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
 			{else}
 				<a class="navbar-btn" href="{html_href_link content=$filename.shopping_cart}"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
 			{/if}				
+
+			{if (isset($smarty.session.customer_id)) }
+				<a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.logoff}"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_logoff}</a>
+			{else}
+				<a class="navbar-btn navbar-collapse-hidden" href="#offcanvas-account" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_login}</a>
+			{/if}	
 				
 			</div>
 		</div>		
