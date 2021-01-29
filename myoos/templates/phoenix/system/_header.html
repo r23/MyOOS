@@ -100,6 +100,19 @@
 
           </ul>
         </div>
+		
+
+		<form action="{html_href_link content=$filename.advanced_search_result}" method="get" class="search-global hidden-sm-down">
+			{if $mySystem.sed}
+				<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+				<input type="hidden" name="formid" value="{$mySystem.formid}">
+			{/if}
+			<input type="hidden" name="content" value="{$filename.advanced_search_result}">	
+			
+			<input type="text" name="s" class="form-control" placeholder="{$lang.text_search}">
+			<button class="btn btn-default" type="submit"><i data-feather="search"></i></button>			
+		</form>		
+		
         <!-- navbar buttons-->
         <div class="navbar-btns">
 			<div class="navbar-btns-inner">
