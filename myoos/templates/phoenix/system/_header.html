@@ -68,6 +68,93 @@
 </head>
 <body>
 
+    <section class="top-bar2">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="top-left d-flex">
+							<div class="lang-box">
+                                $languages_block
+                            </div>
+                            <div class="mny-box">
+                                $currency_block
+                            </div>
+                            <div class="call-us">
+                                <p><img src="images/phn.png" alt="">{$smarty.const.STORE_ADDRESS_TELEPHONE_NUMBER}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="top-right text-right">
+                            <ul class="list-unstyled list-inline">
+                                <li class="list-inline-item"><a href=""><img src="images/user.png" alt="">My Account</a></li>
+                                <li class="list-inline-item"><a href=""><i class="mx-auto mb-1" data-feather="heart"></i>{$lang.button_wishlist}</a></li>
+                                <li class="list-inline-item"><a href=""><img src="images/checkout.png" alt="">Checkout</a></li>
+							{if (isset($smarty.session.customer_id)) }
+								 <li class="list-inline-item"><a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.logoff}"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_logoff}</a></li>
+							{else}
+								 <li class="list-inline-item"><a class="navbar-btn navbar-collapse-hidden" href="#offcanvas-account" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_login}</a></li>
+							{/if}								
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logo -->
+        <section class="logo-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="logo">
+							<a class="navbar-brand" style="min-width: 100px;" href="{html_href_link content=$filename.home}">
+								{logo dir=small}
+							</a>  
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-7 padding-fix">
+						<form action="{html_href_link content=$filename.advanced_search_result}" method="get" class="search-global hidden-sm-down">
+							{if $mySystem.sed}
+								<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+								<input type="hidden" name="formid" value="{$mySystem.formid}">
+							{/if}
+								<input type="hidden" name="content" value="{$filename.advanced_search_result}">	
+			
+								<input type="text" name="s" class="form-control" placeholder="{$lang.text_search}">
+								<button class="btn btn-default" type="submit"><i data-feather="search"></i></button>			
+						</form>	
+                    </div>
+                    <div class="col-lg-3 col-md-2">
+                        <div class="carts-area d-flex">
+                            <div class="wsh-box ml-auto">
+                                <a href="" data-toggle="tooltip" data-placement="top" title="{$lang.button_wishlist}">
+									<i class="mx-auto mb-1" data-feather="heart"></i>
+                                    <span>0</span>
+                                </a>
+                            </div>
+                            <div class="cart-box ml-4">							
+							{if $cart_count_contents gt 0 }
+								<a class="navbar-btn" href="#offcanvas-cart" data-toggle="offcanvas"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
+							{else}
+								<a class="navbar-btn" href="{html_href_link content=$filename.shopping_cart}">
+									<span class="d-block position-relative">
+										<span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span>
+										<i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}
+									</span>								
+								</a>	
+							{/if}								
+								
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Logo  -->
+
+
+
 	<!-- Navbar Light-->
 	<header class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
 		<div class="container-fluid navbar-inner">
@@ -77,9 +164,7 @@
 			<!-- 
 				LOGO 
 			-->
-			<a class="navbar-brand" style="min-width: 100px;" href="{html_href_link content=$filename.home}">
-				{logo dir=small}
-			</a>  
+
 			
 			<!-- navbar collapse area-->
 			<div class="collapse navbar-collapse" id="menu">
@@ -131,6 +216,10 @@
 			{/if}	
 				
 			</div>
-		</div>		
+		</div>	
+
+
+
+		
 	</div>
 </header>
