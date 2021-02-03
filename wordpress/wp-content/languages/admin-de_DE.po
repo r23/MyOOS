@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.6.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-01-28 14:25:31+0000\n"
+"PO-Revision-Date: 2021-01-28 19:10:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -29,12 +29,12 @@ msgstr "Weiter"
 
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/dashboard.php:1758
-msgid "Your site is running an outdated version of PHP (%s), and should be updated."
+msgid "Your site is running an outdated version of PHP (%s), which should be updated."
 msgstr "Auf deiner Website läuft eine veraltete Version von PHP (%s), die aktualisiert werden sollte."
 
 #. translators: %s: The server PHP version.
 #: wp-admin/includes/dashboard.php:1752
-msgid "Your site is running an insecure version of PHP (%s), and should be updated."
+msgid "Your site is running an insecure version of PHP (%s), which should be updated."
 msgstr "Auf deiner Website läuft eine unsichere Version von PHP (%s), die aktualisiert werden sollte."
 
 #: wp-admin/includes/dashboard.php:42
