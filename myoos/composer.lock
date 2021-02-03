@@ -2676,16 +2676,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.2.2",
+            "version": "v5.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b8c9ce9c703da60266d9f0225b696b31778e9df9"
+                "reference": "e16bbdc1a02033e0e3ac060224953aee90570776"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b8c9ce9c703da60266d9f0225b696b31778e9df9",
-                "reference": "b8c9ce9c703da60266d9f0225b696b31778e9df9",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/e16bbdc1a02033e0e3ac060224953aee90570776",
+                "reference": "e16bbdc1a02033e0e3ac060224953aee90570776",
                 "shasum": ""
             },
             "require": {
@@ -2819,9 +2819,6 @@
                 "twig/markdown-extra": "^2.12"
             },
             "type": "library",
-            "extra": {
-                "branch-version": "5.2"
-            },
             "autoload": {
                 "psr-4": {
                     "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
@@ -2859,7 +2856,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.2.2"
+                "source": "https://github.com/symfony/symfony/tree/v5.2.3"
             },
             "funding": [
                 {
@@ -2875,7 +2872,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-27T14:46:07+00:00"
+            "time": "2021-02-03T04:52:17+00:00"
         },
         {
             "name": "twig/twig",
