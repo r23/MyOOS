@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Cookie Notice\n"
-"POT-Creation-Date: 2020-05-18 17:14+0200\n"
+"POT-Creation-Date: 2021-02-01 12:34+0100\n"
 "PO-Revision-Date: 2015-03-24 11:30+0100\n"
 "Last-Translator: Bartosz Arendt <info@dfactory.eu>\n"
 "Language-Team: dFactory <info@dfactory.eu>\n"
@@ -10,514 +10,1829 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-KeywordsList: gettext;gettext_noop;__;_e;_n\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../cookie-notice.php:197
-msgid "Top"
-msgstr ""
-
-#: ../cookie-notice.php:198
-msgid "Bottom"
-msgstr ""
-
-#: ../cookie-notice.php:202 ../cookie-notice.php:247
-msgid "None"
-msgstr ""
-
-#: ../cookie-notice.php:203
-msgid "Light"
-msgstr ""
-
-#: ../cookie-notice.php:204
-msgid "Dark"
-msgstr ""
-
-#: ../cookie-notice.php:208
-msgid "Automatic"
-msgstr ""
-
-#: ../cookie-notice.php:209
-msgid "Manual"
-msgstr ""
-
-#: ../cookie-notice.php:213
-msgid "Page link"
-msgstr ""
-
-#: ../cookie-notice.php:214
-msgid "Custom link"
-msgstr ""
-
-#: ../cookie-notice.php:223
-msgid "Banner"
-msgstr ""
-
-#: ../cookie-notice.php:224 ../cookie-notice.php:690
-msgid "Message"
-msgstr ""
-
-#: ../cookie-notice.php:228
-msgid "Text color"
-msgstr ""
-
-#: ../cookie-notice.php:229
-msgid "Bar color"
-msgstr ""
-
-#: ../cookie-notice.php:235
-msgid "An hour"
-msgstr ""
-
-#: ../cookie-notice.php:236
-msgid "1 day"
-msgstr ""
-
-#: ../cookie-notice.php:237
-msgid "1 week"
-msgstr ""
-
-#: ../cookie-notice.php:238
-msgid "1 month"
-msgstr ""
-
-#: ../cookie-notice.php:239
-msgid "3 months"
-msgstr ""
-
-#: ../cookie-notice.php:240
-msgid "6 months"
-msgstr ""
-
-#: ../cookie-notice.php:241
-msgid "1 year"
-msgstr ""
-
-#: ../cookie-notice.php:242
-msgid "infinity"
-msgstr ""
-
-#: ../cookie-notice.php:248
-msgid "Fade"
-msgstr ""
-
-#: ../cookie-notice.php:249
-msgid "Slide"
-msgstr ""
-
-#: ../cookie-notice.php:253
-msgid "Header"
-msgstr ""
-
-#: ../cookie-notice.php:254
-msgid "Footer"
-msgstr ""
-
-#: ../cookie-notice.php:258
-msgid "We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it."
-msgstr ""
-
-#: ../cookie-notice.php:259
-msgid "Ok"
-msgstr ""
-
-#: ../cookie-notice.php:260
-msgid "No"
-msgstr ""
-
-#: ../cookie-notice.php:261
-msgid "You can revoke your consent any time using the Revoke consent button."
-msgstr ""
-
-#: ../cookie-notice.php:262 ../cookie-notice.php:694
-msgid "Revoke consent"
-msgstr ""
-
-#: ../cookie-notice.php:263 ../cookie-notice.php:692
-msgid "Privacy policy"
-msgstr ""
-
-#: ../cookie-notice.php:266
-msgid "Spread the message. Stop the virus."
-msgstr ""
-
-#: ../cookie-notice.php:267
-msgid "Hands"
-msgstr ""
-
-#: ../cookie-notice.php:268
-msgid "Wash often"
-msgstr ""
-
-#: ../cookie-notice.php:269
-msgid "Elbow"
-msgstr ""
-
-#: ../cookie-notice.php:270
-msgid "Cough into"
-msgstr ""
-
-#: ../cookie-notice.php:271
-msgid "Face"
-msgstr ""
-
-#: ../cookie-notice.php:272
-msgid "Don't touch"
-msgstr ""
-
-#: ../cookie-notice.php:273
-msgid "Space"
-msgstr ""
-
-#: ../cookie-notice.php:274
-msgid "Avoid crowds"
-msgstr ""
-
-#: ../cookie-notice.php:275
-msgid "Home"
-msgstr ""
-
-#: ../cookie-notice.php:276
-msgid "Stay inside"
-msgstr ""
-
-#: ../cookie-notice.php:277
-msgid "Confirmed"
-msgstr ""
-
-#: ../cookie-notice.php:278
-msgid "Recovered"
-msgstr ""
-
-#: ../cookie-notice.php:376
-msgid "Thank you for using the <strong>Corona Banner</strong> and spreading the word about steps to stop the Coronavirus pandemia."
-msgstr ""
-
-#: ../cookie-notice.php:377
-#, php-format
-msgid "Feel free to customize or disable it anytime in the <a href=\"%s\">Cookie Notice settings</a>."
-msgstr ""
-
-#: ../cookie-notice.php:638 ../cookie-notice.php:649 ../cookie-notice.php:652
-#: ../cookie-notice.php:1355
-msgid "Cookie Notice"
-msgstr ""
-
-#: ../cookie-notice.php:654
-msgid "Need support?"
-msgstr ""
-
-#: ../cookie-notice.php:655
-#, php-format
-msgid "If you are having problems with this plugin, please browse it's <a href=\"%s\" target=\"_blank\">Documentation</a> or talk about them in the <a href=\"%s\" target=\"_blank\">Support forum</a>"
-msgstr ""
-
-#: ../cookie-notice.php:657
-msgid "Do you like this plugin?"
-msgstr ""
-
-#: ../cookie-notice.php:658
-#, php-format
-msgid "<a href=\"%s\" target=\"_blank\">Rate it 5</a> on WordPress.org"
-msgstr ""
-
-#: ../cookie-notice.php:659
-#, php-format
-msgid "Blog about it & link to the <a href=\"%s\" target=\"_blank\">plugin page</a>."
-msgstr ""
-
-#: ../cookie-notice.php:660
-#, php-format
-msgid "Check out our other <a href=\"%s\" target=\"_blank\">WordPress plugins</a>."
-msgstr ""
-
-#: ../cookie-notice.php:673
-msgid "Reset to defaults"
-msgstr ""
-
-#: ../cookie-notice.php:689
-msgid "Configuration"
-msgstr ""
-
-#: ../cookie-notice.php:691
-msgid "Button text"
-msgstr ""
-
-#: ../cookie-notice.php:693
-msgid "Refuse consent"
-msgstr ""
-
-#: ../cookie-notice.php:695
-msgid "Script blocking"
-msgstr ""
-
-#: ../cookie-notice.php:696
-msgid "Reloading"
-msgstr ""
-
-#: ../cookie-notice.php:697
-msgid "On scroll"
-msgstr ""
-
-#: ../cookie-notice.php:698
-msgid "On click"
-msgstr ""
-
-#: ../cookie-notice.php:699
-msgid "Accepted expiry"
-msgstr ""
-
-#: ../cookie-notice.php:700
-msgid "Rejected expiry"
-msgstr ""
-
-#: ../cookie-notice.php:701
-msgid "Script placement"
-msgstr ""
-
-#: ../cookie-notice.php:702
-msgid "Deactivation"
-msgstr ""
-
-#: ../cookie-notice.php:705
-msgid "Corona Banner"
-msgstr ""
-
-#: ../cookie-notice.php:706
-msgid "Display"
-msgstr ""
-
-#: ../cookie-notice.php:707
-msgid "Current cases"
-msgstr ""
-
-#: ../cookie-notice.php:708
-msgid "Text strings"
-msgstr ""
-
-#: ../cookie-notice.php:711
-msgid "Design"
-msgstr ""
-
-#: ../cookie-notice.php:712
-msgid "Position"
-msgstr ""
-
-#: ../cookie-notice.php:713
-msgid "Animation"
-msgstr ""
-
-#: ../cookie-notice.php:714
-msgid "Button style"
-msgstr ""
-
-#: ../cookie-notice.php:715
-msgid "Button class"
-msgstr ""
-
-#: ../cookie-notice.php:716
-msgid "Colors"
-msgstr ""
-
-#: ../cookie-notice.php:732
-msgid "Enable to display the Corona Banner."
-msgstr ""
-
-#: ../cookie-notice.php:733
-msgid "The Corona Banner displays data about Coronavirus pandemia and <strong>five steps recommended by the WHO (World Health Organization)</strong> to help flatten the Coronavirus curve."
-msgstr ""
-
-#: ../cookie-notice.php:743
-msgid "Display information about current cases."
-msgstr ""
-
-#: ../cookie-notice.php:744
-msgid "Provides up-to-date data about Coronavirus confirmed and recovered cases."
-msgstr ""
-
-#: ../cookie-notice.php:753
-msgid "Headline message"
-msgstr ""
-
-#: ../cookie-notice.php:754
-msgid "Current cases text strings"
-msgstr ""
-
-#: ../cookie-notice.php:755
-msgid "Recommendation One"
-msgstr ""
-
-#: ../cookie-notice.php:756
-msgid "Recommendation Two"
-msgstr ""
-
-#: ../cookie-notice.php:757
-msgid "Recommendation Three"
-msgstr ""
-
-#: ../cookie-notice.php:758
-msgid "Recommendation Four"
-msgstr ""
-
-#: ../cookie-notice.php:759
-msgid "Recommendation Five"
-msgstr ""
-
-#: ../cookie-notice.php:764
-msgid "Enable if you'd like to adjust the Corona Banner text strings."
-msgstr ""
-
-#: ../cookie-notice.php:791
-msgid "Enter the cookie notice message."
-msgstr ""
-
-#: ../cookie-notice.php:804
-msgid "The text of the option to accept the notice and make it disappear."
-msgstr ""
-
-#: ../cookie-notice.php:815
-msgid "Enable to give to the user the possibility to refuse third party non functional cookies."
-msgstr ""
-
-#: ../cookie-notice.php:819
-msgid "The text of the button to refuse the consent."
-msgstr ""
-
-#: ../cookie-notice.php:837
-msgid "Head"
-msgstr ""
-
-#: ../cookie-notice.php:838
-msgid "Body"
-msgstr ""
-
-#: ../cookie-notice.php:841
-msgid "The code to be used in your site header, before the closing head tag."
-msgstr ""
-
-#: ../cookie-notice.php:845
-msgid "The code to be used in your site footer, before the closing body tag."
-msgstr ""
-
-#: ../cookie-notice.php:849
-msgid "Enter non functional cookies Javascript code here (for e.g. Google Analitycs) to be used after the notice is accepted."
-msgstr ""
-
-#: ../cookie-notice.php:849
-msgid "To get the user consent status use the <code>cn_cookies_accepted()</code> function."
-msgstr ""
-
-#: ../cookie-notice.php:860
-msgid "Enable to give to the user the possibility to revoke their consent <i>(requires \"Refuse consent\" option enabled)</i>."
-msgstr ""
-
-#: ../cookie-notice.php:863
-msgid "Enter the revoke message."
-msgstr ""
-
-#: ../cookie-notice.php:865
-msgid "The text of the button to revoke the consent."
-msgstr ""
-
-#: ../cookie-notice.php:873
-msgid "Select the method for displaying the revoke button - automatic (in the banner) or manual using <code>[cookies_revoke]</code> shortcode."
-msgstr ""
-
-#: ../cookie-notice.php:884
-msgid "Enable to reload the page after the notice is accepted."
-msgstr ""
-
-#: ../cookie-notice.php:907
-msgid "Enable privacy policy link."
-msgstr ""
-
-#: ../cookie-notice.php:910
-msgid "The text of the privacy policy button."
-msgstr ""
-
-#: ../cookie-notice.php:922
-msgid "Select where to redirect user for more information."
-msgstr ""
-
-#: ../cookie-notice.php:925
-msgid "-- select page --"
-msgstr ""
-
-#: ../cookie-notice.php:936
-msgid "Select from one of your site's pages."
-msgstr ""
-
-#: ../cookie-notice.php:942
-msgid "Synchronize with WordPress Privacy Policy page."
-msgstr ""
-
-#: ../cookie-notice.php:949
-msgid "Enter the full URL starting with http(s)://"
-msgstr ""
-
-#: ../cookie-notice.php:992
-msgid "The amount of time that the cookie should be stored for when user accepts the notice."
-msgstr ""
-
-#: ../cookie-notice.php:1015
-msgid "The amount of time that the cookie should be stored for when the user doesn't accept the notice."
-msgstr ""
-
-#: ../cookie-notice.php:1033
-msgid "Select where all the plugin scripts should be placed."
-msgstr ""
-
-#: ../cookie-notice.php:1053
-msgid "Select location for the notice."
-msgstr ""
-
-#: ../cookie-notice.php:1074
-msgid "Select the animation style."
-msgstr ""
-
-#: ../cookie-notice.php:1085
-msgid "Enable to accept the notice when user scrolls."
-msgstr ""
-
-#: ../cookie-notice.php:1088
-msgid "Number of pixels user has to scroll to accept the notice and make it disappear."
-msgstr ""
-
-#: ../cookie-notice.php:1099
-msgid "Enable to accept the notice on any click on the page."
-msgstr ""
-
-#: ../cookie-notice.php:1109
-msgid "Enable if you want all plugin data to be deleted on deactivation."
-msgstr ""
-
-#: ../cookie-notice.php:1129
-msgid "Select the buttons style."
-msgstr ""
-
-#: ../cookie-notice.php:1142
-msgid "Enter additional button CSS classes separated by spaces."
-msgstr ""
-
-#: ../cookie-notice.php:1166
-msgid "Bar opacity"
-msgstr ""
-
-#: ../cookie-notice.php:1301
-msgid "Settings restored to defaults."
-msgstr ""
-
-#: ../cookie-notice.php:1441
-msgid "Support"
-msgstr ""
-
-#: ../cookie-notice.php:1458
+#: ../cookie-notice.php:499
 msgid "Settings"
 msgstr ""
 
-#: ../cookie-notice.php:1532
+#: ../includes/frontend.php:177 ../includes/settings.php:405
+msgid "Cookie Notice"
+msgstr ""
+
+#: ../includes/settings.php:46 ../includes/welcome.php:360
+msgid "Top"
+msgstr ""
+
+#: ../includes/settings.php:47 ../includes/welcome.php:359
+msgid "Bottom"
+msgstr ""
+
+#: ../includes/settings.php:51 ../includes/settings.php:96
+msgid "None"
+msgstr ""
+
+#: ../includes/settings.php:52
+msgid "Light"
+msgstr ""
+
+#: ../includes/settings.php:53
+msgid "Dark"
+msgstr ""
+
+#: ../includes/settings.php:57
+msgid "Automatic"
+msgstr ""
+
+#: ../includes/settings.php:58
+msgid "Manual"
+msgstr ""
+
+#: ../includes/settings.php:62
+msgid "Page link"
+msgstr ""
+
+#: ../includes/settings.php:63
+msgid "Custom link"
+msgstr ""
+
+#: ../includes/settings.php:72
+msgid "Banner"
+msgstr ""
+
+#: ../includes/settings.php:73 ../includes/settings.php:486
+msgid "Message"
+msgstr ""
+
+#: ../includes/settings.php:77
+msgid "Text color"
+msgstr ""
+
+#: ../includes/settings.php:78
+msgid "Bar color"
+msgstr ""
+
+#: ../includes/settings.php:84
+msgid "An hour"
+msgstr ""
+
+#: ../includes/settings.php:85
+msgid "1 day"
+msgstr ""
+
+#: ../includes/settings.php:86
+msgid "1 week"
+msgstr ""
+
+#: ../includes/settings.php:87
+msgid "1 month"
+msgstr ""
+
+#: ../includes/settings.php:88
+msgid "3 months"
+msgstr ""
+
+#: ../includes/settings.php:89
+msgid "6 months"
+msgstr ""
+
+#: ../includes/settings.php:90
+msgid "1 year"
+msgstr ""
+
+#: ../includes/settings.php:91
+msgid "infinity"
+msgstr ""
+
+#: ../includes/settings.php:97
+msgid "Fade"
+msgstr ""
+
+#: ../includes/settings.php:98
+msgid "Slide"
+msgstr ""
+
+#: ../includes/settings.php:102
+msgid "Header"
+msgstr ""
+
+#: ../includes/settings.php:103
+msgid "Footer"
+msgstr ""
+
+#: ../includes/settings.php:107
+msgid "Cookies are small files that are stored on your browser. We use cookies and similar technologies to ensure our website works properly."
+msgstr ""
+
+#: ../includes/settings.php:108
+msgid "Cookies are small files that are stored on your browser. We use cookies and similar technologies to ensure our website works properly, and to personalize your browsing experience."
+msgstr ""
+
+#: ../includes/settings.php:109
+msgid "Cookies are small files that are stored on your browser. We use cookies and similar technologies to ensure our website works properly, personalize your browsing experience, and analyze how you use our website. For these reasons, we may share your site usage data with our analytics partners."
+msgstr ""
+
+#: ../includes/settings.php:110
+msgid "Cookies are small files that are stored on your browser. We use cookies and similar technologies to ensure our website works properly, personalize your browsing experience, analyze how you use our website, and deliver relevant ads to you. For these reasons, we may share your site usage data with our social media, advertising and analytics partners."
+msgstr ""
+
+#: ../includes/settings.php:113
+msgid "You can choose whether or not you want to consent to our use of cookies through the options below."
+msgstr ""
+
+#: ../includes/settings.php:114
+msgid "You can choose whether or not you want to consent to our use of cookies through the options below. You can customise the use of cookies, and change your settings at any time."
+msgstr ""
+
+#: ../includes/settings.php:118
+msgid "Afghanistan"
+msgstr ""
+
+#: ../includes/settings.php:119
+msgid "&#197;land Islands"
+msgstr ""
+
+#: ../includes/settings.php:120
+msgid "Albania"
+msgstr ""
+
+#: ../includes/settings.php:121
+msgid "Algeria"
+msgstr ""
+
+#: ../includes/settings.php:122
+msgid "Andorra"
+msgstr ""
+
+#: ../includes/settings.php:123
+msgid "Angola"
+msgstr ""
+
+#: ../includes/settings.php:124
+msgid "Anguilla"
+msgstr ""
+
+#: ../includes/settings.php:125
+msgid "Antarctica"
+msgstr ""
+
+#: ../includes/settings.php:126
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: ../includes/settings.php:127
+msgid "Argentina"
+msgstr ""
+
+#: ../includes/settings.php:128
+msgid "Armenia"
+msgstr ""
+
+#: ../includes/settings.php:129
+msgid "Aruba"
+msgstr ""
+
+#: ../includes/settings.php:130
+msgid "Australia"
+msgstr ""
+
+#: ../includes/settings.php:131
+msgid "Austria"
+msgstr ""
+
+#: ../includes/settings.php:132
+msgid "Azerbaijan"
+msgstr ""
+
+#: ../includes/settings.php:133
+msgid "Bahamas"
+msgstr ""
+
+#: ../includes/settings.php:134
+msgid "Bahrain"
+msgstr ""
+
+#: ../includes/settings.php:135
+msgid "Bangladesh"
+msgstr ""
+
+#: ../includes/settings.php:136
+msgid "Barbados"
+msgstr ""
+
+#: ../includes/settings.php:137
+msgid "Belarus"
+msgstr ""
+
+#: ../includes/settings.php:138
+msgid "Belgium"
+msgstr ""
+
+#: ../includes/settings.php:139
+msgid "Belau"
+msgstr ""
+
+#: ../includes/settings.php:140
+msgid "Belize"
+msgstr ""
+
+#: ../includes/settings.php:141
+msgid "Benin"
+msgstr ""
+
+#: ../includes/settings.php:142
+msgid "Bermuda"
+msgstr ""
+
+#: ../includes/settings.php:143
+msgid "Bhutan"
+msgstr ""
+
+#: ../includes/settings.php:144
+msgid "Bolivia"
+msgstr ""
+
+#: ../includes/settings.php:145
+msgid "Bonaire, Saint Eustatius and Saba"
+msgstr ""
+
+#: ../includes/settings.php:146
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: ../includes/settings.php:147
+msgid "Botswana"
+msgstr ""
+
+#: ../includes/settings.php:148
+msgid "Bouvet Island"
+msgstr ""
+
+#: ../includes/settings.php:149
+msgid "Brazil"
+msgstr ""
+
+#: ../includes/settings.php:150
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: ../includes/settings.php:151
+msgid "British Virgin Islands"
+msgstr ""
+
+#: ../includes/settings.php:152
+msgid "Brunei"
+msgstr ""
+
+#: ../includes/settings.php:153
+msgid "Bulgaria"
+msgstr ""
+
+#: ../includes/settings.php:154
+msgid "Burkina Faso"
+msgstr ""
+
+#: ../includes/settings.php:155
+msgid "Burundi"
+msgstr ""
+
+#: ../includes/settings.php:156
+msgid "Cambodia"
+msgstr ""
+
+#: ../includes/settings.php:157
+msgid "Cameroon"
+msgstr ""
+
+#: ../includes/settings.php:158
+msgid "Canada"
+msgstr ""
+
+#: ../includes/settings.php:159
+msgid "Cape Verde"
+msgstr ""
+
+#: ../includes/settings.php:160
+msgid "Cayman Islands"
+msgstr ""
+
+#: ../includes/settings.php:161
+msgid "Central African Republic"
+msgstr ""
+
+#: ../includes/settings.php:162
+msgid "Chad"
+msgstr ""
+
+#: ../includes/settings.php:163
+msgid "Chile"
+msgstr ""
+
+#: ../includes/settings.php:164
+msgid "China"
+msgstr ""
+
+#: ../includes/settings.php:165
+msgid "Christmas Island"
+msgstr ""
+
+#: ../includes/settings.php:166
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: ../includes/settings.php:167
+msgid "Colombia"
+msgstr ""
+
+#: ../includes/settings.php:168
+msgid "Comoros"
+msgstr ""
+
+#: ../includes/settings.php:169
+msgid "Congo (Brazzaville)"
+msgstr ""
+
+#: ../includes/settings.php:170
+msgid "Congo (Kinshasa)"
+msgstr ""
+
+#: ../includes/settings.php:171
+msgid "Cook Islands"
+msgstr ""
+
+#: ../includes/settings.php:172
+msgid "Costa Rica"
+msgstr ""
+
+#: ../includes/settings.php:173
+msgid "Croatia"
+msgstr ""
+
+#: ../includes/settings.php:174
+msgid "Cuba"
+msgstr ""
+
+#: ../includes/settings.php:175
+msgid "Cura&Ccedil;ao"
+msgstr ""
+
+#: ../includes/settings.php:176
+msgid "Cyprus"
+msgstr ""
+
+#: ../includes/settings.php:177
+msgid "Czech Republic"
+msgstr ""
+
+#: ../includes/settings.php:178
+msgid "Denmark"
+msgstr ""
+
+#: ../includes/settings.php:179
+msgid "Djibouti"
+msgstr ""
+
+#: ../includes/settings.php:180
+msgid "Dominica"
+msgstr ""
+
+#: ../includes/settings.php:181
+msgid "Dominican Republic"
+msgstr ""
+
+#: ../includes/settings.php:182
+msgid "Ecuador"
+msgstr ""
+
+#: ../includes/settings.php:183
+msgid "Egypt"
+msgstr ""
+
+#: ../includes/settings.php:184
+msgid "El Salvador"
+msgstr ""
+
+#: ../includes/settings.php:185
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: ../includes/settings.php:186
+msgid "Eritrea"
+msgstr ""
+
+#: ../includes/settings.php:187
+msgid "Estonia"
+msgstr ""
+
+#: ../includes/settings.php:188
+msgid "Ethiopia"
+msgstr ""
+
+#: ../includes/settings.php:189
+msgid "Falkland Islands"
+msgstr ""
+
+#: ../includes/settings.php:190
+msgid "Faroe Islands"
+msgstr ""
+
+#: ../includes/settings.php:191
+msgid "Fiji"
+msgstr ""
+
+#: ../includes/settings.php:192
+msgid "Finland"
+msgstr ""
+
+#: ../includes/settings.php:193
+msgid "France"
+msgstr ""
+
+#: ../includes/settings.php:194
+msgid "French Guiana"
+msgstr ""
+
+#: ../includes/settings.php:195
+msgid "French Polynesia"
+msgstr ""
+
+#: ../includes/settings.php:196
+msgid "French Southern Territories"
+msgstr ""
+
+#: ../includes/settings.php:197
+msgid "Gabon"
+msgstr ""
+
+#: ../includes/settings.php:198
+msgid "Gambia"
+msgstr ""
+
+#: ../includes/settings.php:199
+msgid "Georgia"
+msgstr ""
+
+#: ../includes/settings.php:200
+msgid "Germany"
+msgstr ""
+
+#: ../includes/settings.php:201
+msgid "Ghana"
+msgstr ""
+
+#: ../includes/settings.php:202
+msgid "Gibraltar"
+msgstr ""
+
+#: ../includes/settings.php:203
+msgid "Greece"
+msgstr ""
+
+#: ../includes/settings.php:204
+msgid "Greenland"
+msgstr ""
+
+#: ../includes/settings.php:205
+msgid "Grenada"
+msgstr ""
+
+#: ../includes/settings.php:206
+msgid "Guadeloupe"
+msgstr ""
+
+#: ../includes/settings.php:207
+msgid "Guatemala"
+msgstr ""
+
+#: ../includes/settings.php:208
+msgid "Guernsey"
+msgstr ""
+
+#: ../includes/settings.php:209
+msgid "Guinea"
+msgstr ""
+
+#: ../includes/settings.php:210
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: ../includes/settings.php:211
+msgid "Guyana"
+msgstr ""
+
+#: ../includes/settings.php:212
+msgid "Haiti"
+msgstr ""
+
+#: ../includes/settings.php:213
+msgid "Heard Island and McDonald Islands"
+msgstr ""
+
+#: ../includes/settings.php:214
+msgid "Honduras"
+msgstr ""
+
+#: ../includes/settings.php:215
+msgid "Hong Kong"
+msgstr ""
+
+#: ../includes/settings.php:216
+msgid "Hungary"
+msgstr ""
+
+#: ../includes/settings.php:217
+msgid "Iceland"
+msgstr ""
+
+#: ../includes/settings.php:218
+msgid "India"
+msgstr ""
+
+#: ../includes/settings.php:219
+msgid "Indonesia"
+msgstr ""
+
+#: ../includes/settings.php:220
+msgid "Iran"
+msgstr ""
+
+#: ../includes/settings.php:221
+msgid "Iraq"
+msgstr ""
+
+#: ../includes/settings.php:222
+msgid "Republic of Ireland"
+msgstr ""
+
+#: ../includes/settings.php:223
+msgid "Isle of Man"
+msgstr ""
+
+#: ../includes/settings.php:224
+msgid "Israel"
+msgstr ""
+
+#: ../includes/settings.php:225
+msgid "Italy"
+msgstr ""
+
+#: ../includes/settings.php:226
+msgid "Ivory Coast"
+msgstr ""
+
+#: ../includes/settings.php:227
+msgid "Jamaica"
+msgstr ""
+
+#: ../includes/settings.php:228
+msgid "Japan"
+msgstr ""
+
+#: ../includes/settings.php:229
+msgid "Jersey"
+msgstr ""
+
+#: ../includes/settings.php:230
+msgid "Jordan"
+msgstr ""
+
+#: ../includes/settings.php:231
+msgid "Kazakhstan"
+msgstr ""
+
+#: ../includes/settings.php:232
+msgid "Kenya"
+msgstr ""
+
+#: ../includes/settings.php:233
+msgid "Kiribati"
+msgstr ""
+
+#: ../includes/settings.php:234
+msgid "Kuwait"
+msgstr ""
+
+#: ../includes/settings.php:235
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: ../includes/settings.php:236
+msgid "Laos"
+msgstr ""
+
+#: ../includes/settings.php:237
+msgid "Latvia"
+msgstr ""
+
+#: ../includes/settings.php:238
+msgid "Lebanon"
+msgstr ""
+
+#: ../includes/settings.php:239
+msgid "Lesotho"
+msgstr ""
+
+#: ../includes/settings.php:240
+msgid "Liberia"
+msgstr ""
+
+#: ../includes/settings.php:241
+msgid "Libya"
+msgstr ""
+
+#: ../includes/settings.php:242
+msgid "Liechtenstein"
+msgstr ""
+
+#: ../includes/settings.php:243
+msgid "Lithuania"
+msgstr ""
+
+#: ../includes/settings.php:244
+msgid "Luxembourg"
+msgstr ""
+
+#: ../includes/settings.php:245
+msgid "Macao S.A.R., China"
+msgstr ""
+
+#: ../includes/settings.php:246
+msgid "Macedonia"
+msgstr ""
+
+#: ../includes/settings.php:247
+msgid "Madagascar"
+msgstr ""
+
+#: ../includes/settings.php:248
+msgid "Malawi"
+msgstr ""
+
+#: ../includes/settings.php:249
+msgid "Malaysia"
+msgstr ""
+
+#: ../includes/settings.php:250
+msgid "Maldives"
+msgstr ""
+
+#: ../includes/settings.php:251
+msgid "Mali"
+msgstr ""
+
+#: ../includes/settings.php:252
+msgid "Malta"
+msgstr ""
+
+#: ../includes/settings.php:253
+msgid "Marshall Islands"
+msgstr ""
+
+#: ../includes/settings.php:254
+msgid "Martinique"
+msgstr ""
+
+#: ../includes/settings.php:255
+msgid "Mauritania"
+msgstr ""
+
+#: ../includes/settings.php:256
+msgid "Mauritius"
+msgstr ""
+
+#: ../includes/settings.php:257
+msgid "Mayotte"
+msgstr ""
+
+#: ../includes/settings.php:258
+msgid "Mexico"
+msgstr ""
+
+#: ../includes/settings.php:259
+msgid "Micronesia"
+msgstr ""
+
+#: ../includes/settings.php:260
+msgid "Moldova"
+msgstr ""
+
+#: ../includes/settings.php:261
+msgid "Monaco"
+msgstr ""
+
+#: ../includes/settings.php:262
+msgid "Mongolia"
+msgstr ""
+
+#: ../includes/settings.php:263
+msgid "Montenegro"
+msgstr ""
+
+#: ../includes/settings.php:264
+msgid "Montserrat"
+msgstr ""
+
+#: ../includes/settings.php:265
+msgid "Morocco"
+msgstr ""
+
+#: ../includes/settings.php:266
+msgid "Mozambique"
+msgstr ""
+
+#: ../includes/settings.php:267
+msgid "Myanmar"
+msgstr ""
+
+#: ../includes/settings.php:268
+msgid "Namibia"
+msgstr ""
+
+#: ../includes/settings.php:269
+msgid "Nauru"
+msgstr ""
+
+#: ../includes/settings.php:270
+msgid "Nepal"
+msgstr ""
+
+#: ../includes/settings.php:271
+msgid "Netherlands"
+msgstr ""
+
+#: ../includes/settings.php:272
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: ../includes/settings.php:273
+msgid "New Caledonia"
+msgstr ""
+
+#: ../includes/settings.php:274
+msgid "New Zealand"
+msgstr ""
+
+#: ../includes/settings.php:275
+msgid "Nicaragua"
+msgstr ""
+
+#: ../includes/settings.php:276
+msgid "Niger"
+msgstr ""
+
+#: ../includes/settings.php:277
+msgid "Nigeria"
+msgstr ""
+
+#: ../includes/settings.php:278
+msgid "Niue"
+msgstr ""
+
+#: ../includes/settings.php:279
+msgid "Norfolk Island"
+msgstr ""
+
+#: ../includes/settings.php:280
+msgid "North Korea"
+msgstr ""
+
+#: ../includes/settings.php:281
+msgid "Norway"
+msgstr ""
+
+#: ../includes/settings.php:282
+msgid "Oman"
+msgstr ""
+
+#: ../includes/settings.php:283
+msgid "Pakistan"
+msgstr ""
+
+#: ../includes/settings.php:284
+msgid "Palestinian Territory"
+msgstr ""
+
+#: ../includes/settings.php:285
+msgid "Panama"
+msgstr ""
+
+#: ../includes/settings.php:286
+msgid "Papua New Guinea"
+msgstr ""
+
+#: ../includes/settings.php:287
+msgid "Paraguay"
+msgstr ""
+
+#: ../includes/settings.php:288
+msgid "Peru"
+msgstr ""
+
+#: ../includes/settings.php:289
+msgid "Philippines"
+msgstr ""
+
+#: ../includes/settings.php:290
+msgid "Pitcairn"
+msgstr ""
+
+#: ../includes/settings.php:291
+msgid "Poland"
+msgstr ""
+
+#: ../includes/settings.php:292
+msgid "Portugal"
+msgstr ""
+
+#: ../includes/settings.php:293
+msgid "Qatar"
+msgstr ""
+
+#: ../includes/settings.php:294
+msgid "Reunion"
+msgstr ""
+
+#: ../includes/settings.php:295
+msgid "Romania"
+msgstr ""
+
+#: ../includes/settings.php:296
+msgid "Russia"
+msgstr ""
+
+#: ../includes/settings.php:297
+msgid "Rwanda"
+msgstr ""
+
+#: ../includes/settings.php:298
+msgid "Saint Barth&eacute;lemy"
+msgstr ""
+
+#: ../includes/settings.php:299
+msgid "Saint Helena"
+msgstr ""
+
+#: ../includes/settings.php:300
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: ../includes/settings.php:301
+msgid "Saint Lucia"
+msgstr ""
+
+#: ../includes/settings.php:302
+msgid "Saint Martin (French part)"
+msgstr ""
+
+#: ../includes/settings.php:303
+msgid "Saint Martin (Dutch part)"
+msgstr ""
+
+#: ../includes/settings.php:304
+msgid "Saint Pierre and Miquelon"
+msgstr ""
+
+#: ../includes/settings.php:305
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: ../includes/settings.php:306
+msgid "San Marino"
+msgstr ""
+
+#: ../includes/settings.php:307
+msgid "S&atilde;o Tom&eacute; and Pr&iacute;ncipe"
+msgstr ""
+
+#: ../includes/settings.php:308
+msgid "Saudi Arabia"
+msgstr ""
+
+#: ../includes/settings.php:309
+msgid "Senegal"
+msgstr ""
+
+#: ../includes/settings.php:310
+msgid "Serbia"
+msgstr ""
+
+#: ../includes/settings.php:311
+msgid "Seychelles"
+msgstr ""
+
+#: ../includes/settings.php:312
+msgid "Sierra Leone"
+msgstr ""
+
+#: ../includes/settings.php:313
+msgid "Singapore"
+msgstr ""
+
+#: ../includes/settings.php:314
+msgid "Slovakia"
+msgstr ""
+
+#: ../includes/settings.php:315
+msgid "Slovenia"
+msgstr ""
+
+#: ../includes/settings.php:316
+msgid "Solomon Islands"
+msgstr ""
+
+#: ../includes/settings.php:317
+msgid "Somalia"
+msgstr ""
+
+#: ../includes/settings.php:318
+msgid "South Africa"
+msgstr ""
+
+#: ../includes/settings.php:319
+msgid "South Georgia/Sandwich Islands"
+msgstr ""
+
+#: ../includes/settings.php:320
+msgid "South Korea"
+msgstr ""
+
+#: ../includes/settings.php:321
+msgid "South Sudan"
+msgstr ""
+
+#: ../includes/settings.php:322
+msgid "Spain"
+msgstr ""
+
+#: ../includes/settings.php:323
+msgid "Sri Lanka"
+msgstr ""
+
+#: ../includes/settings.php:324
+msgid "Sudan"
+msgstr ""
+
+#: ../includes/settings.php:325
+msgid "Suriname"
+msgstr ""
+
+#: ../includes/settings.php:326
+msgid "Svalbard and Jan Mayen"
+msgstr ""
+
+#: ../includes/settings.php:327
+msgid "Swaziland"
+msgstr ""
+
+#: ../includes/settings.php:328
+msgid "Sweden"
+msgstr ""
+
+#: ../includes/settings.php:329
+msgid "Switzerland"
+msgstr ""
+
+#: ../includes/settings.php:330
+msgid "Syria"
+msgstr ""
+
+#: ../includes/settings.php:331
+msgid "Taiwan"
+msgstr ""
+
+#: ../includes/settings.php:332
+msgid "Tajikistan"
+msgstr ""
+
+#: ../includes/settings.php:333
+msgid "Tanzania"
+msgstr ""
+
+#: ../includes/settings.php:334
+msgid "Thailand"
+msgstr ""
+
+#: ../includes/settings.php:335
+msgid "Timor-Leste"
+msgstr ""
+
+#: ../includes/settings.php:336
+msgid "Togo"
+msgstr ""
+
+#: ../includes/settings.php:337
+msgid "Tokelau"
+msgstr ""
+
+#: ../includes/settings.php:338
+msgid "Tonga"
+msgstr ""
+
+#: ../includes/settings.php:339
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: ../includes/settings.php:340
+msgid "Tunisia"
+msgstr ""
+
+#: ../includes/settings.php:341
+msgid "Turkey"
+msgstr ""
+
+#: ../includes/settings.php:342
+msgid "Turkmenistan"
+msgstr ""
+
+#: ../includes/settings.php:343
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: ../includes/settings.php:344
+msgid "Tuvalu"
+msgstr ""
+
+#: ../includes/settings.php:345
+msgid "Uganda"
+msgstr ""
+
+#: ../includes/settings.php:346
+msgid "Ukraine"
+msgstr ""
+
+#: ../includes/settings.php:347
+msgid "United Arab Emirates"
+msgstr ""
+
+#: ../includes/settings.php:348
+msgid "United Kingdom"
+msgstr ""
+
+#: ../includes/settings.php:349
+msgid "United States"
+msgstr ""
+
+#: ../includes/settings.php:350
+msgid "Uruguay"
+msgstr ""
+
+#: ../includes/settings.php:351
+msgid "Uzbekistan"
+msgstr ""
+
+#: ../includes/settings.php:352
+msgid "Vanuatu"
+msgstr ""
+
+#: ../includes/settings.php:353
+msgid "Vatican"
+msgstr ""
+
+#: ../includes/settings.php:354
+msgid "Venezuela"
+msgstr ""
+
+#: ../includes/settings.php:355
+msgid "Vietnam"
+msgstr ""
+
+#: ../includes/settings.php:356
+msgid "Wallis and Futuna"
+msgstr ""
+
+#: ../includes/settings.php:357
+msgid "Western Sahara"
+msgstr ""
+
+#: ../includes/settings.php:358
+msgid "Western Samoa"
+msgstr ""
+
+#: ../includes/settings.php:359
+msgid "Yemen"
+msgstr ""
+
+#: ../includes/settings.php:360
+msgid "Zambia"
+msgstr ""
+
+#: ../includes/settings.php:361
+msgid "Zimbabwe"
+msgstr ""
+
+#: ../includes/settings.php:365
+msgid "We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it."
+msgstr ""
+
+#: ../includes/settings.php:366
+msgid "Ok"
+msgstr ""
+
+#: ../includes/settings.php:367
+msgid "No"
+msgstr ""
+
+#: ../includes/settings.php:368
+msgid "You can revoke your consent any time using the Revoke consent button."
+msgstr ""
+
+#: ../includes/settings.php:369 ../includes/settings.php:490
+msgid "Revoke consent"
+msgstr ""
+
+#: ../includes/settings.php:370 ../includes/settings.php:488
+msgid "Privacy policy"
+msgstr ""
+
+#: ../includes/settings.php:416
+msgid "Cookie Notice & Compliance for GDPR/CCPA"
+msgstr ""
+
+#: ../includes/settings.php:425
+msgid "Promote the privacy of your website visitors without affecting how you do your business."
+msgstr ""
+
+#: ../includes/settings.php:427
+msgid "Cookie Compliance&trade;"
+msgstr ""
+
+#: ../includes/settings.php:428 ../includes/welcome.php:173
+#: ../includes/welcome.php:206
+msgid "The next generation of Cookie Notice"
+msgstr ""
+
+#: ../includes/settings.php:430 ../includes/welcome.php:175
+msgid "An all new web application to help you deliver better consent experiences and comply with GDPR and CCPA more effectively."
+msgstr ""
+
+#: ../includes/settings.php:433
+msgid "Upgrade"
+msgstr ""
+
+#: ../includes/settings.php:449
+msgid "Reset to defaults"
+msgstr ""
+
+#: ../includes/settings.php:468 ../includes/settings.php:480
+msgid "Cookie Compliance Settings"
+msgstr ""
+
+#: ../includes/settings.php:469 ../includes/settings.php:481
+msgid "Compliance status"
+msgstr ""
+
+#: ../includes/settings.php:470 ../includes/settings.php:482
+msgid "App ID"
+msgstr ""
+
+#: ../includes/settings.php:471 ../includes/settings.php:483
+msgid "App Key"
+msgstr ""
+
+#: ../includes/settings.php:473
+msgid "Miscellaneous Settings"
+msgstr ""
+
+#: ../includes/settings.php:474
+msgid "Cache"
+msgstr ""
+
+#: ../includes/settings.php:475 ../includes/settings.php:497
+msgid "Script placement"
+msgstr ""
+
+#: ../includes/settings.php:476 ../includes/settings.php:498
+msgid "Deactivation"
+msgstr ""
+
+#: ../includes/settings.php:485
+msgid "Cookie Notice Settings"
+msgstr ""
+
+#: ../includes/settings.php:487
+msgid "Button text"
+msgstr ""
+
+#: ../includes/settings.php:489
+msgid "Refuse consent"
+msgstr ""
+
+#: ../includes/settings.php:491
+msgid "Script blocking"
+msgstr ""
+
+#: ../includes/settings.php:492
+msgid "Reloading"
+msgstr ""
+
+#: ../includes/settings.php:493
+msgid "On scroll"
+msgstr ""
+
+#: ../includes/settings.php:494
+msgid "On click"
+msgstr ""
+
+#: ../includes/settings.php:495
+msgid "Accepted expiry"
+msgstr ""
+
+#: ../includes/settings.php:496
+msgid "Rejected expiry"
+msgstr ""
+
+#: ../includes/settings.php:501
+msgid "Cookie Notice Design"
+msgstr ""
+
+#: ../includes/settings.php:502
+msgid "Position"
+msgstr ""
+
+#: ../includes/settings.php:503
+msgid "Animation"
+msgstr ""
+
+#: ../includes/settings.php:504
+msgid "Button style"
+msgstr ""
+
+#: ../includes/settings.php:505
+msgid "Button class"
+msgstr ""
+
+#: ../includes/settings.php:506
+msgid "Colors"
+msgstr ""
+
+#: ../includes/settings.php:528
+msgid "Active"
+msgstr ""
+
+#: ../includes/settings.php:531
+msgid "Log in & Configure"
+msgstr ""
+
+#: ../includes/settings.php:532
+msgid "Log into the Cookie Compliance&trade; web application and configure your Privacy Experience."
+msgstr ""
+
+#: ../includes/settings.php:540
+msgid "Pending"
+msgstr ""
+
+#: ../includes/settings.php:543
+msgid "Log in & Complete setup"
+msgstr ""
+
+#: ../includes/settings.php:544
+msgid "Log into the Cookie Compliance&trade; web application and complete the setup process."
+msgstr ""
+
+#: ../includes/settings.php:552
+msgid "Inactive"
+msgstr ""
+
+#: ../includes/settings.php:555
+msgid "Add GDPR/CCPA Compliance"
+msgstr ""
+
+#: ../includes/settings.php:556
+msgid "Launch Cookie Compliance&trade; and add GDPR & CCPA compliance features."
+msgstr ""
+
+#: ../includes/settings.php:571
+msgid "Enter your Cooking Compliance&trade; application ID."
+msgstr ""
+
+#: ../includes/settings.php:583
+msgid "Enter your Cooking Compliance&trade; application secret key."
+msgstr ""
+
+#: ../includes/settings.php:594
+msgid "Purge Cache"
+msgstr ""
+
+#: ../includes/settings.php:596
+msgid "Click the Purge Cache button to refresh the app configuration."
+msgstr ""
+
+#: ../includes/settings.php:607
+msgid "Enter the cookie notice message."
+msgstr ""
+
+#: ../includes/settings.php:618
+msgid "The text of the option to accept the notice and make it disappear."
+msgstr ""
+
+#: ../includes/settings.php:628
+msgid "Enable to give to the user the possibility to refuse third party non functional cookies."
+msgstr ""
+
+#: ../includes/settings.php:632
+msgid "The text of the button to refuse the consent."
+msgstr ""
+
+#: ../includes/settings.php:650
+msgid "Head"
+msgstr ""
+
+#: ../includes/settings.php:651
+msgid "Body"
+msgstr ""
+
+#: ../includes/settings.php:654
+msgid "The code to be used in your site header, before the closing head tag."
+msgstr ""
+
+#: ../includes/settings.php:658
+msgid "The code to be used in your site footer, before the closing body tag."
+msgstr ""
+
+#: ../includes/settings.php:662
+msgid "Enter non functional cookies Javascript code here (for e.g. Google Analitycs) to be used after the notice is accepted."
+msgstr ""
+
+#: ../includes/settings.php:662
+msgid "To get the user consent status use the <code>cn_cookies_accepted()</code> function."
+msgstr ""
+
+#: ../includes/settings.php:673
+msgid "Enable to give to the user the possibility to revoke their consent <i>(requires \"Refuse consent\" option enabled)</i>."
+msgstr ""
+
+#: ../includes/settings.php:676
+msgid "Enter the revoke message."
+msgstr ""
+
+#: ../includes/settings.php:678
+msgid "The text of the button to revoke the consent."
+msgstr ""
+
+#: ../includes/settings.php:686
+msgid "Select the method for displaying the revoke button - automatic (in the banner) or manual using <code>[cookies_revoke]</code> shortcode."
+msgstr ""
+
+#: ../includes/settings.php:697
+msgid "Enable to reload the page after the notice is accepted."
+msgstr ""
+
+#: ../includes/settings.php:720
+msgid "Enable privacy policy link."
+msgstr ""
+
+#: ../includes/settings.php:723
+msgid "The text of the privacy policy button."
+msgstr ""
+
+#: ../includes/settings.php:735
+msgid "Select where to redirect user for more information."
+msgstr ""
+
+#: ../includes/settings.php:738
+msgid "-- select page --"
+msgstr ""
+
+#: ../includes/settings.php:749
+msgid "Select from one of your site's pages."
+msgstr ""
+
+#: ../includes/settings.php:755
+msgid "Synchronize with WordPress Privacy Policy page."
+msgstr ""
+
+#: ../includes/settings.php:762
+msgid "Enter the full URL starting with http(s)://"
+msgstr ""
+
+#: ../includes/settings.php:805
+msgid "The amount of time that the cookie should be stored for when user accepts the notice."
+msgstr ""
+
+#: ../includes/settings.php:828
+msgid "The amount of time that the cookie should be stored for when the user doesn't accept the notice."
+msgstr ""
+
+#: ../includes/settings.php:846
+msgid "Select where all the plugin scripts should be placed."
+msgstr ""
+
+#: ../includes/settings.php:866
+msgid "Select location for the notice."
+msgstr ""
+
+#: ../includes/settings.php:887
+msgid "Select the animation style."
+msgstr ""
+
+#: ../includes/settings.php:898
+msgid "Enable to accept the notice when user scrolls."
+msgstr ""
+
+#: ../includes/settings.php:901
+msgid "Number of pixels user has to scroll to accept the notice and make it disappear."
+msgstr ""
+
+#: ../includes/settings.php:912
+msgid "Enable to accept the notice on any click on the page."
+msgstr ""
+
+#: ../includes/settings.php:922
+msgid "Enable if you want all plugin data to be deleted on deactivation."
+msgstr ""
+
+#: ../includes/settings.php:942
+msgid "Select the buttons style."
+msgstr ""
+
+#: ../includes/settings.php:955
+msgid "Enter additional button CSS classes separated by spaces."
+msgstr ""
+
+#: ../includes/settings.php:979
+msgid "Bar opacity"
+msgstr ""
+
+#: ../includes/settings.php:1121
+msgid "Settings restored to defaults."
+msgstr ""
+
+#: ../includes/settings.php:1148
 msgid "Are you sure you want to reset these settings to defaults?"
+msgstr ""
+
+#: ../includes/welcome-api.php:35 ../includes/welcome-api.php:38
+#: ../includes/welcome-api.php:41 ../includes/welcome-api.php:44
+#: ../includes/welcome.php:140 ../includes/welcome.php:150
+#: ../includes/welcome.php:153
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: ../includes/welcome-api.php:71 ../includes/welcome-api.php:267
+#: ../includes/welcome-api.php:306 ../includes/welcome-api.php:354
+#: ../includes/welcome-api.php:427 ../includes/welcome-api.php:697
+#: ../includes/welcome.php:74
+msgid "Unexpected error occurred. Please try again later."
+msgstr ""
+
+#: ../includes/welcome-api.php:85
+msgid "Empty plan or payment method data."
+msgstr ""
+
+#: ../includes/welcome-api.php:116
+msgid "Unable to create customer data."
+msgstr ""
+
+#: ../includes/welcome-api.php:209
+msgid "Please accept the Terms of Service to proceed."
+msgstr ""
+
+#: ../includes/welcome-api.php:214 ../includes/welcome-api.php:325
+msgid "Email is not allowed to be empty."
+msgstr ""
+
+#: ../includes/welcome-api.php:219 ../includes/welcome-api.php:330
+msgid "Password is not allowed to be empty."
+msgstr ""
+
+#: ../includes/welcome-api.php:224
+msgid "Passwords do not match."
+msgstr ""
+
+#: ../includes/welcome-api.php:441
+#, php-format
+msgid "You have an active subscription for %s"
+msgstr ""
+
+#: ../includes/welcome.php:36
+msgid "Welcome to Cookie Notice"
+msgstr ""
+
+#: ../includes/welcome.php:75
+msgid "Please fill all the required fields."
+msgstr ""
+
+#: ../includes/welcome.php:181
+msgid "Digital Factory - the original developers of Cookie Notice - has joined forces with <a href=\"https://hu-manity.co\" target=\"_blank\" class=\"cn-link\">Hu-manity.co</a>, the company known for introducing the 31st Human Right, to launch the Cookie Compliance&trade; web application."
+msgstr ""
+
+#: ../includes/welcome.php:205
+msgid "Privacy Made Easy"
+msgstr ""
+
+#: ../includes/welcome.php:208
+msgid "Cookie Compliance&trade; adds GDPR & CCPA compliance features, and a new Privacy Experience to Cookie Notice."
+msgstr ""
+
+#: ../includes/welcome.php:214
+msgid "WP Plugin"
+msgstr ""
+
+#: ../includes/welcome.php:218
+msgid "Customizable notice message"
+msgstr ""
+
+#: ../includes/welcome.php:219
+msgid "Consent on click, scroll or close"
+msgstr ""
+
+#: ../includes/welcome.php:220
+msgid "Multiple cookie expiry options"
+msgstr ""
+
+#: ../includes/welcome.php:221
+msgid "Link to Privacy Policy page"
+msgstr ""
+
+#: ../includes/welcome.php:230
+msgid "Web App"
+msgstr ""
+
+#: ../includes/welcome.php:234
+msgid "Customizable <b>GDPR & CCPA</b> notice templates"
+msgstr ""
+
+#: ../includes/welcome.php:235
+msgid "<b>Consent Analytics</b> Dashboard"
+msgstr ""
+
+#: ../includes/welcome.php:236
+msgid "Cookie <b>Autoblocking</b> (complies with GDPR Art.7)"
+msgstr ""
+
+#: ../includes/welcome.php:237
+msgid "<b>Cookie Categories</b> (complies with GDPR Art.32)"
+msgstr ""
+
+#: ../includes/welcome.php:238
+msgid "<b>Proof-of-Consent</b> Storage (complies with GDPR Art.30)"
+msgstr ""
+
+#: ../includes/welcome.php:239
+msgid "Link to <b>'Do Not Sell'</b> page (supports CCPA Sec.1798)"
+msgstr ""
+
+#: ../includes/welcome.php:240
+msgid "Enhanced design controls and options"
+msgstr ""
+
+#: ../includes/welcome.php:241
+msgid "Multiple new banner positions"
+msgstr ""
+
+#: ../includes/welcome.php:242
+msgid "Custom language localization"
+msgstr ""
+
+#: ../includes/welcome.php:256
+msgid "Welcome"
+msgstr ""
+
+#: ../includes/welcome.php:257
+msgid "You are now Promoting Privacy"
+msgstr ""
+
+#: ../includes/welcome.php:259
+msgid "Log into the Cookie Compliance&trade; web application and continue configuring your Privacy Experience."
+msgstr ""
+
+#: ../includes/welcome.php:262
+msgid "Go to Application"
+msgstr ""
+
+#: ../includes/welcome.php:288 ../includes/welcome.php:399
+msgid "GDPR & CCPA Upgrade Ready"
+msgstr ""
+
+#: ../includes/welcome.php:289
+msgid "Simulate Cookie Compliance&trade; on your site."
+msgstr ""
+
+#: ../includes/welcome.php:289
+msgid "Click below to see what the next generation of Cookie Notice looks like running on your website."
+msgstr ""
+
+#: ../includes/welcome.php:291
+msgid "Site URL"
+msgstr ""
+
+#: ../includes/welcome.php:292
+msgid "Site Name"
+msgstr ""
+
+#: ../includes/welcome.php:297
+msgid "Launch Live Demo"
+msgstr ""
+
+#: ../includes/welcome.php:310
+msgid "Compliance Live Demo"
+msgstr ""
+
+#: ../includes/welcome.php:311
+msgid "Simulate the upgraded Cookie Compliance&trade; design and compliance features through the options below. Click Save & Upgrade to create your Cookie Compliance&trade; account."
+msgstr ""
+
+#: ../includes/welcome.php:315
+msgid "Banner Compliance"
+msgstr ""
+
+#: ../includes/welcome.php:336
+msgid "Select the laws that apply to your business"
+msgstr ""
+
+#: ../includes/welcome.php:338
+msgid "GDPR"
+msgstr ""
+
+#: ../includes/welcome.php:339
+msgid "CCPA"
+msgstr ""
+
+#: ../includes/welcome.php:343
+msgid "What kind of services is your site using? Check all that apply"
+msgstr ""
+
+#: ../includes/welcome.php:345
+msgid "I use personalization services on my site​"
+msgstr ""
+
+#: ../includes/welcome.php:346
+msgid "I collect and analyse information about my website’s traffic"
+msgstr ""
+
+#: ../includes/welcome.php:347
+msgid "I run targeted ads on my site using, for example, Google Adsense​"
+msgstr ""
+
+#: ../includes/welcome.php:353
+msgid "Banner Design"
+msgstr ""
+
+#: ../includes/welcome.php:357
+msgid "Select your preferred display position"
+msgstr ""
+
+#: ../includes/welcome.php:361
+msgid "Left"
+msgstr ""
+
+#: ../includes/welcome.php:362
+msgid "Right"
+msgstr ""
+
+#: ../includes/welcome.php:363
+msgid "Center"
+msgstr ""
+
+#: ../includes/welcome.php:367
+msgid "Adjust the banner color scheme"
+msgstr ""
+
+#: ../includes/welcome.php:369
+msgid "Color of the buttons and interactive elements."
+msgstr ""
+
+#: ../includes/welcome.php:370
+msgid "Color of the banner background."
+msgstr ""
+
+#: ../includes/welcome.php:371
+msgid "Color of the borders and inactive elements."
+msgstr ""
+
+#: ../includes/welcome.php:372
+msgid "Color of the body text."
+msgstr ""
+
+#: ../includes/welcome.php:373
+msgid "Color of the heading text."
+msgstr ""
+
+#: ../includes/welcome.php:374
+msgid "Color of the button text."
+msgstr ""
+
+#: ../includes/welcome.php:381
+msgid "Add Compliance"
+msgstr ""
+
+#: ../includes/welcome.php:401
+msgid "Create an account to start using Cooking Compliance&trade; - The next generation of Cookie Notice."
+msgstr ""
+
+#: ../includes/welcome.php:405 ../includes/welcome.php:505
+msgid "Compliance Account"
+msgstr ""
+
+#: ../includes/welcome.php:410 ../includes/welcome.php:510
+msgid "Email address"
+msgstr ""
+
+#: ../includes/welcome.php:413 ../includes/welcome.php:513
+msgid "Password"
+msgstr ""
+
+#: ../includes/welcome.php:416
+msgid "Confirm Password"
+msgstr ""
+
+#: ../includes/welcome.php:420
+msgid "I have read and agree to the"
+msgstr ""
+
+#: ../includes/welcome.php:420
+msgid "Terms of Service"
+msgstr ""
+
+#: ../includes/welcome.php:424
+msgid "Sign Up"
+msgstr ""
+
+#: ../includes/welcome.php:438
+msgid "Already have an account? <a href=\"#\" class=\"cn-screen-button\" data-screen=\"login\">Sign in</a>"
+msgstr ""
+
+#: ../includes/welcome.php:443 ../includes/welcome.php:535
+msgid "Compliance Plan"
+msgstr ""
+
+#: ../includes/welcome.php:449 ../includes/welcome.php:541
+msgid "/mo"
+msgstr ""
+
+#: ../includes/welcome.php:450 ../includes/welcome.php:542
+msgid "/yr"
+msgstr ""
+
+#: ../includes/welcome.php:454 ../includes/welcome.php:546
+msgid "Payment Method"
+msgstr ""
+
+#: ../includes/welcome.php:456 ../includes/welcome.php:548
+msgid "Credit Card"
+msgstr ""
+
+#: ../includes/welcome.php:457 ../includes/welcome.php:549
+msgid "PayPal"
+msgstr ""
+
+#: ../includes/welcome.php:463 ../includes/welcome.php:555
+msgid "Card Number"
+msgstr ""
+
+#: ../includes/welcome.php:467 ../includes/welcome.php:559
+msgid "Expiration Date"
+msgstr ""
+
+#: ../includes/welcome.php:471 ../includes/welcome.php:563
+msgid "CVC/CVV"
+msgstr ""
+
+#: ../includes/welcome.php:475 ../includes/welcome.php:567
+msgid "Subscribe"
+msgstr ""
+
+#: ../includes/welcome.php:499
+msgid "Compliance Sign in"
+msgstr ""
+
+#: ../includes/welcome.php:501
+msgid "Sign in to your existing Cooking Compliance&trade; account to upgrade this website."
+msgstr ""
+
+#: ../includes/welcome.php:516
+msgid "Sign in"
+msgstr ""
+
+#: ../includes/welcome.php:530
+msgid "Don't have an account yet? <a href=\"#\" class=\"cn-screen-button\" data-screen=\"register\">Sign up</a>"
+msgstr ""
+
+#: ../includes/welcome.php:591
+msgid "Success!"
+msgstr ""
+
+#: ../includes/welcome.php:592
+msgid "You have successfully upgraded your website to Cookie Compliance&trade;"
+msgstr ""
+
+#: ../includes/welcome.php:592
+#, php-format
+msgid "Go to Cookie Compliance&trade; application now. Or access it anytime from your <a href=\"%s\">Cookie Notice settings page</a>."
+msgstr ""
+
+#: ../includes/welcome.php:601
+msgid "Remind me later"
+msgstr ""
+
+#: ../includes/welcome.php:604
+msgid "WordPress Dashboard"
+msgstr ""
+
+#: ../includes/welcome.php:607
+msgid "Skip for now"
 msgstr ""

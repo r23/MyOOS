@@ -1,56 +1,46 @@
-=== Cookie Notice for GDPR & CCPA ===
-Contributors: dfactory
-Donate link: http://www.dfactory.eu/
-Tags: gdpr, ccpa, cookie, cookies, notice, notification, notify, cookie, cookie law, privacy, policy, consent, law
-Requires at least: 3.3
-Requires PHP: 5.2.4
-Tested up to: 5.4
-Stable tag: 1.3.2
+=== Cookie Notice & Compliance for GDPR / CCPA ===
+Contributors: humanityco
+Tags: gdpr, ccpa, cookies, consent, compliance
+Requires at least: 4.3
+Requires PHP: 5.3
+Tested up to: 5.6
+Stable tag: 2.0.0
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-Cookie Notice allows you to you elegantly inform users that your site uses cookies and helps you comply with the EU GDPR cookie law and CCPA regulations.
+Cookie Notice allows you to you elegantly inform users that your site uses cookies and helps you comply with GDPR, CCPA and other data privacy laws.
 
 == Description ==
 
-[Cookie Notice](http://www.dfactory.eu/plugins/cookie-notice/) allows you to elegantly inform users that your site uses cookies and helps you comply with the EU GDPR cookie law and CCPA regulations.
+Cookie Notice provides a simple, customizable website banner that can be used to help your website comply with certain cookie consent requirements under the EU GDPR cookie law and CCPA regulations.
 
-For more information, check out plugin page at [dFactory](http://www.dfactory.eu/) or plugin [support forum](http://www.dfactory.eu/support/forum/cookie-notice/).
+Cookie Compliance enhances the functionality of Cookie Notice by providing automated compliance features and better design controls in a state-of-the-art web application. 
 
-= Features include: =
+> Cookie Compliance was developed to help small, and medium-sized websites <strong>take the guesswork out of compliance</strong>. We have always taken pride in delivering value to our Cookie Notice users. Through our upgraded Cookie Compliance web application, we can continue to deliver value by helping web admins respect the privacy of their website visitors without affecting their ability to do business.<br>
+> Bartosz Arendt - original developer of Cookie Notice + VP of Product & Technology @hu-manity.co
 
-* Customizable message
-* Redirects users to specified page for more information
+= Cookie Notice Features: =
+
+* Customizable notice message
+* Consent on click, scroll or close
 * Multiple cookie expiry options
 * Link to Privacy Policy page
 * WordPress Privacy Policy page synchronization
-* Option to accept the notice on scroll
-* Option to set on scroll offset
-* Option to accept the notice with any page click
-* Option to refuse the consent
-* Option to revoke the consent
-* Option to manually block scripts
-* Option to reload the page after accepting the notice
-* Select the position of the notice container
-* Select the position of the privacy policy link
-* Animate the container after notice is accepted
-* Select from 3 buttons style
-* Set the text and bar background colors
 * WPML and Polylang compatible
 * SEO friendly
-* .pot file for translations included
 
-= Usage: =
+= Cookie Compliance Features: =
 
-If you'd like to code a functionality depending on the cookie notice value use the function below:
+* Customizable GDPR & CCPA notice templates
+* Consent Analytics Dashboard
+* Cookie Autoblocking (complies with GDPR Art.7)
+* Cookie Categories (complies with GDPR Art.32)
+* Proof-of-Consent Storage (complies with GDPR Art.30)
+* Link to 'Do Not Sell' page (supports CCPA Sec.1798)
+* Enhanced design controls and options
+* Multiple new banner positions
+* Custom language localization
 
-`if ( function_exists('cn_cookies_accepted') && cn_cookies_accepted() ) {
-	// Your third-party non functional code here
-}`
-
-= Get involved =
-
-Feel free to contribute to the source code on the [dFactory GitHub Repository](https://github.com/dfactoryplugins).
 
 == Installation ==
 
@@ -67,6 +57,9 @@ No questions yet.
 1. screenshot-1.png
 
 == Changelog ==
+
+= 2.0.0 =
+* New: Introducing Cookie Compliance for GDPR/CCPA
 
 = 1.3.2 =
 * Tweak: Speed up Corona Banner loading by moving JS file to footer with async parameter
@@ -305,7 +298,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.3.2 =
-* Tweak: Speed up Corona Banner loading by moving JS file to footer with async parameter
-* Tweak: Improve buttons CSS padding
-* Tweak: Accessibility improvements on links
+= 2.0.0 =
+* New: Introducing Cookie Compliance for GDPR/CCPA
