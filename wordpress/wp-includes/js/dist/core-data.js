@@ -82,7 +82,7 @@ this["wp"] = this["wp"] || {}; this["wp"]["coreData"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 478);
+/******/ 	return __webpack_require__(__webpack_require__.s = 479);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -907,7 +907,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 478:
+/***/ 479:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2477,9 +2477,7 @@ function getQueryParts(query) {
         // fields from the response even if we explicitely asked for it.
         // Example: Asking for titles in posts without title support.
         if (key === '_fields') {
-          parts.fields = get_normalized_comma_separable(value); // Make sure to normalize value for `stableKey`
-
-          value = parts.fields.join();
+          parts.fields = get_normalized_comma_separable(value);
         } // While it could be any deterministic string, for simplicity's
         // sake mimic querystring encoding for stable key.
         //

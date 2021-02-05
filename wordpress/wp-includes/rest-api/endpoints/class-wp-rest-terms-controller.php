@@ -965,7 +965,7 @@ class WP_REST_Terms_Controller extends WP_REST_Controller {
 				'taxonomy'    => array(
 					'description' => __( 'Type attribution for the term.' ),
 					'type'        => 'string',
-					'enum'        => array( $this->taxonomy ),
+					'enum'        => array_keys( get_taxonomies() ),
 					'context'     => array( 'view', 'embed', 'edit' ),
 					'readonly'    => true,
 				),

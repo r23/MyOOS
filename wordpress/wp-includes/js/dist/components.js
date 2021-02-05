@@ -6652,13 +6652,13 @@ var _propTypes = __webpack_require__(28);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _hoistNonReactStatics = __webpack_require__(401);
+var _hoistNonReactStatics = __webpack_require__(402);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-var _constants = __webpack_require__(404);
+var _constants = __webpack_require__(405);
 
-var _brcast = __webpack_require__(405);
+var _brcast = __webpack_require__(406);
 
 var _brcast2 = _interopRequireDefault(_brcast);
 
@@ -12325,7 +12325,7 @@ function stopPropagation(event) {
 /* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var reakit_Toolbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(501);
+/* harmony import */ var reakit_Toolbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(502);
 /* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(92);
 /* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_warning__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _toolbar_context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(93);
@@ -12661,55 +12661,7 @@ exports['default'] = _propTypes2['default'].oneOf([_constants.HORIZONTAL_ORIENTA
 
 
 
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-/**
- * inlined Object.is polyfill to avoid requiring consumers ship their own
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
- */
-function is(x, y) {
-  // SameValue algorithm
-  if (x === y) {
-    // Steps 1-5, 7-10
-    // Steps 6.b-6.e: +0 != -0
-    // Added the nonzero y check to make Flow happy, but it is redundant
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
-  } else {
-    // Step 6.a: NaN == NaN
-    return x !== x && y !== y;
-  }
-}
-
-/**
- * Performs equality by iterating through keys on an object and returning false
- * when any key has values which are not strictly equal between the arguments.
- * Returns true when the values of all keys are strictly equal.
- */
-function shallowEqual(objA, objB) {
-  if (is(objA, objB)) {
-    return true;
-  }
-
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-    return false;
-  }
-
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
-
-  if (keysA.length !== keysB.length) {
-    return false;
-  }
-
-  // Test for A's keys different from B.
-  for (var i = 0; i < keysA.length; i++) {
-    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-      return false;
-    }
-  }
-
-  return true;
-}
+var shallowEqual = __webpack_require__(401);
 
 /**
  * Does a shallow comparison for props and state.
@@ -16526,7 +16478,7 @@ exports['default'] = _propTypes2['default'].oneOf([_constants.INFO_POSITION_TOP,
 /* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var freeGlobal = __webpack_require__(409);
+var freeGlobal = __webpack_require__(410);
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -17313,7 +17265,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports['default'] = getCalendarDaySettings;
 
-var _getPhrase = __webpack_require__(423);
+var _getPhrase = __webpack_require__(424);
 
 var _getPhrase2 = _interopRequireDefault(_getPhrase);
 
@@ -26155,7 +26107,6 @@ function useControlledState(currentState) {
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -26306,7 +26257,6 @@ function UnitControl(_ref, ref) {
   };
 
   var inputSuffix = !disableUnits ? Object(external_this_wp_element_["createElement"])(UnitSelectControl, {
-    "aria-label": Object(external_this_wp_i18n_["__"])('Select unit'),
     disabled: disabled,
     isTabbable: isUnitSelectTabbable,
     options: units,
@@ -26484,10 +26434,11 @@ function BoxUnitControl(_ref) {
       onHoverOff(event, state);
     }
   });
-  return Object(external_this_wp_element_["createElement"])(UnitControlWrapper, bindHoverGesture(), Object(external_this_wp_element_["createElement"])(Tooltip, {
+  return Object(external_this_wp_element_["createElement"])(UnitControlWrapper, Object(esm_extends["a" /* default */])({
+    "aria-label": label
+  }, bindHoverGesture()), Object(external_this_wp_element_["createElement"])(Tooltip, {
     text: label
   }, Object(external_this_wp_element_["createElement"])(box_control_styles_UnitControl, Object(esm_extends["a" /* default */])({
-    "aria-label": label,
     className: "component-box-control__unit-control",
     hideHTMLArrows: true,
     isFirst: isFirst,
@@ -27000,17 +26951,16 @@ function LinkedButton(_ref) {
   var isLinked = _ref.isLinked,
       props = Object(objectWithoutProperties["a" /* default */])(_ref, ["isLinked"]);
 
-  var label = isLinked ? Object(external_this_wp_i18n_["__"])('Unlink Sides') : Object(external_this_wp_i18n_["__"])('Link Sides');
+  var linkedTooltipText = isLinked ? Object(external_this_wp_i18n_["__"])('Unlink Sides') : Object(external_this_wp_i18n_["__"])('Link Sides');
   return Object(external_this_wp_element_["createElement"])(build_module_tooltip["a" /* default */], {
-    text: label
+    text: linkedTooltipText
   }, Object(external_this_wp_element_["createElement"])("span", null, Object(external_this_wp_element_["createElement"])(build_module_button["a" /* default */], Object(esm_extends["a" /* default */])({}, props, {
     className: "component-box-control__linked-button",
     isPrimary: isLinked,
     isSecondary: !isLinked,
     isSmall: true,
     icon: isLinked ? library_link["a" /* default */] : link_off["a" /* default */],
-    iconSize: 16,
-    "aria-label": label
+    iconSize: 16
   }))));
 }
 
@@ -27240,7 +27190,6 @@ function useSideAnimation(value) {
 
 
 
-
 function box_control_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function box_control_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { box_control_ownKeys(Object(source), true).forEach(function (key) { Object(defineProperty["a" /* default */])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { box_control_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -27383,9 +27332,7 @@ function BoxControl(_ref) {
     className: "component-box-control__header-control-wrapper"
   }, Object(external_this_wp_element_["createElement"])(flex_item, null, Object(external_this_wp_element_["createElement"])(BoxControlIcon, {
     side: side
-  })), isLinked && Object(external_this_wp_element_["createElement"])(block, null, Object(external_this_wp_element_["createElement"])(AllInputControl, Object(esm_extends["a" /* default */])({
-    "aria-label": label
-  }, inputControlProps))), Object(external_this_wp_element_["createElement"])(flex_item, null, Object(external_this_wp_element_["createElement"])(LinkedButton, {
+  })), isLinked && Object(external_this_wp_element_["createElement"])(block, null, Object(external_this_wp_element_["createElement"])(AllInputControl, inputControlProps)), Object(external_this_wp_element_["createElement"])(flex_item, null, Object(external_this_wp_element_["createElement"])(LinkedButton, {
     onClick: toggleLinked,
     isLinked: isLinked
   }))), !isLinked && Object(external_this_wp_element_["createElement"])(BoxInputControls, inputControlProps));
@@ -37116,7 +37063,7 @@ function DropdownMenu(_ref) {
 /* harmony default export */ var dropdown_menu = (DropdownMenu);
 
 // EXTERNAL MODULE: ./node_modules/@wordpress/icons/build-module/library/external.js
-var external = __webpack_require__(440);
+var external = __webpack_require__(441);
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/components/build-module/external-link/styles/external-link-styles.js
 
@@ -38099,7 +38046,7 @@ var focusable_iframe_FocusableIframe = /*#__PURE__*/function (_Component) {
 })(focusable_iframe_FocusableIframe));
 
 // EXTERNAL MODULE: ./node_modules/@wordpress/icons/build-module/library/text-color.js
-var text_color = __webpack_require__(441);
+var text_color = __webpack_require__(442);
 
 // CONCATENATED MODULE: ./node_modules/@wordpress/components/build-module/range-control/utils.js
 
@@ -39107,7 +39054,6 @@ var range_control_ForwardedComponent = Object(external_this_wp_element_["forward
 
 var DEFAULT_FONT_SIZE = 'default';
 var CUSTOM_FONT_SIZE = 'custom';
-var MAX_FONT_SIZE_DISPLAY = '25px';
 
 function getSelectValueFromFontSize(fontSizes, value) {
   if (value) {
@@ -39136,9 +39082,8 @@ function getSelectOptions(optionsArray, disableCustomFontSizes) {
     return {
       key: option.slug,
       name: option.name,
-      size: option.size,
       style: {
-        fontSize: "min( ".concat(option.size, ", ").concat(MAX_FONT_SIZE_DISPLAY, " )")
+        fontSize: option.size
       }
     };
   });
@@ -52861,7 +52806,7 @@ var _moment = __webpack_require__(44);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _throttle = __webpack_require__(406);
+var _throttle = __webpack_require__(407);
 
 var _throttle2 = _interopRequireDefault(_throttle);
 
@@ -52869,7 +52814,7 @@ var _isTouchDevice = __webpack_require__(251);
 
 var _isTouchDevice2 = _interopRequireDefault(_isTouchDevice);
 
-var _reactOutsideClickHandler = __webpack_require__(416);
+var _reactOutsideClickHandler = __webpack_require__(417);
 
 var _reactOutsideClickHandler2 = _interopRequireDefault(_reactOutsideClickHandler);
 
@@ -52879,19 +52824,19 @@ var _getPhrasePropTypes = __webpack_require__(113);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _CalendarMonthGrid = __webpack_require__(420);
+var _CalendarMonthGrid = __webpack_require__(421);
 
 var _CalendarMonthGrid2 = _interopRequireDefault(_CalendarMonthGrid);
 
-var _DayPickerNavigation = __webpack_require__(430);
+var _DayPickerNavigation = __webpack_require__(431);
 
 var _DayPickerNavigation2 = _interopRequireDefault(_DayPickerNavigation);
 
-var _DayPickerKeyboardShortcuts = __webpack_require__(435);
+var _DayPickerKeyboardShortcuts = __webpack_require__(436);
 
 var _DayPickerKeyboardShortcuts2 = _interopRequireDefault(_DayPickerKeyboardShortcuts);
 
-var _getNumberOfCalendarMonthWeeks = __webpack_require__(438);
+var _getNumberOfCalendarMonthWeeks = __webpack_require__(439);
 
 var _getNumberOfCalendarMonthWeeks2 = _interopRequireDefault(_getNumberOfCalendarMonthWeeks);
 
@@ -52903,7 +52848,7 @@ var _calculateDimension = __webpack_require__(265);
 
 var _calculateDimension2 = _interopRequireDefault(_calculateDimension);
 
-var _getActiveElement = __webpack_require__(439);
+var _getActiveElement = __webpack_require__(440);
 
 var _getActiveElement2 = _interopRequireDefault(_getActiveElement);
 
@@ -54408,9 +54353,80 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @typechecks
+ * 
+ */
+
+/*eslint-disable no-self-compare */
 
 
-var reactIs = __webpack_require__(402);
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+/**
+ * inlined Object.is polyfill to avoid requiring consumers ship their own
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+ */
+function is(x, y) {
+  // SameValue algorithm
+  if (x === y) {
+    // Steps 1-5, 7-10
+    // Steps 6.b-6.e: +0 != -0
+    // Added the nonzero y check to make Flow happy, but it is redundant
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+  } else {
+    // Step 6.a: NaN == NaN
+    return x !== x && y !== y;
+  }
+}
+
+/**
+ * Performs equality by iterating through keys on an object and returning false
+ * when any key has values which are not strictly equal between the arguments.
+ * Returns true when the values of all keys are strictly equal.
+ */
+function shallowEqual(objA, objB) {
+  if (is(objA, objB)) {
+    return true;
+  }
+
+  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  for (var i = 0; i < keysA.length; i++) {
+    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+module.exports = shallowEqual;
+
+/***/ }),
+/* 402 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var reactIs = __webpack_require__(403);
 
 /**
  * Copyright 2015, Yahoo! Inc.
@@ -54514,19 +54530,19 @@ module.exports = hoistNonReactStatics;
 
 
 /***/ }),
-/* 402 */
+/* 403 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(403);
+  module.exports = __webpack_require__(404);
 } else {}
 
 
 /***/ }),
-/* 403 */
+/* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54548,7 +54564,7 @@ exports.isSuspense=function(a){return t(a)===p};
 
 
 /***/ }),
-/* 404 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54565,7 +54581,7 @@ var DIRECTIONS = exports.DIRECTIONS = {
 };
 
 /***/ }),
-/* 405 */
+/* 406 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54588,10 +54604,10 @@ exports['default'] = _propTypes2['default'].shape({
 });
 
 /***/ }),
-/* 406 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var debounce = __webpack_require__(407),
+var debounce = __webpack_require__(408),
     isObject = __webpack_require__(197);
 
 /** Error message constants. */
@@ -54663,12 +54679,12 @@ module.exports = throttle;
 
 
 /***/ }),
-/* 407 */
+/* 408 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(197),
-    now = __webpack_require__(408),
-    toNumber = __webpack_require__(410);
+    now = __webpack_require__(409),
+    toNumber = __webpack_require__(411);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -54860,7 +54876,7 @@ module.exports = debounce;
 
 
 /***/ }),
-/* 408 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(258);
@@ -54889,7 +54905,7 @@ module.exports = now;
 
 
 /***/ }),
-/* 409 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
@@ -54900,11 +54916,11 @@ module.exports = freeGlobal;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(121)))
 
 /***/ }),
-/* 410 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(197),
-    isSymbol = __webpack_require__(411);
+    isSymbol = __webpack_require__(412);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -54972,11 +54988,11 @@ module.exports = toNumber;
 
 
 /***/ }),
-/* 411 */
+/* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(412),
-    isObjectLike = __webpack_require__(415);
+var baseGetTag = __webpack_require__(413),
+    isObjectLike = __webpack_require__(416);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -55007,12 +55023,12 @@ module.exports = isSymbol;
 
 
 /***/ }),
-/* 412 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(259),
-    getRawTag = __webpack_require__(413),
-    objectToString = __webpack_require__(414);
+    getRawTag = __webpack_require__(414),
+    objectToString = __webpack_require__(415);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -55041,7 +55057,7 @@ module.exports = baseGetTag;
 
 
 /***/ }),
-/* 413 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(259);
@@ -55093,7 +55109,7 @@ module.exports = getRawTag;
 
 
 /***/ }),
-/* 414 */
+/* 415 */
 /***/ (function(module, exports) {
 
 /** Used for built-in method references. */
@@ -55121,7 +55137,7 @@ module.exports = objectToString;
 
 
 /***/ }),
-/* 415 */
+/* 416 */
 /***/ (function(module, exports) {
 
 /**
@@ -55156,15 +55172,15 @@ module.exports = isObjectLike;
 
 
 /***/ }),
-/* 416 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // eslint-disable-next-line import/no-unresolved
-module.exports = __webpack_require__(417);
+module.exports = __webpack_require__(418);
 
 
 /***/ }),
-/* 417 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55192,7 +55208,7 @@ var _object = __webpack_require__(241);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _document = __webpack_require__(418);
+var _document = __webpack_require__(419);
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -55402,7 +55418,7 @@ OutsideClickHandler.propTypes = propTypes;
 OutsideClickHandler.defaultProps = defaultProps;
 
 /***/ }),
-/* 418 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55413,7 +55429,7 @@ var define = __webpack_require__(104);
 var implementation = __webpack_require__(261);
 var getPolyfill = __webpack_require__(262);
 var polyfill = getPolyfill();
-var shim = __webpack_require__(419);
+var shim = __webpack_require__(420);
 
 var boundContains = function contains(node, other) {
 	return polyfill.apply(node, [other]);
@@ -55429,7 +55445,7 @@ module.exports = boundContains;
 
 
 /***/ }),
-/* 419 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55459,7 +55475,7 @@ module.exports = function shimContains() {
 
 
 /***/ }),
-/* 420 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55509,15 +55525,15 @@ var _getPhrasePropTypes = __webpack_require__(113);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _CalendarMonth = __webpack_require__(421);
+var _CalendarMonth = __webpack_require__(422);
 
 var _CalendarMonth2 = _interopRequireDefault(_CalendarMonth);
 
-var _isTransitionEndSupported = __webpack_require__(426);
+var _isTransitionEndSupported = __webpack_require__(427);
 
 var _isTransitionEndSupported2 = _interopRequireDefault(_isTransitionEndSupported);
 
-var _getTransformStyles = __webpack_require__(427);
+var _getTransformStyles = __webpack_require__(428);
 
 var _getTransformStyles2 = _interopRequireDefault(_getTransformStyles);
 
@@ -55529,11 +55545,11 @@ var _toISOMonthString = __webpack_require__(196);
 
 var _toISOMonthString2 = _interopRequireDefault(_toISOMonthString);
 
-var _isPrevMonth = __webpack_require__(428);
+var _isPrevMonth = __webpack_require__(429);
 
 var _isPrevMonth2 = _interopRequireDefault(_isPrevMonth);
 
-var _isNextMonth = __webpack_require__(429);
+var _isNextMonth = __webpack_require__(430);
 
 var _isNextMonth2 = _interopRequireDefault(_isNextMonth);
 
@@ -56025,7 +56041,7 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref) {
 })(CalendarMonthGrid);
 
 /***/ }),
-/* 421 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56073,7 +56089,7 @@ var _getPhrasePropTypes = __webpack_require__(113);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _CalendarWeek = __webpack_require__(422);
+var _CalendarWeek = __webpack_require__(423);
 
 var _CalendarWeek2 = _interopRequireDefault(_CalendarWeek);
 
@@ -56085,7 +56101,7 @@ var _calculateDimension = __webpack_require__(265);
 
 var _calculateDimension2 = _interopRequireDefault(_calculateDimension);
 
-var _getCalendarMonthWeeks = __webpack_require__(425);
+var _getCalendarMonthWeeks = __webpack_require__(426);
 
 var _getCalendarMonthWeeks2 = _interopRequireDefault(_getCalendarMonthWeeks);
 
@@ -56430,7 +56446,7 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref) {
 })(CalendarMonth);
 
 /***/ }),
-/* 422 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56451,7 +56467,7 @@ var _CalendarDay = __webpack_require__(263);
 
 var _CalendarDay2 = _interopRequireDefault(_CalendarDay);
 
-var _CustomizableCalendarDay = __webpack_require__(424);
+var _CustomizableCalendarDay = __webpack_require__(425);
 
 var _CustomizableCalendarDay2 = _interopRequireDefault(_CustomizableCalendarDay);
 
@@ -56474,7 +56490,7 @@ function CalendarWeek(_ref) {
 CalendarWeek.propTypes = propTypes;
 
 /***/ }),
-/* 423 */
+/* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56495,7 +56511,7 @@ function getPhrase(phrase, args) {
 }
 
 /***/ }),
-/* 424 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57005,7 +57021,7 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 })(CustomizableCalendarDay);
 
 /***/ }),
-/* 425 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57069,7 +57085,7 @@ function getCalendarMonthWeeks(month, enableOutsideDays) {
 }
 
 /***/ }),
-/* 426 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57084,7 +57100,7 @@ function isTransitionEndSupported() {
 }
 
 /***/ }),
-/* 427 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57104,7 +57120,7 @@ function getTransformStyles(transformValue) {
 }
 
 /***/ }),
-/* 428 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57131,7 +57147,7 @@ function isPrevMonth(a, b) {
 }
 
 /***/ }),
-/* 429 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57158,7 +57174,7 @@ function isNextMonth(a, b) {
 }
 
 /***/ }),
-/* 430 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57192,19 +57208,19 @@ var _getPhrasePropTypes = __webpack_require__(113);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _LeftArrow = __webpack_require__(431);
+var _LeftArrow = __webpack_require__(432);
 
 var _LeftArrow2 = _interopRequireDefault(_LeftArrow);
 
-var _RightArrow = __webpack_require__(432);
+var _RightArrow = __webpack_require__(433);
 
 var _RightArrow2 = _interopRequireDefault(_RightArrow);
 
-var _ChevronUp = __webpack_require__(433);
+var _ChevronUp = __webpack_require__(434);
 
 var _ChevronUp2 = _interopRequireDefault(_ChevronUp);
 
-var _ChevronDown = __webpack_require__(434);
+var _ChevronDown = __webpack_require__(435);
 
 var _ChevronDown2 = _interopRequireDefault(_ChevronDown);
 
@@ -57467,7 +57483,7 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 })(DayPickerNavigation);
 
 /***/ }),
-/* 431 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57503,7 +57519,7 @@ LeftArrow.defaultProps = {
 exports['default'] = LeftArrow;
 
 /***/ }),
-/* 432 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57539,7 +57555,7 @@ RightArrow.defaultProps = {
 exports['default'] = RightArrow;
 
 /***/ }),
-/* 433 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57575,7 +57591,7 @@ ChevronUp.defaultProps = {
 exports['default'] = ChevronUp;
 
 /***/ }),
-/* 434 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57611,7 +57627,7 @@ ChevronDown.defaultProps = {
 exports['default'] = ChevronDown;
 
 /***/ }),
-/* 435 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -57648,11 +57664,11 @@ var _getPhrasePropTypes = __webpack_require__(113);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _KeyboardShortcutRow = __webpack_require__(436);
+var _KeyboardShortcutRow = __webpack_require__(437);
 
 var _KeyboardShortcutRow2 = _interopRequireDefault(_KeyboardShortcutRow);
 
-var _CloseButton = __webpack_require__(437);
+var _CloseButton = __webpack_require__(438);
 
 var _CloseButton2 = _interopRequireDefault(_CloseButton);
 
@@ -58120,7 +58136,7 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref3) {
 })(DayPickerKeyboardShortcuts);
 
 /***/ }),
-/* 436 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58235,7 +58251,7 @@ exports['default'] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 })(KeyboardShortcutRow);
 
 /***/ }),
-/* 437 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58272,7 +58288,7 @@ CloseButton.defaultProps = {
 exports['default'] = CloseButton;
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58303,7 +58319,7 @@ function getNumberOfCalendarMonthWeeks(month) {
 }
 
 /***/ }),
-/* 439 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58318,7 +58334,7 @@ function getActiveElement() {
 }
 
 /***/ }),
-/* 440 */
+/* 441 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58342,7 +58358,7 @@ var external = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 
 /***/ }),
-/* 441 */
+/* 442 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58366,7 +58382,6 @@ var textColor = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEl
 
 
 /***/ }),
-/* 442 */,
 /* 443 */,
 /* 444 */,
 /* 445 */,
@@ -58425,7 +58440,8 @@ var textColor = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEl
 /* 498 */,
 /* 499 */,
 /* 500 */,
-/* 501 */
+/* 501 */,
+/* 502 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

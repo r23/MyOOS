@@ -235,9 +235,6 @@ body.is-fullscreen-mode .interface-interface-skeleton {
   display: flex;
   overflow: auto;
   overscroll-behavior-y: none; }
-  @media (min-width: 782px) {
-    .interface-interface-skeleton__body {
-      padding-bottom: 25px; } }
 
 .interface-interface-skeleton__content {
   flex-grow: 1;
@@ -271,8 +268,7 @@ body.is-fullscreen-mode .interface-interface-skeleton {
 
 @media (min-width: 782px) {
   .interface-interface-skeleton__left-sidebar {
-    border-left: 1px solid #e0e0e0;
-    overflow: hidden; } }
+    border-left: 1px solid #e0e0e0; } }
 
 .interface-interface-skeleton__header {
   flex-shrink: 0;

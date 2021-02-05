@@ -82,7 +82,7 @@ this["wp"] = this["wp"] || {}; this["wp"]["blockEditor"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 468);
+/******/ 	return __webpack_require__(__webpack_require__.s = 469);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -13713,7 +13713,8 @@ var media = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElemen
 /* 465 */,
 /* 466 */,
 /* 467 */,
-/* 468 */
+/* 468 */,
+/* 469 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27745,9 +27746,7 @@ function BlockPatternsCategory(_ref2) {
   var populatedCategories = Object(external_this_wp_element_["useMemo"])(function () {
     return allCategories.filter(function (category) {
       return allPatterns.some(function (pattern) {
-        var _pattern$categories;
-
-        return (_pattern$categories = pattern.categories) === null || _pattern$categories === void 0 ? void 0 : _pattern$categories.includes(category.name);
+        return pattern.categories.includes(category.name);
       });
     });
   }, [allPatterns, allCategories]);

@@ -3288,11 +3288,10 @@ function attachment_submitbox_metadata() {
 
 	$att_url = wp_get_attachment_url( $attachment_id );
 
-	$author = new WP_User( $post->post_author );
+	$author = get_userdata( $post->post_author );
 
 	$uploaded_by_name = __( '(no author)' );
 	$uploaded_by_link = '';
-
 	if ( $author->exists() ) {
 		$uploaded_by_name = $author->display_name ? $author->display_name : $author->nickname;
 		$uploaded_by_link = get_edit_user_link( $author->ID );
