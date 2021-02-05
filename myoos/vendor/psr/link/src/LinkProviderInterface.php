@@ -23,10 +23,7 @@ interface LinkProviderInterface
      * The iterable may be an array or any PHP \Traversable object. If no links
      * with that relationship are available, an empty array or \Traversable MUST be returned.
      *
-     * @param string $rel
-     *   The relationship name for which to retrieve links.
-     *
      * @return LinkInterface[]|\Traversable
      */
-    public function getLinksByRel(string $rel);
+    public function getLinksByRel($rel);
 }

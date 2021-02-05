@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'fe03866853faa2f541a7810ef238950ecff9b88d',
+    'reference' => 'bde8a3587706321c39abbe130f95f1ee4521110d',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -162,7 +162,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'fe03866853faa2f541a7810ef238950ecff9b88d',
+      'reference' => 'bde8a3587706321c39abbe130f95f1ee4521110d',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -227,12 +227,12 @@
     ),
     'psr/link' => 
     array (
-      'pretty_version' => '1.1.0',
-      'version' => '1.1.0.0',
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '94d170941164db307197ebf436296372b849bdb5',
+      'reference' => 'eea8e8662d5cd3ae4517c9b864493f59fca95562',
     ),
     'psr/log' => 
     array (
@@ -254,12 +254,12 @@
     ),
     'stripe/stripe-php' => 
     array (
-      'pretty_version' => 'v7.70.0',
-      'version' => '7.70.0.0',
+      'pretty_version' => 'v7.69.0',
+      'version' => '7.69.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5624b020d4541b8228ba47307811d880ed6bf4df',
+      'reference' => '6716cbc4ebf8cba7d45374a059c7c6e5bf53277d',
     ),
     'symfony/amazon-mailer' => 
     array (

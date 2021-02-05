@@ -10,7 +10,7 @@ interface EvolvableLinkInterface extends LinkInterface
     /**
      * Returns an instance with the specified href.
      *
-     * @param string|\Stringable $href
+     * @param string $href
      *   The href value to include.  It must be one of:
      *     - An absolute URI, as defined by RFC 5988.
      *     - A relative URI, as defined by RFC 5988. The base of the relative link
@@ -24,7 +24,7 @@ interface EvolvableLinkInterface extends LinkInterface
      *
      * @return static
      */
-    public function withHref(string|\Stringable $href);
+    public function withHref($href);
 
     /**
      * Returns an instance with the specified relationship included.
@@ -36,7 +36,7 @@ interface EvolvableLinkInterface extends LinkInterface
      *   The relationship value to add.
      * @return static
      */
-    public function withRel(string $rel);
+    public function withRel($rel);
 
     /**
      * Returns an instance with the specified relationship excluded.
@@ -48,7 +48,7 @@ interface EvolvableLinkInterface extends LinkInterface
      *   The relationship value to exclude.
      * @return static
      */
-    public function withoutRel(string $rel);
+    public function withoutRel($rel);
 
     /**
      * Returns an instance with the specified attribute added.
@@ -62,7 +62,7 @@ interface EvolvableLinkInterface extends LinkInterface
      *   The value of the attribute to set.
      * @return static
      */
-    public function withAttribute(string $attribute, string $value);
+    public function withAttribute($attribute, $value);
 
 
     /**
@@ -75,5 +75,5 @@ interface EvolvableLinkInterface extends LinkInterface
      *   The attribute to remove.
      * @return static
      */
-    public function withoutAttribute(string $attribute);
+    public function withoutAttribute($attribute);
 }
