@@ -187,11 +187,11 @@ require_once '../includes/lib/adodb/adodb.inc.php';
       break;
 
     case 'PHP_Check':
-      if ($_POST['agreecheck'] == false) {
-       print_select_language();
+      if (isset($_POST['agreecheck'])) {
+			writeable_oosConfigure();
+			oosCheckPHP();
       } else {
-        writeable_oosConfigure();
-        oosCheckPHP();
+			print_select_language();
       }
       break;
 
