@@ -254,7 +254,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 		ksort($s);
 		for ($i=0; $i < $numrows; $i++)
 		{
-			$data[0]=mysqli_fetch_array($res,MYSQLI_ASSOC);
+			$data[0] = mysqli_fetch_array($res, MYSQLI_ASSOC);
 			if ($showtables == 1 && $tabellenansicht == 1)
 			{
 				// Spalten sortieren, wenn wir uns in einer Tabellenuebersicht befinden
@@ -269,8 +269,10 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 				$tabellenname = $data[0]['Name'];
 				$numrows12 = 0;
 				$select12 = "select * from $tabellenname";
-				$res12 = MSD_query($select12);
-				$numrows12 = @mysqli_num_rows($res12);
+				$res12 = MSD_query($select12, false);
+				if (!empty($res12)) {			
+					$numrows12 = mysqli_num_rows($res12);
+				}		
 					
 				// Überschreiben mit neuem Wert
 				$temp[$i]['Rows'] = $numrows12;
