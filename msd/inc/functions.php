@@ -254,14 +254,17 @@ function WriteParams($as=0, $restore_values=false)
 	FillMultiDBArrays();
 
 	//Parameter zusammensetzen
-	$config['multipartgroesse1'] = isset($config['multipartgroesse1']) ? $config['multipartgroesse1'] : '1';
-	$config['multipartgroesse2'] = isset($config['multipartgroesse2']) ? $config['multipartgroesse2'] : '1';
+	$config['multipartgroesse1'] = isset($config['multipartgroesse1']) ? $config['multipartgroesse1'] : 1;
+	$config['multipartgroesse2'] = isset($config['multipartgroesse2']) ? $config['multipartgroesse2'] : 1;
 	$config['multipart_groesse'] = $config['multipartgroesse1'] * ( ( $config['multipartgroesse2'] == 1 ) ? 1024 : 1024 * 1024 );
 	$param=$pars_all='<?php ' . $nl;
+	$config['email_maxsize1'] = isset($config['email_maxsize1']) ? $config['email_maxsize1'] : 1;
+	$config['email_maxsize2'] = isset($config['email_maxsize2']) ? $config['email_maxsize2'] : 1;	
 	if (!isset($config['email_maxsize'])) $config['email_maxsize']=$config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
 	if (!isset($config['cron_execution_path'])) $config['cron_execution_path']="msd_cron/";
 	if ($as == 0) $config['paths']['root']=addslashes(Realpfad("./"));
 	$config['files']['parameter']=$config['paths']['config'] . $config['config_file'] . '.php';
+	$config['theme'] = isset($config['theme']) ? $config['theme'] : 'msd';
 	$config['files']['iconpath']='./css/' . $config['theme'] . '/icons/';
 
 	foreach ($config as $var=>$val)
