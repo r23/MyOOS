@@ -170,7 +170,7 @@ if (isset($_POST['save']))
 	$save_config=true;
 	//Parameter auslesen
 	$config['multi_dump']=( isset($_POST['MultiDBDump']) ) ? $_POST['MultiDBDump'] : 0;
-	$config['compression']=$_POST['compression'];
+	$config['compression']=( isset($_POST['compression']) ) ? $_POST['compression'] : 0;
 	$config['language']=$_POST['language'];
 	if (!isset($_POST['server_caption'])) $config['interface_server_caption']=0;
 	else $config['interface_server_caption']=$_POST['server_caption'];
@@ -207,6 +207,7 @@ if (isset($_POST['save']))
 	if ($config['multipartgroesse1'] < 100 && $config['multipartgroesse2'] == 1) $config['multipartgroesse1']=100;
 	if ($config['multipartgroesse1'] < 1 && $config['multipartgroesse2'] == 2) $config['multipartgroesse1']=1;
 
+	$config['logcompression'] = isset($config['logcompression']) ? $config['logcompression'] : 0;
 	$oldlogcompression=$config['logcompression'];
 	$config['logcompression']=( isset($_POST['logcompression']) && $_POST['logcompression'] == 1 ) ? 1 : 0;
 	if (isset($_POST['log_maxsize1']))	$config['log_maxsize1']=$_POST['log_maxsize1'];
