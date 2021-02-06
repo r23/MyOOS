@@ -1,0 +1,29 @@
+<!-- Off-canvas search-->
+<div class="offcanvas offcanvas-reverse" id="offcanvas-search">
+	<div class="offcanvas-header d-flex justify-content-between align-items-center">
+		<h3 class="offcanvas-title">{$lang.header_title_search}</h3>
+		<button class="close" type="button" data-dismiss="offcanvas" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	</div>
+	<div class="offcanvas-body">
+		<div class="offcanvas-body-inner">
+			<form action="{html_href_link content=$filename.advanced_search_result}" class="search-global input-group mb-0" method="GET">
+				{if $mySystem.sed}
+					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+					<input type="hidden" name="formid" value="{$mySystem.formid}">
+				{/if}			
+					<input type="hidden" name="content" value="{$filename.advanced_search_result}">	
+		
+				<div class="input-group pt-3">
+					<input class="form-control" type="text" name="s" id="site-search" placeholder="{$lang.text_search}" aria-label="Search site" aria-describedby="search-icon">
+					<div class="input-group-prepend"><button class="btn btn-default" type="submit"><i data-feather="search"></i></button></div>
+				</div>
+
+				<small class="m-0 text-muted fs-11"> 
+					<a href="{html_href_link content=$filename.advanced_search}">{$lang.block_service_advanced_search}</a>
+				</small>
+				
+			</form>	
+
+		</div>
+	</div>
+</div>
