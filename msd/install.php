@@ -190,6 +190,7 @@ switch ($phase)
 		else
 		{
 			$tmp=file("config.php");
+				
 			$stored=0;
 
 			if (!isset($_POST['dbconnect']))
@@ -197,8 +198,9 @@ switch ($phase)
 				// Erstaufruf - Daten aus config.php auslesen
 				for ($i=0; $i < count($tmp); $i++)
 				{
+				
 					if (substr($tmp[$i],0,17) == '$config[\'dbhost\']')
-					{
+					{						
 						$config['dbhost']=extractValue($tmp[$i]);
 						$dbhost=$config['dbhost'];
 						$stored++;
@@ -332,10 +334,9 @@ switch ($phase)
 		}
 		$ret=true;
 		if ($fp=fopen("config.php","wb"))
-		{
-                    if (!fwrite($fp, print_r($tmp, TRUE))) $ret=false;
-                    if (!fclose($fp)) $ret=false;
-                    @chmod("config.php",0644);
+		{	
+			if (!fwrite($fp, implode('', $tmp))) $ret=false;
+            @chmod("config.php",0644);
 		}
 		if (!$ret)
 		{
