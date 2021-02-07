@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO &#8211; Best SEO Plugin for WordPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-02-05 18:49:10+0000\n"
+"PO-Revision-Date: 2021-02-07 12:11:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -163,7 +163,7 @@ msgstr "Bing URL Einreichungs API Fehler: %s"
 
 #: includes/modules/instant-indexing/class-api.php:104
 msgid "Post successfully submitted to the Bing URL Submission API."
-msgstr "Der Beitrag konnte nicht an die Bing URL Einreichungs API übermittelt werden."
+msgstr "Beitrag erfolgreich an die Bing URL Übermittlungs API übermittelt."
 
 #: includes/modules/instant-indexing/class-api.php:102
 msgid "Failed to submit post to the Bing URL Submission API."
