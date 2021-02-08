@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '67e2180336bcc09efb8576f716b4932ec14d5364',
+    'reference' => '71aee66a8967aaabd062e86039ccc2cdbf4410d0',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -162,7 +162,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '67e2180336bcc09efb8576f716b4932ec14d5364',
+      'reference' => '71aee66a8967aaabd062e86039ccc2cdbf4410d0',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -861,12 +861,12 @@
     ),
     'twig/twig' => 
     array (
-      'pretty_version' => 'v3.2.1',
-      'version' => '3.2.1.0',
+      'pretty_version' => 'v3.3.0',
+      'version' => '3.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f795ca686d38530045859b0350b5352f7d63447d',
+      'reference' => '1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5',
     ),
     'videlalvaro/php-amqplib' => 
     array (
