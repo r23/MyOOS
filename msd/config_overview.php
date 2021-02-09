@@ -189,13 +189,13 @@ if (isset($_POST['save']))
 
 	if (isset($_POST['email_maxsize1'])) $config['email_maxsize1']=$_POST['email_maxsize1'];
 	if ($config['email_maxsize1'] == "") $config['email_maxsize1']=0;
-	if (isset($_POST['selected_config'])) $config['email_maxsize2']=$_POST['email_maxsize2'];
+	if (isset($_POST['email_maxsize2'])) $config['email_maxsize2']=$_POST['email_maxsize2'];
 	$config['email_maxsize']=$config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
 
 	if (isset($_POST['memory_limit'])) $config['memory_limit']=$_POST['memory_limit'];
 	if ($config['memory_limit'] == "") $config['memory_limit']=0;
 	if (isset($_POST['minspeed'])) $config['minspeed']=$_POST['minspeed'];
-	if ($config['minspeed'] < 50) $config['minspeed']=50;
+	if ($config['minspeed'] < 5) $config['minspeed']=5;
 	if (isset($_POST['maxspeed'])) $config['maxspeed']=$_POST['maxspeed'];
 	if ($config['maxspeed'] < $config['minspeed']) $config['maxspeed']=$config['minspeed'] * 2;
  	if (isset($_POST['stop_with_error'])) $config['stop_with_error']=$_POST['stop_with_error'];
@@ -307,7 +307,7 @@ if (isset($_POST['save']))
 	$config['ftp_user']=array();
 	$config['ftp_pass']=array();
 	$config['ftp_dir']=array();
-	
+
 	for ($i=0; $i < 3; $i++)
 	{
 		$checkFTP[$i]="";
@@ -817,8 +817,8 @@ $aus['global1'].='<td><input type="text" class="text" size="6" name="minspeed" m
 $aus['global1'].='</table></fieldset><fieldset><legend>' . $lang['L_DUMP'] . '</legend><table>';
 
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_ZIP'],"conf3") . $lang['L_GZIP'] . ':&nbsp;</td>';
-$aus['global1'].='<td><input type="radio" class="radio" value="1" name="compression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( (isset($config['logcompression']) && ($config['logcompression'] == 1) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="compression" ' . ( (isset($config['logcompression']) && ($config['logcompression'] == 0) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
+$aus['global1'].='<td><input type="radio" class="radio" value="1" name="compression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( (isset($config['compression']) && ($config['compression'] == 1) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
+$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="compression" ' . ( (isset($config['compression']) && ($config['compression'] == 0) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
 //Multipart-Backup -->
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_MULTIPART'],"") . $lang['L_MULTI_PART'] . ':&nbsp;</td><td>';
 $aus['global1'].='<input type="radio" class="radio" value="1" name="multi_part" onclick="obj_enable(\'multipartgroesse1\');obj_enable(\'multipartgroesse2\');" ' . ( (isset($config['multi_part']) && ( $config['multi_part'] == 1 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];

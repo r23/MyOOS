@@ -134,7 +134,7 @@ if (isset($_GET['dbid']))
 	if ($numrows>0)
 	{
 		$last_update="2000-01-01 00:00:00";
-		$sum_records=$sum_data_length='';
+		$sum_records=$sum_data_length=0;
 		for ($i=0; $i<$numrows; $i++)
 		{
 			$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
