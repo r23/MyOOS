@@ -83,9 +83,6 @@
 			
 			<!-- navbar collapse area-->
 			<div class="collapse navbar-collapse" id="menu">
-
-				{$nav_menu}
-						
 				
 				<!-- Site menu-->
 				<ul class="navbar-nav">
@@ -125,6 +122,21 @@
 				{/if}				
 				
 				</div>
-			</div>		
+			</div>
+
+			<nav class="main-nav main-nav-toggle">
+
+				<div class="main-nav-mobile-header clearfix">
+					<button class="nav-toggle-close"></button>
+						{logo dir=small}
+				</div>
+
+				<div class="main-nav-mobile-scroll">
+					<ul class="list-unstyled mb-0">
+						{$nav_menu}
+					</ul>
+				</div>
+			</nav>
+			
 		</div>
 	</header>

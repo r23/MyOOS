@@ -43,7 +43,7 @@
 /** NAV TOGGLE
  *************************************************** **/
 
-#header button.nav-toggle {
+button.nav-toggle {
   cursor: pointer;
   display: inline-block;
   width: 60px;
@@ -72,7 +72,7 @@
   }
 }
 
-#header.header-light {
+#bg-light {
   color: #121212;
   background-color: #ffffff;
   a {
