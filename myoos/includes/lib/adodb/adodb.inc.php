@@ -14,7 +14,7 @@
 /**
 	\mainpage
 
-	@version   v5.20.19  13-Dec-2020
+	@version   v5.20.20  01-Feb-2021
 	@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 	@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
 
@@ -224,7 +224,7 @@ if (!defined('_ADODB_LAYER')) {
 		/**
 		 * ADODB version as a string.
 		 */
-		$ADODB_vers = 'v5.20.17  31-Mar-2020';
+		$ADODB_vers = 'v5.20.20  01-Feb-2021';
 
 		/**
 		 * Determines whether recordset->RecordCount() is used.
@@ -457,7 +457,11 @@ if (!defined('_ADODB_LAYER')) {
 	var $hasTransactions = true;	/// has transactions
 	//--
 	var $genID = 0;					/// sequence id used by GenID();
-	var $raiseErrorFn = false;		/// error function to call
+
+	/**
+	 * @var string|false Error function to call
+	 */
+	var $raiseErrorFn = false;
 	var $isoDates = false;			/// accepts dates in ISO format
 	var $cacheSecs = 3600;			/// cache for 1 hour
 
@@ -483,8 +487,16 @@ if (!defined('_ADODB_LAYER')) {
 	var $autoRollback = false; // autoRollback on PConnect().
 	var $poorAffectedRows = false; // affectedRows not working or unreliable
 
+	/**
+	 * @var string|false Execute function to call
+	 */
 	var $fnExecute = false;
+
+	/**
+	 * @var string|false Cache execution function to call
+	 */
 	var $fnCacheExecute = false;
+
 	var $blobEncodeType = false; // false=not required, 'I'=encode to integer, 'C'=encode to char
 	var $rsPrefix = "ADORecordSet_";
 
@@ -860,9 +872,16 @@ if (!defined('_ADODB_LAYER')) {
 
 	/**
 	 * Requested by "Karsten Dambekalns" <k.dambekalns@fishfarm.de>
+	 * @deprecated 5.20.20
 	 */
 	function QMagic($s) {
-		return $this->qstr($s,get_magic_quotes_gpc());
+		// magic quotes
+		// PHP7.4 spits deprecated notice, PHP8 removed magic_* stuff
+		$magic_quotes = version_compare(PHP_VERSION, '7.4.0', '<')
+			&& function_exists('get_magic_quotes_gpc')
+			&& get_magic_quotes_gpc();
+
+		return $this->qstr($s, $magic_quotes);
 	}
 
 	function q(&$s) {
@@ -1600,7 +1619,8 @@ if (!defined('_ADODB_LAYER')) {
 	*/
 	function &_rs2rs(&$rs,$nrows=-1,$offset=-1,$close=true) {
 		if (! $rs) {
-			return false;
+			$ret = false;
+			return $ret;
 		}
 		$dbtype = $rs->databaseType;
 		if (!$dbtype) {
@@ -2064,7 +2084,12 @@ if (!defined('_ADODB_LAYER')) {
 		if (!$rs) {
 		// no cached rs found
 			if ($this->debug) {
-				if (get_magic_quotes_runtime() && !$this->memCache) {
+				// PHP7.4 spits deprecated notice, PHP8 removed magic_* stuff
+				if (!$this->memCache
+					&& version_compare(PHP_VERSION, '7.4.0', '<')
+					&& function_exists('get_magic_quotes_runtime')
+					&& get_magic_quotes_runtime()
+				) {
 					ADOConnection::outp("Please disable magic_quotes_runtime - it corrupts cache files :(");
 				}
 				if ($this->debug !== -1) {

@@ -1,6 +1,6 @@
 <?php
 /**
-	@version   v5.20.19  13-Dec-2020
+	@version   v5.20.20  01-Feb-2021
 	@copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 	@copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
 
@@ -367,7 +367,7 @@ class ADODB_pdo extends ADOConnection {
 			return $this->_driver->SetTransactionMode($transaction_mode);
 		}
 
-		return parent::SetTransactionMode($seqname);
+		return parent::SetTransactionMode($transaction_mode);
 	}
 
 	function BeginTrans()
@@ -496,7 +496,9 @@ class ADODB_pdo extends ADOConnection {
 		#adodb_backtrace();
 		#var_dump($this->_bindInputArray);
 		if ($stmt) {
-			$this->_driver->debug = $this->debug;
+			if ($this->_driver instanceof ADODB_pdo) {
+				$this->_driver->debug = $this->debug;
+			}
 			if ($inputarr) {
 				$ok = $stmt->execute($inputarr);
 			}
