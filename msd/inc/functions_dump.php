@@ -207,11 +207,22 @@ function get_content($db,$table)
 
 			for($j=0;$j<$num_felder;$j++)
 			{
-				if (!isset($row[$j])) $insert.='NULL,';
+				if (!isset($row[$j]))
+					$insert .= 'NULL,';
 				else
-					if ($row[$j]!='') $insert.='\''.mysqli_real_escape_string($config['dbconnection'], $row[$j]).'\',';
+				{
+					$fieldinfo = mysqli_fetch_field_direct($result, $j);
+					if (($fieldinfo->flags & 128) == true)
+						if ($row[$j] != '')
+							$insert .= '_binary 0x' . bin2hex($row[$j]) . ',';
+						else
+							$insert .= '_binary \'\',';
 					else
-						$insert.='\'\',';
+						if ($row[$j] != '')
+							$insert .= '\'' . mysqli_real_escape_string($config['dbconnection'], $row[$j]) . '\',';
+						else
+							$insert .= '\'\',';
+				}
 			}
 			$insert=substr($insert,0,-1).');'.$nl;
 			$dump['data'].=$insert;
