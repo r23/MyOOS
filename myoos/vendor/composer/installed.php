@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '71aee66a8967aaabd062e86039ccc2cdbf4410d0',
+    'reference' => '91c7caa11588f03ac6105dcd35b7dcee851e0c5f',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -162,7 +162,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '71aee66a8967aaabd062e86039ccc2cdbf4410d0',
+      'reference' => '91c7caa11588f03ac6105dcd35b7dcee851e0c5f',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -254,12 +254,12 @@
     ),
     'stripe/stripe-php' => 
     array (
-      'pretty_version' => 'v7.71.0',
-      'version' => '7.71.0.0',
+      'pretty_version' => 'v7.72.0',
+      'version' => '7.72.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5ebe39d814411594b1ff9d79f0598a0de7faa30b',
+      'reference' => 'e502d1e97ec7857038d2131ded3134af964a55c5',
     ),
     'symfony/amazon-mailer' => 
     array (
