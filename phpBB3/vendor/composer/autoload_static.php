@@ -4,14 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
+class ComposerStaticInitd26bb7d55d342e356e30fd7bb7dffccf
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
-        '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
-        'bd9634f2d41831496de0d3dfe4c94881' => __DIR__ . '/..' . '/symfony/polyfill-php56/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -41,11 +40,9 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         ),
         'S' => 
         array (
-            'Symfony\\Polyfill\\Util\\' => 22,
             'Symfony\\Polyfill\\Php72\\' => 23,
-            'Symfony\\Polyfill\\Php70\\' => 23,
-            'Symfony\\Polyfill\\Php56\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
             'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
@@ -117,25 +114,17 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
         ),
-        'Symfony\\Polyfill\\Util\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-util',
-        ),
         'Symfony\\Polyfill\\Php72\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
-        'Symfony\\Polyfill\\Php70\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php70',
-        ),
-        'Symfony\\Polyfill\\Php56\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php56',
-        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
         'Symfony\\Polyfill\\Intl\\Idn\\' => 
         array (
@@ -223,7 +212,7 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         ),
         'PackageVersions\\' => 
         array (
-            0 => __DIR__ . '/..' . '/ocramius/package-versions/src/PackageVersions',
+            0 => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions',
         ),
         'GuzzleHttp\\Psr7\\' => 
         array (
@@ -276,10 +265,7 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
     );
 
     public static $classMap = array (
-        'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
-        'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
-        'DivisionByZeroError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/DivisionByZeroError.php',
-        'Error' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/Error.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'FastImageSize\\FastImageSize' => __DIR__ . '/..' . '/marc1706/fast-image-size/lib/FastImageSize.php',
         'FastImageSize\\Type\\TypeBase' => __DIR__ . '/..' . '/marc1706/fast-image-size/lib/Type/TypeBase.php',
         'FastImageSize\\Type\\TypeBmp' => __DIR__ . '/..' . '/marc1706/fast-image-size/lib/Type/TypeBmp.php',
@@ -471,10 +457,9 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'OAuth\\OAuth2\\Token\\StdOAuth2Token' => __DIR__ . '/..' . '/lusitanian/oauth/src/OAuth/OAuth2/Token/StdOAuth2Token.php',
         'OAuth\\OAuth2\\Token\\TokenInterface' => __DIR__ . '/..' . '/lusitanian/oauth/src/OAuth/OAuth2/Token/TokenInterface.php',
         'OAuth\\ServiceFactory' => __DIR__ . '/..' . '/lusitanian/oauth/src/OAuth/ServiceFactory.php',
-        'PackageVersions\\FallbackVersions' => __DIR__ . '/..' . '/ocramius/package-versions/src/PackageVersions/FallbackVersions.php',
-        'PackageVersions\\Installer' => __DIR__ . '/..' . '/ocramius/package-versions/src/PackageVersions/Installer.php',
-        'PackageVersions\\Versions' => __DIR__ . '/..' . '/ocramius/package-versions/src/PackageVersions/Versions.php',
-        'ParseError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ParseError.php',
+        'PackageVersions\\FallbackVersions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/FallbackVersions.php',
+        'PackageVersions\\Installer' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Installer.php',
+        'PackageVersions\\Versions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Versions.php',
         'Patchwork\\PHP\\Shim\\Iconv' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/PHP/Shim/Iconv.php',
         'Patchwork\\PHP\\Shim\\Intl' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/PHP/Shim/Intl.php',
         'Patchwork\\PHP\\Shim\\Mbstring' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/PHP/Shim/Mbstring.php',
@@ -653,7 +638,6 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'ReCaptcha\\RequestMethod\\SocketPost' => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha/RequestMethod/SocketPost.php',
         'ReCaptcha\\RequestParameters' => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha/RequestParameters.php',
         'ReCaptcha\\Response' => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha/Response.php',
-        'SessionUpdateTimestampHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',
         'Symfony\\Bridge\\ProxyManager\\LazyProxy\\Instantiator\\LazyLoadingValueHolderFactoryV1' => __DIR__ . '/..' . '/symfony/proxy-manager-bridge/LazyProxy/Instantiator/LazyLoadingValueHolderFactoryV1.php',
         'Symfony\\Bridge\\ProxyManager\\LazyProxy\\Instantiator\\LazyLoadingValueHolderFactoryV2' => __DIR__ . '/..' . '/symfony/proxy-manager-bridge/LazyProxy/Instantiator/LazyLoadingValueHolderFactoryV2.php',
         'Symfony\\Bridge\\ProxyManager\\LazyProxy\\Instantiator\\RuntimeInstantiator' => __DIR__ . '/..' . '/symfony/proxy-manager-bridge/LazyProxy/Instantiator/RuntimeInstantiator.php',
@@ -771,8 +755,6 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'Symfony\\Component\\Config\\Resource\\FileResource' => __DIR__ . '/..' . '/symfony/config/Resource/FileResource.php',
         'Symfony\\Component\\Config\\Resource\\GlobResource' => __DIR__ . '/..' . '/symfony/config/Resource/GlobResource.php',
         'Symfony\\Component\\Config\\Resource\\ReflectionClassResource' => __DIR__ . '/..' . '/symfony/config/Resource/ReflectionClassResource.php',
-        'Symfony\\Component\\Config\\Resource\\ReflectionMethodHhvmWrapper' => __DIR__ . '/..' . '/symfony/config/Resource/ReflectionClassResource.php',
-        'Symfony\\Component\\Config\\Resource\\ReflectionParameterHhvmWrapper' => __DIR__ . '/..' . '/symfony/config/Resource/ReflectionClassResource.php',
         'Symfony\\Component\\Config\\Resource\\ResourceInterface' => __DIR__ . '/..' . '/symfony/config/Resource/ResourceInterface.php',
         'Symfony\\Component\\Config\\Resource\\SelfCheckingResourceChecker' => __DIR__ . '/..' . '/symfony/config/Resource/SelfCheckingResourceChecker.php',
         'Symfony\\Component\\Config\\Resource\\SelfCheckingResourceInterface' => __DIR__ . '/..' . '/symfony/config/Resource/SelfCheckingResourceInterface.php',
@@ -901,8 +883,6 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'Symfony\\Component\\DependencyInjection\\Compiler\\FactoryReturnTypePass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/FactoryReturnTypePass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\InlineServiceDefinitionsPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/InlineServiceDefinitionsPass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\LoggingFormatter' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/LoggingFormatter.php',
-        'Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationContainerBuilder' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/MergeExtensionConfigurationPass.php',
-        'Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationParameterBag' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/MergeExtensionConfigurationPass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\MergeExtensionConfigurationPass' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/MergeExtensionConfigurationPass.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\PassConfig' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/PassConfig.php',
         'Symfony\\Component\\DependencyInjection\\Compiler\\PriorityTaggedServiceTrait' => __DIR__ . '/..' . '/symfony/dependency-injection/Compiler/PriorityTaggedServiceTrait.php',
@@ -1012,7 +992,6 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'Symfony\\Component\\DependencyInjection\\Loader\\GlobFileLoader' => __DIR__ . '/..' . '/symfony/dependency-injection/Loader/GlobFileLoader.php',
         'Symfony\\Component\\DependencyInjection\\Loader\\IniFileLoader' => __DIR__ . '/..' . '/symfony/dependency-injection/Loader/IniFileLoader.php',
         'Symfony\\Component\\DependencyInjection\\Loader\\PhpFileLoader' => __DIR__ . '/..' . '/symfony/dependency-injection/Loader/PhpFileLoader.php',
-        'Symfony\\Component\\DependencyInjection\\Loader\\ProtectedPhpFileLoader' => __DIR__ . '/..' . '/symfony/dependency-injection/Loader/PhpFileLoader.php',
         'Symfony\\Component\\DependencyInjection\\Loader\\XmlFileLoader' => __DIR__ . '/..' . '/symfony/dependency-injection/Loader/XmlFileLoader.php',
         'Symfony\\Component\\DependencyInjection\\Loader\\YamlFileLoader' => __DIR__ . '/..' . '/symfony/dependency-injection/Loader/YamlFileLoader.php',
         'Symfony\\Component\\DependencyInjection\\Parameter' => __DIR__ . '/..' . '/symfony/dependency-injection/Parameter.php',
@@ -1031,7 +1010,6 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/TraceableEventDispatcher.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\TraceableEventDispatcherInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/TraceableEventDispatcherInterface.php',
         'Symfony\\Component\\EventDispatcher\\Debug\\WrappedListener' => __DIR__ . '/..' . '/symfony/event-dispatcher/Debug/WrappedListener.php',
-        'Symfony\\Component\\EventDispatcher\\DependencyInjection\\ExtractingEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/DependencyInjection/RegisterListenersPass.php',
         'Symfony\\Component\\EventDispatcher\\DependencyInjection\\RegisterListenersPass' => __DIR__ . '/..' . '/symfony/event-dispatcher/DependencyInjection/RegisterListenersPass.php',
         'Symfony\\Component\\EventDispatcher\\Event' => __DIR__ . '/..' . '/symfony/event-dispatcher/Event.php',
         'Symfony\\Component\\EventDispatcher\\EventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/EventDispatcher.php',
@@ -1317,7 +1295,6 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'Symfony\\Component\\Routing\\Loader\\GlobFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/GlobFileLoader.php',
         'Symfony\\Component\\Routing\\Loader\\ObjectRouteLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/ObjectRouteLoader.php',
         'Symfony\\Component\\Routing\\Loader\\PhpFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/PhpFileLoader.php',
-        'Symfony\\Component\\Routing\\Loader\\ProtectedPhpFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/PhpFileLoader.php',
         'Symfony\\Component\\Routing\\Loader\\XmlFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/XmlFileLoader.php',
         'Symfony\\Component\\Routing\\Loader\\YamlFileLoader' => __DIR__ . '/..' . '/symfony/routing/Loader/YamlFileLoader.php',
         'Symfony\\Component\\Routing\\Matcher\\Dumper\\DumperCollection' => __DIR__ . '/..' . '/symfony/routing/Matcher/Dumper/DumperCollection.php',
@@ -1355,18 +1332,12 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'Symfony\\Component\\Yaml\\Yaml' => __DIR__ . '/..' . '/symfony/yaml/Yaml.php',
         'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
         'Symfony\\Polyfill\\Intl\\Idn\\Idn' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/Idn.php',
+        'Symfony\\Polyfill\\Intl\\Idn\\Info' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/Info.php',
+        'Symfony\\Polyfill\\Intl\\Idn\\Resources\\unidata\\DisallowedRanges' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/Resources/unidata/DisallowedRanges.php',
+        'Symfony\\Polyfill\\Intl\\Idn\\Resources\\unidata\\Regex' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/Resources/unidata/Regex.php',
+        'Symfony\\Polyfill\\Intl\\Normalizer\\Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Normalizer.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
-        'Symfony\\Polyfill\\Php56\\Php56' => __DIR__ . '/..' . '/symfony/polyfill-php56/Php56.php',
-        'Symfony\\Polyfill\\Php70\\Php70' => __DIR__ . '/..' . '/symfony/polyfill-php70/Php70.php',
         'Symfony\\Polyfill\\Php72\\Php72' => __DIR__ . '/..' . '/symfony/polyfill-php72/Php72.php',
-        'Symfony\\Polyfill\\Util\\Binary' => __DIR__ . '/..' . '/symfony/polyfill-util/Binary.php',
-        'Symfony\\Polyfill\\Util\\BinaryNoFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill-util/BinaryNoFuncOverload.php',
-        'Symfony\\Polyfill\\Util\\BinaryOnFuncOverload' => __DIR__ . '/..' . '/symfony/polyfill-util/BinaryOnFuncOverload.php',
-        'Symfony\\Polyfill\\Util\\TestListener' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListener.php',
-        'Symfony\\Polyfill\\Util\\TestListenerForV5' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerForV5.php',
-        'Symfony\\Polyfill\\Util\\TestListenerForV6' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerForV6.php',
-        'Symfony\\Polyfill\\Util\\TestListenerForV7' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerForV7.php',
-        'Symfony\\Polyfill\\Util\\TestListenerTrait' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListenerTrait.php',
         'Twig\\Cache\\CacheInterface' => __DIR__ . '/..' . '/twig/twig/src/Cache/CacheInterface.php',
         'Twig\\Cache\\FilesystemCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/FilesystemCache.php',
         'Twig\\Cache\\NullCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/NullCache.php',
@@ -1722,7 +1693,6 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         'Twig_TokenStream' => __DIR__ . '/..' . '/twig/twig/lib/Twig/TokenStream.php',
         'Twig_Util_DeprecationCollector' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Util/DeprecationCollector.php',
         'Twig_Util_TemplateDirIterator' => __DIR__ . '/..' . '/twig/twig/lib/Twig/Util/TemplateDirIterator.php',
-        'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
         'Zend\\Code\\Annotation\\AnnotationCollection' => __DIR__ . '/..' . '/zendframework/zend-code/src/Annotation/AnnotationCollection.php',
         'Zend\\Code\\Annotation\\AnnotationInterface' => __DIR__ . '/..' . '/zendframework/zend-code/src/Annotation/AnnotationInterface.php',
         'Zend\\Code\\Annotation\\AnnotationManager' => __DIR__ . '/..' . '/zendframework/zend-code/src/Annotation/AnnotationManager.php',
@@ -1926,6 +1896,7 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
         's9e\\TextFormatter\\Configurator\\Helpers\\XPathHelper' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/Helpers/XPathHelper.php',
         's9e\\TextFormatter\\Configurator\\Items\\Attribute' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/Items/Attribute.php',
         's9e\\TextFormatter\\Configurator\\Items\\AttributeFilter' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/Items/AttributeFilter.php',
+        's9e\\TextFormatter\\Configurator\\Items\\AttributeFilters\\AbstractMapFilter' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/Items/AttributeFilters/AbstractMapFilter.php',
         's9e\\TextFormatter\\Configurator\\Items\\AttributeFilters\\AlnumFilter' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/Items/AttributeFilters/AlnumFilter.php',
         's9e\\TextFormatter\\Configurator\\Items\\AttributeFilters\\ChoiceFilter' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/Items/AttributeFilters/ChoiceFilter.php',
         's9e\\TextFormatter\\Configurator\\Items\\AttributeFilters\\ColorFilter' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/Items/AttributeFilters/ColorFilter.php',
@@ -2192,10 +2163,10 @@ class ComposerStaticInitcfc1de71cfce58b6ca33d70857068809
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcfc1de71cfce58b6ca33d70857068809::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcfc1de71cfce58b6ca33d70857068809::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitcfc1de71cfce58b6ca33d70857068809::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitcfc1de71cfce58b6ca33d70857068809::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd26bb7d55d342e356e30fd7bb7dffccf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd26bb7d55d342e356e30fd7bb7dffccf::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd26bb7d55d342e356e30fd7bb7dffccf::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitd26bb7d55d342e356e30fd7bb7dffccf::$classMap;
 
         }, null, ClassLoader::class);
     }

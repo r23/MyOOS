@@ -373,9 +373,11 @@ $lang = array_merge($lang, array(
 	'ERROR_MBSTRING_ENCODING_TRANSLATION'			=> 'Die transparente Zeichenkodierung ist fehlerhaft konfiguriert',
 	'ERROR_MBSTRING_ENCODING_TRANSLATION_EXPLAIN'	=> '<var>mbstring.encoding_translation</var> muss 0 sein. Sie können den aktuellen Wert auf der Seite <samp>PHP-Information</samp> prüfen.',
 	'ERROR_MBSTRING_HTTP_INPUT'						=> 'Die HTTP-Eingabe-Kodierung ist fehlerhaft konfiguriert',
-	'ERROR_MBSTRING_HTTP_INPUT_EXPLAIN'				=> '<var>mbstring.http_input</var> muss auf <samp>pass</samp> eingestellt sein. Sie können den aktuellen Wert auf der Seite <samp>PHP-Information</samp> prüfen.',
+	'ERROR_MBSTRING_HTTP_INPUT_EXPLAIN'				=> '<var>mbstring.http_input</var> darf nicht gesetzt sein. Sie können den aktuellen Wert auf der Seite <samp>PHP-Information</samp> prüfen.',
 	'ERROR_MBSTRING_HTTP_OUTPUT'					=> 'Die HTTP-Ausgabe-Kodierung ist fehlerhaft konfiguriert',
-	'ERROR_MBSTRING_HTTP_OUTPUT_EXPLAIN'			=> '<var>mbstring.http_output</var> muss auf <samp>pass</samp> eingestellt sein. Sie können den aktuellen Wert auf der Seite <samp>PHP-Information</samp> prüfen.',
+	'ERROR_MBSTRING_HTTP_OUTPUT_EXPLAIN'			=> '<var>mbstring.http_output</var> darf nicht gesetzt sein. Sie können den aktuellen Wert auf der Seite <samp>PHP-Information</samp> prüfen.',
+	'ERROR_DEFAULT_CHARSET'							=> 'Der Standard-Zeichensatz ist fehlerhaft konfiguriert',
+	'ERROR_DEFAULT_CHARSET_EXPLAIN'					=> '<var>default_charset</var> muss <samp>UTF-8</samp> sein. Sie können den aktuellen Wert auf der Seite <samp>PHP-Information</samp> prüfen.',
 
 	'FILES_PER_DAY'		=> 'Dateianhänge pro Tag',
 	'FORUM_STATS'		=> 'Board-Statistik',

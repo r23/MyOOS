@@ -24,7 +24,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -39,7 +39,7 @@ if (empty($lang) || !is_array($lang))
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	// Find the language/country code on https://developers.google.com/recaptcha/docs/language
 	// If no code exists for your language you can use "en" or leave the string empty
 	'RECAPTCHA_LANG'				=> 'de',
@@ -76,4 +76,5 @@ $lang = array_merge($lang, array(
 	'RECAPTCHA_V3_THRESHOLD_REPORT'				=> 'Meldungs-Grenzwert',
 	'RECAPTCHA_V3_THRESHOLDS'					=> 'Grenzwerte',
 	'RECAPTCHA_V3_THRESHOLDS_EXPLAIN'			=> 'reCAPTCHA v3 gibt einen Wert zurück (<samp>1.0</samp> ist recht sicher ein menschliches Gegenüber, <samp>0.0</samp> ist recht sicher ein Bot). Hier kannst du den Mindestwert für jeden Vorgang festlegen.',
-));
+	'EMPTY_RECAPTCHA_V3_REQUEST_METHOD'			=> 'reCAPTCHA v3 muss wissen, welche der verfügbaren Methoden du nutzen willst, wenn die Anfragen verifiziert werden.',
+]);
