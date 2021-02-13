@@ -43,6 +43,7 @@
       theme.langSwitcherSelect();
       theme.searchAutocomplete();
       theme.navbarFixed();
+	  theme.megaNavHorizontal();
       theme.scrollTo();
       theme.scrollBackTop();
       theme.tooltips();
@@ -134,6 +135,7 @@
       });
 
     },
+
 
 
     /**
@@ -253,6 +255,154 @@
         });
       }
     },
+
+
+
+    /**
+	* Mega Horizontal Navigation
+    */
+	megaNavHorizontal: function (selector, _sliderHeight) {
+
+
+		// HEADER MAIN MENU
+		var _hsliderWidth 	= jQuery("#header>.container").width() - 278,
+			_hsliderHeight 	= jQuery("nav.main-nav").height();
+
+		// Submenu widh & height
+		jQuery("nav.main-nav>div>ul>li>.main-nav-submenu").css({"min-height":_hsliderHeight+"px"});
+		jQuery("nav.main-nav>div>ul>li.main-nav-expanded>.main-nav-submenu").css({"width":_hsliderWidth+"px"});
+
+
+		// SUBMENUS
+		jQuery("nav.main-nav>div>ul>li").bind("click", function(e) {
+			var _this = jQuery(this);
+
+			if(!jQuery('div', _this).hasClass('main-nav-open')) {
+				jQuery("nav.main-nav>div>ul>li>.main-nav-submenu").removeClass('main-nav-open');
+			}
+
+			jQuery('div', _this).toggleClass('main-nav-open');
+		});
+
+
+
+
+		// HEADER MAIN MENU
+		if(window.width > 767) { //  desktop|tablet
+
+			jQuery("button.nav-toggle").mouseover(function(e) {
+				e.preventDefault();
+
+				_initMainNav();
+
+			});
+
+
+		} else { // mobile
+
+			jQuery("button.nav-toggle").bind("click", function(e) {
+				e.preventDefault();
+
+				_initMainNav();
+
+			});
+
+		}
+
+        jQuery('body').on('click', 'button.nav-toggle, nav.main-nav', function (e) {
+            e.stopPropagation();
+        });
+
+        jQuery("button.nav-toggle, nav.main-nav").mouseover(function(e) {
+        	 e.stopPropagation();
+        });
+
+
+		jQuery(document).bind("click", function() {
+
+			_hideMainNav();
+
+		});
+
+
+
+		function _initMainNav() {
+
+			// remove overlay first, no matter what
+			jQuery("#main-nav-overlay").remove();
+		
+			// open menu
+			jQuery("nav.main-nav").addClass('min-nav-active');
+
+			// add overlay
+			jQuery('body').append('<div id="main-nav-overlay"></div>');
+
+			// Mobile menu open|close on click
+			jQuery('button.nav-toggle-close').bind("click", function() {
+				jQuery("nav.main-nav").removeClass('min-nav-active');
+			});
+
+			// Close menu on hover
+	        jQuery("#main-nav-overlay").mouseover(function() {
+
+	        	_hideMainNav();
+
+	        });
+
+		}
+
+		function _hideMainNav() {
+			jQuery("#main-nav-overlay").remove();
+			jQuery("nav.main-nav").removeClass('min-nav-active');
+		}
+
+
+		// Menu Click
+		jQuery("nav.main-nav>div>ul>li a").bind("click", function(e) {
+			var _href = jQuery(this).attr('href');
+
+			if(_href == '#') {
+				e.preventDefault();
+			}
+		});
+	},
+
+
+
+
+
+    /**
+	* Side Nav
+    */
+	sideNav: function () {
+
+
+		/* Mobile Button */
+		jQuery("div.side-nav").each(function() {
+			var _t = jQuery('ul', this);
+			jQuery('button', this).bind("click", function() {
+				_t.slideToggle(300);
+			});
+		});
+
+
+		/* Submenus */
+		jQuery("div.side-nav li>a.dropdown-toggle").bind("click", function(e) {
+
+			if(jQuery(this).attr('href') == '#')
+				e.preventDefault();
+
+			jQuery(this).next('ul').slideToggle(200);
+			jQuery(this).closest('li').toggleClass('active');
+		});
+
+	},
+
+
+
+
+
+
 
 
     /**
