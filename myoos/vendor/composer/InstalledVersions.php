@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '5b1c65b2aae107dad658f58eaff1bdd7c683dcd1',
+    'reference' => 'a131666d089670ecef37b58b55e7d3cb3afbc8a2',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -95,6 +95,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '9899c16934053880876b920a3b8b02ed2337ac1d',
+    ),
+    'dompdf/dompdf' => 
+    array (
+      'pretty_version' => 'v1.0.2',
+      'version' => '1.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8768448244967a46d6e67b891d30878e0e15d25c',
     ),
     'endroid/qr-code' => 
     array (
@@ -182,7 +191,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '5b1c65b2aae107dad658f58eaff1bdd7c683dcd1',
+      'reference' => 'a131666d089670ecef37b58b55e7d3cb3afbc8a2',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -199,6 +208,24 @@ private static $installed = array (
       array (
       ),
       'reference' => '72e2f2466975bf128a31e02b15110180f059fc04',
+    ),
+    'phenx/php-font-lib' => 
+    array (
+      'pretty_version' => '0.5.2',
+      'version' => '0.5.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ca6ad461f032145fff5971b5985e5af9e7fa88d8',
+    ),
+    'phenx/php-svg-lib' => 
+    array (
+      'pretty_version' => 'v0.3.3',
+      'version' => '0.3.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5fa61b65e612ce1ae15f69b3d223cb14ecc60e32',
     ),
     'php-amqplib/php-amqplib' => 
     array (
@@ -271,6 +298,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '0f73288fd15629204f9d42b7055f72dacbe811fc',
+    ),
+    'sabberworm/php-css-parser' => 
+    array (
+      'pretty_version' => '8.3.1',
+      'version' => '8.3.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd217848e1396ef962fb1997cf3e2421acba7f796',
     ),
     'smarty/smarty' => 
     array (

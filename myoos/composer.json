@@ -45,7 +45,8 @@
 		"php-amqplib/php-amqplib": "^2.10",
 		"symfony/intl": "^5.0",
 		"symfony/polyfill-uuid": "^1.17",
-		"phpoffice/phpword": "^0.18.0"
+		"phpoffice/phpword": "^0.18.0",
+		"dompdf/dompdf": "^1.0"
     }	
 	
 }
