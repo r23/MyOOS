@@ -1012,17 +1012,17 @@
         },
         {
             "name": "mobiledetect/mobiledetectlib",
-            "version": "2.8.35",
-            "version_normalized": "2.8.35.0",
+            "version": "2.8.36",
+            "version_normalized": "2.8.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/serbanghita/Mobile-Detect.git",
-                "reference": "68a35170fdf36e7b35f9c125e5102338dbc3ff65"
+                "reference": "e55c155f4d1ab299a0cfca8ec29a0154918c9e3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/68a35170fdf36e7b35f9c125e5102338dbc3ff65",
-                "reference": "68a35170fdf36e7b35f9c125e5102338dbc3ff65",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/e55c155f4d1ab299a0cfca8ec29a0154918c9e3d",
+                "reference": "e55c155f4d1ab299a0cfca8ec29a0154918c9e3d",
                 "shasum": ""
             },
             "require": {
@@ -1031,7 +1031,7 @@
             "require-dev": {
                 "phpunit/phpunit": "~4.8.35||~5.7"
             },
-            "time": "2021-01-25T19:09:34+00:00",
+            "time": "2021-02-13T14:35:52+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1065,7 +1065,7 @@
             ],
             "support": {
                 "issues": "https://github.com/serbanghita/Mobile-Detect/issues",
-                "source": "https://github.com/serbanghita/Mobile-Detect/tree/2.8.35"
+                "source": "https://github.com/serbanghita/Mobile-Detect/tree/2.8.36"
             },
             "install-path": "../mobiledetect/mobiledetectlib"
         },

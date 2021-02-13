@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '8f39b4e3189488df269fdc3931067c07d542b3ab',
+    'reference' => 'c439aeb5eefd377b5778f5506135c0233d297c52',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -139,12 +139,12 @@
     ),
     'mobiledetect/mobiledetectlib' => 
     array (
-      'pretty_version' => '2.8.35',
-      'version' => '2.8.35.0',
+      'pretty_version' => '2.8.36',
+      'version' => '2.8.36.0',
       'aliases' => 
       array (
       ),
-      'reference' => '68a35170fdf36e7b35f9c125e5102338dbc3ff65',
+      'reference' => 'e55c155f4d1ab299a0cfca8ec29a0154918c9e3d',
     ),
     'myclabs/php-enum' => 
     array (
@@ -162,7 +162,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '8f39b4e3189488df269fdc3931067c07d542b3ab',
+      'reference' => 'c439aeb5eefd377b5778f5506135c0233d297c52',
     ),
     'ocramius/proxy-manager' => 
     array (
