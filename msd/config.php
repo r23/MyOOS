@@ -9,7 +9,7 @@ $config['dbport'] = '';
 $config['dbsocket'] = '';
 
 // Username
-$config['dbuser'] = '';
+$config['dbuser'] = 'root';
 //User-Pass. For no Password leave empty
 $config['dbpass'] = '';
 

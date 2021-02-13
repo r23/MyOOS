@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'c439aeb5eefd377b5778f5506135c0233d297c52',
+    'reference' => '5b1c65b2aae107dad658f58eaff1bdd7c683dcd1',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -132,6 +132,15 @@ private static $installed = array (
       ),
       'reference' => '28a6d70ea8b8bca687d7163300e611ae33baf82a',
     ),
+    'laminas/laminas-escaper' => 
+    array (
+      'pretty_version' => '2.7.0',
+      'version' => '2.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5e04bc5ae5990b17159d79d331055e2c645e5cc5',
+    ),
     'laminas/laminas-eventmanager' => 
     array (
       'pretty_version' => '3.3.0',
@@ -143,12 +152,10 @@ private static $installed = array (
     ),
     'laminas/laminas-zendframework-bridge' => 
     array (
-      'pretty_version' => '1.1.1',
-      'version' => '1.1.1.0',
-      'aliases' => 
+      'replaced' => 
       array (
+        0 => '*',
       ),
-      'reference' => '6ede70583e101030bcace4dcddd648f760ddf642',
     ),
     'mobiledetect/mobiledetectlib' => 
     array (
@@ -175,7 +182,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'c439aeb5eefd377b5778f5506135c0233d297c52',
+      'reference' => '5b1c65b2aae107dad658f58eaff1bdd7c683dcd1',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -201,6 +208,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '0eaaa9d5d45335f4342f69603288883388c2fe21',
+    ),
+    'phpoffice/phpword' => 
+    array (
+      'pretty_version' => '0.18.0',
+      'version' => '0.18.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1bd7cd62381051db6d6c7174d3c95a3ada48bc0f',
     ),
     'phpseclib/phpseclib' => 
     array (
@@ -893,6 +909,13 @@ private static $installed = array (
       'replaced' => 
       array (
         0 => '4.0.0',
+      ),
+    ),
+    'zendframework/zend-escaper' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '^2.6.1',
       ),
     ),
     'zendframework/zend-eventmanager' => 
