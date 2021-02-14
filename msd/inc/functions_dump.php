@@ -212,7 +212,7 @@ function get_content($db,$table)
 				else
 				{
 					$fieldinfo = mysqli_fetch_field_direct($result, $j);
-					if (($fieldinfo->flags & 128) == true)
+					if (($fieldinfo->flags & 128) == true && isset($config['use_binary_container']) && $config['use_binary_container'] == 1)
 						if ($row[$j] != '')
 							$insert .= '_binary 0x' . bin2hex($row[$j]) . ',';
 						else

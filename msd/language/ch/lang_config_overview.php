@@ -17,6 +17,8 @@ $lang['L_CRON_PRINTOUT']="Textuusgab";
 $lang['L_CONFIG_CRONPERL']="Crondump-Iischtellige fürs Perlscript";
 $lang['L_CRON_MAILPRG']="Mailprogramm";
 $lang['L_OPTIMIZE']="Tabälle vorem Backup optimiere";
+$lang['L_BINARY']="Export binary data in hex format";
+$lang['L_HELP_BINARY']="If this option is activated, binary data are exported in hex format to avoid coding problems.";
 $lang['L_HELP_OPTIMIZE']="Wänn die Option aktiviert isch, wärdet vor jedem Backup ali Tabälle optimiert.";
 $lang['L_HELP_FTPTIMEOUT']="D Ziit, wo bi keiner Überträgig zum Timeout füert, Default = 90 Sekunde";
 $lang['L_FTP_TIMEOUT']="Verbindigs-Timeout";

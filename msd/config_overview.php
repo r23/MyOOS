@@ -220,6 +220,7 @@ if (isset($_POST['save']))
 
 	if (isset($_POST['empty_db_before_restore'])) $config['empty_db_before_restore']=$_POST['empty_db_before_restore'];
 	if (isset($_POST['optimize_tables'])) $config['optimize_tables_beforedump']=$_POST['optimize_tables'];
+	if (isset($_POST['binary_container'])) $config['use_binary_container']=$_POST['binary_container'];
 	if (isset($_POST['cron_dbindex'])) $config['cron_dbindex']=$_POST['cron_dbindex'];
 	if (isset($_POST['cron_comment'])) $config['cron_comment']=$_POST['cron_comment'];
 
@@ -837,6 +838,10 @@ $aus['global1'].='><option value="1" ' . ( ( $config['multipartgroesse2'] == 1 )
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_OPTIMIZE'],"") . $lang['L_OPTIMIZE'] . ':</td>';
 $aus['global1'].='<td><input type="radio" class="radio" value="1" name="optimize_tables" ' . ( (isset($config['optimize_tables_beforedump']) && ( $config['optimize_tables_beforedump'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
 $aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="optimize_tables" ' . ( (isset($config['optimize_tables_beforedump']) && ( $config['optimize_tables_beforedump'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
+
+$aus['global1'].='<tr><td>' . Help($lang['L_HELP_BINARY'],"") . $lang['L_BINARY'] . ':</td>';
+$aus['global1'].='<td><input type="radio" class="radio" value="1" name="binary_container" ' . ( (isset($config['use_binary_container']) && ( $config['use_binary_container'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
+$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="binary_container" ' . ( (isset($config['use_binary_container']) && ( $config['use_binary_container'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
 
 $aus['global1'].='</table></fieldset><fieldset><legend>' . $lang['L_RESTORE'] . '</legend><table>';
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_EMPTY_DB_BEFORE_RESTORE'],"conf4") . $lang['L_EMPTY_DB_BEFORE_RESTORE'] . ':&nbsp;</td><td>';
