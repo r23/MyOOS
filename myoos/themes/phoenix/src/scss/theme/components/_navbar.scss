@@ -1,4 +1,11 @@
 //
+// header
+// --------------------------------------------------
+#header>.container {
+	padding: 0;
+}
+
+//
 // Navbar
 // --------------------------------------------------
 
@@ -178,43 +185,6 @@
   }
 }
 
-
-// Navbar laguage switcher
-
-.navbar-lang-switcher {
-  display: inline-block;
-  margin: $spacer;
-  padding: .5rem;
-  transition: $nav-link-transition;
-  border: $navbar-border-width solid $navbar-light-border-color;
-  color: $navbar-light-color;
-  text-align: center;
-  line-height: 1;
-  cursor: pointer;
-  img {
-    display: inline-block;
-    margin-bottom: .125rem;
-  }
-  span {
-    display: inline-block;
-    margin-left: .5rem;
-    font: {
-      size: $font-size-sm;
-      weight: $font-weight-bold;
-    }
-  }
-  &::before {
-    display: block;
-    position: absolute;
-    left: 0;
-    bottom: -.7rem;
-    width: 100%;
-    height: .75rem;
-    content: '';
-  }
-  &:hover,
-  &.show { color: $navbar-light-hover-color; }
-}
 
 
 // Navbar themes
@@ -481,6 +451,136 @@
   }
 }
 
+// MAIN NAVIGATION
+// --------------------------------------------------
+
+
+nav.main-nav {
+    z-index:9999;
+    font-weight: 300;
+}
+nav.main-nav>div>ul>li {
+    position: inherit;
+}
+nav.main-nav>div dl,
+nav.main-nav>div dl dd,
+nav.main-nav>div dl dt {
+    margin-bottom: 0;
+}
+nav.main-nav>div>ul>li>a {
+    text-decoration: none;
+    display: block;
+    position: relative;
+    padding: 7px 30px 7px 15px;
+    font-size: 15px;
+    font-weight:300;
+    color: #111;
+
+    border-bottom: transparent 1px solid;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+    /* bordered style */
+    nav.main-nav.main-nav-bordered>div>ul>li>a {
+        border-bottom: rgba(0,0,0,0.04) 1px solid;
+    }
+    nav.main-nav>div>ul>li:last-child>a {
+        border-bottom:0;
+    }
+
+    /* hover background */
+    nav.main-nav>div>ul>li.main-nav-item:hover,
+    nav.main-nav>div>ul>li.main-nav-item.active {
+        background-color: #fbfbfb;
+    }
+
+    /* main icon */
+    nav.main-nav>div>ul>li>span>i,
+    nav.main-nav>div>ul>li>span>a>i,
+    nav.main-nav>div>ul>li>a>i {
+        margin-right: 6px;
+        color: #ccc;
+        width: 20px;
+    }
+
+    /* menu title - view all products */
+    nav.main-nav>div>ul>li>span>a {
+        display: block;
+        position: relative;
+        color: #111;
+        font-weight:400;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    nav.main-nav>div>ul>li>span>a {
+        padding: 15px 15px;
+        font-size: 15px;
+    }
+        nav.main-nav>div>ul>li:hover>span>a:after {
+            content: attr(data-text);
+            font-size: 11px;
+            text-decoration: none;
+            position: absolute;
+            right: 8px;
+            top: 18px;
+        }
+        nav.main-nav>div>ul>li:hover>span>i,
+        nav.main-nav>div>ul>li:hover>span>a>i {
+            color: #d9534f;
+        }
+            nav.main-nav>div>ul>li>span>a {
+                text-decoration: none;
+                color: #111;
+
+                display: block;
+            }
+
+    /* badges */
+    nav.main-nav>div>ul>li>a>.badge {
+        margin-right:0;
+        margin-top:2px;
+        font-weight: 300;
+        font-size:11px;
+
+        position: absolute;
+        right:30px;
+
+        -webkit-border-radius: 3px;
+           -moz-border-radius: 3px;
+                border-radius: 3px;
+    }
+
+/* expand icon */
+nav.main-nav>div>ul>li>a:before {
+    content: "\f105";
+    display: inline-block;
+    font: normal normal normal 14px/1 'FontAwesome';
+    font-size: inherit;
+
+    position: absolute;
+    right:15px;
+    top:9px;
+
+    color: #ccc;
+}
+
+
+nav.main-nav {
+    display: none;
+}
+
+nav.main-nav.min-nav-active {
+    display: block;
+}
+
+
+
+
 // Toggle
 // --------------------------------------------------
 
@@ -517,16 +617,44 @@ button.nav-toggle {
 
 
 @media only screen and (min-width: 767px) {
-
-    #main-nav-overlay {
-        position: fixed;
-        left:0; right:0;
-        bottom:0; top:0;
-        width: 100%; height: 100%;
-        display: block;
-        background-color: rgba(0,0,0,0.3);
-
-        z-index:9;
-    }
-
+  #header nav.main-nav.main-nav-toggle {
+    position: absolute;
+    top: 60px;
+    background-color: #fff;
+    border-top: rgba(0, 0, 0, 0.05) 1px solid;
+  }
+  #main-nav-overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 9;
+  }
 }
+
+@media only screen and (max-width: 767px) {
+  nav.main-nav.main-nav-toggle {
+    position: fixed;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 9999;
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding-bottom: 62px;
+  }
+  #header nav.main-nav form.search-global {
+    max-width: 100% !important;
+    margin-top: 0 !important;
+    margin-bottom: 6px !important;
+  }
+}
+

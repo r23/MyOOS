@@ -68,83 +68,114 @@
 </head>
 <body>
 
-	<!-- Navbar Light-->
-	<header class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
-		<div class="container-fluid navbar-inner">
+	<nav id="header" class="header-light header-fixed header-shadow-1">
+		<div class="container">
 
 			<button class="nav-toggle"></button>
 
 			<!-- 
 				LOGO 
 			-->
-			<a class="navbar-brand" style="min-width: 100px;" href="{html_href_link content=$filename.home}">
+			<a class="header-logo" style="min-width: 100px;" href="{html_href_link content=$filename.home}">
 				{logo dir=small}
 			</a>  
-			
-			<!-- navbar collapse area-->
-			<div class="collapse navbar-collapse" id="menu">
-				
-				<!-- Site menu-->
-				<ul class="navbar-nav">
-				{if !empty($smarty.const.PHPBB_URL)}
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="{$smarty.const.PHPBB_URL}">Pages</a>
-					</li>
-				{/if}
-				{if !empty($smarty.const.BLOG_URL)}	
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="{$smarty.const.BLOG_URL}">Blog</a>
-					</li>
-				{/if}
-					<li class="nav-item dropdown">
-						<a class="nav-link" href="{html_href_link content=$filename.contact_us}">{$lang.block_service_contact}</a>
-					</li>
-				</ul>
-			</div>
-			<!-- navbar buttons-->
-			<div class="navbar-btns">
-				<div class="navbar-btns-inner">
-					<div class="navbar-toggler navbar-btn collapsed" data-toggle="collapse" data-target="#menu"><i class="mx-auto mb-1" data-feather="menu"></i>Menu</div>
-				
-						<a class="navbar-btn" href="#offcanvas-search" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="search"></i>Search</a>
-						<a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.account_wishlist page=1}" rel="nofollow"><span class="d-block position-relative"><i class="mx-auto mb-1" data-feather="heart"></i>{$lang.button_wishlist}</span></a>
-		
-				{if (isset($smarty.session.customer_id)) }
-					<a class="navbar-btn navbar-collapse-hidden" href="{html_href_link content=$filename.logoff}"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_logoff}</a>
-				{else}
-					<a class="navbar-btn navbar-collapse-hidden" href="#offcanvas-account" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="log-in"></i>{$lang.header_title_login}</a>
-				{/if}				
-				
-				{if $cart_count_contents gt 0 }
-					<a class="navbar-btn" href="#offcanvas-cart" data-toggle="offcanvas"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
-				{else}
-					<a class="navbar-btn" href="{html_href_link content=$filename.shopping_cart}"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">{$cart_count_contents}</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>{$cart_show_total}</span></a>	
-				{/if}				
-				
-				</div>
-			</div>
 
+			<ul class="list-inline header-buttons">	
+				<li class="list-inline-item">
+				{if $cart_count_contents gt 0 }
+					<a href="#offcanvas-cart">
+						<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+						<span class="badge badge-default">0</span>
+						{$lang.header_title_cart_contents}
+					</a>
+				{else}
+					<a href="{html_href_link content=$filename.shopping_cart}">
+						<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+						<span class="badge badge-default">0</span>
+						{$lang.header_title_cart_contents}
+					</a>
+				{/if}			
+				</li>
+				<li class="list-inline-item hidden-xs-down">
+					<a href="{html_href_link content=$filename.account_wishlist page=1}">
+						<i class="fa fa-heart-o" aria-hidden="true"></i>
+						<!--
+							# todo counter for wishlist
+							<span class="badge badge-default">0</span>
+						-->
+						{$lang.button_wishlist}
+					</a>						
+				</li>
+				<li class="list-inline-item">					
+				{if (isset($smarty.session.customer_id)) }
+					<a href="{html_href_link content=$filename.logoff}">
+						<i class="fa fa-user" aria-hidden="true"></i>
+						{$lang.header_title_logoff}
+					</a>
+				{else}
+					<a href="#offcanvas-account" data-toggle="offcanvas">
+						<i class="fa fa-user-o" aria-hidden="true"></i>
+						{$lang.header_title_login}
+					</a>
+				{/if}						
+				</li>					
+			</ul>
+
+			<form action="{html_href_link content=$filename.advanced_search_result}" method="get" class="search-global hidden-sm-down">
+			{if $mySystem.sed}
+				<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+				<input type="hidden" name="formid" value="{$mySystem.formid}">
+			{/if}
+				<input type="hidden" name="content" value="{$filename.advanced_search_result}">	
+					
+				<input type="text" name="s" class="form-control" placeholder="{$lang.text_search}">
+				<button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+			</form>
+
+
+			<!--
+				.main-nav
+			-->
 			<nav class="main-nav main-nav-toggle">
 
 				<div class="main-nav-mobile-header clearfix">
 					<button class="nav-toggle-close"></button>
-						{logo dir=small}
+					{logo dir=small}
 				</div>
 
 				<div class="main-nav-mobile-scroll">
 					<ul class="list-unstyled mb-0">
-					
+
+						<li class="main-nav-search hidden-md-up">
+							<form action="{html_href_link content=$filename.advanced_search_result}" method="get" class="search-global input-group mb-0">
+							{if $mySystem.sed}
+								<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+								<input type="hidden" name="formid" value="{$mySystem.formid}">
+							{/if}
+								<input type="hidden" name="content" value="{$filename.advanced_search_result}">
+									
+								<input type="text" name="s" class="form-control" placeholder="{$lang.text_search}">
+								<button class="btn btn-default" type="submit">
+									<i class="fa fa-search" aria-hidden="true"></i>
+								</button>
+							</form>
+						</li>
 						<li>
 							<span>
-								<a href="#" data-text="&ndash; EXPLORE ALL">
-										CATEGORIES
+								<a href="{html_href_link content=$filename.sitemap}" data-text="&ndash; EXPLORE ALL">
+										{$lang.text_categories}
 								</a>
 							</span>
-						</li>				
-						{$nav_menu}
+						</li>
+
+							{$nav_menu}
+
 					</ul>
 				</div>
+
 			</nav>
-			
+
 		</div>
-	</header>
+	</nav>
+	<!-- /HEADER -->
+	
