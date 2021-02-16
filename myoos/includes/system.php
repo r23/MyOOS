@@ -118,8 +118,7 @@ $smarty->assign(
 		'facebook_description'	=> $facebook_description,
 		'twitter_description'	=> $twitter_description,
 
-		'part'				=> $part,
-		'welcome'			=> sprintf($aLang['welcome_msg'], STORE_NAME)
+		'part'				=> $part
 	)
 
 );

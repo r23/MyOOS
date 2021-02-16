@@ -63,7 +63,6 @@ define('LANG', 'en');
 define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
 
 $aLang = [
-'welcome_msg'           => 'Welcome to %s!',
 'danger'                => 'Oh snap! You got an error!',
 'warning'               => 'Warning!',
 'info'               	=> 'Registration!',
@@ -155,6 +154,8 @@ $aLang = [
 'login_block_book_now'              => 'Book now %s',
 'text_password_forgotten'           => 'Lost your password?',
 'link_password_forgotten'           => 'Click <u>here</u> to recover.',
+'text_please_enter_a_password'		=> 'Please enter a password',
+'text_please_provide_email_address' => 'Please provide email address',
 
 // checkout procedure text
 'checkout_bar_delivery'             => 'Delivery Information',

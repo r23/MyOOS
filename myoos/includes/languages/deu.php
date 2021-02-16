@@ -56,8 +56,6 @@ define('LANG','de');
 define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
 
 $aLang = [
-
-'welcome_msg'           => 'Willkommen bei %s!',
 'danger'                => 'Oh nein! Es ist ein Fehler aufgetreten!',
 'warning'               => 'Warnung!',
 'info'               	=> 'Anmeldung!',
