@@ -139,25 +139,28 @@ $aLang = [
 'block_information_gv'            => 'Gift Voucher FAQ',
 
 // login
-'entry_email_address'         => 'E-Mail-Address',
-'entry_password'              => 'Password',
-'text_password_info'          => 'Password forgotten?',
-'button_login'                => 'Login',
-'login_block_new_customer'    => 'New Customer',
-'login_block_account_edit'    => 'Edit Account Info.',
-'login_block_account_history'   => 'My Account History',
-'login_block_order_history'         => 'My Orders',
-'login_block_address_book'      => 'My Address Book',
+'entry_email_address'             => 'E-Mail-Address',
+'entry_password'                  => 'Password',
+'text_password_info'              => 'Password forgotten?',
+'button_login'                    => 'Login',
+'login_block_new_customer'        => 'New Customer',
+'login_block_account_edit'        => 'Edit Account Info.',
+'login_block_account_history'     => 'My Account History',
+'login_block_order_history'       => 'My Orders',
+'login_block_address_book'        => 'My Address Book',
 'login_block_product_notifications'   => 'Product Notifications',
 'login_block_my_account'              => 'General Information',
 'login_block_logoff'                  => 'Log Off',
-
+'login_block_no_account_yet' 		=> 'No Account Yet?',
+'login_block_book_now'              => 'Book now %s',
+'text_password_forgotten'           => 'Lost your password?',
+'link_password_forgotten'           => 'Click <u>here</u> to recover.',
 
 // checkout procedure text
 'checkout_bar_delivery'             => 'Delivery Information',
 'checkout_bar_payment'              => 'Payment Information',
 'checkout_bar_confirmation'         => 'Confirmation',
-'checkout_bar_finished'            => 'Finished!',
+'checkout_bar_finished'             => 'Finished!',
 
 // pull down default text
 'pull_down_default'           => 'Please Select',

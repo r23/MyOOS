@@ -131,10 +131,15 @@ $aLang = [
 'login_block_account_history'       => 'Mein Kontoverlauf',
 'login_block_order_history'         => 'Meine Bestellungen',
 'login_block_address_book'          => 'Mein Adressbuch',
-'login_block_product_notifications'  => 'Benachrichtigungen',
+'login_block_product_notifications' => 'Benachrichtigungen',
 'login_block_my_account'            => 'Mein Konto',
 'login_block_logoff'                => 'Abmelden',
-
+'login_block_no_account_yet' 		=> 'Noch keinen Account?',
+'login_block_book_now'              => 'Buchen Sie jetzt %s',
+'text_password_forgotten'           => 'Sie haben Ihr Passwort vergessen?',
+'link_password_forgotten'           => 'Dann klicken Sie <u>hier</u>',
+'text_please_enter_a_password'		=> 'Bitte geben Sie Ihr Passwort ein',
+'text_please_provide_email_address' => 'Bitte geben Sie Ihre E-Mail Adresse ein',
 
 // checkout procedure text
 'checkout_bar_delivery'           => 'Versandinformationen',

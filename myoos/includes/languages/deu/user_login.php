@@ -6,7 +6,7 @@
    https://www.oos-shop.de
    
    
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,9 +35,6 @@ $aLang['link_new_customer'] = 'Jetzt registrieren.';
 
 $aLang['heading_returning_customer'] = 'Bereits Kunde';
 $aLang['text_returning_customer'] = 'Ich bin bereits Kunde.';
-
-$aLang['text_password_forgotten'] = 'Sie haben Ihr Passwort vergessen?';
-$aLang['link_password_forgotten'] = 'Dann klicken Sie <u>hier</u>';
 
 $aLang['heading_guest_customer'] = 'Gastbestellung';
 $aLang['text_guest_customer'] =  'Bestellung ohne Eröffnung eines Kundenkontos.';
