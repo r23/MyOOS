@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '729167854f1acebac939910ef8070e28552eccb2',
+    'reference' => '733fb83657c232a9ef2b2c03117f569ab8e8e988',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -227,7 +227,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '729167854f1acebac939910ef8070e28552eccb2',
+      'reference' => '733fb83657c232a9ef2b2c03117f569ab8e8e988',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -691,8 +691,8 @@ private static $installed = array (
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
@@ -700,53 +700,53 @@ private static $installed = array (
     ),
     'symfony/polyfill-intl-grapheme' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '267a9adeb8ecb8071040a740930e077cdfb987af',
+      'reference' => '5601e09b69f26c1828b13b6bb87cb07cddba3170',
     ),
     'symfony/polyfill-intl-icu' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b2b1e732a6c039f1a3ea3414b3379a2433e183d6',
+      'reference' => 'af1842919c7e7364aaaa2798b29839e3ba168588',
     ),
     'symfony/polyfill-intl-idn' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0eb8293dbbcd6ef6bf81404c9ce7d95bcdf34f44',
+      'reference' => '2d63434d922daf7da8dd863e7907e67ee3031483',
     ),
     'symfony/polyfill-intl-normalizer' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6e971c891537eb617a00bb07a43d182a6915faba',
+      'reference' => '43a0283138253ed1d48d352ab6d0bdb3f809f248',
     ),
     'symfony/polyfill-mbstring' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f377a3dd1fde44d37b9831d68dc8dea3ffd28e13',
+      'reference' => '5232de97ee3b75b0360528dae24e73db49566ab1',
     ),
     'symfony/polyfill-php72' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
@@ -754,8 +754,8 @@ private static $installed = array (
     ),
     'symfony/polyfill-php73' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
@@ -763,8 +763,8 @@ private static $installed = array (
     ),
     'symfony/polyfill-php80' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
@@ -772,12 +772,12 @@ private static $installed = array (
     ),
     'symfony/polyfill-uuid' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '17e0611d2e180a91d02b4fa8b03aab0368b661bc',
+      'reference' => '9773608c15d3fe6ba2b6456a124777a7b8ffee2a',
     ),
     'symfony/postmark-mailer' => 
     array (
