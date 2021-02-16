@@ -33,7 +33,13 @@
 						{/if}
 						{if $oEvent->installed_plugin('notify')}
 							<li><a href="{html_href_link content=$filename.product_notifications}" title="{$lang.button_notifications}">{$lang.button_notifications}</a></li>
-						{/if}						
+						{/if}	
+						{if !empty($smarty.const.PHPBB_URL)}
+							<li><a href="{$smarty.const.PHPBB_URL}" title="{$lang.page_phpb3}">{$lang.page_phpb3}</a></li>
+						{/if}
+						{if !empty($smarty.const.BLOG_URL)}
+							<li><a href="{$smarty.const.BLOG_URL}" title="{$lang.page_blog}">{$lang.page_blog}</a></li>
+						{/if}
 							<li><a href="{html_href_link content=$filename.shopping_cart}" title="{$lang.block_service_shopping_cart}">{$lang.block_service_shopping_cart}</a></li>
 						</ul>
 					</li>

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -174,6 +174,8 @@ $aLang = [
 'page_order_history'   		      => 'Meine Bestellungen',
 'page_products_new'               => 'Neue Produkte',
 'page_specials'      		      => 'Angebote',
+'page_blog'  	     		      => 'Blog',
+'page_phpb3'  	     		      => 'Support Forum',
 
 'review_text'                     => 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.',
 'review_rating'                   => 'Geben Sie Ihre Bewertung ein.',

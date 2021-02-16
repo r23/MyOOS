@@ -79,6 +79,12 @@
 					{if $oEvent->installed_plugin('reviews')}
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.reviews}" title="{$lang.block_service_reviews}"><i class="fa fa-comments" aria-hidden="true"></i> {$lang.block_service_reviews}</a></li>
 					{/if}
+					{if !empty($smarty.const.PHPBB_URL)}
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{$smarty.const.PHPBB_URL}" title="{$lang.page_phpb3}"><i class="fa fa-forumbee" aria-hidden="true"></i> {$lang.page_phpb3}</a></li>
+					{/if}
+					{if !empty($smarty.const.BLOG_URL)}
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{$smarty.const.BLOG_URL}" title="{$lang.page_blog}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> {$lang.page_blog}</a></li>
+					{/if}								
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.shopping_cart}" title="{$lang.block_service_shopping_cart}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> {$lang.block_service_shopping_cart}</a></li>
 					</ul>
 				</div><!-- .col -->

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -189,9 +189,11 @@ $aLang = [
 'block_service_shopping_cart'      => 'Cart Contents',
 'block_service_contact'            => 'Contact',
 
-'page_order_history' 		  	  => 'Order History',
+'page_order_history' 		  	   => 'Order History',
 'page_products_new'                => 'New Products',
 'page_specials' 		           => 'Specials',
+'page_blog'  	     		       => 'Blog',
+'page_phpb3'  	     		       => 'Support Forum',
 
 'review_text'       => 'The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.',
 'review_rating'     => 'You must rate the product for your review.',
