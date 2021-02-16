@@ -13,7 +13,6 @@ $lang['L_TABLE']="Tabel";
 $lang['L_RECORDS']="Poster";
 $lang['L_COMPRESSED']="komprimeret (gz)";
 $lang['L_NOTCOMPRESSED']="normal (ukomprimeret)";
-$lang['L_GENERAL']="generelt";
 $lang['L_COMMENT']="Kommentar";
 $lang['L_FILESIZE']="Filstørrelse";
 $lang['L_ALL']="alle";

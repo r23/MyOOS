@@ -45,6 +45,7 @@ $config['empty_db_before_restore']=0;
 $config['optimize_tables_beforedump']=1;
 $config['use_binary_container']=0;
 $config['stop_with_error']=1;
+$config['ignore_enable_keys']=0;
 
 // For sending a mail after backup set send_mail to 1, otherless set to 0
 $config['send_mail']=0;

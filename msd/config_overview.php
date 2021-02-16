@@ -184,8 +184,8 @@ if (isset($_POST['save']))
 	if (isset($_POST['email0'])) $config['email_recipient']=$_POST['email0'];
 	if (isset($_POST['email_recipient_cc']))	$config['email_recipient_cc']=$_POST['email_recipient_cc'];
 	if (isset($_POST['email1'])) $config['email_sender']=$_POST['email1'];
-	if (isset($_POST['send_mail']))	$config['send_mail']=$_POST['send_mail'];
-	if (isset($_POST['send_mail_dump'])) $config['send_mail_dump']=$_POST['send_mail_dump'];
+	$config['send_mail']=isset($_POST['send_mail']) ? $_POST['send_mail'] : 0;
+	$config['send_mail_dump']=isset($_POST['send_mail_dump']) ? $_POST['send_mail_dump'] : 0;
 
 	if (isset($_POST['email_maxsize1'])) $config['email_maxsize1']=$_POST['email_maxsize1'];
 	if ($config['email_maxsize1'] == "") $config['email_maxsize1']=0;
@@ -201,9 +201,12 @@ if (isset($_POST['save']))
  	if (isset($_POST['stop_with_error'])) $config['stop_with_error']=$_POST['stop_with_error'];
     $config['ignore_enable_keys']=isset($_POST['ignore_enable_keys']) ? (int) $_POST['ignore_enable_keys']:0;
 
-	if (isset($_POST['multi_part'])) $config['multi_part']=$_POST['multi_part'];
-	$config['multipartgroesse1']=isset($_POST['multipartgroesse1']) ? floatval(str_replace(',','.',$_POST['multipartgroesse1'])) : 0;
-	$config['multipartgroesse2']=isset($_POST['multipartgroesse2']) ? intval($_POST['multipartgroesse2']) : 0;
+	$config['multi_part']=isset($_POST['multi_part']) ? $_POST['multi_part'] : 0;
+	if ($config['multi_part'] == 1)
+	{
+		$config['multipartgroesse1']=isset($_POST['multipartgroesse1']) ? floatval(str_replace(',','.',$_POST['multipartgroesse1'])) : 0;
+		$config['multipartgroesse2']=isset($_POST['multipartgroesse2']) ? intval($_POST['multipartgroesse2']) : 0;
+	}
 	if ($config['multipartgroesse1'] < 100 && $config['multipartgroesse2'] == 1) $config['multipartgroesse1']=100;
 	if ($config['multipartgroesse1'] < 1 && $config['multipartgroesse2'] == 2) $config['multipartgroesse1']=1;
 
@@ -215,12 +218,12 @@ if (isset($_POST['save']))
 	if (isset($_POST['log_maxsize2']))	$config['log_maxsize2']=$_POST['log_maxsize2'];
 	$config['log_maxsize']=$config['log_maxsize1'] * ( ( $config['log_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
 
-	if (isset($_POST['auto_delete'])) $config['auto_delete']=$_POST['auto_delete'];
+	$config['auto_delete']=isset($_POST['auto_delete']) ? $_POST['auto_delete'] : 0;
 	if (isset($_POST['max_backup_files'])) $config['max_backup_files']=$_POST['max_backup_files'];
 
 	if (isset($_POST['empty_db_before_restore'])) $config['empty_db_before_restore']=$_POST['empty_db_before_restore'];
-	if (isset($_POST['optimize_tables'])) $config['optimize_tables_beforedump']=$_POST['optimize_tables'];
-	if (isset($_POST['binary_container'])) $config['use_binary_container']=$_POST['binary_container'];
+	$config['optimize_tables_beforedump']=isset($_POST['optimize_tables']) ? $_POST['optimize_tables'] : 0;
+	$config['use_binary_container']=isset($_POST['binary_container']) ? $_POST['binary_container'] : 0;
 	if (isset($_POST['cron_dbindex'])) $config['cron_dbindex']=$_POST['cron_dbindex'];
 	if (isset($_POST['cron_comment'])) $config['cron_comment']=$_POST['cron_comment'];
 
@@ -250,9 +253,9 @@ if (isset($_POST['save']))
 	if (isset($_POST['cron_sendmail'])) $config['cron_sendmail']=$_POST['cron_sendmail'];
 	$config['cron_smtp']=isset($_POST['cron_smtp']) ? $_POST['cron_smtp'] : 'localhost';
 
-	if (isset($_POST['cron_printout'])) $config['cron_printout']=$_POST['cron_printout'];
-	if (isset($_POST['cron_completelog'])) $config['cron_completelog']=$_POST['cron_completelog'];
-	if (isset($_POST['compression'])) $config['cron_compression']=$_POST['compression'];
+	$config['cron_printout']=isset($_POST['cron_printout']) ? $_POST['cron_printout'] : 0;
+	$config['cron_completelog']=isset($_POST['cron_completelog']) ? $_POST['cron_completelog'] : 0;
+	$config['cron_compression']=isset($_POST['compression']) ? $_POST['compression'] : 0;
 	if (isset($_POST['cron_completelog'])) $config['cron_completelog']=$_POST['cron_completelog'];
 
 	$databases['multi']=Array();
@@ -533,9 +536,9 @@ $aus['formstart'].='<input type="Button" id="command1" onclick="show_pardivs(\'d
 $aus['formstart'].='<input type="Button" id="command2" onclick="show_pardivs(\'global1\');" value="' . $lang['L_GENERAL'] . '" class="ConfigButton"><br>' . $nl;
 $aus['formstart'].='<input type="Button" id="command3" onclick="show_pardivs(\'global2\');" value="' . $lang['L_CONFIG_INTERFACE'] . '" class="ConfigButton"><br>' . $nl;
 $aus['formstart'].='<input type="Button" id="command4" onclick="show_pardivs(\'global3\');" value="' . $lang['L_CONFIG_AUTODELETE'] . '" class="ConfigButton"><br>' . $nl;
-$aus['formstart'].='<input type="Button" id="command5" onclick="show_pardivs(\'transfer1\');" value="Email" class="ConfigButton"><br>' . $nl;
-$aus['formstart'].='<input type="Button" id="command6" onclick="show_pardivs(\'transfer2\');" value="FTP" class="ConfigButton"><br>' . $nl;
-$aus['formstart'].='<input type="Button" id="command7" onclick="show_pardivs(\'cron\');" value="Cronscript" class="ConfigButton"><br>' . $nl;
+$aus['formstart'].='<input type="Button" id="command5" onclick="show_pardivs(\'transfer1\');" value="' . $lang['L_CONFIG_EMAIL'] . '" class="ConfigButton"><br>' . $nl;
+$aus['formstart'].='<input type="Button" id="command6" onclick="show_pardivs(\'transfer2\');" value="' . $lang['L_FTP'] . '" class="ConfigButton"><br>' . $nl;
+$aus['formstart'].='<input type="Button" id="command7" onclick="show_pardivs(\'cron\');" value="' . $lang['L_CONFIG_CRONSCRIPT'] . '" class="ConfigButton"><br>' . $nl;
 $aus['formstart'].='<input type="Button" id="command0" onclick="show_pardivs(\'configs\');" value="' . $lang['L_CONFIGFILES'] . '" class="ConfigButton"><br>' . $nl;
 //$aus['formstart'].='<input type="Button" id="command8" onclick="show_pardivs(\'all\');" value="' . $lang['L_ALLPARS'] . '" class="ConfigButton"><br>' . $nl;
 
@@ -803,13 +806,13 @@ $aus['global1']='<div id="global1"><fieldset><legend>' . $lang['L_GENERAL'] . '<
 
 $aus['global1'].='<tr><td>' . Help("","") . 'Logfiles:&nbsp;</td>';
 $aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="logcompression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( (isset($config['logcompression']) && ($config['logcompression'] == 1) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_COMPRESSED'] . '<br>';
-$aus['global1'].='' . $lang['L_MAXSIZE'] . ':&nbsp;&nbsp;<input type="text" class="text" name="log_maxsize1" size="3" maxlength="3" value="' . ( (isset($config['log_maxsize1'])) ? $config['log_maxsize1'] : "" ) . '">&nbsp;&nbsp;';
+$aus['global1'].='' . $lang['L_MAXSIZE'] . ':&nbsp;&nbsp;<input type="text" class="text" name="log_maxsize1" size="3" maxlength="3" style="text-align:right;" value="' . ( (isset($config['log_maxsize1'])) ? $config['log_maxsize1'] : "" ) . '">&nbsp;&nbsp;';
 $aus['global1'].='<select name="log_maxsize2"><option value="1" ' . ( (isset($config['log_maxsize2']) && ($config['log_maxsize2'] == 1) )  ? ' SELECTED' : '' ) . '>Kilobytes</option>';
-$aus['global1'].='<option value="2" ' . ( (isset($config['log_maxsize2']) && ($config['log_maxsize2'] == 2) ) ? ' SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
+$aus['global1'].='<option value="2" ' . ( (isset($config['log_maxsize2']) && ($config['log_maxsize2'] == 2) ) ? ' SELECTED' : '' ) . '>Megabytes</option></select>';
+$aus['global1'].='</td></tr>';
 
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_MEMORYLIMIT'],"") . $lang['L_MEMORY_LIMIT'] . ':&nbsp;&nbsp;</td>';
-$aus['global1'].='<td>';
-$aus['global1'].='<input type="text" class="text" size="10" id="mlimit" name="memory_limit" maxlength="10" style="text-align:right;font-size:11px;" value="' . ( (isset($config['memory_limit'])) ? $config['memory_limit'] : "" ) . '"> Bytes&nbsp;&nbsp;&nbsp;<a href="#" onclick="WriteMem();" class="small">' . $lang['L_AUTODETECT'] . '</a>';
+$aus['global1'].='<td><input type="text" class="text" size="10" id="mlimit" name="memory_limit" maxlength="10" style="text-align:right;font-size:11px;" value="' . ( (isset($config['memory_limit'])) ? $config['memory_limit'] : "" ) . '"> Bytes&nbsp;&nbsp;&nbsp;<a href="#" onclick="WriteMem();" class="small">' . $lang['L_AUTODETECT'] . '</a>';
 $aus['global1'].='</td></tr>';
 
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_SPEED'],"") . $lang['L_SPEED'] . ':&nbsp;</td>';
@@ -818,48 +821,47 @@ $aus['global1'].='<td><input type="text" class="text" size="6" name="minspeed" m
 $aus['global1'].='</table></fieldset><fieldset><legend>' . $lang['L_DUMP'] . '</legend><table>';
 
 $aus['global1'].='<tr><td>' . Help($lang['L_HELP_ZIP'],"conf3") . $lang['L_GZIP'] . ':&nbsp;</td>';
-$aus['global1'].='<td><input type="radio" class="radio" value="1" name="compression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( (isset($config['compression']) && ($config['compression'] == 1) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="compression" ' . ( (isset($config['compression']) && ($config['compression'] == 0) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
+$aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="compression" ' . ( ( $config['zlib'] ) ? '' : 'disabled' ) . ( (isset($config['compression']) && ($config['compression'] == 1) ) ? " checked" : "" ) . '>';
+$aus['global1'].='</td></tr>';
 //Multipart-Backup -->
-$aus['global1'].='<tr><td>' . Help($lang['L_HELP_MULTIPART'],"") . $lang['L_MULTI_PART'] . ':&nbsp;</td><td>';
-$aus['global1'].='<input type="radio" class="radio" value="1" name="multi_part" onclick="obj_enable(\'multipartgroesse1\');obj_enable(\'multipartgroesse2\');" ' . ( (isset($config['multi_part']) && ( $config['multi_part'] == 1 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['global1'].='&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="multi_part" onclick="obj_disable(\'multipartgroesse1\');obj_disable(\'multipartgroesse2\');" ' . ( (isset($config['multi_part']) && ( $config['multi_part'] == 0 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
-$aus['global1'].='</td></tr><tr><td>' . Help($lang['L_HELP_MULTIPARTGROESSE'],"") . $lang['L_MULTI_PART_GROESSE'] . ':&nbsp;</td>';
-$aus['global1'].='<td>&nbsp;';
 
-$aus['global1'].='<input type="text" class="text" id="multipartgroesse1" name="multipartgroesse1" size="3" maxlength="8" value="' . ( (isset($config['multipartgroesse1'])) ? $config['multipartgroesse1'] : "" ) . '"';
+$aus['global1'].='<tr><td>' . Help($lang['L_HELP_MULTIPART'],"") . $lang['L_MULTI_PART'] . ':&nbsp;</td>';
+$aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="multi_part" onclick="obj_disable(\'multipartgroesse1\', this.checked);obj_disable(\'multipartgroesse2\', this.checked);" ' . ( (isset($config['multi_part']) && ( $config['multi_part'] == 1 ) ) ? " checked" : "" ) . '>';
+$aus['global1'].='</td></tr>';
+
+$aus['global1'].='<tr><td>' . Help($lang['L_HELP_MULTIPARTGROESSE'],"") . $lang['L_MULTI_PART_GROESSE'] . ':&nbsp;</td>';
+$aus['global1'].='<td><input type="text" class="text" id="multipartgroesse1" name="multipartgroesse1" size="3" maxlength="8" style="text-align:right;" value="' . ( (isset($config['multipartgroesse1'])) ? $config['multipartgroesse1'] : "" ) . '"';
 if (isset($config['multi_part']) && ($config['multi_part'] == 0)) $aus['global1'].=' disabled';
 
 $aus['global1'].='>&nbsp;&nbsp;';
 $aus['global1'].='<select id="multipartgroesse2" name="multipartgroesse2"';
 if (isset($config['multi_part']) && ($config['multi_part'] == 0)) $aus['global1'].=' disabled';
-$aus['global1'].='><option value="1" ' . ( ( $config['multipartgroesse2'] == 1 ) ? 'SELECTED' : '' ) . '>Kilobytes</option><option value="2" ' . ( ( $config['multipartgroesse2'] == 2 ) ? 'SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
-
-$aus['global1'].='<tr><td>' . Help($lang['L_HELP_OPTIMIZE'],"") . $lang['L_OPTIMIZE'] . ':</td>';
-$aus['global1'].='<td><input type="radio" class="radio" value="1" name="optimize_tables" ' . ( (isset($config['optimize_tables_beforedump']) && ( $config['optimize_tables_beforedump'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="optimize_tables" ' . ( (isset($config['optimize_tables_beforedump']) && ( $config['optimize_tables_beforedump'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
-
-$aus['global1'].='<tr><td>' . Help($lang['L_HELP_BINARY'],"") . $lang['L_BINARY'] . ':</td>';
-$aus['global1'].='<td><input type="radio" class="radio" value="1" name="binary_container" ' . ( (isset($config['use_binary_container']) && ( $config['use_binary_container'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="binary_container" ' . ( (isset($config['use_binary_container']) && ( $config['use_binary_container'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
-
-$aus['global1'].='</table></fieldset><fieldset><legend>' . $lang['L_RESTORE'] . '</legend><table>';
-$aus['global1'].='<tr><td>' . Help($lang['L_HELP_EMPTY_DB_BEFORE_RESTORE'],"conf4") . $lang['L_EMPTY_DB_BEFORE_RESTORE'] . ':&nbsp;</td><td>';
-$aus['global1'].='<input type="radio" class="radio" value="1" name="empty_db_before_restore" ' . ( (isset($config['empty_db_before_restore']) && ( $config['empty_db_before_restore'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="empty_db_before_restore" ' . ( (isset($config['empty_db_before_restore']) && ( $config['empty_db_before_restore'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
+$aus['global1'].='><option value="1" ' . ( ( $config['multipartgroesse2'] == 1 ) ? 'SELECTED' : '' ) . '>Kilobytes</option><option value="2" ' . ( ( $config['multipartgroesse2'] == 2 ) ? 'SELECTED' : '' ) . '>Megabytes</option></select>';
 $aus['global1'].='</td></tr>';
 
-$aus['global1'].='<tr><td>' . Help("","") . $lang['L_ERRORHANDLING_RESTORE'] . ':</td><td>';
-$aus['global1'].='<input type="radio" class="radio" name="stop_with_error" value="0" ' . ( (isset($config['stop_with_error']) && ( $config['stop_with_error'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_EHRESTORE_CONTINUE'] . '<br>';
-$aus['global1'].='<input type="radio" class="radio" name="stop_with_error" value="1" ' . ( (isset($config['stop_with_error']) && ( $config['stop_with_error'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_EHRESTORE_STOP'];
+$aus['global1'].='<tr><td>' . Help($lang['L_HELP_OPTIMIZE'],"") . $lang['L_OPTIMIZE'] . ':</td>';
+$aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="optimize_tables" ' . ( (isset($config['optimize_tables_beforedump']) && ( $config['optimize_tables_beforedump'] == 1 )) ? " checked" : "" ) . '>';
+$aus['global1'].='</td></tr>';
+
+$aus['global1'].='<tr><td>' . Help($lang['L_HELP_BINARY'],"") . $lang['L_BINARY'] . ':</td>';
+$aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="binary_container" ' . ( (isset($config['use_binary_container']) && ( $config['use_binary_container'] == 1 )) ? " checked" : "" ) . '>';
+$aus['global1'].='</td></tr>';
+
+$aus['global1'].='</table></fieldset><fieldset><legend>' . $lang['L_RESTORE'] . '</legend><table>';
+$aus['global1'].='<tr><td>' . Help($lang['L_HELP_EMPTY_DB_BEFORE_RESTORE'],"conf4") . $lang['L_EMPTY_DB_BEFORE_RESTORE'] . ':&nbsp;</td>';
+$aus['global1'].='<td><input type="checkbox" class="checkbox" value="1" name="empty_db_before_restore" ' . ( (isset($config['empty_db_before_restore']) && ( $config['empty_db_before_restore'] == 1 )) ? " checked" : "" ) . '>';
+$aus['global1'].='</td></tr>';
+
+$aus['global1'].='<tr><td>' . Help("","") . $lang['L_ERRORHANDLING_RESTORE'] . ':</td>';
+$aus['global1'].='<td><input type="radio" class="radio" name="stop_with_error" value="0" ' . ( (isset($config['stop_with_error']) && ( $config['stop_with_error'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_EHRESTORE_CONTINUE'];
+$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" name="stop_with_error" value="1" ' . ( (isset($config['stop_with_error']) && ( $config['stop_with_error'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_EHRESTORE_STOP'];
 $aus['global1'].='</td></tr>';
 
 if (!isset($config['ignore_enable_keys'])) {
     $config['ignore_enable_keys'] = 0;
 }
-$aus['global1'].='<tr><td>Ignore "ENABLE KEYS":</td><td>';
-$aus['global1'].='<input type="radio" class="radio" name="ignore_enable_keys" value="1" ' . ( (isset($config['ignore_enable_keys']) && ( $config['ignore_enable_keys'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['global1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" name="ignore_enable_keys" value="0" ' . ( (isset($config['ignore_enable_keys']) && ( $config['ignore_enable_keys'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
+$aus['global1'].='<tr><td>Ignore "ENABLE KEYS":</td>';
+$aus['global1'].='<td><input type="checkbox" class="checkbox" name="ignore_enable_keys" value="1" ' . ( (isset($config['ignore_enable_keys']) && ( $config['ignore_enable_keys'] == 1 )) ? " checked" : "" ) . '>';
 $aus['global1'].='</td></tr>';
 
 $aus['global1'].='</table></fieldset>';
@@ -884,13 +886,13 @@ $aus['global3'].='</table></fieldset><fieldset><legend>' . $lang['L_SQL_BROWSER'
 $aus['global3'].='<tr><td>' . Help("","") . $lang['L_SQLBOXHEIGHT'] . ':&nbsp;</td>';
 
 $config['interface_sqlboxsize'] = isset($config['interface_sqlboxsize']) ? $config['interface_sqlboxsize'] : '';
-$aus['global3'].='<td><input type="text" class="text" name="sqlboxsize" value="' . $config['interface_sqlboxsize'] . '" size="3" maxlength="3">&nbsp;Pixel</td></tr>';
+$aus['global3'].='<td><input type="text" class="text" name="sqlboxsize" style="text-align:right;" value="' . $config['interface_sqlboxsize'] . '" size="3" maxlength="3">&nbsp;Pixel</td></tr>';
 
 $aus['global3'].='<tr><td>' . Help("","") . $lang['L_SQLLIMIT'] . ':&nbsp;</td>';
-$aus['global3'].='<td><input type="text" class="text" name="sql_limit" value="' . $config['sql_limit'] . '" size="3" maxlength="6">&nbsp;</td></tr>';
+$aus['global3'].='<td><input type="text" class="text" name="sql_limit" style="text-align:right;" value="' . $config['sql_limit'] . '" size="3" maxlength="6">&nbsp;</td></tr>';
 $aus['global3'].='<tr><td>' . Help("","") . $lang['L_BBPARAMS'] . ':&nbsp;</td>';
 $aus['global3'].='<td>';
-$aus['global3'].='<table><tr><td>' . $lang['L_WIDTH'] . ':</td><td><input type="text" class="text" name="bb_width" value="' . $config['bb_width'] . '" size="3" maxlength="3">&nbsp;pixel</td></tr>';
+$aus['global3'].='<table><tr><td>' . $lang['L_WIDTH'] . ':</td><td><input type="text" class="text" name="bb_width" style="text-align:right;" value="' . $config['bb_width'] . '" size="3" maxlength="3">&nbsp;pixel</td></tr>';
 $aus['global3'].='<tr><td>' . $lang['L_BBTEXTCOLOR'] . ':&nbsp;</td>';
 $aus['global3'].='<td><select name="bb_textcolor">
 <option value="#000000" style="color :#000000;" ' . ( ( $config['bb_textcolor'] == "#000000" ? ' selected="selected"' : "" ) ) . '>&nbsp;Textcolor&nbsp;</option>
@@ -910,33 +912,40 @@ $aus['global3'].='</table></fieldset>' . print_save_button() . '</div>';
 //automatisches L&ouml;schen-->
 $aus['global2']='<div id="global2"><fieldset><legend>' . $lang['L_CONFIG_AUTODELETE'] . '</legend><table>';
 $aus['global2'].='<tr><td>' . Help($lang['L_HELP_AD1'],"conf8") . $lang['L_AUTODELETE'] . ':&nbsp;</td>';
-$aus['global2'].='<td><input type="radio" class="radio" value="1" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-$aus['global2'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'];
-$aus['global2'].='</td>';
-$aus['global2'].='</tr><tr><td>' . Help($lang['L_HELP_AD3'],"conf10") . $lang['L_NUMBER_OF_FILES_FORM'] . ':&nbsp;</td>';
-$aus['global2'].='<td><input type="text" class="text" size="3" name="max_backup_files" value="' . ( (isset($config['max_backup_files'])) ? $config['max_backup_files'] : "" ) . '">   ';
+$aus['global2'].='<td><input type="checkbox" class="checkbox" value="1" name="auto_delete" ' . ( (isset($config['auto_delete']) &&  ( $config['auto_delete'] == 1 )) ? " checked" : "" ) . '>';
+$aus['global2'].='</td></tr>';
+
+$aus['global2'].='<tr><td>' . Help($lang['L_HELP_AD3'],"conf10") . $lang['L_NUMBER_OF_FILES_FORM'] . ':&nbsp;</td>';
+$aus['global2'].='<td><input type="text" class="text" size="3" name="max_backup_files" style="text-align:right;" value="' . ( (isset($config['max_backup_files'])) ? $config['max_backup_files'] : "" ) . '">   ';
 $aus['global2'].='</td></tr></table></fieldset>' . print_save_button() . '</div>';
 
 //Email-->
 if (!isset($config['email_recipient_cc'])) $config['email_recipient_cc']=''; // backwards compatibility if field is undefined
-$aus['transfer1']='<div id="transfer1"><fieldset><legend>' . $lang['L_CONFIG_EMAIL'] . '</legend><table>';
+$aus['transfer1']='<div id="transfer1"><fieldset><legend>' . $lang['L_EMAIL_NOTIFICATION'] . '</legend><table>';
 $aus['transfer1'].='<tr><td>' . $lang['L_SEND_MAIL_FORM'] . ':&nbsp;</td>';
-$aus['transfer1'].='<td><input type="radio" class="radio" value="1" name="send_mail" ' . ( (isset($config['send_mail']) && ( $config['send_mail'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['transfer1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="send_mail" ' . ( (isset($config['send_mail']) && ( $config['send_mail'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
-$aus['transfer1'].='</td></tr><tr><td>' . $lang['L_EMAIL_ADRESS'] . ':&nbsp;</td><td><input type="text" class="text" name="email0" value="' . ( (isset($config['email_recipient'])) ? $config['email_recipient'] : "" ) . '" size="30"></td></tr>';
-$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_CC'] . ':&nbsp;</td><td><input type="text" class="text" name="email_recipient_cc" value="' . ( (isset($config['email_recipient_cc'])) ? $config['email_recipient_cc'] : "" ) . '" size="60" maxlength="255"></td></tr>';
+$aus['transfer1'].='<td><input type="checkbox" class="checkbox" value="1" name="send_mail" ' . ( (isset($config['send_mail']) && ( $config['send_mail'] == 1 )) ? " checked" : "" ) . '>';
+$aus['global3'].='</td></tr>';
 
-$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_SENDER'] . ':&nbsp;</td><td><input type="text" class="text" name="email1" value="' . ( (isset($config['email_sender'])) ? $config['email_sender'] : "" ) . '" size="30"></td></tr>';
+$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_ADRESS'] . ':&nbsp;</td><td><input type="text" class="text" name="email0" value="' . ( (isset($config['email_recipient'])) ? $config['email_recipient'] : "" ) . '" size="30"></td></tr>';
+$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_CC'] . ':&nbsp;</td><td><input type="text" class="text" name="email_recipient_cc" value="' . ( (isset($config['email_recipient_cc'])) ? $config['email_recipient_cc'] : "" ) . '" size="60" maxlength="255">';
+$aus['global3'].='</td></tr>';
+
+$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_SENDER'] . ':&nbsp;</td><td><input type="text" class="text" name="email1" value="' . ( (isset($config['email_sender'])) ? $config['email_sender'] : "" ) . '" size="30">';
+$aus['global3'].='</td></tr>';
+
 $aus['transfer1'].='<tr><td>' . $lang['L_SEND_MAIL_DUMP'] . ':&nbsp;</td><td>';
-$aus['transfer1'].='<input type="radio" class="radio" value="1" name="send_mail_dump" ' . ( (isset($config['send_mail_dump']) && ( $config['send_mail_dump'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['transfer1'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="send_mail_dump"' . ( (isset($config['send_mail_dump']) && ( $config['send_mail_dump'] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'];
-$aus['transfer1'].='</td></tr><tr><td>' . $lang['L_EMAIL_MAXSIZE'] . ':&nbsp;</td><td>';
-$aus['transfer1'].='<input type="text" class="text" name="email_maxsize1" size="3" maxlength="3" value="' . ( (isset($config['email_maxsize1'])) ? $config['email_maxsize1'] : "" )  . '">&nbsp;&nbsp;';
+$aus['transfer1'].='<input type="checkbox" class="checkbox" value="1" name="send_mail_dump" ' . ( (isset($config['send_mail_dump']) && ( $config['send_mail_dump'] == 1 )) ? " checked" : "" ) . '>';
+$aus['global3'].='</td></tr>';
+
+$aus['transfer1'].='<tr><td>' . $lang['L_EMAIL_MAXSIZE'] . ':&nbsp;</td><td>';
+$aus['transfer1'].='<input type="text" class="text" name="email_maxsize1" size="3" maxlength="3" style="text-align:right;" value="' . ( (isset($config['email_maxsize1'])) ? $config['email_maxsize1'] : "" )  . '">&nbsp;&nbsp;';
 $aus['transfer1'].='<select name="email_maxsize2"><option value="1" ' . ( ( $config['email_maxsize2'] == 1 ) ? ' SELECTED' : '' ) . '>Kilobytes</option>';
 $aus['transfer1'].='<option value="2" ' . ( ( $config['email_maxsize2'] == 2 ) ? ' SELECTED' : '' ) . '>Megabytes</option></select></td></tr>';
+
 $aus['transfer1'].='<tr><td>' . $lang['L_CRON_MAILPRG'] . ':&nbsp;</td>';
 $aus['transfer1'].='<td><table><tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="1" ' . ( (isset($config['cron_use_sendmail']) && ( $config['cron_use_sendmail'] == 1 )) ? " checked" : "" ) . '>&nbsp;sendmail</td><td><input type="text" class="text" size="30" name="cron_sendmail" value="' . ( (isset($config['cron_sendmail'])) ? $config['cron_sendmail'] : "" )  . '"></td></tr>';
-$aus['transfer1'].='<tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="0" ' . ( (isset($config['cron_use_sendmail']) && ( $config['cron_use_sendmail'] == 0 )) ? " checked" : "" ) . '>&nbsp;SMTP</td><td><input type="text" class="text" size="30" name="cron_smtp" value="' . ( (isset($config['cron_smtp'])) ? $config['cron_smtp'] : "" ) . '"></td></tr><tr><td>&nbsp;</td><td>SMTP-Port: <strong>' . $config['cron_smtp_port'] . '</strong></td></tr>';
+$aus['transfer1'].='<tr><td><input type="radio" class="radio" name="cron_use_sendmail" value="0" ' . ( (isset($config['cron_use_sendmail']) && ( $config['cron_use_sendmail'] == 0 )) ? " checked" : "" ) . '>&nbsp;SMTP</td><td><input type="text" class="text" size="30" name="cron_smtp" value="' . ( (isset($config['cron_smtp'])) ? $config['cron_smtp'] : "" ) . '"></td></tr><tr><td>&nbsp;</td><td>SMTP-Port: <strong>' . $config['cron_smtp_port'] . '</strong>';
+$aus['global3'].='</td></tr>';
 $aus['transfer1'].='</table></td></tr></table></fieldset>' . print_save_button() . '</div>';
 
 //FTP-->
@@ -946,8 +955,7 @@ for ($i=0; $i < 3; $i++)
 	$aus['transfer2'].='<fieldset><legend>FTP-Connection ' . ( $i + 1 ) . '</legend><table>';
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPTRANSFER'],"") . $lang['L_FTP_TRANSFER'] . ':&nbsp;</td>';
-	$aus['transfer2'].='<td><input type="radio" class="radio" value="1" name="ftp_transfer[' . $i . ']" ' . ( ( !extension_loaded("ftp") ) ? "disabled " : "" ) . ( (isset($config['ftp_transfer'][$i]) && ( $config['ftp_transfer'][$i] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'];
-	$aus['transfer2'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="ftp_transfer[' . $i . ']" ' . ( (isset($config['ftp_transfer'][$i]) && ( $config['ftp_transfer'][$i] == 0 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NOT_ACTIVATED'] . '</td></tr>';
+	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" value="1" name="ftp_transfer[' . $i . ']" ' . ( ( !extension_loaded("ftp") ) ? "disabled " : "" ) . ( (isset($config['ftp_transfer'][$i]) && ( $config['ftp_transfer'][$i] == 1 )) ? " checked" : "" ) . '></td></tr>';
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPTIMEOUT'],"") . $lang['L_FTP_TIMEOUT'] . ':&nbsp;</td>';
 	$aus['transfer2'].='<td><input type="text" class="text" size="10" name="ftp_timeout[' . $i . ']" maxlength="3" style="text-align:right;" value="' . ( (isset($config['ftp_timeout'][$i])) ? $config['ftp_timeout'][$i] : "" ) . '">&nbsp;sec</td></tr>';
@@ -962,7 +970,7 @@ for ($i=0; $i < 3; $i++)
 
 	$aus['transfer2'].='<tr><td><input type="submit" name="testFTP' . $i . '" value="' . $lang['L_TESTCONNECTION'] . '" class="Formbutton"><br>' . $checkFTP[$i] . '</td><td><table>';
 	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPSERVER'],"conf14",12) . $lang['L_FTP_SERVER'] . ':&nbsp;</td><td><input class="text" type="text" size="30" name="ftp_server[' . $i . ']" value="' . ( (isset($config['ftp_server'][$i])) ? $config['ftp_server'][$i] : "" )  . '"></td></tr>';
-	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPPORT'],"conf15",12) . $lang['L_FTP_PORT'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_port[' . $i . ']" value="' . ( (isset($config['ftp_port'][$i])) ? $config['ftp_port'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPPORT'],"conf15",12) . $lang['L_FTP_PORT'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_port[' . $i . ']" style="text-align:right;" value="' . ( (isset($config['ftp_port'][$i])) ? $config['ftp_port'][$i] : "" )  . '"></td></tr>';
 	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPUSER'],"conf16",12) . $lang['L_FTP_USER'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_user[' . $i . ']" value="' . ( (isset($config['ftp_user'][$i])) ? $config['ftp_user'][$i] : "" )  . '"></td></tr>';
 	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPPASS'],"conf17",12) . $lang['L_FTP_PASS'] . ':&nbsp;</td><td class="small"><input class="text" type="password" size="30" name="ftp_pass[' . $i . ']" value="' . ( (isset($config['ftp_pass'][$i])) ? $config['ftp_pass'][$i] : "" )  . '"></td></tr>';
 	$aus['transfer2'].='<tr><td class="small">' . Help($lang['L_HELP_FTPDIR'],"conf18",12) . $lang['L_FTP_DIR'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="ftp_dir[' . $i . ']" value="' . ( (isset($config['ftp_dir'][$i])) ? $config['ftp_dir'][$i] : "" )  . '"></td></tr>';
@@ -975,14 +983,15 @@ $aus['cron']='<div id="cron"><fieldset><legend>' . $lang['L_CONFIG_CRONPERL'] . 
 $aus['cron'].='<tr><td>' . Help($lang['L_HELP_CRONEXTENDER'],"") . $lang['L_CRON_EXTENDER'] . ':&nbsp;</td>';
 $aus['cron'].='<td><input type="radio" class="radio" value="0" name="cron_extender" ' . ( (isset($config['cron_extender']) && ($config['cron_extender'] == 0 ) ) ? " checked" : "" ) . '>&nbsp;.pl';
 $aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="1" name="cron_extender" ' . ( (isset($config['cron_extender']) && ($config['cron_extender'] == 1 ) )  ? " checked" : "" ) . '>&nbsp;.cgi';
+
 $aus['cron'].='</tr><tr><td>' . Help($lang['L_HELP_CRONEXECPATH'],"") . $lang['L_CRON_EXECPATH'] . ':&nbsp;</td>';
 $aus['cron'].='<td><input type="text" class="text" size="30" name="cron_execution_path" value="' . $config['cron_execution_path'] . '"></td>';
+
 $aus['cron'].='</tr><tr><td>' . Help($lang['L_HELP_CRONPRINTOUT'],"") . $lang['L_CRON_PRINTOUT'] . ':&nbsp;</td>';
-$aus['cron'].='<td><input type="radio" class="radio" value="1" name="cron_printout" ' . ( (isset($config['cron_printout']) && ($config['cron_printout'] == 1 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="cron_printout" ' . ( (isset($config['cron_printout']) && ($config['cron_printout'] == 0 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'] . '</td></tr>';
+$aus['cron'].='<td><input type="checkbox" class="checkbox" value="1" name="cron_printout" ' . ( (isset($config['cron_printout']) && ($config['cron_printout'] == 1 ) ) ? " checked" : "" ) . '>';
+
 $aus['cron'].='<tr><td>' . Help($lang['L_HELP_CRONCOMPLETELOG'],"") . $lang['L_CRON_COMPLETELOG'] . ':&nbsp;</td>';
-$aus['cron'].='<td><input type="radio" class="radio" value="1" name="cron_completelog" ' . ( (isset($config['cron_completelog']) && ($config['cron_completelog'] == 1 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_YES'];
-$aus['cron'].='&nbsp;&nbsp;&nbsp;<input type="radio" class="radio" value="0" name="cron_completelog" ' . ( (isset($config['cron_completelog']) && ($config['cron_completelog'] == 0 ) ) ? " checked" : "" ) . '>&nbsp;' . $lang['L_NO'] . '</td></tr>';
+$aus['cron'].='<td><input type="checkbox" class="checkbox" value="1" name="cron_completelog" ' . ( (isset($config['cron_completelog']) && ($config['cron_completelog'] == 1 ) ) ? " checked" : "" ) . '>';
 
 $aus['cron'].='<tr><td>' . Help($lang['L_HELP_CRONDBINDEX'],"conf14") . $lang['L_CRON_CRONDBINDEX'] . ':&nbsp;</td>';
 $aus['cron'].='<td><select name="cron_dbindex" id="cron_dbindex">';

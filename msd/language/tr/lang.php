@@ -13,7 +13,6 @@ $lang['L_TABLE']="Tablo";
 $lang['L_RECORDS']="Kayıtlar";
 $lang['L_COMPRESSED']="Sıkıştırılmış (gz)";
 $lang['L_NOTCOMPRESSED']="normal (sıkıştırılmamış)";
-$lang['L_GENERAL']="Genel";
 $lang['L_COMMENT']="Yorum";
 $lang['L_FILESIZE']="Dosya boyutu";
 $lang['L_ALL']="hepsi";

@@ -13,7 +13,6 @@ $lang['L_TABLE']="Bảng";
 $lang['L_RECORDS']="Bản ghi(Records)";
 $lang['L_COMPRESSED']="nén (gz)";
 $lang['L_NOTCOMPRESSED']="bình thường (không nén)";
-$lang['L_GENERAL']="Tổng quan";
 $lang['L_COMMENT']="Ghi chú";
 $lang['L_FILESIZE']="Cỡ file";
 $lang['L_ALL']="tất cả";
