@@ -13,7 +13,6 @@ $lang['L_TABLE']="Πίνακας";
 $lang['L_RECORDS']="Εγγραφή";
 $lang['L_COMPRESSED']="συμπιεσμένο (gz)";
 $lang['L_NOTCOMPRESSED']="απλό (ασυμπίεστο)";
-$lang['L_GENERAL']="γενικά";
 $lang['L_COMMENT']="Σχόλιο";
 $lang['L_FILESIZE']="Μέγεθος αρχείου";
 $lang['L_ALL']="όλα";

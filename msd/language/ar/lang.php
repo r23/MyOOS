@@ -13,7 +13,6 @@ $lang['L_TABLE']="جدول";
 $lang['L_RECORDS']="سجلات";
 $lang['L_COMPRESSED']="ضغط (gz)";
 $lang['L_NOTCOMPRESSED']="الوضع العادي (uncompressed)";
-$lang['L_GENERAL']="عام";
 $lang['L_COMMENT']="تعليق";
 $lang['L_FILESIZE']="حجم الملف";
 $lang['L_ALL']="الكل";

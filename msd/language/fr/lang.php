@@ -13,7 +13,6 @@ $lang['L_TABLE']="Table";
 $lang['L_RECORDS']="Enregistrement";
 $lang['L_COMPRESSED']="fichier compressé (gz)";
 $lang['L_NOTCOMPRESSED']="normal (non compressé)";
-$lang['L_GENERAL']="généralités";
 $lang['L_COMMENT']="Commentaire";
 $lang['L_FILESIZE']="Taille du fichier";
 $lang['L_ALL']="tout";

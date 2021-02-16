@@ -1,7 +1,6 @@
-var NS=(document.layers);var IE=(document.all);function obj_enable(objid)
-{var e=document.getElementById(objid);e.disabled=false;}
-function obj_disable(objid)
-{var e=document.getElementById(objid);e.disabled=true;}
+var NS=(document.layers);var IE=(document.all);
+function obj_disable(objid, state)
+{var e=document.getElementById(objid);e.disabled=!state;}
 function setactiveMenuFromContent()
 {var a=parent.MyOOS_Dumper_content.location.href;var menuid=1;if(a.indexOf("config_overview.php")!=-1)menuid=2;if(a.indexOf("filemanagement.php")!=-1)
 {if(a.indexOf("action=dump")!=-1)menuid=3;if(a.indexOf("action=restore")!=-1)menuid=4;if(a.indexOf("action=files")!=-1)menuid=5;}
