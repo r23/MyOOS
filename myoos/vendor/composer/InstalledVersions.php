@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '733fb83657c232a9ef2b2c03117f569ab8e8e988',
+    'reference' => '76c5ceb87a896465fd00034fd36c4c32c3f0d7e2',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -227,7 +227,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '733fb83657c232a9ef2b2c03117f569ab8e8e988',
+      'reference' => '76c5ceb87a896465fd00034fd36c4c32c3f0d7e2',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -400,12 +400,12 @@ private static $installed = array (
     ),
     'stripe/stripe-php' => 
     array (
-      'pretty_version' => 'v7.72.0',
-      'version' => '7.72.0.0',
+      'pretty_version' => 'v7.73.0',
+      'version' => '7.73.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e502d1e97ec7857038d2131ded3134af964a55c5',
+      'reference' => '15d9e4b5c1076499e9681e7a6801c6945d6d530c',
     ),
     'symfony/amazon-mailer' => 
     array (
