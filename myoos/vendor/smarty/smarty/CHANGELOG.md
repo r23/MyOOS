@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.39] - 2021-02-17
+
+### Security
+- Prevent access to `$smarty.template_object` in sandbox mode
+- Fixed code injection vulnerability by using illegal function names in `{function name='blah'}{/function}` 
+
 ## [3.1.38] - 2021-01-08
 
 ### Fixed
