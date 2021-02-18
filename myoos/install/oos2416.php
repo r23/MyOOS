@@ -41,4 +41,3 @@ $result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configura
 if ($result === false) {
 	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 }
-

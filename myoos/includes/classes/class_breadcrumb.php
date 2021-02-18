@@ -62,31 +62,42 @@ class breadcrumb {
 		$link_output = '';
 		
 		$n = sizeof($this->links);
-		for ($i=0, $n; $i<$n; $i++) {
-			$link_output .= '<li typeof="v:Breadcrumb">';
-			
-			if ( isset( $this->links[$i]['url'] ) && ( is_string( $this->links[$i]['url'] ) && $this->links[$i]['url'] !== '' ) ) {
-				$link_output .= '<a title="' . $this->links[$i]['title'] . '" href="' . $this->links[$i]['url'] . '"  rel="v:url" property="v:title">';
-			} else {
-				$link_output .= '<span property="v:title">';
-			}
-
-			if (isset($this->links[$i]['icon']) && !empty($this->links[$i]['icon']))	{
-				$link_output .= '<i class="fa fa-' . $this->links[$i]['icon'] . '" aria-hidden="true"></i>';
-			} 
-
-			$link_output .= $this->links[$i]['title'];
 		
-			
-			if (isset($this->links[$i]['url']) && ( is_string( $this->links[$i]['url'] ) && $this->links[$i]['url'] !== '' ) ) {
-				$link_output .= '</a>';
-			} else {
-				$link_output .= '</span>';
-			}
+		if ($n > 1) {
+			$link_output .= '<ol class="breadcrumb">';		
+		
+			for ($i=0, $n; $i<$n; $i++) {
 
-			$link_output .= '</li>';
-		}
+				$link_output .= '<li>';
+
+			
+				$link_output .= ($i == 0) ? '<span vocab="https://schema.org/" typeof="BreadcrumbList">' : '<span property="itemListElement" typeof="ListItem">';
 				
+				if ( isset( $this->links[$i]['url'] ) && ( is_string( $this->links[$i]['url'] ) && $this->links[$i]['url'] !== '' ) ) {			
+					$link_output .= '<a property="item" typeof="WebPage"  title="' . $this->links[$i]['title'] . '" href="' . $this->links[$i]['url'] . '">';
+				}				
+				
+				
+				if (isset($this->links[$i]['icon']) && !empty($this->links[$i]['icon']))	{
+					$link_output .= '<i class="fa fa-' . $this->links[$i]['icon'] . '" aria-hidden="true"></i>';
+				} 
+				$link_output .= '<span property="name">'. $this->links[$i]['title'] .'</span>';
+					
+			
+				if (isset($this->links[$i]['url']) && ( is_string( $this->links[$i]['url'] ) && $this->links[$i]['url'] !== '' ) ) {
+					$link_output .= '</a>';
+				} 
+
+				$link_output .= '<meta property="position" content="' . $i+1 . '"></span>';
+
+				$link_output .= '</span>';	
+				$link_output .= '</li>';
+			}
+			
+			$link_output .= '</ol>';
+		}
+		
 		return $link_output;
     }  
 } 
+
