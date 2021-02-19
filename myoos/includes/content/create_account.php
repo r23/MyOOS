@@ -500,6 +500,9 @@ if (isset($_GET['guest'])) {
 }
 
 
+$oMessage->add('create_account', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'])));
+
+
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
 $sCanonical = oos_href_link($aContents['create_account'], '', FALSE, TRUE);
