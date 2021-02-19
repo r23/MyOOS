@@ -6,7 +6,7 @@
    https://www.oos-shop.de
    
    
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -42,30 +42,6 @@ $aLang['email_coupon_redeem'] = 'To use the coupon enter the redeem code which i
                                'after making a purchase';
 
 $aLang['email_password'] = 'Ihr Passwort fr \'' . STORE_NAME . '\' lautet:' . "\n\n" . '   %s' . "\n\n";
-
-$aLang['email_disclaimer'] = '--- Disclaimer ------------------------------------------------------------' . "\n\n" .
-                            'Your privacy:' . "\n\n" .
-                            'We will never sell or trade your personal information. We will not' . "\n" .
-                            'reveal your personal information to anyone except if required by lawful' . "\n" .
-                            'authority. The only exception to the privacy of your information is' . "\n" .
-                            'your name and email being visible to all readers that access your' . "\n" .
-                            'contributions on ' . oos_server_get_base_url() . '.' . "\n\n" .
-                            'Please note that your connection to ' . oos_server_get_base_url() . ', like your connection' . "\n" .
-                            'to many other websites, is not encrypted. Your login and password are' . "\n" .
-                            'transmitted in plain text over your internet connection and may be' . "\n" .
-                            'readable by malicious users. For this reason, you must not use' . "\n" .
-                            'credentials that are identical to any other service you subscribe to.' . "\n" .
-                            'To be safe, make a unique password for each of your internet services.' . "\n\n" .
-                            'Unsolicited Email:' . "\n\n" .
-                            'This email was initiated on ' . strftime(DATE_FORMAT_LONG) . ' by the IP ' . oos_server_get_remote() . "\n" .
-                            '(' . oos_server_get_var('REMOTE_HOST') . '). If this IP address was not yours at that time, and' . "\n" .
-                            'you wish to persue the abuse, please do not delete this email.' . "\n" .
-                            'Instead, kindly ask the responsible webmaster at ' . STORE_OWNER_EMAIL_ADDRESS . '.' . "\n" .
-                            'They can help you in most cases, but if you still feel unsatisfied then,' . "\n" .
-                            'you may contact the ISP of the originating network of ' . oos_server_get_var('REMOTE_HOST') . '.' . "\n\n" .
-                            'Important: The webmaster of ' . oos_server_get_base_url() . ' is contingently able to control' . "\n" .
-                            'any abuses and is generally not resposible for this email.' . "\n\n" .
-                            'If you do not wish to subscribe, simply do nothing. Thank you.';
 
                                
 $aLang['owner_email_subject'] = 'New Customer';

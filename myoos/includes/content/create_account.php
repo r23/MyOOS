@@ -421,7 +421,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 				}
 			}
 
-			$email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'] . $aLang['email_disclaimer'];
+			$email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'];
 
 			oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
 		}
@@ -499,10 +499,6 @@ if (isset($_GET['guest'])) {
 	$_SESSION['guest_account'] = 0;
 }
 
-
-$oMessage->add('create_account', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'])));
-
-
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
 $sCanonical = oos_href_link($aContents['create_account'], '', FALSE, TRUE);
@@ -546,7 +542,6 @@ $smarty->assign('account', $account);
 $smarty->assign('email_address', $email_address);
 
 $smarty->assign('snapshot', $snapshot);
-$smarty->assign('login_orgin_text', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'], '')));
 $smarty->assign('login_agree', sprintf($aLang['agree'], oos_href_link($aContents['information'], 'information_id=2'), oos_href_link($aContents['information'], 'information_id=4')));
 
 // display the template
