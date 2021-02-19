@@ -16,7 +16,7 @@ $products_history_block = FALSE;
 
 if (isset($_SESSION)) {
   
-	if ($_SESSION['products_history']->count_history() > 0) {
+	if (isset($_SESSION['products_history']) && ($_SESSION['products_history']->count_history() > 0)) {
 		$products_history_block = TRUE;
 		$product_ids = $_SESSION['products_history']->get_product_id_list();
 
