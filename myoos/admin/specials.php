@@ -219,6 +219,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
       // echo '<input type="hidden" name="products_up_id" value="' . $sInfo->products_id . '">';
     }
 
+	$in_new_price_netto = '';
 	if (!empty($sInfo->products_name)) {
 		echo '<br /><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $sInfo->products_id) . '" target="_blank" rel="noopener">' . product_info_image($sInfo->products_image, $sInfo->products_name) . '</a><br>';
 
