@@ -50,6 +50,8 @@ $currencies = new currencies();
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$sID = (isset($_GET['sID']) ? intval($_GET['sID']) : '');
+
 
 if (!empty($action)) {
     switch ($action) {
@@ -169,7 +171,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
               WHERE p.products_id = pd.products_id AND
                   pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
                   p.products_id = s.products_id AND
-                  s.specials_id = '" . intval($_GET['sID']) . "'";
+                  s.specials_id = '" . intval($sID) . "'";
 		$product = $dbconn->GetRow($sql);
 
 		$sInfo = new objectInfo($product);
@@ -208,7 +210,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 			<div class="card-body">
 
 				<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
-					<?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', intval($_GET['sID'])); ?>
+					<?php if ($form_action == 'update') echo oos_draw_hidden_field('specials_id', intval($sID)); ?>
 
 <?php
     if (isset($_GET['pID']) ) {
@@ -280,7 +282,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 		</div>
 	
 		<div class="text-right mt-3">
-			<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . intval($_GET['sID'])) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
+			<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . intval($sID)) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
 			<?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)); ?>
 		</div>
 					
