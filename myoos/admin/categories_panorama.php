@@ -911,7 +911,7 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id[0]', '', $array, '', $id); ?>
+								<?php echo oos_draw_products_pull_down('products_id[0]', $array, '', $id); ?>
                            </div>
                         </div>
                      </fieldset>
@@ -977,7 +977,7 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', '', $array, $spot_array[$id]['products_id'], $id); ?>
+								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', $array, $spot_array[$id]['products_id'], $id); ?>
                            </div>
                         </div>
                      </fieldset>
@@ -1057,7 +1057,7 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id[{{id}}]', '', $array, '', '{{counter}}'); ?>
+								<?php echo oos_draw_products_pull_down('products_id[{{id}}]',  $array, '', '{{counter}}'); ?>
                            </div>
                         </div>
                      </fieldset>

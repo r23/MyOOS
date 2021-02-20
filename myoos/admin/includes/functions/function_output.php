@@ -683,12 +683,10 @@ function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $
  * Output a form pull down menu
  *
  * @param $name
- * @param $parameters
  * @param $exclude
  * @return string
  */
-# function oos_draw_products_pull_down($name, $parameters = '', $exclude, $default = '', $id = 1) {
-function oos_draw_products_pull_down($name, $parameters, $exclude, $default, $id = 1) {
+function oos_draw_products_pull_down($name, $exclude, $default = null, $id = 1) {
     GLOBAL $currencies;
 
 	if (!is_array($exclude)) $exclude = array();
