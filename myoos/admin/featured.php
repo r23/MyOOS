@@ -45,6 +45,7 @@ $currencies = new currencies();
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);    
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$fID = (isset($_GET['fID']) ? intval($_GET['fID']) : '');
 
 
 if (!empty($action)) {
@@ -130,7 +131,7 @@ require 'includes/header.php';
 <?php
 if ( ($action == 'new') || ($action == 'edit') ) {
 	$form_action = 'insert';
-	if ( ($action == 'edit') && isset($_GET['fID']) ) {
+	if ( ($action == 'edit') && isset($fID ) ) {
 		$form_action = 'update';
 
 		$featuredtable = $oostable['featured'];
@@ -143,7 +144,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
                 WHERE p.products_id = pd.products_id AND
                      pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
                       p.products_id = f.products_id AND
-                      f.featured_id = '" . intval($_GET['fID']) . "'
+                      f.featured_id = '" . intval($fID ) . "'
                    ORDER BY pd.products_name";
 		$product = $dbconn->GetRow($query);
 
@@ -184,7 +185,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 				<form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['featured'], oos_get_all_get_params(array('action', 'info', 'fID')) . 'action=' . $form_action) . '"'; ?> method="post">
 <?php
 	if ($form_action == 'update') {
-		echo oos_draw_hidden_field('featured_id', intval($_GET['fID']));
+		echo oos_draw_hidden_field('featured_id', intval($fID ));
 	} elseif (isset($_GET['pID']) ) {
 		echo oos_draw_hidden_field('products_id', $sInfo->products_id);
 	}
@@ -223,7 +224,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 					<div class="clearfix mt-120"></div>
 					
 					<div class="text-right mt-3">
-						<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
+						<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $fID ) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
 						<?php echo (($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)); ?>
 					</div>					
 					
