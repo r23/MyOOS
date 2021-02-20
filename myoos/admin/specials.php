@@ -248,7 +248,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id', $specials_array); echo oos_draw_hidden_field('products_price', $sInfo->products_price); ?>
+								<?php echo oos_draw_products_pull_down('products_id', $specials_array); echo oos_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : '')); ?>
                            </div>
                         </div>
                      </fieldset>
