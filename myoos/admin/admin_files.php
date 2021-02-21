@@ -119,7 +119,7 @@
           <tr>
             <td valign="top">
 <?php
-  if ($_GET['fID'] || $_GET['cPath']) {
+  if (isset($_GET['fID']) || isset($_GET['cPath'])) {
     $admin_filestable = $oostable['admin_files'];
     $current_box_query = "SELECT admin_files_name as admin_box_name 
                           FROM $admin_filestable
@@ -145,7 +145,7 @@
     while ($files = $db_file_result->fields) {
       $file_count++;
 
-      if (((!$_GET['fID']) || ($_GET['fID'] == $files['admin_files_id'])) && (!$fInfo) ) {
+      if (((!isset($_GET['fID'])) || ($_GET['fID'] == $files['admin_files_id'])) && !isset($fInfo) ) {
         $fInfo = new objectInfo($files);
       }
 
@@ -212,7 +212,7 @@
         $db_boxes_id = $dbconn->GetRow($db_boxes_id_query);
 
         $boxes[] = array('admin_boxes_name' => $boxes_file,
-                         'admin_boxes_id' => $db_boxes_id['admin_boxes_id']);
+                         'admin_boxes_id' => isset($db_boxes_id['admin_boxes_id']) ? $db_boxes_id['admin_boxes_id'] : '');
       }
 
       $none++;
@@ -224,7 +224,7 @@
     $boxnum = count($boxes);
     $i = 0;
     while ($i < $boxnum) {
-      if (((!$_GET['cID']) || ($_GET['none'] == $boxes[$i]['admin_boxes_id']) || ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) && (!$cInfo) ) {
+      if ((!isset($_GET['cID']) || (isset($_GET['none']) &&  $_GET['none'] == $boxes[$i]['admin_boxes_id']) || ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) && !isset($cInfo) ) { 
         $cInfo = new objectInfo($boxes[$i]);
       }
       if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id) ) {
@@ -240,7 +240,8 @@
                 <td><?php echo '<i class="fa fa-folder text-navy"></i> <b>' . ucfirst (substr_replace ($boxes[$i]['admin_boxes_name'], '' , -4)) . '</b>'; ?></td>
                 <td class="text-center">
 <?php
-      if (isset($cInfo) && is_object($cInfo) && ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) {
+
+      if (isset($cInfo) && is_object($cInfo) && (isset($_GET['cID']) && ($_GET['cID'] == $boxes[$i]['admin_boxes_id']))) {
         if (substr($boxes[$i]['admin_boxes_id'], 0,1) == 'b') {
           echo oos_image(OOS_IMAGES . 'icon_status_red.gif', STATUS_BOX_NOT_INSTALLED, 10, 10) . '&nbsp;<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id'] . '&box=' . $boxes[$i]['admin_boxes_name'] . '&action=box_store') . '">' . oos_image(OOS_IMAGES . 'icon_status_green_light.gif', STATUS_BOX_INSTALL, 10, 10) . '</a>';
         } else {
@@ -255,7 +256,7 @@
       }
 ?>
                 </td>
-                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $db_cat['admin_boxes_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . isset($boxes[$i]['admin_boxes_id']) ? $boxes[$i]['admin_boxes_id'] : '') . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
      $i++;
