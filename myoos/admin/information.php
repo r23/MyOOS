@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -225,7 +225,7 @@ if ($action == 'new' || $action == 'edit') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_INFORMATION_NAME; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('information_name[' . $aLanguages[$i]['id'] . ']', (($information_name[$aLanguages[$i]['id']]) ? stripslashes($information_name[$aLanguages[$i]['id']]) : oos_get_informations_name($iInfo->information_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE); ?>
+								<?php echo oos_draw_input_field('information_name[' . $aLanguages[$i]['id'] . ']', ((isset($information_name[$aLanguages[$i]['id']])) ? stripslashes($information_name[$aLanguages[$i]['id']]) : oos_get_informations_name($iInfo->information_id, $aLanguages[$i]['id'])), '', FALSE, 'text', TRUE, FALSE); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -238,7 +238,7 @@ if ($action == 'new' || $action == 'edit') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_INFORMATION_HEADING_TITLE; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('information_heading_title[' . $aLanguages[$i]['id'] . ']', (($information_heading_title[$aLanguages[$i]['id']]) ? stripslashes($information_heading_title[$aLanguages[$i]['id']]) : oos_get_informations_heading_title($iInfo->information_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('information_heading_title[' . $aLanguages[$i]['id'] . ']', ((isset($information_heading_title[$aLanguages[$i]['id']])) ? stripslashes($information_heading_title[$aLanguages[$i]['id']]) : oos_get_informations_heading_title($iInfo->information_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -251,7 +251,7 @@ if ($action == 'new' || $action == 'edit') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_INFORMATION_DESCRIPTION; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_editor_field('information_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '55', (($information_description[$aLanguages[$i]['id']]) ? stripslashes($information_description[$aLanguages[$i]['id']]) : oos_get_informations_description($iInfo->information_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_editor_field('information_description[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '55', ((isset($information_description[$aLanguages[$i]['id']])) ? stripslashes($information_description[$aLanguages[$i]['id']]) : oos_get_informations_description($iInfo->information_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
