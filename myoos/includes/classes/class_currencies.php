@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -36,14 +36,10 @@ class currencies {
 		$sql = "SELECT code, title, symbol_left, symbol_right, decimal_point,
                      thousands_point, decimal_places, value
               FROM " . $currenciestable;
-		if (USE_CACHE == 'true') {
-			$this->currencies = $dbconn->CacheGetAssoc(3600*24, $sql);
-		} else {
-			$this->currencies = $dbconn->GetAssoc($sql);
-		}
+		$this->currencies = $dbconn->GetAssoc($sql);
 	}
 
-	public function format($number = 0, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = NULL, $with_symbol = TRUE) {
+	public function format($number, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = NULL, $with_symbol = TRUE) {
 
 		if (empty($currency_type) || ($this->exists($currency_type) == FALSE)) {
 			$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);

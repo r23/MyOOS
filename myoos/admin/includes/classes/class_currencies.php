@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -53,9 +53,7 @@
 
 // class methods
     public function format($number, $calculate_currency_value = TRUE, $currency_type = DEFAULT_CURRENCY, $currency_value = null) {
-		
-		if (!is_numeric($number)) $number = 0;
-		
+			
 		$rate = 1;
 		if ($calculate_currency_value === TRUE) {
 			$rate = (!empty($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
