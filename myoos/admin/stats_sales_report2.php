@@ -403,8 +403,8 @@
 							<th class="text-right"><?php echo TABLE_HEADING_DATE; ?></th>
 							<th class="text-right"><?php echo TABLE_HEADING_ORDERS;?></th>
 							<th class="text-right"><?php echo TABLE_HEADING_ITEMS; ?></th>
-							<th class="text-right"><?php echo TABLE_HEADING_REVENUE;?></th>
-							<th class="text-right"><?php echo  TABLE_HEADING_SHIPPING;?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_REVENUE; ?></th>
+							<th class="text-right"><?php echo TABLE_HEADING_SHIPPING; ?></th>
 						</tr>	
 					</thead>
 <?php
@@ -434,10 +434,10 @@ while ($sr->actDate < $sr->endDate) {
 <?php
     }
 ?>
-                      <td class="text-right"><?php echo $info[0]['order']; ?></td>
-                      <td class="text-right"><?php echo $info[$last - 1]['totitem']; ?></td>
-                      <td class="text-right"><?php echo $currencies->format($info[$last - 1]['totsum']);?></td>
-                      <td class="text-right"><?php echo $currencies->format($info[0]['shipping']);?></td>
+                      <td class="text-right"><?php echo (isset($info[0]['order']) ? $info[0]['order'] : ''); ?></td>
+                      <td class="text-right"><?php echo (isset($info[$last - 1]['totitem']) ? $info[$last - 1]['totitem'] : ''); ?></td>
+                      <td class="text-right"><?php echo $currencies->format((isset($info[$last - 1]['totsum']) ? $info[$last - 1]['totsum'] : 0)); ?></td>
+                      <td class="text-right"><?php echo $currencies->format((isset($info[0]['shipping']) ? $info[0]['shipping'] : 0)); ?></td>
                     </tr>
 <?php
   } else {

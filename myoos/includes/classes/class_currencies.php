@@ -43,7 +43,7 @@ class currencies {
 		}
 	}
 
-	public function format($number, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = NULL, $with_symbol = TRUE) {
+	public function format($number = 0, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = NULL, $with_symbol = TRUE) {
 
 		if (empty($currency_type) || ($this->exists($currency_type) == FALSE)) {
 			$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
