@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -63,50 +63,50 @@
   $srDefaultSort = 4;
 
   // report views (1: yearly 2: monthly 3: weekly 4: daily)
-  if (isset($_GET['report']) && oos_is_not_null($_GET['report'])) {
-    $srView = $_GET['report'];
+  if (isset($_GET['report']) && is_numeric($_GET['report'])) {
+    $srView = intval($_GET['report']);
   }
-  if ($srView < 1 || $srView > 4) {
+  if (!isset($srView) || $srView < 1 || $srView > 4) {
     $srView = $srDefaultView;
   }
 
   // detail
-  if (isset($_GET['detail']) && oos_is_not_null($_GET['detail'])) {
-    $srDetail = $_GET['detail'];
+  if (isset($_GET['detail']) && is_numeric($_GET['detail'])) {
+    $srDetail = intval($_GET['detail']);
   }
-  if ($srDetail < 0 || $srDetail > 2) {
+  if (!isset($srDetail) || $srDetail < 0 || $srDetail > 2) {
     $srDetail = $srDefaultDetail;
   }
 
   // report views (1: yearly 2: monthly 3: weekly 4: daily) 
-  if (isset($_GET['export']) && oos_is_not_null($_GET['export'])) {
-    $srExp = $_GET['export'];
+  if (isset($_GET['export']) && is_numeric($_GET['export'])) {
+    $srExp = intval($_GET['export']);
   }
-  if ($srExp < 0 || $srExp > 2) {
+  if (!isset($srExp) || $srExp < 0 || $srExp > 2) {
     $srExp = $srDefaultExp;
   }
 
   // item_level
-  if (isset($_GET['max']) && oos_is_not_null($_GET['max'])) {
-    $srMax = $_GET['max'];
+  if (isset($_GET['max']) && is_numeric($_GET['max'])) {
+    $srMax = intval($_GET['max']);
   }
-  if (!is_numeric($srMax)) {
+  if (!isset($srMax)) {
     $srMax = 0;
   }
 
   // order status
-  if (isset($_GET['status']) && oos_is_not_null($_GET['status'])) {
-    $srStatus = $_GET['status'];
+  if (isset($_GET['status']) && is_numeric($_GET['status'])) {
+    $srStatus = intval($_GET['status']);
   }
-  if (!is_numeric($srStatus)) {
+  if (!isset($srStatus)) {
     $srStatus = 0;
   }
 
   // sort
-  if (isset($_GET['sort']) && oos_is_not_null($_GET['sort'])) {
+  if (isset($_GET['sort']) && is_numeric($_GET['sort'])) {
     $srSort = $_GET['sort'];
   }
-  if ($srSort < 1 || $srSort > 6) {
+  if (!isset($srSort) ||  $srSort < 1 || $srSort > 6) {
     $srSort = $srDefaultSort;
   }
 
@@ -164,7 +164,7 @@
   }
 
   require 'includes/classes/class_sales_report2.php';
-  $sr = new sales_report($srView, $startDate, $endDate, $srSort, $srStatus, $srFilter);
+  $sr = new sales_report($srView, $startDate, $endDate, $srSort, $srStatus);
   $startDate = $sr->startDate;
   $endDate = $sr->endDate;
 
