@@ -1261,7 +1261,7 @@ function calcBasePriceFactor() {
     }
 ?>
             </select>&nbsp;</td>
-            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo $attributes_values['options_sort_order']; ?>" size="4">&nbsp;</td>
+            <td align="right" class="smallText">&nbsp;<input type="text" name="sort_order" value="<?php echo isset($attributes_values['options_sort_order']) ? $attributes_values['options_sort_order'] : ''; ?>" size="4">&nbsp;</td>
 			<td class="smallText">&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" size="6">&nbsp;</td>
             <td align="right" class="smallText">&nbsp;<input type="text" name="price_prefix" size="2" value="+">&nbsp;</td>
