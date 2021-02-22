@@ -20,6 +20,8 @@
         "ToCreateCustomVarExecute": "To create a new custom variable slot execute the following command within your Matomo installation: ",
         "SlotsReportIsGeneratedOverTime": "Data for this report will be populated over time. It may take a day or two to see any data and a few weeks until the report is fully accurate.",
         "MetricsAreOnlyAvailableForVisitScope": "Note: %1$s metrics are available for Custom Variables of scope %2$s only.",
-        "MetricsNotAvailableForPageScope": "For Custom Variables of scope %1$s, the column value for these metrics is %2$s"
+        "MetricsNotAvailableForPageScope": "For Custom Variables of scope %1$s, the column value for these metrics is %2$s",
+        "CustomVariablesSubcategoryHelp1": "This report contains information about your Custom Variables. Click on a variable name to see the distribution of the values.",
+        "CustomVariablesSubcategoryHelp2": "Read more about this topic in the online guide."
     }
 }

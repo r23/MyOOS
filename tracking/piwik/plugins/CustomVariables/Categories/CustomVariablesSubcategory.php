@@ -9,6 +9,7 @@
 namespace Piwik\Plugins\CustomVariables\Categories;
 
 use Piwik\Category\Subcategory;
+use Piwik\Piwik;
 
 class CustomVariablesSubcategory extends Subcategory
 {
@@ -16,4 +17,10 @@ class CustomVariablesSubcategory extends Subcategory
     protected $id = 'CustomVariables_CustomVariables';
     protected $order = 45;
 
+    public function getHelp()
+    {
+        return '<p>' . Piwik::translate('CustomVariables_CustomVariablesSubcategoryHelp1') . '</p>'
+            . '<p><a href="https://matomo.org/docs/custom-variables/" rel="noreferrer noopener" target="_blank">' . Piwik::translate('CustomVariables_CustomVariablesSubcategoryHelp2') . '</a></p>'
+            ;
+    }
 }
