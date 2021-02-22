@@ -181,7 +181,7 @@ if (!empty($action)) {
   $products_status_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_status_result_raw, $products_status_result_numrows);
   $products_status_result = $dbconn->Execute($products_status_result_raw);
   while ($products_status = $products_status_result->fields) {
-    if (((!$_GET['psID']) || ($_GET['psID'] == $products_status['products_status_id'])) && (!$psInfo) && (substr($action, 0, 3) != 'new')) {
+    if (((!isset($_GET['psID'])) || ($_GET['psID'] == $products_status['products_status_id'])) && (!isset($psInfo)) && (substr($action, 0, 3) != 'new')) {
       $psInfo = new objectInfo($products_status);
     }
 
