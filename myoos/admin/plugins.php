@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,9 +40,16 @@
         $sInstance = oos_db_prepare_input($_GET['plugin']);
 
         if (($key = array_search($sInstance, $installed)) !== false) {
-          include OOS_ABSOLUTE_PATH . 'includes/plugins/' . 'oos_event_' . $sInstance . '/oos_event_' . $sInstance . '.php';
-          $class = 'oos_event_' . $sInstance;
-          $oPlugin = new $class;
+			$sName = 'oos_event_' . $sInstance;
+			
+			if (isset($_SESSION['language']) &&  file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' . $sName . '/lang/' . $_SESSION['language'] . '.php')) {
+			  include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . $_SESSION['language'] . '.php';
+			} elseif (file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php')) {
+			  include  OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php';
+			}			
+			include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/' . $sName . '.php';	
+			
+          $oPlugin = new $sName;
 
           if ($oPlugin->uninstallable) {
             $oPlugin->remove();
@@ -61,9 +68,17 @@
         $sInstance = oos_db_prepare_input($_GET['plugin']);
 
         if (array_search($sInstance, $installed) === false) {
-          include OOS_ABSOLUTE_PATH . 'includes/plugins/' . 'oos_event_' . $sInstance . '/oos_event_' . $sInstance . '.php';
-          $class = 'oos_event_' . $sInstance;
-          $oPlugin = new $class;
+			$sName = 'oos_event_' . $sInstance;
+			
+			if (isset($_SESSION['language']) &&  file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' . $sName . '/lang/' . $_SESSION['language'] . '.php')) {
+			  include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . $_SESSION['language'] . '.php';
+			} elseif (file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php')) {
+			  include  OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/lang/' . DEFAULT_LANGUAGE . '.php';
+			}			
+			include OOS_ABSOLUTE_PATH . 'includes/plugins/' .  $sName . '/' . $sName . '.php';				
+			
+
+          $oPlugin = new $sName;
 
           $bInstall = $oPlugin->install();
           if ($bInstall) {
@@ -235,10 +250,10 @@
           $key_value = $key_value_result->fields;
 
           $keys_extra[$key]['title'] = constant(strtoupper($key . '_TITLE'));
-          $keys_extra[$key]['value'] = $key_value['configuration_value'];
+          $keys_extra[$key]['value'] = (isset($key_value['configuration_value']) ? $key_value['configuration_value'] : '');
           $keys_extra[$key]['description'] = constant(strtoupper($key . '_DESC'));
-          $keys_extra[$key]['use_function'] = $key_value['use_function'];
-          $keys_extra[$key]['set_function'] = $key_value['set_function'];
+          $keys_extra[$key]['use_function'] = (isset($key_value['use_function']) ? $key_value['use_function'] : '');
+          $keys_extra[$key]['set_function'] = (isset($key_value['set_function']) ? $key_value['set_function'] : '');
         }
       }
 
@@ -315,7 +330,7 @@
           if ($pInfo->status) {
             $contents[] = array('align' => 'center', 'text' => ($pInfo->uninstallable ? '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '">' . oos_button('modules_remove', IMAGE_PLUGINS_REMOVE) . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>' : ''));
 
-            if (is_array($pInfo->config_item) && sizeof($pInfo->config_item) > 0) {
+            if (isset($sInfo->config_item) && is_array($pInfo->config_item) && sizeof($pInfo->config_item) > 0) {
               $keys = '<br />';
 
               foreach ($pInfo->config_item as $value) {
