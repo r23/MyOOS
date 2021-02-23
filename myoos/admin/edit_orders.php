@@ -32,7 +32,7 @@ require 'includes/functions/function_edit_orders.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
+require_once MYOOS_INCLUDE_PATH . '/vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
 
 
 require 'includes/classes/class_currencies.php';

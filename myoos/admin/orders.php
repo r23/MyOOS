@@ -22,7 +22,7 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
+require_once MYOOS_INCLUDE_PATH . '/vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
 
 
  /**

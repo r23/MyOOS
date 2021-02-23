@@ -24,7 +24,7 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
+require_once MYOOS_INCLUDE_PATH . '/vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
 
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');

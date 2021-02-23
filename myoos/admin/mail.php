@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -21,7 +21,7 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
+require_once MYOOS_INCLUDE_PATH . '/vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
 
 
 $action = (isset($_GET['action']) ? oos_prepare_input($_GET['action']) : '');
