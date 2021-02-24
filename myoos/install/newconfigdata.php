@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team
    ----------------------------------------------------------------------
    Based on:
 
@@ -236,11 +236,6 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_RANDOM_SELECT_REVIEWS', '10', 6, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_NEW_REVIEWS', '6', 6, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('REVIEW_TEXT_MIN_LENGTH', '50', 6, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MIN_DISPLAY_NEW_SPEZILAS', '1', 6, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_NEW_SPEZILAS', '4', 6, 2, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_RANDOM_SELECT_SPECIALS', '10', 6, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_SPECIAL_PRODUCTS', '9', 6, 4, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_FEATURED_PRODUCTS', '6', 6, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") OR die ("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
