@@ -33,7 +33,7 @@ $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-$nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 

@@ -39,7 +39,7 @@ if (!isset($_GET['order_id'])) {
 	oos_redirect(oos_href_link($aContents['account_history']));
 }
 
-$nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
  
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_history_info.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';

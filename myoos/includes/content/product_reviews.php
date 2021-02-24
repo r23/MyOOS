@@ -38,7 +38,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
 $get_params = oos_get_all_get_parameters(array('reviews_id'));
 $get_params = oos_remove_trailing($get_params);
 
-$nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];

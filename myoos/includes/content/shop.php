@@ -242,7 +242,7 @@ if ($category_depth == 'nested') {
 	$og_image = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'category/large/' . $category['categories_image'];
 
     $nManufacturersID = isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id']+0 : 0;
-    $nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
+    $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
     $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;
     $sSort = oos_var_prep_for_os($_GET['sort']);
     $sGroup = trim($aUser['text']);
