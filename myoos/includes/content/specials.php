@@ -35,7 +35,7 @@ $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 $sGroup = trim($aUser['text']);
-$nPage = isset($_GET[page]) ? $_GET[page]+0 : 1;
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
 
 $sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, FALSE, TRUE);
