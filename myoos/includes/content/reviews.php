@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -100,7 +100,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                           'products_image' => $reviews['products_image'],
                           'authors_name' => $reviews['customers_name'],
 						  'reviews_headline' => $reviews['reviews_headline'],
-                          'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250)) . '..',
+                          'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250), ENT_QUOTES, 'UTF-8') . '..',
                           'rating' => $reviews['reviews_rating'],
                           'word_count' => oosWordCount($reviews['reviews_text'], ' '),
                           'date_added' => oos_date_long($reviews['date_added']));

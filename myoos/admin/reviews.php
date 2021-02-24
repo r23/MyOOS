@@ -227,7 +227,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 /* Re-Post all POST'ed variables */
 		reset($_POST);
 		foreach ($_POST as $key => $value) {     
-		  echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars(stripslashes($value)) . '">';
+		  echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8') . '">';
 		}
 ?>
       <tr>

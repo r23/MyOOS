@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -296,7 +296,7 @@ if (!empty($action)) {
     }
 ?>
                 <td><?php echo constant(strtoupper($configuration['configuration_key'] . '_TITLE')); ?></td>
-                <td><?php echo htmlspecialchars($cfgValue); ?></td>
+                <td><?php echo htmlspecialchars($cfgValue, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($configuration['configuration_id'] == $cInfo->configuration_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
@@ -317,7 +317,7 @@ if (!empty($action)) {
 			$value_field = oos_draw_file_field('site_image') . '<br />' . $cInfo->configuration_value;
 		} else {
 			if ($cInfo->set_function) {
-				eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars($cInfo->configuration_value) . '");');
+				eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars($cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
 			} else {
 				$value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
 			}

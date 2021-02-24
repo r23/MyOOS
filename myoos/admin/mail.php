@@ -178,22 +178,22 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_name'])); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_name']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_mail'])); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_mail']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>  
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['subject'])); ?></td>
+                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['subject']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message']))); ?></td>
+                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message'])), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
                 <td></td>
@@ -205,7 +205,7 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
     reset($_POST);
     foreach ($_POST as $key => $value) {		
       if (!is_array($_POST[$key])) {
-        echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
+        echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)), ENT_QUOTES, 'UTF-8');
       }
     }
 ?>

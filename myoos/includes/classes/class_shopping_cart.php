@@ -252,7 +252,7 @@
 								} else {
 									$option = substr($option, strlen(TEXT_PREFIX));
 
-									$attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES);
+									$attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8');
 									$value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
 									$this->contents[$sProductsId]['attributes_values'][$option] = $attr_value;
 								}
@@ -324,7 +324,7 @@
                 $blank_value = TRUE;
               } else {
                 $option = substr($option, strlen(TEXT_PREFIX));
-                // $attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES);
+                // $attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8');
                 $attr_value = stripslashes($value);
                 $value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
                 $this->contents[$sProductsId]['attributes_values'][$option] = $attr_value;

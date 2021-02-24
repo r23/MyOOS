@@ -40,7 +40,7 @@ function smarty_modifier_clean_text($string, $with_links = TRUE)
 
     $string = strip_tags( $string );
 
-    #$string = htmlspecialchars( $string );
+    #$string = htmlspecialchars( $string, ENT_QUOTES, 'UTF-8')
 
     return $string;
 

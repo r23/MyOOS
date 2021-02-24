@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -232,7 +232,7 @@ class GoogleSitemap {
 				$ratio = $top > 0 ? $result['products_ordered']/$top : 0;
 				$priority = $ratio < .1 ? .1 : number_format($ratio, 1, '.', '');
 
-				$container[] = array('loc' => htmlspecialchars(utf8_encode($location)),
+				$container[] = array('loc' => htmlspecialchars($location, ENT_QUOTES, 'UTF-8'),
 									'lastmod' => date ("Y-m-d", strtotime($lastmod)),
 									'changefreq' => $changefreq,
 									'priority' => $priority);

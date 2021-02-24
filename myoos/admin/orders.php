@@ -439,7 +439,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS) . "</td>\n";
         }
         echo '            <td class="smallText">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n" .
-             '            <td class="smallText">' . nl2br(htmlspecialchars($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
+             '            <td class="smallText">' . nl2br(htmlspecialchars($orders_history['comments']), ENT_QUOTES, 'UTF-8') . '&nbsp;</td>' . "\n" .
              '          </tr>' . "\n";
          // Move that ADOdb pointer!
         $orders_history_result->MoveNext();
