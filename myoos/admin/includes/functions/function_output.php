@@ -485,7 +485,7 @@ function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $param
 		if (isset($_GET[$name]) && is_string($_GET[$name])) {
 			$field .= htmlspecialchars(stripslashes($_GET[$name]), ENT_QUOTES, 'UTF-8');
 		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
-			$field .= htmlspecialchars(stripslashes($_POST[$name]), ENT_QUOTES, 'UTF-8')
+			$field .= htmlspecialchars(stripslashes($_POST[$name]), ENT_QUOTES, 'UTF-8');
 		}		
 	} elseif (oos_is_not_null($text)) {
 		$field .= htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
