@@ -133,3 +133,9 @@ prepros-6.config
 /wordpress/wp-content/languages/plugins/akismet-de_DE.po
 /wordpress/wp-content/languages/plugins/akismet-de_DE.mo
 *.config
+/myoos/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/HTML
+/myoos/images/product/originals/*.webp
+/myoos/images/product/min/*.webp
+/myoos/images/product/medium_large/*.webp
+/myoos/images/product/medium/*.webp
+/myoos/images/product/large/*.webp
