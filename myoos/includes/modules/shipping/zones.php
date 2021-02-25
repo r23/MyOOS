@@ -114,7 +114,7 @@
       $this->sort_order = (defined('MODULE_SHIPPING_ZONES_SORT_ORDER') ? MODULE_SHIPPING_ZONES_SORT_ORDER : null);
       $this->icon = '';
       $this->tax_class = (defined('MODULE_SHIPPING_ZONES_TAX_CLASS') ? MODULE_SHIPPING_ZONES_TAX_CLASS : null);
-      $this->enabled = (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'True') ? TRUE : FALSE);
+      $this->enabled = (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'True') ? true : false);
 
 
       // CUSTOMIZE THIS SETTING FOR THE NUMBER OF ZONES NEEDED

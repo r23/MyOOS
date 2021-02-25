@@ -29,7 +29,7 @@ class invoice {
 		$this->code = 'invoice';
 		$this->title = $aLang['module_payment_invoice_text_title'];
 		$this->description = $aLang['module_payment_invoice_text_description'];
-		$this->enabled = (defined('MODULE_PAYMENT_INVOICE_STATUS') && (MODULE_PAYMENT_INVOICE_STATUS == 'True') ? TRUE : FALSE);
+		$this->enabled = (defined('MODULE_PAYMENT_INVOICE_STATUS') && (MODULE_PAYMENT_INVOICE_STATUS == 'True') ? true : false);
 		$this->sort_order = (defined('MODULE_PAYMENT_INVOICE_SORT_ORDER') ? MODULE_PAYMENT_INVOICE_SORT_ORDER : NULL);
 
 		if ((defined('MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID') && (int)MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID > 0)) {

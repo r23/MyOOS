@@ -29,7 +29,7 @@ class cod {
 		$this->code = 'cod';
 		$this->title = $aLang['module_payment_cod_text_title'];
 		$this->description = $aLang['module_payment_cod_text_description'];
-		$this->enabled = (defined('MODULE_PAYMENT_COD_STATUS') && (MODULE_PAYMENT_COD_STATUS == 'True') ? TRUE : FALSE);
+		$this->enabled = (defined('MODULE_PAYMENT_COD_STATUS') && (MODULE_PAYMENT_COD_STATUS == 'True') ? true : false);
 	    
 		$this->sort_order = (defined('MODULE_PAYMENT_COD_SORT_ORDER') ? MODULE_PAYMENT_COD_SORT_ORDER : null);
 

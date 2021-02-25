@@ -49,7 +49,7 @@ class paypal_api {
 		$this->code = 'paypal_api';
 		$this->title = $aLang['module_payment_paypal_api_text_title'];
 		$this->description = $aLang['module_payment_paypal_api_text_description'];
-		$this->enabled = (defined('MODULE_PAYMENT_PAYPAL_API_STATUS') && (MODULE_PAYMENT_PAYPAL_API_STATUS == 'TRUE') ? TRUE : FALSE);
+		$this->enabled = (defined('MODULE_PAYMENT_PAYPAL_API_STATUS') && (MODULE_PAYMENT_PAYPAL_API_STATUS == 'true') ? true : false);
 		$this->sort_order = (defined('MODULE_PAYMENT_PAYPAL_API_SORT_ORDER') ? MODULE_PAYMENT_PAYPAL_API_SORT_ORDER : NULL);
 
 		if ((defined('MODULE_PAYMENT_PAYPAL_API_ORDER_STATUS_ID') && (int)MODULE_PAYMENT_PAYPAL_API_ORDER_STATUS_ID > 0)) {
@@ -389,7 +389,7 @@ class paypal_api {
 		$oostable =& oosDBGetTables();
 
 		$configurationtable = $oostable['configuration'];
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_PAYMENT_PAYPAL_API_STATUS', 'TRUE', '6', '3', 'oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_PAYMENT_PAYPAL_API_STATUS', 'true', '6', '3', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
 		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_PAYMENT_PAYPAL_API_ID', 'you@yourbusiness.com', '6', '4', now())");
 		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_PAYMENT_PAYPAL_API_CLIENTID', '', '6', '5', now())");
 		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_PAYMENT_PAYPAL_API_SECURE', '', '6', '5', now())");

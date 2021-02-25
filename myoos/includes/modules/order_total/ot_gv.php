@@ -30,7 +30,7 @@
       $this->header = $aLang['module_order_total_gv_header'];
       $this->description = $aLang['module_order_total_gv_description'];
       $this->user_prompt = $aLang['module_order_total_gv_user_prompt'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'TRUE') ? TRUE : FALSE);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_GV_SORT_ORDER') ? MODULE_ORDER_TOTAL_GV_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_ORDER_TOTAL_GV_INC_SHIPPING') ? MODULE_ORDER_TOTAL_GV_INC_SHIPPING : null);
       $this->include_tax = (defined('MODULE_ORDER_TOTAL_GV_INC_TAX') ? MODULE_ORDER_TOTAL_GV_INC_TAX : null);
@@ -98,9 +98,9 @@
 
       if (preg_match('/^GIFT/', addslashes($oOrder->products[$i]['model']))) {
         $gv_order_amount = ($oOrder->products[$i]['final_price'] * $oOrder->products[$i]['qty']);
-        if ($this->credit_tax=='TRUE') $gv_order_amount = $gv_order_amount * (100 + $oOrder->products[$i]['tax']) / 100;
+        if ($this->credit_tax=='true') $gv_order_amount = $gv_order_amount * (100 + $oOrder->products[$i]['tax']) / 100;
         $gv_order_amount = $gv_order_amount * 100 / 100;
-        if (MODULE_ORDER_TOTAL_GV_QUEUE == 'FALSE') {
+        if (MODULE_ORDER_TOTAL_GV_QUEUE == 'false') {
           // GV_QUEUE is TRUE so release amount to account immediately
 
           $coupon_gv_customertable = $oostable['coupon_gv_customer'];
@@ -368,8 +368,8 @@
       global $oOrder;
 
       $order_total = $oOrder->info['total'];
-      if ($this->include_tax == 'FALSE') $order_total = $order_total - $oOrder->info['tax'];
-      if ($this->include_shipping == 'FALSE') $order_total = $order_total - $oOrder->info['shipping_cost'];
+      if ($this->include_tax == 'false') $order_total = $order_total - $oOrder->info['tax'];
+      if ($this->include_shipping == 'false') $order_total = $order_total - $oOrder->info['shipping_cost'];
 
       return $order_total;
     }
@@ -393,15 +393,15 @@
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
-	  $dbconn->Execute("UPDATE $configurationtable SET coupon_active = 'TRUE' WHERE configuration_key = '" . oos_db_input(MODULE_ORDER_TOTAL_GV_STATUS) . "'");	
+	  $dbconn->Execute("UPDATE $configurationtable SET coupon_active = 'true' WHERE configuration_key = '" . oos_db_input(MODULE_ORDER_TOTAL_GV_STATUS) . "'");	
 	  
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_SORT_ORDER', '9', '6', '2', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_QUEUE', 'TRUE', '6', '3','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_INC_SHIPPING', 'TRUE', '6', '5', 'oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_INC_TAX', 'TRUE', '6', '6','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_QUEUE', 'true', '6', '3','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_INC_SHIPPING', 'true', '6', '5', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_INC_TAX', 'true', '6', '6','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_CALC_TAX', 'None', '6', '7','oos_cfg_select_option(array(\'None\', \'Standard\', \'Credit Note\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_CREDIT_TAX', 'FALSE', '6', '8','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_CREDIT_TAX', 'false', '6', '8','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
     }
 
     function remove() {
@@ -410,7 +410,7 @@
 		$oostable =& oosDBGetTables();
 
 		$configurationtable = $oostable['configuration'];
-		$dbconn->Execute("UPDATE $configurationtable SET coupon_active = 'FALSE' WHERE configuration_key = '" . oos_db_input(MODULE_ORDER_TOTAL_GV_STATUS) . "'");		
+		$dbconn->Execute("UPDATE $configurationtable SET coupon_active = 'false' WHERE configuration_key = '" . oos_db_input(MODULE_ORDER_TOTAL_GV_STATUS) . "'");		
 		$dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
   }

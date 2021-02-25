@@ -31,7 +31,7 @@
       $this->description = $aLang['module_shipping_selfpickup_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER') ? MODULE_SHIPPING_SELFPICKUP_SORT_ORDER : null);
       $this->icon = '';
-      $this->enabled = (defined('MODULE_SHIPPING_SELFPICKUP_STATUS') && (MODULE_SHIPPING_SELFPICKUP_STATUS == 'True') ? TRUE : FALSE);
+      $this->enabled = (defined('MODULE_SHIPPING_SELFPICKUP_STATUS') && (MODULE_SHIPPING_SELFPICKUP_STATUS == 'True') ? true : false);
 
       if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_SELFPICKUP_ZONE > 0) ) {
         $check_flag = FALSE;

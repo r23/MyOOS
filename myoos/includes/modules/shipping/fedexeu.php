@@ -54,7 +54,7 @@
       $this->sort_order = (defined('MODULE_SHIPPING_FEDEXEU_SORT_ORDER') ? MODULE_SHIPPING_FEDEXEU_SORT_ORDER : null);
       $this->icon = OOS_ICONS . 'shipping_fedexeu.gif';
       $this->tax_class = (defined('MODULE_SHIPPING_FEDEXEU_TAX_CLASS') ? MODULE_SHIPPING_FEDEXEU_TAX_CLASS : null);
-      $this->enabled = (defined('MODULE_SHIPPING_FEDEXEU_STATUS') && (MODULE_SHIPPING_FEDEXEU_STATUS == 'True') ? TRUE : FALSE);
+      $this->enabled = (defined('MODULE_SHIPPING_FEDEXEU_STATUS') && (MODULE_SHIPPING_FEDEXEU_STATUS == 'True') ? true : false);
 
       if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_FEDEXEU_ZONE > 0) ) {
         $check_flag = FALSE;

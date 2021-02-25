@@ -28,7 +28,7 @@
       $this->code = 'ot_netto';
       $this->title = $aLang['module_order_total_netto_title'];
       $this->description = $aLang['module_order_total_netto_description'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_NETTO_STATUS') && (MODULE_ORDER_TOTAL_NETTO_STATUS == 'TRUE') ? TRUE : FALSE);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_NETTO_STATUS') && (MODULE_ORDER_TOTAL_NETTO_STATUS == 'true') ? true : false);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER') ? MODULE_ORDER_TOTAL_NETTO_SORT_ORDER : null);
 
       $this->output = array();
@@ -73,7 +73,7 @@
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_NETTO_STATUS', 'TRUE', '6', '1','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_NETTO_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER', '10', '6', '10', now())");
     }
 

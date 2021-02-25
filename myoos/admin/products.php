@@ -1001,7 +1001,7 @@ updateWithTax();
                            </div>
                         </fieldset>
 <?php
-	if (STOCK_CHECK == 'TRUE') {
+	if (STOCK_CHECK == 'true') {
 ?>
                         <fieldset>
                            <div class="form-group row">

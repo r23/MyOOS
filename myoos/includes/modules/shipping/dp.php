@@ -32,7 +32,7 @@
       $this->sort_order = (defined('MODULE_SHIPPING_DP_SORT_ORDER') ? MODULE_SHIPPING_DP_SORT_ORDER : NULL);
       $this->icon = OOS_ICONS . 'shipping_dp.gif';
       $this->tax_class = (defined('MODULE_SHIPPING_DP_TAX_CLASS') ? MODULE_SHIPPING_DP_TAX_CLASS : NULL);
-      $this->enabled = (defined('MODULE_SHIPPING_DP_STATUS') && (MODULE_SHIPPING_DP_STATUS == 'TRUE') ? TRUE : FALSE);
+      $this->enabled = (defined('MODULE_SHIPPING_DP_STATUS') && (MODULE_SHIPPING_DP_STATUS == 'true') ? true : false);
 
       if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPINTRUEG_DP_ZONE > 0) ) {
 		  	  
@@ -140,7 +140,7 @@
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_DP_STATUS', 'TRUE', '6', '0', 'oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_DP_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_DP_HANDLING', '0', '6', '0', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_DP_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_DP_ZONE', '0', '6', '0', 'oos_cfg_get_zone_class_title', 'oos_cfg_pull_down_zone_classes(', now())");

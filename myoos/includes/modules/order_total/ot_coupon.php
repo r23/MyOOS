@@ -30,7 +30,7 @@
       $this->title =$aLang['module_order_total_coupon_title'];
       $this->description = $aLang['module_order_total_coupon_description'];
       $this->user_prompt = '';
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'TRUE') ? TRUE : FALSE);
+      $this->enabled = (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true') ? true : false);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER') ? MODULE_ORDER_TOTAL_COUPON_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING') ? MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING : null);
       $this->include_tax = (defined('MODULE_ORDER_TOTAL_COUPON_INC_TAX') ? MODULE_ORDER_TOTAL_COUPON_INC_TAX : null);
@@ -441,7 +441,7 @@
       if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) {
         $qty = $_SESSION['cart']->get_quantity($t_prid);
         $products_tax = oos_get_tax_rate($gv_result['products_tax_class_id']);
-        if ($this->include_tax =='FALSE') {
+        if ($this->include_tax =='false') {
            $gv_amount = $gv_result['products_price'] * $qty;
         } else {
           $gv_amount = ($gv_result['products_price'] + oos_calculate_tax($gv_result['products_price'],$products_tax)) * $qty;
@@ -449,8 +449,8 @@
         $order_total=$order_total - $gv_amount;
       }
     }
-    if ($this->include_tax == 'FALSE') $order_total=$order_total-$oOrder->info['tax'];
-    if ($this->include_shipping == 'FALSE') $order_total=$order_total-$oOrder->info['shipping_cost'];
+    if ($this->include_tax == 'false') $order_total=$order_total-$oOrder->info['tax'];
+    if ($this->include_shipping == 'false') $order_total=$order_total-$oOrder->info['shipping_cost'];
     // OK thats fine for global coupons but what about restricted coupons 
     // where you can only redeem against certain products/categories.
     // and I though this was going to be easy !!!
@@ -527,7 +527,7 @@ function get_product_price($product_id) {
         $specials = $specials_query->fields;
         $products_price = $specials['specials_new_products_price'];
       }
-      if ($this->include_tax == 'TRUE') {
+      if ($this->include_tax == 'true') {
         $total_price += ($products_price + oos_calculate_tax($products_price, $products_tax)) * $qty;
       } else {
         $total_price += $products_price * $qty;
@@ -541,13 +541,13 @@ function get_product_price($product_id) {
           $attribute_price_query = $dbconn->Execute("SELECT options_values_price, price_prefix FROM $products_attributestable WHERE products_id = '" . (int)$prid . "' AND options_id = '" . oos_db_input($option) . "' AND options_values_id = '" . oos_db_input($value) . "'");
           $attribute_price = $attribute_price_query->fields;
           if ($attribute_price['price_prefix'] == '+') {
-            if ($this->include_tax == 'TRUE') {
+            if ($this->include_tax == 'true') {
               $total_price += $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
             } else {
               $total_price += $qty * ($attribute_price['options_values_price']);
             }
           } else {
-            if ($this->include_tax == 'TRUE') {
+            if ($this->include_tax == 'true') {
               $total_price -= $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
             } else {
               $total_price -= $qty * ($attribute_price['options_values_price']);
@@ -556,7 +556,7 @@ function get_product_price($product_id) {
         }
       }
     }
-    if ($this->include_shipping == 'TRUE') $total_price += $oOrder->info['shipping_cost'];
+    if ($this->include_shipping == 'true') $total_price += $oOrder->info['shipping_cost'];
     return $total_price;
 }
 
@@ -579,10 +579,10 @@ function get_product_price($product_id) {
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_STATUS', 'TRUE', '6', '1','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', '8', '6', '2', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'TRUE', '6', '5', 'oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_INC_TAX', 'TRUE', '6', '6','oos_cfg_select_option(array(\'TRUE\', \'FALSE\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'true', '6', '5', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_INC_TAX', 'true', '6', '6','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'None', '6', '7','oos_cfg_select_option(array(\'None\', \'Standard\', \'Credit Note\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
     }
