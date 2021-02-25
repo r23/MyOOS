@@ -46,7 +46,7 @@ if (isset($_GET['mode'])&&$_GET['mode']=="kill"&&$rk>'')
 	$aus.='<p class="success">'.$lang['L_SQL_RECORDDELETED'].'</p>';
 }
 
-function mysql_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl_ergebnisse=20, $auszuschliessende_tabellen='')
+function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl_ergebnisse=20, $auszuschliessende_tabellen='')
 {
 	global $tables,$config;
 	$ret=false;
@@ -302,7 +302,7 @@ $tpl->assign_vars(array(
 	'LANG_SEARCH_IN_TABLE' => $lang['L_SEARCH_IN_TABLE']));
 
 $max_treffer=20;
-$treffer=mysql_search($db,$table_selected,$suchbegriffe,$suchart,$offset,$max_treffer+1);
+$treffer=mysqli_search($db,$table_selected,$suchbegriffe,$suchart,$offset,$max_treffer+1);
 if (is_array($treffer)&&isset($treffer[0]))
 {
 	$search_message=sprintf($lang['L_SEARCH_RESULTS'],$suchbegriffe,$tables[$table_selected]);

@@ -1015,7 +1015,7 @@ function DownGrade($s, $show=true)
 	return $t;
 }
 
-function MySQL_Ticks($s)
+function MySQLi_Ticks($s)
 {
 	$klammerstart=$lastklammerstart=$end=0;
 	$inner_s_start=strpos($s,'(');

@@ -274,7 +274,7 @@ function FileList($multi=0)
 		ksort($db_summary_size);
 
 		$i=0;
-		foreach($db_summary_anzahl as $key => $val) 		
+		foreach($db_summary_anzahl as $key => $val)
 		{
 			$cl=($i++%2) ? "dbrow":"dbrow1";
 			$keyaus=($key=="~unknown") ? '<em>'.$lang['L_NO_MSD_BACKUPFILE'].'</em>':$key;
@@ -404,7 +404,7 @@ function Converter($filesource,$filedestination,$cp)
 						{
 							$zeile.=fgets($f,8192);
 						}
-						$zeile="\n\r".MySQL_Ticks($zeile)."\n\r";
+						$zeile="\n\r".MySQLi_Ticks($zeile)."\n\r";
 						$splitable=true;
 						break;
 					}

@@ -23,8 +23,5 @@ include ( MSD_PATH . 'language/' . $config['language'] . '/lang.php' );
 include ( MSD_PATH . 'language/' . $config['language'] . '/lang_help.php' );
 echo MSDHeader(0);
 echo headline($lang['L_CREDITS']);
-include ( MSD_PATH . 'language/' . $config['language'] . '/help.php' );
-?>
-<?php
+readfile ( MSD_PATH . 'language/' . $config['language'] . '/help.html' );
 echo MSDFooter();
-
