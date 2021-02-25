@@ -55,7 +55,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 define('OOS_VALID_MOD', true);
 // Version information
-define('OOS_VERSION', 'MyOOS 2.4.6 -dev');
+define('OOS_VERSION', 'MyOOS 2.4.21 -dev');
 
 // Set the local configuration parameters - mainly for developers
 if (is_readable('../includes/local/configure.php')) {
@@ -128,6 +128,13 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
     case "Finish":
       print_oosFinish();
       break;
+
+    case "myOOS 2.4.20":
+      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+      oosDoUpgrade2420($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+      print_Next();
+    break;
+
 
     case "myOOS 2.4.16":
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
