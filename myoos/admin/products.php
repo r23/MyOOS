@@ -824,7 +824,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-									$sPriceList = number_format($pInfo->products_price_list, 4, '.', '');
+									$sPriceList = number_format(isset($pInfo->products_price_list) ? $pInfo->products_price_list : 0, 4, '.', '');
 									echo oos_draw_input_field('products_price_list', $sPriceList, 'onkeyup="updateWithTax()"');
 								?>
                               </div>
@@ -835,7 +835,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_LIST_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10">
                                 <?php
-									$sPriceList = number_format($pInfo->products_price_list, TAX_DECIMAL_PLACES, '.', '');
+									$sPriceList = number_format(isset($pInfo->products_price_list) ? $pInfo->products_price_list : 0, TAX_DECIMAL_PLACES, '.', '');
 									echo oos_draw_input_field('products_price_list_gross', $sPriceList, 'onkeyup="updateNet()"');
 								?>
                               </div>
@@ -901,11 +901,14 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_DISCOUNTS_TITLE; ?></label>
                               <div class="col-lg-10">
  <?php
-   $sDiscount1 = number_format($pInfo->products_discount1, 4, '.', '');
-   $sDiscount2 = number_format($pInfo->products_discount2, 4, '.', '');
-   $sDiscount3 = number_format($pInfo->products_discount3, 4, '.', '');
-   $sDiscount4 = number_format($pInfo->products_discount4, 4, '.', '');
+
+   $sDiscount1 = number_format(isset($pInfo->products_discount1) ? $pInfo->products_discount1 : 0, 4, '.', '');
+   $sDiscount2 = number_format(isset($pInfo->products_discount2) ? $pInfo->products_discount2 : 0, 4, '.', '');
+   $sDiscount3 = number_format(isset($pInfo->products_discount3) ? $pInfo->products_discount3 : 0, 4, '.', '');
+   $sDiscount4 = number_format(isset($pInfo->products_discount4) ? $pInfo->products_discount4 : 0, 4, '.', '');
+
  ?>
+ 
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
@@ -919,10 +922,10 @@ function calcBasePriceFactor() {
   <tbody>
     <tr>
       <th scope="row"><?php echo TEXT_DISCOUNTS_QTY; ?></th>
-      <td><?php echo oos_draw_input_field('products_discount1_qty', $pInfo->products_discount1_qty); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount2_qty', $pInfo->products_discount2_qty); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount3_qty', $pInfo->products_discount3_qty); ?></td>
-      <td><?php echo oos_draw_input_field('products_discount4_qty', $pInfo->products_discount4_qty); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount1_qty', isset($pInfo->products_discount1_qty) ? $pInfo->products_discount1_qty : 0); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount2_qty', isset($pInfo->products_discount2_qty) ? $pInfo->products_discount2_qty : 0); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount3_qty', isset($pInfo->products_discount3_qty) ? $pInfo->products_discount3_qty : 0); ?></td>
+      <td><?php echo oos_draw_input_field('products_discount4_qty', isset($pInfo->products_discount4_qty) ? $pInfo->products_discount4_qty : 0); ?></td>
     </tr>
     <tr>
       <th scope="row"><?php echo TEXT_DISCOUNTS_PRICE; ?></th>
@@ -948,11 +951,12 @@ function calcBasePriceFactor() {
 <script type="text/javascript"><!--
 updateWithTax();
 //--></script>
+
                        <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_MODEL; ?></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_input_field('products_model', $pInfo->products_model); ?>
+								<?php echo oos_draw_input_field('products_model', isset($pInfo->products_model) ? $pInfo->products_model : ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -960,7 +964,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_EAN; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_ean', $pInfo->products_ean); ?>
+                                 <?php echo oos_draw_input_field('products_ean', isset($pInfo->products_ean) ? $pInfo->products_ean : ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -968,7 +972,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_QUANTITY; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity', $pInfo->products_quantity); ?>
+                                 <?php echo oos_draw_input_field('products_quantity', isset($pInfo->products_quantity) ? $pInfo->products_quantity : ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -976,7 +980,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MINIMUM_ORDER; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_min', ($pInfo->products_quantity_order_min==0 ? 1 : $pInfo->products_quantity_order_min)); ?>
+                                 <?php echo oos_draw_input_field('products_quantity_order_min', isset($pInfo->products_quantity_order_min) ? $pInfo->products_quantity_order_min : 1); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -984,7 +988,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_PACKAGING_UNIT; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_units', ($pInfo->products_quantity_order_units==0 ? 1 : $pInfo->products_quantity_order_units)); ?>
+                                 <?php echo oos_draw_input_field('products_quantity_order_units', isset($pInfo->products_quantity_order_units) ? $pInfo->products_quantity_order_units : 1); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -992,18 +996,18 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_MAXIMUM_ORDER; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_quantity_order_max', ($pInfo->products_quantity_order_max==0 ? 30 : $pInfo->products_quantity_order_max)); ?>
+                                 <?php echo oos_draw_input_field('products_quantity_order_max', isset($pInfo->products_quantity_order_max) ? $pInfo->products_quantity_order_max : 30); ?>
                               </div>
                            </div>
                         </fieldset>
 <?php
-	if (STOCK_CHECK == 'true') {
+	if (STOCK_CHECK == 'TRUE') {
 ?>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_reorder_level', $pInfo->products_reorder_level); ?>
+                                 <?php echo oos_draw_input_field('products_reorder_level', isset($pInfo->products_reorder_level) ? $pInfo->products_reorder_level : 5); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1026,7 +1030,7 @@ updateWithTax();
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_REPLACEMENT_PRODUCT; ?></label>
                               <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_replacement_product_id', $pInfo->products_replacement_product_id); ?>
+                                 <?php echo oos_draw_input_field('products_replacement_product_id', isset($pInfo->products_replacement_product_id) ? $pInfo->products_replacement_product_id : ''); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -1193,8 +1197,9 @@ updateWithTax();
 		</div>
 		
 <?php
+	$nCounter = 0;
 	if (is_array($pInfo->products_larger_images) || is_object($pInfo->products_larger_images)) {
-		$nCounter = 0;
+
 		
 		foreach ($pInfo->products_larger_images as $image) {
 			$nCounter++;
