@@ -76,7 +76,7 @@ function Help($ToolTip, $Anker, $imgsize=12)
 {/*
 	global $config;
 	if($Anker!=""){
-	return '<a href="language/'.$config['language'].'/help.php#'.$Anker.'" title="'.$ToolTip.'"><img src="'.$config['files']['iconpath'].'help16.gif" width="'.$imgsize.'" height="'.$imgsize.'" hspace="'.(round($imgsize/4,0)).'" vspace="0" border="0" alt="Help"></a>';
+	return '<a href="language/'.$config['language'].'/help.html#'.$Anker.'" title="'.$ToolTip.'"><img src="'.$config['files']['iconpath'].'help16.gif" width="'.$imgsize.'" height="'.$imgsize.'" hspace="'.(round($imgsize/4,0)).'" vspace="0" border="0" alt="Help"></a>';
 	} else {
 	return '<img src="'.$config['files']['iconpath'].'help16.gif" width="'.$imgsize.'" height="'.$imgsize.'" alt="Help" title="'.$ToolTip.'" border="0" hspace="'.(round($imgsize/4,0)).'" vspace="0" >';
 	}
@@ -259,7 +259,7 @@ function WriteParams($as=0, $restore_values=false)
 	$config['multipart_groesse'] = $config['multipartgroesse1'] * ( ( $config['multipartgroesse2'] == 1 ) ? 1024 : 1024 * 1024 );
 	$param=$pars_all='<?php ' . $nl;
 	$config['email_maxsize1'] = isset($config['email_maxsize1']) ? $config['email_maxsize1'] : 1;
-	$config['email_maxsize2'] = isset($config['email_maxsize2']) ? $config['email_maxsize2'] : 1;	
+	$config['email_maxsize2'] = isset($config['email_maxsize2']) ? $config['email_maxsize2'] : 1;
 	if (!isset($config['email_maxsize'])) $config['email_maxsize']=$config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
 	if (!isset($config['cron_execution_path'])) $config['cron_execution_path']="msd_cron/";
 	if ($as == 0) $config['paths']['root']=addslashes(Realpfad("./"));
@@ -481,11 +481,11 @@ function WriteCronScript($restore_values=false)
 	$config['ftp_pass'] = isset($config['ftp_pass']) ? $config['ftp_pass'] : '';
 	$config['ftp_dir'] = isset($config['ftp_dir']) ? $config['ftp_dir'] : '';
 	$config['ftp_timeout'] = isset($config['ftp_timeout']) ? $config['ftp_timeout'] : '';
-	$config['ftp_useSSL'] = isset($config['ftp_useSSL']) ? $config['ftp_useSSL'] : '';	
+	$config['ftp_useSSL'] = isset($config['ftp_useSSL']) ? $config['ftp_useSSL'] : '';
 	$config['ftp_transfer'] = isset($config['ftp_transfer']) ? $config['ftp_transfer'] : '';
 	$config['cron_comment'] = isset($config['cron_comment']) ? $config['cron_comment'] : '';
-	
-	
+
+
 	$cronscript="<?php\n#Vars - written at " . date("Y-m-d") . $nl;
 	$cronscript.='$dbhost="' . $config['dbhost'] . '";' . $nl;
 	$cronscript.='$dbname="' . $cron_dbname . '";' . $nl;

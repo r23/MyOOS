@@ -763,7 +763,7 @@ if (isset($databases['Name'][0]) && $databases['Name'][0] > '') {
         $aus['db'] .= '<tr class="dbrowsel"><td><strong>' . $databases['db_actual'] . '</strong></td>';
         $aus['db'] .= '<td align="center"><input type="checkbox" class="checkbox" name="db_multidump_' . $databases['db_selected_index'] . '" value="db_multidump_' . $databases['db_selected_index'] . '" ' . ( ( in_array($databases['db_actual'], $databases['multi']) ) ? "CHECKED" : "" );
         $aus['db'] .= $disabled . '></td>';
-        $aus['db'] .= '<td><img src="' . $icon['blank'] . '" width="40" height="1" alt=""><input type="text" class="text" name="dbpraefix_' . $databases['db_selected_index'] . '" size="10" value="'
+        $aus['db'] .= '<td><input type="text" class="text" name="dbpraefix_' . $databases['db_selected_index'] . '" size="10" value="'
                 . $databases['praefix'][$databases['db_selected_index']] . '"' . $disabled . '></td>';
         $aus['db'] .= '<td>' . ComboCommandDump(0, $databases['db_selected_index'], $disabled)
                 . '</td><td>' . ComboCommandDump(1, $databases['db_selected_index'], $disabled) . '</td>';
@@ -785,7 +785,7 @@ if (isset($databases['Name'][0]) && $databases['Name'][0] > '') {
                 $aus['db'] .= '<tr class="' . ( ( $i % 2 ) ? 'dbrow' : 'dbrow1' ) . '"><td>' . $databases['Name'][$i] . '</td>';
                 $aus['db'] .= '<td align="center"><input type="checkbox" class="checkbox" name="db_multidump_' . $i . '" value="db_multidump_' . $i . '" ' . ( ( in_array($databases['Name'][$i], $databases['multi']) ) ? "CHECKED" : "" );
                 $aus['db'] .= $disabled . '></td>';
-                $aus['db'] .= '<td><img src="' . $icon['blank'] . '" width="40" height="1" alt=""><input type="text" class="text" name="dbpraefix_' . $i . '" size="10" value="'
+                $aus['db'] .= '<td><input type="text" class="text" name="dbpraefix_' . $i . '" size="10" value="'
                         . $databases['praefix'][$i] . '"';
 
                 $aus['db'] .= $disabled . '></td><td>' . ComboCommandDump(0, $i, $disabled) . '</td><td>'
