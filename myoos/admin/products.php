@@ -664,7 +664,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_NAME; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (($products_name[$aLanguages[$i]['id']]) ? stripslashes($products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('products_name[' . $aLanguages[$i]['id'] . ']', (isset($products_name[$aLanguages[$i]['id']]) ? stripslashes($products_name[$aLanguages[$i]['id']]) : oos_get_products_name($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>						
@@ -677,7 +677,7 @@ function calcBasePriceFactor() {
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_TITLE; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('products_title[' . $aLanguages[$i]['id'] . ']', (($products_title[$aLanguages[$i]['id']]) ? stripslashes($products_title[$aLanguages[$i]['id']]) : oos_get_products_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('products_title[' . $aLanguages[$i]['id'] . ']', (isset($products_title[$aLanguages[$i]['id']]) ? stripslashes($products_title[$aLanguages[$i]['id']]) : oos_get_products_title($pInfo->products_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>						
@@ -716,7 +716,7 @@ function calcBasePriceFactor() {
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['products_description_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id'])));
+       echo oos_draw_textarea_field('products_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_description_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_description_' .$aLanguages[$i]['id']]) : oos_get_products_description($pInfo->products_id, $aLanguages[$i]['id'])));
 ?>
                               </div>
                            </div>
@@ -735,7 +735,7 @@ function calcBasePriceFactor() {
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_short_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['products_short_description_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_short_description_' .$aLanguages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $aLanguages[$i]['id'])));
+       echo oos_draw_textarea_field('products_short_description_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_short_description_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_short_description_' .$aLanguages[$i]['id']]) : oos_get_products_short_description($pInfo->products_id, $aLanguages[$i]['id'])));
 ?>
                               </div>
                            </div>
@@ -754,7 +754,7 @@ function calcBasePriceFactor() {
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', ($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id'])));
+       echo oos_draw_textarea_field('products_essential_characteristics_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_essential_characteristics_' .$aLanguages[$i]['id']]) : oos_get_products_essential_characteristicsn($pInfo->products_id, $aLanguages[$i]['id'])));
 ?>
                               </div>
                            </div>
@@ -772,7 +772,7 @@ function calcBasePriceFactor() {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION_META; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', ($_POST['products_description_meta_' .$aLanguages[$i]['id']] ? stripslashes($_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_description_meta_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -788,7 +788,7 @@ function calcBasePriceFactor() {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_URL . '<br /><small>' . TEXT_PRODUCTS_URL_WITHOUT_HTTP . '</small>'; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
-                              <div class="col-lg-9"><?php echo oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes($products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></div>
+                              <div class="col-lg-9"><?php echo oos_draw_input_field('products_url[' . $aLanguages[$i]['id'] . ']', (isset($products_url[$aLanguages[$i]['iso_639_2']]) ? stripslashes($products_url[$aLanguages[$i]['id']]) : oos_get_products_url($pInfo->products_id, $aLanguages[$i]['id']))); ?></div>
                            </div>
                         </fieldset>
 <?php

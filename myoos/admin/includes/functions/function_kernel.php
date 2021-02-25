@@ -74,9 +74,9 @@ function oos_admin_check_boxes($filename, $boxes ='') {
                 AND admin_files_name = '" . oos_db_input($filename) . "'";
     $result = $dbconn->Execute($query);
 
-    $return_value = FALSE;
+    $return_value = false;
     if ($result->RecordCount()) {
-		$return_value = TRUE;
+		$return_value = true;
     }
 
     return $return_value;
@@ -114,12 +114,12 @@ function oos_admin_files_boxes($filename, $parameters) {
  */
 function oos_redirect_admin($url) {
 	
-    if ( (strstr($url, "\n") != FALSE) || (strstr($url, "\r") != FALSE) ) {
+    if ( (strstr($url, "\n") != false) || (strstr($url, "\r") != false) ) {
 		$aContents = oos_get_content();
-		oos_redirect_admin(oos_href_link_admin($aContents['default'], '', FALSE));
+		oos_redirect_admin(oos_href_link_admin($aContents['default'], '', false));
     }
 
-    if ( strpos($url, '&amp;') !== FALSE ) {
+    if ( strpos($url, '&amp;') !== false ) {
 		$url = str_replace('&amp;', '&', $url);
     }
 
@@ -143,7 +143,10 @@ function oos_customers_name($customers_id) {
               WHERE customers_id = '" . intval($customers_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $sName = $result->fields['customers_firstname'] . ' ' . $result->fields['customers_lastname'];
+    $firstname = isset($result->fields['customers_firstname']) ? $result->fields['customers_firstname'] : '';
+    $lastname = isset($result->fields['customers_lastname']) ? $result->fields['customers_lastname'] : '';
+	
+    $sName = $firstname . ' ' . $lastname;
 
     return $sName;
 }
@@ -220,7 +223,7 @@ function oos_get_content() {
 
 
 function oos_datetime_short($raw_datetime) {
-    if ( ($raw_datetime == '0000-00-00 00:00:00') || ($raw_datetime == '') ) return FALSE;
+    if ( ($raw_datetime == '0000-00-00 00:00:00') || ($raw_datetime == '') ) return false;
 
     $year = (int)substr($raw_datetime, 0, 4);
     $month = (int)substr($raw_datetime, 5, 2);
@@ -236,9 +239,9 @@ function oos_datetime_short($raw_datetime) {
 
 function oos_in_array($lookup_value, $lookup_array) {
 	
-    if (in_array($lookup_value, $lookup_array)) return TRUE;
+    if (in_array($lookup_value, $lookup_array)) return true;
 
-    return FALSE;
+    return false;
 }
 
 
@@ -361,13 +364,7 @@ function oos_get_zone_code($country, $zone, $def_state) {
               WHERE zone_country_id = '" . intval($country) . "'
                 AND zone_id = '" . intval($zone) . "'";
     $result = $dbconn->Execute($query);
-
-    if (!$result->RecordCount()) {
-		$state_prov_code = $def_state;
-    } else {
-		$state_prov_values = $result->fields;
-		$state_prov_code = $state_prov_values['zone_code'];
-    }
+	$state_prov_code = isset($result->fields['zone_code']) ? $result->fields['zone_code'] : $def_state;
 
     return $state_prov_code;
 }
@@ -385,11 +382,9 @@ function oos_get_country_name($country_id) {
               WHERE countries_id = '" . $country_id . "'";
     $result = $dbconn->Execute($query);
 
-    if (!$result->RecordCount()) {
-		return $country_id;
-    } else {
-		return $result->fields['countries_name'];
-    }
+	$countries_name = isset($result->fields['countries_name']) ? $result->fields['countries_name'] : $country_id;
+	return $countries_name;
+
 }
 
 
@@ -462,7 +457,7 @@ function oos_get_products_name($product_id, $language_id = '') {
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_name = $result->fields['products_name'];
+    $products_name = isset($result->fields['products_name']) ? $result->fields['products_name'] : '';
 
     return $products_name;
 }
@@ -490,7 +485,7 @@ function oos_get_products_title($product_id, $language_id = '') {
                 AND products_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 
-    $products_title = $result->fields['products_title'];
+    $products_title = isset($result->fields['products_title']) ? $result->fields['products_title'] : '';
 
     return $products_title;
 }
@@ -718,7 +713,7 @@ function oos_class_exits($class_name) {
     if (function_exists('class_exists')) {
 		return class_exists($class_name);
     } else {
-		return TRUE;
+		return true;
     }
 }
 
@@ -726,7 +721,7 @@ function oos_class_exits($class_name) {
 function oos_remove($source) {
     GLOBAL $messageStack, $oos_remove_error;
 
-    if (isset($oos_remove_error)) $oos_remove_error = FALSE;
+    if (isset($oos_remove_error)) $oos_remove_error = false;
 
     if (is_dir($source)) {
 		$dir = dir($source);
@@ -736,7 +731,7 @@ function oos_remove($source) {
 					oos_remove($source . '/' . $file);
 				} else {
 					$messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source . '/' . $file), 'error');
-					$oos_remove_error = TRUE;
+					$oos_remove_error = true;
 				}
 			}
 		}
@@ -746,14 +741,14 @@ function oos_remove($source) {
 			rmdir($source);
 		} else {
 			$messageStack->add(sprintf(ERROR_DIRECTORY_NOT_REMOVEABLE, $source), 'error');
-			$oos_remove_error = TRUE;
+			$oos_remove_error = true;
 		}
 	} else {
 		if (is_writeable($source)) {
 			unlink($source);
 		} else {
 			$messageStack->add(sprintf(ERROR_FILE_NOT_REMOVEABLE, $source), 'error');
-			$oos_remove_error = TRUE;
+			$oos_remove_error = true;
 		}
     }
 }
@@ -800,12 +795,12 @@ function oos_get_tax_rate_value($class_id) {
 
 function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
 	if (strpos($value, '.')) {
-		$loop = TRUE;
+		$loop = true;
 		while ($loop) {
 			if (substr($value, -1) == '0') {
 				$value = substr($value, 0, -1);
 			} else {
-				$loop = FALSE;
+				$loop = false;
 				if (substr($value, -1) == '.') {
 					$value = substr($value, 0, -1);
 				}
@@ -1073,11 +1068,11 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $fro
 
 	global $phpmailer;
 
-    if (preg_match('~[\r\n]~', $to_name)) return FALSE;
-    if (preg_match('~[\r\n]~', $to_email_address)) return FALSE;
-    if (preg_match('~[\r\n]~', $email_subject)) return FALSE;
-    if (preg_match('~[\r\n]~', $from_email_name)) return FALSE;
-    if (preg_match('~[\r\n]~', $from_email_address)) return FALSE;
+    if (preg_match('~[\r\n]~', $to_name)) return false;
+    if (preg_match('~[\r\n]~', $to_email_address)) return false;
+    if (preg_match('~[\r\n]~', $email_subject)) return false;
+    if (preg_match('~[\r\n]~', $from_email_name)) return false;
+    if (preg_match('~[\r\n]~', $from_email_address)) return false;
 
 
 	// (Re)create it, if it's gone missing.
@@ -1128,7 +1123,7 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $fro
     // Build the text version
     $text = strip_tags($email_text);
     if (EMAIL_USE_HTML == 'true') {
-		$phpmailer->IsHTML(TRUE);
+		$phpmailer->IsHTML(true);
 		$phpmailer->Body = $email_text;
 		$phpmailer->AltBody = $text;
     } else {
