@@ -68,7 +68,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 			$bedingung=array();
 			$where='';
 			$felder=array();
-
+      
 			// Felder ermitteln
 			$sql='SHOW COLUMNS FROM `'.$db.'`.`'.$tables[$tabelle].'`';
 			$res=mysqli_query($link,$sql);
@@ -84,6 +84,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 			$feldbedingung='';
 			if ($suchart=='CONCAT')
 			{
+
 				if (count($felder) > 0)
 				{
 					//Concat-String bildem
@@ -106,6 +107,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 			else
 			{
 				$pattern='`{FELD}` LIKE \'%{SUCHBEGRIFF}%\'';
+
 				if (count($felder) > 0)
 				{
 					foreach ($felder as $feld)
@@ -139,7 +141,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 			$sql='SELECT * FROM `'.$db.'`.`'.$tables[$tabelle].'` LIMIT '.$offset.','.$anzahl_ergebnisse;
 
 		$res=@mysqli_query($link, $sql);
-		if ($res)
+		if (!$res===false)
 		{
 			while ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
 			{
