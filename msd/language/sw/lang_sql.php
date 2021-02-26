@@ -159,6 +159,7 @@ $lang['L_SEARCH_OPTIONS_OR']="en kolumn måste innehålla minst ett sökord (ELL
 $lang['L_SEARCH_OPTIONS_CONCAT']="en datapost måste innehålla alla sökord, dessa kan dock befinna sig i olika kolumner (stor serverbelastning!)";
 $lang['L_SEARCH_OPTIONS_AND']="en kolumn måste innehålla alla sökord (OCH-sökning)";
 $lang['L_SEARCH_IN_TABLE']="Sök i tabell";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Bearbeta tabellens struktur";
 $lang['L_DEFAULT_CHARSET']="Standardteckensats";
 $lang['L_TITLE_KEY_PRIMARY']="Primär nyckel";

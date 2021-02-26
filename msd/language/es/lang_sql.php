@@ -154,13 +154,12 @@ $lang['L_SEARCH_OPTIONS']="Opciones de búsqueda";
 $lang['L_SEARCH_RESULTS']="La búsqueda para \"<b>%s</b>\" en la tabla \"<b>%s</b>\" produjo los siguientes resultados";
 $lang['L_SEARCH_NO_RESULTS']="¡La búsqueda para \"<b>%s</b>\" en la tabla \"<b>%s</b>\" no produjo ningún resultado!";
 $lang['L_NO_ENTRIES']="La tabla \"<b>%s</b>\" está vacía y no contiene ninguna entrada.";
-$lang['L_SEARCH_ACCESS_KEYS']="Navegar:
-Adelante=ALT+V
-Atrás=ALT+C";
+$lang['L_SEARCH_ACCESS_KEYS']="Navegar: Adelante=ALT+V, Atrás=ALT+C";
 $lang['L_SEARCH_OPTIONS_OR']="Una columna debe contener al menos un criterio de búsqueda (O-Búsqueda)";
 $lang['L_SEARCH_OPTIONS_CONCAT']="Una línea debe contener todos los términos de búsqueda, pero estos puede ser en cualquiera de las columnas (¡podría tardar!)";
 $lang['L_SEARCH_OPTIONS_AND']="una columna debe contener todos los términos de búsqueda (Y-Búsqueda)";
 $lang['L_SEARCH_IN_TABLE']="Buscar en la tabla";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Modificar la estructura de la tabla";
 $lang['L_DEFAULT_CHARSET']="Conjunto de caracteres por defecto";
 $lang['L_TITLE_KEY_PRIMARY']="Clave principal";

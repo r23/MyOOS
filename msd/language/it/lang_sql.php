@@ -159,6 +159,7 @@ $lang['L_SEARCH_OPTIONS_OR']="una colonna deve contenere almeno una parola di ri
 $lang['L_SEARCH_OPTIONS_CONCAT']="un record deve contenere tutte le parole di ricerca, però possono essere in colonne diverse (Calcolo intensivo!)";
 $lang['L_SEARCH_OPTIONS_AND']="una colonna deve contenere tutte le parole di ricerca";
 $lang['L_SEARCH_IN_TABLE']="cerca nelle tabelle";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Edit struttura tabelle";
 $lang['L_DEFAULT_CHARSET']="Set di caretteri standard";
 $lang['L_TITLE_KEY_PRIMARY']="Chiave primaria";

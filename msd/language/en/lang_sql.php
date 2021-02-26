@@ -159,6 +159,7 @@ $lang['L_SEARCH_OPTIONS_OR']="a column must have one of the search words (OR-sea
 $lang['L_SEARCH_OPTIONS_CONCAT']="a row must contain all of the search words but they can be in any column (could take some time)";
 $lang['L_SEARCH_OPTIONS_AND']="a column must contain all search words (AND-search)";
 $lang['L_SEARCH_IN_TABLE']="Search in table";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Edit table structure";
 $lang['L_DEFAULT_CHARSET']="Default character set";
 $lang['L_TITLE_KEY_PRIMARY']="Primary key";
