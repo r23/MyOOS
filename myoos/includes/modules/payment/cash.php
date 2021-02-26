@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -49,8 +49,8 @@ class cash {
 		global $oOrder, $aLang;
 
 		$this->code = 'cash';
-		$this->title = $aLang['module_payment_cash_text_title'];
-		$this->description = $aLang['module_payment_cash_text_description'];
+		$this->title = isset($aLang['module_payment_cash_text_title']) ? $aLang['module_payment_cash_text_title'] : ''; 
+		$this->description = isset($aLang['module_payment_cash_text_description']) ? $aLang['module_payment_cash_text_description'] : '';
 		$this->enabled = (defined('MODULE_PAYMENT_CASH_STATUS') && (MODULE_PAYMENT_CASH_STATUS == 'True') ? true : false);  
 		$this->sort_order = (defined('MODULE_PAYMENT_CASH_SORT_ORDER') ? MODULE_PAYMENT_CASH_SORT_ORDER : NULL);
 
