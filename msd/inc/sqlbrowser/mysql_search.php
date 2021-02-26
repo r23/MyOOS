@@ -64,7 +64,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 				if (trim($suchworte[$i])=='') unset($suchworte[$i]);
 			}
 
-			$bedingung='';
+			$bedingung=array();
 			$where='';
 			$felder='';
 
