@@ -75,6 +75,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 			if (!$res===false)
 			{
 				// Felder der Tabelle ermitteln
+				$felder=array();
 				while ($row=mysqli_fetch_object($res))
 				{
 					$felder[]=$row->Field;
