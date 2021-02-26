@@ -48,7 +48,8 @@ if (isset($_GET['mode'])&&$_GET['mode']=="kill"&&$rk>'')
 
 function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzahl_ergebnisse=20, $auszuschliessende_tabellen='')
 {
-	global $tables,$config;
+	global $tables,$config,$lang;
+
 	$ret=false;
 	$link=MSD_mysql_connect();
 	if (sizeof($tables)>0)
@@ -66,14 +67,14 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 
 			$bedingung=array();
 			$where='';
-
+			$felder=array();
+      
 			// Felder ermitteln
 			$sql='SHOW COLUMNS FROM `'.$db.'`.`'.$tables[$tabelle].'`';
 			$res=mysqli_query($link,$sql);
 			if (!$res===false)
 			{
 				// Felder der Tabelle ermitteln
-				$felder=array();
 				while ($row=mysqli_fetch_object($res))
 				{
 					$felder[]=$row->Field;
@@ -83,7 +84,8 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 			$feldbedingung='';
 			if ($suchart=='CONCAT')
 			{
-				if (isset($felder) && is_array($felder))
+
+				if (count($felder) > 0)
 				{
 					//Concat-String bildem
 					$concat=implode('`),LOWER(`',$felder);
@@ -96,11 +98,17 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 					$where=substr($where,0,-4); // letztes AND entfernen
 					$sql='SELECT * FROM `'.$db.'`.`'.$tables[$tabelle].'` WHERE '.$where.' LIMIT '.$offset.','.$anzahl_ergebnisse;
 				}
+				else
+				{
+					$_SESSION['mysql_search']['suchbegriffe']='';
+					die(sprintf($lang['L_ERROR_NO_FIELDS'], $tabelle));
+				}
 			}
 			else
 			{
 				$pattern='`{FELD}` LIKE \'%{SUCHBEGRIFF}%\'';
-				if (isset($felder) && is_array($felder))
+
+				if (count($felder) > 0)
 				{
 					foreach ($felder as $feld)
 					{
@@ -121,7 +129,10 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 					}
 				}
 				else
-					die('<br>Fehler bei Suche: ich konnte nicht ermitteln welche Felder die Tabelle "'.$tabelle.'" hat!');
+				{
+					$_SESSION['mysql_search']['suchbegriffe']='';
+					die(sprintf($lang['L_ERROR_NO_FIELDS'], $tabelle));
+				}
 				$where=implode(' OR ',$bedingung);
 				$sql='SELECT * FROM `'.$db.'`.`'.$tables[$tabelle].'` WHERE ('.$where.') LIMIT '.$offset.','.$anzahl_ergebnisse;
 			}

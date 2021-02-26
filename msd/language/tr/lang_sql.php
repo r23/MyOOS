@@ -159,6 +159,7 @@ $lang['L_SEARCH_OPTIONS_OR']="Sütunda en azından bir aranılan kelime bulunmal
 $lang['L_SEARCH_OPTIONS_CONCAT']="Metin'de bütün aranılan kelimeler bir satırda bulunmalıdır, fakat aranılan kelimeler değişik sütunlarda bulunabilir. (Vakit alıcı)";
 $lang['L_SEARCH_OPTIONS_AND']="Sütunun içinde aranan kelimelerin hepsi bulunmalı (VE)";
 $lang['L_SEARCH_IN_TABLE']="Tablonun içinde ara";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Tablo yapısını düzenle";
 $lang['L_DEFAULT_CHARSET']="standart karakter seti";
 $lang['L_TITLE_KEY_PRIMARY']="İndeks";

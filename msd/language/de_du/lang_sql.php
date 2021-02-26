@@ -159,6 +159,7 @@ $lang['L_SEARCH_OPTIONS_OR']="eine Spalte muss mindestens einen Suchbegriff enth
 $lang['L_SEARCH_OPTIONS_CONCAT']="ein Datensatz muss alle Suchbegriffe enthalten, diese können aber in beliebigen Spalten sein (Rechenintensiv!)";
 $lang['L_SEARCH_OPTIONS_AND']="eine Spalte muss alle Suchbegriffe enthalten (UND-Suche)";
 $lang['L_SEARCH_IN_TABLE']="Suche in Tabelle";
+$lang['L_ERROR_NO_FIELDS']="Fehler bei Suche: es konnte nicht ermittelt werden, welche Felder die Tabelle \"%s\" hat!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Tabellenstruktur bearbeiten";
 $lang['L_DEFAULT_CHARSET']="Standardzeichensatz";
 $lang['L_TITLE_KEY_PRIMARY']="Primärschlüssel";

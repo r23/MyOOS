@@ -154,14 +154,12 @@ $lang['L_SEARCH_OPTIONS']="Options de recherches";
 $lang['L_SEARCH_RESULTS']="La recherche pour \"<b>%s</b>\" dans la table \"<b>%s</b>\" a donné les résultats suivants.";
 $lang['L_SEARCH_NO_RESULTS']="Aucun résultat pour la recherche de \"<b>%s</b>\" dans la table \"<b>%s</b>\" !";
 $lang['L_NO_ENTRIES']="La table \"<b>%s</b>\" est vide ou ne contient aucune entrée.";
-$lang['L_SEARCH_ACCESS_KEYS']="Parcourir:
-Vers l'avant:ALT+V,
-Vers l'arrière:ALT+C";
-$lang['L_SEARCH_OPTIONS_OR']="une colonne doit contenir au moins un critère de recherche
-(OU-Recherche)";
+$lang['L_SEARCH_ACCESS_KEYS']="Parcourir: Vers l'avant:ALT+V, Vers l'arrière:ALT+C";
+$lang['L_SEARCH_OPTIONS_OR']="une colonne doit contenir au moins un critère de recherche (OU-Recherche)";
 $lang['L_SEARCH_OPTIONS_CONCAT']="une ligne doit contenir tous les critères de recherche, mais ceux-ci peuvent toutefois être indiqués dans n'importe quelle colonne (Peut prendre du temps de calcul !)";
 $lang['L_SEARCH_OPTIONS_AND']="une colonne doit contenir tous les critères de recherche (ET-Recherche)";
 $lang['L_SEARCH_IN_TABLE']="Rechercher dans la table";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Modifier la structure des tables";
 $lang['L_DEFAULT_CHARSET']="Jeux de caractères par défaut";
 $lang['L_TITLE_KEY_PRIMARY']="Clé primaire";

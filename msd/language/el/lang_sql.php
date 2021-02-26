@@ -159,6 +159,7 @@ $lang['L_SEARCH_OPTIONS_OR']="Η στήλη πρέπει να έχει τουλ�
 $lang['L_SEARCH_OPTIONS_CONCAT']="Η γραμμή πρέπει περιλαμβάνει όλες τις λέξεις αναζήτησης αλλά μπορεί να είναι σε κάποια στήλη (χρειάζεται λίγο χρόνο)";
 $lang['L_SEARCH_OPTIONS_AND']="Η γραμμή πρέπει περιλαμβάνει όλες τις λέξεις αναζήτησης (AND-search)";
 $lang['L_SEARCH_IN_TABLE']="Αναζήτηση στον πίνακα";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Επεξεργασία δομής πίνακα";
 $lang['L_DEFAULT_CHARSET']="Προεπιλεγμένο σετ χαρακτήρων";
 $lang['L_TITLE_KEY_PRIMARY']="Πρωτεύων κλειδί";
@@ -168,10 +169,7 @@ $lang['L_TITLE_KEY_FULLTEXT']="Κλειδί πλήρη κειμένου";
 $lang['L_TITLE_NOKEY']="Κανένα κλειδί";
 $lang['L_TITLE_SEARCH']="Αναζήτηση";
 $lang['L_TITLE_MYSQL_HELP']="Τεκμηρίωση MySQl";
-$lang['L_TITLE_UPLOAD']="Φόρτωση αρχείου SQL
-
-
-";
+$lang['L_TITLE_UPLOAD']="Φόρτωση αρχείου SQL";
 $lang['L_PRIMARYKEY_DELETED']="Το πρωτεύων κλειδί διαγράφηκε";
 $lang['L_PRIMARYKEY_NOTFOUND']="Δε βρέθηκε πρωτεύων κλειδί";
 $lang['L_PRIMARYKEYS_CHANGED']="Τα πρωτεύοντα κλειδιά άλλαξαν";

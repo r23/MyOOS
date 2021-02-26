@@ -159,6 +159,7 @@ $lang['L_SEARCH_OPTIONS_OR']="a coluna deve conter uma das palavras a pesquisar 
 $lang['L_SEARCH_OPTIONS_CONCAT']="a linha deve conter todas as palavras a pesquisar, mas elas podem estar em qualquer coluna (pode levar algum tempo)";
 $lang['L_SEARCH_OPTIONS_AND']="a coluna deve conter todas as palavras a pesquisar (E-pesquisar)";
 $lang['L_SEARCH_IN_TABLE']="Pesquisar na tabela";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Edit table structure";
 $lang['L_DEFAULT_CHARSET']="Default character set";
 $lang['L_TITLE_KEY_PRIMARY']="Primary key";

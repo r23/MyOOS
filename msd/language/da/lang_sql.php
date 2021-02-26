@@ -159,6 +159,7 @@ $lang['L_SEARCH_OPTIONS_OR']="en kolonne skal indeholde et af søgeordene (ELLER
 $lang['L_SEARCH_OPTIONS_CONCAT']="en række skal indeholde alle søgeordene men kan være i hvilkensomhelst kolonne (kan tage noget tid)";
 $lang['L_SEARCH_OPTIONS_AND']="en kolonne skal indeholde ALLE søgeord (OG-søgning)";
 $lang['L_SEARCH_IN_TABLE']="Søg i tabel";
+$lang['L_ERROR_NO_FIELDS']="Search error: it could not be determined which fields the table \"%s\" has!";
 $lang['L_SQL_EDIT_TABLESTRUCTURE']="Edit table structure";
 $lang['L_DEFAULT_CHARSET']="Default character set";
 $lang['L_TITLE_KEY_PRIMARY']="Primary key";
