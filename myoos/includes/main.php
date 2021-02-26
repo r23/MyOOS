@@ -56,7 +56,6 @@ if (strlen(OOS_DB_TYPE) < 1) {
 }
 
 
-
 // require  the list of project filenames
 require_once MYOOS_INCLUDE_PATH . '/includes/filename.php';
 

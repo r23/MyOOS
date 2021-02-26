@@ -47,6 +47,15 @@ if (file_exists('../includes/local/configure.php')) {
 	include '../includes/configure.php';
 }
 
+// redirect to the installation module if DB_SERVER is empty
+if (strlen(OOS_DB_TYPE) < 1) {
+    if (is_dir('../install')) {		
+        header('Location: ../install/step.php');
+        exit;
+    }
+}
+
+
 require 'includes/define.php';
 
 use Symfony\Component\HttpFoundation\Request;
