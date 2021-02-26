@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -34,7 +34,7 @@
       $this->tax_class = (defined('MODULE_SHIPPING_DP_TAX_CLASS') ? MODULE_SHIPPING_DP_TAX_CLASS : NULL);
       $this->enabled = (defined('MODULE_SHIPPING_DP_STATUS') && (MODULE_SHIPPING_DP_STATUS == 'true') ? true : false);
 
-      if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPINTRUEG_DP_ZONE > 0) ) {
+      if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_DP_ZONE > 0) ) {
 		  	  
         $check_flag = FALSE;
 
