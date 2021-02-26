@@ -424,7 +424,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_name']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_mail']), ENT_QUOTES, 'UTF-8')); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_mail']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
                 <td></td>
@@ -436,7 +436,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message'])), ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message']), ENT_QUOTES, 'UTF-8')); ?></td>
               </tr>
               <tr>
                 <td></td>
