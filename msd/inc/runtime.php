@@ -73,10 +73,7 @@ $config['php_ram']=$m;
 $p1=explode(', ',$config['phpextensions']);
 $p2=explode(',',str_replace(' ','',$config['disabled']));
 
-//Buggy PHP-Version ?
-$p3=explode('.',PHP_VERSION);
-$buggy=( $p3[0] == 4 && $p3[1] == 3 && $p3[2] < 3 );
-$config['zlib']=( !$buggy ) && ( in_array('zlib',$p1) && ( !in_array('gzopen',$p2) || !in_array('gzwrite',$p2) || !in_array('gzgets',$p2) || !in_array('gzseek',$p2) || !in_array('gztell',$p2) ) );
+$config['zlib']= ( in_array('zlib',$p1) && ( !in_array('gzopen',$p2) || !in_array('gzwrite',$p2) || !in_array('gzgets',$p2) || !in_array('gzseek',$p2) || !in_array('gztell',$p2) ) );
 
 //Tuning-Ecke
 $config['tuning_add']=1.1;
@@ -93,7 +90,6 @@ $mysql_commentstring='--';
 
 //config-Variablen, die nicht gesichert werden sollen
 $config_dontsave=Array(
-
 					'homepage',
 					'max_execution_time',
 					'safe_mode',
