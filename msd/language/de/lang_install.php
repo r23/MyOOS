@@ -24,7 +24,6 @@ $lang['L_CONFBASIC']="Grundeinstellungen";
 $lang['L_INSTALL_STEP2FINISHED']="Die Einstellungen wurden erfolgreich gesichert.";
 $lang['L_INSTALL_STEP2_1']="Installation mit Standardkonfiguration fortsetzen";
 $lang['L_LASTSTEP']="Abschluss der Installation";
-$lang['L_FTPMODE']="Verzeichnisse per FTP erzeugen (safe_mode)";
 $lang['L_IDOMANUAL']="Ich erstelle die Verzeichnisse manuell";
 $lang['L_DOFROM']="ausgehend von";
 $lang['L_FTPMODE2']="Erstelle die Verzeichnisse per FTP:";
@@ -82,11 +81,5 @@ Leider konnte MySQLDumper keine Datenbank finden.<br>
 Die automatische Erkennung per Programm ist bei manchen Hostern gesperrt.<br>
 Sie müssen Ihre Datenbank nach dem Abschluß der Installation unter dem Menüpunkt \"Konfiguration\" \"Verbindungsparameter einblenden\" angeben.<br>
 Bitte begeben Sie sich nach Abschluß der Installation umgehend dort hin und tragen den Namen Ihrer Datenbank dort ein.";
-$lang['L_SAFEMODEDESC']="Da PHP auf diesem Server mit der Option \"safe_mode=on\" ausgeführt wird, müssen folgende Verzeichnisse von Hand angelegt werden (dies können Sie mit Ihrem FTP-Programm erledigen):
-
-
-";
 $lang['L_ENTER_DB_INFO']="Klicken Sie zuerst auf den Button \"zu MySQL verbinden\". Nur wenn daraufhin keine Datenbank erkannt werden konnte, ist hier eine Angabe notwendig.";
 
-
-?>

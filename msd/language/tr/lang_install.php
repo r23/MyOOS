@@ -24,7 +24,6 @@ $lang['L_INSTALL_STEP2FINISHED']="Veritabanı ayarları kayıt edildi.<br><br>
 İsterseniz standart ayarlar ile kurulumu sürdürebilirsiniz, veya ayarları düzenleyebilirsiniz.";
 $lang['L_INSTALL_STEP2_1']="Standart ayarlarla devam";
 $lang['L_LASTSTEP']="Kurulumum tamamlanması";
-$lang['L_FTPMODE']="Klasörler FTP ile oluşturuluyor (safe_mode)";
 $lang['L_IDOMANUAL']="Klasörleri elden oluşturacağım";
 $lang['L_DOFROM']="başlangıç:";
 $lang['L_FTPMODE2']="klasörleri FTP ile oluştur";
@@ -82,8 +81,4 @@ Fakat Sunucuda Veritabanı bulunamadı.<br>
 Otomatik tanıma sunucunuzda kilitli olabilir.<br>
 Kurulum tamamlandıktan sonra lütfen Ayar Merkezi sayfasına gidin ve Bağlantı parametreleri bölümünde \"göster\" tıklayınız.<br>
 Veritabanı ile bağlantı kurulabilmesi için gereken bilgileri oraya girmeniz gerekiyor.";
-$lang['L_SAFEMODEDESC']="Bu sunucudaki PHP ayarlarında \"safe_mode=on\" tespit edilmiştır, bazı klasörleri elden oluşturmanız gerekiyor (mesela FTP Client programı ile)";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";
-
-
-?>

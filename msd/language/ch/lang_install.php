@@ -23,7 +23,6 @@ $lang['L_CONFBASIC']="Grundiischtellige";
 $lang['L_INSTALL_STEP2FINISHED']="D Iischtellige sind erfolgriich gsicheret worde";
 $lang['L_INSTALL_STEP2_1']="Installation mit de Standardkonfiguration wiitermache";
 $lang['L_LASTSTEP']="Abschluss vo de Installation";
-$lang['L_FTPMODE']="Verzeichniss per FTP erzüge (safe_mode)";
 $lang['L_IDOMANUAL']="Ich mache diä Verzeichniss vo Hand";
 $lang['L_DOFROM']="usgehend vo";
 $lang['L_FTPMODE2']="Mache diä Verzeichniss per FTP:";
@@ -76,8 +75,4 @@ $lang['L_FOUND_DB']="gfundeni DB:";
 $lang['L_FM_FILEUPLOAD']="Datei ufelade";
 $lang['L_PASS']="Passwort";
 $lang['L_NO_DB_FOUND_INFO']="D Verbindig zur Datebank isch erfolgriich gsi.<br>Ihri Zuegangsdate sind gültig und sind vom MySQL-Server akzeptiert worde.<br>Leider hät de MySQLDumper kei Datebank gfunde.<br>Di automatischi Erkännig isch bi mänge Hoschter gschpeert.<br>Si müend Ihri Datebank nachem Abschluss vo de Installation under em Menüpunkt \"Konfiguration\" \"Verbindigsparameter iiblände\" agäh.<br>Gönd Si bitte sofort nach em Abschluss vo de Installation det hii und träged Si de Name vo Irer Datebank det ii.";
-$lang['L_SAFEMODEDESC']="Will PHP uf däm Server mit de Option \"safe_mode=on\" usgfuert wird, müend folgendi Verzeichnis vo Hand aagleit wärde (Si chönd das mit Irem FTP-Programm erlegige):";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";
-
-
-?>

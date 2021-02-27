@@ -24,7 +24,6 @@ $lang['L_CONFBASIC']="Configuration de base";
 $lang['L_INSTALL_STEP2FINISHED']="Configuration de la base de données a été sauvegardée.";
 $lang['L_INSTALL_STEP2_1']="Continuer l'installation avec la configuration standart";
 $lang['L_LASTSTEP']="Terminer l'installation";
-$lang['L_FTPMODE']="Créer les répertoires par FTP (safe_mode)";
 $lang['L_IDOMANUAL']="Créer un répertoire manuellement";
 $lang['L_DOFROM']="terminer par";
 $lang['L_FTPMODE2']="Créer un répertoire par FTP:";
@@ -82,8 +81,4 @@ Mais, MySQLDumper n'a pas été capable de trouver une base de données.<br>
 La détection automatique via le script est dans quelques cas bloquée par certains serveurs.<br>
 Vous devez alors entrer manuellement le nom de votre base de données après la fin de l'installation.
 Cliquer sur \"configuration\" \"Affichage des paramêtres de connexion\" et entrer le nom de votre base de données.";
-$lang['L_SAFEMODEDESC']="La configuration de ce serveur étant avec l'option \"safe_mode=on\", les listes suivantes doivent être envoyées manuellement. Utilisez votre logiciel FTP pour effectuer cette opération):";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";
-
-
-?>

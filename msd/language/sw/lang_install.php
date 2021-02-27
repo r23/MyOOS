@@ -23,7 +23,6 @@ $lang['L_CONFBASIC']="Grundinställningar";
 $lang['L_INSTALL_STEP2FINISHED']="Inställningarna har sparats.";
 $lang['L_INSTALL_STEP2_1']="Fortsätt installationen med standardkonfigureringen";
 $lang['L_LASTSTEP']="Avsluta installationen";
-$lang['L_FTPMODE']="Skapa mappar via FTP (safe_mode)";
 $lang['L_IDOMANUAL']="Jag skapar mapparna manuellt";
 $lang['L_DOFROM']="utgående ifrån";
 $lang['L_FTPMODE2']="Skapa mapparna via FTP:";
@@ -76,8 +75,4 @@ $lang['L_FOUND_DB']="hittad databas:";
 $lang['L_FM_FILEUPLOAD']="Ladda upp fil";
 $lang['L_PASS']="Lösenord";
 $lang['L_NO_DB_FOUND_INFO']="Förbindelsen till databasen kunde upprättas.<br>Dina inloggningsinformationer är giltiga har accepterats av MySQL-servern.<br>Tyvärr kunde MySQLDumper inte hitta några databaser.<br>Automatisk detektering spärras av vissa webbhotell.<br>Du måste ange databasen efter installationen, menypunkt \"Konfigurering\" \"Visa förbindelseparametrar\".<br>Genomför detta steg omedelbart efter installationen.";
-$lang['L_SAFEMODEDESC']="Eftersom PHP utförs med optionen \"safe_mode=on\" på denna server måste följande mappar skapas manuellt med ett FTP-program:";
 $lang['L_ENTER_DB_INFO']="Klicka först på knappen \"förbind med mysql\". Endast om denna förbindelse ej fungerar behöver du mata in data här.";
-
-
-?>

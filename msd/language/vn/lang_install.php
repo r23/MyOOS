@@ -82,11 +82,6 @@ Nhưng MySQLDumper không thể tìm thấy bất kỳ cơ sở dữ liệu nào
 Dò tìm tự động qua script bị cấm trên một vài server.<br>
 Bạn phải vào databasename của bạn bằng tay sau khi sự cài đặt (thì) kết thúc.
 Click \"cấu hình\" \"Tham số Kết nối - hiển thị\" và nhập tên CSDL đó.";
-$lang['L_SAFEMODEDESC']="Vì PHP đang chạy trong chế độ safe_mode nên bạn phải tạo thư mục bằng cách sử dụng chương trình FTP:
-
 
 ";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";
-
-
-?>

@@ -61,7 +61,6 @@ $config['max_execution_time']=get_cfg_var('max_execution_time');
 $config['max_execution_time']=( $config['max_execution_time'] <= 0 ) ? 30 : $config['max_execution_time'];
 if ($config['max_execution_time'] > 30) $config['max_execution_time']=30;
 $config['upload_max_filesize']=get_cfg_var('upload_max_filesize');
-$config['safe_mode']=get_cfg_var('safe_mode');
 $config['disabled']=get_cfg_var('disable_functions');
 $config['phpextensions']=implode(', ',get_loaded_extensions());
 $m=trim(str_replace('M','',ini_get('memory_limit')));
@@ -92,7 +91,6 @@ $mysql_commentstring='--';
 $config_dontsave=Array(
 					'homepage',
 					'max_execution_time',
-					'safe_mode',
 					'disabled',
 					'phpextensions',
 					'php_ram',

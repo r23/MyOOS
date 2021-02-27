@@ -82,8 +82,4 @@ But MySQLDumper was not able to find any database.<br>
 The automatic detection via script is blocked on some server.<br>
 You must enter your databasename manually after the installation is finished.
 Click on \"configuration\" \"Connection Parameter - display\" and enter the databasename there.";
-$lang['L_SAFEMODEDESC']="Debido a que en este servidor está ejecutándose PHP en modo seguro (safe_mode),necesita crear los siguientes directorios manualmente utilizando su programa de FTP:";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";
-
-
-?>
