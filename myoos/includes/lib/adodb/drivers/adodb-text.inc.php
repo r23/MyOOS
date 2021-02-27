@@ -1,6 +1,6 @@
 <?php
 /*
-@version   v5.20.20  01-Feb-2021
+@version   v5.21.0  2021-02-27
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
    Set tabs to 4.
@@ -89,10 +89,6 @@ class ADODB_text extends ADOConnection {
 	var $_rezarray;
 	var $_reznames;
 	var $_reztypes;
-
-	function __construct()
-	{
-	}
 
 	function RSRecordCount()
 	{
@@ -325,7 +321,7 @@ class ADODB_text extends ADOConnection {
 
 		// check for desc sort
 		$orderby = substr($orderby,strlen($col)+1);
-		$arr == array();
+		$arr = array();
 		preg_match('/([A-Z_0-9]*)/i',$orderby,$arr);
 
 		if (trim($arr[1]) == 'DESC') $sortf = 'adodb_cmpr';

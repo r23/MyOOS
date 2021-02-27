@@ -1,7 +1,7 @@
 <?php
 
 /**
-  @version   v5.20.20  01-Feb-2021
+  @version   v5.21.0  2021-02-27
   @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
   @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
   Released under both BSD license and Lesser GPL library license.
@@ -269,7 +269,7 @@ CREATE TABLE
 	}
 
 
-	function _GetSize($ftype, $ty, $fsize, $fprec)
+	function _GetSize($ftype, $ty, $fsize, $fprec, $options=false)
 	{
 		switch ($ftype) {
 		case 'INT':
@@ -279,7 +279,7 @@ CREATE TABLE
 			return $ftype;
 		}
     	if ($ty == 'T') return $ftype;
-    	return parent::_GetSize($ftype, $ty, $fsize, $fprec);
+    	return parent::_GetSize($ftype, $ty, $fsize, $fprec, $options);
 
 	}
 }

@@ -2,7 +2,7 @@
 
 
 /*
-@version   v5.20.20  01-Feb-2021
+@version   v5.21.0  2021-02-27
 @copyright (c) 2000-2013 John Lim (jlim#natsoft.com). All rights reserved.
 @copyright (c) 2014      Damien Regad, Mark Newnham and the ADOdb community
          Contributed by Ross Smith (adodb@netebb.com).
@@ -100,7 +100,7 @@ function adodb_session_regenerate_id()
 	} else {
 		session_id(md5(uniqid(rand(), true)));
 		$ck = session_get_cookie_params();
-		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
+		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure'], $ck['httponly']);
 		//@session_start();
 	}
 	$new_id = session_id();
@@ -110,7 +110,7 @@ function adodb_session_regenerate_id()
 	if (!$ok) {
 		session_id($old_id);
 		if (empty($ck)) $ck = session_get_cookie_params();
-		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure']);
+		setcookie(session_name(), session_id(), false, $ck['path'], $ck['domain'], $ck['secure'], $ck['httponly']);
 		return false;
 	}
 
@@ -158,7 +158,7 @@ class ADODB_Session {
 	*/
 	static function driver($driver = null)
 	{
-		static $_driver = 'mysql';
+		static $_driver = 'mysqli';
 		static $set = false;
 
 		if (!is_null($driver)) {
@@ -563,28 +563,43 @@ class ADODB_Session {
 #		assert('$database');
 #		assert('$driver');
 #		assert('$host');
-
-		$conn = ADONewConnection($driver);
-
-		if ($debug) {
-			$conn->debug = true;
-			ADOConnection::outp( " driver=$driver user=$user db=$database ");
-		}
-
-		if (empty($conn->_connectionID)) { // not dsn
+		if (strpos($driver, 'pdo_') === 0){
+			$conn = ADONewConnection('pdo');
+			$driver = str_replace('pdo_', '', $driver);
+			$dsn = $driver.':'.'hostname='.$host.';dbname='.$database.';';
 			if ($persist) {
 				switch($persist) {
 				default:
-				case 'P': $ok = $conn->PConnect($host, $user, $password, $database); break;
-				case 'C': $ok = $conn->Connect($host, $user, $password, $database); break;
-				case 'N': $ok = $conn->NConnect($host, $user, $password, $database); break;
+				case 'P': $ok = $conn->PConnect($dsn,$user,$password); break;
+				case 'C': $ok = $conn->Connect($dsn,$user,$password); break;
+				case 'N': $ok = $conn->NConnect($dsn,$user,$password); break;
 				}
 			} else {
-				$ok = $conn->Connect($host, $user, $password, $database);
+				$ok = $conn->Connect($dsn,$user,$password);
 			}
-		} else {
-			$ok = true; // $conn->_connectionID is set after call to ADONewConnection
+		}else{
+			$conn = ADONewConnection($driver);
+			if ($debug) {
+				$conn->debug = true;
+				ADOConnection::outp( " driver=$driver user=$user db=$database ");
+			}
+
+			if (empty($conn->_connectionID)) { // not dsn
+				if ($persist) {
+					switch($persist) {
+					default:
+					case 'P': $ok = $conn->PConnect($host, $user, $password, $database); break;
+					case 'C': $ok = $conn->Connect($host, $user, $password, $database); break;
+					case 'N': $ok = $conn->NConnect($host, $user, $password, $database); break;
+					}
+				} else {
+					$ok = $conn->Connect($host, $user, $password, $database);
+				}
+			} else {
+				$ok = true; // $conn->_connectionID is set after call to ADONewConnection
+			}
 		}
+
 
 		if ($ok) $GLOBALS['ADODB_SESS_CONN'] = $conn;
 		else
@@ -628,7 +643,7 @@ class ADODB_Session {
 		$sql = "SELECT $ADODB_SESSION_SELECT_FIELDS FROM $table WHERE sesskey = $binary ".$conn->Param(0)." AND expiry >= " . $conn->sysTimeStamp;
 
 		/* Lock code does not work as it needs to hold transaction within whole page, and we don't know if
-		  developer has commited elsewhere... :(
+		  developer has committed elsewhere... :(
 		 */
 		#if (ADODB_Session::Lock())
 		#	$rs = $conn->RowLock($table, "$binary sesskey = $qkey AND expiry >= " . time(), sessdata);
@@ -806,7 +821,7 @@ class ADODB_Session {
 		//assert('$table');
 
 		$qkey = $conn->quote($key);
-		$binary = $conn->dataProvider === 'mysql' ? '/*! BINARY */' : '';
+		$binary = $conn->dataProvider === 'mysql' || $conn->dataProvider === 'pdo' ? '/*! BINARY */' : '';
 
 		if ($expire_notify) {
 			reset($expire_notify);
@@ -926,12 +941,12 @@ ADODB_Session::_init();
 if (empty($ADODB_SESSION_READONLY))
 	register_shutdown_function('session_write_close');
 
-// for backwards compatability only
+// for backwards compatibility only
 function adodb_sess_open($save_path, $session_name, $persist = true) {
 	return ADODB_Session::open($save_path, $session_name, $persist);
 }
 
-// for backwards compatability only
+// for backwards compatibility only
 function adodb_sess_gc($t)
 {
 	return ADODB_Session::gc($t);
