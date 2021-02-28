@@ -701,7 +701,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		while ($categories_images = $categories_images_result->fields) {
 			$cInfo->categories_larger_images[] = array('categories_id' => $categories_images['categories_id'],
 														'image' => $categories_images['categories_image'],
-														'sort_order' => $product_images['sort_order']);
+														'sort_order' => $categories_images['sort_order']);
 			// Move that ADOdb pointer!
 			$categories_images_result->MoveNext();
 		}
@@ -1133,7 +1133,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</div>
 		</div>		
 <?php
-	if (is_array($cInfo->categories_larger_images) || is_object($cInfo->categories_larger_images)) {
+	if (isset($cInfo->categories_larger_images) && (is_array($cInfo->categories_larger_images) || is_object($cInfo->categories_larger_images))) {
 	    $nCounter = 0;
 		foreach ($cInfo->categories_larger_images as $image) {
 			$nCounter++;
