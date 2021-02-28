@@ -141,3 +141,10 @@ prepros-6.config
 /myoos/images/product/large/*.webp
 /myoos/images/product/small/*.webp
 nbproject
+/myoos/images/banners/large/*.webp
+/myoos/images/banners/medium/*.webp
+/myoos/images/banners/originals/*.webp
+/myoos/images/category/large/*.webp
+/myoos/images/category/medium/*.webp
+/myoos/images/category/originals/*.webp
+/myoos/images/category/small/*.webp
