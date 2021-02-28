@@ -85,7 +85,7 @@
 				{if $cart_count_contents gt 0 }
 					<a href="#offcanvas-cart">
 						<i class="fa fa-shopping-basket" aria-hidden="true"></i>
-						<span class="badge badge-default">0</span>
+						<span class="badge badge-default">{$cart_count_contents}</span>
 						{$lang.header_title_cart_contents}
 					</a>
 				{else}
@@ -99,10 +99,7 @@
 				<li class="list-inline-item hidden-xs-down">
 					<a href="{html_href_link content=$filename.account_wishlist page=1}">
 						<i class="fa fa-heart-o" aria-hidden="true"></i>
-						<!--
-							# todo counter for wishlist
-							<span class="badge badge-default">0</span>
-						-->
+						<span class="badge badge-default">{$wishlist_count_contents}</span>
 						{$lang.button_wishlist}
 					</a>						
 				</li>
@@ -159,13 +156,6 @@
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</button>
 							</form>
-						</li>
-						<li>
-							<span>
-								<a href="{html_href_link content=$filename.sitemap}" data-text="&ndash; EXPLORE ALL">
-										{$lang.text_categories}
-								</a>
-							</span>
 						</li>
 
 							{$nav_menu}
