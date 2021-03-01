@@ -499,7 +499,7 @@ if (isset($_GET['guest'])) {
 	$_SESSION['guest_account'] = 0;
 }
 
-$oMessage->add('create_account', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'])))
+$oMessage->add('create_account', sprintf($aLang['text_origin_login'], oos_href_link($aContents['login'])));
 
 
 // links breadcrumb
