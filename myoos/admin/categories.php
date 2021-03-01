@@ -93,10 +93,10 @@ if (!empty($action)) {
 
 		case 'insert_category':
 		case 'update_category':
-			$nStatus = oos_db_prepare_input($_POST['categories_status']);
-			$color = oos_db_prepare_input($_POST['color']);
-			$menu_type  = oos_db_prepare_input($_POST['menu_type']);
-			$sort_order = oos_db_prepare_input($_POST['sort_order']);
+			$nStatus = isset($_POST['categories_status']) ? intval($_POST['categories_status']) : 2;
+			$color = isset($_POST['color']) ? oos_db_prepare_input($_POST['color']) : '';
+			$menu_type  = isset($_POST['menu_type']) ? oos_db_prepare_input($_POST['menu_type']) : 'DEFAULT'; 
+			$sort_order = isset($_POST['sort_order']) ? intval($_POST['sort_order']) : 1; 
 			$nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
 
 			if (isset($_FILES['files'])) {
@@ -114,7 +114,7 @@ if (!empty($action)) {
 
 			if (isset($_POST['categories_id'])) $categories_id = oos_db_prepare_input($_POST['categories_id']);
 
-			if ((isset($_GET['cID'])) && ($categories_id == '')) {
+			if ((isset($_GET['cID'])) && (empty($categories_id))) {
 				$categories_id = intval($_GET['cID']);
 			}
 
@@ -149,30 +149,29 @@ if (!empty($action)) {
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$language_id = $aLanguages[$i]['id'];
 				
-				$categories_description = oos_db_prepare_input($_POST['categories_description'][$language_id]);		
-				$categories_description_meta = oos_db_prepare_input($_POST['categories_description_meta'][$language_id]);
+				$categories_description = isset($_POST['categories_description'][$language_id]) ? oos_db_prepare_input($_POST['categories_description'][$language_id]) : ''; 			
+				$categories_description_meta = isset($_POST['categories_description_meta'][$language_id]) ? oos_db_prepare_input($_POST['categories_description_meta'][$language_id]) : '';
 
-				if (empty($categories_description_meta)) {				
+				if (empty($categories_description_meta) && !empty($categories_description)) {				
 					$categories_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$categories_description)),0 , 250);
 				}
 
-				$categories_facebook_title = oos_db_prepare_input($_POST['categories_facebook_title'][$language_id]);		
-				$categories_facebook_description = oos_db_prepare_input($_POST['categories_facebook_description'][$language_id]);				
-				$categories_twitter_title = oos_db_prepare_input($_POST['categories_twitter_title'][$language_id]);		
-				$categories_twitter_description = oos_db_prepare_input($_POST['categories_twitter_description'][$language_id]);
+				$categories_name = isset($_POST['categories_name'][$language_id]) ? oos_db_prepare_input($_POST['categories_name'][$language_id]) : '';
+				$categories_page_title = isset($_POST['categories_page_title'][$language_id]) ? oos_db_prepare_input($_POST['categories_page_title'][$language_id]) : ''; 
 
+				if (empty($categories_page_title) && !empty($categories_name)) {		
+					$categories_page_title =  strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$categories_name));
+				}
 
+				$categories_heading_title = isset($_POST['categories_heading_title'][$language_id]) ? oos_db_prepare_input($_POST['categories_heading_title'][$language_id]) : $categories_page_title; 
+				$categories_facebook_title = isset($_POST['categories_facebook_title'][$language_id]) ? oos_db_prepare_input($_POST['categories_facebook_title'][$language_id]) : $categories_page_title; 	
+				$categories_facebook_description = isset($_POST['categories_facebook_description'][$language_id]) ? oos_db_prepare_input($_POST['categories_facebook_description'][$language_id]) : $categories_description; 			
+				$categories_twitter_title = isset($_POST['categories_twitter_title'][$language_id]) ? oos_db_prepare_input($_POST['categories_twitter_title'][$language_id]) : $categories_page_title; 		
+				$categories_twitter_description = isset($_POST['categories_twitter_description'][$language_id]) ? oos_db_prepare_input($_POST['categories_twitter_description'][$language_id]) : $categories_description; 
 
-
-				if (empty($categories_facebook_title)) $categories_facebook_title = oos_db_prepare_input($_POST['categories_name'][$language_id]);
-				if (empty($categories_facebook_description)) $categories_facebook_description = $categories_description_meta;				 
-
-				if (empty($categories_twitter_title)) $categories_twitter_title = $categories_facebook_title;
-				if (empty($categories_twitter_description)) $categories_twitter_description = $categories_facebook_description;
-				
-				$sql_data_array = array('categories_name' => oos_db_prepare_input($_POST['categories_name'][$language_id]),
-										'categories_page_title' => oos_db_prepare_input($_POST['categories_page_title'][$language_id]),
-										'categories_heading_title' => oos_db_prepare_input($_POST['categories_heading_title'][$language_id]),
+				$sql_data_array = array('categories_name' => $categories_name,
+										'categories_page_title' => $categories_page_title,
+										'categories_heading_title' => $categories_heading_title,
 										'categories_description' => $categories_description,
 										'categories_description_meta' => $categories_description_meta,
 										'categories_facebook_title' => $categories_facebook_title,
