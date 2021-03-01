@@ -430,7 +430,7 @@ class AmazonCloudFrontFormat(W3cExtendedFormat):
         'x-edge-location': r'(?P<x_edge_location>".*?"|\S+)',
         'x-edge-result-type': r'(?P<x_edge_result_type>".*?"|\S+)',
         'x-edge-request-id': r'(?P<x_edge_request_id>".*?"|\S+)',
-        'x-host-header': r'(?P<x_host_header>".*?"|\S+)'
+        'x-host-header': r'(?P<host>".*?"|\S+)'
     })
 
     def __init__(self):
@@ -904,6 +904,10 @@ class Configuration:
             default=False,
             help="Do not verify the SSL / TLS certificate when contacting the Matomo server."
         )
+        parser.add_argument(
+            '--php-binary', dest='php_binary', type=str, default='php',
+            help="Specify the PHP binary to use.",
+        )
         return parser
 
     def _valid_date(self, value):
@@ -1075,10 +1079,11 @@ class Configuration:
                     '../../misc/cron/updatetoken.php'),
             )
 
-            phpBinary = 'php'
+            phpBinary = config.options.php_binary
 
+            # Special handling for windows (only if given php binary does not differ from default)
             is_windows = sys.platform.startswith('win')
-            if is_windows:
+            if phpBinary == 'php' and is_windows:
                 try:
                     processWin = subprocess.Popen('where php.exe', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     [stdout, stderr] = processWin.communicate()
@@ -1276,7 +1281,7 @@ Processing your log data
 ------------------------
 
     In order for your logs to be processed by Matomo, you may need to run the following command:
-     ./console core:archive --force-all-websites --force-all-periods=315576000 --force-date-last-n=1000 --url='%(url)s'
+     ./console core:archive --force-all-websites --url='%(url)s'
 ''' % {
 
     'count_lines_recorded': self.count_lines_recorded.value,

@@ -20,6 +20,7 @@
         "ToCreateCustomVarExecute": "Um eine neue benutzerdefinierte Variable zu erstellen, führen Sie in Ihrer Matomo Installation folgenden Befehl aus:",
         "SlotsReportIsGeneratedOverTime": "Daten für diesen Bericht werden periodisch veröffentlicht. Es mag ein oder zwei Tage dauern, bis Daten sichtbar sind und einige Wochen bis der Bericht vollständig aussagekräftig ist.",
         "MetricsAreOnlyAvailableForVisitScope": "Hinweis: Die Metriken %1$s sind nur für benutzerdefinierte Variablen mit Geltungsbereich %2$s verfügbar.",
-        "MetricsNotAvailableForPageScope": "Für benutzerdefinierte Variablen mit Geltungsbereich %1$s ist der Wert für diese Metriken %2$s."
+        "MetricsNotAvailableForPageScope": "Für benutzerdefinierte Variablen mit Geltungsbereich %1$s ist der Wert für diese Metriken %2$s.",
+        "CustomVariablesSubcategoryHelp2": "Lesen Sie mehr zu diesem Thema in der Online-Anleitung."
     }
 }

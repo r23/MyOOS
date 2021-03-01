@@ -20,6 +20,7 @@
         "ToCreateCustomVarExecute": "Para criar um novo espaço para uma variável personalizada, execute o seguinte comando na sua instalação do Matomo:",
         "SlotsReportIsGeneratedOverTime": "Os dados para este relatório serão apurados ao longo do tempo. Pode demorar um dia ou dois até serem apresentados alguns dados e algumas semanas até o relatório ser completamente fidedigno.",
         "MetricsAreOnlyAvailableForVisitScope": "Nota: estão disponíveis %1$s métricas para Variáveis personalizadas especificamente de âmbito %2$s",
-        "MetricsNotAvailableForPageScope": "Para variáveis personalizadas de âmbito %1$s, o valor da coluna para estas métricas é %2$s"
+        "MetricsNotAvailableForPageScope": "Para variáveis personalizadas de âmbito %1$s, o valor da coluna para estas métricas é %2$s",
+        "CustomVariablesSubcategoryHelp2": "Leia mais sobre este tópico no guia online."
     }
 }

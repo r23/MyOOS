@@ -20,6 +20,8 @@
         "ToCreateCustomVarExecute": "Yeni bir özel değişken aralığı eklemek için Matomo kopyanız üzerinde şu komutu yürütün:",
         "SlotsReportIsGeneratedOverTime": "Bu raporun verileri zaman içinde oluşacak. Raporda verilerin görüntülenmesi 1 - 2 gün, bilgilerin tam doğru görüntülenmesi bir kaç hafta sürebilir.",
         "MetricsAreOnlyAvailableForVisitScope": "Not: %1$s ölçütmleri yalnız %2$s aralığındaki Özel Değişkenler için kullanılabilir.",
-        "MetricsNotAvailableForPageScope": "%1$s aralığındaki Özel Değişkenler için bu ölçümlerin sütun değeri %2$s"
+        "MetricsNotAvailableForPageScope": "%1$s aralığındaki Özel Değişkenler için bu ölçümlerin sütun değeri %2$s",
+        "CustomVariablesSubcategoryHelp1": "Bu rapor özel değişkenler hakkında bilgileri içerir. Değerlerinin dağılımını görüntülemek istediğiniz değişken adının üzerine tıklayın.",
+        "CustomVariablesSubcategoryHelp2": "Bu konu hakkında ayrıntılı bilgi almak için çevrimiçi rehbere bakabilirsiniz."
     }
 }

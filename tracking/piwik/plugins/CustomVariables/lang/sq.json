@@ -20,6 +20,8 @@
         "ToCreateCustomVarExecute": "Për krijimin e një vendi të ri ndryshoreje vetjake përmbushni urdhrin vijues brenda instalimit tuaj të Matomo-s:",
         "SlotsReportIsGeneratedOverTime": "Të dhënat për këtë raport do të mblidhen me kalimin e kohës. Mund të duhen një a dy ditë që të shihni çfarëdo të dhënash dhe ca javë përpara se raporti të jetë plotësisht i saktë.",
         "MetricsAreOnlyAvailableForVisitScope": "Shënim: Vlerat %1$s janë të passhme vetëm për Ndryshore Vetjake të fushës %2$s.",
-        "MetricsNotAvailableForPageScope": "Për Ndryshore Vetjake të fushës %1$s, vlera e shtyllës për këto të dhëna është %2$s"
+        "MetricsNotAvailableForPageScope": "Për Ndryshore Vetjake të fushës %1$s, vlera e shtyllës për këto të dhëna është %2$s",
+        "CustomVariablesSubcategoryHelp1": "Ky raport përmban të dhëna rreth Ndryshoreve tuaja të Vetjake. Klikoni mbi një emër ndryshoreje që të shihni shpërndarjen e vlerave.",
+        "CustomVariablesSubcategoryHelp2": "Lexoni më tepër rreth kësaj teme te udhërrëfyesi në internet."
     }
 }

@@ -20,6 +20,7 @@
         "ToCreateCustomVarExecute": "新しいカスタム変数スロットを作成するには、Matomo インストール内で次のコマンドを実行します。",
         "SlotsReportIsGeneratedOverTime": "このレポートのデータ集計には時間がかかります。 レポートが完全に正確になるまで、データを見るには1 ～2日、または数週間かかる場合があります。",
         "MetricsAreOnlyAvailableForVisitScope": "注：%1$s メトリックは、スコープ %2$s のカスタム変数でのみ使用できます。",
-        "MetricsNotAvailableForPageScope": "スコープ %1$s のカスタム変数の場合、これらのメトリックの列値は %2$s です"
+        "MetricsNotAvailableForPageScope": "スコープ %1$s のカスタム変数の場合、これらのメトリックの列値は %2$s です",
+        "CustomVariablesSubcategoryHelp2": "このトピックの詳細については、オンラインガイドをご覧ください。"
     }
 }

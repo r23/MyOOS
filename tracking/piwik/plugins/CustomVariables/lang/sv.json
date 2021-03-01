@@ -20,6 +20,7 @@
         "ToCreateCustomVarExecute": "För att skapa en ny anpassad variabel använd följande kommando i din Matomo miljö:",
         "SlotsReportIsGeneratedOverTime": "Data för den här rapporten kommer att samlas in allt eftersom. Det kan ta en dag eller två innan du ser någon data och ett par veckor innan rapporten är helt tillförlitlig.",
         "MetricsAreOnlyAvailableForVisitScope": "Notering: %1$s mätvärden finns endast tillgängliga för Anpassade Variabler av omfattningen %2$s.",
-        "MetricsNotAvailableForPageScope": "För Anpassade Variabler av omfattningen %1$s är kolumnvärdet för dessa mätvärden %2$s"
+        "MetricsNotAvailableForPageScope": "För Anpassade Variabler av omfattningen %1$s är kolumnvärdet för dessa mätvärden %2$s",
+        "CustomVariablesSubcategoryHelp2": "Läs mer om ämnet i onlineguiden."
     }
 }

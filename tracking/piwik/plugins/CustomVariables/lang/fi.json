@@ -11,6 +11,7 @@
         "Index": "Indeksi",
         "Usages": "Käytöt",
         "Unused": "Käyttämätön",
-        "UsageDetails": "%1$s käyntiä ja %2$s toimintoa tämän sivuston luomisen jälkeen."
+        "UsageDetails": "%1$s käyntiä ja %2$s toimintoa tämän sivuston luomisen jälkeen.",
+        "CustomVariablesSubcategoryHelp2": "Lue lisää tästä aiheesta verkko-oppaasta."
     }
 }

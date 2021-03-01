@@ -19,6 +19,7 @@
         "ToCreateCustomVarExecute": "要建立新的自訂變數欄位請在 Matomo 安裝路徑執行以下指令：",
         "SlotsReportIsGeneratedOverTime": "這份報表的資料將會被補充。可能會花上一到兩天來產生資料，並且花上數周才會有完整準確的報表。",
         "MetricsAreOnlyAvailableForVisitScope": "注意：%1$s只有自訂變數的範圍有數據%2$s。",
-        "MetricsNotAvailableForPageScope": "自訂變數範圍 %1$s 中，欄位數據的值為 %2$s。"
+        "MetricsNotAvailableForPageScope": "自訂變數範圍 %1$s 中，欄位數據的值為 %2$s。",
+        "CustomVariablesSubcategoryHelp2": "在線上說明了解更多此主題"
     }
 }

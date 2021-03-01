@@ -20,6 +20,7 @@
         "ToCreateCustomVarExecute": "要创建新的自定义变量槽，请在您的Matomo安装中执行以下命令：",
         "SlotsReportIsGeneratedOverTime": "本报告的数据将随着时间的推移被填充。这可能需要一两天看到任何数据，并在几个星期之前，该报告是完全准确的。",
         "MetricsAreOnlyAvailableForVisitScope": "注意：自定义变量%1$s只能用于 %2$s范围。",
-        "MetricsNotAvailableForPageScope": "自定义变量%1$s的列值范围为%2$s"
+        "MetricsNotAvailableForPageScope": "自定义变量%1$s的列值范围为%2$s",
+        "CustomVariablesSubcategoryHelp2": "在线指南中阅读有关此主题的更多信息。"
     }
 }

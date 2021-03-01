@@ -20,6 +20,7 @@
         "ToCreateCustomVarExecute": "Para crear una nueva ranura de variable personalizada, ejecutá el siguiente comando dentro de tu instalación de Matomo:",
         "SlotsReportIsGeneratedOverTime": "Los datos para este informe será popularizados en el tiempo. Puede tomar un día o dos para ver cualquier dato, y algunas semanas hasta que el informe sea completamente preciso.",
         "MetricsAreOnlyAvailableForVisitScope": "Nota: las mediciones de %1$s sólo están disponibles para variables personalizadas del ámbito de %2$s.",
-        "MetricsNotAvailableForPageScope": "Para variables personalizadas del ámbito de %1$s, el valor de columna de estas mediciones es %2$s"
+        "MetricsNotAvailableForPageScope": "Para variables personalizadas del ámbito de %1$s, el valor de columna de estas mediciones es %2$s",
+        "CustomVariablesSubcategoryHelp2": "Leé más sobre este tema en la guía en línea."
     }
 }
