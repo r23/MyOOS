@@ -110,6 +110,3 @@ $lang['L_BACKUP_DBS_PHP']="ΒΔ για αντιγ. ασφαλείας (PHP)";
 $lang['L_BACKUP_DBS_PERL']="ΒΔ για αντιγ. ασφαλείας (PERL)";
 $lang['L_CRON_COMMENT']="Δώστε σχόλιο";
 $lang['L_AUTODETECT']="αυτόματος εντοπισμός";
-
-
-?>

@@ -70,10 +70,9 @@ $lang['L_MAX_UPLOAD_SIZE_INFO']="Se o seu arquivo de dump é maior que o limite 
 Após fazer isso você poderá escolhê-lo novamente para iniciar o processo de restauração. ";
 $lang['L_ENCODING']="encoding";
 $lang['L_FM_CHOOSE_ENCODING']="Choose encoding of backup file";
-$lang['L_CHOOSE_CHARSET']="MySQLDumper couldn't detect the encoding of the backup file automatically.
+$lang['L_CHOOSE_CHARSET']="MyOOS [Dumper] couldn't detect the encoding of the backup file automatically.
 <br>You must choose the charset with which this backup was saved.
 <br>If you discover any problems with some characters after restoring, you can repeat the backup-progress and then choose another character set.
 <br>Good luck. ;)";
 $lang['L_DOWNLOAD_FILE']="Download file";
 $lang['L_BACKUP_NOT_POSSIBLE'] = "A backup of the system database `%s` is not possible!";
-?>

@@ -19,19 +19,19 @@ $lang['L_DUMP_NOTABLES']="لم يتم العثور على جداول في قاع
 $lang['L_DUMP_ENDERGEBNIS']="محتويات الملف <b>%s</b> مع الجداول <b>%s</b> السجلات.<br>";
 $lang['L_MAILERROR']="فشل ارسال البريد الالكتروني!";
 $lang['L_EMAILBODY_ATTACH']="المرفق يحتوي على ملف النسخ الاحتياطي لقاعدة البيانات MySQL.<br>نسخ احتياطي لقاعدة البيانات `%s`
-<br><br>تم انشاء الملف التالي:<br><br>%s <br><br>حظا موفقا  <br><br>MySQLDumper<br>";
+<br><br>تم انشاء الملف التالي:<br><br>%s <br><br>حظا موفقا  <br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_NOATTACH']="تم انشاء النسخ الاحتياطي المتعدد.<br>ملفات النسخ الاحتياطي لا يمكن ارسالها البريد الالكتروني!<br>النسخ الاحتياطي لقاعدة البيانات `%s`
 <br><br>الملفات التالية تم انشئت:<br><br>%s
-<br><br>حظا موفقا<br><br>MySQLDumper<br>";
+<br><br>حظا موفقا<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_ATTACH']="تم انشاء النسخ الاحتياطي المتعدد.<br>فواصل بين ملفات النسخ الاحتياطي عند ارسالها بالبريد الالكتروني.<br>النسخ الاحتياطي لقاعدة البيانات `%s`
-<br><br>الملفات التالية انشئت:<br><br>%s <br><br>حظا موفقا<br><br>MySQLDumper<br>";
-$lang['L_EMAILBODY_FOOTER']="`<br><br>حظا موفقا<br><br>MySQLDumper<br>";
+<br><br>الملفات التالية انشئت:<br><br>%s <br><br>حظا موفقا<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_FOOTER']="`<br><br>حظا موفقا<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_TOOBIG']="الحجم الاقصى للملف تجاوز الحد المسموح به %s لا يمكن ارسال المرفقات الى البريد الالكتروني  .<br>النسخ الاحتياطي لقاعدة البيانات  `%s`
 <br><br>الملفات التالية انشئت:<br><br>%s
-<br><br>حظا موفقا<br><br>MySQLDumper<br>";
+<br><br>حظا موفقا<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_NOATTACH']="الملفات لايمكن ارسالها بالبريد الالكتروني!<br>النسخ الاحتياطي لقاعدة البيانات `%s`
 <br><br>الملفات التالية انشئت:<br><br>%s
-<br><br>حظا موفقا<br><br>MySQLDumper<br>";
+<br><br>حظا موفقا<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAIL_ONLY_ATTACHMENT']=" ... المرفقات فقط.";
 $lang['L_TABLESELECTION']="تحديد جدول";
 $lang['L_SELECTALL']="تحديد الكل";

@@ -109,5 +109,3 @@ $lang['L_BACKUP_DBS_PERL']="DBs zum Sichere (Perl)";
 $lang['L_CRON_COMMENT']="Kommentar iigää";
 $lang['L_AUTODETECT']="auto detect";
 
-
-?>

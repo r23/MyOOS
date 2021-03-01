@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>L`installazione è finita --> <a href=\"index.php\">fai partire MySQLDumper</a><br>";
+$lang['L_INSTALLFINISHED']="<br>L`installazione è finita --> <a href=\"index.php\">fai partire MyOOS [Dumper]</a><br>";
 $lang['L_INSTALL_TOMENU']="Ritorna al Menu principale";
 $lang['L_INSTALLMENU']="Menu principale";
 $lang['L_STEP']="Passo";
@@ -14,7 +14,7 @@ $lang['L_CREATEDIRS']="crea directory";
 $lang['L_INSTALL_CONTINUE']="continua con la installazione";
 $lang['L_CONNECTTOMYSQL']="connessione a MySQL ";
 $lang['L_DBPARAMETER']="Parametri database";
-$lang['L_CONFIGNOTWRITABLE']="Il file \"config.php\" non è scrivibile. Metti per favore i permessi per scrivere (ad esempio: 0777), cosi MySQLDumper può salvare la tua configurazione. ";
+$lang['L_CONFIGNOTWRITABLE']="Il file \"config.php\" non è scrivibile. Metti per favore i permessi per scrivere (ad esempio: 0777), cosi MyOOS [Dumper] può salvare la tua configurazione. ";
 $lang['L_DBCONNECTION']="Connessione database";
 $lang['L_CONNECTIONERROR']="Errore: impossibile connettersi.";
 $lang['L_CONNECTION_OK']="Connessione al database effettuata.";
@@ -59,7 +59,7 @@ $lang['L_UI9']="Si è verificato un errore, non è stato possibile cancellare </
 $lang['L_IMPORT']="Importare configurazione";
 $lang['L_IMPORT3']="La configurazione è stata caricata ...";
 $lang['L_IMPORT4']="La configurazione è stata salvata.";
-$lang['L_IMPORT5']="Eseguire MySQLDumper";
+$lang['L_IMPORT5']="Eseguire MyOOS [Dumper]";
 $lang['L_IMPORT6']="Menu di installazione";
 $lang['L_IMPORT7']="Caricare configurazione";
 $lang['L_IMPORT8']="torna al caricamento (upload)";
@@ -75,5 +75,5 @@ $lang['L_PORT']="Porta";
 $lang['L_FOUND_DB']="database trovato:";
 $lang['L_FM_FILEUPLOAD']="Carica il file";
 $lang['L_PASS']="Password";
-$lang['L_NO_DB_FOUND_INFO']="La connesione con il database è stata effettuata con successo. <br> I tuoi dati di connessione sono stati accettati dal MySQL-Server.<br> Purtroppo MySQLDumper non ha trovato alcun database.<br>Il riconoscimento automatico per il programma è purtroppo bloccato dal provider. <br> Appena hai finito l`installazione devi andare nel menu \"Configurazione\" \"visualizza parametri di connessione\" e inserire il nome del tuo database.";
+$lang['L_NO_DB_FOUND_INFO']="La connesione con il database è stata effettuata con successo. <br> I tuoi dati di connessione sono stati accettati dal MySQL-Server.<br> Purtroppo MyOOS [Dumper] non ha trovato alcun database.<br>Il riconoscimento automatico per il programma è purtroppo bloccato dal provider. <br> Appena hai finito l`installazione devi andare nel menu \"Configurazione\" \"visualizza parametri di connessione\" e inserire il nome del tuo database.";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";

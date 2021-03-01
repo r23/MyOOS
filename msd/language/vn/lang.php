@@ -36,12 +36,12 @@ $lang['L_BACK']="quay lại";
 $lang['L_DB_HOST']="Hostname";
 $lang['L_DB_USER']="User";
 $lang['L_DB_PASS']="Password";
-$lang['L_INFO_SCRIPTDIR']="Thư mục chứa MySQLDumper";
+$lang['L_INFO_SCRIPTDIR']="Thư mục chứa MyOOS [Dumper]";
 $lang['L_INFO_ACTDB']="Cơ sở dữ liệu hiện hành";
 $lang['L_WRONGCONNECTIONPARS']="Thông số kết nối sai hoặc thiếu!";
 $lang['L_CONN_NOT_POSSIBLE']="Không thể kết nối!";
 $lang['L_SERVERCAPTION']="Hiển thị Server";
-$lang['L_HELP_SERVERCAPTION']="Khi sử dụng MySQLDumper trên những tên miền hay những server khác nhau, sẽ hữu ích nếu hiển thị tên miền/server ở trên cùng màn hình.";
+$lang['L_HELP_SERVERCAPTION']="Khi sử dụng MyOOS [Dumper] trên những tên miền hay những server khác nhau, sẽ hữu ích nếu hiển thị tên miền/server ở trên cùng màn hình.";
 $lang['L_ACTIVATE_MULTIDUMP']="kích hoạt MultiDump";
 $lang['L_SAVE']="Save";
 $lang['L_RESET']="Làm lại";
@@ -109,6 +109,3 @@ $lang['L_PAGE_REFRESHS']="Page refreshs";
 $lang['L_MINUTE']="Minute";
 $lang['L_SETKEYSFOR']="Set new indexes for table";
 $lang['L_KEY_CONFIRMDELETE']="Really delete index?";
-
-
-?>

@@ -7,6 +7,3 @@ $lang['L_REVERSE']="Neuster Eintrag zuerst
 
 
 ";
-
-
-?>

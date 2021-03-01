@@ -110,6 +110,3 @@ $lang['L_BACKUP_DBS_PHP']="BDs a copiar (PHP)";
 $lang['L_BACKUP_DBS_PERL']="BDs a copiar (PERL)";
 $lang['L_CRON_COMMENT']="Enter Comment";
 $lang['L_AUTODETECT']="Identificar automáticamente";
-
-
-?>

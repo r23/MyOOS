@@ -113,5 +113,3 @@ $lang['L_BACKUP_DBS_PERL']="Sauvegarde Dbs
 $lang['L_CRON_COMMENT']="Ajouter un commentaire";
 $lang['L_AUTODETECT']="auto detect";
 
-
-?>

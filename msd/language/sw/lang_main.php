@@ -62,13 +62,10 @@ $lang['L_TABLE_TYPE']="Typ";
 $lang['L_CHECK']="kontrollera";
 $lang['L_HTACC_SHA1']="SHA1 (alla system)";
 $lang['L_OS']="Operativsystem";
-$lang['L_MSD_VERSION']="MySQLDumper-version";
+$lang['L_MSD_VERSION']="MyOOS [Dumper]-version";
 $lang['L_MYSQL_VERSION']="MySQL-version";
 $lang['L_PHP_VERSION']="PHP-version";
 $lang['L_MAX_EXECUTION_TIME']="Maximal exekveringstid";
 $lang['L_PHP_EXTENSIONS']="PHP-extensioner";
 $lang['L_MEMORY']="Minne";
 $lang['L_FILE_MISSING']="kunde ej hitta filen";
-
-
-?>

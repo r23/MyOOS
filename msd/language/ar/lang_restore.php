@@ -18,6 +18,3 @@ $lang['L_UNKNOWN_SQLCOMMAND']="مجهول SQL-امر";
 $lang['L_NOTICES']="ملاحظات
 
 ";
-
-
-?>

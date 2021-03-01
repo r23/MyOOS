@@ -111,5 +111,3 @@ $lang['L_BACKUP_DBS_PERL']="DBs to backup (PERL)";
 $lang['L_CRON_COMMENT']="Digitar comentário";
 $lang['L_AUTODETECT']="auto detect";
 
-
-?>

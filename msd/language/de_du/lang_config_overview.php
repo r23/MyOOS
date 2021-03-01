@@ -111,5 +111,3 @@ $lang['L_BACKUP_DBS_PERL']="zu sichernde DBs (PERL)";
 $lang['L_CRON_COMMENT']="Kommentar eingeben";
 $lang['L_AUTODETECT']="automatisch ermitteln";
 
-
-?>

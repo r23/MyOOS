@@ -27,6 +27,3 @@ $lang['L_CRON_EXECPATH']="Percorso degli script Perl";
 $lang['L_HELP_CRONCOMPLETELOG']="Se questa funzione è attivata il dettaglio di tutte le operazioni verrà memorizzato nel file complete_log. 
 Questa funzione è indipendente dall`output del testo.";
 $lang['L_HELP_FTP_MODE']="Se si verificassero dei problemi con il trasferimento tramite FTP, provare ad usare la modalità passiva.";
-
-
-?>

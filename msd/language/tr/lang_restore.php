@@ -16,6 +16,3 @@ $lang['L_BACK_TO_OVERVIEW']="Veritabanı listesi";
 $lang['L_RESTORE_RUN0']="<br>Şimdiye kadar <b>%s</b> kayıt başarılı olarak işlendi.";
 $lang['L_UNKNOWN_SQLCOMMAND']="Tanınmayan SQL komudu:";
 $lang['L_NOTICES']="İpuçlar";
-
-
-?>

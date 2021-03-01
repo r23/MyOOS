@@ -32,6 +32,3 @@ $lang['L_CRON_EXECPATH']="Chemin du script Perl";
 $lang['L_HELP_CRONCOMPLETELOG']="Si la fonction est activée alors la sortie complète est écrite dans le journal 'complete_log'. 
 Cette fonction est indépendante de la fonction sortie de texte.";
 $lang['L_HELP_FTP_MODE']="Si vous avez des problèmes durant le transfert FTP, essayez en choisissant passif comme mode de transfert.";
-
-
-?>

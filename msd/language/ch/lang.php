@@ -36,7 +36,7 @@ $lang['L_BACK']="zrugg";
 $lang['L_DB_HOST']="Datebank- Hoschtname";
 $lang['L_DB_USER']="Datebank- Nutzer";
 $lang['L_DB_PASS']="Datebank- Passwort";
-$lang['L_INFO_SCRIPTDIR']="Verzeichnis vom MySQLDumper";
+$lang['L_INFO_SCRIPTDIR']="Verzeichnis vom MyOOS [Dumper]";
 $lang['L_INFO_ACTDB']="Aktuelli Datebank";
 $lang['L_WRONGCONNECTIONPARS']="Falschi oder kei Verbindigsparameter";
 $lang['L_CONN_NOT_POSSIBLE']="Verbindig nöd mögli!";
@@ -106,6 +106,3 @@ $lang['L_PAGE_REFRESHS']="Page refreshs";
 $lang['L_MINUTE']="Minute";
 $lang['L_SETKEYSFOR']="Set new indexes for table";
 $lang['L_KEY_CONFIRMDELETE']="Really delete index?";
-
-
-?>

@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>die Installation ist abgeschlossen   --> <a href=\"index.php\">starte MySQLDumper</a><br>";
+$lang['L_INSTALLFINISHED']="<br>die Installation ist abgeschlossen   --> <a href=\"index.php\">starte MyOOS [Dumper]</a><br>";
 $lang['L_INSTALL_TOMENU']="zum Hauptmenü";
 $lang['L_INSTALLMENU']="Hauptmenü";
 $lang['L_STEP']="Schritt";
@@ -59,7 +59,7 @@ $lang['L_UI9']="Ein Fehler trat auf, löschen war nicht möglich</p>Fehler bei V
 $lang['L_IMPORT']="Konfiguration importieren";
 $lang['L_IMPORT3']="Die Konfiguration wurde geladen...";
 $lang['L_IMPORT4']="Die Konfiguration wurde gesichert.";
-$lang['L_IMPORT5']="MySQLDumper starten";
+$lang['L_IMPORT5']="MyOOS [Dumper] starten";
 $lang['L_IMPORT6']="Installations-Menü";
 $lang['L_IMPORT7']="Konfiguration hochladen";
 $lang['L_IMPORT8']="zurück zum Upload";
@@ -77,7 +77,7 @@ $lang['L_FM_FILEUPLOAD']="Datei hochladen";
 $lang['L_PASS']="Passwort";
 $lang['L_NO_DB_FOUND_INFO']="Die Verbindung zur Datenbank konnte erfolgreich hergestellt werden.<br>
 Deine Zugangsdaten sind gültig und wurden vom MySQL-Server akzeptiert.<br>
-Leider konnte MySQLDumper keine Datenbank finden.<br>
+Leider konnte MyOOS [Dumper] keine Datenbank finden.<br>
 Die automatische Erkennung per Programm ist bei manchen Hostern gesperrt.<br>
 Du musst Deine Datenbank nach dem Abschluß der Installation unter dem Menüpunkt \"Konfiguration\" \"Verbindungsparameter einblenden\" angeben.<br>
 Bitte begebe Dich nach Abschluß der Installation umgehend dort hin und trage den Namen Deiner Datenbank dort ein.";

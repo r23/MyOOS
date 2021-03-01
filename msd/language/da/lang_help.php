@@ -31,6 +31,3 @@ $lang['L_CRON_EXECPATH']="Sti til Perl scripts";
 $lang['L_HELP_CRONCOMPLETELOG']="Når aktiveret, skrives det fuldstændige output til complete_log-filen.
 Dette er uafhængigt af tekstudskrifter";
 $lang['L_HELP_FTP_MODE']="Hvis du oplever problemer med FTP-overførsel, brug passiv tilstand.";
-
-
-?>

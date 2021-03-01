@@ -72,9 +72,8 @@ $lang['L_ENCODING']="Kodierung";
 $lang['L_FM_CHOOSE_ENCODING']="Kodierung der Backupdatei wählen";
 $lang['L_CHOOSE_CHARSET']="Leider konnte nicht automatisch ermittelt werden mit welchem Zeichensatz diese Backupdatei seinerzeit angelegt wurde.
 <br>Du musst die Kodierung, in der Zeichenketten in dieser Datei vorliegen, manuell angeben.
-<br>Danach stellt MySQLDumper die Verbindungskennung zum MySQL-Server auf den ausgewählten Zeichensatz und beginnt mit der Wiederherstellung der Daten.
+<br>Danach stellt MyOOS [Dumper] die Verbindungskennung zum MySQL-Server auf den ausgewählten Zeichensatz und beginnt mit der Wiederherstellung der Daten.
 <br>Solltest Du nach der Wiederherstellung Probleme mit Sonderzeichen entdecken, so kannst Du versuchen, das Backup mit einer anderen Zeichensatzauswahl wiederherzustellen.
 <br>Viel Glück. ;)";
 $lang['L_DOWNLOAD_FILE']="Datei herunterladen";
 $lang['L_BACKUP_NOT_POSSIBLE'] = "Eine Sicherung der Systemdatenbank `%s` ist nicht möglich!";
-?>

@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>Instalação completada  --> <a href=\"index.php\">iniciar o MySQLDumper</a><br>";
+$lang['L_INSTALLFINISHED']="<br>Instalação completada  --> <a href=\"index.php\">iniciar o MyOOS [Dumper]</a><br>";
 $lang['L_INSTALL_TOMENU']="Voltar ao menu principal";
 $lang['L_INSTALLMENU']="Menu principal";
 $lang['L_STEP']="Passo";
@@ -60,7 +60,7 @@ $lang['L_UI9']="Um erro ocorreu, impossível excluir</p>Erro com o diretório ";
 $lang['L_IMPORT']="Importar configuração";
 $lang['L_IMPORT3']="A configuração foi carregada ...";
 $lang['L_IMPORT4']="A configuração foi salva.";
-$lang['L_IMPORT5']="Iniciar o MySQLDumper";
+$lang['L_IMPORT5']="Iniciar o MyOOS [Dumper]";
 $lang['L_IMPORT6']="Menu de instalação";
 $lang['L_IMPORT7']="Enviar configuração";
 $lang['L_IMPORT8']="voltar ao envio";
@@ -78,7 +78,7 @@ $lang['L_FM_FILEUPLOAD']="Enviar arquivo";
 $lang['L_PASS']="Senha";
 $lang['L_NO_DB_FOUND_INFO']="A conexão com o banco de dados foi estabelecida com sucesso.<br>
 Seus dados de usuário são válidos e foram aceitos pelo Servidor MySQL.<br>
-Mas o MySQLDumper não foi capaz de encontrar nenhuma base de dados.<br>
+Mas o MyOOS [Dumper] não foi capaz de encontrar nenhuma base de dados.<br>
 A detecção automática via script é bloqueada em alguns servidores.<br>
 Você deve colocar seus dados do banco de dados manualmente depois de terminada a instalação.
 Clique em \"configurações\" \"Parâmetros de Conexão - exibir\" e digite ali o nome do banco de dados.";

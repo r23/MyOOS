@@ -69,7 +69,6 @@ $lang['L_MAX_UPLOAD_SIZE']="Taille maximale du fichier";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Si votre fichier Dump est plus grand que la taille mentionnée plus haut, vous devez alors l'envoyer sur le serveur dans le répertoire en utilisant votre programme FTP.";
 $lang['L_ENCODING']="encodage";
 $lang['L_FM_CHOOSE_ENCODING']="Choisissez le type d'encodage de la sauvegarde";
-$lang['L_CHOOSE_CHARSET']="MySQLDumper n'a pas pu détecter automatiquement le type d'encodage de la sauvegarde <br>Vous devez choisir le jeux de caractères qui a été utilisé pour la sauvegarde<br> Si vous découvrez des problèmes avec quelques caractères suite à la restauration, vous pouvez répéter l'opération en choisissant un autre jeux de caractères.<br>Bonne chance ;-)";
+$lang['L_CHOOSE_CHARSET']="MyOOS [Dumper] n'a pas pu détecter automatiquement le type d'encodage de la sauvegarde <br>Vous devez choisir le jeux de caractères qui a été utilisé pour la sauvegarde<br> Si vous découvrez des problèmes avec quelques caractères suite à la restauration, vous pouvez répéter l'opération en choisissant un autre jeux de caractères.<br>Bonne chance ;-)";
 $lang['L_DOWNLOAD_FILE']="Download file";
 $lang['L_BACKUP_NOT_POSSIBLE'] = "A backup of the system database `%s` is not possible!";
-?>

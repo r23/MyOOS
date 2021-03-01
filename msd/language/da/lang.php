@@ -36,12 +36,12 @@ $lang['L_BACK']="tilbage";
 $lang['L_DB_HOST']="Hostnavn";
 $lang['L_DB_USER']="Bruger";
 $lang['L_DB_PASS']="Kodeord";
-$lang['L_INFO_SCRIPTDIR']="MySQLDumper folder";
+$lang['L_INFO_SCRIPTDIR']="MyOOS [Dumper] folder";
 $lang['L_INFO_ACTDB']="Aktuel Database";
 $lang['L_WRONGCONNECTIONPARS']="Forkerte eller manglende forbindelsesparametre!";
 $lang['L_CONN_NOT_POSSIBLE']="Forbindelse ikke mulig !";
 $lang['L_SERVERCAPTION']="Vis Server";
-$lang['L_HELP_SERVERCAPTION']="Ved brug af MySQLDumper på forskellige domæner eller servere kan det være praktisk at vise domæne/server-navn i toppen af skærmen.";
+$lang['L_HELP_SERVERCAPTION']="Ved brug af MyOOS [Dumper] på forskellige domæner eller servere kan det være praktisk at vise domæne/server-navn i toppen af skærmen.";
 $lang['L_ACTIVATE_MULTIDUMP']="aktiver MultiDump";
 $lang['L_SAVE']="Gem";
 $lang['L_RESET']="Nulstil";
@@ -106,6 +106,3 @@ $lang['L_PAGE_REFRESHS']="Page refreshs";
 $lang['L_MINUTE']="Minute";
 $lang['L_SETKEYSFOR']="Set new indexes for table";
 $lang['L_KEY_CONFIRMDELETE']="Really delete index?";
-
-
-?>

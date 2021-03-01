@@ -69,7 +69,6 @@ $lang['L_MAX_UPLOAD_SIZE']="Maximal filstorlek";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Om din backup-fil är större än det angivna värdet så måste du ladda upp den till mappen \"work/backup\" via FTP. Därefter visas filen här i översikten och kan väljas för återställning.";
 $lang['L_ENCODING']="Kodering";
 $lang['L_FM_CHOOSE_ENCODING']="Välj backupfilens kodering";
-$lang['L_CHOOSE_CHARSET']="Tyvärr kunde ej fastställas automatiskt med vilken teckensats denna backupfil har skapats.<br>Du måste ange koderingen manuellt.<br>Därefter ställer MySQLDumper in förbindelseparametrarna till MySQL-servern till den valda teckensatsen och startar återställningen.<br>Om datan återges med fel specialtecken efter återställningen så bör du upprepa återställningen med en annan inställning för teckensatsen.<br>Lycka till.";
+$lang['L_CHOOSE_CHARSET']="Tyvärr kunde ej fastställas automatiskt med vilken teckensats denna backupfil har skapats.<br>Du måste ange koderingen manuellt.<br>Därefter ställer MyOOS [Dumper] in förbindelseparametrarna till MySQL-servern till den valda teckensatsen och startar återställningen.<br>Om datan återges med fel specialtecken efter återställningen så bör du upprepa återställningen med en annan inställning för teckensatsen.<br>Lycka till.";
 $lang['L_DOWNLOAD_FILE']="Ladda hem filen";
 $lang['L_BACKUP_NOT_POSSIBLE'] = "A backup of the system database `%s` is not possible!";
-?>

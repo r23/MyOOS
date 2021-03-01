@@ -19,19 +19,19 @@ $lang['L_DUMP_NOTABLES']="Không tìm thấy trong cơ sở dữ liệu các b�
 $lang['L_DUMP_ENDERGEBNIS']="File chứa <b>%s</b> bảng với <b>%s</b> bản ghi.<br>";
 $lang['L_MAILERROR']="Gửi email thất bại!";
 $lang['L_EMAILBODY_ATTACH']="File đính kèm chứa đựng nội dung sao lưu MySQL.<br>Sao lưu Cơ sở dữ liệu `%s`
-<br><br>File sau đã được tạo:<br><br>%s <br><br>Trân trọng!<br><br>MySQLDumper - http://mangvn.org<br>";
+<br><br>File sau đã được tạo:<br><br>%s <br><br>Trân trọng!<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_NOATTACH']="Một Sao lưu Nhiều phần được tạo ra.<br>Những tập tin dự phòng không được gửi kèm email!<br>Sao lưu Cơ sở dữ liệu `%s`
 <br><br>Những file Sau đã được tạo ra<br><br>%s
-<br><br>Trân trọng!<br><br>MySQLDumper - http://mangvn.org<br>";
+<br><br>Trân trọng!<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_ATTACH']="Một Sao lưu Nhiều phần được tạo ra.<br>Những tập tin dự phòng đã được gửi kèm email!<br>Sao lưu Cơ sở dữ liệu `%s`
-<br><br>Những file sau đã được tạo ra:<br><br>%s <br><br>Trân trọng!<br><br>MySQLDumper - http://mangvn.org<br>";
-$lang['L_EMAILBODY_FOOTER']="`<br><br>Trân trọng!<br><br>MySQLDumper - http://mangvn.org<br>";
+<br><br>Những file sau đã được tạo ra:<br><br>%s <br><br>Trân trọng!<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_FOOTER']="`<br><br>Trân trọng!<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_TOOBIG']="Tập tin sao lưu vượt hơn kích thước lớn nhất của %s và nó không được đính kèm email.<br>Sao lưu Cơ sở dữ liệu `%s`
 <br><br>File sau đã được tạo ra:<br><br>%s
-<br><br>Trân trọng!<br><br>MySQLDumper - http://mangvn.org<br>";
+<br><br>Trân trọng!<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_NOATTACH']="Files không được đính kèm email này!<br>Sao lưu của CSDL `%s`
 <br><br>File sau đã được tạo ra:<br><br>%s
-<br><br>Trân trọng!<br><br>MySQLDumper - http://mangvn.org<br>";
+<br><br>Trân trọng!<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAIL_ONLY_ATTACHMENT']=" ... chỉ đính kèm.";
 $lang['L_TABLESELECTION']="Chọn Bảng";
 $lang['L_SELECTALL']="Chọn tất cả";
@@ -53,6 +53,3 @@ $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s những bảng đã đ�
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s những lỗi xuất hiện: <a href=\"log.php?r=3\">xem</a></p>";
 $lang['L_FATAL_ERROR_DUMP']="Lỗi nghiêm trọng: CREATE-Statement của bảng '%s' trong CSDL '%s' không thể đọc!<br>
 Kiểm tra lại bảng này để tìm lỗi.";
-
-
-?>

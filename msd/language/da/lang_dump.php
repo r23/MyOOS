@@ -19,19 +19,19 @@ $lang['L_DUMP_NOTABLES']="Ingen tabeller fundet i database `<b>%s</b>` ";
 $lang['L_DUMP_ENDERGEBNIS']="Filen indeholder <b>%s</b> tabeller med <b>%s</b> poster.<br>";
 $lang['L_MAILERROR']="Afsendelse af email slog fejl!";
 $lang['L_EMAILBODY_ATTACH']="Den vedhæftede fil indeholder backup af din MySQL-Database.<br>Backup af Database `%s`
-<br><br>Følgende fil blev oprettet:<br><br>%s <br><br>Venlig hilsen<br><br>MySQLDumper<br>";
+<br><br>Følgende fil blev oprettet:<br><br>%s <br><br>Venlig hilsen<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_NOATTACH']="En Multipart Backup blev oprettet.<br>Backupfilerne er ikke vedhæftet denne email!<br>Backup af Database `%s`
 <br><br>Følgende filer blev oprettet:<br><br>%s
-<br><br>Venlig hilsen<br><br>MySQLDumper<br>";
+<br><br>Venlig hilsen<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_ATTACH']="En Multipart Backup er blevet oprettet.<br>Backupfilerne er vedhæftet separate emails.<br>Backup af Database `%s`
-<br><br>Følgende filer blev oprettet:<br><br>%s <br><br>Med venlig hilsen<br><br>MySQLDumper<br>";
-$lang['L_EMAILBODY_FOOTER']="<br><br>Venlig hilsen<br><br>MySQLDumper<br>";
+<br><br>Følgende filer blev oprettet:<br><br>%s <br><br>Med venlig hilsen<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_FOOTER']="<br><br>Venlig hilsen<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_TOOBIG']="Backupfilen oversteg maksimumstørrelsen på %s og blev ikke vedhæftet denne email.<br>Backup sf Database `%s`
 <br><br>Følgende fil blev oprettet:<br><br>%s
-<br><br>Venlig hilsen<br><br>MySQLDumper<br>";
+<br><br>Venlig hilsen<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_NOATTACH']="Filer er ikke vedhæftet denne email!<br>Backup af Database `%s`
 <br><br>Følgende fil blev oprettet:<br><br>%s
-<br><br>Venlig hilsen<br><br>MySQLDumper<br>";
+<br><br>Venlig hilsen<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAIL_ONLY_ATTACHMENT']=" ... kun vedhæftet.";
 $lang['L_TABLESELECTION']="Tabelvælg";
 $lang['L_SELECTALL']="Vælg alle";
@@ -56,5 +56,3 @@ $lang['L_DUMP_ERRORS']="<p class=\"error\">%s fejl optrådte: <a href=\"log.php?
 ";
 $lang['L_FATAL_ERROR_DUMP']="Fatal error: the CREATE-Statement of table '%s' in database '%s' couldn't be read!";
 
-
-?>

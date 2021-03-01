@@ -28,6 +28,3 @@ Både absoluta och relativa sökvägar är tillåtna.";
 $lang['L_CRON_EXECPATH']="Perl-skriptens sökväg";
 $lang['L_HELP_CRONCOMPLETELOG']="Om denna funktion är aktiverad så skrivs den kompletta informationen till complete_log. Denna funktion är oberoende av textutmatningen.";
 $lang['L_HELP_FTP_MODE']="Prova passivt FTP-läge om FTP-överföringen ej fungerar felfritt.";
-
-
-?>

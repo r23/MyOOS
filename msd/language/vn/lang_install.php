@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>Cài đặt thành công  --> <a href=\"index.php\">Bắt đầu MySQLDumper</a><br>";
+$lang['L_INSTALLFINISHED']="<br>Cài đặt thành công  --> <a href=\"index.php\">Bắt đầu MyOOS [Dumper]</a><br>";
 $lang['L_INSTALL_TOMENU']="Quay lại menu chính";
 $lang['L_INSTALLMENU']="Menu chính";
 $lang['L_STEP']="SBước";
@@ -60,7 +60,7 @@ $lang['L_UI9']="Có lỗi, không thể xóa</p>Lỗi với thư mục ";
 $lang['L_IMPORT']="Nhập Cấu hình";
 $lang['L_IMPORT3']="Cấu hình được tải ...";
 $lang['L_IMPORT4']="Đã ghi cấu hình.";
-$lang['L_IMPORT5']="Chạy MySQLDumper";
+$lang['L_IMPORT5']="Chạy MyOOS [Dumper]";
 $lang['L_IMPORT6']="Menu cài đặt";
 $lang['L_IMPORT7']="Upload cấu hình";
 $lang['L_IMPORT8']="quay lại để upload";
@@ -78,10 +78,9 @@ $lang['L_FM_FILEUPLOAD']="Upload file";
 $lang['L_PASS']="Password";
 $lang['L_NO_DB_FOUND_INFO']="Kết nối tới cSDL được thiết lập thành công.<br>
 Dữ liệu thành viên hợp lệ và được MySQL-Server chấp nhận.<br>
-Nhưng MySQLDumper không thể tìm thấy bất kỳ cơ sở dữ liệu nào.<br>
+Nhưng MyOOS [Dumper] không thể tìm thấy bất kỳ cơ sở dữ liệu nào.<br>
 Dò tìm tự động qua script bị cấm trên một vài server.<br>
 Bạn phải vào databasename của bạn bằng tay sau khi sự cài đặt (thì) kết thúc.
 Click \"cấu hình\" \"Tham số Kết nối - hiển thị\" và nhập tên CSDL đó.";
-
-";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";
+

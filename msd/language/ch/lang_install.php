@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>d Installation isch abgschlosse --> <a href=\"index.php\">starte MySQLDumper</a><br>";
+$lang['L_INSTALLFINISHED']="<br>d Installation isch abgschlosse --> <a href=\"index.php\">starte MyOOS [Dumper]</a><br>";
 $lang['L_INSTALL_TOMENU']="zum Hauptmenü";
 $lang['L_INSTALLMENU']="Hauptmenü";
 $lang['L_STEP']="Schritt";
@@ -58,7 +58,7 @@ $lang['L_UI9']="Es hät en Fähler gäh, Lösche isch nöd mögli gsi<p>Fähler 
 $lang['L_IMPORT']="Konfiguration importiere";
 $lang['L_IMPORT3']="D Konfiguration isch glade...";
 $lang['L_IMPORT4']="D Konfiguration isch gsicheret.";
-$lang['L_IMPORT5']="MySQLDumper starte";
+$lang['L_IMPORT5']="MyOOS [Dumper] starte";
 $lang['L_IMPORT6']="Installations-Menü";
 $lang['L_IMPORT7']="Konfiguration ufelade";
 $lang['L_IMPORT8']="zrugg zum Upload";
@@ -74,5 +74,5 @@ $lang['L_PORT']="Port";
 $lang['L_FOUND_DB']="gfundeni DB:";
 $lang['L_FM_FILEUPLOAD']="Datei ufelade";
 $lang['L_PASS']="Passwort";
-$lang['L_NO_DB_FOUND_INFO']="D Verbindig zur Datebank isch erfolgriich gsi.<br>Ihri Zuegangsdate sind gültig und sind vom MySQL-Server akzeptiert worde.<br>Leider hät de MySQLDumper kei Datebank gfunde.<br>Di automatischi Erkännig isch bi mänge Hoschter gschpeert.<br>Si müend Ihri Datebank nachem Abschluss vo de Installation under em Menüpunkt \"Konfiguration\" \"Verbindigsparameter iiblände\" agäh.<br>Gönd Si bitte sofort nach em Abschluss vo de Installation det hii und träged Si de Name vo Irer Datebank det ii.";
+$lang['L_NO_DB_FOUND_INFO']="D Verbindig zur Datebank isch erfolgriich gsi.<br>Ihri Zuegangsdate sind gültig und sind vom MySQL-Server akzeptiert worde.<br>Leider hät de MyOOS [Dumper] kei Datebank gfunde.<br>Di automatischi Erkännig isch bi mänge Hoschter gschpeert.<br>Si müend Ihri Datebank nachem Abschluss vo de Installation under em Menüpunkt \"Konfiguration\" \"Verbindigsparameter iiblände\" agäh.<br>Gönd Si bitte sofort nach em Abschluss vo de Installation det hii und träged Si de Name vo Irer Datebank det ii.";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";

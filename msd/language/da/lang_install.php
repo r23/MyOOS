@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>Installation gennemført  --> <a href=\"index.php\">start MySQLDumper</a><br>";
+$lang['L_INSTALLFINISHED']="<br>Installation gennemført  --> <a href=\"index.php\">start MyOOS [Dumper]</a><br>";
 $lang['L_INSTALL_TOMENU']="Tilbage til hovedmenu";
 $lang['L_INSTALLMENU']="Hovedmenu";
 $lang['L_STEP']="Trin";
@@ -60,7 +60,7 @@ $lang['L_UI9']="Der opstod en fejl, sletning var ikke muligt</p>Fejl med folder 
 $lang['L_IMPORT']="Import Konfiguration";
 $lang['L_IMPORT3']="Konfiguration blev indlæst ...";
 $lang['L_IMPORT4']="Konfiguration blev gemt.";
-$lang['L_IMPORT5']="Start MySQLDumper";
+$lang['L_IMPORT5']="Start MyOOS [Dumper]";
 $lang['L_IMPORT6']="Installationsmenu";
 $lang['L_IMPORT7']="Upload konfiguration";
 $lang['L_IMPORT8']="tilbage til upload";
@@ -76,9 +76,6 @@ $lang['L_PORT']="Port";
 $lang['L_FOUND_DB']="fundet db:";
 $lang['L_FM_FILEUPLOAD']="Upload fil";
 $lang['L_PASS']="Kodeord";
-$lang['L_NO_DB_FOUND_INFO']="Forbindelsen til databasen blev korrekt etableret.<br> Dine brugerdata er gyldige og blev accepteret af MySQL-serveren.<br> Men MySQLDumper kunne ikke finde nogen database.<br> Den automatiske visning af databaser via script er slået fra på visse servere.<br> Du skal indtaste databasenavnet manuelt efter installationen er færdiggjort. Klik på \"konfiguration\" \"Forbindelsesparametr - vis\" og indtast databasenavnet dér.";
-$lang['L_SAFEMODEDESC']="Because PHP is running in safe_mode you need to create the following directories manually using your FTP-Programm:";
+$lang['L_NO_DB_FOUND_INFO']="Forbindelsen til databasen blev korrekt etableret.<br> Dine brugerdata er gyldige og blev accepteret af MySQL-serveren.<br> Men MyOOS [Dumper] kunne ikke finde nogen database.<br> Den automatiske visning af databaser via script er slået fra på visse servere.<br> Du skal indtaste databasenavnet manuelt efter installationen er færdiggjort. Klik på \"konfiguration\" \"Forbindelsesparametr - vis\" og indtast databasenavnet dér.";
 $lang['L_ENTER_DB_INFO']="First click the button \"Connect to MySQL\". Only if no database could be detected you need to provide a database name here.";
 
-
-?>

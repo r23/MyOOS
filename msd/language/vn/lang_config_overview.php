@@ -112,5 +112,3 @@ $lang['L_BACKUP_DBS_PERL']="CSDL để sao lưu (PERL)";
 $lang['L_CRON_COMMENT']="Nhập ghi chú";
 $lang['L_AUTODETECT']="auto detect";
 
-
-?>

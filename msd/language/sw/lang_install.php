@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>installationen har avslutats --> <a href=\"index.php\">starta MySQLDumper</a><br>";
+$lang['L_INSTALLFINISHED']="<br>installationen har avslutats --> <a href=\"index.php\">starta MyOOS [Dumper]</a><br>";
 $lang['L_INSTALL_TOMENU']="till huvudmenyn";
 $lang['L_INSTALLMENU']="Huvudmeny";
 $lang['L_STEP']="Steg";
@@ -58,7 +58,7 @@ $lang['L_UI9']="Ett fel har uppträtt, radering var ej möjlig.</p>Felet uppträ
 $lang['L_IMPORT']="Importera konfigureringen";
 $lang['L_IMPORT3']="Konfigureringen har laddats ...";
 $lang['L_IMPORT4']="Konfigureringen har sparats.";
-$lang['L_IMPORT5']="Starta MySQLDumper";
+$lang['L_IMPORT5']="Starta MyOOS [Dumper]";
 $lang['L_IMPORT6']="Installationsmenyn";
 $lang['L_IMPORT7']="Konfiguration uploaden";
 $lang['L_IMPORT8']="tillbaka till uppladdningen";
@@ -74,5 +74,5 @@ $lang['L_PORT']="Port";
 $lang['L_FOUND_DB']="hittad databas:";
 $lang['L_FM_FILEUPLOAD']="Ladda upp fil";
 $lang['L_PASS']="Lösenord";
-$lang['L_NO_DB_FOUND_INFO']="Förbindelsen till databasen kunde upprättas.<br>Dina inloggningsinformationer är giltiga har accepterats av MySQL-servern.<br>Tyvärr kunde MySQLDumper inte hitta några databaser.<br>Automatisk detektering spärras av vissa webbhotell.<br>Du måste ange databasen efter installationen, menypunkt \"Konfigurering\" \"Visa förbindelseparametrar\".<br>Genomför detta steg omedelbart efter installationen.";
+$lang['L_NO_DB_FOUND_INFO']="Förbindelsen till databasen kunde upprättas.<br>Dina inloggningsinformationer är giltiga har accepterats av MySQL-servern.<br>Tyvärr kunde MyOOS [Dumper] inte hitta några databaser.<br>Automatisk detektering spärras av vissa webbhotell.<br>Du måste ange databasen efter installationen, menypunkt \"Konfigurering\" \"Visa förbindelseparametrar\".<br>Genomför detta steg omedelbart efter installationen.";
 $lang['L_ENTER_DB_INFO']="Klicka först på knappen \"förbind med mysql\". Endast om denna förbindelse ej fungerar behöver du mata in data här.";

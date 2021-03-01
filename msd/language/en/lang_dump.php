@@ -19,19 +19,19 @@ $lang['L_DUMP_NOTABLES']="No tables found in database `<b>%s</b>` ";
 $lang['L_DUMP_ENDERGEBNIS']="The file contains <b>%s</b> tables with <b>%s</b> records.<br>";
 $lang['L_MAILERROR']="Sending of email failed!";
 $lang['L_EMAILBODY_ATTACH']="The Attachment contains the backup of your MySQL-Database.<br>Backup of Database `%s`
-<br><br>Following File was created:<br><br>%s <br><br>Kind regards<br><br>MySQLDumper<br>";
+<br><br>Following File was created:<br><br>%s <br><br>Kind regards<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_NOATTACH']="A Multipart Backup was created.<br>The Backup files are not attached to this email!<br>Backup of Database `%s`
 <br><br>Following Files were created:<br><br>%s
-<br><br>Kind regards<br><br>MySQLDumper<br>";
+<br><br>Kind regards<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_ATTACH']="A Multipart Backup was created.<br>The Backup files are attached to separate emails.<br>Backup of Database `%s`
-<br><br>Following Files were created:<br><br>%s <br><br>Kind regards<br><br>MySQLDumper<br>";
-$lang['L_EMAILBODY_FOOTER']="`<br><br>Kind regards<br><br>MySQLDumper<br>";
+<br><br>Following Files were created:<br><br>%s <br><br>Kind regards<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_FOOTER']="`<br><br>Kind regards<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_TOOBIG']="The Backup file exceeded the maximum size of %s and was not attached to this email.<br>Backup of Database `%s`
 <br><br>Following File was created:<br><br>%s
-<br><br>Kind regards<br><br>MySQLDumper<br>";
+<br><br>Kind regards<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_NOATTACH']="Files are not attached to this email!<br>Backup of Database `%s`
 <br><br>Following File was created:<br><br>%s
-<br><br>Kind regards<br><br>MySQLDumper<br>";
+<br><br>Kind regards<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAIL_ONLY_ATTACHMENT']=" ... attachment only.";
 $lang['L_TABLESELECTION']="Table selection";
 $lang['L_SELECTALL']="Select All";
@@ -52,6 +52,3 @@ $lang['L_NR_TABLES_SELECTED']="- with %s selected tables";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tables have been optimized.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s errors occured: <a href=\"log.php?r=3\">view</a></p>";
 $lang['L_FATAL_ERROR_DUMP']="Fatal error: the CREATE-Statement of table '%s' in database '%s' couldn't be read!";
-
-
-?>

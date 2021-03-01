@@ -36,7 +36,7 @@ $lang['L_BACK']="tillbaka";
 $lang['L_DB_HOST']="Databas-hostnamn";
 $lang['L_DB_USER']="Databas-användare";
 $lang['L_DB_PASS']="Databas-lösenord";
-$lang['L_INFO_SCRIPTDIR']="Mapp för MySQLDumper";
+$lang['L_INFO_SCRIPTDIR']="Mapp för MyOOS [Dumper]";
 $lang['L_INFO_ACTDB']="Aktuell databas";
 $lang['L_WRONGCONNECTIONPARS']="Fel eller inga förbindelse-parametrar!";
 $lang['L_CONN_NOT_POSSIBLE']="Förbindelse kunde ej upprättas!";
@@ -106,6 +106,3 @@ $lang['L_PAGE_REFRESHS']="sidvisningar";
 $lang['L_MINUTE']="minut";
 $lang['L_SETKEYSFOR']="Set new indexes for table";
 $lang['L_KEY_CONFIRMDELETE']="Really delete index?";
-
-
-?>

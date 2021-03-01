@@ -16,6 +16,3 @@ $lang['L_BACK_TO_OVERVIEW']="Aperçu général des bases de données";
 $lang['L_RESTORE_RUN0']="<br>Jusqu'à présent <b>%s</b> enregistrements ont été enregistrés avec succès.";
 $lang['L_UNKNOWN_SQLCOMMAND']="Commande SQL inconnue";
 $lang['L_NOTICES']="Notices";
-
-
-?>

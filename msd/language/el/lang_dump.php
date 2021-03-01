@@ -19,19 +19,19 @@ $lang['L_DUMP_NOTABLES']="Δε βρέθηκαν πίνακες στη Β.Δεδ�
 $lang['L_DUMP_ENDERGEBNIS']="Το αρχείο περιέχει <b>%s</b> πίνακες με <b>%s</b> εγγραφές.<br>";
 $lang['L_MAILERROR']="Η αποστολή email απέτυχε!";
 $lang['L_EMAILBODY_ATTACH']="Το συννημένο περιέχει αντίγραφο ασφαλείας της Βάσης MySQL.<br>Αντίγραφο της Β.Δεδομένων `%s`
-<br><br>Το παρακάτω αρχείο δημιουργήθηκε:<br><br>%s <br><br>Ευχαριστίες<br><br>MySQLDumper<br>";
+<br><br>Το παρακάτω αρχείο δημιουργήθηκε:<br><br>%s <br><br>Ευχαριστίες<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_NOATTACH']="Ενα αντίγραφο ασφαλείας Multipart δημιουργήθηκε.<br>Τα Αντίγραφα ασφαλείας δεν επισυνάφθηκαν σε αυτό το email!<br>Αντίγραφο της Β.Δεδομένων `%s`
 <br><br>Δημιουργήθηκαν τα παρακάτω αρχεία:<br><br>%s
-<br><br>Ευχαριστίες<br><br>MySQLDumper<br>";
+<br><br>Ευχαριστίες<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_ATTACH']="Δημιουργήθηκε ένα Multipart Αντίγραφο ασφαλείας.<br>Τα Αντίγραφα ασφαλείας επισυνάφθηκαν σε χωριστά emails.<br>Αντίγραφο της Β.Δεδομένων `%s`
-<br><br>Δημιουργήθηκαν τα παρακάτω αρχεία:<br><br>%s <br><br>Ευχαριστίες<br><br>MySQLDumper<br>";
-$lang['L_EMAILBODY_FOOTER']="`<br><br>Ευχαριστώ<br><br>MySQLDumper<br>";
+<br><br>Δημιουργήθηκαν τα παρακάτω αρχεία:<br><br>%s <br><br>Ευχαριστίες<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_FOOTER']="`<br><br>Ευχαριστώ<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_TOOBIG']="Το αντίγραφο ασφαλείας έχει υπερβεί το μέγιστο μέγεθος %s και δεν επισυνάφθηκε σε αυτό το email.<br>Αντίγραφο της Β.Δεδομένων `%s`
 <br><br>Δημιουργήθηκε το παρακάτω αρχείο:<br><br>%s
-<br><br>Ευχαριστίες<br><br>MySQLDumper<br>";
+<br><br>Ευχαριστίες<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_NOATTACH']="Τα αρχεία δεν επισυνάφθηκαν σε αυτό το email!<br>Αντίγραφο της Β.Δεδομένων `%s`
 <br><br>Δημιουργήθηκε το παρακάτω αρχείο:<br><br>%s
-<br><br>Ευχαριστίες<br><br>MySQLDumper<br>";
+<br><br>Ευχαριστίες<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAIL_ONLY_ATTACHMENT']=" ... συννημένο μόνο.";
 $lang['L_TABLESELECTION']="Επιλογή πίνακα";
 $lang['L_SELECTALL']="Επιλογή όλων";
@@ -52,6 +52,3 @@ $lang['L_NR_TABLES_SELECTED']="- με %s επιλεγμένους πίνακες
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s πίνακες έχουν βελτιστοποιηθεί.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s σφάλματα παρουσιάστηκαν: <a href=\"log.php?r=3\">view</a></p>";
 $lang['L_FATAL_ERROR_DUMP']="Γενικό Σφάλμα: Η δήλωση CREATE-Statement του πίνακα '%s' στη Β.Δεδομένων '%s' δε μπορεί να διαβαστεί!";
-
-
-?>

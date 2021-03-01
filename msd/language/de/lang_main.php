@@ -77,5 +77,3 @@ $lang['L_PHP_EXTENSIONS']="PHP-Erweiterungen";
 $lang['L_MEMORY']="Speicher";
 $lang['L_FILE_MISSING']="konnte Datei nicht finden";
 
-
-?>

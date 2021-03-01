@@ -19,19 +19,19 @@ $lang['L_DUMP_NOTABLES']="Nenhuma tabela foi encontrada no banco de dados `<b>%s
 $lang['L_DUMP_ENDERGEBNIS']="O arquivo contém <b>%s</b> tabela(s) com <b>%s</b> registro(s).<br>";
 $lang['L_MAILERROR']="O envio do email falhou!";
 $lang['L_EMAILBODY_ATTACH']="O anexo contém o backup do seu banco de dados MySQL.<br>Backup do banco de dados `%s`
-<br><br>O seguinte arquivo foi criado:<br><br>%s <br><br>Atenciosamente<br><br>MySQLDumper<br>";
+<br><br>O seguinte arquivo foi criado:<br><br>%s <br><br>Atenciosamente<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_NOATTACH']="Um backup Multi-parte foi criad.<br>Os arquivos não estão anexados a este email!<br>Backup do banco de dados `%s`
 <br><br>Os seguintes arquivos foram criados:<br><br>%s
-<br><br>Atenciosamente<br><br>MySQLDumper<br>";
+<br><br>Atenciosamente<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_ATTACH']="Um backup Multi-parte foi criado.<br>Os arquivos de backup estão anexados em emails separados.<br>Backup do banco de dados `%s`
-<br><br>Os seguintes arquivos foram criados:<br><br>%s <br><br>Atenciosamente<br><br>MySQLDumper<br>";
-$lang['L_EMAILBODY_FOOTER']="`<br><br>Atenciosamente<br><br>MySQLDumper<br>";
+<br><br>Os seguintes arquivos foram criados:<br><br>%s <br><br>Atenciosamente<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_FOOTER']="`<br><br>Atenciosamente<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_TOOBIG']="O arquivo de backup excedeu o tamanho máximo de %s e não foi anexado a este email.<br>Backup do banco de dados `%s`
 <br><br>O seguinte arquivo foi criado:<br><br>%s
-<br><br>Atenciosamente<br><br>MySQLDumper<br>";
+<br><br>Atenciosamente<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_NOATTACH']="Os arquivos não estão anexados a este email!<br>Backup do banco de dados `%s`
 <br><br>O seguinte arquivo foi criado:<br><br>%s
-<br><br>Atenciosamente<br><br>MySQLDumper<br>";
+<br><br>Atenciosamente<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAIL_ONLY_ATTACHMENT']=" ... somente anexos.";
 $lang['L_TABLESELECTION']="Seleção de tabela";
 $lang['L_SELECTALL']="Selecionar tudo";
@@ -52,6 +52,3 @@ $lang['L_NR_TABLES_SELECTED']="- com %s tabelas selecionadas";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tabelas foram otimizadas.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s erros ocorreram: <a href=\"log.php?r=3\">verdere</a></p>";
 $lang['L_FATAL_ERROR_DUMP']="Fatal error: the CREATE-Statement of table '%s' in database '%s' couldn't be read!";
-
-
-?>

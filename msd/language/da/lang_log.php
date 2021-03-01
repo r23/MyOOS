@@ -7,6 +7,3 @@ $lang['L_REVERSE']="Seneste indlæg først
 
 
 ";
-
-
-?>

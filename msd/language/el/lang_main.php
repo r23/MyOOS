@@ -68,13 +68,10 @@ $lang['L_TABLE_TYPE']="Τύπος";
 $lang['L_CHECK']="έλεγχος";
 $lang['L_HTACC_SHA1']="SHA1(όλα τα συστήματα)";
 $lang['L_OS']="Λειτουργικό Σύστημα";
-$lang['L_MSD_VERSION']="Εκδοση MySQLDumper";
+$lang['L_MSD_VERSION']="Εκδοση MyOOS [Dumper]";
 $lang['L_MYSQL_VERSION']="Εκδοση MySQL";
 $lang['L_PHP_VERSION']="Εκδοση PHP";
 $lang['L_MAX_EXECUTION_TIME']="Μεγ. χρόνος εκτέλεσης";
 $lang['L_PHP_EXTENSIONS']="Επεκτάσεις PHP";
 $lang['L_MEMORY']="Μνήμη";
 $lang['L_FILE_MISSING']="δε βρέθηκε το αρχείο";
-
-
-?>

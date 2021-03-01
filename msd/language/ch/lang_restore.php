@@ -16,6 +16,3 @@ $lang['L_BACK_TO_OVERVIEW']="Datebank-Übersicht";
 $lang['L_RESTORE_RUN0']="<br>Es sind bis ez <b>%s</b> Datesätz erfolgriich iitreit worde.";
 $lang['L_UNKNOWN_SQLCOMMAND']="Unbekannte SQL-Befehl:";
 $lang['L_NOTICES']="Hiiwis";
-
-
-?>

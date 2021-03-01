@@ -7,6 +7,3 @@ $lang['L_REVERSE']="Mới lên trên
 
 
 ";
-
-
-?>

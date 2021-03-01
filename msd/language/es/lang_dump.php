@@ -19,17 +19,17 @@ $lang['L_DUMP_NOTABLES']="No se han encontrado tablas en la base de datos `<b>%s
 $lang['L_DUMP_ENDERGEBNIS']="<b>%s</b> Tablas con un total de <b>%s</b> registros, han sido guardadas con éxito.<br>";
 $lang['L_MAILERROR']="Se ha producido un error al intentar enviar el email!";
 $lang['L_EMAILBODY_ATTACH']="En el fichero adjunto encontrará la copia de seguridad de su base de datos MySQL.<br>Copia de seguridad de la base de datos `%s`
-<br><br>Se ha creado el siguiente archivo:<br><br>%s <br><br><br>Saludos de<br><br>MySQLDumper<br>";
+<br><br>Se ha creado el siguiente archivo:<br><br>%s <br><br><br>Saludos de<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_NOATTACH']="Se ha realizado un backup de archivos múltiples.<br>Los archivos no se adjuntan a este email!<br>Copia de seguridad de la base de datos `%s`
 <br><br>Los siguientes archivos han sido adjuntados:<br><br>%s
-<br><br><br>Saludos de<br><br>MySQLDumper<br>";
+<br><br><br>Saludos de<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_ATTACH']="Se ha realizado un backup de archivos múltiples.<br>Los archivos se adjuntan a emails separados!<br>Copia de seguridad de la base de datos `%s`
-<br><br>Los siguientes archivos han sido adjuntados:<br><br>%s <br><br><br>Saludos de<br><br>MySQLDumper<br>";
-$lang['L_EMAILBODY_FOOTER']="<br><br><br>Saludos de<br><br>MySQLDumper<br>";
+<br><br>Los siguientes archivos han sido adjuntados:<br><br>%s <br><br><br>Saludos de<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_FOOTER']="<br><br><br>Saludos de<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_TOOBIG']="La copia de seguridad ha sobrepasado el tamaño máximo de %s y por lo tanto no ha sido adjuntada.<br>Copia de seguridad de la base de datos `%s`
-<br><br>Se ha creado el siguiente archivo:<br><br>%s <br><br><br>Saludos de<br><br>MySQLDumper<br>";
+<br><br>Se ha creado el siguiente archivo:<br><br>%s <br><br><br>Saludos de<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_NOATTACH']="No se adjunta el archivo de copia de seguridad.<br>Copia de seguridad de la base de datos `%s`
-<br><br>Se ha creado el siguiente archivo:<br><br>%s <br><br><br>Saludos de<br><br>MySQLDumper<br>";
+<br><br>Se ha creado el siguiente archivo:<br><br>%s <br><br><br>Saludos de<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAIL_ONLY_ATTACHMENT']=" ... solamente el fichero adjunto";
 $lang['L_TABLESELECTION']="Elección de tablas";
 $lang['L_SELECTALL']="seleccionar todas
@@ -51,6 +51,3 @@ $lang['L_NR_TABLES_SELECTED']="- con %s tablas seleccionadas";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tablas optimizadas.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">Ha(n) ocurrido %s error(es): <a href=\"log.php?r=3\">visualizar</a></p>";
 $lang['L_FATAL_ERROR_DUMP']="¡Error fatal: las instrucciones para crear la tabla '%s' en la base de datos '%s' no se pueden leer!";
-
-
-?>

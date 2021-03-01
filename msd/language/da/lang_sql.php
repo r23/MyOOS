@@ -187,6 +187,3 @@ $lang['L_KEY_DELETED']="Index deleted";
 $lang['L_KEY_DELETEERROR']="Error deleting index";
 $lang['L_KEY_ADDED']="Index added";
 $lang['L_KEY_ADDERROR']="Error adding index";
-
-
-?>

@@ -27,6 +27,3 @@ $lang['L_CRON_EXECPATH']="Ubicación del Cronscript.";
 $lang['L_HELP_CRONCOMPLETELOG']="Si está activada, se guardará el detalle completo de la operación en complete_log.
 Ésta función es independiente de la salida de texto.";
 $lang['L_HELP_FTP_MODE']="Si experimenta cualquier problema con la transferencia por FTP, intente utilizar el modo pasivo.";
-
-
-?>

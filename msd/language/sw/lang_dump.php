@@ -19,14 +19,14 @@ $lang['L_DUMP_NOTABLES']="Inga tabeller hittades i databasen `<b>%s</b>`.";
 $lang['L_DUMP_ENDERGEBNIS']="<b>%s</b> tabeller med totalt <b>%s</b> dataposter har säkrats.<br>";
 $lang['L_MAILERROR']="Tyvärr uppträdde ett fel när epostmeddelandet skickades!";
 $lang['L_EMAILBODY_ATTACH']="Här kommer backupen av din MySQLdatabas.<br>Backup av databasen `%s`
-<br><br>Följande fil har skapats:<br><br>%s <br><br>Med vänliga hälsningar<br><br>MySQLDumper<br>";
+<br><br>Följande fil har skapats:<br><br>%s <br><br>Med vänliga hälsningar<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_NOATTACH']="En multipart-backup har skapats.<br>Backuperna levereras EJ som bilaga i mail!<br>Backup av databasen `%s`
-<br><br>Följande filer har skapats:<br><br>%s<br><br><br>Med vänliga hälsningar<br><br>MySQLDumper<br>";
+<br><br>Följande filer har skapats:<br><br>%s<br><br><br>Med vänliga hälsningar<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAILBODY_MP_ATTACH']="En multipart-backup har skapats.<br>Backupen levereras i separata mail!<br>Backup av databasen `%s`
-<br><br>Följande filer har skapats:<br><br>%s<br><br><br>Med vänliga hälsningar<br><br>MySQLDumper<br>";
-$lang['L_EMAILBODY_FOOTER']="<br><br><br>Med vänliga hälsningar<br><br>MySQLDumper<br>";
-$lang['L_EMAILBODY_TOOBIG']="Backupen överskrider den maximala storleken på %s och har därför ej bifogats.<br>Backup av databasen `%s` <br><br>Följande fil har skapats:<br><br>%s <br><br>Vänliga hälsningar<br>Din MySQLDumper<br>";
-$lang['L_EMAILBODY_NOATTACH']="Backuperna levereras EJ som bilaga i mail!<br>Backup av databasen `%s` <br><br>Följande filer har skapats:<br><br>%s<br><br><br>Med vänliga hälsningar<br><br>MySQLDumper<br>";
+<br><br>Följande filer har skapats:<br><br>%s<br><br><br>Med vänliga hälsningar<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_FOOTER']="<br><br><br>Med vänliga hälsningar<br><br>MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_TOOBIG']="Backupen överskrider den maximala storleken på %s och har därför ej bifogats.<br>Backup av databasen `%s` <br><br>Följande fil har skapats:<br><br>%s <br><br>Vänliga hälsningar<br>Din MyOOS [Dumper]<br>";
+$lang['L_EMAILBODY_NOATTACH']="Backuperna levereras EJ som bilaga i mail!<br>Backup av databasen `%s` <br><br>Följande filer har skapats:<br><br>%s<br><br><br>Med vänliga hälsningar<br><br>MyOOS [Dumper]<br>";
 $lang['L_EMAIL_ONLY_ATTACHMENT']="... endast bilagan";
 $lang['L_TABLESELECTION']="Välj tabeller";
 $lang['L_SELECTALL']="markera alla";
@@ -47,6 +47,3 @@ $lang['L_NR_TABLES_SELECTED']="- med %s valda tabeller";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tabeller har optimerats.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s fel har uppträtt: <a href=\"log.php?r=3\">visa</a></p>";
 $lang['L_FATAL_ERROR_DUMP']="Kritiskt fel: CREATE-kommandot i tabellen '%s' i databasen '%s' kunde ej läsas!";
-
-
-?>

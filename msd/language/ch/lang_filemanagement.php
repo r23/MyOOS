@@ -69,7 +69,6 @@ $lang['L_MAX_UPLOAD_SIZE']="Maximali Dateigrössi";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Wänn Ihri Backup-Datei grösser als das agebne Limit isch, müend Si diä per FTP in \"work/backup\"-Ordner ufelade. Dänn wird diä Datei, do i de Verwaltig aazeigt und laht sich dänn für en Reschtaurierig uswähle.";
 $lang['L_ENCODING']="Kodierig";
 $lang['L_FM_CHOOSE_ENCODING']="Kodierig vo de Backupdatei wähle";
-$lang['L_CHOOSE_CHARSET']="Leider hät nöd chöne automatich ermittlet mit welem Zeichesatz diä Backupdatei sinerziit aagleit worde isch.<br> Sie müend diä Kodierig, i dere Zeichechette i dere Datei sind, vo Hand aagäh.<br>Dänn stellt MySQLDumper diä Verbindigskännig zum MySQL-Server uf de usgwählti Zeichesatz und fangt mit de Reschtaurierig vo de Date a.>br>Sötted Si nach de Reschtaurierig Problem mit Sonderzeiche ha, chönd Si probiere, das Backup mit ere andere Zeichesatzuswahl z reschtauriere.<br> Vill Glück. ;)";
+$lang['L_CHOOSE_CHARSET']="Leider hät nöd chöne automatich ermittlet mit welem Zeichesatz diä Backupdatei sinerziit aagleit worde isch.<br> Sie müend diä Kodierig, i dere Zeichechette i dere Datei sind, vo Hand aagäh.<br>Dänn stellt MyOOS [Dumper] diä Verbindigskännig zum MySQL-Server uf de usgwählti Zeichesatz und fangt mit de Reschtaurierig vo de Date a.>br>Sötted Si nach de Reschtaurierig Problem mit Sonderzeiche ha, chönd Si probiere, das Backup mit ere andere Zeichesatzuswahl z reschtauriere.<br> Vill Glück. ;)";
 $lang['L_DOWNLOAD_FILE']="Download file";
 $lang['L_BACKUP_NOT_POSSIBLE'] = "A backup of the system database `%s` is not possible!";
-?>

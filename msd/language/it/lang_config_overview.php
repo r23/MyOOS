@@ -109,5 +109,3 @@ $lang['L_BACKUP_DBS_PERL']="database di cui fare il backup (PERL)";
 $lang['L_CRON_COMMENT']="Inserisci commento";
 $lang['L_AUTODETECT']="riconoscimento automatico";
 
-
-?>

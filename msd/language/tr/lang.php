@@ -36,7 +36,7 @@ $lang['L_BACK']="geri";
 $lang['L_DB_HOST']="Veritabanı sunucusunun adı";
 $lang['L_DB_USER']="Veritabanı kullanıcısı";
 $lang['L_DB_PASS']="Veritabanı şifresi";
-$lang['L_INFO_SCRIPTDIR']="MySQLDumper Veriyolu";
+$lang['L_INFO_SCRIPTDIR']="MyOOS [Dumper] Veriyolu";
 $lang['L_INFO_ACTDB']="Geçerli Veritabanı";
 $lang['L_WRONGCONNECTIONPARS']="Bağlantı parametreleri verilmemiş veya hatalı!";
 $lang['L_CONN_NOT_POSSIBLE']="Bağlantı kurulamıyor";
@@ -106,6 +106,3 @@ $lang['L_PAGE_REFRESHS']="Page refreshs";
 $lang['L_MINUTE']="Minute";
 $lang['L_SETKEYSFOR']="Set new indexes for table";
 $lang['L_KEY_CONFIRMDELETE']="Really delete index?";
-
-
-?>

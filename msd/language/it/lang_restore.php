@@ -16,6 +16,3 @@ $lang['L_BACK_TO_OVERVIEW']="Riepilogo database";
 $lang['L_RESTORE_RUN0']="<br>Finora sono stati aggiunti con successo da <b>%s</b> a <b>%s</b> record.";
 $lang['L_UNKNOWN_SQLCOMMAND']="Comando SQL sconosciuto.";
 $lang['L_NOTICES']="Avvisi";
-
-
-?>

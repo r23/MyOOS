@@ -16,6 +16,3 @@ $lang['L_BACK_TO_OVERVIEW']="vista de base de datos";
 $lang['L_RESTORE_RUN0']="Hasta el momento, se han recuperado <b>%s</b> de tablas.";
 $lang['L_UNKNOWN_SQLCOMMAND']="comando SQL desconocido";
 $lang['L_NOTICES']="Avisos";
-
-
-?>

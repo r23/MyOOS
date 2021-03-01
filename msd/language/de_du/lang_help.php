@@ -32,6 +32,3 @@ $lang['L_CRON_EXECPATH']="Pfad der Perlskripte";
 $lang['L_HELP_CRONCOMPLETELOG']="Wenn die Funktion aktiviert ist, wird die komplette Ausgabe im complete_log geschrieben. 
 Diese Funktion ist unabhängig von der Textausgabe.";
 $lang['L_HELP_FTP_MODE']="Wenn Probleme bei der FTP-Übertragung auftauchen, versuche den passiven FTP-Modus.";
-
-
-?>

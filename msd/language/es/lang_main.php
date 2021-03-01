@@ -66,13 +66,10 @@ $lang['L_TABLE_TYPE']="Tipo";
 $lang['L_CHECK']="comprobar";
 $lang['L_HTACC_SHA1']="SHA1 (todos los sistemas)";
 $lang['L_OS']="Operating system";
-$lang['L_MSD_VERSION']="MySQLDumper-Versión";
+$lang['L_MSD_VERSION']="MyOOS [Dumper]-Versión";
 $lang['L_MYSQL_VERSION']="MySQL-Versión";
 $lang['L_PHP_VERSION']="PHP-Versión";
 $lang['L_MAX_EXECUTION_TIME']="El máximo de ejecución";
 $lang['L_PHP_EXTENSIONS']="Extensiones de PHP";
 $lang['L_MEMORY']="Memoria";
 $lang['L_FILE_MISSING']="no se encuentra el fichero";
-
-
-?>

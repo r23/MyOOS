@@ -70,10 +70,9 @@ $lang['L_MAX_UPLOAD_SIZE_INFO']="Si el archivo de copia de seguridad es mayor qu
 Después ese archivo se mostrará aquí, y podrá ser elegido para restaurar.";
 $lang['L_ENCODING']="Codificación";
 $lang['L_FM_CHOOSE_ENCODING']="Seleccione la codificación de la copia de seguridad";
-$lang['L_CHOOSE_CHARSET']="MySQLDumper no pudo detectar la codificación de los archivos de la copia de seguridad de forma automática.<br>
+$lang['L_CHOOSE_CHARSET']="MyOOS [Dumper] no pudo detectar la codificación de los archivos de la copia de seguridad de forma automática.<br>
 Usted debe elegir el conjunto de caracteres con el que se guardó la copia de seguridad.<br>
 Si usted descubre algún problema con algunos caracteres después de la restauración, puede repetir la restauración de la copia de seguridad con otro conjunto de caracteres. <br>
 Buena suerte. ;)";
 $lang['L_DOWNLOAD_FILE']="Descargos ficheros";
 $lang['L_BACKUP_NOT_POSSIBLE'] = "A backup of the system database `%s` is not possible!";
-?>

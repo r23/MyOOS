@@ -36,7 +36,7 @@ $lang['L_BACK']="zurück";
 $lang['L_DB_HOST']="Datenbank-Hostname";
 $lang['L_DB_USER']="Datenbank-Benutzer";
 $lang['L_DB_PASS']="Datenbank-Passwort";
-$lang['L_INFO_SCRIPTDIR']="Verzeichnis von MySQLDumper";
+$lang['L_INFO_SCRIPTDIR']="Verzeichnis von MyOOS [Dumper]";
 $lang['L_INFO_ACTDB']="Aktuelle Datenbank";
 $lang['L_WRONGCONNECTIONPARS']="Falsche oder keine Verbindungsparameter!";
 $lang['L_CONN_NOT_POSSIBLE']="Verbindung nicht möglich!";
@@ -107,5 +107,3 @@ $lang['L_MINUTE']="Minute";
 $lang['L_SETKEYSFOR']="Setzen neuer Indizes für die Tabelle";
 $lang['L_KEY_CONFIRMDELETE']="Index wirklich löschen?";
 
-
-?>

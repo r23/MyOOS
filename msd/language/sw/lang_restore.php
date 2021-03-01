@@ -16,6 +16,3 @@ $lang['L_BACK_TO_OVERVIEW']="Databasöversikt";
 $lang['L_RESTORE_RUN0']="<br>Hittills har <b>%s</b> dataposter överförts.";
 $lang['L_UNKNOWN_SQLCOMMAND']="Okänt SQL-kommando:";
 $lang['L_NOTICES']="Hänvisningar";
-
-
-?>

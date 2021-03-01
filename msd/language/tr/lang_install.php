@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>Kurulum tamamlanmıştır   --> <a href=\"index.php\">MySQLDumper'i başlat </a><br>";
+$lang['L_INSTALLFINISHED']="<br>Kurulum tamamlanmıştır   --> <a href=\"index.php\">MyOOS [Dumper]'i başlat </a><br>";
 $lang['L_INSTALL_TOMENU']="Ana Menüye geç";
 $lang['L_INSTALLMENU']="Ana Menüsü";
 $lang['L_STEP']="Adım";
@@ -59,7 +59,7 @@ $lang['L_UI9']="Hata oluştu, silme işlemi uygulanamadı</p>Hatanın oluştuğu
 $lang['L_IMPORT']="Ayarları ithal et";
 $lang['L_IMPORT3']="Ayarlar yüklendi...";
 $lang['L_IMPORT4']="Ayarlar yedeklendi.";
-$lang['L_IMPORT5']="MySQLDumper'i başlat";
+$lang['L_IMPORT5']="MyOOS [Dumper]'i başlat";
 $lang['L_IMPORT6']="Kurulum menüsü";
 $lang['L_IMPORT7']="Ayarları yükle";
 $lang['L_IMPORT8']="Yüklemeye geri dön";

@@ -73,4 +73,3 @@ $lang['L_FM_CHOOSE_ENCODING']="alınacak yedeğin karakter setini seçin";
 $lang['L_CHOOSE_CHARSET']="Maalesef veritabanı yedeğinin hangi karakter seti ile kodlandığını otomatik olarak bulunmadı<br>Hangi karakter setini kullandıysanız onu seçip elle vermeniz gerekiyor.Daha sonra MYSQLDumper veritabanı serveri ile irtibata gecip yedeği yüklemeye başlıyacaktır.<br>Eğer yedek yüklendikten sonra karakter sorunu devam ediyorsa başka bir karakter seti seçip tekrar denemeniz gerekiyor.<br> Bol şans ;)";
 $lang['L_DOWNLOAD_FILE']="Dosya indir";
 $lang['L_BACKUP_NOT_POSSIBLE'] = "A backup of the system database `%s` is not possible!";
-?>

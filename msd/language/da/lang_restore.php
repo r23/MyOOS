@@ -16,6 +16,3 @@ $lang['L_BACK_TO_OVERVIEW']="Database-oversigt";
 $lang['L_RESTORE_RUN0']="<br>foreløbigt er der korrekt tilføjet <b>%s</b> poster.";
 $lang['L_UNKNOWN_SQLCOMMAND']="ukendt SQL-kommando";
 $lang['L_NOTICES']="Bemærkninger";
-
-
-?>

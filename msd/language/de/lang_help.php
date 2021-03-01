@@ -35,6 +35,3 @@ $lang['L_HELP_FTP_MODE']="Wenn Probleme bei der FTP-Übertragung auftauchen, ver
 
 
 ";
-
-
-?>

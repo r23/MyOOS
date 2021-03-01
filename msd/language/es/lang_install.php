@@ -1,5 +1,5 @@
 <?php
-$lang['L_INSTALLFINISHED']="<br>La Instalación ha terminado --> <a href=\"index.php\">MySQLDumper</a><br>";
+$lang['L_INSTALLFINISHED']="<br>La Instalación ha terminado --> <a href=\"index.php\">MyOOS [Dumper]</a><br>";
 $lang['L_INSTALL_TOMENU']="al menú principal";
 $lang['L_INSTALLMENU']="Menú principal";
 $lang['L_STEP']="Paso";
@@ -60,7 +60,7 @@ $lang['L_UI9']="Se ha producido un error, no ha sido posible eliminarlo</p>Error
 $lang['L_IMPORT']="importar configuración";
 $lang['L_IMPORT3']="La configuración ha sido cargada ...";
 $lang['L_IMPORT4']="La configuración ha sido guardada.";
-$lang['L_IMPORT5']="Iniciar MySQLDumper";
+$lang['L_IMPORT5']="Iniciar MyOOS [Dumper]";
 $lang['L_IMPORT6']="Menú de instalación";
 $lang['L_IMPORT7']="subir configuración";
 $lang['L_IMPORT8']="volver a subir";
@@ -78,7 +78,7 @@ $lang['L_FM_FILEUPLOAD']="Subir archivo";
 $lang['L_PASS']="Password";
 $lang['L_NO_DB_FOUND_INFO']="The connection to the database was successfully established.<br>
 Your userdata is valid and was accepted by the MySQL-Server.<br>
-But MySQLDumper was not able to find any database.<br>
+But MyOOS [Dumper] was not able to find any database.<br>
 The automatic detection via script is blocked on some server.<br>
 You must enter your databasename manually after the installation is finished.
 Click on \"configuration\" \"Connection Parameter - display\" and enter the databasename there.";

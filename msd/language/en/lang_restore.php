@@ -16,6 +16,3 @@ $lang['L_BACK_TO_OVERVIEW']="Database Overview";
 $lang['L_RESTORE_RUN0']="<br>up to now <b>%s</b> records were successfully added.";
 $lang['L_UNKNOWN_SQLCOMMAND']="unknown SQL-Command";
 $lang['L_NOTICES']="Notices";
-
-
-?>

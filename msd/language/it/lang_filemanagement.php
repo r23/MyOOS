@@ -69,7 +69,6 @@ $lang['L_MAX_UPLOAD_SIZE']="Grandezza massima del file";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Se il tuo file di backup è piu grande del limite impostato, allora lo devi caricare tramite FTP nella cartella \"work/backup\". Dopo verrà visualizzato e potrà essere scelto per il ripristino.";
 $lang['L_ENCODING']="codifica";
 $lang['L_FM_CHOOSE_ENCODING']="Scegli la codifica del file di backup";
-$lang['L_CHOOSE_CHARSET']="MySQLDumper non ha rilevato automaticamente il codice del seti di caratteri utilizzato nel file di backup creato in precedenza.<br> Devi inserire manualmente il set di caratteri standard con cui è stato salvato questo backup.<br> Dopo aver fatto questo, MySQLDumper effettuerà la connessione verso il MySQL-Server contenente il set di caretteri scelto e avvierà il ripristino dei dati. Se dopo il ripristono si presentassero problemi nella visualizzazione dei caratteri speciali, sarà opportuno ripetere la procedura di ripistino scegliendo un altro set di caratteri.<br>Buona fortuna.;)";
+$lang['L_CHOOSE_CHARSET']="MyOOS [Dumper] non ha rilevato automaticamente il codice del seti di caratteri utilizzato nel file di backup creato in precedenza.<br> Devi inserire manualmente il set di caratteri standard con cui è stato salvato questo backup.<br> Dopo aver fatto questo, MyOOS [Dumper] effettuerà la connessione verso il MySQL-Server contenente il set di caretteri scelto e avvierà il ripristino dei dati. Se dopo il ripristono si presentassero problemi nella visualizzazione dei caratteri speciali, sarà opportuno ripetere la procedura di ripistino scegliendo un altro set di caratteri.<br>Buona fortuna.;)";
 $lang['L_DOWNLOAD_FILE']="Scarica file";
 $lang['L_BACKUP_NOT_POSSIBLE'] = "A backup of the system database `%s` is not possible!";
-?>

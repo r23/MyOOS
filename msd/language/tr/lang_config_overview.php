@@ -109,6 +109,3 @@ $lang['L_BACKUP_DBS_PHP']="yedeklenecek veritabanları (PHP)";
 $lang['L_BACKUP_DBS_PERL']="yedeklenecek veritabanları (PERL)";
 $lang['L_CRON_COMMENT']="Not ekle";
 $lang['L_AUTODETECT']="otomatik bul";
-
-
-?>

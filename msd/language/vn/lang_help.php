@@ -34,6 +34,3 @@ $lang['L_HELP_FTP_MODE']="Khi có vấn đề xuất hiện với việc chuyể
 
 
 ";
-
-
-?>

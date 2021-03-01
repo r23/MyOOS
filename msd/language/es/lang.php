@@ -36,7 +36,7 @@ $lang['L_BACK']="atrás";
 $lang['L_DB_HOST']="Host";
 $lang['L_DB_USER']="Usuario";
 $lang['L_DB_PASS']="Password";
-$lang['L_INFO_SCRIPTDIR']="Directorio de MySQLDumper";
+$lang['L_INFO_SCRIPTDIR']="Directorio de MyOOS [Dumper]";
 $lang['L_INFO_ACTDB']="Base de datos actual";
 $lang['L_WRONGCONNECTIONPARS']="Conexión errónea o sin parámetros !";
 $lang['L_CONN_NOT_POSSIBLE']="Conexión imposible !";
@@ -106,6 +106,3 @@ $lang['L_PAGE_REFRESHS']="Page refreshs";
 $lang['L_MINUTE']="Minute";
 $lang['L_SETKEYSFOR']="Set new indexes for table";
 $lang['L_KEY_CONFIRMDELETE']="Really delete index?";
-
-
-?>
