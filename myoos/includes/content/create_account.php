@@ -227,7 +227,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$customers_login = '1';
 		}
 
-		$time = mktime();
 		$wishlist_link_id = oos_create_wishlist_code();
 
 		if ($_SESSION['guest_account'] == 1) {
