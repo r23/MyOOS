@@ -1601,75 +1601,67 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
 
 	// (Re)create it, if it's gone missing
-	if ( !is_object( $oEmail ) || !is_a( $oEmail, 'PHPMailer' ) ) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
-		// Instantiate a new mail object
-		$oEmail = new PHPMailer( true );
+    if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/PHPMailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/SMTP.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/Exception.php';
+		$phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
+
+		$phpmailer::$validator = static function ( $to_email_address ) {
+			return (bool) is_email( $to_email_address );
+		};
 	}
 
-	// Empty out the values that may be set
-	$oEmail->ClearAllRecipients();
-	$oEmail->ClearAttachments();
-	$oEmail->ClearCustomHeaders();
-	$oEmail->ClearReplyTos();
+	//To load the French version
+	$phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/language/');
 
-    $oEmail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
-    $oEmail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
-    $oEmail->CharSet = CHARSET;
 
-    $oEmail->IsMail();
+	// Empty out the values that may be set.
+	$phpmailer->clearAllRecipients();
+	$phpmailer->clearAttachments();
+	$phpmailer->clearCustomHeaders();
+	$phpmailer->clearReplyTos();
 
-    $oEmail->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
-    $oEmail->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
-    $oEmail->Mailer = EMAIL_TRANSPORT;
+    $phpmailer->IsMail();
+
+    $phpmailer->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
+    $phpmailer->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
+    $phpmailer->Mailer = EMAIL_TRANSPORT;
 
     // Add smtp values if needed
     if ( EMAIL_TRANSPORT == 'smtp' ) {
-      $oEmail->IsSMTP(); // set mailer to use SMTP
-      $oEmail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-      $oEmail->Username = OOS_SMTPUSER; // SMTP username
-      $oEmail->Password = OOS_SMTPPASS; // SMTP password
-      $oEmail->Host     = OOS_SMTPHOST; // specify main and backup server
-    } elseif ( EMAIL_TRANSPORT == 'sendmail' ) {
-        if (!oos_empty(OOS_SENDMAIL)) {
-          $oEmail->Sendmail = OOS_SENDMAIL;
-          $oEmail->IsSendmail();
-        }
-    }
-
-
-    $oEmail->AddAddress($to_email_address, $to_name);
-    $oEmail->Subject = $subject;
-
-
-    // Build the text version
-    if (EMAIL_USE_HTML == 'true') {
-		$oEmail->IsHTML(true);
-		$oEmail->Body = $email_html;
-		$oEmail->AltBody = $email_text;
+		$phpmailer->IsSMTP(); // set mailer to use SMTP
+		$phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+		$phpmailer->Username = OOS_SMTPUSER; // SMTP username
+		$phpmailer->Password = OOS_SMTPPASS; // SMTP password
+		$phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
     } else {
-		$oEmail->IsHTML(false);
-		$oEmail->Body = $email_text;
-    }
-
-
-	if ( !empty( $attachments ) ) {
-		foreach ( $attachments as $attachment ) {
-			try {
-				$oEmail->AddAttachment($attachment);
-			} catch ( phpmailerException $e ) {
-				continue;
+		// Set sendmail path
+		if ( EMAIL_TRANSPORT == 'sendmail' ) {
+			if (!oos_empty(OOS_SENDMAIL)) {
+				$phpmailer->Sendmail = OOS_SENDMAIL;
+				$phpmailer->IsSendmail();
 			}
 		}
 	}
 
-	// Send!
-	try {
-		return $oEmail->Send();
-	} catch ( phpmailerException $e ) {
-		return FALSE;
-	}
+    $phpmailer->AddAddress($to_email_address, $to_name);
+    $phpmailer->Subject = $email_subject;
+
+
+    // Build the text version
+    $text = strip_tags($email_text);
+    if (EMAIL_USE_HTML == 'true') {
+		$phpmailer->IsHTML(true);
+		$phpmailer->Body = $email_text;
+		$phpmailer->AltBody = $text;
+    } else {
+		$phpmailer->Body = $text;
+    }
+
+	// Send message
+    $phpmailer->Send();
+
 }
 
 function oos_newsletter_subscribe_mail ($email_address) {
