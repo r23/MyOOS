@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'ed5c9c08298cbfb3915ddde898ccf4252ee18ee2',
+    'reference' => 'd272eb531239ad587d6ab48f855d1256dad9f3e2',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -227,7 +227,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'ed5c9c08298cbfb3915ddde898ccf4252ee18ee2',
+      'reference' => 'd272eb531239ad587d6ab48f855d1256dad9f3e2',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -274,12 +274,12 @@ private static $installed = array (
     ),
     'phpoffice/phpspreadsheet' => 
     array (
-      'pretty_version' => '1.16.0',
-      'version' => '1.16.0.0',
+      'pretty_version' => '1.17.1',
+      'version' => '1.17.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '76d4323b85129d0c368149c831a07a3e258b2b50',
+      'reference' => 'c55269cb06911575a126dc225a05c0e4626e5fb4',
     ),
     'phpoffice/phpword' => 
     array (
