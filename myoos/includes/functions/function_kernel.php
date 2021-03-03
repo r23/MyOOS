@@ -1615,7 +1615,6 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	//To load the French version
 	$phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/language/');
 
-
 	// Empty out the values that may be set.
 	$phpmailer->clearAllRecipients();
 	$phpmailer->clearAttachments();
