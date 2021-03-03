@@ -143,8 +143,10 @@ if (!empty($action)) {
         }
         break;
       case 'statusconfirm':
-        $customers_id = oos_db_prepare_input($_GET['cID']);
-		$pdm_status = oos_db_prepare_input($_POST['pdm_status']);
+		$customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
+		$pdm_status = isset($_POST['pdm_status']) ? intval($_POST['pdm_status']) : 1;
+		$customer_notified = isset($_POST['customer_notified']) ? intval($_POST['customer_notified']) : 0;	
+
 
         $customerstable = $oostable['customers'];
         $check_status_sql = "SELECT customers_status
@@ -814,30 +816,32 @@ function check_form() {
       break;
 
     case 'editstatus':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>');
-      $contents = array('form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm', 'post', FALSE));
-      $contents[] = array('text' => '<br />' . oos_draw_pull_down_menu('pdm_status', array_merge(array(array('id' => '0', 'text' => PULL_DOWN_DEFAULT)), $customers_statuses_array), $cInfo->customers_status) );
-      $contents[] = array('text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED . '</td></tr>');
+		$heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>');
+		$contents = array('form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm', 'post', FALSE));
+		$contents[] = array('text' => '<br />' . oos_draw_pull_down_menu('pdm_status', array_merge(array(array('id' => '0', 'text' => PULL_DOWN_DEFAULT)), $customers_statuses_array), $cInfo->customers_status) );
+		$contents[] = array('text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED );
 
-      $customers_status_historytable = $oostable['customers_status_history'];
-      $customers_history_sql = "SELECT new_value, old_value, date_added, customer_notified 
+		if (isset($_GET['cID'])) {
+			$customers_id = intval($_GET['cID']);
+			$customers_status_historytable = $oostable['customers_status_history'];
+			$customers_history_sql = "SELECT new_value, old_value, date_added, customer_notified 
                                 FROM $customers_status_historytable
-                                WHERE customers_id = '" . intval($cID) . "'
+                                WHERE customers_id = '" . intval($customers_id) . "'
                                 ORDER BY customers_status_history_id DESC";
-      $customers_history_result = $dbconn->Execute($customers_history_sql);
-      if ($customers_history_result->RecordCount()) {
-        while ($customers_history = $customers_history_result->fields) {
-          $contents[] = array('text' => '<tr>' . "\n" . '<td class="smallText">' . $customers_statuses_array[$customers_history['new_value']]['text'] . '</td>' . "\n" .'<td class="smallText" align="center">' . oos_datetime_short($customers_history['date_added']) . '</td>' . "\n" .'<td class="smallText" align="center">');
-          $contents[] = array('text' => '</tr>' . "\n");
+			$customers_history_result = $dbconn->Execute($customers_history_sql);
+			if ($customers_history_result->RecordCount()) {
+				while ($customers_history = $customers_history_result->fields) {
+					$contents[] = array('text' =>  $customers_statuses_array[$customers_history['new_value']]['text'] . '</td>' . "\n" . '<td class="smallText" align="center">' . oos_datetime_short($customers_history['date_added'])  . "\n");
 
-          // Move that ADOdb pointer!
-          $customers_history_result->MoveNext();
-        }
-      } else {
-          $contents[] = array('text' => '<tr>' . "\n" . ' <td class="smallText" colspan="2">' . TEXT_NO_CUSTOMER_HISTORY . '</td>' . "\n" . ' </tr>' . "\n");
-      }
-      $contents[] = array('text' => '</table>');
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+					// Move that ADOdb pointer!
+					$customers_history_result->MoveNext();
+				}
+			} else {
+				$contents[] = array('text' => '<tr>' . "\n" . ' <td class="smallText" colspan="2">' . TEXT_NO_CUSTOMER_HISTORY . '</td>' . "\n" . ' </tr>' . "\n");
+			}
+		}
+		$contents[] = array('text' => '</table>');
+		$contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
