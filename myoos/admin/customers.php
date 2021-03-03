@@ -172,29 +172,28 @@ if (!empty($action)) {
         }
         break;
       case 'update':
-        $customers_id = oos_db_prepare_input($_GET['cID']);
-	
-        $customers_firstname = oos_db_prepare_input($_POST['customers_firstname']);
-        $customers_lastname = oos_db_prepare_input($_POST['customers_lastname']);
-        $customers_email_address = oos_db_prepare_input($_POST['customers_email_address']);
-        $customers_telephone = oos_db_prepare_input($_POST['customers_telephone']);
-        $customers_max_order = oos_db_prepare_input($_POST['customers_max_order']);
+		$customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
 
-        $customers_gender = oos_db_prepare_input($_POST['customers_gender']);
-        $customers_dob = oos_db_prepare_input($_POST['customers_dob']);
-        $entry_street_address = oos_db_prepare_input($_POST['entry_street_address']);
-        $entry_postcode = oos_db_prepare_input($_POST['entry_postcode']);
-        $entry_city = oos_db_prepare_input($_POST['entry_city']);
-        $entry_country_id = oos_db_prepare_input($_POST['entry_country_id']);
-		
-        $entry_company = oos_db_prepare_input($_POST['entry_company']);
-        $entry_owner = oos_db_prepare_input($_POST['entry_owner']);
-        $entry_vat_id = oos_db_prepare_input($_POST['entry_vat_id']);
-        $entry_vat_id_status = oos_db_prepare_input($_POST['entry_vat_id_status']);
-        $entry_state = oos_db_prepare_input($_POST['entry_state']);
-        $entry_zone_id = oos_db_prepare_input($_POST['entry_zone_id']);
-		$default_address_id	= oos_db_prepare_input($_POST['default_address_id']);
-		
+		$customers_firstname = isset($_POST['customers_firstname']) ? oos_db_prepare_input($_POST['customers_firstname']) : '';
+        $customers_lastname = isset($_POST['customers_lastname']) ? oos_db_prepare_input($_POST['customers_lastname']) : '';
+        $customers_email_address = isset($_POST['customers_email_address']) ? oos_db_prepare_input($_POST['customers_email_address']) : '';
+		$customers_telephone = isset($_POST['customers_telephone']) ? oos_db_prepare_input($_POST['customers_telephone']) : '';
+		$customers_max_order = isset($_POST['customers_max_order']) ? oos_db_prepare_input($_POST['customers_max_order']) : DEFAULT_MAX_ORDER;
+
+		$customers_gender = isset($_POST['customers_gender']) ? oos_db_prepare_input($_POST['customers_gender']) : '';
+		$customers_dob = isset($_POST['customers_dob']) ? oos_db_prepare_input($_POST['customers_dob']) : '';
+		$entry_street_address = isset($_POST['entry_street_address']) ? oos_db_prepare_input($_POST['entry_street_address']) : '';
+		$entry_postcode = isset($_POST['entry_postcode']) ? oos_db_prepare_input($_POST['entry_postcode']) : '';
+		$entry_city = isset($_POST['entry_city']) ? oos_db_prepare_input($_POST['entry_city']) : '';
+		$entry_country_id = isset($_POST['entry_country_id']) ? oos_db_prepare_input($_POST['entry_country_id']) : '';	
+
+		$entry_company = isset($_POST['entry_company']) ? oos_db_prepare_input($_POST['entry_company']) : '';
+		$entry_owner = isset($_POST['entry_owner']) ? oos_db_prepare_input($_POST['entry_owner']) : '';
+		$entry_vat_id = isset($_POST['entry_vat_id']) ? oos_db_prepare_input($_POST['entry_vat_id']) : '';
+		$entry_vat_id_status = isset($_POST['entry_vat_id_status']) ? intval($_POST['entry_vat_id_status']) : 0;
+		$default_address_id = isset($_POST['default_address_id']) ? intval($_POST['default_address_id']) : '';
+		$entry_zone_id = isset($_POST['entry_zone_id']) ? intval($_POST['entry_zone_id']) : '';
+
         $sql_data_array = array('customers_firstname' => $customers_firstname,
                                 'customers_lastname' => $customers_lastname,
                                 'customers_email_address' => $customers_email_address,
@@ -629,7 +628,7 @@ function check_form() {
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
           <tr>
             <td class="main"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
-            <td class="main"><?php echo oos_draw_input_field('customers_telephone', $cInfo->customers_telephone, 'maxlength="32"', true); ?></td>
+            <td class="main"><?php echo oos_draw_input_field('customers_telephone', $cInfo->customers_telephone, 'maxlength="32"', false); ?></td>
           </tr>
         </table></td>
       </tr>
