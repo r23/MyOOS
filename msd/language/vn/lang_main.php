@@ -25,16 +25,22 @@ $lang['L_PROCESSKILL3']="Script thử từ  ";
 $lang['L_PROCESSKILL4']=" sec. để dừng tiến trình ";
 $lang['L_HTACC_CREATE']="Tạo Mật mã bảo vệ thư mục";
 $lang['L_ENCRYPTION_TYPE']="Cách mã hóa";
-$lang['L_HTACC_CRYPT']="Crypt (Linux và hệ thống Unix)";
-$lang['L_HTACC_MD5']="MD5 (Linux và hệ thống Unix)";
-$lang['L_HTACC_NO_ENCRYPTION']="plain text (chữ đơn thuần), không mã hóa (Windows)";
+$lang['L_HTACC_BCRYPT']="bcrypt - (Apache 2.4+, all systems)";
+$lang['L_HTACC_MD5']="MD5(APR) - (all systems)";
+$lang['L_HTACC_SHA1']="SHA1 - (all systems)";
+$lang['L_HTACC_CRYPT']="CRYPT - 8 characters maximum (Linux)";
+$lang['L_HTACC_NO_ENCRYPTION']="PLAIN TEXT - unencrypted (Windows)";
 $lang['L_HTACCESS8']="Đã tồn tại một mật mã bảo vệ thư mục. Nếu bạn tạo mật mã mới, mật mã cũ sẽ bị ghi đè!";
 $lang['L_HTACC_NO_USERNAME']="Bạn phải nhập vào một tên!";
 $lang['L_PASSWORDS_UNEQUAL']="Mật khẩu nhập lại không giống hoặc đã bị để trống!";
-$lang['L_HTACC_CONFIRM_DELETE']="Có bảo vệ thư mục hay không?";
+$lang['L_HTACC_CONFIRM_CREATE']="Có bảo vệ thư mục hay không?";
+$lang['L_HTACC_CONFIRM_DELETE']="Are you sure you want to remove directory protection?";
 $lang['L_HTACC_CREATED']="Thư mục đã được bảo vệ";
 $lang['L_HTACC_CONTENT']="Nội dung của file";
 $lang['L_HTACC_CREATE_ERROR']="Đã có lỗi khi tạo file bảo vệ thư mục!<br>Hãy tạo ra 2 file bằng tay với nội dung sau đây";
+$lang['L_HTACC_NOT_NEEDED']="The program is protected by higher-level authorizations; local directory protection is not required.";
+$lang['L_HTACC_COMPLETE']="The program is protected, the directory protection is complete.";
+$lang['L_HTACC_INCOMPLETE']="The program is not protected, the directory protection is incomplete!";
 $lang['L_HTACC_PROPOSED']="Thông báo khẩn";
 $lang['L_HTACC_EDIT']="Sửa .htaccess";
 $lang['L_HTACCESS18']="Tạo .htaccess trong ";
@@ -60,14 +66,10 @@ $lang['L_WRONG_RIGHTS']="File hay thư mục '%s' không cho phép ghi.<br>
 Chế độ chmod không đúng hoặc nó không dành cho chúng ta.<br>
 Đặt lại thuộc tính cho đúng bằng cách sử dụng trình FTP.<br>
 File hay thư mục cần được thiết lập thành %s.<br>";
-$lang['L_CANT_CREATE_DIR']="Không thể tạo thư mục '%s'. 
-Hãy tạo ra nó bằng cách sử dụng trình FTP.
-
-
-";
+$lang['L_CANT_CREATE_DIR']="Không thể tạo thư mục '%s'.
+Hãy tạo ra nó bằng cách sử dụng trình FTP.";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
-$lang['L_HTACC_SHA1']="SHA1 (all Systems)";
 $lang['L_OS']="Operating system";
 $lang['L_MSD_VERSION']="MyOOS [Dumper] - Version";
 $lang['L_MYSQL_VERSION']="MySQL-Version";

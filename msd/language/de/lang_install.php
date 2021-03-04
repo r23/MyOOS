@@ -82,4 +82,3 @@ Die automatische Erkennung per Programm ist bei manchen Hostern gesperrt.<br>
 Sie müssen Ihre Datenbank nach dem Abschluß der Installation unter dem Menüpunkt \"Konfiguration\" \"Verbindungsparameter einblenden\" angeben.<br>
 Bitte begeben Sie sich nach Abschluß der Installation umgehend dort hin und tragen den Namen Ihrer Datenbank dort ein.";
 $lang['L_ENTER_DB_INFO']="Klicken Sie zuerst auf den Button \"zu MySQL verbinden\". Nur wenn daraufhin keine Datenbank erkannt werden konnte, ist hier eine Angabe notwendig.";
-

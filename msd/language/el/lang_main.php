@@ -25,16 +25,22 @@ $lang['L_PROCESSKILL3']="Το script προσπαθεί από  ";
 $lang['L_PROCESSKILL4']=" δευτ. για σταμάτημα διαδικασίας ";
 $lang['L_HTACC_CREATE']="Δημιουργία προστασίας καταλόγου";
 $lang['L_ENCRYPTION_TYPE']="Είδος κρυπτογράφησης";
-$lang['L_HTACC_CRYPT']="Crypt (Linux και Unix-Systems)";
-$lang['L_HTACC_MD5']="MD5 (Linux και Unix-Systems)";
-$lang['L_HTACC_NO_ENCRYPTION']="απλό κείμενο, χωρίς κρυπτογράφηση (Windows)";
+$lang['L_HTACC_BCRYPT']="bcrypt - (Apache 2.4+, all systems)";
+$lang['L_HTACC_MD5']="MD5(APR) - (all systems)";
+$lang['L_HTACC_SHA1']="SHA1 - (all systems)";
+$lang['L_HTACC_CRYPT']="CRYPT - 8 characters maximum (Linux)";
+$lang['L_HTACC_NO_ENCRYPTION']="PLAIN TEXT - unencrypted (Windows)";
 $lang['L_HTACCESS8']="Υπάρχει προστασία καταλόγου. Εαν κάνετε νέα, η παλιά θα διαγραφεί !";
 $lang['L_HTACC_NO_USERNAME']="Πρέπει να δώσετε ένα όνομα!";
 $lang['L_PASSWORDS_UNEQUAL']="Οι κωδικοί δεν είναι ίδιοι ή είναι άδειοι !";
-$lang['L_HTACC_CONFIRM_DELETE']="Θέλετε η προστασία καταλόγων να εγγραφεί τώρα ?";
+$lang['L_HTACC_CONFIRM_CREATE']="Θέλετε η προστασία καταλόγων να εγγραφεί τώρα ?";
+$lang['L_HTACC_CONFIRM_DELETE']="Are you sure you want to remove directory protection?";
 $lang['L_HTACC_CREATED']="Δημιουργήθηκε προστασία καταλόγων.";
 $lang['L_HTACC_CONTENT']="Περιεχόμενα αρχείου";
 $lang['L_HTACC_CREATE_ERROR']="Παρουσιάστηκε σφάλμα κατά την δημιουργία προστασίας καταλόγου !<br>Παρακαλώ δημιουργήστε τα 2 αρχεία χειροκίνητα με τα παρακάτω περιεχόμενα";
+$lang['L_HTACC_NOT_NEEDED']="The program is protected by higher-level authorizations; local directory protection is not required.";
+$lang['L_HTACC_COMPLETE']="The program is protected, the directory protection is complete.";
+$lang['L_HTACC_INCOMPLETE']="The program is not protected, the directory protection is incomplete!";
 $lang['L_HTACC_PROPOSED']="Προτείνεται επειγόντως";
 $lang['L_HTACC_EDIT']="Επεξεργασία .htaccess";
 $lang['L_HTACCESS18']="Δημιουργία .htaccess σε ";
@@ -61,12 +67,9 @@ $lang['L_WRONG_RIGHTS']="Το αρχείο ή ο κατάλογος '%s' δεν 
 Δώστε τις σωστές ιδιότητες χρησιμοποιώντας το πρόγραμμα FTP.<br>
 Το αρχείο ή ο κατάλογος πρέπει να ρυθμιστεί σε %s.<br>";
 $lang['L_CANT_CREATE_DIR']="Δε δημιουργήθηκε κατάλογος '%s'. 
-Δημιουργήστε τον χρησιμοποιώντας το πρόγραμμα FTP.
-
-";
+Δημιουργήστε τον χρησιμοποιώντας το πρόγραμμα FTP.";
 $lang['L_TABLE_TYPE']="Τύπος";
 $lang['L_CHECK']="έλεγχος";
-$lang['L_HTACC_SHA1']="SHA1(όλα τα συστήματα)";
 $lang['L_OS']="Λειτουργικό Σύστημα";
 $lang['L_MSD_VERSION']="Εκδοση MyOOS [Dumper]";
 $lang['L_MYSQL_VERSION']="Εκδοση MySQL";

@@ -19,6 +19,9 @@
 if (!defined('MSD_VERSION')) die('No direct access.');
 include ('./language/'.$config['language'].'/lang_sql.php');
 
+include ('./inc/home/apr1_md5/apr1_md5.php');
+use WhiteHat101\Crypt\APR1_MD5;
+
 $dba=$hta_dir=$Overwrite=$msg='';
 $error=array();
 $is_htaccess=(file_exists('./.htaccess'));
@@ -29,7 +32,7 @@ if ($is_htaccess)
 }
 
 $step=(isset($_POST['step'])) ? intval($_POST['step']) : 0;
-$type=0; // default encryption type set to crypt()
+$type=1; // default encryption type set to crypt()
 if (strtoupper(substr(MSD_OS,0,3))=='WIN') $type=2; // we are on a Win-System; pre-select encryption type
 if (isset($_POST['type'])) $type=intval($_POST['type']);
 $username=(isset($_POST['username'])) ? $_POST['username'] : '';
@@ -55,27 +58,36 @@ if (isset($_POST['username']))
 
 	if (sizeof($error)==0)
 	{
-		$htaccess = "<IfModule mod_rewrite.c>\nRewriteEngine off\n</IfModule>\n";
-		$realm='MyOOS-Dumper';
-		$htaccess.="AuthName \"".$realm."\"\nAuthType Basic\nAuthUserFile \""
-		  .$config['paths']['root'].".htpasswd\"\nrequire valid-user";
+		$realm = 'MyOOS-Dumper';
+		$htaccess =
+			"<IfModule mod_rewrite.c>\n" .
+			"  RewriteEngine off\n" .
+			"</IfModule>\n" .
+			"AuthName \"" . $realm . "\"\n" .
+			"AuthType Basic\n" .
+			"AuthUserFile \"" . $config['paths']['root'].".htpasswd\"\n" .
+			"Require valid-user";
 		switch ($type)
 		{
-			// Crypt
+			// CRYPT
 			case 0:
-				$userpass=crypt($userpass1, 'rl');
+				$userpass = crypt($userpass1, 'rl');
 				break;
-			// MD5
+			// MD5(APR)
 			case 1:
-				$userpass=md5($username.':'.$realm.':'.$userpass1);
+				$userpass = APR1_MD5::hash($userpass1);
 				break;
-			// WIn - no encryption
+			// PLAIN TEXT
 			case 2:
-				$userpass=$userpass1;
+				$userpass = $userpass1;
 				break;
-			// SHA
+			// SHA1
 			case 3:
-				$userpass='{SHA}'.base64_encode(sha1($userpass1,TRUE));
+				$userpass = '{SHA}' . base64_encode(sha1($userpass1, true));
+				break;
+			// BCRYPT
+			case 4:
+				$userpass = password_hash($userpass1, PASSWORD_BCRYPT);
 				break;
 		}
 		$htpasswd=$username.':'.$userpass;
@@ -105,27 +117,19 @@ if (isset($_POST['username']))
 
 		if (false!==$saved)
 		{
-		    if (version_compare(PHP_VERSION, '5.3.0', '>=')) {
-                $output  = array(
-                    'HTACCESS' => nl2br(htmlspecialchars($htaccess), false),
-                    'HTPASSWD' => nl2br(htmlspecialchars($htpasswd), false)
-                );
-            } else {
-                $output  = array(
-                    'HTACCESS' => nl2br(htmlspecialchars($htaccess)),
-                    'HTPASSWD' => nl2br(htmlspecialchars($htpasswd))
-                );
-		    }
-
-		    $msg='<span class="success">'.$lang['L_HTACC_CREATED'].'</span>';
-			$tpl->assign_block_vars('CREATE_SUCCESS', $output);
-			@chmod($config['paths']['root'],0755);
+		    $msg = '<span class="success">' . $lang['L_HTACC_CREATED'] . '</span>';
+			$tpl->assign_block_vars('CREATE_SUCCESS', array(
+				'HTACCESS' => htmlspecialchars($htaccess),
+				'HTPASSWD' => htmlspecialchars($htpasswd),
+			));
+			@chmod($config['paths']['root'], 0755);
 		}
 		else
 		{
-			$tpl->assign_block_vars('CREATE_ERROR',array(
+			$tpl->assign_block_vars('CREATE_ERROR', array(
 				'HTACCESS' => htmlspecialchars($htaccess),
-				'HTPASSWD' => htmlspecialchars($htpasswd)));
+				'HTPASSWD' => htmlspecialchars($htpasswd),
+			));
 		}
 	}
 }
@@ -134,7 +138,8 @@ if (sizeof($error)>0||!isset($_POST['username']))
 {
 	$tpl->assign_vars(array(
 		'PASSWORDS_UNEQUAL' => my_addslashes($lang['L_PASSWORDS_UNEQUAL']),
-		'HTACC_CONFIRM_DELETE' => my_addslashes($lang['L_HTACC_CONFIRM_DELETE'])));
+		'HTACC_CONFIRM_CREATE' => my_addslashes($lang['L_HTACC_CONFIRM_CREATE']),
+	));
 
 	$tpl->assign_block_vars('INPUT',array(
 		'USERNAME' => htmlspecialchars($username),
@@ -143,7 +148,9 @@ if (sizeof($error)>0||!isset($_POST['username']))
 		'TYPE0_CHECKED' => $type==0 ? ' checked="checked"' : '',
 		'TYPE1_CHECKED' => $type==1 ? ' checked="checked"' : '',
 		'TYPE2_CHECKED' => $type==2 ? ' checked="checked"' : '',
-		'TYPE3_CHECKED' => $type==3 ? ' checked="checked"' : ''));
+		'TYPE3_CHECKED' => $type==3 ? ' checked="checked"' : '',
+		'TYPE4_CHECKED' => $type==4 ? ' checked="checked"' : '',
+	));
 }
 
 if (sizeof($error)>0) $msg='<span class="error">'.implode('<br>',$error).'</span>';

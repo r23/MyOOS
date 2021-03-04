@@ -50,4 +50,4 @@ $lang['L_FTPCONNECTED3']=" geschrieben";
 $lang['L_NR_TABLES_SELECTED']="- mit %s gewählten Tabellen";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s Tabellen wurden optimiert.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s Fehler aufgetreten: <a href=\"log.php?r=3\">anzeigen</a></p>";
-$lang['L_FATAL_ERROR_DUMP']="Schwerwiegender Fehler: die CREATE-Anweisung der Tabelle '%s' in der Datenbank '%s' konnte nicht gelesen werden! ";
+$lang['L_FATAL_ERROR_DUMP']="Schwerwiegender Fehler: die CREATE-Anweisung der Tabelle '%s' in der Datenbank '%s' konnte nicht gelesen werden!";

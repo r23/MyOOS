@@ -20,7 +20,7 @@
 					alert('{PASSWORDS_UNEQUAL}');
 					return false;
 				}
-				else return confirm('{HTACC_CONFIRM_DELETE}');
+				else return confirm('{HTACC_CONFIRM_CREATE}');
 			}	
 		</script>
 		<style type="text/css">
@@ -39,7 +39,7 @@
 
 <!-- BEGIN INPUT -->
 <form method="post" action="main.php?action=schutz" onSubmit="return checkPasswords();">
-<table style="width:600px;" border="0">
+<table style="width:700px;" border="0">
 <tr>
 	<td>{L_USERNAME}:</td>
 	<td colspan="2"><input type="text" name="username" id="username" size="50" value="{INPUT.USERNAME}" class="Formtext"></td>
@@ -64,43 +64,52 @@
 	</td>
 </tr>
 -->
+<tr><td>&nbsp;</td><td></td></tr>
 <tr>
 	<td>{L_ENCRYPTION_TYPE}:</td>
 	<td>
-	<table>
-		<tr>
-			<td>
-				<input class="radio" type="radio" name="type" id="type0" value="0"{INPUT.TYPE0_CHECKED}>
-			</td>
-			<td>
-				<label for="type0">{L_HTACC_CRYPT}</label>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input class="radio" type="radio" name="type" id="type1" value="1"{INPUT.TYPE1_CHECKED}>
-			</td>
-			<td>
-				<label for="type1">{L_HTACC_MD5}</label>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input class="radio" type="radio" name="type" id="type3" value="3"{INPUT.TYPE3_CHECKED}>
-			</td>
-			<td>
-				<label for="type3">{L_HTACC_SHA1}</label>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input class="radio" type="radio" name="type" id="type2" value="2"{INPUT.TYPE2_CHECKED}>
-			</td>
-			<td>
-				<label for="type2">{L_HTACC_NO_ENCRYPTION}</label>
-			</td>
-		</tr>
-	</table>
+		<table>
+			<tr>
+				<td>
+					<input class="radio" type="radio" name="type" id="type4" value="4"{INPUT.TYPE4_CHECKED}>
+				</td>
+				<td>
+					<label for="type4">{L_HTACC_BCRYPT}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input class="radio" type="radio" name="type" id="type1" value="1"{INPUT.TYPE1_CHECKED}>
+				</td>
+				<td>
+					<label for="type1">{L_HTACC_MD5}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input class="radio" type="radio" name="type" id="type3" value="3"{INPUT.TYPE3_CHECKED}>
+				</td>
+				<td>
+					<label for="type3">{L_HTACC_SHA1}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input class="radio" type="radio" name="type" id="type0" value="0"{INPUT.TYPE0_CHECKED}>
+				</td>
+				<td>
+					<label for="type0">{L_HTACC_CRYPT}</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input class="radio" type="radio" name="type" id="type2" value="2"{INPUT.TYPE2_CHECKED}>
+				</td>
+				<td>
+					<label for="type2">{L_HTACC_NO_ENCRYPTION}</label>
+				</td>
+			</tr>
+		</table>
 	</td>
 </tr>
 <tr>
@@ -116,10 +125,10 @@
 
 <!-- BEGIN CREATE_SUCCESS -->
 	<strong>{L_HTACC_CONTENT} .htaccess:</strong><br><br>
-	{CREATE_SUCCESS.HTACCESS}
+	<pre>{CREATE_SUCCESS.HTACCESS}</pre>
 
 	<br><br><strong>{L_HTACC_CONTENT} .htpasswd:</strong><br><br>
-	{CREATE_SUCCESS.HTPASSWD}
+	<pre>{CREATE_SUCCESS.HTPASSWD}</pre>
 	<br><br>
 	<a href="main.php" class="Formbutton">{L_HOME}</a>
 <!-- END CREATE_SUCCESS -->
