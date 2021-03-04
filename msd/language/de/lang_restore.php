@@ -15,7 +15,4 @@ $lang['L_PROGRESS_OVER_ALL']="Fortschritt gesamt";
 $lang['L_BACK_TO_OVERVIEW']="Datenbank-Übersicht";
 $lang['L_RESTORE_RUN0']="<br>Es wurden bisher <b>%s</b> Datensätze erfolgreich eingetragen.";
 $lang['L_UNKNOWN_SQLCOMMAND']="Unbekannter SQL-Befehl:";
-$lang['L_NOTICES']="Hinweise
-
-
-";
+$lang['L_NOTICES']="Hinweise";

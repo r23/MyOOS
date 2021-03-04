@@ -21,6 +21,7 @@ if (!defined('MSD_VERSION')) die('No direct access.');
 $Sum_Files=$Sum_Size=0;
 $Last_BU=Array();
 $is_htaccess=(file_exists('./.htaccess'));
+$is_protected = IsAccessProtected();
 
 // find latest backup file
 $dh=opendir($config['paths']['backup']);
@@ -60,7 +61,8 @@ $tpl->assign_vars(array(
 	'DB' => $databases['db_actual'],
 	'NR_OF_BACKUP_FILES' => $Sum_Files,
 	'SIZE_BACKUPS' => byte_output($Sum_Size),
-	'FREE_DISKSPACE' => MD_FreeDiskSpace()));
+	'FREE_DISKSPACE' => MD_FreeDiskSpace(),
+));
 if ($directory_warnings>'') $tpl->assign_block_vars('DIRECTORY_WARNINGS',array(
 	'MSG' => $directory_warnings));
 
@@ -71,9 +73,21 @@ if ($config['disabled']>'') $tpl->assign_block_vars('DISABLED_FUNCTIONS',array(
 if (version_compare(PHP_VERSION,'4.3.0','>=')&&version_compare(PHP_VERSION,'4.3.2','<=')) $tpl->assign_block_vars('ZLIBBUG',array());
 if (!extension_loaded('ftp')) $tpl->assign_block_vars('NO_FTP',array());
 if (!$config['zlib']) $tpl->assign_block_vars('NO_ZLIB',array());
-if ($is_htaccess) $tpl->assign_block_vars('HTACCESS_EXISTS',array());
+
+if ($is_protected && !$is_htaccess)
+	$tpl->assign_block_vars('HTACCESS_NOT_NEEDED', array());
+elseif ($is_protected && $is_htaccess)
+	$tpl->assign_block_vars('HTACCESS_COMPLETE', array());
+elseif (!$is_protected && $is_htaccess)
+	$tpl->assign_block_vars('HTACCESS_INCOMPLETE', array());
 else
-	$tpl->assign_block_vars('HTACCESS_DOESNT_EXISTS',array());
+	$tpl->assign_block_vars('HTACCESS_NEEDED', array());
+
+if ($is_htaccess)
+	$tpl->assign_block_vars('HTACCESS_EXISTS', array());
+else
+	$tpl->assign_block_vars('HTACCESS_DOESNT_EXISTS', array());
+
 if ($Sum_Files>0&&isset($Last_BU[1])) $tpl->assign_block_vars('LAST_BACKUP',array(
 	'LAST_BACKUP_INFO' => $Last_BU[1],
 	'LAST_BACKUP_LINK' => $config['paths']['backup'].urlencode($Last_BU[0]),

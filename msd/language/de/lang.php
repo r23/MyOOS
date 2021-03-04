@@ -106,4 +106,3 @@ $lang['L_PAGE_REFRESHS']="Seitenaufrufe";
 $lang['L_MINUTE']="Minute";
 $lang['L_SETKEYSFOR']="Setzen neuer Indizes für die Tabelle";
 $lang['L_KEY_CONFIRMDELETE']="Index wirklich löschen?";
-

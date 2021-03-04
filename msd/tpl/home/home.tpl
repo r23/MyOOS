@@ -3,13 +3,30 @@
 	{DIRECTORY_WARNINGS.MSD}
 <!-- END DIRECTORY_WARNINGS -->
 
+<!-- BEGIN HTACCESS_NOT_NEEDED -->
+	{L_HTACC_NOT_NEEDED}
+<!-- END HTACCESS_NOT_NEEDED -->
+
+<!-- BEGIN HTACCESS_COMPLETE -->
+	{L_HTACC_COMPLETE}
+<!-- END HTACCESS_NOT_NEEDED -->
+
+<!-- BEGIN HTACCESS_INCOMPLETE -->
+	<span class="error">{L_HTACC_INCOMPLETE}</span>
+<!-- END HTACCESS_INCOMPLETE -->
+
+<!-- BEGIN HTACCESS_NEEDED -->
+	<span class="error">{L_HTACC_PROPOSED}</span>
+<!-- END HTACCESS_NEEDED -->
+
 <!-- BEGIN HTACCESS_EXISTS -->
+	<br><br>
 	<a href="main.php?action=edithtaccess" class="Formbutton">{L_HTACC_EDIT}</a>&nbsp;
-	<a href="main.php?action=deletehtaccess" class="Formbutton">{L_DELETE_HTACCESS}</a><br>
+	<a href="main.php?action=deletehtaccess" class="Formbutton" onclick="if (!confirm('{L_HTACC_CONFIRM_DELETE}')) return false;">{L_DELETE_HTACCESS}</a><br>
 <!-- END HTACCESS_EXISTS -->
 
 <!-- BEGIN HTACCESS_DOESNT_EXISTS -->
-	<span class="error">{L_HTACC_PROPOSED}:</span>&nbsp;&nbsp;
+	<br><br>
 	<a href="main.php?action=schutz" class="Formbutton">{L_HTACC_CREATE}</a><br>
 <!-- END HTACCESS_DOESNT_EXISTS -->
 

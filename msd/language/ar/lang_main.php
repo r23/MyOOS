@@ -25,16 +25,22 @@ $lang['L_PROCESSKILL3']="المخطوطة تحاول منذ  ";
 $lang['L_PROCESSKILL4']=" دقائق.لافشال العملية ";
 $lang['L_HTACC_CREATE']="انشاء اسم مستخدم وكلمة مرور لحماية الدليل ";
 $lang['L_ENCRYPTION_TYPE']="نوع التشفير";
-$lang['L_HTACC_CRYPT']="Crypt (Linux and Unix-Systems)";
-$lang['L_HTACC_MD5']="MD5 (Linux and Unix-Systems)";
-$lang['L_HTACC_NO_ENCRYPTION']="plain text, no cryption (Windows)";
+$lang['L_HTACC_BCRYPT']="bcrypt - (Apache 2.4+, all systems)";
+$lang['L_HTACC_MD5']="MD5(APR) - (all systems)";
+$lang['L_HTACC_SHA1']="SHA1 - (all systems)";
+$lang['L_HTACC_CRYPT']="CRYPT - 8 characters maximum (Linux)";
+$lang['L_HTACC_NO_ENCRYPTION']="PLAIN TEXT - unencrypted (Windows)";
 $lang['L_HTACCESS8']="تم الحصول على حماية الدليل. اذا قمت بإنشاء مستخدم جديد البيانات الاقدم سوف تكتب !";
 $lang['L_HTACC_NO_USERNAME']="انت يجب ان تدخل المستخدم !";
 $lang['L_PASSWORDS_UNEQUAL']="كلمات السر ليست متطابقة او فارغة !";
-$lang['L_HTACC_CONFIRM_DELETE']="يجب كتابة البيانات لحماية الدليل ?";
+$lang['L_HTACC_CONFIRM_CREATE']="يجب كتابة البيانات لحماية الدليل ?";
+$lang['L_HTACC_CONFIRM_DELETE']="Are you sure you want to remove directory protection?";
 $lang['L_HTACC_CREATED']="تم انشاء بيانات حماية الدليل.";
 $lang['L_HTACC_CONTENT']="محتويات الملف";
 $lang['L_HTACC_CREATE_ERROR']="حدث خطأ أثناء إنشاء دليل حماية !<br>يرجى كتابة وتهيئة الملفات التالية يدويا في المحتوى";
+$lang['L_HTACC_NOT_NEEDED']="The program is protected by higher-level authorizations; local directory protection is not required.";
+$lang['L_HTACC_COMPLETE']="The program is protected, the directory protection is complete.";
+$lang['L_HTACC_INCOMPLETE']="The program is not protected, the directory protection is incomplete!";
 $lang['L_HTACC_PROPOSED']="موصي به بشدة وللأهمية القصوي";
 $lang['L_HTACC_EDIT']="تحرير .htaccess";
 $lang['L_HTACCESS18']="انشاء في .htaccess  ";
@@ -60,14 +66,10 @@ $lang['L_WRONG_RIGHTS']="الملف او الدليل '%s' لايمكن الكت
 الحقوق (chmod)ليست المجموعة  او ان المكلية غير صحيحة.<br>
 استخدم برامج بروتكول  FTP-لنقل ملفاتك.<br>
 الملف او الدليل من الضروري ان يستعدا %s.<br>";
-$lang['L_CANT_CREATE_DIR']="Couldn' لا يستطيع انشاء '%s'. 
-من فضلك استخدم برامج برتكول FTP-لنقل الملفات.
-
-
-";
+$lang['L_CANT_CREATE_DIR']="Couldn' لا يستطيع انشاء '%s'.
+من فضلك استخدم برامج برتكول FTP-لنقل الملفات.";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
-$lang['L_HTACC_SHA1']="SHA1 (all Systems)";
 $lang['L_OS']="Operating system";
 $lang['L_MSD_VERSION']="MyOOS [Dumper] - Version";
 $lang['L_MYSQL_VERSION']="MySQL-Version";
