@@ -59,16 +59,15 @@ if (!empty($action)) {
 			}
 			$nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
 
+			$sProductsQuantity = isset($_POST['products_quantity']) ? intval($_POST['products_quantity']) : 1;
+			$sProductsStatus = isset($_POST['products_status']) ? intval($_POST['products_status']) : 1;
+			
 
-			$sProductsQuantity = oos_db_prepare_input($_POST['products_quantity']);
-			$sProductsStatus = oos_db_prepare_input($_POST['products_status']);
-			$sProductsReplacementProductID = oos_db_prepare_input($_POST['products_replacement_product_id']);
+			$sProductsReplacementProductID = isset($_POST['products_replacement_product_id']) ? intval($_POST['products_replacement_product_id']) : '';
 			if (isset($_POST['products_replacement_product_id']) && is_numeric($_POST['products_replacement_product_id']) && ($_POST['products_replacement_product_id'] > 0) ) {		
 				$messageStack->add_session(ERROR_REPLACEMENT, 'error');
 				$sProductsStatus = 4;
-			} else {
-				$sProductsReplacementProductID = '';
-			}
+			} 
 
 			if (STOCK_CHECK == 'true') {
 				if ($sProductsQuantity <= 0 ) {
@@ -76,10 +75,9 @@ if (!empty($action)) {
 					$sProductsStatus = 0;
 				}
 			}
-
-			$products_id = oos_db_prepare_input($_GET['pID']);
-			$products_date_available = oos_db_prepare_input($_POST['products_date_available']);
-
+			
+			$products_id = isset($_POST['pID']) ? intval($_POST['pID']) : '';
+			$products_date_available = isset($_POST['pID']) ? oos_db_prepare_input($_POST['products_date_available']) : '';
 
 
 			if (isset($_POST['products_base_price']) ) {
@@ -115,7 +113,7 @@ if (!empty($action)) {
                                   'products_status' => $sProductsStatus,
 								  'products_setting' => oos_db_prepare_input($_POST['products_setting']),
                                   'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
-                                  'products_units_id' => oos_db_prepare_input($_POST['products_units_id']),
+                                  'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : DEFAULT_PRODUCTS_UNITS_ID),
                                   'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
                                   'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
                                   'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
@@ -171,11 +169,10 @@ if (!empty($action)) {
 				$products_twitter_description = oos_db_prepare_input($_POST['products_twitter_description'][$language_id]);
 
 				if (empty($products_facebook_title)) $products_facebook_title = oos_db_prepare_input($_POST['products_name'][$language_id]);
-				if (empty($products_facebook_description)) $products_facebook_description = $categories_description_meta;				 
+				if (empty($products_facebook_description)) $products_facebook_description = $products_description_meta;				 
 
 				if (empty($products_twitter_title)) $products_twitter_title = $products_facebook_title;
 				if (empty($products_twitter_description)) $products_twitter_description = $products_facebook_description;
-
 	
 				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
 										'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]),
@@ -202,7 +199,7 @@ if (!empty($action)) {
 			}
 
 
-			if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['products_previous_image'])) ) {
+			if ( (isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['products_previous_image'])) ) {
 				$products_previous_image = oos_db_prepare_input($_POST['products_previous_image']);
 				
 				$productsstable = $oostable['products'];
@@ -1198,7 +1195,7 @@ updateWithTax();
 		
 <?php
 	$nCounter = 0;
-	if (is_array($pInfo->products_larger_images) || is_object($pInfo->products_larger_images)) {
+    if ((isset($pInfo->products_larger_images)) && (is_array($pInfo->products_larger_images) || is_object($pInfo->products_larger_images))) {
 
 		
 		foreach ($pInfo->products_larger_images as $image) {

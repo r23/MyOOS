@@ -191,7 +191,7 @@ if (!empty($action)) {
 				}
 			}
 
-			if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['categories_previous_image'])) ) {
+			if ( (isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['categories_previous_image'])) ) {
 				$categories_previous_image = oos_db_prepare_input($_POST['categories_previous_image']);
 				
 				$categoriestable = $oostable['categories'];
@@ -202,7 +202,7 @@ if (!empty($action)) {
 				oos_remove_category_image($categories_previous_image);				
 			}
 			
-			if ( ($_POST['remove_banner'] == 'yes') && (isset($_POST['categories_previous_banner'])) ) {
+			if ( (isset($_POST['remove_banner']) &&  ($_POST['remove_banner'] == 'yes')) && (isset($_POST['categories_previous_banner'])) ) {
 				$categories_previous_banner = oos_db_prepare_input($_POST['categories_previous_banner']);
 				
 				$categoriestable = $oostable['categories'];
