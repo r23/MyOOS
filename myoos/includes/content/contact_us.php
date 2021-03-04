@@ -34,7 +34,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) {
 	$enquiry = oos_prepare_input($_POST['enquiry']);
 
 	$email_address = strtolower($email_address);
-		
+	
 	if (is_email(trim($email_address))) {
 
 		if ( empty( $subject )) {
