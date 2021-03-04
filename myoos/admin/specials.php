@@ -64,24 +64,24 @@ if (!empty($action)) {
 			break;
 
       case 'insert':
-        $products_id = oos_db_prepare_input($_POST['products_id']);
-        $products_price = oos_db_prepare_input($_POST['products_price']);
-        $specials_price = oos_db_prepare_input($_POST['specials_price']);
-        $expires_date = oos_db_prepare_input($_POST['expires_date']);	  
+		if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {	  
+			$products_id = oos_db_prepare_input($_POST['products_id']);
+			$products_price = oos_db_prepare_input($_POST['products_price']);
+			$specials_price = oos_db_prepare_input($_POST['specials_price']);
+			$expires_date = oos_db_prepare_input($_POST['expires_date']);	  
 	  
-        // insert a product on special
-        if (substr($_POST['specials_price'], -1) == '%') {
-          $productstable = $oostable['products'];
-          $new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
-          $new_special_insert = $new_special_insert_result->fields;
+			// insert a product on special
+			if (substr($_POST['specials_price'], -1) == '%') {
+				$productstable = $oostable['products'];
+				$new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
+				$new_special_insert = $new_special_insert_result->fields;
 
-          $products_price = $new_special_insert['products_price'];
-          $specials_price = ($products_price - (($specials_price / 100) * $products_price));		  
-		  
-        } 
+				$products_price = $new_special_insert['products_price'];
+				$specials_price = ($products_price - (($specials_price / 100) * $products_price));		  
+			} 
 
-
-        $dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+			$dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+		}
         oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . $nPage));
         break;
 
@@ -269,7 +269,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?></label>
                            <div class="col-xl-6 col-10">
                               <div class="input-group date" id="datetimepicker1">
-                                 <input class="form-control" type="text" name="expires_date" value="<?php echo $sInfo->expires_date; ?>">
+                                 <input class="form-control" type="text" name="expires_date" value="<?php echo (isset($sInfo->expires_date) ? $sInfo->expires_date : ''); ?>">
                                  <span class="input-group-addon">
                                     <span class="fa fa-calendar"></span>
                                  </span>
