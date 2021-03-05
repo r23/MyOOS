@@ -51,7 +51,8 @@ function smarty_function_display_price($params, &$smarty)
 	} 
 	
 	$tax = oos_get_tax_rate($tax_class_id);
-   
+ 
+
 	return $oCurrencies->display_price($price, $tax, $quantity);
 
 }

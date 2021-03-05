@@ -32,7 +32,7 @@
       $this->sort_order = (defined('MODULE_SHIPPING_WEIGHT_SORT_ORDER') ? MODULE_SHIPPING_WEIGHT_SORT_ORDER : null);
       $this->icon = '';
       $this->tax_class = (defined('MODULE_SHIPPING_WEIGHT_TAX_CLASS') ? MODULE_SHIPPING_WEIGHT_TAX_CLASS : null);
-      $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'True') ? true : false);
+      $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true') ? true : false);
 
       if ( ($this->enabled == TRUE) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0)) ) {
         $check_flag = FALSE;
@@ -112,7 +112,7 @@
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_STATUS', 'True', '6', '0', 'oos_cfg_select_option(array(\'True\', \'False\'), ', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'True\', \'False\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_HANDLING', '5', '6', '0', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_ZONE', '0', '6', '0', 'oos_cfg_get_zone_class_title', 'oos_cfg_pull_down_zone_classes(', now())");

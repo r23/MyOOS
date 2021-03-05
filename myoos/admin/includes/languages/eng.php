@@ -311,7 +311,7 @@ $aLang['image_new_zone'] = 'New Zone';
 
 define('TEXT_ERROR', 'Error');
 
-define('ICON_CROSS', 'False');
+define('ICON_CROSS', 'false');
 define('ICON_CURRENT_FOLDER', 'Current Folder');
 define('ICON_DELETE', 'Delete');
 define('ICON_ERROR', 'Error');
@@ -323,7 +323,7 @@ define('ICON_PREVIOUS_LEVEL', 'Previous Level');
 define('ICON_PREVIEW', 'Preview');
 define('ICON_STATISTICS', 'Statistics');
 define('ICON_SUCCESS', 'Success');
-define('ICON_TICK', 'True');
+define('ICON_TICK', 'true');
 define('ICON_UNLOCKED', 'Unlocked');
 define('ICON_WARNING', 'Warning');
 

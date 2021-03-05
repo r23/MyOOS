@@ -41,7 +41,7 @@ class perf_postgres extends adodb_perf{
 	var $settings = array(
 	'Ratios',
 		'statistics collector' => array('RATIO',
-			"select case when count(*)=3 then 'TRUE' else 'FALSE' end from pg_settings where (name='stats_block_level' or name='stats_row_level' or name='stats_start_collector') and setting='on' ",
+			"select case when count(*)=3 then 'true' else 'FALSE' end from pg_settings where (name='stats_block_level' or name='stats_row_level' or name='stats_start_collector') and setting='on' ",
 			'Value must be TRUE to enable hit ratio statistics (<i>stats_start_collector</i>,<i>stats_row_level</i> and <i>stats_block_level</i> must be set to true in postgresql.conf)'),
 		'data cache hit ratio' => array('RATIO',
 			"select case when blks_hit=0 then 0 else round( ((1-blks_read::float/blks_hit)*100)::numeric, 2) end from pg_stat_database where datname='\$DATABASE'",

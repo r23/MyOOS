@@ -39,17 +39,17 @@ class currencies {
 		$this->currencies = $dbconn->GetAssoc($sql);
 	}
 
-	public function format($number, $calculate_currency_value = TRUE, $currency_type = '', $currency_value = NULL, $with_symbol = TRUE) {
+	public function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = NULL, $with_symbol = true) {
 
 		if (empty($currency_type) || ($this->exists($currency_type) == FALSE)) {
 			$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
 		}
 
 		$rate = 1;
-		if ($calculate_currency_value == TRUE) {
+		if ($calculate_currency_value == true) {
 			$rate = (oos_is_not_null($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
 		}
-		if ($with_symbol == TRUE) {		
+		if ($with_symbol == true) {		
 			$format_string = $this->currencies[$currency_type]['symbol_left'] . number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . ' ' . $this->currencies[$currency_type]['symbol_right'];
 		} else {
 			$format_string = number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], '.', '');
@@ -64,7 +64,7 @@ class currencies {
 
 	public function exists($code) {
 		if (isset($this->currencies[$code])) {
-			return TRUE;
+			return true;
 		}
 		return FALSE;
 	}
@@ -91,10 +91,11 @@ class currencies {
 		if ( LOGIN_FOR_PRICE == 'true' && ($aUser['show_price'] != 1) ) {
 			return $aLang['no_login_no_prices_display'];
 		}
+		
 		return $this->format($this->calculate_price($products_price, $products_tax, $quantity));
     }
 	
-	public function schema_price($products_price, $products_tax, $quantity = 1, $with_symbol = TRUE) {
+	public function schema_price($products_price, $products_tax, $quantity = 1, $with_symbol = true) {
 		global $oEvent, $aUser;
 
 		if ($oEvent->installed_plugin('down_for_maintenance')) {
@@ -104,7 +105,7 @@ class currencies {
 		if ( LOGIN_FOR_PRICE == 'true' && ($aUser['show_price'] != 1) ) {
 			return '';
 		}
-		return $this->format($this->calculate_price($products_price, $products_tax, $quantity), TRUE, '', NULL, $with_symbol);
+		return $this->format($this->calculate_price($products_price, $products_tax, $quantity), true, '', NULL, $with_symbol);
     }	
 	
 	
