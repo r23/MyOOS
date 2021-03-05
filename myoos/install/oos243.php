@@ -27,31 +27,36 @@ global $db, $prefix_table, $currentlang;
 
 if (!$prefix_table == '') $prefix_table = $prefix_table . '_';
 
-$table = $prefix_table . 'configuration';
-$result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('BLOG_URL', '', 11, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)");
-if ($result === false) {
-	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-}
-
-$result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('PHPBB_URL', '', 11, 7, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)");
-if ($result === false) {
-	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-}
-
 $result = $db->Execute("UPDATE " . $table . " SET set_function = 'oos_cfg_select_option(array(\'true\', \'false\'),' WHERE set_function = 'oos_cfg_select_option(array(\'TRUE\', \'FALSE\'),'");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 
+$result = $db->Execute("UPDATE " . $table . " SET set_function = 'oos_cfg_select_option(array(\'true\', \'false\'),' WHERE set_function = 'oos_cfg_select_option(array(\'True\', \'False\'),'");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} 
+
 
 $result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'false' WHERE configuration_value = 'FALSE'");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 
 
-$result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'true' WHERE configuration_value = 'true'");
+$result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'false' WHERE configuration_value = 'False'");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} 
 
+
+$result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'true' WHERE configuration_value = 'TRUE'");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} 
+
+$result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'true' WHERE configuration_value = 'True'");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+}
 
 // product_gallery
 $table = $prefix_table . 'products_images';

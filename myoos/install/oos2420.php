@@ -36,13 +36,29 @@ $result = $db->Execute("UPDATE " . $table . " SET set_function = 'oos_cfg_select
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 
+$result = $db->Execute("UPDATE " . $table . " SET set_function = 'oos_cfg_select_option(array(\'true\', \'false\'),' WHERE set_function = 'oos_cfg_select_option(array(\'True\', \'False\'),'");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} 
+
 
 $result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'false' WHERE configuration_value = 'FALSE'");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 
 
-$result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'true' WHERE configuration_value = 'true'");
+$result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'false' WHERE configuration_value = 'False'");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} 
+
+
+$result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'true' WHERE configuration_value = 'TRUE'");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} 
+
+$result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'true' WHERE configuration_value = 'True'");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 

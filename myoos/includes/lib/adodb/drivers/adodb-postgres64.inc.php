@@ -96,7 +96,7 @@ class ADODB_postgres64 extends ADOConnection{
 	var $hasAffectedRows = true;
 	var $hasLimit = false;	// set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra
-	var $true = 'true';		// string that represents TRUE for a database
+	var $true = 'TRUE';		// string that represents TRUE for a database
 	var $false = 'FALSE';		// string that represents FALSE for a database
 	var $fmtDate = "'Y-m-d'";	// used by DBDate() as the default date format used by the database
 	var $fmtTimeStamp = "'Y-m-d H:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
