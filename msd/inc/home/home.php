@@ -69,19 +69,19 @@ if ($directory_warnings>'') $tpl->assign_block_vars('DIRECTORY_WARNINGS',array(
 if ($config['disabled']>'') $tpl->assign_block_vars('DISABLED_FUNCTIONS',array(
 	'PHP_DISABLED_FUNCTIONS' => str_replace(',',', ',$config['disabled'])));
 
-// Zlib is buggy from version 4.3.0 upto 4.3.2, so lets check for these versions
-if (version_compare(PHP_VERSION,'4.3.0','>=')&&version_compare(PHP_VERSION,'4.3.2','<=')) $tpl->assign_block_vars('ZLIBBUG',array());
 if (!extension_loaded('ftp')) $tpl->assign_block_vars('NO_FTP',array());
 if (!$config['zlib']) $tpl->assign_block_vars('NO_ZLIB',array());
 
-if ($is_protected && !$is_htaccess)
-	$tpl->assign_block_vars('HTACCESS_NOT_NEEDED', array());
-elseif ($is_protected && $is_htaccess)
-	$tpl->assign_block_vars('HTACCESS_COMPLETE', array());
-elseif (!$is_protected && $is_htaccess)
-	$tpl->assign_block_vars('HTACCESS_INCOMPLETE', array());
+if ($is_protected === false)
+	$tpl->assign_block_vars('DIRECTORY_PROTECTION_STATUS_ERROR', array('MSG' => $lang['L_HTACC_CHECK_ERROR']));
+elseif ($is_protected === 1 && !$is_htaccess)
+	$tpl->assign_block_vars('DIRECTORY_PROTECTION_STATUS', array('MSG' => $lang['L_HTACC_NOT_NEEDED']));
+elseif ($is_protected === 1 && $is_htaccess)
+	$tpl->assign_block_vars('DIRECTORY_PROTECTION_STATUS', array('MSG' => $lang['L_HTACC_COMPLETE']));
+elseif ($is_protected === 0 && $is_htaccess)
+	$tpl->assign_block_vars('DIRECTORY_PROTECTION_STATUS_ERROR', array('MSG' => $lang['L_HTACC_INCOMPLETE']));
 else
-	$tpl->assign_block_vars('HTACCESS_NEEDED', array());
+	$tpl->assign_block_vars('DIRECTORY_PROTECTION_STATUS_ERROR', array('MSG' => $lang['L_HTACC_PROPOSED']));
 
 if ($is_htaccess)
 	$tpl->assign_block_vars('HTACCESS_EXISTS', array());

@@ -172,8 +172,7 @@ if (isset($_POST['save']))
 	$config['multi_dump']=( isset($_POST['MultiDBDump']) ) ? $_POST['MultiDBDump'] : 0;
 	$config['compression']=( isset($_POST['compression']) ) ? $_POST['compression'] : 0;
 	$config['language']=$_POST['language'];
-	if (!isset($_POST['server_caption'])) $config['interface_server_caption']=0;
-	else $config['interface_server_caption']=$_POST['server_caption'];
+	$config['interface_server_caption'] = (isset($_POST['server_caption'])) ? $_POST['server_caption'] : 0;
 	$config['interface_server_caption_position']=isset($_POST['server_caption_position']) ? $_POST['server_caption_position'] : 0;
 	$config['interface_sqlboxsize']=$_POST['sqlboxsize'];
 	$config['theme']=$_POST['theme'];
@@ -877,9 +876,10 @@ $config['interface_server_caption'] = isset($config['interface_server_caption'])
 $aus['global3'].='</select><input type="hidden" name="lang_old" value="' . $config['language'] . '"><input type="hidden" name="scaption_old" value="' . $config['interface_server_caption'] . '"></td></tr>';
 
 $aus['global3'].='<tr><td>' . Help($lang['L_HELP_SERVERCAPTION'],"") . $lang['L_SERVERCAPTION'] . ':</td>';
-$aus['global3'].='<td><input type="checkbox" class="checkbox" value="1" name="server_caption" ' . ( (isset($config['interface_server_caption']) && ( $config['interface_server_caption'] == 1 )) ? " checked" : "" ) . '>&nbsp;' . $lang['L_ACTIVATED'] . '&nbsp;&nbsp;&nbsp;';
+$aus['global3'].='<td><input type="checkbox" class="checkbox" value="1" name="server_caption" ' . ( (isset($config['interface_server_caption']) && ( $config['interface_server_caption'] == 1 )) ? " checked" : "" ) . '><br>';
 $aus['global3'].='<input type="radio" class="radio" name="server_caption_position" value="1" ' . ( (isset($config['interface_server_caption_position']) && ( $config['interface_server_caption_position'] == 1 )) ? "checked" : "" ) . '>&nbsp;' . $lang['L_IN_MAINFRAME'] . '&nbsp;&nbsp;<input type="radio" class="radio" name="server_caption_position" value="0" ' . ( (isset($config['interface_server_caption_position']) &&  ( $config['interface_server_caption_position'] == 0 )) ? "checked" : "" ) . '>&nbsp;' . $lang['L_IN_LEFTFRAME'] . '';
 $aus['global3'].='</td></tr>';
+
 $aus['global3'].='<tr><td>' . Help("","") . 'Theme:</td><td><select name="theme">' . GetThemes() . '</select></td></tr>';
 
 $aus['global3'].='</table></fieldset><fieldset><legend>' . $lang['L_SQL_BROWSER'] . '</legend><table>';

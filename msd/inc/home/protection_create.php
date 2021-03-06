@@ -32,7 +32,7 @@ if ($is_htaccess)
 }
 
 $step=(isset($_POST['step'])) ? intval($_POST['step']) : 0;
-$type=1; // default encryption type set to crypt()
+$type=1; // default encryption type set to MD5(APR)
 if (strtoupper(substr(MSD_OS,0,3))=='WIN') $type=2; // we are on a Win-System; pre-select encryption type
 if (isset($_POST['type'])) $type=intval($_POST['type']);
 $username=(isset($_POST['username'])) ? $_POST['username'] : '';
