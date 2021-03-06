@@ -35,8 +35,21 @@ class currencies {
 		$currenciestable = $oostable['currencies'];
 		$sql = "SELECT code, title, symbol_left, symbol_right, decimal_point,
                      thousands_point, decimal_places, value
-              FROM " . $currenciestable;
-		$this->currencies = $dbconn->GetAssoc($sql);
+              FROM " . $currenciestable;  
+		$result = $dbconn->Execute($sql);	
+
+		while ($currency = $result->fields) {	
+
+			$this->currencies[$currency['code']] = array('title' => $currency['title'],
+														'symbol_left' => $currency['symbol_left'],
+														'symbol_right' => $currency['symbol_right'],
+														'decimal_point' => $currency['decimal_point'],
+														'thousands_point' => $currency['thousands_point'],
+														'decimal_places' => $currency['decimal_places'],						   
+														'value' => $currency['value']);
+			// Move that ADOdb pointer!
+			$result->MoveNext();
+		}
 	}
 
 	public function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = NULL, $with_symbol = true) {
@@ -47,8 +60,9 @@ class currencies {
 
 		$rate = 1;
 		if ($calculate_currency_value == true) {
-			$rate = (oos_is_not_null($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
+			$rate = (isset($currency_value)) ? $currency_value : $this->currencies[$currency_type]['value'];
 		}
+		
 		if ($with_symbol == true) {		
 			$format_string = $this->currencies[$currency_type]['symbol_left'] . number_format(oos_round($number * $rate, $this->currencies[$currency_type]['decimal_places']), $this->currencies[$currency_type]['decimal_places'], $this->currencies[$currency_type]['decimal_point'], $this->currencies[$currency_type]['thousands_point']) . ' ' . $this->currencies[$currency_type]['symbol_right'];
 		} else {
