@@ -1,32 +1,24 @@
 <h5>{L_STATUSINFORMATIONEN}</h5>
 <!-- BEGIN DIRECTORY_WARNINGS -->
-	{DIRECTORY_WARNINGS.MSD}
+	{DIRECTORY_WARNINGS.MSG}
 <!-- END DIRECTORY_WARNINGS -->
 
-<!-- BEGIN HTACCESS_NOT_NEEDED -->
-	{L_HTACC_NOT_NEEDED}
-<!-- END HTACCESS_NOT_NEEDED -->
+<!-- BEGIN DIRECTORY_PROTECTION_STATUS -->
+	{DIRECTORY_PROTECTION_STATUS.MSG}<br>
+<!-- END DIRECTORY_PROTECTION_STATUS -->
 
-<!-- BEGIN HTACCESS_COMPLETE -->
-	{L_HTACC_COMPLETE}
-<!-- END HTACCESS_NOT_NEEDED -->
-
-<!-- BEGIN HTACCESS_INCOMPLETE -->
-	<span class="error">{L_HTACC_INCOMPLETE}</span>
-<!-- END HTACCESS_INCOMPLETE -->
-
-<!-- BEGIN HTACCESS_NEEDED -->
-	<span class="error">{L_HTACC_PROPOSED}</span>
-<!-- END HTACCESS_NEEDED -->
+<!-- BEGIN DIRECTORY_PROTECTION_STATUS_ERROR -->
+	<span class="error">{DIRECTORY_PROTECTION_STATUS_ERROR.MSG}</span><br>
+<!-- END DIRECTORY_PROTECTION_STATUS_ERROR -->
 
 <!-- BEGIN HTACCESS_EXISTS -->
-	<br><br>
+	<br>
 	<a href="main.php?action=edithtaccess" class="Formbutton">{L_HTACC_EDIT}</a>&nbsp;
 	<a href="main.php?action=deletehtaccess" class="Formbutton" onclick="if (!confirm('{L_HTACC_CONFIRM_DELETE}')) return false;">{L_DELETE_HTACCESS}</a><br>
 <!-- END HTACCESS_EXISTS -->
 
 <!-- BEGIN HTACCESS_DOESNT_EXISTS -->
-	<br><br>
+	<br>
 	<a href="main.php?action=schutz" class="Formbutton">{L_HTACC_CREATE}</a><br>
 <!-- END HTACCESS_DOESNT_EXISTS -->
 
@@ -38,9 +30,6 @@
 {L_PHP_VERSION}: <strong>{PHP_VERSION}</strong>&nbsp;&nbsp;{L_MEMORY}: <strong>{MEMORY}</strong>&nbsp;&nbsp;
 {L_MAX_EXECUTION_TIME}: <strong>{MAX_EXECUTION_TIME} {L_SECONDS}</strong>&nbsp;&nbsp;
 <a href="main.php?action=phpinfo" class="Formbutton">PHP-Info</a><br>
-<!-- BEGIN ZLIBBUG -->
-	<span class="error">{L_PHPBUG}</span><br>
-<!-- END ZLIBBUG -->
 
 <!-- BEGIN NO_FTP -->
 	<span class="error">{L_NOFTPPOSSIBLE}</span><br>
