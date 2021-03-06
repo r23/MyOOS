@@ -51,7 +51,7 @@ define('OOS_TEMP_PATH', OOS_ABSOLUTE_PATH . 'temp/');
 define('ADODB_ERROR_LOG_DEST', OOS_TEMP_PATH . 'logs/adodb_error.log');
 
 define('ADODB_ERROR_LOG_TYPE', 3);
-define('ADODB_ASSOC_CASE', 2); // assoc lowercase for ADODB_FETCH_ASSOC
+define('ADODB_ASSOC_CASE', 0); // assoc lowercase for ADODB_FETCH_ASSOC
 
 define('OOS_DB_TYPE', '');
 define('OOS_DB_SERVER', '');

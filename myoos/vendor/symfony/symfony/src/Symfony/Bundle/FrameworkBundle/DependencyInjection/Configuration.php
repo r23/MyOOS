@@ -97,7 +97,7 @@ class Configuration implements ConfigurationInterface
                     ->enumPrototype()
                         ->values([
                             'forwarded',
-                            'x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port',
+                            'x-forwarded-for', 'x-forwarded-host', 'x-forwarded-proto', 'x-forwarded-port', 'x-forwarded-prefix',
                         ])
                     ->end()
                 ->end()
@@ -1446,7 +1446,7 @@ class Configuration implements ConfigurationInterface
                                     ->info('A network interface name, IP address, a host name or a UNIX socket to bind to.')
                                 ->end()
                                 ->booleanNode('verify_peer')
-                                    ->info('Indicates if the peer should be verified in a SSL/TLS context.')
+                                    ->info('Indicates if the peer should be verified in an SSL/TLS context.')
                                 ->end()
                                 ->booleanNode('verify_host')
                                     ->info('Indicates if the host should exist as a certificate common name.')
@@ -1589,7 +1589,7 @@ class Configuration implements ConfigurationInterface
                                         ->info('A network interface name, IP address, a host name or a UNIX socket to bind to.')
                                     ->end()
                                     ->booleanNode('verify_peer')
-                                        ->info('Indicates if the peer should be verified in a SSL/TLS context.')
+                                        ->info('Indicates if the peer should be verified in an SSL/TLS context.')
                                     ->end()
                                     ->booleanNode('verify_host')
                                         ->info('Indicates if the host should exist as a certificate common name.')

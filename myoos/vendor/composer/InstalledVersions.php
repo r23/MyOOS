@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '3be8aca6db8993ae9d3ecb864ee1a9686ac76e1e',
+    'reference' => '4a8b60cce95be2b84582433556780924a7fd78c4',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -227,7 +227,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '3be8aca6db8993ae9d3ecb864ee1a9686ac76e1e',
+      'reference' => '4a8b60cce95be2b84582433556780924a7fd78c4',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -272,6 +272,20 @@ private static $installed = array (
       ),
       'reference' => '0eaaa9d5d45335f4342f69603288883388c2fe21',
     ),
+    'php-http/async-client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '*',
+      ),
+    ),
+    'php-http/client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '*',
+      ),
+    ),
     'phpoffice/phpspreadsheet' => 
     array (
       'pretty_version' => '1.17.1',
@@ -308,14 +322,28 @@ private static $installed = array (
       ),
       'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
     ),
+    'psr/cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0|2.0',
+      ),
+    ),
     'psr/container' => 
     array (
-      'pretty_version' => '1.0.0',
-      'version' => '1.0.0.0',
+      'pretty_version' => '1.1.1',
+      'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b7ce3b176482dbbc1245ebf52b181af44c2cf55f',
+      'reference' => '8622567409010282b7aeebe4bb841fe98b58dcaf',
+    ),
+    'psr/container-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
     ),
     'psr/event-dispatcher' => 
     array (
@@ -326,6 +354,13 @@ private static $installed = array (
       ),
       'reference' => 'dbefd12671e8a14ec7f180cab83036ed26714bb0',
     ),
+    'psr/event-dispatcher-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
     'psr/http-client' => 
     array (
       'pretty_version' => '1.0.1',
@@ -334,6 +369,13 @@ private static $installed = array (
       array (
       ),
       'reference' => '2dfb5f6c5eff0e91e20e913f8c5452ed95b86621',
+    ),
+    'psr/http-client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
     ),
     'psr/http-factory' => 
     array (
@@ -362,6 +404,13 @@ private static $installed = array (
       ),
       'reference' => '94d170941164db307197ebf436296372b849bdb5',
     ),
+    'psr/link-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
     'psr/log' => 
     array (
       'pretty_version' => '1.1.3',
@@ -371,6 +420,13 @@ private static $installed = array (
       ),
       'reference' => '0f73288fd15629204f9d42b7055f72dacbe811fc',
     ),
+    'psr/log-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
     'psr/simple-cache' => 
     array (
       'pretty_version' => '1.0.1',
@@ -379,6 +435,13 @@ private static $installed = array (
       array (
       ),
       'reference' => '408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
+    ),
+    'psr/simple-cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
     ),
     'sabberworm/php-css-parser' => 
     array (
@@ -411,28 +474,28 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/asset' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/browser-kit' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/cache' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/cache-contracts' => 
@@ -442,18 +505,25 @@ private static $installed = array (
         0 => 'v2.3.1',
       ),
     ),
+    'symfony/cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0|2.0',
+      ),
+    ),
     'symfony/config' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/console' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/contracts' => 
@@ -469,21 +539,21 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/debug-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/dependency-injection' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/deprecation-contracts' => 
@@ -497,35 +567,35 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/dom-crawler' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/dotenv' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/error-handler' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/event-dispatcher' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/event-dispatcher-contracts' => 
@@ -535,53 +605,60 @@ private static $installed = array (
         0 => 'v2.3.1',
       ),
     ),
+    'symfony/event-dispatcher-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '2.0',
+      ),
+    ),
     'symfony/expression-language' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/filesystem' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/finder' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/form' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/framework-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/google-mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/http-client' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/http-client-contracts' => 
@@ -591,102 +668,109 @@ private static $installed = array (
         0 => 'v2.3.1',
       ),
     ),
+    'symfony/http-client-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '2.2',
+      ),
+    ),
     'symfony/http-foundation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/http-kernel' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/inflector' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/intl' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/ldap' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/lock' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/mailchimp-mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/mailgun-mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/messenger' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/mime' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/monolog-bridge' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/notifier' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/options-resolver' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/polyfill-ctype' => 
@@ -783,105 +867,105 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/process' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/property-access' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/property-info' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/proxy-manager-bridge' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/rate-limiter' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/routing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/security-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/security-core' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/security-csrf' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/security-guard' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/security-http' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/semaphore' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/sendgrid-mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/serializer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/service-contracts' => 
@@ -891,41 +975,48 @@ private static $installed = array (
         0 => 'v2.3.1',
       ),
     ),
+    'symfony/service-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0|2.0',
+      ),
+    ),
     'symfony/stopwatch' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/string' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/symfony' => 
     array (
-      'pretty_version' => 'v5.2.3',
-      'version' => '5.2.3.0',
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e16bbdc1a02033e0e3ac060224953aee90570776',
+      'reference' => '5216698b81beac7c9f8fd1fc8921deada8ae70c0',
     ),
     'symfony/templating' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/translation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/translation-contracts' => 
@@ -935,74 +1026,81 @@ private static $installed = array (
         0 => 'v2.3.1',
       ),
     ),
+    'symfony/translation-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '2.3',
+      ),
+    ),
     'symfony/twig-bridge' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/twig-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/uid' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/validator' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/var-dumper' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/var-exporter' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/web-link' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/web-profiler-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/workflow' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'symfony/yaml' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.3',
+        0 => 'v5.2.4',
       ),
     ),
     'twig/twig' => 
