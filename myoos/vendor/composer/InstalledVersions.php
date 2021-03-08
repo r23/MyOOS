@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4a8b60cce95be2b84582433556780924a7fd78c4',
+    'reference' => '7816419aa378cc5feff5832e5a87a7b4bd32239d',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -170,10 +170,12 @@ private static $installed = array (
     ),
     'laminas/laminas-zendframework-bridge' => 
     array (
-      'replaced' => 
+      'pretty_version' => '1.2.0',
+      'version' => '1.2.0.0',
+      'aliases' => 
       array (
-        0 => '*',
       ),
+      'reference' => '6cccbddfcfc742eb02158d6137ca5687d92cee32',
     ),
     'maennchen/zipstream-php' => 
     array (
@@ -227,7 +229,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4a8b60cce95be2b84582433556780924a7fd78c4',
+      'reference' => '7816419aa378cc5feff5832e5a87a7b4bd32239d',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -297,12 +299,12 @@ private static $installed = array (
     ),
     'phpoffice/phpword' => 
     array (
-      'pretty_version' => '0.18.0',
-      'version' => '0.18.0.0',
+      'pretty_version' => '0.18.1',
+      'version' => '0.18.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1bd7cd62381051db6d6c7174d3c95a3ada48bc0f',
+      'reference' => '06b90e39a36872c6ee73534e1a073f4b3132fc6a',
     ),
     'phpseclib/phpseclib' => 
     array (
