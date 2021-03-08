@@ -150,6 +150,17 @@ switch ($action) {
       }
       break;
 
+	case 'clear_cart' :
+		if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {
+			$products = $_SESSION['cart']->get_products();
+
+			$n = count($products);
+			for ($i=0, $n; $i<$n; $i++) {			
+				$_SESSION['cart']->remove($products[$i]['id']);
+			}
+		}	
+      break;
+
     case 'buy_now' :	
       if (isset($_GET['products_id'])) {
         if (oos_has_product_attributes($_GET['products_id'])) {

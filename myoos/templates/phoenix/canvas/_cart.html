@@ -7,7 +7,7 @@
 	<div class="offcanvas-body">
 		<div class="offcanvas-body-inner">
 		{if $cart_count_contents > 0}
-			<div class="text-right"><a class="text-danger btn-sm pr-0" href="#"><i class="mr-1" data-feather="x" style="width: .85rem; height: .85rem;"></i>Clear cart</a></div>		
+			<div class="text-right"><a class="text-danger btn-sm pr-0" href="{html_href_link content=$filename.shopping_cart action=clear_cart}"><i class="mr-1" data-feather="x" style="width: .85rem; height: .85rem;"></i>{$lang.text_clear_cart}</a></div>		
 			<div class="widget widget-featured-entries pt-3">
 			
 				{foreach item=products from=$cart_products}								
@@ -16,7 +16,7 @@
 							{product_image dir=min image=$products.image alt=$products.name}					
 							</a><span class="item-remove-btn"><i data-feather="x"></i></span></div>
 						<div class="media-body">
-							<h6 class="featured-entry-title"><a href="#">{$products.name|truncate:25:"...":true|close_tags}</a></h6>
+							<h6 class="featured-entry-title"><a href="{product_link products_id=$products.id}">{$products.name|truncate:25:"...":true|close_tags}</a></h6>
 							<p class="featured-entry-meta">{$products.quantity|quantity}&nbsp; <span class='text-muted'>x</span> {display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</p>
 						</div>
 					</div>	<!-- /cart item -->																

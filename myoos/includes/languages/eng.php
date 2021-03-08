@@ -157,6 +157,9 @@ $aLang = [
 'text_please_enter_a_password'		=> 'Please enter a password',
 'text_please_provide_email_address' => 'Please provide email address',
 
+//offcanvas-cart
+'text_clear_cart' 				=> 'Clear cart',
+
 // checkout procedure text
 'checkout_bar_delivery'             => 'Delivery Information',
 'checkout_bar_payment'              => 'Payment Information',

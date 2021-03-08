@@ -139,6 +139,10 @@ $aLang = [
 'text_please_enter_a_password'		=> 'Bitte geben Sie Ihr Passwort ein',
 'text_please_provide_email_address' => 'Bitte geben Sie Ihre E-Mail Adresse ein',
 
+
+//offcanvas-cart
+'text_clear_cart' 				=> 'Warenkorb löschen',
+
 // checkout procedure text
 'checkout_bar_delivery'           => 'Versandinformationen',
 'checkout_bar_payment'            => 'Zahlungsweise',
