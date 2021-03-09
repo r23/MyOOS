@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '7816419aa378cc5feff5832e5a87a7b4bd32239d',
+    'reference' => '1c8dcc8d176ea424cd022c73f60915fc27aa9bfb',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -161,12 +161,12 @@ private static $installed = array (
     ),
     'laminas/laminas-eventmanager' => 
     array (
-      'pretty_version' => '3.3.0',
-      'version' => '3.3.0.0',
+      'pretty_version' => '3.3.1',
+      'version' => '3.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1940ccf30e058b2fd66f5a9d696f1b5e0027b082',
+      'reference' => '966c859b67867b179fde1eff0cd38df51472ce4a',
     ),
     'laminas/laminas-zendframework-bridge' => 
     array (
@@ -229,7 +229,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '7816419aa378cc5feff5832e5a87a7b4bd32239d',
+      'reference' => '1c8dcc8d176ea424cd022c73f60915fc27aa9bfb',
     ),
     'ocramius/proxy-manager' => 
     array (
