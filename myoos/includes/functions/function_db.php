@@ -91,6 +91,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     global $ADODB_CACHE_DIR;
     $ADODB_CACHE_DIR = oos_get_local_path(OOS_TEMP_PATH . 'adodb_cache/');
 
+
     $dbconn = ADONewConnection($dbtype);
     if (!$dbconn->Connect($dbhost, $dbuname, $dbpass, $dbname)) {
       $dbpass = "****";
