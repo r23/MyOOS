@@ -49,12 +49,12 @@ $lang['L_HTACCESS19']="Neu laden ";
 $lang['L_HTACCESS20']="Skript ausführen";
 $lang['L_HTACCESS21']="Handler hinzufügen";
 $lang['L_HTACCESS22']="Ausführbar machen";
-$lang['L_HTACCESS23']="Verzeichnisauflistung";
-$lang['L_HTACCESS24']="Fehlerdokument";
-$lang['L_HTACCESS25']="Überarbeiten aktivieren";
-$lang['L_HTACCESS26']="Verweigern/Erlauben";
-$lang['L_HTACCESS27']="Umleiten";
-$lang['L_HTACCESS28']="Fehlerprotokoll";
+$lang['L_HTACCESS23']="Verzeichnisinhalt (Directory Listing)";
+$lang['L_HTACCESS24']="Error-Dokument";
+$lang['L_HTACCESS25']="Rewrite aktivieren";
+$lang['L_HTACCESS26']="Deny / Allow";
+$lang['L_HTACCESS27']="Redirect";
+$lang['L_HTACCESS28']="Error-Log";
 $lang['L_HTACCESS29']="weitere Beispiele und Dokumentation";
 $lang['L_HTACCESS30']="Provider";
 $lang['L_HTACCESS31']="Allgemein";
@@ -65,7 +65,9 @@ $lang['L_DELETE_HTACCESS']="Verzeichnisschutz entfernen (.htaccess löschen)";
 $lang['L_WRONG_RIGHTS']="Die Datei oder das Verzeichnis '%s' ist für mich nicht beschreibbar.<br>
 Entweder hat sie/es den falschen Besitzer (Owner) oder die falschen Rechte (Chmod).<br>
 Bitte setze die richtigen Attribute mit Deinem FTP-Programm. <br>
-Die Datei oder das Verzeichnis benötigt die %s-Rechte.<br>";
+Die Datei oder das Verzeichnis benötigt die Rechte %s.<br>";
+$lang['L_CANT_CREATE_DIR']="Ich konntes das Verzeichnis '%s' nicht erstellen.
+Bitte erstelle es mit Deinem FTP-Programm.";
 $lang['L_CANT_CREATE_DIR']="Ich konnte das '%s'-Verzeichnis nicht erstellen.
 Bitte mit Deinem FTP-Programm erstellen.";
 $lang['L_TABLE_TYPE']="Typ";
