@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO &#8211; Best SEO Plugin for WordPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-02-07 12:11:46+0000\n"
+"PO-Revision-Date: 2021-03-08 21:52:28+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,26 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO &#8211; Best SEO Plugin for WordPress - Stable (latest release)\n"
+
+#: includes/admin/wizard/views/search-console-ui.php:231
+msgid "Self-Hosted Analytics JS File"
+msgstr "Selbstgehostete Analytics JS-Datei"
+
+#: includes/admin/wizard/views/search-console-ui.php:206
+msgid "Enable Cookieless Tracking [No Consent Required]"
+msgstr "Cookieless Tracking aktivieren [Keine Zustimmung erforderlich]"
+
+#: includes/modules/status/class-system-status.php:138
+msgid "(none)"
+msgstr "(keins)"
+
+#: includes/modules/status/class-system-status.php:137
+msgid "Active modules"
+msgstr "Aktive Module"
+
+#: includes/modules/redirections/views/options.php:28
+msgid "If nothing similar is found, this behavior will be applied. <strong>Note</strong>: If the requested URL ends with <code>/login</code>, <code>/admin</code>, or <code>/dashboard</code>, WordPress will automatically redirect to respective locations within the WordPress admin area."
+msgstr "Wenn nichts Ähnliches gefunden wird, wird dieses Verhalten angewendet. <strong>Hinweis</strong>: Wenn die angeforderte URL mit <code>/login</code>, <code>/admin</code> oder <code>/dashboard</code> endet, leitet WordPress automatisch zu den entsprechenden Stellen im WordPress-Adminbereich um."
 
 #: includes/settings/general/others.php:18
 msgid "Proudly display the calculated SEO Score as a badge on the front end. It can be disabled for specific posts in the post editor."
@@ -135,11 +155,11 @@ msgstr "Vergeben"
 msgid "Cancel Fetch"
 msgstr "Abrufen abbrechen"
 
-#: includes/modules/analytics/class-ajax.php:184
+#: includes/modules/analytics/class-ajax.php:186
 msgid "Data fetching started in the background."
 msgstr "Das Abrufen der Daten wurde im Hintergrund gestartet."
 
-#: includes/modules/analytics/class-ajax.php:151
+#: includes/modules/analytics/class-ajax.php:153
 msgid "Data fetching cancelled."
 msgstr "Datenabruf abgebrochen."
 
@@ -247,7 +267,7 @@ msgstr "Gebe deinen Bing Webmaster Tools API-Schlüssel ein. %s"
 msgid "Bing API Key"
 msgstr "Bing API-Schlüssel"
 
-#: includes/modules/status/class-system-status.php:139
+#: includes/modules/status/class-system-status.php:145
 msgid "Google Permission"
 msgstr "Google Erlaubnis"
 
@@ -286,75 +306,75 @@ msgstr "Es gibt kein Refresh-Token. Bitte <a href=\"%1$s\" class=\"button button
 msgid "Re-create Tables"
 msgstr "Tabellen neu erstellen"
 
-#: includes/modules/status/class-system-status.php:188
+#: includes/modules/status/class-system-status.php:194
 msgid "Doesn't exists"
 msgstr "Existiert nicht"
 
-#: includes/modules/status/class-system-status.php:174
+#: includes/modules/status/class-system-status.php:180
 msgid "Database Table: Keyword Manager"
 msgstr "Datenbank-Tabelle: Schlüsselwort-Manager"
 
-#: includes/modules/status/class-system-status.php:173
+#: includes/modules/status/class-system-status.php:179
 msgid "Database Table: Google AdSense"
 msgstr "Datenbank-Tabelle: Google AdSense"
 
-#: includes/modules/status/class-system-status.php:172
+#: includes/modules/status/class-system-status.php:178
 msgid "Database Table: Google Analytics"
 msgstr "Datenbank-Tabelle: Google Analytics"
 
-#: includes/modules/status/class-system-status.php:171
+#: includes/modules/status/class-system-status.php:177
 msgid "Database Table: Flat Posts"
 msgstr "Datenbank-Tabelle: Flache Beiträge"
 
-#: includes/modules/status/class-system-status.php:170
+#: includes/modules/status/class-system-status.php:176
 msgid "Database Table: Google Search Console"
 msgstr "Datenbank-Tabelle: Google Search Console"
 
-#: includes/modules/status/class-system-status.php:169
+#: includes/modules/status/class-system-status.php:175
 msgid "Database Table: Internal Link Meta"
 msgstr "Datenbank-Tabelle: Interne Link-Meta"
 
-#: includes/modules/status/class-system-status.php:168
+#: includes/modules/status/class-system-status.php:174
 msgid "Database Table: Internal Link"
 msgstr "Datenbank-Tabelle: Interner Link"
 
-#: includes/modules/status/class-system-status.php:167
+#: includes/modules/status/class-system-status.php:173
 msgid "Database Table: Redirection Cache"
 msgstr "Datenbank-Tabelle: Umleitungs-Cache"
 
-#: includes/modules/status/class-system-status.php:166
+#: includes/modules/status/class-system-status.php:172
 msgid "Database Table: Redirection"
 msgstr "Datenbank-Tabelle: Umleitung"
 
-#: includes/modules/status/class-system-status.php:165
+#: includes/modules/status/class-system-status.php:171
 msgid "Database Table: 404 Log"
 msgstr "Datenbank-Tabelle: 404 Protokoll"
 
-#: includes/modules/status/class-system-status.php:136
+#: includes/modules/status/class-system-status.php:142
 msgid "Token exists"
 msgstr "Token vorhanden"
 
-#: includes/modules/status/class-system-status.php:136
+#: includes/modules/status/class-system-status.php:142
 msgid "No token"
 msgstr "Kein Token"
 
-#: includes/modules/status/class-system-status.php:135
+#: includes/modules/status/class-system-status.php:141
 msgid "Google Refresh token"
 msgstr "Google Refresh-Token"
 
-#: includes/modules/status/class-system-status.php:132
+#: includes/modules/status/class-system-status.php:134
 msgid "Free"
 msgstr "Kostenlos"
 
-#: includes/modules/status/class-system-status.php:131
+#: includes/modules/status/class-system-status.php:133
 msgid "Plugin subscription plan"
 msgstr "Plugin-Abonnement-Plan"
 
-#: includes/modules/status/class-system-status.php:127
+#: includes/modules/status/class-system-status.php:129
 msgid "Database version"
 msgstr "Datenbankversion"
 
-#: includes/modules/status/class-system-status.php:123
+#: includes/modules/status/class-system-status.php:125
 msgid "Version"
 msgstr "Version"
 
@@ -371,7 +391,7 @@ msgstr "Videoeinstellungen erfolgreich importiert."
 msgid "Days"
 msgstr "Tage"
 
-#: includes/modules/local-seo/views/titles-options.php:269
+#: includes/modules/local-seo/views/titles-options.php:270
 msgid "Multiple Locations are available in the %s."
 msgstr "Mehrere Standorte sind in den %s verfügbar."
 
@@ -421,7 +441,7 @@ msgstr "Neueste Blog-Beiträge von Rank Math"
 msgid "Rank Math Overview"
 msgstr "Rank Math Übersicht"
 
-#: includes/frontend/class-head.php:371
+#: includes/frontend/class-head.php:374
 msgid "Search Engine Optimization by Rank Math PRO - https://s.rankmath.com/home"
 msgstr "Suchmaschinen-Optimierung durch Rank Math PRO - https://s.rankmath.com/home"
 
@@ -463,15 +483,15 @@ msgstr "Bericht anzeigen"
 msgid "Last 30 Days"
 msgstr "Letzte 30 Tage"
 
-#: includes/admin/wizard/views/search-console-ui.php:250
+#: includes/admin/wizard/views/search-console-ui.php:302
 msgid "Google AdSense support is only available in Rank Math Pro's Advanced Analytics module."
 msgstr "Google AdSense-Unterstützung ist nur im Erweiterten Analytics-Modul von Rank Math Pro verfügbar."
 
-#: includes/admin/wizard/views/search-console-ui.php:165
+#: includes/admin/wizard/views/search-console-ui.php:167
 msgid "Enable this option only if you are not using any other plugin/theme to install Google Analytics code."
 msgstr "Aktiviere diese Option nur dann, wenn du kein anderes Plugin oder Theme verwendest, um den Google-Analytics-Code einzubinden."
 
-#: includes/admin/wizard/views/search-console-ui.php:57
+#: includes/admin/wizard/views/search-console-ui.php:59
 msgid "Reconnect"
 msgstr "Neu verbinden"
 
@@ -494,7 +514,7 @@ msgid "Search Traffic"
 msgstr "Such-Traffic"
 
 #. Translators: placeholders are the opening and closing anchor tags.
-#: includes/updates/update-1.0.49.php:63
+#: includes/updates/update-1.0.49.php:61
 msgid "Thank you for updating Rank Math! We've completely revamped our Analytics module with Google Analytics & Google Search Console integrations. For a seamless experience, please re-authenticate your Google account. %1$sClick here to Connect%2$s"
 msgstr "Danke, dass du Rank Math aktualisiert hast. Wir haben unser Analytics-Modul mit Integration von Google Analytics und Google Search Console komplett neu gebaut. Damit diese reibungslos funktioniert, muss du dein Google-Konto neu authentifizieren. %1$sKlick hier, um dich anzumelden%2$s"
 
@@ -519,49 +539,51 @@ msgid "Connect Google Services"
 msgstr "Google-Dienste verbinden"
 
 #: includes/modules/analytics/google/class-permissions.php:107
-#: includes/admin/wizard/views/search-console-ui.php:224
+#: includes/admin/wizard/views/search-console-ui.php:276
 msgid "AdSense"
 msgstr "AdSense"
 
-#: includes/admin/wizard/views/search-console-ui.php:203
+#: includes/admin/wizard/views/search-console-ui.php:255
 msgid "Exclude Logged-in users"
 msgstr "Angemeldete Benutzer ausschließen"
 
-#: includes/admin/wizard/views/search-console-ui.php:183
-#: includes/admin/wizard/views/search-console-ui.php:250
+#: includes/admin/wizard/views/search-console-ui.php:185
+#: includes/admin/wizard/views/search-console-ui.php:210
+#: includes/admin/wizard/views/search-console-ui.php:235
+#: includes/admin/wizard/views/search-console-ui.php:302
 msgid "PRO"
 msgstr "PRO"
 
-#: includes/admin/wizard/views/search-console-ui.php:179
+#: includes/admin/wizard/views/search-console-ui.php:181
 msgid "Anonymize IP addresses"
 msgstr "IP-Adressen anonymisieren"
 
-#: includes/admin/wizard/views/search-console-ui.php:164
+#: includes/admin/wizard/views/search-console-ui.php:166
 msgid "Install analytics code"
 msgstr "Analytics-Code installieren"
 
-#: includes/modules/status/class-system-status.php:188
+#: includes/modules/status/class-system-status.php:194
 msgid "Created"
 msgstr "Erstellen"
 
-#: includes/admin/wizard/views/search-console-ui.php:142
+#: includes/admin/wizard/views/search-console-ui.php:144
 msgid "View"
 msgstr "Anzeigen"
 
-#: includes/admin/wizard/views/search-console-ui.php:131
+#: includes/admin/wizard/views/search-console-ui.php:133
 msgid "Property"
 msgstr "Eigentum"
 
-#: includes/admin/wizard/views/search-console-ui.php:83
+#: includes/admin/wizard/views/search-console-ui.php:85
 msgid "Site"
 msgstr "Website"
 
-#: includes/admin/wizard/views/search-console-ui.php:57
+#: includes/admin/wizard/views/search-console-ui.php:59
 msgid "Disconnect"
 msgstr "Verbindung trennen"
 
 #: includes/admin/wizard/views/google-connect.php:37
-#: includes/admin/wizard/views/search-console-ui.php:261
+#: includes/admin/wizard/views/search-console-ui.php:313
 #: includes/admin/wizard/views/rank-math-connect.php:41
 msgid "We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take your privacy extremely seriously and ensure it is never misused. %s"
 msgstr "Wir speichern keinerlei Daten aus deinem Google-Konto auf unseren Servern, alles wird auf deinem Server verarbeitet und gespeichert. Wir nehmen den Schutz deiner Daten extrem ernst und stellen sich, dass sie nie missbraucht werden. %s"
@@ -1213,8 +1235,8 @@ msgid "Connected"
 msgstr "Verbunden"
 
 #: includes/admin/views/plugin-activation.php:23
-#: includes/admin/wizard/views/search-console-ui.php:120
-#: includes/admin/wizard/views/search-console-ui.php:235
+#: includes/admin/wizard/views/search-console-ui.php:122
+#: includes/admin/wizard/views/search-console-ui.php:287
 msgid "Account"
 msgstr "Konto"
 
@@ -1436,8 +1458,8 @@ msgid "Rank Math generates the default Sitemaps only and WPML takes care of the 
 msgstr "Rank Math erzeugt nur die Standard-Sitemaps, WPML kümmert sich um den Rest. Wenn ein Suchmaschinen-Crawler einen Beitrag oder eine Seite besucht, kann er über den hreflang-Tag die übersetzten Seiten finden. Das ist einer der von Google empfohlenen Methoden. Bitte %s"
 
 #. translators: %1$s: thing, %2$s: Learn more link.
-#: includes/modules/sitemap/class-admin.php:132
-#: includes/modules/sitemap/class-admin.php:190
+#: includes/modules/sitemap/class-admin.php:131
+#: includes/modules/sitemap/class-admin.php:189
 msgid "Change Sitemap settings of %1$s. %2$s."
 msgstr "Ändere die Sitemap-Einstellungen für %1$s. %2$s."
 
@@ -1588,15 +1610,15 @@ msgstr "Du darfst diesen Beitragstyp leider nicht bearbeiten."
 msgid "Sorry, you are not allowed to create/update redirection."
 msgstr "Entschuldigung, du hast keine Erlaubnis Weiterleitungen zu erstellen oder zu bearbeiten."
 
-#: includes/modules/sitemap/class-admin.php:306
+#: includes/modules/sitemap/class-admin.php:287
 msgid "Click here to see the code."
 msgstr "Klicke hier, um den Code zu sehen."
 
-#: includes/modules/sitemap/class-admin.php:305
+#: includes/modules/sitemap/class-admin.php:286
 msgid "configuration file"
 msgstr "Konfigurationsdatei"
 
-#: includes/modules/sitemap/class-admin.php:305
+#: includes/modules/sitemap/class-admin.php:286
 msgid "Since you are using NGINX, add this code to your NGINX %s <strong>if your Sitemap pages are not loading</strong> or you can ask your hosting support to add it."
 msgstr "Da du NGINX verwendest, füge diesen Code zu deinem NGINX %s hinzu, <strong>wenn deine Sitemap-Seiten nicht geladen werden</strong>. Du kannst auch deinen Hosting-Support bitten, ihn hinzuzufügen."
 
@@ -1679,7 +1701,7 @@ msgstr[0] "%d Tag"
 msgstr[1] "%d Tage"
 
 #. translators: sitemap url
-#: includes/modules/sitemap/class-admin.php:65
+#: includes/modules/sitemap/class-admin.php:64
 msgid "Your sitemap index can be found here: %s"
 msgstr "Deinen Sitemap-Index findest du hier: %s"
 
@@ -1847,18 +1869,18 @@ msgid "Database Tools"
 msgstr "Datenbank-Tools"
 
 #: includes/modules/status/class-error-log.php:78
-#: includes/modules/status/class-system-status.php:49
+#: includes/modules/status/class-system-status.php:50
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Copied!"
 msgstr "Kopiert!"
 
-#: includes/modules/status/class-system-status.php:47
+#: includes/modules/status/class-system-status.php:48
 msgid "Copy System Info to Clipboard"
 msgstr "Kopiere die Systeminformationen in die Zwischenablage"
 
-#: includes/modules/status/class-system-status.php:41
+#: includes/modules/status/class-system-status.php:42
 msgid "System Info"
 msgstr "Systeminformationen"
 
@@ -1866,7 +1888,7 @@ msgstr "Systeminformationen"
 msgid "Redirect Orphan Attachments"
 msgstr "Umleitung von verwaisten Anhängen"
 
-#: includes/modules/sitemap/class-admin.php:129
+#: includes/modules/sitemap/class-admin.php:128
 #: includes/admin/class-option-center.php:238
 msgid "Attachments"
 msgstr "Anhänge"
@@ -2687,7 +2709,7 @@ msgstr "Diese XML-Sitemap wird generiert von <a href=\"%s\" target=\"_blank\">Ra
 msgid "XML Sitemap"
 msgstr "XML-Sitemap"
 
-#: includes/frontend/class-head.php:369
+#: includes/frontend/class-head.php:372
 msgid "Search Engine Optimization by Rank Math - https://s.rankmath.com/home"
 msgstr "Suchmaschinenoptimierung von Rank Math - https://s.rankmath.com/home"
 
@@ -3732,7 +3754,7 @@ msgid "Exclude User Roles"
 msgstr "Benutzerrollen ausschließen"
 
 #. translators: 1. separator, 2. blogname
-#: includes/modules/sitemap/class-stylesheet.php:38
+#: includes/modules/sitemap/class-stylesheet.php:47
 msgid "XML Sitemap %1$s %2$s"
 msgstr "XML-Sitemap %1$s %2$s"
 
@@ -3741,58 +3763,54 @@ msgstr "XML-Sitemap %1$s %2$s"
 msgid "We detected new post type(s) (%1$s), and you would want to check the settings of <a href=\"%2$s\">Titles &amp; Meta page</a> and <a href=\"%3$s\">the Sitemap</a>."
 msgstr "Wir haben neue Beitrags-Typen (%1$s) entdeckt und du solltest die Einstellungen von <a href=\"%2$s\">Titel &amp; Meta Seite</a> und <a href=\"%3$s\">der Sitemap</a> überprüfen."
 
-#: includes/modules/sitemap/class-admin.php:230
+#: includes/modules/sitemap/class-admin.php:211
 msgid "Exclude this image from sitemap"
 msgstr "Dieses Bild von der Sitemap ausschließen"
 
-#: includes/modules/sitemap/class-admin.php:211
-msgid "Special Sitemaps:"
-msgstr "Spezielle Sitemaps:"
-
 #. translators: Taxonomy singular label
-#: includes/modules/sitemap/class-admin.php:181
+#: includes/modules/sitemap/class-admin.php:180
 msgid "%s archives"
 msgstr "%s Archive"
 
 #. translators: Taxonomy singular label
-#: includes/modules/sitemap/class-admin.php:175
+#: includes/modules/sitemap/class-admin.php:174
 msgid "your product %s pages"
 msgstr "Ihre Produkt %s Seiten"
 
-#: includes/modules/sitemap/class-admin.php:160
+#: includes/modules/sitemap/class-admin.php:159
 msgid "Taxonomies:"
 msgstr "Taxonomien:"
 
-#: includes/modules/sitemap/class-admin.php:140
+#: includes/modules/sitemap/class-admin.php:139
 msgid "Please note that this will add the attachment page URLs to the sitemap, not direct image URLs."
 msgstr "Bitte beachte, dass die URLs der Anhänge zur Sitemap hinzugefügt werden und nicht die direkten Bild-URLs."
 
 #. translators: Post Type Sitemap Url
 #. translators: Taxonomy Sitemap Url
-#: includes/modules/sitemap/class-admin.php:136
-#: includes/modules/sitemap/class-admin.php:194
+#: includes/modules/sitemap/class-admin.php:135
+#: includes/modules/sitemap/class-admin.php:193
 msgid "Sitemap URL: %s"
 msgstr "Sitemap URL: %s"
 
 #. translators: Post Type label
-#: includes/modules/sitemap/class-admin.php:125
+#: includes/modules/sitemap/class-admin.php:124
 msgid "single %s"
 msgstr "einzelne %s"
 
-#: includes/modules/sitemap/class-admin.php:105
+#: includes/modules/sitemap/class-admin.php:104
 msgid "your product pages"
 msgstr "Deine Produktseiten"
 
-#: includes/modules/sitemap/class-admin.php:104
+#: includes/modules/sitemap/class-admin.php:103
 msgid "attachments"
 msgstr "Anhänge"
 
 #. translators: Learn more link.
-#: includes/modules/sitemap/class-admin.php:74
+#: includes/modules/sitemap/class-admin.php:73
 msgid "Set the sitemap options for author archive pages. %s."
 msgstr "Lege die Sitemap-Optionen für Autorenarchivseiten fest. %s."
 
-#: includes/modules/sitemap/class-admin.php:63
+#: includes/modules/sitemap/class-admin.php:62
 msgid "This tab contains General settings related to the XML sitemaps."
 msgstr "Diese Registerkarte enthält allgemeine Einstellungen in Bezug auf die XML-Sitemaps."
 
@@ -4092,11 +4110,11 @@ msgstr "Daten manuell aktualisieren"
 msgid "Warnings"
 msgstr "Warnhinweise"
 
-#: includes/modules/analytics/class-ajax.php:162
+#: includes/modules/analytics/class-ajax.php:164
 msgid "Google oAuth is not authorized."
 msgstr "Google oAuth ist nicht autorisiert."
 
-#: includes/modules/analytics/class-ajax.php:196
+#: includes/modules/analytics/class-ajax.php:198
 msgid "Not a valid settings founds to delete cache."
 msgstr "Es wurde keine gültige Einstellung zum Löschen des Caches gefunden."
 
@@ -4128,7 +4146,7 @@ msgstr "Fehlerhafte Anfrage. Bitte überprüfen Sie den Code."
 #: includes/modules/analytics/class-analytics.php:489
 #: includes/modules/analytics/class-analytics.php:522
 #: includes/modules/role-manager/class-capability-manager.php:66
-#: includes/admin/wizard/views/search-console-ui.php:107
+#: includes/admin/wizard/views/search-console-ui.php:109
 #: includes/admin/class-setup-wizard.php:112
 msgid "Analytics"
 msgstr "Analysen"
@@ -4178,28 +4196,6 @@ msgstr "Preis Währung"
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Gender"
 msgstr "Geschlecht"
-
-#: includes/modules/schema/shortcode/video.php:34
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-classic.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
-#: assets/admin/js/blocks.js:1
-msgid "Duration"
-msgstr "Dauer"
-
-#: includes/modules/schema/shortcode/video.php:27
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-classic.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
-msgid "Embed URL"
-msgstr "URL einbinden"
-
-#: includes/modules/schema/shortcode/video.php:20
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-classic.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
-msgid "Content URL"
-msgstr "Inhalts-URL"
 
 #: includes/modules/schema/shortcode/restaurant.php:57
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
@@ -4502,10 +4498,6 @@ msgstr "Weiterleitung zur Homepage"
 msgid "Default 404"
 msgstr "Standard 404"
 
-#: includes/modules/redirections/views/options.php:28
-msgid "If nothing similar is found, this behavior will be applied."
-msgstr "Wenn nichts Ähnliches gefunden wird, wird dieses Verhalten angewendet."
-
 #: includes/modules/redirections/views/options.php:27
 msgid "Fallback Behavior"
 msgstr "Rückfallverhalten"
@@ -4663,7 +4655,7 @@ msgid "Delete Permanently"
 msgstr "Dauerhaft löschen"
 
 #: includes/modules/redirections/class-table.php:153
-#: includes/modules/sitemap/class-admin.php:306
+#: includes/modules/sitemap/class-admin.php:287
 msgid "Hide"
 msgstr "Ausblenden"
 
@@ -4827,62 +4819,62 @@ msgstr "Dieses Feld darf nicht leer sein."
 msgid "Maintenance Code"
 msgstr "Wartungscode"
 
-#: includes/modules/local-seo/views/titles-options.php:267
+#: includes/modules/local-seo/views/titles-options.php:268
 msgid "Latitude and longitude values separated by comma."
 msgstr "Breiten- und Längengrade getrennt durch ein Komma."
 
 #: includes/modules/schema/shortcode/restaurant.php:27
-#: includes/modules/local-seo/views/titles-options.php:266
+#: includes/modules/local-seo/views/titles-options.php:267
 msgid "Geo Coordinates"
 msgstr "Geo-Koordinaten"
 
 #. translators: %s expands to "Google Maps Embed API"
 #. https://developers.google.com/maps/documentation/embed
-#: includes/modules/local-seo/views/titles-options.php:256
+#: includes/modules/local-seo/views/titles-options.php:257
 msgid "Google Maps Embed API"
 msgstr "Google Maps Einbettungs-API"
 
 #. translators: %s expands to "Google Maps Embed API"
 #. https://developers.google.com/maps/documentation/embed
-#: includes/modules/local-seo/views/titles-options.php:256
+#: includes/modules/local-seo/views/titles-options.php:257
 msgid "An API Key is required to display embedded Google Maps on your site. Get it here: %s"
 msgstr "Ein API-Schlüssel ist erforderlich, Um eine eingebettete Google Karte auf deiner Website anzuzeigen. Hole dir diesen hier: %s"
 
-#: includes/modules/local-seo/views/titles-options.php:254
+#: includes/modules/local-seo/views/titles-options.php:255
 msgid "Google Maps API Key"
 msgstr "Google Maps API-Schlüssel"
 
-#: includes/modules/local-seo/views/titles-options.php:244
+#: includes/modules/local-seo/views/titles-options.php:245
 msgid "Contact Page"
 msgstr "Kontaktseite"
 
-#: includes/modules/local-seo/views/titles-options.php:227
-#: includes/modules/local-seo/views/titles-options.php:245
+#: includes/modules/local-seo/views/titles-options.php:228
+#: includes/modules/local-seo/views/titles-options.php:246
 msgid "Select a page on your site where you want to show the LocalBusiness meta data."
 msgstr "Wähle auf deiner Website eine Seite aus, auf der du die Metadaten des lokalen Geschäfts anzeigen möchtest."
 
-#: includes/modules/local-seo/views/titles-options.php:226
+#: includes/modules/local-seo/views/titles-options.php:227
 msgid "About Page"
 msgstr "Über uns Seite"
 
-#: includes/modules/local-seo/views/titles-options.php:215
-#: includes/modules/local-seo/views/titles-options.php:233
+#: includes/modules/local-seo/views/titles-options.php:216
+#: includes/modules/local-seo/views/titles-options.php:234
 msgid "Select Page"
 msgstr "Wähle Seite"
 
-#: includes/modules/local-seo/views/titles-options.php:209
+#: includes/modules/local-seo/views/titles-options.php:210
 msgid "The price range of the business, for example $$$."
 msgstr "Die Preisspanne des Unternehmens, z.B. $$$$$."
 
 #: includes/modules/schema/shortcode/restaurant.php:41
-#: includes/modules/local-seo/views/titles-options.php:208
+#: includes/modules/local-seo/views/titles-options.php:209
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Price Range"
 msgstr "Preisspanne"
 
-#: includes/modules/local-seo/views/titles-options.php:200
+#: includes/modules/local-seo/views/titles-options.php:201
 msgid "Format: +1-401-555-1212"
 msgstr "Format: +1-401-555-1212"
 
@@ -4930,68 +4922,68 @@ msgstr "Technische Unterstützung"
 msgid "Customer Service"
 msgstr "Kundenservice"
 
-#: includes/modules/local-seo/views/titles-options.php:177
+#: includes/modules/local-seo/views/titles-options.php:178
 msgid "Add number"
 msgstr "Nummer hinzufügen"
 
 #: includes/modules/schema/shortcode/restaurant.php:34
-#: includes/modules/local-seo/views/titles-options.php:174
+#: includes/modules/local-seo/views/titles-options.php:175
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
-#: includes/modules/local-seo/views/titles-options.php:164
+#: includes/modules/local-seo/views/titles-options.php:123
 msgid "Time format used in the contact shortcode."
 msgstr "Zeitformat, das im Kontakt-Shortcode verwendet wird."
 
-#: includes/modules/local-seo/views/titles-options.php:159
+#: includes/modules/local-seo/views/titles-options.php:118
 msgid "Opening Hours Format"
 msgstr "Format der Öffnungszeiten"
 
-#: includes/modules/local-seo/views/titles-options.php:151
+#: includes/modules/local-seo/views/titles-options.php:166
 msgid "e.g. 09:00-17:00"
 msgstr "z.B. 09:00-17:00"
 
-#: includes/modules/local-seo/views/titles-options.php:141
+#: includes/modules/local-seo/views/titles-options.php:156
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: includes/modules/local-seo/views/titles-options.php:140
+#: includes/modules/local-seo/views/titles-options.php:155
 msgid "Saturday"
 msgstr "Samstag"
 
-#: includes/modules/local-seo/views/titles-options.php:139
+#: includes/modules/local-seo/views/titles-options.php:154
 msgid "Friday"
 msgstr "Freitag"
 
-#: includes/modules/local-seo/views/titles-options.php:138
+#: includes/modules/local-seo/views/titles-options.php:153
 msgid "Thursday"
 msgstr "Donnerstag"
 
-#: includes/modules/local-seo/views/titles-options.php:137
+#: includes/modules/local-seo/views/titles-options.php:152
 msgid "Wednesday"
 msgstr "Mittwoch"
 
-#: includes/modules/local-seo/views/titles-options.php:136
+#: includes/modules/local-seo/views/titles-options.php:151
 msgid "Tuesday"
 msgstr "Dienstag"
 
-#: includes/modules/local-seo/views/titles-options.php:135
+#: includes/modules/local-seo/views/titles-options.php:150
 msgid "Monday"
 msgstr "Montag"
 
-#: includes/modules/local-seo/views/titles-options.php:121
+#: includes/modules/local-seo/views/titles-options.php:136
 msgid "Add time"
 msgstr "Zeit hinzufügen"
 
-#: includes/modules/local-seo/views/titles-options.php:119
+#: includes/modules/local-seo/views/titles-options.php:134
 msgid "Select opening hours. You can add multiple sets if you have different opening or closing hours on some days or if you have a mid-day break. Times are specified using 24:00 time."
 msgstr "Wähle die Öffnungszeiten. Du kannst mehrere Sätze hinzufügen, wenn du an manchen Tagen unterschiedliche Öffnungs- oder Schließzeiten habst oder wenn du eine Mittagspause hast. Die Zeiten werden mit 24:00 Uhr angegeben."
 
 #: includes/modules/schema/class-snippet-shortcode.php:264
-#: includes/modules/local-seo/views/titles-options.php:118
+#: includes/modules/local-seo/views/titles-options.php:133
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
@@ -5015,7 +5007,7 @@ msgid "Address"
 msgstr "﻿Adresse"
 
 #: includes/modules/local-seo/views/titles-options.php:74
-#: includes/modules/local-seo/views/titles-options.php:175
+#: includes/modules/local-seo/views/titles-options.php:176
 msgid "Search engines may prominently display your contact phone number for mobile users."
 msgstr "Suchmaschinen können deine Kontakttelefonnummer für mobile Benutzer prominent anzeigen."
 
@@ -5116,8 +5108,8 @@ msgid "Ignore Query Parameters"
 msgstr "Alle Parameter ignorieren"
 
 #: includes/modules/redirections/class-form.php:95
-#: includes/modules/local-seo/views/titles-options.php:122
-#: includes/modules/local-seo/views/titles-options.php:178
+#: includes/modules/local-seo/views/titles-options.php:137
+#: includes/modules/local-seo/views/titles-options.php:179
 #: includes/modules/404-monitor/views/options.php:58
 msgid "Remove"
 msgstr "Entfernen"
@@ -5904,7 +5896,7 @@ msgstr "Beitrags-Formate Archiv"
 msgid "Post Formats"
 msgstr "Beitrags-Formate"
 
-#: includes/modules/sitemap/class-admin.php:114
+#: includes/modules/sitemap/class-admin.php:113
 #: includes/admin/class-option-center.php:228
 msgid "Post Types:"
 msgstr "Beitragsarten:"
@@ -5921,7 +5913,7 @@ msgstr "SEO Titel &amp; Meta"
 msgid "Misc Pages"
 msgstr "Sonstige Seiten"
 
-#: includes/modules/sitemap/class-admin.php:72
+#: includes/modules/sitemap/class-admin.php:71
 #: includes/admin/class-option-center.php:168
 msgid "Authors"
 msgstr "Autoren"
@@ -6302,7 +6294,7 @@ msgstr "Beitragstitel"
 msgid "Page %1$d of %2$d"
 msgstr "Seite %1$d von %2$d"
 
-#: rank-math.php:486
+#: rank-math.php:487
 msgid "Once Weekly"
 msgstr "Einmal wöchentlich"
 
@@ -6370,31 +6362,31 @@ msgstr "Aktiviere die Unterstützung für die strukturierten Daten, mit denen Me
 msgid "Records the URLs on which visitors & search engines run into 404 Errors. You can also turn on Redirections to redirect the error causing URLs to other URLs."
 msgstr "Zeichnet die URLs auf, unter denen Besucher und Suchmaschinen auf 404-Fehler stoßen. Du kannst auch Umleitungen aktivieren, um die fehlerhaften URLs auf andere URLs umzuleiten."
 
-#: includes/class-installer.php:332
+#: includes/class-installer.php:340
 #: includes/settings/general/breadcrumbs.php:112
 msgid "404 Error: page not found"
 msgstr "404 Fehler: Seite nicht gefunden"
 
 #. translators: Search query term
 #. translators: placeholder
-#: includes/class-installer.php:331
+#: includes/class-installer.php:339
 #: includes/settings/general/breadcrumbs.php:101
 msgid "Results for %s"
 msgstr "Ergebnisse für %s"
 
 #. translators: Archive title
 #. translators: placeholder
-#: includes/class-installer.php:329
+#: includes/class-installer.php:337
 #: includes/settings/general/breadcrumbs.php:89
 msgid "Archives for %s"
 msgstr "Archiv für %s"
 
-#: includes/class-installer.php:327
+#: includes/class-installer.php:335
 #: includes/settings/general/breadcrumbs.php:56
 msgid "Home"
 msgstr "Startseite"
 
-#: includes/frontend/class-head.php:377
+#: includes/frontend/class-head.php:380
 msgid "Rank Math WordPress SEO plugin"
 msgstr "Rank Math WordPress SEO Plugin"
 
@@ -6553,7 +6545,7 @@ msgstr "Deine Website: %s"
 
 #. translators: Link to How to Setup Sitemap KB article
 #: includes/admin/wizard/views/google-connect.php:37
-#: includes/admin/wizard/views/search-console-ui.php:261
+#: includes/admin/wizard/views/search-console-ui.php:313
 #: includes/admin/wizard/views/rank-math-connect.php:41
 #: includes/admin/wizard/class-sitemap.php:37
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
@@ -6618,10 +6610,10 @@ msgstr "Werde Mitglied der KOSTENLOSEN Facebook-Gruppe"
 #. translators: Redirection page url
 #: includes/modules/redirections/class-admin.php:177
 #: includes/modules/woocommerce/class-admin.php:77
-#: includes/modules/sitemap/class-admin.php:63
-#: includes/modules/sitemap/class-admin.php:74
-#: includes/modules/sitemap/class-admin.php:132
-#: includes/modules/sitemap/class-admin.php:190
+#: includes/modules/sitemap/class-admin.php:62
+#: includes/modules/sitemap/class-admin.php:73
+#: includes/modules/sitemap/class-admin.php:131
+#: includes/modules/sitemap/class-admin.php:189
 #: includes/modules/instant-indexing/class-instant-indexing.php:227
 #: includes/modules/instant-indexing/class-instant-indexing.php:233
 #: includes/modules/image-seo/class-admin.php:48
@@ -7322,7 +7314,7 @@ msgstr "Sitemaps"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:100
 #: includes/modules/analytics/google/class-permissions.php:109
-#: includes/admin/wizard/views/search-console-ui.php:72
+#: includes/admin/wizard/views/search-console-ui.php:74
 msgid "Search Console"
 msgstr "Search Console"
 
@@ -7632,8 +7624,8 @@ msgstr "Alle Änderungen speichern"
 msgid "Bulk Edit This Field"
 msgstr "Massenbearbeitung dieses Feldes"
 
+#: includes/modules/sitemap/class-admin.php:83
 #: includes/modules/sitemap/class-admin.php:84
-#: includes/modules/sitemap/class-admin.php:85
 #: includes/modules/role-manager/class-capability-manager.php:61
 #: includes/admin/views/import-export/import-export-panel.php:57
 msgid "Sitemap Settings"
@@ -7683,7 +7675,7 @@ msgstr "Erweitert"
 msgid "This tab contains general options."
 msgstr "Dieser Tab enthält grundlegende Einstellungen."
 
-#: includes/modules/sitemap/class-admin.php:61
+#: includes/modules/sitemap/class-admin.php:60
 #: includes/admin/metabox/class-metabox.php:366 assets/admin/js/elementor.js:1
 #: assets/admin/js/gutenberg.js:1
 msgid "General"
@@ -7892,7 +7884,7 @@ msgstr "Hilfe und Support"
 
 #. Author of the plugin
 #: includes/class-cmb2.php:177 includes/modules/schema/class-blocks.php:66
-#: includes/modules/status/class-system-status.php:120
+#: includes/modules/status/class-system-status.php:122
 #: includes/modules/role-manager/class-user-role-editor.php:59
 #: includes/modules/role-manager/class-members.php:48
 #: includes/admin/class-registration.php:198
