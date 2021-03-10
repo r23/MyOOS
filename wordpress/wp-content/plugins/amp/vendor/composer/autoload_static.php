@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit74ae9b1e5d841728c62963ae6b648805
+class ComposerStaticInit8b9bf7226e6b67e213fc141a441d71b6
 {
     public static $files = array (
         '6f5653f9af3eab04254ad2c7f20515c8' => __DIR__ . '/../..' . '/back-compat/back-compat.php',
@@ -141,6 +141,7 @@ class ComposerStaticInit74ae9b1e5d841728c62963ae6b648805
         'AmpProject\\AmpWP\\Admin\\OnboardingWizardSubmenuPage' => __DIR__ . '/../..' . '/src/Admin/OnboardingWizardSubmenuPage.php',
         'AmpProject\\AmpWP\\Admin\\OptionsMenu' => __DIR__ . '/../..' . '/src/Admin/OptionsMenu.php',
         'AmpProject\\AmpWP\\Admin\\PluginActivationNotice' => __DIR__ . '/../..' . '/src/Admin/PluginActivationNotice.php',
+        'AmpProject\\AmpWP\\Admin\\PluginRowMeta' => __DIR__ . '/../..' . '/src/Admin/PluginRowMeta.php',
         'AmpProject\\AmpWP\\Admin\\Polyfills' => __DIR__ . '/../..' . '/src/Admin/Polyfills.php',
         'AmpProject\\AmpWP\\Admin\\RESTPreloader' => __DIR__ . '/../..' . '/src/Admin/RESTPreloader.php',
         'AmpProject\\AmpWP\\Admin\\ReaderThemes' => __DIR__ . '/../..' . '/src/Admin/ReaderThemes.php',
@@ -338,9 +339,9 @@ class ComposerStaticInit74ae9b1e5d841728c62963ae6b648805
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit74ae9b1e5d841728c62963ae6b648805::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit74ae9b1e5d841728c62963ae6b648805::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit74ae9b1e5d841728c62963ae6b648805::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit8b9bf7226e6b67e213fc141a441d71b6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit8b9bf7226e6b67e213fc141a441d71b6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit8b9bf7226e6b67e213fc141a441d71b6::$classMap;
 
         }, null, ClassLoader::class);
     }

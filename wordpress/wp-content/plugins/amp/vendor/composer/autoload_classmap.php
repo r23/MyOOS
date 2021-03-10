@@ -93,6 +93,7 @@ return array(
     'AmpProject\\AmpWP\\Admin\\OnboardingWizardSubmenuPage' => $baseDir . '/src/Admin/OnboardingWizardSubmenuPage.php',
     'AmpProject\\AmpWP\\Admin\\OptionsMenu' => $baseDir . '/src/Admin/OptionsMenu.php',
     'AmpProject\\AmpWP\\Admin\\PluginActivationNotice' => $baseDir . '/src/Admin/PluginActivationNotice.php',
+    'AmpProject\\AmpWP\\Admin\\PluginRowMeta' => $baseDir . '/src/Admin/PluginRowMeta.php',
     'AmpProject\\AmpWP\\Admin\\Polyfills' => $baseDir . '/src/Admin/Polyfills.php',
     'AmpProject\\AmpWP\\Admin\\RESTPreloader' => $baseDir . '/src/Admin/RESTPreloader.php',
     'AmpProject\\AmpWP\\Admin\\ReaderThemes' => $baseDir . '/src/Admin/ReaderThemes.php',

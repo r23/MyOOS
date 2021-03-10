@@ -1,12 +1,12 @@
 [
     {
         "name": "ampproject/common",
-        "version": "dev-fix/docs-generation-2.0",
-        "version_normalized": "dev-fix/docs-generation-2.0",
+        "version": "2.0.x-dev",
+        "version_normalized": "2.0.9999999.9999999-dev",
         "dist": {
             "type": "path",
             "url": "lib/common",
-            "reference": "68d6534c512a0ebcd6b3fed94131d4b1738d929a"
+            "reference": "9ae4d10f085d41c46ae00ee0c32db2f96165a877"
         },
         "require": {
             "ext-dom": "*",
@@ -76,17 +76,18 @@
         ],
         "description": "PHP library with common base functionality for AMP integrations.",
         "transport-options": {
-            "symlink": true
+            "symlink": true,
+            "relative": true
         }
     },
     {
         "name": "ampproject/optimizer",
-        "version": "dev-fix/docs-generation-2.0",
-        "version_normalized": "dev-fix/docs-generation-2.0",
+        "version": "2.0.x-dev",
+        "version_normalized": "2.0.9999999.9999999-dev",
         "dist": {
             "type": "path",
             "url": "lib/optimizer",
-            "reference": "3c1c51d680d561801981294086d13be509327cc4"
+            "reference": "d4658dac3e58a9377314cb340f8cafe3b892d06f"
         },
         "require": {
             "ampproject/common": "*",
@@ -164,7 +165,8 @@
         ],
         "description": "PHP library for optimizing AMP pages.",
         "transport-options": {
-            "symlink": true
+            "symlink": true,
+            "relative": true
         }
     },
     {
