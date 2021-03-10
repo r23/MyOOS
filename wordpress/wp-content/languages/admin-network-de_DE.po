@@ -1,15 +1,24 @@
-# Translation of WordPress - 5.6.x - Development - Administration - Network Admin in German
-# This file is distributed under the same license as the WordPress - 5.6.x - Development - Administration - Network Admin package.
+# Translation of WordPress - 5.7.x - Development - Administration - Network Admin in German
+# This file is distributed under the same license as the WordPress - 5.7.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-11-17 14:14:43+0000\n"
+"PO-Revision-Date: 2021-02-21 17:26:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
-"Project-Id-Version: WordPress - 5.6.x - Development - Administration - Network Admin\n"
+"Project-Id-Version: WordPress - 5.7.x - Development - Administration - Network Admin\n"
+
+#: wp-admin/network/settings.php:63
+msgid "<a href=\"https://wordpress.org/support/article/network-admin-settings-screen/\">Documentation on Network Settings</a>"
+msgstr "<a href=\"https://wordpress.org/support/article/network-admin-settings-screen/\">Dokumentation zu den Netzwerk-Einstellungen (engl.)</a>"
+
+#: wp-admin/network/site-info.php:184
+msgctxt "site"
+msgid "Public"
+msgstr "Öffentlich"
 
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:293
 msgctxt "site"
@@ -134,7 +143,7 @@ msgstr "Die Konstante %s kann nicht beim Erstellen eines Netzwerks definiert sei
 msgid "You are about to delete the following sites:"
 msgstr "Du bist dabei, die folgenden Websites zu löschen:"
 
-#: wp-admin/network/site-users.php:248
+#: wp-admin/network/site-users.php:243
 msgid "User could not be added to this site."
 msgstr "Benutzer konnte dieser Website nicht hinzugefügt werden."
 
@@ -472,7 +481,7 @@ msgstr "Spam"
 msgid "Archived"
 msgstr "Archiviert"
 
-#: wp-admin/network/user-new.php:136 wp-admin/network/site-users.php:360
+#: wp-admin/network/user-new.php:136 wp-admin/network/site-users.php:355
 msgid "A password reset link will be sent to the user via email."
 msgstr "Ein Link zum Zurücksetzen des Passwortes wird per E-Mail verschickt."
 
@@ -587,10 +596,6 @@ msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Users_Screen\">Dokum
 #: wp-admin/network/themes.php:323
 msgid "<a href=\"https://codex.wordpress.org/Network_Admin_Themes_Screen\">Documentation on Network Themes</a>"
 msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Themes_Screen\">Dokumentation zu Netzwerk Themes (engl.)</a>"
-
-#: wp-admin/network/settings.php:63
-msgid "<a href=\"https://codex.wordpress.org/Network_Admin_Settings_Screen\">Documentation on Network Settings</a>"
-msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Settings_Screen\">Dokumentation der Netzwerk-Einstellungen (engl.)</a>"
 
 #. translators: 1: Site URL, 2: Server error message.
 #: wp-admin/network/upgrade.php:98
@@ -753,27 +758,27 @@ msgstr "Website-Administratoren das Hinzufügen neuer Benutzer zu deren Website 
 msgid "Super admins can no longer be added on the Options screen. You must now go to the list of existing users on Network Admin > Users and click on Username or the Edit action link below that name. This goes to an Edit User page where you can check a box to grant super admin privileges."
 msgstr "Super-Administratoren können nicht mehr über den Optionen-Bereich hinzugefügt werden. Du musst jetzt über Netzwerkverwaltung > Benutzer zu der Liste der existierenden Benutzer gehen und auf den Benutzernamen oder den Bearbeiten-Link unter dem Namen klicken, dem du Administratorrechte geben möchtest. Du kommst dadurch auf die Benutzerseite und kannst ihm per Checkbox Super-Administrator-Rechte geben."
 
-#: wp-admin/network/site-users.php:269
+#: wp-admin/network/site-users.php:264
 msgid "Enter the username and email."
 msgstr "Bitte Benutzername und E-Mail-Adresse eingeben."
 
-#: wp-admin/network/site-users.php:266
+#: wp-admin/network/site-users.php:261
 msgid "User created."
 msgstr "Der Benutzer wurde angelegt."
 
-#: wp-admin/network/site-users.php:263
+#: wp-admin/network/site-users.php:258
 msgid "Select a user to remove."
 msgstr "Bitte einen Benutzer auswählen, um diesen löschen zu können."
 
-#: wp-admin/network/site-users.php:257
+#: wp-admin/network/site-users.php:252
 msgid "Select a user to change role."
 msgstr "Bitte einen Benutzer auswählen, um die Benutzerrolle ändern zu können."
 
-#: wp-admin/network/site-users.php:251
+#: wp-admin/network/site-users.php:246
 msgid "Enter the username of an existing user."
 msgstr "Gib den Benutzernamen eines bestehenden Benutzers ein."
 
-#: wp-admin/network/site-users.php:245
+#: wp-admin/network/site-users.php:240
 msgid "User is already a member of this site."
 msgstr "Benutzer ist schon ein Mitglied dieser Website."
 
@@ -849,7 +854,7 @@ msgid "Theme enabled."
 msgstr "Das Theme wurde aktiviert."
 
 #. translators: %s: Site title.
-#: wp-admin/network/site-info.php:126 wp-admin/network/site-users.php:204
+#: wp-admin/network/site-info.php:126 wp-admin/network/site-users.php:199
 #: wp-admin/network/site-themes.php:170 wp-admin/network/site-settings.php:83
 msgid "Edit Site: %s"
 msgstr "Website bearbeiten: %s"
@@ -884,7 +889,7 @@ msgstr "Bearbeiten, um in einem eigenen Bereich weitere Informationen der Websit
 msgid "Add New takes you to the Add New Site screen. You can search for a site by Name, ID number, or IP address. Screen Options allows you to choose how many sites to display on one page."
 msgstr "&#8222;Neu hinzufügen&#8220; bringt dich in den &#8222;Neue Website erstellen&#8220;-Bereich. Dort kannst du Websites nach Name, ID oder IP-Adresse suchen. Über &#8222;Ansicht anpassen&#8220; kannst du u.a. auswählen, wie viele Websites auf einer Seite dargestellt werden."
 
-#: wp-admin/network/user-new.php:148 wp-admin/network/site-users.php:323
+#: wp-admin/network/user-new.php:148 wp-admin/network/site-users.php:318
 msgid "Add User"
 msgstr "Benutzer hinzufügen"
 
@@ -1417,7 +1422,7 @@ msgstr "Registrierungs-Benachrichtigung"
 msgid "Allow new registrations"
 msgstr "Neue Registrierungen erlauben"
 
-#: wp-admin/network/site-users.php:272
+#: wp-admin/network/site-users.php:267
 msgid "Duplicated username or email address."
 msgstr "Schon vorhandener Benutzername oder vorhandene E-Mail-Adresse."
 

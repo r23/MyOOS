@@ -162,7 +162,7 @@ msgstr "In"
 msgid "Join the Club"
 msgstr "Mitglied werden"
 
-#: inc/starter-content.php:148 inc/block-patterns.php:45
+#: inc/block-patterns.php:45 inc/starter-content.php:148
 msgid "Members get access to exclusive exhibits and sales. Our memberships cost $99.99 and are billed annually."
 msgstr "Alle Mitglieder erhalten Zugang zu exklusiven Ausstellungen und Angeboten. Die Mitgliedschaft kostet 99.99&nbsp;€ und wird jährlich abgerechnet."
 
@@ -186,7 +186,7 @@ msgstr "&#8222;Cyborgs, wie die Philosophin Donna Haraway feststellte, sind nich
 msgid "From Signac to Matisse"
 msgstr "Von Signac bis Matisse"
 
-#: inc/starter-content.php:99 inc/block-patterns.php:168
+#: inc/block-patterns.php:168 inc/starter-content.php:99
 msgid "The Life I Deserve"
 msgstr "Leben und leben lassen"
 
@@ -198,10 +198,10 @@ msgstr "1. Oktober – 1. Dezember"
 msgid "Theatre of Operations"
 msgstr "Kreative Schauplätze"
 
-#: inc/starter-content.php:73 inc/starter-content.php:88
-#: inc/starter-content.php:105 inc/starter-content.php:120
 #: inc/block-patterns.php:78 inc/block-patterns.php:160
-#: inc/block-patterns.php:174
+#: inc/block-patterns.php:174 inc/starter-content.php:73
+#: inc/starter-content.php:88 inc/starter-content.php:105
+#: inc/starter-content.php:120
 msgid "Read More"
 msgstr "Weiterlesen"
 
@@ -209,7 +209,7 @@ msgstr "Weiterlesen"
 msgid "August 1 -- December 1"
 msgstr "1. August – 1. Dezember"
 
-#: inc/starter-content.php:67 inc/block-patterns.php:154
+#: inc/block-patterns.php:154 inc/starter-content.php:67
 msgid "Works and Days"
 msgstr "Werke und Tage"
 
@@ -253,7 +253,7 @@ msgstr "Wähle für Links, Buttons und Beitragsbilder eine eigene Farbe."
 msgid "Primary Color"
 msgstr "Akzentfarbe"
 
-#: searchform.php:24 template-parts/modal-search.php:20
+#: template-parts/modal-search.php:20 searchform.php:24
 msgid "Search for:"
 msgstr "Suche nach:"
 
@@ -326,7 +326,7 @@ msgid "Footer"
 msgstr "Footer"
 
 #. translators: %s: Author name.
-#: inc/template-tags.php:357 template-parts/entry-author-bio.php:20
+#: template-parts/entry-author-bio.php:20 inc/template-tags.php:357
 msgid "By %s"
 msgstr "Von %s"
 
@@ -373,8 +373,8 @@ msgstr "Beitrag oben halten"
 msgid "Tags"
 msgstr "Schlagwörter"
 
-#: inc/template-tags.php:392 template-parts/entry-header.php:36
-#: template-parts/content-cover.php:70
+#: template-parts/content-cover.php:70 template-parts/entry-header.php:36
+#: inc/template-tags.php:392
 msgid "Categories"
 msgstr "Kategorien"
 

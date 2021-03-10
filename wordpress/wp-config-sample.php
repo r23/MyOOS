@@ -10,7 +10,7 @@
  * * und ABSPATH.
  *
  * Mehr Informationen zur wp-config.php gibt es auf der
- * {@link https://wordpress.org/support/article/editing-wp-config-php/ wp-config.php editieren}
+ * {@link https://codex.wordpress.org/Editing_wp-config.php wp-config.php editieren}
  * Seite im Codex. Die Zugangsdaten für die MySQL-Datenbank
  * bekommst du von deinem Webhoster.
  *
@@ -100,7 +100,7 @@ $table_prefix = 'wp_';
  * Besuche den Codex, um mehr Informationen über andere Konstanten zu finden,
  * die zum Debuggen genutzt werden können.
  *
- * @link https://wordpress.org/support/article/debugging-in-wordpress/
+ * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
 define( 'WP_DEBUG', false );
 
