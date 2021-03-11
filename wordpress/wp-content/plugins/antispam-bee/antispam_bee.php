@@ -9,7 +9,7 @@
  * Domain Path: /lang
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     2.9.3
+ * Version:     2.9.4
  *
  * [](http://coderisk.com/wp/plugin/antispam-bee/RIPS-lAHLcgvqY8)
  *
@@ -119,7 +119,13 @@ class Antispam_Bee {
 			)
 		);
 
-		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ) {
+		$disallow_ajax = apply_filters( 'antispam_bee_disallow_ajax_calls', true );
+
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && $disallow_ajax ) {
+			return;
+		}
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 

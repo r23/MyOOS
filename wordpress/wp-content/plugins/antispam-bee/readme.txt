@@ -1,11 +1,11 @@
 # Antispam Bee #
-* Contributors:      pluginkollektiv, websupporter, schlessera, zodiac1978, swissspidy, krafit, kau-boy
+* Contributors:      pluginkollektiv, websupporter, schlessera, zodiac1978, swissspidy, krafit, kau-boy, florianbrinkmann
 * Tags:              anti-spam, antispam, block spam, comment, comments, comment spam, pingback, spam, spam filter, trackback, GDPR
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Requires at least: 4.5
-* Tested up to:      5.5
+* Tested up to:      5.7
 * Requires PHP:      5.2
-* Stable tag:        2.9.3
+* Stable tag:        2.9.4
 * License:           GPLv2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ Say Goodbye to comment spam on your WordPress blog or website. *Antispam Bee* bl
 * Consider the comment time.
 * Allow comments only in a certain language.
 * Block or allow commenters from certain countries.
-* Treat BBCode as spam.
+* Treat BBCode links as spam.
 * Validate the IP address of commenters.
 * Use regular expressions.
 * Search local spam database for commenters previously marked as spammers.
@@ -91,6 +91,13 @@ No, Antispam Bee is free forever, for both private and commercial projects. You 
 A complete documentation is available on [pluginkollektiv.org](https://antispambee.pluginkollektiv.org/documentation/).
 
 ## Changelog ##
+
+### 2.9.4 ###
+
+  * Enhancement: Add filter to allow ajax calls
+  * Tweak: Better wording for BBCode feature in plugin description
+  * Tweak: Better screenshots in the plugin directory
+  * Maintenance: Tested up to WordPress 5.7
 
 ### 2.9.3 ###
   * Fixed: Compatibility with WordPress 5.5
@@ -230,4 +237,7 @@ For the complete changelog, check out our [GitHub repository](https://github.com
 This update makes sure your spam check is GDPR compliant, no matter the options you choose. Please make sure to update before May 25th!
 
 ## Screenshots ##
-1. Antispam Bee settings
+1. Block or allow comments from specific countries.
+2. Allow comments only in certain languages.
+3. Add useful spam stats to your dashboard.
+4. Tailor WordPress' spam management to your workflow.
