@@ -2455,23 +2455,23 @@
         },
         {
             "name": "psr/link",
-            "version": "1.1.0",
-            "version_normalized": "1.1.0.0",
+            "version": "1.1.1",
+            "version_normalized": "1.1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/link.git",
-                "reference": "94d170941164db307197ebf436296372b849bdb5"
+                "reference": "846c25f58a1f02b93a00f2404e3626b6bf9b7807"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/link/zipball/94d170941164db307197ebf436296372b849bdb5",
-                "reference": "94d170941164db307197ebf436296372b849bdb5",
+                "url": "https://api.github.com/repos/php-fig/link/zipball/846c25f58a1f02b93a00f2404e3626b6bf9b7807",
+                "reference": "846c25f58a1f02b93a00f2404e3626b6bf9b7807",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.0.0"
             },
-            "time": "2021-02-03T23:29:51+00:00",
+            "time": "2021-03-11T22:59:13+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2505,7 +2505,7 @@
                 "rest"
             ],
             "support": {
-                "source": "https://github.com/php-fig/link/tree/1.1.0"
+                "source": "https://github.com/php-fig/link/tree/1.1.1"
             },
             "install-path": "../psr/link"
         },

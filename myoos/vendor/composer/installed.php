@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7e4adcd7e118d36d937bbde7e5dcb31a90db475e',
+    'reference' => '4f363cba0cbba5aa43e6f87049aba769a1ab62a4',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -216,7 +216,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7e4adcd7e118d36d937bbde7e5dcb31a90db475e',
+      'reference' => '4f363cba0cbba5aa43e6f87049aba769a1ab62a4',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -386,12 +386,12 @@
     ),
     'psr/link' => 
     array (
-      'pretty_version' => '1.1.0',
-      'version' => '1.1.0.0',
+      'pretty_version' => '1.1.1',
+      'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '94d170941164db307197ebf436296372b849bdb5',
+      'reference' => '846c25f58a1f02b93a00f2404e3626b6bf9b7807',
     ),
     'psr/link-implementation' => 
     array (
