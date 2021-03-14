@@ -48,27 +48,27 @@
 								<div class="row">
 									<div class="col-md-6">
 										<label for="name">{$lang.entry_name} *</label>
-										<input required type="text" value="{$smarty.post.name}" class="form-control" name="name" id="name">										
+										<input required type="text" value="{$smarty.post.name|escape}" class="form-control" name="name" id="name">										
 									</div>
 									<div class="col-md-6">
 										<label for="email">{$lang.entry_email} *</label>
-										<input required type="email" value="{$smarty.post.email}" class="form-control" name="email" id="email">											
+										<input required type="email" value="{$smarty.post.email|escape}" class="form-control" name="email" id="email">											
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-8">
 										<label for="subject">{$lang.entry_subject} *</label>
-										<input required type="text" value="{$smarty.post.subject}" class="form-control" name="subject" id="subject">												
+										<input required type="text" value="{$smarty.post.subject|escape}" class="form-control" name="subject" id="subject">												
 									</div>
 									<div class="col-md-4">
 										<label for="phone">{$lang.entry_telephone_number}</label>
-										<input type="text" value="{$smarty.post.phone}" class="form-control" name="phone" id="phone">
+										<input type="text" value="{$smarty.post.phone|escape}" class="form-control" name="phone" id="phone">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-12">
 										<label for="enquiry">{$lang.entry_enquiry} *</label>
-										<textarea required maxlength="10000" rows="8" class="form-control" name="enquiry" id="enquiry">{$smarty.post.enquiry|stripslashes}</textarea>												
+										<textarea required maxlength="10000" rows="8" class="form-control" name="enquiry" id="enquiry">{$smarty.post.enquiry|escape}</textarea>												
 									</div>
 								</div>
 

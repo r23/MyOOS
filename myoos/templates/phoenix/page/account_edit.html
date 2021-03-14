@@ -91,13 +91,13 @@
 									<div class="form-group">
 										<label class="col-sm-4 form-control-label" for="password">{$lang.entry_password} *</label>
 										<div class="col-sm-5">
-											<input required type="password" value="{$smarty.post.password}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}">
+											<input required type="password" value="{$smarty.post.password|escape}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-4 form-control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
 										<div class="col-sm-5">
-											<input required type="password" value="{$smarty.post.confirmation}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}">
+											<input required type="password" value="{$smarty.post.confirmation|escape}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}">
 										</div>
 									</div>
 									 <div class="form-check">

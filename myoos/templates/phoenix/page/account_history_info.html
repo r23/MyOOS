@@ -47,7 +47,7 @@
 									</div>
 
 									<div class="col-md-4 ml-auto text-sm-right">
-										<h4 class="text-uppercase g-mb-2">{$lang.heading_order_number} # {$smarty.get.order_id}</h4>
+										<h4 class="text-uppercase g-mb-2">{$lang.heading_order_number} # {$smarty.get.order_id|escape}</h4>
 										<span class="fs-13">{$order->info.orders_status}</span>
 										<!-- <a class="fs-13" href="#!">Invoice</a> -->
 									</div>

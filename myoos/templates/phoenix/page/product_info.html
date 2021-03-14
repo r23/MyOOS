@@ -148,7 +148,7 @@
 							<input type="hidden" name="action" value="add_product">
 							<input type="hidden" name="content" value="{$page_file}">
 						{if $smarty.get.edit}
-							<input type="hidden" name="edit_product" value="{$smarty.get.products_id}">
+							<input type="hidden" name="edit_product" value="{$smarty.get.products_id|escape}">
 						{/if}
 						{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">

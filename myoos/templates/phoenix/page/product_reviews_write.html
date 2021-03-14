@@ -68,14 +68,14 @@
 						<div class="row">
 							<div class="col-md-12">
 								<label for="headline">{$lang.subject} *</label>
-								<input required type="text" value="{$smarty.post.headline|stripslashes}" class="form-control" name="headline" id="headline" placeholder="{$lang.headline_rating}">
+								<input required type="text" value="{$smarty.post.headline|escape}" class="form-control" name="headline" id="headline" placeholder="{$lang.headline_rating}">
 							</div>
 						</div>	
 
 						<div class="row">
 							<div class="col-md-12">
 								<label for="review">{$lang.sub_title_review} *</label>
-								<textarea required maxlength="10000" rows="8" class="form-control" name="review" id="review" placeholder="{$lang.review_placeholder}">{$smarty.post.review|stripslashes}</textarea>
+								<textarea required maxlength="10000" rows="8" class="form-control" name="review" id="review" placeholder="{$lang.review_placeholder}">{$smarty.post.review|escape}</textarea>
 								<p class="note">{$lang.text_no_html}</p>
 							</div>
 						</div>	
