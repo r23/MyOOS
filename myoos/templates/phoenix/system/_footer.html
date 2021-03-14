@@ -218,6 +218,52 @@
 
 {if $cart_count_contents gt 0 }
 	{include file="phoenix/canvas/_cart.html"}
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	<!-- Delete Modal HTML -->
+	<div id="deleteEmployeeModal" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			 <div class="modal-content">
+				<form>
+						
+					<div class="modal-header">				
+						<h4 class="modal-title">Delete Shopping Basket</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					</div>
+					 <div class="modal-body">
+						<input type="hidden" id="id_d" name="id" class="form-control">					
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning"><small>This action cannot be undone.</small></p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<button type="button" class="btn btn-danger" id="delete">Delete</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>	
 {/if}		
 {if (!isset($smarty.session.customer_id)) }
 	{include file="phoenix/canvas/_account.html"}
