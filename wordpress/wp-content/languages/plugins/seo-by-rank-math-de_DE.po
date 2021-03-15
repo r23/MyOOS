@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO &#8211; Best SEO Plugin for WordPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-03-12 22:13:26+0000\n"
+"PO-Revision-Date: 2021-03-14 23:04:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -312,7 +312,7 @@ msgstr "Existiert nicht"
 
 #: includes/modules/status/class-system-status.php:180
 msgid "Database Table: Keyword Manager"
-msgstr "Datenbank-Tabelle: Schlüsselwort-Manager"
+msgstr "Datenbank-Tabelle: Keyword-Manager"
 
 #: includes/modules/status/class-system-status.php:179
 msgid "Database Table: Google AdSense"
@@ -2496,7 +2496,7 @@ msgstr "Bitte aktiviere das bbPress-Plugin, um dieses Modul zu verwenden."
 
 #: includes/module/class-manager.php:267
 msgid "Add proper Meta tags to your bbPress forum posts, categories, profiles, etc. Get more options to take control of what search engines see and how they see it."
-msgstr "Füge deinen bbPress-Forumseinträgen, Kategorien, Profilen usw. passende Meta-Tags hinzu. Erhalten Sie mehr Optionen, um die Kontrolle darüber zu übernehmen, was Suchmaschinen sehen und wie sie es sehen."
+msgstr "Füge deinen bbPress-Forumseinträgen, Kategorien, Profilen usw. passende Meta-Tags hinzu. Erhalte mehr Optionen, um die Kontrolle darüber zu übernehmen, was Suchmaschinen sehen und wie sie es sehen."
 
 #: includes/module/class-manager.php:266
 msgid "bbPress"
@@ -2845,7 +2845,7 @@ msgstr "Rank Math ist ein revolutionäres SEO-Produkt, welches die Funktionen vi
 #. translators: PHP Version
 #: rank-math.php:210
 msgid "Rank Math requires PHP version %s or above. Please update PHP to run this plugin."
-msgstr "Rank Math erfordert PHP-Version %s oder höher. Bitte aktualisieren Sie PHP um dieses Plugin auszuführen."
+msgstr "Rank Math erfordert PHP-Version %s oder höher. Bitte aktualisiere PHP um dieses Plugin auszuführen."
 
 #: includes/traits/class-ajax.php:44
 msgid "Error: Nonce verification failed"
@@ -3111,7 +3111,7 @@ msgstr "Datum Archive"
 
 #: includes/settings/titles/homepage.php:123
 msgid "Image displayed when your homepage is shared on Facebook and other social networks. Use images that are at least 1200 x 630 pixels for the best display on high resolution devices."
-msgstr "Das Bild wird angezeigt, wenn Ihre Homepage auf Facebook und anderen sozialen Netzwerken geteilt wird. Verwenden Sie Bilder mit einer Auflösung von mindestens 1200x630px, um eine optimale Anzeige auf hochauflösenden Geräten zu erzielen."
+msgstr "Das Bild wird angezeigt, wenn Ihre Homepage auf Facebook und anderen sozialen Netzwerken geteilt wird. Verwende Bilder mit einer Auflösung von mindestens 1200 x 630px, um eine optimale Anzeige auf hochauflösenden Geräten zu erzielen."
 
 #: includes/settings/titles/homepage.php:122
 msgid "Homepage Thumbnail for Facebook"
@@ -3212,7 +3212,7 @@ msgstr "Standardwerte für das Robots-Meta Tag. Diese können für einzelne Post
 
 #: includes/settings/titles/author.php:126
 msgid "Add SEO Meta Box for user profile pages. Access to the Meta Box can be fine tuned with code, using a special filter hook."
-msgstr "Fügen Sie SEO Meta Box für Benutzerprofilseiten hinzu. Der Zugriff auf die Meta Box kann mithilfe eines speziellen Filter-Hooks mit Code feinabgestimmt werden."
+msgstr "Füge SEO Meta Box für Benutzerprofilseiten hinzu. Der Zugriff auf die Meta Box kann mithilfe eines speziellen Filter-Hooks mit Code feinabgestimmt werden."
 
 #: includes/settings/titles/author.php:125
 msgid "Add SEO Meta Box for Users"
@@ -3513,7 +3513,7 @@ msgstr "Taxonomienamen ausblenden"
 
 #: includes/settings/general/breadcrumbs.php:133
 msgid "If category is a child category, show all ancestor categories."
-msgstr "Wenn die Kategorie eine untergeordnete Kategorie ist, zeigen Sie alle vorherige Kategorien an."
+msgstr "Wenn die Kategorie eine untergeordnete Kategorie ist, zeige alle vorherige Kategorien an."
 
 #: includes/settings/general/breadcrumbs.php:132
 msgid "Show Category(s)"
@@ -3537,7 +3537,7 @@ msgstr "404 Bezeichnung"
 
 #: includes/settings/general/breadcrumbs.php:99
 msgid "Format the label used for search results pages."
-msgstr "Formatieren Sie die Bezeichnung für die Suchergebnisseiten."
+msgstr "Formatiert die Bezeichnung für die Suchergebnisseiten."
 
 #: includes/settings/general/breadcrumbs.php:98
 msgid "Search Results Format"
@@ -3589,7 +3589,7 @@ msgstr "Breadcrumbs-Funktion aktivieren"
 
 #: includes/modules/woocommerce/views/options-general.php:58
 msgid "Remove WooCommerce generator tag from the source code."
-msgstr "Entfernen Sie das WooCommerce Generator-Tag aus dem Quellcode."
+msgstr "Entferne das WooCommerce Generator-Tag aus dem Quellcode."
 
 #: includes/modules/woocommerce/views/options-general.php:57
 msgid "Remove Generator Tag"
@@ -3601,7 +3601,7 @@ msgstr "Standard: /produkt-kategorie/zubehoer/aktions-figuren/ - geändert: /pro
 
 #: includes/modules/woocommerce/views/options-general.php:46
 msgid "Remove parent slugs from category URL."
-msgstr "Entfernen Sie Eltern-Slugs aus der Kategorie-URL."
+msgstr "Entferne übergeordnete Slugs aus der Kategorie-URL."
 
 #: includes/modules/woocommerce/views/options-general.php:45
 msgid " Remove parent slugs"
@@ -3686,7 +3686,7 @@ msgstr "In die Sitemap aufnehmen"
 
 #: includes/modules/sitemap/settings/post-types.php:23
 msgid "To generate attachment sitemap disable attachment redirection to parent."
-msgstr "Um eine Sitemap für Anhänge zu erstellen, deaktivieren Sie die Weiterleitung von Anhängen an übergeordnete Elemente."
+msgstr "Um eine Sitemap für Anhänge zu erstellen, deaktiviere die Weiterleitung von Anhängen an übergeordnete Elemente."
 
 #: includes/modules/sitemap/settings/general.php:84
 msgid "Automatically notify Google &amp; Bing when a sitemap gets updated."
@@ -3874,7 +3874,7 @@ msgstr "Alle veröffentlichten Beiträge haben Fokus-Keywords gesetzt."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:272
 msgid "You have not linked Google Search Console yet."
-msgstr "Sie haben die Google Search Console noch nicht verlinkt."
+msgstr "Du hast die Google Search Console noch nicht verlinkt."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:272
 msgid "Google Search Console has been linked."
@@ -3934,7 +3934,7 @@ msgstr "Die Behebung des Problems ist einfach - bearbeite die Website und füge 
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:76
 msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
-msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Focus Keyword hinzufügst, überprüft Rank Math, ob du das Keyword im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
+msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Focus Keyword hinzufügst, überprüft Rank Math, ob du das Keyword im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Keyword im Titel fehlt, wird es dir hier mitgeteilt."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:75
 msgid "Make sure the focus keywords you set for the posts appear in their titles."
@@ -3946,7 +3946,7 @@ msgstr "Beitrag-Titel, denen Fokus-Keywords fehlen"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:70
 msgid "Fixing this issue is easy - just edit the post, and set a Focus Keyword.  Then follow Rank Math's analysis to improve your rankings."
-msgstr "Die Behebung dieses Problems ist einfach - bearbeiten Sie einfach den Beitrag und setzen Sie ein Fokus-Keyword.  Folgen Sie dann der Analyse von Rank Math, um Ihre Platzierungen zu verbessern."
+msgstr "Die Behebung dieses Problems ist einfach - bearbeite einfach den Beitrag und setze ein Fokus-Keyword.  Folge dann der Analyse von Rank Math, um deine Platzierungen zu verbessern."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:69
 msgid "Of course, if you don't give Rank Math a focus keyword to work with, it can't give you any useful feedback."
@@ -3954,11 +3954,11 @@ msgstr "Wenn du Rank Math kein Fokus-Keyword zum Arbeiten gibst, kann es dir nat
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:68
 msgid "Rank Math uses these focus keywords to analyze your on-page content.  It can tell if you've done a good job of optimizing your text to rank for these keywords."
-msgstr "Rank Math verwendet diese Fokus-Keywords, um Ihren Inhalt auf der Seite zu analysieren. Es kann erkennen, ob Sie gute Arbeit geleistet haben, indem Sie Ihren Text optimiert haben, um ihn für diese Keywords zu bewerten."
+msgstr "Rank Math verwendet diese Fokus-Keywords, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Keywords zu bewerten."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:67
 msgid "Rank Math allows you to set a focus keyword for every post and page you write - the option is in the \"Meta Box\", which appears under the text editor in the screen where you write and edit content."
-msgstr "Rank Math ermöglicht es Ihnen, für jeden Beitrag und jede Seite, die Sie schreiben, ein Fokus-Schlüsselwort festzulegen - die Option befindet sich in der \"Meta Box\", die unter dem Texteditor auf dem Bildschirm erscheint, auf dem Sie Inhalte schreiben und bearbeiten."
+msgstr "Rank Math ermöglicht es dir für jeden Beitrag und jede Seite die du schreibst ein Fokus-Keyword festzulegen - die Option befindet sich in der \"Meta Box\", die unter dem Texteditor auf dem Bildschirm erscheint, auf dem du Inhalte schreibst und bearbeitest."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:66
 msgid "Setting focus keywords for your posts allows Rank Math to analyse the content."
@@ -3993,7 +3993,7 @@ msgstr "Die Standard Permalink-Struktur ist ziemlich hässlich - WordPress gener
 #. translators: link to permalink setting screen
 #: includes/modules/seo-analysis/seo-analysis-tests.php:55
 msgid "For the best SEO results, use a custom permalink structure, preferably one that includes the post title (<code>%%postname%%</code>). You can change it by navigating to <a href=\"%s\">Settings &gt; Permalinks</a>"
-msgstr "Für die besten SEO-Ergebnisse verwenden Sie eine benutzerdefinierte Permalink-Struktur, vorzugsweise eine, die den Posttitel enthält (<code>%%postname%%</code>). Du kannst es ändern, indem du zu <a href=\"%s\">Einstellungen &gt; Permalinks</a> navigierst"
+msgstr "Für die besten SEO-Ergebnisse verwende eine benutzerdefinierte Permalink-Struktur, vorzugsweise eine, die den Posttitel enthält (<code>%%postname%%</code>). Du kannst es ändern, indem du zu <a href=\"%s\">Einstellungen &gt; Permalinks</a> navigierst"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:53
 msgid "Permalink Structure"
@@ -4001,7 +4001,7 @@ msgstr "Permalink-Struktur"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:35
 msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
-msgstr "Der Slogan ist die zweite Option.  Wählen Sie einen Slogan, der Ihre Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um Ihr Hauptschlüsselwort zu verwenden."
+msgstr "Der Slogan ist die zweite Option.  Wähle einen Slogan, der deine Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um dein Haupt-Keyword zu verwenden."
 
 #. translators: link to general setting screen
 #: includes/modules/seo-analysis/seo-analysis-tests.php:34
@@ -4135,7 +4135,7 @@ msgstr "Keywords insgesamt"
 
 #: includes/modules/analytics/google/class-request.php:223
 msgid "Bad request. Please check the code."
-msgstr "Fehlerhafte Anfrage. Bitte überprüfen Sie den Code."
+msgstr "Fehlerhafte Anfrage. Bitte überprüfe den Code."
 
 #: includes/modules/analytics/class-analytics-common.php:92
 #: includes/modules/analytics/class-analytics.php:50
@@ -4157,7 +4157,7 @@ msgstr "Update-Funktionen"
 #. translators: %s is a Learn More link to the documentation
 #: includes/modules/role-manager/views/main.php:26
 msgid "Control which user has access to which options of Rank Math. %s"
-msgstr "Steuern Sie, welcher Benutzer Zugriff auf welche Optionen von Rank Math hat. %s"
+msgstr "Steuere, welcher Benutzer Zugriff auf welche Optionen von Rank Math hat. %s"
 
 #: includes/traits/class-ajax.php:59
 #: includes/modules/role-manager/class-role-manager.php:131
@@ -5453,7 +5453,7 @@ msgstr "Übersichtskarte mit großem Bild"
 #: includes/metaboxes/social.php:137 assets/admin/js/gutenberg.js:1
 #: assets/admin/js/elementor.js:1
 msgid "Use Data from Facebook Tab"
-msgstr "Verwenden Sie Daten von der Facebook Registerkarte"
+msgstr "Verwende Daten von der Facebook Registerkarte"
 
 #. translators: option page link
 #: includes/metaboxes/social.php:105
@@ -5975,7 +5975,7 @@ msgstr "Änderungsdatum (erweitert)"
 
 #: includes/replace-variables/class-post-variables.php:154
 msgid "Publish date with custom formatting pattern."
-msgstr "Veröffentlichen Sie das Datum mit einem benutzerdefinierten Formatierungsmuster."
+msgstr "Veröffentliche das Datum mit einem benutzerdefinierten Formatierungsmuster."
 
 #: includes/replace-variables/class-post-variables.php:153
 msgid "Date Published (advanced)"
@@ -6449,7 +6449,7 @@ msgstr "Markiere diese Seite"
 
 #: includes/admin/class-admin-bar-menu.php:267
 msgid "Edit SEO settings for the search results page"
-msgstr "Bearbeiten Sie die SEO-Einstellungen für die Suchergebnisseite"
+msgstr "Bearbeite die SEO-Einstellungen für die Suchergebnisseite"
 
 #: includes/admin/class-admin-bar-menu.php:265
 msgid "SEO Settings for Search Page"
@@ -6466,7 +6466,7 @@ msgstr "SEO-Einstellungen für diese Archivseite bearbeiten"
 
 #: includes/admin/class-admin-bar-menu.php:215
 msgid "Edit default SEO settings for this post type"
-msgstr "Bearbeiten Sie die Standard-SEO-Einstellungen für diesen Beitragstyp"
+msgstr "Bearbeite die Standard-SEO-Einstellungen für diesen Beitragstyp"
 
 #. translators: Post Type Singular Name
 #. translators: Taxonomy Singular Name
@@ -6894,7 +6894,7 @@ msgstr "AMP"
 
 #: includes/admin/views/dashboard-help.php:116
 msgid "Visit Support Center"
-msgstr "Besuchen Sie das Support-Center"
+msgstr "Besuche das Support-Center"
 
 #: includes/admin/views/dashboard-help.php:109
 msgid "Direct help from our qualified support team"
