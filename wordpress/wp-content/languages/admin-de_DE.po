@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.7.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-03-10 18:36:21+0000\n"
+"PO-Revision-Date: 2021-03-16 05:39:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1809,7 +1809,7 @@ msgstr "Hervorragende Arbeit! Deine Website besteht derzeit alle Tests zum Websi
 
 #: wp-admin/includes/dashboard.php:1877
 msgid "Your site has critical issues that should be addressed as soon as possible to improve its performance and security."
-msgstr "Deine Website weist kritische Probleme auf, um die du dich so schnell wie möglich kümmern solltest, damit die Leistung und Sicherheit verbessert werden."
+msgstr "Deine Website weist kritische Probleme auf, um die du dich so schnell wie möglich kümmern solltest, damit Leistung und Sicherheit verbessert werden."
 
 #. translators: %s: URL to Site Health screen.
 #: wp-admin/includes/dashboard.php:1869
