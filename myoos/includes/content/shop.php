@@ -58,14 +58,14 @@ if (isset($sCategory) && oos_is_not_null($sCategory)) {
 
 
 if ($category_depth == 'nested') {
-	
+
 	$categoriestable = $oostable['categories'];
 	$categories_descriptiontable = $oostable['categories_description'];
 	$sql = "SELECT cd.categories_name, cd.categories_page_title, cd.categories_heading_title, cd.categories_description,
-                     cd.categories_description_meta, cd.categories_facebook_title, cd.categories_facebook_description, 
+                     cd.categories_description_meta, cd.categories_facebook_title, cd.categories_facebook_description,
 					 cd.categories_twitter_title, cd.categories_twitter_description, c.categories_image
               FROM $categoriestable c,
-                   $categories_descriptiontable cd 
+                   $categories_descriptiontable cd
               WHERE c.categories_id = '" . intval($nCurrentCategoryID) . "'
                 AND cd.categories_id = '" . intval($nCurrentCategoryID) . "'
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'";
@@ -73,9 +73,9 @@ if ($category_depth == 'nested') {
 
 	$aTemplate['page'] = $sTheme . '/page/shop_nested.html';
 	$aTemplate['new_products'] = $sTheme . '/products/_new_products.html';
-	
+
 	$nPageType = OOS_PAGE_TYPE_CATALOG;
-	$sPagetitle = (empty($category['categories_page_title']) ? $category['categories_name'] : $category['categories_page_title']); 
+	$sPagetitle = (empty($category['categories_page_title']) ? $category['categories_name'] : $category['categories_page_title']);
 
 	$facebook_title = $category['categories_facebook_title'];
 	$twitter_title = $category['categories_twitter_title'];
@@ -84,8 +84,7 @@ if ($category_depth == 'nested') {
 	$facebook_description = $category['categories_facebook_description'];
 	$twitter_description = $category['categories_twitter_description'];
 
-	$og_image = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'category/large/' . $category['categories_image'];
-
+	$og_image = isset($category['categories_image']) ? OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'category/large/' . $category['categories_image'] : '';
 
 	$sGroup = trim($aUser['text']);
 	$sContentCacheID = $sTheme . '|shop|nested|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
@@ -102,7 +101,7 @@ if ($category_depth == 'nested') {
 	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
 		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 	}
-	
+
 	if (!$smarty->isCached($aTemplate['page'], $sContentCacheID)) {
 
 		if (isset($sCategory) && strpos('_', $sCategory)) {
@@ -145,7 +144,7 @@ if ($category_depth == 'nested') {
                 ORDER BY c.sort_order, cd.categories_name";
 			$categories_result = $dbconn->Execute($sql);
 		}
-		
+
 		$aCategoriesBoxs = array();
 		while ($categories = $categories_result->fields) {
 			$sCategoryNew = oos_get_path($categories['categories_id'], $categories['parent_id'], $categories['gparent_id']);
@@ -163,21 +162,21 @@ if ($category_depth == 'nested') {
 			require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
 		}
 		$smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $sContentCacheID));
-		
+
 		$smarty->assign('heading_title', $category['categories_name']);
 		if (!empty($category['categories_heading_title'])) {
 			$smarty->assign('heading_title', $category['categories_heading_title']);
-		} 
+		}
 
 		// Panorama
 		$categories_panoramatable = $oostable['categories_panorama'];
 		$categories_panorama_sql = "SELECT panorama_id
 									FROM $categories_panoramatable
-									WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";					
+									WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";
 		$panorama_result = $dbconn->Execute($categories_panorama_sql);
-		if ($panorama_result->RecordCount()) {	
+		if ($panorama_result->RecordCount()) {
 			$panorama_info = $panorama_result->fields;
-			$smarty->assign('panorama_info', $panorama_info); 
+			$smarty->assign('panorama_info', $panorama_info);
 		}
 
 
@@ -187,15 +186,15 @@ if ($category_depth == 'nested') {
 				'categories' 	=> $aCategoriesBoxs
 			)
 		);
-    }   
+    }
     $smarty->setCaching(false);
 
-} elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id']))) {
+} elseif ($category_depth == 'products' || (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']))) {
 
 	$categoriestable = $oostable['categories'];
 	$categories_descriptiontable = $oostable['categories_description'];
 	$sql = "SELECT cd.categories_name, cd.categories_heading_title, cd.categories_description,
-                     cd.categories_description_meta, cd.categories_facebook_title, cd.categories_facebook_description, 
+                     cd.categories_description_meta, cd.categories_facebook_title, cd.categories_facebook_description,
 					 cd.categories_twitter_title, cd.categories_twitter_description, c.categories_image
               FROM $categoriestable c,
                    $categories_descriptiontable cd
@@ -210,7 +209,7 @@ if ($category_depth == 'nested') {
               FROM $categories_imagestable
               WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";
 	$category_slider = $dbconn->Execute($sql);
-	if ($category_slider->RecordCount()) {	
+	if ($category_slider->RecordCount()) {
 		$aCategorySlider = array();
 		while ($slider = $category_slider->fields) {
 			$aCategorySlider[] = array(
@@ -220,10 +219,10 @@ if ($category_depth == 'nested') {
 			$category_slider->MoveNext();
 		}
 	}
-	
+
     $aTemplate['page'] = $sTheme . '/page/shop_products.html';
     $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
-	
+
     $nPageType = OOS_PAGE_TYPE_CATALOG;
 	if (empty($category['categories_heading_title'])) {
 		$sPagetitle = $category['categories_name']. ' ' . OOS_META_TITLE;
@@ -241,10 +240,12 @@ if ($category_depth == 'nested') {
 
 	$og_image = isset($category['categories_image']) ? OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'category/large/' . $category['categories_image'] : '';
 
-    $nManufacturersID = isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id']+0 : 0;
-    $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
-    $nFilterID = intval($_GET['filter_id']) ? $_GET['filter_id']+0 : 0;
-    $sSort = oos_var_prep_for_os($_GET['sort']);
+
+    $nManufacturersID = (isset($_GET['manufacturers_id']) ? intval($_GET['manufacturers_id']) : 0);
+    $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+    $nFilterID = (isset($_GET['filter_id']) ? intval($_GET['filter_id']) : 0);
+    $sSort = (isset($_GET['sort']) ? oos_var_prep_for_os($_GET['sort']) : '' );
+
     $sGroup = trim($aUser['text']);
     $sContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
 
@@ -266,20 +267,20 @@ if ($category_depth == 'nested') {
             'canonical'     => $sCanonical
         )
     );
-	
+
     if (!$smarty->isCached($aTemplate['page'], $sContentCacheID)) {
 
 // create column list
 		$aDefineList = array();
-		$aDefineList = array('PRODUCT_LIST_MODEL' => '1',
-                           'PRODUCT_LIST_NAME' => '2',
-                           'PRODUCT_LIST_MANUFACTURER' => '3',
-                           'PRODUCT_LIST_PRICE' => '4',
-                           'PRODUCT_LIST_QUANTITY' => '5',
-                           'PRODUCT_LIST_WEIGHT' => '6',
-                           'PRODUCT_LIST_IMAGE' => '7',
-                           'PRODUCT_LIST_BUY_NOW' => '8',
-                           'PRODUCT_LIST_SORT_ORDER' => '9');
+		$aDefineList = array('PRODUCT_LIST_MODEL' => 1,
+                           'PRODUCT_LIST_NAME' => 2,
+                           'PRODUCT_LIST_MANUFACTURER' => 3,
+                           'PRODUCT_LIST_PRICE' => 4,
+                           'PRODUCT_LIST_QUANTITY' => 5,
+                           'PRODUCT_LIST_WEIGHT' => 6,
+                           'PRODUCT_LIST_IMAGE' => 7,
+                           'PRODUCT_LIST_BUY_NOW' => 8,
+                           'PRODUCT_LIST_SORT_ORDER' => 9);
 		asort($aDefineList);
 		$aColumnList = array();
 
@@ -288,7 +289,7 @@ if ($category_depth == 'nested') {
 		}
 
 		$select_column_list = '';
-		$n = count($aColumnList);  
+		$n = count($aColumnList);
 		for ($col = 0, $n; $col < $n; $col++) {
 			if ( $aColumnList[$col] == 'PRODUCT_LIST_PRICE')  {
 				continue;
@@ -327,9 +328,8 @@ if ($category_depth == 'nested') {
 
 
 // show the products of a specified manufacturer
-		if (isset($_GET['manufacturers_id']) && !empty($_GET['manufacturers_id'])) {
-			$nManufacturersID = intval($_GET['manufacturers_id']);
-			if (isset($_GET['filter_id'])) {
+		if ($nManufacturersID > 0) {
+			if ($nFilterID > 0) {
 				// We are asked to show only a specific category
 				$productstable = $oostable['products'];
 				$products_descriptiontable = $oostable['products_description'];
@@ -337,7 +337,7 @@ if ($category_depth == 'nested') {
 				$products_to_categoriestable = $oostable['products_to_categories'];
 				$specialstable = $oostable['specials'];
 				$listing_sql = "SELECT " . $select_column_list . " p.products_id, p.products_replacement_product_id, p.manufacturers_id,
-                                 p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit, 
+                                 p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit,
 								 p.products_quantity_order_min, p.products_quantity_order_max, p.products_product_quantity,
                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
@@ -400,7 +400,7 @@ if ($category_depth == 'nested') {
                            ORDER BY cd.categories_name";
 		} else {
 			// show the products in a given categorie
-			if ((isset($_GET['filter_id'])) && oos_is_not_null($_GET['filter_id'])) {
+			if ($nFilterID > 0) {
 				// We are asked to show only specific catgeory
 				$productstable = $oostable['products'];
 				$products_descriptiontable = $oostable['products_description'];
@@ -422,7 +422,7 @@ if ($category_depth == 'nested') {
                                $products_to_categoriestable p2c
                           WHERE p.products_setting = '2'
                             AND p.manufacturers_id = m.manufacturers_id
-                            AND m.manufacturers_id = '" . intval($_GET['filter_id']) . "'
+                            AND m.manufacturers_id = '" . intval($nFilterID) . "'
                             AND p.products_id = p2c.products_id
                             AND pd.products_id = p2c.products_id
                             AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
@@ -567,22 +567,22 @@ if ($category_depth == 'nested') {
 		$categories_panoramatable = $oostable['categories_panorama'];
 		$categories_panorama_sql = "SELECT panorama_id
 									FROM $categories_panoramatable
-									WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";					
+									WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";
 		$panorama_result = $dbconn->Execute($categories_panorama_sql);
-		if ($panorama_result->RecordCount()) {	
+		if ($panorama_result->RecordCount()) {
 			$panorama_info = $panorama_result->fields;
-			$smarty->assign('panorama_info', $panorama_info); 
+			$smarty->assign('panorama_info', $panorama_info);
 		}
 
 		if (isset($aCategorySlider) && is_array($aCategorySlider)) {
-			$smarty->assign('slider', $aCategorySlider);   			
+			$smarty->assign('slider', $aCategorySlider);
 		}
 
 		if ( (isset($_GET['manufacturers_id'])) ||  (oos_total_products_in_category($nCurrentCategoryID) >= 1) ) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 		}
     }
-    $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $sContentCacheID));   
+    $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $sContentCacheID));
     $smarty->setCaching(false);
 } else {
 	// $category_depth = 'top';

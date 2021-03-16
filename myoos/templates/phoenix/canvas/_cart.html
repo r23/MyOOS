@@ -8,12 +8,8 @@
 		<div class="offcanvas-body-inner">
 		{if $cart_count_contents > 0}
 			<div class="text-right">
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>			
 			
-			<a href="#deleteEmployeeModal" class="delete" data-id=$row["id"]" data-toggle="modal">Delete</a>
+			
 			<div class="text-right"><a class="text-danger btn-sm pr-0" href="{html_href_link content=$filename.shopping_cart action=clear_cart}"><i class="mr-1" data-feather="x" style="width: .85rem; height: .85rem;"></i>{$lang.text_clear_cart}</a></div>		
 			<div class="widget widget-featured-entries pt-3">
 			
