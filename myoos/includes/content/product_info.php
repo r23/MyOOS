@@ -102,7 +102,7 @@ if (!$product_info_result->RecordCount()) {
 	$facebook_description = $product_info['products_facebook_description'];
 	$twitter_description = $product_info['products_twitter_description'];
 
-	$og_image = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'product/large/' . $product_info['products_image'];
+	$og_image = isset($product_info['products_image']) ? OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'product/large/' . $product_info['products_image'] : '';
 
     $aTemplate['page'] = $sTheme . '/page/product_info.html';
     $aTemplate['also_purchased_products'] = $sTheme . '/products/_also_purchased_products.html';
