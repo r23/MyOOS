@@ -112,7 +112,7 @@
 
     $login = '1';
     $status = '1';
-    $max_order = '800';
+    $max_order = '5800';
     $default_address = '1';
     $logs = 0;
     $sTime = time();
@@ -121,8 +121,7 @@
       $wishlist_link_id .= substr($sTime,$x,1) . oos_create_random_value(1, $type = 'chars');
     }
     $sql = "INSERT INTO ". $prefix_table . "customers
-            (customers_gender,
-             customers_firstname,
+            (customers_firstname,
              customers_lastname,
              customers_email_address,
              customers_telephone,
@@ -132,8 +131,7 @@
              customers_password,
              customers_wishlist_link_id,
              customers_default_address_id)
-             VALUES (" . $db->qstr($gender) . ','
-                       . $db->qstr($firstname) . ','
+             VALUES (" . $db->qstr($firstname) . ','
                        . $db->qstr($name) . ','
                        . $db->qstr($email) . ','
                        . $db->qstr($phone) . ','
