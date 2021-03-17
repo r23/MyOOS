@@ -2,7 +2,7 @@ Bitte best&#228;tigen Sie Ihre Anmeldung
 
 {$subscribe}
 
-Sie k&#246;nnen Ihr Einverständnis jederzeit widerrufen. Unsere Kontaktinformationen finden Sie u. a. in 
+Sie k&#246;nnen Ihr Einverst&#228;ndnis jederzeit widerrufen. Unsere Kontaktinformationen finden Sie u. a. in 
 der Datenschutzerkl&#228;rung.
 
 Falls Sie sich nicht f&#252;r unseren Newsletter angemeldet haben, ignorieren Sie diese E-Mail einfach. 
