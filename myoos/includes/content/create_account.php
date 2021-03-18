@@ -422,7 +422,35 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 			$email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'];
 
-			oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
+
+/*
+		//smarty
+		require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+		$smarty = new myOOS_Smarty();						
+
+		// dont allow cache
+		$smarty->caching = FALSE;
+
+		$smarty->assign(
+			array(
+				'shop_name'		=> STORE_NAME,
+				'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
+				'shop_logo'		=> STORE_LOGO,
+				'services_url'	=> PHPBB_URL,
+				'blog_url'		=> BLOG_URL,
+				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
+				'login_url'		=> oos_href_link($aContents['login'], '', FALSE, TRUE),
+				'greet'			=> $sGreet,
+				'password' 		=> $newpass
+			)
+		);
+
+		// create mails	
+		$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.html');
+		$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.tpl');
+*/
+
+			oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), '', STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
 		}
 
 		if (SEND_CUSTOMER_EDIT_EMAILS == 'true') {
@@ -461,7 +489,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
                       $aLang['email_separator'] . "\n\n" .
                       $aLang['owner_email_options'] . "\n";
 
-			oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), $name, $email_address, '1');  
+			oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), '', $name, $email_address, '1');  
 		}
 	
 	

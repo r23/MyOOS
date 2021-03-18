@@ -89,7 +89,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 				'shop_name'		=> STORE_NAME,
 				'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
 				'shop_logo'		=> STORE_LOGO,
-				'services_url'	=> COMMUNITY,
+				'services_url'	=> PHPBB_URL,
 				'blog_url'		=> BLOG_URL,
 				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
 				'login_url'		=> oos_href_link($aContents['login'], '', FALSE, TRUE),

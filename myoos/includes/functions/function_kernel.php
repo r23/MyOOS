@@ -1594,11 +1594,12 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
     if (preg_match('~[\r\n]~', $from_email_name)) return FALSE;
     if (preg_match('~[\r\n]~', $from_email_address)) return FALSE;
 
+
 	if ( !is_array($attachments) ) {
 		$attachments = explode( "\n", str_replace( "\r\n", "\n", $attachments ) );
 	}
 
-    $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
+    $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
 
 	// (Re)create it, if it's gone missing
     if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
@@ -1652,7 +1653,7 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
     $text = strip_tags($email_text);
     if (EMAIL_USE_HTML == 'true') {
 		$phpmailer->IsHTML(true);
-		$phpmailer->Body = $email_text;
+		$phpmailer->Body = $email_html;
 		$phpmailer->AltBody = $text;
     } else {
 		$phpmailer->Body = $text;
@@ -1721,7 +1722,7 @@ function oos_newsletter_subscribe_mail ($email_address) {
 					'shop_name'		=> STORE_NAME,
 					'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
 					'shop_logo'		=> STORE_LOGO,
-					'services_url'	=> COMMUNITY,
+					'services_url'	=> PHPBB_URL,
 					'blog_url'		=> BLOG_URL,
 					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
 					'subscribe'		=> oos_href_link($aContents['newsletter'], 'action=lists&subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, FALSE, TRUE)

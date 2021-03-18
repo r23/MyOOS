@@ -129,6 +129,8 @@ $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'
 $sLanguageCode = isset($_SESSION['iso_639_1']) ? oos_var_prep_for_os( $_SESSION['iso_639_1'] ) : DEFAULT_LANGUAGE_CODE;
 $sLanguageName = isset($_SESSION['languages_name']) ? oos_var_prep_for_os( $_SESSION['languages_name'] ) : DEFAULT_LANGUAGE_NAME;
 
+$ADODB_LANG = $sLanguageCode;
+
 if (!isset($_SESSION['language']) || isset($_GET['language'])) {
     // include the language class
     include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_language.php';
