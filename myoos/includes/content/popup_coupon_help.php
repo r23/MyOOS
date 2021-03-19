@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -127,7 +127,7 @@ $text_coupon_help = $aLang['text_coupon_help_header'];
     $cid = 0;
   }
 
-$sCanonical = oos_href_link($aContents['popup_coupon_help'], 'cID=' . intval($cid), FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['popup_coupon_help'], 'cID=' . intval($cid), false, true);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

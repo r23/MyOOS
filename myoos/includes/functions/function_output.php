@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -40,7 +40,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
   * @param $search_engine_safe
   * @return string
   */
-function oos_href_link($page = '', $parameters = '', $add_session_id = TRUE, $search_engine_safe = TRUE) {
+function oos_href_link($page = '', $parameters = '', $add_session_id = true, $search_engine_safe = true) {
     global $session, $oEvent, $spider_flag;
 
 	$page = oos_output_string($page);	
@@ -66,22 +66,22 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = TRUE, $se
     if (isset($_SESSION)) {
 
 		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-		if ($add_session_id == TRUE) {
+		if ($add_session_id == true) {
 			$_sid = $session->getName() . '=' . $session->getId();
 		}
 
-		if ( $spider_flag === FALSE) $_sid = NULL;
+		if ( $spider_flag === false) $_sid = NULL;
 		
 	}
 	
 	
-    if ( ($search_engine_safe == TRUE) &&  $oEvent->installed_plugin('sefu') ) {
+    if ( ($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu') ) {
 		$link = str_replace(array('?', '&amp;', '='), '/', $link);
 
 		$separator = '?';
 
 		$pos = strpos ($link, 'action');
-		if ($pos === FALSE) {
+		if ($pos === false) {
 			$url_rewrite = new url_rewrite;
 			$link = $url_rewrite->transform_uri($link);
 		}
@@ -108,7 +108,7 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = TRUE, $se
   */
   function oos_image($src, $title = null, $width = 0, $height = 0, $parameters = null) {
     if (empty($src) || ($src == OOS_IMAGES)) {
-      return FALSE;
+      return false;
     }
 
     $image = '<img class="img-fluid" src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($title) . '"';
@@ -138,11 +138,11 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = TRUE, $se
   * @param $reinsert_value
   * @return string
   */
-  function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = TRUE) {
+  function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
 
     $field = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
 
-    if ( ($reinsert_value == TRUE) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
+    if ( ($reinsert_value == true) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
 		if (isset($_GET[$name]) && is_string($_GET[$name])) {
 			$value = stripslashes($_GET[$name]);
 		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
@@ -177,14 +177,14 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = TRUE, $se
  * @param $parameters
  * @return string
  */
-function oos_draw_select_field($name, $type, $value = null, $checked = FALSE, $parameters = null)
+function oos_draw_select_field($name, $type, $value = null, $checked = false, $parameters = null)
 {
 
     $selection = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
 
     if (!empty( $value )) $selection .= ' value="' . oos_output_string($value) . '"';
 
-    if ( ($checked == TRUE) || (isset($_GET[$name]) && is_string($_GET[$name]) && (($_GET[$name] == 'on') || (stripslashes($_GET[$name]) == $value))) 
+    if ( ($checked == true) || (isset($_GET[$name]) && is_string($_GET[$name]) && (($_GET[$name] == 'on') || (stripslashes($_GET[$name]) == $value))) 
 		|| (isset($_POST[$name]) && is_string($_POST[$name]) && (($_POST[$name] == 'on') || (stripslashes($_POST[$name]) == $value)))
 	) {
 		$selection .= ' checked="checked"';
@@ -210,7 +210,7 @@ function oos_draw_select_field($name, $type, $value = null, $checked = FALSE, $p
   * @param $checked
   * @param $parameters
   */
-  function oos_draw_checkbox_field($name, $value = '', $checked = FALSE, $parameters = '') {
+  function oos_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
     return oos_draw_select_field($name, 'checkbox', $value, $checked, $parameters);
   }
 
@@ -223,7 +223,7 @@ function oos_draw_select_field($name, $type, $value = null, $checked = FALSE, $p
   * @param $checked
   * @param $parameters
   */
-  function oos_draw_radio_field($name, $value = '', $checked = FALSE, $parameters = '') {
+  function oos_draw_radio_field($name, $value = '', $checked = false, $parameters = '') {
     return oos_draw_select_field($name, 'radio', $value, $checked, $parameters);
   }
 
@@ -271,7 +271,7 @@ function oos_draw_hidden_field($name, $value = '', $parameters = '')
  * @param $parameters
  * @param $required
  */
-function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = null, $required = FALSE)
+function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = null, $required = false)
 {
 
     $field = '<select name="' . oos_output_string($name) . '"';
@@ -299,7 +299,7 @@ function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = 
     }
     $field .= '</select>';
 	
-    if ($required == TRUE) $field .= TEXT_FIELD_REQUIRED;
+    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
 
     return $field;
 }

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,7 +23,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();  
+if ( $session->hasStarted() === false ) $session->start();  
   
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
@@ -82,8 +82,8 @@ $_SESSION['cartID'] = $_SESSION['cart']->cartID;
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
 if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0) ) {
-	$_SESSION['shipping'] = FALSE;
-	$_SESSION['sendto'] = FALSE;
+	$_SESSION['shipping'] = false;
+	$_SESSION['sendto'] = false;
 	oos_redirect(oos_href_link($aContents['checkout_payment']));
 }
 
@@ -97,26 +97,26 @@ $shipping_modules = new shipping;
 if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 	switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
       case 'national':
-        if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = TRUE; break;
+        if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
 
       case 'international':
-        if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = TRUE; break;
+        if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
 
       case 'both':
-        $pass = TRUE; break;
+        $pass = true; break;
 
       default:
-        $pass = FALSE; break;
+        $pass = false; break;
 	}
 
-	$free_shipping = FALSE;
-	if ( ($pass == TRUE) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-		$free_shipping = TRUE;
+	$free_shipping = false;
+	if ( ($pass == true) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+		$free_shipping = true;
 
 		require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
 	}
 } else {
-	$free_shipping = FALSE;
+	$free_shipping = false;
 }
 
 
@@ -132,7 +132,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$_SESSION['comments'] = oos_db_prepare_input($_POST['comments']);
 	}
 
-	if ( (oos_count_shipping_modules() > 0) || ($free_shipping == TRUE) ) {
+	if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
 		if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {
 			$_SESSION['shipping'] = $_POST['shipping'];
 
@@ -165,7 +165,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 		}
 	} else {
-		$_SESSION['shipping'] = FALSE;
+		$_SESSION['shipping'] = false;
 
 		oos_redirect(oos_href_link($aContents['checkout_payment']));
     }

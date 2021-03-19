@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -24,7 +24,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();  
+if ( $session->hasStarted() === false ) $session->start();  
   
 // if the customer is not logged on, redirect them to the home page
 if (!isset($_SESSION['customer_id'])) {
@@ -35,7 +35,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/info_m
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
-$sCanonical = oos_href_link($aContents['info_max_order'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['info_max_order'], '', false, true);
 
 $aTemplate['page'] = $sTheme . '/page/info.html';
 

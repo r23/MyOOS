@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,7 +26,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_password_forgotten.php';
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();
+if ( $session->hasStarted() === false ) $session->start();
 
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
@@ -82,7 +82,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$smarty = new myOOS_Smarty();						
 
 		// dont allow cache
-		$smarty->caching = FALSE;
+		$smarty->caching = false;
 
 		$smarty->assign(
 			array(
@@ -91,8 +91,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 				'shop_logo'		=> STORE_LOGO,
 				'services_url'	=> PHPBB_URL,
 				'blog_url'		=> BLOG_URL,
-				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
-				'login_url'		=> oos_href_link($aContents['login'], '', FALSE, TRUE),
+				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', false, true),
+				'login_url'		=> oos_href_link($aContents['login'], '', false, true),
 				'greet'			=> $sGreet,
 				'password' 		=> $newpass
 			)
@@ -117,7 +117,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['login']));
     $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['password_forgotten']));
-    $sCanonical = oos_href_link($aContents['password_forgotten'], '', FALSE, TRUE);
+    $sCanonical = oos_href_link($aContents['password_forgotten'], '', false, true);
 	
     $aTemplate['page'] = $sTheme . '/page/user_password_forgotten.html';
 

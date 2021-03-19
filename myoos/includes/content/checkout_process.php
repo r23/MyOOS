@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -27,7 +27,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();  
+if ( $session->hasStarted() === false ) $session->start();  
   
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
@@ -325,7 +325,7 @@ if ($_SESSION['guest_account'] == 1) {
 	$email_order = STORE_NAME . "\n" .
 				$aLang['email_separator'] . "\n" .
 				$aLang['email_text_order_number'] . ' ' . $insert_id . "\n" .
-				$aLang['email_text_invoice_url'] . ' ' . oos_href_link($aContents['account_history_info'], 'order_id=' . $insert_id, FALSE) . "\n" .
+				$aLang['email_text_invoice_url'] . ' ' . oos_href_link($aContents['account_history_info'], 'order_id=' . $insert_id, false) . "\n" .
 				$aLang['email_text_date_ordered'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
 }
 				 

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -25,31 +25,31 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
 require 'includes/languages/' . $sLanguage . '/search_advanced_result.php';
 
 $get_parameters = '';
-$keywords = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : FALSE;
+$keywords = isset($_GET['keywords']) && !empty($_GET['keywords']) ? stripslashes(trim(urldecode($_GET['keywords']))) : false;
 $get_parameters .= '&keywords=' . $keywords;
 
 $search_in_description = isset($_GET['search_in_description']) && is_numeric($_GET['search_in_description']) ? (int)$_GET['search_in_description'] : 0;
 $get_parameters .= '&search_in_description=' . $search_in_description;
 
-$categories_id = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : FALSE;
+$categories_id = isset($_GET['categories_id']) && is_numeric($_GET['categories_id']) ? (int)$_GET['categories_id'] : false;
 $get_parameters .= '&categories_id=' . $categories_id;
 
 $inc_subcat = isset($_GET['inc_subcat']) && is_numeric($_GET['inc_subcat']) ? (int)$_GET['inc_subcat'] : 0;
 $get_parameters .= '&inc_subcat=' . $inc_subcat;
 
-$manufacturers_id  = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : FALSE;
+$manufacturers_id  = isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id']) ? (int)$_GET['manufacturers_id'] : false;
 $get_parameters .= '&manufacturers_id=' . $manufacturers_id;
 
-$pfrom = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : FALSE;
+$pfrom = isset($_GET['pfrom']) && !empty($_GET['pfrom']) ? stripslashes($_GET['pfrom']) : false;
 $get_parameters .= '&pfrom=' . $pfrom;
 
-$pto = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : FALSE;
+$pto = isset($_GET['pto']) && !empty($_GET['pto']) ? stripslashes($_GET['pto']) : false;
 $get_parameters .= '&pto=' . $pto;
 
-$dfrom = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : FALSE;
+$dfrom = isset($_GET['dfrom']) && !empty($_GET['dfrom']) ? stripslashes($_GET['dfrom']) : false;
 $get_parameters .= '&dfrom=' . $dfrom;
 
-$dto = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : FALSE;
+$dto = isset($_GET['dto']) && !empty($_GET['dto']) ? stripslashes($_GET['dto']) : false;
 $get_parameters .= '&dto=' . $dto;
 
 

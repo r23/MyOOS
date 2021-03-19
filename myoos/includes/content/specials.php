@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -38,7 +38,7 @@ $sGroup = trim($aUser['text']);
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
 
-$sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, false, true);
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';

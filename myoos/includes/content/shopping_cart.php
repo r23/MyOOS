@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -115,7 +115,7 @@ if (isset($_SESSION)) {
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
-$sCanonical = oos_href_link($aContents['shopping_cart'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['shopping_cart'], '', false, true);
   
 $aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
 

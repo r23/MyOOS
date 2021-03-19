@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();
+if ( $session->hasStarted() === false ) $session->start();
   
 if (!isset($_SESSION['customer_id'])) {
 	// navigation history
@@ -58,11 +58,11 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($
 }
 
 // Post-entry error checking when updating or adding an entry
-$bProcess = FALSE;
+$bProcess = false;
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['action'] == 'update') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	  
 	  
-    $bProcess = TRUE;
+    $bProcess = true;
 	
 	if ( isset($_POST['entry_id']) && is_numeric($_POST['entry_id']) ) {
 		$entry_id = oos_db_prepare_input($_POST['entry_id']);
@@ -72,7 +72,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 		if (isset($_POST['gender'])) {
 			$gender = oos_db_prepare_input($_POST['gender']);
 		} else {
-			$gender = FALSE;
+			$gender = false;
 		}
     }
     $firstname = oos_db_prepare_input($_POST['firstname']);
@@ -88,63 +88,63 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 		if (isset($_POST['zone_id'])) {
 			$zone_id = oos_db_prepare_input($_POST['zone_id']);
 		} else {
-			$zone_id = FALSE;
+			$zone_id = false;
 		}
     }
     $country = oos_db_prepare_input($_POST['country']);
 
-	$firstname = oos_remove_shouting($firstname, TRUE);
-	$lastname = oos_remove_shouting_name($lastname, TRUE);
+	$firstname = oos_remove_shouting($firstname, true);
+	$lastname = oos_remove_shouting_name($lastname, true);
 	$street_address = oos_remove_shouting($street_address);
 	$postcode = strtoupper($postcode);
 	$city = oos_remove_shouting($city);
 
 
-	$bError = FALSE; // reset error flag
+	$bError = false; // reset error flag
     if (ACCOUNT_GENDER == 'true') {
 		if ( ($gender != 'm') && ($gender != 'f') ) {
-			$bError = TRUE;
+			$bError = true;
 			$oMessage->add_session('addressbook', $aLang['entry_gender_error']);
 		}
     }
 
     if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add_session('addressbook', $aLang['entry_first_name_error'] );
     }	
 
 	if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add_session('addressbook', $aLang['entry_last_name_error'] );
     }
 
 
 	if (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true'){
 		if (!empty($vat_id) && (!oos_validate_is_vatid($vat_id))) {
-			$bError = TRUE;
+			$bError = true;
 			$oMessage->add_session('addressbook', $aLang['entry_vat_id_error']);
 		} else {
-			$vatid_check_error = FALSE;
+			$vatid_check_error = false;
 		}
 	}
 
 	if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add_session('addressbook', $aLang['entry_street_address_error']);
 	}	
 
 	if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add_session('addressbook', $aLang['entry_post_code_error']);
 	}
  
 	if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add_session('addressbook', $aLang['entry_city_error']);
 	}
 
-	if (is_numeric($country) == FALSE) {
-		$bError = TRUE;
+	if (is_numeric($country) == false) {
+		$bError = true;
 		$oMessage->add_session('addressbook', $aLang['entry_country_error']);
     }
 	
@@ -156,7 +156,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 								WHERE zone_country_id = '" . intval($country) . "'";
 		$country_check = $dbconn->Execute($country_check_sql);
 		$entry_state_has_zones = ($country_check->fields['total'] > 0);
-		if ($entry_state_has_zones == TRUE) {
+		if ($entry_state_has_zones == true) {
 			$zonestable = $oostable['zones'];
 			$zone_query = "SELECT DISTINCT zone_id
                            FROM $zonestable
@@ -168,19 +168,19 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 				$zone = $zone_result->fields;
 				$zone_id = $zone['zone_id'];
 			} else {
-				$bError = TRUE;
+				$bError = true;
 				$oMessage->add_session('addressbook', $aLang['entry_state_error_select']);
 			}
 		} else {
 			if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
-				$bError = TRUE;
+				$bError = true;
 				$oMessage->add_session('addressbook', $aLang['entry_state_error']);
 			}
 		}
 	}	
 	
 
-    if ($bError == FALSE) {
+    if ($bError == false) {
 		$sql_data_array = array('entry_firstname' => $firstname,
                               'entry_lastname' => $lastname,
                               'entry_street_address' => $street_address,
@@ -200,7 +200,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 				$sql_data_array['entry_state'] = $state;
 			}
 		}
-		if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE)) {
+		if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == false)) {
 			$sql_data_array['entry_vat_id_status'] = '1';
 		} else {
 			$sql_data_array['entry_vat_id_status'] = '0';
@@ -223,7 +223,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 					$_SESSION['customer_zone_id'] = (($zone_id > 0) ? (int)$zone_id : '0');
 					$_SESSION['customer_default_address_id'] = intval($entry_id);
 
-					if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE)) {
+					if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == false)) {
 						$_SESSION['customers_vat_id_status'] = '1';
 					} else {
 						$_SESSION['customers_vat_id_status'] = '0';						
@@ -260,7 +260,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['acti
 				$_SESSION['customer_zone_id'] = (($zone_id > 0) ? (int)$zone_id : '0');
 				$_SESSION['customer_default_address_id'] = $new_address_book_id;
 
-				if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE)) {
+				if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == false)) {
 					$_SESSION['customers_vat_id_status'] = '1';
 				} else {
 					$_SESSION['customers_vat_id_status'] = '0';						

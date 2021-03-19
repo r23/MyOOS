@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -62,7 +62,7 @@ if (!$product_info_result->RecordCount()) {
 
     $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 	$sPagetitle = '404 Not Found ' . OOS_META_TITLE;
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);	
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, false, true);	
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 	if (!isset($option)) {
@@ -113,7 +113,7 @@ if (!$product_info_result->RecordCount()) {
 	$aTemplate['slavery_products'] = $sTheme . '/products/_slavery_product_listing.html';
 	$aTemplate['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';	
 	
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, FALSE, TRUE);		
+	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, false, true);		
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
@@ -140,7 +140,7 @@ if (!$product_info_result->RecordCount()) {
 	$base_product_price = $product_info['products_price'];
 
 	// Selector 
-	$bTypeRadio = FALSE;
+	$bTypeRadio = false;
 	$aSelector = array();
 
     $products_optionstable = $oostable['products_options'];
@@ -170,7 +170,7 @@ if (!$product_info_result->RecordCount()) {
 
 			switch ($products_options_name['products_options_type']) {
 				case PRODUCTS_OPTIONS_TYPE_RADIO:
-					$bTypeRadio = TRUE;
+					$bTypeRadio = true;
 
 					$products_attributestable = $oostable['products_attributes'];
 					$products_options_valuestable = $oostable['products_options_values'];
@@ -195,22 +195,22 @@ if (!$product_info_result->RecordCount()) {
 						$option_base = '';
 						$sChecked = '';
 						
-						$checked = FALSE;
+						$checked = false;
 						if ($row == 1) {
-							$checked = TRUE;
+							$checked = true;
 						}
 						
 						if ($_SESSION['cart']->contents[$_GET['products_id']]['attributes'][$products_options_name['products_options_id']] == $products_options_array['products_options_values_id']) {
-							$checked = TRUE;
+							$checked = true;
 						}
 						
-						if ($checked == TRUE) {
+						if ($checked == true) {
 							if ($products_options_array['options_values_status'] == 0){
-								$checked = FALSE;
+								$checked = false;
 								$row = ($row == 1) ? 0 : $row;
 							}
 						}
-						if ($checked == TRUE) {
+						if ($checked == true) {
 
 							if ($aUser['show_price'] == 1 ) {
 								if ($products_options_array['options_values_price'] > '0') {
@@ -240,7 +240,7 @@ if (!$product_info_result->RecordCount()) {
 						$sValue = $products_options_array['products_options_values_id'];
 
 
-						if ( ($checked === TRUE) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
+						if ( ($checked === true) || ( isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && ( ($GLOBALS[$name] == 'on') || (isset($value) && (stripslashes($GLOBALS[$name]) == $value)) ) ) ) {
 							$sChecked = 'checked="checked"';
 						}
 					
@@ -297,25 +297,25 @@ if (!$product_info_result->RecordCount()) {
 	$smarty->assign('selector_array', $aSelector);
 	
 	// Product gallery
-	$sImageLink = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, TRUE, TRUE);	
+	$sImageLink = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, true, true);	
 	$smarty->assign('image_link', $sImageLink);
 
 	$info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
-	$schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, FALSE);
+	$schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
 
 	if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
 		$base_product_price = $info_special_price;
 		$info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
 	} 
 
-	$discounts_price = FALSE;
+	$discounts_price = false;
     if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 
 		|| $product_info['products_discount3_qty'] > 0 
 		|| $product_info['products_discount2_qty'] > 0 
 		|| $product_info['products_discount1_qty'] > 0 )) ) {
 
 		if ( ($aUser['show_price'] == 1 ) && ($aUser['qty_discounts'] == 1) ) {
-			$discounts_price = TRUE;
+			$discounts_price = true;
 			require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
 
 			if ( $product_info['products_discount4'] > 0 ) {
@@ -494,8 +494,8 @@ if (!$product_info_result->RecordCount()) {
 			if (!file_exists($cache_file)) {	
 
 				$sUrl = $sCanonical;
-				if (strpos($sUrl, '&amp;') !== FALSE) $sUrl = str_replace('&amp;', '&', $sUrl);
-				if (strpos($sUrl, '&&') !== FALSE) $sUrl = str_replace('&&', '&', $sUrl);
+				if (strpos($sUrl, '&amp;') !== false) $sUrl = str_replace('&amp;', '&', $sUrl);
+				if (strpos($sUrl, '&&') !== false) $sUrl = str_replace('&&', '&', $sUrl);
 
 				// Create a basic QR code
 				$qrCode = new QrCode($sUrl);
@@ -544,12 +544,12 @@ if (!$product_info_result->RecordCount()) {
 	$smarty->assign('heading_title', $product_info['products_name']);
     $smarty->assign('options', $options);
 
-    $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), FALSE, FALSE));
+    $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), false, false));
 
 	
-	$notifications_block = FALSE;
+	$notifications_block = false;
 	if ($oEvent->installed_plugin('notify')) {
-		$notifications_block = TRUE;
+		$notifications_block = true;
 
 		if (isset($_SESSION['customer_id'])) {
 			$products_notificationstable = $oostable['products_notifications'];
@@ -558,9 +558,9 @@ if (!$product_info_result->RecordCount()) {
                 WHERE products_id = '" . intval($nProductsID) . "'
                   AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
 			$check = $dbconn->Execute($query);
-			$notification_exists = (($check->fields['total'] > 0) ? TRUE : FALSE);
+			$notification_exists = (($check->fields['total'] > 0) ? true : false);
 		} else {
-			$notification_exists = FALSE;
+			$notification_exists = false;
 		}
 		$smarty->assign('notification_exists', $notification_exists);
 	}

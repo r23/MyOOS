@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,7 +26,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();  
+if ( $session->hasStarted() === false ) $session->start();  
   
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {

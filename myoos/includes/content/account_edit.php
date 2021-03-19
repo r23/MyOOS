@@ -22,7 +22,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
   
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();   
+if ( $session->hasStarted() === false ) $session->start();   
 
 if (!isset($_SESSION['customer_id'])) {
 	// navigation history
@@ -49,7 +49,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		if (isset($_POST['gender'])) {
 			$gender = oos_db_prepare_input($_POST['gender']);
 		} else {
-			$gender = FALSE;
+			$gender = false;
 		}
     }
     $firstname = oos_db_prepare_input($_POST['firstname']);
@@ -63,27 +63,27 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$newsletter = oos_db_prepare_input($_POST['newsletter']);
     } 
 	
-	$firstname = oos_remove_shouting($firstname, TRUE);
-	$lastname = oos_remove_shouting_name($lastname, TRUE);
+	$firstname = oos_remove_shouting($firstname, true);
+	$lastname = oos_remove_shouting_name($lastname, true);
 	$email_address = strtolower($email_address);	
 	
 	
-	$bError = FALSE; // reset error flag
+	$bError = false; // reset error flag
 
     if (ACCOUNT_GENDER == 'true') {
 		if ( ($gender != 'm') && ($gender != 'f') ) {
-			$bError = TRUE;
+			$bError = true;
 			$oMessage->add('account_edit', $aLang['entry_gender_error']);
 		}
     }
 
     if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('account_edit', $aLang['entry_first_name_error'] );
     }	
 
 	if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('account_edit', $aLang['entry_last_name_error'] );
     }
 
@@ -92,16 +92,16 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			(!is_numeric(oos_date_raw($dob)) ||
 			!checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))) {		
 	
-			$bError = TRUE;
+			$bError = true;
 			$oMessage->add('account_edit', $aLang['entry_date_of_birth_error'] );
 		}
 	}
 
     if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('account_edit', $aLang['entry_email_address_error']);
-    } elseif (is_email($email_address) == FALSE) {
-		$bError = TRUE;
+    } elseif (is_email($email_address) == false) {
+		$bError = true;
 		$oMessage->add('account_edit', $aLang['entry_email_address_check_error']);
     } else {
 		$customerstable = $oostable['customers'];
@@ -111,21 +111,21 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 					  AND customers_id != '" . intval($_SESSION['customer_id']) . "'";
 		$check_email = $dbconn->Execute($check_email_sql);
 		if ($check_email->RecordCount()) {		
-			$bError = TRUE;
+			$bError = true;
 			$oMessage->add('account_edit', $aLang['entry_email_address_error_exists']);
 		}
     }
 
 	if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('account_edit', $aLang['entry_password_error']);
 	} elseif ($password != $confirmation) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('account_edit', $aLang['entry_password_error_not_matching']);
 	}
 
 
-	if ($bError == FALSE) {
+	if ($bError == false) {
 	
 		$new_encrypted_password = oos_encrypt_password($password);
 		$sql_data_array = array('customers_firstname' => $firstname,
@@ -224,14 +224,14 @@ $account = $dbconn->GetRow($sql);
 
 if (ACCOUNT_GENDER == 'true') {
 	if (isset($gender)) {
-		$male = ($gender == 'm') ? TRUE : FALSE;
+		$male = ($gender == 'm') ? true : false;
 	} else {
-		$male = ($account['customers_gender'] == 'm') ? TRUE : FALSE;
+		$male = ($account['customers_gender'] == 'm') ? true : false;
 	}
 	$female = !$male;
 }
 
-$bNewsletter = FALSE;
+$bNewsletter = false;
 if (NEWSLETTER == 'true') {
 	if (!isset($email_address)) {
 		$email_address = $account['customers_email_address'];
@@ -245,7 +245,7 @@ if (NEWSLETTER == 'true') {
 	$check_recipients_result = $dbconn->Execute($sql);
 
 	if (!$check_recipients_result->RecordCount()) {	
-		$bNewsletter = TRUE;
+		$bNewsletter = true;
 	}
 }	
 

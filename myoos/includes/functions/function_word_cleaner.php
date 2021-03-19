@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -37,7 +37,7 @@ function replace_word($sStr) {
 }
 
 
-function oos_remove_shouting($sStr, $is_name = FALSE) {
+function oos_remove_shouting($sStr, $is_name = false) {
 	
     $specials_first = 'ä|ö|ü|á|é|ó|ú|í|ñ|à|è|ò|ù|ì|â|ê|ô|û|î|ë|ï|å|ã|æ|ø|ç';
 
@@ -130,7 +130,7 @@ function oos_remove_shouting($sStr, $is_name = FALSE) {
 }
 
 // Last Name, edit to suite your needs
-function oos_remove_shouting_name($sStr, $is_name = TRUE) {
+function oos_remove_shouting_name($sStr, $is_name = true) {
 	
     $specials_first = 'ä|ö|ü|á|é|ó|ú|í|ñ|à|è|ò|ù|ì|â|ê|ô|û|î|ë|ï|å|ã|æ|ø|ç';
 

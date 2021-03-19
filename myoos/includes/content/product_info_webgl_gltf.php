@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -29,7 +29,7 @@ if (isset($_GET['models_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/product_info_webgl_gltf.php';
 
-$sCanonical = oos_href_link($aContents['product_info_webgl_gltf'], 'models_id='. $nModelsID, FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['product_info_webgl_gltf'], 'models_id='. $nModelsID, false, true);
 
 // 3-D Model
 $products_modelstable = $oostable['products_models'];

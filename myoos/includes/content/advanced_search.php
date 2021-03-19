@@ -85,7 +85,7 @@ $aManufacturersID = oos_get_manufacturers(array(array('id' => '', 'text' => $aLa
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
-$sCanonical = oos_href_link($aContents['advanced_search'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['advanced_search'], '', false, true);
   
   
 $aTemplate['page'] = $sTheme . '/page/advanced_search.html';

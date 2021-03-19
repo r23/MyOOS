@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -84,7 +84,7 @@ while ($reviews = $reviews_result->fields) {
 // links breadcrumb
 $oBreadcrumb->add($product_info['products_name'], oos_href_link($aContents['product_info'], 'category=' . $sCategory . '&amp;products_id=' . $nProductsID));
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], $get_params));
-$sCanonical = oos_href_link($aContents['product_reviews'], $get_params, FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['product_reviews'], $get_params, false, true);
   
   
 $aTemplate['page'] = $sTheme . '/page/product_reviews.html';

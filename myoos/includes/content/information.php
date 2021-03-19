@@ -30,7 +30,7 @@ $nInformationsID = isset($_GET['information_id']) ? $_GET['information_id']+0 : 
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
 
-$sCanonical = oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID), FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID), false, true);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

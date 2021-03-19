@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -159,7 +159,7 @@
   * @param $boln
   * @param $eoln
   */
-  function oos_address_label($customers_id, $address_id = 1, $html = FALSE, $boln = '', $eoln = "\n") {
+  function oos_address_label($customers_id, $address_id = 1, $html = false, $boln = '', $eoln = "\n") {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -188,13 +188,13 @@
  * @param bool $check_session
  * @return int
  */
-function oos_count_customer_address_book_entries($id = '', $check_session = TRUE) {
+function oos_count_customer_address_book_entries($id = '', $check_session = true) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-	if (is_numeric($id) == FALSE) {
+	if (is_numeric($id) == false) {
 		if ($_SESSION['customer_id']) {
 			$id = $_SESSION['customer_id'];
 		} else {
@@ -202,8 +202,8 @@ function oos_count_customer_address_book_entries($id = '', $check_session = TRUE
 		}
 	}
 
-	if ($check_session == TRUE) {
-		if ( ($_SESSION['customer_id'] == FALSE) || ($id != $_SESSION['customer_id']) ) {
+	if ($check_session == true) {
+		if ( ($_SESSION['customer_id'] == false) || ($id != $_SESSION['customer_id']) ) {
 			return 0;
 		}
 	}

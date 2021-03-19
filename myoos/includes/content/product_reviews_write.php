@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -37,7 +37,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
 
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();  
+if ( $session->hasStarted() === false ) $session->start();  
   
 if (!isset($_SESSION['customer_id'])) {
 	// navigation history
@@ -68,29 +68,29 @@ $product_info = $product_result->fields;
 
 if ( isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) && 
-	( $valid_product == TRUE ) ) { 
+	( $valid_product == true ) ) { 
 	
 		$review = oos_prepare_input($_POST['review']);
 		$rating = oos_prepare_input($_POST['rating']);
 		$headline = oos_prepare_input($_POST['headline']);
 
-		$bError = FALSE;
+		$bError = false;
 		if (strlen($review) < REVIEW_TEXT_MIN_LENGTH) {
 			$oMessage->add('product_reviews_write', $aLang['review_text']);
-			$bError = TRUE;
+			$bError = true;
 		}
 
 		if (!isset($_POST['rating'])) {
 			$oMessage->add('product_reviews_write', $aLang['review_rating']);
-			$bError = TRUE;
+			$bError = true;
 		}
 
 		if (strlen($headline) < 10) {
 			$oMessage->add('product_reviews_write', $aLang['review_headline']);
-			$bError = TRUE;
+			$bError = true;
 		}
  
-		if ($bError === FALSE) {
+		if ($bError === false) {
 
 			$customerstable = $oostable['customers'];
 			$sql = "SELECT customers_firstname, customers_lastname
@@ -161,7 +161,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 			$email_text .= "\n";
 			$email_text .= "Text:         ". $review . "\n";
 
-			oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
+			oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), '', STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
 			// clear cache
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -177,7 +177,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 
 
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['product_reviews'], 'products_id=' . intval($nProductsID)));
-$sCanonical = oos_href_link($aContents['product_reviews_write'], 'products_id=' . intval($nProductsID), FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['product_reviews_write'], 'products_id=' . intval($nProductsID), false, true);
 
 $customerstable = $oostable['customers'];
 $sql = "SELECT customers_firstname, customers_lastname

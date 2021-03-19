@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -36,12 +36,12 @@ function oos_validate_password($sPlain, $sEncrypted) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
 		}
 
-		$oHasher = new PasswordHash( 8, TRUE );
+		$oHasher = new PasswordHash( 8, true );
 
 		return $oHasher->CheckPassword($sPlain, $sEncrypted);
 	}
 
-    return FALSE;
+    return false;
 }
 
 
@@ -57,7 +57,7 @@ function oos_encrypt_password($sPlain) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
 	}
 
-	$oHasher = new PasswordHash( 8, TRUE );
+	$oHasher = new PasswordHash( 8, true );
 
     return $oHasher->HashPassword($sPlain);
 }

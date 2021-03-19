@@ -23,7 +23,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/contact_us.php'; 
   
-$bError = FALSE;
+$bError = false;
 
 if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) { 
 	
@@ -52,13 +52,13 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) {
 		oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
 	} else {
 		$oMessage->add('contact_us', $aLang['error_email_address']);
-		$bError = TRUE;
+		$bError = true;
 	}
 }
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['contact_us']));
-$sCanonical = oos_href_link($aContents['contact_us'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['contact_us'], '', false, true);
 
 $aTemplate['page'] = $sTheme . '/page/contact_us.html';
 

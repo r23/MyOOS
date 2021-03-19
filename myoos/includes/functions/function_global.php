@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -37,7 +37,7 @@
   * @return string
   */
   function oos_date_long($raw_date) {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return FALSE;
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
     $year = intval(substr($raw_date, 0, 4));
     $month = intval(substr($raw_date, 5, 2));
@@ -58,7 +58,7 @@
   * @return string
   */
   function oos_date_short($raw_date) {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return FALSE;
+    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
     $year = substr($raw_date, 0, 4);
     $month = intval(substr($raw_date, 5, 2));
@@ -100,7 +100,7 @@ function oos_get_product_id($uprid) {
     if (is_numeric($pieces[0])) {
       return $pieces[0];
     } else {
-      return FALSE;
+      return false;
     }
   }
 
@@ -108,15 +108,15 @@ function oos_get_product_id($uprid) {
 function oos_is_not_null($value) {
 	if (is_array($value)) {
       if (!empty($value)) {		
-			return TRUE;
+			return true;
 		} else {
-			return FALSE;
+			return false;
 		}
 	} else {
 		if (($value != '') && (strtolower($value) != 'null') && (strlen(trim($value)) > 0)) {		
-			return TRUE;
+			return true;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 }  
@@ -126,15 +126,15 @@ function oos_is_not_null($value) {
   function oos_empty($value) {
     if (is_array($value)) {
       if (sizeof($value) > 0) {
-        return FALSE;
+        return false;
       } else {
-        return TRUE;
+        return true;
       }
     } else {
       if ((strtolower($value) != 'null') && (strlen(trim($value)) > 0)) {
-        return FALSE;
+        return false;
       } else {
-        return TRUE;
+        return true;
       }
     }
   }
@@ -152,7 +152,7 @@ function oos_is_not_null($value) {
 
     if (!isset($seeded)) {
       mt_srand((double)microtime()*1000000);
-      $seeded = TRUE;
+      $seeded = true;
     }
 
     if (isset($min) && isset($max)) {
@@ -167,7 +167,7 @@ function oos_is_not_null($value) {
   }
 
   function oos_create_random_value($length, $type = 'mixed') {
-    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return FALSE;
+    if ( ($type != 'mixed') && ($type != 'chars') && ($type != 'digits')) return false;
 
     $rand_value = '';
     while (strlen($rand_value) < $length) {

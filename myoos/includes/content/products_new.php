@@ -37,7 +37,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
-$sCanonical = oos_href_link($aContents['products_new'], 'page='. $nPage, FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['products_new'], 'page='. $nPage, false, true);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

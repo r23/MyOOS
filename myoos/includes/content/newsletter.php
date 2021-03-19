@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -51,7 +51,7 @@ if ( isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm') ) {
 	}
 
 	$pos = strpos ($sID, "f00d");
-	if ($pos === FALSE) {
+	if ($pos === false) {
 		oos_redirect(oos_href_link($aContents['403']));
 	} else {
 		$sID = substr($sID, 4, -4);
@@ -76,7 +76,7 @@ if ( isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm') ) {
 } 
 
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['newsletter']));
-$sCanonical = oos_href_link($aContents['newsletter'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['newsletter'], '', false, true);
 
 $aTemplate['page'] = $sTheme . '/page/newsletter.html';
 

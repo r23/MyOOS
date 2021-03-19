@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -209,9 +209,9 @@
     }
 
     if ( ($operator_count < $keyword_count) && ($balance == 0) ) {
-      return TRUE;
+      return true;
     } else {
-      return FALSE;
+      return false;
     }
   }
 
@@ -233,13 +233,13 @@
     $format_string = strtolower($format_string);
 
     if (strlen($date_to_check) != strlen($format_string)) {
-      return FALSE;
+      return false;
     }
 
     $size = count($separators);
     for ($i=0; $i<$size; $i++) {
       $pos_separator = strpos($date_to_check, $separators[$i]);
-      if ($pos_separator != FALSE) {
+      if ($pos_separator != false) {
         $date_separator_idx = $i;
         break;
       }
@@ -247,25 +247,25 @@
 
     for ($i=0; $i<$size; $i++) {
       $pos_separator = strpos($format_string, $separators[$i]);
-      if ($pos_separator != FALSE) {
+      if ($pos_separator != false) {
         $format_separator_idx = $i;
         break;
       }
     }
 
     if ($date_separator_idx != $format_separator_idx) {
-      return FALSE;
+      return false;
     }
 
     if ($date_separator_idx != -1) {
       $format_string_array = explode( $separators[$date_separator_idx], $format_string );
       if (count($format_string_array) != 3) {
-        return FALSE;
+        return false;
       }
 
       $date_to_check_array = explode( $separators[$date_separator_idx], $date_to_check );
       if (count($date_to_check_array) != 3) {
-        return FALSE;
+        return false;
       }
 
       $size = count($format_string_array);
@@ -277,7 +277,7 @@
     } else {
       if (strlen($format_string) == 8 || strlen($format_string) == 9) {
         $pos_month = strpos($format_string, 'mmm');
-        if ($pos_month != FALSE) {
+        if ($pos_month != false) {
           $month = substr( $date_to_check, $pos_month, 3 );
           $size = count($month_abbr);
           for ($i=0; $i<$size; $i++) {
@@ -290,7 +290,7 @@
           $month = substr($date_to_check, strpos($format_string, 'mm'), 2);
         }
       } else {
-        return FALSE;
+        return false;
       }
 
       $day = substr($date_to_check, strpos($format_string, 'dd'), 2);
@@ -298,19 +298,19 @@
     }
 
     if (strlen($year) != 4) {
-      return FALSE;
+      return false;
     }
 
     if (!settype($year, 'integer') || !settype($month, 'integer') || !settype($day, 'integer')) {
-      return FALSE;
+      return false;
     }
 
     if ($month > 12 || $month < 1) {
-      return FALSE;
+      return false;
     }
 
     if ($day < 1) {
-      return FALSE;
+      return false;
     }
 
     if (oos_is_leap_year($year)) {
@@ -318,12 +318,12 @@
     }
 
     if ($day > $no_of_days[$month - 1]) {
-      return FALSE;
+      return false;
     }
 
     $date_array = array($year, $month, $day);
 
-    return TRUE;
+    return true;
   }
 
 
@@ -335,12 +335,12 @@
   */
   function oos_is_leap_year($year) {
     if ($year % 100 == 0) {
-      if ($year % 400 == 0) return TRUE;
+      if ($year % 400 == 0) return true;
     } else {
-      if (($year % 4) == 0) return TRUE;
+      if (($year % 4) == 0) return true;
     }
 
-    return FALSE;
+    return false;
   }
 
 

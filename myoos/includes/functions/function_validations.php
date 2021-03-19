@@ -38,11 +38,11 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  */
 function is_email($value) {
  
-    if (!is_string($value)) return FALSE;
+    if (!is_string($value)) return false;
 
 	//Reject line breaks in addresses; it's valid RFC5322, but not RFC5321
-	if (strpos($value, "\n") !== FALSE or strpos($value, "\r") !== FALSE) {
-		return FALSE;
+	if (strpos($value, "\n") !== false or strpos($value, "\r") !== false) {
+		return false;
 	} 
 	return (boolean)filter_var($value, FILTER_VALIDATE_EMAIL);
 }
@@ -55,7 +55,7 @@ function is_email($value) {
  */
 function oos_validate_is_url($sUrl) {
    if (strlen($sUrl) == 0) {
-     return FALSE;
+     return false;
    }
 
    return preg_match('!^http(s)?://[\w-]+\.[\w-]+(\S+)?$!i', $sUrl);

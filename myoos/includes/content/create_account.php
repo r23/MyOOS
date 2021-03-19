@@ -28,7 +28,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/create_account.php';
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();
+if ( $session->hasStarted() === false ) $session->start();
 
 // navigation history
 if (!isset($_SESSION['navigation'])) {
@@ -47,7 +47,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		if (isset($_POST['gender'])) {
 			$gender = oos_db_prepare_input($_POST['gender']);
 		} else {
-			$gender = FALSE;
+			$gender = false;
 		}
     }
     $firstname = oos_db_prepare_input($_POST['firstname']);
@@ -65,7 +65,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		if (isset($_POST['zone_id'])) {
 			$zone_id = oos_db_prepare_input($_POST['zone_id']);
 		} else {
-			$zone_id = FALSE;
+			$zone_id = false;
 		}
     }
     $country = oos_db_prepare_input($_POST['country']);
@@ -80,29 +80,29 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     } 
 
 
-	$firstname = oos_remove_shouting($firstname, TRUE);
-	$lastname = oos_remove_shouting_name($lastname, TRUE);
+	$firstname = oos_remove_shouting($firstname, true);
+	$lastname = oos_remove_shouting_name($lastname, true);
 	$email_address = strtolower($email_address);
 	$street_address = oos_remove_shouting($street_address);
    	$postcode = strtoupper($postcode);
 	$city = oos_remove_shouting($city);
 
 	
-	$bError = FALSE; // reset error flag
+	$bError = false; // reset error flag
     if (ACCOUNT_GENDER == 'true') {
 		if ( ($gender != 'm') && ($gender != 'f') ) {
-			$bError = TRUE;
+			$bError = true;
 			$oMessage->add('create_account', $aLang['entry_gender_error']);
 		}
     }
 
     if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_first_name_error'] );
     }	
 
 	if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_last_name_error'] );
     }
 
@@ -111,16 +111,16 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			(!is_numeric(oos_date_raw($dob)) ||
 			!checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))) {		
 	
-			$bError = TRUE;
+			$bError = true;
 			$oMessage->add('create_account', $aLang['entry_date_of_birth_error'] );
 		}
 	}
 
     if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_email_address_error']);
-    } elseif (is_email($email_address) == FALSE) {
-		$bError = TRUE;
+    } elseif (is_email($email_address) == false) {
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_email_address_check_error']);
     } else {
 		if ($_SESSION['guest_account'] == 1) {
@@ -132,7 +132,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
                       WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
 			$check_email = $dbconn->Execute($check_email_sql);
 			if ($check_email->RecordCount()) {		
-				$bError = TRUE;
+				$bError = true;
 				$oMessage->add('create_account', $aLang['entry_email_address_error_exists']);
 			}
 		}
@@ -140,30 +140,30 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 	if (ACCOUNT_COMPANY_VAT_ID_CHECK == 'true'){
 		if (!empty($vat_id) && (!oos_validate_is_vatid($vat_id))) {
-			$bError = TRUE;
+			$bError = true;
 			$oMessage->add('create_account', $aLang['entry_vat_id_error']);
 		} else {
-			$vatid_check_error = FALSE;
+			$vatid_check_error = false;
 		}
 	}
 
 	if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_street_address_error']);
 	}	
 
 	if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_post_code_error']);
 	}
  
 	if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_city_error']);
 	}
 
-	if (is_numeric($country) == FALSE) {
-		$bError = TRUE;
+	if (is_numeric($country) == false) {
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_country_error']);
     }
 	
@@ -175,7 +175,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 								WHERE zone_country_id = '" . intval($country) . "'";
 		$country_check = $dbconn->Execute($country_check_sql);
 		$entry_state_has_zones = ($country_check->fields['total'] > 0);
-		if ($entry_state_has_zones == TRUE) {
+		if ($entry_state_has_zones == true) {
 			$zonestable = $oostable['zones'];
 			$zone_query = "SELECT DISTINCT zone_id
                            FROM $zonestable
@@ -187,12 +187,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 				$zone = $zone_result->fields;
 				$zone_id = $zone['zone_id'];
 			} else {
-				$bError = TRUE;
+				$bError = true;
 				$oMessage->add('create_account', $aLang['entry_state_error_select']);
 			}
 		} else {
 			if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
-				$bError = TRUE;
+				$bError = true;
 				$oMessage->add('create_account', $aLang['entry_state_error']);
 			}
 		}
@@ -203,21 +203,21 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	} else {
 		if (CUSTOMER_NOT_LOGIN == 'false') {
 			if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
-				$bError = TRUE;
+				$bError = true;
 				$oMessage->add('create_account', $aLang['entry_password_error']);
 			} elseif ($password != $confirmation) {
-				$bError = TRUE;
+				$bError = true;
 				$oMessage->add('create_account', $aLang['entry_password_error_not_matching']);
 			}
 		}
 	}
 	
 	if (empty($agree)) {
-		$bError = TRUE;
+		$bError = true;
 		$oMessage->add('create_account', $aLang['entry_agree_error']);
 	}	
 	
-	if ($bError == FALSE) {
+	if ($bError == false) {
 		$customer_max_order = DEFAULT_MAX_ORDER;
 		$customers_status = DEFAULT_CUSTOMERS_STATUS_ID;
 
@@ -275,7 +275,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $owner;
 		if (ACCOUNT_VAT_ID == 'true') {
 			$sql_data_array['entry_vat_id'] = $vat_id;
-			if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE) && ($country != STORE_COUNTRY)) {
+			if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == false) && ($country != STORE_COUNTRY)) {
 				$sql_data_array['entry_vat_id_status'] = 1;
 			} else {
 				$sql_data_array['entry_vat_id_status'] = 0;
@@ -320,7 +320,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$_SESSION['customer_max_order'] = $customer_max_order;
 
 			if (ACCOUNT_VAT_ID == 'true') {
-				if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == FALSE)) {
+				if ((ACCOUNT_COMPANY_VAT_ID_CHECK == 'true') && ($vatid_check_error == false)) {
 					$_SESSION['customers_vat_id_status'] = 1;
 				} else {
 					$_SESSION['customers_vat_id_status'] = 0;
@@ -421,35 +421,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 
 			$email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'];
-
-
-/*
-		//smarty
-		require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
-		$smarty = new myOOS_Smarty();						
-
-		// dont allow cache
-		$smarty->caching = FALSE;
-
-		$smarty->assign(
-			array(
-				'shop_name'		=> STORE_NAME,
-				'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
-				'shop_logo'		=> STORE_LOGO,
-				'services_url'	=> PHPBB_URL,
-				'blog_url'		=> BLOG_URL,
-				'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
-				'login_url'		=> oos_href_link($aContents['login'], '', FALSE, TRUE),
-				'greet'			=> $sGreet,
-				'password' 		=> $newpass
-			)
-		);
-
-		// create mails	
-		$email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.html');
-		$email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.tpl');
-*/
-
 			oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), '', STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
 		}
 
@@ -531,7 +502,7 @@ $oMessage->add('create_account', sprintf($aLang['text_origin_login'], oos_href_l
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['create_account']));
-$sCanonical = oos_href_link($aContents['create_account'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['create_account'], '', false, true);
 
 $snapshot = count($_SESSION['navigation']->snapshot);
 

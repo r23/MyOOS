@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,7 +26,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();   
+if ( $session->hasStarted() === false ) $session->start();   
 
 if (!isset($_SESSION['customer_id'])) {
 	// navigation history
@@ -39,7 +39,7 @@ if (!isset($_SESSION['customer_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
 
-$bError = TRUE;
+$bError = true;
 // check for a voucher number in the url
 if ( (isset($_GET['gv_no']) && !empty($_GET['gv_no'])) ) {
 	
@@ -66,7 +66,7 @@ if ( (isset($_GET['gv_no']) && !empty($_GET['gv_no'])) ) {
               WHERE coupon_id = '" . oos_db_input($coupon['coupon_id']) . "'";
 		$redeem_result = $dbconn->Execute($sql);
 		if ($redeem_result->RecordCount() == 0 ) {
-			$bError = FALSE;
+			$bError = false;
 		}
 	}
 } else {

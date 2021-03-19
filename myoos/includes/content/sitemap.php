@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -48,7 +48,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['sitemap']));
-	$sCanonical = oos_href_link($aContents['sitemap'], '', FALSE, TRUE);
+	$sCanonical = oos_href_link($aContents['sitemap'], '', false, true);
 	
     // assign Smarty variables;
     $smarty->assign(

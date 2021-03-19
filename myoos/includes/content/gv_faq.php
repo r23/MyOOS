@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -30,7 +30,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_faq
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
 $oBreadcrumb->add($information['navbar_title'], oos_href_link($aContents['gv_faq']));
-$sCanonical = oos_href_link($aContents['gv_faq'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['gv_faq'], '', false, true);
 	
 	
 $aTemplate['page'] = $sTheme . '/page/info.html';

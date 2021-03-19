@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -21,7 +21,7 @@ $aTemplate['page'] = $sTheme . '/page/404.html';
 $nPageType = OOS_PAGE_TYPE_SERVICE;
 
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
-$sCanonical = oos_href_link($aContents['404'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['404'], '', false, true);
   
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

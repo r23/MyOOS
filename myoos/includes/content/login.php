@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -23,10 +23,10 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$bError = FALSE;
+$bError = false;
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();
+if ( $session->hasStarted() === false ) $session->start();
 
 if (!isset($_SESSION['user'])) {
 	$_SESSION['user'] = new oosUser();
@@ -76,13 +76,13 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	$check_customer_result = $dbconn->Execute($sql);
 
 	if (!$check_customer_result->RecordCount()) {
-		$bError = TRUE;
+		$bError = true;
 	} else {
 		$check_customer = $check_customer_result->fields;
 
 		// Check that password is good
 		if (!oos_validate_password($password, $check_customer['customers_password'])) {
-			$bError = TRUE;
+			$bError = true;
 		} else {
 			$address_booktable = $oostable['address_book'];
 			$sql = "SELECT entry_vat_id, entry_vat_id_status, entry_country_id, entry_zone_id
@@ -136,9 +136,9 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login']));
-$sCanonical = oos_href_link($aContents['login'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['login'], '', false, true);
 
-if (isset($bError) && ($bError == TRUE)) {
+if (isset($bError) && ($bError == true)) {
     $sErrorMessage = $aLang['text_login_error'];
 } 
   

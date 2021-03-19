@@ -53,7 +53,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
-$sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, false, true);
 
 if ($oMessage->size('reviews') > 0) {
 	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('reviews') );

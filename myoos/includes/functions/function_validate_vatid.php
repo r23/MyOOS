@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
   ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -32,12 +32,12 @@
     $url = parse_url($url);
 
     if (!in_array($url['scheme'],array('','http'))) {
-      return FALSE;
+      return false;
     }
 
     $fp = fsockopen ($url['host'], ($url['port'] > 0 ? $url['port'] : 80), $errno, $errstr, 2);
     if (!$fp){
-      return FALSE;
+      return false;
     } else {
       fputs ($fp, "GET ".$url['path']. (isSet($url['query']) ? '?'.$url['query'] : '')." HTTP/1.0\r\n");
       fputs ($fp, "Host: ".$url['host']."\r\n");
@@ -53,7 +53,7 @@
       }
 
       if ( $status['timed_out'] ) {
-        return FALSE;
+        return false;
       }
       fclose ($fp);
 
@@ -85,7 +85,7 @@
     $urlVies = 'http://ec.europa.eu/taxation_customs/vies/cgi-bin/viesquer/?VAT='. $sVatno . '&MS=' . $sViesMS . '&Lang=EN';
 
     $DataHTML = load_data($urlVies);
-    if (!$DataHTML) return FALSE;
+    if (!$DataHTML) return false;
 
     $ViesOk = 'YES, VALID VAT NUMBER';
     $ViesEr = 'NO, INVALID VAT NUMBER';

@@ -38,14 +38,14 @@ function oos_exit() {
  */
 function oos_redirect($sUrl) {
 
-	if ( (strstr($sUrl, "\n") != FALSE) || (strstr($sUrl, "\r") != FALSE) ) { 
+	if ( (strstr($sUrl, "\n") != false) || (strstr($sUrl, "\r") != false) ) { 
 		$aContents = oos_get_content();
-		oos_redirect(oos_href_link($aContents['home'], '', FALSE, TRUE));
+		oos_redirect(oos_href_link($aContents['home'], '', false, true));
 	}
 
     // clean URL
-    if (strpos($sUrl, '&amp;') !== FALSE) $sUrl = str_replace('&amp;', '&', $sUrl);
-    if (strpos($sUrl, '&&') !== FALSE) $sUrl = str_replace('&&', '&', $sUrl);
+    if (strpos($sUrl, '&amp;') !== false) $sUrl = str_replace('&amp;', '&', $sUrl);
+    if (strpos($sUrl, '&&') !== false) $sUrl = str_replace('&&', '&', $sUrl);
 
     header('Location: ' . $sUrl);
     oos_exit();
@@ -395,7 +395,7 @@ function oos_get_products_status($nProductID) {
   * @param $current_price
   * @return string
   */
-  function oos_get_products_price_quantity_discount($product_id, $qty, $current_price = FALSE) {
+  function oos_get_products_price_quantity_discount($product_id, $qty, $current_price = false) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -459,9 +459,9 @@ function oos_get_products_status($nProductID) {
 
     $stock_left = oos_get_products_stock($sProductsId) - $nProductsQuantity;
 
-    $bOutOfStock = FALSE;
+    $bOutOfStock = false;
     if ($stock_left < 0) {
-		$bOutOfStock = TRUE;
+		$bOutOfStock = true;
     }
 
     return $bOutOfStock;
@@ -488,7 +488,7 @@ function oos_get_products_status($nProductID) {
 		foreach($_GET as $key => $value)
 		{
 			if(empty($value)
-				|| $value === FALSE)
+				|| $value === false)
 			{
 				continue;
 			}
@@ -550,7 +550,7 @@ function oos_get_products_status($nProductID) {
   * @param $bWithIsoCodes
   * @return array
   */
-  function oos_get_countries($countries_id = '', $bWithIsoCodes = FALSE) {
+  function oos_get_countries($countries_id = '', $bWithIsoCodes = false) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -558,7 +558,7 @@ function oos_get_products_status($nProductID) {
 
     $aCountries = array();
     if (!empty($countries_id)) {
-        if ($bWithIsoCodes == TRUE) {
+        if ($bWithIsoCodes == true) {
             $countriestable = $oostable['countries'];
             $query = "SELECT countries_name, countries_iso_code_2, countries_iso_code_3
                       FROM $countriestable
@@ -687,7 +687,6 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
 				$tax_multiplier *= 1.0 + ($tax['tax_rate'] / 100);			
 				$tax_result->MoveNext();
 			}
-
 			$tax_rates[$class_id][$country_id][$zone_id]['rate'] = ($tax_multiplier - 1.0) * 100;
 		} else {
 			$tax_rates[$class_id][$country_id][$zone_id]['rate'] = 0;
@@ -743,7 +742,6 @@ function oos_get_tax_description($class_id, $country_id, $zone_id) {
 			}
 
 			$tax_description = substr($tax_description, 0, -3);
-
 			$tax_rates[$class_id][$country_id][$zone_id]['description'] = $tax_description;
 		} else {
 			$tax_rates[$class_id][$country_id][$zone_id]['description'] = $aLang['text_unknown_tax_rate'];
@@ -763,7 +761,6 @@ function oos_get_tax_description($class_id, $country_id, $zone_id) {
  */
 function oos_add_tax($price, $tax) {
 	global $aUser;
-	
   
     if( ($aUser['price_with_tax'] == 1) && ($tax > 0) ) {
 		return $price + oos_calculate_tax($price, $tax);
@@ -867,7 +864,7 @@ function oos_get_parent_categories(&$categories, $categories_id) {
     $result = $dbconn->Execute($query);
 
     while ($parent_categories = $result->fields) {
-		if ($parent_categories['parent_id'] == 0) return TRUE;
+		if ($parent_categories['parent_id'] == 0) return true;
 		
 		$categories[count($categories)] = $parent_categories['parent_id'];
 		if ($parent_categories['parent_id'] != $categories_id) {
@@ -1066,7 +1063,7 @@ function oos_get_category_path($nProductsId) {
       $uprid = $prid;
 
       if (is_array($parameters) && (count($parameters) > 0)) {
-        $attributes_check = TRUE;
+        $attributes_check = true;
         $attributes_ids = '';
 
 		foreach($parameters as $option => $sValue) {	
@@ -1079,7 +1076,7 @@ function oos_get_category_path($nProductsId) {
           }
         }
 
-        if ($attributes_check == TRUE) {
+        if ($attributes_check == true) {
           $uprid .= $attributes_ids;
         }
       }
@@ -1087,8 +1084,8 @@ function oos_get_category_path($nProductsId) {
       $uprid = oos_get_product_id($prid);
 
       if (is_numeric($uprid)) {
-        if (strpos($prid, '{') !== FALSE) {
-          $attributes_check = TRUE;
+        if (strpos($prid, '{') !== false) {
+          $attributes_check = true;
           $attributes_ids = '';
 
           // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
@@ -1100,17 +1097,17 @@ function oos_get_category_path($nProductsId) {
             if (is_numeric($pair[0]) && is_numeric($pair[1])) {
               $attributes_ids .= '{' . intval($pair[0]) . '}' . intval($pair[1]);
             } else {
-              $attributes_check = FALSE;
+              $attributes_check = false;
               break;
             }
           }
 
-          if ($attributes_check == TRUE) {
+          if ($attributes_check == true) {
             $uprid .= $attributes_ids;
           }
         }
       } else {
-        return FALSE;
+        return false;
       }
     }
 
@@ -1138,9 +1135,9 @@ function oos_has_product_attributes($sProductsId) {
               WHERE products_id = '" . intval($nProductID) . "'";
     $attributes = $dbconn->Execute($query);
     if ($attributes->fields['total'] > 0) {
-		return TRUE;
+		return true;
     } else {
-		return FALSE;
+		return false;
     }
 }
 
@@ -1279,7 +1276,7 @@ function oos_output_string($sStr, $aTranslate = null) {
     if ($result->RecordCount() > 0) {
       return $code;
     } else {
-      return FALSE;
+      return false;
     }
   }
 
@@ -1585,14 +1582,14 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	global $oEvent, $oEmail;
 
 	if ( !is_object( $oEvent ) || (!$oEvent->installed_plugin('mail')) ) {
-		return FALSE;
+		return false;
 	}
 
-    if (preg_match('~[\r\n]~', $to_name)) return FALSE;
-    if (preg_match('~[\r\n]~', $to_email_address)) return FALSE;
-    if (preg_match('~[\r\n]~', $subject)) return FALSE;
-    if (preg_match('~[\r\n]~', $from_email_name)) return FALSE;
-    if (preg_match('~[\r\n]~', $from_email_address)) return FALSE;
+    if (preg_match('~[\r\n]~', $to_name)) return false;
+    if (preg_match('~[\r\n]~', $to_email_address)) return false;
+    if (preg_match('~[\r\n]~', $subject)) return false;
+    if (preg_match('~[\r\n]~', $from_email_name)) return false;
+    if (preg_match('~[\r\n]~', $from_email_address)) return false;
 
 
 	if ( !is_array($attachments) ) {
@@ -1668,7 +1665,7 @@ function oos_newsletter_subscribe_mail ($email_address) {
     global $aLang, $sTheme;
 	
 	if (empty($email_address)) {
-      return FALSE;
+      return false;
     }
 	
 	$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
@@ -1715,7 +1712,7 @@ function oos_newsletter_subscribe_mail ($email_address) {
 		$smarty = new myOOS_Smarty();						
 
 		// dont allow cache
-		$smarty->caching = FALSE;
+		$smarty->caching = false;
 
 		$smarty->assign(
 				array(
@@ -1724,8 +1721,8 @@ function oos_newsletter_subscribe_mail ($email_address) {
 					'shop_logo'		=> STORE_LOGO,
 					'services_url'	=> PHPBB_URL,
 					'blog_url'		=> BLOG_URL,
-					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', FALSE, TRUE),
-					'subscribe'		=> oos_href_link($aContents['newsletter'], 'action=lists&subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, FALSE, TRUE)
+					'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', false, true),
+					'subscribe'		=> oos_href_link($aContents['newsletter'], 'action=lists&subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, false, true)
 				)
 		);
 

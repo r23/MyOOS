@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,7 +26,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();  
+if ( $session->hasStarted() === false ) $session->start();  
   
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
@@ -68,7 +68,7 @@ if (!isset($_SESSION['shipping'])) {
 // load the selected payment module
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
 
-if (!isset($credit_covers)) $credit_covers = FALSE;
+if (!isset($credit_covers)) $credit_covers = false;
 
 if ($credit_covers) {
 	unset($_SESSION['payment']);
@@ -97,7 +97,7 @@ if (isset($_SESSION['cot_gv'])) {
 	$credit_covers = $order_total_modules->pre_confirmation_check();
 }
 
-if ( ($_SESSION['payment'] == '' || !is_object(${$_SESSION['payment']}) ) && $credit_covers === FALSE) {
+if ( ($_SESSION['payment'] == '' || !is_object(${$_SESSION['payment']}) ) && $credit_covers === false) {
 	$oMessage->add_session('checkout_payment', $aLang['error_no_payment_module_selected'], 'error');
 }
 
@@ -117,15 +117,15 @@ $shipping_modules = new shipping($_SESSION['shipping']);
 
 
 // Stock Check
-$any_out_of_stock = FALSE;
+$any_out_of_stock = false;
 if (STOCK_CHECK == 'true') {
 	for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
 		if (oos_check_stock($oOrder->products[$i]['id'], $oOrder->products[$i]['qty'])) {
-			$any_out_of_stock = TRUE;
+			$any_out_of_stock = true;
 		}
 	}
 	// Out of Stock
-	if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock == TRUE) ) {
+	if ( (STOCK_ALLOW_CHECKOUT != 'true') && ($any_out_of_stock == true) ) {
 		oos_redirect(oos_href_link($aContents['shopping_cart']));
 	}
 }

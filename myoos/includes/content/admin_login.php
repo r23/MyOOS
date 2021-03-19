@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -62,7 +62,7 @@ if ($login['status'] == '0') {
 }
 
 // start the session
-if ( $session->hasStarted() === FALSE ) $session->start();
+if ( $session->hasStarted() === false ) $session->start();
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_key_generate.php';
@@ -177,7 +177,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login']));
-$sCanonical = oos_href_link($aContents['login'], '', FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['login'], '', false, true);
 
 $aTemplate['page'] = $sTheme . '/page/admin_login.html';
 

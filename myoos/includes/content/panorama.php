@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
@@ -21,7 +21,7 @@ if (isset($_GET['panorama_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/panorama.php';
 
-$sCanonical = oos_href_link($aContents['panorama'], 'panorama_id='. $nPanoramaID, FALSE, TRUE);
+$sCanonical = oos_href_link($aContents['panorama'], 'panorama_id='. $nPanoramaID, false, true);
 
 // Panorama
 $categories_panoramatable = $oostable['categories_panorama'];
