@@ -65,7 +65,14 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/72x72/{$smarty.const.SITE_ICONS}">
 {/if}
 {$oos_js}
-
+{literal}
+<style>
+.info {
+ background-color: aquamarine;
+ width:350px;
+}
+</style>
+{/literal}
 </head>
 <body>
 
@@ -169,4 +176,10 @@
 		</div>
 	</nav>
 	<!-- /HEADER -->
+<br><br><br><br><br>	
+	<button class="refresher">Refresh Div</button>
+<div class="info" id="div-to-refresh">
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+
+</div>
 	
