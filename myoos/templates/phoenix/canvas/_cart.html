@@ -5,11 +5,8 @@
 		<button class="close" type="button" data-dismiss="offcanvas" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	</div>
 	<div class="offcanvas-body">
-		<div class="offcanvas-body-inner">
-		{if $cart_count_contents > 0}
-			<div class="text-right">
-			
-			
+		<div id="div-to-refresh" class="offcanvas-body-inner">
+		{if $cart_count_contents > 0}		
 			<div class="text-right"><a class="text-danger btn-sm pr-0" href="{html_href_link content=$filename.shopping_cart action=clear_cart}"><i class="mr-1" data-feather="x" style="width: .85rem; height: .85rem;"></i>{$lang.text_clear_cart}</a></div>		
 			<div class="widget widget-featured-entries pt-3">
 			
@@ -30,14 +27,15 @@
 				<div class="font-size-sm"> <span class="mr-2">{$lang.sub_title_total}</span><span class="font-weight-semibold text-dark">{$cart_show_total}</span></div><a class="btn btn-outline-secondary btn-sm" href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents}<i class="mr-n2" data-feather="chevron-right"></i></a>
 				</div>{if $myUser.show_price eq 1 }<a class="btn btn-primary btn-sm btn-block" href="{html_href_link content=$filename.checkout_shipping}"><i class="mr-1" data-feather="credit-card"></i>{$lang.button_checkout}</a>{/if}
 			</div>
+			
+<br><br><br><br><br>	
+	<button class="refresher">Refresh Div</button>
+<div class="info" id="olddiv-to-refresh">
+<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+
+</div>			
 		{/if}
 		</div>
 	</div>
 </div>
 
-<br><br><br><br><br>	
-	<button class="refresher">Refresh Div</button>
-<div class="info" id="div-to-refresh">
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-
-</div>

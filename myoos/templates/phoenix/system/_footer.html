@@ -235,6 +235,7 @@
 {$javascript}
 {literal}
 <script>
+
 	$(document).ready(function() {
 
 		// RADIO OPTION
@@ -260,6 +261,7 @@
 		$(document).on('click', '.refresher', function () {
 			$.ajax({
 				url: 'get_data.php',
+				headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 				method: "post",
 				dataType: 'json',
 				success: function(response) {

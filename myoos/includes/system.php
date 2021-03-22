@@ -142,6 +142,11 @@ if (isset($_SESSION)) {
 	$sFormid = md5(uniqid(rand(), true));
 	$_SESSION['formid'] = $sFormid;
 
+	if (empty($_SESSION['csrf_token'])) {
+		$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+	}
+
+
 	$aSystem = array(
 		'sed'	=> true,
 		'formid' => $sFormid,
