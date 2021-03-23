@@ -53,15 +53,23 @@ if ($request->isXmlHttpRequest()) {
 	} else {
 		exit(json_encode('No CSRF token.'));
 	}
-    
-   
-  $contents = '<div>
-<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-</div>';
-echo json_encode($contents);   
+
+
+	if (isset($_POST['name']) || is_string($_POST['name'])) {
+		$sContent = oos_var_prep_for_os($_POST['name']);
+	}
+
+	if ( empty( $sContent ) || !is_string( $sContent ) ) {
+		exit(json_encode('403 Forbidden'));
+	} elseif (is_readable('includes/ajax/' . $sContent . '.php')) {
+		require MYOOS_INCLUDE_PATH . '/includes/ajax/' . $sContent . '.php';
+	} else {
+		exit(json_encode(' Module not found'));
+	}
+
 } else {  
 	http_response_code(403);
-	echo 'Error 403 Forbidden';
+	echo 'Error 403 Forbidden'; 	
 } 
 
 require 'includes/nice_exit.php';

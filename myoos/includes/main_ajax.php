@@ -233,6 +233,7 @@ $oEvent->getInstance();
 
 
 // determine the page directory
+/*
 if (isset($_GET['content'])) {
 	$sContent = oos_var_prep_for_os($_GET['content']);
 } elseif (isset($_POST['content'])) {
@@ -241,6 +242,7 @@ if (isset($_GET['content'])) {
 if ( empty( $sContent ) || !is_string( $sContent ) ) {
     $sContent = $aContents['home'];
 }  
+*/
 
 // initialize the message stack for output messages
 /*

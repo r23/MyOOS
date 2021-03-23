@@ -60,4 +60,3 @@ define('OOS_DB_PASSWORD', '');
 define('OOS_DB_DATABASE', '');
 define('OOS_DB_PREFIX', '');
 define('OOS_ENCODED', '');
-

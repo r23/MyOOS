@@ -257,13 +257,22 @@
 			}
 			
 		}
-		
-		$(document).on('click', '.refresher', function () {
+		// id: $(this).attr("data-id"),
+		// $("#clear-cart").click(function(){
+		$(document).on('click', '#clear-cart', function () {
 			$.ajax({
 				url: 'get_data.php',
 				headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-				method: "post",
+				method: 'POST',
 				dataType: 'json',
+				cache: false,
+				data:{{/literal}				
+			{if $mySystem.sed}
+				{$mySystem.session_name} : "{$mySystem.session_id}",
+				formid : "{$mySystem.formid}",
+			{/if}				
+					name:  "{$filename.clear_cart_ajax}"{literal}
+				},
 				success: function(response) {
 					$('#div-to-refresh').html(response);
 			}
@@ -298,7 +307,5 @@ var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
 	<script src="{$theme}/crossbrowserjs/excanvas.min.js"></script>
 <![endif]-->
 <!-- Modal -->
-
-
 </body>
 </html>

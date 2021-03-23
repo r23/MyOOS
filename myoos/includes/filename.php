@@ -87,4 +87,7 @@ $aContents = [
 'checkout_shipping'               => $prefix_filename . 'checkout_shipping',
 'checkout_shipping_address'       => $prefix_filename . 'checkout_shipping_address',
 'checkout_success'                => $prefix_filename . 'checkout_success',
+//ajax
+'clear_cart_ajax'                 => $prefix_filename . 'clear_cart',
+'shopping_cart_ajax'              => $prefix_filename . 'shopping_cart'
 ];

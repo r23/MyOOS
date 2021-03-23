@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -25,11 +25,15 @@ $smarty = new myOOS_Smarty();
 
 //debug
 if ($debug == 1) {
-	$smarty->force_compile   = TRUE;
-	$smarty->debugging       = TRUE;
+	$smarty->force_compile   = true;
+	$smarty->debugging       = true;
 	$smarty->clearAllCache();
 	$smarty->clearCompiledTemplate();
 }
+
+$smarty->force_compile   = true;
+$smarty->clearAllCache();
+$smarty->clearCompiledTemplate();
 
 // object register
 $smarty->assignByRef("oEvent", $oEvent);

@@ -199,7 +199,7 @@ if (!function_exists('http_response_code')) {
 }
 
 /**
- * Replace file_get_contents()
+ * Replace apache_request_headers()
  *
  * @category    PHP
  * @package     PHP_Compat
