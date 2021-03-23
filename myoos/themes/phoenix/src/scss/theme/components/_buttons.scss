@@ -41,14 +41,46 @@
 }
 
 
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
+.btn-link {
+  font-weight: 400;
+  color: #f44336;
+  text-decoration: none;
+  box-shadow: none;
+  
+  @include hover() {
+    color: #f44336;
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:focus,
+  &.focus {
+    text-decoration: $link-hover-decoration;
+  }
+
+  &:disabled,
+  &.disabled {
+    color: $btn-link-disabled-color;
+    pointer-events: none;
+  }
+
+  // No need for an active state here
+}
+
+
 // Adding box-shadow to all solid buttons except secondary
 
-.btn:not([class*="btn-outline"]):not(.btn-secondary) {
+.btn:not([class*="btn-outline"]):not(.btn-secondary) :not(.btn-link){
   box-shadow: $btn-box-shadow;
   &:hover, &.active,
   &:active, &:disabled,
   &.disabled { box-shadow: none; }
 }
+
 
 
 // Pill buttons

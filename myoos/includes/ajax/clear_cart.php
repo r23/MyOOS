@@ -29,26 +29,16 @@ if ( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']) ) {
 		}
 	}
 
-	$contents = '<div class="text-right"></div>		
-			<div class="widget widget-featured-entries pt-3">
-			
-												
-					<div class="media"><!-- cart item -->
-						<div class="featured-entry-thumb mr-3"><a href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=product_info&amp;products_id=1&amp;PHOENIXSID=5qfbbq7ujvinr6j6feirhcvk7i">
-												
-							</a><span class="item-remove-btn"><i data-feather="x"></i></span></div>
-						<div class="media-body">
-							<h6 class="featured-entry-title"><a href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=product_info&amp;products_id=1&amp;PHOENIXSID=5qfbbq7ujvinr6j6feirhcvk7i">T-Shirt Art Artikelname:</a></h6>
-							<p class="featured-entry-meta">1&nbsp; <span class="text-muted">x</span> 0,00 €</p>
-						</div>
-					</div>	<!-- /cart item -->																
-				
-				<hr>
-				<div class="d-flex justify-content-between align-items-center py-3">
-				<div class="font-size-sm"> <span class="mr-2">Summe:</span><span class="font-weight-semibold text-dark">0,00 €</span></div><a class="btn btn-outline-secondary btn-sm" href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=shopping_cart&amp;PHOENIXSID=5qfbbq7ujvinr6j6feirhcvk7i">Warenkorb<i class="mr-n2" data-feather="chevron-right"></i></a>
-				</div><a class="btn btn-primary btn-sm btn-block" href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=checkout_shipping&amp;PHOENIXSID=5qfbbq7ujvinr6j6feirhcvk7i"><i class="mr-1" data-feather="credit-card"></i>Kasse</a>			</div>
-
-			';
+	$contents = '<div class="container text-center m-py-60">
+					<div class="mb-5">
+						<span class="d-block g-color-gray-light-v1 fs-70 mb-4">
+							<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+						</span>
+						<h2 class="mb-30">' . $aLang['text_cart_empty'] . '</h2>
+						<p>' . $aLang['text_cart_empty_help'] . '</p>
+					</div>
+					<a class="btn btn-primary fs-12 text-uppercase m-py-12 m-px-25" href="' . oos_href_link($aContents['home']) . '" role="button">' . $aLang['button_start_shopping'] . '</a>
+				</div>';
 	echo json_encode($contents); 
 
 }
