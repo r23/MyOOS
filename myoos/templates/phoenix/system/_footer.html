@@ -268,13 +268,14 @@
 				cache: false,
 				data:{{/literal}				
 			{if $mySystem.sed}
-				{$mySystem.session_name} : "{$mySystem.session_id}",
-				formid : "{$mySystem.formid}",
+					{$mySystem.session_name} : "{$mySystem.session_id}",
+					formid : "{$mySystem.formid}",
 			{/if}				
 					name:  "{$filename.clear_cart_ajax}"{literal}
 				},
 				success: function(response) {
 					$('#div-to-refresh').html(response);
+					$('#count-contents').html(0);
 			}
 			});
 		});		
