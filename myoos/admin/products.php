@@ -19,6 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+error_reporting(E_ALL);
+
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -76,8 +78,8 @@ if (!empty($action)) {
 				}
 			}
 			
-			$products_id = isset($_POST['pID']) ? intval($_POST['pID']) : '';
-			$products_date_available = isset($_POST['pID']) ? oos_db_prepare_input($_POST['products_date_available']) : '';
+			$products_id = isset($_GET['pID']) ? intval($_GET['pID']) : '';
+			$products_date_available = isset($_POST['products_date_available']) ? oos_db_prepare_input($_POST['products_date_available']) : '';
 
 
 			if (isset($_POST['products_base_price']) ) {
@@ -289,7 +291,7 @@ if (!empty($action)) {
                             SET products_image = '" . oos_db_input($oProductImage->filename) . "'
                             WHERE products_id = '" . intval($products_id) . "'");				
 			}	
-			
+
 			if (isset($_FILES['files'])) {
 				$oImage = new upload('files', $options);
 		
