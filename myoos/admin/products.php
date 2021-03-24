@@ -59,20 +59,20 @@ if (!empty($action)) {
 			}
 			$nImageCounter = (!isset($_POST['image_counter']) || !is_numeric($_POST['image_counter'])) ? 0 : intval($_POST['image_counter']);
 
-			$sProductsQuantity = isset($_POST['products_quantity']) ? intval($_POST['products_quantity']) : 1;
-			$sProductsStatus = isset($_POST['products_status']) ? intval($_POST['products_status']) : 1;
-			
+			$nProductsQuantity = isset($_POST['products_quantity']) ? intval($_POST['products_quantity']) : 1;
+			$nProductsStatus = isset($_POST['products_status']) ? intval($_POST['products_status']) : 1;
+			$nProductsReorderLevel = isset($_POST['products_reorder_level']) ? intval($_POST['products_reorder_level']) : 5;
 
-			$sProductsReplacementProductID = isset($_POST['products_replacement_product_id']) ? intval($_POST['products_replacement_product_id']) : '';
+			$nProductsReplacementProductID = isset($_POST['products_replacement_product_id']) ? intval($_POST['products_replacement_product_id']) : '';
 			if (isset($_POST['products_replacement_product_id']) && is_numeric($_POST['products_replacement_product_id']) && ($_POST['products_replacement_product_id'] > 0) ) {		
 				$messageStack->add_session(ERROR_REPLACEMENT, 'error');
-				$sProductsStatus = 4;
+				$nProductsStatus = 4;
 			} 
 
 			if (STOCK_CHECK == 'true') {
-				if ($sProductsQuantity <= 0 ) {
+				if ($nProductsQuantity <= 0 ) {
 					$messageStack->add_session(ERROR_OUTOFSTOCK, 'error');
-					$sProductsStatus = 0;
+					$nProductsStatus = 0;
 				}
 			}
 			
@@ -92,16 +92,16 @@ if (!empty($action)) {
 				$products_base_unit = '';
 			}
 
-			if ((date('Y-m-d') < $products_date_available) && ($sProductsStatus == 3)) {
-				$sProductsStatus = 2;
+			if ((date('Y-m-d') < $products_date_available) && ($nProductsStatus == 3)) {
+				$nProductsStatus = 2;
 			}
 			
 			$products_date_available = (date('Y-m-d') < $products_date_available) ? $products_date_available : 'null';
 
-			$sql_data_array = array('products_quantity' => $sProductsQuantity,
-                                    'products_reorder_level' => oos_db_prepare_input($_POST['products_reorder_level']),
+			$sql_data_array = array('products_quantity' => intval($nProductsQuantity),
+                                    'products_reorder_level' => intval($nProductsReorderLevel),
                                     'products_model' => oos_db_prepare_input($_POST['products_model']),
-                                    'products_replacement_product_id' => $sProductsReplacementProductID,
+                                    'products_replacement_product_id' => intval($nProductsReplacementProductID),
                                     'products_ean' => oos_db_prepare_input($_POST['products_ean']),
                                     'products_price' => oos_db_prepare_input($_POST['products_price']),
                                     'products_base_price' => $products_base_price,
@@ -110,7 +110,7 @@ if (!empty($action)) {
                                     'products_base_unit' => $products_base_unit,
                                     'products_date_available' => $products_date_available,
                                     'products_weight' => oos_db_prepare_input($_POST['products_weight']),
-                                    'products_status' => $sProductsStatus,
+                                    'products_status' => $nProductsStatus,
                                     'products_setting' => oos_db_prepare_input($_POST['products_setting']),
                                     'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
                                     'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : DEFAULT_PRODUCTS_UNITS_ID),
