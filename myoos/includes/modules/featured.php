@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -47,17 +47,20 @@ if ($featured_result->RecordCount() >= 1) {
     $aFeatured = array();
     while ($featured = $featured_result->fields) {
 
-		$featured_product_price = NULL;
-		$featured_price_list = NULL;
-		$featured_product_special_price = NULL;
-		$featured_base_product_price = NULL;
-		$featured_special_price = NULL;
+		$featured_product_price = null;
+		$featured_price_list = null;
+		$featured_product_special_price = null;
+		$featured_base_product_price = null;
+		$featured_special_price = null;
 
 		if ($aUser['show_price'] == 1 ) {
 			$base_product_price = $featured['products_price'];
 			
 			$featured_product_price = $oCurrencies->display_price($featured['products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
-			$featured_price_list = $oCurrencies->display_price($featured['products_price_list'], oos_get_tax_rate($featured['products_tax_class_id']));
+			
+			if ($featured['products_price_list'] > 0 ){
+				$featured_price_list = $oCurrencies->display_price($featured['products_price_list'], oos_get_tax_rate($featured['products_tax_class_id']));
+			}
 
 			$featured_special_price = oos_get_products_special_price($featured['products_id']);
 

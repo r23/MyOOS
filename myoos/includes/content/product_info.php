@@ -135,7 +135,7 @@ if (!$product_info_result->RecordCount()) {
     $info_product_price = NULL;
     $info_product_special_price = NULL;
     $info_base_product_price = NULL;
-    $info_product_price_list = 0;
+    $info_product_price_list = NULL;
 	$schema_product_price = NULL;
 	$base_product_price = $product_info['products_price'];
 
@@ -349,7 +349,9 @@ if (!$product_info_result->RecordCount()) {
         )
     );
 
-	$info_product_price_list = $oCurrencies->display_price($product_info['products_price_list'], oos_get_tax_rate($product_info['products_tax_class_id']));
+	if ($product_info['products_price_list'] < 0) {
+		$info_product_price_list = $oCurrencies->display_price($product_info['products_price_list'], oos_get_tax_rate($product_info['products_tax_class_id']));
+	}
 	$smarty->assign('info_product_price_list', $info_product_price_list);
 
 	if ($oEvent->installed_plugin('manufacturers')) {

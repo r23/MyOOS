@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -33,7 +33,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 					p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
 					p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,					   
 				   p.products_quantity_order_min, p.products_quantity_order_max,
-                   IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
+                   IF(s.status, s.specials_new_products_price, null) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
                  $specialstable s ON p.products_id = s.products_id,
                  $products_descriptiontable pd 
@@ -52,7 +52,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 					p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
 					p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,	
 				   p.products_quantity_order_min, p.products_quantity_order_max,
-                   IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price
+                   IF(s.status, s.specials_new_products_price, null) AS specials_new_products_price
             FROM $productstable p LEFT JOIN
                  $specialstable s ON p.products_id = s.products_id,
                  $products_descriptiontable pd, 
@@ -72,21 +72,24 @@ $aNewProducts = array();
 
 while ($new_products = $new_products_result->fields) {
 
-	$discount = NULL;
+	$discount = null;
 
-	$new_product_price = NULL;
-	$new_product_price_list = NULL;
-	$new_product_special_price = NULL;
-	$new_product_discount_price = NULL;
-	$new_base_product_price = NULL;
-	$new_special_price = NULL;
+	$new_product_price = null;
+	$new_product_price_list = null;
+	$new_product_special_price = null;
+	$new_product_discount_price = null;
+	$new_base_product_price = null;
+	$new_special_price = null;
 
 	
     if ($aUser['show_price'] == 1 ) {	
 		$base_product_price = $new_products['products_price'];
 
 		$new_product_price = $oCurrencies->display_price($new_products['products_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
-		$new_product_price_list = $oCurrencies->display_price($new_products['products_price_list'], oos_get_tax_rate($new_products['products_tax_class_id']));
+		
+		if ($new_products['products_price_list'] > 0 ){
+			$new_product_price_list = $oCurrencies->display_price($new_products['products_price_list'], oos_get_tax_rate($new_products['products_tax_class_id']));
+		}
 
         if ( $new_products['products_discount4'] > 0 ) {
 			$discount = $new_products['products_discount4'];
@@ -122,28 +125,27 @@ while ($new_products = $new_products_result->fields) {
 	$aCategoryPath = oos_get_category_path($new_products['products_id']);
 
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],
-                                  'products_image' => $new_products['products_image'],
-                                  'products_name' => $new_products['products_name'],
-                                  'products_short_description' => $new_products['products_short_description'],
-								  'products_path' => $aCategoryPath['path'],
-								  'categories_name' => $aCategoryPath['name'],								  
-								  'order_min' => $order_min,
-								  'order_max' => $order_max,
-								  'product_quantity' => $new_products['products_product_quantity'],
-                                  'products_base_price' => $new_products['products_base_price'],
-                                  'products_base_unit' => $new_products['products_base_unit'],
-                                  'new_product_units' => $new_products['products_units_id'],
-                                  'new_product_price' => $new_product_price,
-								  'new_product_price_list' => $new_product_price_list,
-                                  'new_product_special_price' => $new_product_special_price,
-                                  'new_product_discount_price' => $new_product_discount_price,
-                                  'new_base_product_price' => $new_base_product_price,
-                                  'new_special_price' => $new_special_price);
+                            'products_image' => $new_products['products_image'],
+                            'products_name' => $new_products['products_name'],
+                            'products_short_description' => $new_products['products_short_description'],
+                            'products_path' => $aCategoryPath['path'],
+                            'categories_name' => $aCategoryPath['name'],								  
+                            'order_min' => $order_min,
+                            'order_max' => $order_max,
+                            'product_quantity' => $new_products['products_product_quantity'],
+                            'products_base_price' => $new_products['products_base_price'],
+                            'products_base_unit' => $new_products['products_base_unit'],
+                            'new_product_units' => $new_products['products_units_id'],
+                            'new_product_price' => $new_product_price,
+                            'new_product_price_list' => $new_product_price_list,
+                            'new_product_special_price' => $new_product_special_price,
+                            'new_product_discount_price' => $new_product_discount_price,
+                            'new_base_product_price' => $new_base_product_price,
+                            'new_special_price' => $new_special_price);
 
     // Move that ADOdb pointer!
 	$new_products_result->MoveNext();
 }
-
 
 // assign Smarty variables;
 $smarty->assign(

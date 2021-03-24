@@ -4,17 +4,17 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  $products_history_block = 'false';
+$products_history_block = 'false';
 
-  if ($_SESSION['products_history']->count_history() > 0) {
+if ($_SESSION['products_history']->count_history() > 0) {
     $products_history_block = 'true';
 
     $product_ids = $_SESSION['products_history']->get_product_id_list();
@@ -29,7 +29,7 @@
                        AND pd.products_languages_id = '" .  intval($nLanguageID) . "'
                      ORDER BY products_name";
     $smarty->assign('history_products', $dbconn->GetAll($products_sql));
-  }
+}
 
-  $smarty->assign('products_history_block', $products_history_block);
+$smarty->assign('products_history_block', $products_history_block);
 
