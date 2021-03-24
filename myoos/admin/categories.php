@@ -1132,9 +1132,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</div>
 		</div>		
 <?php
-
+	$nCounter = 0;
 	if (isset($cInfo->categories_larger_images) && (is_array($cInfo->categories_larger_images) || is_object($cInfo->categories_larger_images))) {
-	    $nCounter = 0;
+
 		foreach ($cInfo->categories_larger_images as $image) {
 			$nCounter++;
 ?>
