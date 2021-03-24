@@ -1132,6 +1132,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 			</div>
 		</div>		
 <?php
+
 	if (isset($cInfo->categories_larger_images) && (is_array($cInfo->categories_larger_images) || is_object($cInfo->categories_larger_images))) {
 	    $nCounter = 0;
 		foreach ($cInfo->categories_larger_images as $image) {
@@ -1145,6 +1146,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		echo '<div class="text-center"><div class="d-block" style="width: 200px; height: 150px;">';
 		echo oos_info_image('category/medium/' .  $image['image'], $cInfo->categories_name);
 	    echo '</div></div>';
+
+		echo $image['image'];
 			
 		echo oos_draw_hidden_field('categories_previous_large_image['. $nCounter . ']', $image['image']);
 		echo '<br>';
@@ -1157,8 +1160,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		</div>
 <?php
 		}
-		echo oos_draw_hidden_field('image_counter', $nCounter);
 	}
+	echo oos_draw_hidden_field('image_counter', $nCounter);
 ?>	
 		<div class="row mb-3 pb-3 bb">
 			<div class="col-6 col-md-3">
