@@ -8,17 +8,18 @@
 		<div id="div-to-refresh" class="offcanvas-body-inner">
 		{if $cart_count_contents > 0}		
 			<div class="text-right"><button id="clear-cart" type="button" class="btn btn-link"><i class="mr-1" data-feather="x" style="width: .85rem; height: .85rem;"></i>{$lang.text_clear_cart}</button></div>		
-			<div class="widget widget-featured-entries pt-3">
+			<div id="cart-item-refresh" class="widget widget-featured-entries pt-3">
 			
 				{foreach item=products from=$cart_products}								
 					<div class="media"><!-- cart item -->
 						<div class="featured-entry-thumb mr-3"><a href="{product_link products_id=$products.id}">
 							{product_image dir=min image=$products.image alt=$products.name}					
-							</a><span class="item-remove-btn"><i data-feather="x"></i></span></div>
+							</a><span data-id="{$products.id}" class="item-remove-btn" role="button"><i data-feather="x"></i></span></div>
 						<div class="media-body">
 							<h6 class="featured-entry-title"><a href="{product_link products_id=$products.id}">{$products.name|truncate:25:"...":true|close_tags}</a></h6>
-							<p class="featured-entry-meta">{$products.quantity|quantity}&nbsp; <span class='text-muted'>x</span> {display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</p>
+							<p class="featured-entry-meta">{$products.quantity|quantity}&nbsp; <span class="text-muted">x</span> {display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</p>
 						</div>
+						<div><span class="item-remove-btn"><i class="fa fa-trash" aria-hidden="true"></i></span></div>
 					</div>	<!-- /cart item -->																
 				{/foreach}
 
