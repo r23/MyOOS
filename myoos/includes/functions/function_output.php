@@ -106,12 +106,12 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
   * @param $parameters
   * @return string
   */
-  function oos_image($src, $title = null, $width = 0, $height = 0, $parameters = null) {
+  function oos_image($src, $title = null, $parameters = null) {
     if (empty($src) || ($src == OOS_IMAGES)) {
       return false;
     }
 
-    $image = '<img class="img-fluid" src="' . oos_output_string($src) . '" border="0" alt="' . oos_output_string($title) . '"';
+    $image = '<img class="img-fluid" src="' . oos_output_string($src) . '" alt="' . oos_output_string($title) . '"';
 
     if (!empty($title)) {
       $image .= ' title="' . oos_output_string($title) . '"';

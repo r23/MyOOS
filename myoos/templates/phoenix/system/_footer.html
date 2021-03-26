@@ -300,8 +300,8 @@
 					name:  "{$filename.shopping_cart_ajax}"{literal}
 				},
 				success: function(response) {
-					$('#cart-item-refresh').html(response);
-					$('#count-contents').html(0);
+					$('#cart-item-refresh').html(response.content);
+					$('#count-contents').html(response.counter);
 			}
 			});
 		});		
