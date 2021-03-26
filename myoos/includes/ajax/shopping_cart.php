@@ -113,25 +113,22 @@ if (isset($_SESSION)) {
 	  $shopping_cart_detail = '';
 
 
-  $contents = '
-			
-												
-					<div class="media"><!-- cart item -->
-						<div class="featured-entry-thumb mr-3"><a href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=product_info&amp;products_id=2">
-							<img id="" class="img-fluid " src="images/product/min/p5_(1).jpg" alt="herren t-shirt"  />					
-							</a><span class="item-remove-btn"><i data-feather="x"></i></span></div>
+  $contents = '<div class="media"><!-- cart item -->
+						<div class="featured-entry-thumb mr-3"><a href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=product_info&amp;products_id=1&amp;PHOENIXSID=nk0o6vvkg59mst936j5sed7mi2">
+							<img id="" class="img-fluid " src="images/product/min/p8_(1)_(1)_(1)_(1)_(1).jpg" alt="2-in-1-Shirt"  />					
+							</a></div>
 						<div class="media-body">
-							<h6 class="featured-entry-title"><a href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=product_info&amp;products_id=2">herren t-shirt</a></h6>
-							<p class="featured-entry-meta">1&nbsp; <span class="text-muted">x</span> 39,00 €</p>
+							<h6 class="featured-entry-title"><a href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=product_info&amp;products_id=1&amp;PHOENIXSID=nk0o6vvkg59mst936j5sed7mi2">2-in-1-Shirt</a></h6>
+							<p class="featured-entry-meta">1&nbsp; <span class="text-muted">x</span> 22,00 €</p>
 						</div>
-						<div><span class="item-remove-btn"><i class="fa fa-trash" aria-hidden="true"></i></span></div>
-					</div>	<!-- /cart item -->																	
+						<div class="text-right"><span class="item-remove-btn" data-id="1" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>
+					</div>	<!-- /cart item -->																
 				
 				<hr>
 				<div class="d-flex justify-content-between align-items-center py-3">
-				<div class="font-size-sm"> <span class="mr-2">Summe:</span><span class="font-weight-semibold text-dark">0,00 €</span></div><a class="btn btn-outline-secondary btn-sm" href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=shopping_cart&amp">Warenkorb<i class="mr-n2" data-feather="chevron-right"></i></a>
-				</div><a class="btn btn-primary btn-sm btn-block" href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=checkout_shipping"><i class="mr-1" data-feather="credit-card"></i>Kasse</a>			</div>
-
+				<div class="font-size-sm"> <span class="mr-2">Summe:</span><span class="font-weight-semibold text-dark">22,00 €</span></div><a class="btn btn-outline-secondary btn-sm" href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=shopping_cart&amp;PHOENIXSID=nk0o6vvkg59mst936j5sed7mi2">Warenkorb<i class="mr-n2" data-feather="chevron-right"></i></a>
+				</div><a class="btn btn-primary btn-sm btn-block" href="http://localhost/ent/MyOOS/MyOOS/myoos/index.php?content=checkout_shipping&amp;PHOENIXSID=nk0o6vvkg59mst936j5sed7mi2"><i class="mr-1" data-feather="credit-card"></i>Kasse</a>			</div>		
+				</div>
 ';
 echo json_encode($contents); 
 
