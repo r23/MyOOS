@@ -32,14 +32,16 @@ $aData['content'] = '';
 
 if (isset($_SESSION)) { 
  
+ 
+if ( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']) ) { 
+ 
+ 
 	if (is_object($_SESSION['cart'])) {
 		
 		if (isset($_POST['id']) || is_string($_POST['id'])) {
 			$_SESSION['cart']->remove($_POST['id']);
 		}		
-		
-		
-		
+			
 		$cart_count_contents = $_SESSION['cart']->count_contents();
 		if ($cart_count_contents > 0) {
 
@@ -108,7 +110,9 @@ if (isset($_SESSION)) {
 					}
 				}
 			}
-
+			
+			$aData['content'] .= '<div class="text-right"><button id="clear-cart" type="button" class="btn btn-link"><i class="fa fa-remove" aria-hidden="true"></i> ' . $aLang['text_clear_cart'] . '</button></div>' . "\n";		
+			$aData['content'] .= '<div id="cart-item-refresh" class="widget widget-featured-entries pt-3">' . "\n";
 
 			for ($i=0, $n=count($products); $i<$n; $i++) {
 		  
@@ -153,6 +157,21 @@ if (isset($_SESSION)) {
 			$aData['content'] .='</div>' . "\n";			
 		}
 	}
+}
+}
+
+if ($cart_count_contents == 0) {
+
+	$aData['content'] = '<div class="container text-center m-py-60">
+					<div class="mb-5">
+						<span class="d-block g-color-gray-light-v1 fs-70 mb-4">
+							<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+						</span>
+						<h2 class="mb-30">' . $aLang['text_cart_empty'] . '</h2>
+						<p>' . $aLang['text_cart_empty_help'] . '</p>
+					</div>
+					<a class="btn btn-primary fs-12 text-uppercase m-py-12 m-px-25" href="' . oos_href_link($aContents['home']) . '" role="button">' . $aLang['button_start_shopping'] . '</a>
+				</div>';
 }
 
 

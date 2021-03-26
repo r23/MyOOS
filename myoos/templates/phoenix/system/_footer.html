@@ -300,7 +300,7 @@
 					name:  "{$filename.shopping_cart_ajax}"{literal}
 				},
 				success: function(response) {
-					$('#cart-item-refresh').html(response.content);
+					$('#div-to-refresh').html(response.content);
 					$('#count-contents').html(response.counter);
 			}
 			});
