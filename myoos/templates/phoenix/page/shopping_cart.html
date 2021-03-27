@@ -12,10 +12,10 @@
 <!-- MAIN CONTENT SECTION -->
 <section class="mainContent clearfix cartListWrapper">
 	<div class="container">
+	
+	{if $cart_count_contents gt 0 }	
 		<div class="row">
 			<div class="col-12">
-			
-			{if $cart_count_contents gt 0 }
 
 				{if !empty($smarty.session.error_cart_msg)}
 					<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -90,6 +90,15 @@
 											<a class="incr-btn" data-action="decrease" href="#"><i class="fa fa-minus"></i></a>
 											<input class="quantity" type="text" name="cart_quantity[]" value="{$product.quantity}">
 											<a class="incr-btn" data-action="increase" href="#"><i class="fa fa-plus"></i></a>
+											
+                            <div class="quantity">
+                                <span class="incr-btn" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <input type="number" class="quantity" id="qty" step="{$product_info.products_quantity_order_units|quantity}" min="{$product_info.products_quantity_order_min|quantity}" max="{$product_info.products_quantity_order_max|quantity}" name="cart_quantity[]" value="{$product.quantity}">
+                                <span class="incr-btn" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </div>											
+											
+											
+											
 									</td>
 									<td align="right" class="">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</td>
 								</tr>
@@ -140,8 +149,17 @@
 						</div>
 					</form>
 				</div>
-			{else}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<span class="pangv mt-30">{$pangv}</span>
+			</div>
+		</div>				
+	{else}
 			
+		<div class="row">
+			<div class="col-12">		
 				<div class="container text-center m-py-60">
 					<div class="mb-5">
 						<span class="d-block g-color-gray-light-v1 fs-70 mb-4">
@@ -151,10 +169,11 @@
 						<p>{$lang.text_cart_empty_help}</p>
 					</div>
 					<a class="btn btn-primary fs-12 text-uppercase m-py-12 m-px-25" href="{html_href_link content=$filename.home}" role="button">{$lang.button_start_shopping}</a>
-				</div>			
-			{/if}			  
+				</div>
 			</div>
-		</div>
+		</div>				
+	{/if}			  
+
 	</div>
 </section>
 <!-- end content -->
