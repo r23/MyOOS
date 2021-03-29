@@ -144,6 +144,153 @@
 				</div>
 			</div>
 		</div>
+		
+		
+##
+		<!-- CART -->
+		<div class="container pb-5 mt-n2 mt-md-n3">
+			<div class="row">
+				<div class="col-xl-9 col-md-8">
+					<h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Products</span><a class="font-size-sm" href="shop-style1-ls.html"><i data-feather="chevron-left" style="width: 1rem; height: 1rem;"></i>Continue shopping</a></h2>
+
++++
+					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST">
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}		
+						{$hidden_field}
+
+
+						<!-- cart content -->
+							<div id="cartContent">
+							<!-- cart header -->
+							<div class="item head clearfix">
+								<span class="cart_img"></span>
+								<span class="product_name fs-13 bold">{$lang.table_heading_products}</span>
+								<span class="remove_item fs-13 bold"></span>
+								<span class="total_price fs-13 bold">{$lang.table_heading_total}</span>
+								<span class="qty fs-13 bold">{$lang.table_heading_quantity}</span>
+							</div>
+							<!-- /cart header -->
+
+							{foreach item=product from=$products}
+
+									<!-- cart item -->
+									<div class="item">
+										<div class="cart_img float-left fw-100 p-10 text-left"><a class="cart-item-thumb mx-auto mr-sm-4" href="{product_link products_id=$product.id}">{product_image dir=small image=$product.image alt=$product.name}</a></div>
+										<a href="{product_link products_id=$product.id}">{$product.name}</a>
+											{if $smarty.const.STOCK_CHECK eq 'true'}
+												{if $product.stock - $product.quantity < 0}
+													<span class="text-warning m-0"> {$smarty.const.STOCK_MARK_PRODUCT_OUT_OF_STOCK}</span>
+												{/if}
+											{/if}
+										</a>
+										<a href="#" class="remove_item"><i class="fa fa-times"></i></a>
+										<div class="total_price">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</div>
+										<div class="qty"><input type="number" value="1" name="qty" maxlength="3" max="999" min="1" /> &times; {display_price price=$product.final_price tax_class_id=$product.tax_class_id}</div>
+										<div class="clearfix"></div>
+									</div>
+									<!-- /cart item -->
+
+							{/foreach}
+									<button class="btn btn-success mt-20 mr-10 float-right"><i class="fa fa-remove"></i> CLEAR CART</button>
+									<button class="btn btn-primary mt-20 mr-10 float-right" type="submit"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update_cart}</button>
+
+									<div class="clearfix"></div>
+								</div>
+								<!-- /cart content -->
+
+					</form>
+
+				</div>
+
+				<!-- RIGHT -->
+				<div class="col-xl-3 col-md-4 pt-3 pt-md-0">
+					<h2 class="h6 px-4 py-3 bg-secondary text-center">{$lang.total}</h2>
+					<div class="h3 font-weight-semibold text-center py-3">{$cart_show_total}</div>
+					<hr>
+					<h3 class="h6 pt-4 font-weight-semibold"><span class="badge badge-success mr-2">Note</span>Additional comments</h3>
+					<textarea class="form-control mb-3" id="order-comments" rows="5"></textarea>
+		  
+					{if $myUser.show_price eq 1 }
+						<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-danger btn-default btn-block" role="button"><i class="fa fa-credit-card" aria-hidden="true"></i> {$lang.button_checkout}</a>
+					{/if}		  
+
+					<div class="pt-4">
+						<div class="accordion" id="cart-accordion">
+							<div class="card">
+								<div class="card-header">
+									<h3 class="accordion-heading font-weight-semibold"><a href="#promocode" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="promocode">Apply promo code<span class="accordion-indicator"><i data-feather="chevron-up"></i></span></a></h3>
+								</div>
+								<div class="collapse show" id="promocode" data-parent="#cart-accordion">
+									<div class="card-body">
+									<form class="needs-validation" novalidate>
+										<div class="form-group">
+											<input class="form-control" type="text" id="cart-promocode" placeholder="Promo code" required>
+												<div class="invalid-feedback">Please provide a valid promo code!</div>
+										</div>
+										<button class="btn btn-outline-primary btn-block" type="submit">Apply promo code</button>
+									</form>
+									</div>
+								</div>
+							</div>
+							
+							<div class="card">
+								<div class="card-header">
+									<h3 class="accordion-heading font-weight-semibold"><a class="collapsed" href="#shipping" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="shipping">Shipping estimates<span class="accordion-indicator"><i data-feather="chevron-up"></i></span></a></h3>
+								</div>
+								<div class="collapse" id="shipping" data-parent="#cart-accordion">
+									<div class="card-body">
+									<form class="needs-validation" novalidate>
+										<div class="form-group">
+											<select class="form-control custom-select" required>
+												<option value="">Choose your country</option>
+												<option value="Australia">Australia</option>
+												<option value="Belgium">Belgium</option>
+												<option value="Canada">Canada</option>
+												<option value="Finland">Finland</option>
+												<option value="Mexico">Mexico</option>
+												<option value="New Zealand">New Zealand</option>
+												<option value="Switzerland">Switzerland</option>
+												<option value="United States">United States</option>
+											</select>
+												<div class="invalid-feedback">Please choose your country!</div>
+										</div>
+										<div class="form-group">
+											<select class="form-control custom-select" required>
+												<option value="">Choose your city</option>
+												<option value="Bern">Bern</option>
+												<option value="Brussels">Brussels</option>
+												<option value="Canberra">Canberra</option>
+												<option value="Helsinki">Helsinki</option>
+												<option value="Mexico City">Mexico City</option>
+												<option value="Ottawa">Ottawa</option>
+												<option value="Washington D.C.">Washington D.C.</option>
+												<option value="Wellington">Wellington</option>
+											</select>
+												<div class="invalid-feedback">Please choose your city!</div>
+										</div>
+										<div class="form-group">
+											<input class="form-control" type="text" placeholder="ZIP / Postal code" required>
+											<div class="invalid-feedback">Please provide a valid zip!</div>
+										</div>
+										<button class="btn btn-outline-primary btn-block" type="submit">Calculate shipping</button>
+									</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /RIGHT -->
+			</div>
+		</div>
+		<!-- /CART -->
+					
+
+
+		
 		<div class="row">
 			<div class="col-md-12">
 				<span class="pangv mt-30">{$pangv}</span>
