@@ -1,0 +1,65 @@
+Running php-build composer
+WARNING! Your password will be stored unencrypted in /home/runner/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+Pulling docker.pkg.github.com/pluginkollektiv/cachify/php-actions_composer_cachify:php-latest-build2
+WARNING: ⚠️ Failed to pull manifest by the resolved digest. This registry does not
+	appear to conform to the distribution registry specification; falling back to
+	pull by tag.  This fallback is DEPRECATED, and will be removed in a future
+	release.  Please contact admins of https://docker.pkg.github.com. ⚠️
+
+php-latest-build2: Pulling from pluginkollektiv/cachify/php-actions_composer_cachify
+ba3557a56b15: Pulling fs layer
+743181516422: Pulling fs layer
+6c307b60e377: Pulling fs layer
+e2d5b4330891: Pulling fs layer
+0baf29266ab7: Pulling fs layer
+dfa723e4109b: Pulling fs layer
+7e9fbc8e5c1a: Pulling fs layer
+510d7725cdd5: Pulling fs layer
+5fdc925b16f5: Pulling fs layer
+ced63f1f690d: Pulling fs layer
+dfa723e4109b: Waiting
+7e9fbc8e5c1a: Waiting
+510d7725cdd5: Waiting
+5fdc925b16f5: Waiting
+ced63f1f690d: Waiting
+e2d5b4330891: Waiting
+0baf29266ab7: Waiting
+6c307b60e377: Verifying Checksum
+6c307b60e377: Download complete
+743181516422: Verifying Checksum
+743181516422: Download complete
+e2d5b4330891: Verifying Checksum
+e2d5b4330891: Download complete
+dfa723e4109b: Verifying Checksum
+dfa723e4109b: Download complete
+ba3557a56b15: Verifying Checksum
+ba3557a56b15: Pull complete
+743181516422: Pull complete
+0baf29266ab7: Verifying Checksum
+0baf29266ab7: Download complete
+510d7725cdd5: Verifying Checksum
+510d7725cdd5: Download complete
+6c307b60e377: Pull complete
+e2d5b4330891: Pull complete
+0baf29266ab7: Pull complete
+5fdc925b16f5: Verifying Checksum
+5fdc925b16f5: Download complete
+dfa723e4109b: Pull complete
+7e9fbc8e5c1a: Verifying Checksum
+7e9fbc8e5c1a: Download complete
+ced63f1f690d: Verifying Checksum
+ced63f1f690d: Download complete
+7e9fbc8e5c1a: Pull complete
+510d7725cdd5: Pull complete
+5fdc925b16f5: Pull complete
+ced63f1f690d: Pull complete
+Digest: sha256:874ddb5e4ab22a569dc8333257cac4b025fb6f68bc943cebcd438f105a984417
+Status: Downloaded newer image for docker.pkg.github.com/pluginkollektiv/cachify/php-actions_composer_cachify:php-latest-build2
+docker.pkg.github.com/pluginkollektiv/cachify/php-actions_composer_cachify:php-latest-build2
+Docker tag: docker.pkg.github.com/pluginkollektiv/cachify/php-actions_composer_cachify:php-latest-build2
+No private keys supplied
+Command: composer install --no-progress --no-interaction
