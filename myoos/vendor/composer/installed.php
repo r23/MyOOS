@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '090aebf08adb9b3c0fe90a20aa9d356e40515c92',
+    'reference' => 'a801fea9f751dc565b0076b80a0a939d7804f18f',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -216,7 +216,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '090aebf08adb9b3c0fe90a20aa9d356e40515c92',
+      'reference' => 'a801fea9f751dc565b0076b80a0a939d7804f18f',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -463,28 +463,28 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/asset' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/browser-kit' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/cache' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/cache-contracts' => 
@@ -505,14 +505,14 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/console' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/contracts' => 
@@ -528,21 +528,21 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/debug-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/dependency-injection' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/deprecation-contracts' => 
@@ -556,35 +556,35 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/dom-crawler' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/dotenv' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/error-handler' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/event-dispatcher' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/event-dispatcher-contracts' => 
@@ -605,49 +605,49 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/filesystem' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/finder' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/form' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/framework-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/google-mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/http-client' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/http-client-contracts' => 
@@ -668,98 +668,98 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/http-kernel' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/inflector' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/intl' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/ldap' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/lock' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/mailchimp-mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/mailgun-mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/messenger' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/mime' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/monolog-bridge' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/notifier' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/options-resolver' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/polyfill-ctype' => 
@@ -856,105 +856,105 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/process' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/property-access' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/property-info' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/proxy-manager-bridge' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/rate-limiter' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/routing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/security-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/security-core' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/security-csrf' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/security-guard' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/security-http' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/semaphore' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/sendgrid-mailer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/serializer' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/service-contracts' => 
@@ -975,37 +975,37 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/string' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/symfony' => 
     array (
-      'pretty_version' => 'v5.2.5',
-      'version' => '5.2.5.0',
+      'pretty_version' => 'v5.2.6',
+      'version' => '5.2.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8f9f599e7fc56c051730850eee92da9b8f18ba21',
+      'reference' => 'f52424eb407dc67f164afed33a514da1ebbfab10',
     ),
     'symfony/templating' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/translation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/translation-contracts' => 
@@ -1026,70 +1026,70 @@
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/twig-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/uid' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/validator' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/var-dumper' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/var-exporter' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/web-link' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/web-profiler-bundle' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/workflow' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'symfony/yaml' => 
     array (
       'replaced' => 
       array (
-        0 => 'v5.2.5',
+        0 => 'v5.2.6',
       ),
     ),
     'twig/twig' => 
