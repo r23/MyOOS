@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO &#8211; Best SEO Plugin for WordPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-03-29 12:56:56+0000\n"
+"PO-Revision-Date: 2021-03-29 14:37:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -599,7 +599,7 @@ msgstr "Nutze unseren revolutionären SEO-Analyzer, um deine Website auf SEO-Feh
 
 #: includes/admin/wizard/views/rank-math-connect.php:31
 msgid "Free keyword suggestions when entering a focus keyword"
-msgstr "Kostenlose Keyword-Vorschläge beim Eingeben von Fokus-Keywords"
+msgstr "Kostenlose Keyword-Vorschläge beim Eingeben von Fokus-Schlüsselwörter"
 
 #: includes/admin/wizard/views/rank-math-connect.php:30
 #: includes/admin/wizard/views/google-connect.php:28
@@ -1260,7 +1260,7 @@ msgstr "Lese mehr, indem du diesem Link folgst."
 #. translators: Link to Free Account Benefits KB article
 #: includes/admin/class-registration.php:288
 msgid "By connecting your free account, you get keyword suggestions directly from Google when entering the focus keywords. Not only that, get access to our revolutionary SEO Analyzer inside WordPress that scans your website for SEO errors and suggest improvements. %s"
-msgstr "Wenn du dein kostenloses Konto verbindest, bekommst du Vorschläge direkt von Google, wenn du die Fokus-Keywords eingibst. Außerdem bekommst du Zugang zu unserem revolutionären SEO Analyzer, der direkt in WordPress deine Website auf SEO-Fehler prüft und Verbesserungen vorschlägt. %s"
+msgstr "Wenn du dein kostenloses Konto verbindest, bekommst du Vorschläge direkt von Google, wenn du die Fokus-Schlüsselwörter eingibst. Außerdem bekommst du Zugang zu unserem revolutionären SEO Analyzer, der direkt in WordPress deine Website auf SEO-Fehler prüft und Verbesserungen vorschlägt. %s"
 
 #. translators: taxonomy name
 #: includes/settings/titles/taxonomies.php:88
@@ -2980,7 +2980,7 @@ msgstr "Titel"
 
 #: includes/settings/titles/post-types.php:258
 msgid "Use the Focus Keyword as the default text for the links instead of the post titles."
-msgstr "Verwende das Fokus-Keyword als Standardtext für die Links anstelle der Beitrag-Titel."
+msgstr "Verwende das Fokus-Schlüsselwort als Standardtext für die Links anstelle der Beitrag-Titel."
 
 #: includes/settings/titles/post-types.php:257
 msgid "Link Suggestion Titles"
@@ -3855,20 +3855,20 @@ msgstr "+%d Mehr..."
 #. translators: post type links
 #: includes/modules/seo-analysis/seo-analysis-tests.php:377
 msgid "There are %s published posts where the focus keyword does not appear in the post title."
-msgstr "Es gibt %s veröffentlichte Beiträge, bei denen das Fokus-Keyword nicht im Beitragstitel erscheint."
+msgstr "Es gibt %s veröffentlichte Beiträge, bei denen das Fokus-Schlüsselwort nicht im Beitragstitel erscheint."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:356
 msgid "Focus keywords appear in the titles of published posts where it is set."
-msgstr "Fokus-Keywords erscheinen in den Titeln der veröffentlichten Beiträge, wo sie gesetzt sind."
+msgstr "Fokus-Schlüsselwörter erscheinen in den Titeln der veröffentlichten Beiträge, wo sie gesetzt sind."
 
 #. translators: post type links
 #: includes/modules/seo-analysis/seo-analysis-tests.php:335
 msgid "There are %s with no focus keyword set."
-msgstr "Es gibt %s ohne Fokus-Keyword."
+msgstr "Es gibt %s ohne Fokus-Schlüsselwort."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:317
 msgid "All published posts have focus keywords set."
-msgstr "Alle veröffentlichten Beiträge haben Fokus-Keywords gesetzt."
+msgstr "Alle veröffentlichten Beiträge haben Fokus-Schlüsselwörter gesetzt."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:272
 msgid "You have not linked Google Search Console yet."
@@ -3928,7 +3928,7 @@ msgstr "Registriere dich bei Google Search Console und überprüfe deine Website
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:77
 msgid "Fixing the issue is simple - just edit the post/page and add the focus keyword(s) to the title."
-msgstr "Die Behebung des Problems ist einfach - bearbeite die Website und füge dem Titel das/die Fokus-Keyword(s) hinzu."
+msgstr "Die Behebung des Problems ist einfach - bearbeite die Website und füge dem Titel das/die Fokus-Schlüsselwort(s) hinzu."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:76
 msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
@@ -3936,36 +3936,36 @@ msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithm
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:75
 msgid "Make sure the focus keywords you set for the posts appear in their titles."
-msgstr "Stelle sicher, dass die Fokus-Keywords, die du für die Beiträge festgelegt habst, in den Titeln erscheinen."
+msgstr "Stelle sicher, dass die Fokus-Schlüsselwörter, die du für die Beiträge festgelegt habst, in den Titeln erscheinen."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:74
 msgid "Post Titles Missing Focus Keywords"
-msgstr "Beitrag-Titel, denen Fokus-Keywords fehlen"
+msgstr "Beitrag-Titel, denen Fokus-Schlüsselwörter fehlen"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:70
 msgid "Fixing this issue is easy - just edit the post, and set a Focus Keyword.  Then follow Rank Math's analysis to improve your rankings."
-msgstr "Die Behebung dieses Problems ist einfach - bearbeite einfach den Beitrag und setze ein Fokus-Keyword.  Folge dann der Analyse von Rank Math, um deine Platzierungen zu verbessern."
+msgstr "Die Behebung dieses Problems ist einfach - bearbeite einfach den Beitrag und setze ein Fokus-Schlüsselwort.  Folge dann der Analyse von Rank Math, um deine Platzierungen zu verbessern."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:69
 msgid "Of course, if you don't give Rank Math a focus keyword to work with, it can't give you any useful feedback."
-msgstr "Wenn du Rank Math kein Fokus-Keyword zum Arbeiten gibst, kann es dir natürlich kein nützliches Feedback geben."
+msgstr "Wenn du Rank Math kein Fokus-Schlüsselwort zum Arbeiten gibst, kann es dir natürlich kein nützliches Feedback geben."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:68
 msgid "Rank Math uses these focus keywords to analyze your on-page content.  It can tell if you've done a good job of optimizing your text to rank for these keywords."
-msgstr "Rank Math verwendet diese Fokus-Keywords, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Keywords zu bewerten."
+msgstr "Rank Math verwendet diese Fokus-Schlüsselwörter, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Keywords zu bewerten."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:67
 msgid "Rank Math allows you to set a focus keyword for every post and page you write - the option is in the \"Meta Box\", which appears under the text editor in the screen where you write and edit content."
-msgstr "Rank Math ermöglicht es dir für jeden Beitrag und jede Seite die du schreibst ein Fokus-Keyword festzulegen - die Option befindet sich in der \"Meta Box\", die unter dem Texteditor auf dem Bildschirm erscheint, auf dem du Inhalte schreibst und bearbeitest."
+msgstr "Rank Math ermöglicht es dir für jeden Beitrag und jede Seite die du schreibst ein Fokus-Schlüsselwort festzulegen - die Option befindet sich in der \"Meta Box\", die unter dem Texteditor auf dem Bildschirm erscheint, auf dem du Inhalte schreibst und bearbeitest."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:66
 msgid "Setting focus keywords for your posts allows Rank Math to analyse the content."
-msgstr "Das Setzen von Fokus-Keywords für Ihre Beiträge ermöglicht es Rank Math, den Inhalt zu analysieren."
+msgstr "Das Setzen von Fokus-Schlüsselwörter für Ihre Beiträge ermöglicht es Rank Math, den Inhalt zu analysieren."
 
 #: includes/settings/titles/post-types.php:261
 #: includes/modules/seo-analysis/seo-analysis-tests.php:65
 msgid "Focus Keywords"
-msgstr "Fokus-Keywords"
+msgstr "Fokus-Schlüsselwörter"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:61
 msgid "This looks nice for readers - and it gets your keywords into the URL (keywords in the URL is a ranking factor)."
@@ -6077,13 +6077,13 @@ msgstr "Seite"
 
 #: includes/replace-variables/class-advanced-variables.php:44
 msgid "Focus Keyword of the current post"
-msgstr "Fokus-Keyword des aktuellen Beitrags"
+msgstr "Fokus-Schlüsselwort des aktuellen Beitrags"
 
 #: includes/metaboxes/general.php:82 includes/admin/class-post-columns.php:249
 #: includes/replace-variables/class-advanced-variables.php:43
 #: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
 msgid "Focus Keyword"
-msgstr "Fokus-Keyword"
+msgstr "Fokus-Schlüsselwort"
 
 #: includes/replace-variables/class-advanced-variables.php:32
 msgid "ID of the current post/page"
@@ -7025,7 +7025,7 @@ msgstr "Weiterleitungen importieren"
 
 #: includes/admin/importers/abstract-importer.php:130
 msgid "Import meta information like titles, descriptions, focus keyword, robots meta, etc., of your author archive pages."
-msgstr "Importiere Meta-Informationen wie Titel, Beschreibungen, Fokus-Keywords, Roboter-Metas usw. aus deinen Autorenarchivseiten."
+msgstr "Importiere Meta-Informationen wie Titel, Beschreibungen, Fokus-Schlüsselwörter, Roboter-Metas usw. aus deinen Autorenarchivseiten."
 
 #: includes/admin/importers/abstract-importer.php:130
 msgid "Import Author Meta"
@@ -7042,7 +7042,7 @@ msgstr "Term-Meta importieren"
 
 #: includes/admin/importers/abstract-importer.php:128
 msgid "Import meta information of your posts/pages like the focus keyword, titles, descriptions, robots meta, OpenGraph info, etc."
-msgstr "Importiere Meta-Informationen deiner Beiträge/Seiten wie das Fokus-Keyword, Titel, Beschreibungen, Roboter-Metas, OpenGraph-Informationen etc."
+msgstr "Importiere Meta-Informationen deiner Beiträge/Seiten wie das Fokus-Schlüsselwort, Titel, Beschreibungen, Roboter-Metas, OpenGraph-Informationen etc."
 
 #: includes/admin/importers/abstract-importer.php:128
 #: includes/admin/importers/class-aioseo.php:466
@@ -7589,7 +7589,7 @@ msgstr "Artikel ohne Indexierung"
 
 #: includes/admin/class-post-filters.php:172
 msgid "Focus Keyword Not Set"
-msgstr "Fokus-Keyword nicht gesetzt"
+msgstr "Fokus-Schlüsselwort nicht gesetzt"
 
 #: includes/admin/class-post-filters.php:171
 msgid "SEO Score: Bad"

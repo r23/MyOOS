@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.7.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-03-16 12:35:24+0000\n"
+"PO-Revision-Date: 2021-03-30 12:56:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2401,9 +2401,9 @@ msgid "Sorry, you are not allowed to delete revisions of this post."
 msgstr "Du bist leider nicht berechtigt, Revisionen dieses Beitrags zu löschen."
 
 #. translators: %s: Custom field key.
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:320
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:334
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:384
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:324
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:338
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:388
 msgid "Could not update the meta value of %s in database."
 msgstr "Der Metawert von %s in der Datenbank konnte nicht aktualisiert werden."
 
@@ -2603,7 +2603,7 @@ msgid ""
 msgstr ""
 "Hallo!\n"
 "\n"
-"Seit WordPress&nbsp;5.2 gibt es eine eingebaute Funktion, die erkennt, wenn ein Plugin oder ein Theme einen fatalen Fehler auf deiner Website verursacht, und dich deswegen mit dieser automatisierten E-Mail benachrichtigt.\n"
+"Seit WordPress 5.2 gibt es eine eingebaute Funktion, die erkennt, wenn ein Plugin oder ein Theme einen fatalen Fehler auf deiner Website verursacht, und dich deswegen mit dieser automatisierten E-Mail benachrichtigt.\n"
 "###CAUSE###\n"
 "Besuche zunächst deine Website (###SITEURL###) und überprüfe sie auf sichtbare Probleme. Besuche als nächstes die Seite, auf der der Fehler aufgetreten ist (###PAGEURL###) und prüfe, ob es sichtbare Probleme gibt.\n"
 "\n"
@@ -5741,8 +5741,8 @@ msgstr "Über diese Website"
 
 #. translators: %s: Custom field key.
 #: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:227
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:269
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:364
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:273
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:368
 msgid "Sorry, you are not allowed to edit the %s custom field."
 msgstr "Du bist leider nicht berechtigt, das individuelle Feld %s zu bearbeiten."
 
@@ -6066,11 +6066,11 @@ msgstr "%1$s ist nicht vom Typ %2$s."
 msgid "%1$s is not one of %2$s."
 msgstr "%1$s ist nicht eins von %2$s."
 
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:501
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:505
 msgid "Meta fields."
 msgstr "Metafelder."
 
-#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:238
+#: wp-includes/rest-api/fields/class-wp-rest-meta-fields.php:242
 msgid "Could not delete meta value from database."
 msgstr "Der Metawert in der Datenbank konnte nicht gelöscht werden."
 
