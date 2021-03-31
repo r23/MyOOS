@@ -153,7 +153,6 @@
 				<div class="col-xl-9 col-md-8">
 					<h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Products</span><a class="font-size-sm" href="shop-style1-ls.html"><i data-feather="chevron-left" style="width: 1rem; height: 1rem;"></i>Continue shopping</a></h2>
 
-+++
 					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST">
 						{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
@@ -221,16 +220,16 @@
 						<div class="accordion" id="cart-accordion">
 							<div class="card">
 								<div class="card-header">
-									<h3 class="accordion-heading font-weight-semibold"><a href="#promocode" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="promocode">Apply promo code<span class="accordion-indicator"><i data-feather="chevron-up"></i></span></a></h3>
+									<h3 class="accordion-heading font-weight-semibold"><a href="#promocode" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="promocode">{$lang.button_apply_coupon}<span class="accordion-indicator"><i data-feather="chevron-up"></i></span></a></h3>
 								</div>
 								<div class="collapse show" id="promocode" data-parent="#cart-accordion">
 									<div class="card-body">
 									<form class="needs-validation" novalidate>
 										<div class="form-group">
-											<input class="form-control" type="text" id="cart-promocode" placeholder="Promo code" required>
-												<div class="invalid-feedback">Please provide a valid promo code!</div>
+											<input class="form-control" type="text" id="cart-promocode" placeholder="{$lang.text_apply_coupon}" required>
+												<div class="invalid-feedback">{$lang.text_invalid_feedback}</div>
 										</div>
-										<button class="btn btn-outline-primary btn-block" type="submit">Apply promo code</button>
+										<button class="btn btn-outline-primary btn-block" type="submit">{$lang.button_apply_coupon}</button>
 									</form>
 									</div>
 								</div>
@@ -287,10 +286,7 @@
 			</div>
 		</div>
 		<!-- /CART -->
-					
-
-
-		
+							
 		<div class="row">
 			<div class="col-md-12">
 				<span class="pangv mt-30">{$pangv}</span>

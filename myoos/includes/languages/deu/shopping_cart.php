@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -43,4 +43,5 @@ $aLang['total'] = 'Summe';
 $aLang['out_of_stock_cant_checkout'] = 'Die mit ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' markierten Produkte, sind leider nicht in der von Ihnen gewünschten Menge auf Lager.<br />Bitte reduzieren Sie Ihre Bestellmenge für die gekennzeichneten Produkte, vielen Dank';
 $aLang['out_of_stock_can_checkout'] = 'Die mit ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' markierten Produkte, sind leider nicht in der von Ihnen gewünschten Menge auf Lager.<br />Die bestellte Menge wird kurzfristig von uns geliefert, wenn Sie es wünschen nehmen wir auch eine Teillieferung vor.';
 
-$aLang['text_apply_coupon'] = 'Ich habe einen Rabatt-Gutschein';
+$aLang['text_apply_coupon'] = 'Ihr Gutschein-Code';
+$aLang['text_invalid_feedback'] = 'Bitte geben Sie einen gültigen Gutschein-Code an!';

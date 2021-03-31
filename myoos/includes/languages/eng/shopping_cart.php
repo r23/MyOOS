@@ -6,7 +6,7 @@
    https://www.oos-shop.de
    
    
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -41,3 +41,4 @@ $aLang['out_of_stock_cant_checkout'] = 'Products marked with ' . STOCK_MARK_PROD
 $aLang['out_of_stock_can_checkout'] = 'Products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' dont exist in desired quantity in our stock.<br />You can buy them anyway and check the quantity we have in stock for immediate deliver in the checkout process.';
 
 $aLang['text_apply_coupon'] = 'I have a discount coupon';
+$aLang['text_invalid_feedback'] = 'Please provide a valid promo code!';
