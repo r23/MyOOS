@@ -161,9 +161,7 @@ span.out-of-stock {
 								display: table-cell;
 							}
 						}
-						&.count-input {
-						    .quantity {
-								.incr-btn {
+						&.count-input a {
 							color: #a5a5a5;
 							font-size: 10px;
 							padding: 4px 6px 0px;
@@ -173,8 +171,6 @@ span.out-of-stock {
 							height: 40px;
 							@include tablet {
 								padding: 4px 10px 0px;
-							}
-								}
 							}
 						}
 					}

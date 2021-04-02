@@ -29,12 +29,7 @@
 				
 				<div class="cartListInner">
 
-					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST">
-					{if $mySystem.sed}
-						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-						<input type="hidden" name="formid" value="{$mySystem.formid}">
-					{/if}		
-					{$hidden_field}
+
 					
 					<div class="table-responsive">
 						<table class="table">
@@ -116,13 +111,7 @@
 					{/if}	
 
 					
-						<div class="updateArea">				  
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="{$lang.text_apply_coupon}" aria-describedby="basic-addon2">
-								<button class="btn btn-primary float-right" type="submit">{$lang.button_apply_coupon}</button>
-							</div>
-							<button class="btn btn-primary float-right" type="submit"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update_cart}</button>
-						</div>
+
 						<div class="row totalAmountArea">
 							<div class="col-sm-4 ml-sm-auto">
 								<ul class="list-unstyled">
@@ -135,23 +124,17 @@
 								</ul>
 							</div>
 						</div>
-						<div class="checkBtnArea">
-						{if $myUser.show_price eq 1 }
-							<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-danger btn-default" role="button">{$lang.button_checkout} <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-						{/if}
-						</div>
+
 					</form>
 				</div>
 			</div>
 		</div>
 		
-		
-##
 		<!-- CART -->
 		<div class="container pb-5 mt-n2 mt-md-n3">
 			<div class="row">
 				<div class="col-xl-9 col-md-8">
-					<h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>Products</span><a class="font-size-sm" href="shop-style1-ls.html"><i data-feather="chevron-left" style="width: 1rem; height: 1rem;"></i>Continue shopping</a></h2>
+					<h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>{$lang.heading_products}</span><a class="font-size-sm" href="{html_href_link content=$filename.home}"><i data-feather="chevron-left" style="width: 1rem; height: 1rem;"></i>{$lang.button_continue_shopping}</a></h2>
 
 					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST">
 						{if $mySystem.sed}
@@ -207,13 +190,37 @@
 				<!-- RIGHT -->
 				<div class="col-xl-3 col-md-4 pt-3 pt-md-0">
 					<h2 class="h6 px-4 py-3 bg-secondary text-center">{$lang.total}</h2>
-					<div class="h3 font-weight-semibold text-center py-3">{$cart_show_total}</div>
 					<hr>
+					
+										
+										<span class="clearfix">
+											<span class="float-right">$120.75</span>
+											<strong class="float-left">{$lang.sub_title_sub_total}</strong>
+										</span>
+										<span class="clearfix">
+											<span class="float-right">$0.00</span>
+											<span class="float-left">Discount:</span>
+										</span>
+										<span class="clearfix">
+											<span class="float-right">$0.00</span>
+											<span class="float-left">{$lang.shipping_cost}</span>
+										</span>
+
+										<hr />
+
+										<span class="clearfix">
+											<span class="float-right fs-20">{$cart_show_total}</span>
+											<strong class="float-left">{$lang.total}</strong>
+										</span>
+
+										<hr />
+
+										
 					<h3 class="h6 pt-4 font-weight-semibold"><span class="badge badge-success mr-2">Note</span>Additional comments</h3>
 					<textarea class="form-control mb-3" id="order-comments" rows="5"></textarea>
 		  
 					{if $myUser.show_price eq 1 }
-						<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-danger btn-default btn-block" role="button"><i class="fa fa-credit-card" aria-hidden="true"></i> {$lang.button_checkout}</a>
+						<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-danger btn-default btn-block" role="button"><i class="fa fa-mail-forward" aria-hidden="true"></i> {$lang.button_checkout}</a>
 					{/if}		  
 
 					<div class="pt-4">
