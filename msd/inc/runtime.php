@@ -47,9 +47,9 @@ else
 	$_SESSION['config_file']='myoosdumper';
 	$config['cron_configurationfile']='myoosdumper.conf.php';
 }
-$config['files']['log']=$config['paths']['log'] . 'mysqldump.log';
-$config['files']['perllog']=$config['paths']['log'] . 'mysqldump_perl.log';
-$config['files']['perllogcomplete']=$config['paths']['log'] . 'mysqldump_perl.complete.log';
+$config['files']['log']=$config['paths']['log'] . 'myoosdumper.log';
+$config['files']['perllog']=$config['paths']['log'] . 'myoosdumper_perl.log';
+$config['files']['perllogcomplete']=$config['paths']['log'] . 'myoosdumper_perl.complete.log';
 $config['files']['parameter']=$config['paths']['config'] . $config['config_file'] . '.php';
 
 // inti MySQL-Setting-Vars
