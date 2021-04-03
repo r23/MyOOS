@@ -37,9 +37,9 @@ my $pcd_version='1.24.4';
 
 ########################################################################################
 # please enter the absolute path of the config-dir
-# when calling the script without parameters the default_configfile (mysqldumper.conf.php) will be loaded
+# when calling the script without parameters the default_configfile (myoosdumper.conf.php) will be loaded
 # e.g. - (zum Beispiel): 
-# my $absolute_path_of_configdir="/home/www/doc/8176/mysqldumper.de/www/mysqldumper/work/config/";
+# my $absolute_path_of_configdir="/home/www/doc/8176/example.org/www/myoosdumper/work/config/";
 
 my $absolute_path_of_configdir="";
 my $cgibin_path=""; # this is needed for MIME::Lite if it is in cgi-bin

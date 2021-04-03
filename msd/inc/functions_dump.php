@@ -41,7 +41,7 @@ function new_file($last_groesse=0)
 
 	if (file_exists($config['paths']['backup'].$dump['backupdatei'])) unlink($config['paths']['backup'].$dump['backupdatei']);
 	$cur_time=date("Y-m-d H:i");
-	$statuszeile=GetStatusLine().$nl.$mysql_commentstring.' Dump by MySQLDumper '.MSD_VERSION.' ('.$config['homepage'].')'.$nl;
+	$statuszeile=GetStatusLine().$nl.$mysql_commentstring.' Dump by MyOOS [Dumper] '.MSD_VERSION.' ('.$config['homepage'].')'.$nl;
 	$statuszeile.='/*!40101 SET NAMES \''.$dump['dump_encoding'].'\' */;'.$nl;
 	$statuszeile.='SET FOREIGN_KEY_CHECKS=0;'.$nl;
 

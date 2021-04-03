@@ -902,17 +902,7 @@ function MSDHeader($kind=0)
 
 function MSDFooter($rfoot='', $enddiv=1)
 {
-	/*
-	global $config,$databases,$dump,$restore,$lang;
-	if (isset($config['homepage']))
-	{
-		$f='<p id="footer">Autor: <a href="http://www.mysqldumper.de" target="_blank">
-		Daniel Schlichtholz</a> | Infoboard:
-		<a href="'.$config['homepage'].'" target="_blank">'.$config['homepage'].'</a></p>';
-	}
-	else
-	*/
-		$f='';
+	$f='';
 	if ($enddiv==1) $f.='</div>';
 
 	$f.=$rfoot.'</body></html>';
