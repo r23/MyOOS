@@ -435,7 +435,7 @@ else
 		}
 		if ($dump['errors']>0) $aus[]=sprintf($lang['L_DUMP_ERRORS'],$dump['errors']);
 
-		$aus[]='<form action="dump.php?MySQLDumper='.session_id().'" method="POST">'.$out.'<br>'.'<p class="small">'.zeit_format($xtime).', '.$dump['aufruf'].' '.$lang['L_PAGE_REFRESHS'].$aus2.'</p>'."\n";
+		$aus[]='<form action="dump.php?MyOOSDumperID='.session_id().'" method="POST">'.$out.'<br>'.'<p class="small">'.zeit_format($xtime).', '.$dump['aufruf'].' '.$lang['L_PAGE_REFRESHS'].$aus2.'</p>'."\n";
 		$aus[]="\n".'<br><input class="Formbutton" type="button" value="'.$lang['L_BACK_TO_CONTROL'].'" onclick="self.location.href=\''.$relativ_path.'filemanagement.php\'">';
 		$aus[]='&nbsp;&nbsp;&nbsp;<input class="Formbutton" type="button" value="'.$lang['L_BACK_TO_MINISQL'].'" onclick="self.location.href=\''.$relativ_path.'sql.php\'">';
 		$aus[]='&nbsp;&nbsp;&nbsp;<input class="Formbutton" type="button" value="'.$lang['L_BACK_TO_OVERVIEW'].'" onclick="self.location.href=\''.$relativ_path.'main.php?action=db&amp;dbid='.$dump['dbindex'].'#dbid\'"><br><br>';
