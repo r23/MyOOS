@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2020 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -394,20 +394,7 @@ switch ($phase)
 		$iw[1]=IsWritable("work/config");
 		$iw[2]=IsWritable("work/log");
 		$iw[3]=IsWritable("work/backup");
-/*
-		// save manual_db
-		if ($manual_db > '')
-		{
-			if (file_exists('./' . $config['files']['dbs_manual'])) @unlink('./' . $config['files']['dbs_manual']);
-			$file_handle=fopen('./' . $config['files']['dbs_manual'],'a');
-			if ($file_handle)
-			{
-				fwrite($file_handle,$manual_db);
-				fclose($file_handle);
-				@chmod('./' . $config['files']['dbs_manual'],0777);
-			}
-		}
-*/
+
 		if ($iw[0] && $iw[1] && $iw[2] && $iw[3])
 		{
 			echo '<script language="javascript">';
