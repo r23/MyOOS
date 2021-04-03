@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2020 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -312,7 +312,7 @@ else
 
 $pagefooter=($RestoreFertig==1) ? MSDFooter() : '</div></BODY></HTML>';
 // formerly all parameters were submitted via POST; now we use a session but we need the form to do the js-selfcall
-$page_parameter='<form action="restore.php?MySQLDumper='.session_id().'" method="POST" name="restore"></form>';
+$page_parameter='<form action="restore.php?MyOOSDumperID='.session_id().'" method="POST" name="restore"></form>';
 if ($RestoreFertig==1)
 {
 	$complete_page=$pageheader.(($aus!='') ? implode("\n",$aus) : '').$pagefooter;
