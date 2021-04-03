@@ -48,7 +48,7 @@ my $zlib_version='unknown';
 my $cgi = CGI->new();
 print $cgi->header(-type => 'text/html; charset=utf-8', -cache_control => 'no-cache, no-store, must-revalidate');
 print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
-print "<html><head><title>MySQLDumper Perl modul test</title>\n";
+print "<html><head><title>MyOOS [Dumper] Perl modul test</title>\n";
 print '<style type="text/css">body { padding-left:18px; font-family:Verdana,Helvetica,Sans-Serif;}</style></head>';
 print "<body><h2>Testing needed Perl-Moduls in order to run the Perl script crondump.pl</h2>\n";
 print "<h4 style=\"background-color:#ccffcc;\">Necessary Modules for crondump.pl</h4>";

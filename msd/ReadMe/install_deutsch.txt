@@ -1,5 +1,5 @@
 Installation:
 
 - lade den Ordner mysqldumper in einen beliebeigen Ordner auf Deinen Webspace hoch
-- Starte das Script im Browser (http://example.org/mysqldumper/)
+- Starte das Script im Browser (http://example.org/myoosdumper/)
 - Folge den Installationsanweisungen
