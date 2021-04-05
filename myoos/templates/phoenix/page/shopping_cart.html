@@ -157,16 +157,32 @@
 									<!-- cart item -->
 									<div class="item">
 										<div class="cart_img float-left fw-100 p-10 text-left"><a class="cart-item-thumb mx-auto mr-sm-4" href="{product_link products_id=$product.id}">{product_image dir=small image=$product.image alt=$product.name}</a></div>
-										<a href="{product_link products_id=$product.id}">{$product.name}
+										<div><a href="{product_link products_id=$product.id}">{$product.name}
 											{if $smarty.const.STOCK_CHECK eq 'true'}
 												{if $product.stock - $product.quantity < 0}
 													<span class="text-warning m-0"> {$smarty.const.STOCK_MARK_PRODUCT_OUT_OF_STOCK}</span>
 												{/if}
 											{/if}
 										</a>
+										{if $product_info.products_quantity_order_min > 1 }
+											<p>{$lang.products_order_qty_min_text} {$product_info.products_quantity_order_min|quantity}</p>
+										{/if}
+										{if $product_info.products_quantity_order_units > 1 }
+											<p>{$lang.products_order_qty_unit_text} {$product_info.products_quantity_order_units|quantity}</p>
+										{/if}									
+
 										<a href="#" class="remove_item"><i class="fa fa-times"></i></a>
 										<div class="total_price">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</div>
-										<div class="qty"><input type="number" value="{$product.quantity}" name="cart_quantity[]" maxlength="3" step="{$product_info.products_quantity_order_units|quantity}" min="{$product_info.products_quantity_order_min|quantity}" max="{$product_info.products_quantity_order_max|quantity}"> &times; {display_price price=$product.final_price tax_class_id=$product.tax_class_id}</div>
+										<div class="qty">
+
+                            <div class="quantity">
+                                <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                <input type="number" class="qty-text" id="qty" step="{$product_info.products_quantity_order_units|quantity}" min="{$product_info.products_quantity_order_min|quantity}" max="{$product_info.products_quantity_order_max|quantity}" name="cart_quantity[]" value="{$product.quantity}">
+                                <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </div>
+							&times; {display_price price=$product.final_price tax_class_id=$product.tax_class_id}</div>
+
+						</div>
 										<div class="clearfix"></div>
 									</div>
 									<!-- /cart item -->
