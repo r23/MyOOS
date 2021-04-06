@@ -30,67 +30,6 @@
 				<div class="cartListInner">
 
 
-					
-					<div class="table-responsive">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>{$lang.table_heading_remove}</th>
-									<th></th>							
-								{if $smarty.const.PRODUCT_LIST_MODEL > 0}	  
-									<th>{$lang.table_heading_model}</th>
-								{/if}
-									<th>{$lang.table_heading_products}</th>
-									<th>{$lang.table_heading_price}</th>
-									<th>{$lang.table_heading_quantity}</th>
-									<th>{$lang.table_heading_total} </th>
-								</tr>
-							</thead>
-							<tbody>
-						{foreach item=product from=$products}					
-								<tr>
-								    <td class=""><input type="checkbox" class="form-check-input" name="cart_delete[]" value="{$product.id}">
-									<td class="">
-										<span class="cartImage"><a href="{product_link products_id=$product.id}">{product_image dir=small image=$product.image alt=$product.name}</a></span>
-									</td>
-									{if $smarty.const.PRODUCT_LIST_MODEL > 0}	  
-										<td class=""><a href="{product_link products_id=$product.id}">{$product.model}</a></td>
-									{/if}
-
-									<td class="">
-										<div class="d-inline-block align-middle">
-											<h4 class="">
-												<a href="{product_link products_id=$product.id}">{$product.name}</a>
-											{if $smarty.const.STOCK_CHECK eq 'true'}
-												{if $product.stock - $product.quantity < 0}
-													<span class="text-warning m-0"> {$smarty.const.STOCK_MARK_PRODUCT_OUT_OF_STOCK}</span>
-												{/if}
-											{/if}
-											</h4>
-							
-<!-- 																    
-    if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
-		reset($products[$i]['attributes']);
-		<ul class="list-unstyled mb-0">
-			foreach($products[$i]['attributes'] as $option => $value) {		  
-				'<li> - ' . $products[$i][$option]['products_options_name'] . ' ' . $products[$i][$option]['products_options_values_name'] . '</li>';
-			}
-	  </ul>
-    }
- -->													
-										</div>
-									</td>
-									<td class="">{display_price price=$product.final_price tax_class_id=$product.tax_class_id}</td>
-									<td class="count-input">		
-											
-									</td>
-									<td align="right" class="">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</td>
-								</tr>
-						{/foreach}
-
-							</tbody>
-						</table>				
-					</div>
 				  
 					{if $any_out_of_stock eq 1 }
 						<div class="infoStockArea">
@@ -106,22 +45,7 @@
 						</div>
 					{/if}	
 
-					
 
-						<div class="row totalAmountArea">
-							<div class="col-sm-4 ml-sm-auto">
-								<ul class="list-unstyled">
-								<!-- 
-									<li>{$lang.sub_title_sub_total} <span>0.00 €</span></li>
-									<li>{$lang.shipping_cost} <span>0.00 €</span></li>
-									<li>{$lang.tax} <span>0.00 €</span></li>
-								 -->		
-									<li>{$lang.total} <span class="grandTotal">{$cart_show_total}</span></li>
-								</ul>
-							</div>
-						</div>
-
-					</form>
 				</div>
 			</div>
 		</div>
@@ -164,32 +88,29 @@
 												{/if}
 											{/if}
 										</a>
-										{if $product_info.products_quantity_order_min > 1 }
-											<p>{$lang.products_order_qty_min_text} {$product_info.products_quantity_order_min|quantity}</p>
+										{if $product.products_quantity_order_min > 1 }
+											<p>{$lang.products_order_qty_min_text} {$product.products_quantity_order_min|quantity}</p>
 										{/if}
-										{if $product_info.products_quantity_order_units > 1 }
-											<p>{$lang.products_order_qty_unit_text} {$product_info.products_quantity_order_units|quantity}</p>
+										{if $product.products_quantity_order_units > 1 }
+											<p>{$lang.products_order_qty_unit_text} {$product.products_quantity_order_units|quantity}</p>
 										{/if}									
 
 										<a href="#" class="remove_item"><i class="fa fa-times"></i></a>
 										<div class="total_price">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</div>
-										<div class="qty">
-
-                            <div class="quantity">
-                                <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
-                                <input type="number" class="qty-text" id="qty" step="{$product_info.products_quantity_order_units|quantity}" min="{$product_info.products_quantity_order_min|quantity}" max="{$product_info.products_quantity_order_max|quantity}" name="cart_quantity[]" value="{$product.quantity}">
-                                <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                            </div>
-							&times; {display_price price=$product.final_price tax_class_id=$product.tax_class_id}</div>
-
-						</div>
+										<div class="quantity">
+											<span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+											<input type="number" class="qty-text" id="qty" step="{$product.products_quantity_order_units|quantity}" min="{$product.products_quantity_order_min|quantity}" max="{$product.products_quantity_order_max|quantity}" name="cart_quantity[]" value="{$product.quantity}">
+											<span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+										</div>
+										&times; {display_price price=$product.final_price tax_class_id=$product.tax_class_id}</div>
 										<div class="clearfix"></div>
 									</div>
 									<!-- /cart item -->
 
 							{/foreach}
-									<button class="btn btn-success mt-20 mr-10 float-right"><i class="fa fa-remove"></i> CLEAR CART</button>
-									<button class="btn btn-primary mt-20 mr-10 float-right" type="submit"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update_cart}</button>
+									<button class="btn btn-success  mt-20 mr-10 float-right" type="submit"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_update_cart}</button>
+									<a class="btn btn-primary mt-20 mr-10 float-right" href="{html_href_link content=$filename.shopping_cart action=clear_cart}"> <i class="fa fa-remove"></i> CLEAR CART</a>
+
 
 									<div class="clearfix"></div>
 								</div>

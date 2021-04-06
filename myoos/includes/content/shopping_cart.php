@@ -35,9 +35,6 @@ if (isset($_SESSION)) {
 
 			$n = count($products);
 			for ($i=0, $n; $i<$n; $i++) {
-				
-				
-//  (oos_get_products_quantity_order_min($products[$i]['id']) > 1 ? $aLang['products_order_qty_min_text_cart_short'] . oos_get_products_quantity_order_min($products[$i]['id']) : '') . (oos_get_products_quantity_order_units($products[$i]['id']) > 1 ? $aLang['products_order_qty_unit_text_cart_short'] . oos_get_products_quantity_order_units($products[$i]['id']) : "")
 
 				$hidden_field .= oos_draw_hidden_field('products_id[]', $products[$i]['id']);
 
@@ -111,7 +108,6 @@ if (isset($_SESSION)) {
 		}
 	}
 }
-
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -664,7 +664,8 @@
 			$productstable = $oostable['products'];
 			$products_descriptiontable = $oostable['products_description'];
 			$sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
-					   p.products_ean, p.products_price, p.products_weight, p.products_tax_class_id, p.products_quantity
+						p.products_ean, p.products_price, p.products_weight, p.products_tax_class_id, p.products_quantity, 
+						p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units
 					FROM $productstable p,
 						$products_descriptiontable pd
 					WHERE p.products_status >= '1' AND 
@@ -724,6 +725,9 @@
                                     'model' => $model,
                                     'image' => $image,
                                     'ean' => $products['products_ean'],
+									'products_quantity_order_min' => $products['products_quantity_order_min'],
+									'products_quantity_order_max' => $products['products_quantity_order_max'],
+									'products_quantity_order_units' => $products['products_quantity_order_units'],
                                     'price' => $products_price,	
                                     'spezial' => $bSpezialPrice,
                                     'quantity' => $this->contents[$products_id]['qty'],
