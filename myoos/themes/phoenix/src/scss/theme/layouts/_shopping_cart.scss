@@ -41,10 +41,6 @@
     }
 .cartContent .quantity {
     float:right;
-    width:160px;
-    font-size:15px;
-    padding:10px;
-    text-align:center;
 }
 .cartContent .quantity input {
     padding:3px; margin:0;
@@ -52,6 +48,7 @@
     width:50px; margin-right:3px;
     text-align:center;
 }
+
 .cartContent .total_price {
     float:right;
     width:150px;
