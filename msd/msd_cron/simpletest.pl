@@ -38,6 +38,7 @@
 # @lastmodified 	Date: 2011-01-16 20:55:42 +0100 (So, 16. Jan 2011) 
 # @filesource 		URL: https://mysqldumper.svn.sourceforge.net/svnroot/mysqldumper/branches/msd1.24.3/msd_cron/simpletest.pl 
 
+
 use strict;
 use CGI::Carp qw(warningsToBrowser fatalsToBrowser);  
 warningsToBrowser(1);
