@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 #
 #   MyOOS [Dumper]
-#   http://www.oos-shop.de/
+#   https://www.oos-shop.de/
 #
-#   Copyright (c) 2016 by the MyOOS Development Team.
+#   Copyright (c) 2021 by the MyOOS Development Team.
 #   ----------------------------------------------------------------------
 #   Based on:
 #
@@ -33,7 +33,7 @@
 #
 ########################################################################################
 # Script-Version
-my $pcd_version='1.24.4';
+my $pcd_version='5.0.3-dev';
 
 ########################################################################################
 # please enter the absolute path of the config-dir
@@ -186,8 +186,8 @@ if($absolute_path_of_configdir eq "" || ! -d $absolute_path_of_configdir)
             $current_dir =~ s/msd\_cron//g;
 
             #set default log-files
-            $logdatei= $current_dir ."work\\log\\mysqldump_perl.log";
-            $completelogdatei= $current_dir . "work\\log\\mysqldump_perl.complete.log";
+            $logdatei= $current_dir ."work\\log\\myoosdump_perl.log";
+            $completelogdatei= $current_dir . "work\\log\\myoosdump_perl.complete.log";
 
             $absolute_path_of_configdir = $current_dir ."work\\config\\";
     } elsif ($i=~m#^(.*)\/# ) {
@@ -196,8 +196,8 @@ if($absolute_path_of_configdir eq "" || ! -d $absolute_path_of_configdir)
             $current_dir =~ s/msd\_cron//g;
 
             #set default log-files
-            $logdatei= $current_dir ."work/log/mysqldump_perl.log";
-            $completelogdatei= $current_dir . "work/log/mysqldump_perl.complete.log";
+            $logdatei= $current_dir ."work/log/myoosdump_perl.log";
+            $completelogdatei= $current_dir . "work/log/myoosdump_perl.complete.log";
 
             $absolute_path_of_configdir = $current_dir."work/config/";
     }
@@ -724,14 +724,14 @@ sub PrintHeader {
     {
         print $cgi->header(-type => 'text/html; charset=utf-8', -cache_control => 'no-cache, no-store, must-revalidate');
         print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">\n";
-        print "<html>\n<head>\n<title>MySQLDumper - Perl CronDump [Version $pcd_version (using perl $perlversion)]</title>\n";
+        print "<html>\n<head>\n<title>MyOOS [Dumper] - Perl CronDump [Version $pcd_version (using perl $perlversion)]</title>\n";
         print "<style type=\"text/css\">\nbody { padding:20px; font-family:Verdana,Helvetica,Sans-Serif;font-size: 0.9em !important;}</style>\n";
-        print "</head>\n<body><h3>MySQLDumper - Perl CronDump [Version $pcd_version (using perl $perlversion)]</h3>\n";
+        print "</head>\n<body><h3>MyOOS [Dumper] - Perl CronDump [Version $pcd_version (using perl $perlversion)]</h3>\n";
     }
     else
     {
         #small output for external cronjobs, which expect a small returnvalue
-        print "MySQLDumper - Perl CronDump [Version $pcd_version] started successfully (using perl $perlversion)\n";
+        print "MyOOS [Dumper] - Perl CronDump [Version $pcd_version] started successfully (using perl $perlversion)\n";
     }
 }
 
@@ -760,15 +760,15 @@ sub PrintOut {
             
             if ( ($logcompression==0) || ($mod_gz==0)) 
             {
-                open(DATEI,">>$completelogdatei") || err_trap('can\'t open mysqldump_perl.complete.log ('.$completelogdatei.').');
-                print DATEI "$dt $output\n" || err_trap('can\'t write to mysqldump_perl.complete.log ('.$completelogdatei.').');
-                close(DATEI)|| err_trap('can\'t close mysqldump_perl.complete.log ('.$completelogdatei.').');
+                open(DATEI,">>$completelogdatei") || err_trap('can\'t open myoosdump_perl.complete.log ('.$completelogdatei.').');
+                print DATEI "$dt $output\n" || err_trap('can\'t write to myoosdump_perl.complete.log ('.$completelogdatei.').');
+                close(DATEI)|| err_trap('can\'t close myoosdump_perl.complete.log ('.$completelogdatei.').');
                 chmod(0777,$completelogdatei);
             }
             else
             {
-                $gz = gzopen($completelogdatei, "ab") || err_trap("Cannot open mysqldump_perl.complete.log.gz. ");
-                $gz->gzwrite("$dt $output\n")  || err_trap("Error writing mysqldump_perl.complete.log.gz. ");
+                $gz = gzopen($completelogdatei, "ab") || err_trap("Cannot open myoosdump_perl.complete.log.gz. ");
+                $gz->gzwrite("$dt $output\n")  || err_trap("Error writing myoosdump_perl.complete.log.gz. ");
                 $gz->gzclose ;
                 chmod(0777,$completelogdatei);
             }
@@ -942,7 +942,7 @@ sub send_mail {
             $Body.="\n<br>$mpdatei (".(byte_output($filesize))." )";
         }
     }
-    $Body.="\n\n<br><br>Best regards,<br><br>MySQLDumper<br>If you have any questions, feel free and visit the support board at:<br><a href=\"http://forum.mysqldumper.de\">http://forum.mysqldumper.de</a>";
+    $Body.="\n\n<br><br>Best regards,<br><br>MyOOS [Dumper]<br>If you have any questions, feel free and visit the support board at:<br><a href=\"https://foren.myoos.de/viewforum.php?f=40\">https://foren.myoos.de/viewforum.php?f=40</a>";
 
     if ($cron_use_sendmail==1)
     {    
@@ -1165,7 +1165,7 @@ sub AutoDeleteCount {
         }
         else
         {
-            PrintOut("No Statusline in `<strong>$fname</strong>` found. Seems not to be a MySQLDumper file. Skipping file.");
+            PrintOut("No Statusline in `<strong>$fname</strong>` found. Seems not to be a MyOOS [Dumper] file. Skipping file.");
         }
     }
 }
