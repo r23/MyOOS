@@ -20,16 +20,12 @@
 #
 # 2004-2010 by Steffen Kamper, Daniel Schlichtholz
 # additional scripting: Detlev Richter, Jonathan Tietz
-#
-# for support etc. visit http://forum.mysqldumper.de
 # 
 # This file is part of MySQLDumper released under the GNU/GPL 2 license
 # http://www.mysqldumper.net 
 # @package             MySQLDumper
 # @version             Rev: 1371 $
 # @author              Author: dsb1971 $
-# @lastmodified        Date: 2011-01-24 21:15:21 +0100 (Mo, 24. Jan 2011) 
-# @filesource          URL: https://mysqldumper.svn.sourceforge.net/svnroot/mysqldumper/branches/msd1.24.3/msd_cron/crondump.pl 
 #
 ########################################################################################
 # Script-Version

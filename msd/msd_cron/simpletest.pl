@@ -11,11 +11,11 @@
 # Sample Apache-Config:
 # <Directory /usr/local/apache2/htdocs/myoosdumper/msd_cron>
 #    Options ExecCGI
-#    AddHandler cgi-script cgi pl
+#    AddHandler cgi-script .cgi .pl
 # </Directory>
 #
 #   MyOOS [Dumper]
-#   http://www.oos-shop.de/
+#   https://www.oos-shop.de/
 #
 #   Copyright (c) 2021 by the MyOOS Development Team.
 #   ----------------------------------------------------------------------
@@ -35,8 +35,7 @@
 # @package 			MySQLDumper
 # @version 			Rev: 1351 
 # @author 			Author: jtietz 
-# @lastmodified 	Date: 2011-01-16 20:55:42 +0100 (So, 16. Jan 2011) 
-# @filesource 		URL: https://mysqldumper.svn.sourceforge.net/svnroot/mysqldumper/branches/msd1.24.3/msd_cron/simpletest.pl 
+
 
 
 use strict;
