@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO &#8211; Best SEO Plugin for WordPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-03-29 14:37:47+0000\n"
+"PO-Revision-Date: 2021-04-08 17:25:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5896,7 +5896,7 @@ msgstr "Beitrags-Formate"
 #: includes/modules/sitemap/class-admin.php:113
 #: includes/admin/class-option-center.php:228
 msgid "Post Types:"
-msgstr "Beitragsarten:"
+msgstr "Inhaltstypen:"
 
 #: includes/admin/class-option-center.php:191
 msgid "Titles &amp; Meta"
