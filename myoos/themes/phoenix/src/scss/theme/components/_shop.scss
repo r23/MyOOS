@@ -323,3 +323,25 @@
     }
   }
 }
+
+
+.remove_item {
+    float:right;
+    padding:5px;
+    width:30px; margin-right:8px;
+}
+a.remove_item {
+    background:rgba(0,0,0,0.05);
+    text-align: center;
+    padding-top:0;
+    margin-top:10px;
+    height:30px;
+    line-height:26px;
+    font-size:18px;
+    text-decoration:none;
+    color:rgba(0,0,0,0.2);
+}
+a.remove_item:hover {
+    color: #d9534f;
+}
+
