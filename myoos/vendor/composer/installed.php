@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'da035c91818d6dc46daa2778e31d282a112c1a30',
+    'reference' => '3168e1b3aacfd7ca763299ce9904f083ce64e61f',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -216,7 +216,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'da035c91818d6dc46daa2778e31d282a112c1a30',
+      'reference' => '3168e1b3aacfd7ca763299ce9904f083ce64e61f',
     ),
     'ocramius/proxy-manager' => 
     array (
