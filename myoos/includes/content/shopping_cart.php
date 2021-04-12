@@ -124,6 +124,7 @@ if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
+
 // assign Smarty variables;
 $smarty->assign(
       array(

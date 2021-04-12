@@ -45,7 +45,7 @@ class order {
 
     public function query($order_id) {
 
-		$order_id = oos_db_prepare_input($order_id);
+		$order_id = intval($order_id);
 		$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
 		// Get database information
@@ -202,15 +202,15 @@ class order {
 		$this->content_type = $_SESSION['cart']->get_content_type();
 		$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $customerstable = $oostable['customers'];
-      $address_booktable = $oostable['address_book'];
-      $zonestable = $oostable['zones'];
-      $countriestable = $oostable['countries'];
-      $sql = "SELECT c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address,
+		$customerstable = $oostable['customers'];
+		$address_booktable = $oostable['address_book'];
+		$zonestable = $oostable['zones'];
+		$countriestable = $oostable['countries'];
+		$sql = "SELECT c.customers_firstname, c.customers_lastname, c.customers_telephone, c.customers_email_address,
                      ab.entry_company, ab.entry_street_address, ab.entry_postcode, ab.entry_city,
                      ab.entry_zone_id, z.zone_name, co.countries_id, co.countries_name, co.countries_iso_code_2,
                      co.countries_iso_code_3, co.address_format_id, ab.entry_state
@@ -223,28 +223,28 @@ class order {
               WHERE c.customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                     ab.customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                     c.customers_default_address_id = ab.address_book_id";
-      $customer_address = $dbconn->GetRow($sql);
+		$customer_address = $dbconn->GetRow($sql);
 
-      $address_booktable = $oostable['address_book'];
-      $zonestable = $oostable['zones'];
-      $countriestable = $oostable['countries'];
-      $sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
+		$address_booktable = $oostable['address_book'];
+		$zonestable = $oostable['zones'];
+		$countriestable = $oostable['countries'];
+		$sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
                      ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
                      ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2,
                      c.countries_iso_code_3, c.address_format_id, ab.entry_state
-              FROM $address_booktable ab LEFT JOIN
-                   $zonestable z
-                ON (ab.entry_zone_id = z.zone_id) LEFT JOIN
+				FROM $address_booktable ab LEFT JOIN
+					$zonestable z
+					ON (ab.entry_zone_id = z.zone_id) LEFT JOIN
                    $countriestable c ON
                    (ab.entry_country_id = c.countries_id)
-              WHERE ab.customers_id = '" . intval($_SESSION['customer_id']) . "' AND
+				WHERE ab.customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                     ab.address_book_id = '" . intval($_SESSION['sendto']) . "'";
-      $shipping_address = $dbconn->GetRow($sql);
+		$shipping_address = $dbconn->GetRow($sql);
 
-      $address_booktable = $oostable['address_book'];
-      $zonestable = $oostable['zones'];
-      $countriestable = $oostable['countries'];
-      $sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
+		$address_booktable = $oostable['address_book'];
+		$zonestable = $oostable['zones'];
+		$countriestable = $oostable['countries'];
+		$sql = "SELECT ab.entry_firstname, ab.entry_lastname, ab.entry_company, ab.entry_street_address,
                      ab.entry_postcode, ab.entry_city, ab.entry_zone_id, z.zone_name,
                      ab.entry_country_id, c.countries_id, c.countries_name, c.countries_iso_code_2,
                      c.countries_iso_code_3, c.address_format_id, ab.entry_state
@@ -255,9 +255,9 @@ class order {
                    (ab.entry_country_id = c.countries_id)
               WHERE ab.customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                     ab.address_book_id = '" . intval($_SESSION['billto']) . "'";
-      $billing_address = $dbconn->GetRow($sql);
+		$billing_address = $dbconn->GetRow($sql);
 
-      $class =& $_SESSION['payment'];
+		$class =& $_SESSION['payment'];
 
 		if ($this->content_type == 'virtual') {
 			$tax_address = array('entry_country_id' => $billing_address['entry_country_id'],
@@ -268,7 +268,7 @@ class order {
 		}
 
 
-      $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
+		$this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
                           'currency' => $_SESSION['currency'],
                           'currency_value' => $oCurrencies->currencies[$_SESSION['currency']]['value'],
                           'payment_method' => $GLOBALS[$class]->title,
@@ -329,10 +329,10 @@ class order {
                              'country' => array('id' => $billing_address['countries_id'], 'title' => $billing_address['countries_name'], 'iso_code_2' => $billing_address['countries_iso_code_2'], 'iso_code_3' => $billing_address['countries_iso_code_3']),
                              'country_id' => $billing_address['entry_country_id'],
                              'format_id' => $billing_address['address_format_id']);
-      $index = 0;
-      $products = $_SESSION['cart']->get_products();
-      for ($i=0, $n=sizeof($products); $i<$n; $i++) {
-        $this->products[$index] = array('qty' => $products[$i]['quantity'],
+		$index = 0;
+		$products = $_SESSION['cart']->get_products();
+		for ($i=0, $n=sizeof($products); $i<$n; $i++) {
+			$this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
 										'essential_characteristics' => $products[$i]['essential_characteristics'],
                                         'image' => $products[$i]['image'],																				
@@ -345,79 +345,79 @@ class order {
                                         'towlid' => $products[$i]['towlid'],
                                         'id' => $products[$i]['id']);
 
-        if ($products[$i]['attributes']) {
-          $subindex = 0;
-          reset($products[$i]['attributes']);
-          foreach ($products[$i]['attributes'] as $option => $value) {		  
+			if ($products[$i]['attributes']) {
+				$subindex = 0;
+				reset($products[$i]['attributes']);
+				foreach ($products[$i]['attributes'] as $option => $value) {		  
 		  
-            $products_optionstable = $oostable['products_options'];
-            $products_options_valuestable = $oostable['products_options_values'];
-            $products_attributestable = $oostable['products_attributes'];
+					$products_optionstable = $oostable['products_options'];
+					$products_options_valuestable = $oostable['products_options_values'];
+					$products_attributestable = $oostable['products_attributes'];
 
-            if ($value == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
-              $sql = "SELECT popt.products_options_name, poval.products_options_values_name,
-                             pa.options_values_price, pa.price_prefix
-                      FROM $products_optionstable popt,
-                           $products_options_valuestable poval,
-                           $products_attributestable pa
-                      WHERE
-                          pa.products_id = '" . oos_db_input($products[$i]['id']) . "' AND
-                          pa.options_id = '" . oos_db_input($option) . "' AND
-                          pa.options_id = popt.products_options_id AND
-                          popt.products_options_languages_id = '" .  intval($nLanguageID) . "'";
-            } else {
-              $sql = "SELECT popt.products_options_name, poval.products_options_values_name,
-                             pa.options_values_price, pa.price_prefix
-                      FROM $products_optionstable popt,
-                           $products_options_valuestable poval,
-                           $products_attributestable pa
-                      WHERE pa.products_id = '" . oos_db_input($products[$i]['id']) . "' AND
-                            pa.options_id = '" . oos_db_input($option) . "' AND
-                            pa.options_id = popt.products_options_id AND
-                            pa.options_values_id = '" . oos_db_input($value) . "' AND
-                            pa.options_values_id = poval.products_options_values_id AND
-                            popt.products_options_languages_id = '" .  intval($nLanguageID) . "' AND
-                            poval.products_options_values_languages_id = '" .  intval($nLanguageID) . "'";
-            }
-            $attributes = $dbconn->GetRow($sql);
+					if ($value == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
+						$sql = "SELECT popt.products_options_name, poval.products_options_values_name,
+								pa.options_values_price, pa.price_prefix
+							FROM $products_optionstable popt,
+								$products_options_valuestable poval,
+								$products_attributestable pa
+							WHERE
+								pa.products_id = '" . oos_db_input($products[$i]['id']) . "' AND
+								pa.options_id = '" . oos_db_input($option) . "' AND
+								pa.options_id = popt.products_options_id AND
+								popt.products_options_languages_id = '" .  intval($nLanguageID) . "'";
+					} else {
+						$sql = "SELECT popt.products_options_name, poval.products_options_values_name,
+									pa.options_values_price, pa.price_prefix
+								FROM $products_optionstable popt,
+									$products_options_valuestable poval,
+									$products_attributestable pa
+								WHERE pa.products_id = '" . oos_db_input($products[$i]['id']) . "' AND
+									pa.options_id = '" . oos_db_input($option) . "' AND
+									pa.options_id = popt.products_options_id AND
+									pa.options_values_id = '" . oos_db_input($value) . "' AND
+									pa.options_values_id = poval.products_options_values_id AND
+									popt.products_options_languages_id = '" .  intval($nLanguageID) . "' AND
+									poval.products_options_values_languages_id = '" .  intval($nLanguageID) . "'";
+					}
+					$attributes = $dbconn->GetRow($sql);
 
-            if ($value == PRODUCTS_OPTIONS_VALUE_TEXT_ID){
-              $attr_value = $products[$i]['attributes_values'][$option];
-            } else {
-              $attr_value = $attributes['products_options_values_name'];
-            }
-            $this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options_name'],
-                                                                     'value' => $attr_value,
-                                                                     'option_id' => $option,
-                                                                     'value_id' => $value,
-                                                                     'prefix' => $attributes['price_prefix'],
-                                                                     'price' => $attributes['options_values_price']);
-            $subindex++;
-          }
-        }
-
-		$nPrice = $oCurrencies->calculate_price($this->products[$index]['final_price'], $this->products[$index]['tax'], $this->products[$index]['qty']);
-        $this->info['subtotal'] += $nPrice;
-
-        $products_tax = $this->products[$index]['tax'];
-        if ($aUser['price_with_tax'] == 1) {
-			$this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-			if (isset($this->info['tax_groups']["$products_tax"])) {
-				$this->info['tax_groups']["$products_tax"] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
-			} else {
-				$this->info['tax_groups']["$products_tax"] = $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+					if ($value == PRODUCTS_OPTIONS_VALUE_TEXT_ID){
+						$attr_value = $products[$i]['attributes_values'][$option];
+					} else {
+						$attr_value = $attributes['products_options_values_name'];
+					}
+					$this->products[$index]['attributes'][$subindex] = array('option' => $attributes['products_options_name'],
+																		'value' => $attr_value,
+																		'option_id' => $option,
+																		'value_id' => $value,
+																		'prefix' => $attributes['price_prefix'],
+																		'price' => $attributes['options_values_price']);
+					$subindex++;
+				}
 			}
-        } else {
-			$this->info['tax'] += ($products_tax / 100) * $nPrice;
-			if (isset($this->info['tax_groups']["$products_tax"])) {
-				$this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $nPrice;
-			} else {
-				$this->info['tax_groups']["$products_tax"] = ($products_tax / 100) * $nPrice;
-			}
-        }
 
-        $index++;
-      }
+			$nPrice = $oCurrencies->calculate_price($this->products[$index]['final_price'], $this->products[$index]['tax'], $this->products[$index]['qty']);
+			$this->info['subtotal'] += $nPrice;
+
+			$products_tax = $this->products[$index]['tax'];
+			if ($aUser['price_with_tax'] == 1) {
+				$this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+				if (isset($this->info['tax_groups']["$products_tax"])) {
+					$this->info['tax_groups']["$products_tax"] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+				} else {
+					$this->info['tax_groups']["$products_tax"] = $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+				}
+			} else {
+				$this->info['tax'] += ($products_tax / 100) * $nPrice;
+				if (isset($this->info['tax_groups']["$products_tax"])) {
+					$this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $nPrice;
+				} else {
+					$this->info['tax_groups']["$products_tax"] = ($products_tax / 100) * $nPrice;
+				}
+			}
+
+			$index++;
+		}
 	  
   
 

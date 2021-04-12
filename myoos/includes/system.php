@@ -135,6 +135,7 @@ $smarty->assign('nav_menu', $sNavMenue);
 
 $cart_products = array();
 $cart_count_contents = 0;
+$cart_show_subtotal = 0;
 $cart_show_total = 0;
 $wishlist_count_contents = 0;
 
@@ -163,8 +164,10 @@ if (isset($_SESSION)) {
 
 		$cart_count_contents = $_SESSION['cart']->count_contents();
 		$cart_products = $_SESSION['cart']->get_products();
+		$cart_show_subtotal = $oCurrencies->format($_SESSION['cart']->show_subtotal());
 		$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
 	}
+
 
 	# todo counter for wishlist
 	$wishlist_count_contents = 0;
@@ -175,6 +178,7 @@ $smarty->assign(
 		'mySystem'              	=> $aSystem,
 		'myUser'					=> $aUser,
 		'cart_products' 			=> $cart_products,
+		'cart_show_subtotal'		=> $cart_show_subtotal,
 		'cart_show_total'			=> $cart_show_total,
 		'cart_count_contents'		=> $cart_count_contents,
 		'wishlist_count_contents'	=> $wishlist_count_contents 
