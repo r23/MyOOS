@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9ebe14d3caf91f7f12917ca3b8dc3a3df0ddc55b',
+    'reference' => '91dd294d1093a52d3d28cb448318d6e8c1702728',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -143,12 +143,12 @@ private static $installed = array (
     ),
     'laminas/laminas-code' => 
     array (
-      'pretty_version' => '4.1.0',
-      'version' => '4.1.0.0',
+      'pretty_version' => '4.2.0',
+      'version' => '4.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5b553c274b94af3f880cbaaf8fbab047f279a31c',
+      'reference' => 'e7e8f8a9c267520051d8026ff1da74823a3d8b97',
     ),
     'laminas/laminas-escaper' => 
     array (
@@ -229,7 +229,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9ebe14d3caf91f7f12917ca3b8dc3a3df0ddc55b',
+      'reference' => '91dd294d1093a52d3d28cb448318d6e8c1702728',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -1125,7 +1125,7 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => '4.1.0',
+        0 => '4.2.0',
       ),
     ),
     'zendframework/zend-escaper' => 
