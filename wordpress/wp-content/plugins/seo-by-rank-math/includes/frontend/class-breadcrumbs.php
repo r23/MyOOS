@@ -134,7 +134,7 @@ class Breadcrumbs {
 		if ( $remove_title ) {
 			array_pop( $crumbs );
 		}
-		$size = sizeof( $crumbs );
+		$size = count( $crumbs );
 
 		if ( ! empty( $this->strings['prefix'] ) ) {
 			$html .= \sprintf( '<span class="label">%s</span> ', $this->strings['prefix'] );
@@ -192,7 +192,7 @@ class Breadcrumbs {
 	 */
 	private function add_crumb( $name, $link = '', $hide_in_schema = false ) {
 		$this->crumbs[] = [
-			strip_tags( $name ),
+			wp_strip_all_tags( $name ),
 			$link,
 			'hide_in_schema' => $hide_in_schema,
 		];
@@ -337,7 +337,7 @@ class Breadcrumbs {
 		$term = $GLOBALS['wp_query']->get_queried_object();
 		$this->prepend_shop_page();
 		$this->maybe_add_term_ancestors( $term );
-		$this->add_crumb( $this->get_breadcrumb_title( 'term', $term, $term->name ) );
+		$this->add_crumb( $this->get_breadcrumb_title( 'term', $term, $term->name ), get_term_link( $term ) );
 	}
 
 	/**
@@ -347,7 +347,7 @@ class Breadcrumbs {
 		$term = $GLOBALS['wp_query']->get_queried_object();
 		$this->prepend_shop_page();
 		/* translators: %s: product tag */
-		$this->add_crumb( sprintf( __( 'Products tagged &ldquo;%s&rdquo;', 'rank-math' ), $this->get_breadcrumb_title( 'term', $term, $term->name ) ) );
+		$this->add_crumb( sprintf( __( 'Products tagged &ldquo;%s&rdquo;', 'rank-math' ), $this->get_breadcrumb_title( 'term', $term, $term->name ) ), get_term_link( $term ) );
 	}
 
 	/**
@@ -473,16 +473,33 @@ class Breadcrumbs {
 	 * Prepend the shop page to the shop trail.
 	 */
 	private function prepend_shop_page() {
-		$permalinks   = wc_get_permalink_structure();
 		$shop_page_id = wc_get_page_id( 'shop' );
 		$shop_page    = get_post( $shop_page_id );
 
 		// If permalinks contain the shop page in the URI prepend the breadcrumb with shop.
-		if ( $shop_page_id && $shop_page && isset( $permalinks['product_base'] ) && strstr( $permalinks['product_base'], '/' . $shop_page->post_name ) && intval( get_option( 'page_on_front' ) ) !== $shop_page_id ) {
+		if ( $shop_page_id && $shop_page && $this->is_using_shop_base( $shop_page ) && intval( get_option( 'page_on_front' ) ) !== $shop_page_id ) {
 			$this->add_crumb( $this->get_breadcrumb_title( 'post', $shop_page_id, get_the_title( $shop_page ) ), get_permalink( $shop_page ) );
 		}
 	}
 
+	/**
+	 * Checks if the permalinks product base is using the shop base.
+	 *
+	 * @param \WP_Post $shop_page The shop page.
+	 *
+	 * @return bool
+	 */
+	private function is_using_shop_base( $shop_page ) {
+		$permalinks         = wc_get_permalink_structure();
+		$is_using_shop_base = isset( $permalinks['product_base'] ) && strstr( $permalinks['product_base'], '/' . $shop_page->post_name );
+
+		/**
+		 * Allows to filter the "is using shop base" condition.
+		 *
+		 * @param bool True if using shop base or false otherwise.
+		 */
+		return $this->do_filter( 'frontend/breadcrumb/is_using_shop_base', $is_using_shop_base );
+	}
 	/**
 	 * Get the primary term.
 	 *
