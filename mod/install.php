@@ -152,7 +152,7 @@ echo '<div id="pagetitle"><p>
 ' . $Anzeige . '
 </p></div>';
 
-echo '<div id="content" align="center"><p class="small"><strong>Version ' . MSD_VERSION . '</strong><br></p>';
+echo '<div id="content" align="center"><p class="small"><strong>Version ' . MOD_VERSION . '</strong><br></p>';
 
 switch ($phase)
 {
@@ -256,7 +256,7 @@ switch ($phase)
 			{
 				echo '<tr class="thead"><th colspan="2">' . $lang['L_DBCONNECTION'] . '</th></tr>';
 				echo '<tr><td colspan="2">';
-				$connection=MSD_mysql_connect();
+				$connection=MOD_mysql_connect();
 
 				if ($connection === false)
 				{

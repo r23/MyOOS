@@ -71,7 +71,7 @@ Please create it using your FTP program.";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";
-$lang['L_MSD_VERSION']="MyOOS [Dumper] - Version";
+$lang['L_MOD_VERSION']="MyOOS [Dumper] - Version";
 $lang['L_MYSQL_VERSION']="MySQL-Version";
 $lang['L_PHP_VERSION']="PHP-Version";
 $lang['L_MAX_EXECUTION_TIME']="Max execution time";

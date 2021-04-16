@@ -73,7 +73,7 @@ Bitte mit Deinem FTP-Programm erstellen.";
 $lang['L_TABLE_TYPE']="Typ";
 $lang['L_CHECK']="prüfen";
 $lang['L_OS']="Betriebssystem";
-$lang['L_MSD_VERSION']="MyOOS [Dumper] - Version";
+$lang['L_MOD_VERSION']="MyOOS [Dumper] - Version";
 $lang['L_MYSQL_VERSION']="MySQL-Version";
 $lang['L_PHP_VERSION']="PHP-Version";
 $lang['L_MAX_EXECUTION_TIME']="Maximale Ausführungszeit";

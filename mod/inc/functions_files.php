@@ -277,7 +277,7 @@ function FileList($multi=0)
 		foreach($db_summary_anzahl as $key => $val)
 		{
 			$cl=($i++%2) ? "dbrow":"dbrow1";
-			$keyaus=($key=="~unknown") ? '<em>'.$lang['L_NO_MSD_BACKUPFILE'].'</em>':$key;
+			$keyaus=($key=="~unknown") ? '<em>'.$lang['L_NO_MOD_BACKUPFILE'].'</em>':$key;
 			$fl.='<tr class="'.$cl.'"><td colspan="5" align="left"><a href="'.$href.'&amp;dbactiv='.$key.'">'.$keyaus.'</a></td>';
 			$fl.='<td style="text-align:right">'.$val.'&nbsp;&nbsp;</td>';
 			$fl.='<td class="sm" nowrap="nowrap">'.((isset($db_summary_last[$key])) ? $db_summary_last[$key]:'').'</td>';

@@ -90,10 +90,10 @@ include ('./language/'.$config['language'].'/lang.php');
 include ('./language/'.$config['language'].'/lang_restore.php');
 $config['files']['iconpath']='./css/'.$config['theme'].'/icons/';
 $aus=Array();
-$pageheader=MSDheader().headline($lang['L_RESTORE']);
+$pageheader=MODheader().headline($lang['L_RESTORE']);
 $aus1=$page_parameter='';
 $RestoreFertig=$eingetragen=$dauer=$filegroesse=0;
-MSD_mysql_connect($restore['dump_encoding'],true,$restore['actual_table']);
+MOD_mysql_connect($restore['dump_encoding'],true,$restore['actual_table']);
 @mysqli_select_db($config['dbconnection'], $databases['db_actual']) or die($lang['L_DB_SELECT_ERROR'].$databases['db_actual'].$lang['L_DB_SELECT_ERROR2']);
 
 // open backup file
@@ -310,7 +310,7 @@ if ($restore['filehandle'])
 else
 	$aus[]=$config['paths']['backup'].$restore['filename'].' :  '.$lang['L_FILE_OPEN_ERROR'];
 
-$pagefooter=($RestoreFertig==1) ? MSDFooter() : '</div></BODY></HTML>';
+$pagefooter=($RestoreFertig==1) ? MODFooter() : '</div></BODY></HTML>';
 // formerly all parameters were submitted via POST; now we use a session but we need the form to do the js-selfcall
 $page_parameter='<form action="restore.php?MyOOSDumperID='.session_id().'" method="POST" name="restore"></form>';
 if ($RestoreFertig==1)

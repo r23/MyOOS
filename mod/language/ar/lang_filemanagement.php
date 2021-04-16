@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="بداية التحويل";
-$lang['L_CONVERT_TITLE']="تحويل قاعدة البيانات الى صيغة MSD";
+$lang['L_CONVERT_TITLE']="تحويل قاعدة البيانات الى صيغة MOD";
 $lang['L_CONVERT_WRONG_PARAMETERS']="خطأ parameters!  التحويل غير محتمل.";
 $lang['L_FM_UPLOADFILEREQUEST']="من فضلك اختر ملف.";
 $lang['L_FM_UPLOADNOTALLOWED1']="هذا النوع من الملفات غير مدعوم.";
@@ -65,7 +65,7 @@ $lang['L_CONVERT_FILENAME']="اسم الملف الوجهة (بدون الامت
 $lang['L_CONVERTING']="تحويل";
 $lang['L_CONVERT_FILEREAD']="قراءة الملف '%s'";
 $lang['L_CONVERT_FINISHED']="التحويل انتهى, '%s' تم التحويل بنجاح.";
-$lang['L_NO_MSD_BACKUPFILE']="النسخ الاحتياطي لمخطوطات اخرى";
+$lang['L_NO_MOD_BACKUPFILE']="النسخ الاحتياطي لمخطوطات اخرى";
 $lang['L_MAX_UPLOAD_SIZE']="الحد الاقصى لحجم الملف";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="إذا كان ملف النسخ الاحتياطي هو اكبر من الحد المسموح به أعلاه ، يجب عليك ارساله عبر برامج  بروتوكول نقل الملفات اف تي بي إلى دليل \"work/backup\".
 بعد ذلك يمكنك تحديد ملف الاستعادة ومشاهدة بداية التقدم. ";

@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="Fai partire la conversione";
-$lang['L_CONVERT_TITLE']="Convertire il Dump nel formato MSD";
+$lang['L_CONVERT_TITLE']="Convertire il Dump nel formato MOD";
 $lang['L_CONVERT_WRONG_PARAMETERS']="Parametri errati!  Conversione non possibile.";
 $lang['L_FM_UPLOADFILEREQUEST']="Prego, selezionare un file.";
 $lang['L_FM_UPLOADNOTALLOWED1']="Questo tipo di file non è supportato.";
@@ -64,7 +64,7 @@ $lang['L_CONVERT_FILENAME']="Nome del file di destinazione (senza estensione)";
 $lang['L_CONVERTING']="Conversione";
 $lang['L_CONVERT_FILEREAD']="Leggi file '%s'";
 $lang['L_CONVERT_FINISHED']="Conversione eseguita, '%s' sono stati scritti con successo.";
-$lang['L_NO_MSD_BACKUPFILE']="Backup di altri programmi";
+$lang['L_NO_MOD_BACKUPFILE']="Backup di altri programmi";
 $lang['L_MAX_UPLOAD_SIZE']="Grandezza massima del file";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Se il tuo file di backup è piu grande del limite impostato, allora lo devi caricare tramite FTP nella cartella \"work/backup\". Dopo verrà visualizzato e potrà essere scelto per il ripristino.";
 $lang['L_ENCODING']="codifica";

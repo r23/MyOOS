@@ -43,15 +43,15 @@ while (false!==($filename=readdir($dh)))
 }
 $directory_warnings=DirectoryWarnings();
 
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $tpl->set_filenames(array(
 	'show' => 'tpl/home/home.tpl'));
 $tpl->assign_vars(array(
 	'THEME' => $config['theme'],
-	'MOD_VERSION' => MSD_VERSION,
-	'OS' => MSD_OS,
-	'OS_EXT' => MSD_OS_EXT,
-	'MYSQL_VERSION' => MSD_MYSQL_VERSION,
+	'MOD_VERSION' => MOD_VERSION,
+	'OS' => MOD_OS,
+	'OS_EXT' => MOD_OS_EXT,
+	'MYSQL_VERSION' => MOD_MYSQL_VERSION,
 	'PHP_VERSION' => PHP_VERSION,
 	'MEMORY' => byte_output($config['php_ram']*1024*1024),
 	'MAX_EXECUTION_TIME' => $config['max_execution_time'],

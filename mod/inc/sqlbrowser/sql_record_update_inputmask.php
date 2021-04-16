@@ -18,7 +18,7 @@
 
 
 // Edit record -> built Edit-Form
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $tpl->set_filenames(array(
 	'show' => './tpl/sqlbrowser/sql_record_update_inputmask.tpl'));
 
@@ -26,7 +26,7 @@ $target=($mode=="searchedit") ? '?mode=searchedit' : '?mode=update'; // jump bac
 $fields=getExtendedFieldInfo($db,$tablename);
 
 $sqledit="SELECT * FROM `$tablename` WHERE ".$recordkey;
-$res=MSD_query($sqledit);
+$res=mod_query($sqledit);
 $record=mysqli_fetch_array($res,MYSQLI_ASSOC); // get the record
 $num=sizeof($record); // get the nr of fields of the record
 

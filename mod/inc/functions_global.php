@@ -19,7 +19,7 @@
 
 $msd_path=realpath(dirname(__FILE__) . '/../') . '/';
 if (!defined('MOD_PATH')) define('MOD_PATH',$msd_path);
-if (file_exists(MSD_PATH.'inc/runtime.php')) include (MSD_PATH.'inc/runtime.php');
+if (file_exists(MOD_PATH.'inc/runtime.php')) include (MOD_PATH.'inc/runtime.php');
 else
 	die('Couldn\'t read runtime.php!');
 if (!defined('MOD_VERSION')) die('No direct access.');
@@ -129,7 +129,7 @@ function DBDetailInfo($index)
 	global $databases,$config;
 
 	$databases['Detailinfo']['tables']=$databases['Detailinfo']['records']=$databases['Detailinfo']['size']=0;
-	MSD_mysql_connect();
+	MOD_mysql_connect();
 	if (isset($databases['Name'][$index]))
 	{
 		mysqli_select_db($config['dbconnection'], $databases['Name'][$index]);
@@ -876,7 +876,7 @@ function PicCache($rpath='./')
 	return $t;
 }
 
-function MSDHeader($kind=0)
+function MODHeader($kind=0)
 {
 	global $config;
 	header('Pragma: no-cache');
@@ -900,7 +900,7 @@ function MSDHeader($kind=0)
 	return $r;
 }
 
-function MSDFooter($rfoot='', $enddiv=1)
+function MODFooter($rfoot='', $enddiv=1)
 {
 	$f='';
 	if ($enddiv==1) $f.='</div>';
@@ -1184,13 +1184,13 @@ function get_sql_encodings()
 {
 	global $config;
 	unset($config['mysql_possible_character_sets']);
-	if (!isset($config['dbconnection'])) MSD_mysql_connect();
+	if (!isset($config['dbconnection'])) MOD_mysql_connect();
 	$erg=false;
 	$config['mysql_standard_character_set']='';
 	$config['mysql_possible_character_sets']=array();
 
 	if (!defined('MOD_MYSQL_VERSION')) GetMySQLVersion();
-	$v=explode('.',MSD_MYSQL_VERSION);
+	$v=explode('.',MOD_MYSQL_VERSION);
 	$config['mysql_can_change_encoding']=false;
 	if (($v[0]<=4&&$v[1]<1)||$v[0]<=3)
 	{
@@ -1198,7 +1198,7 @@ function get_sql_encodings()
 		// MySQL < 4.1
 		$config['mysql_can_change_encoding']=false;
 		$sqlt='SHOW VARIABLES LIKE \'character_set%\'';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
+		$res=mod_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
 		if ($res)
 		{
 			while ($row=mysqli_fetch_row($res))
@@ -1222,7 +1222,7 @@ function get_sql_encodings()
 		// MySQL-Version >= 4.1
 		$config['mysql_can_change_encoding']=true;
 		$sqlt='SHOW CHARACTER SET';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
+		$res=mod_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
 
 		if ($res)
 		{
@@ -1234,7 +1234,7 @@ function get_sql_encodings()
 		}
 
 		$sqlt='SHOW VARIABLES LIKE \'character_set_connection\'';
-		$res=MSD_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
+		$res=mod_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
 
 		if ($res)
 		{

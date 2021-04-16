@@ -953,7 +953,7 @@ sub send_mail {
         From    => $cronmailfrom,
         To      => $cronmailto,
         Cc    => $cronmailto_cc,
-        Subject => "MSD (Perl) - Backup of DB ".$dbname,
+        Subject => "MOD (Perl) - Backup of DB ".$dbname,
         Type    => 'text/html; charset=iso-8859-1',
         Data    => "<body>\n".$Body."</body>\n"
     );
@@ -988,7 +988,7 @@ sub send_mail {
                 From    => $cronmailfrom,
                 To      => $cronmailto,
                 Cc    => $cronmailto_cc,
-                Subject => "MSD (Perl) - Backup of DB $dbname File ".$str[1]." of ".@mparray ,
+                Subject => "MOD (Perl) - Backup of DB $dbname File ".$str[1]." of ".@mparray ,
                 Type    => 'text/html; charset=iso-8859-1',
                 Data    => "<body>\n".$Body."</body>\n"
             );
@@ -1309,8 +1309,8 @@ sub ExecuteCommand
                 if($cad[$i] ne '')
                 {
                     $err='';
-                    # replace $$MSD$$ back to ';'
-                    $cad[$i] =~ s/\$\$MSD\$\$/\;/g;
+                    # replace $$MOD$$ back to ';'
+                    $cad[$i] =~ s/\$\$MOD\$\$/\;/g;
                     $sth = $dbh->prepare($cad[$i]);
                     $sth->execute or $err=$sth->errstr();
                     if ($err ne '') 
@@ -1408,13 +1408,13 @@ sub optimise_tables
     PrintOut("<span style=\"font-size:11px;\">$opttbl tables have been optimized</span><br>") if($opttbl>0) ;
 }
 
-# replace in querystring all ';' in VALUES with '$$MSD$$'
+# replace in querystring all ';' in VALUES with '$$MOD$$'
 sub replaceQueryStringSimple{
     my $string = shift(@_);
     
     if ($string =~ m#(.*)\'(.*)\;(.*)\'(.*)#){
         # if found search for more ';'
-        return replaceQueryStringSimple($1.'\''.$2.'$$MSD$$'.$3.'\''.$4);;
+        return replaceQueryStringSimple($1.'\''.$2.'$$MOD$$'.$3.'\''.$4);;
     }else{
         return $string;
     }

@@ -24,14 +24,14 @@ $lang_old=$config['language'];
 $config_refresh='';
 
 // define template
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $tpl->set_filenames(array(
 	'header' => 'tpl/menu/header.tpl',
 	'footer' => 'tpl/menu/footer.tpl',
 	'content' => 'tpl/menu/content.tpl'));
 
 $tpl->assign_vars(array(
-	'MOD_VERSION' => MSD_VERSION,
+	'MOD_VERSION' => MOD_VERSION,
 	'CONFIG_HOMEPAGE' => $config['homepage'],
 	'CONFIG_THEME' => $config['theme']));
 
@@ -63,7 +63,7 @@ if (isset($_POST['selected_config'])||isset($_GET['config']))
 	}
 }
 
-echo MSDHeader(1);
+echo MODHeader(1);
 echo headline('',0);
 
 if ($config_refresh>'')

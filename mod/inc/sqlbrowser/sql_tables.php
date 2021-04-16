@@ -145,7 +145,7 @@ if (isset($_GET['kill']))
 	else
 	{
 		$sql_alter="ALTER TABLE `".$databases['Name'][$dbid]."`.`".$_GET['tablename']."` DROP COLUMN `".$_GET['kill']."`";
-		$res = MSD_DoSQL($sql_alter);
+		$res = MOD_DoSQL($sql_alter);
 		if ($res)
 		{
 			echo '<div align="left" id="sqleditbox" style="font-size: 11px;width:90%;padding=6px;">';
@@ -180,8 +180,8 @@ if (isset($_POST['newtablesubmit']))
 	}
 	else
 	{
-		$sql_alter="CREATE TABLE `".$databases['Name'][$dbid]."`.`".$_POST['newtablename']."` (`id` int(11) unsigned not null AUTO_INCREMENT PRIMARY KEY ) ".((MSD_NEW_VERSION) ? "ENGINE" : "TYPE")."=MyISAM;";
-		$res = MSD_DoSQL($sql_alter);
+		$sql_alter="CREATE TABLE `".$databases['Name'][$dbid]."`.`".$_POST['newtablename']."` (`id` int(11) unsigned not null AUTO_INCREMENT PRIMARY KEY ) ".((MOD_NEW_VERSION) ? "ENGINE" : "TYPE")."=MyISAM;";
+		$res = MOD_DoSQL($sql_alter);
 		if ($res)
 		{
 			echo SQLOutput($out,$lang['L_TABLE'].' `'.$_POST['newtablename'].'` '.$lang['L_SQL_CREATED']);
@@ -192,7 +192,7 @@ if (isset($_POST['t_edit_submit']))
 {
 	$sql_alter="ALTER TABLE `".$databases['Name'][$dbid]."`.`".$_POST['table_edit_name']."` ";
 	if ($_POST['t_edit_name']=="") echo '<p class="error">'.$lang['L_SQL_TBLNAMEEMPTY'].'</p>';
-	elseif (MSD_NEW_VERSION&&$_POST['t_edit_collate']!=""&&substr($_POST['t_edit_collate'],0,strlen($_POST['t_edit_charset']))!=$_POST['t_edit_charset']) echo '<p class="error">'.$lang['L_SQL_COLLATENOTMATCH'].'</p>';
+	elseif (MOD_NEW_VERSION&&$_POST['t_edit_collate']!=""&&substr($_POST['t_edit_collate'],0,strlen($_POST['t_edit_charset']))!=$_POST['t_edit_charset']) echo '<p class="error">'.$lang['L_SQL_COLLATENOTMATCH'].'</p>';
 	else
 	{
 		if ($_POST['table_edit_name']!=$_POST['t_edit_name'])
@@ -202,13 +202,13 @@ if (isset($_POST['t_edit_submit']))
 		}
 		else
 			$table_edit_name=$_POST['table_edit_name'];
-		if ($_POST['t_edit_engine']!="") $sql_alter.=((MSD_NEW_VERSION) ? "ENGINE=" : "TYPE=").$_POST['t_edit_engine'].", ";
+		if ($_POST['t_edit_engine']!="") $sql_alter.=((MOD_NEW_VERSION) ? "ENGINE=" : "TYPE=").$_POST['t_edit_engine'].", ";
 		if ($_POST['t_edit_rowformat']!="") $sql_alter.="ROW_FORMAT=".$_POST['t_edit_rowformat'].", ";
-		if (MSD_NEW_VERSION&&$_POST['t_edit_charset']!="") $sql_alter.="DEFAULT CHARSET=".$_POST['t_edit_charset'].", ";
-		if (MSD_NEW_VERSION&&$_POST['t_edit_collate']!="") $sql_alter.="COLLATE ".$_POST['t_edit_collate'].", ";
+		if (MOD_NEW_VERSION&&$_POST['t_edit_charset']!="") $sql_alter.="DEFAULT CHARSET=".$_POST['t_edit_charset'].", ";
+		if (MOD_NEW_VERSION&&$_POST['t_edit_collate']!="") $sql_alter.="COLLATE ".$_POST['t_edit_collate'].", ";
 		$sql_alter.="COMMENT='".$_POST['t_edit_comment']."' ";
 
-		$res = MSD_DoSQL($sql_alter);
+		$res = MOD_DoSQL($sql_alter);
 		if ($res)
 		{
 			echo SQLOutput($out,$lang['L_TABLE'].' `'.$_POST['table_edit_name'].'` '.$lang['L_SQL_CHANGED']);
@@ -265,7 +265,7 @@ if (isset($_POST['newfield_posted']))
 		$sql_alter.=$_POST['f_null']." ";
 		$sql_alter.=($_POST['f_default']!="") ? "DEFAULT '".addslashes($_POST['f_default'])."' " : "";
 
-		if (MSD_NEW_VERSION&&$_POST['f_collate']!="") $sql_alter.="COLLATE ".$_POST['f_collate']." ";
+		if (MOD_NEW_VERSION&&$_POST['f_collate']!="") $sql_alter.="COLLATE ".$_POST['f_collate']." ";
 
 		if ($_POST['f_extra']=="AUTO_INCREMENT")
 		{
@@ -285,7 +285,7 @@ if (isset($_POST['newfield_posted']))
 			$add_sql=$sql_stamm.$add_sql;
 			$sql_alter="$sql_alter\n$add_sql;";
 		}
-		$res = MSD_DoSQL($sql_alter);
+		$res = MOD_DoSQL($sql_alter);
 		if ($res)
 		{
 			echo '<div align="left" id="sqleditbox" style="font-size: 11px;width:90%;padding=6px;">';
@@ -297,13 +297,13 @@ if (isset($_POST['newfield_posted']))
 }
 mysqli_select_db($config['dbconnection'], $databases['Name'][$dbid]);
 $sqlt="SHOW TABLE STATUS FROM `".$databases['Name'][$dbid]."` ;";
-$res=MSD_query($sqlt);
+$res=mod_query($sqlt);
 $anz_tabellen=mysqli_num_rows($res);
 $p="sql.php?db=".$databases['Name'][$dbid]."&amp;dbid=$dbid&amp;tablename=$table_edit_name&amp;context=2";
 
 echo '<form action="sql.php?db='.$databases['Name'][$dbid].'&amp;dbid='.$dbid.'&amp;tablename='.$table_edit_name.'&amp;context=2" method="post">';
 echo '<table class="bdr"><tr class="dbrow"><td>'.$lang['L_SQL_CREATETABLE'].': </td><td colspan="2"><input type="text" class="text" name="newtablename" size="30" maxlength="150"></td><td><input type="submit" name="newtablesubmit" value="'.$lang['L_SQL_CREATETABLE'].'" class="Formbutton"></td></tr>';
-echo '<tr class="dbrow1"><td>'.$lang['L_SQL_COPYTABLE'].': </td><td><input type="text" class="text" name="tablecopyname" size="20" maxlength="150"></td><td><select name="copyatt"><option value="0">'.$lang['L_SQL_STRUCTUREONLY'].'</option>'.((MSD_NEW_VERSION) ? '<option value="1">'.$lang['L_SQL_STRUCTUREDATA'].'</option>' : '').'</select></td><td><input type="submit" class="Formbutton" name="tablecopysubmit" value="'.$lang['L_SQL_COPYTABLE'].'" '.(($table_edit_name=="") ? "disabled=\"disabled\"" : "").'></td></tr>';
+echo '<tr class="dbrow1"><td>'.$lang['L_SQL_COPYTABLE'].': </td><td><input type="text" class="text" name="tablecopyname" size="20" maxlength="150"></td><td><select name="copyatt"><option value="0">'.$lang['L_SQL_STRUCTUREONLY'].'</option>'.((MOD_NEW_VERSION) ? '<option value="1">'.$lang['L_SQL_STRUCTUREDATA'].'</option>' : '').'</select></td><td><input type="submit" class="Formbutton" name="tablecopysubmit" value="'.$lang['L_SQL_COPYTABLE'].'" '.(($table_edit_name=="") ? "disabled=\"disabled\"" : "").'></td></tr>';
 
 if ($anz_tabellen==0)
 {
@@ -326,11 +326,11 @@ echo '</table></form><p>&nbsp;</p>';
 if ($table_edit_name!="")
 {
 	$sqlf="SHOW FULL FIELDS FROM `".$databases['Name'][$dbid]."`.`$table_edit_name` ;";
-	$res=MSD_query($sqlf);
+	$res=mod_query($sqlf);
 	$anz_fields=mysqli_num_rows($res);
 	$fields_infos=getFieldinfos($databases['Name'][$dbid],$table_edit_name);
 
-	if (MSD_NEW_VERSION) $t_engine=(isset($fields_infos['_tableinfo_']['ENGINE'])) ? $fields_infos['_tableinfo_']['ENGINE'] : "MyISAM";
+	if (MOD_NEW_VERSION) $t_engine=(isset($fields_infos['_tableinfo_']['ENGINE'])) ? $fields_infos['_tableinfo_']['ENGINE'] : "MyISAM";
 	else
 		$t_engine=(isset($fields_infos['_tableinfo_']['TYPE'])) ? $fields_infos['_tableinfo_']['TYPE'] : "MyISAM";
 
@@ -459,7 +459,7 @@ if ($table_edit_name!="")
 		if (in_array($fields_infos[$i]['name'],$fields_infos['_key_'])) echo $icon['index'];
 		echo '</td><td>'.$fields_infos[$i]['attributes'].'</td>';
 		echo '<td>'.$fields_infos[$i]['default'].'</td>'.$td.$fields_infos[$i]['extra'].'</td>';
-		echo '<td>'.((MSD_NEW_VERSION) ? $fields_infos[$i]['collate'] : "&nbsp;").'</td>';
+		echo '<td>'.((MOD_NEW_VERSION) ? $fields_infos[$i]['collate'] : "&nbsp;").'</td>';
         echo '<td>'.((isset($fields_infos[$i]['comment'])) ? $fields_infos[$i]['comment'] : "&nbsp;").'</td>';
         echo "</tr>";
 	}
@@ -472,13 +472,13 @@ if ($table_edit_name!="")
 	       <th>'.$lang['L_NAME'].'</th>
 	       <th>'.$lang['L_SQL_COLUMNS'].'</th>
 	       <th>'.$lang['L_INFO_SIZE'].'</th>
-	       '.((MSD_NEW_VERSION) ? '<th>'.$lang['L_TABLE_TYPE'].'</th>' : '').'
+	       '.((MOD_NEW_VERSION) ? '<th>'.$lang['L_TABLE_TYPE'].'</th>' : '').'
 	       <th>'.$lang['L_SQL_ALLOWDUPS'].'</th>
 	       <th>'.$lang['L_SQL_CARDINALITY'].'</th>
 	       <th>'.$lang['L_COMMENT'].'</th>
 	   </tr>';
 	$sqlk="SHOW KEYS FROM `".$databases['Name'][$dbid]."`.`$table_edit_name`;";
-	$res=MSD_query($sqlk);
+	$res=mod_query($sqlk);
 	$num=mysqli_num_rows($res);
 	if ($num==0)
 	{
@@ -515,7 +515,7 @@ if ($table_edit_name!="")
             echo '<td class="right">';
             if (isset($row['Sub_part']) && $row['Sub_part']>0) echo $row['Sub_part'];
             echo '</td>';
-			if (MSD_NEW_VERSION) echo '<td>'.$row['Index_type'].'</td>';
+			if (MOD_NEW_VERSION) echo '<td>'.$row['Index_type'].'</td>';
 			echo '<td align="center">'.(($row['Non_unique']==1) ? $lang['L_YES'] : $lang['L_NO']).'</td>';
 			echo '<td>'.(($row['Cardinality']>=0) ? $row['Cardinality'] : $lang['L_NO']).'</td>';
             echo '<td>'.$row['Comment'].'</td>';
@@ -551,7 +551,7 @@ if ($table_edit_name!="")
 		echo '<table class="bdr">';
 		//body
 		$sqlFelder="DESCRIBE `".$databases['Name'][$dbid]."`.`".$_GET['tablename']."`;";
-		$res=MSD_query($sqlFelder);
+		$res=mod_query($sqlFelder);
 		$num=mysqli_num_rows($res);
 		if ($num==0)
 		{

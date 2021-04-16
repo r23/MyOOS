@@ -3,7 +3,7 @@ if (!defined('MOD_VERSION')) die('No direct access.');
 //alle Tabellen der aktuellen Datenbank ermitteln und Zugriffs-Array aufbauen
 $sql='SHOW TABLES FROM `'.$db.'`';
 $tables= array ();
-$link=MSD_mysql_connect();
+$link=MOD_mysql_connect();
 $res=mysqli_query($link, $sql);
 if (!$res===false)
 {
@@ -41,7 +41,7 @@ if (isset($_GET['mode'])&&$_GET['mode']=="kill"&&$rk>'')
 	//echo "<br> RK ist: ".$rk."<br><br>";
 	$sqlk="DELETE FROM `$tablename` WHERE ".$rk." LIMIT 1";
 	//echo $sqlk;
-	$res=MSD_query($sqlk);
+	$res=mod_query($sqlk);
 	//	echo "<br>".$res;
 	$aus.='<p class="success">'.$lang['L_SQL_RECORDDELETED'].'</p>';
 }
@@ -51,7 +51,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 	global $tables,$config,$lang;
 
 	$ret=false;
-	$link=MSD_mysql_connect();
+	$link=MOD_mysql_connect();
 	if (sizeof($tables)>0)
 	{
 		$suchbegriffe=trim(str_replace('*','',$suchbegriffe));
@@ -289,7 +289,7 @@ if ($anzahl_tabellen>0)
 	}
 }
 
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $tpl->set_filenames(array(
 
 	'show' => './tpl/sqlbrowser/mysql_search.tpl'));

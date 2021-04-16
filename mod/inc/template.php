@@ -47,9 +47,9 @@ define('TPL_DEBUG',0); // used if evaluationg of template fails
  *
  */
 
-class MSDTemplate
+class MODTemplate
 {
-	var $classname="MSDTemplate";
+	var $classname="MODTemplate";
 
 	// variable that holds all the data we'll be substituting into
 	// the compiled templates.

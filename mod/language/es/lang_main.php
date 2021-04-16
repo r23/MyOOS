@@ -71,7 +71,7 @@ Cree este directorio manualmente utilizando un programa de FTP.";
 $lang['L_TABLE_TYPE']="Tipo";
 $lang['L_CHECK']="comprobar";
 $lang['L_OS']="Operating system";
-$lang['L_MSD_VERSION']="MyOOS [Dumper]-Versión";
+$lang['L_MOD_VERSION']="MyOOS [Dumper]-Versión";
 $lang['L_MYSQL_VERSION']="MySQL-Versión";
 $lang['L_PHP_VERSION']="PHP-Versión";
 $lang['L_MAX_EXECUTION_TIME']="El máximo de ejecución";

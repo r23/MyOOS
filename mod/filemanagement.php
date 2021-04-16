@@ -71,7 +71,7 @@ if ($action=='dl')
 	exit();
 }
 
-echo MSDHeader();
+echo MODHeader();
 
 $toolboxstring='';
 $fpath=$config['paths']['backup'];
@@ -565,5 +565,5 @@ switch ($action)
 		}
 
 }
-echo MSDFooter();
+echo MODFooter();
 

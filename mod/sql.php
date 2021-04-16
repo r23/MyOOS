@@ -51,7 +51,7 @@ $context = (!isset($_POST['context'])) ? $context : $_POST['context'];
 
 if (!$download)
 {
-	echo MSDHeader();
+	echo MODHeader();
 	ReadSQL();
 	echo '<script language = "JavaScript" type = "text/javascript">
 		var auswahl  =  "document.getElementsByName(\"f_export_tables[]\")[0]";
@@ -142,7 +142,7 @@ if ($sql_to_display_data == 1)
 }
 
 if (isset($_POST['tableselect']) && $_POST['tableselect'] != '1') $tablename = $_POST['tableselect'];
-MSD_mysql_connect();
+MOD_mysql_connect();
 mysqli_select_db($config['dbconnection'], $db);
 
 ///*** EDIT / UPDATES / INSERTS ***///
@@ -168,7 +168,7 @@ if (isset($_POST['update'])||isset($_GET['update']))
 			$sqlu .= '`'.$f[$i].'` = \''.db_escape(convert_to_latin1($_POST[$index])).'\', ';
 	}
 	$sqlu = substr($sqlu,0,strlen($sqlu)-2).' WHERE '.$recordkey;
-	$res = MSD_query($sqlu);
+	$res = mod_query($sqlu);
 	$msg = '<p class = "success">'.$lang['L_SQL_RECORDUPDATED'].'</p>';
 	if (isset($mode) && $mode == 'searchedit') $search = 1;
 	$sql_to_display_data = 1;
@@ -191,7 +191,7 @@ if (isset($_POST['insert']))
 			$sqlu .= '`'.$f[$i].'` = \''.db_escape(convert_to_latin1($_POST[$index])).'\', ';
 	}
 	$sqlu = substr($sqlu,0,strlen($sqlu)-2);
-	$res = MSD_query($sqlu);
+	$res = mod_query($sqlu);
 	$msg = '<p class = "success">'.$lang['L_SQL_RECORDINSERTED'].'</p>';
 	$sql_to_display_data = 1;
 }
@@ -228,7 +228,7 @@ if ($search == 0 && !$download)
 			if ($showtables == 0)
 			{
 				$sqlk = "DELETE FROM `$tablename` WHERE ".$rk." LIMIT 1";
-				$res = MSD_query($sqlk);
+				$res = mod_query($sqlk);
 				//echo "<br>".$sqlk;
 				$aus .= '<p class = "success">'.$lang['L_SQL_RECORDDELETED'].'</p>';
 			}
@@ -236,7 +236,7 @@ if ($search == 0 && !$download)
 			{
 				$sqlk = "DROP TABLE `$rk`";
 				if ($mode == 'kill_view') $sqlk = 'DROP VIEW `'.$rk.'`';
-				$res = MSD_query($sqlk);
+				$res = mod_query($sqlk);
 				$aus .= '<p class = "success">'.sprintf($lang['L_SQL_RECORDDELETED'],$rk).'</p>';
 			}
 		}
@@ -246,7 +246,7 @@ if ($search == 0 && !$download)
 			if ($showtables != 0)
 			{
 				$sqlk = "TRUNCATE `$rk`";
-				$res = MSD_query($sqlk);
+				$res = mod_query($sqlk);
 				$aus .= '<p class = "success">'.sprintf($lang['L_SQL_TABLEEMPTIED'],$rk).'</p>';
 			}
 		}
@@ -255,9 +255,9 @@ if ($search == 0 && !$download)
 			if ($showtables != 0)
 			{
 				$sqlk = "TRUNCATE `$rk`;";
-				$res = MSD_query($sqlk);
+				$res = mod_query($sqlk);
 				$sqlk = "ALTER TABLE `$rk` AUTO_INCREMENT = 1;";
-				$res = MSD_query($sqlk);
+				$res = mod_query($sqlk);
 				$aus .= '<p class = "success">'.sprintf($lang['L_SQL_TABLEEMPTIEDKEYS'],$rk).'</p>';
 			}
 		}
@@ -298,7 +298,7 @@ function BrowseInput(el)
 <?php
 
 	echo '<br><br><br>';
-	echo MSDFooter();
+	echo MODFooter();
 }
 
 function FormHiddenParams()

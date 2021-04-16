@@ -24,7 +24,7 @@
 
 <h6>{L_VERSIONSINFORMATIONEN}</h6>
 <img src="css/{THEME}/pics/loveyourdata.gif" align="right" alt="love your data" title="love your data">
-{L_MSD_VERSION}: <strong>{MSD_VERSION}</strong><br>
+{L_MOD_VERSION}: <strong>{MOD_VERSION}</strong><br>
 {L_OS}: <strong>{OS}</strong> ({OS_EXT})<br>
 {L_MYSQL_VERSION}: <strong>{MYSQL_VERSION}</strong><br>
 {L_PHP_VERSION}: <strong>{PHP_VERSION}</strong>&nbsp;&nbsp;{L_MEMORY}: <strong>{MEMORY}</strong>&nbsp;&nbsp;
@@ -47,8 +47,8 @@
 
 <br clear="all">
 
-<h6>{L_MSD_INFO}</h6>
-{L_INFO_LOCATION} "<b>{SERVER_NAME}</b>" ({MSD_PATH})<br>
+<h6>{L_MOD_INFO}</h6>
+{L_INFO_LOCATION} "<b>{SERVER_NAME}</b>" ({MOD_PATH})<br>
 {L_INFO_ACTDB}: <strong>{DB}</strong><br>
 {L_BACKUPFILESANZAHL} <strong>{NR_OF_BACKUP_FILES}</strong>
 {L_BACKUPS} (<strong>{SIZE_BACKUPS}</strong>)<br>

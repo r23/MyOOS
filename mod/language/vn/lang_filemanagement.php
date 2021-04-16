@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="Bắt đầu Chuyển đổi";
-$lang['L_CONVERT_TITLE']="Chuyển đổi Dump thành dạng MSD";
+$lang['L_CONVERT_TITLE']="Chuyển đổi Dump thành dạng MOD";
 $lang['L_CONVERT_WRONG_PARAMETERS']="Sai tham số!  Chương trình chuyển đổi không hoạt động.";
 $lang['L_FM_UPLOADFILEREQUEST']="chọn 1 file.";
 $lang['L_FM_UPLOADNOTALLOWED1']="Kiểu file này không được hỗ trợ.";
@@ -64,7 +64,7 @@ $lang['L_CONVERT_FILENAME']="Tên file xuất ra (bỏ qua phần mở rộng)";
 $lang['L_CONVERTING']="Đang chuyển đổi";
 $lang['L_CONVERT_FILEREAD']="Đọc file '%s'";
 $lang['L_CONVERT_FINISHED']="Kết thúc chuyển đổi, '%s' vừa tạo thành công.";
-$lang['L_NO_MSD_BACKUPFILE']="Sao lưu script khác";
+$lang['L_NO_MOD_BACKUPFILE']="Sao lưu script khác";
 $lang['L_MAX_UPLOAD_SIZE']="Dung lượng tối đa cho file";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Nếu file sao lưu của các bạn lớn hơn giới hạn được quy định ở trên, bạn phải nạp dữ liệu nó qua FTP vào trong thư mục \"work/backup\".
 Sau đó bạn có thể chọn nó để bắt đầu phục hồi. ";

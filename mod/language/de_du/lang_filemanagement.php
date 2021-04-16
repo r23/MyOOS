@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="Konvertierung starten";
-$lang['L_CONVERT_TITLE']="Konvertiere Dump ins MSD-Format";
+$lang['L_CONVERT_TITLE']="Konvertiere Dump ins MOD-Format";
 $lang['L_CONVERT_WRONG_PARAMETERS']="Falsche Parameter! Konvertierung ist nicht möglich.";
 $lang['L_FM_UPLOADFILEREQUEST']="Gib bitte eine Datei an.";
 $lang['L_FM_UPLOADNOTALLOWED1']="Dieser Dateityp ist nicht erlaubt.";
@@ -64,7 +64,7 @@ $lang['L_CONVERT_FILENAME']="Name der Zieldatei (ohne Endung)";
 $lang['L_CONVERTING']="Konvertierung";
 $lang['L_CONVERT_FILEREAD']="Datei '%s' wird eingelesen";
 $lang['L_CONVERT_FINISHED']="Konvertierung abgeschlossen, '%s' wurde erzeugt.";
-$lang['L_NO_MSD_BACKUPFILE']="Dateien anderer Programme";
+$lang['L_NO_MOD_BACKUPFILE']="Dateien anderer Programme";
 $lang['L_MAX_UPLOAD_SIZE']="Maximale Dateigröße";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Wenn Deine Backup-Datei größer als das angegebene Limit ist, dann musst Du diese per FTP in den \"work/backup\"-Ordner hochladen.
 Danach wird diese Datei hier in der Verwaltung angezeigt und lässt sich für eine Wiederherstellung auswählen.";

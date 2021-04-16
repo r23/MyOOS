@@ -17,12 +17,12 @@
    ---------------------------------------------------------------------- */
 
 // insert a new record
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $tpl->set_filenames(array(
 	'show' => './tpl/sqlbrowser/sql_record_insert_inputmask.tpl'));
 
 $sqledit="SHOW FIELDS FROM `$tablename`";
-$res=MSD_query($sqledit);
+$res=mod_query($sqledit);
 if ($res)
 {
 	$num=mysqli_num_rows($res);

@@ -156,7 +156,7 @@ if ($ftptested > -1)
 	WriteParams();
 }
 
-echo MSDHeader();
+echo MODHeader();
 
 if (isset($_POST['load']))
 {
@@ -351,7 +351,7 @@ if (isset($_POST['save']))
 		$config['dbpass']=$_POST['dbpass'];
 		$config['dbport']=$_POST['dbport'];
 		$config['dbsocket']=$_POST['dbsocket'];
-		if (MSD_mysql_connect())
+		if (MOD_mysql_connect())
 		{
 			// neue Verbindungsdaten wurden akzeptiert -> manuelle DB-Liste von anderem User löschen
 			SetDefault();
@@ -385,7 +385,7 @@ if (isset($_POST['save']))
 		if ($found) $add_db_message=sprintf($lang['L_DB_IN_LIST'],$to_add);
 		else
 		{
-			if (MSD_mysql_connect())
+			if (MOD_mysql_connect())
 			{
 				$res=@mysqli_select_db($config['dbconnection'], $to_add);
 				if (!$res === false)
@@ -1050,6 +1050,6 @@ echo '<script language="JavaScript" type="text/javascript">show_pardivs("' . $se
 // werden konnte --> User mit der Nase drauf stossen und Verbindungsdaten einblenden
 if (( $showVP ) || ( !isset($databases['Name']) ) || ( isset($databases['name']) && count($databases['Name'] == 0) ) || ( isset($add_db_message) )) echo 'SwitchVP();';
 echo '</script>';
-echo MSDFooter();
+echo MODFooter();
 $_SESSION['config']=$config;
 

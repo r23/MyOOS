@@ -18,7 +18,7 @@
 
 if (!defined('MOD_VERSION')) die('No direct access.');
 //Start SQL-Box
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $tpl->set_filenames(array(
 	'show' => $config['paths']['root'].'./tpl/sqlbrowser/sqlbox.tpl'));
 

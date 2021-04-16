@@ -19,9 +19,9 @@
 define('OOS_VALID_MOD', true);
 
 include ( './inc/header.php' );
-include ( MSD_PATH . 'language/' . $config['language'] . '/lang.php' );
-include ( MSD_PATH . 'language/' . $config['language'] . '/lang_help.php' );
-echo MSDHeader(0);
+include ( MOD_PATH . 'language/' . $config['language'] . '/lang.php' );
+include ( MOD_PATH . 'language/' . $config['language'] . '/lang_help.php' );
+echo MODHeader(0);
 echo headline($lang['L_CREDITS']);
-readfile ( MSD_PATH . 'language/' . $config['language'] . '/help.html' );
-echo MSDFooter();
+readfile ( MOD_PATH . 'language/' . $config['language'] . '/help.html' );
+echo MODFooter();

@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="Start Conversion";
-$lang['L_CONVERT_TITLE']="Convert Dump to MSD Format";
+$lang['L_CONVERT_TITLE']="Convert Dump to MOD Format";
 $lang['L_CONVERT_WRONG_PARAMETERS']="Wrong parameters!  Conversion is not possible.";
 $lang['L_FM_UPLOADFILEREQUEST']="please choose a file.";
 $lang['L_FM_UPLOADNOTALLOWED1']="This file type is not supported.";
@@ -64,7 +64,7 @@ $lang['L_CONVERT_FILENAME']="Name of destination file (without extension)";
 $lang['L_CONVERTING']="Converting";
 $lang['L_CONVERT_FILEREAD']="Read file '%s'";
 $lang['L_CONVERT_FINISHED']="Conversion finished, '%s' was written successfully.";
-$lang['L_NO_MSD_BACKUPFILE']="Backups of other scripts";
+$lang['L_NO_MOD_BACKUPFILE']="Backups of other scripts";
 $lang['L_MAX_UPLOAD_SIZE']="Maximum filesize";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="If your Dumpfile is bigger than the above mentioned limit, you must upload it via FTP into the directory \"work/backup\".
 After that you can choose it to begin a restore progress. ";

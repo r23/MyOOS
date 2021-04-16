@@ -18,7 +18,7 @@
 
 if (!defined('MOD_VERSION')) die('No direct access.');
 include ('./language/'.$config['language'].'/lang_sql.php');
-echo MSDHeader();
+echo MODHeader();
 echo headline($lang['L_HTACC_EDIT']);
 
 $htaccessdontexist=0;
@@ -39,7 +39,7 @@ $hta_complete=$hta_dir.$hta_file;
 if ((isset($_GET['create'])&&$_GET['create']==1)||(isset($_POST['create'])&&$_POST['create']==1))
 {
 	$fp=fopen($hta_complete,'w');
-	fwrite($fp,"# created by MySQLDumper ".MSD_VERSION."\n");
+	fwrite($fp,"# created by MySQLDumper ".MOD_VERSION."\n");
 	fclose($fp);
 }
 

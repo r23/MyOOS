@@ -102,7 +102,7 @@ if ($sql_to_display_data == 0)
 {
 	//mehrere SQL-Statements
 	$numrowsabs=$numrows=0;
-	MSD_DoSQL($sql['sql_statement']);
+	MOD_DoSQL($sql['sql_statement']);
 	echo SQLOutput($out);
 	$skip_mysql_execution=true;
 }
@@ -122,7 +122,7 @@ else
 		else
 		{
 			$sql_temp="SELECT count(*) as anzahl FROM (".$sql_temp.") as query;";
-			$res=@MSD_query($sql_temp,false);		
+			$res=@mod_query($sql_temp,false);		
 			if ($res)
 			{
 				if ($row=mysqli_fetch_object($res))
@@ -142,7 +142,7 @@ else
 $sqltmp=$sql['sql_statement'] . $sql['order_statement'] . ( strpos(strtolower($sql['sql_statement'] . $sql['order_statement']),' limit ') ? '' : $limit );
 
 
-if (!$skip_mysql_execution) $res=MSD_query($sqltmp);
+if (!$skip_mysql_execution) $res=mod_query($sqltmp);
 $numrows=@mysqli_num_rows($res);
 
 
@@ -269,7 +269,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 				$tabellenname = $data[0]['Name'];
 				$numrows12 = 0;
 				$select12 = "select * from $tabellenname";
-				$res12 = MSD_query($select12, false);
+				$res12 = mod_query($select12, false);
 				if (!empty($res12)) {			
 					$numrows12 = mysqli_num_rows($res12);
 				}		

@@ -67,13 +67,13 @@ for ($i=0; $i<count($databases['Name']); $i++)
 }
 
 //list databases
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $tpl->set_filenames(array(
 	'show' => './tpl/home/databases_list_dbs.tpl'));
 $tpl->assign_vars(array(
 	'ICONPATH' => $config['files']['iconpath']));
 
-if (!isset($config['dbconnection'])) MSD_mysql_connect();
+if (!isset($config['dbconnection'])) MOD_mysql_connect();
 for ($i=0; $i<count($databases['Name']); $i++)
 {
 	$rowclass=($i%2) ? 'dbrow' : 'dbrow1';
@@ -112,7 +112,7 @@ if (isset($_GET['dbid']))
     $disabled_keys_found = false;
 
     // Output list of tables of the selected database
-	$tpl=new MSDTemplate();
+	$tpl=new MODTemplate();
 	$tpl->set_filenames(array(
 		'show' => 'tpl/home/databases_list_tables.tpl'));
 	$dbid=$_GET['dbid'];

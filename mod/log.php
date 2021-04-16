@@ -20,7 +20,7 @@ define('OOS_VALID_MOD', true);
 
 include ( './inc/header.php' );
 include_once ( './language/' . $config['language'] . '/lang_log.php' );
-echo MSDHeader();
+echo MODHeader();
 
 if (isset($_POST['r'])) $r=$_POST['r'];
 else $r=( isset($_GET['r']) ) ? $_GET['r'] : 0;
@@ -163,5 +163,5 @@ if ($out != "")
 }
 
 echo '</form>';
-echo MSDFooter();
+echo MODFooter();
 

@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="Iniciar conversión";
-$lang['L_CONVERT_TITLE']="Convertir copia de seguridad al formato MSD";
+$lang['L_CONVERT_TITLE']="Convertir copia de seguridad al formato MOD";
 $lang['L_CONVERT_WRONG_PARAMETERS']="¡Parámetros incorrectos!  La conversión no es posible.";
 $lang['L_FM_UPLOADFILEREQUEST']="Por favor, elija un archivo.";
 $lang['L_FM_UPLOADNOTALLOWED1']="Esta clase de archivo no está permitida.";
@@ -64,7 +64,7 @@ $lang['L_CONVERT_FILENAME']="Nombre del archivo de destino (sin extensión)";
 $lang['L_CONVERTING']="La conversión";
 $lang['L_CONVERT_FILEREAD']="Leyendo el archivo '%s'";
 $lang['L_CONVERT_FINISHED']="Conversión finalizada: '%s' se ha guardado correctamente.";
-$lang['L_NO_MSD_BACKUPFILE']="Copias de seguridad de otros programas";
+$lang['L_NO_MOD_BACKUPFILE']="Copias de seguridad de otros programas";
 $lang['L_MAX_UPLOAD_SIZE']="Tamaño máximo del fichero";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Si el archivo de copia de seguridad es mayor que el límite fijado, entonces debe cargarlo a través de FTP en la carpeta \"work/backup\".
 Después ese archivo se mostrará aquí, y podrá ser elegido para restaurar.";

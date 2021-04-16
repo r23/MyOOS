@@ -116,6 +116,6 @@ echo '<div id="hormenu"><ul>
 			<li><a href="main.php?action=sys&amp;dosys=5">Reset Master-Log</a></li>
 			</ul></div>';
 echo '<div align="center" class="MySQLbox">';
-echo '&gt; MySQL Dumper v'.MSD_VERSION.' - Output Console<br><br>';
+echo '&gt; MySQL Dumper v'.MOD_VERSION.' - Output Console<br><br>';
 echo ($msg!="") ? $msg : '> waiting for operation ...<br>';
 echo '</div>';

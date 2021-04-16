@@ -263,7 +263,7 @@ $mysql_SQLhasRecords = array (
 						'DESC'
 );
 
-function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table='')
+function MOD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table='')
 {
     global $config,$databases;
         
@@ -301,7 +301,7 @@ function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table=
 function GetMySQLVersion()
 {
 
-	$res=MSD_query("select version()");
+	$res=mod_query("select version()");
 	$row=mysqli_fetch_array($res);
 	$version=$row[0];
 	if (!defined('MOD_MYSQL_VERSION')) define('MOD_MYSQL_VERSION',$version);
@@ -314,10 +314,10 @@ function GetMySQLVersion()
 	return $version;
 }
 
-function MSD_query($query, $error_output=true)
+function mod_query($query, $error_output=true)
 {
 	global $config;
-	if (!isset($config['dbconnection'])) MSD_mysql_connect();
+	if (!isset($config['dbconnection'])) MOD_mysql_connect();
 //	echo "<br>Query: ".htmlspecialchars($query);
 	$res=mysqli_query($config['dbconnection'],$query);
 	if (false === $res && $error_output) SQLError($query,mysqli_error($config['dbconnection']));
@@ -388,7 +388,7 @@ function Highlight_SQL($sql)
 function Fieldlist($db, $tbl)
 {
 	$fl='';
-	$res=MSD_query("SHOW FIELDS FROM `$db`.`$tbl`;");
+	$res=mod_query("SHOW FIELDS FROM `$db`.`$tbl`;");
 	if ($res)
 	{
 		$fl='(';

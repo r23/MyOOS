@@ -223,7 +223,7 @@ else
 
 	//Tabellenliste
 	$sqlt="SHOW TABLE STATUS FROM `$db`";
-	$res=MSD_query($sqlt);
+	$res=mod_query($sqlt);
 	if ($res)
 	{
 		$sql['export']['tablecount']=mysqli_num_rows($res);

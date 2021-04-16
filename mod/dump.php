@@ -52,7 +52,7 @@ include ('./inc/mysql.php');
 include ('./language/'.$config['language'].'/lang.php');
 include ('./language/'.$config['language'].'/lang_dump.php');
 
-$pageheader=MSDHeader();
+$pageheader=MODHeader();
 $DumpFertig=0;
 $relativ_path='./';
 $flipped=array_flip($databases['Name']);
@@ -129,7 +129,7 @@ $dump['startzeit']=time();
 $xtime=(isset($_POST['xtime'])) ? $_POST['xtime']:time();
 $dump['countdata']=(!empty($_POST['countdata'])) ? $_POST['countdata']:0;
 $dump['aufruf']=(!empty($_POST['aufruf'])) ? $_POST['aufruf']:0;
-MSD_mysql_connect($dump['dump_encoding']);
+MOD_mysql_connect($dump['dump_encoding']);
 if ($dump['table_offset']==-1) ExecuteCommand('b');
 
 // only read tableinfos the first time and save it to session to speed up backing up process
@@ -466,7 +466,7 @@ else
 {
 	$dump=array();
 	$_SESSION['dump']=$dump;
-	$pagefooter=MSDFooter('',1);
+	$pagefooter=MODFooter('',1);
 	$selbstaufruf='';
 }
 $complete_page=$pageheader.implode("\n",$aus)."\n".$selbstaufruf."\n".$pagefooter;

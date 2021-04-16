@@ -19,11 +19,11 @@
 		<th>{L_LAST_UPDATE}</th>
 		<th>{L_TABLE_TYPE}</th>
 	</tr>
-	<!-- BEGIN NO_MSD_BACKUP -->
+	<!-- BEGIN NO_MOD_BACKUP -->
 	<tr>
-		<td colspan="7">{L_NO_MSD_BACKUP}</td>
+		<td colspan="7">{L_NO_MOD_BACKUP}</td>
 	</tr>
-	<!-- END NO_MSD_BACKUP -->
+	<!-- END NO_MOD_BACKUP -->
 	
 	<!-- BEGIN ROW -->
 	<tr class="{ROW.CLASS}">

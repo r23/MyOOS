@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="Konvertierig starte";
-$lang['L_CONVERT_TITLE']="Konvertiere Dump is MSD-Format";
+$lang['L_CONVERT_TITLE']="Konvertiere Dump is MOD-Format";
 $lang['L_CONVERT_WRONG_PARAMETERS']="Falschi Parameter! Konvertierig isch nöd mögli.";
 $lang['L_FM_UPLOADFILEREQUEST']="Gänd Si bitte e Datei a.";
 $lang['L_FM_UPLOADNOTALLOWED1']="Dä Dateityp isch nöd erlaubt.";
@@ -64,7 +64,7 @@ $lang['L_CONVERT_FILENAME']="Name vo de Zieldatei (ohni Endig)";
 $lang['L_CONVERTING']="Konvertierig";
 $lang['L_CONVERT_FILEREAD']="Datei '%s' wird eingläse";
 $lang['L_CONVERT_FINISHED']="Konvertierig abgschlosse, '%s' isch erzügt worde.";
-$lang['L_NO_MSD_BACKUPFILE']="Dateie vo andere Programm";
+$lang['L_NO_MOD_BACKUPFILE']="Dateie vo andere Programm";
 $lang['L_MAX_UPLOAD_SIZE']="Maximali Dateigrössi";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Wänn Ihri Backup-Datei grösser als das agebne Limit isch, müend Si diä per FTP in \"work/backup\"-Ordner ufelade. Dänn wird diä Datei, do i de Verwaltig aazeigt und laht sich dänn für en Reschtaurierig uswähle.";
 $lang['L_ENCODING']="Kodierig";

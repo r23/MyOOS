@@ -25,9 +25,9 @@ $tblr=( $tblfrage_refer == 'dump' ) ? 'Backup' : 'Restore';
 $filename=( isset($_GET['filename']) ) ? $_GET['filename'] : '';
 if (isset($_POST['file'][0])) $filename=$_POST['file'][0];
 
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $sel_dump_encoding=isset($_POST['sel_dump_encoding']) ? $_POST['sel_dump_encoding'] : '';
-$tpl=new MSDtemplate();
+$tpl=new MODtemplate();
 
 //Informationen zusammenstellen
 if ($tblr == 'Backup')
@@ -37,7 +37,7 @@ if ($tblr == 'Backup')
 	));
 	$button_name='dump_tbl';
 	//Info aus der Datenbank lesen
-	MSD_mysql_connect();
+	MOD_mysql_connect();
 	$res=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `' . $databases['db_actual'] . '`');
 	$numrows=mysqli_num_rows($res);
 	$tbl_zeile='';
@@ -111,7 +111,7 @@ else
 	if ($anzahl_eintraege == -1)
 	{
 		// not a backup of MySQLDumper
-		$tpl->assign_block_vars('NO_MSD_BACKUP',array());
+		$tpl->assign_block_vars('NO_MOD_BACKUP',array());
 	}
 	else
 	{
@@ -180,7 +180,7 @@ $tpl->assign_vars(array(
 						'L_SELECT_ALL' => $lang['L_SELECTALL'],
 						'L_DESELECT_ALL' => $lang['L_DESELECTALL'],
 						'L_RESTORE' => $lang['L_RESTORE'],
-						'L_NO_MSD_BACKUP' => $lang['L_NOT_SUPPORTED'],
+						'L_NO_MOD_BACKUP' => $lang['L_NOT_SUPPORTED'],
 						'L_CONFIRM_RESTORE' => $confirm_restore
 ));
 

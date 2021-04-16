@@ -39,19 +39,19 @@ if ($action=='edithtaccess') include ('./inc/home/protection_edit.php');
 if ($action=='deletehtaccess') include ('./inc/home/protection_delete.php');
 
 // Output headnavi
-$tpl=new MSDTemplate();
+$tpl=new MODTemplate();
 $tpl->set_filenames(array(
 	'show' => 'tpl/home/headnavi.tpl'));
 $tpl->assign_vars(array(
-	'HEADER' => MSDHeader(),
+	'HEADER' => MODHeader(),
 	'HEADLINE' => headline($lang['L_HOME'])));
 $tpl->pparse('show');
 
-MSD_mysql_connect();
+MOD_mysql_connect();
 if ($action=='status') include ('./inc/home/home.php');
 elseif ($action=='db') include ('./inc/home/databases.php');
 elseif ($action=='sys') include ('./inc/home/system.php');
 elseif ($action=='vars') include ('./inc/home/mysql_variables.php');
 
-echo MSDFooter();
+echo MODFooter();
 

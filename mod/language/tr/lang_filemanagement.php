@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="Çeviriyi başlat";
-$lang['L_CONVERT_TITLE']="MSD-Formatına çevir";
+$lang['L_CONVERT_TITLE']="MOD-Formatına çevir";
 $lang['L_CONVERT_WRONG_PARAMETERS']="Yanlış Parametre! Çeviri mümkün değil.";
 $lang['L_FM_UPLOADFILEREQUEST']="Dosya adını giriniz.";
 $lang['L_FM_UPLOADNOTALLOWED1']="Bu dosya tipi geçerli değil.";
@@ -64,7 +64,7 @@ $lang['L_CONVERT_FILENAME']="Yeni dosya adı (uzantısız)";
 $lang['L_CONVERTING']="Dönüştürüm";
 $lang['L_CONVERT_FILEREAD']="Dosya '%s' okunuyor";
 $lang['L_CONVERT_FINISHED']="Dönüştürme tamamlandı, '%s' oluşturuldu.";
-$lang['L_NO_MSD_BACKUPFILE']="Başka yazılımların dosyaları:";
+$lang['L_NO_MOD_BACKUPFILE']="Başka yazılımların dosyaları:";
 $lang['L_MAX_UPLOAD_SIZE']="Maksimum dosya boyutu";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Eğer Yedek dosyanız izin verilen boyuttan büyük ise, o zaman FTP ile \"work/backup\"-Klasörüne yüklemeniz lazım.
 Daha sonra bu dosya Yönetim bölümünde gözüküp geri yükleme işlemi için kullanılabilir duruma gelicektir.";

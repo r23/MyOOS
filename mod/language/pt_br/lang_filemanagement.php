@@ -1,6 +1,6 @@
 <?php
 $lang['L_CONVERT_START']="Iniciar a conversão";
-$lang['L_CONVERT_TITLE']="Converter o dump para o formato MSD";
+$lang['L_CONVERT_TITLE']="Converter o dump para o formato MOD";
 $lang['L_CONVERT_WRONG_PARAMETERS']="Parâmetros incorretos!  A conversão não é possível.";
 $lang['L_FM_UPLOADFILEREQUEST']="favor escolher um arquivo.";
 $lang['L_FM_UPLOADNOTALLOWED1']="Este tipo de arquivo não é suportado.";
@@ -64,7 +64,7 @@ $lang['L_CONVERT_FILENAME']="Nome do arquivo de destino (sem extensão)";
 $lang['L_CONVERTING']="Convertendo";
 $lang['L_CONVERT_FILEREAD']="Ler arquivo '%s'";
 $lang['L_CONVERT_FINISHED']="Conversão terminada, o arquivo '%s' foi gravado com sucesso.";
-$lang['L_NO_MSD_BACKUPFILE']="Backups de outros scripts";
+$lang['L_NO_MOD_BACKUPFILE']="Backups de outros scripts";
 $lang['L_MAX_UPLOAD_SIZE']="Tamanho máximo do aqruivo";
 $lang['L_MAX_UPLOAD_SIZE_INFO']="Se o seu arquivo de dump é maior que o limite mencionado acima, você deve enviá-lo via FTP para o diretório \"work/backup\".
 Após fazer isso você poderá escolhê-lo novamente para iniciar o processo de restauração. ";

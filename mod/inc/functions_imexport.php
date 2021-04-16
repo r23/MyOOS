@@ -47,11 +47,11 @@ function ExportCSV()
 	global $sql,$config;
 	$t="";
 	$time_start=time();
-	if (!isset($config['dbconnection'])) MSD_mysql_connect();
+	if (!isset($config['dbconnection'])) MOD_mysql_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
 	{
 		$sqlt="SHOW Fields FROM `" . $sql['export']['db'] . "`.`" . $sql['export']['tables'][$table] . "`;";
-		$res=MSD_query($sqlt);
+		$res=MOD_query($sqlt);
 		if ($res)
 		{
 			$numfields=mysqli_num_rows($res);
@@ -68,7 +68,7 @@ function ExportCSV()
 			}
 		}
 		$sqlt="SELECT * FROM `" . $sql['export']['db'] . "`.`" . $sql['export']['tables'][$table] . "`;";
-		$res=MSD_query($sqlt);
+		$res=MOD_query($sqlt);
 		if ($res)
 		{
 			$numrows=mysqli_num_rows($res);
@@ -104,7 +104,7 @@ function ExportCSV()
 				if ($time_start >= $time_now + 30)
 				{
 					$time_start=$time_now;
-					header('X-MSDPing: Pong');
+					header('X-MODPing: Pong');
 				}
 			}
 		}
@@ -161,7 +161,7 @@ function DoImport()
 
 	if ($sql['import']['tablecreate'] == 0)
 	{
-		$res=MSD_query("show fields FROM " . $sql['import']['table']);
+		$res=MOD_query("show fields FROM " . $sql['import']['table']);
 		$tabellenfelder=mysqli_num_rows($res);
 		if ($importfelder != $tabellenfelder)
 		{
@@ -185,7 +185,7 @@ function DoImport()
 		$insert="";
 		if ($sql['import']['emptydb'] == 1 && $sql['import']['tablecreate'] == 0)
 		{
-			MSD_DoSQL("TRUNCATE " . $sql['import']['table'] . ";");
+			MOD_DoSQL("TRUNCATE " . $sql['import']['table'] . ";");
 		}
 		$sql['import']['lines_imported']=0;
 		$enc=( $sql['import']['enc'] == "" ) ? "'" : "";
@@ -205,7 +205,7 @@ function DoImport()
 					$a=( $zeile[$j] == "" && $enc == "" ) ? "''" : $zeile[$j];
 					$insert.=$enc . $a . $enc . ( ( $j == $importfelder - 1 ) ? ");\n" : "," );
 				}
-				MSD_DoSQL($insert);
+				MOD_DoSQL($insert);
 				$sql['import']['lines_imported']++;
 				$zc="";
 			}
@@ -224,7 +224,7 @@ function ImportCreateTable()
 	global $sql,$lang,$db,$config;
 	$tbl=Array();
 	$sql = "SHOW TABLES FROM $db";
-	$tabellen=MSD_query($sql);
+	$tabellen=MOD_query($sql);
 	// while ($row = mysqli_fetch_row($num_tables))
 	while ($row = mysqli_fetch_row($tabellen))
 	{
@@ -254,7 +254,7 @@ function ImportCreateTable()
 	if ($sql['import']['createindex'] == 1) $create.='PRIMARY KEY (`import_id`) ';
 	else $create=substr($create,0,strlen($create) - 2);
 
-	$create.=') ' . ( ( MSD_NEW_VERSION ) ? 'ENGINE' : 'TYPE' ) . "=MyISAM COMMENT='imported at " . date("l dS of F Y H:i:s A") . "'";
+	$create.=') ' . ( ( MOD_NEW_VERSION ) ? 'ENGINE' : 'TYPE' ) . "=MyISAM COMMENT='imported at " . date("l dS of F Y H:i:s A") . "'";
 	$res=mysqli_query($config['dbconnection'], $create) || die(SQLError($create,mysqli_error($config['dbconnection'])));
 	return 1;
 }
@@ -268,12 +268,12 @@ function ExportXML()
 	$level++;
 	$time_start=time();
 
-	if (!isset($config['dbconnection'])) MSD_mysql_connect();
+	if (!isset($config['dbconnection'])) MOD_mysql_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
 	{
 		$t.=str_repeat($tab,$level++) . '<table name="' . $sql['export']['tables'][$table] . '">' . "\n";
 		$sqlt="SHOW Fields FROM `" . $sql['export']['db'] . "`.`" . $sql['export']['tables'][$table] . "`;";
-		$res=MSD_query($sqlt);
+		$res=MOD_query($sqlt);
 		if ($res)
 		{
 			$numfields=mysqli_num_rows($res);
@@ -297,7 +297,7 @@ function ExportXML()
 		}
 		$t.=str_repeat($tab,$level++) . '<data>' . "\n";
 		$sqlt="SELECT * FROM `" . $sql['export']['db'] . "`.`" . $sql['export']['tables'][$table] . "`;";
-		$res=MSD_query($sqlt);
+		$res=MOD_query($sqlt);
 		if ($res)
 		{
 			$numrows=mysqli_num_rows($res);
@@ -322,7 +322,7 @@ function ExportXML()
 				if ($time_start >= $time_now + 30)
 				{
 					$time_start=$time_now;
-					header('X-MSDPing: Pong');
+					header('X-MODPing: Pong');
 				}
 			}
 		}
@@ -336,21 +336,21 @@ function ExportXML()
 function ExportHTML()
 {
 	global $sql,$config,$lang;
-	$header='<html><head><title>MSD Export</title></head>';
+	$header='<html><head><title>MOD Export</title></head>';
 	$footer="\n\n</body>\n</html>";
 	$content="";
 	$content.='<h1>' . $lang['L_DB'] . ' ' . $sql['export']['db'] . '</h1>';
 
 	$time_start=time();
 
-	if (!isset($config['dbconnection'])) MSD_mysql_connect();
+	if (!isset($config['dbconnection'])) MOD_mysql_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
 	{
 		$content.='<h2>Tabelle ' . $sql['export']['tables'][$table] . '</h2>' . "\n";
 		$fsql="show fields from `" . $sql['export']['tables'][$table] . "`";
 		$dsql="select * from `" . $sql['export']['tables'][$table] . "`";
 		//Struktur
-		$res=MSD_query($fsql);
+		$res=MOD_query($fsql);
 		if ($res)
 		{
 			$field=$fieldname=$fieldtyp=Array();
@@ -385,7 +385,7 @@ function ExportHTML()
 		//Daten
 
 
-		$res=MSD_query($dsql);
+		$res=MOD_query($dsql);
 		if ($res)
 		{
 			$anz=mysqli_num_rows($res);

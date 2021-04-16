@@ -41,7 +41,7 @@ function new_file($last_groesse=0)
 
 	if (file_exists($config['paths']['backup'].$dump['backupdatei'])) unlink($config['paths']['backup'].$dump['backupdatei']);
 	$cur_time=date("Y-m-d H:i");
-	$statuszeile=GetStatusLine().$nl.$mysql_commentstring.' Dump by MyOOS [Dumper] '.MSD_VERSION.' ('.$config['homepage'].')'.$nl;
+	$statuszeile=GetStatusLine().$nl.$mysql_commentstring.' Dump by MyOOS [Dumper] '.MOD_VERSION.' ('.$config['homepage'].')'.$nl;
 	$statuszeile.='/*!40101 SET NAMES \''.$dump['dump_encoding'].'\' */;'.$nl;
 	$statuszeile.='SET FOREIGN_KEY_CHECKS=0;'.$nl;
 
@@ -91,7 +91,7 @@ function GetStatusLine($kind="php")
 	$t=0;
 	$r=0;
 	$t_zeile="$mysql_commentstring\n$mysql_commentstring TABLE-INFO\r\n";
-	MSD_mysql_connect();
+	MOD_mysql_connect();
 	$res=mysqli_query($config['dbconnection'], "SHOW TABLE STATUS FROM `".$databases['Name'][$dump['dbindex']]."`");
 	$numrows=intval(@mysqli_num_rows($res));
 	for($i=0;$i<$numrows;$i++)
@@ -131,8 +131,8 @@ function GetStatusLine($kind="php")
 	$flags=1;
 
 	$mp=(isset($config['multi_part']) && ($config['multi_part']==1)) ? $mp="MP_".($dump['part']-$dump['part_offset']):'MP_0';
-	$statusline="$mysql_commentstring Status:$t:$r:$mp:".$databases['Name'][$dump['dbindex']].":$kind:".MSD_VERSION.":".$dump['kommentar'].":";
-	$statusline.=MSD_MYSQL_VERSION.":$flags:::".$dump['dump_encoding'].":EXTINFO\n".$t_zeile."$mysql_commentstring"." EOF TABLE-INFO\n$mysql_commentstring";
+	$statusline="$mysql_commentstring Status:$t:$r:$mp:".$databases['Name'][$dump['dbindex']].":$kind:".MOD_VERSION.":".$dump['kommentar'].":";
+	$statusline.=MOD_MYSQL_VERSION.":$flags:::".$dump['dump_encoding'].":EXTINFO\n".$t_zeile."$mysql_commentstring"." EOF TABLE-INFO\n$mysql_commentstring";
 	return $statusline;
 }
 
@@ -170,7 +170,7 @@ function get_content($db,$table)
 	$content='';
 	$complete=Fieldlist($db,$table).' ';
 
-	if (!isset($config['dbconnection'])) MSD_mysql_connect();
+	if (!isset($config['dbconnection'])) MOD_mysql_connect();
 
 	$table_ready=0;
 	$query='SELECT * FROM `'.$table.'` LIMIT '.$dump['zeilen_offset'].','.($dump['restzeilen']+1);
