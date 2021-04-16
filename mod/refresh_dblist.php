@@ -16,12 +16,12 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-
-// Konfigurationsdateien, die aktualisiert werden sollen
-// configurations to update
-// mehrere Dateien so angeben | enter more than one configurationsfile like this
-// $configurationfiles=array('mysqldumper','db2');
-/////////////////////////////////////////////////////////////////////////
+/**
+ * Konfigurationsdateien, die aktualisiert werden sollen
+ * configurations to update
+ * mehrere Dateien so angeben | enter more than one configurationsfile like this
+ * $configurationfiles=array('mysqldumper','db2');
+ */
 $configurationfiles=array(
 						'myoosdumper'
 );
