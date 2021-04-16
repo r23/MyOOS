@@ -34,7 +34,7 @@ $config['paths']['work']='work/';
 $config['paths']['backup']=$config['paths']['work'] . 'backup/';
 $config['paths']['log']=$config['paths']['work'] . 'log/';
 $config['paths']['config']=$config['paths']['work'] . 'config/';
-$config['paths']['perlexec']='msd_cron/';
+$config['paths']['perlexec']='mod_cron/';
 
 if (isset($_SESSION['config_file']))
 {

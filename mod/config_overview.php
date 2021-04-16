@@ -245,7 +245,7 @@ if (isset($_POST['save']))
 	}
 
 	if (isset($_POST['cron_execution_path'])) $config['cron_execution_path']=$_POST['cron_execution_path'];
-	if ($config['cron_execution_path'] == "") $config['cron_execution_path']="msd_cron/";
+	if ($config['cron_execution_path'] == "") $config['cron_execution_path']="mod_cron/";
 	if (strlen($config['cron_execution_path']) > 1 && substr($config['cron_execution_path'],-1) != "/") $config['cron_execution_path'].="/";
 
 	if (isset($_POST['cron_use_sendmail'])) $config['cron_use_sendmail']=$_POST['cron_use_sendmail'];

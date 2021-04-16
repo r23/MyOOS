@@ -9,7 +9,7 @@
 # Frage Deinen Hoster, ob und wie Du Perl aktivieren kannst.
 #
 # Sample Apache-Config:
-# <Directory /usr/local/apache2/htdocs/myoosdumper/msd_cron>
+# <Directory /usr/local/apache2/htdocs/myoosdumper/mod_cron>
 #    Options ExecCGI
 #    AddHandler cgi-script .cgi .pl
 # </Directory>

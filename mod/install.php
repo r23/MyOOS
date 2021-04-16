@@ -159,9 +159,9 @@ switch ($phase)
 
 	case 0: // Anfang - Sprachauswahl
 		// da viele ja nicht in die Anleitung schauen -> versuchen die Perldateien automatisch richtig zu chmodden
-		@chmod('./msd_cron/crondump.pl',0755);
-		@chmod('./msd_cron/perltest.pl',0755);
-		@chmod('./msd_cron/simpletest.pl',0755);
+		@chmod('./mod_cron/crondump.pl',0755);
+		@chmod('./mod_cron/perltest.pl',0755);
+		@chmod('./mod_cron/simpletest.pl',0755);
 
 		echo '<form action="install.php" method="get"><input type="hidden" name="phase" value="1">';
 		echo '<table class="bdr"><tr class="thead"><th>Language</th><th>Tools</th></tr>';

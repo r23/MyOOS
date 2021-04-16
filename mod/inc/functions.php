@@ -261,7 +261,7 @@ function WriteParams($as=0, $restore_values=false)
 	$config['email_maxsize1'] = isset($config['email_maxsize1']) ? $config['email_maxsize1'] : 1;
 	$config['email_maxsize2'] = isset($config['email_maxsize2']) ? $config['email_maxsize2'] : 1;
 	if (!isset($config['email_maxsize'])) $config['email_maxsize']=$config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
-	if (!isset($config['cron_execution_path'])) $config['cron_execution_path']="msd_cron/";
+	if (!isset($config['cron_execution_path'])) $config['cron_execution_path']="mod_cron/";
 	if ($as == 0) $config['paths']['root']=addslashes(Realpfad("./"));
 	$config['files']['parameter']=$config['paths']['config'] . $config['config_file'] . '.php';
 	$config['theme'] = isset($config['theme']) ? $config['theme'] : 'msd';
