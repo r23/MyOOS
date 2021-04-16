@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 include ('./language/'.$config['language'].'/lang_sql.php');
 echo MSDHeader();
 echo headline($lang['L_HTACC_EDIT']);

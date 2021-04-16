@@ -1,5 +1,5 @@
 <?php
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 //alle Tabellen der aktuellen Datenbank ermitteln und Zugriffs-Array aufbauen
 $sql='SHOW TABLES FROM `'.$db.'`';
 $tables= array ();

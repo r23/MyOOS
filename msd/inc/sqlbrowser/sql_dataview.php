@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 // fuegt eine Sortierungsnummer hinzu, um die Ausgabereihenfolge der Daten steuern zu koennen
 // (das Feld ENGINE interessiert mich nicht so sehr und muss nicht vorne stehen)
 $keysort=array(

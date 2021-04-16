@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 //SQL-Library
 include ( './language/' . $config['language'] . '/lang_sql.php' );
 /*

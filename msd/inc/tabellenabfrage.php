@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 include ( './language/' . $config['language'] . '/lang.php' );
 include ( './language/' . $config['language'] . '/lang_dump.php' );
 include ( './inc/template.php' );

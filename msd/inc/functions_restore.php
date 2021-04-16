@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 define('DEBUG',0);
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 function get_sqlbefehl()
 {
 	global $restore,$config,$databases,$lang;

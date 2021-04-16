@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 $msd_path=realpath(dirname(__FILE__) . '/../') . '/';
-if (!defined('MSD_PATH')) define('MSD_PATH',$msd_path);
+if (!defined('MOD_PATH')) define('MOD_PATH',$msd_path);
 session_name('MyOOSDumperID');
 session_start();
 if (!isset($download))
@@ -30,7 +30,7 @@ if (!isset($download))
 }
 include ( MSD_PATH . 'inc/functions.php' );
 include ( MSD_PATH . 'inc/mysql.php' );
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 if (!file_exists($config['files']['parameter'])) $error=TestWorkDir();
 read_config($config['config_file']);
 include ( MSD_PATH . 'language/lang_list.php' );

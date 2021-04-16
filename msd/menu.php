@@ -31,7 +31,7 @@ $tpl->set_filenames(array(
 	'content' => 'tpl/menu/content.tpl'));
 
 $tpl->assign_vars(array(
-	'MSD_VERSION' => MSD_VERSION,
+	'MOD_VERSION' => MSD_VERSION,
 	'CONFIG_HOMEPAGE' => $config['homepage'],
 	'CONFIG_THEME' => $config['theme']));
 

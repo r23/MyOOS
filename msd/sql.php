@@ -289,7 +289,7 @@ if (!$download)
 function BrowseInput(el)
 {
 	var txt = document.getElementsByName('imexta')[0].value;
-	var win = window.open('about:blank','MSD_Output','resizable = 1,scrollbars = yes');
+	var win = window.open('about:blank','MOD_Output','resizable = 1,scrollbars = yes');
 	win.document.write(txt);
 	win.document.close();
 	win.focus();

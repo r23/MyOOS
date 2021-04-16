@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 define('TPL_DEBUG',0); // used if evaluationg of template fails
 /***************************************************************************
  *                              template.php

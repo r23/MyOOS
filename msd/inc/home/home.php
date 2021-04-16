@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 $Sum_Files=$Sum_Size=0;
 $Last_BU=Array();
 $is_htaccess=(file_exists('./.htaccess'));
@@ -48,7 +48,7 @@ $tpl->set_filenames(array(
 	'show' => 'tpl/home/home.tpl'));
 $tpl->assign_vars(array(
 	'THEME' => $config['theme'],
-	'MSD_VERSION' => MSD_VERSION,
+	'MOD_VERSION' => MSD_VERSION,
 	'OS' => MSD_OS,
 	'OS_EXT' => MSD_OS_EXT,
 	'MYSQL_VERSION' => MSD_MYSQL_VERSION,
@@ -57,7 +57,7 @@ $tpl->assign_vars(array(
 	'MAX_EXECUTION_TIME' => $config['max_execution_time'],
 	'PHP_EXTENSIONS' => $config['phpextensions'],
 	'SERVER_NAME' => $_SERVER['SERVER_NAME'],
-	'MSD_PATH' => $config['paths']['root'],
+	'MOD_PATH' => $config['paths']['root'],
 	'DB' => $databases['db_actual'],
 	'NR_OF_BACKUP_FILES' => $Sum_Files,
 	'SIZE_BACKUPS' => byte_output($Sum_Size),

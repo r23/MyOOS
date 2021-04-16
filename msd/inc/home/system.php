@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 $sysaction=(isset($_GET['dosys'])) ? $_GET['dosys'] : 0;
 $msg="";
 $res=@mysqli_query($config['dbconnection'], "SHOW VARIABLES LIKE 'datadir'");

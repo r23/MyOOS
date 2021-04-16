@@ -18,11 +18,11 @@
 
 
 $msd_path=realpath(dirname(__FILE__) . '/../') . '/';
-if (!defined('MSD_PATH')) define('MSD_PATH',$msd_path);
+if (!defined('MOD_PATH')) define('MOD_PATH',$msd_path);
 if (file_exists(MSD_PATH.'inc/runtime.php')) include (MSD_PATH.'inc/runtime.php');
 else
 	die('Couldn\'t read runtime.php!');
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 
 // places all Page Parameters in hidden-fields (needed fpr backup and restore in PHP)
 function get_page_parameter($parameter, $ziel='dump')
@@ -1189,7 +1189,7 @@ function get_sql_encodings()
 	$config['mysql_standard_character_set']='';
 	$config['mysql_possible_character_sets']=array();
 
-	if (!defined('MSD_MYSQL_VERSION')) GetMySQLVersion();
+	if (!defined('MOD_MYSQL_VERSION')) GetMySQLVersion();
 	$v=explode('.',MSD_MYSQL_VERSION);
 	$config['mysql_can_change_encoding']=false;
 	if (($v[0]<=4&&$v[1]<1)||$v[0]<=3)

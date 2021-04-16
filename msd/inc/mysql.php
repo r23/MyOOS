@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 
 //Feldspezifikationen
 $feldtypen = array(
@@ -279,7 +279,7 @@ function MSD_mysql_connect($encoding='utf8', $keycheck_off=false, $actual_table=
 	if (!$config['dbconnection']) {
 		die(SQLError("Error establishing a database connection!", mysqli_connect_error()));
 	}
-	if (!defined('MSD_MYSQL_VERSION')) GetMySQLVersion();
+	if (!defined('MOD_MYSQL_VERSION')) GetMySQLVersion();
 
 	if (!isset($config['mysql_standard_character_set']) || $config['mysql_standard_character_set'] == '') get_sql_encodings();
 
@@ -304,12 +304,12 @@ function GetMySQLVersion()
 	$res=MSD_query("select version()");
 	$row=mysqli_fetch_array($res);
 	$version=$row[0];
-	if (!defined('MSD_MYSQL_VERSION')) define('MSD_MYSQL_VERSION',$version);
+	if (!defined('MOD_MYSQL_VERSION')) define('MOD_MYSQL_VERSION',$version);
 	$versions=explode('.',$version);
 	$new=false;
 	if ($versions[0] == 4 && $versions[1] >= 1) $new=true;
 	if ($versions[0] > 4) $new=true;
-	if (!defined('MSD_NEW_VERSION')) define('MSD_NEW_VERSION',$new);
+	if (!defined('MOD_NEW_VERSION')) define('MOD_NEW_VERSION',$new);
 
 	return $version;
 }

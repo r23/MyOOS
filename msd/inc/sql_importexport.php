@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 include('./inc/functions_imexport.php');
 //Im-/Export
 $import=( isset($_GET['import']) ) ? 1 : 0;

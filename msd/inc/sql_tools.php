@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 get_sql_encodings();
 
 //Datenbanken

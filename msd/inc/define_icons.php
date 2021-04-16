@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (!defined('MSD_VERSION')) die('No direct access.');
+if (!defined('MOD_VERSION')) die('No direct access.');
 //define icons
 $icon['arrow_up']='<img src="' . $config['files']['iconpath'] . 'arrow_up.gif" alt="">';
 $icon['arrow_down']='<img src="' . $config['files']['iconpath'] . 'arrow_down.gif" alt="">';
