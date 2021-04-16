@@ -17,8 +17,8 @@
    ---------------------------------------------------------------------- */
 
 
-$msd_path=realpath(dirname(__FILE__) . '/../') . '/';
-if (!defined('MOD_PATH')) define('MOD_PATH',$msd_path);
+$mod_path=realpath(dirname(__FILE__) . '/../') . '/';
+if (!defined('MOD_PATH')) define('MOD_PATH',$mod_path);
 if (file_exists(MOD_PATH.'inc/runtime.php')) include (MOD_PATH.'inc/runtime.php');
 else
 	die('Couldn\'t read runtime.php!');
@@ -129,7 +129,7 @@ function DBDetailInfo($index)
 	global $databases,$config;
 
 	$databases['Detailinfo']['tables']=$databases['Detailinfo']['records']=$databases['Detailinfo']['size']=0;
-	MOD_mysql_connect();
+	mod_mysqli_connect();
 	if (isset($databases['Name'][$index]))
 	{
 		mysqli_select_db($config['dbconnection'], $databases['Name'][$index]);
@@ -1184,7 +1184,7 @@ function get_sql_encodings()
 {
 	global $config;
 	unset($config['mysql_possible_character_sets']);
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$erg=false;
 	$config['mysql_standard_character_set']='';
 	$config['mysql_possible_character_sets']=array();

@@ -33,7 +33,7 @@ define('APPLICATION_PATH',realpath(dirname(__FILE__)));
 chdir(APPLICATION_PATH);
 include_once ( APPLICATION_PATH . '/inc/functions.php' );
 $config['language']='en';
-$config['theme']="msd";
+$config['theme']="mod";
 $config['files']['iconpath']='css/' . $config['theme'] . '/icons/';
 
 foreach ($configurationfiles as $conf)

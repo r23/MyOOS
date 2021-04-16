@@ -48,7 +48,7 @@ if (isset($_GET['config']))
 $config=$_SESSION['config'];
 include ('./'.$config['files']['parameter']);
 $config['files']['iconpath']='./css/'.$config['theme'].'/icons/';
-include ('./inc/mysql.php');
+include ('./inc/mysqli.php');
 include ('./language/'.$config['language'].'/lang.php');
 include ('./language/'.$config['language'].'/lang_dump.php');
 
@@ -129,7 +129,7 @@ $dump['startzeit']=time();
 $xtime=(isset($_POST['xtime'])) ? $_POST['xtime']:time();
 $dump['countdata']=(!empty($_POST['countdata'])) ? $_POST['countdata']:0;
 $dump['aufruf']=(!empty($_POST['aufruf'])) ? $_POST['aufruf']:0;
-MOD_mysql_connect($dump['dump_encoding']);
+mod_mysqli_connect($dump['dump_encoding']);
 if ($dump['table_offset']==-1) ExecuteCommand('b');
 
 // only read tableinfos the first time and save it to session to speed up backing up process

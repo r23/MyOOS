@@ -164,7 +164,7 @@ function SetDefault($load_default=false)
 	$databases['Name']=array();
 	$found_dbs = array();
 	//DB-Liste holen
-	MOD_mysql_connect();
+	mod_mysqli_connect();
 
 	$create_statement='CREATE TABLE `myoosdumper_test_abcxyvfgh` (`test` varchar(200) default NULL, `id` bigint(20) unsigned NOT NULL auto_increment,' . 'PRIMARY KEY  (`id`)) TYPE=MyISAM;';
 
@@ -264,7 +264,7 @@ function WriteParams($as=0, $restore_values=false)
 	if (!isset($config['cron_execution_path'])) $config['cron_execution_path']="mod_cron/";
 	if ($as == 0) $config['paths']['root']=addslashes(Realpfad("./"));
 	$config['files']['parameter']=$config['paths']['config'] . $config['config_file'] . '.php';
-	$config['theme'] = isset($config['theme']) ? $config['theme'] : 'msd';
+	$config['theme'] = isset($config['theme']) ? $config['theme'] : 'mod';
 	$config['files']['iconpath']='./css/' . $config['theme'] . '/icons/';
 
 	foreach ($config as $var=>$val)
@@ -707,7 +707,7 @@ function SearchDatabases($printout, $db='')
 {
 	global $databases,$config,$lang;
 
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$db_list=array();
 	if ($db > '') {
 	    $db_list[]=$db; // DB wurde manuell angegeben

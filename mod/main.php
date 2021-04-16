@@ -47,7 +47,7 @@ $tpl->assign_vars(array(
 	'HEADLINE' => headline($lang['L_HOME'])));
 $tpl->pparse('show');
 
-MOD_mysql_connect();
+mod_mysqli_connect();
 if ($action=='status') include ('./inc/home/home.php');
 elseif ($action=='db') include ('./inc/home/databases.php');
 elseif ($action=='sys') include ('./inc/home/system.php');

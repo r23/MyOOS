@@ -20,7 +20,7 @@ $config['maxspeed']=50000;
 
 // Interface language and style
 $config['language']='en';
-$config['theme']='msd';
+$config['theme']='mod';
 
 //Shows the Serveradress if 1
 $config['interface_server_caption']=1;

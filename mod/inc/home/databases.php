@@ -73,7 +73,7 @@ $tpl->set_filenames(array(
 $tpl->assign_vars(array(
 	'ICONPATH' => $config['files']['iconpath']));
 
-if (!isset($config['dbconnection'])) MOD_mysql_connect();
+if (!isset($config['dbconnection'])) mod_mysqli_connect();
 for ($i=0; $i<count($databases['Name']); $i++)
 {
 	$rowclass=($i%2) ? 'dbrow' : 'dbrow1';

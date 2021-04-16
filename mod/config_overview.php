@@ -87,7 +87,7 @@ if (isset($_GET['config_delete']))
 include_once ( './inc/define_icons.php' );
 
 $config['files']['parameter']=$config['paths']['config'] . $config['config_file'] . '.php';
-$config['theme']=( !isset($config['theme']) ) ? 'msd' : $config['theme'];
+$config['theme']=( !isset($config['theme']) ) ? 'mod' : $config['theme'];
 $config['cron_smtp_port']=( !isset($config['cron_smtp_port']) ) ? 25 : $config['cron_smtp_port'];
 
 if (!isset($command)) $command=0;
@@ -128,7 +128,7 @@ if (( isset($_POST['testFTP0']) ) || ( isset($_POST['testFTP1']) ) || ( isset($_
 }
 
 $showVP = false;
-$oldtheme = isset($config['theme']) ? $config['theme'] : 'msd';
+$oldtheme = isset($config['theme']) ? $config['theme'] : 'mod';
 $oldscposition = isset($config['interface_server_caption_position']) ? $config['interface_server_caption_position'] : '';
 
 
@@ -351,7 +351,7 @@ if (isset($_POST['save']))
 		$config['dbpass']=$_POST['dbpass'];
 		$config['dbport']=$_POST['dbport'];
 		$config['dbsocket']=$_POST['dbsocket'];
-		if (MOD_mysql_connect())
+		if (mod_mysqli_connect())
 		{
 			// neue Verbindungsdaten wurden akzeptiert -> manuelle DB-Liste von anderem User löschen
 			SetDefault();
@@ -385,7 +385,7 @@ if (isset($_POST['save']))
 		if ($found) $add_db_message=sprintf($lang['L_DB_IN_LIST'],$to_add);
 		else
 		{
-			if (MOD_mysql_connect())
+			if (mod_mysqli_connect())
 			{
 				$res=@mysqli_select_db($config['dbconnection'], $to_add);
 				if (!$res === false)

@@ -142,7 +142,7 @@ if ($sql_to_display_data == 1)
 }
 
 if (isset($_POST['tableselect']) && $_POST['tableselect'] != '1') $tablename = $_POST['tableselect'];
-MOD_mysql_connect();
+mod_mysqli_connect();
 mysqli_select_db($config['dbconnection'], $db);
 
 ///*** EDIT / UPDATES / INSERTS ***///

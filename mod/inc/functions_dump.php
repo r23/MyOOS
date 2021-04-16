@@ -91,7 +91,7 @@ function GetStatusLine($kind="php")
 	$t=0;
 	$r=0;
 	$t_zeile="$mysql_commentstring\n$mysql_commentstring TABLE-INFO\r\n";
-	MOD_mysql_connect();
+	mod_mysqli_connect();
 	$res=mysqli_query($config['dbconnection'], "SHOW TABLE STATUS FROM `".$databases['Name'][$dump['dbindex']]."`");
 	$numrows=intval(@mysqli_num_rows($res));
 	for($i=0;$i<$numrows;$i++)
@@ -170,7 +170,7 @@ function get_content($db,$table)
 	$content='';
 	$complete=Fieldlist($db,$table).' ';
 
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 
 	$table_ready=0;
 	$query='SELECT * FROM `'.$table.'` LIMIT '.$dump['zeilen_offset'].','.($dump['restzeilen']+1);

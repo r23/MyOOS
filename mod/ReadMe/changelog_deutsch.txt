@@ -22,4 +22,4 @@ MyOOS [Dumper] based on MySQLDumper 1.24.4
 Wenn Du es ganz genau wissen möchtest, dann schaue Dir das changelog auf GitHub an. Hier ist akribisch 
 jede Änderung am Code dokumentiert:
 
-https://github.com/r23/MyOOS/tree/master/msd
+https://github.com/r23/MyOOS/tree/master/mod

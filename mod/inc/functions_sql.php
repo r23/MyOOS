@@ -130,7 +130,7 @@ function TableComboBox($default='')
 function DB_Exists($db)
 {
 	global $config;
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$erg=false;
 
 	$dbs=mod_query("SHOW DATABASES");
@@ -148,7 +148,7 @@ function DB_Exists($db)
 function Table_Exists($db, $table)
 {
 	global $config;
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$sqlt="SHOW TABLES FROM `$db`";
 	$res=mod_query($sqlt);
 	if ($res)
@@ -216,7 +216,7 @@ function splitSQLStatements2Array($sql)
 function DB_Copy($source, $destination, $drop_source=0, $insert_data=1)
 {
 	global $config;
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$SQL_Array=$t="";
     if (!DB_Exists($destination))
     {
@@ -256,7 +256,7 @@ function DB_Copy($source, $destination, $drop_source=0, $insert_data=1)
 function Table_Copy($source, $destination, $insert_data, $destinationdb="")
 {
 	global $config;
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$SQL_Array=$t="";
 	$sqlc="SHOW CREATE TABLE $source";
 	$res=mod_query($sqlc);
@@ -280,7 +280,7 @@ function MOD_DoSQL($sqlcommands, $limit="")
 	if (!isset($sql['parser']['sql_errors'])) $sql['parser']['sql_errors']=0;
 
 	$sql['parser']['time_used']=getmicrotime();
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$out=$sqlcommand='';
 	$allSQL=splitSQLStatements2Array($sqlcommands); #explode(';',preg_replace('/\r\n|\n/', '', $sqlcommands));
 	$sql_queries=count($allSQL);
@@ -503,7 +503,7 @@ function SQLOutput($sqlcommand, $meldung='')
 function GetCreateTable($db, $tabelle)
 {
 	global $config;
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$res=mysqli_query($config['dbconnection'], "SHOW CREATE TABLE `$db`.`$tabelle`");
 	if ($res)
 	{
@@ -592,7 +592,7 @@ function ComboCommandDump($when, $index, $disabled = '')
 function EngineCombo($default="")
 {
 	global $config;
-	if (!$config['dbconnection']) MOD_mysql_connect();
+	if (!$config['dbconnection']) mod_mysqli_connect();
 
 	$r='<option value="" ' . ( ( $default == "" ) ? ' selected="selected"' : "" ) . '></option>';
 	if (!MOD_NEW_VERSION)
@@ -628,7 +628,7 @@ function CharsetCombo($default="")
 	}
 	else
 	{
-		if (!isset($config['dbconnection'])) MOD_mysql_connect();
+		if (!isset($config['dbconnection'])) mod_mysqli_connect();
 		$res=mysqli_query($config['dbconnection'], "SHOW Charset");
 		$num=mysqli_num_rows($res);
 		$r='<option value="" ' . ( ( $default == "" ) ? ' selected="selected"' : "" ) . '></option>';
@@ -653,7 +653,7 @@ function CharsetCombo($default="")
 function GetCollationArray()
 {
 	global $config;
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 
 	$res=mysqli_query($config['dbconnection'], "SHOW Collation");
 	$num=@mysqli_num_rows($res);

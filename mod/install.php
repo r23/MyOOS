@@ -29,7 +29,7 @@ foreach ($_POST as $postvar=>$postval)
 	${$postvar}=$postval;
 }
 include_once ( './inc/functions.php' );
-include_once ( './inc/mysql.php' );
+include_once ( './inc/mysqli.php' );
 include_once ( './inc/runtime.php' );
 if (!isset($language)) $language="en";
 
@@ -73,7 +73,7 @@ $connstr = "$dbhost|$dbuser|$dbpass|$dbport|$dbsocket|$manual_db";
 $connection='';
 $delfiles=Array();
 
-$config['files']['iconpath']='./css/msd/icons/';
+$config['files']['iconpath']='./css/mod/icons/';
 $img_ok='<img src="' . $config['files']['iconpath'] . 'ok.gif" width="16" height="16" alt="ok">';
 $img_failed='<img src="' . $config['files']['iconpath'] . 'notok.gif" width="16" height="16" alt="failed">';
 $href="install.php?language=$language&phase=$phase&connstr=$connstr";
@@ -91,7 +91,7 @@ header('content-type: text/html; charset=utf-8');
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>MyOOS [Dumper]  - Installation</title>
 
-	<link rel="stylesheet" type="text/css" href="css/msd/style.css">
+	<link rel="stylesheet" type="text/css" href="css/mod/style.css">
 	<script src="js/script.js" type="text/javascript"></script>
 <style type="text/css" media="screen">
 td {
@@ -147,7 +147,7 @@ else
 	$Anzeige=$lang['L_UNINSTALL'] . ' - ' . $lang['L_STEP'] . ' ' . ( $phase - 99 );
 }
 
-echo '<img src="css/msd/pics/h1_logo.gif" alt="' . $lang['L_INSTALL_TOMENU'] . '">';
+echo '<img src="css/mod/pics/h1_logo.gif" alt="' . $lang['L_INSTALL_TOMENU'] . '">';
 echo '<div id="pagetitle"><p>
 ' . $Anzeige . '
 </p></div>';
@@ -256,7 +256,7 @@ switch ($phase)
 			{
 				echo '<tr class="thead"><th colspan="2">' . $lang['L_DBCONNECTION'] . '</th></tr>';
 				echo '<tr><td colspan="2">';
-				$connection=MOD_mysql_connect();
+				$connection=mod_mysqli_connect();
 
 				if ($connection === false)
 				{

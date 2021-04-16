@@ -37,7 +37,7 @@ if ($tblr == 'Backup')
 	));
 	$button_name='dump_tbl';
 	//Info aus der Datenbank lesen
-	MOD_mysql_connect();
+	mod_mysqli_connect();
 	$res=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `' . $databases['db_actual'] . '`');
 	$numrows=mysqli_num_rows($res);
 	$tbl_zeile='';

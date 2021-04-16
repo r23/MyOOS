@@ -179,7 +179,7 @@ if($absolute_path_of_configdir eq "" || ! -d $absolute_path_of_configdir)
     if ($i=~m#^(.*)\\#) {
         #windows
             $current_dir = $1;
-            $current_dir =~ s/msd\_cron//g;
+            $current_dir =~ s/mod\_cron//g;
 
             #set default log-files
             $logdatei= $current_dir ."work\\log\\myoosdump_perl.log";
@@ -189,7 +189,7 @@ if($absolute_path_of_configdir eq "" || ! -d $absolute_path_of_configdir)
     } elsif ($i=~m#^(.*)\/# ) {
         #*nix
             $current_dir = $1;
-            $current_dir =~ s/msd\_cron//g;
+            $current_dir =~ s/mod\_cron//g;
 
             #set default log-files
             $logdatei= $current_dir ."work/log/myoosdump_perl.log";
@@ -197,7 +197,7 @@ if($absolute_path_of_configdir eq "" || ! -d $absolute_path_of_configdir)
 
             $absolute_path_of_configdir = $current_dir."work/config/";
     }
-    #$absolute_path_of_configdir =~ s/msd\_cron//g;
+    #$absolute_path_of_configdir =~ s/mod\_cron//g;
     $backup_path = $absolute_path_of_configdir;
     $backup_path =~ s/config/backup/g;
 

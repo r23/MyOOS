@@ -3,7 +3,7 @@ if (!defined('MOD_VERSION')) die('No direct access.');
 //alle Tabellen der aktuellen Datenbank ermitteln und Zugriffs-Array aufbauen
 $sql='SHOW TABLES FROM `'.$db.'`';
 $tables= array ();
-$link=MOD_mysql_connect();
+$link=mod_mysqli_connect();
 $res=mysqli_query($link, $sql);
 if (!$res===false)
 {
@@ -51,7 +51,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 	global $tables,$config,$lang;
 
 	$ret=false;
-	$link=MOD_mysql_connect();
+	$link=mod_mysqli_connect();
 	if (sizeof($tables)>0)
 	{
 		$suchbegriffe=trim(str_replace('*','',$suchbegriffe));

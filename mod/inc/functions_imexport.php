@@ -47,11 +47,11 @@ function ExportCSV()
 	global $sql,$config;
 	$t="";
 	$time_start=time();
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
 	{
 		$sqlt="SHOW Fields FROM `" . $sql['export']['db'] . "`.`" . $sql['export']['tables'][$table] . "`;";
-		$res=MOD_query($sqlt);
+		$res=mod_query($sqlt);
 		if ($res)
 		{
 			$numfields=mysqli_num_rows($res);
@@ -68,7 +68,7 @@ function ExportCSV()
 			}
 		}
 		$sqlt="SELECT * FROM `" . $sql['export']['db'] . "`.`" . $sql['export']['tables'][$table] . "`;";
-		$res=MOD_query($sqlt);
+		$res=mod_query($sqlt);
 		if ($res)
 		{
 			$numrows=mysqli_num_rows($res);
@@ -161,7 +161,7 @@ function DoImport()
 
 	if ($sql['import']['tablecreate'] == 0)
 	{
-		$res=MOD_query("show fields FROM " . $sql['import']['table']);
+		$res=mod_query("show fields FROM " . $sql['import']['table']);
 		$tabellenfelder=mysqli_num_rows($res);
 		if ($importfelder != $tabellenfelder)
 		{
@@ -224,7 +224,7 @@ function ImportCreateTable()
 	global $sql,$lang,$db,$config;
 	$tbl=Array();
 	$sql = "SHOW TABLES FROM $db";
-	$tabellen=MOD_query($sql);
+	$tabellen=mod_query($sql);
 	// while ($row = mysqli_fetch_row($num_tables))
 	while ($row = mysqli_fetch_row($tabellen))
 	{
@@ -268,12 +268,12 @@ function ExportXML()
 	$level++;
 	$time_start=time();
 
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
 	{
 		$t.=str_repeat($tab,$level++) . '<table name="' . $sql['export']['tables'][$table] . '">' . "\n";
 		$sqlt="SHOW Fields FROM `" . $sql['export']['db'] . "`.`" . $sql['export']['tables'][$table] . "`;";
-		$res=MOD_query($sqlt);
+		$res=mod_query($sqlt);
 		if ($res)
 		{
 			$numfields=mysqli_num_rows($res);
@@ -297,7 +297,7 @@ function ExportXML()
 		}
 		$t.=str_repeat($tab,$level++) . '<data>' . "\n";
 		$sqlt="SELECT * FROM `" . $sql['export']['db'] . "`.`" . $sql['export']['tables'][$table] . "`;";
-		$res=MOD_query($sqlt);
+		$res=mod_query($sqlt);
 		if ($res)
 		{
 			$numrows=mysqli_num_rows($res);
@@ -343,14 +343,14 @@ function ExportHTML()
 
 	$time_start=time();
 
-	if (!isset($config['dbconnection'])) MOD_mysql_connect();
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
 	{
 		$content.='<h2>Tabelle ' . $sql['export']['tables'][$table] . '</h2>' . "\n";
 		$fsql="show fields from `" . $sql['export']['tables'][$table] . "`";
 		$dsql="select * from `" . $sql['export']['tables'][$table] . "`";
 		//Struktur
-		$res=MOD_query($fsql);
+		$res=mod_query($fsql);
 		if ($res)
 		{
 			$field=$fieldname=$fieldtyp=Array();
@@ -385,7 +385,7 @@ function ExportHTML()
 		//Daten
 
 
-		$res=MOD_query($dsql);
+		$res=mod_query($dsql);
 		if ($res)
 		{
 			$anz=mysqli_num_rows($res);

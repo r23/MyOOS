@@ -22,7 +22,7 @@ session_name('MyOOSDumperID');
 session_start();
 include ('./inc/functions.php');
 include ('./inc/functions_restore.php');
-include ('./inc/mysql.php');
+include ('./inc/mysqli.php');
 if (isset($_GET['filename']))
 {
 	// Arrays uebernehmen
@@ -93,7 +93,7 @@ $aus=Array();
 $pageheader=MODheader().headline($lang['L_RESTORE']);
 $aus1=$page_parameter='';
 $RestoreFertig=$eingetragen=$dauer=$filegroesse=0;
-MOD_mysql_connect($restore['dump_encoding'],true,$restore['actual_table']);
+mod_mysqli_connect($restore['dump_encoding'],true,$restore['actual_table']);
 @mysqli_select_db($config['dbconnection'], $databases['db_actual']) or die($lang['L_DB_SELECT_ERROR'].$databases['db_actual'].$lang['L_DB_SELECT_ERROR2']);
 
 // open backup file
