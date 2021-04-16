@@ -117,7 +117,7 @@ if (isset($_POST['dump']))
 	{
 		//Tabellenabfrage
 		$tblfrage_refer="dump";
-		include ("inc/tabellenabfrage.php");
+		include ("inc/table_query.php");
 		exit();
 	}
 	else
@@ -153,7 +153,7 @@ if (isset($_POST['restore']))
 			//Tabellenabfrage
 			$tblfrage_refer="restore";
 			$filename=urldecode($_POST['file'][0]);
-			include ("inc/tabellenabfrage.php");
+			include ("inc/table_query.php");
 			exit();
 		}
 		else
