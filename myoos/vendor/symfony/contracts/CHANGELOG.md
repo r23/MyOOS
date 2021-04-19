@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.4
+---
+
+ * Add `HttpClientInterface::withOptions()`
+ * Add `TranslatorInterface::getLocale()`
+
 2.3.0
 -----
 

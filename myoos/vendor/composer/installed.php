@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '34d1afd6191a7b06f45f8b2299d6f8cedda97232',
+    'reference' => 'da81baf9118f6470aae19156868d9751348107ee',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -216,7 +216,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '34d1afd6191a7b06f45f8b2299d6f8cedda97232',
+      'reference' => 'da81baf9118f6470aae19156868d9751348107ee',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -304,12 +304,12 @@
     ),
     'psr/cache' => 
     array (
-      'pretty_version' => '1.0.1',
-      'version' => '1.0.1.0',
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
+      'reference' => '213f9dbc5b9bfbc4f8db86d2838dc968752ce13b',
     ),
     'psr/cache-implementation' => 
     array (
@@ -491,7 +491,7 @@
     array (
       'replaced' => 
       array (
-        0 => 'v2.3.1',
+        0 => 'v2.4.0',
       ),
     ),
     'symfony/cache-implementation' => 
@@ -517,12 +517,12 @@
     ),
     'symfony/contracts' => 
     array (
-      'pretty_version' => 'v2.3.1',
-      'version' => '2.3.1.0',
+      'pretty_version' => 'v2.4.0',
+      'version' => '2.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f7783bdec14b06c323d30a5f74ba70a17ec0ce81',
+      'reference' => '8434102b404d119dcaf98c8fe19a2655573ac17a',
     ),
     'symfony/css-selector' => 
     array (
@@ -549,7 +549,7 @@
     array (
       'replaced' => 
       array (
-        0 => 'v2.3.1',
+        0 => 'v2.4.0',
       ),
     ),
     'symfony/doctrine-bridge' => 
@@ -591,7 +591,7 @@
     array (
       'replaced' => 
       array (
-        0 => 'v2.3.1',
+        0 => 'v2.4.0',
       ),
     ),
     'symfony/event-dispatcher-implementation' => 
@@ -654,7 +654,7 @@
     array (
       'replaced' => 
       array (
-        0 => 'v2.3.1',
+        0 => 'v2.4.0',
       ),
     ),
     'symfony/http-client-implementation' => 
@@ -961,7 +961,7 @@
     array (
       'replaced' => 
       array (
-        0 => 'v2.3.1',
+        0 => 'v2.4.0',
       ),
     ),
     'symfony/service-implementation' => 
@@ -1012,7 +1012,7 @@
     array (
       'replaced' => 
       array (
-        0 => 'v2.3.1',
+        0 => 'v2.4.0',
       ),
     ),
     'symfony/translation-implementation' => 
