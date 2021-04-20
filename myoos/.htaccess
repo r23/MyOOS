@@ -130,6 +130,18 @@ Options -MultiViews
 </IfModule>
 
 # ######################################################################
+# # FLoC                              #
+# ######################################################################
+
+# FLoC: How website operators protect their visitors from the new 
+# Google tracking
+
+<IfModule mod_headers.c>
+    Header always set Permissions-Policy: interest-cohort=()
+</IfModule>
+
+
+# ######################################################################
 # # MEDIA TYPES AND CHARACTER ENCODINGS                                #
 # ######################################################################
 
