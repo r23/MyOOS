@@ -52,30 +52,30 @@ switch ($action) {
 			$_SESSION['cart'] = new shoppingCart();
 		}
 		
-      // customer wants to update the product quantity in their shopping cart
-      for ($i=0; $i<count($_POST['products_id']);$i++) {
-        if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array())) or $_POST['cart_quantity'][$i] == 0) {
-          $_SESSION['cart']->remove($_POST['products_id'][$i]);
-        } else {
+		// customer wants to update the product quantity in their shopping cart
+		for ($i=0; $i<count($_POST['products_id']);$i++) {
+			if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array())) or $_POST['cart_quantity'][$i] == 0) {
+				$_SESSION['cart']->remove($_POST['products_id'][$i]);
+			} else {
 
-          $products_order_min = oos_get_products_quantity_order_min($_POST['products_id'][$i]);
-          $products_order_units = oos_get_products_quantity_order_units($_POST['products_id'][$i]);
+				$products_order_min = oos_get_products_quantity_order_min($_POST['products_id'][$i]);
+				$products_order_units = oos_get_products_quantity_order_units($_POST['products_id'][$i]);
 
-          if ( ($_POST['cart_quantity'][$i] >= $products_order_min) ) {
-            if ($_POST['cart_quantity'][$i]%$products_order_units == 0) {
-              $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
-              $_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, FALSE, $_POST['to_wl_id'][$i]);
-            } else {
-              $_SESSION['error_message'] = oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units;
-            }
-          } else {
-            $_SESSION['error_message'] =  $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min;
-          }
-        }
-      }
+				if ( ($_POST['cart_quantity'][$i] >= $products_order_min) ) {
+					if ($_POST['cart_quantity'][$i]%$products_order_units == 0) {
+						$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
+						$_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, FALSE, $_POST['to_wl_id'][$i]);
+					} else {
+						$_SESSION['error_message'] = oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . 		$products_order_units;
+					}
+				} else {
+					$_SESSION['error_message'] =  $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min;
+				}
+			}
+		}
 
-      oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
-      break;
+		oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
+		break;
 
 	case 'add_product' :
 		// start the session
@@ -151,6 +151,14 @@ switch ($action) {
       break;
 
 	case 'clear_cart' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+
+		// create the shopping cart
+		if (!isset($_SESSION['cart'])) {
+			$_SESSION['cart'] = new shoppingCart();
+		}
+		
 		if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {
 			$products = $_SESSION['cart']->get_products();
 
@@ -159,7 +167,24 @@ switch ($action) {
 				$_SESSION['cart']->remove($products[$i]['id']);
 			}
 		}	
-      break;
+		break;
+
+
+	case 'cart_delete' :
+		// start the session
+		if ( $session->hasStarted() === FALSE ) $session->start();
+
+		// create the shopping cart
+		if (!isset($_SESSION['cart'])) {
+			$_SESSION['cart'] = new shoppingCart();
+		}	
+		if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {	
+			if (isset($_GET['products_id']) && is_string ($_GET['products_id'])) {
+				$_SESSION['cart']->remove(oos_var_prep_for_os($_GET['products_id']));
+			}
+		}
+		oos_redirect(oos_href_link($aContents['shopping_cart']));
+		break;
 
     case 'buy_now' :	
       if (isset($_GET['products_id'])) {
