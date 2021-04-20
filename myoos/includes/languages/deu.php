@@ -306,6 +306,7 @@ $aLang = [
 'button_buy_it_again'                => 'Nochmals kaufen',
 'button_change_address'              => 'Adresse ändern',
 'button_checkout'                    => 'Kasse',
+'button_clear_cart'                  => 'Warenkorb löschen',
 'button_confirm_order'               => 'Jetzt zum genannten Preis bestellen',
 'button_continue'                    => 'Weiter',
 'button_continue_shopping'           => 'Einkauf fortsetzen',
