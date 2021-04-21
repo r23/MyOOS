@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '06729d023ef9ca3ebf5e8aefccddce59ee58fd7b',
+    'reference' => '6d2b19bfb04bac512c8386828adf624ae490358f',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -94,12 +94,12 @@
     ),
     'endroid/qr-code' => 
     array (
-      'pretty_version' => '3.9.6',
-      'version' => '3.9.6.0',
+      'pretty_version' => '3.9.7',
+      'version' => '3.9.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9cdd4f5d609bfc8811ca4a62b4d23eb16976242f',
+      'reference' => '94563d7b3105288e6ac53a67ae720e3669fac1f6',
     ),
     'ezyang/htmlpurifier' => 
     array (
@@ -121,12 +121,12 @@
     ),
     'khanamiryan/qrcode-detector-decoder' => 
     array (
-      'pretty_version' => '1.0.4',
-      'version' => '1.0.4.0',
+      'pretty_version' => '1.0.5',
+      'version' => '1.0.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '07fceefb79d895e858e52921afb9c1433d2f3d5e',
+      'reference' => '6c8c23003a87ecd7458807cd49372b1fb590d1f5',
     ),
     'laminas/laminas-code' => 
     array (
@@ -216,7 +216,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '06729d023ef9ca3ebf5e8aefccddce59ee58fd7b',
+      'reference' => '6d2b19bfb04bac512c8386828adf624ae490358f',
     ),
     'ocramius/proxy-manager' => 
     array (
