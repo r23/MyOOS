@@ -53,9 +53,7 @@ if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 if (isset($_POST['payment'])) $_SESSION['payment'] = oos_db_prepare_input($_POST['payment']);
 
 
-if ( (isset($_POST['comments'])) && (empty($_POST['comments'])) ) {
-	$_SESSION['comments'] = '';
-} elseif (oos_is_not_null($_POST['comments'])) {
+if ( (isset($_POST['comments'])) && (is_string($_POST['comments'])) ) {
 	$_SESSION['comments'] = oos_db_prepare_input($_POST['comments']);
 }
 
