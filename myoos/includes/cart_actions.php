@@ -28,6 +28,7 @@ if (isset($_GET['action'])) {
 }
 
 
+
 if (DISPLAY_CART == 'true') {
     $goto_file = $aContents['shopping_cart'];
     $parameters = array('action', 'category', 'products_id', 'pid');
@@ -41,6 +42,8 @@ if (DISPLAY_CART == 'true') {
 		$parameters = array('action', 'pid', 'cart_quantity');
     }
 }
+
+
 
 switch ($action) {
 	case 'update_product' :
@@ -179,7 +182,7 @@ switch ($action) {
 			$_SESSION['cart'] = new shoppingCart();
 		}	
 		if (isset($_SESSION['cart']) && ($_SESSION['cart']->count_contents() > 0)) {	
-			if (isset($_GET['products_id']) && is_string ($_GET['products_id'])) {
+			if (isset($_GET['products_id']) && is_string($_GET['products_id'])) {
 				$_SESSION['cart']->remove(oos_var_prep_for_os($_GET['products_id']));
 			}
 		}

@@ -27,12 +27,7 @@ $hidden_field = '';
 $any_out_of_stock = 0;
 
 if (isset($_SESSION)) { 
- 
-	if ( (isset($_POST['comments'])) && (is_string($_POST['comments'])) ) {
-		$_SESSION['comments'] = oos_db_prepare_input($_POST['comments']);
-	}
-	$_SESSION['comments'] = isset($_SESSION['comments']) ? $_SESSION['comments'] : '';
-	
+ 	
 	if (is_object($_SESSION['cart'])) {
 		if ($_SESSION['cart']->count_contents() > 0) {
 

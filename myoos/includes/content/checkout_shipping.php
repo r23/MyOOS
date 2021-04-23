@@ -127,8 +127,12 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	
 	
 	if ( (isset($_POST['comments'])) && (is_string($_POST['comments'])) ) {
-		$_SESSION['comments'] = oos_db_prepare_input($_POST['comments']);
+		require_once  MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
+		$config = HTMLPurifier_Config::createDefault();
+		$purifier = new HTMLPurifier($config);
+		$_SESSION['comments'] = $purifier->purify($_POST['comments']);		
 	}
+	$_SESSION['comments'] = isset($_SESSION['comments']) ? $_SESSION['comments'] : '';
 
 	if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
 		if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {

@@ -57,7 +57,7 @@
 					<h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>{$lang.heading_products}</span><a class="font-size-sm" href="{html_href_link content=$filename.home}"><i data-feather="chevron-left" style="width: 1rem; height: 1rem;"></i>{$lang.button_continue_shopping}</a></h2>
 
 					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST">
-						{if $mySystem.sed}
+							{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 							<input type="hidden" name="formid" value="{$mySystem.formid}">
 						{/if}		
@@ -176,14 +176,11 @@
 
 										<hr />
 
-										
-					<h3 class="h6 pt-4 font-weight-semibold"><span class="badge badge-success mr-2">Note</span>Additional comments</h3>
-					<textarea class="form-control mb-3" id="order-comments" rows="5"></textarea>
-		  
+												  
 					{if $myUser.show_price eq 1 }
 						<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-danger btn-default btn-block" role="button"><i class="fa fa-mail-forward" aria-hidden="true"></i> {$lang.button_checkout}</a>
 					{/if}		  
-
+					</form>
 					<div class="pt-4">
 						<div class="accordion" id="cart-accordion">
 							<div class="card">
