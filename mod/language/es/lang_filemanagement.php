@@ -66,7 +66,7 @@ $lang['L_CONVERT_FILEREAD']="Leyendo el archivo '%s'";
 $lang['L_CONVERT_FINISHED']="Conversión finalizada: '%s' se ha guardado correctamente.";
 $lang['L_NO_MOD_BACKUPFILE']="Copias de seguridad de otros programas";
 $lang['L_MAX_UPLOAD_SIZE']="Tamaño máximo del fichero";
-$lang['L_MAX_UPLOAD_SIZE_INFO']="Si el archivo de copia de seguridad es mayor que el límite fijado, entonces debe cargarlo a través de FTP en la carpeta \"work/backup\".
+$lang['L_MAX_UPLOAD_SIZE_INFO']="Si el archivo de copia de seguridad es mayor que el límite fijado, entonces debe cargarlo a través de FTP/SFTP en la carpeta \"work/backup\".
 Después ese archivo se mostrará aquí, y podrá ser elegido para restaurar.";
 $lang['L_ENCODING']="Codificación";
 $lang['L_FM_CHOOSE_ENCODING']="Seleccione la codificación de la copia de seguridad";

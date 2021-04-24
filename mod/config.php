@@ -63,6 +63,7 @@ $config['email_maxsize2']=2;
 
 // FTP Server Configuration for Transfer
 $config['ftp_transfer'][0]=0;
+$config['sftp'][0]=0;
 $config['ftp_timeout'][0]=30;
 $config['ftp_useSSL'][0]=0;
 $config['ftp_mode'][0]=0;
@@ -73,6 +74,7 @@ $config['ftp_pass'][0]=''; // Password
 $config['ftp_dir'][0]=''; // Upload-Directory
 
 $config['ftp_transfer'][1]=0;
+$config['sftp'][1]=0;
 $config['ftp_timeout'][1]=30;
 $config['ftp_useSSL'][1]=0;
 $config['ftp_mode'][1]=0;
@@ -83,6 +85,7 @@ $config['ftp_pass'][1]='';
 $config['ftp_dir'][1]='';
 
 $config['ftp_transfer'][2]=0;
+$config['sftp'][2]=0;
 $config['ftp_timeout'][2]=30;
 $config['ftp_useSSL'][2]=0;
 $config['ftp_mode'][2]=0;

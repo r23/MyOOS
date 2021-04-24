@@ -66,7 +66,7 @@ $lang['L_CONVERT_FILEREAD']="Ανάγνωση αρχείου '%s'";
 $lang['L_CONVERT_FINISHED']="Η μετατροπή τελείωσε, '%s' εγγράφηκε επιτυχώς.";
 $lang['L_NO_MOD_BACKUPFILE']="Αντίγραφα Ασφαλείας άλλων scripts";
 $lang['L_MAX_UPLOAD_SIZE']="Μέγιστο μέγεθος αρχείου";
-$lang['L_MAX_UPLOAD_SIZE_INFO']="Αν το Dumpfile είναι μεγαλύτερο από το παραπάνω επιτρεπτό όριο, φορτώστε το με FTP στον κατάλογο \"work/backup\".
+$lang['L_MAX_UPLOAD_SIZE_INFO']="Αν το Dumpfile είναι μεγαλύτερο από το παραπάνω επιτρεπτό όριο, φορτώστε το με FTP/SFTP στον κατάλογο \"work/backup\".
 Μετά μπορείτε να το επιλέξετε για επαναφορά. ";
 $lang['L_ENCODING']="κωδικοποίηση";
 $lang['L_FM_CHOOSE_ENCODING']="Επιλογή κωδικοποίησης για το Αντίγραφο ασφαλείας";

@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTPPOSSIBLE']="Du har ingen FTP-funktioner til rådighed!";
+$lang['L_NOFTP/SFTPPOSSIBLE']="Du har ingen FTP/SFTP-funktioner til rådighed!";
 $lang['L_INFO_LOCATION']="Din lokation er ";
 $lang['L_INFO_DATABASES']="Følgende database(r) er tilgængelige på din server:";
 $lang['L_INFO_NODB']="database findes ikke.";
@@ -62,8 +62,8 @@ $lang['L_HTACCESS32']="Bemærk! .htaccess påvirker dirkte browserens opførsel.
 $lang['L_DISABLEDFUNCTIONS']="Funktioner slået fra";
 $lang['L_NOGZPOSSIBLE']="Da Zlib ikke er installeret/tilgængeligt, kan du ikke bruge GZip-funktionerne!";
 $lang['L_DELETE_HTACCESS']="Fjern folderbeskyttelse (slet .htaccess)";
-$lang['L_WRONG_RIGHTS']="Kan ikke skrive til filen eller folderen '%s'.<br> Fil-rettighederne (chmod) er ikke sat korrekt eller har den forkerte ejer.<br> Sæt venligst de korrekte attributter via din FTP-klient.<br> Filen eller mappen skal være sat til %s.<br>";
-$lang['L_CANT_CREATE_DIR']="Kunne ikke oprette folderen '%s'. Opret den venligst med en FTP-klient.";
+$lang['L_WRONG_RIGHTS']="Kan ikke skrive til filen eller folderen '%s'.<br> Fil-rettighederne (chmod) er ikke sat korrekt eller har den forkerte ejer.<br> Sæt venligst de korrekte attributter via din FTP/SFTP-klient.<br> Filen eller mappen skal være sat til %s.<br>";
+$lang['L_CANT_CREATE_DIR']="Kunne ikke oprette folderen '%s'. Opret den venligst med en FTP/SFTP-klient.";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";

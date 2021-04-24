@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTPPOSSIBLE']="You don't have FTP functions !";
+$lang['L_NOFTP/SFTPPOSSIBLE']="You don't have FTP/SFTP functions !";
 $lang['L_INFO_LOCATION']="Your location is ";
 $lang['L_INFO_DATABASES']="The following database(s) are on your server:";
 $lang['L_INFO_NODB']="database does not exist.";
@@ -64,10 +64,10 @@ $lang['L_NOGZPOSSIBLE']="Because Zlib is not installed, you cannot use GZip-Func
 $lang['L_DELETE_HTACCESS']="Remove directory protection (delete .htaccess)";
 $lang['L_WRONG_RIGHTS']="The file or the directory '%s' is not writable for me.<br>
 The rights (chmod) are not set properly or it has the wrong owner.<br>
-Pleae set the correct attributes using your FTP program.<br>
+Pleae set the correct attributes using your FTP/SFTP program.<br>
 The file or the directory needs to be set to %s.<br>";
 $lang['L_CANT_CREATE_DIR']="Couldn' t create dir '%s'.
-Please create it using your FTP program.";
+Please create it using your FTP/SFTP program.";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";

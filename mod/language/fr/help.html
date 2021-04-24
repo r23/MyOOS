@@ -44,7 +44,7 @@ Dans ce cas veuillez suivre les étapes suivantes:<br><br>
 3. Ouvrir le fichier "crondump.pl" dans un éditeur <br>
 4. et transmettre le chemin que vous venez de copier près de absolute_path_of_configdir (sans espace) <br>
 5. Sauvegarder crondump.pl <br>
-6. Copier crondump.pl, ainsi que perltest.pl et simpletest.pl dans le répertoire cgi-bin (Mode-ASCII par FTP) <br>
+6. Copier crondump.pl, ainsi que perltest.pl et simpletest.pl dans le répertoire cgi-bin (Mode-ASCII par FTP/SFTP) <br>
 7. Donner les droits CHMOD 755 <br>
 7b. Si l'extension .cgi est désirée, changer pour les trois fichiers l'extension de .pl vers .cgi (action renommer) <br>
 8. Appeller la configuraion dans MySQLDumper<br>
@@ -90,12 +90,12 @@ Ici vous pouvez éditer, sauvegarder votre configuration ou bien réinstaller la
 	<li><a name="conf5"></a><strong>Courriel avec pièces jointes:</strong> Si vous avez activé cette option, vous recevrez après la création de la copie de sauvegarde un courriel avec la copie de sauvegarde en pièce jointe (Attention, la compression doit être impérativement activée, sinon la pièce jointe risque d'être trop volumineuse et ne pourra eventuellement pas être envoyée avec le courriel!)</li>
 	<li><a name="conf6"></a><strong>Adresse électronique:</strong> Destinataire du courriel</li>
 	<li><a name="conf7"></a><strong>Expéditeur du courriel:</strong> C'est l'adresse de l'expéditeur qui apparaitra dans le courriel</li>
-	<li><a name="conf13"></a><strong>Transfert FTP: </strong>Si cette option est activée, après la création de la copie de sauvegarde, celle-ci sera envoyée par FTP sur un serveur.</li>
-	<li><a name="conf14"></a><strong>Serveur FTP: </strong>L'adresse du serveur FTP (exemple: ftp.mybackups.com)</li>
-	<li><a name="conf15"></a><strong>Port du serveur FTP: </strong>Port du serveur FTP (en général 21)</li>
-	<li><a name="conf16"></a><strong>Utilisateur FTP: </strong>Le nom de l'utilisateur du compte FTP</li>
-	<li><a name="conf17"></a><strong>Mot de passe FTP: </strong>Le mot de passe du compte FTP </li>
-	<li><a name="conf18"></a><strong>Répertoire de téléchargement FTP: </strong>Le répertoire dans lequel la copie de sauvegarde doit être copiée (il doit exister des droits afin de pouvoir télécharger vers le serveur!)</li>
+	<li><a name="conf13"></a><strong>Transfert FTP/SFTP: </strong>Si cette option est activée, après la création de la copie de sauvegarde, celle-ci sera envoyée par FTP/SFTP sur un serveur.</li>
+	<li><a name="conf14"></a><strong>Serveur FTP/SFTP: </strong>L'adresse du serveur FTP/SFTP (exemple: ftp.mybackups.com)</li>
+	<li><a name="conf15"></a><strong>Port du serveur FTP/SFTP: </strong>Port du serveur FTP/SFTP (en général 21)</li>
+	<li><a name="conf16"></a><strong>Utilisateur FTP/SFTP: </strong>Le nom de l'utilisateur du compte FTP/SFTP</li>
+	<li><a name="conf17"></a><strong>Mot de passe FTP/SFTP: </strong>Le mot de passe du compte FTP/SFTP </li>
+	<li><a name="conf18"></a><strong>Répertoire de téléchargement FTP/SFTP: </strong>Le répertoire dans lequel la copie de sauvegarde doit être copiée (il doit exister des droits afin de pouvoir télécharger vers le serveur!)</li>
 	<li><a name="conf8"></a><strong>Suppression automatique de la copie de sauvegarde:</strong> Si cette option est activée, les sauvegardes les plus anciennes seront supprimée d'après les options choisies. La combinaison d'options n'est pas possible.</li>
 	<li><a name="conf10"></a><strong>Nombre de copie de sauvegarde:</strong> La valeur > 0 supprime toutes les copies de sauvegardes les plus anciennes excepté le nombre défini dans ce champ</li>
 	<li><a name="conf11"></a><strong>Langue:</strong> Ici vous définissez la langue de votre interface.</li>

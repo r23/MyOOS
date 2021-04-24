@@ -66,7 +66,7 @@ $lang['L_CONVERT_FILEREAD']="Dosya '%s' okunuyor";
 $lang['L_CONVERT_FINISHED']="Dönüştürme tamamlandı, '%s' oluşturuldu.";
 $lang['L_NO_MOD_BACKUPFILE']="Başka yazılımların dosyaları:";
 $lang['L_MAX_UPLOAD_SIZE']="Maksimum dosya boyutu";
-$lang['L_MAX_UPLOAD_SIZE_INFO']="Eğer Yedek dosyanız izin verilen boyuttan büyük ise, o zaman FTP ile \"work/backup\"-Klasörüne yüklemeniz lazım.
+$lang['L_MAX_UPLOAD_SIZE_INFO']="Eğer Yedek dosyanız izin verilen boyuttan büyük ise, o zaman FTP/SFTP ile \"work/backup\"-Klasörüne yüklemeniz lazım.
 Daha sonra bu dosya Yönetim bölümünde gözüküp geri yükleme işlemi için kullanılabilir duruma gelicektir.";
 $lang['L_ENCODING']="kodlama";
 $lang['L_FM_CHOOSE_ENCODING']="alınacak yedeğin karakter setini seçin";

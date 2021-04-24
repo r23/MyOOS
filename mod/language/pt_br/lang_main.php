@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTPPOSSIBLE']="Você não tem alçada para funções de FTP !";
+$lang['L_NOFTP/SFTPPOSSIBLE']="Você não tem alçada para funções de FTP/SFTP !";
 $lang['L_INFO_LOCATION']="Sua localização é ";
 $lang['L_INFO_DATABASES']="Os seguintes bancos de dados estão no seu servidor:";
 $lang['L_INFO_NODB']="O banco de dados não existe.";
@@ -64,10 +64,10 @@ $lang['L_NOGZPOSSIBLE']="Como Zlib não está instalado, você não poderá usar
 $lang['L_DELETE_HTACCESS']="Remover proteção de diretório (apagar .htaccess)";
 $lang['L_WRONG_RIGHTS']="O arquivo ou o diretório '%s' não tem permissão de escrita para mim.<br>
 As permissões (chmod) não estão configuradas apropriadamente ou não há privilégios suficientes para este usuário.<br>
-Por favor configure corretamente as permissões usando o programa de FTP.<br>
+Por favor configure corretamente as permissões usando o programa de FTP/SFTP.<br>
 O arquivo ou diretório necessitam de configuração para %s.<br>";
 $lang['L_CANT_CREATE_DIR']="Não foi possível criar o diretório '%s'. 
-Por favor utilize seu programa de FTP.";
+Por favor utilize seu programa de FTP/SFTP.";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";

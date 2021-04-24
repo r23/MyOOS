@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTPPOSSIBLE']="Bạn không có những chức năng FTP!";
+$lang['L_NOFTP/SFTPPOSSIBLE']="Bạn không có những chức năng FTP/SFTP!";
 $lang['L_INFO_LOCATION']="vị trí của bạn ở ";
 $lang['L_INFO_DATABASES']="CSDL sau đây ở trên Server của bạn:";
 $lang['L_INFO_NODB']="cơ sở dữ liệu không tồn tại.";
@@ -64,10 +64,10 @@ $lang['L_NOGZPOSSIBLE']="Vì Zlib chưa được cài đặt, bạn không thể
 $lang['L_DELETE_HTACCESS']="Bỏ bảo vệ thư mục (xóa .htaccess)";
 $lang['L_WRONG_RIGHTS']="File hay thư mục '%s' không cho phép ghi.<br>
 Chế độ chmod không đúng hoặc nó không dành cho chúng ta.<br>
-Đặt lại thuộc tính cho đúng bằng cách sử dụng trình FTP.<br>
+Đặt lại thuộc tính cho đúng bằng cách sử dụng trình FTP/SFTP.<br>
 File hay thư mục cần được thiết lập thành %s.<br>";
 $lang['L_CANT_CREATE_DIR']="Không thể tạo thư mục '%s'.
-Hãy tạo ra nó bằng cách sử dụng trình FTP.";
+Hãy tạo ra nó bằng cách sử dụng trình FTP/SFTP.";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";

@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTPPOSSIBLE']="FTP  işlemleri mümkün değil!";
+$lang['L_NOFTP/SFTPPOSSIBLE']="FTP/SFTP  işlemleri mümkün değil!";
 $lang['L_INFO_LOCATION']="Bulunduğunuz alan: ";
 $lang['L_INFO_DATABASES']="Sunucuda bulunan Veritabanları:";
 $lang['L_INFO_NODB']="İstenile Veritabanaı bulunamıyor";
@@ -63,7 +63,7 @@ $lang['L_DISABLEDFUNCTIONS']="İptal edilmiş fonksiyonlar";
 $lang['L_NOGZPOSSIBLE']="Zlib bulunamadığı için Sıkıştırma kullanılamaz!";
 $lang['L_DELETE_HTACCESS']="Klasör koruması kaldırılsın (.htaccess silinecek)";
 $lang['L_WRONG_RIGHTS']="Dosya yada Klasör '%s' yazılamıyor !.<br> Ya yetkili kullanıcı değilsiniz yada erişim haklarınız kısıtlı (chmod).<br> Lütfen Ftp programınızla gerekli erişim haklarını düzenleyin.<br>Dosya / Klasör için gerekli erişim hakkı %s.<br>";
-$lang['L_CANT_CREATE_DIR']="gerekli olan '%s' Klasörü oluşturulamadı. Lütfen FTP Programınız ile yaratın.";
+$lang['L_CANT_CREATE_DIR']="gerekli olan '%s' Klasörü oluşturulamadı. Lütfen FTP/SFTP Programınız ile yaratın.";
 $lang['L_TABLE_TYPE']="Tür";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";

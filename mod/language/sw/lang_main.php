@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTPPOSSIBLE']="Det står inga FTP-funktioner till förfogande!";
+$lang['L_NOFTP/SFTPPOSSIBLE']="Det står inga FTP/SFTP-funktioner till förfogande!";
 $lang['L_INFO_LOCATION']="Du befinner dig på";
 $lang['L_INFO_DATABASES']="Följande databas(er) finns på MySQL-servern:";
 $lang['L_INFO_NODB']="Databasen existerar ej";
@@ -62,8 +62,8 @@ $lang['L_HTACCESS32']="OBS! .htaccess har direkt inverkan på servern.<br>Om .ht
 $lang['L_DISABLEDFUNCTIONS']="Deaktiverade funktioner";
 $lang['L_NOGZPOSSIBLE']="Det står inga GZIP-funktioner till förfogande eftersom zlib ej har installerats!";
 $lang['L_DELETE_HTACCESS']="Avlägsna mappskyddet (radera .htaccess-filen)";
-$lang['L_WRONG_RIGHTS']="Filen eller mappen '%s' kan ej skrivas till.<br>Antingen har den fel ägare (Owner) eller fel behörigheter (Chmod).<br>Ställ in rätt attribut med ett FTP-program. <br>Filen eller mappen måste ha %s.<br>";
-$lang['L_CANT_CREATE_DIR']="Mappen '%s' kunde ej skapas. Skapa den med ditt FTP-program.";
+$lang['L_WRONG_RIGHTS']="Filen eller mappen '%s' kan ej skrivas till.<br>Antingen har den fel ägare (Owner) eller fel behörigheter (Chmod).<br>Ställ in rätt attribut med ett FTP/SFTP-program. <br>Filen eller mappen måste ha %s.<br>";
+$lang['L_CANT_CREATE_DIR']="Mappen '%s' kunde ej skapas. Skapa den med ditt FTP/SFTP-program.";
 $lang['L_TABLE_TYPE']="Typ";
 $lang['L_CHECK']="kontrollera";
 $lang['L_OS']="Operativsystem";

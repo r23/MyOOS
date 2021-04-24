@@ -16,11 +16,11 @@ $lang['L_HELP_CRONPRINTOUT']="Yazı çıktısı kapalı olursa, sonuçlar belirt
 Bu fonksiyon rapor dosyasına bağlı değildir.";
 $lang['L_HELP_CRONSAMEDB']="Cronscript için ayarlardaki Veritabanı kullanılsınmı?";
 $lang['L_HELP_CRONDBINDEX']="Cronscript için kullanılacak Veritabanını seçiniz.";
-$lang['L_HELP_FTPTRANSFER']="Seçildiğinde yedekleme den sonra dosya FTP ile gönderilir.";
-$lang['L_HELP_FTPSERVER']="FTP-Sunucusunun adresi.";
-$lang['L_HELP_FTPPORT']="FTP-Sunucusunun Portnumarası, Standart: 21.";
-$lang['L_HELP_FTPUSER']="FTP-Kullanıcısının adı";
-$lang['L_HELP_FTPPASS']="FTP-Kullanıcısının şifresi.";
+$lang['L_HELP_FTPTRANSFER']="Seçildiğinde yedekleme den sonra dosya FTP/SFTP ile gönderilir.";
+$lang['L_HELP_FTPSERVER']="FTP/SFTP-Sunucusunun adresi.";
+$lang['L_HELP_FTPPORT']="FTP/SFTP-Sunucusunun Portnumarası, Standart: 21.";
+$lang['L_HELP_FTPUSER']="FTP/SFTP-Kullanıcısının adı";
+$lang['L_HELP_FTPPASS']="FTP/SFTP-Kullanıcısının şifresi.";
 $lang['L_HELP_FTPDIR']="Dosyanın gönderileceği yer?";
 $lang['L_HELP_SPEED']="en düşük ve en yüksek hız, standart: 50'den 5000'e kadar
 (daha yüksek hız ayarı çalışmayabilir!).";
@@ -30,4 +30,4 @@ HTTP-Adressinden yola çıkarak (Tarayıcıda).";
 $lang['L_CRON_EXECPATH']="Perlskript'in veriyolu";
 $lang['L_HELP_CRONCOMPLETELOG']="Aktiv olması durumunda çıktının komplesi complete_log dosyasına kaydedilir. 
 Textçıktısı ayarlarına bağlı değildir.";
-$lang['L_HELP_FTP_MODE']="Eğer FTP-Transfer esnasında hata oluşursa,lütfen Pasif-Modus yöntemi ile deneyin.";
+$lang['L_HELP_FTP_MODE']="Eğer FTP/SFTP-Transfer esnasında hata oluşursa,lütfen Pasif-Modus yöntemi ile deneyin.";

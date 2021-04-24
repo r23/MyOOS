@@ -16,11 +16,11 @@ $lang['L_HELP_CRONPRINTOUT']="Hvis deaktiveret skrives output ikke på skærmen.
 Dette er uafhængigt af skrivningen til logfilen.";
 $lang['L_HELP_CRONSAMEDB']="Brug samme database i Cron job som konfigureret under Database?";
 $lang['L_HELP_CRONDBINDEX']="vælg databasen for Cron job";
-$lang['L_HELP_FTPTRANSFER']="hvis aktiveret sendes filen via FTP.";
-$lang['L_HELP_FTPSERVER']="Adresse på FTP-Serveren";
-$lang['L_HELP_FTPPORT']="Port på FTP-Serveren, standard: 21";
-$lang['L_HELP_FTPUSER']="indtast brugernavn for FTP";
-$lang['L_HELP_FTPPASS']="indtast kodeord for FTP";
+$lang['L_HELP_FTPTRANSFER']="hvis aktiveret sendes filen via FTP/SFTP.";
+$lang['L_HELP_FTPSERVER']="Adresse på FTP/SFTP-Serveren";
+$lang['L_HELP_FTPPORT']="Port på FTP/SFTP-Serveren, standard: 21";
+$lang['L_HELP_FTPUSER']="indtast brugernavn for FTP/SFTP";
+$lang['L_HELP_FTPPASS']="indtast kodeord for FTP/SFTP";
 $lang['L_HELP_FTPDIR']="hvor er upload-folderen? indtast sti!";
 $lang['L_HELP_SPEED']="Minimum og maksimum hastighed, standard er 50 til 5000 (for høje eller lave hastigheder kan forårsage timeouts!)";
 $lang['L_SPEED']="Hastighedskontrol";
@@ -30,4 +30,4 @@ Tilladt er absolutte eller relative angivelser.";
 $lang['L_CRON_EXECPATH']="Sti til Perl scripts";
 $lang['L_HELP_CRONCOMPLETELOG']="Når aktiveret, skrives det fuldstændige output til complete_log-filen.
 Dette er uafhængigt af tekstudskrifter";
-$lang['L_HELP_FTP_MODE']="Hvis du oplever problemer med FTP-overførsel, brug passiv tilstand.";
+$lang['L_HELP_FTP_MODE']="Hvis du oplever problemer med FTP/SFTP-overførsel, brug passiv tilstand.";

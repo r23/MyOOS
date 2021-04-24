@@ -16,11 +16,11 @@ $lang['L_HELP_CRONPRINTOUT']="Se a saída estiver desativada ela não irá apare
 Isto é independente de fazer impressão a partir do arquivo de log.";
 $lang['L_HELP_CRONSAMEDB']="Usar o mesmo bd no trabalho Cron como está configurado o banco de dados?";
 $lang['L_HELP_CRONDBINDEX']="escolha o banco de dados para o Cron";
-$lang['L_HELP_FTPTRANSFER']="se ativado o arquivo será encaminhado via FTP.";
-$lang['L_HELP_FTPSERVER']="Endereço do servidor de FTP";
-$lang['L_HELP_FTPPORT']="Porta do servidor de FTP, padrão: 21";
-$lang['L_HELP_FTPUSER']="digite o nome do usuário para o FTP";
-$lang['L_HELP_FTPPASS']="digite a senha para o FTP";
+$lang['L_HELP_FTPTRANSFER']="se ativado o arquivo será encaminhado via FTP/SFTP.";
+$lang['L_HELP_FTPSERVER']="Endereço do servidor de FTP/SFTP";
+$lang['L_HELP_FTPPORT']="Porta do servidor de FTP/SFTP, padrão: 21";
+$lang['L_HELP_FTPUSER']="digite o nome do usuário para o FTP/SFTP";
+$lang['L_HELP_FTPPASS']="digite a senha para o FTP/SFTP";
 $lang['L_HELP_FTPDIR']="onde está o diretório para upload? Digite o caminho!";
 $lang['L_HELP_SPEED']="Velocidade mínima e máxima. O padrão é: 50 à 5000";
 $lang['L_SPEED']="Controle de velocidade";
@@ -30,4 +30,4 @@ Permitidas entradas absolutas ou relativas.";
 $lang['L_CRON_EXECPATH']="Caminho dos scripts Perl";
 $lang['L_HELP_CRONCOMPLETELOG']="Quando ativo o resultado completo será escrito em um arquivo_logcompleto.
 Isto é independente de imprimir o texto";
-$lang['L_HELP_FTP_MODE']="Quando você observar problemas usando a tranferência em FTP, ative o modo passivo.";
+$lang['L_HELP_FTP_MODE']="Quando você observar problemas usando a tranferência em FTP/SFTP, ative o modo passivo.";

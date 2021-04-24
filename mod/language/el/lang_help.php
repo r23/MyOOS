@@ -16,11 +16,11 @@ $lang['L_HELP_CRONPRINTOUT']="Αν απενεργοποιηθεί δε θα πρ
 Είναι ανεξάρτητο από την έξοδο στο αρχείο καταγραφών.";
 $lang['L_HELP_CRONSAMEDB']="Χρήση ίδιας Β.Δεδομένων στο Cron job όπως ρυθμίστηκε στη Β.Δεδομένων?";
 $lang['L_HELP_CRONDBINDEX']="επιλέξτε τη Β.Δεδομένων για το Cron job";
-$lang['L_HELP_FTPTRANSFER']="αν είναι ενεργό, το αρχείο θα αποστέλεται με FTP.";
-$lang['L_HELP_FTPSERVER']="Διεύθυνση του διακομιστή FTP";
-$lang['L_HELP_FTPPORT']="Θύρα του διακομιστή FTP, προεπιλογή: 21";
-$lang['L_HELP_FTPUSER']="Δώστε όνομα χρήστη για το FTP";
-$lang['L_HELP_FTPPASS']="Δώστε κωδικό για το FTP";
+$lang['L_HELP_FTPTRANSFER']="αν είναι ενεργό, το αρχείο θα αποστέλεται με FTP/SFTP.";
+$lang['L_HELP_FTPSERVER']="Διεύθυνση του διακομιστή FTP/SFTP";
+$lang['L_HELP_FTPPORT']="Θύρα του διακομιστή FTP/SFTP, προεπιλογή: 21";
+$lang['L_HELP_FTPUSER']="Δώστε όνομα χρήστη για το FTP/SFTP";
+$lang['L_HELP_FTPPASS']="Δώστε κωδικό για το FTP/SFTP";
 $lang['L_HELP_FTPDIR']="Που βρίσκεται ο κατάλογος φόρτωσης? δώστε διαδρομή!";
 $lang['L_HELP_SPEED']="Ελάχιστη και μέγιστη ταχύτητα, προεπιλογή είναι 50 εως 5000";
 $lang['L_SPEED']="Ελεγχος ταχύτητας";
@@ -30,7 +30,7 @@ $lang['L_HELP_CRONEXECPATH']="Η τοποθεσία των Perl scripts.
 $lang['L_CRON_EXECPATH']="Διαδρομή των Perl scripts";
 $lang['L_HELP_CRONCOMPLETELOG']="Οταν ενεργοποιηθεί, η πλήρης έξοδος γράφεται στο complete_log-file.
 Είναι ανεξάρτητο από την προβολή κειμένου";
-$lang['L_HELP_FTP_MODE']="Οταν συμβούν προβλήματα κατά την μεταφορά μέσω FTP, δοκιμάστε τη χρήση passive mode.
+$lang['L_HELP_FTP_MODE']="Οταν συμβούν προβλήματα κατά την μεταφορά μέσω FTP/SFTP, δοκιμάστε τη χρήση passive mode.
 
 
 ";

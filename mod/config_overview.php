@@ -103,6 +103,7 @@ $ftptested=-1;
 if (( isset($_POST['testFTP0']) ) || ( isset($_POST['testFTP1']) ) || ( isset($_POST['testFTP2']) ))
 {
 	$config['ftp_transfer']=array();
+	$config['sftp']=array();
 	$config['ftp_timeout']=array();
 	$config['ftp_mode']=array();
 	$config['ftp_useSSL']=array();
@@ -110,6 +111,7 @@ if (( isset($_POST['testFTP0']) ) || ( isset($_POST['testFTP1']) ) || ( isset($_
 	for ($i=0; $i < 3; $i++)
 	{
 		$config['ftp_transfer'][$i]=( isset($_POST['ftp_transfer'][$i]) ) ? $_POST['ftp_transfer'][$i] : 0;
+		$config['sftp'][$i]=( isset($_POST['sftp'][$i]) ) ? $_POST['sftp'][$i] : 0;
 		$config['ftp_timeout'][$i]=( isset($_POST['ftp_timeout'][$i]) ) ? $_POST['ftp_timeout'][$i] : 30;
 		$config['ftp_useSSL'][$i]=( isset($_POST['ftp_useSSL'][$i]) ) ? $_POST['ftp_useSSL'][$i] : 0;
 		$config['ftp_mode'][$i]=( isset($_POST['ftp_mode'][$i]) ) ? 1 : 0;
@@ -143,6 +145,7 @@ if ($ftptested > -1)
 	$ftp_dir[$ftptested]=stripslashes($f[$ftptested]);
 	// Eingaben merken
 	$config['ftp_transfer'][$ftptested]=( isset($_POST['ftp_transfer'][$ftptested]) ) ? $_POST['ftp_transfer'][$ftptested] : 0;
+	$config['sftp'][$ftptested]=( isset($_POST['sftp'][$ftptested]) ) ? $_POST['sftp'][$ftptested] : 0;
 	$config['ftp_timeout'][$ftptested]=( isset($_POST['ftp_timeout'][$ftptested]) ) ? $_POST['ftp_timeout'][$ftptested] : 30;
 	$config['ftp_useSSL'][$ftptested]=( isset($_POST['ftp_useSSL'][$ftptested]) ) ? $_POST['ftp_useSSL'][$ftptested] : 0;
 	$config['ftp_mode'][$ftptested]=( isset($_POST['ftp_mode'][$ftptested]) ) ? 1 : 0;
@@ -301,6 +304,7 @@ if (isset($_POST['save']))
 	}
 
 	$config['ftp_transfer']=array();
+	$config['sftp']=array();
 	$config['ftp_timeout']=array();
 	$config['ftp_mode']=array();
 	$config['ftp_useSSL']=array();
@@ -314,18 +318,24 @@ if (isset($_POST['save']))
 	for ($i=0; $i < 3; $i++)
 	{
 		$checkFTP[$i]="";
-		$config['ftp_transfer'][$i] = isset($config['ftp_transfer'][$i]) ? $config['ftp_transfer'][$i] : 0;
-		$config['ftp_transfer'][$i]=isset($_POST['ftp_transfer'][$i]) ? $_POST['ftp_transfer'][$i] : $config['ftp_transfer'][$i];
+		$config['ftp_transfer'][$i] = isset($_POST['ftp_transfer'][$i]) ? $_POST['ftp_transfer'][$i] : 0;
+		$config['sftp'][$i] = isset($_POST['sftp'][$i]) ? $_POST['sftp'][$i] : 0;
 		$config['ftp_timeout'][$i]=isset($_POST['ftp_timeout'][$i]) ? $_POST['ftp_timeout'][$i] : 30;
 		$config['ftp_useSSL'][$i]=isset($_POST['ftp_useSSL'][$i]) ? 1 : 0;
 
 		$config['ftp_mode'][$i]=isset($_POST['ftp_mode'][$i]) ? 1 : 0;
 		$config['ftp_server'][$i]=isset($_POST['ftp_server'][$i]) ? $_POST['ftp_server'][$i] : '';
-		$config['ftp_port'][$i]=isset($_POST['ftp_port'][$i]) ? $_POST['ftp_port'][$i] : '';
+		$config['ftp_port'][$i]=isset($_POST['ftp_port'][$i]) ? $_POST['ftp_port'][$i] : 0;
 		$config['ftp_user'][$i]=isset($_POST['ftp_user'][$i]) ? $_POST['ftp_user'][$i] : '';
 		$config['ftp_pass'][$i]=isset($_POST['ftp_pass'][$i]) ? $_POST['ftp_pass'][$i] : '';
 		$config['ftp_dir'][$i]=isset($_POST['ftp_dir'][$i]) ? stripslashes($_POST['ftp_dir'][$i]) : '';
-		if ($config['ftp_port'][$i] == 0) $config['ftp_port'][$i]=21;
+		if ($config['ftp_port'][$i] == 0){
+			if ($config['sftp'][$i] == 0) {
+				$config['ftp_port'][$i]=21;
+			} else { 
+				$config['ftp_port'][$i]=22;
+			}
+		}
 		if ($config['ftp_dir'][$i] == "" || ( strlen($config['ftp_dir'][$i]) > 1 && substr($config['ftp_dir'][$i],-1) != "/" )) $config['ftp_dir'][$i].="/";
 	}
 
@@ -956,6 +966,11 @@ for ($i=0; $i < 3; $i++)
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPTRANSFER'],"") . $lang['L_FTP_TRANSFER'] . ':&nbsp;</td>';
 	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" value="1" name="ftp_transfer[' . $i . ']" ' . ( ( !extension_loaded("ftp") ) ? "disabled " : "" ) . ( (isset($config['ftp_transfer'][$i]) && ( $config['ftp_transfer'][$i] == 1 )) ? " checked" : "" ) . '></td></tr>';
+
+	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTP_MODE'],"") . $lang['L_FTP_CHOOSE_MODE'] . ':&nbsp;</td>';
+	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" name="sftp[' . $i . ']" value="1" ' . ( (isset($config['sftp'][$i]) && ( $config['sftp'][$i] == 1 )) ? 'checked' : '' ) . '>&nbsp;';
+	$aus['transfer2'].=$lang['L_FTP_PASSIVE'] . '</td></tr><tr><td colspan="2">';
+
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPTIMEOUT'],"") . $lang['L_FTP_TIMEOUT'] . ':&nbsp;</td>';
 	$aus['transfer2'].='<td><input type="text" class="text" size="10" name="ftp_timeout[' . $i . ']" maxlength="3" style="text-align:right;" value="' . ( (isset($config['ftp_timeout'][$i])) ? $config['ftp_timeout'][$i] : "" ) . '">&nbsp;sec</td></tr>';

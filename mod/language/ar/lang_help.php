@@ -15,11 +15,11 @@ $lang['L_HELP_CRONPRINTOUT']="If deactivated the output will not be printed on s
 It is independant from the printing in the logfile.";
 $lang['L_HELP_CRONSAMEDB']="Use same database in Cron job like configured under Database?";
 $lang['L_HELP_CRONDBINDEX']="choose the database for Cron job";
-$lang['L_HELP_FTPTRANSFER']="if activated, file will be sent via FTP.";
-$lang['L_HELP_FTPSERVER']="Address of the FTP-Server";
-$lang['L_HELP_FTPPORT']="Port of the FTP-Server, standard: 21";
-$lang['L_HELP_FTPUSER']="enter username for FTP";
-$lang['L_HELP_FTPPASS']="enter password for FTP";
+$lang['L_HELP_FTPTRANSFER']="if activated, file will be sent via FTP/SFTP.";
+$lang['L_HELP_FTPSERVER']="Address of the FTP/SFTP-Server";
+$lang['L_HELP_FTPPORT']="Port of the FTP/SFTP-Server, standard: 21";
+$lang['L_HELP_FTPUSER']="enter username for FTP/SFTP";
+$lang['L_HELP_FTPPASS']="enter password for FTP/SFTP";
 $lang['L_HELP_FTPDIR']="where is the upload-dir? enter path!";
 $lang['L_HELP_SPEED']="Minimum and maximum speed, default is 50 to 5000";
 $lang['L_SPEED']="Speed control";
@@ -27,4 +27,4 @@ $lang['L_HELP_CRONEXECPATH']="The place of the Perl scripts.\nStarting Point is 
 $lang['L_CRON_EXECPATH']="Path of Perl scripts";
 $lang['L_HELP_CRONCOMPLETELOG']="When activated the complete output is written in the complete_log-file.
 This is independent from text printing";
-$lang['L_HELP_FTP_MODE']="When problems occur while transfering via FTP, try to use the passive mode. ";
+$lang['L_HELP_FTP_MODE']="When problems occur while transfering via FTP/SFTP, try to use the passive mode. ";

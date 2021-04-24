@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTPPOSSIBLE']="Las funciones de FTP no están disponibles!";
+$lang['L_NOFTP/SFTPPOSSIBLE']="Las funciones de FTP/SFTP no están disponibles!";
 $lang['L_INFO_LOCATION']="Se encuentra en ";
 $lang['L_INFO_DATABASES']="Las siguentes bases de datos se encuentran en el servidor de MySQL:";
 $lang['L_INFO_NODB']="Base de datos inexistente";
@@ -64,10 +64,10 @@ $lang['L_NOGZPOSSIBLE']="Dado que Zlib no está instalado, no puede usar las fun
 $lang['L_DELETE_HTACCESS']="Remove directory protection (delete .htaccess)";
 $lang['L_WRONG_RIGHTS']="El archivo o directorio '%s' no tiene permisos de escritura para mi.<br>
 Los permisos (chmod) están mal configurados o el propietario no es correcto.<br>
-Por favor, compruebe los atributos utilizando su software de FTP.<br>
+Por favor, compruebe los atributos utilizando su software de FTP/SFTP.<br>
 El archivo o directorio debe ser configurado a %s.";
 $lang['L_CANT_CREATE_DIR']="No se puede crear el directorio '%s'.
-Cree este directorio manualmente utilizando un programa de FTP.";
+Cree este directorio manualmente utilizando un programa de FTP/SFTP.";
 $lang['L_TABLE_TYPE']="Tipo";
 $lang['L_CHECK']="comprobar";
 $lang['L_OS']="Operating system";
