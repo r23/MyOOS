@@ -9,7 +9,7 @@ $config['dbport'] = '';
 $config['dbsocket'] = '';
 
 // Username
-$config['dbuser'] = '';
+$config['dbuser'] = 'root';
 //User-Pass. For no Password leave empty
 $config['dbpass'] = '';
 
@@ -63,7 +63,6 @@ $config['email_maxsize2']=2;
 
 // FTP Server Configuration for Transfer
 $config['ftp_transfer'][0]=0;
-$config['sftp'][0]=0;
 $config['ftp_timeout'][0]=30;
 $config['ftp_useSSL'][0]=0;
 $config['ftp_mode'][0]=0;
@@ -74,7 +73,6 @@ $config['ftp_pass'][0]=''; // Password
 $config['ftp_dir'][0]=''; // Upload-Directory
 
 $config['ftp_transfer'][1]=0;
-$config['sftp'][1]=0;
 $config['ftp_timeout'][1]=30;
 $config['ftp_useSSL'][1]=0;
 $config['ftp_mode'][1]=0;
@@ -85,7 +83,6 @@ $config['ftp_pass'][1]='';
 $config['ftp_dir'][1]='';
 
 $config['ftp_transfer'][2]=0;
-$config['sftp'][2]=0;
 $config['ftp_timeout'][2]=30;
 $config['ftp_useSSL'][2]=0;
 $config['ftp_mode'][2]=0;
@@ -94,6 +91,39 @@ $config['ftp_port'][2]='21';
 $config['ftp_user'][2]='';
 $config['ftp_pass'][2]='';
 $config['ftp_dir'][2]='';
+
+
+// SFTP Server Configuration for Transfer
+$config['sftp_transfer'][0]=0;
+$config['sftp_timeout'][0]=30;
+$config['sftp_useSSL'][0]=0;
+$config['sftp_mode'][0]=0;
+$config['sftp_server'][0]=''; // Adress of SFTP-Server
+$config['sftp_port'][0]='22'; // Port
+$config['sftp_user'][0]=''; // Username
+$config['sftp_pass'][0]=''; // Password
+$config['sftp_dir'][0]=''; // Upload-Directory
+
+$config['sftp_transfer'][1]=0;
+$config['sftp_timeout'][1]=30;
+$config['sftp_useSSL'][1]=0;
+$config['sftp_mode'][1]=0;
+$config['sftp_server'][1]='';
+$config['sftp_port'][1]='22';
+$config['sftp_user'][1]='';
+$config['sftp_pass'][1]='';
+$config['sftp_dir'][1]='';
+
+$config['sftp_transfer'][2]=0;
+$config['sftp_timeout'][2]=30;
+$config['sftp_useSSL'][2]=0;
+$config['sftp_mode'][2]=0;
+$config['sftp_server'][2]='';
+$config['sftp_port'][2]='22';
+$config['sftp_user'][2]='';
+$config['sftp_pass'][2]='';
+$config['sftp_dir'][2]='';
+
 
 //Multipart 0=off 1=on
 $config['multi_part']=0;

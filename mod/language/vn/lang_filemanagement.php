@@ -66,7 +66,7 @@ $lang['L_CONVERT_FILEREAD']="Đọc file '%s'";
 $lang['L_CONVERT_FINISHED']="Kết thúc chuyển đổi, '%s' vừa tạo thành công.";
 $lang['L_NO_MOD_BACKUPFILE']="Sao lưu script khác";
 $lang['L_MAX_UPLOAD_SIZE']="Dung lượng tối đa cho file";
-$lang['L_MAX_UPLOAD_SIZE_INFO']="Nếu file sao lưu của các bạn lớn hơn giới hạn được quy định ở trên, bạn phải nạp dữ liệu nó qua FTP/SFTP vào trong thư mục \"work/backup\".
+$lang['L_MAX_UPLOAD_SIZE_INFO']="Nếu file sao lưu của các bạn lớn hơn giới hạn được quy định ở trên, bạn phải nạp dữ liệu nó qua FTP vào trong thư mục \"work/backup\".
 Sau đó bạn có thể chọn nó để bắt đầu phục hồi. ";
 $lang['L_ENCODING']="mã hóa";
 $lang['L_FM_CHOOSE_ENCODING']="Chọn chế độ mã hóa của file sao lưu";

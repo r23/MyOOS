@@ -16,12 +16,18 @@ $lang['L_HELP_CRONPRINTOUT']="Wenn die Textausgabe abgeschaltet ist, wird kein T
 Diese Funktion ist unabhängig von der Log-Ausgabe.";
 $lang['L_HELP_CRONSAMEDB']="Soll die gleiche Datenbank für Cronjob wie in den Einstellungen benutzt werden?";
 $lang['L_HELP_CRONDBINDEX']="Wähle die Datenbank für den Cronjob.";
-$lang['L_HELP_FTPTRANSFER']="Wenn aktiviert, wird nach dem Backup die Datei per FTP/SFTP gesendet.";
-$lang['L_HELP_FTPSERVER']="Adresse des FTP/SFTP-Servers.";
-$lang['L_HELP_FTPPORT']="Port des FTP/SFTP-Servers. Standard: 21.";
-$lang['L_HELP_FTPUSER']="Gibt den Benutzernamen der FTP/SFTP-Verbindung an.";
-$lang['L_HELP_FTPPASS']="Gibt das Passwort der FTP/SFTP-Verbindung an.";
+$lang['L_HELP_FTPTRANSFER']="Wenn aktiviert, wird nach dem Backup die Datei per FTP gesendet.";
+$lang['L_HELP_FTPSERVER']="Adresse des FTP-Servers.";
+$lang['L_HELP_FTPPORT']="Port des FTP-Servers. Standard: 21.";
+$lang['L_HELP_FTPUSER']="Gibt den Benutzernamen der FTP-Verbindung an.";
+$lang['L_HELP_FTPPASS']="Gibt das Passwort der FTP-Verbindung an.";
 $lang['L_HELP_FTPDIR']="Wohin soll die Datei gesendet werden?";
+$lang['L_HELP_SFTPTRANSFER']="Wenn aktiviert, wird nach dem Backup die Datei per SFTP gesendet.";
+$lang['L_HELP_SFTPSERVER']="Adresse des SFTP-Servers.";
+$lang['L_HELP_SFTPPORT']="Port des SFTP-Servers. Standard: 22.";
+$lang['L_HELP_SFTPUSER']="Gibt den Benutzernamen der SFTP-Verbindung an.";
+$lang['L_HELP_SFTPPASS']="Gibt das Passwort der SFTP-Verbindung an.";
+$lang['L_HELP_SFTPDIR']="Wohin soll die Datei gesendet werden?";
 $lang['L_HELP_SPEED']="Minimale und maximale Geschwindigkeit. Standard ist 50 bis 5000.
 (Zu hohe Geschwindigkeiten können zu Timeouts führen!)";
 $lang['L_SPEED']="Geschwindigkeitskontrolle";
@@ -31,4 +37,5 @@ Erlaubt sind absolute und relative Pfadangaben.";
 $lang['L_CRON_EXECPATH']="Pfad der Perlskripte";
 $lang['L_HELP_CRONCOMPLETELOG']="Wenn die Funktion aktiviert ist, wird die komplette Ausgabe im complete_log geschrieben. 
 Diese Funktion ist unabhängig von der Textausgabe.";
-$lang['L_HELP_FTP_MODE']="Wenn Probleme bei der FTP/SFTP-Übertragung auftauchen, versuchen Sie den passiven FTP/SFTP-Modus.";
+$lang['L_HELP_FTP_MODE']="Wenn Probleme bei der FTP-Übertragung auftauchen, versuchen Sie den passiven FTP-Modus.";
+$lang['L_HELP_SFTP_MODE']="Wenn Probleme bei der SFTP-Übertragung auftauchen, versuchen Sie den passiven SFTP-Modus.";

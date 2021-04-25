@@ -66,7 +66,7 @@ $lang['L_CONVERT_FILEREAD']="Ler arquivo '%s'";
 $lang['L_CONVERT_FINISHED']="Conversão terminada, o arquivo '%s' foi gravado com sucesso.";
 $lang['L_NO_MOD_BACKUPFILE']="Backups de outros scripts";
 $lang['L_MAX_UPLOAD_SIZE']="Tamanho máximo do aqruivo";
-$lang['L_MAX_UPLOAD_SIZE_INFO']="Se o seu arquivo de dump é maior que o limite mencionado acima, você deve enviá-lo via FTP/SFTP para o diretório \"work/backup\".
+$lang['L_MAX_UPLOAD_SIZE_INFO']="Se o seu arquivo de dump é maior que o limite mencionado acima, você deve enviá-lo via FTP para o diretório \"work/backup\".
 Após fazer isso você poderá escolhê-lo novamente para iniciar o processo de restauração. ";
 $lang['L_ENCODING']="encoding";
 $lang['L_FM_CHOOSE_ENCODING']="Choose encoding of backup file";

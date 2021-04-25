@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTP/SFTPPOSSIBLE']="Es stehen keine FTP/SFTP-Funktionen zur Verfügung!";
+$lang['L_NOFTPPOSSIBLE']="Es stehen keine FTP-Funktionen zur Verfügung!";
 $lang['L_INFO_LOCATION']="Sie befinden sich auf ";
 $lang['L_INFO_DATABASES']="Folgende Datenbank(en) befinden sich auf dem MySql-Server:";
 $lang['L_INFO_NODB']="Datenbank existiert nicht";
@@ -64,10 +64,10 @@ $lang['L_NOGZPOSSIBLE']="Da zlib nicht installiert ist, stehen keine GZip-Funkti
 $lang['L_DELETE_HTACCESS']="Verzeichnisschutz entfernen (.htaccess löschen)";
 $lang['L_WRONG_RIGHTS']="Die Datei oder das Verzeichnis '%s' ist für mich nicht beschreibbar.<br>
 Entweder hat sie den falschen Besitzer (Owner) oder die falschen Rechte (Chmod).<br>
-Bitte setzen Sie die richtigen Attribute mit Ihrem FTP/SFTP-Programm. <br>
+Bitte setzen Sie die richtigen Attribute mit Ihrem FTP-Programm. <br>
 Die Datei oder das Verzeichnis benötigt die Rechte %s.<br>";
 $lang['L_CANT_CREATE_DIR']="Ich konnte das Verzeichnis '%s' nicht erstellen.
-Bitte erstellen Sie es mit Ihrem FTP/SFTP-Programm.";
+Bitte erstellen Sie es mit Ihrem FTP-Programm.";
 $lang['L_TABLE_TYPE']="Typ";
 $lang['L_CHECK']="prüfen";
 $lang['L_OS']="Betriebssystem";

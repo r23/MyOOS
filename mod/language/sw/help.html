@@ -43,7 +43,7 @@ Om detta är fallet så bör följande steg genomföras:<br><br>
 3. Öppna filen "crondump.pl" i Anteckningar.<br>
 4. Kopiera in skriptsökvägen vid absolute_path_of_configdir (utan mellanslag).<br>
 5. Spara crondump.pl .<br>
-6. Kopiera över crondump.pl samt perltest.pl och simpletest.pl till cgi-bin-mappen (använd ASCII-läge i FTP/SFTP-programmet).<br>
+6. Kopiera över crondump.pl samt perltest.pl och simpletest.pl till cgi-bin-mappen (använd ASCII-läge i FTP-programmet).<br>
 7. Ställ in rättigheten 755 (CHMOD). <br>
 7b. Om filändelsen cgi önskas ändrar du ändelsen pl -> cgi hos alla tre filerna. <br>
 8. Starta konfigureringen i MySQLDumper.<br>
@@ -89,12 +89,12 @@ Här kan du redigera, spara eller återställa din konfigurering.
 	<li><a name="conf5"></a><strong>Email med dump-filen:</strong> om denna option aktiveras så sänds den färdiga dumpen som email-attachment (VARNING: aktivera ovillkorligen kompression, annars kan attachmentet blir för stort och kan eventuellt ej skickas!).</li>
 	<li><a name="conf6"></a><strong>Email-adress:</strong> mottagaradressen för dessa email.</li>
 	<li><a name="conf7"></a><strong>Emailets avsändare:</strong> denna adress används som avsändaradress.</li>
-	<li><a name="conf13"></a><strong>FTP/SFTP-överföring:</strong> om denna option aktiveras så överförs den färdiga dumpen via FTP/SFTP.</li>
-	<li><a name="conf14"></a><strong>FTP/SFTP-server:</strong> FTP/SFTP-serverns adress (t.ex. ftp.mindomain.se).</li>
-	<li><a name="conf15"></a><strong>FTP/SFTP-serverns port:</strong> FTP/SFTP-serverns port (normalt sett 21).</li>
-	<li><a name="conf16"></a><strong>FTP/SFTP-användare:</strong> användarnamnet för FTP/SFTP-kontot.</li>
-	<li><a name="conf17"></a><strong>FTP/SFTP-lösenord:</strong> lösenordet för FTP/SFTP-kontot.</li>
-	<li><a name="conf18"></a><strong>FTP/SFTP upload-mapp:</strong> mappen i vilken backup-filen skall sparas (servern måste tillåtas skriva till denna mapp!).</li>
+	<li><a name="conf13"></a><strong>FTP-överföring:</strong> om denna option aktiveras så överförs den färdiga dumpen via FTP.</li>
+	<li><a name="conf14"></a><strong>FTP-server:</strong> FTP-serverns adress (t.ex. ftp.mindomain.se).</li>
+	<li><a name="conf15"></a><strong>FTP-serverns port:</strong> FTP-serverns port (normalt sett 21).</li>
+	<li><a name="conf16"></a><strong>FTP-användare:</strong> användarnamnet för FTP-kontot.</li>
+	<li><a name="conf17"></a><strong>FTP-lösenord:</strong> lösenordet för FTP-kontot.</li>
+	<li><a name="conf18"></a><strong>FTP upload-mapp:</strong> mappen i vilken backup-filen skall sparas (servern måste tillåtas skriva till denna mapp!).</li>
 	<li><a name="conf8"></a><strong>Automatisk radering av backup:</strong> om denna option aktiveras så raderas äldre backup-filer automatiskt enligt följande regler.</li>
 	<li><a name="conf10"></a><strong>Antal backup-filer:</strong> ett värde > 0 raderar alla filer utöver antalet i detta värde.</li>
 	<li><a name="conf11"></a><strong>Spåk:</strong> här ställer du in språket för gränssnittet.</li>

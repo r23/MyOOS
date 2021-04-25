@@ -483,8 +483,16 @@ function WriteCronScript($restore_values=false)
 	$config['ftp_timeout'] = isset($config['ftp_timeout']) ? $config['ftp_timeout'] : '';
 	$config['ftp_useSSL'] = isset($config['ftp_useSSL']) ? $config['ftp_useSSL'] : '';
 	$config['ftp_transfer'] = isset($config['ftp_transfer']) ? $config['ftp_transfer'] : '';
+	$config['sftp_server'] = isset($config['sftp_server']) ? $config['sftp_server'] : '';
+	$config['sftp_port'] = isset($config['sftp_port']) ? $config['sftp_port'] : '';
+	$config['sftp_mode'] = isset($config['sftp_mode']) ? $config['sftp_mode'] : '';
+	$config['sftp_user'] = isset($config['sftp_user']) ? $config['sftp_user'] : '';
+	$config['sftp_pass'] = isset($config['sftp_pass']) ? $config['sftp_pass'] : '';
+	$config['sftp_dir'] = isset($config['sftp_dir']) ? $config['sftp_dir'] : '';
+	$config['sftp_timeout'] = isset($config['sftp_timeout']) ? $config['sftp_timeout'] : '';
+	$config['sftp_useSSL'] = isset($config['sftp_useSSL']) ? $config['sftp_useSSL'] : '';
+	$config['sftp_transfer'] = isset($config['sftp_transfer']) ? $config['sftp_transfer'] : '';	
 	$config['cron_comment'] = isset($config['cron_comment']) ? $config['cron_comment'] : '';
-
 
 	$cronscript="<?php\n#Vars - written at " . date("Y-m-d") . $nl;
 	$cronscript.='$dbhost="' . $config['dbhost'] . '";' . $nl;
@@ -516,6 +524,7 @@ function WriteCronScript($restore_values=false)
 	$cronscript.='@cron_command_after_dump=' . my_implode($cron_command_after_dump);
 
 	$cronscript.='@ftp_server=' . my_implode($config['ftp_server']);
+	$cronscript.='@sftp=' . my_implode($config['sftp'],0);
 	$cronscript.='@ftp_port=' . my_implode($config['ftp_port'],1);
 	$cronscript.='@ftp_mode=' . my_implode($config['ftp_mode'],1);
 	$cronscript.='@ftp_user=' . my_implode($config['ftp_user']);

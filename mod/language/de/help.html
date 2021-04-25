@@ -46,7 +46,7 @@ Für diesen Fall bitte folgende Schritte durchführen:<br><br>
 3. Öffne die Datei "crondump.pl" im Editor.<br>
 4. Trage den kopierten Pfad dort bei absolute_path_of_configdir ein (keine Leerzeichen).<br>
 5. Speichere crondump.pl .<br>
-6. Kopiere crondump.pl, sowie perltest.pl und simpletest.pl ins cgi-bin-Verzeichnis (Ascii-Modus im FTP/SFTP).<br>
+6. Kopiere crondump.pl, sowie perltest.pl und simpletest.pl ins cgi-bin-Verzeichnis (Ascii-Modus im FTP).<br>
 7. Gebe den Dateien die Rechte 755. <br>
 7b. Wenn die Endung cgi gewünscht ist, ändere bei allen 3 Dateien die Endung von pl -> cgi (umbenennen). <br>
 8. Rufe die Konfiguration im MySQLDumper auf.<br>
@@ -96,12 +96,12 @@ so lasst das Feld einfach leer.</li>
 	<li><a name="conf5"></a><strong>Email mit Dumpfile:</strong> Ist diese Option aktiviert, so wird nach abgeschlossenem Backup eine Email mit dem Dump als Anhang verschickt (Vorsicht, Kompression sollte unbedingt an sein, sonst wird der Anhang zu gross und kann evtl. nicht versandt werden!).</li>
 	<li><a name="conf6"></a><strong>Email-Adresse:</strong> Empfängeradresse für die Email.</li>
 	<li><a name="conf7"></a><strong>Absender der Email:</strong> diese Adresse taucht als Absender in der Email auf.</li>
-	<li><a name="conf13"></a><strong>FTP/SFTP-Transfer: </strong>Ist diese Option aktiviert, so wird nach abgeschlossenem Backup die Backupdatei per FTP/SFTP versandt.</li>
-	<li><a name="conf14"></a><strong>FTP/SFTP Server: </strong>Die Adresse des FTP/SFTP-Servers (z. B. ftp.mybackups.de).</li>
-	<li><a name="conf15"></a><strong>FTP/SFTP Server Port: </strong>Der Port des FTP/SFTP-Servers (in der Regel 21).</li>
-	<li><a name="conf16"></a><strong>FTP/SFTP User: </strong>Der Benutzername des FTP/SFTP-Accounts. </li>
-	<li><a name="conf17"></a><strong>FTP/SFTP Passwort: </strong>Das Passwort des FTP/SFTP-Accounts. </li>
-	<li><a name="conf18"></a><strong>FTP/SFTP Upload-Ordner: </strong>Das Verzeichnis, in das die Backupdatei soll (es müssen Upload-Berechtigungen bestehen!).</li>
+	<li><a name="conf13"></a><strong>FTP-Transfer: </strong>Ist diese Option aktiviert, so wird nach abgeschlossenem Backup die Backupdatei per FTP versandt.</li>
+	<li><a name="conf14"></a><strong>FTP Server: </strong>Die Adresse des FTP-Servers (z. B. ftp.mybackups.de).</li>
+	<li><a name="conf15"></a><strong>FTP Server Port: </strong>Der Port des FTP-Servers (in der Regel 21).</li>
+	<li><a name="conf16"></a><strong>FTP User: </strong>Der Benutzername des FTP-Accounts. </li>
+	<li><a name="conf17"></a><strong>FTP Passwort: </strong>Das Passwort des FTP-Accounts. </li>
+	<li><a name="conf18"></a><strong>FTP Upload-Ordner: </strong>Das Verzeichnis, in das die Backupdatei soll (es müssen Upload-Berechtigungen bestehen!).</li>
 	<li><a name="conf8"></a><strong>Automatisches Löschen der Backups:</strong> Wenn diese Option aktiviert ist, werden ältere Backups nach den folgenden Regeln automatisch gelöscht.</li>
 	<li><a name="conf10"></a><strong>Anzahl von Backupdateien:</strong> Ein Wert > 0 löscht alle Backupdateien, bis auf die hier angegebe Zahl.</li>
 	<li><a name="conf11"></a><strong>Sprache:</strong> hier legst du die Sprache für das Interface fest.</li>

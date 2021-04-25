@@ -16,12 +16,18 @@ $lang['L_HELP_CRONPRINTOUT']="Nếu ngưng kích hoạt, kết quả sẽ không
 Nó độc lập với việc in trong logfile.";
 $lang['L_HELP_CRONSAMEDB']="Use same database in Cron job like configured under Database?";
 $lang['L_HELP_CRONDBINDEX']="choose the database for Cron job";
-$lang['L_HELP_FTPTRANSFER']="nếu kích hoạt, file sẽ được gửi qua FTP/SFTP.";
-$lang['L_HELP_FTPSERVER']="Địa chỉ của FTP/SFTP-Server";
-$lang['L_HELP_FTPPORT']="Cổng của FTP/SFTP-Server, chuẩn là: 21";
-$lang['L_HELP_FTPUSER']="nhập username truy cập FTP/SFTP";
-$lang['L_HELP_FTPPASS']="nhập mật khẩu truy cập FTP/SFTP";
+$lang['L_HELP_FTPTRANSFER']="nếu kích hoạt, file sẽ được gửi qua FTP.";
+$lang['L_HELP_FTPSERVER']="Địa chỉ của FTP-Server";
+$lang['L_HELP_FTPPORT']="Cổng của FTP-Server, chuẩn là: 21";
+$lang['L_HELP_FTPUSER']="nhập username truy cập FTP";
+$lang['L_HELP_FTPPASS']="nhập mật khẩu truy cập FTP";
 $lang['L_HELP_FTPDIR']="thư mục upload ở đâu? nhập đường dẫn!";
+$lang['L_HELP_SFTPTRANSFER']="nếu kích hoạt, file sẽ được gửi qua SFTP.";
+$lang['L_HELP_SFTPSERVER']="Địa chỉ của SFTP-Server";
+$lang['L_HELP_SFTPPORT']="Cổng của SFTP-Server, chuẩn là: 22";
+$lang['L_HELP_SFTPUSER']="nhập username truy cập SFTP";
+$lang['L_HELP_SFTPPASS']="nhập mật khẩu truy cập SFTP";
+$lang['L_HELP_SFTPDIR']="thư mục upload ở đâu? nhập đường dẫn!";
 $lang['L_HELP_SPEED']="Tốc độ tối thiểu và tối đa, mặc định là 50 tới 5000";
 $lang['L_SPEED']="Điều khiển tốc độ";
 $lang['L_HELP_CRONEXECPATH']="Nơi của Perl scripts.
@@ -30,7 +36,5 @@ Xuất phát từ HTTP-Address (giống địa chỉ ở trình duyệt)
 $lang['L_CRON_EXECPATH']="Đường dẫn của Perl scripts";
 $lang['L_HELP_CRONCOMPLETELOG']="Khi được kích hoạt, đường ra đầy đủ được ghi trong complete_log-file.
 Cái này độc lập với văn bản đang in";
-$lang['L_HELP_FTP_MODE']="Khi có vấn đề xuất hiện với việc chuyển qua FTP/SFTP, thử sử dụng chế độ bị động (passive mode).
-
-
-";
+$lang['L_HELP_FTP_MODE']="Khi có vấn đề xuất hiện với việc chuyển qua FTP, thử sử dụng chế độ bị động (passive mode).";
+$lang['L_HELP_SFTP_MODE']="Khi có vấn đề xuất hiện với việc chuyển qua FTP, thử sử dụng chế độ bị động (passive mode).";

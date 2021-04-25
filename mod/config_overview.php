@@ -103,7 +103,6 @@ $ftptested=-1;
 if (( isset($_POST['testFTP0']) ) || ( isset($_POST['testFTP1']) ) || ( isset($_POST['testFTP2']) ))
 {
 	$config['ftp_transfer']=array();
-	$config['sftp']=array();
 	$config['ftp_timeout']=array();
 	$config['ftp_mode']=array();
 	$config['ftp_useSSL']=array();
@@ -111,7 +110,6 @@ if (( isset($_POST['testFTP0']) ) || ( isset($_POST['testFTP1']) ) || ( isset($_
 	for ($i=0; $i < 3; $i++)
 	{
 		$config['ftp_transfer'][$i]=( isset($_POST['ftp_transfer'][$i]) ) ? $_POST['ftp_transfer'][$i] : 0;
-		$config['sftp'][$i]=( isset($_POST['sftp'][$i]) ) ? $_POST['sftp'][$i] : 0;
 		$config['ftp_timeout'][$i]=( isset($_POST['ftp_timeout'][$i]) ) ? $_POST['ftp_timeout'][$i] : 30;
 		$config['ftp_useSSL'][$i]=( isset($_POST['ftp_useSSL'][$i]) ) ? $_POST['ftp_useSSL'][$i] : 0;
 		$config['ftp_mode'][$i]=( isset($_POST['ftp_mode'][$i]) ) ? 1 : 0;
@@ -128,6 +126,44 @@ if (( isset($_POST['testFTP0']) ) || ( isset($_POST['testFTP1']) ) || ( isset($_
 		}
 	}
 }
+
+// SFTP
+$checkSFTP=Array(
+
+				"&nbsp;<br><br>&nbsp;<br>&nbsp;",
+				"&nbsp;<br><br>&nbsp;<br>&nbsp;",
+				"&nbsp;<br><br>&nbsp;<br>&nbsp;"
+);
+$checkSFTP[$i]="";
+$sftptested=-1;
+if (( isset($_POST['testSFTP0']) ) || ( isset($_POST['testSFTP1']) ) || ( isset($_POST['testSFTP2']) ))
+{
+	$config['sftp_transfer']=array();
+	$config['sftp_timeout']=array();
+	$config['sftp_mode']=array();
+	$config['sftp_useSSL']=array();
+
+	for ($i=0; $i < 3; $i++)
+	{
+		$config['sftp_transfer'][$i]=( isset($_POST['sftp_transfer'][$i]) ) ? $_POST['sftp_transfer'][$i] : 0;
+		$config['sftp_timeout'][$i]=( isset($_POST['sftp_timeout'][$i]) ) ? $_POST['sftp_timeout'][$i] : 30;
+		$config['sftp_useSSL'][$i]=( isset($_POST['sftp_useSSL'][$i]) ) ? $_POST['sftp_useSSL'][$i] : 0;
+		$config['sftp_mode'][$i]=( isset($_POST['sftp_mode'][$i]) ) ? 1 : 0;
+		$config['sftp_server'][$i]=( isset($_POST['sftp_server'][$i]) ) ? $_POST['sftp_server'][$i] : '';
+		$config['sftp_port'][$i]=( isset($_POST['sftp_port'][$i]) ) ? $_POST['sftp_port'][$i] : 21;
+		$config['sftp_user'][$i]=( isset($_POST['sftp_user'][$i]) ) ? $_POST['sftp_user'][$i] : '';
+		$config['sftp_pass'][$i]=( isset($_POST['sftp_pass'][$i]) ) ? $_POST['sftp_pass'][$i] : '';
+		$config['sftp_dir'][$i]=( isset($_POST['sftp_dir'][$i]) ) ? stripslashes($_POST['sftp_dir'][$i]) : '/';
+		if ($config['sftp_dir'][$i] == "" || ( strlen($config['sftp_dir'][$i]) > 1 && substr($config['sftp_dir'][$i],-1) != "/" )) $config['sftp_dir'][$i].="/";
+		if (isset($_POST['testSFTP' . $i]))
+		{
+			$checkSFTP[$i]='<div class="ssmall">' . $lang['L_TESTCONNECTION'] . ' SFTP-Connection ' . ( $i + 1 ) . '<br><br>' . TesteSFTP($i) . '</div>';
+			$sftptested=$i;
+		}
+	}
+}
+
+
 
 $showVP = false;
 $oldtheme = isset($config['theme']) ? $config['theme'] : 'mod';
@@ -158,6 +194,33 @@ if ($ftptested > -1)
 	if ($ftp_dir[$ftptested] == "" || ( strlen($ftp_dir[$ftptested]) > 1 && substr($ftp_dir[$ftptested],-1) != "/" )) $ftp_dir[$ftptested].="/";
 	WriteParams();
 }
+
+if ($sftptested > -1)
+{
+	$sftp_server[$sftptested]=$_POST['sftp_server'][$sftptested];
+	$sftp_port[$sftptested]=$_POST['sftp_port'][$sftptested];
+	$sftp_user[$sftptested]=$_POST['sftp_user'][$sftptested];
+	$sftp_pass[$sftptested]=$_POST['sftp_pass'][$sftptested];
+	$sftp_dir_s='sftp_dir[' . $sftptested . ']';
+	$f=$_POST['sftp_dir'];
+	$sftp_dir[$sftptested]=stripslashes($f[$sftptested]);
+	// Eingaben merken
+	$config['sftp_transfer'][$sftptested]=( isset($_POST['sftp_transfer'][$sftptested]) ) ? $_POST['sftp_transfer'][$sftptested] : 0;
+	$config['sftp_timeout'][$sftptested]=( isset($_POST['sftp_timeout'][$sftptested]) ) ? $_POST['sftp_timeout'][$sftptested] : 30;
+	$config['sftp_useSSL'][$sftptested]=( isset($_POST['sftp_useSSL'][$sftptested]) ) ? $_POST['sftp_useSSL'][$sftptested] : 0;
+	$config['sftp_mode'][$sftptested]=( isset($_POST['sftp_mode'][$sftptested]) ) ? 1 : 0;
+	$config['sftp_server'][$sftptested]=$sftp_server[$sftptested];
+	$config['sftp_port'][$sftptested]=$sftp_port[$sftptested];
+	$config['sftp_user'][$sftptested]=$sftp_user[$sftptested];
+	$config['sftp_pass'][$sftptested]=$sftp_pass[$sftptested];
+	$config['sftp_dir'][$sftptested]=$sftp_dir[$sftptested];
+
+	if ($sftp_dir[$sftptested] == "" || ( strlen($sftp_dir[$sftptested]) > 1 && substr($sftp_dir[$sftptested],-1) != "/" )) $sftp_dir[$sftptested].="/";
+	WriteParams();
+}
+
+
+
 
 echo MODHeader();
 
@@ -304,7 +367,6 @@ if (isset($_POST['save']))
 	}
 
 	$config['ftp_transfer']=array();
-	$config['sftp']=array();
 	$config['ftp_timeout']=array();
 	$config['ftp_mode']=array();
 	$config['ftp_useSSL']=array();
@@ -319,7 +381,6 @@ if (isset($_POST['save']))
 	{
 		$checkFTP[$i]="";
 		$config['ftp_transfer'][$i] = isset($_POST['ftp_transfer'][$i]) ? $_POST['ftp_transfer'][$i] : 0;
-		$config['sftp'][$i] = isset($_POST['sftp'][$i]) ? $_POST['sftp'][$i] : 0;
 		$config['ftp_timeout'][$i]=isset($_POST['ftp_timeout'][$i]) ? $_POST['ftp_timeout'][$i] : 30;
 		$config['ftp_useSSL'][$i]=isset($_POST['ftp_useSSL'][$i]) ? 1 : 0;
 
@@ -329,15 +390,38 @@ if (isset($_POST['save']))
 		$config['ftp_user'][$i]=isset($_POST['ftp_user'][$i]) ? $_POST['ftp_user'][$i] : '';
 		$config['ftp_pass'][$i]=isset($_POST['ftp_pass'][$i]) ? $_POST['ftp_pass'][$i] : '';
 		$config['ftp_dir'][$i]=isset($_POST['ftp_dir'][$i]) ? stripslashes($_POST['ftp_dir'][$i]) : '';
-		if ($config['ftp_port'][$i] == 0){
-			if ($config['sftp'][$i] == 0) {
-				$config['ftp_port'][$i]=21;
-			} else { 
-				$config['ftp_port'][$i]=22;
-			}
-		}
+		if ($config['ftp_port'][$i] == 0) $config['ftp_port'][$i]=21;
 		if ($config['ftp_dir'][$i] == "" || ( strlen($config['ftp_dir'][$i]) > 1 && substr($config['ftp_dir'][$i],-1) != "/" )) $config['ftp_dir'][$i].="/";
 	}
+
+	$config['sftp_transfer']=array();
+	$config['sftp_timeout']=array();
+	$config['sftp_mode']=array();
+	$config['sftp_useSSL']=array();
+
+	$config['sftp_server']=array();
+	$config['sftp_port']=array();
+	$config['sftp_user']=array();
+	$config['sftp_pass']=array();
+	$config['sftp_dir']=array();
+
+	for ($i=0; $i < 3; $i++)
+	{
+		$checkFTP[$i]="";
+		$config['sftp_transfer'][$i] = isset($_POST['sftp_transfer'][$i]) ? $_POST['sftp_transfer'][$i] : 0;
+		$config['sftp_timeout'][$i]=isset($_POST['sftp_timeout'][$i]) ? $_POST['sftp_timeout'][$i] : 30;
+		$config['sftp_useSSL'][$i]=isset($_POST['sftp_useSSL'][$i]) ? 1 : 0;
+
+		$config['sftp_mode'][$i]=isset($_POST['sftp_mode'][$i]) ? 1 : 0;
+		$config['sftp_server'][$i]=isset($_POST['sftp_server'][$i]) ? $_POST['sftp_server'][$i] : '';
+		$config['sftp_port'][$i]=isset($_POST['sftp_port'][$i]) ? $_POST['sftp_port'][$i] : 0;
+		$config['sftp_user'][$i]=isset($_POST['sftp_user'][$i]) ? $_POST['sftp_user'][$i] : '';
+		$config['sftp_pass'][$i]=isset($_POST['sftp_pass'][$i]) ? $_POST['sftp_pass'][$i] : '';
+		$config['sftp_dir'][$i]=isset($_POST['sftp_dir'][$i]) ? stripslashes($_POST['sftp_dir'][$i]) : '';
+		if ($config['sftp_port'][$i] == 0) $config['sftp_port'][$i]=22;
+		if ($config['sftp_dir'][$i] == "" || ( strlen($config['sftp_dir'][$i]) > 1 && substr($config['sftp_dir'][$i],-1) != "/" )) $config['sftp_dir'][$i].="/";
+	}
+
 
 	$config['bb_width']=$_POST['bb_width'];
 	$config['bb_textcolor']=$_POST['bb_textcolor'];
@@ -457,6 +541,7 @@ function hide_pardivs() {
 	document.getElementById("global3").style.display = 'none';
 	document.getElementById("transfer1").style.display = 'none';
 	document.getElementById("transfer2").style.display = 'none';
+	document.getElementById("transfer3").style.display = 'none';
 	document.getElementById("cron").style.display = 'none';
 	document.getElementById("configs").style.display = 'none';
 	for(i=0;i<8;i++) {
@@ -498,6 +583,12 @@ function show_pardivs(lab) {
 			document.getElementById("transfer2").style.display = 'block';
 			document.getElementById("command6").className ='ConfigButtonSelected';
 			break;
+		case "transfer3":
+			document.getElementById("transfer3").style.display = 'block';
+			document.getElementById("command11").className ='ConfigButtonSelected';
+			break;			
+			
+			
 		case "cron":
 			document.getElementById("cron").style.display = 'block';
 			document.getElementById("command7").className ='ConfigButtonSelected';
@@ -513,6 +604,7 @@ function show_pardivs(lab) {
 			document.getElementById("global3").style.display = 'block';
 			document.getElementById("transfer1").style.display = 'block';
 			document.getElementById("transfer2").style.display = 'block';
+			document.getElementById("transfer3").style.display = 'block';
 			document.getElementById("cron").style.display = 'block';
 			document.getElementById("configs").style.display = 'block';
 			document.getElementById("command8").className ='ConfigButtonSelected';
@@ -547,6 +639,7 @@ $aus['formstart'].='<input type="Button" id="command3" onclick="show_pardivs(\'g
 $aus['formstart'].='<input type="Button" id="command4" onclick="show_pardivs(\'global3\');" value="' . $lang['L_CONFIG_AUTODELETE'] . '" class="ConfigButton"><br>' . $nl;
 $aus['formstart'].='<input type="Button" id="command5" onclick="show_pardivs(\'transfer1\');" value="' . $lang['L_CONFIG_EMAIL'] . '" class="ConfigButton"><br>' . $nl;
 $aus['formstart'].='<input type="Button" id="command6" onclick="show_pardivs(\'transfer2\');" value="' . $lang['L_FTP'] . '" class="ConfigButton"><br>' . $nl;
+$aus['formstart'].='<input type="Button" id="command11" onclick="show_pardivs(\'transfer3\');" value="' . $lang['L_SFTP'] . '" class="ConfigButton"><br>' . $nl;
 $aus['formstart'].='<input type="Button" id="command7" onclick="show_pardivs(\'cron\');" value="' . $lang['L_CONFIG_CRONSCRIPT'] . '" class="ConfigButton"><br>' . $nl;
 $aus['formstart'].='<input type="Button" id="command0" onclick="show_pardivs(\'configs\');" value="' . $lang['L_CONFIGFILES'] . '" class="ConfigButton"><br>' . $nl;
 //$aus['formstart'].='<input type="Button" id="command8" onclick="show_pardivs(\'all\');" value="' . $lang['L_ALLPARS'] . '" class="ConfigButton"><br>' . $nl;
@@ -967,12 +1060,7 @@ for ($i=0; $i < 3; $i++)
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPTRANSFER'],"") . $lang['L_FTP_TRANSFER'] . ':&nbsp;</td>';
 	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" value="1" name="ftp_transfer[' . $i . ']" ' . ( ( !extension_loaded("ftp") ) ? "disabled " : "" ) . ( (isset($config['ftp_transfer'][$i]) && ( $config['ftp_transfer'][$i] == 1 )) ? " checked" : "" ) . '></td></tr>';
 
-	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTP_MODE'],"") . $lang['L_FTP_CHOOSE_MODE'] . ':&nbsp;</td>';
-	$aus['transfer2'].='<td><input type="checkbox" class="checkbox" name="sftp[' . $i . ']" value="1" ' . ( (isset($config['sftp'][$i]) && ( $config['sftp'][$i] == 1 )) ? 'checked' : '' ) . '>&nbsp;';
-	$aus['transfer2'].=$lang['L_FTP_PASSIVE'] . '</td></tr><tr><td colspan="2">';
-
-
-	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTPTIMEOUT'],"") . $lang['L_FTP_TIMEOUT'] . ':&nbsp;</td>';
+	$aus['transfer2'].='<tr><td>' . Help($lang['SFTP'],"") . $lang['L_FTP_TIMEOUT'] . ':&nbsp;</td>';
 	$aus['transfer2'].='<td><input type="text" class="text" size="10" name="ftp_timeout[' . $i . ']" maxlength="3" style="text-align:right;" value="' . ( (isset($config['ftp_timeout'][$i])) ? $config['ftp_timeout'][$i] : "" ) . '">&nbsp;sec</td></tr>';
 
 	$aus['transfer2'].='<tr><td>' . Help($lang['L_HELP_FTP_MODE'],"") . $lang['L_FTP_CHOOSE_MODE'] . ':&nbsp;</td>';
@@ -992,6 +1080,38 @@ for ($i=0; $i < 3; $i++)
 	$aus['transfer2'].='</table></td></tr></table>' . print_save_button() . '</fieldset>';
 }
 $aus['transfer2'].='</fieldset></div>';
+
+//SFTP-->
+$aus['transfer3']='<div id="transfer3"><fieldset><legend>' . $lang['L_CONFIG_SFTP'] . '</legend>';
+for ($i=0; $i < 3; $i++)
+{
+	$aus['transfer3'].='<fieldset><legend>SFTP-Connection ' . ( $i + 1 ) . '</legend><table>';
+
+	$aus['transfer3'].='<tr><td>' . Help($lang['L_HELP_SFTPTRANSFER'],"") . $lang['L_SFTP_TRANSFER'] . ':&nbsp;</td>';
+	$aus['transfer3'].='<td><input type="checkbox" class="checkbox" value="1" name="sftp_transfer[' . $i . ']" ' . ( ( !extension_loaded("ftp") ) ? "disabled " : "" ) . ( (isset($config['sftp_transfer'][$i]) && ( $config['sftp_transfer'][$i] == 1 )) ? " checked" : "" ) . '></td></tr>';
+
+	$aus['transfer3'].='<tr><td>' . Help($lang['SFTP'],"") . $lang['L_SFTP_TIMEOUT'] . ':&nbsp;</td>';
+	$aus['transfer3'].='<td><input type="text" class="text" size="10" name="sftp_timeout[' . $i . ']" maxlength="3" style="text-align:right;" value="' . ( (isset($config['sftp_timeout'][$i])) ? $config['sftp_timeout'][$i] : "" ) . '">&nbsp;sec</td></tr>';
+
+	$aus['transfer3'].='<tr><td>' . Help($lang['L_HELP_SFTP_MODE'],"") . $lang['L_SFTP_CHOOSE_MODE'] . ':&nbsp;</td>';
+	$aus['transfer3'].='<td><input type="checkbox" class="checkbox" name="sftp_mode[' . $i . ']" value="1" ' . ( (isset($config['sftp_mode'][$i]) && ( $config['sftp_mode'][$i] == 1 )) ? 'checked' : '' ) . '>&nbsp;';
+	$aus['transfer3'].=$lang['L_SFTP_PASSIVE'] . '</td></tr><tr><td colspan="2">';
+
+	$aus['transfer3'].='<tr><td>' . Help($lang['L_HELP_SFTPSSL'],"") . $lang['L_SFTP_SSL'] . ':&nbsp;</td>';
+	$aus['transfer3'].='<td><input type="checkbox" class="checkbox" name="sftp_useSSL[' . $i . ']" value="1" ' . ( (isset($config['sftp_useSSL'][$i]) && ( $config['sftp_useSSL'][$i] == 1 )) ? 'checked' : '' ) . ' ' . ( ( !extension_loaded("openssl") ) ? "disabled " : "" ) . '>';
+	$aus['transfer3'].='&nbsp;<span ' . ( ( !extension_loaded("openssl") ) ? 'style="color:#999999;"' : '' ) . '>' . $lang['L_SFTP_USESSL'] . '</span></td></tr><tr><td colspan="2">';
+
+	$aus['transfer3'].='<tr><td><input type="submit" name="testFTP' . $i . '" value="' . $lang['L_TESTCONNECTION'] . '" class="Formbutton"><br>' . $checkFTP[$i] . '</td><td><table>';
+	$aus['transfer3'].='<tr><td class="small">' . Help($lang['L_HELP_SFTPSERVER'],"conf14",12) . $lang['L_SFTP_SERVER'] . ':&nbsp;</td><td><input class="text" type="text" size="30" name="sftp_server[' . $i . ']" value="' . ( (isset($config['sftp_server'][$i])) ? $config['sftp_server'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer3'].='<tr><td class="small">' . Help($lang['L_HELP_SFTPPORT'],"conf15",12) . $lang['L_SFTP_PORT'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="sftp_port[' . $i . ']" style="text-align:right;" value="' . ( (isset($config['sftp_port'][$i])) ? $config['sftp_port'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer3'].='<tr><td class="small">' . Help($lang['L_HELP_SFTPUSER'],"conf16",12) . $lang['L_SFTP_USER'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="sftp_user[' . $i . ']" value="' . ( (isset($config['sftp_user'][$i])) ? $config['sftp_user'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer3'].='<tr><td class="small">' . Help($lang['L_HELP_SFTPPASS'],"conf17",12) . $lang['L_SFTP_PASS'] . ':&nbsp;</td><td class="small"><input class="text" type="password" size="30" name="sftp_pass[' . $i . ']" value="' . ( (isset($config['sftp_pass'][$i])) ? $config['sftp_pass'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer3'].='<tr><td class="small">' . Help($lang['L_HELP_SFTPDIR'],"conf18",12) . $lang['L_SFTP_DIR'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="sftp_dir[' . $i . ']" value="' . ( (isset($config['sftp_dir'][$i])) ? $config['sftp_dir'][$i] : "" )  . '"></td></tr>';
+	$aus['transfer3'].='</table></td></tr></table>' . print_save_button() . '</fieldset>';
+}
+$aus['transfer3'].='</fieldset></div>';
+
+
 
 //Crondump
 $aus['cron']='<div id="cron"><fieldset><legend>' . $lang['L_CONFIG_CRONPERL'] . '</legend><table>';
@@ -1055,6 +1175,7 @@ echo $aus['global2'];
 echo $aus['global3'];
 echo $aus['transfer1'];
 echo $aus['transfer2'];
+echo $aus['transfer3'];
 echo $aus['cron'];
 echo $aus['conf'];
 

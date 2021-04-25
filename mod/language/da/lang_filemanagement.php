@@ -66,7 +66,7 @@ $lang['L_CONVERT_FILEREAD']="Læs fil '%s'";
 $lang['L_CONVERT_FINISHED']="Konvertering afsluttet, '%s' blev skrevet korrekt.";
 $lang['L_NO_MOD_BACKUPFILE']="Backups af andre scripts";
 $lang['L_MAX_UPLOAD_SIZE']="Maksimal filstørrelse";
-$lang['L_MAX_UPLOAD_SIZE_INFO']="Hvis din Dumpfil er større end den ovennævnte grænse, skal du uploade den via FTP/SFTP til folderen \"work/backup\".
+$lang['L_MAX_UPLOAD_SIZE_INFO']="Hvis din Dumpfil er større end den ovennævnte grænse, skal du uploade den via FTP til folderen \"work/backup\".
 Derefter kan du vælge den og begynde genetableringsprocessen.";
 $lang['L_ENCODING']="encoding";
 $lang['L_FM_CHOOSE_ENCODING']="Choose encoding of backup file";

@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTP/SFTPPOSSIBLE']="Es schtönd kei FTP/SFTP-Funktione zur Verfüegig!";
+$lang['L_NOFTPPOSSIBLE']="Es schtönd kei FTP-Funktione zur Verfüegig!";
 $lang['L_INFO_LOCATION']="Si sind uf";
 $lang['L_INFO_DATABASES']="Folgendi Datebank(e) sind ufem MySql-Server:";
 $lang['L_INFO_NODB']="Datebank gits nöd";
@@ -62,8 +62,8 @@ $lang['L_HTACCESS32']="Achtung! Diä .htaccess hät e diräkti Uswirkig uf de Br
 $lang['L_DISABLEDFUNCTIONS']="Abgschalteti Funktione";
 $lang['L_NOGZPOSSIBLE']="Will zlib nöd inschtalliert isch, schtönd kei GZip-Funktione zur Verfüegig!";
 $lang['L_DELETE_HTACCESS']="Verzeichnisschutz wägmache (.htaccess lösche)";
-$lang['L_WRONG_RIGHTS']="Diä Datei oder das Verzeichnis '%s' isch für mi nöd beschriibbar.<br> Entweder hät si de falschi Besitzer (Owner) oder di falsche Rächt (Chmod).<br> Bitte setzed Si diä richtige Attribut mit Irem FTP/SFTP-Programm. <br> Diä Datei oder das Verzeichnis brucht diä Rächt %s.<br>";
-$lang['L_CANT_CREATE_DIR']="Ha s Verzeichnis '%s' nöd chöne mache. Mached Si s bitte mit Irem FTP/SFTP-Programm";
+$lang['L_WRONG_RIGHTS']="Diä Datei oder das Verzeichnis '%s' isch für mi nöd beschriibbar.<br> Entweder hät si de falschi Besitzer (Owner) oder di falsche Rächt (Chmod).<br> Bitte setzed Si diä richtige Attribut mit Irem FTP-Programm. <br> Diä Datei oder das Verzeichnis brucht diä Rächt %s.<br>";
+$lang['L_CANT_CREATE_DIR']="Ha s Verzeichnis '%s' nöd chöne mache. Mached Si s bitte mit Irem FTP-Programm";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";

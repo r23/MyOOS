@@ -25,7 +25,7 @@ PHP sürümü >=  4.3.4 GZip-destekli, MySQL (3.23 sürümünden itibaren), Java
 <a href="install.php?language=de" target="_top"><h4>Kurulum</h4></a>
 Kurulumu çok basittir.
 Sikistirilmis dosyayi herhangi bir klasör içerisinde açiniz.<br>
-Açilann dosyalari FTP/SFTP ile Sunucunuza yükleyiniz. (Örnegin root [sizindomain/]MySQLDumper)<br>
+Açilann dosyalari FTP ile Sunucunuza yükleyiniz. (Örnegin root [sizindomain/]MySQLDumper)<br>
 ... bitti!<br>
 Artik MySQLDumper'i tarayiciniz ile "http://sizindomain/MySQLDumper" adresini girerek açabilirsiniz,<br>
 kurulumu tamamlamak için saadece Sistemin sorularini cevaplamaniz yeterlidir.<br>
@@ -46,7 +46,7 @@ Bu durumda yapilmasi gereken islemler:<br><br>
 3. "crondump.pl" Editör ile açiniz.<br>
 4. Kopyaladiginiz adresi absolute_path_of_configdir´in arkasina yapistiriniz (bosluk birakilmayacak).<br>
 5. Crondump.pl i kapatarak kayit ediniz.<br>
-6. Crondump.pl, perltest.pl ve simpletest.pl dosyalarini cgi-bin-klasörüne kopyalayiniz (FTP/SFTP ile Ascii-Modüsünde).<br>
+6. Crondump.pl, perltest.pl ve simpletest.pl dosyalarini cgi-bin-klasörüne kopyalayiniz (FTP ile Ascii-Modüsünde).<br>
 7. Dosyalarin haklarini 755 olarak belirleyiniz (CHMOD). <br>
 7b. Dosyabitimi cgi olmasi gerekiyorsa her 3 dosyanin adinin degistiriniz  pl -> cgi. <br>
 8. Ayar Merkez, sayfasini açiniz.<br>
@@ -95,12 +95,12 @@ Sistem ayarlarini burada belirleyebilir, yedeklemeden geri dönüstürebilir vey
     <li><a name="conf5"></a><strong>Yedekleme ekli Mail:</strong> Bu Opsyon kullanildiginda, islemin sonunda gönderilecek mail'e yedekleme dosyasi eklenecektir. Sikistirmanin aktiv olmasini öneririz !).</li>
     <li><a name="conf6"></a><strong>Email-Adresi:</strong> Mailin ulastirilacagi adres.</li>
     <li><a name="conf7"></a><strong>Email göndericisi:</strong> gönderilecek mailin kimin adina gönderildigi.</li>
-    <li><a name="conf13"></a><strong>FTP/SFTP-Transferi: </strong>Bu Opsyon kullanildiginda, islem sonunda yedekleme dosyasi FTP/SFTP ile gönderilir.</li>
-    <li><a name="conf14"></a><strong>FTP/SFTP Sunucusu: </strong>Die FTP/SFTP sunucusunun adress (örnegin: ftp.mybackups.de).</li>
-    <li><a name="conf15"></a><strong>FTP/SFTP Sunucu Portu: </strong>FTP/SFTP-Sunucusunun Portu (Genelde 21).</li>
-    <li><a name="conf16"></a><strong>FTP/SFTP Kulanicisi: </strong>FTP/SFTP-kullanicisinin adi. </li>
-    <li><a name="conf17"></a><strong>FTP/SFTP sifresi: </strong>FTP/SFTP-kullanicisinin  sifresi. </li>
-    <li><a name="conf18"></a><strong>FTP/SFTP yükleme klasörü: </strong>Yedekleme dosyasinin yüklenecegi klasörün adi. (UYARI: CHMOD ayarlarini göz önünde bulundurunuz).</li>
+    <li><a name="conf13"></a><strong>FTP-Transferi: </strong>Bu Opsyon kullanildiginda, islem sonunda yedekleme dosyasi FTP ile gönderilir.</li>
+    <li><a name="conf14"></a><strong>FTP Sunucusu: </strong>Die FTP sunucusunun adress (örnegin: ftp.mybackups.de).</li>
+    <li><a name="conf15"></a><strong>FTP Sunucu Portu: </strong>FTP-Sunucusunun Portu (Genelde 21).</li>
+    <li><a name="conf16"></a><strong>FTP Kulanicisi: </strong>FTP-kullanicisinin adi. </li>
+    <li><a name="conf17"></a><strong>FTP sifresi: </strong>FTP-kullanicisinin  sifresi. </li>
+    <li><a name="conf18"></a><strong>FTP yükleme klasörü: </strong>Yedekleme dosyasinin yüklenecegi klasörün adi. (UYARI: CHMOD ayarlarini göz önünde bulundurunuz).</li>
     <li><a name="conf8"></a><strong>Otomatik dosya silme:</strong> Bu Opsyon kullanildiginda, belirlenecek kurallara göre yedekleme dosyalari silinecektir.</li>
     <li><a name="conf10"></a><strong>Dosya sayisi:</strong> 0 dan büyük bir deger, bu degeri asan dosya sayisindan fazla olan dosyalari silecektir.</li>
     <li><a name="conf11"></a><strong>Dil:</strong> MySQL Dumperin kullanacagi dili burada belirlersiniz.</li>

@@ -52,7 +52,7 @@ In questo caso consigliamo di effettuare i seguenti passi:<br>
 3. Apri il dato "crondump.pl" in editor <br>
 4. Porta il percorso dove c`è absolute_path_of_configdir (senza spazi) <br>
 5. Salva crondump.pl <br>
-6. Copia crondump.pl, perltest.pl e simpletest.pl nel elenco cgi-bin (nel modo Ascii con FTP/SFTP) <br>
+6. Copia crondump.pl, perltest.pl e simpletest.pl nel elenco cgi-bin (nel modo Ascii con FTP) <br>
 7. Metti i permessi dei dati in CHMOD 755 <br>
 7b. Se preferite cgi come nome del dato, allora cambiate tutti i 3 dati da pl -> cgi (rinominare) <br>
 8. Chiama la configurazione nel MySQLDumper <br>
@@ -97,12 +97,12 @@ Qui potete elaborare, salvare o ripristinare la vostra configurazione.
 	<li><a name="conf5"></a><strong>Email con Dumpfile:</strong> Se avete selezionato questa opzione viene spedita una e-mail con allegato dopo il backup(attenzione, la compressione in questo caso e consigliata, altrimenti la e-mail non potrebbe essere spedita!)</li>
 	<li><a name="conf6"></a><strong>Indrizzo-e-mail:</strong> Mittente della e-mail</li>
 	<li><a name="conf7"></a><strong>Destinatario della e-mail:</strong> questo indrizzo e visibile nella e-mail come destinatario</li>
-	<li><a name="conf13"></a><strong>FTP/SFTP-Transfer: </strong>Se è selezionata questa opzione, al termine del backup viene spedito il dato tramite FTP/SFTP.</li>
-	<li><a name="conf14"></a><strong>FTP/SFTP Server: </strong>l`indirizzo del server-FTP/SFTP (esempio: ftp.mybackups.it)</li>
-	<li><a name="conf15"></a><strong>FTP/SFTP Server Port: </strong>la porta del FTP/SFTP-server (in regola 21)</li>
-	<li><a name="conf16"></a><strong>FTP/SFTP User: </strong>nome del conto-FTP/SFTP in uso  </li>
-	<li><a name="conf17"></a><strong>FTP/SFTP parola d`ordine (password): </strong>La parola d`ordine del conto FTP/SFTP </li>
-	<li><a name="conf18"></a><strong>FTP/SFTP cartella - upload: </strong>l`elenco in cui viene spedito il dato del backup (dovete avere il permesso per scaricare (upload)!)</li>
+	<li><a name="conf13"></a><strong>FTP-Transfer: </strong>Se è selezionata questa opzione, al termine del backup viene spedito il dato tramite FTP.</li>
+	<li><a name="conf14"></a><strong>FTP Server: </strong>l`indirizzo del server-FTP (esempio: ftp.mybackups.it)</li>
+	<li><a name="conf15"></a><strong>FTP Server Port: </strong>la porta del FTP-server (in regola 21)</li>
+	<li><a name="conf16"></a><strong>FTP User: </strong>nome del conto-FTP in uso  </li>
+	<li><a name="conf17"></a><strong>FTP parola d`ordine (password): </strong>La parola d`ordine del conto FTP </li>
+	<li><a name="conf18"></a><strong>FTP cartella - upload: </strong>l`elenco in cui viene spedito il dato del backup (dovete avere il permesso per scaricare (upload)!)</li>
 	<li><a name="conf8"></a><strong>Cancellare automaticamente i backups:</strong> 
 Quando è selezionata questa opzione vengono cancellati automaticamente i backups piu vecchi..</li>
 	<li><a name="conf10"></a><strong>Quantità dei dati backup:</strong> Un valore  > 0 cancella tutti i backup, fino al valore selezionato</li>

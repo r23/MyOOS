@@ -35,7 +35,7 @@ y con MySQL a partir de la versión 3.23</p>
 <h4>Instalación</h4>
 </a>
 La instalación es muy sencilla. Simplemente extraiga los ficheros (conservando la estructura de directorios) en una carpeta cualquiera.<br>
-Suba (por FTP/SFTP u otros medios) dichos ficheros a su servidor web. (por ejemplo, [directorio web de su servidor]/MySQLDumper)<br>
+Suba (por FTP u otros medios) dichos ficheros a su servidor web. (por ejemplo, [directorio web de su servidor]/MySQLDumper)<br>
 ... listo!<br>
 Ahora puede ejecutar MySQLDumper desde su navegador llamándolo desde la dirección "http://www.su_servidor.com/MySQLDumper", para iniciar el proceso de configuración, para el que simplemente debe seguir las instrucciones en pantalla.<br>
 <br><b>Aviso:</b><br>
@@ -55,8 +55,8 @@ Si este es su caso, siga las instrucciones siguientes:<br>
 3. Abra el fichero "crondump.pl" en un editor cualquiera de texto.<br>
 4. Pegue el camino copiado en la entrada absolute_path_of_configdir (sin espacios vacíos). Hay una muestra dos líneas por encima. <br>
 5. Guarde "crondump.pl".<br>
-6. Copie los ficheros "crondump.pl", así como "perltest.pl" y "simpletest.pl" en el directorio cgi-bin (hágalo en modo ASCII si usa FTP/SFTP).<br>
-7. Dé a dichos ficheros los derechos 0x755 (use chmod desde shell o desde su programa de FTP/SFTP).<br>
+6. Copie los ficheros "crondump.pl", así como "perltest.pl" y "simpletest.pl" en el directorio cgi-bin (hágalo en modo ASCII si usa FTP).<br>
+7. Dé a dichos ficheros los derechos 0x755 (use chmod desde shell o desde su programa de FTP).<br>
 7b. En caso de ser neesaria la extensión "cgi" para los scripts, cámbiela en los tres ficheros de "pl" a "cgi" (cambiar nombre).<br>
 8. Vaya a la página de
 <?php echo $lang['config']?> 
@@ -79,7 +79,7 @@ Aquellos usuarios que pueden ejecutar Perl en cualquier directorio, pueden alter
 3. Abra el fichero "crondump.pl" en un editor cualquiera de texto.<br>
 4. Pegue el camino copiado en la entrada absolute_path_of_configdir (sin espacios vacíos). Hay una muestra dos líneas por encima. <br>
 5. Guarde "crondump.pl" (si lo ha editado en local, súbalo nuevamente al servidor).<br>
-6. Dé a los ficheros "crondump.pl", así como "perltest.pl" y "simpletest.pl", los derechos 0x755 (use chmod desde shell o desde su programa de FTP/SFTP).<br>
+6. Dé a los ficheros "crondump.pl", así como "perltest.pl" y "simpletest.pl", los derechos 0x755 (use chmod desde shell o desde su programa de FTP).<br>
 7. En caso de ser neesaria la extensión "cgi" para los scripts, cámbiela en los tres ficheros de "pl" a "cgi" (cambiar nombre).<br>
 8. Si ha renombrado los scripts a ".cgi", vaya a la página de
 <?php echo $lang['config']?>
@@ -105,7 +105,7 @@ Todas las acciones se refieren siempre a la base de datos seleccionada en este d
 	  <li><b><?php echo $lang['mysqlvars']?></b> le mostrará respectivamente los procesos, el estado y las opciones y definiciones del servidor de base de datos MySQL. </li>
 	  <li><b><?php echo $lang['mysqlsys']?></b> le permitirá acceder a una pseudoconsola del servidor de bases de datos y realizar operaciones complejas con el mismo. Nota: para poder utilizar dichas opciones, deberá tener los privilegios adecuados en el servidor MySQL.</li>
 	</ul>
-	<p>Otra de las opciones importantes de este menú, es la creación o modificación de los ficheros .htaccess. Dichos ficheros gestionan directamente la seguridad de los directorios y es importante por ejemplo, que no cualquier visitante pueda acceder a los datos de su base de datos mediante este programa. Por ello se recomienda encarecidamente utilizar dicha opción (o cualquier otra de que disponga) para proteger esta aplicación de usos indebidos. No obstante tenga en cuenta que hacerlo de forma errónea puede impedirle a Vd. mismo el acceso. Si le sucede esto, no se preocupe, acceda al directorio mediante FTP/SFTP o mediante su gestor de archivos habitual, y elimine el fichero .htaccess para desprotegerlo y poder volver a acceder normalmente al mismo.</p>
+	<p>Otra de las opciones importantes de este menú, es la creación o modificación de los ficheros .htaccess. Dichos ficheros gestionan directamente la seguridad de los directorios y es importante por ejemplo, que no cualquier visitante pueda acceder a los datos de su base de datos mediante este programa. Por ello se recomienda encarecidamente utilizar dicha opción (o cualquier otra de que disponga) para proteger esta aplicación de usos indebidos. No obstante tenga en cuenta que hacerlo de forma errónea puede impedirle a Vd. mismo el acceso. Si le sucede esto, no se preocupe, acceda al directorio mediante FTP o mediante su gestor de archivos habitual, y elimine el fichero .htaccess para desprotegerlo y poder volver a acceder normalmente al mismo.</p>
 	<h6><?php echo $lang['config']?></h6>
 	<p>Aquí puede cambiar todos los datos de configuración del programa, guardar una copia de seguridad de la configuración, cargar una configuración preexistente, o volver a los valores iniciales de instalación.</p>
 	<ul>
@@ -135,11 +135,11 @@ Todas las acciones se refieren siempre a la base de datos seleccionada en este d
 			<li><a name="conf9"></a><b><?php echo $lang['help_mail2']?>:</b> es la dirección de email a dónde se enviará el mensaje.</li>
 			<li><a name="conf10"></a><b><?php echo $lang['help_mail3']?>:</b> es la dirección de email desde donde se enviará el mensaje. Recuerde permitirle el paso a través de su filtro anti-spam, si dispone de uno.</li>
 		</ul>
-		<li><b><?php echo $lang['config_ftp']?></b> permite definir una (o varias) transferencias por FTP/SFTP del archivo de copia de seguridad una vez terminada la misma. Si se activa, se deben especificar las parámetros necesarios para realizar la conexión. Además, deberá tener los derechos apropiados en el servidor de destino de la copia.</li>
+		<li><b><?php echo $lang['config_ftp']?></b> permite definir una (o varias) transferencias por FTP del archivo de copia de seguridad una vez terminada la misma. Si se activa, se deben especificar las parámetros necesarios para realizar la conexión. Además, deberá tener los derechos apropiados en el servidor de destino de la copia.</li>
 		<ul>
-			<li><a name="conf13"></a><b><?php echo $lang['help_ftptransfer']?>:</b> activa o desactiva el envío de la copia de seguridad realizada con éxito, por FTP/SFTP.</li>
-			<li><a name="conf14"></a><b><?php echo $lang['help_ftpserver']?>:</b> es la dirección del servidor de FTP/SFTP destinatario del archivo (por ejemplo ftp.misbackups.com).</li>
-			<li><a name="conf15"></a><b><?php echo $lang['help_ftpport']?>:</b> es el puerto de conexión del servidor FTP/SFTP (generalmente, el puerto 21).</li>
+			<li><a name="conf13"></a><b><?php echo $lang['help_ftptransfer']?>:</b> activa o desactiva el envío de la copia de seguridad realizada con éxito, por FTP.</li>
+			<li><a name="conf14"></a><b><?php echo $lang['help_ftpserver']?>:</b> es la dirección del servidor de FTP destinatario del archivo (por ejemplo ftp.misbackups.com).</li>
+			<li><a name="conf15"></a><b><?php echo $lang['help_ftpport']?>:</b> es el puerto de conexión del servidor FTP (generalmente, el puerto 21).</li>
 			<li><a name="conf16"></a><b><?php echo $lang['help_ftpuser']?>:</b> es el nombre de usuario con el que debe realizarse la conexión.</li>
 			<li><a name="conf17"></a><b><?php echo $lang['help_ftppass']?>:</b> es el password a utilizar para establecer la conexión.</li>
 			<li><a name="conf18"></a><b><?php echo $lang['help_ftpdir']?>:</b> es el directorio de destino del archivo a almacenar. Puede ser un camino absoluto o relativo (pero debe tener derechos de escritura en el mismo).</li>

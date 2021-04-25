@@ -66,7 +66,7 @@ $lang['L_CONVERT_FILEREAD']="Datei '%s' wird eingelesen";
 $lang['L_CONVERT_FINISHED']="Konvertierung abgeschlossen, '%s' wurde erzeugt.";
 $lang['L_NO_MOD_BACKUPFILE']="Dateien anderer Programme";
 $lang['L_MAX_UPLOAD_SIZE']="Maximale Dateigröße";
-$lang['L_MAX_UPLOAD_SIZE_INFO']="Wenn Deine Backup-Datei größer als das angegebene Limit ist, dann musst Du diese per FTP/SFTP in den \"work/backup\"-Ordner hochladen.
+$lang['L_MAX_UPLOAD_SIZE_INFO']="Wenn Deine Backup-Datei größer als das angegebene Limit ist, dann musst Du diese per FTP in den \"work/backup\"-Ordner hochladen.
 Danach wird diese Datei hier in der Verwaltung angezeigt und lässt sich für eine Wiederherstellung auswählen.";
 $lang['L_ENCODING']="Kodierung";
 $lang['L_FM_CHOOSE_ENCODING']="Kodierung der Backupdatei wählen";

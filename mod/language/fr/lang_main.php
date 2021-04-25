@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTP/SFTPPOSSIBLE']="Il n'y a pas de fonction FTP/SFTP à disposition!";
+$lang['L_NOFTPPOSSIBLE']="Il n'y a pas de fonction FTP à disposition!";
 $lang['L_INFO_LOCATION']="Vous vous trouvez sur ";
 $lang['L_INFO_DATABASES']="Les bases de données suivantes sont sur le serveur MySQL:";
 $lang['L_INFO_NODB']="Base de données n'existe pas";
@@ -62,8 +62,8 @@ $lang['L_HTACCESS32']="Attention! Le fichier .htaccess a une influence directe s
 $lang['L_DISABLEDFUNCTIONS']="Fonctions désactivées";
 $lang['L_NOGZPOSSIBLE']="Comme Zlib n'est pas installé, vous ne pouvez pas utiliser les fonctions GZip!";
 $lang['L_DELETE_HTACCESS']="Supprimer la protection des répertoires (suppression .htaccess)";
-$lang['L_WRONG_RIGHTS']="Impossible d'écrire le fichier ou le répertoire '%s' .<br> Les chmods ne sont mal configurés ou le propriétaire n'est pas bon.<br>Veuillez vérifier les attributs en utilisant votre logiciel FTP/SFTP.<br>Le fichier ou le répertoire doivent être sur %s.";
-$lang['L_CANT_CREATE_DIR']="Impossible de créer le répertoire '%s'. Veuillez créer ce répertoire manuellement avec votre logiciel FTP/SFTP.";
+$lang['L_WRONG_RIGHTS']="Impossible d'écrire le fichier ou le répertoire '%s' .<br> Les chmods ne sont mal configurés ou le propriétaire n'est pas bon.<br>Veuillez vérifier les attributs en utilisant votre logiciel FTP.<br>Le fichier ou le répertoire doivent être sur %s.";
+$lang['L_CANT_CREATE_DIR']="Impossible de créer le répertoire '%s'. Veuillez créer ce répertoire manuellement avec votre logiciel FTP.";
 $lang['L_TABLE_TYPE']="Type";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";

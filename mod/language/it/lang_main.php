@@ -1,5 +1,5 @@
 <?php
-$lang['L_NOFTP/SFTPPOSSIBLE']="Non hai una funzione FTP/SFTP disponibile!";
+$lang['L_NOFTPPOSSIBLE']="Non hai una funzione FTP disponibile!";
 $lang['L_INFO_LOCATION']="Adesso ti trovi ";
 $lang['L_INFO_DATABASES']="I seguenti database sono stati trovati sul server:";
 $lang['L_INFO_NODB']="Il database non esiste.";
@@ -62,8 +62,8 @@ $lang['L_HTACCESS32']="Attenzione! .htaccess ha effetto direttamente sul browser
 $lang['L_DISABLEDFUNCTIONS']="Funzione disabilitata";
 $lang['L_NOGZPOSSIBLE']="Poiché Zlib non è installato non puoi usare la funzione GZip!";
 $lang['L_DELETE_HTACCESS']="Rimuovi la protezione (cancella .htaccess)";
-$lang['L_WRONG_RIGHTS']="Impossibile scrivere il file o la directory '%s' .<br> O ha il proprietario sbagliato (Owner) o i diritti sbagliati (Chmod).<br> Vi preghiamo di modificare gli attributi correttamente con il vostro programma FTP/SFTP. <br> Il file o la directory ha bisogno dei diritti %s.<br>";
-$lang['L_CANT_CREATE_DIR']="Impossibile creare la directory '%s'. Crearla manualmente con un programma di FTP/SFTP.";
+$lang['L_WRONG_RIGHTS']="Impossibile scrivere il file o la directory '%s' .<br> O ha il proprietario sbagliato (Owner) o i diritti sbagliati (Chmod).<br> Vi preghiamo di modificare gli attributi correttamente con il vostro programma FTP. <br> Il file o la directory ha bisogno dei diritti %s.<br>";
+$lang['L_CANT_CREATE_DIR']="Impossibile creare la directory '%s'. Crearla manualmente con un programma di FTP.";
 $lang['L_TABLE_TYPE']="Tipo";
 $lang['L_CHECK']="check";
 $lang['L_OS']="Operating system";
