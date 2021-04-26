@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO &#8211; Best SEO Plugin for WordPress - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-04-15 11:35:41+0000\n"
+"PO-Revision-Date: 2021-04-21 16:24:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -871,7 +871,7 @@ msgstr "Ungarn"
 #: includes/helpers/class-choices.php:641
 #: includes/helpers/class-choices.php:700
 msgid "Hong Kong"
-msgstr "Hong Kong"
+msgstr "Hongkong"
 
 #: includes/helpers/class-choices.php:640
 #: includes/helpers/class-choices.php:699
