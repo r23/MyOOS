@@ -488,6 +488,10 @@ switch ($action)
 			{
 				echo table_output($lang['L_FTP_TRANSFER'],sprintf(str_replace('<br>',' ',$lang['L_FTP_SEND_TO']),$config['ftp_server'][$x],$config['ftp_dir'][$x]),1,2);
 			}
+			if (isset($config['sftp_transfer'][$x])&&$config['sftp_transfer'][$x]>0)
+			{
+				echo table_output($lang['L_SFTP_TRANSFER'],sprintf(str_replace('<br>',' ',$lang['L_SFTP_SEND_TO']),$config['sftp_server'][$x],$config['sftp_dir'][$x]),1,2);
+			}			
 		}
 		//echo '</td></tr>';
 		echo '</table>';

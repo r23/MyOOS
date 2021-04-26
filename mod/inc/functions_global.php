@@ -22,7 +22,16 @@ if (!defined('MOD_PATH')) define('MOD_PATH',$mod_path);
 if (file_exists(MOD_PATH.'inc/runtime.php')) include (MOD_PATH.'inc/runtime.php');
 else
 	die('Couldn\'t read runtime.php!');
+
 if (!defined('MOD_VERSION')) die('No direct access.');
+
+use League\Flysystem\Filesystem;
+use League\Flysystem\PhpseclibV2\SftpConnectionProvider;
+use League\Flysystem\PhpseclibV2\SftpAdapter;
+use League\Flysystem\UnixVisibility\PortableVisibilityConverter;
+
+$autoloader = require_once './vendor/autoload.php';
+
 
 // places all Page Parameters in hidden-fields (needed fpr backup and restore in PHP)
 function get_page_parameter($parameter, $ziel='dump')
@@ -733,6 +742,78 @@ function TesteFTP($i)
 	if ($pass==3) $s.='<br><strong>'.$lang['L_FTP_OK'].'</strong>';
 	return $s;
 }
+
+
+function TesteSFTP($i)
+{
+	global $lang,$config;
+	if (!isset($config['sftp_timeout'][$i])) $config['sftp_timeout'][$i]=30;
+	$s='';
+	if ($config['sftp_port'][$i]==''||$config['sftp_port'][$i]==0) $config['sftp_port'][$i]=22;
+	$pass=-1;
+/*
+	if (!extension_loaded("ftp"))
+	{
+		$s='<br><span class="error">'.$lang['L_NOSFTPPOSSIBLE'].'</span>';
+	}
+	else
+*/
+		$pass=0;
+
+	if ($pass==0)
+	{
+		if ($config['sftp_server'][$i]==''||$config['sftp_user'][$i]=='')
+		{
+			$s='<br><span class="error">'.$lang['L_WRONGCONNECTIONPARS'].'</span>';
+		}
+		else
+			$pass=1;
+	}
+
+	if ($pass==1)
+	{
+		$s=$lang['L_CONNECT_TO'].' `'.$config['sftp_server'][$i].'` Port '.$config['sftp_port'][$i];
+
+		if ($config['sftp_useSSL'][$i]==0)
+		{
+			$conn_id=@sftp_connect($config['sftp_server'][$i],$config['sftp_port'][$i],$config['sftp_timeout'][$i]);
+		}
+		else
+		{
+			$conn_id=@sftp_ssl_connect($config['sftp_server'][$i],$config['sftp_port'][$i],$config['sftp_timeout'][$i]);
+		}
+		if ($conn_id) $login_result=@sftp_login($conn_id,$config['sftp_user'][$i],$config['sftp_pass'][$i]);
+		if (!$conn_id||(!$login_result))
+		{
+			$s.='<br><span class="error">'.$lang['L_CONN_NOT_POSSIBLE'].'</span>';
+		}
+		else
+		{
+			$pass=2;
+			if ($config['sftp_mode'][$i]==1) sftp_pasv($conn_id,true);
+		}
+	}
+
+	if ($pass==2)
+	{
+		$s.='<br><strong>Login ok</strong><br>'.$lang['L_CHANGEDIR'].' `'.$config['sftp_dir'][$i].'` ';
+		$dirc=@sftp_chdir($conn_id,$config['sftp_dir'][$i]);
+		if (!$dirc)
+		{
+			$s.='<br><span class="error">'.$lang['L_CHANGEDIRERROR'].'</span>';
+		}
+		else
+		{
+			$pass=3;
+			$s.='<span class="success">'.$lang['L_OK'].'</span>';
+		}
+		@sftp_close($conn_id);
+	}
+
+	if ($pass==3) $s.='<br><strong>'.$lang['L_SFTP_OK'].'</strong>';
+	return $s;
+}
+
 
 function Realpfad($p)
 {

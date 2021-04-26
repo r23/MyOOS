@@ -208,7 +208,8 @@ else
 
 				for($i=0;$i<3;$i++)
 				{
-					if ($config['ftp_transfer'][$i]==1) DoFTP($i);
+					if (isset($config['ftp_transfer'][$i]) && ($config['ftp_transfer'][$i]==1)) DoFTP($i);
+					if (isset($config['sftp_transfer'][$i]) && ($config['sftp_transfer'][$i]==1)) DoSFTP($i);
 				}
 				if (isset($flipped[$adbname])) $dump['dbindex']=$flipped[$adbname];
 				$dump['part_offset']=$dump['part']-1;
@@ -418,6 +419,7 @@ else
 		for($i=0;$i<3;$i++)
 		{
 			if (isset($config['ftp_transfer'][$i]) && ($config['ftp_transfer'][$i]==1)) DoFTP($i);
+			if (isset($config['sftp_transfer'][$i]) && ($config['sftp_transfer'][$i]==1)) DoSFTP($i);
 		}
 
 		$aus[]='<strong>'.$lang['L_DONE'].'</strong><br>';

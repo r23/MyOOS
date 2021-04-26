@@ -150,7 +150,7 @@ if (( isset($_POST['testSFTP0']) ) || ( isset($_POST['testSFTP1']) ) || ( isset(
 		$config['sftp_useSSL'][$i]=( isset($_POST['sftp_useSSL'][$i]) ) ? $_POST['sftp_useSSL'][$i] : 0;
 		$config['sftp_mode'][$i]=( isset($_POST['sftp_mode'][$i]) ) ? 1 : 0;
 		$config['sftp_server'][$i]=( isset($_POST['sftp_server'][$i]) ) ? $_POST['sftp_server'][$i] : '';
-		$config['sftp_port'][$i]=( isset($_POST['sftp_port'][$i]) ) ? $_POST['sftp_port'][$i] : 21;
+		$config['sftp_port'][$i]=( isset($_POST['sftp_port'][$i]) ) ? $_POST['sftp_port'][$i] : 22;
 		$config['sftp_user'][$i]=( isset($_POST['sftp_user'][$i]) ) ? $_POST['sftp_user'][$i] : '';
 		$config['sftp_pass'][$i]=( isset($_POST['sftp_pass'][$i]) ) ? $_POST['sftp_pass'][$i] : '';
 		$config['sftp_dir'][$i]=( isset($_POST['sftp_dir'][$i]) ) ? stripslashes($_POST['sftp_dir'][$i]) : '/';
@@ -785,17 +785,23 @@ if (sizeof($configs) > 0)
 
 		for ($x=0; $x < 3; $x++)
 		{
+			// FTP
 			if (isset($config['ftp_transfer'][$x]) && $config['ftp_transfer'][$x] > 0)
 			{
-				//$aus['conf'] .= table_output($lang['L_FTP'],sprintf($lang['L_FTP_SEND_TO'],$config['ftp_server'][$x],$config['ftp_dir'][$x]),1,2);
 				$aus['conf'] .= table_output($lang['L_FTP'],sprintf($lang['L_FTP_SEND_TO'],$config['ftp_server'][$x],$config['ftp_dir'][$x]));
 			}
+			// SFTP
+			if (isset($config['sftp_transfer'][$x]) && $config['sftp_transfer'][$x] > 0)
+			{
+				$aus['conf'] .= table_output($lang['L_SFTP'],sprintf($lang['L_SFTP_SEND_TO'],$config['sftp_server'][$x],$config['sftp_dir'][$x]));
+			}			
+			
 		}
 		$aus['conf'].='</table></td><td>';
 		$aus['conf'].='<a href="config_overview.php?config=' . urlencode($c) . '">' . $icon['edit'] . '</a>';
 
 		if ($c != 'myoosdumper') // && $old_config['config_file']!=$c)
-$aus['conf'].='<a href="config_overview.php?config_delete=' . urlencode($c) . '" onclick="if(!confirm(\'' . sprintf($lang['L_CONFIRM_CONFIGFILE_DELETE'],$c) . '\')) return false;">' . $icon['delete'] . '</a>';
+		$aus['conf'].='<a href="config_overview.php?config_delete=' . urlencode($c) . '" onclick="if(!confirm(\'' . sprintf($lang['L_CONFIRM_CONFIGFILE_DELETE'],$c) . '\')) return false;">' . $icon['delete'] . '</a>';
 		else $aus['conf'].='&nbsp;';
 
 		$aus['conf'].='</td></tr>';
