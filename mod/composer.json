@@ -1,5 +1,7 @@
 {
     "require": {
+		"php": "^7.2|^8.0",
+		"ext-ftp": "*",	
         "league/flysystem-sftp": "^2.0"
     }
 }

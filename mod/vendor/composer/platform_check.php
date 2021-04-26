@@ -10,6 +10,7 @@ if (!(PHP_VERSION_ID >= 70200)) {
 
 $missingExtensions = array();
 extension_loaded('fileinfo') || $missingExtensions[] = 'fileinfo';
+extension_loaded('ftp') || $missingExtensions[] = 'ftp';
 extension_loaded('json') || $missingExtensions[] = 'json';
 
 if ($missingExtensions) {

@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '6ea407924612d059f29794351ce7bcd04dd4933e',
+    'reference' => '43cfdfd0697fb64d8d3c2e9a37f8917055d18d81',
     'name' => '__root__',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '6ea407924612d059f29794351ce7bcd04dd4933e',
+      'reference' => '43cfdfd0697fb64d8d3c2e9a37f8917055d18d81',
     ),
     'league/flysystem' => 
     array (
