@@ -111,6 +111,7 @@ $lang['L_CONFIGURATIONS']="الاعدادات";
 $lang['L_ACTION']="العمل";
 $lang['L_FTP_SEND_TO']="من <strong>%s</strong><br> الى <strong>%s</strong>";
 $lang['L_FTP']="FTP";
+$lang['L_SFTP_SEND_TO']="من <strong>%s</strong><br> الى <strong>%s</strong>";
 $lang['L_SFTP']="SFTP";
 $lang['L_EMAIL_CC']="نسخة كربونية-الى المستلم";
 $lang['L_NAME']="الاسم";

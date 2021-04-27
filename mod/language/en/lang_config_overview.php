@@ -110,6 +110,7 @@ $lang['L_CONFIGURATIONS']="Configurations";
 $lang['L_ACTION']="Action";
 $lang['L_FTP_SEND_TO']="to <strong>%s</strong><br> into <strong>%s</strong>";
 $lang['L_FTP']="FTP";
+$lang['L_SFTP_SEND_TO']="to <strong>%s</strong><br> into <strong>%s</strong>";
 $lang['L_SFTP']="SFTP";
 $lang['L_EMAIL_CC']="CC-Receiver";
 $lang['L_NAME']="Name";

@@ -747,7 +747,12 @@ function TesteFTP($i)
 function TesteSFTP($i)
 {
 	global $lang,$config;
-	if (!isset($config['sftp_timeout'][$i])) $config['sftp_timeout'][$i]=30;
+
+echo '<pre>';
+print_r($config);
+echo '</pre>';
+	
+	if (!empty($config['sftp_timeout'][$i])) $config['sftp_timeout'][$i]=30;
 	$s='';
 	if ($config['sftp_port'][$i]==''||$config['sftp_port'][$i]==0) $config['sftp_port'][$i]=22;
 	$pass=-1;
@@ -774,15 +779,53 @@ function TesteSFTP($i)
 	{
 		$s=$lang['L_CONNECT_TO'].' `'.$config['sftp_server'][$i].'` Port '.$config['sftp_port'][$i];
 
+// https://flysystem.thephpleague.com/v2/docs/adapter/sftp/	
+$filesystem = new Filesystem(new SftpAdapter(
+    new SftpConnectionProvider(
+        $config['sftp_server'][$i], // host (required)
+        $config['sftp_user'][$i], // username (required)
+        $config['sftp_pass'][$i], // password (optional, default: null) set to null if privateKey is used
+        null, // '/path/to/my/private_key', private key (optional, default: null) can be used instead of password, set to null if password is set
+        null, // 'my-super-secret-passphrase-for-the-private-key', passphrase (optional, default: null), set to null if privateKey is not used or has no passphrase
+        $config['sftp_port'][$i], // port (optional, default: 22)
+        false, // use agent (optional, default: false)
+        intval($config['sftp_timeout'][$i]), // timeout (optional, default: 10)
+        4, // max tries (optional, default: 4)
+        null, // 'fingerprint-string', host fingerprint (optional, default: null),
+        null, // connectivity checker (must be an implementation of 'League\Flysystem\PhpseclibV2\ConnectivityChecker' to check if a connection can be established (optional, omit if you don't need some special handling for setting reliable connections)
+    ),
+    $config['sftp_dir'][$i], // root path (required)
+    PortableVisibilityConverter::fromArray([
+        'file' => [
+            'public' => 0640,
+            'private' => 0604,
+        ],
+        'dir' => [
+            'public' => 0740,
+            'private' => 7604,
+        ],
+    ])
+));		
+
+echo 'sftp_timeout: ';
+echo $config['sftp_timeout'][$i];
+echo '<br>';
+echo '<pre>';
+print_r($filesystem);
+echo '</pre>';
+exit;
+
+
+
 		if ($config['sftp_useSSL'][$i]==0)
 		{
-			$conn_id=@sftp_connect($config['sftp_server'][$i],$config['sftp_port'][$i],$config['sftp_timeout'][$i]);
+#			$conn_id=@sftp_connect($config['sftp_server'][$i],$config['sftp_port'][$i],$config['sftp_timeout'][$i]);
 		}
 		else
 		{
-			$conn_id=@sftp_ssl_connect($config['sftp_server'][$i],$config['sftp_port'][$i],$config['sftp_timeout'][$i]);
+#			$conn_id=@sftp_ssl_connect($config['sftp_server'][$i],$config['sftp_port'][$i],$config['sftp_timeout'][$i]);
 		}
-		if ($conn_id) $login_result=@sftp_login($conn_id,$config['sftp_user'][$i],$config['sftp_pass'][$i]);
+#		if ($conn_id) $login_result=@sftp_login($conn_id,$config['sftp_user'][$i],$config['sftp_pass'][$i]);
 		if (!$conn_id||(!$login_result))
 		{
 			$s.='<br><span class="error">'.$lang['L_CONN_NOT_POSSIBLE'].'</span>';
@@ -790,13 +833,19 @@ function TesteSFTP($i)
 		else
 		{
 			$pass=2;
-			if ($config['sftp_mode'][$i]==1) sftp_pasv($conn_id,true);
+		#	if ($config['sftp_mode'][$i]==1) sftp_pasv($conn_id,true);
 		}
 	}
 
 	if ($pass==2)
 	{
 		$s.='<br><strong>Login ok</strong><br>'.$lang['L_CHANGEDIR'].' `'.$config['sftp_dir'][$i].'` ';
+		
+	
+		
+
+		
+		
 		$dirc=@sftp_chdir($conn_id,$config['sftp_dir'][$i]);
 		if (!$dirc)
 		{
