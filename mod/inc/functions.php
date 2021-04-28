@@ -490,7 +490,6 @@ function WriteCronScript($restore_values=false)
 	$config['sftp_pass'] = isset($config['sftp_pass']) ? $config['sftp_pass'] : '';
 	$config['sftp_dir'] = isset($config['sftp_dir']) ? $config['sftp_dir'] : '';
 	$config['sftp_timeout'] = isset($config['sftp_timeout']) ? $config['sftp_timeout'] : '';
-	$config['sftp_useSSL'] = isset($config['sftp_useSSL']) ? $config['sftp_useSSL'] : '';
 	$config['sftp_transfer'] = isset($config['sftp_transfer']) ? $config['sftp_transfer'] : '';	
 	$config['cron_comment'] = isset($config['cron_comment']) ? $config['cron_comment'] : '';
 

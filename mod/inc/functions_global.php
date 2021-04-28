@@ -748,11 +748,7 @@ function TesteSFTP($i)
 {
 	global $lang,$config;
 
-echo '<pre>';
-print_r($config);
-echo '</pre>';
-	
-	if (!empty($config['sftp_timeout'][$i])) $config['sftp_timeout'][$i]=30;
+	if ($config['sftp_timeout'][$i]==''||$config['sftp_timeout'][$i]==0) $config['sftp_timeout'][$i]=30;
 	$s='';
 	if ($config['sftp_port'][$i]==''||$config['sftp_port'][$i]==0) $config['sftp_port'][$i]=22;
 	$pass=-1;
@@ -817,14 +813,6 @@ exit;
 
 
 
-		if ($config['sftp_useSSL'][$i]==0)
-		{
-#			$conn_id=@sftp_connect($config['sftp_server'][$i],$config['sftp_port'][$i],$config['sftp_timeout'][$i]);
-		}
-		else
-		{
-#			$conn_id=@sftp_ssl_connect($config['sftp_server'][$i],$config['sftp_port'][$i],$config['sftp_timeout'][$i]);
-		}
 #		if ($conn_id) $login_result=@sftp_login($conn_id,$config['sftp_user'][$i],$config['sftp_pass'][$i]);
 		if (!$conn_id||(!$login_result))
 		{
