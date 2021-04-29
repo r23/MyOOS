@@ -34,6 +34,7 @@ $lang['L_CONNECT_TO']="forbind til";
 $lang['L_CHANGEDIR']="skift til folder";
 $lang['L_CHANGEDIRERROR']="skift til folder var ikke muligt";
 $lang['L_FTP_OK']="FTP-parameter er ok";
+$lang['L_SFTP_OK']="FTP-parameter er ok";
 $lang['L_CREATEDIRS2']="Opret foldere";
 $lang['L_FTP_NOTCONNECTED']="FTP-forbindelse ikke etableret!";
 $lang['L_CONNWITH']="Forbindelse med";

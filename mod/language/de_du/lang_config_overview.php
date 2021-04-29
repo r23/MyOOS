@@ -87,6 +87,7 @@ $lang['L_CONNECT_TO']="Verbinde mit";
 $lang['L_CHANGEDIR']="Wechsle in das Verzeichnis ";
 $lang['L_CHANGEDIRERROR']="Es konnte nicht in das Verzeichnis gewechselt werden!";
 $lang['L_FTP_OK']="Die Verbindung wurde erfolgreich hergestellt.";
+$lang['L_SFTP_OK']="Die Verbindung wurde erfolgreich hergestellt.";
 $lang['L_INSTALL']="Installation";
 $lang['L_NOFTPPOSSIBLE']="Es stehen keine FTP-Funktionen zur Verfügung!";
 $lang['L_FOUND_DB']="gefundene DB: ";

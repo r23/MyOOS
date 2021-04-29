@@ -34,6 +34,7 @@ $lang['L_CONNECT_TO']="ربط الى";
 $lang['L_CHANGEDIR']="تغيير مياشر";
 $lang['L_CHANGEDIRERROR']=" لا يمكن التغيير مباشرة ";
 $lang['L_FTP_OK']="FTPيفضل برتكول ";
+$lang['L_SFTP_OK']="FTPيفضل برتكول ";
 $lang['L_CREATEDIRS2']="انشاء الادلة";
 $lang['L_FTP_NOTCONNECTED']="FTP لم يتم انشاء برتكول نقل الملفات!";
 $lang['L_CONNWITH']="اتصال مع";

@@ -87,6 +87,7 @@ $lang['L_CONNECT_TO']="Connect to";
 $lang['L_CHANGEDIR']="تغيير الى الدليل";
 $lang['L_CHANGEDIRERROR']="لا يمكن تغيير الدليل!";
 $lang['L_FTP_OK']="تم الاتصال بنجاح.";
+$lang['L_SFTP_OK']="تم الاتصال بنجاح.";
 $lang['L_INSTALL']="تركيب";
 $lang['L_NOFTPPOSSIBLE']="FTP لا تتوفر لديك وظائف نقل الملفات بواسطة برتوكول  !";
 $lang['L_FOUND_DB']="العثور على قاعدة بيانات";

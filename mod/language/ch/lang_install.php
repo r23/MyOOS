@@ -32,6 +32,7 @@ $lang['L_CONNECT_TO']="verbinde zu";
 $lang['L_CHANGEDIR']="Wächsel is Verzeichnis";
 $lang['L_CHANGEDIRERROR']="Wächsel is Verzeichnis nöd mögli";
 $lang['L_FTP_OK']="FTP-Parameter sind ok";
+$lang['L_SFTP_OK']="FTP-Parameter sind ok";
 $lang['L_CREATEDIRS2']="Verzeichnis mache";
 $lang['L_FTP_NOTCONNECTED']="FTP-Verbindig nöd gmacht!";
 $lang['L_CONNWITH']="Verbindig mit";

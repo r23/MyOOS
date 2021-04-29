@@ -86,6 +86,7 @@ $lang['L_CONNECT_TO']="Verbind mit";
 $lang['L_CHANGEDIR']="Wächsle zum Verzeichnis";
 $lang['L_CHANGEDIRERROR']="Es hät nid chöne is Verzeichnis gwächslet werde!";
 $lang['L_FTP_OK']="d Verbindig isch erfolgriich gsi";
+$lang['L_SFTP_OK']="d Verbindig isch erfolgriich gsi";
 $lang['L_INSTALL']="Installation";
 $lang['L_NOFTPPOSSIBLE']="Es stönd kei FTP-Funktione zur Verfüegig!";
 $lang['L_FOUND_DB']="gfundeni DB: ";

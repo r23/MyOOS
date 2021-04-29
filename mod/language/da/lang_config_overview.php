@@ -91,6 +91,7 @@ $lang['L_CONNECT_TO']="forbind med";
 $lang['L_CHANGEDIR']="Skifter til folder";
 $lang['L_CHANGEDIRERROR']="Kunne ikke skifte folder!";
 $lang['L_FTP_OK']="Forbindelse etableret.";
+$lang['L_SFTP_OK']="Forbindelse etableret.";
 $lang['L_INSTALL']="Installation";
 $lang['L_NOFTPPOSSIBLE']="Du har ingen FTP-funktioner !";
 $lang['L_FOUND_DB']="fundet db";

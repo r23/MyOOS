@@ -749,8 +749,10 @@ function TesteSFTP($i)
 	global $lang,$config;
 
 	if ($config['sftp_timeout'][$i]==''||$config['sftp_timeout'][$i]==0) $config['sftp_timeout'][$i]=30;
-	$s='';
 	if ($config['sftp_port'][$i]==''||$config['sftp_port'][$i]==0) $config['sftp_port'][$i]=22;
+	
+	$s='';
+
 	$pass=-1;
 /*
 	if (!extension_loaded("ftp"))
@@ -775,79 +777,61 @@ function TesteSFTP($i)
 	{
 		$s=$lang['L_CONNECT_TO'].' `'.$config['sftp_server'][$i].'` Port '.$config['sftp_port'][$i];
 
-// https://flysystem.thephpleague.com/v2/docs/adapter/sftp/	
-$filesystem = new Filesystem(new SftpAdapter(
-    new SftpConnectionProvider(
-        $config['sftp_server'][$i], // host (required)
-        $config['sftp_user'][$i], // username (required)
-        $config['sftp_pass'][$i], // password (optional, default: null) set to null if privateKey is used
-        null, // '/path/to/my/private_key', private key (optional, default: null) can be used instead of password, set to null if password is set
-        null, // 'my-super-secret-passphrase-for-the-private-key', passphrase (optional, default: null), set to null if privateKey is not used or has no passphrase
-        $config['sftp_port'][$i], // port (optional, default: 22)
-        false, // use agent (optional, default: false)
-        intval($config['sftp_timeout'][$i]), // timeout (optional, default: 10)
-        4, // max tries (optional, default: 4)
-        null, // 'fingerprint-string', host fingerprint (optional, default: null),
-        null, // connectivity checker (must be an implementation of 'League\Flysystem\PhpseclibV2\ConnectivityChecker' to check if a connection can be established (optional, omit if you don't need some special handling for setting reliable connections)
-    ),
-    $config['sftp_dir'][$i], // root path (required)
-    PortableVisibilityConverter::fromArray([
-        'file' => [
-            'public' => 0640,
-            'private' => 0604,
-        ],
-        'dir' => [
-            'public' => 0740,
-            'private' => 7604,
-        ],
-    ])
-));		
+		// https://flysystem.thephpleague.com/v2/docs/adapter/sftp/	
+		$filesystem = new Filesystem(new SftpAdapter(
+			new SftpConnectionProvider(
+				$config['sftp_server'][$i], // host (required)
+				$config['sftp_user'][$i], // username (required)
+				$config['sftp_pass'][$i], // password (optional, default: null) set to null if privateKey is used
+				null, // '/path/to/my/private_key', private key (optional, default: null) can be used instead of password, set to null if password is set
+				null, // 'my-super-secret-passphrase-for-the-private-key', passphrase (optional, default: null), set to null if privateKey is not used or has no passphrase
+				$config['sftp_port'][$i], // port (optional, default: 22)
+				false, // use agent (optional, default: false)
+				intval($config['sftp_timeout'][$i]), // timeout (optional, default: 10)
+				4, // max tries (optional, default: 4)
+				null, // 'fingerprint-string', host fingerprint (optional, default: null),
+				null, // connectivity checker (must be an implementation of 'League\Flysystem\PhpseclibV2\ConnectivityChecker' to check if a connection can be established (optional, omit if you don't need some special handling for setting reliable connections)
+			),
+			$config['sftp_dir'][$i], // root path (required)
+			PortableVisibilityConverter::fromArray([
+				'file' => [
+					'public' => 0640,
+					'private' => 0604,
+				],
+				'dir' => [
+					'public' => 0740,
+					'private' => 7604,
+				],
+			])
+		));		
 
-echo 'sftp_timeout: ';
-echo $config['sftp_timeout'][$i];
-echo '<br>';
-echo '<pre>';
-print_r($filesystem);
-echo '</pre>';
-exit;
-
-
-
-#		if ($conn_id) $login_result=@sftp_login($conn_id,$config['sftp_user'][$i],$config['sftp_pass'][$i]);
-		if (!$conn_id||(!$login_result))
-		{
+		$path = 'path_' . time() . '.txt';
+		
+		try {
+			$filesystem->write($path, 'contents');
+		} catch (FilesystemError | UnableToWriteFile $exception) {
+			// handle the error
 			$s.='<br><span class="error">'.$lang['L_CONN_NOT_POSSIBLE'].'</span>';
-		}
-		else
-		{
-			$pass=2;
-		#	if ($config['sftp_mode'][$i]==1) sftp_pasv($conn_id,true);
-		}
-	}
-
-	if ($pass==2)
-	{
-		$s.='<br><strong>Login ok</strong><br>'.$lang['L_CHANGEDIR'].' `'.$config['sftp_dir'][$i].'` ';
-		
-	
-		
-
-		
-		
-		$dirc=@sftp_chdir($conn_id,$config['sftp_dir'][$i]);
-		if (!$dirc)
-		{
-			$s.='<br><span class="error">'.$lang['L_CHANGEDIRERROR'].'</span>';
-		}
-		else
-		{
 			$pass=3;
-			$s.='<span class="success">'.$lang['L_OK'].'</span>';
 		}
-		@sftp_close($conn_id);
-	}
 
-	if ($pass==3) $s.='<br><strong>'.$lang['L_SFTP_OK'].'</strong>';
+		// echo $path;
+
+		try {
+			$filesystem->delete($path);
+		} catch (FilesystemError | UnableToDeleteFile $exception) {
+			$s.='<br><span class="error">'.$lang['L_CHANGEDIRERROR'].'</span>';
+			$pass=3;
+		}
+
+		if ($pass!=3)
+		{
+			$s.='<span class="success">'.$lang['L_OK'].'</span>';
+			$s.='<br><strong>Login ok</strong><br>'.$lang['L_CHANGEDIR'].' `'.$config['sftp_dir'][$i].'` ';
+			$s.='<br><strong>'.$lang['L_SFTP_OK'].'</strong>';	
+		}
+	}
+	
 	return $s;
 }
 

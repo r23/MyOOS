@@ -33,6 +33,7 @@ $lang['L_CONNECT_TO']="verbinde zu";
 $lang['L_CHANGEDIR']="Wechsel ins Verzeichnis";
 $lang['L_CHANGEDIRERROR']="Wechsel ins Verzeichnis nicht möglich";
 $lang['L_FTP_OK']="FTP-Parameter sind ok";
+$lang['L_SFTP_OK']="FTP-Parameter sind ok";
 $lang['L_CREATEDIRS2']="Verzeichnisse erstellen";
 $lang['L_FTP_NOTCONNECTED']="FTP-Verbindung nicht hergestellt!";
 $lang['L_CONNWITH']="Verbindung mit";
