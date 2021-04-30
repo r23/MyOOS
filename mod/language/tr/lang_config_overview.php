@@ -94,7 +94,6 @@ $lang['L_FTP_PASSIVE']="passiv bağlantı kullan ";
 $lang['L_HELP_FTP_MODE']="FTP bağlantısını belirler. Aktiv bağlantıda sorun oluşursa, pasiv bağlantı kullanmalısınız.";
 $lang['L_SFTP_CHOOSE_MODE']="SFTP-gönderim şekli";
 $lang['L_SFTP_PASSIVE']="passiv bağlantı kullan ";
-$lang['L_HELP_SFTP_MODE']="SFTP bağlantısını belirler. Aktiv bağlantıda sorun oluşursa, pasiv bağlantı kullanmalısınız.";
 $lang['L_DB_IN_LIST']="'%s' Veritabanı eklenemedi, cünkü mevcut.";
 $lang['L_ADD_DB_MANUALLY']="Veritabanını elden ekle";
 $lang['L_DB_MANUAL_ERROR']="'%s' veritabanına bağlantı kurulamadı";

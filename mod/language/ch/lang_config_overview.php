@@ -95,7 +95,6 @@ $lang['L_FTP_PASSIVE']="passive Überträgigsmodus bruche";
 $lang['L_HELP_FTP_MODE']="Git de FTP-Überträgigsmodus a.Wänn Problem im aktive Modus ufträtet, sötti in passive Modus umgschaltet wärde.";
 $lang['L_SFTP_CHOOSE_MODE']="SFTP-Überträgigsmodus";
 $lang['L_SFTP_PASSIVE']="passive Überträgigsmodus bruche";
-$lang['L_HELP_SFTP_MODE']="Git de SFTP-Überträgigsmodus a.Wänn Problem im aktive Modus ufträtet, sötti in passive Modus umgschaltet wärde.";
 $lang['L_DB_IN_LIST']="D Datenbank '%s' hät nöd chöne gmacht werde, wils die scho git.";
 $lang['L_ADD_DB_MANUALLY']="Datebank vo Hand dezue tue";
 $lang['L_DB_MANUAL_ERROR']="D Verbindig zur Datenbank '%s' isch fählgschlage!";

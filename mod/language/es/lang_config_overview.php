@@ -95,7 +95,6 @@ $lang['L_FTP_PASSIVE']="use passive mode";
 $lang['L_HELP_FTP_MODE']="Choose the passive mode when you discover problems while using the active mode.";
 $lang['L_SFTP_CHOOSE_MODE']="SFTP Transfer Mode";
 $lang['L_SFTP_PASSIVE']="use passive mode";
-$lang['L_HELP_SFTP_MODE']="Choose the passive mode when you discover problems while using the active mode.";
 $lang['L_DB_IN_LIST']="The database '%s' couldn't be added because it is allready existing. ";
 $lang['L_ADD_DB_MANUALLY']="Add database manually";
 $lang['L_DB_MANUAL_ERROR']="Sorry, couldn't connect to database '%s'!";

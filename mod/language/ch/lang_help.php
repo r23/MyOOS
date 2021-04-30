@@ -31,4 +31,3 @@ $lang['L_HELP_CRONEXECPATH']="Dr Ort, wo die Perlskripts ligged. Usgangspunkt is
 $lang['L_CRON_EXECPATH']="Pfad vo de Perlskripts";
 $lang['L_HELP_CRONCOMPLETELOG']="Wänn diä Funktion aktiviert isch, wird di kompletti Usgab im complete_log gschribe. Diä Funtion isch unabhängig vo de Textusgab.";
 $lang['L_HELP_FTP_MODE']="Wänn Problem bi de FTP-Überträgig uftauched, versueched Si de passivi FTP-Modus";
-$lang['L_HELP_SFTP_MODE']="Wänn Problem bi de SFTP-Überträgig uftauched, versueched Si de passivi SFTP-Modus";

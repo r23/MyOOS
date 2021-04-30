@@ -37,4 +37,3 @@ $lang['L_CRON_EXECPATH']="Διαδρομή των Perl scripts";
 $lang['L_HELP_CRONCOMPLETELOG']="Οταν ενεργοποιηθεί, η πλήρης έξοδος γράφεται στο complete_log-file.
 Είναι ανεξάρτητο από την προβολή κειμένου";
 $lang['L_HELP_FTP_MODE']="Οταν συμβούν προβλήματα κατά την μεταφορά μέσω FTP, δοκιμάστε τη χρήση passive mode.";
-$lang['L_HELP_SFTP_MODE']="Οταν συμβούν προβλήματα κατά την μεταφορά μέσω SFTP, δοκιμάστε τη χρήση passive mode.";

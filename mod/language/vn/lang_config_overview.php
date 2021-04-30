@@ -96,7 +96,6 @@ $lang['L_FTP_PASSIVE']="sử dụng kiểu bị động (passive)";
 $lang['L_HELP_FTP_MODE']="Chọn dạng kiểu bị động khi bạn thấy có vấn đề trong khi sử dụng chế độ hoạt động (active mode).";
 $lang['L_SFTP_CHOOSE_MODE']="Chế độ SFTP";
 $lang['L_SFTP_PASSIVE']="sử dụng kiểu bị động (passive)";
-$lang['L_HELP_SFTP_MODE']="Chọn dạng kiểu bị động khi bạn thấy có vấn đề trong khi sử dụng chế độ hoạt động (active mode).";
 $lang['L_DB_IN_LIST']="CSDL '%s' không thể thêm vì nó bị trùng với 1 CSDL đã có. ";
 $lang['L_ADD_DB_MANUALLY']="Thêm cơ sở dữ liệu bằng tay";
 $lang['L_DB_MANUAL_ERROR']="Xin lỗi, không thể kết nối tới CSDL '%s'!";

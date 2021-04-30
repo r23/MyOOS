@@ -37,4 +37,3 @@ $lang['L_CRON_EXECPATH']="Perlskript'in veriyolu";
 $lang['L_HELP_CRONCOMPLETELOG']="Aktiv olması durumunda çıktının komplesi complete_log dosyasına kaydedilir. 
 Textçıktısı ayarlarına bağlı değildir.";
 $lang['L_HELP_FTP_MODE']="Eğer FTP-Transfer esnasında hata oluşursa,lütfen Pasif-Modus yöntemi ile deneyin.";
-$lang['L_HELP_SFTP_MODE']="Eğer SFTP-Transfer esnasında hata oluşursa,lütfen Pasif-Modus yöntemi ile deneyin.";

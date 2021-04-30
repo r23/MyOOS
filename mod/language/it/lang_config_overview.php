@@ -94,7 +94,6 @@ $lang['L_FTP_PASSIVE']="usa modalità passiva";
 $lang['L_HELP_FTP_MODE']="Scegli la modalità di trasferimento FTP. Se si verificano dei problemi con la modalità attiva prova con quella passiva.";
 $lang['L_SFTP_CHOOSE_MODE']="Modalità di trasferimento SFTP";
 $lang['L_SFTP_PASSIVE']="usa modalità passiva";
-$lang['L_HELP_SFTP_MODE']="Scegli la modalità di trasferimento FTP. Se si verificano dei problemi con la modalità attiva prova con quella passiva.";
 $lang['L_DB_IN_LIST']="Il database '%s' non può essere aggiunto, perchè è già esistente. ";
 $lang['L_ADD_DB_MANUALLY']="Aggiungi database manualmente.";
 $lang['L_DB_MANUAL_ERROR']="Spiacente, la connessione con il database '%s' è fallita!";

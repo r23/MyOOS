@@ -34,4 +34,3 @@ $lang['L_CRON_EXECPATH']="Path of Perl scripts";
 $lang['L_HELP_CRONCOMPLETELOG']="When activated the complete output is written in the complete_log-file.
 This is independent from text printing";
 $lang['L_HELP_FTP_MODE']="When problems occur while transfering via FTP, try to use the passive mode. ";
-$lang['L_HELP_SFTP_MODE']="When problems occur while transfering via FTP, try to use the passive mode. ";

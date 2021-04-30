@@ -95,7 +95,6 @@ $lang['L_FTP_PASSIVE']="χρήση passive mode";
 $lang['L_HELP_FTP_MODE']="Επιλέξτε το passive mode αν παρουσιαστούν προβλήματα καθώς χρησιμοποιείτε το active mode.";
 $lang['L_SFTP_CHOOSE_MODE']="Λειτουργία μεταφοράς SFTP";
 $lang['L_SFTP_PASSIVE']="χρήση passive mode";
-$lang['L_HELP_SFTP_MODE']="Επιλέξτε το passive mode αν παρουσιαστούν προβλήματα καθώς χρησιμοποιείτε το active mode.";
 $lang['L_DB_IN_LIST']="Η Β.Δεδομένων '%s' δε μπόρεσε να προστεθεί γιατί υπάρχει ήδη. ";
 $lang['L_ADD_DB_MANUALLY']="Προσθήκη Β.Δεδομένων χειροκίνητα";
 $lang['L_DB_MANUAL_ERROR']="Δυστυχώς, δεν συνδέθηκα με τη Β.Δεδομένων '%s'!";

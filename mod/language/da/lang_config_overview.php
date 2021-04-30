@@ -100,7 +100,6 @@ $lang['L_FTP_PASSIVE']="brug passiv-tilstand";
 $lang['L_HELP_FTP_MODE']="Vælg passiv tilstand hvis der opstår problemer ved brug af aktiv tilstand.";
 $lang['L_SFTP_CHOOSE_MODE']="SFTP-overførselstilstand";
 $lang['L_SFTP_PASSIVE']="brug passiv-tilstand";
-$lang['L_HELP_SFTP_MODE']="Vælg passiv tilstand hvis der opstår problemer ved brug af aktiv tilstand.";
 $lang['L_DB_IN_LIST']="Databasen '%s' kunne ikke tilføjes da den allerede findes.";
 $lang['L_ADD_DB_MANUALLY']="Opret manuelt database";
 $lang['L_DB_MANUAL_ERROR']="Beklager, kunne ikke forbinde til database '%s'!";

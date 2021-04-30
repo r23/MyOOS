@@ -96,31 +96,37 @@ $config['ftp_dir'][2]='';
 // SFTP Server Configuration for Transfer
 $config['sftp_transfer'][0]=0;
 $config['sftp_timeout'][0]=30;
-$config['sftp_mode'][0]=0;
 $config['sftp_server'][0]=''; // Adress of SFTP-Server
 $config['sftp_port'][0]='22'; // Port
 $config['sftp_user'][0]=''; // Username
 $config['sftp_pass'][0]=''; // Password
 $config['sftp_dir'][0]=''; // Upload-Directory
+$config['sftp_path_to_private_key'][0]=null; // private key (optional, default: null) can be used instead of password, set to null if password is set
+$config['sftp_secret_passphrase_for_private_key'][0]=null;  // passphrase (optional, default: null), set to null if privateKey is not used or has no passphrase
+$config['sftp_fingerprint'][0]=null; // host fingerprint (optional, default: null),
+
 
 $config['sftp_transfer'][1]=0;
 $config['sftp_timeout'][1]=30;
-$config['sftp_mode'][1]=0;
 $config['sftp_server'][1]='';
 $config['sftp_port'][1]='22';
 $config['sftp_user'][1]='';
 $config['sftp_pass'][1]='';
 $config['sftp_dir'][1]='';
+$config['sftp_path_to_private_key'][1]=null; 
+$config['sftp_secret_passphrase_for_private_key'][1]=null; 
+$config['sftp_fingerprint'][1]=null; 
 
 $config['sftp_transfer'][2]=0;
 $config['sftp_timeout'][2]=30;
-$config['sftp_mode'][2]=0;
 $config['sftp_server'][2]='';
 $config['sftp_port'][2]='22';
 $config['sftp_user'][2]='';
 $config['sftp_pass'][2]='';
 $config['sftp_dir'][2]='';
-
+$config['sftp_path_to_private_key'][2]=null; 
+$config['sftp_secret_passphrase_for_private_key'][2]=null; 
+$config['sftp_fingerprint'][2]=null; 
 
 //Multipart 0=off 1=on
 $config['multi_part']=0;

@@ -95,7 +95,6 @@ $lang['L_FTP_PASSIVE']="usar modo passivo";
 $lang['L_HELP_FTP_MODE']="Escolha o modo passivo quando você encontrar problemas usando o modo ativo";
 $lang['L_SFTP_CHOOSE_MODE']="Modo de Transferência - SFTP";
 $lang['L_SFTP_PASSIVE']="usar modo passivo";
-$lang['L_HELP_SFTP_MODE']="Escolha o modo passivo quando você encontrar problemas usando o modo ativo";
 $lang['L_DB_IN_LIST']="O banco de dados '%s' não pode ser adicionado pois ele já existe";
 $lang['L_ADD_DB_MANUALLY']="Adicionar banco de dados manualmente";
 $lang['L_DB_MANUAL_ERROR']="Desculpe, não é possível conectar com o banco de dados '%s'!";

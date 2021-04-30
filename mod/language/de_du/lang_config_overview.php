@@ -96,7 +96,6 @@ $lang['L_FTP_PASSIVE']="passiven Übertragungsmodus benutzen";
 $lang['L_HELP_FTP_MODE']="Gibt den FTP-Übertragungsmodus an. Wenn Probleme im aktiven Modus auftreten, sollte in den passiven Modus umgeschaltet werden.";
 $lang['L_SFTP_CHOOSE_MODE']="SFTP-Übertragungsmodus";
 $lang['L_SFTP_PASSIVE']="passiven Übertragungsmodus benutzen";
-$lang['L_HELP_SFTP_MODE']="Gibt den SFTP-Übertragungsmodus an. Wenn Probleme im aktiven Modus auftreten, sollte in den passiven Modus umgeschaltet werden.";
 $lang['L_DB_IN_LIST']="Die Datenbank '%s' konnte nicht hinzugefügt werden, da sie bereits vorhanden ist.";
 $lang['L_ADD_DB_MANUALLY']="Datenbank manuell hinzufügen";
 $lang['L_DB_MANUAL_ERROR']="Die Verbindung zur Datenbank '%s' ist fehlgeschlagen!";

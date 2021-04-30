@@ -37,4 +37,3 @@ $lang['L_CRON_EXECPATH']="Caminho dos scripts Perl";
 $lang['L_HELP_CRONCOMPLETELOG']="Quando ativo o resultado completo será escrito em um arquivo_logcompleto.
 Isto é independente de imprimir o texto";
 $lang['L_HELP_FTP_MODE']="Quando você observar problemas usando a tranferência em FTP, ative o modo passivo.";
-$lang['L_HELP_SFTP_MODE']="Quando você observar problemas usando a tranferência em SFTP, ative o modo passivo.";

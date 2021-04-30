@@ -37,4 +37,3 @@ $lang['L_CRON_EXECPATH']="Đường dẫn của Perl scripts";
 $lang['L_HELP_CRONCOMPLETELOG']="Khi được kích hoạt, đường ra đầy đủ được ghi trong complete_log-file.
 Cái này độc lập với văn bản đang in";
 $lang['L_HELP_FTP_MODE']="Khi có vấn đề xuất hiện với việc chuyển qua FTP, thử sử dụng chế độ bị động (passive mode).";
-$lang['L_HELP_SFTP_MODE']="Khi có vấn đề xuất hiện với việc chuyển qua FTP, thử sử dụng chế độ bị động (passive mode).";

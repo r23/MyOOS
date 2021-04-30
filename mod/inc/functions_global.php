@@ -826,7 +826,7 @@ function TesteSFTP($i)
 
 		if ($pass!=3)
 		{
-			$s.='<span class="success">'.$lang['L_OK'].'</span>';
+			$s.=' <span class="success">'.$lang['L_OK'].'</span>';
 			$s.='<br><strong>Login ok</strong><br>'.$lang['L_CHANGEDIR'].' `'.$config['sftp_dir'][$i].'` ';
 			$s.='<br><strong>'.$lang['L_SFTP_OK'].'</strong>';	
 		}
