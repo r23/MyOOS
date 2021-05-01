@@ -47,6 +47,8 @@ $lang['L_FTPCONNERROR3']="Téléchargement vers le serveur FTP est erroné! ";
 $lang['L_FTPCONNECTED1']="Connecté avec ";
 $lang['L_FTPCONNECTED2']=" sur ";
 $lang['L_FTPCONNECTED3']=" a été écrit";
+$lang['L_FILESENDSFTP']="Les fichiers sont envoyés par SFTP... Veuillez patienter. ";
+$lang['L_SFTPCONNERROR']="Aucune connexion SFTP n'a pu être établie! Connecter avec ";
 $lang['L_NR_TABLES_SELECTED']="- avec %s des tables sélectionnées";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tables ont été optimisées.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s erreurs rencontrées: <a href=\"log.php?r=3\">verdere</a></p>";

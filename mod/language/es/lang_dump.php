@@ -47,6 +47,8 @@ $lang['L_FTPCONNERROR3']="El envío por FTP ha fallado! ";
 $lang['L_FTPCONNECTED1']="Conectado con ";
 $lang['L_FTPCONNECTED2']=" en ";
 $lang['L_FTPCONNECTED3']=" escritos";
+$lang['L_FILESENDSFTP']="envío del archivo vía SFTP... tenga un poco de paciencia, por favor. ";
+$lang['L_SFTPCONNERROR']="Conexión no establecida! Conectarse a ";
 $lang['L_NR_TABLES_SELECTED']="- con %s tablas seleccionadas";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tablas optimizadas.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">Ha(n) ocurrido %s error(es): <a href=\"log.php?r=3\">visualizar</a></p>";

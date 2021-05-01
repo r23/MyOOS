@@ -206,6 +206,12 @@ if ($sftptested > -1)
 	$sftp_dir_s='sftp_dir[' . $sftptested . ']';
 	$f=$_POST['sftp_dir'];
 	$sftp_dir[$sftptested]=stripslashes($f[$sftptested]);
+	if ($sftp_dir[$sftptested] == "" || ( strlen($sftp_dir[$sftptested]) > 1 && substr($sftp_dir[$sftptested],-1) != "/" )) $sftp_dir[$sftptested].="/";	
+	
+	$sftp_path_to_private_key[$sftptested]= stripslashes($_POST['sftp_path_to_private_key'][$sftptested]);
+	$sftp_secret_passphrase_for_private_key[$sftptested]=stripslashes($_POST['sftp_secret_passphrase_for_private_key'][$sftptested]);
+	$sftp_fingerprint[$sftptested]=stripslashes( $_POST['sftp_fingerprint'][$sftptested]);
+	
 	// Eingaben merken
 	$config['sftp_transfer'][$sftptested]=( isset($_POST['sftp_transfer'][$sftptested]) ) ? $_POST['sftp_transfer'][$sftptested] : 0;
 	$config['sftp_timeout'][$sftptested]=( isset($_POST['sftp_timeout'][$sftptested]) ) ? $_POST['sftp_timeout'][$sftptested] : 30;
@@ -214,11 +220,10 @@ if ($sftptested > -1)
 	$config['sftp_user'][$sftptested]=$sftp_user[$sftptested];
 	$config['sftp_pass'][$sftptested]=$sftp_pass[$sftptested];
 	$config['sftp_dir'][$sftptested]=$sftp_dir[$sftptested];
-	$config['sftp_path_to_private_key'][$sftptested]=( isset($_POST['sftp_path_to_private_key'][$sftptested]) ) ? $_POST['sftp_path_to_private_key'][$sftptested] : null;
-	$config['sftp_secret_passphrase_for_private_key'][$sftptested]=( isset($_POST['sftp_secret_passphrase_for_private_key'][$sftptested]) ) ? $_POST['sftp_secret_passphrase_for_private_key'][$sftptested] : null;
-	$config['sftp_fingerprint'][$sftptested]=( isset($_POST['sftp_fingerprint'][$sftptested]) ) ? $_POST['sftp_fingerprint'][$sftptested] : null;
-		
-	if ($sftp_dir[$sftptested] == "" || ( strlen($sftp_dir[$sftptested]) > 1 && substr($sftp_dir[$sftptested],-1) != "/" )) $sftp_dir[$sftptested].="/";
+	$config['sftp_path_to_private_key'][$sftptested]=$sftp_path_to_private_key[$sftptested];
+	$config['sftp_secret_passphrase_for_private_key'][$sftptested]=$sftp_secret_passphrase_for_private_key[$sftptested];
+	$config['sftp_fingerprint'][$sftptested]=$sftp_fingerprint[$sftptested];	
+
 	WriteParams();
 }
 
@@ -1112,6 +1117,15 @@ for ($i=0; $i < 3; $i++)
 	$aus['transfer3'].='<tr><td class="small">' . Help($lang['L_HELP_SFTPUSER'],"conf16",12) . $lang['L_SFTP_USER'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="sftp_user[' . $i . ']" value="' . ( (isset($config['sftp_user'][$i])) ? $config['sftp_user'][$i] : "" )  . '"></td></tr>';
 	$aus['transfer3'].='<tr><td class="small">' . Help($lang['L_HELP_SFTPPASS'],"conf17",12) . $lang['L_SFTP_PASS'] . ':&nbsp;</td><td class="small"><input class="text" type="password" size="30" name="sftp_pass[' . $i . ']" value="' . ( (isset($config['sftp_pass'][$i])) ? $config['sftp_pass'][$i] : "" )  . '"></td></tr>';
 	$aus['transfer3'].='<tr><td class="small">' . Help($lang['L_HELP_SFTPDIR'],"conf18",12) . $lang['L_SFTP_DIR'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="sftp_dir[' . $i . ']" value="' . ( (isset($config['sftp_dir'][$i])) ? $config['sftp_dir'][$i] : "" )  . '"></td></tr>';
+	
+	$aus['transfer3'].='<tr><td class="small">' . $lang['L_SFTP_SFTP_PATH_TO_PRIVATE_KEY'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="sftp_path_to_private_key[' . $i . ']" value="' . ( (isset($config['sftp_path_to_private_key'][$i])) ? $config['sftp_path_to_private_key'][$i] : "" )  . '"> (optional, default: null)</td></tr>';
+	
+	$aus['transfer3'].='<tr><td class="small">' . $lang['L_SFTP_SECRET_PASSPHRASE_FOR_PRIVATE_KEY'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="sftp_secret_passphrase_for_private_key[' . $i . ']" value="' . ( (isset($config['sftp_secret_passphrase_for_private_key'][$i])) ? $config['sftp_secret_passphrase_for_private_key'][$i] : "" )  . '"> (optional, default: null)</td></tr>';
+	
+	
+	$aus['transfer3'].='<tr><td class="small">' . $lang['L_SFTP_FINGERPRINT'] . ':&nbsp;</td><td class="small"><input class="text" type="text" size="30" name="sftp_fingerprint[' . $i . ']" value="' . ( (isset($config['sftp_fingerprint'][$i])) ? $config['sftp_fingerprint'][$i] : "" )  . '"> (optional, default: null)</td></tr>';
+	
+	
 	$aus['transfer3'].='</table></td></tr></table>' . print_save_button() . '</fieldset>';
 }
 $aus['transfer3'].='</fieldset></div>';

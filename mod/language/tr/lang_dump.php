@@ -47,6 +47,8 @@ $lang['L_FTPCONNERROR3']="FTP-Yüklemesi başarısız! ";
 $lang['L_FTPCONNECTED1']="Kullanılan bağlantı";
 $lang['L_FTPCONNECTED2']=" ile ";
 $lang['L_FTPCONNECTED3']=" kayıt edilen";
+$lang['L_FILESENDSFTP']="Dosya SFTP ile gönderiliyor... lütfen biraz bekleyiniz. ";
+$lang['L_SFTPCONNERROR']="SFTP-Bağlantısı kurulmadı! Bağlantı  ";
 $lang['L_NR_TABLES_SELECTED']="-  %s seçilmiş tablolar";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s Tablo arındırıldı.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">Hata %s oluştu: <a href=\"log.php?r=3\">göster</a></p>";

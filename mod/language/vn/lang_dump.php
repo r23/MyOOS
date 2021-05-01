@@ -48,6 +48,8 @@ $lang['L_FTPCONNERROR3']="Upload FTP hỏng! ";
 $lang['L_FTPCONNECTED1']="Đã kết nối với ";
 $lang['L_FTPCONNECTED2']=" trên ";
 $lang['L_FTPCONNECTED3']=" chuyển đổi thành công";
+$lang['L_FILESENDSFTP']="gửi file qua FTP... hãy đợi. ";
+$lang['L_SFTPCONNERROR']="Kết nối FTP không được thiết lập! Kết nối với ";
 $lang['L_NR_TABLES_SELECTED']="- với %s bảng đã được chọn";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s những bảng đã được tối ưu hóa.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s những lỗi xuất hiện: <a href=\"log.php?r=3\">xem</a></p>";

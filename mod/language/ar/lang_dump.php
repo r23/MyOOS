@@ -48,6 +48,8 @@ $lang['L_FTPCONNERROR3']="FTP الارسال فشل! ";
 $lang['L_FTPCONNECTED1']="الربط مع ";
 $lang['L_FTPCONNECTED2']=" مفتوح ";
 $lang['L_FTPCONNECTED3']=" تمت عملية النقل بنجاح";
+$lang['L_FILESENDSFTP']="ارسال الملف عن طريق  via FTP... رجاء كن صبورا. ";
+$lang['L_SFTPCONNERROR']=" لم يتم تأسيسه FTP اتصال مع ! الاتصال مع ";
 $lang['L_NR_TABLES_SELECTED']="- مع %s اختر الجداول";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s تم اصلاح وتحسين الجداول.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s حدثت اخطاء: <a href=\"log.php?r=3\">عرض</a></p>

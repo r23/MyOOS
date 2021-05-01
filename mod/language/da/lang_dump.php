@@ -48,6 +48,8 @@ $lang['L_FTPCONNERROR3']="FTP-upload fejlede! ";
 $lang['L_FTPCONNECTED1']="Forbundet med ";
 $lang['L_FTPCONNECTED2']=" på ";
 $lang['L_FTPCONNECTED3']=" overførsel korrekt gennemført";
+$lang['L_FILESENDSFTP']="send fil via SFTP... vær venligst tålmodig. ";
+$lang['L_SFTPCONNERROR']="SFTP-forbindelse ikke etableret! Forbind med ";
 $lang['L_NR_TABLES_SELECTED']="- med %s valgte tabeller";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tabeller er blevet optimeret.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s fejl optrådte: <a href=\"log.php?r=3\">se log</a></p>

@@ -40,6 +40,8 @@ $lang['L_FTPCONNERROR3']="FTP-Upload isch fählerhaft gsi!";
 $lang['L_FTPCONNECTED1']="Verbunde mit";
 $lang['L_FTPCONNECTED2']="uf";
 $lang['L_FTPCONNECTED3']="gschribe";
+$lang['L_FILESENDSFTP']="verschicke grad File via SFTP... heb bitte e chli Geduld.";
+$lang['L_SFTPCONNERROR']="SFTP-Verbindig nöd hergstellt! Verbindig mit";
 $lang['L_NR_TABLES_SELECTED']="- mit %s gewählte Tabälle";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s Tabälle sind optimiert worde.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s Fähler ufträte: <a href=\"log.php?r=3\">aaluege</a></p>";

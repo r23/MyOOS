@@ -49,6 +49,8 @@ $lang['L_FTPCONNECTED1']="Συνδεμένο με ";
 $lang['L_FTPCONNECTED2']=" σε ";
 $lang['L_FTPCONNECTED3']=" Επιτυχής μεταφορά";
 $lang['L_NR_TABLES_SELECTED']="- με %s επιλεγμένους πίνακες";
+$lang['L_FILESENDSFTP']="αποστολή αρχείου μέσω SFTP... παρακαλώ περιμένετε. ";
+$lang['L_SFTPCONNERROR']="Δεν έγινε σύνδεση SFTP ! ΄Σύνδεση με ";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s πίνακες έχουν βελτιστοποιηθεί.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s σφάλματα παρουσιάστηκαν: <a href=\"log.php?r=3\">view</a></p>";
 $lang['L_FATAL_ERROR_DUMP']="Γενικό Σφάλμα: Η δήλωση CREATE-Statement του πίνακα '%s' στη Β.Δεδομένων '%s' δε μπορεί να διαβαστεί!";

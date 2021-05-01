@@ -47,6 +47,8 @@ $lang['L_FTPCONNERROR3']="FTP-Upload errato! ";
 $lang['L_FTPCONNECTED1']="Connesso con ";
 $lang['L_FTPCONNECTED2']="sul ";
 $lang['L_FTPCONNECTED3']="trasferimento completato con successo";
+$lang['L_FILESENDSFTP']="Invio del file via SFTP in corso... un attimo di pazienza prego. ";
+$lang['L_SFTPCONNERROR']="Connessione SFTP non riuscita! Connessione con ";
 $lang['L_NR_TABLES_SELECTED']="- con %s tabelle selezionate";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tabelle sono state ottimizzate.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s errori riscontrati: <a href=\"log.php?r=3\">controllare gli errori</a></p>";

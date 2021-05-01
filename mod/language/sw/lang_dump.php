@@ -43,6 +43,8 @@ $lang['L_FTPCONNERROR3']="FTP-överföringen var korrupt!";
 $lang['L_FTPCONNECTED1']="Ansluten till";
 $lang['L_FTPCONNECTED2']="hos";
 $lang['L_FTPCONNECTED3']="överförd";
+$lang['L_FILESENDSFTP']="skickar filen via SFTP ... var god vänta.";
+$lang['L_SFTPCONNERROR']="SFTP-förbindelsen kunde ej upprättas! Förbindelse med ";
 $lang['L_NR_TABLES_SELECTED']="- med %s valda tabeller";
 $lang['L_NR_TABLES_OPTIMIZED']="<span class=\"small\">%s tabeller har optimerats.</span>";
 $lang['L_DUMP_ERRORS']="<p class=\"error\">%s fel har uppträtt: <a href=\"log.php?r=3\">visa</a></p>";
