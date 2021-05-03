@@ -839,6 +839,75 @@ function TesteSFTP($i)
 }
 
 
+function SendViaSFTP($i,$source_file,$conn_msg=1)
+{
+	global $config,$out,$lang;
+	flush();
+	if ($conn_msg==1) $out.='<span class="success">'.$lang['L_FILESENDSFTP']."(".$config['sftp_server'][$i]." - ".$config['sftp_user'][$i].")</span><br>";
+	
+	if ($config['sftp_timeout'][$i]==''||$config['sftp_timeout'][$i]==0) $config['sftp_timeout'][$i]=30;
+	if ($config['sftp_port'][$i]==''||$config['sftp_port'][$i]==0) $config['sftp_port'][$i]=22;
+	if ($config['sftp_path_to_private_key'][$i]==''||$config['sftp_path_to_private_key'][$i]==0) $config['sftp_path_to_private_key'][$i]=null;
+	if ($config['sftp_secret_passphrase_for_private_key'][$i]==''||$config['sftp_secret_passphrase_for_private_key'][$i]==0) $config['sftp_secret_passphrase_for_private_key'][$i]=null;
+	if ($config['sftp_fingerprint'][$i]==''||$config['sftp_fingerprint'][$i]==0) $config['sftp_fingerprint'][$i]=null;
+	
+	// https://flysystem.thephpleague.com/v2/docs/adapter/sftp/	
+	$filesystem = new Filesystem(new SftpAdapter(
+		new SftpConnectionProvider(
+				$config['sftp_server'][$i], // host (required)
+				$config['sftp_user'][$i], // username (required)
+				$config['sftp_pass'][$i], // password (optional, default: null) set to null if privateKey is used
+				$config['sftp_path_to_private_key'][$i], // '/path/to/my/private_key', private key (optional, default: null) can be used instead of password, set to null if password is set
+				$config['sftp_secret_passphrase_for_private_key'][$i], // 'my-super-secret-passphrase-for-the-private-key', passphrase (optional, default: null), set to null if privateKey is not used or has no passphrase
+				$config['sftp_port'][$i], // port (optional, default: 22)
+				false, // use agent (optional, default: false)
+				intval($config['sftp_timeout'][$i]), // timeout (optional, default: 10)
+				4, // max tries (optional, default: 4)
+				$config['sftp_fingerprint'][$i], // 'fingerprint-string', host fingerprint (optional, default: null),
+				null, // connectivity checker (must be an implementation of 'League\Flysystem\PhpseclibV2\ConnectivityChecker' to check if a connection can be established (optional, omit if you don't need some special handling for setting reliable connections)				
+		),
+		$config['sftp_dir'][$i], // root path (required)
+		PortableVisibilityConverter::fromArray([
+			'file' => [
+				'public' => 0640,
+				'private' => 0604,
+			],
+			'dir' => [
+				'public' => 0740,
+				'private' => 7604,
+			],
+		])
+	));		
+
+
+	// Upload der Datei
+	$path=$source_file;
+	$source=$config['paths']['backup'].$source_file;
+		
+	try {
+		$filesystem->write($path, $source);
+	} catch (FilesystemError | UnableToWriteFile $exception) {
+		// handle the error
+		$s.='<br><span class="error">'.$lang['L_CONN_NOT_POSSIBLE'].'</span>';
+		$pass=3;
+	}
+
+
+	// Upload-Status überprüfen
+	if (!$upload)
+	{
+		$out.='<span class="error">'.$lang['L_FTPCONNERROR3']."<br>($source -> $dest)</span><br>";
+	}
+	else
+	{
+		$out.='<span class="success">'.$lang['L_FILE'].' <a href="'.$config['paths']['backup'].$source_file.'" class="smallblack">'.$source_file.'</a>'.$lang['L_FTPCONNECTED2'].$config['ftp_server'][$i].$lang['L_FTPCONNECTED3'].'</span><br>';
+		WriteLog("'$source_file' sent via FTP.");
+	}
+
+}
+
+
+
 function Realpfad($p)
 {
 	global $config;
