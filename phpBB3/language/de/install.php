@@ -364,7 +364,7 @@ $lang = array_merge($lang, array(
 
 		<ol style="margin-left: 20px; font-size: 1.1em;">
 			<li><strong class="error">Sichere alle Board-Dateien und die Datenbank.</strong></li>
-			<li>Gehe zur <a href="https://www.phpbb.com/downloads/" title="https://www.phpbb.com/downloads/">phpBB.com-Downloadseite</a> und lade das neuste „Komplettpaket“-Archiv runter (<a href="https://www.phpbb.de/go/3.3/downloads">deutschsprachige Downloadseite</a>).</li>
+			<li>Gehe zur <a href="https://www.phpbb.com/downloads/" title="https://www.phpbb.com/downloads/">phpBB.com-Downloadseite</a> und lade das neueste „Komplettpaket“-Archiv runter (<a href="https://www.phpbb.de/go/3.3/downloads">deutschsprachige Downloadseite</a>).</li>
 			<li>Entpacke das Archiv.</li>
 			<li>Lösche die <code class="inline">config.php</code>-Datei und die Verzeichnisse <code class="inline">/images</code>, <code class="inline">/store</code> und <code class="inline">/files</code> <em>aus dem Paket</em> (nicht von deiner Website).</li>
 			<li>Gehe in den Administrations-Bereich unter Board-Einstellungen und stelle sicher, dass prosilver als Standard-Style eingerichtet ist. Wenn nicht, stelle den Standard-Style auf prosilver.</li>

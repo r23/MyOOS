@@ -482,7 +482,7 @@ $lang = array_merge($lang, array(
 
 // Help support phpBB page
 $lang = array_merge($lang, array(
-	'EXPLAIN_SEND_STATISTICS'	=> 'Bitte übermitteln Sie Informationen über Ihren Server und Ihre Board-Konfiguration für statistische Analysen an phpBB.com. Alle Daten, die Sie selbst oder Ihre Website identifizieren könnten, wurden entfernt — die Daten sind vollkommen <strong>anonym</strong>. Entscheidungen über zukünftige phpBB-Versionen werden auf Basis dieser Daten getroffen. Die statistischen Daten werden öffentlich zur Verfügung gestellt. Die Daten werden auch mit dem PHP-Projekt ausgetauscht, Die Daten werden auch mit dem PHP-Projekt ausgetauscht, das die Programmiersprache betreut, in der phpBB geschrieben ist.',
+	'EXPLAIN_SEND_STATISTICS'	=> 'Bitte übermitteln Sie Informationen über Ihren Server und Ihre Board-Konfiguration für statistische Analysen an phpBB.com. Alle Daten, die Sie selbst oder Ihre Website identifizieren könnten, wurden entfernt — die Daten sind vollkommen <strong>anonym</strong>. Entscheidungen über zukünftige phpBB-Versionen werden auf Basis dieser Daten getroffen. Die statistischen Daten werden öffentlich zur Verfügung gestellt. Die Daten werden auch mit dem PHP-Projekt ausgetauscht, das die Programmiersprache betreut, in der phpBB geschrieben ist.',
 	'EXPLAIN_SHOW_STATISTICS'	=> 'Mit der folgenden Schaltfläche können Sie alle Informationen anzeigen, die übermittelt werden.',
 	'DONT_SEND_STATISTICS'		=> 'Kehren Sie zum Administrations-Bereich zurück, wenn Sie keine statistischen Daten an phpBB.com senden möchten.',
 	'GO_ACP_MAIN'				=> 'Zur Startseite des Administrations-Bereichs gehen',
