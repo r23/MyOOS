@@ -16,6 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+ini_set('display_errors', 0);
 
 $mod_path=realpath(dirname(__FILE__) . '/../') . '/';
 if (!defined('MOD_PATH')) define('MOD_PATH',$mod_path);
@@ -24,6 +25,7 @@ else
 	die('Couldn\'t read runtime.php!');
 
 if (!defined('MOD_VERSION')) die('No direct access.');
+
 
 use League\Flysystem\Filesystem;
 use League\Flysystem\PhpseclibV2\SftpConnectionProvider;
@@ -753,8 +755,8 @@ function TesteSFTP($i)
 	if ($config['sftp_path_to_private_key'][$i]==''||$config['sftp_path_to_private_key'][$i]==0) $config['sftp_path_to_private_key'][$i]=null;
 	if ($config['sftp_secret_passphrase_for_private_key'][$i]==''||$config['sftp_secret_passphrase_for_private_key'][$i]==0) $config['sftp_secret_passphrase_for_private_key'][$i]=null;
 	if ($config['sftp_fingerprint'][$i]==''||$config['sftp_fingerprint'][$i]==0) $config['sftp_fingerprint'][$i]=null;
-	$s='';
 
+	$s='';
 	$pass=-1;
 
 	if (!extension_loaded("ftp"))
@@ -762,7 +764,6 @@ function TesteSFTP($i)
 		$s='<br><span class="error">'.$lang['L_NOSFTPPOSSIBLE'].'</span>';
 	}
 	else
-	
 		$pass=0;
 
 	if ($pass==0)
@@ -812,19 +813,22 @@ function TesteSFTP($i)
 		
 		try {
 			$filesystem->write($path, 'contents');
-		} catch (FilesystemError | UnableToWriteFile $exception) {
+		} catch (Exception $e) {
 			// handle the error
+			echo 'Exception: ',  $e->getMessage(), "\n";
 			$s.='<br><span class="error">'.$lang['L_CONN_NOT_POSSIBLE'].'</span>';
-			$pass=3;
-		}
+			$pass=2;
+		} 
 
 		// echo $path;
 
 		try {
 			$filesystem->delete($path);
-		} catch (FilesystemError | UnableToDeleteFile $exception) {
+		} catch (Exception $e) {
+			// handle the error
+			echo 'Exception: ',  $e->getMessage(), "\n";
 			$s.='<br><span class="error">'.$lang['L_CHANGEDIRERROR'].'</span>';
-			$pass=3;
+			$pass=2;
 		}
 
 		if ($pass==1)
@@ -887,8 +891,9 @@ function SendViaSFTP($i,$source_file,$conn_msg=1)
 	
 	try {
 		$filesystem->write($path, $source);
-	} catch (FilesystemError | UnableToWriteFile $exception) {
+	} catch (Exception $e) {
 		// handle the error
+		echo 'Exception: ',  $e->getMessage(), "\n";
 		$s.='<br><span class="error">'.$lang['L_CONN_NOT_POSSIBLE'].'</span>';
 		$pass=3;
 	}
