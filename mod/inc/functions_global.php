@@ -882,7 +882,9 @@ function SendViaSFTP($i,$source_file,$conn_msg=1)
 	// Upload der Datei
 	$path=$source_file;
 	$source=$config['paths']['backup'].$source_file;
-		
+	
+	$pass=1;
+	
 	try {
 		$filesystem->write($path, $source);
 	} catch (FilesystemError | UnableToWriteFile $exception) {
@@ -893,13 +895,13 @@ function SendViaSFTP($i,$source_file,$conn_msg=1)
 
 
 	// Upload-Status überprüfen
-	if ($pass==1)
+	if ($pass==3)
 	{
 		$out.='<span class="error">'.$lang['L_FTPCONNERROR3']."<br>($source -> $path)</span><br>";
 	}
 	else
 	{
-		$out.='<span class="success">'.$lang['L_FILE'].' <a href="'.$config['paths']['backup'].$source_file.'" class="smallblack">'.$source_file.'</a>'.$lang['L_FTPCONNECTED2'].$config['ftp_server'][$i].$lang['L_FTPCONNECTED3'].'</span><br>';
+		$out.='<span class="success">'.$lang['L_FILE'].' <a href="'.$config['paths']['backup'].$source_file.'" class="smallblack">'.$source_file.'</a>'.$lang['L_FTPCONNECTED2'].$config['sftp_server'][$i].$lang['L_FTPCONNECTED3'].'</span><br>';
 		WriteLog("'$source_file' sent via sFTP.");
 	}
 
