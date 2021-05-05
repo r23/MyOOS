@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '09990e4b1abcecd16b353176e61fa8585600121a',
+    'reference' => '165185b9ac1fda9ea61b1bce687eb7e1f1707cc1',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -134,12 +134,12 @@ private static $installed = array (
     ),
     'khanamiryan/qrcode-detector-decoder' => 
     array (
-      'pretty_version' => '1.0.5',
-      'version' => '1.0.5.0',
+      'pretty_version' => '1.0.5.1',
+      'version' => '1.0.5.1',
       'aliases' => 
       array (
       ),
-      'reference' => '6c8c23003a87ecd7458807cd49372b1fb590d1f5',
+      'reference' => 'b96163d4f074970dfe67d4185e75e1f4541b30ca',
     ),
     'laminas/laminas-code' => 
     array (
@@ -229,7 +229,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '09990e4b1abcecd16b353176e61fa8585600121a',
+      'reference' => '165185b9ac1fda9ea61b1bce687eb7e1f1707cc1',
     ),
     'ocramius/proxy-manager' => 
     array (
