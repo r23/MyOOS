@@ -28,8 +28,6 @@
 				{/if}
 				
 				<div class="cartListInner">
-
-
 				  
 					{if $any_out_of_stock eq 1 }
 						<div class="infoStockArea">
@@ -114,7 +112,8 @@
 			}
 	  </ul>
     }
- -->													
+ -->
+											<p><a href="{product_link products_id=$product.id}">{$lang.text_modify}</a> | <a href="{html_href_link content=$filename.shopping_cart action=add_wishlist products_id=$product.id}">{$lang.text_on_memo}</a></p>
 										</div>
 									</td>
 									<td><div class="final_price">{display_price price=$product.final_price tax_class_id=$product.tax_class_id}</div></td>

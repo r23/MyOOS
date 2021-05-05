@@ -36,6 +36,9 @@ $aLang['table_heading_total'] = 'Summe';
 $aLang['text_cart_empty'] = 'Ihr Warenkorb ist derzeit leer.';
 $aLang['text_cart_empty_help'] = 'Bevor Sie zur Kasse gehen, müssen Sie einige Produkte in den Warenkorb legen.<br>Viele interessante Produkte finden Sie auf unserer Seite "Shop".';
 
+$aLang['text_modify'] = 'Ändern';
+$aLang['text_on_memo'] = 'Auf den Merkzettel';
+
 $aLang['sub_title_sub_total'] = 'Zwischensumme:';
 $aLang['shipping_cost'] = 'Versandkosten';
 $aLang['tax'] = ' Mehrwertsteuer';
