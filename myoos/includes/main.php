@@ -179,9 +179,9 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
 }
 
 
-if ( $session->hasStarted() === TRUE ) {
+if ( $session->hasStarted() === true ) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
-        $session->regenerate(TRUE);
+        $session->regenerate(true);
 	}
 
 	// create the shopping cart
@@ -207,7 +207,7 @@ if ( $session->hasStarted() === TRUE ) {
 	$aContents = oos_get_content();
 	
 	// verify the browser user agent
-	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? oos_var_prep_for_os($_SERVER['HTTP_USER_AGENT']) : '';
 
 	if (!isset($_SESSION['session_user_agent'])) {
 		$_SESSION['session_user_agent'] = $http_user_agent;
