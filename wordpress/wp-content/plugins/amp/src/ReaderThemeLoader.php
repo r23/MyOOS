@@ -28,6 +28,13 @@ use WP_Customize_Manager;
 final class ReaderThemeLoader implements Service, Registerable {
 
 	/**
+	 * Paired routing service.
+	 *
+	 * @var PairedRouting
+	 */
+	private $paired_routing;
+
+	/**
 	 * Reader theme.
 	 *
 	 * @var WP_Theme
@@ -51,24 +58,45 @@ final class ReaderThemeLoader implements Service, Registerable {
 	private $theme_overridden = false;
 
 	/**
+	 * ReaderThemeLoader constructor.
+	 *
+	 * @param PairedRouting $paired_routing Paired routing service.
+	 */
+	public function __construct( PairedRouting $paired_routing ) {
+		$this->paired_routing = $paired_routing;
+	}
+
+	/**
 	 * Is Reader mode with a Reader theme selected.
 	 *
+	 * @param array $options Options to check. If omitted, the currently-saved options are used.
 	 * @return bool Whether new Reader mode.
 	 */
-	public function is_enabled() {
+	public function is_enabled( $options = null ) {
 		// If the theme was overridden then we know it is enabled. We can't check get_template() at this point because
 		// it will be identical to $reader_theme.
 		if ( $this->is_theme_overridden() ) {
 			return true;
 		}
 
+		if ( null === $options ) {
+			$options = AMP_Options_Manager::get_options();
+		}
+
 		// If Reader mode is not enabled, then a Reader theme is definitely not going to be served.
-		if ( AMP_Theme_Support::READER_MODE_SLUG !== AMP_Options_Manager::get_option( Option::THEME_SUPPORT ) ) {
+		if (
+			! isset( $options[ Option::THEME_SUPPORT ] )
+			||
+			AMP_Theme_Support::READER_MODE_SLUG !== $options[ Option::THEME_SUPPORT ]
+		) {
 			return false;
 		}
 
 		// If the Legacy Reader mode is active, then a Reader theme is not going to be served.
-		$reader_theme = AMP_Options_Manager::get_option( Option::READER_THEME );
+		if ( ! isset( $options[ Option::READER_THEME ] ) ) {
+			return false;
+		}
+		$reader_theme = $options[ Option::READER_THEME ];
 		if ( ReaderThemes::DEFAULT_READER_THEME === $reader_theme ) {
 			return false;
 		}
@@ -95,15 +123,6 @@ final class ReaderThemeLoader implements Service, Registerable {
 	}
 
 	/**
-	 * Is an AMP request.
-	 *
-	 * @return bool Whether AMP request.
-	 */
-	public function is_amp_request() {
-		return isset( $_GET[ amp_get_slug() ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	}
-
-	/**
 	 * Register the service with the system.
 	 *
 	 * @return void
@@ -124,7 +143,7 @@ final class ReaderThemeLoader implements Service, Registerable {
 	 * @return array Themes.
 	 */
 	public function filter_wp_prepare_themes_to_indicate_reader_theme( $prepared_themes ) {
-		if ( AMP_Theme_Support::READER_MODE_SLUG !== AMP_Options_Manager::get_option( Option::THEME_SUPPORT ) ) {
+		if ( ! $this->is_enabled() ) {
 			return $prepared_themes;
 		}
 
@@ -182,7 +201,7 @@ final class ReaderThemeLoader implements Service, Registerable {
 	 * This is admittedly hacky, but WordPress doesn't provide a much better option.
 	 */
 	public function inject_theme_single_template_modifications() {
-		if ( AMP_Theme_Support::READER_MODE_SLUG !== AMP_Options_Manager::get_option( Option::THEME_SUPPORT ) ) {
+		if ( ! $this->is_enabled() ) {
 			return;
 		}
 
@@ -204,7 +223,7 @@ final class ReaderThemeLoader implements Service, Registerable {
 					`
 					<# if ( data.ampReaderThemeNotice ) { #>
 						<div class="notice notice-info notice-alt inline">
-							<p>{{{ data.ampReaderThemeNotice }}}</p>
+							<p>{{{ data.ampReaderThemeNotice }}}</p><?php // phpcs:ignore WordPressVIPMinimum.Security.Mustache.OutputNotation -- Contains link and already sanitized with Kses. ?>
 						</div>
 					<# } #>
 					`
@@ -217,7 +236,7 @@ final class ReaderThemeLoader implements Service, Registerable {
 						return `
 							${startDiv}
 							<# if ( data.ampActiveReaderTheme ) { #>
-								<a href="{{{ data.actions.customize }}}" class="button button-primary customize load-customize hide-if-no-customize">
+								<a href="{{ data.actions.customize }}" class="button button-primary customize load-customize hide-if-no-customize">
 									<?php esc_html_e( 'Customize', 'default' ); ?>
 								</a>
 								<a href="<?php echo esc_url( add_query_arg( 'page', AMP_Options_Manager::OPTION_NAME, admin_url( 'admin.php' ) ) ); ?>" class="button button-secondary">
@@ -249,7 +268,7 @@ final class ReaderThemeLoader implements Service, Registerable {
 							${startDiv}
 							<# if ( data.ampActiveReaderTheme ) { #>
 								<h2 class="theme-name" id="{{ data.id }}-name">
-									<span><?php echo esc_html( _x( 'Reader:', 'prefix for theme card in list', 'amp' ) ); ?></span> {{{ data.name }}}
+									<span><?php echo esc_html( _x( 'Reader:', 'prefix for theme card in list', 'amp' ) ); ?></span> {{ data.name }}
 								</h2>
 							<# } else if
 						`;
@@ -311,7 +330,8 @@ final class ReaderThemeLoader implements Service, Registerable {
 	 */
 	public function override_theme() {
 		$this->theme_overridden = false;
-		if ( ! $this->is_enabled() || ! $this->is_amp_request() ) {
+
+		if ( ! $this->is_enabled() || ! $this->paired_routing->has_endpoint() ) {
 			return;
 		}
 

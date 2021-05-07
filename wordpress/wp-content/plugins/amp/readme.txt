@@ -1,18 +1,24 @@
 === AMP ===
-Contributors: google, xwp, automattic, westonruter, albertomedina, schlessera, swissspidy, pierlo, johnwatkins0, joshuawold, ryankienstra
-Tags: amp, mobile, optimization, accelerated mobile pages, framework, components, blocks, performance, ux, seo, official
+Contributors: google, xwp, automattic, westonruter, albertomedina, schlessera, swissspidy, pierlo, delawski, johnwatkins0, joshuawold
+Tags: page experience, performance, amp, mobile, optimization, accelerated mobile pages
 Requires at least: 4.9
 Tested up to: 5.7
-Stable tag: 2.0.11
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires PHP: 5.6
 
-The Official AMP Plugin, supported by the AMP team. Formerly Accelerated Mobile Pages, AMP enables great experiences across both mobile and desktop.
+An easier path to great Page Experience for everyone. Powered by AMP.
 
 == Description ==
 
-This official plugin from the AMP project enables AMP content publishing with WordPress in a way that is fully and seamlessly integrated with the standard mechanisms of the platform. The key features are the following:
+[Page Experience](https://developers.google.com/search/docs/guides/page-experience) (PX) is a set of ranking signals—including [Core Web Vitals](https://web.dev/vitals/#core-web-vitals) (CWV)—measuring the user experience of interacting with a web page. AMP is a powerful tool which applies many optimizations and best practices automatically on your site, making it easier for you to achieve good page experience for your visitors. The official AMP Plugin, supported by the AMP team, makes it easy to bring the power of AMP to your WordPress site, seamlessly integrating with the normal publishing flow and allowing the use of existing themes and plugins.
+
+https://www.youtube.com/watch?v=s52JNMT59s8&list=PLXTOW_XMsIDRGRr5QDffrvND8Qh1RndFb
+
+For more videos like this, check out the ongoing [AMP for WordPress video series](https://www.youtube.com/playlist?list=PLXTOW_XMsIDRGRr5QDffrvND8Qh1RndFb).
+
+The plugin's key features include:
 
 1. **Automate the process of generating AMP-valid markup as much as possible**, letting users follow the standard workflows they are used to in WordPress.
 2. **Provide effective validation tools** to help users deal with AMP incompatibilities when they happen, including mechanisms for **identifying**, **contextualizing**, and **resolving issues caused by validation errors**.
@@ -57,7 +63,7 @@ Although there is a growing ecosystem of AMP-compatible WordPress components, th
 
 To learn more about the plugin and start leveraging its capabilities to power your AMP publishing workflow, check [the official AMP plugin product site](https://amp-wp.org/).
 
-If you are a developer, we encourage you to [follow along](https://github.com/ampproject/amp-wp) or [contribute](https://github.com/ampproject/amp-wp/blob/develop/contributing.md) to the development of this plugin on GitHub.
+If you are a developer, we encourage you to [follow along](https://github.com/ampproject/amp-wp) or [contribute](https://github.com/ampproject/amp-wp/wiki/Contributing) to the development of this plugin on GitHub.
 
 We have put up a comprehensive [FAQ page](https://amp-wp.org/documentation/frequently-asked-questions/) and extensive documentation to help you start as smoothly as possible.
 

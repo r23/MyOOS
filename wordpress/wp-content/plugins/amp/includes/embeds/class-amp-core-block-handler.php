@@ -50,7 +50,7 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 		'core/categories' => 'ampify_categories_block',
 		'core/archives'   => 'ampify_archives_block',
 		'core/video'      => 'ampify_video_block',
-		'core/cover'      => 'ampify_cover_block',
+		'core/file'       => 'ampify_file_block',
 	];
 
 	/**
@@ -78,7 +78,7 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 	 */
 	public function filter_rendered_block( $block_content, $block ) {
 		if ( ! isset( $block['blockName'] ) ) {
-			return $block_content;
+			return $block_content; // @codeCoverageIgnore
 		}
 
 		if ( isset( $block['attrs'] ) && 'core/shortcode' !== $block['blockName'] ) {
@@ -213,72 +213,47 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 	}
 
 	/**
-	 * Ampify cover block.
+	 * Ampify file block.
 	 *
-	 * This ensures that the background img/video in a cover block has object-fit=cover and the appropriate object-position
-	 * attribute so that they will be carried over to to the amp-img/amp-video and propagated to the img/video in the
-	 * light shadow DOM.
+	 * Fix handling of PDF previews by dequeuing wp-block-library-file and ensuring preview element has 100% width.
 	 *
-	 * @see \AMP_Video_Sanitizer::filter_video_dimensions()
+	 * @see \AMP_Object_Sanitizer::sanitize_pdf()
 	 *
 	 * @param string $block_content The block content about to be appended.
 	 * @param array  $block         The full block, including name and attributes.
 	 * @return string Filtered block content.
 	 */
-	public function ampify_cover_block( $block_content, $block ) {
-		$is_video_background = (
-			isset( $block['attrs']['backgroundType'] )
-			&&
-			'video' === $block['attrs']['backgroundType']
-		);
-		$is_image_element    = ! (
-			! empty( $block['attrs']['hasParallax'] )
+	public function ampify_file_block( $block_content, $block ) {
+		if (
+			empty( $block['attrs']['displayPreview'] )
 			||
-			! empty( $block['attrs']['isRepeated'] )
-		);
-
-		// Object fit/position is not relevant when background image has fixed positioning or is repeated.
-		// In other words, it is not relevant when a <video> or a <img> is not going to be used.
-		// See <https://github.com/WordPress/gutenberg/blob/54c9066d4/packages/block-library/src/cover/save.js#L54-L72>.
-		if ( ! ( $is_video_background || $is_image_element ) ) {
+			empty( $block['attrs']['href'] )
+			||
+			'.pdf' !== substr( wp_parse_url( $block['attrs']['href'], PHP_URL_PATH ), -4 )
+		) {
 			return $block_content;
 		}
 
-		$pattern = sprintf(
-			'#<%s(?= )[^>]*? class="(?:[^"]*? )?wp-block-cover__%s-background(?: [^"]*?)?"#',
-			$is_video_background ? 'video' : 'img',
-			$is_video_background ? 'video' : 'image'
-		);
-		return preg_replace_callback(
-			$pattern,
-			static function ( $matches ) use ( $block ) {
-				$replacement = $matches[0];
+		add_action( 'wp_print_scripts', [ $this, 'dequeue_block_library_file_script' ], 0 );
+		add_action( 'wp_print_footer_scripts', [ $this, 'dequeue_block_library_file_script' ], 0 );
 
-				// The background image/video for the cover block by definition needs object-fit="cover" on the resulting amp-ing/amp-video.
-				$replacement .= ' object-fit="cover"';
-
-				// Add the fill layout to skip needlessly obtaining the dimensions.
-				$replacement .= ' layout="fill"';
-
-				// Add object-position from the block's attributes to add to the img/video to be copied onto the amp-img/amp-video.
-				// The AMP runtime copies object-position attribute onto the underlying img/video for a given amp-img/amp-video.
-				// This is needed since the object-position property directly on an amp-img/amp-video will have no effect since
-				// since it is merely a wrapper for the underlying img/video element which actually supports the CSS property.
-				if ( isset( $block['attrs']['focalPoint']['x'], $block['attrs']['focalPoint']['y'] ) ) {
-					// See logic in Gutenberg for writing focal point to object-position attr:
-					// <https://github.com/WordPress/gutenberg/blob/54c9066/packages/block-library/src/cover/save.js#L71>.
-					$replacement .= sprintf(
-						' object-position="%d%% %d%%"',
-						round( (float) $block['attrs']['focalPoint']['x'] * 100 ),
-						round( (float) $block['attrs']['focalPoint']['y'] * 100 )
-					);
-				}
-
-				return $replacement;
-			},
+		// In Twenty Twenty the PDF embed fails to render due to the parent of the embed having
+		// the style rule `display: flex`. Ensuring the element has 100% width fixes that issue.
+		$block_content = preg_replace(
+			':(?=</div>):',
+			'<style id="amp-wp-file-block">.wp-block-file > .wp-block-file__embed { width:100% }</style>',
 			$block_content,
 			1
 		);
+
+		return $block_content;
+	}
+
+	/**
+	 * Dequeue wp-block-library-file script.
+	 */
+	public function dequeue_block_library_file_script() {
+		wp_dequeue_script( 'wp-block-library-file' );
 	}
 
 	/**
@@ -304,15 +279,15 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 		$selects = $dom->xpath->query( '//form/select[ @name = "cat" ]' );
 		foreach ( $selects as $select ) {
 			if ( ! $select instanceof DOMElement ) {
-				continue;
+				continue; // @codeCoverageIgnore
 			}
 			$form = $select->parentNode;
 			if ( ! $form instanceof DOMElement || ! $form->parentNode instanceof DOMElement ) {
-				continue;
+				continue; // @codeCoverageIgnore
 			}
 			$script = $dom->xpath->query( './/script[ contains( text(), "onCatChange" ) ]', $form->parentNode )->item( 0 );
 			if ( ! $script instanceof DOMElement ) {
-				continue;
+				continue; // @codeCoverageIgnore
 			}
 
 			$this->category_widget_count++;
@@ -337,7 +312,7 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 		$selects = $dom->xpath->query( '//select[ @name = "archive-dropdown" and starts-with( @id, "archives-dropdown-" ) ]' );
 		foreach ( $selects as $select ) {
 			if ( ! $select instanceof DOMElement ) {
-				continue;
+				continue; // @codeCoverageIgnore
 			}
 
 			$script = $dom->xpath->query( './/script[ contains( text(), "onSelectChange" ) ]', $select->parentNode )->item( 0 );
@@ -360,7 +335,7 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 					 *
 					 * @var DOMElement $option
 					 */
-					$option->setAttribute( 'value', add_query_arg( amp_get_slug(), '', $option->getAttribute( 'value' ) ) );
+					$option->setAttribute( 'value', amp_add_paired_endpoint( $option->getAttribute( 'value' ) ) );
 				}
 			}
 		}

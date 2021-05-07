@@ -44,6 +44,53 @@ interface Option {
 	const DISABLE_CSS_TRANSIENT_CACHING = 'amp_css_transient_monitor_disable_caching';
 
 	/**
+	 * Indicate the structure for paired AMP URLs.
+	 *
+	 * Default value: 'query_var'
+	 *
+	 * @var string
+	 */
+	const PAIRED_URL_STRUCTURE = 'paired_url_structure';
+
+	/**
+	 * Query var paired URL structure.
+	 *
+	 * This is the default, where all AMP URLs end in `?amp=1`.
+	 *
+	 * @var string
+	 */
+	const PAIRED_URL_STRUCTURE_QUERY_VAR = 'query_var';
+
+	/**
+	 * Path suffix paired URL structure.
+	 *
+	 * This adds `/amp/` to all URLs, even pages and archives. This is a popular option for those who feel query params
+	 * are bad for SEO.
+	 *
+	 * @var string
+	 */
+	const PAIRED_URL_STRUCTURE_PATH_SUFFIX = 'path_suffix';
+
+	/**
+	 * Legacy transitional paired URL structure.
+	 *
+	 * This involves using `?amp` for all paired AMP URLs.
+	 *
+	 * @var string
+	 */
+	const PAIRED_URL_STRUCTURE_LEGACY_TRANSITIONAL = 'legacy_transitional';
+
+	/**
+	 * Legacy transitional paired URL structure.
+	 *
+	 * This involves using `/amp/` for all non-hierarchical post URLs which lack endpoints or query vars, or else using
+	 * the same `?amp` as used by legacy transitional.
+	 *
+	 * @var string
+	 */
+	const PAIRED_URL_STRUCTURE_LEGACY_READER = 'legacy_reader';
+
+	/**
 	 * Redirect mobile visitors to the AMP version of a page when the site is in Transitional or Reader mode.
 	 *
 	 * Default value: false
@@ -96,11 +143,28 @@ interface Option {
 	const READER_THEME = 'reader_theme';
 
 	/**
+	 * Theme support features from the primary theme.
+	 *
+	 * When using a Reader theme, the theme support features from the primary theme are stored in this option so that
+	 * they will be available when the Reader theme is active.
+	 *
+	 * @var string
+	 */
+	const PRIMARY_THEME_SUPPORT = 'primary_theme_support';
+
+	/**
 	 * The key of the option storing whether the setup wizard has been completed.
 	 *
-	 * @var boolean
+	 * @var string
 	 */
 	const PLUGIN_CONFIGURED = 'plugin_configured';
+
+	/**
+	 * Cached slug when it is defined late.
+	 *
+	 * @var string
+	 */
+	const LATE_DEFINED_SLUG = 'late_defined_slug';
 
 	/**
 	 * Suppressed plugins

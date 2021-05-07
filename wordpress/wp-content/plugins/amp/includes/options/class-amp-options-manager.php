@@ -35,6 +35,7 @@ class AMP_Options_Manager {
 		Option::SUPPORTED_TEMPLATES     => [ 'is_singular' ],
 		Option::VERSION                 => AMP__VERSION,
 		Option::READER_THEME            => ReaderThemes::DEFAULT_READER_THEME,
+		Option::PAIRED_URL_STRUCTURE    => Option::PAIRED_URL_STRUCTURE_QUERY_VAR,
 		Option::PLUGIN_CONFIGURED       => false,
 	];
 
@@ -59,28 +60,6 @@ class AMP_Options_Manager {
 				'sanitize_callback' => [ __CLASS__, 'validate_options' ],
 			]
 		);
-
-		add_action( 'update_option_' . self::OPTION_NAME, [ __CLASS__, 'maybe_flush_rewrite_rules' ], 10, 2 );
-	}
-
-	/**
-	 * Flush rewrite rules if the supported_post_types have changed.
-	 *
-	 * @since 0.6.2
-	 *
-	 * @param array $old_options Old options.
-	 * @param array $new_options New options.
-	 */
-	public static function maybe_flush_rewrite_rules( $old_options, $new_options ) {
-		$old_post_types = isset( $old_options[ Option::SUPPORTED_POST_TYPES ] ) ? $old_options[ Option::SUPPORTED_POST_TYPES ] : [];
-		$new_post_types = isset( $new_options[ Option::SUPPORTED_POST_TYPES ] ) ? $new_options[ Option::SUPPORTED_POST_TYPES ] : [];
-		sort( $old_post_types );
-		sort( $new_post_types );
-		if ( $old_post_types !== $new_post_types ) {
-			// Flush rewrite rules.
-			add_rewrite_endpoint( amp_get_slug(), EP_PERMALINK );
-			flush_rewrite_rules( false );
-		}
 	}
 
 	/**
@@ -159,33 +138,15 @@ class AMP_Options_Manager {
 			 * Filters default options.
 			 *
 			 * @internal
-			 * @param array $defaults Default options.
+			 * @param array $defaults        Default options.
+			 * @param array $current_options Current options.
 			 */
-			(array) apply_filters( 'amp_default_options', $defaults ),
+			(array) apply_filters( 'amp_default_options', $defaults, $options ),
 			$options
 		);
 
 		// Ensure current template mode.
-		if (
-			AMP_Theme_Support::READER_MODE_SLUG === $options[ Option::THEME_SUPPORT ]
-			&&
-			get_stylesheet() === $options[ Option::READER_THEME ]
-			&&
-			! isset( $_GET[ amp_get_slug() ] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		) {
-			/*
-			 * When Reader mode is selected and a Reader theme has been chosen, if the active theme switches to be the
-			 * same as the Reader theme, then transparently switch the mode from Reader to Transitional while the
-			 * active theme and the Reader theme are the same. Remember that Reader mode means having two separate
-			 * templates for AMP and non-AMP, whereas Transitional mode means using the same templates. Otherwise, there
-			 * is no difference whatsoever between Reader and Transitional modes, as they are both Paired AMP modes.
-			 * By dynamically changing the mode from Reader to Transitional in the options getter here, if the active
-			 * theme is switched again to be different than what was selected as the Reader theme, then the site will
-			 * go back to being in Reader mode as opposed to Transitional.
-			 * @todo It would be preferable to rather invoke methods of ReaderThemeLoader here, but that risks an infinite loop and is a circular dependency.
-			 */
-			$options[ Option::THEME_SUPPORT ] = AMP_Theme_Support::TRANSITIONAL_MODE_SLUG;
-		} elseif ( 'native' === $options[ Option::THEME_SUPPORT ] ) {
+		if ( 'native' === $options[ Option::THEME_SUPPORT ] ) {
 			// The slug 'native' is the old term for 'standard'.
 			$options[ Option::THEME_SUPPORT ] = AMP_Theme_Support::STANDARD_MODE_SLUG;
 		} elseif ( 'paired' === $options[ Option::THEME_SUPPORT ] ) {
@@ -296,7 +257,7 @@ class AMP_Options_Manager {
 	public static function get_option( $option, $default = false ) {
 		$amp_options = self::get_options();
 
-		if ( ! isset( $amp_options[ $option ] ) ) {
+		if ( ! array_key_exists( $option, $amp_options ) ) {
 			return $default;
 		}
 

@@ -6,21 +6,18 @@
  */
 
 use AmpProject\Amp;
-use AmpProject\AmpWP\DevTools\ErrorPage;
+use AmpProject\AmpWP\Dom\Options;
 use AmpProject\AmpWP\ExtraThemeAndPluginHeaders;
+use AmpProject\AmpWP\Optimizer\OptimizerService;
 use AmpProject\AmpWP\Option;
 use AmpProject\AmpWP\QueryVar;
-use AmpProject\AmpWP\RemoteRequest\CachedRemoteGetRequest;
 use AmpProject\AmpWP\ConfigurationArgument;
 use AmpProject\AmpWP\Services;
-use AmpProject\AmpWP\Transformer;
 use AmpProject\Attribute;
 use AmpProject\Dom\Document;
 use AmpProject\Extension;
 use AmpProject\Optimizer;
-use AmpProject\RemoteRequest\FallbackRemoteGetRequest;
-use AmpProject\RemoteRequest\FilesystemRemoteGetRequest;
-use AmpProject\AmpWP\RemoteRequest\WpHttpRemoteGetRequest;
+use AmpProject\RequestDestination;
 use AmpProject\Tag;
 
 /**
@@ -79,13 +76,6 @@ class AMP_Theme_Support {
 	 * @var string
 	 */
 	const READER_MODE_TEMPLATE_DIRECTORY = 'amp';
-
-	/**
-	 * Query var for requests to open the paired browsing interface.
-	 *
-	 * @var string
-	 */
-	const PAIRED_BROWSING_QUERY_VAR = 'amp-paired-browsing';
 
 	/**
 	 * Sanitizers, with keys as class names and values as arguments.
@@ -321,34 +311,9 @@ class AMP_Theme_Support {
 	 * @since 0.7
 	 */
 	public static function finish_init() {
-		if ( self::is_paired_available() ) {
-			self::setup_paired_browsing_client();
-			add_action( 'template_redirect', [ __CLASS__, 'sanitize_url_for_paired_browsing' ] );
-			add_filter( 'template_include', [ __CLASS__, 'serve_paired_browsing_experience' ], PHP_INT_MAX );
-		}
-
-		$has_query_var = (
-			isset( $_GET[ amp_get_slug() ] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			||
-			false !== get_query_var( amp_get_slug(), false )
-		);
-
 		if ( ! amp_is_request() ) {
-			/*
-			 * Redirect to AMP-less URL if AMP is not available for this URL and yet the query var is present.
-			 * Temporary redirect is used for admin users because implied transitional mode and template support can be
-			 * enabled by user ay any time, so they will be able to make AMP available for this URL and see the change
-			 * without wrestling with the redirect cache.
-			 */
-			if ( $has_query_var ) {
-				self::redirect_non_amp_url( current_user_can( 'manage_options' ) ? 302 : 301 );
-			}
-
-			amp_add_frontend_actions();
 			return;
 		}
-
-		self::ensure_proper_amp_location();
 
 		if ( amp_is_legacy() ) {
 			// Make sure there is no confusion when serving the legacy Reader template that the normal theme hooks should not be used.
@@ -386,99 +351,16 @@ class AMP_Theme_Support {
 	}
 
 	/**
-	 * Ensure that the current AMP location is correct.
-	 *
-	 * @since 1.0
-	 * @since 2.0 Removed $exit param.
-	 *
-	 * @return bool Whether redirection should have been done.
-	 */
-	public static function ensure_proper_amp_location() {
-		$has_query_var = false !== get_query_var( amp_get_slug(), false ); // May come from URL param or endpoint slug.
-		$has_url_param = isset( $_GET[ amp_get_slug() ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-
-		if ( amp_is_canonical() ) {
-			/*
-			 * When AMP-first/canonical, then when there is an /amp/ endpoint or ?amp URL param,
-			 * then a redirect needs to be done to the URL without any AMP indicator in the URL.
-			 * Permanent redirect is used for unauthenticated users since switching between modes
-			 * should happen infrequently. For admin users, this is kept temporary to allow them
-			 * to not be hampered by browser remembering permanent redirects and preventing test.
-			 */
-			if ( $has_query_var || $has_url_param ) {
-				return self::redirect_non_amp_url( current_user_can( 'manage_options' ) ? 302 : 301 );
-			}
-		} elseif ( amp_is_legacy() && is_singular() ) {
-			// Prevent infinite URL space under /amp/ endpoint.
-			global $wp;
-			$path_args = [];
-			wp_parse_str( $wp->matched_query, $path_args );
-			if ( isset( $path_args[ amp_get_slug() ] ) && '' !== $path_args[ amp_get_slug() ] ) {
-				if ( wp_safe_redirect( amp_get_permalink( get_queried_object_id() ), 301 ) ) {
-					// @codeCoverageIgnoreStart
-					exit;
-					// @codeCoverageIgnoreEnd
-				}
-				return true;
-			}
-		} elseif ( $has_query_var && ! $has_url_param ) {
-			/*
-			 * When in AMP transitional mode *with* theme support, then the proper AMP URL has the 'amp' URL param
-			 * and not the /amp/ endpoint. The URL param is now the exclusive way to mark AMP in transitional mode
-			 * when amp theme support present. This is important for plugins to be able to reliably call
-			 * amp_is_request() before the parse_query action.
-			 */
-			$old_url = amp_get_current_url();
-			$new_url = add_query_arg( amp_get_slug(), '', amp_remove_endpoint( $old_url ) );
-			if ( $old_url !== $new_url ) {
-				// A temporary redirect is used for admin users to allow them to see changes between reader mode and transitional modes.
-				if ( wp_safe_redirect( $new_url, current_user_can( 'manage_options' ) ? 302 : 301 ) ) {
-					// @codeCoverageIgnoreStart
-					exit;
-					// @codeCoverageIgnoreEnd
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * Redirect to non-AMP version of the current URL, such as because AMP is canonical or there are unaccepted validation errors.
-	 *
-	 * If the current URL is already AMP-less then do nothing.
-	 *
-	 * @since 0.7
-	 * @since 1.0 Added $exit param.
-	 * @since 1.0 Renamed from redirect_canonical_amp().
-	 * @since 2.0 Removed $exit param.
-	 *
-	 * @param int $status Status code (301 or 302).
-	 * @return bool Whether redirection should have be done.
-	 */
-	public static function redirect_non_amp_url( $status = 302 ) {
-		$current_url = amp_get_current_url();
-		$non_amp_url = amp_remove_endpoint( $current_url );
-		if ( $non_amp_url === $current_url ) {
-			return false;
-		}
-
-		if ( wp_safe_redirect( $non_amp_url, $status ) ) {
-			// @codeCoverageIgnoreStart
-			exit;
-			// @codeCoverageIgnoreEnd
-		}
-		return true;
-	}
-
-	/**
 	 * Determines whether transitional mode is available.
 	 *
 	 * When 'amp' theme support has not been added or canonical mode is enabled, then this returns false.
 	 *
 	 * @since 0.7
+	 * @deprecated No longer used. Consider instead `! amp_is_canonical() && amp_is_available()`.
+	 * @todo There are ecosystem plugins which are still using this method. See <https://wpdirectory.net/search/01EPD9M5CKWHJ7NMQ1WE0YGPJ5>.
 	 *
 	 * @see amp_is_canonical()
+	 * @see amp_is_available()
 	 * @return bool Whether available.
 	 */
 	public static function is_paired_available() {
@@ -951,6 +833,7 @@ class AMP_Theme_Support {
 		if ( has_action( 'wp_head', 'print_emoji_detection_script' ) ) {
 			remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 			remove_action( 'wp_print_styles', 'print_emoji_styles' );
+			remove_action( 'wp_footer', 'gutenberg_the_skip_link' ); // Temporary workaround for <https://github.com/ampproject/amp-wp/issues/6115>.
 			add_action( 'wp_print_styles', [ __CLASS__, 'print_emoji_styles' ] );
 			add_filter( 'the_title', 'wp_staticize_emoji' );
 			add_filter( 'the_excerpt', 'wp_staticize_emoji' );
@@ -1005,10 +888,7 @@ class AMP_Theme_Support {
 		add_filter( 'comment_form_defaults', [ __CLASS__, 'filter_comment_form_defaults' ], PHP_INT_MAX );
 		add_filter( 'comment_reply_link', [ __CLASS__, 'filter_comment_reply_link' ], 10, 4 );
 		add_filter( 'cancel_comment_reply_link', [ __CLASS__, 'filter_cancel_comment_reply_link' ], 10, 3 );
-		add_action( 'comment_form', [ __CLASS__, 'amend_comment_form' ], 100 );
 		remove_action( 'comment_form', 'wp_comment_form_unfiltered_html_nonce' );
-		add_filter( 'get_comments_link', [ __CLASS__, 'amend_comments_link' ] );
-		add_filter( 'respond_link', [ __CLASS__, 'amend_comments_link' ] );
 		add_filter( 'wp_kses_allowed_html', [ __CLASS__, 'include_layout_in_wp_kses_allowed_html' ], 10 );
 		add_filter( 'get_header_image_tag', [ __CLASS__, 'amend_header_image_with_video_header' ], PHP_INT_MAX );
 		add_action(
@@ -1121,34 +1001,6 @@ class AMP_Theme_Support {
 	}
 
 	/**
-	 * Amend the comment form with the redirect_to field to persist the AMP page after submission.
-	 */
-	public static function amend_comment_form() {
-		?>
-		<?php if ( is_singular() && ! amp_is_canonical() ) : ?>
-			<input type="hidden" name="redirect_to" value="<?php echo esc_url( amp_get_permalink( get_the_ID() ) ); ?>">
-		<?php endif; ?>
-		<?php
-	}
-
-	/**
-	 * Amend the comments/redpond links to go to non-AMP page when in legacy Reader mode.
-	 *
-	 * @see get_comments_link()
-	 * @see comments_popup_link()
-	 *
-	 * @param string $comments_link Post comments permalink with '#comments' or '#respond' appended.
-	 * @return string The link to the comments.
-	 */
-	public static function amend_comments_link( $comments_link ) {
-		if ( amp_is_legacy() && true === AMP_Options_Manager::get_option( Option::MOBILE_REDIRECT ) ) {
-			$comments_link = add_query_arg( QueryVar::NOAMP, QueryVar::NOAMP_MOBILE, $comments_link );
-		}
-
-		return $comments_link;
-	}
-
-	/**
 	 * Prepends template hierarchy with template_dir for AMP transitional mode templates.
 	 *
 	 * @param array $templates Template hierarchy.
@@ -1168,47 +1020,23 @@ class AMP_Theme_Support {
 	}
 
 	/**
-	 * Get canonical URL for current request.
+	 * Get the canonical/self (non-paired) URL for current request.
 	 *
-	 * @see rel_canonical()
-	 * @global WP $wp
-	 * @global WP_Rewrite $wp_rewrite
+	 * For paired AMP sites, this is not the actual "canonical" URL but rather just the non-amphtml version of the current
+	 * paired URL. For AMP-first sites, this returns just the current self URL. If desiring to have an actual semantically
+	 * canonical URL, then a plugin should be added which adds the desired link to the page. As it stands, this method
+	 * is only used to add canonical links when a page lacks it in the first place.
+	 *
 	 * @link https://www.ampproject.org/docs/reference/spec#canon.
-	 * @link https://core.trac.wordpress.org/ticket/18660
 	 *
-	 * @return string Canonical non-AMP URL.
+	 * @return string Canonical/self URL.
 	 */
 	public static function get_current_canonical_url() {
-		global $wp, $wp_rewrite;
-
-		$url = null;
-		if ( is_singular() ) {
-			$url = wp_get_canonical_url();
+		$current_url = amp_get_current_url();
+		if ( ! amp_is_canonical() ) {
+			$current_url = amp_remove_paired_endpoint( $current_url );
 		}
-
-		// For non-singular queries, make use of the request URI and public query vars to determine canonical URL.
-		if ( empty( $url ) && $wp instanceof WP && $wp_rewrite instanceof WP_Rewrite ) {
-			$added_query_vars = $wp->query_vars;
-			if ( ! $wp_rewrite->permalink_structure || empty( $wp->request ) ) {
-				$url = home_url( '/' );
-			} else {
-				$url = home_url( user_trailingslashit( $wp->request ) );
-				parse_str( $wp->matched_query, $matched_query_vars );
-				foreach ( $wp->query_vars as $key => $value ) {
-
-					// Remove query vars that were matched in the rewrite rules for the request.
-					if ( isset( $matched_query_vars[ $key ] ) ) {
-						unset( $added_query_vars[ $key ] );
-					}
-				}
-			}
-		}
-
-		if ( ! empty( $added_query_vars ) ) {
-			$url = add_query_arg( $added_query_vars, $url );
-		}
-
-		return amp_remove_endpoint( $url );
+		return $current_url;
 	}
 
 	/**
@@ -1557,7 +1385,7 @@ class AMP_Theme_Support {
 	 */
 	public static function ensure_required_markup( Document $dom, $script_handles = [] ) {
 		// Gather all links.
-		$links         = [
+		$links = [
 			Attribute::REL_PRECONNECT => [
 				// Include preconnect link for AMP CDN for browsers that don't support preload.
 				AMP_DOM_Utils::create_node(
@@ -1570,7 +1398,9 @@ class AMP_Theme_Support {
 				),
 			],
 		];
+
 		$link_elements = $dom->head->getElementsByTagName( Tag::LINK );
+
 		/**
 		 * Link element.
 		 *
@@ -1669,32 +1499,16 @@ class AMP_Theme_Support {
 			}
 		}
 
-		/* phpcs:ignore Squiz.PHP.CommentedOutCode.Found
-		 *
-		 * "2. Next, preload the AMP runtime v0.js <script> tag with <link as=script href=https://cdn.ampproject.org/v0.js rel=preload>.
-		 * The AMP runtime should start downloading as soon as possible because the AMP boilerplate hides the document via body { visibility:hidden }
-		 * until the AMP runtime has loaded. Preloading the AMP runtime tells the browser to download the script with a higher priority."
-		 * {@link https://amp.dev/documentation/guides-and-tutorials/optimize-and-measure/optimize_amp/ Optimize the AMP Runtime loading}
+		/*
+		 * "3. If your page includes render-delaying extensions (e.g., amp-experiment, amp-dynamic-css-classes, amp-story),
+		 * preload those extensions as they're required by the AMP runtime for rendering the page."
+		 * @TODO: Move into RewriteAmpUrls transformer, as that will support self-hosting as well.
 		 */
 		$prioritized_preloads = [];
 		if ( ! isset( $links[ Attribute::REL_PRELOAD ] ) ) {
 			$links[ Attribute::REL_PRELOAD ] = [];
 		}
 
-		$prioritized_preloads[] = AMP_DOM_Utils::create_node(
-			$dom,
-			Tag::LINK,
-			[
-				Attribute::REL  => Attribute::REL_PRELOAD,
-				'as'            => Tag::SCRIPT,
-				Attribute::HREF => $runtime_src,
-			]
-		);
-
-		/*
-		 * "3. If your page includes render-delaying extensions (e.g., amp-experiment, amp-dynamic-css-classes, amp-story),
-		 * preload those extensions as they're required by the AMP runtime for rendering the page."
-		 */
 		$amp_script_handles = array_keys( $amp_scripts );
 		foreach ( array_intersect( Amp::RENDER_DELAYING_EXTENSIONS, $amp_script_handles ) as $script_handle ) {
 			if ( ! in_array( $script_handle, Amp::RENDER_DELAYING_EXTENSIONS, true ) ) {
@@ -1705,7 +1519,7 @@ class AMP_Theme_Support {
 				Tag::LINK,
 				[
 					Attribute::REL  => Attribute::REL_PRELOAD,
-					'as'            => Tag::SCRIPT,
+					Attribute::AS_  => RequestDestination::SCRIPT,
 					Attribute::HREF => $amp_scripts[ $script_handle ]->getAttribute( Attribute::SRC ),
 				]
 			);
@@ -1853,7 +1667,7 @@ class AMP_Theme_Support {
 
 			// Add link to non-AMP version if not canonical.
 			if ( ! amp_is_canonical() ) {
-				$non_amp_url = amp_remove_endpoint( amp_get_current_url() );
+				$non_amp_url = amp_remove_paired_endpoint( amp_get_current_url() );
 
 				// Prevent user from being redirected back to AMP version.
 				if ( true === AMP_Options_Manager::get_option( Option::MOBILE_REDIRECT ) ) {
@@ -1960,6 +1774,9 @@ class AMP_Theme_Support {
 			if ( is_bool( $status_code ) ) {
 				$status_code = 200; // Not a web server environment.
 			}
+			if ( ! headers_sent() ) {
+				header( 'Content-Type: application/json; charset=utf-8' );
+			}
 			return wp_json_encode(
 				[
 					'status_code' => $status_code,
@@ -1993,6 +1810,30 @@ class AMP_Theme_Support {
 				$response
 			)
 		) ) {
+			// Detect whether redirect happened and prevent failing a validation request when that happens,
+			// since \AMP_Validation_Manager::validate_url() follows redirects.
+			$sent_location_header = false;
+			foreach ( headers_list() as $sent_header ) {
+				if ( preg_match( '#^location:#i', $sent_header ) ) {
+					$sent_location_header = true;
+					break;
+				}
+			}
+			$did_redirect = $status_code >= 300 && $status_code < 400 && $sent_location_header;
+
+			if ( AMP_Validation_Manager::$is_validate_request && ! $did_redirect ) {
+				if ( ! headers_sent() ) {
+					status_header( 400 );
+					header( 'Content-Type: application/json; charset=utf-8' );
+				}
+				return wp_json_encode(
+					[
+						'code'    => 'RENDERED_PAGE_NOT_AMP',
+						'message' => __( 'The requested URL did not result in an AMP page being rendered.', 'amp' ),
+					]
+				);
+			}
+
 			return $response;
 		}
 
@@ -2037,7 +1878,7 @@ class AMP_Theme_Support {
 		 */
 		do_action( 'amp_server_timing_start', 'amp_dom_parse', '', [], true );
 
-		$dom = Document::fromHtml( $response );
+		$dom = Document::fromHtml( $response, Options::DEFAULTS );
 
 		if ( AMP_Validation_Manager::$is_validate_request ) {
 			AMP_Validation_Manager::remove_illegal_source_stack_comments( $dom );
@@ -2144,6 +1985,8 @@ class AMP_Theme_Support {
 			}
 		}
 
+		self::ensure_required_markup( $dom, array_keys( $amp_scripts ) );
+
 		$enable_optimizer = array_key_exists( ConfigurationArgument::ENABLE_OPTIMIZER, $args )
 			? $args[ ConfigurationArgument::ENABLE_OPTIMIZER ]
 			: true;
@@ -2202,18 +2045,16 @@ class AMP_Theme_Support {
 			do_action( 'amp_server_timing_stop', 'amp_optimizer' );
 		}
 
-		self::ensure_required_markup( $dom, array_keys( $amp_scripts ) );
-
 		$can_serve = AMP_Validation_Manager::finalize_validation( $dom );
 
 		// Redirect to the non-AMP version if not on an AMP-first site.
 		if ( ! $can_serve && ! amp_is_canonical() ) {
-			$non_amp_url = amp_remove_endpoint( amp_get_current_url() );
+			$non_amp_url = amp_remove_paired_endpoint( amp_get_current_url() );
 
 			// Redirect to include query var to preventing AMP from even being considered available.
 			$non_amp_url = add_query_arg( QueryVar::NOAMP, QueryVar::NOAMP_AVAILABLE, $non_amp_url );
 
-			wp_safe_redirect( $non_amp_url, 302 );
+			wp_safe_redirect( $non_amp_url, 302 ); // phpcs:ignore WordPressVIPMinimum.Security.ExitAfterRedirect.NoExit -- This is in an output buffer callback handler.
 			return esc_html__( 'Redirecting since AMP version not available.', 'amp' );
 		}
 
@@ -2236,82 +2077,20 @@ class AMP_Theme_Support {
 	 * Optimizer instance to use.
 	 *
 	 * @param array $args Associative array of arguments to pass into the transformation engine.
-	 * @return Optimizer\TransformationEngine Optimizer transformation engine to use.
+	 * @return OptimizerService Optimizer transformation engine to use.
 	 */
 	private static function get_optimizer( $args ) {
-		$configuration = self::get_optimizer_configuration( $args );
-
-		$fallback_remote_request_pipeline = new FallbackRemoteGetRequest(
-			new WpHttpRemoteGetRequest(),
-			new FilesystemRemoteGetRequest( Optimizer\LocalFallback::getMappings() )
+		add_filter(
+			'amp_enable_ssr',
+			static function () use ( $args ) {
+				return array_key_exists( ConfigurationArgument::ENABLE_SSR, $args )
+					? $args[ ConfigurationArgument::ENABLE_SSR ]
+					: true;
+			},
+			defined( 'PHP_INT_MIN' ) ? PHP_INT_MIN : ~PHP_INT_MAX // phpcs:ignore PHPCompatibility.Constants.NewConstants.php_int_minFound
 		);
 
-		$cached_remote_request = new CachedRemoteGetRequest( $fallback_remote_request_pipeline, WEEK_IN_SECONDS );
-
-		return new Optimizer\TransformationEngine(
-			$configuration,
-			$cached_remote_request
-		);
-	}
-
-	/**
-	 * Get the AmpProject\Optimizer configuration object to use.
-	 *
-	 * @param array $args Associative array of arguments to pass into the transformation engine.
-	 * @return Optimizer\Configuration Optimizer configuration to use.
-	 */
-	private static function get_optimizer_configuration( $args ) {
-		$transformers = Optimizer\Configuration::DEFAULT_TRANSFORMERS;
-
-		$enable_ssr = array_key_exists( ConfigurationArgument::ENABLE_SSR, $args )
-			? $args[ ConfigurationArgument::ENABLE_SSR ]
-			: true;
-
-		/**
-		 * Filter whether the AMP Optimizer should use server-side rendering or not.
-		 *
-		 * @since 1.5.0
-		 *
-		 * @param bool $enable_ssr Whether the AMP Optimizer should use server-side rendering or not.
-		 */
-		$enable_ssr = apply_filters( 'amp_enable_ssr', $enable_ssr );
-
-		// In debugging mode, we don't use server-side rendering, as it further obfuscates the HTML markup.
-		if ( ! $enable_ssr ) {
-			$transformers = array_diff(
-				$transformers,
-				[
-					Optimizer\Transformer\AmpRuntimeCss::class,
-					Optimizer\Transformer\ServerSideRendering::class,
-					Optimizer\Transformer\TransformedIdentifier::class,
-				]
-			);
-		}
-
-		array_unshift( $transformers, Transformer\AmpSchemaOrgMetadata::class );
-
-		/**
-		 * Filter the configuration to be used for the AMP Optimizer.
-		 *
-		 * @since 1.5.0
-		 *
-		 * @param array $configuration Associative array of configuration data.
-		 */
-		$configuration = apply_filters(
-			'amp_optimizer_config',
-			array_merge(
-				[ Optimizer\Configuration::KEY_TRANSFORMERS => $transformers ],
-				$args
-			)
-		);
-
-		$config = new Optimizer\Configuration( $configuration );
-		$config->registerConfigurationClass(
-			Transformer\AmpSchemaOrgMetadata::class,
-			Transformer\AmpSchemaOrgMetadataConfiguration::class
-		);
-
-		return $config;
+		return Services::get( 'injector' )->make( OptimizerService::class );
 	}
 
 	/**
@@ -2340,160 +2119,6 @@ class AMP_Theme_Support {
 	public static function enqueue_assets() {
 		// Enqueue default styles expected by sanitizer.
 		wp_enqueue_style( 'amp-default' );
-	}
-
-	/**
-	 * Setup pages to have the paired browsing client script so that the app can interact with it.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @return void
-	 */
-	public static function setup_paired_browsing_client() {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( isset( $_GET[ self::PAIRED_BROWSING_QUERY_VAR ] ) ) {
-			return;
-		}
-
-		// Paired browsing requires a custom script which in turn requires dev mode.
-		if ( ! amp_is_dev_mode() ) {
-			return;
-		}
-
-		/**
-		 * Fires before registering plugin assets that may require core asset polyfills.
-		 *
-		 * @internal
-		 */
-		do_action( 'amp_register_polyfills' );
-
-		$asset_file   = AMP__DIR__ . '/assets/js/amp-paired-browsing-client.asset.php';
-		$asset        = require $asset_file;
-		$dependencies = $asset['dependencies'];
-		$version      = $asset['version'];
-
-		wp_enqueue_script(
-			'amp-paired-browsing-client',
-			amp_get_asset_url( '/js/amp-paired-browsing-client.js' ),
-			$dependencies,
-			$version,
-			true
-		);
-
-		// Mark enqueued script for AMP dev mode so that it is not removed.
-		// @todo Revisit with <https://github.com/google/site-kit-wp/pull/505#discussion_r348683617>.
-		add_filter(
-			'script_loader_tag',
-			static function( $tag, $handle ) {
-				if ( amp_is_request() && self::has_dependency( wp_scripts(), 'amp-paired-browsing-client', $handle ) ) {
-					$tag = preg_replace( '/(?<=<script)(?=\s|>)/i', ' ' . AMP_Rule_Spec::DEV_MODE_ATTRIBUTE, $tag );
-				}
-				return $tag;
-			},
-			10,
-			2
-		);
-	}
-
-	/**
-	 * Get paired browsing URL for a given URL.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $url URL.
-	 * @return string Paired browsing URL.
-	 */
-	public static function get_paired_browsing_url( $url = null ) {
-		if ( ! $url ) {
-			$url = wp_unslash( $_SERVER['REQUEST_URI'] );
-		}
-		$url = remove_query_arg(
-			[ amp_get_slug(), QueryVar::NOAMP, AMP_Validated_URL_Post_Type::VALIDATE_ACTION, AMP_Validation_Manager::VALIDATION_ERROR_TERM_STATUS_QUERY_VAR ],
-			$url
-		);
-		$url = add_query_arg( self::PAIRED_BROWSING_QUERY_VAR, '1', $url );
-		return $url;
-	}
-
-	/**
-	 * Remove any unnecessary query vars that could hamper the paired browsing experience.
-	 *
-	 * @since 1.5.0
-	 */
-	public static function sanitize_url_for_paired_browsing() {
-		if ( isset( $_GET[ self::PAIRED_BROWSING_QUERY_VAR ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$original_url = wp_unslash( $_SERVER['REQUEST_URI'] );
-			$updated_url  = self::get_paired_browsing_url( $original_url );
-			if ( $updated_url !== $original_url ) {
-				wp_safe_redirect( $updated_url );
-				exit;
-			}
-		}
-	}
-
-	/**
-	 * Serve paired browsing experience if it is being requested.
-	 *
-	 * Includes a custom template that acts as an interface to facilitate a side-by-side comparison of a
-	 * non-AMP page and its AMP version to review any discrepancies.
-	 *
-	 * @since 1.5.0
-	 *
-	 * @param string $template Path of the template to include.
-	 * @return string Custom template if in paired browsing mode, else the supplied template.
-	 */
-	public static function serve_paired_browsing_experience( $template ) {
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( ! isset( $_GET[ self::PAIRED_BROWSING_QUERY_VAR ] ) ) {
-			return $template;
-		}
-
-		if ( ! amp_is_dev_mode() ) {
-			wp_die(
-				esc_html__( 'Paired browsing is only available when AMP dev mode is enabled (e.g. when logged-in and admin bar is showing).', 'amp' ),
-				esc_html__( 'AMP Paired Browsing Unavailable', 'amp' ),
-				[ 'response' => 403 ]
-			);
-		}
-
-		/** This action is documented in includes/class-amp-theme-support.php */
-		do_action( 'amp_register_polyfills' );
-
-		wp_enqueue_style(
-			'amp-paired-browsing-app',
-			amp_get_asset_url( '/css/amp-paired-browsing-app.css' ),
-			[ 'dashicons' ],
-			AMP__VERSION
-		);
-
-		wp_styles()->add_data( 'amp-paired-browsing-app', 'rtl', 'replace' );
-
-		$asset_file   = AMP__DIR__ . '/assets/js/amp-paired-browsing-app.asset.php';
-		$asset        = require $asset_file;
-		$dependencies = $asset['dependencies'];
-		$version      = $asset['version'];
-
-		wp_enqueue_script(
-			'amp-paired-browsing-app',
-			amp_get_asset_url( '/js/amp-paired-browsing-app.js' ),
-			$dependencies,
-			$version,
-			true
-		);
-
-		wp_localize_script(
-			'amp-paired-browsing-app',
-			'app',
-			[
-				'ampSlug'                   => amp_get_slug(),
-				'ampPairedBrowsingQueryVar' => self::PAIRED_BROWSING_QUERY_VAR,
-				'noampQueryVar'             => QueryVar::NOAMP,
-				'noampMobile'               => QueryVar::NOAMP_MOBILE,
-				'documentTitlePrefix'       => __( 'AMP Paired Browsing:', 'amp' ),
-			]
-		);
-
-		return AMP__DIR__ . '/includes/templates/amp-paired-browsing.php';
 	}
 
 	/**
