@@ -26,89 +26,93 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 class shoppingCart {
     var $contents;
     var $total;
-	var $subtotal;	
+	var $subtotal;
+	var $info_tax;	
     var $weight;
     var $cartID;
     var $content_type;
 
 	public function __construct() {
+		$this->info_tax = array();
 		$this->reset();
     }
 
     public function restore_contents() {
 
-      if (!isset($_SESSION['customer_id'])) return false;
+		if (!isset($_SESSION['customer_id'])) return false;
 
-      // insert current cart contents in database
-      if (is_array($this->contents)) {
-        reset($this->contents);
+		// insert current cart contents in database
+		if (is_array($this->contents)) {
+			reset($this->contents);
 
-        // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-		foreach ( array_keys($this->contents) as $products_id ) {			
+			foreach ( array_keys($this->contents) as $products_id ) {			
 		
-          $qty = $this->contents[$products_id]['qty'];
-          $towlid = $this->contents[$products_id]['towlid'];
+				$qty = $this->contents[$products_id]['qty'];
+				$towlid = $this->contents[$products_id]['towlid'];
 
-          if ($_SESSION['customer_wishlist_link_id'] == $towlid) {
-            $towlid = '';
-            $customers_wishlisttable = $oostable['customers_wishlist'];
-            $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id= '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($products_id) . "'");
-            $customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
-            $dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id= '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($products_id) . "'");
-          }
+				if ($_SESSION['customer_wishlist_link_id'] == $towlid) {
+					$towlid = '';
+					$customers_wishlisttable = $oostable['customers_wishlist'];
+					$dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id= '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($products_id) . "'");
+					$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
+					$dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id= '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($products_id) . "'");
+				}
 
-          $customers_baskettable = $oostable['customers_basket'];
-          $product_sql = "SELECT products_id
+				$customers_baskettable = $oostable['customers_basket'];
+				$product_sql = "SELECT products_id
                           FROM $customers_baskettable
                           WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
                           AND products_id = '" . intval($products_id) . "'";
-          $product_result = $dbconn->Execute($product_sql);
-          if (!$product_result->RecordCount()) {
-            $customers_baskettable = $oostable['customers_basket'];
-            $dbconn->Execute("INSERT INTO $customers_baskettable
-                       (customers_id,
-                        to_wishlist_id,
-                        products_id,
-                        customers_basket_quantity,
-                        customers_basket_date_added) VALUES ('" . intval($_SESSION['customer_id']) . "',
+				$product_result = $dbconn->Execute($product_sql);
+				if (!$product_result->RecordCount()) {
+					$customers_baskettable = $oostable['customers_basket'];
+					$dbconn->Execute("INSERT INTO $customers_baskettable
+								(customers_id,
+								to_wishlist_id,
+								products_id,
+								customers_basket_quantity,
+								customers_basket_date_added) VALUES ('" . intval($_SESSION['customer_id']) . "',
                                                              '" . oos_db_input($towlid) . "',
                                                              '" . oos_db_input($products_id) . "',
                                                              '" . oos_db_input($qty) . "',
                                                              '" . oos_db_input(date('Ymd')) . "')");
-            if (isset($this->contents[$products_id]['attributes'])) {
-              reset($this->contents[$products_id]['attributes']);
-              foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			  
+					if (isset($this->contents[$products_id]['attributes'])) {
+						reset($this->contents[$products_id]['attributes']);
+						foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			  
 				  
-                $attr_value = $this->contents[$products_id]['attributes_values'][$option];
-                $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-                $dbconn->Execute("INSERT INTO $customers_basket_attributestable
-                            (customers_id,
-                             products_id,
-                             products_options_id,
-                             products_options_value_id,
-                             products_options_value_text) VALUES ('" . intval($_SESSION['customer_id']) . "',
+							$attr_value = $this->contents[$products_id]['attributes_values'][$option];
+							$customers_basket_attributestable = $oostable['customers_basket_attributes'];
+							$dbconn->Execute("INSERT INTO $customers_basket_attributestable
+										(customers_id,
+										products_id,
+										products_options_id,
+										products_options_value_id,
+										products_options_value_text) VALUES ('" . intval($_SESSION['customer_id']) . "',
                                                                   '" . oos_db_input($products_id) . "',
                                                                   '" . oos_db_input($option) . "',
                                                                   '" . oos_db_input($value) . "',
                                                                   '" . oos_db_input($attr_value) . "')");
 
-              }
-            }
-          } else {
-            $customers_baskettable = $oostable['customers_basket'];
-            $dbconn->Execute("UPDATE $customers_baskettable
-                          SET customers_basket_quantity = '" . intval($qty) . "'
-                          WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
-                                products_id = '" . oos_db_input($products_id) . "'");
-          }
-        }
-        if (isset($_SESSION['gv_id'])) {
-          $remote = oos_server_get_remote();
-          $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-          $gv_result = $dbconn->Execute("INSERT INTO $coupon_redeem_tracktable
+						}
+					}
+				} else {
+					$customers_baskettable = $oostable['customers_basket'];
+					$dbconn->Execute("UPDATE $customers_baskettable
+									SET customers_basket_quantity = '" . intval($qty) . "'
+									WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
+										products_id = '" . oos_db_input($products_id) . "'");
+				}
+			}
+			
+			
+			if (isset($_SESSION['gv_id'])) {
+				$remote = oos_server_get_remote();
+				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+				$gv_result = $dbconn->Execute("INSERT INTO $coupon_redeem_tracktable
                                   (coupon_id,
                                    customer_id,
                                    redeem_date,
@@ -117,50 +121,50 @@ class shoppingCart {
                                                       now(),
                                                       '" . oos_db_input($remote) . "')");
 
-          $couponstable = $oostable['coupons'];
-          $gv_update = $dbconn->Execute("UPDATE $couponstable
-                                     SET coupon_active = 'N'
-                                     WHERE coupon_id = '" . oos_db_input($_SESSION['gv_id']) . "'");
+				$couponstable = $oostable['coupons'];
+				$gv_update = $dbconn->Execute("UPDATE $couponstable
+												SET coupon_active = 'N'
+												WHERE coupon_id = '" . oos_db_input($_SESSION['gv_id']) . "'");
 
-          oos_gv_account_update($_SESSION['customer_id'], $_SESSION['gv_id']);
-          unset($_SESSION['gv_id']);
-        }
-      }
+				oos_gv_account_update($_SESSION['customer_id'], $_SESSION['gv_id']);
+				unset($_SESSION['gv_id']);
+			}
+		}
 
-      // reset per-session cart contents, but not the database contents
-      $this->reset(false);
+		// reset per-session cart contents, but not the database contents
+		$this->reset(false);
 
-      $customers_baskettable = $oostable['customers_basket'];
-      $sql = "SELECT products_id, to_wishlist_id, customers_basket_quantity
+		$customers_baskettable = $oostable['customers_basket'];
+		$sql = "SELECT products_id, to_wishlist_id, customers_basket_quantity
               FROM $customers_baskettable
               WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
-      $products_result = $dbconn->Execute($sql);
-      while ($products = $products_result->fields) {
-        $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity'],
+		$products_result = $dbconn->Execute($sql);
+		while ($products = $products_result->fields) {
+			$this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity'],
                                                           'towlid' => $products['to_wishlist_id']);
-        // attributes
-        $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-        $sql = "SELECT products_options_id, products_options_value_id, products_options_value_text
+			// attributes
+			$customers_basket_attributestable = $oostable['customers_basket_attributes'];
+			$sql = "SELECT products_options_id, products_options_value_id, products_options_value_text
                 FROM $customers_basket_attributestable
                 WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
                 AND products_id = '" . $products['products_id'] . "'";
-        $attributes_result = $dbconn->Execute($sql);
-        while ($attributes = $attributes_result->fields) {
-          $this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
-          if ($attributes['products_options_value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
-            $this->contents[$products['products_id']]['attributes_values'][$attributes['products_options_id']] = $attributes['products_options_value_text'];
-          }
+			$attributes_result = $dbconn->Execute($sql);
+			while ($attributes = $attributes_result->fields) {
+				$this->contents[$products['products_id']]['attributes'][$attributes['products_options_id']] = $attributes['products_options_value_id'];
+				if ($attributes['products_options_value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
+					$this->contents[$products['products_id']]['attributes_values'][$attributes['products_options_id']] = $attributes['products_options_value_text'];
+				}
 
-          // Move that ADOdb pointer!
-          $attributes_result->MoveNext();
-        }
+				// Move that ADOdb pointer!
+				$attributes_result->MoveNext();
+			}
 
-        // Move that ADOdb pointer!
-        $products_result->MoveNext();
-      }
+			// Move that ADOdb pointer!
+			$products_result->MoveNext();
+		}
 
-      $this->cleanup();
-    }
+		$this->cleanup();
+	}
 
 	public function reset($reset_database = false) {
 
@@ -294,61 +298,61 @@ class shoppingCart {
 
     public function update_quantity($products_id, $nQuantity = 1, $attributes = '', $towlid = '') {
 
-      $sProductsId = oos_get_uprid($products_id, $attributes);
-      $nProductsID = oos_get_product_id($sProductsId);
+		$sProductsId = oos_get_uprid($products_id, $attributes);
+		$nProductsID = oos_get_product_id($sProductsId);
 
-      if (is_numeric($nProductsID) && isset($this->contents[$sProductsId]) && is_numeric($nQuantity)) {
+		if (is_numeric($nProductsID) && isset($this->contents[$sProductsId]) && is_numeric($nQuantity)) {
 
-        // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-        $nQuantity = intval($nQuantity);
+			$nQuantity = intval($nQuantity);
 
-        $this->contents[$sProductsId] = array('qty' => $nQuantity,
-                                              'towlid' => $towlid);
+			$this->contents[$sProductsId] = array('qty' => $nQuantity,
+													'towlid' => $towlid);
 
-        if (isset($_SESSION['customer_id'])) {
-          $customers_baskettable = $oostable['customers_basket'];
-          $dbconn->Execute("UPDATE $customers_baskettable
+			if (isset($_SESSION['customer_id'])) {
+				$customers_baskettable = $oostable['customers_basket'];
+				$dbconn->Execute("UPDATE $customers_baskettable
                             SET customers_basket_quantity = '" . oos_db_input($nQuantity) . "'
                             WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                                   products_id = '" . oos_db_input($sProductsId) . "'");
-        }
+			}
 
-        if (is_array($attributes)) {
-          reset($attributes);
-          foreach ($attributes as $option => $value) {			  
-            $attr_value = NULL;
-            $blank_value = false;
-            if (strstr($option, TEXT_PREFIX)) {
-              if (trim($value) == NULL) {
-                $blank_value = true;
-              } else {
-                $option = substr($option, strlen(TEXT_PREFIX));
-                // $attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8');
-                $attr_value = stripslashes($value);
-                $value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
-                $this->contents[$sProductsId]['attributes_values'][$option] = $attr_value;
-              }
-            }
+			if (is_array($attributes)) {
+				reset($attributes);
+				foreach ($attributes as $option => $value) {			  
+					$attr_value = NULL;
+					$blank_value = false;
+					if (strstr($option, TEXT_PREFIX)) {
+						if (trim($value) == NULL) {
+							$blank_value = true;
+						} else {
+							$option = substr($option, strlen(TEXT_PREFIX));
+							// $attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8');
+							$attr_value = stripslashes($value);
+							$value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
+							$this->contents[$sProductsId]['attributes_values'][$option] = $attr_value;
+						}
+					}
 
-            if (!$blank_value) {
-              $this->contents[$sProductsId]['attributes'][$option] = $value;
-              // update database
-              if (isset($_SESSION['customer_id'])) {
-                 $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-                 $dbconn->Execute("UPDATE $customers_basket_attributestable
-                               SET products_options_value_id = '" . oos_db_input($value) . "',
-                                   products_options_value_text = '" .  oos_db_input($attr_value) . "'
-                               WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
-                                 AND products_id = '" . oos_db_input($sProductsId) . "'
-                                 AND products_options_id = '" . oos_db_input($option) . "'");
-              }
-            }
-          }
-        }
-      }
+					if (!$blank_value) {
+						$this->contents[$sProductsId]['attributes'][$option] = $value;
+						// update database
+						if (isset($_SESSION['customer_id'])) {
+							$customers_basket_attributestable = $oostable['customers_basket_attributes'];
+							$dbconn->Execute("UPDATE $customers_basket_attributestable
+									SET products_options_value_id = '" . oos_db_input($value) . "',
+										products_options_value_text = '" .  oos_db_input($attr_value) . "'
+									WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
+										AND products_id = '" . oos_db_input($sProductsId) . "'
+										AND products_options_id = '" . oos_db_input($option) . "'");
+						}
+					}
+				}
+			}
+		}
     }
 
     public function cleanup() {
@@ -430,27 +434,27 @@ class shoppingCart {
     }
 
     public function get_product_id_list() {
-      $product_id_list = '';
-      if (is_array($this->contents)) {
-        reset($this->contents);
-        foreach ( array_keys($this->contents) as $products_id ) {
-          $product_id_list .= ', ' . $products_id;
-        }
-      }
+		$product_id_list = '';
+		if (is_array($this->contents)) {
+			reset($this->contents);
+			foreach ( array_keys($this->contents) as $products_id ) {
+				$product_id_list .= ', ' . $products_id;
+			}
+		}
 
-      return substr($product_id_list, 2);
+		return substr($product_id_list, 2);
     }
 
     public function get_numeric_product_id_list() {
-      $product_id_list = '';
-      if (is_array($this->contents)) {
-        reset($this->contents);
-        foreach ( array_keys($this->contents) as $products_id ) {
-          $product_id_list .= ', ' . oos_get_product_id($products_id);
-        }
-      }
+		$product_id_list = '';
+		if (is_array($this->contents)) {
+			reset($this->contents);
+			foreach ( array_keys($this->contents) as $products_id ) {
+				$product_id_list .= ', ' . oos_get_product_id($products_id);
+			}
+		}
 
-      return substr($product_id_list, 2);
+		return substr($product_id_list, 2);
     }
 
     public function calculate() {
@@ -512,6 +516,32 @@ class shoppingCart {
 			$this->total += $oCurrencies->calculate_price($products_price, $products_tax, $nQuantity);
 			$this->weight += ($nQuantity * $products_weight);
         }
+
+/*
+			$nPrice = $oCurrencies->calculate_price($this->products[$index]['final_price'], $this->products[$index]['tax'], $this->products[$index]['qty']);
+			$this->info['subtotal'] += $nPrice;
+
+			$products_tax = $this->products[$index]['tax'];
+			if ($aUser['price_with_tax'] == 1) {
+				$this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+				if (isset($this->info['tax_groups']["$products_tax"])) {
+					$this->info['tax_groups']["$products_tax"] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+				} else {
+					$this->info['tax_groups']["$products_tax"] = $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+				}
+			} else {
+				$this->info['tax'] += ($products_tax / 100) * $nPrice;
+				if (isset($this->info['tax_groups']["$products_tax"])) {
+					$this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $nPrice;
+				} else {
+					$this->info['tax_groups']["$products_tax"] = ($products_tax / 100) * $nPrice;
+				}
+			}
+*/
+
+
+
+
 
         // attributes price
         if (isset($this->contents[$products_id]['attributes'])) {
