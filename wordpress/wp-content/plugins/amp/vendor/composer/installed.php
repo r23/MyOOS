@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'd4b01c61e5ace3ced82205b55625a120660f98f4',
+    'reference' => 'b8b0cd975e6de002eefba7e1fc1da09ab4032836',
     'name' => 'ampproject/amp-wp',
   ),
   'versions' => 
@@ -27,7 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'd4b01c61e5ace3ced82205b55625a120660f98f4',
+      'reference' => 'b8b0cd975e6de002eefba7e1fc1da09ab4032836',
     ),
     'fasterimage/fasterimage' => 
     array (

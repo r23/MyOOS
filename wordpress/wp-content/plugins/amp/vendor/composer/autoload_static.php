@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4272c6f9b81fe26f79a51d33067bfd9a
+class ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89
 {
     public static $files = array (
         'ffc2110a578b705d2022d1f7803373a6' => __DIR__ . '/../..' . '/includes/bootstrap.php',
@@ -371,9 +371,9 @@ class ComposerStaticInit4272c6f9b81fe26f79a51d33067bfd9a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4272c6f9b81fe26f79a51d33067bfd9a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4272c6f9b81fe26f79a51d33067bfd9a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit4272c6f9b81fe26f79a51d33067bfd9a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89::$classMap;
 
         }, null, ClassLoader::class);
     }
