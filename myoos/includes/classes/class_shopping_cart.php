@@ -794,188 +794,166 @@ class shoppingCart {
 
 
     public function show_total() {
-      $this->calculate();
+		$this->calculate();
 
-      return $this->total;
+		return $this->total;
     }
 
-    public function show_weight() {
-      $this->calculate();
+	public function show_weight() {
+		$this->calculate();
 
-      return $this->weight;
+		return $this->weight;
     }
 
-    public function show_total_virtual() {
-      $this->calculate();
+	public function show_total_virtual() {
+		$this->calculate();
 
-      return $this->total_virtual;
+		return $this->total_virtual;
     }
 
-    public function show_weight_virtual() {
-      $this->calculate();
+	public function show_weight_virtual() {
+		$this->calculate();
 
-      return $this->weight_virtual;
+		return $this->weight_virtual;
     }
 
 
-    public function generate_cart_id($length = 5) {
-      return oos_create_random_value($length, 'digits');
+	public function generate_cart_id($length = 5) {
+		return oos_create_random_value($length, 'digits');
     }
 
-    public function get_content_type() {
+	public function get_content_type() {
 
-      $this->content_type = false;
+		$this->content_type = false;
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      if ( (DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) || ($this->show_weight() == 0 )&& ($this->count_contents() > 0) ) {
-        reset($this->contents);
-        foreach ( array_keys($this->contents) as $products_id ) {
-          if (isset($this->contents[$products_id]['attributes'])) {
-            reset($this->contents[$products_id]['attributes']);
-			foreach ($this->contents[$products_id]['attributes'] as $value) {				
-              $products_attributestable = $oostable['products_attributes'];
-              $products_attributes_downloadtable = $oostable['products_attributes_download'];
-              $sql = "SELECT COUNT(*) AS total
-                      FROM $products_attributestable pa,
-                           $products_attributes_downloadtable pad
-                      WHERE pa.products_id = '" . intval($products_id) . "'
-                      AND pa.options_values_id = '" . intval($value) . "'
-                      AND pa.products_attributes_id = pad.products_attributes_id";
-              $virtual_check = $dbconn->GetRow($sql);
+		if ( (DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) || ($this->show_weight() == 0 )&& ($this->count_contents() > 0) ) {
+			reset($this->contents);
+			foreach ( array_keys($this->contents) as $products_id ) {
+				if (isset($this->contents[$products_id]['attributes'])) {
+					reset($this->contents[$products_id]['attributes']);
+					foreach ($this->contents[$products_id]['attributes'] as $value) {				
+						$products_attributestable = $oostable['products_attributes'];
+						$products_attributes_downloadtable = $oostable['products_attributes_download'];
+						$sql = "SELECT COUNT(*) AS total
+								FROM $products_attributestable pa,
+								$products_attributes_downloadtable pad
+							WHERE pa.products_id = '" . intval($products_id) . "'
+								AND pa.options_values_id = '" . intval($value) . "'
+								AND pa.products_attributes_id = pad.products_attributes_id";
+						$virtual_check = $dbconn->GetRow($sql);
 
-              if ($virtual_check['total'] > 0) {
-                switch ($this->content_type) {
-                  case 'physical':
-                    $this->content_type = 'mixed';
+						if ($virtual_check['total'] > 0) {
+							switch ($this->content_type) {
+								case 'physical':
+										$this->content_type = 'mixed';
 
-                    return $this->content_type;
-                    break;
-                  default:
-                    $this->content_type = 'virtual';
-                    break;
-                }
-              } else {
-                switch ($this->content_type) {
-                  case 'virtual':
-                    $this->content_type = 'mixed';
+										return $this->content_type;
+										break;
+								default:
+										$this->content_type = 'virtual';
+										break;
+							}
+						} else {
+							switch ($this->content_type) {
+								case 'virtual':
+										$this->content_type = 'mixed';
 
-                    return $this->content_type;
-                    break;
-                  default:
-                    $this->content_type = 'physical';
-                    break;
-                }
-              }
-            }
+										return $this->content_type;
+										break;
+								default:
+										$this->content_type = 'physical';
+										break;
+							}
+						}
+					}
+				} elseif ($this->show_weight() == 0) {
+					reset($this->contents);
+					foreach ( array_keys($this->contents) as $products_id ) {
+						$productstable = $oostable['products'];
+						$sql = "SELECT products_weight
+								FROM $productstable
+								WHERE products_id = '" . intval($products_id) . "'";
+						$virtual_check_result = $dbconn->Execute($sql);
+						$virtual_check = $virtual_check_result->fields;
+						if ($virtual_check['products_weight'] == 0) {
+							switch ($this->content_type) {
+								case 'physical':
+										$this->content_type = 'mixed';
 
-          } elseif ($this->show_weight() == 0) {
-            reset($this->contents);
-            foreach ( array_keys($this->contents) as $products_id ) {
-              $productstable = $oostable['products'];
-              $sql = "SELECT products_weight
-                      FROM $productstable
-                      WHERE products_id = '" . intval($products_id) . "'";
-              $virtual_check_result = $dbconn->Execute($sql);
-              $virtual_check = $virtual_check_result->fields;
-              if ($virtual_check['products_weight'] == 0) {
-                switch ($this->content_type) {
-                  case 'physical':
-                    $this->content_type = 'mixed';
+										return $this->content_type;
+										break;
+								default:
+										$this->content_type = 'virtual_weight';
+										break;
+							}
+						} else {
+							switch ($this->content_type) {
+								case 'virtual':
+										$this->content_type = 'mixed';
 
-                    return $this->content_type;
-                    break;
-                  default:
-                    $this->content_type = 'virtual_weight';
-                    break;
-                }
-              } else {
-                switch ($this->content_type) {
-                  case 'virtual':
-                    $this->content_type = 'mixed';
+										return $this->content_type;
+										break;
+								default:
+										$this->content_type = 'physical';
+										break;
+							}
+						}
+					}
+				} else {
+					switch ($this->content_type) {
+						case 'virtual':
+								$this->content_type = 'mixed';
 
-                    return $this->content_type;
-                    break;
-                  default:
-                    $this->content_type = 'physical';
-                    break;
-                }
-              }
-            }
-          } else {
-            switch ($this->content_type) {
-              case 'virtual':
-                $this->content_type = 'mixed';
+								return $this->content_type;
+								break;
+						default:
+								$this->content_type = 'physical';
+								break;
+					}
+				}
+			}
+		} else {
+			$this->content_type = 'physical';
+		}
 
-                return $this->content_type;
-                break;
-              default:
-                $this->content_type = 'physical';
-                break;
-            }
-          }
-        }
-      } else {
-        $this->content_type = 'physical';
-      }
-
-      return $this->content_type;
-    }
-
-    public function unserialize($broken) {
-      for(reset($broken);$kv=each($broken);) {
-        $key=$kv['key'];
-        if (gettype($this->$key)!="user public function")
-        $this->$key=$kv['value'];
-      }
-    }
+		return $this->content_type;
+	}
 
    /**
     * ICWILSON CREDIT CLASS Gift Voucher Addittion Start
     * amend count_contents to show nil contents for shipping
     * as we don't want to quote for 'virtual' item
-    * GLOBAL CONSTANTS if NO_COUNT_ZERO_WEIGHT is true then we don't count any product with a weight
-    * which is less than or equal to MINIMUM_WEIGHT
     * otherwise we just don't count gift certificates
     */
     public function count_contents_virtual() {  // get total number of items in cart disregard gift vouchers
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-		$no_count = false;
-      $total_items = 0;
-      if (is_array($this->contents)) {
-        reset($this->contents);
-        foreach ( array_keys($this->contents) as $products_id ) {
-          $no_count = false;
-          $productstable = $oostable['products'];
-          $sql = "SELECT products_model
-                  FROM $productstable
-                  WHERE products_id = '" . intval($products_id) . "'";
-          $gv_result  = $dbconn->GetRow($sql);
+		$total_items = 0;
+		if (is_array($this->contents)) {
+			reset($this->contents);
+			foreach ( array_keys($this->contents) as $products_id ) {
+				$no_count = false;
+				
+				$productstable = $oostable['products'];
+				$sql = "SELECT products_model
+					FROM $productstable
+						WHERE products_id = '" . intval($products_id) . "'";
+				$gv_result  = $dbconn->GetRow($sql);
 
-          if (preg_match('/^GIFT/', $gv_result['products_model'])) {
-            $no_count = true;
-          }
-          if (NO_COUNT_ZERO_WEIGHT == 1) {
-            $productstable = $oostable['products'];
-            $sql = "SELECT products_weight
-                    FROM $productstable
-                    WHERE products_id = '" . oos_get_product_id($products_id) . "'";
-            $gv_result  = $dbconn->GetRow($sql);
+				if (preg_match('/^GIFT/', $gv_result['products_model'])) {
+					$no_count = true;
+				}
 
-            if ($gv_result['products_weight']<=MINIMUM_WEIGHT) {
-              $no_count = true;
-            }
-          }
-          if (!$no_count) $total_items += $this->get_quantity($products_id);
-        }
-      }
-      return $total_items;
-    }
-  }
+				if (!$no_count) $total_items += $this->get_quantity($products_id);
+			}
+		}
+		return $total_items;
+	}
 
