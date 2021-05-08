@@ -27,13 +27,12 @@ class shoppingCart {
     var $contents;
     var $total;
 	var $subtotal;
-	var $info_tax;	
+    var $info;
     var $weight;
     var $cartID;
     var $content_type;
 
 	public function __construct() {
-		$this->info_tax = array();
 		$this->reset();
     }
 
@@ -169,6 +168,7 @@ class shoppingCart {
 	public function reset($reset_database = false) {
 
 		$this->contents = array();
+		$this->info = array();
 		$this->subtotal = 0; 
 		$this->total = 0;
 		$this->weight = 0;
@@ -181,6 +181,7 @@ class shoppingCart {
 		if (isset($_SESSION['customer_id']) && ($reset_database == true)) {
 			$customers_baskettable = $oostable['customers_basket'];
 			$dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'");
+
 			$customers_basket_attributestable = $oostable['customers_basket_attributes'];
 			$dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'");
 		}
@@ -230,7 +231,7 @@ class shoppingCart {
 				} else {
 					$this->contents[] = array($sProductsId);
 					$this->contents[$sProductsId] = array('qty' => $nQuantity,
-                                                  'towlid' => $towlid);
+														'towlid' => $towlid);
 
 					// insert into database
 					if (isset($_SESSION['customer_id'])) {
@@ -465,6 +466,8 @@ class shoppingCart {
 		$this->subtotal = 0; 
 		$this->total = 0;
 		$this->weight = 0;
+		$this->info['tax'] = 0
+		$this->info_tax = array();
 		if (!is_array($this->contents)) return 0;
 
 		// Get database information
@@ -474,44 +477,34 @@ class shoppingCart {
 		reset($this->contents);
 		foreach ( array_keys($this->contents) as $products_id ) {
 			$nQuantity = $this->contents[$products_id]['qty'];
+			
+			$prid = $product['products_id'];
+			$products_tax = oos_get_tax_rate($product['products_tax_class_id']);
+			if ($aUser['qty_discounts'] == 1) {
+				$products_price = $this->products_price_actual($prid, $product['products_price'], $nQuantity);
+			} else {
+				$products_price = $product['products_price'];
+			}
 
-			// products price
-			$productstable = $oostable['products'];
-			$product_sql = "SELECT products_id, products_model, products_price, products_tax_class_id, products_weight
-                       FROM $productstable
-						WHERE products_id='" . oos_get_product_id($products_id) . "'";
-        $product_result = $dbconn->Execute($product_sql);
-        if ($product = $product_result->fields) {
-          $no_count = 1;
-          if (preg_match('/^GIFT/', $product['products_model'])) {
-            $no_count = 0;
-          }
+			$products_weight = $product['products_weight'];
+			$bSpezialPrice = false;
 
-          $prid = $product['products_id'];
-          $products_tax = oos_get_tax_rate($product['products_tax_class_id']);
-          if ($aUser['qty_discounts'] == 1) {
-            $products_price = $this->products_price_actual($prid, $product['products_price'], $nQuantity);
-          } else {
-            $products_price = $product['products_price'];
-          }
-
-          $products_weight = $product['products_weight'];
-          $bSpezialPrice = false;
-
-          $specialstable = $oostable['specials'];
-          $sql = "SELECT specials_new_products_price
+			$specialstable = $oostable['specials'];
+			$sql = "SELECT specials_new_products_price
                   FROM $specialstable
                   WHERE products_id = '" . intval($prid) . "'
                   AND   status = '1'";
-          $specials_result = $dbconn->Execute($sql);
-          if ($specials_result->RecordCount()) {
-            $specials = $specials_result->fields;
-            $products_price = $specials['specials_new_products_price'];
-            $bSpezialPrice = true;
-          }
+			$specials_result = $dbconn->Execute($sql);
+			if ($specials_result->RecordCount()) {
+				$specials = $specials_result->fields;
+				$products_price = $specials['specials_new_products_price'];
+				$bSpezialPrice = true;
+			}
 
-			$this->total_virtual +=  oos_add_tax($products_price, $products_tax) * $nQuantity * $no_count;
-			$this->weight_virtual += ($nQuantity * $products_weight) * $no_count;
+			$this->total_virtual +=  oos_add_tax($products_price, $products_tax) * $nQuantity;
+			$this->weight_virtual += ($nQuantity * $products_weight);
+			$this->weight += ($nQuantity * $products_weight);		
+			
 			$this->subtotal += $oCurrencies->calculate_price($products_price, $products_tax, $nQuantity);
 			$this->total += $oCurrencies->calculate_price($products_price, $products_tax, $nQuantity);
 			$this->weight += ($nQuantity * $products_weight);
@@ -953,6 +946,7 @@ class shoppingCart {
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
+		$no_count = false;
       $total_items = 0;
       if (is_array($this->contents)) {
         reset($this->contents);

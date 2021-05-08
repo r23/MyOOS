@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_gv {
-    var $title, $output, $enabled = FALSE;
+    var $title, $output, $enabled = false;
 
     public function __construct() {
       global $aLang;
@@ -38,7 +38,7 @@
       $this->credit_tax = (defined('MODULE_ORDER_TOTAL_GV_CREDIT_TAX') ? MODULE_ORDER_TOTAL_GV_CREDIT_TAX : null);
       $this->tax_class  = (defined('MODULE_ORDER_TOTAL_GV_TAX_CLASS') ? MODULE_ORDER_TOTAL_GV_TAX_CLASS : null);
       $this->show_redeem_box = (defined('MODULE_ORDER_TOTAL_GV_REDEEM_BOX') ? MODULE_ORDER_TOTAL_GV_REDEEM_BOX : null);
-      $this->credit_class = TRUE;
+      $this->credit_class = true;
       $this->checkbox = $this->user_prompt . '<input type="checkbox" onClick="submitFunction()" name="' . 'c' . $this->code . '">';
 
       $this->output = array();
@@ -47,7 +47,7 @@
     function process() {
       global $oOrder, $oCurrencies;
 
-      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == TRUE) {
+      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
 
         $order_total = $this->get_order_total();
         $od_amount = $this->calculate_credit($order_total);
@@ -69,7 +69,7 @@
       if ($this->user_has_gv_account($_SESSION['customer_id'])) {
         return true;
       } else {
-        return FALSE;
+        return false;
       }
     }
 
@@ -80,7 +80,7 @@
     }
 
     function use_credit_amount() {
-      $_SESSION['cot_gv'] = FALSE;
+      $_SESSION['cot_gv'] = false;
       $output_string = '';
       if ($this->selection_test()) {
         $output_string .=  '    <td colspan="2" align="right" class="main">';
@@ -101,16 +101,16 @@
         if ($this->credit_tax=='true') $gv_order_amount = $gv_order_amount * (100 + $oOrder->products[$i]['tax']) / 100;
         $gv_order_amount = $gv_order_amount * 100 / 100;
         if (MODULE_ORDER_TOTAL_GV_QUEUE == 'false') {
-          // GV_QUEUE is TRUE so release amount to account immediately
+          // GV_QUEUE is true so release amount to account immediately
 
           $coupon_gv_customertable = $oostable['coupon_gv_customer'];
           $gv_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
-          $customer_gv = FALSE;
+          $customer_gv = false;
           $total_gv_amount = 0;
 
           if ($gv_result = $gv_query->fields) {
             $total_gv_amount = $gv_result['amount'];
-            $customer_gv = TRUE;
+            $customer_gv = true;
           }
           $total_gv_amount = $total_gv_amount + $gv_order_amount;
           if ($customer_gv) {
@@ -128,7 +128,7 @@
                                                         '" . oos_db_input($total_gv_amount) . "')");
           }
         } else {
-         // GV_QUEUE is TRUE - so queue the gv for release by store owner
+         // GV_QUEUE is true - so queue the gv for release by store owner
           $remote_addr = oos_server_get_remote();
 
           $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
@@ -175,7 +175,7 @@
       $dbconn =& oosDBGetConn();
       $oostable =& oosDBGetTables();
 
-      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == TRUE) {
+      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
 
         $coupon_gv_customertable = $oostable['coupon_gv_customer'];
         $gv_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
@@ -226,12 +226,12 @@
 
 				$coupon_gv_customertable = $oostable['coupon_gv_customer'];
 				$gv_amount_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
-				$customer_gv = FALSE;
+				$customer_gv = false;
 				$total_gv_amount = $gv_amount;
 		  
 				if ($gv_amount_result = $gv_amount_query->fields) {
 					$total_gv_amount = $gv_amount_result['amount'] + $gv_amount;
-					$customer_gv = TRUE;
+					$customer_gv = true;
 				}
 
 				$couponstable = $oostable['coupons'];
@@ -361,7 +361,7 @@
       if ($gv_result->fields['amount']>0) {
         return true;
       }
-      return FALSE;
+      return false;
     }
 
     function get_order_total() {
