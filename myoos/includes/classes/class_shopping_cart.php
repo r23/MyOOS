@@ -36,6 +36,7 @@ class shoppingCart {
 		$this->reset();
     }
 
+
     public function restore_contents() {
 
 		if (!isset($_SESSION['customer_id'])) return false;
@@ -164,6 +165,7 @@ class shoppingCart {
 
 		$this->cleanup();
 	}
+
 
 	public function reset($reset_database = false) {
 
@@ -356,6 +358,7 @@ class shoppingCart {
 		}
     }
 
+
     public function cleanup() {
 
 		// Get database information
@@ -403,6 +406,7 @@ class shoppingCart {
 		}
     }
 
+
     public function in_cart($products_id) {
 		if (isset($this->contents[$products_id])) {
 			return true;
@@ -410,6 +414,7 @@ class shoppingCart {
 			return false;
 		}
     }
+
 
 	public function remove($products_id) {
 
@@ -430,9 +435,11 @@ class shoppingCart {
 		$this->cartID = $this->generate_cart_id();
     }
 
+
     public function remove_all() {
 		$this->reset();
     }
+
 
     public function get_product_id_list() {
 		$product_id_list = '';
@@ -446,6 +453,7 @@ class shoppingCart {
 		return substr($product_id_list, 2);
     }
 
+
     public function get_numeric_product_id_list() {
 		$product_id_list = '';
 		if (is_array($this->contents)) {
@@ -458,16 +466,15 @@ class shoppingCart {
 		return substr($product_id_list, 2);
     }
 
+
     public function calculate() {
 		global $aUser, $oCurrencies;
 
-		$this->total_virtual = 0; // Gift Voucher System
 		$this->weight_virtual = 0;
 		$this->subtotal = 0; 
 		$this->total = 0;
 		$this->weight = 0;
-		$this->info['tax'] = 0
-		$this->info_tax = array();
+		$this->info = array();
 		if (!is_array($this->contents)) return 0;
 
 		// Get database information
@@ -501,7 +508,6 @@ class shoppingCart {
 				$bSpezialPrice = true;
 			}
 
-			$this->total_virtual +=  oos_add_tax($products_price, $products_tax) * $nQuantity;
 			$this->weight_virtual += ($nQuantity * $products_weight);
 			$this->weight += ($nQuantity * $products_weight);		
 			
@@ -531,10 +537,6 @@ class shoppingCart {
 				}
 			}
 */
-
-
-
-
 
         // attributes price
         if (isset($this->contents[$products_id]['attributes'])) {
@@ -673,8 +675,6 @@ class shoppingCart {
     }
 
 
-
-
 	public function get_products() {
 		global $aUser;
 	
@@ -786,6 +786,7 @@ class shoppingCart {
 		return $aProducts;
 	}
 
+
     public function show_subtotal() {
 		$this->calculate();
 
@@ -799,17 +800,13 @@ class shoppingCart {
 		return $this->total;
     }
 
+
 	public function show_weight() {
 		$this->calculate();
 
 		return $this->weight;
     }
 
-	public function show_total_virtual() {
-		$this->calculate();
-
-		return $this->total_virtual;
-    }
 
 	public function show_weight_virtual() {
 		$this->calculate();
@@ -821,6 +818,7 @@ class shoppingCart {
 	public function generate_cart_id($length = 5) {
 		return oos_create_random_value($length, 'digits');
     }
+
 
 	public function get_content_type() {
 
