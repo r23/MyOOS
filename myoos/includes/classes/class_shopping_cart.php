@@ -484,41 +484,68 @@ class shoppingCart {
 		reset($this->contents);
 		foreach ( array_keys($this->contents) as $products_id ) {
 			$nQuantity = $this->contents[$products_id]['qty'];
-			
-			$prid = $product['products_id'];
-			$products_tax = oos_get_tax_rate($product['products_tax_class_id']);
-			if ($aUser['qty_discounts'] == 1) {
-				$products_price = $this->products_price_actual($prid, $product['products_price'], $nQuantity);
-			} else {
+
+			// products price
+			$productstable = $oostable['products'];
+			$product_sql = "SELECT products_id, products_model, products_price, products_tax_class_id, products_weight
+							FROM $productstable
+							WHERE products_id='" . oos_get_product_id($products_id) . "'";
+			$product_result = $dbconn->Execute($product_sql);
+			if ($product = $product_result->fields) {	
+	
 				$products_price = $product['products_price'];
-			}
+				$prid = $product['products_id'];
+				$products_tax = oos_get_tax_rate($product['products_tax_class_id']);
+				
 
-			$products_weight = $product['products_weight'];
-			$bSpezialPrice = false;
+				$products_weight = $product['products_weight'];
 
-			$specialstable = $oostable['specials'];
-			$sql = "SELECT specials_new_products_price
-                  FROM $specialstable
-                  WHERE products_id = '" . intval($prid) . "'
-                  AND   status = '1'";
-			$specials_result = $dbconn->Execute($sql);
-			if ($specials_result->RecordCount()) {
-				$specials = $specials_result->fields;
-				$products_price = $specials['specials_new_products_price'];
-				$bSpezialPrice = true;
-			}
+				$specialstable = $oostable['specials'];
+				$sql = "SELECT specials_new_products_price
+						FROM $specialstable
+						WHERE products_id = '" . intval($prid) . "'
+						AND   status = '1'";
+				$specials_result = $dbconn->Execute($sql);
+				if ($specials_result->RecordCount()) {
+					$specials = $specials_result->fields;
+					$products_price = $specials['specials_new_products_price'];
+				}
+				
+				// Graduated price
+				if ($aUser['qty_discounts'] == 1) {
+					$products_price = $this->products_price_actual($prid, $products_price, $nQuantity);
+				} 
 
-			$this->weight_virtual += ($nQuantity * $products_weight);
-			$this->weight += ($nQuantity * $products_weight);		
-			
-			$this->subtotal += $oCurrencies->calculate_price($products_price, $products_tax, $nQuantity);
-			$this->total += $oCurrencies->calculate_price($products_price, $products_tax, $nQuantity);
-			$this->weight += ($nQuantity * $products_weight);
-        }
 
-/*
-			$nPrice = $oCurrencies->calculate_price($this->products[$index]['final_price'], $this->products[$index]['tax'], $this->products[$index]['qty']);
-			$this->info['subtotal'] += $nPrice;
+				$this->weight_virtual += ($nQuantity * $products_weight);
+				$this->weight += ($nQuantity * $products_weight);		
+
+				// attributes price
+				if (isset($this->contents[$products_id]['attributes'])) {
+					reset($this->contents[$products_id]['attributes']);
+					foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			  
+						$products_attributestable = $oostable['products_attributes'];
+						$sql = "SELECT options_values_price, price_prefix
+								FROM $products_attributestable
+								WHERE products_id = '" . intval($prid) . "'
+								AND options_id = '" . intval($option) . "'
+						AND options_values_id = '" . intval($value) . "'";
+						$attribute_price = $dbconn->GetRow($sql);
+
+						$sAttributesPrice = $attribute_price['options_values_price'];
+
+						if ($attribute_price['price_prefix'] == '+') {
+							$products_price += $sAttributesPrice;
+						} else {
+							$products_price -= $sAttributesPrice;
+						}
+					}
+				}
+				
+				$nPrice = $oCurrencies->calculate_price($products_price, $products_tax, $nQuantity);
+				$this->subtotal += $nPrice;
+				$this->total += $nPrice;
+	/*
 
 			$products_tax = $this->products[$index]['tax'];
 			if ($aUser['price_with_tax'] == 1) {
@@ -536,51 +563,23 @@ class shoppingCart {
 					$this->info['tax_groups']["$products_tax"] = ($products_tax / 100) * $nPrice;
 				}
 			}
-*/
+			oos_round(oos_add_tax($products_price, $products_tax)
+*/	
 
-        // attributes price
-        if (isset($this->contents[$products_id]['attributes'])) {
-          reset($this->contents[$products_id]['attributes']);
-          foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			  
-            $products_attributestable = $oostable['products_attributes'];
-            $sql = "SELECT options_values_price, price_prefix
-                    FROM $products_attributestable
-                    WHERE products_id = '" . intval($prid) . "'
-                    AND options_id = '" . intval($option) . "'
-                    AND options_values_id = '" . intval($value) . "'";
-            $attribute_price = $dbconn->GetRow($sql);
-
-            $sAttributesPrice = $attribute_price['options_values_price'];
-            if ($bSpezialPrice === false) {
-              $sAttributesPrice = $sAttributesPrice*(100-$max_product_discount)/100;
-            }
-
-            if ($attribute_price['price_prefix'] == '+') {
-				$this->subtotal += $oCurrencies->calculate_price($sAttributesPrice, $products_tax, $nQuantity);
-				$this->total += $oCurrencies->calculate_price($sAttributesPrice, $products_tax, $nQuantity);
-            } else {
-				$this->subtotal -= $oCurrencies->calculate_price($sAttributesPrice, $products_tax, $nQuantity);
-				$this->total -= $oCurrencies->calculate_price($sAttributesPrice, $products_tax, $nQuantity);
-            }
-          }
-        }
-      }
+			}
+		}
     }
 
 
     public function products_price_actual($product_id, $actual_price, $products_qty) {
 
-      $new_price = $actual_price;
+		$new_price = $actual_price;
 
-      if ($new_special_price = oos_get_products_special_price($product_id)) {
-        $new_price = $new_special_price;
-      }
-
-      if ($new_discounts_price = oos_get_products_price_quantity_discount($product_id, $products_qty, $new_price)){
-        $new_price = $new_discounts_price;
-      }
-      return $new_price;
-    }
+		if ($new_discounts_price = oos_get_products_price_quantity_discount($product_id, $products_qty, $new_price)){
+			$new_price = $new_discounts_price;
+		}
+		return $new_price;
+	}
 
 
     public function attributes_price($products_id) {
@@ -955,3 +954,4 @@ class shoppingCart {
 		return $total_items;
 	}
 
+}
