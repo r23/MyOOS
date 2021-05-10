@@ -481,6 +481,10 @@ class shoppingCart {
 		$dbconn =& oosDBGetConn();
 		$oostable =& oosDBGetTables();
 
+		$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+		$decimal_places = $oCurrencies->get_decimal_places($currency_type);
+		
+	
 		reset($this->contents);
 		foreach ( array_keys($this->contents) as $products_id ) {
 			$nQuantity = $this->contents[$products_id]['qty'];
@@ -519,7 +523,8 @@ class shoppingCart {
 
 				$this->weight_virtual += ($nQuantity * $products_weight);
 				$this->weight += ($nQuantity * $products_weight);		
-
+				$this->info['weight'] += ($nQuantity * $products_weight);
+				
 				// attributes price
 				if (isset($this->contents[$products_id]['attributes'])) {
 					reset($this->contents[$products_id]['attributes']);
@@ -543,28 +548,22 @@ class shoppingCart {
 				}
 				
 				$nPrice = $oCurrencies->calculate_price($products_price, $products_tax, $nQuantity);
+				
 				$this->subtotal += $nPrice;
+				$this->info['subtotal'] +=  $nPrice;
+				
 				$this->total += $nPrice;
-	/*
-
-			$products_tax = $this->products[$index]['tax'];
-			if ($aUser['price_with_tax'] == 1) {
-				$this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+				$this->info['total'] +=  $nPrice;
+		
+				// tax
+				/*
+				$this->info['tax'] += oos_round(($products_tax / 100) * $nPrice, $decimal_places);
 				if (isset($this->info['tax_groups']["$products_tax"])) {
-					$this->info['tax_groups']["$products_tax"] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+					$this->info['tax_groups']["$products_tax"] += oos_round(($products_tax / 100) * $nPrice, $decimal_places);
 				} else {
-					$this->info['tax_groups']["$products_tax"] = $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+					$this->info['tax_groups']["$products_tax"] = oos_round(($products_tax / 100) * $nPrice, $decimal_places);
 				}
-			} else {
-				$this->info['tax'] += ($products_tax / 100) * $nPrice;
-				if (isset($this->info['tax_groups']["$products_tax"])) {
-					$this->info['tax_groups']["$products_tax"] += ($products_tax / 100) * $nPrice;
-				} else {
-					$this->info['tax_groups']["$products_tax"] = ($products_tax / 100) * $nPrice;
-				}
-			}
-			oos_round(oos_add_tax($products_price, $products_tax)
-*/	
+				*/
 
 			}
 		}
@@ -584,94 +583,93 @@ class shoppingCart {
 
     public function attributes_price($products_id) {
 
-      $attributes_price = 0;
+		$attributes_price = 0;
 
-      if (isset($this->contents[$products_id]['attributes'])) {
-        reset($this->contents[$products_id]['attributes']);
+		if (isset($this->contents[$products_id]['attributes'])) {
+			reset($this->contents[$products_id]['attributes']);
 
-        // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-        foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			
-          $products_attributestable = $oostable['products_attributes'];
-          $attribute_price_sql = "SELECT options_values_price, price_prefix
-                                  FROM $products_attributestable
-                                  WHERE products_id = '" . intval($products_id) . "'
-                                  AND options_id = '" . intval($option) . "'
-                                  AND options_values_id = '" . intval($value) . "'";
-          $attribute_price = $dbconn->GetRow($attribute_price_sql);
+			foreach ($this->contents[$products_id]['attributes'] as $option => $value) {			
+				$products_attributestable = $oostable['products_attributes'];
+				$attribute_price_sql = "SELECT options_values_price, price_prefix
+									FROM $products_attributestable
+									WHERE products_id = '" . intval($products_id) . "'
+									AND options_id = '" . intval($option) . "'
+									AND options_values_id = '" . intval($value) . "'";
+				$attribute_price = $dbconn->GetRow($attribute_price_sql);
 
-          if ($attribute_price['price_prefix'] == '+') {
-            $attributes_price += $attribute_price['options_values_price'];
-          } else {
-            $attributes_price -= $attribute_price['options_values_price'];
-          }
-        }
-      }
-
-      return $attributes_price;
+				if ($attribute_price['price_prefix'] == '+') {
+					$attributes_price += $attribute_price['options_values_price'];
+				} else {
+					$attributes_price -= $attribute_price['options_values_price'];
+				}
+			}
+		}
+		return $attributes_price;
     }
 
 
     public function attributes_model($products_id) {
 
-      $attributes_model = '';
+		$attributes_model = '';
 
-      if (isset($this->contents[$products_id]['attributes'])) {
-        reset($this->contents[$products_id]['attributes']);
+		if (isset($this->contents[$products_id]['attributes'])) {
+			reset($this->contents[$products_id]['attributes']);
 
-        // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-		foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
-          $products_attributestable = $oostable['products_attributes'];
-          $attribute_model_sql = "SELECT options_values_model
+			foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
+				$products_attributestable = $oostable['products_attributes'];
+				$attribute_model_sql = "SELECT options_values_model
                                   FROM $products_attributestable
                                   WHERE products_id = '" . intval($products_id) . "'
                                   AND options_id = '" . intval($option) . "'
                                   AND options_values_id = '" . intval($value) . "'";
-          $attribute_model = $dbconn->GetRow($attribute_model_sql);
+				$attribute_model = $dbconn->GetRow($attribute_model_sql);
 
-          if ($attribute_model['options_values_model'] != '') {
-            $attributes_model = $attribute_model['options_values_model'];
-          }
-        }
-      }
+				if ($attribute_model['options_values_model'] != '') {
+					$attributes_model = $attribute_model['options_values_model'];
+				}
+			}
+		}
 
-      return $attributes_model;
+		return $attributes_model;
     }
 
 
     public function attributes_image($products_id) {
 
-      $attributes_image = '';
+		$attributes_image = '';
 
-      if (isset($this->contents[$products_id]['attributes'])) {
-        reset($this->contents[$products_id]['attributes']);
+		if (isset($this->contents[$products_id]['attributes'])) {
+			reset($this->contents[$products_id]['attributes']);
 
-        // Get database information
-        $dbconn =& oosDBGetConn();
-        $oostable =& oosDBGetTables();
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-		foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
-          $products_attributestable = $oostable['products_attributes'];
-          $attributes_image_sql = "SELECT options_values_image
+			foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
+				$products_attributestable = $oostable['products_attributes'];
+				$attributes_image_sql = "SELECT options_values_image
                                   FROM $products_attributestable
                                   WHERE products_id = '" . intval($products_id) . "'
                                   AND options_id = '" . intval($option) . "'
                                   AND options_values_id = '" . intval($value) . "'";
-          $attribute_image = $dbconn->GetRow($attributes_image_sql);
+				$attribute_image = $dbconn->GetRow($attributes_image_sql);
 
-          if ($attribute_image['options_values_image'] != '') {
-            $attributes_image = $attribute_image['options_values_image'];
-          }
-        }
-      }
+				if ($attribute_image['options_values_image'] != '') {
+					$attributes_image = $attribute_image['options_values_image'];
+				}
+			}
+		}
 
-      return $attributes_image;
-    }
+		return $attributes_image;
+	}
 
 
 	public function get_products() {
@@ -797,6 +795,13 @@ class shoppingCart {
 		$this->calculate();
 
 		return $this->total;
+    }
+
+
+    public function show_info() {
+		$this->calculate();
+
+		return $this->info;
     }
 
 

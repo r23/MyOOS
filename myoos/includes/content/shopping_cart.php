@@ -26,6 +26,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shoppi
 $hidden_field = '';
 $any_out_of_stock = 0;
 
+
 if (isset($_SESSION)) { 
  	
 	if (is_object($_SESSION['cart'])) {

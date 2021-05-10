@@ -477,7 +477,7 @@ $aLang = [
 
 'text_excl_tax_plus_shipping'   => 'exkl. MwSt., zzgl. <a href="%s">Versandkosten</a>',
 'text_incl_tax_plus_shipping'   => 'inkl. MwSt., zzgl. <a href="%s">Versandkosten</a>',
-
+'total_info'                    => 'alle Angaben in %s, inkl. MwSt.',
 
 
 'price'                => 'Preis',
@@ -495,6 +495,3 @@ $aLang = [
 'cookie_agree'  => 'Ich stimme zu.',
 
 ];
-
-
-

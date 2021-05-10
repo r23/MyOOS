@@ -488,6 +488,9 @@ $aLang = [
 'text_taxt_add'           => 'plus. Tax',
 'tax_info_excl'           => 'excl. Tax',
 'text_shipping'           => 'excl. <a href="%s">and plus service and shipping costs</a>.',
+'total_info'			  => 'all data in %s, incl. VAT',
+
+
 
 'text_excl_tax_plus_shipping'   => 'excl. tax, plus  <a href="%s">shipping</a>',
 'text_incl_tax_plus_shipping'   => 'incl. tax, plus  <a href="%s">shipping</a>',

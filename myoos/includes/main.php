@@ -175,6 +175,7 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
 
     if (isset($_SESSION)) {
         $_SESSION['currency'] = $sCurrency;
+		$_SESSION['currency_title'] = $oCurrencies->get_currencies_title($sCurrency);
     }
 }
 

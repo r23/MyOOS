@@ -83,6 +83,11 @@ class currencies {
 		return FALSE;
 	}
 
+	public function get_currencies_title($code) {
+		return $this->currencies[$code]['title'];
+	}
+
+
 	public function get_value($code) {
 		return $this->currencies[$code]['value'];
 	}
