@@ -89,69 +89,69 @@ switch ($action) {
 			$_SESSION['cart'] = new shoppingCart();
 		}
 		
-      // customer adds a product from the products page
-      if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
-        $real_ids = $_POST['id'];
-        // File_upload 
-        if (isset($_POST['number_of_uploads']) && is_numeric($_POST['number_of_uploads']) && ($_POST['number_of_uploads'] > 0)) {
-          require_once 'includes/classes/class_upload.php';
-          for ($i = 1; $i <= $_POST['number_of_uploads']; $i++) {
-            if (oos_is_not_null($_FILES['id']['tmp_name'][TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]]) and ($_FILES['id']['tmp_name'][TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] != 'none')) {
+		// customer adds a product from the products page
+		if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
+			$real_ids = $_POST['id'];
+			// File_upload 
+			if (isset($_POST['number_of_uploads']) && is_numeric($_POST['number_of_uploads']) && ($_POST['number_of_uploads'] > 0)) {
+				require_once 'includes/classes/class_upload.php';
+				for ($i = 1; $i <= $_POST['number_of_uploads']; $i++) {
+					if (oos_is_not_null($_FILES['id']['tmp_name'][TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]]) and ($_FILES['id']['tmp_name'][TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] != 'none')) {
 
-              $products_options_file = new upload('id');
-              $products_options_file->set_destination(OOS_UPLOADS);
-              $files_uploadedtable = $oostable['files_uploaded'];
+					$products_options_file = new upload('id');
+					$products_options_file->set_destination(OOS_UPLOADS);
+					$files_uploadedtable = $oostable['files_uploaded'];
 
-              if ($products_options_file->parse(TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i])) {
-                if (isset($_SESSION['customer_id'])) {
-                  $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, customers_id, files_uploaded_name) VALUES ('" . $session->getId() . "', '" . intval($_SESSION['customer_id']) . "', '" . oos_db_input($products_options_file->filename) . "')");
-                } else {
-                  $dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, files_uploaded_name) VALUES ('" . $session->getId() . "', '" . oos_db_input($products_options_file->filename) . "')");
-                }
-                $insert_id = $dbconn->Insert_ID();
-                $real_ids[TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] = $insert_id . ". " . $products_options_file->filename;
-                $products_options_file->set_filename("$insert_id" . $products_options_file->filename);
-                if (!($products_options_file->save())) {
-                  break 2;
-                }
-              } else {
-                break 2;
-              }
-            } else { // No file uploaded -- use previous value
-              $real_ids[TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] = $_POST[TEXT_PREFIX . UPLOAD_PREFIX . $i];
-            }
-          }
-        }
+					if ($products_options_file->parse(TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i])) {
+						if (isset($_SESSION['customer_id'])) {
+							$dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, customers_id, files_uploaded_name) VALUES ('" . $session->getId() . "', '" . intval($_SESSION['customer_id']) . "', '" . oos_db_input($products_options_file->filename) . 		"')");
+						} else {
+							$dbconn->Execute("INSERT INTO " . $files_uploadedtable . " (sesskey, files_uploaded_name) VALUES ('" . $session->getId() . "', '" . oos_db_input($products_options_file->filename) . "')");
+						}
+						$insert_id = $dbconn->Insert_ID();
+						$real_ids[TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] = $insert_id . ". " . $products_options_file->filename;
+						$products_options_file->set_filename("$insert_id" . $products_options_file->filename);
+						if (!($products_options_file->save())) {
+							break 2;
+						}
+					} else {
+							break 2;
+						}
+					} else { // No file uploaded -- use previous value
+						$real_ids[TEXT_PREFIX . $_POST[UPLOAD_PREFIX . $i]] = $_POST[TEXT_PREFIX . UPLOAD_PREFIX . $i];
+					}
+				}
+			}
   
 		  
-		if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
+			if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
 			  
-			$cart_quantity = oos_prepare_input($_POST['cart_quantity']);			  
+				$cart_quantity = oos_prepare_input($_POST['cart_quantity']);			  
 
-            $cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $real_ids));
-            $news_qty = $cart_qty + $cart_quantity;
+				$cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $real_ids));
+				$news_qty = $cart_qty + $cart_quantity;
 
-            $products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
-            $products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
+				$products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
+				$products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
 
-            if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-              if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-                $_SESSION['cart']->add_cart($_POST['products_id'], $news_qty, $real_ids);
-              } else {
-                $_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
-              }
-            } else {
-              $_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
-            }
+				if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
+					if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
+						$_SESSION['cart']->add_cart($_POST['products_id'], $news_qty, $real_ids);
+					} else {
+						$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
+					}
+				} else {
+					$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
+				}
 
-            if ($_SESSION['error_message'] == '') {
-              oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
-            } else {
-              oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
-            }
-          }
-      }
-      break;
+				if ($_SESSION['error_message'] == '') {
+					oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
+				} else {
+					oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
+				}
+			}
+		}
+		break;
 
 	case 'clear_cart' :
 		// start the session
