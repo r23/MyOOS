@@ -152,11 +152,11 @@ class order {
               WHERE orders_id = '" . intval($order_id) . "'";
 		$orders_products_result = $dbconn->Execute($sql);
 		while ($orders_products = $orders_products_result->fields) {		
-			$products_status = oos_get_products_status($orders_products['products_id']);
+			$products_setting = oos_get_products_setting($orders_products['products_id']);
 			$this->products[$index] = array('qty' => $orders_products['products_quantity'],
                                         'id' => $orders_products['products_id'],
 										'orders_id' => intval($order_id),
-										'status' => $products_status,
+										'status' => $products_setting,
                                         'name' => $orders_products['products_name'],
 										'image' => $orders_products['products_image'],
                                         'model' => $orders_products['products_model'],

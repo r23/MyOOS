@@ -204,11 +204,10 @@ class shoppingCart {
 
 		if (is_numeric($nProductsID) && is_numeric($nQuantity)) {
 			$productstable = $oostable['products'];
-			$check_product_sql = "SELECT products_status
+			$check_product_sql = "SELECT products_setting
                               FROM $productstable
                               WHERE products_id = '" . intval($nProductsID) . "'";
-			$products_status = $dbconn->GetOne($check_product_sql);
-			
+			$products_setting = $dbconn->GetOne($check_product_sql);
 			if ($products_setting = '2') {
 
 				$nQuantity = intval($nQuantity);
@@ -694,7 +693,7 @@ class shoppingCart {
 						p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units
 					FROM $productstable p,
 						$products_descriptiontable pd
-					WHERE p.products_status >= '1' AND 
+					WHERE p.products_setting >= '1' AND 
 					  p.products_id = '" . oos_get_product_id($products_id) . "' AND
                       pd.products_id = p.products_id AND
                       pd.products_languages_id = '" .  intval($nLanguageID) . "'";

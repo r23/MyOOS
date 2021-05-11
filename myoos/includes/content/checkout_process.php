@@ -182,7 +182,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
 			if ($stock_left < 1) {
 				$productstable = $oostable['products'];
 				$dbconn->Execute("UPDATE $productstable
-                        SET products_status = '0' 
+                        SET products_setting = '0' 
                         WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'");
 			}
 		}

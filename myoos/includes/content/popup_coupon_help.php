@@ -109,7 +109,7 @@ $text_coupon_help = $aLang['text_coupon_help_header'];
 
       $productstable = $oostable['products'];
       $products_descriptiontable = $oostable['products_description'];
-      $sql = "SELECT p.products_id, p.products_status, pd.products_name
+      $sql = "SELECT p.products_id, p.products_setting, pd.products_name
               FROM $productstable p, 
                    $products_descriptiontable pd
               WHERE p.products_setting = '2' 

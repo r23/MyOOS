@@ -265,7 +265,7 @@ class oosCategoryTree {
                    $products_to_categoriestable p2c
               WHERE p2c.categories_id = '" . intval($category_id) . "'
                 AND p2c.products_id = p.products_id
-                AND p.products_status >= 1";
+                AND p.products_setting >= 1";
       $count_result = $dbconn->Execute($sql);
       $count = $count_result->fields['total'];
 
