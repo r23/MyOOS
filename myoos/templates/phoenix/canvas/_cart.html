@@ -4,15 +4,26 @@
 		<h3 class="offcanvas-title">{$lang.header_title_cart_contents}</h3>
 		<button class="close" type="button" data-dismiss="offcanvas" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	</div>
-	{$smarty.session.new_products_id_in_cart}
+
 	<div class="offcanvas-body">
 		<div id="div-to-refresh" class="offcanvas-body-inner">
 		{if $cart_count_contents > 0}		
-			<div class="text-right"><button id="clear-cart" type="button" class="btn btn-link"><i class="fa fa-remove" aria-hidden="true"></i> {$lang.text_clear_cart}</button></div>		
+			<div class="text-right"><button id="clear-cart" type="button" class="btn btn-link"><i class="fa fa-remove" aria-hidden="true"></i> {$lang.text_clear_cart}</button></div>
+
+			{if $smarty.session.new_products_id_in_cart}
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>			
+					<p>Der Artikel wurde erfolgreich in den Warenkorb gelegt<p>
+				</div>
+			{/if}
+			
 			<div class="widget widget-featured-entries pt-3">
 			
 				{foreach item=products from=$cart_products}								
 					<div class="media"><!-- cart item -->
+									
 						<div class="featured-entry-thumb mr-3"><a href="{product_link products_id=$products.id}">
 							{product_image dir=min image=$products.image alt=$products.name}					
 							</a></div>

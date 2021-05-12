@@ -318,6 +318,35 @@
 <script src="{$theme}/js/theme.min.js"></script>	
 <script src="{$theme}/js/shop.app.js"></script>
 
+{if $smarty.session.new_products_id_in_cart}
+{literal}
+<script>
+;(function ($) {
+  'use strict';
+  
+		var BODY = 'body';
+		var WINDOW = window;
+		var DOCUMENT = 'document';		
+		
+      function showOffcanvas (target, callback) {
+        callback = setTimeout(function () {
+          $(BODY).addClass('offcanvas-open');
+        }, 100);
+        $(target).addClass('show', callback);
+      }	
+		
+       $(window).on('load', function() {
+
+         var $target = '#offcanvas-cart';
+         showOffcanvas($target);
+
+      })
+	  
+})(jQuery);
+</script>
+{/literal}
+{/if}
+
 {literal}
 <script>
 /* <![CDATA[ */
