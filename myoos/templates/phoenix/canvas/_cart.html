@@ -17,8 +17,8 @@
 							{product_image dir=min image=$products.image alt=$products.name}					
 							</a></div>
 						<div class="media-body">
-							<h6 class="featured-entry-title"><a href="{product_link products_id=$products.id}">{$products.name|truncate:25:"...":true|close_tags}</a></h6>
-							<p class="featured-entry-meta">{$products.quantity|quantity}&nbsp; <span class="text-muted">x</span> {display_price price=$products.final_price tax_class_id=$products.tax_class_id}* 	{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</p>
+							<h6 class="featured-entry-title"><a href="{product_link products_id=$products.id}">{$products.quantity|quantity}<span class="text-muted">x</span>&nbsp;{$products.name}</a></h6>
+							<p class="featured-entry-meta text-right">{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}*</p>
 						</div>
 						<div class="text-right"><span class="item-remove-btn" data-id="{$products.id}" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>
 					</div>	<!-- /cart item -->																
