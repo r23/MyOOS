@@ -18,7 +18,7 @@
 							</a></div>
 						<div class="media-body">
 							<h6 class="featured-entry-title"><a href="{product_link products_id=$products.id}">{$products.name|truncate:25:"...":true|close_tags}</a></h6>
-							<p class="featured-entry-meta">{$products.quantity|quantity}&nbsp; <span class="text-muted">x</span> {display_price price=$product.final_price tax_class_id=$product.tax_class_id} 	{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</p>
+							<p class="featured-entry-meta">{$products.quantity|quantity}&nbsp; <span class="text-muted">x</span> {display_price price=$products.final_price tax_class_id=$products.tax_class_id}* 	{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}</p>
 						</div>
 						<div class="text-right"><span class="item-remove-btn" data-id="{$products.id}" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>
 					</div>	<!-- /cart item -->																
@@ -27,7 +27,7 @@
 				<hr>
 				<div class="d-flex justify-content-between align-items-center py-3">
 				<div class="font-size-sm"> <span class="mr-2">{$lang.sub_title_total}</span><span class="font-weight-semibold text-dark">{$cart_show_total}</span></div><a class="btn btn-outline-secondary btn-sm" href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents} <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
-				<div class="font-size-sm">{$smarty.session.currency_title|string_format:$lang.total_info}</div>
+				<div class="font-size-sm">{$tax_plus_shipping}</div>
 				</div>{if $myUser.show_price eq 1 }<a class="btn btn-primary btn-sm btn-block" href="{html_href_link content=$filename.checkout_shipping}"><i class="fa fa-credit-card" aria-hidden="true"></i> {$lang.button_checkout}</a>{/if}
 			</div>		
 		{/if}

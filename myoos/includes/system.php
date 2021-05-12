@@ -31,10 +31,6 @@ if ($debug == 1) {
 	$smarty->clearCompiledTemplate();
 }
 
-$smarty->force_compile   = true;
-$smarty->clearAllCache();
-$smarty->clearCompiledTemplate();
-
 // object register
 $smarty->assignByRef("oEvent", $oEvent);
 $smarty->assignByRef("oNavMenu", $oNavMenu);
