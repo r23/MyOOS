@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '296fbefa6fcc3d664a7e0c57e70a0eec99c06948',
+    'reference' => '3c8223a79a07d599539ff051c3e9d77affba82b7',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -130,12 +130,12 @@
     ),
     'laminas/laminas-code' => 
     array (
-      'pretty_version' => '4.2.2',
-      'version' => '4.2.2.0',
+      'pretty_version' => '4.3.0',
+      'version' => '4.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3cbdf2e23e6df1d1beecb5708560c8f6a8115bf9',
+      'reference' => '1beb4447f9efd26041eba7eff50614e798c353fd',
     ),
     'laminas/laminas-escaper' => 
     array (
@@ -216,7 +216,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '296fbefa6fcc3d664a7e0c57e70a0eec99c06948',
+      'reference' => '3c8223a79a07d599539ff051c3e9d77affba82b7',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -1094,12 +1094,12 @@
     ),
     'twig/twig' => 
     array (
-      'pretty_version' => 'v3.3.0',
-      'version' => '3.3.0.0',
+      'pretty_version' => 'v3.3.1',
+      'version' => '3.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5',
+      'reference' => 'ac44433c49892bf28d47c852b19832f3823bd351',
     ),
     'videlalvaro/php-amqplib' => 
     array (
@@ -1112,7 +1112,7 @@
     array (
       'replaced' => 
       array (
-        0 => '4.2.2',
+        0 => '4.3.0',
       ),
     ),
     'zendframework/zend-escaper' => 
