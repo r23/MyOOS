@@ -164,13 +164,13 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
 
     if (isset($_SESSION)) {
         $_SESSION['currency'] = $sCurrency;
-    }
+		$_SESSION['currency_title'] = $oCurrencies->get_currencies_title($sCurrency);    }
 }
 
 
-if ( $session->hasStarted() === TRUE ) {
+if ( $session->hasStarted() === true ) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
-        $session->regenerate(TRUE);
+        $session->regenerate(true);
 	}
 
 	// create the shopping cart

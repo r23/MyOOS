@@ -41,7 +41,7 @@ define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));
 
 define('OOS_VALID_MOD', true);
 require 'includes/main_ajax.php';
-  
+
 if ($request->isXmlHttpRequest()) {  
    // Ajax request  
    
@@ -58,6 +58,7 @@ if ($request->isXmlHttpRequest()) {
 	if (isset($_POST['name']) || is_string($_POST['name'])) {
 		$sContent = oos_var_prep_for_os($_POST['name']);
 	}
+
 
 	if ( empty( $sContent ) || !is_string( $sContent ) ) {
 		exit(json_encode('403 Forbidden'));

@@ -44,7 +44,7 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
     global $session, $oEvent, $spider_flag;
 
 	$page = oos_output_string($page);	
-	
+
     $link = OOS_HTTPS_SERVER . OOS_SHOP;
 
     if (oos_is_not_null($parameters)) {
