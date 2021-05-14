@@ -14,8 +14,8 @@
 
   .product-carousel a {
     display: block;
-    cursor: url(../img/gallery-cursor.png) 0 0, pointer;
-    cursor: -webkit-image-set(url(../img/gallery-cursor.png) 1x, url(../img/gallery-cursor@2x.png) 2x) 0 0, pointer;
+    cursor: url(../images/gallery-cursor.png) 0 0, pointer;
+    cursor: -webkit-image-set(url(../images/gallery-cursor.png) 1x, url(../images/gallery-cursor@2x.png) 2x) 0 0, pointer;
     > img {
       display: block;
       width: 100%;
