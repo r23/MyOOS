@@ -48,7 +48,7 @@ if (DISPLAY_CART == 'true') {
 switch ($action) {
 	case 'update_product' :
 		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
+		if ( $session->hasStarted() === false ) $session->start();
 
 		// create the shopping cart
 		if (!isset($_SESSION['cart'])) {
@@ -67,7 +67,7 @@ switch ($action) {
 				if ( ($_POST['cart_quantity'][$i] >= $products_order_min) ) {
 					if ($_POST['cart_quantity'][$i]%$products_order_units == 0) {
 						$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
-						$_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, FALSE, $_POST['to_wl_id'][$i]);
+						$_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, false, $_POST['to_wl_id'][$i]);
 					} else {
 						$_SESSION['error_message'] = oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . 		$products_order_units;
 					}
@@ -82,7 +82,7 @@ switch ($action) {
 
 	case 'add_product' :
 		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
+		if ( $session->hasStarted() === false ) $session->start();
 		
 		// create the shopping cart
 		if (!isset($_SESSION['cart'])) {
@@ -155,7 +155,7 @@ switch ($action) {
 
 	case 'clear_cart' :
 		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
+		if ( $session->hasStarted() === false ) $session->start();
 
 		// create the shopping cart
 		if (!isset($_SESSION['cart'])) {
@@ -175,7 +175,7 @@ switch ($action) {
 
 	case 'cart_delete' :
 		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
+		if ( $session->hasStarted() === false ) $session->start();
 
 		// create the shopping cart
 		if (!isset($_SESSION['cart'])) {
@@ -190,69 +190,32 @@ switch ($action) {
 		break;
 
     case 'buy_now' :	
-      if (isset($_GET['products_id'])) {
-        if (oos_has_product_attributes($_GET['products_id'])) {
-			oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
-        } else {
-			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();	
-
-			// create the shopping cart
-			if (!isset($_SESSION['cart'])) {
-				$_SESSION['cart'] = new shoppingCart();
-			}
-			
-			if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
-				$cart_quantity = oos_prepare_input($_GET['cart_quantity']);
+		if (isset($_GET['products_id'])) {
+			if (oos_has_product_attributes($_GET['products_id'])) {
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
 			} else {
-				$cart_quantity = 1;
-			}
-			$cart_qty = $_SESSION['cart']->get_quantity($_GET['products_id']);
-			$news_qty = $cart_qty + $cart_quantity;
+				// start the session
+				if ( $session->hasStarted() === false ) $session->start();	
 
-			$products_order_min = oos_get_products_quantity_order_min($_GET['products_id']);
-			$products_order_units = oos_get_products_quantity_order_units($_GET['products_id']);
-
-			if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-				if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-					$_SESSION['cart']->add_cart($_GET['products_id'], $news_qty);
-				} else {
-					$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
+				// create the shopping cart
+				if (!isset($_SESSION['cart'])) {
+					$_SESSION['cart'] = new shoppingCart();
 				}
-			} else {
-				$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
-			}
-        }
-        if ($_SESSION['error_message'] == '') {
-			oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
-        } else {
-			oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
-        }
-      } elseif (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
-        if (oos_has_product_attributes($_POST['products_id'])) {
-          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
-        } else {
-			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();
-
-			// create the shopping cart
-			if (!isset($_SESSION['cart'])) {
-				$_SESSION['cart'] = new shoppingCart();
-			}
 			
-			if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
-
-				$cart_quantity = oos_prepare_input($_POST['cart_quantity']);			
-			
-				$cart_qty = $_SESSION['cart']->get_quantity($_POST['products_id']);
+				if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
+					$cart_quantity = oos_prepare_input($_GET['cart_quantity']);
+				} else {
+					$cart_quantity = 1;
+				}
+				$cart_qty = $_SESSION['cart']->get_quantity($_GET['products_id']);
 				$news_qty = $cart_qty + $cart_quantity;
 
-				$products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
-				$products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
+				$products_order_min = oos_get_products_quantity_order_min($_GET['products_id']);
+				$products_order_units = oos_get_products_quantity_order_units($_GET['products_id']);
 
 				if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
 					if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-						$_SESSION['cart']->add_cart($_POST['products_id'], $news_qty);
+						$_SESSION['cart']->add_cart($_GET['products_id'], $news_qty);
 					} else {
 						$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
 					}
@@ -261,87 +224,123 @@ switch ($action) {
 				}
 			}
 			if ($_SESSION['error_message'] == '') {
-				oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
+				oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
 			} else {
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['products_id']));
 			}
-        }
-	}
-	break;
+		} elseif (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
+			if (oos_has_product_attributes($_POST['products_id'])) {
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
+			} else {
+				// start the session
+				if ( $session->hasStarted() === false ) $session->start();
 
+				// create the shopping cart
+				if (!isset($_SESSION['cart'])) {
+					$_SESSION['cart'] = new shoppingCart();
+				}
+			
+				if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
+
+					$cart_quantity = oos_prepare_input($_POST['cart_quantity']);			
+			
+					$cart_qty = $_SESSION['cart']->get_quantity($_POST['products_id']);
+					$news_qty = $cart_qty + $cart_quantity;
+
+					$products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
+					$products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
+
+					if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
+						if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
+							$_SESSION['cart']->add_cart($_POST['products_id'], $news_qty);
+						} else {
+							$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
+						}
+					} else {
+						$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
+					}
+				}
+				if ($_SESSION['error_message'] == '') {
+					oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
+				} else {
+					oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
+				}
+			}
+		}
+		break;
 
     case 'buy_slave' :	
-      if (isset($_GET['slave_id'])) {
-        if (oos_has_product_attributes($_GET['slave_id'])) {
-          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
-        } else {
-			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();
+		if (isset($_GET['slave_id'])) {
+			if (oos_has_product_attributes($_GET['slave_id'])) {
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
+			} else {
+				// start the session
+				if ( $session->hasStarted() === false ) $session->start();
 
-			// create the shopping cart
-			if (!isset($_SESSION['cart'])) {
-				$_SESSION['cart'] = new shoppingCart();
-			}			
-          $cart_quantity = 1;
-          $cart_qty = $_SESSION['cart']->get_quantity($_GET['slave_id']);
-          $news_qty = $cart_qty + $cart_quantity;
+				// create the shopping cart
+				if (!isset($_SESSION['cart'])) {
+					$_SESSION['cart'] = new shoppingCart();
+				}			
+				$cart_quantity = 1;
+				$cart_qty = $_SESSION['cart']->get_quantity($_GET['slave_id']);
+				$news_qty = $cart_qty + $cart_quantity;
 
-          $products_order_min = oos_get_products_quantity_order_min($_GET['slave_id']);
-          $products_order_units = oos_get_products_quantity_order_units($_GET['slave_id']);
+				$products_order_min = oos_get_products_quantity_order_min($_GET['slave_id']);
+				$products_order_units = oos_get_products_quantity_order_units($_GET['slave_id']);
 
-          if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-            if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-              $_SESSION['cart']->add_cart($_GET['slave_id'], $news_qty);
-            } else {
-              $_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
-            }
-          } else {
-            $_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
-          }
-        }
-        if ($_SESSION['error_message'] == '') {
-          oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
-        } else {
-          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
-        }
-      } elseif (isset($_POST['slave_id']) && is_numeric($_POST['slave_id'])) {
-        if (oos_has_product_attributes($_POST['slave_id'])) {
-          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
-        } else {
-			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();
+				if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
+					if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
+						$_SESSION['cart']->add_cart($_GET['slave_id'], $news_qty);
+					} else {
+						$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
+					}
+				} else {
+					$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
+				}
+			}
+			if ($_SESSION['error_message'] == '') {
+				oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
+			} else {
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
+			}
+		} elseif (isset($_POST['slave_id']) && is_numeric($_POST['slave_id'])) {
+			if (oos_has_product_attributes($_POST['slave_id'])) {
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
+			} else {
+				// start the session
+				if ( $session->hasStarted() === false ) $session->start();
+	
+				// create the shopping cart
+				if (!isset($_SESSION['cart'])) {
+					$_SESSION['cart'] = new shoppingCart();
+				}			
 
-			// create the shopping cart
-			if (!isset($_SESSION['cart'])) {
-				$_SESSION['cart'] = new shoppingCart();
-			}			
+				if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
+					$cart_quantity = oos_prepare_input($_POST['cart_quantity']);
+					$cart_qty = $_SESSION['cart']->get_quantity($_POST['slave_id']);
+					$news_qty = $cart_qty + $cart_quantity;
 
-          if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
-            $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
-            $cart_qty = $_SESSION['cart']->get_quantity($_POST['slave_id']);
-            $news_qty = $cart_qty + $cart_quantity;
+					$products_order_min = oos_get_products_quantity_order_min($_POST['slave_id']);
+					$products_order_units = oos_get_products_quantity_order_units($_POST['slave_id']);
 
-            $products_order_min = oos_get_products_quantity_order_min($_POST['slave_id']);
-            $products_order_units = oos_get_products_quantity_order_units($_POST['slave_id']);
-
-            if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-              if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-                $_SESSION['cart']->add_cart($_POST['slave_id'], $news_qty);
-              } else {
-                $_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
-              }
-            } else {
-              $_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
-            }
-          }
-        }
-        if ($_SESSION['error_message'] == '') {
-          oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
-        } else {
-          oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
-        }
-      }
-      break;
+					if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
+						if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
+							$_SESSION['cart']->add_cart($_POST['slave_id'], $news_qty);
+						} else {
+							$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
+						}
+					} else {
+						$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min;
+					}
+				}
+			}
+			if ($_SESSION['error_message'] == '') {
+				oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
+			} else {
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
+			}
+		}
+		break;
 
     case 'notify' :
       if (isset($_SESSION['customer_id'])) {
@@ -387,7 +386,7 @@ switch ($action) {
 
     case 'notify_remove' :
 		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
+		if ( $session->hasStarted() === false ) $session->start();
 		
       $products_notificationstable = $oostable['products_notifications'];
       if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
@@ -427,7 +426,7 @@ switch ($action) {
 			$wishlist_products_id = oos_prepare_input($_GET['products_id']);
 			
 			// start the session
-			if ( $session->hasStarted() === FALSE ) $session->start();
+			if ( $session->hasStarted() === false ) $session->start();
 			if (!isset($_SESSION['customer_id'])) {
 				// navigation history
 				if (!isset($_SESSION['navigation'])) {
@@ -466,7 +465,7 @@ switch ($action) {
     case 'wishlist_add_product' :
 	
 		// start the session
-		if ( $session->hasStarted() === FALSE ) $session->start();
+		if ( $session->hasStarted() === false ) $session->start();
 
 		// create the shopping cart
 		if (!isset($_SESSION['cart'])) {
@@ -490,7 +489,7 @@ switch ($action) {
 
 			if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
 				if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-					$_SESSION['cart']->add_cart($_POST['products_id'], $news_qty, $_POST['id'], TRUE, $_POST['wl_products_id']);   
+					$_SESSION['cart']->add_cart($_POST['products_id'], $news_qty, $_POST['id'], true, $_POST['wl_products_id']);   
 				} else {
 					$_SESSION['error_message'] = $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units;
 				}
