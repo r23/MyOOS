@@ -1,4 +1,4 @@
-# [MyOOS [Shopsystem]](https://www.oos-shop.de) 
+# [MyOOS [Shop system]](https://www.oos-shop.de) 
 ===============
 
 
@@ -28,7 +28,7 @@ Requirements
 Installation
 ------------
 
-1. [Download MyOOS [Shopsystem]](https://github.com/r23/MyOOS/releases)
+1. [Download MyOOS [Shop system]](https://github.com/r23/MyOOS/releases)
 2. Unzip the downloaded zip file 
 3. Extract the file into an empty directory and upload everything from the directory myoos to the server.
 4. Your online shop with MyOOS is only available under HTTPS support. Please set up HTTPS before installation.
@@ -39,7 +39,7 @@ Installation
 Documentation
 -------------
 
-### MyOOS [Shopsystem]
+### MyOOS [Shop system]
 Use your browser to open the [doku.oos-shop.de](http://doku.oos-shop.de) page for links to documentation.
 
 
