@@ -44,7 +44,7 @@ class Phoenix_Session extends Session
     {
 	
 		$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-		$spider_flag = FALSE;
+		$spider_flag = false;
 		$spider_kill_sid = 'false';
 
 		// set the top level domains
@@ -89,7 +89,7 @@ class Phoenix_Session extends Session
         switch ($seclevel) {
             case 'High':
                 // Session lasts duration of browser
-                $lifetime = 0;
+                $lifetime = null;
                 // Referer check
                 // ini_set('session.referer_check', $host.$path);
                 $config['referer_check'] = $host;
@@ -105,7 +105,7 @@ class Phoenix_Session extends Session
                 break;
         }
 		*/
-		$lifetime = 0;
+		$lifetime = null;
         $config['cookie_lifetime'] = $lifetime;
 
         $this->storage->setOptions($config);

@@ -74,19 +74,20 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
 		
 	}
 	
-	
-    if ( ($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu') ) {
-		$link = str_replace(array('?', '&amp;', '='), '/', $link);
+	if (is_object($oEvent)) {
+		if ( ($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu') ) {
+			$link = str_replace(array('?', '&amp;', '='), '/', $link);
 
-		$separator = '?';
+			$separator = '?';
 
-		$pos = strpos ($link, 'action');
-		if ($pos === false) {
-			$url_rewrite = new url_rewrite;
-			$link = $url_rewrite->transform_uri($link);
+			$pos = strpos ($link, 'action');
+			if ($pos === false) {
+				$url_rewrite = new url_rewrite;
+				$link = $url_rewrite->transform_uri($link);
+			}
+
 		}
-
-    }
+	}
 
     if (isset($_sid)) {
 		$link .= $separator . oos_output_string($_sid);
