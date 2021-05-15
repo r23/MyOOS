@@ -196,8 +196,8 @@ if ( $session->hasStarted() === true ) {
 	$aContents = oos_get_content();
 	
 	// verify the browser user agent
-	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
-
+	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? oos_var_prep_for_os($_SERVER['HTTP_USER_AGENT']) : '';
+	
 	if (!isset($_SESSION['session_user_agent'])) {
 		$_SESSION['session_user_agent'] = $http_user_agent;
 	}
@@ -224,56 +224,17 @@ if ( $session->hasStarted() === true ) {
 $aUser = array();
 $aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
 
-
 	
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
 $oEvent->getInstance();
 
 
-
-// determine the page directory
-/*
-if (isset($_GET['content'])) {
-	$sContent = oos_var_prep_for_os($_GET['content']);
-} elseif (isset($_POST['content'])) {
-	$sContent = oos_var_prep_for_os($_POST['content']);
-}
-if ( empty( $sContent ) || !is_string( $sContent ) ) {
-    $sContent = $aContents['home'];
-}  
-*/
-
-// initialize the message stack for output messages
-/*
-$aInfoMessage = array();
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
-$oMessage = new messageStack();
-*/
-
-// Nav Menu
-/*
-include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
-$oNavMenu = new nav_menu();
-*/
-
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 
 // Shopping cart actions
 if ( isset($_GET['action']) || isset($_POST['action']) )  {
-	if ( isset($_POST['action']) && ($_POST['action'] == 'lists')
-      || isset($_GET['action']) && ($_GET['action'] == 'lists') ) {
-		// require  validation functions (right now only email address)	
-		require_once MYOOS_INCLUDE_PATH . '/includes/lists_actions.php';
-	} else {
-		// Shopping cart actions
-		require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
-	}
+	// Shopping cart actions
+	require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
 }
 
-
-// templates selection
-/*
-$sTheme = STORE_TEMPLATES;
-$aTemplate = array();
-*/

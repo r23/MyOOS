@@ -109,10 +109,11 @@ $session = new Phoenix_Session();
 // set the session name and save path
 $session->setName('PHOENIXSID');
 
+
 $sSid = $session->getName();
 // set the session ID if it exists
 if (isset($_POST[$sSid]) && !empty($_POST[$sSid])){
-	$session->start();
+	$session->start();	
 } elseif (isset($_COOKIE[$sSid])) {
 	$session->start();
 } elseif (isset($_GET[$sSid]) && !empty($_GET[$sSid])) {
@@ -280,4 +281,3 @@ if ( isset($_GET['action']) || isset($_POST['action']) )  {
 // templates selection
 $sTheme = STORE_TEMPLATES;
 $aTemplate = array();
-

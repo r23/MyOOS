@@ -10,7 +10,9 @@
 
 use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag; 
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
+
 
 /**
  * Phoenix_Session class.
@@ -48,7 +50,6 @@ class Phoenix_Session extends Session
 		$spider_kill_sid = 'false';
 
 		// set the top level domains
-		// $host = System::serverGetVar('HTTP_HOST');
 		$current_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
 
 		// garbage collection may disabled by default (e.g., Debian)
@@ -82,34 +83,14 @@ class Phoenix_Session extends Session
             $host = substr($host, 0, $pos);
         }
 
-        // PHP configuration variables
-        // Set lifetime of session cookie
-		/*
-        $seclevel = System::getVar('seclevel');
-        switch ($seclevel) {
-            case 'High':
-                // Session lasts duration of browser
-                $lifetime = null;
-                // Referer check
-                // ini_set('session.referer_check', $host.$path);
-                $config['referer_check'] = $host;
-                break;
-            case 'Medium':
-                // Session lasts set number of days
-                $lifetime = System::getVar('secmeddays') * 86400;
-                break;
-            case 'Low':
-            default:
-                // (Currently set to 1 year)
-                $lifetime = 31536000;
-                break;
-        }
-		*/
-		$lifetime = null;
+		// Currently set to 1 year
+		$lifetime = 31536000;
         $config['cookie_lifetime'] = $lifetime;
 
 		# possible values: 'strict', 'lax' and null
 		$config['cookie_samesite'] = 'strict';
+
+		$options['cache_limiter'] = session_cache_limiter();
 
         $this->storage->setOptions($config);
         return parent::start();		
