@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-04-29 05:56:00+0000\n"
+"PO-Revision-Date: 2021-05-15 16:49:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,9 +11,21 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
 
+#: admin/admin.php:65 admin/admin.php:516
+msgid "Integration with External API"
+msgstr "Integration mit externer API"
+
+#: modules/sendinblue/contact-form-properties.php:281
+msgid "Manage your email templates"
+msgstr "Deine E-Mail-Vorlagen verwalten"
+
 #: modules/sendinblue/contact-form-properties.php:246
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; Auswählen &mdash;"
+
+#: modules/sendinblue/contact-form-properties.php:216
+msgid "Send a welcome email to new contacts"
+msgstr "Eine Willkommens-E-Mail an neue Kontakte senden"
 
 #: modules/sendinblue/contact-form-properties.php:198
 #: modules/sendinblue/contact-form-properties.php:207
@@ -24,6 +36,10 @@ msgstr "Willkommens-E-Mail"
 #: modules/sendinblue/contact-form-properties.php:282
 msgid "(opens in a new tab)"
 msgstr "(öffnet in einem neuen Tab)"
+
+#: modules/sendinblue/contact-form-properties.php:172
+msgid "You have no contact list yet."
+msgstr "Du hast noch keine Kontaktliste."
 
 #: modules/sendinblue/contact-form-properties.php:113
 #: modules/sendinblue/contact-form-properties.php:122
