@@ -40,11 +40,12 @@ $request = Request::createFromGlobals();
 define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));
 
 define('OOS_VALID_MOD', true);
-require 'includes/main_ajax.php';
 
 if ($request->isXmlHttpRequest()) {  
    // Ajax request  
-   
+ 
+	require 'includes/main_ajax.php';
+ 
 	$headers = apache_request_headers();
 	if (isset($headers['X-CSRF-TOKEN'])) {
 		if ($headers['X-CSRF-TOKEN'] !== $_SESSION['csrf_token']) {
@@ -58,7 +59,7 @@ if ($request->isXmlHttpRequest()) {
 	if (isset($_POST['name']) || is_string($_POST['name'])) {
 		$sContent = oos_var_prep_for_os($_POST['name']);
 	}
-
+exit(json_encode($sContent));
 
 	if ( empty( $sContent ) || !is_string( $sContent ) ) {
 		exit(json_encode('403 Forbidden'));
@@ -68,9 +69,11 @@ if ($request->isXmlHttpRequest()) {
 		exit(json_encode(' Module not found'));
 	}
 
+	require 'includes/nice_exit.php';
+
 } else {  
 	http_response_code(403);
 	echo 'Error 403 Forbidden'; 	
 } 
 
-require 'includes/nice_exit.php';
+

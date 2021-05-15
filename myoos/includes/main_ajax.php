@@ -204,7 +204,7 @@ if ( $session->hasStarted() === true ) {
 
 	if ($_SESSION['session_user_agent'] != $http_user_agent) {
 		$session->expire();
-		oos_redirect(oos_href_link($aContents['login']));
+		exit(json_encode('No User Agent.'));
 	}
 
 	// verify the IP address
@@ -214,7 +214,7 @@ if ( $session->hasStarted() === true ) {
 
 	if ($_SESSION['session_ip_address'] != oos_server_get_remote()) {
 		$session->expire();
-		oos_redirect(oos_href_link($aContents['login']));
+		exit(json_encode('No IP Address.'));
 	}	
 } else {
 	$oUser = new oosUser();

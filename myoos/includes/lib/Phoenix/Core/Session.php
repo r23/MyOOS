@@ -108,6 +108,9 @@ class Phoenix_Session extends Session
 		$lifetime = null;
         $config['cookie_lifetime'] = $lifetime;
 
+		# possible values: 'strict', 'lax' and null
+		$config['cookie_samesite'] = 'strict';
+
         $this->storage->setOptions($config);
         return parent::start();		
 		
