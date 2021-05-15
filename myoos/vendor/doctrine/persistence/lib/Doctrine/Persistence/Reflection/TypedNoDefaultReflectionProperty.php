@@ -2,7 +2,10 @@
 
 namespace Doctrine\Persistence\Reflection;
 
+use Closure;
 use ReflectionProperty;
+
+use function assert;
 
 /**
  * PHP Typed No Default Reflection Property - special override for typed properties without a default value.
@@ -34,10 +37,13 @@ class TypedNoDefaultReflectionProperty extends ReflectionProperty
         if ($value === null && $this->hasType() && ! $this->getType()->allowsNull()) {
             $propertyName = $this->getName();
 
-            $unsetter = function () use ($propertyName) {
+            $unsetter = function () use ($propertyName): void {
                 unset($this->$propertyName);
             };
             $unsetter = $unsetter->bindTo($object, $this->getDeclaringClass()->getName());
+
+            assert($unsetter instanceof Closure);
+
             $unsetter();
 
             return;

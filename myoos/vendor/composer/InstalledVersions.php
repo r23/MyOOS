@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'c52bfcb7eb6b48377f888318144e4cac3453cb9b',
+    'reference' => '18f64ce87506c72c8d737fe5e6f00ae50dd1dbef',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -53,12 +53,12 @@ private static $installed = array (
     ),
     'doctrine/cache' => 
     array (
-      'pretty_version' => '1.11.0',
-      'version' => '1.11.0.0',
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a9c1b59eba5a08ca2770a76eddb88922f504e8e0',
+      'reference' => '64d8b1dedd6ae7bb6b4c3094a44c585ec04e86b2',
     ),
     'doctrine/collections' => 
     array (
@@ -89,12 +89,12 @@ private static $installed = array (
     ),
     'doctrine/persistence' => 
     array (
-      'pretty_version' => '2.1.0',
-      'version' => '2.1.0.0',
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9899c16934053880876b920a3b8b02ed2337ac1d',
+      'reference' => '08d3e6e666de85c7748fa27bfd63bb15ac29eab2',
     ),
     'dompdf/dompdf' => 
     array (
@@ -229,7 +229,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'c52bfcb7eb6b48377f888318144e4cac3453cb9b',
+      'reference' => '18f64ce87506c72c8d737fe5e6f00ae50dd1dbef',
     ),
     'ocramius/proxy-manager' => 
     array (
