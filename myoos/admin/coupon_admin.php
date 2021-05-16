@@ -775,7 +775,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $coupon_categories = $coupon['restrict_to_categories'];
   case 'new':
 // set some defaults
-    if (!$coupon_uses_user) $coupon_uses_user=1;
+    if (!isset($coupon_uses_user)) $coupon_uses_user=1;
 ?>
 
 			<!-- Breadcrumbs //-->
@@ -816,7 +816,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
       <tr>
         <td align="left" class="main"><?php if ($i==0) echo COUPON_NAME; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', $coupon_name[$language_id]) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_name[' . $languages[$i]['id'] . ']', (empty($coupon_name[$language_id]) ? '' : $coupon_name[$language_id])) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
         <td align="left" class="main" width="40%"><?php if ($i==0) echo COUPON_NAME_HELP; ?></td>
       </tr>
 <?php
@@ -830,7 +830,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
       <tr>
         <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC; ?></td>
-        <td align="left" valign="top"><?php echo oos_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', $coupon_desc[$language_id]) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
+        <td align="left" valign="top"><?php echo oos_draw_textarea_field('coupon_desc[' . $languages[$i]['id'] . ']','physical','24','3', (empty($coupon_desc[$language_id]) ? '' : $coupon_desc[$language_id])) . '&nbsp;' . oos_flag_icon($languages[$i]); ?></td>
         <td align="left" valign="top" class="main"><?php if ($i==0) echo COUPON_DESC_HELP; ?></td>
       </tr>
 <?php
@@ -838,57 +838,59 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
       <tr>
         <td align="left" class="main"><?php echo COUPON_AMOUNT; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_amount', $coupon_amount); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_amount', (empty($coupon_amount) ? '' : $coupon_amount)); ?></td>
         <td align="left" class="main"><?php echo COUPON_AMOUNT_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_MIN_ORDER; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_min_order', $coupon_min_order); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_min_order', (empty($coupon_min_order) ? '' : $coupon_min_order)); ?></td>
         <td align="left" class="main"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_FREE_SHIP; ?></td>
-        <td class="text-left"><?php echo oos_draw_checkbox_field('coupon_free_ship', $coupon_free_ship); ?></td>
+        <td class="text-left"><?php echo oos_draw_checkbox_field('coupon_free_ship', (empty($coupon_free_ship) ? '' : $coupon_free_ship)); ?></td>
         <td align="left" class="main"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_CODE; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_code', $coupon_code); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_code', (empty($coupon_code) ? '' : $coupon_code)); ?></td>
         <td align="left" class="main"><?php echo COUPON_CODE_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_USES_COUPON; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_uses_coupon', $coupon_uses_coupon); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_uses_coupon', (empty($coupon_uses_coupon) ? '' : $coupon_uses_coupon)); ?></td>
         <td align="left" class="main"><?php echo COUPON_USES_COUPON_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_USES_USER; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_uses_user', $coupon_uses_user); ?></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_uses_user', (empty($coupon_uses_user) ? '' : $coupon_uses_user)); ?></td>
         <td align="left" class="main"><?php echo COUPON_USES_USER_HELP; ?></td>
       </tr>
        <tr>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_products', $coupon_products); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</a></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_products', (empty($coupon_products) ? '' : $coupon_products)); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</a></td>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS_HELP; ?></td>
       </tr>
       <tr>
         <td align="left" class="main"><?php echo COUPON_CATEGORIES; ?></td>
-        <td class="text-left"><?php echo oos_draw_input_field('coupon_categories', $coupon_categories); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validcategories']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validcategories']); ?>', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</a></td>
+        <td class="text-left"><?php echo oos_draw_input_field('coupon_categories', (empty($coupon_categories) ? '' : $coupon_categories)); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validcategories']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validcategories']); ?>', 'Valid_Categories', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</a></td>
         <td align="left" class="main"><?php echo COUPON_CATEGORIES_HELP; ?></td>
       </tr>
       <tr>
 <?php
-    if (!$_POST['coupon_startdate']) {
-      $coupon_startdate = preg_split("/[-]/", date('Y-m-d'));
+	if (isset($_POST['coupon_startdate'])) {
+		$coupon_startdate = preg_split("/[-]/", $_POST['coupon_startdate']);
     } else {
-      $coupon_startdate = preg_split("/[-]/", $_POST['coupon_startdate']);
-    }
-    if (!$_POST['coupon_finishdate']) {
-      $coupon_finishdate = preg_split("/[-]/", date('Y-m-d'));
-      $coupon_finishdate[0] = $coupon_finishdate[0] + 1;
+		$coupon_startdate = preg_split("/[-]/", date('Y-m-d'));
+	}
+	
+	if (isset($_POST['coupon_finishdate'])) {
+		$coupon_finishdate = preg_split("/[-]/", $_POST['coupon_finishdate']);
     } else {
-      $coupon_finishdate = preg_split("/[-]/", $_POST['coupon_finishdate']);
-    }
+		$coupon_finishdate = preg_split("/[-]/", date('Y-m-d'));
+		$coupon_finishdate[0] = $coupon_finishdate[0] + 1;
+	}
+
 ?>
         <td align="left" class="main"><?php echo COUPON_STARTDATE; ?></td>
         <td class="text-left"><?php echo oos_draw_date_selector('coupon_startdate', mktime(0,0,0, $coupon_startdate[1], $coupon_startdate[2], $coupon_startdate[0])); ?></td>
