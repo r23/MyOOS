@@ -26,6 +26,27 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shoppi
 $cart_count_contents = 0;
 $basedir = OOS_IMAGES . 'product/min/';
 
+// PAngV
+$sPAngV = $aLang['text_taxt_incl'];
+if ($aUser['show_price'] == 1) {
+	if ($aUser['price_with_tax'] == 1) {
+		$tax_plus_shipping = sprintf($aLang['text_incl_tax_plus_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
+		$sPAngV = $aLang['text_taxt_incl'];	
+	} else {
+		$tax_plus_shipping = sprintf($aLang['text_excl_tax_plus_shipping'], oos_href_link($aContents['information'], 'information_id=5'));		
+		$sPAngV = $aLang['text_taxt_add'];
+	}
+
+	if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {
+		$tax_plus_shipping = sprintf($aLang['text_excl_tax_plus_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
+		$sPAngV = $aLang['tax_info_excl'];
+	}
+}
+
+$sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
+
+
+
 $aData = array();
 $aData['content'] = '';
 
@@ -121,8 +142,11 @@ if ( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']) ) {
 				$aData['content'] .= '    ' . oos_image($basedir . $products[$i]['image'], $products[$i]['name']) . "\n";
 				$aData['content'] .= '     </a></div>' . "\n";
 				$aData['content'] .= '   <div class="media-body">' . "\n";
-				$aData['content'] .= '     <h6 class="featured-entry-title"><a href=" ' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . $products[$i]['name']  . '</a></h6>' . "\n";				
-		
+				$aData['content'] .= '     <h6 class="featured-entry-title"><a href=" ' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . $products[$i]['quantity'] . '<span class="text-muted">x</span>&nbsp;' . $products[$i]['name']  . '</a></h6>' . "\n";				
+	
+
+
+	
 				// Product options names
 				if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
 					reset($products[$i]['attributes']);
@@ -136,25 +160,30 @@ if ( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']) ) {
 					reset($products[$i]['attributes']);
 					foreach ($products[$i]['attributes'] as $option => $value) {	
 						if ($products[$i][$option]['options_values_price'] != 0) {
-							$aData['content'] .= '<br /><small><i>' . $products[$i][$option]['price_prefix'] . $oCurrencies->display_price($products[$i][$option]['options_values_price'], $products[$i]['tax'], $products[$i]['quantity']) . '</i></small>';
+							$aData['content'] .= '<br /><small><i>' . $products[$i][$option]['price_prefix'] . $oCurrencies->display_price($products[$i][$option]['options_values_price'], $products[$i]['tax'], $products[$i]['quantity']) . '*</i></small>';
 						} 
 					}
 				}
 
-				$aData['content'] .='     <p class="featured-entry-meta">' . $products[$i]['quantity'] . '&nbsp; <span class="text-muted">x</span> ' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '</p>' . "\n";			
+				$aData['content'] .='     <p class="featured-entry-meta text-right">' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '*</p>' . "\n";			
 				$aData['content'] .='   </div>' . "\n";
 				$aData['content'] .='   <div class="text-right"><span class="item-remove-btn" data-id="' . $products[$i]['id'] . '" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>' . "\n";
 				$aData['content'] .='</div>	<!-- /cart item -->' . "\n";															
 			}
+
 
 			$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
 
 
 			$aData['content'] .='<hr>' . "\n";
 			$aData['content'] .='<div class="d-flex justify-content-between align-items-center py-3">' . "\n";
-			$aData['content'] .='<div class="font-size-sm"> <span class="mr-2">' . $aLang['sub_title_total'] . '</span><span class="font-weight-semibold text-dark">' . $cart_show_total . '</span></div><a class="btn btn-outline-secondary btn-sm" href="' . oos_href_link($aContents['shopping_cart']). '">' . $aLang['header_title_cart_contents'] . ' <i class="fa fa-chevron-right" aria-hidden="true"></i></a>' . "\n";
-			$aData['content'] .='</div><a class="btn btn-primary btn-sm btn-block" href="' . oos_href_link($aContents['checkout_shipping']) . '"><i class="fa fa-credit-card" aria-hidden="true"></i> '. $aLang['button_checkout'] . '</a></div>' . "\n";		
-			$aData['content'] .='</div>' . "\n";			
+			$aData['content'] .='<div class="font-size-sm"> <span class="mr-2">' . $aLang['sub_title_total'] . '*</span><span class="font-weight-semibold text-dark">' . $cart_show_total . '</span></div><a class="btn btn-outline-secondary btn-sm" href="' . oos_href_link($aContents['shopping_cart']). '">' . $aLang['header_title_cart_contents'] . ' <i class="fa fa-chevron-right" aria-hidden="true"></i></a>' . "\n";
+			
+			$aData['content'] .='</div>' . "\n";
+			$aData['content'] .='<p class="prices-tax">' . $tax_plus_shipping . '</p>' . "\n";
+			$aData['content'] .='<a class="btn btn-primary btn-sm btn-block" href="' . oos_href_link($aContents['checkout_shipping']) . '"><i class="fa fa-credit-card" aria-hidden="true"></i> '. $aLang['button_checkout'] . '</a></div>' . "\n";		
+			$aData['content'] .='</div>' . "\n";	
+		
 		}
 	}
 }

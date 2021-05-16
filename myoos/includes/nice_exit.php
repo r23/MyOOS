@@ -25,6 +25,8 @@ if ($debug == 1) {
 	echo '<pre>';
 	print_r($_SESSION);
 	echo '<br />';
+	print_r($_COOKIE);
+	echo '<br />';	
 	print_r($_GET);
 	echo '<br />';
 	print_r($_POST);

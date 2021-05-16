@@ -142,6 +142,8 @@ $aLang = [
 
 //offcanvas-cart
 'text_clear_cart' 				=> 'Warenkorb löschen',
+'text_item_successfull'			=> 'Der Artikel wurde erfolgreich in den Warenkorb gelegt.',
+
 
 // checkout procedure text
 'checkout_bar_delivery'           => 'Versandinformationen',

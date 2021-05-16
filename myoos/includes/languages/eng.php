@@ -159,6 +159,8 @@ $aLang = [
 
 //offcanvas-cart
 'text_clear_cart' 				=> 'Clear cart',
+'text_item_successfull'			=> 'The item was successfully added to the shopping cart.',
+
 
 // checkout procedure text
 'checkout_bar_delivery'             => 'Delivery Information',
