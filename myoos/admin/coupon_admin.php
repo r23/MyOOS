@@ -734,7 +734,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
      <tr>
         <td class="text-left"><?php echo oos_submit_button(IMAGE_CONFIRM); ?></td>
-        <td class="text-left"><?php echo oos_reset_button(BUTTON_BACK); ?></td>
+        <td class="text-left"><?php echo oos_reset_button('back', BUTTON_BACK, 'name=back'); ?></td>
+
 		
       </td>
       </tr>
@@ -976,6 +977,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 						</tr>	
 					</thead>
 <?php
+	$rows = 0;
     if (isset($nPage) && ($nPage > 1)) $rows = $nPage * 20 - 20;
     if ($status != '*') {
       $cc_result_raw = "SELECT
