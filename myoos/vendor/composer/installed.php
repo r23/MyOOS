@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'e97871a4d081aff78368580156c75444df70da22',
+    'reference' => '4a4738774b24e4314d97e8aa5b8c78a460f43752',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -31,12 +31,12 @@
     ),
     'doctrine/annotations' => 
     array (
-      'pretty_version' => '1.13.0',
-      'version' => '1.13.0.0',
+      'pretty_version' => '1.13.1',
+      'version' => '1.13.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '03cb2123a67d4be806554fe670d0adc298199808',
+      'reference' => 'e6e7b7d5b45a2f2abc5460cc6396480b2b1d321f',
     ),
     'doctrine/cache' => 
     array (
@@ -216,7 +216,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'e97871a4d081aff78368580156c75444df70da22',
+      'reference' => '4a4738774b24e4314d97e8aa5b8c78a460f43752',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -1094,12 +1094,12 @@
     ),
     'twig/twig' => 
     array (
-      'pretty_version' => 'v3.3.1',
-      'version' => '3.3.1.0',
+      'pretty_version' => 'v3.3.2',
+      'version' => '3.3.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ac44433c49892bf28d47c852b19832f3823bd351',
+      'reference' => '21578f00e83d4a82ecfa3d50752b609f13de6790',
     ),
     'videlalvaro/php-amqplib' => 
     array (
