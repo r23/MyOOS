@@ -334,20 +334,23 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 <?php
     $heading = array();
     $contents = array();
-      $coupon_description_result = $dbconn->Execute("SELECT coupon_name
+		$coupon_description_result = $dbconn->Execute("SELECT coupon_name
                                                 FROM " . $oostable['coupons_description'] . "
                                                 WHERE coupon_id = '" . intval($_GET['cID']) . "' AND
                                                     coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
-      $coupon_desc = $coupon_description_result->fields;
-      $count_customers = $dbconn->Execute("SELECT *
-                                       FROM " . $oostable['coupon_redeem_track'] . "
-                                       WHERE coupon_id = '" . intval($_GET['cID']) . "' AND
-                                             customer_id = '" . $cInfo->customer_id . "'");
-      $heading[] = array('text' => '<b>[' . $_GET['cID'] . ']' . COUPON_NAME . ' ' . $coupon_desc['coupon_name'] . '</b>');
-      $contents[] = array('text' => '<b>' . TEXT_REDEMPTIONS . '</b>');
-    #  $contents[] = array('text' => TEXT_REDEMPTIONS_TOTAL . '=' . $cc_result->RecordCount();
-    #  $contents[] = array('text' => TEXT_REDEMPTIONS_CUSTOMER . '=' . $count_customers->RecordCount();
-      $contents[] = array('text' => '');
+		$coupon_desc = $coupon_description_result->fields;
+		// remove? 
+		if (isset($cInfo) && is_object($cInfo) ) {	  
+			$count_customers = $dbconn->Execute("SELECT *
+												FROM " . $oostable['coupon_redeem_track'] . "
+												WHERE coupon_id = '" . intval($_GET['cID']) . "' AND
+												customer_id = '" . intval($cInfo->customer_id) . "'");
+		}
+		$heading[] = array('text' => '<b>[' . $_GET['cID'] . ']' . COUPON_NAME . ' ' . $coupon_desc['coupon_name'] . '</b>');
+		$contents[] = array('text' => '<b>' . TEXT_REDEMPTIONS . '</b>');
+		#  $contents[] = array('text' => TEXT_REDEMPTIONS_TOTAL . '=' . $cc_result->RecordCount();
+		#  $contents[] = array('text' => TEXT_REDEMPTIONS_CUSTOMER . '=' . $count_customers->RecordCount();
+		$contents[] = array('text' => '');
 ?>
     <td class="w-25">
 		<table class="table table-striped">
