@@ -141,41 +141,45 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         break;
 
       case 'update':
-        // get all HTTP_POST_VARS and validate
-        $_POST['coupon_code'] = trim($_POST['coupon_code']);
-        $languages = oos_get_languages();
-        for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $language_id = $languages[$i]['id'];
-          $_POST['coupon_name'][$iso_639_2] = trim($_POST['coupon_name'][$language_id]);
-          $_POST['coupon_desc'][$iso_639_2] = trim($_POST['coupon_desc'][$language_id]);
-        }
-        $_POST['coupon_amount'] = trim($_POST['coupon_amount']);
-        $update_errors = 0;
-        if (!$_POST['coupon_name']) {
-          $update_errors = 1;
-          $messageStack->add(ERROR_NO_COUPON_NAME, 'error');
-        }
-        if ((!$_POST['coupon_amount']) && (!$_POST['coupon_free_ship'])) {
-          $update_errors = 1;
-          $messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
-        }
-        if (!$_POST['coupon_code']) {
-          $coupon_code = oos_create_coupon_code();
-        }
-        if ($_POST['coupon_code']) $coupon_code = oos_db_prepare_input($_POST['coupon_code']);
-        $query1 = $dbconn->Execute("SELECT coupon_code
-                                FROM " . $oostable['coupons'] . "
-                                WHERE coupon_code = '" . oos_db_input($coupon_code) . "'");
-        if ($query1->RecordCount() && $_POST['coupon_code'] && $_GET['oldaction'] != 'voucheredit')  {
-          $update_errors = 1;
-          $messageStack->add(ERROR_COUPON_EXISTS, 'error');
-        }
-        if ($update_errors != 0) {
-          $action = 'new';
-        } else {
-          $action = 'update_preview';
-        }
-        break;
+			$update_errors = 0;
+			if (!isset($_POST['coupon_name'])) {
+				$update_errors = 1;
+				$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
+			}
+			
+			if (!isset($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
+				$update_errors = 1;
+				$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
+			}
+  
+			$aLanguages = oos_get_languages();
+			$nLanguages = count($aLanguages);
+
+			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+				$language_id = $aLanguages[$i]['id'];
+
+				$coupon_name = isset($_POST['coupon_name'][$language_id]) ? oos_db_prepare_input($_POST['coupon_name'][$language_id]) : ''; 			
+				$coupon_desc = isset($_POST['coupon_desc'][$language_id]) ? oos_db_prepare_input($_POST['coupon_desc'][$language_id]) : '';
+
+			}
+			
+			if (isset($_POST['coupon_amount'])) $coupon_amount = oos_db_prepare_input($_POST['coupon_amount']);
+
+			$coupon_code = isset($_POST['coupon_code']) ? oos_db_prepare_input($_POST['coupon_code']) : oos_create_coupon_code();
+
+			$query1 = $dbconn->Execute("SELECT coupon_code
+									FROM " . $oostable['coupons'] . "
+									WHERE coupon_code = '" . oos_db_input($coupon_code) . "'");
+			if ($query1->RecordCount() && $_POST['coupon_code'] && $_GET['oldaction'] != 'voucheredit')  {
+				$update_errors = 1;
+				$messageStack->add(ERROR_COUPON_EXISTS, 'error');
+			}
+			if ($update_errors != 0) {
+				$action = 'new';
+			} else {
+				$action = 'update_preview';
+			}
+			break;
 
       case 'update_confirm':
         if ( ($_POST['back_x']) || ($_POST['back_y']) ) {
@@ -717,9 +721,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           echo oos_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$language_id]);
           echo oos_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', $_POST['coupon_desc'][$language_id]);
        }
-    echo oos_draw_hidden_field('coupon_amount', $_POST['coupon_amount']);
-    echo oos_draw_hidden_field('coupon_min_order', $_POST['coupon_min_order']);
-    echo oos_draw_hidden_field('coupon_free_ship', $_POST['coupon_free_ship']);
+    echo oos_draw_hidden_field('coupon_amount', isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0);
+    echo oos_draw_hidden_field('coupon_min_order', isset($_POST['coupon_min_order']) ? oos_db_prepare_input($_POST['coupon_min_order']) : 0);
+    echo oos_draw_hidden_field('coupon_free_ship', isset($_POST['coupon_free_ship']) ? intval($_POST['coupon_free_ship']) : 0 );
     echo oos_draw_hidden_field('coupon_code', $c_code);
     echo oos_draw_hidden_field('coupon_uses_coupon', $_POST['coupon_uses_coupon']);
     echo oos_draw_hidden_field('coupon_uses_user', $_POST['coupon_uses_user']);
@@ -729,8 +733,9 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     echo oos_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] )));
 ?>
      <tr>
-        <td class="text-left"><?php echo oos_submit_button(COUPON_BUTTON_CONFIRM); ?></td>
-        <td class="text-left"><?php echo oos_submit_button('back', COUPON_BUTTON_BACK, 'name=back'); ?></td>
+        <td class="text-left"><?php echo oos_submit_button(IMAGE_CONFIRM); ?></td>
+        <td class="text-left"><?php echo oos_reset_button(BUTTON_BACK); ?></td>
+		
       </td>
       </tr>
 
