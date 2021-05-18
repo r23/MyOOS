@@ -175,6 +175,17 @@ function oos_preview_button($title = '', $value = '') {
 	return '<button class="btn btn-sm btn-success mb-20" type="submit" name="preview" value="' . $value . '"><strong>' . $title . '</strong></button>';
 }
 
+/**
+ * Outputs a submit button
+ *
+ * @param $title
+ * @return string
+ */
+function oos_cancel_button($title = '', $value = '') {
+	return '<button class="btn btn-sm btn-warning mb-20" type="submit" name="back" value="' . $value . '"><strong>' . $title . '</strong></button>';
+}
+
+
 
 /**
  * Outputs a reset button

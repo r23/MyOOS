@@ -81,14 +81,16 @@ define('TEXT_FROM_NAME', 'Absender Name:');
 define('TEXT_FROM_MAIL', 'Absender eMail:');
 
 define('COUPON_NAME_HELP', 'Ein kurzer Name für den Gutschein.');
-define('COUPON_AMOUNT_HELP', 'Geben Sie einen Gutscheinwert an. Entweder einen bestimmten Betrag oder ein Prozentzeichen (%) am Ende für einen prozentualen Nachlass');
+define('COUPON_AMOUNT_HELP', 'Geben Sie einen Gutscheinwert an. Entweder einen bestimmten Betrag oder ein Prozentzeichen (%) am Ende für einen prozentualen Nachlass.');
 define('COUPON_CODE_HELP', 'Sie können hier einen Gutscheincode eingeben, oder das Feld leer lassen. Es wird dann ein automatisch erzeugter Gutscheincode verwendet.');
 define('COUPON_STARTDATE_HELP', 'Ab wann ist der Gutschein gültig? ');
 define('COUPON_FINISHDATE_HELP', 'Bis wann ist der Gutschein gültig? ');
 define('COUPON_FREE_SHIP_HELP', 'Mit diesen Gutschein kann der Kunde versandkostenfrei bestellen! Bitte beachten Sie: Diese Auswahl berschreibt den Warenwert, berücksichtigt jedoch den Mindestbestellwert!');
-define('COUPON_DESC_HELP', 'Eine Gutscheinbeschreibung für den Kunden');
+define('COUPON_DESC_HELP', 'Eine Gutscheinbeschreibung für den Kunden.');
 define('COUPON_MIN_ORDER_HELP', 'Einen Mindestbestellwert eingeben. Unterhalb dieses Wertes wird der Gutschein nicht eingelöst!');
 define('COUPON_USES_COUPON_HELP', 'Wie oft kann der Gutschein benutzt werden? Soll die Anzahl unlimitiert möglich sein, lassen Sie das Feld leer.');
 define('COUPON_USES_USER_HELP', 'Wie oft kann ein Kunde den Gutschein benutzen? Soll die Anzahl unlimitiert möglich sein, lassen Sie das Feld leer.');
 define('COUPON_PRODUCTS_HELP', 'Ein Liste von erlaubten Produkt-IDs (mit Komma getrennt). Lassen Sie dieses Feld leer, falls Sie keine Beschränkungen machen wollen.');
 define('COUPON_CATEGORIES_HELP', 'Eine Liste von erlaubten Kategorien (mit Komma getrennt). Lassen Sie dieses Feld leer, falls Sie keine Beschränkungen machen wollen.');
+
+

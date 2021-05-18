@@ -181,10 +181,23 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 			}
 			break;
 
-      case 'update_confirm':
-        if ( ($_POST['back_x']) || ($_POST['back_y']) ) {
-          $action = 'new';
-        } else {
+		case 'update_confirm':
+			if (isset($_POST['back']) && ($_POST['back'] == 'back')) {
+				$action = 'new';
+			} else {
+				
+				if (!isset($_POST['coupon_name'])) {
+					$update_errors = 1;
+					$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
+				}
+			
+				if (!isset($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
+					$update_errors = 1;
+					$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
+				}				
+				
+				
+				
           $coupon_type = "F";
           if (substr($_POST['coupon_amount'], -1) == '%') $coupon_type='P';
           if ($_POST['coupon_free_ship']) $coupon_type = 'S';
@@ -549,7 +562,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?>&nbsp;&nbsp;</td>
-                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $_GET['customer']);?></td>
+                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, isset($_GET['customer']) ? oos_db_prepare_input($_GET['customer']) : ''); ?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
@@ -737,8 +750,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 ?>
      <tr>
         <td class="text-left"><?php echo oos_submit_button(IMAGE_CONFIRM); ?></td>
-        <td class="text-left"><?php echo oos_reset_button('back', BUTTON_BACK, 'name=back'); ?></td>
-
+        <td class="text-left"><?php echo oos_cancel_button('<i class="fa fa-chevron-left"></i> ' . BUTTON_BACK, 'back'); ?></td>
 		
       </td>
       </tr>
@@ -1074,7 +1086,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $contents[] = array('text' => TEXT_NEW_INTRO);
       break;
 
-    case 'neww':
+    case 'new':
       $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_COUPON . '</b>');
       $contents[] = array('text' => TEXT_NEW_INTRO);
       $contents[] = array('text' => '<br />' . COUPON_NAME . '<br />' . oos_draw_input_field('name'));
@@ -1126,8 +1138,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                      COUPON_AMOUNT . ':&nbsp;' . $amount . '<br />' .
                      COUPON_STARTDATE . ':&nbsp;' . oos_date_short($coupon_start_date) . '<br />' .
                      COUPON_FINISHDATE . ':&nbsp;' . oos_date_short($coupon_expire_date) . '<br />' .
-                     COUPON_USES_COUPON . ':&nbsp;' . $uses_per_coupon . '<br />' .
-                     COUPON_USES_USER . ':&nbsp;' . $uses_per_user . '<br />' .
+                     COUPON_USES_COUPON . '&nbsp;' . $uses_per_coupon . '<br />' .
+                     COUPON_USES_USER . '&nbsp;' . $uses_per_user . '<br />' .
                      COUPON_PRODUCTS . ':&nbsp;' . $prod_details . '<br />' .
                      COUPON_CATEGORIES . ':&nbsp;' . $cat_details . '<br />' .
                      DATE_CREATED . ':&nbsp;' . oos_date_short($date_created) . '<br />' .
