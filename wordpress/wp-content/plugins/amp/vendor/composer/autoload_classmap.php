@@ -118,6 +118,7 @@ return array(
     'AmpProject\\AmpWP\\Component\\Carousel' => $baseDir . '/src/Component/Carousel.php',
     'AmpProject\\AmpWP\\Component\\HasCaption' => $baseDir . '/src/Component/HasCaption.php',
     'AmpProject\\AmpWP\\ConfigurationArgument' => $baseDir . '/src/ConfigurationArgument.php',
+    'AmpProject\\AmpWP\\DependencySupport' => $baseDir . '/src/DependencySupport.php',
     'AmpProject\\AmpWP\\DevTools\\BlockSources' => $baseDir . '/src/DevTools/BlockSources.php',
     'AmpProject\\AmpWP\\DevTools\\CallbackReflection' => $baseDir . '/src/DevTools/CallbackReflection.php',
     'AmpProject\\AmpWP\\DevTools\\ErrorPage' => $baseDir . '/src/DevTools/ErrorPage.php',

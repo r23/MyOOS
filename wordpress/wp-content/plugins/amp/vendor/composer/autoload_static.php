@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89
+class ComposerStaticInit65a9b225b4ecbde3075459d02d13abf6
 {
     public static $files = array (
         'ffc2110a578b705d2022d1f7803373a6' => __DIR__ . '/../..' . '/includes/bootstrap.php',
@@ -158,6 +158,7 @@ class ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89
         'AmpProject\\AmpWP\\Component\\Carousel' => __DIR__ . '/../..' . '/src/Component/Carousel.php',
         'AmpProject\\AmpWP\\Component\\HasCaption' => __DIR__ . '/../..' . '/src/Component/HasCaption.php',
         'AmpProject\\AmpWP\\ConfigurationArgument' => __DIR__ . '/../..' . '/src/ConfigurationArgument.php',
+        'AmpProject\\AmpWP\\DependencySupport' => __DIR__ . '/../..' . '/src/DependencySupport.php',
         'AmpProject\\AmpWP\\DevTools\\BlockSources' => __DIR__ . '/../..' . '/src/DevTools/BlockSources.php',
         'AmpProject\\AmpWP\\DevTools\\CallbackReflection' => __DIR__ . '/../..' . '/src/DevTools/CallbackReflection.php',
         'AmpProject\\AmpWP\\DevTools\\ErrorPage' => __DIR__ . '/../..' . '/src/DevTools/ErrorPage.php',
@@ -371,9 +372,9 @@ class ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite6709b1d44e0d31d2dd2d31a66c72b89::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit65a9b225b4ecbde3075459d02d13abf6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit65a9b225b4ecbde3075459d02d13abf6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit65a9b225b4ecbde3075459d02d13abf6::$classMap;
 
         }, null, ClassLoader::class);
     }
