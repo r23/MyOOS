@@ -310,7 +310,12 @@ define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurse aktualisieren');
 define('IMAGE_UPLOAD', 'Hochladen');
 define('IMAGE_WISHLIST', 'Wunschzettel');
 
-
+// coupon_admin
+define('BUTTON_CONFIRM_DELETE_VOUCHER', 'Bestätigen: Gutschein löschen');
+define('BUTTON_EMAIL_VOUCHER', 'E-Mail-Gutschein'); 
+define('BUTTON_EDIT_VOUCHER', 'Gutschein bearbeiten');
+define('BUTTON_DELETE_VOUCHER', 'Gutschein löschen');
+define('BUTTON_REPORT_VOUCHER', 'Gutschein Bericht');
 
 $aLang['image_new_tax_rate'] = 'Neuen Steuersatz anlegen';
 $aLang['image_new_zone'] = 'Neues Bundesland einfügen';

@@ -306,6 +306,13 @@ define('IMAGE_UPDATE_CURRENCIES', 'Update Exchange Rate');
 define('IMAGE_UPLOAD', 'Upload');
 define('IMAGE_WISHLIST', 'Wishlist');
 
+// coupon_admin
+define('BUTTON_CONFIRM_DELETE_VOUCHER', 'Confirm Delete Voucher');
+define('BUTTON_EMAIL_VOUCHER', 'Email Voucher'); 
+define('BUTTON_EDIT_VOUCHER', 'Edit Voucher');
+define('BUTTON_DELETE_VOUCHER', 'Delete Voucher');
+define('BUTTON_REPORT_VOUCHER', 'Report Voucher');
+
 $aLang['image_new_tax_rate'] = 'New Tax Rate';
 $aLang['image_new_zone'] = 'New Zone';
 
