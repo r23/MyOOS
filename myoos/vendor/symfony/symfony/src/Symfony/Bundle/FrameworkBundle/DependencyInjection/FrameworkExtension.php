@@ -12,6 +12,7 @@
 namespace Symfony\Bundle\FrameworkBundle\DependencyInjection;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\Common\Annotations\PsrCachedReader;
 use Doctrine\Common\Annotations\Reader;
 use Http\Client\HttpClient;
 use Psr\Cache\CacheItemPoolInterface;
@@ -794,10 +795,6 @@ class FrameworkExtension extends Extension
             $definitionDefinition->addArgument($transitions);
             $definitionDefinition->addArgument($initialMarking);
             $definitionDefinition->addArgument(new Reference(sprintf('%s.metadata_store', $workflowId)));
-            $definitionDefinition->addTag('workflow.definition', [
-                'name' => $name,
-                'type' => $type,
-            ]);
 
             // Create MarkingStore
             if (isset($workflow['marking_store']['type'])) {
@@ -1426,14 +1423,20 @@ class FrameworkExtension extends Extension
         }
 
         if ('none' !== $config['cache']) {
-            if (!class_exists(\Doctrine\Common\Cache\CacheProvider::class)) {
+            if (class_exists(PsrCachedReader::class)) {
+                $container
+                    ->getDefinition('annotations.cached_reader')
+                    ->setClass(PsrCachedReader::class)
+                    ->replaceArgument(1, new Definition(ArrayAdapter::class))
+                ;
+            } elseif (!class_exists(\Doctrine\Common\Cache\CacheProvider::class)) {
                 throw new LogicException('Annotations cannot be enabled as the Doctrine Cache library is not installed.');
             }
 
             $cacheService = $config['cache'];
 
             if ('php_array' === $config['cache']) {
-                $cacheService = 'annotations.cache';
+                $cacheService = class_exists(PsrCachedReader::class) ? 'annotations.cache_adapter' : 'annotations.cache';
 
                 // Enable warmer only if PHP array is used for cache
                 $definition = $container->findDefinition('annotations.cache_warmer');
@@ -1450,7 +1453,7 @@ class FrameworkExtension extends Extension
                     ->replaceArgument(2, $cacheDir)
                 ;
 
-                $cacheService = 'annotations.filesystem_cache';
+                $cacheService = class_exists(PsrCachedReader::class) ? 'annotations.filesystem_cache_adapter' : 'annotations.filesystem_cache';
             }
 
             $container

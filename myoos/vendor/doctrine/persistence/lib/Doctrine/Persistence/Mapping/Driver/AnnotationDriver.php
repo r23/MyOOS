@@ -13,6 +13,7 @@ use RegexIterator;
 
 use function array_merge;
 use function array_unique;
+use function assert;
 use function get_class;
 use function get_declared_classes;
 use function in_array;
@@ -60,6 +61,7 @@ abstract class AnnotationDriver implements MappingDriver
      * Cache for AnnotationDriver#getAllClassNames().
      *
      * @var string[]|null
+     * @psalm-var list<class-string>|null
      */
     protected $classNames;
 
@@ -223,7 +225,9 @@ abstract class AnnotationDriver implements MappingDriver
                 }
 
                 foreach ($this->excludePaths as $excludePath) {
-                    $exclude = str_replace('\\', '/', realpath($excludePath));
+                    $realExcludePath = realpath($excludePath);
+                    assert($realExcludePath !== false);
+                    $exclude = str_replace('\\', '/', $realExcludePath);
                     $current = str_replace('\\', '/', $sourceFile);
 
                     if (strpos($current, $exclude) !== false) {

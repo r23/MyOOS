@@ -158,6 +158,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             'Dompdf\\' => 7,
             'Doctrine\\Persistence\\' => 21,
+            'Doctrine\\Deprecations\\' => 22,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
@@ -356,6 +357,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Doctrine\\Persistence\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/persistence/lib/Doctrine/Persistence',
+        ),
+        'Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
         ),
         'Doctrine\\Common\\Lexer\\' => 
         array (

@@ -180,16 +180,16 @@
         },
         {
             "name": "doctrine/cache",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "64d8b1dedd6ae7bb6b4c3094a44c585ec04e86b2"
+                "reference": "0fc7b7b12992e3be1d7fcdcd281e53b671306f93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/64d8b1dedd6ae7bb6b4c3094a44c585ec04e86b2",
-                "reference": "64d8b1dedd6ae7bb6b4c3094a44c585ec04e86b2",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/0fc7b7b12992e3be1d7fcdcd281e53b671306f93",
+                "reference": "0fc7b7b12992e3be1d7fcdcd281e53b671306f93",
                 "shasum": ""
             },
             "require": {
@@ -259,7 +259,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/cache/issues",
-                "source": "https://github.com/doctrine/cache/tree/2.0.0"
+                "source": "https://github.com/doctrine/cache/tree/2.0.1"
             },
             "funding": [
                 {
@@ -275,7 +275,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-28T18:03:31+00:00"
+            "time": "2021-05-19T06:49:24+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -345,6 +345,49 @@
                 "source": "https://github.com/doctrine/collections/tree/1.6.7"
             },
             "time": "2020-07-27T17:53:49+00:00"
+        },
+        {
+            "name": "doctrine/deprecations",
+            "version": "v0.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/deprecations.git",
+                "reference": "9504165960a1f83cc1480e2be1dd0a0478561314"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/9504165960a1f83cc1480e2be1dd0a0478561314",
+                "reference": "9504165960a1f83cc1480e2be1dd0a0478561314",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^6.0|^7.0|^8.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0",
+                "psr/log": "^1.0"
+            },
+            "suggest": {
+                "psr/log": "Allows logging deprecations via PSR-3 logger implementation"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Deprecations\\": "lib/Doctrine/Deprecations"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A small layer on top of trigger_error(E_USER_DEPRECATED) or PSR-3 logging with options to disable all deprecations or selectively for packages.",
+            "homepage": "https://www.doctrine-project.org/",
+            "support": {
+                "issues": "https://github.com/doctrine/deprecations/issues",
+                "source": "https://github.com/doctrine/deprecations/tree/v0.5.3"
+            },
+            "time": "2021-03-21T12:59:47+00:00"
         },
         {
             "name": "doctrine/event-manager",
@@ -522,22 +565,23 @@
         },
         {
             "name": "doctrine/persistence",
-            "version": "2.2.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/persistence.git",
-                "reference": "08d3e6e666de85c7748fa27bfd63bb15ac29eab2"
+                "reference": "d138f3ab5f761055cab1054070377cfd3222e368"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/08d3e6e666de85c7748fa27bfd63bb15ac29eab2",
-                "reference": "08d3e6e666de85c7748fa27bfd63bb15ac29eab2",
+                "url": "https://api.github.com/repos/doctrine/persistence/zipball/d138f3ab5f761055cab1054070377cfd3222e368",
+                "reference": "d138f3ab5f761055cab1054070377cfd3222e368",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "^1.0",
                 "doctrine/cache": "^1.11 || ^2.0",
                 "doctrine/collections": "^1.0",
+                "doctrine/deprecations": "^0.5.3",
                 "doctrine/event-manager": "^1.0",
                 "php": "^7.1 || ^8.0",
                 "psr/cache": "^1.0|^2.0|^3.0"
@@ -602,9 +646,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/persistence/issues",
-                "source": "https://github.com/doctrine/persistence/tree/2.2.0"
+                "source": "https://github.com/doctrine/persistence/tree/2.2.1"
             },
-            "time": "2021-05-15T18:37:00+00:00"
+            "time": "2021-05-19T07:07:01+00:00"
         },
         {
             "name": "dompdf/dompdf",
@@ -3663,16 +3707,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.2.8",
+            "version": "v5.2.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "23147f993c63c9eaafe3fa7ac0363a2e42d66a22"
+                "reference": "3552d33cac808741658b6d09866fb1ada92f6fd8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/23147f993c63c9eaafe3fa7ac0363a2e42d66a22",
-                "reference": "23147f993c63c9eaafe3fa7ac0363a2e42d66a22",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/3552d33cac808741658b6d09866fb1ada92f6fd8",
+                "reference": "3552d33cac808741658b6d09866fb1ada92f6fd8",
                 "shasum": ""
             },
             "require": {
@@ -3798,7 +3842,7 @@
                 "cache/integration-tests": "dev-master",
                 "composer/package-versions-deprecated": "^1.8",
                 "doctrine/annotations": "^1.10.4",
-                "doctrine/cache": "~1.6",
+                "doctrine/cache": "^1.6|^2.0",
                 "doctrine/collections": "~1.0",
                 "doctrine/data-fixtures": "^1.1",
                 "doctrine/dbal": "^2.10|^3.0",
@@ -3863,7 +3907,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.2.8"
+                "source": "https://github.com/symfony/symfony/tree/v5.2.9"
             },
             "funding": [
                 {
@@ -3879,7 +3923,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-12T13:28:09+00:00"
+            "time": "2021-05-19T12:23:59+00:00"
         },
         {
             "name": "twig/twig",

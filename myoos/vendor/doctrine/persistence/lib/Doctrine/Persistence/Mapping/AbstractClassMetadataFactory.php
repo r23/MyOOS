@@ -2,11 +2,10 @@
 
 namespace Doctrine\Persistence\Mapping;
 
-use BadMethodCallException;
 use Doctrine\Common\Cache\Cache;
-use Doctrine\Common\Cache\CacheProvider;
 use Doctrine\Common\Cache\Psr6\CacheAdapter;
 use Doctrine\Common\Cache\Psr6\DoctrineProvider;
+use Doctrine\Deprecations\Deprecation;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use Doctrine\Persistence\Proxy;
 use Psr\Cache\CacheItemPoolInterface;
@@ -19,14 +18,11 @@ use function array_reverse;
 use function array_unshift;
 use function assert;
 use function explode;
-use function sprintf;
+use function is_array;
 use function str_replace;
 use function strpos;
 use function strrpos;
 use function substr;
-use function trigger_error;
-
-use const E_USER_DEPRECATED;
 
 /**
  * The ClassMetadataFactory is used to create ClassMetadata objects that contain all the
@@ -77,7 +73,12 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
      */
     public function setCacheDriver(?Cache $cacheDriver = null)
     {
-        @trigger_error(sprintf('%s is deprecated. Use setCache() with a PSR-6 cache instead.', __METHOD__), E_USER_DEPRECATED);
+        Deprecation::trigger(
+            'doctrine/persistence',
+            'https://github.com/doctrine/persistence/issues/184',
+            '%s is deprecated. Use setCache() with a PSR-6 cache instead.',
+            __METHOD__
+        );
 
         $this->cacheDriver = $cacheDriver;
 
@@ -85,10 +86,6 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
             $this->cache = null;
 
             return;
-        }
-
-        if (! $cacheDriver instanceof CacheProvider) {
-            throw new BadMethodCallException('Cannot convert cache to PSR-6 cache');
         }
 
         $this->cache = CacheAdapter::wrap($cacheDriver);
@@ -103,7 +100,12 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
      */
     public function getCacheDriver()
     {
-        @trigger_error(sprintf('%s is deprecated. Use getCache() instead.', __METHOD__), E_USER_DEPRECATED);
+        Deprecation::trigger(
+            'doctrine/persistence',
+            'https://github.com/doctrine/persistence/issues/184',
+            '%s is deprecated. Use getCache() instead.',
+            __METHOD__
+        );
 
         return $this->cacheDriver;
     }
@@ -251,6 +253,7 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
                         array_map([$this, 'getCacheKey'], $loadedMetadata),
                         $loadedMetadata
                     );
+                    assert(is_array($classNames));
 
                     foreach ($this->cache->getItems(array_keys($classNames)) as $item) {
                         if (! isset($classNames[$item->getKey()])) {

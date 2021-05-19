@@ -22,7 +22,7 @@ interface ObjectManager
      * @return object|null The found object.
      * @psalm-return T|null
      *
-     * @template T
+     * @template T of object
      */
     public function find($className, $id);
 
@@ -144,6 +144,7 @@ interface ObjectManager
      * Gets the metadata factory used to gather the metadata of classes.
      *
      * @return ClassMetadataFactory
+     * @psalm-return ClassMetadataFactory<ClassMetadata<object>>
      */
     public function getMetadataFactory();
 

@@ -9,6 +9,7 @@ use RecursiveIteratorIterator;
 
 use function array_keys;
 use function array_merge;
+use function assert;
 use function is_dir;
 use function is_file;
 use function realpath;
@@ -183,16 +184,24 @@ class SymfonyFileLocator implements FileLocator
                     // NOTE: All files found here means classes are not transient!
                     if (isset($this->prefixes[$path])) {
                         // Calculate namespace suffix for given prefix as a relative path from basepath to file path
+                        $basepath = realpath($path);
+                        $filepath = realpath($file->getPath());
+                        assert($basepath !== false);
+                        assert($filepath !== false);
                         $nsSuffix = strtr(
-                            substr(realpath($file->getPath()), strlen(realpath($path))),
+                            substr($filepath, strlen($basepath)),
                             $this->nsSeparator,
                             '\\'
                         );
 
-                        $classes[] = $this->prefixes[$path] . str_replace(DIRECTORY_SEPARATOR, '\\', $nsSuffix) . '\\' . str_replace($this->nsSeparator, '\\', $fileName);
+                        /** @psalm-var class-string */
+                        $class = $this->prefixes[$path] . str_replace(DIRECTORY_SEPARATOR, '\\', $nsSuffix) . '\\' . str_replace($this->nsSeparator, '\\', $fileName);
                     } else {
-                        $classes[] = str_replace($this->nsSeparator, '\\', $fileName);
+                        /** @psalm-var class-string */
+                        $class = str_replace($this->nsSeparator, '\\', $fileName);
                     }
+
+                    $classes[] = $class;
                 }
             }
         }
