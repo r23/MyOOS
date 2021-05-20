@@ -137,7 +137,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   if (!empty($action)) {
     switch ($action) {
       case 'confirmdelete':
-        $delete_result=$dbconn->Execute("UPDATE " . $oostable['coupons'] . " SET coupon_active = 'N' WHERE coupon_id='".$_GET['cID']."'");
+        $delete_result=$dbconn->Execute("UPDATE " . $oostable['coupons'] . " SET coupon_active = 'N' WHERE coupon_id='". intval($_GET['cID'])."'");
         break;
 
       case 'update':
@@ -165,7 +165,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 			
 			if (isset($_POST['coupon_amount'])) $coupon_amount = oos_db_prepare_input($_POST['coupon_amount']);
 
-			$coupon_code = isset($_POST['coupon_code']) ? oos_db_prepare_input($_POST['coupon_code']) : oos_create_coupon_code();
+			$coupon_code = empty($_POST['coupon_code']) ?  oos_create_coupon_code() : oos_db_prepare_input($_POST['coupon_code']); 
 
 			$query1 = $dbconn->Execute("SELECT coupon_code
 									FROM " . $oostable['coupons'] . "
@@ -684,13 +684,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       </tr>
       <tr>
         <td class="text-left"><?php echo COUPON_CODE; ?></td>
-<?php
-    if (isset($_POST['coupon_code'])) {
-      $c_code = oos_db_prepare_input($_POST['coupon_code']);
-    } else {
-      $c_code = $coupon_code;
-    }
-?>
         <td class="text-left"><?php echo $coupon_code; ?></td>
       </tr>
 
@@ -740,7 +733,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     echo oos_draw_hidden_field('coupon_amount', isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0);
     echo oos_draw_hidden_field('coupon_min_order', isset($_POST['coupon_min_order']) ? oos_db_prepare_input($_POST['coupon_min_order']) : 0);
     echo oos_draw_hidden_field('coupon_free_ship', isset($_POST['coupon_free_ship']) ? intval($_POST['coupon_free_ship']) : 0 );
-    echo oos_draw_hidden_field('coupon_code', $c_code);
+    echo oos_draw_hidden_field('coupon_code', $coupon_code);
     echo oos_draw_hidden_field('coupon_uses_coupon', $_POST['coupon_uses_coupon']);
     echo oos_draw_hidden_field('coupon_uses_user', $_POST['coupon_uses_user']);
     echo oos_draw_hidden_field('coupon_products', $_POST['coupon_products']);
