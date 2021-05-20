@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'dcd22ab09495b8bdec422004369aff29fd411406',
+    'reference' => '836ec5d3c744b030b8b37bdf3395d396ae5be46e',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -134,12 +134,12 @@ private static $installed = array (
     ),
     'friendsofphp/proxy-manager-lts' => 
     array (
-      'pretty_version' => 'v1.0.3',
-      'version' => '1.0.3.0',
+      'pretty_version' => 'v1.0.4',
+      'version' => '1.0.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '121af47c9aee9c03031bdeca3fac0540f59aa5c3',
+      'reference' => '587bfddfd9847c1d0417c4cf07d1dbf19aa6d136',
     ),
     'khanamiryan/qrcode-detector-decoder' => 
     array (
@@ -238,7 +238,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'dcd22ab09495b8bdec422004369aff29fd411406',
+      'reference' => '836ec5d3c744b030b8b37bdf3395d396ae5be46e',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -474,12 +474,12 @@ private static $installed = array (
     ),
     'stripe/stripe-php' => 
     array (
-      'pretty_version' => 'v7.78.0',
-      'version' => '7.78.0.0',
+      'pretty_version' => 'v7.79.0',
+      'version' => '7.79.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6ec33fa8e9de2322be93d28dfd685661c67ca549',
+      'reference' => 'e17e85bc13dfa531bdfb3d3719d3810431d104f9',
     ),
     'symfony/amazon-mailer' => 
     array (
