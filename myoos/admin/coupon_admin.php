@@ -142,12 +142,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
       case 'update':
 			$update_errors = 0;
-			if (!isset($_POST['coupon_name'])) {
+			if (empty($_POST['coupon_name'])) {
 				$update_errors = 1;
 				$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
 			}
 			
-			if (!isset($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
+			if (empty($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
 				$update_errors = 1;
 				$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
 			}
@@ -719,7 +719,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td class="text-left"><?php echo COUPON_FINISHDATE; ?></td>
 <?php
     $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] ));
-    echo date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
 ?>
         <td class="text-left"><?php echo $finish_date; ?></td>
       </tr>
@@ -919,10 +918,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td class="text-left"><?php echo oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
         <td class="text-left"><?php echo '&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </tr>
-      </td></table></form>
-      </tr>
-
-      </table></td>
+      </table></form>
 <?php
     break;
   default:
