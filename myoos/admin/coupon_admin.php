@@ -37,7 +37,7 @@ if (isset($_GET['selected_box'])) {
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
+if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {
     case '***':
       $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address
@@ -94,13 +94,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       $send_mail->Username = OOS_SMTPUSER; // SMTP username
       $send_mail->Password = OOS_SMTPPASS; // SMTP password
       $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
-    } else
-      // Set sendmail path
-      if ( EMAIL_TRANSPORT == 'sendmail' ) {
-        if (!oos_empty(OOS_SENDMAIL)) {
-          $send_mail->Sendmail = OOS_SENDMAIL;
-          $send_mail->IsSendmail();
-        }
+    } else {
+		// Set sendmail path
+		if ( EMAIL_TRANSPORT == 'sendmail' ) {
+			if (!oos_empty(OOS_SENDMAIL)) {
+				$send_mail->Sendmail = OOS_SENDMAIL;
+				$send_mail->IsSendmail();
+			}
+		}
     }
 
     $send_mail->Subject = $subject;
@@ -134,35 +135,34 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
   }
 
-  if (!empty($action)) {
-    switch ($action) {
-      case 'confirmdelete':
-        $delete_result=$dbconn->Execute("UPDATE " . $oostable['coupons'] . " SET coupon_active = 'N' WHERE coupon_id='". intval($_GET['cID'])."'");
-        break;
+if (!empty($action)) {
+	switch ($action) {
+		case 'confirmdelete':
+			$delete_result=$dbconn->Execute("UPDATE " . $oostable['coupons'] . " SET coupon_active = 'N' WHERE coupon_id='". intval($_GET['cID'])."'");
+			break;
 
-      case 'update':
+		case 'update':
 			$update_errors = 0;
-			if (empty($_POST['coupon_name'])) {
-				$update_errors = 1;
-				$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
-			}
-			
+	
 			if (empty($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
 				$update_errors = 1;
-				$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
+				$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');				
 			}
-  
+
 			$aLanguages = oos_get_languages();
 			$nLanguages = count($aLanguages);
 
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$language_id = $aLanguages[$i]['id'];
 
-				$coupon_name = isset($_POST['coupon_name'][$language_id]) ? oos_db_prepare_input($_POST['coupon_name'][$language_id]) : ''; 			
-				$coupon_desc = isset($_POST['coupon_desc'][$language_id]) ? oos_db_prepare_input($_POST['coupon_desc'][$language_id]) : '';
-
+				if (empty($_POST['coupon_name'][$language_id])) {
+					$update_errors = 1;				
+					$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
+				} else {
+					$coupon_name[$language_id] = oos_prepare_input($_POST['coupon_name'][$language_id]);
+				}
 			}
-			
+	
 			if (isset($_POST['coupon_amount'])) $coupon_amount = oos_db_prepare_input($_POST['coupon_amount']);
 
 			$coupon_code = empty($_POST['coupon_code']) ?  oos_create_coupon_code() : oos_db_prepare_input($_POST['coupon_code']); 
@@ -186,22 +186,33 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 				$action = 'new';
 			} else {
 				
-				if (!isset($_POST['coupon_name'])) {
-					$update_errors = 1;
-					$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
+				$update_errors = 0;
+				$aLanguages = oos_get_languages();
+				$nLanguages = count($aLanguages);
+
+				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+					$language_id = $aLanguages[$i]['id'];
+	
+					if (empty($_POST['coupon_name'][$language_id])) {
+						$update_errors = 1;				
+						$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
+					} else {
+						$coupon_name[$language_id] = oos_prepare_input($_POST['coupon_name'][$language_id]);
+					}
 				}
 			
-				if (!isset($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
+				if (empty($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
 					$update_errors = 1;
 					$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
-				}				
+				}		
+			}			
 				
 				
-				
-          $coupon_type = "F";
-          if (substr($_POST['coupon_amount'], -1) == '%') $coupon_type='P';
-          if ($_POST['coupon_free_ship']) $coupon_type = 'S';
-          $sql_data_array = array('coupon_code' => oos_db_prepare_input($_POST['coupon_code']),
+			$coupon_type = "F";
+			if (substr($_POST['coupon_amount'], -1) == '%') $coupon_type='P';
+			if (isset($_POST['coupon_free_ship'])) $coupon_type = 'S';
+			
+			$sql_data_array = array('coupon_code' => oos_db_prepare_input($_POST['coupon_code']),
                                   'coupon_amount' => oos_db_prepare_input($_POST['coupon_amount']),
                                   'coupon_type' => oos_db_prepare_input($coupon_type),
                                   'uses_per_coupon' => oos_db_prepare_input($_POST['coupon_uses_coupon']),
@@ -213,34 +224,41 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                                   'coupon_expire_date' => $_POST['coupon_finishdate'],
                                   'date_created' => 'now()',
                                   'date_modified' => 'now()');
-          $languages = oos_get_languages();
-          for ($i = 0, $n = count($languages); $i < $n; $i++) {
-            $language_id = $languages[$i]['id'];
-            $sql_data_marray[$i] = array('coupon_name' => oos_db_prepare_input($_POST['coupon_name'][$language_id]),
-                                         'coupon_description' => oos_db_prepare_input($_POST['coupon_desc'][$language_id])
-                                   );
-          }
-          if (isset($_GET['oldaction']) && ($_GET['oldaction'] == 'voucheredit')) {
-            oos_db_perform($oostable['coupons'], $sql_data_array, 'UPDATE', "coupon_id='" . intval($_GET['cID']) . "'");
-            for ($i = 0, $n = count($languages); $i < $n; $i++) {
-              $language_id = $languages[$i]['id'];
-              $update = $dbconn->Execute("UPDATE " . $oostable['coupons_description'] . " SET coupon_name = '" . oos_db_prepare_input($_POST['coupon_name'][$language_id]) . "', coupon_description = '" . oos_db_prepare_input($_POST['coupon_desc'][$language_id]) . "' WHERE coupon_id = '" . intval($_GET['cID']) . "' and coupon_languages_id = '" . intval($language_id) . "'");
-            }
-          } else {
-            $query = oos_db_perform($oostable['coupons'], $sql_data_array);
-            $insert_id = $dbconn->Insert_ID();
 
-            for ($i = 0, $n = count($languages); $i < $n; $i++) {
-              $language_id = $languages[$i]['id'];
-              $sql_data_marray[$i]['coupon_id'] = $insert_id;
-              $sql_data_marray[$i]['coupon_languages_id'] = $language_id;
-              oos_db_perform($oostable['coupons_description'], $sql_data_marray[$i]);
-            }
-          }
-        }
-    }
-  }
-  require 'includes/header.php';
+			$aLanguages = oos_get_languages();
+			$nLanguages = count($aLanguages);
+
+			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {								  
+				$language_id = $aLanguages[$i]['id'];
+				
+				$sql_data_marray[$i] = array('coupon_name' => oos_db_prepare_input($_POST['coupon_name'][$language_id]),
+											'coupon_description' => oos_db_prepare_input($_POST['coupon_desc'][$language_id])
+                );
+			}
+			
+			if (isset($_GET['oldaction']) && ($_GET['oldaction'] == 'voucheredit')) {
+				oos_db_perform($oostable['coupons'], $sql_data_array, 'UPDATE', "coupon_id='" . intval($_GET['cID']) . "'");
+				
+				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {								  
+					$language_id = $aLanguages[$i]['id'];
+					
+					$update = $dbconn->Execute("UPDATE " . $oostable['coupons_description'] . " SET coupon_name = '" . oos_db_prepare_input($_POST['coupon_name'][$language_id]) . "', coupon_description = '" . oos_db_prepare_input($_POST['coupon_desc'][$language_id]) . "' WHERE coupon_id = '" . intval($_GET['cID']) . "' and coupon_languages_id = '" . intval($language_id) . "'");
+				}
+			} else {
+				$query = oos_db_perform($oostable['coupons'], $sql_data_array);
+				$insert_id = $dbconn->Insert_ID();
+
+				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {								  
+					$language_id = $aLanguages[$i]['id'];
+					
+					$sql_data_marray[$i]['coupon_id'] = $insert_id;
+					$sql_data_marray[$i]['coupon_languages_id'] = $language_id;
+					oos_db_perform($oostable['coupons_description'], $sql_data_marray[$i]);
+				}
+			}
+	}
+}
+require 'includes/header.php';
 ?>
 <!-- body //-->
 <div class="wrapper">
@@ -644,7 +662,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td class="text-left"><?php echo $_POST['coupon_name'][$language_id]; ?></td>
       </tr>
 <?php
-}
+		}
 ?>
 <?php
         $languages = oos_get_languages();
@@ -656,7 +674,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td class="text-left"><?php echo $_POST['coupon_desc'][$language_id]; ?></td>
       </tr>
 <?php
-}
+		}
 ?>
       <tr>
         <td class="text-left"><?php echo COUPON_AMOUNT; ?></td>
@@ -743,8 +761,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
      <tr>
         <td class="text-left"><?php echo oos_submit_button(IMAGE_CONFIRM); ?></td>
         <td class="text-left"><?php echo oos_cancel_button('<i class="fa fa-chevron-left"></i> ' . BUTTON_BACK, 'back'); ?></td>
-		
-      </td>
       </tr>
 
       </td></table></form>

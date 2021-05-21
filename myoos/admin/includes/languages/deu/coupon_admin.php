@@ -76,6 +76,9 @@ define('TEXT_HEADING_NEW_COUPON', 'Erzeuge neuen Gutschein');
 define('TEXT_NEW_INTRO', 'Bitte geben Sie die folgenden Informationen ein, um einen neuen Gutschein zu erzeugen.<br />');
 
 define('ERROR_NO_COUPON_AMOUNT', 'Fehler: Kein Gutschein Wert festgelegt.');
+define('ERROR_NO_COUPON_NAME', 'Fehler: Kein Gutschein Name angegeben.');
+define('ERROR_COUPON_EXISTS', 'Fehler: Der Gutscheincode existiert schon.');
+
 
 define('TEXT_FROM_NAME', 'Absender Name:');
 define('TEXT_FROM_MAIL', 'Absender eMail:');
@@ -92,5 +95,3 @@ define('COUPON_USES_COUPON_HELP', 'Wie oft kann der Gutschein benutzt werden? So
 define('COUPON_USES_USER_HELP', 'Wie oft kann ein Kunde den Gutschein benutzen? Soll die Anzahl unlimitiert möglich sein, lassen Sie das Feld leer.');
 define('COUPON_PRODUCTS_HELP', 'Ein Liste von erlaubten Produkt-IDs (mit Komma getrennt). Lassen Sie dieses Feld leer, falls Sie keine Beschränkungen machen wollen.');
 define('COUPON_CATEGORIES_HELP', 'Eine Liste von erlaubten Kategorien (mit Komma getrennt). Lassen Sie dieses Feld leer, falls Sie keine Beschränkungen machen wollen.');
-
-

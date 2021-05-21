@@ -78,6 +78,11 @@ define('TEXT_HEADING_NEW_COUPON', 'Create New Coupon');
 define('TEXT_NEW_INTRO', 'Please fill out the following information for the new coupon.<br />');
 
 define('ERROR_NO_COUPON_AMOUNT', 'Error: No coupon amount has been selected');
+define('ERROR_NO_COUPON_NAME', 'Error: No voucher name specified.');
+define('ERROR_COUPON_EXISTS', 'Error: The voucher code already exists.');
+
+define('TEXT_FROM_NAME', 'Sender name:');
+define('TEXT_FROM_MAIL', 'Sender eMail:');
 
 define('COUPON_NAME_HELP', 'A short name for the coupon');
 define('COUPON_AMOUNT_HELP', 'The value of the discount for the coupon, either fixed or add a % on the end for a percentage discount.');
@@ -91,8 +96,4 @@ define('COUPON_USES_COUPON_HELP', 'The maximum number of times the coupon can be
 define('COUPON_USES_USER_HELP', 'Number of times a user can use the coupon, leave blank for no limit.');
 define('COUPON_PRODUCTS_HELP', 'A comma separated list of product_ids that this coupon can be used with. Leave blank for no restrictions.');
 define('COUPON_CATEGORIES_HELP', 'A comma separated list of cpaths that this coupon can be used with, leave blank for no restrictions.');
-
-define('TEXT_FROM_NAME', 'Absender Name:');
-define('TEXT_FROM_MAIL', 'Absender eMail:');
-
 
