@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'f1b545285515132a5bbb866e2ad49f45da632f05',
+    'reference' => 'd3cf4a957aed06f7c01c32dea8d9997714ed5a2f',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -40,12 +40,12 @@
     ),
     'doctrine/cache' => 
     array (
-      'pretty_version' => '2.0.1',
-      'version' => '2.0.1.0',
+      'pretty_version' => '2.0.2',
+      'version' => '2.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0fc7b7b12992e3be1d7fcdcd281e53b671306f93',
+      'reference' => '14e0af5ba34a53c96c042c21aac1b0582d8f216b',
     ),
     'doctrine/collections' => 
     array (
@@ -225,7 +225,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'f1b545285515132a5bbb866e2ad49f45da632f05',
+      'reference' => 'd3cf4a957aed06f7c01c32dea8d9997714ed5a2f',
     ),
     'ocramius/proxy-manager' => 
     array (
