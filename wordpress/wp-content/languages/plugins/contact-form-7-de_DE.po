@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-05-16 18:30:36+0000\n"
+"PO-Revision-Date: 2021-05-22 08:07:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,9 +19,17 @@ msgstr "Integration mit externer API"
 msgid "Manage your email templates"
 msgstr "Deine E-Mail-Vorlagen verwalten"
 
+#: modules/sendinblue/contact-form-properties.php:266
+msgid "You have no active email template yet."
+msgstr "Noch keine aktive E-Mail-Vorlage vorhanden."
+
 #: modules/sendinblue/contact-form-properties.php:246
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; Auswählen &mdash;"
+
+#: modules/sendinblue/contact-form-properties.php:233
+msgid "Select an email template:"
+msgstr "Wähle eine E-Mail-Vorlage:"
 
 #: modules/sendinblue/contact-form-properties.php:216
 msgid "Send a welcome email to new contacts"
@@ -37,6 +45,10 @@ msgstr "Willkommens-E-Mail"
 msgid "(opens in a new tab)"
 msgstr "(öffnet in einem neuen Tab)"
 
+#: modules/sendinblue/contact-form-properties.php:187
+msgid "Manage your contact lists"
+msgstr "Verwalte deine Kontaktliste"
+
 #: modules/sendinblue/contact-form-properties.php:172
 msgid "You have no contact list yet."
 msgstr "Du hast noch keine Kontaktliste."
@@ -45,10 +57,18 @@ msgstr "Du hast noch keine Kontaktliste."
 msgid "Select lists to which contacts are added:"
 msgstr "Listen auswählen, zu denen Kontakte hinzugefügt werden:"
 
+#: modules/sendinblue/contact-form-properties.php:131
+msgid "Add form submitters to your contact lists"
+msgstr "Füge die Formularabsender zu deinen Kontaktlisten hinzu"
+
 #: modules/sendinblue/contact-form-properties.php:113
 #: modules/sendinblue/contact-form-properties.php:122
 msgid "Contact lists"
 msgstr "Kontaktlisten"
+
+#: modules/sendinblue/contact-form-properties.php:90
+msgid "You can set up the Sendinblue integration here. For details, see %s."
+msgstr "Du kannst die Sendinblue-Integration hier einrichten. Detail findest du auf %s."
 
 #: modules/sendinblue/service.php:207
 msgid "Save changes"
@@ -80,6 +100,10 @@ msgstr "Sendinblue-Integration"
 #: modules/sendinblue/contact-form-properties.php:93
 msgid "https://contactform7.com/sendinblue-integration/"
 msgstr "https://contactform7.com/sendinblue-integration/"
+
+#: modules/sendinblue/service.php:126
+msgid "You have not been authenticated. Make sure the provided API key is correct."
+msgstr "Du wurdest nicht angemeldet. Stelle sicher, dass der API-Schlüssel korrekt ist."
 
 #: modules/sendinblue/service.php:30
 #: modules/sendinblue/contact-form-properties.php:102
