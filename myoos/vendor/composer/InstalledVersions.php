@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '2d97b5af2baa4107204eccb62fd0abc53de9c8c2',
+    'reference' => 'c14beb6789c6d03a29b6c50255841968656f5778',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -147,12 +147,12 @@ private static $installed = array (
     ),
     'friendsofphp/proxy-manager-lts' => 
     array (
-      'pretty_version' => 'v1.0.4',
-      'version' => '1.0.4.0',
+      'pretty_version' => 'v1.0.5',
+      'version' => '1.0.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '587bfddfd9847c1d0417c4cf07d1dbf19aa6d136',
+      'reference' => '006aa5d32f887a4db4353b13b5b5095613e0611f',
     ),
     'khanamiryan/qrcode-detector-decoder' => 
     array (
@@ -251,7 +251,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '2d97b5af2baa4107204eccb62fd0abc53de9c8c2',
+      'reference' => 'c14beb6789c6d03a29b6c50255841968656f5778',
     ),
     'ocramius/proxy-manager' => 
     array (

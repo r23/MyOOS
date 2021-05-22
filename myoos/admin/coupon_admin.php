@@ -166,7 +166,13 @@ if (!empty($action)) {
 			if (isset($_POST['coupon_amount'])) $coupon_amount = oos_db_prepare_input($_POST['coupon_amount']);
 
 			$coupon_code = empty($_POST['coupon_code']) ?  oos_create_coupon_code() : oos_db_prepare_input($_POST['coupon_code']); 
-
+# oldaction=new
+echo '<pre>';
+print_r($_GET);
+echo '</pre>';
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
 			$query1 = $dbconn->Execute("SELECT coupon_code
 									FROM " . $oostable['coupons'] . "
 									WHERE coupon_code = '" . oos_db_input($coupon_code) . "'");
