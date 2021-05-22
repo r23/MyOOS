@@ -166,7 +166,7 @@ if (!empty($action)) {
 			if (isset($_POST['coupon_amount'])) $coupon_amount = oos_db_prepare_input($_POST['coupon_amount']);
 
 			$coupon_code = empty($_POST['coupon_code']) ?  oos_create_coupon_code() : oos_db_prepare_input($_POST['coupon_code']); 
-# oldaction=new
+
 			$query1 = $dbconn->Execute("SELECT coupon_code
 									FROM " . $oostable['coupons'] . "
 									WHERE coupon_code = '" . oos_db_input($coupon_code) . "'");
@@ -441,7 +441,7 @@ require 'includes/header.php';
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
 
       <tr>
-          <tr><?php echo oos_draw_form('id', 'mail', $aContents['coupon_admin'], 'action=send_email_to_user&cID=' . $_GET['cID'], 'post', FALSE); ?>
+          <tr><?php echo oos_draw_form('id', 'mail', $aContents['coupon_admin'], 'action=send_email_to_user&cID=' . $_GET['cID'], 'post', false); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td></td>
@@ -546,7 +546,7 @@ require 'includes/header.php';
       </tr>
       <tr>
 
-          <tr><?php echo oos_draw_form('id', 'mail', $aContents['coupon_admin'], 'action=preview_email&cID='. $_GET['cID'], 'post', FALSE); ?>
+          <tr><?php echo oos_draw_form('id', 'mail', $aContents['coupon_admin'], 'action=preview_email&cID='. $_GET['cID'], 'post', false); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"></td>
@@ -650,7 +650,7 @@ require 'includes/header.php';
 
       <tr>
       <td>
-<?php echo oos_draw_form('id', 'coupon', $aContents['coupon_admin'], 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cID=' . $_GET['cID'], 'post', FALSE); ?>
+<?php echo oos_draw_form('id', 'coupon', $aContents['coupon_admin'], 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cID=' . $_GET['cID'], 'post', false); ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
 <?php
         $languages = oos_get_languages();
@@ -795,9 +795,11 @@ require 'includes/header.php';
 			if ($coupon['coupon_type']=='P') {
 				$coupon_amount .= '%';
 			}
+			
 			if ($coupon['coupon_type']=='S') {
 				$coupon_free_ship = true;
 			}
+		
 			$coupon_min_order = $coupon['coupon_minimum_order'];
 			$coupon_code = $coupon['coupon_code'];
 			$coupon_uses_coupon = $coupon['uses_per_coupon'];
@@ -838,7 +840,7 @@ require 'includes/header.php';
       <tr>
       <td>
 <?php
-    echo oos_draw_form('id', 'coupon', $aContents['coupon_admin'], 'action=update&oldaction='.$action . '&cID=' . $_GET['cID'], 'post', FALSE);
+    echo oos_draw_form('id', 'coupon', $aContents['coupon_admin'], 'action=update&oldaction='.$action . '&cID=' . $_GET['cID'], 'post', false);
 ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
 <?php
@@ -878,9 +880,9 @@ require 'includes/header.php';
         <td class="text-left"><?php echo oos_draw_input_field('coupon_min_order', (empty($coupon_min_order) ? '' : $coupon_min_order)); ?></td>
         <td align="left" class="main"><?php echo COUPON_MIN_ORDER_HELP; ?></td>
       </tr>
-      <tr>
+      <tr>	  
         <td align="left" class="main"><?php echo COUPON_FREE_SHIP; ?></td>
-        <td class="text-left"><?php echo oos_draw_checkbox_field('coupon_free_ship', (empty($coupon_free_ship) ? '' : $coupon_free_ship)); ?></td>
+        <td class="text-left"><?php echo oos_draw_checkbox_field('coupon_free_ship', '', (isset($coupon_free_ship) ? $coupon_free_ship : false)); ?></td>
         <td align="left" class="main"><?php echo COUPON_FREE_SHIP_HELP; ?></td>
       </tr>
       <tr>
@@ -968,7 +970,7 @@ require 'includes/header.php';
 		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="pageHeading"></td>
-            <td class="main"><?php echo oos_draw_form('id', 'status', $aContents['coupon_admin'], '', 'get', FALSE); ?>
+            <td class="main"><?php echo oos_draw_form('id', 'status', $aContents['coupon_admin'], '', 'get', false); ?>
 <?php
     $status_array[] = array('id' => 'Y', 'text' => TEXT_COUPON_ACTIVE);
     $status_array[] = array('id' => 'N', 'text' => TEXT_COUPON_INACTIVE);
