@@ -166,7 +166,7 @@ if (!empty($action)) {
 			if (isset($_POST['coupon_amount'])) $coupon_amount = oos_db_prepare_input($_POST['coupon_amount']);
 
 			$coupon_code = empty($_POST['coupon_code']) ?  oos_create_coupon_code() : oos_db_prepare_input($_POST['coupon_code']); 
-
+# oldaction=new
 			$query1 = $dbconn->Execute("SELECT coupon_code
 									FROM " . $oostable['coupons'] . "
 									WHERE coupon_code = '" . oos_db_input($coupon_code) . "'");
@@ -770,39 +770,42 @@ require 'includes/header.php';
 <?php
 
     break;
-  case 'voucheredit':
-  // warum?
-    $languages = oos_get_languages();
-    for ($i = 0, $n = count($languages); $i < $n; $i++) {
-      $language_id = $languages[$i]['id'];
-      $coupon_result = $dbconn->Execute("SELECT coupon_name,coupon_description
-                                    FROM " . $oostable['coupons_description'] . "
-                                    WHERE coupon_id = '" .  $_GET['cID'] . "' AND
-                                          coupon_languages_id = '" . intval($language_id) . "'");
-      $coupon = $coupon_result->fields;
-      $coupon_name[$language_id] = $coupon['coupon_name'];
-      $coupon_desc[$language_id] = $coupon['coupon_description'];
-    }
-    $coupon_result = $dbconn->Execute("SELECT coupon_code, coupon_amount, coupon_type, coupon_minimum_order, coupon_start_date,
-                                          coupon_expire_date, uses_per_coupon, uses_per_user, restrict_to_products,
-                                          restrict_to_categories
+		case 'voucheredit':
+			$aLanguages = oos_get_languages();
+			$nLanguages = count($aLanguages);
+
+			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {								  
+				$language_id = $aLanguages[$i]['id'];		
+
+				$coupon_result = $dbconn->Execute("SELECT coupon_name,coupon_description
+											FROM " . $oostable['coupons_description'] . "
+											WHERE coupon_id = '" .  $_GET['cID'] . "' AND
+											coupon_languages_id = '" . intval($language_id) . "'");
+				$coupon = $coupon_result->fields;
+				$coupon_name[$language_id] = $coupon['coupon_name'];
+				$coupon_desc[$language_id] = $coupon['coupon_description'];
+			}
+			
+			$coupon_result = $dbconn->Execute("SELECT coupon_code, coupon_amount, coupon_type, coupon_minimum_order, coupon_start_date,
+                                          coupon_expire_date, uses_per_coupon, uses_per_user, restrict_to_products, restrict_to_categories
                                    FROM " . $oostable['coupons'] . "
                                    WHERE coupon_id = '" . intval($_GET['cID']) . "'");
-    $coupon = $coupon_result->fields;
-    $coupon_amount = $coupon['coupon_amount'];
-    if ($coupon['coupon_type']=='P') {
-      $coupon_amount .= '%';
-    }
-    if ($coupon['coupon_type']=='S') {
-      $coupon_free_ship .= true;
-    }
-    $coupon_min_order = $coupon['coupon_minimum_order'];
-    $coupon_code = $coupon['coupon_code'];
-    $coupon_uses_coupon = $coupon['uses_per_coupon'];
-    $coupon_uses_user = $coupon['uses_per_user'];
-    $coupon_products = $coupon['restrict_to_products'];
-    $coupon_categories = $coupon['restrict_to_categories'];
-  case 'new':
+			$coupon = $coupon_result->fields;
+			$coupon_amount = $coupon['coupon_amount'];
+			if ($coupon['coupon_type']=='P') {
+				$coupon_amount .= '%';
+			}
+			if ($coupon['coupon_type']=='S') {
+				$coupon_free_ship = true;
+			}
+			$coupon_min_order = $coupon['coupon_minimum_order'];
+			$coupon_code = $coupon['coupon_code'];
+			$coupon_uses_coupon = $coupon['uses_per_coupon'];
+			$coupon_uses_user = $coupon['uses_per_user'];
+			$coupon_products = $coupon['restrict_to_products'];
+			$coupon_categories = $coupon['restrict_to_categories'];
+			
+		case 'new':
 // set some defaults
     if (!isset($coupon_uses_user)) $coupon_uses_user=1;
 ?>
