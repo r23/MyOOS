@@ -1,5 +1,6 @@
 <?php
 $lang['L_DUMP_HEADLINE']="Sao lưu...";
+$lang['L_DUMP_INFO']="Please wait, you will be redirected automatically. If your browser does not support automatic redirection, click <a href=\"%s\">please click here</a>.";
 $lang['L_GZIP_COMPRESSION']="Nén GZip";
 $lang['L_SAVING_TABLE']="Đang lưu các bảng dữ liệu ";
 $lang['L_OF']="của";

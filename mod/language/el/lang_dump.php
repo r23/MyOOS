@@ -1,5 +1,6 @@
 <?php
 $lang['L_DUMP_HEADLINE']="Δημιουργία Αντιγράφου Ασφαλείας...";
+$lang['L_DUMP_INFO']="Please wait, you will be redirected automatically. If your browser does not support automatic redirection, click <a href=\"%s\">please click here</a>.";
 $lang['L_GZIP_COMPRESSION']="Συμπίεση GZip";
 $lang['L_SAVING_TABLE']="Αποθήκευση πίνακα ";
 $lang['L_OF']="από";

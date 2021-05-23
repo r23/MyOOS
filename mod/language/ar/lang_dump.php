@@ -1,5 +1,6 @@
 <?php
 $lang['L_DUMP_HEADLINE']="انشاء نسخة احتياطية ...";
+$lang['L_DUMP_INFO']="Please wait, you will be redirected automatically. If your browser does not support automatic redirection, click <a href=\"%s\">please click here</a>.";
 $lang['L_GZIP_COMPRESSION']="GZip ضغط ";
 $lang['L_SAVING_TABLE']="حفظ الجدول ";
 $lang['L_OF']="مغلق";

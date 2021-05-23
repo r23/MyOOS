@@ -1,5 +1,6 @@
 <?php
 $lang['L_DUMP_HEADLINE']="bi am backup mache..";
+$lang['L_DUMP_INFO']="Please wait, you will be redirected automatically. If your browser does not support automatic redirection, click <a href=\"%s\">please click here</a>.";
 $lang['L_GZIP_COMPRESSION']="GZip-Kompression";
 $lang['L_SAVING_TABLE']="Spichere Tabälle";
 $lang['L_OF']="vo";

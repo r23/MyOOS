@@ -21,6 +21,7 @@ define('OOS_VALID_MOD', true);
 if (isset($_GET['action'])&&$_GET['action']=='dl') $download=true;
 include ('./inc/header.php');
 include_once ('./language/'.$config['language'].'/lang.php');
+include_once ('./language/'.$config['language'].'/lang_dump.php');
 include_once ('./language/'.$config['language'].'/lang_filemanagement.php');
 include_once ('./language/'.$config['language'].'/lang_config_overview.php');
 include_once ('./language/'.$config['language'].'/lang_main.php');
@@ -126,9 +127,12 @@ if (isset($_POST['dump']))
 		if (!$check_dir===true) die($check_dir);
 		$databases['db_actual_tableselected']="";
 		WriteParams();
-
 		$dump['fileoperations']=0;
-		echo '<script language="JavaScript" type="text/javascript">parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
+		$sUrl = 'dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']);
+		echo '<div id="pagetitle">' . $lang['L_DUMP_HEADLINE'] .'</div><div id="content"><p>';
+        echo '<br><br><p>' . sprintf($lang['L_DUMP_INFO'], $sUrl) . '</p>';
+		echo '<script language="JavaScript" type="text/javascript">parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script>';
+		echo '</body></html>';
 		exit();
 	}
 }
