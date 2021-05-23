@@ -525,7 +525,6 @@ function WriteCronScript($restore_values=false)
 	$cronscript.='@cron_command_after_dump=' . my_implode($cron_command_after_dump);
 
 	$cronscript.='@ftp_server=' . my_implode($config['ftp_server']);
-	$cronscript.='@sftp=' . my_implode($config['sftp'],0);
 	$cronscript.='@ftp_port=' . my_implode($config['ftp_port'],1);
 	$cronscript.='@ftp_mode=' . my_implode($config['ftp_mode'],1);
 	$cronscript.='@ftp_user=' . my_implode($config['ftp_user']);
