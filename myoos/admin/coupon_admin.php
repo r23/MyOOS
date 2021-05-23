@@ -124,16 +124,16 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && 
     }
 
     oos_redirect_admin(oos_href_link_admin($aContents['coupon_admin'], 'mail_sent_to=' . urlencode($mail_sent_to)));
-  }
+}
 
-  if ( ($action == 'preview_email') && (!$_POST['customers_email_address']) ) {
+if ( ($action == 'preview_email') && (!$_POST['customers_email_address']) ) {
     $action = 'email';
     $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
-  }
+}
 
-  if (isset($_GET['mail_sent_to'])) {
+if (isset($_GET['mail_sent_to'])) {
     $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
-  }
+}
 
 if (!empty($action)) {
 	switch ($action) {
@@ -144,7 +144,9 @@ if (!empty($action)) {
 		case 'update':
 			$update_errors = 0;
 	
-			if (empty($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
+			$coupon_amount = isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0;
+
+			if (($coupon_amount <= 0) && (!isset($_POST['coupon_free_ship']))) {
 				$update_errors = 1;
 				$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');				
 			}
@@ -161,18 +163,14 @@ if (!empty($action)) {
 				} else {
 					$coupon_name[$language_id] = oos_prepare_input($_POST['coupon_name'][$language_id]);
 				}
+			}			
+
+			if (empty($_POST['coupon_amount'])  && (!isset($_POST['coupon_free_ship']))) {
+				$update_errors = 1;
+				$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');				
 			}
-	
-			if (isset($_POST['coupon_amount'])) $coupon_amount = oos_db_prepare_input($_POST['coupon_amount']);
 
 			$coupon_code = empty($_POST['coupon_code']) ?  oos_create_coupon_code() : oos_db_prepare_input($_POST['coupon_code']); 
-# oldaction=new
-echo '<pre>';
-print_r($_GET);
-echo '</pre>';
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
 			$query1 = $dbconn->Execute("SELECT coupon_code
 									FROM " . $oostable['coupons'] . "
 									WHERE coupon_code = '" . oos_db_input($coupon_code) . "'");
@@ -187,7 +185,9 @@ echo '</pre>';
 			}
 			break;
 
-		case 'update_confirm':
+		case 'update_confirm':	
+			$coupon_amount = isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0;
+			
 			if (isset($_POST['back']) && ($_POST['back'] == 'back')) {
 				$action = 'new';
 			} else {
@@ -207,7 +207,9 @@ echo '</pre>';
 					}
 				}
 			
-				if (empty($_POST['coupon_amount']) && (!isset($_POST['coupon_free_ship']))) {
+				$coupon_amount = isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0;
+
+				if (($coupon_amount <= 0) && (!isset($_POST['coupon_free_ship']))) {
 					$update_errors = 1;
 					$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
 				}		
@@ -215,11 +217,11 @@ echo '</pre>';
 				
 				
 			$coupon_type = "F";
-			if (substr($_POST['coupon_amount'], -1) == '%') $coupon_type='P';
+			if (substr($_POST['coupon_amount'], -1) == '%') $coupon_type = 'P';
 			if (isset($_POST['coupon_free_ship'])) $coupon_type = 'S';
 			
 			$sql_data_array = array('coupon_code' => oos_db_prepare_input($_POST['coupon_code']),
-                                  'coupon_amount' => oos_db_prepare_input($_POST['coupon_amount']),
+                                  'coupon_amount' => $coupon_amount,
                                   'coupon_type' => oos_db_prepare_input($coupon_type),
                                   'uses_per_coupon' => oos_db_prepare_input($_POST['coupon_uses_coupon']),
                                   'uses_per_user' => oos_db_prepare_input($_POST['coupon_uses_user']),
@@ -982,11 +984,8 @@ require 'includes/header.php';
     $status_array[] = array('id' => 'N', 'text' => TEXT_COUPON_INACTIVE);
     $status_array[] = array('id' => '*', 'text' => TEXT_COUPON_ALL);
 
-    if (isset($_GET['status'])) {
-      $status = oos_db_prepare_input($_GET['status']);
-    } else {
-      $status = 'Y';
-    }
+	$status = isset($_GET['status']) ? oos_db_prepare_input($_GET['status']) : 'Y';
+
     echo HEADING_TITLE_STATUS . ' ' . oos_draw_pull_down_menu('status', $status_array, $status, 'onChange="this.form.submit();"');
 ?>
               </form>
@@ -1054,22 +1053,22 @@ require 'includes/header.php';
                 <td><?php echo $coupon_desc['coupon_name']; ?></td>
                 <td class="text-center">
 <?php
-      if ($cc_list['coupon_type'] == 'P') {
-        echo $cc_list['coupon_amount'] . '%';
-      } elseif ($cc_list['coupon_type'] == 'S') {
-        echo TEXT_FREE_SHIPPING;
-      } else {
-        echo $currencies->format($cc_list['coupon_amount']);
-      }
+		if ($cc_list['coupon_type'] == 'P') {
+			echo $cc_list['coupon_amount'] . '%';
+		} elseif ($cc_list['coupon_type'] == 'S') {
+			echo TEXT_FREE_SHIPPING;
+		} else {
+			echo $currencies->format($cc_list['coupon_amount']);
+		}
 ?>
             &nbsp;</td>
                 <td class="text-center"><?php echo $cc_list['coupon_code']; ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
-      // Move that ADOdb pointer!
-      $cc_result->MoveNext();
-    }
+		// Move that ADOdb pointer!
+		$cc_result->MoveNext();
+	}
 	
 	$coupon_id = isset($cInfo->coupon_id) ? $cInfo->coupon_id : '';
 ?>
