@@ -193,8 +193,6 @@ if ( $session->hasStarted() === true ) {
 		$_SESSION['navigation'] = new navigationHistory();
 	}	
 
-	$aContents = oos_get_content();
-	
 	// verify the browser user agent
 	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? oos_var_prep_for_os($_SERVER['HTTP_USER_AGENT']) : '';
 	

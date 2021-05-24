@@ -180,6 +180,14 @@ if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
     }
 }
 
+// determine the page directory
+$aContents = oos_get_content();
+
+$sContent = $_GET['content'] ?? $_POST['content'] ?? $aContents['home'];
+if ( empty( $sContent ) || !is_string( $sContent ) ) {
+    $sContent = $aContents['home'];
+}  
+$sContent = oos_var_prep_for_os($sContent);
 
 if ( $session->hasStarted() === true ) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
@@ -204,9 +212,7 @@ if ( $session->hasStarted() === true ) {
 	// navigation history
 	if (!isset($_SESSION['navigation'])) {
 		$_SESSION['navigation'] = new navigationHistory();
-	}	
-
-	$aContents = oos_get_content();
+	}
 	
 	// verify the browser user agent
 	$http_user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? oos_var_prep_for_os($_SERVER['HTTP_USER_AGENT']) : '';
@@ -241,14 +247,6 @@ $aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
 $oEvent->getInstance();
-
-
-// determine the page directory
-$sContent = $_GET['content'] ?? $_POST['content'] ?? $aContents['home'];
-if ( empty( $sContent ) || !is_string( $sContent ) ) {
-    $sContent = $aContents['home'];
-}  
-$sContent = oos_var_prep_for_os($sContent);
 
 
 // initialize the message stack for output messages
