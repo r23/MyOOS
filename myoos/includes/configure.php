@@ -8,12 +8,6 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: configure.php,v 1.77.2.1 2002/04/14 15:58:15 proca
-   ----------------------------------------------------------------------
-   POST-NUKE Content Management System
-   Copyright (C) 2001 by the Post-Nuke Development Team.
-   http://www.postnuke.com/
-
    File: configure.php,v 1.13 2003/02/10 22:30:51 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions

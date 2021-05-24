@@ -1598,7 +1598,7 @@ function oos_strip_all ($sStr) {
  */
 function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = array() ) {
 
-	global $oEvent, $oEmail;
+	global $oEvent;
 
 	if ( !is_object( $oEvent ) || (!$oEvent->installed_plugin('mail')) ) {
 		return false;

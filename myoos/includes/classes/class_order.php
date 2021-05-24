@@ -408,7 +408,7 @@ class order {
 				if (isset($this->info['tax_groups']["$products_tax"])) {
 					$this->info['tax_groups']["$products_tax"] += $nPrice - oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
 				} else {
-					$this->info['tax_groups']["$products_tax"] = $nPrice - oos_round((($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
+					$this->info['tax_groups']["$products_tax"] = $nPrice - oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
 				}
 			} else {
 				$this->info['tax'] += ($products_tax / 100) * $nPrice;
