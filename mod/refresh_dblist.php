@@ -17,10 +17,10 @@
    ---------------------------------------------------------------------- */
 
 /**
- * Konfigurationsdateien, die aktualisiert werden sollen
  * configurations to update
- * mehrere Dateien so angeben | enter more than one configurationsfile like this
- * $configurationfiles=array('mysqldumper','db2');
+ *
+ * enter more than one configurationsfile like this
+ * $configurationfiles=array('myoosdumper','db2');
  */
 $configurationfiles=array(
 						'myoosdumper'
@@ -29,9 +29,9 @@ $configurationfiles=array(
 
 define('OOS_VALID_MOD', true);
 
-define('APPLICATION_PATH',realpath(dirname(__FILE__)));
-chdir(APPLICATION_PATH);
-include_once ( APPLICATION_PATH . '/inc/functions.php' );
+define('APPLICATION_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));
+include_once APPLICATION_PATH . '/inc/functions.php';
+
 $config['language']='en';
 $config['theme']="mod";
 $config['files']['iconpath']='css/' . $config['theme'] . '/icons/';
