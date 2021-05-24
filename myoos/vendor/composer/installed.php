@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '5fe383ed9aee0036c29fa1c4451e677d9fe94f08',
+    'reference' => '9311ffd3bc61212830742b613802895621996725',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -184,12 +184,12 @@
     ),
     'markbaker/complex' => 
     array (
-      'pretty_version' => '2.0.1',
-      'version' => '2.0.1.0',
+      'pretty_version' => '2.0.2',
+      'version' => '2.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7351c0b5beef9eb1f683e57107ecba3aac2ebe67',
+      'reference' => 'd18272926d58065140314c01e18ec3dd7ae854ea',
     ),
     'markbaker/matrix' => 
     array (
@@ -225,7 +225,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '5fe383ed9aee0036c29fa1c4451e677d9fe94f08',
+      'reference' => '9311ffd3bc61212830742b613802895621996725',
     ),
     'ocramius/proxy-manager' => 
     array (

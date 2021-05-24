@@ -1344,17 +1344,17 @@
         },
         {
             "name": "markbaker/complex",
-            "version": "2.0.1",
-            "version_normalized": "2.0.1.0",
+            "version": "2.0.2",
+            "version_normalized": "2.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MarkBaker/PHPComplex.git",
-                "reference": "7351c0b5beef9eb1f683e57107ecba3aac2ebe67"
+                "reference": "d18272926d58065140314c01e18ec3dd7ae854ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MarkBaker/PHPComplex/zipball/7351c0b5beef9eb1f683e57107ecba3aac2ebe67",
-                "reference": "7351c0b5beef9eb1f683e57107ecba3aac2ebe67",
+                "url": "https://api.github.com/repos/MarkBaker/PHPComplex/zipball/d18272926d58065140314c01e18ec3dd7ae854ea",
+                "reference": "d18272926d58065140314c01e18ec3dd7ae854ea",
                 "shasum": ""
             },
             "require": {
@@ -1366,7 +1366,7 @@
                 "phpunit/phpunit": "^7.0 || ^8.0 || ^9.3",
                 "squizlabs/php_codesniffer": "^3.4"
             },
-            "time": "2021-05-23T11:48:20+00:00",
+            "time": "2021-05-24T10:53:30+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1436,7 +1436,7 @@
             ],
             "support": {
                 "issues": "https://github.com/MarkBaker/PHPComplex/issues",
-                "source": "https://github.com/MarkBaker/PHPComplex/tree/2.0.1"
+                "source": "https://github.com/MarkBaker/PHPComplex/tree/2.0.2"
             },
             "install-path": "../markbaker/complex"
         },
