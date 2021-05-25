@@ -54,28 +54,21 @@ if (isset($_SESSION)) {
 				}
 			}
 
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
-$oOrder = new order;
+			$content_type = $_SESSION['cart']->get_content_type();
+			$total_weight = $_SESSION['cart']->show_weight();
+			$total_count = $_SESSION['cart']->count_contents();
+			
+			// if the order contains only virtual products
+			if (($content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0)) {
+				$_SESSION['shipping'] = false;
+				$_SESSION['sendto'] = false;
+				$free_shipping = true;
+			}
 
-// register a random ID in the session to check throughout the checkout procedure
-// against alterations in the shopping cart contents
-$_SESSION['cartID'] = $_SESSION['cart']->cartID;
+			// load all enabled shipping modules
+			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
+			$shipping_modules = new shipping;
 
-
-// if the order contains only virtual products, forward the customer to the billing page as
-// a shipping address is not needed
-if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0) ) {
-	$_SESSION['shipping'] = false;
-	$_SESSION['sendto'] = false;
-	oos_redirect(oos_href_link($aContents['checkout_payment']));
-}
-
-$total_weight = $_SESSION['cart']->show_weight();
-$total_count = $_SESSION['cart']->count_contents();
-
-// load all enabled shipping modules
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
-$shipping_modules = new shipping;
 
 if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 	switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -93,7 +86,7 @@ if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL
 	}
 
 	$free_shipping = false;
-	if ( ($pass == true) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+	if ( ($pass == true) && ($_SESSION['cart']->['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
 		$free_shipping = true;
 
 		require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
@@ -108,15 +101,6 @@ if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	
 	
-	
-	if ( (isset($_POST['comments'])) && (is_string($_POST['comments'])) ) {
-		require_once  MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
-		$config = HTMLPurifier_Config::createDefault();
-		$purifier = new HTMLPurifier($config);
-		$_SESSION['comments'] = $purifier->purify($_POST['comments']);		
-	}
-	$_SESSION['comments'] = isset($_SESSION['comments']) ? $_SESSION['comments'] : '';
-
 	if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
 		if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {
 			$_SESSION['shipping'] = $_POST['shipping'];
@@ -142,7 +126,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay), 
                                             'cost' => $quote[0]['methods'][0]['cost']);
 
-						oos_redirect(oos_href_link($aContents['checkout_payment']));
 					}
 				}
 			} else {
@@ -151,8 +134,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		}
 	} else {
 		$_SESSION['shipping'] = false;
-
-		oos_redirect(oos_href_link($aContents['checkout_payment']));
     }
 }
 

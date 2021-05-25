@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9311ffd3bc61212830742b613802895621996725',
+    'reference' => 'e61928d426f55559725bfcd783e77fbbe79889bf',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -66,12 +66,12 @@ private static $installed = array (
     ),
     'doctrine/cache' => 
     array (
-      'pretty_version' => '2.0.2',
-      'version' => '2.0.2.0',
+      'pretty_version' => '2.0.3',
+      'version' => '2.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '14e0af5ba34a53c96c042c21aac1b0582d8f216b',
+      'reference' => 'c9622c6820d3ede1e2315a6a377ea1076e421d88',
     ),
     'doctrine/collections' => 
     array (
@@ -251,7 +251,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9311ffd3bc61212830742b613802895621996725',
+      'reference' => 'e61928d426f55559725bfcd783e77fbbe79889bf',
     ),
     'ocramius/proxy-manager' => 
     array (
