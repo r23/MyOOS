@@ -57,6 +57,7 @@ if (isset($_SESSION)) {
 			$content_type = $_SESSION['cart']->get_content_type();
 			$total_weight = $_SESSION['cart']->show_weight();
 			$total_count = $_SESSION['cart']->count_contents();
+			$subtotal = $_SESSION['cart']->show_subtotal();
 			
 			// if the order contains only virtual products
 			if (($content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0)) {
@@ -86,7 +87,7 @@ if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL
 	}
 
 	$free_shipping = false;
-	if ( ($pass == true) && ($_SESSION['cart']->['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+	if ( ($pass == true) && ($subtotal >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
 		$free_shipping = true;
 
 		require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
