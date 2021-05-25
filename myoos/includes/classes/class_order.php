@@ -275,7 +275,7 @@ class order {
                           'shipping_method' => $_SESSION['shipping']['title'],
                           'shipping_cost' => $_SESSION['shipping']['cost'],
                           'comments' => (isset($_SESSION['comments']) ? $_SESSION['comments'] : ''),
-                          'shipping_class' =>  ( (strpos($shipping['id'],'_') > 0) ?  substr( strrev( strchr(strrev($shipping['id']),'_') ),0,-1) : $shipping['id'] ),
+                          'shipping_class' =>  ( (strpos($shipping['id'],'_') > 0) ? substr( strrev( strchr(strrev($shipping['id']),'_') ),0,-1) : $shipping['id'] ),
                           'payment_class' => $_SESSION['payment'],
                           );
 
@@ -292,7 +292,7 @@ class order {
 		} else {
 			$email_address = $customer_address['customers_email_address'];
 		}	
-
+		
 		$this->customer = array('firstname' => $customer_address['customers_firstname'],
                               'lastname' => $customer_address['customers_lastname'],
                               'company' => $customer_address['entry_company'],
@@ -305,6 +305,8 @@ class order {
                               'format_id' => $customer_address['address_format_id'],
                               'telephone' => $customer_address['customers_telephone'],
                               'email_address' => $email_address);
+
+		$_SESSION['delivery_country_id'] = $shipping_address['entry_country_id'];
 
 		$this->delivery = array('firstname' => $shipping_address['entry_firstname'],
                               'lastname' => $shipping_address['entry_lastname'],

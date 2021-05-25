@@ -70,31 +70,32 @@ if (isset($_SESSION)) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 			$shipping_modules = new shipping;
 
+			$delivery_country_id = isset($_SESSION["delivery_country_id"]) ? $_SESSION["delivery_country_id"] : STORE_COUNTRY;
 
-if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
-	switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
-      case 'national':
-        if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
+			if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+				switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
+					case 'national':
+						if ($delivery_country_id == STORE_COUNTRY) $pass = true; break;
 
-      case 'international':
-        if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
+					case 'international':
+						if ($delivery_country_id != STORE_COUNTRY) $pass = true; break;
 
-      case 'both':
-        $pass = true; break;
+					case 'both':
+						$pass = true; break;
 
-      default:
-        $pass = false; break;
-	}
+					default:
+						$pass = false; break;
+				}
 
-	$free_shipping = false;
-	if ( ($pass == true) && ($subtotal >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-		$free_shipping = true;
+				$free_shipping = false;
+				if ( ($pass == true) && ($subtotal >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+					$free_shipping = true;
 
-		require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
-	}
-} else {
-	$free_shipping = false;
-}
+					require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
+				}
+			} else {
+				$free_shipping = false;
+			}
 
 
 
@@ -138,8 +139,10 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     }
 }
 
-// get all available shipping quotes
-$quotes = $shipping_modules->quote();
+			// get all available shipping quotes
+			$quotes = $shipping_modules->quote();
+
+
 
 // if no shipping method has been selected, automatically select the cheapest method.
 // if the modules status was changed when none were available, to save on implementing

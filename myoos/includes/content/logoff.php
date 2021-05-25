@@ -39,6 +39,7 @@ unset($_SESSION['customer_gender']);
 unset($_SESSION['customer_first_name']);
 unset($_SESSION['customer_lastname']);
 unset($_SESSION['customer_country_id']);
+unset($_SESSION['delivery_country_id']);
 unset($_SESSION['customer_zone_id']);
 unset($_SESSION['comments']);
 unset($_SESSION['customer_max_order']);

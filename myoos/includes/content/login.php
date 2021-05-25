@@ -108,6 +108,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$_SESSION['customer_lastname'] = $check_customer['customers_lastname'];
 			$_SESSION['customer_max_order'] = $check_customer['customers_max_order'];
 			$_SESSION['customer_country_id'] = $check_country['entry_country_id'];
+			$_SESSION['delivery_country_id'] = $check_country['entry_country_id'];
 			$_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];
 			if (ACCOUNT_VAT_ID == 'true') $_SESSION['customers_vat_id_status'] = $check_country['entry_vat_id_status'];
 			
