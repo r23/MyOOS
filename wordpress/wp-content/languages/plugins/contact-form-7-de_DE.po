@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-05-22 08:07:05+0000\n"
+"PO-Revision-Date: 2021-05-25 07:21:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -100,6 +100,10 @@ msgstr "Sendinblue-Integration"
 #: modules/sendinblue/contact-form-properties.php:93
 msgid "https://contactform7.com/sendinblue-integration/"
 msgstr "https://contactform7.com/sendinblue-integration/"
+
+#: modules/sendinblue/service.php:148
+msgid "Store and organize your contacts while protecting user privacy on Sendinblue, the leading CRM & email marketing platform in Europe. Sendinblue offers unlimited contacts and advanced marketing features. For details, see %s."
+msgstr "Verwalte und organisiere deine Kontakte, während du den Datenschutz deiner Benutzer bei Sendinblue, der führenden CRM- und E-Mail-Marketing-Plattform in Europa, schützt. Sendinblue bietet unendliche Kontakte und erweiterte Marketing-Funktionen. Für Details, siehe %s."
 
 #: modules/sendinblue/service.php:126
 msgid "You have not been authenticated. Make sure the provided API key is correct."
