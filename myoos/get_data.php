@@ -48,6 +48,8 @@ if ($request->isXmlHttpRequest()) {
 	$headers = apache_request_headers();
 	if (isset($headers['X-CSRF-TOKEN'])) {
 		if ($headers['X-CSRF-TOKEN'] !== $_SESSION['csrf_token']) {
+			// Reset token
+			unset($_SESSION["csrf_token"]);
 			exit(json_encode('Wrong CSRF token.'));
 		}
 	} else {

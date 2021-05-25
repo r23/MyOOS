@@ -24,7 +24,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 
 class payment {
-    var $modules, $selected_module;
+    var $modules;
+	var $selected_module;
 
 	// class constructor
 	public function __construct($module = '') {
