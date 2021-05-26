@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -19,56 +19,56 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  class order_total {
+class order_total {
     var $modules;
 
 // class constructor
 	public function __construct() {
-      global $aLang;
+		global $aLang;
 
-      if (defined('MODULE_ORDER_TOTAL_INSTALLED') && oos_is_not_null(MODULE_ORDER_TOTAL_INSTALLED)) {
-        $this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
+		if (defined('MODULE_ORDER_TOTAL_INSTALLED') && oos_is_not_null(MODULE_ORDER_TOTAL_INSTALLED)) {
+			$this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
 
-        $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+			$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
 
-        reset($this->modules);
-        foreach ($this->modules as $value) {
-          include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/' . $value;
-          include_once MYOOS_INCLUDE_PATH . '/includes/modules/order_total/' . $value;
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/' . $value;
+				include_once MYOOS_INCLUDE_PATH . '/includes/modules/order_total/' . $value;
 
-          $class = substr($value, 0, strrpos($value, '.'));
-          $GLOBALS[$class] = new $class;
-        }
-      }
-    }
+				$class = substr($value, 0, strrpos($value, '.'));
+				$GLOBALS[$class] = new $class;
+			}
+		}
+	}
 
-    public function process() {
-      $order_total_array = array();
-      if (is_array($this->modules)) {
-        reset($this->modules);
-        foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ($GLOBALS[$class]->enabled) {
-            $GLOBALS[$class]->output = array();
-            $GLOBALS[$class]->process();
+	public function process() {
+		$order_total_array = array();
+		if (is_array($this->modules)) {
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ($GLOBALS[$class]->enabled) {
+					$GLOBALS[$class]->output = array();
+					$GLOBALS[$class]->process();
 
-            for ($i=0, $n=sizeof($GLOBALS[$class]->output); $i<$n; $i++) {
-              if (oos_is_not_null($GLOBALS[$class]->output[$i]['title']) && oos_is_not_null($GLOBALS[$class]->output[$i]['text'])) {
-                $order_total_array[] = array('code' => $GLOBALS[$class]->code,
-                                             'title' => $GLOBALS[$class]->output[$i]['title'],
-                                             'text' => $GLOBALS[$class]->output[$i]['text'],
-                                             'value' => $GLOBALS[$class]->output[$i]['value'],
-                                             'sort_order' => $GLOBALS[$class]->sort_order);
-              }
-            }
-          }
-        }
-      }
+					for ($i=0, $n=sizeof($GLOBALS[$class]->output); $i<$n; $i++) {
+						if (oos_is_not_null($GLOBALS[$class]->output[$i]['title']) && oos_is_not_null($GLOBALS[$class]->output[$i]['text'])) {
+							$order_total_array[] = array('code' => $GLOBALS[$class]->code,
+														'title' => $GLOBALS[$class]->output[$i]['title'],
+														'text' => $GLOBALS[$class]->output[$i]['text'],
+														'value' => $GLOBALS[$class]->output[$i]['value'],
+														'sort_order' => $GLOBALS[$class]->sort_order);
+						}
+					}
+				}
+			}
+		}
 
-      return $order_total_array;
+		return $order_total_array;
     }
 
     public function output() {
@@ -165,17 +165,17 @@
     * to the Gift Voucher account.
     * Another use would be to check if the product would give reward points and add these to the points/reward account.
     */
-    public function update_credit_account($i) {
-      if (MODULE_ORDER_TOTAL_INSTALLED) {
-        reset($this->modules);
-        foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
-            $GLOBALS[$class]->update_credit_account($i);
-          }
-        }
-      }
-    }
+	public function update_credit_account($i) {
+		if (MODULE_ORDER_TOTAL_INSTALLED) {
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
+					$GLOBALS[$class]->update_credit_account($i);
+				}
+			}
+		}
+	}
 
 
    /**
@@ -185,20 +185,20 @@
     * If they are valid then the necessary actions are taken, if not valid we are returned to checkout payment
     * with an error
     */
-    public function collect_posts() {
+	public function collect_posts() {
 
-      if (MODULE_ORDER_TOTAL_INSTALLED) {
-        reset($this->modules);
-        foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
-            $post_var = 'c' . $GLOBALS[$class]->code;
-            if ($_POST[$post_var]) $_SESSION[$post_var] = oos_var_prep_for_os($_POST[$post_var]);
-            $GLOBALS[$class]->collect_posts();
-          }
-        }
-      }
-    }
+		if (MODULE_ORDER_TOTAL_INSTALLED) {
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
+					$post_var = 'c' . $GLOBALS[$class]->code;
+					if ($_POST[$post_var]) $_SESSION[$post_var] = oos_var_prep_for_os($_POST[$post_var]);
+					$GLOBALS[$class]->collect_posts();
+				}
+			}
+		}
+	}
 
    /**
     * pre_confirmation_check is called on checkout confirmation. It's public function is to decide whether the
@@ -207,24 +207,24 @@
     * total, we don't want to go to paypal etc.
     */
     public function pre_confirmation_check() {
-      global $payment, $oOrder, $credit_covers;
+		global $payment, $oOrder, $credit_covers;
 
-      $credit_covers = FALSE;
-      if (MODULE_ORDER_TOTAL_INSTALLED) {
-        $total_deductions  = 0;
-        reset($this->modules);
-        $order_total = $oOrder->info['total'];
-        foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
-            $total_deductions += $GLOBALS[$class]->pre_confirmation_check($order_total);
-          }
-        }
-        if ($oOrder->info['total'] - $total_deductions <= 0 ) {
-          $credit_covers = TRUE;
-        }
-      }
-      return $credit_covers;
+		$credit_covers = false;
+		if (MODULE_ORDER_TOTAL_INSTALLED) {
+			$total_deductions  = 0;
+			reset($this->modules);
+			$order_total = $oOrder->info['total'];
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
+					$total_deductions += $GLOBALS[$class]->pre_confirmation_check($order_total);
+				}
+			}
+			if ($oOrder->info['total'] - $total_deductions <= 0 ) {
+				$credit_covers = true;
+			}
+		}
+		return $credit_covers;
     }
 
    /**
@@ -233,33 +233,33 @@
     * is reduced the order total amount.
     */
     public function apply_credit() {
-      if (MODULE_ORDER_TOTAL_INSTALLED) {
-        reset($this->modules);
-        foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
-            $GLOBALS[$class]->apply_credit();
-          }
-        }
-      }
-    }
+		if (MODULE_ORDER_TOTAL_INSTALLED) {
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
+					$GLOBALS[$class]->apply_credit();
+				}
+			}
+		}
+	}
 
    /**
     * Called in checkout process to clear session variables created by each credit class module.
     */
     public function clear_posts() {
 
-      if (MODULE_ORDER_TOTAL_INSTALLED) {
-        reset($this->modules);
-        foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
-            $_SESSION[$post_var] = 'c' . $GLOBALS[$class]->code;
-          }
-        }
-      }
-    }
+		if (MODULE_ORDER_TOTAL_INSTALLED) {
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
+					$_SESSION[$post_var] = 'c' . $GLOBALS[$class]->code;
+				}
+			}
+		}
+	}
 
-  }
+}
 
 

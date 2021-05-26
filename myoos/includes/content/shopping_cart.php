@@ -33,9 +33,10 @@ if (isset($_SESSION)) {
 		if ($_SESSION['cart']->count_contents() > 0) {
 			
 			// Add Shipping Cost
-			require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
 			require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
- 
+			require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
+			require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
+		
 			// if no shipping destination address was selected, use the customers own address as default
 			if (!isset($_SESSION['sendto'])) {
 				$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
@@ -89,9 +90,7 @@ if (isset($_SESSION)) {
 
 				$free_shipping = false;
 				if ( ($pass == true) && ($subtotal >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-					$free_shipping = true;
-
-					require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
+					$free_shipping = true;					
 				}
 			} else {
 				$free_shipping = false;

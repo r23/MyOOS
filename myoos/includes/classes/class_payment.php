@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2020 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -80,15 +80,15 @@ class payment {
       section. This should be looked into again post 2.2.
     */
     public function update_status() {
-      if (is_array($this->modules)) {
-        if (is_object($GLOBALS[$this->selected_module])) {
-          if (function_exists('method_exists')) {
-            if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
-              $GLOBALS[$this->selected_module]->update_status();
-            }
-          }
-        }
-      }
+		if (is_array($this->modules)) {
+			if (is_object($GLOBALS[$this->selected_module])) {
+				if (function_exists('method_exists')) {
+					if (method_exists($GLOBALS[$this->selected_module], 'update_status')) {
+						$GLOBALS[$this->selected_module]->update_status();
+					}
+				}
+			}
+		}
     }
 
     public function javascript_validation() {
@@ -115,12 +115,11 @@ class payment {
 
         reset($this->modules);
         foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ($GLOBALS[$class]->enabled) {
-            $js .= $GLOBALS[$class]->javascript_validation();
-          }
+			$class = substr($value, 0, strrpos($value, '.'));
+			if ($GLOBALS[$class]->enabled) {
+				$js .= $GLOBALS[$class]->javascript_validation();
+			}
         }
-
 
         $js .= "\n" . '  if (payment_value == null && submitter != 1) {' . "\n" . 
                '    error_message = error_message + "' . $aLang['js_error_no_payment_module_selected'] . '";' . "\n" .
