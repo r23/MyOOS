@@ -18,72 +18,73 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/functions/function_modules.php';
+require 'includes/functions/function_modules.php';
 
-  $set = (isset($_GET['set']) ? $_GET['set'] : '');
+$set = (isset($_GET['set']) ? $_GET['set'] : '');
 
-  if (oos_is_not_null($set)) {
-    switch ($set) {
-      case 'shipping':
-        $module_type = 'shipping';
-        $module_directory = OOS_ABSOLUTE_PATH . 'includes/modules/shipping/';
-        $module_key = 'MODULE_SHIPPING_INSTALLED';
-        define('HEADING_TITLE', HEADING_TITLE_MODULES_SHIPPING);
-        break;
+switch ($set) {
+	case 'shipping':
+		$module_type = 'shipping';
+		$module_directory = OOS_ABSOLUTE_PATH . 'includes/modules/shipping/';
+		$module_key = 'MODULE_SHIPPING_INSTALLED';
+		define('HEADING_TITLE', HEADING_TITLE_MODULES_SHIPPING);
+		break;
 
-      case 'ordertotal':
-        $module_type = 'order_total';
-        $module_directory = OOS_ABSOLUTE_PATH . 'includes/modules/order_total/';
-        $module_key = 'MODULE_ORDER_TOTAL_INSTALLED';
-        define('HEADING_TITLE', HEADING_TITLE_MODULES_ORDER_TOTAL);
-        break;
+	case 'ordertotal':
+		$module_type = 'order_total';
+		$module_directory = OOS_ABSOLUTE_PATH . 'includes/modules/order_total/';
+		$module_key = 'MODULE_ORDER_TOTAL_INSTALLED';
+		define('HEADING_TITLE', HEADING_TITLE_MODULES_ORDER_TOTAL);
+		break;
 
-      case 'payment':
-      default:
-        $module_type = 'payment';
-        $module_directory = OOS_ABSOLUTE_PATH . 'includes/modules/payment/';
-        $module_key = 'MODULE_PAYMENT_INSTALLED';
-        define('HEADING_TITLE', HEADING_TITLE_MODULES_PAYMENT);
-        break;
+	case 'payment':
+	default:
+		$module_type = 'payment';
+		$module_directory = OOS_ABSOLUTE_PATH . 'includes/modules/payment/';
+		$module_key = 'MODULE_PAYMENT_INSTALLED';
+		define('HEADING_TITLE', HEADING_TITLE_MODULES_PAYMENT);
+		break;
 
-    }
-  }
+}
 
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
+if (!empty($action)) {
     switch ($action) {
-      case 'save':
-        foreach ($_POST['configuration'] as $key => $value) {			
-          $configurationtable = $oostable['configuration'];
-          $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . $value . "' WHERE configuration_key = '" . $key . "'");
-        }
-        oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module']));
-        break;
+		case 'save':
+			foreach ($_POST['configuration'] as $key => $value) {			
+				$configurationtable = $oostable['configuration'];
+				$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . $value . "' WHERE configuration_key = '" . $key . "'");
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module']));
+			break;
 
-      case 'install':
-      case 'remove':
-        $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-        $class = basename($_GET['module']);
-        if (file_exists($module_directory . $class . $file_extension)) {
-          include $module_directory . $class . $file_extension;
-          $module = new $class;
-          if ($action == 'install') {
-            $module->install();
-          } elseif ($action == 'remove') {
-            $module->remove();
-          }
-        }
-        oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class));
-        break;
+		case 'install':
+		case 'remove':
+			$file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+			$class = basename($_GET['module']);
+		
+			if (file_exists($module_directory . $class . $file_extension)) {
+				include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $class . $file_extension;
+				include $module_directory . $class . $file_extension;
+				
+				$module = new $class;
+				if ($action == 'install') {
+					$module->install();
+				} elseif ($action == 'remove') {
+					$module->remove();
+				}
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class));
+			break;
     }
-  }
+}
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
