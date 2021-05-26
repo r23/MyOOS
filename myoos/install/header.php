@@ -31,11 +31,8 @@
 <meta name="author" content="osis online shop">
 <meta name="generator" content="OSIS Online Shop - http://www.oos-shop.de">
 <link rel="StyleSheet" href="style/style.css" type="text/css">
-<link href="style/rollover.js" type="text/javascript">
-<script language="JavaScript" src="style/rollover.js"></script>
 </head>
-
-<body onload="MM_preloadImages('images/home_up.png','images/service_up.png','images/news_up.png','images/download_up.png','images/top_up.png','images/back_up.png')">
+<body>
 <table width="800" border="0" align="center" cellpadding="0" cellspacing="0">
   <tr>
     <td width="135"><img src="images/hippoos_top.png" alt="" width="135" height="86" /></td>
@@ -54,10 +51,10 @@
         <td colspan="4"><img src="images/trans.gif" alt="" width="1" height="2" /></td>
         </tr>
       <tr>
-        <td><a href="index.htm" target="_self" onmouseover="MM_swapImage('home','','images/home_up.png',1)" onmouseout="MM_swapImgRestore()"><img src="images/home.png" alt="www.oos-shop.de [Home]" name="home" width="70" height="41" border="0" id="home" /></a></td>
-        <td><a href="http://foren.myoos.de/" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('service','','images/service_up.png',1)"><img src="images/service.png" alt="www.oos-shop.de [Service]" name="service" width="68" height="41" border="0" id="service" /></a></td>
-        <td><a href="http://blog.myoos.de/" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('news','','images/news_up.png',1)"><img src="images/news.png" alt="www.oos-shop.de [News]" name="news" width="68" height="41" border="0" id="news" /></a></td>
-        <td><a href="https://github.com/r23/MyOOS/" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('download','','images/download_up.png',1)"><img src="images/download.png" alt="www.oos-shop.de [Download]" name="Download" width="69" height="41" border="0" id="download" /></a></td>
+        <td><a href="index.htm"><img src="images/home.png" alt="www.oos-shop.de [Home]" name="home" width="70" height="41" border="0" id="home" /></a></td>
+        <td><a href="http://foren.myoos.de/"><img src="images/service.png" alt="www.oos-shop.de [Service]" name="service" width="68" height="41" border="0" id="service" /></a></td>
+        <td><a href="http://blog.myoos.de/"><img src="images/news.png" alt="www.oos-shop.de [News]" name="news" width="68" height="41" border="0" id="news" /></a></td>
+        <td><a href="https://github.com/r23/MyOOS/"><img src="images/download.png" alt="www.oos-shop.de [Download]" name="Download" width="69" height="41" border="0" id="download" /></a></td>
       </tr>
     </table>  </td>
   </tr>

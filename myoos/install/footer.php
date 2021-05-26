@@ -31,9 +31,9 @@
     <td>
       <table width="800" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td width="21"><a href="javascript:history.back()" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('backlink','','images/back_up.png',1)"><img src="images/back.png" alt="<?php echo LINK_BACK; ?>" name="backlink" width="21" height="21" border="0"></a></td>
+          <td width="21"><a href="javascript:history.back()"><img src="images/back.png" alt="<?php echo LINK_BACK; ?>" name="backlink" width="21" height="21" border="0"></a></td>
           <td width="757" class="table_head_setuptitle">&nbsp;</td>
-          <td width="22"><a href="javascript:scroll(0,0)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('toplink','','images/top_up.png',1)"><img src="images/top.png" alt="<?php echo LINK_TOP; ?>" name="toplink" width="21" height="21" border="0"></a></td>
+          <td width="22"><a href="javascript:scroll(0,0)"><img src="images/top.png" alt="<?php echo LINK_TOP; ?>" name="toplink" width="21" height="21" border="0"></a></td>
         </tr>
       </table><br />
       <table width="800" border="0" cellspacing="0" cellpadding="0">

@@ -185,7 +185,7 @@ if ($result === false) {
 $result = $db->Execute("UPDATE " . $table . " SET configuration_value = 'true' WHERE configuration_value = 'true'");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
-
+}
 
 $table = $prefix_table . 'customers';
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `customers_language` VARCHAR(3) AFTER `customers_login`");
@@ -282,7 +282,4 @@ if ($result === false) {
 }
 
 
-
 require 'configuration_upgrade.php';
-
-
