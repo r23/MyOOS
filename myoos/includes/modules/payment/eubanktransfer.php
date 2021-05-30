@@ -139,7 +139,7 @@ class eubanktransfer {
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS', 'true', '6', '1', 'oos_cfg_select_option(array(\'True\', \'False\'), ', now());");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS', 'true', '6', '1', 'oos_cfg_select_option(array(\'True\', \'false\'), ', now());");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', '----',  '6', '0', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', '----',  '6', '0', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', '----',  '6', '0', now())");
