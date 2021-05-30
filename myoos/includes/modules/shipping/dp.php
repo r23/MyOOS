@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class dp {
-    var $code, $title, $description, $icon, $num_dp, $enabled = FALSE;
+    var $code, $title, $description, $icon, $num_dp, $enabled = false;
 
 // class constructor
     public function __construct() {
@@ -31,12 +31,12 @@
       $this->description = $aLang['module_shipping_dp_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_DP_SORT_ORDER') ? MODULE_SHIPPING_DP_SORT_ORDER : NULL);
       $this->icon = OOS_ICONS . 'shipping_dp.gif';
-      $this->tax_class = (defined('MODULE_SHIPPING_DP_TAX_CLASS') ? MODULE_SHIPPING_DP_TAX_CLASS : NULL);
+      $this->tax_class = (defined('MODULE_SHIPPING_DP_PRICE_WITH_TAX') && (MODULE_SHIPPING_DP_PRICE_WITH_TAX == 'true') ? true : false);
       $this->enabled = (defined('MODULE_SHIPPING_DP_STATUS') && (MODULE_SHIPPING_DP_STATUS == 'true') ? true : false);
 
-      if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_DP_ZONE > 0) ) {
+      if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_DP_ZONE > 0) ) {
 		  	  
-        $check_flag = FALSE;
+        $check_flag = false;
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -46,10 +46,10 @@
         $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_DP_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
-            $check_flag = TRUE;
+            $check_flag = true;
             break;
           } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-            $check_flag = TRUE;
+            $check_flag = true;
             break;
           }
 
@@ -57,8 +57,8 @@
           $check_result->MoveNext();
         }
 
-        if ($check_flag == FALSE) {
-          $this->enabled = FALSE;
+        if ($check_flag == false) {
+          $this->enabled = false;
         }
       }
 
@@ -72,7 +72,7 @@
 
       $dest_country = $oOrder->delivery['country']['iso_code_2'];
       $dest_zone = 0;
-      $error = FALSE;
+      $error = false;
 
       for ($i=1; $i<=$this->num_dp; $i++) {
         $countries_table = constant('MODULE_SHIPPING_DP_COUNTRIES_' . $i);
@@ -84,7 +84,7 @@
       }
 
       if ($dest_zone == 0) {
-        $error = TRUE;
+        $error = true;
       } else {
         $shipping = -1;
         $dp_cost = constant('MODULE_SHIPPING_DP_COST_' . $i);
@@ -118,7 +118,7 @@
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
-      if ($error == TRUE) $this->quotes['error'] = $aLang['module_shipping_dp_invalid_zone'];
+      if ($error == true) $this->quotes['error'] = $aLang['module_shipping_dp_invalid_zone'];
 
       return $this->quotes;
     }
@@ -141,8 +141,10 @@
 
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_DP_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+ 	  
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_DP_HANDLING', '0', '6', '0', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_DP_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_DP_PRICE_WITH_TAX', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+ 	  
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_DP_ZONE', '0', '6', '0', 'oos_cfg_get_zone_class_title', 'oos_cfg_pull_down_zone_classes(', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_DP_SORT_ORDER', '0', '6', '0', now())");
 
@@ -173,7 +175,7 @@
 
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_DP_STATUS', 'MODULE_SHIPPING_DP_HANDLING', 'MODULE_SHIPPING_DP_TAX_CLASS', 'MODULE_SHIPPING_DP_ZONE', 'MODULE_SHIPPING_DP_SORT_ORDER');
+      $keys = array('MODULE_SHIPPING_DP_STATUS', 'MODULE_SHIPPING_DP_HANDLING', 'MODULE_SHIPPING_DP_PRICE_WITH_TAX', 'MODULE_SHIPPING_DP_ZONE', 'MODULE_SHIPPING_DP_SORT_ORDER');
 
       for ($i = 1; $i <= $this->num_dp; $i ++) {
         $keys[count($keys)] = 'MODULE_SHIPPING_DP_COUNTRIES_' . $i;

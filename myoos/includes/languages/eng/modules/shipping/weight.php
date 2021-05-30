@@ -29,8 +29,8 @@ define('MODULE_SHIPPING_WEIGHT_HANDLING_DESC', 'Bearbeitungsgebhr fr diese Versa
 define('MODULE_SHIPPING_WEIGHT_TAX_CLASS_TITLE', 'Steuersatz');
 define('MODULE_SHIPPING_WEIGHT_TAX_CLASS_DESC', 'W�len Sie den MwSt.-Satz fr diese Versandart aus.');
 
-define('MODULE_SHIPPING_WEIGHT_ZONE_TITLE', 'Versand Zone');
-define('MODULE_SHIPPING_WEIGHT_ZONE_DESC', 'Wenn Sie eine Zone ausw�len, wird diese Versandart nur in dieser Zone angeboten.');
+define('MODULE_SHIPPING_WEIGHT_ZONE_TITLE', 'Shipping Zone');
+define('MODULE_SHIPPING_WEIGHT_ZONE_DESC', 'If you select a zone, this shipping method will be offered only in this zone.');
 
 define('MODULE_SHIPPING_WEIGHT_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
 define('MODULE_SHIPPING_WEIGHT_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');

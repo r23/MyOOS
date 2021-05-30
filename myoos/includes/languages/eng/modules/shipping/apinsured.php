@@ -57,7 +57,7 @@ define('MODULE_SHIPPING_AP_INSURED_HANDLING_DESC', 'Bearbeitungsgebühr für die
 define('MODULE_SHIPPING_AP_INSURED_TAX_CLASS_TITLE', 'Steuersatz');
 define('MODULE_SHIPPING_AP_INSURED_TAX_CLASS_DESC', 'Wählen Sie den MwSt.-Satz für diese Versandart aus.');
 
-define('MODULE_SHIPPING_AP_INSURED_ZONE_TITLE', 'Versand Zone');
+define('MODULE_SHIPPING_AP_INSURED_ZONE_TITLE', 'Shipping Zone');
 define('MODULE_SHIPPING_AP_INSURED_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 
 define('MODULE_SHIPPING_AP_INSURED_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');

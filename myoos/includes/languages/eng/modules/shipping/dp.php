@@ -26,11 +26,11 @@ define('MODULE_SHIPPING_DP_STATUS_DESC', 'Do you want to offer German Post shipp
 define('MODULE_SHIPPING_DP_HANDLING_TITLE', 'Handling Fee');
 define('MODULE_SHIPPING_DP_HANDLING_DESC', 'Handlingfee for this shipping method in Euro');
 
-define('MODULE_SHIPPING_DP_TAX_CLASS_TITLE', 'Tax Rate');
-define('MODULE_SHIPPING_DP_TAX_CLASS_DESC', 'Use the following tax class on the shipping fee.');
+define('MODULE_SHIPPING_DP_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
+define('MODULE_SHIPPING_DP_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
 
-define('MODULE_SHIPPING_DP_ZONE_TITLE', 'Versand Zone');
-define('MODULE_SHIPPING_DP_ZONE_DESC', 'Wenn Sie eine Zone ausw�len, wird diese Versandart nur in dieser Zone angeboten.');
+define('MODULE_SHIPPING_DP_ZONE_TITLE', 'Shipping Zone');
+define('MODULE_SHIPPING_DP_ZONE_DESC', 'If you select a zone, this shipping method will be offered only in this zone.');
 
 define('MODULE_SHIPPING_DP_SORT_ORDER_TITLE', 'Sort order');
 define('MODULE_SHIPPING_DP_SORT_ORDER_DESC', 'Sort order of display. Lowest is displayed first.');
