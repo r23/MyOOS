@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '90d8479e8b02dc0bf45984b3eab55983692213b7',
+    'reference' => '77e3ae15ef6fac80ded8911d58dcd1c72aafc1ea',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -251,7 +251,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '90d8479e8b02dc0bf45984b3eab55983692213b7',
+      'reference' => '77e3ae15ef6fac80ded8911d58dcd1c72aafc1ea',
     ),
     'ocramius/proxy-manager' => 
     array (
