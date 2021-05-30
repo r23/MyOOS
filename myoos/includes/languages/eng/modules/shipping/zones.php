@@ -24,8 +24,8 @@ define('NUMBER_OF_ZONES',8);
 define('MODULE_SHIPPING_ZONES_STATUS_TITLE', 'Enable Zones Method');
 define('MODULE_SHIPPING_ZONES_STATUS_DESC', 'Do you want to offer zone rate shipping?');
 
-define('MODULE_SHIPPING_ZONES_TAX_CLASS_TITLE', 'Tax Class');
-define('MODULE_SHIPPING_ZONES_TAX_CLASS_DESC', 'Use the following tax class on the shipping fee.');
+define('MODULE_SHIPPING_ZONES_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
+define('MODULE_SHIPPING_ZONES_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
 
 define('MODULE_SHIPPING_ZONES_SORT_ORDER_TITLE', 'Sort Order');
 define('MODULE_SHIPPING_ZONES_SORT_ORDER_DESC', 'Sort order of display.');
