@@ -26,6 +26,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class DebugCommand extends Command
 {
     protected static $defaultName = 'debug:messenger';
+    protected static $defaultDescription = 'List messages you can dispatch using the message buses';
 
     private $mapping;
 
@@ -43,7 +44,7 @@ class DebugCommand extends Command
     {
         $this
             ->addArgument('bus', InputArgument::OPTIONAL, sprintf('The bus id (one of "%s")', implode('", "', array_keys($this->mapping))))
-            ->setDescription('List messages you can dispatch using the message buses')
+            ->setDescription(self::$defaultDescription)
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command displays all messages that can be
 dispatched using the message buses:

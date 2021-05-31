@@ -42,6 +42,7 @@ class TranslationUpdateCommand extends Command
     private const SORT_ORDERS = [self::ASC, self::DESC];
 
     protected static $defaultName = 'translation:update';
+    protected static $defaultDescription = 'Update the translation file';
 
     private $writer;
     private $reader;
@@ -50,9 +51,9 @@ class TranslationUpdateCommand extends Command
     private $defaultTransPath;
     private $defaultViewsPath;
     private $transPaths;
-    private $viewsPaths;
+    private $codePaths;
 
-    public function __construct(TranslationWriterInterface $writer, TranslationReaderInterface $reader, ExtractorInterface $extractor, string $defaultLocale, string $defaultTransPath = null, string $defaultViewsPath = null, array $transPaths = [], array $viewsPaths = [])
+    public function __construct(TranslationWriterInterface $writer, TranslationReaderInterface $reader, ExtractorInterface $extractor, string $defaultLocale, string $defaultTransPath = null, string $defaultViewsPath = null, array $transPaths = [], array $codePaths = [])
     {
         parent::__construct();
 
@@ -63,7 +64,7 @@ class TranslationUpdateCommand extends Command
         $this->defaultTransPath = $defaultTransPath;
         $this->defaultViewsPath = $defaultViewsPath;
         $this->transPaths = $transPaths;
-        $this->viewsPaths = $viewsPaths;
+        $this->codePaths = $codePaths;
     }
 
     /**
@@ -76,16 +77,17 @@ class TranslationUpdateCommand extends Command
                 new InputArgument('locale', InputArgument::REQUIRED, 'The locale'),
                 new InputArgument('bundle', InputArgument::OPTIONAL, 'The bundle name or directory where to load the messages'),
                 new InputOption('prefix', null, InputOption::VALUE_OPTIONAL, 'Override the default prefix', '__'),
-                new InputOption('output-format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format', 'xlf'),
+                new InputOption('output-format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format (deprecated)'),
+                new InputOption('format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format', 'xlf12'),
                 new InputOption('dump-messages', null, InputOption::VALUE_NONE, 'Should the messages be dumped in the console'),
                 new InputOption('force', null, InputOption::VALUE_NONE, 'Should the update be done'),
                 new InputOption('clean', null, InputOption::VALUE_NONE, 'Should clean not found messages'),
                 new InputOption('domain', null, InputOption::VALUE_OPTIONAL, 'Specify the domain to update'),
-                new InputOption('xliff-version', null, InputOption::VALUE_OPTIONAL, 'Override the default xliff version', '1.2'),
+                new InputOption('xliff-version', null, InputOption::VALUE_OPTIONAL, 'Override the default xliff version (deprecated)'),
                 new InputOption('sort', null, InputOption::VALUE_OPTIONAL, 'Return list of messages sorted alphabetically', 'asc'),
                 new InputOption('as-tree', null, InputOption::VALUE_OPTIONAL, 'Dump the messages as a tree-like structure: The given value defines the level where to switch to inline YAML'),
             ])
-            ->setDescription('Update the translation file')
+            ->setDescription(self::$defaultDescription)
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command extracts translation strings from templates
 of a given bundle or the default translations directory. It can display them or merge
@@ -111,8 +113,8 @@ You can sort the output with the <comment>--sort</> flag:
 
 You can dump a tree-like structure using the yaml format with <comment>--as-tree</> flag:
 
-    <info>php %command.full_name% --force --output-format=yaml --as-tree=3 en AcmeBundle</info>
-    <info>php %command.full_name% --force --output-format=yaml --sort=asc --as-tree=3 fr</info>
+    <info>php %command.full_name% --force --format=yaml --as-tree=3 en AcmeBundle</info>
+    <info>php %command.full_name% --force --format=yaml --sort=asc --as-tree=3 fr</info>
 
 EOF
             )
@@ -134,13 +136,31 @@ EOF
             return 1;
         }
 
+        $format = $input->getOption('output-format') ?: $input->getOption('format');
+        $xliffVersion = $input->getOption('xliff-version') ?? '1.2';
+
+        if ($input->getOption('xliff-version')) {
+            trigger_deprecation('symfony/framework-bundle', '5.3', 'The "--xliff-version" option is deprecated, use "--format=xlf%d" instead.', 10 * $xliffVersion);
+        }
+
+        if ($input->getOption('output-format')) {
+            trigger_deprecation('symfony/framework-bundle', '5.3', 'The "--output-format" option is deprecated, use "--format=xlf%d" instead.', 10 * $xliffVersion);
+        }
+
+        switch ($format) {
+            case 'xlf20': $xliffVersion = '2.0';
+            // no break
+            case 'xlf12': $format = 'xlf';
+        }
+
         // check format
         $supportedFormats = $this->writer->getFormats();
-        if (!\in_array($input->getOption('output-format'), $supportedFormats, true)) {
-            $errorIo->error(['Wrong output format', 'Supported formats are: '.implode(', ', $supportedFormats).'.']);
+        if (!\in_array($format, $supportedFormats, true)) {
+            $errorIo->error(['Wrong output format', 'Supported formats are: '.implode(', ', $supportedFormats).', xlf12 and xlf20.']);
 
             return 1;
         }
+
         /** @var KernelInterface $kernel */
         $kernel = $this->getApplication()->getKernel();
 
@@ -149,9 +169,10 @@ EOF
         if ($this->defaultTransPath) {
             $transPaths[] = $this->defaultTransPath;
         }
-        $viewsPaths = $this->viewsPaths;
+        $codePaths = $this->codePaths;
+        $codePaths[] = $kernel->getProjectDir().'/src';
         if ($this->defaultViewsPath) {
-            $viewsPaths[] = $this->defaultViewsPath;
+            $codePaths[] = $this->defaultViewsPath;
         }
         $currentName = 'default directory';
 
@@ -161,12 +182,12 @@ EOF
                 $foundBundle = $kernel->getBundle($input->getArgument('bundle'));
                 $bundleDir = $foundBundle->getPath();
                 $transPaths = [is_dir($bundleDir.'/Resources/translations') ? $bundleDir.'/Resources/translations' : $bundleDir.'/translations'];
-                $viewsPaths = [is_dir($bundleDir.'/Resources/views') ? $bundleDir.'/Resources/views' : $bundleDir.'/templates'];
+                $codePaths = [is_dir($bundleDir.'/Resources/views') ? $bundleDir.'/Resources/views' : $bundleDir.'/templates'];
                 if ($this->defaultTransPath) {
                     $transPaths[] = $this->defaultTransPath;
                 }
                 if ($this->defaultViewsPath) {
-                    $viewsPaths[] = $this->defaultViewsPath;
+                    $codePaths[] = $this->defaultViewsPath;
                 }
                 $currentName = $foundBundle->getName();
             } catch (\InvalidArgumentException $e) {
@@ -174,7 +195,7 @@ EOF
                 $path = $input->getArgument('bundle');
 
                 $transPaths = [$path.'/translations'];
-                $viewsPaths = [$path.'/templates'];
+                $codePaths = [$path.'/templates'];
 
                 if (!is_dir($transPaths[0]) && !isset($transPaths[1])) {
                     throw new InvalidArgumentException(sprintf('"%s" is neither an enabled bundle nor a directory.', $transPaths[0]));
@@ -189,7 +210,7 @@ EOF
         $extractedCatalogue = new MessageCatalogue($input->getArgument('locale'));
         $io->comment('Parsing templates...');
         $this->extractor->setPrefix($input->getOption('prefix'));
-        foreach ($viewsPaths as $path) {
+        foreach ($codePaths as $path) {
             if (is_dir($path) || is_file($path)) {
                 $this->extractor->extract($path, $extractedCatalogue);
             }
@@ -223,23 +244,7 @@ EOF
 
         $resultMessage = 'Translation files were successfully updated';
 
-        // move new messages to intl domain when possible
-        if (class_exists(\MessageFormatter::class)) {
-            foreach ($operation->getDomains() as $domain) {
-                $intlDomain = $domain.MessageCatalogueInterface::INTL_DOMAIN_SUFFIX;
-                $newMessages = $operation->getNewMessages($domain);
-
-                if ([] === $newMessages || ([] === $currentCatalogue->all($intlDomain) && [] !== $currentCatalogue->all($domain))) {
-                    continue;
-                }
-
-                $result = $operation->getResult();
-                $allIntlMessages = $result->all($intlDomain);
-                $currentMessages = array_diff_key($newMessages, $result->all($domain));
-                $result->replace($currentMessages, $domain);
-                $result->replace($allIntlMessages + $newMessages, $intlDomain);
-            }
-        }
+        $operation->moveMessagesToIntlDomainsIfPossible('new');
 
         // show compiled list of messages
         if (true === $input->getOption('dump-messages')) {
@@ -282,8 +287,8 @@ EOF
                 $extractedMessagesCount += $domainMessagesCount;
             }
 
-            if ('xlf' === $input->getOption('output-format')) {
-                $io->comment(sprintf('Xliff output version is <info>%s</info>', $input->getOption('xliff-version')));
+            if ('xlf' === $format) {
+                $io->comment(sprintf('Xliff output version is <info>%s</info>', $xliffVersion));
             }
 
             $resultMessage = sprintf('%d message%s successfully extracted', $extractedMessagesCount, $extractedMessagesCount > 1 ? 's were' : ' was');
@@ -304,7 +309,7 @@ EOF
                 $bundleTransPath = end($transPaths);
             }
 
-            $this->writer->write($operation->getResult(), $input->getOption('output-format'), ['path' => $bundleTransPath, 'default_locale' => $this->defaultLocale, 'xliff_version' => $input->getOption('xliff-version'), 'as_tree' => $input->getOption('as-tree'), 'inline' => $input->getOption('as-tree') ?? 0]);
+            $this->writer->write($operation->getResult(), $format, ['path' => $bundleTransPath, 'default_locale' => $this->defaultLocale, 'xliff_version' => $xliffVersion, 'as_tree' => $input->getOption('as-tree'), 'inline' => $input->getOption('as-tree') ?? 0]);
 
             if (true === $input->getOption('dump-messages')) {
                 $resultMessage .= ' and translation files were updated';
@@ -333,11 +338,13 @@ EOF
         foreach ($catalogue->getResources() as $resource) {
             $filteredCatalogue->addResource($resource);
         }
+
         if ($metadata = $catalogue->getMetadata('', $intlDomain)) {
             foreach ($metadata as $k => $v) {
                 $filteredCatalogue->setMetadata($k, $v, $intlDomain);
             }
         }
+
         if ($metadata = $catalogue->getMetadata('', $domain)) {
             foreach ($metadata as $k => $v) {
                 $filteredCatalogue->setMetadata($k, $v, $domain);

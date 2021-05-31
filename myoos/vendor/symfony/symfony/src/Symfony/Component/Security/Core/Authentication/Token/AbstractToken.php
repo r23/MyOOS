@@ -12,6 +12,7 @@
 namespace Symfony\Component\Security\Core\Authentication\Token;
 
 use Symfony\Component\Security\Core\User\EquatableInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -50,10 +51,32 @@ abstract class AbstractToken implements TokenInterface
     /**
      * {@inheritdoc}
      */
-    public function getUsername()
+    public function getUsername(/* $legacy = true */)
     {
+        if (1 === func_num_args() && false === func_get_arg(0)) {
+            return null;
+        }
+
+        trigger_deprecation('symfony/security-core', '5.3', 'Method "%s()" is deprecated, use getUserIdentifier() instead.', __METHOD__);
+
         if ($this->user instanceof UserInterface) {
-            return $this->user->getUsername();
+            return method_exists($this->user, 'getUserIdentifier') ? $this->user->getUserIdentifier() : $this->user->getUsername();
+        }
+
+        return (string) $this->user;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        // method returns "null" in non-legacy mode if not overridden
+        $username = $this->getUsername(false);
+        if (null !== $username) {
+            trigger_deprecation('symfony/security-core', '5.3', 'Method "%s::getUsername()" is deprecated, override "getUserIdentifier()" instead.', get_debug_type($this));
+        }
+
+        if ($this->user instanceof UserInterface) {
+            // @deprecated since 5.3, change to $user->getUserIdentifier() in 6.0
+            return method_exists($this->user, 'getUserIdentifier') ? $this->user->getUserIdentifier() : $this->user->getUsername();
         }
 
         return (string) $this->user;
@@ -233,7 +256,7 @@ abstract class AbstractToken implements TokenInterface
             $roles[] = $role;
         }
 
-        return sprintf('%s(user="%s", authenticated=%s, roles="%s")', $class, $this->getUsername(), json_encode($this->authenticated), implode(', ', $roles));
+        return sprintf('%s(user="%s", authenticated=%s, roles="%s")', $class, $this->getUserIdentifier(), json_encode($this->authenticated), implode(', ', $roles));
     }
 
     /**
@@ -262,10 +285,12 @@ abstract class AbstractToken implements TokenInterface
             return !(bool) $this->user->isEqualTo($user);
         }
 
+        // @deprecated since Symfony 5.3, check for PasswordAuthenticatedUserInterface on both user objects before comparing passwords
         if ($this->user->getPassword() !== $user->getPassword()) {
             return true;
         }
 
+        // @deprecated since Symfony 5.3, check for LegacyPasswordAuthenticatedUserInterface on both user objects before comparing salts
         if ($this->user->getSalt() !== $user->getSalt()) {
             return true;
         }
@@ -280,7 +305,11 @@ abstract class AbstractToken implements TokenInterface
             return true;
         }
 
-        if ($this->user->getUsername() !== $user->getUsername()) {
+        // @deprecated since Symfony 5.3, drop getUsername() in 6.0
+        $userIdentifier = function ($user) {
+            return method_exists($user, 'getUserIdentifier') ? $user->getUserIdentifier() : $user->getUsername();
+        };
+        if ($userIdentifier($this->user) !== $userIdentifier($user)) {
             return true;
         }
 

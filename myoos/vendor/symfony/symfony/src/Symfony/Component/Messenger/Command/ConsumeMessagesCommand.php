@@ -36,6 +36,7 @@ use Symfony\Component\Messenger\Worker;
 class ConsumeMessagesCommand extends Command
 {
     protected static $defaultName = 'messenger:consume';
+    protected static $defaultDescription = 'Consume messages';
 
     private $routableBus;
     private $receiverLocator;
@@ -70,8 +71,9 @@ class ConsumeMessagesCommand extends Command
                 new InputOption('time-limit', 't', InputOption::VALUE_REQUIRED, 'The time limit in seconds the worker can handle new messages'),
                 new InputOption('sleep', null, InputOption::VALUE_REQUIRED, 'Seconds to sleep before asking for new messages after no messages were found', 1),
                 new InputOption('bus', 'b', InputOption::VALUE_REQUIRED, 'Name of the bus to which received messages should be dispatched (if not passed, bus is determined automatically)'),
+                new InputOption('queues', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Limit receivers to only consume from the specified queues'),
             ])
-            ->setDescription('Consume messages')
+            ->setDescription(self::$defaultDescription)
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command consumes messages and dispatches them to the message bus.
 
@@ -103,6 +105,10 @@ to instead of trying to determine it automatically. This is required if the
 messages didn't originate from Messenger:
 
     <info>php %command.full_name% <receiver-name> --bus=event_bus</info>
+
+Use the --queues option to limit a receiver to only certain queues (only supported by some receivers):
+
+    <info>php %command.full_name% <receiver-name> --queues=fasttrack</info>
 EOF
             )
         ;
@@ -194,9 +200,13 @@ EOF
         $bus = $input->getOption('bus') ? $this->routableBus->getMessageBus($input->getOption('bus')) : $this->routableBus;
 
         $worker = new Worker($receivers, $bus, $this->eventDispatcher, $this->logger);
-        $worker->run([
+        $options = [
             'sleep' => $input->getOption('sleep') * 1000000,
-        ]);
+        ];
+        if ($queues = $input->getOption('queues')) {
+            $options['queues'] = $queues;
+        }
+        $worker->run($options);
 
         return 0;
     }

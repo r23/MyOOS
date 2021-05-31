@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\DependencyInjection;
 
+use Composer\InstalledVersions;
 use Psr\Container\ContainerInterface as PsrContainerInterface;
 use Symfony\Component\Config\Resource\ClassExistenceResource;
 use Symfony\Component\Config\Resource\ComposerResource;
@@ -26,6 +27,7 @@ use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocator;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
+use Symfony\Component\DependencyInjection\Attribute\Target;
 use Symfony\Component\DependencyInjection\Compiler\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
@@ -122,6 +124,11 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     private $vendors;
 
     private $autoconfiguredInstanceof = [];
+
+    /**
+     * @var callable[]
+     */
+    private $autoconfiguredAttributes = [];
 
     private $removedIds = [];
 
@@ -511,10 +518,8 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      *
      * @return bool true if the service is defined, false otherwise
      */
-    public function has($id)
+    public function has(string $id)
     {
-        $id = (string) $id;
-
         return isset($this->definitions[$id]) || isset($this->aliasDefinitions[$id]) || parent::has($id);
     }
 
@@ -533,9 +538,9 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      *
      * @see Reference
      */
-    public function get($id, int $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
+    public function get(string $id, int $invalidBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE)
     {
-        if ($this->isCompiled() && isset($this->removedIds[$id = (string) $id]) && ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
+        if ($this->isCompiled() && isset($this->removedIds[$id]) && ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE >= $invalidBehavior) {
             return parent::get($id);
         }
 
@@ -670,6 +675,14 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
             }
 
             $this->autoconfiguredInstanceof[$interface] = $childDefinition;
+        }
+
+        foreach ($container->getAutoconfiguredAttributes() as $attribute => $configurator) {
+            if (isset($this->autoconfiguredAttributes[$attribute])) {
+                throw new InvalidArgumentException(sprintf('"%s" has already been autoconfigured and merge() does not support merging autoconfiguration for the same attribute.', $attribute));
+            }
+
+            $this->autoconfiguredAttributes[$attribute] = $configurator;
         }
     }
 
@@ -1310,6 +1323,16 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     }
 
     /**
+     * Registers an attribute that will be used for autoconfiguring annotated classes.
+     *
+     * The configurator will receive a ChildDefinition instance, an instance of the attribute and the corresponding \ReflectionClass, in that order.
+     */
+    public function registerAttributeForAutoconfiguration(string $attributeClass, callable $configurator): void
+    {
+        $this->autoconfiguredAttributes[$attributeClass] = $configurator;
+    }
+
+    /**
      * Registers an autowiring alias that only binds to a specific argument name.
      *
      * The argument name is derived from $name if provided (from $id otherwise)
@@ -1319,7 +1342,7 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
      */
     public function registerAliasForArgument(string $id, string $type, string $name = null): Alias
     {
-        $name = lcfirst(str_replace(' ', '', ucwords(preg_replace('/[^a-zA-Z0-9\x7f-\xff]++/', ' ', $name ?? $id))));
+        $name = (new Target($name ?? $id))->name;
 
         if (!preg_match('/^[a-zA-Z_\x7f-\xff]/', $name)) {
             throw new InvalidArgumentException(sprintf('Invalid argument name "%s" for service "%s": the first character must be a letter.', $name, $id));
@@ -1336,6 +1359,14 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     public function getAutoconfiguredInstanceof()
     {
         return $this->autoconfiguredInstanceof;
+    }
+
+    /**
+     * @return callable[]
+     */
+    public function getAutoconfiguredAttributes(): array
+    {
+        return $this->autoconfiguredAttributes;
     }
 
     /**
@@ -1434,6 +1465,34 @@ class ContainerBuilder extends Container implements TaggedContainerInterface
     public function log(CompilerPassInterface $pass, string $message)
     {
         $this->getCompiler()->log($pass, $this->resolveEnvPlaceholders($message));
+    }
+
+    /**
+     * Checks whether a class is available and will remain available in the "no-dev" mode of Composer.
+     *
+     * When parent packages are provided and if any of them is in dev-only mode,
+     * the class will be considered available even if it is also in dev-only mode.
+     */
+    final public static function willBeAvailable(string $package, string $class, array $parentPackages): bool
+    {
+        if (!class_exists($class) && !interface_exists($class, false) && !trait_exists($class, false)) {
+            return false;
+        }
+
+        if (!class_exists(InstalledVersions::class) || !InstalledVersions::isInstalled($package) || InstalledVersions::isInstalled($package, false)) {
+            return true;
+        }
+
+        // the package is installed but in dev-mode only, check if this applies to one of the parent packages too
+
+        $rootPackage = InstalledVersions::getRootPackage()['name'] ?? '';
+        foreach ($parentPackages as $parentPackage) {
+            if ($rootPackage === $parentPackage || (InstalledVersions::isInstalled($parentPackage) && !InstalledVersions::isInstalled($parentPackage, false))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

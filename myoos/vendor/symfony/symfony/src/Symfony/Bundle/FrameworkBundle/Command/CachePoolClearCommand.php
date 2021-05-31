@@ -28,6 +28,7 @@ use Symfony\Component\HttpKernel\CacheClearer\Psr6CacheClearer;
 final class CachePoolClearCommand extends Command
 {
     protected static $defaultName = 'cache:pool:clear';
+    protected static $defaultDescription = 'Clear cache pools';
 
     private $poolClearer;
 
@@ -47,7 +48,7 @@ final class CachePoolClearCommand extends Command
             ->setDefinition([
                 new InputArgument('pools', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'A list of cache pools or cache pool clearers'),
             ])
-            ->setDescription('Clear cache pools')
+            ->setDescription(self::$defaultDescription)
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command clears the given cache pools or cache pool clearers.
 
@@ -88,14 +89,25 @@ EOF
             $clearer->clear($kernel->getContainer()->getParameter('kernel.cache_dir'));
         }
 
+        $failure = false;
         foreach ($pools as $id => $pool) {
             $io->comment(sprintf('Clearing cache pool: <info>%s</info>', $id));
 
             if ($pool instanceof CacheItemPoolInterface) {
-                $pool->clear();
+                if (!$pool->clear()) {
+                    $io->warning(sprintf('Cache pool "%s" could not be cleared.', $pool));
+                    $failure = true;
+                }
             } else {
-                $this->poolClearer->clearPool($id);
+                if (false === $this->poolClearer->clearPool($id)) {
+                    $io->warning(sprintf('Cache pool "%s" could not be cleared.', $pool));
+                    $failure = true;
+                }
             }
+        }
+
+        if ($failure) {
+            return 1;
         }
 
         $io->success('Cache was successfully cleared.');

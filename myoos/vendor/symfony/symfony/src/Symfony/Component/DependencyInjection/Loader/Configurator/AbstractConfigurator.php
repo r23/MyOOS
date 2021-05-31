@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use Symfony\Component\DependencyInjection\Argument\ArgumentInterface;
 use Symfony\Component\DependencyInjection\Definition;
@@ -81,6 +82,10 @@ abstract class AbstractConfigurator
             $value->definition = null;
 
             return $def;
+        }
+
+        if ($value instanceof ParamConfigurator) {
+            return (string) $value;
         }
 
         if ($value instanceof self) {

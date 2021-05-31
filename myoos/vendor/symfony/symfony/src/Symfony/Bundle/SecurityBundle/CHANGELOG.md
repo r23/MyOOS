@@ -1,6 +1,27 @@
 CHANGELOG
 =========
 
+5.3
+---
+
+ * The authenticator system is no longer experimental
+ * Login Link functionality is no longer experimental
+ * Add `required_badges` firewall config option
+ * [BC break] Add `login_throttling.lock_factory` setting defaulting to `null` (instead of `lock.factory`)
+ * Add a `login_throttling.interval` (in `security.firewalls`) option to change the default throttling interval.
+ * Add the `debug:firewall` command.
+ * Deprecate `UserPasswordEncoderCommand` class and the corresponding `user:encode-password` command,
+   use `UserPasswordHashCommand` and `user:hash-password` instead
+ * Deprecate the `security.encoder_factory.generic` service, the `security.encoder_factory` and `Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface` aliases,
+   use `security.password_hasher_factory` and `Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface` instead
+ * Deprecate the `security.user_password_encoder.generic` service, the `security.password_encoder` and the `Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface` aliases,
+   use `security.user_password_hasher`, `security.password_hasher` and `Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface` instead
+ * Deprecate the public `security.authorization_checker` and `security.token_storage` services to private
+ * Not setting the `enable_authenticator_manager` config option to `true` is deprecated
+ * Deprecate the `security.authentication.provider.*` services, use the new authenticator system instead
+ * Deprecate the `security.authentication.listener.*` services, use the new authenticator system instead
+ * Deprecate the Guard component integration, use the new authenticator system instead
+
 5.2.0
 -----
 

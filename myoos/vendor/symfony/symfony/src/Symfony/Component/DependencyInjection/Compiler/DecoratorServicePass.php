@@ -30,6 +30,10 @@ class DecoratorServicePass extends AbstractRecursivePass
 
     public function __construct(?string $innerId = '.inner')
     {
+        if (0 < \func_num_args()) {
+            trigger_deprecation('symfony/dependency-injection', '5.3', 'Configuring "%s" is deprecated.', __CLASS__);
+        }
+
         $this->innerId = $innerId;
     }
 
@@ -93,10 +97,12 @@ class DecoratorServicePass extends AbstractRecursivePass
                 $decoratingTags = $decoratingDefinition->getTags();
                 $resetTags = [];
 
-                if (isset($decoratingTags['container.service_locator'])) {
-                    // container.service_locator has special logic and it must not be transferred out to decorators
-                    $resetTags = ['container.service_locator' => $decoratingTags['container.service_locator']];
-                    unset($decoratingTags['container.service_locator']);
+                // container.service_locator and container.service_subscriber have special logic and they must not be transferred out to decorators
+                foreach (['container.service_locator', 'container.service_subscriber'] as $containerTag) {
+                    if (isset($decoratingTags[$containerTag])) {
+                        $resetTags[$containerTag] = $decoratingTags[$containerTag];
+                        unset($decoratingTags[$containerTag]);
+                    }
                 }
 
                 $definition->setTags(array_merge($decoratingTags, $definition->getTags()));

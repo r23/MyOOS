@@ -23,8 +23,6 @@ use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
  * @author Ryan Weaver <ryan@symfonycasts.com>
  * @author Amaury Leroux de Lens <amaury@lerouxdelens.com>
  * @author Wouter de Jong <wouter@wouterj.nl>
- *
- * @experimental in 5.2
  */
 interface AuthenticatorInterface
 {
@@ -46,7 +44,7 @@ interface AuthenticatorInterface
      * presented password and the CSRF token value.
      *
      * You may throw any AuthenticationException in this method in case of error (e.g.
-     * a UsernameNotFoundException when the user cannot be found).
+     * a UserNotFoundException when the user cannot be found).
      *
      * @throws AuthenticationException
      */

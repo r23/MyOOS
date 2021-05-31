@@ -11,8 +11,7 @@
 
 namespace Symfony\Component\Security\Http\Authenticator\Passport\Badge;
 
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\AuthenticationServiceException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\EventListener\UserProviderListener;
 
@@ -23,8 +22,6 @@ use Symfony\Component\Security\Http\EventListener\UserProviderListener;
  * "user loader" to load the related User object.
  *
  * @author Wouter de Jong <wouter@wouterj.nl>
- *
- * @experimental in 5.2
  */
 class UserBadge implements BadgeInterface
 {
@@ -41,7 +38,7 @@ class UserBadge implements BadgeInterface
      * based on email *and* company name). This string can be used for e.g. login throttling.
      *
      * Optionally, you may pass a user loader. This callable receives the $userIdentifier
-     * as argument and must return a UserInterface object (otherwise a UsernameNotFoundException
+     * as argument and must return a UserInterface object (otherwise an AuthenticationServiceException
      * is thrown). If this is not set, the default user provider will be used with
      * $userIdentifier as username.
      */
@@ -68,7 +65,7 @@ class UserBadge implements BadgeInterface
 
             $this->user = ($this->userLoader)($this->userIdentifier);
             if (!$this->user instanceof UserInterface) {
-                throw new UsernameNotFoundException();
+                throw new AuthenticationServiceException(sprintf('The user provider must return a UserInterface object, "%s" given.', get_debug_type($this->user)));
             }
         }
 

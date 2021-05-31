@@ -23,8 +23,6 @@ use Symfony\Component\Security\Core\Security;
  * a limit on username+IP and a (higher) limit on IP.
  *
  * @author Wouter de Jong <wouter@wouterj.nl>
- *
- * @experimental in 5.2
  */
 final class DefaultLoginRateLimiter extends AbstractRequestRateLimiter
 {

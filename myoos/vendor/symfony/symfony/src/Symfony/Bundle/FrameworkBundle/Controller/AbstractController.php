@@ -20,7 +20,9 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -199,11 +201,11 @@ abstract class AbstractController implements ServiceSubscriberInterface
      */
     protected function addFlash(string $type, $message): void
     {
-        if (!$this->container->has('session')) {
-            throw new \LogicException('You can not use the addFlash method if sessions are disabled. Enable them in "config/packages/framework.yaml".');
+        try {
+            $this->container->get('request_stack')->getSession()->getFlashBag()->add($type, $message);
+        } catch (SessionNotFoundException $e) {
+            throw new \LogicException('You can not use the addFlash method if sessions are disabled. Enable them in "config/packages/framework.yaml".', 0, $e);
         }
-
-        $this->container->get('session')->getFlashBag()->add($type, $message);
     }
 
     /**
@@ -263,6 +265,36 @@ abstract class AbstractController implements ServiceSubscriberInterface
         $response->setContent($content);
 
         return $response;
+    }
+
+    /**
+     * Renders a view and sets the appropriate status code when a form is listed in parameters.
+     *
+     * If an invalid form is found in the list of parameters, a 422 status code is returned.
+     */
+    protected function renderForm(string $view, array $parameters = [], Response $response = null): Response
+    {
+        if (null === $response) {
+            $response = new Response();
+        }
+
+        foreach ($parameters as $k => $v) {
+            if ($v instanceof FormView) {
+                throw new \LogicException(sprintf('Passing a FormView to "%s::renderForm()" is not supported, pass directly the form instead for parameter "%s".', get_debug_type($this), $k));
+            }
+
+            if (!$v instanceof FormInterface) {
+                continue;
+            }
+
+            $parameters[$k] = $v->createView();
+
+            if (200 === $response->getStatusCode() && $v->isSubmitted() && !$v->isValid()) {
+                $response->setStatusCode(422);
+            }
+        }
+
+        return $this->render($view, $parameters, $response);
     }
 
     /**

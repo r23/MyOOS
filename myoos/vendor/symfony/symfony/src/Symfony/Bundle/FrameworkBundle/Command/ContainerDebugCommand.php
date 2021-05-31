@@ -35,6 +35,7 @@ class ContainerDebugCommand extends Command
     use BuildDebugContainerTrait;
 
     protected static $defaultName = 'debug:container';
+    protected static $defaultDescription = 'Display current services for an application';
 
     /**
      * {@inheritdoc}
@@ -57,7 +58,7 @@ class ContainerDebugCommand extends Command
                 new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw description'),
                 new InputOption('deprecations', null, InputOption::VALUE_NONE, 'Display deprecations generated when compiling and warming up the container'),
             ])
-            ->setDescription('Display current services for an application')
+            ->setDescription(self::$defaultDescription)
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command displays all configured <comment>public</comment> services:
 
@@ -122,7 +123,8 @@ EOF
         $errorIo = $io->getErrorStyle();
 
         $this->validateInput($input);
-        $object = $this->getContainerBuilder();
+        $kernel = $this->getApplication()->getKernel();
+        $object = $this->getContainerBuilder($kernel);
 
         if ($input->getOption('env-vars')) {
             $options = ['env-vars' => true];
@@ -159,12 +161,12 @@ EOF
         $options['show_hidden'] = $input->getOption('show-hidden');
         $options['raw_text'] = $input->getOption('raw');
         $options['output'] = $io;
-        $options['is_debug'] = $this->getApplication()->getKernel()->isDebug();
+        $options['is_debug'] = $kernel->isDebug();
 
         try {
             $helper->describe($io, $object, $options);
 
-            if (isset($options['id']) && isset($this->getApplication()->getKernel()->getContainer()->getRemovedIds()[$options['id']])) {
+            if (isset($options['id']) && isset($kernel->getContainer()->getRemovedIds()[$options['id']])) {
                 $errorIo->note(sprintf('The "%s" service or alias has been removed or inlined when the container was compiled.', $options['id']));
             }
         } catch (ServiceNotFoundException $e) {

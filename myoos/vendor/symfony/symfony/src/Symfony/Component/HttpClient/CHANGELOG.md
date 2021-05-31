@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+5.3
+---
+
+ * Implement `HttpClientInterface::withOptions()` from `symfony/contracts` v2.4
+ * Add `DecoratorTrait` to ease writing simple decorators
+
 5.2.0
 -----
 

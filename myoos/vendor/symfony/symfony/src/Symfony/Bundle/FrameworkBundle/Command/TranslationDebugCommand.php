@@ -47,6 +47,7 @@ class TranslationDebugCommand extends Command
     public const MESSAGE_EQUALS_FALLBACK = 2;
 
     protected static $defaultName = 'debug:translation';
+    protected static $defaultDescription = 'Display translation messages information';
 
     private $translator;
     private $reader;
@@ -54,9 +55,9 @@ class TranslationDebugCommand extends Command
     private $defaultTransPath;
     private $defaultViewsPath;
     private $transPaths;
-    private $viewsPaths;
+    private $codePaths;
 
-    public function __construct(TranslatorInterface $translator, TranslationReaderInterface $reader, ExtractorInterface $extractor, string $defaultTransPath = null, string $defaultViewsPath = null, array $transPaths = [], array $viewsPaths = [])
+    public function __construct(TranslatorInterface $translator, TranslationReaderInterface $reader, ExtractorInterface $extractor, string $defaultTransPath = null, string $defaultViewsPath = null, array $transPaths = [], array $codePaths = [])
     {
         parent::__construct();
 
@@ -66,7 +67,7 @@ class TranslationDebugCommand extends Command
         $this->defaultTransPath = $defaultTransPath;
         $this->defaultViewsPath = $defaultViewsPath;
         $this->transPaths = $transPaths;
-        $this->viewsPaths = $viewsPaths;
+        $this->codePaths = $codePaths;
     }
 
     /**
@@ -83,7 +84,7 @@ class TranslationDebugCommand extends Command
                 new InputOption('only-unused', null, InputOption::VALUE_NONE, 'Display only unused messages'),
                 new InputOption('all', null, InputOption::VALUE_NONE, 'Load messages from all registered bundles'),
             ])
-            ->setDescription('Display translation messages information')
+            ->setDescription(self::$defaultDescription)
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command helps finding unused or missing translation
 messages and comparing them with the fallback ones by inspecting the
@@ -138,9 +139,10 @@ EOF
         if ($this->defaultTransPath) {
             $transPaths[] = $this->defaultTransPath;
         }
-        $viewsPaths = $this->viewsPaths;
+        $codePaths = $this->codePaths;
+        $codePaths[] = $kernel->getProjectDir().'/src';
         if ($this->defaultViewsPath) {
-            $viewsPaths[] = $this->defaultViewsPath;
+            $codePaths[] = $this->defaultViewsPath;
         }
 
         // Override with provided Bundle info
@@ -149,19 +151,19 @@ EOF
                 $bundle = $kernel->getBundle($input->getArgument('bundle'));
                 $bundleDir = $bundle->getPath();
                 $transPaths = [is_dir($bundleDir.'/Resources/translations') ? $bundleDir.'/Resources/translations' : $bundleDir.'/translations'];
-                $viewsPaths = [is_dir($bundleDir.'/Resources/views') ? $bundleDir.'/Resources/views' : $bundleDir.'/templates'];
+                $codePaths = [is_dir($bundleDir.'/Resources/views') ? $bundleDir.'/Resources/views' : $bundleDir.'/templates'];
                 if ($this->defaultTransPath) {
                     $transPaths[] = $this->defaultTransPath;
                 }
                 if ($this->defaultViewsPath) {
-                    $viewsPaths[] = $this->defaultViewsPath;
+                    $codePaths[] = $this->defaultViewsPath;
                 }
             } catch (\InvalidArgumentException $e) {
                 // such a bundle does not exist, so treat the argument as path
                 $path = $input->getArgument('bundle');
 
                 $transPaths = [$path.'/translations'];
-                $viewsPaths = [$path.'/templates'];
+                $codePaths = [$path.'/templates'];
 
                 if (!is_dir($transPaths[0]) && !isset($transPaths[1])) {
                     throw new InvalidArgumentException(sprintf('"%s" is neither an enabled bundle nor a directory.', $transPaths[0]));
@@ -171,12 +173,12 @@ EOF
             foreach ($kernel->getBundles() as $bundle) {
                 $bundleDir = $bundle->getPath();
                 $transPaths[] = is_dir($bundleDir.'/Resources/translations') ? $bundleDir.'/Resources/translations' : $bundle->getPath().'/translations';
-                $viewsPaths[] = is_dir($bundleDir.'/Resources/views') ? $bundleDir.'/Resources/views' : $bundle->getPath().'/templates';
+                $codePaths[] = is_dir($bundleDir.'/Resources/views') ? $bundleDir.'/Resources/views' : $bundle->getPath().'/templates';
             }
         }
 
         // Extract used messages
-        $extractedCatalogue = $this->extractMessages($locale, $viewsPaths);
+        $extractedCatalogue = $this->extractMessages($locale, $codePaths);
 
         // Load defined messages
         $currentCatalogue = $this->loadCurrentMessages($locale, $transPaths);

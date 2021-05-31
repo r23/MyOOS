@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Symfony\Component\Config\Loader\ParamConfigurator;
 use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
 use Symfony\Component\DependencyInjection\Argument\IteratorArgument;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
@@ -35,14 +36,16 @@ class ContainerConfigurator extends AbstractConfigurator
     private $path;
     private $file;
     private $anonymousCount = 0;
+    private $env;
 
-    public function __construct(ContainerBuilder $container, PhpFileLoader $loader, array &$instanceof, string $path, string $file)
+    public function __construct(ContainerBuilder $container, PhpFileLoader $loader, array &$instanceof, string $path, string $file, string $env = null)
     {
         $this->container = $container;
         $this->loader = $loader;
         $this->instanceof = &$instanceof;
         $this->path = $path;
         $this->file = $file;
+        $this->env = $env;
     }
 
     final public function extension(string $namespace, array $config)
@@ -72,6 +75,14 @@ class ContainerConfigurator extends AbstractConfigurator
     }
 
     /**
+     * Get the current environment to be able to write conditional configuration.
+     */
+    final public function env(): ?string
+    {
+        return $this->env;
+    }
+
+    /**
      * @return static
      */
     final public function withPath(string $path): self
@@ -86,9 +97,9 @@ class ContainerConfigurator extends AbstractConfigurator
 /**
  * Creates a parameter.
  */
-function param(string $name): string
+function param(string $name): ParamConfigurator
 {
-    return '%'.$name.'%';
+    return new ParamConfigurator($name);
 }
 
 /**
@@ -181,4 +192,12 @@ function expr(string $expression): Expression
 function abstract_arg(string $description): AbstractArgument
 {
     return new AbstractArgument($description);
+}
+
+/**
+ * Creates an environment variable reference.
+ */
+function env(string $name): EnvConfigurator
+{
+    return new EnvConfigurator($name);
 }

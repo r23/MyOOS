@@ -130,6 +130,26 @@ class YamlFileLoader extends FileLoader
             return;
         }
 
+        $env = $this->env;
+        $this->env = null;
+        try {
+            $this->loadContent($content, $path);
+        } finally {
+            $this->env = $env;
+        }
+
+        // per-env configuration
+        if ($this->env && isset($content['when@'.$this->env])) {
+            if (!\is_array($content['when@'.$this->env])) {
+                throw new InvalidArgumentException(sprintf('The "when@%s" key should contain an array in "%s". Check your YAML syntax.', $this->env, $path));
+            }
+
+            $this->loadContent($content['when@'.$this->env], $path);
+        }
+    }
+
+    private function loadContent($content, $path)
+    {
         // imports
         $this->parseImports($content, $path);
 
@@ -390,6 +410,9 @@ class YamlFileLoader extends FileLoader
             ];
         }
 
+        $definition = isset($service[0]) && $service[0] instanceof Definition ? array_shift($service) : null;
+        $return = null === $definition ? $return : true;
+
         $this->checkDefinition($id, $service, $file);
 
         if (isset($service['alias'])) {
@@ -424,7 +447,9 @@ class YamlFileLoader extends FileLoader
             return $return ? $alias : $this->container->setAlias($id, $alias);
         }
 
-        if ($this->isLoadingInstanceof) {
+        if (null !== $definition) {
+            // no-op
+        } elseif ($this->isLoadingInstanceof) {
             $definition = new ChildDefinition('');
         } elseif (isset($service['parent'])) {
             if ('' !== $service['parent'] && '@' === $service['parent'][0]) {
@@ -628,7 +653,8 @@ class YamlFileLoader extends FileLoader
 
         if (isset($defaults['bind']) || isset($service['bind'])) {
             // deep clone, to avoid multiple process of the same instance in the passes
-            $bindings = isset($defaults['bind']) ? unserialize(serialize($defaults['bind'])) : [];
+            $bindings = $definition->getBindings();
+            $bindings += isset($defaults['bind']) ? unserialize(serialize($defaults['bind'])) : [];
 
             if (isset($service['bind'])) {
                 if (!\is_array($service['bind'])) {
@@ -765,7 +791,7 @@ class YamlFileLoader extends FileLoader
         }
 
         foreach ($content as $namespace => $data) {
-            if (\in_array($namespace, ['imports', 'parameters', 'services'])) {
+            if (\in_array($namespace, ['imports', 'parameters', 'services']) || 0 === strpos($namespace, 'when@')) {
                 continue;
             }
 
@@ -911,7 +937,7 @@ class YamlFileLoader extends FileLoader
     private function loadFromExtensions(array $content)
     {
         foreach ($content as $namespace => $values) {
-            if (\in_array($namespace, ['imports', 'parameters', 'services'])) {
+            if (\in_array($namespace, ['imports', 'parameters', 'services']) || 0 === strpos($namespace, 'when@')) {
                 continue;
             }
 

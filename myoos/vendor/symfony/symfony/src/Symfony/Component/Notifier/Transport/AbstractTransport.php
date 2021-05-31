@@ -23,8 +23,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @experimental in 5.2
  */
 abstract class AbstractTransport implements TransportInterface
 {
@@ -81,7 +79,7 @@ abstract class AbstractTransport implements TransportInterface
 
     abstract protected function doSend(MessageInterface $message): SentMessage;
 
-    protected function getEndpoint(): ?string
+    protected function getEndpoint(): string
     {
         return ($this->host ?: $this->getDefaultHost()).($this->port ? ':'.$this->port : '');
     }

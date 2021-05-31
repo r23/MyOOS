@@ -15,6 +15,7 @@ use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AbstractF
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
@@ -65,6 +66,23 @@ class MainConfiguration implements ConfigurationInterface
                     return $v;
                 })
             ->end()
+            ->beforeNormalization()
+                ->ifTrue(function ($v) {
+                    if ($v['encoders'] ?? false) {
+                        trigger_deprecation('symfony/security-bundle', '5.3', 'The child node "encoders" at path "security" is deprecated, use "password_hashers" instead.');
+
+                        return true;
+                    }
+
+                    return $v['password_hashers'] ?? false;
+                })
+                ->then(function ($v) {
+                    $v['password_hashers'] = array_merge($v['password_hashers'] ?? [], $v['encoders'] ?? []);
+                    $v['encoders'] = $v['password_hashers'];
+
+                    return $v;
+                })
+            ->end()
             ->children()
                 ->scalarNode('access_denied_url')->defaultNull()->example('/foo/error403')->end()
                 ->enumNode('session_fixation_strategy')
@@ -94,6 +112,7 @@ class MainConfiguration implements ConfigurationInterface
         ;
 
         $this->addEncodersSection($rootNode);
+        $this->addPasswordHashersSection($rootNode);
         $this->addProvidersSection($rootNode);
         $this->addFirewallsSection($rootNode, $this->factories);
         $this->addAccessControlSection($rootNode);
@@ -176,6 +195,7 @@ class MainConfiguration implements ConfigurationInterface
                     ->disallowNewKeysInSubsequentConfigs()
                     ->useAttributeAsKey('name')
                     ->prototype('array')
+                        ->fixXmlConfig('required_badge')
                         ->children()
         ;
 
@@ -247,6 +267,29 @@ class MainConfiguration implements ConfigurationInterface
                     ->scalarNode('parameter')->defaultValue('_switch_user')->end()
                     ->scalarNode('role')->defaultValue('ROLE_ALLOWED_TO_SWITCH')->end()
                 ->end()
+            ->end()
+            ->arrayNode('required_badges')
+                ->info('A list of badges that must be present on the authenticated passport.')
+                ->validate()
+                    ->always()
+                    ->then(function ($requiredBadges) {
+                        return array_map(function ($requiredBadge) {
+                            if (class_exists($requiredBadge)) {
+                                return $requiredBadge;
+                            }
+
+                            if (false === strpos($requiredBadge, '\\')) {
+                                $fqcn = 'Symfony\Component\Security\Http\Authenticator\Passport\Badge\\'.$requiredBadge;
+                                if (class_exists($fqcn)) {
+                                    return $fqcn;
+                                }
+                            }
+
+                            throw new InvalidConfigurationException(sprintf('Undefined security Badge class "%s" set in "security.firewall.required_badges".', $requiredBadge));
+                        }, $requiredBadges);
+                    })
+                ->end()
+                ->prototype('scalar')->end()
             ->end()
         ;
 
@@ -399,6 +442,57 @@ class MainConfiguration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+    }
+
+    private function addPasswordHashersSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->fixXmlConfig('password_hasher')
+            ->children()
+                ->arrayNode('password_hashers')
+                    ->example([
+                        'App\Entity\User1' => 'auto',
+                        'App\Entity\User2' => [
+                            'algorithm' => 'auto',
+                            'time_cost' => 8,
+                            'cost' => 13,
+                        ],
+                    ])
+                    ->requiresAtLeastOneElement()
+                    ->useAttributeAsKey('class')
+                    ->prototype('array')
+                        ->canBeUnset()
+                        ->performNoDeepMerging()
+                        ->beforeNormalization()->ifString()->then(function ($v) { return ['algorithm' => $v]; })->end()
+                        ->children()
+                            ->scalarNode('algorithm')
+                                ->cannotBeEmpty()
+                                ->validate()
+                                    ->ifTrue(function ($v) { return !\is_string($v); })
+                                    ->thenInvalid('You must provide a string value.')
+                                ->end()
+                            ->end()
+                            ->arrayNode('migrate_from')
+                                ->prototype('scalar')->end()
+                                ->beforeNormalization()->castToArray()->end()
+                            ->end()
+                            ->scalarNode('hash_algorithm')->info('Name of hashing algorithm for PBKDF2 (i.e. sha256, sha512, etc..) See hash_algos() for a list of supported algorithms.')->defaultValue('sha512')->end()
+                            ->scalarNode('key_length')->defaultValue(40)->end()
+                            ->booleanNode('ignore_case')->defaultFalse()->end()
+                            ->booleanNode('encode_as_base64')->defaultTrue()->end()
+                            ->scalarNode('iterations')->defaultValue(5000)->end()
+                            ->integerNode('cost')
+                                ->min(4)
+                                ->max(31)
+                                ->defaultNull()
+                            ->end()
+                            ->scalarNode('memory_cost')->defaultNull()->end()
+                            ->scalarNode('time_cost')->defaultNull()->end()
+                            ->scalarNode('id')->end()
+                        ->end()
+                    ->end()
+                ->end()
+        ->end();
     }
 
     private function getAccessDecisionStrategies()
