@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '06a1cca5330c6a026c581ed6b03301acf80eb88e',
+    'reference' => '58f9724d5121286529efd8f374e4f7c3a50171ce',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -225,7 +225,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '06a1cca5330c6a026c581ed6b03301acf80eb88e',
+      'reference' => '58f9724d5121286529efd8f374e4f7c3a50171ce',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -286,12 +286,12 @@
     ),
     'phpoffice/phpspreadsheet' => 
     array (
-      'pretty_version' => '1.17.1',
-      'version' => '1.17.1.0',
+      'pretty_version' => '1.18.0',
+      'version' => '1.18.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c55269cb06911575a126dc225a05c0e4626e5fb4',
+      'reference' => '418cd304e8e6b417ea79c3b29126a25dc4b1170c',
     ),
     'phpoffice/phpword' => 
     array (
