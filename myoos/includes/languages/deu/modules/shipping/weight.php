@@ -25,8 +25,8 @@ define('MODULE_SHIPPING_WEIGHT_STATUS_DESC', 'Möchten Sie gewichtsabhängige Ve
 define('MODULE_SHIPPING_WEIGHT_HANDLING_TITLE', 'Handling Gebühr');
 define('MODULE_SHIPPING_WEIGHT_HANDLING_DESC', 'Bearbeitungsgebühr für diese Versandart.');
 
-define('MODULE_SHIPPING_WEIGHT_TAX_CLASS_TITLE', 'Steuersatz');
-define('MODULE_SHIPPING_WEIGHT_TAX_CLASS_DESC', 'Wählen Sie den MwSt.-Satz für diese Versandart aus.');
+define('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX_TITLE', 'Preise inkl. Steuer');
+define('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX_DESC', 'Enthalten die Preise die Umsatzsteuer?');
 
 define('MODULE_SHIPPING_WEIGHT_ZONE_TITLE', 'Erlaubte Versandzonen');
 define('MODULE_SHIPPING_WEIGHT_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');

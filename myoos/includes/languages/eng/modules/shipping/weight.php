@@ -20,26 +20,26 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('MODULE_SHIPPING_WEIGHT_STATUS_TITLE', 'Aktivieren der gew. Versandkosten');
-define('MODULE_SHIPPING_WEIGHT_STATUS_DESC', 'M�hten Sie gewichtsabh�gige Versandkosten anbieten?');
+define('MODULE_SHIPPING_WEIGHT_STATUS_TITLE', 'Enable weight-dependent shipping costs?');
+define('MODULE_SHIPPING_WEIGHT_STATUS_DESC', 'Would you like to offer weight-based shipping costs?');
 
 define('MODULE_SHIPPING_WEIGHT_HANDLING_TITLE', 'Handling Fee');
-define('MODULE_SHIPPING_WEIGHT_HANDLING_DESC', 'Bearbeitungsgebhr fr diese Versandart.');
+define('MODULE_SHIPPING_WEIGHT_HANDLING_DESC', 'Handling Fee for this shipping zone');
 
-define('MODULE_SHIPPING_WEIGHT_TAX_CLASS_TITLE', 'Steuersatz');
-define('MODULE_SHIPPING_WEIGHT_TAX_CLASS_DESC', 'W�len Sie den MwSt.-Satz fr diese Versandart aus.');
+define('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
+define('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
 
 define('MODULE_SHIPPING_WEIGHT_ZONE_TITLE', 'Shipping Zone');
 define('MODULE_SHIPPING_WEIGHT_ZONE_DESC', 'If you select a zone, this shipping method will be offered only in this zone.');
 
-define('MODULE_SHIPPING_WEIGHT_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
-define('MODULE_SHIPPING_WEIGHT_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt.');
+define('MODULE_SHIPPING_WEIGHT_SORT_ORDER_TITLE', 'Sort Order');
+define('MODULE_SHIPPING_WEIGHT_SORT_ORDER_DESC', 'Sort order of display.');
 
-define('MODULE_SHIPPING_WEIGHT_COST_TITLE', 'Versandkostentabelle');
-define('MODULE_SHIPPING_WEIGHT_COST_DESC', 'Versandkosten nach beliebigem Gewicht gestaffelt. z.B.: 31:15,40:28,50:30.5,100:33 bis 31kg->15 EUR, von 31-40kg->28 EUR, von 40-50kg->30.5 EUR und von 50-100kg->33 EUR. Von da an wird der \"Erh�ungsschritt\" benutzt!');
+define('MODULE_SHIPPING_WEIGHT_COST_TITLE', 'Shipping cost table');
+define('MODULE_SHIPPING_WEIGHT_COST_DESC', 'Shipping costs staggered by any weight. e.g.: 31:15,40:28,50:30.5,100:33 up to 31kg->15 EUR, from 31-40kg->28 EUR, from 40-50kg->30.5 EUR and from 50-100kg->33 EUR. From then on the \"increase step\" is used!');
 
-define('MODULE_SHIPPING_WEIGHT_STEP_TITLE', 'Erh�ungsschritt');
-define('MODULE_SHIPPING_WEIGHT_STEP_DESC', 'Erh�ungsschritt pro bersteigendes kg in EUR');
+define('MODULE_SHIPPING_WEIGHT_STEP_TITLE', 'Increase step');
+define('MODULE_SHIPPING_WEIGHT_STEP_DESC', 'Increase step per exceeding kg in EUR');
 
 define('MODULE_SHIPPING_WEIGHT_MODE_TITLE', 'Table Method');
 define('MODULE_SHIPPING_WEIGHT_MODE_DESC', 'Is the shipping table based on total Weight or Total amount of order.');
