@@ -115,9 +115,9 @@ if (isset($_GET['products_id'])) {
               $options .= '<td>';
 
 
-              $checked = FALSE;
+              $checked = false;
               if ($_SESSION['cart']->contents[$sProductsId]['attributes'][$products_options_name['products_options_id']] == $products_options_array['products_options_values_id']) {
-                $checked = TRUE;
+                $checked = true;
               }
               $options .= oos_draw_radio_field('id[' . $products_options_name['products_options_id'] . ']', $products_options_array['products_options_values_id'], $checked);
               $options .= $products_options_array['products_options_values_name'];
@@ -159,9 +159,9 @@ if (isset($_GET['products_id'])) {
             $products_attribs_result = $dbconn->Execute($products_attribs_sql);
             $products_attribs_array = $products_attribs_result->fields;
 
-            $checked = FALSE;
+            $checked = false;
             if ($_SESSION['cart']->contents[$sProductsId]['attributes'][$products_options_name['products_options_id']] == $products_attribs_array['products_options_values_id']) {
-              $checked = TRUE;
+              $checked = true;
             }
             $options .= oos_draw_checkbox_field('id[' . $products_options_name['products_options_id'] . ']', $products_attribs_array['products_options_values_id'], $checked);
 

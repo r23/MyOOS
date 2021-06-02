@@ -21,8 +21,8 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if (!$oEvent->installed_plugin('spezials')) return FALSE;
-if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) return FALSE;
+if (!$oEvent->installed_plugin('spezials')) return false;
+if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) return false;
 
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];

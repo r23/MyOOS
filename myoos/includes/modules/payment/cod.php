@@ -35,7 +35,7 @@ class cod {
 
 		$this->order_status = defined('MODULE_PAYMENT_COD_ORDER_STATUS_ID') && ((int)MODULE_PAYMENT_COD_ORDER_STATUS_ID > 0) ? (int)MODULE_PAYMENT_COD_ORDER_STATUS_ID : 0;
 
-		if ( $this->enabled === TRUE ) {
+		if ( $this->enabled === true ) {
 			if ( isset($oOrder) && is_object($oOrder) ) {
 				$this->update_status();
 			}
@@ -47,8 +47,8 @@ class cod {
 		global $oOrder;
 
 
-		if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_COD_ZONE > 0) ) {
-			$check_flag = FALSE;
+		if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_COD_ZONE > 0) ) {
+			$check_flag = false;
 
 			// Get database information
 			$dbconn =& oosDBGetConn();
@@ -58,10 +58,10 @@ class cod {
 			$check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_COD_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
 			while ($check = $check_result->fields) {
 				if ($check['zone_id'] < 1) {
-					$check_flag = TRUE;
+					$check_flag = true;
 					break;
 				} elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-					$check_flag = TRUE;
+					$check_flag = true;
 					break;
 				}
 
@@ -70,21 +70,21 @@ class cod {
 			}
 
 
-			if ($check_flag == FALSE) {
-				$this->enabled = FALSE;
+			if ($check_flag == false) {
+				$this->enabled = false;
 			}
 		}
 
-		if ($this->enabled == TRUE) {
+		if ($this->enabled == true) {
 			// disable the module if the order only contains virtual products
 			if ($oOrder->content_type == 'virtual') {
-				$this->enabled = FALSE;
+				$this->enabled = false;
 			}
 		}
     }
 
     function javascript_validation() {
-		return FALSE;
+		return false;
     }
 
     function selection() {	
@@ -93,27 +93,27 @@ class cod {
     }
 
     function pre_confirmation_check() {
-		return FALSE;
+		return false;
     }
 
     function confirmation() {
-		return FALSE;
+		return false;
     }
 
     function process_button() {
-		return FALSE;
+		return false;
     }
 
     function before_process() {
-  		return FALSE;
+  		return false;
     }
 
     function after_process() {
-		return FALSE;
+		return false;
     }
 
     function get_error() {
-		return FALSE;
+		return false;
     }
 
 

@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class flat {
-    var $code, $title, $description, $icon, $enabled = FALSE;
+    var $code, $title, $description, $icon, $enabled = false;
 
 // class constructor
     public function __construct() {
@@ -34,8 +34,8 @@
       $this->tax_class = (defined('MODULE_SHIPPING_FLAT_TAX_CLASS') ? MODULE_SHIPPING_FLAT_TAX_CLASS : null);
       $this->enabled = (defined('MODULE_SHIPPING_FLAT_STATUS') && (MODULE_SHIPPING_FLAT_STATUS == 'true') ? true : false);
 
-      if ( ($this->enabled == TRUE) && ((int)MODULE_SHIPPING_FLAT_ZONE > 0) ) {
-        $check_flag = FALSE;
+      if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_FLAT_ZONE > 0) ) {
+        $check_flag = false;
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -45,10 +45,10 @@
         $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_FLAT_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
-            $check_flag = TRUE;
+            $check_flag = true;
             break;
           } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-            $check_flag = TRUE;
+            $check_flag = true;
             break;
           }
 
@@ -59,8 +59,8 @@
         // Close result set
         $check_result->Close();
 
-        if ($check_flag == FALSE) {
-          $this->enabled = FALSE;
+        if ($check_flag == false) {
+          $this->enabled = false;
         }
       }
     }

@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 class moneyorder {
-    var $code, $title, $description, $enabled = FALSE;
+    var $code, $title, $description, $enabled = false;
 
 // class constructor
     public function __construct() {
@@ -36,7 +36,7 @@ class moneyorder {
 			$this->order_status = MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID;
 		}
 
-		if ( $this->enabled === TRUE ) {
+		if ( $this->enabled === true ) {
 			if ( isset($oOrder) && is_object($oOrder) ) {
 				$this->update_status();
 			}
@@ -49,8 +49,8 @@ class moneyorder {
     function update_status() {
       global $oOrder;
 
-		if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_MONEYORDER_ZONE > 0) ) {
-			$check_flag = FALSE;
+		if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_MONEYORDER_ZONE > 0) ) {
+			$check_flag = false;
 
 			// Get database information
 			$dbconn =& oosDBGetConn();
@@ -60,10 +60,10 @@ class moneyorder {
 			$check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_MONEYORDER_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
 			while ($check = $check_result->fields) {
 				if ($check['zone_id'] < 1) {
-					$check_flag = TRUE;
+					$check_flag = true;
 					break;
 				} elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
-					$check_flag = TRUE;
+					$check_flag = true;
 					break;
 				}
 
@@ -71,8 +71,8 @@ class moneyorder {
 				$check_result->MoveNext();
 			}
 
-			if ($check_flag == FALSE) {
-				$this->enabled = FALSE;
+			if ($check_flag == false) {
+				$this->enabled = false;
 			}
 		}
 
@@ -81,7 +81,7 @@ class moneyorder {
     }
 
     function javascript_validation() {
-      return FALSE;
+      return false;
     }
 
     function selection() {
@@ -90,7 +90,7 @@ class moneyorder {
     }
 
     function pre_confirmation_check() {
-      return FALSE;
+      return false;
     }
 
     function confirmation() {
@@ -99,19 +99,19 @@ class moneyorder {
     }
 
     function process_button() {
-      return FALSE;
+      return false;
     }
 
     function before_process() {
-      return FALSE;
+      return false;
     }
 
     function after_process() {
-      return FALSE;
+      return false;
     }
 
     function get_error() {
-      return FALSE;
+      return false;
     }
 
     function check() {

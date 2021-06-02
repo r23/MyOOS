@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_loworderfee {
-    var $title, $output, $enabled = FALSE;
+    var $title, $output, $enabled = false;
 
     public function __construct() {
       global $aLang;
@@ -40,16 +40,16 @@
       if (MODULE_ORDER_TOTAL_LOWORDERFEE_LOW_ORDER_FEE == 'true') {
         switch (MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION) {
           case 'national':
-            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = TRUE; break;
+            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
           case 'international':
-            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = TRUE; break;
+            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
           case 'both':
-            $pass = TRUE; break;
+            $pass = true; break;
           default:
-            $pass = FALSE; break;
+            $pass = false; break;
         }
 
-        if ( ($pass == TRUE) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER) ) {
+        if ( ($pass == true) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER) ) {
           $tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
           // $tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
           $tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);

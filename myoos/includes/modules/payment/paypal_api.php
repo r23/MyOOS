@@ -40,7 +40,7 @@ use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 
 class paypal_api {
-    var $code, $title, $description, $form_action_url, $enabled = FALSE;
+    var $code, $title, $description, $form_action_url, $enabled = false;
 
 // class constructor
     public function __construct() {
@@ -56,7 +56,7 @@ class paypal_api {
 			$this->order_status = MODULE_PAYMENT_PAYPAL_API_ORDER_STATUS_ID;
 		}
 
-		if ( $this->enabled === TRUE ) {
+		if ( $this->enabled === true ) {
 			if ( isset($oOrder) && is_object($oOrder) ) {
 				$this->update_status();
 			}
@@ -69,8 +69,8 @@ class paypal_api {
     function update_status() {
 		global $oOrder;
 
-		if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_PAYPAL_API_ZONE > 0) ) {
-			$check_flag = FALSE;
+		if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_PAYPAL_API_ZONE > 0) ) {
+			$check_flag = false;
 
 			// Get database information
 			$dbconn =& oosDBGetConn();
@@ -80,10 +80,10 @@ class paypal_api {
 			$check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_PAYPAL_API_ZONE . "' AND zone_country_id = '" . $oOrder->billing['country']['id'] . "' ORDER BY zone_id");
 			while ($check = $check_result->fields) {
 				if ($check['zone_id'] < 1) {
-					$check_flag = TRUE;
+					$check_flag = true;
 					break;
 				} elseif ($check['zone_id'] == $oOrder->billing['zone_id']) {
-					$check_flag = TRUE;
+					$check_flag = true;
 					break;
 				}
 
@@ -91,14 +91,14 @@ class paypal_api {
 				$check_result->MoveNext();
 			}
 
-			if ($check_flag == FALSE) {
-				$this->enabled = FALSE;
+			if ($check_flag == false) {
+				$this->enabled = false;
 			}
 		}
 	}
 
     function javascript_validation() {
-		return FALSE;
+		return false;
     }
 
     function selection() {
@@ -107,11 +107,11 @@ class paypal_api {
     }
 
     function pre_confirmation_check() {
-		return FALSE;
+		return false;
     }
 
     function confirmation() {
-		return FALSE;
+		return false;
     }
 
     function process_button() {
@@ -367,11 +367,11 @@ class paypal_api {
     }
 
     function after_process() {
-		return FALSE;
+		return false;
     }
 
     function output_error() {
-		return FALSE;
+		return false;
     }
 
     function check() {

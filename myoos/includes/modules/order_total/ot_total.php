@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_total {
-    var $title, $output, $enabled = FALSE;
+    var $title, $output, $enabled = false;
 
     function __construct() {
       global $aLang;

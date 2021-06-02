@@ -22,7 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if (!is_numeric(MAX_DISPLAY_NEW_PRODUCTS)) return FALSE;
+if (!is_numeric(MAX_DISPLAY_NEW_PRODUCTS)) return false;
 
 if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 	$productstable = $oostable['products'];

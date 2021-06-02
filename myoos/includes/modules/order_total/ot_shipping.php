@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class ot_shipping {
-    var $title, $output, $enabled = FALSE;
+    var $title, $output, $enabled = false;
 
     public function __construct() {
       global $aLang;
@@ -40,16 +40,16 @@
       if (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
         switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
           case 'national':
-            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = TRUE; break;
+            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
           case 'international':
-            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = TRUE; break;
+            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
           case 'both':
-            $pass = TRUE; break;
+            $pass = true; break;
           default:
-            $pass = FALSE; break;
+            $pass = false; break;
         }
 
-        if ( ($pass == TRUE) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+        if ( ($pass == true) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
           $oOrder->info['shipping_method'] = $this->title;
           $oOrder->info['total'] -= $oOrder->info['shipping_cost'];
           $oOrder->info['shipping_cost'] = 0;

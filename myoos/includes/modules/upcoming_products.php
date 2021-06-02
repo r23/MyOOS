@@ -21,7 +21,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if (!is_numeric(MAX_DISPLAY_UPCOMING_PRODUCTS)) return FALSE;
+if (!is_numeric(MAX_DISPLAY_UPCOMING_PRODUCTS)) return false;
 
 
 $productstable = $oostable['products'];

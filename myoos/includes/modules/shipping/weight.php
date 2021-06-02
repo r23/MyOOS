@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
   class weight {
-    var $code, $title, $description, $icon, $enabled = FALSE;
+    var $code, $title, $description, $icon, $enabled = false;
 
 // class constructor
     public function __construct() {
@@ -31,11 +31,11 @@
       $this->description = $aLang['module_shipping_weight_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_WEIGHT_SORT_ORDER') ? MODULE_SHIPPING_WEIGHT_SORT_ORDER : null);
       $this->icon = '';
-      $this->tax_class = (defined('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX') && (MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX  == 'true') ? true : false);
+      $this->tax_class = (defined('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX') && (MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX == 'true') ? true : false);
       $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true') ? true : false);
 
-      if ( ($this->enabled == TRUE) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0)) ) {
-        $check_flag = FALSE;
+      if ( ($this->enabled == true) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0)) ) {
+        $check_flag = false;
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -44,10 +44,10 @@
         $check_result = $dbconn->Execute("SELECT zone_id FROM " . $oostable['zones_to_geo_zones'] . " WHERE geo_zone_id = '" . MODULE_SHIPPING_WEIGHT_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
-            $check_flag = TRUE;
+            $check_flag = true;
             break;
           } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-            $check_flag = TRUE;
+            $check_flag = true;
             break;
           }
 
@@ -58,8 +58,8 @@
         // Close result set
         $check_result->Close();
 
-        if ($check_flag == FALSE) {
-          $this->enabled = FALSE;
+        if ($check_flag == false) {
+          $this->enabled = false;
         }
       }
     }

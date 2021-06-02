@@ -37,7 +37,7 @@ class eubanktransfer {
 			$this->order_status = MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID;
 		}
 
-		if ( $this->enabled === TRUE ) {
+		if ( $this->enabled === true ) {
 			if ( isset($oOrder) && is_object($oOrder) ) {
 				$this->update_status();
 			}
@@ -51,11 +51,11 @@ class eubanktransfer {
 		global $oOrder, $aLang;
 
 		if ($_SESSION['shipping']['id'] == 'selfpickup_selfpickup') {
-			$this->enabled = FALSE;
+			$this->enabled = false;
 		}
 
-		if ( ($this->enabled == TRUE) && ((int)MODULE_PAYMENT_EU_BANKTRANSFER_ZONE > 0) ) {
-			$check_flag = FALSE;
+		if ( ($this->enabled == true) && ((int)MODULE_PAYMENT_EU_BANKTRANSFER_ZONE > 0) ) {
+			$check_flag = false;
 
 			// Get database information
 			$dbconn =& oosDBGetConn();
@@ -65,10 +65,10 @@ class eubanktransfer {
 			$check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_PAYMENT_INVOICE_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
 			while ($check = $check_result->fields) {
 				if ($check['zone_id'] < 1) {
-					$check_flag = TRUE;
+					$check_flag = true;
 					break;
 				} elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-					$check_flag = TRUE;
+					$check_flag = true;
 					break;
 				}
 
@@ -76,22 +76,22 @@ class eubanktransfer {
 				$check_result->MoveNext();
 			}
 
-			if ($check_flag == FALSE) {
-				$this->enabled = FALSE;
+			if ($check_flag == false) {
+				$this->enabled = false;
 			}
 		}
 
 // disable the module if the order only contains virtual products
-		if ($this->enabled == TRUE) {
+		if ($this->enabled == true) {
 			if ($oOrder->content_type == 'virtual') {
-				$this->enabled = FALSE;
+				$this->enabled = false;
 			}
 		}
     }
 
 
     function javascript_validation() {
-		return FALSE;
+		return false;
     }
 
     function selection() {
@@ -100,7 +100,7 @@ class eubanktransfer {
     }
 
     function pre_confirmation_check(){
-		return FALSE;
+		return false;
     }
 
     function confirmation() {
@@ -109,19 +109,19 @@ class eubanktransfer {
     }
 
     function process_button() {
-		return FALSE;
+		return false;
     }
 
     function before_process() {
-		return FALSE;
+		return false;
     }
 
     function after_process() {
-		return FALSE;
+		return false;
     }
 
     function get_error() {
-		return FALSE;
+		return false;
     }
 
     function check() {

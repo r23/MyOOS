@@ -12,9 +12,9 @@
 define('MAX_DISPLAY_MANUFACTURER', 8);
 define('MIN_DISPLAY_MANUFACTURER', 1);
 
-if (!$oEvent->installed_plugin('manufacturers')) return FALSE;
+if (!$oEvent->installed_plugin('manufacturers')) return false;
 
-if (!is_numeric(MAX_DISPLAY_MANUFACTURER)) return FALSE;
+if (!is_numeric(MAX_DISPLAY_MANUFACTURER)) return false;
 
 if (!isset($_GET['manufacturers_id'])) {
 	$manufacturerstable = $oostable['manufacturers'];
