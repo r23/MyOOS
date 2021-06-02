@@ -32,8 +32,8 @@ define('MODULE_SHIPPING_TABLE_MODE_DESC', 'The shipping cost is based on the ord
 define('MODULE_SHIPPING_TABLE_HANDLING_TITLE', 'Handling Fee');
 define('MODULE_SHIPPING_TABLE_HANDLING_DESC', 'Handling fee for this shipping method.');
 
-define('MODULE_SHIPPING_TABLE_TAX_CLASS_TITLE', 'Tax Class');
-define('MODULE_SHIPPING_TABLE_TAX_CLASS_DESC', 'Use the following tax class on the shipping fee.');
+define('MODULE_SHIPPING_TABLE_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
+define('MODULE_SHIPPING_TABLE_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
 
 define('MODULE_SHIPPING_TABLE_ZONE_TITLE', 'Shipping Zone');
 define('MODULE_SHIPPING_TABLE_ZONE_DESC', 'If a zone is selected, only enable this shipping method for that zone.');

@@ -31,8 +31,8 @@ define('MODULE_SHIPPING_TABLE_MODE_DESC', 'Die Versandkosten basieren auf Gesamt
 define('MODULE_SHIPPING_TABLE_HANDLING_TITLE', 'Handling Gebühr');
 define('MODULE_SHIPPING_TABLE_HANDLING_DESC', 'Handling Gebühr für diese Versandart.');
 
-define('MODULE_SHIPPING_TABLE_TAX_CLASS_TITLE', 'Steuerklasse');
-define('MODULE_SHIPPING_TABLE_TAX_CLASS_DESC', 'Folgende Steuerklasse an Versandkosten anwenden.');
+define('MODULE_SHIPPING_TABLE_PRICE_WITH_TAX_TITLE', 'Preise inkl. Steuer');
+define('MODULE_SHIPPING_TABLE_PRICE_WITH_TAX_DESC', 'Enthalten die Preise die Umsatzsteuer?');
 
 define('MODULE_SHIPPING_TABLE_ZONE_TITLE', 'Erlaubte Versandzonen');
 define('MODULE_SHIPPING_TABLE_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
