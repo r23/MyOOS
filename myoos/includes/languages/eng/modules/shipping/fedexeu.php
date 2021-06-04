@@ -46,163 +46,164 @@
 
 
 define('MODULE_SHIPPING_FEDEXEU_STATUS_TITLE', 'FedEx Express Europe');
-define('MODULE_SHIPPING_FEDEXEU_STATUS_DESC', 'Wollen Sie den Versand durch FedEx Express Europe anbieten?');
+define('MODULE_SHIPPING_FEDEXEU_STATUS_DESC', 'Do you want to offer shipping through FedEx Express Europe?');
 
 define('MODULE_SHIPPING_FEDEXEU_HANDLING_TITLE', 'Handling Fee');
-define('MODULE_SHIPPING_FEDEXEU_HANDLING_DESC', 'Bearbeitungsgebhr fr diese Versandart in Euro');
+define('MODULE_SHIPPING_FEDEXEU_HANDLING_DESC', 'Handling fee for this shipping method.');
 
-define('MODULE_SHIPPING_FEDEXEU_TAX_CLASS_TITLE', 'Steuersatz');
-define('MODULE_SHIPPING_FEDEXEU_TAX_CLASS_DESC', 'W�len Sie den MwSt.-Satz fr diese Versandart aus.');
+define('MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
+define('MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
+
 
 define('MODULE_SHIPPING_FEDEXEU_ZONE_TITLE', 'Shipping Zone');
 define('MODULE_SHIPPING_FEDEXEU_ZONE_DESC', 'If you select a zone, this shipping method will be offered only in this zone.');
 
-define('MODULE_SHIPPING_FEDEXEU_SORT_ORDER_TITLE', 'Reihenfolge der Anzeige');
-define('MODULE_SHIPPING_FEDEXEU_SORT_ORDER_DESC', 'Niedrigste wird zuerst angezeigt');
+define('MODULE_SHIPPING_FEDEXEU_SORT_ORDER_TITLE', 'Sort Order');
+define('MODULE_SHIPPING_FEDEXEU_SORT_ORDER_DESC', 'Sort order of display.');
 
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_1_TITLE', 'Europazone 1 L�der');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_1_TITLE', 'Europazone 1 Countries');
 define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_1_DESC', 'Eurozone');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_1_TITLE', 'Tariftabelle fr Zone 1 bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_1_DESC', 'Tarif Tabelle fr die Zone 1, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_1_TITLE', 'Tariff table for zone 1 up to 2.50 kg PAK');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_1_DESC', 'Tariff table for zone 1, based on <strong>\'PAK\'</strong> up to 2.50 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_TITLE', 'Tariftabelle fr Zone 1 bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_DESC', 'Tarif Tabelle fr die Zone 1, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_TITLE', 'Tariff table for zone 1 up to 10 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_DESC', 'Tariff table for zone 1, based on <strong>\'BOX\'</strong> up to 10 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_TITLE', 'Erh�ungszuschlag bis 20 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_TITLE', 'Increase surcharge up to 20 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
  
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_1_TITLE', 'Erh�ungszuschlag bis 40 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_1_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_1_TITLE', 'Increase surcharge up to 40 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_1_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_1_TITLE', 'Erh�ungszuschlag bis 70 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_1_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_1_TITLE', 'Increase surcharge up to 70 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_1_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_2_TITLE', 'Europazone 2 L�der');
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_2_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 2 sind.');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_2_TITLE', 'Europazone 2 Countries');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_2_DESC', 'Durch Komma getrennt Liste der Countries als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 2 sind.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_2_TITLE', 'Tariftabelle fr Zone 2 bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_2_DESC', 'Tarif Tabelle fr die Zone 2, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_2_TITLE', 'Tariff table for zone 2 up to 2.50 kg PAK');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_2_DESC', 'Tariff table for zone 2, based on <strong>\'PAK\'</strong> up to 2.50 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_TITLE', 'Tariftabelle fr Zone 2 bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_DESC', 'Tarif Tabelle fr die Zone 2, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_TITLE', 'Tariff table for zone 2 up to 10 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_DESC', 'Tariff table for zone 2, based on <strong>\'BOX\'</strong> up to 10 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_TITLE', 'Erh�ungszuschlag bis 20 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_TITLE', 'Increase surcharge up to 20 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
  
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_2_TITLE', 'Erh�ungszuschlag bis 40 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_2_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_2_TITLE', 'Increase surcharge up to 40 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_2_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_2_TITLE', 'Erh�ungszuschlag bis 70 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_2_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_2_TITLE', 'Increase surcharge up to 70 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_2_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_3_TITLE', 'Europazone 3 L�der');
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_3_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone 3 sind.');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_3_TITLE', 'Europe zone 3 countries');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_3_DESC', 'Separated by comma List of countries as two characters ISO code Country codes that are part of zone 3.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_3_TITLE', 'Tariftabelle fr Zone 3 bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_3_DESC', 'Tarif Tabelle fr die Zone 3, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_3_TITLE', 'Tariff table for zone 3 up to 2.50 kg PAK');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_3_DESC', 'Tariff table for zone 3, based on <strong>\'PAK\'</strong> up to 2.50 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_TITLE', 'Tariftabelle fr Zone 3 bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_DESC', 'Tarif Tabelle fr die Zone 3, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_TITLE', 'Tariff table for zone 3 up to 10 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_DESC', 'Tariff table for zone 3, based on <strong>\'BOX\'</strong> up to 10 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_TITLE', 'Erh�ungszuschlag bis 20 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_TITLE', 'Increase surcharge up to 20 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
  
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_3_TITLE', 'Erh�ungszuschlag bis 40 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_3_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_3_TITLE', 'Increase surcharge up to 40 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_3_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_3_TITLE', 'Erh�ungszuschlag bis 70 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_3_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_3_TITLE', 'Increase surcharge up to 70 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_3_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_4_TITLE', 'Weltzone A L�der');
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_4_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone A sind.');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_4_TITLE', 'World Zone A Countries');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_4_DESC', 'Comma-separated list of countries as two-character ISO code country codes that are part of zone A.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_4_TITLE', 'Tariftabelle fr Zone A bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_4_DESC', 'Tarif Tabelle fr die Zone A, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_4_TITLE', 'Tariff table for zone A up to 2.50 kg PAK');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_4_DESC', 'Tariff table for zone A, based on <strong>\'PAK\'</strong> up to 2.50 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_TITLE', 'Tariftabelle fr Zone A bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_DESC', 'Tarif Tabelle fr die Zone A, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_TITLE', 'Tariff table for zone A up to 10 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_DESC', 'Tariff table for zone A, based on <strong>\'BOX\'</strong> up to 10 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_TITLE', 'Erh�ungszuschlag bis 20 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_TITLE', 'Increase surcharge up to 20 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
  
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_4_TITLE', 'Erh�ungszuschlag bis 40 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_4_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_4_TITLE', 'Increase surcharge up to 40 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_4_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_4_TITLE', 'Erh�ungszuschlag bis 70 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_4_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_4_TITLE', 'Increase surcharge up to 70 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_4_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_5_TITLE', 'Weltzone B L�der');
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_5_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone B sind.');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_5_TITLE', 'World Zone B Countries');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_5_DESC', 'Comma-separated list of countries as two-character ISO code country codes that are part of zone B.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_5_TITLE', 'Tariftabelle fr Zone B bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_5_DESC', 'Tarif Tabelle fr die Zone B, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_5_TITLE', 'Tariff table for zone B up to 2.50 kg PAK');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_5_DESC', 'Tariff table for zone B, based on <strong>\'PAK\'</strong> up to 2.50 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_TITLE', 'Tariftabelle fr Zone B bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_DESC', 'Tarif Tabelle fr die Zone B, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_TITLE', 'Tariff table for zone B up to 10 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_DESC', 'Tariff table for zone B, based on <strong>\'BOX\'</strong> up to 10 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_TITLE', 'Erh�ungszuschlag bis 20 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_TITLE', 'Increase surcharge up to 20 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
  
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_5_TITLE', 'Erh�ungszuschlag bis 40 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_5_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_5_TITLE', 'Increase surcharge up to 40 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_5_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_5_TITLE', 'Erh�ungszuschlag bis 70 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_5_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_5_TITLE', 'Increase surcharge up to 70 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_5_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_6_TITLE', 'Weltzone C L�der');
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_6_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone C sind.');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_6_TITLE', 'World Zone C Countries');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_6_DESC', 'Comma-separated list of countries as two-character ISO code country codes that are part of zone C.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_6_TITLE', 'Tariftabelle fr Zone C bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_6_DESC', 'Tarif Tabelle fr die Zone C, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_6_TITLE', 'Tariff table for zone C up to 2.50 kg PAK');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_6_DESC', 'Tariff table for zone C, based on <strong>\'PAK\'</strong> up to 2.50 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_TITLE', 'Tariftabelle fr Zone C bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_DESC', 'Tarif Tabelle fr die Zone C, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_TITLE', 'Tariff table for zone C up to 10 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_DESC', 'Tariff table for zone C, based on <strong>\'BOX\'</strong> up to 10 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_TITLE', 'Erh�ungszuschlag bis 20 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_TITLE', 'Increase surcharge up to 20 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
  
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_6_TITLE', 'Erh�ungszuschlag bis 40 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_6_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_6_TITLE', 'Increase surcharge up to 40 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_6_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_6_TITLE', 'Erh�ungszuschlag bis 70 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_6_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_6_TITLE', 'Increase surcharge up to 70 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_6_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_7_TITLE', 'Weltzone D L�der');
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_7_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone D sind.');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_7_TITLE', 'World Zone D Countries');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_7_DESC', 'Comma-separated list of countries as two-character ISO code country codes that are part of zone D');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_7_TITLE', 'Tariftabelle fr Zone D bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_7_DESC', 'Tarif Tabelle fr die Zone D, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_7_TITLE', 'Tariff table for zone D up to 2.50 kg PAK');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_7_DESC', 'Tariff table for zone D, based on <strong>\'PAK\'</strong> up to 2.50 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_TITLE', 'Tariftabelle fr Zone D bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_DESC', 'Tarif Tabelle fr die Zone D, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_TITLE', 'Tariff table for zone D up to 10 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_DESC', 'Tariff table for zone D, based on <strong>\'BOX\'</strong> up to 10 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_TITLE', 'Erh�ungszuschlag bis 20 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_TITLE', 'Increase surcharge up to 20 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
  
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_7_TITLE', 'Erh�ungszuschlag bis 40 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_7_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_7_TITLE', 'Increase surcharge up to 40 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_7_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_7_TITLE', 'Erh�ungszuschlag bis 70 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_7_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_7_TITLE', 'Increase surcharge up to 70 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_7_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_8_TITLE', 'Weltzone E L�der');
-define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_8_DESC', 'Durch Komma getrennt Liste der L�der als zwei Zeichen ISO-Code Landeskennzahlen, die Teil der Zone E sind.');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_8_TITLE', 'World Zone E Countries');
+define('MODULE_SHIPPING_FEDEXEU_COUNTRIES_8_DESC', 'Comma-separated list of countries as two-character ISO code country codes that are part of zone E.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_8_TITLE', 'Tariftabelle fr Zone E bis 2.50 kg PAK');
-define('MODULE_SHIPPING_FEDEXEU_COST_PAK_8_DESC', 'Tarif Tabelle fr die Zone E, basiered auf <strong>\'PAK\'</strong> bis 2.50 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_8_TITLE', 'Tariff table for zone E up to 2.50 kg PAH');
+define('MODULE_SHIPPING_FEDEXEU_COST_PAK_8_DESC', 'Tariff table for zone E, based on <strong>\'PAK\'</strong> up to 2.50 kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_TITLE', 'Tariftabelle fr Zone E bis 10 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_DESC', 'Tarif Tabelle fr die Zone E, basiered auf <strong>\'BOX\'</strong> bis 10 kg Versandgewicht.');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_TITLE', 'Tariff table for zone E up to 10 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_DESC', 'Tariff table for zone E, based on <strong>\'BOX\'</strong> up to 10  kg shipping weight.');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_TITLE', 'Erh�ungszuschlag bis 20 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_TITLE', 'Increase surcharge up to 20 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
  
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_8_TITLE', 'Erh�ungszuschlag bis 40 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_8_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_8_TITLE', 'Increase surcharge up to 40 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_8_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_8_TITLE', 'Erh�ungszuschlag bis 70 kg BOX');
-define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_8_DESC', 'Erh�ungszuschlag pro bersteigende 0,50 kg in EUR');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_8_TITLE', 'Increase surcharge up to 70 kg BOX');
+define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_70_8_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
 
 $aLang['module_shipping_fedexeu_text_title'] = 'FedEx Express Europe';

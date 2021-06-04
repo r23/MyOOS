@@ -48,8 +48,8 @@ define('MODULE_SHIPPING_FEDEXEU_STATUS_DESC', 'Wollen Sie den Versand durch FedE
 define('MODULE_SHIPPING_FEDEXEU_HANDLING_TITLE', 'Handling Gebühr');
 define('MODULE_SHIPPING_FEDEXEU_HANDLING_DESC', 'Bearbeitungsgebhr für diese Versandart in Euro');
 
-define('MODULE_SHIPPING_FEDEXEU_TAX_CLASS_TITLE', 'Steuersatz');
-define('MODULE_SHIPPING_FEDEXEU_TAX_CLASS_DESC', 'Wählen Sie den MwSt.-Satz für diese Versandart aus.');
+define('MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX_TITLE',  'Preise inkl. Steuer');
+define('MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX_DESC', 'Enthalten die Preise die Umsatzsteuer?');
 
 define('MODULE_SHIPPING_FEDEXEU_ZONE_TITLE', 'Versand Zone');
 define('MODULE_SHIPPING_FEDEXEU_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');

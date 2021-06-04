@@ -53,7 +53,7 @@
       $this->description = $aLang['module_shipping_fedexeu_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_FEDEXEU_SORT_ORDER') ? MODULE_SHIPPING_FEDEXEU_SORT_ORDER : null);
       $this->icon = OOS_ICONS . 'shipping_fedexeu.gif';
-      $this->tax_class = (defined('MODULE_SHIPPING_FEDEXEU_TAX_CLASS') ? MODULE_SHIPPING_FEDEXEU_TAX_CLASS : null);
+      $this->tax_class = (defined('MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX')  && (MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX == 'true') ? true : false);
       $this->enabled = (defined('MODULE_SHIPPING_FEDEXEU_STATUS') && (MODULE_SHIPPING_FEDEXEU_STATUS == 'true') ? true : false);
 
       if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_FEDEXEU_ZONE > 0) ) {
@@ -225,7 +225,7 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_FEDEXEU_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_FEDEXEU_HANDLING', '0', '6', '0', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_FEDEXEU_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_FEDEXEU_ZONE', '0', '6', '0', 'oos_cfg_get_zone_class_title', 'oos_cfg_pull_down_zone_classes(', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_FEDEXEU_SORT_ORDER', '0', '6', '0', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_FEDEXEU_COUNTRIES_1', 'AT,AD,BE,DK,DE,FI,FO,FR,GR,GL,GB,IE,IT,LU,MC,NL,PT,SE,SM,ES,VA', '6', '0', now())");
@@ -291,7 +291,7 @@
 
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_FEDEXEU_STATUS', 'MODULE_SHIPPING_FEDEXEU_HANDLING', 'MODULE_SHIPPING_FEDEXEU_TAX_CLASS', 'MODULE_SHIPPING_FEDEXEU_ZONE', 'MODULE_SHIPPING_FEDEXEU_SORT_ORDER');
+      $keys = array('MODULE_SHIPPING_FEDEXEU_STATUS', 'MODULE_SHIPPING_FEDEXEU_HANDLING', 'MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX', 'MODULE_SHIPPING_FEDEXEU_ZONE', 'MODULE_SHIPPING_FEDEXEU_SORT_ORDER');
 
       for ($i = 1; $i <= $this->num_fedexeu; $i ++) {
         $keys[count($keys)] = 'MODULE_SHIPPING_FEDEXEU_COUNTRIES_' . $i;
