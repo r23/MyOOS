@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '62f16237552a1625bf9c22f9293f57774a32c9a4',
+    'reference' => 'c762201563e820e9e2064c55914562f8f14865d7',
     'name' => 'myoos/myoos',
   ),
   'versions' => 
@@ -251,7 +251,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '62f16237552a1625bf9c22f9293f57774a32c9a4',
+      'reference' => 'c762201563e820e9e2064c55914562f8f14865d7',
     ),
     'ocramius/proxy-manager' => 
     array (
@@ -487,12 +487,12 @@ private static $installed = array (
     ),
     'stripe/stripe-php' => 
     array (
-      'pretty_version' => 'v7.80.0',
-      'version' => '7.80.0.0',
+      'pretty_version' => 'v7.81.0',
+      'version' => '7.81.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '566900968407302f88a925ba731c87c05fe98a7a',
+      'reference' => '32f1a78dcfc6914df7051f0d0c3d073983a784a9',
     ),
     'symfony/asset' => 
     array (
