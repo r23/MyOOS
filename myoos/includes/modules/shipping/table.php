@@ -29,7 +29,7 @@
       $this->code = 'table';
       $this->title = $aLang['module_shipping_table_text_title'];
       $this->description = $aLang['module_shipping_table_text_description'];
-      $this->sort_order = (defined('MODULE_SHIPPING_TABLE_SORT_ORDER') ? MODULE_SHIPPING_TABLE_SORT_ORDER : null);
+      $this->sort_order = (defined('MODULE_SHIPPING_TABLE_SORT_ORDER') ? MODULE_SHIPPING_TABLE_SORT_ORDER : 0);
       $this->icon = '';
       $this->tax_class = (defined('MODULE_SHIPPING_TABLE_PRICE_WITH_TAX') && (MODULE_SHIPPING_TABLE_PRICE_WITH_TAX == 'true') ? true : false);
       $this->enabled = (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true') ? true : false);
@@ -107,7 +107,6 @@
       if (!isset($this->_check)) {
         $this->_check = defined('MODULE_SHIPPING_TABLE_STATUS');
       }
-
       return $this->_check;
     }
 

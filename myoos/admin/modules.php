@@ -225,7 +225,7 @@ require 'includes/header.php';
 <?php
     }
   }
-
+  
   ksort($installed_modules);
   $configurationtable = $oostable['configuration'];
   $check_result = $dbconn->Execute("SELECT configuration_value FROM $configurationtable WHERE configuration_key = '" . $module_key . "'");
@@ -239,6 +239,7 @@ require 'includes/header.php';
     $configurationtable = $oostable['configuration'];
     $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('" . $module_key . "', '" . implode(';', $installed_modules) . "', '6', '0', now())");
   }
+
 ?>
               <tr>
                 <td colspan="4" class="smallText"><?php echo TEXT_MODULE_DIRECTORY . ' ' . $module_directory; ?></td>
