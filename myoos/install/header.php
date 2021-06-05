@@ -24,7 +24,7 @@
 
 <head>
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=<?php echo CHARSET; ?>">
-<title><?php echo INSTALLATION . ' Ver. ' . OOS_VERSION; ?></title>
+<title><?php echo INSTALLATION . ' Ver. ' . OOS_FULL_NAME; ?></title>
 <meta name="ROBOTS" content="NOFOLLOW">
 <meta name="resource-type" content="document">
 <meta http-equiv="expires" content="0">
@@ -45,7 +45,7 @@
   <tr>
     <td width="135"><img src="images/hippoos_buttom.png" alt="" width="135" height="52" /></td>
     <td width="33" class="table_head_title"></td>
-    <td width="358" class="table_head_title">Version: MyOOS <?php echo OOS_VERSION; ?></td>
+    <td width="358" class="table_head_title">Version: <?php echo OOS_FULL_NAME; ?></td>
     <td width="274" colspan="2" valign="top" class="table_head_title"><table width="274"  border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td colspan="4"><img src="images/trans.gif" alt="" width="1" height="2" /></td>

@@ -27,10 +27,12 @@ global $db, $prefix_table, $currentlang;
 
 if (!$prefix_table == '') $prefix_table = $prefix_table . '_';
 
+$today = date("Y-m-d H:i:s");
+
 // configuration
 $table = $prefix_table . 'configuration';
 
-$result = $db->Execute("INSERT INTO " . $table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SHIPPING_PRICE_WITH_TAX', 'true', 7, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
+$result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('SHIPPING_PRICE_WITH_TAX', 'true', 7, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'true\', \'false\'),')");
 if ($result === false) {
 	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 }
