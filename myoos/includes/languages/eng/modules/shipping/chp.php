@@ -20,7 +20,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 /********************************************************************
-*	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Pl�kers
+*	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Plänkers
 *       http://www.themedia.at & http://www.oscommerce.at
 *
 *                    All rights reserved
@@ -50,8 +50,8 @@ define('MODULE_SHIPPING_CHP_STATUS_DESC', 'Do you want to offer Swiss Post shipp
 define('MODULE_SHIPPING_CHP_HANDLING_TITLE', 'Handling Fee');
 define('MODULE_SHIPPING_CHP_HANDLING_DESC', 'Handlingfee for this shipping method in CHF');
 
-define('MODULE_SHIPPING_CHP_TAX_CLASS_TITLE', 'Tax Rate');
-define('MODULE_SHIPPING_CHP_TAX_CLASS_DESC', 'Use the following tax class on the shipping fee');
+define('MODULE_SHIPPING_CHP_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
+define('MODULE_SHIPPING_CHP_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
 
 define('MODULE_SHIPPING_CHP_ZONE_TITLE', 'Shipping Zone');
 define('MODULE_SHIPPING_CHP_ZONE_DESC', 'If a zone is selected, only enable this shipping method for that zone');

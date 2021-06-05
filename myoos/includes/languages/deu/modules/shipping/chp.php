@@ -47,8 +47,8 @@ define('MODULE_SHIPPING_CHP_STATUS_DESC', 'Wollen Sie den Versand ber die schwei
 define('MODULE_SHIPPING_CHP_HANDLING_TITLE', 'Handling Gebühr');
 define('MODULE_SHIPPING_CHP_HANDLING_DESC', 'Bearbeitungsgebhr für diese Versandart in CHF');
 
-define('MODULE_SHIPPING_CHP_TAX_CLASS_TITLE', 'Steuersatz');
-define('MODULE_SHIPPING_CHP_TAX_CLASS_DESC', 'Wählen Sie den MwSt.-Satz für diese Versandart aus.');
+define('MODULE_SHIPPING_CHP_PRICE_WITH_TAX_TITLE',  'Preise inkl. Steuer');
+define('MODULE_SHIPPING_CHP_PRICE_WITH_TAX_DESC', 'Enthalten die Preise die Umsatzsteuer?');
 
 define('MODULE_SHIPPING_CHP_ZONE_TITLE', 'Versand Zone');
 define('MODULE_SHIPPING_CHP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
