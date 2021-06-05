@@ -249,6 +249,9 @@ define('SHIPPING_BOX_WEIGHT_DESC', 'What is the weight of typical packaging of s
 define('SHIPPING_BOX_PADDING_TITLE', 'Larger packages - percentage increase.');
 define('SHIPPING_BOX_PADDING_DESC', 'For 10% enter 10');
 
+define('SHIPPING_PRICE_WITH_TAX_TITLE', 'Recorded shipping costs include sales tax?');
+define('SHIPPINGPRICE_WITH_TAX_DESC', 'Enter shipping costs incl. tax (true) or add the tax from the store (false)');
+
 define('STOCK_CHECK_TITLE', 'Check stock level');
 define('STOCK_CHECK_DESC', 'Check to see if sufficent stock is available');
 

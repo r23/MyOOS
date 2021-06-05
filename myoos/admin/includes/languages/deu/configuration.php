@@ -243,6 +243,12 @@ define('SHIPPING_BOX_WEIGHT_DESC', 'Wie hoch ist im Schnitt das Gewicht der Verp
 define('SHIPPING_BOX_PADDING_TITLE', 'Prozentuale Mehrkosten für schwerere Pakete.');
 define('SHIPPING_BOX_PADDING_DESC', 'Prozentuale Mehrkosten für schwerere Pakete. Für 10% einfach 10 eingeben.');
 
+define('SHIPPING_BOX_PADDING_TITLE', 'Prozentuale Mehrkosten für schwerere Pakete.');
+define('SHIPPING_BOX_PADDING_DESC', 'Prozentuale Mehrkosten für schwerere Pakete. Für 10% einfach 10 eingeben.');
+
+define('SHIPPING_PRICE_WITH_TAX_TITLE', 'Erfasste Versandkosten enthalten die Umsatzsteuer?');
+define('SHIPPINGPRICE_WITH_TAX_DESC', 'Versandkosten incl. Steuer erfassen (true) oder die Steuer vom Shop hinzurechnen (false)');
+
 define('STOCK_CHECK_TITLE', 'Bestandsprüfung');
 define('STOCK_CHECK_DESC', 'Soll der Shop eine Bestandsprüfung durchführen?');
 
