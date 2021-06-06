@@ -29,7 +29,7 @@
       $this->code = 'table';
       $this->title = $aLang['module_shipping_table_text_title'];
       $this->description = $aLang['module_shipping_table_text_description'];
-      $this->sort_order = (defined('MODULE_SHIPPING_TABLE_SORT_ORDER') ? MODULE_SHIPPING_TABLE_SORT_ORDER : 0);
+      $this->sort_order = (defined('MODULE_SHIPPING_TABLE_SORT_ORDER') ? MODULE_SHIPPING_TABLE_SORT_ORDER : null);
       $this->icon = '';
       $this->tax_class = 0;
       $this->enabled = (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true') ? true : false);
