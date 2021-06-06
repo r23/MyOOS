@@ -25,9 +25,6 @@ define('MODULE_SHIPPING_DP_STATUS_DESC', 'Wollen Sie den Versand über die Deuts
 define('MODULE_SHIPPING_DP_HANDLING_TITLE', 'Handling Gebühr');
 define('MODULE_SHIPPING_DP_HANDLING_DESC', 'Bearbeitungsgebühr für diese Versandart in Euro');
 
-define('MODULE_SHIPPING_DP_PRICE_WITH_TAX_TITLE', 'Preise inkl. Steuer');
-define('MODULE_SHIPPING_DP_PRICE_WITH_TAX_DESC', 'Enthalten die Preise die Umsatzsteuer?');
-
 define('MODULE_SHIPPING_DP_ZONE_TITLE', 'Versand Zone');
 define('MODULE_SHIPPING_DP_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 

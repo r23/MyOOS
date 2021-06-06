@@ -26,9 +26,6 @@ define('MODULE_SHIPPING_DP_STATUS_DESC', 'Do you want to offer German Post shipp
 define('MODULE_SHIPPING_DP_HANDLING_TITLE', 'Handling Fee');
 define('MODULE_SHIPPING_DP_HANDLING_DESC', 'Handlingfee for this shipping method in Euro');
 
-define('MODULE_SHIPPING_DP_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
-define('MODULE_SHIPPING_DP_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
-
 define('MODULE_SHIPPING_DP_ZONE_TITLE', 'Shipping Zone');
 define('MODULE_SHIPPING_DP_ZONE_DESC', 'If you select a zone, this shipping method will be offered only in this zone.');
 

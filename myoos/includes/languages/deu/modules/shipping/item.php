@@ -28,9 +28,6 @@ define('MODULE_SHIPPING_ITEM_COST_DESC', 'Die Versandkosten werden mit der Anzah
 define('MODULE_SHIPPING_ITEM_HANDLING_TITLE', 'Handling Gebühr');
 define('MODULE_SHIPPING_ITEM_HANDLING_DESC', 'Handling Gebühr für diese Versandart.');
 
-define('MODULE_SHIPPING_ITEM_PRICE_WITH_TAX_TITLE', 'Preise inkl. Steuer');
-define('MODULE_SHIPPING_ITEM_PRICE_WITH_TAX_DESC', 'Enthalten die Preise die Umsatzsteuer?');
-
 define('MODULE_SHIPPING_ITEM_ZONE_TITLE', 'Erlaubte Versandzonen');
 define('MODULE_SHIPPING_ITEM_ZONE_DESC', 'Geben Sie <strong>einzeln</strong> die Zonen an, in welche ein Versand möglich sein soll. (z.B. AT,DE (lassen Sie dieses Feld leer, wenn Sie alle Zonen erlauben wollen))');
 

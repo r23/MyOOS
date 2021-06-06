@@ -53,7 +53,7 @@
       $this->description = $aLang['module_shipping_chp_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_CHP_SORT_ORDER') ? MODULE_SHIPPING_CHP_SORT_ORDER : null);
       $this->icon = OOS_ICONS . 'shipping_chp.gif';
-      $this->tax_class = (defined('MODULE_SHIPPING_CHP_PRICE_WITH_TAX')  && (MODULE_SHIPPING_CHP_PRICE_WITH_TAX == 'true') ? true : false);
+      $this->tax_class = 0;
       $this->enabled = (defined('MODULE_SHIPPING_CHP_STATUS') && (MODULE_SHIPPING_CHP_STATUS == 'true') ? true : false);
 
       if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_CHP_ZONE > 0) ) {
@@ -242,7 +242,6 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_CHP_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_CHP_HANDLING', '0', '6', '0', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_CHP_PRICE_WITH_TAX', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_CHP_ZONE', '0', '6', '0', 'oos_cfg_get_zone_class_title', 'oos_cfg_pull_down_zone_classes(', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_CHP_SORT_ORDER', '0', '6', '0', now())");
 
@@ -288,7 +287,7 @@
 
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_CHP_STATUS', 'MODULE_SHIPPING_CHP_HANDLING', 'MODULE_SHIPPING_CHP_PRICE_WITH_TAX', 'MODULE_SHIPPING_CHP_ZONE', 'MODULE_SHIPPING_CHP_SORT_ORDER');
+      $keys = array('MODULE_SHIPPING_CHP_STATUS', 'MODULE_SHIPPING_CHP_HANDLING', 'MODULE_SHIPPING_CHP_ZONE', 'MODULE_SHIPPING_CHP_SORT_ORDER');
 
       for ($i=1; $i <= $this->num_chp; $i++) {
         $keys[count($keys)] = 'MODULE_SHIPPING_CHP_COUNTRIES_' . $i;

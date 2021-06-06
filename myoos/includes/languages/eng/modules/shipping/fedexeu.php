@@ -51,10 +51,6 @@ define('MODULE_SHIPPING_FEDEXEU_STATUS_DESC', 'Do you want to offer shipping thr
 define('MODULE_SHIPPING_FEDEXEU_HANDLING_TITLE', 'Handling Fee');
 define('MODULE_SHIPPING_FEDEXEU_HANDLING_DESC', 'Handling fee for this shipping method.');
 
-define('MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
-define('MODULE_SHIPPING_FEDEXEU_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
-
-
 define('MODULE_SHIPPING_FEDEXEU_ZONE_TITLE', 'Shipping Zone');
 define('MODULE_SHIPPING_FEDEXEU_ZONE_DESC', 'If you select a zone, this shipping method will be offered only in this zone.');
 

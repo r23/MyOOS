@@ -24,9 +24,6 @@ define('NUMBER_OF_ZONES',8);
 define('MODULE_SHIPPING_ZONES_STATUS_TITLE', 'Versandkosten nach Zonen');
 define('MODULE_SHIPPING_ZONES_STATUS_DESC', 'Möchten Sie Versandkosten Zonenbasierend  anbieten?');
 
-define('MODULE_SHIPPING_ZONES_PRICE_WITH_TAX_TITLE', 'Preise inkl. Steuer');
-define('MODULE_SHIPPING_ZONES_PRICE_WITH_TAX_DESC', 'Enthalten die Preise die Umsatzsteuer?');
-
 define('MODULE_SHIPPING_ZONES_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_SHIPPING_ZONES_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 

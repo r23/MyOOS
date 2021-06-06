@@ -26,9 +26,6 @@ define('MODULE_SHIPPING_WEIGHT_STATUS_DESC', 'Would you like to offer weight-bas
 define('MODULE_SHIPPING_WEIGHT_HANDLING_TITLE', 'Handling Fee');
 define('MODULE_SHIPPING_WEIGHT_HANDLING_DESC', 'Handling Fee for this shipping zone');
 
-define('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX_TITLE', 'Prices incl. tax');
-define('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX_DESC', 'Do the prices include sales tax?');
-
 define('MODULE_SHIPPING_WEIGHT_ZONE_TITLE', 'Shipping Zone');
 define('MODULE_SHIPPING_WEIGHT_ZONE_DESC', 'If you select a zone, this shipping method will be offered only in this zone.');
 

@@ -31,7 +31,7 @@
       $this->description = $aLang['module_shipping_weight_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_WEIGHT_SORT_ORDER') ? MODULE_SHIPPING_WEIGHT_SORT_ORDER : null);
       $this->icon = '';
-      $this->tax_class = (defined('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX') && (MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX == 'true') ? true : false);
+      $this->tax_class = 0;
       $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true') ? true : false);
 
       if ( ($this->enabled == true) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0)) ) {
@@ -114,7 +114,6 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_HANDLING', '5', '6', '0', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_ZONE', '0', '6', '0', 'oos_cfg_get_zone_class_title', 'oos_cfg_pull_down_zone_classes(', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_SORT_ORDER', '0', '6', '0', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_COST', '31:15,40:28,50:30.5,100:33', '6', '0', now())");
@@ -135,7 +134,7 @@
 
 
     function keys() {
-      return array('MODULE_SHIPPING_WEIGHT_STATUS', 'MODULE_SHIPPING_WEIGHT_HANDLING', 'MODULE_SHIPPING_WEIGHT_COST', 'MODULE_SHIPPING_WEIGHT_STEP', 'MODULE_SHIPPING_WEIGHT_PRICE_WITH_TAX', 'MODULE_SHIPPING_WEIGHT_ZONE', 'MODULE_SHIPPING_WEIGHT_SORT_ORDER', 'MODULE_SHIPPING_WEIGHT_MODE');
+      return array('MODULE_SHIPPING_WEIGHT_STATUS', 'MODULE_SHIPPING_WEIGHT_HANDLING', 'MODULE_SHIPPING_WEIGHT_COST', 'MODULE_SHIPPING_WEIGHT_STEP', 'MODULE_SHIPPING_WEIGHT_ZONE', 'MODULE_SHIPPING_WEIGHT_SORT_ORDER', 'MODULE_SHIPPING_WEIGHT_MODE');
     }
   }
 
