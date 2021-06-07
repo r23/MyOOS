@@ -254,6 +254,7 @@ class order_total {
 			foreach ($this->modules as $value) {
 				$class = substr($value, 0, strrpos($value, '.'));
 				if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
+					$post_var = 'c' . $GLOBALS[$class]->code;
 					$_SESSION[$post_var] = 'c' . $GLOBALS[$class]->code;
 				}
 			}
