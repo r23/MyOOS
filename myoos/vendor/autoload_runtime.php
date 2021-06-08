@@ -20,7 +20,7 @@ if (!is_object($app)) {
 
 $runtime = $_SERVER['APP_RUNTIME'] ?? 'Symfony\\Component\\Runtime\\SymfonyRuntime';
 $runtime = new $runtime(($_SERVER['APP_RUNTIME_OPTIONS'] ?? []) + [
-  'project_dir' => dirname(__DIR__, 1),
+  'project_dir' => dirname(__DIR__, 4)'/MyOOS/MyOOS/myoos/',
 ]);
 
 [$app, $args] = $runtime

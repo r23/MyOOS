@@ -54,7 +54,7 @@
                 "issues": "https://github.com/Bacon/BaconQrCode/issues",
                 "source": "https://github.com/Bacon/BaconQrCode/tree/2.0.3"
             },
-            "install-path": "../bacon/bacon-qr-code"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/bacon/bacon-qr-code"
         },
         {
             "name": "dasprid/enum",
@@ -100,7 +100,7 @@
                 "enum",
                 "map"
             ],
-            "install-path": "../dasprid/enum"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/dasprid/enum"
         },
         {
             "name": "doctrine/annotations",
@@ -175,7 +175,7 @@
                 "issues": "https://github.com/doctrine/annotations/issues",
                 "source": "https://github.com/doctrine/annotations/tree/1.13.1"
             },
-            "install-path": "../doctrine/annotations"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/doctrine/annotations"
         },
         {
             "name": "doctrine/cache",
@@ -277,7 +277,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../doctrine/cache"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/doctrine/cache"
         },
         {
             "name": "doctrine/collections",
@@ -345,7 +345,7 @@
                 "iterators",
                 "php"
             ],
-            "install-path": "../doctrine/collections"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/doctrine/collections"
         },
         {
             "name": "doctrine/deprecations",
@@ -391,7 +391,7 @@
                 "issues": "https://github.com/doctrine/deprecations/issues",
                 "source": "https://github.com/doctrine/deprecations/tree/v0.5.3"
             },
-            "install-path": "../doctrine/deprecations"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/doctrine/deprecations"
         },
         {
             "name": "doctrine/event-manager",
@@ -484,7 +484,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../doctrine/event-manager"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/doctrine/event-manager"
         },
         {
             "name": "doctrine/lexer",
@@ -549,7 +549,7 @@
                 "parser",
                 "php"
             ],
-            "install-path": "../doctrine/lexer"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/doctrine/lexer"
         },
         {
             "name": "doctrine/persistence",
@@ -639,7 +639,7 @@
                 "issues": "https://github.com/doctrine/persistence/issues",
                 "source": "https://github.com/doctrine/persistence/tree/2.2.1"
             },
-            "install-path": "../doctrine/persistence"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/doctrine/persistence"
         },
         {
             "name": "dompdf/dompdf",
@@ -714,7 +714,7 @@
                 "issues": "https://github.com/dompdf/dompdf/issues",
                 "source": "https://github.com/dompdf/dompdf/tree/v1.0.2"
             },
-            "install-path": "../dompdf/dompdf"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/dompdf/dompdf"
         },
         {
             "name": "endroid/qr-code",
@@ -792,7 +792,7 @@
                     "type": "github"
                 }
             ],
-            "install-path": "../endroid/qr-code"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/endroid/qr-code"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -849,7 +849,7 @@
                 "issues": "https://github.com/ezyang/htmlpurifier/issues",
                 "source": "https://github.com/ezyang/htmlpurifier/tree/master"
             },
-            "install-path": "../ezyang/htmlpurifier"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/ezyang/htmlpurifier"
         },
         {
             "name": "friendsofphp/proxy-manager-lts",
@@ -934,7 +934,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../friendsofphp/proxy-manager-lts"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/friendsofphp/proxy-manager-lts"
         },
         {
             "name": "khanamiryan/qrcode-detector-decoder",
@@ -992,7 +992,7 @@
                 "issues": "https://github.com/khanamiryan/php-qrcode-detector-decoder/issues",
                 "source": "https://github.com/khanamiryan/php-qrcode-detector-decoder/tree/1.0.5.1"
             },
-            "install-path": "../khanamiryan/qrcode-detector-decoder"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/khanamiryan/qrcode-detector-decoder"
         },
         {
             "name": "laminas/laminas-code",
@@ -1066,7 +1066,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "install-path": "../laminas/laminas-code"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/laminas/laminas-code"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -1132,7 +1132,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "install-path": "../laminas/laminas-escaper"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/laminas/laminas-escaper"
         },
         {
             "name": "laminas/laminas-eventmanager",
@@ -1201,7 +1201,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "install-path": "../laminas/laminas-eventmanager"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/laminas/laminas-eventmanager"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -1266,7 +1266,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "install-path": "../laminas/laminas-zendframework-bridge"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/laminas/laminas-zendframework-bridge"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -1340,7 +1340,7 @@
                     "type": "open_collective"
                 }
             ],
-            "install-path": "../maennchen/zipstream-php"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/maennchen/zipstream-php"
         },
         {
             "name": "markbaker/complex",
@@ -1438,7 +1438,7 @@
                 "issues": "https://github.com/MarkBaker/PHPComplex/issues",
                 "source": "https://github.com/MarkBaker/PHPComplex/tree/2.0.3"
             },
-            "install-path": "../markbaker/complex"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/markbaker/complex"
         },
         {
             "name": "markbaker/matrix",
@@ -1515,7 +1515,7 @@
                 "issues": "https://github.com/MarkBaker/PHPMatrix/issues",
                 "source": "https://github.com/MarkBaker/PHPMatrix/tree/2.1.3"
             },
-            "install-path": "../markbaker/matrix"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/markbaker/matrix"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -1580,7 +1580,7 @@
                     "type": "github"
                 }
             ],
-            "install-path": "../mobiledetect/mobiledetectlib"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/mobiledetect/mobiledetectlib"
         },
         {
             "name": "myclabs/php-enum",
@@ -1643,7 +1643,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../myclabs/php-enum"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/myclabs/php-enum"
         },
         {
             "name": "paypal/rest-api-sdk-php",
@@ -1696,7 +1696,7 @@
                 "sdk"
             ],
             "abandoned": true,
-            "install-path": "../paypal/rest-api-sdk-php"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/paypal/rest-api-sdk-php"
         },
         {
             "name": "phenx/php-font-lib",
@@ -1740,7 +1740,7 @@
                 "issues": "https://github.com/PhenX/php-font-lib/issues",
                 "source": "https://github.com/PhenX/php-font-lib/tree/0.5.2"
             },
-            "install-path": "../phenx/php-font-lib"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/phenx/php-font-lib"
         },
         {
             "name": "phenx/php-svg-lib",
@@ -1787,7 +1787,7 @@
                 "issues": "https://github.com/PhenX/php-svg-lib/issues",
                 "source": "https://github.com/PhenX/php-svg-lib/tree/master"
             },
-            "install-path": "../phenx/php-svg-lib"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/phenx/php-svg-lib"
         },
         {
             "name": "php-amqplib/php-amqplib",
@@ -1867,7 +1867,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "install-path": "../php-amqplib/php-amqplib"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/php-amqplib/php-amqplib"
         },
         {
             "name": "phpoffice/phpspreadsheet",
@@ -1974,7 +1974,7 @@
                 "issues": "https://github.com/PHPOffice/PhpSpreadsheet/issues",
                 "source": "https://github.com/PHPOffice/PhpSpreadsheet/tree/1.18.0"
             },
-            "install-path": "../phpoffice/phpspreadsheet"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/phpoffice/phpspreadsheet"
         },
         {
             "name": "phpoffice/phpword",
@@ -2089,7 +2089,7 @@
                 "issues": "https://github.com/PHPOffice/PHPWord/issues",
                 "source": "https://github.com/PHPOffice/PHPWord/tree/0.18.2"
             },
-            "install-path": "../phpoffice/phpword"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/phpoffice/phpword"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -2201,7 +2201,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../phpseclib/phpseclib"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/phpseclib/phpseclib"
         },
         {
             "name": "psr/cache",
@@ -2253,7 +2253,7 @@
             "support": {
                 "source": "https://github.com/php-fig/cache/tree/2.0.0"
             },
-            "install-path": "../psr/cache"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/cache"
         },
         {
             "name": "psr/container",
@@ -2304,7 +2304,7 @@
                 "issues": "https://github.com/php-fig/container/issues",
                 "source": "https://github.com/php-fig/container/tree/1.1.1"
             },
-            "install-path": "../psr/container"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/container"
         },
         {
             "name": "psr/event-dispatcher",
@@ -2353,7 +2353,7 @@
                 "psr",
                 "psr-14"
             ],
-            "install-path": "../psr/event-dispatcher"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/event-dispatcher"
         },
         {
             "name": "psr/http-client",
@@ -2408,7 +2408,7 @@
             "support": {
                 "source": "https://github.com/php-fig/http-client/tree/master"
             },
-            "install-path": "../psr/http-client"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/http-client"
         },
         {
             "name": "psr/http-factory",
@@ -2466,7 +2466,7 @@
             "support": {
                 "source": "https://github.com/php-fig/http-factory/tree/master"
             },
-            "install-path": "../psr/http-factory"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/http-factory"
         },
         {
             "name": "psr/http-message",
@@ -2522,7 +2522,7 @@
             "support": {
                 "source": "https://github.com/php-fig/http-message/tree/master"
             },
-            "install-path": "../psr/http-message"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/http-message"
         },
         {
             "name": "psr/link",
@@ -2578,7 +2578,7 @@
             "support": {
                 "source": "https://github.com/php-fig/link/tree/1.1.1"
             },
-            "install-path": "../psr/link"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/link"
         },
         {
             "name": "psr/log",
@@ -2631,7 +2631,7 @@
             "support": {
                 "source": "https://github.com/php-fig/log/tree/1.1.4"
             },
-            "install-path": "../psr/log"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/log"
         },
         {
             "name": "psr/simple-cache",
@@ -2685,7 +2685,7 @@
             "support": {
                 "source": "https://github.com/php-fig/simple-cache/tree/master"
             },
-            "install-path": "../psr/simple-cache"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/psr/simple-cache"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -2737,7 +2737,7 @@
                 "issues": "https://github.com/sabberworm/PHP-CSS-Parser/issues",
                 "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.3.1"
             },
-            "install-path": "../sabberworm/php-css-parser"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/sabberworm/php-css-parser"
         },
         {
             "name": "smarty/smarty",
@@ -2803,21 +2803,21 @@
                 "issues": "https://github.com/smarty-php/smarty/issues",
                 "source": "https://github.com/smarty-php/smarty/tree/v3.1.39"
             },
-            "install-path": "../smarty/smarty"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/smarty/smarty"
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.82.0",
-            "version_normalized": "7.82.0.0",
+            "version": "v7.83.0",
+            "version_normalized": "7.83.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "218f5296923265fab4692a7f8a083ff2e7e35a21"
+                "reference": "bb7244c7334ad8bf30d31bb4972d5aff57df1563"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/218f5296923265fab4692a7f8a083ff2e7e35a21",
-                "reference": "218f5296923265fab4692a7f8a083ff2e7e35a21",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/bb7244c7334ad8bf30d31bb4972d5aff57df1563",
+                "reference": "bb7244c7334ad8bf30d31bb4972d5aff57df1563",
                 "shasum": ""
             },
             "require": {
@@ -2833,7 +2833,7 @@
                 "squizlabs/php_codesniffer": "^3.3",
                 "symfony/process": "~3.4"
             },
-            "time": "2021-06-04T23:26:37+00:00",
+            "time": "2021-06-07T23:15:45+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2865,9 +2865,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v7.82.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v7.83.0"
             },
-            "install-path": "../stripe/stripe-php"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/stripe/stripe-php"
         },
         {
             "name": "symfony/contracts",
@@ -2968,7 +2968,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/contracts"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/contracts"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3050,7 +3050,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-ctype"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-ctype"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -3134,7 +3134,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-intl-grapheme"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-intl-grapheme"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -3224,7 +3224,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-intl-icu"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-intl-icu"
         },
         {
             "name": "symfony/polyfill-intl-idn",
@@ -3314,7 +3314,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-intl-idn"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-intl-idn"
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
@@ -3401,7 +3401,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-intl-normalizer"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-intl-normalizer"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3484,7 +3484,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-mbstring"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-mbstring"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -3563,7 +3563,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-php72"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-php72"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -3645,7 +3645,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-php73"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-php73"
         },
         {
             "name": "symfony/polyfill-php80",
@@ -3731,7 +3731,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-php80"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-php80"
         },
         {
             "name": "symfony/polyfill-php81",
@@ -3813,7 +3813,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-php81"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-php81"
         },
         {
             "name": "symfony/polyfill-uuid",
@@ -3895,7 +3895,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/polyfill-uuid"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/polyfill-uuid"
         },
         {
             "name": "symfony/runtime",
@@ -3975,7 +3975,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/runtime"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/runtime"
         },
         {
             "name": "symfony/symfony",
@@ -4198,7 +4198,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../symfony/symfony"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/symfony/symfony"
         },
         {
             "name": "twig/twig",
@@ -4277,7 +4277,7 @@
                     "type": "tidelift"
                 }
             ],
-            "install-path": "../twig/twig"
+            "install-path": "../../../../../MyOOS/MyOOS/myoos/vendor/twig/twig"
         }
     ],
     "dev": true,

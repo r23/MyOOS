@@ -1188,12 +1188,9 @@ function get_options_values_price( $nProductsId) {
 }
 
 
+function oos_count_modules($modules = '') {
 
-
-
-  function oos_count_modules($modules = '') {
-
-    $nCount = 0;
+	$nCount = 0;
 
     if (empty($modules)) return $nCount;
 
@@ -1210,16 +1207,18 @@ function get_options_values_price( $nProductsId) {
     }
 
     return $nCount;
-  }
+}
 
-  function oos_count_payment_modules() {
+
+function oos_count_payment_modules() {
 
     return oos_count_modules($_SESSION['user']->group['payment']);
-  }
+}
 
-  function oos_count_shipping_modules() {
+
+function oos_count_shipping_modules() {
     return oos_count_modules(MODULE_SHIPPING_INSTALLED);
-  }
+}
 
 
 function rmdir_recursive($dir) {
