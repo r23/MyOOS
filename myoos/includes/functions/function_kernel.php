@@ -1686,7 +1686,7 @@ function oos_newsletter_subscribe_mail ($email_address) {
       return false;
     }
 	
-	$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+	$sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
 	
 	if (is_email($email_address)) {	
 	

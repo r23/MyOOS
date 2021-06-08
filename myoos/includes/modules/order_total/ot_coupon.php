@@ -79,7 +79,7 @@
     global $oCurrencies;
 
     $sTheme = oos_var_prep_for_os($_SESSION['theme']);
-    $sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+    $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
     $image_submit = '<input type="image" name="submit_redeem" onClick="submitFunction()" src="' . 'themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/redeem.gif" border="0" alt="' . $aLang['image_button_redeem_voucher'] . '" title = "' . $aLang['image_button_redeem_voucher'] . '">';
 
     $selection_string = '';

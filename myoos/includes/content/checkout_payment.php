@@ -76,7 +76,7 @@ if ( (STOCK_CHECK == 'true') && (STOCK_ALLOW_CHECKOUT != 'true') ) {
 
 // if no billing destination address was selected, use the customers own address as default
 if (!isset($_SESSION['billto'])) {
-	$_SESSION['billto'] = $_SESSION['customer_default_address_id'];
+	$_SESSION['billto'] = intval($_SESSION['customer_default_address_id']);
 } else {
 // verify the selected billing address
 	$address_booktable = $oostable['address_book'];
@@ -88,7 +88,7 @@ if (!isset($_SESSION['billto'])) {
     $check_address = $check_address_result->fields;
 
 	if ($check_address['total'] != '1') {
-		$_SESSION['billto'] = $_SESSION['customer_default_address_id'];
+		$_SESSION['billto'] = intval($_SESSION['customer_default_address_id']);
 		if (isset($_SESSION['payment'])) unset($_SESSION['payment']);
 	}
 }

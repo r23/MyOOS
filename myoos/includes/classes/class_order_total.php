@@ -32,7 +32,7 @@ class order_total {
 		if (defined('MODULE_ORDER_TOTAL_INSTALLED') && oos_is_not_null(MODULE_ORDER_TOTAL_INSTALLED)) {
 			$this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
 
-			$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+			$sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
 
 			reset($this->modules);
 			foreach ($this->modules as $value) {

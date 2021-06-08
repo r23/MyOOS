@@ -47,7 +47,7 @@ class payment {
 				}
 			}
 
-			$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+			$sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
 
 			for ($i=0, $n=sizeof($include_modules); $i<$n; $i++) {
 

@@ -239,14 +239,14 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'submit') &&
 		$check_address = $check_address_result->fields;
 
 		if ($check_address['total'] == '1') {
-			if ($reset_payment == true)   unset($_SESSION['payment']);
+			if ($reset_payment == true) unset($_SESSION['payment']);
 			oos_redirect(oos_href_link($aContents['checkout_payment']));
 		} else {
 			unset($_SESSION['billto']);
 		}
 		// no addresses to select from - customer decided to keep the current assigned address
 	} else {
-		$_SESSION['billto'] = $_SESSION['customer_default_address_id'];
+		$_SESSION['billto'] = intval($_SESSION['customer_default_address_id']);
 
 		oos_redirect(oos_href_link($aContents['checkout_payment']));
 	}
@@ -254,7 +254,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'submit') &&
 
 // if no billing destination address was selected, use their own address as default
 if (!isset($_SESSION['billto'])) {
-	$_SESSION['billto'] = $_SESSION['customer_default_address_id'];
+	$_SESSION['billto'] = intval($_SESSION['customer_default_address_id']);
 }
 
 if ($bProcess == false) {

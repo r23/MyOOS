@@ -197,8 +197,8 @@ $nCountry_id = STORE_COUNTRY;
 $nZone_id = STORE_ZONE;
 if (isset($_SESSION)) {
 	if (isset($_SESSION['customer_country_id'])) {
-		$nCountry_id = $_SESSION['customer_country_id'];
-		$nZone_id = $_SESSION['customer_zone_id'];
+		$nCountry_id = intval($_SESSION['customer_country_id']);
+		$nZone_id = intval($_SESSION['customer_zone_id']);
 	}
 }
 

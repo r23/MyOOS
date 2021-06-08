@@ -51,7 +51,7 @@ if (isset($_SESSION)) {
 				$check_address = $check_address_result->fields;
 
 				if ($check_address['total'] != '1') {
-					$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
+					$_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
 				}
 			}
 
@@ -71,7 +71,7 @@ if (isset($_SESSION)) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 			$shipping_modules = new shipping;
 
-			$delivery_country_id = isset($_SESSION["delivery_country_id"]) ? $_SESSION["delivery_country_id"] : STORE_COUNTRY;
+			$delivery_country_id = isset($_SESSION["delivery_country_id"]) ? intval($_SESSION["delivery_country_id"]) : STORE_COUNTRY;
 
 			if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 				switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {

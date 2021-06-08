@@ -45,7 +45,7 @@ class shipping {
 				}
 			}
 
-			$sLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : DEFAULT_LANGUAGE;
+			$sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
 
 			for ($i=0, $n=count($include_modules); $i<$n; $i++) {
 				include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/shipping/' . $include_modules[$i]['file'];
