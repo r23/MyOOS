@@ -144,102 +144,107 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
-  $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-  $directory_array = array();
-  if ($oDir = @dir($module_directory)) {
-    while ($file = $oDir->read()) {
-      if (!is_dir($module_directory . $file)) {
-        if (substr($file, strrpos($file, '.')) == $file_extension) {
-          $directory_array[] = $file;
-        }
-      }
-    }
-    sort($directory_array);
-    $oDir->close();
-  }
+	$file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+	$directory_array = array();
+	if ($oDir = @dir($module_directory)) {
+		while ($file = $oDir->read()) {
+			if (!is_dir($module_directory . $file)) {
+				if (substr($file, strrpos($file, '.')) == $file_extension) {
+					$directory_array[] = $file;
+				}
+			}
+		}
+		sort($directory_array);
+		$oDir->close();
+	}
 
-  $installed_modules = array();
-  for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
-    $file = $directory_array[$i];
+	$installed_modules = array();
+	for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
+		$file = $directory_array[$i];
 
-    include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file;
-    include $module_directory . $file;
+		include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $file;
+		include $module_directory . $file;
 
-    $class = substr($file, 0, strrpos($file, '.'));
-    if (oos_class_exits($class)) {
-      $module = new $class;
-      if ($module->check() > 0) {
-        if ($module->sort_order > 0) {
-          $installed_modules[$module->sort_order] = $file;
-        } else {
-          $installed_modules[] = $file;
-        }
-      }
+		$class = substr($file, 0, strrpos($file, '.'));
+		if (oos_class_exits($class)) {
+			$module = new $class;
+			if ($module->check() > 0) {
+				if ($module->sort_order > 0) {
+					$installed_modules[$module->sort_order] = $file;
+				} else {
+					$installed_modules[] = $file;
+				}
+			}
 
-      if ((!isset($_GET['module']) || (isset($_GET['module']) && ($_GET['module'] == $class))) && !isset($mInfo)) {
-        $module_info = array('code' => $module->code,
-                             'title' => $module->title,
-                             'description' => $module->description,
-                             'status' => $module->check());
+			if ((!isset($_GET['module']) || (isset($_GET['module']) && ($_GET['module'] == $class))) && !isset($mInfo)) {
+				$module_info = array('code' => $module->code,
+									'title' => $module->title,
+									'description' => $module->description,
+									'status' => $module->check());
 
-        $module_keys = $module->keys();
+				$module_keys = $module->keys();
 
-        $keys_extra = array();
-        for ($j = 0, $k = count($module_keys); $j < $k; $j++) {
-          $key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_key = '" . $module_keys[$j] . "'");
-          $key_value = $key_value_result->fields;
+				$keys_extra = array();
+				for ($j = 0, $k = count($module_keys); $j < $k; $j++) {
+					$key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_key = '" . $module_keys[$j] . "'");
+					$key_value = $key_value_result->fields;
 
-          $keys_extra[$module_keys[$j]]['title'] = constant(strtoupper($module_keys[$j] . '_TITLE'));
-          $keys_extra[$module_keys[$j]]['value'] = isset($key_value['configuration_value']) ? $key_value['configuration_value'] : ''; 
-          $keys_extra[$module_keys[$j]]['description'] = constant(strtoupper($module_keys[$j] . '_DESC'));
-          $keys_extra[$module_keys[$j]]['use_function'] = isset($key_value['use_function']) ? $key_value['use_function'] : '';
-          $keys_extra[$module_keys[$j]]['set_function'] = isset($key_value['set_function']) ? $key_value['set_function'] : '';
-        }
+					$keys_extra[$module_keys[$j]]['title'] = constant(strtoupper($module_keys[$j] . '_TITLE'));
+					$keys_extra[$module_keys[$j]]['value'] = isset($key_value['configuration_value']) ? $key_value['configuration_value'] : ''; 
+					$keys_extra[$module_keys[$j]]['description'] = constant(strtoupper($module_keys[$j] . '_DESC'));
+					$keys_extra[$module_keys[$j]]['use_function'] = isset($key_value['use_function']) ? $key_value['use_function'] : '';
+					$keys_extra[$module_keys[$j]]['set_function'] = isset($key_value['set_function']) ? $key_value['set_function'] : '';
+				}
 
-        $module_info['keys'] = $keys_extra;
+				$module_info['keys'] = $keys_extra;
 
-        $mInfo = new objectInfo($module_info);
-      }
-      if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) {
-        if ($module->check() > 0) {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit') . '\'">' . "\n";
-        } else {
-          echo '              <tr class="dataTableRowSelected">' . "\n";
-        }
-      } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '\'">' . "\n";
-      }
+				$mInfo = new objectInfo($module_info);
+			}
+			
+			if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) {
+				if ($module->check() > 0) {
+					echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=edit') . '\'">' . "\n";
+				} else {
+					echo '              <tr class="dataTableRowSelected">' . "\n";
+				}
+			} else {
+				echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '\'">' . "\n";
+			}
+	  
+			if (DEFAULT_SHIPPING_METHOD == $module->code) {
+				echo '                <td><b>' . $module->title . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
+			} else {
+				echo '                <td>' . $module->title . '</td>' . "\n";
+			}	  
 ?>
-                <td><?php echo $module->title; ?></td>
                 <td class="text-right"><?php if (is_numeric($module->sort_order)) echo $module->sort_order; ?></td>
                 <td class="text-right">
 <?php
-  if ($module->check() > 0) {
-    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
-  } else {
-    echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
-  }
+			if ($module->check() > 0) {
+				echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=remove') . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+			} else {
+				echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class . '&action=install') . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+			}
 ?></td>
                 <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($class == $mInfo->code) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
-    }
-  }
+		}
+	}
   
-  ksort($installed_modules);
-  $configurationtable = $oostable['configuration'];
-  $check_result = $dbconn->Execute("SELECT configuration_value FROM $configurationtable WHERE configuration_key = '" . $module_key . "'");
-  if ($check_result->RecordCount()) {
-    $check = $check_result->fields;
-    if ($check['configuration_value'] != implode(';', $installed_modules)) {
-      $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . implode(';', $installed_modules) . "', last_modified = now() WHERE configuration_key = '" . $module_key . "'");
-    }
-  } else {
-    $configurationtable = $oostable['configuration'];
-    $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('" . $module_key . "', '" . implode(';', $installed_modules) . "', '6', '0', now())");
-  }
-
+	ksort($installed_modules);
+	$configurationtable = $oostable['configuration'];
+	$check_result = $dbconn->Execute("SELECT configuration_value FROM $configurationtable WHERE configuration_key = '" . $module_key . "'");
+	if ($check_result->RecordCount()) {
+		$check = $check_result->fields;
+		if ($check['configuration_value'] != implode(';', $installed_modules)) {
+			$configurationtable = $oostable['configuration'];
+			$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . implode(';', $installed_modules) . "', last_modified = now() WHERE configuration_key = '" . $module_key . "'");
+		}
+	} else {
+		$configurationtable = $oostable['configuration'];
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('" . $module_key . "', '" . implode(';', $installed_modules) . "', '6', '0', now())");
+	}
 ?>
               <tr>
                 <td colspan="4" class="smallText"><?php echo TEXT_MODULE_DIRECTORY . ' ' . $module_directory; ?></td>
