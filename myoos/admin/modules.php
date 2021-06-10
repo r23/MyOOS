@@ -56,10 +56,17 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 if (!empty($action)) {
     switch ($action) {
 		case 'save':
-			foreach ($_POST['configuration'] as $key => $value) {			
+
+			foreach ($_POST['configuration'] as $key => $value) {
 				$configurationtable = $oostable['configuration'];
-				$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . $value . "' WHERE configuration_key = '" . $key . "'");
+				$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($value) . "' WHERE configuration_key = '" . oos_db_input($key) . "'");
 			}
+		
+			if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
+				$code = oos_db_prepare_input($_POST['code']);				
+				$dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($code) . "' WHERE configuration_key = 'DEFAULT_SHIPPING_METHOD'");
+			}
+			
 			oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module']));
 			break;
 
@@ -251,68 +258,71 @@ require 'includes/header.php';
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+$heading = array();
+$contents = array();
 
-  switch ($action) {
-    case 'edit':
-      $keys = '';
-      reset($mInfo->keys);
-      foreach ($mInfo->keys as $key => $value) {		  
-        $keys .= '<b>' . $value['title'] . '</b><br />' . $value['description'] . '<br />';
+switch ($action) {
+	case 'edit':
+		$keys = '';
+		reset($mInfo->keys);
+		foreach ($mInfo->keys as $key => $value) {		  
+			$keys .= '<b>' . $value['title'] . '</b><br />' . $value['description'] . '<br />';
+			if ($value['set_function']) {
+				eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
+			} else {
+				$keys .= oos_draw_input_field('configuration[' . $key . ']', $value['value']);
+			}
+				$keys .= '<br /><br />';
+		}
+		$keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
+		$heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
 
-        if ($value['set_function']) {
-          eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
-        } else {
-          $keys .= oos_draw_input_field('configuration[' . $key . ']', $value['value']);
-        }
-        $keys .= '<br /><br />';
-      }
-      $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
+		$contents = array('form' => oos_draw_form('id', 'modules', $aContents['modules'], 'set=' . $set . '&module=' . $_GET['module'] . '&action=save', 'post', FALSE));
+		$contents[] = array('text' => $keys);
 
-      $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
-
-      $contents = array('form' => oos_draw_form('id', 'modules', $aContents['modules'], 'set=' . $set . '&module=' . $_GET['module'] . '&action=save', 'post', FALSE));
-      $contents[] = array('text' => $keys);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $_GET['module']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
-      break;
+		if ($set == 'shipping') {
+			if (DEFAULT_SHIPPING_METHOD != $module->code) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT . oos_draw_hidden_field('code', $mInfo->code));	  
+		}
+	
+		$contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $_GET['module']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+		break;
 
     default:
-      $heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
+		$heading[] = array('text' => '<b>' . $mInfo->title . '</b>');
 
-      if ($mInfo->status == '1') {
-        $keys = '';
-        reset($mInfo->keys);
-		foreach ($mInfo->keys as $value) {			
+		if ($mInfo->status == '1') {
+			$keys = '';
+			reset($mInfo->keys);
+			foreach ($mInfo->keys as $value) {			
 			
-          $keys .= '<b>' . $value['title'] . '</b><br />';
-          if ($value['use_function']) {
-            $use_function = $value['use_function'];
-            if (preg_match('/->/', $use_function)) {
-              $class_method = explode('->', $use_function);
-              if (!is_object(${$class_method[0]})) {
-                include 'includes/classes/class_'. $class_method[0] . '.php';
-                ${$class_method[0]} = new $class_method[0]();
-              }
-              $keys .= oos_call_function($class_method[1], $value['value'], ${$class_method[0]});
-            } else {
-              $keys .= oos_call_function($use_function, $value['value']);
-            }
-          } else {
-            $keys .= $value['value'];
-          }
-          $keys .= '<br /><br />';
-        }
+			$keys .= '<b>' . $value['title'] . '</b><br />';
+			if ($value['use_function']) {
+				$use_function = $value['use_function'];
+				if (preg_match('/->/', $use_function)) {
+					$class_method = explode('->', $use_function);
+					if (!is_object(${$class_method[0]})) {
+						include 'includes/classes/class_'. $class_method[0] . '.php';
+						${$class_method[0]} = new $class_method[0]();
+					}
+				$keys .= oos_call_function($class_method[1], $value['value'], ${$class_method[0]});
+			} else {
+				$keys .= oos_call_function($use_function, $value['value']);
+			}
+		} else {
+			$keys .= $value['value'];
+		}
+			$keys .= '<br /><br />';
+		}
         $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
 
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $mInfo->code . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
         $contents[] = array('text' => '<br />' . $mInfo->description);
         $contents[] = array('text' => '<br />' . $keys);
-      } else {
-        $contents[] = array('text' => $mInfo->description);
-      }
-      break;
-  }
+	} else {
+		$contents[] = array('text' => $mInfo->description);
+	}
+	break;
+}
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
 ?>
