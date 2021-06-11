@@ -67,11 +67,15 @@ if (isset($_SESSION)) {
 				$free_shipping = true;
 			}
 
+
+			$delivery_country_id = isset($_SESSION['delivery_country_id']) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
+
+
 			// load all enabled shipping modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 			$shipping_modules = new shipping;
 
-			$delivery_country_id = isset($_SESSION["delivery_country_id"]) ? intval($_SESSION["delivery_country_id"]) : STORE_COUNTRY;
+
 
 			if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 				switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -104,7 +108,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	
 	if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
 		if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {
-			$_SESSION['shipping'] = $_POST['shipping'];
+			$_SESSION['shipping'] = oos_prepare_input($_POST['shipping']);
 
 			list($module, $method) = explode('_', $_SESSION['shipping']);
 			if ( is_object($$module) || ($_SESSION['shipping'] == 'free_free') ) {

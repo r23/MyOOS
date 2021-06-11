@@ -37,7 +37,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'notify_process') &&
 	
     if (isset($_POST['notify']) && !empty($_POST['notify'])) {
 	
-		$notify = $_POST['notify'];
+		$notify = oos_prepare_input($_POST['notify']);
 	  
 		if (!is_array($notify)) {
 			$notify = array($notify);

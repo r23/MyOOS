@@ -136,7 +136,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 	if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
 		if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {
-			$_SESSION['shipping'] = $_POST['shipping'];
+			$_SESSION['shipping'] = oos_prepare_input($_POST['shipping']);
 
 			list($module, $method) = explode('_', $_SESSION['shipping']);
 			if ( is_object($$module) || ($_SESSION['shipping'] == 'free_free') ) {
