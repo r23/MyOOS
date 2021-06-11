@@ -132,7 +132,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$purifier = new HTMLPurifier($config);
 		$_SESSION['comments'] = $purifier->purify($_POST['comments']);		
 	}
-	$_SESSION['comments'] = isset($_SESSION['comments']) ? $_SESSION['comments'] : '';
+	$_SESSION['comments'] = isset($_SESSION['comments']) ? oos_prepare_input($_SESSION['comments']) : '';
 
 	if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
 		if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {

@@ -69,6 +69,7 @@ if (isset($_SESSION)) {
 
 
 			$delivery_country_id = isset($_SESSION['delivery_country_id']) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
+			$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD;
 
 
 			// load all enabled shipping modules
