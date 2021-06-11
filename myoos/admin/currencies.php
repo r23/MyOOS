@@ -76,7 +76,7 @@ if (!empty($action)) {
 				$dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '' WHERE configuration_key = 'DEFAULT_CURRENCY'");
 			}
 
-			$dbconn->Execute("DELETE FROM " . $oostable['currencies'] . " WHERE currencies_id = '" . oos_db_input($currencies_id) . "'");
+			$dbconn->Execute("DELETE FROM " . $oostable['currencies'] . " WHERE currencies_id = '" . intval($currencies_id) . "'");
 
 			oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage));
 			break;
@@ -92,7 +92,7 @@ if (!empty($action)) {
 					$rate = $quote_function($currency['code']);
 				}
 				if (oos_is_not_null($rate)) {
-					$dbconn->Execute("UPDATE " . $oostable['currencies'] . " SET value = '" . $rate . "', last_updated = now() WHERE currencies_id = '" . $currency['currencies_id'] . "'");
+					$dbconn->Execute("UPDATE " . $oostable['currencies'] . " SET value = '" . oos_db_input($rate) . "', last_updated = now() WHERE currencies_id = '" . intval($currency['currencies_id']) . "'");
 				}
 				// Move that ADOdb pointer!
 				$currency_result->MoveNext();
@@ -103,7 +103,7 @@ if (!empty($action)) {
       case 'delete':
 			$currencies_id = oos_db_prepare_input($_GET['cID']);
 
-			$currency_result = $dbconn->Execute("SELECT code FROM " . $oostable['currencies'] . " WHERE currencies_id = '" . oos_db_input($currencies_id) . "'");
+			$currency_result = $dbconn->Execute("SELECT code FROM " . $oostable['currencies'] . " WHERE currencies_id = '" . intval($currencies_id) . "'");
 			$currency = $currency_result->fields;
 
 			$remove_currency = true;

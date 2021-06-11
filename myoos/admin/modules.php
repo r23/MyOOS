@@ -72,8 +72,8 @@ if (!empty($action)) {
 
 		case 'install':
 		case 'remove':
-			$file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-			$class = basename($_GET['module']);
+			$file_extension = oos_db_prepare_input(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.')));
+			$class = oos_db_prepare_input(basename($_GET['module']));
 		
 			if (file_exists($module_directory . $class . $file_extension)) {
 				include OOS_ABSOLUTE_PATH . 'includes/languages/' . $_SESSION['language'] . '/modules/' . $module_type . '/' . $class . $file_extension;
@@ -241,16 +241,16 @@ require 'includes/header.php';
   
 	ksort($installed_modules);
 	$configurationtable = $oostable['configuration'];
-	$check_result = $dbconn->Execute("SELECT configuration_value FROM $configurationtable WHERE configuration_key = '" . $module_key . "'");
+	$check_result = $dbconn->Execute("SELECT configuration_value FROM $configurationtable WHERE configuration_key = '" . oos_db_input($module_key) . "'");
 	if ($check_result->RecordCount()) {
 		$check = $check_result->fields;
 		if ($check['configuration_value'] != implode(';', $installed_modules)) {
 			$configurationtable = $oostable['configuration'];
-			$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . implode(';', $installed_modules) . "', last_modified = now() WHERE configuration_key = '" . $module_key . "'");
+			$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input(implode(';', $installed_modules)) . "', last_modified = now() WHERE configuration_key = '" . oos_db_input($module_key ). "'");
 		}
 	} else {
 		$configurationtable = $oostable['configuration'];
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('" . $module_key . "', '" . implode(';', $installed_modules) . "', '6', '0', now())");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('" . oos_db_input($module_key) . "', '" . oos_db_input(implode(';', $installed_modules)) . "', '6', '0', now())");
 	}
 ?>
               <tr>
@@ -295,31 +295,31 @@ switch ($action) {
 			reset($mInfo->keys);
 			foreach ($mInfo->keys as $value) {			
 			
-			$keys .= '<b>' . $value['title'] . '</b><br />';
-			if ($value['use_function']) {
-				$use_function = $value['use_function'];
-				if (preg_match('/->/', $use_function)) {
-					$class_method = explode('->', $use_function);
-					if (!is_object(${$class_method[0]})) {
-						include 'includes/classes/class_'. $class_method[0] . '.php';
-						${$class_method[0]} = new $class_method[0]();
+				$keys .= '<b>' . $value['title'] . '</b><br />';
+				if ($value['use_function']) {
+					$use_function = $value['use_function'];
+					if (preg_match('/->/', $use_function)) {
+						$class_method = explode('->', $use_function);
+						if (!is_object(${$class_method[0]})) {
+							include 'includes/classes/class_'. $class_method[0] . '.php';
+							${$class_method[0]} = new $class_method[0]();
+						}
+						$keys .= oos_call_function($class_method[1], $value['value'], ${$class_method[0]});
+					} else {
+						$keys .= oos_call_function($use_function, $value['value']);
 					}
-				$keys .= oos_call_function($class_method[1], $value['value'], ${$class_method[0]});
-			} else {
-				$keys .= oos_call_function($use_function, $value['value']);
+				} else {
+					$keys .= $value['value'];
+				}
+				$keys .= '<br /><br />';
 			}
-		} else {
-			$keys .= $value['value'];
-		}
-			$keys .= '<br /><br />';
-		}
-        $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
+			$keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $mInfo->code . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
-        $contents[] = array('text' => '<br />' . $mInfo->description);
-        $contents[] = array('text' => '<br />' . $keys);
-	} else {
-		$contents[] = array('text' => $mInfo->description);
+			$contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $mInfo->code . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
+			$contents[] = array('text' => '<br />' . $mInfo->description);
+			$contents[] = array('text' => '<br />' . $keys);
+		} else {
+			$contents[] = array('text' => $mInfo->description);
 	}
 	break;
 }
