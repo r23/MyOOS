@@ -69,13 +69,12 @@ if (isset($_SESSION)) {
 
 
 			$delivery_country_id = isset($_SESSION['delivery_country_id']) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
-			$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD;
+			$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
 
 
 			// load all enabled shipping modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 			$shipping_modules = new shipping;
-
 
 
 			if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
@@ -95,12 +94,23 @@ if (isset($_SESSION)) {
 
 				$free_shipping = false;
 				if ( ($pass == true) && ($subtotal >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-					$free_shipping = true;					
+					$free_shipping = true;
+					$shipping = 'free_free';
+					$_SESSION['shipping'] = 'free_free';					
 				}
 			} else {
 				$free_shipping = false;
 			}
 
+
+			if ($shipping == 'free_free') {
+				$quote[0]['methods'][0]['title'] = $aLang['free_shipping_title'];
+				$quote[0]['methods'][0]['cost'] = '0';
+			} else {
+				$quote = $shipping_modules->quote(DEFAULT_SHIPPING_METHOD, DEFAULT_SHIPPING_METHOD);
+			}
+
+print_r($quote);
 
 
 // process the selected shipping method
@@ -142,11 +152,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$_SESSION['shipping'] = false;
     }
 }
-
-
-echo MODULE_SHIPPING_INSTALLED;
-echo oos_count_shipping_modules();
-exit;
 
 			// get all available shipping quotes
 #			$quotes = $shipping_modules->quote();

@@ -422,32 +422,32 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 			$email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'];
 			oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), '', STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
-		}
 
-		if (SEND_CUSTOMER_EDIT_EMAILS == 'true') {
-			$email_owner = $aLang['owner_email_subject'] . "\n" .
+
+			if (SEND_CUSTOMER_EDIT_EMAILS == 'true') {
+				$email_owner = $aLang['owner_email_subject'] . "\n" .
 						$aLang['email_separator'] . "\n" .
 						$aLang['owner_email_date'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n" .
 						$aLang['email_separator'] . "\n";
 
-			if (ACCOUNT_COMPANY == 'true') {
-				$email_owner .= $aLang['owner_email_company_info'] . "\n" .
+				if (ACCOUNT_COMPANY == 'true') {
+					$email_owner .= $aLang['owner_email_company_info'] . "\n" .
 							$aLang['owner_email_company'] . ' ' . $company . "\n";
-				if (ACCOUNT_OWNER == 'true') {
-					$email_owner .= $aLang['owner_email_owner'] . ' ' . $owner . "\n";
+					if (ACCOUNT_OWNER == 'true') {
+						$email_owner .= $aLang['owner_email_owner'] . ' ' . $owner . "\n";
+					}
+					if (ACCOUNT_VAT_ID == 'true') {
+						$email_owner .= $aLang['entry_vat_id'] . ' ' . $vat_id . "\n";
+					}
 				}
-				if (ACCOUNT_VAT_ID == 'true') {
-					$email_owner .= $aLang['entry_vat_id'] . ' ' . $vat_id . "\n";
+				if (ACCOUNT_GENDER == 'true') {
+					if ($gender == 'm') {
+						$email_owner .= $aLang['entry_gender'] . ' ' . $aLang['male'] . "\n";
+					} else {
+						$email_owner .= $aLang['entry_gender'] . ' ' . $aLang['female'] . "\n";
+					}
 				}
 			}
-			if (ACCOUNT_GENDER == 'true') {
-				if ($gender == 'm') {
-					$email_owner .= $aLang['entry_gender'] . ' ' . $aLang['male'] . "\n";
-				} else {
-					$email_owner .= $aLang['entry_gender'] . ' ' . $aLang['female'] . "\n";
-				}
-			}
-
 			$email_owner .= $aLang['owner_email_first_name'] . ' ' . $firstname . "\n" .
                       $aLang['owner_email_last_name'] . ' ' . $lastname . "\n\n" .
                       $aLang['owner_email_street'] . ' ' . $street_address . "\n" .
