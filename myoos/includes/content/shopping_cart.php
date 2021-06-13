@@ -109,63 +109,19 @@ if (isset($_SESSION)) {
 			} else {
 				$quote = $shipping_modules->quote(DEFAULT_SHIPPING_METHOD, DEFAULT_SHIPPING_METHOD);
 			}
-
-print_r($quote);
-
-
-// process the selected shipping method
-if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
-	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){	
-	
-	if ( (oos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
-		if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {
-			$_SESSION['shipping'] = oos_prepare_input($_POST['shipping']);
-
-			list($module, $method) = explode('_', $_SESSION['shipping']);
-			if ( is_object($$module) || ($_SESSION['shipping'] == 'free_free') ) {
-				
-				if ($_SESSION['shipping'] == 'free_free') {
-					$quote[0]['methods'][0]['title'] = $aLang['free_shipping_title'];
-					$quote[0]['methods'][0]['cost'] = '0';
-				} else {
-					$quote = $shipping_modules->quote($method, $module);
-				}
-				if (isset($quote['error'])) {
-					unset($_SESSION['shipping']);
-				} else {
-					if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
-						$sWay = ''; 
-						if (!empty($quote[0]['methods'][0]['title'])) {
-							$sWay = ' (' . $quote[0]['methods'][0]['title'] . ')'; 
-						}						
-						$_SESSION['shipping'] = array('id' => $_SESSION['shipping'],
-											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay), 
-                                            'cost' => $quote[0]['methods'][0]['cost']);
-
-					}
-				}
-			} else {
-				unset($_SESSION['shipping']);
-			}
-		}
-	} else {
-		$_SESSION['shipping'] = false;
-    }
+			
+			// load all enabled order total modules
+			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
+			$order_total_modules = new order_total;
+			$order_total_modules->collect_posts();
+			$order_total_modules->process();
+			
+			$order_total_output = $order_total_modules->output();
+			// $smarty->assign('order_total_output', $order_total_output);
 }
 
-			// get all available shipping quotes
-#			$quotes = $shipping_modules->quote();
-
-
-
-// if no shipping method has been selected, automatically select the cheapest method.
-// if the modules status was changed when none were available, to save on implementing
-// a javascript force-selection method, also automatically select the cheapest shipping
-// method if more than one module is now enabled
-# if ((!isset($_SESSION['shipping']) || (!isset($_SESSION['shipping']['id']) || $_SESSION['shipping']['id'] == '') && oos_count_shipping_modules() >= 1)) $_SESSION['shipping'] = $shipping_modules->cheapest();
-
-list ($sess_class, $sess_method) = preg_split('/_/', $_SESSION['shipping']['id']);
-
+print_r($order_total_output);
+print_r($quote);
 
 	
 			/*
@@ -247,7 +203,7 @@ list ($sess_class, $sess_method) = preg_split('/_/', $_SESSION['shipping']['id']
 			}  
 		}
 	}
-}
+
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
