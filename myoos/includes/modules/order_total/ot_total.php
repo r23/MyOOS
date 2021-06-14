@@ -42,6 +42,16 @@
                               'value' => $oOrder->info['total']);
     }
 
+    function shopping_cart_process() {
+      global $oOrder, $oCurrencies;
+
+      $this->output[] = array('title' => $this->title . ':',
+                              'text' => '<strong>' . $oCurrencies->format($oOrder->info['total'], true, $oOrder->info['currency'], $oOrder->info['currency_value']) . '</strong>',
+                              'value' => $oOrder->info['total']);
+    }
+
+
+
     function check() {
       if (!isset($this->_check)) {
         $this->_check = defined('MODULE_ORDER_TOTAL_TOTAL_STATUS');

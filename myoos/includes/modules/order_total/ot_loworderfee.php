@@ -65,6 +65,38 @@
       }
     }
 
+
+    function shopping_cart_process() {
+      global $oOrder, $oCurrencies;
+
+      if (MODULE_ORDER_TOTAL_LOWORDERFEE_LOW_ORDER_FEE == 'true') {
+        switch (MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION) {
+          case 'national':
+            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
+          case 'international':
+            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
+          case 'both':
+            $pass = true; break;
+          default:
+            $pass = false; break;
+        }
+
+        if ( ($pass == true) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER) ) {
+          $tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+          // $tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+          $tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+
+          $oOrder->info['tax'] += oos_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+          $oOrder->info['tax_groups']["$tax_description"] += oos_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+          $oOrder->info['total'] += MODULE_ORDER_TOTAL_LOWORDERFEE_FEE + oos_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
+
+          $this->output[] = array('title' => $this->title . ':',
+                                  'text' => $oCurrencies->format(oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax), true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+                                  'value' => oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax));
+        }
+      }
+    }
+
     function check() {
       if (!isset($this->_check)) {
         $this->_check = defined('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS');

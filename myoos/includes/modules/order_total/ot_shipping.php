@@ -78,6 +78,51 @@
       }
     }
 
+    function shopping_cart_process() {
+      global $oOrder, $oCurrencies, $aUser;
+
+      if (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') {
+        switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
+          case 'national':
+            if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
+          case 'international':
+            if ($oOrder->delivery['country_id'] != STORE_COUNTRY) $pass = true; break;
+          case 'both':
+            $pass = true; break;
+          default:
+            $pass = false; break;
+        }
+
+        if ( ($pass == true) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+          $oOrder->info['shipping_method'] = $this->title;
+          $oOrder->info['total'] -= $oOrder->info['shipping_cost'];
+          $oOrder->info['shipping_cost'] = 0;
+        }
+      }
+
+      $module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
+
+      if (oos_is_not_null($oOrder->info['shipping_method'])) {
+        if ($GLOBALS[$module]->tax_class > 0) {
+          $shipping_tax = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+          $shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+
+          $tax = oos_calculate_tax($oOrder->info['shipping_cost'], $shipping_tax);
+          if ($aUser['price_with_tax'] == 1)  $oOrder->info['shipping_cost'] += $tax;
+
+          $oOrder->info['tax'] += $tax;
+          $oOrder->info['tax_groups']["$shipping_tax_description"] += $tax;
+          $oOrder->info['total'] += $tax;
+        }
+
+
+        $this->output[] = array('title' => $oOrder->info['shipping_method'] . ':',
+                                'text' => $oCurrencies->format($oOrder->info['shipping_cost'], true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+                                'value' => $oOrder->info['shipping_cost']);
+      }
+    }
+
+
     function check() {
       if (!isset($this->_check)) {
         $this->_check = defined('MODULE_ORDER_TOTAL_SHIPPING_STATUS');

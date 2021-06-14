@@ -76,9 +76,6 @@
     }
 
 
-
-
-
     function check() {
       if (!isset($this->_check)) {
         $this->_check = defined('MODULE_ORDER_TOTAL_TAX_STATUS');

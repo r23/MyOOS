@@ -42,6 +42,16 @@
                               'value' => $oOrder->info['subtotal']);
     }
 
+
+    function shopping_cart_process() {
+      global $oOrder, $oCurrencies;
+
+      $this->output[] = array('title' => $this->title . ':',
+                              'text' => $oCurrencies->format($oOrder->info['subtotal'], true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+                              'value' => $oOrder->info['subtotal']);
+    }
+
+
     function check() {
       if (!isset($this->_check)) {
         $this->_check = defined('MODULE_ORDER_TOTAL_SUBTOTAL_STATUS');
