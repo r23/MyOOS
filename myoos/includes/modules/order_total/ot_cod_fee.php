@@ -121,6 +121,77 @@
       }
     }
 
+
+	function shopping_cart_process() {
+      global $oOrder, $oCurrencies, $cod_cost, $cod_country;
+
+      if (MODULE_ORDER_TOTAL_COD_STATUS == 'true') {
+
+        //Will become true, if cod can be processed.
+        $cod_country = false;
+
+        //check if payment method is cod. If yes, check if cod is possible.
+        if ($_SESSION['payment'] == 'cod') {
+          //process installed shipping modules
+          if ($_SESSION['shipping']['id'] == 'flat_flat') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FLAT);
+          if ($_SESSION['shipping']['id'] == 'item_item') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ITEM);
+          if ($_SESSION['shipping']['id'] == 'table_table') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_TABLE);
+          if ($_SESSION['shipping']['id'] == 'zones_zones') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ZONES);
+          if ($_SESSION['shipping']['id'] == 'ap_ap') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_AP);
+          if ($_SESSION['shipping']['id'] == 'dp_dp') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_DP);
+          if ($_SESSION['shipping']['id'] == 'chp_ECO') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
+          if ($_SESSION['shipping']['id'] == 'chp_PRI') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
+          if ($_SESSION['shipping']['id'] == 'chp_URG') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
+
+            for ($i = 0; $i < count($cod_zones); $i++) {
+            if ($cod_zones[$i] == $oOrder->billing['country']['iso_code_2']) {
+                  $cod_cost = $cod_zones[$i + 1];
+                  $cod_country = true;
+                  //print('match' . $i . ': ' . $cod_cost);
+                  break;
+                } elseif ($cod_zones[$i] == '00') {
+                  $cod_cost = $cod_zones[$i + 1];
+                  $cod_country = true;
+                  //print('match' . $i . ': ' . $cod_cost);
+                  break;
+                } else {
+                  //print('no match');
+                }
+              $i++;
+            }
+          } else {
+            //COD selected, but no shipping module which offers COD
+          }
+        if ($cod_country) {
+          if (MODULE_ORDER_TOTAL_COD_TAX_CLASS > 0) {
+            $cod_tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+            // $cod_tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+            $cod_tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+
+
+            $oOrder->info['tax'] += oos_calculate_tax($cod_cost, $cod_tax);
+            $oOrder->info['tax_groups']["$cod_tax_description"] += oos_calculate_tax($cod_cost, $cod_tax);
+            $oOrder->info['total'] += $cod_cost + oos_calculate_tax($cod_cost, $cod_tax);
+
+            $this->output[] = array('title' => $this->title . ':',
+                                    'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+                                    'value' => oos_add_tax($cod_cost, $cod_tax));
+            } else {
+              $oOrder->info['total'] += $cod_cost;
+	      $this->output[] = array('title' => $this->title . ':',
+	                              'text' => $oCurrencies->format($cod_cost, true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+                                      'value' => $cod_cost);
+            }
+        } else {
+//Following code should be improved if we can't get the shipping modules disabled, who don't allow COD
+// as well as countries who do not have cod
+//          $this->output[] = array('title' => $this->title . ':',
+//                                  'text' => 'No COD for this module.',
+//                                  'value' => '');
+        }
+      }
+    }
+
     function check() {
       if (!isset($this->_check)) {
         $this->_check = defined('MODULE_ORDER_TOTAL_COD_STATUS');

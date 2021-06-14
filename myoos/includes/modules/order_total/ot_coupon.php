@@ -60,6 +60,26 @@
     }
   }
 
+  function shopping_cart_process() {
+    global $oOrder, $oCurrencies;
+
+    $order_total = $this->get_order_total();
+    $od_amount = $this->calculate_credit($order_total);
+
+    $this->deduction = $od_amount;
+    if ($this->calculate_tax != 'none') {
+      $tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
+    }
+    if ($od_amount > 0) {
+      $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
+      $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
+                              'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
+                              'value' => $od_amount);
+    }
+  }
+
+
+
   function selection_test() {
     return false;
   }

@@ -54,6 +54,31 @@
       }
     }
 
+
+    function shopping_cart_process() {
+      global $oOrder, $oCurrencies, $aUser, $aLang;
+
+      reset($oOrder->info['tax_groups']);
+      if ($aUser['price_with_tax'] == 1) {
+			$info = $aLang['module_order_total_included_tax'];
+      } else {
+			$info = $aLang['module_order_total_ex_tax'];
+      }
+	  	  
+      foreach($oOrder->info['tax_groups'] as $key => $value) {		  
+        if ($value > 0) {
+          $this->output[] = array('title' => $info . $this->title . ' (' . number_format($key, 2) . '%):',
+                                  'text' => $oCurrencies->format($value, true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+                                  'value' => $value);								  
+								  
+        }
+      }
+    }
+
+
+
+
+
     function check() {
       if (!isset($this->_check)) {
         $this->_check = defined('MODULE_ORDER_TOTAL_TAX_STATUS');

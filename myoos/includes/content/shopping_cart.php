@@ -113,16 +113,19 @@ if (isset($_SESSION)) {
 			// load all enabled order total modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 			$order_total_modules = new order_total;
-			$order_total_modules->collect_posts();
-			$order_total_modules->process();
+		#	$order_total_modules->collect_posts();
+			$order_total_modules->shopping_cart_process();
 			
 			$order_total_output = $order_total_modules->output();
 			// $smarty->assign('order_total_output', $order_total_output);
 }
 
+echo '<pre>';
+print_r($_SESSION['cart']);
+echo '</pre>';
 print_r($order_total_output);
 print_r($quote);
-
+exit;
 	
 			/*
 			 * Shopping Cart

@@ -71,6 +71,35 @@ class order_total {
 		return $order_total_array;
     }
 
+	public function shopping_cart_process() {
+		$order_total_array = array();
+		if (is_array($this->modules)) {
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ($GLOBALS[$class]->enabled) {
+					$GLOBALS[$class]->output = array();
+					$GLOBALS[$class]->shopping_cart_process();
+
+					for ($i=0, $n=sizeof($GLOBALS[$class]->output); $i<$n; $i++) {
+						if (oos_is_not_null($GLOBALS[$class]->output[$i]['title']) && oos_is_not_null($GLOBALS[$class]->output[$i]['text'])) {
+							$order_total_array[] = array('code' => $GLOBALS[$class]->code,
+														'title' => $GLOBALS[$class]->output[$i]['title'],
+														'text' => $GLOBALS[$class]->output[$i]['text'],
+														'value' => $GLOBALS[$class]->output[$i]['value'],
+														'sort_order' => $GLOBALS[$class]->sort_order);
+						}
+					}
+				}
+			}
+		}
+
+		return $order_total_array;
+    }
+
+
+
+
     public function output() {
 		$output_string = NULL;
 		if (is_array($this->modules)) {
