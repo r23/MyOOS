@@ -555,14 +555,12 @@ class shoppingCart {
 				$this->info['total'] +=  $nPrice;
 		
 				// tax
-				/*
 				$this->info['tax'] += oos_round(($products_tax / 100) * $nPrice, $decimal_places);
 				if (isset($this->info['tax_groups']["$products_tax"])) {
 					$this->info['tax_groups']["$products_tax"] += oos_round(($products_tax / 100) * $nPrice, $decimal_places);
 				} else {
 					$this->info['tax_groups']["$products_tax"] = oos_round(($products_tax / 100) * $nPrice, $decimal_places);
 				}
-				*/
 
 			}
 		}

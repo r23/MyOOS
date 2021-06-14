@@ -56,23 +56,26 @@
 
 
     function shopping_cart_process() {
-      global $oOrder, $oCurrencies, $aLang;
+		global $oOrder, $oCurrencies, $aLang;
 
-      $tax_total = 0;
+		$tax_total = 0;
 
-      reset($oOrder->info['tax_groups']);
-      foreach($oOrder->info['tax_groups'] as $key => $value) {		  
-        // sum all tax values to calculate total tax:
-        if ($value > 0) $tax_total += $value;
-      }
+		reset($oOrder->info['tax_groups']);
+		foreach($oOrder->info['tax_groups'] as $key => $value) {		  
+			// sum all tax values to calculate total tax:
+			if ($value > 0) $tax_total += $value;
+		}
 
-      // subtract total tax from total invoice amount to calculate net amount:
-      $netto = $oOrder->info['total']-$tax_total;
+		// subtract total tax from total invoice amount to calculate net amount:
+		$netto = $oOrder->info['total']-$tax_total;
 
-      // output net amount:
-      $this->output[] = array('title' => '(' . $this->title . ':',
-                        'text' => $oCurrencies->format($netto, true, $oOrder->info['currency'], $oOrder->info['currency_value']) . ')',
-                        'value' => $netto);
+		// output net amount:
+		$currency = $_SESSION['currency'];
+		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+		
+		$this->output[] = array('title' => '(' . $this->title . ':',
+								'text' => $oCurrencies->format($netto, true, $currency, $currency_value) . ')',
+								'value' => $netto);
     }
 
 

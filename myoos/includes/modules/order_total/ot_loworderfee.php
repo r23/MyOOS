@@ -90,8 +90,11 @@
           $oOrder->info['tax_groups']["$tax_description"] += oos_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
           $oOrder->info['total'] += MODULE_ORDER_TOTAL_LOWORDERFEE_FEE + oos_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
 
+			$currency = $_SESSION['currency'];
+			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+
           $this->output[] = array('title' => $this->title . ':',
-                                  'text' => $oCurrencies->format(oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax), true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+                                  'text' => $oCurrencies->format(oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax), true, $currency, $currency_value),
                                   'value' => oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax));
         }
       }

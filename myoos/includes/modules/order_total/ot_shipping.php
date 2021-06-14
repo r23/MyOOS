@@ -115,9 +115,11 @@
           $oOrder->info['total'] += $tax;
         }
 
-
+		$currency = $_SESSION['currency'];
+		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+		
         $this->output[] = array('title' => $oOrder->info['shipping_method'] . ':',
-                                'text' => $oCurrencies->format($oOrder->info['shipping_cost'], true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+                                'text' => $oCurrencies->format($oOrder->info['shipping_cost'], true, $currency, $currency_value),
                                 'value' => $oOrder->info['shipping_cost']);
       }
     }

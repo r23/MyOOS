@@ -44,11 +44,14 @@
 
 
     function shopping_cart_process() {
-      global $oOrder, $oCurrencies;
+		global $oCurrencies;
 
-      $this->output[] = array('title' => $this->title . ':',
-                              'text' => $oCurrencies->format($oOrder->info['subtotal'], true, $oOrder->info['currency'], $oOrder->info['currency_value']),
-                              'value' => $oOrder->info['subtotal']);
+		$currency = $_SESSION['currency'];
+		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+
+		$this->output[] = array('title' => $this->title . ':',
+								'text' => $oCurrencies->format($_SESSION['cart']->info['subtotal'], true, $currency, $currency_value),
+								'value' => $_SESSION['cart']->info['subtotal']);
     }
 
 

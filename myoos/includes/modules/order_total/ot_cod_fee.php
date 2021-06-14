@@ -162,34 +162,39 @@
           } else {
             //COD selected, but no shipping module which offers COD
           }
-        if ($cod_country) {
-          if (MODULE_ORDER_TOTAL_COD_TAX_CLASS > 0) {
-            $cod_tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
-            // $cod_tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
-            $cod_tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+		  
+		  
+		  	$currency = $_SESSION['currency'];
+			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+			
+			if ($cod_country) {
+				if (MODULE_ORDER_TOTAL_COD_TAX_CLASS > 0) {
+				$cod_tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+					// $cod_tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+					$cod_tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
 
 
-            $oOrder->info['tax'] += oos_calculate_tax($cod_cost, $cod_tax);
-            $oOrder->info['tax_groups']["$cod_tax_description"] += oos_calculate_tax($cod_cost, $cod_tax);
-            $oOrder->info['total'] += $cod_cost + oos_calculate_tax($cod_cost, $cod_tax);
+					$oOrder->info['tax'] += oos_calculate_tax($cod_cost, $cod_tax);
+					$oOrder->info['tax_groups']["$cod_tax_description"] += oos_calculate_tax($cod_cost, $cod_tax);
+					$oOrder->info['total'] += $cod_cost + oos_calculate_tax($cod_cost, $cod_tax);
 
-            $this->output[] = array('title' => $this->title . ':',
-                                    'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $oOrder->info['currency'], $oOrder->info['currency_value']),
-                                    'value' => oos_add_tax($cod_cost, $cod_tax));
-            } else {
-              $oOrder->info['total'] += $cod_cost;
-	      $this->output[] = array('title' => $this->title . ':',
-	                              'text' => $oCurrencies->format($cod_cost, true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+					$this->output[] = array('title' => $this->title . ':',
+											'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $currency, $currency_value),
+											'value' => oos_add_tax($cod_cost, $cod_tax));
+				} else {
+					$oOrder->info['total'] += $cod_cost;
+					$this->output[] = array('title' => $this->title . ':',
+	                              'text' => $oCurrencies->format($cod_cost, true, $currency, $currency_value),
                                       'value' => $cod_cost);
-            }
-        } else {
+				}
+			} else {
 //Following code should be improved if we can't get the shipping modules disabled, who don't allow COD
 // as well as countries who do not have cod
 //          $this->output[] = array('title' => $this->title . ':',
 //                                  'text' => 'No COD for this module.',
 //                                  'value' => '');
-        }
-      }
+			}
+		}
     }
 
     function check() {
