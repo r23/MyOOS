@@ -60,7 +60,7 @@
 
 
     function shopping_cart_process() {
-      global $oOrder, $aUser, $oCurrencies;
+      global $aUser, $oCurrencies;
 
       $od_amount = $this->calculate_credit($this->get_order_total());
       if ($od_amount>0) {
@@ -68,7 +68,7 @@
         $this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($aUser['ot_discount'], 2) .'%):</span>',
                                 'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>',
                                 'value' => $od_amount);
-        $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
+        $_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
       }
     }
 

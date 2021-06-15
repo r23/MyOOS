@@ -174,15 +174,15 @@
 					$cod_tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
 
 
-					$oOrder->info['tax'] += oos_calculate_tax($cod_cost, $cod_tax);
-					$oOrder->info['tax_groups']["$cod_tax_description"] += oos_calculate_tax($cod_cost, $cod_tax);
-					$oOrder->info['total'] += $cod_cost + oos_calculate_tax($cod_cost, $cod_tax);
+					$_SESSION['cart']->info['tax'] += oos_calculate_tax($cod_cost, $cod_tax);
+					$_SESSION['cart']->info['tax_groups']["$cod_tax_description"] += oos_calculate_tax($cod_cost, $cod_tax);
+					$_SESSION['cart']->info['total'] += $cod_cost + oos_calculate_tax($cod_cost, $cod_tax);
 
 					$this->output[] = array('title' => $this->title . ':',
 											'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $currency, $currency_value),
 											'value' => oos_add_tax($cod_cost, $cod_tax));
 				} else {
-					$oOrder->info['total'] += $cod_cost;
+					$_SESSION['cart']->info['total'] += $cod_cost;
 					$this->output[] = array('title' => $this->title . ':',
 	                              'text' => $oCurrencies->format($cod_cost, true, $currency, $currency_value),
                                       'value' => $cod_cost);

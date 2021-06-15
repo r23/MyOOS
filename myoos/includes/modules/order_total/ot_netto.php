@@ -56,18 +56,18 @@
 
 
     function shopping_cart_process() {
-		global $oOrder, $oCurrencies, $aLang;
+		global $oCurrencies, $aLang;
 
 		$tax_total = 0;
 
-		reset($oOrder->info['tax_groups']);
-		foreach($oOrder->info['tax_groups'] as $key => $value) {		  
+		reset($_SESSION['cart']->info['tax_groups']);
+		foreach($_SESSION['cart']->info['tax_groups'] as $key => $value) {		  
 			// sum all tax values to calculate total tax:
 			if ($value > 0) $tax_total += $value;
 		}
 
 		// subtract total tax from total invoice amount to calculate net amount:
-		$netto = $oOrder->info['total']-$tax_total;
+		$netto = $_SESSION['cart']->info['total']-$tax_total;
 
 		// output net amount:
 		$currency = $_SESSION['currency'];

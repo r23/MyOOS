@@ -61,7 +61,7 @@
   }
 
   function shopping_cart_process() {
-    global $oOrder, $oCurrencies;
+    global $oCurrencies;
 
     $order_total = $this->get_order_total();
     $od_amount = $this->calculate_credit($order_total);

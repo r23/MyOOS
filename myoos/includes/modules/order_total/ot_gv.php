@@ -66,7 +66,7 @@
     }
 
 	function shopping_cart_process() {
-      global $oOrder, $oCurrencies;
+      global $oCurrencies;
 
       if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
 
@@ -77,7 +77,7 @@
           $od_amount = $this->calculate_credit($order_total);
         }
         $this->deduction = $od_amount;
-        $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
+        $_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
         if ($od_amount > 0) {
           $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':</font>',
                                   'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
