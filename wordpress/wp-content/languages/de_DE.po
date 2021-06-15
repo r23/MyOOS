@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.7.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-06-08 07:32:37+0000\n"
+"PO-Revision-Date: 2021-06-15 09:37:42+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -561,7 +561,7 @@ msgstr "Ein Anwendungsname ist erforderlich, um ein Anwendungspasswort zu erstel
 #: wp-includes/media-template.php:513 wp-includes/media-template.php:742
 #: wp-admin/includes/media.php:3334
 msgid "Copy URL to clipboard"
-msgstr "URL in die Zwischenablage kopieren"
+msgstr "URL in Zwischenablage kopieren"
 
 #: wp-includes/media-template.php:463 wp-includes/media-template.php:681
 msgid "Used as:"
@@ -10213,7 +10213,7 @@ msgstr "Vorschaubild"
 #: wp-includes/js/dist/block-library.js:9448
 #: wp-includes/js/dist/block-library.js:24309
 msgid "Autoplay"
-msgstr "Autoplay"
+msgstr "Automatische Wiedergabe"
 
 #: wp-includes/media-template.php:1300 wp-includes/media-template.php:1399
 #: wp-includes/js/dist/block-library.js:9473
@@ -10237,7 +10237,7 @@ msgstr "Titelliste anzeigen"
 
 #: wp-includes/media-template.php:953
 msgid "Playlist Settings"
-msgstr "Einstellungen Wiedergabeliste"
+msgstr "Einstellungen der Wiedergabeliste"
 
 #: wp-includes/widgets/class-wp-widget-search.php:30
 msgctxt "Search widget"
@@ -12251,11 +12251,11 @@ msgstr "Vorschaubild auf exakte Größe beschneiden"
 
 #: wp-includes/class-wp-xmlrpc-server.php:618
 msgid "Thumbnail Height"
-msgstr "Höhe Vorschaubild"
+msgstr "Höhe des Vorschaubilds"
 
 #: wp-includes/class-wp-xmlrpc-server.php:613
 msgid "Thumbnail Width"
-msgstr "Breite Vorschaubild"
+msgstr "Breite des Vorschaubilds"
 
 #: wp-login.php:881
 msgid "Confirm new password"
@@ -13125,7 +13125,7 @@ msgstr "Weiter"
 
 #: wp-signup.php:617
 msgid "Just a username, please."
-msgstr "Ich möche nur einen Benutzernamen, keine Website."
+msgstr "Ich möchte nur einen Benutzernamen, keine Website."
 
 #. translators: %s: Name of the network.
 #: wp-signup.php:596
@@ -13138,7 +13138,7 @@ msgstr "Es trat ein Fehler auf. Bitte korrigiere die Eingaben und versuche es no
 
 #: wp-signup.php:266
 msgid "Email&nbsp;Address:"
-msgstr "E-Mail-Addresse:"
+msgstr "E-Mail-Adresse:"
 
 #: wp-signup.php:263
 msgid "(Must be at least 4 characters, letters and numbers only.)"
@@ -13405,7 +13405,7 @@ msgstr "Es kann kein neuer Benutzer anlegt werden, wenn der Anmeldename leer ist
 
 #: wp-includes/revision.php:328
 msgid "Cannot create a revision of a revision"
-msgstr "Kann keine Revision einer Revision erstellen."
+msgstr "Es kann keine Revision einer Revision erstellt werden."
 
 #: wp-includes/post.php:4140
 msgid "Could not insert post into the database."
@@ -13544,7 +13544,7 @@ msgstr[1] "Zurzeit warten %s Kommentare auf Freigabe. Bitte gehe zur Moderations
 #. translators: Comment moderation. %s: Comment action URL.
 #: wp-includes/pluggable.php:1856
 msgid "Approve it: %s"
-msgstr "Genehmige %s"
+msgstr "%s genehmigen"
 
 #: wp-includes/pluggable.php:1831
 msgid "Pingback excerpt: "
@@ -13562,7 +13562,7 @@ msgstr "Spam: %s"
 #. translators: Comment moderation. %s: Comment action URL.
 #: wp-includes/pluggable.php:1684 wp-includes/pluggable.php:1863
 msgid "Delete it: %s"
-msgstr "Lösche %s"
+msgstr "%s löschen"
 
 #. translators: Comment moderation. %s: Comment action URL.
 #: wp-includes/pluggable.php:1681 wp-includes/pluggable.php:1860
@@ -15587,7 +15587,7 @@ msgstr "Erweitert"
 #: wp-includes/class-wp-editor.php:1258 wp-admin/includes/meta-boxes.php:1164
 #: wp-admin/edit-link-form.php:32
 msgid "Target"
-msgstr "Target"
+msgstr "Ziel"
 
 #: wp-includes/widgets/class-wp-widget-categories.php:30
 #: wp-includes/widgets/class-wp-widget-categories.php:47
