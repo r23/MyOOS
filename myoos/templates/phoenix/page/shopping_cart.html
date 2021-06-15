@@ -152,7 +152,15 @@
 					<h2 class="h6 px-4 py-3 bg-secondary text-center">{$lang.table_heading_total}</h2>
 					<hr>
 					
-										
+							<div class="table-responsive">
+								<table class="table">
+ {if !empty($order_total_output)}
+    {$order_total_output}
+ {/if}
+								</table>
+							</div>
+
+							
 										<span class="clearfix">
 											<span class="float-right">{$cart_show_subtotal}</span>
 											<strong class="float-left">{$lang.sub_title_sub_total}</strong>

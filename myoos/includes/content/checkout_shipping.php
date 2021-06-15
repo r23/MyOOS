@@ -81,7 +81,7 @@ $_SESSION['cartID'] = $_SESSION['cart']->cartID;
 
 // if the order contains only virtual products, forward the customer to the billing page as
 // a shipping address is not needed
-if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0) ) {
+if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_subtotal() == 0) ) {
 	$_SESSION['shipping'] = false;
 	$_SESSION['sendto'] = false;
 	oos_redirect(oos_href_link($aContents['checkout_payment']));

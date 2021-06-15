@@ -101,7 +101,7 @@ class order_total {
 
 
     public function output() {
-		$output_string = NULL;
+		$output_string = null;
 		if (is_array($this->modules)) {
 			reset($this->modules);
 			foreach ($this->modules as $value) {
@@ -109,10 +109,21 @@ class order_total {
 				if ($GLOBALS[$class]->enabled) {
 					$size = count($GLOBALS[$class]->output);
 					for ($i=0; $i<$size; $i++) {
+						/*
 						$output_string .= '              <tr>' . "\n" .
 								'                <td align="right">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
                                 '                <td align="right">' . $GLOBALS[$class]->output[$i]['text'] . '</td>' . "\n" .
-                                '              </tr>';
+                                '              </tr>''info' => '',
+						*/		
+								
+						$output_string .= '<span class="clearfix">' . "\n" .
+										'<span class="float-right">' . $GLOBALS[$class]->output[$i]['text'] . '</span>' . "\n" .
+										'<span class="float-left">' . $GLOBALS[$class]->output[$i]['title'] . '</span>' . "\n";
+						if ($GLOBALS[$class]->output[$i]['info'] != '') {
+							$output_string .=  $GLOBALS[$class]->output[$i]['info'] . "\n";
+						}										
+						$output_string .= '</span>';
+								
 					}
 				}
 			}

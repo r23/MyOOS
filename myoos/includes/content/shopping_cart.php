@@ -25,7 +25,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shoppi
 
 $hidden_field = '';
 $any_out_of_stock = 0;
-
+$order_total_output = array();
 
 if (isset($_SESSION)) { 
 
@@ -75,40 +75,6 @@ if (isset($_SESSION)) {
 			// load all enabled shipping modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 			$shipping_modules = new shipping;
-
-
-			if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
-				switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
-					case 'national':
-						if ($delivery_country_id == STORE_COUNTRY) $pass = true; break;
-
-					case 'international':
-						if ($delivery_country_id != STORE_COUNTRY) $pass = true; break;
-
-					case 'both':
-						$pass = true; break;
-
-					default:
-						$pass = false; break;
-				}
-
-				$free_shipping = false;
-				if ( ($pass == true) && ($subtotal >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-					$free_shipping = true;
-					$shipping = 'free_free';
-					$_SESSION['shipping'] = 'free_free';					
-				}
-			} else {
-				$free_shipping = false;
-			}
-
-
-			if ($shipping == 'free_free') {
-				$quote[0]['methods'][0]['title'] = $aLang['free_shipping_title'];
-				$quote[0]['methods'][0]['cost'] = '0';
-			} else {
-				$quote = $shipping_modules->quote(DEFAULT_SHIPPING_METHOD, DEFAULT_SHIPPING_METHOD);
-			}
 			
 			// load all enabled order total modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
@@ -118,14 +84,7 @@ if (isset($_SESSION)) {
 			
 			$order_total_output = $order_total_modules->output();
 			// $smarty->assign('order_total_output', $order_total_output);
-}
 
-echo '<pre>';
-print_r($_SESSION['cart']);
-echo '</pre>';
-print_r($order_total_output);
-print_r($quote);
-exit;
 	
 			/*
 			 * Shopping Cart
@@ -206,7 +165,7 @@ exit;
 			}  
 		}
 	}
-
+}
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
@@ -235,7 +194,8 @@ $smarty->assign(
 			
 		'hidden_field'			=> $hidden_field,
 		'products'				=> $products,
-		'any_out_of_stock'		=> $any_out_of_stock
+		'any_out_of_stock'		=> $any_out_of_stock,
+		'order_total_output'	=> $order_total_output,
        )
 );
 

@@ -65,6 +65,7 @@
 			$this->deduction = $od_amount;
 			$this->output[] = array('title' => '<span class="otDiscount">- ' . $this->title . ' ('. number_format($this->percentage, 2) .'%):</span>',
 									'text' => '<strong><span class="otDiscount">' . $oCurrencies->format($od_amount) . '</span></strong>',
+									'info' => '',
 									'value' => $od_amount);
 			$_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
 		}

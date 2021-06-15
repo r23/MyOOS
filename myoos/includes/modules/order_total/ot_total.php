@@ -50,6 +50,7 @@
 
 		$this->output[] = array('title' => $this->title . ':',
 								'text' => '<strong>' . $oCurrencies->format($_SESSION['cart']->info['total'], true, $currency, $currency_value) . '</strong>',
+								'info' => '',
 								'value' => $_SESSION['cart']->info['total']);
     }
 
