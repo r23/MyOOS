@@ -39,6 +39,7 @@
 
       $this->output[] = array('title' => $this->title . ':',
                               'text' => '<strong>' . $oCurrencies->format($oOrder->info['total'], true, $oOrder->info['currency'], $oOrder->info['currency_value']) . '</strong>',
+							  'info' => '',
                               'value' => $oOrder->info['total']);
     }
 

@@ -39,6 +39,7 @@
 
       $this->output[] = array('title' => $this->title . ':',
                               'text' => $oCurrencies->format($oOrder->info['subtotal'], true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+							  'info' => '',
                               'value' => $oOrder->info['subtotal']);
     }
 
@@ -51,6 +52,7 @@
 
 		$this->output[] = array('title' => $this->title . ':',
 								'text' => $oCurrencies->format($_SESSION['cart']->info['subtotal'], true, $currency, $currency_value),
+								'info' => '',
 								'value' => $_SESSION['cart']->info['subtotal']);
     }
 

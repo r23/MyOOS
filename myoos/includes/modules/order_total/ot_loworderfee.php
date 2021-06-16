@@ -60,6 +60,7 @@
 
           $this->output[] = array('title' => $this->title . ':',
                                   'text' => $oCurrencies->format(oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax), true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+								  'info' => '',
                                   'value' => oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax));
         }
       }
@@ -95,6 +96,7 @@
 
           $this->output[] = array('title' => $this->title . ':',
                                   'text' => $oCurrencies->format(oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax), true, $currency, $currency_value),
+								  'info' => '',
                                   'value' => oos_add_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax));
         }
       }

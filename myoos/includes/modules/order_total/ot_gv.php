@@ -60,6 +60,7 @@
         if ($od_amount > 0) {
           $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':</font>',
                                   'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
+								  'info' => '',
                                   'value' => $sod_amount);
         }
       }
@@ -81,6 +82,7 @@
         if ($od_amount > 0) {
           $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':</font>',
                                   'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
+								  'info' => '',
                                   'value' => $sod_amount);
         }
       }

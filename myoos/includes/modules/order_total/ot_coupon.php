@@ -56,6 +56,7 @@
       $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
       $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
                               'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
+							  'info' => '',
                               'value' => $od_amount);
     }
   }
@@ -74,6 +75,7 @@
       $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
       $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
                               'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
+							  'info' => '',
                               'value' => $od_amount);
     }
   }

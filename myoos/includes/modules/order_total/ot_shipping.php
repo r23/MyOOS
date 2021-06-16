@@ -74,6 +74,7 @@
 
         $this->output[] = array('title' => $oOrder->info['shipping_method'] . ':',
                                 'text' => $oCurrencies->format($oOrder->info['shipping_cost'], true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+								'info' => '',
                                 'value' => $oOrder->info['shipping_cost']);
       }
     }

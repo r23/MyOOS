@@ -104,12 +104,14 @@
 
             $this->output[] = array('title' => $this->title . ':',
                                     'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+									'info' => '',
                                     'value' => oos_add_tax($cod_cost, $cod_tax));
             } else {
               $oOrder->info['total'] += $cod_cost;
-	      $this->output[] = array('title' => $this->title . ':',
-	                              'text' => $oCurrencies->format($cod_cost, true, $oOrder->info['currency'], $oOrder->info['currency_value']),
-                                      'value' => $cod_cost);
+				$this->output[] = array('title' => $this->title . ':',
+										'text' => $oCurrencies->format($cod_cost, true, $oOrder->info['currency'], $oOrder->info['currency_value']),
+										'info' => '',				  
+										'value' => $cod_cost);
             }
         } else {
 //Following code should be improved if we can't get the shipping modules disabled, who don't allow COD
@@ -180,12 +182,14 @@
 
 					$this->output[] = array('title' => $this->title . ':',
 											'text' => $oCurrencies->format(oos_add_tax($cod_cost, $cod_tax), true, $currency, $currency_value),
+											'info' => '',
 											'value' => oos_add_tax($cod_cost, $cod_tax));
 				} else {
 					$_SESSION['cart']->info['total'] += $cod_cost;
 					$this->output[] = array('title' => $this->title . ':',
-	                              'text' => $oCurrencies->format($cod_cost, true, $currency, $currency_value),
-                                      'value' => $cod_cost);
+											'text' => $oCurrencies->format($cod_cost, true, $currency, $currency_value),
+											'info' => '',
+											'value' => $cod_cost);
 				}
 			} else {
 //Following code should be improved if we can't get the shipping modules disabled, who don't allow COD

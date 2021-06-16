@@ -51,6 +51,7 @@
       // output net amount:
       $this->output[] = array('title' => '(' . $this->title . ':',
                         'text' => $oCurrencies->format($netto, true, $oOrder->info['currency'], $oOrder->info['currency_value']) . ')',
+						'info' => '',
                         'value' => $netto);
     }
 
@@ -75,6 +76,7 @@
 		
 		$this->output[] = array('title' => '(' . $this->title . ':',
 								'text' => $oCurrencies->format($netto, true, $currency, $currency_value) . ')',
+								'info' => '',
 								'value' => $netto);
     }
 
