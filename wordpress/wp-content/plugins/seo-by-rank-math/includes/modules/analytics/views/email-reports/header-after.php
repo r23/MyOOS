@@ -13,7 +13,6 @@ defined( 'ABSPATH' ) || exit;
 	<tr>
 		<td>
 			<h1><?php esc_html_e( 'SEO Report of Your Website', 'rank-math' ); ?></h1>
-			###TOP_HTML###
 			<h2 class="report-date">###START_DATE### - ###END_DATE###</h2>
 			<a href="###SITE_URL###" target="_blank" class="site-url">###SITE_URL_SIMPLE###</a>
 		</td>

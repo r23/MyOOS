@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c3b8bdc234cf34a0980a1cf78a67b9cf0cb5a569',
+    'reference' => '5a19aaf827c388bd3c950bf7b469081917af50ca',
     'name' => 'rankmath/seo-by-rank-math',
   ),
   'versions' => 
@@ -54,7 +54,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c3b8bdc234cf34a0980a1cf78a67b9cf0cb5a569',
+      'reference' => '5a19aaf827c388bd3c950bf7b469081917af50ca',
     ),
     'woocommerce/action-scheduler' => 
     array (
@@ -63,7 +63,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '12c91fd20af0cdfb6107b8db9df78d133f512b04',
+      'reference' => '275d0ba54b1c263dfc62688de2fa9a25a373edf8',
     ),
   ),
 );

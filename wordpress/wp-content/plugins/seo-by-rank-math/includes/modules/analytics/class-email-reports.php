@@ -150,7 +150,6 @@ class Email_Reports {
 			'stats_top_50_positions'      => $stats['top_50_positions'],
 			'stats_top_50_positions_diff' => $stats['top_50_positions_diff'],
 			'footer_html'                 => $footer_text,
-			'top_html'                    => '',
 		];
 
 		$this->variables = $this->do_filter( 'analytics/email_report_variables', $this->variables );
@@ -616,5 +615,14 @@ class Email_Reports {
 		$signature    = $this->charts_api_sign( $query_string, $this->charts_key );
 
 		return 'https://charts.rankmath.com/chart?' . $query_string . '&ichm=' . $signature;
+	}
+
+	/**
+	 * Check if fields should be hidden.
+	 *
+	 * @return bool
+	 */
+	public static function are_fields_hidden() {
+		return apply_filters( 'rank_math/analytics/hide_email_report_options', false );
 	}
 }
