@@ -41,3 +41,5 @@ $aLang['module_order_total_shipping_description'] = 'Order Shipping Cost';
 $aLang['free_shipping_title'] = 'Free Shipping';
 $aLang['free_shipping_description'] = 'Free shipping for orders over %s';
 
+$aLang['shopping_cart_shipping_info'] = 'Shipping options are updated during the checkout process.';
+

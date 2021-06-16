@@ -50,7 +50,7 @@
 		$currency = $_SESSION['currency'];
 		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
-		$this->output[] = array('title' => $this->title . ':',
+		$this->output[] = array('title' => '<strong>' . $this->title . ':</strong>',
 								'text' => $oCurrencies->format($_SESSION['cart']->info['subtotal'], true, $currency, $currency_value),
 								'info' => '',
 								'value' => $_SESSION['cart']->info['subtotal']);

@@ -40,3 +40,4 @@ $aLang['module_order_total_shipping_description'] = 'Versandkosten einer Bestell
 $aLang['free_shipping_title'] = 'Versandkostenfrei';
 $aLang['free_shipping_description'] = 'Versandkostenfrei bei einem Bestellwert über %s';
 
+$aLang['shopping_cart_shipping_info'] = 'Versandoptionen werden während des Bezahlvorgangs aktualisiert.';

@@ -27,6 +27,7 @@
 
       $this->code = 'ot_shipping';
       $this->title = $aLang['module_order_total_shipping_title'];
+	  $this->info = $aLang['shopping_cart_shipping_info'];
       $this->description = $aLang['module_order_total_shipping_description'];
       $this->enabled = (defined('MODULE_ORDER_TOTAL_SHIPPING_STATUS') && (MODULE_ORDER_TOTAL_SHIPPING_STATUS == 'true') ? true : false);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER') ? MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER : null);
@@ -137,7 +138,7 @@
 		
 			$this->output[] = array('title' => $_SESSION['cart']->info['shipping_method'] . ':',
                                 'text' => $oCurrencies->format($_SESSION['cart']->info['shipping_cost'], true, $currency, $currency_value),
-								'info' => '',
+								'info' => $this->info,
                                 'value' => $_SESSION['cart']->info['shipping_cost']);
 		}
     }
