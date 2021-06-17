@@ -223,13 +223,6 @@
 	{include file="phoenix/canvas/_account.html"}
 {/if}		
 
-<div id="cookie-notice" role="banner" class="cn-bottom" style="color: #666; background-color: #f3f3f3;">
-	<div class="cookie-notice-container">
-		<span id="cn-notice-text">{$cookie_notice}</span>
-			<a href="#" id="cn-accept-cookie" data-cookie-set="accept" class="cn-set-cookie cn-button button">{$lang.cookie_agree}</a>
-	</div>
-</div>
-
 <!-- Core --> 
 <script src="{$theme}/js/vendor.min.js"></script>
 
@@ -346,42 +339,6 @@
 </script>
 {/literal}
 {/if}
-
-{literal}
-<script>
-/* <![CDATA[ */
-var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
-/* ]]> */
-</script>
-{/literal}
-<script src="js/plugins/cookie-notice/js/front.min.js"></script>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-  Launch static backdrop modal
-</button>
-{literal}
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
-{/literal}
 
 
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
