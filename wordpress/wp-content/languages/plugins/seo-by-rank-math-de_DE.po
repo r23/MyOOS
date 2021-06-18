@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-06-04 14:50:01+0000\n"
+"PO-Revision-Date: 2021-06-16 16:35:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,13 +11,41 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
 
+#: rank-math.php:465
+msgid "This action is IRREVERSIBLE."
+msgstr "Diese Aktion ist NICHT UMKEHRBAR"
+
+#: rank-math.php:464
+msgid "CAUTION:"
+msgstr "VORSICHT: "
+
+#: includes/modules/database-tools/class-database-tools.php:381
+msgid "Are you sure you want to delete the old schema data? This action is irreversible."
+msgstr "Möchtest du die alten Schemadaten wirklich löschen? Diese Aktion ist nicht umkehrbar."
+
+#: includes/modules/database-tools/class-database-tools.php:380
+msgid "Delete the schema data from the old format (<1.0.48). Note: This process is irreversible and will delete all the metadata prefixed with rank_math_snippet."
+msgstr "Lösche die Schemadaten aus dem alten Format (<1.0.48). Hinweis: Dieser Vorgang ist nicht umkehrbar und löscht alle Metadaten mit dem Präfix rank_math_snippet."
+
+#: includes/modules/database-tools/class-database-tools.php:379
+msgid "Delete Old Schema Data"
+msgstr "Alte Schemadaten löschen"
+
+#: includes/modules/database-tools/class-database-tools.php:294
+msgid "Deletion started. A success message will be shown here once the process completes. You can close this page."
+msgstr "Löschvorgang gestartet. Nach Abschluss des Vorgangs wird hier eine Erfolgsmeldung angezeigt. Du kannst diese Seite schließen."
+
+#: includes/modules/database-tools/class-database-tools.php:288
+msgid "No data found to delete."
+msgstr "Keine Daten zum Löschen gefunden."
+
 #. Translators: placeholders are the opening and closing anchor tags.
 #: includes/updates/update-1.0.65.php:47
 msgid "Rank Math: Introducing SEO Performance Reports via Email. %1$sClick here to enable it%2$s."
 msgstr "Rank Math: Einführung von SEO-Leistungsberichten per E-Mail. %1$sKlicke hier, um diese zu aktivieren%2$s."
 
 #. Translators: placeholder is the site URL.
-#: includes/modules/analytics/class-email-reports.php:269
+#: includes/modules/analytics/class-email-reports.php:268
 msgid "Rank Math [SEO Report] - %s"
 msgstr "Rank Math [SEO-Bericht] - %s"
 
@@ -36,11 +64,11 @@ msgstr "Um deine E-Mail-Einstellungen zu aktualisieren, %s."
 msgid "This email was sent to you as a registered member of %s."
 msgstr "Diese E-Mail wurde dir als registriertes Mitglied von %s zugesandt."
 
-#: includes/modules/analytics/views/email-reports/header-after.php:23
+#: includes/modules/analytics/views/email-reports/header-after.php:22
 msgid "External Link Icon"
 msgstr "Symbol für externe Links"
 
-#: includes/modules/analytics/views/email-reports/header-after.php:22
+#: includes/modules/analytics/views/email-reports/header-after.php:21
 msgid "FULL REPORT"
 msgstr "KOMPLETTER BERICHT"
 
@@ -63,24 +91,24 @@ msgstr "SEO-Bericht deiner Website "
 msgid "Rank Math PRO"
 msgstr "Rank Math PRO"
 
-#: includes/modules/analytics/views/options.php:137
+#: includes/modules/analytics/views/options.php:145
 msgid "Every 30 days"
 msgstr "Alle 30 Tage"
 
-#: includes/modules/analytics/views/options.php:134
+#: includes/modules/analytics/views/options.php:142
 msgid "Email report frequency."
 msgstr "Häufigkeit von E-Mail-Berichten."
 
-#: includes/modules/analytics/views/options.php:133
+#: includes/modules/analytics/views/options.php:141
 msgid "Email Frequency"
 msgstr "E-Mail-Häufigkeit"
 
-#: includes/modules/analytics/views/options.php:122
+#: includes/modules/analytics/views/options.php:130
 msgid "Turn on email reports."
 msgstr "Aktiviere E-Mail-Berichte."
 
 #. Translators: Placeholders are the opening and closing tag for the link.
-#: includes/modules/analytics/views/options.php:108
+#: includes/modules/analytics/views/options.php:116
 msgid "Receive periodic SEO Performance reports via email. Once enabled and options are saved, you can see %1$s the preview here%2$s."
 msgstr "Erhalte regelmäßige SEO-Leistungsberichte per E-Mail. Sobald die Optionen aktiviert und gespeichert sind, kannst du %1$s die Vorschau hier%2$s sehen."
 
@@ -97,10 +125,10 @@ msgstr "Erfahre mehr über E-Mail-Berichte."
 msgid "Receive Analytics reports periodically in email."
 msgstr "Erhalte regelmäßig Analytics-Berichte per E-Mail."
 
+#: includes/modules/analytics/views/options.php:114
+#: includes/modules/analytics/views/options.php:129
 #: includes/admin/wizard/views/search-console-ui.php:323
 #: includes/admin/wizard/views/search-console-ui.php:328
-#: includes/modules/analytics/views/options.php:106
-#: includes/modules/analytics/views/options.php:121
 msgid "Email Reports"
 msgstr "E-Mail-Berichte"
 
@@ -156,8 +184,8 @@ msgstr "Partnerprogramm"
 msgid "Advanced Schema, Analytics and much more..."
 msgstr "Erweiterte Schema, Analytics und vieles mehr..."
 
-#: includes/admin/wizard/views/ready.php:55
 #: includes/admin/views/dashboard-help.php:41
+#: includes/admin/wizard/views/ready.php:55
 msgid "Upgrade to PRO"
 msgstr "Upgrade auf PRO"
 
@@ -358,11 +386,11 @@ msgstr "Das Abrufen der Daten wurde im Hintergrund gestartet."
 msgid "Data fetching cancelled."
 msgstr "Datenabruf abgebrochen."
 
-#: includes/modules/analytics/views/options.php:75
+#: includes/modules/analytics/views/options.php:79
 msgid "Cancel Fetching"
 msgstr "Abrufen abbrechen"
 
-#: includes/modules/database-tools/class-database-tools.php:266
+#: includes/modules/database-tools/class-database-tools.php:207
 msgid "Table re-creation started. It might take a couple of minutes."
 msgstr "Die Neuerstellung der Tabelle wurde gestartet. Das kann ein paar Minuten dauern."
 
@@ -395,9 +423,9 @@ msgstr[1] "Die %s URLs wurden erfolgreich an die Bing URL Einreichungs API über
 msgid "Bing URL Submission API: Insert one or more URLs."
 msgstr "Bing URL Einreichungs API: Füge eine oder mehrere URLs ein."
 
-#: includes/module/class-manager.php:166
 #: includes/modules/instant-indexing/class-instant-indexing.php:253
 #: includes/modules/instant-indexing/class-instant-indexing.php:254
+#: includes/module/class-manager.php:166
 msgid "Instant Indexing"
 msgstr "Sofortige Indexierung"
 
@@ -416,8 +444,8 @@ msgid "Instant Indexing: Submit to Bing"
 msgstr "Sofortige Indizierung: Einreichen bei Bing"
 
 #. translators: daily quota
-#: includes/modules/instant-indexing/class-api.php:132
 #: includes/modules/instant-indexing/views/console.php:54
+#: includes/modules/instant-indexing/class-api.php:132
 msgid "Please configure the Instant Indexing module in the Settings tab first."
 msgstr "Bitte konfiguriere zunächst das Modul Instant Indexing in der Registerkarte Einstellungen."
 
@@ -430,8 +458,8 @@ msgstr "Heute verbleibendes Kontingent: %s"
 msgid "Submit URLs"
 msgstr "URLs einreichen"
 
-#: includes/modules/instant-indexing/class-instant-indexing.php:232
 #: includes/modules/instant-indexing/views/console.php:27
+#: includes/modules/instant-indexing/class-instant-indexing.php:232
 msgid "URL Submission"
 msgstr "URL Einreichung"
 
@@ -474,11 +502,11 @@ msgstr "Organisations-URL in den lokalen SEO-Einstellungen hinzugefügt."
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: includes/modules/database-tools/class-database-tools.php:388
+#: includes/modules/database-tools/class-database-tools.php:348
 msgid "Check if required tables exist and create them if not."
 msgstr "Überprüfe, ob erforderliche Tabellen vorhanden sind, und erstelle sie, falls nicht."
 
-#: includes/modules/database-tools/class-database-tools.php:387
+#: includes/modules/database-tools/class-database-tools.php:347
 msgid "Re-create Missing Database Tables"
 msgstr "Erstelle fehlende Datenbanktabellen neu"
 
@@ -496,7 +524,7 @@ msgstr "Importiere Metainformationen deiner Beiträge/Seiten wie Titel, Beschrei
 msgid "There is a problem with the Google auth token. Please <a href=\"%1$s\" class=\"button button-link rank-math-reconnect-google\">reconnect your app</a>"
 msgstr "Es gibt kein Refresh-Token. Bitte <a href=\"%1$s\" class=\"button button-link rank-math-reconnect-google\">Verbinde deine Anwendung erneut</a>"
 
-#: includes/modules/database-tools/class-database-tools.php:389
+#: includes/modules/database-tools/class-database-tools.php:349
 msgid "Re-create Tables"
 msgstr "Tabellen neu erstellen"
 
@@ -690,7 +718,7 @@ msgstr "Aktiviere diese Option nur dann, wenn du kein anderes Plugin oder Theme 
 msgid "Reconnect"
 msgstr "Neu verbinden"
 
-#: includes/modules/analytics/class-posts.php:39
+#: includes/modules/analytics/class-posts.php:40
 msgid "Sorry, no post found for given id."
 msgstr "Es wurde leider kein Beitrag für diese ID gefunden."
 
@@ -753,11 +781,11 @@ msgstr "AdSense"
 msgid "Exclude Logged-in users"
 msgstr "Angemeldete Benutzer ausschließen"
 
+#: includes/modules/analytics/views/options.php:137
 #: includes/admin/wizard/views/search-console-ui.php:185
 #: includes/admin/wizard/views/search-console-ui.php:210
 #: includes/admin/wizard/views/search-console-ui.php:235
 #: includes/admin/wizard/views/search-console-ui.php:302
-#: includes/modules/analytics/views/options.php:129
 msgid "PRO"
 msgstr "PRO"
 
@@ -1095,23 +1123,23 @@ msgstr "Weltweit"
 msgid "Storage Days: %s"
 msgstr "Tage Speicherdauer: %s"
 
-#: includes/modules/analytics/views/options.php:73
+#: includes/modules/analytics/views/options.php:77
 msgid "Delete Data"
 msgstr "Daten löschen"
 
 #. Translators: placeholder is a link to rankmath.com, with "free version" as
 #. the anchor text.
-#: includes/modules/analytics/views/options.php:80
+#: includes/modules/analytics/views/options.php:84
 msgid "free version"
 msgstr "kostenlose Version"
 
 #. Translators: placeholder is a link to rankmath.com, with "free version" as
 #. the anchor text.
-#: includes/modules/analytics/views/options.php:80
+#: includes/modules/analytics/views/options.php:84
 msgid "Enter the number of days to keep Analytics data in your database. The maximum allowed days are 90 in the %s. Though, 2x data will be stored in the DB for calculating the difference properly."
 msgstr "Gib an, wie viele Tage du Analytics-Daten in deiner Datenbank vorhalten möchtest. Maximal sind in der %s 90 Tage erlaubt. Daten werden aber zwei Mal in der Datenbank gespeichert, damit man die Differenz sauber berechnen kann."
 
-#: includes/modules/analytics/views/options.php:88
+#: includes/modules/analytics/views/options.php:92
 msgid "Analytics Database"
 msgstr "Analytics-Datenbank"
 
@@ -1225,17 +1253,17 @@ msgstr "Keine Präferenz gefunden."
 
 #: includes/helpers/class-schema.php:85
 #: includes/settings/titles/post-types.php:124
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "EDD Product"
 msgstr "EDD-Produkt"
 
 #: includes/helpers/class-schema.php:81
 #: includes/settings/titles/post-types.php:124
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "WooCommerce Product"
 msgstr "WooCommerce-Produkt"
 
@@ -1283,9 +1311,9 @@ msgstr "Orte importieren"
 msgid "You are using the recommended WordPress version."
 msgstr "Du verwendest die mindestens empfohlene WordPress-Version."
 
-#: includes/metaboxes/general.php:78 assets/admin/js/classic.js:1
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/metaboxes/general.php:78 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/classic.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Trends"
 msgstr "Trends"
 
@@ -1329,22 +1357,6 @@ msgstr "Knowledge-Base-Artikel:"
 #: includes/modules/404-monitor/views/help-tab-overview.php:16
 msgid "With the 404 monitor you can see where users and search engines are unable to find your content."
 msgstr "Der 404-Monitor zeigt dir, wo Nutzer und Suchmaschinen deine Inhalte nicht finden können."
-
-#: includes/modules/database-tools/class-database-tools.php:397
-msgid "Convert Schema"
-msgstr "Schema umwandeln"
-
-#: includes/modules/database-tools/class-database-tools.php:396
-msgid "Are you sure you want to do this? This is not recommended until and unless you are facing any issues with the revamped Schema Generator."
-msgstr "Bist du sicher? Nicht empfohlen, solange du keine Probleme mit dem überarbeiteten Schema-Generator hast."
-
-#: includes/modules/database-tools/class-database-tools.php:395
-msgid "If you are using v1.0.48 or higher, and if some of the Schema data from previous versions is missing, then use this tool. Please note: Use this tool only if our support staff asked you to run it."
-msgstr "Wenn du Version 1.0.48 oder höher nutzt und Schema-Daten aus früheren Versionen fehlen, nutze dieses Tool. Hinweis: Bitte nur verwenden, wenn unser Support dich ausdrücklich dazu aufgefordert hat."
-
-#: includes/modules/database-tools/class-database-tools.php:394
-msgid "Schema Converter"
-msgstr "Schema-Konverter"
 
 #. translators: WordPress Version
 #: rank-math.php:201
@@ -1423,8 +1435,8 @@ msgstr "Mach jede Story, die mit dem WordPress-Plugin Web Stories erstellt wurde
 msgid "Google Web Stories"
 msgstr "Google Web Stories"
 
-#: includes/admin/wizard/views/google-connect.php:17
 #: includes/admin/views/plugin-activation.php:44
+#: includes/admin/wizard/views/google-connect.php:17
 msgid "Disconnect Account"
 msgstr "Konto trennen"
 
@@ -1445,9 +1457,9 @@ msgstr "Nicht verbunden"
 msgid "Connected"
 msgstr "Verbunden"
 
+#: includes/admin/views/plugin-activation.php:23
 #: includes/admin/wizard/views/search-console-ui.php:122
 #: includes/admin/wizard/views/search-console-ui.php:287
-#: includes/admin/views/plugin-activation.php:23
 msgid "Account"
 msgstr "Konto"
 
@@ -1684,8 +1696,7 @@ msgstr "Erstelle einfach Redirects, ohne dich mit dem lästigen Code herumzuschl
 msgid "Monitor broken pages that ruin user-experience and affect SEO. %s."
 msgstr "Überwache fehlerhafte Seiten, die das Nutzererlebnis ruinieren und SEO beeinträchtigen. %s."
 
-#: includes/modules/database-tools/class-database-tools.php:242
-#: includes/modules/database-tools/class-database-tools.php:334
+#: includes/modules/database-tools/class-database-tools.php:275
 msgid "Conversion started. A success message will be shown here once the process completes. You can close this page."
 msgstr "Umwandlung gestartet. Eine Bestätigung wird angezeigt, sobald der Vorgang abgeschlossen ist. Du kannst diese Seite jetzt schließen."
 
@@ -1774,7 +1785,7 @@ msgid "Remove prefix like %1$s from product URL chosen at %2$s"
 msgstr "Entferne ein Präfix wie %1$s aus in %2$s ausgewählten Produkt-URLs"
 
 #: includes/metaboxes/general.php:55 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Editing Homepage permalink is not possible."
 msgstr "Der Homepage-Permalink lässt sich nicht ändern."
 
@@ -1787,9 +1798,9 @@ msgstr "Priorität"
 msgid "Enable Auto Updates"
 msgstr "Automatische Aktualisierungen einschalten"
 
+#: includes/modules/seo-analysis/class-seo-analyzer.php:355
 #: includes/modules/seo-analysis/seo-analysis-tests.php:162
 #: includes/modules/seo-analysis/seo-analysis-tests.php:174
-#: includes/modules/seo-analysis/class-seo-analyzer.php:355
 msgid "Rank Math auto-update option is enabled on your site."
 msgstr "Rank Math aktualisiert sich auf deiner Site automatisch."
 
@@ -1830,16 +1841,16 @@ msgid "Ignore Case"
 msgstr "Groß-/Kleinschreibung ignorieren"
 
 #: includes/modules/schema/shortcode/event.php:71
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Online Event URL"
 msgstr "URL der Online-Veranstaltung"
 
 #: includes/modules/schema/shortcode/event.php:37
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Event Attendance Mode"
 msgstr "Veranstaltungsteilnahme-Modus"
 
@@ -1855,7 +1866,7 @@ msgstr "Importiere und konvertiere alle kompatiblen Blöcke in Beitragsinhalten.
 msgid "Import Blocks"
 msgstr "Blöcke importieren"
 
-#: includes/admin/importers/class-yoast.php:1186
+#: includes/admin/importers/class-yoast.php:1183
 msgid "No post found."
 msgstr "Es wurden keine Beiträge gefunden."
 
@@ -1908,24 +1919,23 @@ msgstr[1] "%d Tage"
 msgid "Your sitemap index can be found here: %s"
 msgstr "Deinen Sitemap-Index findest du hier: %s"
 
-#: includes/modules/database-tools/class-database-tools.php:236
-#: includes/modules/database-tools/class-database-tools.php:328
+#: includes/modules/database-tools/class-database-tools.php:269
 msgid "No posts found to convert."
 msgstr "Es wurden keine Stellen zur Umwandlung gefunden."
 
-#: includes/modules/database-tools/class-database-tools.php:405
+#: includes/modules/database-tools/class-database-tools.php:356
 msgid "Convert Blocks"
 msgstr "Blöcke konvertieren"
 
-#: includes/modules/database-tools/class-database-tools.php:404
+#: includes/modules/database-tools/class-database-tools.php:355
 msgid "Are you sure you want to convert Yoast blocks into Rank Math blocks? This action is irreversible."
 msgstr "Bist du sicher, dass du die Yoast-Blöcke in Rank-Math-Blöcke umwandeln möchtest? Diese Aktion ist unumkehrbar."
 
-#: includes/modules/database-tools/class-database-tools.php:403
+#: includes/modules/database-tools/class-database-tools.php:354
 msgid "Convert FAQ & HowTo Blocks created using Yoast. Use this option to easily move your previous blocks into Rank Math."
 msgstr "Konvertieren von FAQ & HowTo-Blöcken, die mit Yoast erstellt wurden. Verwende diese Option, um deine vorherigen Blöcke einfach in Rank Math zu verschieben."
 
-#: includes/modules/database-tools/class-database-tools.php:402
+#: includes/modules/database-tools/class-database-tools.php:353
 msgid "Yoast Block Converter"
 msgstr "Yoast-Block-Konverter"
 
@@ -2038,9 +2048,9 @@ msgstr "Plugin automatisch aktualisieren"
 msgid "Turn on auto-updates to automatically update to stable versions of Rank Math as soon as they are released. The beta versions will never install automatically."
 msgstr "Aktiviere die automatische Aktualisierung, um automatisch auf stabile Versionen von Rank Math zu aktualisieren, sobald diese veröffentlicht werden. Die Beta-Versionen werden niemals automatisch installiert."
 
-#: includes/module/class-manager.php:232
 #: includes/modules/version-control/class-version-control.php:230
 #: includes/modules/version-control/class-version-control.php:246
+#: includes/module/class-manager.php:232
 msgid "Version Control"
 msgstr "Versionskontrolle"
 
@@ -2066,16 +2076,16 @@ msgstr "Rollback Plugin"
 msgid "This update will install a beta version of Rank Math."
 msgstr "Dieses Update installiert eine Beta-Version von Rank Math."
 
+#: includes/modules/database-tools/class-database-tools.php:308
 #: includes/module/class-manager.php:238
-#: includes/modules/database-tools/class-database-tools.php:348
 msgid "Database Tools"
 msgstr "Datenbank-Tools"
 
 #: includes/modules/status/class-error-log.php:78
 #: includes/modules/status/class-system-status.php:50
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Copied!"
 msgstr "Kopiert!"
 
@@ -2091,8 +2101,8 @@ msgstr "Systeminformationen"
 msgid "Redirect Orphan Attachments"
 msgstr "Umleitung von verwaisten Anhängen"
 
-#: includes/admin/class-option-center.php:238
 #: includes/modules/sitemap/class-admin.php:128
+#: includes/admin/class-option-center.php:238
 msgid "Attachments"
 msgstr "Anhänge"
 
@@ -2101,8 +2111,8 @@ msgstr "Anhänge"
 msgid "Schema Type for %s"
 msgstr "Schema-Typ für %s"
 
-#: includes/admin/importers/class-aio-rich-snippet.php:149
-#: includes/admin/importers/class-wp-schema-pro.php:427
+#: includes/admin/importers/class-aio-rich-snippet.php:192
+#: includes/admin/importers/class-wp-schema-pro.php:586
 msgid "Import Schemas"
 msgstr "Schemas importieren"
 
@@ -2110,9 +2120,9 @@ msgstr "Schemas importieren"
 msgid "On-Page Schema Settings"
 msgstr "On-Page Schema Einstellungen"
 
-#: includes/admin/wizard/class-schema-markup.php:58
 #: includes/settings/titles/post-types.php:119
 #: includes/settings/titles/post-types.php:136
+#: includes/admin/wizard/class-schema-markup.php:58
 msgid "Schema Type"
 msgstr "Schema-Typ"
 
@@ -2140,8 +2150,13 @@ msgstr "SEO-Beschreibung"
 msgid "Custom or Generated SEO Title of the current post/page"
 msgstr "Benutzerdefinierter oder generierter SEO-Titel des aktuellen Beitrags/der aktuellen Seite"
 
+#. translators: 1. Bold text 2. Bold text
+#: rank-math.php:463
+msgid "%1$s A filter to remove the Rank Math data from the database is present. Deactivating & Deleting this plugin will remove everything related to the Rank Math plugin. %2$s"
+msgstr "%1$s In deinem Theme ist ein Filter zum Entfernen der Rank Math Daten aus der Datenbank vorhanden. Das Deaktivieren dieses Plugins entfernt alles, was mit dem Rank Math-Plugin zusammenhängt. %2$s"
+
 #: includes/class-frontend-seo-score.php:249 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Show SEO Score on Front-end"
 msgstr "SEO-Punktzahl im Front-End anzeigen"
 
@@ -2150,17 +2165,17 @@ msgid "Review (Unsupported)"
 msgstr "Rezension (Nicht unterstützt)"
 
 #: includes/metaboxes/social.php:80 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Please be careful with this option. Although this option will help increase CTR on Facebook, it might get you penalised if over-used."
 msgstr "Bitte sei vorsichtig mit dieser Option. Obwohl diese Option dazu beiträgt, die CTR auf Facebook zu erhöhen, kann es sein, dass du bestraft wirst, wenn du diese zu oft benutzt."
 
 #: includes/metaboxes/general.php:52 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Permalink"
 msgstr "Permalink"
 
 #: includes/metaboxes/social-preview.php:80 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "2 hrs"
 msgstr "2 Stunden"
 
@@ -2208,40 +2223,40 @@ msgstr "Ich kann die Umleitung nicht aktualisieren."
 msgid "Enable the BuddyPress module for Rank Math SEO to make your BuddyPress forum SEO friendly by adding proper meta tags to all forum pages."
 msgstr "Aktiviere das BuddyPress-Modul für Rank Math SEO, um dein BuddyPress-Forum SEO-freundlich zu gestalten, indem du die richtigen Meta-Tags auf allen Forenseiten hinzufügst."
 
-#: includes/modules/database-tools/class-database-tools.php:380
+#: includes/modules/database-tools/class-database-tools.php:340
 msgid "Is the 404 error log getting out of hand? Use this option to clear ALL 404 logs generated by your website in the Rank Math 404 Monitor."
 msgstr "Ist das 404-Fehlerprotokoll außer Kontrolle geraten? Verwende diese Option, um ALLE 404-Protokolle zu löschen, die von Deiner Website im Rank Math 404-Monitor generiert wurden."
 
-#: includes/modules/database-tools/class-database-tools.php:379
-#: includes/modules/database-tools/class-database-tools.php:382
+#: includes/modules/database-tools/class-database-tools.php:339
+#: includes/modules/database-tools/class-database-tools.php:342
 msgid "Clear 404 Log"
 msgstr "404-Protokoll löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:420
+#: includes/modules/database-tools/class-database-tools.php:371
 msgid "Getting a redirection loop or need a fresh start? Delete all the redirections using this tool. Note: This process is irreversible and will delete ALL your redirection rules."
 msgstr "Erhalte eine Umleitungsschleife oder benötigst du einen Neuanfang? Lösche alle Umleitungen mit diesem Tool. Hinweis: Dieser Vorgang ist irreversibel und löscht ALLE deiner Umleitungsregeln."
 
-#: includes/modules/database-tools/class-database-tools.php:411
+#: includes/modules/database-tools/class-database-tools.php:362
 msgid "In some instances, the internal links data might show an inflated number or no number at all. Deleting the internal links data might fix the issue."
 msgstr "In einigen Fällen können die Daten der internen Links eine überhöhte oder gar keine Zahl anzeigen. Das Löschen der Daten der internen Links könnte das Problem beheben."
 
-#: includes/modules/database-tools/class-database-tools.php:366
+#: includes/modules/database-tools/class-database-tools.php:326
 msgid "Need a clean slate or not able to run the SEO Analysis tool? Flushing the analysis data might fix the issue. Flushing SEO Analysis data is entirely safe and doesn't remove any critical data from your website."
 msgstr "Benötigst du eine neue Version oder kannst du das SEO-Analyse-Tool nicht ausführen? Durch Leeren der Analysedaten kann das Problem möglicherweise behoben werden. Das Löschen von SEO-Analysedaten ist absolut sicher und entfernt keine kritischen Daten von deiner Website."
 
-#: includes/modules/database-tools/class-database-tools.php:365
+#: includes/modules/database-tools/class-database-tools.php:325
 msgid "Flush SEO Analysis Data"
 msgstr "Flush SEO Analysedaten"
 
-#: includes/modules/database-tools/class-database-tools.php:374
+#: includes/modules/database-tools/class-database-tools.php:334
 msgid "Remove transients"
 msgstr "Transienten entfernen"
 
-#: includes/modules/database-tools/class-database-tools.php:373
+#: includes/modules/database-tools/class-database-tools.php:333
 msgid "If you see any issue while using Rank Math or one of its options - clearing the Rank Math transients fixes the problem in most cases. Deleting transients does not delete ANY data added using Rank Math."
 msgstr "Wenn Du bei der Verwendung von Rank Math oder einer seiner Optionen ein Problem feststellst, wird das Problem in den meisten Fällen behoben, indem Du die Rank Math-Transienten löscht. Durch das Löschen von Transienten werden keine mit Rank Math hinzugefügten Daten gelöscht."
 
-#: includes/modules/database-tools/class-database-tools.php:372
+#: includes/modules/database-tools/class-database-tools.php:332
 msgid "Remove Rank Math Transients"
 msgstr "Entferne Rank Math Transienten"
 
@@ -2312,12 +2327,12 @@ msgid "Add <code>rel=\"sponsored\"</code>"
 msgstr "Füge <code>rel=\"sponsored\"</code> hinzu"
 
 #: includes/admin/class-cmb2-fields.php:280 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Standard"
 msgstr "Standard"
 
 #: includes/admin/class-cmb2-fields.php:279 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Large"
 msgstr "Groß"
 
@@ -2327,45 +2342,15 @@ msgstr "Groß"
 msgid "You have not entered a tagline yet. It is a good idea to choose one. %1$sYou can fix this in the customizer%2$s."
 msgstr "Du hast noch keinen Slogan eingegeben. Es ist eine gute Idee, einen zu wählen. %1$sDu kannst dies im Customizer%2$s beheben."
 
-#. translators: Number of posts updated
-#: includes/modules/database-tools/class-database-tools.php:223
-msgid "%1$d review Posts updated. You can find the list of all converted posts %2$s."
-msgstr "%1$d Review Beiträge aktualisiert. Du findest die Liste aller konvertierten Beiträge %2$s."
-
-#: includes/modules/database-tools/class-database-tools.php:196
-msgid "No review posts found."
-msgstr "Keine Bewertungsbeiträge gefunden."
-
-#: includes/modules/database-tools/class-database-tools.php:433
-msgid "Convert"
-msgstr "Umwandeln"
-
-#. translators: Number of posts to update
-#: includes/modules/database-tools/class-database-tools.php:432
-msgid "Are you sure you want to convert %d posts with review schema into new schema type? This action is irreversible."
-msgstr "Bist du sicher, dass Du %d Beiträge mit Review-Schema in einen neuen Schema-Typ verbergen möchtest? Diese Aktion lässt sich nicht rückgängig machen."
-
-#. translators: Number of posts updated
 #. translators: 1. Review Schema documentation link
-#: includes/modules/database-tools/class-database-tools.php:223
-#: includes/modules/database-tools/class-database-tools.php:430
 #: includes/modules/analytics/class-analytics.php:559
 #: includes/modules/analytics/class-analytics.php:565
 msgid "here"
 msgstr "hier"
 
-#. translators: 1. Review Schema documentation link
-#: includes/modules/database-tools/class-database-tools.php:430
-msgid "Before using this converter, please read our Knowledge Base Article from %s."
-msgstr "Bevor du diesen Konverter verwendest, lese bitte unseren Wissendatenbank-Artikel aus %s."
-
-#: includes/modules/database-tools/class-database-tools.php:428
-msgid "Convert Review Schema into Article"
-msgstr "Überprüfungsschema in Artikel umwandeln"
-
-#: includes/metaboxes/advanced.php:30 includes/settings/titles/global.php:30
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/settings/titles/global.php:30 includes/metaboxes/advanced.php:30
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Advanced Robots Meta"
 msgstr "Erweiterte Roboter-Meta"
 
@@ -2413,35 +2398,35 @@ msgid_plural "%d Rank Math transients cleared."
 msgstr[0] "%d Rang Math Transient gelöscht."
 msgstr[1] "%d Rank Math Transienten gelöscht."
 
-#: includes/modules/database-tools/class-database-tools.php:381
+#: includes/modules/database-tools/class-database-tools.php:341
 msgid "Are you sure you want to delete the 404 log? This action is irreversible."
 msgstr "Bist du sicher, dass du das 404-Protokoll löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden."
 
-#: includes/modules/database-tools/class-database-tools.php:422
+#: includes/modules/database-tools/class-database-tools.php:373
 msgid "Delete Redirections"
 msgstr "Weiterleitungen löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:421
+#: includes/modules/database-tools/class-database-tools.php:372
 msgid "Are you sure you want to delete all the Redirection Rules? This action is irreversible."
 msgstr "Möchtest du wirklich alle Umleitungsregeln löschen? Diese Aktion kann nicht rückgängig gemacht werden."
 
-#: includes/modules/database-tools/class-database-tools.php:419
+#: includes/modules/database-tools/class-database-tools.php:370
 msgid "Delete Redirections Rules"
 msgstr "Umleitungsregeln löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:413
+#: includes/modules/database-tools/class-database-tools.php:364
 msgid "Delete Internal Links"
 msgstr "Interne Links löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:412
+#: includes/modules/database-tools/class-database-tools.php:363
 msgid "Are you sure you want to delete Internal Links Data? This action is irreversible."
 msgstr "Möchtest du die internen Links wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
 
-#: includes/modules/database-tools/class-database-tools.php:410
+#: includes/modules/database-tools/class-database-tools.php:361
 msgid "Delete Internal Links Data"
 msgstr "Daten der internen Links löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:367
+#: includes/modules/database-tools/class-database-tools.php:327
 msgid "Clear SEO Analysis"
 msgstr "SEO-Analyse leeren"
 
@@ -2547,9 +2532,9 @@ msgstr "Robots Txt"
 msgid "Reset Options"
 msgstr "Einstellungen zurücksetzen"
 
-#: includes/admin/class-options.php:283
-#: includes/modules/version-control/views/auto-update-panel.php:74
 #: includes/modules/version-control/views/beta-optin-panel.php:45
+#: includes/modules/version-control/views/auto-update-panel.php:74
+#: includes/admin/class-options.php:283
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
@@ -2711,23 +2696,23 @@ msgstr "Füge deinen bbPress-Forumseinträgen, Kategorien, Profilen usw. passend
 msgid "bbPress"
 msgstr "bbPress"
 
-#: includes/admin/class-assets.php:129
 #: includes/3rdparty/divi/class-divi.php:140
+#: includes/admin/class-assets.php:129
 msgid "Please enter a valid URL."
 msgstr "Bitte gebe eine gültige URL ein."
 
-#: includes/admin/class-assets.php:128
 #: includes/3rdparty/divi/class-divi.php:139
+#: includes/admin/class-assets.php:128
 msgid "Please enter a valid email address."
 msgstr "Bitte gebe eine gültige E-Mail-Adresse ein."
 
-#: includes/admin/class-assets.php:126
 #: includes/3rdparty/divi/class-divi.php:137
+#: includes/admin/class-assets.php:126
 msgid "Please use the correct format."
 msgstr "Bitte nutze das korrekte Format."
 
 #: includes/admin/class-ask-review.php:298 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "I already did. Please don't show this message again."
 msgstr "Das habe ich bereits. Bitte zeige diese Nachricht nicht erneut an."
 
@@ -2736,7 +2721,7 @@ msgid "Hey, we noticed you've been using Rank Math SEO for more than two weeks n
 msgstr "Hey, wir haben bemerkt, dass du Rank Math SEO nun schon seit mehr als zwei Wochen nutzen - <em>das ist großartig!</em> <br>Kannst du uns bitte einen GROSSEN Gefallen tun und eine Bewertung auf WordPress abgeben, um uns zu helfen, das Wort zu verbreiten und unsere Motivation zu steigern?"
 
 #: includes/admin/class-ask-review.php:265 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Rate Rank Math SEO"
 msgstr "Rank Math SEO bewerten"
 
@@ -2771,9 +2756,9 @@ msgid "Payroll"
 msgstr "Gehaltsabrechnung"
 
 #: includes/modules/schema/shortcode/jobposting.php:20
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Salary"
 msgstr "Gehalt"
 
@@ -2786,9 +2771,9 @@ msgid "Performer Name"
 msgstr "Name des Künstlers"
 
 #: includes/modules/schema/shortcode/course.php:27
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Course Provider Name"
 msgstr "Name des Kursanbieters"
 
@@ -2805,16 +2790,16 @@ msgid "Brand"
 msgstr "Marke"
 
 #: includes/modules/sitemap/sitemap-xsl.php:173
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Longitude"
 msgstr "Längengrad"
 
 #: includes/modules/sitemap/sitemap-xsl.php:172
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Latitude"
 msgstr "Breitengrad"
 
@@ -2845,7 +2830,7 @@ msgid "Review analytics and sitemaps"
 msgstr "Überprüfung von Analysen und Sitemaps"
 
 #: includes/helpers/class-choices.php:73 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Index"
 msgstr "Index"
 
@@ -2874,7 +2859,7 @@ msgid "Close Editor"
 msgstr "Editor schließen"
 
 #: includes/metaboxes/general.php:101 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Example: Rank Math SEO"
 msgstr "Beispiel: Rank Math SEO"
 
@@ -2934,10 +2919,9 @@ msgstr "Suchmaschinenoptimierung von Rank Math - https://s.rankmath.com/home"
 msgid "https://s.rankmath.com/home"
 msgstr "https://s.rankmath.com/home"
 
-#: includes/modules/schema/class-admin.php:159
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
+#: includes/modules/schema/class-admin.php:159 assets/admin/js/blocks.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
-#: assets/admin/js/blocks.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Schema"
 msgstr "Schema"
 
@@ -3029,9 +3013,9 @@ msgid "Blog Public"
 msgstr "Öffentlicher Blog"
 
 #: includes/modules/schema/shortcode/product.php:48
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Price Valid Until"
 msgstr "Preis gültig bis"
 
@@ -3045,9 +3029,9 @@ msgid "Is Pillar"
 msgstr "Ist Säule"
 
 #: includes/modules/schema/shortcode/event.php:79
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Performer"
 msgstr "Darsteller"
 
@@ -3167,8 +3151,8 @@ msgstr "URL der Facebook-Seite"
 msgid "Add the SEO Meta Box for the editor screen to customize SEO options for posts in this post type."
 msgstr "Füge die SEO Meta Box für den Editor-Bildschirm hinzu, um die SEO-Optionen für Beiträge in diesem Beitragstyp anzupassen."
 
-#: includes/settings/titles/post-types.php:316
 #: includes/settings/titles/taxonomies.php:113
+#: includes/settings/titles/post-types.php:316
 msgid "Add SEO Meta Box"
 msgstr "SEO Meta Box hinzufügen"
 
@@ -3354,18 +3338,18 @@ msgstr "Homepage-Titel für Facebook"
 msgid "Custom values for robots meta tag on homepage."
 msgstr "Benutzerdefinierte Werte für Roboter-Meta Tag auf der Startseite."
 
-#: includes/settings/titles/author.php:49
-#: includes/settings/titles/post-types.php:207
-#: includes/settings/titles/taxonomies.php:74
 #: includes/settings/titles/homepage.php:66
+#: includes/settings/titles/taxonomies.php:74
+#: includes/settings/titles/post-types.php:207
+#: includes/settings/titles/author.php:49
 #: includes/modules/buddypress/views/options-titles.php:48
 msgid "Custom"
 msgstr "Benutzerdefiniert"
 
-#: includes/settings/titles/author.php:48
-#: includes/settings/titles/post-types.php:206
-#: includes/settings/titles/taxonomies.php:73
 #: includes/settings/titles/homepage.php:65
+#: includes/settings/titles/taxonomies.php:73
+#: includes/settings/titles/post-types.php:206
+#: includes/settings/titles/author.php:48
 #: includes/modules/buddypress/views/options-titles.php:47
 msgid "Default"
 msgstr "Standard"
@@ -3459,15 +3443,17 @@ msgstr "Ändere den Teil <code>/author/</code> in den URLs des Autorenarchivs."
 msgid "Author Base"
 msgstr "Autorenbasis"
 
-#: includes/settings/titles/author.php:23 includes/settings/titles/misc.php:27
+#: includes/settings/titles/misc.php:27
 #: includes/settings/titles/post-types.php:304
 #: includes/settings/titles/post-types.php:331
+#: includes/settings/titles/author.php:23
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: includes/settings/titles/author.php:22 includes/settings/titles/misc.php:26
+#: includes/settings/titles/misc.php:26
 #: includes/settings/titles/post-types.php:303
 #: includes/settings/titles/post-types.php:330
+#: includes/settings/titles/author.php:22
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -3894,8 +3880,8 @@ msgstr "Benutzerdefinierte Bildfelder"
 msgid "Include this post type in the XML sitemap."
 msgstr "Füge diesen Beitrags-Typ in die XML-Sitemap ein."
 
-#: includes/modules/sitemap/settings/post-types.php:33
 #: includes/modules/sitemap/settings/taxonomies.php:19
+#: includes/modules/sitemap/settings/post-types.php:33
 msgid "Include in Sitemap"
 msgstr "In die Sitemap aufnehmen"
 
@@ -4265,8 +4251,8 @@ msgstr "Warnung"
 msgid "Failed"
 msgstr "Fehlgeschlagen"
 
-#: includes/modules/seo-analysis/class-result.php:165
 #: includes/modules/seo-analysis/views/form.php:24
+#: includes/modules/seo-analysis/class-result.php:165
 msgid "OK"
 msgstr "OK"
 
@@ -4313,11 +4299,11 @@ msgstr "Größe: %s"
 msgid "Data Rows: %s"
 msgstr "Datenzeilen: %s"
 
-#: includes/modules/analytics/views/options.php:74
+#: includes/modules/analytics/views/options.php:78
 msgid "Fetching in Progress"
 msgstr "Abruf in Bearbeitung"
 
-#: includes/modules/analytics/views/options.php:74
+#: includes/modules/analytics/views/options.php:78
 msgid "Update Data manually"
 msgstr "Daten manuell aktualisieren"
 
@@ -4333,23 +4319,23 @@ msgstr "Google oAuth ist nicht autorisiert."
 msgid "Not a valid settings founds to delete cache."
 msgstr "Es wurde keine gültige Einstellung zum Löschen des Caches gefunden."
 
-#: includes/modules/analytics/class-analytics.php:198
 #: includes/modules/analytics/views/email-reports/sections/summary.php:60
+#: includes/modules/analytics/class-analytics.php:198
 msgid "Average Position"
 msgstr "Durchschnittliche Position"
 
-#: includes/modules/analytics/class-analytics.php:172
 #: includes/modules/analytics/views/email-reports/sections/summary.php:16
+#: includes/modules/analytics/class-analytics.php:172
 msgid "Total Impressions"
 msgstr "Gesamtimpressionen"
 
-#: includes/modules/analytics/class-analytics.php:181
 #: includes/modules/analytics/views/email-reports/sections/summary.php:30
+#: includes/modules/analytics/class-analytics.php:181
 msgid "Total Clicks"
 msgstr "Gesamtanzahl an Klicks"
 
-#: includes/modules/analytics/class-analytics.php:190
 #: includes/modules/analytics/views/email-reports/sections/summary.php:46
+#: includes/modules/analytics/class-analytics.php:190
 msgid "Total Keywords"
 msgstr "Keywords insgesamt"
 
@@ -4357,15 +4343,15 @@ msgstr "Keywords insgesamt"
 msgid "Bad request. Please check the code."
 msgstr "Fehlerhafte Anfrage. Bitte überprüfe den Code."
 
-#: includes/module/class-manager.php:195
-#: includes/admin/wizard/views/search-console-ui.php:109
-#: includes/admin/class-setup-wizard.php:112
-#: includes/modules/role-manager/class-capability-manager.php:63
 #: includes/modules/analytics/class-analytics-common.php:97
 #: includes/modules/analytics/class-analytics.php:49
 #: includes/modules/analytics/class-analytics.php:154
 #: includes/modules/analytics/class-analytics.php:500
 #: includes/modules/analytics/class-analytics.php:533
+#: includes/modules/role-manager/class-capability-manager.php:63
+#: includes/module/class-manager.php:195
+#: includes/admin/class-setup-wizard.php:112
+#: includes/admin/wizard/views/search-console-ui.php:109
 msgid "Analytics"
 msgstr "Analysen"
 
@@ -4378,30 +4364,30 @@ msgstr "Update-Funktionen"
 msgid "Control which user has access to which options of Rank Math. %s"
 msgstr "Steuere, welcher Benutzer Zugriff auf welche Optionen von Rank Math hat. %s"
 
-#: includes/admin/class-admin.php:440
-#: includes/modules/role-manager/class-role-manager.php:131
 #: includes/traits/class-ajax.php:59
+#: includes/modules/role-manager/class-role-manager.php:131
+#: includes/admin/class-admin.php:440
 msgid "You are not authorized to perform this action."
 msgstr "Du bist nicht berechtigt, diese Aktion durchzuführen."
 
 #: includes/modules/schema/shortcode/service.php:20
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Service Type"
 msgstr "Servicetyp"
 
 #: includes/modules/schema/shortcode/softwareapplication.php:41
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Application Category"
 msgstr "Anwendungskategorie"
 
 #: includes/modules/schema/shortcode/softwareapplication.php:34
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Operating System"
 msgstr "Betriebssystem"
 
@@ -4410,23 +4396,23 @@ msgid "Price Currency"
 msgstr "Preis Währung"
 
 #: includes/modules/schema/shortcode/person.php:34
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Gender"
 msgstr "Geschlecht"
 
 #: includes/modules/schema/shortcode/restaurant.php:57
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Menu URL"
 msgstr "Menü-URL"
 
 #: includes/modules/schema/shortcode/restaurant.php:50
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Serves Cuisine"
 msgstr "Serviert die Küche"
 
@@ -4434,16 +4420,16 @@ msgstr "Serviert die Küche"
 #: includes/modules/schema/shortcode/recipe.php:126
 #: includes/modules/schema/shortcode/recipe.php:134
 #: includes/modules/schema/shortcode/recipe.php:147
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Recipe Instructions"
 msgstr "Rezeptanweisungen"
 
 #: includes/modules/schema/shortcode/recipe.php:109
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Recipe Ingredients"
 msgstr "Rezept-Zutaten"
 
@@ -4456,51 +4442,51 @@ msgid "Recipe Video Name"
 msgstr "Rezept Video Name"
 
 #: includes/modules/schema/shortcode/recipe.php:90
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Recipe Video Thumbnail"
 msgstr "Miniaturansicht des Rezept Videos"
 
 #: includes/modules/schema/shortcode/recipe.php:69
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Total Time"
 msgstr "Gesamtzeit"
 
 #: includes/modules/schema/shortcode/recipe.php:62
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Cooking Time"
 msgstr "Kochzeit"
 
 #: includes/modules/schema/shortcode/recipe.php:55
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Preparation Time"
 msgstr "Vorbereitungszeit"
 
 #: includes/modules/schema/shortcode/recipe.php:41
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Recipe Yield"
 msgstr "Rezeptausbeute"
 
 #: includes/modules/schema/shortcode/recipe.php:34
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Keywords"
 msgstr "Keywords"
 
 #: includes/modules/schema/shortcode/recipe.php:27
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Cuisine"
 msgstr "Küche"
 
@@ -4521,51 +4507,51 @@ msgid "Product Brand"
 msgstr "Produktmarke"
 
 #: includes/modules/schema/shortcode/product.php:20
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Product SKU"
 msgstr "Produkt SKU"
 
 #: includes/modules/schema/class-snippet-shortcode.php:241
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Closing Time"
 msgstr "Geschäftsschluss"
 
 #: includes/modules/schema/class-snippet-shortcode.php:240
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Opening Time"
 msgstr "Öffnungszeit"
 
 #: includes/modules/schema/shortcode/jobposting.php:55
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Unpublish when expired"
 msgstr "Veröffentlichung bei Ablauf aufheben"
 
 #: includes/modules/schema/shortcode/jobposting.php:48
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Expiry Posted"
 msgstr "Ablaufdatum gepostet"
 
 #: includes/modules/schema/shortcode/jobposting.php:41
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Date Posted"
 msgstr "Datum der Veröffentlichung"
 
 #: includes/modules/schema/shortcode/jobposting.php:27
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Salary Currency"
 msgstr "Gehaltswährung"
 
@@ -4578,17 +4564,17 @@ msgid "Availability Starts"
 msgstr "Verfügbarkeit beginnt"
 
 #: includes/modules/schema/shortcode/event.php:137
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Availability"
 msgstr "Verfügbarkeit"
 
 #: includes/modules/schema/shortcode/service.php:34
 #: includes/modules/schema/shortcode/event.php:130
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Currency"
 msgstr "Währung"
 
@@ -4601,72 +4587,72 @@ msgid "Ticket URL"
 msgstr "Ticket-URL"
 
 #: includes/modules/schema/shortcode/event.php:108
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "End Date"
 msgstr "Enddatum"
 
 #: includes/modules/schema/shortcode/event.php:100
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Start Date"
 msgstr "Anfangsdatum"
 
 #: includes/modules/schema/shortcode/event.php:44
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Event Status"
 msgstr "Veranstaltungs Status"
 
 #: includes/modules/schema/shortcode/event.php:57
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Venue URL"
 msgstr "URL des Veranstaltungsorts"
 
 #: includes/modules/schema/shortcode/event.php:52
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Venue Name"
 msgstr "Veranstaltungsort Name"
 
 #: includes/modules/schema/shortcode/event.php:30
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Event Type"
 msgstr "Veranstaltungstyp"
 
 #: includes/modules/schema/shortcode/course.php:34
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Course Provider URL"
 msgstr "Kursanbieter-URL"
 
 #: includes/modules/schema/shortcode/course.php:20
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Course Provider"
 msgstr "Kursanbieter"
 
 #: includes/modules/schema/shortcode/book.php:39
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "ISBN"
 msgstr "ISBN"
 
 #: includes/modules/schema/shortcode/book.php:35
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Edition"
 msgstr "Ausgabe"
 
@@ -4680,9 +4666,9 @@ msgid "Url"
 msgstr "URL"
 
 #: includes/settings/titles/post-types.php:152
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Headline"
 msgstr "Überschrift"
 
@@ -4820,8 +4806,8 @@ msgid "Empty Trash"
 msgstr "Papierkorb leeren"
 
 #: includes/modules/redirections/class-table.php:272
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "All"
 msgstr "Alle"
 
@@ -4833,12 +4819,12 @@ msgstr "In den Papierkorb verschieben"
 msgid "Last Accessed"
 msgstr "Letzter Zugriff"
 
-#: includes/modules/schema/shortcode/recipe.php:20
 #: includes/modules/schema/shortcode/music.php:27
+#: includes/modules/schema/shortcode/recipe.php:20
 #: includes/modules/redirections/class-table.php:217
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Type"
 msgstr "Typ"
 
@@ -4856,9 +4842,9 @@ msgid "Trash"
 msgstr "Papierkorb"
 
 #: includes/modules/redirections/class-table.php:197
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -4957,23 +4943,23 @@ msgstr "Deaktivieren"
 msgid "Activate"
 msgstr "Aktivieren"
 
-#: includes/module/class-manager.php:244
 #: includes/modules/redirections/class-form.php:135
+#: includes/module/class-manager.php:244
 msgid "Status"
 msgstr "Status"
 
 #: includes/modules/redirections/class-form.php:125
-#: includes/modules/redirections/class-metabox.php:77
 #: includes/modules/redirections/views/options.php:51
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/modules/redirections/class-metabox.php:77
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Redirection Type"
 msgstr "Umleitungs Typ"
 
 #: includes/modules/redirections/class-form.php:117
 #: includes/modules/redirections/class-metabox.php:89
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Destination URL"
 msgstr "Ziel-URL"
 
@@ -5038,8 +5024,8 @@ msgstr "Wartungscode"
 msgid "Latitude and longitude values separated by comma."
 msgstr "Breiten- und Längengrade getrennt durch ein Komma."
 
-#: includes/modules/schema/shortcode/restaurant.php:27
 #: includes/modules/local-seo/views/titles-options.php:267
+#: includes/modules/schema/shortcode/restaurant.php:27
 msgid "Geo Coordinates"
 msgstr "Geo-Koordinaten"
 
@@ -5081,11 +5067,11 @@ msgstr "Wähle Seite"
 msgid "The price range of the business, for example $$$."
 msgstr "Die Preisspanne des Unternehmens, z.B. $$$$$."
 
-#: includes/modules/schema/shortcode/restaurant.php:41
 #: includes/modules/local-seo/views/titles-options.php:209
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/shortcode/restaurant.php:41
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Price Range"
 msgstr "Preisspanne"
 
@@ -5141,11 +5127,11 @@ msgstr "Kundenservice"
 msgid "Add number"
 msgstr "Nummer hinzufügen"
 
-#: includes/modules/schema/shortcode/restaurant.php:34
 #: includes/modules/local-seo/views/titles-options.php:175
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/shortcode/restaurant.php:34
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Phone Number"
 msgstr "Telefonnummer"
 
@@ -5197,8 +5183,8 @@ msgstr "Zeit hinzufügen"
 msgid "Select opening hours. You can add multiple sets if you have different opening or closing hours on some days or if you have a mid-day break. Times are specified using 24:00 time."
 msgstr "Wähle die Öffnungszeiten. Du kannst mehrere Sätze hinzufügen, wenn du an manchen Tagen unterschiedliche Öffnungs- oder Schließzeiten habst oder wenn du eine Mittagspause hast. Die Zeiten werden mit 24:00 Uhr angegeben."
 
-#: includes/modules/schema/class-snippet-shortcode.php:225
 #: includes/modules/local-seo/views/titles-options.php:133
+#: includes/modules/schema/class-snippet-shortcode.php:225
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
@@ -5210,14 +5196,14 @@ msgstr "Format, das verwendet wird, wenn die Adresse unter Verwendung des <code>
 msgid "Address Format"
 msgstr "Adressformat"
 
-#: includes/modules/schema/shortcode/person.php:27
-#: includes/modules/schema/shortcode/event.php:62
-#: includes/modules/schema/shortcode/restaurant.php:20
 #: includes/modules/local-seo/views/titles-options.php:83
+#: includes/modules/schema/shortcode/person.php:27
+#: includes/modules/schema/shortcode/restaurant.php:20
+#: includes/modules/schema/shortcode/event.php:62
 #: includes/modules/sitemap/sitemap-xsl.php:170
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Address"
 msgstr "﻿Adresse"
 
@@ -5234,11 +5220,11 @@ msgstr "Telefon"
 msgid "Search engines display your email address."
 msgstr "Suchmaschinen zeigen deine E-Mail-Adresse an."
 
-#: includes/modules/schema/shortcode/person.php:20
 #: includes/modules/local-seo/views/titles-options.php:64
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/shortcode/person.php:20
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Email"
 msgstr "E-Mail"
 
@@ -5248,13 +5234,13 @@ msgid "URL of the item."
 msgstr "URL des Artikels."
 
 #: includes/settings/titles/local.php:49
+#: includes/modules/local-seo/views/titles-options.php:54
 #: includes/modules/schema/shortcode/music.php:20
 #: includes/modules/schema/shortcode/book.php:20
-#: includes/modules/local-seo/views/titles-options.php:54
 #: includes/modules/sitemap/sitemap-xsl.php:307
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "URL"
 msgstr "URL"
 
@@ -5274,12 +5260,12 @@ msgid "Your name or company name"
 msgstr "Ihr Name oder Firmenname"
 
 #: includes/settings/titles/local.php:29
-#: includes/modules/schema/shortcode/book.php:36
 #: includes/modules/local-seo/views/titles-options.php:34
+#: includes/modules/schema/shortcode/book.php:36
 #: includes/modules/sitemap/sitemap-xsl.php:169
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Name"
 msgstr "Name"
 
@@ -5322,10 +5308,10 @@ msgstr "Aktiviere diese Option, um alle Abfrageparameter (der Teil nach einem Fr
 msgid "Ignore Query Parameters"
 msgstr "Alle Parameter ignorieren"
 
-#: includes/modules/404-monitor/views/options.php:58
-#: includes/modules/redirections/class-form.php:89
 #: includes/modules/local-seo/views/titles-options.php:137
 #: includes/modules/local-seo/views/titles-options.php:179
+#: includes/modules/404-monitor/views/options.php:58
+#: includes/modules/redirections/class-form.php:89
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -5435,8 +5421,8 @@ msgstr "URL"
 
 #: includes/modules/404-monitor/class-table.php:191
 #: includes/modules/404-monitor/class-table.php:240
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Redirect"
 msgstr "Umleiten"
 
@@ -5499,17 +5485,17 @@ msgid "%d log(s) deleted."
 msgstr "%d Protokoll(e) gelöscht."
 
 #: includes/metaboxes/social.php:422 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "If your application is not available in the US App Store, you must set this value to the two-letter country code for the App Store that contains your application."
 msgstr "Wenn deine Anwendung im App Store nicht verfügbar ist, müsst du diesen Wert auf den zweistelligen Ländercode für den App Store setzen, der deine Anwendung enthält."
 
 #: includes/metaboxes/social.php:421 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "App Country"
 msgstr "App Land"
 
 #: includes/metaboxes/social.php:410 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Google Play App URL"
 msgstr "Google Play App URL"
 
@@ -5518,27 +5504,27 @@ msgid "Your app ID in the Google Play (.i.e. \"com.android.app\")"
 msgstr "Ihre App-ID in Google Play  (z.B. \"com.android.app\")"
 
 #: includes/metaboxes/social.php:399 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Google Play App ID"
 msgstr "Google Play App ID"
 
 #: includes/metaboxes/social.php:388 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Google Play App Name"
 msgstr "Google Play App Name"
 
 #: includes/metaboxes/social.php:377 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "iPad App URL"
 msgstr "iPad App URL"
 
 #: includes/metaboxes/social.php:366 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "iPad App ID"
 msgstr "iPad App ID"
 
 #: includes/metaboxes/social.php:355 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "iPad App Name"
 msgstr "iPad App Name"
 
@@ -5548,79 +5534,79 @@ msgid "Your app's custom URL scheme (must include \"://\")."
 msgstr "Das benutzerdefinierte URL-Schema deiner App (muss \": //\" enthalten)."
 
 #: includes/metaboxes/social.php:344 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "iPhone App URL"
 msgstr "iPhone App URL"
 
 #: includes/metaboxes/social.php:334 includes/metaboxes/social.php:367
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "The numeric representation of your app ID in the App Store."
 msgstr "Die numerische Darstellung deiner App-ID im App Store."
 
 #: includes/metaboxes/social.php:333 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "iPhone App ID"
 msgstr "iPhone App ID"
 
 #: includes/metaboxes/social.php:323 includes/metaboxes/social.php:356
 #: includes/metaboxes/social.php:389 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "The name of your app to show."
 msgstr "Der Name deiner App, die angezeigt werden soll."
 
 #: includes/metaboxes/social.php:322 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "iPhone App Name"
 msgstr "iPhone App Name"
 
 #: includes/metaboxes/social.php:313 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "You can use this as a more concise description than what you may have on the app store. This field has a maximum of 200 characters. (optional)"
 msgstr "Du kannst dies als eine prägnantere Beschreibung verwenden, als die, die du vielleicht im App Store hast. Dieses Feld hat eine maximale Länge von 200 Zeichen. (optional)"
 
 #: includes/metaboxes/social.php:312 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "App Description"
 msgstr "App Beschreibung"
 
 #: includes/metaboxes/social.php:301 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "The MIME type/subtype combination that describes the content contained in twitter:player:stream. Takes the form specified in RFC 6381. Currently supported content_type values are those defined in RFC 4337 (MIME Type Registration for MP4)."
 msgstr "Die MIME-Typ/Subtyp Kombination, die den Inhalt von twitter:player:stream beschreibt. Er nimmt die in RFC 6381 angegebene Form an. Derzeit werden die Werte von content_type unterstützt, die in RFC 4337 (MIME-Typ-Registrierung für MP4) definiert sind."
 
 #: includes/metaboxes/social.php:300 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Stream Content Type"
 msgstr "Stream-Inhaltstyp"
 
 #: includes/metaboxes/social.php:291 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Optional URL to raw stream that will be rendered in Twitter’s mobile applications directly. If provided, the stream must be delivered in the MPEG-4 container format (the .mp4 extension). The container can store a mix of audio and video with the following codecs: Video: H.264, Baseline Profile (BP), Level 3.0, up to 640 x 480 at 30 fps. Audio: AAC, Low Complexity Profile (LC)."
 msgstr "Optionale URL zum Rohdatenstrom, die direkt in den mobilen Anwendungen von Twitter gerendert wird. Falls vorgesehen, muss der Stream im MPEG-4 Containerformat (die Erweiterung .mp4) geliefert werden. Der Container kann eine Mischung aus Audio und Video mit den folgenden Codecs speichern: Video: H.264, Baseline Profile (BP), Level 3.0, bis zu 640 x 480 bei 30 fps. Audio: AAC, Low Complexity Profile (LC)."
 
 #: includes/metaboxes/social.php:290 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Stream URL"
 msgstr "Stream URL"
 
 #: includes/metaboxes/social.php:281 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "iFrame width and height, specified in pixels in the following format: 600x400."
 msgstr "iFrame Breite und Höhe, angegeben in Pixeln im folgenden Format: 600x400."
 
 #: includes/metaboxes/social.php:280 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Player Size"
 msgstr "Player Größe"
 
 #: includes/metaboxes/social.php:271 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "HTTPS URL to iFrame player. This must be a HTTPS URL which does not generate active mixed content warnings in a web browser. The audio or video player must not require plugins such as Adobe Flash."
 msgstr "HTTPS-URL zum iFrame-Player. Dies muss eine HTTPS-URL sein, die in einem Webbrowser keine aktiven Warnungen zu gemischtem Inhalt generiert. Für den Audio- oder Videoplayer dürfen keine Plugins wie Adobe Flash erforderlich sein."
 
 #: includes/metaboxes/social.php:270 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Player URL"
 msgstr "Player-URL"
 
@@ -5648,29 +5634,29 @@ msgid "Card type"
 msgstr "Kartentyp"
 
 #: includes/metaboxes/social.php:146 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Player Card"
 msgstr "Player Karte"
 
 #: includes/metaboxes/social.php:145 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "App Card"
 msgstr "App-Karte"
 
-#: includes/metaboxes/social.php:144 includes/settings/titles/global.php:101
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/settings/titles/global.php:101 includes/metaboxes/social.php:144
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Summary Card"
 msgstr "Übersichtskarte"
 
-#: includes/metaboxes/social.php:143 includes/settings/titles/global.php:100
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/settings/titles/global.php:100 includes/metaboxes/social.php:143
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Summary Card with Large Image"
 msgstr "Übersichtskarte mit großem Bild"
 
 #: includes/metaboxes/social.php:137 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Use Data from Facebook Tab"
 msgstr "Verwende Daten von der Facebook Registerkarte"
 
@@ -5684,31 +5670,31 @@ msgid "Author Profile URL"
 msgstr "URL des Autorenprofils"
 
 #: includes/metaboxes/social.php:89 includes/metaboxes/social.php:244
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Icon overlay"
 msgstr "Symbolüberlagerung"
 
 #: includes/metaboxes/social.php:79 includes/metaboxes/social.php:232
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Add icon overlay to thumbnail"
 msgstr "Symbolüberlagerung zur Miniaturansicht hinzufügen"
 
 #: includes/metaboxes/social.php:51 includes/metaboxes/social.php:199
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Image is smaller than the minimum size, please select a different image."
 msgstr "Das Bild ist kleiner als die Mindestgröße, bitte wähle ein anderes Bild."
 
 #: includes/metaboxes/social.php:50 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Upload at least 600x315px image. Recommended size is 1200x630px."
 msgstr "Lade mindestens ein 600 x 315 px großes Bild hoch. Empfohlene Größe ist 1200 x 630 px."
 
 #: includes/metaboxes/social.php:49 includes/metaboxes/social.php:196
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/blocks.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1 assets/admin/js/blocks.js:1
 msgid "Add Image"
 msgstr "Bild hinzufügen"
 
@@ -5722,7 +5708,7 @@ msgid "Customize the title, description and images of your post used while shari
 msgstr "Passe den Titel, die Beschreibung und die Bilder deines Beitrags an, die beim Teilen auf Facebook und Twitter verwendet werden. <a href=\"%s\" target=\"_blank\">Weitere Informationen</a>"
 
 #: includes/metaboxes/social-preview.php:85 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "2h"
 msgstr "2 Uhr"
 
@@ -5735,22 +5721,22 @@ msgid "Facebook Preview"
 msgstr "Facebook Vorschau"
 
 #: includes/metaboxes/social-preview.php:67 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Twitter"
 msgstr "Twitter"
 
 #: includes/metaboxes/social-preview.php:67 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Facebook"
 msgstr "Facebook"
 
 #: includes/metaboxes/general.php:115 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Select one or more Pillar Content posts for each post tag or category to show them in the Link Suggestions meta box."
 msgstr "Wähle einen oder mehrere Pillar Content Beiträge für jedes Post-Tag oder jede Kategorie aus, um in der Meta-Box Link Vorschläge anzuzeigen."
 
 #: includes/metaboxes/general.php:114 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "This post is Pillar Content"
 msgstr "Dieser Beitrag spielt eine tragende Rolle (Pillar Content)"
 
@@ -5760,27 +5746,27 @@ msgid "Insert keywords you want to rank for. Try to <a href=\"%s\" target=\"_bla
 msgstr "Gebe Keywords ein, die du bewerten möchtest. Versuche, <a href=\"%s\" target=\"_blank\"> 100/100 Punkte zu erzielen </a>, um bessere Ranking-Chancen zu erzielen."
 
 #: includes/metaboxes/general.php:64 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "This is what will appear as the description when this post shows up in the search results."
 msgstr "Dies wird als Beschreibung angezeigt, wenn dieser Beitrag in den Suchergebnissen angezeigt wird."
 
 #: includes/metaboxes/general.php:55 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "This is the unique URL of this page, displayed below the post title in the search results."
 msgstr "Dies ist die eindeutige URL dieser Seite, die in den Suchergebnissen unter dem Beitragstitel angezeigt wird."
 
 #: includes/metaboxes/general.php:36 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "This is what will appear in the first line when this post shows up in the search results."
 msgstr "Dies wird in der ersten Zeile angezeigt, wenn dieser Beitrag in den Suchergebnissen angezeigt wird."
 
 #: includes/metaboxes/advanced.php:51 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Breadcrumb Title to use for this post"
 msgstr "Breadcrumb Titel für diesen Beitrag"
 
 #: includes/metaboxes/advanced.php:50 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Breadcrumb Title"
 msgstr "Breadcrumb Titel"
 
@@ -5789,7 +5775,7 @@ msgid "The canonical URL informs search crawlers which page is the main page if 
 msgstr "Die kanonische URL informiert Such-Crawler, welche Seite die Hauptseite ist, wenn du doppelten Inhalt hast."
 
 #: includes/metaboxes/advanced.php:40 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Canonical URL"
 msgstr "Kanonische URL"
 
@@ -5797,9 +5783,9 @@ msgstr "Kanonische URL"
 msgid "Custom values for robots meta tag."
 msgstr "Benutzerdefinierte Werte für Roboter-Meta Tags."
 
-#: includes/metaboxes/advanced.php:18 includes/settings/titles/global.php:17
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/settings/titles/global.php:17 includes/metaboxes/advanced.php:18
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Robots Meta"
 msgstr "Roboter-Meta"
 
@@ -5882,27 +5868,27 @@ msgid "Exact"
 msgstr "Exakt"
 
 #: includes/helpers/class-choices.php:480 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "451 Content Unavailable for Legal Reasons"
 msgstr "451 Inhalt aus rechtlichen Gründen nicht verfügbar"
 
 #: includes/helpers/class-choices.php:479 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "410 Content Deleted"
 msgstr "410 Inhalt gelöscht"
 
 #: includes/helpers/class-choices.php:478 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "307 Temporary Redirect"
 msgstr "307 Temporäre Umleitung"
 
 #: includes/helpers/class-choices.php:477 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "302 Temporary Move"
 msgstr "302 Temporäre Umleitung"
 
 #: includes/helpers/class-choices.php:476 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "301 Permanent Move"
 msgstr "301 Permanente Umleitung"
 
@@ -5911,73 +5897,73 @@ msgid "Software Application"
 msgstr "Softwareanwendungen"
 
 #: includes/helpers/class-choices.php:447
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Service"
 msgstr "Service"
 
 #: includes/helpers/class-choices.php:446 includes/settings/titles/local.php:17
 #: includes/modules/local-seo/views/titles-options.php:22
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Person"
 msgstr "Person"
 
 #: includes/helpers/class-schema.php:89 includes/helpers/class-choices.php:445
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Video"
 msgstr "Video"
 
 #: includes/helpers/class-choices.php:444
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Restaurant"
 msgstr "Restaurant"
 
 #: includes/helpers/class-choices.php:443
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Recipe"
 msgstr "Rezept"
 
 #: includes/helpers/class-schema.php:101 includes/helpers/class-choices.php:441
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Music"
 msgstr "Musik"
 
 #: includes/helpers/class-schema.php:93 includes/helpers/class-choices.php:440
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Job Posting"
 msgstr "Stellenausschreibung"
 
 #: includes/helpers/class-choices.php:439
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Event"
 msgstr "Veranstaltung"
 
 #: includes/helpers/class-choices.php:438
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Course"
 msgstr "Kurs"
 
 #: includes/helpers/class-choices.php:437
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Book"
 msgstr "Buch"
 
@@ -5986,37 +5972,37 @@ msgid "Any"
 msgstr "Irgendwelche"
 
 #: includes/helpers/class-choices.php:78 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Prevents a snippet from being shown in the search results"
 msgstr "Verhindert, dass ein Snippet in den Suchergebnissen angezeigt wird"
 
 #: includes/helpers/class-choices.php:78 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "No Snippet"
 msgstr "Kein Snippet"
 
 #: includes/helpers/class-choices.php:77 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Lets you specify that you do not want your pages to appear as the referring page for images that appear in image search results"
 msgstr "Hier kannst du festlegen, dass deine Seiten nicht als Verweisseite für Bilder in Bildsuchergebnissen angezeigt werden soll"
 
 #: includes/helpers/class-choices.php:77 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "No Image Index"
 msgstr "Kein Bildverzeichnis"
 
 #: includes/helpers/class-choices.php:76 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Prevents search engines from showing Cached links for pages"
 msgstr "Verhindert, dass Suchmaschinen zwischengespeicherte Links für Seiten anzeigen"
 
 #: includes/helpers/class-choices.php:76 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "No Archive"
 msgstr "Kein Archiv"
 
 #: includes/helpers/class-choices.php:75 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Prevents search engines from following links on the pages"
 msgstr "Verhindert, dass Suchmaschinen folgenden Links auf den Seiten folgen"
 
@@ -6025,13 +6011,13 @@ msgid "No Follow"
 msgstr "Nicht folgen"
 
 #: includes/helpers/class-choices.php:74 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Prevents pages from being indexed and displayed in search engine result pages"
 msgstr "Verhindert, dass Seiten indiziert und in Suchmaschinen-Ergebnisseiten angezeigt werden"
 
 #: includes/helpers/class-choices.php:74
 #: includes/admin/class-post-columns.php:228 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "No Index"
 msgstr "Kein Index"
 
@@ -6071,8 +6057,8 @@ msgstr "SEO-Einstellungen"
 msgid "Others"
 msgstr "Andere"
 
-#: includes/admin/class-option-center.php:86
 #: includes/modules/role-manager/class-members.php:61
+#: includes/admin/class-option-center.php:86
 msgid "Edit .htaccess"
 msgstr ".htaccess Datei bearbeiten"
 
@@ -6097,9 +6083,9 @@ msgstr "Breadcrumbs"
 msgid "SEO options related to featured images and media appearing in your post content. %s."
 msgstr "SEO-Optionen im Zusammenhang mit den vorgestellten Bildern und Medien, die in deinem Beitrag erscheinen. %s."
 
-#: includes/modules/sitemap/sitemap-xsl.php:308
-#: includes/modules/image-seo/class-admin.php:45 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: includes/modules/image-seo/class-admin.php:45
+#: includes/modules/sitemap/sitemap-xsl.php:308 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Images"
 msgstr "Bilder"
 
@@ -6115,8 +6101,8 @@ msgstr "Beitrags-Formate Archiv"
 msgid "Post Formats"
 msgstr "Beitrags-Formate"
 
-#: includes/admin/class-option-center.php:228
 #: includes/modules/sitemap/class-admin.php:113
+#: includes/admin/class-option-center.php:228
 msgid "Post Types:"
 msgstr "Inhaltstypen:"
 
@@ -6132,8 +6118,8 @@ msgstr "SEO Titel &amp; Meta"
 msgid "Misc Pages"
 msgstr "Sonstige Seiten"
 
-#: includes/admin/class-option-center.php:168
 #: includes/modules/sitemap/class-admin.php:71
+#: includes/admin/class-option-center.php:168
 msgid "Authors"
 msgstr "Autoren"
 
@@ -6301,10 +6287,10 @@ msgstr "Seite"
 msgid "Focus Keyword of the current post"
 msgstr "Fokus-Schlüsselwort des aktuellen Beitrags"
 
-#: includes/metaboxes/general.php:87 includes/admin/class-post-columns.php:249
+#: includes/admin/class-post-columns.php:249 includes/metaboxes/general.php:87
 #: includes/replace-variables/class-advanced-variables.php:44
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Focus Keyword"
 msgstr "Fokus-Schlüsselwort"
 
@@ -6461,9 +6447,9 @@ msgstr "Veröffentlichungsdatum des aktuellen Beitrags/der aktuellen Seite <stro
 
 #: includes/modules/schema/shortcode/book.php:40
 #: includes/replace-variables/class-post-variables.php:131
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Date Published"
 msgstr "Veröffentlichungsdatum"
 
@@ -6487,8 +6473,8 @@ msgstr "Seitentitel"
 msgid "Separator character, as set in the Title Settings"
 msgstr "Trennzeichen, wie in den Titeleinstellungen eingestellt"
 
-#: includes/settings/general/breadcrumbs.php:37
 #: includes/settings/titles/global.php:51
+#: includes/settings/general/breadcrumbs.php:37
 #: includes/replace-variables/class-basic-variables.php:37
 msgid "Separator Character"
 msgstr "Trennzeichen"
@@ -6514,11 +6500,11 @@ msgstr "Beitragstitel"
 msgid "Page %1$d of %2$d"
 msgstr "Seite %1$d von %2$d"
 
-#: rank-math.php:508
+#: rank-math.php:537
 msgid "Once Weekly"
 msgstr "Einmal wöchentlich"
 
-#: rank-math.php:456
+#: rank-math.php:485
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -6534,12 +6520,12 @@ msgstr "Inaktiv"
 msgid "Active"
 msgstr "Aktiv"
 
-#: rank-math.php:424 includes/module/class-module.php:96
 #: includes/modules/instant-indexing/class-instant-indexing.php:225
 #: includes/modules/404-monitor/class-admin.php:220
 #: includes/modules/redirections/class-admin.php:334
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/module/class-module.php:96 rank-math.php:425
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -6551,8 +6537,8 @@ msgstr "Linkzähler"
 msgid "Please activate WooCommerce plugin to use this module."
 msgstr "Bitte aktiviere das WooCommerce Plugin, um dieses Modul zu nutzen."
 
-#: includes/module/class-manager.php:292
 #: includes/modules/woocommerce/class-admin.php:74
+#: includes/module/class-manager.php:292
 msgid "WooCommerce"
 msgstr "WooCommerce"
 
@@ -6564,10 +6550,10 @@ msgstr "AMP Plugin"
 msgid "Let Rank Math analyze your website and your website's content using 70+ different tests to provide tailor-made SEO Analysis to you."
 msgstr "Lasse Rank Math deine Website und den Inhalt deiner Website mithilfe von über 70 verschiedenen Tests analysieren, um dir eine maßgeschneiderte SEO-Analyse bereitzustellen."
 
-#: includes/module/class-manager.php:205
 #: includes/modules/seo-analysis/class-admin.php:51
 #: includes/modules/seo-analysis/class-seo-analysis.php:53
 #: includes/modules/seo-analysis/class-seo-analysis.php:66
+#: includes/module/class-manager.php:205
 msgid "SEO Analysis"
 msgstr "SEO-Analyse"
 
@@ -6724,9 +6710,9 @@ msgstr "Bitte lasse nur ein XML-Sitemap-Plugin aktiv, da du sonst möglicherweis
 msgid "Please keep only one SEO plugin active, otherwise, you might lose your rankings and traffic. %s."
 msgstr "Bitte lasse nur ein XML-Sitemap-Plugin aktiv, da du sonst möglicherweise deine Platzierungen und Zugriffe verlierst. %s."
 
-#: includes/admin/wizard/views/your-site.php:56
 #: includes/modules/404-monitor/views/main.php:27
 #: includes/modules/redirections/views/main.php:45
+#: includes/admin/wizard/views/your-site.php:56
 msgid "Search"
 msgstr "Suche"
 
@@ -6765,12 +6751,12 @@ msgid "Your Website: %s"
 msgstr "Deine Website: %s"
 
 #. translators: Link to How to Setup Sitemap KB article
-#: includes/admin/wizard/class-sitemap.php:37
 #: includes/admin/wizard/views/google-connect.php:37
 #: includes/admin/wizard/views/rank-math-connect.php:41
 #: includes/admin/wizard/views/search-console-ui.php:313
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
+#: includes/admin/wizard/class-sitemap.php:37
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Learn more."
 msgstr "Mehr erfahren."
 
@@ -6779,9 +6765,9 @@ msgstr "Mehr erfahren."
 msgid "Choose your Sitemap configuration and select which type of posts or pages you want to include in your Sitemaps. %s"
 msgstr "Wähle deine Sitemap-Konfiguration und die Art der Beiträge oder Seiten aus, die du in deine Sitemaps aufnehmen möchtest. %s"
 
+#: includes/modules/sitemap/sitemap-xsl.php:258
 #: includes/module/class-manager.php:142
 #: includes/admin/wizard/class-sitemap.php:33
-#: includes/modules/sitemap/sitemap-xsl.php:258
 msgid "Sitemap"
 msgstr "Sitemap"
 
@@ -6819,12 +6805,25 @@ msgid "Join FREE Facebook Group"
 msgstr "Werde Mitglied der KOSTENLOSEN Facebook-Gruppe"
 
 #. translators: Link to kb article
-#. translators: Link to KB article
-#. translators: Redirection page url
 #. translators: 1. Link to KB article 2. Link to redirection setting scree
 #. translators: %s is a Learn More link to the documentation.
 #. translators: Learn more link.
 #. translators: %1$s: thing, %2$s: Learn more link.
+#. translators: Link to KB article
+#. translators: Redirection page url
+#: includes/modules/robots-txt/class-robots-txt.php:69
+#: includes/modules/instant-indexing/class-instant-indexing.php:227
+#: includes/modules/instant-indexing/class-instant-indexing.php:233
+#: includes/modules/image-seo/class-admin.php:47
+#: includes/modules/woocommerce/class-admin.php:76
+#: includes/modules/404-monitor/class-admin.php:171
+#: includes/modules/redirections/class-admin.php:175
+#: includes/modules/analytics/class-analytics.php:535
+#: includes/modules/role-manager/views/main.php:26
+#: includes/modules/sitemap/class-admin.php:62
+#: includes/modules/sitemap/class-admin.php:73
+#: includes/modules/sitemap/class-admin.php:131
+#: includes/modules/sitemap/class-admin.php:189
 #: includes/admin/class-option-center.php:62
 #: includes/admin/class-option-center.php:69
 #: includes/admin/class-option-center.php:75
@@ -6843,19 +6842,6 @@ msgstr "Werde Mitglied der KOSTENLOSEN Facebook-Gruppe"
 #: includes/admin/class-option-center.php:269
 #: includes/admin/class-option-center.php:270
 #: includes/admin/wizard/views/ready.php:45
-#: includes/modules/instant-indexing/class-instant-indexing.php:227
-#: includes/modules/instant-indexing/class-instant-indexing.php:233
-#: includes/modules/404-monitor/class-admin.php:171
-#: includes/modules/role-manager/views/main.php:26
-#: includes/modules/redirections/class-admin.php:175
-#: includes/modules/robots-txt/class-robots-txt.php:69
-#: includes/modules/sitemap/class-admin.php:62
-#: includes/modules/sitemap/class-admin.php:73
-#: includes/modules/sitemap/class-admin.php:131
-#: includes/modules/sitemap/class-admin.php:189
-#: includes/modules/woocommerce/class-admin.php:76
-#: includes/modules/image-seo/class-admin.php:47
-#: includes/modules/analytics/class-analytics.php:535
 msgid "Learn more"
 msgstr "Mehr erfahren"
 
@@ -6866,12 +6852,12 @@ msgstr "Deine Seite ist fertig!"
 #. translators: Link to kb article
 #. translators: Link to social setting KB article
 #. translators: Link to How to Optimization KB article
+#: includes/modules/404-monitor/class-admin.php:225
+#: includes/modules/redirections/class-admin.php:329
 #: includes/admin/class-option-center.php:55
 #: includes/admin/class-option-center.php:63
 #: includes/admin/class-option-center.php:155
 #: includes/admin/wizard/class-optimization.php:37
-#: includes/modules/404-monitor/class-admin.php:225
-#: includes/modules/redirections/class-admin.php:329
 msgid "Learn More"
 msgstr "Mehr erfahren"
 
@@ -6884,7 +6870,7 @@ msgstr "Automatisiere einige deiner SEO-Aufgaben, wie z.B. externe Links, Umleit
 msgid "SEO Tweaks"
 msgstr "SEO Optimierungen"
 
-#: rank-math.php:455 includes/admin/wizard/views/navigation.php:17
+#: includes/admin/wizard/views/navigation.php:17 rank-math.php:484
 msgid "Getting Started"
 msgstr "Erste Schritte"
 
@@ -7061,8 +7047,8 @@ msgstr "Bitte wähle eine zu importierende Datei aus."
 msgid "Settings File"
 msgstr "Einstellungsdatei"
 
-#: includes/admin/views/import-export/import-export-panel.php:66
 #: includes/modules/redirections/class-import-export.php:54
+#: includes/admin/views/import-export/import-export-panel.php:66
 msgid "Export"
 msgstr "Exportieren"
 
@@ -7086,20 +7072,21 @@ msgstr "Export Einstellungen"
 msgid "There is no backup."
 msgstr "Es gibt kein Sicherung."
 
-#: includes/admin/views/import-export/backup-panel.php:33
-#: includes/admin/views/import-export/backup-panel.php:43
+#: includes/modules/database-tools/class-database-tools.php:382
 #: includes/modules/404-monitor/class-table.php:141
 #: includes/modules/404-monitor/class-table.php:241
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/admin/views/import-export/backup-panel.php:33
+#: includes/admin/views/import-export/backup-panel.php:43
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Delete"
 msgstr "Löschen"
 
-#: includes/admin/views/import-export/backup-panel.php:32
-#: includes/admin/views/import-export/backup-panel.php:42
 #: includes/modules/redirections/class-table.php:189
 #: includes/modules/redirections/class-table.php:247
+#: includes/admin/views/import-export/backup-panel.php:32
+#: includes/admin/views/import-export/backup-panel.php:42
 msgid "Restore"
 msgstr "Wiederherstellen"
 
@@ -7155,7 +7142,7 @@ msgstr "Einrichten von Rank Math"
 msgid "Next steps&hellip;"
 msgstr "Nächste Schritte&hellip;"
 
-#: includes/admin/importers/class-wp-schema-pro.php:426
+#: includes/admin/importers/class-wp-schema-pro.php:585
 msgid "Plugin settings and site-wide meta data."
 msgstr "Plugin-Einstellungen und seitenweite Metadaten."
 
@@ -7167,8 +7154,8 @@ msgstr "Importiere Metainformationen deiner Beiträge/Seiten wie Titel, Beschrei
 msgid "Import AIO SEO plugin settings, global meta, sitemap settings, etc."
 msgstr "Importiere AIO SEO Plugin-Einstellungen, globale Meta- und Sitemap-Einstellungen etc."
 
-#: includes/admin/importers/class-aio-rich-snippet.php:149
-#: includes/admin/importers/class-wp-schema-pro.php:427
+#: includes/admin/importers/class-aio-rich-snippet.php:192
+#: includes/admin/importers/class-wp-schema-pro.php:586
 msgid "Import all Schema data for Posts, Pages, and custom post types."
 msgstr "Importiere alle Schema Daten für Beiträge, Seiten und benutzerdefinierte Beitragstypen."
 
@@ -7240,8 +7227,8 @@ msgstr "Autoren-Meta importieren"
 msgid "Import data like category, tag, and CPT meta data from SEO."
 msgstr "Importiere Daten wie Kategorie-, Tag- und CPT-Metadaten aus SEO."
 
-#: includes/admin/importers/abstract-importer.php:129
 #: includes/admin/importers/class-aioseo.php:467
+#: includes/admin/importers/abstract-importer.php:129
 msgid "Import Term Meta"
 msgstr "Term-Meta importieren"
 
@@ -7249,8 +7236,8 @@ msgstr "Term-Meta importieren"
 msgid "Import meta information of your posts/pages like the focus keyword, titles, descriptions, robots meta, OpenGraph info, etc."
 msgstr "Importiere Meta-Informationen deiner Beiträge/Seiten wie das Fokus-Schlüsselwort, Titel, Beschreibungen, Roboter-Metas, OpenGraph-Informationen etc."
 
-#: includes/admin/importers/abstract-importer.php:128
 #: includes/admin/importers/class-aioseo.php:466
+#: includes/admin/importers/abstract-importer.php:128
 msgid "Import Post Meta"
 msgstr "Beitrag-Meta importieren"
 
@@ -7258,10 +7245,10 @@ msgstr "Beitrag-Meta importieren"
 msgid "Import plugin settings, global meta, sitemap settings, etc."
 msgstr "Importiere Plugin-Einstellungen, globale Meta- und Sitemap-Einstellungen etc."
 
-#: includes/admin/importers/abstract-importer.php:127
-#: includes/admin/importers/class-wp-schema-pro.php:426
-#: includes/admin/importers/class-aioseo.php:465
 #: includes/admin/views/import-export/import-export-panel.php:25
+#: includes/admin/importers/class-aioseo.php:465
+#: includes/admin/importers/class-wp-schema-pro.php:585
+#: includes/admin/importers/abstract-importer.php:127
 msgid "Import Settings"
 msgstr "Importeinstellungen"
 
@@ -7289,9 +7276,9 @@ msgstr "Optimierung"
 msgid "Your Site"
 msgstr "Deine Seite"
 
-#: includes/admin/class-setup-wizard.php:103
 #: includes/admin/views/import-export/import-export-panel.php:48
 #: includes/admin/views/import-export/plugins-panel.php:66
+#: includes/admin/class-setup-wizard.php:103
 msgid "Import"
 msgstr "Importieren"
 
@@ -7299,62 +7286,62 @@ msgstr "Importieren"
 msgid "Requirements"
 msgstr "Anforderungen"
 
-#: includes/admin/wizard/class-schema-markup.php:84
 #: includes/settings/titles/post-types.php:189
+#: includes/admin/wizard/class-schema-markup.php:84
 msgid "News Article"
 msgstr "Nachrichtenartikel"
 
-#: includes/admin/wizard/class-schema-markup.php:83
 #: includes/settings/titles/post-types.php:188
+#: includes/admin/wizard/class-schema-markup.php:83
 msgid "Blog Post"
 msgstr "Blog Beitrag"
 
 #: includes/helpers/class-schema.php:77 includes/helpers/class-choices.php:436
-#: includes/admin/wizard/class-schema-markup.php:82
 #: includes/settings/titles/post-types.php:140
 #: includes/settings/titles/post-types.php:187
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/admin/wizard/class-schema-markup.php:82
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Article"
 msgstr "Artikel"
 
-#: includes/admin/wizard/class-schema-markup.php:80
 #: includes/settings/titles/post-types.php:185
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/admin/wizard/class-schema-markup.php:80
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Article Type"
 msgstr "Artikel Type"
 
 #. translators: Google article snippet doc link
-#: includes/admin/wizard/class-schema-markup.php:75
 #: includes/settings/titles/post-types.php:180
+#: includes/admin/wizard/class-schema-markup.php:75
 msgid "Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this <a href=\"%s\" target=\"_blank\">here</a>."
 msgstr "Google erlaubt Person nicht als Publisher für Artikel. Organisation wird stattdessen verwendet. Weitere Informationen zu diesem Thema findest du <a href=\"%s\" target=\"_blank\">hier</a>."
 
-#: includes/admin/wizard/class-schema-markup.php:174
 #: includes/settings/titles/post-types.php:141
+#: includes/admin/wizard/class-schema-markup.php:174
 msgid "None (Click here to set one)"
 msgstr "Keine (Klicke hier, um eine einzustellen)"
 
-#: includes/admin/wizard/class-schema-markup.php:173
 #: includes/settings/titles/post-types.php:137
+#: includes/admin/wizard/class-schema-markup.php:173
 msgid "Default rich snippet selected when creating a new post of this type. "
 msgstr "Standard Rich-Snippet, das beim Erstellen eines neuen Beitrag dieses Typs ausgewählt wurde. "
 
 #: includes/helpers/class-choices.php:442
 #: includes/admin/wizard/class-schema-markup.php:162
 #: includes/replace-variables/class-advanced-variables.php:126
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Product"
 msgstr "Produkt"
 
 #. translators: link to title setting screen
-#: includes/admin/wizard/class-schema-markup.php:159
 #: includes/settings/titles/post-types.php:121
+#: includes/admin/wizard/class-schema-markup.php:159
 msgid "Default rich snippet selected when creating a new product."
 msgstr "Standard Rich-Snippet, das beim Erstellen eines neuen Produkts ausgewählt wurde."
 
@@ -7366,8 +7353,8 @@ msgstr "Verwende automatisch strukturierte Daten zum Markieren von Inhalten, dam
 msgid "Add missing ALT attributes"
 msgstr "Fehlende ALT-Attribute hinzufügen"
 
-#: includes/admin/wizard/class-schema-markup.php:40
 #: includes/admin/class-setup-wizard.php:344
+#: includes/admin/wizard/class-schema-markup.php:40
 msgid "Skip Step"
 msgstr "Schritt überspringen"
 
@@ -7383,15 +7370,15 @@ msgstr "Erfahre mehr über Weiterleitungen."
 msgid "Set default values for the redirection module from here."
 msgstr "Lege hier die Standardwerte für das Umleitungsmodul fest."
 
-#: includes/module/class-manager.php:124
-#: includes/admin/wizard/class-monitor-redirection.php:76
-#: includes/admin/wizard/class-monitor-redirection.php:84
-#: includes/admin/views/import-export/import-export-panel.php:59
-#: includes/modules/role-manager/class-capability-manager.php:61
 #: includes/modules/redirections/class-admin.php:114
 #: includes/modules/redirections/class-admin.php:173
 #: includes/modules/redirections/class-admin.php:192
 #: includes/modules/redirections/class-redirections.php:91
+#: includes/modules/role-manager/class-capability-manager.php:61
+#: includes/module/class-manager.php:124
+#: includes/admin/views/import-export/import-export-panel.php:59
+#: includes/admin/wizard/class-monitor-redirection.php:76
+#: includes/admin/wizard/class-monitor-redirection.php:84
 msgid "Redirections"
 msgstr "Weiterleitungen"
 
@@ -7404,24 +7391,24 @@ msgstr "Der 404-Monitor lässt dich sehen, ob Besucher oder Suchmaschinen auf ei
 msgid "Set default values for the 404 error monitor here."
 msgstr "Setze hier die Standardwerte für den 404-Fehlermonitor."
 
-#: includes/module/class-manager.php:106
-#: includes/admin/wizard/class-monitor-redirection.php:55
-#: includes/admin/wizard/class-monitor-redirection.php:64
 #: includes/modules/404-monitor/class-admin.php:118
 #: includes/modules/404-monitor/class-admin.php:169
 #: includes/modules/404-monitor/class-admin.php:188
 #: includes/modules/404-monitor/views/help-tab-overview.php:26
 #: includes/modules/404-monitor/class-monitor.php:58
+#: includes/module/class-manager.php:106
+#: includes/admin/wizard/class-monitor-redirection.php:55
+#: includes/admin/wizard/class-monitor-redirection.php:64
 msgid "404 Monitor"
 msgstr "404 Monitor"
 
-#: includes/admin/wizard/class-search-console.php:47
-#: includes/admin/wizard/class-sitemap.php:46
 #: includes/admin/wizard/class-schema-markup.php:41
-#: includes/admin/wizard/class-role.php:42
+#: includes/admin/wizard/class-search-console.php:47
 #: includes/admin/wizard/class-optimization.php:46
 #: includes/admin/wizard/class-monitor-redirection.php:36
 #: includes/admin/wizard/views/your-site.php:69
+#: includes/admin/wizard/class-sitemap.php:46
+#: includes/admin/wizard/class-role.php:42
 msgid "Save and Continue"
 msgstr "Speichern und Fortfahren"
 
@@ -7429,12 +7416,12 @@ msgstr "Speichern und Fortfahren"
 msgid "Set capabilities here."
 msgstr "Stelle hier die Fähigkeiten ein."
 
+#: includes/modules/role-manager/class-capability-manager.php:62
+#: includes/modules/role-manager/class-role-manager.php:69
 #: includes/module/class-manager.php:186
+#: includes/admin/class-setup-wizard.php:133
 #: includes/admin/wizard/class-role.php:34
 #: includes/admin/wizard/class-role.php:59
-#: includes/admin/class-setup-wizard.php:133
-#: includes/modules/role-manager/class-role-manager.php:69
-#: includes/modules/role-manager/class-capability-manager.php:62
 msgid "Role Manager"
 msgstr "Rollenverwaltung"
 
@@ -7446,18 +7433,18 @@ msgstr "Kategoriebasis entfernen"
 msgid "Automatically add a <code>target=\"_blank\"</code> attribute to external links appearing in your posts, pages, and other post types. The attributes are applied when the content is displayed, which does not change the stored content."
 msgstr "Füge automatisch ein <code>target=\"_blank\"</code> Attribut zu externen Links hinzu, die in deinen Beiträgen, Seiten und anderen Beiträgen erscheinen. Die Attribute werden bei der Anzeige des Inhalts übernommen, was den gespeicherten Inhalt nicht verändert."
 
-#: includes/admin/wizard/class-optimization.php:85
 #: includes/settings/general/links.php:109
+#: includes/admin/wizard/class-optimization.php:85
 msgid "Open External Links in New Tab/Window"
 msgstr "Öffne externe Links in einem neuen Tab/Fenster"
 
-#: includes/admin/wizard/class-optimization.php:75
 #: includes/settings/general/links.php:60
+#: includes/admin/wizard/class-optimization.php:75
 msgid "Automatically add <code>rel=\"nofollow\"</code> attribute for external links appearing in your posts, pages, and other post types. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
 msgstr "Fügt automatisch das Attribut <code>rel=\"nofollow\"</code> zu externen Links deiner Artikel, Seiten oder andere Inhaltstypen hinzu. Das Attribut wird dynamisch beim Anzeigen des Inhalts hinzugefügt, der gespeicherte Inhalt wird nicht verändert."
 
-#: includes/admin/wizard/class-optimization.php:74
 #: includes/settings/general/links.php:59
+#: includes/admin/wizard/class-optimization.php:74
 msgid "Nofollow External Links"
 msgstr "Externe Links mit “nofollow”"
 
@@ -7469,13 +7456,13 @@ msgstr "Fügt automatisch das Attribut <code>rel=\"nofollow\"</code> zu Links zu
 msgid "Nofollow Image File Links"
 msgstr "Bilddatei Links mit “nofollow”"
 
-#: includes/admin/wizard/class-optimization.php:64
 #: includes/settings/titles/global.php:41
+#: includes/admin/wizard/class-optimization.php:64
 msgid "Setting empty archives to <code>noindex</code> is useful for avoiding indexation of thin content pages and dilution of page rank. As soon as a post is added, the page is updated to <code>index</code>."
 msgstr "Das Festlegen von leeren Archiven auf <code>noindex</code> ist nützlich, um die Indexierung von Seiten mit dünnem Inhalt und die Verwässerung des Seitenrangs zu vermeiden. Sobald ein Beitrag hinzugefügt wird, wird die Seite auf <code>index</code> aktualisiert."
 
-#: includes/admin/wizard/class-optimization.php:63
 #: includes/settings/titles/global.php:40
+#: includes/admin/wizard/class-optimization.php:63
 msgid "Noindex Empty Category and Tag Archives"
 msgstr "Noindex Leere Kategorie- und Tag-Archive"
 
@@ -7507,15 +7494,15 @@ msgstr "Bilder einbinden"
 msgid "XML Sitemaps help search engines index your website&#039;s content more effectively."
 msgstr "XML-Sitemaps helfen Suchmaschinen dabei, die Inhalte deiner Website effektiver zu indexieren."
 
-#: includes/admin/wizard/class-sitemap.php:63
-#: includes/admin/class-setup-wizard.php:117
 #: includes/modules/seo-analysis/seo-analysis-tests.php:119
+#: includes/admin/class-setup-wizard.php:117
+#: includes/admin/wizard/class-sitemap.php:63
 msgid "Sitemaps"
 msgstr "Sitemaps"
 
-#: includes/admin/wizard/views/search-console-ui.php:74
 #: includes/modules/seo-analysis/seo-analysis-tests.php:102
 #: includes/modules/analytics/google/class-permissions.php:107
+#: includes/admin/wizard/views/search-console-ui.php:74
 msgid "Search Console"
 msgstr "Search Console"
 
@@ -7543,8 +7530,8 @@ msgstr "Firmenname"
 msgid "Select the type that best describes your business. If you can't find one that applies exactly, use the generic \"Organization\" or \"Local Business\" types."
 msgstr "Wähle die Art, die dein Unternehmen am besten beschreibt. Wenn du keinen passenden Typ findest, verwende die allgemeinen \"Unternehmen\" oder \"Lokales Geschäft\"."
 
-#: includes/admin/wizard/class-your-site.php:59
 #: includes/modules/local-seo/views/titles-options.php:107
+#: includes/admin/wizard/class-your-site.php:59
 msgid "Business Type"
 msgstr "Geschäftsart"
 
@@ -7590,14 +7577,14 @@ msgid "Deactivated"
 msgstr "Deaktiviert"
 
 #: includes/admin/class-serp-preview.php:332
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Rating"
 msgstr "Bewertung"
 
-#: includes/admin/class-serp-preview.php:325
 #: includes/modules/schema/shortcode/jobposting.php:90
+#: includes/admin/class-serp-preview.php:325
 msgid "Location"
 msgstr "Standort"
 
@@ -7609,11 +7596,11 @@ msgstr "Datum"
 msgid "In Stock"
 msgstr "Auf Lager"
 
-#: includes/admin/class-serp-preview.php:322
 #: includes/modules/schema/shortcode/recipe.php:48
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/admin/class-serp-preview.php:322
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Calories"
 msgstr "Kalorien"
 
@@ -7625,12 +7612,12 @@ msgstr "Kochzeit"
 msgid "Price range"
 msgstr "Preisspanne"
 
-#: includes/admin/class-serp-preview.php:319
-#: includes/modules/schema/shortcode/softwareapplication.php:20
 #: includes/modules/schema/shortcode/service.php:27
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/shortcode/softwareapplication.php:20
+#: includes/admin/class-serp-preview.php:319
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Price"
 msgstr "Preis"
 
@@ -7658,17 +7645,17 @@ msgid "Price range: "
 msgstr "Preisspanne: "
 
 #: includes/metaboxes/general.php:26 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Edit Snippet"
 msgstr "Snippet bearbeiten"
 
 #: includes/admin/class-serp-preview.php:108 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "This page will not appear in search results. You can disable noindex in the Advanced tab."
 msgstr "Diese Seite wird nicht in den Suchergebnissen angezeigt. Du kannst noindex auf der Registerkarte Erweitert deaktivieren."
 
 #: includes/admin/class-serp-preview.php:107 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Noindex robots meta is enabled"
 msgstr "Noindex Robots-Meta ist aktiviert"
 
@@ -7685,27 +7672,26 @@ msgid "Click to enter custom title"
 msgstr "Klicke hier um einen benutzerdefinierten Titel einzugeben"
 
 #: includes/admin/class-serp-preview.php:48 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Mobile Preview"
 msgstr "Vorschau für Mobil"
 
 #: includes/admin/class-serp-preview.php:48 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Desktop Preview"
 msgstr "Vorschau für Desktop"
 
-#: includes/admin/class-serp-preview.php:48
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/admin/class-serp-preview.php:48 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Preview"
 msgstr "Vorschau"
 
 #: includes/modules/seo-analysis/class-seo-analyzer.php:505
-#: assets/admin/js/classic.js:1 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/classic.js:1 assets/admin/js/elementor.js:1
 msgid "Basic SEO"
 msgstr "Grundlegende SEO"
 
@@ -7719,8 +7705,8 @@ msgstr "Zurück zum Dashboard"
 msgid "Rank Math Product Registration"
 msgstr "Rank Math Produkt-Registrierung"
 
-#: includes/admin/class-assets.php:127
 #: includes/3rdparty/divi/class-divi.php:138
+#: includes/admin/class-assets.php:127
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
 
@@ -7752,13 +7738,13 @@ msgstr "Säulen-Inhalt"
 msgid "Alternative Text"
 msgstr "Alternativer Text"
 
-#: includes/metaboxes/general.php:35 includes/metaboxes/social.php:59
-#: includes/metaboxes/social.php:207 includes/admin/class-post-columns.php:158
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/admin/class-post-columns.php:158 includes/metaboxes/social.php:59
+#: includes/metaboxes/social.php:207 includes/metaboxes/general.php:35
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/elementor.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Title"
 msgstr "Titel"
 
@@ -7771,9 +7757,9 @@ msgstr "Keyword"
 #: includes/admin/class-post-columns.php:262
 #: includes/admin/class-post-columns.php:282
 #: includes/admin/class-post-columns.php:295
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Save"
 msgstr "Speichern"
 
@@ -7806,13 +7792,13 @@ msgstr "SEO Score: Schlecht"
 msgid "SEO Score: Good"
 msgstr "SEO Score: Gut"
 
+#: includes/modules/redirections/class-form.php:51
 #: includes/admin/class-post-columns.php:114
 #: includes/admin/class-post-columns.php:193
 #: includes/admin/class-post-columns.php:215
 #: includes/admin/class-post-columns.php:263
 #: includes/admin/class-post-columns.php:283
 #: includes/admin/class-post-columns.php:296
-#: includes/modules/redirections/class-form.php:51
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -7824,16 +7810,16 @@ msgstr "Alle Änderungen speichern"
 msgid "Bulk Edit This Field"
 msgstr "Massenbearbeitung dieses Feldes"
 
-#: includes/admin/views/import-export/import-export-panel.php:57
 #: includes/modules/role-manager/class-capability-manager.php:58
 #: includes/modules/sitemap/class-admin.php:83
 #: includes/modules/sitemap/class-admin.php:84
+#: includes/admin/views/import-export/import-export-panel.php:57
 msgid "Sitemap Settings"
 msgstr "Sitemap-Einstellungen"
 
+#: includes/modules/role-manager/class-capability-manager.php:57
 #: includes/admin/class-option-center.php:107
 #: includes/admin/views/import-export/import-export-panel.php:55
-#: includes/modules/role-manager/class-capability-manager.php:57
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -7841,9 +7827,9 @@ msgstr "Allgemeine Einstellungen"
 msgid "Search Options"
 msgstr "Suchoptionen"
 
-#: includes/metaboxes/social.php:27 includes/metaboxes/social.php:36
-#: includes/metaboxes/social.php:126 includes/metaboxes/social.php:437
-#: includes/admin/class-options.php:148
+#: includes/admin/class-options.php:148 includes/metaboxes/social.php:27
+#: includes/metaboxes/social.php:36 includes/metaboxes/social.php:126
+#: includes/metaboxes/social.php:437
 msgid "Panel"
 msgstr "Bedienfeld"
 
@@ -7852,7 +7838,7 @@ msgid "This tab contains social options."
 msgstr "Dieser Tab enthält die Social-Media-Optionen."
 
 #: includes/admin/metabox/class-metabox.php:380 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Social"
 msgstr "Sozial"
 
@@ -7860,10 +7846,9 @@ msgstr "Sozial"
 msgid "This tab contains advance options."
 msgstr "Dieser Tab enthält erweiterte Optionen."
 
-#: includes/admin/metabox/class-metabox.php:373
 #: includes/modules/404-monitor/views/options.php:33
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/admin/metabox/class-metabox.php:373 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "Advanced"
 msgstr "Erweitert"
 
@@ -7871,22 +7856,21 @@ msgstr "Erweitert"
 msgid "This tab contains general options."
 msgstr "Dieser Tab enthält grundlegende Einstellungen."
 
-#: includes/admin/metabox/class-metabox.php:366
-#: includes/modules/sitemap/class-admin.php:60 assets/admin/js/gutenberg.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/divi.js:1
+#: includes/modules/sitemap/class-admin.php:60
+#: includes/admin/metabox/class-metabox.php:366 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 msgid "General"
 msgstr "Allgemein"
 
-#: includes/metaboxes/general.php:63 includes/metaboxes/social.php:67
-#: includes/metaboxes/social.php:216
-#: includes/admin/metabox/class-taxonomy-screen.php:149
-#: includes/settings/general/rss-vars-table.php:20
 #: includes/settings/titles/post-types.php:164
-#: includes/modules/schema/assets/js/schema-gutenberg.js:1
-#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/settings/general/rss-vars-table.php:20
+#: includes/admin/metabox/class-taxonomy-screen.php:149
+#: includes/metaboxes/social.php:67 includes/metaboxes/social.php:216
+#: includes/metaboxes/general.php:63 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 #: includes/modules/schema/assets/js/schema-classic.js:1
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/divi.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -7898,14 +7882,14 @@ msgstr "Wir können keine Linkvorschläge für diesen Beitrag machen. Versuche, 
 msgid "Click on the button to copy URL or insert link in content. You can also drag and drop links in the post content."
 msgstr "Klicke auf die Schaltfläche, um die URL zu kopieren oder einen Link in den Inhalt einzufügen. Du kannst auch Links per Drag & Drop in den Inhalt des Beitrags ziehen."
 
-#: includes/admin/metabox/class-metabox.php:240
 #: includes/settings/titles/post-types.php:246
+#: includes/admin/metabox/class-metabox.php:240
 msgid "Link Suggestions"
 msgstr "Linkvorschläge"
 
 #. Plugin Name of the plugin
-#: includes/admin/class-admin-bar-menu.php:148
 #: includes/admin/metabox/class-metabox.php:324
+#: includes/admin/class-admin-bar-menu.php:148
 msgid "Rank Math SEO"
 msgstr "Rank Math SEO"
 
@@ -7987,36 +7971,36 @@ msgstr "Bist du sicher, dass du dieses Backup löschen möchtest?"
 msgid "Are you sure you want to restore this backup? Your current configuration will be overwritten."
 msgstr "Bist du sicher, dass du diese Sicherung wiederherstellen möchten? Deine aktuelle Konfiguration wird dann überschrieben."
 
-#: includes/admin/class-setup-wizard.php:288
 #: includes/admin/class-import-export.php:146
+#: includes/admin/class-setup-wizard.php:288
 msgid "Are you sure you want to import settings into Rank Math? Don't worry, your current configuration will be saved as a backup."
 msgstr "Bist du sicher, dass du die Einstellungen in Rank Math importieren möchtest? Keine Sorge, deine aktuelle Konfiguration wird als Backup gespeichert."
 
 #: includes/helpers/class-taxonomy.php:152
+#: includes/settings/titles/post-types.php:123
+#: includes/settings/titles/post-types.php:139
+#: includes/admin/class-admin-helper.php:89
 #: includes/admin/class-cmb2-fields.php:281
 #: includes/admin/wizard/class-schema-markup.php:161
-#: includes/admin/class-admin-helper.php:89
-#: includes/settings/titles/post-types.php:123
-#: includes/settings/titles/post-types.php:139 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/gutenberg.js:1 assets/admin/js/divi.js:1
 #: assets/admin/js/elementor.js:1 assets/admin/js/blocks.js:1
-#: assets/admin/js/divi.js:1
 msgid "None"
 msgstr "Nichts"
 
 #: includes/class-frontend-seo-score.php:252
-#: includes/admin/class-cmb2-fields.php:126
+#: includes/modules/version-control/views/beta-optin-panel.php:35
 #: includes/modules/version-control/views/auto-update-panel.php:32
 #: includes/modules/version-control/views/auto-update-panel.php:55
-#: includes/modules/version-control/views/beta-optin-panel.php:35
+#: includes/admin/class-cmb2-fields.php:126
 msgid "On"
 msgstr "Ein"
 
 #: includes/class-frontend-seo-score.php:251
-#: includes/admin/class-cmb2-fields.php:125
 #: includes/modules/schema/class-admin.php:156
+#: includes/modules/version-control/views/beta-optin-panel.php:31
 #: includes/modules/version-control/views/auto-update-panel.php:28
 #: includes/modules/version-control/views/auto-update-panel.php:51
-#: includes/modules/version-control/views/beta-optin-panel.php:31
+#: includes/admin/class-cmb2-fields.php:125
 msgid "Off"
 msgstr "Aus"
 
@@ -8041,21 +8025,21 @@ msgstr "Vielen Dank, dass du <a href=\"%s\" target=\"_blank\">Rank Math</a> verw
 msgid "Import &amp; Export"
 msgstr "Import &amp; Export"
 
-#: rank-math.php:425 rank-math.php:430
-#: includes/admin/class-setup-wizard.php:255
-#: includes/admin/class-setup-wizard.php:256
 #: includes/admin/class-admin-dashboard-nav.php:111
+#: includes/admin/class-setup-wizard.php:255
+#: includes/admin/class-setup-wizard.php:256 rank-math.php:426
+#: rank-math.php:431
 msgid "Setup Wizard"
 msgstr "Einrichtungsassistent"
 
 #: includes/admin/class-admin.php:141
-#: includes/admin/class-admin-breadcrumbs.php:46
 #: includes/admin/class-admin-dashboard-nav.php:104
+#: includes/admin/class-admin-breadcrumbs.php:46
 msgid "Help"
 msgstr "Hilfe"
 
-#: includes/admin/class-admin-breadcrumbs.php:44
 #: includes/admin/class-admin-dashboard-nav.php:97
+#: includes/admin/class-admin-breadcrumbs.php:44
 msgid "Modules"
 msgstr "Module"
 
@@ -8067,11 +8051,11 @@ msgstr "Facebook Profil-URL"
 msgid "Twitter username (without @)"
 msgstr "Twitter-Benutzername (ohne @)"
 
-#: includes/admin/class-admin-menu.php:89
+#: includes/modules/version-control/class-version-control.php:220
+#: includes/admin/class-admin-breadcrumbs.php:32
 #: includes/admin/class-admin-bar-menu.php:158
 #: includes/admin/class-admin-bar-menu.php:160
-#: includes/admin/class-admin-breadcrumbs.php:32
-#: includes/modules/version-control/class-version-control.php:220
+#: includes/admin/class-admin-menu.php:89
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -8080,17 +8064,18 @@ msgid "Help &amp; Support"
 msgstr "Hilfe und Support"
 
 #. Author of the plugin
-#: includes/admin/class-admin-menu.php:59
-#: includes/admin/class-post-filters.php:168
-#: includes/admin/class-registration.php:198
-#: includes/admin/class-registration.php:199 includes/class-cmb2.php:177
-#: includes/modules/schema/class-blocks.php:66
+#: includes/class-cmb2.php:177
 #: includes/modules/status/class-system-status.php:122
+#: includes/modules/schema/class-blocks.php:66
+#: includes/modules/analytics/views/email-reports/header.php:38
 #: includes/modules/role-manager/class-members.php:47
 #: includes/modules/role-manager/class-user-role-editor.php:58
-#: includes/modules/analytics/views/email-reports/header.php:38
-#: assets/admin/js/gutenberg.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/blocks.js:1 assets/admin/js/divi.js:1
+#: includes/admin/class-post-filters.php:168
+#: includes/admin/class-admin-menu.php:59
+#: includes/admin/class-registration.php:198
+#: includes/admin/class-registration.php:199 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
+#: assets/admin/js/blocks.js:1
 msgid "Rank Math"
 msgstr "Rank Math"
 
@@ -8122,8 +8107,8 @@ msgstr "(Kein Titel)"
 msgid "Add Link"
 msgstr "Link hinzufügen"
 
-#: includes/admin/class-assets.php:188
 #: includes/modules/redirections/class-form.php:41
+#: includes/admin/class-assets.php:188
 msgid "Update"
 msgstr "Aktualisieren"
 
