@@ -44,6 +44,96 @@
 <meta name="csrf-token" content="{$smarty.session.csrf_token}">
 {/if}
 {literal}<script type="application/ld+json">[{/literal}{$part|@json_encode nofilter}{literal}]</script>{/literal}
+{literal}
+ <style>
+@use postcss-nested;
+@use postcss-media-minmax;
+@use postcss-custom-media;
+@use postcss-simple-vars;
+@use postcss-cssnext;
+
+:root {
+  --blue: rgba(8, 125, 196, 1);
+}
+
+* {
+  font-family: 'Nunito', sans-serif;
+}
+.switch {
+  position: relative;
+  float: left;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+  input {
+      display:none;
+    }
+}
+
+.checkslider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+
+    &.round {
+        border-radius: 34px;
+
+        &:before {
+            border-radius: 50%;
+        }
+    }
+}
+
+input {
+
+    &:checked + .slider {
+        background-color: var(--blue);
+
+        &:before {
+            transform: translateX(26px);
+        }
+    }
+
+    &:focus + .slider {
+        box-shadow: 0 0 1px var(--blue);
+    }
+}
+
+.js-text {
+    margin: 5px 30px 0 0;
+    font-weight: bold;
+    float: left;
+}
+
+.js-cookiebar {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+a.link {
+    cursor: pointer;
+}
+ </style>
+{/literal}
 
 <base href="{$oos_base}">
 
