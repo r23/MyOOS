@@ -5,18 +5,18 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5c83884761d980ff0f5ce77cc85e182e43c2fa9f',
+        'reference' => '08fcead3ff26d6232f2a9ad32390acba3deb21e0',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
     'versions' => array(
         'bacon/bacon-qr-code' => array(
-            'pretty_version' => '2.0.3',
-            'version' => '2.0.3.0',
+            'pretty_version' => '2.0.4',
+            'version' => '2.0.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../bacon/bacon-qr-code',
             'aliases' => array(),
-            'reference' => '3e9d791b67d0a2912922b7b7c7312f4b37af41e4',
+            'reference' => 'f73543ac4e1def05f1a70bcd1525c8a157a1ad09',
             'dev_requirement' => false,
         ),
         'dasprid/enum' => array(
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5c83884761d980ff0f5ce77cc85e182e43c2fa9f',
+            'reference' => '08fcead3ff26d6232f2a9ad32390acba3deb21e0',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -440,12 +440,12 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v7.84.0',
-            'version' => '7.84.0.0',
+            'pretty_version' => 'v7.85.0',
+            'version' => '7.85.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),
-            'reference' => 'cc04a86f11a548f83d437f548137dc86a03d2eea',
+            'reference' => 'c3bdde76ddb626b4f17fd746962104b0d917506a',
             'dev_requirement' => false,
         ),
         'symfony/asset' => array(
