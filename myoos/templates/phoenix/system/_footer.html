@@ -380,15 +380,15 @@
     </div>
   </div>
 </div>
-<div class="container-fluid js-cookiebar" style="display:none;">
-  <div class="row">
-    <div class="col-md-12 text-center">
-      <p class="pull-left">This website uses cookies to provide you the best browsing experience. Find out more or adjust your <a class="link" data-toggle="modal" data-target="#myModal">settings.</a></p><button class="btn btn-info js-accept-cookie pull-right" type="button">Accept</button></div>
-  </div>
-</div><button class="btn btn-info btn-lg js-change-cookie" data-toggle="modal" data-target="#myModal">Change Cookie</button>
+<button class="btn btn-info btn-lg js-change-cookie" data-toggle="modal" data-target="#myModal">Change Cookie</button>
 {literal}
 <script>
 'use strict';
+
+	var BODY = 'body';
+	var WINDOW = window;
+	var DOCUMENT = 'document';		
+
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -399,9 +399,8 @@ if (getCookie('CookieConsent')) {
     var jsonData = JSON.parse(cookieValue);
     pushCookieValueToDataLayer(jsonData.cookieValue, 'CookieBarStatus', true);
 } else {
-    document.getElementsByClassName('js-cookiebar')[0].style.display = "block";
-    window.dataLayer.push({
-        'event': 'NoCookieExist'
+	$(window).on('load', function() {
+        $('#myModal').modal('show');
     });
 };
 
@@ -421,6 +420,7 @@ function getCookie(cname) {
     }
     return "";
 }
+
 
 function pushCookieValueToDataLayer(arr, eventName, bool) {
     var x = arr.filter(function (v) {
@@ -516,7 +516,7 @@ changeCookie.addEventListener("click", function () {
         }
     }
 }, false);
-<script>
+</script>
 {/literal}
 </body>
 </html>
