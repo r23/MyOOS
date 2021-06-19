@@ -118,6 +118,7 @@ $aLang = [
 'block_information_conditions'      => 'AGB',
 'block_information_shipping'        => 'Liefer- und&nbsp;Versandkosten',
 'block_information_gv'              => 'Gutschein einlösen',
+'block_cookie_settings' 			=> 'Cookie-Einstellungen',
 
 //login
 'entry_email_address'               => 'eMail Adresse',

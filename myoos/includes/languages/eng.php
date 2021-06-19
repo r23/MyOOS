@@ -136,6 +136,7 @@ $aLang = [
 'block_information_conditions'    => 'Conditions of Use',
 'block_information_shipping'      => 'Shipping & Returns',
 'block_information_gv'            => 'Gift Voucher FAQ',
+'block_cookie_settings'			  => 'Cookie settings',
 
 // login
 'entry_email_address'             => 'E-Mail-Address',

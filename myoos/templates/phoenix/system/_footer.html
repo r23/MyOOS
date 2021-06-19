@@ -55,7 +55,7 @@
 					</ul>					
 				
 				</div><!-- .col -->
-					
+
 				<div class="col-md-3 col-sm-6">
 					<h4>{$block_heading_information}</h4>
 					
@@ -63,6 +63,7 @@
 					{foreach $information as $info}
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
 					{/foreach}
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="#" data-toggle="modal" data-target="#myModal">{$lang.block_cookie_settings}</a></li>		
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.contact_us}" title="{$lang.block_service_contact}">{$lang.block_service_contact}</a></li>					
 					</ul>
 				</div><!-- .col -->
@@ -380,14 +381,22 @@
     </div>
   </div>
 </div>
-<button class="btn btn-info btn-lg js-change-cookie" data-toggle="modal" data-target="#myModal">Change Cookie</button>
+
+{literal}
+<script>
+/* <![CDATA[ */
+var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
+/* ]]> */
+</script>
+{/literal}
+
 {literal}
 <script>
 'use strict';
 
-	var BODY = 'body';
-	var WINDOW = window;
-	var DOCUMENT = 'document';		
+var BODY = 'body';
+var WINDOW = window;
+var DOCUMENT = 'document';		
 
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -399,9 +408,11 @@ if (getCookie('CookieConsent')) {
     var jsonData = JSON.parse(cookieValue);
     pushCookieValueToDataLayer(jsonData.cookieValue, 'CookieBarStatus', true);
 } else {
-	$(window).on('load', function() {
-        $('#myModal').modal('show');
-    });
+	if ( cnArgs.hideEffect === 'none' ) {
+		$(window).on('load', function() {
+			$('#myModal').modal('show');
+		});
+	}
 };
 
 function getCookie(cname) {
