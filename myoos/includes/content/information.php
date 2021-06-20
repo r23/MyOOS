@@ -32,6 +32,12 @@ $nContentCacheID = $sTheme . '|info|' . $sGroup . '|information|' . $nInformatio
 
 $sCanonical = oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID), false, true);
 
+// cookie-notice
+// privacy-policy Page = 4
+if ($nInformationsID == 4) $hideEffect = 'yes';
+// imprint Page = 1
+if ($nInformationsID == 1) $hideEffect = 'yes';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';

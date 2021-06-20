@@ -31,11 +31,6 @@ if ($debug == 1) {
 	$smarty->clearCompiledTemplate();
 }
 
-	$smarty->force_compile   = true;
-	$smarty->debugging       = true;
-	$smarty->clearAllCache();
-	$smarty->clearCompiledTemplate();
-
 // object register
 $smarty->assignByRef("oEvent", $oEvent);
 $smarty->assignByRef("oNavMenu", $oNavMenu);
@@ -256,8 +251,6 @@ $smarty->assign(
 	)
 );
 
-// cookie-notice 
-$hideEffect = 'yes';
 
 // cookie-notice 
 $hideEffect = isset($hideEffect) ? oos_prepare_input($hideEffect) : 'none';
