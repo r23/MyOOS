@@ -272,4 +272,4 @@ $aCookie = array(
 				'secure'				=> '0'
 		);
 $smarty->assign('cookiearray', $aCookie);
-$smarty->assign('cookie_notice', sprintf($aLang['cookie_notice'], STORE_NAME, oos_href_link($aContents['information'], 'information_id=4')));
+

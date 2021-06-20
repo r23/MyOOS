@@ -63,7 +63,7 @@
 					{foreach $information as $info}
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.information information_id=$info.information_id}" title="{$info.information_name}">{$info.information_name}</a></li>
 					{/foreach}
-						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="#" data-toggle="modal" data-target="#myModal">{$lang.block_cookie_settings}</a></li>		
+						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="javascript:showSettingsDialog()">{$lang.block_cookie_settings}</a></li>		
 						<li><a class="m-color-white-opacity-0_8 m-color-white--hover" href="{html_href_link content=$filename.contact_us}" title="{$lang.block_service_contact}">{$lang.block_service_contact}</a></li>					
 					</ul>
 				</div><!-- .col -->
@@ -307,7 +307,7 @@
 <!-- Plugins  -->
 <script src="js/plugins/viewport-checker/viewportchecker.min.js"></script> 
 <script src="js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
-
+<script src="js/plugins/cookie_consent/bootstrap-cookie-consent-settings.js"></script> 
 
 <script src="{$theme}/js/theme.min.js"></script>	
 <script src="{$theme}/js/shop.app.js"></script>
@@ -341,47 +341,6 @@
 {/literal}
 {/if}
 
-<div class="container">
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header"><button class="close" data-dismiss="modal" type="button">X</button>
-          <h2 class="modal-title">Overview</h2>
-        </div>
-        <div class="modal-body">
-          <p>This website uses cookies (and other techniques) to collect information about the use of the platform in order to analyse and improve, for the use of social media and to ensure that advertisements are relevant to you. Read more about our cookie
-            policy, <a href="/terms" target="_blank" class="link">terms and conditions</a> and <a href="/privacy" target="_blank" class="link">privacy statement</a>. By continuing on this site and accepting our cookies you agree to the collection of information
-            on this basis by us and by third parties on the platform. Please customize your cookie settings below.</p>
-          <div class="row">
-            <div class="col col-md-12">
-              <h3 class="card-title">Necessary Cookies</h3>
-              <div class="row">
-                <div class="col-md-10">
-                  <p>Strictly Necessary Cookie should be enabled at all times so that we can save your preferences for cookie settings. If you disable this cookie, we will not be able to save your preferences. This means that every time you visit this website
-                    you will need to enable or disable cookies again.</p>
-                </div>
-                <div class="col-md-2">
-                  <p class="js-text">Disabled</p><label class="switch" for="Necessary_chkbox"> <input id="Necessary_chkbox" type="checkbox" name="items"/><span class="checkslider round"></span></label></div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col col-md-12">
-              <h3 class="card-title">ThirdParty Cookies</h3>
-              <div class="row">
-                <div class="col-md-10">
-                  <p>This website uses Google Analytics to collect anonymous information such as the number of visitors to the site, and the most popular pages. Keeping this cookie enabled helps us to improve our website. </p>
-                </div>
-                <div class="col-md-2">
-                  <p class="js-text">Disabled</p><label class="switch" for="ThirdParty_chkbox"> <input id="ThirdParty_chkbox" type="checkbox" name="items"/><span class="checkslider round"></span></label></div>
-              </div>
-            </div>
-          </div> <button class="btn btn-lg btn-info js-accept-cookie" type="button" id="cookiebutton" data-dismiss="modal">Accept</button></div>
-      </div>
-    </div>
-  </div>
-</div>
-
 {literal}
 <script>
 /* <![CDATA[ */
@@ -390,143 +349,24 @@ var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
 </script>
 {/literal}
 
+
 {literal}
 <script>
-'use strict';
-
-var BODY = 'body';
-var WINDOW = window;
-var DOCUMENT = 'document';		
-
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-window.dataLayer = window.dataLayer || [];
-
-if (getCookie('CookieConsent')) {
-    var cookieValue = '{' + '"cookieValue"' + ':' + getCookie('CookieConsent') + '}';
-    var jsonData = JSON.parse(cookieValue);
-    pushCookieValueToDataLayer(jsonData.cookieValue, 'CookieBarStatus', true);
-} else {
-	if ( cnArgs.hideEffect === 'none' ) {
-		$(window).on('load', function() {
-			$('#myModal').modal('show');
-		});
-	}
-};
-
-function getCookie(cname) {
-    var name = cname + "=",
-        decodedCookie = decodeURIComponent(document.cookie),
-        ca = decodedCookie.split(';');
-
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
+    var cookieSettings = new BootstrapCookieConsentSettings({
+        contentURL: "./cookie_consent",
+        postSelectionCallback: function () {
+            location.reload() // reload after selection
         }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+    })
+
+    function showSettingsDialog() {
+        cookieSettings.showDialog()
     }
-    return "";
-}
 
-
-function pushCookieValueToDataLayer(arr, eventName, bool) {
-    var x = arr.filter(function (v) {
-        return v.value === true;
-    });
-    dataLayerType(x, eventName, bool);
-}
-
-function dataLayerType(x, e, b) {
-    if (b) {
-        for (var i = 0; i < x.length; i++) {
-            window.dataLayer.push(_defineProperty({}, x[i].name, x[i].value));
-        }
-        window.dataLayer.push({
-            'event': e
-        });
-    } else {
-        var dataInit = [];
-        for (var i = 0; i < x.length; i++) {
-            dataInit.push(_defineProperty({}, x[i].name, x[i].value));
-        };
-        dataInit.push({
-            'event': e
-        });
-        window.dataLayer = dataInit;
-    }
-}
-
-// change text on click
-var sliders = document.getElementsByClassName('checkslider');
-
-var _loop = function _loop(i) {
-    sliders[i].addEventListener('click', function () {
-        var el = sliders[i].parentElement.previousSibling;
-        if (el.innerHTML == "Enabled") {
-            el.innerHTML = 'Disabled';
-            el.style.color = "inherit";
-        } else {
-            el.innerHTML = 'Enabled';
-            el.style.color = "rgba(8, 125, 196, 1)";
-        }
-    });
-};
-
-for (var i = 0; i < sliders.length; i++) {
-    _loop(i);
-}
-
-// set cookie on click
-var acceptCookieButton = document.getElementsByClassName('js-accept-cookie');
-
-for (var i = 0; i < acceptCookieButton.length; i++) {
-    acceptCookieButton[i].addEventListener('click', function () {
-        onCookieButtonClick();
-    });
-}
-
-// set cookie on click
-function onCookieButtonClick() {
-    var necessaryValue = document.getElementById("Necessary_chkbox").checked,
-        thirdPartyValue = document.getElementById("ThirdParty_chkbox").checked,
-        options = [{ name: "Necessary", value: necessaryValue }, { name: "ThirdParty", value: thirdPartyValue }],
-        data = JSON.stringify(options),
-        date = new Date();
-
-    date.setTime(date.getTime() + 3650 * 24 * 60 * 60 * 1000);
-    var expires = "expires=" + date.toUTCString();
-
-    // set cookie
-    document.cookie = "CookieConsent=" + data + ";" + expires + ";";
-    pushCookieValueToDataLayer(options, "CookiePreferencesChange", true);
-    document.getElementsByClassName("js-cookiebar")[0].style.display = "none";
-    console.log('cookies are set');
-}
-
-// show cookiebar on click
-var changeCookie = document.getElementsByClassName("js-change-cookie")[0];
-
-// Get cookievalue, set checkboxes to right value and show cookiebar
-changeCookie.addEventListener("click", function () {
-    if (getCookie("CookieConsent")) {
-        var _cookieValue = "{" + '"cookieValue"' + ":" + getCookie("CookieConsent") + "}",
-            _jsonData = JSON.parse(_cookieValue),
-            x = _jsonData.cookieValue.filter(function (v) {
-            return v.value === true;
-        });
-
-        for (var _i = 0; _i < x.length; _i++) {
-            var y = x[_i].name + "_chkbox";
-            document.getElementById(y).checked = true;
-            document.getElementById(y).parentElement.previousSibling.innerHTML = 'Enabled';
-            document.getElementById(y).parentElement.previousSibling.style.color = "rgba(8, 125, 196, 1)";
-        }
-    }
-}, false);
+    $(document).ready(function () {
+        $("#settingsOutput").text(JSON.stringify(cookieSettings.getSettings()))
+        $("#settingsAnalysisOutput").text(cookieSettings.getSettings("analyses"))
+    })
 </script>
 {/literal}
 </body>
