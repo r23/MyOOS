@@ -13,7 +13,7 @@ function BootstrapCookieConsentSettings(props) {
         lang: navigator.language, // the language, in which the modal is shown
         languages: ["en", "de"], // supported languages (in ./content/), defaults to first in array
         contentURL: "./cookie_consent", // this URL must contain the dialogs content in the needed languages
-        cookieName: "cookie-consent-settings",  // the name of the cookie in which the configuration is stored as JSON
+        cookieName: "myoos-cookie-consent",  // the name of the cookie in which the configuration is stored as JSON
         cookieStorageDays: 365, // the duration the cookie configuration is stored on the client
         postSelectionCallback: undefined // callback function, called after the user has made his selection
     }
@@ -186,7 +186,9 @@ function BootstrapCookieConsentSettings(props) {
     // init
 
     if (Cookie.get(this.props.cookieName) === undefined && this.props.autoShowDialog) {
-        showDialog()
+		if ( cnArgs.hideEffect === 'none' ) {		
+			showDialog()
+		}
     }
 
     // API
