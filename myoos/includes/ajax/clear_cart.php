@@ -29,6 +29,7 @@ if ( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']) ) {
 		}
 	}
 
+	header("Content-Type: application/json");
 	$contents = '<div class="container text-center m-py-60">
 					<div class="mb-5">
 						<span class="d-block g-color-gray-light-v1 fs-70 mb-4">

@@ -292,7 +292,3 @@ if ($consentCookieJson) {
        $bPersonalization = true;
     }	
 }
-
-
-
-
