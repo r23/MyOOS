@@ -160,5 +160,5 @@ if ($msg>'') $tpl->assign_block_vars('MSG',array(
 $tpl->pparse('show');
 
 echo MODFooter();
-
+ob_end_flush();
 die();

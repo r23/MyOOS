@@ -18,6 +18,8 @@
 
 define('OOS_VALID_MOD', true);
 
+if (!@ob_start("ob_gzhandler")) @ob_start();
+
 include ( './inc/header.php' );
 include_once ( './language/' . $config['language'] . '/lang_log.php' );
 echo MODHeader();
@@ -164,4 +166,4 @@ if ($out != "")
 
 echo '</form>';
 echo MODFooter();
-
+ob_end_flush();

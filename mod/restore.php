@@ -18,6 +18,8 @@
 
 define('OOS_VALID_MOD', true);
 
+if (!@ob_start("ob_gzhandler")) @ob_start();
+
 session_name('MyOOSDumperID');
 session_start();
 include ('./inc/functions.php');
@@ -325,4 +327,4 @@ else
 	$complete_page=$pageheader.(($aus!='') ? implode("\n",$aus) : '').$selbstaufruf.$pagefooter;
 }
 echo $complete_page;
-
+ob_end_flush();

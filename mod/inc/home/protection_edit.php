@@ -96,5 +96,5 @@ else
 	echo '<form action="" method="post"><input type="hidden" name="hta_dir" value="'.$hta_dir.'"><input type="hidden" name="hta_file" value="'.$hta_file.'"><input type="hidden" name="create" value="1"><input type="submit" name="createhtaccess" value="'.$lang['L_CREATE'].'" class="Formbutton"></form>';
 }
 echo '</div>';
-
+ob_end_flush();
 exit();

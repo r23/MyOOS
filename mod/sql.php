@@ -18,6 +18,8 @@
 
 define('OOS_VALID_MOD', true);
 
+if (!@ob_start("ob_gzhandler")) @ob_start();
+
 $download = (isset($_POST['f_export_submit']) && (isset($_POST['f_export_sendresult']) && $_POST['f_export_sendresult'] == 1));
 include ('./inc/header.php');
 include ('language/'.$config['language'].'/lang.php');
@@ -299,6 +301,7 @@ function BrowseInput(el)
 
 	echo '<br><br><br>';
 	echo MODFooter();
+	ob_end_flush();
 }
 
 function FormHiddenParams()

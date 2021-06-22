@@ -4,7 +4,7 @@
    MyOOS [Dumper]
    http://www.oos-shop.de/
 
-   Copyright (c) 2020 by the MyOOS Development Team.
+   Copyright (c) 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -72,6 +72,7 @@ if ($action=='dl')
 	exit();
 }
 
+if (!@ob_start("ob_gzhandler")) @ob_start();
 echo MODHeader();
 
 $toolboxstring='';
@@ -578,4 +579,4 @@ switch ($action)
 
 }
 echo MODFooter();
-
+ob_end_flush();
