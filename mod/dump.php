@@ -65,9 +65,9 @@ if (isset($_SESSION['dump'])&&!isset($_GET['config']))
 }
 else
 {
-	$dump['tables']=Array();
-	$dump['records']=Array();
-	$dump['skip_data']=Array();
+	$dump['tables']=array();
+	$dump['records']=array();
+	$dump['skip_data']=array();
 	$dump['totalrecords']=0;
 	$dump['dbindex']=0;
 	//$_POST-Parameter lesen
@@ -102,14 +102,14 @@ $mp2=array(
 
 'Bytes','Kilobytes','Megabytes','Gigabytes');
 
-FillMultiDBArrays();
+FillMultiDBarrays();
 if ($databases['db_actual_tableselected']!=''&&$config['multi_dump']==0)
 {
-	$dump['tblArray']=explode('|',$databases['db_actual_tableselected']);
+	$dump['tblarray']=explode('|',$databases['db_actual_tableselected']);
 	$tbl_sel=true;
-	$msgTbl=sprintf($lang['L_NR_TABLES_SELECTED'],count($dump['tblArray']));
+	$msgTbl=sprintf($lang['L_NR_TABLES_SELECTED'],count($dump['tblarray']));
 }
-// Korrektur -> Multi-DB-Array ist gefuellt (damit die Infos in der Konfig nicht verloren gehen), aber Multidump ist nicht aktiviert)
+// Korrektur -> Multi-DB-array ist gefuellt (damit die Infos in der Konfig nicht verloren gehen), aber Multidump ist nicht aktiviert)
 if (isset($config['multi_dump']) && ($config['multi_dump']==0))
 {
 	unset($databases['multi']);
@@ -407,7 +407,7 @@ else
 			$out.="\n".'<div class="backupmsg">'.$lang['L_FILE'].' <a href="'.$config['paths']['backup'].$dump['backupdatei'].'" class="smallblack">'.$dump['backupdatei'].' ('.byte_output(filesize($config['paths']['backup'].$dump['backupdatei'])).')'.'</a>'.$lang['L_DUMP_SUCCESSFUL'].'<br>';
 
 		$xtime=time()-$xtime;
-		$aus=Array();
+		$aus=array();
 		$aus[]='<br>'."\n";
 		if (isset($config['multi_dump']) && ($config['multi_dump']==1))
 		{
