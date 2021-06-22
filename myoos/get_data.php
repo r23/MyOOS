@@ -50,9 +50,11 @@ if ($request->isXmlHttpRequest()) {
 		if ($headers['X-CSRF-TOKEN'] !== $_SESSION['csrf_token']) {
 			// Reset token
 			unset($_SESSION["csrf_token"]);
+			header("Content-Type: application/json");
 			exit(json_encode('Wrong CSRF token.'));
 		}
 	} else {
+		header("Content-Type: application/json");
 		exit(json_encode('No CSRF token.'));
 	}
 
@@ -64,10 +66,12 @@ if ($request->isXmlHttpRequest()) {
 // shopping_cart, clear_cart
 
 	if ( empty( $sContent ) || !is_string( $sContent ) ) {
+		header("Content-Type: application/json");
 		exit(json_encode('403 Forbidden'));
 	} elseif (is_readable('includes/ajax/' . $sContent . '.php')) {
 		require MYOOS_INCLUDE_PATH . '/includes/ajax/' . $sContent . '.php';
 	} else {
+		header("Content-Type: application/json");
 		exit(json_encode(' Module not found'));
 	}
 
