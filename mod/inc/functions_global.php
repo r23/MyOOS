@@ -1463,7 +1463,7 @@ function trim_deep($value)
  * @param $path
  * @return boolean
  */
-function fetchFileFromURL($url, $file, $local_path='./data/',$local_file)
+function fetchFileFromURL($url, $file, $local_file, $local_path='./data/')
 {
 	$data=fetchFileDataFromURL($url.$file);
 	if ($data)
