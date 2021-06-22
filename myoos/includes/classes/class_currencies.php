@@ -54,7 +54,7 @@ class currencies {
 
 	public function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = NULL, $with_symbol = true) {
 
-		if (empty($currency_type) || ($this->exists($currency_type) == FALSE)) {
+		if (empty($currency_type) || ($this->exists($currency_type) == false)) {
 			$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
 		}
 
@@ -80,7 +80,7 @@ class currencies {
 		if (isset($this->currencies[$code])) {
 			return true;
 		}
-		return FALSE;
+		return false;
 	}
 
 	public function get_currencies_title($code) {

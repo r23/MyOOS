@@ -34,21 +34,21 @@ class oosCategoryTree {
         $child_start_string = '<li>',
         $child_end_string = '</li>',
         $breadcrumb_separator = '_',
-        $breadcrumb_usage = TRUE,
+        $breadcrumb_usage = true,
         $spacer_string = '',
         $spacer_multiplier = 1,
-        $follow_cpath = FALSE,
+        $follow_cpath = false,
         $cpath_array = array(),
         $cpath_start_string = '',
         $cpath_end_string = '',
-        $show_category_product_count = FALSE,
+        $show_category_product_count = false,
         $category_product_count_start_string = '&nbsp;(',
         $category_product_count_end_string = ')';
 
 	public function __construct() {
 
 		if (SHOW_COUNTS == 'true') {
-			$this->show_category_product_count = TRUE;
+			$this->show_category_product_count = true;
 		}
 
       // Get database information
@@ -80,7 +80,7 @@ class oosCategoryTree {
         $categories_result->MoveNext();
       }
 
-      if ($this->show_category_product_count === TRUE) {
+      if ($this->show_category_product_count === true) {
         $this->calculateCategoryProductCount();
       }
     }
@@ -102,7 +102,7 @@ class oosCategoryTree {
 
       if (isset($this->data[$parent_id])) {
         foreach ($this->data[$parent_id] as $category_id => $category) {
-          if ($this->breadcrumb_usage == TRUE) {
+          if ($this->breadcrumb_usage == true) {
             $category_link = $this->buildBreadcrumb($category_id);
           } else {
             $category_link = $category_id;
@@ -125,7 +125,7 @@ class oosCategoryTree {
 
           $result .= $sLink;
 
-          if ($this->follow_cpath === TRUE) {
+          if ($this->follow_cpath === true) {
             if (in_array($category_id, $this->cpath_array)) {
               $result .= $this->cpath_start_string . $category['name'] . $this->cpath_end_string;
             } else {
@@ -136,7 +136,7 @@ class oosCategoryTree {
           }
           $result .= '</a>';
 
-          if ($this->show_category_product_count === TRUE) {
+          if ($this->show_category_product_count === true) {
             $result .= $this->category_product_count_start_string . $category['count'] . $this->category_product_count_end_string;
           }
 
@@ -151,7 +151,7 @@ class oosCategoryTree {
           $result .= $this->child_end_string;
 
           if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
-            if ($this->follow_cpath === TRUE) {
+            if ($this->follow_cpath === true) {
               if (in_array($category_id, $this->cpath_array)) {
                 $result .= $this->buildBranch($category_id, $level+1);
               }
@@ -175,7 +175,7 @@ class oosCategoryTree {
 
       if (isset($this->data[$parent_id])) {
         foreach ($this->data[$parent_id] as $category_id => $category) {
-          if ($this->breadcrumb_usage == TRUE) {
+          if ($this->breadcrumb_usage == true) {
             $category_link = $this->buildBreadcrumb($category_id);
           } else {
             $category_link = $category_id;
@@ -185,7 +185,7 @@ class oosCategoryTree {
                             'title' => str_repeat($this->spacer_string, $this->spacer_multiplier * $level) . $category['name']);
 
           if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
-            if ($this->follow_cpath === TRUE) {
+            if ($this->follow_cpath === true) {
               if (in_array($category_id, $this->cpath_array)) {
                 $result = $this->buildBranchArray($category_id, $level+1, $result);
               }
@@ -305,10 +305,10 @@ class oosCategoryTree {
     }
 
     public function setBreadcrumbUsage($breadcrumb_usage) {
-      if ($breadcrumb_usage === TRUE) {
-        $this->breadcrumb_usage = TRUE;
+      if ($breadcrumb_usage === true) {
+        $this->breadcrumb_usage = true;
       } else {
-        $this->breadcrumb_usage = FALSE;
+        $this->breadcrumb_usage = false;
       }
     }
 
@@ -318,17 +318,17 @@ class oosCategoryTree {
     }
 
     public function setCategoryPath($cpath, $cpath_start_string = '', $cpath_end_string = '') {
-      $this->follow_cpath = TRUE;
+      $this->follow_cpath = true;
       $this->cpath_array = explode($this->breadcrumb_separator, $cpath);
       $this->cpath_start_string = $cpath_start_string;
       $this->cpath_end_string = $cpath_end_string;
     }
 
     public function setFollowCategoryPath($follow_cpath) {
-      if ($follow_cpath === TRUE) {
-        $this->follow_cpath = TRUE;
+      if ($follow_cpath === true) {
+        $this->follow_cpath = true;
       } else {
-        $this->follow_cpath = FALSE;
+        $this->follow_cpath = false;
       }
     }
 
@@ -338,10 +338,10 @@ class oosCategoryTree {
     }
 
     public function setShowCategoryProductCount($show_category_product_count) {
-      if ($show_category_product_count === TRUE) {
-        $this->show_category_product_count = TRUE;
+      if ($show_category_product_count === true) {
+        $this->show_category_product_count = true;
       } else {
-        $this->show_category_product_count = FALSE;
+        $this->show_category_product_count = false;
       }
     }
 

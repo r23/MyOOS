@@ -65,7 +65,7 @@ class oosUser {
 
 	public function restore_group() {
 
-		if (!isset($_SESSION['customer_id'])) return FALSE;
+		if (!isset($_SESSION['customer_id'])) return false;
 
 		// Get database information
 		$dbconn =& oosDBGetConn();

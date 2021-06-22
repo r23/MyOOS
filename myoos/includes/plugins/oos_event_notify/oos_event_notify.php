@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_NOTIFY_NAME;
       $this->description   = PLUGIN_EVENT_NOTIFY_DESC;
-      $this->uninstallable = TRUE;
+      $this->uninstallable = true;
       $this->preceeds      = 'session';
       $this->author        = 'MyOOS Development Team';
       $this->version       = '1.0';
@@ -52,20 +52,20 @@
     }
 
     static function create_plugin_instance() {
-      return TRUE;
+      return true;
     }
 
 
     function install() {
-      return TRUE;
+      return true;
     }
 
     function remove() {
-      return TRUE;
+      return true;
     }
 
     function config_item() {
-      return FALSE;
+      return false;
     }
   }
 

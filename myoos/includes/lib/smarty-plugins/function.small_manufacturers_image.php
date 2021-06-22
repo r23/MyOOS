@@ -63,7 +63,7 @@ function smarty_function_small_manufacturers_image($params, &$smarty)
     $image = $basedir . $image;
 
     if ((empty($image) || ($image == OOS_IMAGES))) {
-        return FALSE;
+        return false;
     }
 
     if (isset($template->smarty->security_policy)) {

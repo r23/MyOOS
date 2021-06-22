@@ -43,7 +43,7 @@ function smarty_function_html_href_link($params, &$smarty)
 	
     $content = '';
     $parameters = '';
-    $add_session_id = TRUE;
+    $add_session_id = true;
     $search_engine_safe = 'true';
 
     foreach($params as $_key => $_val) {
@@ -119,7 +119,7 @@ function smarty_function_html_href_link($params, &$smarty)
     if (isset($_SESSION)) {
 		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
 	
-		if ($add_session_id == TRUE){
+		if ($add_session_id == true){
 			$_sid = $session->getName() . '=' . $session->getId();
 		}
 
@@ -134,7 +134,7 @@ function smarty_function_html_href_link($params, &$smarty)
       $separator = '?';
 
       $pos = strpos ($link, 'action');
-      if ($pos === FALSE) {
+      if ($pos === false) {
         $url_rewrite = new url_rewrite;
         $link = $url_rewrite->transform_uri($link);
       }

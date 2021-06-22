@@ -40,7 +40,7 @@
 
       $this->name          = PLUGIN_EVENT_REVIEWS_NAME;
       $this->description   = PLUGIN_EVENT_REVIEWS_DESC;
-      $this->uninstallable = TRUE;
+      $this->uninstallable = true;
       $this->author        = 'MyOOS Development Team';
       $this->version       = '2.0';
       $this->requirements  = array(
@@ -53,7 +53,7 @@
 
     static function create_plugin_instance() {
 
-      return TRUE;
+      return true;
     }
 
     function install() {
@@ -73,7 +73,7 @@
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_RANDOM_SELECT_REVIEWS', '10', 6, 1, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_NEW_REVIEWS', '6', 6, 2, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
 
-      return TRUE;
+      return true;
     }
 
     function remove() {
@@ -85,7 +85,7 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->config_item()) . "')");
 
-      return TRUE;
+      return true;
     }
 
     function config_item() {

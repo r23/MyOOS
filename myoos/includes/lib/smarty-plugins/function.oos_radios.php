@@ -47,8 +47,8 @@ function smarty_function_oos_radios($params, &$smarty)
     $options = null;
     $selected = null;
     $separator = '';
-    $labels = TRUE;
-    $label_ids = FALSE;
+    $labels = true;
+    $label_ids = false;
     $output = null;
     $extra = '';
 

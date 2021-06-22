@@ -37,10 +37,10 @@ class nav_menu {
         $child_start_string = '<li>',
         $child_end_string = '</li>',
         $breadcrumb_separator = '_',
-        $breadcrumb_usage = TRUE,
+        $breadcrumb_usage = true,
         $spacer_string = '',
         $spacer_multiplier = 1,
-        $follow_cpath = FALSE,
+        $follow_cpath = false,
         $cpath_array = array(),
         $cpath_start_string = '',
         $cpath_end_string = '',
@@ -95,7 +95,7 @@ class nav_menu {
 			foreach ($this->data[$parent_id] as $category_id => $category) {
 				$this->count++;
 				
-				if ($this->breadcrumb_usage == TRUE) {
+				if ($this->breadcrumb_usage == true) {
 					$category_link = $this->buildBreadcrumb($category_id);
 				} else {
 					$category_link = $category_id;
@@ -154,7 +154,7 @@ class nav_menu {
 				}				
 				
 
-				if ($this->follow_cpath === TRUE) {
+				if ($this->follow_cpath === true) {
 					if (in_array($category_id, $this->cpath_array)) {
 						$result .= $this->cpath_start_string . $category['name'] . $this->cpath_end_string;
 					} else {
@@ -180,7 +180,7 @@ class nav_menu {
 				}
 				
 				if (isset($this->data[$category_id]) && (($this->max_level == '0') || ($this->max_level > $level+1))) {
-					if ($this->follow_cpath === TRUE) {
+					if ($this->follow_cpath === true) {
 						if (in_array($category_id, $this->cpath_array)) {
 							$result .= $this->buildBranch($category_id, $level+1);
 						}
@@ -278,25 +278,25 @@ class nav_menu {
     }
 
     public function setBreadcrumbUsage($breadcrumb_usage) {
-		if ($breadcrumb_usage === TRUE) {
-			$this->breadcrumb_usage = TRUE;
+		if ($breadcrumb_usage === true) {
+			$this->breadcrumb_usage = true;
 		} else {
-			$this->breadcrumb_usage = FALSE;
+			$this->breadcrumb_usage = false;
 		}
     }
 
     public function setCategoryPath($cpath, $cpath_start_string = '', $cpath_end_string = '') {
-		$this->follow_cpath = TRUE;
+		$this->follow_cpath = true;
 		$this->cpath_array = explode($this->breadcrumb_separator, $cpath);
 		$this->cpath_start_string = $cpath_start_string;
 		$this->cpath_end_string = $cpath_end_string;
     }
 
     public function setFollowCategoryPath($follow_cpath) {
-		if ($follow_cpath === TRUE) {
-			$this->follow_cpath = TRUE;
+		if ($follow_cpath === true) {
+			$this->follow_cpath = true;
 		} else {
-			$this->follow_cpath = FALSE;
+			$this->follow_cpath = false;
 		}
     }
 

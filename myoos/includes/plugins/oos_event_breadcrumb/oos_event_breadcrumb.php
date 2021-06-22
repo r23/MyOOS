@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_BREADCRUMB_NAME;
       $this->description   = PLUGIN_EVENT_BREADCRUMB_DESC;
-      $this->uninstallable = FALSE;
+      $this->uninstallable = false;
       $this->author        = 'MyOOS Development Team';
       $this->version       = '2.0';
       $this->requirements  = array(
@@ -80,7 +80,7 @@
           $categories = $dbconn->Execute($categories_sql);
           if ($categories->RecordCount() > 0) {
             $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
-			$sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1))) . '&amp;page=' . $nPage, FALSE, TRUE);
+			$sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1))) . '&amp;page=' . $nPage, false, true);
           } else {
             break;
           }
@@ -95,23 +95,23 @@
 
         if ($manufacturers->RecordCount() > 0) {
           $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id));
-		  $sCanonical = oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id . '&amp;page=' . $nPage, FALSE, TRUE);
+		  $sCanonical = oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id . '&amp;page=' . $nPage, false, true);
         }
       }
 
-      return TRUE;
+      return true;
     }
 
     function install() {
-      return FALSE;
+      return false;
     }
 
     function remove() {
-      return FALSE;
+      return false;
     }
 
     function config_item() {
-      return FALSE;
+      return false;
     }
   }
 

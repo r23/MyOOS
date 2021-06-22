@@ -19,7 +19,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$bError = FALSE;
+$bError = false;
 
 // Newsletter
 if ( isset($_GET['email_address']) ) {
@@ -29,20 +29,20 @@ if ( isset($_GET['email_address']) ) {
 }
 
 if ( empty( $email_address ) || !is_string( $email_address ) ) {
-	$bError = TRUE;
+	$bError = true;
 	$aInfoMessage[] = array('type' => 'danger',
 				'text' => $aLang['error_email_address']	);
 } 
 
-if ( ($bError === FALSE) && (!is_email($email_address)) ) {
-	$bError = TRUE;
+if ( ($bError === false) && (!is_email($email_address)) ) {
+	$bError = true;
 	$aInfoMessage[] = array('type' => 'danger',
 							'text' => $aLang['error_email_address']);
 } 
 
 if ( isset($_POST['newsletter']) 
 	&& ($_POST['newsletter'] == 'subscriber') 
-	&& ($bError === FALSE) ) {
+	&& ($bError === false) ) {
 
 	$newsletter_recipients = $oostable['newsletter_recipients'];
 	$sql = "SELECT recipients_id
@@ -52,7 +52,7 @@ if ( isset($_POST['newsletter'])
 	$check_recipients_result = $dbconn->Execute($sql);
 
 	if ($check_recipients_result->RecordCount()) {
-		$bError = TRUE;
+		$bError = true;
 		$aInfoMessage[] = array('type' => 'danger',
 								'text' => $aLang['entry_email_address_error_exists']);
 
@@ -69,7 +69,7 @@ if ( isset($_POST['newsletter'])
 
 if ( isset($_GET['newsletter']) 
 	&& ($_GET['newsletter'] == 'remove') 
-	&& ($bError === FALSE) ) {
+	&& ($bError === false) ) {
 
 	$newsletter_recipients = $oostable['newsletter_recipients'];
 	$sql = "SELECT recipients_id
@@ -97,7 +97,7 @@ if ( isset($_GET['newsletter'])
 
 		oos_redirect(oos_href_link($aContents['newsletter'], 'unsubscribe=success'));						
 	} else {
-		$bError = TRUE;
+		$bError = true;
 		$aInfoMessage[] = array('type' => 'danger',
 					'text' => $aLang['text_email_del_error']);
 	}

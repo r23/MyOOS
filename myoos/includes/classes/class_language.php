@@ -59,7 +59,7 @@ class language {
 
 	function set_language($sLang = '') {
 
-		if ( (oos_is_not_null($sLang)) && ($this->exists($sLang) === TRUE)) {
+		if ( (oos_is_not_null($sLang)) && ($this->exists($sLang) === true)) {
 			$this->language = $this->get($sLang);
 		} else {
 			$this->language = $this->get(DEFAULT_LANGUAGE);
@@ -121,7 +121,7 @@ class language {
 			foreach ($browser_languages as $key => $value) {
 				if (preg_match('/^(' . $value . ')(;q=[0-9]\\.[0-9])?$/', $browser_language) && $this->exists($key)) {
 					$this->set_language($key);
-					return TRUE;
+					return true;
 				}
 			}
 		}

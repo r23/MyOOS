@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_SPEZIALS_NAME;
       $this->description   = PLUGIN_EVENT_SPEZIALS_DESC;
-      $this->uninstallable = TRUE;
+      $this->uninstallable = true;
       $this->author        = 'MyOOS Development Team';
       $this->version       = '2.0';
       $this->requirements  = array(
@@ -55,7 +55,7 @@
       include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_spezials.php';
       oos_expire_spezials();
 
-      return TRUE;
+      return true;
     }
 
     function install() {
@@ -77,7 +77,7 @@
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_RANDOM_SELECT_SPECIALS', '10', 6, 3, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_SPECIAL_PRODUCTS', '9', 6, 4, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
 
-      return TRUE;
+      return true;
     }
 
     function remove() {
@@ -92,7 +92,7 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->config_item()) . "')");
 
-      return TRUE;
+      return true;
     }
 
     function config_item() {

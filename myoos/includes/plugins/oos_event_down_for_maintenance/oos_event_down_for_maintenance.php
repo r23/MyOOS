@@ -39,7 +39,7 @@
 
       $this->name          = PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_NAME;
       $this->description   = PLUGIN_EVENT_DOWN_FOR_MAINTENANCE_DESC;
-      $this->uninstallable = TRUE;
+      $this->uninstallable = true;
       $this->author        = 'MyOOS Development Team';
       $this->version       = '1.0';
       $this->requirements  = array(
@@ -54,36 +54,36 @@
 
 		$aContents = oos_get_content();
 	  
-	    $bRedirect = TRUE;
+	    $bRedirect = true;
 		if ($_GET['content'] == $aContents['info_down_for_maintenance']) {
-			$bRedirect = FALSE;
+			$bRedirect = false;
 		}
 		// newsletter
 		if ($_GET['content'] == $aContents['newsletter']) {
-			$bRedirect = FALSE;
+			$bRedirect = false;
 		}
 		// imprint 
 		if ($_GET['content'] == $aContents['information']) {
-			$bRedirect = FALSE;
+			$bRedirect = false;
 		}	 
 	  
-		if ($bRedirect == TRUE) {
-			oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', TRUE, FALSE));
+		if ($bRedirect == true) {
+			oos_redirect(oos_href_link($aContents['info_down_for_maintenance'], '', true, false));
 		}
 
-      return TRUE;
+      return true;
     }
 
     function install() {
-      return TRUE;
+      return true;
     }
 
     function remove() {
-      return TRUE;
+      return true;
     }
 
     function config_item() {
-      return FALSE;
+      return false;
     }
   }
 

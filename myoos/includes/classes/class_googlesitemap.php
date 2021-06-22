@@ -98,11 +98,11 @@ class GoogleSitemap {
 					gzwrite($gz, $data);
 					gzclose($gz);
 					$this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
-					return TRUE;
+					return true;
 				} else {
 					$file_check = file_exists($filename) ? 'true' : 'false';
 					$this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
-					return FALSE;
+					return false;
 				}
 				break;
 
@@ -112,11 +112,11 @@ class GoogleSitemap {
 					fwrite($fp, $data);
 					fclose($fp);
 					$this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
-					return TRUE;
+					return true;
 				} else {
 					$file_check = file_exists($filename) ? 'true' : 'false';
 					$this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
-					return FALSE;
+					return false;
 				}
 				break;
 
@@ -133,22 +133,22 @@ class GoogleSitemap {
 	public function CompressFile($file){
 		$source = $this->savepath . $file . '.xml';
 		$filename = $this->savepath . $file . '.xml.gz';
-		$error_encountered = FALSE;
+		$error_encountered = false;
 		if ( $gz_out = gzopen($filename, 'wb9') ){
 			if ($fp_in = fopen($source,'rb')){
 				while (!feof($fp_in)) gzwrite($gz_out, fread($fp_in, 1024*512));
 				fclose($fp_in);
 			} else {
-				$error_encountered = TRUE;
+				$error_encountered = true;
 			}
 			gzclose($gz_out);
 		} else {
-			$error_encountered = TRUE;
+			$error_encountered = true;
 		}
 		if ($error_encountered){
-			return FALSE;
+			return false;
 		} else {
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -349,7 +349,7 @@ class GoogleSitemap {
 
 		$parent_categories_query =  $dbconn->Execute($sql);
 		while ($parent_categories = $parent_categories_query->fields) {
-			if ($parent_categories['parent_id'] == 0) return TRUE;
+			if ($parent_categories['parent_id'] == 0) return true;
 			$categories[sizeof($categories)] = $parent_categories['parent_id'];
 			if ($parent_categories['parent_id'] != $categories_id) {
 				$this->GetParentCategories($categories, $parent_categories['parent_id']);

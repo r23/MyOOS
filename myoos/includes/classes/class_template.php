@@ -58,7 +58,7 @@ class myOOS_Smarty extends Smarty {
 		));
 
 
-		$this->use_sub_dirs = FALSE;
+		$this->use_sub_dirs = false;
 
     }
 }

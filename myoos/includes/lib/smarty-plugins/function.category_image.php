@@ -63,7 +63,7 @@ function smarty_function_category_image($params, &$smarty)
     }
 
     if (empty($image)) {
-        return FALSE;
+        return false;
     }
 
     $image = $basedir . $dir . '/' . $image;

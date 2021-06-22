@@ -55,7 +55,7 @@ function smarty_function_product_image_link($params, &$smarty)
     }
 
     if (empty($image)) {
-        return FALSE;
+        return false;
     }
 
     $image = $basedir . $dir . '/' . $image;

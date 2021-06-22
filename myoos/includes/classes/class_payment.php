@@ -127,9 +127,9 @@ class payment {
                '  }' . "\n\n" .
                '  if (error == 1 && submitter != 1) {' . "\n" .
                '    alert(error_message);' . "\n" .
-               '    return FALSE;' . "\n" .
+               '    return false;' . "\n" .
                '  } else {' . "\n" .
-               '    return TRUE;' . "\n" .
+               '    return true;' . "\n" .
                '  }' . "\n" .
                '}' . "\n" .
                '//--></script>' . "\n";
@@ -163,7 +163,7 @@ class payment {
 			if (is_object($GLOBALS[$this->selected_module]) && ($GLOBALS[$this->selected_module]->enabled) ) {
 
 				if ($credit_covers) { 
-					$GLOBALS[$this->selected_module]->enabled = FALSE; 
+					$GLOBALS[$this->selected_module]->enabled = false; 
 					$GLOBALS[$this->selected_module] = NULL; 
 					$payment_modules = ''; 
 				} else { 

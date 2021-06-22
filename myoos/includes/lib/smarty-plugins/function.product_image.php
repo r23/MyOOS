@@ -65,7 +65,7 @@ function smarty_function_product_image($params, &$smarty)
     }
 
     if (empty($image)) {
-        return FALSE;
+        return false;
     }
 
     $image = $basedir . $dir . '/' . $image;
