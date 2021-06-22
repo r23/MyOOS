@@ -273,22 +273,20 @@ $aCookie = array(
 		);
 $smarty->assign('cookiearray', $aCookie);
 
-$bNecessary = false;
-$bAnalyses = false;
-$bPersonalization = false;
-$consentCookieJson = isset($_COOKIE['myoos-cookie-consent']) ? oos_prepare_input($_COOKIE['myoos-cookie-consent']) : false;
-if ($consentCookieJson) {
-    $consentCookie = json_decode($consentCookieJson);
+/*
+echo '<pre>';
+print_r($_COOKIE);
+echo '</pre>';
 
-    if($consentCookie && $consentCookie->analyses == 1) {
-       $bAnalyses = true;
-    }
-	
-    if($consentCookie && $consentCookie->necessary == 1) {
-       $bNecessary = true;
-    }	
-
-    if($consentCookie && $consentCookie->personalization == 1) {
-       $bPersonalization = true;
-    }	
+if (isset($_COOKIE)) {
+	reset($_COOKIE);
+		
+	$params = session_get_cookie_params();
+	unset($params['lifetime']);
+		
+	foreach ($_COOKIE as $name => $value) {
+		setcookie($name, '', $params);
+	}
 }
+*/
+

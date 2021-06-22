@@ -25,6 +25,12 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_password_forgotten.php';
 
+// cookie-notice 
+if ( $bNecessary === false ) {
+	oos_redirect(oos_href_link($aContents['home']));
+}
+
+
 // start the session
 if ( $session->hasStarted() === false ) $session->start();
 

@@ -36,6 +36,8 @@ if ($debug == 1) {
 	# echo "<p><pre>" . var_export($oObject, TRUE). "</pre></p>";	
 }
 
+
+
 if (isset($_SESSION)) {
 	// shopping_cart
 	if (isset($_SESSION['new_products_id_in_cart'])) {

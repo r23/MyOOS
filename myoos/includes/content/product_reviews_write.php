@@ -25,6 +25,12 @@ if (!$oEvent->installed_plugin('reviews')) {
     oos_redirect(oos_href_link($aContents['home']));
 }
 
+// cookie-notice 
+if ( $bNecessary === false ) {
+	oos_redirect(oos_href_link($aContents['home']));
+}
+
+
 if (isset($_GET['products_id'])) {
 	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
 } elseif (isset($_POST['products_id'])) {

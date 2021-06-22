@@ -19,8 +19,13 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+/** ensure this file is being included by a parent file */
+defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+
+// cookie-notice 
+if ( $bNecessary === false ) {
+	oos_redirect(oos_href_link($aContents['home']));
+}
 
 // start the session
 if ( $session->hasStarted() === false ) $session->start();  

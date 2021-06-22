@@ -96,28 +96,50 @@ $configuration_query = "SELECT configuration_key AS cfg_key, configuration_value
 FROM $configurationtable";
 $configuration_result = $dbconn->Execute($configuration_query);
 
-
 while ($configuration = $configuration_result->fields) {
     define($configuration['cfg_key'], $configuration['cfg_value']);
     // Move that ADOdb pointer!
     $configuration_result->MoveNext();
 }
 
+$bNecessary = false;
+$bAnalyses = false;
+$bPersonalization = false;
+
+$consentCookieJson = isset($_COOKIE['myoos-cookie-consent']) ? oos_prepare_input($_COOKIE['myoos-cookie-consent']) : false;
+if ($consentCookieJson) {
+    $consentCookie = json_decode($consentCookieJson);
+
+    if($consentCookie && $consentCookie->necessary == 1) {
+       $bNecessary = true;
+    }
+
+    if($consentCookie && $consentCookie->analyses == 1) {
+       $bAnalyses = true;
+    }
+	
+    if($consentCookie && $consentCookie->personalization == 1) {
+       $bPersonalization = true;
+    }	
+}
+
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();
 
-// set the session name and save path
-$session->setName('PHOENIXSID');
+if ($bNecessary == true) {
+	// set the session name and save path
+	$session->setName('PHOENIXSID');
 
 
-$sSid = $session->getName();
-// set the session ID if it exists
-if (isset($_POST[$sSid]) && !empty($_POST[$sSid])){
-	$session->start();	
-} elseif (isset($_COOKIE[$sSid])) {
-	$session->start();
-} elseif (isset($_GET[$sSid]) && !empty($_GET[$sSid])) {
-	$session->start();
+	$sSid = $session->getName();
+	// set the session ID if it exists
+	if (isset($_POST[$sSid]) && !empty($_POST[$sSid])){
+		$session->start();	
+	} elseif (isset($_COOKIE[$sSid])) {
+		$session->start();
+	} elseif (isset($_GET[$sSid]) && !empty($_GET[$sSid])) {
+		$session->start();
+	}
 }
 
 // Cross-Site Scripting attack defense
@@ -132,14 +154,14 @@ $sLanguageName = isset($_SESSION['languages_name']) ? oos_var_prep_for_os( $_SES
 
 $ADODB_LANG = $sLanguageCode;
 
-if (!isset($_SESSION['language']) || isset($_GET['language'])) {
+if (!isset($_SESSION['language']) || isset($_GET['language']) && $bNecessary == true) {
     // include the language class
     include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_language.php';
     $oLang = new language();
 
     if (isset($_GET['language']) && is_string($_GET['language'])) {
         // start the session
-        if ( $session->hasStarted() === FALSE ) $session->start();
+        if ( $session->hasStarted() === false ) $session->start();
 
         $oLang->set_language($_GET['language']);
     } else {
@@ -166,10 +188,10 @@ include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . oos_var_prep_for_os($
 include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
 $oCurrencies = new currencies();
 $sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
-if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
+if ((!isset($_SESSION['currency']) || isset($_GET['currency'])) && $bNecessary == true) {
     if (isset($_GET['currency']) && oos_currency_exits($_GET['currency']))  {
         // start the session
-        if ( $session->hasStarted() === FALSE ) $session->start();
+        if ( $session->hasStarted() === false ) $session->start();
 
         $sCurrency = oos_var_prep_for_os($_GET['currency']);
     }

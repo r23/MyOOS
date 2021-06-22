@@ -25,6 +25,10 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_payment_address.php';
 
+// cookie-notice 
+if ( $bNecessary === false ) {
+	oos_redirect(oos_href_link($aContents['home']));
+}
 
 // start the session
 if ( $session->hasStarted() === false ) $session->start();  
