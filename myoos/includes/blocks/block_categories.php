@@ -28,7 +28,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * @param $include_inactive
  * @return string
  */
-function oos_count_products_in_category($category_id, $include_inactive = FALSE) {
+function oos_count_products_in_category($category_id, $include_inactive = false) {
 
     $products_count = 0;
 
@@ -38,7 +38,7 @@ function oos_count_products_in_category($category_id, $include_inactive = FALSE)
     $productstable = $oostable['products'];
     $products_to_categoriestable = $oostable['products_to_categories'];
 
-    if ($include_inactive == TRUE) {
+    if ($include_inactive == true) {
 		$products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p2c.categories_id = '" . intval($category_id) . "'");
     } else {
 		$products = $dbconn->Execute("SELECT COUNT(*) AS total FROM $productstable p, $products_to_categoriestable p2c WHERE p.products_id = p2c.products_id AND p.products_setting = '2' AND p2c.categories_id = '" . intval($category_id) . "'");
@@ -77,9 +77,9 @@ function oos_has_category_subcategories($category_id) {
               WHERE parent_id = '" . intval($category_id) . "'";
      $child_category = $dbconn->Execute($query);
     if ($child_category->fields['total'] > 0) {
-      return TRUE;
+      return true;
     } else {
-      return FALSE;
+      return false;
     }
 }
 
@@ -186,7 +186,7 @@ while ($categories = $categories_result->fields) {
                                                  'parent' => $categories['parent_id'],
                                                  'level' => 0,
                                                  'path' => $categories['categories_id'],
-                                                 'next_id' => FALSE);
+                                                 'next_id' => false);
 
 	if (isset($prev_id)) {
 		$aFoo[$prev_id]['next_id'] = $categories['categories_id'];

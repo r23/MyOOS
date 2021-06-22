@@ -19,7 +19,8 @@
  * Set the error reporting level. Unless you have a special need, E_ALL is a
  * good level for error reporting.
  */
-error_reporting(E_ALL);
+
+error_reporting(0);
 // error_reporting(E_ALL & ~E_STRICT);
    
 //setting basic configuration parameters

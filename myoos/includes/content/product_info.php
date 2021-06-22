@@ -125,10 +125,9 @@ if (!$product_info_result->RecordCount()) {
 
     // breadcrumb
 	$oBreadcrumb->add($product_info['products_name']);
-	
-	
+		
     // products history
-	if (isset($_SESSION)) {
+	if (isset($_SESSION) && $bPersonalization == true) {
 		$_SESSION['products_history']->add_current_products($nProductsID);
 	}
 

@@ -273,11 +273,8 @@ $aCookie = array(
 		);
 $smarty->assign('cookiearray', $aCookie);
 
-/*
-echo '<pre>';
-print_r($_COOKIE);
-echo '</pre>';
 
+/*
 if (isset($_COOKIE)) {
 	reset($_COOKIE);
 		

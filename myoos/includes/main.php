@@ -146,6 +146,8 @@ if ($bNecessary == true) {
 oos_secure_input();
 
 
+	 
+
 // set the language
 $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
 $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
@@ -182,7 +184,6 @@ if (!isset($_SESSION['language']) || isset($_GET['language']) && $bNecessary == 
 
 }
 include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . oos_var_prep_for_os($sLanguage) . '.php';
-
 
 // currency
 include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
@@ -265,11 +266,11 @@ if ( $session->hasStarted() === true ) {
 $aUser = array();
 $aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
 
-		
+
+	
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event;
 $oEvent->getInstance();
-
 
 // initialize the message stack for output messages
 $aInfoMessage = array();
@@ -299,3 +300,4 @@ if ( isset($_GET['action']) || isset($_POST['action']) )  {
 // templates selection
 $sTheme = STORE_TEMPLATES;
 $aTemplate = array();
+

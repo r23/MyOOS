@@ -19,7 +19,8 @@
  * Set the error reporting level. Unless you have a special need, E_ALL is a
  * good level for error reporting.
  */
-error_reporting(E_ALL);
+
+error_reporting(0);
 // error_reporting(E_ALL & ~E_STRICT);
    
 //setting basic configuration parameters
@@ -63,8 +64,7 @@ if ($request->isXmlHttpRequest()) {
 		$sContent = oos_var_prep_for_os($_POST['name']);
 	}
 
-// shopping_cart, clear_cart
-
+    // shopping_cart, clear_cart
 	if ( empty( $sContent ) || !is_string( $sContent ) ) {
 		header("Content-Type: application/json");
 		exit(json_encode('403 Forbidden'));
@@ -81,5 +81,3 @@ if ($request->isXmlHttpRequest()) {
 	http_response_code(403);
 	echo 'Error 403 Forbidden'; 	
 } 
-
-

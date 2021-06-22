@@ -21,10 +21,10 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if (!$oEvent->installed_plugin('manufacturers')) return FALSE;
+if (!$oEvent->installed_plugin('manufacturers')) return false;
 
-$manufacturers_block = FALSE;
-$display_a_list = FALSE;
+$manufacturers_block = false;
+$display_a_list = false;
 
 $manufacturerstable = $oostable['manufacturers'];
 
@@ -35,12 +35,12 @@ $manufacturers_result = $dbconn->Execute($query);
 $nManufacturersRecordCount = $manufacturers_result->RecordCount();
 
 if ($nManufacturersRecordCount < 1) {
-	$manufacturers_block = FALSE;
+	$manufacturers_block = false;
 } elseif ($nManufacturersRecordCount <= 9) {
 
     // Display a list
-    $display_a_list = TRUE;
-    $manufacturers_block = TRUE;
+    $display_a_list = true;
+    $manufacturers_block = true;
     $manufacturers_list = array();
 
 	while ($manufacturers = $manufacturers_result->fields) {
@@ -58,7 +58,7 @@ if ($nManufacturersRecordCount < 1) {
 	$smarty->assign('manufacturers_list', $manufacturers_list);
 } else {
 	// Display a drop-down
-	$manufacturers_block = TRUE;
+	$manufacturers_block = true;
 	$manufacturers_names = array();
 	$manufacturers_values = array();
 	if (MAX_MANUFACTURERS_LIST < 2) {

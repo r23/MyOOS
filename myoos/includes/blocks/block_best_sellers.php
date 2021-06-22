@@ -21,9 +21,9 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if (!is_numeric(MAX_DISPLAY_BESTSELLERS)) return FALSE;
+if (!is_numeric(MAX_DISPLAY_BESTSELLERS)) return false;
 
-$best_sellers_block = FALSE;
+$best_sellers_block = false;
 
 if (isset($nCurrentCategoryID) && ($nCurrentCategoryID > 0)) {
     $productstable = $oostable['products'];
@@ -58,7 +58,7 @@ if (isset($nCurrentCategoryID) && ($nCurrentCategoryID > 0)) {
 }
 $best_sellers_result = $dbconn->SelectLimit($query, MAX_DISPLAY_BESTSELLERS);
 if ($best_sellers_result->RecordCount() >= MIN_DISPLAY_BESTSELLERS) {
-    $best_sellers_block = TRUE;
+    $best_sellers_block = true;
 
     $smarty->assign('best_sellers_list', $best_sellers_result->GetArray());
     $smarty->assign('block_heading_best_sellers', $block_heading);

@@ -21,7 +21,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$languages_block = FALSE;
+$languages_block = false;
 
 $languagestable = $oostable['languages'];
 $query = "SELECT name, iso_639_2, iso_639_1
@@ -36,7 +36,7 @@ if (USE_CACHE == 'true') {
 }
 
 if ($languages_result->RecordCount() >= 2) {
-	$languages_block = TRUE;
+	$languages_block = true;
 
 	$lang_get_parameters = oos_get_all_get_parameters(array('language', 'currency'));
 	$lang_all_get_parameters = oos_remove_trailing($lang_get_parameters);

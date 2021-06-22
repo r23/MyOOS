@@ -21,10 +21,10 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-if (!$oEvent->installed_plugin('spezials')) return FALSE;
-if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) return FALSE;
+if (!$oEvent->installed_plugin('spezials')) return false;
+if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) return false;
 
-$specials_block = FALSE;
+$specials_block = false;
 
 if ($sContent != $aContents['specials']) {
 
@@ -45,7 +45,7 @@ if ($sContent != $aContents['specials']) {
                 AND s.status = '1'
               ORDER BY s.specials_date_added DESC";
 	if ($specials_random_product = oos_random_select($query, MAX_RANDOM_SELECT_SPECIALS)) {
-		$specials_block = TRUE;
+		$specials_block = true;
 
 		$specials_random_product_price = NULL;
 		$specials_random_product_special_price = NULL;
