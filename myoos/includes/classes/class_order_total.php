@@ -112,7 +112,7 @@ class order_total {
 					for ($i=0; $i<$size; $i++) {
 						$output_string .= '              <tr>' . "\n" .
 								'                <td align="left">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
-                                '                <td align="right"><nobr>' . $GLOBALS[$class]->output[$i]['text'] . '<nobr></td>' . "\n" .
+                                '                <td align="right"><nobr>' . $GLOBALS[$class]->output[$i]['text'] . '</nobr></td>' . "\n" .
                                 '              </tr>' . "\n";
 							
 						if ($GLOBALS[$class]->output[$i]['info'] != '') {
