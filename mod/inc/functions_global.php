@@ -1072,10 +1072,9 @@ function MODHeader($kind=0)
 	$r.='<meta http-equiv="pragma" content="no-cache">'."\n";
 	$r.='<meta http-equiv="expires" content="0">'."\n";
 	$r.='<meta http-equiv="cache-control" content="must-revalidate">'."\n";
-	$r.='<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'."\n";
 	$r.='<title>MyOOS [Dumper]</title>'."\n";
 	$r.='<link rel="stylesheet" type="text/css" href="css/'.$config['theme'].'/style.css">'."\n";
-	$r.='<script language="JavaScript" src="js/script.js" type="text/javascript"></script>'."\n";
+	$r.='<script src="js/script.js"></script>'."\n";
 	$r.="</head>\n<body".(($kind==1) ? ' class="menu-frame"' : ' class="content"').'>';
 	return $r;
 }

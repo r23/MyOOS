@@ -7,10 +7,9 @@
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="cache-control" content="must-revalidate">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>MyOOS [Dumper]</title>
 	<link rel="stylesheet" type="text/css" href="css/{THEME}/style.css">
-	<script language = "javascript" type = "text/javascript">
+	<script>
 		
 
 			function checkPasswords()

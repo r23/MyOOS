@@ -90,7 +90,6 @@ header('content-type: text/html; charset=utf-8');
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="expires" content="0">
 	<meta http-equiv="cache-control" content="must-revalidate">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>MyOOS [Dumper]  - Installation</title>
 
 	<link rel="stylesheet" type="text/css" href="css/mod/style.css">
