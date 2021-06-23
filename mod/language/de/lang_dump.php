@@ -1,6 +1,6 @@
 <?php
 $lang['L_DUMP_HEADLINE']="erzeuge Backup...";
-$lang['L_DUMP_INFO']="Bitte warten, Sie werden automatisch weitergeleitet. Sollte Ihre Browser keine automatische Weiterleitung unterstützen, klicken Sie <a href=\"%s\">bitte hier</a>.";
+$lang['L_DUMP_INFO']="Bitte warten! Die Datenbanktabellen werden vor dem Backup optimiert.";
 $lang['L_GZIP_COMPRESSION']="GZip-Kompression";
 $lang['L_SAVING_TABLE']="Speichere Tabelle ";
 $lang['L_OF']="von";

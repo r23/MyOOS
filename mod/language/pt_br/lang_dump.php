@@ -1,6 +1,6 @@
 <?php
 $lang['L_DUMP_HEADLINE']="Criar backup...";
-$lang['L_DUMP_INFO']="Please wait, you will be redirected automatically. If your browser does not support automatic redirection, click <a href=\"%s\">please click here</a>.";
+$lang['L_DUMP_INFO']="Please wait! The database tables are optimized before the backup.";
 $lang['L_GZIP_COMPRESSION']="Compressão gzip";
 $lang['L_SAVING_TABLE']="Salvando a tabela ";
 $lang['L_OF']="of";

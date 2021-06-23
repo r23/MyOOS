@@ -131,8 +131,10 @@ if (isset($_POST['dump']))
 		$dump['fileoperations']=0;
 
 		$sUrl = 'dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']);
-		echo '<div id="pagetitle">' . $lang['L_DUMP_HEADLINE'] .'</div><div id="content"><p>';
-        echo '<br><br><p>' . sprintf($lang['L_DUMP_INFO'], $sUrl) . '</p></div>';
+		if ((isset($config['optimize_tables_beforedump']) && ($config['optimize_tables_beforedump'] == 1))) {
+			echo '<div id="pagetitle">' . $lang['L_DUMP_HEADLINE'] .'</div><div id="content"><p>';
+			echo '<br><br><p>' . sprintf($lang['L_DUMP_INFO'], $sUrl) . '</p></div>';
+		}
 		echo '<script>parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
 		exit();
 	}

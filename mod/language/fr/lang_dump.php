@@ -1,6 +1,6 @@
 <?php
 $lang['L_DUMP_HEADLINE']="créer copie de sauvegarde...";
-$lang['L_DUMP_INFO']="Please wait, you will be redirected automatically. If your browser does not support automatic redirection, click <a href=\"%s\">please click here</a>.";
+$lang['L_DUMP_INFO']="Please wait! The database tables are optimized before the backup.";
 $lang['L_GZIP_COMPRESSION']="La compression GZip";
 $lang['L_SAVING_TABLE']="Sauvegarder les tables ";
 $lang['L_OF']="de";
