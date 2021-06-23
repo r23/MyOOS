@@ -48,6 +48,7 @@ if (isset($_GET['config']))
 		die("Hacking attempt or configuration not found!");
 }
 $config=$_SESSION['config'];
+
 include ('./'.$config['files']['parameter']);
 $config['files']['iconpath']='./css/'.$config['theme'].'/icons/';
 include ('./inc/mysqli.php');
@@ -132,6 +133,7 @@ $xtime=(isset($_POST['xtime'])) ? $_POST['xtime']:time();
 $dump['countdata']=(!empty($_POST['countdata'])) ? $_POST['countdata']:0;
 $dump['aufruf']=(!empty($_POST['aufruf'])) ? $_POST['aufruf']:0;
 mod_mysqli_connect($dump['dump_encoding']);
+
 if ($dump['table_offset']==-1) ExecuteCommand('b');
 
 // only read tableinfos the first time and save it to session to speed up backing up process

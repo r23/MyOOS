@@ -265,7 +265,7 @@ $mysql_SQLhasRecords = array (
 function mod_mysqli_connect($encoding='utf8', $keycheck_off=false, $actual_table='')
 {
     global $config,$databases;
-        
+
     if (isset($config['dbconnection']) && is_resource($config['dbconnection'])) {
         return $config['dbconnection'];
     }
@@ -299,8 +299,10 @@ function mod_mysqli_connect($encoding='utf8', $keycheck_off=false, $actual_table
 
 function GetMySQLVersion()
 {
+	global $config;
+	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 
-	$res=mod_query("select version()");
+	$res=mod_query("SELECT VERSION()");
 	$row=mysqli_fetch_array($res);
 	$version=$row[0];
 	if (!defined('MOD_MYSQL_VERSION')) define('MOD_MYSQL_VERSION',$version);

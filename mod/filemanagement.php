@@ -115,7 +115,7 @@ if (isset($_POST['dump_tbl']))
 //*** Abfrage ob Dump ***
 if (isset($_POST['dump']))
 {
-	if (isset($_POST['tblfrage'])&&$_POST['tblfrage'] == 1 )
+	if (isset($_POST['tblfrage'])&& $_POST['tblfrage'] == 1 )
 	{
 		//Tabellenabfrage
 		$tblfrage_refer="dump";
@@ -128,14 +128,12 @@ if (isset($_POST['dump']))
 		if (!$check_dir===true) die($check_dir);
 		$databases['db_actual_tableselected']="";
 		WriteParams();
-		$dump['fileoperations']=0;		
+		$dump['fileoperations']=0;
+
 		$sUrl = 'dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']);
 		echo '<div id="pagetitle">' . $lang['L_DUMP_HEADLINE'] .'</div><div id="content"><p>';
         echo '<br><br><p>' . sprintf($lang['L_DUMP_INFO'], $sUrl) . '</p></div>';
-	
-		echo '<script>parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script>';
-		echo '</body></html>';
-		ob_end_flush();
+		echo '<script>parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
 		exit();
 	}
 }
@@ -155,7 +153,7 @@ if (isset($_POST['restore']))
 {
 	if (isset($_POST['file']))
 	{
-		if (isset($_POST['tblfrage'])&&$_POST['tblfrage'] == 1 )
+		if (isset($_POST['tblfrage'])&& $_POST['tblfrage'] == 1 )
 		{
 			//Tabellenabfrage
 			$tblfrage_refer="restore";
@@ -313,7 +311,7 @@ $dk=(isset($_POST['dumpKommentar'])) ? htmlentities($_POST['dumpKommentar']) : '
 $tbl_abfrage.='<tr><td>'.$lang['L_FM_COMMENT'].':</td><td><input type="text" class="text" style="width:260px;" name="dumpKommentar" value="'.$dk.'"></td></tr>';
 $autodel='<p class="autodel">'.$lang['L_AUTODELETE'].": ";
 $autodel.= (isset($config['auto_delete']) && ($config['auto_delete'] == 0 ) ) ? $lang['L_NOT_ACTIVATED'] : $lang['L_ACTIVATED'];
-if (isset($config['max_backup_files'])) { 
+if (isset($config['max_backup_files'])) {
 	$autodel.= '  ('.$config['max_backup_files'].' '.$lang['L_MAX_BACKUP_FILES_EACH2'].')';
 }
 
@@ -387,10 +385,10 @@ switch ($action)
 		else
 		{
 			echo $databases['db_actual'];
-			if (isset($databases['Detailinfo'])) 
+			if (isset($databases['Detailinfo']))
 			{
 				echo '&nbsp;&nbsp;<span> ('.$databases['Detailinfo']['tables']." Tables, ".$databases['Detailinfo']['records']." Records, ".byte_output($databases['Detailinfo']['size']).')</span>';
-			}	
+			}
 			echo '</strong>';
 
 		}
@@ -502,7 +500,7 @@ switch ($action)
 			if (isset($config['sftp_transfer'][$x])&&$config['sftp_transfer'][$x]>0)
 			{
 				echo table_output($lang['L_SFTP_TRANSFER'],sprintf(str_replace('<br>',' ',$lang['L_SFTP_SEND_TO']),$config['sftp_server'][$x],$config['sftp_dir'][$x]),1,2);
-			}			
+			}
 		}
 		//echo '</td></tr>';
 		echo '</table>';
