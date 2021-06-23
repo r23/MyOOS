@@ -123,7 +123,7 @@ switch ($var)
 			<input type="hidden" name="killid" value="'.$killid.'">
 			<input type="hidden" name="action" value="vars">
 			<input type="hidden" name="var" value="prozesse"></form>';
-		echo '<script language="JavaScript" type="text/javascript">window.setTimeout("document.f.submit();","'.$config['processlist_refresh'].'");</script>';
+		echo '<script>window.setTimeout("document.f.submit();","'.$config['processlist_refresh'].'");</script>';
 
 		break;
 }

@@ -53,7 +53,7 @@ if (isset($_POST['selected_config'])||isset($_GET['config']))
 			$config['config_file']=$new_config;
 			$_SESSION['config_file']=$new_config; //$config['config_file'];
 			$config_refresh='
-			<script language="JavaScript" type="text/javascript">
+			<script>
 			if (parent.MyOOS_Dumper_content.location.href.indexOf("config_overview.php")!=-1)
 			{
 				var selected_div=parent.MyOOS_Dumper_content.document.getElementById("sel").value;

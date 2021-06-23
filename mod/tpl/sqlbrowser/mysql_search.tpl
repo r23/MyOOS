@@ -70,4 +70,4 @@
 <!-- END NO_ENTRIES -->
 </div>
 
-<script type="text/javascript">document.suche.suchbegriffe.focus();</script>
+<script>document.suche.suchbegriffe.focus();</script>

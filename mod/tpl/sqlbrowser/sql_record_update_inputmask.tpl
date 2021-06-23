@@ -1,4 +1,4 @@
-<script language="javascript" type="text/javascript">
+<script>
 function switch_area(textarea)
 {
 	var t=document.getElementById('area_'+textarea);

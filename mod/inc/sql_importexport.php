@@ -133,7 +133,7 @@ if ($import == 1)
 	//$impaus.=$sql['import']['text'];
 	$impaus.='</textarea></form>' . $nl;
 
-	$impaus.='<script language="JavaScript" type="text/javascript">check_csvdivs(1);</script>' . $nl;
+	$impaus.='<script>check_csvdivs(1);</script>' . $nl;
 
 	echo $impaus . $nl;
 
@@ -287,7 +287,7 @@ else
 	$exaus.='<img src="' . $icon['blank'] . '" width="60" height="130" border="0"><br><input class="Formbutton" type="submit" name="f_export_submit" value="' . $lang['L_EXPORT'] . '" onclick="if(SelectedTableCount()==0) {alert(msg1);return false;}">' . $nl;
 	$exaus.='</td></tr></table></form>' . $nl;
 
-	$exaus.='<script language="JavaScript" type="text/javascript">check_csvdivs(0);</script>' . $nl;
+	$exaus.='<script>check_csvdivs(0);</script>' . $nl;
 
 	if (!$download) echo $exaus . $nl;
 	if (isset($_POST['f_export_submit']) && isset($sql['export']['tables']))

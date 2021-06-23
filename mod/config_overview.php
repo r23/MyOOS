@@ -59,7 +59,7 @@ if (isset($_GET['config']))
 		$config['config_file']=$_GET['config'];
 		$_SESSION['config_file']=$config['config_file'];
 		$msg="<strong>" . sprintf($lang['L_CONFIG_LOADED'],$config['config_file']) . "</strong>";
-		$msg.='<script type="text/javascript" language="javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>';
+		$msg.='<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>';
 	}
 	else
 	{
@@ -82,7 +82,7 @@ if (isset($_GET['config_delete']))
 	$del=@unlink($config['paths']['config'] . $del_config . '.php');
 	if ($del) $del=@unlink($config['paths']['config'] . $del_config . '.conf.php');
 	if ($del === false) $msg='<p class="error">' . sprintf($lang['L_ERROR_DELETING_CONFIGFILE'],$del_config) . '</p>';
-	else $msg='<p class="success">' . sprintf($lang['L_SUCCESS_DELETING_CONFIGFILE'],$del_config) . '</p>' . '<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>'; //refresh menu-frame
+	else $msg='<p class="success">' . sprintf($lang['L_SUCCESS_DELETING_CONFIGFILE'],$del_config) . '</p>' . '<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>'; //refresh menu-frame
 	$sel='configs';
 }
 
@@ -238,7 +238,7 @@ if (isset($_POST['load']))
 {
 	$msg=SetDefault(true);
 	$msg=nl2br($msg) . "<br>" . $lang['L_LOAD_SUCCESS'] . "<br>";
-	echo '<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
+	echo '<script>parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
 }
 
 if (isset($_POST['save']))
@@ -464,7 +464,7 @@ if (isset($_POST['save']))
 		{
 			// neue Verbindungsdaten wurden akzeptiert -> manuelle DB-Liste von anderem User löschen
 			SetDefault();
-			$msg.='<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
+			$msg.='<script>parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
 		}
 		else
 		{
@@ -501,7 +501,7 @@ if (isset($_POST['save']))
 				{
 					$databases['Name'][] = $to_add;
 					//Menü aktualisieren, damit die DB in der Selectliste erscheint
-					echo '<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
+					echo '<script>parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
 				}
 				else
 					$add_db_message=sprintf($lang['L_DB_MANUAL_ERROR'],$to_add);
@@ -531,7 +531,7 @@ if (isset($_POST['save']))
 			//neue Sprache? Dann Menue links auch aktualisieren
 			if ($_SESSION['config']['language'] != $config['language'] || $_POST['scaption_old'] != $config['interface_server_caption'] || $oldtheme != $config['theme'] || $oldscposition != $config['interface_server_caption_position'])
 			{
-				$msg.='<script type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . urlencode($config['config_file']) . '";</script>';
+				$msg.='<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . urlencode($config['config_file']) . '";</script>';
 				if (isset($_POST['cron_savepath_new']) && $_POST['cron_savepath_new'] > '') $msg.='<p class="success">' . $lang['L_SUCCESS_CONFIGFILE_CREATED'] . '</p>';
 			}
 			//Parameter laden
@@ -548,7 +548,7 @@ if (isset($_POST['save']))
 
 ReadSQL();
 ?>
-<script type="text/javascript">
+<script>
 function hide_pardivs() {
 	document.getElementById("db").style.display = 'none';
 	document.getElementById("global1").style.display = 'none';
@@ -1202,7 +1202,7 @@ echo $aus['conf'];
 
 echo $aus['formende'];
 
-echo '<script language="JavaScript" type="text/javascript">show_pardivs("' . $sel . '");';
+echo '<script>show_pardivs("' . $sel . '");';
 // Wenn irgendetwas beim Wechsel eines Users nicht stimmt oder keine Db gefunden wurde oder eine DB nicht hinzugefügt
 // werden konnte --> User mit der Nase drauf stossen und Verbindungsdaten einblenden
 if (( $showVP ) || ( !isset($databases['Name']) ) || ( isset($databases['name']) && count($databases['Name'] == 0) ) || ( isset($add_db_message) )) echo 'SwitchVP();';

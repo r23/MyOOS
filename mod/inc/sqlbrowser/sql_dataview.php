@@ -81,7 +81,7 @@ if ($databases['Name'][$dbid]!=$databases['db_actual'])
 	// switch the actual database
 	$databases['db_actual']=$databases['Name'][$dbid];
 	// refresh menu to switch to actual database
-	echo '<script type="text/javascript" language="javascript">'
+	echo '<script>'
 		.'parent.MyOOS_Dumper_menu.location.href=\'menu.php?dbindex='.$dbid.'\';</script>';
 
 }

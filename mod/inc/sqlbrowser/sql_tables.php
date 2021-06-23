@@ -35,20 +35,20 @@ if (isset($_GET['killPrimaryKey']))
 		$res=setNewPrimaryKeys($databases['Name'][$dbid], $_GET['tablename'], $keys['name'], $keys['size']);
 		if ($res)
 		{
-			echo '<script language="JavaScript">
+			echo '<script>
 						alert("'.$lang['L_PRIMARYKEY_DELETED'].': '.$_GET['killPrimaryKey'].'");
 					</script>';
 		}
 		else
 		{
-			echo '<script language="JavaScript">
+			echo '<script>
 						alert("'.$lang['L_PRIMARYKEYS_CHANGINGERROR'].': '.$_GET['killPrimaryKey'].'");
 					</script>';
 		}
 	}
 	else
 	{
-		echo '<script language="JavaScript">
+		echo '<script>
 					alert("'.$lang['L_PRIMARYKEY_NOTFOUND'].': '.$_GET['killPrimaryKey'].'");
 				</script>';
 	}
@@ -79,13 +79,13 @@ if (isset($_POST['setNewKeys']))
 		$res=setNewPrimaryKeys($databases['Name'][$dbid], $_GET['tablename'], $newKeysArray, $newKeySizesArray);
 		if ($res)
 		{
-			echo '<script language="JavaScript">
+			echo '<script>
 						alert("'.$lang['L_PRIMARYKEYS_CHANGED'].'");
 					</script>';
 		}
 		else
 		{
-			echo '<script language="JavaScript">
+			echo '<script>
 						alert("'.$lang['L_PRIMARYKEYS_CHANGINGERROR'].'");
 					</script>';
 		}
@@ -108,13 +108,13 @@ if (isset($_POST['setNewKeys']))
 		$res=setNewKeys($databases['Name'][$dbid], $_GET['tablename'], $newKeysArray, $newIndexType, $_POST['indexName'], $newKeySizesArray);
 		if ($res)
 		{
-			echo '<script language="JavaScript">
+			echo '<script>
 						alert("'.$lang['L_KEY_ADDED'].'");
 					</script>';
 		}
 		else
 		{
-			echo '<script language="JavaScript">
+			echo '<script>
 						alert("'.$lang['L_KEY_ADDERROR'].'");
 					</script>';
 		}
@@ -127,13 +127,13 @@ if (isset($_GET['killIndex']))
 	$res = killKey($databases['Name'][$dbid], $_GET['tablename'], $_GET['killIndex']);
 	if ($res)
 	{
-		echo '<script language="JavaScript">
+		echo '<script>
 					alert("'.$lang['L_KEY_DELETED'].': '.$_GET['killIndex'].'");
 				</script>';
 	}
 	else
 	{
-		echo '<script language="JavaScript">
+		echo '<script>
 					alert("'.$lang['L_KEY_DELETEERROR'].': '.$_GET['killIndex'].'");
 				</script>';
 	}
@@ -526,7 +526,7 @@ if ($table_edit_name!="")
 
 	if ((isset($_GET['sql_createindex']))&&($_GET['sql_createindex']=="1"))
 	{ ?>
-<script type="text/javascript">
+<script>
 	function toggleIndexLength(id)
 	{
 		var mysqlStrings = ['<?php echo implode("','", $mysql_string_types);?>'];

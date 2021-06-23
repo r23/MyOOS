@@ -465,7 +465,7 @@ if ($DumpFertig!=1)
 	$_SESSION['dump']=$dump;
 	$page_parameter=get_page_parameter($dump);
 	$pagefooter='</body></html>';
-	$selbstaufruf=$page_parameter.'<script language="javascript" type="text/javascript">setTimeout("document.dump.submit()", 10);</script></div>';
+	$selbstaufruf=$page_parameter.'<script>setTimeout("document.dump.submit()", 10);</script></div>';
 }
 else
 {

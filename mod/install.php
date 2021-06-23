@@ -106,7 +106,7 @@ td table td {
 </style>
 </head>
 <body class="content">
-<script language="JavaScript" type="text/javascript">
+<script>
 function hide_tooldivs() {
 	<?php
 	foreach ($lang['languages'] as $key)
@@ -178,7 +178,7 @@ switch ($phase)
 		}
 
 		echo ( "\n</td></tr><tr><td colspan=\"2\" style=\"padding: 4px\"><input type=\"submit\" name=\"submit\" value=\"Installation\" class=\"Formbutton\"></td></tr></table></form>" );
-		echo '<script language="JavaScript" type="text/javascript">show_tooldivs("' . $language . '");</script>';
+		echo '<script>show_tooldivs("' . $language . '");</script>';
 		break;
 	case 1: // checken
 		@chmod("config.php",0666);
@@ -349,7 +349,7 @@ switch ($phase)
 			echo $lang['L_INSTALL_STEP2FINISHED'];
 			echo '<p>&nbsp;</p>';
 			echo '<form action="install.php?language=' . $language . '&phase=' . ($phase + 2) . '" method="post" name="continue"><input type="hidden" name="connstr" value="' . $connstr . '"><input class="Formbutton" style="width:360px;" type="submit" name="continue2" value=" ' . $lang['L_INSTALL_STEP2_1'] . ' "></form>';
-			echo '<script language="javascript">';
+			echo '<script>';
 			echo 'document.forms["continue"].submit();';
 			echo '</script>';
 		}
@@ -399,7 +399,7 @@ switch ($phase)
 
 		if ($iw[0] && $iw[1] && $iw[2] && $iw[3])
 		{
-			echo '<script language="javascript">';
+			echo '<script>';
 			echo 'self.location.href=\'install.php?language=' . $language . '&phase=5&connstr=' . $connstr . '\'';
 			echo '</script>';
 		}
@@ -422,7 +422,7 @@ switch ($phase)
 		include ( "language/" . $language . "/lang_install.php" );
 
 		// direkt zum Start des Dumeprs
-		echo '<script language="javascript">self.location.href=\'index.php\';</script>';
+		echo '<script>self.location.href=\'index.php\';</script>';
 		break;
 	case 100: //uninstall
 		echo '<h6>' . $lang['L_UI1'] . '</h6>';

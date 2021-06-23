@@ -323,7 +323,7 @@ else
 {
 	$aus[]=$page_parameter;
 	$_SESSION['restore']=$restore;
-	$selbstaufruf='<script language="javascript" type="text/javascript">setTimeout("document.restore.submit()",10);</script>';
+	$selbstaufruf='<script>setTimeout("document.restore.submit()",10);</script>';
 	$complete_page=$pageheader.(($aus!='') ? implode("\n",$aus) : '').$selbstaufruf.$pagefooter;
 }
 echo $complete_page;

@@ -75,7 +75,7 @@ if (isset($_POST['dbdosubmit']))
 	{
 		SetDefault();
 		include ( $config['files']['parameter'] );
-		echo '<script language="JavaScript" type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?action=dbrefresh";</script>';
+		echo '<script>parent.MyOOS_Dumper_menu.location.href="menu.php?action=dbrefresh";</script>';
 
 	}
 }
@@ -102,7 +102,7 @@ if (isset($_POST['dbwantaction']))
                 echo $lang['L_DB'] . " `$newname` " . $lang['L_SQL_WASCREATED'] . ".<br>";
                 SetDefault();
                 include ( $config['files']['parameter'] );
-                echo '<script language="JavaScript" type="text/javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?action=dbrefresh";</script>';
+                echo '<script>parent.MyOOS_Dumper_menu.location.href="menu.php?action=dbrefresh";</script>';
             }
 		}
 	}

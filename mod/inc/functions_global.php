@@ -183,7 +183,7 @@ function MD_FreeDiskSpace()
 
 function WriteDynamicText($txt, $object)
 {
-	return '<script language="JavaScript">WP("'.addslashes($txt).','.$object.'");</script>';
+	return '<script>WP("'.addslashes($txt).','.$object.'");</script>';
 }
 
 function byte_output($bytes, $precision=2, $names=Array())

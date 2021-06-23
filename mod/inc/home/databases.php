@@ -35,7 +35,7 @@ for ($i=0; $i<count($databases['Name']); $i++)
 		$dba='<p class="green">'.$lang['L_DB'].' '.$databases['Name'][$i].' '.$lang['L_INFO_DELETED'].'</p>';
 		SetDefault();
 		include ($config['files']['parameter']);
-		echo '<script language="JavaScript">parent.MyOOS_Dumper_menu.location.href="menu.php?action=dbrefresh";</script>';
+		echo '<script>parent.MyOOS_Dumper_menu.location.href="menu.php?action=dbrefresh";</script>';
 		break;
 	}
 	if (isset($_POST['optimize'.$i]))

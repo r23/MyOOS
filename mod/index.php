@@ -35,17 +35,13 @@ if (!file_exists("./work/config/myoosdumper.php"))
 	<meta charset="utf-8" />
 	<meta name="robots" content="noindex,nofollow" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>MyOOS [Dumper]</title>
 </head>
 
 <frameset border=0 cols="190,*">
 	<frame name="MyOOS_Dumper_menu" src="menu.php" scrolling="no" noresize
 		frameborder="0" marginwidth="0" marginheight="0">
-	<frame name="MyOOS_Dumper_content" src="<?php
-	echo $page;
-	?>"
-		scrolling="auto" frameborder="0" marginwidth="0" marginheight="0">
+	<frame name="MyOOS_Dumper_content" src="<?php echo $page; ?>" scrolling="auto" frameborder="0" marginwidth="0" marginheight="0">
 </frameset>
 </html>
 <?php

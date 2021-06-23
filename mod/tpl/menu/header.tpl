@@ -5,7 +5,7 @@
 <!-- END CONFIG_REFRESH_TRUE -->
 
 <!-- BEGIN DB_REFRESH -->
-	<script language="JavaScript" type="text/javascript">
+	<script>
 	var curl=parent.MyOOS_Dumper_content.location.href.split("/");
 	var cdatei=curl.pop();
 	var ca=cdatei.split(".");
@@ -21,7 +21,7 @@
 <!-- END DB_REFRESH -->
 
 <!-- BEGIN CHANGED_LANGUAGE -->
-	<script language="JavaScript" type="text/javascript">self.location.href='menu.php';</script>
+	<script>self.location.href='menu.php';</script>
 <!-- END CHANGED_LANGUAGE -->
 <a href="{CONFIG_HOMEPAGE}" target="_blank" title="{L_VISIT_HOMEPAGE} {CONFIG_HOMEPAGE}"><img src="css/{CONFIG_THEME}/pics/h1_logo.gif" alt="MyOOS [Dumper] - Homepage"></a>
 <div id="version">
