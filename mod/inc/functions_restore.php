@@ -300,12 +300,6 @@ function submit_create_action($sql)
 		// erster Versuch fehlgeschlagen -> zweiter Versuch - vielleicht versteht der Server die Inline-Kommentare nicht?
 		$sql=del_inline_comments($sql);
 		$res=@mysqli_query($config['dbconnection'],  downgrade($sql));
-		if ($res===false)
-		{
-			// wieder nichts. Ok, haben wir hier einen alten MySQL-Server 3.x oder 4.0.x?
-			// versuchen wir es mal mit der alten Syntax
-			$res=@mysqli_query($config['dbconnection'], downgrade($sql));
-		}
 	}
 	if ($res===false)
 	{
