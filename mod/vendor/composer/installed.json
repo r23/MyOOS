@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "league/flysystem",
-            "version": "2.0.5",
-            "version_normalized": "2.0.5.0",
+            "version": "2.1.0",
+            "version_normalized": "2.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "27ea64cc9d61ae7b6a5f04bebf062d89dd18e8f7"
+                "reference": "a025209072f2d3a50b7bfd683a67fa0a2e6d2721"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/27ea64cc9d61ae7b6a5f04bebf062d89dd18e8f7",
-                "reference": "27ea64cc9d61ae7b6a5f04bebf062d89dd18e8f7",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a025209072f2d3a50b7bfd683a67fa0a2e6d2721",
+                "reference": "a025209072f2d3a50b7bfd683a67fa0a2e6d2721",
                 "shasum": ""
             },
             "require": {
@@ -33,9 +33,10 @@
                 "google/cloud-storage": "^1.23",
                 "phpseclib/phpseclib": "^2.0",
                 "phpstan/phpstan": "^0.12.26",
-                "phpunit/phpunit": "^8.5 || ^9.4"
+                "phpunit/phpunit": "^8.5 || ^9.4",
+                "sabre/dav": "^4.1"
             },
-            "time": "2021-04-11T15:03:35+00:00",
+            "time": "2021-05-25T18:28:31+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -69,7 +70,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/2.0.5"
+                "source": "https://github.com/thephpleague/flysystem/tree/2.1.0"
             },
             "funding": [
                 {
@@ -89,17 +90,17 @@
         },
         {
             "name": "league/flysystem-sftp",
-            "version": "2.0.5",
-            "version_normalized": "2.0.5.0",
+            "version": "2.0.8",
+            "version_normalized": "2.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-sftp.git",
-                "reference": "dcd572ecd536d863498671dab18c5014ac26905f"
+                "reference": "3364486d4a9cd36ffdbfbbf66d1b07fbac722329"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-sftp/zipball/dcd572ecd536d863498671dab18c5014ac26905f",
-                "reference": "dcd572ecd536d863498671dab18c5014ac26905f",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-sftp/zipball/3364486d4a9cd36ffdbfbbf66d1b07fbac722329",
+                "reference": "3364486d4a9cd36ffdbfbbf66d1b07fbac722329",
                 "shasum": ""
             },
             "require": {
@@ -108,7 +109,7 @@
                 "php": "^7.2 || ^8.0",
                 "phpseclib/phpseclib": "^2.0"
             },
-            "time": "2020-12-02T13:23:21+00:00",
+            "time": "2021-05-15T19:49:12+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -136,7 +137,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem-sftp/issues",
-                "source": "https://github.com/thephpleague/flysystem-sftp/tree/2.0.5"
+                "source": "https://github.com/thephpleague/flysystem-sftp/tree/2.0.8"
             },
             "install-path": "../league/flysystem-sftp"
         },
@@ -201,17 +202,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.31",
-            "version_normalized": "2.0.31.0",
+            "version": "2.0.32",
+            "version_normalized": "2.0.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "233a920cb38636a43b18d428f9a8db1f0a1a08f4"
+                "reference": "f5c4c19880d45d0be3e7d24ae8ac434844a898cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/233a920cb38636a43b18d428f9a8db1f0a1a08f4",
-                "reference": "233a920cb38636a43b18d428f9a8db1f0a1a08f4",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/f5c4c19880d45d0be3e7d24ae8ac434844a898cd",
+                "reference": "f5c4c19880d45d0be3e7d24ae8ac434844a898cd",
                 "shasum": ""
             },
             "require": {
@@ -228,7 +229,7 @@
                 "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
                 "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
             },
-            "time": "2021-04-06T13:56:45+00:00",
+            "time": "2021-06-12T12:12:59+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -293,7 +294,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.31"
+                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.32"
             },
             "funding": [
                 {
@@ -312,5 +313,6 @@
             "install-path": "../phpseclib/phpseclib"
         }
     ],
-    "dev": true
+    "dev": true,
+    "dev-package-names": []
 }
