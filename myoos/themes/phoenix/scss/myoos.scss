@@ -1,21 +1,32 @@
-/*!
- * MyOOS v2.3.13
- *
- * Author: r23
- * Website: https://oos-shop.de
+/*
+ * MyOOS [Shopsystem]
+ * https://www.oos-shop.de
  *
  * Copyright (c) 2003 - 2021 by the MyOOS Development Team.
- * Released under the GNU General Public License
+ * ----------------------------------------------------------------------
+ * Based on:
+ * MStore | Modern Bootstrap E-Commerce Template
+ * Copyright 2019 Createx Studio
+ * Theme Styles
  */
+ 
+// Theme Helpers: Variables, Mixins and Placeholders
+@import 'myoos/helpers';
 
-@import "app/base/fonts";
+// Custom Variables
+@import 'custom-variables';
+
+// Bootstrap Core
+@import 'bootstrap/bootstrap';
+
+@import "myoos/app/base/fonts";
 
 
 //
 // Settings
 //
 
-@import "app/settings/variables";
+@import "myoos/app/settings/variables";
 
 
 
@@ -23,87 +34,87 @@
 // Tools
 //
 
-@import "app/tools/resets";
-@import "app/tools/mixins";
+@import "myoos/app/tools/resets";
+@import "myoos/app/tools/mixins";
 // Block Components
-@import "app/tools/button-sizes";
-@import "app/components";
+@import "myoos/app/tools/button-sizes";
+@import "myoos/app/components";
 
 
 //
 // Core
 //
 
-@import "app/core/style";
-@import "app/core/typo-font-sizes";
-@import "app/core/bar-rating";
-@import "app/core/sub-nav";
-@import "app/core/table";
+@import "myoos/app/core/style";
+@import "myoos/app/core/typo-font-sizes";
+@import "myoos/app/core/bar-rating";
+@import "myoos/app/core/sub-nav";
+@import "myoos/app/core/table";
 
 //
 // Components
 //
 
-@import "app/base/price";
-@import "app/base/alerts";
-@import "app/base/arrows";
+@import "myoos/app/base/price";
+@import "myoos/app/base/alerts";
+@import "myoos/app/base/arrows";
 
 // Badges
-@import "app/base/badges";
+@import "myoos/app/base/badges";
 
 // Dividers
-@import "app/base/dividers";
+@import "myoos/app/base/dividers";
 
 // Headers
-@import "app/base/headers";
-@import "app/base/main-nav";
-@import "app/base/submenu";
+@import "myoos/app/base/headers";
+@import "myoos/app/base/main-nav";
+@import "myoos/app/base/submenu";
 
 //Footer
-@import "app/base/dropdown";
+@import "myoos/app/base/dropdown";
 
 // Cart
-@import "app/base/cart";
+@import "myoos/app/base/cart";
 
 // page header
-@import "app/base/page_header";
+@import "myoos/app/base/page_header";
 
 // Buttons
-@import "app/base/buttons";
+@import "myoos/app/base/buttons";
 
 
 // User Profile
-@import "app/base/user-profile";
+@import "myoos/app/base/user-profile";
 
-@import "app/base/product_gallery";
+@import "myoos/app/base/product_gallery";
 
 //
 // Globals
 //
 
-@import "app/globals/colors";
-@import "app/globals/bg-colors";
+@import "myoos/app/globals/colors";
+@import "myoos/app/globals/bg-colors";
 
 // Spaces (Margins & Paddings)
-@import "app/globals/paddings";
-@import "app/globals/margin";
+@import "myoos/app/globals/paddings";
+@import "myoos/app/globals/margin";
 
 
 //
 // Layout / Pages
 //
 //
-@import "app/layout/403";
-@import "app/layout/404";
-@import "app/layout/home";
-@import "app/layout/layout";
-@import "app/layout/product_info";
-@import "app/layout/product_new";
-@import "app/layout/product_list";
-@import "app/layout/shopping_cart";
-@import "app/layout/steps";
-@import "app/layout/success";
-@import "app/layout/wishlist";
+@import "myoos/app/layout/403";
+@import "myoos/app/layout/404";
+@import "myoos/app/layout/home";
+@import "myoos/app/layout/layout";
+@import "myoos/app/layout/product_info";
+@import "myoos/app/layout/product_new";
+@import "myoos/app/layout/product_list";
+@import "myoos/app/layout/shopping_cart";
+@import "myoos/app/layout/steps";
+@import "myoos/app/layout/success";
+@import "myoos/app/layout/wishlist";
 
 //
 // Plugins
@@ -117,5 +128,8 @@
 //
 // Custom
 //
+@import 'custom';
+
+
 //
 @import "custom";
