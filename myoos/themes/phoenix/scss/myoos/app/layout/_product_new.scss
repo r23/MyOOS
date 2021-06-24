@@ -1,6 +1,6 @@
 /* 1 Column */
 
-.product-list > {
+.product-list {
   .col-lg-12 {
     > .product {
       position: relative;
@@ -44,7 +44,7 @@ div.product-buttons {
 }
 
 @media only screen and (max-width: 480px) {
-  .product-list > {
+  .product-list {
     .col-lg-12 > .product {
       min-height: 100px;
       > .thumbnail {
