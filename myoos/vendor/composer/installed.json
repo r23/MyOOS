@@ -1132,17 +1132,17 @@
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
-            "version": "1.2.0",
-            "version_normalized": "1.2.0.0",
+            "version": "1.2.1",
+            "version_normalized": "1.2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-zendframework-bridge.git",
-                "reference": "6cccbddfcfc742eb02158d6137ca5687d92cee32"
+                "reference": "9aaa3fde4a184c53f893d938ea9d3f9375cd0622"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/6cccbddfcfc742eb02158d6137ca5687d92cee32",
-                "reference": "6cccbddfcfc742eb02158d6137ca5687d92cee32",
+                "url": "https://api.github.com/repos/laminas/laminas-zendframework-bridge/zipball/9aaa3fde4a184c53f893d938ea9d3f9375cd0622",
+                "reference": "9aaa3fde4a184c53f893d938ea9d3f9375cd0622",
                 "shasum": ""
             },
             "require": {
@@ -1154,7 +1154,7 @@
                 "squizlabs/php_codesniffer": "^3.5",
                 "vimeo/psalm": "^4.6"
             },
-            "time": "2021-02-25T21:54:58+00:00",
+            "time": "2021-06-24T10:54:07+00:00",
             "type": "library",
             "extra": {
                 "laminas": {

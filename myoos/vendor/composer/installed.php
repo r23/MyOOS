@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'bc4c5600dbb9206e6a67e1221aacaccb3ea809bf',
+        'reference' => '39fa79b5e137bd12c274c9e08407576f8f87c310',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -155,12 +155,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-zendframework-bridge' => array(
-            'pretty_version' => '1.2.0',
-            'version' => '1.2.0.0',
+            'pretty_version' => '1.2.1',
+            'version' => '1.2.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-zendframework-bridge',
             'aliases' => array(),
-            'reference' => '6cccbddfcfc742eb02158d6137ca5687d92cee32',
+            'reference' => '9aaa3fde4a184c53f893d938ea9d3f9375cd0622',
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'bc4c5600dbb9206e6a67e1221aacaccb3ea809bf',
+            'reference' => '39fa79b5e137bd12c274c9e08407576f8f87c310',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
