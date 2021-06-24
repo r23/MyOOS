@@ -538,7 +538,7 @@ if (isset($_POST['save']))
 			read_config($config['config_file']);
 			if ($config['logcompression'] != $oldlogcompression) DeleteLog();
 			$msg.='<p class="success">' . sprintf($lang['L_SAVE_SUCCESS'],$config['config_file']) . '</p>';
-			$msg.='<script type="text/javascript" language="javascript">parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>';
+			$msg.='<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config=' . $config['config_file'] . '";</script>';
 		}
 		else
 			$msg.='<p class="error">' . $lang['L_SAVE_ERROR'] . '</p>';
