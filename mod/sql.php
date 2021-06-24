@@ -55,7 +55,7 @@ if (!$download)
 {
 	echo MODHeader();
 	ReadSQL();
-	echo '<script language = "JavaScript" type = "text/javascript">
+	echo '<script>
 		var auswahl  =  "document.getElementsByName(\"f_export_tables[]\")[0]";
 		var msg1 = "'.$lang['L_SQL_NOTABLESSELECTED'].'";
 		</script>';
@@ -264,7 +264,7 @@ if ($search == 0 && !$download)
 			}
 		}
 
-		$javascript_switch = '<script language = "javascript" type = "text/javascript">
+		$javascript_switch = '<script>
 function switch_area(textarea)
 {
 	var t = document.getElementById(\'area_\'+textarea);
@@ -287,7 +287,7 @@ if ($search == 1) include ('./inc/sqlbrowser/mysql_search.php');
 if (!$download)
 {
 	?>
-<script language = "JavaScript" type = "text/javascript">
+<script>
 function BrowseInput(el)
 {
 	var txt = document.getElementsByName('imexta')[0].value;
