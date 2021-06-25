@@ -164,7 +164,7 @@ class payment {
 
 				if ($credit_covers) { 
 					$GLOBALS[$this->selected_module]->enabled = false; 
-					$GLOBALS[$this->selected_module] = NULL; 
+					$GLOBALS[$this->selected_module] = null; 
 					$payment_modules = ''; 
 				} else { 
 					$GLOBALS[$this->selected_module]->pre_confirmation_check();

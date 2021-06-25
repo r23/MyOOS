@@ -70,7 +70,7 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
 			$_sid = $session->getName() . '=' . $session->getId();
 		}
 
-		if ( $spider_flag === false) $_sid = NULL;
+		if ( $spider_flag === false) $_sid = null;
 		
 	}
 	
@@ -107,25 +107,25 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
   * @param $parameters
   * @return string
   */
-  function oos_image($src, $title = null, $parameters = null) {
+function oos_image($src, $title = null, $parameters = null) {
     if (empty($src) || ($src == OOS_IMAGES)) {
-      return false;
+		return false;
     }
 
     $image = '<img class="img-fluid" src="' . oos_output_string($src) . '" alt="' . oos_output_string($title) . '"';
 
     if (!empty($title)) {
-      $image .= ' title="' . oos_output_string($title) . '"';
+		$image .= ' title="' . oos_output_string($title) . '"';
     }
 
     if (!empty($parameters)) {
-      $image .= ' ' . oos_output_string($parameters);
+		$image .= ' ' . oos_output_string($parameters);
     }
 
-    $image .= ' />';
+    $image .= '>';
 
     return $image;
-  }
+}
 
 
 
@@ -139,7 +139,7 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
   * @param $reinsert_value
   * @return string
   */
-  function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
+function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
 
     $field = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
 
@@ -162,9 +162,8 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
 
     $field .= ' />';
 
-
     return $field;
-  }
+}
 
 
 
@@ -188,7 +187,7 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
     if ( ($checked == true) || (isset($_GET[$name]) && is_string($_GET[$name]) && (($_GET[$name] == 'on') || (stripslashes($_GET[$name]) == $value))) 
 		|| (isset($_POST[$name]) && is_string($_POST[$name]) && (($_POST[$name] == 'on') || (stripslashes($_POST[$name]) == $value)))
 	) {
-		$selection .= ' checked="checked"';
+		$selection .= ' checked';
     }	
 
     if (!empty( $parameters ) && is_string( $parameters ) ) {
@@ -196,7 +195,7 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
     }
 
 
-    $selection .= ' />';
+    $selection .= '>';
 
     return $selection;
 }  
@@ -211,9 +210,9 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
   * @param $checked
   * @param $parameters
   */
-  function oos_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
-    return oos_draw_select_field($name, 'checkbox', $value, $checked, $parameters);
-  }
+function oos_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
+	return oos_draw_select_field($name, 'checkbox', $value, $checked, $parameters);
+}
 
 
  /**
@@ -224,9 +223,9 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
   * @param $checked
   * @param $parameters
   */
-  function oos_draw_radio_field($name, $value = '', $checked = false, $parameters = '') {
-    return oos_draw_select_field($name, 'radio', $value, $checked, $parameters);
-  }
+function oos_draw_radio_field($name, $value = '', $checked = false, $parameters = '') {
+	return oos_draw_select_field($name, 'radio', $value, $checked, $parameters);
+}
 
 
 
@@ -256,7 +255,7 @@ function oos_draw_hidden_field($name, $value = '', $parameters = '')
       $field .= ' ' . $parameters;
     }
 
-    $field .= ' />';
+    $field .= '>';
 
     return $field;
 }
@@ -293,7 +292,7 @@ function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = 
     for ($i=0, $n=count($values); $i<$n; $i++) {
         $field .= '<option value="' . oos_output_string($values[$i]['id']) . '"';
         if ($default == $values[$i]['id']) {
-            $field .= ' selected="selected"';
+            $field .= ' selected';
         }
 
         $field .= '>' . oos_output_string($values[$i]['text']) . '</option>';

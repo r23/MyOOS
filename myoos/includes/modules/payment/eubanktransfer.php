@@ -31,7 +31,7 @@ class eubanktransfer {
 		$this->title = $aLang['module_payment_eu_banktransfer_text_title'];
 		$this->description = $aLang['module_payment_eu_banktransfer_text_description'];
 		$this->enabled = (defined('MODULE_PAYMENT_EU_BANKTRANSFER_STATUS') && (MODULE_PAYMENT_EU_BANKTRANSFER_STATUS == 'true') ? true : false);
-		$this->sort_order = (defined('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER') ? MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER : NULL);
+		$this->sort_order = (defined('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER') ? MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER : null);
 
 		if ((defined('MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID') && (int)MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID > 0)) {
 			$this->order_status = MODULE_PAYMENT_EU_BANKTRANSFER_ORDER_STATUS_ID;

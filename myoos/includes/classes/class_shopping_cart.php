@@ -252,10 +252,10 @@ class shoppingCart {
 					if (is_array($attributes)) {
 						reset($attributes);
 						foreach ($attributes as $option => $value) {				  
-							$attr_value = NULL;
+							$attr_value = null;
 							$blank_value = false;
 							if (strstr($option, TEXT_PREFIX)) {
-								if (trim($value) == NULL) {
+								if (trim($value) == null) {
 									$blank_value = true;
 								} else {
 									$option = substr($option, strlen(TEXT_PREFIX));
@@ -325,10 +325,10 @@ class shoppingCart {
 			if (is_array($attributes)) {
 				reset($attributes);
 				foreach ($attributes as $option => $value) {			  
-					$attr_value = NULL;
+					$attr_value = null;
 					$blank_value = false;
 					if (strstr($option, TEXT_PREFIX)) {
-						if (trim($value) == NULL) {
+						if (trim($value) == null) {
 							$blank_value = true;
 						} else {
 							$option = substr($option, strlen(TEXT_PREFIX));

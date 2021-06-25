@@ -29,7 +29,7 @@
       $this->code = 'dp';
       $this->title = $aLang['module_shipping_dp_text_title'];
       $this->description = $aLang['module_shipping_dp_text_description'];
-      $this->sort_order = (defined('MODULE_SHIPPING_DP_SORT_ORDER') ? MODULE_SHIPPING_DP_SORT_ORDER : NULL);
+      $this->sort_order = (defined('MODULE_SHIPPING_DP_SORT_ORDER') ? MODULE_SHIPPING_DP_SORT_ORDER : null);
       $this->icon = OOS_ICONS . 'shipping_dp.gif';
       $this->tax_class = 0;
       $this->enabled = (defined('MODULE_SHIPPING_DP_STATUS') && (MODULE_SHIPPING_DP_STATUS == 'true') ? true : false);

@@ -52,7 +52,7 @@ class currencies {
 		}
 	}
 
-	public function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = NULL, $with_symbol = true) {
+	public function format($number, $calculate_currency_value = true, $currency_type = '', $currency_value = null, $with_symbol = true) {
 
 		if (empty($currency_type) || ($this->exists($currency_type) == false)) {
 			$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
@@ -124,7 +124,7 @@ class currencies {
 		if ( LOGIN_FOR_PRICE == 'true' && ($aUser['show_price'] != 1) ) {
 			return '';
 		}
-		return $this->format($this->calculate_price($products_price, $products_tax, $quantity), true, '', NULL, $with_symbol);
+		return $this->format($this->calculate_price($products_price, $products_tax, $quantity), true, '', null, $with_symbol);
     }	
 	
 	

@@ -50,7 +50,7 @@ if ((int)ini_get('register_globals') > 0) {
 
     foreach ($input as $k => $v) {
         if (!in_array($k, $noUnset) && isset($GLOBALS[$k])) {
-            $GLOBALS[$k] = NULL;
+            $GLOBALS[$k] = null;
             unset($GLOBALS[$k]);
         }
     }
@@ -134,9 +134,9 @@ if (!function_exists('checkdnsrr')) {
 }
 
 if (!function_exists('http_response_code')) {
-	function http_response_code($code = NULL) {
+	function http_response_code($code = null) {
 
-		if ($code !== NULL) {
+		if ($code !== null) {
 
 			switch ($code) {
 				case 100: $text = 'Continue'; break;

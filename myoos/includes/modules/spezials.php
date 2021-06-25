@@ -44,8 +44,8 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
     $aSpezials = array();
     while ($new_spezials = $new_spezials_result->fields) {
 
-		$new_spezials_base_product_price = NULL;
-		$new_spezials_base_product_special_price = NULL;
+		$new_spezials_base_product_price = null;
+		$new_spezials_base_product_special_price = null;
 
 		if ($aUser['show_price'] == 1 ) {
 
