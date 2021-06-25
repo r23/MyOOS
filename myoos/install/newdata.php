@@ -580,8 +580,9 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "customers_status (custo
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "customers_status " . UPDATED .'</font>';
 
-
+/*
 $result = $db->Execute("INSERT INTO " . $prefix_table . "geo_zones (geo_zone_id, geo_zone_name, geo_zone_description, date_added) VALUES (1, 'Europäische Union', 'Für alle Kunden innerhalb der europäischen Union', " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "geo_zones</b>");
+*/
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "geo_zones " . UPDATED .'</font>';
 
@@ -753,18 +754,19 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "setting (setting_id, se
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "setting " . UPDATED .'</font>';
 
-
+/*
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (1, 'Standard Steuersatz', 'normaler Steuersatz für Dienstleistungen und alle non-food Artikel', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (2, 'Ermäßigter Steuersatz', 'verminderter Steuersatz für Lebensmittel und Bücher', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (3, 'Steuerfrei', 'Steuerfrei', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
 // $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (4, 'Virtual Rate', 'Für virtuelle Produkte den USt.-Satz des Dienstleistungsempfängers berechnen.', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (5, 'Normalsatz Steuersatz Schweiz', 'normaler Steuersatz in der Schweiz', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) VALUES (6, 'reduzierter Satz Schweiz', 'normaler Steuersatz in der Schweiz', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_class</b>");
-
+*/
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "tax_class " . UPDATED .'</font>';
 
 
+/*
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_priority, tax_rate, tax_description, last_modified, date_added) VALUES (1, 1, 1, 1, '19', 'enthaltene MwSt. 19%', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_priority, tax_rate, tax_description, last_modified, date_added) VALUES (2, 1, 2, 1, '7', 'enthaltene MwSt. 7%', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_priority, tax_rate, tax_description, last_modified, date_added) VALUES (3, 1, 3, 1, '0', 'Steuerfrei', NULL, " . $db->DBTimeStamp($today) . ")") OR die ("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
@@ -774,6 +776,9 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "tax_rates " . UPDATED .'</font>';
+*/
+
+
 
 // Australian states
 $result = $db->Execute("INSERT INTO " . $prefix_table . "zones (zone_id, zone_country_id, zone_code, zone_name) VALUES (1, 13, 'VIC', 'Victoria')") OR die ("<b>".NOTUPDATED . $prefix_table . "zones</b>");
