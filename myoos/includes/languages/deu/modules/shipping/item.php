@@ -36,5 +36,5 @@ define('MODULE_SHIPPING_ITEM_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 
 $aLang['module_shipping_item_text_title'] = 'Versandkosten pro Stück';
 $aLang['module_shipping_item_text_description'] = 'Versandkosten pro Stück';
-$aLang['module_shipping_item_text_way'] = '';
+$aLang['module_shipping_item_text_way'] = 'Versandkosten';
 
