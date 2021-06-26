@@ -27,7 +27,6 @@
 
       $this->code = 'ot_total';
       $this->title = $aLang['module_order_total_total_title'];
-	  $this->info = sprintf($aLang['total_info'], $_SESSION['currency']);
       $this->description = $aLang['module_order_total_total_description'];
       $this->enabled = (defined('MODULE_ORDER_TOTAL_TOTAL_STATUS') && (MODULE_ORDER_TOTAL_TOTAL_STATUS == 'true') ? true : false);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER') ? MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER : null);
@@ -52,7 +51,7 @@
 
 		$this->output[] = array('title' => $this->title . ':',
 								'text' => '<strong>' . $oCurrencies->format($_SESSION['cart']->info['total'], true, $currency, $currency_value) . '</strong>',
-								'info' => $this->info,
+								'info' => '',
 								'value' => $_SESSION['cart']->info['total']);
     }
 
