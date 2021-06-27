@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '51d381dfd351511022942fc9cda2a4bb20176af5',
+        'reference' => 'b3cdb849940f94d95c4d96dd024e5031e0fc0fa9',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -146,12 +146,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
-            'pretty_version' => '2.7.1',
-            'version' => '2.7.1.0',
+            'pretty_version' => '2.8.0',
+            'version' => '2.8.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-escaper',
             'aliases' => array(),
-            'reference' => '67dac07c6b4857fbf2bd7a5257a4e1ca8a1c00d0',
+            'reference' => '2d6dce99668b413610e9544183fa10392437f542',
             'dev_requirement' => false,
         ),
         'laminas/laminas-zendframework-bridge' => array(
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '51d381dfd351511022942fc9cda2a4bb20176af5',
+            'reference' => 'b3cdb849940f94d95c4d96dd024e5031e0fc0fa9',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
