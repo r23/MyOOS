@@ -555,20 +555,24 @@ class shoppingCart {
 				$this->info['total'] +=  $nPrice;
 		
 				// tax
-				
-				if ($aUser['price_with_tax'] == 1) {
+				if ($aUser['price_with_tax'] == 1) {		
 					$this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
+					$nPriceNet = oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
 					if (isset($this->info['tax_groups']["$products_tax"])) {
-						$this->info['tax_groups']["$products_tax"] += $nPrice - oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
+						$this->info['tax_groups']["$products_tax"] += $nPrice - $nPriceNet;
+						$this->info['net_total']["$products_tax"] += $nPriceNet;
 					} else {
-						$this->info['tax_groups']["$products_tax"] = $nPrice - oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
+						$this->info['tax_groups']["$products_tax"] = $nPrice - $nPriceNet;
+						$this->info['net_total']["$products_tax"] = $nPriceNet;
 					}
 				} else {
 					$this->info['tax'] += ($products_tax / 100) * $nPrice;
 					if (isset($this->info['tax_groups']["$products_tax"])) {
 						$this->info['tax_groups']["$products_tax"] += oos_round(($products_tax / 100) * $nPrice, $decimal_places);
+						$this->info['net_total']["$products_tax"] += $nPrice;
 					} else {
 						$this->info['tax_groups']["$products_tax"] = oos_round(($products_tax / 100) * $nPrice, $decimal_places);
+						$this->info['net_total']["$products_tax"] = $nPrice;
 					}
 				}				
 

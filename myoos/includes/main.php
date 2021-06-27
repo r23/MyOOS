@@ -143,10 +143,7 @@ if ($bNecessary == true) {
 }
 
 // Cross-Site Scripting attack defense
-oos_secure_input();
-
-
-	 
+// oos_secure_input();
 
 // set the language
 $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;

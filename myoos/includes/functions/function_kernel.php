@@ -145,7 +145,7 @@ function oos_sanitize_string($sStr) {
   * @returns string/array
   * in, otherwise an array of prepared variables
   */
-  function oos_var_prep_for_os() {
+function oos_var_prep_for_os() {
     static $search = array('!\.\./!si', // .. (directory traversal)
                            '!^.*://!si', // .*:// (start of URL)
                            '!/!si',     // Forward slash (directory traversal)
@@ -158,24 +158,23 @@ function oos_sanitize_string($sStr) {
 
     $resarray = array();
     foreach (func_get_args() as $ourvar) {
-      // Parse out bad things
-      $ourvar = preg_replace($search, $replace, $ourvar);
+		// Parse out bad things
+		$ourvar = preg_replace($search, $replace, $ourvar);
 
-      // Prepare var
-      $ourvar = addslashes($ourvar);
+		// Prepare var
+		$ourvar = addslashes($ourvar);
 
-
-      // Add to array
-      array_push($resarray, $ourvar);
-    }
+		// Add to array
+		array_push($resarray, $ourvar);
+	}
 
     // Return vars
     if (func_num_args() == 1) {
-      return $resarray[0];
-    } else {
-      return $resarray;
+		return $resarray[0];
+	} else {
+		return $resarray;
     }
-  }
+}
 
 
  /**
