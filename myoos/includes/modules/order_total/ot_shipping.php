@@ -114,18 +114,20 @@
 			if ( ($pass == true) && ( ($_SESSION['cart']->info['total'] - $_SESSION['cart']->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
 				$_SESSION['cart']->info['shipping_method'] = $this->title;
 				$_SESSION['cart']->info['shipping_cost'] = 0;
-				#	$_SESSION['cart']->info['total'] -= $_SESSION['cart']->info['shipping_cost'];
 			}
 		}
 
 		$module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
 		$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
-		
-		if (oos_is_not_null($_SESSION['cart']->info['shipping_method'])) {
-			if ($GLOBALS[$module]->tax_class > 0) {
-				$shipping_tax = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
-				$shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
 
+			if ($GLOBALS[$module]->tax_class > 0) {
+				
+			
+				
+				$shipping_tax = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+				$shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+
+				$tax = oos_calculate_tax($oOrder->info['shipping_cost'], $shipping_tax);
 				if ($aUser['price_with_tax'] == 1)  $_SESSION['cart']->info['shipping_cost'] += $tax;
 
 				$_SESSION['cart']->info['tax'] += $tax;
@@ -140,7 +142,6 @@
                                 'text' => $oCurrencies->format($_SESSION['cart']->info['shipping_cost'], true, $currency, $currency_value),
 								'info' => $this->info,
                                 'value' => $_SESSION['cart']->info['shipping_cost']);
-		}
     }
 
 
