@@ -113,7 +113,6 @@
       $this->description = $aLang['module_shipping_zones_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_ZONES_SORT_ORDER') ? MODULE_SHIPPING_ZONES_SORT_ORDER : null);
       $this->icon = '';
-      $this->tax_class = 0;
       $this->enabled = (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true') ? true : false);
 
 
@@ -169,9 +168,9 @@
                                                      'title' => $shipping_method,
                                                      'cost' => $shipping_cost)));
 
-      if ($this->tax_class > 0) {
-        $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-      }
+
+# $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 

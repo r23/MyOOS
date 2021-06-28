@@ -53,7 +53,6 @@
       $this->description = $aLang['module_shipping_ap_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_AP_SORT_ORDER') ? MODULE_SHIPPING_AP_SORT_ORDER : null);
       $this->icon = OOS_ICONS . 'shipping_ap.gif';
-      $this->tax_class = (defined('MODULE_SHIPPING_AP_TAX_CLASS') ? MODULE_SHIPPING_AP_TAX_CLASS : null);
       $this->enabled = (defined('MODULE_SHIPPING_AP_STATUS') && (MODULE_SHIPPING_AP_STATUS == 'true') ? true : false);
 
       if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_AP_ZONE > 0) ) {
@@ -136,9 +135,7 @@
                                                      'title' => $shipping_method . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_ap_text_units'] .')',
                                                      'cost' => $shipping_cost * $shipping_num_boxes)));
 
-      if ($this->tax_class > 0) {
-        $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-      }
+#$this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
@@ -163,7 +160,6 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_AP_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_AP_HANDLING', '0', '6', '0', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_AP_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_SHIPPING_AP_ZONE', '0', '6', '0', 'oos_cfg_get_zone_class_title', 'oos_cfg_pull_down_zone_classes(', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_AP_SORT_ORDER', '0', '6', '0', now())");
 
@@ -196,7 +192,7 @@
     }
 
     function keys() {
-      $keys = array('MODULE_SHIPPING_AP_STATUS', 'MODULE_SHIPPING_AP_HANDLING', 'MODULE_SHIPPING_AP_TAX_CLASS', 'MODULE_SHIPPING_AP_ZONE', 'MODULE_SHIPPING_AP_SORT_ORDER');
+      $keys = array('MODULE_SHIPPING_AP_STATUS', 'MODULE_SHIPPING_AP_HANDLING', 'MODULE_SHIPPING_AP_ZONE', 'MODULE_SHIPPING_AP_SORT_ORDER');
 
       for ($i = 1; $i <= $this->num_ap; $i ++) {
         $keys[count($keys)] = 'MODULE_SHIPPING_AP_COUNTRIES_' . $i;

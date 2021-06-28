@@ -53,7 +53,6 @@
       $this->description = $aLang['module_shipping_fedexeu_text_description'];
       $this->sort_order = (defined('MODULE_SHIPPING_FEDEXEU_SORT_ORDER') ? MODULE_SHIPPING_FEDEXEU_SORT_ORDER : null);
       $this->icon = OOS_ICONS . 'shipping_fedexeu.gif';
-      $this->tax_class = 0;
       $this->enabled = (defined('MODULE_SHIPPING_FEDEXEU_STATUS') && (MODULE_SHIPPING_FEDEXEU_STATUS == 'true') ? true : false);
 
       if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_FEDEXEU_ZONE > 0) ) {
@@ -181,9 +180,8 @@
 
       $this->quotes['methods'] = $methods;
 
-      if ($this->tax_class > 0) {
-        $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-      }
+# $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
