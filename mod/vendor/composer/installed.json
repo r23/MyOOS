@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "league/flysystem",
-            "version": "2.1.0",
-            "version_normalized": "2.1.0.0",
+            "version": "2.1.1",
+            "version_normalized": "2.1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "a025209072f2d3a50b7bfd683a67fa0a2e6d2721"
+                "reference": "a3c694de9f7e844b76f9d1b61296ebf6e8d89d74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a025209072f2d3a50b7bfd683a67fa0a2e6d2721",
-                "reference": "a025209072f2d3a50b7bfd683a67fa0a2e6d2721",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/a3c694de9f7e844b76f9d1b61296ebf6e8d89d74",
+                "reference": "a3c694de9f7e844b76f9d1b61296ebf6e8d89d74",
                 "shasum": ""
             },
             "require": {
@@ -36,7 +36,7 @@
                 "phpunit/phpunit": "^8.5 || ^9.4",
                 "sabre/dav": "^4.1"
             },
-            "time": "2021-05-25T18:28:31+00:00",
+            "time": "2021-06-23T22:07:10+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -70,7 +70,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/2.1.0"
+                "source": "https://github.com/thephpleague/flysystem/tree/2.1.1"
             },
             "funding": [
                 {
@@ -90,17 +90,17 @@
         },
         {
             "name": "league/flysystem-sftp",
-            "version": "2.0.8",
-            "version_normalized": "2.0.8.0",
+            "version": "2.1.1",
+            "version_normalized": "2.1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-sftp.git",
-                "reference": "3364486d4a9cd36ffdbfbbf66d1b07fbac722329"
+                "reference": "8114f14ec99934d8953c084f45beb2bb82c4b504"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-sftp/zipball/3364486d4a9cd36ffdbfbbf66d1b07fbac722329",
-                "reference": "3364486d4a9cd36ffdbfbbf66d1b07fbac722329",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-sftp/zipball/8114f14ec99934d8953c084f45beb2bb82c4b504",
+                "reference": "8114f14ec99934d8953c084f45beb2bb82c4b504",
                 "shasum": ""
             },
             "require": {
@@ -109,7 +109,7 @@
                 "php": "^7.2 || ^8.0",
                 "phpseclib/phpseclib": "^2.0"
             },
-            "time": "2021-05-15T19:49:12+00:00",
+            "time": "2021-06-15T20:30:50+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -137,7 +137,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem-sftp/issues",
-                "source": "https://github.com/thephpleague/flysystem-sftp/tree/2.0.8"
+                "source": "https://github.com/thephpleague/flysystem-sftp/tree/2.1.1"
             },
             "install-path": "../league/flysystem-sftp"
         },
