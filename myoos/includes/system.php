@@ -155,15 +155,15 @@ if (isset($_SESSION)) {
 		'session_id' => $session->getId()
 	);
 
+
 	if (is_object($_SESSION['cart'])) {
 		$smarty->registerObject("cart", $_SESSION['cart'],array('count_contents', 'get_products')); 
 
 		$cart_count_contents = $_SESSION['cart']->count_contents();
 		$cart_products = $_SESSION['cart']->get_products();
-		$cart_show_subtotal = $oCurrencies->format($_SESSION['cart']->show_subtotal());
-		$cart_show_total = $oCurrencies->format($_SESSION['cart']->show_total()); 
+		$cart_show_subtotal = $oCurrencies->format($_SESSION['cart']->info['subtotal']);
+		$cart_show_total = $oCurrencies->format($_SESSION['cart']->info['total']); 
 	}
-
 
 	# todo counter for wishlist
 	$wishlist_count_contents = 0;

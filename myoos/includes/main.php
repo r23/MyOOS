@@ -218,6 +218,7 @@ if ( $session->hasStarted() === true ) {
 	if (!isset($_SESSION['cart'])) {
 		$_SESSION['cart'] = new shoppingCart();
 	}
+	$_SESSION['cart']->calculate();
 
 	// products history
 	if (!isset($_SESSION['products_history'])) 	{

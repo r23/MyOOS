@@ -54,11 +54,11 @@ if (isset($_SESSION)) {
 					$_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
 				}
 			}
-
+			
 			$content_type = $_SESSION['cart']->get_content_type();
-			$total_weight = $_SESSION['cart']->show_weight();
+			$total_weight = $_SESSION['cart']->info['weight'];
 			$total_count = $_SESSION['cart']->count_contents();
-			$subtotal = $_SESSION['cart']->show_subtotal();
+			$subtotal = $_SESSION['cart']->info['subtotal'];
 			
 			// if the order contains only virtual products
 			if (($content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0)) {
@@ -75,17 +75,29 @@ if (isset($_SESSION)) {
 			// load all enabled shipping modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 			$shipping_modules = new shipping;
-			
+					
 			// load all enabled order total modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 			$order_total_modules = new order_total;
 		#	$order_total_modules->collect_posts();
-			$order_total_modules->shopping_cart_process();
-			
+			$test = $order_total_modules->shopping_cart_process();
+echo '<pre>';
+print_r($_SESSION['cart']->info);
+
+# $subtotal = $_SESSION['cart']->info['subtotal'];
+$tax = $_SESSION['cart']->info['tax']; 
+
+
+# print_r($test);
+
+# exit;			
 			$order_total_output = $order_total_modules->output();
+echo 'versandkosten';
+echo $order_total_output;
+echo '</pre>';
+exit;			
 			// $smarty->assign('order_total_output', $order_total_output);
 
-	
 			/*
 			 * Shopping Cart
 			*/
