@@ -120,8 +120,9 @@ if ($oMessage->size('checkout_payment') > 0) {
 
 
 // load the selected shipping module
+$module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
-$shipping_modules = new shipping($_SESSION['shipping']);
+$shipping_modules = new shipping($module);
 
 
 

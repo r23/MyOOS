@@ -160,7 +160,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 						if (!empty($quote[0]['methods'][0]['title'])) {
 							$sWay = ' (' . $quote[0]['methods'][0]['title'] . ')'; 
 						}						
-						$_SESSION['shipping'] = array('id' => $_SESSION['shipping'],
+						$_SESSION['shipping'] = array('id' => $quote[0]['id'],
 											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay), 
                                             'cost' => $quote[0]['methods'][0]['cost']);
 

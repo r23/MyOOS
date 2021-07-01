@@ -74,7 +74,6 @@
                                                      'title' => $aLang['module_shipping_flat_text_way'],
                                                      'cost' => MODULE_SHIPPING_FLAT_COST)));
 
-
 # $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 
 

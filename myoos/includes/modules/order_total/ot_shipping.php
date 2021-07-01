@@ -117,6 +117,7 @@
 			}
 		}
 
+
 		$module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
 		$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
 

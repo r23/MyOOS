@@ -553,7 +553,7 @@ class shoppingCart {
 				
 				$this->total += $nPrice;
 				$this->info['total'] +=  $nPrice;
-		
+	
 				// tax
 				if ($aUser['price_with_tax'] == 1) {		
 					$this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
