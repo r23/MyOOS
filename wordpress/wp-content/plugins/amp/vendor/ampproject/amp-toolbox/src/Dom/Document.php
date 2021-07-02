@@ -2,15 +2,17 @@
 
 namespace AmpProject\Dom;
 
-use AmpProject\Amp;
 use AmpProject\Attribute;
 use AmpProject\DevMode;
 use AmpProject\Dom\Document\Encoding;
 use AmpProject\Dom\Document\Option;
 use AmpProject\Exception\FailedToRetrieveRequiredDomElement;
+use AmpProject\Exception\InvalidByteSequence;
 use AmpProject\Exception\MaxCssByteCountExceeded;
 use AmpProject\Optimizer\CssRule;
 use AmpProject\Tag;
+use AmpProject\Validator\Spec\CssRuleset\AmpNoTransformed;
+use AmpProject\Validator\Spec\SpecRule;
 use DOMAttr;
 use DOMComment;
 use DOMDocument;
@@ -30,8 +32,9 @@ use DOMXPath;
  * @property Element|null $viewport                The document's viewport meta element.
  * @property DOMNodeList  $ampElements             The document's <amp-*> elements.
  * @property Element      $ampCustomStyle          The document's <style amp-custom> element.
- * @property int          $ampCustomStyleByteCount Count of bytes of the CSS in the <style amp-custom> tag.
- * @property int          $inlineStyleByteCount    Count of bytes of the CSS in all of the inline style attributes.
+ * @property int          $ampCustomStyleByteCount Count of bytes of CSS in the <style amp-custom> tag.
+ * @property int          $inlineStyleByteCount    Count of bytes of CSS in all of the inline style attributes.
+ * @property LinkManager  $links                   Link manager to manage <link> tags in the <head>.
  *
  * @package ampproject/amp-toolbox
  */
@@ -101,7 +104,7 @@ final class Document extends DOMDocument
     const AMP_BIND_DATA_START_PATTERN = '#<'
                                         . '(?P<name>[a-zA-Z0-9_\-]+)'               // Tag name.
                                         . '(?P<attrs>\s+'                           // Attributes.
-                                            . '(?>'                                 // Match at least one attribute
+                                            . '(?>'                                 // Match at least one attribute.
                                                 . '(?>'                             // prefixed with "data-amp-bind-".
                                                     . '(?![a-zA-Z0-9_\-\s]*'
                                                     . self::AMP_BIND_DATA_ATTR_PREFIX
@@ -332,6 +335,13 @@ final class Document extends DOMDocument
     private $convertedAmpBindAttributes = [];
 
     /**
+     * Resource hint manager to manage resource hint <link> tags in the <head>.
+     *
+     * @var LinkManager|null
+     */
+    private $links;
+
+    /**
      * Creates a new AmpProject\Dom\Document object
      *
      * @link  https://php.net/manual/domdocument.construct.php
@@ -349,6 +359,9 @@ final class Document extends DOMDocument
 
     /**
      * Named constructor to provide convenient way of transforming HTML into DOM.
+     *
+     * Due to slow automatic encoding detection, it is recommended to provide an explicit
+     * charset either via a <meta charset> tag or via $options.
      *
      * @param string       $html    HTML to turn into a DOM.
      * @param array|string $options Optional. Array of options to configure the document. Used as encoding if a string
@@ -377,6 +390,9 @@ final class Document extends DOMDocument
      * Named constructor to provide convenient way of transforming a HTML fragment into DOM.
      *
      * The difference to Document::fromHtml() is that fragments are not normalized as to their structure.
+     *
+     * Due to slow automatic encoding detection, it is recommended to pass in an explicit
+     * charset via $options.
      *
      * @param string       $html    HTML to turn into a DOM.
      * @param array|string $options Optional. Array of options to configure the document. Used as encoding if a string
@@ -502,6 +518,8 @@ final class Document extends DOMDocument
         $this->options = array_merge($this->options, $options);
 
         $this->reset();
+
+        $this->detectInvalidByteSequences($source);
 
         $source = $this->convertAmpEmojiAttribute($source);
         $source = $this->convertAmpBindAttributes($source);
@@ -928,7 +946,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see restoreSelfClosingTags() Reciprocal function.
-     *
      */
     private function replaceSelfClosingTags($html)
     {
@@ -949,7 +966,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see replaceSelfClosingTags Reciprocal function.
-     *
      */
     private function restoreSelfClosingTags($html)
     {
@@ -1283,7 +1299,7 @@ final class Document extends DOMDocument
     /**
      * Detect the encoding of the document.
      *
-     * @param string      $content  Content of which to detect the encoding.
+     * @param string $content  Content of which to detect the encoding.
      * @return array {
      *                              Detected encoding of the document, or false if none.
      *
@@ -1487,7 +1503,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see replaceMustacheTemplateTokens() Reciprocal function.
-     *
      */
     private function restoreMustacheTemplateTokens($html)
     {
@@ -1646,7 +1661,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see restoreDoctypeNode() Reciprocal function.
-     *
      */
     private function secureDoctypeNode($html)
     {
@@ -1665,7 +1679,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see secureDoctypeNode() Reciprocal function.
-     *
      */
     private function restoreDoctypeNode($html)
     {
@@ -2018,6 +2031,13 @@ final class Document extends DOMDocument
                 }
 
                 return $this->inlineStyleByteCount;
+
+            case 'links':
+                if (! isset($this->links)) {
+                    $this->links = new LinkManager($this);
+                }
+
+                return $this->links;
         }
 
         // Mimic regular PHP behavior for missing notices.
@@ -2097,10 +2117,16 @@ final class Document extends DOMDocument
     /**
      * Enforce a maximum number of bytes for the CSS.
      *
-     * @param int $maxByteCount Maximum number of bytes to limit the CSS to. A negative number disables the limit.
+     * @param int|null $maxByteCount Maximum number of bytes to limit the CSS to. A negative number disables the limit.
+     *                               If null then the max bytes from AmpNoTransformed is used.
      */
-    public function enforceCssMaxByteCount($maxByteCount = Amp::MAX_CSS_BYTE_COUNT)
+    public function enforceCssMaxByteCount($maxByteCount = null)
     {
+        if ($maxByteCount === null) {
+            // No need to instantiate the spec here, we can just directly reference the needed constant.
+            $maxByteCount = AmpNoTransformed::SPEC[SpecRule::MAX_BYTES];
+        }
+
         $this->cssMaxByteCountEnforced = $maxByteCount;
     }
 
@@ -2144,5 +2170,24 @@ final class Document extends DOMDocument
         }
 
         return $html;
+    }
+
+    /**
+     * Check if the markup contains invalid byte sequences.
+     *
+     * If invalid byte sequences are passed to `DOMDocument`, it fails silently and produces Mojibake.
+     *
+     * @param string $source The HTML fragment string.
+     * @throws InvalidByteSequence If $source contains invalid byte sequences.
+     */
+    private function detectInvalidByteSequences($source)
+    {
+        if (
+            $this->options[Option::CHECK_ENCODING]
+            && function_exists('mb_check_encoding')
+            && ! mb_check_encoding($source)
+        ) {
+            throw InvalidByteSequence::forHtml();
+        }
     }
 }

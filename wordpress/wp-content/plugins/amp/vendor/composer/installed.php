@@ -1,61 +1,61 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => '2.1.x-dev',
-    'version' => '2.1.9999999.9999999-dev',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => '2.1.x-dev',
+        'version' => '2.1.9999999.9999999-dev',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '6f1d2c26cba313cf70dcc36bdffee6dda78cecf1',
+        'name' => 'ampproject/amp-wp',
+        'dev' => false,
     ),
-    'reference' => 'b9279565d9d0d039b4918f09cc7f6564cb353362',
-    'name' => 'ampproject/amp-wp',
-  ),
-  'versions' => 
-  array (
-    'ampproject/amp-toolbox' => 
-    array (
-      'pretty_version' => '0.5.1',
-      'version' => '0.5.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'f954085c3b513bea4a26b69059cc6713115e5ed8',
+    'versions' => array(
+        'ampproject/amp-toolbox' => array(
+            'pretty_version' => 'v0.6.0',
+            'version' => '0.6.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ampproject/amp-toolbox',
+            'aliases' => array(),
+            'reference' => '500012f27cc27f4d72525cf0f010602fb95e2f6f',
+            'dev_requirement' => false,
+        ),
+        'ampproject/amp-wp' => array(
+            'pretty_version' => '2.1.x-dev',
+            'version' => '2.1.9999999.9999999-dev',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '6f1d2c26cba313cf70dcc36bdffee6dda78cecf1',
+            'dev_requirement' => false,
+        ),
+        'fasterimage/fasterimage' => array(
+            'pretty_version' => 'v1.5.0',
+            'version' => '1.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../fasterimage/fasterimage',
+            'aliases' => array(),
+            'reference' => '42d125a15dc124520aff2157bbed9a4b2d4f310a',
+            'dev_requirement' => false,
+        ),
+        'sabberworm/php-css-parser' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../sabberworm/php-css-parser',
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'reference' => 'bfdd976',
+            'dev_requirement' => false,
+        ),
+        'willwashburn/stream' => array(
+            'pretty_version' => 'v1.0.0',
+            'version' => '1.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../willwashburn/stream',
+            'aliases' => array(),
+            'reference' => '345b3062493e3899d987dbdd1fec1c13ee28c903',
+            'dev_requirement' => false,
+        ),
     ),
-    'ampproject/amp-wp' => 
-    array (
-      'pretty_version' => '2.1.x-dev',
-      'version' => '2.1.9999999.9999999-dev',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b9279565d9d0d039b4918f09cc7f6564cb353362',
-    ),
-    'fasterimage/fasterimage' => 
-    array (
-      'pretty_version' => 'v1.5.0',
-      'version' => '1.5.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '42d125a15dc124520aff2157bbed9a4b2d4f310a',
-    ),
-    'sabberworm/php-css-parser' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-        0 => '9999999-dev',
-      ),
-      'reference' => 'bfdd976',
-    ),
-    'willwashburn/stream' => 
-    array (
-      'pretty_version' => 'v1.0.0',
-      'version' => '1.0.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '345b3062493e3899d987dbdd1fec1c13ee28c903',
-    ),
-  ),
 );

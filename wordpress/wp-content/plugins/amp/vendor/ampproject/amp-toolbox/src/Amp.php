@@ -49,14 +49,14 @@ final class Amp
     const CACHE_ROOT_URL = self::CACHE_HOST . '/';
 
     /**
-     * List of valid AMP formats.
+     * List of valid AMP HTML formats.
      *
      * @var string[]
      */
-    const FORMATS = ['AMP', 'AMP4EMAIL', 'AMP4ADS'];
+    const FORMATS = [Format::AMP, Format::AMP4ADS, Format::AMP4EMAIL];
 
     /**
-     * List of dynamic components
+     * List of dynamic components.
      *
      * This list should be kept in sync with the list of dynamic components at:
      *
@@ -109,21 +109,13 @@ final class Amp
     const RUNTIME = 'amp-runtime';
 
     // AMP classes reserved for internal use.
-    const LAYOUT_ATTRIBUTE          = 'i-amphtml-layout';
-    const NO_BOILERPLATE_ATTRIBUTE  = 'i-amphtml-no-boilerplate';
-    const LAYOUT_CLASS_PREFIX       = 'i-amphtml-layout-';
-    const LAYOUT_SIZE_DEFINED_CLASS = 'i-amphtml-layout-size-defined';
-    const SIZER_ELEMENT             = 'i-amphtml-sizer';
-    const INTRINSIC_SIZER_ELEMENT   = 'i-amphtml-intrinsic-sizer';
-
-    /**
-     * Maximum size of the CSS styles in bytes.
-     *
-     * @todo Max size is hard-coded for now until we ported over the generated spec into a reusable package.
-     *
-     * @var int
-     */
-    const MAX_CSS_BYTE_COUNT = 75000;
+    const LAYOUT_ATTRIBUTE           = 'i-amphtml-layout';
+    const NO_BOILERPLATE_ATTRIBUTE   = 'i-amphtml-no-boilerplate';
+    const LAYOUT_CLASS_PREFIX        = 'i-amphtml-layout-';
+    const LAYOUT_SIZE_DEFINED_CLASS  = 'i-amphtml-layout-size-defined';
+    const SIZER_ELEMENT              = 'i-amphtml-sizer';
+    const INTRINSIC_SIZER_ELEMENT    = 'i-amphtml-intrinsic-sizer';
+    const LAYOUT_AWAITING_SIZE_CLASS = 'i-amphtml-layout-awaiting-size';
 
     /**
      * Check if a given node is the AMP runtime script.

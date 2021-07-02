@@ -69,12 +69,36 @@ if (isset($_SESSION)) {
 
 
 			$delivery_country_id = isset($_SESSION['delivery_country_id']) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
-			$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
+			$shipping = isset($_SESSION['shipping']['id']) ? oos_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
 
 
 			// load all enabled shipping modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
-			$shipping_modules = new shipping;
+			$shipping_modules = new shipping($module);
+			
+			// shipping quotes
+			list($module, $method) = explode('_', $shipping);
+			$quote = $shipping_modules->quote($method, $module);
+echo 'ralf';
+echo '<pre>';
+print_r($quote);
+					if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
+						$sWay = ''; 
+						if (!empty($quote[0]['methods'][0]['title'])) {
+							$sWay = ' (' . $quote[0]['methods'][0]['title'] . ')'; 
+						}						
+						$_SESSION['shipping'] = array('id' => $quote[0]['id'],
+											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay), 
+                                            'cost' => $quote[0]['methods'][0]['cost']);
+
+			}
+echo '<pre>';
+echo 'und';
+print_r($_SESSION['shipping']);
+
+print_r ($quote);
+
+# $shipping_modules = new shipping($_SESSION['shipping']);
 					
 			// load all enabled order total modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
@@ -93,7 +117,7 @@ $tax = $_SESSION['cart']->info['tax'];
 # exit;			
 			$order_total_output = $order_total_modules->output();
 echo 'versandkosten';
-echo $order_total_output;
+print_r($order_total_output);
 echo '</pre>';
 exit;			
 			// $smarty->assign('order_total_output', $order_total_output);

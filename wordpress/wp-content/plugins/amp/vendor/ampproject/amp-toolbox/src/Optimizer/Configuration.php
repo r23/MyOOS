@@ -6,7 +6,10 @@ use AmpProject\Optimizer\Exception\UnknownConfigurationKey;
 use AmpProject\Optimizer\Transformer\AmpBoilerplate;
 use AmpProject\Optimizer\Transformer\AmpBoilerplateErrorHandler;
 use AmpProject\Optimizer\Transformer\AmpRuntimeCss;
+use AmpProject\Optimizer\Transformer\AmpRuntimePreloads;
+use AmpProject\Optimizer\Transformer\GoogleFontsPreconnect;
 use AmpProject\Optimizer\Transformer\OptimizeAmpBind;
+use AmpProject\Optimizer\Transformer\OptimizeHeroImages;
 use AmpProject\Optimizer\Transformer\PreloadHeroImage;
 use AmpProject\Optimizer\Transformer\ReorderHead;
 use AmpProject\Optimizer\Transformer\RewriteAmpUrls;
@@ -43,12 +46,14 @@ interface Configuration
      * @var string[]
      */
     const DEFAULT_TRANSFORMERS = [
+        TransformedIdentifier::class,
         AmpBoilerplate::class,
+        OptimizeHeroImages::class,
         ServerSideRendering::class,
         AmpRuntimeCss::class,
+        AmpRuntimePreloads::class,
         AmpBoilerplateErrorHandler::class,
-        TransformedIdentifier::class,
-        PreloadHeroImage::class,
+        GoogleFontsPreconnect::class,
         RewriteAmpUrls::class,
         ReorderHead::class,
         OptimizeAmpBind::class,
