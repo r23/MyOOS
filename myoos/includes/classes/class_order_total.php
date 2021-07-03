@@ -153,7 +153,7 @@ class order_total {
       $selection_string = '';
       $close_string = '';
       $credit_class_string = '';
-      if ( (MODULE_ORDER_TOTAL_GV_STATUS == 'true') || (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true') ) { 
+      if ( (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) || (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true')) ) { 
         $header_string = '<tr>' . "\n";
         $header_string .= '   <td><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n";
         $header_string .= '      <tr>' . "\n";
