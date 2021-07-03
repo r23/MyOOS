@@ -94,7 +94,6 @@
 
 
 		$delivery_country_id = isset($_SESSION['delivery_country_id']) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
-		$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
 
 		if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 			switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -112,14 +111,16 @@
 			}
 
 			if ( ($pass == true) && ( ($_SESSION['cart']->info['total'] - $_SESSION['cart']->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-				$_SESSION['cart']->info['shipping_method'] = $this->title;
-				$_SESSION['cart']->info['shipping_cost'] = 0;
+				 $_SESSION['shipping']['title'] = $this->title;
+				$_SESSION['shipping']['cost'] = 0;
 			}
 		}
 
 
 		$module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
 		$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
+$shipping = isset($_SESSION['shipping']['id']) ? oos_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
+
 
 			if ($GLOBALS[$module]->tax_class > 0) {
 				
@@ -129,7 +130,7 @@
 				$shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 
 				$tax = oos_calculate_tax($oOrder->info['shipping_cost'], $shipping_tax);
-				if ($aUser['price_with_tax'] == 1)  $_SESSION['cart']->info['shipping_cost'] += $tax;
+				if ($aUser['price_with_tax'] == 1)  $_SESSION['shipping']['cost'] += $tax;
 
 				$_SESSION['cart']->info['tax'] += $tax;
 				$_SESSION['cart']->info['tax_groups']["$shipping_tax_description"] += $tax;
@@ -139,10 +140,10 @@
 			$currency = $_SESSION['currency'];
 			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 		
-			$this->output[] = array('title' => $_SESSION['cart']->info['shipping_method'] . ':',
-                                'text' => $oCurrencies->format($_SESSION['cart']->info['shipping_cost'], true, $currency, $currency_value),
+			$this->output[] = array('title' => $_SESSION['shipping']['title'] . ':',
+                                'text' => $oCurrencies->format($_SESSION['shipping']['cost'], true, $currency, $currency_value),
 								'info' => $this->info,
-                                'value' => $_SESSION['cart']->info['shipping_cost']);
+                                'value' => $_SESSION['shipping']['cost']);
     }
 
 

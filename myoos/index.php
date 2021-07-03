@@ -20,7 +20,7 @@
  * good level for error reporting.
  */
 
-error_reporting(0);
+error_reporting(E_ALL);
 // error_reporting(E_ALL & ~E_STRICT);
    
 //setting basic configuration parameters

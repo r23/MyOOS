@@ -60,37 +60,28 @@
         $cod_country = false;
 
         //check if payment method is cod. If yes, check if cod is possible.
-        if ($_SESSION['payment'] == 'cod') {
-          //process installed shipping modules
-          if ($_SESSION['shipping']['id'] == 'flat_flat') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FLAT);
-          if ($_SESSION['shipping']['id'] == 'item_item') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ITEM);
-          if ($_SESSION['shipping']['id'] == 'table_table') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_TABLE);
-          if ($_SESSION['shipping']['id'] == 'zones_zones') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ZONES);
-          if ($_SESSION['shipping']['id'] == 'ap_ap') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_AP);
-          if ($_SESSION['shipping']['id'] == 'dp_dp') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_DP);
-          if ($_SESSION['shipping']['id'] == 'chp_ECO') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
-          if ($_SESSION['shipping']['id'] == 'chp_PRI') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
-          if ($_SESSION['shipping']['id'] == 'chp_URG') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
+		if (isset($_SESSION['payment'])  && ($_SESSION['payment'] == 'cod')) {
+			$shipping_array = explode('_', $_SESSION['shipping']['id']);
+			$shipping_code = strtoupper(array_shift($shipping_array));
+			$shipping_code = 'FEE_' . $shipping_code;
+			if (defined('MODULE_ORDER_TOTAL_COD_'. $shipping_code)) {
+				$cod_zones = preg_split("/[:,]/", constant('MODULE_ORDER_TOTAL_COD_'. $shipping_code));
 
-            for ($i = 0; $i < count($cod_zones); $i++) {
-            if ($cod_zones[$i] == $oOrder->billing['country']['iso_code_2']) {
-                  $cod_cost = $cod_zones[$i + 1];
-                  $cod_country = true;
-                  //print('match' . $i . ': ' . $cod_cost);
-                  break;
-                } elseif ($cod_zones[$i] == '00') {
-                  $cod_cost = $cod_zones[$i + 1];
-                  $cod_country = true;
-                  //print('match' . $i . ': ' . $cod_cost);
-                  break;
-                } else {
-                  //print('no match');
-                }
-              $i++;
-            }
-          } else {
-            //COD selected, but no shipping module which offers COD
-          }
+				for ($i = 0; $i < count($cod_zones); $i++) {
+					if ($cod_zones[$i] == $order->delivery['country']['iso_code_2']) {
+						$cod_cost = $cod_zones[$i + 1];
+						$cod_country = true;
+						break;
+					} elseif ($cod_zones[$i] == '00') {
+						$cod_cost = $cod_zones[$i + 1];
+						$cod_country = true;
+						break;
+					}
+					$i++;
+				}
+			}
+		}
+
         if ($cod_country) {
           if (MODULE_ORDER_TOTAL_COD_TAX_CLASS > 0) {
             $cod_tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_COD_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
@@ -133,38 +124,29 @@
         $cod_country = false;
 
         //check if payment method is cod. If yes, check if cod is possible.
-        if ($_SESSION['payment'] == 'cod') {
-          //process installed shipping modules
-          if ($_SESSION['shipping']['id'] == 'flat_flat') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_FLAT);
-          if ($_SESSION['shipping']['id'] == 'item_item') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ITEM);
-          if ($_SESSION['shipping']['id'] == 'table_table') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_TABLE);
-          if ($_SESSION['shipping']['id'] == 'zones_zones') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_ZONES);
-          if ($_SESSION['shipping']['id'] == 'ap_ap') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_AP);
-          if ($_SESSION['shipping']['id'] == 'dp_dp') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_DP);
-          if ($_SESSION['shipping']['id'] == 'chp_ECO') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
-          if ($_SESSION['shipping']['id'] == 'chp_PRI') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
-          if ($_SESSION['shipping']['id'] == 'chp_URG') $cod_zones = preg_split("/[:,]/", MODULE_ORDER_TOTAL_COD_FEE_CHP);
+        //check if payment method is cod. If yes, check if cod is possible.
+		if (isset($_SESSION['payment'])  && ($_SESSION['payment'] == 'cod')) {
+			$shipping_array = explode('_', $_SESSION['shipping']['id']);
+			$shipping_code = strtoupper(array_shift($shipping_array));
+			$shipping_code = 'FEE_' . $shipping_code;
+			if (defined('MODULE_ORDER_TOTAL_COD_'. $shipping_code)) {
+				$cod_zones = preg_split("/[:,]/", constant('MODULE_ORDER_TOTAL_COD_'. $shipping_code));
 
-            for ($i = 0; $i < count($cod_zones); $i++) {
-            if ($cod_zones[$i] == $oOrder->billing['country']['iso_code_2']) {
-                  $cod_cost = $cod_zones[$i + 1];
-                  $cod_country = true;
-                  //print('match' . $i . ': ' . $cod_cost);
-                  break;
-                } elseif ($cod_zones[$i] == '00') {
-                  $cod_cost = $cod_zones[$i + 1];
-                  $cod_country = true;
-                  //print('match' . $i . ': ' . $cod_cost);
-                  break;
-                } else {
-                  //print('no match');
-                }
-              $i++;
-            }
-          } else {
-            //COD selected, but no shipping module which offers COD
-          }
-		  
+				for ($i = 0; $i < count($cod_zones); $i++) {
+					if ($cod_zones[$i] == $order->delivery['country']['iso_code_2']) {
+						$cod_cost = $cod_zones[$i + 1];
+						$cod_country = true;
+						break;
+					} elseif ($cod_zones[$i] == '00') {
+						$cod_cost = $cod_zones[$i + 1];
+						$cod_country = true;
+						break;
+					}
+					$i++;
+				}
+			}
+		}		
+		
 		  
 		  	$currency = $_SESSION['currency'];
 			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
