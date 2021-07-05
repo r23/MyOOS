@@ -77,13 +77,9 @@ if (isset($_SESSION)) {
 			// shipping quotes
 			$quote = $shipping_modules->quote($method, $module);
 
-			if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
-				$sWay = ''; 
-				if (!empty($quote[0]['methods'][0]['title'])) {
-					$sWay = ' (' . $quote[0]['methods'][0]['title'] . ')'; 
-				}						
+			if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {		
 				$_SESSION['shipping'] = array('id' => $quote[0]['id'],
-											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay), 
+											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module']), 
                                             'cost' => $quote[0]['methods'][0]['cost']);
 			}
 					
