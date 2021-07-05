@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '74ef9cc4bc00834ed9dfebea141bfd094bbf815a',
+        'reference' => '38660090d0e6ea5000801699fd699051c9b28107',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -200,12 +200,12 @@
             'dev_requirement' => false,
         ),
         'myclabs/php-enum' => array(
-            'pretty_version' => '1.8.1',
-            'version' => '1.8.1.0',
+            'pretty_version' => '1.8.3',
+            'version' => '1.8.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../myclabs/php-enum',
             'aliases' => array(),
-            'reference' => '55555d31a622b4bc9662664132a0533ae6ef47b1',
+            'reference' => 'b942d263c641ddb5190929ff840c68f78713e937',
             'dev_requirement' => false,
         ),
         'myoos/myoos' => array(
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '74ef9cc4bc00834ed9dfebea141bfd094bbf815a',
+            'reference' => '38660090d0e6ea5000801699fd699051c9b28107',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(

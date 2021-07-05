@@ -95,7 +95,6 @@ abstract class Enum implements \JsonSerializable
     /**
      * @param mixed $value
      * @return static
-     * @psalm-return static<T>
      */
     public static function from($value): self
     {
