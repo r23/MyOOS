@@ -94,6 +94,8 @@
 
 
 		$delivery_country_id = isset($_SESSION['delivery_country_id']) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
+		$delivery_zone_id = isset($_SESSION['zone_id']) ? intval($_SESSION['zone_id']) : STORE_ZONE;
+
 
 		if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 			switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -111,20 +113,72 @@
 			}
 
 			if ( ($pass == true) && ( ($_SESSION['cart']->info['total'] - $_SESSION['cart']->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
-				 $_SESSION['shipping']['title'] = $this->title;
+				$_SESSION['shipping']['title'] = $this->title;
 				$_SESSION['shipping']['cost'] = 0;
 			}
 		}
 
 
-		$module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
-		$shipping = isset($_SESSION['shipping']) ? oos_prepare_input($_SESSION['shipping']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
-$shipping = isset($_SESSION['shipping']['id']) ? oos_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
+		$currency = $_SESSION['currency'];
+		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];		
+		
+		if ($_SESSION['shipping']['cost'] > 0) {
+		
+			echo '<br><br><br><br><br><br>';
+			$subtotal = $_SESSION['cart']->info['subtotal'];
+			$tax = $_SESSION['cart']->info['tax'];
+			if ($aUser['price_with_tax'] == 1) {
+				$subtotal = $subtotal - $tax;
+			}
+		//Netto 
+		echo $subtotal;
+		
+		echo '<pre>';
+		print_r($_SESSION['cart']->info['net_total']);
+		echo '</pre>';
+		
+			reset($_SESSION['cart']->info['net_total']);
+			foreach($_SESSION['cart']->info['net_total'] as $key => $value) {		  
+				if ($value > 0) {
+					// $key; = MwSt Satz
+					echo '$key: ';
+					echo $key;
+					echo '<br>';
+					// $value = Umsatz
+					echo '$value ';
+					echo $value;
+					echo '<br>';
+					// $value ist der % vom netto Umstaz
+					$share =  $value * 100 / $subtotal;
+					echo $share;
+					echo '<br>';
+					echo 'cost: ';
+					$shipping_cost = $_SESSION['shipping']['cost'] * $share / 100;
+					echo '###########################';
+					echo $shipping_cost;
+					$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
+					echo 'tax: ';
+					echo $tax;
+					
+					echo '<br>';
+		            $shipping_tax = oos_get_tax_rate($key,$delivery_country_id, $delivery_zone_id);
+
+					$_SESSION['cart']->info['tax'] += $tax;
+					$_SESSION['cart']->info['tax_groups']["$shipping_tax_description"] += $tax;
+					$_SESSION['cart']->info['total'] += $tax;					
+					
+					$this->output[] = array('title' => $_SESSION['shipping']['title'] . ' (' . number_format($key, 2) . '% MwSt.):',
+										'text' => $oCurrencies->format($shipping_cost, true, $currency, $currency_value),
+										'info' => $this->info,
+										'value' => $shipping_cost);						
+					
+					
+				}
+			}
 
 
-			if ($GLOBALS[$module]->tax_class > 0) {
-				
 			
+/*			
 				
 				$shipping_tax = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 				$shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
@@ -136,14 +190,15 @@ $shipping = isset($_SESSION['shipping']['id']) ? oos_prepare_input($_SESSION['sh
 				$_SESSION['cart']->info['tax_groups']["$shipping_tax_description"] += $tax;
 				$_SESSION['cart']->info['total'] += $tax;
 			}
-
-			$currency = $_SESSION['currency'];
-			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+*/
+		} else {
 		
 			$this->output[] = array('title' => $_SESSION['shipping']['title'] . ':',
                                 'text' => $oCurrencies->format($_SESSION['shipping']['cost'], true, $currency, $currency_value),
 								'info' => $this->info,
                                 'value' => $_SESSION['shipping']['cost']);
+
+		}
     }
 
 
