@@ -44,14 +44,15 @@
     }
 
     function shopping_cart_process() {
-		global $oCurrencies;
+		global $oCurrencies, $aLang;
 
 		$currency = $_SESSION['currency'];
 		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+		$info = sprintf($aLang['total_info'], $currency);
 
 		$this->output[] = array('title' => $this->title . ':',
 								'text' => '<strong>' . $oCurrencies->format($_SESSION['cart']->info['total'], true, $currency, $currency_value) . '</strong>',
-								'info' => '',
+								'info' => '<small>' . $info . '</small>',
 								'value' => $_SESSION['cart']->info['total']);
     }
 
