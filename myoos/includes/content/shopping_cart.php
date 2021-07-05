@@ -67,17 +67,14 @@ if (isset($_SESSION)) {
 				$free_shipping = true;
 			}
 
-
-			$delivery_country_id = isset($_SESSION['delivery_country_id']) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
 			$shipping = isset($_SESSION['shipping']['id']) ? oos_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
-
+			list($module, $method) = explode('_', $shipping);
 
 			// load all enabled shipping modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 			$shipping_modules = new shipping($module);
 			
 			// shipping quotes
-			list($module, $method) = explode('_', $shipping);
 			$quote = $shipping_modules->quote($method, $module);
 
 			if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {
@@ -94,25 +91,9 @@ if (isset($_SESSION)) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 			$order_total_modules = new order_total;
 		#	$order_total_modules->collect_posts();
-			$test = $order_total_modules->shopping_cart_process();
-#echo '<pre>';
-#print_r($test);
-# print_r($GLOBALS);
-
-
-#print_r($_SESSION['cart']->info);
-
-# $subtotal = $_SESSION['cart']->info['subtotal'];
-$tax = $_SESSION['cart']->info['tax']; 
-print_r($_SESSION['cart']->info);
-
-# exit;			
+			$order_total_modules->shopping_cart_process();
 			$order_total_output = $order_total_modules->output();
-#echo 'versandkosten';
-#print_r($order_total_output);
-#echo '</pre>';
-# exit;			
-			// $smarty->assign('order_total_output', $order_total_output);
+
 
 			/*
 			 * Shopping Cart
@@ -195,6 +176,7 @@ print_r($_SESSION['cart']->info);
 	}
 }
 
+
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['shopping_cart']));
 $sCanonical = oos_href_link($aContents['shopping_cart'], '', false, true);
@@ -202,7 +184,8 @@ $sCanonical = oos_href_link($aContents['shopping_cart'], '', false, true);
 $aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
 
 $nPageType = OOS_PAGE_TYPE_CATALOG;
-$sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
+$sPagetitle = $aLang['heading_title_cart'] . ' ' . OOS_META_TITLE;
+
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
@@ -215,7 +198,7 @@ if (!isset($option)) {
 $smarty->assign(
       array(
 		'breadcrumb'	=> $oBreadcrumb->trail(),
-		'heading_title'	=> $aLang['heading_title'],
+		'heading_title'	=> $aLang['heading_title_cart'],
 		'robots'		=> 'noindex,follow,noodp,noydir',
 		'cart_active' 	=> 1,
 		'canonical'		=> $sCanonical,

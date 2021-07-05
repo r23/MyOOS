@@ -21,7 +21,7 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title'] = 'Cart Contents';
-$aLang['heading_title'] = 'What\'s In My Cart?';
+$aLang['heading_title_cart'] = 'What\'s In My Cart?';
 $aLang['heading_products'] = 'Products';
 $aLang['table_heading_remove'] = 'Remove';
 $aLang['table_heading_quantity'] = 'Qty.';

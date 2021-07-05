@@ -74,7 +74,7 @@
 				$this->output[] = array('title' => $info . $this->title . ' (' . number_format($key, 2) . '%):',
 										'text' => $oCurrencies->format($value, true, $currency, $currency_value),
 										'info' => '',
-										'value' => $value);								  
+										'value' => $value);										
 			}
 		}
     }

@@ -124,78 +124,44 @@
 		
 		if ($_SESSION['shipping']['cost'] > 0) {
 		
-			echo '<br><br><br><br><br><br>';
+			$_SESSION['cart']->info['total'] += $_SESSION['shipping']['cost'];
+			
 			$subtotal = $_SESSION['cart']->info['subtotal'];
+			
 			$tax = $_SESSION['cart']->info['tax'];
 			if ($aUser['price_with_tax'] == 1) {
 				$subtotal = $subtotal - $tax;
 			}
-		//Netto 
-		echo $subtotal;
-		
-		echo '<pre>';
-		print_r($_SESSION['cart']->info['net_total']);
-		echo '</pre>';
 		
 			reset($_SESSION['cart']->info['net_total']);
 			foreach($_SESSION['cart']->info['net_total'] as $key => $value) {		  
 				if ($value > 0) {
-					// $key; = MwSt Satz
-					echo '$key: ';
-					echo $key;
-					echo '<br>';
-					// $value = Umsatz
-					echo '$value ';
-					echo $value;
-					echo '<br>';
-					// $value ist der % vom netto Umstaz
 					$share =  $value * 100 / $subtotal;
-					echo $share;
-					echo '<br>';
-					echo 'cost: ';
 					$shipping_cost = $_SESSION['shipping']['cost'] * $share / 100;
-					echo '###########################';
-					echo $shipping_cost;
 					$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
-					echo 'tax: ';
-					echo $tax;
-					
-					echo '<br>';
-		            $shipping_tax = oos_get_tax_rate($key,$delivery_country_id, $delivery_zone_id);
 
 					$_SESSION['cart']->info['tax'] += $tax;
-					$_SESSION['cart']->info['tax_groups']["$shipping_tax_description"] += $tax;
-					$_SESSION['cart']->info['total'] += $tax;					
+					$_SESSION['cart']->info['tax_groups']["$key"] += $tax;
+			
 					
 					$this->output[] = array('title' => $_SESSION['shipping']['title'] . ' (' . number_format($key, 2) . '% MwSt.):',
 										'text' => $oCurrencies->format($shipping_cost, true, $currency, $currency_value),
-										'info' => $this->info,
+										'info' => '',
 										'value' => $shipping_cost);						
 					
 					
 				}
 			}
 
-
-			
-/*			
-				
-				$shipping_tax = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-				$shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-
-				$tax = oos_calculate_tax($oOrder->info['shipping_cost'], $shipping_tax);
-				if ($aUser['price_with_tax'] == 1)  $_SESSION['shipping']['cost'] += $tax;
-
-				$_SESSION['cart']->info['tax'] += $tax;
-				$_SESSION['cart']->info['tax_groups']["$shipping_tax_description"] += $tax;
-				$_SESSION['cart']->info['total'] += $tax;
-			}
-*/
+			$this->output[] = array('title' => '',
+									'text' => '',
+									'info' => $this->info,
+									'value' => '');	
 		} else {
 		
 			$this->output[] = array('title' => $_SESSION['shipping']['title'] . ':',
                                 'text' => $oCurrencies->format($_SESSION['shipping']['cost'], true, $currency, $currency_value),
-								'info' => $this->info,
+								'info' => '',
                                 'value' => $_SESSION['shipping']['cost']);
 
 		}

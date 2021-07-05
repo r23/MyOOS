@@ -110,10 +110,12 @@ class order_total {
 				if ($GLOBALS[$class]->enabled) {
 					$size = count($GLOBALS[$class]->output);
 					for ($i=0; $i<$size; $i++) {
-						$output_string .= '              <tr>' . "\n" .
-								'                <td align="left">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
-                                '                <td align="right"><nobr>' . $GLOBALS[$class]->output[$i]['text'] . '</nobr></td>' . "\n" .
-                                '              </tr>' . "\n";
+						if ($GLOBALS[$class]->output[$i]['text'] != '') {					
+							$output_string .= '              <tr>' . "\n" .
+									'                <td align="left">' . $GLOBALS[$class]->output[$i]['title'] . '</td>' . "\n" .
+									'                <td align="right"><nobr>' . $GLOBALS[$class]->output[$i]['text'] . '</nobr></td>' . "\n" .
+									'              </tr>' . "\n";
+						}
 							
 						if ($GLOBALS[$class]->output[$i]['info'] != '') {
 							$output_string .= '              <tr>' . "\n" .

@@ -25,7 +25,7 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title'] = 'Warenkorb';
-$aLang['heading_title'] = 'Ihr Warenkorb enthält :';
+$aLang['heading_title_cart'] = 'Ihr Warenkorb enthält :';
 $aLang['heading_products'] = 'Artikel';
 $aLang['table_heading_remove'] = 'Entfernen';
 $aLang['table_heading_quantity'] = 'Anzahl';

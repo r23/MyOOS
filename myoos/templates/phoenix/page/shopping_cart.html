@@ -160,33 +160,6 @@
 								</table>
 							</div>
 
-							
-										<span class="clearfix">
-											<span class="float-right">{$cart_show_subtotal}</span>
-											<strong class="float-left">{$lang.sub_title_sub_total}</strong>
-										</span>
-										<span class="clearfix">
-											<span class="float-right">$0.00</span>
-											<span class="float-left">Discount:</span>
-										</span>
-										<span class="clearfix">
-											<span class="float-right">$0.00</span>
-											<span class="float-left">{$lang.shipping_cost}</span>
-											Versandoptionen werden während des Bezahlvorgangs aktualisiert. 
-											
-											
-										</span>
-
-										<hr />
-
-										<span class="clearfix">
-											<span class="float-right fs-20">{$cart_show_total}</span>
-											<strong class="float-left">{$lang.total}</strong>
-											<small class="float-left">{$smarty.session.currency_title|string_format:$lang.total_info}</small>
-										</span>
-
-										<hr />
-
 												  
 					{if $myUser.show_price eq 1 }
 						<a href="{html_href_link content=$filename.checkout_shipping}" class="btn btn-danger btn-default btn-block" role="button"><i class="fa fa-mail-forward" aria-hidden="true"></i> {$lang.button_checkout}</a>
