@@ -473,8 +473,9 @@ $aLang = [
 'text_new_customer_ip'                     => 'Dieses Konto wurde von dieser Computer-IP erstellt: ',
 'text_customer_account_password_security'  => 'Zu Ihrer eigenen Sicherheit können wir das Passwort nicht kennen. Wenn Sie es vergessen haben, können Sie neues anfordern.',
 
-'text_taxt_incl'        => 'Preisangaben inkl. gesetzl. MwSt.',
-'text_taxt_add'         => 'zzgl. gesetzl. MwSt.',
+'text_tax_incl'        => 'Preisangaben inkl. gesetzl. MwSt.',
+'tax_incl_available_from'   => 'inkl. %s MwSt.',
+'text_tax_add'         => 'zzgl. gesetzl. MwSt.',
 'tax_info_excl'         => 'exkl. MwSt.',
 'text_shipping'         => ' und zzgl. <a href="%s">Service- und Versandkosten</a>.',
 

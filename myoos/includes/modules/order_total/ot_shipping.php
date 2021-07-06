@@ -81,7 +81,7 @@
     }
 
     function shopping_cart_process() {
-		global $oCurrencies, $aUser;
+		global $oCurrencies, $aUser, $aLang;
 
 		$content_type = $_SESSION['cart']->get_content_type();
 			
@@ -119,9 +119,10 @@
 		}
 
 
-		$currency = $_SESSION['currency'];
-		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];		
-		
+		$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);		
+		$decimal_places = $oCurrencies->get_decimal_places($currency_type);
+		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+				
 		if ($_SESSION['shipping']['cost'] > 0) {
 		
 			$_SESSION['cart']->info['total'] += $_SESSION['shipping']['cost'];
@@ -142,10 +143,11 @@
 
 					$_SESSION['cart']->info['tax'] += $tax;
 					$_SESSION['cart']->info['tax_groups']["$key"] += $tax;
-			
+					$info = sprintf($aLang['tax_incl_available_from'], number_format($key, 2).'%');
+
 					
-					$this->output[] = array('title' => $_SESSION['shipping']['title'] . ' (' . number_format($key, 2) . '% MwSt.):',
-										'text' => $oCurrencies->format($shipping_cost, true, $currency, $currency_value),
+					$this->output[] = array('title' => $_SESSION['shipping']['title'] . '<br><small> (' . $info . '): </small>',
+										'text' => $oCurrencies->format($shipping_cost, true, $currency_type, $currency_value),
 										'info' => '',
 										'value' => $shipping_cost);						
 					

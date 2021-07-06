@@ -225,14 +225,14 @@ $products_units = $dbconn->GetAssoc($query);
 
 
 // PAngV
-$sPAngV = $aLang['text_taxt_incl'];
+$sPAngV = $aLang['text_tax_incl'];
 if ($aUser['show_price'] == 1) {
 	if ($aUser['price_with_tax'] == 1) {
 		$tax_plus_shipping = sprintf($aLang['text_incl_tax_plus_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
-		$sPAngV = $aLang['text_taxt_incl'];	
+		$sPAngV = $aLang['text_tax_incl'];	
 	} else {
 		$tax_plus_shipping = sprintf($aLang['text_excl_tax_plus_shipping'], oos_href_link($aContents['information'], 'information_id=5'));		
-		$sPAngV = $aLang['text_taxt_add'];
+		$sPAngV = $aLang['text_tax_add'];
 	}
 
 	if (isset($_SESSION['customers_vat_id_status']) && ($_SESSION['customers_vat_id_status'] == 1)) {

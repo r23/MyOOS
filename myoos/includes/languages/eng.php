@@ -487,8 +487,9 @@ $aLang = [
 'text_new_customer_ip'                       => 'This account has been created by this computer IP : ',
 'text_customer_account_password_security'    => 'For you\'r own security we are not able to know or retrieve this password. If you forgot it, you can request a new one.',
 
-'text_taxt_incl'          => 'Price quotations incl. Tax',
-'text_taxt_add'           => 'plus. Tax',
+'text_tax_incl'          => 'Price quotations incl. Tax.',
+'tax_incl_available_from'   => 'incl. %s Tax.',
+'text_tax_add'           => 'plus. Tax',
 'tax_info_excl'           => 'excl. Tax',
 'text_shipping'           => 'excl. <a href="%s">and plus service and shipping costs</a>.',
 'total_info'			  => 'all data in %s, incl. VAT',
