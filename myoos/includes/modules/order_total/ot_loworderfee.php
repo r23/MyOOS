@@ -50,9 +50,8 @@
         }
 
         if ( ($pass == true) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) < MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER) ) {
-          $tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
-          // $tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-          $tax_description = oos_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+          $tax = oos_get_tax_rate(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+          $tax_description = oos_get_tax_description(MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 
           $oOrder->info['tax'] += oos_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
           $oOrder->info['tax_groups']["$tax_description"] += oos_calculate_tax(MODULE_ORDER_TOTAL_LOWORDERFEE_FEE, $tax);
@@ -124,8 +123,8 @@
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_SORT_ORDER', '2', '6', '2', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_LOW_ORDER_FEE', 'false', '6', '3', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER', '50', '6', '4', 'currencies->format', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_FEE', '5', '6', '5', 'currencies->format', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_ORDER_UNDER', '50', '6', '4', '$oCurrencies->format', now())");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_FEE', '5', '6', '5', '$oCurrencies->format', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_DESTINATION', 'both', '6', '6', 'oos_cfg_select_option(array(\'national\', \'international\', \'both\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS', '0', '6', '7', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
     }
