@@ -69,7 +69,11 @@
     function quote($method = '') {
       global $aLang, $oOrder, $shipping_weight, $shipping_num_boxes;
 
-      $dest_country = $oOrder->delivery['country']['iso_code_2'];
+	if (!is_object($oOrder)) {
+		$dest_country = isset($_SESSION['delivery_zone']) ? oos_prepare_input($_SESSION['delivery_zone']) : STORE_ORIGIN_COUNTRY;
+	} else {
+		$dest_country = $oOrder->delivery['country']['iso_code_2'];
+	}
       $dest_zone = 0;
       $error = false;
 

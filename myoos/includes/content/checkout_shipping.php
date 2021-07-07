@@ -22,6 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+
 // cookie-notice 
 if ( $bNecessary === false ) {
 	oos_redirect(oos_href_link($aContents['home']));
@@ -56,7 +57,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
  
 
-if (isset($_SESSION['shipping'])) unset($_SESSION['shipping']);
+# if (isset($_SESSION['shipping'])) unset($_SESSION['shipping']);
 
 // if no shipping destination address was selected, use the customers own address as default
 if (!isset($_SESSION['sendto'])) {
@@ -92,8 +93,13 @@ if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_subtotal() 
 	oos_redirect(oos_href_link($aContents['checkout_payment']));
 }
 
+
 $total_weight = $_SESSION['cart']->show_weight();
 $total_count = $_SESSION['cart']->count_contents();
+
+if ($oOrder->delivery['country']['iso_code_2'] != '') {
+	$_SESSION['delivery_zone'] = $oOrder->delivery['country']['iso_code_2'];
+}
 
 // load all enabled shipping modules
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
@@ -160,7 +166,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 						if (!empty($quote[0]['methods'][0]['title'])) {
 							$sWay = ' (' . $quote[0]['methods'][0]['title'] . ')'; 
 						}						
-						$_SESSION['shipping'] = array('id' => $quote[0]['id'],
+						$_SESSION['shipping'] = array('id' => $quote[0]['id'] . '_' . $quote[0]['methods'][0]['id'],
 											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module'] . $sWay), 
                                             'cost' => $quote[0]['methods'][0]['cost']);
 
@@ -185,9 +191,15 @@ $quotes = $shipping_modules->quote();
 // if the modules status was changed when none were available, to save on implementing
 // a javascript force-selection method, also automatically select the cheapest shipping
 // method if more than one module is now enabled
-if ((!isset($_SESSION['shipping']) || (!isset($_SESSION['shipping']['id']) || $_SESSION['shipping']['id'] == '') && oos_count_shipping_modules() >= 1)) $_SESSION['shipping'] = $shipping_modules->cheapest();
+/*
+if (!isset($_SESSION['shipping']) || (!isset($_SESSION['shipping']['id']) || $_SESSION['shipping']['id'] == '')) {
+	echo 'warum';
+	$_SESSION['shipping'] = $shipping_modules->cheapest();
+}
+*/
 
-list ($sess_class, $sess_method) = preg_split('/_/', $_SESSION['shipping']['id']);
+$shipping = isset($_SESSION['shipping']['id']) ? oos_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
+$module = substr($shipping, 0, strpos($shipping, '_'));
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['checkout_shipping']));
@@ -214,7 +226,7 @@ $smarty->assign(
 		'robots'			=> 'noindex,nofollow,noodp,noydir',
 		'checkout_active'	=> 1,
 		
-		'sess_method'		=> $sess_method,
+		'sess_method'		=> $module,
 
 		'counts_shipping_modules' => oos_count_shipping_modules(),
 		'quotes'			=> $quotes,

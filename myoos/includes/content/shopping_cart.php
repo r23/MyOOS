@@ -69,7 +69,7 @@ if (isset($_SESSION)) {
 
 			$shipping = isset($_SESSION['shipping']['id']) ? oos_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
 			list($module, $method) = explode('_', $shipping);
-
+	
 			// load all enabled shipping modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 			$shipping_modules = new shipping($module);
@@ -78,7 +78,7 @@ if (isset($_SESSION)) {
 			$quote = $shipping_modules->quote($method, $module);
 
 			if ( (isset($quote[0]['methods'][0]['title'])) && (isset($quote[0]['methods'][0]['cost'])) ) {		
-				$_SESSION['shipping'] = array('id' => $quote[0]['id'],
+				$_SESSION['shipping'] = array('id' => $quote[0]['id'] . '_' . $quote[0]['methods'][0]['id'],
 											'title' => (($free_shipping == true) ?  $quote[0]['methods'][0]['title'] : $quote[0]['module']), 
                                             'cost' => $quote[0]['methods'][0]['cost']);
 			}
@@ -86,10 +86,8 @@ if (isset($_SESSION)) {
 			// load all enabled order total modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 			$order_total_modules = new order_total;
-		#	$order_total_modules->collect_posts();
 			$order_total_modules->shopping_cart_process();
 			$order_total_output = $order_total_modules->output();
-
 
 			/*
 			 * Shopping Cart
