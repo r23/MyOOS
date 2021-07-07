@@ -61,8 +61,8 @@
 
       if (oos_is_not_null($oOrder->info['shipping_method'])) {
         if ($GLOBALS[$module]->tax_class > 0) {
-          $shipping_tax = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
-          $shipping_tax_description = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->billing['country']['id'], $oOrder->billing['zone_id']);
+          $shipping_tax = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+          $shipping_tax_description = oos_get_tax_description($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 
           $tax = oos_calculate_tax($oOrder->info['shipping_cost'], $shipping_tax);
           if ($aUser['price_with_tax'] == 1)  $oOrder->info['shipping_cost'] += $tax;

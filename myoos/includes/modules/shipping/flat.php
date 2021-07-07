@@ -74,10 +74,6 @@
                                                      'title' => $aLang['module_shipping_flat_text_way'],
                                                      'cost' => MODULE_SHIPPING_FLAT_COST)));
 
-# $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-
-
-
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
       return $this->quotes;

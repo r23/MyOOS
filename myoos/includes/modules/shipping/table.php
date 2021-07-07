@@ -93,7 +93,6 @@
                                                      'title' => $aLang['module_shipping_table_text_way'],
                                                      'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING)));
 
-# $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 

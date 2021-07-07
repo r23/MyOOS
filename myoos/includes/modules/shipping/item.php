@@ -75,9 +75,6 @@
                                                      'cost' => (MODULE_SHIPPING_ITEM_COST * $total_count) + MODULE_SHIPPING_ITEM_HANDLING)));
 
 
-#$this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-
-
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
       return $this->quotes;

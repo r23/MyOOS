@@ -94,10 +94,16 @@
     }
 
 // class methods
-    function quote($method = '') {
-      global $aLang, $oOrder, $shipping_weight, $shipping_num_boxes;
+function quote($method = '') {
+	global $aLang, $oOrder, $shipping_weight, $shipping_num_boxes;
 
-      $dest_country = $oOrder->delivery['country']['iso_code_2'];
+	if (!is_object($oOrder)) {
+		$dest_country = isset($_SESSION['delivery_zone']) ? oos_prepare_input($_SESSION['delivery_zone']) : STORE_ORIGIN_COUNTRY;
+	} else {
+		$dest_country = $oOrder->delivery['country']['iso_code_2'];
+	}
+	
+	
       $dest_zone = 0;
       $error = false;
 
@@ -197,8 +203,6 @@
                             'module' => $this->title . ' (' . $shipping_num_boxes . ' x ' . $shipping_weight . ' ' . $aLang['module_shipping_chp_text_units'] .')');
       $this->quotes['methods'] = $methods;
 
-
-# $this->quotes['tax'] = oos_get_tax_rate($this->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
 
       if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 

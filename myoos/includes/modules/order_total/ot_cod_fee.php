@@ -115,15 +115,15 @@
     }
 
 
-	function shopping_cart_process() {
-      global $oOrder, $oCurrencies, $cod_cost, $cod_country;
+function shopping_cart_process() {
+	global $oOrder, $oCurrencies, $cod_cost, $cod_country;
 
-      if (MODULE_ORDER_TOTAL_COD_STATUS == 'true') {
+	if (MODULE_ORDER_TOTAL_COD_STATUS == 'true') {
 
         //Will become true, if cod can be processed.
         $cod_country = false;
 
-        //check if payment method is cod. If yes, check if cod is possible.
+
         //check if payment method is cod. If yes, check if cod is possible.
 		if (isset($_SESSION['payment'])  && ($_SESSION['payment'] == 'cod')) {
 			$shipping_array = explode('_', $_SESSION['shipping']['id']);
@@ -132,8 +132,14 @@
 			if (defined('MODULE_ORDER_TOTAL_COD_'. $shipping_code)) {
 				$cod_zones = preg_split("/[:,]/", constant('MODULE_ORDER_TOTAL_COD_'. $shipping_code));
 
+				if (!is_object($oOrder)) {
+					$dest_country = isset($_SESSION['delivery_zone']) ? oos_prepare_input($_SESSION['delivery_zone']) : STORE_ORIGIN_COUNTRY;
+				} else {
+					$dest_country = $oOrder->delivery['country']['iso_code_2'];
+				}
+
 				for ($i = 0; $i < count($cod_zones); $i++) {
-					if ($cod_zones[$i] == $order->delivery['country']['iso_code_2']) {
+					if ($cod_zones[$i] == $dest_country) {
 						$cod_cost = $cod_zones[$i + 1];
 						$cod_country = true;
 						break;
@@ -180,8 +186,8 @@
 //                                  'text' => 'No COD for this module.',
 //                                  'value' => '');
 			}
-		}
-    }
+	}
+}
 
     function check() {
       if (!isset($this->_check)) {
