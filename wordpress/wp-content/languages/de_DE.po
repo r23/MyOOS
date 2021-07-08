@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.7.x package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-06-15 09:37:42+0000\n"
+"PO-Revision-Date: 2021-07-07 23:24:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -848,7 +848,7 @@ msgstr "Wenn du nicht weißt, wie du eine Datenbank einrichtest, solltest du <st
 #. translators: %s: Database name.
 #: wp-includes/wp-db.php:1113
 msgid "On some systems the name of your database is prefixed with your username, so it would be like <code>username_%1$s</code>. Could that be the problem?"
-msgstr "In einigen Systemen ist der Name deiner Datenbank mit deinem Benutzernamen als Präfix versehen, das würde so aussehen: <code>benutzername_%1$s</code>. Könnte dies das Problem sein?"
+msgstr "Unter einigen Systemen ist der Name deiner Datenbank mit deinem Benutzernamen als Präfix versehen, sodass er beispielsweise <code>benutzername_%1$s</code> lauten würde. Könnte dies das Problem sein?"
 
 #. translators: 1: Database user, 2: Database name.
 #: wp-includes/wp-db.php:1106
@@ -5630,7 +5630,7 @@ msgstr "Ungültige JSONP-Callback-Funktion."
 
 #: wp-includes/rest-api/class-wp-rest-server.php:371
 msgid "JSONP support is disabled on this site."
-msgstr "JSONP Unterstützung ist auf dieser Website deaktiviert."
+msgstr "JSONP-Unterstützung ist auf dieser Website deaktiviert."
 
 #. translators: %s: rest_authentication_errors
 #: wp-includes/rest-api/class-wp-rest-server.php:353
@@ -11498,7 +11498,7 @@ msgstr "Verwende stattdessen %s."
 
 #: wp-includes/class-wp-theme.php:962
 msgid "Seasonal"
-msgstr "Jahreszeitlich"
+msgstr "Saisonal"
 
 #: wp-includes/class-wp-theme.php:961
 msgid "Photoblogging"
@@ -15502,7 +15502,7 @@ msgstr "Zitat"
 #: wp-includes/block-patterns/large-header.php:13
 msgctxt "Block pattern description"
 msgid "A large hero section with an example background image and a heading in the center."
-msgstr "Ein großer Hero-Abschnitt mit einem Beispielhintergundbild und einer Überschrift in der Mitte."
+msgstr "Ein großer Hero-Abschnitt mit einem Beispielhintergrundbild und einer Überschrift in der Mitte."
 
 #: wp-includes/block-patterns/large-header.php:10
 msgid "Don Quixote"
@@ -15515,7 +15515,7 @@ msgstr "Großer Header mit einer Überschrift"
 #: wp-includes/block-patterns/large-header-button.php:13
 msgctxt "Block pattern description"
 msgid "A large hero section with a bright gradient background, a big heading and a filled button."
-msgstr "Ein großer Hero-Abschnitt auf einem Hintergund mit hellem Farbverlauf und mit einer großen Überschrift und einem gefüllten Button."
+msgstr "Ein großer Hero-Abschnitt auf einem Hintergrund mit hellem Farbverlauf und mit einer großen Überschrift und einem gefüllten Button."
 
 #: wp-includes/block-patterns/large-header-button.php:10
 msgid "Read now"
