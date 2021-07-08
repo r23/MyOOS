@@ -17,7 +17,7 @@
         "source": "https://github.com/r23/MyOOS/"
     },
     "require": {
-        "php": "^7.2|^8.0",
+        "php": "^7.4|^8.0",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-date": "*",
@@ -49,5 +49,5 @@
 		"dompdf/dompdf": "^1.0",
 		"phpoffice/phpspreadsheet": "^1.16"
     }	
-	
+
 }
