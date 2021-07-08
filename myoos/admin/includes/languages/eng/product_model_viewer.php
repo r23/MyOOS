@@ -36,6 +36,7 @@ define('TEXT_MODELS_BACKGROUND_COLOR', 'Background Color');
 define('TEXT_MODELS_OBJECT_SCALING', 'Scaling behavior:');
 define('TEXT_MODELS_OBJECT_SCALING_HELP', 'Controls the scaling behavior in AR mode in Scene Viewer. Set to "fixed" to disable scaling of the model, which sets it to always be at 100% scale. Defaults to "auto" which allows the model to be resized.');
 define('TEXT_MODELS_OBJECT_ROTATION', 'Object Rotation:');
+
 define('TEXT_MODELS_HDR', 'Panorama Wallpaper');
 define('TEXT_MODELS_HDR_NONE', 'Do not use a background image');
 
