@@ -36,7 +36,17 @@
     }
 
     function process() {
-      global $oOrder, $oCurrencies, $aUser;
+      global $oOrder, $oCurrencies, $aUser, $aLang;
+
+		$content_type = $_SESSION['cart']->get_content_type();
+			
+		// if the order contains only virtual products
+		if (($content_type == 'virtual') || ($_SESSION['cart']->show_subtotal() == 0)) {
+			$_SESSION['shipping'] = false;
+			$_SESSION['sendto'] = false;
+			$pass = true;
+		}
+
 
 	  if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
         switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
@@ -52,33 +62,65 @@
 
         if ( ($pass == true) && ( ($oOrder->info['total'] - $oOrder->info['shipping_cost']) >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
           $oOrder->info['shipping_method'] = $this->title;
-          $oOrder->info['total'] -= $oOrder->info['shipping_cost'];
           $oOrder->info['shipping_cost'] = 0;
         }
       }
 
-      $module = substr($_SESSION['shipping']['id'], 0, strpos($_SESSION['shipping']['id'], '_'));
+		$currency_type = $oOrder->info['currency'];		
+		$decimal_places = $oCurrencies->get_decimal_places($currency_type);
+		$currency_value = $oOrder->info['currency_value'];
+				
+		if ($oOrder->info['shipping_cost'] > 0) {
+		
+			$oOrder->info['total'] += $oOrder->info['shipping_cost'];
+			
+			$subtotal = $oOrder->info['subtotal'];
+			
+			$tax = $oOrder->info['tax'];
+			if ($aUser['price_with_tax'] == 1) {
+				$subtotal = $subtotal - $tax;
+			}
+		
+			$sales_tax_rates = count($oOrder->info['net_total']);
 
-      if (oos_is_not_null($oOrder->info['shipping_method'])) {
-        if ($GLOBALS[$module]->tax_class > 0) {
-          $shipping_tax = oos_get_tax_rate($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
-          $shipping_tax_description = oos_get_tax_description($GLOBALS[$module]->tax_class, $oOrder->delivery['country']['id'], $oOrder->delivery['zone_id']);
+			reset($oOrder->info['net_total']);	
+		
+			foreach($oOrder->info['net_total'] as $key => $value) {		  
+				if ($value > 0) {
+					$share =  $value * 100 / $subtotal;
+					$shipping_cost = $oOrder->info['shipping_cost'] * $share / 100;
+					
+					$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
 
-          $tax = oos_calculate_tax($oOrder->info['shipping_cost'], $shipping_tax);
-          if ($aUser['price_with_tax'] == 1)  $oOrder->info['shipping_cost'] += $tax;
+					$oOrder->info['tax'] += $tax;
+					$oOrder->info['tax_groups']["$key"] += $tax;
+					
+					if ($sales_tax_rates > 1) {
+						$info = sprintf($aLang['tax_incl_available_from'], number_format($key, 2).'%');
+						$info = '<br><small> (' . $info . '): </small>';
+					} else {
+						$info = '';
+					}
+					
+					$this->output[] = array('title' => $oOrder->info['shipping_method'] . $info,
+										'text' => $oCurrencies->format($shipping_cost, true, $currency_type, $currency_value),
+										'info' => '',
+										'value' => $shipping_cost);						
+					
+					
+				}
+			}
 
-          $oOrder->info['tax'] += $tax;
-          $oOrder->info['tax_groups']["$shipping_tax_description"] += $tax;
-          $oOrder->info['total'] += $tax;
-        }
+		} else {
+		
+			$this->output[] = array('title' => $oOrder->info['shipping_method'] . ':',
+									'text' => $oCurrencies->format($oOrder->info['shipping_cost'], true, $currency_type, $currency_value),
+									'info' => '',
+									'value' => $oOrder->info['shipping_cost']);
 
+		}
 
-        $this->output[] = array('title' => $oOrder->info['shipping_method'] . ':',
-                                'text' => $oCurrencies->format($oOrder->info['shipping_cost'], true, $oOrder->info['currency'], $oOrder->info['currency_value']),
-								'info' => '',
-                                'value' => $oOrder->info['shipping_cost']);
-      }
-    }
+     }
 
     function shopping_cart_process() {
 		global $oCurrencies, $aUser, $aLang;
@@ -134,7 +176,9 @@
 				$subtotal = $subtotal - $tax;
 			}
 		
+			$sales_tax_rates = count($_SESSION['cart']->info['net_total']);
 			reset($_SESSION['cart']->info['net_total']);
+			
 			foreach($_SESSION['cart']->info['net_total'] as $key => $value) {		  
 				if ($value > 0) {
 					$share =  $value * 100 / $subtotal;
@@ -143,10 +187,15 @@
 
 					$_SESSION['cart']->info['tax'] += $tax;
 					$_SESSION['cart']->info['tax_groups']["$key"] += $tax;
-					$info = sprintf($aLang['tax_incl_available_from'], number_format($key, 2).'%');
-
 					
-					$this->output[] = array('title' => $_SESSION['shipping']['title'] . '<br><small> (' . $info . '): </small>',
+					if ($sales_tax_rates > 1) {									
+						$info = sprintf($aLang['tax_incl_available_from'], number_format($key, 2).'%');
+						$info = '<br><small> (' . $info . '): </small>';
+					} else {
+						$info = '';
+					}
+					
+					$this->output[] = array('title' => $_SESSION['shipping']['title'] . $info,
 										'text' => $oCurrencies->format($shipping_cost, true, $currency_type, $currency_value),
 										'info' => '',
 										'value' => $shipping_cost);						

@@ -46,11 +46,11 @@
 	  	  
       foreach($oOrder->info['tax_groups'] as $key => $value) {		  
         if ($value > 0) {
-          $this->output[] = array('title' => $info . $this->title . ' (' . number_format($key, 2) . '%):',
+          $this->output[] = array('title' => $info . $this->title . ' (' . number_format(floatval($key), 2) . '%):',
                                   'text' => $oCurrencies->format($value, true, $oOrder->info['currency'], $oOrder->info['currency_value']),
 								  'info' => '',
                                   'value' => $value);								  
-								  
+			  
         }
       }
     }
@@ -71,7 +71,7 @@
 
 		foreach($_SESSION['cart']->info['tax_groups'] as $key => $value) {		  
 			if ($value > 0) {
-				$this->output[] = array('title' => '<small>' . $info . $this->title . ' (' . number_format($key, 2) . '%):</small>',
+				$this->output[] = array('title' => '<small>' . $info . $this->title . ' (' . number_format(floatval($key), 2) . '%):</small>',
 										'text' => '<small>' . $oCurrencies->format($value, true, $currency, $currency_value) . '</small>',
 										'info' => '',
 										'value' => $value);										
