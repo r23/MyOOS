@@ -125,7 +125,7 @@ if (!$product_info_result->RecordCount()) {
 
     // breadcrumb
 	$oBreadcrumb->add($product_info['products_name']);
-		
+	
     // products history
 	if (isset($_SESSION) && $bPersonalization == true) {
 		$_SESSION['products_history']->add_current_products($nProductsID);
@@ -367,7 +367,7 @@ if (!$product_info_result->RecordCount()) {
 		$smarty->assign('manufacturers_info', $manufacturers_info);
 	}
 
-
+	
     if ($oEvent->installed_plugin('reviews')) {
 		$reviewstable = $oostable['reviews'];
 		$reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
@@ -473,7 +473,7 @@ if (!$product_info_result->RecordCount()) {
 		}
 
 		$smarty->assign('model_viewer_array', $aModelViewer);
-		
+	
 
 		// QR - Code  
 		$detect = new Mobile_Detect;
