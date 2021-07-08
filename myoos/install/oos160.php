@@ -90,9 +90,9 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block (block_id, block_
 
 
 $table = $prefix_table . 'block';
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `block_author_name` VARCHAR(32) NOT NULL AFTER `block_login_flag`");
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `block_author_www` VARCHAR( 255 ) NOT NULL AFTER `block_author_name`");
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `block_modules_group` VARCHAR( 32 ) DEFAULT 'block' NOT NULL AFTER `block_author_www`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `block_author_name` VARCHAR(32) NOT NULL AFTER `block_login_flag`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `block_author_www` VARCHAR( 255 ) NOT NULL AFTER `block_author_name`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `block_modules_group` VARCHAR( 32 ) DEFAULT 'block' NOT NULL AFTER `block_author_www`");
 
 $table = $prefix_table . 'block';
 $result = $db->Execute("UPDATE " . $table . " SET block_author_name = 'MyOOS [Shopsystem]' WHERE block_author_name = ''");
@@ -147,7 +147,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "block_to_page_type (blo
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $prefix_table . "block_to_page_type " . UPDATED .'</font>';
 
 $table = $prefix_table . 'categories';
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `access` INT( 11 ) DEFAULT '0' NOT NULL AFTER `parent_id`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `access` INT( 11 ) DEFAULT '0' NOT NULL AFTER `parent_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
@@ -188,21 +188,21 @@ if ($result === false) {
 }
 
 $table = $prefix_table . 'customers';
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `customers_language` VARCHAR(3) AFTER `customers_login`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `customers_language` VARCHAR(3) AFTER `customers_login`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
   echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `customers_vat_id` VARCHAR(20) AFTER `customers_default_address_id`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `customers_vat_id` VARCHAR(20) AFTER `customers_default_address_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
   echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `customers_vat_id_status` TINYINT DEFAULT '0' NOTNULL AFTER `customers_vat_id`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `customers_vat_id_status` TINYINT DEFAULT '0' NOTNULL AFTER `customers_vat_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
@@ -210,7 +210,7 @@ if ($result === false) {
 }
 
 $table = $prefix_table . 'languages';
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `iso_3166_1` VARCHAR(2) NOT NULL AFTER `iso_639_1`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `iso_3166_1` VARCHAR(2) NOT NULL AFTER `iso_639_1`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
@@ -227,7 +227,7 @@ if ($result === false) {
 }
 
 
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `products_units_id` INT( 11 ) DEFAULT '0' NOT NULL AFTER `products_tax_class_id`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `products_units_id` INT( 11 ) DEFAULT '0' NOT NULL AFTER `products_tax_class_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 }
@@ -259,7 +259,7 @@ if ($result === false) {
   echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `permissions` TINYINT DEFAULT '0' NOTNULL AFTER `manufacturers_id`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `permissions` TINYINT DEFAULT '0' NOTNULL AFTER `manufacturers_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 }

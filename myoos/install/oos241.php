@@ -98,17 +98,17 @@ if ($result === false) {
 
 // products_model_viewer
 $table = $prefix_table . 'products_model_viewer';
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `model_viewer_scale` VARCHAR(5) NOT NULL DEFAULT 'auto' AFTER `model_viewer_auto_rotate`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `model_viewer_scale` VARCHAR(5) NOT NULL DEFAULT 'auto' AFTER `model_viewer_auto_rotate`");
 
 
 // products_attributes
 $table = $prefix_table . 'products_attributes';
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `options_values_model` VARCHAR(12) NULL AFTER `options_id`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `options_values_model` VARCHAR(12) NULL AFTER `options_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 
 
-$result = $db->Execute("ALTER TABLE " . $table . " ADD `options_values_image` VARCHAR(255) NULL AFTER `options_values_model`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `options_values_image` VARCHAR(255) NULL AFTER `options_values_model`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } 

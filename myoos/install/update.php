@@ -63,15 +63,6 @@ if (is_readable('../includes/local/configure.php')) {
     require_once '../includes/configure.php';
 }
 
-if (OOS_DB_TYPE == '') {
-	$server = $_SERVER['HTTP_HOST'];
-	$path = $_SERVER['SCRIPT_NAME'];
-	$path = dirname($path);
-	$url = trim('http://' . $server . $path .'/');
-	header('Location: ' . $url);
-	exit;
-}
-
 
 if(!defined('MYOOS_INCLUDE_PATH')) {
 	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
@@ -163,7 +154,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
     break;
 
 
-    case "OOS 2.3.12":
+    case "myOOS 2.3.12":
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
       oosDoUpgrade2312($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
       print_Next();

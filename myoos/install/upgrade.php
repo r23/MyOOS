@@ -80,19 +80,19 @@ function print_SelectOOS() {
 
   echo '<font class="oos-title">' . OOSUPGRADE_1 . ':</font><br /><br />' . "\n" .
        '<font class="oos-error">' . UPGRADE_INFO . '</font><br /><br />' . "\n" .
-       '<form name="oos updrade" action="update.php" method="post">' . "\n" .	   
+       '<form name="oos updrade" action="https://oos-shop.de/shop/install/update.php" method="post">' . "\n" .	   
 	   '<fieldset>' . "\n" .
  	   '   <input type="radio" id="23" name="op" value="myOOS 2.3.12">' . "\n" .
-	   '    <label for=23"> myOOS 2.3.12</label> ' . "\n" .
-	   '    <input type="radio" id="241" name="op" value="myOOS 2.4.1" checked="checked">' . "\n" .
+	   '    <label for="23"> myOOS 2.3.12</label> ' . "\n" .
+	   '    <input type="radio" id="241" name="op" value="myOOS 2.4.1" >' . "\n" .
  	   '   <label for="241"> myOOS 2.4.1</label> ' . "\n" .
-	   '    <input type="radio" id="243" name="op" value="myOOS 2.4.3" checked="checked">' . "\n" .
+	   '    <input type="radio" id="243" name="op" value="myOOS 2.4.3" >' . "\n" .
  	   '   <label for="243"> myOOS 2.4.3</label> ' . "\n" .	 
-	   '    <input type="radio" id="2416" name="op" value="myOOS 2.4.16" checked="checked">' . "\n" .
+	   '    <input type="radio" id="2416" name="op" value="myOOS 2.4.16">' . "\n" .
  	   '   <label for="2416"> myOOS 2.4.16</label> ' . "\n" .		 
-	   '    <input type="radio" id="2420" name="op" value="myOOS 2.4.20" checked="checked">' . "\n" .
+	   '    <input type="radio" id="2420" name="op" value="myOOS 2.4.20">' . "\n" .
  	   '   <label for="2420"> myOOS 2.4.20</label> ' . "\n" .
-	   '    <input type="radio" id="2420" name="op" value="myOOS 2.4.26" checked="checked">' . "\n" .
+	   '    <input type="radio" id="2420" name="op" value="myOOS 2.4.26">' . "\n" .
  	   '   <label for="2420"> myOOS 2.4.26</label> ' . "\n" .	   
  	   ' </fieldset>' . "\n";
   print_FormHidden();
