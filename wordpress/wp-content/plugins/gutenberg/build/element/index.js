@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["element"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 419);
+/******/ 	return __webpack_require__(__webpack_require__.s = 425);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["element"] =
 
 /***/ }),
 
-/***/ 132:
+/***/ 135:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["ReactDOM"]; }());
@@ -108,7 +108,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["element"] =
 
 /***/ }),
 
-/***/ 419:
+/***/ 425:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -716,7 +716,7 @@ function switchChildrenNodeName(children, nodeName) {
 }
 //# sourceMappingURL=react.js.map
 // EXTERNAL MODULE: external "ReactDOM"
-var external_ReactDOM_ = __webpack_require__(132);
+var external_ReactDOM_ = __webpack_require__(135);
 
 // CONCATENATED MODULE: ./packages/element/build-module/react-platform.js
 /**

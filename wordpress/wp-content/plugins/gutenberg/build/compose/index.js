@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["compose"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 406);
+/******/ 	return __webpack_require__(__webpack_require__.s = 412);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,7 @@ var useCallback = useCallbackOne;
 
 /***/ }),
 
-/***/ 138:
+/***/ 141:
 /***/ (function(module, exports, __webpack_require__) {
 
 var e=__webpack_require__(12),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
@@ -174,14 +174,14 @@ var e=__webpack_require__(12),n={display:"block",opacity:0,position:"absolute",t
 
 /***/ }),
 
-/***/ 139:
+/***/ 142:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["priorityQueue"]; }());
 
 /***/ }),
 
-/***/ 170:
+/***/ 172:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -1112,21 +1112,21 @@ module.exports = select;
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["dom"]; }());
 
 /***/ }),
 
-/***/ 24:
+/***/ 25:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["deprecated"]; }());
 
 /***/ }),
 
-/***/ 265:
+/***/ 268:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
@@ -2192,7 +2192,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
 
 /***/ }),
 
-/***/ 376:
+/***/ 382:
 /***/ (function(module, exports) {
 
 /**
@@ -2245,7 +2245,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
 
 /***/ }),
 
-/***/ 406:
+/***/ 412:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2369,7 +2369,7 @@ const ifCondition = predicate => create_higher_order_component(WrappedComponent 
 /* harmony default export */ var if_condition = (ifCondition);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(45);
+var external_wp_isShallowEqual_ = __webpack_require__(47);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // CONCATENATED MODULE: ./packages/compose/build-module/higher-order/pure/index.js
@@ -2417,7 +2417,7 @@ const pure = create_higher_order_component(Wrapped => {
 var esm_extends = __webpack_require__(7);
 
 // EXTERNAL MODULE: external ["wp","deprecated"]
-var external_wp_deprecated_ = __webpack_require__(24);
+var external_wp_deprecated_ = __webpack_require__(25);
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_);
 
 // CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/listener.js
@@ -2783,7 +2783,7 @@ function withState(initialState = {}) {
 var external_wp_keycodes_ = __webpack_require__(13);
 
 // EXTERNAL MODULE: external ["wp","dom"]
-var external_wp_dom_ = __webpack_require__(21);
+var external_wp_dom_ = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-constrained-tabbing/index.js
 /**
@@ -2872,7 +2872,7 @@ function useConstrainedTabbing() {
 /* harmony default export */ var use_constrained_tabbing = (useConstrainedTabbing);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/clipboard/dist/clipboard.js
-var dist_clipboard = __webpack_require__(170);
+var dist_clipboard = __webpack_require__(172);
 var clipboard_default = /*#__PURE__*/__webpack_require__.n(dist_clipboard);
 
 // CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-on-click/index.js
@@ -3700,11 +3700,11 @@ function useDragging({
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/mousetrap/mousetrap.js
-var mousetrap_mousetrap = __webpack_require__(265);
+var mousetrap_mousetrap = __webpack_require__(268);
 var mousetrap_default = /*#__PURE__*/__webpack_require__.n(mousetrap_mousetrap);
 
 // EXTERNAL MODULE: ./node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js
-var mousetrap_global_bind = __webpack_require__(376);
+var mousetrap_global_bind = __webpack_require__(382);
 
 // CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-keyboard-shortcut/index.js
 /**
@@ -3990,7 +3990,7 @@ useViewportMatch.__experimentalWidthProvider = ViewportMatchWidthContext.Provide
 /* harmony default export */ var use_viewport_match = (useViewportMatch);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/react-resize-aware/dist/index.js
-var dist = __webpack_require__(138);
+var dist = __webpack_require__(141);
 var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
 
 // CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-resize-observer/index.js
@@ -4027,7 +4027,7 @@ var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
 /* harmony default export */ var use_resize_observer = (dist_default.a);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","priorityQueue"]
-var external_wp_priorityQueue_ = __webpack_require__(139);
+var external_wp_priorityQueue_ = __webpack_require__(142);
 
 // CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-async-list/index.js
 /**
@@ -4482,7 +4482,7 @@ function useDropZone({
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());

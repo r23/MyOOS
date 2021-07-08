@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["formatLibrary"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 411);
+/******/ 	return __webpack_require__(__webpack_require__.s = 417);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -140,14 +140,14 @@ function Icon({
 
 /***/ }),
 
-/***/ 16:
+/***/ 15:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["richText"]; }());
 
 /***/ }),
 
-/***/ 185:
+/***/ 187:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -186,7 +186,7 @@ const link = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 209:
+/***/ 212:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -211,7 +211,7 @@ const keyboardReturn = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["c
 
 /***/ }),
 
-/***/ 211:
+/***/ 214:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -236,7 +236,7 @@ const linkOff = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEl
 
 /***/ }),
 
-/***/ 279:
+/***/ 286:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -261,7 +261,7 @@ const formatStrikethrough = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0
 
 /***/ }),
 
-/***/ 288:
+/***/ 295:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -286,7 +286,7 @@ const button = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 /***/ }),
 
-/***/ 289:
+/***/ 296:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -325,7 +325,7 @@ const code = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 375:
+/***/ 381:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -350,13 +350,6 @@ const textColor = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 39:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["htmlEntities"]; }());
-
-/***/ }),
-
 /***/ 4:
 /***/ (function(module, exports) {
 
@@ -364,7 +357,14 @@ const textColor = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 411:
+/***/ 40:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["htmlEntities"]; }());
+
+/***/ }),
+
+/***/ 417:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -372,7 +372,7 @@ const textColor = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: external ["wp","richText"]
-var external_wp_richText_ = __webpack_require__(16);
+var external_wp_richText_ = __webpack_require__(15);
 
 // EXTERNAL MODULE: external ["wp","element"]
 var external_wp_element_ = __webpack_require__(0);
@@ -459,7 +459,7 @@ const bold = {
 };
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/code.js
-var code = __webpack_require__(289);
+var code = __webpack_require__(296);
 
 // CONCATENATED MODULE: ./packages/format-library/build-module/code/index.js
 
@@ -542,7 +542,7 @@ const code_code = {
 var external_wp_components_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/keyboard-return.js
-var keyboard_return = __webpack_require__(209);
+var keyboard_return = __webpack_require__(212);
 
 // CONCATENATED MODULE: ./packages/format-library/build-module/image/index.js
 
@@ -765,13 +765,13 @@ const italic = {
 var external_wp_url_ = __webpack_require__(19);
 
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(39);
+var external_wp_htmlEntities_ = __webpack_require__(40);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/link-off.js
-var link_off = __webpack_require__(211);
+var link_off = __webpack_require__(214);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/link.js
-var library_link = __webpack_require__(185);
+var library_link = __webpack_require__(187);
 
 // EXTERNAL MODULE: external ["wp","a11y"]
 var external_wp_a11y_ = __webpack_require__(30);
@@ -935,6 +935,13 @@ function InlineLinkUI({
     ...nextLinkValue
   };
 
+  function removeLink() {
+    const newValue = Object(external_wp_richText_["removeFormat"])(value, 'core/link');
+    onChange(newValue);
+    stopAddingLink();
+    speak(Object(external_wp_i18n_["__"])('Link removed.'), 'assertive');
+  }
+
   function onChangeLink(nextValue) {
     // Merge with values from state, both for the purpose of assigning the
     // next state value, and for use in constructing the new link format if
@@ -1008,6 +1015,7 @@ function InlineLinkUI({
   }, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["__experimentalLinkControl"], {
     value: linkValue,
     onChange: onChangeLink,
+    onRemove: removeLink,
     forceIsEditingLink: addingLink,
     hasRichPreviews: true
   }));
@@ -1034,6 +1042,7 @@ function InlineLinkUI({
  */
 
 
+
 const link_name = 'core/link';
 
 const link_title = Object(external_wp_i18n_["__"])('Link');
@@ -1051,7 +1060,7 @@ function link_Edit({
   function addLink() {
     const text = Object(external_wp_richText_["getTextContent"])(Object(external_wp_richText_["slice"])(value));
 
-    if (text && Object(external_wp_url_["isURL"])(text)) {
+    if (text && Object(external_wp_url_["isURL"])(text) && isValidHref(text)) {
       onChange(Object(external_wp_richText_["applyFormat"])(value, {
         type: link_name,
         attributes: {
@@ -1155,7 +1164,7 @@ const link_link = {
 };
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/format-strikethrough.js
-var format_strikethrough = __webpack_require__(279);
+var format_strikethrough = __webpack_require__(286);
 
 // CONCATENATED MODULE: ./packages/format-library/build-module/strikethrough/index.js
 
@@ -1248,7 +1257,7 @@ const underline = {
 var icon = __webpack_require__(109);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/text-color.js
-var text_color = __webpack_require__(375);
+var text_color = __webpack_require__(381);
 
 // EXTERNAL MODULE: external ["wp","data"]
 var external_wp_data_ = __webpack_require__(4);
@@ -1567,7 +1576,7 @@ const superscript_superscript = {
 };
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/button.js
-var library_button = __webpack_require__(288);
+var library_button = __webpack_require__(295);
 
 // CONCATENATED MODULE: ./packages/format-library/build-module/keyboard/index.js
 

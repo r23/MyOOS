@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["editSite"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 399);
+/******/ 	return __webpack_require__(__webpack_require__.s = 405);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -226,7 +226,7 @@ const close = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElem
 
 /***/ }),
 
-/***/ 124:
+/***/ 127:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -258,7 +258,7 @@ const plus = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 144:
+/***/ 148:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -283,7 +283,7 @@ const starFilled = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["creat
 
 /***/ }),
 
-/***/ 145:
+/***/ 149:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -310,7 +310,7 @@ const starEmpty = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 148:
+/***/ 152:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -335,7 +335,7 @@ const chevronDown = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["crea
 
 /***/ }),
 
-/***/ 149:
+/***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -360,14 +360,14 @@ const moreVertical = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["cre
 
 /***/ }),
 
-/***/ 15:
+/***/ 16:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["editor"]; }());
 
 /***/ }),
 
-/***/ 173:
+/***/ 175:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -399,7 +399,7 @@ const listView = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createE
 
 /***/ }),
 
-/***/ 194:
+/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -424,7 +424,7 @@ const undo = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 195:
+/***/ 197:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -449,7 +449,7 @@ const redo = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 196:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -476,7 +476,7 @@ const cog = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElemen
 
 /***/ }),
 
-/***/ 197:
+/***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -526,7 +526,14 @@ const pencil = Object(external_wp_element_["createElement"])(external_wp_primiti
 
 /***/ }),
 
-/***/ 249:
+/***/ 24:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
+
+/***/ }),
+
+/***/ 253:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -548,182 +555,6 @@ const wordpress = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 }));
 /* harmony default export */ __webpack_exports__["a"] = (wordpress);
 //# sourceMappingURL=wordpress.js.map
-
-/***/ }),
-
-/***/ 25:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
-
-/***/ }),
-
-/***/ 267:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//download.js v4.2, by dandavis; 2008-2016. [MIT] see http://danml.com/download.html for tests/usage
-// v1 landed a FF+Chrome compat way of downloading strings to local un-named files, upgraded to use a hidden frame and optional mime
-// v2 added named files via a[download], msSaveBlob, IE (10+) support, and window.URL support for larger+faster saves than dataURLs
-// v3 added dataURL and Blob Input, bind-toggle arity, and legacy dataURL fallback was improved with force-download mime and base64 support. 3.1 improved safari handling.
-// v4 adds AMD/UMD, commonJS, and plain browser support
-// v4.1 adds url download capability via solo URL argument (same domain/CORS only)
-// v4.2 adds semantic variable names, long (over 2MB) dataURL support, and hidden by default temp anchors
-// https://github.com/rndme/download
-
-(function (root, factory) {
-	if (true) {
-		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
-				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
-				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-	} else {}
-}(this, function () {
-
-	return function download(data, strFileName, strMimeType) {
-
-		var self = window, // this script is only for browsers anyway...
-			defaultMime = "application/octet-stream", // this default mime also triggers iframe downloads
-			mimeType = strMimeType || defaultMime,
-			payload = data,
-			url = !strFileName && !strMimeType && payload,
-			anchor = document.createElement("a"),
-			toString = function(a){return String(a);},
-			myBlob = (self.Blob || self.MozBlob || self.WebKitBlob || toString),
-			fileName = strFileName || "download",
-			blob,
-			reader;
-			myBlob= myBlob.call ? myBlob.bind(self) : Blob ;
-	  
-		if(String(this)==="true"){ //reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
-			payload=[payload, mimeType];
-			mimeType=payload[0];
-			payload=payload[1];
-		}
-
-
-		if(url && url.length< 2048){ // if no filename and no mime, assume a url was passed as the only argument
-			fileName = url.split("/").pop().split("?")[0];
-			anchor.href = url; // assign href prop to temp anchor
-		  	if(anchor.href.indexOf(url) !== -1){ // if the browser determines that it's a potentially valid url path:
-        		var ajax=new XMLHttpRequest();
-        		ajax.open( "GET", url, true);
-        		ajax.responseType = 'blob';
-        		ajax.onload= function(e){ 
-				  download(e.target.response, fileName, defaultMime);
-				};
-        		setTimeout(function(){ ajax.send();}, 0); // allows setting custom ajax headers using the return:
-			    return ajax;
-			} // end if valid url?
-		} // end if url?
-
-
-		//go ahead and download dataURLs right away
-		if(/^data:([\w+-]+\/[\w+.-]+)?[,;]/.test(payload)){
-		
-			if(payload.length > (1024*1024*1.999) && myBlob !== toString ){
-				payload=dataUrlToBlob(payload);
-				mimeType=payload.type || defaultMime;
-			}else{			
-				return navigator.msSaveBlob ?  // IE10 can't do a[download], only Blobs:
-					navigator.msSaveBlob(dataUrlToBlob(payload), fileName) :
-					saver(payload) ; // everyone else can save dataURLs un-processed
-			}
-			
-		}else{//not data url, is it a string with special needs?
-			if(/([\x80-\xff])/.test(payload)){			  
-				var i=0, tempUiArr= new Uint8Array(payload.length), mx=tempUiArr.length;
-				for(i;i<mx;++i) tempUiArr[i]= payload.charCodeAt(i);
-			 	payload=new myBlob([tempUiArr], {type: mimeType});
-			}		  
-		}
-		blob = payload instanceof myBlob ?
-			payload :
-			new myBlob([payload], {type: mimeType}) ;
-
-
-		function dataUrlToBlob(strUrl) {
-			var parts= strUrl.split(/[:;,]/),
-			type= parts[1],
-			decoder= parts[2] == "base64" ? atob : decodeURIComponent,
-			binData= decoder( parts.pop() ),
-			mx= binData.length,
-			i= 0,
-			uiArr= new Uint8Array(mx);
-
-			for(i;i<mx;++i) uiArr[i]= binData.charCodeAt(i);
-
-			return new myBlob([uiArr], {type: type});
-		 }
-
-		function saver(url, winMode){
-
-			if ('download' in anchor) { //html5 A[download]
-				anchor.href = url;
-				anchor.setAttribute("download", fileName);
-				anchor.className = "download-js-link";
-				anchor.innerHTML = "downloading...";
-				anchor.style.display = "none";
-				document.body.appendChild(anchor);
-				setTimeout(function() {
-					anchor.click();
-					document.body.removeChild(anchor);
-					if(winMode===true){setTimeout(function(){ self.URL.revokeObjectURL(anchor.href);}, 250 );}
-				}, 66);
-				return true;
-			}
-
-			// handle non-a[download] safari as best we can:
-			if(/(Version)\/(\d+)\.(\d+)(?:\.(\d+))?.*Safari\//.test(navigator.userAgent)) {
-				if(/^data:/.test(url))	url="data:"+url.replace(/^data:([\w\/\-\+]+)/, defaultMime);
-				if(!window.open(url)){ // popup blocked, offer direct download:
-					if(confirm("Displaying New Document\n\nUse Save As... to download, then click back to return to this page.")){ location.href=url; }
-				}
-				return true;
-			}
-
-			//do iframe dataURL download (old ch+FF):
-			var f = document.createElement("iframe");
-			document.body.appendChild(f);
-
-			if(!winMode && /^data:/.test(url)){ // force a mime that will download:
-				url="data:"+url.replace(/^data:([\w\/\-\+]+)/, defaultMime);
-			}
-			f.src=url;
-			setTimeout(function(){ document.body.removeChild(f); }, 333);
-
-		}//end saver
-
-
-
-
-		if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
-			return navigator.msSaveBlob(blob, fileName);
-		}
-
-		if(self.URL){ // simple fast and modern way using Blob and URL:
-			saver(self.URL.createObjectURL(blob), true);
-		}else{
-			// handle non-Blob()+non-URL browsers:
-			if(typeof blob === "string" || blob.constructor===toString ){
-				try{
-					return saver( "data:" +  mimeType   + ";base64,"  +  self.btoa(blob)  );
-				}catch(y){
-					return saver( "data:" +  mimeType   + "," + encodeURIComponent(blob)  );
-				}
-			}
-
-			// Blob but not URL support:
-			reader=new FileReader();
-			reader.onload=function(e){
-				saver(this.result);
-			};
-			reader.readAsDataURL(blob);
-		}
-		return true;
-	}; /* end download() */
-}));
-
 
 /***/ }),
 
@@ -1055,19 +886,19 @@ var external_wp_i18n_ = __webpack_require__(1);
 var check = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/star-filled.js
-var star_filled = __webpack_require__(144);
+var star_filled = __webpack_require__(148);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/star-empty.js
-var star_empty = __webpack_require__(145);
+var star_empty = __webpack_require__(149);
 
 // EXTERNAL MODULE: external ["wp","viewport"]
-var external_wp_viewport_ = __webpack_require__(52);
+var external_wp_viewport_ = __webpack_require__(54);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/close-small.js
 var close_small = __webpack_require__(91);
 
 // EXTERNAL MODULE: external ["wp","plugins"]
-var external_wp_plugins_ = __webpack_require__(36);
+var external_wp_plugins_ = __webpack_require__(37);
 
 // CONCATENATED MODULE: ./packages/interface/build-module/components/complementary-area-context/index.js
 /**
@@ -1523,54 +1354,44 @@ ComplementaryAreaWrapped.Slot = ComplementaryAreaSlot;
  * WordPress dependencies
  */
 
-class fullscreen_mode_FullscreenMode extends external_wp_element_["Component"] {
-  componentDidMount() {
-    this.isSticky = false;
-    this.sync(); // `is-fullscreen-mode` is set in PHP as a body class by Gutenberg, and this causes
+
+const FullscreenMode = ({
+  isActive
+}) => {
+  Object(external_wp_element_["useEffect"])(() => {
+    let isSticky = false; // `is-fullscreen-mode` is set in PHP as a body class by Gutenberg, and this causes
     // `sticky-menu` to be applied by WordPress and prevents the admin menu being scrolled
     // even if `is-fullscreen-mode` is then removed. Let's remove `sticky-menu` here as
     // a consequence of the FullscreenMode setup
 
     if (document.body.classList.contains('sticky-menu')) {
-      this.isSticky = true;
+      isSticky = true;
       document.body.classList.remove('sticky-menu');
     }
-  }
 
-  componentWillUnmount() {
-    if (this.isSticky) {
-      document.body.classList.add('sticky-menu');
-    }
-
-    if (this.props.isActive) {
-      document.body.classList.remove('is-fullscreen-mode');
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.isActive !== prevProps.isActive) {
-      this.sync();
-    }
-  }
-
-  sync() {
-    const {
-      isActive
-    } = this.props;
-
+    return () => {
+      if (isSticky) {
+        document.body.classList.add('sticky-menu');
+      }
+    };
+  }, []);
+  Object(external_wp_element_["useEffect"])(() => {
     if (isActive) {
       document.body.classList.add('is-fullscreen-mode');
     } else {
       document.body.classList.remove('is-fullscreen-mode');
     }
-  }
 
-  render() {
-    return null;
-  }
+    return () => {
+      if (isActive) {
+        document.body.classList.remove('is-fullscreen-mode');
+      }
+    };
+  }, [isActive]);
+  return null;
+};
 
-}
-/* harmony default export */ var fullscreen_mode = (fullscreen_mode_FullscreenMode);
+/* harmony default export */ var fullscreen_mode = (FullscreenMode);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","compose"]
 var external_wp_compose_ = __webpack_require__(9);
@@ -1704,6 +1525,175 @@ function InterfaceSkeleton({
 
 
 //# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 270:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//download.js v4.2, by dandavis; 2008-2016. [MIT] see http://danml.com/download.html for tests/usage
+// v1 landed a FF+Chrome compat way of downloading strings to local un-named files, upgraded to use a hidden frame and optional mime
+// v2 added named files via a[download], msSaveBlob, IE (10+) support, and window.URL support for larger+faster saves than dataURLs
+// v3 added dataURL and Blob Input, bind-toggle arity, and legacy dataURL fallback was improved with force-download mime and base64 support. 3.1 improved safari handling.
+// v4 adds AMD/UMD, commonJS, and plain browser support
+// v4.1 adds url download capability via solo URL argument (same domain/CORS only)
+// v4.2 adds semantic variable names, long (over 2MB) dataURL support, and hidden by default temp anchors
+// https://github.com/rndme/download
+
+(function (root, factory) {
+	if (true) {
+		// AMD. Register as an anonymous module.
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}(this, function () {
+
+	return function download(data, strFileName, strMimeType) {
+
+		var self = window, // this script is only for browsers anyway...
+			defaultMime = "application/octet-stream", // this default mime also triggers iframe downloads
+			mimeType = strMimeType || defaultMime,
+			payload = data,
+			url = !strFileName && !strMimeType && payload,
+			anchor = document.createElement("a"),
+			toString = function(a){return String(a);},
+			myBlob = (self.Blob || self.MozBlob || self.WebKitBlob || toString),
+			fileName = strFileName || "download",
+			blob,
+			reader;
+			myBlob= myBlob.call ? myBlob.bind(self) : Blob ;
+	  
+		if(String(this)==="true"){ //reverse arguments, allowing download.bind(true, "text/xml", "export.xml") to act as a callback
+			payload=[payload, mimeType];
+			mimeType=payload[0];
+			payload=payload[1];
+		}
+
+
+		if(url && url.length< 2048){ // if no filename and no mime, assume a url was passed as the only argument
+			fileName = url.split("/").pop().split("?")[0];
+			anchor.href = url; // assign href prop to temp anchor
+		  	if(anchor.href.indexOf(url) !== -1){ // if the browser determines that it's a potentially valid url path:
+        		var ajax=new XMLHttpRequest();
+        		ajax.open( "GET", url, true);
+        		ajax.responseType = 'blob';
+        		ajax.onload= function(e){ 
+				  download(e.target.response, fileName, defaultMime);
+				};
+        		setTimeout(function(){ ajax.send();}, 0); // allows setting custom ajax headers using the return:
+			    return ajax;
+			} // end if valid url?
+		} // end if url?
+
+
+		//go ahead and download dataURLs right away
+		if(/^data:([\w+-]+\/[\w+.-]+)?[,;]/.test(payload)){
+		
+			if(payload.length > (1024*1024*1.999) && myBlob !== toString ){
+				payload=dataUrlToBlob(payload);
+				mimeType=payload.type || defaultMime;
+			}else{			
+				return navigator.msSaveBlob ?  // IE10 can't do a[download], only Blobs:
+					navigator.msSaveBlob(dataUrlToBlob(payload), fileName) :
+					saver(payload) ; // everyone else can save dataURLs un-processed
+			}
+			
+		}else{//not data url, is it a string with special needs?
+			if(/([\x80-\xff])/.test(payload)){			  
+				var i=0, tempUiArr= new Uint8Array(payload.length), mx=tempUiArr.length;
+				for(i;i<mx;++i) tempUiArr[i]= payload.charCodeAt(i);
+			 	payload=new myBlob([tempUiArr], {type: mimeType});
+			}		  
+		}
+		blob = payload instanceof myBlob ?
+			payload :
+			new myBlob([payload], {type: mimeType}) ;
+
+
+		function dataUrlToBlob(strUrl) {
+			var parts= strUrl.split(/[:;,]/),
+			type= parts[1],
+			decoder= parts[2] == "base64" ? atob : decodeURIComponent,
+			binData= decoder( parts.pop() ),
+			mx= binData.length,
+			i= 0,
+			uiArr= new Uint8Array(mx);
+
+			for(i;i<mx;++i) uiArr[i]= binData.charCodeAt(i);
+
+			return new myBlob([uiArr], {type: type});
+		 }
+
+		function saver(url, winMode){
+
+			if ('download' in anchor) { //html5 A[download]
+				anchor.href = url;
+				anchor.setAttribute("download", fileName);
+				anchor.className = "download-js-link";
+				anchor.innerHTML = "downloading...";
+				anchor.style.display = "none";
+				document.body.appendChild(anchor);
+				setTimeout(function() {
+					anchor.click();
+					document.body.removeChild(anchor);
+					if(winMode===true){setTimeout(function(){ self.URL.revokeObjectURL(anchor.href);}, 250 );}
+				}, 66);
+				return true;
+			}
+
+			// handle non-a[download] safari as best we can:
+			if(/(Version)\/(\d+)\.(\d+)(?:\.(\d+))?.*Safari\//.test(navigator.userAgent)) {
+				if(/^data:/.test(url))	url="data:"+url.replace(/^data:([\w\/\-\+]+)/, defaultMime);
+				if(!window.open(url)){ // popup blocked, offer direct download:
+					if(confirm("Displaying New Document\n\nUse Save As... to download, then click back to return to this page.")){ location.href=url; }
+				}
+				return true;
+			}
+
+			//do iframe dataURL download (old ch+FF):
+			var f = document.createElement("iframe");
+			document.body.appendChild(f);
+
+			if(!winMode && /^data:/.test(url)){ // force a mime that will download:
+				url="data:"+url.replace(/^data:([\w\/\-\+]+)/, defaultMime);
+			}
+			f.src=url;
+			setTimeout(function(){ document.body.removeChild(f); }, 333);
+
+		}//end saver
+
+
+
+
+		if (navigator.msSaveBlob) { // IE10+ : (has Blob, but not a[download] or URL)
+			return navigator.msSaveBlob(blob, fileName);
+		}
+
+		if(self.URL){ // simple fast and modern way using Blob and URL:
+			saver(self.URL.createObjectURL(blob), true);
+		}else{
+			// handle non-Blob()+non-URL browsers:
+			if(typeof blob === "string" || blob.constructor===toString ){
+				try{
+					return saver( "data:" +  mimeType   + ";base64,"  +  self.btoa(blob)  );
+				}catch(y){
+					return saver( "data:" +  mimeType   + "," + encodeURIComponent(blob)  );
+				}
+			}
+
+			// Blob but not URL support:
+			reader=new FileReader();
+			reader.onload=function(e){
+				saver(this.result);
+			};
+			reader.readAsDataURL(blob);
+		}
+		return true;
+	}; /* end download() */
+}));
+
 
 /***/ }),
 
@@ -2024,14 +2014,21 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 36:
+/***/ 37:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["plugins"]; }());
 
 /***/ }),
 
-/***/ 399:
+/***/ 4:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["data"]; }());
+
+/***/ }),
+
+/***/ 405:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2085,13 +2082,13 @@ __webpack_require__.d(selectors_namespaceObject, "isListViewOpened", function() 
 var external_wp_element_ = __webpack_require__(0);
 
 // EXTERNAL MODULE: external ["wp","blockLibrary"]
-var external_wp_blockLibrary_ = __webpack_require__(50);
+var external_wp_blockLibrary_ = __webpack_require__(52);
 
 // EXTERNAL MODULE: external ["wp","coreData"]
 var external_wp_coreData_ = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./node_modules/downloadjs/download.js
-var download = __webpack_require__(267);
+var download = __webpack_require__(270);
 var download_default = /*#__PURE__*/__webpack_require__.n(download);
 
 // EXTERNAL MODULE: external ["wp","components"]
@@ -2101,7 +2098,7 @@ var external_wp_components_ = __webpack_require__(3);
 var external_wp_i18n_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: external ["wp","plugins"]
-var external_wp_plugins_ = __webpack_require__(36);
+var external_wp_plugins_ = __webpack_require__(37);
 
 // EXTERNAL MODULE: external ["wp","apiFetch"]
 var external_wp_apiFetch_ = __webpack_require__(31);
@@ -2196,7 +2193,7 @@ Object(external_wp_plugins_["registerPlugin"])('edit-site', {
 var external_wp_hooks_ = __webpack_require__(20);
 
 // EXTERNAL MODULE: external ["wp","mediaUtils"]
-var external_wp_mediaUtils_ = __webpack_require__(51);
+var external_wp_mediaUtils_ = __webpack_require__(53);
 
 // CONCATENATED MODULE: ./packages/edit-site/build-module/hooks/components.js
 /**
@@ -3245,22 +3242,22 @@ var external_wp_blockEditor_ = __webpack_require__(5);
 var build_module = __webpack_require__(27);
 
 // EXTERNAL MODULE: external ["wp","editor"]
-var external_wp_editor_ = __webpack_require__(15);
+var external_wp_editor_ = __webpack_require__(16);
 
 // EXTERNAL MODULE: external ["wp","compose"]
 var external_wp_compose_ = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/plus.js
-var plus = __webpack_require__(124);
+var plus = __webpack_require__(127);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/list-view.js
-var list_view = __webpack_require__(173);
+var list_view = __webpack_require__(175);
 
 // EXTERNAL MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_ = __webpack_require__(25);
+var external_wp_keyboardShortcuts_ = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/more-vertical.js
-var more_vertical = __webpack_require__(149);
+var more_vertical = __webpack_require__(153);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/check.js
 var check = __webpack_require__(92);
@@ -3428,10 +3425,10 @@ function SaveButton({
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/undo.js
-var library_undo = __webpack_require__(194);
+var library_undo = __webpack_require__(196);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/redo.js
-var library_redo = __webpack_require__(195);
+var library_redo = __webpack_require__(197);
 
 // EXTERNAL MODULE: external ["wp","keycodes"]
 var external_wp_keycodes_ = __webpack_require__(13);
@@ -3499,7 +3496,7 @@ var classnames = __webpack_require__(10);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/chevron-down.js
-var chevron_down = __webpack_require__(148);
+var chevron_down = __webpack_require__(152);
 
 // CONCATENATED MODULE: ./packages/edit-site/build-module/components/header/document-actions/index.js
 
@@ -3840,7 +3837,7 @@ function Header({
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/cog.js
-var cog = __webpack_require__(196);
+var cog = __webpack_require__(198);
 
 // CONCATENATED MODULE: ./packages/icons/build-module/library/typography.js
 
@@ -3983,7 +3980,7 @@ function useSetting(path, blockName = '') {
   const blockPath = `__experimentalFeatures.blocks.${blockName}.${path}`;
   const result = (_get = Object(external_lodash_["get"])(settings, blockPath)) !== null && _get !== void 0 ? _get : Object(external_lodash_["get"])(settings, topLevelPath);
 
-  if (PATHS_WITH_MERGE[path]) {
+  if (result && PATHS_WITH_MERGE[path]) {
     var _ref, _result$user;
 
     return (_ref = (_result$user = result.user) !== null && _result$user !== void 0 ? _result$user : result.theme) !== null && _ref !== void 0 ? _ref : result.core;
@@ -4226,16 +4223,20 @@ function getStylesDeclarations(blockStyles = {}) {
       return declarations;
     }
 
-    if (!!properties) {
-      properties.forEach(prop => {
-        if (!Object(external_lodash_["get"])(blockStyles, [...pathToValue, prop], false)) {
+    const styleValue = Object(external_lodash_["get"])(blockStyles, pathToValue);
+
+    if (!!properties && !Object(external_lodash_["isString"])(styleValue)) {
+      Object.entries(properties).forEach(entry => {
+        const [name, prop] = entry;
+
+        if (!Object(external_lodash_["get"])(styleValue, [prop], false)) {
           // Do not create a declaration
           // for sub-properties that don't have any value.
           return;
         }
 
-        const cssProperty = Object(external_lodash_["kebabCase"])(`${key}${Object(external_lodash_["capitalize"])(prop)}`);
-        declarations.push(`${cssProperty}: ${compileStyleValue(Object(external_lodash_["get"])(blockStyles, [...pathToValue, prop]))}`);
+        const cssProperty = Object(external_lodash_["kebabCase"])(name);
+        declarations.push(`${cssProperty}: ${compileStyleValue(Object(external_lodash_["get"])(styleValue, [prop]))}`);
       });
     } else if (Object(external_lodash_["get"])(blockStyles, pathToValue, false)) {
       const cssProperty = key.startsWith('--') ? key : Object(external_lodash_["kebabCase"])(key);
@@ -5159,6 +5160,21 @@ function filterValuesBySides(values, sides) {
   return filteredValues;
 }
 
+function splitStyleValue(value) {
+  // Check for shorthand value ( a string value ).
+  if (value && typeof value === 'string') {
+    // Convert to value for individual sides for BoxControl.
+    return {
+      top: value,
+      right: value,
+      bottom: value,
+      left: value
+    };
+  }
+
+  return value;
+}
+
 function SpacingPanel({
   context,
   getStyle,
@@ -5172,7 +5188,7 @@ function SpacingPanel({
   const units = Object(external_wp_components_["__experimentalUseCustomUnits"])({
     availableUnits: useSetting('spacing.units', name) || ['%', 'px', 'em', 'rem', 'vw']
   });
-  const paddingValues = getStyle(name, 'padding');
+  const paddingValues = splitStyleValue(getStyle(name, 'padding'));
   const paddingSides = Object(external_wp_blockEditor_["__experimentalUseCustomSides"])(name, 'padding');
 
   const setPaddingValues = newPaddingValues => {
@@ -5180,7 +5196,7 @@ function SpacingPanel({
     setStyle(name, 'padding', padding);
   };
 
-  const marginValues = getStyle(name, 'margin');
+  const marginValues = splitStyleValue(getStyle(name, 'margin'));
   const marginSides = Object(external_wp_blockEditor_["__experimentalUseCustomSides"])(name, 'margin');
 
   const setMarginValues = newMarginValues => {
@@ -5790,7 +5806,7 @@ function TemplatePartConverter() {
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/edit.js + 1 modules
-var edit = __webpack_require__(197);
+var edit = __webpack_require__(199);
 
 // CONCATENATED MODULE: ./packages/edit-site/build-module/components/navigate-to-link/index.js
 
@@ -7275,7 +7291,7 @@ const NavigationPanel = ({
 /* harmony default export */ var navigation_panel = (NavigationPanel);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/wordpress.js
-var wordpress = __webpack_require__(249);
+var wordpress = __webpack_require__(253);
 
 // CONCATENATED MODULE: ./packages/edit-site/build-module/components/navigation-sidebar/navigation-toggle/index.js
 
@@ -7834,13 +7850,6 @@ function initialize(id, settings) {
 
 /***/ }),
 
-/***/ 4:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["data"]; }());
-
-/***/ }),
-
 /***/ 5:
 /***/ (function(module, exports) {
 
@@ -7848,21 +7857,21 @@ function initialize(id, settings) {
 
 /***/ }),
 
-/***/ 50:
+/***/ 52:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["blockLibrary"]; }());
 
 /***/ }),
 
-/***/ 51:
+/***/ 53:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["mediaUtils"]; }());
 
 /***/ }),
 
-/***/ 52:
+/***/ 54:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["viewport"]; }());

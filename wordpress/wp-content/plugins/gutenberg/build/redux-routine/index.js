@@ -82,12 +82,12 @@ window["wp"] = window["wp"] || {}; window["wp"]["reduxRoutine"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 429);
+/******/ 	return __webpack_require__(__webpack_require__.s = 435);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 140:
+/***/ 143:
 /***/ (function(module, exports) {
 
 module.exports = isPromise;
@@ -100,7 +100,7 @@ function isPromise(obj) {
 
 /***/ }),
 
-/***/ 154:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -112,7 +112,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-var _keys = __webpack_require__(251);
+var _keys = __webpack_require__(255);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -172,7 +172,7 @@ exports.default = is;
 
 /***/ }),
 
-/***/ 250:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -183,7 +183,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createChannel = exports.subscribe = exports.cps = exports.apply = exports.call = exports.invoke = exports.delay = exports.race = exports.join = exports.fork = exports.error = exports.all = undefined;
 
-var _keys = __webpack_require__(251);
+var _keys = __webpack_require__(255);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -313,7 +313,7 @@ var createChannel = exports.createChannel = function createChannel(callback) {
 
 /***/ }),
 
-/***/ 251:
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -337,7 +337,7 @@ exports.default = keys;
 
 /***/ }),
 
-/***/ 269:
+/***/ 272:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -348,7 +348,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.wrapControls = exports.asyncControls = exports.create = undefined;
 
-var _helpers = __webpack_require__(250);
+var _helpers = __webpack_require__(254);
 
 Object.keys(_helpers).forEach(function (key) {
   if (key === "default") return;
@@ -360,15 +360,15 @@ Object.keys(_helpers).forEach(function (key) {
   });
 });
 
-var _create = __webpack_require__(386);
+var _create = __webpack_require__(392);
 
 var _create2 = _interopRequireDefault(_create);
 
-var _async = __webpack_require__(388);
+var _async = __webpack_require__(394);
 
 var _async2 = _interopRequireDefault(_async);
 
-var _wrap = __webpack_require__(390);
+var _wrap = __webpack_require__(396);
 
 var _wrap2 = _interopRequireDefault(_wrap);
 
@@ -380,7 +380,7 @@ exports.wrapControls = _wrap2.default;
 
 /***/ }),
 
-/***/ 386:
+/***/ 392:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -390,11 +390,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _builtin = __webpack_require__(387);
+var _builtin = __webpack_require__(393);
 
 var _builtin2 = _interopRequireDefault(_builtin);
 
-var _is = __webpack_require__(154);
+var _is = __webpack_require__(158);
 
 var _is2 = _interopRequireDefault(_is);
 
@@ -466,7 +466,7 @@ exports.default = create;
 
 /***/ }),
 
-/***/ 387:
+/***/ 393:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -477,7 +477,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.iterator = exports.array = exports.object = exports.error = exports.any = undefined;
 
-var _is = __webpack_require__(154);
+var _is = __webpack_require__(158);
 
 var _is2 = _interopRequireDefault(_is);
 
@@ -567,7 +567,7 @@ exports.default = [error, iterator, array, object, any];
 
 /***/ }),
 
-/***/ 388:
+/***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -578,13 +578,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.race = exports.join = exports.fork = exports.promise = undefined;
 
-var _is = __webpack_require__(154);
+var _is = __webpack_require__(158);
 
 var _is2 = _interopRequireDefault(_is);
 
-var _helpers = __webpack_require__(250);
+var _helpers = __webpack_require__(254);
 
-var _dispatcher = __webpack_require__(389);
+var _dispatcher = __webpack_require__(395);
 
 var _dispatcher2 = _interopRequireDefault(_dispatcher);
 
@@ -689,7 +689,7 @@ exports.default = [promise, fork, join, race, subscribe];
 
 /***/ }),
 
-/***/ 389:
+/***/ 395:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -722,7 +722,7 @@ exports.default = createDispatcher;
 
 /***/ }),
 
-/***/ 390:
+/***/ 396:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -733,7 +733,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.cps = exports.call = undefined;
 
-var _is = __webpack_require__(154);
+var _is = __webpack_require__(158);
 
 var _is2 = _interopRequireDefault(_is);
 
@@ -765,7 +765,7 @@ exports.default = [call, cps];
 
 /***/ }),
 
-/***/ 429:
+/***/ 435:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -776,29 +776,32 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ createMiddleware; });
 
 // CONCATENATED MODULE: ./packages/redux-routine/build-module/is-generator.js
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * Returns true if the given object is a generator, or false otherwise.
  *
  * @see https://www.ecma-international.org/ecma-262/6.0/#sec-generator-objects
  *
- * @param {*} object Object to test.
+ * @param {any} object Object to test.
  *
- * @return {boolean} Whether object is a generator.
+ * @return {object is Generator} Whether object is a generator.
  */
 function isGenerator(object) {
+  /* eslint-enable jsdoc/valid-types */
   // Check that iterator (next) and iterable (Symbol.iterator) interfaces are satisfied.
   // These checks seem to be compatible with several generator helpers as well as the native implementation.
   return !!object && typeof object[Symbol.iterator] === 'function' && typeof object.next === 'function';
 }
 //# sourceMappingURL=is-generator.js.map
 // EXTERNAL MODULE: ./node_modules/rungen/dist/index.js
-var dist = __webpack_require__(269);
+var dist = __webpack_require__(272);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./node_modules/is-promise/index.js
-var is_promise = __webpack_require__(140);
+var is_promise = __webpack_require__(143);
 var is_promise_default = /*#__PURE__*/__webpack_require__.n(is_promise);
 
 // CONCATENATED MODULE: ./packages/redux-routine/build-module/is-action.js
@@ -806,12 +809,14 @@ var is_promise_default = /*#__PURE__*/__webpack_require__.n(is_promise);
  * External dependencies
  */
 
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * Returns true if the given object quacks like an action.
  *
- * @param {*} object Object to test
+ * @param {any} object Object to test
  *
- * @return {boolean}  Whether object is an action.
+ * @return {object is import('redux').AnyAction}  Whether object is an action.
  */
 
 function isAction(object) {
@@ -821,13 +826,14 @@ function isAction(object) {
  * Returns true if the given object quacks like an action and has a specific
  * action type
  *
- * @param {*}      object       Object to test
- * @param {string} expectedType The expected type for the action.
+ * @param {unknown} object       Object to test
+ * @param {string}  expectedType The expected type for the action.
  *
- * @return {boolean} Whether object is an action and is of specific type.
+ * @return {object is import('redux').AnyAction} Whether object is an action and is of specific type.
  */
 
 function isActionOfType(object, expectedType) {
+  /* eslint-enable jsdoc/valid-types */
   return isAction(object) && object.type === expectedType;
 }
 //# sourceMappingURL=is-action.js.map
@@ -838,18 +844,16 @@ function isActionOfType(object, expectedType) {
 
 
 
+
 /**
  * Internal dependencies
  */
 
-
 /**
  * Create a co-routine runtime.
  *
- * @param {Object}   controls Object of control handlers.
- * @param {Function} dispatch Unhandled action dispatch.
- *
- * @return {Function} co-routine runtime
+ * @param  controls Object of control handlers.
+ * @param  dispatch Unhandled action dispatch.
  */
 
 function createRuntime(controls = {}, dispatch) {
@@ -905,9 +909,9 @@ function createRuntime(controls = {}, dispatch) {
  * value of the yield assignment. If the control handler returns undefined, the
  * execution is not continued.
  *
- * @param {Object} controls Object of control handlers.
+ * @param {Record<string, (value: import('redux').AnyAction) => Promise<boolean> | boolean>} controls Object of control handlers.
  *
- * @return {Function} Co-routine runtime
+ * @return {import('redux').Middleware} Co-routine runtime
  */
 
 function createMiddleware(controls = {}) {

@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["data"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 407);
+/******/ 	return __webpack_require__(__webpack_require__.s = 413);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -158,14 +158,14 @@ var useCallback = useCallbackOne;
 
 /***/ }),
 
-/***/ 139:
+/***/ 142:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["priorityQueue"]; }());
 
 /***/ }),
 
-/***/ 140:
+/***/ 143:
 /***/ (function(module, exports) {
 
 module.exports = isPromise;
@@ -178,7 +178,7 @@ function isPromise(obj) {
 
 /***/ }),
 
-/***/ 159:
+/***/ 163:
 /***/ (function(module, exports) {
 
 function combineReducers( reducers ) {
@@ -244,21 +244,21 @@ module.exports = combineReducers;
 
 /***/ }),
 
-/***/ 24:
+/***/ 25:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["deprecated"]; }());
 
 /***/ }),
 
-/***/ 266:
+/***/ 269:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["reduxRoutine"]; }());
 
 /***/ }),
 
-/***/ 407:
+/***/ 413:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -318,7 +318,7 @@ __webpack_require__.d(plugins_namespaceObject, "controls", function() { return p
 __webpack_require__.d(plugins_namespaceObject, "persistence", function() { return plugins_persistence; });
 
 // EXTERNAL MODULE: ./node_modules/turbo-combine-reducers/index.js
-var turbo_combine_reducers = __webpack_require__(159);
+var turbo_combine_reducers = __webpack_require__(163);
 var turbo_combine_reducers_default = /*#__PURE__*/__webpack_require__.n(turbo_combine_reducers);
 
 // EXTERNAL MODULE: external "lodash"
@@ -997,11 +997,11 @@ if (false) {}
 
 
 // EXTERNAL MODULE: ./node_modules/equivalent-key-map/equivalent-key-map.js
-var equivalent_key_map = __webpack_require__(84);
+var equivalent_key_map = __webpack_require__(85);
 var equivalent_key_map_default = /*#__PURE__*/__webpack_require__.n(equivalent_key_map);
 
 // EXTERNAL MODULE: external ["wp","reduxRoutine"]
-var external_wp_reduxRoutine_ = __webpack_require__(266);
+var external_wp_reduxRoutine_ = __webpack_require__(269);
 var external_wp_reduxRoutine_default = /*#__PURE__*/__webpack_require__.n(external_wp_reduxRoutine_);
 
 // CONCATENATED MODULE: ./packages/data/build-module/factory.js
@@ -1217,7 +1217,7 @@ const builtinControls = {
 };
 //# sourceMappingURL=controls.js.map
 // EXTERNAL MODULE: ./node_modules/is-promise/index.js
-var is_promise = __webpack_require__(140);
+var is_promise = __webpack_require__(143);
 var is_promise_default = /*#__PURE__*/__webpack_require__.n(is_promise);
 
 // CONCATENATED MODULE: ./packages/data/build-module/promise-middleware.js
@@ -1228,7 +1228,7 @@ var is_promise_default = /*#__PURE__*/__webpack_require__.n(is_promise);
 /**
  * Simplest possible promise redux middleware.
  *
- * @return {Function} middleware.
+ * @type {import('redux').Middleware}
  */
 
 const promiseMiddleware = () => next => action => {
@@ -1245,10 +1245,23 @@ const promiseMiddleware = () => next => action => {
 
 /* harmony default export */ var promise_middleware = (promiseMiddleware);
 //# sourceMappingURL=promise-middleware.js.map
+// CONCATENATED MODULE: ./packages/data/build-module/store/name.js
+/**
+ * The identifier for the core/data store.
+ *
+ * @type {string}
+ */
+const STORE_NAME = 'core/data';
+//# sourceMappingURL=name.js.map
 // CONCATENATED MODULE: ./packages/data/build-module/resolvers-cache-middleware.js
 /**
  * External dependencies
  */
+
+/**
+ * Internal dependencies
+ */
+
 
 /** @typedef {import('./registry').WPDataRegistry} WPDataRegistry */
 
@@ -1264,7 +1277,7 @@ const promiseMiddleware = () => next => action => {
  */
 
 const createResolversCacheMiddleware = (registry, reducerKey) => () => next => action => {
-  const resolvers = registry.select('core/data').getCachedResolvers(reducerKey);
+  const resolvers = registry.select(STORE_NAME).getCachedResolvers(reducerKey);
   Object.entries(resolvers).forEach(([selectorName, resolversByArgs]) => {
     const resolver = Object(external_lodash_["get"])(registry.stores, [reducerKey, 'resolvers', selectorName]);
 
@@ -1281,7 +1294,7 @@ const createResolversCacheMiddleware = (registry, reducerKey) => () => next => a
       } // Trigger cache invalidation
 
 
-      registry.dispatch('core/data').invalidateResolution(reducerKey, selectorName, args);
+      registry.dispatch(STORE_NAME).invalidateResolution(reducerKey, selectorName, args);
     });
   });
   return next(action);
@@ -1305,13 +1318,24 @@ function createThunkMiddleware(args) {
  * Higher-order reducer creator which creates a combined reducer object, keyed
  * by a property on the action object.
  *
+ * @template {any} TState
+ * @template {import('redux').AnyAction} TAction
+ *
  * @param {string} actionProperty Action property by which to key object.
  *
- * @return {Function} Higher-order reducer.
+ * @return {(reducer: import('redux').Reducer<TState, TAction>) => import('redux').Reducer<Record<string, TState>, TAction>} Higher-order reducer.
  */
-const onSubKey = actionProperty => reducer => (state = {}, action) => {
+const onSubKey = actionProperty => reducer => (
+/* eslint-disable jsdoc/no-undefined-types */
+state =
+/** @type {Record<string, TState>} */
+{}, action) => {
   // Retrieve subkey from action. Do not track if undefined; useful for cases
   // where reducer is scoped by action shape.
+
+  /** @type {keyof state} */
+
+  /* eslint-enable jsdoc/no-undefined-types */
   const key = action[actionProperty];
 
   if (key === undefined) {
@@ -1337,6 +1361,7 @@ const onSubKey = actionProperty => reducer => (state = {}, action) => {
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -1347,13 +1372,7 @@ const onSubKey = actionProperty => reducer => (state = {}, action) => {
  * subkeys, object form:
  *
  *  selectorName -> EquivalentKeyMap<Array,boolean>
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Next state.
  */
-
 const subKeysIsResolved = onSubKey('selectorName')((state = new equivalent_key_map_default.a(), action) => {
   switch (action.type) {
     case 'START_RESOLUTION':
@@ -1393,10 +1412,10 @@ const subKeysIsResolved = onSubKey('selectorName')((state = new equivalent_key_m
  *
  *   selectorName -> EquivalentKeyMap<Array, boolean>
  *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
+ * @param  state  Current state.
+ * @param  action Dispatched action.
  *
- * @return {Object} Next state.
+ * @return Next state.
  */
 
 const isResolved = (state = {}, action) => {
@@ -1425,24 +1444,26 @@ const isResolved = (state = {}, action) => {
  * External dependencies
  */
 
+/** @typedef {Record<string, import('./reducer').State>} State */
+
 /**
  * Returns the raw `isResolving` value for a given selector name,
  * and arguments set. May be undefined if the selector has never been resolved
  * or not resolved for the given set of arguments, otherwise true or false for
  * resolution started and completed respectively.
  *
- * @param {Object} state        Data state.
- * @param {string} selectorName Selector name.
- * @param {Array}  args         Arguments passed to selector.
+ * @param {State}     state        Data state.
+ * @param {string}    selectorName Selector name.
+ * @param {unknown[]} args         Arguments passed to selector.
  *
- * @return {?boolean} isResolving value.
+ * @return {boolean | undefined} isResolving value.
  */
 
 function getIsResolving(state, selectorName, args) {
   const map = Object(external_lodash_["get"])(state, [selectorName]);
 
   if (!map) {
-    return;
+    return undefined;
   }
 
   return map.get(args);
@@ -1451,9 +1472,9 @@ function getIsResolving(state, selectorName, args) {
  * Returns true if resolution has already been triggered for a given
  * selector name, and arguments set.
  *
- * @param {Object} state        Data state.
- * @param {string} selectorName Selector name.
- * @param {?Array} args         Arguments passed to selector (default `[]`).
+ * @param {State}     state        Data state.
+ * @param {string}    selectorName Selector name.
+ * @param {unknown[]} [args]       Arguments passed to selector (default `[]`).
  *
  * @return {boolean} Whether resolution has been triggered.
  */
@@ -1465,9 +1486,9 @@ function hasStartedResolution(state, selectorName, args = []) {
  * Returns true if resolution has completed for a given selector
  * name, and arguments set.
  *
- * @param {Object} state        Data state.
- * @param {string} selectorName Selector name.
- * @param {?Array} args         Arguments passed to selector.
+ * @param {State}     state        Data state.
+ * @param {string}    selectorName Selector name.
+ * @param {unknown[]} [args]       Arguments passed to selector.
  *
  * @return {boolean} Whether resolution has completed.
  */
@@ -1479,9 +1500,9 @@ function hasFinishedResolution(state, selectorName, args = []) {
  * Returns true if resolution has been triggered but has not yet completed for
  * a given selector name, and arguments set.
  *
- * @param {Object} state        Data state.
- * @param {string} selectorName Selector name.
- * @param {?Array} args         Arguments passed to selector.
+ * @param {State}     state        Data state.
+ * @param {string}    selectorName Selector name.
+ * @param {unknown[]} [args]       Arguments passed to selector.
  *
  * @return {boolean} Whether resolution is in progress.
  */
@@ -1492,9 +1513,9 @@ function isResolving(state, selectorName, args = []) {
 /**
  * Returns the list of the cached resolvers.
  *
- * @param {Object} state Data state.
+ * @param {State} state Data state.
  *
- * @return {Object} Resolvers mapped by args and selectorName.
+ * @return {State} Resolvers mapped by args and selectorName.
  */
 
 function getCachedResolvers(state) {
@@ -1506,10 +1527,10 @@ function getCachedResolvers(state) {
  * Returns an action object used in signalling that selector resolution has
  * started.
  *
- * @param {string} selectorName Name of selector for which resolver triggered.
- * @param {...*}   args         Arguments to associate for uniqueness.
+ * @param {string}    selectorName Name of selector for which resolver triggered.
+ * @param {unknown[]} args         Arguments to associate for uniqueness.
  *
- * @return {Object} Action object.
+ * @return {{ type: 'START_RESOLUTION', selectorName: string, args: unknown[] }} Action object.
  */
 function startResolution(selectorName, args) {
   return {
@@ -1522,10 +1543,10 @@ function startResolution(selectorName, args) {
  * Returns an action object used in signalling that selector resolution has
  * completed.
  *
- * @param {string} selectorName Name of selector for which resolver triggered.
- * @param {...*}   args         Arguments to associate for uniqueness.
+ * @param {string}    selectorName Name of selector for which resolver triggered.
+ * @param {unknown[]} args         Arguments to associate for uniqueness.
  *
- * @return {Object} Action object.
+ * @return {{ type: 'FINISH_RESOLUTION', selectorName: string, args: unknown[] }} Action object.
  */
 
 function finishResolution(selectorName, args) {
@@ -1539,11 +1560,11 @@ function finishResolution(selectorName, args) {
  * Returns an action object used in signalling that a batch of selector resolutions has
  * started.
  *
- * @param {string} selectorName Name of selector for which resolver triggered.
- * @param {...*}   args         Array of arguments to associate for uniqueness, each item
- *                              is associated to a resolution.
+ * @param {string}    selectorName Name of selector for which resolver triggered.
+ * @param {unknown[]} args         Array of arguments to associate for uniqueness, each item
+ *                                 is associated to a resolution.
  *
- * @return {Object} Action object.
+ * @return {{ type: 'START_RESOLUTIONS', selectorName: string, args: unknown[] }} Action object.
  */
 
 function startResolutions(selectorName, args) {
@@ -1557,11 +1578,11 @@ function startResolutions(selectorName, args) {
  * Returns an action object used in signalling that a batch of selector resolutions has
  * completed.
  *
- * @param {string} selectorName Name of selector for which resolver triggered.
- * @param {...*}   args         Array of arguments to associate for uniqueness, each item
- *                              is associated to a resolution.
+ * @param {string}    selectorName Name of selector for which resolver triggered.
+ * @param {unknown[]} args         Array of arguments to associate for uniqueness, each item
+ *                                 is associated to a resolution.
  *
- * @return {Object} Action object.
+ * @return {{ type: 'FINISH_RESOLUTIONS', selectorName: string, args: unknown[] }} Action object.
  */
 
 function finishResolutions(selectorName, args) {
@@ -1574,10 +1595,10 @@ function finishResolutions(selectorName, args) {
 /**
  * Returns an action object used in signalling that we should invalidate the resolution cache.
  *
- * @param {string} selectorName Name of selector for which resolver should be invalidated.
- * @param {Array}  args         Arguments to associate for uniqueness.
+ * @param {string}    selectorName Name of selector for which resolver should be invalidated.
+ * @param {unknown[]} args         Arguments to associate for uniqueness.
  *
- * @return {Object} Action object.
+ * @return {{ type: 'INVALIDATE_RESOLUTION', selectorName: string, args: any[] }} Action object.
  */
 
 function invalidateResolution(selectorName, args) {
@@ -1591,7 +1612,7 @@ function invalidateResolution(selectorName, args) {
  * Returns an action object used in signalling that the resolution
  * should be invalidated.
  *
- * @return {Object} Action object.
+ * @return {{ type: 'INVALIDATE_RESOLUTION_FOR_STORE' }} Action object.
  */
 
 function invalidateResolutionForStore() {
@@ -1606,7 +1627,7 @@ function invalidateResolutionForStore() {
  * @param {string} selectorName Name of selector for which all resolvers should
  *                              be invalidated.
  *
- * @return  {Object} Action object.
+ * @return  {{ type: 'INVALIDATE_RESOLUTION_FOR_STORE_SELECTOR', selectorName: string }} Action object.
  */
 
 function invalidateResolutionForStoreSelector(selectorName) {
@@ -2066,6 +2087,7 @@ function createCoreDataStore(registry) {
 
 
 
+
 /** @typedef {import('./types').WPDataStore} WPDataStore */
 
 /**
@@ -2328,7 +2350,7 @@ function createRegistry(storeConfigs = {}, parent = null) {
     return registry;
   }
 
-  registerGenericStore('core/data', build_module_store(registry));
+  registerGenericStore(STORE_NAME, build_module_store(registry));
   Object.entries(storeConfigs).forEach(([name, config]) => registry.registerStore(name, config));
 
   if (parent) {
@@ -2346,7 +2368,7 @@ function createRegistry(storeConfigs = {}, parent = null) {
 /* harmony default export */ var default_registry = (createRegistry());
 //# sourceMappingURL=default-registry.js.map
 // EXTERNAL MODULE: external ["wp","deprecated"]
-var external_wp_deprecated_ = __webpack_require__(24);
+var external_wp_deprecated_ = __webpack_require__(25);
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_);
 
 // CONCATENATED MODULE: ./packages/data/build-module/plugins/controls/index.js
@@ -2703,10 +2725,10 @@ var external_wp_compose_ = __webpack_require__(9);
 var use_memo_one_esm = __webpack_require__(115);
 
 // EXTERNAL MODULE: external ["wp","priorityQueue"]
-var external_wp_priorityQueue_ = __webpack_require__(139);
+var external_wp_priorityQueue_ = __webpack_require__(142);
 
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(45);
+var external_wp_isShallowEqual_ = __webpack_require__(47);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // CONCATENATED MODULE: ./packages/data/build-module/components/registry-provider/context.js
@@ -3608,7 +3630,7 @@ const build_module_register = default_registry.register;
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());
@@ -3640,7 +3662,7 @@ function _extends() {
 
 /***/ }),
 
-/***/ 84:
+/***/ 85:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

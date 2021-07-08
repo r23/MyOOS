@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["blocks"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 401);
+/******/ 	return __webpack_require__(__webpack_require__.s = 407);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -108,14 +108,14 @@ window["wp"] = window["wp"] || {}; window["wp"]["blocks"] =
 
 /***/ }),
 
-/***/ 117:
+/***/ 116:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["shortcode"]; }());
 
 /***/ }),
 
-/***/ 146:
+/***/ 150:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -140,7 +140,7 @@ const blockDefault = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["cre
 
 /***/ }),
 
-/***/ 155:
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -243,28 +243,28 @@ function v4(options, buf, offset) {
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["dom"]; }());
 
 /***/ }),
 
-/***/ 24:
+/***/ 25:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["deprecated"]; }());
 
 /***/ }),
 
-/***/ 259:
+/***/ 263:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["blockSerializationDefaultParser"]; }());
 
 /***/ }),
 
-/***/ 260:
+/***/ 264:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown v 1.9.1 - 02-11-2019 */
@@ -6899,13 +6899,6 @@ else {}
 
 /***/ }),
 
-/***/ 39:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["htmlEntities"]; }());
-
-/***/ }),
-
 /***/ 4:
 /***/ (function(module, exports) {
 
@@ -6913,7 +6906,14 @@ else {}
 
 /***/ }),
 
-/***/ 401:
+/***/ 40:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["htmlEntities"]; }());
+
+/***/ }),
+
+/***/ 407:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6950,7 +6950,6 @@ __webpack_require__.d(__webpack_exports__, "getCategories", function() { return 
 __webpack_require__.d(__webpack_exports__, "setCategories", function() { return /* reexport */ categories_setCategories; });
 __webpack_require__.d(__webpack_exports__, "updateCategory", function() { return /* reexport */ categories_updateCategory; });
 __webpack_require__.d(__webpack_exports__, "registerBlockType", function() { return /* reexport */ registerBlockType; });
-__webpack_require__.d(__webpack_exports__, "registerBlockTypeFromMetadata", function() { return /* reexport */ registerBlockTypeFromMetadata; });
 __webpack_require__.d(__webpack_exports__, "registerBlockCollection", function() { return /* reexport */ registerBlockCollection; });
 __webpack_require__.d(__webpack_exports__, "unregisterBlockType", function() { return /* reexport */ unregisterBlockType; });
 __webpack_require__.d(__webpack_exports__, "setFreeformContentHandlerName", function() { return /* reexport */ setFreeformContentHandlerName; });
@@ -7836,17 +7835,13 @@ const store = Object(external_wp_data_["createReduxStore"])(STORE_NAME, {
 Object(external_wp_data_["register"])(store);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/uuid/dist/esm-browser/v4.js + 4 modules
-var v4 = __webpack_require__(155);
+var v4 = __webpack_require__(159);
 
 // EXTERNAL MODULE: external ["wp","hooks"]
 var external_wp_hooks_ = __webpack_require__(20);
 
-// EXTERNAL MODULE: external ["wp","deprecated"]
-var external_wp_deprecated_ = __webpack_require__(24);
-var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_);
-
 // EXTERNAL MODULE: ./packages/icons/build-module/library/block-default.js
-var block_default = __webpack_require__(146);
+var block_default = __webpack_require__(150);
 
 // EXTERNAL MODULE: ./node_modules/tinycolor2/tinycolor.js
 var tinycolor = __webpack_require__(35);
@@ -7856,7 +7851,7 @@ var tinycolor_default = /*#__PURE__*/__webpack_require__.n(tinycolor);
 var external_wp_element_ = __webpack_require__(0);
 
 // EXTERNAL MODULE: external ["wp","dom"]
-var external_wp_dom_ = __webpack_require__(21);
+var external_wp_dom_ = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/utils.js
 /**
@@ -8147,7 +8142,13 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   },
   borderRadius: {
     value: ['border', 'radius'],
-    support: ['__experimentalBorder', 'radius']
+    support: ['__experimentalBorder', 'radius'],
+    properties: {
+      borderTopLeftRadius: 'topLeft',
+      borderTopRightRadius: 'topRight',
+      borderBottomLeftRadius: 'bottomLeft',
+      borderBottomRightRadius: 'bottomRight'
+    }
   },
   borderStyle: {
     value: ['border', 'style'],
@@ -8188,12 +8189,22 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   margin: {
     value: ['spacing', 'margin'],
     support: ['spacing', 'margin'],
-    properties: ['top', 'right', 'bottom', 'left']
+    properties: {
+      marginTop: 'top',
+      marginRight: 'right',
+      marginBottom: 'bottom',
+      marginLeft: 'left'
+    }
   },
   padding: {
     value: ['spacing', 'padding'],
     support: ['spacing', 'padding'],
-    properties: ['top', 'right', 'bottom', 'left']
+    properties: {
+      paddingTop: 'top',
+      paddingRight: 'right',
+      paddingBottom: 'bottom',
+      paddingLeft: 'left'
+    }
   },
   textDecoration: {
     value: ['typography', 'textDecoration'],
@@ -8228,7 +8239,6 @@ const __EXPERIMENTAL_ELEMENTS = {
 /**
  * WordPress dependencies
  */
-
 
 
 
@@ -8581,28 +8591,6 @@ function translateBlockSettingUsingI18nSchema(i18nSchema, settingValue, textdoma
   return settingValue;
 }
 /**
- * Registers a new block provided from metadata stored in `block.json` file.
- *
- * @deprecated Use `registerBlockType` instead.
- *
- * @param {Object} metadata           Block metadata loaded from `block.json`.
- * @param {Object} additionalSettings Additional block settings.
- *
- * @return {?WPBlock} The block, if it has been successfully registered;
- *                    otherwise `undefined`.
- */
-
-
-function registerBlockTypeFromMetadata(metadata, additionalSettings) {
-  external_wp_deprecated_default()('wp.blocks.registerBlockTypeFromMetadata', {
-    since: '10.7',
-    plugin: 'Gutenberg',
-    alternative: 'wp.blocks.registerBlockType',
-    version: '11.0'
-  });
-  return registerBlockType(metadata, additionalSettings);
-}
-/**
  * Registers a new block collection to group blocks in the same namespace in the inserter.
  *
  * @param {string} namespace       The namespace to group blocks by in the inserter; corresponds to the block namespace.
@@ -8610,6 +8598,7 @@ function registerBlockTypeFromMetadata(metadata, additionalSettings) {
  * @param {string} settings.title  The title to display in the block inserter.
  * @param {Object} [settings.icon] The icon to display in the block inserter.
  */
+
 
 function registerBlockCollection(namespace, {
   title,
@@ -9501,7 +9490,7 @@ function query(selector, matchers) {
 var external_wp_autop_ = __webpack_require__(104);
 
 // EXTERNAL MODULE: external ["wp","blockSerializationDefaultParser"]
-var external_wp_blockSerializationDefaultParser_ = __webpack_require__(259);
+var external_wp_blockSerializationDefaultParser_ = __webpack_require__(263);
 
 // CONCATENATED MODULE: ./node_modules/simple-html-tokenizer/dist/es6/index.js
 /**
@@ -10144,7 +10133,7 @@ function tokenize(input, options) {
 
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(39);
+var external_wp_htmlEntities_ = __webpack_require__(40);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/validation/logger.js
 function createLogger() {
@@ -10210,7 +10199,7 @@ function createQueuedLogger() {
 }
 //# sourceMappingURL=logger.js.map
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(45);
+var external_wp_isShallowEqual_ = __webpack_require__(47);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
@@ -12829,7 +12818,7 @@ function figureContentReducer(node, doc, schema) {
 }
 //# sourceMappingURL=figure-content-reducer.js.map
 // EXTERNAL MODULE: external ["wp","shortcode"]
-var external_wp_shortcode_ = __webpack_require__(117);
+var external_wp_shortcode_ = __webpack_require__(116);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/shortcode-converter.js
 /**
@@ -12904,7 +12893,7 @@ function segmentHTMLToShortcodeBlock(HTML, lastIndex = 0, excludedBlockNames = [
 /* harmony default export */ var shortcode_converter = (segmentHTMLToShortcodeBlock);
 //# sourceMappingURL=shortcode-converter.js.map
 // EXTERNAL MODULE: ./node_modules/showdown/dist/showdown.js
-var showdown = __webpack_require__(260);
+var showdown = __webpack_require__(264);
 var showdown_default = /*#__PURE__*/__webpack_require__.n(showdown);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/markdown-converter.js
@@ -13452,6 +13441,10 @@ function pasteHandler({
   return blocks;
 }
 //# sourceMappingURL=paste-handler.js.map
+// EXTERNAL MODULE: external ["wp","deprecated"]
+var external_wp_deprecated_ = __webpack_require__(25);
+var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_);
+
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/index.js
 /**
  * External dependencies
@@ -13777,7 +13770,7 @@ function synchronizeBlocksWithTemplate(blocks = [], template) {
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());

@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["coreData"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 408);
+/******/ 	return __webpack_require__(__webpack_require__.s = 414);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["coreData"] =
 
 /***/ }),
 
-/***/ 155:
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -500,13 +500,6 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 39:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["htmlEntities"]; }());
-
-/***/ }),
-
 /***/ 4:
 /***/ (function(module, exports) {
 
@@ -514,7 +507,14 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 408:
+/***/ 40:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["htmlEntities"]; }());
+
+/***/ }),
+
+/***/ 414:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -637,7 +637,7 @@ var external_wp_dataControls_ = __webpack_require__(33);
 var external_lodash_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(45);
+var external_wp_isShallowEqual_ = __webpack_require__(47);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // CONCATENATED MODULE: ./packages/core-data/build-module/utils/if-matching-action.js
@@ -761,7 +761,7 @@ const onSubKey = actionProperty => reducer => (state = {}, action) => {
 var external_wp_i18n_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./node_modules/uuid/dist/esm-browser/v4.js + 4 modules
-var v4 = __webpack_require__(155);
+var v4 = __webpack_require__(159);
 
 // EXTERNAL MODULE: external ["wp","url"]
 var external_wp_url_ = __webpack_require__(19);
@@ -824,21 +824,15 @@ function receiveQueriedItems(items, query = {}, edits) {
   };
 }
 //# sourceMappingURL=actions.js.map
-// CONCATENATED MODULE: ./packages/core-data/build-module/utils/constants.js
+// CONCATENATED MODULE: ./packages/core-data/build-module/name.js
 /**
- * The identifier for the core store.
+ * The reducer key used by core data in store registration.
+ * This is defined in a separate file to avoid cycle-dependency
  *
  * @type {string}
  */
-const CORE_STORE_NAME = 'core';
-/**
- * The identifier for the core/data store.
- *
- * @type {string}
- */
-
-const CORE_DATA_STORE_NAME = 'core/data';
-//# sourceMappingURL=constants.js.map
+const STORE_NAME = 'core';
+//# sourceMappingURL=name.js.map
 // CONCATENATED MODULE: ./packages/core-data/build-module/locks/actions.js
 /**
  * WordPress dependencies
@@ -888,7 +882,7 @@ function* __unstableProcessPendingLockRequests() {
   yield {
     type: 'PROCESS_PENDING_LOCK_REQUESTS'
   };
-  const lockRequests = yield external_wp_data_["controls"].select(CORE_STORE_NAME, '__unstableGetPendingLockRequests');
+  const lockRequests = yield external_wp_data_["controls"].select(STORE_NAME, '__unstableGetPendingLockRequests');
 
   for (const request of lockRequests) {
     const {
@@ -897,7 +891,7 @@ function* __unstableProcessPendingLockRequests() {
       exclusive,
       notifyAcquired
     } = request;
-    const isAvailable = yield external_wp_data_["controls"].select(CORE_STORE_NAME, '__unstableIsLockAvailable', store, path, {
+    const isAvailable = yield external_wp_data_["controls"].select(STORE_NAME, '__unstableIsLockAvailable', store, path, {
       exclusive
     });
 
@@ -1369,7 +1363,7 @@ function* deleteEntityRecord(kind, name, recordId, query, {
     return;
   }
 
-  const lock = yield* __unstableAcquireStoreLock(CORE_STORE_NAME, ['entities', 'data', kind, name, recordId], {
+  const lock = yield* __unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, recordId], {
     exclusive: true
   });
 
@@ -1431,7 +1425,7 @@ function* deleteEntityRecord(kind, name, recordId, query, {
  */
 
 function* actions_editEntityRecord(kind, name, recordId, edits, options = {}) {
-  const entity = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getEntity', kind, name);
+  const entity = yield external_wp_data_["controls"].select(STORE_NAME, 'getEntity', kind, name);
 
   if (!entity) {
     throw new Error(`The entity being edited (${kind}, ${name}) does not have a loaded config.`);
@@ -1441,8 +1435,8 @@ function* actions_editEntityRecord(kind, name, recordId, edits, options = {}) {
     transientEdits = {},
     mergedEdits = {}
   } = entity;
-  const record = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getRawEntityRecord', kind, name, recordId);
-  const editedRecord = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getEditedEntityRecord', kind, name, recordId);
+  const record = yield external_wp_data_["controls"].select(STORE_NAME, 'getRawEntityRecord', kind, name, recordId);
+  const editedRecord = yield external_wp_data_["controls"].select(STORE_NAME, 'getEditedEntityRecord', kind, name, recordId);
   const edit = {
     kind,
     name,
@@ -1480,7 +1474,7 @@ function* actions_editEntityRecord(kind, name, recordId, edits, options = {}) {
  */
 
 function* undo() {
-  const undoEdit = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getUndoEdit');
+  const undoEdit = yield external_wp_data_["controls"].select(STORE_NAME, 'getUndoEdit');
 
   if (!undoEdit) {
     return;
@@ -1500,7 +1494,7 @@ function* undo() {
  */
 
 function* redo() {
-  const redoEdit = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getRedoEdit');
+  const redoEdit = yield external_wp_data_["controls"].select(STORE_NAME, 'getRedoEdit');
 
   if (!redoEdit) {
     return;
@@ -1555,7 +1549,7 @@ function* saveEntityRecord(kind, name, record, {
 
   const entityIdKey = entity.key || DEFAULT_ENTITY_KEY;
   const recordId = record[entityIdKey];
-  const lock = yield* __unstableAcquireStoreLock(CORE_STORE_NAME, ['entities', 'data', kind, name, recordId || Object(v4["a" /* default */])()], {
+  const lock = yield* __unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, recordId || Object(v4["a" /* default */])()], {
     exclusive: true
   });
 
@@ -1564,7 +1558,7 @@ function* saveEntityRecord(kind, name, record, {
     // (Function edits that should be evaluated on save to avoid expensive computations on every edit.)
     for (const [key, value] of Object.entries(record)) {
       if (typeof value === 'function') {
-        const evaluatedValue = value(yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getEditedEntityRecord', kind, name, recordId));
+        const evaluatedValue = value(yield external_wp_data_["controls"].select(STORE_NAME, 'getEditedEntityRecord', kind, name, recordId));
         yield actions_editEntityRecord(kind, name, recordId, {
           [key]: evaluatedValue
         }, {
@@ -1586,16 +1580,16 @@ function* saveEntityRecord(kind, name, record, {
 
     try {
       const path = `${entity.baseURL}${recordId ? '/' + recordId : ''}`;
-      const persistedRecord = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getRawEntityRecord', kind, name, recordId);
+      const persistedRecord = yield external_wp_data_["controls"].select(STORE_NAME, 'getRawEntityRecord', kind, name, recordId);
 
       if (isAutosave) {
         // Most of this autosave logic is very specific to posts.
         // This is fine for now as it is the only supported autosave,
         // but ideally this should all be handled in the back end,
         // so the client just sends and receives objects.
-        const currentUser = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getCurrentUser');
+        const currentUser = yield external_wp_data_["controls"].select(STORE_NAME, 'getCurrentUser');
         const currentUserId = currentUser ? currentUser.id : undefined;
-        const autosavePost = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getAutosave', persistedRecord.type, persistedRecord.id, currentUserId); // Autosaves need all expected fields to be present.
+        const autosavePost = yield external_wp_data_["controls"].select(STORE_NAME, 'getAutosave', persistedRecord.type, persistedRecord.id, currentUserId); // Autosaves need all expected fields to be present.
         // So we fallback to the previous autosave and then
         // to the actual persisted entity if the edits don't
         // have a value.
@@ -1722,19 +1716,19 @@ function* __experimentalBatch(requests) {
   const dispatch = yield getDispatch();
   const api = {
     saveEntityRecord(kind, name, record, options) {
-      return batch.add(add => dispatch(CORE_STORE_NAME).saveEntityRecord(kind, name, record, { ...options,
+      return batch.add(add => dispatch(STORE_NAME).saveEntityRecord(kind, name, record, { ...options,
         __unstableFetch: add
       }));
     },
 
     saveEditedEntityRecord(kind, name, recordId, options) {
-      return batch.add(add => dispatch(CORE_STORE_NAME).saveEditedEntityRecord(kind, name, recordId, { ...options,
+      return batch.add(add => dispatch(STORE_NAME).saveEditedEntityRecord(kind, name, recordId, { ...options,
         __unstableFetch: add
       }));
     },
 
     deleteEntityRecord(kind, name, recordId, query, options) {
-      return batch.add(add => dispatch(CORE_STORE_NAME).deleteEntityRecord(kind, name, recordId, query, { ...options,
+      return batch.add(add => dispatch(STORE_NAME).deleteEntityRecord(kind, name, recordId, query, { ...options,
         __unstableFetch: add
       }));
     }
@@ -1754,11 +1748,11 @@ function* __experimentalBatch(requests) {
  */
 
 function* saveEditedEntityRecord(kind, name, recordId, options) {
-  if (!(yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'hasEditsForEntityRecord', kind, name, recordId))) {
+  if (!(yield external_wp_data_["controls"].select(STORE_NAME, 'hasEditsForEntityRecord', kind, name, recordId))) {
     return;
   }
 
-  const edits = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getEntityRecordNonTransientEdits', kind, name, recordId);
+  const edits = yield external_wp_data_["controls"].select(STORE_NAME, 'getEntityRecordNonTransientEdits', kind, name, recordId);
   const record = {
     id: recordId,
     ...edits
@@ -1776,11 +1770,11 @@ function* saveEditedEntityRecord(kind, name, recordId, options) {
  */
 
 function* __experimentalSaveSpecifiedEntityEdits(kind, name, recordId, itemsToSave, options) {
-  if (!(yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'hasEditsForEntityRecord', kind, name, recordId))) {
+  if (!(yield external_wp_data_["controls"].select(STORE_NAME, 'hasEditsForEntityRecord', kind, name, recordId))) {
     return;
   }
 
-  const edits = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getEntityRecordNonTransientEdits', kind, name, recordId);
+  const edits = yield external_wp_data_["controls"].select(STORE_NAME, 'getEntityRecordNonTransientEdits', kind, name, recordId);
   const editsToSave = {};
 
   for (const edit in edits) {
@@ -2101,7 +2095,7 @@ const getMethodName = (kind, name, prefix = 'get', usePlural = false) => {
  */
 
 function* getKindEntities(kind) {
-  let entities = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getEntitiesByKind', kind);
+  let entities = yield external_wp_data_["controls"].select(STORE_NAME, 'getEntitiesByKind', kind);
 
   if (entities && entities.length !== 0) {
     return entities;
@@ -2223,7 +2217,8 @@ function getQueryParts(query) {
     page: 1,
     perPage: 10,
     fields: null,
-    include: null
+    include: null,
+    context: 'default'
   }; // Ensure stable key by sorting keys. Also more efficient for iterating.
 
   const keys = Object.keys(query).sort();
@@ -2243,6 +2238,10 @@ function getQueryParts(query) {
 
       case 'include':
         parts.include = get_normalized_comma_separable(value).map(Number);
+        break;
+
+      case 'context':
+        parts.context = value;
         break;
 
       default:
@@ -2291,6 +2290,19 @@ function getQueryParts(query) {
 
 
 
+
+function getContextFromAction(action) {
+  const {
+    query
+  } = action;
+
+  if (!query) {
+    return 'default';
+  }
+
+  const queryParts = get_query_parts(query);
+  return queryParts.context;
+}
 /**
  * Returns a merged array of item IDs, given details of the received paginated
  * items. The array is sparse-like with `undefined` entries where holes exist.
@@ -2302,6 +2314,7 @@ function getQueryParts(query) {
  *
  * @return {number[]} Merged array of item IDs.
  */
+
 
 function getMergedItemIds(itemIds, nextItemIds, page, perPage) {
   const receivedAllIds = page === 1 && perPage === -1;
@@ -2338,18 +2351,24 @@ function getMergedItemIds(itemIds, nextItemIds, page, perPage) {
 function reducer_items(state = {}, action) {
   switch (action.type) {
     case 'RECEIVE_ITEMS':
-      const key = action.key || DEFAULT_ENTITY_KEY;
-      return { ...state,
-        ...action.items.reduce((accumulator, value) => {
-          const itemId = value[key];
-          accumulator[itemId] = conservativeMapItem(state[itemId], value);
-          return accumulator;
-        }, {})
-      };
+      {
+        const context = getContextFromAction(action);
+        const key = action.key || DEFAULT_ENTITY_KEY;
+        return { ...state,
+          [context]: { ...state[context],
+            ...action.items.reduce((accumulator, value) => {
+              var _state$context;
+
+              const itemId = value[key];
+              accumulator[itemId] = conservativeMapItem(state === null || state === void 0 ? void 0 : (_state$context = state[context]) === null || _state$context === void 0 ? void 0 : _state$context[itemId], value);
+              return accumulator;
+            }, {})
+          }
+        };
+      }
 
     case 'REMOVE_ITEMS':
-      const newState = Object(external_lodash_["omit"])(state, action.itemIds);
-      return newState;
+      return Object(external_lodash_["mapValues"])(state, contextState => Object(external_lodash_["omit"])(contextState, action.itemIds));
   }
 
   return state;
@@ -2367,34 +2386,43 @@ function reducer_items(state = {}, action) {
  * @return {Object<string,boolean>} Next state.
  */
 
-
 function itemIsComplete(state = {}, action) {
-  const {
-    type,
-    query,
-    key = DEFAULT_ENTITY_KEY
-  } = action;
+  switch (action.type) {
+    case 'RECEIVE_ITEMS':
+      {
+        const context = getContextFromAction(action);
+        const {
+          query,
+          key = DEFAULT_ENTITY_KEY
+        } = action; // An item is considered complete if it is received without an associated
+        // fields query. Ideally, this would be implemented in such a way where the
+        // complete aggregate of all fields would satisfy completeness. Since the
+        // fields are not consistent across all entity types, this would require
+        // introspection on the REST schema for each entity to know which fields
+        // compose a complete item for that entity.
 
-  if (type !== 'RECEIVE_ITEMS') {
-    return state;
-  } // An item is considered complete if it is received without an associated
-  // fields query. Ideally, this would be implemented in such a way where the
-  // complete aggregate of all fields would satisfy completeness. Since the
-  // fields are not consistent across all entity types, this would require
-  // introspection on the REST schema for each entity to know which fields
-  // compose a complete item for that entity.
+        const queryParts = query ? get_query_parts(query) : {};
+        const isCompleteQuery = !query || !Array.isArray(queryParts.fields);
+        return { ...state,
+          [context]: { ...state[context],
+            ...action.items.reduce((result, item) => {
+              var _state$context2;
 
+              const itemId = item[key]; // Defer to completeness if already assigned. Technically the
+              // data may be outdated if receiving items for a field subset.
 
-  const isCompleteQuery = !query || !Array.isArray(get_query_parts(query).fields);
-  return { ...state,
-    ...action.items.reduce((result, item) => {
-      const itemId = item[key]; // Defer to completeness if already assigned. Technically the
-      // data may be outdated if receiving items for a field subset.
+              result[itemId] = (state === null || state === void 0 ? void 0 : (_state$context2 = state[context]) === null || _state$context2 === void 0 ? void 0 : _state$context2[itemId]) || isCompleteQuery;
+              return result;
+            }, {})
+          }
+        };
+      }
 
-      result[itemId] = state[itemId] || isCompleteQuery;
-      return result;
-    }, {})
-  };
+    case 'REMOVE_ITEMS':
+      return Object(external_lodash_["mapValues"])(state, contextState => Object(external_lodash_["omit"])(contextState, action.itemIds));
+  }
+
+  return state;
 }
 /**
  * Reducer tracking queries state, keyed by stable query key. Each reducer
@@ -2420,7 +2448,7 @@ replace_action(action => {
   }
 
   return action;
-}), // Queries shape is shared, but keyed by query `stableKey` part. Original
+}), on_sub_key('context'), // Queries shape is shared, but keyed by query `stableKey` part. Original
 // reducer tracks only a single query object.
 on_sub_key('stableKey')])((state = null, action) => {
   const {
@@ -2451,18 +2479,17 @@ const reducer_queries = (state = {}, action) => {
       return receiveQueries(state, action);
 
     case 'REMOVE_ITEMS':
-      const newState = { ...state
-      };
       const removedItems = action.itemIds.reduce((result, itemId) => {
         result[itemId] = true;
         return result;
       }, {});
-      Object(external_lodash_["forEach"])(newState, (queryItems, key) => {
-        newState[key] = Object(external_lodash_["filter"])(queryItems, queryId => {
-          return !removedItems[queryId];
+      return Object(external_lodash_["mapValues"])(state, contextQueries => {
+        return Object(external_lodash_["mapValues"])(contextQueries, queryItems => {
+          return Object(external_lodash_["filter"])(queryItems, queryId => {
+            return !removedItems[queryId];
+          });
         });
       });
-      return newState;
 
     default:
       return state;
@@ -2799,8 +2826,16 @@ function reducer_entity(entityConfig) {
   })])(Object(external_wp_data_["combineReducers"])({
     queriedData: reducer,
     edits: (state = {}, action) => {
+      var _action$query$context, _action$query;
+
       switch (action.type) {
         case 'RECEIVE_ITEMS':
+          const context = (_action$query$context = action === null || action === void 0 ? void 0 : (_action$query = action.query) === null || _action$query === void 0 ? void 0 : _action$query.context) !== null && _action$query$context !== void 0 ? _action$query$context : 'default';
+
+          if (context !== 'default') {
+            return state;
+          }
+
           const nextState = { ...state
           };
 
@@ -3133,17 +3168,8 @@ function reducer_autosaves(state = {}, action) {
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
 var rememo = __webpack_require__(29);
 
-// CONCATENATED MODULE: ./packages/core-data/build-module/name.js
-/**
- * The reducer key used by core data in store registration.
- * This is defined in a separate file to avoid cycle-dependency
- *
- * @type {string}
- */
-const STORE_NAME = 'core';
-//# sourceMappingURL=name.js.map
 // EXTERNAL MODULE: ./node_modules/equivalent-key-map/equivalent-key-map.js
-var equivalent_key_map = __webpack_require__(84);
+var equivalent_key_map = __webpack_require__(85);
 var equivalent_key_map_default = /*#__PURE__*/__webpack_require__.n(equivalent_key_map);
 
 // CONCATENATED MODULE: ./packages/core-data/build-module/queried-data/selectors.js
@@ -3177,12 +3203,15 @@ const queriedItemsCacheByState = new WeakMap();
  */
 
 function getQueriedItemsUncached(state, query) {
+  var _state$queries, _state$queries$contex;
+
   const {
     stableKey,
     page,
     perPage,
     include,
-    fields
+    fields,
+    context
   } = get_query_parts(query);
   let itemIds;
 
@@ -3193,8 +3222,8 @@ function getQueriedItemsUncached(state, query) {
     // accounted for below in the loop `null` return.
     itemIds = include; // TODO: Avoid storing the empty stable string in reducer, since it
     // can be computed dynamically here always.
-  } else if (state.queries[stableKey]) {
-    itemIds = state.queries[stableKey];
+  } else if ((_state$queries = state.queries) !== null && _state$queries !== void 0 && (_state$queries$contex = _state$queries[context]) !== null && _state$queries$contex !== void 0 && _state$queries$contex[stableKey]) {
+    itemIds = state.queries[context][stableKey];
   }
 
   if (!itemIds) {
@@ -3206,17 +3235,19 @@ function getQueriedItemsUncached(state, query) {
   const items = [];
 
   for (let i = startOffset; i < endOffset; i++) {
+    var _state$items$context;
+
     const itemId = itemIds[i];
 
     if (Array.isArray(include) && !include.includes(itemId)) {
       continue;
     }
 
-    if (!state.items.hasOwnProperty(itemId)) {
+    if (!((_state$items$context = state.items[context]) !== null && _state$items$context !== void 0 && _state$items$context.hasOwnProperty(itemId))) {
       return null;
     }
 
-    const item = state.items[itemId];
+    const item = state.items[context][itemId];
     let filteredItem;
 
     if (Array.isArray(fields)) {
@@ -3228,9 +3259,11 @@ function getQueriedItemsUncached(state, query) {
         Object(external_lodash_["set"])(filteredItem, field, value);
       }
     } else {
+      var _state$itemIsComplete;
+
       // If expecting a complete item, validate that completeness, or
       // otherwise abort.
-      if (!state.itemIsComplete[itemId]) {
+      if (!((_state$itemIsComplete = state.itemIsComplete[context]) !== null && _state$itemIsComplete !== void 0 && _state$itemIsComplete[itemId])) {
         return null;
       }
 
@@ -3296,7 +3329,6 @@ const getQueriedItems = Object(rememo["a" /* default */])((state, query = {}) =>
 
 
 
-
 /**
  * Shared reference to an empty array for cases where it is important to avoid
  * returning a new array reference on every invocation, as in a connected or
@@ -3319,7 +3351,7 @@ const EMPTY_ARRAY = [];
  */
 
 const isRequestingEmbedPreview = Object(external_wp_data_["createRegistrySelector"])(select => (state, url) => {
-  return select(CORE_DATA_STORE_NAME).isResolving(STORE_NAME, 'getEmbedPreview', [url]);
+  return select(STORE_NAME).isResolving('getEmbedPreview', [url]);
 });
 /**
  * Returns all available authors.
@@ -3415,22 +3447,28 @@ function getEntity(state, kind, name) {
  */
 
 function selectors_getEntityRecord(state, kind, name, key, query) {
+  var _query$context, _queriedState$items$c;
+
   const queriedState = Object(external_lodash_["get"])(state.entities.data, [kind, name, 'queriedData']);
 
   if (!queriedState) {
     return undefined;
   }
 
+  const context = (_query$context = query === null || query === void 0 ? void 0 : query.context) !== null && _query$context !== void 0 ? _query$context : 'default';
+
   if (query === undefined) {
+    var _queriedState$itemIsC;
+
     // If expecting a complete item, validate that completeness.
-    if (!queriedState.itemIsComplete[key]) {
+    if (!((_queriedState$itemIsC = queriedState.itemIsComplete[context]) !== null && _queriedState$itemIsC !== void 0 && _queriedState$itemIsC[key])) {
       return undefined;
     }
 
-    return queriedState.items[key];
+    return queriedState.items[context][key];
   }
 
-  const item = queriedState.items[key];
+  const item = (_queriedState$items$c = queriedState.items[context]) === null || _queriedState$items$c === void 0 ? void 0 : _queriedState$items$c[key];
 
   if (item && query._fields) {
     const filteredItem = {};
@@ -4000,7 +4038,7 @@ const ifNotResolved = (resolver, selectorName) =>
  * @param {...any} args Original resolver arguments.
  */
 function* resolveIfNotResolved(...args) {
-  const hasStartedResolution = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'hasStartedResolution', selectorName, args);
+  const hasStartedResolution = yield external_wp_data_["controls"].select(STORE_NAME, 'hasStartedResolution', selectorName, args);
 
   if (!hasStartedResolution) {
     yield* resolver(...args);
@@ -4093,7 +4131,7 @@ function* resolvers_getEntityRecord(kind, name, key = '', query) {
     return;
   }
 
-  const lock = yield* __unstableAcquireStoreLock(CORE_STORE_NAME, ['entities', 'data', kind, name, key], {
+  const lock = yield* __unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, key], {
     exclusive: false
   });
 
@@ -4124,7 +4162,7 @@ function* resolvers_getEntityRecord(kind, name, key = '', query) {
       // fields, so it's tested here, prior to initiating the REST request,
       // and without causing `getEntityRecords` resolution to occur.
 
-      const hasRecords = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'hasEntityRecords', kind, name, query);
+      const hasRecords = yield external_wp_data_["controls"].select(STORE_NAME, 'hasEntityRecords', kind, name, query);
 
       if (hasRecords) {
         return;
@@ -4170,7 +4208,7 @@ function* resolvers_getEntityRecords(kind, name, query = {}) {
     return;
   }
 
-  const lock = yield* __unstableAcquireStoreLock(CORE_STORE_NAME, ['entities', 'data', kind, name], {
+  const lock = yield* __unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name], {
     exclusive: false
   });
 
@@ -4186,8 +4224,8 @@ function* resolvers_getEntityRecords(kind, name, query = {}) {
       };
     }
 
-    const path = Object(external_wp_url_["addQueryArgs"])(entity.baseURL, { ...query,
-      context: 'edit'
+    const path = Object(external_wp_url_["addQueryArgs"])(entity.baseURL, { ...entity.baseURLParams,
+      ...query
     });
     let records = Object.values(yield Object(external_wp_dataControls_["apiFetch"])({
       path
@@ -4211,7 +4249,7 @@ function* resolvers_getEntityRecords(kind, name, query = {}) {
     // resolve the `getEntityRecord` selector in addition to `getEntityRecords`.
     // See https://github.com/WordPress/gutenberg/pull/26575
 
-    if (!((_query = query) !== null && _query !== void 0 && _query._fields)) {
+    if (!((_query = query) !== null && _query !== void 0 && _query._fields) && !query.context) {
       const key = entity.key || DEFAULT_ENTITY_KEY;
       const resolutionsArgs = records.filter(record => record[key]).map(record => [kind, name, record[key]]);
       yield {
@@ -4364,7 +4402,7 @@ function* resolvers_canUserEditEntityRecord(kind, name, recordId) {
 function* resolvers_getAutosaves(postType, postId) {
   const {
     rest_base: restBase
-  } = yield external_wp_data_["controls"].resolveSelect(CORE_STORE_NAME, 'getPostType', postType);
+  } = yield external_wp_data_["controls"].resolveSelect(STORE_NAME, 'getPostType', postType);
   const autosaves = yield Object(external_wp_dataControls_["apiFetch"])({
     path: `/wp/v2/${restBase}/${postId}/autosaves?context=edit`
   });
@@ -4384,7 +4422,7 @@ function* resolvers_getAutosaves(postType, postId) {
  */
 
 function* resolvers_getAutosave(postType, postId) {
-  yield external_wp_data_["controls"].resolveSelect(CORE_STORE_NAME, 'getAutosaves', postType, postId);
+  yield external_wp_data_["controls"].resolveSelect(STORE_NAME, 'getAutosaves', postType, postId);
 }
 /**
  * Retrieve the frontend template used for a given link.
@@ -4410,7 +4448,7 @@ function* resolvers_experimentalGetTemplateForLink(link) {
   }
 
   yield resolvers_getEntityRecord('postType', 'wp_template', template.id);
-  const record = yield external_wp_data_["controls"].select(CORE_STORE_NAME, 'getEntityRecord', 'postType', 'wp_template', template.id);
+  const record = yield external_wp_data_["controls"].select(STORE_NAME, 'getEntityRecord', 'postType', 'wp_template', template.id);
 
   if (record) {
     yield receiveEntityRecords('postType', 'wp_template', [record], {
@@ -4585,7 +4623,7 @@ function useEntityProp(kind, type, prop, _id) {
     const {
       getEntityRecord,
       getEditedEntityRecord
-    } = select(CORE_STORE_NAME);
+    } = select(STORE_NAME);
     const entity = getEntityRecord(kind, type, id); // Trigger resolver.
 
     const editedEntity = getEditedEntityRecord(kind, type, id);
@@ -4596,7 +4634,7 @@ function useEntityProp(kind, type, prop, _id) {
   }, [kind, type, id, prop]);
   const {
     editEntityRecord
-  } = Object(external_wp_data_["useDispatch"])(CORE_STORE_NAME);
+  } = Object(external_wp_data_["useDispatch"])(STORE_NAME);
   const setValue = Object(external_wp_element_["useCallback"])(newValue => {
     editEntityRecord(kind, type, id, {
       [prop]: newValue
@@ -4634,7 +4672,7 @@ function useEntityBlockEditor(kind, type, {
   } = Object(external_wp_data_["useSelect"])(select => {
     const {
       getEditedEntityRecord
-    } = select(CORE_STORE_NAME);
+    } = select(STORE_NAME);
     const editedEntity = getEditedEntityRecord(kind, type, id);
     return {
       blocks: editedEntity.blocks,
@@ -4644,7 +4682,7 @@ function useEntityBlockEditor(kind, type, {
   const {
     __unstableCreateUndoLevel,
     editEntityRecord
-  } = Object(external_wp_data_["useDispatch"])(CORE_STORE_NAME);
+  } = Object(external_wp_data_["useDispatch"])(STORE_NAME);
   Object(external_wp_element_["useEffect"])(() => {
     // Load the blocks from the content if not already in state
     // Guard against other instances that might have
@@ -4695,7 +4733,7 @@ function useEntityBlockEditor(kind, type, {
 }
 //# sourceMappingURL=entity-provider.js.map
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(39);
+var external_wp_htmlEntities_ = __webpack_require__(40);
 
 // CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-link-suggestions.js
 /**
@@ -4879,6 +4917,13 @@ const fetchLinkSuggestions = async (search, searchOptions = {}, settings = {}) =
 
 
 /**
+ * A simple in-memory cache for requests.
+ * This avoids repeat HTTP requests which may be beneficial
+ * for those wishing to preserve low-bandwidth.
+ */
+
+const CACHE = new Map();
+/**
  * @typedef WPRemoteUrlData
  *
  * @property {string} title contents of the remote URL's `<title>` tag.
@@ -4911,9 +4956,17 @@ const fetchRemoteUrlData = async (url, options = {}) => {
   const args = {
     url: Object(external_wp_url_["prependHTTP"])(url)
   };
+
+  if (CACHE.has(url)) {
+    return CACHE.get(url);
+  }
+
   return external_wp_apiFetch_default()({
     path: Object(external_wp_url_["addQueryArgs"])(endpoint, args),
     ...options
+  }).then(res => {
+    CACHE.set(url, res);
+    return res;
   });
 };
 
@@ -5020,7 +5073,7 @@ Object(external_wp_data_["register"])(build_module_store);
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());
@@ -5034,7 +5087,7 @@ Object(external_wp_data_["register"])(build_module_store);
 
 /***/ }),
 
-/***/ 84:
+/***/ 85:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

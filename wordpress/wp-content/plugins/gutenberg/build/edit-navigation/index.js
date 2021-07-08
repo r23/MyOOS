@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["editNavigation"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 402);
+/******/ 	return __webpack_require__(__webpack_require__.s = 408);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -162,7 +162,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 144:
+/***/ 148:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -187,7 +187,7 @@ const starFilled = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["creat
 
 /***/ }),
 
-/***/ 145:
+/***/ 149:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -214,7 +214,7 @@ const starEmpty = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 155:
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -303,7 +303,7 @@ function v4(options, buf, offset) {
 
 /***/ }),
 
-/***/ 196:
+/***/ 198:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -344,7 +344,7 @@ const cog = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElemen
 
 /***/ }),
 
-/***/ 25:
+/***/ 24:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
@@ -679,19 +679,19 @@ var external_wp_i18n_ = __webpack_require__(1);
 var check = __webpack_require__(92);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/star-filled.js
-var star_filled = __webpack_require__(144);
+var star_filled = __webpack_require__(148);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/star-empty.js
-var star_empty = __webpack_require__(145);
+var star_empty = __webpack_require__(149);
 
 // EXTERNAL MODULE: external ["wp","viewport"]
-var external_wp_viewport_ = __webpack_require__(52);
+var external_wp_viewport_ = __webpack_require__(54);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/close-small.js
 var close_small = __webpack_require__(91);
 
 // EXTERNAL MODULE: external ["wp","plugins"]
-var external_wp_plugins_ = __webpack_require__(36);
+var external_wp_plugins_ = __webpack_require__(37);
 
 // CONCATENATED MODULE: ./packages/interface/build-module/components/complementary-area-context/index.js
 /**
@@ -1147,54 +1147,44 @@ ComplementaryAreaWrapped.Slot = ComplementaryAreaSlot;
  * WordPress dependencies
  */
 
-class fullscreen_mode_FullscreenMode extends external_wp_element_["Component"] {
-  componentDidMount() {
-    this.isSticky = false;
-    this.sync(); // `is-fullscreen-mode` is set in PHP as a body class by Gutenberg, and this causes
+
+const FullscreenMode = ({
+  isActive
+}) => {
+  Object(external_wp_element_["useEffect"])(() => {
+    let isSticky = false; // `is-fullscreen-mode` is set in PHP as a body class by Gutenberg, and this causes
     // `sticky-menu` to be applied by WordPress and prevents the admin menu being scrolled
     // even if `is-fullscreen-mode` is then removed. Let's remove `sticky-menu` here as
     // a consequence of the FullscreenMode setup
 
     if (document.body.classList.contains('sticky-menu')) {
-      this.isSticky = true;
+      isSticky = true;
       document.body.classList.remove('sticky-menu');
     }
-  }
 
-  componentWillUnmount() {
-    if (this.isSticky) {
-      document.body.classList.add('sticky-menu');
-    }
-
-    if (this.props.isActive) {
-      document.body.classList.remove('is-fullscreen-mode');
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.isActive !== prevProps.isActive) {
-      this.sync();
-    }
-  }
-
-  sync() {
-    const {
-      isActive
-    } = this.props;
-
+    return () => {
+      if (isSticky) {
+        document.body.classList.add('sticky-menu');
+      }
+    };
+  }, []);
+  Object(external_wp_element_["useEffect"])(() => {
     if (isActive) {
       document.body.classList.add('is-fullscreen-mode');
     } else {
       document.body.classList.remove('is-fullscreen-mode');
     }
-  }
 
-  render() {
-    return null;
-  }
+    return () => {
+      if (isActive) {
+        document.body.classList.remove('is-fullscreen-mode');
+      }
+    };
+  }, [isActive]);
+  return null;
+};
 
-}
-/* harmony default export */ var fullscreen_mode = (fullscreen_mode_FullscreenMode);
+/* harmony default export */ var fullscreen_mode = (FullscreenMode);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","compose"]
 var external_wp_compose_ = __webpack_require__(9);
@@ -1352,7 +1342,7 @@ function InterfaceSkeleton({
 
 /***/ }),
 
-/***/ 36:
+/***/ 37:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["plugins"]; }());
@@ -1366,7 +1356,7 @@ function InterfaceSkeleton({
 
 /***/ }),
 
-/***/ 402:
+/***/ 408:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1400,7 +1390,7 @@ __webpack_require__.d(actions_namespaceObject, "saveNavigationPost", function() 
 var external_wp_element_ = __webpack_require__(0);
 
 // EXTERNAL MODULE: external ["wp","blockLibrary"]
-var external_wp_blockLibrary_ = __webpack_require__(50);
+var external_wp_blockLibrary_ = __webpack_require__(52);
 
 // EXTERNAL MODULE: external ["wp","coreData"]
 var external_wp_coreData_ = __webpack_require__(11);
@@ -2520,7 +2510,7 @@ const getMenuItemForClientId = Object(external_wp_data_["createRegistrySelector"
 });
 //# sourceMappingURL=selectors.js.map
 // EXTERNAL MODULE: ./node_modules/uuid/dist/esm-browser/v4.js + 4 modules
-var v4 = __webpack_require__(155);
+var v4 = __webpack_require__(159);
 
 // CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/actions.js
 /**
@@ -3427,7 +3417,7 @@ class error_boundary_ErrorBoundary extends external_wp_element_["Component"] {
 /* harmony default export */ var error_boundary = (error_boundary_ErrorBoundary);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_ = __webpack_require__(25);
+var external_wp_keyboardShortcuts_ = __webpack_require__(24);
 
 // CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/layout/shortcuts.js
 /**
@@ -3507,7 +3497,7 @@ NavigationEditorShortcuts.Register = RegisterNavigationEditorShortcuts;
 /* harmony default export */ var shortcuts = (NavigationEditorShortcuts);
 //# sourceMappingURL=shortcuts.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/cog.js
-var cog = __webpack_require__(196);
+var cog = __webpack_require__(198);
 
 // CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/sidebar/sidebar-header.js
 
@@ -4288,14 +4278,14 @@ function initialize(id, settings) {
 
 /***/ }),
 
-/***/ 50:
+/***/ 52:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["blockLibrary"]; }());
 
 /***/ }),
 
-/***/ 52:
+/***/ 54:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["viewport"]; }());

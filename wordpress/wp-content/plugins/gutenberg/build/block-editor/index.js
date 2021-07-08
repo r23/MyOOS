@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["blockEditor"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 396);
+/******/ 	return __webpack_require__(__webpack_require__.s = 402);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,12 +165,12 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var _extends = _interopDefault(__webpack_require__(174));
-var _objectWithoutPropertiesLoose = _interopDefault(__webpack_require__(175));
+var _extends = _interopDefault(__webpack_require__(151));
+var _objectWithoutPropertiesLoose = _interopDefault(__webpack_require__(176));
 var React = __webpack_require__(12);
 var React__default = _interopDefault(React);
-var _inheritsLoose = _interopDefault(__webpack_require__(147));
-var _assertThisInitialized = _interopDefault(__webpack_require__(177));
+var _inheritsLoose = _interopDefault(__webpack_require__(177));
+var _assertThisInitialized = _interopDefault(__webpack_require__(179));
 
 var is = {
   arr: Array.isArray,
@@ -2542,7 +2542,7 @@ const close = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElem
 "use strict";
 
 
-module.exports = __webpack_require__(178);
+module.exports = __webpack_require__(180);
 
 /***/ }),
 
@@ -2553,7 +2553,7 @@ module.exports = __webpack_require__(178);
 
 /***/ }),
 
-/***/ 117:
+/***/ 116:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["shortcode"]; }());
@@ -2567,7 +2567,7 @@ module.exports = __webpack_require__(178);
 
 /***/ }),
 
-/***/ 124:
+/***/ 127:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2592,7 +2592,7 @@ const plus = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 125:
+/***/ 128:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2605,7 +2605,7 @@ const plus = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 
 
-var ReactPropTypesSecret = __webpack_require__(126);
+var ReactPropTypesSecret = __webpack_require__(129);
 
 function emptyFunction() {}
 function emptyFunctionWithReset() {}
@@ -2664,7 +2664,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 126:
+/***/ 129:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2691,14 +2691,21 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 141:
+/***/ 145:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["tokenList"]; }());
 
 /***/ }),
 
-/***/ 146:
+/***/ 15:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["richText"]; }());
+
+/***/ }),
+
+/***/ 150:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2723,23 +2730,34 @@ const blockDefault = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["cre
 
 /***/ }),
 
-/***/ 147:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 151:
+/***/ (function(module, exports) {
 
-var setPrototypeOf = __webpack_require__(176);
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
 
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  setPrototypeOf(subClass, superClass);
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _extends.apply(this, arguments);
 }
 
-module.exports = _inheritsLoose;
+module.exports = _extends;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 148:
+/***/ 152:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2764,7 +2782,7 @@ const chevronDown = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["crea
 
 /***/ }),
 
-/***/ 149:
+/***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2789,14 +2807,7 @@ const moreVertical = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["cre
 
 /***/ }),
 
-/***/ 16:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["richText"]; }());
-
-/***/ }),
-
-/***/ 163:
+/***/ 166:
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -2826,7 +2837,7 @@ if (typeof Object.create === 'function') {
 
 /***/ }),
 
-/***/ 173:
+/***/ 175:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2851,34 +2862,7 @@ const listView = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createE
 
 /***/ }),
 
-/***/ 174:
-/***/ (function(module, exports) {
-
-function _extends() {
-  module.exports = _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  module.exports["default"] = module.exports, module.exports.__esModule = true;
-  return _extends.apply(this, arguments);
-}
-
-module.exports = _extends;
-module.exports["default"] = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ 175:
+/***/ 176:
 /***/ (function(module, exports) {
 
 function _objectWithoutPropertiesLoose(source, excluded) {
@@ -2901,7 +2885,23 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 176:
+/***/ 177:
+/***/ (function(module, exports, __webpack_require__) {
+
+var setPrototypeOf = __webpack_require__(178);
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inheritsLoose;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 178:
 /***/ (function(module, exports) {
 
 function _setPrototypeOf(o, p) {
@@ -2919,7 +2919,7 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 177:
+/***/ 179:
 /***/ (function(module, exports) {
 
 function _assertThisInitialized(self) {
@@ -2935,13 +2935,13 @@ module.exports["default"] = module.exports, module.exports.__esModule = true;
 
 /***/ }),
 
-/***/ 178:
+/***/ 180:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(179);
+var util = __webpack_require__(181);
 
 function scrollIntoView(elem, container, config) {
   config = config || {};
@@ -3076,7 +3076,7 @@ module.exports = scrollIntoView;
 
 /***/ }),
 
-/***/ 179:
+/***/ 181:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3522,7 +3522,7 @@ module.exports = _extends({
 
 /***/ }),
 
-/***/ 180:
+/***/ 182:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3556,9 +3556,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 exports.__esModule = true;
 var React = __webpack_require__(12);
-var PropTypes = __webpack_require__(22);
-var autosize = __webpack_require__(181);
-var _getLineHeight = __webpack_require__(182);
+var PropTypes = __webpack_require__(23);
+var autosize = __webpack_require__(183);
+var _getLineHeight = __webpack_require__(184);
 var getLineHeight = _getLineHeight;
 var RESIZED = "autosize:resized";
 /**
@@ -3656,7 +3656,7 @@ exports.TextareaAutosize = React.forwardRef(function (props, ref) {
 
 /***/ }),
 
-/***/ 181:
+/***/ 183:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -3945,11 +3945,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 182:
+/***/ 184:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Load in dependencies
-var computedStyle = __webpack_require__(183);
+var computedStyle = __webpack_require__(185);
 
 /**
  * Calculate the `line-height` of a given node
@@ -4049,7 +4049,7 @@ module.exports = lineHeight;
 
 /***/ }),
 
-/***/ 183:
+/***/ 185:
 /***/ (function(module, exports) {
 
 // This code has been refactored for 140 bytes
@@ -4083,7 +4083,7 @@ module.exports = computedStyle;
 
 /***/ }),
 
-/***/ 184:
+/***/ 186:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4108,7 +4108,7 @@ const layout = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 /***/ }),
 
-/***/ 185:
+/***/ 187:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4140,7 +4140,7 @@ const link = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 197:
+/***/ 199:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4190,7 +4190,7 @@ const pencil = Object(external_wp_element_["createElement"])(external_wp_primiti
 
 /***/ }),
 
-/***/ 206:
+/***/ 209:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4215,7 +4215,7 @@ const search = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 /***/ }),
 
-/***/ 207:
+/***/ 210:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4240,7 +4240,7 @@ const chevronRight = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["cre
 
 /***/ }),
 
-/***/ 208:
+/***/ 211:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4265,7 +4265,7 @@ const chevronLeft = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["crea
 
 /***/ }),
 
-/***/ 209:
+/***/ 212:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4290,14 +4290,7 @@ const keyboardReturn = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["c
 
 /***/ }),
 
-/***/ 21:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["dom"]; }());
-
-/***/ }),
-
-/***/ 210:
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4323,6 +4316,13 @@ const upload = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 /***/ }),
 
 /***/ 22:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["dom"]; }());
+
+/***/ }),
+
+/***/ 23:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -4335,7 +4335,7 @@ const upload = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 if (false) { var throwOnDirectAccess, ReactIs; } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(125)();
+  module.exports = __webpack_require__(128)();
 }
 
 
@@ -4344,18 +4344,18 @@ if (false) { var throwOnDirectAccess, ReactIs; } else {
 /***/ 24:
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["deprecated"]; }());
+(function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
 
 /***/ }),
 
 /***/ 25:
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
+(function() { module.exports = window["wp"]["deprecated"]; }());
 
 /***/ }),
 
-/***/ 255:
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4371,7 +4371,7 @@ exports.characterDiff = void 0;
 /*istanbul ignore end*/
 var
 /*istanbul ignore start*/
-_base = _interopRequireDefault(__webpack_require__(284))
+_base = _interopRequireDefault(__webpack_require__(291))
 /*istanbul ignore end*/
 ;
 
@@ -4400,7 +4400,7 @@ function diffChars(oldStr, newStr, options) {
 
 /***/ }),
 
-/***/ 256:
+/***/ 260:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4565,7 +4565,7 @@ function toPx(length) {
 
 /***/ }),
 
-/***/ 257:
+/***/ 261:
 /***/ (function(module, exports) {
 
 var traverse = module.exports = function (obj) {
@@ -4886,7 +4886,14 @@ var hasOwnProperty = Object.hasOwnProperty || function (obj, key) {
 
 /***/ }),
 
-/***/ 279:
+/***/ 28:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["notices"]; }());
+
+/***/ }),
+
+/***/ 286:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4911,14 +4918,7 @@ const formatStrikethrough = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0
 
 /***/ }),
 
-/***/ 28:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["notices"]; }());
-
-/***/ }),
-
-/***/ 280:
+/***/ 287:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4943,7 +4943,7 @@ const alignLeft = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 281:
+/***/ 288:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4968,7 +4968,7 @@ const alignCenter = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["crea
 
 /***/ }),
 
-/***/ 282:
+/***/ 289:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4993,7 +4993,289 @@ const alignRight = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["creat
 
 /***/ }),
 
-/***/ 283:
+/***/ 29:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+var LEAF_KEY, hasWeakMap;
+
+/**
+ * Arbitrary value used as key for referencing cache object in WeakMap tree.
+ *
+ * @type {Object}
+ */
+LEAF_KEY = {};
+
+/**
+ * Whether environment supports WeakMap.
+ *
+ * @type {boolean}
+ */
+hasWeakMap = typeof WeakMap !== 'undefined';
+
+/**
+ * Returns the first argument as the sole entry in an array.
+ *
+ * @param {*} value Value to return.
+ *
+ * @return {Array} Value returned as entry in array.
+ */
+function arrayOf( value ) {
+	return [ value ];
+}
+
+/**
+ * Returns true if the value passed is object-like, or false otherwise. A value
+ * is object-like if it can support property assignment, e.g. object or array.
+ *
+ * @param {*} value Value to test.
+ *
+ * @return {boolean} Whether value is object-like.
+ */
+function isObjectLike( value ) {
+	return !! value && 'object' === typeof value;
+}
+
+/**
+ * Creates and returns a new cache object.
+ *
+ * @return {Object} Cache object.
+ */
+function createCache() {
+	var cache = {
+		clear: function() {
+			cache.head = null;
+		},
+	};
+
+	return cache;
+}
+
+/**
+ * Returns true if entries within the two arrays are strictly equal by
+ * reference from a starting index.
+ *
+ * @param {Array}  a         First array.
+ * @param {Array}  b         Second array.
+ * @param {number} fromIndex Index from which to start comparison.
+ *
+ * @return {boolean} Whether arrays are shallowly equal.
+ */
+function isShallowEqual( a, b, fromIndex ) {
+	var i;
+
+	if ( a.length !== b.length ) {
+		return false;
+	}
+
+	for ( i = fromIndex; i < a.length; i++ ) {
+		if ( a[ i ] !== b[ i ] ) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+/**
+ * Returns a memoized selector function. The getDependants function argument is
+ * called before the memoized selector and is expected to return an immutable
+ * reference or array of references on which the selector depends for computing
+ * its own return value. The memoize cache is preserved only as long as those
+ * dependant references remain the same. If getDependants returns a different
+ * reference(s), the cache is cleared and the selector value regenerated.
+ *
+ * @param {Function} selector      Selector function.
+ * @param {Function} getDependants Dependant getter returning an immutable
+ *                                 reference or array of reference used in
+ *                                 cache bust consideration.
+ *
+ * @return {Function} Memoized selector.
+ */
+/* harmony default export */ __webpack_exports__["a"] = (function( selector, getDependants ) {
+	var rootCache, getCache;
+
+	// Use object source as dependant if getter not provided
+	if ( ! getDependants ) {
+		getDependants = arrayOf;
+	}
+
+	/**
+	 * Returns the root cache. If WeakMap is supported, this is assigned to the
+	 * root WeakMap cache set, otherwise it is a shared instance of the default
+	 * cache object.
+	 *
+	 * @return {(WeakMap|Object)} Root cache object.
+	 */
+	function getRootCache() {
+		return rootCache;
+	}
+
+	/**
+	 * Returns the cache for a given dependants array. When possible, a WeakMap
+	 * will be used to create a unique cache for each set of dependants. This
+	 * is feasible due to the nature of WeakMap in allowing garbage collection
+	 * to occur on entries where the key object is no longer referenced. Since
+	 * WeakMap requires the key to be an object, this is only possible when the
+	 * dependant is object-like. The root cache is created as a hierarchy where
+	 * each top-level key is the first entry in a dependants set, the value a
+	 * WeakMap where each key is the next dependant, and so on. This continues
+	 * so long as the dependants are object-like. If no dependants are object-
+	 * like, then the cache is shared across all invocations.
+	 *
+	 * @see isObjectLike
+	 *
+	 * @param {Array} dependants Selector dependants.
+	 *
+	 * @return {Object} Cache object.
+	 */
+	function getWeakMapCache( dependants ) {
+		var caches = rootCache,
+			isUniqueByDependants = true,
+			i, dependant, map, cache;
+
+		for ( i = 0; i < dependants.length; i++ ) {
+			dependant = dependants[ i ];
+
+			// Can only compose WeakMap from object-like key.
+			if ( ! isObjectLike( dependant ) ) {
+				isUniqueByDependants = false;
+				break;
+			}
+
+			// Does current segment of cache already have a WeakMap?
+			if ( caches.has( dependant ) ) {
+				// Traverse into nested WeakMap.
+				caches = caches.get( dependant );
+			} else {
+				// Create, set, and traverse into a new one.
+				map = new WeakMap();
+				caches.set( dependant, map );
+				caches = map;
+			}
+		}
+
+		// We use an arbitrary (but consistent) object as key for the last item
+		// in the WeakMap to serve as our running cache.
+		if ( ! caches.has( LEAF_KEY ) ) {
+			cache = createCache();
+			cache.isUniqueByDependants = isUniqueByDependants;
+			caches.set( LEAF_KEY, cache );
+		}
+
+		return caches.get( LEAF_KEY );
+	}
+
+	// Assign cache handler by availability of WeakMap
+	getCache = hasWeakMap ? getWeakMapCache : getRootCache;
+
+	/**
+	 * Resets root memoization cache.
+	 */
+	function clear() {
+		rootCache = hasWeakMap ? new WeakMap() : createCache();
+	}
+
+	// eslint-disable-next-line jsdoc/check-param-names
+	/**
+	 * The augmented selector call, considering first whether dependants have
+	 * changed before passing it to underlying memoize function.
+	 *
+	 * @param {Object} source    Source object for derivation.
+	 * @param {...*}   extraArgs Additional arguments to pass to selector.
+	 *
+	 * @return {*} Selector result.
+	 */
+	function callSelector( /* source, ...extraArgs */ ) {
+		var len = arguments.length,
+			cache, node, i, args, dependants;
+
+		// Create copy of arguments (avoid leaking deoptimization).
+		args = new Array( len );
+		for ( i = 0; i < len; i++ ) {
+			args[ i ] = arguments[ i ];
+		}
+
+		dependants = getDependants.apply( null, args );
+		cache = getCache( dependants );
+
+		// If not guaranteed uniqueness by dependants (primitive type or lack
+		// of WeakMap support), shallow compare against last dependants and, if
+		// references have changed, destroy cache to recalculate result.
+		if ( ! cache.isUniqueByDependants ) {
+			if ( cache.lastDependants && ! isShallowEqual( dependants, cache.lastDependants, 0 ) ) {
+				cache.clear();
+			}
+
+			cache.lastDependants = dependants;
+		}
+
+		node = cache.head;
+		while ( node ) {
+			// Check whether node arguments match arguments
+			if ( ! isShallowEqual( node.args, args, 1 ) ) {
+				node = node.next;
+				continue;
+			}
+
+			// At this point we can assume we've found a match
+
+			// Surface matched node to head if not already
+			if ( node !== cache.head ) {
+				// Adjust siblings to point to each other.
+				node.prev.next = node.next;
+				if ( node.next ) {
+					node.next.prev = node.prev;
+				}
+
+				node.next = cache.head;
+				node.prev = null;
+				cache.head.prev = node;
+				cache.head = node;
+			}
+
+			// Return immediately
+			return node.val;
+		}
+
+		// No cached value found. Continue to insertion phase:
+
+		node = {
+			// Generate the result from original function
+			val: selector.apply( null, args ),
+		};
+
+		// Avoid including the source object in the cache.
+		args[ 0 ] = null;
+		node.args = args;
+
+		// Don't need to check whether node is already head, since it would
+		// have been returned above already if it was
+
+		// Shift existing head down list
+		if ( cache.head ) {
+			cache.head.prev = node;
+			node.next = cache.head;
+		}
+
+		cache.head = node;
+
+		return node.val;
+	}
+
+	callSelector.getDependants = getDependants;
+	callSelector.clear = clear;
+	clear();
+
+	return callSelector;
+});
+
+
+/***/ }),
+
+/***/ 290:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5018,7 +5300,7 @@ const chevronUp = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 284:
+/***/ 291:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5330,7 +5612,7 @@ function clonePath(path) {
 
 /***/ }),
 
-/***/ 285:
+/***/ 292:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5357,7 +5639,7 @@ const grid = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 286:
+/***/ 293:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5382,7 +5664,7 @@ const media = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElem
 
 /***/ }),
 
-/***/ 287:
+/***/ 294:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5404,288 +5686,6 @@ const arrowLeft = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 }));
 /* harmony default export */ __webpack_exports__["a"] = (arrowLeft);
 //# sourceMappingURL=arrow-left.js.map
-
-/***/ }),
-
-/***/ 29:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-var LEAF_KEY, hasWeakMap;
-
-/**
- * Arbitrary value used as key for referencing cache object in WeakMap tree.
- *
- * @type {Object}
- */
-LEAF_KEY = {};
-
-/**
- * Whether environment supports WeakMap.
- *
- * @type {boolean}
- */
-hasWeakMap = typeof WeakMap !== 'undefined';
-
-/**
- * Returns the first argument as the sole entry in an array.
- *
- * @param {*} value Value to return.
- *
- * @return {Array} Value returned as entry in array.
- */
-function arrayOf( value ) {
-	return [ value ];
-}
-
-/**
- * Returns true if the value passed is object-like, or false otherwise. A value
- * is object-like if it can support property assignment, e.g. object or array.
- *
- * @param {*} value Value to test.
- *
- * @return {boolean} Whether value is object-like.
- */
-function isObjectLike( value ) {
-	return !! value && 'object' === typeof value;
-}
-
-/**
- * Creates and returns a new cache object.
- *
- * @return {Object} Cache object.
- */
-function createCache() {
-	var cache = {
-		clear: function() {
-			cache.head = null;
-		},
-	};
-
-	return cache;
-}
-
-/**
- * Returns true if entries within the two arrays are strictly equal by
- * reference from a starting index.
- *
- * @param {Array}  a         First array.
- * @param {Array}  b         Second array.
- * @param {number} fromIndex Index from which to start comparison.
- *
- * @return {boolean} Whether arrays are shallowly equal.
- */
-function isShallowEqual( a, b, fromIndex ) {
-	var i;
-
-	if ( a.length !== b.length ) {
-		return false;
-	}
-
-	for ( i = fromIndex; i < a.length; i++ ) {
-		if ( a[ i ] !== b[ i ] ) {
-			return false;
-		}
-	}
-
-	return true;
-}
-
-/**
- * Returns a memoized selector function. The getDependants function argument is
- * called before the memoized selector and is expected to return an immutable
- * reference or array of references on which the selector depends for computing
- * its own return value. The memoize cache is preserved only as long as those
- * dependant references remain the same. If getDependants returns a different
- * reference(s), the cache is cleared and the selector value regenerated.
- *
- * @param {Function} selector      Selector function.
- * @param {Function} getDependants Dependant getter returning an immutable
- *                                 reference or array of reference used in
- *                                 cache bust consideration.
- *
- * @return {Function} Memoized selector.
- */
-/* harmony default export */ __webpack_exports__["a"] = (function( selector, getDependants ) {
-	var rootCache, getCache;
-
-	// Use object source as dependant if getter not provided
-	if ( ! getDependants ) {
-		getDependants = arrayOf;
-	}
-
-	/**
-	 * Returns the root cache. If WeakMap is supported, this is assigned to the
-	 * root WeakMap cache set, otherwise it is a shared instance of the default
-	 * cache object.
-	 *
-	 * @return {(WeakMap|Object)} Root cache object.
-	 */
-	function getRootCache() {
-		return rootCache;
-	}
-
-	/**
-	 * Returns the cache for a given dependants array. When possible, a WeakMap
-	 * will be used to create a unique cache for each set of dependants. This
-	 * is feasible due to the nature of WeakMap in allowing garbage collection
-	 * to occur on entries where the key object is no longer referenced. Since
-	 * WeakMap requires the key to be an object, this is only possible when the
-	 * dependant is object-like. The root cache is created as a hierarchy where
-	 * each top-level key is the first entry in a dependants set, the value a
-	 * WeakMap where each key is the next dependant, and so on. This continues
-	 * so long as the dependants are object-like. If no dependants are object-
-	 * like, then the cache is shared across all invocations.
-	 *
-	 * @see isObjectLike
-	 *
-	 * @param {Array} dependants Selector dependants.
-	 *
-	 * @return {Object} Cache object.
-	 */
-	function getWeakMapCache( dependants ) {
-		var caches = rootCache,
-			isUniqueByDependants = true,
-			i, dependant, map, cache;
-
-		for ( i = 0; i < dependants.length; i++ ) {
-			dependant = dependants[ i ];
-
-			// Can only compose WeakMap from object-like key.
-			if ( ! isObjectLike( dependant ) ) {
-				isUniqueByDependants = false;
-				break;
-			}
-
-			// Does current segment of cache already have a WeakMap?
-			if ( caches.has( dependant ) ) {
-				// Traverse into nested WeakMap.
-				caches = caches.get( dependant );
-			} else {
-				// Create, set, and traverse into a new one.
-				map = new WeakMap();
-				caches.set( dependant, map );
-				caches = map;
-			}
-		}
-
-		// We use an arbitrary (but consistent) object as key for the last item
-		// in the WeakMap to serve as our running cache.
-		if ( ! caches.has( LEAF_KEY ) ) {
-			cache = createCache();
-			cache.isUniqueByDependants = isUniqueByDependants;
-			caches.set( LEAF_KEY, cache );
-		}
-
-		return caches.get( LEAF_KEY );
-	}
-
-	// Assign cache handler by availability of WeakMap
-	getCache = hasWeakMap ? getWeakMapCache : getRootCache;
-
-	/**
-	 * Resets root memoization cache.
-	 */
-	function clear() {
-		rootCache = hasWeakMap ? new WeakMap() : createCache();
-	}
-
-	// eslint-disable-next-line jsdoc/check-param-names
-	/**
-	 * The augmented selector call, considering first whether dependants have
-	 * changed before passing it to underlying memoize function.
-	 *
-	 * @param {Object} source    Source object for derivation.
-	 * @param {...*}   extraArgs Additional arguments to pass to selector.
-	 *
-	 * @return {*} Selector result.
-	 */
-	function callSelector( /* source, ...extraArgs */ ) {
-		var len = arguments.length,
-			cache, node, i, args, dependants;
-
-		// Create copy of arguments (avoid leaking deoptimization).
-		args = new Array( len );
-		for ( i = 0; i < len; i++ ) {
-			args[ i ] = arguments[ i ];
-		}
-
-		dependants = getDependants.apply( null, args );
-		cache = getCache( dependants );
-
-		// If not guaranteed uniqueness by dependants (primitive type or lack
-		// of WeakMap support), shallow compare against last dependants and, if
-		// references have changed, destroy cache to recalculate result.
-		if ( ! cache.isUniqueByDependants ) {
-			if ( cache.lastDependants && ! isShallowEqual( dependants, cache.lastDependants, 0 ) ) {
-				cache.clear();
-			}
-
-			cache.lastDependants = dependants;
-		}
-
-		node = cache.head;
-		while ( node ) {
-			// Check whether node arguments match arguments
-			if ( ! isShallowEqual( node.args, args, 1 ) ) {
-				node = node.next;
-				continue;
-			}
-
-			// At this point we can assume we've found a match
-
-			// Surface matched node to head if not already
-			if ( node !== cache.head ) {
-				// Adjust siblings to point to each other.
-				node.prev.next = node.next;
-				if ( node.next ) {
-					node.next.prev = node.prev;
-				}
-
-				node.next = cache.head;
-				node.prev = null;
-				cache.head.prev = node;
-				cache.head = node;
-			}
-
-			// Return immediately
-			return node.val;
-		}
-
-		// No cached value found. Continue to insertion phase:
-
-		node = {
-			// Generate the result from original function
-			val: selector.apply( null, args ),
-		};
-
-		// Avoid including the source object in the cache.
-		args[ 0 ] = null;
-		node.args = args;
-
-		// Don't need to check whether node is already head, since it would
-		// have been returned above already if it was
-
-		// Shift existing head down list
-		if ( cache.head ) {
-			cache.head.prev = node;
-			node.next = cache.head;
-		}
-
-		cache.head = node;
-
-		return node.val;
-	}
-
-	callSelector.getDependants = getDependants;
-	callSelector.clear = clear;
-	clear();
-
-	return callSelector;
-});
-
 
 /***/ }),
 
@@ -6911,14 +6911,21 @@ else {}
 
 /***/ }),
 
-/***/ 39:
+/***/ 4:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["data"]; }());
+
+/***/ }),
+
+/***/ 40:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["htmlEntities"]; }());
 
 /***/ }),
 
-/***/ 396:
+/***/ 402:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6954,6 +6961,7 @@ __webpack_require__.d(__webpack_exports__, "BlockAlignmentToolbar", function() {
 __webpack_require__.d(__webpack_exports__, "__experimentalBlockFullHeightAligmentControl", function() { return /* reexport */ block_full_height_alignment_control; });
 __webpack_require__.d(__webpack_exports__, "__experimentalBlockAlignmentMatrixControl", function() { return /* reexport */ block_alignment_matrix_control; });
 __webpack_require__.d(__webpack_exports__, "BlockBreadcrumb", function() { return /* reexport */ block_breadcrumb; });
+__webpack_require__.d(__webpack_exports__, "__experimentalBlockContentOverlay", function() { return /* reexport */ BlockContentOverlay; });
 __webpack_require__.d(__webpack_exports__, "BlockContextProvider", function() { return /* reexport */ BlockContextProvider; });
 __webpack_require__.d(__webpack_exports__, "BlockControls", function() { return /* reexport */ block_controls; });
 __webpack_require__.d(__webpack_exports__, "BlockFormatControls", function() { return /* reexport */ BlockFormatControls; });
@@ -7121,7 +7129,7 @@ __webpack_require__.d(selectors_namespaceObject, "isMultiSelecting", function() 
 __webpack_require__.d(selectors_namespaceObject, "isSelectionEnabled", function() { return selectors_isSelectionEnabled; });
 __webpack_require__.d(selectors_namespaceObject, "getBlockMode", function() { return selectors_getBlockMode; });
 __webpack_require__.d(selectors_namespaceObject, "isTyping", function() { return selectors_isTyping; });
-__webpack_require__.d(selectors_namespaceObject, "isDraggingBlocks", function() { return isDraggingBlocks; });
+__webpack_require__.d(selectors_namespaceObject, "isDraggingBlocks", function() { return selectors_isDraggingBlocks; });
 __webpack_require__.d(selectors_namespaceObject, "getDraggedBlockClientIds", function() { return selectors_getDraggedBlockClientIds; });
 __webpack_require__.d(selectors_namespaceObject, "isBlockBeingDragged", function() { return selectors_isBlockBeingDragged; });
 __webpack_require__.d(selectors_namespaceObject, "isAncestorBeingDragged", function() { return selectors_isAncestorBeingDragged; });
@@ -7214,9 +7222,6 @@ __webpack_require__.d(actions_namespaceObject, "insertAfterBlock", function() { 
 __webpack_require__.d(actions_namespaceObject, "toggleBlockHighlight", function() { return actions_toggleBlockHighlight; });
 __webpack_require__.d(actions_namespaceObject, "flashBlock", function() { return actions_flashBlock; });
 __webpack_require__.d(actions_namespaceObject, "setHasControlledInnerBlocks", function() { return actions_setHasControlledInnerBlocks; });
-
-// EXTERNAL MODULE: external ["wp","richText"]
-var external_wp_richText_ = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 var esm_extends = __webpack_require__(7);
@@ -10118,7 +10123,7 @@ function selectors_isTyping(state) {
  * @return {boolean} Whether user is dragging blocks.
  */
 
-function isDraggingBlocks(state) {
+function selectors_isDraggingBlocks(state) {
   return !!state.draggedBlocks.length;
 }
 /**
@@ -10162,7 +10167,7 @@ function selectors_isBlockBeingDragged(state, clientId) {
 function selectors_isAncestorBeingDragged(state, clientId) {
   // Return early if no blocks are being dragged rather than
   // the more expensive check for parents.
-  if (!isDraggingBlocks(state)) {
+  if (!selectors_isDraggingBlocks(state)) {
     return false;
   }
 
@@ -10227,17 +10232,7 @@ function selectors_getBlockInsertionPoint(state) {
  */
 
 function selectors_isBlockInsertionPointVisible(state) {
-  const insertionPoint = state.insertionPoint;
-
-  if (!state.insertionPoint) {
-    return false;
-  }
-
-  if (selectors_getTemplateLock(state, insertionPoint.rootClientId)) {
-    return false;
-  }
-
-  return true;
+  return state.insertionPoint !== null;
 }
 /**
  * Returns whether the blocks matches the template or not.
@@ -11135,8 +11130,11 @@ function wasBlockJustInserted(state, clientId, source) {
 // EXTERNAL MODULE: external ["wp","a11y"]
 var external_wp_a11y_ = __webpack_require__(30);
 
+// EXTERNAL MODULE: external ["wp","richText"]
+var external_wp_richText_ = __webpack_require__(15);
+
 // EXTERNAL MODULE: external ["wp","deprecated"]
-var external_wp_deprecated_ = __webpack_require__(24);
+var external_wp_deprecated_ = __webpack_require__(25);
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/store/controls.js
@@ -11208,6 +11206,16 @@ function* ensureDefaultBlock() {
   // always a default block if the last of the blocks have been removed.
 
   if (count === 0) {
+    const {
+      __unstableHasCustomAppender
+    } = yield external_wp_data_["controls"].select(STORE_NAME, 'getSettings'); // If there's an custom appender, don't insert default block.
+    // We have to remember to manually move the focus elsewhere to
+    // prevent it from being lost though.
+
+    if (__unstableHasCustomAppender) {
+      return;
+    }
+
     return yield actions_insertDefaultBlock();
   }
 }
@@ -15024,7 +15032,7 @@ function ColorEdit(props) {
     localAttributes.current = attributes;
   }, [attributes]);
 
-  if (!hasColorSupport(blockName) || external_wp_element_["Platform"].OS !== 'web') {
+  if (!hasColorSupport(blockName)) {
     return null;
   }
 
@@ -15195,7 +15203,7 @@ const formatUnderline = Object(external_wp_element_["createElement"])(external_w
 /* harmony default export */ var format_underline = (formatUnderline);
 //# sourceMappingURL=format-underline.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/format-strikethrough.js
-var format_strikethrough = __webpack_require__(279);
+var format_strikethrough = __webpack_require__(286);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/text-decoration-control/index.js
 
@@ -16142,7 +16150,7 @@ function useIsFontFamilyDisabled({
 }
 //# sourceMappingURL=font-family.js.map
 // EXTERNAL MODULE: external ["wp","tokenList"]
-var external_wp_tokenList_ = __webpack_require__(141);
+var external_wp_tokenList_ = __webpack_require__(145);
 var external_wp_tokenList_default = /*#__PURE__*/__webpack_require__.n(external_wp_tokenList_);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/font-sizes/utils.js
@@ -16966,9 +16974,18 @@ function getInlineStyles(styles = {}) {
     const subPaths = external_wp_blocks_["__EXPERIMENTAL_STYLE_PROPERTY"][propKey].properties; // Ignore styles on elements because they are handled on the server.
 
     if (Object(external_lodash_["has"])(styles, path) && 'elements' !== Object(external_lodash_["first"])(path)) {
-      if (!!subPaths) {
-        subPaths.forEach(suffix => {
-          output[propKey + Object(external_lodash_["capitalize"])(suffix)] = compileStyleValue(Object(external_lodash_["get"])(styles, [...path, suffix]));
+      // Checking if style value is a string allows for shorthand css
+      // option and backwards compatibility for border radius support.
+      const styleValue = Object(external_lodash_["get"])(styles, path);
+
+      if (!!subPaths && !Object(external_lodash_["isString"])(styleValue)) {
+        Object.entries(subPaths).forEach(entry => {
+          const [name, subPath] = entry;
+          const value = Object(external_lodash_["get"])(styleValue, [subPath]);
+
+          if (value) {
+            output[name] = compileStyleValue(value);
+          }
         });
       } else {
         output[propKey] = compileStyleValue(Object(external_lodash_["get"])(styles, path));
@@ -18164,13 +18181,13 @@ const DEFAULT_FONT_SIZES = [];
 
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/align-left.js
-var align_left = __webpack_require__(280);
+var align_left = __webpack_require__(287);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/align-center.js
-var align_center = __webpack_require__(281);
+var align_center = __webpack_require__(288);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/align-right.js
-var align_right = __webpack_require__(282);
+var align_right = __webpack_require__(289);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/alignment-control/ui.js
 
@@ -18481,7 +18498,7 @@ const useBlockTypesState = (rootClientId, onInsert) => {
 /* harmony default export */ var use_block_types_state = (useBlockTypesState);
 //# sourceMappingURL=use-block-types-state.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/block-default.js
-var block_default = __webpack_require__(146);
+var block_default = __webpack_require__(150);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-icon/index.js
 
@@ -19056,6 +19073,94 @@ function BlockBreadcrumb({
 
 /* harmony default export */ var block_breadcrumb = (BlockBreadcrumb);
 //# sourceMappingURL=index.js.map
+// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-content-overlay/index.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * External dependencies
+ */
+
+
+function BlockContentOverlay({
+  clientId,
+  tagName: TagName = 'div',
+  wrapperProps,
+  className
+}) {
+  const baseClassName = 'block-editor-block-content-overlay';
+  const [isOverlayActive, setIsOverlayActive] = Object(external_wp_element_["useState"])(true);
+  const [isHovered, setIsHovered] = Object(external_wp_element_["useState"])(false);
+  const {
+    isParentSelected,
+    hasChildSelected,
+    isDraggingBlocks,
+    isParentHighlighted
+  } = Object(external_wp_data_["useSelect"])(select => {
+    const {
+      isBlockSelected,
+      hasSelectedInnerBlock,
+      isDraggingBlocks: _isDraggingBlocks,
+      isBlockHighlighted
+    } = select(store);
+    return {
+      isParentSelected: isBlockSelected(clientId),
+      hasChildSelected: hasSelectedInnerBlock(clientId, true),
+      isDraggingBlocks: _isDraggingBlocks(),
+      isParentHighlighted: isBlockHighlighted(clientId)
+    };
+  }, [clientId]);
+  const classes = classnames_default()(baseClassName, wrapperProps === null || wrapperProps === void 0 ? void 0 : wrapperProps.className, className, {
+    'overlay-active': isOverlayActive,
+    'parent-highlighted': isParentHighlighted,
+    'is-dragging-blocks': isDraggingBlocks
+  });
+  Object(external_wp_element_["useEffect"])(() => {
+    // Reenable when blocks are not in use.
+    if (!isParentSelected && !hasChildSelected && !isOverlayActive) {
+      setIsOverlayActive(true);
+    } // Disable if parent selected by another means (such as list view).
+    // We check hover to ensure the overlay click interaction is not taking place.
+    // Trying to click the overlay will select the parent block via its 'focusin'
+    // listener on the wrapper, so if the block is selected while hovered we will
+    // let the mouseup disable the overlay instead.
+
+
+    if (isParentSelected && !isHovered && isOverlayActive) {
+      setIsOverlayActive(false);
+    } // Ensure overlay is disabled if a child block is selected.
+
+
+    if (hasChildSelected && isOverlayActive) {
+      setIsOverlayActive(false);
+    }
+  }, [isParentSelected, hasChildSelected, isOverlayActive, isHovered]); // Disabled because the overlay div doesn't actually have a role or functionality
+  // as far as the a11y is concerned. We're just catching the first click so that
+  // the block can be selected without interacting with its contents.
+
+  /* eslint-disable jsx-a11y/no-static-element-interactions */
+
+  return Object(external_wp_element_["createElement"])(TagName, Object(esm_extends["a" /* default */])({}, wrapperProps, {
+    className: classes,
+    onMouseEnter: () => setIsHovered(true),
+    onMouseLeave: () => setIsHovered(false)
+  }), isOverlayActive && Object(external_wp_element_["createElement"])("div", {
+    className: `${baseClassName}__overlay`,
+    onMouseUp: () => setIsOverlayActive(false)
+  }), wrapperProps === null || wrapperProps === void 0 ? void 0 : wrapperProps.children);
+}
+/* eslint-enable jsx-a11y/no-static-element-interactions */
+//# sourceMappingURL=index.js.map
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-context/index.js
 
 
@@ -19287,16 +19392,16 @@ function block_edit_BlockEdit(props) {
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/list-view.js
-var list_view = __webpack_require__(173);
+var list_view = __webpack_require__(175);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/more-vertical.js
-var more_vertical = __webpack_require__(149);
+var more_vertical = __webpack_require__(153);
 
 // EXTERNAL MODULE: ./node_modules/react-spring/web.cjs.js
 var web_cjs = __webpack_require__(103);
 
 // EXTERNAL MODULE: external ["wp","dom"]
-var external_wp_dom_ = __webpack_require__(21);
+var external_wp_dom_ = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/use-moving-animation/index.js
 /**
@@ -19512,16 +19617,16 @@ function BlockNavigationLeaf({
 }
 //# sourceMappingURL=leaf.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/chevron-right.js
-var chevron_right = __webpack_require__(207);
+var chevron_right = __webpack_require__(210);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/chevron-left.js
-var chevron_left = __webpack_require__(208);
+var chevron_left = __webpack_require__(211);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/chevron-up.js
-var chevron_up = __webpack_require__(283);
+var chevron_up = __webpack_require__(290);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/chevron-down.js
-var chevron_down = __webpack_require__(148);
+var chevron_down = __webpack_require__(152);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-mover/mover-description.js
 /**
@@ -19922,7 +20027,7 @@ function Warning({
 /* harmony default export */ var warning = (Warning);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/diff/lib/diff/character.js
-var diff_character = __webpack_require__(255);
+var diff_character = __webpack_require__(259);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-compare/block-view.js
 
@@ -21120,10 +21225,10 @@ function useMultiSelection(clientId) {
 }
 //# sourceMappingURL=use-multi-selection.js.map
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(39);
+var external_wp_htmlEntities_ = __webpack_require__(40);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/plus.js
-var plus = __webpack_require__(124);
+var plus = __webpack_require__(127);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/tips.js
 
@@ -21155,7 +21260,7 @@ function Tips() {
 var close_small = __webpack_require__(91);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/search.js
-var search = __webpack_require__(206);
+var search = __webpack_require__(209);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/search-form.js
 
@@ -22814,7 +22919,7 @@ function useInsertionPoint({
 
     let _destinationIndex;
 
-    if (insertionIndex) {
+    if (insertionIndex !== undefined) {
       // Insert into a specific index.
       _destinationIndex = insertionIndex;
     } else if (clientId) {
@@ -23870,7 +23975,7 @@ function BlockListAppender({
     // clicked.
     ,
     onFocus: stopPropagation,
-    className: classnames_default()('block-list-appender', 'wp-block', className)
+    className: classnames_default()('block-list-appender', className)
   }, appender);
 }
 
@@ -24169,6 +24274,7 @@ function getDistanceToNearestEdge(point, rect, allowedEdges = ['top', 'bottom', 
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -24197,21 +24303,19 @@ function getDistanceToNearestEdge(point, rect, allowedEdges = ['top', 'bottom', 
 
 function getNearestBlockIndex(elements, position, orientation) {
   const allowedEdges = orientation === 'horizontal' ? ['left', 'right'] : ['top', 'bottom'];
+  const isRightToLeft = Object(external_wp_i18n_["isRTL"])();
   let candidateIndex;
   let candidateDistance;
   elements.forEach((element, index) => {
-    // Ensure the element is a block. It should have the `wp-block` class.
-    if (!element.classList.contains('wp-block')) {
-      return;
-    }
-
     const rect = element.getBoundingClientRect();
     const [distance, edge] = getDistanceToNearestEdge(position, rect, allowedEdges);
 
     if (candidateDistance === undefined || distance < candidateDistance) {
       // If the user is dropping to the trailing edge of the block
       // add 1 to the index to represent dragging after.
-      const isTrailingEdge = edge === 'bottom' || edge === 'right';
+      // Take RTL languages into account where the left edge is
+      // the trailing edge.
+      const isTrailingEdge = edge === 'bottom' || !isRightToLeft && edge === 'right' || isRightToLeft && edge === 'left';
       const offset = isTrailingEdge ? 1 : 0; // Update the currently known best candidate.
 
       candidateDistance = distance;
@@ -24256,7 +24360,8 @@ function useBlockDropZone({
   const throttled = Object(external_wp_compose_["useThrottle"])(Object(external_wp_element_["useCallback"])((event, currentTarget) => {
     var _getBlockListSettings;
 
-    const blockElements = Array.from(currentTarget.children);
+    const blockElements = Array.from(currentTarget.children).filter( // Ensure the element is a block. It should have the `wp-block` class.
+    element => element.classList.contains('wp-block'));
     const targetIndex = getNearestBlockIndex(blockElements, {
       x: event.clientX,
       y: event.clientY
@@ -24407,53 +24512,57 @@ function InsertionPointPopover({
   const previousElement = useBlockElement(previousClientId);
   const nextElement = useBlockElement(nextClientId);
   const style = Object(external_wp_element_["useMemo"])(() => {
-    if (!previousElement) {
+    if (!previousElement && !nextElement) {
       return {};
     }
 
-    const previousRect = previousElement.getBoundingClientRect();
+    const previousRect = previousElement ? previousElement.getBoundingClientRect() : null;
     const nextRect = nextElement ? nextElement.getBoundingClientRect() : null;
 
     if (orientation === 'vertical') {
       return {
-        width: previousElement.offsetWidth,
-        height: nextRect ? nextRect.top - previousRect.bottom : 0
+        width: previousElement ? previousElement.offsetWidth : nextElement.offsetWidth,
+        height: nextRect && previousRect ? nextRect.top - previousRect.bottom : 0
       };
     }
 
     let width = 0;
 
-    if (nextElement) {
+    if (previousRect && nextRect) {
       width = Object(external_wp_i18n_["isRTL"])() ? previousRect.left - nextRect.right : nextRect.left - previousRect.right;
     }
 
     return {
       width,
-      height: previousElement.offsetHeight
+      height: previousElement ? previousElement.offsetHeight : nextElement.offsetHeight
     };
   }, [previousElement, nextElement]);
   const getAnchorRect = Object(external_wp_element_["useCallback"])(() => {
+    if (!previousElement && !nextElement) {
+      return {};
+    }
+
     const {
       ownerDocument
-    } = previousElement;
-    const previousRect = previousElement.getBoundingClientRect();
+    } = previousElement || nextElement;
+    const previousRect = previousElement ? previousElement.getBoundingClientRect() : null;
     const nextRect = nextElement ? nextElement.getBoundingClientRect() : null;
 
     if (orientation === 'vertical') {
       if (Object(external_wp_i18n_["isRTL"])()) {
         return {
-          top: previousRect.bottom,
-          left: previousRect.right,
-          right: previousRect.left,
+          top: previousRect ? previousRect.bottom : nextRect.top,
+          left: previousRect ? previousRect.right : nextRect.right,
+          right: previousRect ? previousRect.left : nextRect.left,
           bottom: nextRect ? nextRect.top : previousRect.bottom,
           ownerDocument
         };
       }
 
       return {
-        top: previousRect.bottom,
-        left: previousRect.left,
-        right: previousRect.right,
+        top: previousRect ? previousRect.bottom : nextRect.top,
+        left: previousRect ? previousRect.left : nextRect.left,
+        right: previousRect ? previousRect.right : nextRect.right,
         bottom: nextRect ? nextRect.top : previousRect.bottom,
         ownerDocument
       };
@@ -24461,28 +24570,23 @@ function InsertionPointPopover({
 
     if (Object(external_wp_i18n_["isRTL"])()) {
       return {
-        top: previousRect.top,
-        left: nextRect ? nextRect.right : previousRect.left,
-        right: previousRect.left,
-        bottom: previousRect.bottom,
+        top: previousRect ? previousRect.top : nextRect.top,
+        left: previousRect ? previousRect.left : nextRect.right,
+        right: nextRect ? nextRect.right : previousRect.left,
+        bottom: previousRect ? previousRect.bottom : nextRect.bottom,
         ownerDocument
       };
     }
 
     return {
-      top: previousRect.top,
-      left: previousRect.right,
+      top: previousRect ? previousRect.top : nextRect.top,
+      left: previousRect ? previousRect.right : nextRect.left,
       right: nextRect ? nextRect.left : previousRect.right,
-      bottom: previousRect.bottom,
+      bottom: previousRect ? previousRect.bottom : nextRect.bottom,
       ownerDocument
     };
   }, [previousElement, nextElement]);
   const popoverScrollRef = usePopoverScroll(__unstableContentRef);
-
-  if (!previousElement) {
-    return null;
-  }
-
   const className = classnames_default()('block-editor-block-list__insertion-point', 'is-' + orientation);
 
   function onClick(event) {
@@ -24497,12 +24601,11 @@ function InsertionPointPopover({
     if (event.target !== ref.current) {
       openRef.current = true;
     }
-  } // Only show the inserter when there's a `nextElement` (a block after the
-  // insertion point). At the end of the block list the trailing appender
-  // should serve the purpose of inserting blocks.
+  } // Only show the in-between inserter between blocks, so when there's a
+  // previous and a next element.
 
 
-  const showInsertionPointInserter = nextElement && isInserterShown;
+  const showInsertionPointInserter = previousElement && nextElement && isInserterShown;
   /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
   // While ideally it would be enough to capture the
   // bubbling focus event from the Inserter, due to the
@@ -24587,7 +24690,8 @@ function useInBetweenInserter() {
     getBlockIndex,
     isBlockInsertionPointVisible,
     isMultiSelecting,
-    getSelectedBlockClientIds
+    getSelectedBlockClientIds,
+    getTemplateLock
   } = Object(external_wp_data_["useSelect"])(store);
   const {
     showInsertionPoint,
@@ -24622,6 +24726,11 @@ function useInBetweenInserter() {
       if (!event.target.classList.contains('is-root-container')) {
         const blockElement = !!event.target.getAttribute('data-block') ? event.target : event.target.closest('[data-block]');
         rootClientId = blockElement.getAttribute('data-block');
+      } // Don't set the insertion point if the template is locked.
+
+
+      if (getTemplateLock(rootClientId)) {
+        return;
       }
 
       const orientation = ((_getBlockListSettings = getBlockListSettings(rootClientId)) === null || _getBlockListSettings === void 0 ? void 0 : _getBlockListSettings.orientation) || 'vertical';
@@ -24751,7 +24860,7 @@ function usePreParsePatterns() {
 }
 //# sourceMappingURL=pre-parse-patterns.js.map
 // EXTERNAL MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_ = __webpack_require__(25);
+var external_wp_keyboardShortcuts_ = __webpack_require__(24);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-draggable/use-scroll-when-dragging.js
 /**
@@ -30091,7 +30200,7 @@ function filePasteHandler(files) {
 }
 //# sourceMappingURL=file-paste-handler.js.map
 // EXTERNAL MODULE: external ["wp","shortcode"]
-var external_wp_shortcode_ = __webpack_require__(117);
+var external_wp_shortcode_ = __webpack_require__(116);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/rich-text/utils.js
 /**
@@ -30100,7 +30209,7 @@ var external_wp_shortcode_ = __webpack_require__(117);
 
 
 function addActiveFormats(value, activeFormats) {
-  if (activeFormats.length) {
+  if (activeFormats !== null && activeFormats !== void 0 && activeFormats.length) {
     let index = value.formats.length;
 
     while (index--) {
@@ -31242,7 +31351,7 @@ function BlockNavigationEditor({
 }
 //# sourceMappingURL=editor.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/layout.js
-var library_layout = __webpack_require__(184);
+var library_layout = __webpack_require__(186);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-variation-picker/index.js
 
@@ -31302,7 +31411,7 @@ function BlockVariationPicker({
 /* harmony default export */ var block_variation_picker = (BlockVariationPicker);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/grid.js
-var grid = __webpack_require__(285);
+var grid = __webpack_require__(292);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-pattern-setup/constants.js
 const VIEWMODES = {
@@ -32001,6 +32110,58 @@ function GradientPanel(props) {
   }, Object(external_wp_element_["createElement"])(GradientPickerControl, props));
 }
 //# sourceMappingURL=panel.js.map
+// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-size-control/use-dimension-handler.js
+/**
+ * WordPress dependencies
+ */
+
+function useDimensionHander(customHeight, customWidth, defaultHeight, defaultWidth, onChange) {
+  var _ref, _ref2;
+
+  const [currentWidth, setCurrentWidth] = Object(external_wp_element_["useState"])((_ref = customWidth !== null && customWidth !== void 0 ? customWidth : defaultWidth) !== null && _ref !== void 0 ? _ref : '');
+  const [currentHeight, setCurrentHeight] = Object(external_wp_element_["useState"])((_ref2 = customHeight !== null && customHeight !== void 0 ? customHeight : defaultHeight) !== null && _ref2 !== void 0 ? _ref2 : ''); // When an image is first inserted, the default dimensions are initially
+  // undefined. This effect updates the dimensions when the default values
+  // come through.
+
+  Object(external_wp_element_["useEffect"])(() => {
+    if (customWidth === undefined && defaultWidth !== undefined) {
+      setCurrentWidth(defaultWidth);
+    }
+
+    if (customHeight === undefined && defaultHeight !== undefined) {
+      setCurrentHeight(defaultHeight);
+    }
+  }, [defaultWidth, defaultHeight]);
+
+  const updateDimension = (dimension, value) => {
+    if (dimension === 'width') {
+      setCurrentWidth(value);
+    } else {
+      setCurrentHeight(value);
+    }
+
+    onChange({
+      [dimension]: value === '' ? undefined : parseInt(value, 10)
+    });
+  };
+
+  const updateDimensions = (nextHeight, nextWidth) => {
+    setCurrentHeight(nextHeight !== null && nextHeight !== void 0 ? nextHeight : defaultHeight);
+    setCurrentWidth(nextWidth !== null && nextWidth !== void 0 ? nextWidth : defaultWidth);
+    onChange({
+      height: nextHeight,
+      width: nextWidth
+    });
+  };
+
+  return {
+    currentHeight,
+    currentWidth,
+    updateDimension,
+    updateDimensions
+  };
+}
+//# sourceMappingURL=use-dimension-handler.js.map
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-size-control/index.js
 
 
@@ -32012,6 +32173,11 @@ function GradientPanel(props) {
  * WordPress dependencies
  */
 
+
+
+/**
+ * Internal dependencies
+ */
 
 
 const IMAGE_SIZE_PRESETS = [25, 50, 75, 100];
@@ -32026,17 +32192,12 @@ function ImageSizeControl({
   onChange,
   onChangeImage = external_lodash_["noop"]
 }) {
-  var _ref, _ref2;
-
-  function updateDimensions(nextWidth, nextHeight) {
-    return () => {
-      onChange({
-        width: nextWidth,
-        height: nextHeight
-      });
-    };
-  }
-
+  const {
+    currentHeight,
+    currentWidth,
+    updateDimension,
+    updateDimensions
+  } = useDimensionHander(height, width, imageHeight, imageWidth, onChange);
   return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, !Object(external_lodash_["isEmpty"])(imageSizeOptions) && Object(external_wp_element_["createElement"])(external_wp_components_["SelectControl"], {
     label: Object(external_wp_i18n_["__"])('Image size'),
     value: slug,
@@ -32052,20 +32213,16 @@ function ImageSizeControl({
     type: "number",
     className: "block-editor-image-size-control__width",
     label: Object(external_wp_i18n_["__"])('Width'),
-    value: (_ref = width !== null && width !== void 0 ? width : imageWidth) !== null && _ref !== void 0 ? _ref : '',
+    value: currentWidth,
     min: 1,
-    onChange: value => onChange({
-      width: parseInt(value, 10)
-    })
+    onChange: value => updateDimension('width', value)
   }), Object(external_wp_element_["createElement"])(external_wp_components_["TextControl"], {
     type: "number",
     className: "block-editor-image-size-control__height",
     label: Object(external_wp_i18n_["__"])('Height'),
-    value: (_ref2 = height !== null && height !== void 0 ? height : imageHeight) !== null && _ref2 !== void 0 ? _ref2 : '',
+    value: currentHeight,
     min: 1,
-    onChange: value => onChange({
-      height: parseInt(value, 10)
-    })
+    onChange: value => updateDimension('height', value)
   })), Object(external_wp_element_["createElement"])("div", {
     className: "block-editor-image-size-control__row"
   }, Object(external_wp_element_["createElement"])(external_wp_components_["ButtonGroup"], {
@@ -32073,17 +32230,17 @@ function ImageSizeControl({
   }, IMAGE_SIZE_PRESETS.map(scale => {
     const scaledWidth = Math.round(imageWidth * (scale / 100));
     const scaledHeight = Math.round(imageHeight * (scale / 100));
-    const isCurrent = width === scaledWidth && height === scaledHeight;
+    const isCurrent = currentWidth === scaledWidth && currentHeight === scaledHeight;
     return Object(external_wp_element_["createElement"])(external_wp_components_["Button"], {
       key: scale,
       isSmall: true,
       variant: isCurrent ? 'primary' : undefined,
       isPressed: isCurrent,
-      onClick: updateDimensions(scaledWidth, scaledHeight)
+      onClick: () => updateDimensions(scaledHeight, scaledWidth)
     }, scale, "%");
   })), Object(external_wp_element_["createElement"])(external_wp_components_["Button"], {
     isSmall: true,
-    onClick: updateDimensions()
+    onClick: () => updateDimensions()
   }, Object(external_wp_i18n_["__"])('Reset')))));
 }
 //# sourceMappingURL=index.js.map
@@ -32175,7 +32332,7 @@ const default_block_appender_DefaultBlockAppender = ({
 })])(default_block_appender_DefaultBlockAppender));
 //# sourceMappingURL=default-block-appender.js.map
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(45);
+var external_wp_isShallowEqual_ = __webpack_require__(47);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/inner-blocks/use-nested-settings-update.js
@@ -32672,7 +32829,7 @@ function JustifyToolbar(props) {
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/keyboard-return.js
-var keyboard_return = __webpack_require__(209);
+var keyboard_return = __webpack_require__(212);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/link-control/settings-drawer.js
 
@@ -33599,8 +33756,12 @@ function useSearchHandler(suggestionsQuery, allowDirectEntry, withCreateSuggesti
 
 
 
+ // Must be a function as otherwise URLInput will default
+// to the fetchLinkSuggestions passed in block editor settings
+// which will cause an unintended http request.
 
-const noopSearchHandler = Promise.resolve([]);
+const noopSearchHandler = () => Promise.resolve([]);
+
 const LinkControlSearchInput = Object(external_wp_element_["forwardRef"])(({
   value,
   children,
@@ -34079,6 +34240,7 @@ function LinkControl({
   value,
   settings,
   onChange = external_lodash_["noop"],
+  onRemove,
   noDirectEntry = false,
   showSuggestions = true,
   showInitialSuggestions,
@@ -34201,21 +34363,28 @@ function LinkControl({
     value: value,
     onEditClick: () => setIsEditingLink(true),
     hasRichPreviews: hasRichPreviews
-  }), Object(external_wp_element_["createElement"])(settings_drawer, {
+  }), Object(external_wp_element_["createElement"])("div", {
+    className: "block-editor-link-control__tools"
+  }, Object(external_wp_element_["createElement"])(settings_drawer, {
     value: value,
     settings: settings,
     onChange: onChange
-  }));
+  }), onRemove && value && !isEditingLink && !isCreatingPage && Object(external_wp_element_["createElement"])(external_wp_components_["Button"], {
+    className: "block-editor-link-control__unlink",
+    isDestructive: true,
+    variant: "link",
+    onClick: onRemove
+  }, Object(external_wp_i18n_["__"])('Unlink'))));
 }
 
 LinkControl.ViewerFill = ViewerFill;
 /* harmony default export */ var link_control = (LinkControl);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/media.js
-var library_media = __webpack_require__(286);
+var library_media = __webpack_require__(293);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/upload.js
-var upload = __webpack_require__(210);
+var upload = __webpack_require__(213);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/media-upload/index.js
 /**
@@ -34461,7 +34630,7 @@ const MediaReplaceFlow = ({
 }), Object(external_wp_components_["withFilters"])('editor.MediaReplaceFlow')])(MediaReplaceFlow));
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/edit.js + 1 modules
-var library_edit = __webpack_require__(197);
+var library_edit = __webpack_require__(199);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/url-popover/link-viewer-url.js
 
@@ -35407,10 +35576,10 @@ function UnitControl({
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/link.js
-var library_link = __webpack_require__(185);
+var library_link = __webpack_require__(187);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/arrow-left.js
-var arrow_left = __webpack_require__(287);
+var arrow_left = __webpack_require__(294);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/url-input/button.js
 
@@ -35829,7 +35998,7 @@ function PreviewOptions({
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/css-mediaquery/index.js
-var css_mediaquery = __webpack_require__(256);
+var css_mediaquery = __webpack_require__(260);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/components/use-simulated-media-query/index.js
 /**
@@ -36373,7 +36542,7 @@ function BlockTools({
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/traverse/index.js
-var traverse = __webpack_require__(257);
+var traverse = __webpack_require__(261);
 var traverse_default = /*#__PURE__*/__webpack_require__.n(traverse);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/utils/transform-styles/ast/parse.js
@@ -37071,7 +37240,7 @@ function addParent(obj, parent) {
 /* eslint-enable @wordpress/no-unused-vars-before-return */
 //# sourceMappingURL=parse.js.map
 // EXTERNAL MODULE: ./node_modules/inherits/inherits_browser.js
-var inherits_browser = __webpack_require__(163);
+var inherits_browser = __webpack_require__(166);
 var inherits_browser_default = /*#__PURE__*/__webpack_require__.n(inherits_browser);
 
 // CONCATENATED MODULE: ./packages/block-editor/build-module/utils/transform-styles/ast/stringify/compiler.js
@@ -37805,7 +37974,21 @@ function useDarkThemeBodyClassName(styles) {
       body
     } = ownerDocument;
     const canvas = ownerDocument.querySelector(EDITOR_STYLES_SELECTOR);
-    const backgroundColor = defaultView.getComputedStyle(canvas, null).getPropertyValue('background-color'); // If background is transparent, it should be treated as light color.
+    let backgroundColor;
+
+    if (!canvas) {
+      // The real .editor-styles-wrapper element might not exist in the
+      // DOM, so calculate the background color by creating a fake
+      // wrapper.
+      const tempCanvas = ownerDocument.createElement('div');
+      tempCanvas.classList.add('editor-styles-wrapper');
+      body.appendChild(tempCanvas);
+      backgroundColor = defaultView.getComputedStyle(tempCanvas, null).getPropertyValue('background-color');
+      body.removeChild(tempCanvas);
+    } else {
+      backgroundColor = defaultView.getComputedStyle(canvas, null).getPropertyValue('background-color');
+    } // If background is transparent, it should be treated as light color.
+
 
     if (tinycolor_default()(backgroundColor).getLuminance() > 0.5 || tinycolor_default()(backgroundColor).getAlpha() === 0) {
       body.classList.remove('is-dark-theme');
@@ -38748,14 +38931,6 @@ function use_multi_selection_useMultiSelection() {
  */
 
 
-/**
- * Useful for positioning an element within the viewport so focussing the
- * element does not scroll the page.
- */
-
-const PREVENT_SCROLL_ON_FOCUS = {
-  position: 'fixed'
-};
 
 function isFormElement(element) {
   const {
@@ -38803,14 +38978,12 @@ function useTabNav() {
   const before = Object(external_wp_element_["createElement"])("div", {
     ref: focusCaptureBeforeRef,
     tabIndex: focusCaptureTabIndex,
-    onFocus: onFocusCapture,
-    style: PREVENT_SCROLL_ON_FOCUS
+    onFocus: onFocusCapture
   });
   const after = Object(external_wp_element_["createElement"])("div", {
     ref: focusCaptureAfterRef,
     tabIndex: focusCaptureTabIndex,
-    onFocus: onFocusCapture,
-    style: PREVENT_SCROLL_ON_FOCUS
+    onFocus: onFocusCapture
   });
   const ref = Object(external_wp_compose_["useRefEffect"])(node => {
     function onKeyDown(event) {
@@ -38850,17 +39023,59 @@ function useTabNav() {
       // doesn't refocus this block and so it allows default behaviour
       // (moving focus to the next tabbable element).
 
-      noCapture.current = true;
-      next.current.focus();
+      noCapture.current = true; // Focusing the focus capture element, which is located above and
+      // below the editor, should not scroll the page all the way up or
+      // down.
+
+      next.current.focus({
+        preventScroll: true
+      });
     }
 
     function onFocusOut(event) {
       lastFocus.current = event.target;
+    } // When tabbing back to an element in block list, this event handler prevents scrolling if the
+    // focus capture divs (before/after) are outside of the viewport. (For example shift+tab back to a paragraph
+    // when focus is on a sidebar element. This prevents the scrollable writing area from jumping either to the
+    // top or bottom of the document.
+    //
+    // Note that it isn't possible to disable scrolling in the onFocus event. We need to intercept this
+    // earlier in the keypress handler, and call focus( { preventScroll: true } ) instead.
+    // https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus#parameters
+
+
+    function preventScrollOnTab(event) {
+      var _event$target;
+
+      if (event.keyCode !== external_wp_keycodes_["TAB"]) {
+        return;
+      }
+
+      if (((_event$target = event.target) === null || _event$target === void 0 ? void 0 : _event$target.getAttribute('role')) === 'region') {
+        return;
+      }
+
+      if (container.current === event.target) {
+        return;
+      }
+
+      const isShift = event.shiftKey;
+      const direction = isShift ? 'findPrevious' : 'findNext';
+      const target = external_wp_dom_["focus"].tabbable[direction](event.target); // only do something when the next tabbable is a focus capture div (before/after)
+
+      if (target === focusCaptureBeforeRef.current || target === focusCaptureAfterRef.current) {
+        event.preventDefault();
+        target.focus({
+          preventScroll: true
+        });
+      }
     }
 
+    node.ownerDocument.defaultView.addEventListener('keydown', preventScrollOnTab);
     node.addEventListener('keydown', onKeyDown);
     node.addEventListener('focusout', onFocusOut);
     return () => {
+      node.ownerDocument.defaultView.removeEventListener('keydown', preventScrollOnTab);
       node.removeEventListener('keydown', onKeyDown);
       node.removeEventListener('focusout', onFocusOut);
     };
@@ -39486,6 +39701,7 @@ function Iframe({
   head,
   ...props
 }, ref) {
+  const [, forceRender] = Object(external_wp_element_["useReducer"])(() => ({}));
   const [iframeDocument, setIframeDocument] = Object(external_wp_element_["useState"])();
   const styles = useParsedAssets(window.__editorAssets.styles);
   const scripts = useParsedAssets(window.__editorAssets.scripts);
@@ -39521,7 +39737,11 @@ function Iframe({
       setIframeDocument(contentDocument);
       clearerRef(documentElement);
       clearerRef(body);
-      scripts.reduce((promise, script) => promise.then(() => loadScript(contentDocument, script)), Promise.resolve());
+      scripts.reduce((promise, script) => promise.then(() => loadScript(contentDocument, script)), Promise.resolve()).finally(() => {
+        // When script are loaded, re-render blocks to allow them
+        // to initialise.
+        forceRender();
+      });
       return true;
     }
 
@@ -39696,6 +39916,7 @@ function useNoRecursiveRenders(uniqueId, blockName = '') {
 
 
 
+
 /*
  * Content Related Components
  */
@@ -39804,13 +40025,8 @@ function validateThemeGradients(gradients) {
 //# sourceMappingURL=index.js.map
 // CONCATENATED MODULE: ./packages/block-editor/build-module/index.js
 /**
- * WordPress dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 
 
@@ -39821,14 +40037,7 @@ function validateThemeGradients(gradients) {
 
 /***/ }),
 
-/***/ 4:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["data"]; }());
-
-/***/ }),
-
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());
@@ -39880,7 +40089,7 @@ function _extends() {
 "use strict";
 
 exports.__esModule = true;
-var TextareaAutosize_1 = __webpack_require__(180);
+var TextareaAutosize_1 = __webpack_require__(182);
 exports["default"] = TextareaAutosize_1.TextareaAutosize;
 
 

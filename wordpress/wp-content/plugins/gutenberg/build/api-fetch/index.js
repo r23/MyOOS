@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["apiFetch"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 416);
+/******/ 	return __webpack_require__(__webpack_require__.s = 422);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["apiFetch"] =
 
 /***/ }),
 
-/***/ 416:
+/***/ 422:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -766,10 +766,14 @@ const defaultFetchHandler = nextOptions => {
     body,
     headers
   });
-  return responsePromise // Return early if fetch errors. If fetch error, there is most likely no
-  // network connection. Unfortunately fetch just throws a TypeError and
-  // the message might depend on the browser.
-  .then(value => Promise.resolve(value).then(checkStatus).catch(response => parseAndThrowError(response, parse)).then(response => parseResponseAndNormalizeError(response, parse)), () => {
+  return responsePromise.then(value => Promise.resolve(value).then(checkStatus).catch(response => parseAndThrowError(response, parse)).then(response => parseResponseAndNormalizeError(response, parse)), err => {
+    // Re-throw AbortError for the users to handle it themselves.
+    if (err && err.name === 'AbortError') {
+      throw err;
+    } // Otherwise, there is most likely no network connection.
+    // Unfortunately the message might depend on the browser.
+
+
     throw {
       code: 'fetch_error',
       message: Object(external_wp_i18n_["__"])('You are probably offline.')

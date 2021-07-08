@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["serverSideRender"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 434);
+/******/ 	return __webpack_require__(__webpack_require__.s = 440);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -115,7 +115,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["serverSideRender"] =
 
 /***/ }),
 
-/***/ 24:
+/***/ 25:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["deprecated"]; }());
@@ -143,7 +143,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["serverSideRender"] =
 
 /***/ }),
 
-/***/ 434:
+/***/ 440:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -160,7 +160,7 @@ var external_wp_element_ = __webpack_require__(0);
 var external_wp_data_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: external ["wp","deprecated"]
-var external_wp_deprecated_ = __webpack_require__(24);
+var external_wp_deprecated_ = __webpack_require__(25);
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_);
 
 // EXTERNAL MODULE: external "lodash"
@@ -349,6 +349,9 @@ function ServerSideRender(props) {
 
 const EMPTY_OBJECT = {};
 const ExportedServerSideRender = Object(external_wp_data_["withSelect"])(select => {
+  // FIXME: @wordpress/server-side-render should not depend on @wordpress/editor.
+  // It is used by blocks that can be loaded into a *non-post* block editor.
+  // eslint-disable-next-line @wordpress/data-no-store-string-literals
   const coreEditorSelect = select('core/editor');
 
   if (coreEditorSelect) {

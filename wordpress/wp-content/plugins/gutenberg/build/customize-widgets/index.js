@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["customizeWidgets"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 405);
+/******/ 	return __webpack_require__(__webpack_require__.s = 411);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -108,7 +108,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["customizeWidgets"] =
 
 /***/ }),
 
-/***/ 124:
+/***/ 127:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -140,7 +140,7 @@ const plus = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 149:
+/***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -165,7 +165,7 @@ const moreVertical = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["cre
 
 /***/ }),
 
-/***/ 171:
+/***/ 173:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -223,7 +223,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 193:
+/***/ 195:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -248,7 +248,7 @@ const external = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createE
 
 /***/ }),
 
-/***/ 194:
+/***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -273,7 +273,7 @@ const undo = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 195:
+/***/ 197:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -312,14 +312,14 @@ const redo = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["dom"]; }());
 
 /***/ }),
 
-/***/ 25:
+/***/ 24:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
@@ -347,7 +347,7 @@ const redo = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 405:
+/***/ 411:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -371,10 +371,13 @@ __webpack_require__.d(actions_namespaceObject, "__unstableToggleFeature", functi
 var external_wp_element_ = __webpack_require__(0);
 
 // EXTERNAL MODULE: external ["wp","blockLibrary"]
-var external_wp_blockLibrary_ = __webpack_require__(50);
+var external_wp_blockLibrary_ = __webpack_require__(52);
 
 // EXTERNAL MODULE: external ["wp","widgets"]
-var external_wp_widgets_ = __webpack_require__(41);
+var external_wp_widgets_ = __webpack_require__(44);
+
+// EXTERNAL MODULE: external ["wp","blocks"]
+var external_wp_blocks_ = __webpack_require__(8);
 
 // EXTERNAL MODULE: external ["wp","components"]
 var external_wp_components_ = __webpack_require__(3);
@@ -392,7 +395,7 @@ var external_wp_data_ = __webpack_require__(4);
 var external_wp_blockEditor_ = __webpack_require__(5);
 
 // EXTERNAL MODULE: external ["wp","mediaUtils"]
-var external_wp_mediaUtils_ = __webpack_require__(51);
+var external_wp_mediaUtils_ = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 var esm_extends = __webpack_require__(7);
@@ -435,20 +438,20 @@ function BlockInspectorButton({
 /* harmony default export */ var block_inspector_button = (BlockInspectorButton);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/customize-widgets/node_modules/classnames/index.js
-var classnames = __webpack_require__(171);
+var classnames = __webpack_require__(173);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 // EXTERNAL MODULE: external ["wp","keycodes"]
 var external_wp_keycodes_ = __webpack_require__(13);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/undo.js
-var library_undo = __webpack_require__(194);
+var library_undo = __webpack_require__(196);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/redo.js
-var library_redo = __webpack_require__(195);
+var library_redo = __webpack_require__(197);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/plus.js
-var plus = __webpack_require__(124);
+var plus = __webpack_require__(127);
 
 // EXTERNAL MODULE: external ["wp","compose"]
 var external_wp_compose_ = __webpack_require__(9);
@@ -496,13 +499,13 @@ function Inserter({
 /* harmony default export */ var components_inserter = (Inserter);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/more-vertical.js
-var more_vertical = __webpack_require__(149);
+var more_vertical = __webpack_require__(153);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/external.js
-var external = __webpack_require__(193);
+var external = __webpack_require__(195);
 
 // EXTERNAL MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_ = __webpack_require__(25);
+var external_wp_keyboardShortcuts_ = __webpack_require__(24);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/check.js
 var check = __webpack_require__(92);
@@ -1170,11 +1173,8 @@ function useInserter(inserter) {
   }, [inserter])];
 }
 //# sourceMappingURL=use-inserter.js.map
-// EXTERNAL MODULE: external ["wp","blocks"]
-var external_wp_blocks_ = __webpack_require__(8);
-
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(45);
+var external_wp_isShallowEqual_ = __webpack_require__(47);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // CONCATENATED MODULE: ./packages/customize-widgets/build-module/components/sidebar-block-editor/use-sidebar-block-editor.js
@@ -1645,6 +1645,37 @@ function KeyboardShortcutsRegister() {
 KeyboardShortcuts.Register = KeyboardShortcutsRegister;
 /* harmony default export */ var keyboard_shortcuts = (KeyboardShortcuts);
 //# sourceMappingURL=index.js.map
+// CONCATENATED MODULE: ./packages/customize-widgets/build-module/components/block-appender/index.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+function BlockAppender(props) {
+  const ref = Object(external_wp_element_["useRef"])();
+  const isBlocksListEmpty = Object(external_wp_data_["useSelect"])(select => select(external_wp_blockEditor_["store"]).getBlockCount() === 0); // Move the focus to the block appender to prevent focus from
+  // being lost when emptying the widget area.
+
+  Object(external_wp_element_["useEffect"])(() => {
+    if (isBlocksListEmpty && ref.current) {
+      const {
+        ownerDocument
+      } = ref.current;
+
+      if (!ownerDocument.activeElement || ownerDocument.activeElement === ownerDocument.body) {
+        ref.current.focus();
+      }
+    }
+  }, [isBlocksListEmpty]);
+  return Object(external_wp_element_["createElement"])(external_wp_blockEditor_["ButtonBlockAppender"], Object(esm_extends["a" /* default */])({}, props, {
+    ref: ref
+  }));
+}
+//# sourceMappingURL=index.js.map
 // CONCATENATED MODULE: ./packages/customize-widgets/build-module/components/sidebar-block-editor/index.js
 
 
@@ -1664,6 +1695,7 @@ KeyboardShortcuts.Register = KeyboardShortcutsRegister;
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -1714,7 +1746,8 @@ function SidebarBlockEditor({
       __experimentalSetIsInserterOpened: setIsInserterOpened,
       mediaUpload: mediaUploadBlockEditor,
       hasFixedToolbar: isFixedToolbarActive,
-      keepCaretInsideBlock
+      keepCaretInsideBlock,
+      __unstableHasCustomAppender: true
     };
   }, [hasUploadPermissions, blockEditorSettings, isFixedToolbarActive, keepCaretInsideBlock]);
 
@@ -1737,9 +1770,9 @@ function SidebarBlockEditor({
     isInserterOpened: isInserterOpened,
     setIsInserterOpened: setIsInserterOpened,
     isFixedToolbarActive: isFixedToolbarActive
-  }), Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockTools"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockSelectionClearer"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["WritingFlow"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["ObserveTyping"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockList"], {
-    renderAppender: external_wp_blockEditor_["ButtonBlockAppender"]
-  }))))), Object(external_wp_element_["createPortal"])( // This is a temporary hack to prevent button component inside <BlockInspector>
+  }), Object(external_wp_element_["createElement"])(external_wp_blockEditor_["CopyHandler"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockTools"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockSelectionClearer"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["WritingFlow"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["ObserveTyping"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockList"], {
+    renderAppender: BlockAppender
+  })))))), Object(external_wp_element_["createPortal"])( // This is a temporary hack to prevent button component inside <BlockInspector>
   // from submitting form when type="button" is not specified.
   Object(external_wp_element_["createElement"])("form", {
     onSubmit: event => event.preventDefault()
@@ -1832,10 +1865,10 @@ function useClearSelectedBlock(sidebarControl, popoverRef) {
         !inspector.expanded()) {
           clearSelectedBlock();
         }
-      } // Handle focusing in the same document.
+      } // Handle mouse down in the same document.
 
 
-      function handleFocus(event) {
+      function handleMouseDown(event) {
         handleClearSelectedBlock(event.target);
       } // Handle focusing outside the current document, like to iframes.
 
@@ -1844,10 +1877,10 @@ function useClearSelectedBlock(sidebarControl, popoverRef) {
         handleClearSelectedBlock(ownerDocument.activeElement);
       }
 
-      ownerDocument.addEventListener('focusin', handleFocus);
+      ownerDocument.addEventListener('mousedown', handleMouseDown);
       ownerWindow.addEventListener('blur', handleBlur);
       return () => {
-        ownerDocument.removeEventListener('focusin', handleFocus);
+        ownerDocument.removeEventListener('mousedown', handleMouseDown);
         ownerWindow.removeEventListener('blur', handleBlur);
       };
     }
@@ -2370,7 +2403,7 @@ class sidebar_adapter_SidebarAdapter {
 }
 //# sourceMappingURL=sidebar-adapter.js.map
 // EXTERNAL MODULE: external ["wp","dom"]
-var external_wp_dom_ = __webpack_require__(21);
+var external_wp_dom_ = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./packages/customize-widgets/build-module/controls/inserter-outer-section.js
 /**
@@ -2641,6 +2674,7 @@ Object(external_wp_hooks_["addFilter"])('editor.BlockEdit', 'core/customize-widg
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -2652,6 +2686,8 @@ Object(external_wp_hooks_["addFilter"])('editor.BlockEdit', 'core/customize-widg
 const {
   wp: build_module_wp
 } = window;
+const DISABLED_BLOCKS = ['core/more', 'core/block', 'core/freeform'];
+const ENABLE_EXPERIMENTAL_FSE_BLOCKS = false;
 /**
  * Initializes the widgets block editor in the customizer.
  *
@@ -2660,16 +2696,25 @@ const {
  */
 
 function initialize(editorName, blockEditorSettings) {
-  const coreBlocks = Object(external_wp_blockLibrary_["__experimentalGetCoreBlocks"])().filter(block => !['core/more'].includes(block.name));
+  const coreBlocks = Object(external_wp_blockLibrary_["__experimentalGetCoreBlocks"])().filter(block => {
+    return !(DISABLED_BLOCKS.includes(block.name) || block.name.startsWith('core/post') || block.name.startsWith('core/query') || block.name.startsWith('core/site'));
+  });
 
   Object(external_wp_blockLibrary_["registerCoreBlocks"])(coreBlocks);
   Object(external_wp_widgets_["registerLegacyWidgetBlock"])();
 
   if (true) {
-    Object(external_wp_blockLibrary_["__experimentalRegisterExperimentalCoreBlocks"])();
+    Object(external_wp_blockLibrary_["__experimentalRegisterExperimentalCoreBlocks"])({
+      enableFSEBlocks: ENABLE_EXPERIMENTAL_FSE_BLOCKS
+    });
   }
 
-  Object(external_wp_widgets_["registerLegacyWidgetVariations"])(blockEditorSettings);
+  Object(external_wp_widgets_["registerLegacyWidgetVariations"])(blockEditorSettings); // As we are unregistering `core/freeform` to avoid the Classic block, we must
+  // replace it with something as the default freeform content handler. Failure to
+  // do this will result in errors in the default block parser.
+  // see: https://github.com/WordPress/gutenberg/issues/33097
+
+  Object(external_wp_blocks_["setFreeformContentHandlerName"])('core/html');
   const SidebarControl = getSidebarControl(blockEditorSettings);
   build_module_wp.customize.sectionConstructor.sidebar = getSidebarSection();
   build_module_wp.customize.controlConstructor.sidebar_block_editor = SidebarControl;
@@ -2693,14 +2738,14 @@ function initialize(editorName, blockEditorSettings) {
 
 /***/ }),
 
-/***/ 41:
+/***/ 44:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["widgets"]; }());
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());
@@ -2714,14 +2759,14 @@ function initialize(editorName, blockEditorSettings) {
 
 /***/ }),
 
-/***/ 50:
+/***/ 52:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["blockLibrary"]; }());
 
 /***/ }),
 
-/***/ 51:
+/***/ 53:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["mediaUtils"]; }());

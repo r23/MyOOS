@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["widgets"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 412);
+/******/ 	return __webpack_require__(__webpack_require__.s = 418);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -204,7 +204,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 412:
+/***/ 418:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -242,10 +242,10 @@ var external_wp_primitives_ = __webpack_require__(6);
  */
 
 const widget_widget = Object(external_wp_element_["createElement"])(external_wp_primitives_["SVG"], {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
 }, Object(external_wp_element_["createElement"])(external_wp_primitives_["Path"], {
-  d: "M7 11h2v2H7v-2zm14-5v14l-2 2H5l-2-2V6l2-2h1V2h2v2h8V2h2v2h1l2 2zM5 8h14V6H5v2zm14 12V10H5v10h14zm-4-7h2v-2h-2v2zm-4 0h2v-2h-2v2z"
+  d: "M6 3H8V5H16V3H18V5C19.1046 5 20 5.89543 20 7V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V7C4 5.89543 4.89543 5 6 5V3ZM18 6.5H6C5.72386 6.5 5.5 6.72386 5.5 7V8H18.5V7C18.5 6.72386 18.2761 6.5 18 6.5ZM18.5 9.5H5.5V19C5.5 19.2761 5.72386 19.5 6 19.5H18C18.2761 19.5 18.5 19.2761 18.5 19V9.5ZM11 11H13V13H11V11ZM7 11V13H9V11H7ZM15 13V11H17V13H15Z"
 }));
 /* harmony default export */ var library_widget = (widget_widget);
 //# sourceMappingURL=widget.js.map
@@ -274,21 +274,6 @@ const brush = Object(external_wp_element_["createElement"])(external_wp_primitiv
 }));
 /* harmony default export */ var library_brush = (brush);
 //# sourceMappingURL=brush.js.map
-// CONCATENATED MODULE: ./packages/icons/build-module/library/update.js
-
-
-/**
- * WordPress dependencies
- */
-
-const update = Object(external_wp_element_["createElement"])(external_wp_primitives_["SVG"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "-2 -2 24 24"
-}, Object(external_wp_element_["createElement"])(external_wp_primitives_["Path"], {
-  d: "M10.2 3.28c3.53 0 6.43 2.61 6.92 6h2.08l-3.5 4-3.5-4h2.32c-.45-1.97-2.21-3.45-4.32-3.45-1.45 0-2.73.71-3.54 1.78L4.95 5.66C6.23 4.2 8.11 3.28 10.2 3.28zm-.4 13.44c-3.52 0-6.43-2.61-6.92-6H.8l3.5-4c1.17 1.33 2.33 2.67 3.5 4H5.48c.45 1.97 2.21 3.45 4.32 3.45 1.45 0 2.73-.71 3.54-1.78l1.71 1.95c-1.28 1.46-3.15 2.38-5.25 2.38z"
-}));
-/* harmony default export */ var library_update = (update);
-//# sourceMappingURL=update.js.map
 // EXTERNAL MODULE: external ["wp","i18n"]
 var external_wp_i18n_ = __webpack_require__(1);
 
@@ -435,7 +420,7 @@ class control_Control {
     // a fake but unique number.
 
     this.number = ++lastNumber;
-    this.handleFormChange = Object(external_lodash_["debounce"])(this.saveForm.bind(this), 200);
+    this.handleFormChange = Object(external_lodash_["debounce"])(this.handleFormChange.bind(this), 200);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.initDOM();
     this.bindEvents();
@@ -603,6 +588,19 @@ class control_Control {
       }
     } catch (error) {
       this.onError(error);
+    }
+  }
+  /**
+   * Perform a save when a multi widget's form is changed. Non-multi widgets
+   * are saved manually.
+   *
+   * @access private
+   */
+
+
+  handleFormChange() {
+    if (this.idBase) {
+      this.saveForm();
     }
   }
   /**
@@ -872,9 +870,10 @@ function Form({
       onChangeHasPreview,
 
       onError(error) {
-        var _error$message;
-
-        createNotice('error', (_error$message = error === null || error === void 0 ? void 0 : error.message) !== null && _error$message !== void 0 ? _error$message : Object(external_wp_i18n_["__"])('An error occured while fetching or updating the widget.'));
+        window.console.error(error);
+        createNotice('error', Object(external_wp_i18n_["sprintf"])(
+        /* translators: %s: the name of the affected block. */
+        Object(external_wp_i18n_["__"])('The "%s" block was affected by errors and may not function properly. Check the developer tools for more details.'), idBase || id));
       }
 
     });
@@ -940,40 +939,44 @@ function Preview({
   instance,
   isVisible
 }) {
-  const [iframeHeight, setIframeHeight] = Object(external_wp_element_["useState"])(); // Resize the iframe on either the load event, or when the iframe becomes visible.
+  const [isLoaded, setIsLoaded] = Object(external_wp_element_["useState"])(false); // Resize the iframe on either the load event, or when the iframe becomes visible.
 
   const ref = Object(external_wp_compose_["useRefEffect"])(iframe => {
-    function onChange() {
-      var _iframe$contentDocume, _iframe$contentDocume2;
-
-      const boundingRect = iframe === null || iframe === void 0 ? void 0 : (_iframe$contentDocume = iframe.contentDocument) === null || _iframe$contentDocume === void 0 ? void 0 : (_iframe$contentDocume2 = _iframe$contentDocume.body) === null || _iframe$contentDocume2 === void 0 ? void 0 : _iframe$contentDocume2.getBoundingClientRect();
-
-      if (boundingRect) {
-        // Include `top` in the height calculation to avoid the bottom
-        // of widget previews being cut-off. Most widgets have a
-        // heading at the top that has top margin, and the `height`
-        // alone doesn't take that margin into account.
-        setIframeHeight(boundingRect.top + boundingRect.height);
+    // Only set height if the iframe is loaded,
+    // or it will grow to an unexpected large height in Safari if it's hidden initially.
+    if (isLoaded) {
+      // If the preview frame has another origin then this won't work.
+      // One possible solution is to add custom script to call `postMessage` in the preview frame.
+      // Or, better yet, we migrate away from iframe.
+      function setHeight() {
+        // Pick the maximum of these two values to account for margin collapsing.
+        const height = Math.max(iframe.contentDocument.documentElement.offsetHeight, iframe.contentDocument.body.offsetHeight);
+        iframe.style.height = `${height}px`;
       }
+
+      const {
+        IntersectionObserver
+      } = iframe.ownerDocument.defaultView; // Observe for intersections that might cause a change in the height of
+      // the iframe, e.g. a Widget Area becoming expanded.
+
+      const intersectionObserver = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          setHeight();
+        }
+      }, {
+        threshold: 1
+      });
+      intersectionObserver.observe(iframe);
+      iframe.addEventListener('load', setHeight);
+      return () => {
+        intersectionObserver.disconnect();
+        iframe.removeEventListener('load', setHeight);
+      };
     }
-
-    const {
-      IntersectionObserver
-    } = iframe.ownerDocument.defaultView; // Observe for intersections that might cause a change in the height of
-    // the iframe, e.g. a Widget Area becoming expanded.
-
-    const intersectionObserver = new IntersectionObserver(onChange, {
-      threshold: 1
-    });
-    intersectionObserver.observe(iframe);
-    iframe.addEventListener('load', onChange);
-    return () => {
-      iframe.removeEventListener('load', onChange);
-    };
-  }, []);
-  return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, isVisible && iframeHeight === null && Object(external_wp_element_["createElement"])(external_wp_components_["Placeholder"], null, Object(external_wp_element_["createElement"])(external_wp_components_["Spinner"], null)), Object(external_wp_element_["createElement"])("div", {
+  }, [isLoaded]);
+  return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, isVisible && !isLoaded && Object(external_wp_element_["createElement"])(external_wp_components_["Placeholder"], null, Object(external_wp_element_["createElement"])(external_wp_components_["Spinner"], null)), Object(external_wp_element_["createElement"])("div", {
     className: classnames_default()('wp-block-legacy-widget__edit-preview', {
-      'is-offscreen': !isVisible || iframeHeight === null
+      'is-offscreen': !isVisible || !isLoaded
     })
   }, Object(external_wp_element_["createElement"])(external_wp_components_["Disabled"], null, Object(external_wp_element_["createElement"])("iframe", {
     ref: ref,
@@ -988,7 +991,15 @@ function Preview({
         instance
       }
     }),
-    height: iframeHeight || 100
+    onLoad: event => {
+      // To hide the scrollbars of the preview frame for some edge cases,
+      // such as negative margins in the Gallery Legacy Widget.
+      // It can't be scrolled anyway.
+      // TODO: Ideally, this should be fixed in core.
+      event.target.contentDocument.body.style.overflow = 'hidden';
+      setIsLoaded(true);
+    },
+    height: 100
   }))));
 }
 //# sourceMappingURL=preview.js.map
@@ -1142,17 +1153,12 @@ function NotEmpty({
   const {
     widgetType,
     hasResolvedWidgetType,
-    isWidgetTypeHidden,
     isNavigationMode
   } = Object(external_wp_data_["useSelect"])(select => {
-    var _select$getSettings$w, _select$getSettings;
-
     const widgetTypeId = id !== null && id !== void 0 ? id : idBase;
-    const hiddenIds = (_select$getSettings$w = (_select$getSettings = select(external_wp_blockEditor_["store"]).getSettings()) === null || _select$getSettings === void 0 ? void 0 : _select$getSettings.widgetTypesToHideFromLegacyWidgetBlock) !== null && _select$getSettings$w !== void 0 ? _select$getSettings$w : [];
     return {
       widgetType: select(external_wp_coreData_["store"]).getWidgetType(widgetTypeId),
       hasResolvedWidgetType: select(external_wp_coreData_["store"]).hasFinishedResolution('getWidgetType', [widgetTypeId]),
-      isWidgetTypeHidden: hiddenIds.includes(widgetTypeId),
       isNavigationMode: select(external_wp_blockEditor_["store"]).isNavigationMode()
     };
   }, [id, idBase]);
@@ -1175,18 +1181,8 @@ function NotEmpty({
     return Object(external_wp_element_["createElement"])(external_wp_components_["Placeholder"], null, Object(external_wp_element_["createElement"])(external_wp_components_["Spinner"], null));
   }
 
-  const mode = isNavigationMode || !isSelected ? 'preview' : 'edit';
-  return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, !isWidgetTypeHidden && Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockControls"], {
-    group: "block"
-  }, Object(external_wp_element_["createElement"])(external_wp_components_["ToolbarButton"], {
-    label: Object(external_wp_i18n_["__"])('Change widget'),
-    icon: library_update,
-    onClick: () => setAttributes({
-      id: null,
-      idBase: null,
-      instance: null
-    })
-  })), idBase === 'text' && Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockControls"], {
+  const mode = idBase && (isNavigationMode || !isSelected) ? 'preview' : 'edit';
+  return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, idBase === 'text' && Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockControls"], {
     group: "other"
   }, Object(external_wp_element_["createElement"])(ConvertToBlocksButton, {
     clientId: clientId,
@@ -1225,7 +1221,7 @@ const legacyWidgetTransforms = [{
   widget: 'search'
 }, {
   block: 'core/html',
-  widget: 'html',
+  widget: 'custom_html',
   transform: ({
     content
   }) => ({

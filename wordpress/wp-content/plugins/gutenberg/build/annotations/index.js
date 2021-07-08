@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["annotations"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 417);
+/******/ 	return __webpack_require__(__webpack_require__.s = 423);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,14 @@ window["wp"] = window["wp"] || {}; window["wp"]["annotations"] =
 
 /***/ }),
 
-/***/ 155:
+/***/ 15:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["richText"]; }());
+
+/***/ }),
+
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -180,13 +187,6 @@ function v4(options, buf, offset) {
 }
 
 /* harmony default export */ var esm_browser_v4 = __webpack_exports__["a"] = (v4);
-
-/***/ }),
-
-/***/ 16:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["richText"]; }());
 
 /***/ }),
 
@@ -493,7 +493,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 417:
+/***/ 423:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -520,7 +520,7 @@ __webpack_require__.d(actions_namespaceObject, "__experimentalUpdateAnnotationRa
 __webpack_require__.d(actions_namespaceObject, "__experimentalRemoveAnnotationsBySource", function() { return __experimentalRemoveAnnotationsBySource; });
 
 // EXTERNAL MODULE: external ["wp","richText"]
-var external_wp_richText_ = __webpack_require__(16);
+var external_wp_richText_ = __webpack_require__(15);
 
 // EXTERNAL MODULE: external ["wp","i18n"]
 var external_wp_i18n_ = __webpack_require__(1);
@@ -976,7 +976,7 @@ function __experimentalGetAnnotations(state) {
 }
 //# sourceMappingURL=selectors.js.map
 // EXTERNAL MODULE: ./node_modules/uuid/dist/esm-browser/v4.js + 4 modules
-var v4 = __webpack_require__(155);
+var v4 = __webpack_require__(159);
 
 // CONCATENATED MODULE: ./packages/annotations/build-module/store/actions.js
 /**

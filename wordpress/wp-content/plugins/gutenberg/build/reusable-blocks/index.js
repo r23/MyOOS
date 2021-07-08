@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 414);
+/******/ 	return __webpack_require__(__webpack_require__.s = 420);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -143,7 +143,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 
 /***/ }),
 
-/***/ 414:
+/***/ 420:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -167,12 +167,6 @@ var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, "__experimentalIsEditingReusableBlock", function() { return __experimentalIsEditingReusableBlock; });
 
-// EXTERNAL MODULE: external ["wp","blockEditor"]
-var external_wp_blockEditor_ = __webpack_require__(5);
-
-// EXTERNAL MODULE: external ["wp","coreData"]
-var external_wp_coreData_ = __webpack_require__(11);
-
 // EXTERNAL MODULE: external ["wp","data"]
 var external_wp_data_ = __webpack_require__(4);
 
@@ -184,6 +178,9 @@ var external_wp_blocks_ = __webpack_require__(8);
 
 // EXTERNAL MODULE: external ["wp","i18n"]
 var external_wp_i18n_ = __webpack_require__(1);
+
+// EXTERNAL MODULE: external ["wp","blockEditor"]
+var external_wp_blockEditor_ = __webpack_require__(5);
 
 // CONCATENATED MODULE: ./packages/reusable-blocks/build-module/store/controls.js
 /**
@@ -429,6 +426,9 @@ const reusable_block_reusableBlock = Object(external_wp_element_["createElement"
 // EXTERNAL MODULE: external ["wp","notices"]
 var external_wp_notices_ = __webpack_require__(28);
 
+// EXTERNAL MODULE: external ["wp","coreData"]
+var external_wp_coreData_ = __webpack_require__(11);
+
 // CONCATENATED MODULE: ./packages/reusable-blocks/build-module/components/reusable-blocks-menu-items/reusable-block-convert-button.js
 
 
@@ -651,11 +651,6 @@ function ReusableBlocksMenuItems({
 
 //# sourceMappingURL=index.js.map
 // CONCATENATED MODULE: ./packages/reusable-blocks/build-module/index.js
-/**
- * WordPress dependencies
- */
-
-
 
 
 //# sourceMappingURL=index.js.map
