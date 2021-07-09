@@ -16,6 +16,9 @@
         "forum": "https://foren.myoos.de/",
         "source": "https://github.com/r23/MyOOS/"
     },
+	"config": {
+        "platform-check": false
+    },
     "require": {
         "php": "^7.4|^8.0",
         "ext-ctype": "*",
