@@ -283,8 +283,8 @@
 				
 					{foreach $model_viewer_array as $ar}
 						<div class="embed-responsive embed-responsive-4by3" style="background-color:{$ar.model_viewer_background_color|default:'#222'};">	
-							<model-viewer class="embed-responsive-item" src="./media/models/gltf/{$ar.url_glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls alt="{$ar.model_viewer_title}" background-color="#eee" {if ($ar.model_viewer_hdr ne 'none')} skybox-image="./media/textures/equirectangular/{$ar.model_viewer_hdr}" {/if} {if ($ar.model_viewer_auto_rotate eq 'true')} auto-rotate {/if} xr-environment></model-viewer>		
-						</div>								
+							<model-viewer class="embed-responsive-item" src="./media/models/gltf/{$ar.url_glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls alt="{$ar.model_viewer_title}" ar-scale="{$ar.model_viewer_scale|default:'auto'}" {if ($ar.model_viewer_hdr ne 'none')} skybox-image="./media/textures/equirectangular/{$ar.model_viewer_hdr}" {/if} {if ($ar.model_viewer_auto_rotate eq 'true')} auto-rotate {/if} xr-environment></model-viewer>		
+						</div>						
 						
 						<div class="description_area">
 							{$ar.model_viewer_description}

@@ -87,8 +87,10 @@ class breadcrumb {
 				if (isset($this->links[$i]['url']) && ( is_string( $this->links[$i]['url'] ) && $this->links[$i]['url'] !== '' ) ) {
 					$link_output .= '</a>';
 				} 
-
-				$link_output .= '<meta property="position" content="' . $i+1 . '"></span>';
+				
+				// for php 7.2 
+				$nCount = $i+1;
+				$link_output .= '<meta property="position" content="' . $nCount . '"></span>';
 
 				$link_output .= '</span>';	
 				$link_output .= '</li>';
@@ -100,4 +102,5 @@ class breadcrumb {
 		return $link_output;
     }  
 } 
+
 

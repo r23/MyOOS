@@ -500,7 +500,7 @@ if (!$product_info_result->RecordCount()) {
 
 				// Create a basic QR code
 				$qrCode = new QrCode($sUrl);
-				$qrCode->setSize(200);
+				$qrCode->setSize(150);
 
 				// Set advanced options
 				$qrCode->setWriterByName('png');
@@ -521,8 +521,6 @@ if (!$product_info_result->RecordCount()) {
 	}
 	// End AR	
  
-
-
 
     // assign Smarty variables;
     $smarty->assign(

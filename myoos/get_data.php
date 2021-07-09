@@ -46,6 +46,7 @@ if ($request->isXmlHttpRequest()) {
 
 	require 'includes/main_ajax.php';
  
+ /*
 	$headers = apache_request_headers();
 	if (isset($headers['X-CSRF-TOKEN'])) {
 		if ($headers['X-CSRF-TOKEN'] !== $_SESSION['csrf_token']) {
@@ -58,7 +59,7 @@ if ($request->isXmlHttpRequest()) {
 		header("Content-Type: application/json");
 		exit(json_encode('No CSRF token.'));
 	}
-
+*/
 
 	if (isset($_POST['name']) || is_string($_POST['name'])) {
 		$sContent = oos_var_prep_for_os($_POST['name']);
