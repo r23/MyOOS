@@ -633,9 +633,10 @@ function print_Start() {
 }
 
 function print_ServerTmpHidden() {
-   echo '<input type="hidden" name="tmpsession" value="' . $_POST['tmpsession'] . '">' . "\n" .
-        '<input type="hidden" name="tmp_session_crypt" value="' . $_POST['tmp_session_crypt'] . '">' . "\n";
+   echo '<input type="hidden" name="tmpsession" value="' . (isset($_POST['tmpsession']) ? $_POST['tmpsession'] : '') . '">' . "\n" .
+        '<input type="hidden" name="tmp_session_crypt" value="' . (isset($_POST['tmp_session_crypt']) ? $_POST['tmp_session_crypt'] : '') . '">' . "\n";
 }
+
 
 function print_ChangeInfo() {
    global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table ;
@@ -670,8 +671,8 @@ function print_ChangeInfo() {
        ' </tr>' . "\n" .
        '</table>' . "\n" .
        '<br /><br />' . "\n" .
-       '<input type="hidden" name="host_conf" value="' . $_POST['host_conf'] . '">' . "\n" .
-       '<input type="hidden" name="currentlang" value="' . $_POST['currentlang'] . '">' . "\n" .
+       '<input type="hidden" name="host_conf" value="' . (isset($_POST['host_conf']) ? $_POST['host_conf'] : '') . '">' . "\n" .
+       '<input type="hidden" name="currentlang" value="' . (isset($_POST['currentlang']) ? $_POST['currentlang'] : '') . '">' . "\n" .
        '<input type="hidden" name="op" value="New_Install">' . "\n" .
        '<input type="submit" value="' . BTN_SUBMIT . '">' . "\n" .
        '</center></form></font>' . "\n";
