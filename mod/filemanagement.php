@@ -72,6 +72,7 @@ if ($action=='dl')
 	exit();
 }
 
+
 if (!@ob_start("ob_gzhandler")) @ob_start();
 echo MODHeader();
 

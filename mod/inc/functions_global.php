@@ -1277,6 +1277,7 @@ function convert_to_latin1($obj)
 // returns the index of the selected val in an optionlist
 function get_index($arr, $selected)
 {
+	
 	$ret=false; // return false if not found
 	foreach ($arr as $key=>$val)
 	{
@@ -1362,65 +1363,35 @@ function table_output($text, $val, $small=false, $colspan=1)
 function get_sql_encodings()
 {
 	global $config;
+
 	unset($config['mysql_possible_character_sets']);
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$erg=false;
 	$config['mysql_standard_character_set']='';
 	$config['mysql_possible_character_sets']=array();
 
-	if (!defined('MOD_MYSQL_VERSION')) GetMySQLVersion();
-	$v=explode('.',MOD_MYSQL_VERSION);
-	$config['mysql_can_change_encoding']=false;
-	if (($v[0]<=4&&$v[1]<1)||$v[0]<=3)
+	// MySQL-Version >= 4.1
+	$config['mysql_can_change_encoding']=true;
+	$sqlt='SHOW CHARACTER SET';
+	$res=mod_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
+
+	if ($res)
 	{
-
-		// MySQL < 4.1
-		$config['mysql_can_change_encoding']=false;
-		$sqlt='SHOW VARIABLES LIKE \'character_set%\'';
-		$res=mod_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
-		if ($res)
+		while ($row=mysqli_fetch_row($res))
 		{
-			while ($row=mysqli_fetch_row($res))
-			{
-				if ($row[0]=='character_set')
-				{
-					$config['mysql_standard_character_set']=$row[1];
-					if ($v[0]==3) $config['mysql_possible_character_sets'][0]=$row[1];
-				}
-
-				if ($row[0]=='character_sets'&&$v[0]>3)
-				{
-					$config['mysql_possible_character_sets']=explode(' ',$row[1]);
-					sort($config['mysql_possible_character_sets']);
-				}
-			}
+			$config['mysql_possible_character_sets'][]=$row[0].' - '.$row[1];
 		}
+		sort($config['mysql_possible_character_sets']);
 	}
-	else
+
+	$sqlt='SHOW VARIABLES LIKE \'character_set_connection\'';
+	$res=mod_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
+
+	if ($res)
 	{
-		// MySQL-Version >= 4.1
-		$config['mysql_can_change_encoding']=true;
-		$sqlt='SHOW CHARACTER SET';
-		$res=mod_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
-
-		if ($res)
+		while ($row=mysqli_fetch_row($res))
 		{
-			while ($row=mysqli_fetch_row($res))
-			{
-				$config['mysql_possible_character_sets'][]=$row[0].' - '.$row[1];
-			}
-			sort($config['mysql_possible_character_sets']);
-		}
-
-		$sqlt='SHOW VARIABLES LIKE \'character_set_connection\'';
-		$res=mod_query($sqlt) or die(SQLError($sqlt,mysqli_error($config['dbconnection'])));
-
-		if ($res)
-		{
-			while ($row=mysqli_fetch_row($res))
-			{
-				$config['mysql_standard_character_set']=$row[1];
-			}
+			$config['mysql_standard_character_set']=$row[1];
 		}
 	}
 

@@ -262,7 +262,7 @@ $mysql_SQLhasRecords = array (
 						'DESC'
 );
 
-function mod_mysqli_connect($encoding='utf8', $keycheck_off=false, $actual_table='')
+function mod_mysqli_connect($encoding='utf8mb4', $keycheck_off=false, $actual_table='')
 {
     global $config,$databases;
 
