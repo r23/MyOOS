@@ -1177,7 +1177,7 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '') {
     $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
     $query = "SELECT panorama_description_meta
               FROM $categories_panorama_descriptiontable
-              WHERE panorama_id = '" . intval($model_id) . "'
+              WHERE panorama_id = '" . intval($panorama_id) . "'
                 AND panorama_languages_id = '" . intval($language_id) . "'";
     $result = $dbconn->Execute($query);
 

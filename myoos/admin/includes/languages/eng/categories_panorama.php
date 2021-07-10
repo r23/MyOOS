@@ -39,7 +39,6 @@ define('TEXT_SCENE', 'Scene');
 define('TEXT_HOTSPOT', 'Hotspot');
 
 define('TEXT_PANORAMA_AUTHOR', 'Author:');
-define('TEXT_PANORAMA_PREVIEW', 'Preview Image:');
 define('TEXT_PANORAMA_AUTOLOAD', 'Auto Load:');
 define('TEXT_EDIT_AUTOROTATES', 'Auto Rotation:');
 define('TEXT_SCENE_IMAGE', 'Panorama:');

@@ -563,7 +563,7 @@ if ($action == 'delete_panorama') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_PANORAMA_NAME; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('panorama_name[' . $aLanguages[$i]['id'] . ']', (($panorama_name[$aLanguages[$i]['id']]) ? stripslashes($panorama_name[$aLanguages[$i]['id']]) : oos_get_panorama_name($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('panorama_name[' . $aLanguages[$i]['id'] . ']', (isset($panorama_name[$aLanguages[$i]['id']]) ? stripslashes($panorama_name[$aLanguages[$i]['id']]) : oos_get_panorama_name($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -576,7 +576,7 @@ if ($action == 'delete_panorama') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_PANORAMA_TITLE; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_input_field('panorama_title[' . $aLanguages[$i]['id'] . ']', (($panorama_title[$aLanguages[$i]['id']]) ? stripslashes($panorama_title[$aLanguages[$i]['id']]) : oos_get_panorama_title($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('panorama_title[' . $aLanguages[$i]['id'] . ']', (isset($panorama_title[$aLanguages[$i]['id']]) ? stripslashes($panorama_title[$aLanguages[$i]['id']]) : oos_get_panorama_title($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -589,7 +589,7 @@ if ($action == 'delete_panorama') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_EDIT_PANORAMA_DESCRIPTION_META; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('panorama_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (($panorama_description_meta[$aLanguages[$i]['id']]) ? stripslashes($panorama_description_meta[$aLanguages[$i]['id']]) : oos_get_panorama_description_meta($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('panorama_description_meta[' . $aLanguages[$i]['id'] . ']', 'soft', '70', '2', (isset($panorama_description_meta[$aLanguages[$i]['id']]) ? stripslashes($panorama_description_meta[$aLanguages[$i]['id']]) : oos_get_panorama_description_meta($pInfo->panorama_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -600,7 +600,7 @@ if ($action == 'delete_panorama') {
 						<div class="form-group row">
 							<label class="col-lg-2 col-form-label"><?php echo TEXT_PANORAMA_AUTHOR; ?></label>
 							<div class="col-lg-10">
-								<?php echo oos_draw_input_field('panorama_author',  $panorama['panorama_author']); ?>
+								<?php echo oos_draw_input_field('panorama_author', (isset($panorama['panorama_author']) ? $panorama['panorama_author'] : '')); ?>
 							</div>
 						</div>
 					</fieldset>
@@ -644,7 +644,7 @@ if ($action == 'delete_panorama') {
 										<label>
 										<?php
 											echo '<input type="radio" name="panorama_autoload" value="true"'; 
-											if ($panorama['panorama_autoload'] == 'true') echo ' checked="checked"';
+											if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'true')) echo ' checked="checked"';
 											echo  '>&nbsp;';
 									   ?>
 											<span class="badge badge-success float-right"><?php echo ENTRY_ON; ?></span>
@@ -654,7 +654,7 @@ if ($action == 'delete_panorama') {
 										<label>
 										<?php
 											echo '<input type="radio" name="panorama_autoload" value="false"'; 
-											if ($panorama['panorama_autoload'] == 'false') echo ' checked="checked"';
+											if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'false')) echo ' checked="checked"';
 											echo  '>&nbsp;';
 									   ?>
 										<span class="badge badge-danger float-right"><?php echo ENTRY_OFF; ?></span>

@@ -27,7 +27,6 @@ define('TEXT_INFO_HEADING_DELETE_PANORAMA', '360 Grad Panorama für &quot;%s&quo
 define('TEXT_EDIT_PANORAMA', '360 Grad Panorama für &quot;%s&quot;:');
 define('TEXT_PANORAMA_DELETE', 'Panorama <b>entfernen</b>?');
 
-define('TEXT_INFO_HEADING_EDIT_PANORAMA', '360 Grad Panorama für &quot;%s&quot; bearbeiten');
 define('TEXT_HEADING_DELETE_PANORAMA', '360 Grad Panorama löschen');
 define('TEXT_DELETE_PANORAMA_INTRO', 'Sind Sie sicher, dass Sie dieses 360 Grad Panorama löschen möchten?');
 
@@ -41,7 +40,6 @@ define('TEXT_SCENE', 'Szene');
 define('TEXT_HOTSPOT', 'Hotspot');
 
 define('TEXT_PANORAMA_AUTHOR', 'Autor:');
-define('TEXT_PANORAMA_PREVIEW', 'Vorschaubild:');
 define('TEXT_PANORAMA_AUTOLOAD', 'Automatisches Laden:');
 define('TEXT_EDIT_AUTOROTATES', 'Automatische Drehung:');
 define('TEXT_SCENE_IMAGE', '360 Grad Panorama:');
