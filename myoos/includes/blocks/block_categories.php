@@ -77,9 +77,9 @@ function oos_has_category_subcategories($category_id) {
               WHERE parent_id = '" . intval($category_id) . "'";
      $child_category = $dbconn->Execute($query);
     if ($child_category->fields['total'] > 0) {
-      return true;
+		return true;
     } else {
-      return false;
+		return false;
     }
 }
 

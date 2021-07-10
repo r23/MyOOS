@@ -70,7 +70,7 @@ if ($sContent != $aContents['specials']) {
 				'specials_random_base_product_special_price' => $specials_random_base_product_special_price
 			)
 		);
-		$smarty->assign(array('block_heading_specials' => $block_heading));
+		$smarty->assign('block_heading_specials', $block_heading);
 
     }
 }

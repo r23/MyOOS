@@ -273,9 +273,9 @@ $aCookie = array(
 		);
 $smarty->assign('cookiearray', $aCookie);
 
-
-/*
+/* remove $_COOKIE 
 if (isset($_COOKIE)) {
+
 	reset($_COOKIE);
 		
 	$params = session_get_cookie_params();

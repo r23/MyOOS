@@ -12,12 +12,12 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$products_history_block = FALSE;
+$products_history_block = false;
 
-if (isset($_SESSION)) {
-  
+if (isset($_SESSION) && $bPersonalization == true) {
+
 	if (isset($_SESSION['products_history']) && ($_SESSION['products_history']->count_history() > 0)) {
-		$products_history_block = TRUE;
+		$products_history_block = true;
 		$product_ids = $_SESSION['products_history']->get_product_id_list();
 
 		$productstable = $oostable['products'];
@@ -35,5 +35,4 @@ if (isset($_SESSION)) {
 }
 
 $smarty->assign('products_history_block', $products_history_block);
-
 

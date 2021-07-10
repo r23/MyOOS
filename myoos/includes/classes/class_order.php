@@ -429,7 +429,6 @@ class order {
 				}				
 			}
 
-
 			$index++;
 		}
 
