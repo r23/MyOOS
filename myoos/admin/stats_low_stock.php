@@ -22,6 +22,8 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$rows = 0;
+
 
 require 'includes/header.php'; 
 ?>
