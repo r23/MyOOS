@@ -93,7 +93,8 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 					</thead>	
 <?php
   if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
-
+  $rows = 0;
+ 
   $productstable = $oostable['products'];
   $products_dscriptiontable = $oostable['products_description'];
   $languagestable = $oostable['languages'];
@@ -106,6 +107,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
                        ORDER BY pd.products_viewed DESC";
   $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_sql_raw, $products_numrows);
   $products_result = $dbconn->Execute($products_sql_raw);
+
   while ($products = $products_result->fields) {
     $rows++;
 
