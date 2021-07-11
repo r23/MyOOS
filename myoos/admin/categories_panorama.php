@@ -56,7 +56,7 @@ if (!empty($action)) {
 
 				if (isset($_POST['categories_id'])) $categories_id = intval($_POST['categories_id']);
 
-				if ((isset($_GET['cID'])) && ($categories_id == '')) {
+				if (isset($_GET['cID']) && (empty($categories_id))) {
 					$categories_id = intval($_GET['cID']);
 				}
 				
@@ -64,9 +64,9 @@ if (!empty($action)) {
 
 				$sql_data_array = array();
 				$sql_data_array = array('categories_id' => intval($categories_id),
-										'panorama_author' => oos_db_prepare_input($_POST['panorama_author']),
-										'panorama_autoload' => oos_db_prepare_input($_POST['panorama_autoload']),
-										'panorama_autorotates' => oos_db_prepare_input($_POST['panorama_autorotates']));
+										'panorama_author' => (isset($_POST['panorama_author']) ? oos_db_prepare_input($_POST['panorama_author']) : ''),
+										'panorama_autoload' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autoload']) : 'false'),
+										'panorama_autorotates' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autorotates']) : '-2'));
 
 				if ($action == 'insert_panorama') {
 					$insert_sql_data = array();
@@ -108,7 +108,7 @@ if (!empty($action)) {
 					}
 				}
 
-				if ( ($_POST['remove_image'] == 'yes') && (isset($_POST['panorama_preview_image'])) ) {
+				if ( (isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['panorama_preview_image'])) ) {
 					$panorama_preview_image = oos_db_prepare_input($_POST['panorama_preview_image']);
 				
 					$categoriestable = $oostable['categories_panorama'];
@@ -119,7 +119,7 @@ if (!empty($action)) {
 					oos_remove_panorama_preview_image($panorama_preview_image);				
 				}
 
-				if ( ($_POST['scene_image'] == 'yes') && (isset($_POST['scene_preview_image'])) ) {
+				if ( (isset($_POST['scene_image']) && ($_POST['scene_image'] == 'yes')) && (isset($_POST['scene_preview_image'])) ) {
 					$scene_preview_image = oos_db_prepare_input($_POST['scene_preview_image']);
 				
 					$categories_panorama_scenetable = $oostable['categories_panorama_scene'];
@@ -235,7 +235,7 @@ if (!empty($action)) {
 						for ($h = 0, $nh = $nHotspots; $h < $nh; $h++) {
 						
 							$hotspot_action = 'insert_hotspot';
-							if (isset($_POST['hotspot_id'][$h]) || is_numeric($_POST['hotspot_id'][$h])) {
+							if (isset($_POST['hotspot_id']) && (isset($_POST['hotspot_id'][$h]) || is_numeric($_POST['hotspot_id'][$h]))) {
 								$hotspot_id = intval($_POST['hotspot_id'][$h]);
 								$hotspot_action = 'update_hotspot';
 							}
@@ -259,13 +259,13 @@ if (!empty($action)) {
 							$sql_data_array = array();
 							$sql_data_array = array('panorama_id' => intval($panorama_id),
 													'scene_id' => intval($scene_id),
-													'hotspot_pitch' => oos_db_prepare_input($_POST['hotspot_pitch'][$h]),
-													'hotspot_yaw' => oos_db_prepare_input($_POST['hotspot_yaw'][$h]),
+													'hotspot_pitch' => (isset($_POST['hotspot_pitch'][$h]) ? oos_db_prepare_input($_POST['hotspot_pitch'][$h]) : ''), 
+													'hotspot_yaw' => (isset($_POST['hotspot_yaw'][$h]) ? oos_db_prepare_input($_POST['hotspot_yaw'][$h]) : ''),
 													'hotspot_type' => 'info',
 													'hotspot_icon_class' => '',
-													'products_id' => oos_db_prepare_input($_POST['products_id'][$h]),
-													'categories_id' => oos_db_prepare_input($_POST['categories_id'][$h]),										
-													'hotspot_url' => oos_db_prepare_input($_POST['hotspot_url'][$h]));
+													'products_id' => (isset($_POST['products_id'][$h]) ? oos_db_prepare_input($_POST['products_id'][$h]) : ''), 
+													'categories_id' => (isset($_POST['categories_id'][$h]) ? oos_db_prepare_input($_POST['categories_id'][$h]) : ''),										
+													'hotspot_url' => (isset($_POST['hotspot_url'][$h]) ? oos_db_prepare_input($_POST['hotspot_url'][$h]) : ''));
 
 							if ($hotspot_action == 'insert_hotspot') {
 								oos_db_perform($oostable['categories_panorama_scene_hotspot'], $sql_data_array);
@@ -684,7 +684,7 @@ if ($action == 'delete_panorama') {
 
 
 <?php
-	if (oos_is_not_null($pInfo->scene_image)) {
+	if (isset($pInfo->scene_image) && (!empty($pInfo->scene_image))) {
 		echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 260px;">';
         echo oos_info_image('panoramas/' . $pInfo->scene_image, $pInfo->panorama_name, '460px', '260px');
 		echo '</div></div>';
@@ -710,7 +710,8 @@ if ($action == 'delete_panorama') {
 							</div>
 						</div>
 <?php
-	if (oos_is_not_null($pInfo->scene_image)) {
+	if (isset($pInfo->scene_image) && (oos_is_not_null($pInfo->scene_image))) {
+#	if (isset($pInfo->scene_image) && (!empty($pInfo->scene_image))) {
 ?>
 						<div class="text-right mt-3 mb-5">
 							<?php echo oos_preview_button(IMAGE_PREVIEW, 'scene'); ?>	
@@ -911,7 +912,7 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id[0]', $array, '', $id); ?>
+								<?php echo oos_draw_products_pull_down('products_id[0]', $array, '', (isset($id) ? $id : '')); ?>
                            </div>
                         </div>
                      </fieldset>
@@ -977,7 +978,7 @@ if (!empty($pInfo->panorama_id)) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_HOTSPOT_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', $array, $spot_array[$id]['products_id'], $id); ?>
+								<?php echo oos_draw_products_pull_down('products_id['. $id . ']', $array, (isset($spot_array[$id]['products_id']) ? $spot_array[$id]['products_id'] : ''), $id); ?>
                            </div>
                         </div>
                      </fieldset>
