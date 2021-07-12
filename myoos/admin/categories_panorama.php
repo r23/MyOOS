@@ -38,101 +38,100 @@ if (!empty($action)) {
     switch ($action) {
 		case 'insert_panorama':
 		case 'update_panorama':
-			if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {		
-				$panorama_id = intval($_POST['panorama_id']);		
-				
-				if (isset($_FILES['files'])) {
-					foreach ($_FILES['files']['name'] as $key => $name) {
-						if (empty($name)) {
-							// purge empty slots
-							unset($_FILES['files']['name'][$key]);
-							unset($_FILES['files']['type'][$key]);
-							unset($_FILES['files']['tmp_name'][$key]);
-							unset($_FILES['files']['error'][$key]);
-							unset($_FILES['files']['size'][$key]);
-						}
+
+			if (isset($_FILES['files'])) {
+				foreach ($_FILES['files']['name'] as $key => $name) {
+					if (empty($name)) {
+						// purge empty slots
+						unset($_FILES['files']['name'][$key]);
+						unset($_FILES['files']['type'][$key]);
+						unset($_FILES['files']['tmp_name'][$key]);
+						unset($_FILES['files']['error'][$key]);
+						unset($_FILES['files']['size'][$key]);
 					}
 				}
+			}
 
-				if (isset($_POST['categories_id'])) $categories_id = intval($_POST['categories_id']);
+			if (isset($_POST['panorama_id'])) $panorama_id = intval($_POST['panorama_id']);
+			if (isset($_POST['categories_id'])) $categories_id = intval($_POST['categories_id']);
 
-				if (isset($_GET['cID']) && (empty($categories_id))) {
-					$categories_id = intval($_GET['cID']);
-				}
+			if (isset($_GET['cID']) && (empty($categories_id))) {
+				$categories_id = intval($_GET['cID']);
+			}
 				
-				if (isset($_POST['scene_id'])) $scene_id = intval($_POST['scene_id']);
+			if (isset($_POST['scene_id'])) $scene_id = intval($_POST['scene_id']);
 
-				$sql_data_array = array();
-				$sql_data_array = array('categories_id' => intval($categories_id),
-										'panorama_author' => (isset($_POST['panorama_author']) ? oos_db_prepare_input($_POST['panorama_author']) : ''),
-										'panorama_autoload' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autoload']) : 'false'),
-										'panorama_autorotates' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autorotates']) : '-2'));
+			$sql_data_array = array();
+			$sql_data_array = array('categories_id' => intval($categories_id),
+									'panorama_author' => (isset($_POST['panorama_author']) ? oos_db_prepare_input($_POST['panorama_author']) : ''),
+									'panorama_autoload' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autoload']) : 'false'),
+									'panorama_autorotates' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autorotates']) : '-2'));
+
+			if ($action == 'insert_panorama') {
+				$insert_sql_data = array();
+				$insert_sql_data = array('panorama_date_added' => 'now()');
+
+				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+
+				oos_db_perform($oostable['categories_panorama'], $sql_data_array);
+
+				$panorama_id = $dbconn->Insert_ID();
+			} elseif ($action == 'update_panorama') {
+				$update_sql_data = array('panorama_last_modified' => 'now()');
+
+				$sql_data_array = array_merge($sql_data_array, $update_sql_data);
+
+				oos_db_perform($oostable['categories_panorama'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . $panorama_id . '\'');
+			}
+	
+			$aLanguages = oos_get_languages();
+			$nLanguages = count($aLanguages);
+
+			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+				$language_id = $aLanguages[$i]['id'];
+				
+				$sql_data_array = array('panorama_name' => oos_db_prepare_input($_POST['panorama_name'][$language_id]),
+										'panorama_title' => oos_db_prepare_input($_POST['panorama_title'][$language_id]),
+										'panorama_description_meta' => oos_db_prepare_input($_POST['panorama_description_meta'][$language_id]));
 
 				if ($action == 'insert_panorama') {
-					$insert_sql_data = array();
-					$insert_sql_data = array('panorama_date_added' => 'now()');
+					$insert_sql_data = array('panorama_id' => intval($panorama_id),
+											'panorama_viewed' => '0',
+											'panorama_languages_id' => intval($aLanguages[$i]['id']));
 
 					$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
-
-					oos_db_perform($oostable['categories_panorama'], $sql_data_array);
-
-					$panorama_id = $dbconn->Insert_ID();
-				} elseif ($action == 'update_panorama') {
-					$update_sql_data = array('panorama_last_modified' => 'now()');
-
-					$sql_data_array = array_merge($sql_data_array, $update_sql_data);
-
-					oos_db_perform($oostable['categories_panorama'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . $panorama_id . '\'');
-				}
-	
-				$aLanguages = oos_get_languages();
-				$nLanguages = count($aLanguages);
-
-				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-					$language_id = $aLanguages[$i]['id'];
-				
-					$sql_data_array = array('panorama_name' => oos_db_prepare_input($_POST['panorama_name'][$language_id]),
-											'panorama_title' => oos_db_prepare_input($_POST['panorama_title'][$language_id]),
-											'panorama_description_meta' => oos_db_prepare_input($_POST['panorama_description_meta'][$language_id]));
-
-					if ($action == 'insert_panorama') {
-						$insert_sql_data = array('panorama_id' => intval($panorama_id),
-												'panorama_viewed' => '0',
-												'panorama_languages_id' => intval($aLanguages[$i]['id']));
-
-						$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 					
-						oos_db_perform($oostable['categories_panorama_description'], $sql_data_array);
-					} elseif ($action == 'update_panorama') {					
-						oos_db_perform($oostable['categories_panorama_description'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . intval($panorama_id) . '\' AND panorama_languages_id = \'' . intval($language_id) . '\'');
-					}
+					oos_db_perform($oostable['categories_panorama_description'], $sql_data_array);
+				} elseif ($action == 'update_panorama') {					
+					oos_db_perform($oostable['categories_panorama_description'], $sql_data_array, 'UPDATE', 'panorama_id = \'' . intval($panorama_id) . '\' AND panorama_languages_id = \'' . intval($language_id) . '\'');
 				}
+			}
 
-				if ( (isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['panorama_preview_image'])) ) {
-					$panorama_preview_image = oos_db_prepare_input($_POST['panorama_preview_image']);
+			if ( (isset($_POST['remove_image']) && ($_POST['remove_image'] == 'yes')) && (isset($_POST['panorama_preview_image'])) ) {
+				$panorama_preview_image = oos_db_prepare_input($_POST['panorama_preview_image']);
 				
-					$categoriestable = $oostable['categories_panorama'];
-					$dbconn->Execute("UPDATE $categoriestable
+				$categoriestable = $oostable['categories_panorama'];
+				$dbconn->Execute("UPDATE $categoriestable
 								SET panorama_preview = NULL
 								WHERE panorama_id = '" . intval($panorama_id) . "'");				
 				
-					oos_remove_panorama_preview_image($panorama_preview_image);				
-				}
+				oos_remove_panorama_preview_image($panorama_preview_image);				
+			}
 
-				if ( (isset($_POST['scene_image']) && ($_POST['scene_image'] == 'yes')) && (isset($_POST['scene_preview_image'])) ) {
-					$scene_preview_image = oos_db_prepare_input($_POST['scene_preview_image']);
-				
-					$categories_panorama_scenetable = $oostable['categories_panorama_scene'];
-					$dbconn->Execute("UPDATE $categories_panorama_scenetable
+			if ( (isset($_POST['scene_image']) && ($_POST['scene_image'] == 'yes')) && (isset($_POST['scene_preview_image'])) ) {
+				$scene_preview_image = oos_db_prepare_input($_POST['scene_preview_image']);
+		
+				$categories_panorama_scenetable = $oostable['categories_panorama_scene'];
+				$dbconn->Execute("UPDATE $categories_panorama_scenetable
 								SET scene_image = NULL
 								WHERE panorama_id = '" . intval($panorama_id) . "'");				
 				
-					oos_remove_scene_image($scene_preview_image);				
-				}
+				oos_remove_scene_image($scene_preview_image);				
+			}
 
 
-				// Panorama Preview
-				$aPreviewOptions = array(
+			// Panorama Preview
+			$aPreviewOptions = array(
 					'image_versions' => array(
 					// The empty image version key defines options for the original image.
 					// Keep in mind: these image manipulations are inherited by all other image versions from this point onwards.
@@ -309,8 +308,7 @@ if (!empty($action)) {
 					}
 
 					oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id . '&page=' . $nPage));
-		
-			}
+
 			break;
 
 		case 'delete_panorama_confirm':
@@ -318,8 +316,8 @@ if (!empty($action)) {
 				$panorama_id = oos_db_prepare_input($_POST['panorama_id']);
 
 				oos_remove_panorama($panorama_id);
-
 			}
+
 			oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $nPage));
 			break;	
 	
