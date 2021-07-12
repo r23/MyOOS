@@ -33,7 +33,7 @@
       $this->icon = '';
       $this->enabled = (defined('MODULE_SHIPPING_FLAT_STATUS') && (MODULE_SHIPPING_FLAT_STATUS == 'true') ? true : false);
 
-      if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_FLAT_ZONE > 0) ) {
+	  if ( ($this->enabled == true) && isset($oOrder->delivery['country']['id']) && ((int)MODULE_SHIPPING_FLAT_ZONE > 0) ) {
         $check_flag = false;
 
         // Get database information
