@@ -33,7 +33,7 @@
       $this->icon = OOS_ICONS . 'shipping_dp.gif';
       $this->enabled = (defined('MODULE_SHIPPING_DP_STATUS') && (MODULE_SHIPPING_DP_STATUS == 'true') ? true : false);
 
-      if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_DP_ZONE > 0) ) {
+      if ( ($this->enabled == true) && isset($oOrder->delivery['country']['id']) && ((int)MODULE_SHIPPING_DP_ZONE > 0) ) {
 		  	  
         $check_flag = false;
 
@@ -42,7 +42,7 @@
         $oostable =& oosDBGetTables();
 
         $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-        $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_DP_ZONE . "' AND zone_country_id = '" . $oOrder->delivery['country']['id'] . "' ORDER BY zone_id");
+        $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_DP_ZONE . "' AND zone_country_id = '" . intval($oOrder->delivery['country']['id']) . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
             $check_flag = true;
