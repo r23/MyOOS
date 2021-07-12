@@ -36,8 +36,12 @@ class shipping {
 
 			if ( (oos_is_not_null($module)) ) {
 				$this->selected_module = $module;
-
-				$include_modules[] = array('class' => $module, 'file' => $module . '.php');
+				if (isset($module['id'])) {
+					$class = substr($module['id'], 0, strpos($module['id'], '_'));
+				} else {
+					$class = $module;
+				}
+				$include_modules[] = array('class' => $class, 'file' => $class . '.php');
 			} else {
 				foreach ($this->modules as $value) { 
 					$class = basename($value, '.php');
@@ -51,7 +55,12 @@ class shipping {
 				include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/shipping/' . $include_modules[$i]['file'];
 				include_once MYOOS_INCLUDE_PATH . '/includes/modules/shipping/' . $include_modules[$i]['file'];
 
-				$GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
+
+				if (class_exists($include_modules[$i]['class'])) {
+					$GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
+				}
+
+				# $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
 			}
 		}
 	}
