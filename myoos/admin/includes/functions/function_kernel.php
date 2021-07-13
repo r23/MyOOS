@@ -1077,9 +1077,9 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $fro
 
 	// (Re)create it, if it's gone missing.
 	if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/PHPMailer.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/SMTP.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/Exception.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
 		$phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
 
 		$phpmailer::$validator = static function ( $to_email_address ) {

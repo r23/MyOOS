@@ -1594,11 +1594,13 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
 
+	global $phpmailer;
+	
 	// (Re)create it, if it's gone missing
     if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/PHPMailer.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/SMTP.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/Exception.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
 		$phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
 
 		$phpmailer::$validator = static function ( $to_email_address ) {
@@ -1607,7 +1609,7 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	}
 
 	//To load the French version
-	$phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/language/');
+	$phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
 
 	// Empty out the values that may be set.
 	$phpmailer->clearAllRecipients();
@@ -1616,6 +1618,10 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 	$phpmailer->clearReplyTos();
 
     $phpmailer->IsMail();
+
+
+    $phpmailer->CharSet   = 'UTF-8';
+    $phpmailer->Encoding  = 'base64';
 
     $phpmailer->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
     $phpmailer->FromName = $from_email_name ? $from_email_name : STORE_OWNER;

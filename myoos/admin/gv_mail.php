@@ -63,9 +63,9 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
         
         // (Re)create it, if it's gone missing.
         if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
-            require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/PHPMailer.php';
-            require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/SMTP.php';
-            require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/Exception.php';
+            require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
+            require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
+            require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
             $phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
         }
         
@@ -140,9 +140,9 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
 
       // (Re)create it, if it's gone missing.
       if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
-          require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/PHPMailer.php';
-          require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/SMTP.php';
-          require_once MYOOS_INCLUDE_PATH . '/includes/lib/PHPMailer/Exception.php';
+          require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
+          require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
+          require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
           $phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
           
           $phpmailer::$validator = static function ( $to_email_address ) {
