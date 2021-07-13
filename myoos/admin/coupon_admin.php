@@ -333,6 +333,7 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
+	$rows = 0;
     $cc_result_raw = "SELECT *
                       FROM " . $oostable['coupon_redeem_track'] . "
                      WHERE coupon_id = '" . intval($_GET['cID']) . "'";

@@ -26,7 +26,8 @@ require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
- 
+$rows = 0;
+	
 require 'includes/header.php';
 ?>
 <div class="wrapper">
@@ -86,7 +87,6 @@ require 'includes/header.php';
 					</thead>			
 			
 <?php
-	$rows = 0;
   if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
   $customerstable = $oostable['customers'];
   $orders_productstable = $oostable['orders_products'];
