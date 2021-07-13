@@ -793,7 +793,7 @@ function TesteSFTP($i)
 				intval($config['sftp_timeout'][$i]), // timeout (optional, default: 10)
 				4, // max tries (optional, default: 4)
 				$config['sftp_fingerprint'][$i], // 'fingerprint-string', host fingerprint (optional, default: null),
-				null, // connectivity checker (must be an implementation of 'League\Flysystem\PhpseclibV2\ConnectivityChecker' to check if a connection can be established (optional, omit if you don't need some special handling for setting reliable connections)				
+				null // connectivity checker (must be an implementation of 'League\Flysystem\PhpseclibV2\ConnectivityChecker' to check if a connection can be established (optional, omit if you don't need some special handling for setting reliable connections)				
 			),
 			$config['sftp_dir'][$i], // root path (required)
 			PortableVisibilityConverter::fromArray([
@@ -868,7 +868,7 @@ function SendViaSFTP($i,$source_file,$conn_msg=1)
 				intval($config['sftp_timeout'][$i]), // timeout (optional, default: 10)
 				4, // max tries (optional, default: 4)
 				$config['sftp_fingerprint'][$i], // 'fingerprint-string', host fingerprint (optional, default: null),
-				null, // connectivity checker (must be an implementation of 'League\Flysystem\PhpseclibV2\ConnectivityChecker' to check if a connection can be established (optional, omit if you don't need some special handling for setting reliable connections)				
+				null // connectivity checker (must be an implementation of 'League\Flysystem\PhpseclibV2\ConnectivityChecker' to check if a connection can be established (optional, omit if you don't need some special handling for setting reliable connections)				
 		),
 		$config['sftp_dir'][$i], // root path (required)
 		PortableVisibilityConverter::fromArray([
