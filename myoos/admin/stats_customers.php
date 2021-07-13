@@ -86,6 +86,7 @@ require 'includes/header.php';
 					</thead>			
 			
 <?php
+	$rows = 0;
   if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
   $customerstable = $oostable['customers'];
   $orders_productstable = $oostable['orders_products'];
