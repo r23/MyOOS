@@ -317,7 +317,7 @@ require 'includes/header.php';
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button(BUTTON_EDIT) . '</a> 
 			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button(BUTTON_DELETE) . '</a> 
 			<a href="' . oos_href_link_admin($aContents['wastebasket'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=untrash&flag=2') . '">' . oos_button(BUTTON_UNTRASH) . '</a>');
-            $contents[] = array('text' =>  TEXT_CATEGORIES . ' ' . oos_get_categories_name($cPath) . ' ' . oos_get_categories_name($cID) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
+            $contents[] = array('text' =>  TEXT_CATEGORIES . ' ' . oos_get_categories_name($cPath) . ' ' . oos_get_categories_name($cInfo->categories_id) . '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
 			$contents[] = array('text' => '<br />' . oos_info_image('category/medium/' . $cInfo->categories_image, $cInfo->categories_name) . '<br />' . $cInfo->categories_image);
             $contents[] = array('text' => '<br />' . TEXT_SUBCATEGORIES . ' ' . $cInfo->childs_count . '<br />' . TEXT_PRODUCTS . ' ' . $cInfo->products_count);
           } elseif (isset($pInfo) && is_object($pInfo)) { // product info box contents
