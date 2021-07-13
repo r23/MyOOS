@@ -72,13 +72,18 @@ if (version_compare(PHP_VERSION, '7.2.0', '<')) {
 
 
 define('OOS_VALID_MOD', true);
-require_once '../includes/version.php';
 
-require_once '../includes/functions/function_global.php';
-require_once '../includes/functions/function_kernel.php';
-require_once '../includes/lib/phpass/PasswordHash.php';
-require_once '../includes/functions/function_password.php';
-require_once '../includes/lib/adodb/adodb.inc.php';
+define('MYOOS_INCLUDE_PATH', dirname(__DIR__, 1));
+
+require_once MYOOS_INCLUDE_PATH . '/includes/version.php';
+
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
+
+$autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
+
 
   include_once 'modify_configure.php';
   include_once 'upgrade.php';

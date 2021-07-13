@@ -50,7 +50,8 @@
 		"symfony/polyfill-uuid": "^1.17",
 		"phpoffice/phpword": "^0.18.0",
 		"dompdf/dompdf": "^1.0",
-		"phpoffice/phpspreadsheet": "^1.16"
+		"phpoffice/phpspreadsheet": "^1.16",
+		"adodb/adodb-php": "^5.21"
     }	
 
 }

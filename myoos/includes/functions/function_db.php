@@ -72,7 +72,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
   * @global array oosDB_tables database tables used by MyOOS [Shopsystem]
   * @return bool true on success, false on failure
   */
-  function oosDBInit() {
+function oosDBInit() {
     // Get database parameters
     $dbtype = OOS_DB_TYPE;
     $dbhost = OOS_DB_SERVER;
@@ -80,11 +80,11 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
     // Decode encoded DB parameters
     if (OOS_ENCODED == '1') {
-      $dbuname = base64_decode(OOS_DB_USERNAME);
-      $dbpass = base64_decode(OOS_DB_PASSWORD);
+		$dbuname = base64_decode(OOS_DB_USERNAME);
+		$dbpass = base64_decode(OOS_DB_PASSWORD);
     } else {
-      $dbuname = OOS_DB_USERNAME;
-      $dbpass = OOS_DB_PASSWORD;
+		$dbuname = OOS_DB_USERNAME;
+		$dbpass = OOS_DB_PASSWORD;
     }
 
     // Start connection
@@ -93,11 +93,15 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 
     $dbconn = ADONewConnection($dbtype);
+	// $dbconn->setConnectionParameter(MYSQLI_SET_CHARSET_NAME, 'utf8mb4');
+	
     if (!$dbconn->Connect($dbhost, $dbuname, $dbpass, $dbname)) {
-      $dbpass = "****";
-      $dbuname = "****";
-      die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect " . $dbconn->ErrorMsg());
+		$dbpass = "****";
+		$dbuname = "****";
+		die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect " . $dbconn->ErrorMsg());
     }
+
+	// $dbconn->debug = true;
 
     global $ADODB_FETCH_MODE;
     $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -105,8 +109,11 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
     $GLOBALS['oosDB_connections'][0] = $dbconn;
     $GLOBALS['oosDB_tables'] = array();
 
+	$sql ="SET NAMES 'utf8mb4'";
+	$dbconn->execute($sql);
+
     return true;
-  }
+}
 
  /**
   * Get a list of database connections
@@ -115,12 +122,12 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
   * @global array xarDB_connections array of database connection objects
   * @return array array of database connection objects
   */
-  function &oosDBGetConn() {
+function &oosDBGetConn() {
 
     // we only want to return the first connection here
     // perhaps we'll add linked list capabilities to this soon
-    return $GLOBALS['oosDB_connections'][0];
-  }
+	return $GLOBALS['oosDB_connections'][0];
+}
 
   /**
    * Get an array of database tables
@@ -129,9 +136,9 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
    * @global array oosDB_tables array of database tables
    * @return array array of database tables
    */
-  function &oosDBGetTables() {
-     return $GLOBALS['oosDB_tables'];
-  }
+function &oosDBGetTables() {
+	return $GLOBALS['oosDB_tables'];
+}
 
   /**
    * Import module tables in the array of known tables
@@ -139,19 +146,19 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
    * @access protected
    * @global oostable array
    */
-  function oosDB_importTables($tables) {
+function oosDB_importTables($tables) {
     // assert('is_array($tables)');
     $GLOBALS['oosDB_tables'] = array_merge($GLOBALS['oosDB_tables'], $tables);
-  }
+}
 
-  function oos_db_input($sStr) {
+function oos_db_input($sStr) {
 
-    if (function_exists('mysqli::escape_string ')) {
-      return mysqli::escape_string ($sStr);
-    }
+	if (function_exists('mysqli::escape_string ')) {
+		return mysqli::escape_string ($sStr);
+	}
 
-    return addslashes($sStr);
-  }
+	return addslashes($sStr);
+}
 
   function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '') {
 

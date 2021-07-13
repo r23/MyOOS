@@ -5,11 +5,20 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '043494f9ee70bce6876455a87d11bb51196a2a5e',
+        'reference' => '90a844747ce663dfec46c481fb528ad25a20aa58',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
     'versions' => array(
+        'adodb/adodb-php' => array(
+            'pretty_version' => 'v5.21.0',
+            'version' => '5.21.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../adodb/adodb-php',
+            'aliases' => array(),
+            'reference' => '199391f639a0b3346a80d66c00c87230fa3e6a07',
+            'dev_requirement' => false,
+        ),
         'bacon/bacon-qr-code' => array(
             'pretty_version' => '2.0.4',
             'version' => '2.0.4.0',
@@ -214,7 +223,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '043494f9ee70bce6876455a87d11bb51196a2a5e',
+            'reference' => '90a844747ce663dfec46c481fb528ad25a20aa58',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(

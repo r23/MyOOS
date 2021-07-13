@@ -71,11 +71,6 @@ if(!defined('MYOOS_INCLUDE_PATH')) {
 $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
-
-// require the database functions
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-errorhandler.inc.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb.inc.php';
-
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 
   require 'modify_configure.php';
