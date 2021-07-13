@@ -110,6 +110,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     switch ($action) {
       case 'update_order':
         $oID = oos_db_prepare_input($_GET['oID']);
+		$comments = isset($_POST['comments']) ? oos_db_prepare_input($_POST['comments']) : '';
+		$status = isset($_POST['status']) ? oos_db_prepare_input($_POST['status']) : '';
 
         $order_updated = false;
 
@@ -302,7 +304,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
 
               <tr>
-                <td class="main"><b><?php echo ENTRY_TELEPHONE; ?></b></td>
+                <td class="main"><b><?php echo ENTRY_TELEPHONE_NUMBER; ?></b></td>
                 <td class="main"><?php echo $order->customer['telephone']; ?></td>
               </tr>
             <tr>
@@ -389,7 +391,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
            '            <td align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n";
       echo '          </tr>' . "\n";
 
-      if (oos_is_not_null($_GET['serial']) && ($_GET['serial'] == $i) && ($_GET['serial_updated'] <> 1)) {
+      if ( (isset($_GET['serial']) && ($_GET['serial'] == $i)) || (isset($_GET['serial_updated']) && ($_GET['serial_updated'] <> 1))) {
         echo '          <tr class="dataTableRow">' . "\n" .
              '            <td colspan="2" valign="top" align="right">Enter Serial #:&nbsp;</td>' . "\n";
 
@@ -439,7 +441,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS) . "</td>\n";
         }
         echo '            <td class="smallText">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n" .
-             '            <td class="smallText">' . nl2br(htmlspecialchars($orders_history['comments']), ENT_QUOTES, 'UTF-8') . '&nbsp;</td>' . "\n" .
+             '            <td class="smallText">' . nl2br(oos_output_string($orders_history['comments'])) . '&nbsp;</td>' . "\n" .
              '          </tr>' . "\n";
          // Move that ADOdb pointer!
         $orders_history_result->MoveNext();

@@ -222,26 +222,6 @@ function oos_get_products_status($nProductID) {
     return $products_status;
 }
 
-/**
- * Return Product's StatusName
- *
- * @param $nProductID
- * @return string
- */
-function oos_get_products_setting($nProductID) {
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-	$settingtable = $oostable['setting'];
-	$query = "SELECT products_setting
-               FROM $settingtable 
-              WHERE products_id = '" . intval($nProductID) . "'";
-    $products_setting = $dbconn->GetOne($query);
-
-    return $products_setting;
-}
   
  /**
   * Create a Wishlist Code. length may be between 1 and 16 Characters

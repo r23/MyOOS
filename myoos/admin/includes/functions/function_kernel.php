@@ -301,15 +301,15 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln) {
 
     $address_format = $result->fields;
 
-    $company = addslashes($address['company']);
-    $firstname = addslashes($address['firstname']);
-    $lastname = addslashes($address['lastname']);
-    $street = addslashes($address['street_address']);
-    $city = addslashes($address['city']);
-    $state = addslashes($address['state']);
-    $country_id = $address['country_id'];
-    $zone_id = $address['zone_id'];
-    $postcode = addslashes($address['postcode']);
+    $company = (isset($address['company']) ) ? addslashes($address['company']) : '';
+    $firstname = (isset($address['firstname']) ) ? addslashes($address['firstname']) : '';
+    $lastname = (isset($address['lastname']) ) ? addslashes($address['lastname']) : '';
+    $street = (isset($address['street_address']) ) ? addslashes($address['street_address']) : '';
+    $city = (isset($address['city']) ) ? addslashes($address['city']) : '';
+    $state = (isset($address['state']) ) ? addslashes($address['state']) : '';
+    $country_id = (isset($address['country_id']) ) ? addslashes($address['country_id']) : '';
+    $zone_id = (isset($address['zone_id']) ) ? addslashes($address['zone_id']) : '';
+    $postcode = (isset($address['postcode']) ) ? addslashes($address['postcode']) : '';
     $zip = $postcode;
     $country = oos_get_country_name($country_id);
     $state = oos_get_zone_code($country_id, $zone_id, $state);

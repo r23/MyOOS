@@ -148,7 +148,7 @@ class order {
               WHERE orders_id = '" . intval($order_id) . "'";
 		$orders_products_result = $dbconn->Execute($sql);
 		while ($orders_products = $orders_products_result->fields) {		
-			$products_setting = oos_get_products_setting($orders_products['products_id']);
+			$products_setting = $this->get_products_setting($orders_products['products_id']);
 			$this->products[$index] = array('qty' => $orders_products['products_quantity'],
                                         'id' => $orders_products['products_id'],
 										'orders_id' => intval($order_id),
@@ -429,5 +429,28 @@ class order {
 		}
 
 	}
+	
+	
+	/**
+	* Return Product's StatusName
+	*
+	* @param $nProductID
+	* @return string
+	*/
+	function get_products_setting($nProductID) {
+
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
+
+		$settingtable = $oostable['setting'];
+		$query = "SELECT products_setting
+				FROM $settingtable 
+				WHERE products_id = '" . intval($nProductID) . "'";
+		$products_setting = $dbconn->GetOne($query);
+
+		return $products_setting;
+	}
+	
 }
 
