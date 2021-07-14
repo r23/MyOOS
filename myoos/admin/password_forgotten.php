@@ -59,7 +59,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
         $make_password = oos_create_random_value(7);
         $crypted_password = oos_encrypt_password($make_password);
 
-        oos_mail($check_admin['check_firstname'] . ' ' . $check_admin['admin_lastname'], $check_admin['check_email_address'], ADMIN_PASSWORD_SUBJECT, nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
+        oos_mail($check_admin['check_firstname'] . ' ' . $check_admin['admin_lastname'], $check_admin['check_email_address'], ADMIN_PASSWORD_SUBJECT, nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
         $admintable = $oostable['admin'];
         $dbconn->Execute("UPDATE $admintable
                           SET admin_password = '" . $crypted_password . "'
