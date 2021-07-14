@@ -22,7 +22,7 @@ error_reporting(E_ALL);
 
 if (function_exists("date_default_timezone_set")) date_default_timezone_set(@date_default_timezone_get());
 //Konstanten
-if (!defined('MOD_VERSION')) define('MOD_VERSION','5.0.9-dev');
+if (!defined('MOD_VERSION')) define('MOD_VERSION','5.0.10-dev');
 if (!defined('MOD_OS')) define('MOD_OS',PHP_OS);
 if (!defined('MOD_OS_EXT')) define('MOD_OS_EXT',@php_uname());
 if (!defined('config') || !is_array($config)) $config=array();

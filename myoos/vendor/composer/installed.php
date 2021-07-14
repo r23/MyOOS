@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ddfeb6520a2170a2f317db47b5c8911e30a49564',
+        'reference' => 'adc73c1145498f96daf17354a7264c61bffd7e16',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -47,12 +47,12 @@
             'dev_requirement' => false,
         ),
         'doctrine/cache' => array(
-            'pretty_version' => '2.0.3',
-            'version' => '2.0.3.0',
+            'pretty_version' => '2.1.0',
+            'version' => '2.1.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/cache',
             'aliases' => array(),
-            'reference' => 'c9622c6820d3ede1e2315a6a377ea1076e421d88',
+            'reference' => 'ac77408b22cc6c4d0b4947d20a3889be3043566e',
             'dev_requirement' => false,
         ),
         'doctrine/collections' => array(
@@ -223,7 +223,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ddfeb6520a2170a2f317db47b5c8911e30a49564',
+            'reference' => 'adc73c1145498f96daf17354a7264c61bffd7e16',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
