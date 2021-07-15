@@ -1,124 +1,144 @@
 <div id="content">
-<h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
+<h3><strong>MyOOS [Dumper]</strong> based on MySQLDumper 1.24.4</h3>
 
-<h3>Bu Proje hakkinda</h3>
-Bu projenin kurucusu Daniel Schlichtholz'dur.<p>2004 yilinda <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">MySQLDumper panosunu </a>kurdu,
-kisa bir süre sonra baskalari tarafindan destek gördü ve birçok kisinin katilimlari ile yazilim genisletilmeye baslandi. <p>istekleriniz veya önerileriniz için <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">MySQLDumper-Panosuna</a> katilabilirsiniz.<p>
-<br><p><h4>MySQLDumper-Ekibi</h4>
+<h3>About this project</h3>
+<p><strong>MyOOS [Dumper]</strong> is an improved version of MySQLDumper 1.24.4 (January 24, 2011). This enhancement takes into account the development of PHP.</p>.
+<p>Most of all stability, security and handling are the main focus of <strong>MyOOS [Dumper]</strong>. But also an attractive template is included, which can be edited and adapted to your own needs.</p>.
 
-<table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
-Daniel Schlichtholz</td></tr></table>
+
+<p><strong>MyOOS [Dumper]</strong> is a backup program for MySQL databases, written in PHP and Perl. With it, backup copies of the data (store, blog, etc.) can be created and restored if necessary. Especially for web space without shell access, MyOOS [Dumper] is a useful alternative.</p>. 
+
+<p>The idea for MySQLDumper came from Daniel Schlichtholz. He opened the MySQLDumper forum in 2004, whereupon programmers wrote new scripts and extended existing ones.</p>
+<p>Official developer site: www.mysqldumper.de</p>
+
+
+
+<h3>Wish List / Future Attractions</h3>.
+<p>Do you have any suggestions for improvements? Feel free to contact the development team via the forum <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.</p>
+
+
+<h3>Contribute</h3>.
+<p>If you would like to help us improve the MyOOS project, we welcome your pull requests via GitHub here.</p>
+<a href="https://github.com/r23/MyOOS/" target="_blank">https://github.com/r23/MyOOS/</a>
+
+
+<h3>Financial Support</h3>.
+<p>You can use PayPal Me to send money. <br>
+<a href="https://www.paypal.com/paypalme/r23de?locale.x=de_DE" target="_blank">https://www.paypal.com/paypalme/r23de?locale.x=de_DE</a></p> 
+
+
+<p>We hope you enjoy this project.<br><p><h4>The MyOOS [Dumper] Team</h4>
+
+<img src="css/mod/pics/h1_logo.gif" alt="MyOOS [Dumper]">
+
+<h3>MyOOS [Dumper] Help</h3>
+
+<h4>Download</h4>
+<p>You can always get the latest versions via GitHub<br>.
+<a href="https://github.com/r23/MyOOS/releases" target="_blank">https://github.com/r23/MyOOS/releases</a></p>
+
+
+<h4>System requirement</h4>.
+<p>The script works on any server (Windows, Linux, ...) <br>
+with PHP >= version 7.2 with GZip support, MySQL (version 4.1 or higher), JavaScript (must be enabled)</p>.
+<p>Copy the mod folder from the MyOOS archive to a separate working folder.</p>.
+
+<h4>Installation</h4></a>.
+The installation process is straightforward.
+<p>From the MyOOS archive, copy the mod folder into any folder.<br>
+Upload all the files from the mod folder to your web server. (For example, to the lowest level in [server web directory/]mod)<br>
+... done!<br>
+You can now call MyOOS [Dumper] in your web browser by "https://example.com/mod/",<br>
+to complete the installation. Just follow the instructions.<br>
+<br><b>Note:</b><br><i>If on your server the script is not allowed to create directories,<br>
+you have to do this manually, because MyOOS [Dumper] stores the data ordered in
+directories.<br> 
+The script aborts with an appropriate statement!<br>
+After you have created the directories (according to the hint), it runs normally and without restrictions.</i>
+
+<a name="perl"></a><h4>Perl script instructions</h4>.
+Most have a cgi-bin directory where perl can be run. <br>
+This is usually accessible by browser via http://www.example.com/cgi-bin/. <br>
+<br>
+For this case, please perform the following steps:<br><br>.
+
+1. call the Backup page in MyOOS [Dumper] and click on "Backup Perl". <br>
+2. copy the path that is behind entry in crondump.pl for $absolute_path_of_configdir:. <br>
+3. open the file "crondump.pl" in the editor.<br>
+4. enter the copied path there at absolute_path_of_configdir (no spaces).<br>
+5. save crondump.pl .<br>
+6. copy crondump.pl, as well as perltest.pl and simpletest.pl into the cgi-bin directory (ascii mode in FTP).<br>
+7. give the files the permissions 755.<br>
+7b. If the ending cgi is desired, change the ending of all 3 files from pl -> cgi (rename). <br>
+8. call the configuration in MyOOS [Dumper].<br>
+9. select the page Cronscript. <br>
+10. change perl execution path to /cgi-bin/ .<br>
+10b. If the scripts have .pl, change the file extension to .cgi .<br>
+11.Save the configuration. <br><br>
+
+Done, the scripts can now be called from the backup page.<br><br>.
+
+For those who can run Perl in all directories, the following steps will suffice:<br><br>.
+
+1. call in the MyOOS [Dumper] the page Backup. <br>
+2. copy the path that is behind entry in crondump.pl for $absolute_path_of_configdir:. <br>
+3. open the file "crondump.pl" in the editor. <br>
+4. enter the copied path there at absolute_path_of_configdir (no spaces). <br>
+5. save crondump.pl .<br>
+6. give the files the permissions 755. <br>
+6b. If the extension cgi is desired, change the extension of all 3 files from pl -> cgi (rename). <br>
+(ev. 10b+11 from above)<br>
 <br>
 
-<h3>MySQLDumper Yardimi</h3>
+Windowsuser have to change the first line of all scripts, there is the path of Perl. Example: <br>
+instead of: #!/usr/bin/perl -w <br>
+now: #!C:_usr/bin/perl.exe -w <br>
 
-<h4>Indirme</h4>
-Bu yazilimi MySQLDumper Sitesinden temin edebilirsiniz.<br>
-Güncellemeler ve destek için Sitemizi sik sik takip etmenizi tavsiye ederiz.<br>
-Site adresi: <a href="http://www.mysqldumper.de" target="_blank">
-http://www.mysqldumper.de</a>
+<h4>Operation</h4><ul>.
 
-<h4>Sistem gereksinimleri</h4>
-Mysqldumper her sunucuda çalisir (Windows, Linux, ...) <br>
-PHP sürümü >=  4.3.4 GZip-destekli, MySQL (3.23 sürümünden itibaren), JavaScript (aktiv olmak zorunda).
+<h6>Menu</h6>.
+In the selection list above you set the database.<br>
+All actions refer to the database set here.
 
-<a href="install.php?language=de" target="_top"><h4>Kurulum</h4></a>
-Kurulumu çok basittir.
-Sikistirilmis dosyayi herhangi bir klasör içerisinde açiniz.<br>
-Açilann dosyalari FTP ile Sunucunuza yükleyiniz. (Örnegin root [sizindomain/]MySQLDumper)<br>
-... bitti!<br>
-Artik MySQLDumper'i tarayiciniz ile "http://sizindomain/MySQLDumper" adresini girerek açabilirsiniz,<br>
-kurulumu tamamlamak için saadece Sistemin sorularini cevaplamaniz yeterlidir.<br>
-<br><b>ÖNEMLI:</b><br><i>Sunucunuzda </i><tt>safe_mode</tt><i> açik ise, yazilimin klasör olusturma imkani yoktur.<br>
-Gerekli klasörleri kendiniz olusturmaniz gerekir, MySqlDumper'in çalisabilmesi için belli bir düzende klasörlerin bulunmasi gerekir.<br>
-Bu durumda yazilim kurulumu hata belirterek durduracaktir!<br>
-Verilen hataya göre klasörleri olusturdugunuz taktirde yaziliminiz normal bir sekilde islev görecektir.</i>
+<h6>Home</h6>
+Here you can learn about your system, the different installed versions and details about the
+versions and details about the configured databases.<br>
+If you click on the database name, you will see a list of the tables with the number of entries
+with the number of entries, the size and the last update date.
 
-<a name="perl"></a><h4>Perlskript kullanimi</h4>
-Sunucularin birçogu Perl Scripleri destekler. <br>
-Bu scriptlerin belli bir klasör içerisinde bulunmasi gerekebilir, klasörün adresi genellikle http://sizindomain/cgi-bin/ dir.
-<br>
-<br>
-Bu durumda yapilmasi gereken islemler:<br><br>
-
-1. MySQLDumper'i açtiktan sonra Yedekleme sayfasini açiniz ve "Yedekleme Perl" tusunu tiklayiniz. <br>
-2. Crondump.pl de kayitli adres absolute_path_of_configdir: in arkasinda bulunan kayidi kopyalayiniz. <br>
-3. "crondump.pl" Editör ile açiniz.<br>
-4. Kopyaladiginiz adresi absolute_path_of_configdir´in arkasina yapistiriniz (bosluk birakilmayacak).<br>
-5. Crondump.pl i kapatarak kayit ediniz.<br>
-6. Crondump.pl, perltest.pl ve simpletest.pl dosyalarini cgi-bin-klasörüne kopyalayiniz (FTP ile Ascii-Modüsünde).<br>
-7. Dosyalarin haklarini 755 olarak belirleyiniz (CHMOD). <br>
-7b. Dosyabitimi cgi olmasi gerekiyorsa her 3 dosyanin adinin degistiriniz  pl -> cgi. <br>
-8. Ayar Merkez, sayfasini açiniz.<br>
-9. Cronscript e tiklayiniz. <br>
-10. Perl veriyolunu /cgi-bin/ seklinde degistiriniz.<br>
-10b. Kullanilan dosyabitimi  seçiniz.<br>
-11. Ayarlari kayit ediniz. <br><br>
-
-Ayarlar tamamlanmistir, Scriptleri yedekleme sayfasindan çalistirabilirsiniz.<br><br>
-
-Perli her klasörden çalistirma yetkiniz bulunuyorsa:<br><br>
-
-1. MySQLDumper'i açtiktan sonra Yedekleme sayfasini açiniz ve "Yedekleme Perl" tusunu tiklayiniz. <br>
-2. Crondump.pl de kayitli adres absolute_path_of_configdir: in arkasinda bulunan kayidi kopyalayiniz. <br>
-3. "crondump.pl" Editör ile açiniz. <br>
-4. Kopyaladiginiz adresi absolute_path_of_configdir´in arkasina yapistiriniz (bosluk birakilmayacak).<br>
-5. Crondump.pl i kapatarak kayit ediniz.<br>
-6. Dosyalarin haklarini 755 olarak belirleyiniz (CHMOD). <br>
-6b. Dosyabitimi cgi olmasi gerekiyorsa her 3 dosyanin adinin degistiriniz  pl -> cgi. <br>
-(Gerekirse yukaridaki 10b+11 ci adimlari da uygulayiniz)<br>
-<br>
-
-Windows kullanicilarinin Scriptlerin ilk satirinda /cgi-bin/ veriyolunu degistirmeleri gerekir:<br>
-#!/usr/bin/perl -w yerine <br>
-#!C:\perl\bin\perl.exe -w yazilacak<br>
-
-<h4>Kullanim</h4><ul>
-
-<h6>Menü</h6>
-islenecek Veritabanini burada seçeceksiniz.<br>
-Bütün islemler burada beelirlenmis olan Veritabanina uygulanir.
-
-<h6>Ana Sayfa</h6>
-Burada kullandiginiz sistem hakkinda bilgiler bulabilirsiniz, yüklenmis
-sürümler, Veritabanilari vs..<br>
-Veritabni ismine tiklandiginda tablolarin listesine ulasilabilir.
-Kayitsayisi ebat ve son güncelleme bilgilerini burada bulabilirsiniz.
-
-<h6>Ayar Merkezi</h6>
-Sistem ayarlarini burada belirleyebilir, yedeklemeden geri dönüstürebilir veya sifirlayabilirsiniz.
+<h6>Configuration</h6>.
+Here you can edit your configuration, save it or restore the initial configuration.
+restore.
 <ul><br>
-    <li><a name="conf1"></a><strong>Veritabanlari:</strong> Veritabanlari Listesi. Aktiv olan Veritabani <b>kalin</b> yazilmistir. </li>
-    <li><a name="conf2"></a><strong>Tablo ön eki:</strong> Burada belirleyeceginiz filtre tedeklenecek tablolarda uygulanacaktir
-    	 (örnegin: "phpBB_" ile baslayan tablolar). Veritabaninin bütün tablolarini yedeklemek istiyorsanin burasini bos birakiniz.</li>
-    <li><a name="conf3"></a><strong>Sikistirma:</strong> Sikistirmayi burada açabilirsiniz. Sikistirmayi kullanmanizi tavsiye ederiz.</li>
-    <li><a name="conf5"></a><strong>Yedekleme ekli Mail:</strong> Bu Opsyon kullanildiginda, islemin sonunda gönderilecek mail'e yedekleme dosyasi eklenecektir. Sikistirmanin aktiv olmasini öneririz !).</li>
-    <li><a name="conf6"></a><strong>Email-Adresi:</strong> Mailin ulastirilacagi adres.</li>
-    <li><a name="conf7"></a><strong>Email göndericisi:</strong> gönderilecek mailin kimin adina gönderildigi.</li>
-    <li><a name="conf13"></a><strong>FTP-Transferi: </strong>Bu Opsyon kullanildiginda, islem sonunda yedekleme dosyasi FTP ile gönderilir.</li>
-    <li><a name="conf14"></a><strong>FTP Sunucusu: </strong>Die FTP sunucusunun adress (örnegin: ftp.mybackups.de).</li>
-    <li><a name="conf15"></a><strong>FTP Sunucu Portu: </strong>FTP-Sunucusunun Portu (Genelde 21).</li>
-    <li><a name="conf16"></a><strong>FTP Kulanicisi: </strong>FTP-kullanicisinin adi. </li>
-    <li><a name="conf17"></a><strong>FTP sifresi: </strong>FTP-kullanicisinin  sifresi. </li>
-    <li><a name="conf18"></a><strong>FTP yükleme klasörü: </strong>Yedekleme dosyasinin yüklenecegi klasörün adi. (UYARI: CHMOD ayarlarini göz önünde bulundurunuz).</li>
-    <li><a name="conf8"></a><strong>Otomatik dosya silme:</strong> Bu Opsyon kullanildiginda, belirlenecek kurallara göre yedekleme dosyalari silinecektir.</li>
-    <li><a name="conf10"></a><strong>Dosya sayisi:</strong> 0 dan büyük bir deger, bu degeri asan dosya sayisindan fazla olan dosyalari silecektir.</li>
-    <li><a name="conf11"></a><strong>Dil:</strong> MySQL Dumperin kullanacagi dili burada belirlersiniz.</li>
-    <li><a name="conf12"></a><strong>Cronjob zamandilimi:</strong> Saniye olarak belirlenecek deger, Cronjob için geçerli olan süreyi (eger yetkiniz varsa) yükseltmege deger.</li>
+	<li><a name="conf1"></a><strong>Configured databases:</strong> the listing of configured databases. The active database is listed in <b>bold</b>. </li>
+	<li><a name="conf2"></a><strong>Table prefix:</strong> here you can specify (for each database) a prefix. This is a filter that will take into account for dumps only the tables that start with this prefix (for example, all tables that start with "phpBB_"). If you want all tables in this database to be saved, just leave the field empty.</li>.
+	<li><a name="conf3"></a><strong>GZip compression:</strong> Here you can enable compression. It is recommended to enable it, because the files will be much smaller after all and disk space is always scarce.</li>.
+	<li><a name="conf5"></a><strong>Email with Dumpfile:</strong> If this option is enabled, an email with the dump as an attachment will be sent after the backup is complete (caution, compression should absolutely be on, otherwise the attachment will be too large and may not be sent!).</li>
+	<li><a name="conf6"></a><strong>Email address:</strong> Recipient address for the email.</li>
+	<li><a name="conf7"></a><strong>Sender of the email:</strong> this address appears as the sender in the email.</li>
+	<li><a name="conf13"></a><strong>FTP Transfer: </strong>If this option is enabled, the backup file will be sent via FTP after the backup is completed.</li>
+	<li><a name="conf14"></a><strong>FTP Server: </strong>The address of the FTP server (e.g. ftp.mybackups.com).</li>
+	<li><a name="conf15"></a><strong>FTP Server Port: </strong>The port of the FTP server (usually 21).</li>
+	<li><a name="conf16"></a><strong>FTP User: </strong>The username of the FTP account. </li>
+	<li><a name="conf17"></a><strong>FTP Password: </strong>The password of the FTP account. </li>
+	<li><a name="conf18"></a><strong>FTP Upload Folder: </strong>The directory where the backup file should go (upload permissions must exist!).</li>
+	<li><a name="conf8"></a><strong>Automatic deletion of backups:</strong> If this option is enabled, older backups will be deleted automatically according to the following rules.</li>.
+	<li><a name="conf10"></a><strong>Number of backup files:</strong> A value > 0 deletes all backup files except for the number specified here.</li>
+	<li><a name="conf11"></a><strong>Language:</strong> here you specify the language for the interface.</li>
 </ul>
 
-<h6>Dosya yönetimi</h6>
-Dosya islemleri burada yapilir
-Yedekleme Klasörünüzde bulunan dosyalar listelenir.<br>
-islemlerin uygulanabilmesi için bir dosyanin seçilmis olmasi gerekiyor.
+<h6>Administration</h6>.
+This is where the actual actions are performed.<br>
+It will show you all the files in the backup directory.
+For the actions "Restore" and "Delete" a file must be selected.
 <UL>
-    <li><strong>Restore:</strong> Burada veritabani, seçilmis dosya ile dönüstürülür.</li>
-    <li><strong>Delete:</strong> Seçilmis yedekleme dosyalari silinir.</li>
-    <li><strong>Yeni Yedekleme baslat:</strong> Ayarlarda belirlenmis sartlarla yeni bir yedekleme olusturulur.</li>
+	<li><strong>Restore:</strong> This will update the database with the selected backup file.</li>
+	<li><strong>Delete:</strong> This lets you delete the selected backup file.</li>
+	<li><strong>Start new backup:</strong> Here you start a new backup (dump) according to the parameters set in the configuration.</li>.
 </UL>
 
-<h6>Raporlar</h6>
-Burada rapor dosyalarini görebilir veya silebilirsiniz.
-<h6>Künye / Yardim</h6>
-bu Sayfa.
+<h6>Log</h6>
+Here you can see and delete the log entries.
+<h6>Credits / Help</h6>
+this page.
 </ul>

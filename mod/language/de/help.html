@@ -1,36 +1,57 @@
 <div id="content">
-<h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
+<h3><strong>MyOOS [Dumper]</strong> based on MySQLDumper 1.24.4</h3>
 
 <h3>Über dieses Projekt</h3>
-Die Idee für dieses Projekt kam von Daniel Schlichtholz.<p>Er eröffnete 2004 das Forum MySQLDumper, und schon bald fanden sich Hobby-Programmierer, die neue Skripte schrieben und die von Daniel erweiterten.<br>Innerhalb kürzester Zeit entstand aus dem kleinen Backupskript ein stattliches Projekt.<p>Wenn Du Vorschläge zur Verbesserung hast, dann wende Dich an das MySQLDumper-Forum <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.<p>Wir wünschen Dir viel Vergnügen mit diesem Projekt.<br><p><h4>Das MySQLDumper-Team</h4>
+<p><strong>MyOOS [Dumper]</strong> ist eine verbesserte Version von MySQLDumper 1.24.4 (24. Januar 2011). Diese Weiterentwicklung berücksichtig die Entwicklung von PHP.</p>
+<p>Vor allem Stabilität, Sicherheit und Handhabung stehen bei <strong>MyOOS [Dumper]</strong> maßgeblich im Vordergrund. Aber auch ein ansprechendes Template wird mitgeliefert, welches beliebig bearbeitet und an eigene Bedürfnisse angepasst werden kann.</p>
 
-<table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
-Daniel Schlichtholz</td></tr></table>
-<br>
 
-<h3>MySQLDumper Hilfe</h3>
+<p><strong>MyOOS [Dumper]</strong> ist ein Sicherungsprogramm für MySQL-Datenbanken, geschrieben in PHP und Perl. Damit können Sicherungskopien der Daten (Shop, Blog, usw.) erstellt und bei Bedarf auch wieder hergestellt werden. Besonders bei Web-Space ohne Shell-Zugang bietet sich MyOOS [Dumper] als sinnvolle Alternative an.</p> 
+
+<p>Die Idee für MySQLDumper kam von Daniel Schlichtholz. Er eröffnete 2004 das Forum MySQLDumper, woraufhin Programmierer neue Skripte schrieben und bestehende erweiterten.</p>
+<p>Offizielle Entwicklersite: www.mysqldumper.de</p>
+
+
+
+<h3>Wunschliste / Künftige Attraktionen</h3>
+<p>Hast du Verbesserungsvorschläge? Zögere nicht, das Entwicklerteam über das Forum <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a> zu kontaktieren.</p>
+
+
+<h3>Mitwirken</h3>
+<p>Wenn du uns dabei helfen möchtest, das MyOOS Projekt zu verbessern, freuen wir uns hier auf deine Pull Requests via GitHub.</p>
+<a href="https://github.com/r23/MyOOS/" target="_blank">https://github.com/r23/MyOOS/</a>
+
+
+<h3>Finanzielle Unterstützung</h3>
+<p>Man kann mit PayPal Me Geld senden. <br>
+<a href="https://www.paypal.com/paypalme/r23de?locale.x=de_DE" target="_blank">https://www.paypal.com/paypalme/r23de?locale.x=de_DE</a></p> 
+
+
+<p>Wir wünschen Dir viel Vergnügen mit diesem Projekt.<br><p><h4>Das MyOOS [Dumper]-Team</h4>
+
+<img src="css/mod/pics/h1_logo.gif" alt="MyOOS [Dumper]">
+
+<h3>MyOOS [Dumper] Hilfe</h3>
 
 <h4>Download</h4>
-Dieses Script erhaltet Ihr auf der Homepage von MySQLDumper.<br>
-Es empfiehlt sich, die Homepage regelmäßig zu besuchen, um Updates und
-Hilfestellungen zu erlangen.<br>
-Die Adresse lautet: <a href="http://www.mysqldumper.de" target="_blank">
-http://www.mysqldumper.de</a>
+<p>Aktuelle Versionen erhälst du immer über GitHub<br>
+<a href="https://github.com/r23/MyOOS/releases" target="_blank">https://github.com/r23/MyOOS/releases</a></p>
+
 
 <h4>Systemvoraussetzung</h4>
-Das Script arbeitet auf jedem Server (Windows, Linux, ...) <br>
-mit PHP >= Version 4.3.4 mit GZip-Unterstützung, MySQL (ab Version 3.23), JavaScript (muss aktiviert sein).
+<p>Das Script arbeitet auf jedem Server (Windows, Linux, ...) <br>
+mit PHP >= Version 7.2 mit GZip-Unterstützung, MySQL (ab Version 4.1), JavaScript (muss aktiviert sein).</p>
+<p>Aus dem MyOOS Archiv den Ordner mod in einen separaten Arbeitsordner kopieren.</p>
 
-<a href="install.php?language=de" target="_top"><h4>Installation</h4></a>
+<h4>Installation</h4></a>
 Die Installation geht einfach von statten.
-Entpackt das Archiv in einen beliebigen Ordner.<br>
-Ladet alle Dateien auf Euren Webserver hoch. (z. B. in die unterste Ebene in [Server Webverzeichnis/]MySQLDumper)<br>
+<p>Aus dem MyOOS Archiv den Ordner mod in einen beliebigen Ordner kopieren.<br>
+Ladet alle Dateien aus dem ordner mod auf deinen Webserver hoch. (z. B. in die unterste Ebene in [Server Webverzeichnis/]mod)<br>
 ... fertig!<br>
-Ihr könnt MySQLDumper nun im Webbrowser durch "http://mein-webserver/MySQLDumper" aufrufen,<br>
+Du kannst MyOOS [Dumper] nun im Webbrowser durch "https://example.com/mod/" aufrufen,<br>
 um die Installation abzuschließen. Folgt einfach den Instruktionen.<br>
-<br><b>Hinweis:</b><br><i>Falls auf Eurem Server der PHP-Safemode eingeschaltet ist, darf das Script keine
-Verzeichnisse erstellen.<br>
-Dies müsst Ihr dann von Hand nachholen, da MySqlDump die Daten geordnet in
+<br><b>Hinweis:</b><br><i>Falls auf Eurem Server das Script keine Verzeichnisse erstellen darf, <br>
+müsst Ihr dies dann von Hand nachholen, da MyOOS [Dumper] die Daten geordnet in
 Verzeichnissen ablegt.<br> 
 Das Script bricht mit einer entsprechenden Anweisung ab!<br>
 Nachdem Ihr die Verzeichnisse (dem Hinweis entsprechend) erstellt habt, läuft es normal und ohne Einschränkungen.</i>
@@ -41,7 +62,7 @@ Dies ist meist per Browser über http://www.example.com/cgi-bin/ erreichbar. <br
 <br>
 Für diesen Fall bitte folgende Schritte durchführen:<br><br>
 
-1. Rufe im MySQLDumper die Seite Backup auf und klicke auf "Backup Perl". <br>
+1. Rufe im MyOOS [Dumper] die Seite Backup auf und klicke auf "Backup Perl". <br>
 2. Kopiere den Pfad, der hinter Eintrag in crondump.pl für $absolute_path_of_configdir: steht. <br>
 3. Öffne die Datei "crondump.pl" im Editor.<br>
 4. Trage den kopierten Pfad dort bei absolute_path_of_configdir ein (keine Leerzeichen).<br>
@@ -49,7 +70,7 @@ Für diesen Fall bitte folgende Schritte durchführen:<br><br>
 6. Kopiere crondump.pl, sowie perltest.pl und simpletest.pl ins cgi-bin-Verzeichnis (Ascii-Modus im FTP).<br>
 7. Gebe den Dateien die Rechte 755. <br>
 7b. Wenn die Endung cgi gewünscht ist, ändere bei allen 3 Dateien die Endung von pl -> cgi (umbenennen). <br>
-8. Rufe die Konfiguration im MySQLDumper auf.<br>
+8. Rufe die Konfiguration im MyOOS [Dumper] auf.<br>
 9. Wähle die Seite Cronscript. <br>
 10. Ändere Perl Ausführungspfad in /cgi-bin/ .<br>
 10b. Wenn die Scripte .pl haben, ändere die Dateiendung auf .cgi .<br>
@@ -59,7 +80,7 @@ Fertig, die Skripte lassen sich nun von der Backupseite aufrufen.<br><br>
 
 Wer Perl in allen Verzeichnissen ausführen kann, dem reichen folgende Schritte:<br><br>
 
-1. Rufe im MySQLDumper die Seite Backup auf. <br>
+1. Rufe im MyOOS [Dumper] die Seite Backup auf. <br>
 2. Kopiere den Pfad, der hinter Eintrag in crondump.pl für $absolute_path_of_configdir: steht. <br>
 3. Öffne die Datei "crondump.pl" im Editor. <br>
 4. Trage den kopierten Pfad dort bei absolute_path_of_configdir ein (keine Leerzeichen). <br>
@@ -90,8 +111,7 @@ Hier könnt Ihr eure Konfiguration bearbeiten, abspeichern oder die Ausgangskonf
 wieder herstellen.
 <ul><br>
 	<li><a name="conf1"></a><strong>Konfigurierte Datenbanken:</strong> die Auflistung der konfigurierten Datenbanken. Die aktive Datenbank wird in <b>bold</b> gelistet. </li>
-	<li><a name="conf2"></a><strong>Tabellen-Präfix:</strong> hier könnt Ihr (für jede Datenbank) einen Präfix angeben. Dies ist ein Filter, der bei Dumps nur die Tabellen berücksichtigt, die mit diesem Präfix beginnen (z.B. alle Tabellen, die mit "phpBB_" beginnen). Wenn alle Tabellen dieser Datenbank gespeichert werden sollen, 
-so lasst das Feld einfach leer.</li>
+	<li><a name="conf2"></a><strong>Tabellen-Präfix:</strong> hier könnt Ihr (für jede Datenbank) einen Präfix angeben. Dies ist ein Filter, der bei Dumps nur die Tabellen berücksichtigt, die mit diesem Präfix beginnen (z.B. alle Tabellen, die mit "phpBB_" beginnen). Wenn alle Tabellen dieser Datenbank gespeichert werden sollen, so lasst das Feld einfach leer.</li>
 	<li><a name="conf3"></a><strong>GZip-Kompression:</strong> Hier kann die Kompression aktiviert werden. Empfehlenswert ist die Aktivierung, da die Dateien doch wesentlich kleiner werden und Speicherplatz immer rar ist.</li>
 	<li><a name="conf5"></a><strong>Email mit Dumpfile:</strong> Ist diese Option aktiviert, so wird nach abgeschlossenem Backup eine Email mit dem Dump als Anhang verschickt (Vorsicht, Kompression sollte unbedingt an sein, sonst wird der Anhang zu gross und kann evtl. nicht versandt werden!).</li>
 	<li><a name="conf6"></a><strong>Email-Adresse:</strong> Empfängeradresse für die Email.</li>

@@ -1,129 +1,144 @@
 <div id="content">
-<h3>MyOOS [Dumper] based on MySQLDumper 1.24.4</h3>
+<h3><strong>MyOOS [Dumper]</strong> based on MySQLDumper 1.24.4</h3>
 
 <h3>About this project</h3>
-The idea for this project comes from Daniel Schlichtholz.<p>In 2004 he created a forum called MySQLDumper and soon, programmers who wrote new scripts, supplemented Daniel's scripts.<br>After a short time the small backup-script developed into a stately project.<p>If you have any improvement suggestions you can visit the MySQLDumper-Forum: <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.<p>We wish you a lot of fun with this project.<br><br><h4>The MySQLDumper-Team</h4>
-<table><tr><td><img src="images/logo.gif" alt="MySQLDumper" border="0"></td><td valign="top">
-Daniel Schlichtholz</td></tr></table>
+<p><strong>MyOOS [Dumper]</strong> is an improved version of MySQLDumper 1.24.4 (January 24, 2011). This enhancement takes into account the development of PHP.</p>.
+<p>Most of all stability, security and handling are the main focus of <strong>MyOOS [Dumper]</strong>. But also an attractive template is included, which can be edited and adapted to your own needs.</p>.
 
-<h3>MySQLDumper Help</h3>
+
+<p><strong>MyOOS [Dumper]</strong> is a backup program for MySQL databases, written in PHP and Perl. With it, backup copies of the data (store, blog, etc.) can be created and restored if necessary. Especially for web space without shell access, MyOOS [Dumper] is a useful alternative.</p>. 
+
+<p>The idea for MySQLDumper came from Daniel Schlichtholz. He opened the MySQLDumper forum in 2004, whereupon programmers wrote new scripts and extended existing ones.</p>
+<p>Official developer site: www.mysqldumper.de</p>
+
+
+
+<h3>Wish List / Future Attractions</h3>.
+<p>Do you have any suggestions for improvements? Feel free to contact the development team via the forum <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.</p>
+
+
+<h3>Contribute</h3>.
+<p>If you would like to help us improve the MyOOS project, we welcome your pull requests via GitHub here.</p>
+<a href="https://github.com/r23/MyOOS/" target="_blank">https://github.com/r23/MyOOS/</a>
+
+
+<h3>Financial Support</h3>.
+<p>You can use PayPal Me to send money. <br>
+<a href="https://www.paypal.com/paypalme/r23de?locale.x=de_DE" target="_blank">https://www.paypal.com/paypalme/r23de?locale.x=de_DE</a></p> 
+
+
+<p>We hope you enjoy this project.<br><p><h4>The MyOOS [Dumper] Team</h4>
+
+<img src="css/mod/pics/h1_logo.gif" alt="MyOOS [Dumper]">
+
+<h3>MyOOS [Dumper] Help</h3>
 
 <h4>Download</h4>
-This Script is available on the Homepage of MySQLDumper.<br>
-It is recommanded to visit the Homepage frequently to get the latest information, updates and help.<br>
-The address is <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">
-https://foren.myoos.de/viewforum.php?f=41
-</a>
-
-<h4>System Mandatories</h4>
-The Script works with nearly any server (Windows, Linux, ...) <br>
-and PHP >= Version 4.3.4 with GZip-Library, MySQL (>= 3.23), JavaScript (must be enabled).
-
-<a href="install.php?language=de" target="_top"><h4>Installation</h4></a>
-The installation is very easy.
-Unpack the archive in any folder,
-which is accessible from the Webserver<br>
-(e.g. in the root directory [Server rootdir/]MySQLDumper)<br>
-change config.php to chmod 777<br>
-... all done!<br>
-you can start MySQLDumper in your Browser by typing "http://www.example.com/mod"
-to complete the setup, just follow the instructions.
-
-<br><b>Note:</b><br><i>If your webserver runs with the option safemode=ON MySqlDump mustn't create directories.<br>
-You will have to do that yourself.<br>
-MySqlDump breaks in that case and tells you what to do.<br>
-After you created the directories MySqlDump will function normally.</i><br>
-
-<a name="perl"></a><h4>Guidance for the Perl script</h4>
-
-Most have a cgi-bin directory, in which Perl can be executed. <br>
-This is usually by Browser over http://www.example.com/cgi-bin/ available. <br><br>
-
-Make the following steps for this case please.  <br><br>
-
-1.  Call in MySQLDumper the page Backup and click "Backup Perl"   <br>
-2.  Copy the path, that stands behind entry in crondump.pl for $absolute_path_of_configdir:    <br>
-3. open the file "crondump.pl" in the editor <br>
-4. paste the copied path there with absolute_path_of_configdir (no blanks) <br>
-5.  Save crondump.pl <br>
-6. copy crondump.pl, as well as perltest.pl and simpletest.pl to the cgi-bin directory (ASCII mode in the ftp-client!) <br>
-7. chmod 755 to the scripts.  <br>
-7b. If the ending cgi is desired, change the ending of all 3 files  pl - > cgi (rename)  <br>
-8.  Call in the MySQLDumper the page Configuration<br>
-9. click on Cronscript <br>
-10. changes Perl execution path to /cgi-bin/<br>
-10b. if the Scripts are renamed to *.cgi , change Fileextension to cgi <br>
-11 save the Configuration <br><br>
-
-Ready ! The scripts are available from the Page "Backup" <br><br>
-
-When you can execute Perl anywhere, only following step are needed:  <br><br>
-
-1.  Call in MySQLDumper the page Backup.  <br>
-2.  Copy the path, that stands behind entry in crondump.pl for $absolute_path_of_configdir:  <br>
-3. open the file "crondump.pl" in the editor <br>
-4. paste the copied path there with absolute_path_of_configdir (no blanks) <br>
-5.  Save crondump.pl <br>
-
-6. chmod 755 to the scripts.  <br> 
-6b. If the ending cgi is desired, change the ending of all 3 files  pl - > cgi (rename)  <br>
-(ev. 10b+11 from above) <br><br>
+<p>You can always get the latest versions via GitHub<br>.
+<a href="https://github.com/r23/MyOOS/releases" target="_blank">https://github.com/r23/MyOOS/releases</a></p>
 
 
-Windowsuser must change the first line of all Perlscripts, to the path of Perl.  <br><br>
+<h4>System requirement</h4>.
+<p>The script works on any server (Windows, Linux, ...) <br>
+with PHP >= version 7.2 with GZip support, MySQL (version 4.1 or higher), JavaScript (must be enabled)</p>.
+<p>Copy the mod folder from the MyOOS archive to a separate working folder.</p>.
 
-Example:  <br>
+<h4>Installation</h4></a>.
+The installation process is straightforward.
+<p>From the MyOOS archive, copy the mod folder into any folder.<br>
+Upload all the files from the mod folder to your web server. (For example, to the lowest level in [server web directory/]mod)<br>
+... done!<br>
+You can now call MyOOS [Dumper] in your web browser by "https://example.com/mod/",<br>
+to complete the installation. Just follow the instructions.<br>
+<br><b>Note:</b><br><i>If on your server the script is not allowed to create directories,<br>
+you have to do this manually, because MyOOS [Dumper] stores the data ordered in
+directories.<br> 
+The script aborts with an appropriate statement!<br>
+After you have created the directories (according to the hint), it runs normally and without restrictions.</i>
 
-instead of:  #!/usr/bin/perl w <br>
-now #!C:\perl\bin\perl.exe w<br>
+<a name="perl"></a><h4>Perl script instructions</h4>.
+Most have a cgi-bin directory where perl can be run. <br>
+This is usually accessible by browser via http://www.example.com/cgi-bin/. <br>
+<br>
+For this case, please perform the following steps:<br><br>.
 
-<h4>Operating</h4><ul>
+1. call the Backup page in MyOOS [Dumper] and click on "Backup Perl". <br>
+2. copy the path that is behind entry in crondump.pl for $absolute_path_of_configdir:. <br>
+3. open the file "crondump.pl" in the editor.<br>
+4. enter the copied path there at absolute_path_of_configdir (no spaces).<br>
+5. save crondump.pl .<br>
+6. copy crondump.pl, as well as perltest.pl and simpletest.pl into the cgi-bin directory (ascii mode in FTP).<br>
+7. give the files the permissions 755.<br>
+7b. If the ending cgi is desired, change the ending of all 3 files from pl -> cgi (rename). <br>
+8. call the configuration in MyOOS [Dumper].<br>
+9. select the page Cronscript. <br>
+10. change perl execution path to /cgi-bin/ .<br>
+10b. If the scripts have .pl, change the file extension to .cgi .<br>
+11.Save the configuration. <br><br>
 
-<h6>Menu</h6>
-In the select box above you choose your database.<br>
-All actions refer to this database.
+Done, the scripts can now be called from the backup page.<br><br>.
+
+For those who can run Perl in all directories, the following steps will suffice:<br><br>.
+
+1. call in the MyOOS [Dumper] the page Backup. <br>
+2. copy the path that is behind entry in crondump.pl for $absolute_path_of_configdir:. <br>
+3. open the file "crondump.pl" in the editor. <br>
+4. enter the copied path there at absolute_path_of_configdir (no spaces). <br>
+5. save crondump.pl .<br>
+6. give the files the permissions 755. <br>
+6b. If the extension cgi is desired, change the extension of all 3 files from pl -> cgi (rename). <br>
+(ev. 10b+11 from above)<br>
+<br>
+
+Windowsuser have to change the first line of all scripts, there is the path of Perl. Example: <br>
+instead of: #!/usr/bin/perl -w <br>
+now: #!C:_usr/bin/perl.exe -w <br>
+
+<h4>Operation</h4><ul>.
+
+<h6>Menu</h6>.
+In the selection list above you set the database.<br>
+All actions refer to the database set here.
 
 <h6>Home</h6>
-Here you get information about your system, the version numbers and details about the configured databases.<br>
-If you click on a database in the table, you get a list of tables with record counts, size and last update stamp.
+Here you can learn about your system, the different installed versions and details about the
+versions and details about the configured databases.<br>
+If you click on the database name, you will see a list of the tables with the number of entries
+with the number of entries, the size and the last update date.
 
-<h6>Configuration</h6>
-Here you can edit your configuration, save it or load the default settings.
-<ul>
-	<li><a name="conf1"><strong>Configured Databases:</strong> list of configured databases. The active database is in bold.</li>
-	<li><a name="conf2"><strong>Table-Prefix:</strong> you can choose a prefix for each database seperated. The prefix is a filter, which only handle the tables in a dump, that start with this prefix (e.g. all tables starting with "phpBB_"). If you don't want to use it, leave this field empty.</li>
-	<li><a name="conf3"><strong>GZip-Compression:</strong> Here you can activate the compression. It is recommended to work with compression because of the smaller size of files, netherless disk space is ever rarely.</li>
-	<li><a name="conf19"></a><strong>Records count for backup:</strong> These are the number of records which are being read simultaneously while the backup, before the script makes the callback. For slow server you can reduce this parameter to prevent timeouts.</li>
-	<li><a name="conf20"></a><strong>Records count for restore:</strong> These are the number of records which are being read simultaneously while the backup, before the script makes the callback. For slow server you can reduce this parameter to prevent timeouts.</li>
-	<li><a name="conf4"></a><strong>Directory for Backup files:</strong> choose your directory for the backup files. If you choose a new one, the script will create it for you. You can use relative or absolute paths.</li>
-	<li><a name="conf5"></a><strong>Send dumpfile as email:</strong> When this option is enabled, the script will automatically send the finished backup file as an email with an attachment (be careful!, you should use compression with this option because the dumpfile may be too large for email!)</li>
-	<li><a name="conf6"></a><strong>Email address:</strong> Recipient's email address</li>
-	<li><a name="conf7"></a><strong>Email subject:</strong> The subject of the email</li>
-	<li><a name="conf13"></a><strong>FTP-Transfer: </strong>When this option is enabled, the script will automatically send the finished backup file via FTP.</li>
-	<li><a name="conf14"><strong>FTP Server: </strong>the Address of the FTP-Servers (e.g. ftp.mybackups.de)</li>
-	<li><a name="conf15"></a><strong>FTP Server Port: </strong>the Port for the FTP-Server (normally 21)</li>
-	<li><a name="conf16"></a><strong>FTP User: </strong>the username for the FTP-Account</li>
-	<li><a name="conf17"></a><strong>FTP Passwort: </strong>the password for the FTP-Account</li>
-	<li><a name="conf18"></a><strong>FTP Upload-Ordner: </strong>the folder for saving the backup file (there must be Upload-Rights!)</li>
-	
-	<li><a name="conf8"></a><strong>automatic deletion of backups:</strong> When you activate this options, backup files will be deleted automatically by the following rules.</li>
-	<li><a name="conf10"></a><strong>Delete by number of files:</strong> A Value > 0 deletes all files except the given value</li>
-	<li><a name="conf11"></a><strong>Langauge:</strong> choose your language for the interface.</li>
+<h6>Configuration</h6>.
+Here you can edit your configuration, save it or restore the initial configuration.
+restore.
+<ul><br>
+	<li><a name="conf1"></a><strong>Configured databases:</strong> the listing of configured databases. The active database is listed in <b>bold</b>. </li>
+	<li><a name="conf2"></a><strong>Table prefix:</strong> here you can specify (for each database) a prefix. This is a filter that will take into account for dumps only the tables that start with this prefix (for example, all tables that start with "phpBB_"). If you want all tables in this database to be saved, just leave the field empty.</li>.
+	<li><a name="conf3"></a><strong>GZip compression:</strong> Here you can enable compression. It is recommended to enable it, because the files will be much smaller after all and disk space is always scarce.</li>.
+	<li><a name="conf5"></a><strong>Email with Dumpfile:</strong> If this option is enabled, an email with the dump as an attachment will be sent after the backup is complete (caution, compression should absolutely be on, otherwise the attachment will be too large and may not be sent!).</li>
+	<li><a name="conf6"></a><strong>Email address:</strong> Recipient address for the email.</li>
+	<li><a name="conf7"></a><strong>Sender of the email:</strong> this address appears as the sender in the email.</li>
+	<li><a name="conf13"></a><strong>FTP Transfer: </strong>If this option is enabled, the backup file will be sent via FTP after the backup is completed.</li>
+	<li><a name="conf14"></a><strong>FTP Server: </strong>The address of the FTP server (e.g. ftp.mybackups.com).</li>
+	<li><a name="conf15"></a><strong>FTP Server Port: </strong>The port of the FTP server (usually 21).</li>
+	<li><a name="conf16"></a><strong>FTP User: </strong>The username of the FTP account. </li>
+	<li><a name="conf17"></a><strong>FTP Password: </strong>The password of the FTP account. </li>
+	<li><a name="conf18"></a><strong>FTP Upload Folder: </strong>The directory where the backup file should go (upload permissions must exist!).</li>
+	<li><a name="conf8"></a><strong>Automatic deletion of backups:</strong> If this option is enabled, older backups will be deleted automatically according to the following rules.</li>.
+	<li><a name="conf10"></a><strong>Number of backup files:</strong> A value > 0 deletes all backup files except for the number specified here.</li>
+	<li><a name="conf11"></a><strong>Language:</strong> here you specify the language for the interface.</li>
 </ul>
 
-<h6>Management</h6>
-All the actions are listed here.<br>
-You see all files in the backup directory.
-For the actions "Restore" and "Delete" you have to select a file first.
+<h6>Administration</h6>.
+This is where the actual actions are performed.<br>
+It will show you all the files in the backup directory.
+For the actions "Restore" and "Delete" a file must be selected.
 <UL>
-	<li><strong>Restore:</strong> you restore the database with the records of the selected backupfile.</li>
-	<li><strong>Delete:</strong> you can delete the selected backup file.</li>
-	<li><strong>Start new Dump:</strong> here you  start a new backup (dump) with your configured parameters.</li>
+	<li><strong>Restore:</strong> This will update the database with the selected backup file.</li>
+	<li><strong>Delete:</strong> This lets you delete the selected backup file.</li>
+	<li><strong>Start new backup:</strong> Here you start a new backup (dump) according to the parameters set in the configuration.</li>.
 </UL>
 
 <h6>Log</h6>
-You can read the Log entries and delete them.
-
+Here you can see and delete the log entries.
 <h6>Credits / Help</h6>
-This page.
+this page.
 </ul>

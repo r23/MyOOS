@@ -117,3 +117,149 @@ Le journal vous permet de voir et de supprimer les entrées.
 <h6>Crédits / Aide</h6>
 Cette page.
 </ul>
+###
+<div id="content">
+<h3><strong>MyOOS [Dumper]</strong> basé sur MySQLDumper 1.24.4</h3>
+
+<h3>A propos de ce projet</h3>
+<p><strong>MyOOS [Dumper]</strong> est une version améliorée de MySQLDumper 1.24.4 (24 janvier 2011). Cette évolution prend en compte le développement du PHP.
+<p>MyOOS [Dumper]</strong> se préoccupe avant tout de stabilité, de sécurité et de maniabilité. Mais un modèle attrayant est également inclus, qui peut être modifié et adapté à vos propres besoins.</p>
+
+
+<p><strong>MyOOS [Dumper]</strong> est un programme de sauvegarde pour les bases de données MySQL, écrit en PHP et Perl. Il permet de créer des copies de sauvegarde des données (boutique, blog, etc.) et de les restaurer si nécessaire. En particulier pour les espaces web sans accès au shell, MyOOS [Dumper] s'offre comme une alternative judicieuse.</p>. 
+
+<p>L'idée de MySQLDumper vient de Daniel Schlichtholz. Il a ouvert le forum MySQLDumper en 2004, à la suite de quoi les programmeurs ont écrit de nouveaux scripts et étendu les scripts existants.</p>
+<p>Site officiel du développeur : www.mysqldumper.de</p>
+
+
+
+<h3>Liste de souhaits / Attractions futures</h3>.
+<p>Avez-vous des suggestions d'amélioration ? N'hésitez pas à contacter l'équipe de développement via le forum <a href="https://foren.myoos.de/viewforum.php?f=41" target="_blank">https://foren.myoos.de/viewforum.php?f=41</a>.</p>.
+
+
+<h3>Contribuer</h3>.
+</p> <p>Si vous souhaitez nous aider à améliorer le projet MyOOS, nous accueillons vos demandes de pull via GitHub ici.</p> <p>.
+<a href="https://github.com/r23/MyOOS/" target="_blank">https://github.com/r23/MyOOS/</a>
+
+
+<h3>Soutien financier</h3>
+<p>Vous pouvez envoyer de l'argent en utilisant PayPal Me. <br>
+<a href="https://www.paypal.com/paypalme/r23de?locale.x=de_DE" target="_blank">https://www.paypal.com/paypalme/r23de?locale.x=de_DE</a></p>. 
+
+
+<p>Nous espérons que ce projet vous plaira.<br><p><h4>L'équipe MyOOS [Dumper]</h4>.
+
+<img src="css/mod/pics/h1_logo.gif" alt="MyOOS [Dumper]">
+
+<h3>MyOOS [Dumper] Aide</h3>
+
+<h4>Téléchargement</h4>
+<p>Vous pouvez toujours obtenir les dernières versions sur GitHub<br>.
+<a href="https://github.com/r23/MyOOS/releases" target="_blank">https://github.com/r23/MyOOS/releases</a></p>.
+
+
+<h4>Système requis</h4>
+<p>Le script fonctionne sur n'importe quel serveur (Windows, Linux, ...) <br>.
+avec PHP >= version 7.2 avec support GZip, MySQL (version 4.1 ou supérieure), JavaScript (doit être activé).</p>
+<p>Copier le dossier mod de l'archive MyOOS dans un dossier de travail séparé.</p>.
+
+<h4>Installation</h4></a>
+L'installation est simple.
+<p>À partir de l'archive MyOOS, copiez le dossier du mod dans n'importe quel dossier.<br>
+Téléchargez tous les fichiers du dossier mod sur votre serveur Web. (par exemple, au niveau le plus bas de [répertoire web du serveur/]mod)<br>.
+... fait!<br>
+Vous pouvez maintenant appeler MyOOS [Dumper] dans votre navigateur web en allant sur "https://example.com/mod/"<br>.
+pour terminer l'installation. Il suffit de suivre les instructions. <br>
+<br><b>Note:</b><br><i>Si sur votre serveur le script n'est pas autorisé à créer des répertoires,<br>.
+vous devrez le faire manuellement, car MyOOS [Dumper] stocke les données dans des répertoires.
+répertoires.<br> 
+Le script se termine par une déclaration appropriée !<br>
+Après avoir créé les répertoires (selon l'astuce), il s'exécute normalement et sans restrictions.</i>
+
+<a name="perl"></a><h4>Instructions pour le script Perl</h4>.
+La plupart ont un répertoire cgi-bin où perl peut être exécuté. <br>
+Il est généralement accessible par le navigateur via http://www.example.com/cgi-bin/. <br>
+<br>
+Dans ce cas, veuillez effectuer les étapes suivantes :<br><br> 1.
+
+1. Appelez la page de sauvegarde dans MyOOS [Dumper] et cliquez sur "Backup Perl". <br>
+2. copiez le chemin derrière l'entrée dans crondump.pl pour $absolute_path_of_configdir :. <br>
+3. ouvrez le fichier "crondump.pl" dans l'éditeur.<br>
+4. saisissez le chemin copié à cet endroit à absolute_path_of_configdir (sans espace).<br>
+5. sauvegarder crondump.pl.<br>
+Copiez crondump.pl, perltest.pl et simpletest.pl dans le répertoire cgi-bin (mode ascii en FTP).
+7. donnez aux fichiers les permissions 755. <br>
+7b. Si la terminaison cgi est souhaitée, changez la terminaison des 3 fichiers de pl -> cgi (renommer). <br>
+Appelez la configuration dans MyOOS [Dumper].
+9. sélectionnez la page Cronscript. <br>
+10. changer le chemin d'exécution de Perl en /cgi-bin/ .<br>
+10b. Si les scripts ont un .pl, changez l'extension du fichier en .cgi .<br>
+11. Enregistrez la configuration. <br><br>
+
+C'est fait, les scripts peuvent maintenant être appelés à partir de la page de sauvegarde.<br><br>.
+
+
+Pour ceux qui peuvent exécuter Perl dans tous les répertoires, les étapes suivantes sont suffisantes:<br><br> 1.
+
+1. Appelez la page Sauvegarde dans MyOOS [Dumper]. <br>
+Copiez le chemin derrière l'entrée dans crondump.pl pour $absolute_path_of_configdir :. <br>
+Ouvrez le fichier "crondump.pl" dans l'éditeur. <br>
+4. entrez le chemin copié à cet endroit à absolute_path_of_configdir (sans espace). <br>
+5. sauvegarder crondump.pl .<br>
+6. donnez aux fichiers les permissions 755. <br>
+6b. Si la terminaison cgi est souhaitée, changez la terminaison des 3 fichiers de pl -> cgi (renommer). <br>
+(ev. 10b+11 du dessus)<br>
+<br>
+
+Les utilisateurs de Windows doivent modifier la première ligne de tous les scripts, où se trouve le chemin de Perl. Exemple : <br>
+au lieu de : #!/usr/bin/perl -w <br>
+maintenant : #!C:_usr/bin/perl.exe -w <br>
+
+<h4>Opération</h4><ul>.
+
+<h6>Menu</h6>.
+Dans la liste de sélection ci-dessus, vous définissez la base de données.<br>
+Toutes les actions se réfèrent à la base de données définie ici.
+
+<h6>Accueil</h6>
+Vous y trouverez des informations sur votre système, les différentes versions installées et les détails des bases de données configurées.
+versions installées et des détails sur les bases de données configurées.<br>
+Si vous cliquez sur le nom de la base de données, vous verrez une liste des tables avec le nombre d'entrées.
+avec le nombre d'entrées, la taille et la date de la dernière mise à jour.
+
+<h6>Configuration</h6>
+Vous pouvez y modifier votre configuration, l'enregistrer ou restaurer la configuration initiale.
+restaurer la configuration initiale.
+<ul><br>
+	<li><a name="conf1"></a><strong>Bases de données configurées:</strong> la liste des bases de données configurées. La base de données active est indiquée en <b>gras</b>. </li>
+	<li><a name="conf2"></a><strong>Préfixe de table:</strong> ici vous pouvez spécifier un préfixe (pour chaque base de données). Il s'agit d'un filtre qui ne prend en compte que les tables commençant par ce préfixe lors du vidage (par exemple, toutes les tables commençant par "phpBB_"). Si vous voulez que toutes les tables de cette base de données soient enregistrées, laissez le champ vide.</li>.
+	<li><a name="conf3"></a><strong>Compression GZip:</strong> Ici, vous pouvez activer la compression. Il est recommandé de l'activer, car les fichiers deviennent beaucoup plus petits et l'espace de stockage est toujours rare.
+	<li><a name="conf5"></a><strong>Email avec fichier dump:</strong> Si cette option est activée, un email avec le dump en pièce jointe est envoyé après la fin de la sauvegarde (attention, la compression doit absolument être activée, sinon la pièce jointe sera trop grande et risque de ne pas être envoyée !)
+	<li><a name="conf6"></a><strong>Adresse e-mail:</strong>Adresse du destinataire de l'e-mail.</li>
+	<li><a name="conf7"></a><strong>Envoyeur du courriel:</strong> cette adresse apparaît comme l'expéditeur dans le courriel.</li>
+	<li><a name="conf13"></a><strong>Transfert FTP : </strong>Si cette option est activée, le fichier de sauvegarde sera envoyé par FTP une fois la sauvegarde terminée.</li>.
+	<li><a name="conf14"></a><strong>Serveur FTP : </strong>L'adresse du serveur FTP (par exemple ftp.mybackups.de).</li>
+	<li><a name="conf15"></a><strong>Port du serveur FTP : </strong>Le port du serveur FTP (généralement 21).</li>
+	<li><a name="conf16"></a><strong>Utilisateur FTP : </strong>Le nom d'utilisateur du compte FTP. </li>
+	<li><a name="conf17"></a><strong>Mot de passe FTP : </strong>Le mot de passe du compte FTP. </li>
+	<li><a name="conf18"></a><strong>Dossier de téléchargement FTP : </strong>Le répertoire où le fichier de sauvegarde doit aller (les autorisations de téléchargement doivent exister !).</li>.
+	<li><a name="conf8"></a><strong>Suppression automatique des sauvegardes:</strong>Si cette option est activée, les anciennes sauvegardes seront supprimées automatiquement selon les règles suivantes.</li>
+	<li><a name="conf10"></a><strong>Nombre de fichiers de sauvegarde :</strong> Une valeur > 0 supprime tous les fichiers de sauvegarde sauf le nombre spécifié ici.</li>.
+	<li><a name="conf11"></a><strong>Langue:</strong> ici vous définissez la langue de l'interface.</li>
+</ul>
+
+<h6>Administration</h6>
+C'est là que les actions réelles sont effectuées.
+Tous les fichiers du répertoire de sauvegarde sont affichés.
+Pour les actions "Restaurer" et "Supprimer", un fichier doit être sélectionné.
+<UL>
+	<li><strong>Restauration:</strong> Ceci met à jour la base de données avec le fichier de sauvegarde sélectionné.</li>
+	<li><strong>Supprimer:</strong> Cela vous permet de supprimer le fichier de sauvegarde sélectionné.</li>.
+	<li><strong>Démarrer une nouvelle sauvegarde :</strong> Vous démarrez ici une nouvelle sauvegarde (dump) selon les paramètres définis dans la configuration.
+</UL>
+
+<h6>Log</h6>
+Ici, vous pouvez voir et supprimer les entrées du journal.
+<h6>Crédits / Aide</h6>
+cette page.
+</ul>
