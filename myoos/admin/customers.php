@@ -135,7 +135,7 @@ if (!empty($action)) {
                  $email_text .= EMAIL_TEXT;
                  $email_text .= sprintf(EMAIL_PASSWORD_BODY, $newpass);
                  $email_text .= EMAIL_CONTACT;
-                 oos_mail($name, $check_customer_values['customers_email_address'], EMAIL_SUBJECT, nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
+                 oos_mail($name, $check_customer_values['customers_email_address'], EMAIL_SUBJECT, nl2br($email_text), nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
                  oos_redirect_admin(oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&cID=' . $_GET['cID']));
               }
             }

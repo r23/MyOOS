@@ -995,122 +995,65 @@ function oos_get_category_path($nProductsId) {
   * @param $parameters
   * @return string
   */
-////
-// Return a product ID with attributes
-  function tep_get_uprid($prid, $params) {
-    if (is_numeric($prid)) {
-      $uprid = (int)$prid;
+function oos_get_uprid($prid, $parameters) {
+	if (is_numeric($prid)) {
+		$uprid = $prid;
 
-      if (is_array($params) && (sizeof($params) > 0)) {
-        $attributes_check = true;
-        $attributes_ids = '';
+		if (is_array($parameters) && (count($parameters) > 0)) {
+			$attributes_check = true;
+			$attributes_ids = '';
 
-        reset($params);
-        while (list($option, $value) = each($params)) {
-          if (is_numeric($option) && is_numeric($value)) {
-            $attributes_ids .= '{' . (int)$option . '}' . (int)$value;
-          } else {
-            $attributes_check = false;
-            break;
-          }
-        }
+			reset($parameters);
+			foreach($parameters as $option => $sValue) {	
+				if (is_numeric($option) && is_numeric($sValue)) {
+					$attributes_ids .= '{' . intval($option) . '}' . intval($sValue);
+				} elseif (strstr($option, TEXT_PREFIX)) {
+					$text_option = substr($option, strlen(TEXT_PREFIX));
+					$sLen = strlen($sValue);
+					$attributes_ids .= '{' . intval($text_option) . '}' . intval($sLen);
+				} else {
+					$attributes_check = false;
+					break;
+				}
+			}
 
-        if ($attributes_check == true) {
-          $uprid .= $attributes_ids;
-        }
-      }
+			if ($attributes_check == true) {
+				$uprid .= $attributes_ids;
+			}
+		}
     } else {
-      $uprid = tep_get_prid($prid);
+		$uprid = oos_get_product_id($prid);
 
-      if (is_numeric($uprid)) {
-        if (strpos($prid, '{') !== false) {
-          $attributes_check = true;
-          $attributes_ids = '';
+		if (is_numeric($uprid)) {
+			if (strpos($prid, '{') !== false) {
+				$attributes_check = true;
+				$attributes_ids = '';
 
-// strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
-          $attributes = explode('{', substr($prid, strpos($prid, '{')+1));
+				// strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
+				$attributes = explode('{', substr($prid, strpos($prid, '{')+1));
 
-          for ($i=0, $n=sizeof($attributes); $i<$n; $i++) {
-            $pair = explode('}', $attributes[$i]);
+				for ($i=0, $n=count($attributes); $i<$n; $i++) {
+					$pair = explode('}', $attributes[$i]);
 
-            if (is_numeric($pair[0]) && is_numeric($pair[1])) {
-              $attributes_ids .= '{' . (int)$pair[0] . '}' . (int)$pair[1];
-            } else {
-              $attributes_check = false;
-              break;
-            }
-          }
+					if (is_numeric($pair[0]) && is_numeric($pair[1])) {
+						$attributes_ids .= '{' . intval($pair[0]) . '}' . intval($pair[1]);
+					} else {
+						$attributes_check = false;
+						break;
+					}
+				}
 
-          if ($attributes_check == true) {
-            $uprid .= $attributes_ids;
-          }
-        }
-      } else {
-        return false;
-      }
+				if ($attributes_check == true) {
+					$uprid .= $attributes_ids;
+				}
+			}
+		} else {
+			return false;
+		}
     }
 
     return $uprid;
-  }  
-
-  
-  
-  
-  function oos_get_uprid($prid, $parameters) {
-    if (is_numeric($prid)) {
-      $uprid = $prid;
-
-      if (is_array($parameters) && (count($parameters) > 0)) {
-        $attributes_check = true;
-        $attributes_ids = '';
-
-		foreach($parameters as $option => $sValue) {	
-          if (is_numeric($option) && is_numeric($sValue)) {
-            $attributes_ids .= '{' . intval($option) . '}' . intval($sValue);
-          } elseif (strstr($option, TEXT_PREFIX)) {
-            $text_option = substr($option, strlen(TEXT_PREFIX));
-            $sLen = strlen($sValue);
-            $attributes_ids .= '{' . intval($text_option) . '}' . intval($sLen);
-          }
-        }
-
-        if ($attributes_check == true) {
-          $uprid .= $attributes_ids;
-        }
-      }
-    } else {
-      $uprid = oos_get_product_id($prid);
-
-      if (is_numeric($uprid)) {
-        if (strpos($prid, '{') !== false) {
-          $attributes_check = true;
-          $attributes_ids = '';
-
-          // strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
-          $attributes = explode('{', substr($prid, strpos($prid, '{')+1));
-
-          for ($i=0, $n=count($attributes); $i<$n; $i++) {
-            $pair = explode('}', $attributes[$i]);
-
-            if (is_numeric($pair[0]) && is_numeric($pair[1])) {
-              $attributes_ids .= '{' . intval($pair[0]) . '}' . intval($pair[1]);
-            } else {
-              $attributes_check = false;
-              break;
-            }
-          }
-
-          if ($attributes_check == true) {
-            $uprid .= $attributes_ids;
-          }
-        }
-      } else {
-        return false;
-      }
-    }
-
-    return $uprid;
-  }
+}
 
 
  /**
@@ -1574,7 +1517,7 @@ function oos_strip_all ($sStr) {
 /**
  * Mail function (uses phpMailer)
  */
-function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = array() ) {
+function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = array() ) {
 
 	global $oEvent;
 
@@ -1584,7 +1527,7 @@ function oos_mail($to_name, $to_email_address, $subject, $email_text, $email_htm
 
     if (preg_match('~[\r\n]~', $to_name)) return false;
     if (preg_match('~[\r\n]~', $to_email_address)) return false;
-    if (preg_match('~[\r\n]~', $subject)) return false;
+    if (preg_match('~[\r\n]~', $email_subject)) return false;
     if (preg_match('~[\r\n]~', $from_email_name)) return false;
     if (preg_match('~[\r\n]~', $from_email_address)) return false;
 

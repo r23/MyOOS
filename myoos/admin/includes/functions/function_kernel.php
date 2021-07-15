@@ -1064,12 +1064,13 @@ function is_image($filename) {
 /**
  * Mail function (uses phpMailer)
  */
-function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address) {
+function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = array() ) {
+
 
 	global $phpmailer;
     if (preg_match('~[\r\n]~', $to_name)) return false;
     if (preg_match('~[\r\n]~', $to_email_address)) return false;
-    if (preg_match('~[\r\n]~', $subject)) return false;
+    if (preg_match('~[\r\n]~', $email_subject)) return false;
     if (preg_match('~[\r\n]~', $from_email_name)) return false;
     if (preg_match('~[\r\n]~', $from_email_address)) return false;
 

@@ -30,8 +30,6 @@ require 'includes/main.php';
 require 'includes/functions/function_categories.php';
 require 'includes/functions/function_edit_orders.php';
 
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
 require_once MYOOS_INCLUDE_PATH . '/vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
 
 
@@ -60,7 +58,7 @@ require_once OOS_ABSOLUTE_PATH . '/includes/classes/class_order.php';
   $SeparateBillingFields = oos_field_exists($oostable['orders'], "billing_name");
 
   // Optional Tax Rate/Percent
-  $AddShippingTax = "0.0"; // e.g. shipping tax of 17.5% is "17.5"
+  $AddShippingTax = "19.0"; // e.g. shipping tax of 17.5% is "17.5"
 
   $orders_statuses = array();
   $orders_status_array = array();
@@ -154,7 +152,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
           $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
         }
         $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($aContents['catalog_account_history_info'], 'order_id=' . $oID) . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
-        oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, $email, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+        oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_text), nl2br($email_text) STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
         $customer_notified = '1';
       }
 
