@@ -18,9 +18,10 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-   
+ 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
+
 
 if (!isset($_SESSION['log_times'])) $_SESSION['log_times'] = 1;
 

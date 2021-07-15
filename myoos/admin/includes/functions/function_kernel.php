@@ -1067,16 +1067,20 @@ function is_image($filename) {
 function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $from_email_name, $from_email_address) {
 
 	global $phpmailer;
-
     if (preg_match('~[\r\n]~', $to_name)) return false;
     if (preg_match('~[\r\n]~', $to_email_address)) return false;
-    if (preg_match('~[\r\n]~', $email_subject)) return false;
+    if (preg_match('~[\r\n]~', $subject)) return false;
     if (preg_match('~[\r\n]~', $from_email_name)) return false;
     if (preg_match('~[\r\n]~', $from_email_address)) return false;
 
+	if ( !is_array($attachments) ) {
+		$attachments = explode( "\n", str_replace( "\r\n", "\n", $attachments ) );
+	}
 
-	// (Re)create it, if it's gone missing.
-	if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
+    $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
+	
+	// (Re)create it, if it's gone missing
+    if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
 		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
 		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
 		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
@@ -1087,6 +1091,9 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $fro
 		};
 	}
 
+	//To load the French version
+	$phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
+
 	// Empty out the values that may be set.
 	$phpmailer->clearAllRecipients();
 	$phpmailer->clearAttachments();
@@ -1094,6 +1101,10 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $fro
 	$phpmailer->clearReplyTos();
 
     $phpmailer->IsMail();
+
+
+    $phpmailer->CharSet   = 'UTF-8';
+    $phpmailer->Encoding  = 'base64';
 
     $phpmailer->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
     $phpmailer->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
@@ -1124,7 +1135,7 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $fro
     $text = strip_tags($email_text);
     if (EMAIL_USE_HTML == 'true') {
 		$phpmailer->IsHTML(true);
-		$phpmailer->Body = $email_text;
+		$phpmailer->Body = $email_html;
 		$phpmailer->AltBody = $text;
     } else {
 		$phpmailer->Body = $text;
@@ -1132,5 +1143,7 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $fro
 
 	// Send message
     $phpmailer->Send();
+
 }
+
 
