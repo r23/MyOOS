@@ -150,7 +150,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			$_SESSION['shipping'] = oos_prepare_input($_POST['shipping']);
 
 			list($module, $method) = explode('_', $_SESSION['shipping']);
-			if ( is_object($module) || ($_SESSION['shipping'] == 'free_free') ) {
+			if ( is_object($$module) || ($_SESSION['shipping'] == 'free_free') ) {
 				
 				if ($_SESSION['shipping'] == 'free_free') {
 					$quote[0]['methods'][0]['title'] = $aLang['free_shipping_title'];
@@ -193,7 +193,6 @@ $quotes = $shipping_modules->quote();
 // method if more than one module is now enabled
 /*
 if (!isset($_SESSION['shipping']) || (!isset($_SESSION['shipping']['id']) || $_SESSION['shipping']['id'] == '')) {
-	echo 'warum';
 	$_SESSION['shipping'] = $shipping_modules->cheapest();
 }
 */
