@@ -1066,8 +1066,8 @@ function is_image($filename) {
  */
 function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = array() ) {
 
-
 	global $phpmailer;
+	
     if (preg_match('~[\r\n]~', $to_name)) return false;
     if (preg_match('~[\r\n]~', $to_email_address)) return false;
     if (preg_match('~[\r\n]~', $email_subject)) return false;
@@ -1082,9 +1082,9 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 	
 	// (Re)create it, if it's gone missing
     if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
+		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
 		$phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
 
 		$phpmailer::$validator = static function ( $to_email_address ) {
