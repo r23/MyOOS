@@ -2,10 +2,10 @@
 Contributors: rankmath
 Plugin link: https://rankmath.com/?utm_source=LP&utm_campaign=WP
 Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
-Tested up to: 5.7
+Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.67
+Stable tag: 1.0.68
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -565,17 +565,11 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.67 [Jun 30, 2021] =
-* Improved: [HUGE!] Made more *huge code improvements* that have made the plugin even FASTER. Also, reduced the number of queries related to Rank Math on the Homepage and the Archive pages to improve performance further. Rank Math is indeed one of the **[FASTEST SEO PLUGINS](https://rankmath.com/)**
-* Added: [Power Words](https://rankmath.com/blog/power-words/) for the Swedish language
-* Improved: Sitemap was accessible even after adding zeros to the URL. It should only be accessed via its URL now
-* Improved: If website files are not writable, then the .htaccess editor will be disabled
-* Improved: The plugin will always use the WordPress installation `charset` instead of the server now
-* Updated: Action Scheduler vendor library for better performance and compatibility
-* Fixed: [OpenGraph image](https://rankmath.com/kb/open-graph-image-not-displaying/) was not working on the [WooCommerce](https://rankmath.com/blog/woocommerce-seo/) Shop Page
-* Fixed: [Sitelinks Searchbox Schema](https://rankmath.com/kb/sitelinks-searchbox-schema/) was printing on the paginated pages
-* Fixed: Posts of hidden [WPML](https://rankmath.com/kb/multilingual-seo-wpml/) languages were shown in sitemaps
-* Fixed: Option to [filter posts by SEO Score](https://rankmath.com/kb/bulk-editing-in-rank-math/) was not working
-* Fixed: Conflicts with the [Astra Theme's](https://rankmath.com/compatibility/astra/) [FAQ](https://rankmath.com/blog/faq-schema/) accordion add-on
+= 1.0.68 [Jul 15, 2021] =
+* Improved: [HUGE!] Improved performance of the plugin even further.
+* Improved: Keywords property in [Article Schema](https://rankmath.com/kb/article-schema/) is now added to all the existing posts
+* Improved: Styling of [FAQ](https://rankmath.com/blog/faq-schema/) & [HowTo](https://rankmath.com/blog/howto-schema/) block UI in the backend
+* Fixed: [Sitemap](https://rankmath.com/kb/sitemaps-seo-benefits/) showing an error on sites where `FS_METHOD` was FTP
+* Fixed: [Author sitemap](https://rankmath.com/kb/configure-sitemaps/) was throwing an MySQL error on some installations
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
