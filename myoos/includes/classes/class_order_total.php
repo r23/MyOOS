@@ -121,16 +121,7 @@ class order_total {
 							$output_string .= '              <tr>' . "\n" .
 							        '         <td colspan="2">' . $GLOBALS[$class]->output[$i]['info'] . '</td>' . "\n" .
 									'              </tr>' . "\n";
-						}								
-/*
-						$output_string .= '<span class="clearfix">' . "\n" .
-										'<span class="float-right">' . $GLOBALS[$class]->output[$i]['text'] . '</span>' . "\n" .
-										'<span class="float-left">' . $GLOBALS[$class]->output[$i]['title'] . '</span>' . "\n";
-						if ($GLOBALS[$class]->output[$i]['info'] != '') {
-							$output_string .=  $GLOBALS[$class]->output[$i]['info'] . "\n";
-						}										
-						$output_string .= '</span>';
-*/								
+						}						
 					}
 				}
 			}

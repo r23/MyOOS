@@ -93,7 +93,7 @@ function oosDBInit() {
 
 
     $dbconn = ADONewConnection($dbtype);
-	// $dbconn->setConnectionParameter(MYSQLI_SET_CHARSET_NAME, 'utf8mb4');
+	$dbconn->setConnectionParameter(MYSQLI_SET_CHARSET_NAME, 'utf8mb4');
 	
     if (!$dbconn->Connect($dbhost, $dbuname, $dbpass, $dbname)) {
 		$dbpass = "****";

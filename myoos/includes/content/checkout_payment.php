@@ -106,10 +106,11 @@ $oOrder = new order;
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 $order_total_modules = new order_total;
 
-
+/*
 $total_weight = $_SESSION['cart']->show_weight();
 $total_count = $_SESSION['cart']->count_contents();
 $total_count = $_SESSION['cart']->count_contents_virtual(); 
+*/
 
 if ($oOrder->delivery['country']['iso_code_2'] != '') {
 	$_SESSION['delivery_zone'] = $oOrder->delivery['country']['iso_code_2'];

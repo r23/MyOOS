@@ -59,8 +59,6 @@ class shipping {
 				if (class_exists($include_modules[$i]['class'])) {
 					$GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
 				}
-
-				# $GLOBALS[$include_modules[$i]['class']] = new $include_modules[$i]['class'];
 			}
 		}
 	}

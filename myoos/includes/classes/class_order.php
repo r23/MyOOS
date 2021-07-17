@@ -273,8 +273,7 @@ class order {
                           'shipping_cost' => $_SESSION['shipping']['cost'],
                           'comments' => (isset($_SESSION['comments']) ? $_SESSION['comments'] : ''),
                           'shipping_class' =>  ( (strpos($_SESSION['shipping']['id'],'_') > 0) ? substr( strrev( strchr(strrev($_SESSION['shipping']['id']),'_') ),0,-1) : $_SESSION['shipping']['id'] ),
-                          'payment_class' => $_SESSION['payment'],
-                          );
+                          'payment_class' => $_SESSION['payment']);
 
 		if (isset($GLOBALS['payment']) && is_object($GLOBALS['payment'])) {
 			$this->info['payment_method'] = $GLOBALS['payment']->title;
