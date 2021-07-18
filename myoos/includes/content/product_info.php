@@ -411,7 +411,8 @@ if (!$product_info_result->RecordCount()) {
 							FROM $products_modelstable pm,
 								$products_models_descriptiontable pmd
 							WHERE pm.products_id = '" . intval($nProductsID) . "'
-							AND pmd.models_id = pm.models_id";
+							AND pmd.models_id = pm.models_id
+							AND pmd.models_languages_id = '" . intval($nLanguageID) . "'";	
 	$products_models_result = $dbconn->Execute($products_models_sql);	
 	if ($products_models_result->RecordCount()) {
 		
