@@ -33,11 +33,11 @@
       $this->enabled = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_GV_SORT_ORDER') ? MODULE_ORDER_TOTAL_GV_SORT_ORDER : null);
       $this->include_shipping = (defined('MODULE_ORDER_TOTAL_GV_INC_SHIPPING') ? MODULE_ORDER_TOTAL_GV_INC_SHIPPING : null);
-      $this->include_tax = (defined('MODULE_ORDER_TOTAL_GV_INC_TAX') ? MODULE_ORDER_TOTAL_GV_INC_TAX : null);
-      $this->calculate_tax = (defined('MODULE_ORDER_TOTAL_GV_CALC_TAX') ? MODULE_ORDER_TOTAL_GV_CALC_TAX : null);
-      $this->credit_tax = (defined('MODULE_ORDER_TOTAL_GV_CREDIT_TAX') ? MODULE_ORDER_TOTAL_GV_CREDIT_TAX : null);
-      $this->tax_class  = (defined('MODULE_ORDER_TOTAL_GV_TAX_CLASS') ? MODULE_ORDER_TOTAL_GV_TAX_CLASS : null);
-      $this->show_redeem_box = (defined('MODULE_ORDER_TOTAL_GV_REDEEM_BOX') ? MODULE_ORDER_TOTAL_GV_REDEEM_BOX : null);
+      $this->include_tax = null; // todo remove
+      $this->calculate_tax = null; // todo remove
+      $this->credit_tax = null; // todo remove
+      $this->tax_class = null; // todo remove
+      $this->show_redeem_box = null; // todo remove
       $this->credit_class = true;
       $this->checkbox = $this->user_prompt . '<input type="checkbox" onClick="submitFunction()" name="' . 'c' . $this->code . '">';
 
@@ -124,6 +124,7 @@
         $gv_order_amount = ($oOrder->products[$i]['final_price'] * $oOrder->products[$i]['qty']);
         if ($this->credit_tax=='true') $gv_order_amount = $gv_order_amount * (100 + $oOrder->products[$i]['tax']) / 100;
         $gv_order_amount = $gv_order_amount * 100 / 100;
+/*
         if (MODULE_ORDER_TOTAL_GV_QUEUE == 'false') {
           // GV_QUEUE is true so release amount to account immediately
 
@@ -152,6 +153,7 @@
                                                         '" . oos_db_input($total_gv_amount) . "')");
           }
         } else {
+*/
          // GV_QUEUE is true - so queue the gv for release by store owner
           $remote_addr = oos_server_get_remote();
 
@@ -166,7 +168,6 @@
                                                   '" . oos_db_input($gv_order_amount) . "',
                                                   now(),
                                                   '" . oos_db_input($remote_addr) . "')");
-        }
       }
     }
 
@@ -407,7 +408,7 @@
     }
 
     function keys() {
-      return array('MODULE_ORDER_TOTAL_GV_SORT_ORDER', 'MODULE_ORDER_TOTAL_GV_QUEUE', 'MODULE_ORDER_TOTAL_GV_INC_SHIPPING', 'MODULE_ORDER_TOTAL_GV_INC_TAX', 'MODULE_ORDER_TOTAL_GV_CALC_TAX', 'MODULE_ORDER_TOTAL_GV_TAX_CLASS', 'MODULE_ORDER_TOTAL_GV_CREDIT_TAX');
+      return array('MODULE_ORDER_TOTAL_GV_STATUS', 'MODULE_ORDER_TOTAL_GV_SORT_ORDER', 'MODULE_ORDER_TOTAL_GV_INC_SHIPPING');
     }
 
     function install() {
@@ -417,15 +418,11 @@
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
-	  $dbconn->Execute("UPDATE $configurationtable SET coupon_active = 'true' WHERE configuration_key = '" . oos_db_input(MODULE_ORDER_TOTAL_GV_STATUS) . "'");	
-	  
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_SORT_ORDER', '9', '6', '2', now())");
+	$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_QUEUE', 'true', '6', '3','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_INC_SHIPPING', 'true', '6', '5', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_INC_TAX', 'true', '6', '6','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_CALC_TAX', 'None', '6', '7','oos_cfg_select_option(array(\'None\', \'Standard\', \'Credit Note\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_GV_CREDIT_TAX', 'false', '6', '8','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+	        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_GV_SORT_ORDER', '9', '6', '2', now())");
     }
 
     function remove() {
@@ -434,7 +431,6 @@
 		$oostable =& oosDBGetTables();
 
 		$configurationtable = $oostable['configuration'];
-		$dbconn->Execute("UPDATE $configurationtable SET coupon_active = 'false' WHERE configuration_key = '" . oos_db_input(MODULE_ORDER_TOTAL_GV_STATUS) . "'");		
 		$dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
   }
