@@ -57,8 +57,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
  
 
-# if (isset($_SESSION['shipping'])) unset($_SESSION['shipping']);
-
 // if no shipping destination address was selected, use the customers own address as default
 if (!isset($_SESSION['sendto'])) {
 	$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
@@ -94,8 +92,10 @@ if (($oOrder->content_type == 'virtual') || ($_SESSION['cart']->show_subtotal() 
 }
 
 
+/*
 $total_weight = $_SESSION['cart']->show_weight();
 $total_count = $_SESSION['cart']->count_contents();
+*/
 
 if ($oOrder->delivery['country']['iso_code_2'] != '') {
 	$_SESSION['delivery_zone'] = $oOrder->delivery['country']['iso_code_2'];
@@ -138,7 +138,6 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 	
 	
 	if ( (isset($_POST['comments'])) && (is_string($_POST['comments'])) ) {
-		require_once  MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
 		$config = HTMLPurifier_Config::createDefault();
 		$purifier = new HTMLPurifier($config);
 		$_SESSION['comments'] = $purifier->purify($_POST['comments']);		

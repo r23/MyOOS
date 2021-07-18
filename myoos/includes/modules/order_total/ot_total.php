@@ -19,31 +19,33 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  class ot_total {
-    var $title, $output, $enabled = false;
+class ot_total {
+	var $title, $output, $enabled = false;
 
-    function __construct() {
-      global $aLang;
+	function __construct() {
+		global $aLang;
 
-      $this->code = 'ot_total';
-      $this->title = $aLang['module_order_total_total_title'];
-      $this->description = $aLang['module_order_total_total_description'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_TOTAL_STATUS') && (MODULE_ORDER_TOTAL_TOTAL_STATUS == 'true') ? true : false);
-      $this->sort_order = (defined('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER') ? MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER : null);
+		$this->code = 'ot_total';
+		$this->title = $aLang['module_order_total_total_title'];
+		$this->description = $aLang['module_order_total_total_description'];
+		$this->enabled = (defined('MODULE_ORDER_TOTAL_TOTAL_STATUS') && (MODULE_ORDER_TOTAL_TOTAL_STATUS == 'true') ? true : false);
+		$this->sort_order = (defined('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER') ? MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER : null);
 
-      $this->output = array();
-    }
+		$this->output = array();
+	}
 
-    function process() {
-      global $oOrder, $oCurrencies;
-
-      $this->output[] = array('title' => $this->title . ':',
+	function process() {
+		global $oOrder, $oCurrencies, $aLang;
+	  
+		$currency = $_SESSION['currency'];
+		$info = sprintf($aLang['total_info'], $currency);
+		$this->output[] = array('title' => $this->title . ':',
                               'text' => '<strong>' . $oCurrencies->format($oOrder->info['total'], true, $oOrder->info['currency'], $oOrder->info['currency_value']) . '</strong>',
-							  'info' => '',
+							  'info' => '<small>' . $info . '</small>',
                               'value' => $oOrder->info['total']);
     }
 
-    function shopping_cart_process() {
+	function shopping_cart_process() {
 		global $oCurrencies, $aLang;
 
 		$currency = $_SESSION['currency'];
@@ -59,36 +61,36 @@
 
 
     function check() {
-      if (!isset($this->_check)) {
-        $this->_check = defined('MODULE_ORDER_TOTAL_TOTAL_STATUS');
-      }
+		if (!isset($this->_check)) {
+			$this->_check = defined('MODULE_ORDER_TOTAL_TOTAL_STATUS');
+		}
 
-      return $this->_check;
+		return $this->_check;
     }
 
-    function keys() {
-      return array('MODULE_ORDER_TOTAL_TOTAL_STATUS', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER');
+	function keys() {
+		return array('MODULE_ORDER_TOTAL_TOTAL_STATUS', 'MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER');
     }
 
-    function install() {
+	function install() {
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_TOTAL_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER', '7', '6', '2', now())");
+		$configurationtable = $oostable['configuration'];
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_TOTAL_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER', '7', '6', '2', now())");
     }
 
-    function remove() {
+	function remove() {
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
-    }
-  }
+		$configurationtable = $oostable['configuration'];
+		$dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
+	}
+}
 

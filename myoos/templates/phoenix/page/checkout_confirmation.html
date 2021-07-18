@@ -146,7 +146,7 @@
 									</thead>
 									<tbody>	
 								{foreach item=products from=$order->products}
-									<tr>								
+									<tr class="table-success">								
 										<td><a href="{html_href_link content=$filename.product_info products_id=$products.id oos_get='con=1'}">{product_image dir=small image=$products.image alt=$products.name}</a></td>
 										<td><strong>{$products.name}</strong>&nbsp;
 									{if $smarty.const.STOCK_CHECK eq 'true'}

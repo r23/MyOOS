@@ -121,7 +121,7 @@ class order_total {
 							$output_string .= '              <tr>' . "\n" .
 							        '         <td colspan="2">' . $GLOBALS[$class]->output[$i]['info'] . '</td>' . "\n" .
 									'              </tr>' . "\n";
-						}						
+						}
 					}
 				}
 			}

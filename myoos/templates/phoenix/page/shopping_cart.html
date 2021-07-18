@@ -127,11 +127,7 @@
 										</div>
 									</td>
 									<td align="right"><div class="total_price">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</div></td>
-									<td><a href="{html_href_link content=$filename.shopping_cart action=cart_delete products_id=$product.id}" class="remove_item"><i class="fa fa-times"></i></a>
-									{*
-										<input type="checkbox" class="form-check-input" name="cart_delete[]" value="{$product.id}">
-									*}
-									</td>
+									<td><a href="{html_href_link content=$filename.shopping_cart action=cart_delete products_id=$product.id}" class="remove_item"><i class="fa fa-times"></i></a></td>
 								</tr>
 						{/foreach}
 

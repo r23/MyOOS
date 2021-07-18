@@ -59,10 +59,9 @@ if (isset($_POST['payment'])) $_SESSION['payment'] = oos_db_prepare_input($_POST
 
 
 if ( (isset($_POST['comments'])) && (is_string($_POST['comments'])) ) {
-	require_once  MYOOS_INCLUDE_PATH . '/includes/lib/htmlpurifier/library/HTMLPurifier.auto.php';
 	$config = HTMLPurifier_Config::createDefault();
 	$purifier = new HTMLPurifier($config);
-	$_SESSION['comments'] = $purifier->purify($_POST['comments']);		
+	$_SESSION['comments'] = $purifier->purify($_POST['comments']);
 }
 $_SESSION['comments'] = isset($_SESSION['comments']) ? $_SESSION['comments'] : '';
 
