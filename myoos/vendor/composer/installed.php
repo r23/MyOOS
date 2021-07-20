@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'e6a381eedb381e16a6af36f944d319700d09fa74',
+        'reference' => '587e3144c4f241101254282d2353832ebe56666b',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -223,7 +223,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'e6a381eedb381e16a6af36f944d319700d09fa74',
+            'reference' => '587e3144c4f241101254282d2353832ebe56666b',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -995,12 +995,12 @@
             ),
         ),
         'tecnickcom/tcpdf' => array(
-            'pretty_version' => '6.4.1',
-            'version' => '6.4.1.0',
+            'pretty_version' => '6.4.2',
+            'version' => '6.4.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
             'aliases' => array(),
-            'reference' => '5ba838befdb37ef06a16d9f716f35eb03cb1b329',
+            'reference' => '172540dcbfdf8dc983bc2fe78feff48ff7ec1c76',
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
