@@ -2,29 +2,24 @@
 /**
  * Grundeinstellungen für WordPress
  *
- * Zu diesen Einstellungen gehören:
+ * Diese Datei wird zur Erstellung der wp-config.php verwendet.
+ * Du musst aber dafür nicht das Installationsskript verwenden.
+ * Stattdessen kannst du auch diese Datei als „wp-config.php“ mit
+ * deinen Zugangsdaten für die Datenbank abspeichern.
+ *
+ * Diese Datei beinhaltet diese Einstellungen:
  *
  * * MySQL-Zugangsdaten,
  * * Tabellenpräfix,
  * * Sicherheitsschlüssel
  * * und ABSPATH.
  *
- * Mehr Informationen zur wp-config.php gibt es auf der
- * {@link https://codex.wordpress.org/Editing_wp-config.php wp-config.php editieren}
- * Seite im Codex. Die Zugangsdaten für die MySQL-Datenbank
- * bekommst du von deinem Webhoster.
- *
- * Diese Datei wird zur Erstellung der wp-config.php verwendet.
- * Du musst aber dafür nicht das Installationsskript verwenden.
- * Stattdessen kannst du auch diese Datei als wp-config.php mit
- * deinen Zugangsdaten für die Datenbank abspeichern.
+ * @link https://wordpress.org/support/article/editing-wp-config-php/
  *
  * @package WordPress
  */
 
-// ** MySQL-Einstellungen ** //
-/**   Diese Zugangsdaten bekommst du von deinem Webhoster. **/
-
+// ** MySQL-Einstellungen - Diese Zugangsdaten bekommst du von deinem Webhoster. ** //
 /**
  * Ersetze datenbankname_hier_einfuegen
  * mit dem Namen der Datenbank, die du verwenden möchtest.
@@ -65,6 +60,7 @@ define('DB_COLLATE', '');
  * möglichst einmalig genutzte Zeichenkette.
  * Auf der Seite {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
  * kannst du dir alle Schlüssel generieren lassen.
+ *
  * Du kannst die Schlüssel jederzeit wieder ändern, alle angemeldeten
  * Benutzer müssen sich danach erneut anmelden.
  *
@@ -100,17 +96,21 @@ $table_prefix = 'wp_';
  * Besuche den Codex, um mehr Informationen über andere Konstanten zu finden,
  * die zum Debuggen genutzt werden können.
  *
- * @link https://codex.wordpress.org/Debugging_in_WordPress
+ * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
+
+/* Füge individuelle Werte zwischen dieser Zeile und der „Schluss mit dem Bearbeiten“ Zeile ein. */
+
+
 
 /* Das war’s, Schluss mit dem Bearbeiten! Viel Spaß. */
 /* That's all, stop editing! Happy publishing. */
 
 /** Der absolute Pfad zum WordPress-Verzeichnis. */
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
+	define( 'ABSPATH', __DIR__ . '/' );
 }
 
 /** Definiert WordPress-Variablen und fügt Dateien ein.  */
-require_once( ABSPATH . 'wp-settings.php' );
+require_once ABSPATH . 'wp-settings.php';
