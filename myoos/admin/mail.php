@@ -21,7 +21,8 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-require_once MYOOS_INCLUDE_PATH . '/vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
+// Load the autoloader
+require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
 
 $action = (isset($_GET['action']) ? oos_prepare_input($_GET['action']) : '');

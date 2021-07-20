@@ -25,7 +25,8 @@ require 'includes/functions/function_categories.php';
 require 'includes/classes/class_currencies.php';
 require 'includes/classes/class_upload.php';
 
-require_once MYOOS_INCLUDE_PATH . '/vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
+// Load the autoloader
+require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
 $currencies = new currencies();
 
