@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["mediaUtils"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 433);
+/******/ 	return __webpack_require__(__webpack_require__.s = 518);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -108,21 +108,21 @@ window["wp"] = window["wp"] || {}; window["wp"]["mediaUtils"] =
 
 /***/ }),
 
-/***/ 31:
+/***/ 32:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["apiFetch"]; }());
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["blob"]; }());
 
 /***/ }),
 
-/***/ 433:
+/***/ 518:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -557,11 +557,11 @@ class media_upload_MediaUpload extends external_wp_element_["Component"] {
 
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","apiFetch"]
-var external_wp_apiFetch_ = __webpack_require__(31);
+var external_wp_apiFetch_ = __webpack_require__(32);
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_);
 
 // EXTERNAL MODULE: external ["wp","blob"]
-var external_wp_blob_ = __webpack_require__(32);
+var external_wp_blob_ = __webpack_require__(33);
 
 // CONCATENATED MODULE: ./packages/media-utils/build-module/utils/upload-media.js
 

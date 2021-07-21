@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 420);
+/******/ 	return __webpack_require__(__webpack_require__.s = 505);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,17 +101,10 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["coreData"]; }());
-
-/***/ }),
-
-/***/ 19:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["url"]; }());
 
 /***/ }),
 
@@ -122,7 +115,14 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 
 /***/ }),
 
-/***/ 28:
+/***/ 20:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["url"]; }());
+
+/***/ }),
+
+/***/ 29:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["notices"]; }());
@@ -143,7 +143,14 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 
 /***/ }),
 
-/***/ 420:
+/***/ 5:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["blockEditor"]; }());
+
+/***/ }),
+
+/***/ 505:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -424,10 +431,10 @@ const reusable_block_reusableBlock = Object(external_wp_element_["createElement"
 /* harmony default export */ var reusable_block = (reusable_block_reusableBlock);
 //# sourceMappingURL=reusable-block.js.map
 // EXTERNAL MODULE: external ["wp","notices"]
-var external_wp_notices_ = __webpack_require__(28);
+var external_wp_notices_ = __webpack_require__(29);
 
 // EXTERNAL MODULE: external ["wp","coreData"]
-var external_wp_coreData_ = __webpack_require__(11);
+var external_wp_coreData_ = __webpack_require__(12);
 
 // CONCATENATED MODULE: ./packages/reusable-blocks/build-module/components/reusable-blocks-menu-items/reusable-block-convert-button.js
 
@@ -554,7 +561,7 @@ function ReusableBlockConvertButton({
 }
 //# sourceMappingURL=reusable-block-convert-button.js.map
 // EXTERNAL MODULE: external ["wp","url"]
-var external_wp_url_ = __webpack_require__(19);
+var external_wp_url_ = __webpack_require__(20);
 
 // CONCATENATED MODULE: ./packages/reusable-blocks/build-module/components/reusable-blocks-menu-items/reusable-blocks-manage-button.js
 
@@ -654,13 +661,6 @@ function ReusableBlocksMenuItems({
 
 
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 5:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["blockEditor"]; }());
 
 /***/ }),
 

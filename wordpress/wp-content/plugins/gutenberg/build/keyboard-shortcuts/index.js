@@ -82,12 +82,12 @@ window["wp"] = window["wp"] || {}; window["wp"]["keyboardShortcuts"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 427);
+/******/ 	return __webpack_require__(__webpack_require__.s = 512);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
+/***/ 14:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["keycodes"]; }());
@@ -101,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["keyboardShortcuts"] =
 
 /***/ }),
 
-/***/ 29:
+/***/ 30:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -390,7 +390,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 427:
+/***/ 512:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -523,10 +523,10 @@ function unregisterShortcut(name) {
 }
 //# sourceMappingURL=actions.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(29);
+var rememo = __webpack_require__(30);
 
 // EXTERNAL MODULE: external ["wp","keycodes"]
-var external_wp_keycodes_ = __webpack_require__(13);
+var external_wp_keycodes_ = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/store/selectors.js
 /**

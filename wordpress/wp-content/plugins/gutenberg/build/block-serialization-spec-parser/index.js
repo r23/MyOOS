@@ -82,12 +82,12 @@ window["wp"] = window["wp"] || {}; window["wp"]["blockSerializationSpecParser"] 
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 302);
+/******/ 	return __webpack_require__(__webpack_require__.s = 387);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 302:
+/***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

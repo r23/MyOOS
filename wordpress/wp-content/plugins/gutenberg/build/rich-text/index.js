@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["richText"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 406);
+/******/ 	return __webpack_require__(__webpack_require__.s = 491);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,14 @@ window["wp"] = window["wp"] || {}; window["wp"]["richText"] =
 
 /***/ }),
 
-/***/ 13:
+/***/ 114:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["escapeHtml"]; }());
+
+/***/ }),
+
+/***/ 14:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["keycodes"]; }());
@@ -108,7 +115,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["richText"] =
 
 /***/ }),
 
-/***/ 29:
+/***/ 30:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -397,7 +404,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 406:
+/***/ 491:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -501,7 +508,7 @@ function reducer_formatTypes(state = {}, action) {
 }));
 //# sourceMappingURL=reducer.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(29);
+var rememo = __webpack_require__(30);
 
 // CONCATENATED MODULE: ./packages/rich-text/build-module/store/selectors.js
 /**
@@ -1261,6 +1268,22 @@ function createFromElement({
       continue;
     }
 
+    if (type === 'script') {
+      const value = {
+        formats: [,],
+        replacements: [{
+          type,
+          attributes: {
+            'data-rich-text-script': node.getAttribute('data-rich-text-script') || encodeURIComponent(node.innerHTML)
+          }
+        }],
+        text: OBJECT_REPLACEMENT_CHARACTER
+      };
+      accumulateSelection(accumulator, node, range, value);
+      mergePair(accumulator, value);
+      continue;
+    }
+
     if (type === 'br') {
       accumulateSelection(accumulator, node, range, createEmptyValue());
       mergePair(accumulator, create({
@@ -1439,8 +1462,9 @@ function getAttributes({
       continue;
     }
 
+    const safeName = /^on/i.test(name) ? 'data-disable-rich-text-' + name : name;
     accumulator = accumulator || {};
-    accumulator[name] = value;
+    accumulator[safeName] = value;
   }
 
   return accumulator;
@@ -2424,6 +2448,26 @@ function get_format_type_getFormatType(name) {
 
 
 
+
+function restoreOnAttributes(attributes, isEditableTree) {
+  if (isEditableTree) {
+    return attributes;
+  }
+
+  const newAttributes = {};
+
+  for (const key in attributes) {
+    let newKey = key;
+
+    if (key.startsWith('data-disable-rich-text-')) {
+      newKey = key.slice('data-disable-rich-text-'.length);
+    }
+
+    newAttributes[newKey] = attributes[key];
+  }
+
+  return newAttributes;
+}
 /**
  * Converts a format object to information that can be used to create an element
  * from (type, attributes and object).
@@ -2437,16 +2481,19 @@ function get_format_type_getFormatType(name) {
  *                                            format.
  * @param {boolean} $1.boundaryClass          Whether or not to apply a boundary
  *                                            class.
+ * @param {boolean} $1.isEditableTree
  *
  * @return {Object} Information to be used for element creation.
  */
+
 
 function fromFormat({
   type,
   attributes,
   unregisteredAttributes,
   object,
-  boundaryClass
+  boundaryClass,
+  isEditableTree
 }) {
   const formatType = get_format_type_getFormatType(type);
   let elementAttributes = {};
@@ -2464,7 +2511,7 @@ function fromFormat({
 
     return {
       type,
-      attributes: elementAttributes,
+      attributes: restoreOnAttributes(elementAttributes, isEditableTree),
       object
     };
   }
@@ -2494,7 +2541,7 @@ function fromFormat({
   return {
     type: formatType.tagName,
     object: formatType.object,
-    attributes: elementAttributes
+    attributes: restoreOnAttributes(elementAttributes, isEditableTree)
   };
 }
 /**
@@ -2629,7 +2676,8 @@ function toTree({
           type,
           attributes,
           unregisteredAttributes,
-          boundaryClass
+          boundaryClass,
+          isEditableTree
         }));
 
         if (isText(pointer) && getText(pointer).length === 0) {
@@ -2659,9 +2707,21 @@ function toTree({
     }
 
     if (character === OBJECT_REPLACEMENT_CHARACTER) {
-      pointer = append(getParent(pointer), fromFormat({ ...replacements[i],
-        object: true
-      })); // Ensure pointer is text node.
+      if (!isEditableTree && replacements[i].type === 'script') {
+        pointer = append(getParent(pointer), fromFormat({
+          type: 'script',
+          isEditableTree
+        }));
+        append(pointer, {
+          html: decodeURIComponent(replacements[i].attributes['data-rich-text-script'])
+        });
+      } else {
+        pointer = append(getParent(pointer), fromFormat({ ...replacements[i],
+          object: true,
+          isEditableTree
+        }));
+      } // Ensure pointer is text node.
+
 
       pointer = append(getParent(pointer), '');
     } else if (!preserveWhiteSpace && character === '\n') {
@@ -3048,7 +3108,7 @@ function applySelection({
 }
 //# sourceMappingURL=to-dom.js.map
 // EXTERNAL MODULE: external ["wp","escapeHtml"]
-var external_wp_escapeHtml_ = __webpack_require__(90);
+var external_wp_escapeHtml_ = __webpack_require__(114);
 
 // CONCATENATED MODULE: ./packages/rich-text/build-module/to-html-string.js
 /**
@@ -3176,6 +3236,10 @@ function createElementHTML({
 
 function createChildrenHTML(children = []) {
   return children.map(child => {
+    if (child.html !== undefined) {
+      return child.html;
+    }
+
     return child.text === undefined ? createElementHTML(child) : Object(external_wp_escapeHtml_["escapeEditableHTML"])(child.text);
   }).join('');
 }
@@ -3826,7 +3890,7 @@ function useCopyHandler(props) {
 }
 //# sourceMappingURL=use-copy-handler.js.map
 // EXTERNAL MODULE: external ["wp","keycodes"]
-var external_wp_keycodes_ = __webpack_require__(13);
+var external_wp_keycodes_ = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-format-boundaries.js
 /**
@@ -4755,13 +4819,6 @@ function FormatEdit({
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["compose"]; }());
-
-/***/ }),
-
-/***/ 90:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["escapeHtml"]; }());
 
 /***/ })
 

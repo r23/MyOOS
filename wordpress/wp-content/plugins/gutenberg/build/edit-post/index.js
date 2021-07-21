@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["editPost"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 403);
+/******/ 	return __webpack_require__(__webpack_require__.s = 487);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -105,7 +105,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["editPost"] =
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-  Copyright (c) 2016 Jed Watson.
+  Copyright (c) 2018 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
@@ -116,7 +116,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 	var hasOwn = {}.hasOwnProperty;
 
-	function classNames () {
+	function classNames() {
 		var classes = [];
 
 		for (var i = 0; i < arguments.length; i++) {
@@ -128,12 +128,21 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 			if (argType === 'string' || argType === 'number') {
 				classes.push(arg);
 			} else if (Array.isArray(arg)) {
-				classes.push(classNames.apply(null, arg));
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes.push(key);
+				if (arg.length) {
+					var inner = classNames.apply(null, arg);
+					if (inner) {
+						classes.push(inner);
 					}
+				}
+			} else if (argType === 'object') {
+				if (arg.toString === Object.prototype.toString) {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				} else {
+					classes.push(arg.toString());
 				}
 			}
 		}
@@ -142,6 +151,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	}
 
 	if ( true && module.exports) {
+		classNames.default = classNames;
 		module.exports = classNames;
 	} else if (true) {
 		// register as 'classnames', consistent with npm package name
@@ -152,37 +162,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	} else {}
 }());
 
-
-/***/ }),
-
-/***/ 107:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return STORE_NAME; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return VIEW_AS_LINK_SELECTOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return VIEW_AS_PREVIEW_LINK_SELECTOR; });
-/**
- * The identifier for the data store.
- *
- * @type {string}
- */
-const STORE_NAME = 'core/edit-post';
-/**
- * CSS selector string for the admin bar view post link anchor tag.
- *
- * @type {string}
- */
-
-const VIEW_AS_LINK_SELECTOR = '#wp-admin-bar-view a';
-/**
- * CSS selector string for the admin bar preview post link anchor tag.
- *
- * @type {string}
- */
-
-const VIEW_AS_PREVIEW_LINK_SELECTOR = '#wp-admin-bar-preview a';
-//# sourceMappingURL=constants.js.map
 
 /***/ }),
 
@@ -228,11 +207,74 @@ function Icon({
 /***/ 11:
 /***/ (function(module, exports) {
 
+(function() { module.exports = window["React"]; }());
+
+/***/ }),
+
+/***/ 116:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const check = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (check);
+//# sourceMappingURL=check.js.map
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, exports) {
+
 (function() { module.exports = window["wp"]["coreData"]; }());
 
 /***/ }),
 
-/***/ 110:
+/***/ 130:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return STORE_NAME; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return VIEW_AS_LINK_SELECTOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return VIEW_AS_PREVIEW_LINK_SELECTOR; });
+/**
+ * The identifier for the data store.
+ *
+ * @type {string}
+ */
+const STORE_NAME = 'core/edit-post';
+/**
+ * CSS selector string for the admin bar view post link anchor tag.
+ *
+ * @type {string}
+ */
+
+const VIEW_AS_LINK_SELECTOR = '#wp-admin-bar-view a';
+/**
+ * CSS selector string for the admin bar preview post link anchor tag.
+ *
+ * @type {string}
+ */
+
+const VIEW_AS_PREVIEW_LINK_SELECTOR = '#wp-admin-bar-preview a';
+//# sourceMappingURL=constants.js.map
+
+/***/ }),
+
+/***/ 132:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -257,14 +299,39 @@ const close = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElem
 
 /***/ }),
 
-/***/ 12:
-/***/ (function(module, exports) {
+/***/ 133:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-(function() { module.exports = window["React"]; }());
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const closeSmall = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  d: "M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (closeSmall);
+//# sourceMappingURL=close-small.js.map
 
 /***/ }),
 
-/***/ 127:
+/***/ 14:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["keycodes"]; }());
+
+/***/ }),
+
+/***/ 145:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -289,297 +356,14 @@ const plus = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 13:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["keycodes"]; }());
-
-/***/ }),
-
-/***/ 148:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependencies
- */
-
-const starFilled = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
-  d: "M11.776 4.454a.25.25 0 01.448 0l2.069 4.192a.25.25 0 00.188.137l4.626.672a.25.25 0 01.139.426l-3.348 3.263a.25.25 0 00-.072.222l.79 4.607a.25.25 0 01-.362.263l-4.138-2.175a.25.25 0 00-.232 0l-4.138 2.175a.25.25 0 01-.363-.263l.79-4.607a.25.25 0 00-.071-.222L4.754 9.881a.25.25 0 01.139-.426l4.626-.672a.25.25 0 00.188-.137l2.069-4.192z"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (starFilled);
-//# sourceMappingURL=star-filled.js.map
-
-/***/ }),
-
-/***/ 149:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependencies
- */
-
-const starEmpty = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
-  fillRule: "evenodd",
-  d: "M9.706 8.646a.25.25 0 01-.188.137l-4.626.672a.25.25 0 00-.139.427l3.348 3.262a.25.25 0 01.072.222l-.79 4.607a.25.25 0 00.362.264l4.138-2.176a.25.25 0 01.233 0l4.137 2.175a.25.25 0 00.363-.263l-.79-4.607a.25.25 0 01.072-.222l3.347-3.262a.25.25 0 00-.139-.427l-4.626-.672a.25.25 0 01-.188-.137l-2.069-4.192a.25.25 0 00-.448 0L9.706 8.646zM12 7.39l-.948 1.921a1.75 1.75 0 01-1.317.957l-2.12.308 1.534 1.495c.412.402.6.982.503 1.55l-.362 2.11 1.896-.997a1.75 1.75 0 011.629 0l1.895.997-.362-2.11a1.75 1.75 0 01.504-1.55l1.533-1.495-2.12-.308a1.75 1.75 0 01-1.317-.957L12 7.39z",
-  clipRule: "evenodd"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (starEmpty);
-//# sourceMappingURL=star-empty.js.map
-
-/***/ }),
-
-/***/ 152:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependencies
- */
-
-const chevronDown = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
-  d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (chevronDown);
-//# sourceMappingURL=chevron-down.js.map
-
-/***/ }),
-
-/***/ 153:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependencies
- */
-
-const moreVertical = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
-  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (moreVertical);
-//# sourceMappingURL=more-vertical.js.map
-
-/***/ }),
-
-/***/ 16:
+/***/ 18:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["editor"]; }());
 
 /***/ }),
 
-/***/ 164:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export Fill */
-/* unused harmony export Slot */
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
-/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(37);
-/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(62);
-/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_warning__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _preferences_modal_options__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(51);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(18);
-
-
-/**
- * Defines as extensibility slot for the Settings sidebar
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-const {
-  Fill,
-  Slot
-} = Object(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["createSlotFill"])('PluginDocumentSettingPanel');
-
-const PluginDocumentSettingFill = ({
-  isEnabled,
-  panelName,
-  opened,
-  onToggle,
-  className,
-  title,
-  icon,
-  children
-}) => {
-  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_preferences_modal_options__WEBPACK_IMPORTED_MODULE_6__[/* EnablePluginDocumentSettingPanelOption */ "d"], {
-    label: title,
-    panelName: panelName
-  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fill, null, isEnabled && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["PanelBody"], {
-    className: className,
-    title: title,
-    icon: icon,
-    opened: opened,
-    onToggle: onToggle
-  }, children)));
-};
-/**
- * Renders items below the Status & Availability panel in the Document Sidebar.
- *
- * @param {Object}                props                                 Component properties.
- * @param {string}                [props.name]                          The machine-friendly name for the panel.
- * @param {string}                [props.className]                     An optional class name added to the row.
- * @param {string}                [props.title]                         The title of the panel
- * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar.
- *
- * @example
- * ```js
- * // Using ES5 syntax
- * var el = wp.element.createElement;
- * var __ = wp.i18n.__;
- * var registerPlugin = wp.plugins.registerPlugin;
- * var PluginDocumentSettingPanel = wp.editPost.PluginDocumentSettingPanel;
- *
- * function MyDocumentSettingPlugin() {
- * 	return el(
- * 		PluginDocumentSettingPanel,
- * 		{
- * 			className: 'my-document-setting-plugin',
- * 			title: 'My Panel',
- * 		},
- * 		__( 'My Document Setting Panel' )
- * 	);
- * }
- *
- * registerPlugin( 'my-document-setting-plugin', {
- * 		render: MyDocumentSettingPlugin
- * } );
- * ```
- *
- * @example
- * ```jsx
- * // Using ESNext syntax
- * import { registerPlugin } from '@wordpress/plugins';
- * import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
- *
- * const MyDocumentSettingTest = () => (
- * 		<PluginDocumentSettingPanel className="my-document-setting-plugin" title="My Panel">
- *			<p>My Document Setting Panel</p>
- *		</PluginDocumentSettingPanel>
- *	);
- *
- *  registerPlugin( 'document-setting-test', { render: MyDocumentSettingTest } );
- * ```
- *
- * @return {WPComponent} The component to be rendered.
- */
-
-
-const PluginDocumentSettingPanel = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__["compose"])(Object(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__["withPluginContext"])((context, ownProps) => {
-  if (undefined === ownProps.name) {
-    typeof process !== "undefined" && process.env && "production" !== "production" ? _wordpress_warning__WEBPACK_IMPORTED_MODULE_5___default()('PluginDocumentSettingPanel requires a name property.') : void 0;
-  }
-
-  return {
-    icon: ownProps.icon || context.icon,
-    panelName: `${context.name}/${ownProps.name}`
-  };
-}), Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withSelect"])((select, {
-  panelName
-}) => {
-  return {
-    opened: select(_store__WEBPACK_IMPORTED_MODULE_7__[/* store */ "a"]).isEditorPanelOpened(panelName),
-    isEnabled: select(_store__WEBPACK_IMPORTED_MODULE_7__[/* store */ "a"]).isEditorPanelEnabled(panelName)
-  };
-}), Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withDispatch"])((dispatch, {
-  panelName
-}) => ({
-  onToggle() {
-    return dispatch(_store__WEBPACK_IMPORTED_MODULE_7__[/* store */ "a"]).toggleEditorPanelOpened(panelName);
-  }
-
-})))(PluginDocumentSettingFill);
-PluginDocumentSettingPanel.Slot = Slot;
-/* harmony default export */ __webpack_exports__["a"] = (PluginDocumentSettingPanel);
-//# sourceMappingURL=index.js.map
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(78)))
-
-/***/ }),
-
-/***/ 175:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependencies
- */
-
-const listView = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
-  d: "M13.8 5.2H3v1.5h10.8V5.2zm-3.6 12v1.5H21v-1.5H10.2zm7.2-6H6.6v1.5h10.8v-1.5z"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (listView);
-//# sourceMappingURL=list-view.js.map
-
-/***/ }),
-
-/***/ 18:
+/***/ 19:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -651,7 +435,7 @@ __webpack_require__.d(selectors_namespaceObject, "getEditedPostTemplate", functi
 var external_wp_data_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: external ["wp","dataControls"]
-var external_wp_dataControls_ = __webpack_require__(33);
+var external_wp_dataControls_ = __webpack_require__(34);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(2);
@@ -1009,22 +793,22 @@ const metaBoxes = Object(external_wp_data_["combineReducers"])({
 var external_wp_i18n_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./packages/interface/build-module/index.js + 15 modules
-var build_module = __webpack_require__(27);
+var build_module = __webpack_require__(28);
 
 // EXTERNAL MODULE: external ["wp","a11y"]
-var external_wp_a11y_ = __webpack_require__(30);
+var external_wp_a11y_ = __webpack_require__(31);
 
 // EXTERNAL MODULE: external ["wp","notices"]
-var external_wp_notices_ = __webpack_require__(28);
+var external_wp_notices_ = __webpack_require__(29);
 
 // EXTERNAL MODULE: external ["wp","coreData"]
-var external_wp_coreData_ = __webpack_require__(11);
+var external_wp_coreData_ = __webpack_require__(12);
 
 // EXTERNAL MODULE: external ["wp","blockEditor"]
 var external_wp_blockEditor_ = __webpack_require__(5);
 
 // EXTERNAL MODULE: external ["wp","editor"]
-var external_wp_editor_ = __webpack_require__(16);
+var external_wp_editor_ = __webpack_require__(18);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/utils/meta-boxes.js
 /**
@@ -1495,7 +1279,7 @@ function* __unstableSwitchToTemplateMode(template) {
 }
 //# sourceMappingURL=actions.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(29);
+var rememo = __webpack_require__(30);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/store/selectors.js
 /**
@@ -1857,7 +1641,7 @@ const getEditedPostTemplate = Object(external_wp_data_["createRegistrySelector"]
 });
 //# sourceMappingURL=selectors.js.map
 // EXTERNAL MODULE: ./packages/edit-post/build-module/store/constants.js
-var constants = __webpack_require__(107);
+var constants = __webpack_require__(130);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/store/index.js
 /**
@@ -1895,7 +1679,311 @@ Object(external_wp_data_["registerStore"])(constants["a" /* STORE_NAME */], stor
 
 /***/ }),
 
-/***/ 186:
+/***/ 190:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const starFilled = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  d: "M11.776 4.454a.25.25 0 01.448 0l2.069 4.192a.25.25 0 00.188.137l4.626.672a.25.25 0 01.139.426l-3.348 3.263a.25.25 0 00-.072.222l.79 4.607a.25.25 0 01-.362.263l-4.138-2.175a.25.25 0 00-.232 0l-4.138 2.175a.25.25 0 01-.363-.263l.79-4.607a.25.25 0 00-.071-.222L4.754 9.881a.25.25 0 01.139-.426l4.626-.672a.25.25 0 00.188-.137l2.069-4.192z"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (starFilled);
+//# sourceMappingURL=star-filled.js.map
+
+/***/ }),
+
+/***/ 191:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const starEmpty = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  fillRule: "evenodd",
+  d: "M9.706 8.646a.25.25 0 01-.188.137l-4.626.672a.25.25 0 00-.139.427l3.348 3.262a.25.25 0 01.072.222l-.79 4.607a.25.25 0 00.362.264l4.138-2.176a.25.25 0 01.233 0l4.137 2.175a.25.25 0 00.363-.263l-.79-4.607a.25.25 0 01.072-.222l3.347-3.262a.25.25 0 00-.139-.427l-4.626-.672a.25.25 0 01-.188-.137l-2.069-4.192a.25.25 0 00-.448 0L9.706 8.646zM12 7.39l-.948 1.921a1.75 1.75 0 01-1.317.957l-2.12.308 1.534 1.495c.412.402.6.982.503 1.55l-.362 2.11 1.896-.997a1.75 1.75 0 011.629 0l1.895.997-.362-2.11a1.75 1.75 0 01.504-1.55l1.533-1.495-2.12-.308a1.75 1.75 0 01-1.317-.957L12 7.39z",
+  clipRule: "evenodd"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (starEmpty);
+//# sourceMappingURL=star-empty.js.map
+
+/***/ }),
+
+/***/ 193:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const chevronDown = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (chevronDown);
+//# sourceMappingURL=chevron-down.js.map
+
+/***/ }),
+
+/***/ 194:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const moreVertical = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (moreVertical);
+//# sourceMappingURL=more-vertical.js.map
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["lodash"]; }());
+
+/***/ }),
+
+/***/ 20:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["url"]; }());
+
+/***/ }),
+
+/***/ 21:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["hooks"]; }());
+
+/***/ }),
+
+/***/ 211:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export Fill */
+/* unused harmony export Slot */
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(45);
+/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(66);
+/* harmony import */ var _wordpress_warning__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_warning__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _preferences_modal_options__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(59);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(19);
+
+
+/**
+ * Defines as extensibility slot for the Settings sidebar
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const {
+  Fill,
+  Slot
+} = Object(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["createSlotFill"])('PluginDocumentSettingPanel');
+
+const PluginDocumentSettingFill = ({
+  isEnabled,
+  panelName,
+  opened,
+  onToggle,
+  className,
+  title,
+  icon,
+  children
+}) => {
+  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_preferences_modal_options__WEBPACK_IMPORTED_MODULE_6__[/* EnablePluginDocumentSettingPanelOption */ "d"], {
+    label: title,
+    panelName: panelName
+  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Fill, null, isEnabled && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__["PanelBody"], {
+    className: className,
+    title: title,
+    icon: icon,
+    opened: opened,
+    onToggle: onToggle
+  }, children)));
+};
+/**
+ * Renders items below the Status & Availability panel in the Document Sidebar.
+ *
+ * @param {Object}                props                                 Component properties.
+ * @param {string}                [props.name]                          The machine-friendly name for the panel.
+ * @param {string}                [props.className]                     An optional class name added to the row.
+ * @param {string}                [props.title]                         The title of the panel
+ * @param {WPBlockTypeIconRender} [props.icon=inherits from the plugin] The [Dashicon](https://developer.wordpress.org/resource/dashicons/) icon slug string, or an SVG WP element, to be rendered when the sidebar is pinned to toolbar.
+ *
+ * @example
+ * ```js
+ * // Using ES5 syntax
+ * var el = wp.element.createElement;
+ * var __ = wp.i18n.__;
+ * var registerPlugin = wp.plugins.registerPlugin;
+ * var PluginDocumentSettingPanel = wp.editPost.PluginDocumentSettingPanel;
+ *
+ * function MyDocumentSettingPlugin() {
+ * 	return el(
+ * 		PluginDocumentSettingPanel,
+ * 		{
+ * 			className: 'my-document-setting-plugin',
+ * 			title: 'My Panel',
+ * 		},
+ * 		__( 'My Document Setting Panel' )
+ * 	);
+ * }
+ *
+ * registerPlugin( 'my-document-setting-plugin', {
+ * 		render: MyDocumentSettingPlugin
+ * } );
+ * ```
+ *
+ * @example
+ * ```jsx
+ * // Using ESNext syntax
+ * import { registerPlugin } from '@wordpress/plugins';
+ * import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
+ *
+ * const MyDocumentSettingTest = () => (
+ * 		<PluginDocumentSettingPanel className="my-document-setting-plugin" title="My Panel">
+ *			<p>My Document Setting Panel</p>
+ *		</PluginDocumentSettingPanel>
+ *	);
+ *
+ *  registerPlugin( 'document-setting-test', { render: MyDocumentSettingTest } );
+ * ```
+ *
+ * @return {WPComponent} The component to be rendered.
+ */
+
+
+const PluginDocumentSettingPanel = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__["compose"])(Object(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_3__["withPluginContext"])((context, ownProps) => {
+  if (undefined === ownProps.name) {
+    typeof process !== "undefined" && process.env && "production" !== "production" ? _wordpress_warning__WEBPACK_IMPORTED_MODULE_5___default()('PluginDocumentSettingPanel requires a name property.') : void 0;
+  }
+
+  return {
+    icon: ownProps.icon || context.icon,
+    panelName: `${context.name}/${ownProps.name}`
+  };
+}), Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withSelect"])((select, {
+  panelName
+}) => {
+  return {
+    opened: select(_store__WEBPACK_IMPORTED_MODULE_7__[/* store */ "a"]).isEditorPanelOpened(panelName),
+    isEnabled: select(_store__WEBPACK_IMPORTED_MODULE_7__[/* store */ "a"]).isEditorPanelEnabled(panelName)
+  };
+}), Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__["withDispatch"])((dispatch, {
+  panelName
+}) => ({
+  onToggle() {
+    return dispatch(_store__WEBPACK_IMPORTED_MODULE_7__[/* store */ "a"]).toggleEditorPanelOpened(panelName);
+  }
+
+})))(PluginDocumentSettingFill);
+PluginDocumentSettingPanel.Slot = Slot;
+/* harmony default export */ __webpack_exports__["a"] = (PluginDocumentSettingPanel);
+//# sourceMappingURL=index.js.map
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(89)))
+
+/***/ }),
+
+/***/ 242:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const listView = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  d: "M13.8 5.2H3v1.5h10.8V5.2zm-3.6 12v1.5H21v-1.5H10.2zm7.2-6H6.6v1.5h10.8v-1.5z"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (listView);
+//# sourceMappingURL=list-view.js.map
+
+/***/ }),
+
+/***/ 25:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
+
+/***/ }),
+
+/***/ 253:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1920,14 +2008,7 @@ const layout = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 /***/ }),
 
-/***/ 19:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["url"]; }());
-
-/***/ }),
-
-/***/ 195:
+/***/ 261:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1952,7 +2033,7 @@ const external = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createE
 
 /***/ }),
 
-/***/ 198:
+/***/ 264:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1979,53 +2060,7 @@ const cog = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElemen
 
 /***/ }),
 
-/***/ 2:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["lodash"]; }());
-
-/***/ }),
-
-/***/ 20:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["hooks"]; }());
-
-/***/ }),
-
-/***/ 24:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
-
-/***/ }),
-
-/***/ 253:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependencies
- */
-
-const wordpress = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "-2 -2 24 24"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
-  d: "M20 10c0-5.51-4.49-10-10-10C4.48 0 0 4.49 0 10c0 5.52 4.48 10 10 10 5.51 0 10-4.48 10-10zM7.78 15.37L4.37 6.22c.55-.02 1.17-.08 1.17-.08.5-.06.44-1.13-.06-1.11 0 0-1.45.11-2.37.11-.18 0-.37 0-.58-.01C4.12 2.69 6.87 1.11 10 1.11c2.33 0 4.45.87 6.05 2.34-.68-.11-1.65.39-1.65 1.58 0 .74.45 1.36.9 2.1.35.61.55 1.36.55 2.46 0 1.49-1.4 5-1.4 5l-3.03-8.37c.54-.02.82-.17.82-.17.5-.05.44-1.25-.06-1.22 0 0-1.44.12-2.38.12-.87 0-2.33-.12-2.33-.12-.5-.03-.56 1.2-.06 1.22l.92.08 1.26 3.41zM17.41 10c.24-.64.74-1.87.43-4.25.7 1.29 1.05 2.71 1.05 4.25 0 3.29-1.73 6.24-4.4 7.78.97-2.59 1.94-5.2 2.92-7.78zM6.1 18.09C3.12 16.65 1.11 13.53 1.11 10c0-1.3.23-2.48.72-3.59C3.25 10.3 4.67 14.2 6.1 18.09zm4.03-6.63l2.58 6.98c-.86.29-1.76.45-2.71.45-.79 0-1.57-.11-2.29-.33.81-2.38 1.62-4.74 2.42-7.1z"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (wordpress);
-//# sourceMappingURL=wordpress.js.map
-
-/***/ }),
-
-/***/ 27:
+/***/ 28:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2350,22 +2385,22 @@ var external_wp_components_ = __webpack_require__(3);
 var external_wp_i18n_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/check.js
-var check = __webpack_require__(92);
+var check = __webpack_require__(116);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/star-filled.js
-var star_filled = __webpack_require__(148);
+var star_filled = __webpack_require__(190);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/star-empty.js
-var star_empty = __webpack_require__(149);
+var star_empty = __webpack_require__(191);
 
 // EXTERNAL MODULE: external ["wp","viewport"]
-var external_wp_viewport_ = __webpack_require__(54);
+var external_wp_viewport_ = __webpack_require__(63);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/close-small.js
-var close_small = __webpack_require__(91);
+var close_small = __webpack_require__(133);
 
 // EXTERNAL MODULE: external ["wp","plugins"]
-var external_wp_plugins_ = __webpack_require__(37);
+var external_wp_plugins_ = __webpack_require__(45);
 
 // CONCATENATED MODULE: ./packages/interface/build-module/components/complementary-area-context/index.js
 /**
@@ -2874,6 +2909,10 @@ var external_wp_compose_ = __webpack_require__(9);
  * WordPress dependencies
  */
 
+/**
+ * WordPress dependencies
+ */
+
 
 
 
@@ -2899,6 +2938,7 @@ function InterfaceSkeleton({
   header,
   sidebar,
   secondarySidebar,
+  notices,
   content,
   drawer,
   actions,
@@ -2955,7 +2995,9 @@ function InterfaceSkeleton({
     role: "region",
     "aria-label": mergedLabels.secondarySidebar,
     tabIndex: "-1"
-  }, secondarySidebar), Object(external_wp_element_["createElement"])("div", {
+  }, secondarySidebar), !!notices && Object(external_wp_element_["createElement"])("div", {
+    className: "interface-interface-skeleton__notices"
+  }, notices), Object(external_wp_element_["createElement"])("div", {
     className: "interface-interface-skeleton__content",
     role: "region",
     "aria-label": mergedLabels.body,
@@ -2995,14 +3037,21 @@ function InterfaceSkeleton({
 
 /***/ }),
 
-/***/ 28:
+/***/ 29:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["notices"]; }());
 
 /***/ }),
 
-/***/ 29:
+/***/ 3:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["components"]; }());
+
+/***/ }),
+
+/***/ 30:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3284,7 +3333,46 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 294:
+/***/ 31:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["a11y"]; }());
+
+/***/ }),
+
+/***/ 320:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
+/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * WordPress dependencies
+ */
+
+const wordpress = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "-2 -2 24 24"
+}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
+  d: "M20 10c0-5.51-4.49-10-10-10C4.48 0 0 4.49 0 10c0 5.52 4.48 10 10 10 5.51 0 10-4.48 10-10zM7.78 15.37L4.37 6.22c.55-.02 1.17-.08 1.17-.08.5-.06.44-1.13-.06-1.11 0 0-1.45.11-2.37.11-.18 0-.37 0-.58-.01C4.12 2.69 6.87 1.11 10 1.11c2.33 0 4.45.87 6.05 2.34-.68-.11-1.65.39-1.65 1.58 0 .74.45 1.36.9 2.1.35.61.55 1.36.55 2.46 0 1.49-1.4 5-1.4 5l-3.03-8.37c.54-.02.82-.17.82-.17.5-.05.44-1.25-.06-1.22 0 0-1.44.12-2.38.12-.87 0-2.33-.12-2.33-.12-.5-.03-.56 1.2-.06 1.22l.92.08 1.26 3.41zM17.41 10c.24-.64.74-1.87.43-4.25.7 1.29 1.05 2.71 1.05 4.25 0 3.29-1.73 6.24-4.4 7.78.97-2.59 1.94-5.2 2.92-7.78zM6.1 18.09C3.12 16.65 1.11 13.53 1.11 10c0-1.3.23-2.48.72-3.59C3.25 10.3 4.67 14.2 6.1 18.09zm4.03-6.63l2.58 6.98c-.86.29-1.76.45-2.71.45-.79 0-1.57-.11-2.29-.33.81-2.38 1.62-4.74 2.42-7.1z"
+}));
+/* harmony default export */ __webpack_exports__["a"] = (wordpress);
+//# sourceMappingURL=wordpress.js.map
+
+/***/ }),
+
+/***/ 34:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["dataControls"]; }());
+
+/***/ }),
+
+/***/ 378:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3309,34 +3397,6 @@ const arrowLeft = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 3:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["components"]; }());
-
-/***/ }),
-
-/***/ 30:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["a11y"]; }());
-
-/***/ }),
-
-/***/ 33:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["dataControls"]; }());
-
-/***/ }),
-
-/***/ 37:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["plugins"]; }());
-
-/***/ }),
-
 /***/ 4:
 /***/ (function(module, exports) {
 
@@ -3344,7 +3404,14 @@ const arrowLeft = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 
 /***/ }),
 
-/***/ 403:
+/***/ 45:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["plugins"]; }());
+
+/***/ }),
+
+/***/ 487:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3370,13 +3437,13 @@ __webpack_require__.d(__webpack_exports__, "__experimentalMainDashboardButton", 
 var external_wp_element_ = __webpack_require__(0);
 
 // EXTERNAL MODULE: external ["wp","blockLibrary"]
-var external_wp_blockLibrary_ = __webpack_require__(52);
+var external_wp_blockLibrary_ = __webpack_require__(60);
 
 // EXTERNAL MODULE: external ["wp","hooks"]
-var external_wp_hooks_ = __webpack_require__(20);
+var external_wp_hooks_ = __webpack_require__(21);
 
 // EXTERNAL MODULE: external ["wp","mediaUtils"]
-var external_wp_mediaUtils_ = __webpack_require__(53);
+var external_wp_mediaUtils_ = __webpack_require__(62);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/hooks/components/index.js
 /**
@@ -3538,19 +3605,19 @@ Object(external_wp_hooks_["addFilter"])('editor.BlockEdit', 'core/edit-post/vali
 
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/external.js
-var external = __webpack_require__(195);
+var external = __webpack_require__(261);
 
 // EXTERNAL MODULE: external ["wp","plugins"]
-var external_wp_plugins_ = __webpack_require__(37);
+var external_wp_plugins_ = __webpack_require__(45);
 
 // EXTERNAL MODULE: external ["wp","url"]
-var external_wp_url_ = __webpack_require__(19);
+var external_wp_url_ = __webpack_require__(20);
 
 // EXTERNAL MODULE: external ["wp","notices"]
-var external_wp_notices_ = __webpack_require__(28);
+var external_wp_notices_ = __webpack_require__(29);
 
 // EXTERNAL MODULE: external ["wp","editor"]
-var external_wp_editor_ = __webpack_require__(16);
+var external_wp_editor_ = __webpack_require__(18);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/plugins/copy-content-menu-item/index.js
 
@@ -3584,10 +3651,10 @@ function CopyContentMenuItem() {
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","keycodes"]
-var external_wp_keycodes_ = __webpack_require__(13);
+var external_wp_keycodes_ = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./packages/edit-post/build-module/store/index.js + 5 modules
-var store = __webpack_require__(18);
+var store = __webpack_require__(19);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/plugins/keyboard-shortcuts-help-menu-item/index.js
 
@@ -3721,7 +3788,7 @@ Object(external_wp_plugins_["registerPlugin"])('edit-post', {
 });
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","coreData"]
-var external_wp_coreData_ = __webpack_require__(11);
+var external_wp_coreData_ = __webpack_require__(12);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/prevent-event-discovery.js
 /* harmony default export */ var prevent_event_discovery = ({
@@ -3746,10 +3813,10 @@ var classnames = __webpack_require__(10);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
 // EXTERNAL MODULE: ./packages/interface/build-module/index.js + 15 modules
-var build_module = __webpack_require__(27);
+var build_module = __webpack_require__(28);
 
 // EXTERNAL MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_ = __webpack_require__(24);
+var external_wp_keyboardShortcuts_ = __webpack_require__(25);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/text-editor/index.js
 
@@ -3797,7 +3864,7 @@ function TextEditor({
   };
 }))(TextEditor));
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/tslib/tslib.es6.js
+// CONCATENATED MODULE: ./node_modules/tslib/tslib.es6.js
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -3962,10 +4029,14 @@ function __spreadArrays() {
     return r;
 }
 
-function __spreadArray(to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+function __spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || from);
 }
 
 function __await(v) {
@@ -4035,15 +4106,20 @@ function __classPrivateFieldSet(receiver, state, value, kind, f) {
 }
 
 // EXTERNAL MODULE: external "React"
-var external_React_ = __webpack_require__(12);
+var external_React_ = __webpack_require__(11);
 var external_React_default = /*#__PURE__*/__webpack_require__.n(external_React_);
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/definitions.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/definitions.js
 var createDefinition = function (propNames) { return ({
     isEnabled: function (props) { return propNames.some(function (name) { return !!props[name]; }); },
 }); };
 var featureDefinitions = {
-    measureLayout: createDefinition(["layout", "layoutId", "drag"]),
+    measureLayout: createDefinition([
+        "layout",
+        "layoutId",
+        "drag",
+        "_layoutResetTransform",
+    ]),
     animation: createDefinition([
         "animate",
         "exit",
@@ -4083,14 +4159,14 @@ if (false) {}
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/context/LazyContext.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/context/LazyContext.js
 
 
 var LazyContext = Object(external_React_["createContext"])({ strict: false });
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/use-features.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/use-features.js
 
 
 
@@ -4130,7 +4206,7 @@ function useFeatures(props, visualElement, preloadedFeatures) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/context/MotionConfigContext.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/context/MotionConfigContext.js
 
 
 /**
@@ -4143,7 +4219,7 @@ var MotionConfigContext = Object(external_React_["createContext"])({
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/context/MotionContext/index.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/context/MotionContext/index.js
 
 
 var MotionContext = Object(external_React_["createContext"])({});
@@ -4153,7 +4229,7 @@ function useVisualElementContext() {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/context/PresenceContext.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/context/PresenceContext.js
 
 
 /**
@@ -4163,7 +4239,7 @@ var PresenceContext = Object(external_React_["createContext"])(null);
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/use-constant.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-constant.js
 
 
 /**
@@ -4183,7 +4259,7 @@ function useConstant(init) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js
 
 
 
@@ -4256,7 +4332,7 @@ var useUniqueId = function () { return useConstant(incrementId); };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/context/LayoutGroupContext.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/context/LayoutGroupContext.js
 
 
 /**
@@ -4266,12 +4342,12 @@ var LayoutGroupContext = Object(external_React_["createContext"])(null);
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/is-browser.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/is-browser.js
 var isBrowser = typeof window !== "undefined";
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.js
 
 
 
@@ -4279,7 +4355,7 @@ var useIsomorphicLayoutEffect = isBrowser ? external_React_["useLayoutEffect"] :
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/utils/use-visual-element.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/utils/use-visual-element.js
 
 
 
@@ -4347,7 +4423,7 @@ function useVisualElement(Component, visualState, props, createVisualElement) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/is-ref-object.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/is-ref-object.js
 function isRefObject(ref) {
     return (typeof ref === "object" &&
         Object.prototype.hasOwnProperty.call(ref, "current"));
@@ -4355,7 +4431,7 @@ function isRefObject(ref) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.js
 
 
 
@@ -4380,12 +4456,18 @@ function useMotionRef(visualState, visualElement, externalRef) {
                 externalRef.current = instance;
             }
         }
-    }, [visualElement]);
+    }, 
+    /**
+     * Only pass a new ref callback to React if we've received a visual element
+     * factory. Otherwise we'll be mounting/remounting every time externalRef
+     * or other dependencies change.
+     */
+    [visualElement]);
 }
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/variants.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/variants.js
 /**
  * Decides if the supplied variable is an array of variant labels
  */
@@ -4446,7 +4528,7 @@ function checkIfVariantNode(props) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/context/MotionContext/utils.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/context/MotionContext/utils.js
 
 
 function getCurrentTreeVariants(props, context) {
@@ -4464,7 +4546,7 @@ function getCurrentTreeVariants(props, context) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/context/MotionContext/create.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/context/MotionContext/create.js
 
 
 
@@ -4488,7 +4570,7 @@ function variantLabelsAsDependency(prop) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/index.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/index.js
 
 
 
@@ -4562,7 +4644,7 @@ function createMotionComponent(_a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/motion-proxy.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/motion-proxy.js
 
 
 /**
@@ -4609,7 +4691,7 @@ function createMotionProxy(createConfig) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/lowercase-elements.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/lowercase-elements.js
 /**
  * We keep these listed seperately as we use the lowercase tag names as part
  * of the runtime bundle to detect SVG components
@@ -4644,7 +4726,7 @@ var lowercaseSVGElements = [
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.js
 
 
 function isSVGComponent(Component) {
@@ -4676,7 +4758,7 @@ function isSVGComponent(Component) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/projection/scale-correction.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/projection/scale-correction.js
 var valueScaleCorrection = {};
 /**
  * @internal
@@ -4689,7 +4771,7 @@ function addScaleCorrection(correctors) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/utils/transform.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/utils/transform.js
 /**
  * A list of all transformable axes. We'll use this list to generated a version
  * of each axes for each transform.
@@ -4732,7 +4814,7 @@ function isTransformOriginProp(key) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.js
 
 
 
@@ -4746,14 +4828,14 @@ function isForcedMotionValue(key, _a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/value/utils/is-motion-value.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js
 var isMotionValue = function (value) {
     return value !== null && typeof value === "object" && value.getVelocity;
 };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/utils/build-transform.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/utils/build-transform.js
 
 
 var translateAlias = {
@@ -4813,7 +4895,7 @@ function buildTransformOrigin(_a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.js
 /**
  * Returns true if the provided key is a CSS variable
  */
@@ -4823,7 +4905,7 @@ function isCSSVariable(key) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.js
 /**
  * Provided a value and a ValueType, returns the value as that value type.
  */
@@ -4835,7 +4917,7 @@ var getValueAsType = function (value, type) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/utils.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/utils.js
 var clamp = function (min, max) { return function (v) {
     return Math.max(Math.min(v, max), min);
 }; };
@@ -4849,7 +4931,7 @@ function isString(v) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/numbers/units.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/numbers/units.js
 
 
 
@@ -4869,7 +4951,7 @@ var progressPercentage = __assign(__assign({}, percent), { parse: function (v) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/numbers/index.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/numbers/index.js
 
 
 
@@ -4883,7 +4965,7 @@ var numbers_scale = __assign(__assign({}, numbers_number), { default: 1 });
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/type-int.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/type-int.js
 
 
 
@@ -4891,7 +4973,7 @@ var type_int_int = __assign(__assign({}, numbers_number), { transform: Math.roun
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/number.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/number.js
 
 
 
@@ -4964,7 +5046,7 @@ var numberValueTypes = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/utils/build-styles.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/utils/build-styles.js
 
 
 
@@ -5024,9 +5106,8 @@ function buildHTMLStyles(state, latestValues, projection, layoutState, options, 
              * If layout projection is on, and we need to perform scale correction for this
              * value type, perform it.
              */
-            if (layoutState &&
-                projection &&
-                layoutState.isHydrated &&
+            if ((projection === null || projection === void 0 ? void 0 : projection.isHydrated) &&
+                (layoutState === null || layoutState === void 0 ? void 0 : layoutState.isHydrated) &&
                 valueScaleCorrection[key]) {
                 var correctedValue = valueScaleCorrection[key].process(value, layoutState, projection);
                 /**
@@ -5071,7 +5152,7 @@ function buildHTMLStyles(state, latestValues, projection, layoutState, options, 
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/utils/create-render-state.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/utils/create-render-state.js
 var createHtmlRenderState = function () { return ({
     style: {},
     transform: {},
@@ -5082,7 +5163,7 @@ var createHtmlRenderState = function () { return ({
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/use-props.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/use-props.js
 
 
 
@@ -5141,7 +5222,7 @@ function useHTMLProps(props, visualState, isStatic) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/utils/valid-prop.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/utils/valid-prop.js
 /**
  * A list of all valid MotionProps.
  *
@@ -5161,6 +5242,7 @@ var validMotionProps = new Set([
     "inherit",
     "layout",
     "layoutId",
+    "_layoutResetTransform",
     "onLayoutAnimationComplete",
     "onViewportBoxUpdate",
     "onLayoutMeasure",
@@ -5213,7 +5295,7 @@ function isValidMotionProp(key) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/utils/filter-props.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/filter-props.js
 
 
 var shouldForward = function (key) { return !isValidMotionProp(key); };
@@ -5231,7 +5313,7 @@ var shouldForward = function (key) { return !isValidMotionProp(key); };
  * actually required.
  */
 try {
-    var emotionIsPropValid_1 = __webpack_require__(442).default;
+    var emotionIsPropValid_1 = __webpack_require__(527).default;
     shouldForward = function (key) {
         // Handle events explicitly as Emotion validates them all as true
         if (key.startsWith("on")) {
@@ -5259,7 +5341,7 @@ function filterProps(props, isDom, forwardMotionProps) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.js
 
 
 function calcOrigin(origin, offset, size) {
@@ -5279,7 +5361,7 @@ function calcSVGTransformOrigin(dimensions, originX, originY) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/utils/path.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/utils/path.js
 
 
 // Convert a progress 0-1 to a pixels value based on the provided length
@@ -5318,7 +5400,7 @@ function buildSVGPath(attrs, totalLength, length, spacing, offset, useDashCase) 
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js
 
 
 
@@ -5362,7 +5444,7 @@ function buildSVGAttrs(state, _a, projection, layoutState, options, transformTem
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.js
 
 
 
@@ -5370,7 +5452,7 @@ var createSvgRenderState = function () { return (__assign(__assign({}, createHtm
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/use-props.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/use-props.js
 
 
 
@@ -5393,7 +5475,7 @@ function useSVGProps(props, visualState) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/use-render.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/use-render.js
 
 
 
@@ -5418,7 +5500,7 @@ function createUseRender(forwardMotionProps) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.js
 var CAMEL_CASE_PATTERN = /([a-z])([A-Z])/g;
 var REPLACE_TEMPLATE = "$1-$2";
 /**
@@ -5430,7 +5512,7 @@ var camelToDash = function (str) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/utils/render.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/utils/render.js
 function renderHTML(element, _a) {
     var style = _a.style, vars = _a.vars;
     // Directly assign style into the Element's style prop. In tests Object.assign is the
@@ -5444,7 +5526,7 @@ function renderHTML(element, _a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.js
 /**
  * A set of attribute names that are always read/written as camel case.
  */
@@ -5467,11 +5549,12 @@ var camelCaseAttributes = new Set([
     "stdDeviation",
     "tableValues",
     "viewBox",
+    "gradientTransform",
 ]);
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/utils/render.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/utils/render.js
 
 
 
@@ -5485,7 +5568,7 @@ function renderSVG(element, renderState) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.js
 
 
 
@@ -5502,7 +5585,7 @@ function scrape_motion_values_scrapeMotionValuesFromProps(props) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.js
 
 
 
@@ -5519,21 +5602,21 @@ function utils_scrape_motion_values_scrapeMotionValuesFromProps(props) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.js
 function isAnimationControls(v) {
     return typeof v === "object" && typeof v.start === "function";
 }
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js
 var isKeyframesTarget = function (v) {
     return Array.isArray(v);
 };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/resolve-value.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/resolve-value.js
 
 
 var isCustomValue = function (v) {
@@ -5546,7 +5629,7 @@ var resolveFinalValueInKeyframes = function (v) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.js
 
 
 
@@ -5566,7 +5649,7 @@ function resolveMotionValue(value) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/utils/use-visual-state.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/utils/use-visual-state.js
 
 
 
@@ -5632,7 +5715,7 @@ function makeLatestValues(props, context, presenceContext, scrapeMotionValues) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/config-motion.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/config-motion.js
 
 
 
@@ -5676,7 +5759,7 @@ function isPath(element) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/config-motion.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/config-motion.js
 
 
 
@@ -5690,7 +5773,7 @@ var htmlMotionConfig = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/utils/create-config.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/create-config.js
 
 
 
@@ -5708,7 +5791,7 @@ function createDomMotionConfig(Component, _a, preloadedFeatures, createVisualEle
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/types.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/types.js
 var AnimationType;
 (function (AnimationType) {
     AnimationType["Animate"] = "animate";
@@ -5721,7 +5804,7 @@ var AnimationType;
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/events/use-dom-event.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/events/use-dom-event.js
 
 
 function addDomEvent(target, eventName, handler, options) {
@@ -5760,7 +5843,7 @@ function useDomEvent(ref, eventName, handler, options) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/use-focus-gesture.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/use-focus-gesture.js
 
 
 
@@ -5786,7 +5869,7 @@ function useFocusGesture(_a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/utils/event-type.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/utils/event-type.js
 function isMouseEvent(event) {
     // PointerEvent inherits from MouseEvent so we can't use a straight instanceof check.
     if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
@@ -5801,7 +5884,7 @@ function isTouchEvent(event) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/events/event-info.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/events/event-info.js
 
 
 /**
@@ -5858,7 +5941,7 @@ var wrapHandler = function (handler, shouldFilterPrimaryPointer) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/events/utils.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/events/utils.js
 
 
 // We check for event support via functions in case they've been mocked by a testing suite.
@@ -5874,7 +5957,7 @@ var supportsMouseEvents = function () {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/events/use-pointer-event.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/events/use-pointer-event.js
 
 
 
@@ -5916,76 +5999,7 @@ function usePointerEvent(ref, eventName, handler, options) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/use-hover-gesture.js
-
-
-
-
-function createHoverEvent(visualElement, isActive, callback) {
-    return function (event, info) {
-        var _a;
-        if (!isMouseEvent(event) || !visualElement.isHoverEventsEnabled)
-            return;
-        callback === null || callback === void 0 ? void 0 : callback(event, info);
-        (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(AnimationType.Hover, isActive);
-    };
-}
-function useHoverGesture(_a) {
-    var onHoverStart = _a.onHoverStart, onHoverEnd = _a.onHoverEnd, whileHover = _a.whileHover, visualElement = _a.visualElement;
-    usePointerEvent(visualElement, "pointerenter", onHoverStart || whileHover
-        ? createHoverEvent(visualElement, true, onHoverStart)
-        : undefined);
-    usePointerEvent(visualElement, "pointerleave", onHoverEnd || whileHover
-        ? createHoverEvent(visualElement, false, onHoverEnd)
-        : undefined);
-}
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.js
-/**
- * Recursively traverse up the tree to check whether the provided child node
- * is the parent or a descendant of it.
- *
- * @param parent - Element to find
- * @param child - Element to test against parent
- */
-var isNodeOrChild = function (parent, child) {
-    if (!child) {
-        return false;
-    }
-    else if (parent === child) {
-        return true;
-    }
-    else {
-        return isNodeOrChild(parent, child.parentElement);
-    }
-};
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/use-unmount-effect.js
-
-
-function useUnmountEffect(callback) {
-    return Object(external_React_["useEffect"])(function () { return function () { return callback(); }; }, []);
-}
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/pipe.js
-var combineFunctions = function (a, b) { return function (v) { return b(a(v)); }; };
-var pipe = function () {
-    var transformers = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        transformers[_i] = arguments[_i];
-    }
-    return transformers.reduce(combineFunctions);
-};
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js
 function createLock(name) {
     var lock = null;
     return function () {
@@ -6040,7 +6054,77 @@ function isDragActive() {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/use-tap-gesture.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/use-hover-gesture.js
+
+
+
+
+
+function createHoverEvent(visualElement, isActive, callback) {
+    return function (event, info) {
+        var _a;
+        if (!isMouseEvent(event) || isDragActive())
+            return;
+        callback === null || callback === void 0 ? void 0 : callback(event, info);
+        (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(AnimationType.Hover, isActive);
+    };
+}
+function useHoverGesture(_a) {
+    var onHoverStart = _a.onHoverStart, onHoverEnd = _a.onHoverEnd, whileHover = _a.whileHover, visualElement = _a.visualElement;
+    usePointerEvent(visualElement, "pointerenter", onHoverStart || whileHover
+        ? createHoverEvent(visualElement, true, onHoverStart)
+        : undefined);
+    usePointerEvent(visualElement, "pointerleave", onHoverEnd || whileHover
+        ? createHoverEvent(visualElement, false, onHoverEnd)
+        : undefined);
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.js
+/**
+ * Recursively traverse up the tree to check whether the provided child node
+ * is the parent or a descendant of it.
+ *
+ * @param parent - Element to find
+ * @param child - Element to test against parent
+ */
+var isNodeOrChild = function (parent, child) {
+    if (!child) {
+        return false;
+    }
+    else if (parent === child) {
+        return true;
+    }
+    else {
+        return isNodeOrChild(parent, child.parentElement);
+    }
+};
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-unmount-effect.js
+
+
+function useUnmountEffect(callback) {
+    return Object(external_React_["useEffect"])(function () { return function () { return callback(); }; }, []);
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/pipe.js
+var combineFunctions = function (a, b) { return function (v) { return b(a(v)); }; };
+var pipe = function () {
+    var transformers = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        transformers[_i] = arguments[_i];
+    }
+    return transformers.reduce(combineFunctions);
+};
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/use-tap-gesture.js
 
 
 
@@ -6102,7 +6186,7 @@ function useTapGesture(_a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.js
 var makeRenderlessComponent = function (hook) { return function (props) {
     hook(props);
     return null;
@@ -6110,7 +6194,7 @@ var makeRenderlessComponent = function (hook) { return function (props) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/gestures.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/gestures.js
 
 
 
@@ -6124,7 +6208,7 @@ var gestureAnimations = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/shallow-compare.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/shallow-compare.js
 function shallowCompare(next, prev) {
     if (!Array.isArray(prev))
         return false;
@@ -6140,14 +6224,14 @@ function shallowCompare(next, prev) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/clamp.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/clamp.js
 var clamp_clamp = function (min, max, v) {
     return Math.min(Math.max(v, min), max);
 };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/animations/utils/find-spring.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/animations/utils/find-spring.js
 
 
 
@@ -6198,10 +6282,12 @@ function findSpring(_a) {
     }
     var initialGuess = 5 / duration;
     var undampedFreq = approximateRoot(envelope, derivative, initialGuess);
+    duration = duration * 1000;
     if (isNaN(undampedFreq)) {
         return {
             stiffness: 100,
             damping: 10,
+            duration: duration,
         };
     }
     else {
@@ -6209,6 +6295,7 @@ function findSpring(_a) {
         return {
             stiffness: stiffness,
             damping: dampingRatio * 2 * Math.sqrt(mass * stiffness),
+            duration: duration,
         };
     }
 }
@@ -6226,7 +6313,7 @@ function calcAngularFreq(undampedFreq, dampingRatio) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/animations/generators/spring.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/animations/generators/spring.js
 
 
 
@@ -6248,7 +6335,7 @@ function getSpringOptions(options) {
 function spring(_a) {
     var _b = _a.from, from = _b === void 0 ? 0.0 : _b, _c = _a.to, to = _c === void 0 ? 1.0 : _c, _d = _a.restSpeed, restSpeed = _d === void 0 ? 2 : _d, restDelta = _a.restDelta, options = __rest(_a, ["from", "to", "restSpeed", "restDelta"]);
     var state = { done: false, value: from };
-    var _e = getSpringOptions(options), stiffness = _e.stiffness, damping = _e.damping, mass = _e.mass, velocity = _e.velocity, isResolvedFromDuration = _e.isResolvedFromDuration;
+    var _e = getSpringOptions(options), stiffness = _e.stiffness, damping = _e.damping, mass = _e.mass, velocity = _e.velocity, duration = _e.duration, isResolvedFromDuration = _e.isResolvedFromDuration;
     var resolveSpring = zero;
     var resolveVelocity = zero;
     function createSpring() {
@@ -6330,7 +6417,7 @@ function spring(_a) {
                     isBelowVelocityThreshold && isBelowDisplacementThreshold;
             }
             else {
-                state.done = t >= options.duration;
+                state.done = t >= duration;
             }
             state.value = state.done ? to : current;
             return state;
@@ -6350,7 +6437,7 @@ var zero = function (_t) { return 0; };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/progress.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/progress.js
 var progress_progress = function (from, to, value) {
     var toFromDifference = to - from;
     return toFromDifference === 0 ? 1 : (value - from) / toFromDifference;
@@ -6358,14 +6445,14 @@ var progress_progress = function (from, to, value) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/mix.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/mix.js
 var mix = function (from, to, progress) {
     return -progress * from + progress * to + from;
 };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/color/utils.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/color/utils.js
 
 
 var isColorString = function (type, testProp) { return function (v) {
@@ -6387,7 +6474,7 @@ var splitColor = function (aName, bName, cName) { return function (v) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/color/rgba.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/color/rgba.js
 
 
 
@@ -6414,7 +6501,7 @@ var rgba = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/color/hex.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/color/hex.js
 
 
 
@@ -6454,7 +6541,7 @@ var hex = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/color/hsla.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/color/hsla.js
 
 
 
@@ -6479,7 +6566,7 @@ var hsla = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/mix-color.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/mix-color.js
 
 
 
@@ -6520,7 +6607,7 @@ var mixColor = function (from, to) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/color/index.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/color/index.js
 
 
 
@@ -6550,7 +6637,7 @@ var color = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/complex/index.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/complex/index.js
 
 
 
@@ -6605,7 +6692,7 @@ var complex = { test: test, parse: parse, createTransformer: createTransformer, 
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/inc.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/inc.js
 var zeroPoint = {
     x: 0,
     y: 0,
@@ -6615,7 +6702,7 @@ var isNum = function (v) { return typeof v === 'number'; };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/mix-complex.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/mix-complex.js
 
 
 
@@ -6694,7 +6781,7 @@ var mixComplex = function (origin, target) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/interpolate.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/interpolate.js
 
 
 
@@ -6791,7 +6878,7 @@ function interpolate(input, output, _a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/easing/utils.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/easing/utils.js
 var reverseEasing = function (easing) { return function (p) { return 1 - easing(1 - p); }; };
 var mirrorEasing = function (easing) { return function (p) {
     return p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
@@ -6811,7 +6898,7 @@ var createAnticipate = function (power) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/easing/index.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/easing/index.js
 
 
 var DEFAULT_OVERSHOOT_STRENGTH = 1.525;
@@ -6853,7 +6940,7 @@ var bounceInOut = function (p) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/animations/generators/keyframes.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/animations/generators/keyframes.js
 
 
 
@@ -6897,7 +6984,7 @@ function keyframes(_a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/animations/generators/decay.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/animations/generators/decay.js
 function decay(_a) {
     var _b = _a.velocity, velocity = _b === void 0 ? 0 : _b, _c = _a.from, from = _c === void 0 ? 0 : _c, _d = _a.power, power = _d === void 0 ? 0.8 : _d, _e = _a.timeConstant, timeConstant = _e === void 0 ? 350 : _e, _f = _a.restDelta, restDelta = _f === void 0 ? 0.5 : _f, modifyTarget = _a.modifyTarget;
     var state = { done: false, value: from };
@@ -6919,7 +7006,7 @@ function decay(_a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/animations/utils/detect-animation-from-options.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/animations/utils/detect-animation-from-options.js
 
 
 
@@ -6950,7 +7037,7 @@ function detectAnimationFromOptions(config) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framesync/dist/es/on-next-frame.js
+// CONCATENATED MODULE: ./node_modules/framesync/dist/es/on-next-frame.js
 var defaultTimestep = (1 / 60) * 1000;
 var getCurrentTime = typeof performance !== "undefined"
     ? function () { return performance.now(); }
@@ -6965,7 +7052,7 @@ var onNextFrame = typeof window !== "undefined"
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framesync/dist/es/create-render-step.js
+// CONCATENATED MODULE: ./node_modules/framesync/dist/es/create-render-step.js
 function createRenderStep(runNextFrame) {
     var toRun = [];
     var toRunNextFrame = [];
@@ -7017,7 +7104,7 @@ function createRenderStep(runNextFrame) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framesync/dist/es/index.js
+// CONCATENATED MODULE: ./node_modules/framesync/dist/es/index.js
 
 
 
@@ -7087,7 +7174,7 @@ var getFrameData = function () {
 /* harmony default export */ var es = (sync);
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/animations/utils/elapsed.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/animations/utils/elapsed.js
 function loopElapsed(elapsed, duration, delay) {
     if (delay === void 0) { delay = 0; }
     return elapsed - duration - delay;
@@ -7105,7 +7192,7 @@ function hasRepeatDelayElapsed(elapsed, duration, delay, isForwardPlayback) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/animations/index.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/animations/index.js
 
 
 
@@ -7199,14 +7286,14 @@ function animations_animate(_a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/velocity-per-second.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/velocity-per-second.js
 function velocityPerSecond(velocity, frameDuration) {
     return frameDuration ? velocity * (1000 / frameDuration) : 0;
 }
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/animations/inertia.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/animations/inertia.js
 
 
 
@@ -7274,7 +7361,7 @@ function inertia_inertia(_a) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/time-conversion.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/time-conversion.js
 /**
  * Converts seconds to milliseconds
  *
@@ -7285,7 +7372,7 @@ var secondsToMilliseconds = function (seconds) { return seconds * 1000; };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/easing/cubic-bezier.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/easing/cubic-bezier.js
 
 
 var cubic_bezier_a = function (a1, a2) { return 1.0 - 3.0 * a2 + 3.0 * a1; };
@@ -7367,7 +7454,7 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/animation/utils/easing.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/animation/utils/easing.js
 
 
 
@@ -7408,7 +7495,7 @@ var isEasingArray = function (ease) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/animation/utils/is-animatable.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/animation/utils/is-animatable.js
 
 
 /**
@@ -7440,7 +7527,7 @@ var isAnimatable = function (key, value) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/animation/utils/default-transitions.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/animation/utils/default-transitions.js
 
 
 
@@ -7498,7 +7585,7 @@ var getDefaultTransition = function (valueKey, to) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/style-value-types/dist/es/complex/filter.js
+// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/complex/filter.js
 
 
 
@@ -7525,7 +7612,7 @@ var filter = __assign(__assign({}, complex), { getAnimatableNone: function (v) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/defaults.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/defaults.js
 
 
 
@@ -7545,7 +7632,7 @@ var getDefaultValueType = function (key) { return defaultValueTypes[key]; };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.js
 
 
 
@@ -7560,7 +7647,7 @@ function animatable_none_getAnimatableNone(key, value) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/animation/utils/transitions.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/animation/utils/transitions.js
 
 
 
@@ -7765,7 +7852,7 @@ function transitions_startAnimation(key, value, target, transition) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/is-numerical-string.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/is-numerical-string.js
 /**
  * Check if value is a numerical string, ie a string that is purely a number eg "100" or "-100.1"
  */
@@ -7773,7 +7860,7 @@ var isNumericalString = function (v) { return /^\-?\d*\.?\d+$/.test(v); };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/array.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/array.js
 function addUniqueItem(arr, item) {
     arr.indexOf(item) === -1 && arr.push(item);
 }
@@ -7784,7 +7871,7 @@ function removeItem(arr, item) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/subscription-manager.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/subscription-manager.js
 
 
 var subscription_manager_SubscriptionManager = /** @class */ (function () {
@@ -7828,7 +7915,7 @@ var subscription_manager_SubscriptionManager = /** @class */ (function () {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/value/index.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/value/index.js
 
 
 
@@ -8169,7 +8256,7 @@ function motionValue(init) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/test.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/test.js
 /**
  * Tests a provided value against a ValueType
  */
@@ -8177,7 +8264,7 @@ var testValueType = function (v) { return function (type) { return type.test(v);
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.js
 /**
  * ValueType for "auto"
  */
@@ -8188,7 +8275,7 @@ var auto = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.js
 
 
 
@@ -8206,7 +8293,7 @@ var findDimensionValueType = function (v) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/value-types/find.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/value-types/find.js
 
 
 
@@ -8223,7 +8310,7 @@ var findValueType = function (v) { return valueTypes.find(testValueType(v)); };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/setters.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/setters.js
 
 
 
@@ -8340,7 +8427,7 @@ function getOrigin(target, transition, visualElement) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/animation.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/animation.js
 
 
 
@@ -8483,7 +8570,7 @@ function shouldBlockAnimation(_a, key) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/animation-state.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/animation-state.js
 
 
 
@@ -8820,7 +8907,7 @@ function createState() {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/animations.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/animations.js
 
 
 
@@ -8860,14 +8947,14 @@ var animations_animations = {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/is-point.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/is-point.js
 var isPoint = function (point) {
     return point.hasOwnProperty('x') && point.hasOwnProperty('y');
 };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/is-point-3d.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/is-point-3d.js
 
 
 var isPoint3D = function (point) {
@@ -8876,7 +8963,7 @@ var isPoint3D = function (point) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/popmotion/dist/es/utils/distance.js
+// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/utils/distance.js
 
 
 
@@ -8896,7 +8983,7 @@ function distance(a, b) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/PanSession.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/PanSession.js
 
 
 
@@ -8962,11 +9049,12 @@ var PanSession_PanSession = /** @class */ (function () {
         };
         this.handlePointerUp = function (event, info) {
             _this.end();
-            var onEnd = _this.handlers.onEnd;
-            if (!onEnd || !_this.startEvent)
-                return;
+            var _a = _this.handlers, onEnd = _a.onEnd, onSessionEnd = _a.onSessionEnd;
             var panInfo = getPanInfo(PanSession_transformPoint(info, _this.transformPagePoint), _this.history);
-            onEnd && onEnd(event, panInfo);
+            if (_this.startEvent && onEnd) {
+                onEnd(event, panInfo);
+            }
+            onSessionEnd && onSessionEnd(event, panInfo);
         };
         // If we have more than one touch, don't start detecting this gesture
         if (isTouchEvent(event) && event.touches.length > 1)
@@ -9050,14 +9138,14 @@ function PanSession_getVelocity(history, timeDelta) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/noop.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/noop.js
 function noop(any) {
     return any;
 }
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/geometry/index.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/geometry/index.js
 
 
 
@@ -9129,7 +9217,7 @@ function geometry_delta() {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/each-axis.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/each-axis.js
 // Call a handler once for each axis
 function eachAxis(handler) {
     return [handler("x"), handler("y")];
@@ -9137,7 +9225,7 @@ function eachAxis(handler) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.js
 
 
 
@@ -9274,7 +9362,7 @@ function resolvePointElastic(dragElastic, label) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/projection/measure.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/projection/measure.js
 
 
 /**
@@ -9293,7 +9381,7 @@ function getBoundingBox(element, transformPagePoint) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/geometry/delta-calc.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/geometry/delta-calc.js
 
 
 var clampProgress = function (v) { return clamp_clamp(0, 1, v); };
@@ -9370,610 +9458,73 @@ function calcRelativeBox(projection, parentProjection) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var elementDragControls = new WeakMap();
-/**
- *
- */
-var lastPointerEvent;
-var VisualElementDragControls_VisualElementDragControls = /** @class */ (function () {
-    function VisualElementDragControls(_a) {
-        var visualElement = _a.visualElement;
-        /**
-         * Track whether we're currently dragging.
-         *
-         * @internal
-         */
-        this.isDragging = false;
-        /**
-         * The current direction of drag, or `null` if both.
-         *
-         * @internal
-         */
-        this.currentDirection = null;
-        /**
-         * The permitted boundaries of travel, in pixels.
-         *
-         * @internal
-         */
-        this.constraints = false;
-        /**
-         * The per-axis resolved elastic values.
-         *
-         * @internal
-         */
-        this.elastic = axisBox();
-        /**
-         * A reference to the host component's latest props.
-         *
-         * @internal
-         */
-        this.props = {};
-        /**
-         * @internal
-         */
-        this.hasMutatedConstraints = false;
-        /**
-         * Track the initial position of the cursor relative to the dragging element
-         * when dragging starts as a value of 0-1 on each axis. We then use this to calculate
-         * an ideal bounding box for the VisualElement renderer to project into every frame.
-         *
-         * @internal
-         */
-        this.cursorProgress = {
-            x: 0.5,
-            y: 0.5,
-        };
-        // When updating _dragX, or _dragY instead of the VisualElement,
-        // persist their values between drag gestures.
-        this.originPoint = {};
-        // This is a reference to the global drag gesture lock, ensuring only one component
-        // can "capture" the drag of one or both axes.
-        // TODO: Look into moving this into pansession?
-        this.openGlobalLock = null;
-        /**
-         * @internal
-         */
-        this.panSession = null;
-        this.visualElement = visualElement;
-        this.visualElement.enableLayoutProjection();
-        elementDragControls.set(visualElement, this);
-    }
-    /**
-     * Instantiate a PanSession for the drag gesture
-     *
-     * @public
-     */
-    VisualElementDragControls.prototype.start = function (originEvent, _a) {
-        var _this = this;
-        var _b = _a === void 0 ? {} : _a, _c = _b.snapToCursor, snapToCursor = _c === void 0 ? false : _c, cursorProgress = _b.cursorProgress;
-        /**
-         * If this drag session has been manually triggered by the user, it might be from an event
-         * outside the draggable element. If snapToCursor is set to true, we need to measure the position
-         * of the element and snap it to the cursor.
-         */
-        snapToCursor && this.snapToCursor(originEvent);
-        var onSessionStart = function () {
-            // Stop any animations on both axis values immediately. This allows the user to throw and catch
-            // the component.
-            _this.stopMotion();
-        };
-        var onStart = function (event, info) {
-            var _a, _b, _c;
-            // Attempt to grab the global drag gesture lock - maybe make this part of PanSession
-            var _d = _this.props, drag = _d.drag, dragPropagation = _d.dragPropagation;
-            if (drag && !dragPropagation) {
-                if (_this.openGlobalLock)
-                    _this.openGlobalLock();
-                _this.openGlobalLock = getGlobalLock(drag);
-                // If we don 't have the lock, don't start dragging
-                if (!_this.openGlobalLock)
-                    return;
-            }
-            /**
-             * Record the progress of the mouse within the draggable element on each axis.
-             * onPan, we're going to use this to calculate a new bounding box for the element to
-             * project into. This will ensure that even if the DOM element moves via a relayout, it'll
-             * stick to the correct place under the pointer.
-             */
-            _this.prepareBoundingBox();
-            _this.visualElement.lockProjectionTarget();
-            /**
-             * Resolve the drag constraints. These are either set as top/right/bottom/left constraints
-             * relative to the element's layout, or a ref to another element. Both need converting to
-             * viewport coordinates.
-             */
-            _this.resolveDragConstraints();
-            /**
-             * When dragging starts, we want to find where the cursor is relative to the bounding box
-             * of the element. Every frame, we calculate a new bounding box using this relative position
-             * and let the visualElement renderer figure out how to reproject the element into this bounding
-             * box.
-             *
-             * By doing it this way, rather than applying an x/y transform directly to the element,
-             * we can ensure the component always visually sticks to the cursor as we'd expect, even
-             * if the DOM element itself changes layout as a result of React updates the user might
-             * make based on the drag position.
-             */
-            var point = getViewportPointFromEvent(event).point;
-            eachAxis(function (axis) {
-                var _a = _this.visualElement.projection.target[axis], min = _a.min, max = _a.max;
-                _this.cursorProgress[axis] = cursorProgress
-                    ? cursorProgress[axis]
-                    : progress_progress(min, max, point[axis]);
-                /**
-                 * If we have external drag MotionValues, record their origin point. On pointermove
-                 * we'll apply the pan gesture offset directly to this value.
-                 */
-                var axisValue = _this.getAxisMotionValue(axis);
-                if (axisValue) {
-                    _this.originPoint[axis] = axisValue.get();
-                }
-            });
-            // Set current drag status
-            _this.isDragging = true;
-            _this.currentDirection = null;
-            // Fire onDragStart event
-            (_b = (_a = _this.props).onDragStart) === null || _b === void 0 ? void 0 : _b.call(_a, event, info);
-            (_c = _this.visualElement.animationState) === null || _c === void 0 ? void 0 : _c.setActive(AnimationType.Drag, true);
-        };
-        var onMove = function (event, info) {
-            var _a, _b, _c, _d;
-            var _e = _this.props, dragPropagation = _e.dragPropagation, dragDirectionLock = _e.dragDirectionLock;
-            // If we didn't successfully receive the gesture lock, early return.
-            if (!dragPropagation && !_this.openGlobalLock)
-                return;
-            var offset = info.offset;
-            // Attempt to detect drag direction if directionLock is true
-            if (dragDirectionLock && _this.currentDirection === null) {
-                _this.currentDirection = getCurrentDirection(offset);
-                // If we've successfully set a direction, notify listener
-                if (_this.currentDirection !== null) {
-                    (_b = (_a = _this.props).onDirectionLock) === null || _b === void 0 ? void 0 : _b.call(_a, _this.currentDirection);
-                }
-                return;
-            }
-            // Update each point with the latest position
-            _this.updateAxis("x", event, offset);
-            _this.updateAxis("y", event, offset);
-            // Fire onDrag event
-            (_d = (_c = _this.props).onDrag) === null || _d === void 0 ? void 0 : _d.call(_c, event, info);
-            // Update the last pointer event
-            lastPointerEvent = event;
-        };
-        var onEnd = function (event, info) { return _this.stop(event, info); };
-        var transformPagePoint = this.props.transformPagePoint;
-        this.panSession = new PanSession_PanSession(originEvent, {
-            onSessionStart: onSessionStart,
-            onStart: onStart,
-            onMove: onMove,
-            onEnd: onEnd,
-        }, { transformPagePoint: transformPagePoint });
-    };
-    /**
-     * Ensure the component's layout and target bounding boxes are up-to-date.
-     */
-    VisualElementDragControls.prototype.prepareBoundingBox = function () {
-        var visualElement = this.visualElement;
-        visualElement.withoutTransform(function () {
-            visualElement.updateLayoutMeasurement();
-        });
-        visualElement.rebaseProjectionTarget(true, visualElement.measureViewportBox(false));
-    };
-    VisualElementDragControls.prototype.resolveDragConstraints = function () {
-        var _this = this;
-        var _a = this.props, dragConstraints = _a.dragConstraints, dragElastic = _a.dragElastic;
-        if (dragConstraints) {
-            this.constraints = isRefObject(dragConstraints)
-                ? this.resolveRefConstraints(this.visualElement.getLayoutState().layout, dragConstraints)
-                : calcRelativeConstraints(this.visualElement.getLayoutState().layout, dragConstraints);
-        }
-        else {
-            this.constraints = false;
-        }
-        this.elastic = resolveDragElastic(dragElastic);
-        /**
-         * If we're outputting to external MotionValues, we want to rebase the measured constraints
-         * from viewport-relative to component-relative.
-         */
-        if (this.constraints && !this.hasMutatedConstraints) {
-            eachAxis(function (axis) {
-                if (_this.getAxisMotionValue(axis)) {
-                    _this.constraints[axis] = rebaseAxisConstraints(_this.visualElement.getLayoutState().layout[axis], _this.constraints[axis]);
-                }
-            });
-        }
-    };
-    VisualElementDragControls.prototype.resolveRefConstraints = function (layoutBox, constraints) {
-        var _a = this.props, onMeasureDragConstraints = _a.onMeasureDragConstraints, transformPagePoint = _a.transformPagePoint;
-        var constraintsElement = constraints.current;
-        invariant(constraintsElement !== null, "If `dragConstraints` is set as a React ref, that ref must be passed to another component's `ref` prop.");
-        this.constraintsBox = getBoundingBox(constraintsElement, transformPagePoint);
-        var measuredConstraints = calcViewportConstraints(layoutBox, this.constraintsBox);
-        /**
-         * If there's an onMeasureDragConstraints listener we call it and
-         * if different constraints are returned, set constraints to that
-         */
-        if (onMeasureDragConstraints) {
-            var userConstraints = onMeasureDragConstraints(convertAxisBoxToBoundingBox(measuredConstraints));
-            this.hasMutatedConstraints = !!userConstraints;
-            if (userConstraints) {
-                measuredConstraints = convertBoundingBoxToAxisBox(userConstraints);
-            }
-        }
-        return measuredConstraints;
-    };
-    VisualElementDragControls.prototype.cancelDrag = function () {
-        var _a;
-        this.isDragging = false;
-        this.panSession && this.panSession.end();
-        this.panSession = null;
-        if (!this.props.dragPropagation && this.openGlobalLock) {
-            this.openGlobalLock();
-            this.openGlobalLock = null;
-        }
-        (_a = this.visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(AnimationType.Drag, false);
-    };
-    VisualElementDragControls.prototype.stop = function (event, info) {
-        var _a;
-        this.visualElement.unlockProjectionTarget();
-        (_a = this.panSession) === null || _a === void 0 ? void 0 : _a.end();
-        this.panSession = null;
-        var isDragging = this.isDragging;
-        this.cancelDrag();
-        if (!isDragging)
-            return;
-        var _b = this.props, dragMomentum = _b.dragMomentum, onDragEnd = _b.onDragEnd;
-        if (dragMomentum || this.elastic) {
-            var velocity = info.velocity;
-            this.animateDragEnd(velocity);
-        }
-        onDragEnd === null || onDragEnd === void 0 ? void 0 : onDragEnd(event, info);
-    };
-    VisualElementDragControls.prototype.snapToCursor = function (event) {
-        var _this = this;
-        this.prepareBoundingBox();
-        eachAxis(function (axis) {
-            var drag = _this.props.drag;
-            // If we're not dragging this axis, do an early return.
-            if (!shouldDrag(axis, drag, _this.currentDirection))
-                return;
-            var axisValue = _this.getAxisMotionValue(axis);
-            if (axisValue) {
-                var point = getViewportPointFromEvent(event).point;
-                var box = _this.visualElement.getLayoutState().layout;
-                var length_1 = box[axis].max - box[axis].min;
-                var center = box[axis].min + length_1 / 2;
-                var offset = point[axis] - center;
-                _this.originPoint[axis] = point[axis];
-                axisValue.set(offset);
-            }
-            else {
-                _this.cursorProgress[axis] = 0.5;
-                _this.updateVisualElementAxis(axis, event);
-            }
-        });
-    };
-    /**
-     * Update the specified axis with the latest pointer information.
-     */
-    VisualElementDragControls.prototype.updateAxis = function (axis, event, offset) {
-        var drag = this.props.drag;
-        // If we're not dragging this axis, do an early return.
-        if (!shouldDrag(axis, drag, this.currentDirection))
-            return;
-        return this.getAxisMotionValue(axis)
-            ? this.updateAxisMotionValue(axis, offset)
-            : this.updateVisualElementAxis(axis, event);
-    };
-    VisualElementDragControls.prototype.updateAxisMotionValue = function (axis, offset) {
-        var axisValue = this.getAxisMotionValue(axis);
-        if (!offset || !axisValue)
-            return;
-        var nextValue = this.originPoint[axis] + offset[axis];
-        var update = this.constraints
-            ? applyConstraints(nextValue, this.constraints[axis], this.elastic[axis])
-            : nextValue;
-        axisValue.set(update);
-    };
-    VisualElementDragControls.prototype.updateVisualElementAxis = function (axis, event) {
-        var _a;
-        // Get the actual layout bounding box of the element
-        var axisLayout = this.visualElement.getLayoutState().layout[axis];
-        // Calculate its current length. In the future we might want to lerp this to animate
-        // between lengths if the layout changes as we change the DOM
-        var axisLength = axisLayout.max - axisLayout.min;
-        // Get the initial progress that the pointer sat on this axis on gesture start.
-        var axisProgress = this.cursorProgress[axis];
-        var point = getViewportPointFromEvent(event).point;
-        // Calculate a new min point based on the latest pointer position, constraints and elastic
-        var min = calcConstrainedMinPoint(point[axis], axisLength, axisProgress, (_a = this.constraints) === null || _a === void 0 ? void 0 : _a[axis], this.elastic[axis]);
-        // Update the axis viewport target with this new min and the length
-        this.visualElement.setProjectionTargetAxis(axis, min, min + axisLength);
-    };
-    VisualElementDragControls.prototype.setProps = function (_a) {
-        var _b = _a.drag, drag = _b === void 0 ? false : _b, _c = _a.dragDirectionLock, dragDirectionLock = _c === void 0 ? false : _c, _d = _a.dragPropagation, dragPropagation = _d === void 0 ? false : _d, _e = _a.dragConstraints, dragConstraints = _e === void 0 ? false : _e, _f = _a.dragElastic, dragElastic = _f === void 0 ? defaultElastic : _f, _g = _a.dragMomentum, dragMomentum = _g === void 0 ? true : _g, remainingProps = __rest(_a, ["drag", "dragDirectionLock", "dragPropagation", "dragConstraints", "dragElastic", "dragMomentum"]);
-        this.props = __assign({ drag: drag,
-            dragDirectionLock: dragDirectionLock,
-            dragPropagation: dragPropagation,
-            dragConstraints: dragConstraints,
-            dragElastic: dragElastic,
-            dragMomentum: dragMomentum }, remainingProps);
-    };
-    /**
-     * Drag works differently depending on which props are provided.
-     *
-     * - If _dragX and _dragY are provided, we output the gesture delta directly to those motion values.
-     * - If the component will perform layout animations, we output the gesture to the component's
-     *      visual bounding box
-     * - Otherwise, we apply the delta to the x/y motion values.
-     */
-    VisualElementDragControls.prototype.getAxisMotionValue = function (axis) {
-        var _a = this.props, layout = _a.layout, layoutId = _a.layoutId;
-        var dragKey = "_drag" + axis.toUpperCase();
-        if (this.props[dragKey]) {
-            return this.props[dragKey];
-        }
-        else if (!layout && layoutId === undefined) {
-            return this.visualElement.getValue(axis, 0);
-        }
-    };
-    VisualElementDragControls.prototype.animateDragEnd = function (velocity) {
-        var _this = this;
-        var _a = this.props, drag = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition;
-        var momentumAnimations = eachAxis(function (axis) {
-            if (!shouldDrag(axis, drag, _this.currentDirection)) {
-                return;
-            }
-            var transition = _this.constraints ? _this.constraints[axis] : {};
-            /**
-             * Overdamp the boundary spring if `dragElastic` is disabled. There's still a frame
-             * of spring animations so we should look into adding a disable spring option to `inertia`.
-             * We could do something here where we affect the `bounceStiffness` and `bounceDamping`
-             * using the value of `dragElastic`.
-             */
-            var bounceStiffness = dragElastic ? 200 : 1000000;
-            var bounceDamping = dragElastic ? 40 : 10000000;
-            var inertia = __assign(__assign({ type: "inertia", velocity: dragMomentum ? velocity[axis] : 0, bounceStiffness: bounceStiffness,
-                bounceDamping: bounceDamping, timeConstant: 750, restDelta: 1, restSpeed: 10 }, dragTransition), transition);
-            // If we're not animating on an externally-provided `MotionValue` we can use the
-            // component's animation controls which will handle interactions with whileHover (etc),
-            // otherwise we just have to animate the `MotionValue` itself.
-            return _this.getAxisMotionValue(axis)
-                ? _this.startAxisValueAnimation(axis, inertia)
-                : _this.visualElement.startLayoutAnimation(axis, inertia);
-        });
-        // Run all animations and then resolve the new drag constraints.
-        return Promise.all(momentumAnimations).then(function () {
-            var _a, _b;
-            (_b = (_a = _this.props).onDragTransitionEnd) === null || _b === void 0 ? void 0 : _b.call(_a);
-        });
-    };
-    VisualElementDragControls.prototype.stopMotion = function () {
-        var _this = this;
-        eachAxis(function (axis) {
-            var axisValue = _this.getAxisMotionValue(axis);
-            axisValue
-                ? axisValue.stop()
-                : _this.visualElement.stopLayoutAnimation();
-        });
-    };
-    VisualElementDragControls.prototype.startAxisValueAnimation = function (axis, transition) {
-        var axisValue = this.getAxisMotionValue(axis);
-        if (!axisValue)
-            return;
-        var currentValue = axisValue.get();
-        axisValue.set(currentValue);
-        axisValue.set(currentValue); // Set twice to hard-reset velocity
-        return transitions_startAnimation(axis, axisValue, 0, transition);
-    };
-    VisualElementDragControls.prototype.scalePoint = function () {
-        var _this = this;
-        var _a = this.props, drag = _a.drag, dragConstraints = _a.dragConstraints;
-        if (!isRefObject(dragConstraints) || !this.constraintsBox)
-            return;
-        // Stop any current animations as there can be some visual glitching if we resize mid animation
-        this.stopMotion();
-        // Record the relative progress of the targetBox relative to the constraintsBox
-        var boxProgress = { x: 0, y: 0 };
-        eachAxis(function (axis) {
-            boxProgress[axis] = delta_calc_calcOrigin(_this.visualElement.projection.target[axis], _this.constraintsBox[axis]);
-        });
-        /**
-         * For each axis, calculate the current progress of the layout axis within the constraints.
-         * Then, using the latest layout and constraints measurements, reposition the new layout axis
-         * proportionally within the constraints.
-         */
-        this.prepareBoundingBox();
-        this.resolveDragConstraints();
-        eachAxis(function (axis) {
-            if (!shouldDrag(axis, drag, null))
-                return;
-            // Calculate the position of the targetBox relative to the constraintsBox using the
-            // previously calculated progress
-            var _a = calcPositionFromProgress(_this.visualElement.projection.target[axis], _this.constraintsBox[axis], boxProgress[axis]), min = _a.min, max = _a.max;
-            _this.visualElement.setProjectionTargetAxis(axis, min, max);
-        });
-    };
-    VisualElementDragControls.prototype.mount = function (visualElement) {
-        var _this = this;
-        var element = visualElement.getInstance();
-        /**
-         * Attach a pointerdown event listener on this DOM element to initiate drag tracking.
-         */
-        var stopPointerListener = addPointerEvent(element, "pointerdown", function (event) {
-            var _a = _this.props, drag = _a.drag, _b = _a.dragListener, dragListener = _b === void 0 ? true : _b;
-            drag && dragListener && _this.start(event);
-        });
-        /**
-         * Attach a window resize listener to scale the draggable target within its defined
-         * constraints as the window resizes.
-         */
-        var stopResizeListener = addDomEvent(window, "resize", function () {
-            _this.scalePoint();
-        });
-        /**
-         * Ensure drag constraints are resolved correctly relative to the dragging element
-         * whenever its layout changes.
-         */
-        var stopLayoutUpdateListener = visualElement.onLayoutUpdate(function () {
-            if (_this.isDragging)
-                _this.resolveDragConstraints();
-        });
-        /**
-         * If the previous component with this same layoutId was dragging at the time
-         * it was unmounted, we want to continue the same gesture on this component.
-         */
-        var prevDragCursor = visualElement.prevDragCursor;
-        if (prevDragCursor) {
-            this.start(lastPointerEvent, { cursorProgress: prevDragCursor });
-        }
-        /**
-         * Return a function that will teardown the drag gesture
-         */
-        return function () {
-            stopPointerListener === null || stopPointerListener === void 0 ? void 0 : stopPointerListener();
-            stopResizeListener === null || stopResizeListener === void 0 ? void 0 : stopResizeListener();
-            stopLayoutUpdateListener === null || stopLayoutUpdateListener === void 0 ? void 0 : stopLayoutUpdateListener();
-            _this.cancelDrag();
-        };
-    };
-    return VisualElementDragControls;
-}());
-function shouldDrag(direction, drag, currentDirection) {
-    return ((drag === true || drag === direction) &&
-        (currentDirection === null || currentDirection === direction));
-}
-/**
- * Based on an x/y offset determine the current drag direction. If both axis' offsets are lower
- * than the provided threshold, return `null`.
- *
- * @param offset - The x/y offset from origin.
- * @param lockThreshold - (Optional) - the minimum absolute offset before we can determine a drag direction.
- */
-function getCurrentDirection(offset, lockThreshold) {
-    if (lockThreshold === void 0) { lockThreshold = 10; }
-    var direction = null;
-    if (Math.abs(offset.y) > lockThreshold) {
-        direction = "y";
-    }
-    else if (Math.abs(offset.x) > lockThreshold) {
-        direction = "x";
-    }
-    return direction;
-}
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/drag/use-drag.js
-
-
-
-
-
-
-/**
- * A hook that allows an element to be dragged.
- *
- * @internal
- */
-function useDrag(props) {
-    var groupDragControls = props.dragControls, visualElement = props.visualElement;
-    var transformPagePoint = Object(external_React_["useContext"])(MotionConfigContext).transformPagePoint;
-    var dragControls = useConstant(function () {
-        return new VisualElementDragControls_VisualElementDragControls({
-            visualElement: visualElement,
-        });
-    });
-    dragControls.setProps(__assign(__assign({}, props), { transformPagePoint: transformPagePoint }));
-    // If we've been provided a DragControls for manual control over the drag gesture,
-    // subscribe this component to it on mount.
-    Object(external_React_["useEffect"])(function () { return groupDragControls && groupDragControls.subscribe(dragControls); }, [dragControls]);
-    // Mount the drag controls with the visualElement
-    Object(external_React_["useEffect"])(function () { return dragControls.mount(visualElement); }, []);
-}
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/gestures/use-pan-gesture.js
-
-
-
-
-
-
-/**
- *
- * @param handlers -
- * @param ref -
- *
- * @internalremarks
- * Currently this sets new pan gesture functions every render. The memo route has been explored
- * in the past but ultimately we're still creating new functions every render. An optimisation
- * to explore is creating the pan gestures and loading them into a `ref`.
- *
- * @internal
- */
-function usePanGesture(_a) {
-    var onPan = _a.onPan, onPanStart = _a.onPanStart, onPanEnd = _a.onPanEnd, onPanSessionStart = _a.onPanSessionStart, visualElement = _a.visualElement;
-    var hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
-    var panSession = Object(external_React_["useRef"])(null);
-    var transformPagePoint = Object(external_React_["useContext"])(MotionConfigContext).transformPagePoint;
-    var handlers = {
-        onSessionStart: onPanSessionStart,
-        onStart: onPanStart,
-        onMove: onPan,
-        onEnd: function (event, info) {
-            panSession.current = null;
-            onPanEnd && onPanEnd(event, info);
-        },
-    };
-    Object(external_React_["useEffect"])(function () {
-        if (panSession.current !== null) {
-            panSession.current.updateHandlers(handlers);
-        }
-    });
-    function onPointerDown(event) {
-        panSession.current = new PanSession_PanSession(event, handlers, {
-            transformPagePoint: transformPagePoint,
-        });
-    }
-    usePointerEvent(visualElement, "pointerdown", hasPanEvents && onPointerDown);
-    useUnmountEffect(function () { return panSession.current && panSession.current.end(); });
-}
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/drag.js
-
-
-
-
-var drag_drag = {
-    pan: makeRenderlessComponent(usePanGesture),
-    drag: makeRenderlessComponent(useDrag),
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js
+var compareByDepth = function (a, b) {
+    return a.depth - b.depth;
 };
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/layout/utils.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/projection/utils.js
+
+
+
+
+function isProjecting(visualElement) {
+    var isEnabled = visualElement.projection.isEnabled;
+    return isEnabled || visualElement.shouldResetTransform();
+}
+function collectProjectingAncestors(visualElement, ancestors) {
+    if (ancestors === void 0) { ancestors = []; }
+    var parent = visualElement.parent;
+    if (parent)
+        collectProjectingAncestors(parent, ancestors);
+    if (isProjecting(visualElement))
+        ancestors.push(visualElement);
+    return ancestors;
+}
+function collectProjectingChildren(visualElement) {
+    var children = [];
+    var addChild = function (child) {
+        if (isProjecting(child))
+            children.push(child);
+        child.children.forEach(addChild);
+    };
+    visualElement.children.forEach(addChild);
+    return children.sort(compareByDepth);
+}
+/**
+ * Update the layoutState by measuring the DOM layout. This
+ * should be called after resetting any layout-affecting transforms.
+ */
+function updateLayoutMeasurement(visualElement) {
+    if (visualElement.shouldResetTransform())
+        return;
+    var layoutState = visualElement.getLayoutState();
+    visualElement.notifyBeforeLayoutMeasure(layoutState.layout);
+    layoutState.isHydrated = true;
+    layoutState.layout = visualElement.measureViewportBox();
+    layoutState.layoutCorrected = copyAxisBox(layoutState.layout);
+    visualElement.notifyLayoutMeasure(layoutState.layout, visualElement.prevViewportBox || layoutState.layout);
+    es.update(function () { return visualElement.rebaseProjectionTarget(); });
+}
+/**
+ * Record the viewport box as it was before an expected mutation/re-render
+ */
+function snapshotViewportBox(visualElement) {
+    if (visualElement.shouldResetTransform())
+        return;
+    visualElement.prevViewportBox = visualElement.measureViewportBox(false);
+    /**
+     * Update targetBox to match the prevViewportBox. This is just to ensure
+     * that targetBox is affected by scroll in the same way as the measured box
+     */
+    visualElement.rebaseProjectionTarget(false, visualElement.prevViewportBox);
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/layout/utils.js
 
 
 function tweenAxis(target, prev, next, p) {
@@ -10000,644 +9551,16 @@ function checkIfParentHasChanged(prev, next) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js
-/**
- * @public
- */
-var Presence;
-(function (Presence) {
-    Presence[Presence["Entering"] = 0] = "Entering";
-    Presence[Presence["Present"] = 1] = "Present";
-    Presence[Presence["Exiting"] = 2] = "Exiting";
-})(Presence || (Presence = {}));
-/**
- * @public
- */
-var VisibilityAction;
-(function (VisibilityAction) {
-    VisibilityAction[VisibilityAction["Hide"] = 0] = "Hide";
-    VisibilityAction[VisibilityAction["Show"] = 1] = "Show";
-})(VisibilityAction || (VisibilityAction = {}));
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js
-
-
-
-function css_variables_conversion_isCSSVariable(value) {
-    return typeof value === "string" && value.startsWith("var(--");
-}
-/**
- * Parse Framer's special CSS variable format into a CSS token and a fallback.
- *
- * ```
- * `var(--foo, #fff)` => [`--foo`, '#fff']
- * ```
- *
- * @param current
- */
-var cssVariableRegex = /var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;
-function parseCSSVariable(current) {
-    var match = cssVariableRegex.exec(current);
-    if (!match)
-        return [,];
-    var _a = __read(match, 3), token = _a[1], fallback = _a[2];
-    return [token, fallback];
-}
-var maxDepth = 4;
-function getVariableValue(current, element, depth) {
-    if (depth === void 0) { depth = 1; }
-    invariant(depth <= maxDepth, "Max CSS variable fallback depth detected in property \"" + current + "\". This may indicate a circular fallback dependency.");
-    var _a = __read(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
-    // No CSS variable detected
-    if (!token)
-        return;
-    // Attempt to read this CSS variable off the element
-    var resolved = window.getComputedStyle(element).getPropertyValue(token);
-    if (resolved) {
-        return resolved.trim();
-    }
-    else if (css_variables_conversion_isCSSVariable(fallback)) {
-        // The fallback might itself be a CSS variable, in which case we attempt to resolve it too.
-        return getVariableValue(fallback, element, depth + 1);
-    }
-    else {
-        return fallback;
-    }
-}
-/**
- * Resolve CSS variables from
- *
- * @internal
- */
-function resolveCSSVariables(visualElement, _a, transitionEnd) {
-    var _b;
-    var target = __rest(_a, []);
-    var element = visualElement.getInstance();
-    if (!(element instanceof HTMLElement))
-        return { target: target, transitionEnd: transitionEnd };
-    // If `transitionEnd` isn't `undefined`, clone it. We could clone `target` and `transitionEnd`
-    // only if they change but I think this reads clearer and this isn't a performance-critical path.
-    if (transitionEnd) {
-        transitionEnd = __assign({}, transitionEnd);
-    }
-    // Go through existing `MotionValue`s and ensure any existing CSS variables are resolved
-    visualElement.forEachValue(function (value) {
-        var current = value.get();
-        if (!css_variables_conversion_isCSSVariable(current))
-            return;
-        var resolved = getVariableValue(current, element);
-        if (resolved)
-            value.set(resolved);
-    });
-    // Cycle through every target property and resolve CSS variables. Currently
-    // we only read single-var properties like `var(--foo)`, not `calc(var(--foo) + 20px)`
-    for (var key in target) {
-        var current = target[key];
-        if (!css_variables_conversion_isCSSVariable(current))
-            continue;
-        var resolved = getVariableValue(current, element);
-        if (!resolved)
-            continue;
-        // Clone target if it hasn't already been
-        target[key] = resolved;
-        // If the user hasn't already set this key on `transitionEnd`, set it to the unresolved
-        // CSS variable. This will ensure that after the animation the component will reflect
-        // changes in the value of the CSS variable.
-        if (transitionEnd)
-            (_b = transitionEnd[key]) !== null && _b !== void 0 ? _b : (transitionEnd[key] = current);
-    }
-    return { target: target, transitionEnd: transitionEnd };
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/is-draggable.js
+function isDraggable(visualElement) {
+    var _a = visualElement.getProps(), drag = _a.drag, _dragX = _a._dragX;
+    return drag && !_dragX;
 }
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/projection/default-scale-correctors.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js
 
-
-
-
-
-function pixelsToPercent(pixels, axis) {
-    return (pixels / (axis.max - axis.min)) * 100;
-}
-/**
- * We always correct borderRadius as a percentage rather than pixels to reduce paints.
- * For example, if you are projecting a box that is 100px wide with a 10px borderRadius
- * into a box that is 200px wide with a 20px borderRadius, that is actually a 10%
- * borderRadius in both states. If we animate between the two in pixels that will trigger
- * a paint each time. If we animate between the two in percentage we'll avoid a paint.
- */
-function correctBorderRadius(latest, _layoutState, _a) {
-    var target = _a.target;
-    /**
-     * If latest is a string, if it's a percentage we can return immediately as it's
-     * going to be stretched appropriately. Otherwise, if it's a pixel, convert it to a number.
-     */
-    if (typeof latest === "string") {
-        if (px.test(latest)) {
-            latest = parseFloat(latest);
-        }
-        else {
-            return latest;
-        }
-    }
-    /**
-     * If latest is a number, it's a pixel value. We use the current viewportBox to calculate that
-     * pixel value as a percentage of each axis
-     */
-    var x = pixelsToPercent(latest, target.x);
-    var y = pixelsToPercent(latest, target.y);
-    return x + "% " + y + "%";
-}
-var varToken = "_$css";
-function correctBoxShadow(latest, _a) {
-    var delta = _a.delta, treeScale = _a.treeScale;
-    var original = latest;
-    /**
-     * We need to first strip and store CSS variables from the string.
-     */
-    var containsCSSVariables = latest.includes("var(");
-    var cssVariables = [];
-    if (containsCSSVariables) {
-        latest = latest.replace(cssVariableRegex, function (match) {
-            cssVariables.push(match);
-            return varToken;
-        });
-    }
-    var shadow = complex.parse(latest);
-    // TODO: Doesn't support multiple shadows
-    if (shadow.length > 5)
-        return original;
-    var template = complex.createTransformer(latest);
-    var offset = typeof shadow[0] !== "number" ? 1 : 0;
-    // Calculate the overall context scale
-    var xScale = delta.x.scale * treeScale.x;
-    var yScale = delta.y.scale * treeScale.y;
-    shadow[0 + offset] /= xScale;
-    shadow[1 + offset] /= yScale;
-    /**
-     * Ideally we'd correct x and y scales individually, but because blur and
-     * spread apply to both we have to take a scale average and apply that instead.
-     * We could potentially improve the outcome of this by incorporating the ratio between
-     * the two scales.
-     */
-    var averageScale = mix(xScale, yScale, 0.5);
-    // Blur
-    if (typeof shadow[2 + offset] === "number")
-        shadow[2 + offset] /= averageScale;
-    // Spread
-    if (typeof shadow[3 + offset] === "number")
-        shadow[3 + offset] /= averageScale;
-    var output = template(shadow);
-    if (containsCSSVariables) {
-        var i_1 = 0;
-        output = output.replace(varToken, function () {
-            var cssVariable = cssVariables[i_1];
-            i_1++;
-            return cssVariable;
-        });
-    }
-    return output;
-}
-var borderCorrectionDefinition = {
-    process: correctBorderRadius,
-};
-var defaultScaleCorrectors = {
-    borderRadius: __assign(__assign({}, borderCorrectionDefinition), { applyTo: [
-            "borderTopLeftRadius",
-            "borderTopRightRadius",
-            "borderBottomLeftRadius",
-            "borderBottomRightRadius",
-        ] }),
-    borderTopLeftRadius: borderCorrectionDefinition,
-    borderTopRightRadius: borderCorrectionDefinition,
-    borderBottomLeftRadius: borderCorrectionDefinition,
-    borderBottomRightRadius: borderCorrectionDefinition,
-    boxShadow: {
-        process: correctBoxShadow,
-    },
-};
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/layout/Animate.js
-
-
-
-
-
-
-
-
-
-
-
-var progressTarget = 1000;
-var Animate_Animate = /** @class */ (function (_super) {
-    __extends(Animate, _super);
-    function Animate() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        /**
-         * A mutable object that tracks the target viewport box
-         * for the current animation frame.
-         */
-        _this.frameTarget = axisBox();
-        /**
-         * The current animation target, we use this to check whether to start
-         * a new animation or continue the existing one.
-         */
-        _this.currentAnimationTarget = axisBox();
-        /**
-         * Track whether we're animating this axis.
-         */
-        _this.isAnimating = {
-            x: false,
-            y: false,
-        };
-        _this.stopAxisAnimation = {
-            x: undefined,
-            y: undefined,
-        };
-        _this.isAnimatingTree = false;
-        _this.animate = function (target, origin, _a) {
-            if (_a === void 0) { _a = {}; }
-            var originBox = _a.originBox, targetBox = _a.targetBox, visibilityAction = _a.visibilityAction, shouldStackAnimate = _a.shouldStackAnimate, onComplete = _a.onComplete, prevParent = _a.prevParent, config = __rest(_a, ["originBox", "targetBox", "visibilityAction", "shouldStackAnimate", "onComplete", "prevParent"]);
-            var _b = _this.props, visualElement = _b.visualElement, layout = _b.layout;
-            /**
-             * Early return if we've been instructed not to animate this render.
-             */
-            if (shouldStackAnimate === false) {
-                _this.isAnimatingTree = false;
-                return _this.safeToRemove();
-            }
-            /**
-             * Prioritise tree animations
-             */
-            if (_this.isAnimatingTree && shouldStackAnimate !== true) {
-                return;
-            }
-            else if (shouldStackAnimate) {
-                _this.isAnimatingTree = true;
-            }
-            /**
-             * Allow the measured origin (prev bounding box) and target (actual layout) to be
-             * overridden by the provided config.
-             */
-            origin = originBox || origin;
-            target = targetBox || target;
-            /**
-             * If this element has a projecting parent, there's an opportunity to animate
-             * it relatively to that parent rather than relatively to the viewport. This
-             * allows us to add orchestrated animations.
-             */
-            var isRelative = false;
-            var projectionParent = visualElement.getProjectionParent();
-            if (projectionParent) {
-                var prevParentViewportBox = projectionParent.prevViewportBox;
-                var parentLayout = projectionParent.getLayoutState().layout;
-                /**
-                 * If we're being provided a previous parent VisualElement by AnimateSharedLayout
-                 */
-                if (prevParent) {
-                    /**
-                     * If we've been provided an explicit target box it means we're animating back
-                     * to this previous parent. So we can make a relative box by comparing to the previous
-                     * parent's layout
-                     */
-                    if (targetBox) {
-                        parentLayout = prevParent.getLayoutState().layout;
-                    }
-                    /**
-                     * Likewise if we've been provided an explicit origin box it means we're
-                     * animating out from a different element. So we should figure out where that was
-                     * on screen relative to the new parent element.
-                     */
-                    if (originBox &&
-                        !checkIfParentHasChanged(prevParent, projectionParent) &&
-                        prevParent.prevViewportBox) {
-                        prevParentViewportBox = prevParent.prevViewportBox;
-                    }
-                }
-                if (prevParentViewportBox) {
-                    isRelative = true;
-                    origin = calcRelativeOffset(prevParentViewportBox, origin);
-                    target = calcRelativeOffset(parentLayout, target);
-                }
-            }
-            var boxHasMoved = hasMoved(origin, target);
-            var animations = eachAxis(function (axis) {
-                /**
-                 * If layout is set to "position", we can resize the origin box based on the target
-                 * box and only animate its position.
-                 */
-                if (layout === "position") {
-                    var targetLength = target[axis].max - target[axis].min;
-                    origin[axis].max = origin[axis].min + targetLength;
-                }
-                if (visualElement.projection.isTargetLocked) {
-                    return;
-                }
-                else if (visibilityAction !== undefined) {
-                    visualElement.setVisibility(visibilityAction === VisibilityAction.Show);
-                }
-                else if (boxHasMoved) {
-                    // If the box has moved, animate between it's current visual state and its
-                    // final state
-                    return _this.animateAxis(axis, target[axis], origin[axis], __assign(__assign({}, config), { isRelative: isRelative }));
-                }
-                else {
-                    // If the box has remained in the same place, immediately set the axis target
-                    // to the final desired state
-                    return visualElement.setProjectionTargetAxis(axis, target[axis].min, target[axis].max, isRelative);
-                }
-            });
-            // Force a render to ensure there's no flash of uncorrected bounding box.
-            visualElement.syncRender();
-            /**
-             * If this visualElement isn't present (ie it's been removed from the tree by the user but
-             * kept in by the tree by AnimatePresence) then call safeToRemove when all axis animations
-             * have successfully finished.
-             */
-            return Promise.all(animations).then(function () {
-                _this.isAnimatingTree = false;
-                onComplete && onComplete();
-                visualElement.notifyLayoutAnimationComplete();
-            });
-        };
-        return _this;
-    }
-    Animate.prototype.componentDidMount = function () {
-        var _this = this;
-        var visualElement = this.props.visualElement;
-        visualElement.animateMotionValue = transitions_startAnimation;
-        visualElement.enableLayoutProjection();
-        this.unsubLayoutReady = visualElement.onLayoutUpdate(this.animate);
-        visualElement.layoutSafeToRemove = function () { return _this.safeToRemove(); };
-        addScaleCorrection(defaultScaleCorrectors);
-    };
-    Animate.prototype.componentWillUnmount = function () {
-        var _this = this;
-        this.unsubLayoutReady();
-        eachAxis(function (axis) { var _a, _b; return (_b = (_a = _this.stopAxisAnimation)[axis]) === null || _b === void 0 ? void 0 : _b.call(_a); });
-    };
-    /**
-     * TODO: This manually performs animations on the visualElement's layout progress
-     * values. It'd be preferable to amend the startLayoutAxisAnimation
-     * API to accept more custom animations like this.
-     */
-    Animate.prototype.animateAxis = function (axis, target, origin, _a) {
-        var _this = this;
-        var _b, _c;
-        var _d = _a === void 0 ? {} : _a, transition = _d.transition, isRelative = _d.isRelative;
-        /**
-         * If we're not animating to a new target, don't run this animation
-         */
-        if (this.isAnimating[axis] &&
-            axisIsEqual(target, this.currentAnimationTarget[axis])) {
-            return;
-        }
-        (_c = (_b = this.stopAxisAnimation)[axis]) === null || _c === void 0 ? void 0 : _c.call(_b);
-        this.isAnimating[axis] = true;
-        var visualElement = this.props.visualElement;
-        var frameTarget = this.frameTarget[axis];
-        var layoutProgress = visualElement.getProjectionAnimationProgress()[axis];
-        /**
-         * Set layout progress back to 0. We set it twice to hard-reset any velocity that might
-         * be re-incoporated into a subsequent spring animation.
-         */
-        layoutProgress.clearListeners();
-        layoutProgress.set(0);
-        layoutProgress.set(0);
-        /**
-         * Create an animation function to run once per frame. This will tween the visual bounding box from
-         * origin to target using the latest progress value.
-         */
-        var frame = function () {
-            // Convert the latest layoutProgress, which is a value from 0-1000, into a 0-1 progress
-            var p = layoutProgress.get() / progressTarget;
-            // Tween the axis and update the visualElement with the latest values
-            tweenAxis(frameTarget, origin, target, p);
-            visualElement.setProjectionTargetAxis(axis, frameTarget.min, frameTarget.max, isRelative);
-        };
-        // Synchronously run a frame to ensure there's no flash of the uncorrected bounding box.
-        frame();
-        // Create a function to stop animation on this specific axis
-        var unsubscribeProgress = layoutProgress.onChange(frame);
-        this.stopAxisAnimation[axis] = function () {
-            _this.isAnimating[axis] = false;
-            layoutProgress.stop();
-            unsubscribeProgress();
-        };
-        this.currentAnimationTarget[axis] = target;
-        var layoutTransition = transition ||
-            visualElement.getDefaultTransition() ||
-            defaultLayoutTransition;
-        // Start the animation on this axis
-        var animation = transitions_startAnimation(axis === "x" ? "layoutX" : "layoutY", layoutProgress, progressTarget, layoutTransition && getValueTransition(layoutTransition, "layout")).then(this.stopAxisAnimation[axis]);
-        return animation;
-    };
-    Animate.prototype.safeToRemove = function () {
-        var _a, _b;
-        (_b = (_a = this.props).safeToRemove) === null || _b === void 0 ? void 0 : _b.call(_a);
-    };
-    Animate.prototype.render = function () {
-        return null;
-    };
-    return Animate;
-}(external_React_["Component"]));
-function AnimateLayoutContextProvider(props) {
-    var _a = __read(usePresence(), 2), safeToRemove = _a[1];
-    return external_React_["createElement"](Animate_Animate, __assign({}, props, { safeToRemove: safeToRemove }));
-}
-function hasMoved(a, b) {
-    return (!isZeroBox(a) &&
-        !isZeroBox(b) &&
-        (!axisIsEqual(a.x, b.x) || !axisIsEqual(a.y, b.y)));
-}
-var zeroAxis = { min: 0, max: 0 };
-function isZeroBox(a) {
-    return axisIsEqual(a.x, zeroAxis) && axisIsEqual(a.y, zeroAxis);
-}
-function axisIsEqual(a, b) {
-    return a.min === b.min && a.max === b.max;
-}
-var defaultLayoutTransition = {
-    duration: 0.45,
-    ease: [0.4, 0, 0.1, 1],
-};
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js
-var compareByDepth = function (a, b) {
-    return a.depth - b.depth;
-};
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/batcher.js
-
-
-
-
-/**
- * Default handlers for batching VisualElements
- */
-var defaultHandler = {
-    measureLayout: function (child) { return child.updateLayoutMeasurement(); },
-    layoutReady: function (child) { return child.notifyLayoutReady(); },
-};
-/**
- * Create a batcher to process VisualElements
- */
-function createBatcher() {
-    var queue = new Set();
-    return {
-        add: function (child) { return queue.add(child); },
-        flush: function (_a) {
-            var _b = _a === void 0 ? defaultHandler : _a, measureLayout = _b.measureLayout, layoutReady = _b.layoutReady, parent = _b.parent;
-            var order = Array.from(queue).sort(compareByDepth);
-            var resetAndMeasure = function () {
-                /**
-                 * Write: Reset any transforms on children elements so we can read their actual layout
-                 */
-                order.forEach(function (child) { return child.resetTransform(); });
-                /**
-                 * Read: Measure the actual layout
-                 */
-                order.forEach(measureLayout);
-            };
-            parent
-                ? parent.withoutTransform(resetAndMeasure)
-                : resetAndMeasure();
-            /**
-             * Write: Notify the VisualElements they're ready for further write operations.
-             */
-            order.forEach(layoutReady);
-            /**
-             * After all children have started animating, ensure any Entering components are set to Present.
-             * If we add deferred animations (set up all animations and then start them in two loops) this
-             * could be moved to the start loop. But it needs to happen after all the animations configs
-             * are generated in AnimateSharedLayout as this relies on presence data
-             */
-            order.forEach(function (child) {
-                if (child.isPresent)
-                    child.presence = Presence.Present;
-            });
-            /**
-             * Starting these animations will have queued jobs on the frame loop. In some situations,
-             * like when removing an element, these will be processed too late after the DOM is manipulated,
-             * leaving a flash of incorrectly-projected content. By manually flushing these jobs
-             * we ensure there's no flash.
-             */
-            flushSync.preRender();
-            flushSync.render();
-            queue.clear();
-        },
-    };
-}
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/context/SharedLayoutContext.js
-
-
-
-var SharedLayoutContext = Object(external_React_["createContext"])(createBatcher());
-/**
- * @internal
- */
-var FramerTreeLayoutContext = Object(external_React_["createContext"])(createBatcher());
-function isSharedLayout(context) {
-    return !!context.forceUpdate;
-}
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/layout/Measure.js
-
-
-
-
-/**
- * This component is responsible for scheduling the measuring of the motion component
- */
-var Measure_Measure = /** @class */ (function (_super) {
-    __extends(Measure, _super);
-    function Measure() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * If this is a child of a SyncContext, register the VisualElement with it on mount.
-     */
-    Measure.prototype.componentDidMount = function () {
-        var _a = this.props, syncLayout = _a.syncLayout, framerSyncLayout = _a.framerSyncLayout, visualElement = _a.visualElement;
-        isSharedLayout(syncLayout) && syncLayout.register(visualElement);
-        isSharedLayout(framerSyncLayout) &&
-            framerSyncLayout.register(visualElement);
-        visualElement.onUnmount(function () {
-            if (isSharedLayout(syncLayout)) {
-                syncLayout.remove(visualElement);
-            }
-            if (isSharedLayout(framerSyncLayout)) {
-                framerSyncLayout.remove(visualElement);
-            }
-        });
-    };
-    /**
-     * If this is a child of a SyncContext, notify it that it needs to re-render. It will then
-     * handle the snapshotting.
-     *
-     * If it is stand-alone component, add it to the batcher.
-     */
-    Measure.prototype.getSnapshotBeforeUpdate = function () {
-        var _a = this.props, syncLayout = _a.syncLayout, visualElement = _a.visualElement;
-        if (isSharedLayout(syncLayout)) {
-            syncLayout.syncUpdate();
-        }
-        else {
-            visualElement.snapshotViewportBox();
-            syncLayout.add(visualElement);
-        }
-        return null;
-    };
-    Measure.prototype.componentDidUpdate = function () {
-        var _a = this.props, syncLayout = _a.syncLayout, visualElement = _a.visualElement;
-        if (!isSharedLayout(syncLayout))
-            syncLayout.flush();
-        /**
-         * If this axis isn't animating as a result of this render we want to reset the targetBox
-         * to the measured box
-         */
-        visualElement.rebaseProjectionTarget();
-    };
-    Measure.prototype.render = function () {
-        return null;
-    };
-    return Measure;
-}(external_React_default.a.Component));
-function MeasureContextProvider(props) {
-    var syncLayout = Object(external_React_["useContext"])(SharedLayoutContext);
-    var framerSyncLayout = Object(external_React_["useContext"])(FramerTreeLayoutContext);
-    return (external_React_default.a.createElement(Measure_Measure, __assign({}, props, { syncLayout: syncLayout, framerSyncLayout: framerSyncLayout })));
-}
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/motion/features/layout/index.js
-
-
-
-var layoutAnimations = {
-    measureLayout: MeasureContextProvider,
-    layoutAnimation: AnimateLayoutContextProvider,
-};
-
-
-
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js
 
 
 
@@ -10770,23 +9693,1441 @@ function applyTreeDeltas(box, treeScale, treePath) {
         return;
     // Reset the treeScale
     treeScale.x = treeScale.y = 1;
+    var node;
+    var delta;
     for (var i = 0; i < treeLength; i++) {
-        var delta = treePath[i].getLayoutState().delta;
+        node = treePath[i];
+        delta = node.getLayoutState().delta;
         // Incoporate each ancestor's scale into a culmulative treeScale for this component
         treeScale.x *= delta.x.scale;
         treeScale.y *= delta.y.scale;
         // Apply each ancestor's calculated delta into this component's recorded layout box
         applyBoxDelta(box, delta);
+        // If this is a draggable ancestor, also incorporate the node's transform to the layout box
+        if (isDraggable(node)) {
+            applyBoxTransforms(box, box, node.getLatestValues());
+        }
     }
 }
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/state.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/projection/convert-to-relative.js
+
+
+
+
+/**
+ * Returns a boolean stating whether or not we converted the projection
+ * to relative projection.
+ */
+function convertToRelativeProjection(visualElement, isLayoutDrag) {
+    if (isLayoutDrag === void 0) { isLayoutDrag = true; }
+    var projectionParent = visualElement.getProjectionParent();
+    if (!projectionParent)
+        return false;
+    var offset;
+    if (isLayoutDrag) {
+        offset = calcRelativeOffset(projectionParent.projection.target, visualElement.projection.target);
+        removeBoxTransforms(offset, projectionParent.getLatestValues());
+    }
+    else {
+        offset = calcRelativeOffset(projectionParent.getLayoutState().layout, visualElement.getLayoutState().layout);
+    }
+    eachAxis(function (axis) {
+        return visualElement.setProjectionTargetAxis(axis, offset[axis].min, offset[axis].max, true);
+    });
+    return true;
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/batch-layout.js
+var unresolvedJobs = new Set();
+function pushJob(stack, job, pointer) {
+    if (!stack[pointer])
+        stack[pointer] = [];
+    stack[pointer].push(job);
+}
+function batchLayout(callback) {
+    unresolvedJobs.add(callback);
+    return function () { return unresolvedJobs.delete(callback); };
+}
+function flushLayout() {
+    if (!unresolvedJobs.size)
+        return;
+    var pointer = 0;
+    var reads = [[]];
+    var writes = [];
+    var setRead = function (job) { return pushJob(reads, job, pointer); };
+    var setWrite = function (job) {
+        pushJob(writes, job, pointer);
+        pointer++;
+    };
+    /**
+     * Resolve jobs into their array stacks
+     */
+    unresolvedJobs.forEach(function (callback) {
+        callback(setRead, setWrite);
+        pointer = 0;
+    });
+    unresolvedJobs.clear();
+    /**
+     * Execute jobs
+     */
+    var numStacks = writes.length;
+    for (var i = 0; i <= numStacks; i++) {
+        reads[i] && reads[i].forEach(executeJob);
+        writes[i] && writes[i].forEach(executeJob);
+    }
+}
+var executeJob = function (job) { return job(); };
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var elementDragControls = new WeakMap();
+/**
+ *
+ */
+var lastPointerEvent;
+var VisualElementDragControls_VisualElementDragControls = /** @class */ (function () {
+    function VisualElementDragControls(_a) {
+        var visualElement = _a.visualElement;
+        /**
+         * Track whether we're currently dragging.
+         *
+         * @internal
+         */
+        this.isDragging = false;
+        /**
+         * The current direction of drag, or `null` if both.
+         *
+         * @internal
+         */
+        this.currentDirection = null;
+        /**
+         * The permitted boundaries of travel, in pixels.
+         *
+         * @internal
+         */
+        this.constraints = false;
+        /**
+         * The per-axis resolved elastic values.
+         *
+         * @internal
+         */
+        this.elastic = axisBox();
+        /**
+         * A reference to the host component's latest props.
+         *
+         * @internal
+         */
+        this.props = {};
+        /**
+         * @internal
+         */
+        this.hasMutatedConstraints = false;
+        /**
+         * Track the initial position of the cursor relative to the dragging element
+         * when dragging starts as a value of 0-1 on each axis. We then use this to calculate
+         * an ideal bounding box for the VisualElement renderer to project into every frame.
+         *
+         * @internal
+         */
+        this.cursorProgress = {
+            x: 0.5,
+            y: 0.5,
+        };
+        // When updating _dragX, or _dragY instead of the VisualElement,
+        // persist their values between drag gestures.
+        this.originPoint = {};
+        // This is a reference to the global drag gesture lock, ensuring only one component
+        // can "capture" the drag of one or both axes.
+        // TODO: Look into moving this into pansession?
+        this.openGlobalLock = null;
+        /**
+         * @internal
+         */
+        this.panSession = null;
+        this.visualElement = visualElement;
+        this.visualElement.enableLayoutProjection();
+        elementDragControls.set(visualElement, this);
+    }
+    /**
+     * Instantiate a PanSession for the drag gesture
+     *
+     * @public
+     */
+    VisualElementDragControls.prototype.start = function (originEvent, _a) {
+        var _this = this;
+        var _b = _a === void 0 ? {} : _a, _c = _b.snapToCursor, snapToCursor = _c === void 0 ? false : _c, cursorProgress = _b.cursorProgress;
+        var onSessionStart = function (event) {
+            var _a;
+            // Stop any animations on both axis values immediately. This allows the user to throw and catch
+            // the component.
+            _this.stopMotion();
+            /**
+             * Save the initial point. We'll use this to calculate the pointer's position rather
+             * than the one we receive when the gesture actually starts. By then, the pointer will
+             * have already moved, and the perception will be of the pointer "slipping" across the element
+             */
+            var initialPoint = getViewportPointFromEvent(event).point;
+            (_a = _this.cancelLayout) === null || _a === void 0 ? void 0 : _a.call(_this);
+            _this.cancelLayout = batchLayout(function (read, write) {
+                var ancestors = collectProjectingAncestors(_this.visualElement);
+                var children = collectProjectingChildren(_this.visualElement);
+                var tree = __spreadArray(__spreadArray([], __read(ancestors)), __read(children));
+                var hasManuallySetCursorOrigin = false;
+                /**
+                 * Apply a simple lock to the projection target. This ensures no animations
+                 * can run on the projection box while this lock is active.
+                 */
+                _this.isLayoutDrag() && _this.visualElement.lockProjectionTarget();
+                write(function () {
+                    tree.forEach(function (element) { return element.resetTransform(); });
+                });
+                read(function () {
+                    updateLayoutMeasurement(_this.visualElement);
+                    children.forEach(updateLayoutMeasurement);
+                });
+                write(function () {
+                    tree.forEach(function (element) { return element.restoreTransform(); });
+                    if (snapToCursor) {
+                        hasManuallySetCursorOrigin = _this.snapToCursor(initialPoint);
+                    }
+                });
+                read(function () {
+                    var isRelativeDrag = Boolean(_this.getAxisMotionValue("x") && !_this.isExternalDrag());
+                    if (!isRelativeDrag) {
+                        _this.visualElement.rebaseProjectionTarget(true, _this.visualElement.measureViewportBox(false));
+                    }
+                    _this.visualElement.scheduleUpdateLayoutProjection();
+                    /**
+                     * When dragging starts, we want to find where the cursor is relative to the bounding box
+                     * of the element. Every frame, we calculate a new bounding box using this relative position
+                     * and let the visualElement renderer figure out how to reproject the element into this bounding
+                     * box.
+                     *
+                     * By doing it this way, rather than applying an x/y transform directly to the element,
+                     * we can ensure the component always visually sticks to the cursor as we'd expect, even
+                     * if the DOM element itself changes layout as a result of React updates the user might
+                     * make based on the drag position.
+                     */
+                    var projection = _this.visualElement.projection;
+                    eachAxis(function (axis) {
+                        if (!hasManuallySetCursorOrigin) {
+                            var _a = projection.target[axis], min = _a.min, max = _a.max;
+                            _this.cursorProgress[axis] = cursorProgress
+                                ? cursorProgress[axis]
+                                : progress_progress(min, max, initialPoint[axis]);
+                        }
+                        /**
+                         * If we have external drag MotionValues, record their origin point. On pointermove
+                         * we'll apply the pan gesture offset directly to this value.
+                         */
+                        var axisValue = _this.getAxisMotionValue(axis);
+                        if (axisValue) {
+                            _this.originPoint[axis] = axisValue.get();
+                        }
+                    });
+                });
+                write(function () {
+                    flushSync.update();
+                    flushSync.preRender();
+                    flushSync.render();
+                    flushSync.postRender();
+                });
+                read(function () { return _this.resolveDragConstraints(); });
+            });
+        };
+        var onStart = function (event, info) {
+            var _a, _b, _c;
+            // Attempt to grab the global drag gesture lock - maybe make this part of PanSession
+            var _d = _this.props, drag = _d.drag, dragPropagation = _d.dragPropagation;
+            if (drag && !dragPropagation) {
+                if (_this.openGlobalLock)
+                    _this.openGlobalLock();
+                _this.openGlobalLock = getGlobalLock(drag);
+                // If we don 't have the lock, don't start dragging
+                if (!_this.openGlobalLock)
+                    return;
+            }
+            flushLayout();
+            // Set current drag status
+            _this.isDragging = true;
+            _this.currentDirection = null;
+            // Fire onDragStart event
+            (_b = (_a = _this.props).onDragStart) === null || _b === void 0 ? void 0 : _b.call(_a, event, info);
+            (_c = _this.visualElement.animationState) === null || _c === void 0 ? void 0 : _c.setActive(AnimationType.Drag, true);
+        };
+        var onMove = function (event, info) {
+            var _a, _b, _c, _d;
+            var _e = _this.props, dragPropagation = _e.dragPropagation, dragDirectionLock = _e.dragDirectionLock;
+            // If we didn't successfully receive the gesture lock, early return.
+            if (!dragPropagation && !_this.openGlobalLock)
+                return;
+            var offset = info.offset;
+            // Attempt to detect drag direction if directionLock is true
+            if (dragDirectionLock && _this.currentDirection === null) {
+                _this.currentDirection = getCurrentDirection(offset);
+                // If we've successfully set a direction, notify listener
+                if (_this.currentDirection !== null) {
+                    (_b = (_a = _this.props).onDirectionLock) === null || _b === void 0 ? void 0 : _b.call(_a, _this.currentDirection);
+                }
+                return;
+            }
+            // Update each point with the latest position
+            _this.updateAxis("x", info.point, offset);
+            _this.updateAxis("y", info.point, offset);
+            // Fire onDrag event
+            (_d = (_c = _this.props).onDrag) === null || _d === void 0 ? void 0 : _d.call(_c, event, info);
+            // Update the last pointer event
+            lastPointerEvent = event;
+        };
+        var onSessionEnd = function (event, info) {
+            return _this.stop(event, info);
+        };
+        var transformPagePoint = this.props.transformPagePoint;
+        this.panSession = new PanSession_PanSession(originEvent, {
+            onSessionStart: onSessionStart,
+            onStart: onStart,
+            onMove: onMove,
+            onSessionEnd: onSessionEnd,
+        }, { transformPagePoint: transformPagePoint });
+    };
+    VisualElementDragControls.prototype.resolveDragConstraints = function () {
+        var _this = this;
+        var _a = this.props, dragConstraints = _a.dragConstraints, dragElastic = _a.dragElastic;
+        var layout = this.visualElement.getLayoutState().layoutCorrected;
+        if (dragConstraints) {
+            this.constraints = isRefObject(dragConstraints)
+                ? this.resolveRefConstraints(layout, dragConstraints)
+                : calcRelativeConstraints(layout, dragConstraints);
+        }
+        else {
+            this.constraints = false;
+        }
+        this.elastic = resolveDragElastic(dragElastic);
+        /**
+         * If we're outputting to external MotionValues, we want to rebase the measured constraints
+         * from viewport-relative to component-relative.
+         */
+        if (this.constraints && !this.hasMutatedConstraints) {
+            eachAxis(function (axis) {
+                if (_this.getAxisMotionValue(axis)) {
+                    _this.constraints[axis] = rebaseAxisConstraints(layout[axis], _this.constraints[axis]);
+                }
+            });
+        }
+    };
+    VisualElementDragControls.prototype.resolveRefConstraints = function (layoutBox, constraints) {
+        var _a = this.props, onMeasureDragConstraints = _a.onMeasureDragConstraints, transformPagePoint = _a.transformPagePoint;
+        var constraintsElement = constraints.current;
+        invariant(constraintsElement !== null, "If `dragConstraints` is set as a React ref, that ref must be passed to another component's `ref` prop.");
+        this.constraintsBox = getBoundingBox(constraintsElement, transformPagePoint);
+        var measuredConstraints = calcViewportConstraints(layoutBox, this.constraintsBox);
+        /**
+         * If there's an onMeasureDragConstraints listener we call it and
+         * if different constraints are returned, set constraints to that
+         */
+        if (onMeasureDragConstraints) {
+            var userConstraints = onMeasureDragConstraints(convertAxisBoxToBoundingBox(measuredConstraints));
+            this.hasMutatedConstraints = !!userConstraints;
+            if (userConstraints) {
+                measuredConstraints = convertBoundingBoxToAxisBox(userConstraints);
+            }
+        }
+        return measuredConstraints;
+    };
+    VisualElementDragControls.prototype.cancelDrag = function () {
+        var _a, _b;
+        this.visualElement.unlockProjectionTarget();
+        (_a = this.cancelLayout) === null || _a === void 0 ? void 0 : _a.call(this);
+        this.isDragging = false;
+        this.panSession && this.panSession.end();
+        this.panSession = null;
+        if (!this.props.dragPropagation && this.openGlobalLock) {
+            this.openGlobalLock();
+            this.openGlobalLock = null;
+        }
+        (_b = this.visualElement.animationState) === null || _b === void 0 ? void 0 : _b.setActive(AnimationType.Drag, false);
+    };
+    VisualElementDragControls.prototype.stop = function (event, info) {
+        var _a, _b, _c;
+        (_a = this.panSession) === null || _a === void 0 ? void 0 : _a.end();
+        this.panSession = null;
+        var isDragging = this.isDragging;
+        this.cancelDrag();
+        if (!isDragging)
+            return;
+        var velocity = info.velocity;
+        this.animateDragEnd(velocity);
+        (_c = (_b = this.props).onDragEnd) === null || _c === void 0 ? void 0 : _c.call(_b, event, info);
+    };
+    VisualElementDragControls.prototype.snapToCursor = function (point) {
+        var _this = this;
+        return eachAxis(function (axis) {
+            var drag = _this.props.drag;
+            // If we're not dragging this axis, do an early return.
+            if (!shouldDrag(axis, drag, _this.currentDirection))
+                return;
+            var axisValue = _this.getAxisMotionValue(axis);
+            if (axisValue) {
+                var box = _this.visualElement.getLayoutState().layout;
+                var length_1 = box[axis].max - box[axis].min;
+                var center = box[axis].min + length_1 / 2;
+                var offset = point[axis] - center;
+                _this.originPoint[axis] = point[axis];
+                axisValue.set(offset);
+            }
+            else {
+                _this.cursorProgress[axis] = 0.5;
+                return true;
+            }
+        }).includes(true);
+    };
+    /**
+     * Update the specified axis with the latest pointer information.
+     */
+    VisualElementDragControls.prototype.updateAxis = function (axis, point, offset) {
+        var drag = this.props.drag;
+        // If we're not dragging this axis, do an early return.
+        if (!shouldDrag(axis, drag, this.currentDirection))
+            return;
+        return this.getAxisMotionValue(axis)
+            ? this.updateAxisMotionValue(axis, offset)
+            : this.updateVisualElementAxis(axis, point);
+    };
+    VisualElementDragControls.prototype.updateAxisMotionValue = function (axis, offset) {
+        var axisValue = this.getAxisMotionValue(axis);
+        if (!offset || !axisValue)
+            return;
+        var nextValue = this.originPoint[axis] + offset[axis];
+        var update = this.constraints
+            ? applyConstraints(nextValue, this.constraints[axis], this.elastic[axis])
+            : nextValue;
+        axisValue.set(update);
+    };
+    VisualElementDragControls.prototype.updateVisualElementAxis = function (axis, point) {
+        var _a;
+        // Get the actual layout bounding box of the element
+        var axisLayout = this.visualElement.getLayoutState().layout[axis];
+        // Calculate its current length. In the future we might want to lerp this to animate
+        // between lengths if the layout changes as we change the DOM
+        var axisLength = axisLayout.max - axisLayout.min;
+        // Get the initial progress that the pointer sat on this axis on gesture start.
+        var axisProgress = this.cursorProgress[axis];
+        // Calculate a new min point based on the latest pointer position, constraints and elastic
+        var min = calcConstrainedMinPoint(point[axis], axisLength, axisProgress, (_a = this.constraints) === null || _a === void 0 ? void 0 : _a[axis], this.elastic[axis]);
+        // Update the axis viewport target with this new min and the length
+        this.visualElement.setProjectionTargetAxis(axis, min, min + axisLength);
+    };
+    VisualElementDragControls.prototype.setProps = function (_a) {
+        var _b = _a.drag, drag = _b === void 0 ? false : _b, _c = _a.dragDirectionLock, dragDirectionLock = _c === void 0 ? false : _c, _d = _a.dragPropagation, dragPropagation = _d === void 0 ? false : _d, _e = _a.dragConstraints, dragConstraints = _e === void 0 ? false : _e, _f = _a.dragElastic, dragElastic = _f === void 0 ? defaultElastic : _f, _g = _a.dragMomentum, dragMomentum = _g === void 0 ? true : _g, remainingProps = __rest(_a, ["drag", "dragDirectionLock", "dragPropagation", "dragConstraints", "dragElastic", "dragMomentum"]);
+        this.props = __assign({ drag: drag,
+            dragDirectionLock: dragDirectionLock,
+            dragPropagation: dragPropagation,
+            dragConstraints: dragConstraints,
+            dragElastic: dragElastic,
+            dragMomentum: dragMomentum }, remainingProps);
+    };
+    /**
+     * Drag works differently depending on which props are provided.
+     *
+     * - If _dragX and _dragY are provided, we output the gesture delta directly to those motion values.
+     * - If the component will perform layout animations, we output the gesture to the component's
+     *      visual bounding box
+     * - Otherwise, we apply the delta to the x/y motion values.
+     */
+    VisualElementDragControls.prototype.getAxisMotionValue = function (axis) {
+        var _a = this.props, layout = _a.layout, layoutId = _a.layoutId;
+        var dragKey = "_drag" + axis.toUpperCase();
+        if (this.props[dragKey]) {
+            return this.props[dragKey];
+        }
+        else if (!layout && layoutId === undefined) {
+            return this.visualElement.getValue(axis, 0);
+        }
+    };
+    VisualElementDragControls.prototype.isLayoutDrag = function () {
+        return !this.getAxisMotionValue("x");
+    };
+    VisualElementDragControls.prototype.isExternalDrag = function () {
+        var _a = this.props, _dragX = _a._dragX, _dragY = _a._dragY;
+        return _dragX || _dragY;
+    };
+    VisualElementDragControls.prototype.animateDragEnd = function (velocity) {
+        var _this = this;
+        var _a = this.props, drag = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition;
+        /**
+         * Everything beyond the drag gesture should be performed with
+         * relative projection so children stay in sync with their parent element.
+         */
+        var isRelative = convertToRelativeProjection(this.visualElement, this.isLayoutDrag() && !this.isExternalDrag());
+        /**
+         * If we had previously resolved constraints relative to the viewport,
+         * we need to also convert those to a relative coordinate space for the animation
+         */
+        var constraints = this.constraints || {};
+        if (isRelative &&
+            Object.keys(constraints).length &&
+            this.isLayoutDrag()) {
+            var projectionParent = this.visualElement.getProjectionParent();
+            if (projectionParent) {
+                var relativeConstraints_1 = calcRelativeOffset(projectionParent.projection.targetFinal, constraints);
+                eachAxis(function (axis) {
+                    var _a = relativeConstraints_1[axis], min = _a.min, max = _a.max;
+                    constraints[axis] = {
+                        min: isNaN(min) ? undefined : min,
+                        max: isNaN(max) ? undefined : max,
+                    };
+                });
+            }
+        }
+        var momentumAnimations = eachAxis(function (axis) {
+            var _a;
+            if (!shouldDrag(axis, drag, _this.currentDirection)) {
+                return;
+            }
+            var transition = (_a = constraints === null || constraints === void 0 ? void 0 : constraints[axis]) !== null && _a !== void 0 ? _a : {};
+            /**
+             * Overdamp the boundary spring if `dragElastic` is disabled. There's still a frame
+             * of spring animations so we should look into adding a disable spring option to `inertia`.
+             * We could do something here where we affect the `bounceStiffness` and `bounceDamping`
+             * using the value of `dragElastic`.
+             */
+            var bounceStiffness = dragElastic ? 200 : 1000000;
+            var bounceDamping = dragElastic ? 40 : 10000000;
+            var inertia = __assign(__assign({ type: "inertia", velocity: dragMomentum ? velocity[axis] : 0, bounceStiffness: bounceStiffness,
+                bounceDamping: bounceDamping, timeConstant: 750, restDelta: 1, restSpeed: 10 }, dragTransition), transition);
+            // If we're not animating on an externally-provided `MotionValue` we can use the
+            // component's animation controls which will handle interactions with whileHover (etc),
+            // otherwise we just have to animate the `MotionValue` itself.
+            return _this.getAxisMotionValue(axis)
+                ? _this.startAxisValueAnimation(axis, inertia)
+                : _this.visualElement.startLayoutAnimation(axis, inertia, isRelative);
+        });
+        // Run all animations and then resolve the new drag constraints.
+        return Promise.all(momentumAnimations).then(function () {
+            var _a, _b;
+            (_b = (_a = _this.props).onDragTransitionEnd) === null || _b === void 0 ? void 0 : _b.call(_a);
+        });
+    };
+    VisualElementDragControls.prototype.stopMotion = function () {
+        var _this = this;
+        eachAxis(function (axis) {
+            var axisValue = _this.getAxisMotionValue(axis);
+            axisValue
+                ? axisValue.stop()
+                : _this.visualElement.stopLayoutAnimation();
+        });
+    };
+    VisualElementDragControls.prototype.startAxisValueAnimation = function (axis, transition) {
+        var axisValue = this.getAxisMotionValue(axis);
+        if (!axisValue)
+            return;
+        var currentValue = axisValue.get();
+        axisValue.set(currentValue);
+        axisValue.set(currentValue); // Set twice to hard-reset velocity
+        return transitions_startAnimation(axis, axisValue, 0, transition);
+    };
+    VisualElementDragControls.prototype.scalePoint = function () {
+        var _this = this;
+        var _a = this.props, drag = _a.drag, dragConstraints = _a.dragConstraints;
+        if (!isRefObject(dragConstraints) || !this.constraintsBox)
+            return;
+        // Stop any current animations as there can be some visual glitching if we resize mid animation
+        this.stopMotion();
+        // Record the relative progress of the targetBox relative to the constraintsBox
+        var boxProgress = { x: 0, y: 0 };
+        eachAxis(function (axis) {
+            boxProgress[axis] = delta_calc_calcOrigin(_this.visualElement.projection.target[axis], _this.constraintsBox[axis]);
+        });
+        /**
+         * For each axis, calculate the current progress of the layout axis within the constraints.
+         * Then, using the latest layout and constraints measurements, reposition the new layout axis
+         * proportionally within the constraints.
+         */
+        this.updateConstraints(function () {
+            eachAxis(function (axis) {
+                if (!shouldDrag(axis, drag, null))
+                    return;
+                // Calculate the position of the targetBox relative to the constraintsBox using the
+                // previously calculated progress
+                var _a = calcPositionFromProgress(_this.visualElement.projection.target[axis], _this.constraintsBox[axis], boxProgress[axis]), min = _a.min, max = _a.max;
+                _this.visualElement.setProjectionTargetAxis(axis, min, max);
+            });
+        });
+        /**
+         * If any other draggable components are queuing the same tasks synchronously
+         * this will wait until they've all been scheduled before flushing.
+         */
+        setTimeout(flushLayout, 1);
+    };
+    VisualElementDragControls.prototype.updateConstraints = function (onReady) {
+        var _this = this;
+        this.cancelLayout = batchLayout(function (read, write) {
+            var ancestors = collectProjectingAncestors(_this.visualElement);
+            write(function () {
+                return ancestors.forEach(function (element) { return element.resetTransform(); });
+            });
+            read(function () { return updateLayoutMeasurement(_this.visualElement); });
+            write(function () {
+                return ancestors.forEach(function (element) { return element.restoreTransform(); });
+            });
+            read(function () {
+                _this.resolveDragConstraints();
+            });
+            if (onReady)
+                write(onReady);
+        });
+    };
+    VisualElementDragControls.prototype.mount = function (visualElement) {
+        var _this = this;
+        var element = visualElement.getInstance();
+        /**
+         * Attach a pointerdown event listener on this DOM element to initiate drag tracking.
+         */
+        var stopPointerListener = addPointerEvent(element, "pointerdown", function (event) {
+            var _a = _this.props, drag = _a.drag, _b = _a.dragListener, dragListener = _b === void 0 ? true : _b;
+            drag && dragListener && _this.start(event);
+        });
+        /**
+         * Attach a window resize listener to scale the draggable target within its defined
+         * constraints as the window resizes.
+         */
+        var stopResizeListener = addDomEvent(window, "resize", function () {
+            _this.scalePoint();
+        });
+        /**
+         * Ensure drag constraints are resolved correctly relative to the dragging element
+         * whenever its layout changes.
+         */
+        var stopLayoutUpdateListener = visualElement.onLayoutUpdate(function () {
+            if (_this.isDragging) {
+                _this.resolveDragConstraints();
+            }
+        });
+        /**
+         * If the previous component with this same layoutId was dragging at the time
+         * it was unmounted, we want to continue the same gesture on this component.
+         */
+        var prevDragCursor = visualElement.prevDragCursor;
+        if (prevDragCursor) {
+            this.start(lastPointerEvent, { cursorProgress: prevDragCursor });
+        }
+        /**
+         * Return a function that will teardown the drag gesture
+         */
+        return function () {
+            stopPointerListener === null || stopPointerListener === void 0 ? void 0 : stopPointerListener();
+            stopResizeListener === null || stopResizeListener === void 0 ? void 0 : stopResizeListener();
+            stopLayoutUpdateListener === null || stopLayoutUpdateListener === void 0 ? void 0 : stopLayoutUpdateListener();
+            _this.cancelDrag();
+        };
+    };
+    return VisualElementDragControls;
+}());
+function shouldDrag(direction, drag, currentDirection) {
+    return ((drag === true || drag === direction) &&
+        (currentDirection === null || currentDirection === direction));
+}
+/**
+ * Based on an x/y offset determine the current drag direction. If both axis' offsets are lower
+ * than the provided threshold, return `null`.
+ *
+ * @param offset - The x/y offset from origin.
+ * @param lockThreshold - (Optional) - the minimum absolute offset before we can determine a drag direction.
+ */
+function getCurrentDirection(offset, lockThreshold) {
+    if (lockThreshold === void 0) { lockThreshold = 10; }
+    var direction = null;
+    if (Math.abs(offset.y) > lockThreshold) {
+        direction = "y";
+    }
+    else if (Math.abs(offset.x) > lockThreshold) {
+        direction = "x";
+    }
+    return direction;
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/drag/use-drag.js
+
+
+
+
+
+
+/**
+ * A hook that allows an element to be dragged.
+ *
+ * @internal
+ */
+function useDrag(props) {
+    var groupDragControls = props.dragControls, visualElement = props.visualElement;
+    var transformPagePoint = Object(external_React_["useContext"])(MotionConfigContext).transformPagePoint;
+    var dragControls = useConstant(function () {
+        return new VisualElementDragControls_VisualElementDragControls({
+            visualElement: visualElement,
+        });
+    });
+    dragControls.setProps(__assign(__assign({}, props), { transformPagePoint: transformPagePoint }));
+    // If we've been provided a DragControls for manual control over the drag gesture,
+    // subscribe this component to it on mount.
+    Object(external_React_["useEffect"])(function () { return groupDragControls && groupDragControls.subscribe(dragControls); }, [dragControls]);
+    // Mount the drag controls with the visualElement
+    Object(external_React_["useEffect"])(function () { return dragControls.mount(visualElement); }, []);
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/gestures/use-pan-gesture.js
+
+
+
+
+
+
+/**
+ *
+ * @param handlers -
+ * @param ref -
+ *
+ * @internalremarks
+ * Currently this sets new pan gesture functions every render. The memo route has been explored
+ * in the past but ultimately we're still creating new functions every render. An optimisation
+ * to explore is creating the pan gestures and loading them into a `ref`.
+ *
+ * @internal
+ */
+function usePanGesture(_a) {
+    var onPan = _a.onPan, onPanStart = _a.onPanStart, onPanEnd = _a.onPanEnd, onPanSessionStart = _a.onPanSessionStart, visualElement = _a.visualElement;
+    var hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
+    var panSession = Object(external_React_["useRef"])(null);
+    var transformPagePoint = Object(external_React_["useContext"])(MotionConfigContext).transformPagePoint;
+    var handlers = {
+        onSessionStart: onPanSessionStart,
+        onStart: onPanStart,
+        onMove: onPan,
+        onEnd: function (event, info) {
+            panSession.current = null;
+            onPanEnd && onPanEnd(event, info);
+        },
+    };
+    Object(external_React_["useEffect"])(function () {
+        if (panSession.current !== null) {
+            panSession.current.updateHandlers(handlers);
+        }
+    });
+    function onPointerDown(event) {
+        panSession.current = new PanSession_PanSession(event, handlers, {
+            transformPagePoint: transformPagePoint,
+        });
+    }
+    usePointerEvent(visualElement, "pointerdown", hasPanEvents && onPointerDown);
+    useUnmountEffect(function () { return panSession.current && panSession.current.end(); });
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/drag.js
+
+
+
+
+var drag_drag = {
+    pan: makeRenderlessComponent(usePanGesture),
+    drag: makeRenderlessComponent(useDrag),
+};
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js
+/**
+ * @public
+ */
+var Presence;
+(function (Presence) {
+    Presence[Presence["Entering"] = 0] = "Entering";
+    Presence[Presence["Present"] = 1] = "Present";
+    Presence[Presence["Exiting"] = 2] = "Exiting";
+})(Presence || (Presence = {}));
+/**
+ * @public
+ */
+var VisibilityAction;
+(function (VisibilityAction) {
+    VisibilityAction[VisibilityAction["Hide"] = 0] = "Hide";
+    VisibilityAction[VisibilityAction["Show"] = 1] = "Show";
+})(VisibilityAction || (VisibilityAction = {}));
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js
+
+
+
+function css_variables_conversion_isCSSVariable(value) {
+    return typeof value === "string" && value.startsWith("var(--");
+}
+/**
+ * Parse Framer's special CSS variable format into a CSS token and a fallback.
+ *
+ * ```
+ * `var(--foo, #fff)` => [`--foo`, '#fff']
+ * ```
+ *
+ * @param current
+ */
+var cssVariableRegex = /var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;
+function parseCSSVariable(current) {
+    var match = cssVariableRegex.exec(current);
+    if (!match)
+        return [,];
+    var _a = __read(match, 3), token = _a[1], fallback = _a[2];
+    return [token, fallback];
+}
+var maxDepth = 4;
+function getVariableValue(current, element, depth) {
+    if (depth === void 0) { depth = 1; }
+    invariant(depth <= maxDepth, "Max CSS variable fallback depth detected in property \"" + current + "\". This may indicate a circular fallback dependency.");
+    var _a = __read(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
+    // No CSS variable detected
+    if (!token)
+        return;
+    // Attempt to read this CSS variable off the element
+    var resolved = window.getComputedStyle(element).getPropertyValue(token);
+    if (resolved) {
+        return resolved.trim();
+    }
+    else if (css_variables_conversion_isCSSVariable(fallback)) {
+        // The fallback might itself be a CSS variable, in which case we attempt to resolve it too.
+        return getVariableValue(fallback, element, depth + 1);
+    }
+    else {
+        return fallback;
+    }
+}
+/**
+ * Resolve CSS variables from
+ *
+ * @internal
+ */
+function resolveCSSVariables(visualElement, _a, transitionEnd) {
+    var _b;
+    var target = __rest(_a, []);
+    var element = visualElement.getInstance();
+    if (!(element instanceof HTMLElement))
+        return { target: target, transitionEnd: transitionEnd };
+    // If `transitionEnd` isn't `undefined`, clone it. We could clone `target` and `transitionEnd`
+    // only if they change but I think this reads clearer and this isn't a performance-critical path.
+    if (transitionEnd) {
+        transitionEnd = __assign({}, transitionEnd);
+    }
+    // Go through existing `MotionValue`s and ensure any existing CSS variables are resolved
+    visualElement.forEachValue(function (value) {
+        var current = value.get();
+        if (!css_variables_conversion_isCSSVariable(current))
+            return;
+        var resolved = getVariableValue(current, element);
+        if (resolved)
+            value.set(resolved);
+    });
+    // Cycle through every target property and resolve CSS variables. Currently
+    // we only read single-var properties like `var(--foo)`, not `calc(var(--foo) + 20px)`
+    for (var key in target) {
+        var current = target[key];
+        if (!css_variables_conversion_isCSSVariable(current))
+            continue;
+        var resolved = getVariableValue(current, element);
+        if (!resolved)
+            continue;
+        // Clone target if it hasn't already been
+        target[key] = resolved;
+        // If the user hasn't already set this key on `transitionEnd`, set it to the unresolved
+        // CSS variable. This will ensure that after the animation the component will reflect
+        // changes in the value of the CSS variable.
+        if (transitionEnd)
+            (_b = transitionEnd[key]) !== null && _b !== void 0 ? _b : (transitionEnd[key] = current);
+    }
+    return { target: target, transitionEnd: transitionEnd };
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/projection/default-scale-correctors.js
+
+
+
+
+
+function pixelsToPercent(pixels, axis) {
+    return (pixels / (axis.max - axis.min)) * 100;
+}
+/**
+ * We always correct borderRadius as a percentage rather than pixels to reduce paints.
+ * For example, if you are projecting a box that is 100px wide with a 10px borderRadius
+ * into a box that is 200px wide with a 20px borderRadius, that is actually a 10%
+ * borderRadius in both states. If we animate between the two in pixels that will trigger
+ * a paint each time. If we animate between the two in percentage we'll avoid a paint.
+ */
+function correctBorderRadius(latest, _layoutState, _a) {
+    var target = _a.target;
+    /**
+     * If latest is a string, if it's a percentage we can return immediately as it's
+     * going to be stretched appropriately. Otherwise, if it's a pixel, convert it to a number.
+     */
+    if (typeof latest === "string") {
+        if (px.test(latest)) {
+            latest = parseFloat(latest);
+        }
+        else {
+            return latest;
+        }
+    }
+    /**
+     * If latest is a number, it's a pixel value. We use the current viewportBox to calculate that
+     * pixel value as a percentage of each axis
+     */
+    var x = pixelsToPercent(latest, target.x);
+    var y = pixelsToPercent(latest, target.y);
+    return x + "% " + y + "%";
+}
+var varToken = "_$css";
+function correctBoxShadow(latest, _a) {
+    var delta = _a.delta, treeScale = _a.treeScale;
+    var original = latest;
+    /**
+     * We need to first strip and store CSS variables from the string.
+     */
+    var containsCSSVariables = latest.includes("var(");
+    var cssVariables = [];
+    if (containsCSSVariables) {
+        latest = latest.replace(cssVariableRegex, function (match) {
+            cssVariables.push(match);
+            return varToken;
+        });
+    }
+    var shadow = complex.parse(latest);
+    // TODO: Doesn't support multiple shadows
+    if (shadow.length > 5)
+        return original;
+    var template = complex.createTransformer(latest);
+    var offset = typeof shadow[0] !== "number" ? 1 : 0;
+    // Calculate the overall context scale
+    var xScale = delta.x.scale * treeScale.x;
+    var yScale = delta.y.scale * treeScale.y;
+    shadow[0 + offset] /= xScale;
+    shadow[1 + offset] /= yScale;
+    /**
+     * Ideally we'd correct x and y scales individually, but because blur and
+     * spread apply to both we have to take a scale average and apply that instead.
+     * We could potentially improve the outcome of this by incorporating the ratio between
+     * the two scales.
+     */
+    var averageScale = mix(xScale, yScale, 0.5);
+    // Blur
+    if (typeof shadow[2 + offset] === "number")
+        shadow[2 + offset] /= averageScale;
+    // Spread
+    if (typeof shadow[3 + offset] === "number")
+        shadow[3 + offset] /= averageScale;
+    var output = template(shadow);
+    if (containsCSSVariables) {
+        var i_1 = 0;
+        output = output.replace(varToken, function () {
+            var cssVariable = cssVariables[i_1];
+            i_1++;
+            return cssVariable;
+        });
+    }
+    return output;
+}
+var borderCorrectionDefinition = {
+    process: correctBorderRadius,
+};
+var defaultScaleCorrectors = {
+    borderRadius: __assign(__assign({}, borderCorrectionDefinition), { applyTo: [
+            "borderTopLeftRadius",
+            "borderTopRightRadius",
+            "borderBottomLeftRadius",
+            "borderBottomRightRadius",
+        ] }),
+    borderTopLeftRadius: borderCorrectionDefinition,
+    borderTopRightRadius: borderCorrectionDefinition,
+    borderBottomLeftRadius: borderCorrectionDefinition,
+    borderBottomRightRadius: borderCorrectionDefinition,
+    boxShadow: {
+        process: correctBoxShadow,
+    },
+};
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/layout/Animate.js
+
+
+
+
+
+
+
+
+
+
+
+var progressTarget = 1000;
+var Animate_Animate = /** @class */ (function (_super) {
+    __extends(Animate, _super);
+    function Animate() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * A mutable object that tracks the target viewport box
+         * for the current animation frame.
+         */
+        _this.frameTarget = axisBox();
+        /**
+         * The current animation target, we use this to check whether to start
+         * a new animation or continue the existing one.
+         */
+        _this.currentAnimationTarget = axisBox();
+        /**
+         * Track whether we're animating this axis.
+         */
+        _this.isAnimating = {
+            x: false,
+            y: false,
+        };
+        _this.stopAxisAnimation = {
+            x: undefined,
+            y: undefined,
+        };
+        _this.isAnimatingTree = false;
+        _this.animate = function (target, origin, _a) {
+            if (_a === void 0) { _a = {}; }
+            var originBox = _a.originBox, targetBox = _a.targetBox, visibilityAction = _a.visibilityAction, shouldStackAnimate = _a.shouldStackAnimate, onComplete = _a.onComplete, prevParent = _a.prevParent, config = __rest(_a, ["originBox", "targetBox", "visibilityAction", "shouldStackAnimate", "onComplete", "prevParent"]);
+            var _b = _this.props, visualElement = _b.visualElement, layout = _b.layout;
+            /**
+             * Early return if we've been instructed not to animate this render.
+             */
+            if (shouldStackAnimate === false) {
+                _this.isAnimatingTree = false;
+                return _this.safeToRemove();
+            }
+            /**
+             * Prioritise tree animations
+             */
+            if (_this.isAnimatingTree && shouldStackAnimate !== true) {
+                return;
+            }
+            else if (shouldStackAnimate) {
+                _this.isAnimatingTree = true;
+            }
+            /**
+             * Allow the measured origin (prev bounding box) and target (actual layout) to be
+             * overridden by the provided config.
+             */
+            origin = originBox || origin;
+            target = targetBox || target;
+            /**
+             * If this element has a projecting parent, there's an opportunity to animate
+             * it relatively to that parent rather than relatively to the viewport. This
+             * allows us to add orchestrated animations.
+             */
+            var isRelative = false;
+            var projectionParent = visualElement.getProjectionParent();
+            if (projectionParent) {
+                var prevParentViewportBox = projectionParent.prevViewportBox;
+                var parentLayout = projectionParent.getLayoutState().layout;
+                /**
+                 * If we're being provided a previous parent VisualElement by AnimateSharedLayout
+                 */
+                if (prevParent) {
+                    /**
+                     * If we've been provided an explicit target box it means we're animating back
+                     * to this previous parent. So we can make a relative box by comparing to the previous
+                     * parent's layout
+                     */
+                    if (targetBox) {
+                        parentLayout = prevParent.getLayoutState().layout;
+                    }
+                    /**
+                     * Likewise if we've been provided an explicit origin box it means we're
+                     * animating out from a different element. So we should figure out where that was
+                     * on screen relative to the new parent element.
+                     */
+                    if (originBox &&
+                        !checkIfParentHasChanged(prevParent, projectionParent) &&
+                        prevParent.prevViewportBox) {
+                        prevParentViewportBox = prevParent.prevViewportBox;
+                    }
+                }
+                if (prevParentViewportBox &&
+                    isProvidedCorrectDataForRelativeSharedLayout(prevParent, originBox, targetBox)) {
+                    isRelative = true;
+                    origin = calcRelativeOffset(prevParentViewportBox, origin);
+                    target = calcRelativeOffset(parentLayout, target);
+                }
+            }
+            var boxHasMoved = hasMoved(origin, target);
+            var animations = eachAxis(function (axis) {
+                var _a, _b;
+                /**
+                 * If layout is set to "position", we can resize the origin box based on the target
+                 * box and only animate its position.
+                 */
+                if (layout === "position") {
+                    var targetLength = target[axis].max - target[axis].min;
+                    origin[axis].max = origin[axis].min + targetLength;
+                }
+                if (visualElement.projection.isTargetLocked) {
+                    return;
+                }
+                else if (visibilityAction !== undefined) {
+                    visualElement.setVisibility(visibilityAction === VisibilityAction.Show);
+                }
+                else if (boxHasMoved) {
+                    // If the box has moved, animate between it's current visual state and its
+                    // final state
+                    return _this.animateAxis(axis, target[axis], origin[axis], __assign(__assign({}, config), { isRelative: isRelative }));
+                }
+                else {
+                    (_b = (_a = _this.stopAxisAnimation)[axis]) === null || _b === void 0 ? void 0 : _b.call(_a);
+                    // If the box has remained in the same place, immediately set the axis target
+                    // to the final desired state
+                    return visualElement.setProjectionTargetAxis(axis, target[axis].min, target[axis].max, isRelative);
+                }
+            });
+            // Force a render to ensure there's no flash of uncorrected bounding box.
+            visualElement.syncRender();
+            /**
+             * If this visualElement isn't present (ie it's been removed from the tree by the user but
+             * kept in by the tree by AnimatePresence) then call safeToRemove when all axis animations
+             * have successfully finished.
+             */
+            return Promise.all(animations).then(function () {
+                _this.isAnimatingTree = false;
+                onComplete && onComplete();
+                visualElement.notifyLayoutAnimationComplete();
+            });
+        };
+        return _this;
+    }
+    Animate.prototype.componentDidMount = function () {
+        var _this = this;
+        var visualElement = this.props.visualElement;
+        visualElement.animateMotionValue = transitions_startAnimation;
+        visualElement.enableLayoutProjection();
+        this.unsubLayoutReady = visualElement.onLayoutUpdate(this.animate);
+        visualElement.layoutSafeToRemove = function () { return _this.safeToRemove(); };
+        addScaleCorrection(defaultScaleCorrectors);
+    };
+    Animate.prototype.componentWillUnmount = function () {
+        var _this = this;
+        this.unsubLayoutReady();
+        eachAxis(function (axis) { var _a, _b; return (_b = (_a = _this.stopAxisAnimation)[axis]) === null || _b === void 0 ? void 0 : _b.call(_a); });
+    };
+    /**
+     * TODO: This manually performs animations on the visualElement's layout progress
+     * values. It'd be preferable to amend the startLayoutAxisAnimation
+     * API to accept more custom animations like this.
+     */
+    Animate.prototype.animateAxis = function (axis, target, origin, _a) {
+        var _this = this;
+        var _b, _c;
+        var _d = _a === void 0 ? {} : _a, transition = _d.transition, isRelative = _d.isRelative;
+        /**
+         * If we're not animating to a new target, don't run this animation
+         */
+        if (this.isAnimating[axis] &&
+            axisIsEqual(target, this.currentAnimationTarget[axis])) {
+            return;
+        }
+        (_c = (_b = this.stopAxisAnimation)[axis]) === null || _c === void 0 ? void 0 : _c.call(_b);
+        this.isAnimating[axis] = true;
+        var visualElement = this.props.visualElement;
+        var frameTarget = this.frameTarget[axis];
+        var layoutProgress = visualElement.getProjectionAnimationProgress()[axis];
+        /**
+         * Set layout progress back to 0. We set it twice to hard-reset any velocity that might
+         * be re-incoporated into a subsequent spring animation.
+         */
+        layoutProgress.clearListeners();
+        layoutProgress.set(0);
+        layoutProgress.set(0);
+        /**
+         * Create an animation function to run once per frame. This will tween the visual bounding box from
+         * origin to target using the latest progress value.
+         */
+        var frame = function () {
+            // Convert the latest layoutProgress, which is a value from 0-1000, into a 0-1 progress
+            var p = layoutProgress.get() / progressTarget;
+            // Tween the axis and update the visualElement with the latest values
+            tweenAxis(frameTarget, origin, target, p);
+            visualElement.setProjectionTargetAxis(axis, frameTarget.min, frameTarget.max, isRelative);
+        };
+        // Synchronously run a frame to ensure there's no flash of the uncorrected bounding box.
+        frame();
+        // Create a function to stop animation on this specific axis
+        var unsubscribeProgress = layoutProgress.onChange(frame);
+        this.stopAxisAnimation[axis] = function () {
+            _this.isAnimating[axis] = false;
+            layoutProgress.stop();
+            unsubscribeProgress();
+        };
+        this.currentAnimationTarget[axis] = target;
+        var layoutTransition = transition ||
+            visualElement.getDefaultTransition() ||
+            defaultLayoutTransition;
+        // Start the animation on this axis
+        var animation = transitions_startAnimation(axis === "x" ? "layoutX" : "layoutY", layoutProgress, progressTarget, layoutTransition && getValueTransition(layoutTransition, "layout")).then(this.stopAxisAnimation[axis]);
+        return animation;
+    };
+    Animate.prototype.safeToRemove = function () {
+        var _a, _b;
+        (_b = (_a = this.props).safeToRemove) === null || _b === void 0 ? void 0 : _b.call(_a);
+    };
+    Animate.prototype.render = function () {
+        return null;
+    };
+    return Animate;
+}(external_React_["Component"]));
+function AnimateLayoutContextProvider(props) {
+    var _a = __read(usePresence(), 2), safeToRemove = _a[1];
+    return external_React_["createElement"](Animate_Animate, __assign({}, props, { safeToRemove: safeToRemove }));
+}
+function hasMoved(a, b) {
+    return (!isZeroBox(a) &&
+        !isZeroBox(b) &&
+        (!axisIsEqual(a.x, b.x) || !axisIsEqual(a.y, b.y)));
+}
+var zeroAxis = { min: 0, max: 0 };
+function isZeroBox(a) {
+    return axisIsEqual(a.x, zeroAxis) && axisIsEqual(a.y, zeroAxis);
+}
+function axisIsEqual(a, b) {
+    return a.min === b.min && a.max === b.max;
+}
+var defaultLayoutTransition = {
+    duration: 0.45,
+    ease: [0.4, 0, 0.1, 1],
+};
+function isProvidedCorrectDataForRelativeSharedLayout(prevParent, originBox, targetBox) {
+    return prevParent || (!prevParent && !(originBox || targetBox));
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/batcher.js
+
+
+
+
+
+
+
+/**
+ * Default handlers for batching VisualElements
+ */
+var defaultHandler = {
+    layoutReady: function (child) { return child.notifyLayoutReady(); },
+};
+/**
+ * Create a batcher to process VisualElements
+ */
+function createBatcher() {
+    var queue = new Set();
+    return {
+        add: function (child) { return queue.add(child); },
+        flush: function (_a) {
+            var _b = _a === void 0 ? defaultHandler : _a, layoutReady = _b.layoutReady, parent = _b.parent;
+            batchLayout(function (read, write) {
+                var order = Array.from(queue).sort(compareByDepth);
+                var ancestors = parent
+                    ? collectProjectingAncestors(parent)
+                    : [];
+                write(function () {
+                    var allElements = __spreadArray(__spreadArray([], __read(ancestors)), __read(order));
+                    allElements.forEach(function (element) { return element.resetTransform(); });
+                });
+                read(function () {
+                    order.forEach(updateLayoutMeasurement);
+                });
+                write(function () {
+                    ancestors.forEach(function (element) { return element.restoreTransform(); });
+                    order.forEach(layoutReady);
+                });
+                read(function () {
+                    /**
+                     * After all children have started animating, ensure any Entering components are set to Present.
+                     * If we add deferred animations (set up all animations and then start them in two loops) this
+                     * could be moved to the start loop. But it needs to happen after all the animations configs
+                     * are generated in AnimateSharedLayout as this relies on presence data
+                     */
+                    order.forEach(function (child) {
+                        if (child.isPresent)
+                            child.presence = Presence.Present;
+                    });
+                });
+                write(function () {
+                    /**
+                     * Starting these animations will have queued jobs on the frame loop. In some situations,
+                     * like when removing an element, these will be processed too late after the DOM is manipulated,
+                     * leaving a flash of incorrectly-projected content. By manually flushing these jobs
+                     * we ensure there's no flash.
+                     */
+                    flushSync.preRender();
+                    flushSync.render();
+                });
+                read(function () {
+                    /**
+                     * Schedule a callback at the end of the following frame to assign the latest projection
+                     * box to the prevViewportBox snapshot. Once global batching is in place this could be run
+                     * synchronously. But for now it ensures that if any nested `AnimateSharedLayout` top-level
+                     * child attempts to calculate its previous relative position against a prevViewportBox
+                     * it will be against its latest projection box instead, as the snapshot is useless beyond this
+                     * render.
+                     */
+                    es.postRender(function () {
+                        return order.forEach(assignProjectionToSnapshot);
+                    });
+                    queue.clear();
+                });
+            });
+            // TODO: Need to find a layout-synchronous way of flushing this
+            flushLayout();
+        },
+    };
+}
+function assignProjectionToSnapshot(child) {
+    child.prevViewportBox = child.projection.target;
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/context/SharedLayoutContext.js
+
+
+
+var SharedLayoutContext = Object(external_React_["createContext"])(createBatcher());
+/**
+ * @internal
+ */
+var FramerTreeLayoutContext = Object(external_React_["createContext"])(createBatcher());
+function isSharedLayout(context) {
+    return !!context.forceUpdate;
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/layout/Measure.js
+
+
+
+
+
+/**
+ * This component is responsible for scheduling the measuring of the motion component
+ */
+var Measure_Measure = /** @class */ (function (_super) {
+    __extends(Measure, _super);
+    function Measure() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * If this is a child of a SyncContext, register the VisualElement with it on mount.
+     */
+    Measure.prototype.componentDidMount = function () {
+        var _a = this.props, syncLayout = _a.syncLayout, framerSyncLayout = _a.framerSyncLayout, visualElement = _a.visualElement;
+        isSharedLayout(syncLayout) && syncLayout.register(visualElement);
+        isSharedLayout(framerSyncLayout) &&
+            framerSyncLayout.register(visualElement);
+        visualElement.onUnmount(function () {
+            if (isSharedLayout(syncLayout)) {
+                syncLayout.remove(visualElement);
+            }
+            if (isSharedLayout(framerSyncLayout)) {
+                framerSyncLayout.remove(visualElement);
+            }
+        });
+    };
+    /**
+     * If this is a child of a SyncContext, notify it that it needs to re-render. It will then
+     * handle the snapshotting.
+     *
+     * If it is stand-alone component, add it to the batcher.
+     */
+    Measure.prototype.getSnapshotBeforeUpdate = function () {
+        var _a = this.props, syncLayout = _a.syncLayout, visualElement = _a.visualElement;
+        if (isSharedLayout(syncLayout)) {
+            syncLayout.syncUpdate();
+        }
+        else {
+            snapshotViewportBox(visualElement);
+            syncLayout.add(visualElement);
+        }
+        return null;
+    };
+    Measure.prototype.componentDidUpdate = function () {
+        var syncLayout = this.props.syncLayout;
+        if (!isSharedLayout(syncLayout))
+            syncLayout.flush();
+    };
+    Measure.prototype.render = function () {
+        return null;
+    };
+    return Measure;
+}(external_React_default.a.Component));
+function MeasureContextProvider(props) {
+    var syncLayout = Object(external_React_["useContext"])(SharedLayoutContext);
+    var framerSyncLayout = Object(external_React_["useContext"])(FramerTreeLayoutContext);
+    return (external_React_default.a.createElement(Measure_Measure, __assign({}, props, { syncLayout: syncLayout, framerSyncLayout: framerSyncLayout })));
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/motion/features/layout/index.js
+
+
+
+var layoutAnimations = {
+    measureLayout: MeasureContextProvider,
+    layoutAnimation: AnimateLayoutContextProvider,
+};
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/state.js
 
 
 var createProjectionState = function () { return ({
     isEnabled: false,
+    isHydrated: false,
     isTargetLocked: false,
     target: axisBox(),
     targetFinal: axisBox(),
@@ -10806,7 +11147,7 @@ var zeroLayout = createLayoutState();
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/utils/build-projection-transform.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/utils/build-projection-transform.js
 
 
 /**
@@ -10847,7 +11188,7 @@ var identityProjection = buildLayoutProjectionTransform(zeroLayout.delta, zeroLa
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/lifecycles.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/lifecycles.js
 
 
 
@@ -10896,7 +11237,7 @@ function createLifecycles() {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/motion-values.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/motion-values.js
 
 
 
@@ -10945,7 +11286,7 @@ function updateMotionValuesFromProps(element, next, prev) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/projection.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/projection.js
 
 
 
@@ -10966,7 +11307,7 @@ function updateLayoutDeltas(_a, _b, treePath, transformOrigin) {
      * Update the delta between the corrected box and the target box before user-set transforms were applied.
      * This will allow us to calculate the corrected borderRadius and boxShadow to compensate
      * for our layout reprojection, but still allow them to be scaled correctly by the user.
-     * It might be that to simplify this we may want to accept that user-set scale1 is also corrected
+     * It might be that to simplify this we may want to accept that user-set scale is also corrected
      * and we wouldn't have to keep and calc both deltas, OR we could support a user setting
      * to allow people to choose whether these styles are corrected based on just the
      * layout reprojection or the final bounding box.
@@ -10976,7 +11317,7 @@ function updateLayoutDeltas(_a, _b, treePath, transformOrigin) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/utils/flat-tree.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/utils/flat-tree.js
 
 
 
@@ -10995,17 +11336,35 @@ var flat_tree_FlatTree = /** @class */ (function () {
     };
     FlatTree.prototype.forEach = function (callback) {
         this.isDirty && this.children.sort(compareByDepth);
-        var numChildren = this.children.length;
-        for (var i = 0; i < numChildren; i++) {
-            callback(this.children[i]);
-        }
+        this.isDirty = false;
+        this.children.forEach(callback);
     };
     return FlatTree;
 }());
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/index.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/projection/relative-set.js
+
+
+
+function setCurrentViewportBox(visualElement) {
+    var projectionParent = visualElement.getProjectionParent();
+    if (!projectionParent) {
+        visualElement.rebaseProjectionTarget();
+        return;
+    }
+    var relativeOffset = calcRelativeOffset(projectionParent.getLayoutState().layout, visualElement.getLayoutState().layout);
+    eachAxis(function (axis) {
+        visualElement.setProjectionTargetAxis(axis, relativeOffset[axis].min, relativeOffset[axis].max, true);
+    });
+}
+
+
+
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/index.js
+
+
 
 
 
@@ -11119,16 +11478,10 @@ var render_visualElement = function (_a) {
         /**
          *
          */
-        function isProjecting() {
-            return projection.isEnabled && layoutState.isHydrated;
-        }
-        /**
-         *
-         */
         function render() {
             if (!instance)
                 return;
-            if (isProjecting()) {
+            if (element.isProjectionReady()) {
                 /**
                  * Apply the latest user-set transforms to the targetBox to produce the targetBoxFinal.
                  * This is the final box that we will then project into by calculating a transform delta and
@@ -11159,9 +11512,11 @@ var render_visualElement = function (_a) {
             lifecycles.notifyUpdate(latestValues);
         }
         function updateLayoutProjection() {
+            if (!element.isProjectionReady())
+                return;
             var delta = layoutState.delta, treeScale = layoutState.treeScale;
             var prevTreeScaleX = treeScale.x;
-            var prevTreeScaleY = treeScale.x;
+            var prevTreeScaleY = treeScale.y;
             var prevDeltaTransform = layoutState.deltaTransform;
             updateLayoutDeltas(layoutState, leadProjection, element.path, latestValues);
             hasViewportBoxUpdated &&
@@ -11224,7 +11579,7 @@ var render_visualElement = function (_a) {
             /**
              * The depth of this visual element within the visual element tree.
              */
-            depth: parent ? parent.depth + 1 : 0, 
+            depth: parent ? parent.depth + 1 : 0, parent: parent, children: new Set(), 
             /**
              * An ancestor path back to the root visual element. This is used
              * by layout projection to quickly recurse back up the tree.
@@ -11263,13 +11618,6 @@ var render_visualElement = function (_a) {
              */
             blockInitialAnimation: blockInitialAnimation, 
             /**
-             * A boolean that can be used to determine whether to respect hover events.
-             * For layout measurements we often have to reposition the instance by
-             * removing its transform. This can trigger hover events, which is
-             * undesired.
-             */
-            isHoverEventsEnabled: true, 
-            /**
              * Determine whether this component has mounted yet. This is mostly used
              * by variant children to determine whether they need to trigger their
              * own animations on mount.
@@ -11280,6 +11628,7 @@ var render_visualElement = function (_a) {
                 if (isVariantNode && parent && !isControllingVariants) {
                     removeFromVariantTree = parent === null || parent === void 0 ? void 0 : parent.addVariantChild(element);
                 }
+                parent === null || parent === void 0 ? void 0 : parent.children.add(element);
             },
             /**
              *
@@ -11292,6 +11641,7 @@ var render_visualElement = function (_a) {
                 element.stopLayoutAnimation();
                 element.layoutTree.remove(element);
                 removeFromVariantTree === null || removeFromVariantTree === void 0 ? void 0 : removeFromVariantTree();
+                parent === null || parent === void 0 ? void 0 : parent.children.delete(element);
                 unsubscribeFromLeadVisualElement === null || unsubscribeFromLeadVisualElement === void 0 ? void 0 : unsubscribeFromLeadVisualElement();
                 lifecycles.clearAllListeners();
             },
@@ -11369,22 +11719,6 @@ var render_visualElement = function (_a) {
             makeTargetAnimatable: function (target, canMutate) {
                 if (canMutate === void 0) { canMutate = true; }
                 return makeTargetAnimatable(element, target, props, canMutate);
-            },
-            /**
-             * Temporarily suspend hover events while we remove transforms in order to measure the layout.
-             *
-             * This seems like an odd bit of scheduling but what we're doing is saying after
-             * the next render, wait 10 milliseconds before reenabling hover events. Waiting until
-             * the next frame results in missed, valid hover events. But triggering on the postRender
-             * frame is too soon to avoid triggering events with layout measurements.
-             *
-             * Note: If we figure out a way of measuring layout while transforms remain applied, this can be removed.
-             */
-            suspendHoverEvents: function () {
-                element.isHoverEventsEnabled = false;
-                es.postRender(function () {
-                    return setTimeout(function () { return (element.isHoverEventsEnabled = true); }, 10);
-                });
             },
             // Motion values ========================
             /**
@@ -11535,33 +11869,28 @@ var render_visualElement = function (_a) {
             unlockProjectionTarget: function () {
                 element.stopLayoutAnimation();
                 projection.isTargetLocked = false;
-            },
-            /**
-             * Record the viewport box as it was before an expected mutation/re-render
-             */
-            snapshotViewportBox: function () {
-                element.prevViewportBox = element.measureViewportBox(false);
-                /**
-                 * Update targetBox to match the prevViewportBox. This is just to ensure
-                 * that targetBox is affected by scroll in the same way as the measured box
-                 */
-                element.rebaseProjectionTarget(false, element.prevViewportBox);
             }, getLayoutState: function () { return layoutState; }, setCrossfader: function (newCrossfader) {
                 crossfader = newCrossfader;
-            },
+            }, isProjectionReady: function () {
+                return projection.isEnabled &&
+                    projection.isHydrated &&
+                    layoutState.isHydrated;
+            }, 
             /**
              * Start a layout animation on a given axis.
-             * TODO: This could be better.
              */
-            startLayoutAnimation: function (axis, transition) {
+            startLayoutAnimation: function (axis, transition, isRelative) {
+                if (isRelative === void 0) { isRelative = false; }
                 var progress = element.getProjectionAnimationProgress()[axis];
-                var _a = projection.target[axis], min = _a.min, max = _a.max;
+                var _a = isRelative
+                    ? projection.relativeTarget[axis]
+                    : projection.target[axis], min = _a.min, max = _a.max;
                 var length = max - min;
                 progress.clearListeners();
                 progress.set(min);
                 progress.set(min); // Set twice to hard-reset velocity
                 progress.onChange(function (v) {
-                    return element.setProjectionTargetAxis(axis, v, v + length);
+                    element.setProjectionTargetAxis(axis, v, v + length, isRelative);
                 });
                 return element.animateMotionValue(axis, progress, 0, transition);
             },
@@ -11584,18 +11913,6 @@ var render_visualElement = function (_a) {
                 if (!withTransform)
                     removeBoxTransforms(viewportBox, latestValues);
                 return viewportBox;
-            },
-            /**
-             * Update the layoutState by measuring the DOM layout. This
-             * should be called after resetting any layout-affecting transforms.
-             */
-            updateLayoutMeasurement: function () {
-                element.notifyBeforeLayoutMeasure(layoutState.layout);
-                layoutState.isHydrated = true;
-                layoutState.layout = element.measureViewportBox();
-                layoutState.layoutCorrected = copyAxisBox(layoutState.layout);
-                element.notifyLayoutMeasure(layoutState.layout, element.prevViewportBox || layoutState.layout);
-                es.update(function () { return element.rebaseProjectionTarget(); });
             },
             /**
              * Get the motion values tracking the layout animations on each
@@ -11625,6 +11942,7 @@ var render_visualElement = function (_a) {
                     projection.relativeTarget = undefined;
                     target = projection.target[axis];
                 }
+                projection.isHydrated = true;
                 target.min = min;
                 target.max = max;
                 // Flag that we want to fire the onViewportBoxUpdate event handler
@@ -11657,23 +11975,13 @@ var render_visualElement = function (_a) {
              * needs to be performed.
              */
             notifyLayoutReady: function (config) {
+                setCurrentViewportBox(element);
                 element.notifyLayoutUpdate(layoutState.layout, element.prevViewportBox || layoutState.layout, config);
             }, 
             /**
              * Temporarily reset the transform of the instance.
              */
-            resetTransform: function () { return resetTransform(element, instance, props); }, 
-            /**
-             * Perform the callback after temporarily unapplying the transform
-             * upwards through the tree.
-             */
-            withoutTransform: function (callback) {
-                var isEnabled = projection.isEnabled;
-                isEnabled && element.resetTransform();
-                parent ? parent.withoutTransform(callback) : callback();
-                isEnabled && restoreTransform(instance, renderState);
-            },
-            updateLayoutProjection: updateLayoutProjection,
+            resetTransform: function () { return resetTransform(element, instance, props); }, restoreTransform: function () { return restoreTransform(instance, renderState); }, updateLayoutProjection: updateLayoutProjection,
             updateTreeLayoutProjection: function () {
                 element.layoutTree.forEach(fireResolveRelativeTargetBox);
                 /**
@@ -11683,6 +11991,7 @@ var render_visualElement = function (_a) {
                  * update projections.
                  */
                 es.preRender(updateTreeLayoutProjection, false, true);
+                // sync.postRender(() => element.scheduleUpdateLayoutProjection())
             },
             getProjectionParent: function () {
                 if (projectionParent === undefined) {
@@ -11700,12 +12009,17 @@ var render_visualElement = function (_a) {
                 return projectionParent;
             },
             resolveRelativeTargetBox: function () {
-                if (!projection.relativeTarget)
-                    return;
                 var relativeParent = element.getProjectionParent();
-                if (relativeParent) {
-                    calcRelativeBox(projection, relativeParent.projection);
+                if (!projection.relativeTarget || !relativeParent)
+                    return;
+                calcRelativeBox(projection, relativeParent.projection);
+                if (isDraggable(relativeParent)) {
+                    var target = projection.target;
+                    applyBoxTransforms(target, target, relativeParent.getLatestValues());
                 }
+            },
+            shouldResetTransform: function () {
+                return Boolean(props._layoutResetTransform);
             },
             /**
              *
@@ -11743,7 +12057,7 @@ var numVariantProps = variantProps.length;
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.js
 
 
 
@@ -11989,7 +12303,7 @@ function unitConversion(visualElement, target, origin, transitionEnd) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.js
 
 
 
@@ -12006,7 +12320,7 @@ var parseDomVariant = function (visualElement, target, origin, transitionEnd) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/html/visual-element.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/html/visual-element.js
 
 
 
@@ -12061,12 +12375,6 @@ var htmlConfig = {
      * works
      */
     resetTransform: function (element, domElement, props) {
-        /**
-         * When we reset the transform of an element, there's a fair possibility that
-         * the element will visually move from underneath the pointer, triggering attached
-         * pointerenter/leave events. We temporarily suspend these while measurement takes place.
-         */
-        element.suspendHoverEvents();
         var transformTemplate = props.transformTemplate;
         domElement.style.transform = transformTemplate
             ? transformTemplate({}, "")
@@ -12129,7 +12437,7 @@ var htmlVisualElement = render_visualElement(htmlConfig);
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/svg/visual-element.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/svg/visual-element.js
 
 
 
@@ -12163,7 +12471,7 @@ var svgVisualElement = render_visualElement(__assign(__assign({}, htmlConfig), {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/create-visual-element.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/create-visual-element.js
 
 
 
@@ -12176,7 +12484,7 @@ var createDomVisualElement = function (Component, options) {
 
 
 
-// CONCATENATED MODULE: ./packages/edit-post/node_modules/framer-motion/dist/es/render/dom/motion.js
+// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/render/dom/motion.js
 
 
 
@@ -12219,10 +12527,10 @@ function createDomMotionComponent(key) {
 
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/arrow-left.js
-var arrow_left = __webpack_require__(294);
+var arrow_left = __webpack_require__(378);
 
 // EXTERNAL MODULE: external ["wp","a11y"]
-var external_wp_a11y_ = __webpack_require__(30);
+var external_wp_a11y_ = __webpack_require__(31);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/visual-editor/block-inspector-button.js
 
@@ -12317,13 +12625,14 @@ function MaybeIframe({
   if (!isTemplateMode) {
     return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["__unstableEditorStyles"], {
       styles: styles
-    }), Object(external_wp_element_["createElement"])("div", {
+    }), Object(external_wp_element_["createElement"])(external_wp_blockEditor_["WritingFlow"], {
       ref: contentRef,
       className: "editor-styles-wrapper",
       style: {
         flex: '1',
         ...style
-      }
+      },
+      tabIndex: -1
     }, children));
   }
 
@@ -12338,7 +12647,7 @@ function MaybeIframe({
       height: '100%',
       display: 'block'
     }
-  }, children);
+  }, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["WritingFlow"], null, children));
 }
 
 function VisualEditor({
@@ -12410,6 +12719,7 @@ function VisualEditor({
     contentSize,
     wideSize
   } = defaultLayout || {};
+  const previewMode = 'is-' + deviceType.toLowerCase() + '-preview';
   let animatedStyles = isTemplateMode ? templateModeStyles : desktopCanvasStyles;
 
   if (resizedCanvasStyles) {
@@ -12466,7 +12776,8 @@ function VisualEditor({
     }
   }, Object(external_wp_i18n_["__"])('Back')), Object(external_wp_element_["createElement"])(motion.div, {
     animate: animatedStyles,
-    initial: desktopCanvasStyles
+    initial: desktopCanvasStyles,
+    className: previewMode
   }, Object(external_wp_element_["createElement"])(MaybeIframe, {
     isTemplateMode: isTemplateMode,
     contentRef: contentRef,
@@ -12477,11 +12788,11 @@ function VisualEditor({
   }, themeSupportsLayout && !isTemplateMode && Object(external_wp_element_["createElement"])(external_wp_blockEditor_["__experimentalLayoutStyle"], {
     selector: ".edit-post-visual-editor__post-title-wrapper, .block-editor-block-list__layout.is-root-container",
     layout: defaultLayout
-  }), Object(external_wp_element_["createElement"])(external_wp_blockEditor_["WritingFlow"], null, !isTemplateMode && Object(external_wp_element_["createElement"])("div", {
+  }), !isTemplateMode && Object(external_wp_element_["createElement"])("div", {
     className: "edit-post-visual-editor__post-title-wrapper"
   }, Object(external_wp_element_["createElement"])(external_wp_editor_["PostTitle"], null)), Object(external_wp_element_["createElement"])(RecursionProvider, null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockList"], {
     __experimentalLayout: layout
-  }))))))), Object(external_wp_element_["createElement"])(external_wp_blockEditor_["__unstableBlockSettingsMenuFirstItem"], null, ({
+  })))))), Object(external_wp_element_["createElement"])(external_wp_blockEditor_["__unstableBlockSettingsMenuFirstItem"], null, ({
     onClose
   }) => Object(external_wp_element_["createElement"])(block_inspector_button, {
     onClick: onClose
@@ -12550,7 +12861,7 @@ function KeyboardShortcuts() {
       }
     });
     registerShortcut({
-      name: 'core/edit-post/toggle-block-navigation',
+      name: 'core/edit-post/toggle-list-view',
       category: 'global',
       description: Object(external_wp_i18n_["__"])('Open the block list view.'),
       keyCombination: {
@@ -12628,7 +12939,7 @@ function KeyboardShortcuts() {
   }, {
     bindGlobal: true
   });
-  Object(external_wp_keyboardShortcuts_["useShortcut"])('core/edit-post/toggle-block-navigation', () => setIsListViewOpened(!isListViewOpened()), {
+  Object(external_wp_keyboardShortcuts_["useShortcut"])('core/edit-post/toggle-list-view', () => setIsListViewOpened(!isListViewOpened()), {
     bindGlobal: true
   });
   return null;
@@ -12928,7 +13239,7 @@ const Section = ({
 /* harmony default export */ var preferences_modal_section = (Section);
 //# sourceMappingURL=section.js.map
 // EXTERNAL MODULE: ./packages/edit-post/build-module/components/preferences-modal/options/index.js + 6 modules
-var preferences_modal_options = __webpack_require__(51);
+var preferences_modal_options = __webpack_require__(59);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/preferences-modal/meta-boxes-section.js
 
@@ -13166,7 +13477,6 @@ function BlockManagerCategory({
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -13181,8 +13491,7 @@ function BlockManager({
   isMatchingSearchTerm,
   numberOfHiddenBlocks
 }) {
-  const [search, setSearch] = Object(external_wp_element_["useState"])('');
-  const instanceId = Object(external_wp_compose_["useInstanceId"])(BlockManager); // Filtering occurs here (as opposed to `withSelect`) to avoid
+  const [search, setSearch] = Object(external_wp_element_["useState"])(''); // Filtering occurs here (as opposed to `withSelect`) to avoid
   // wasted renders by consequence of `Array#filter` producing
   // a new value reference on each call.
 
@@ -13193,12 +13502,8 @@ function BlockManager({
     className: "edit-post-block-manager__disabled-blocks-count"
   }, Object(external_wp_i18n_["sprintf"])(
   /* translators: %d: number of blocks. */
-  Object(external_wp_i18n_["_n"])('%d block is hidden.', '%d blocks are hidden.', numberOfHiddenBlocks), numberOfHiddenBlocks)), Object(external_wp_element_["createElement"])(external_wp_components_["VisuallyHidden"], {
-    as: "label",
-    htmlFor: `edit-post-block-manager__search-${instanceId}`
-  }, Object(external_wp_i18n_["__"])('Search for a block')), Object(external_wp_element_["createElement"])(external_wp_components_["TextControl"], {
-    type: "search",
-    id: `edit-post-block-manager__search-${instanceId}`,
+  Object(external_wp_i18n_["_n"])('%d block is hidden.', '%d blocks are hidden.', numberOfHiddenBlocks), numberOfHiddenBlocks)), Object(external_wp_element_["createElement"])(external_wp_components_["SearchControl"], {
+    label: Object(external_wp_i18n_["__"])('Search for a block'),
     placeholder: Object(external_wp_i18n_["__"])('Search for a block'),
     value: search,
     onChange: nextSearch => setSearch(nextSearch),
@@ -13312,12 +13617,14 @@ function PreferencesModal() {
     name: 'general',
     tabLabel: Object(external_wp_i18n_["__"])('General'),
     content: Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, isLargeViewport && Object(external_wp_element_["createElement"])(preferences_modal_section, {
-      title: Object(external_wp_i18n_["__"])('Choose your own experience')
+      title: Object(external_wp_i18n_["__"])('Publishing'),
+      description: Object(external_wp_i18n_["__"])('Change options related to publishing.')
     }, Object(external_wp_element_["createElement"])(preferences_modal_options["e" /* EnablePublishSidebarOption */], {
       help: Object(external_wp_i18n_["__"])('Review settings, such as visibility and tags.'),
       label: Object(external_wp_i18n_["__"])('Include pre-publish checklist')
     })), Object(external_wp_element_["createElement"])(preferences_modal_section, {
-      title: Object(external_wp_i18n_["__"])('Decide what to focus on')
+      title: Object(external_wp_i18n_["__"])('Appearance'),
+      description: Object(external_wp_i18n_["__"])('Customize options related to the block editor interface and editing flow.')
     }, Object(external_wp_element_["createElement"])(preferences_modal_options["b" /* EnableFeature */], {
       featureName: "reducedUI",
       help: Object(external_wp_i18n_["__"])('Compacts options and outlines in the toolbar.'),
@@ -13326,30 +13633,25 @@ function PreferencesModal() {
       featureName: "focusMode",
       help: Object(external_wp_i18n_["__"])('Highlights the current block and fades other content.'),
       label: Object(external_wp_i18n_["__"])('Spotlight mode')
+    }), Object(external_wp_element_["createElement"])(preferences_modal_options["b" /* EnableFeature */], {
+      featureName: "showIconLabels",
+      help: Object(external_wp_i18n_["__"])('Shows text instead of icons.'),
+      label: Object(external_wp_i18n_["__"])('Display button labels')
+    }), Object(external_wp_element_["createElement"])(preferences_modal_options["b" /* EnableFeature */], {
+      featureName: "themeStyles",
+      help: Object(external_wp_i18n_["__"])('Make the editor look like your theme.'),
+      label: Object(external_wp_i18n_["__"])('Use theme styles')
     }), showBlockBreadcrumbsOption && Object(external_wp_element_["createElement"])(preferences_modal_options["b" /* EnableFeature */], {
       featureName: "showBlockBreadcrumbs",
       help: Object(external_wp_i18n_["__"])('Shows block breadcrumbs at the bottom of the editor.'),
       label: Object(external_wp_i18n_["__"])('Display block breadcrumbs')
     })))
   }, {
-    name: 'appearance',
-    tabLabel: Object(external_wp_i18n_["__"])('Appearance'),
-    content: Object(external_wp_element_["createElement"])(preferences_modal_section, {
-      title: Object(external_wp_i18n_["__"])('Choose the way it looks')
-    }, Object(external_wp_element_["createElement"])(preferences_modal_options["b" /* EnableFeature */], {
-      featureName: "showIconLabels",
-      help: Object(external_wp_i18n_["__"])('Shows text instead of icons in toolbar.'),
-      label: Object(external_wp_i18n_["__"])('Display button labels')
-    }), Object(external_wp_element_["createElement"])(preferences_modal_options["b" /* EnableFeature */], {
-      featureName: "themeStyles",
-      help: Object(external_wp_i18n_["__"])('Make the editor look like your theme.'),
-      label: Object(external_wp_i18n_["__"])('Use theme styles')
-    }))
-  }, {
     name: 'blocks',
     tabLabel: Object(external_wp_i18n_["__"])('Blocks'),
     content: Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, Object(external_wp_element_["createElement"])(preferences_modal_section, {
-      title: Object(external_wp_i18n_["__"])('Choose how you interact with blocks')
+      title: Object(external_wp_i18n_["__"])('Block interactions'),
+      description: Object(external_wp_i18n_["__"])('Customize how you interact with blocks in the block library and editing canvas.')
     }, Object(external_wp_element_["createElement"])(preferences_modal_options["b" /* EnableFeature */], {
       featureName: "mostUsedBlocks",
       help: Object(external_wp_i18n_["__"])('Places the most frequent blocks in the block library.'),
@@ -13600,7 +13902,7 @@ class browser_url_BrowserURL extends external_wp_element_["Component"] {
 })(browser_url_BrowserURL));
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/wordpress.js
-var wordpress = __webpack_require__(253);
+var wordpress = __webpack_require__(320);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/fullscreen-mode-close/index.js
 
@@ -13699,10 +14001,10 @@ function FullscreenModeClose({
 /* harmony default export */ var fullscreen_mode_close = (FullscreenModeClose);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/list-view.js
-var list_view = __webpack_require__(175);
+var list_view = __webpack_require__(242);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/plus.js
-var plus = __webpack_require__(127);
+var plus = __webpack_require__(145);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/header-toolbar/index.js
 
@@ -13766,7 +14068,7 @@ function HeaderToolbar() {
       isTextModeEnabled: getEditorMode() === 'text',
       showIconLabels: isFeatureActive('showIconLabels'),
       isListViewOpen: isListViewOpened(),
-      listViewShortcut: getShortcutRepresentation('core/edit-post/toggle-block-navigation')
+      listViewShortcut: getShortcutRepresentation('core/edit-post/toggle-list-view')
     };
   }, []);
   const isLargeViewport = Object(external_wp_compose_["useViewportMatch"])('medium');
@@ -13842,7 +14144,7 @@ function HeaderToolbar() {
 /* harmony default export */ var header_toolbar = (HeaderToolbar);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/more-vertical.js
-var more_vertical = __webpack_require__(153);
+var more_vertical = __webpack_require__(194);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/mode-switcher/index.js
 
@@ -13940,7 +14242,7 @@ function PreferencesMenuItem() {
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/check.js
-var check = __webpack_require__(92);
+var check = __webpack_require__(116);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/feature-toggle/index.js
 
@@ -14296,7 +14598,7 @@ MainDashboardButton.Slot = main_dashboard_button_Slot;
 /* harmony default export */ var main_dashboard_button = (MainDashboardButton);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/chevron-down.js
-var chevron_down = __webpack_require__(152);
+var chevron_down = __webpack_require__(193);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/template-title/delete-template.js
 
@@ -14675,7 +14977,7 @@ function Header({
 /* harmony default export */ var header = (Header);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/close.js
-var library_close = __webpack_require__(110);
+var library_close = __webpack_require__(132);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/secondary-sidebar/inserter-sidebar.js
 
@@ -14736,7 +15038,7 @@ function InserterSidebar() {
 }
 //# sourceMappingURL=inserter-sidebar.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/close-small.js
-var close_small = __webpack_require__(91);
+var close_small = __webpack_require__(133);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/secondary-sidebar/list-view-sidebar.js
 
@@ -14798,7 +15100,7 @@ function ListViewSidebar() {
     })), Object(external_wp_element_["createElement"])("div", {
       className: "edit-post-editor__list-view-panel-content",
       ref: Object(external_wp_compose_["useMergeRefs"])([focusReturnRef, focusOnMountRef])
-    }, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["__experimentalBlockNavigationTree"], {
+    }, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["__experimentalListView"], {
       onSelect: selectEditorBlock,
       showNestedBlocks: true,
       __experimentalPersistentListViewFeatures: true
@@ -14807,7 +15109,7 @@ function ListViewSidebar() {
 }
 //# sourceMappingURL=list-view-sidebar.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/cog.js
-var cog = __webpack_require__(198);
+var cog = __webpack_require__(264);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/sidebar/settings-header/index.js
 
@@ -15851,7 +16153,7 @@ function MetaBoxes({
 })(MetaBoxes));
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/edit-post/build-module/components/sidebar/plugin-document-setting-panel/index.js
-var plugin_document_setting_panel = __webpack_require__(164);
+var plugin_document_setting_panel = __webpack_require__(211);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/sidebar/plugin-sidebar/index.js
 
@@ -16227,7 +16529,7 @@ function TemplatePanel() {
 var build_module_icon = __webpack_require__(109);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/layout.js
-var library_layout = __webpack_require__(186);
+var library_layout = __webpack_require__(253);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/sidebar/template-summary/index.js
 
@@ -16960,6 +17262,7 @@ function Layout({
     }, hasBlockSelected ? Object(external_wp_i18n_["__"])('Open block settings') : Object(external_wp_i18n_["__"])('Open document settings'))), Object(external_wp_element_["createElement"])(build_module["b" /* ComplementaryArea */].Slot, {
       scope: "core/edit-post"
     })),
+    notices: Object(external_wp_element_["createElement"])(external_wp_editor_["EditorSnackbars"], null),
     content: Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, Object(external_wp_element_["createElement"])(external_wp_editor_["EditorNotices"], null), (mode === 'text' || !isRichEditingEnabled) && Object(external_wp_element_["createElement"])(text_editor, null), isRichEditingEnabled && mode === 'visual' && Object(external_wp_element_["createElement"])(VisualEditor, {
       styles: styles
     }), !isTemplateMode && Object(external_wp_element_["createElement"])("div", {
@@ -16989,7 +17292,7 @@ function Layout({
 /* harmony default export */ var components_layout = (Layout);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/edit-post/build-module/store/constants.js
-var constants = __webpack_require__(107);
+var constants = __webpack_require__(130);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/editor-initialization/listener-hooks.js
 /**
@@ -17613,7 +17916,14 @@ function initializeEditor(id, postType, postId, settings, initialEdits) {
 
 /***/ }),
 
-/***/ 442:
+/***/ 5:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["blockEditor"]; }());
+
+/***/ }),
+
+/***/ 527:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17634,7 +17944,7 @@ function memoize(fn) {
 // CONCATENATED MODULE: ./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js
 
 
-var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
+var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|inert|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
 
 var index = memoize_browser_esm(function (prop) {
   return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111
@@ -17651,14 +17961,7 @@ var index = memoize_browser_esm(function (prop) {
 
 /***/ }),
 
-/***/ 5:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["blockEditor"]; }());
-
-/***/ }),
-
-/***/ 51:
+/***/ 59:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -17683,7 +17986,7 @@ var external_wp_components_ = __webpack_require__(3);
 var external_wp_data_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: external ["wp","editor"]
-var external_wp_editor_ = __webpack_require__(16);
+var external_wp_editor_ = __webpack_require__(18);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/preferences-modal/options/base.js
 
@@ -17766,7 +18069,7 @@ function EnableCustomFieldsOption({
 var external_wp_compose_ = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./packages/edit-post/build-module/store/index.js + 5 modules
-var store = __webpack_require__(18);
+var store = __webpack_require__(19);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/preferences-modal/options/enable-panel.js
 /**
@@ -17828,7 +18131,7 @@ EnablePluginDocumentSettingPanelOption.Slot = Slot;
 /* harmony default export */ var enable_plugin_document_setting_panel = (EnablePluginDocumentSettingPanelOption);
 //# sourceMappingURL=enable-plugin-document-setting-panel.js.map
 // EXTERNAL MODULE: external ["wp","viewport"]
-var external_wp_viewport_ = __webpack_require__(54);
+var external_wp_viewport_ = __webpack_require__(63);
 
 // CONCATENATED MODULE: ./packages/edit-post/build-module/components/preferences-modal/options/enable-publish-sidebar.js
 /**
@@ -17894,27 +18197,6 @@ Object(external_wp_viewport_["ifViewportMatches"])('medium'))(base));
 
 /***/ }),
 
-/***/ 52:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["blockLibrary"]; }());
-
-/***/ }),
-
-/***/ 53:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["mediaUtils"]; }());
-
-/***/ }),
-
-/***/ 54:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["viewport"]; }());
-
-/***/ }),
-
 /***/ 6:
 /***/ (function(module, exports) {
 
@@ -17922,7 +18204,28 @@ Object(external_wp_viewport_["ifViewportMatches"])('medium'))(base));
 
 /***/ }),
 
+/***/ 60:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["blockLibrary"]; }());
+
+/***/ }),
+
 /***/ 62:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["mediaUtils"]; }());
+
+/***/ }),
+
+/***/ 63:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["viewport"]; }());
+
+/***/ }),
+
+/***/ 66:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["warning"]; }());
@@ -17954,7 +18257,14 @@ function _extends() {
 
 /***/ }),
 
-/***/ 78:
+/***/ 8:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["blocks"]; }());
+
+/***/ }),
+
+/***/ 89:
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -18145,67 +18455,10 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ 8:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["blocks"]; }());
-
-/***/ }),
-
 /***/ 9:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["compose"]; }());
-
-/***/ }),
-
-/***/ 91:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependencies
- */
-
-const closeSmall = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
-  d: "M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (closeSmall);
-//# sourceMappingURL=close-small.js.map
-
-/***/ }),
-
-/***/ 92:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6);
-/* harmony import */ var _wordpress_primitives__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/**
- * WordPress dependencies
- */
-
-const check = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["SVG"], {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_primitives__WEBPACK_IMPORTED_MODULE_1__["Path"], {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
-}));
-/* harmony default export */ __webpack_exports__["a"] = (check);
-//# sourceMappingURL=check.js.map
 
 /***/ })
 

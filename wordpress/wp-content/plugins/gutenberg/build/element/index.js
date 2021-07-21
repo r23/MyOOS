@@ -82,22 +82,22 @@ window["wp"] = window["wp"] || {}; window["wp"]["element"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 425);
+/******/ 	return __webpack_require__(__webpack_require__.s = 510);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 12:
+/***/ 11:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["React"]; }());
 
 /***/ }),
 
-/***/ 135:
+/***/ 114:
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["ReactDOM"]; }());
+(function() { module.exports = window["wp"]["escapeHtml"]; }());
 
 /***/ }),
 
@@ -108,7 +108,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["element"] =
 
 /***/ }),
 
-/***/ 425:
+/***/ 510:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -152,7 +152,7 @@ __webpack_require__.d(__webpack_exports__, "renderToString", function() { return
 __webpack_require__.d(__webpack_exports__, "RawHTML", function() { return /* reexport */ RawHTML; });
 
 // EXTERNAL MODULE: external "React"
-var external_React_ = __webpack_require__(12);
+var external_React_ = __webpack_require__(11);
 
 // CONCATENATED MODULE: ./packages/element/build-module/create-interpolate-element.js
 /**
@@ -716,7 +716,7 @@ function switchChildrenNodeName(children, nodeName) {
 }
 //# sourceMappingURL=react.js.map
 // EXTERNAL MODULE: external "ReactDOM"
-var external_ReactDOM_ = __webpack_require__(135);
+var external_ReactDOM_ = __webpack_require__(99);
 
 // CONCATENATED MODULE: ./packages/element/build-module/react-platform.js
 /**
@@ -817,7 +817,7 @@ const Platform = {
 /* harmony default export */ var platform = (Platform);
 //# sourceMappingURL=platform.js.map
 // EXTERNAL MODULE: external ["wp","escapeHtml"]
-var external_wp_escapeHtml_ = __webpack_require__(90);
+var external_wp_escapeHtml_ = __webpack_require__(114);
 
 // CONCATENATED MODULE: ./packages/element/build-module/raw-html.js
 /**
@@ -1360,10 +1360,10 @@ function renderStyle(style) {
 
 /***/ }),
 
-/***/ 90:
+/***/ 99:
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["escapeHtml"]; }());
+(function() { module.exports = window["ReactDOM"]; }());
 
 /***/ })
 

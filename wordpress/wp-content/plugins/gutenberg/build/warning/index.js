@@ -82,17 +82,39 @@ window["wp"] = window["wp"] || {}; window["wp"]["warning"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 399);
+/******/ 	return __webpack_require__(__webpack_require__.s = 484);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 399:
+/***/ 270:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return logged; });
+/**
+ * Object map tracking messages which have been logged, for use in ensuring a
+ * message is only logged once.
+ *
+ * @type {Set<string>}
+ */
+const logged = new Set();
+//# sourceMappingURL=utils.js.map
+
+/***/ }),
+
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return warning; });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(270);
+/**
+ * Internal dependencies
+ */
+
+
 function isDev() {
   return typeof process !== 'undefined' && process.env && "production" !== 'production';
 }
@@ -118,6 +140,11 @@ function isDev() {
 function warning(message) {
   if (!isDev()) {
     return;
+  } // Skip if already logged.
+
+
+  if (_utils__WEBPACK_IMPORTED_MODULE_0__[/* logged */ "a"].has(message)) {
+    return;
   } // eslint-disable-next-line no-console
 
 
@@ -129,13 +156,15 @@ function warning(message) {
     throw Error(message);
   } catch (x) {// do nothing
   }
+
+  _utils__WEBPACK_IMPORTED_MODULE_0__[/* logged */ "a"].add(message);
 }
 //# sourceMappingURL=index.js.map
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(78)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(89)))
 
 /***/ }),
 
-/***/ 78:
+/***/ 89:
 /***/ (function(module, exports) {
 
 // shim for using process in browser
