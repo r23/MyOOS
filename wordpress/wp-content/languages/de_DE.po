@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-21 12:41:55+0000\n"
+"PO-Revision-Date: 2021-07-21 14:24:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -115,6 +115,141 @@ msgstr ","
 #: wp-includes/js/dist/edit-post.js:13899 wp-admin/includes/upgrade.php:158
 msgid "Uncategorized"
 msgstr "Allgemein"
+
+#: wp-includes/theme.json
+msgctxt "Duotone name"
+msgid "Blue and orange"
+msgstr "Blau und Orange"
+
+#: wp-includes/theme.json
+msgctxt "Duotone name"
+msgid "Purple and green"
+msgstr "Lila und Grün"
+
+#: wp-includes/theme.json
+msgctxt "Duotone name"
+msgid "Magenta and yellow"
+msgstr "Magenta und Gelb"
+
+#: wp-includes/theme.json
+msgctxt "Duotone name"
+msgid "Midnight"
+msgstr "Mitternacht"
+
+#: wp-includes/theme.json
+msgctxt "Duotone name"
+msgid "Blue and red"
+msgstr "Blau und Rot"
+
+#: wp-includes/theme.json
+msgctxt "Duotone name"
+msgid "Purple and yellow"
+msgstr "Lila und Gelb"
+
+#: wp-includes/theme.json
+msgctxt "Duotone name"
+msgid "Grayscale"
+msgstr "Graustufen"
+
+#: wp-includes/theme.json
+msgctxt "Duotone name"
+msgid "Dark grayscale"
+msgstr "Dunkle Graustufen"
+
+#: wp-includes/theme.json
+msgctxt "Gradient name"
+msgid "Midnight"
+msgstr "Mitternacht"
+
+#: wp-includes/theme.json
+msgctxt "Gradient name"
+msgid "Electric grass"
+msgstr "Elektrisches Gras"
+
+#: wp-includes/theme.json
+msgctxt "Gradient name"
+msgid "Pale ocean"
+msgstr "Helles Türkis"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Vivid purple"
+msgstr "Kräftiges Violett"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Vivid cyan blue"
+msgstr "Kräftiges Cyanblau"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Pale cyan blue"
+msgstr "Helles Cyanblau"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Vivid green cyan"
+msgstr "Kräftiges Cyangrün"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Light green cyan"
+msgstr "Helles Cyangrün"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Luminous vivid orange"
+msgstr "Leuchtendes Orange"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Vivid red"
+msgstr "Kräftiges Rot"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Pale pink"
+msgstr "Helles Rosa"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "White"
+msgstr "Weiß"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Cyan bluish gray"
+msgstr "Bläuliches Cyangrau"
+
+#: wp-includes/theme.json
+msgctxt "Color name"
+msgid "Black"
+msgstr "Schwarz"
+
+#: wp-includes/theme.json
+msgctxt "Font size name"
+msgid "Huge"
+msgstr "Riesig"
+
+#: wp-includes/theme.json
+msgctxt "Font size name"
+msgid "Large"
+msgstr "Groß"
+
+#: wp-includes/theme.json
+msgctxt "Font size name"
+msgid "Medium"
+msgstr "Mittel"
+
+#: wp-includes/theme.json
+msgctxt "Font size name"
+msgid "Normal"
+msgstr "Normal"
+
+#: wp-includes/theme.json
+msgctxt "Font size name"
+msgid "Small"
+msgstr "Klein"
 
 #: wp-includes/js/dist/block-library.js:29238
 #: wp-admin/includes/plugin-install.php:333
