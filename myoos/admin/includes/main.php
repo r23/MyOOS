@@ -56,16 +56,12 @@ if (strlen(OOS_DB_TYPE) < 1) {
 }
 
 
-$autoloader = require_once OOS_ABSOLUTE_PATH . 'vendor/autoload.php';
-
 require 'includes/define.php';
 
 use Symfony\Component\HttpFoundation\Request;
 
 $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 $request = Request::createFromGLOBALs();
-
-
 
 require 'includes/filename.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
@@ -85,10 +81,6 @@ $session->start();
 
 
 // require the database functions
-# require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/toexport.inc.php';
-# require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-errorhandler.inc.php';
-# require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb.inc.php';
-# require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/tohtml.inc.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_db.php';
 
 // make a connection to the database... now
@@ -98,6 +90,7 @@ if (!oosDBInit()) {
 
 $dbconn =& oosDBGetConn();
 oosDB_importTables($oostable);
+
 
 // set application wide parameters
 $configurationtable = $oostable['configuration'];
