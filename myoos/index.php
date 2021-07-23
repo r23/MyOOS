@@ -20,7 +20,7 @@
  * good level for error reporting.
  */
 
-error_reporting(E_ALL);
+error_reporting(0);
 // error_reporting(E_ALL & ~E_STRICT);
    
 //setting basic configuration parameters
@@ -29,7 +29,7 @@ if (function_exists('ini_set')) {
 	ini_set('url_rewriter.tags', '');
 	ini_set('xdebug.show_exception_trace', 0);
 	ini_set('magic_quotes_runtime', 0);
-	ini_set('display_errors', true);
+//	ini_set('display_errors', true);
 }
 
 use Symfony\Component\HttpFoundation\Request;

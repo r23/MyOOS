@@ -67,8 +67,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_navigation_history.ph
 
 
 // require the database functions
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb-errorhandler.inc.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/adodb/adodb.inc.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_db.php';
 
 // make a connection to the database... now
@@ -109,7 +107,7 @@ if (isset($_POST[$sSid]) && !empty($_POST[$sSid])){
 }
 
 // Cross-Site Scripting attack defense
-oos_secure_input();
+// oos_secure_input();
 
 
 // set the language
@@ -127,7 +125,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 
     if (isset($_GET['language']) && is_string($_GET['language'])) {
         // start the session
-        if ( $session->hasStarted() === FALSE ) $session->start();
+        if ( $session->hasStarted() === false ) $session->start();
 
         $oLang->set_language($_GET['language']);
     } else {
@@ -157,14 +155,15 @@ $sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CUR
 if (!isset($_SESSION['currency']) || isset($_GET['currency'])) {
     if (isset($_GET['currency']) && oos_currency_exits($_GET['currency']))  {
         // start the session
-        if ( $session->hasStarted() === FALSE ) $session->start();
+        if ( $session->hasStarted() === false ) $session->start();
 
         $sCurrency = oos_var_prep_for_os($_GET['currency']);
     }
 
     if (isset($_SESSION)) {
         $_SESSION['currency'] = $sCurrency;
-		$_SESSION['currency_title'] = $oCurrencies->get_currencies_title($sCurrency);    }
+		$_SESSION['currency_title'] = $oCurrencies->get_currencies_title($sCurrency);
+    }
 }
 
 

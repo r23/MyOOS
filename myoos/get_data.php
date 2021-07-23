@@ -29,7 +29,7 @@ if (function_exists('ini_set')) {
 	ini_set('url_rewriter.tags', '');
 	ini_set('xdebug.show_exception_trace', 0);
 	ini_set('magic_quotes_runtime', 0);
-	// ini_set('display_errors', false);
+	// ini_set('display_errors', true);
 }
 
 use Symfony\Component\HttpFoundation\Request;
