@@ -28,16 +28,6 @@ define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kl
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_TITLE', 'Inklusive Versandkosten');
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_DESC', 'Versandkosten an den Warenwert anrechnen');
 
-define('MODULE_ORDER_TOTAL_COUPON_INC_TAX_TITLE', 'Inklusive MwSt.');
-define('MODULE_ORDER_TOTAL_COUPON_INC_TAX_DESC', 'MwSt. an den Warenwert anrechnen');
-
-define('MODULE_ORDER_TOTAL_COUPON_CALC_TAX_TITLE', 'MwSt. neu berechnen');
-define('MODULE_ORDER_TOTAL_COUPON_CALC_TAX_DESC', 'MwSt. neu berechnen');
-
-define('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS_TITLE', 'Steuerklasse');
-define('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS_DESC', 'Folgenden MwSt. Satz benutzen, wenn Sie den Rabatt Kupon als Gutschrift verwenden.');
-
-
 $aLang['module_order_total_coupon_title'] = 'Rabatt Kupons';
 $aLang['module_order_total_coupon_header'] = 'Gutscheine / Rabatt Kupons';
 $aLang['module_order_total_coupon_description'] = 'Rabatt Kupon';

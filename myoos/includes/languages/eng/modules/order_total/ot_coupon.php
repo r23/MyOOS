@@ -29,14 +29,6 @@ define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_DESC', 'Sort order of display.');
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_TITLE', 'Include Shipping');
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_DESC', 'Include Shipping in calculation');
 
-define('MODULE_ORDER_TOTAL_COUPON_INC_TAX_TITLE', 'Include Tax');
-define('MODULE_ORDER_TOTAL_COUPON_INC_TAX_DESC', 'Include Tax in calculation.');
-
-define('MODULE_ORDER_TOTAL_COUPON_CALC_TAX_TITLE', 'Re-calculate Tax');
-define('MODULE_ORDER_TOTAL_COUPON_CALC_TAX_DESC', 'Re-Calculate Tax');
-
-define('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS_TITLE', 'Tax Class');
-define('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS_DESC', 'Use the following tax class when treating Discount Coupon as Credit Note.');
 
 $aLang['module_order_total_coupon_title'] = 'Discount Coupons';
 $aLang['module_order_total_coupon_header'] = 'Gift Vouchers/Discount Coupons';
