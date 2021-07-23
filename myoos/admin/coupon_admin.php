@@ -25,9 +25,6 @@ require 'includes/main.php';
 require 'includes/functions/function_coupon.php';
 require 'includes/classes/class_currencies.php';
 
-// Load the autoloader
-require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
-
 $currencies = new currencies();
 
 if (isset($_GET['selected_box'])) {

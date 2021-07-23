@@ -23,9 +23,6 @@ require 'includes/main.php';
 
 require 'includes/functions/function_informations.php';
 
-// Load the autoloader
-require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
-
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $iID = (isset($_GET['iID']) ? intval($_GET['iID']) : 0);

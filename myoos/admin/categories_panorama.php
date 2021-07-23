@@ -25,9 +25,6 @@ require 'includes/functions/function_categories.php';
 require 'includes/classes/class_currencies.php';
 require 'includes/classes/class_upload.php';
 
-// Load the autoloader
-require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
-
 $currencies = new currencies();
 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');

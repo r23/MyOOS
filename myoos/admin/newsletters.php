@@ -21,9 +21,6 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-// Load the autoloader
-require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
-
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $nID = (isset($_GET['nID']) ? intval($_GET['nID']) : '');

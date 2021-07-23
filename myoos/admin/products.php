@@ -19,7 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-error_reporting(E_ALL);
 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
@@ -27,9 +26,6 @@ require 'includes/main.php';
 require 'includes/functions/function_categories.php';
 require 'includes/classes/class_upload.php';
 require 'includes/classes/class_currencies.php';
-
-// Load the autoloader
-require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
 $currencies = new currencies();
 

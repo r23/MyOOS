@@ -21,10 +21,6 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-// Load the autoloader
-require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
-
-
 $action = (isset($_GET['action']) ? oos_prepare_input($_GET['action']) : '');
 $sCustomer = isset($_GET['customer']) ? oos_prepare_input($_GET['customer']) : '';
 
