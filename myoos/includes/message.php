@@ -54,13 +54,6 @@ if ( (WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 't
     }
 }
 
-// todo remove
-if (isset($_GET['info_message']) && !empty($_GET['info_message'])) {
-    $sInfoGetMessage = oos_var_prep_for_os(urldecode($_GET['info_message']));  
-    $aInfoMessage[] = array('type' => 'info',
-                            'text' => $sInfoGetMessage );
-}
-
 if (isset($sErrorMessage) && !empty($sErrorMessage)) {
     $aInfoMessage[] = array('type' => 'danger',
                             'title' => $aLang['danger'],

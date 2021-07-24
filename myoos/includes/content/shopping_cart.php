@@ -86,6 +86,14 @@ if (isset($_SESSION)) {
 			// load all enabled order total modules
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 			$order_total_modules = new order_total;
+
+			if ( isset($_POST['action']) && ($_POST['action'] == 'promocode') && 
+				( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+
+			
+			if (isset($_POST['gv_redeem_code'])) {	
+				$order_total_modules->collect_posts();
+			}
 			$order_total_modules->shopping_cart_process();
 			$order_total_output = $order_total_modules->output();
 

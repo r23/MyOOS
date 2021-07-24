@@ -225,7 +225,7 @@
 
 		$aContents = oos_get_content();
 
-		if ($_POST['gv_redeem_code']) {
+		if (isset($_POST['gv_redeem_code'])) {	
 
 			$couponstable = $oostable['coupons'];
 			$gv_query = $dbconn->Execute("SELECT coupon_id, coupon_type, coupon_amount FROM $couponstable WHERE coupon_code = '" . oos_db_input($_POST['gv_redeem_code']) . "'");
@@ -235,6 +235,8 @@
 				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
 				$redeem_query = $dbconn->Execute("SELECT * FROM $coupon_redeem_tracktable WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
 				if ( ($redeem_query->RecordCount() != 0) && ($gv_result['coupon_type'] == 'G') ) {
+					$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_gv'];	
+					# todo remove? 					
 					$oMessage->add_session('checkout_payment', $aLang['error_no_invalid_redeem_gv'], 'error');
 					oos_redirect(oos_href_link($aContents['checkout_payment']));			  
 				}
