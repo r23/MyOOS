@@ -87,11 +87,12 @@ if (isset($_SESSION)) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
 			$order_total_modules = new order_total;
 
-			if ( isset($_POST['action']) && ($_POST['action'] == 'promocode') && 
-				( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+			// Redeem coupons
+			if ( isset($_GET['action']) && ($_GET['action'] == 'promocode') && 
+				( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) &&  
+				( isset($_POST['gv_redeem_code']) && is_string( $_POST['gv_redeem_code'] )) ){
 
-			
-			if (isset($_POST['gv_redeem_code'])) {	
+				// Redeem coupons
 				$order_total_modules->collect_posts();
 			}
 			$order_total_modules->shopping_cart_process();
