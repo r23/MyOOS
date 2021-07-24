@@ -151,3 +151,4 @@ nbproject
 /mod/work/log/*.gz
 /mod/work
 /phpBB3/cache/installer
+/myoos/themes/phoenix/src/vendor/prepros.config
