@@ -49,7 +49,7 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
     $sql = "SELECT c.categories_id, c.categories_status, cd.categories_name
             FROM $categoriestable c,
                  $categories_descriptiontable cd
-            WHERE c.categories_status = '1'
+            WHERE c.categories_status = 2
               AND c.categories_id = cd.categories_id
               AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'
             ORDER BY categories_id";
