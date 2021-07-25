@@ -19,88 +19,86 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  class ot_coupon {
-    var $title, $output, $enabled = false;
+class ot_coupon {
+	var $title, $output, $enabled = false;
 
     public function __construct() {
-      global $aLang;
+		global $aLang;
 
-      $this->code = 'ot_coupon';
-      $this->header = $aLang['module_order_total_coupon_header'];
-      $this->title =$aLang['module_order_total_coupon_title'];
-      $this->description = $aLang['module_order_total_coupon_description'];
-      $this->user_prompt = '';
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true') ? true : false);
-      $this->sort_order = (defined('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER') ? MODULE_ORDER_TOTAL_COUPON_SORT_ORDER : null);
-      $this->include_shipping = (defined('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING') ? MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING : null);
-      $this->include_tax = (defined('MODULE_ORDER_TOTAL_COUPON_INC_TAX') ? MODULE_ORDER_TOTAL_COUPON_INC_TAX : null);
-      $this->calculate_tax = (defined('MODULE_ORDER_TOTAL_COUPON_CALC_TAX') ? MODULE_ORDER_TOTAL_COUPON_CALC_TAX : null);
-      $this->tax_class  = (defined('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS') ? MODULE_ORDER_TOTAL_COUPON_TAX_CLASS : null);
-      $this->credit_class = true;
+		$this->code = 'ot_coupon';
+		$this->header = $aLang['module_order_total_coupon_header'];
+		$this->title =$aLang['module_order_total_coupon_title'];
+		$this->description = $aLang['module_order_total_coupon_description'];
+		$this->user_prompt = '';
+		$this->enabled = (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true') ? true : false);
+		$this->sort_order = (defined('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER') ? MODULE_ORDER_TOTAL_COUPON_SORT_ORDER : null);
+		$this->include_shipping = (defined('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING') ? MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING : null);
+		$this->include_tax = null; // todo remove
+ 		$this->calculate_tax = null; // todo remove
+		$this->tax_class  =  null; // todo remove
+		$this->credit_class = true;
 
-      $this->output = array();
+		$this->output = array();
 
-    }
+	}
 
-  function process() {
-    global $oOrder, $oCurrencies;
+	function process() {
+		global $oOrder, $oCurrencies;
 
-    $order_total = $this->get_order_total();
-    $od_amount = $this->calculate_credit($order_total);
+		$order_total = $this->get_order_total();
+		$od_amount = $this->calculate_credit($order_total);
 
-    $this->deduction = $od_amount;
-    if ($this->calculate_tax != 'none') {
-      $tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
-    }
-    if ($od_amount > 0) {
-      $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
-      $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
-                              'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
-							  'info' => '',
-                              'value' => $od_amount);
-    }
-  }
+		$this->deduction = $od_amount;
+		if ($this->calculate_tax != 'none') {
+			$tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
+		}
+		if ($od_amount > 0) {
+			$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
+			$this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
+								'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
+								'info' => '',
+								'value' => $od_amount);
+		}
+	}
 
-  function shopping_cart_process() {
-    global $oCurrencies;
+	function shopping_cart_process() {
+		global $oCurrencies;
 
-    $order_total = $this->get_order_total();
-    $od_amount = $this->calculate_credit($order_total);
+		$order_total = $this->get_order_total();
+		$od_amount = $this->calculate_credit($order_total);
 
-    $this->deduction = $od_amount;
-    if ($this->calculate_tax != 'none') {
-      $tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
-    }
-    if ($od_amount > 0) {
-      $oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
-      $this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
-                              'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
-							  'info' => '',
-                              'value' => $od_amount);
-    }
-  }
+		$this->deduction = $od_amount;
+		if ($this->calculate_tax != 'none') {
+			$tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
+		}
+		if ($od_amount > 0) {
+			$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
+			$this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
+									'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
+									'info' => '',
+									'value' => $od_amount);
+		}
+	}
 
-
-
-  function selection_test() {
-    return false;
-  }
+	function selection_test() {
+		return false;
+	}
 
 
-  function pre_confirmation_check($order_total) {
-    return $this->calculate_credit($order_total);
-  }
+	function pre_confirmation_check($order_total) {
+		return $this->calculate_credit($order_total);
+	}
 
-  function use_credit_amount() {
-    return $output_string;
-  }
+	function use_credit_amount() {
+		return $output_string;
+	}
 
 
-  function credit_selection() {
-    global $aLang;
-    global $oCurrencies;
+	function credit_selection() {
+		global $aLang, $oCurrencies;
 
-    $sTheme = oos_var_prep_for_os($_SESSION['theme']);
+		// todo remove
+		$sTheme = oos_var_prep_for_os($_SESSION['theme']);
     $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
     $image_submit = '<input type="image" name="submit_redeem" onClick="submitFunction()" src="' . 'themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/redeem.gif" border="0" alt="' . $aLang['image_button_redeem_voucher'] . '" title = "' . $aLang['image_button_redeem_voucher'] . '">';
 
@@ -117,113 +115,119 @@
   }
 
 
-function collect_posts() {
-	global $oCurrencies, $aLang;
+	function collect_posts() {
+		global $oCurrencies, $aLang;
 
-    // Get database information
-	$dbconn =& oosDBGetConn();
-	$oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-	$aContents = oos_get_content();
+		$aContents = oos_get_content();
 
-	if (isset($_POST['gv_redeem_code'])) {	
-		// get some info from the coupon table
-		$couponstable = $oostable['coupons'];
-		$sql = "SELECT coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
+		if (isset($_POST['gv_redeem_code'])) {	
+		
+			$gv_redeem_code = oos_prepare_input($_POST['gv_redeem_code']);
+	
+			if ( empty( $gv_redeem_code ) || !is_string( $gv_redeem_code ) ) {
+				return;
+			}		
+		
+			// get some info from the coupon table
+			$couponstable = $oostable['coupons'];
+			$sql = "SELECT coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
 						uses_per_coupon, uses_per_user, restrict_to_products,
 						restrict_to_categories 
-				FROM $couponstable
-				WHERE coupon_code = '" . oos_db_input($_POST['gv_redeem_code']). "'
-					AND coupon_active = 'Y'";
-		$coupon_query = $dbconn->Execute($sql);
-		$coupon_result = $coupon_query->fields;
-
-		if ($coupon_result['coupon_type'] != 'G') {
-
-			
-			if ($coupon_query->RecordCount() == 0) {
-				$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
-				# todo remove? 
-				oos_redirect(oos_href_link($aContents['checkout_payment']));
-			}
-
-			$couponstable = $oostable['coupons'];
-			$sql = "SELECT coupon_start_date
 					FROM $couponstable
-					WHERE coupon_start_date <= now()
-					AND   coupon_code= '" . oos_db_input($_POST['gv_redeem_code']) . "'";
-			$date_query = $dbconn->Execute($sql);
-			if ($date_query->RecordCount() == 0) {
-				$_SESSION['error_message'] = $aLang['error_invalid_startdate_coupon'];
-				# todo remove? 
-				oos_redirect(oos_href_link($aContents['checkout_payment']));			
-			}
+					WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'
+						AND coupon_active = 'Y'";
+			$coupon_query = $dbconn->Execute($sql);
+			$coupon_result = $coupon_query->fields;
 
-			$couponstable = $oostable['coupons'];
-			$sql = "SELECT coupon_expire_date
-                FROM $couponstable
-                WHERE coupon_expire_date >= now()
-                AND   coupon_code= '" . oos_db_input($_POST['gv_redeem_code']) . "'";
-			$date_query = $dbconn->Execute($sql);
-			if ($date_query->RecordCount() == 0) {
-				$_SESSION['error_message'] = $aLang['error_invalid_finisdate_coupon'];
-				# todo remove? 
-				oos_redirect(oos_href_link($aContents['checkout_payment']));
-			}
+			if ($coupon_result['coupon_type'] != 'G') {
 
-			$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-			$sql = "SELECT coupon_id
-					FROM $coupon_redeem_tracktable
-					WHERE coupon_id = '" . $coupon_result['coupon_id']."'";
-			$coupon_count = $dbconn->Execute($sql);
+				if ($coupon_query->RecordCount() == 0) {
+					$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
+					# todo remove? 
+					oos_redirect(oos_href_link($aContents['checkout_payment']));
+				}
 
-			$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-			$sql = "SELECT coupon_id
-					FROM $coupon_redeem_tracktable
-					WHERE coupon_id = '" . $coupon_result['coupon_id']."'
-					AND   customer_id = '" . intval($_SESSION['customer_id']) . "'";
-			$coupon_count_customer = $dbconn->Execute($sql);
+				$couponstable = $oostable['coupons'];
+				$sql = "SELECT coupon_start_date
+						FROM $couponstable
+						WHERE coupon_start_date <= now()
+						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
+				$date_query = $dbconn->Execute($sql);
+				if ($date_query->RecordCount() == 0) {
+					$_SESSION['error_message'] = $aLang['error_invalid_startdate_coupon'];
+					# todo remove? 
+					oos_redirect(oos_href_link($aContents['checkout_payment']));			
+				}
 
-			if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
-				$_SESSION['error_message'] = $aLang['error_invalid_uses_coupon'] . $coupon_result['uses_per_coupon'] . $aLang['times'];	
-				# todo remove? 
-				oos_redirect(oos_href_link($aContents['checkout_payment']));
-			}
+				$couponstable = $oostable['coupons'];
+				$sql = "SELECT coupon_expire_date
+						FROM $couponstable
+						WHERE coupon_expire_date >= now()
+						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
+				$date_query = $dbconn->Execute($sql);
+				if ($date_query->RecordCount() == 0) {
+					$_SESSION['error_message'] = $aLang['error_invalid_finisdate_coupon'];
+					# todo remove? 
+					oos_redirect(oos_href_link($aContents['checkout_payment']));
+				}
 
-			if ($coupon_count_customer->RecordCount()>=$coupon_result['uses_per_user'] && $coupon_result['uses_per_user'] > 0) {
-				$_SESSION['error_message'] = $aLang['error_invalid_uses_user_coupon'] . $coupon_result['uses_per_user'] . $aLang['times'];
-				oos_redirect(oos_href_link($aContents['checkout_payment']));
-			}
+				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+				$sql = "SELECT coupon_id
+						FROM $coupon_redeem_tracktable
+						WHERE coupon_id = '" . $coupon_result['coupon_id']."'";
+				$coupon_count = $dbconn->Execute($sql);
+
+				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+				$sql = "SELECT coupon_id
+						FROM $coupon_redeem_tracktable
+						WHERE coupon_id = '" . $coupon_result['coupon_id']."'
+						AND   customer_id = '" . intval($_SESSION['customer_id']) . "'";
+				$coupon_count_customer = $dbconn->Execute($sql);
+
+				if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
+					$_SESSION['error_message'] = $aLang['error_invalid_uses_coupon'] . $coupon_result['uses_per_coupon'] . $aLang['times'];	
+					# todo remove? 
+					oos_redirect(oos_href_link($aContents['checkout_payment']));
+				}
+
+				if ($coupon_count_customer->RecordCount()>=$coupon_result['uses_per_user'] && $coupon_result['uses_per_user'] > 0) {
+					$_SESSION['error_message'] = $aLang['error_invalid_uses_user_coupon'] . $coupon_result['uses_per_user'] . $aLang['times'];
+					oos_redirect(oos_href_link($aContents['checkout_payment']));
+				}
 			
-			if ($coupon_result['coupon_type'] == 'S') {
-				$coupon_amount = $oOrder->info['shipping_cost'];
-			} else {
-				$coupon_amount = $oCurrencies->format($coupon_result['coupon_amount']) . ' ';
+				if ($coupon_result['coupon_type'] == 'S') {
+					$coupon_amount = $oOrder->info['shipping_cost'];
+				} else {
+					$coupon_amount = $oCurrencies->format($coupon_result['coupon_amount']) . ' ';
+				}
+				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% ';
+				# todo translate on orders greater than?
+				if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
+				$_SESSION['cc_id'] = $coupon_result['coupon_id'];
 			}
-			if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% ';
-			# todo translate on orders greater than?
-			if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
-			$_SESSION['cc_id'] = $coupon_result['coupon_id'];
-		}
 		
-		# todo remove?
-		if ($_POST['submit_redeem_coupon_x'] && !$_POST['gv_redeem_code']) {
-			$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
-			oos_redirect(oos_href_link($aContents['checkout_payment']));
-		} 
+			# todo remove?
+			if ($_POST['submit_redeem_coupon_x'] && !$gv_redeem_code) {
+				$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
+				oos_redirect(oos_href_link($aContents['checkout_payment']));
+			} 
 	  
-    }
-}
+		}
+	}
 
 
-  function calculate_credit($amount) {
-    global $oOrder;
+	function calculate_credit($amount) {
+		global $oOrder;
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-    $od_amount = 0;
+		$od_amount = 0;
     if (isset($_SESSION['cc_id'])) {
       $cc_id = intval($_SESSION['cc_id']);
 
@@ -600,32 +604,32 @@ function get_product_price($product_id) {
     }
 
     function keys() {
-      return array('MODULE_ORDER_TOTAL_COUPON_STATUS', 'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', 'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'MODULE_ORDER_TOTAL_COUPON_TAX_CLASS');
+		return array('MODULE_ORDER_TOTAL_COUPON_STATUS', 'MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', 'MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'MODULE_ORDER_TOTAL_COUPON_TAX_CLASS');
     }
 
-    function install() {
+	function install() {
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', '8', '6', '2', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'true', '6', '5', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'None', '6', '7','oos_cfg_select_option(array(\'None\', \'Standard\', \'Credit Note\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
+		$configurationtable = $oostable['configuration'];
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', '8', '6', '2', now())");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'true', '6', '5', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'None', '6', '7','oos_cfg_select_option(array(\'None\', \'Standard\', \'Credit Note\'), ', now())");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
     }
 
-    function remove() {
+	function remove() {
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-      $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
+		$configurationtable = $oostable['configuration'];
+		$dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
-  }
+}
 
 
