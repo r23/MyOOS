@@ -389,7 +389,6 @@ if (!empty($action)) {
 ?>
           </tr>
         </table>
-	</div>
 <!-- body_text_eof //-->
 
 				</div>
