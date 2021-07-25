@@ -73,10 +73,7 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && 
     // Instantiate a new mail object
     $send_mail = new PHPMailer();
 
-//    $send_mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
-
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
-//    $send_mail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
 
     $send_mail->CharSet = CHARSET;
     $send_mail->IsMail();
@@ -185,33 +182,37 @@ if (!empty($action)) {
 
 		case 'update_confirm':	
 			$coupon_amount = isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0;
+	
+			$update_errors = 0;
 			
+			$aLanguages = oos_get_languages();
+			$nLanguages = count($aLanguages);
+
+			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+				$language_id = $aLanguages[$i]['id'];
+	
+				if (empty($_POST['coupon_name'][$language_id])) {
+					$update_errors = 1;				
+					$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
+				} else {
+					$coupon_name[$language_id] = oos_prepare_input($_POST['coupon_name'][$language_id]);
+				}
+			}
+			
+			$coupon_amount = isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0;
+
+	
 			if (isset($_POST['back']) && ($_POST['back'] == 'back')) {
 				$action = 'new';
 			} else {
 				
-				$update_errors = 0;
-				$aLanguages = oos_get_languages();
-				$nLanguages = count($aLanguages);
 
-				for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
-					$language_id = $aLanguages[$i]['id'];
-	
-					if (empty($_POST['coupon_name'][$language_id])) {
-						$update_errors = 1;				
-						$messageStack->add(ERROR_NO_COUPON_NAME, 'error');
-					} else {
-						$coupon_name[$language_id] = oos_prepare_input($_POST['coupon_name'][$language_id]);
-					}
-				}
-			
-				$coupon_amount = isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0;
 
 				if (($coupon_amount <= 0) && (!isset($_POST['coupon_free_ship']))) {
 					$update_errors = 1;
 					$messageStack->add(ERROR_NO_COUPON_AMOUNT, 'error');
 				}		
-			}			
+			
 				
 				
 			$coupon_type = "F";
@@ -262,6 +263,7 @@ if (!empty($action)) {
 					oos_db_perform($oostable['coupons_description'], $sql_data_marray[$i]);
 				}
 			}
+		}
 	}
 }
 require 'includes/header.php';
@@ -748,12 +750,12 @@ require 'includes/header.php';
         <td class="text-left"><?php echo $finish_date; ?></td>
       </tr>
 <?php
-        $languages = oos_get_languages();
-        for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $language_id = $languages[$i]['id'];
-          echo oos_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$language_id]);
-          echo oos_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', $_POST['coupon_desc'][$language_id]);
-       }
+	$languages = oos_get_languages();
+	for ($i = 0, $n = count($languages); $i < $n; $i++) {
+		$language_id = $languages[$i]['id'];
+		echo oos_draw_hidden_field('coupon_name[' . $languages[$i]['id'] . ']', $_POST['coupon_name'][$language_id]);
+		echo oos_draw_hidden_field('coupon_desc[' . $languages[$i]['id'] . ']', $_POST['coupon_desc'][$language_id]);
+    }
     echo oos_draw_hidden_field('coupon_amount', isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0);
     echo oos_draw_hidden_field('coupon_min_order', isset($_POST['coupon_min_order']) ? oos_db_prepare_input($_POST['coupon_min_order']) : 0);
     echo oos_draw_hidden_field('coupon_free_ship', isset($_POST['coupon_free_ship']) ? intval($_POST['coupon_free_ship']) : 0 );
@@ -1186,8 +1188,7 @@ require 'includes/header.php';
 				</div>
 			</div>
         </div>
-
-		</div>
+		
 	</section>
 	<!-- Page footer //-->
 	<footer>
