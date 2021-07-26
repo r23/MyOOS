@@ -33,7 +33,10 @@ if (isset($_GET['selected_box'])) {
 }
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = (isset($_GET['action']) ? oos_db_prepare_input($_GET['action']) : '');
+$oldaction = (isset($_GET['oldaction']) ? oos_db_prepare_input($_GET['oldaction']) : '');
+
+
 
 if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {
@@ -166,12 +169,13 @@ if (!empty($action)) {
 			}
 
 			$coupon_code = empty($_POST['coupon_code']) ?  oos_create_coupon_code() : oos_db_prepare_input($_POST['coupon_code']); 
-			$query1 = $dbconn->Execute("SELECT coupon_code
+			$query = $dbconn->Execute("SELECT coupon_code
 									FROM " . $oostable['coupons'] . "
 									WHERE coupon_code = '" . oos_db_input($coupon_code) . "'");
-			if ($query1->RecordCount() && $_POST['coupon_code'] && $_GET['oldaction'] != 'voucheredit')  {
-				$update_errors = 1;
-				$messageStack->add(ERROR_COUPON_EXISTS, 'error');
+			if ($query->RecordCount() && isset($_POST['coupon_code']) && 
+				( isset($_GET['oldaction']) && ($_GET['oldaction'] != 'voucheredit'))) {
+					$update_errors = 1;
+					$messageStack->add(ERROR_COUPON_EXISTS, 'error');
 			}
 			if ($update_errors != 0) {
 				$action = 'new';
@@ -566,15 +570,15 @@ require 'includes/header.php';
     $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
     $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
     $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname
-                                FROM " . $oostable['customers'] . "
-                                ORDER BY customers_lastname");
+									FROM " . $oostable['customers'] . "
+									ORDER BY customers_lastname");
     while($customers_values = $mail_result->fields) {
-      $customers[] = array('id' => $customers_values['customers_email_address'],
-                           'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
+		$customers[] = array('id' => $customers_values['customers_email_address'],
+							'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
 
-      // Move that ADOdb pointer!
-      $mail_result->MoveNext();
-    }
+		// Move that ADOdb pointer!
+		$mail_result->MoveNext();
+	}
 
 ?>
               <tr>
@@ -625,8 +629,6 @@ require 'includes/header.php';
               </tr>
             </table></td>
           </form></tr>
-
-      </tr>
       </td>
 <?php
     break;
@@ -659,7 +661,7 @@ require 'includes/header.php';
 
       <tr>
       <td>
-<?php echo oos_draw_form('id', 'coupon', $aContents['coupon_admin'], 'action=update_confirm&oldaction=' . $_GET['oldaction'] . '&cID=' . $_GET['cID'], 'post', false); ?>
+<?php echo oos_draw_form('id', 'coupon', $aContents['coupon_admin'], 'action=update_confirm&oldaction=' . $oldaction . '&cID=' . $_GET['cID'], 'post', false); ?>
       <table border="0" width="100%" cellspacing="0" cellpadding="6">
 <?php
         $languages = oos_get_languages();
@@ -736,8 +738,8 @@ require 'includes/header.php';
       </tr>
       <tr>
         <td class="text-left"><?php echo COUPON_STARTDATE; ?></td>
-<?php
-    $start_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] ));
+<?php 
+    $start_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_startdate_month'], $_POST['coupon_startdate_day'], $_POST['coupon_startdate_year'] ));
 ?>
         <td class="text-left"><?php echo $start_date; ?></td>
       </tr>
@@ -745,7 +747,7 @@ require 'includes/header.php';
       <tr>
         <td class="text-left"><?php echo COUPON_FINISHDATE; ?></td>
 <?php
-    $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] ));
+    $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'], $_POST['coupon_finishdate_day'], $_POST['coupon_finishdate_year'] ));
 ?>
         <td class="text-left"><?php echo $finish_date; ?></td>
       </tr>
@@ -764,18 +766,15 @@ require 'includes/header.php';
     echo oos_draw_hidden_field('coupon_uses_user', $_POST['coupon_uses_user']);
     echo oos_draw_hidden_field('coupon_products', $_POST['coupon_products']);
     echo oos_draw_hidden_field('coupon_categories', $_POST['coupon_categories']);
-    echo oos_draw_hidden_field('coupon_startdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_startdate_month'],$_POST['coupon_startdate_day'] ,$_POST['coupon_startdate_year'] )));
-    echo oos_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'],$_POST['coupon_finishdate_day'] ,$_POST['coupon_finishdate_year'] )));
+    echo oos_draw_hidden_field('coupon_startdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_startdate_month'], $_POST['coupon_startdate_day'], $_POST['coupon_startdate_year'] )));
+    echo oos_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'], $_POST['coupon_finishdate_day'], $_POST['coupon_finishdate_year'] )));
 ?>
      <tr>
         <td class="text-left"><?php echo oos_submit_button(IMAGE_CONFIRM); ?></td>
         <td class="text-left"><?php echo oos_cancel_button('<i class="fa fa-chevron-left"></i> ' . BUTTON_BACK, 'back'); ?></td>
       </tr>
 
-      </td></table></form>
-      </tr>
-
-      </table></td>
+	</table></form></td>
 <?php
 
     break;
@@ -1188,7 +1187,8 @@ require 'includes/header.php';
 				</div>
 			</div>
         </div>
-		
+
+		</div>
 	</section>
 	<!-- Page footer //-->
 	<footer>
