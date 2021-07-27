@@ -34,21 +34,22 @@ class splitPageResults {
 		$current_page_number = (int)$current_page_number;
 		
 		$pos_to = strlen($sql_query);
-		$pos_from = strpos($sql_query, ' FROM', 0);
+		$pos_from = strpos(strtoupper($sql_query), ' FROM', 0);
 
-		$pos_group_by = strpos($sql_query, ' GROUP BY', $pos_from);
-		if (($pos_group_by < $pos_to) && ($pos_group_by != false)) $pos_to = $pos_group_by;
+		$pos_group_by = strpos(strtoupper($sql_query), ' GROUP BY', $pos_from);
+		if (($pos_group_by < $pos_to) && ($pos_group_by !== false)) $pos_to = $pos_group_by;
 
-		$pos_having = strpos($sql_query, ' HAVING', $pos_from);
-		if (($pos_having < $pos_to) && ($pos_having != false)) $pos_to = $pos_having;
+		$pos_having = strpos(strtoupper($sql_query), ' HAVING', $pos_from);
+		if (($pos_having < $pos_to) && ($pos_having !== false)) $pos_to = $pos_having;
 
-		$pos_order_by = strpos($sql_query, ' ORDER BY', $pos_from);
-		if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
+		$pos_order_by = strpos(strtoupper($sql_query), ' ORDER BY', $pos_from);
+		if (($pos_order_by < $pos_to) && ($pos_order_by !== false)) $pos_to = $pos_order_by;
 
 		$sql = "SELECT count(*) AS total " . substr($sql_query, $pos_from, ($pos_to - $pos_from));
 		
 		// Get database information
 		$dbconn =& oosDBGetConn();
+	
 		$reviews_count = $dbconn->Execute($sql);
         $query_num_rows = $reviews_count->fields['total'];		
 

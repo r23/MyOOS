@@ -1006,24 +1006,9 @@ case 'voucherreport':
 	$rows = 0;
     if (isset($nPage) && ($nPage > 1)) $rows = $nPage * 20 - 20;
     if ($status != '*') {
-		$cc_result_raw = "SELECT
-                           coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,
-                           coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products,
-                           restrict_to_categories, date_created,date_modified
-						FROM
-							" . $oostable['coupons'] ."
-						WHERE
-                           coupon_active='" . oos_db_input($status) . "' AND
-                           coupon_type != 'G'";
+		$cc_result_raw = "SELECT coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date, coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products, restrict_to_categories, date_created, date_modified FROM " . $oostable['coupons'] . " WHERE coupon_active='" . oos_db_input($status) . "' AND coupon_type != 'G'";
     } else {
-		$cc_result_raw = "SELECT
-                           coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,
-                           coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products,
-                           restrict_to_categories, date_created,date_modified
-                       FROM
-                           " . $oostable['coupons'] . "
-                       WHERE
-                           coupon_type != 'G'";
+		$cc_result_raw = "SELECT coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date, coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products, restrict_to_categories, date_created, date_modified FROM " . $oostable['coupons'] . " WHERE coupon_type != 'G'";
     }
     $cc_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $cc_result_raw, $cc_result_numrows);
     $cc_result = $dbconn->Execute($cc_result_raw);
