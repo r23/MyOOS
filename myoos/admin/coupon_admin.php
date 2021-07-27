@@ -29,7 +29,7 @@ $currencies = new currencies();
 
 if (isset($_GET['selected_box'])) {
 	$_GET['action'] = '';
-	$_GET['old_action'] = '';
+	$_GET['oldaction'] = '';
 }
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
@@ -215,7 +215,7 @@ if (!empty($action)) {
 
 				$coupon_type = "F";
 				if (substr($_POST['coupon_amount'], -1) == '%') $coupon_type = 'P';
-				if (isset($_POST['coupon_free_ship'])) $coupon_type = 'S';
+				if (isset($_POST['coupon_free_ship']) && ($_POST['coupon_free_ship'] != 0)) $coupon_type = 'S';
 			
 				$sql_data_array = array('coupon_code' => oos_db_prepare_input($_POST['coupon_code']),
 										'coupon_amount' => $coupon_amount,
@@ -754,7 +754,9 @@ case 'voucherreport':
     }
     echo oos_draw_hidden_field('coupon_amount', isset($_POST['coupon_amount']) ? oos_db_prepare_input($_POST['coupon_amount']) : 0);
     echo oos_draw_hidden_field('coupon_min_order', isset($_POST['coupon_min_order']) ? oos_db_prepare_input($_POST['coupon_min_order']) : 0);
-    echo oos_draw_hidden_field('coupon_free_ship', isset($_POST['coupon_free_ship']) ? intval($_POST['coupon_free_ship']) : 0 );
+	if (isset($_POST['coupon_free_ship'])) {
+	    echo oos_draw_hidden_field('coupon_free_ship', 1);
+	}
     echo oos_draw_hidden_field('coupon_code', $coupon_code);
     echo oos_draw_hidden_field('coupon_uses_coupon', $_POST['coupon_uses_coupon']);
     echo oos_draw_hidden_field('coupon_uses_user', $_POST['coupon_uses_user']);
@@ -938,7 +940,7 @@ case 'voucherreport':
         <td align="left" class="main"><?php echo COUPON_FINISHDATE_HELP; ?></td>
       </tr>
       <tr>
-        <td class="text-left"><?php echo oos_submit_button('preview', IMAGE_PREVIEW); ?></td>
+        <td class="text-left"><?php echo oos_submit_button(IMAGE_PREVIEW); ?></td>
         <td class="text-left"><?php echo '&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </tr>
       </table></form></td>
@@ -1004,17 +1006,17 @@ case 'voucherreport':
 	$rows = 0;
     if (isset($nPage) && ($nPage > 1)) $rows = $nPage * 20 - 20;
     if ($status != '*') {
-      $cc_result_raw = "SELECT
+		$cc_result_raw = "SELECT
                            coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,
                            coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products,
                            restrict_to_categories, date_created,date_modified
-                       FROM
-                           " . $oostable['coupons'] ."
-                       WHERE
+						FROM
+							" . $oostable['coupons'] ."
+						WHERE
                            coupon_active='" . oos_db_input($status) . "' AND
                            coupon_type != 'G'";
     } else {
-      $cc_result_raw = "SELECT
+		$cc_result_raw = "SELECT
                            coupon_id, coupon_code, coupon_amount, coupon_type, coupon_start_date,
                            coupon_expire_date, uses_per_user, uses_per_coupon, restrict_to_products,
                            restrict_to_categories, date_created,date_modified
@@ -1026,23 +1028,23 @@ case 'voucherreport':
     $cc_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $cc_result_raw, $cc_result_numrows);
     $cc_result = $dbconn->Execute($cc_result_raw);
     while ($cc_list = $cc_result->fields) {
-      $rows++;
-      if (strlen($rows) < 2) {
-        $rows = '0' . $rows;
-      }
-      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $cc_list['coupon_id']))) && !isset($cInfo)) {
-        $cInfo = new objectInfo($cc_list);
-      }
-      if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) {
-        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['coupon_admin'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->coupon_id . '&action=edit') . '\'">' . "\n";
-      } else {
-        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['coupon_admin'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cc_list['coupon_id']) . '\'">' . "\n";
-      }
-      $coupon_description_result = $dbconn->Execute("SELECT coupon_name
+		$rows++;
+		if (strlen($rows) < 2) {
+			$rows = '0' . $rows;
+		}
+		if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $cc_list['coupon_id']))) && !isset($cInfo)) {
+			$cInfo = new objectInfo($cc_list);
+		}
+		if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id) ) {
+			echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['coupon_admin'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->coupon_id . '&action=edit') . '\'">' . "\n";
+		} else {
+			echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['coupon_admin'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cc_list['coupon_id']) . '\'">' . "\n";
+		}
+		$coupon_description_result = $dbconn->Execute("SELECT coupon_name
                                                  FROM " . $oostable['coupons_description'] . "
                                                  WHERE coupon_id = '" . $cc_list['coupon_id'] . "'
                                                    AND coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
-      $coupon_desc = $coupon_description_result->fields;
+		$coupon_desc = $coupon_description_result->fields;
 ?>
                 <td><?php echo $coupon_desc['coupon_name']; ?></td>
                 <td class="text-center">
@@ -1088,21 +1090,21 @@ case 'voucherreport':
 
     switch ($action) {
     case 'release':
-      break;
+		break;
 
     case 'voucherreport':
-      $heading[] = array('text' => '<b>' . TEXT_HEADING_COUPON_REPORT . '</b>');
-      $contents[] = array('text' => TEXT_NEW_INTRO);
-      break;
+		$heading[] = array('text' => '<b>' . TEXT_HEADING_COUPON_REPORT . '</b>');
+		$contents[] = array('text' => TEXT_NEW_INTRO);
+		break;
 
     case 'new':
-      $heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_COUPON . '</b>');
-      $contents[] = array('text' => TEXT_NEW_INTRO);
-      $contents[] = array('text' => '<br />' . COUPON_NAME . '<br />' . oos_draw_input_field('name'));
-      $contents[] = array('text' => '<br />' . COUPON_AMOUNT . '<br />' . oos_draw_input_field('voucher_amount'));
-      $contents[] = array('text' => '<br />' . COUPON_CODE . '<br />' . oos_draw_input_field('voucher_code'));
-      $contents[] = array('text' => '<br />' . COUPON_USES_COUPON . '<br />' . oos_draw_input_field('voucher_number_of'));
-      break;
+		$heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_COUPON . '</b>');
+		$contents[] = array('text' => TEXT_NEW_INTRO);
+		$contents[] = array('text' => '<br />' . COUPON_NAME . '<br />' . oos_draw_input_field('name'));
+		$contents[] = array('text' => '<br />' . COUPON_AMOUNT . '<br />' . oos_draw_input_field('voucher_amount'));
+		$contents[] = array('text' => '<br />' . COUPON_CODE . '<br />' . oos_draw_input_field('voucher_code'));
+		$contents[] = array('text' => '<br />' . COUPON_USES_COUPON . '<br />' . oos_draw_input_field('voucher_number_of'));
+		break;
 
     default:
 		$coupon_id = isset($cInfo->coupon_id) ? $cInfo->coupon_id : '';
@@ -1117,33 +1119,33 @@ case 'voucherreport':
 		$heading[] = array('text'=>'['.$coupon_id.']  '.$coupon_code);
 		$amount = isset($cInfo->coupon_amount) ? $cInfo->coupon_amount : 0;
 
-      if (isset($cInfo->coupon_type) && $cInfo->coupon_type == 'P') {
-        $amount .= '%';
-      } else {
-        $amount = $currencies->format($amount);
-      }
-      if ($action == 'voucherdelete') {
-        $contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' .
-                '<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=confirmdelete&cID='  .intval($_GET['cID'])) . '">' . oos_button(BUTTON_CONFIRM_DELETE_VOUCHER) . '</a>' .
-                '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], 'cID=' . $cInfo->coupon_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'
-                );
-      } else {
-        $prod_details = '';
-        if (isset($cInfo->restrict_to_products) && $cInfo->restrict_to_products) {
-          $prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
-        }
-        $cat_details = '';
-        if (isset($cInfo->restrict_to_categories) && $cInfo->restrict_to_categories) {
-          $cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
-        }
-        $coupon_name_result = $dbconn->Execute("SELECT coupon_name
-                                           FROM " . $oostable['coupons_description'] . "
-                                           WHERE coupon_id = '" . oos_db_input($coupon_id) . "' AND
-                                                 coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        $coupon_name = $coupon_name_result->fields;
-		$coupon_name['coupon_name'] = isset($coupon_name['coupon_name']) ? $coupon_name['coupon_name'] : '';
+		if (isset($cInfo->coupon_type) && $cInfo->coupon_type == 'P') {
+			$amount .= '%';
+		} else {
+			$amount = $currencies->format($amount);
+		}
+		if ($action == 'voucherdelete') {
+			$contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' .
+						'<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=confirmdelete&cID='  .intval($_GET['cID'])) . '">' . oos_button(BUTTON_CONFIRM_DELETE_VOUCHER) . '</a>' .
+						'<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], 'cID=' . $cInfo->coupon_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'
+					);
+		} else {
+			$prod_details = '';
+			if (isset($cInfo->restrict_to_products) && $cInfo->restrict_to_products) {
+				$prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
+			}
+			$cat_details = '';
+			if (isset($cInfo->restrict_to_categories) && $cInfo->restrict_to_categories) {
+			$cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
+			}
+			$coupon_name_result = $dbconn->Execute("SELECT coupon_name
+												FROM " . $oostable['coupons_description'] . "
+												WHERE coupon_id = '" . oos_db_input($coupon_id) . "' AND
+													coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
+			$coupon_name = $coupon_name_result->fields;
+			$coupon_name['coupon_name'] = isset($coupon_name['coupon_name']) ? $coupon_name['coupon_name'] : '';
 		
-        $contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br />' .
+			$contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br />' .
                      COUPON_AMOUNT . ':&nbsp;' . $amount . '<br />' .
                      COUPON_STARTDATE . ':&nbsp;' . oos_date_short($coupon_start_date) . '<br />' .
                      COUPON_FINISHDATE . ':&nbsp;' . oos_date_short($coupon_expire_date) . '<br />' .
@@ -1158,9 +1160,9 @@ case 'voucherreport':
                      '<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucherdelete&cID='.$coupon_id).'">'.oos_button(BUTTON_DELETE_VOUCHER).'</a>' .
                      '<br /><a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucherreport&cID='.$coupon_id).'">'.oos_button(BUTTON_REPORT_VOUCHER).'</a></center>'
                      );
-        }
+		}
         break;
-      }
+    }
 ?>
 	<td class="w-25">
 		<table class="table table-striped">
@@ -1182,7 +1184,6 @@ case 'voucherreport':
 			</div>
         </div>
 
-		</div>
 	</section>
 	<!-- Page footer //-->
 	<footer>
