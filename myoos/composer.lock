@@ -3773,16 +3773,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.3.3",
+            "version": "v5.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "dbd559ff851c680b7967ff46355b89c50713ae45"
+                "reference": "b2b847b41e21e5ec826a14a92b51a0ab01112f2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/dbd559ff851c680b7967ff46355b89c50713ae45",
-                "reference": "dbd559ff851c680b7967ff46355b89c50713ae45",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/b2b847b41e21e5ec826a14a92b51a0ab01112f2f",
+                "reference": "b2b847b41e21e5ec826a14a92b51a0ab01112f2f",
                 "shasum": ""
             },
             "require": {
@@ -3795,7 +3795,7 @@
                 "psr/container": "^1.0",
                 "psr/event-dispatcher": "^1.0",
                 "psr/link": "^1.0",
-                "psr/log": "~1.0",
+                "psr/log": "^1|^2",
                 "symfony/contracts": "^2.1",
                 "symfony/polyfill-ctype": "~1.8",
                 "symfony/polyfill-intl-grapheme": "~1.0",
@@ -3804,7 +3804,7 @@
                 "symfony/polyfill-intl-normalizer": "~1.0",
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php73": "^1.11",
-                "symfony/polyfill-php80": "^1.15",
+                "symfony/polyfill-php80": "^1.16",
                 "symfony/polyfill-php81": "^1.22",
                 "symfony/polyfill-uuid": "^1.15",
                 "twig/twig": "^2.13|^3.0.4"
@@ -3829,7 +3829,7 @@
                 "psr/event-dispatcher-implementation": "1.0",
                 "psr/http-client-implementation": "1.0",
                 "psr/link-implementation": "1.0",
-                "psr/log-implementation": "1.0",
+                "psr/log-implementation": "1.0|2.0",
                 "psr/simple-cache-implementation": "1.0",
                 "symfony/cache-implementation": "1.0|2.0",
                 "symfony/event-dispatcher-implementation": "2.0",
@@ -3973,7 +3973,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.3.3"
+                "source": "https://github.com/symfony/symfony/tree/v5.3.4"
             },
             "funding": [
                 {
@@ -3989,7 +3989,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-30T08:28:04+00:00"
+            "time": "2021-07-26T17:37:04+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",

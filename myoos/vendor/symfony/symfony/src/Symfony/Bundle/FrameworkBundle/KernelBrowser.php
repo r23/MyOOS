@@ -112,7 +112,7 @@ class KernelBrowser extends HttpKernelBrowser
     /**
      * @param UserInterface $user
      */
-    public function loginUser($user, string $firewallContext = 'main'): self
+    public function loginUser(object $user, string $firewallContext = 'main'): self
     {
         if (!interface_exists(UserInterface::class)) {
             throw new \LogicException(sprintf('"%s" requires symfony/security-core to be installed.', __METHOD__));
@@ -145,9 +145,9 @@ class KernelBrowser extends HttpKernelBrowser
     /**
      * {@inheritdoc}
      *
-     * @param Request $request A Request instance
+     * @param Request $request
      *
-     * @return Response A Response instance
+     * @return Response
      */
     protected function doRequest($request)
     {
@@ -172,9 +172,9 @@ class KernelBrowser extends HttpKernelBrowser
     /**
      * {@inheritdoc}
      *
-     * @param Request $request A Request instance
+     * @param Request $request
      *
-     * @return Response A Response instance
+     * @return Response
      */
     protected function doRequestInProcess($request)
     {
@@ -193,9 +193,9 @@ class KernelBrowser extends HttpKernelBrowser
      * Symfony Standard Edition). If this is not your case, create your own
      * client and override this method.
      *
-     * @param Request $request A Request instance
+     * @param Request $request
      *
-     * @return string The script content
+     * @return string
      */
     protected function getScript($request)
     {
