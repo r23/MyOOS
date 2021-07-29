@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-27 13:51:03+0000\n"
+"PO-Revision-Date: 2021-07-29 14:42:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -544,6 +544,11 @@ msgstr "Groß"
 msgctxt "block keyword"
 msgid "cite"
 msgstr "zitieren"
+
+#: wp-includes/blocks/quote/block.json
+msgctxt "block keyword"
+msgid "blockquote"
+msgstr "Blockzitat"
 
 #: wp-includes/blocks/query/block.json
 msgctxt "block description"
@@ -2597,7 +2602,7 @@ msgstr "Dieses Theme funktioniert nicht mit deiner WordPress-Version."
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:702
 #: wp-admin/includes/plugin.php:1143 wp-admin/includes/theme.php:887
 #: wp-admin/includes/theme.php:918 wp-admin/includes/theme.php:964
-#: wp-admin/includes/theme.php:987 wp-admin/includes/update-core.php:1014
+#: wp-admin/includes/theme.php:987 wp-admin/includes/update-core.php:1018
 #: wp-admin/includes/update.php:751 wp-admin/includes/update.php:778
 #: wp-admin/install.php:244 wp-admin/theme-install.php:316
 #: wp-admin/theme-install.php:339 wp-admin/theme-install.php:502
@@ -3154,7 +3159,7 @@ msgid "Cannot delete an active plugin. Please deactivate it first."
 msgstr "Ein aktives Plugin kann nicht gelöscht werden. Bitte deaktiviere es zuerst."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:490
-#: wp-admin/includes/ajax-actions.php:4562 wp-admin/plugins.php:268
+#: wp-admin/includes/ajax-actions.php:4564 wp-admin/plugins.php:268
 msgid "Sorry, you are not allowed to delete plugins for this site."
 msgstr "Du bist leider nicht berechtigt, Plugins dieser Website zu löschen."
 
@@ -3163,12 +3168,12 @@ msgid "Unable to determine what plugin was installed."
 msgstr "Es lässt sich nicht feststellen, welches Plugin installiert wurde."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:338
-#: wp-admin/includes/ajax-actions.php:4096
-#: wp-admin/includes/ajax-actions.php:4226
-#: wp-admin/includes/ajax-actions.php:4290
-#: wp-admin/includes/ajax-actions.php:4390
-#: wp-admin/includes/ajax-actions.php:4517
-#: wp-admin/includes/ajax-actions.php:4586
+#: wp-admin/includes/ajax-actions.php:4098
+#: wp-admin/includes/ajax-actions.php:4228
+#: wp-admin/includes/ajax-actions.php:4292
+#: wp-admin/includes/ajax-actions.php:4392
+#: wp-admin/includes/ajax-actions.php:4519
+#: wp-admin/includes/ajax-actions.php:4588
 msgid "Unable to connect to the filesystem. Please confirm your credentials."
 msgstr "Es ist nicht möglich, eine Verbindung mit dem Dateisystem herzustellen. Bitte überprüfe deine Anmeldedaten."
 
@@ -3177,7 +3182,7 @@ msgid "Sorry, you are not allowed to activate plugins."
 msgstr "Du bist leider nicht berechtigt, das Plugin zu aktivieren."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:245
-#: wp-admin/includes/ajax-actions.php:4343 wp-admin/plugin-install.php:19
+#: wp-admin/includes/ajax-actions.php:4345 wp-admin/plugin-install.php:19
 #: wp-admin/update.php:106 wp-admin/update.php:149 wp-admin/update.php:181
 msgid "Sorry, you are not allowed to install plugins on this site."
 msgstr "Du bist leider nicht berechtigt, Plugins auf dieser Website zu installieren."
@@ -3191,8 +3196,8 @@ msgstr "Plugin nicht gefunden."
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:166
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:412
 #: wp-includes/rest-api/endpoints/class-wp-rest-plugins-controller.php:482
-#: wp-admin/includes/ajax-actions.php:4638
-#: wp-admin/includes/ajax-actions.php:4690 wp-admin/plugins.php:13
+#: wp-admin/includes/ajax-actions.php:4640
+#: wp-admin/includes/ajax-actions.php:4692 wp-admin/plugins.php:13
 msgid "Sorry, you are not allowed to manage plugins for this site."
 msgstr "Du bist leider nicht berechtigt, Plugins dieser Website zu verwalten."
 
@@ -4540,8 +4545,8 @@ msgstr "https://wordpress.org/support/article/cookies/"
 msgid "Missing confirm key."
 msgstr "Fehlender Bestätigungsschlüssel."
 
-#: wp-login.php:1068 wp-admin/includes/ajax-actions.php:4753
-#: wp-admin/includes/ajax-actions.php:4943
+#: wp-login.php:1068 wp-admin/includes/ajax-actions.php:4755
+#: wp-admin/includes/ajax-actions.php:4945
 msgid "Missing request ID."
 msgstr "Fehlende Anforderungs-ID."
 
@@ -9941,7 +9946,7 @@ msgid "Live Preview: %s"
 msgstr "Live-Vorschau: %s"
 
 #: wp-includes/class-wp-customize-manager.php:580
-#: wp-admin/includes/ajax-actions.php:4275 wp-admin/includes/file.php:435
+#: wp-admin/includes/ajax-actions.php:4277 wp-admin/includes/file.php:435
 #: wp-admin/includes/file.php:445 wp-admin/theme-editor.php:69
 #: wp-admin/theme-editor.php:73 wp-admin/themes.php:28 wp-admin/themes.php:71
 msgid "The requested theme does not exist."
@@ -12560,7 +12565,7 @@ msgstr "Zufällig"
 
 #: wp-includes/media-template.php:1475 wp-includes/media.php:4456
 #: wp-admin/includes/ajax-actions.php:2179
-#: wp-admin/includes/ajax-actions.php:3798
+#: wp-admin/includes/ajax-actions.php:3800
 #: wp-admin/includes/class-wp-list-table.php:335
 #: wp-admin/includes/class-wp-themes-list-table.php:93
 msgid "No items found."
