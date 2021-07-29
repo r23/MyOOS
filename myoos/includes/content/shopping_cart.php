@@ -92,9 +92,10 @@ if (isset($_SESSION)) {
 				( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) &&  
 				( isset($_POST['gv_redeem_code']) && is_string( $_POST['gv_redeem_code'] )) ){
 
-				// Redeem coupons
-				$order_total_modules->collect_posts();
+				$order_total_modules->shopping_cart_collect_posts();
 			}
+
+
 			$order_total_modules->shopping_cart_process();
 			$order_total_output = $order_total_modules->output();
 

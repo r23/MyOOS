@@ -238,6 +238,30 @@ class order_total {
 		}
 	}
 
+
+   /**
+    * This public function is called in checkout confirmation.
+    * It's main use is for credit classes that use the credit_selection() method. This is usually for
+    * entering redeem codes(Gift Vouchers/Discount Coupons). This public function is used to validate these codes.
+    * If they are valid then the necessary actions are taken, if not valid we are returned to checkout payment
+    * with an error
+    */
+	public function shopping_cart_collect_posts() {
+
+		if (MODULE_ORDER_TOTAL_INSTALLED) {
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ( ($GLOBALS[$class]->enabled && $GLOBALS[$class]->credit_class) ) {
+					$post_var = 'c' . $GLOBALS[$class]->code;
+					if ($_POST[$post_var]) $_SESSION[$post_var] = oos_var_prep_for_os($_POST[$post_var]);
+					$GLOBALS[$class]->shopping_cart_collect_posts();
+				}
+			}
+		}
+	}
+
+
    /**
     * pre_confirmation_check is called on checkout confirmation. It's public function is to decide whether the
     * credits available are greater than the order total. If they are then a variable (credit_covers) is set to

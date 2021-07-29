@@ -49,7 +49,12 @@
 
       if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
 
-        $order_total = $this->get_order_total();
+		$currency = $_SESSION['currency'];
+		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+
+        $order_total = $oOrder->info['total'];
+		if ($this->include_shipping == 'false') $order_total = $order_total - $oOrder->info['shipping_cost'];
+		
         $od_amount = $this->calculate_credit($order_total);
         if ($this->calculate_tax != "none") {
           $tod_amount = $this->calculate_tax_deduction($order_total, $od_amount, $this->calculate_tax);
@@ -67,12 +72,17 @@
     }
 
 	function shopping_cart_process() {
-      global $oCurrencies;
+		global $oCurrencies;
 
-      if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
+		if (isset ($_SESSION['cot_gv']) && $_SESSION['cot_gv'] == true) {
 
-        $order_total = $this->get_order_total();
-        $od_amount = $this->calculate_credit($order_total);
+			$currency = $_SESSION['currency'];
+			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+			
+			$order_total = $_SESSION['cart']->info['total'];
+			if ($this->include_shipping == 'false') $order_total = $order_total - $oOrder->info['shipping_cost'];
+
+
         if ($this->calculate_tax != "none") {
           $tod_amount = $this->calculate_tax_deduction($order_total, $od_amount, $this->calculate_tax);
           $od_amount = $this->calculate_credit($order_total);
@@ -305,6 +315,98 @@
 		}	 
 	 
    }
+
+    function shopping_cart_collect_posts() {
+		global $oCurrencies, $oMessage, $coupon_no, $aLang;
+
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
+
+		$aContents = oos_get_content();
+
+		if (isset($_POST['gv_redeem_code'])) {	
+
+			$couponstable = $oostable['coupons'];
+			$gv_query = $dbconn->Execute("SELECT coupon_id, coupon_type, coupon_amount FROM $couponstable WHERE coupon_code = '" . oos_db_input($_POST['gv_redeem_code']) . "'");
+			$gv_result = $gv_query->fields;
+			if ($gv_query->RecordCount() != 0) {
+
+				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+				$redeem_query = $dbconn->Execute("SELECT * FROM $coupon_redeem_tracktable WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
+				if ( ($redeem_query->RecordCount() != 0) && ($gv_result['coupon_type'] == 'G') ) {
+					$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_gv'];	
+					# todo remove? 					
+					$oMessage->add_session('checkout_payment', $aLang['error_no_invalid_redeem_gv'], 'error');
+					oos_redirect(oos_href_link($aContents['checkout_payment']));			  
+				}
+			}
+			
+			if ($gv_result['coupon_type'] == 'G') {
+				$gv_amount = $gv_result['coupon_amount'];
+				// Things to set
+				// ip address of claimant
+				// customer id of claimant
+				// date 
+				// redemption flag
+				// now update customer account with gv_amount
+
+				$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+				$gv_amount_query = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
+				$customer_gv = false;
+				$total_gv_amount = $gv_amount;
+		  
+				if ($gv_amount_result = $gv_amount_query->fields) {
+					$total_gv_amount = $gv_amount_result['amount'] + $gv_amount;
+					$customer_gv = true;
+				}
+
+				$couponstable = $oostable['coupons'];
+				$gv_update = $dbconn->Execute("UPDATE $couponstable
+                                         SET coupon_active = 'N' 
+                                         WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
+				$remote_addr = oos_server_get_remote();
+
+				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+				$gv_redeem = $dbconn->Execute("INSERT INTO  $coupon_redeem_tracktable
+                                        (coupon_id,
+                                         customer_id,
+                                         redeem_date,
+                                         redeem_ip) VALUES ('" . $gv_result['coupon_id'] . "',
+                                                            '" . intval($_SESSION['customer_id']) . "',
+                                                            now(),
+                                                            '" . oos_db_input($remote_addr) . "')");
+				if ($customer_gv) {
+					$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+					// already has gv_amount so update
+					$gv_update = $dbconn->Execute("UPDATE $coupon_gv_customertable
+                                           SET amount = '" . $total_gv_amount . "'
+                                           WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'");
+				} else {
+					// no gv_amount so insert
+					$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+					$gv_insert = $dbconn->Execute("INSERT INTO $coupon_gv_customertable
+                                           (customer_id,
+                                            amount) VALUES ('" . intval($_SESSION['customer_id']) . "',
+                                                            '" . $total_gv_amount . "')");
+				}
+				$oMessage->add_session('checkout_payment', $aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount), 'error');
+				oos_redirect(oos_href_link($aContents['checkout_payment']));
+			}
+		}
+	 
+	 
+		if ($_POST['submit_redeem_x'] && $gv['coupon_type'] == 'G'){
+			$oMessage->add_session('checkout_payment', $aLang['error_no_redeem_code'], 'error');
+		}
+	 
+		if ($oMessage->size('checkout_payment') > 0) {
+			oos_redirect(oos_href_link($aContents['checkout_payment']));
+		}	 
+	 
+   }
+
+
 
     function calculate_credit($amount) {
       global $oOrder;
