@@ -19,6 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+
 class ot_coupon {
 	var $title, $output, $enabled = false;
 
@@ -222,7 +223,7 @@ class ot_coupon {
 
 
 	function shopping_cart_collect_posts() {
-		global $oCurrencies, $aLang;
+		global $oCurrencies, $oMessage, $aLang;
 
 		// Get database information
 		$dbconn =& oosDBGetConn();
@@ -248,26 +249,24 @@ class ot_coupon {
 					WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'
 						AND coupon_active = 'Y'";
 			$coupon_query = $dbconn->Execute($sql);
-			$coupon_result = $coupon_query->fields;
+			
+			if ($coupon_query->RecordCount() == 0) {
+				$oMessage->add('checkout_payment', $aLang['error_no_invalid_redeem_coupon'], 'error');		 
+			} else {
+				$coupon_result = $coupon_query->fields;
 
-			if ($coupon_result['coupon_type'] != 'G') {
+				if ($coupon_result['coupon_type'] != 'G') {
 
-				if ($coupon_query->RecordCount() == 0) {
-					$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
-					# todo remove? 
-					oos_redirect(oos_href_link($aContents['checkout_payment']));
-				}
-
-				$couponstable = $oostable['coupons'];
-				$sql = "SELECT coupon_start_date
+					$couponstable = $oostable['coupons'];
+					$sql = "SELECT coupon_start_date
 						FROM $couponstable
 						WHERE coupon_start_date <= now()
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
-				$date_query = $dbconn->Execute($sql);
-				if ($date_query->RecordCount() == 0) {
-					$_SESSION['error_message'] = $aLang['error_invalid_startdate_coupon'];
-					# todo remove? 
-					oos_redirect(oos_href_link($aContents['checkout_payment']));			
+					$date_query = $dbconn->Execute($sql);
+					if ($date_query->RecordCount() == 0) {
+						$_SESSION['error_message'] = $aLang['error_invalid_startdate_coupon'];
+						# todo remove? 
+						oos_redirect(oos_href_link($aContents['checkout_payment']));			
 				}
 
 				$couponstable = $oostable['coupons'];
@@ -312,10 +311,13 @@ class ot_coupon {
 					$coupon_amount = $oCurrencies->format($coupon_result['coupon_amount']) . ' ';
 				}
 				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% ';
-				# todo translate on orders greater than?
-				if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
-				$_SESSION['cc_id'] = $coupon_result['coupon_id'];
-			}
+					# todo translate on orders greater than?
+					if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
+					$_SESSION['cc_id'] = $coupon_result['coupon_id'];
+				}
+
+			}				
+			
 		
 			# todo remove?
 			if ($_POST['submit_redeem_coupon_x'] && !$gv_redeem_code) {
@@ -723,8 +725,6 @@ function get_product_price($product_id) {
 		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
 		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', '8', '6', '2', now())");
 		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'true', '6', '5', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_CALC_TAX', 'None', '6', '7','oos_cfg_select_option(array(\'None\', \'Standard\', \'Credit Note\'), ', now())");
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_TAX_CLASS', '0', '6', '0', 'oos_cfg_get_tax_class_title', 'oos_cfg_pull_down_tax_classes(', now())");
     }
 
 	function remove() {
