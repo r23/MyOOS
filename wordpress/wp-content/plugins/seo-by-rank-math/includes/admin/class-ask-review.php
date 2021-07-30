@@ -13,8 +13,6 @@ namespace RankMath\Admin;
 use RankMath\Helper;
 use RankMath\Traits\Ajax;
 use RankMath\Traits\Hooker;
-use MyThemeShop\Helpers\Arr;
-use MyThemeShop\Helpers\Param;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -65,25 +63,22 @@ class Ask_Review {
 		$this->ajax( 'already_reviewed', 'already_reviewed' );
 
 		// Post editor tab.
-		if ( $this->current_time > $this->install_date + ( 2 * WEEK_IN_SECONDS ) ) {
+		if ( $this->current_time > $this->install_date + ( 10 * DAY_IN_SECONDS ) ) {
 			Helper::add_json( 'showReviewTab', true );
-			$this->filter( 'rank_math/metabox/tabs', 'add_metabox_tab' );
-			$this->filter( 'admin_footer_text', 'admin_footer_text', 20 );
 		}
 
 		// Admin notice.
 		$review_notice_date = $this->get_review_notice_date();
 		if ( $this->current_time > $review_notice_date ) {
-			if ( get_option( 'rank_math_review_notice_added' ) === false ) {
+			if ( get_option( 'rank_math_review_notice_added' ) === false && ! Helper::has_notification( 'rank_math_pro_notice' ) ) {
 				$this->add_notice();
 			}
 
 			// Make dismiss button work like the "Maybe later" link.
 			$this->action( 'wp_helpers_notification_dismissed', 'review_notice_after_dismiss' );
-
-			// Inlinde notice related JS.
-			$this->action( 'admin_footer', 'review_notice_js', 15 );
 		}
+
+		$this->action( 'admin_footer', 'review_notice_js', 15 );
 	}
 
 	/**
@@ -92,6 +87,12 @@ class Ask_Review {
 	 * @return void
 	 */
 	public function review_notice_js() {
+		if (
+			! Helper::has_notification( 'rank_math_review_plugin_notice' ) &&
+			! Helper::has_notification( 'rank_math_pro_notice' )
+		) {
+			return;
+		}
 		?>
 		<script>
 			(function( $ ) {
@@ -119,6 +120,45 @@ class Ask_Review {
 				});
 			})(jQuery);
 		</script>
+		<style>
+			#rank_math_review_plugin_notice .rank-math-notice.is-dismissible a,
+			#rank_math_pro_notice .rank-math-notice.is-dismissible a {
+				color: #4f52d4;
+			}
+			#rank_math_review_plugin_notice.is-dismissible,
+			#rank_math_pro_notice.is-dismissible {
+				border-width: 0 0 0 4px;
+				border-left-color: #6668BD;
+				box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+				padding: 5px 10px 5px 65px;
+			}
+			#rank_math_review_plugin_notice.is-dismissible:before,
+			#rank_math_pro_notice.is-dismissible:before {
+				content: '';
+				width: 50px;
+				height: 100%;
+				background: rgba(102, 104, 189, 0.09);
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			#rank_math_review_plugin_notice.is-dismissible:after,
+			#rank_math_pro_notice.is-dismissible:after {
+				content: url('data:image/svg+xml;charset=UTF-8, <svg viewBox="0 0 462.03 462.03" xmlns="http://www.w3.org/2000/svg" width="20"><g fill="white"><path d="m462 234.84-76.17 3.43 13.43 21-127 81.18-126-52.93-146.26 60.97 10.14 24.34 136.1-56.71 128.57 54 138.69-88.61 13.43 21z"></path><path d="m54.1 312.78 92.18-38.41 4.49 1.89v-54.58h-96.67zm210.9-223.57v235.05l7.26 3 89.43-57.05v-181zm-105.44 190.79 96.67 40.62v-165.19h-96.67z"></path></g></svg>' );
+				padding: 3px;
+				border-radius: 3px;
+				position: absolute;
+				left: 12px;
+				top: 18px;
+				background: linear-gradient(-135deg, #2488e1, #724bb7);
+				width: 23px;
+				height: 23px;
+				display: flex;
+				justify-content: center;
+				line-height: 1;
+				align-items: center;
+			}
+		</style>
 		<?php
 	}
 
@@ -131,7 +171,7 @@ class Ask_Review {
 		$message = '<p>';
 
 		// Translators: placeholder is the plugin name.
-		$message .= sprintf( esc_html__( 'Hey, we noticed you\'ve been using %s for more than two weeks now – that\'s awesome!', 'rank-math' ), '<strong>' . _x( 'Rank Math SEO', 'plugin name inside the review notice', 'rank-math' ) . '</strong>' );
+		$message .= sprintf( esc_html__( 'Hey, we noticed you\'ve been using %s for more than a week now – that\'s awesome!', 'rank-math' ), '<strong>' . _x( 'Rank Math SEO', 'plugin name inside the review notice', 'rank-math' ) . '</strong>' );
 		$message .= '<br>';
 
 		$message .= esc_html__( 'Could you please do us a BIG favor and give it a rating on WordPress.org to help us spread the word and boost our motivation?', 'rank-math' ) . '</p>
@@ -193,58 +233,6 @@ class Ask_Review {
 	}
 
 	/**
-	 * Add footer credit on admin pages.
-	 *
-	 * @param string $text Default text for admin footer.
-	 * @return string
-	 */
-	public function admin_footer_text( $text ) {
-		if ( substr( Param::get( 'page' ), 0, 9 ) !== 'rank-math' ) {
-			return $text;
-		}
-
-		if ( Helper::is_whitelabel() ) {
-			return $text;
-		}
-
-		// Add dismiss JS.
-		$this->filter( 'admin_footer', 'print_footer_script', 20 );
-
-		$star  = '<i class="rm-icon rm-icon-star-filled"></i>';
-		$stars = '<a href="https://wordpress.org/support/plugin/seo-by-rank-math/reviews/#new-post" target="_blank" style="color:#FF9800;font-size:9px;text-decoration:none;letter-spacing:2px;">' . str_repeat( $star, 5 ) . '</a>';
-
-		/* translators: placeholder is a wp.org review link */
-		$new_text = sprintf( esc_html__( 'If you like Rank Math, please take a minute to rate it on WordPress.org: %s', 'rank-math' ), $stars );
-
-		return '<span id="rank-math-footer-ask-review" data-original-text="' . esc_attr( $text ) . '">' . $new_text . '</span>';
-	}
-
-	/**
-	 * Add rich snippet tab to the metabox.
-	 *
-	 * @param array $tabs Array of tabs.
-	 *
-	 * @return array
-	 */
-	public function add_metabox_tab( $tabs ) {
-		Arr::insert(
-			$tabs,
-			[
-				'askreview' => [
-					'icon'       => 'rm-icon rm-icon-heart-filled',
-					'title'      => '',
-					'desc'       => '',
-					'file'       => rank_math()->includes_dir() . 'metaboxes/ask-review.php',
-					'capability' => 'onpage_general',
-				],
-			],
-			11
-		);
-
-		return $tabs;
-	}
-
-	/**
 	 * Set "already reviewed" flag.
 	 */
 	public function already_reviewed() {
@@ -252,137 +240,5 @@ class Ask_Review {
 		$this->has_cap_ajax( 'onpage_general' );
 		update_option( 'rank_math_already_reviewed', current_time( 'timestamp' ) );
 		$this->success( 'success' );
-	}
-
-	/**
-	 * Display tab content.
-	 */
-	public static function display() {
-		ob_start();
-		?>
-		<div class="ask-review">
-
-			<h3><?php esc_html_e( 'Rate Rank Math SEO', 'rank-math' ); ?></h3>
-
-			<p>
-				<?php echo wp_kses_post( __( 'Hey, we noticed you\'ve been using Rank Math SEO for more than two weeks now – <em>that\'s awesome!</em> <br>Could you please do us a BIG favor and give it a rating on WordPress to help us spread the word and boost our motivation?', 'rank-math' ) ); ?>
-			</p>
-
-			<div class="stars-wrapper">
-
-				<div class="face">
-					<div class="smiley happy">
-						<div class="eyes">
-							<div class="eye"></div>
-							<div class="eye"></div>
-						</div>
-						<div class="mouth"></div>
-					</div>
-				</div>
-
-				<div class="stars">
-					<?php for ( $i = 1; $i <= 5; $i++ ) { ?>
-						<a href="https://s.rankmath.com/wpreview" target="_blank">
-							<span class="dashicons dashicons-star-filled"></span>
-						</a>
-					<?php } ?>
-				</div>
-
-			</div>
-
-			<label>
-
-				<input type="checkbox" id="already-reviewed" />
-
-				<span>
-					<?php esc_html_e( 'I already did. Please don\'t show this message again.', 'rank-math' ); ?>
-				</span>
-
-			</label>
-
-		</div>
-		<?php
-		self::print_script();
-
-		return ob_get_clean();
-	}
-
-	/**
-	 * Print javascript
-	 */
-	public static function print_script() {
-		?>
-		<script>
-			(function( $ ) {
-				$( function() {
-					var rating_wrapper  = $( '#setting-panel-askreview' ),
-						rating_stars    = rating_wrapper.find( '.stars a' ),
-						rating_smiley   = rating_wrapper.find( '.smiley' ),
-						rating_contents = rating_wrapper.find( '.ask-review' );
-
-					rating_stars.on( 'mouseenter', function() {
-						var pos = $( this ).index();
-
-						rating_stars.removeClass( 'highlighted' );
-						rating_stars.slice( 0, pos + 1 ).addClass( 'highlighted' );
-
-						if ( pos < 2 ) {
-							rating_smiley.removeClass( 'normal happy' ).addClass( 'angry' );
-						} else if ( pos > 3 ) {
-							rating_smiley.removeClass( 'normal angry' ).addClass( 'happy' );
-						} else {
-							rating_smiley.removeClass( 'happy angry' ).addClass( 'normal' );
-						}
-					});
-
-					$( '#already-reviewed' ).change(function() {
-						$.ajax({
-							url: ajaxurl,
-							data: {
-								action: 'rank_math_already_reviewed',
-								security: rankMath.security,
-							},
-						});
-						rating_contents.animate({
-							opacity: 0.01
-						}, 1500, function() {
-							$( '.rank-math-tabs-navigation > a' ).first().click();
-							$( '.rank-math-tabs-navigation' ).children( '[href = "#setting-panel-askreview"]' ).remove();
-						});
-					});
-				});
-			})(jQuery);
-		</script>
-		<?php
-	}
-
-	/**
-	 * Print javascript for footer notice dismiss functionality.
-	 */
-	public static function print_footer_script() {
-		?>
-		<script>
-			(function( $ ) {
-				$( function() {
-					var rating_wrapper  = $( '#rank-math-footer-ask-review' );
-
-					$( 'a', rating_wrapper ).on( 'mousedown', function() {
-						$.ajax({
-							url: ajaxurl,
-							data: {
-								action: 'rank_math_already_reviewed',
-								security: rankMath.security,
-							},
-						});
-						rating_wrapper.animate({
-							opacity: 0.01
-						}, 1500, function() {
-							rating_wrapper.html( rating_wrapper.data('original-text') ).css( 'opacity', '1' );
-						});
-					});
-				});
-			})(jQuery);
-		</script>
-		<?php
 	}
 }
