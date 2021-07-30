@@ -681,6 +681,7 @@ $aus['conf'].='<th>' . $lang['L_CONFIGURATIONS'] . '</th><th>' . $lang['L_ACTION
 $i=0;
 $old_config=$config;
 $configs=get_config_filenames();
+
 if (sizeof($configs) > 0)
 {
 	foreach ($configs as $c)
