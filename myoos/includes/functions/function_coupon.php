@@ -72,39 +72,39 @@
   * @param $customer_id
   * @param $gv_id
   */
-  function oos_gv_account_update($customer_id, $gv_id) {
+function oos_gv_account_update($customer_id, $gv_id) {
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-    $sql = "SELECT amount
+	$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+	$sql = "SELECT amount
             FROM $coupon_gv_customertable
             WHERE customer_id = '" . intval($customer_id) . "'";
-    $customer_gv_result = $dbconn->Execute($sql);
+	$customer_gv_result = $dbconn->Execute($sql);
 
-    $couponstable = $oostable['coupons'];
-    $sql = "SELECT coupon_amount
+	$couponstable = $oostable['coupons'];
+	$sql = "SELECT coupon_amount
             FROM $couponstable
             WHERE coupon_id = '" . oos_db_input($gv_id) . "'";
-    $coupon_amount = $dbconn->GetOne($sql);
+	$coupon_amount = $dbconn->GetOne($sql);
 
-    if ($customer_gv_result->RecordCount() > 0) {
-      $customer_gv = $customer_gv_result->fields;
-      $new_gv_amount = $customer_gv['amount'] + $coupon_amount;
+	if ($customer_gv_result->RecordCount() > 0) {
+		$customer_gv = $customer_gv_result->fields;
+		$new_gv_amount = $customer_gv['amount'] + $coupon_amount;
 
-      $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-      $dbconn->Execute("UPDATE $coupon_gv_customertable
-                                     SET amount = '" . oos_db_input($new_gv_amount) . "'");
-    } else {
-      $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-      $dbconn->Execute("INSERT INTO $coupon_gv_customertable
+		$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+		$dbconn->Execute("UPDATE $coupon_gv_customertable
+                        SET amount = '" . oos_db_input($new_gv_amount) . "'");
+	} else {
+		$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+		$dbconn->Execute("INSERT INTO $coupon_gv_customertable
                                     (customer_id,
                                      amount) VALUES ('" . intval($customer_id) . "',
                                                      '" . oos_db_input($coupon_amount) . "')");
-    }
-  }
+	}
+}
 
 
  /**

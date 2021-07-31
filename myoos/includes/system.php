@@ -188,14 +188,9 @@ if (isset($_SESSION)) {
 	$gv_amount_show = 0;
 	
 	if (isset($_SESSION['customer_id'])) {
-		$coupon_gv_customertable = $oostable['coupon_gv_customer'];
-		$query = "SELECT amount
-				  FROM $coupon_gv_customertable
-				  WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
-		$gv_result = $dbconn->GetRow($query);
-		if ($gv_result['amount'] > 0 ) {
-			$gv_amount_show = $oCurrencies->format($gv_result['amount']);
-		}
+		if (isset($_SESSION['coupon_amount']) && is_numeric($_SESSION['coupon_amount'])) {
+			$gv_amount_show = $oCurrencies->format($_SESSION['coupon_amount']);
+		}		
 	}
 
   

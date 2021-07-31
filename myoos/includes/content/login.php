@@ -127,6 +127,16 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 									customers_info_number_of_logons = customers_info_number_of_logons+1
 								WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'");
 
+			// coupon
+			$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+			$query = "SELECT amount
+					FROM $coupon_gv_customertable
+					WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
+			$gv_result = $dbconn->GetRow($query);
+			if ($gv_result['amount'] > 0 ) {
+				$_SESSION['coupon_amount'] = $gv_result['amount'];
+			}
+
 			// restore cart contents
 			$_SESSION['cart']->restore_contents();
 
