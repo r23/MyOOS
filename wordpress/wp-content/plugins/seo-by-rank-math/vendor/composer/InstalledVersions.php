@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.69.x-dev',
-    'version' => '1.0.69.9999999-dev',
+    'pretty_version' => 'dev-develop',
+    'version' => 'dev-develop',
     'aliases' => 
     array (
     ),
-    'reference' => 'e0d8ec11ebbd9a4269736091e66908bc58b6fabb',
+    'reference' => '40b260ecb6831baab6328c8f1dc618e1292c5d5d',
     'name' => 'rankmath/seo-by-rank-math',
   ),
   'versions' => 
@@ -73,12 +73,12 @@ private static $installed = array (
     ),
     'rankmath/seo-by-rank-math' => 
     array (
-      'pretty_version' => '1.0.69.x-dev',
-      'version' => '1.0.69.9999999-dev',
+      'pretty_version' => 'dev-develop',
+      'version' => 'dev-develop',
       'aliases' => 
       array (
       ),
-      'reference' => 'e0d8ec11ebbd9a4269736091e66908bc58b6fabb',
+      'reference' => '40b260ecb6831baab6328c8f1dc618e1292c5d5d',
     ),
     'woocommerce/action-scheduler' => 
     array (

@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.69
+Stable tag: 1.0.69.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -564,6 +564,12 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 12. Rank Math SEO Comes with 15+ FREE Module.
 
 == Changelog ==
+
+= 1.0.69.1 [Jul 31, 2021] =
+* Fixed: SEO details were not saving in the Classic Editor draft post
+* Fixed: Media library page was showing Save & Cancel button even without clicking on the Bulk edit option
+* Fixed: On new posts, permalink was not showing any value in the Classic Editor
+* Fixed: Author name was missing in Facebook Preview of Classic Editor
 
 = 1.0.69 [Jul 30, 2021] =
 * Improved: [HUGE!] Converted the Classic Editor metabox into React for better performance and code optimization, removed more than 5,000 lines of code from the plugin!
