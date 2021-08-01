@@ -184,7 +184,6 @@ $smarty->assign(
 /* -----------shopping_cart.php--------------------------------------- */
 
 if (isset($_SESSION)) { 
-	$gv_coupon_show = 0;
 	$gv_amount_show = 0;
 	
 	if (isset($_SESSION['customer_id'])) {
@@ -192,8 +191,9 @@ if (isset($_SESSION)) {
 			$gv_amount_show = $oCurrencies->format($_SESSION['coupon_amount']);
 		}		
 	}
-
-  
+	$smarty->assign('gv_amount_show', $gv_amount_show);
+	
+ /* 
 	if (isset($_SESSION['gv_id'])) {
 		$couponstable = $oostable['coupons'];
 		$query = "SELECT coupon_amount
@@ -202,12 +202,7 @@ if (isset($_SESSION)) {
 		$coupon = $dbconn->GetRow($query);
 		$gv_coupon_show = $oCurrencies->format($coupon['coupon_amount']);
 	}
-	$smarty->assign(
-		array(
-			'gv_amount_show' => $gv_amount_show,
-			'gv_coupon_show' => $gv_coupon_show
-		)
-	);	
+*/
 	
 }
 

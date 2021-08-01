@@ -49,7 +49,7 @@ unset($_SESSION['delivery_country_id']);
 unset($_SESSION['customer_zone_id']);
 unset($_SESSION['comments']);
 unset($_SESSION['customer_max_order']);
-unset($_SESSION['gv_id']);
+unset($_SESSION['coupon_amount']);
 unset($_SESSION['cc_id']);
 unset($_SESSION['man_key']);
 

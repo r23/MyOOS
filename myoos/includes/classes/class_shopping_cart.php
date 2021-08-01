@@ -108,7 +108,7 @@ class shoppingCart {
 				}
 			}
 			
-			
+/*			
 			if (isset($_SESSION['gv_id'])) {
 				$remote = oos_server_get_remote();
 				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
@@ -129,6 +129,7 @@ class shoppingCart {
 				oos_gv_account_update($_SESSION['customer_id'], $_SESSION['gv_id']);
 				unset($_SESSION['gv_id']);
 			}
+*/
 		}
 
 		// reset per-session cart contents, but not the database contents

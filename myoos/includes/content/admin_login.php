@@ -80,7 +80,7 @@ if (isset($_SESSION['customer_id'])) {
     unset($_SESSION['customer_zone_id']);
     unset($_SESSION['comments']);
     unset($_SESSION['customer_max_order']);
-    unset($_SESSION['gv_id']);
+    unset($_SESSION['coupon_amount']);
     unset($_SESSION['cc_id']);
     unset($_SESSION['man_key']);
 
@@ -164,6 +164,17 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 		
 		$_SESSION['user']->restore_group();
 		$aUser = $_SESSION['user']->group;
+
+
+		// coupon
+		$coupon_gv_customertable = $oostable['coupon_gv_customer'];
+		$query = "SELECT amount
+					FROM $coupon_gv_customertable
+					WHERE customer_id = '" . intval($_SESSION['customer_id']) . "'";
+		$gv_result = $dbconn->GetRow($query);
+		if ($gv_result['amount'] > 0 ) {
+			$_SESSION['coupon_amount'] = $gv_result['amount'];
+		}
 
 		// restore cart contents
 		$_SESSION['cart']->restore_contents();
