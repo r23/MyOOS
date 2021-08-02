@@ -96,4 +96,6 @@ if ($oMessage->size('upload') > 0) {
     $aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('upload') );
 }
 
+// print_r($oMessage);
+
 $smarty->assign('message', $aInfoMessage);

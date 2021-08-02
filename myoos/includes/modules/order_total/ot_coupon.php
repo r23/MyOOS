@@ -249,8 +249,8 @@ class ot_coupon {
 					WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'
 						AND coupon_active = 'Y'";
 			$coupon_query = $dbconn->Execute($sql);
-			
-			if ($coupon_query->RecordCount() == 0) {
+
+			if ($coupon_query->RecordCount() == 0) {			
 				$oMessage->add('checkout_payment', $aLang['error_no_invalid_redeem_coupon'], 'error');		 
 			} else {
 				$coupon_result = $coupon_query->fields;
@@ -317,13 +317,6 @@ class ot_coupon {
 				}
 
 			}				
-			
-		
-			# todo remove?
-			if ($_POST['submit_redeem_coupon_x'] && !$gv_redeem_code) {
-				$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
-				oos_redirect(oos_href_link($aContents['checkout_payment']));
-			} 
 	  
 		}
 	}
