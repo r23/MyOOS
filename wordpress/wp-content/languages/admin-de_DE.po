@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-31 04:54:43+0000\n"
+"PO-Revision-Date: 2021-08-01 15:25:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,6 +34,10 @@ msgstr "Weiter"
 #: wp-admin/includes/theme.php:338
 msgid "Template Editing"
 msgstr "Template-Bearbeitung"
+
+#: wp-admin/about.php:75
+msgid "The Query Loop Block makes it possible to display posts based on specified parameters; like a PHP loop without the code. Easily display posts from a specific category, to do things like create a portfolio or a page full of your favorite recipes. Think of it as a more complex and powerful Latest Posts Block! Plus, pattern suggestions make it easier than ever to create a list of posts with the design you want."
+msgstr "Der Abfrage-Loop-Block erlaubt es, Beiträge auf Basis definierter Parameter anzuzeigen – wie eine PHP-Schleife, aber ohne den Code. Zeige auf einfache Art Beiträge aus einer spezifischen Kategorie, um beispielsweise ein Portfolio oder eine Seite deiner beliebtesten Rezepte anzuzeigen. Sieh es als einen komplexeren und leistungsstärkeren „Letzte Beiträge“-Block! Plus, Vorlagen-Vorschläge machen es einfacher denn je, eine Liste mit Beiträgen mit dem Design zu erstellen, das du möchtest."
 
 #. translators: %s: https://wordpress.org/about/license
 #: wp-admin/freedoms.php:50
