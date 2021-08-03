@@ -251,7 +251,7 @@ class ot_coupon {
 			$coupon_query = $dbconn->Execute($sql);
 
 			if ($coupon_query->RecordCount() == 0) {			
-				$oMessage->add('checkout_payment', $aLang['error_no_invalid_redeem_coupon'], 'error');		 
+				$oMessage->add('coupon', $aLang['error_no_invalid_redeem_coupon'], 'error');		 
 			} else {
 				$coupon_result = $coupon_query->fields;
 

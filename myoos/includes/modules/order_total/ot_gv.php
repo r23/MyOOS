@@ -301,17 +301,17 @@
                                                             '" . $total_gv_amount . "')");
 				}
 				$oMessage->add_session('checkout_payment', $aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount), 'error');
-				oos_redirect(oos_href_link($aContents['checkout_payment']));
+	#			oos_redirect(oos_href_link($aContents['checkout_payment']));
 			}
 		}
 	 
 	 
 		if ($_POST['submit_redeem_x'] && $gv['coupon_type'] == 'G'){
-			$oMessage->add_session('checkout_payment', $aLang['error_no_redeem_code'], 'error');
+	#		$oMessage->add_session('checkout_payment', $aLang['error_no_redeem_code'], 'error');
 		}
 	 
 		if ($oMessage->size('checkout_payment') > 0) {
-			oos_redirect(oos_href_link($aContents['checkout_payment']));
+	#		oos_redirect(oos_href_link($aContents['checkout_payment']));
 		}	 
 	 
    }
@@ -387,18 +387,18 @@
                                             amount) VALUES ('" . intval($_SESSION['customer_id']) . "',
                                                             '" . $total_gv_amount . "')");
 				}
-				$oMessage->add_session('checkout_payment', $aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount), 'error');
-				oos_redirect(oos_href_link($aContents['checkout_payment']));
+				$oMessage->add_session('shopping_cart', $aLang['error_redeemed_amount'] . $oCurrencies->format($gv_amount), 'error');
+			#	oos_redirect(oos_href_link($aContents['checkout_payment']));
 			}
 		}
 	 
 	 
 		if ($_POST['submit_redeem_x'] && $gv['coupon_type'] == 'G'){
-			$oMessage->add_session('checkout_payment', $aLang['error_no_redeem_code'], 'error');
+		#	$oMessage->add_session('checkout_payment', $aLang['error_no_redeem_code'], 'error');
 		}
 	 
 		if ($oMessage->size('checkout_payment') > 0) {
-			oos_redirect(oos_href_link($aContents['checkout_payment']));
+		#	oos_redirect(oos_href_link($aContents['checkout_payment']));
 		}	 
 	 
    }

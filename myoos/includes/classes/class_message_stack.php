@@ -33,14 +33,14 @@ class messageStack {
 	public function __construct() {
 
 		$this->messages = array();
-		
-		if (isset($_SESSION) && isset($_SESSION['messageToStack'])) {
-			$messageToStack = $_SESSION['messageToStack'];
-			for ($i=0, $n=count($messageToStack); $i<$n; $i++) {
-				$this->add($messageToStack[$i]['class'], $messageToStack[$i]['text'], $messageToStack[$i]['type']);
+			
+		if (isset($_SESSION) && isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
+			for ($i=0, $n=count($_SESSION['messageToStack']); $i<$n; $i++) {
+				$this->add($_SESSION['messageToStack'][$i]['class'], $_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
 			}
 			unset($_SESSION['messageToStack']);
-		}
+		}		
+		
     }
 
 // class methods
@@ -49,16 +49,11 @@ class messageStack {
     }
 
     public function add_session($class, $message, $type = 'danger') {
-		$messageToStack = array();
-		if (isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
-			$messageToStack = $_SESSION['messageToStack'];
-		}  
-	  
-	  
-		$messageToStack[] = array('class' => $class, 'text' => $message, 'type' => $type);
-		$_SESSION['messageToStack'] = $messageToStack;
-		$this->add($class, $message, $type);
-    }
+		if (!isset($_SESSION['messageToStack'])) {
+			$_SESSION['messageToStack'] = array();
+		}
+		$_SESSION['messageToStack'][] = array('class' => $class, 'text' => $message, 'type' => $type);
+	}		
 
     public function reset() {
 		$this->messages = array();
@@ -78,10 +73,8 @@ class messageStack {
     public function size($class) {
 		$count = 0;
 
-		for ($i=0, $n=count($this->messages); $i<$n; $i++) {
-			if ($this->messages[$i]['class'] == $class) {
-				$count++;
-			}
+		if (isset($this->messages[$class])) {
+			$count = count($this->messages[$class]);
 		}
 
 		return $count;
