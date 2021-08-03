@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-08-01 15:25:34+0000\n"
+"PO-Revision-Date: 2021-08-02 16:57:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,7 +37,7 @@ msgstr "Template-Bearbeitung"
 
 #: wp-admin/about.php:75
 msgid "The Query Loop Block makes it possible to display posts based on specified parameters; like a PHP loop without the code. Easily display posts from a specific category, to do things like create a portfolio or a page full of your favorite recipes. Think of it as a more complex and powerful Latest Posts Block! Plus, pattern suggestions make it easier than ever to create a list of posts with the design you want."
-msgstr "Der Abfrage-Loop-Block erlaubt es, Beiträge auf Basis definierter Parameter anzuzeigen – wie eine PHP-Schleife, aber ohne den Code. Zeige auf einfache Art Beiträge aus einer spezifischen Kategorie, um beispielsweise ein Portfolio oder eine Seite deiner beliebtesten Rezepte anzuzeigen. Sieh es als einen komplexeren und leistungsstärkeren „Letzte Beiträge“-Block! Plus, Vorlagen-Vorschläge machen es einfacher denn je, eine Liste mit Beiträgen mit dem Design zu erstellen, das du möchtest."
+msgstr "Der Abfrage-Loop-Block erlaubt es, Beiträge auf Basis bestimmter Parameter anzuzeigen – wie eine PHP-Schleife, aber ohne den Code. Zeige auf einfache Art Beiträge aus einer spezifischen Kategorie, um beispielsweise ein Portfolio oder eine Seite deiner beliebtesten Rezepte anzuzeigen. Betrachte es als einen komplexeren und leistungsstärkeren Neueste-Beiträge-Block! Außerdem machen es die Vorlagen-Vorschläge einfacher denn je, eine Liste von Beiträgen mit dem von dir gewünschten Design zu erstellen."
 
 #. translators: %s: https://wordpress.org/about/license
 #: wp-admin/freedoms.php:50
@@ -90,9 +90,15 @@ msgstr "Die vier Freiheiten"
 msgid "WordPress 5.8 was created by a worldwide team of passionate individuals"
 msgstr "WordPress&nbsp;5.8 wurde von einem weltweiten Team passionierter Menschen entwickelt"
 
+#. translators: %1$s: Link to 5.6's block dev notes. %2$s: Link to 5.7's block
+#. dev notes. %3$s: Link to 5.8's block dev notes.
+#: wp-admin/about.php:219
+msgid "Expanding on previously implemented block supports in WordPress <a href=\"%1$s\">5.6</a> and <a href=\"%2$s\">5.7</a>, WordPress 5.8 introduces several new block support flags and new options to customize your registered blocks. More information is available in the <a href=\"%3$s\">block supports dev note</a>."
+msgstr "Um die vorangegangenen Blockunterstützungen in WordPress&nbsp;<a href=\"%1$s\">5.6</a> und <a href=\"%2$s\">5.7</a> zu erweitern, führt WordPress&nbsp;5.8 mehrere neue Blockunterstützungs-Flags und neue Optionen ein, um deine registrierten Blöcke anzupassen. Weitere Informationen sind in den <a href=\"%3$s\">Blockunterstützungs-Entwicklernotizen</a> verfügbar."
+
 #: wp-admin/about.php:213
 msgid "Adding Additional Block Supports"
-msgstr "Unterstützung für zusätzliche Blöcke hinzugefügt"
+msgstr "Zusätzliche Blockunterstützungen hinzugefügt"
 
 #: wp-admin/about.php:207
 msgid "WebP is a modern image format that provides improved lossless and lossy compression for images on the web. WebP images are around 30% smaller on average than their JPEG or PNG equivalents, resulting in sites that are faster and use less bandwidth."
@@ -111,6 +117,11 @@ msgstr "Die Unterstützung für Internet Explorer 11 wurde mit dieser Veröffent
 msgid "Dropping support for Internet Explorer 11"
 msgstr "Der Internet Explorer 11 wird nicht länger unterstützt"
 
+#. translators: %s: Theme.json dev note link.
+#: wp-admin/about.php:178
+msgid "Introducing the Global Styles and Global Settings APIs: control the editor settings, available customization tools, and style blocks using a theme.json file in the active theme. This configuration file enables or disables features and sets default styles for both a website and blocks. If you build themes, you can experiment with this early iteration of a useful new feature. For more about what is currently available and how it works, <a href=\"%s\">check out this dev note</a>."
+msgstr "Einführung der APIs für globale Stile und globale Einstellungen: steuere die Editor-Einstellungen, verfügbare Anpassungswerkzeuge und gestalte Blöcke über eine theme.json-Datei im aktiven Theme. Diese Konfigurationsdatei aktiviert oder deaktiviert Funktionen und definiert Standard-Stile sowohl für eine Website als auch für Blöcke. Wenn du Themes erstellst, kannst du mit dieser frühen Variante einer neuen nützlichen Funktion experimentieren. Für weitere Informationen, was aktuell möglich ist und wie es funktioniert, <a href=\"%s\">schau dir diese Entwicklernotiz an</a>."
+
 #: wp-admin/about.php:172
 msgid "Theme.json"
 msgstr "Theme.json"
@@ -119,13 +130,25 @@ msgstr "Theme.json"
 msgid "For Developers to Explore"
 msgstr "Für die Erforschung durch Entwickler"
 
+#: wp-admin/about.php:149
+msgid "Colorize your image and cover blocks with duotone filters! Duotone can add a pop of color to your designs and style your images (or videos in the cover block) to integrate well with your themes. You can think of the duotone effect as a black and white filter, but instead of the shadows being black and the highlights being white, you pick your own colors for the shadows and highlights. There’s more to learn about how it works in the documentation."
+msgstr "Färbe deine Bild- und Cover-Blöcke mit Duotone-Filtern! Duotone kann deinen Designs einen Farbakzent hinzufügen und deine Bilder (oder Videos im Cover-Block) so gestalten, dass sie sich gut in dein Theme einfügen. Du kannst den Duotone-Effekt wie einen Schwarz-/Weiß-Filter verstehen, aber statt dass die Schatten schwarz und die Hervorhebungen weiß werden, wählst du selbst deine Farben für Schatten und Hervorhebungen. Weiteres, das du darüber lernen kannst, findest du in der Dokumentation."
+
 #: wp-admin/about.php:145
 msgid "Style and Colorize Images"
 msgstr "Bilder stylen und einfärben"
 
+#: wp-admin/about.php:130
+msgid "Starting in this release the Pattern Transformations tool will suggest block patterns based on the block you are using. Right now, you can give it a try in the Query Block and Social Icon Block. As more patterns are added, you will be able to get inspiration for how to style your site without ever leaving the editor!"
+msgstr "Beginnend mit dieser Veröffentlichung wird das Vorlagen-Transformationswerkzeug, basierend auf dem von dir benutzten Block, Block-Vorlagen vorschlagen. Aktuell kannst du es im Abfrage-Block und Social-Icon-Block ausprobieren. Sobald mehr Vorlagen hinzugefügt werden, ist es dir möglich, eine Inspiration dafür zu bekommen, wie du deine Website gestalten kannst, ohne jemals den Editor zu verlassen!"
+
 #: wp-admin/about.php:126
 msgid "Suggested Patterns for Blocks"
 msgstr "Empfohlene Vorlagen für Blöcke"
+
+#: wp-admin/about.php:117
+msgid "Sometimes you need a simple landing page, but sometimes you need something a little more robust. As blocks increase, patterns emerge, and content creation gets easier, new solutions are needed to make complex content easy to navigate. List View is the best way to jump between layers of content and nested blocks. Since the List View gives you an overview of all the blocks in your content, you can now navigate quickly to the precise block you need. Ready to focus completely on your content? Toggle it on or off to suit your workflow."
+msgstr "Manchmal benötigst du eine einfache Landingpage, aber manchmal benötigst du etwas robusteres. Da die Anzahl der Blöcke zunimmt, sich Vorlagen herausbilden und die Erstellung von Inhalten einfacher wird, sind neue Lösungen erforderlich, um einfach durch komplexen Inhalt zu navigieren. Die Listenansicht ist der beste Weg, um zwischen einzelnen Inhaltsebenen und verschachtelten Blöcken zu springen. Da dir die Listenansicht eine Übersicht über alle Blöcke innerhalb deines Inhalts gibt, kannst du jetzt schnell zu genau dem Block navigieren, zu dem du möchtest. Bist du bereit, dich vollständig auf deinen Inhalt zu konzentrieren? Aktiviere oder deaktiviere die Listenansicht, um deinem Workflow gerecht zu werden."
 
 #: wp-admin/about.php:113
 msgid "Overview of the Page Structure"
@@ -135,6 +158,10 @@ msgstr "Überblick über die Seitenstruktur"
 msgid "Three Workflow Helpers"
 msgstr "Drei Helfer für den Arbeitsablauf"
 
+#: wp-admin/about.php:93
+msgid "You can use the familiar block editor to edit templates that hold your content—simply activate a block theme or a theme that has opted in for this feature. Switch from editing your posts to editing your pages and back again, all while using a familiar block editor. There are more than 20 new blocks available within compatible themes. Read more about this feature and how to experiment with it in the release notes."
+msgstr "Du kannst den bekannten Block-Editor benutzen, um Templates zu bearbeiten, die deinen Inhalt beinhalten – aktiviere einfach ein Block-Theme oder ein Theme, das diese Funktion aktiviert hat. Wechsle vom Bearbeiten deiner Beiträge zum Bearbeiten deiner Seiten hin und her, während du immer den bekannten Block-Editor benutzt. Es gibt mehr als 20 neue Blöcke für kompatible Themes. Erfahre mehr über diese Funktion und wie du damit experimentieren kannst in den Veröffentlichungsnotizen."
+
 #: wp-admin/about.php:89
 msgid "Edit the Templates Around Posts"
 msgstr "Bearbeite die Templates für Beiträge"
@@ -142,6 +169,11 @@ msgstr "Bearbeite die Templates für Beiträge"
 #: wp-admin/about.php:72
 msgid "Display Posts with New Blocks and Patterns"
 msgstr "Beiträge mit neuen Blöcken und Vorlagen anzeigen"
+
+#. translators: %s: Widgets dev note link.
+#: wp-admin/about.php:61
+msgid "After months of hard work, the power of blocks has come to both the Block Widgets Editor and the Customizer. Now you can add blocks both in widget areas across your site and with live preview through the Customizer. This opens up new possibilities to create content: from no-code mini layouts to the vast library of core and third-party blocks. For our developers, you can find more details in the <a href=\"%s\">Widgets dev note</a>."
+msgstr "Nach Monaten harter Arbeit wurde die Leistungsfähigkeit der Blöcke sowohl zum Block-Widgets-Editor als auch in den Customizer gebracht. Du kannst nun Blöcke sowohl in Widget-Bereiche als auch dem Customizer hinzufügen, bei letzterem mit einer Live-Vorschau. Dies gibt dir neue Möglichkeiten, Inhalt zu erstellen: von kleinen Layouts ohne Code bis hin zur großen Bibliothek des Cores und Blöcken von Drittanbietern. Als Entwickler findest du weitere Details in der <a href=\"%s\">Widgets-Entwicklernotiz</a>."
 
 #: wp-admin/about.php:55
 msgid "Manage Widgets with Blocks"
