@@ -522,7 +522,8 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
       if ($mInfo->admin_id == 1 || $mInfo->admin_email_address == STORE_OWNER_EMAIL_ADDRESS) {
         $contents[] = array('align' => 'center', 'text' => '<br /><a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $mInfo->admin_id) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a></a><br />&nbsp;');
       } else {
-        $contents = array('form' => oos_draw_form('id', 'edit', $aContents['admin_members'], 'action=member_delete&page=' . $nPage . '&mID=' . $admin['admin_id'], 'post', FALSE, 'enctype="multipart/form-data"'));
+		$admin_id = (isset($admin['admin_id']) ? intval($admin['admin_id']) : '');
+        $contents = array('form' => oos_draw_form('id', 'edit', $aContents['admin_members'], 'action=member_delete&page=' . $nPage . '&mID=' . $admin_id, 'post', FALSE, 'enctype="multipart/form-data"'));
         $contents[] = array('text' => oos_draw_hidden_field('admin_id', $mInfo->admin_id));
         $contents[] = array('align' => 'center', 'text' =>  sprintf(TEXT_INFO_DELETE_INTRO, $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname));
         $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $mID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
