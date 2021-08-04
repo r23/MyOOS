@@ -59,22 +59,22 @@ class messageStack {
 		$this->messages = array();
     }
 
-    public function output($class) {
+    public function output($class, $type = 'danger') {
 		$output = array();
-		for ($i=0, $n=count($this->messages); $i<$n; $i++) {
-			if ($this->messages[$i]['class'] == $class) {
-				$output[] = $this->messages[$i];
-			}
+		
+		foreach ($this->messages[$class][$type] as $message) {
+            $output .= '<p>'.$message.'</p>';
 		}
+		
 
 		return $output;
     }
 
-    public function size($class) {
+    public function size($class, $type = 'danger') {
 		$count = 0;
-
-		if (isset($this->messages[$class])) {
-			$count = count($this->messages[$class]);
+		
+		if (isset($this->messages[$class][$type])) {
+			$count = count($this->messages[$class][$type]);
 		}
 
 		return $count;

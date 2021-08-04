@@ -91,26 +91,11 @@ if (isset($_SESSION)) {
 	}		
 }
 
-/*
+
 
 if ($oMessage->size('upload') > 0) {
     $aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('upload') );
 }
-
-if ($oMessage->size('coupon') > 0) {
-	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('coupon') );
-}	
-
-$oMessage->add('coupon', 'fehler', 'error');
-
-if ($oMessage->size > 0) {
-	echo 'jeep';
-	exit;
-}
-
-if ($oMessage->size > 0) echo $oMessage->output();
-print_r($oMessage);
-*/
 
 
 $smarty->assign('message', $aInfoMessage);
