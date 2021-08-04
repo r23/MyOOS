@@ -225,9 +225,10 @@
       $heading[] = array('text' => '<b>&nbsp;' . TEXT_INFO_HEADING_CONFIRM_PASSWORD . '</b>');
 
       $contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD . oos_draw_hidden_field('id_info', $myAccount['admin_id']));
-      if ($_GET['error']) {
-        $contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR);
-      }
+
+		if (isset($_GET['error']) {	  
+			$contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR);
+		}
       $contents[] = array('align' => 'center', 'text' => oos_draw_password_field('password_confirmation'));
       $contents[] = array('align' => 'center', 'text' => '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_account']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> ' . oos_submit_button(IMAGE_CONFIRM) . '<br />&nbsp');
       break;
