@@ -1338,6 +1338,7 @@ function get_config_filenames()
 			$configs[]=substr($filename,0,-4);
 		}
 	}
+	asort($configs);
 	return $configs;
 }
 
