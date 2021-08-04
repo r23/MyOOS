@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["serverSideRender"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 525);
+/******/ 	return __webpack_require__(__webpack_require__.s = 534);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -129,7 +129,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["serverSideRender"] =
 
 /***/ }),
 
-/***/ 32:
+/***/ 34:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["apiFetch"]; }());
@@ -143,7 +143,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["serverSideRender"] =
 
 /***/ }),
 
-/***/ 525:
+/***/ 534:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -173,7 +173,7 @@ var external_wp_compose_ = __webpack_require__(9);
 var external_wp_i18n_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: external ["wp","apiFetch"]
-var external_wp_apiFetch_ = __webpack_require__(32);
+var external_wp_apiFetch_ = __webpack_require__(34);
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_);
 
 // EXTERNAL MODULE: external ["wp","url"]

@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["nux"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 515);
+/******/ 	return __webpack_require__(__webpack_require__.s = 524);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["nux"] =
 
 /***/ }),
 
-/***/ 132:
+/***/ 139:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -147,7 +147,7 @@ const close = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElem
 
 /***/ }),
 
-/***/ 30:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -436,7 +436,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 515:
+/***/ 524:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -599,7 +599,7 @@ function enableTips() {
 }
 //# sourceMappingURL=actions.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(30);
+var rememo = __webpack_require__(32);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(2);
@@ -733,7 +733,7 @@ var external_wp_components_ = __webpack_require__(3);
 var external_wp_i18n_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/close.js
-var library_close = __webpack_require__(132);
+var library_close = __webpack_require__(139);
 
 // CONCATENATED MODULE: ./packages/nux/build-module/components/dot-tip/index.js
 

@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["editor"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 489);
+/******/ 	return __webpack_require__(__webpack_require__.s = 498);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -165,7 +165,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 109:
+/***/ 11:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["React"]; }());
+
+/***/ }),
+
+/***/ 113:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -204,26 +211,26 @@ function Icon({
 
 /***/ }),
 
-/***/ 11:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["React"]; }());
-
-/***/ }),
-
-/***/ 113:
+/***/ 117:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 exports.__esModule = true;
-var TextareaAutosize_1 = __webpack_require__(249);
+var TextareaAutosize_1 = __webpack_require__(255);
 exports["default"] = TextareaAutosize_1.TextareaAutosize;
 
 
 /***/ }),
 
-/***/ 116:
+/***/ 12:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["coreData"]; }());
+
+/***/ }),
+
+/***/ 123:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -248,21 +255,14 @@ const check = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElem
 
 /***/ }),
 
-/***/ 12:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["coreData"]; }());
-
-/***/ }),
-
-/***/ 123:
+/***/ 130:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["reusableBlocks"]; }());
 
 /***/ }),
 
-/***/ 132:
+/***/ 139:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -287,7 +287,14 @@ const close = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElem
 
 /***/ }),
 
-/***/ 133:
+/***/ 14:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["keycodes"]; }());
+
+/***/ }),
+
+/***/ 140:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -312,21 +319,21 @@ const closeSmall = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["creat
 
 /***/ }),
 
-/***/ 139:
+/***/ 146:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["wordcount"]; }());
 
 /***/ }),
 
-/***/ 14:
+/***/ 17:
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["keycodes"]; }());
+(function() { module.exports = window["wp"]["richText"]; }());
 
 /***/ }),
 
-/***/ 169:
+/***/ 177:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -339,7 +346,7 @@ const closeSmall = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["creat
 
 
 
-var ReactPropTypesSecret = __webpack_require__(170);
+var ReactPropTypesSecret = __webpack_require__(178);
 
 function emptyFunction() {}
 function emptyFunctionWithReset() {}
@@ -398,14 +405,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 17:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["richText"]; }());
-
-/***/ }),
-
-/***/ 170:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -446,7 +446,7 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 24:
+/***/ 25:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -459,13 +459,13 @@ module.exports = ReactPropTypesSecret;
 if (false) { var throwOnDirectAccess, ReactIs; } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(169)();
+  module.exports = __webpack_require__(177)();
 }
 
 
 /***/ }),
 
-/***/ 249:
+/***/ 255:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -499,9 +499,9 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 exports.__esModule = true;
 var React = __webpack_require__(11);
-var PropTypes = __webpack_require__(24);
-var autosize = __webpack_require__(250);
-var _getLineHeight = __webpack_require__(251);
+var PropTypes = __webpack_require__(25);
+var autosize = __webpack_require__(256);
+var _getLineHeight = __webpack_require__(257);
 var getLineHeight = _getLineHeight;
 var RESIZED = "autosize:resized";
 /**
@@ -599,14 +599,7 @@ exports.TextareaAutosize = React.forwardRef(function (props, ref) {
 
 /***/ }),
 
-/***/ 25:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
-
-/***/ }),
-
-/***/ 250:
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -895,11 +888,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 
-/***/ 251:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Load in dependencies
-var computedStyle = __webpack_require__(252);
+var computedStyle = __webpack_require__(258);
 
 /**
  * Calculate the `line-height` of a given node
@@ -999,7 +992,7 @@ module.exports = lineHeight;
 
 /***/ }),
 
-/***/ 252:
+/***/ 258:
 /***/ (function(module, exports) {
 
 // This code has been refactored for 140 bytes
@@ -1033,7 +1026,7 @@ module.exports = computedStyle;
 
 /***/ }),
 
-/***/ 253:
+/***/ 259:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1065,7 +1058,7 @@ const layout = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 /***/ }),
 
-/***/ 262:
+/***/ 268:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1090,7 +1083,7 @@ const undo = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 263:
+/***/ 269:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1115,10 +1108,10 @@ const redo = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 29:
+/***/ 27:
 /***/ (function(module, exports) {
 
-(function() { module.exports = window["wp"]["notices"]; }());
+(function() { module.exports = window["wp"]["keyboardShortcuts"]; }());
 
 /***/ }),
 
@@ -1129,7 +1122,14 @@ const redo = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["notices"]; }());
+
+/***/ }),
+
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1411,14 +1411,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 32:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["apiFetch"]; }());
-
-/***/ }),
-
-/***/ 320:
+/***/ 329:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1446,11 +1439,18 @@ const wordpress = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["create
 /***/ 34:
 /***/ (function(module, exports) {
 
+(function() { module.exports = window["wp"]["apiFetch"]; }());
+
+/***/ }),
+
+/***/ 36:
+/***/ (function(module, exports) {
+
 (function() { module.exports = window["wp"]["dataControls"]; }());
 
 /***/ }),
 
-/***/ 382:
+/***/ 392:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1475,7 +1475,7 @@ const page = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEleme
 
 /***/ }),
 
-/***/ 383:
+/***/ 393:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1500,7 +1500,7 @@ const header = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 /***/ }),
 
-/***/ 384:
+/***/ 394:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1526,7 +1526,7 @@ const footer = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEle
 
 /***/ }),
 
-/***/ 385:
+/***/ 395:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1558,14 +1558,14 @@ const sidebar = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createEl
 
 /***/ }),
 
-/***/ 41:
+/***/ 40:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["htmlEntities"]; }());
 
 /***/ }),
 
-/***/ 489:
+/***/ 498:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1594,7 +1594,7 @@ __webpack_require__.d(__webpack_exports__, "PageAttributesOrder", function() { r
 __webpack_require__.d(__webpack_exports__, "PageAttributesParent", function() { return /* reexport */ page_attributes_parent; });
 __webpack_require__.d(__webpack_exports__, "PageTemplate", function() { return /* reexport */ post_template; });
 __webpack_require__.d(__webpack_exports__, "PostAuthor", function() { return /* reexport */ post_author; });
-__webpack_require__.d(__webpack_exports__, "PostAuthorCheck", function() { return /* reexport */ post_author_check; });
+__webpack_require__.d(__webpack_exports__, "PostAuthorCheck", function() { return /* reexport */ PostAuthorCheck; });
 __webpack_require__.d(__webpack_exports__, "PostComments", function() { return /* reexport */ post_comments; });
 __webpack_require__.d(__webpack_exports__, "PostExcerpt", function() { return /* reexport */ post_excerpt; });
 __webpack_require__.d(__webpack_exports__, "PostExcerptCheck", function() { return /* reexport */ post_excerpt_check; });
@@ -1899,7 +1899,7 @@ var external_wp_compose_ = __webpack_require__(9);
 var external_wp_hooks_ = __webpack_require__(21);
 
 // EXTERNAL MODULE: external ["wp","dataControls"]
-var external_wp_dataControls_ = __webpack_require__(34);
+var external_wp_dataControls_ = __webpack_require__(36);
 
 // EXTERNAL MODULE: external ["wp","blockEditor"]
 var external_wp_blockEditor_ = __webpack_require__(5);
@@ -2234,10 +2234,10 @@ function reducer_editorSettings(state = EDITOR_SETTINGS_DEFAULTS, action) {
 }));
 //# sourceMappingURL=reducer.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(30);
+var rememo = __webpack_require__(32);
 
 // EXTERNAL MODULE: external ["wp","date"]
-var external_wp_date_ = __webpack_require__(49);
+var external_wp_date_ = __webpack_require__(51);
 
 // EXTERNAL MODULE: external ["wp","url"]
 var external_wp_url_ = __webpack_require__(20);
@@ -2247,7 +2247,7 @@ var external_wp_deprecated_ = __webpack_require__(26);
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/layout.js
-var layout = __webpack_require__(253);
+var layout = __webpack_require__(259);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/store/constants.js
 /**
@@ -2320,13 +2320,13 @@ function cleanForSlug(string) {
 }
 //# sourceMappingURL=url.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/header.js
-var header = __webpack_require__(383);
+var header = __webpack_require__(393);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/footer.js
-var footer = __webpack_require__(384);
+var footer = __webpack_require__(394);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/sidebar.js
-var sidebar = __webpack_require__(385);
+var sidebar = __webpack_require__(395);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/store/utils/get-template-part-icon.js
 /**
@@ -3933,7 +3933,7 @@ const getPostTypeLabel = Object(external_wp_data_["createRegistrySelector"])(sel
 });
 //# sourceMappingURL=selectors.js.map
 // EXTERNAL MODULE: external ["wp","notices"]
-var external_wp_notices_ = __webpack_require__(29);
+var external_wp_notices_ = __webpack_require__(31);
 
 // EXTERNAL MODULE: external ["wp","i18n"]
 var external_wp_i18n_ = __webpack_require__(1);
@@ -5430,7 +5430,7 @@ function DocumentOutlineCheck({
 }))(DocumentOutlineCheck));
 //# sourceMappingURL=check.js.map
 // EXTERNAL MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_ = __webpack_require__(25);
+var external_wp_keyboardShortcuts_ = __webpack_require__(27);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/global-keyboard-shortcuts/save-shortcut.js
 /**
@@ -5506,7 +5506,6 @@ function SaveShortcut({
  */
 
 
-
 /**
  * Internal dependencies
  */
@@ -5531,7 +5530,7 @@ function VisualEditorGlobalKeyboardShortcuts() {
   }, {
     bindGlobal: true
   });
-  return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockEditorKeyboardShortcuts"], null), Object(external_wp_element_["createElement"])(save_shortcut, null));
+  return Object(external_wp_element_["createElement"])(save_shortcut, null);
 }
 
 /* harmony default export */ var visual_editor_shortcuts = (VisualEditorGlobalKeyboardShortcuts);
@@ -5607,10 +5606,10 @@ var external_wp_components_ = __webpack_require__(3);
 var external_wp_keycodes_ = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/redo.js
-var library_redo = __webpack_require__(263);
+var library_redo = __webpack_require__(269);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/undo.js
-var library_undo = __webpack_require__(262);
+var library_undo = __webpack_require__(268);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/editor-history/redo.js
 
@@ -5827,10 +5826,10 @@ function EditorSnackbars() {
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/close.js
-var library_close = __webpack_require__(132);
+var library_close = __webpack_require__(139);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/page.js
-var library_page = __webpack_require__(382);
+var library_page = __webpack_require__(392);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/entity-record-item.js
 
@@ -6558,7 +6557,7 @@ function PageAttributesOrderWithChecks(props) {
 }))])(PageAttributesOrderWithChecks));
 //# sourceMappingURL=order.js.map
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(41);
+var external_wp_htmlEntities_ = __webpack_require__(40);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/utils/terms.js
 /**
@@ -6863,6 +6862,15 @@ function PostTemplate({}) {
 }
 /* harmony default export */ var post_template = (PostTemplate);
 //# sourceMappingURL=index.js.map
+// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/constants.js
+const AUTHORS_QUERY = {
+  who: 'authors',
+  per_page: 50,
+  _fields: 'id,name',
+  context: 'view' // Allows non-admins to perform requests.
+
+};
+//# sourceMappingURL=constants.js.map
 // CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/combobox.js
 
 
@@ -6879,9 +6887,11 @@ function PostTemplate({}) {
 
 
 
+
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -6894,24 +6904,28 @@ function PostAuthorCombobox() {
     postAuthor
   } = Object(external_wp_data_["useSelect"])(select => {
     const {
-      __unstableGetAuthor,
-      getAuthors,
+      getUser,
+      getUsers,
       isResolving
     } = select(external_wp_coreData_["store"]);
     const {
       getEditedPostAttribute
     } = select(store);
-
-    const author = __unstableGetAuthor(getEditedPostAttribute('author'));
-
-    const query = !fieldValue || '' === fieldValue ? {} : {
-      search: fieldValue
+    const author = getUser(getEditedPostAttribute('author'), {
+      context: 'view'
+    });
+    const query = { ...AUTHORS_QUERY
     };
+
+    if (fieldValue) {
+      query.search = fieldValue;
+    }
+
     return {
       authorId: getEditedPostAttribute('author'),
       postAuthor: author,
-      authors: getAuthors(query),
-      isLoading: isResolving('core', 'getAuthors', [query])
+      authors: getUsers(query),
+      isLoading: isResolving('core', 'getUsers', [query])
     };
   }, [fieldValue]);
   const {
@@ -6921,7 +6935,7 @@ function PostAuthorCombobox() {
     const fetchedAuthors = (authors !== null && authors !== void 0 ? authors : []).map(author => {
       return {
         value: author.id,
-        label: author.name
+        label: Object(external_wp_htmlEntities_["decodeEntities"])(author.name)
       };
     }); // Ensure the current author is included in the dropdown list.
 
@@ -6932,19 +6946,12 @@ function PostAuthorCombobox() {
     if (foundAuthor < 0 && postAuthor) {
       return [{
         value: postAuthor.id,
-        label: postAuthor.name
+        label: Object(external_wp_htmlEntities_["decodeEntities"])(postAuthor.name)
       }, ...fetchedAuthors];
     }
 
     return fetchedAuthors;
-  }, [authors, postAuthor]); // Initializes the post author properly
-  // Also ensures external changes are reflected.
-
-  Object(external_wp_element_["useEffect"])(() => {
-    if (postAuthor) {
-      setFieldValue(postAuthor.name);
-    }
-  }, [postAuthor]);
+  }, [authors, postAuthor]);
   /**
    * Handle author selection.
    *
@@ -6999,9 +7006,11 @@ function PostAuthorCombobox() {
 
 
 
+
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -7013,15 +7022,19 @@ function PostAuthorSelect() {
     postAuthor,
     authors
   } = Object(external_wp_data_["useSelect"])(select => {
-    const authorsFromAPI = select(external_wp_coreData_["store"]).getAuthors();
     return {
       postAuthor: select(store).getEditedPostAttribute('author'),
-      authors: authorsFromAPI.map(author => ({
-        label: Object(external_wp_htmlEntities_["decodeEntities"])(author.name),
-        value: author.id
-      }))
+      authors: select(external_wp_coreData_["store"]).getUsers(AUTHORS_QUERY)
     };
   }, []);
+  const authorOptions = Object(external_wp_element_["useMemo"])(() => {
+    return (authors !== null && authors !== void 0 ? authors : []).map(author => {
+      return {
+        value: author.id,
+        label: Object(external_wp_htmlEntities_["decodeEntities"])(author.name)
+      };
+    });
+  }, [authors]);
 
   const setAuthorId = value => {
     const author = Number(value);
@@ -7033,7 +7046,7 @@ function PostAuthorSelect() {
   return Object(external_wp_element_["createElement"])(external_wp_components_["SelectControl"], {
     className: "post-author-selector",
     label: Object(external_wp_i18n_["__"])('Author'),
-    options: authors,
+    options: authorOptions,
     onChange: setAuthorId,
     value: postAuthor
   });
@@ -7055,12 +7068,12 @@ function PostAuthorSelect() {
 
 
 
+
 const minimumUsersForCombobox = 25;
 
 function PostAuthor() {
   const showCombobox = Object(external_wp_data_["useSelect"])(select => {
-    // Not using `getUsers()` because it requires `list_users` capability.
-    const authors = select(external_wp_coreData_["store"]).getAuthors();
+    const authors = select(external_wp_coreData_["store"]).getUsers(AUTHORS_QUERY);
     return (authors === null || authors === void 0 ? void 0 : authors.length) >= minimumUsersForCombobox;
   }, []);
 
@@ -7086,19 +7099,29 @@ function PostAuthor() {
 
 
 
-
 /**
  * Internal dependencies
  */
 
 
 
+
 function PostAuthorCheck({
-  hasAssignAuthorAction,
-  authors,
   children
 }) {
-  if (!hasAssignAuthorAction || !authors || 1 >= authors.length) {
+  const {
+    hasAssignAuthorAction,
+    hasAuthors
+  } = Object(external_wp_data_["useSelect"])(select => {
+    const post = select(store).getCurrentPost();
+    const authors = select(external_wp_coreData_["store"]).getUsers(AUTHORS_QUERY);
+    return {
+      hasAssignAuthorAction: Object(external_lodash_["get"])(post, ['_links', 'wp:action-assign-author'], false),
+      hasAuthors: (authors === null || authors === void 0 ? void 0 : authors.length) >= 1
+    };
+  }, []);
+
+  if (!hasAssignAuthorAction || !hasAuthors) {
     return null;
   }
 
@@ -7106,14 +7129,6 @@ function PostAuthorCheck({
     supportKeys: "author"
   }, children);
 }
-/* harmony default export */ var post_author_check = (Object(external_wp_compose_["compose"])([Object(external_wp_data_["withSelect"])(select => {
-  const post = select(store).getCurrentPost();
-  return {
-    hasAssignAuthorAction: Object(external_lodash_["get"])(post, ['_links', 'wp:action-assign-author'], false),
-    postType: select(store).getCurrentPostType(),
-    authors: select(external_wp_coreData_["store"]).getAuthors()
-  };
-}), external_wp_compose_["withInstanceId"]])(PostAuthorCheck));
 //# sourceMappingURL=check.js.map
 // CONCATENATED MODULE: ./packages/editor/build-module/components/post-comments/index.js
 
@@ -7420,7 +7435,7 @@ function PostFeaturedImage({
 
 const applyWithSelect = Object(external_wp_data_["withSelect"])(select => {
   const {
-    getMedia,
+    getEntityRecord,
     getPostType
   } = select(external_wp_coreData_["store"]);
   const {
@@ -7429,7 +7444,9 @@ const applyWithSelect = Object(external_wp_data_["withSelect"])(select => {
   } = select(store);
   const featuredImageId = getEditedPostAttribute('featured_media');
   return {
-    media: featuredImageId ? getMedia(featuredImageId) : null,
+    media: featuredImageId ? getEntityRecord('root', 'media', featuredImageId, {
+      context: 'view'
+    }) : null,
     currentPostId: getCurrentPostId(),
     postType: getPostType(getEditedPostAttribute('type')),
     featuredImageId
@@ -8606,10 +8623,10 @@ class post_publish_button_PostPublishButton extends external_wp_element_["Compon
 })])(post_publish_button_PostPublishButton));
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/close-small.js
-var close_small = __webpack_require__(133);
+var close_small = __webpack_require__(140);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/wordpress.js
-var wordpress = __webpack_require__(320);
+var wordpress = __webpack_require__(329);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/post-visibility/utils.js
 /**
@@ -8944,7 +8961,7 @@ function PostScheduleLabel({
 })(PostScheduleLabel));
 //# sourceMappingURL=label.js.map
 // EXTERNAL MODULE: external ["wp","apiFetch"]
-var external_wp_apiFetch_ = __webpack_require__(32);
+var external_wp_apiFetch_ = __webpack_require__(34);
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/most-used-terms.js
@@ -8971,7 +8988,9 @@ const DEFAULT_QUERY = {
   per_page: MAX_MOST_USED_TERMS,
   orderby: 'count',
   order: 'desc',
-  _fields: 'id,name,count'
+  hide_empty: true,
+  _fields: 'id,name,count',
+  context: 'view'
 };
 function MostUsedTerms({
   onSelect,
@@ -8984,7 +9003,7 @@ function MostUsedTerms({
     const mostUsedTerms = select(external_wp_coreData_["store"]).getEntityRecords('taxonomy', taxonomy.slug, DEFAULT_QUERY);
     return {
       _terms: mostUsedTerms,
-      showTerms: (mostUsedTerms === null || mostUsedTerms === void 0 ? void 0 : mostUsedTerms.length) >= MAX_MOST_USED_TERMS
+      showTerms: (mostUsedTerms === null || mostUsedTerms === void 0 ? void 0 : mostUsedTerms.length) === MAX_MOST_USED_TERMS
     };
   }, []);
 
@@ -9676,7 +9695,11 @@ class postpublish_PostPublishPanelPostpublish extends external_wp_element_["Comp
     } = this.props;
     const postLabel = Object(external_lodash_["get"])(postType, ['labels', 'singular_name']);
     const viewPostLabel = Object(external_lodash_["get"])(postType, ['labels', 'view_item']);
+    const addNewPostLabel = Object(external_lodash_["get"])(postType, ['labels', 'add_new_item']);
     const link = post.status === 'future' ? getFuturePostUrl(post) : post.link;
+    const addLink = Object(external_wp_url_["addQueryArgs"])('post-new.php', {
+      post_type: post.type
+    });
     const postPublishNonLinkHeader = isScheduled ? Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, Object(external_wp_i18n_["__"])('is now scheduled. It will go live on'), ' ', Object(external_wp_element_["createElement"])(post_schedule_label, null), ".") : Object(external_wp_i18n_["__"])('is now live.');
     return Object(external_wp_element_["createElement"])("div", {
       className: "post-publish-panel__postpublish"
@@ -9687,7 +9710,9 @@ class postpublish_PostPublishPanelPostpublish extends external_wp_element_["Comp
       href: link
     }, Object(external_wp_htmlEntities_["decodeEntities"])(post.title) || Object(external_wp_i18n_["__"])('(no title)')), ' ', postPublishNonLinkHeader), Object(external_wp_element_["createElement"])(external_wp_components_["PanelBody"], null, Object(external_wp_element_["createElement"])("p", {
       className: "post-publish-panel__postpublish-subheader"
-    }, Object(external_wp_element_["createElement"])("strong", null, Object(external_wp_i18n_["__"])('What’s next?'))), Object(external_wp_element_["createElement"])(external_wp_components_["TextControl"], {
+    }, Object(external_wp_element_["createElement"])("strong", null, Object(external_wp_i18n_["__"])('What’s next?'))), Object(external_wp_element_["createElement"])("div", {
+      className: "post-publish-panel__postpublish-post-address-container"
+    }, Object(external_wp_element_["createElement"])(external_wp_components_["TextControl"], {
       className: "post-publish-panel__postpublish-post-address",
       readOnly: true,
       label: Object(external_wp_i18n_["sprintf"])(
@@ -9696,14 +9721,19 @@ class postpublish_PostPublishPanelPostpublish extends external_wp_element_["Comp
       value: Object(external_wp_url_["safeDecodeURIComponent"])(link),
       onFocus: this.onSelectInput
     }), Object(external_wp_element_["createElement"])("div", {
-      className: "post-publish-panel__postpublish-buttons"
-    }, !isScheduled && Object(external_wp_element_["createElement"])(external_wp_components_["Button"], {
-      variant: "secondary",
-      href: link
-    }, viewPostLabel), Object(external_wp_element_["createElement"])(postpublish_CopyButton, {
+      className: "post-publish-panel__postpublish-post-address__copy-button-wrap"
+    }, Object(external_wp_element_["createElement"])(postpublish_CopyButton, {
       text: link,
       onCopy: this.onCopy
-    }, this.state.showCopyConfirmation ? Object(external_wp_i18n_["__"])('Copied!') : Object(external_wp_i18n_["__"])('Copy Link')))), children);
+    }, this.state.showCopyConfirmation ? Object(external_wp_i18n_["__"])('Copied!') : Object(external_wp_i18n_["__"])('Copy')))), Object(external_wp_element_["createElement"])("div", {
+      className: "post-publish-panel__postpublish-buttons"
+    }, !isScheduled && Object(external_wp_element_["createElement"])(external_wp_components_["Button"], {
+      variant: "primary",
+      href: link
+    }, viewPostLabel), Object(external_wp_element_["createElement"])(external_wp_components_["Button"], {
+      variant: isScheduled ? 'primary' : 'secondary',
+      href: addLink
+    }, addNewPostLabel))), children);
   }
 
 }
@@ -9880,7 +9910,7 @@ class post_publish_panel_PostPublishPanel extends external_wp_element_["Componen
 }), external_wp_components_["withFocusReturn"], external_wp_components_["withConstrainedTabbing"]])(post_publish_panel_PostPublishPanel));
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/icon/index.js
-var build_module_icon = __webpack_require__(109);
+var build_module_icon = __webpack_require__(113);
 
 // CONCATENATED MODULE: ./packages/icons/build-module/library/cloud.js
 
@@ -9898,7 +9928,7 @@ const cloud = Object(external_wp_element_["createElement"])(external_wp_primitiv
 /* harmony default export */ var library_cloud = (cloud);
 //# sourceMappingURL=cloud.js.map
 // EXTERNAL MODULE: ./packages/icons/build-module/library/check.js
-var library_check = __webpack_require__(116);
+var library_check = __webpack_require__(123);
 
 // CONCATENATED MODULE: ./packages/icons/build-module/library/cloud-upload.js
 
@@ -10450,10 +10480,9 @@ class hierarchical_term_selector_HierarchicalTermSelector extends external_wp_el
     onUpdateTerms(newTerms, taxonomy.rest_base);
   }
 
-  onChangeFormName(event) {
-    const newValue = event.target.value.trim() === '' ? '' : event.target.value;
+  onChangeFormName(value) {
     this.setState({
-      formName: newValue
+      formName: value
     });
   }
 
@@ -10663,11 +10692,10 @@ class hierarchical_term_selector_HierarchicalTermSelector extends external_wp_el
     return termsTree;
   }
 
-  setFilterValue(event) {
+  setFilterValue(filterValue) {
     const {
       availableTermsTree
     } = this.state;
-    const filterValue = event.target.value;
     const filteredTermsTree = availableTermsTree.map(this.getFilterMatcher(filterValue)).filter(term => term);
 
     const getResultCount = terms => {
@@ -10750,7 +10778,6 @@ class hierarchical_term_selector_HierarchicalTermSelector extends external_wp_el
     const {
       slug,
       taxonomy,
-      instanceId,
       hasCreateAction,
       hasAssignAction
     } = this.props;
@@ -10777,21 +10804,15 @@ class hierarchical_term_selector_HierarchicalTermSelector extends external_wp_el
     const parentSelectLabel = labelWithFallback('parent_item', Object(external_wp_i18n_["__"])('Parent Category'), Object(external_wp_i18n_["__"])('Parent Term'));
     const noParentOption = `— ${parentSelectLabel} —`;
     const newTermSubmitLabel = newTermButtonLabel;
-    const inputId = `editor-post-taxonomies__hierarchical-terms-input-${instanceId}`;
-    const filterInputId = `editor-post-taxonomies__hierarchical-terms-filter-${instanceId}`;
     const filterLabel = Object(external_lodash_["get"])(this.props.taxonomy, ['labels', 'search_items'], Object(external_wp_i18n_["__"])('Search Terms'));
     const groupLabel = Object(external_lodash_["get"])(this.props.taxonomy, ['name'], Object(external_wp_i18n_["__"])('Terms'));
     const showFilter = availableTerms.length >= MIN_TERMS_COUNT_FOR_FILTER;
-    return [showFilter && Object(external_wp_element_["createElement"])("label", {
-      key: "filter-label",
-      htmlFor: filterInputId
-    }, filterLabel), showFilter && Object(external_wp_element_["createElement"])("input", {
-      type: "search",
-      id: filterInputId,
-      value: filterValue,
-      onChange: this.setFilterValue,
+    return [showFilter && Object(external_wp_element_["createElement"])(external_wp_components_["TextControl"], {
+      key: "term-filter-input",
       className: "editor-post-taxonomies__hierarchical-terms-filter",
-      key: "term-filter-input"
+      label: filterLabel,
+      value: filterValue,
+      onChange: this.setFilterValue
     }), Object(external_wp_element_["createElement"])("div", {
       className: "editor-post-taxonomies__hierarchical-terms-list",
       key: "term-list",
@@ -10807,13 +10828,9 @@ class hierarchical_term_selector_HierarchicalTermSelector extends external_wp_el
     }, newTermButtonLabel), showForm && Object(external_wp_element_["createElement"])("form", {
       onSubmit: this.onAddTerm,
       key: "hierarchical-terms-form"
-    }, Object(external_wp_element_["createElement"])("label", {
-      htmlFor: inputId,
-      className: "editor-post-taxonomies__hierarchical-terms-label"
-    }, newTermLabel), Object(external_wp_element_["createElement"])("input", {
-      type: "text",
-      id: inputId,
+    }, Object(external_wp_element_["createElement"])(external_wp_components_["TextControl"], {
       className: "editor-post-taxonomies__hierarchical-terms-input",
+      label: newTermLabel,
       value: formName,
       onChange: this.onChangeFormName,
       required: true
@@ -10944,7 +10961,7 @@ function PostTaxonomiesCheck({
 })])(PostTaxonomiesCheck));
 //# sourceMappingURL=check.js.map
 // EXTERNAL MODULE: ./node_modules/react-autosize-textarea/lib/index.js
-var lib = __webpack_require__(113);
+var lib = __webpack_require__(117);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/post-text-editor/index.js
@@ -11380,7 +11397,7 @@ const info_info = Object(external_wp_element_["createElement"])(external_wp_prim
 /* harmony default export */ var library_info = (info_info);
 //# sourceMappingURL=info.js.map
 // EXTERNAL MODULE: external ["wp","wordcount"]
-var external_wp_wordcount_ = __webpack_require__(139);
+var external_wp_wordcount_ = __webpack_require__(146);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/word-count/index.js
 
@@ -11619,7 +11636,7 @@ function UnsavedChangesWarning() {
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","reusableBlocks"]
-var external_wp_reusableBlocks_ = __webpack_require__(123);
+var external_wp_reusableBlocks_ = __webpack_require__(130);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/provider/with-registry-provider.js
 
@@ -11667,7 +11684,7 @@ const withRegistryProvider = Object(external_wp_compose_["createHigherOrderCompo
 /* harmony default export */ var with_registry_provider = (withRegistryProvider);
 //# sourceMappingURL=with-registry-provider.js.map
 // EXTERNAL MODULE: external ["wp","mediaUtils"]
-var external_wp_mediaUtils_ = __webpack_require__(62);
+var external_wp_mediaUtils_ = __webpack_require__(64);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/utils/media-upload/index.js
 /**
@@ -11962,7 +11979,7 @@ function EditorProvider({
 /* harmony default export */ var provider = (with_registry_provider(EditorProvider));
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","serverSideRender"]
-var external_wp_serverSideRender_ = __webpack_require__(74);
+var external_wp_serverSideRender_ = __webpack_require__(77);
 var external_wp_serverSideRender_default = /*#__PURE__*/__webpack_require__.n(external_wp_serverSideRender_);
 
 // CONCATENATED MODULE: ./packages/editor/build-module/components/deprecated.js
@@ -12151,17 +12168,17 @@ const withFontSizes = deprecateFunction('withFontSizes', external_wp_blockEditor
 
 /***/ }),
 
-/***/ 49:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["date"]; }());
-
-/***/ }),
-
 /***/ 5:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["blockEditor"]; }());
+
+/***/ }),
+
+/***/ 51:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["date"]; }());
 
 /***/ }),
 
@@ -12172,7 +12189,7 @@ const withFontSizes = deprecateFunction('withFontSizes', external_wp_blockEditor
 
 /***/ }),
 
-/***/ 62:
+/***/ 64:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["mediaUtils"]; }());
@@ -12204,7 +12221,7 @@ function _extends() {
 
 /***/ }),
 
-/***/ 74:
+/***/ 77:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["serverSideRender"]; }());

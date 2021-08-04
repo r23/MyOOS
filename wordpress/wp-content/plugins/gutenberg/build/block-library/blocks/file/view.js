@@ -1,4 +1,3 @@
-window["wp"] = window["wp"] || {}; window["wp"]["blocks/file"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,17 +81,18 @@ window["wp"] = window["wp"] || {}; window["wp"]["blocks/file"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 485);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 178:
+/******/ ([
+/* 0 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return browserSupportsPdfs; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return hidePdfEmbedsOnUnsupportedBrowsers; });
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// CONCATENATED MODULE: ./packages/block-library/build-module/file/utils.js
 /**
  * Uses a combination of user agent matching and feature detection to determine whether
  * the current browser supports rendering PDFs inline.
@@ -156,22 +156,13 @@ const hidePdfEmbedsOnUnsupportedBrowsers = () => {
   }
 };
 //# sourceMappingURL=utils.js.map
-
-/***/ }),
-
-/***/ 485:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(178);
+// CONCATENATED MODULE: ./packages/block-library/build-module/file/view.js
 /**
  * Internal dependencies
  */
 
-Object(_utils__WEBPACK_IMPORTED_MODULE_0__[/* hidePdfEmbedsOnUnsupportedBrowsers */ "b"])();
+hidePdfEmbedsOnUnsupportedBrowsers();
 //# sourceMappingURL=view.js.map
 
 /***/ })
-
-/******/ });
+/******/ ]);

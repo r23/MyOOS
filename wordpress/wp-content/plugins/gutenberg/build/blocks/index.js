@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["blocks"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 492);
+/******/ 	return __webpack_require__(__webpack_require__.s = 501);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,21 +101,21 @@ window["wp"] = window["wp"] || {}; window["wp"]["blocks"] =
 
 /***/ }),
 
-/***/ 128:
+/***/ 135:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["autop"]; }());
 
 /***/ }),
 
-/***/ 143:
+/***/ 149:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["shortcode"]; }());
 
 /***/ }),
 
-/***/ 146:
+/***/ 151:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -147,7 +147,7 @@ const blockDefault = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["cre
 
 /***/ }),
 
-/***/ 200:
+/***/ 207:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -243,7 +243,7 @@ function v4(options, buf, offset) {
 
 /***/ }),
 
-/***/ 22:
+/***/ 24:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["dom"]; }());
@@ -257,7 +257,7 @@ function v4(options, buf, offset) {
 
 /***/ }),
 
-/***/ 30:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -539,21 +539,21 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 33:
+/***/ 35:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["blob"]; }());
 
 /***/ }),
 
-/***/ 342:
+/***/ 351:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["blockSerializationDefaultParser"]; }());
 
 /***/ }),
 
-/***/ 343:
+/***/ 352:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;;/*! showdown v 1.9.1 - 02-11-2019 */
@@ -5705,14 +5705,14 @@ if (true) {
 
 /***/ }),
 
-/***/ 41:
+/***/ 40:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["htmlEntities"]; }());
 
 /***/ }),
 
-/***/ 42:
+/***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;// TinyColor v1.4.2
@@ -6913,7 +6913,7 @@ else {}
 
 /***/ }),
 
-/***/ 492:
+/***/ 501:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7265,7 +7265,7 @@ function collections(state = {}, action) {
 }));
 //# sourceMappingURL=reducer.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(30);
+var rememo = __webpack_require__(32);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/store/selectors.js
 /**
@@ -7835,23 +7835,23 @@ const store = Object(external_wp_data_["createReduxStore"])(STORE_NAME, {
 Object(external_wp_data_["register"])(store);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/uuid/dist/esm-browser/v4.js + 4 modules
-var v4 = __webpack_require__(200);
+var v4 = __webpack_require__(207);
 
 // EXTERNAL MODULE: external ["wp","hooks"]
 var external_wp_hooks_ = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./packages/icons/build-module/library/block-default.js
-var block_default = __webpack_require__(146);
+var block_default = __webpack_require__(151);
 
 // EXTERNAL MODULE: ./node_modules/tinycolor2/tinycolor.js
-var tinycolor = __webpack_require__(42);
+var tinycolor = __webpack_require__(45);
 var tinycolor_default = /*#__PURE__*/__webpack_require__.n(tinycolor);
 
 // EXTERNAL MODULE: external ["wp","element"]
 var external_wp_element_ = __webpack_require__(0);
 
 // EXTERNAL MODULE: external ["wp","dom"]
-var external_wp_dom_ = __webpack_require__(22);
+var external_wp_dom_ = __webpack_require__(24);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/utils.js
 /**
@@ -9487,10 +9487,10 @@ function query(selector, matchers) {
   };
 }
 // EXTERNAL MODULE: external ["wp","autop"]
-var external_wp_autop_ = __webpack_require__(128);
+var external_wp_autop_ = __webpack_require__(135);
 
 // EXTERNAL MODULE: external ["wp","blockSerializationDefaultParser"]
-var external_wp_blockSerializationDefaultParser_ = __webpack_require__(342);
+var external_wp_blockSerializationDefaultParser_ = __webpack_require__(351);
 
 // CONCATENATED MODULE: ./node_modules/simple-html-tokenizer/dist/es6/index.js
 /**
@@ -10133,7 +10133,7 @@ function tokenize(input, options) {
 
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(41);
+var external_wp_htmlEntities_ = __webpack_require__(40);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/validation/logger.js
 function createLogger() {
@@ -10199,7 +10199,7 @@ function createQueuedLogger() {
 }
 //# sourceMappingURL=logger.js.map
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(51);
+var external_wp_isShallowEqual_ = __webpack_require__(54);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
@@ -10852,7 +10852,16 @@ function isEquivalentTextTokens(actual, expected, logger = createLogger()) {
  */
 
 function getNormalizedLength(value) {
-  return 0 === parseFloat(value) ? '0' : value;
+  if (0 === parseFloat(value)) {
+    return '0';
+  } // Normalize strings with floats to always include a leading zero.
+
+
+  if (value.indexOf('.') === 0) {
+    return '0' + value;
+  }
+
+  return value;
 }
 /**
  * Given a style value, returns a normalized style value for strict equality
@@ -12644,7 +12653,7 @@ function listReducer(node) {
 }
 //# sourceMappingURL=list-reducer.js.map
 // EXTERNAL MODULE: external ["wp","blob"]
-var external_wp_blob_ = __webpack_require__(33);
+var external_wp_blob_ = __webpack_require__(35);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/image-corrector.js
 /**
@@ -12818,7 +12827,7 @@ function figureContentReducer(node, doc, schema) {
 }
 //# sourceMappingURL=figure-content-reducer.js.map
 // EXTERNAL MODULE: external ["wp","shortcode"]
-var external_wp_shortcode_ = __webpack_require__(143);
+var external_wp_shortcode_ = __webpack_require__(149);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/shortcode-converter.js
 /**
@@ -12893,7 +12902,7 @@ function segmentHTMLToShortcodeBlock(HTML, lastIndex = 0, excludedBlockNames = [
 /* harmony default export */ var shortcode_converter = (segmentHTMLToShortcodeBlock);
 //# sourceMappingURL=shortcode-converter.js.map
 // EXTERNAL MODULE: ./node_modules/showdown/dist/showdown.js
-var showdown = __webpack_require__(343);
+var showdown = __webpack_require__(352);
 var showdown_default = /*#__PURE__*/__webpack_require__.n(showdown);
 
 // CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/markdown-converter.js
@@ -13770,7 +13779,7 @@ function synchronizeBlocksWithTemplate(blocks = [], template) {
 
 /***/ }),
 
-/***/ 51:
+/***/ 54:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());

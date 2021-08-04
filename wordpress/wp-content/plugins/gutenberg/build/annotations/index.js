@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["annotations"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 508);
+/******/ 	return __webpack_require__(__webpack_require__.s = 517);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -108,7 +108,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["annotations"] =
 
 /***/ }),
 
-/***/ 200:
+/***/ 207:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -204,7 +204,7 @@ function v4(options, buf, offset) {
 
 /***/ }),
 
-/***/ 30:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -493,7 +493,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 508:
+/***/ 517:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -886,7 +886,7 @@ function reducer_annotations(state = {}, action) {
 /* harmony default export */ var reducer = (reducer_annotations);
 //# sourceMappingURL=reducer.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(30);
+var rememo = __webpack_require__(32);
 
 // CONCATENATED MODULE: ./packages/annotations/build-module/store/selectors.js
 /**
@@ -976,7 +976,7 @@ function __experimentalGetAnnotations(state) {
 }
 //# sourceMappingURL=selectors.js.map
 // EXTERNAL MODULE: ./node_modules/uuid/dist/esm-browser/v4.js + 4 modules
-var v4 = __webpack_require__(200);
+var v4 = __webpack_require__(207);
 
 // CONCATENATED MODULE: ./packages/annotations/build-module/store/actions.js
 /**

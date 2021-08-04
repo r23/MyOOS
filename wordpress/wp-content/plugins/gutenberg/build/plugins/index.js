@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["plugins"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 516);
+/******/ 	return __webpack_require__(__webpack_require__.s = 525);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -108,7 +108,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["plugins"] =
 
 /***/ }),
 
-/***/ 516:
+/***/ 525:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -130,7 +130,7 @@ var external_wp_element_ = __webpack_require__(0);
 var external_lodash_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: ./node_modules/memize/index.js
-var memize = __webpack_require__(58);
+var memize = __webpack_require__(60);
 var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 
 // EXTERNAL MODULE: external ["wp","hooks"]
@@ -544,7 +544,14 @@ class plugin_area_PluginArea extends external_wp_element_["Component"] {
 
 /***/ }),
 
-/***/ 58:
+/***/ 6:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["primitives"]; }());
+
+/***/ }),
+
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -709,13 +716,6 @@ function memize( fn, options ) {
 
 module.exports = memize;
 
-
-/***/ }),
-
-/***/ 6:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["primitives"]; }());
 
 /***/ }),
 

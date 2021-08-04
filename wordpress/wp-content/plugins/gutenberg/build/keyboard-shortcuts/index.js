@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["keyboardShortcuts"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 512);
+/******/ 	return __webpack_require__(__webpack_require__.s = 521);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["keyboardShortcuts"] =
 
 /***/ }),
 
-/***/ 30:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -390,7 +390,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 512:
+/***/ 521:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -523,7 +523,7 @@ function unregisterShortcut(name) {
 }
 //# sourceMappingURL=actions.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(30);
+var rememo = __webpack_require__(32);
 
 // EXTERNAL MODULE: external ["wp","keycodes"]
 var external_wp_keycodes_ = __webpack_require__(14);

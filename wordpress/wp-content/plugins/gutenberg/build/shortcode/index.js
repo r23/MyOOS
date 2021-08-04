@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["shortcode"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 482);
+/******/ 	return __webpack_require__(__webpack_require__.s = 492);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["shortcode"] =
 
 /***/ }),
 
-/***/ 482:
+/***/ 492:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -107,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fromMatch", function() { return fromMatch; });
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var memize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(58);
+/* harmony import */ var memize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(60);
 /* harmony import */ var memize__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(memize__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * External dependencies
@@ -461,7 +461,7 @@ Object(lodash__WEBPACK_IMPORTED_MODULE_0__["extend"])(shortcode.prototype, {
 
 /***/ }),
 
-/***/ 58:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**

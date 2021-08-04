@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["keycodes"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 523);
+/******/ 	return __webpack_require__(__webpack_require__.s = 532);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["keycodes"] =
 
 /***/ }),
 
-/***/ 523:
+/***/ 532:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -194,7 +194,7 @@ function isAppleOS(_window = null) {
 
 /** @typedef {typeof ALT | CTRL | COMMAND | SHIFT } WPModifierPart */
 
-/** @typedef {'primary' | 'primaryShift' | 'primaryAlt' | 'secondary' | 'access' | 'ctrl' | 'alt' | 'ctrlShift' | 'shift' | 'shiftAlt'} WPKeycodeModifier */
+/** @typedef {'primary' | 'primaryShift' | 'primaryAlt' | 'secondary' | 'access' | 'ctrl' | 'alt' | 'ctrlShift' | 'shift' | 'shiftAlt' | 'undefined'} WPKeycodeModifier */
 
 /**
  * An object of handler functions for each of the possible modifier
@@ -310,7 +310,8 @@ const modifiers = {
   alt: () => [ALT],
   ctrlShift: () => [CTRL, SHIFT],
   shift: () => [SHIFT],
-  shiftAlt: () => [SHIFT, ALT]
+  shiftAlt: () => [SHIFT, ALT],
+  undefined: () => []
 };
 /**
  * An object that contains functions to get raw shortcuts.
@@ -483,11 +484,22 @@ const isKeyboardEvent = Object(external_lodash_["mapValues"])(modifiers, getModi
         return false;
       }
 
+      let key = event.key.toLowerCase();
+
       if (!character) {
-        return Object(external_lodash_["includes"])(mods, event.key.toLowerCase());
+        return Object(external_lodash_["includes"])(mods, key);
       }
 
-      return event.key === character;
+      if (event.altKey) {
+        key = String.fromCharCode(event.keyCode).toLowerCase();
+      } // For backwards compatibility.
+
+
+      if (character === 'del') {
+        character = 'delete';
+      }
+
+      return key === character;
     }
   );
 });

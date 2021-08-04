@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["wordcount"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 506);
+/******/ 	return __webpack_require__(__webpack_require__.s = 515);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["wordcount"] =
 
 /***/ }),
 
-/***/ 506:
+/***/ 515:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

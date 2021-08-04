@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 505);
+/******/ 	return __webpack_require__(__webpack_require__.s = 514);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -122,17 +122,17 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 
 /***/ }),
 
-/***/ 29:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["notices"]; }());
-
-/***/ }),
-
 /***/ 3:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["components"]; }());
+
+/***/ }),
+
+/***/ 31:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["notices"]; }());
 
 /***/ }),
 
@@ -150,7 +150,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["reusableBlocks"] =
 
 /***/ }),
 
-/***/ 505:
+/***/ 514:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -431,7 +431,7 @@ const reusable_block_reusableBlock = Object(external_wp_element_["createElement"
 /* harmony default export */ var reusable_block = (reusable_block_reusableBlock);
 //# sourceMappingURL=reusable-block.js.map
 // EXTERNAL MODULE: external ["wp","notices"]
-var external_wp_notices_ = __webpack_require__(29);
+var external_wp_notices_ = __webpack_require__(31);
 
 // EXTERNAL MODULE: external ["wp","coreData"]
 var external_wp_coreData_ = __webpack_require__(12);

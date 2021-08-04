@@ -82,12 +82,12 @@ window["wp"] = window["wp"] || {}; window["wp"]["warning"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 484);
+/******/ 	return __webpack_require__(__webpack_require__.s = 494);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 270:
+/***/ 279:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -103,13 +103,13 @@ const logged = new Set();
 
 /***/ }),
 
-/***/ 484:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return warning; });
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(270);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(279);
 /**
  * Internal dependencies
  */
@@ -160,11 +160,11 @@ function warning(message) {
   _utils__WEBPACK_IMPORTED_MODULE_0__[/* logged */ "a"].add(message);
 }
 //# sourceMappingURL=index.js.map
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(89)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(93)))
 
 /***/ }),
 
-/***/ 89:
+/***/ 93:
 /***/ (function(module, exports) {
 
 // shim for using process in browser

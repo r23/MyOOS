@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["coreData"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 499);
+/******/ 	return __webpack_require__(__webpack_require__.s = 508);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["coreData"] =
 
 /***/ }),
 
-/***/ 106:
+/***/ 110:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -430,7 +430,7 @@ module.exports = EquivalentKeyMap;
 
 /***/ }),
 
-/***/ 200:
+/***/ 207:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -519,7 +519,7 @@ function v4(options, buf, offset) {
 
 /***/ }),
 
-/***/ 30:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -801,14 +801,14 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 32:
+/***/ 34:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["apiFetch"]; }());
 
 /***/ }),
 
-/***/ 34:
+/***/ 36:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["dataControls"]; }());
@@ -822,14 +822,14 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 41:
+/***/ 40:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["htmlEntities"]; }());
 
 /***/ }),
 
-/***/ 499:
+/***/ 508:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -947,13 +947,13 @@ __webpack_require__.d(locks_selectors_namespaceObject, "__unstableIsLockAvailabl
 var external_wp_data_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: external ["wp","dataControls"]
-var external_wp_dataControls_ = __webpack_require__(34);
+var external_wp_dataControls_ = __webpack_require__(36);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(51);
+var external_wp_isShallowEqual_ = __webpack_require__(54);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // CONCATENATED MODULE: ./packages/core-data/build-module/utils/if-matching-action.js
@@ -1077,7 +1077,7 @@ const onSubKey = actionProperty => reducer => (state = {}, action) => {
 var external_wp_i18n_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./node_modules/uuid/dist/esm-browser/v4.js + 4 modules
-var v4 = __webpack_require__(200);
+var v4 = __webpack_require__(207);
 
 // EXTERNAL MODULE: external ["wp","url"]
 var external_wp_url_ = __webpack_require__(20);
@@ -1228,7 +1228,7 @@ function* __unstableProcessPendingLockRequests() {
 }
 //# sourceMappingURL=actions.js.map
 // EXTERNAL MODULE: external ["wp","apiFetch"]
-var external_wp_apiFetch_ = __webpack_require__(32);
+var external_wp_apiFetch_ = __webpack_require__(34);
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_);
 
 // CONCATENATED MODULE: ./packages/core-data/build-module/batch/default-processor.js
@@ -3482,10 +3482,10 @@ function reducer_autosaves(state = {}, action) {
 }));
 //# sourceMappingURL=reducer.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(30);
+var rememo = __webpack_require__(32);
 
 // EXTERNAL MODULE: ./node_modules/equivalent-key-map/equivalent-key-map.js
-var equivalent_key_map = __webpack_require__(106);
+var equivalent_key_map = __webpack_require__(110);
 var equivalent_key_map_default = /*#__PURE__*/__webpack_require__.n(equivalent_key_map);
 
 // CONCATENATED MODULE: ./packages/core-data/build-module/queried-data/selectors.js
@@ -5088,7 +5088,7 @@ function useEntityBlockEditor(kind, type, {
 }
 //# sourceMappingURL=entity-provider.js.map
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_ = __webpack_require__(41);
+var external_wp_htmlEntities_ = __webpack_require__(40);
 
 // CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-link-suggestions.js
 /**
@@ -5360,7 +5360,7 @@ const entitySelectors = defaultEntities.reduce((result, entity) => {
     name
   } = entity;
 
-  result[getMethodName(kind, name)] = (state, key) => selectors_getEntityRecord(state, kind, name, key);
+  result[getMethodName(kind, name)] = (state, key, query) => selectors_getEntityRecord(state, kind, name, key, query);
 
   result[getMethodName(kind, name, 'get', true)] = (state, ...args) => getEntityRecords(state, kind, name, ...args);
 
@@ -5372,7 +5372,7 @@ const entityResolvers = defaultEntities.reduce((result, entity) => {
     name
   } = entity;
 
-  result[getMethodName(kind, name)] = key => resolvers_getEntityRecord(kind, name, key);
+  result[getMethodName(kind, name)] = (key, query) => resolvers_getEntityRecord(kind, name, key, query);
 
   const pluralMethodName = getMethodName(kind, name, 'get', true);
 
@@ -5428,7 +5428,7 @@ Object(external_wp_data_["register"])(build_module_store);
 
 /***/ }),
 
-/***/ 51:
+/***/ 54:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());

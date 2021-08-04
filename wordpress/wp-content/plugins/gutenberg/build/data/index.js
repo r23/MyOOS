@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["data"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 498);
+/******/ 	return __webpack_require__(__webpack_require__.s = 507);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,14 @@ window["wp"] = window["wp"] || {}; window["wp"]["data"] =
 
 /***/ }),
 
-/***/ 106:
+/***/ 11:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["React"]; }());
+
+/***/ }),
+
+/***/ 110:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -409,14 +416,7 @@ module.exports = EquivalentKeyMap;
 
 /***/ }),
 
-/***/ 11:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["React"]; }());
-
-/***/ }),
-
-/***/ 141:
+/***/ 147:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -473,14 +473,14 @@ var useCallback = useCallbackOne;
 
 /***/ }),
 
-/***/ 183:
+/***/ 190:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["priorityQueue"]; }());
 
 /***/ }),
 
-/***/ 184:
+/***/ 191:
 /***/ (function(module, exports) {
 
 module.exports = isPromise;
@@ -500,7 +500,7 @@ function isPromise(obj) {
 
 /***/ }),
 
-/***/ 210:
+/***/ 217:
 /***/ (function(module, exports) {
 
 function combineReducers( reducers ) {
@@ -566,14 +566,14 @@ module.exports = combineReducers;
 
 /***/ }),
 
-/***/ 348:
+/***/ 357:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["reduxRoutine"]; }());
 
 /***/ }),
 
-/***/ 498:
+/***/ 507:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -633,7 +633,7 @@ __webpack_require__.d(plugins_namespaceObject, "controls", function() { return p
 __webpack_require__.d(plugins_namespaceObject, "persistence", function() { return plugins_persistence; });
 
 // EXTERNAL MODULE: ./node_modules/turbo-combine-reducers/index.js
-var turbo_combine_reducers = __webpack_require__(210);
+var turbo_combine_reducers = __webpack_require__(217);
 var turbo_combine_reducers_default = /*#__PURE__*/__webpack_require__.n(turbo_combine_reducers);
 
 // EXTERNAL MODULE: external "lodash"
@@ -1312,11 +1312,11 @@ if (false) {}
 
 
 // EXTERNAL MODULE: ./node_modules/equivalent-key-map/equivalent-key-map.js
-var equivalent_key_map = __webpack_require__(106);
+var equivalent_key_map = __webpack_require__(110);
 var equivalent_key_map_default = /*#__PURE__*/__webpack_require__.n(equivalent_key_map);
 
 // EXTERNAL MODULE: external ["wp","reduxRoutine"]
-var external_wp_reduxRoutine_ = __webpack_require__(348);
+var external_wp_reduxRoutine_ = __webpack_require__(357);
 var external_wp_reduxRoutine_default = /*#__PURE__*/__webpack_require__.n(external_wp_reduxRoutine_);
 
 // CONCATENATED MODULE: ./packages/data/build-module/factory.js
@@ -1532,7 +1532,7 @@ const builtinControls = {
 };
 //# sourceMappingURL=controls.js.map
 // EXTERNAL MODULE: ./node_modules/is-promise/index.js
-var is_promise = __webpack_require__(184);
+var is_promise = __webpack_require__(191);
 var is_promise_default = /*#__PURE__*/__webpack_require__.n(is_promise);
 
 // CONCATENATED MODULE: ./packages/data/build-module/promise-middleware.js
@@ -3037,13 +3037,13 @@ var external_wp_element_ = __webpack_require__(0);
 var external_wp_compose_ = __webpack_require__(9);
 
 // EXTERNAL MODULE: ./node_modules/use-memo-one/dist/use-memo-one.esm.js
-var use_memo_one_esm = __webpack_require__(141);
+var use_memo_one_esm = __webpack_require__(147);
 
 // EXTERNAL MODULE: external ["wp","priorityQueue"]
-var external_wp_priorityQueue_ = __webpack_require__(183);
+var external_wp_priorityQueue_ = __webpack_require__(190);
 
 // EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(51);
+var external_wp_isShallowEqual_ = __webpack_require__(54);
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
 
 // CONCATENATED MODULE: ./packages/data/build-module/components/registry-provider/context.js
@@ -3945,7 +3945,7 @@ const build_module_register = default_registry.register;
 
 /***/ }),
 
-/***/ 51:
+/***/ 54:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["isShallowEqual"]; }());

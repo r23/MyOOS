@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["listReusableBlocks"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 514);
+/******/ 	return __webpack_require__(__webpack_require__.s = 523);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -115,14 +115,14 @@ window["wp"] = window["wp"] || {}; window["wp"]["listReusableBlocks"] =
 
 /***/ }),
 
-/***/ 32:
+/***/ 34:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["apiFetch"]; }());
 
 /***/ }),
 
-/***/ 514:
+/***/ 523:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -139,7 +139,7 @@ var external_wp_i18n_ = __webpack_require__(1);
 var external_lodash_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: external ["wp","apiFetch"]
-var external_wp_apiFetch_ = __webpack_require__(32);
+var external_wp_apiFetch_ = __webpack_require__(34);
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_);
 
 // CONCATENATED MODULE: ./packages/list-reusable-blocks/build-module/utils/file.js

@@ -82,12 +82,12 @@ window["wp"] = window["wp"] || {}; window["wp"]["adminManifest"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 367);
+/******/ 	return __webpack_require__(__webpack_require__.s = 377);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 367:
+/***/ 377:
 /***/ (function(module, exports) {
 
 function addManifest(manifest) {
@@ -179,6 +179,22 @@ function createIcon({
       });
     };
   });
+}
+
+function getAdminBarColors() {
+  const adminBarDummy = document.createElement('div');
+  adminBarDummy.id = 'wpadminbar';
+  document.body.appendChild(adminBarDummy);
+  const {
+    color,
+    backgroundColor
+  } = window.getComputedStyle(adminBarDummy);
+  document.body.removeChild(adminBarDummy); // Fall back to black and white if no admin/color stylesheet was loaded.
+
+  return {
+    color: color || 'white',
+    backgroundColor: backgroundColor || 'black'
+  };
 } // eslint-disable-next-line @wordpress/no-global-event-listener
 
 
@@ -202,11 +218,10 @@ window.addEventListener('load', () => {
     scope: adminUrl,
     icons: []
   };
-  const adminBar = document.getElementById('wpadminbar');
   const {
     color,
     backgroundColor
-  } = window.getComputedStyle(adminBar);
+  } = getAdminBarColors();
   const svgElement = createSvgElement(logo);
   Promise.all([// The maskable icon should have its background filled. This is used
   // for iOS. To do: check which sizes are really needed.

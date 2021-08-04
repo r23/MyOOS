@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["primitives"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 519);
+/******/ 	return __webpack_require__(__webpack_require__.s = 528);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -158,7 +158,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 519:
+/***/ 528:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

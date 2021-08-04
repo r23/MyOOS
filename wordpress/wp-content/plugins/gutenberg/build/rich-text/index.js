@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["richText"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 491);
+/******/ 	return __webpack_require__(__webpack_require__.s = 500);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["richText"] =
 
 /***/ }),
 
-/***/ 114:
+/***/ 120:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["escapeHtml"]; }());
@@ -115,7 +115,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["richText"] =
 
 /***/ }),
 
-/***/ 30:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -404,7 +404,7 @@ function isShallowEqual( a, b, fromIndex ) {
 
 /***/ }),
 
-/***/ 491:
+/***/ 500:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -508,7 +508,7 @@ function reducer_formatTypes(state = {}, action) {
 }));
 //# sourceMappingURL=reducer.js.map
 // EXTERNAL MODULE: ./node_modules/rememo/es/rememo.js
-var rememo = __webpack_require__(30);
+var rememo = __webpack_require__(32);
 
 // CONCATENATED MODULE: ./packages/rich-text/build-module/store/selectors.js
 /**
@@ -3108,7 +3108,7 @@ function applySelection({
 }
 //# sourceMappingURL=to-dom.js.map
 // EXTERNAL MODULE: external ["wp","escapeHtml"]
-var external_wp_escapeHtml_ = __webpack_require__(114);
+var external_wp_escapeHtml_ = __webpack_require__(120);
 
 // CONCATENATED MODULE: ./packages/rich-text/build-module/to-html-string.js
 /**

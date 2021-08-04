@@ -82,10 +82,17 @@ window["wp"] = window["wp"] || {}; window["wp"]["element"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 510);
+/******/ 	return __webpack_require__(__webpack_require__.s = 519);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ 103:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["ReactDOM"]; }());
+
+/***/ }),
 
 /***/ 11:
 /***/ (function(module, exports) {
@@ -94,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["element"] =
 
 /***/ }),
 
-/***/ 114:
+/***/ 120:
 /***/ (function(module, exports) {
 
 (function() { module.exports = window["wp"]["escapeHtml"]; }());
@@ -108,7 +115,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["element"] =
 
 /***/ }),
 
-/***/ 510:
+/***/ 519:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -716,7 +723,7 @@ function switchChildrenNodeName(children, nodeName) {
 }
 //# sourceMappingURL=react.js.map
 // EXTERNAL MODULE: external "ReactDOM"
-var external_ReactDOM_ = __webpack_require__(99);
+var external_ReactDOM_ = __webpack_require__(103);
 
 // CONCATENATED MODULE: ./packages/element/build-module/react-platform.js
 /**
@@ -817,7 +824,7 @@ const Platform = {
 /* harmony default export */ var platform = (Platform);
 //# sourceMappingURL=platform.js.map
 // EXTERNAL MODULE: external ["wp","escapeHtml"]
-var external_wp_escapeHtml_ = __webpack_require__(114);
+var external_wp_escapeHtml_ = __webpack_require__(120);
 
 // CONCATENATED MODULE: ./packages/element/build-module/raw-html.js
 /**
@@ -1357,13 +1364,6 @@ function renderStyle(style) {
 
 
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["ReactDOM"]; }());
 
 /***/ })
 

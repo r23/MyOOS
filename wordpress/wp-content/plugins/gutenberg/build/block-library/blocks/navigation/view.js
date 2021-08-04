@@ -1,4 +1,3 @@
-window["wp"] = window["wp"] || {}; window["wp"]["blocks/navigation"] =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -82,12 +81,12 @@ window["wp"] = window["wp"] || {}; window["wp"]["blocks/navigation"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 526);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 526:
+/******/ ([
+/* 0 */,
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -565,5 +564,4 @@ micromodal_es.init({
 //# sourceMappingURL=view.js.map
 
 /***/ })
-
-/******/ });
+/******/ ]);

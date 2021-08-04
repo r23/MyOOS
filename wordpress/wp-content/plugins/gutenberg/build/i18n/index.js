@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["i18n"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 509);
+/******/ 	return __webpack_require__(__webpack_require__.s = 518);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -94,7 +94,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["i18n"] =
 
 /***/ }),
 
-/***/ 350:
+/***/ 359:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
@@ -320,7 +320,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
 
 /***/ }),
 
-/***/ 509:
+/***/ 518:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -343,11 +343,11 @@ __webpack_require__.d(__webpack_exports__, "isRTL", function() { return /* reexp
 __webpack_require__.d(__webpack_exports__, "hasTranslation", function() { return /* reexport */ default_i18n_hasTranslation; });
 
 // EXTERNAL MODULE: ./node_modules/memize/index.js
-var memize = __webpack_require__(58);
+var memize = __webpack_require__(60);
 var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 
 // EXTERNAL MODULE: ./node_modules/sprintf-js/src/sprintf.js
-var sprintf = __webpack_require__(350);
+var sprintf = __webpack_require__(359);
 var sprintf_default = /*#__PURE__*/__webpack_require__.n(sprintf);
 
 // CONCATENATED MODULE: ./packages/i18n/build-module/sprintf.js
@@ -1494,7 +1494,7 @@ const default_i18n_hasTranslation = i18n.hasTranslation.bind(i18n);
 
 /***/ }),
 
-/***/ 58:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**

@@ -82,12 +82,12 @@ window["wp"] = window["wp"] || {}; window["wp"]["hooks"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 504);
+/******/ 	return __webpack_require__(__webpack_require__.s = 513);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 504:
+/***/ 513:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

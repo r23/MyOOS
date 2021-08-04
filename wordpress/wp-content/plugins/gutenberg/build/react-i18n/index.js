@@ -82,7 +82,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["reactI18n"] =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 476);
+/******/ 	return __webpack_require__(__webpack_require__.s = 486);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -101,7 +101,7 @@ window["wp"] = window["wp"] || {}; window["wp"]["reactI18n"] =
 
 /***/ }),
 
-/***/ 476:
+/***/ 486:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
