@@ -34,8 +34,8 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_REDEEM_COUPON_MESSAGE_HEADER', 'Sie haben erfolgreich einen Gutschein in unserem Shop erworben.' . "\n"
                                           . 'Aus Sicherheitsgrnden wurde der Gutschein nicht sofort Ihrem Konto gutgeschrieben.' . "\n"
-                                          . 'Der Gutschein wurde Ihrem Konto jetzt gutgeschrieben. Sie k�nen nun unseren Shop besuchen' . "\n"
-                                          . 'und den Gutschein an jeden beliebigen Empf�ger versenden.' . "\n\n");
+                                          . 'Der Gutschein wurde Ihrem Konto jetzt gutgeschrieben. Sie können nun unseren Shop besuchen' . "\n"
+                                          . 'und den Gutschein an jeden beliebigen Empfänger versenden.' . "\n\n");
 
 define('TEXT_REDEEM_COUPON_MESSAGE_AMOUNT', 'The Gift Voucher(s) you purchased are worth %s' . "\n\n");
 

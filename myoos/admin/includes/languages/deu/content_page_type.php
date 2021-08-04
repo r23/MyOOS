@@ -31,5 +31,5 @@ define('TEXT_INFO_HEADING_NEW_PAGE_TYPE', 'Neuer Seitentyp');
 define('TEXT_INFO_HEADING_EDIT_PAGE_TYPE', 'Seitentyp bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_PAGE_TYPE', 'Seitentyp löschen');
 
-define('ERROR_STATUS_USED_IN_ORDERS', 'Fehler: Dieser Seitentyp wird zur Zeit noch bei den Bl�ken verwendet.');
+define('ERROR_STATUS_USED_IN_ORDERS', 'Fehler: Dieser Seitentyp wird zur Zeit noch bei den Blöcken verwendet.');
 

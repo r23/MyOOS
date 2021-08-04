@@ -24,7 +24,7 @@ define('TEXT_COUNT_CUSTOMERS', 'Anzahl der Kunden, welche das Rundschreiben erha
 define('TEXT_PRODUCTS', 'Produkte');
 define('TEXT_SELECTED_PRODUCTS', 'ausgewählte Produkte');
 
-define('JS_PLEASE_SELECT_PRODUCTS', 'Bitte w�len Sie zumindest ein Produkt aus!');
+define('JS_PLEASE_SELECT_PRODUCTS', 'Bitte wählen Sie zumindest ein Produkt aus!');
 
 define('BUTTON_GLOBAL', 'GLOBAL');
 define('BUTTON_SELECT', '>>>');

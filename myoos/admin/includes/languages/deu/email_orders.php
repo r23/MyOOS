@@ -20,10 +20,10 @@
    ---------------------------------------------------------------------- */
 
 define('EMAIL_SEPARATOR', '------------------------------------------------------');
-define('EMAIL_TEXT_SUBJECT', 'Statusänderung Ihrer Bestellung');
+define('EMAIL_TEXT_SUBJECT', 'StatusÃ¤nderung Ihrer Bestellung');
 define('EMAIL_TEXT_ORDER_NUMBER', 'Bestell-Nr.:');
-define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung können Sie unter folgender Adresse einsehen:');
+define('EMAIL_TEXT_INVOICE_URL', 'Ihre Bestellung kÃ¶nnen Sie unter folgender Adresse einsehen:');
 define('EMAIL_TEXT_DATE_ORDERED', 'Bestelldatum:');
-define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geändert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen Grüssen' . "\n\n" . STORE_OWNER. "\n" . STORE_NAME . "\n");
+define('EMAIL_TEXT_STATUS_UPDATE', 'Der Status Ihrer Bestellung wurde geÃ¤ndert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bei Fragen zu Ihrer Bestellung antworten Sie bitte auf diese eMail.' . "\n\n" . 'Mit freundlichen GrÃ¼ÃŸen' . "\n\n" . STORE_OWNER. "\n" . STORE_NAME . "\n");
 define('EMAIL_TEXT_COMMENTS_UPDATE', 'Anmerkungen und Kommentare zu Ihrer Bestellung:' . "\n\n%s\n\n");
 
