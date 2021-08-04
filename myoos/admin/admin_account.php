@@ -226,7 +226,7 @@
 
       $contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD . oos_draw_hidden_field('id_info', $myAccount['admin_id']));
 
-		if (isset($_GET['error']) {	  
+		if (isset($_GET['error'])) {	  
 			$contents[] = array('text' => '&nbsp;' . TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR);
 		}
       $contents[] = array('align' => 'center', 'text' => oos_draw_password_field('password_confirmation'));
