@@ -131,4 +131,19 @@ if ($result === false) {
   echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
+// customers
+$table = $prefix_table . 'customers';
+$result = $db->Execute("ALTER TABLE " . $table . " CHANGE COLUMN `customers_password` `customers_password` VARCHAR(255) NOT NULL");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
 
+$table = $prefix_table . 'admin';
+$result = $db->Execute("ALTER TABLE " . $table . " CHANGE COLUMN `admin_password` `admin_password` VARCHAR(255) NOT NULL");
+if ($result === false) {
+  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}

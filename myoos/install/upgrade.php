@@ -75,12 +75,18 @@ function oosDoUpgrade2426 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $
 }
 
 
+function oosDoUpgrade2433 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+    global $db, $currentlang, $update;
+    include("oos2433.php");
+}
+
+
 function print_SelectOOS() {
   global $update;
 
   echo '<font class="oos-title">' . OOSUPGRADE_1 . ':</font><br /><br />' . "\n" .
        '<font class="oos-error">' . UPGRADE_INFO . '</font><br /><br />' . "\n" .
-       '<form name="oos updrade" action="https://oos-shop.de/shop/install/update.php" method="post">' . "\n" .	   
+       '<form name="oos updrade" action="update.php" method="post">' . "\n" .	   
 	   '<fieldset>' . "\n" .
  	   '   <input type="radio" id="23" name="op" value="myOOS 2.3.12">' . "\n" .
 	   '    <label for="23"> myOOS 2.3.12</label> ' . "\n" .
@@ -92,8 +98,10 @@ function print_SelectOOS() {
  	   '   <label for="2416"> myOOS 2.4.16</label> ' . "\n" .		 
 	   '    <input type="radio" id="2420" name="op" value="myOOS 2.4.20">' . "\n" .
  	   '   <label for="2420"> myOOS 2.4.20</label> ' . "\n" .
-	   '    <input type="radio" id="2420" name="op" value="myOOS 2.4.26">' . "\n" .
- 	   '   <label for="2420"> myOOS 2.4.26</label> ' . "\n" .	   
+	   '    <input type="radio" id="2426" name="op" value="myOOS 2.4.26">' . "\n" .
+ 	   '   <label for="2426"> myOOS 2.4.26</label> ' . "\n" .	  
+	   '    <input type="radio" id="2433" name="op" value="myOOS 2.4.33">' . "\n" .
+ 	   '   <label for="2426"> myOOS 2.4.33</label> ' . "\n" .	   
  	   ' </fieldset>' . "\n";
   print_FormHidden();
   echo '<table width="50%" align="center">' . "\n" .

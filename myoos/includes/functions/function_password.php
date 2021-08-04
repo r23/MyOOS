@@ -25,20 +25,14 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * This funstion validates a plain text password with an
  * encrpyted password
  *
- * @param $sPlain
+ * @param $password
  * @param $sEncrypted
  * @return boolean
  */
-function oos_validate_password($sPlain, $sEncrypted) {
+function oos_validate_password($password, $hash) {
 
-	if (oos_is_not_null($sPlain) && oos_is_not_null($sEncrypted)) {
-		if (!class_exists('PasswordHash')) {
-			require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
-		}
-
-		$oHasher = new PasswordHash( 8, true );
-
-		return $oHasher->CheckPassword($sPlain, $sEncrypted);
+	if (oos_is_not_null($password) && oos_is_not_null($hash)) {
+		return password_verify($password, $hash);;
 	}
 
     return false;
@@ -48,16 +42,12 @@ function oos_validate_password($sPlain, $sEncrypted) {
 /**
  * This function makes a new password from a plaintext password.
  *
- * @param $sPlain
+ * @param $password
  * @return string
  */
-function oos_encrypt_password($sPlain) {
+function oos_encrypt_password($password) {
 
-	if (!class_exists('PasswordHash')) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
-	}
+	$hash = password_hash($password, PASSWORD_DEFAULT);
 
-	$oHasher = new PasswordHash( 8, true );
-
-    return $oHasher->HashPassword($sPlain);
+    return $hash;
 }
