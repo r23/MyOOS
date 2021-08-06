@@ -12745,7 +12745,7 @@ function VisualEditor({
     }
 
     return undefined;
-  }, [isTemplateMode, themeSupportsLayout]);
+  }, [isTemplateMode, themeSupportsLayout, defaultLayout]);
   return Object(external_wp_element_["createElement"])(external_wp_blockEditor_["BlockTools"], {
     __unstableContentRef: ref,
     className: classnames_default()('edit-post-visual-editor', {
