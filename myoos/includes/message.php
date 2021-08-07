@@ -54,12 +54,14 @@ if ( (WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 't
     }
 }
 
+// todo remove
 if (isset($sErrorMessage) && !empty($sErrorMessage)) {
     $aInfoMessage[] = array('type' => 'danger',
                             'title' => $aLang['danger'],
                             'text' => $sErrorMessage);
 }
 
+// todo remove
 if (isset($sInfoMessage) && !empty($sInfoMessage)) { 
     $aInfoMessage[] = array('type' => 'info',
                             'text' => $sInfoMessage );
@@ -92,10 +94,19 @@ if (isset($_SESSION)) {
 }
 
 
-
+/*
 if ($oMessage->size('upload') > 0) {
     $aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('upload') );
 }
+*/
 
+$aType = [];
+$aType = ['success', 'error', 'danger', 'warning', 'info', 'upload', 'default'];
+
+foreach ($aType as $class) {
+	if ($oMessage->size($class) > 0) {
+		$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output($class) );
+	}
+}
 
 $smarty->assign('message', $aInfoMessage);

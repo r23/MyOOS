@@ -45,7 +45,16 @@ class messageStack {
 
 // class methods
     public function add($class, $message, $type = 'danger') {
-		$this->messages[] = array('class' => $class, 'type' => $type, 'text' => $message);
+		$message = trim($message);
+		
+		if (strlen($message) > 0) {
+			
+			if (!in_array($type, ['success', 'error', 'danger', 'warning', 'info'])) {
+                $type = 'default';
+            }
+					
+			$this->messages[] = array('class' => $class, 'type' => $type, 'text' => $message);
+		}
     }
 
     public function add_session($class, $message, $type = 'danger') {
@@ -59,24 +68,35 @@ class messageStack {
 		$this->messages = array();
     }
 
-    public function output($class, $type = 'danger') {
+    public function output($class) {
 		$output = array();
 		
-		foreach ($this->messages[$class][$type] as $message) {
-            $output .= '<p>'.$message.'</p>';
-		}
-		
+        foreach ($this->messages as $next_message) {
+            if ($next_message['class'] == $class) {
+                $output[] = $next_message;
+            }
+        }
 
 		return $output;
     }
 
-    public function size($class, $type = 'danger') {
-		$count = 0;
-		
-		if (isset($this->messages[$class][$type])) {
-			$count = count($this->messages[$class][$type]);
-		}
 
-		return $count;
-	}
+    public function size($class) {
+
+        if (!empty($_SESSION['messageToStack'])) {
+            foreach ($_SESSION['messageToStack'] as $next_message) {
+                $this->add($next_message['class'], $next_message['text'], $next_message['type']);
+            }
+        }
+
+        $count = 0;
+
+        foreach ($this->messages as $next_message) {
+            if ($next_message['class'] == $class) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }		
 }
