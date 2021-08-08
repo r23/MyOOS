@@ -155,7 +155,7 @@
                     </tr>
                     <tr>
                       <td class="dataTableContent"><nobr><?php echo TEXT_INFO_EMAIL; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
-                      <td class="dataTableContent"><?php if ($_GET['error']) { echo oos_draw_input_field('admin_email_address', $myAccount['admin_email_address']) . ' <nobr>' . TEXT_INFO_ERROR . '</nobr>'; } else { echo oos_draw_input_field('admin_email_address', $myAccount['admin_email_address']); } ?></td>
+                      <td class="dataTableContent"><?php if (isset($_GET['error'])) { echo oos_draw_input_field('admin_email_address', $myAccount['admin_email_address']) . ' <nobr>' . TEXT_INFO_ERROR . '</nobr>'; } else { echo oos_draw_input_field('admin_email_address', $myAccount['admin_email_address']); } ?></td>
                     </tr>
                     <tr>
                       <td class="dataTableContent"><nobr><?php echo TEXT_INFO_PASSWORD; ?>&nbsp;&nbsp;&nbsp;</nobr></td>
