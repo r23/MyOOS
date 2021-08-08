@@ -29,11 +29,11 @@ if (!empty($action)) {
       case 'setflag':
         $lID = oos_db_prepare_input($_GET['lID']);
 
-        if ($_GET['flag'] == '0') {
+        if (isset($_GET['flag']) && ($_GET['flag'] == '0')) {
           $dbconn->Execute("UPDATE " . $oostable['languages'] . "
                         SET status = '0'
                         WHERE languages_id = '" . intval($lID) . "'");
-        } elseif ($_GET['flag'] == '1') {
+        } elseif (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
           $dbconn->Execute("UPDATE " . $oostable['languages'] . "
                         SET status = '1'
                         WHERE languages_id = '" . intval($lID) . "'");

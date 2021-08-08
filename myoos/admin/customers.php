@@ -41,7 +41,7 @@ if (!empty($action)) {
         if ( ($_GET['loginflag'] == '0') || ($_GET['loginflag'] == '1') ) {
           if (isset($_GET['cID'])) {
             oos_set_customer_login($_GET['cID'], $_GET['loginflag']);
-            if ($_GET['loginflag'] == '1') {
+            if (isset($_GET['loginflag']) && ($_GET['loginflag'] == '1')) {
               $customerstable = $oostable['customers'];
               $sql = "SELECT customers_firstname, customers_lastname, customers_gender, customers_email_address
                       FROM $customerstable

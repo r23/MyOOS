@@ -258,9 +258,9 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
    $group_name_query = "SELECT admin_groups_name FROM $admin_groupstable WHERE admin_groups_id = " . intval($_GET['gPath']);
    $group_name = $dbconn->GetRow($group_name_query);
 
-   if ($_GET['gPath'] == 1) {
+    if (isset($_GET['gPath']) && ($_GET['gPath'] == 1)) {
      echo oos_draw_form('id', 'defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'], 'post', FALSE);
-   } elseif ($_GET['gPath'] != 1) {
+   } elseif (isset($_GET['gPath']) && ($_GET['gPath'] != 1)) {
      echo oos_draw_form('id', 'defineForm', $aContents['admin_members'], 'gID=' . $_GET['gPath'] . '&action=group_define', 'post',  FALSE, 'enctype="multipart/form-data"');
      echo oos_draw_hidden_field('admin_groups_id', $_GET['gPath']);
    }
@@ -347,7 +347,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
   }
 ?>
               <tr>
-                <td colspan="2" valign="top" align="right"><?php if ($_GET['gPath'] != 1) { echo  '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(BUTTON_INSERT); } else { echo oos_submit_button(BUTTON_BACK); } ?>&nbsp;</td>
+                <td colspan="2" valign="top" align="right"><?php if (isset($_GET['gPath']) && ($_GET['gPath'] != '1')) { echo  '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(BUTTON_INSERT); } else { echo oos_submit_button(BUTTON_BACK); } ?>&nbsp;</td>
               </tr>
             </table></form>
 <?php
@@ -535,11 +535,11 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_GROUPS . '</b>');
 
       $contents = array('form' => oos_draw_form('id', 'new_group', $aContents['admin_members'], 'action=group_new&gID=' . $gInfo->admin_groups_id, 'post', FALSE, 'enctype="multipart/form-data"'));
-      if ($_GET['gName'] == 'false') {
-        $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_FALSE . '<br />&nbsp;');
-      } elseif ($_GET['gName'] == 'used') {
-        $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br />&nbsp;');
-      }
+		if (isset($_GET['gName']) && ($_GET['gName'] == 'false')) {
+			$contents[] = array('text' => TEXT_INFO_GROUPS_NAME_FALSE . '<br />&nbsp;');
+		} elseif (isset($_GET['gName']) && ($_GET['gName'] == 'used')) {
+			$contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br />&nbsp;');
+		}
       $contents[] = array('text' => oos_draw_hidden_field('set_groups_id', substr($add_groups_prepare, 4)) );
       $contents[] = array('text' => TEXT_INFO_GROUPS_NAME . '<br />');
       $contents[] = array('align' => 'center', 'text' => oos_draw_input_field('admin_groups_name'));
@@ -550,11 +550,11 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_GROUP . '</b>');
 
       $contents = array('form' => oos_draw_form('id', 'edit_group', $aContents['admin_members'], 'action=group_edit&gID=' . $gID, 'post', FALSE, 'enctype="multipart/form-data"'));
-      if ($_GET['gName'] == 'false') {
-        $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_FALSE . '<br />&nbsp;');
-      } elseif ($_GET['gName'] == 'used') {
-        $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br />&nbsp;');
-      }
+		if (isset($_GET['gName']) && ($_GET['gName'] == 'false')) {
+			$contents[] = array('text' => TEXT_INFO_GROUPS_NAME_FALSE . '<br />&nbsp;');
+		} elseif (isset($_GET['gName']) && ($_GET['gName'] == 'used')) {
+			$contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br />&nbsp;');
+		}
       $contents[] = array('align' => 'center', 'text' => TEXT_INFO_EDIT_GROUP_INTRO . '<br />&nbsp;<br />' . oos_draw_input_field('admin_groups_name', $gInfo->admin_groups_name));
       $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
@@ -578,7 +578,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DEFINE . '</b>');
 
       $contents[] = array('text' => sprintf(TEXT_INFO_DEFINE_INTRO, $group_name['admin_groups_name']));
-      if ($_GET['gPath'] == 1) {
+      if (isset($_GET['gPath']) && ($_GET['gPath'] == 1)) {	              
         $contents[] = array('align' => 'center', 'text' => '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $_GET['gPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a><br />');
       }
       break;

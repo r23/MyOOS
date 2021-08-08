@@ -31,11 +31,11 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 if (!empty($action)) {
     switch ($action) {
 		case 'setflag':
-			if ($_GET['flag'] == '0') {
+			 if (isset($_GET['flag']) && ($_GET['flag'] == '0')) {
 				$dbconn->Execute("UPDATE " . $oostable['information'] . " 
                          SET status = '0'
                          WHERE information_id = '" . intval($iID) . "'");
-			} elseif ($_GET['flag'] == '1') {
+			} else if (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
 				$dbconn->Execute("UPDATE " . $oostable['information'] . " 
                          SET status = '1'
                          WHERE information_id = '" . intval($iID) . "'");

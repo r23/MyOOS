@@ -23,29 +23,29 @@ require 'includes/functions/function_block.php';
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
-    switch ($action) {
-      case 'setflag':
-        if (isset($_GET['bID'])) {
-          if ($_GET['flag'] == '1') {
-            $dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_status = '1' WHERE block_id = '" . intval($_GET['bID']) . "'");
-          } elseif ($_GET['flag'] == '0') {
-            $dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_status = '0' WHERE block_id = '" . intval($_GET['bID']) . "'");
-          }
-        }
-        oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . intval($nPage) . '&bID=' . intval($_GET['bID'])));
-        break;
+if (!empty($action)) {
+	switch ($action) {
+		case 'setflag':
+			if (isset($_GET['bID'])) {
+				if (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
+					$dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_status = '1' WHERE block_id = '" . intval($_GET['bID']) . "'");
+				} elseif (isset($_GET['flag']) && ($_GET['flag'] == '0')) {
+					$dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_status = '0' WHERE block_id = '" . intval($_GET['bID']) . "'");
+				}
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . intval($nPage) . '&bID=' . intval($_GET['bID'])));
+			break;
 
-      case 'setloginflag':
-        if (isset($_GET['bID'])) {
-          if ($_GET['login_flag'] == '1') {
-            $dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_login_flag = '1' WHERE block_id = '" . intval($_GET['bID']) . "'");
-          } elseif ($_GET['login_flag'] == '0') {
-            $dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_login_flag = '0' WHERE block_id = '" . intval($_GET['bID']) . "'");
-          }
-        }
-        oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . intval($nPage) . '&bID=' . intval($_GET['bID'])));
-        break;
+		case 'setloginflag':
+			if (isset($_GET['bID'])) {
+				if (isset($_GET['login_flag']) && ($_GET['login_flag'] == '1')) {
+					$dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_login_flag = '1' WHERE block_id = '" . intval($_GET['bID']) . "'");
+				} elseif (isset($_GET['login_flag']) && ($_GET['login_flag'] == '0')) {
+					$dbconn->Execute("UPDATE " . $oostable['block'] . " SET block_login_flag = '0' WHERE block_id = '" . intval($_GET['bID']) . "'");
+				}
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['content_block'], 'page=' . intval($nPage) . '&bID=' . intval($_GET['bID'])));
+			break;
 
       case 'insert':
       case 'save':
