@@ -47,27 +47,30 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
     }
 	
 // Check if email exists
-    $admintable = $oostable['admin'];
-    $check_admin_result = $dbconn->Execute("SELECT admin_id as check_id, admin_firstname as check_firstname, admin_lastname as check_lastname, admin_email_address as check_email_address FROM $admintable WHERE admin_email_address = '" . oos_db_input($email_address) . "'");
+	$admintable = $oostable['admin'];
+	$check_admin_result = $dbconn->Execute("SELECT admin_id as check_id, admin_firstname as check_firstname, admin_lastname as check_lastname, admin_email_address as check_email_address FROM $admintable WHERE admin_email_address = '" . oos_db_input($email_address) . "'");
     if (!$check_admin_result->RecordCount()) {
-      $login = 'fail';
+		$login = 'fail';
     } else {
-      $check_admin = $check_admin_result->fields;
-      if ($check_admin['check_firstname'] != $firstname) {
-        $login = 'fail';
-      } else {
-        $login = 'success';
-        $make_password = oos_create_random_value(7);
-        $crypted_password = oos_encrypt_password($make_password);
+		$check_admin = $check_admin_result->fields;
+		if ($check_admin['check_firstname'] != $firstname) {
+			$login = 'fail';
+		} else {
+			$login = 'success';
 
-        oos_mail($check_admin['check_firstname'] . ' ' . $check_admin['admin_lastname'], $check_admin['check_email_address'], ADMIN_PASSWORD_SUBJECT, nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
-        $admintable = $oostable['admin'];
-        $dbconn->Execute("UPDATE $admintable
-                          SET admin_password = '" . $crypted_password . "'
-                          WHERE admin_id = '" . $check_admin['check_id'] . "'");
-      }
-    }
-  }
+			$make_password = oos_create_random_value(8);
+			$crypted_password = oos_encrypt_password($make_password);
+
+			$admintable = $oostable['admin'];
+			$dbconn->Execute("UPDATE $admintable
+							SET admin_password = '" . $crypted_password . "'
+							WHERE admin_id = '" . $check_admin['check_id'] . "'");
+
+			oos_mail($check_admin['check_firstname'] . ' ' . $check_admin['admin_lastname'], $check_admin['check_email_address'], ADMIN_PASSWORD_SUBJECT, nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
+
+		}
+	}
+}
 
 $sFormid = md5(uniqid(rand(), true));
 $_SESSION['formid'] = $sFormid;
