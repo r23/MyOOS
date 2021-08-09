@@ -19,7 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('MODULE_ORDER_TOTAL_COUPON_STATUS_TITLE', 'Wert anzeigen');
+
+define('MODULE_ORDER_TOTAL_COUPON_STATUS_TITLE', 'Rabatt Gutschein');
 define('MODULE_ORDER_TOTAL_COUPON_STATUS_DESC', 'Möchten Sie den Wert des Rabatt Kupons anzeigen?');
 
 define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_TITLE', 'Sortierreihenfolge');
@@ -28,9 +29,9 @@ define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kl
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_TITLE', 'Inklusive Versandkosten');
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_DESC', 'Versandkosten an den Warenwert anrechnen');
 
-$aLang['module_order_total_coupon_title'] = 'Rabatt Kupons';
-$aLang['module_order_total_coupon_header'] = 'Gutscheine / Rabatt Kupons';
-$aLang['module_order_total_coupon_description'] = 'Rabatt Kupon';
+$aLang['module_order_total_coupon_title'] = 'Rabatt Gutschein';
+$aLang['module_order_total_coupon_header'] = 'Rabatt Gutschein';
+$aLang['module_order_total_coupon_description'] = 'Rabatt Gutschein';
 $aLang['shipping_not_included'] = ' [Versand nicht enthalten]';
 $aLang['tax_not_included'] = ' [MwSt. nicht enthalten]';
 $aLang['module_order_total_coupon_user_prompt'] = '';
