@@ -35,7 +35,7 @@ if (!empty($action)) {
 				$dbconn->Execute("UPDATE " . $oostable['information'] . " 
                          SET status = '0'
                          WHERE information_id = '" . intval($iID) . "'");
-			} else if (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
+			} elseif (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
 				$dbconn->Execute("UPDATE " . $oostable['information'] . " 
                          SET status = '1'
                          WHERE information_id = '" . intval($iID) . "'");
