@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6088fe381506095d020b5ca68ac3a894b5c8116f',
+        'reference' => '3cb50b7d8ef38aee33f73716a2f93a077beb047d',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -137,12 +137,12 @@
             'dev_requirement' => false,
         ),
         'khanamiryan/qrcode-detector-decoder' => array(
-            'pretty_version' => '1.0.5.1',
-            'version' => '1.0.5.1',
+            'pretty_version' => '1.0.5.2',
+            'version' => '1.0.5.2',
             'type' => 'library',
             'install_path' => __DIR__ . '/../khanamiryan/qrcode-detector-decoder',
             'aliases' => array(),
-            'reference' => 'b96163d4f074970dfe67d4185e75e1f4541b30ca',
+            'reference' => '04fdd58d86a387065f707dc6d3cc304c719910c1',
             'dev_requirement' => false,
         ),
         'laminas/laminas-code' => array(
@@ -223,7 +223,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6088fe381506095d020b5ca68ac3a894b5c8116f',
+            'reference' => '3cb50b7d8ef38aee33f73716a2f93a077beb047d',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
