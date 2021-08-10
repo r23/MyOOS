@@ -32,12 +32,10 @@
       $this->user_prompt = $aLang['module_order_total_gv_user_prompt'];
       $this->enabled = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
       $this->sort_order = (defined('MODULE_ORDER_TOTAL_GV_SORT_ORDER') ? MODULE_ORDER_TOTAL_GV_SORT_ORDER : null);
-      $this->include_shipping = null; // todo remove
       $this->include_tax = null; // todo remove
       $this->calculate_tax = null; // todo remove
       $this->credit_tax = null; // todo remove
       $this->tax_class = null; // todo remove
-      $this->show_redeem_box = null; // todo remove
       $this->credit_class = true;
       $this->checkbox = $this->user_prompt . '<input type="checkbox" onClick="submitFunction()" name="' . 'c' . $this->code . '">';
 
@@ -53,7 +51,6 @@
 		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
         $order_total = $oOrder->info['total'];
-		if ($this->include_shipping == 'false') $order_total = $order_total - $oOrder->info['shipping_cost'];
 		
         $od_amount = $this->calculate_credit($order_total);
         if ($this->calculate_tax != "none") {
@@ -80,7 +77,6 @@
 			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 			
 			$order_total = $_SESSION['cart']->info['total'];
-			if ($this->include_shipping == 'false') $order_total = $order_total - $oOrder->info['shipping_cost'];
 
 
         if ($this->calculate_tax != "none") {
@@ -97,7 +93,6 @@
         }
       }
     }
-
 
     function selection_test() {
       if ($this->user_has_gv_account($_SESSION['customer_id'])) {
@@ -245,6 +240,9 @@
 				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
 				$redeem_query = $dbconn->Execute("SELECT * FROM $coupon_redeem_tracktable WHERE coupon_id = '" . $gv_result['coupon_id'] . "'");
 				if ( ($redeem_query->RecordCount() != 0) && ($gv_result['coupon_type'] == 'G') ) {
+					
+					//e Discount Coupons
+					(defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
 					$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_gv'];	
 					# todo remove? 					
 					$oMessage->add_session('checkout_payment', $aLang['error_no_invalid_redeem_gv'], 'error');

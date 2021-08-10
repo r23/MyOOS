@@ -25,6 +25,11 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+$bGV_status = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
+if ( $bGV_status === false ) {
+	oos_redirect(oos_href_link($aContents['home']));
+}
+
 // cookie-notice 
 if ( $bNecessary === false ) {
 	oos_redirect(oos_href_link($aContents['home']));
@@ -32,15 +37,6 @@ if ( $bNecessary === false ) {
 
 // start the session
 if ( $session->hasStarted() === false ) $session->start();   
-
-if (!isset($_SESSION['customer_id'])) {
-	// navigation history
-	if (!isset($_SESSION['navigation'])) {
-		$_SESSION['navigation'] = new navigationHistory();
-	}   
-    $_SESSION['navigation']->set_snapshot();
-    oos_redirect(oos_href_link($aContents['login']));
-}
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
 
@@ -75,6 +71,7 @@ if ( (isset($_GET['gv_no']) && !empty($_GET['gv_no'])) ) {
 		}
 	}
 } else {
+	// todo error-message
 	oos_redirect(oos_href_link($aContents['home']));
 }
 
@@ -128,7 +125,7 @@ $smarty->assign(
           'heading_title'	=> $aLang['heading_title'],
 		  'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-          'text_gift_voucher'			=> $sTextGiftVoucher
+          'text_gift_voucher'	=> $sTextGiftVoucher
       )
 );
 

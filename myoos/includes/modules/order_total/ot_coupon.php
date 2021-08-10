@@ -145,9 +145,12 @@ class ot_coupon {
 			$coupon_query = $dbconn->Execute($sql);
 			$coupon_result = $coupon_query->fields;
 
+
 			if ($coupon_result['coupon_type'] != 'G') {
 
 				if ($coupon_query->RecordCount() == 0) {
+					
+					// todo:  is gv aktiv? no info $this->enabled = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
 					$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
 					# todo remove? 
 					oos_redirect(oos_href_link($aContents['checkout_payment']));
@@ -238,7 +241,6 @@ class ot_coupon {
 			if ( empty( $gv_redeem_code ) || !is_string( $gv_redeem_code ) ) {
 				return;
 			}		
-
 		
 			// get some info from the coupon table
 			$couponstable = $oostable['coupons'];

@@ -20,23 +20,16 @@
    ---------------------------------------------------------------------- */
 
 
-define('MODULE_ORDER_TOTAL_GV_STATUS_TITLE', 'Gutschein');
-define('MODULE_ORDER_TOTAL_GV_STATUS_DESC', 'Möchten Sie die Zwischensumme anzeigen?');
+define('MODULE_ORDER_TOTAL_GV_STATUS_TITLE', 'Wertgutschein');
+define('MODULE_ORDER_TOTAL_GV_STATUS_DESC', 'Möchten Sie den Wertgutscheine anbieten?');
 
 define('MODULE_ORDER_TOTAL_GV_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_ORDER_TOTAL_GV_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
 
-define('MODULE_ORDER_TOTAL_GV_INC_SHIPPING_TITLE', 'Inklusive Versandkosten');
-define('MODULE_ORDER_TOTAL_GV_INC_SHIPPING_DESC', 'Versandkosten an den Warenwert anrechnen');
-
-
-define('MODULE_ORDER_TOTAL_GV_CREDIT_TAX_TITLE', 'Guthaben enthält MwSt.');
-define('MODULE_ORDER_TOTAL_GV_CREDIT_TAX_DESC', 'MwSt. dem Gutscheinwert anrechnen');
 
 $aLang['module_order_total_gv_title'] = 'Gutschein';
 $aLang['module_order_total_gv_header'] = 'Gutschein';
 $aLang['module_order_total_gv_description'] = 'Gutschein';
-$aLang['shipping_not_included'] = ' [Versandkosten nicht enthalten]';
 $aLang['module_order_total_gv_user_prompt'] = 'Möchten Sie mit Ihrem Gutschein-Guthaben bezahlen? ->&nbsp;';
 $aLang['text_enter_gv_code'] = 'Gutscheincode&nbsp;&nbsp;';
 
