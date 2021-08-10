@@ -113,7 +113,7 @@ interface ClassMetadata
      *
      * @param string $fieldName
      *
-     * @return string
+     * @return string|null
      */
     public function getTypeOfField($fieldName);
 
@@ -122,8 +122,8 @@ interface ClassMetadata
      *
      * @param string $assocName
      *
-     * @return string
-     * @psalm-return class-string
+     * @return string|null
+     * @psalm-return class-string|null
      */
     public function getAssociationTargetClass($assocName);
 
