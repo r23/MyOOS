@@ -10532,7 +10532,7 @@ msgid "Home"
 msgstr "Startseite"
 
 #: wp-includes/customize/class-wp-customize-new-menu-control.php:59
-#: wp-admin/nav-menus.php:961 wp-admin/nav-menus.php:1118
+#: wp-admin/nav-menus.php:961 wp-admin/nav-menus.php:1126
 msgid "Create Menu"
 msgstr "Menü erstellen"
 
@@ -10580,7 +10580,7 @@ msgid "Navigation Label"
 msgstr "Angezeigter Name"
 
 #: wp-includes/customize/class-wp-customize-nav-menu-auto-add-control.php:46
-#: wp-admin/nav-menus.php:1045
+#: wp-admin/nav-menus.php:1053
 msgid "Automatically add new top-level pages to this menu"
 msgstr "Neue Seiten der ersten Ebene automatisch zum Menü hinzufügen"
 
@@ -10590,7 +10590,7 @@ msgid "Menu Location"
 msgstr "Menü-Position"
 
 #: wp-includes/class-wp-customize-nav-menus.php:1105
-#: wp-admin/nav-menus.php:1112
+#: wp-admin/nav-menus.php:1120
 msgid "Delete Menu"
 msgstr "Menü löschen"
 
@@ -17105,7 +17105,7 @@ msgstr "Inhalt"
 #: wp-admin/includes/media.php:1744 wp-admin/includes/media.php:2279
 #: wp-admin/includes/meta-boxes.php:155 wp-admin/includes/meta-boxes.php:208
 #: wp-admin/includes/template.php:498 wp-admin/includes/template.php:741
-#: wp-admin/includes/template.php:862 wp-admin/nav-menus.php:1093
+#: wp-admin/includes/template.php:862 wp-admin/nav-menus.php:1101
 #: wp-admin/options-general.php:129 wp-admin/user-edit.php:531
 #: wp-admin/user-edit.php:645 wp-admin/widgets-form.php:337
 #: wp-admin/widgets-form.php:340 wp-admin/widgets-form.php:553

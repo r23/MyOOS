@@ -231,15 +231,15 @@ msgstr "Du musst die Datei %1$s beschreibbar machen, bevor du deine Änderungen 
 msgid "Rewrite rules:"
 msgstr "Weiterleitungsregeln:"
 
-#: wp-admin/nav-menus.php:1022
+#: wp-admin/nav-menus.php:1028
 msgid "List of menu items selected for deletion:"
 msgstr "Eine Liste der zum Löschen ausgewählten Menüpunkte:"
 
-#: wp-admin/nav-menus.php:1020
+#: wp-admin/nav-menus.php:1026
 msgid "Remove Selected Items"
 msgstr "Ausgewählte Elemente entfernen"
 
-#: wp-admin/nav-menus.php:987 wp-admin/nav-menus.php:1018
+#: wp-admin/nav-menus.php:989 wp-admin/nav-menus.php:1024
 msgid "Bulk Select"
 msgstr "Mehrfachauswahl"
 
@@ -5620,7 +5620,7 @@ msgstr "Ausblenden"
 msgid "Expand Sidebar"
 msgstr "Seitenleiste einblenden"
 
-#: wp-admin/nav-menus.php:1052
+#: wp-admin/nav-menus.php:1060
 msgid "Display location"
 msgstr "Position im Theme"
 
@@ -6557,7 +6557,7 @@ msgid "Send User Notification"
 msgstr "Benutzer benachrichtigen"
 
 #. translators: %s: Menu name.
-#: wp-admin/nav-menus.php:1072
+#: wp-admin/nav-menus.php:1080
 msgctxt "menu location"
 msgid "(Currently set to: %s)"
 msgstr "(Aktueller Wert: %s)"
@@ -9020,7 +9020,7 @@ msgstr "Verweigert: %s"
 msgid "Capabilities"
 msgstr "Berechtigungen"
 
-#: wp-admin/nav-menus.php:1027 wp-admin/network/settings.php:490
+#: wp-admin/nav-menus.php:1035 wp-admin/network/settings.php:490
 msgid "Menu Settings"
 msgstr "Menü-Einstellungen"
 
@@ -9076,11 +9076,11 @@ msgstr "Alles klar! Diesen Teil der Installation hast du geschafft. WordPress ka
 msgid "Client version"
 msgstr "Client-Version"
 
-#: wp-admin/nav-menus.php:1043
+#: wp-admin/nav-menus.php:1051
 msgid "Auto add pages"
 msgstr "Seiten automatisch hinzufügen"
 
-#: wp-admin/nav-menus.php:1001
+#: wp-admin/nav-menus.php:1005
 msgid "Give your menu a name, then click Create Menu."
 msgstr "Gib deinem Menü einen Namen und klicke dann auf &#8222;Menü erstellen&#8220;."
 
@@ -12105,7 +12105,7 @@ msgstr "CSS-Klassen (optional)"
 msgid "Link Target"
 msgstr "Linkziel"
 
-#: wp-admin/nav-menus.php:961 wp-admin/nav-menus.php:1118
+#: wp-admin/nav-menus.php:961 wp-admin/nav-menus.php:1126
 msgid "Save Menu"
 msgstr "Menü speichern"
 

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-06-28 19:04:59+0000\n"
+"PO-Revision-Date: 2021-08-10 20:19:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -226,13 +226,13 @@ msgstr "E-Mail-Adresse des ersten Kommentars"
 #. version>/dist/wp-config-sample.php
 #: wp-admin/includes/network.php:485
 msgid "That&#8217;s all, stop editing! Happy publishing."
-msgstr "That&#8217;s all, stop editing! Happy publishing."
+msgstr "Das war&#8217;s, Schluss mit dem Bearbeiten! Viel Spaß beim Veröffentlichen."
 
 #. translators: 1: wp-config.php, 2: Location of wp-config file, 3: Translated
 #. version of "That's all, stop editing! Happy publishing."
 #: wp-admin/includes/network.php:477
 msgid "Add the following to your %1$s file in %2$s <strong>above</strong> the line reading %3$s:"
-msgstr "Füge folgendes zur deiner %1$s Datei hinzu, in %2$s <strong>oberhalb</strong> der Zeile die %3$s enthält: "
+msgstr "Füge Folgendes zu deiner Datei %1$s unter %2$s hinzu, <strong>oberhalb</strong> der Zeile, die „%3$s“ enthält:"
 
 #. translators: 1: Theme name, 2: Theme author.
 #: wp-admin/network/themes.php:149
@@ -661,7 +661,7 @@ msgstr "Einstellungen für neue Registrierungen"
 #. translators: 1: File name (.htaccess or web.config), 2: File path.
 #: wp-admin/includes/network.php:609 wp-admin/includes/network.php:662
 msgid "Add the following to your %1$s file in %2$s, <strong>replacing</strong> other WordPress rules:"
-msgstr "Füge Folgendes zu deiner Datei %1$s in %2$s hinzu und <strong>ersetze</strong> andere WordPress-Regeln dadurch:"
+msgstr "Füge Folgendes zu deiner Datei %1$s unter %2$s hinzu und <strong>ersetze</strong> dadurch andere WordPress-Regeln:"
 
 #: wp-admin/network/sites.php:114 wp-admin/network/sites.php:190
 msgid "Confirm your action"
