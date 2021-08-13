@@ -20,8 +20,8 @@
    Example usage:
 
    $oMessage = new messageStack();
-   $oMessage->add('Error: Error 1', 'error');
-   $oMessage->add('Error: Error 2', 'warning');
+   $oMessage->add('error', 'Error: Error 1');
+   $oMessage->add('warning', 'Error: Error 2');
    if ($oMessage->size > 0) echo $oMessage->output();
    ---------------------------------------------------------------------- */
 
@@ -36,7 +36,7 @@ class messageStack {
 			
 		if (isset($_SESSION) && isset($_SESSION['messageToStack']) && is_array($_SESSION['messageToStack'])) {
 			for ($i=0, $n=count($_SESSION['messageToStack']); $i<$n; $i++) {
-				$this->add($_SESSION['messageToStack'][$i]['class'], $_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
+				$this->add($_SESSION['messageToStack'][$i]['type'], $_SESSION['messageToStack'][$i]['text']);
 			}
 			unset($_SESSION['messageToStack']);
 		}		
@@ -44,16 +44,15 @@ class messageStack {
     }
 
 // class methods
-    public function add($class, $message, $type = 'danger') {
+    public function add($type = 'danger', $message, ) {
 		$message = trim($message);
 		
 		if (strlen($message) > 0) {
-			
-			if (!in_array($type, ['success', 'error', 'danger', 'warning', 'info'])) {
-                $type = 'default';
+			if (!in_array($type, ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'])) {
+                $type = 'danger';
             }
 					
-			$this->messages[] = array('class' => $class, 'type' => $type, 'text' => $message);
+			$this->messages[] = array('type' => $type, 'text' => $message);
 		}
     }
 
@@ -61,18 +60,18 @@ class messageStack {
 		if (!isset($_SESSION['messageToStack'])) {
 			$_SESSION['messageToStack'] = array();
 		}
-		$_SESSION['messageToStack'][] = array('class' => $class, 'text' => $message, 'type' => $type);
+		$_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
 	}		
 
     public function reset() {
 		$this->messages = array();
     }
 
-    public function output($class) {
+    public function output($type) {
 		$output = array();
 		
         foreach ($this->messages as $next_message) {
-            if ($next_message['class'] == $class) {
+            if ($next_message['type'] == $type) {
                 $output[] = $next_message;
             }
         }
@@ -81,18 +80,18 @@ class messageStack {
     }
 
 
-    public function size($class) {
+    public function size($type) {
 
         if (!empty($_SESSION['messageToStack'])) {
             foreach ($_SESSION['messageToStack'] as $next_message) {
-                $this->add($next_message['class'], $next_message['text'], $next_message['type']);
+                $this->add($next_message['type'], $next_message['text']);
             }
         }
 
         $count = 0;
 
         foreach ($this->messages as $next_message) {
-            if ($next_message['class'] == $class) {
+            if ($next_message['type'] == $type) {
                 $count++;
             }
         }

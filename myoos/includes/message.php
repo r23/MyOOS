@@ -101,12 +101,13 @@ if ($oMessage->size('upload') > 0) {
 */
 
 $aType = [];
-$aType = ['success', 'error', 'danger', 'warning', 'info', 'upload', 'default'];
+$aType = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'];
 
 foreach ($aType as $class) {
 	if ($oMessage->size($class) > 0) {
 		$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output($class) );
 	}
 }
+
 
 $smarty->assign('message', $aInfoMessage);
