@@ -20,27 +20,27 @@
    ---------------------------------------------------------------------- */
 
 
-define('MODULE_ORDER_TOTAL_COUPON_STATUS_TITLE', 'Rabatt Gutschein');
-define('MODULE_ORDER_TOTAL_COUPON_STATUS_DESC', 'Möchten Sie den Wert des Rabatt Kupons anzeigen?');
+define('MODULE_ORDER_TOTAL_COUPON_STATUS_TITLE', 'Rabattgutscheine');
+define('MODULE_ORDER_TOTAL_COUPON_STATUS_DESC', 'Möchten Sie Rabattgutscheinee anbieten?');
 
 define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
 
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_TITLE', 'Inklusive Versandkosten');
-define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_DESC', 'Versandkosten an den Warenwert anrechnen');
+define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_DESC', 'Versandkosten sind enthalten.');
 
-$aLang['module_order_total_coupon_title'] = 'Rabatt Gutschein';
-$aLang['module_order_total_coupon_header'] = 'Rabatt Gutschein';
-$aLang['module_order_total_coupon_description'] = 'Rabatt Gutschein';
+$aLang['module_order_total_coupon_title'] = 'Rabattgutschein';
+$aLang['module_order_total_coupon_header'] = 'Rabattgutschein';
+$aLang['module_order_total_coupon_description'] = 'Rabattgutschein';
 $aLang['shipping_not_included'] = ' [Versand nicht enthalten]';
-$aLang['tax_not_included'] = ' [MwSt. nicht enthalten]';
+
 $aLang['module_order_total_coupon_user_prompt'] = '';
 $aLang['error_no_invalid_redeem_coupon'] = 'Ungültiger Gutscheincode';
 $aLang['error_invalid_startdate_coupon'] = 'Dieser Gutschein ist noch nicht verfügbar';
 $aLang['error_invalid_finisdate_coupon'] = 'Dieser Gutschein ist nicht mehr gültig';
 $aLang['error_invalid_uses_coupon'] = 'Dieser Gutschein kann nur ';
 $aLang['times'] = ' mal benutzt werden.';
-$aLang['error_invalid_uses_user_coupon'] = 'Die maximale Nutzung dieses Gutscheines wurde erreicht.'; 
+$aLang['error_invalid_uses_user_coupon'] = 'Der maximale Wert dieses Gutscheines wurde erreicht.'; 
 $aLang['redeemed_coupon'] = 'ein Gutschein über ';
 $aLang['redeemed_min_order'] = 'für Waren über ';
 $aLang['redeemed_restrictions'] = ' [Artikel / Kategorie Einschränkungen]';

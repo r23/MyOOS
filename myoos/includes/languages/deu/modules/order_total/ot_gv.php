@@ -21,7 +21,7 @@
 
 
 define('MODULE_ORDER_TOTAL_GV_STATUS_TITLE', 'Wertgutschein');
-define('MODULE_ORDER_TOTAL_GV_STATUS_DESC', 'Möchten Sie den Wertgutscheine anbieten?');
+define('MODULE_ORDER_TOTAL_GV_STATUS_DESC', 'Möchten Sie Wertgutscheine anbieten?');
 
 define('MODULE_ORDER_TOTAL_GV_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_ORDER_TOTAL_GV_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');

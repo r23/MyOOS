@@ -29,12 +29,11 @@ define('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER_DESC', 'Sort order of display.');
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_TITLE', 'Include Shipping');
 define('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING_DESC', 'Include Shipping in calculation');
 
-
 $aLang['module_order_total_coupon_title'] = 'Discount Coupons';
 $aLang['module_order_total_coupon_header'] = 'Gift Vouchers/Discount Coupons';
 $aLang['module_order_total_coupon_description'] = 'Discount Coupon';
 $aLang['shipping_not_included'] = ' [Shipping not included]';
-$aLang['tax_not_included'] = ' [Tax not included]';
+
 $aLang['module_order_total_coupon_user_prompt'] = '';
 $aLang['error_no_invalid_redeem_coupon'] = 'Invalid Coupon Code';
 $aLang['error_invalid_startdate_coupon'] = 'This coupon is not available yet';
