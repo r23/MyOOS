@@ -26,7 +26,7 @@ class Beta_Optin {
 	 *
 	 * @var string
 	 */
-	const BETA_CHANGELOG_URL = 'https://rankmath.com/changelog/#beta';
+	const BETA_CHANGELOG_URL = 'https://rankmath.com/changelog/beta/';
 
 	/**
 	 * Placeholder for opening tag inserted with JS.
