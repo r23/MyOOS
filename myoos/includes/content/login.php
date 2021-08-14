@@ -164,10 +164,6 @@ $aTemplate['page'] = $sTheme . '/page/user_login.html';
 $nPageType = OOS_PAGE_TYPE_SERVICE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-if ($oMessage->size('login') > 0) {
-	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('login') );
-}
-
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';

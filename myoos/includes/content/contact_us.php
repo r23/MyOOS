@@ -51,7 +51,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) {
 		oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $subject, $email_text, $email_text, $name, $email_address);	
 		oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
 	} else {
-		$oMessage->add('contact_us', $aLang['error_email_address']);
+		$oMessage->add('danger', $aLang['error_email_address']);
 		$bError = true;
 	}
 }
@@ -64,10 +64,6 @@ $aTemplate['page'] = $sTheme . '/page/contact_us.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
-
-if ($oMessage->size('contact_us') > 0) {
-    $aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('contact_us') );
-}
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

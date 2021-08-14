@@ -71,10 +71,6 @@ $aTemplate['page'] = $sTheme . '/page/product_reviews_info.html';
 $nPageType = OOS_PAGE_TYPE_REVIEWS;
 $sPagetitle = sprintf($aLang['heading_title'], $reviews['products_name']) . ' ' . OOS_META_TITLE;
 
-if ($oMessage->size('reviews') > 0) {
-	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('reviews') );
-}
-
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';

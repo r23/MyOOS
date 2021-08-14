@@ -60,7 +60,15 @@ class messageStack {
 		if (!isset($_SESSION['messageToStack'])) {
 			$_SESSION['messageToStack'] = array();
 		}
-		$_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
+		
+		if (strlen($message) > 0) {
+			if (!in_array($type, ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'])) {
+                $type = 'danger';
+            }
+
+			$_SESSION['messageToStack'][] = array('type' => $type, 'text' => $message);		
+		}		
+
 	}		
 
     public function reset() {

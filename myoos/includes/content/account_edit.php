@@ -78,18 +78,18 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
     if (ACCOUNT_GENDER == 'true') {
 		if ( ($gender != 'm') && ($gender != 'f') ) {
 			$bError = true;
-			$oMessage->add('account_edit', $aLang['entry_gender_error']);
+			$oMessage->add('danger', $aLang['entry_gender_error']);
 		}
     }
 
     if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
 		$bError = true;
-		$oMessage->add('account_edit', $aLang['entry_first_name_error'] );
+		$oMessage->add('danger', $aLang['entry_first_name_error'] );
     }	
 
 	if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
 		$bError = true;
-		$oMessage->add('account_edit', $aLang['entry_last_name_error'] );
+		$oMessage->add('danger', $aLang['entry_last_name_error'] );
     }
 
 	if (ACCOUNT_DOB == 'true') {
@@ -98,16 +98,16 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			!checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))) {		
 	
 			$bError = true;
-			$oMessage->add('account_edit', $aLang['entry_date_of_birth_error'] );
+			$oMessage->add('danger', $aLang['entry_date_of_birth_error'] );
 		}
 	}
 
     if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
 		$bError = true;
-		$oMessage->add('account_edit', $aLang['entry_email_address_error']);
+		$oMessage->add('danger', $aLang['entry_email_address_error']);
     } elseif (is_email($email_address) == false) {
 		$bError = true;
-		$oMessage->add('account_edit', $aLang['entry_email_address_check_error']);
+		$oMessage->add('danger', $aLang['entry_email_address_check_error']);
     } else {
 		$customerstable = $oostable['customers'];
 		$check_email_sql = "SELECT customers_email_address
@@ -117,16 +117,16 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$check_email = $dbconn->Execute($check_email_sql);
 		if ($check_email->RecordCount()) {		
 			$bError = true;
-			$oMessage->add('account_edit', $aLang['entry_email_address_error_exists']);
+			$oMessage->add('danger', $aLang['entry_email_address_error_exists']);
 		}
     }
 
 	if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
 		$bError = true;
-		$oMessage->add('account_edit', $aLang['entry_password_error']);
+		$oMessage->add('danger', $aLang['entry_password_error']);
 	} elseif ($password != $confirmation) {
 		$bError = true;
-		$oMessage->add('account_edit', $aLang['entry_password_error_not_matching']);
+		$oMessage->add('danger', $aLang['entry_password_error_not_matching']);
 	}
 
 
@@ -264,9 +264,6 @@ $aTemplate['page'] = $sTheme . '/page/account_edit.html';
 $nPageType = OOS_PAGE_TYPE_ACCOUNT;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-if ($oMessage->size('account_edit') > 0) {
-	$aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('account_edit') );
-}
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
 	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';

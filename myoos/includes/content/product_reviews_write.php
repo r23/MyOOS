@@ -53,7 +53,7 @@ if (!isset($_SESSION['customer_id'])) {
     $_SESSION['navigation']->set_snapshot();
 	$_SESSION['guest_login'] = 'off';
 	
-	$oMessage->add_session('login', $aLang['error_login_for_rating'], 'danger');	
+	$oMessage->add_session('danger', $aLang['error_login_for_rating']);	
 	
     oos_redirect(oos_href_link($aContents['login']));
 }
@@ -82,17 +82,17 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 
 		$bError = false;
 		if (strlen($review) < REVIEW_TEXT_MIN_LENGTH) {
-			$oMessage->add('product_reviews_write', $aLang['review_text']);
+			$oMessage->add('danger', $aLang['review_text']);
 			$bError = true;
 		}
 
 		if (!isset($_POST['rating'])) {
-			$oMessage->add('product_reviews_write', $aLang['review_rating']);
+			$oMessage->add('danger', $aLang['review_rating']);
 			$bError = true;
 		}
 
 		if (strlen($headline) < 10) {
-			$oMessage->add('product_reviews_write', $aLang['review_headline']);
+			$oMessage->add('danger', $aLang['review_headline']);
 			$bError = true;
 		}
  
@@ -174,7 +174,7 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 			$smarty = new myOOS_Smarty();
 			$smarty->clearCache(NULL, $sTheme.'|products|reviews');
 			
-			$oMessage->add_session('reviews', $aLang['info_review_waiting'], 'success');
+			$oMessage->add_session('success', $aLang['info_review_waiting']);
 
 			oos_redirect(oos_href_link($aContents['product_reviews'], 'products_id=' . intval($nProductsID)));
 
@@ -204,10 +204,6 @@ $aTemplate['javascript'] = $sTheme . '/js/product_reviews_write.html';
 
 $nPageType = OOS_PAGE_TYPE_REVIEWS;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
-
-if ($oMessage->size('product_reviews_write') > 0) {
-    $aInfoMessage = array_merge ($aInfoMessage, $oMessage->output('product_reviews_write') );
-}
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

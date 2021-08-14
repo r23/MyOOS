@@ -106,7 +106,7 @@ if (isset($_SESSION['cot_gv'])) {
 }
 
 if ( ($_SESSION['payment'] == '' || !is_object(${$_SESSION['payment']}) ) && $credit_covers === false) {
-	$oMessage->add_session('checkout_payment', $aLang['error_no_payment_module_selected'], 'error');
+	$oMessage->add_session('danger', $aLang['error_no_payment_module_selected']);
 }
 
 if (is_array($payment_modules->modules)) {
