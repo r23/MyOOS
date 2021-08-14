@@ -110,4 +110,5 @@ foreach ($aType as $class) {
 }
 
 
+
 $smarty->assign('message', $aInfoMessage);

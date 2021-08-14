@@ -21,7 +21,7 @@
  */
 
 error_reporting(0);
-// error_reporting(E_ALL & ~E_STRICT);
+# error_reporting(E_ALL & ~E_STRICT);
    
 //setting basic configuration parameters
 if (function_exists('ini_set')) {

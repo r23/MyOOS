@@ -57,8 +57,8 @@ if (isset($_SESSION)) {
 			
 			$content_type = $_SESSION['cart']->get_content_type();
 			$total_weight = $_SESSION['cart']->info['weight'];
-			$total_count = $_SESSION['cart']->count_contents();
 			$subtotal = $_SESSION['cart']->info['subtotal'];
+			$total_count = $_SESSION['cart']->count_contents();
 			
 			// if the order contains only virtual products
 			if (($content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0)) {
@@ -189,7 +189,6 @@ $aTemplate['page'] = $sTheme . '/page/shopping_cart.html';
 
 $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title_cart'] . ' ' . OOS_META_TITLE;
-
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {

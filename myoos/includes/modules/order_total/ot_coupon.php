@@ -51,7 +51,7 @@ class ot_coupon {
 
 		$this->deduction = $od_amount;
 		if ($this->calculate_tax != 'none') {
-			$tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
+#			$tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
 		}
 		if ($od_amount > 0) {
 			$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
@@ -70,7 +70,7 @@ class ot_coupon {
 
 		$this->deduction = $od_amount;
 		if ($this->calculate_tax != 'none') {
-			$tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
+#			$tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
 		}
 		if ($od_amount > 0) {
 			$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
@@ -186,23 +186,27 @@ class ot_coupon {
 						WHERE coupon_id = '" . $coupon_result['coupon_id']."'";
 				$coupon_count = $dbconn->Execute($sql);
 
-				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-				$sql = "SELECT coupon_id
-						FROM $coupon_redeem_tracktable
-						WHERE coupon_id = '" . $coupon_result['coupon_id']."'
-						AND   customer_id = '" . intval($_SESSION['customer_id']) . "'";
-				$coupon_count_customer = $dbconn->Execute($sql);
+
 
 				if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
 					$_SESSION['error_message'] = $aLang['error_invalid_uses_coupon'] . $coupon_result['uses_per_coupon'] . $aLang['times'];	
 					# todo remove? 
 					oos_redirect(oos_href_link($aContents['checkout_payment']));
 				}
-
+/*
+				// For this type of voucher the customer would need to be logged in. But we must allow guest orders in the store.
+				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+				$sql = "SELECT coupon_id
+						FROM $coupon_redeem_tracktable
+						WHERE coupon_id = '" . $coupon_result['coupon_id']."'
+						AND   customer_id = '" . intval($_SESSION['customer_id']) . "'";
+				$coupon_count_customer = $dbconn->Execute($sql);				
+				
 				if ($coupon_count_customer->RecordCount()>=$coupon_result['uses_per_user'] && $coupon_result['uses_per_user'] > 0) {
 					$_SESSION['error_message'] = $aLang['error_invalid_uses_user_coupon'] . $coupon_result['uses_per_user'] . $aLang['times'];
 					oos_redirect(oos_href_link($aContents['checkout_payment']));
 				}
+*/
 			
 				if ($coupon_result['coupon_type'] == 'S') {
 					$coupon_amount = $oOrder->info['shipping_cost'];
@@ -253,7 +257,7 @@ class ot_coupon {
 			$coupon_query = $dbconn->Execute($sql);
 
 			if ($coupon_query->RecordCount() == 0) {			
-				$oMessage->add('error', $aLang['error_no_invalid_redeem_coupon']);			
+				$oMessage->add('danger', $aLang['error_no_invalid_redeem_coupon']);			
 			} else {
 				$coupon_result = $coupon_query->fields;
 
@@ -266,10 +270,10 @@ class ot_coupon {
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
 					$date_query = $dbconn->Execute($sql);
 					if ($date_query->RecordCount() == 0) {
-						$_SESSION['error_message'] = $aLang['error_invalid_startdate_coupon'];
-						# todo remove? 
-						oos_redirect(oos_href_link($aContents['checkout_payment']));			
+						$oMessage->add('danger', $aLang['error_invalid_startdate_coupon']);
+					}
 				}
+			
 
 				$couponstable = $oostable['coupons'];
 				$sql = "SELECT coupon_expire_date
@@ -278,10 +282,9 @@ class ot_coupon {
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
 				$date_query = $dbconn->Execute($sql);
 				if ($date_query->RecordCount() == 0) {
-					$_SESSION['error_message'] = $aLang['error_invalid_finisdate_coupon'];
-					# todo remove? 
-					oos_redirect(oos_href_link($aContents['checkout_payment']));
+					$oMessage->add('danger', $aLang['error_invalid_finisdate_coupon']);
 				}
+
 
 				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
 				$sql = "SELECT coupon_id
@@ -289,34 +292,36 @@ class ot_coupon {
 						WHERE coupon_id = '" . $coupon_result['coupon_id']."'";
 				$coupon_count = $dbconn->Execute($sql);
 
+				if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
+					$oMessage->add('danger', sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon'])); 
+				}
+						
+/*
+				// For this type of voucher the customer would need to be logged in. But we must allow guest orders in the store. 		
 				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
 				$sql = "SELECT coupon_id
 						FROM $coupon_redeem_tracktable
 						WHERE coupon_id = '" . $coupon_result['coupon_id']."'
-						AND   customer_id = '" . intval($_SESSION['customer_id']) . "'";
+						AND customer_id = '" . intval($_SESSION['customer_id']) . "'";
 				$coupon_count_customer = $dbconn->Execute($sql);
 
-				if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
-					$_SESSION['error_message'] = $aLang['error_invalid_uses_coupon'] . $coupon_result['uses_per_coupon'] . $aLang['times'];	
-					# todo remove? 
-					oos_redirect(oos_href_link($aContents['checkout_payment']));
-				}
-
 				if ($coupon_count_customer->RecordCount()>=$coupon_result['uses_per_user'] && $coupon_result['uses_per_user'] > 0) {
-					$_SESSION['error_message'] = $aLang['error_invalid_uses_user_coupon'] . $coupon_result['uses_per_user'] . $aLang['times'];
-					oos_redirect(oos_href_link($aContents['checkout_payment']));
+					$oMessage->add('danger', sprintf($aLang['error_invalid_uses_user_coupon'], $coupon_result['uses_per_coupon'])); 
 				}
+*/
+
 			
 				if ($coupon_result['coupon_type'] == 'S') {
 					$coupon_amount = $oOrder->info['shipping_cost'];
 				} else {
 					$coupon_amount = $oCurrencies->format($coupon_result['coupon_amount']) . ' ';
 				}
-				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% ';
+				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% '; {
 					# todo translate on orders greater than?
 					if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
 					$_SESSION['cc_id'] = $coupon_result['coupon_id'];
 				}
+
 
 			}				
 	  

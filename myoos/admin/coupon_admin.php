@@ -18,6 +18,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+
+
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -221,7 +223,7 @@ if (!empty($action)) {
 										'coupon_amount' => $coupon_amount,
 										'coupon_type' => oos_db_prepare_input($coupon_type),
 										'uses_per_coupon' => oos_db_prepare_input($_POST['coupon_uses_coupon']),
-										'uses_per_user' => oos_db_prepare_input($_POST['coupon_uses_user']),
+										'uses_per_user' => '',
 										'coupon_minimum_order' => oos_db_prepare_input($_POST['coupon_min_order']),
 										'restrict_to_products' => oos_db_prepare_input($_POST['coupon_products']),
 										'restrict_to_categories' => oos_db_prepare_input($_POST['coupon_categories']),
@@ -715,10 +717,17 @@ case 'voucherreport':
         <td class="text-left"><?php echo $_POST['coupon_uses_coupon']; ?></td>
       </tr>
 
+<?php
+/*
+	// For this type of voucher the customer would need to be logged in. But we must allow guest orders in the store.
+
       <tr>
         <td class="text-left"><?php echo COUPON_USES_USER; ?></td>
         <td class="text-left"><?php echo $_POST['coupon_uses_user']; ?></td>
       </tr>
+*/
+?>
+
 
        <tr>
         <td class="text-left"><?php echo COUPON_PRODUCTS; ?></td>
@@ -759,7 +768,8 @@ case 'voucherreport':
 	}
     echo oos_draw_hidden_field('coupon_code', $coupon_code);
     echo oos_draw_hidden_field('coupon_uses_coupon', $_POST['coupon_uses_coupon']);
-    echo oos_draw_hidden_field('coupon_uses_user', $_POST['coupon_uses_user']);
+	// For this type of voucher the customer would need to be logged in. But we must allow guest orders in the store.
+    echo oos_draw_hidden_field('coupon_uses_user', '');
     echo oos_draw_hidden_field('coupon_products', $_POST['coupon_products']);
     echo oos_draw_hidden_field('coupon_categories', $_POST['coupon_categories']);
     echo oos_draw_hidden_field('coupon_startdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_startdate_month'], $_POST['coupon_startdate_day'], $_POST['coupon_startdate_year'] )));
@@ -812,8 +822,10 @@ case 'voucherreport':
 			$coupon_categories = $coupon['restrict_to_categories'];
 			
 		case 'new':
+		
 // set some defaults
-    if (!isset($coupon_uses_user)) $coupon_uses_user=1;
+// For this type of voucher the customer would need to be logged in. But we must allow guest orders in the store.
+#    if (!isset($coupon_uses_user)) $coupon_uses_user=1;
 ?>
 
 			<!-- Breadcrumbs //-->
@@ -899,11 +911,17 @@ case 'voucherreport':
         <td class="text-left"><?php echo oos_draw_input_field('coupon_uses_coupon', (empty($coupon_uses_coupon) ? '' : $coupon_uses_coupon)); ?></td>
         <td align="left" class="main"><?php echo COUPON_USES_COUPON_HELP; ?></td>
       </tr>
+<?php
+/*
+	// For this type of voucher the customer would need to be logged in. But we must allow guest orders in the store.
+
       <tr>
         <td align="left" class="main"><?php echo COUPON_USES_USER; ?></td>
         <td class="text-left"><?php echo oos_draw_input_field('coupon_uses_user', (empty($coupon_uses_user) ? '' : $coupon_uses_user)); ?></td>
         <td align="left" class="main"><?php echo COUPON_USES_USER_HELP; ?></td>
       </tr>
+*/
+?>
        <tr>
         <td align="left" class="main"><?php echo COUPON_PRODUCTS; ?></td>
         <td class="text-left"><?php echo oos_draw_input_field('coupon_products', (empty($coupon_products) ? '' : $coupon_products)); ?> <?php echo '<a href="' . oos_href_link_admin($aContents['validproducts']); ?>" TARGET="_blank" ONCLICK="window.open('<?php echo oos_href_link_admin($aContents['validproducts']); ?>', 'Valid_Products', 'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600'); return false">View</a></td>
@@ -916,13 +934,23 @@ case 'voucherreport':
       </tr>
       <tr>
 <?php
-	if (isset($_POST['coupon_startdate'])) {
+	if (isset($coupon['coupon_start_date'])) {
+		$year = (int)substr($coupon['coupon_start_date'], 0, 4);
+		$month = (int)substr($coupon['coupon_start_date'], 5, 2);
+		$day = (int)substr($coupon['coupon_start_date'], 8, 2);
+		$coupon_startdate  = [$year, $month, $day ];
+	} elseif (isset($_POST['coupon_startdate'])) {
 		$coupon_startdate = preg_split("/[-]/", $_POST['coupon_startdate']);
     } else {
 		$coupon_startdate = preg_split("/[-]/", date('Y-m-d'));
 	}
 	
-	if (isset($_POST['coupon_finishdate'])) {
+	if (isset($coupon['coupon_expire_date'])) {
+		$year = (int)substr($coupon['coupon_expire_date'], 0, 4);
+		$month = (int)substr($coupon['coupon_expire_date'], 5, 2);
+		$day = (int)substr($coupon['coupon_expire_date'], 8, 2);
+		$coupon_finishdate  = [$year, $month, $day ];
+	} elseif (isset($_POST['coupon_finishdate'])) {
 		$coupon_finishdate = preg_split("/[-]/", $_POST['coupon_finishdate']);
     } else {
 		$coupon_finishdate = preg_split("/[-]/", date('Y-m-d'));
