@@ -296,7 +296,7 @@ if (isset($_POST['save']))
 	$config['auto_delete']=isset($_POST['auto_delete']) ? $_POST['auto_delete'] : 0;
 	if (isset($_POST['max_backup_files'])) $config['max_backup_files']=$_POST['max_backup_files'];
 
-	if (isset($_POST['empty_db_before_restore'])) $config['empty_db_before_restore']=$_POST['empty_db_before_restore'];
+	$config['empty_db_before_restore']=isset($_POST['empty_db_before_restore']) ? $_POST['empty_db_before_restore'] : 0;
 	$config['optimize_tables_beforedump']=isset($_POST['optimize_tables']) ? $_POST['optimize_tables'] : 0;
 	$config['use_binary_container']=isset($_POST['binary_container']) ? $_POST['binary_container'] : 0;
 	if (isset($_POST['cron_dbindex'])) $config['cron_dbindex']=$_POST['cron_dbindex'];
