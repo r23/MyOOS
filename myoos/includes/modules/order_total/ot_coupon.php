@@ -72,13 +72,24 @@ class ot_coupon {
 		if ($this->calculate_tax != 'none') {
 #			$tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
 		}
-		if ($od_amount > 0) {
-			$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
-			$this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
+		
+			$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);		
+			$decimal_places = $oCurrencies->get_decimal_places($currency_type);
+			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+		
+			if ($od_amount > 0) {
+				$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
+				$this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
 									'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
 									'info' => '',
 									'value' => $od_amount);
-		}
+									
+				$this->output[] = array('title' => $this->title . ':' . $this->coupon_code . ':',
+                                'text' => $oCurrencies->format($od_amount, true, $currency, $currency_value),
+								'info' => '',
+                                'value' => $od_amount);									
+			}
+
 	}
 
 	function selection_test() {
@@ -237,6 +248,8 @@ class ot_coupon {
 		$oostable =& oosDBGetTables();
 
 		$aContents = oos_get_content();
+		$coupon_amount = 0;
+
 
 		if (isset($_POST['gv_redeem_code'])) {	
 		
@@ -310,17 +323,31 @@ class ot_coupon {
 				}
 */
 
-			
-				if ($coupon_result['coupon_type'] == 'S') {
-					$coupon_amount = $oOrder->info['shipping_cost'];
+
+				if ($oMessage->size('danger') == 0) {
+					// no errors
+					
+					// check coupon_minimum_order
+					$subtotal = $_SESSION['cart']->info['subtotal'];
+					if ($coupon_result['coupon_minimum_order'] < $subtotal) {				
+						if ($coupon_result['coupon_type'] == 'S') {
+							$coupon_amount = $_SESSION['shipping']['cost'];
+						} else {
+							$coupon_amount = $coupon_result['coupon_amount'];
+						}			
+					}				
 				} else {
-					$coupon_amount = $oCurrencies->format($coupon_result['coupon_amount']) . ' ';
+					$missing = $subtotal - $coupon_result['coupon_minimum_order'];
+					echo $missing;
 				}
+/*				
 				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% '; {
 					# todo translate on orders greater than?
 					if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
 					$_SESSION['cc_id'] = $coupon_result['coupon_id'];
 				}
+*/
+
 
 
 			}				

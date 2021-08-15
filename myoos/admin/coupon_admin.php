@@ -217,8 +217,10 @@ if (!empty($action)) {
 
 				$coupon_type = "F";
 				if (substr($_POST['coupon_amount'], -1) == '%') $coupon_type = 'P';
-				if (isset($_POST['coupon_free_ship']) && ($_POST['coupon_free_ship'] != 0)) $coupon_type = 'S';
-			
+				if (isset($_POST['coupon_free_ship']) && ($_POST['coupon_free_ship'] != 0)) {
+					$coupon_amount = 0;
+					$coupon_type = 'S'; // free shipping
+				}
 				$sql_data_array = array('coupon_code' => oos_db_prepare_input($_POST['coupon_code']),
 										'coupon_amount' => $coupon_amount,
 										'coupon_type' => oos_db_prepare_input($coupon_type),
@@ -678,19 +680,24 @@ case 'voucherreport':
 ?>
       <tr>
         <td class="text-left"><?php echo COUPON_DESC; ?></td>
-        <td class="text-left"><?php echo $_POST['coupon_desc'][$language_id]; ?></td>
+        <td class="text-left"><?php echo oos_prepare_input($_POST['coupon_desc'][$language_id]); ?></td>
       </tr>
 <?php
 		}
+		
+		$coupon_amount = oos_prepare_input($_POST['coupon_amount']);
+		if (isset($_POST['coupon_free_ship']) && ($_POST['coupon_free_ship'] != 0)) {
+			$coupon_amount = 0;
+		}	
 ?>
       <tr>
         <td class="text-left"><?php echo COUPON_AMOUNT; ?></td>
-        <td class="text-left"><?php echo $_POST['coupon_amount']; ?></td>
+        <td class="text-left"><?php echo $coupon_amount; ?></td>
       </tr>
 
       <tr>
         <td class="text-left"><?php echo COUPON_MIN_ORDER; ?></td>
-        <td class="text-left"><?php echo $_POST['coupon_min_order']; ?></td>
+        <td class="text-left"><?php echo oos_prepare_input($_POST['coupon_min_order']); ?></td>
       </tr>
 
       <tr>
@@ -714,7 +721,7 @@ case 'voucherreport':
 
       <tr>
         <td class="text-left"><?php echo COUPON_USES_COUPON; ?></td>
-        <td class="text-left"><?php echo $_POST['coupon_uses_coupon']; ?></td>
+        <td class="text-left"><?php echo oos_prepare_input($_POST['coupon_uses_coupon']); ?></td>
       </tr>
 
 <?php
@@ -731,18 +738,18 @@ case 'voucherreport':
 
        <tr>
         <td class="text-left"><?php echo COUPON_PRODUCTS; ?></td>
-        <td class="text-left"><?php echo $_POST['coupon_products']; ?></td>
+        <td class="text-left"><?php echo oos_prepare_input($_POST['coupon_products']); ?></td>
       </tr>
 
 
       <tr>
         <td class="text-left"><?php echo COUPON_CATEGORIES; ?></td>
-        <td class="text-left"><?php echo $_POST['coupon_categories']; ?></td>
+        <td class="text-left"><?php echo oos_prepare_input($_POST['coupon_categories']); ?></td>
       </tr>
       <tr>
         <td class="text-left"><?php echo COUPON_STARTDATE; ?></td>
 <?php 
-    $start_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_startdate_month'], $_POST['coupon_startdate_day'], $_POST['coupon_startdate_year'] ));
+    $start_date = date(DATE_FORMAT, mktime(0, 0, 0, oos_prepare_input($_POST['coupon_startdate_month']), oos_prepare_input($_POST['coupon_startdate_day']), oos_prepare_input($_POST['coupon_startdate_year'])));
 ?>
         <td class="text-left"><?php echo $start_date; ?></td>
       </tr>
@@ -750,7 +757,7 @@ case 'voucherreport':
       <tr>
         <td class="text-left"><?php echo COUPON_FINISHDATE; ?></td>
 <?php
-    $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, $_POST['coupon_finishdate_month'], $_POST['coupon_finishdate_day'], $_POST['coupon_finishdate_year'] ));
+    $finish_date = date(DATE_FORMAT, mktime(0, 0, 0, oos_prepare_input($_POST['coupon_finishdate_month']), oos_prepare_input($_POST['coupon_finishdate_day']), oos_prepare_input($_POST['coupon_finishdate_year'])));
 ?>
         <td class="text-left"><?php echo $finish_date; ?></td>
       </tr>

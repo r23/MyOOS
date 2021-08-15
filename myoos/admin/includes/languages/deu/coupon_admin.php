@@ -58,7 +58,7 @@ define('NOTICE_EMAIL_SENT_TO', 'Zu Ihrer Information! Es wurde eine E-Mail an %s
 define('ERROR_NO_CUSTOMER_SELECTED', 'Fehler: Sie haben keinen Kunden ausgewählt!');
 define('COUPON_NAME', 'Gutschein Name');
 
-define('COUPON_AMOUNT', 'Gutschein Wert');
+define('COUPON_AMOUNT', 'Gutscheinwert');
 define('COUPON_CODE', 'Gutscheincode');
 define('COUPON_STARTDATE', 'Startdatum');
 define('COUPON_FINISHDATE', 'Enddatum');
@@ -88,7 +88,7 @@ define('COUPON_AMOUNT_HELP', 'Geben Sie einen Gutscheinwert an. Entweder einen b
 define('COUPON_CODE_HELP', 'Sie können hier einen Gutscheincode eingeben, oder das Feld leer lassen. Es wird dann ein automatisch erzeugter Gutscheincode verwendet.');
 define('COUPON_STARTDATE_HELP', 'Ab wann ist der Gutschein gültig? ');
 define('COUPON_FINISHDATE_HELP', 'Bis wann ist der Gutschein gültig? ');
-define('COUPON_FREE_SHIP_HELP', 'Mit diesen Gutschein kann der Kunde versandkostenfrei bestellen! Bitte beachten Sie: Diese Auswahl berschreibt den Warenwert, berücksichtigt jedoch den Mindestbestellwert!');
+define('COUPON_FREE_SHIP_HELP', 'Mit diesen Gutschein kann der Kunde versandkostenfrei bestellen! Bitte beachten Sie: Diese Auswahl überschreibt den Gutscheinwert, berücksichtigt jedoch den Mindestbestellwert!');
 define('COUPON_DESC_HELP', 'Eine Gutscheinbeschreibung für den Kunden.');
 define('COUPON_MIN_ORDER_HELP', 'Einen Mindestbestellwert eingeben. Unterhalb dieses Wertes wird der Gutschein nicht eingelöst!');
 define('COUPON_USES_COUPON_HELP', 'Wie oft kann der Gutschein benutzt werden? Soll die Anzahl unlimitiert möglich sein, lassen Sie das Feld leer.');
