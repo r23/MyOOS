@@ -44,7 +44,7 @@ class messageStack {
     }
 
 // class methods
-    public function add($type = 'danger', $message, ) {
+    public function add($type = 'danger', $message) {
 		$message = trim($message);
 		
 		if (strlen($message) > 0) {
@@ -56,7 +56,7 @@ class messageStack {
 		}
     }
 
-    public function add_session($class, $message, $type = 'danger') {
+    public function add_session($type = 'danger', $message) {
 		if (!isset($_SESSION['messageToStack'])) {
 			$_SESSION['messageToStack'] = array();
 		}
