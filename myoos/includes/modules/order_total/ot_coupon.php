@@ -723,7 +723,7 @@ function get_product_price($product_id) {
 
 		$configurationtable = $oostable['configuration'];
 		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', '8', '6', '2', now())");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER', '5', '6', '2', now())");
 		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function ,date_added) VALUES ('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING', 'true', '6', '5', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
     }
 
