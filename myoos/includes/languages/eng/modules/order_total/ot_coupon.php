@@ -40,6 +40,8 @@ $aLang['error_invalid_startdate_coupon'] = 'This coupon is not available yet';
 $aLang['error_invalid_finisdate_coupon'] = 'This coupon has expired';
 $aLang['error_invalid_uses_coupon'] = 'This coupon could only be used %s times.';
 $aLang['error_invalid_uses_user_coupon'] = 'You have used the coupon the maximum number of times allowed per customer.'; 
+$aLang['error_coupon_minimum_order'] = 'Please note the minimum order value of %s. Still%s and your voucher will be redeemed!'; 
+
 $aLang['redeemed_coupon'] = 'a coupon worth ';  
 $aLang['redeemed_min_order'] = 'on orders over ';  
 $aLang['redeemed_restrictions'] = ' [Product-Category restrictions apply]';  

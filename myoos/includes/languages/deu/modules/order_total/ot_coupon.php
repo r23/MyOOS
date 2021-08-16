@@ -39,7 +39,11 @@ $aLang['error_no_invalid_redeem_coupon'] = 'Ungültiger Gutscheincode.';
 $aLang['error_invalid_startdate_coupon'] = 'Dieser Gutschein ist noch nicht verfügbar.';
 $aLang['error_invalid_finisdate_coupon'] = 'Dieser Gutschein ist nicht mehr gültig.';
 $aLang['error_invalid_uses_coupon'] = 'Dieser Gutschein kann nur %s mal benutzt werden.';
-$aLang['error_invalid_uses_user_coupon'] = 'Der maximale Wert dieses Gutscheines wurde erreicht.'; 
+$aLang['error_invalid_uses_user_coupon'] = 'Der maximale Wert dieses Gutscheines wurde erreicht.';
+
+$aLang['error_coupon_minimum_order'] = 'Bitte beachten Sie den Mindestbestellwert von %s. Noch %s und Ihr Gutschein wird eingelöst!';
+
+
 $aLang['redeemed_coupon'] = 'ein Gutschein über ';
 $aLang['redeemed_min_order'] = 'für Waren über ';
 $aLang['redeemed_restrictions'] = ' [Artikel / Kategorie Einschränkungen]';

@@ -248,8 +248,6 @@ class ot_coupon {
 		$oostable =& oosDBGetTables();
 
 		$aContents = oos_get_content();
-		$coupon_amount = 0;
-
 
 		if (isset($_POST['gv_redeem_code'])) {	
 		
@@ -323,22 +321,18 @@ class ot_coupon {
 				}
 */
 
-
-				if ($oMessage->size('danger') == 0) {
-					// no errors
+				$total = $_SESSION['cart']->info['total'];
+				if ($coupon_result['coupon_minimum_order'] > $total) {				
+					$missing = $coupon_result['coupon_minimum_order'] - $total;
 					
-					// check coupon_minimum_order
-					$subtotal = $_SESSION['cart']->info['subtotal'];
-					if ($coupon_result['coupon_minimum_order'] < $subtotal) {				
-						if ($coupon_result['coupon_type'] == 'S') {
-							$coupon_amount = $_SESSION['shipping']['cost'];
-						} else {
-							$coupon_amount = $coupon_result['coupon_amount'];
-						}			
-					}				
-				} else {
-					$missing = $subtotal - $coupon_result['coupon_minimum_order'];
-					echo $missing;
+					$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);		
+					$decimal_places = $oCurrencies->get_decimal_places($currency_type);
+					$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+					
+					$coupon_minimum_order =	$oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
+					$coupon_missing = $oCurrencies->format($missing, true, $currency, $currency_value);
+					
+					$oMessage->add('danger', sprintf($aLang['error_coupon_minimum_order'],  $coupon_minimum_order, $coupon_missing));
 				}
 /*				
 				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% '; {
@@ -347,8 +341,6 @@ class ot_coupon {
 					$_SESSION['cc_id'] = $coupon_result['coupon_id'];
 				}
 */
-
-
 
 			}				
 	  
