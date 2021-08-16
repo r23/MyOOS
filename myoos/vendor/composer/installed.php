@@ -5,18 +5,18 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ef4480a351dd1a5c81e8865de35ff03a4fb496b1',
+        'reference' => '62c85414ba7d22acb3a758f573f04cfae692949d',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
     'versions' => array(
         'adodb/adodb-php' => array(
-            'pretty_version' => 'v5.21.0',
-            'version' => '5.21.0.0',
+            'pretty_version' => 'v5.21.1',
+            'version' => '5.21.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../adodb/adodb-php',
             'aliases' => array(),
-            'reference' => '199391f639a0b3346a80d66c00c87230fa3e6a07',
+            'reference' => '44237c688cc66045dd266c7865fc7a85ffea833d',
             'dev_requirement' => false,
         ),
         'bacon/bacon-qr-code' => array(
@@ -223,7 +223,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ef4480a351dd1a5c81e8865de35ff03a4fb496b1',
+            'reference' => '62c85414ba7d22acb3a758f573f04cfae692949d',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -299,12 +299,12 @@
             'dev_requirement' => false,
         ),
         'phpseclib/phpseclib' => array(
-            'pretty_version' => '2.0.32',
-            'version' => '2.0.32.0',
+            'pretty_version' => '2.0.33',
+            'version' => '2.0.33.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpseclib/phpseclib',
             'aliases' => array(),
-            'reference' => 'f5c4c19880d45d0be3e7d24ae8ac434844a898cd',
+            'reference' => 'fb53b7889497ec7c1362c94e61d8127ac67ea094',
             'dev_requirement' => false,
         ),
         'psr/cache' => array(

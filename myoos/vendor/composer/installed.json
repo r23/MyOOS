@@ -2,23 +2,26 @@
     "packages": [
         {
             "name": "adodb/adodb-php",
-            "version": "v5.21.0",
-            "version_normalized": "5.21.0.0",
+            "version": "v5.21.1",
+            "version_normalized": "5.21.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "199391f639a0b3346a80d66c00c87230fa3e6a07"
+                "reference": "44237c688cc66045dd266c7865fc7a85ffea833d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/199391f639a0b3346a80d66c00c87230fa3e6a07",
-                "reference": "199391f639a0b3346a80d66c00c87230fa3e6a07",
+                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/44237c688cc66045dd266c7865fc7a85ffea833d",
+                "reference": "44237c688cc66045dd266c7865fc7a85ffea833d",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.5.9 || ^7.0 || ^8.0"
             },
-            "time": "2021-02-27T11:38:53+00:00",
+            "require-dev": {
+                "phpunit/phpunit": "^8.5"
+            },
+            "time": "2021-08-15T11:08:55+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2085,17 +2088,17 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.32",
-            "version_normalized": "2.0.32.0",
+            "version": "2.0.33",
+            "version_normalized": "2.0.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "f5c4c19880d45d0be3e7d24ae8ac434844a898cd"
+                "reference": "fb53b7889497ec7c1362c94e61d8127ac67ea094"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/f5c4c19880d45d0be3e7d24ae8ac434844a898cd",
-                "reference": "f5c4c19880d45d0be3e7d24ae8ac434844a898cd",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/fb53b7889497ec7c1362c94e61d8127ac67ea094",
+                "reference": "fb53b7889497ec7c1362c94e61d8127ac67ea094",
                 "shasum": ""
             },
             "require": {
@@ -2112,7 +2115,7 @@
                 "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
                 "ext-openssl": "Install the OpenSSL extension in order to speed up a wide variety of cryptographic operations."
             },
-            "time": "2021-06-12T12:12:59+00:00",
+            "time": "2021-08-16T04:20:12+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2177,7 +2180,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.32"
+                "source": "https://github.com/phpseclib/phpseclib/tree/2.0.33"
             },
             "funding": [
                 {
