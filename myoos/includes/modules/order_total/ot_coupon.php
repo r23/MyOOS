@@ -36,8 +36,9 @@ class ot_coupon {
 		$this->include_shipping = (defined('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING') ? MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING : null);
 		$this->include_tax = null; // todo remove
  		$this->calculate_tax = null; // todo remove
-		$this->tax_class  =  null; // todo remove
+		$this->tax_class = null; // todo remove
 		$this->credit_class = true;
+		$this->coupon_code = '';
 
 		$this->output = array();
 
@@ -65,10 +66,20 @@ class ot_coupon {
 	function shopping_cart_process() {
 		global $oCurrencies;
 
-		$order_total = $this->get_order_total();
-		$od_amount = $this->calculate_credit($order_total);
+		if (isset($_SESSION['cc_id'])) {
 
-		$this->deduction = $od_amount;
+			
+				
+/*				
+				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% '; {
+				if ($oMessage->size('danger') == 0) {
+					$_SESSION['cc_id'] = $coupon_result['coupon_id'];
+				}
+*/
+			$total = $_SESSION['cart']->info['total'];
+			$od_amount = $this->calculate_credit($total);
+
+			$this->deduction = $od_amount;
 		if ($this->calculate_tax != 'none') {
 #			$tod_amount = $this->calculate_tax_deduction($order_total, $this->deduction, $this->calculate_tax);
 		}
@@ -78,7 +89,7 @@ class ot_coupon {
 			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 		
 			if ($od_amount > 0) {
-				$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
+				$_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
 				$this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ':' . $this->coupon_code .':</font>',
 									'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
 									'info' => '',
@@ -89,6 +100,7 @@ class ot_coupon {
 								'info' => '',
                                 'value' => $od_amount);									
 			}
+		}	
 
 	}
 
@@ -334,14 +346,11 @@ class ot_coupon {
 					
 					$oMessage->add('danger', sprintf($aLang['error_coupon_minimum_order'],  $coupon_minimum_order, $coupon_missing));
 				}
-/*				
-				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% '; {
-					# todo translate on orders greater than?
-					if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
+				
+				if ($oMessage->size('danger') == 0) {
 					$_SESSION['cc_id'] = $coupon_result['coupon_id'];
-				}
-*/
-
+				}				
+				
 			}				
 	  
 		}
@@ -355,73 +364,81 @@ class ot_coupon {
 		$oostable =& oosDBGetTables();
 
 		$od_amount = 0;
-    if (isset($_SESSION['cc_id'])) {
-      $cc_id = intval($_SESSION['cc_id']);
+		
+		if (isset($_SESSION['cc_id'])) {
+			$cc_id = intval($_SESSION['cc_id']);
 
-      $couponstable = $oostable['coupons'];
-      $coupon_query = $dbconn->Execute("SELECT coupon_code FROM $couponstable WHERE coupon_id = '" . intval($cc_id) . "'");
+			$couponstable = $oostable['coupons'];
+			$sql = "SELECT coupon_code coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
+						uses_per_coupon, uses_per_user, restrict_to_products,
+						restrict_to_categories 
+					FROM $couponstable
+					WHERE coupon_id = '" . intval($cc_id). "'
+						AND coupon_active = 'Y'";
+			$coupon_query = $dbconn->Execute($sql);
 
-      if ($coupon_query->RecordCount() !=0 ) {
-        $coupon_result = $coupon_query->fields;
-        $this->coupon_code = $coupon_result['coupon_code'];
+			if ($coupon_query->RecordCount() !=0 ) {
+				$coupon_result = $coupon_query->fields;
+				
+				$this->coupon_code = $coupon_result['coupon_code'];
+				
+				$total = $_SESSION['cart']->info['total'];
+				if ($coupon_result['coupon_minimum_order'] <= $total) {
 
-        $couponstable = $oostable['coupons'];
-        $coupon_get = $dbconn->Execute("SELECT coupon_amount, coupon_minimum_order, restrict_to_products, restrict_to_categories, coupon_type FROM $couponstable WHERE coupon_code = '". $coupon_result['coupon_code'] . "'");
-
-        $get_result = $coupon_get->fields;
-        $c_deduct = $get_result['coupon_amount'];
-
-        if ($get_result['coupon_type'] == 'S') $c_deduct = $oOrder->info['shipping_cost'];
-        if ($get_result['coupon_minimum_order'] <= $this->get_order_total()) {
-          if ($get_result['restrict_to_products'] || $get_result['restrict_to_categories']) {
-            for ($i=0; $i<count($oOrder->products); $i++) {
-              if ($get_result['restrict_to_products']) {
-                $pr_ids = preg_split("/[,]/", $get_result['restrict_to_products']);
-                for ($ii = 0; $ii < count($pr_ids); $ii++) {
-                  if ($pr_ids[$ii] == oos_get_product_id($oOrder->products[$i]['id'])) {
-                    if ($get_result['coupon_type'] == 'P') {
-                      $od_amount = round($amount*10)/10*$c_deduct/100;
-                      $pr_c = $oOrder->products[$i]['final_price']*$oOrder->products[$i]['qty'];
-                      $pod_amount = round($pr_c*10)/10*$c_deduct/100;
-                    } else {
-                      $od_amount = $c_deduct;
-                    }
-                  }
-                }
-              } else {
-                $cat_ids = preg_split("/[,]/", $get_result['restrict_to_categories']);
-                for ($i=0; $i<count($oOrder->products); $i++) {
-                  $my_path = oos_get_product_path(oos_get_product_id($oOrder->products[$i]['id']));
-                  $sub_cat_ids = preg_split("/[_]/", $my_path);
-                  for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
-                    for ($ii = 0; $ii < count($cat_ids); $ii++) {
-                      if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
-                        if ($get_result['coupon_type'] == 'P') {
-                          $od_amount = round($amount*10)/10*$c_deduct/100;
-                          $pr_c = $oOrder->products[$i]['final_price']*$oOrder->products[$i]['qty'];
-                          $pod_amount = round($pr_c*10)/10*$c_deduct/100;
-                        } else {
-                          $od_amount = $c_deduct;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          } else {
-            if ($get_result['coupon_type'] !='P') {
-              $od_amount = $c_deduct;
-            } else {
-              $od_amount = $amount * $get_result['coupon_amount'] / 100;
-            }
-          }
-        }
-      }
-      if ($od_amount>$amount) $od_amount = $amount;
-    }
-    return $od_amount;
-  }
+					$c_deduct = $coupon_result['coupon_amount'];				
+					if ($coupon_result['coupon_type'] == 'S') $c_deduct = $_SESSION['shipping']['cost'];			
+			
+			
+					if ($coupon_result['restrict_to_products'] || $coupon_result['restrict_to_categories']) {
+						for ($i=0; $i<count($oOrder->products); $i++) {
+							if ($coupon_result['restrict_to_products']) {
+								$pr_ids = preg_split("/[,]/", $coupon_result['restrict_to_products']);
+								for ($ii = 0; $ii < count($pr_ids); $ii++) {
+									if ($pr_ids[$ii] == oos_get_product_id($oOrder->products[$i]['id'])) {
+										if ($coupon_result['coupon_type'] == 'P') {
+											$od_amount = round($amount*10)/10*$c_deduct/100;
+											$pr_c = $oOrder->products[$i]['final_price']*$oOrder->products[$i]['qty'];
+											$pod_amount = round($pr_c*10)/10*$c_deduct/100;
+										} else {
+											$od_amount = $c_deduct;
+										}
+									}
+								}
+								
+							} else {
+								$cat_ids = preg_split("/[,]/", $coupon_result['restrict_to_categories']);
+								for ($i=0; $i<count($oOrder->products); $i++) {
+									$my_path = oos_get_product_path(oos_get_product_id($oOrder->products[$i]['id']));
+									$sub_cat_ids = preg_split("/[_]/", $my_path);
+									for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
+										for ($ii = 0; $ii < count($cat_ids); $ii++) {
+											if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
+												if ($coupon_result['coupon_type'] == 'P') {
+													$od_amount = round($amount*10)/10*$c_deduct/100;
+													$pr_c = $oOrder->products[$i]['final_price']*$oOrder->products[$i]['qty'];
+													$pod_amount = round($pr_c*10)/10*$c_deduct/100;
+												} else {
+													$od_amount = $c_deduct;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					} else {
+						if ($coupon_result['coupon_type'] !='P') {
+							$od_amount = $c_deduct;
+						} else {
+							$od_amount = $amount * $coupon_result['coupon_amount'] / 100;
+						}
+					}
+				}
+				if ($od_amount>$amount) $od_amount = $amount;
+			}
+		}
+		return $od_amount;
+	}
 
   function calculate_tax_deduction($amount, $od_amount, $method) {
     global $oOrder, $cc_id;
