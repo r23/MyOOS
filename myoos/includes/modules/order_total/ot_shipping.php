@@ -67,7 +67,6 @@
       }
 
 		$currency_type = $oOrder->info['currency'];		
-		$decimal_places = $oCurrencies->get_decimal_places($currency_type);
 		$currency_value = $oOrder->info['currency_value'];
 				
 		if ($oOrder->info['shipping_cost'] > 0) {
@@ -162,7 +161,6 @@
 
 
 		$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);		
-		$decimal_places = $oCurrencies->get_decimal_places($currency_type);
 		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 				
 		if ($_SESSION['shipping']['cost'] > 0) {
