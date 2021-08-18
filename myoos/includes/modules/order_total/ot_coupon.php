@@ -338,7 +338,6 @@ class ot_coupon {
 	}
 
 	function calculate_credit($amount) {
-		global $oOrder;
 
 		// Get database information
 		$dbconn =& oosDBGetConn();
@@ -392,15 +391,16 @@ class ot_coupon {
 			
 			
 					if ($coupon_result['restrict_to_products'] || $coupon_result['restrict_to_categories']) {
-						for ($i=0; $i<count($oOrder->products); $i++) {
+						$products = $_SESSION['cart']->get_products();
+						$n = count($products);
+						for ($i=0, $n; $i<$n; $i++) {
 							if ($coupon_result['restrict_to_products']) {
 								$pr_ids = preg_split("/[,]/", $coupon_result['restrict_to_products']);
 								for ($ii = 0; $ii < count($pr_ids); $ii++) {
-									if ($pr_ids[$ii] == oos_get_product_id($oOrder->products[$i]['id'])) {
+									if ($pr_ids[$ii] == oos_get_product_id($products[$i]['id'])) {
 										if ($coupon_result['coupon_type'] == 'P') {
-											$od_amount = round($amount*10)/10*$c_deduct/100;
-											$pr_c = $oOrder->products[$i]['final_price']*$oOrder->products[$i]['qty'];
-											$pod_amount = round($pr_c*10)/10*$c_deduct/100;
+											$pr_c = $products[$i]['final_price']*$products[$i]['quantity'];
+											$od_amount = round($pr_c*10)/10*$c_deduct/100;
 										} else {
 											$od_amount = $c_deduct;
 										}
@@ -409,16 +409,17 @@ class ot_coupon {
 								
 							} else {
 								$cat_ids = preg_split("/[,]/", $coupon_result['restrict_to_categories']);
-								for ($i=0; $i<count($oOrder->products); $i++) {
-									$my_path = oos_get_product_path(oos_get_product_id($oOrder->products[$i]['id']));
+								$products = $_SESSION['cart']->get_products();
+								$n = count($products);
+								for ($i=0, $n; $i<$n; $i++) {								
+									$my_path = oos_get_product_path(oos_get_product_id($products[$i]['id']));
 									$sub_cat_ids = preg_split("/[_]/", $my_path);
 									for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
 										for ($ii = 0; $ii < count($cat_ids); $ii++) {
 											if ($sub_cat_ids[$iii] == $cat_ids[$ii]) {
 												if ($coupon_result['coupon_type'] == 'P') {
-													$od_amount = round($amount*10)/10*$c_deduct/100;
-													$pr_c = $oOrder->products[$i]['final_price']*$oOrder->products[$i]['qty'];
-													$pod_amount = round($pr_c*10)/10*$c_deduct/100;
+													$pr_c = $products[$i]['final_price']*$products[$i]['qty'];
+													$od_amount = round($pr_c*10)/10*$c_deduct/100;
 												} else {
 													$od_amount = $c_deduct;
 												}
