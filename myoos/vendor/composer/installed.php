@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ebe6929107ffb8316dd5dd106e415e4f41a22b1a',
+        'reference' => 'd47d0e6229719eaa8b214feea76dc470d10eaa60',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -223,7 +223,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ebe6929107ffb8316dd5dd106e415e4f41a22b1a',
+            'reference' => 'd47d0e6229719eaa8b214feea76dc470d10eaa60',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
