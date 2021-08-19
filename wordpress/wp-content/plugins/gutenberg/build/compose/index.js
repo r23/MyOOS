@@ -1,202 +1,8 @@
-window["wp"] = window["wp"] || {}; window["wp"]["compose"] =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 506);
-/******/ })
-/************************************************************************/
-/******/ ({
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
-/***/ 0:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["element"]; }());
-
-/***/ }),
-
-/***/ 11:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["React"]; }());
-
-/***/ }),
-
-/***/ 118:
-/***/ (function(module, exports, __webpack_require__) {
-
-var e=__webpack_require__(11),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
-//# sourceMappingURL=index.js.map
-
-
-/***/ }),
-
-/***/ 14:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["keycodes"]; }());
-
-/***/ }),
-
-/***/ 147:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export useCallback */
-/* unused harmony export useCallbackOne */
-/* unused harmony export useMemo */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return useMemoOne; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(11);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function areInputsEqual(newInputs, lastInputs) {
-  if (newInputs.length !== lastInputs.length) {
-    return false;
-  }
-
-  for (var i = 0; i < newInputs.length; i++) {
-    if (newInputs[i] !== lastInputs[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function useMemoOne(getResult, inputs) {
-  var initial = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(function () {
-    return {
-      inputs: inputs,
-      result: getResult()
-    };
-  })[0];
-  var committed = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(initial);
-  var isInputMatch = Boolean(inputs && committed.current.inputs && areInputsEqual(inputs, committed.current.inputs));
-  var cache = isInputMatch ? committed.current : {
-    inputs: inputs,
-    result: getResult()
-  };
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    committed.current = cache;
-  }, [cache]);
-  return cache.result;
-}
-function useCallbackOne(callback, inputs) {
-  return useMemoOne(function () {
-    return callback;
-  }, inputs);
-}
-var useMemo = useMemoOne;
-var useCallback = useCallbackOne;
-
-
-
-
-/***/ }),
-
-/***/ 190:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["priorityQueue"]; }());
-
-/***/ }),
-
-/***/ 2:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["lodash"]; }());
-
-/***/ }),
-
-/***/ 24:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["dom"]; }());
-
-/***/ }),
-
-/***/ 240:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 2152:
+/***/ (function(module) {
 
 /*!
  * clipboard.js v2.0.1
@@ -214,7 +20,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	var installedModules = {};
 /******/
 /******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
+/******/ 	function __nested_webpack_require_653__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId]) {
@@ -228,7 +34,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		};
 /******/
 /******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __nested_webpack_require_653__);
 /******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
@@ -239,17 +45,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
+/******/ 	__nested_webpack_require_653__.m = modules;
 /******/
 /******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
+/******/ 	__nested_webpack_require_653__.c = installedModules;
 /******/
 /******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/ 	__nested_webpack_require_653__.i = function(value) { return value; };
 /******/
 /******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 	__nested_webpack_require_653__.d = function(exports, name, getter) {
+/******/ 		if(!__nested_webpack_require_653__.o(exports, name)) {
 /******/ 			Object.defineProperty(exports, name, {
 /******/ 				configurable: false,
 /******/ 				enumerable: true,
@@ -259,31 +65,31 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
+/******/ 	__nested_webpack_require_653__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
 /******/ 			function getDefault() { return module['default']; } :
 /******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		__nested_webpack_require_653__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
 /******/
 /******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/ 	__nested_webpack_require_653__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__nested_webpack_require_653__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __nested_webpack_require_653__(__nested_webpack_require_653__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __nested_webpack_require_3092__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(7)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __nested_webpack_require_3092__(7)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -508,10 +314,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __nested_webpack_require_11834__) {
 
-var is = __webpack_require__(6);
-var delegate = __webpack_require__(5);
+var is = __nested_webpack_require_11834__(6);
+var delegate = __nested_webpack_require_11834__(5);
 
 /**
  * Validates all params and calls the right
@@ -681,11 +487,11 @@ module.exports = E;
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __nested_webpack_require_15930__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
     if (true) {
-        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(0), __webpack_require__(2), __webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __nested_webpack_require_15930__(0), __nested_webpack_require_15930__(2), __nested_webpack_require_15930__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -927,9 +733,9 @@ module.exports = closest;
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __nested_webpack_require_24822__) {
 
-var closest = __webpack_require__(4);
+var closest = __nested_webpack_require_24822__(4);
 
 /**
  * Delegates event to a selector.
@@ -1119,14 +925,7 @@ module.exports = select;
 
 /***/ }),
 
-/***/ 26:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["deprecated"]; }());
-
-/***/ }),
-
-/***/ 356:
+/***/ 2441:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
@@ -2185,15 +1984,15 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
         !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() {
             return Mousetrap;
         }).call(exports, __webpack_require__, exports, module),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
     }
 }) (typeof window !== 'undefined' ? window : null, typeof  window !== 'undefined' ? document : null);
 
 
 /***/ }),
 
-/***/ 477:
-/***/ (function(module, exports) {
+/***/ 3956:
+/***/ (function() {
 
 /**
  * adds a bindGlobal method to Mousetrap that allows you to
@@ -2245,50 +2044,136 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
 
 /***/ }),
 
-/***/ 506:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 5464:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
+var e=__webpack_require__(3804),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ 3804:
+/***/ (function(module) {
+
+"use strict";
+module.exports = window["React"];
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+!function() {
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "createHigherOrderComponent", function() { return /* reexport */ create_higher_order_component; });
-__webpack_require__.d(__webpack_exports__, "compose", function() { return /* reexport */ compose; });
-__webpack_require__.d(__webpack_exports__, "ifCondition", function() { return /* reexport */ if_condition; });
-__webpack_require__.d(__webpack_exports__, "pure", function() { return /* reexport */ higher_order_pure; });
-__webpack_require__.d(__webpack_exports__, "withGlobalEvents", function() { return /* reexport */ withGlobalEvents; });
-__webpack_require__.d(__webpack_exports__, "withInstanceId", function() { return /* reexport */ with_instance_id; });
-__webpack_require__.d(__webpack_exports__, "withSafeTimeout", function() { return /* reexport */ with_safe_timeout; });
-__webpack_require__.d(__webpack_exports__, "withState", function() { return /* reexport */ withState; });
-__webpack_require__.d(__webpack_exports__, "useConstrainedTabbing", function() { return /* reexport */ use_constrained_tabbing; });
-__webpack_require__.d(__webpack_exports__, "useCopyOnClick", function() { return /* reexport */ useCopyOnClick; });
-__webpack_require__.d(__webpack_exports__, "useCopyToClipboard", function() { return /* reexport */ useCopyToClipboard; });
-__webpack_require__.d(__webpack_exports__, "__experimentalUseDialog", function() { return /* reexport */ use_dialog; });
-__webpack_require__.d(__webpack_exports__, "__experimentalUseDragging", function() { return /* reexport */ useDragging; });
-__webpack_require__.d(__webpack_exports__, "useFocusOnMount", function() { return /* reexport */ useFocusOnMount; });
-__webpack_require__.d(__webpack_exports__, "__experimentalUseFocusOutside", function() { return /* reexport */ useFocusOutside; });
-__webpack_require__.d(__webpack_exports__, "useFocusReturn", function() { return /* reexport */ use_focus_return; });
-__webpack_require__.d(__webpack_exports__, "useInstanceId", function() { return /* reexport */ useInstanceId; });
-__webpack_require__.d(__webpack_exports__, "useIsomorphicLayoutEffect", function() { return /* reexport */ use_isomorphic_layout_effect; });
-__webpack_require__.d(__webpack_exports__, "useKeyboardShortcut", function() { return /* reexport */ use_keyboard_shortcut; });
-__webpack_require__.d(__webpack_exports__, "useMediaQuery", function() { return /* reexport */ useMediaQuery; });
-__webpack_require__.d(__webpack_exports__, "usePrevious", function() { return /* reexport */ usePrevious; });
-__webpack_require__.d(__webpack_exports__, "useReducedMotion", function() { return /* reexport */ use_reduced_motion; });
-__webpack_require__.d(__webpack_exports__, "useViewportMatch", function() { return /* reexport */ use_viewport_match; });
-__webpack_require__.d(__webpack_exports__, "useResizeObserver", function() { return /* reexport */ use_resize_observer; });
-__webpack_require__.d(__webpack_exports__, "useAsyncList", function() { return /* reexport */ use_async_list; });
-__webpack_require__.d(__webpack_exports__, "useWarnOnChange", function() { return /* reexport */ use_warn_on_change; });
-__webpack_require__.d(__webpack_exports__, "useDebounce", function() { return /* reexport */ useDebounce; });
-__webpack_require__.d(__webpack_exports__, "useThrottle", function() { return /* reexport */ useThrottle; });
-__webpack_require__.d(__webpack_exports__, "useMergeRefs", function() { return /* reexport */ useMergeRefs; });
-__webpack_require__.d(__webpack_exports__, "useRefEffect", function() { return /* reexport */ useRefEffect; });
-__webpack_require__.d(__webpack_exports__, "__experimentalUseDropZone", function() { return /* reexport */ useDropZone; });
+__webpack_require__.d(__webpack_exports__, {
+  "__experimentalUseDialog": function() { return /* reexport */ use_dialog; },
+  "__experimentalUseDragging": function() { return /* reexport */ useDragging; },
+  "__experimentalUseDropZone": function() { return /* reexport */ useDropZone; },
+  "__experimentalUseFocusOutside": function() { return /* reexport */ useFocusOutside; },
+  "compose": function() { return /* reexport */ compose; },
+  "createHigherOrderComponent": function() { return /* reexport */ create_higher_order_component; },
+  "ifCondition": function() { return /* reexport */ if_condition; },
+  "pure": function() { return /* reexport */ higher_order_pure; },
+  "useAsyncList": function() { return /* reexport */ use_async_list; },
+  "useConstrainedTabbing": function() { return /* reexport */ use_constrained_tabbing; },
+  "useCopyOnClick": function() { return /* reexport */ useCopyOnClick; },
+  "useCopyToClipboard": function() { return /* reexport */ useCopyToClipboard; },
+  "useDebounce": function() { return /* reexport */ useDebounce; },
+  "useFocusOnMount": function() { return /* reexport */ useFocusOnMount; },
+  "useFocusReturn": function() { return /* reexport */ use_focus_return; },
+  "useInstanceId": function() { return /* reexport */ useInstanceId; },
+  "useIsomorphicLayoutEffect": function() { return /* reexport */ use_isomorphic_layout_effect; },
+  "useKeyboardShortcut": function() { return /* reexport */ use_keyboard_shortcut; },
+  "useMediaQuery": function() { return /* reexport */ useMediaQuery; },
+  "useMergeRefs": function() { return /* reexport */ useMergeRefs; },
+  "usePrevious": function() { return /* reexport */ usePrevious; },
+  "useReducedMotion": function() { return /* reexport */ use_reduced_motion; },
+  "useRefEffect": function() { return /* reexport */ useRefEffect; },
+  "useResizeObserver": function() { return /* reexport */ use_resize_observer; },
+  "useThrottle": function() { return /* reexport */ useThrottle; },
+  "useViewportMatch": function() { return /* reexport */ use_viewport_match; },
+  "useWarnOnChange": function() { return /* reexport */ use_warn_on_change; },
+  "withGlobalEvents": function() { return /* reexport */ withGlobalEvents; },
+  "withInstanceId": function() { return /* reexport */ with_instance_id; },
+  "withSafeTimeout": function() { return /* reexport */ with_safe_timeout; },
+  "withState": function() { return /* reexport */ withState; }
+});
 
-// EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(2);
-
-// CONCATENATED MODULE: ./packages/compose/build-module/utils/create-higher-order-component/index.js
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/compose/build-module/utils/create-higher-order-component/index.js
 /**
  * External dependencies
  */
@@ -2307,14 +2192,14 @@ function createHigherOrderComponent(mapComponent, modifierName) {
   return Inner => {
     const Outer = mapComponent(Inner);
     const displayName = Inner.displayName || Inner.name || 'Component';
-    Outer.displayName = `${Object(external_lodash_["upperFirst"])(Object(external_lodash_["camelCase"])(modifierName))}(${displayName})`;
+    Outer.displayName = `${(0,external_lodash_namespaceObject.upperFirst)((0,external_lodash_namespaceObject.camelCase)(modifierName))}(${displayName})`;
     return Outer;
   };
 }
 
 /* harmony default export */ var create_higher_order_component = (createHigherOrderComponent);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/compose.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/compose.js
 /**
  * External dependencies
  */
@@ -2328,12 +2213,11 @@ function createHigherOrderComponent(mapComponent, modifierName) {
  * @see https://docs-lodash.com/v4/flow-right/
  */
 
-/* harmony default export */ var compose = (external_lodash_["flowRight"]);
+/* harmony default export */ var compose = (external_lodash_namespaceObject.flowRight);
 //# sourceMappingURL=compose.js.map
-// EXTERNAL MODULE: external ["wp","element"]
-var external_wp_element_ = __webpack_require__(0);
-
-// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/if-condition/index.js
+;// CONCATENATED MODULE: external ["wp","element"]
+var external_wp_element_namespaceObject = window["wp"]["element"];
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/if-condition/index.js
 
 
 /**
@@ -2363,16 +2247,15 @@ const ifCondition = predicate => create_higher_order_component(WrappedComponent 
     return null;
   }
 
-  return Object(external_wp_element_["createElement"])(WrappedComponent, props);
+  return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, props);
 }, 'ifCondition');
 
 /* harmony default export */ var if_condition = (ifCondition);
 //# sourceMappingURL=index.js.map
-// EXTERNAL MODULE: external ["wp","isShallowEqual"]
-var external_wp_isShallowEqual_ = __webpack_require__(54);
-var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_);
-
-// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/pure/index.js
+;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
+var external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
+var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/pure/index.js
 
 
 /**
@@ -2391,7 +2274,7 @@ var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(exte
  * only rerendering when its props/state change
  */
 const pure = create_higher_order_component(Wrapped => {
-  if (Wrapped.prototype instanceof external_wp_element_["Component"]) {
+  if (Wrapped.prototype instanceof external_wp_element_namespaceObject.Component) {
     return class extends Wrapped {
       shouldComponentUpdate(nextProps, nextState) {
         return !external_wp_isShallowEqual_default()(nextProps, this.props) || !external_wp_isShallowEqual_default()(nextState, this.state);
@@ -2400,27 +2283,41 @@ const pure = create_higher_order_component(Wrapped => {
     };
   }
 
-  return class extends external_wp_element_["Component"] {
+  return class extends external_wp_element_namespaceObject.Component {
     shouldComponentUpdate(nextProps) {
       return !external_wp_isShallowEqual_default()(nextProps, this.props);
     }
 
     render() {
-      return Object(external_wp_element_["createElement"])(Wrapped, this.props);
+      return (0,external_wp_element_namespaceObject.createElement)(Wrapped, this.props);
     }
 
   };
 }, 'pure');
 /* harmony default export */ var higher_order_pure = (pure);
 //# sourceMappingURL=index.js.map
-// EXTERNAL MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-var esm_extends = __webpack_require__(7);
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
 
-// EXTERNAL MODULE: external ["wp","deprecated"]
-var external_wp_deprecated_ = __webpack_require__(26);
-var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_);
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
 
-// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/listener.js
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+;// CONCATENATED MODULE: external ["wp","deprecated"]
+var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
+var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/listener.js
 /**
  * External dependencies
  */
@@ -2431,7 +2328,7 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
  * removing the handler when no instances are listening for the event.
  */
 
-class listener_Listener {
+class Listener {
   constructor() {
     /** @type {any} */
     this.listeners = {};
@@ -2457,7 +2354,7 @@ class listener_Listener {
   eventType,
   /** @type {any} */
   instance) {
-    this.listeners[eventType] = Object(external_lodash_["without"])(this.listeners[eventType], instance);
+    this.listeners[eventType] = (0,external_lodash_namespaceObject.without)(this.listeners[eventType], instance);
 
     if (!this.listeners[eventType].length) {
       // Removing last listener for this type, so unbind event.
@@ -2469,16 +2366,16 @@ class listener_Listener {
   handleEvent(
   /** @type {any} */
   event) {
-    Object(external_lodash_["forEach"])(this.listeners[event.type], instance => {
+    (0,external_lodash_namespaceObject.forEach)(this.listeners[event.type], instance => {
       instance.handleEvent(event);
     });
   }
 
 }
 
-/* harmony default export */ var listener = (listener_Listener);
+/* harmony default export */ var listener = (Listener);
 //# sourceMappingURL=listener.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/index.js
 
 
 
@@ -2531,7 +2428,7 @@ function withGlobalEvents(eventTypesToHandlers) {
     alternative: 'useEffect'
   });
   return create_higher_order_component(WrappedComponent => {
-    class Wrapper extends external_wp_element_["Component"] {
+    class Wrapper extends external_wp_element_namespaceObject.Component {
       constructor(
       /** @type {any} */
       props) {
@@ -2541,13 +2438,13 @@ function withGlobalEvents(eventTypesToHandlers) {
       }
 
       componentDidMount() {
-        Object(external_lodash_["forEach"])(eventTypesToHandlers, (_, eventType) => {
+        (0,external_lodash_namespaceObject.forEach)(eventTypesToHandlers, (_, eventType) => {
           with_global_events_listener.add(eventType, this);
         });
       }
 
       componentWillUnmount() {
-        Object(external_lodash_["forEach"])(eventTypesToHandlers, (_, eventType) => {
+        (0,external_lodash_namespaceObject.forEach)(eventTypesToHandlers, (_, eventType) => {
           with_global_events_listener.remove(eventType, this);
         });
       }
@@ -2577,15 +2474,15 @@ function withGlobalEvents(eventTypesToHandlers) {
       }
 
       render() {
-        return Object(external_wp_element_["createElement"])(WrappedComponent, Object(esm_extends["a" /* default */])({}, this.props.ownProps, {
+        return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, _extends({}, this.props.ownProps, {
           ref: this.handleRef
         }));
       }
 
     }
 
-    return Object(external_wp_element_["forwardRef"])((props, ref) => {
-      return Object(external_wp_element_["createElement"])(Wrapper, {
+    return (0,external_wp_element_namespaceObject.forwardRef)((props, ref) => {
+      return (0,external_wp_element_namespaceObject.createElement)(Wrapper, {
         ownProps: props,
         forwardedRef: ref
       });
@@ -2593,7 +2490,7 @@ function withGlobalEvents(eventTypesToHandlers) {
   }, 'withGlobalEvents');
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-instance-id/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-instance-id/index.js
 // Disable reason: Object and object are distinctly different types in TypeScript and we mean the lowercase object in thise case
 // but eslint wants to force us to use `Object`. See https://stackoverflow.com/questions/49464634/difference-between-object-and-object-in-typescript
 
@@ -2631,7 +2528,7 @@ function createId(object) {
 
 
 function useInstanceId(object, prefix, preferredId = '') {
-  return Object(external_wp_element_["useMemo"])(() => {
+  return (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (preferredId) return preferredId;
     const id = createId(object);
     return prefix ? `${prefix}-${id}` : id;
@@ -2639,7 +2536,7 @@ function useInstanceId(object, prefix, preferredId = '') {
 }
 /* eslint-enable jsdoc/check-types */
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-instance-id/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-instance-id/index.js
 
 
 
@@ -2662,14 +2559,14 @@ function useInstanceId(object, prefix, preferredId = '') {
 const withInstanceId = create_higher_order_component(WrappedComponent => {
   return props => {
     const instanceId = useInstanceId(WrappedComponent);
-    return Object(external_wp_element_["createElement"])(WrappedComponent, Object(esm_extends["a" /* default */])({}, props, {
+    return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, _extends({}, props, {
       instanceId: instanceId
     }));
   };
 }, 'withInstanceId');
 /* harmony default export */ var with_instance_id = (withInstanceId);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-safe-timeout/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-safe-timeout/index.js
 
 
 /**
@@ -2692,7 +2589,7 @@ const withInstanceId = create_higher_order_component(WrappedComponent => {
  * that ought to be bound to a component's lifecycle.
  */
 const withSafeTimeout = create_higher_order_component(OriginalComponent => {
-  return class WrappedComponent extends external_wp_element_["Component"] {
+  return class WrappedComponent extends external_wp_element_namespaceObject.Component {
     constructor(props) {
       super(props);
       this.timeouts = [];
@@ -2715,7 +2612,7 @@ const withSafeTimeout = create_higher_order_component(OriginalComponent => {
 
     clearTimeout(id) {
       clearTimeout(id);
-      this.timeouts = Object(external_lodash_["without"])(this.timeouts, id);
+      this.timeouts = (0,external_lodash_namespaceObject.without)(this.timeouts, id);
     }
 
     render() {
@@ -2723,14 +2620,14 @@ const withSafeTimeout = create_higher_order_component(OriginalComponent => {
         setTimeout: this.setTimeout,
         clearTimeout: this.clearTimeout
       };
-      return Object(external_wp_element_["createElement"])(OriginalComponent, props);
+      return (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, props);
     }
 
   };
 }, 'withSafeTimeout');
 /* harmony default export */ var with_safe_timeout = (withSafeTimeout);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-state/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-state/index.js
 
 
 
@@ -2760,7 +2657,7 @@ function withState(initialState = {}) {
     alternative: 'wp.element.useState'
   });
   return create_higher_order_component(OriginalComponent => {
-    return class WrappedComponent extends external_wp_element_["Component"] {
+    return class WrappedComponent extends external_wp_element_namespaceObject.Component {
       constructor(
       /** @type {any} */
       props) {
@@ -2770,7 +2667,7 @@ function withState(initialState = {}) {
       }
 
       render() {
-        return Object(external_wp_element_["createElement"])(OriginalComponent, Object(esm_extends["a" /* default */])({}, this.props, this.state, {
+        return (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, _extends({}, this.props, this.state, {
           setState: this.setState
         }));
       }
@@ -2779,13 +2676,11 @@ function withState(initialState = {}) {
   }, 'withState');
 }
 //# sourceMappingURL=index.js.map
-// EXTERNAL MODULE: external ["wp","keycodes"]
-var external_wp_keycodes_ = __webpack_require__(14);
-
-// EXTERNAL MODULE: external ["wp","dom"]
-var external_wp_dom_ = __webpack_require__(24);
-
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-constrained-tabbing/index.js
+;// CONCATENATED MODULE: external ["wp","keycodes"]
+var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
+;// CONCATENATED MODULE: external ["wp","dom"]
+var external_wp_dom_namespaceObject = window["wp"]["dom"];
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-constrained-tabbing/index.js
 /**
  * WordPress dependencies
  */
@@ -2815,7 +2710,7 @@ var external_wp_dom_ = __webpack_require__(24);
  */
 
 function useConstrainedTabbing() {
-  const ref = Object(external_wp_element_["useCallback"])(
+  const ref = (0,external_wp_element_namespaceObject.useCallback)(
   /** @type {Element} */
   node => {
     if (!node) {
@@ -2829,11 +2724,11 @@ function useConstrainedTabbing() {
         return;
       }
 
-      if (event.keyCode !== external_wp_keycodes_["TAB"]) {
+      if (event.keyCode !== external_wp_keycodes_namespaceObject.TAB) {
         return;
       }
 
-      const tabbables = external_wp_dom_["focus"].tabbable.find(node);
+      const tabbables = external_wp_dom_namespaceObject.focus.tabbable.find(node);
 
       if (!tabbables.length) {
         return;
@@ -2872,10 +2767,9 @@ function useConstrainedTabbing() {
 /* harmony default export */ var use_constrained_tabbing = (useConstrainedTabbing);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/clipboard/dist/clipboard.js
-var dist_clipboard = __webpack_require__(240);
+var dist_clipboard = __webpack_require__(2152);
 var clipboard_default = /*#__PURE__*/__webpack_require__.n(dist_clipboard);
-
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-on-click/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-on-click/index.js
 /**
  * External dependencies
  */
@@ -2911,9 +2805,9 @@ function useCopyOnClick(ref, text, timeout = 4000) {
   });
   /** @type {import('react').MutableRefObject<Clipboard | undefined>} */
 
-  const clipboard = Object(external_wp_element_["useRef"])();
-  const [hasCopied, setHasCopied] = Object(external_wp_element_["useState"])(false);
-  Object(external_wp_element_["useEffect"])(() => {
+  const clipboard = (0,external_wp_element_namespaceObject.useRef)();
+  const [hasCopied, setHasCopied] = (0,external_wp_element_namespaceObject.useState)(false);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     /** @type {number | undefined} */
     let timeoutId;
 
@@ -2922,7 +2816,7 @@ function useCopyOnClick(ref, text, timeout = 4000) {
     } // Clipboard listens to click events.
 
 
-    clipboard.current = new clipboard_default.a(ref.current, {
+    clipboard.current = new (clipboard_default())(ref.current, {
       text: () => typeof text === 'function' ? text() : text
     });
     clipboard.current.on('success', ({
@@ -2956,7 +2850,7 @@ function useCopyOnClick(ref, text, timeout = 4000) {
   return hasCopied;
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-ref-effect/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-ref-effect/index.js
 /**
  * External dependencies
  */
@@ -2987,8 +2881,8 @@ function useCopyOnClick(ref, text, timeout = 4000) {
  */
 
 function useRefEffect(callback, dependencies) {
-  const cleanup = Object(external_wp_element_["useRef"])();
-  return Object(external_wp_element_["useCallback"])(node => {
+  const cleanup = (0,external_wp_element_namespaceObject.useRef)();
+  return (0,external_wp_element_namespaceObject.useCallback)(node => {
     if (node) {
       cleanup.current = callback(node);
     } else if (cleanup.current) {
@@ -2997,7 +2891,7 @@ function useRefEffect(callback, dependencies) {
   }, dependencies);
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-to-clipboard/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-to-clipboard/index.js
 /**
  * External dependencies
  */
@@ -3019,18 +2913,19 @@ function useRefEffect(callback, dependencies) {
  */
 
 function useUpdatedRef(value) {
-  const ref = Object(external_wp_element_["useRef"])(value);
+  const ref = (0,external_wp_element_namespaceObject.useRef)(value);
   ref.current = value;
   return ref;
 }
 /**
  * Copies the given text to the clipboard when the element is clicked.
  *
+ * @template {HTMLElement} TElementType
  * @param {string | (() => string)} text      The text to copy. Use a function if not
  *                                            already available and expensive to compute.
  * @param {Function}                onSuccess Called when to text is copied.
  *
- * @return {import('react').Ref<HTMLElement>} A ref to assign to the target element.
+ * @return {import('react').Ref<TElementType>} A ref to assign to the target element.
  */
 
 
@@ -3041,7 +2936,7 @@ function useCopyToClipboard(text, onSuccess) {
   const onSuccessRef = useUpdatedRef(onSuccess);
   return useRefEffect(node => {
     // Clipboard listens to click events.
-    const clipboard = new clipboard_default.a(node, {
+    const clipboard = new (clipboard_default())(node, {
       text() {
         return typeof textRef.current === 'function' ? textRef.current() : textRef.current || '';
       }
@@ -3068,7 +2963,7 @@ function useCopyToClipboard(text, onSuccess) {
   }, []);
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-on-mount/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-on-mount/index.js
 /**
  * WordPress dependencies
  */
@@ -3097,11 +2992,11 @@ function useCopyToClipboard(text, onSuccess) {
  */
 
 function useFocusOnMount(focusOnMount = 'firstElement') {
-  const focusOnMountRef = Object(external_wp_element_["useRef"])(focusOnMount);
-  Object(external_wp_element_["useEffect"])(() => {
+  const focusOnMountRef = (0,external_wp_element_namespaceObject.useRef)(focusOnMount);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     focusOnMountRef.current = focusOnMount;
   }, [focusOnMount]);
-  return Object(external_wp_element_["useCallback"])(node => {
+  return (0,external_wp_element_namespaceObject.useCallback)(node => {
     var _node$ownerDocument$a, _node$ownerDocument;
 
     if (!node || focusOnMountRef.current === false) {
@@ -3115,7 +3010,7 @@ function useFocusOnMount(focusOnMount = 'firstElement') {
     let target = node;
 
     if (focusOnMountRef.current === 'firstElement') {
-      const firstTabbable = external_wp_dom_["focus"].tabbable.find(node)[0];
+      const firstTabbable = external_wp_dom_namespaceObject.focus.tabbable.find(node)[0];
 
       if (firstTabbable) {
         target =
@@ -3128,7 +3023,7 @@ function useFocusOnMount(focusOnMount = 'firstElement') {
   }, []);
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-return/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-return/index.js
 /**
  * WordPress dependencies
  */
@@ -3160,15 +3055,15 @@ function useFocusOnMount(focusOnMount = 'firstElement') {
 
 function useFocusReturn(onFocusReturn) {
   /** @type {import('react').MutableRefObject<null | HTMLElement>} */
-  const ref = Object(external_wp_element_["useRef"])(null);
+  const ref = (0,external_wp_element_namespaceObject.useRef)(null);
   /** @type {import('react').MutableRefObject<null | Element>} */
 
-  const focusedBeforeMount = Object(external_wp_element_["useRef"])(null);
-  const onFocusReturnRef = Object(external_wp_element_["useRef"])(onFocusReturn);
-  Object(external_wp_element_["useEffect"])(() => {
+  const focusedBeforeMount = (0,external_wp_element_namespaceObject.useRef)(null);
+  const onFocusReturnRef = (0,external_wp_element_namespaceObject.useRef)(onFocusReturn);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     onFocusReturnRef.current = onFocusReturn;
   }, [onFocusReturn]);
-  return Object(external_wp_element_["useCallback"])(node => {
+  return (0,external_wp_element_namespaceObject.useCallback)(node => {
     if (node) {
       // Set ref to be used when unmounting.
       ref.current = node; // Only set when the node mounts.
@@ -3205,7 +3100,7 @@ function useFocusReturn(onFocusReturn) {
 
 /* harmony default export */ var use_focus_return = (useFocusReturn);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-outside/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-outside/index.js
 /**
  * External dependencies
  */
@@ -3252,7 +3147,7 @@ function isFocusNormalizedButton(eventTarget) {
       return true;
 
     case 'INPUT':
-      return Object(external_lodash_["includes"])(INPUT_BUTTON_TYPES,
+      return (0,external_lodash_namespaceObject.includes)(INPUT_BUTTON_TYPES,
       /** @type {HTMLInputElement} */
       eventTarget.type);
   }
@@ -3303,29 +3198,29 @@ function isFocusNormalizedButton(eventTarget) {
 
 
 function useFocusOutside(onFocusOutside) {
-  const currentOnFocusOutside = Object(external_wp_element_["useRef"])(onFocusOutside);
-  Object(external_wp_element_["useEffect"])(() => {
+  const currentOnFocusOutside = (0,external_wp_element_namespaceObject.useRef)(onFocusOutside);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     currentOnFocusOutside.current = onFocusOutside;
   }, [onFocusOutside]);
-  const preventBlurCheck = Object(external_wp_element_["useRef"])(false);
+  const preventBlurCheck = (0,external_wp_element_namespaceObject.useRef)(false);
   /**
    * @type {import('react').MutableRefObject<number | undefined>}
    */
 
-  const blurCheckTimeoutId = Object(external_wp_element_["useRef"])();
+  const blurCheckTimeoutId = (0,external_wp_element_namespaceObject.useRef)();
   /**
    * Cancel a blur check timeout.
    */
 
-  const cancelBlurCheck = Object(external_wp_element_["useCallback"])(() => {
+  const cancelBlurCheck = (0,external_wp_element_namespaceObject.useCallback)(() => {
     clearTimeout(blurCheckTimeoutId.current);
   }, []); // Cancel blur checks on unmount.
 
-  Object(external_wp_element_["useEffect"])(() => {
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     return () => cancelBlurCheck();
   }, []); // Cancel a blur check if the callback or ref is no longer provided.
 
-  Object(external_wp_element_["useEffect"])(() => {
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!onFocusOutside) {
       cancelBlurCheck();
     }
@@ -3342,12 +3237,12 @@ function useFocusOutside(onFocusOutside) {
    * @param {SyntheticEvent} event Event for mousedown or mouseup.
    */
 
-  const normalizeButtonFocus = Object(external_wp_element_["useCallback"])(event => {
+  const normalizeButtonFocus = (0,external_wp_element_namespaceObject.useCallback)(event => {
     const {
       type,
       target
     } = event;
-    const isInteractionEnd = Object(external_lodash_["includes"])(['mouseup', 'touchend'], type);
+    const isInteractionEnd = (0,external_lodash_namespaceObject.includes)(['mouseup', 'touchend'], type);
 
     if (isInteractionEnd) {
       preventBlurCheck.current = false;
@@ -3365,7 +3260,7 @@ function useFocusOutside(onFocusOutside) {
    * @param {SyntheticEvent} event Blur event.
    */
 
-  const queueBlurCheck = Object(external_wp_element_["useCallback"])(event => {
+  const queueBlurCheck = (0,external_wp_element_namespaceObject.useCallback)(event => {
     // React does not allow using an event reference asynchronously
     // due to recycling behavior, except when explicitly persisted.
     event.persist(); // Skip blur check if clicking button. See `normalizeButtonFocus`.
@@ -3399,7 +3294,7 @@ function useFocusOutside(onFocusOutside) {
   };
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-merge-refs/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-merge-refs/index.js
 /**
  * WordPress dependencies
  */
@@ -3476,23 +3371,23 @@ function assignRef(ref, value) {
 
 
 function useMergeRefs(refs) {
-  const element = Object(external_wp_element_["useRef"])();
-  const didElementChange = Object(external_wp_element_["useRef"])(false);
+  const element = (0,external_wp_element_namespaceObject.useRef)();
+  const didElementChange = (0,external_wp_element_namespaceObject.useRef)(false);
   /* eslint-disable jsdoc/no-undefined-types */
 
   /** @type {import('react').MutableRefObject<TRef[]>} */
 
   /* eslint-enable jsdoc/no-undefined-types */
 
-  const previousRefs = Object(external_wp_element_["useRef"])([]);
-  const currentRefs = Object(external_wp_element_["useRef"])(refs); // Update on render before the ref callback is called, so the ref callback
+  const previousRefs = (0,external_wp_element_namespaceObject.useRef)([]);
+  const currentRefs = (0,external_wp_element_namespaceObject.useRef)(refs); // Update on render before the ref callback is called, so the ref callback
   // always has access to the current refs.
 
   currentRefs.current = refs; // If any of the refs change, call the previous ref with `null` and the new
   // ref with the node, except when the element changes in the same cycle, in
   // which case the ref callbacks will already have been called.
 
-  Object(external_wp_element_["useLayoutEffect"])(() => {
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
     if (didElementChange.current === false) {
       refs.forEach((ref, index) => {
         const previousRef = previousRefs.current[index];
@@ -3508,12 +3403,12 @@ function useMergeRefs(refs) {
   }, refs); // No dependencies, must be reset after every render so ref callbacks are
   // correctly called after a ref change.
 
-  Object(external_wp_element_["useLayoutEffect"])(() => {
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
     didElementChange.current = false;
   }); // There should be no dependencies so that `callback` is only called when
   // the node changes.
 
-  return Object(external_wp_element_["useCallback"])(value => {
+  return (0,external_wp_element_namespaceObject.useCallback)(value => {
     // Update the element so it can be used when calling ref callbacks on a
     // dependency change.
     assignRef(element, value);
@@ -3528,7 +3423,7 @@ function useMergeRefs(refs) {
   }, []);
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-dialog/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-dialog/index.js
 /**
  * WordPress dependencies
  */
@@ -3567,8 +3462,8 @@ function useDialog(options) {
   /**
    * @type {import('react').MutableRefObject<DialogOptions | undefined>}
    */
-  const currentOptions = Object(external_wp_element_["useRef"])();
-  Object(external_wp_element_["useEffect"])(() => {
+  const currentOptions = (0,external_wp_element_namespaceObject.useRef)();
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     currentOptions.current = options;
   }, Object.values(options));
   const constrainedTabbingRef = use_constrained_tabbing();
@@ -3587,7 +3482,7 @@ function useDialog(options) {
       currentOptions.current.onClose();
     }
   });
-  const closeOnEscapeRef = Object(external_wp_element_["useCallback"])(node => {
+  const closeOnEscapeRef = (0,external_wp_element_namespaceObject.useCallback)(node => {
     if (!node) {
       return;
     }
@@ -3598,7 +3493,7 @@ function useDialog(options) {
       var _currentOptions$curre3;
 
       // Close on escape
-      if (event.keyCode === external_wp_keycodes_["ESCAPE"] && !event.defaultPrevented && (_currentOptions$curre3 = currentOptions.current) !== null && _currentOptions$curre3 !== void 0 && _currentOptions$curre3.onClose) {
+      if (event.keyCode === external_wp_keycodes_namespaceObject.ESCAPE && !event.defaultPrevented && (_currentOptions$curre3 = currentOptions.current) !== null && _currentOptions$curre3 !== void 0 && _currentOptions$curre3.onClose) {
         event.preventDefault();
         currentOptions.current.onClose();
       }
@@ -3611,7 +3506,7 @@ function useDialog(options) {
 
 /* harmony default export */ var use_dialog = (useDialog);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-isomorphic-layout-effect/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-isomorphic-layout-effect/index.js
 /**
  * WordPress dependencies
  */
@@ -3622,10 +3517,10 @@ function useDialog(options) {
  * throws a warning when using useLayoutEffect in that environment.
  */
 
-const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? external_wp_element_["useLayoutEffect"] : external_wp_element_["useEffect"];
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? external_wp_element_namespaceObject.useLayoutEffect : external_wp_element_namespaceObject.useEffect;
 /* harmony default export */ var use_isomorphic_layout_effect = (useIsomorphicLayoutEffect);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-dragging/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-dragging/index.js
 /**
  * WordPress dependencies
  */
@@ -3647,8 +3542,8 @@ function useDragging({
   onDragMove,
   onDragEnd
 }) {
-  const [isDragging, setIsDragging] = Object(external_wp_element_["useState"])(false);
-  const eventsRef = Object(external_wp_element_["useRef"])({
+  const [isDragging, setIsDragging] = (0,external_wp_element_namespaceObject.useState)(false);
+  const eventsRef = (0,external_wp_element_namespaceObject.useRef)({
     onDragStart,
     onDragMove,
     onDragEnd
@@ -3658,10 +3553,10 @@ function useDragging({
     eventsRef.current.onDragMove = onDragMove;
     eventsRef.current.onDragEnd = onDragEnd;
   }, [onDragStart, onDragMove, onDragEnd]);
-  const onMouseMove = Object(external_wp_element_["useCallback"])(
+  const onMouseMove = (0,external_wp_element_namespaceObject.useCallback)(
   /** @type {MouseEvent} */
   event => eventsRef.current.onDragMove && eventsRef.current.onDragMove(event), []);
-  const endDrag = Object(external_wp_element_["useCallback"])(
+  const endDrag = (0,external_wp_element_namespaceObject.useCallback)(
   /** @type {MouseEvent} */
   event => {
     if (eventsRef.current.onDragEnd) {
@@ -3672,7 +3567,7 @@ function useDragging({
     document.removeEventListener('mouseup', endDrag);
     setIsDragging(false);
   }, []);
-  const startDrag = Object(external_wp_element_["useCallback"])(
+  const startDrag = (0,external_wp_element_namespaceObject.useCallback)(
   /** @type {MouseEvent} */
   event => {
     if (eventsRef.current.onDragStart) {
@@ -3684,7 +3579,7 @@ function useDragging({
     setIsDragging(true);
   }, []); // Remove the global events when unmounting if needed.
 
-  Object(external_wp_element_["useEffect"])(() => {
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     return () => {
       if (isDragging) {
         document.removeEventListener('mousemove', onMouseMove);
@@ -3700,13 +3595,11 @@ function useDragging({
 }
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/mousetrap/mousetrap.js
-var mousetrap_mousetrap = __webpack_require__(356);
+var mousetrap_mousetrap = __webpack_require__(2441);
 var mousetrap_default = /*#__PURE__*/__webpack_require__.n(mousetrap_mousetrap);
-
 // EXTERNAL MODULE: ./node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js
-var mousetrap_global_bind = __webpack_require__(477);
-
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-keyboard-shortcut/index.js
+var mousetrap_global_bind = __webpack_require__(3956);
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-keyboard-shortcut/index.js
 /**
  * External dependencies
  */
@@ -3741,7 +3634,7 @@ function isAppleOS(_window = window) {
   const {
     platform
   } = _window.navigator;
-  return platform.indexOf('Mac') !== -1 || Object(external_lodash_["includes"])(['iPad', 'iPhone'], platform);
+  return platform.indexOf('Mac') !== -1 || (0,external_lodash_namespaceObject.includes)(['iPad', 'iPhone'], platform);
 }
 /* eslint-disable jsdoc/valid-types */
 
@@ -3765,16 +3658,16 @@ shortcuts, callback, {
   // This is important for performance considerations.
   target
 } = {}) {
-  const currentCallback = Object(external_wp_element_["useRef"])(callback);
-  Object(external_wp_element_["useEffect"])(() => {
+  const currentCallback = (0,external_wp_element_namespaceObject.useRef)(callback);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     currentCallback.current = callback;
   }, [callback]);
-  Object(external_wp_element_["useEffect"])(() => {
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (isDisabled) {
       return;
     }
 
-    const mousetrap = new mousetrap_default.a(target && target.current ? target.current : // We were passing `document` here previously, so to successfully cast it to Element we must cast it first to `unknown`.
+    const mousetrap = new (mousetrap_default())(target && target.current ? target.current : // We were passing `document` here previously, so to successfully cast it to Element we must cast it first to `unknown`.
     // Not sure if this is a mistake but it was the behavior previous to the addition of types so we're just doing what's
     // necessary to maintain the existing behavior
 
@@ -3782,7 +3675,7 @@ shortcuts, callback, {
 
     /** @type {unknown} */
     document);
-    Object(external_lodash_["castArray"])(shortcuts).forEach(shortcut => {
+    (0,external_lodash_namespaceObject.castArray)(shortcuts).forEach(shortcut => {
       const keys = shortcut.split('+'); // Determines whether a key is a modifier by the length of the string.
       // E.g. if I add a pass a shortcut Shift+Cmd+M, it'll determine that
       // the modifiers are Shift and Cmd because they're not a single character.
@@ -3813,7 +3706,7 @@ shortcuts, callback, {
 
 /* harmony default export */ var use_keyboard_shortcut = (useKeyboardShortcut);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-media-query/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-media-query/index.js
 /**
  * WordPress dependencies
  */
@@ -3826,8 +3719,8 @@ shortcuts, callback, {
  */
 
 function useMediaQuery(query) {
-  const [match, setMatch] = Object(external_wp_element_["useState"])(() => !!(query && typeof window !== 'undefined' && window.matchMedia(query).matches));
-  Object(external_wp_element_["useEffect"])(() => {
+  const [match, setMatch] = (0,external_wp_element_namespaceObject.useState)(() => !!(query && typeof window !== 'undefined' && window.matchMedia(query).matches));
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!query) {
       return;
     }
@@ -3844,7 +3737,7 @@ function useMediaQuery(query) {
   return !!query && match;
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-previous/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-previous/index.js
 /**
  * WordPress dependencies
  */
@@ -3866,13 +3759,13 @@ function usePrevious(value) {
   // https://github.com/WordPress/gutenberg/pull/22597#issuecomment-633588366
 
   /* eslint-disable jsdoc/no-undefined-types */
-  const ref = Object(external_wp_element_["useRef"])(
+  const ref = (0,external_wp_element_namespaceObject.useRef)(
   /** @type {T | undefined} */
   undefined);
   /* eslint-enable jsdoc/no-undefined-types */
   // Store current value in ref.
 
-  Object(external_wp_element_["useEffect"])(() => {
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     ref.current = value;
   }, [value]); // Re-run when value changes.
   // Return previous value (happens before update in useEffect above).
@@ -3880,7 +3773,7 @@ function usePrevious(value) {
   return ref.current;
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-reduced-motion/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-reduced-motion/index.js
 /**
  * Internal dependencies
  */
@@ -3901,7 +3794,7 @@ const IS_IE = typeof window !== 'undefined' && window.navigator.userAgent.indexO
 const useReducedMotion = undefined || IS_IE ? () => true : () => useMediaQuery('(prefers-reduced-motion: reduce)');
 /* harmony default export */ var use_reduced_motion = (useReducedMotion);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-viewport-match/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-viewport-match/index.js
 /**
  * WordPress dependencies
  */
@@ -3955,7 +3848,7 @@ const OPERATOR_EVALUATORS = {
   '>=': (breakpointValue, width) => width >= breakpointValue,
   '<': (breakpointValue, width) => width < breakpointValue
 };
-const ViewportMatchWidthContext = Object(external_wp_element_["createContext"])(
+const ViewportMatchWidthContext = (0,external_wp_element_namespaceObject.createContext)(
 /** @type {null | number} */
 null);
 /**
@@ -3975,7 +3868,7 @@ null);
  */
 
 const useViewportMatch = (breakpoint, operator = '>=') => {
-  const simulatedWidth = Object(external_wp_element_["useContext"])(ViewportMatchWidthContext);
+  const simulatedWidth = (0,external_wp_element_namespaceObject.useContext)(ViewportMatchWidthContext);
   const mediaQuery = !simulatedWidth && `(${CONDITIONS[operator]}: ${BREAKPOINTS[breakpoint]}px)`;
   const mediaQueryResult = useMediaQuery(mediaQuery || undefined);
 
@@ -3990,10 +3883,9 @@ useViewportMatch.__experimentalWidthProvider = ViewportMatchWidthContext.Provide
 /* harmony default export */ var use_viewport_match = (useViewportMatch);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: ./node_modules/react-resize-aware/dist/index.js
-var dist = __webpack_require__(118);
+var dist = __webpack_require__(5464);
 var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
-
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-resize-observer/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-resize-observer/index.js
 /**
  * External dependencies
  */
@@ -4024,15 +3916,15 @@ var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
  *
  */
 
-/* harmony default export */ var use_resize_observer = (dist_default.a);
+/* harmony default export */ var use_resize_observer = ((dist_default()));
 //# sourceMappingURL=index.js.map
-// EXTERNAL MODULE: external ["wp","priorityQueue"]
-var external_wp_priorityQueue_ = __webpack_require__(190);
-
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-async-list/index.js
+;// CONCATENATED MODULE: external ["wp","priorityQueue"]
+var external_wp_priorityQueue_namespaceObject = window["wp"]["priorityQueue"];
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-async-list/index.js
 /**
  * WordPress dependencies
  */
+
 
 
 /**
@@ -4042,7 +3934,6 @@ var external_wp_priorityQueue_ = __webpack_require__(190);
  * @param  state Current state.
  * @return First items present iin state.
  */
-
 function getFirstItemsPresentInState(list, state) {
   const firstItems = [];
 
@@ -4062,29 +3953,43 @@ function getFirstItemsPresentInState(list, state) {
  * React hook returns an array which items get asynchronously appended from a source array.
  * This behavior is useful if we want to render a list of items asynchronously for performance reasons.
  *
- * @param  list Source array.
+ * @param  list   Source array.
+ * @param  config Configuration object.
+ *
  * @return Async array.
  */
 
 
-function useAsyncList(list) {
-  const [current, setCurrent] = Object(external_wp_element_["useState"])([]);
-  Object(external_wp_element_["useEffect"])(() => {
+function useAsyncList(list, config = {
+  step: 1
+}) {
+  const {
+    step = 1
+  } = config;
+  const [current, setCurrent] = (0,external_wp_element_namespaceObject.useState)([]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     // On reset, we keep the first items that were previously rendered.
-    const firstItems = getFirstItemsPresentInState(list, current);
-    setCurrent(firstItems);
-    const asyncQueue = Object(external_wp_priorityQueue_["createQueue"])();
+    let firstItems = getFirstItemsPresentInState(list, current);
 
-    const append = index => () => {
-      if (list.length <= index) {
+    if (firstItems.length < step) {
+      firstItems = firstItems.concat(list.slice(firstItems.length, step));
+    }
+
+    setCurrent(firstItems);
+    let nextIndex = firstItems.length;
+    const asyncQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
+
+    const append = () => {
+      if (list.length <= nextIndex) {
         return;
       }
 
-      setCurrent(state => [...state, list[index]]);
-      asyncQueue.add({}, append(index + 1));
+      setCurrent(state => [...state, ...list.slice(nextIndex, nextIndex + step)]);
+      nextIndex += step;
+      asyncQueue.add({}, append);
     };
 
-    asyncQueue.add({}, append(firstItems.length));
+    asyncQueue.add({}, append);
     return () => asyncQueue.reset();
   }, [list]);
   return current;
@@ -4092,7 +3997,7 @@ function useAsyncList(list) {
 
 /* harmony default export */ var use_async_list = (useAsyncList);
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-warn-on-change/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-warn-on-change/index.js
 /**
  * Internal dependencies
  */
@@ -4138,10 +4043,54 @@ function useWarnOnChange(object, prefix = 'Change detection') {
 
 /* harmony default export */ var use_warn_on_change = (useWarnOnChange);
 //# sourceMappingURL=index.js.map
-// EXTERNAL MODULE: ./node_modules/use-memo-one/dist/use-memo-one.esm.js
-var use_memo_one_esm = __webpack_require__(147);
+// EXTERNAL MODULE: external "React"
+var external_React_ = __webpack_require__(3804);
+;// CONCATENATED MODULE: ./node_modules/use-memo-one/dist/use-memo-one.esm.js
 
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-debounce/index.js
+
+function areInputsEqual(newInputs, lastInputs) {
+  if (newInputs.length !== lastInputs.length) {
+    return false;
+  }
+
+  for (var i = 0; i < newInputs.length; i++) {
+    if (newInputs[i] !== lastInputs[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function useMemoOne(getResult, inputs) {
+  var initial = (0,external_React_.useState)(function () {
+    return {
+      inputs: inputs,
+      result: getResult()
+    };
+  })[0];
+  var committed = (0,external_React_.useRef)(initial);
+  var isInputMatch = Boolean(inputs && committed.current.inputs && areInputsEqual(inputs, committed.current.inputs));
+  var cache = isInputMatch ? committed.current : {
+    inputs: inputs,
+    result: getResult()
+  };
+  (0,external_React_.useEffect)(function () {
+    committed.current = cache;
+  }, [cache]);
+  return cache.result;
+}
+function useCallbackOne(callback, inputs) {
+  return useMemoOne(function () {
+    return callback;
+  }, inputs);
+}
+var useMemo = (/* unused pure expression or super */ null && (useMemoOne));
+var useCallback = (/* unused pure expression or super */ null && (useCallbackOne));
+
+
+
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-debounce/index.js
 /**
  * External dependencies
  */
@@ -4172,12 +4121,12 @@ var use_memo_one_esm = __webpack_require__(147);
 
 function useDebounce(fn, wait, options) {
   /* eslint-enable jsdoc/valid-types */
-  const debounced = Object(use_memo_one_esm["a" /* useMemoOne */])(() => Object(external_lodash_["debounce"])(fn, wait, options), [fn, wait, options]);
-  Object(external_wp_element_["useEffect"])(() => () => debounced.cancel(), [debounced]);
+  const debounced = useMemoOne(() => (0,external_lodash_namespaceObject.debounce)(fn, wait, options), [fn, wait, options]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => () => debounced.cancel(), [debounced]);
   return debounced;
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-throttle/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-throttle/index.js
 /**
  * External dependencies
  */
@@ -4205,12 +4154,12 @@ function useDebounce(fn, wait, options) {
  */
 
 function useThrottle(fn, wait, options) {
-  const throttled = Object(use_memo_one_esm["a" /* useMemoOne */])(() => Object(external_lodash_["throttle"])(fn, wait, options), [fn, wait, options]);
-  Object(external_wp_element_["useEffect"])(() => () => throttled.cancel(), [throttled]);
+  const throttled = useMemoOne(() => (0,external_lodash_namespaceObject.throttle)(fn, wait, options), [fn, wait, options]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => () => throttled.cancel(), [throttled]);
   return throttled;
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-drop-zone/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-drop-zone/index.js
 /**
  * WordPress dependencies
  */
@@ -4242,7 +4191,7 @@ function useFreshRef(value) {
   // it's easier to just ts-ignore this specific line that's complaining about
   // undefined not being part of T.
   // @ts-ignore
-  const ref = Object(external_wp_element_["useRef"])();
+  const ref = (0,external_wp_element_namespaceObject.useRef)();
   ref.current = value;
   return ref;
 }
@@ -4442,7 +4391,7 @@ function useDropZone({
   }, [isDisabled]);
 }
 //# sourceMappingURL=index.js.map
-// CONCATENATED MODULE: ./packages/compose/build-module/index.js
+;// CONCATENATED MODULE: ./packages/compose/build-module/index.js
 // Utils
  // Compose helper (aliased flowRight from Lodash)
 
@@ -4479,39 +4428,7 @@ function useDropZone({
 
 
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ 54:
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["isShallowEqual"]; }());
-
-/***/ }),
-
-/***/ 7:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return _extends; });
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-/***/ })
-
-/******/ });
+}();
+(window.wp = window.wp || {}).compose = __webpack_exports__;
+/******/ })()
+;
