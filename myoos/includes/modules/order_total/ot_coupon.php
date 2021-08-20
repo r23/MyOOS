@@ -444,8 +444,9 @@ class ot_coupon {
 		return $od_amount;
 	}
 
-  function calculate_tax_deduction($amount, $od_amount, $method) {
-
+  function calculate_tax_deduction($amount, $od_amount) {
+	global $aUser;
+	
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -473,48 +474,34 @@ class ot_coupon {
 				if ($coupon_result['coupon_type'] == 'S') {
 
 					// Sales tax recalculation for shipping costs
-
-/*
-					$c_deduct = $_SESSION['shipping']['cost'];
-			$_SESSION['cart']->info['total'] += $_SESSION['shipping']['cost'];
-			
-			$subtotal = $_SESSION['cart']->info['subtotal'];
-			
-			$tax = $_SESSION['cart']->info['tax'];
-			if ($aUser['price_with_tax'] == 1) {
-				$subtotal = $subtotal - $tax;
-			}
-		
-			$sales_tax_rates = count($_SESSION['cart']->info['net_total']);
-			reset($_SESSION['cart']->info['net_total']);
-			
-			foreach($_SESSION['cart']->info['net_total'] as $key => $value) {		  
-				if ($value > 0) {
-					$share =  $value * 100 / $subtotal;
-					$shipping_cost = $_SESSION['shipping']['cost'] * $share / 100;
-					$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
-
-					$_SESSION['cart']->info['tax'] += $tax;
-					$_SESSION['cart']->info['tax_groups']["$key"] += $tax;
+					$subtotal = 0;					
+					reset($_SESSION['cart']->info['net_total']);
+					foreach($_SESSION['cart']->info['net_total'] as $key => $value) {		  
+						if ($value > 0) {
+							$subtotal += $value;			
+						}
+					}					
 					
-					if ($sales_tax_rates > 1) {									
-						$info = sprintf($aLang['tax_incl_available_from'], number_format($key, 2).'%');
-						$info = '<br><small> (' . $info . '): </small>';
-					} else {
-						$info = '';
+					reset($_SESSION['cart']->info['net_total']);		
+					foreach($_SESSION['cart']->info['net_total'] as $key => $value) {		  
+						if ($value > 0) {							
+							$share =  $value * 100 / $subtotal;						
+
+							$shipping_cost = $od_amount * $share / 100;
+
+							$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
+
+							$_SESSION['cart']->info['tax'] -= $tax;
+							$_SESSION['cart']->info['tax_groups']["$key"] -= $tax;					
+						}
 					}
-					
-					$this->output[] = array('title' => $_SESSION['shipping']['title'] . $info,
-										'text' => $oCurrencies->format($shipping_cost, true, $currency_type, $currency_value),
-										'info' => '',
-										'value' => $shipping_cost);						
-					
-					
 				}
 			}
-
-*/
-
+		}
+	}
+	
+			
+				
 
 /*
 
