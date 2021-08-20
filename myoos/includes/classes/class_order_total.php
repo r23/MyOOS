@@ -176,7 +176,7 @@ class order_total {
                                 '   <td width="10"></td>';
               if ( ($use_credit_string !='' ) && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ) {
                 $output_string .= ' ' . $use_credit_string;
-              } elseif ( (MODULE_ORDER_TOTAL_GV_STATUS == 'true') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true') ) {
+              } elseif ( (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) || (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true')) ) { 
                 $output_string .= '     <td class="main"></td>';
               } else {
                 $output_string .= '     <td class="main"><strong>' . $GLOBALS[$class]->header . '</strong></td>';
