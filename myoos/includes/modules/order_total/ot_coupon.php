@@ -299,6 +299,10 @@ class ot_coupon {
 				$coupon_count = $dbconn->Execute($sql);
 
 				if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
+						$couponstable = $oostable['coupons'];
+						$gv_update = $dbconn->Execute("UPDATE $couponstable
+														SET coupon_active = 'N'
+														WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'");													
 					$oMessage->add('danger', sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon'])); 
 				}
 						
@@ -687,26 +691,27 @@ class ot_coupon {
 
 
 
- function update_credit_account($i) {
-  return false;
- }
+	function update_credit_account($i) {
+		return false;
+	}
 
- function apply_credit() {
-   global $insert_id;
 
-   $cc_id = intval($_SESSION['cc_id']);
-   $remote_addr = oos_server_get_remote();
+	function apply_credit() {
+		global $insert_id;
+		
+		if (isset($_SESSION['cc_id'])) {
+			$cc_id = intval($_SESSION['cc_id']);
+			$remote_addr = oos_server_get_remote();
 
-   if ($this->deduction !=0) {
-      // Get database information
-     $dbconn =& oosDBGetConn();
-     $oostable =& oosDBGetTables();
+			// Get database information
+			$dbconn =& oosDBGetConn();
+			$oostable =& oosDBGetTables();
 
-     $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-     $dbconn->Execute("INSERT INTO $coupon_redeem_tracktable (coupon_id, redeem_date, redeem_ip, customer_id, order_id) VALUES ('" . oos_db_input($cc_id) . "', now(), '" . oos_db_input($remote_addr) . "', '" . intval($_SESSION['customer_id']) . "', '" . intval($insert_id) . "')");
-   }
-   unset($_SESSION['cc_id']);
- }
+			$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+			$dbconn->Execute("INSERT INTO $coupon_redeem_tracktable (coupon_id, redeem_date, redeem_ip, customer_id, order_id) VALUES ('" . oos_db_input($cc_id) . "', now(), '" . oos_db_input($remote_addr) . "', '" . intval($_SESSION['customer_id']) . "', '" . intval($insert_id) . "')");
+		}
+		unset($_SESSION['cc_id']);
+	}
 
 
   function get_order_total() {

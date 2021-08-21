@@ -366,9 +366,10 @@ if (!isset($_SESSION['man_key'])) {
 	oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 }
 
+
 // send emails to other people
 if ( (defined (SEND_EXTRA_ORDER_EMAILS_TO)) && (SEND_EXTRA_ORDER_EMAILS_TO != '')) {	
-    oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], true);
+    oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address']);
 }
 
 
