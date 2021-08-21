@@ -21,14 +21,14 @@
 
 
 class ot_coupon {
-	var $title, $output, $enabled = false;
+	var $title, $coupon_code, $output, $enabled = false;
 
     public function __construct() {
 		global $aLang;
 
 		$this->code = 'ot_coupon';
 		$this->header = $aLang['module_order_total_coupon_header'];
-		$this->title =$aLang['module_order_total_coupon_title'];
+		$this->title = $aLang['module_order_total_coupon_title'];
 		$this->description = $aLang['module_order_total_coupon_description'];
 		$this->user_prompt = '';
 		$this->enabled = (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true') ? true : false);
@@ -47,17 +47,18 @@ class ot_coupon {
 	function process() {
 		global $oOrder, $oCurrencies;
 
-		$order_total = $this->get_order_total();
-		$od_amount = $this->calculate_credit($order_total);
+		if (isset($_SESSION['cc_id'])) {
+			$order_total = $oOrder->info['total'];
+			$od_amount = $this->calculate_credit($order_total);
 
-		$this->deduction = $od_amount;
-
-		if ($od_amount > 0) {
-			$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
-			$this->output[] = array('title' => '<font color="#FF0000">' . $this->title . ' ' . $this->coupon_code .':</font>',
-								'text' => '<strong><font color="#FF0000"> - ' . $oCurrencies->format($od_amount) . '</font></strong>',
-								'info' => '',
-								'value' => $od_amount);
+			if ($od_amount > 0) {
+				$this->calculate_tax_deduction_order($order_total, $od_amount);				
+				$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
+				$this->output[] = array('title' => '<span class="text-danger">' . $this->title . ' ' . $this->coupon_code . ':</span>',
+										'text' => '<span class="text-danger"><strong>-' . $oCurrencies->format($od_amount) . '</strong></span>',
+										'info' => '',
+										'value' => $od_amount);
+			}
 		}
 	}
 
@@ -71,20 +72,19 @@ class ot_coupon {
 			$total = $_SESSION['cart']->info['total'];
 			$od_amount = $this->calculate_credit($total);
 	
-			$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);		
-			$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+			if ($od_amount > 0) {			
+				$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);		
+				$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
-			if ($od_amount > 0) {
 				$this->calculate_tax_deduction($total, $od_amount);
 				$_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
-									
-				$this->output[] = array('title' => '<span class="text-danger">' . $this->title . ' ' . $this->coupon_code . ':</span>',
-                                'text' => '<span class="text-danger"><strong>-' .  $oCurrencies->format($od_amount, true, $currency_type, $currency_value) . '</strong></span>',
-								'info' => '',
-                                'value' => $od_amount);									
-			}
-		}	
 
+				$this->output[] = array('title' => '<span class="text-danger">' . $this->title . ' ' . $this->coupon_code . ':</span>',
+								'text' => '<span class="text-danger"><strong>-' .  $oCurrencies->format($od_amount, true, $currency_type, $currency_value) . '</strong></span>',
+								'info' => '',
+                                'value' => $od_amount);
+			}
+		}
 	}
 
 	function selection_test() {
@@ -317,7 +317,7 @@ class ot_coupon {
 */
 
 				$total = $_SESSION['cart']->info['total'];
-				if ($coupon_result['coupon_minimum_order'] > $total) {				
+				if ($coupon_result['coupon_minimum_order'] > $total) {
 					$missing = $coupon_result['coupon_minimum_order'] - $total;
 					
 					$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);		
@@ -331,12 +331,13 @@ class ot_coupon {
 				
 				if ($oMessage->size('danger') == 0) {
 					$_SESSION['cc_id'] = $coupon_result['coupon_id'];
-				}				
+				}
 				
-			}				
+			}
 	  
 		}
 	}
+
 
 	function calculate_credit($amount) {
 
@@ -387,8 +388,8 @@ class ot_coupon {
 				
 				if ($coupon_result['coupon_minimum_order'] <= $amount) {
 
-					$c_deduct = $coupon_result['coupon_amount'];				
-					if ($coupon_result['coupon_type'] == 'S') $c_deduct = $_SESSION['shipping']['cost'];			
+					$c_deduct = $coupon_result['coupon_amount'];
+					if ($coupon_result['coupon_type'] == 'S') $c_deduct = $_SESSION['shipping']['cost'];
 			
 			
 					if ($coupon_result['restrict_to_products'] || $coupon_result['restrict_to_categories']) {
@@ -412,7 +413,7 @@ class ot_coupon {
 								$cat_ids = preg_split("/[,]/", $coupon_result['restrict_to_categories']);
 								$products = $_SESSION['cart']->get_products();
 								$n = count($products);
-								for ($i=0, $n; $i<$n; $i++) {								
+								for ($i=0, $n; $i<$n; $i++) {
 									$my_path = oos_get_product_path(oos_get_product_id($products[$i]['id']));
 									$sub_cat_ids = preg_split("/[_]/", $my_path);
 									for ($iii = 0; $iii < count($sub_cat_ids); $iii++) {
@@ -443,62 +444,113 @@ class ot_coupon {
 		}
 		return $od_amount;
 	}
-
-  function calculate_tax_deduction($amount, $od_amount) {
-	global $aUser;
 	
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+	
+	function calculate_tax_deduction_order($amount, $od_amount) {
+		global $oOrder;
 
-	if (isset($_SESSION['cc_id'])) {
-		$cc_id = intval($_SESSION['cc_id']);
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-		$couponstable = $oostable['coupons'];
-		$sql = "SELECT coupon_code coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
-					uses_per_coupon, uses_per_user, restrict_to_products,
-					restrict_to_categories 
-				FROM $couponstable
-				WHERE coupon_id = '" . intval($cc_id). "'
+		if (isset($_SESSION['cc_id'])) {
+			$cc_id = intval($_SESSION['cc_id']);
+
+			$couponstable = $oostable['coupons'];
+			$sql = "SELECT coupon_code coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
+							uses_per_coupon, uses_per_user, restrict_to_products, restrict_to_categories 
+					FROM $couponstable
+					WHERE coupon_id = '" . intval($cc_id). "'
 					AND coupon_active = 'Y'";
-		$coupon_query = $dbconn->Execute($sql);
+			$coupon_query = $dbconn->Execute($sql);
 
-		if ($coupon_query->RecordCount() !=0 ) {
-			$coupon_result = $coupon_query->fields;
+			if ($coupon_query->RecordCount() !=0 ) {
+				$coupon_result = $coupon_query->fields;
 
-			$this->coupon_code = $coupon_result['coupon_code'];
-				
-			if ($coupon_result['coupon_minimum_order'] <= $amount) {
+				$this->coupon_code = $coupon_result['coupon_code'];
 
-		
-				if ($coupon_result['coupon_type'] == 'S') {
+				if ($coupon_result['coupon_minimum_order'] <= $amount) {
+					if ($coupon_result['coupon_type'] == 'S') {
 
-					// Sales tax recalculation for shipping costs
-					$subtotal = 0;					
-					reset($_SESSION['cart']->info['net_total']);
-					foreach($_SESSION['cart']->info['net_total'] as $key => $value) {		  
-						if ($value > 0) {
-							$subtotal += $value;			
-						}
-					}					
-					
-					reset($_SESSION['cart']->info['net_total']);		
-					foreach($_SESSION['cart']->info['net_total'] as $key => $value) {		  
-						if ($value > 0) {							
-							$share =  $value * 100 / $subtotal;						
+						// Sales tax recalculation for shipping costs
+						$subtotal = 0;
+						reset($oOrder->info['net_total']);
+						foreach($oOrder->info['net_total'] as $key => $value) {
+							if ($value > 0) {
+								$subtotal += $value;
+							}
+						}					
 
-							$shipping_cost = $od_amount * $share / 100;
+						reset($oOrder->info['net_total']);
+						foreach($oOrder->info['net_total'] as $key => $value) {  
+							if ($value > 0) {
+								$share =  $value * 100 / $subtotal;	
+	
+								$shipping_cost = $od_amount * $share / 100;
 
-							$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
+								$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
 
-							$_SESSION['cart']->info['tax'] -= $tax;
-							$_SESSION['cart']->info['tax_groups']["$key"] -= $tax;					
+								$oOrder->info['tax'] -= $tax;
+								$oOrder->info['tax_groups']["$key"] -= $tax;
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+
+	function calculate_tax_deduction($amount, $od_amount) {
+	
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
+
+		if (isset($_SESSION['cc_id'])) {
+			$cc_id = intval($_SESSION['cc_id']);
+
+			$couponstable = $oostable['coupons'];
+			$sql = "SELECT coupon_code coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
+							uses_per_coupon, uses_per_user, restrict_to_products, restrict_to_categories 
+					FROM $couponstable
+					WHERE coupon_id = '" . intval($cc_id). "'
+					AND coupon_active = 'Y'";
+			$coupon_query = $dbconn->Execute($sql);
+
+			if ($coupon_query->RecordCount() !=0 ) {
+				$coupon_result = $coupon_query->fields;
+
+				$this->coupon_code = $coupon_result['coupon_code'];
+
+				if ($coupon_result['coupon_minimum_order'] <= $amount) {
+					if ($coupon_result['coupon_type'] == 'S') {
+
+						// Sales tax recalculation for shipping costs
+						$subtotal = 0;
+						reset($_SESSION['cart']->info['net_total']);
+						foreach($_SESSION['cart']->info['net_total'] as $key => $value) {
+							if ($value > 0) {
+								$subtotal += $value;
+							}
+						}					
+
+						reset($_SESSION['cart']->info['net_total']);
+						foreach($_SESSION['cart']->info['net_total'] as $key => $value) {  
+							if ($value > 0) {
+								$share =  $value * 100 / $subtotal;	
+	
+								$shipping_cost = $od_amount * $share / 100;
+
+								$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
+
+								$_SESSION['cart']->info['tax'] -= $tax;
+								$_SESSION['cart']->info['tax_groups']["$key"] -= $tax;
+							}
+						}
+					}
+				}
+			}
+		}
 	
 			
 				
