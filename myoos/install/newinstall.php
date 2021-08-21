@@ -184,6 +184,22 @@
       echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . 'customers_info&nbsp;'. UPDATED . '</font>';
     }
 
+	$store_owner = $firstname . ' ' . $name;
+	$sql = "UPDATE " . $prefix_table . "configuration SET configuration_value = " . $db->qstr($store_owner) . ", last_modified = " . $db->DBTimeStamp($today) . " WHERE configuration_key = 'STORE_OWNER'";
+    $result = $db->Execute($sql);
+	if ($result === false) {
+      echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    } else {
+      echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . 'configuration&nbsp;'. UPDATED . '</font>';
+    }
+
+	$sql = "UPDATE " . $prefix_table . "configuration SET configuration_value = " . $db->qstr($email) . ", last_modified = " . $db->DBTimeStamp($today) . " WHERE configuration_key = 'STORE_OWNER_EMAIL_ADDRESS'";
+	$result = $db->Execute($sql);
+	if ($result === false) {
+      echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    } else {
+      echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . 'configuration&nbsp;'. UPDATED . '</font>';
+    }
 
     echo '</td></tr></table>';
   }
