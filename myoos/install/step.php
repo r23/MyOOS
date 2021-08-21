@@ -79,7 +79,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/version.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
-require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpass/PasswordHash.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
 $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
