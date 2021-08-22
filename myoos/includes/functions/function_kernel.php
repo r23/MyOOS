@@ -1531,6 +1531,11 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     if (preg_match('~[\r\n]~', $from_email_name)) return false;
     if (preg_match('~[\r\n]~', $from_email_address)) return false;
 
+    if (empty($to_email_address)) return false;
+    if (empty($email_subject)) return false;
+    if (empty($from_email_address)) return false;
+
+
 	if ( !is_array($attachments) ) {
 		$attachments = explode( "\n", str_replace( "\r\n", "\n", $attachments ) );
 	}
