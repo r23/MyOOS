@@ -165,8 +165,6 @@ if ($_SESSION['guest_account'] == 1) {
 	unset($_SESSION['customer_zone_id']);
 	unset($_SESSION['comments']);
 	unset($_SESSION['customer_max_order']);
-	unset($_SESSION['gv_id']);
-	unset($_SESSION['cc_id']);
 	unset($_SESSION['man_key']);
 	unset($_SESSION['customers_email_address']);
 	unset($_SESSION['guest_account']);	
