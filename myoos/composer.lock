@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "adodb/adodb-php",
-            "version": "v5.21.1",
+            "version": "v5.21.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "44237c688cc66045dd266c7865fc7a85ffea833d"
+                "reference": "aa161c28dfffcab13a3cb9bd407917573987f0f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/44237c688cc66045dd266c7865fc7a85ffea833d",
-                "reference": "44237c688cc66045dd266c7865fc7a85ffea833d",
+                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/aa161c28dfffcab13a3cb9bd407917573987f0f6",
+                "reference": "aa161c28dfffcab13a3cb9bd407917573987f0f6",
                 "shasum": ""
             },
             "require": {
@@ -65,7 +65,7 @@
                 "issues": "https://github.com/ADOdb/ADOdb/issues",
                 "source": "https://github.com/ADOdb/ADOdb"
             },
-            "time": "2021-08-15T11:08:55+00:00"
+            "time": "2021-08-22T10:49:44+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
