@@ -1146,17 +1146,17 @@ case 'voucherreport':
 		}
 		if ($action == 'voucherdelete') {
 			$contents[] = array('text'=> TEXT_CONFIRM_DELETE . '</br></br>' .
-						'<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=confirmdelete&cID='  .intval($_GET['cID'])) . '">' . oos_button(BUTTON_CONFIRM_DELETE_VOUCHER) . '</a>' .
-						'<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], 'cID=' . $cInfo->coupon_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'
+						'<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=confirmdelete&cID='  . intval($_GET['cID'])) . '">' . oos_button(BUTTON_CONFIRM_DELETE_VOUCHER) . '</a>' .
+						'<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['coupon_admin'], 'cID=' . $coupon_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'
 					);
 		} else {
 			$prod_details = '';
 			if (isset($cInfo->restrict_to_products) && $cInfo->restrict_to_products) {
-				$prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
+				$prod_details = '<a href="' . oos_href_link_admin($aContents['listproducts'], 'cID=' . $coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listproducts'] . '?cID=' . $coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
 			}
 			$cat_details = '';
 			if (isset($cInfo->restrict_to_categories) && $cInfo->restrict_to_categories) {
-			$cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $cInfo->coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $cInfo->coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
+			$cat_details = '<a href="' . oos_href_link_admin($aContents['listcategories'], 'cID=' . $coupon_id) . '" TARGET="_blank" ONCLICK="window.open(\'' . $aContents['listcategories'] . '?cID=' . $coupon_id . '\', \'Valid_Categories\', \'scrollbars=yes,resizable=yes,menubar=yes,width=600,height=600\'); return false">View</a>';
 			}
 			$coupon_name_result = $dbconn->Execute("SELECT coupon_name
 												FROM " . $oostable['coupons_description'] . "
