@@ -54,7 +54,7 @@ class ot_coupon {
 			if ($od_amount > 0) {
 				$this->calculate_tax_deduction_order($order_total, $od_amount);				
 				$oOrder->info['total'] = $oOrder->info['total'] - $od_amount;
-				$this->output[] = array('title' => '<span class="text-danger">' . $this->title . ' ' . $this->coupon_code . ':</span>',
+				$this->output[] = array('title' => '<span class="text-danger">' . $this->title . ' <strong>' . $this->coupon_code . '</strong>:</span>',
 										'text' => '<span class="text-danger"><strong>-' . $oCurrencies->format($od_amount) . '</strong></span>',
 										'info' => '',
 										'value' => $od_amount);
@@ -79,7 +79,7 @@ class ot_coupon {
 				$this->calculate_tax_deduction($total, $od_amount);
 				$_SESSION['cart']->info['total'] = $_SESSION['cart']->info['total'] - $od_amount;
 
-				$this->output[] = array('title' => '<span class="text-danger">' . $this->title . ' ' . $this->coupon_code . ':</span>',
+				$this->output[] = array('title' => '<span class="text-danger">' . $this->title . ':</span>',
 								'text' => '<span class="text-danger"><strong>-' .  $oCurrencies->format($od_amount, true, $currency_type, $currency_value) . '</strong></span>',
 								'info' => '',
                                 'value' => $od_amount);
@@ -102,23 +102,16 @@ class ot_coupon {
 
 
 	function credit_selection() {
-		global $aLang, $oCurrencies;
+		global $aLang;
 
-		// todo remove
-		$sTheme = oos_var_prep_for_os($_SESSION['theme']);
-    $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os( $_SESSION['language'] ) : DEFAULT_LANGUAGE;
-    $image_submit = '<input type="image" name="submit_redeem" onClick="submitFunction()" src="' . 'themes/' . $sTheme . '/images/buttons/' . $sLanguage . '/redeem.gif" border="0" alt="' . $aLang['image_button_redeem_voucher'] . '" title = "' . $aLang['image_button_redeem_voucher'] . '">';
+		$selection_string .= '<div class="form-group">' . "\n";
+		$selection_string .= '	<input class="form-control" type="text" name="gv_redeem_code" id="cart-promocode" placeholder="' . $aLang['text_apply_coupon'] . '" required>' . "\n";
+		$selection_string .= '	<div class="invalid-feedback">' . $aLang['text_invalid_feedback'] . '</div>' . "\n";
+		$selection_string .= '	</div>' . "\n";
+		$selection_string .= '<button class="btn btn-outline-primary btn-block" type="submit">' . $aLang['button_apply_coupon'] . '</button>' . "\n";
+		$selection_string .= '<div class="clearfix" style="height: 35px;"></div>' . "\n";
 
-    $selection_string = '';
-    $selection_string .= '<tr>' . "\n";
-    $selection_string .= '  <td width="10"></td>';
-    $selection_string .= '  <td class="main">' . "\n";
-    $selection_string .= $aLang['text_enter_coupon_code'] . oos_draw_input_field('gv_redeem_code') . '</td>';
-    $selection_string .= '  <td align="right">' . $image_submit . '</td>';
-    $selection_string .= '  <td width="10"></td>';
-    $selection_string .= '</tr>' . "\n";
-
-    return $selection_string;
+		return $selection_string;
   }
 
 
@@ -355,9 +348,8 @@ class ot_coupon {
 			$cc_id = intval($_SESSION['cc_id']);
 
 			$couponstable = $oostable['coupons'];
-			$sql = "SELECT coupon_code coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
-						uses_per_coupon, uses_per_user, restrict_to_products,
-						restrict_to_categories 
+			$sql = "SELECT coupon_code, coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
+						uses_per_coupon, uses_per_user, restrict_to_products, restrict_to_categories 
 					FROM $couponstable
 					WHERE coupon_id = '" . intval($cc_id). "'
 						AND coupon_active = 'Y'";
@@ -365,7 +357,7 @@ class ot_coupon {
 
 			if ($coupon_query->RecordCount() !=0 ) {
 				$coupon_result = $coupon_query->fields;
-				
+	
 				$couponstable = $oostable['coupons'];
 				$sql = "SELECT coupon_start_date
 					FROM $couponstable
@@ -387,9 +379,9 @@ class ot_coupon {
 					unset($_SESSION['cc_id']);
 					return 0;
 				}
-
-				$this->coupon_code = $coupon_result['coupon_code'];
 				
+				$this->coupon_code = $coupon_result['coupon_code'];
+
 				if ($coupon_result['coupon_minimum_order'] <= $amount) {
 
 					$c_deduct = $coupon_result['coupon_amount'];
@@ -461,7 +453,7 @@ class ot_coupon {
 			$cc_id = intval($_SESSION['cc_id']);
 
 			$couponstable = $oostable['coupons'];
-			$sql = "SELECT coupon_code coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
+			$sql = "SELECT coupon_code, coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
 							uses_per_coupon, uses_per_user, restrict_to_products, restrict_to_categories 
 					FROM $couponstable
 					WHERE coupon_id = '" . intval($cc_id). "'
@@ -514,7 +506,7 @@ class ot_coupon {
 			$cc_id = intval($_SESSION['cc_id']);
 
 			$couponstable = $oostable['coupons'];
-			$sql = "SELECT coupon_code coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
+			$sql = "SELECT coupon_code, coupon_id, coupon_amount, coupon_type, coupon_minimum_order,
 							uses_per_coupon, uses_per_user, restrict_to_products, restrict_to_categories 
 					FROM $couponstable
 					WHERE coupon_id = '" . intval($cc_id). "'

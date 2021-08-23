@@ -141,57 +141,46 @@ class order_total {
     * E.g. a setting in the admin section.
     */
     public function credit_selection() {
-      global $aLang;
+		global $aLang;
 
-      $selection_string = '';
-      $close_string = '';
-      $credit_class_string = '';
-      if ( (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) || (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true')) ) { 
-        $header_string = '<tr>' . "\n";
-        $header_string .= '   <td><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n";
-        $header_string .= '      <tr>' . "\n";
-        $header_string .= '        <td class="main"><strong>' . $aLang['table_heading_credit'] . '</strong></td>' . "\n";
-        $header_string .= '      </tr>' . "\n";
-        $header_string .= '    </table></td>' . "\n";
-        $header_string .= '  </tr>' . "\n";
-        $header_string .= '<tr>' . "\n";
-        $header_string .= '   <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">' . "\n";
-        $header_string .= '     <tr class="infoBoxContents"><td><table border="0" width="100%" cellspacing="0" cellpadding="2">' ."\n";
-        $header_string .= '       <tr><td width="10"></td>' . "\n";
-        $header_string .= '           <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n";
-        $close_string   = '                           </table></td>';
-        $close_string  .= '<td width="10"></td>';
-        $close_string  .= '</tr></table></td></tr></table></td>';
-        $close_string  .= '<tr><td width="100%"></td></tr>';
-        reset($this->modules);
-        $output_string = '';
-        foreach ($this->modules as $value) {
-          $class = substr($value, 0, strrpos($value, '.'));
-          if ($GLOBALS[$class]->enabled) {
-            if ($GLOBALS[$class]->credit_class) {
-              if ($selection_string =='') $selection_string = $GLOBALS[$class]->credit_selection();
-              $use_credit_string = $GLOBALS[$class]->use_credit_amount();
-              $output_string .= '<tr colspan="4"><td colspan="4" width="100%"></td></tr>';
-              $output_string .= ' <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >' . "\n" .
-                                '   <td width="10"></td>';
-              if ( ($use_credit_string !='' ) && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ) {
-                $output_string .= ' ' . $use_credit_string;
-              } elseif ( (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) || (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true')) ) { 
-                $output_string .= '     <td class="main"></td>';
-              } else {
-                $output_string .= '     <td class="main"><strong>' . $GLOBALS[$class]->header . '</strong></td>';
-              }
-              $output_string .= '<td width="10"></td>';
-              $output_string .= '  </tr>' . "\n"; 
-            }
-          }
-        }
-        if ($output_string != '') {
-          $output_string = $header_string . $output_string .  $selection_string;
-          $output_string .= $close_string;
-        }
-      }
-      return $output_string;
+		$selection_string = '';
+		$close_string = '';
+		$credit_class_string = '';
+		
+		if ( (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) || (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true')) ) { 
+			$header_string = '<hr />' . "\n";						
+			$header_string .= '<div class="page-header">' . "\n";
+			$header_string .= '	<h4>' . $aLang['table_heading_credit'] . '</h4>' . "\n";
+			$header_string .= '</div>' . "\n";	  
+
+			$output_string = '';	
+			reset($this->modules);
+			foreach ($this->modules as $value) {
+				$class = substr($value, 0, strrpos($value, '.'));
+				if ($GLOBALS[$class]->enabled) {
+					if ($GLOBALS[$class]->credit_class) {
+						if ($selection_string =='') $selection_string = $GLOBALS[$class]->credit_selection();
+						$use_credit_string = $GLOBALS[$class]->use_credit_amount();
+						$output_string .= '<tr colspan="4"><td colspan="4" width="100%"></td></tr>';
+				 		$output_string .= ' <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >' . "\n" .
+	 			 						'   <td width="10"></td>';
+						if ( ($use_credit_string !='' ) && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ) {
+							$output_string .= ' ' . $use_credit_string;
+						} elseif ( (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) || (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true')) ) { 
+							$output_string .= '     <td class="main"></td>';
+						} else {
+							$output_string .= '     <td class="main"><strong>' . $GLOBALS[$class]->header . '</strong></td>';
+						}
+						$output_string .= '<td width="10"></td>';
+						$output_string .= '  </tr>' . "\n"; 
+					}
+				}
+			}
+			if ($output_string != '') {
+				$output_string = $header_string . $output_string .  $selection_string;
+			}
+		}
+		return $output_string;
     }
 
 

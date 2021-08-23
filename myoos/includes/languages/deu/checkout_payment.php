@@ -38,7 +38,6 @@ $aLang['table_heading_comments'] = 'Fügen Sie hier Ihre Anmerkungen zu dieser B
 $aLang['title_continue_checkout_procedure'] = 'Fortsetzung des Bestellvorganges';
 $aLang['text_continue_checkout_procedure'] = 'zur Bestätigung Ihrer Bestellung.';
 
-$aLang['heading_conditions_information'] = 'Allgemeine Geschäfts- und Lieferbedingungen';
-$aLang['text_conditions_confirm'] = 'Ich akzeptiere Ihre allgemeinen Geschäfts- und Lieferbedingungen';
-$aLang['text_conditions_download'] = 'AGB herunterladen';
 
+$aLang['text_apply_coupon'] = 'Ihr Gutschein-Code';
+$aLang['text_invalid_feedback'] = 'Bitte geben Sie einen gültigen Gutschein-Code an!';

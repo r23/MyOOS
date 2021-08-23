@@ -38,7 +38,5 @@ $aLang['table_heading_comments'] = 'Add Comments About Your Order';
 $aLang['title_continue_checkout_procedure'] = 'Continue Checkout Procedure';
 $aLang['text_continue_checkout_procedure'] = 'to confirm this order.';
 
-$aLang['heading_conditions_information'] = 'Conditions of Use';
-$aLang['text_conditions_confirm'] = 'I accept your conditions of use';
-$aLang['text_conditions_download'] = 'Download Conditions';
-
+$aLang['text_apply_coupon'] = 'I have a discount coupon';
+$aLang['text_invalid_feedback'] = 'Please provide a valid promo code!';

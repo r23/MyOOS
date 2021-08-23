@@ -153,14 +153,14 @@ function oos_customers_name($customers_id) {
 
 
 function oos_get_all_get_params($exclude_array = '') {
-	GLOBAL $session;
+	global $session;
 	
     if ($exclude_array == '') $exclude_array = array();
 
     $get_url = '';
 
     reset($_GET);
-    foreach ($_GET as $key => $value) {		
+    foreach ($_GET as $key => $value) {	
       if (($key != $session->getName()) && ($key != 'error') && (!oos_in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
     }
 
@@ -216,7 +216,7 @@ function oos_var_prep_for_os() {
 
 
 function oos_get_content() {
-    GLOBAL $aContents;
+    global $aContents;
 
     return $aContents;
 }
@@ -719,7 +719,7 @@ function oos_class_exits($class_name) {
 
 
 function oos_remove($source) {
-    GLOBAL $messageStack, $oos_remove_error;
+    global $messageStack, $oos_remove_error;
 
     if (isset($oos_remove_error)) $oos_remove_error = false;
 
@@ -827,7 +827,7 @@ function oos_display_tax_value($value, $padding = TAX_DECIMAL_PLACES) {
 
 
 function oos_add_tax($price, $tax) {
-    GLOBAL $currencies;
+    global $currencies;
 
     if (DISPLAY_PRICE_WITH_TAX == 'true') {
 		return round($price, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']) + oos_calculate_tax($price, $tax);
@@ -894,7 +894,7 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
 
 
 function oos_calculate_tax($price, $tax) {
-    GLOBAL $currencies;
+    global $currencies;
 
     return round($price * $tax / 100, $currencies->currencies[DEFAULT_CURRENCY]['decimal_places']);
 }
