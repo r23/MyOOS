@@ -116,7 +116,7 @@ class ot_coupon {
 
 
 	function collect_posts() {
-		global $oCurrencies, $aLang;
+		global $oOrder, $oCurrencies, $oMessage, $aLang;
 
 		// Get database information
 		$dbconn =& oosDBGetConn();
@@ -142,30 +142,26 @@ class ot_coupon {
 					WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'
 						AND coupon_active = 'Y'";
 			$coupon_query = $dbconn->Execute($sql);
-			$coupon_result = $coupon_query->fields;
 
+			if ($coupon_query->RecordCount() == 0) {			
+				$oMessage->add_session('danger', $aLang['error_no_invalid_redeem_coupon']);
+				oos_redirect(oos_href_link($aContents['checkout_payment']));				
+			} else {			
+				$coupon_result = $coupon_query->fields;
 
-			if ($coupon_result['coupon_type'] != 'G') {
+				if ($coupon_result['coupon_type'] != 'G') {
 
-				if ($coupon_query->RecordCount() == 0) {
-					
-					// todo:  is gv aktiv? no info $this->enabled = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
-					$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
-					# todo remove? 
-					oos_redirect(oos_href_link($aContents['checkout_payment']));
-				}
-
-				$couponstable = $oostable['coupons'];
-				$sql = "SELECT coupon_start_date
+					$couponstable = $oostable['coupons'];
+					$sql = "SELECT coupon_start_date
 						FROM $couponstable
 						WHERE coupon_start_date <= now()
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
-				$date_query = $dbconn->Execute($sql);
-				if ($date_query->RecordCount() == 0) {
-					$_SESSION['error_message'] = $aLang['error_invalid_startdate_coupon'];
-					# todo remove? 
-					oos_redirect(oos_href_link($aContents['checkout_payment']));			
+					$date_query = $dbconn->Execute($sql);
+					if ($date_query->RecordCount() == 0) {
+						$oMessage->add_session('danger', $aLang['error_invalid_startdate_coupon']);
+					}
 				}
+			
 
 				$couponstable = $oostable['coupons'];
 				$sql = "SELECT coupon_expire_date
@@ -174,10 +170,9 @@ class ot_coupon {
 						AND   coupon_code= '" . oos_db_input($gv_redeem_code) . "'";
 				$date_query = $dbconn->Execute($sql);
 				if ($date_query->RecordCount() == 0) {
-					$_SESSION['error_message'] = $aLang['error_invalid_finisdate_coupon'];
-					# todo remove? 
-					oos_redirect(oos_href_link($aContents['checkout_payment']));
+					$oMessage->add_session('danger', $aLang['error_invalid_finisdate_coupon']);
 				}
+
 
 				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
 				$sql = "SELECT coupon_id
@@ -185,13 +180,15 @@ class ot_coupon {
 						WHERE coupon_id = '" . $coupon_result['coupon_id']."'";
 				$coupon_count = $dbconn->Execute($sql);
 
-
-
 				if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
-					$_SESSION['error_message'] = $aLang['error_invalid_uses_coupon'] . $coupon_result['uses_per_coupon'] . $aLang['times'];	
-					# todo remove? 
-					oos_redirect(oos_href_link($aContents['checkout_payment']));
+						$couponstable = $oostable['coupons'];
+						$gv_update = $dbconn->Execute("UPDATE $couponstable
+														SET coupon_active = 'N'
+														WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'");													
+					$oMessage->add_session('danger', sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon'])); 
 				}
+
+
 /*
 				// For this type of voucher the customer would need to be logged in. But we must allow guest orders in the store.
 				$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
@@ -206,6 +203,26 @@ class ot_coupon {
 					oos_redirect(oos_href_link($aContents['checkout_payment']));
 				}
 */
+				$order_total = $oOrder->info['total'];
+				if ($coupon_result['coupon_minimum_order'] > $order_total) {
+					$missing = $coupon_result['coupon_minimum_order'] - $order_total;
+					
+					$currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);		
+					$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+					
+					$coupon_minimum_order =	$oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
+					$coupon_missing = $oCurrencies->format($missing, true, $currency, $currency_value);
+					
+					$oMessage->add('danger', sprintf($aLang['error_coupon_minimum_order'],  $coupon_minimum_order, $coupon_missing));
+				}
+				
+				if ($oMessage->size('danger') == 0) {
+					$_SESSION['cc_id'] = $coupon_result['coupon_id'];
+				} else {
+					oos_redirect(oos_href_link($aContents['checkout_payment']));
+				}
+
+/*
 			
 				if ($coupon_result['coupon_type'] == 'S') {
 					$coupon_amount = $oOrder->info['shipping_cost'];
@@ -223,7 +240,8 @@ class ot_coupon {
 				$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
 				oos_redirect(oos_href_link($aContents['checkout_payment']));
 			} 
-	  
+*/	
+			}  
 		}
 	}
 
@@ -312,6 +330,7 @@ class ot_coupon {
 					$oMessage->add('danger', sprintf($aLang['error_invalid_uses_user_coupon'], $coupon_result['uses_per_coupon'])); 
 				}
 */
+
 
 				$total = $_SESSION['cart']->info['total'];
 				if ($coupon_result['coupon_minimum_order'] > $total) {
