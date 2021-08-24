@@ -898,6 +898,16 @@ var GamepadButton = require('../../lib/GamepadButton'),
 
 var JOYSTICK_EPS = 0.2;
 
+var Hand = {
+  LEFT: 'left',
+  RIGHT: 'right'
+};
+
+var Joystick = {
+  MOVEMENT: 1,
+  ROTATION: 2
+};
+
 module.exports = AFRAME.registerComponent('gamepad-controls', {
 
   /*******************************************************************
@@ -911,14 +921,8 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
    */
 
   schema: {
-    // Controller 0-3
-    controller: { default: 0, oneOf: [0, 1, 2, 3] },
-
-    // Enable/disable features
+    // Enable/disable gamepad-controls
     enabled: { default: true },
-
-    // Debugging
-    debug: { default: false },
 
     // Heading element for rotation
     camera: { default: '[camera]', type: 'selector' },
@@ -935,7 +939,10 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
    * Called once when component is attached. Generally for initial setup.
    */
   init: function init() {
-    var scene = this.el.sceneEl;
+    var sceneEl = this.el.sceneEl;
+
+    this.system = sceneEl.systems['tracked-controls-webxr'] || { controllers: [] };
+
     this.prevTime = window.performance.now();
 
     // Button state
@@ -950,7 +957,11 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
     this.yaw.rotation.y = THREE.Math.degToRad(rotation.y);
     this.yaw.add(this.pitch);
 
-    scene.addBehavior(this);
+    this._lookVector = new THREE.Vector2();
+    this._moveVector = new THREE.Vector2();
+    this._dpadVector = new THREE.Vector2();
+
+    sceneEl.addBehavior(this);
   },
 
   /**
@@ -982,20 +993,28 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
   isVelocityActive: function isVelocityActive() {
     if (!this.data.enabled || !this.isConnected()) return false;
 
-    var dpad = this.getDpad(),
-        joystick0 = this.getJoystick(0),
-        inputX = dpad.x || joystick0.x,
-        inputY = dpad.y || joystick0.y;
+    var dpad = this._dpadVector;
+    var joystick = this._moveVector;
+
+    this.getDpad(dpad);
+    this.getJoystick(Joystick.MOVEMENT, joystick);
+
+    var inputX = dpad.x || joystick.x;
+    var inputY = dpad.y || joystick.y;
 
     return Math.abs(inputX) > JOYSTICK_EPS || Math.abs(inputY) > JOYSTICK_EPS;
   },
 
   getVelocityDelta: function getVelocityDelta() {
-    var dpad = this.getDpad(),
-        joystick0 = this.getJoystick(0),
-        inputX = dpad.x || joystick0.x,
-        inputY = dpad.y || joystick0.y,
-        dVelocity = new THREE.Vector3();
+    var dpad = this._dpadVector;
+    var joystick = this._moveVector;
+
+    this.getDpad(dpad);
+    this.getJoystick(Joystick.MOVEMENT, joystick);
+
+    var inputX = dpad.x || joystick.x;
+    var inputY = dpad.y || joystick.y;
+    var dVelocity = new THREE.Vector3();
 
     if (Math.abs(inputX) > JOYSTICK_EPS) {
       dVelocity.x += inputX;
@@ -1014,9 +1033,11 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
   isRotationActive: function isRotationActive() {
     if (!this.data.enabled || !this.isConnected()) return false;
 
-    var joystick1 = this.getJoystick(1);
+    var joystick = this._lookVector;
 
-    return Math.abs(joystick1.x) > JOYSTICK_EPS || Math.abs(joystick1.y) > JOYSTICK_EPS;
+    this.getJoystick(Joystick.ROTATION, joystick);
+
+    return Math.abs(joystick.x) > JOYSTICK_EPS || Math.abs(joystick.y) > JOYSTICK_EPS;
   },
 
   updateRotation: function updateRotation(dt) {
@@ -1034,7 +1055,9 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
       yaw.rotation.copy(lookControls.yawObject.rotation);
     }
 
-    var lookVector = this.getJoystick(1);
+    var lookVector = this._lookVector;
+
+    this.getJoystick(Joystick.ROTATION, lookVector);
 
     if (Math.abs(lookVector.x) <= JOYSTICK_EPS) lookVector.x = 0;
     if (Math.abs(lookVector.y) <= JOYSTICK_EPS) lookVector.y = 0;
@@ -1057,7 +1080,7 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
    */
 
   updateButtonState: function updateButtonState() {
-    var gamepad = this.getGamepad();
+    var gamepad = this.getGamepad(Hand.RIGHT);
     if (this.data.enabled && gamepad) {
 
       // Fire DOM events for button state changes.
@@ -1092,14 +1115,38 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
    * a proxy-controls component may provide access to Gamepad input from a
    * remote device.
    *
+   * @param {string} handPreference
    * @return {Gamepad}
    */
-  getGamepad: function getGamepad() {
-    var localGamepad = navigator.getGamepads && navigator.getGamepads()[this.data.controller],
-        proxyControls = this.el.sceneEl.components['proxy-controls'],
-        proxyGamepad = proxyControls && proxyControls.isConnected() && proxyControls.getGamepad(this.data.controller);
-    return proxyGamepad || localGamepad;
-  },
+  getGamepad: function () {
+    var _xrGamepads = [];
+    var _empty = [];
+
+    return function (handPreference) {
+      // https://github.com/donmccurdy/aframe-proxy-controls
+      var proxyControls = this.el.sceneEl.components['proxy-controls'];
+      var proxyGamepad = proxyControls && proxyControls.isConnected() && proxyControls.getGamepad(0);
+      if (proxyGamepad) return proxyGamepad;
+
+      // https://www.w3.org/TR/webxr/#dom-xrinputsource-handedness
+      _xrGamepads.length = 0;
+      for (var i = 0; i < this.system.controllers.length; i++) {
+        var xrController = this.system.controllers[i];
+        var xrGamepad = xrController ? xrController.gamepad : null;
+        _xrGamepads.push(xrGamepad);
+        if (xrGamepad && xrGamepad.handedness === handPreference) return xrGamepad;
+      }
+
+      // https://developer.mozilla.org/en-US/docs/Web/API/Gamepad/hand
+      var navGamepads = navigator.getGamepads ? navigator.getGamepads() : _empty;
+      for (var _i = 0; _i < navGamepads.length; _i++) {
+        var navGamepad = navGamepads[_i];
+        if (navGamepad && navGamepad.hand === handPreference) return navGamepad;
+      }
+
+      return _xrGamepads[0] || navGamepads[0];
+    };
+  }(),
 
   /**
    * Returns the state of the given button.
@@ -1107,7 +1154,7 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
    * @return {GamepadButton}
    */
   getButton: function getButton(index) {
-    return this.getGamepad().buttons[index];
+    return this.getGamepad(Hand.RIGHT).buttons[index];
   },
 
   /**
@@ -1117,36 +1164,47 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
    * @return {number} On the interval [-1,1].
    */
   getAxis: function getAxis(index) {
-    return this.getGamepad().axes[index];
+    return this.getGamepad(index > 1 ? Hand.RIGHT : Hand.LEFT).axes[index];
   },
 
   /**
-   * Returns the state of the given joystick (0 or 1) as a THREE.Vector2.
-   * @param  {number} id The joystick (0, 1) for which to find state.
+   * Returns the state of the specified joystick as a THREE.Vector2.
+   * @param  {Joystick} role
+   * @param  {THREE.Vector2} target
    * @return {THREE.Vector2}
    */
-  getJoystick: function getJoystick(index) {
-    var gamepad = this.getGamepad();
-    switch (index) {
-      case 0:
-        return new THREE.Vector2(gamepad.axes[0], gamepad.axes[1]);
-      case 1:
-        return new THREE.Vector2(gamepad.axes[2], gamepad.axes[3]);
-      default:
-        throw new Error('Unexpected joystick index "%d".', index);
+  getJoystick: function getJoystick(index, target) {
+    var gamepad = this.getGamepad(index === Joystick.MOVEMENT ? Hand.LEFT : Hand.RIGHT);
+    if (gamepad.mapping === 'xr-standard') {
+      // See: https://github.com/donmccurdy/aframe-extras/issues/307
+      switch (index) {
+        case Joystick.MOVEMENT:
+          return target.set(gamepad.axes[2], gamepad.axes[3]);
+        case Joystick.ROTATION:
+          return target.set(gamepad.axes[0], gamepad.axes[1]);
+      }
+    } else {
+      switch (index) {
+        case Joystick.MOVEMENT:
+          return target.set(gamepad.axes[0], gamepad.axes[1]);
+        case Joystick.ROTATION:
+          return target.set(gamepad.axes[2], gamepad.axes[3]);
+      }
     }
+    throw new Error('Unexpected joystick index "%d".', index);
   },
 
   /**
    * Returns the state of the dpad as a THREE.Vector2.
+   * @param {THREE.Vector2} target
    * @return {THREE.Vector2}
    */
-  getDpad: function getDpad() {
-    var gamepad = this.getGamepad();
+  getDpad: function getDpad(target) {
+    var gamepad = this.getGamepad(Hand.LEFT);
     if (!gamepad.buttons[GamepadButton.DPAD_RIGHT]) {
-      return new THREE.Vector2();
+      return target.set(0, 0);
     }
-    return new THREE.Vector2((gamepad.buttons[GamepadButton.DPAD_RIGHT].pressed ? 1 : 0) + (gamepad.buttons[GamepadButton.DPAD_LEFT].pressed ? -1 : 0), (gamepad.buttons[GamepadButton.DPAD_UP].pressed ? -1 : 0) + (gamepad.buttons[GamepadButton.DPAD_DOWN].pressed ? 1 : 0));
+    return target.set((gamepad.buttons[GamepadButton.DPAD_RIGHT].pressed ? 1 : 0) + (gamepad.buttons[GamepadButton.DPAD_LEFT].pressed ? -1 : 0), (gamepad.buttons[GamepadButton.DPAD_UP].pressed ? -1 : 0) + (gamepad.buttons[GamepadButton.DPAD_DOWN].pressed ? 1 : 0));
   },
 
   /**
@@ -1154,7 +1212,7 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
    * @return {boolean}
    */
   isConnected: function isConnected() {
-    var gamepad = this.getGamepad();
+    var gamepad = this.getGamepad(Hand.LEFT);
     return !!(gamepad && gamepad.connected);
   },
 
@@ -1164,7 +1222,7 @@ module.exports = AFRAME.registerComponent('gamepad-controls', {
    * @return {string}
    */
   getID: function getID() {
-    return this.getGamepad().id;
+    return this.getGamepad(Hand.LEFT).id;
   }
 });
 

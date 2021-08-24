@@ -7503,7 +7503,7 @@ module.exports = AFRAME.registerComponent('fbx-model', {
 
 var fetchScript = require('../../lib/fetch-script')();
 
-var LOADER_SRC = 'https://rawgit.com/mrdoob/three.js/r86/examples/js/loaders/GLTFLoader.js';
+var LOADER_SRC = 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r86/examples/js/loaders/GLTFLoader.js';
 
 var loadLoader = function () {
   var promise = void 0;
@@ -7515,7 +7515,7 @@ var loadLoader = function () {
 
 /**
  * Legacy loader for glTF 1.0 models.
- * Asynchronously loads THREE.GLTFLoader from rawgit.
+ * Asynchronously loads THREE.GLTFLoader from jsdelivr.
  */
 module.exports = AFRAME.registerComponent('gltf-model-legacy', {
   schema: { type: 'model' },
