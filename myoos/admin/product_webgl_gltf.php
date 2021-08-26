@@ -364,6 +364,8 @@ if ($action == 'edit_3d') {
 	
 		foreach ($pInfo->products_models as $models) {
 
+			$models_id = (isset($pInfo->models_id) ? intval($pInfo->models_id) : '');
+
 			if (isset($models['models_id'])) {
 				echo oos_draw_hidden_field('models_id['. $nCounter . ']', $models['models_id']);
 ?>
@@ -395,7 +397,7 @@ if ($action == 'edit_3d') {
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_NAME; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('models_name['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (($models_name[$aLanguages[$i]['id']]) ? stripslashes($models_name[$aLanguages[$i]['id']]) : oos_get_models_name($models['models_id'], $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('models_name['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($models_name[$aLanguages[$i]['id']]) ? stripslashes($models_name[$aLanguages[$i]['id']]) : oos_get_models_name($models_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>						
@@ -408,7 +410,7 @@ if ($action == 'edit_3d') {
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_TITLE; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('models_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (($models_title[$aLanguages[$i]['id']]) ? stripslashes($models_title[$aLanguages[$i]['id']]) : oos_get_models_title($models['models_id'], $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_input_field('models_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($models_title[$aLanguages[$i]['id']]) ? stripslashes($models_title[$aLanguages[$i]['id']]) : oos_get_models_title($models_id, $aLanguages[$i]['id']))); ?>
                               </div>
                            </div>
                         </fieldset>						
@@ -421,7 +423,7 @@ if ($action == 'edit_3d') {
 							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_DESCRIPTION_META; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '4', ($_POST['models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id']] ? stripslashes($_POST['models_description_meta_'. $nCounter . '_' .$aLanguages[$i]['id']]) : oos_get_models_description_meta($models['models_id'], $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['models_description_meta_'. $nCounter . '_' . $aLanguages[$i]['id']]) ? stripslashes($_POST['models_description_meta_'. $nCounter . '_' .$aLanguages[$i]['id']]) : oos_get_models_description_meta($models_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
