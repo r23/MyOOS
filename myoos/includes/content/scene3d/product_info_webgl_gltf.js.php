@@ -13,7 +13,7 @@
    JavaScript 3D library
    http://threejs.org
 
-   Copyright © 2010-2019 three.js authors
+   Copyright © 2010-2021 three.js authors
    ----------------------------------------------------------------------
    The MIT License
    ---------------------------------------------------------------------- */
@@ -26,21 +26,16 @@
 	import { GUI } from './jsm/libs/dat.gui.module.js';
 	import { OrbitControls } from './jsm/controls/OrbitControls.js';
 	import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-	import { DDSLoader } from './jsm/loaders/DDSLoader.js';
 	import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
 	import { RGBELoader } from './jsm/loaders/RGBELoader.js';
-	import { EquirectangularToCubeGenerator } from './jsm/loaders/EquirectangularToCubeGenerator.js';
-	import { PMREMGenerator } from './jsm/pmrem/PMREMGenerator.js';
-	import { PMREMCubeUVPacker } from './jsm/pmrem/PMREMCubeUVPacker.js';
 
-	var orbitControls;
-	var container, camera, scene, renderer, loader;
-	var gltf, background, envMap, mixer, gui, extensionControls;
+	let orbitControls;
+	let container, camera, scene, renderer, loader;
+	let gltf, background, envMap, mixer, gui, extensionControls;
 
-	var clock = new THREE.Clock();
+	const clock = new THREE.Clock();
 
-
-	var scenes = {
+			const scenes = {
 				Boombox: {
 					name: '<?php echo $name; ?>',
 					url: './media/models/gltf/<?php echo $url; ?>',
@@ -48,15 +43,12 @@
 					authorURL: '<?php echo $model_info['models_author_url']; ?>',
 					cameraPos: new THREE.Vector3( <?php echo $model_info['models_camera_pos']; ?> ),
 					objectRotation: new THREE.Euler( <?php echo $model_info['models_object_rotation']; ?> ),
-					<?php if ($model_info['models_add_lights'] == 'true') echo 'addLights: true,'; ?>
-					<?php if ($model_info['models_add_ground'] == 'true') echo 'addGround: true,'; ?>
-					<?php if ($model_info['models_shadows'] == 'true') echo 'shadows: true,'; ?>
 					<?php if ($model_info['models_add_env_map'] == 'true') echo 'addEnvMap: true,'; ?>
-					extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-dds' ]
+					extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco' ]
 				},
-	};
+			};
 
-			var state = {
+			const state = {
 				scene: Object.keys( scenes )[ 0 ],
 				extension: scenes[ Object.keys( scenes )[ 0 ] ].extensions[ 0 ],
 				playAnimation: true
@@ -69,7 +61,9 @@
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.gammaOutput = true;
+				renderer.outputEncoding = THREE.sRGBEncoding;
+				renderer.toneMapping = THREE.ACESFilmicToneMapping;
+				renderer.toneMappingExposure = 1;
 				renderer.physicallyCorrectLights = true;
 				container.appendChild( renderer.domElement );
 
@@ -78,25 +72,13 @@
 				// Load background and generate envMap
 
 				new RGBELoader()
-					.setDataType( THREE.UnsignedByteType )
 					.setPath( 'media/textures/equirectangular/' )
 					.load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
 
-						var cubeGenerator = new EquirectangularToCubeGenerator( texture, { resolution: 1024 } );
-						cubeGenerator.update( renderer );
+						texture.mapping = THREE.EquirectangularReflectionMapping;
 
-						background = cubeGenerator.renderTarget;
-
-						var pmremGenerator = new PMREMGenerator( cubeGenerator.renderTarget.texture );
-						pmremGenerator.update( renderer );
-
-						var pmremCubeUVPacker = new PMREMCubeUVPacker( pmremGenerator.cubeLods );
-						pmremCubeUVPacker.update( renderer );
-
-						envMap = pmremCubeUVPacker.CubeUVRenderTarget.texture;
-
-						pmremGenerator.dispose();
-						pmremCubeUVPacker.dispose();
+						envMap = texture;
+						background = texture;
 
 						//
 
@@ -108,24 +90,31 @@
 
 			}
 
+
 			function initScene( sceneInfo ) {
 
-				var descriptionEl = document.getElementById( 'description' );
+				const descriptionEl = document.getElementById( 'description' );
+
+				if ( sceneInfo.author && sceneInfo.authorURL ) {
+
+					descriptionEl.innerHTML = sceneInfo.name + ' by <a href="' + sceneInfo.authorURL + '" target="_blank" rel="noopener">' + sceneInfo.author + '</a>';
+
+				}
 
 				scene = new THREE.Scene();
 				scene.background = new THREE.Color( 0x222222 );
 
-				camera = new THREE.PerspectiveCamera( 45, container.offsetWidth / container.offsetHeight, 0.001, 1000 );
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.001, 1000 );
 				scene.add( camera );
 
-				var spot1;
+				let spot1;
 
 				if ( sceneInfo.addLights ) {
 
-					var ambient = new THREE.AmbientLight( 0x222222 );
+					const ambient = new THREE.AmbientLight( 0x222222 );
 					scene.add( ambient );
 
-					var directionalLight = new THREE.DirectionalLight( 0xdddddd, 4 );
+					const directionalLight = new THREE.DirectionalLight( 0xdddddd, 4 );
 					directionalLight.position.set( 0, 0, 1 ).normalize();
 					scene.add( directionalLight );
 
@@ -162,8 +151,8 @@
 
 				if ( sceneInfo.addGround ) {
 
-					var groundMaterial = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
-					var ground = new THREE.Mesh( new THREE.PlaneBufferGeometry( 512, 512 ), groundMaterial );
+					const groundMaterial = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
+					const ground = new THREE.Mesh( new THREE.PlaneGeometry( 512, 512 ), groundMaterial );
 					ground.receiveShadow = !! sceneInfo.shadows;
 
 					if ( sceneInfo.groundPos ) {
@@ -184,25 +173,26 @@
 
 				loader = new GLTFLoader();
 
-				DRACOLoader.setDecoderPath( 'js/libs/draco/gltf/' );
-				loader.setDRACOLoader( new DRACOLoader() );
-				loader.setDDSLoader( new DDSLoader() );
+				const dracoLoader = new DRACOLoader();
+				dracoLoader.setDecoderPath( 'js/libs/draco/gltf/' );
+				loader.setDRACOLoader( dracoLoader );
 
-				//	var url = sceneInfo.url.replace( /%s/g, state.extension );
-				var url = sceneInfo.url;
+				// let url = sceneInfo.url.replace( /%s/g, state.extension );
+				let url = sceneInfo.url;
+				
 				if ( state.extension === 'glTF-Binary' ) {
 
 					url = url.replace( '.gltf', '.glb' );
 
 				}
 
-				var loadStartTime = performance.now();
+				const loadStartTime = performance.now();
 
 				loader.load( url, function ( data ) {
 
 					gltf = data;
 
-					var object = gltf.scene;
+					const object = gltf.scene;
 
 					// console.info( 'Load time: ' + ( performance.now() - loadStartTime ).toFixed( 2 ) + ' ms.' );
 
@@ -266,15 +256,15 @@
 
 					} );
 
-					var animations = gltf.animations;
+					const animations = gltf.animations;				
 
 					if ( animations && animations.length ) {
 
 						mixer = new THREE.AnimationMixer( object );
 
-						for ( var i = 0; i < animations.length; i ++ ) {
+						for ( let i = 0; i < animations.length; i ++ ) {
 
-							var animation = animations[ i ];
+							const animation = animations[ i ];
 
 							// There's .3333 seconds junk at the tail of the Monster animation that
 							// keeps it from looping cleanly. Clip it at 3 seconds
@@ -284,7 +274,7 @@
 
 							}
 
-							var action = mixer.clipAction( animation );
+							const action = mixer.clipAction( animation );
 
 							if ( state.playAnimation ) action.play();
 
@@ -302,7 +292,7 @@
 				} );
 
 			}
-
+			
 			function onWindowResize() {
 
 				camera.aspect = container.offsetWidth / container.offsetHeight;
@@ -328,28 +318,28 @@
 
 				renderer.render( scene, camera );
 
-			}
+			}			
 
 			function buildGUI() {
 
 				gui = new GUI( { width: 0 } );
 				gui.domElement.parentElement.style.zIndex = 101;
 
-				var sceneCtrl = gui.add( state, 'scene', Object.keys( scenes ) );
+				const sceneCtrl = gui.add( state, 'scene', Object.keys( scenes ) );
 				sceneCtrl.onChange( reload );
 
-				var animCtrl = gui.add( state, 'playAnimation' );
+				const animCtrl = gui.add( state, 'playAnimation' );
 				animCtrl.onChange( toggleAnimations );
 
 				updateGUI();
 
-			}
+			}			
 
 			function updateGUI() {
 
 				if ( extensionControls ) extensionControls.remove();
 
-				var sceneInfo = scenes[ state.scene ];
+				const sceneInfo = scenes[ state.scene ];
 
 				if ( sceneInfo.extensions.indexOf( state.extension ) === - 1 ) {
 
@@ -364,10 +354,10 @@
 
 			function toggleAnimations() {
 
-				for ( var i = 0; i < gltf.animations.length; i ++ ) {
+				for ( let i = 0; i < gltf.animations.length; i ++ ) {
 
-					var clip = gltf.animations[ i ];
-					var action = mixer.existingAction( clip );
+					const clip = gltf.animations[ i ];
+					const action = mixer.existingAction( clip );
 
 					state.playAnimation ? action.play() : action.stop();
 
