@@ -161,18 +161,13 @@ class order_total {
 					if ($GLOBALS[$class]->credit_class) {
 						if ($selection_string =='') $selection_string = $GLOBALS[$class]->credit_selection();
 						$use_credit_string = $GLOBALS[$class]->use_credit_amount();
-						$output_string .= '<tr colspan="4"><td colspan="4" width="100%"></td></tr>';
-				 		$output_string .= ' <tr class="moduleRow" onmouseover="rowOverEffect(this)" onmouseout="rowOutEffect(this)" >' . "\n" .
-	 			 						'   <td width="10"></td>';
 						if ( ($use_credit_string !='' ) && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ) {
 							$output_string .= ' ' . $use_credit_string;
 						} elseif ( (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true')) || (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true')) ) { 
-							$output_string .= '     <td class="main"></td>';
+							$output_string .= ' ';
 						} else {
-							$output_string .= '     <td class="main"><strong>' . $GLOBALS[$class]->header . '</strong></td>';
+							$output_string .= '    <strong>' . $GLOBALS[$class]->header . '</strong>';
 						}
-						$output_string .= '<td width="10"></td>';
-						$output_string .= '  </tr>' . "\n"; 
 					}
 				}
 			}
