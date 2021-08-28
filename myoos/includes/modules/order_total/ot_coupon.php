@@ -105,7 +105,7 @@ class ot_coupon {
 		global $aLang;
 
 		$selection_string .= '<div class="form-group">' . "\n";
-		$selection_string .= '	<input class="form-control" type="text" name="gv_redeem_code" id="cart-promocode" placeholder="' . $aLang['text_apply_coupon'] . '" required>' . "\n";
+		$selection_string .= '	<input class="form-control" type="text" name="gv_redeem_code" id="cart-promocode" placeholder="' . $aLang['text_apply_coupon'] . '">' . "\n";
 		$selection_string .= '	<div class="invalid-feedback">' . $aLang['text_invalid_feedback'] . '</div>' . "\n";
 		$selection_string .= '	</div>' . "\n";
 		$selection_string .= '<button class="btn btn-outline-primary btn-block" type="submit">' . $aLang['button_apply_coupon'] . '</button>' . "\n";
@@ -485,31 +485,28 @@ class ot_coupon {
 				$this->coupon_code = $coupon_result['coupon_code'];
 
 				if ($coupon_result['coupon_minimum_order'] <= $amount) {
-					if ($coupon_result['coupon_type'] == 'S') {
-
-						// Sales tax recalculation for shipping costs
-						$subtotal = 0;
-						reset($oOrder->info['net_total']);
-						foreach($oOrder->info['net_total'] as $key => $value) {
-							if ($value > 0) {
-								$subtotal += $value;
-							}
-						}					
-
-						reset($oOrder->info['net_total']);
-						foreach($oOrder->info['net_total'] as $key => $value) {  
-							if ($value > 0) {
-								$share =  $value * 100 / $subtotal;	
-	
-								$shipping_cost = $od_amount * $share / 100;
-
-								$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
-
-								$oOrder->info['tax'] -= $tax;
-								$oOrder->info['tax_groups']["$key"] -= $tax;
-							}
+					// Sales tax recalculation
+					$subtotal = 0;
+					reset($oOrder->info['net_total']);
+					foreach($oOrder->info['net_total'] as $key => $value) {
+						if ($value > 0) {
+							$subtotal += $value;
 						}
-					}
+					}					
+
+					reset($oOrder->info['net_total']);
+					foreach($oOrder->info['net_total'] as $key => $value) {  
+						if ($value > 0) {
+							$share =  $value * 100 / $subtotal;	
+
+							$cost = $od_amount * $share / 100;
+
+							$tax = $cost - oos_round((($cost * 100) / (100 + $key)), 2);
+
+							$oOrder->info['tax'] -= $tax;
+							$oOrder->info['tax_groups']["$key"] -= $tax;
+						}
+					}					
 				}
 			}
 		}
@@ -538,31 +535,28 @@ class ot_coupon {
 				$this->coupon_code = $coupon_result['coupon_code'];
 
 				if ($coupon_result['coupon_minimum_order'] <= $amount) {
-					if ($coupon_result['coupon_type'] == 'S') {
-
-						// Sales tax recalculation for shipping costs
-						$subtotal = 0;
-						reset($_SESSION['cart']->info['net_total']);
-						foreach($_SESSION['cart']->info['net_total'] as $key => $value) {
-							if ($value > 0) {
-								$subtotal += $value;
-							}
-						}					
-
-						reset($_SESSION['cart']->info['net_total']);
-						foreach($_SESSION['cart']->info['net_total'] as $key => $value) {  
-							if ($value > 0) {
-								$share =  $value * 100 / $subtotal;	
-	
-								$shipping_cost = $od_amount * $share / 100;
-
-								$tax = $shipping_cost - oos_round((($shipping_cost * 100) / (100 + $key)), 2);
-
-								$_SESSION['cart']->info['tax'] -= $tax;
-								$_SESSION['cart']->info['tax_groups']["$key"] -= $tax;
-							}
+					// Sales tax recalculation
+					$subtotal = 0;
+					reset($_SESSION['cart']->info['net_total']);
+					foreach($_SESSION['cart']->info['net_total'] as $key => $value) {
+						if ($value > 0) {
+							$subtotal += $value;
 						}
-					}
+					}					
+
+					reset($_SESSION['cart']->info['net_total']);
+					foreach($_SESSION['cart']->info['net_total'] as $key => $value) {  
+						if ($value > 0) {
+							$share =  $value * 100 / $subtotal;	
+
+							$cost = $od_amount * $share / 100;
+
+							$tax = $cost - oos_round((($cost * 100) / (100 + $key)), 2);
+
+							$_SESSION['cart']->info['tax'] -= $tax;
+							$_SESSION['cart']->info['tax_groups']["$key"] -= $tax;
+						}
+					}					
 				}
 			}
 		}
