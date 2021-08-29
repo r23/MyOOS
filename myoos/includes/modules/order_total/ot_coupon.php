@@ -34,8 +34,6 @@ class ot_coupon {
 		$this->enabled = (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && (MODULE_ORDER_TOTAL_COUPON_STATUS == 'true') ? true : false);
 		$this->sort_order = (defined('MODULE_ORDER_TOTAL_COUPON_SORT_ORDER') ? MODULE_ORDER_TOTAL_COUPON_SORT_ORDER : null);
 		$this->include_shipping = (defined('MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING') ? MODULE_ORDER_TOTAL_COUPON_INC_SHIPPING : null);
-		$this->include_tax = null; // todo remove
- 		$this->calculate_tax = null; // todo remove
 		$this->tax_class = null; // todo remove
 		$this->credit_class = true;
 		$this->coupon_code = '';
@@ -719,87 +717,6 @@ class ot_coupon {
 	}
 
 
-  function get_order_total() {
-    global  $oOrder;
-
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $cc_id = $_SESSION['cc_id'];
-    $order_total = $oOrder->info['total'];
-// Check if gift voucher is in cart and adjust total
-    $products = $_SESSION['cart']->get_products();
-    for ($i=0; $i<count($products); $i++) {
-      $t_prid = oos_get_product_id($products[$i]['id']);
-
-      $productstable = $oostable['products'];
-      $gv_query = $dbconn->Execute("SELECT products_price, products_tax_class_id, products_model FROM $productstable WHERE products_id = '" . intval($t_prid) . "'");
-      $gv_result = $gv_query->fields;
-      if (preg_match('/^GIFT/', addslashes($gv_result['products_model']))) {
-        $qty = $_SESSION['cart']->get_quantity($t_prid);
-        $products_tax = oos_get_tax_rate($gv_result['products_tax_class_id']);
-        if ($this->include_tax =='false') {
-           $gv_amount = $gv_result['products_price'] * $qty;
-        } else {
-          $gv_amount = ($gv_result['products_price'] + oos_calculate_tax($gv_result['products_price'],$products_tax)) * $qty;
-        }
-        $order_total=$order_total - $gv_amount;
-      }
-    }
-    if ($this->include_tax == 'false') $order_total=$order_total-$oOrder->info['tax'];
-    if ($this->include_shipping == 'false') $order_total=$order_total-$oOrder->info['shipping_cost'];
-    // OK thats fine for global coupons but what about restricted coupons 
-    // where you can only redeem against certain products/categories.
-    // and I though this was going to be easy !!!
-
-   $couponstable = $oostable['coupons'];
-   $coupon_query=$dbconn->Execute("SELECT coupon_code  FROM $couponstable WHERE coupon_id = '" . oos_db_input($cc_id) . "'");
-   if ($coupon_query->RecordCount() !=0) {
-     $coupon_result = $coupon_query->fields;
-
-     $couponstable = $oostable['coupons'];
-     $coupon_get = $dbconn->Execute("SELECT coupon_amount, coupon_minimum_order,restrict_to_products,restrict_to_categories, coupon_type FROM $couponstable WHERE coupon_code = '" . $coupon_result['coupon_code'] . "'");
-     $get_result = $coupon_get->fields;
-     $in_cat = true;
-     if ($get_result['restrict_to_categories']) {
-       $cat_ids = preg_split("/[,]/", $get_result['restrict_to_categories']);
-       $in_cat=false;
-       for ($i = 0; $i < count($cat_ids); $i++) {
-         if (is_array($this->contents)) {
-           reset($this->contents);
-           foreach ( array_keys($this->contents) as $products_id ) {
-            $products_to_categoriestable = $oostable['products_to_categories'];
-            $cat_query = $dbconn->Execute("SELECT products_id FROM $products_to_categoriestable WHERE products_id = '" . (int)$products_id . "' AND categories_id = '" . (int)$cat_ids[$i] . "'");
-             if ($cat_query->RecordCount() !=0 ) {
-               $in_cat = true;
-               $total_price += $this->get_product_price($products_id);
-             }
-           }
-         }
-       }
-     }
-     $in_cart = true;
-     if ($get_result['restrict_to_products']) {
-
-       $pr_ids = preg_split("/[,]/", $get_result['restrict_to_products']);
-
-       $in_cart=false;
-       $products_array = $_SESSION['cart']->get_products();
-
-       for ($i = 0; $i < count($pr_ids); $i++) {
-         for ($ii = 1; $ii<=count($products_array); $ii++) {
-           if (oos_get_product_id($products_array[$ii-1]['id']) == $pr_ids[$i]) {
-             $in_cart=true;
-             $total_price += $this->get_product_price($products_array[$ii-1]['id']);
-           }
-         } 
-       }
-       $order_total = $total_price;
-     }
-   }
-   return $order_total;
-  }
 
 function get_product_price($product_id) {
     global $oOrder;
@@ -825,11 +742,8 @@ function get_product_price($product_id) {
         $specials = $specials_query->fields;
         $products_price = $specials['specials_new_products_price'];
       }
-      if ($this->include_tax == 'true') {
-        $total_price += ($products_price + oos_calculate_tax($products_price, $products_tax)) * $qty;
-      } else {
-        $total_price += $products_price * $qty;
-      }
+#		$total_price += ($products_price + oos_calculate_tax($products_price, $products_tax)) * $qty;
+		$total_price += $products_price * $qty;
 
 // attributes price
       if (isset($_SESSION['cart']->contents[$product_id]['attributes'])) {
@@ -839,17 +753,14 @@ function get_product_price($product_id) {
           $attribute_price_query = $dbconn->Execute("SELECT options_values_price, price_prefix FROM $products_attributestable WHERE products_id = '" . (int)$prid . "' AND options_id = '" . oos_db_input($option) . "' AND options_values_id = '" . oos_db_input($value) . "'");
           $attribute_price = $attribute_price_query->fields;
           if ($attribute_price['price_prefix'] == '+') {
-            if ($this->include_tax == 'true') {
-              $total_price += $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
-            } else {
-              $total_price += $qty * ($attribute_price['options_values_price']);
-            }
+#			$total_price += $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
+			$total_price += $qty * ($attribute_price['options_values_price']);
+
           } else {
-            if ($this->include_tax == 'true') {
-              $total_price -= $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
-            } else {
-              $total_price -= $qty * ($attribute_price['options_values_price']);
-            }
+
+#				$total_price -= $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
+				$total_price -= $qty * ($attribute_price['options_values_price']);
+
           }
         }
       }
@@ -859,11 +770,11 @@ function get_product_price($product_id) {
 }
 
     function check() {
-      if (!isset($this->_check)) {
-        $this->_check = defined('MODULE_ORDER_TOTAL_COUPON_STATUS');
-      }
-
-      return $this->_check;
+		if (!isset($this->_check)) {
+			$this->_check = defined('MODULE_ORDER_TOTAL_COUPON_STATUS');
+	}
+	
+		return $this->_check;
     }
 
     function keys() {
