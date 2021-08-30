@@ -214,18 +214,17 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
 	//------insert customer choosen option to order--------
     $attributes_exist = '0';
     $products_ordered_attributes = '';
-    if (isset($oOrder->products[$i]['attributes'])) {
-      $attributes_exist = '1';
-      for ($j=0, $n2=count($oOrder->products[$i]['attributes']); $j<$n2; $j++) {
-        if (DOWNLOAD_ENABLED == 'true') {
+	if (isset($oOrder->products[$i]['attributes'])) {
+		$attributes_exist = '1';
+		for ($j=0, $n2=count($oOrder->products[$i]['attributes']); $j<$n2; $j++) {
+			if (DOWNLOAD_ENABLED == 'true') {
 
-          $products_optionstable = $oostable['products_options'];
-          $products_options_valuestable = $oostable['products_options_values'];
-          $products_attributestable = $oostable['products_attributes'];
-          $products_attributes_downloadtable = $oostable['products_attributes_download'];
-
-          if ($oOrder->products[$i]['attributes'][$j]['value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
-            $attributes_result = "SELECT popt.products_options_name, poval.products_options_values_name,
+				$products_optionstable = $oostable['products_options'];
+				$products_options_valuestable = $oostable['products_options_values'];
+				$products_attributestable = $oostable['products_attributes'];
+				$products_attributes_downloadtable = $oostable['products_attributes_download'];
+				if ($oOrder->products[$i]['attributes'][$j]['value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
+					$attributes_result = "SELECT popt.products_options_name, poval.products_options_values_name,
                                          pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, 
                                          pad.products_attributes_maxcount , pad.products_attributes_filename 
                                   FROM $products_optionstable popt,
@@ -236,9 +235,9 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                                    AND pa.options_id = '" . intval($oOrder->products[$i]['attributes'][$j]['option_id']) . "'
                                    AND pa.options_id = popt.products_options_id
                                    AND popt.products_options_languages_id = '" .  intval($nLanguageID) . "'";
-          } else {
-            $attributes_result = "SELECT popt.products_options_name, poval.products_options_values_name,
-                                         pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, 
+				} else {
+					$attributes_result = "SELECT popt.products_options_name, poval.products_options_values_name,
+										pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, 
                                          pad.products_attributes_maxcount , pad.products_attributes_filename 
                                   FROM $products_optionstable popt,
                                        $products_options_valuestable poval,
@@ -251,69 +250,67 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                                     AND pa.options_values_id = poval.products_options_values_id
                                     AND popt.products_options_languages_id = '" .  intval($nLanguageID) . "'
                                     AND poval.products_options_values_languages_id = '" .  intval($nLanguageID) . "'";
-          }
-          $attributes = $dbconn->Execute($attributes_result);
-
-        } else {
-
-          $products_optionstable = $oostable['products_options'];
-          $products_options_valuestable = $oostable['products_options_values'];
-          $products_attributestable = $oostable['products_attributes'];
-
-          if ($oOrder->products[$i]['attributes'][$j]['value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
-            $sql = "SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix 
-                    FROM $products_optionstable popt,
-                         $products_options_valuestable poval,
-                         $products_attributestable pa
-                    WHERE pa.products_id = '" . intval($oOrder->products[$i]['id']) . "'
-                      AND pa.options_id = '" . intval($oOrder->products[$i]['attributes'][$j]['option_id']) . "'
-                      AND pa.options_id = popt.products_options_id
-                      AND popt.products_options_languages_id = '" .  intval($nLanguageID) . "'";
-          } else {
-            $sql = "SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix 
-                    FROM $products_optionstable popt,
-                         $products_options_valuestable poval,
-                         $products_attributestable pa
-                    WHERE pa.products_id = '" . intval($oOrder->products[$i]['id']) . "'
-                      AND pa.options_id = '" . intval($oOrder->products[$i]['attributes'][$j]['option_id']) . "'
-                      AND pa.options_id = popt.products_options_id
-                      AND pa.options_values_id = '" . intval($oOrder->products[$i]['attributes'][$j]['value_id']) . "' 
-                      AND pa.options_values_id = poval.products_options_values_id 
-                      AND popt.products_options_languages_id = '" .  intval($nLanguageID) . "' 
-                      AND poval.products_options_values_languages_id = '" .  intval($nLanguageID) . "'";
-          }
-          $attributes = $dbconn->Execute($sql);
-        }
-        $attributes_values = $attributes->fields;
-        $sql_data_array = array('orders_id' => $insert_id,
+				}
+				$attributes = $dbconn->Execute($attributes_result);
+			} else {
+				$products_optionstable = $oostable['products_options'];
+				$products_options_valuestable = $oostable['products_options_values'];
+				$products_attributestable = $oostable['products_attributes'];
+				if ($oOrder->products[$i]['attributes'][$j]['value_id'] == PRODUCTS_OPTIONS_VALUE_TEXT_ID) {
+					$sql = "SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix 
+							FROM $products_optionstable popt,
+								$products_options_valuestable poval,
+								$products_attributestable pa
+							WHERE pa.products_id = '" . intval($oOrder->products[$i]['id']) . "'
+								AND pa.options_id = '" . intval($oOrder->products[$i]['attributes'][$j]['option_id']) . "'
+								AND pa.options_id = popt.products_options_id
+								AND popt.products_options_languages_id = '" .  intval($nLanguageID) . "'";
+				} else {
+					$sql = "SELECT popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix 
+							FROM $products_optionstable popt,
+								$products_options_valuestable poval,
+								$products_attributestable pa
+							WHERE pa.products_id = '" . intval($oOrder->products[$i]['id']) . "'
+								AND pa.options_id = '" . intval($oOrder->products[$i]['attributes'][$j]['option_id']) . "'
+								AND pa.options_id = popt.products_options_id
+								AND pa.options_values_id = '" . intval($oOrder->products[$i]['attributes'][$j]['value_id']) . "' 
+								AND pa.options_values_id = poval.products_options_values_id 
+								AND popt.products_options_languages_id = '" .  intval($nLanguageID) . "' 
+								AND poval.products_options_values_languages_id = '" .  intval($nLanguageID) . "'";
+				}
+				$attributes = $dbconn->Execute($sql);
+			}
+			$attributes_values = $attributes->fields;
+			$sql_data_array = array('orders_id' => $insert_id,
                                 'orders_products_id' => $order_products_id,
                                 'products_options' => $attributes_values['products_options_name'],
                                 'products_options_values' => $oOrder->products[$i]['attributes'][$j]['value'],
                                 'options_values_price' => $attributes_values['options_values_price'],
                                 'price_prefix' => $attributes_values['price_prefix']);
-        // insert
-        oos_db_perform($oostable['orders_products_attributes'], $sql_data_array);
+			// insert
+			oos_db_perform($oostable['orders_products_attributes'], $sql_data_array);
 
-        if ((DOWNLOAD_ENABLED == 'true') && isset($attributes_values['products_attributes_filename']) && oos_is_not_null($attributes_values['products_attributes_filename'])) {
-          $sql_data_array = array('orders_id' => $insert_id, 
+			if ((DOWNLOAD_ENABLED == 'true') && isset($attributes_values['products_attributes_filename']) && oos_is_not_null($attributes_values['products_attributes_filename'])) {
+				$sql_data_array = array('orders_id' => $insert_id, 
                                   'orders_products_id' => $order_products_id, 
                                   'orders_products_filename' => $attributes_values['products_attributes_filename'], 
                                   'download_maxdays' => $attributes_values['products_attributes_maxdays'], 
                                   'download_count' => $attributes_values['products_attributes_maxcount']);
-          // insert
-          oos_db_perform($oostable['orders_products_download'], $sql_data_array);
-        }
-        $products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . oos_decode_special_chars($oOrder->products[$i]['attributes'][$j]['value']);
-      }
+				// insert
+				oos_db_perform($oostable['orders_products_download'], $sql_data_array);
+			}
+			$products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . oos_decode_special_chars($oOrder->products[$i]['attributes'][$j]['value']);
+		}
     }
-//------insert customer choosen option eof ----
+	//------insert customer choosen option eof ----
     $total_weight += ($oOrder->products[$i]['qty'] * $oOrder->products[$i]['weight']);
     $total_tax += oos_calculate_tax($total_products_price, $products_tax) * $oOrder->products[$i]['qty'];
     $total_cost += $total_products_price;
 
     $products_ordered .= $oOrder->products[$i]['qty'] . ' x ' . $oOrder->products[$i]['name'] . ' (' . $oOrder->products[$i]['model'] . ') = ' . $oCurrencies->display_price($oOrder->products[$i]['final_price'], $oOrder->products[$i]['tax'], $oOrder->products[$i]['qty']) . $products_ordered_attributes . "\n";
-  }
-  $order_total_modules->apply_credit();
+}
+
+$order_total_modules->apply_credit();
 
 // lets start with the email confirmation  
 if ($_SESSION['guest_account'] == 1) {
@@ -334,33 +331,34 @@ if ($oOrder->info['comments']) {
 	$email_order .= oos_db_input($oOrder->info['comments']) . "\n\n";
 }
 
-  $email_order .= $aLang['email_text_products'] . "\n" .
+$email_order .= $aLang['email_text_products'] . "\n" .
                   $aLang['email_separator'] . "\n" .
                   $products_ordered .
                   $aLang['email_separator'] . "\n";
 
-  for ($i=0, $n=count($order_totals); $i<$n; $i++) {
-    $email_order .= strip_tags($order_totals[$i]['title']) . ' ' . strip_tags($order_totals[$i]['text']) . "\n";
-  }
+for ($i=0, $n=count($order_totals); $i<$n; $i++) {
+	$email_order .= strip_tags($order_totals[$i]['title']) . ' ' . strip_tags($order_totals[$i]['text']) . "\n";
+}
 
-  if ($oOrder->content_type != 'virtual') {
-    $email_order .= "\n" . $aLang['email_text_delivery_address'] . "\n" .
+
+if ($oOrder->content_type != 'virtual') {
+	$email_order .= "\n" . $aLang['email_text_delivery_address'] . "\n" .
                     $aLang['email_separator'] . "\n" .
                     oos_address_label($_SESSION['customer_id'], $_SESSION['sendto'], 0, '', "\n") . "\n";
-  }
+}
 
-  $email_order .= "\n" . $aLang['email_text_billing_address'] . "\n" .
+$email_order .= "\n" . $aLang['email_text_billing_address'] . "\n" .
                   $aLang['email_separator'] . "\n" .
                   oos_address_label($_SESSION['customer_id'], $_SESSION['billto'], 0, '', "\n") . "\n\n";
-  if (is_object(${$_SESSION['payment']})) {
+if (is_object(${$_SESSION['payment']})) {
     $email_order .= $aLang['email_text_payment_method'] . "\n" .
                     $aLang['email_separator'] . "\n";
     $payment_class = ${$_SESSION['payment']};
     $email_order .= $payment_class->title . "\n\n";
     if ($payment_class->email_footer) { 
-      $email_order .= $payment_class->email_footer . "\n\n";
-    }
-  }
+		$email_order .= $payment_class->email_footer . "\n\n";
+	}
+}
   
 if (!isset($_SESSION['man_key'])) {
 	oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
