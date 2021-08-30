@@ -219,26 +219,6 @@ class ot_coupon {
 				} else {
 					oos_redirect(oos_href_link($aContents['checkout_payment']));
 				}
-
-/*
-			
-				if ($coupon_result['coupon_type'] == 'S') {
-					$coupon_amount = $oOrder->info['shipping_cost'];
-				} else {
-					$coupon_amount = $oCurrencies->format($coupon_result['coupon_amount']) . ' ';
-				}
-				if ($coupon_result['type']=='P') $coupon_amount = $coupon_result['coupon_amount'] . '% ';
-				# todo translate on orders greater than?
-				if ($coupon_result['coupon_minimum_order']>0) $coupon_amount .= 'on orders greater than ' .  $coupon_result['coupon_minimum_order'];
-				$_SESSION['cc_id'] = $coupon_result['coupon_id'];
-			}
-		
-			# todo remove?
-			if ($_POST['submit_redeem_coupon_x'] && !$gv_redeem_code) {
-				$_SESSION['error_message'] = $aLang['error_no_invalid_redeem_coupon'];
-				oos_redirect(oos_href_link($aContents['checkout_payment']));
-			} 
-*/	
 			}  
 		}
 	}
@@ -420,8 +400,7 @@ class ot_coupon {
 											$od_amount = $c_deduct;
 										}
 									}
-								}
-								
+								}								
 							} else {
 								$cat_ids = preg_split("/[,]/", $coupon_result['restrict_to_categories']);
 								$products = $_SESSION['cart']->get_products();
