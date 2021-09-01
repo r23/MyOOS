@@ -152,6 +152,9 @@ __webpack_require__.d(actions_namespaceObject, {
   "disableComplementaryArea": function() { return disableComplementaryArea; },
   "enableComplementaryArea": function() { return enableComplementaryArea; },
   "pinItem": function() { return pinItem; },
+  "setFeatureDefaults": function() { return setFeatureDefaults; },
+  "setFeatureValue": function() { return setFeatureValue; },
+  "toggleFeature": function() { return toggleFeature; },
   "unpinItem": function() { return unpinItem; }
 });
 
@@ -160,6 +163,7 @@ var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
   "getActiveComplementaryArea": function() { return getActiveComplementaryArea; },
+  "isFeatureActive": function() { return isFeatureActive; },
   "isItemPinned": function() { return isItemPinned; }
 });
 
@@ -205,282 +209,6 @@ var external_wp_components_namespaceObject = window["wp"]["components"];
 var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 ;// CONCATENATED MODULE: external ["wp","data"]
 var external_wp_data_namespaceObject = window["wp"]["data"];
-;// CONCATENATED MODULE: external "lodash"
-var external_lodash_namespaceObject = window["lodash"];
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/reducer.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Reducer to keep tract of the active area per scope.
- *
- * @param {boolean} state           Previous state.
- * @param {Object}  action          Action object.
- * @param {string}  action.type     Action type.
- * @param {string}  action.itemType Type of item.
- * @param {string}  action.scope    Item scope.
- * @param {string}  action.item     Item name.
- *
- * @return {Object} Updated state.
- */
-
-function singleEnableItems(state = {}, {
-  type,
-  itemType,
-  scope,
-  item
-}) {
-  if (type !== 'SET_SINGLE_ENABLE_ITEM' || !itemType || !scope) {
-    return state;
-  }
-
-  return { ...state,
-    [itemType]: { ...state[itemType],
-      [scope]: item || null
-    }
-  };
-}
-/**
- * Reducer keeping track of the "pinned" items per scope.
- *
- * @param {boolean} state           Previous state.
- * @param {Object}  action          Action object.
- * @param {string}  action.type     Action type.
- * @param {string}  action.itemType Type of item.
- * @param {string}  action.scope    Item scope.
- * @param {string}  action.item     Item name.
- * @param {boolean} action.isEnable Whether the item is pinned.
- *
- * @return {Object} Updated state.
- */
-
-function multipleEnableItems(state = {}, {
-  type,
-  itemType,
-  scope,
-  item,
-  isEnable
-}) {
-  if (type !== 'SET_MULTIPLE_ENABLE_ITEM' || !itemType || !scope || !item || (0,external_lodash_namespaceObject.get)(state, [itemType, scope, item]) === isEnable) {
-    return state;
-  }
-
-  const currentTypeState = state[itemType] || {};
-  const currentScopeState = currentTypeState[scope] || {};
-  return { ...state,
-    [itemType]: { ...currentTypeState,
-      [scope]: { ...currentScopeState,
-        [item]: isEnable || false
-      }
-    }
-  };
-}
-const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
-  singleEnableItems,
-  multipleEnableItems
-});
-/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
-  enableItems
-}));
-//# sourceMappingURL=reducer.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
-/**
- * Returns an action object used in signalling that an active area should be changed.
- *
- * @param {string} itemType Type of item.
- * @param {string} scope    Item scope.
- * @param {string} item     Item identifier.
- *
- * @return {Object} Action object.
- */
-function setSingleEnableItem(itemType, scope, item) {
-  return {
-    type: 'SET_SINGLE_ENABLE_ITEM',
-    itemType,
-    scope,
-    item
-  };
-}
-/**
- * Returns an action object used in signalling that a complementary item should be enabled.
- *
- * @param {string} scope Complementary area scope.
- * @param {string} area  Area identifier.
- *
- * @return {Object} Action object.
- */
-
-
-function enableComplementaryArea(scope, area) {
-  return setSingleEnableItem('complementaryArea', scope, area);
-}
-/**
- * Returns an action object used in signalling that the complementary area of a given scope should be disabled.
- *
- * @param {string} scope Complementary area scope.
- *
- * @return {Object} Action object.
- */
-
-function disableComplementaryArea(scope) {
-  return setSingleEnableItem('complementaryArea', scope, undefined);
-}
-/**
- * Returns an action object to make an area enabled/disabled.
- *
- * @param {string}  itemType Type of item.
- * @param {string}  scope    Item scope.
- * @param {string}  item     Item identifier.
- * @param {boolean} isEnable Boolean indicating if an area should be pinned or not.
- *
- * @return {Object} Action object.
- */
-
-function setMultipleEnableItem(itemType, scope, item, isEnable) {
-  return {
-    type: 'SET_MULTIPLE_ENABLE_ITEM',
-    itemType,
-    scope,
-    item,
-    isEnable
-  };
-}
-/**
- * Returns an action object used in signalling that an item should be pinned.
- *
- * @param {string} scope  Item scope.
- * @param {string} itemId Item identifier.
- *
- * @return {Object} Action object.
- */
-
-
-function pinItem(scope, itemId) {
-  return setMultipleEnableItem('pinnedItems', scope, itemId, true);
-}
-/**
- * Returns an action object used in signalling that an item should be unpinned.
- *
- * @param {string} scope  Item scope.
- * @param {string} itemId Item identifier.
- *
- * @return {Object} Action object.
- */
-
-function unpinItem(scope, itemId) {
-  return setMultipleEnableItem('pinnedItems', scope, itemId, false);
-}
-//# sourceMappingURL=actions.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/selectors.js
-/**
- * External dependencies
- */
-
-/**
- * Returns the item that is enabled in a given scope.
- *
- * @param {Object} state    Global application state.
- * @param {string} itemType Type of item.
- * @param {string} scope    Item scope.
- *
- * @return {?string|null} The item that is enabled in the passed scope and type.
- */
-
-function getSingleEnableItem(state, itemType, scope) {
-  return (0,external_lodash_namespaceObject.get)(state.enableItems.singleEnableItems, [itemType, scope]);
-}
-/**
- * Returns the complementary area that is active in a given scope.
- *
- * @param {Object} state Global application state.
- * @param {string} scope Item scope.
- *
- * @return {string} The complementary area that is active in the given scope.
- */
-
-
-function getActiveComplementaryArea(state, scope) {
-  return getSingleEnableItem(state, 'complementaryArea', scope);
-}
-/**
- * Returns a boolean indicating if an item is enabled or not in a given scope.
- *
- * @param {Object} state    Global application state.
- * @param {string} itemType Type of item.
- * @param {string} scope    Scope.
- * @param {string} item     Item to check.
- *
- * @return {boolean|undefined} True if the item is enabled, false otherwise if the item is explicitly disabled, and undefined if there is no information for that item.
- */
-
-function isMultipleEnabledItemEnabled(state, itemType, scope, item) {
-  return (0,external_lodash_namespaceObject.get)(state.enableItems.multipleEnableItems, [itemType, scope, item]);
-}
-/**
- * Returns a boolean indicating if an item is pinned or not.
- *
- * @param {Object} state Global application state.
- * @param {string} scope Scope.
- * @param {string} item  Item to check.
- *
- * @return {boolean} True if the item is pinned and false otherwise.
- */
-
-
-function isItemPinned(state, scope, item) {
-  return isMultipleEnabledItemEnabled(state, 'pinnedItems', scope, item) !== false;
-}
-//# sourceMappingURL=selectors.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
-/**
- * The identifier for the data store.
- *
- * @type {string}
- */
-const STORE_NAME = 'core/interface';
-//# sourceMappingURL=constants.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/index.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-/**
- * Store definition for the interface namespace.
- *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
- *
- * @type {Object}
- */
-
-const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
-  reducer: reducer,
-  actions: actions_namespaceObject,
-  selectors: selectors_namespaceObject,
-  persist: ['enableItems']
-}); // Once we build a more generic persistence plugin that works across types of stores
-// we'd be able to replace this with a register call.
-
-(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, {
-  reducer: reducer,
-  actions: actions_namespaceObject,
-  selectors: selectors_namespaceObject,
-  persist: ['enableItems']
-});
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -570,6 +298,416 @@ const closeSmall = (0,external_wp_element_namespaceObject.createElement)(externa
 }));
 /* harmony default export */ var close_small = (closeSmall);
 //# sourceMappingURL=close-small.js.map
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/reducer.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Reducer to keep tract of the active area per scope.
+ *
+ * @param {boolean} state           Previous state.
+ * @param {Object}  action          Action object.
+ * @param {string}  action.type     Action type.
+ * @param {string}  action.itemType Type of item.
+ * @param {string}  action.scope    Item scope.
+ * @param {string}  action.item     Item name.
+ *
+ * @return {Object} Updated state.
+ */
+
+function singleEnableItems(state = {}, {
+  type,
+  itemType,
+  scope,
+  item
+}) {
+  if (type !== 'SET_SINGLE_ENABLE_ITEM' || !itemType || !scope) {
+    return state;
+  }
+
+  return { ...state,
+    [itemType]: { ...state[itemType],
+      [scope]: item || null
+    }
+  };
+}
+/**
+ * Reducer keeping track of the "pinned" items per scope.
+ *
+ * @param {boolean} state           Previous state.
+ * @param {Object}  action          Action object.
+ * @param {string}  action.type     Action type.
+ * @param {string}  action.itemType Type of item.
+ * @param {string}  action.scope    Item scope.
+ * @param {string}  action.item     Item name.
+ * @param {boolean} action.isEnable Whether the item is pinned.
+ *
+ * @return {Object} Updated state.
+ */
+
+function multipleEnableItems(state = {}, {
+  type,
+  itemType,
+  scope,
+  item,
+  isEnable
+}) {
+  if (type !== 'SET_MULTIPLE_ENABLE_ITEM' || !itemType || !scope || !item || (0,external_lodash_namespaceObject.get)(state, [itemType, scope, item]) === isEnable) {
+    return state;
+  }
+
+  const currentTypeState = state[itemType] || {};
+  const currentScopeState = currentTypeState[scope] || {};
+  return { ...state,
+    [itemType]: { ...currentTypeState,
+      [scope]: { ...currentScopeState,
+        [item]: isEnable || false
+      }
+    }
+  };
+}
+/**
+ * Reducer returning the defaults for user preferences.
+ *
+ * This is kept intentionally separate from the preferences
+ * themselves so that defaults are not persisted.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+
+const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+  features(state = {}, action) {
+    if (action.type === 'SET_FEATURE_DEFAULTS') {
+      const {
+        scope,
+        defaults
+      } = action;
+      return { ...state,
+        [scope]: { ...state[scope],
+          ...defaults
+        }
+      };
+    }
+
+    return state;
+  }
+
+});
+/**
+ * Reducer returning the user preferences.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+
+const preferences = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+  features(state = {}, action) {
+    if (action.type === 'SET_FEATURE_VALUE') {
+      const {
+        scope,
+        featureName,
+        value
+      } = action;
+      return { ...state,
+        [scope]: { ...state[scope],
+          [featureName]: value
+        }
+      };
+    }
+
+    return state;
+  }
+
+});
+const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
+  singleEnableItems,
+  multipleEnableItems
+});
+/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
+  enableItems,
+  preferenceDefaults,
+  preferences
+}));
+//# sourceMappingURL=reducer.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
+/**
+ * The identifier for the data store.
+ *
+ * @type {string}
+ */
+const STORE_NAME = 'core/interface';
+//# sourceMappingURL=constants.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Returns an action object used in signalling that an active area should be changed.
+ *
+ * @param {string} itemType Type of item.
+ * @param {string} scope    Item scope.
+ * @param {string} item     Item identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+function setSingleEnableItem(itemType, scope, item) {
+  return {
+    type: 'SET_SINGLE_ENABLE_ITEM',
+    itemType,
+    scope,
+    item
+  };
+}
+/**
+ * Returns an action object used in signalling that a complementary item should be enabled.
+ *
+ * @param {string} scope Complementary area scope.
+ * @param {string} area  Area identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+
+function enableComplementaryArea(scope, area) {
+  return setSingleEnableItem('complementaryArea', scope, area);
+}
+/**
+ * Returns an action object used in signalling that the complementary area of a given scope should be disabled.
+ *
+ * @param {string} scope Complementary area scope.
+ *
+ * @return {Object} Action object.
+ */
+
+function disableComplementaryArea(scope) {
+  return setSingleEnableItem('complementaryArea', scope, undefined);
+}
+/**
+ * Returns an action object to make an area enabled/disabled.
+ *
+ * @param {string}  itemType Type of item.
+ * @param {string}  scope    Item scope.
+ * @param {string}  item     Item identifier.
+ * @param {boolean} isEnable Boolean indicating if an area should be pinned or not.
+ *
+ * @return {Object} Action object.
+ */
+
+function setMultipleEnableItem(itemType, scope, item, isEnable) {
+  return {
+    type: 'SET_MULTIPLE_ENABLE_ITEM',
+    itemType,
+    scope,
+    item,
+    isEnable
+  };
+}
+/**
+ * Returns an action object used in signalling that an item should be pinned.
+ *
+ * @param {string} scope  Item scope.
+ * @param {string} itemId Item identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+
+function pinItem(scope, itemId) {
+  return setMultipleEnableItem('pinnedItems', scope, itemId, true);
+}
+/**
+ * Returns an action object used in signalling that an item should be unpinned.
+ *
+ * @param {string} scope  Item scope.
+ * @param {string} itemId Item identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+function unpinItem(scope, itemId) {
+  return setMultipleEnableItem('pinnedItems', scope, itemId, false);
+}
+/**
+ * Returns an action object used in signalling that a feature should be toggled.
+ *
+ * @param {string} scope       The feature scope (e.g. core/edit-post).
+ * @param {string} featureName The feature name.
+ */
+
+function* toggleFeature(scope, featureName) {
+  const currentValue = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'isFeatureActive', scope, featureName);
+  yield external_wp_data_namespaceObject.controls.dispatch(STORE_NAME, 'setFeatureValue', scope, featureName, !currentValue);
+}
+/**
+ * Returns an action object used in signalling that a feature should be set to
+ * a true or false value
+ *
+ * @param {string}  scope       The feature scope (e.g. core/edit-post).
+ * @param {string}  featureName The feature name.
+ * @param {boolean} value       The value to set.
+ *
+ * @return {Object} Action object.
+ */
+
+function setFeatureValue(scope, featureName, value) {
+  return {
+    type: 'SET_FEATURE_VALUE',
+    scope,
+    featureName,
+    value: !!value
+  };
+}
+/**
+ * Returns an action object used in signalling that defaults should be set for features.
+ *
+ * @param {string}                  scope    The feature scope (e.g. core/edit-post).
+ * @param {Object<string, boolean>} defaults A key/value map of feature names to values.
+ *
+ * @return {Object} Action object.
+ */
+
+function setFeatureDefaults(scope, defaults) {
+  return {
+    type: 'SET_FEATURE_DEFAULTS',
+    scope,
+    defaults
+  };
+}
+//# sourceMappingURL=actions.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/selectors.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Returns the item that is enabled in a given scope.
+ *
+ * @param {Object} state    Global application state.
+ * @param {string} itemType Type of item.
+ * @param {string} scope    Item scope.
+ *
+ * @return {?string|null} The item that is enabled in the passed scope and type.
+ */
+
+function getSingleEnableItem(state, itemType, scope) {
+  return (0,external_lodash_namespaceObject.get)(state.enableItems.singleEnableItems, [itemType, scope]);
+}
+/**
+ * Returns the complementary area that is active in a given scope.
+ *
+ * @param {Object} state Global application state.
+ * @param {string} scope Item scope.
+ *
+ * @return {string} The complementary area that is active in the given scope.
+ */
+
+
+function getActiveComplementaryArea(state, scope) {
+  return getSingleEnableItem(state, 'complementaryArea', scope);
+}
+/**
+ * Returns a boolean indicating if an item is enabled or not in a given scope.
+ *
+ * @param {Object} state    Global application state.
+ * @param {string} itemType Type of item.
+ * @param {string} scope    Scope.
+ * @param {string} item     Item to check.
+ *
+ * @return {boolean|undefined} True if the item is enabled, false otherwise if the item is explicitly disabled, and undefined if there is no information for that item.
+ */
+
+function isMultipleEnabledItemEnabled(state, itemType, scope, item) {
+  return (0,external_lodash_namespaceObject.get)(state.enableItems.multipleEnableItems, [itemType, scope, item]);
+}
+/**
+ * Returns a boolean indicating if an item is pinned or not.
+ *
+ * @param {Object} state Global application state.
+ * @param {string} scope Scope.
+ * @param {string} item  Item to check.
+ *
+ * @return {boolean} True if the item is pinned and false otherwise.
+ */
+
+
+function isItemPinned(state, scope, item) {
+  return isMultipleEnabledItemEnabled(state, 'pinnedItems', scope, item) !== false;
+}
+/**
+ * Returns a boolean indicating whether a feature is active for a particular
+ * scope.
+ *
+ * @param {Object} state       The store state.
+ * @param {string} scope       The scope of the feature (e.g. core/edit-post).
+ * @param {string} featureName The name of the feature.
+ *
+ * @return {boolean} Is the feature enabled?
+ */
+
+function isFeatureActive(state, scope, featureName) {
+  var _state$preferences$fe, _state$preferenceDefa;
+
+  const featureValue = (_state$preferences$fe = state.preferences.features[scope]) === null || _state$preferences$fe === void 0 ? void 0 : _state$preferences$fe[featureName];
+  const defaultedFeatureValue = featureValue !== undefined ? featureValue : (_state$preferenceDefa = state.preferenceDefaults.features[scope]) === null || _state$preferenceDefa === void 0 ? void 0 : _state$preferenceDefa[featureName];
+  return !!defaultedFeatureValue;
+}
+//# sourceMappingURL=selectors.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/index.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+/**
+ * Store definition for the interface namespace.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ *
+ * @type {Object}
+ */
+
+const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
+  reducer: reducer,
+  actions: actions_namespaceObject,
+  selectors: selectors_namespaceObject,
+  persist: ['enableItems', 'preferences']
+}); // Once we build a more generic persistence plugin that works across types of stores
+// we'd be able to replace this with a register call.
+
+(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, {
+  reducer: reducer,
+  actions: actions_namespaceObject,
+  selectors: selectors_namespaceObject,
+  persist: ['enableItems', 'preferences']
+});
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: external ["wp","plugins"]
 var external_wp_plugins_namespaceObject = window["wp"]["plugins"];
 ;// CONCATENATED MODULE: ./packages/interface/build-module/components/complementary-area-context/index.js
@@ -1146,6 +1284,8 @@ function InterfaceSkeleton({
 /* harmony default export */ var interface_skeleton = ((0,external_wp_element_namespaceObject.forwardRef)(InterfaceSkeleton));
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/components/index.js
+
+
 
 
 
@@ -2219,7 +2359,7 @@ const selectors_getNavigationPostForMenu = (0,external_wp_data_namespaceObject.c
     return null;
   }
 
-  return select(external_wp_coreData_namespaceObject.store.name).getEditedEntityRecord(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, buildNavigationPostId(menuId));
+  return select(external_wp_coreData_namespaceObject.store).getEditedEntityRecord(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, buildNavigationPostId(menuId));
 });
 /**
  * Returns true if the navigation post related to menuId was already resolved.
@@ -2229,7 +2369,7 @@ const selectors_getNavigationPostForMenu = (0,external_wp_data_namespaceObject.c
  */
 
 const hasResolvedNavigationPost = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, menuId) => {
-  return select(external_wp_coreData_namespaceObject.store.name).hasFinishedResolution('getEntityRecord', [NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, buildNavigationPostId(menuId)]);
+  return select(external_wp_coreData_namespaceObject.store).hasFinishedResolution('getEntityRecord', [NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, buildNavigationPostId(menuId)]);
 });
 /**
  * Returns a menu item represented by the block with id clientId.
@@ -2241,7 +2381,7 @@ const hasResolvedNavigationPost = (0,external_wp_data_namespaceObject.createRegi
 
 const getMenuItemForClientId = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, postId, clientId) => {
   const mapping = (0,external_lodash_namespaceObject.invert)(state.mapping[postId]);
-  return select(external_wp_coreData_namespaceObject.store.name).getMenuItem(mapping[clientId]);
+  return select(external_wp_coreData_namespaceObject.store).getMenuItem(mapping[clientId]);
 });
 //# sourceMappingURL=selectors.js.map
 ;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
@@ -3607,6 +3747,7 @@ function DeleteMenu({
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -3621,9 +3762,9 @@ function Sidebar({
   menus,
   isMenuBeingDeleted,
   onDeleteMenu,
-  onSelectMenu,
-  hasPermanentSidebar
+  onSelectMenu
 }) {
+  const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
   const {
     sidebar,
     hasBlockSelection,
@@ -3668,12 +3809,12 @@ function Sidebar({
     scope: SIDEBAR_SCOPE,
     identifier: sidebarName,
     icon: library_cog,
-    isActiveByDefault: hasPermanentSidebar,
+    isActiveByDefault: isLargeViewport,
     header: (0,external_wp_element_namespaceObject.createElement)(SidebarHeader, {
       sidebarName: sidebarName
     }),
     headerClassName: "edit-navigation-sidebar__panel-tabs",
-    isPinnable: !hasPermanentSidebar
+    isPinnable: true
   }, sidebarName === SIDEBAR_MENU && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(MenuSettings, {
     menuId: menuId
   }), (0,external_wp_element_namespaceObject.createElement)(ManageLocations, {
@@ -3770,13 +3911,11 @@ function Header({
 
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-navigation-header"
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-navigation-header__title-subtitle"
   }, (0,external_wp_element_namespaceObject.createElement)("h1", {
     className: "edit-navigation-header__title"
   }, (0,external_wp_i18n_namespaceObject.__)('Navigation')), (0,external_wp_element_namespaceObject.createElement)("h2", {
     className: "edit-navigation-header__subtitle"
-  }, isMenuSelected && actionHeaderText)), isMenuSelected && (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, isMenuSelected && actionHeaderText), isMenuSelected && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-navigation-header__actions"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
     icon: null,
@@ -3924,14 +4063,8 @@ function UnsavedChangesWarning() {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
-
 
 
 
@@ -3966,7 +4099,6 @@ function Layout({
   blockEditorSettings
 }) {
   const contentAreaRef = (0,external_wp_blockEditor_namespaceObject.__unstableUseBlockSelectionClearer)();
-  const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
   const [isMenuNameControlFocused, setIsMenuNameControlFocused] = (0,external_wp_element_namespaceObject.useState)(false);
   const {
     saveNavigationPost
@@ -3998,7 +4130,6 @@ function Layout({
   }, [selectedMenuId, menus]);
   useMenuNotifications(selectedMenuId);
   const hasMenus = !!(menus !== null && menus !== void 0 && menus.length);
-  const hasPermanentSidebar = isLargeViewport && isMenuSelected;
   const isBlockEditorReady = !!(hasMenus && navigationPost && isMenuSelected);
   return (0,external_wp_element_namespaceObject.createElement)(error_boundary, null, (0,external_wp_element_namespaceObject.createElement)("div", {
     hidden: !isMenuBeingDeleted,
@@ -4016,9 +4147,7 @@ function Layout({
   }, (0,external_wp_element_namespaceObject.createElement)(IsMenuNameControlFocusedContext.Provider, {
     value: (0,external_wp_element_namespaceObject.useMemo)(() => [isMenuNameControlFocused, setIsMenuNameControlFocused], [isMenuNameControlFocused])
   }, (0,external_wp_element_namespaceObject.createElement)(interface_skeleton, {
-    className: classnames_default()('edit-navigation-layout', {
-      'has-permanent-sidebar': hasPermanentSidebar
-    }),
+    className: "edit-navigation-layout",
     labels: interfaceLabels,
     header: (0,external_wp_element_namespaceObject.createElement)(Header, {
       isMenuSelected: isMenuSelected,
@@ -4039,7 +4168,7 @@ function Layout({
       isPending: !hasLoadedMenus,
       blocks: blocks
     })))),
-    sidebar: (hasPermanentSidebar || hasSidebarEnabled) && (0,external_wp_element_namespaceObject.createElement)(complementary_area.Slot, {
+    sidebar: hasSidebarEnabled && (0,external_wp_element_namespaceObject.createElement)(complementary_area.Slot, {
       scope: "core/edit-navigation"
     })
   }), isMenuSelected && (0,external_wp_element_namespaceObject.createElement)(Sidebar, {
@@ -4047,8 +4176,7 @@ function Layout({
     menuId: selectedMenuId,
     onSelectMenu: selectMenu,
     onDeleteMenu: deleteMenu,
-    isMenuBeingDeleted: isMenuBeingDeleted,
-    hasPermanentSidebar: hasPermanentSidebar
+    isMenuBeingDeleted: isMenuBeingDeleted
   })), (0,external_wp_element_namespaceObject.createElement)(UnsavedChangesWarning, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null)));
 }
 //# sourceMappingURL=index.js.map

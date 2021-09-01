@@ -145,20 +145,40 @@ __webpack_require__.d(__webpack_exports__, {
   "initialize": function() { return /* binding */ initialize; }
 });
 
-// NAMESPACE OBJECT: ./packages/customize-widgets/build-module/store/selectors.js
+// NAMESPACE OBJECT: ./packages/interface/build-module/store/actions.js
+var actions_namespaceObject = {};
+__webpack_require__.r(actions_namespaceObject);
+__webpack_require__.d(actions_namespaceObject, {
+  "disableComplementaryArea": function() { return disableComplementaryArea; },
+  "enableComplementaryArea": function() { return enableComplementaryArea; },
+  "pinItem": function() { return pinItem; },
+  "setFeatureDefaults": function() { return setFeatureDefaults; },
+  "setFeatureValue": function() { return setFeatureValue; },
+  "toggleFeature": function() { return toggleFeature; },
+  "unpinItem": function() { return unpinItem; }
+});
+
+// NAMESPACE OBJECT: ./packages/interface/build-module/store/selectors.js
 var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
+  "getActiveComplementaryArea": function() { return getActiveComplementaryArea; },
+  "isFeatureActive": function() { return isFeatureActive; },
+  "isItemPinned": function() { return isItemPinned; }
+});
+
+// NAMESPACE OBJECT: ./packages/customize-widgets/build-module/store/selectors.js
+var store_selectors_namespaceObject = {};
+__webpack_require__.r(store_selectors_namespaceObject);
+__webpack_require__.d(store_selectors_namespaceObject, {
   "__experimentalGetInsertionPoint": function() { return __experimentalGetInsertionPoint; },
-  "__unstableIsFeatureActive": function() { return __unstableIsFeatureActive; },
   "isInserterOpened": function() { return isInserterOpened; }
 });
 
 // NAMESPACE OBJECT: ./packages/customize-widgets/build-module/store/actions.js
-var actions_namespaceObject = {};
-__webpack_require__.r(actions_namespaceObject);
-__webpack_require__.d(actions_namespaceObject, {
-  "__unstableToggleFeature": function() { return __unstableToggleFeature; },
+var store_actions_namespaceObject = {};
+__webpack_require__.r(store_actions_namespaceObject);
+__webpack_require__.d(store_actions_namespaceObject, {
   "setIsInserterOpened": function() { return setIsInserterOpened; }
 });
 
@@ -170,10 +190,564 @@ var external_wp_blockLibrary_namespaceObject = window["wp"]["blockLibrary"];
 var external_wp_widgets_namespaceObject = window["wp"]["widgets"];
 ;// CONCATENATED MODULE: external ["wp","blocks"]
 var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
+;// CONCATENATED MODULE: external ["wp","data"]
+var external_wp_data_namespaceObject = window["wp"]["data"];
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(4184);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 ;// CONCATENATED MODULE: external ["wp","components"]
 var external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: external ["wp","i18n"]
 var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
+;// CONCATENATED MODULE: external ["wp","primitives"]
+var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-vertical.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const moreVertical = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
+}));
+/* harmony default export */ var more_vertical = (moreVertical);
+//# sourceMappingURL=more-vertical.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/components/more-menu-dropdown/index.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+function MoreMenuDropdown({
+  as: DropdownComponent = external_wp_components_namespaceObject.DropdownMenu,
+  className,
+
+  /* translators: button label text should, if possible, be under 16 characters. */
+  label = (0,external_wp_i18n_namespaceObject.__)('Options'),
+  popoverProps,
+  toggleProps,
+  children
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(DropdownComponent, {
+    className: classnames_default()('interface-more-menu-dropdown', className),
+    icon: more_vertical,
+    label: label,
+    popoverProps: {
+      position: 'bottom left',
+      ...popoverProps,
+      className: classnames_default()('interface-more-menu-dropdown__content', popoverProps === null || popoverProps === void 0 ? void 0 : popoverProps.className)
+    },
+    toggleProps: {
+      tooltipPosition: 'bottom',
+      ...toggleProps
+    }
+  }, onClose => children(onClose));
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
+}));
+/* harmony default export */ var library_check = (check);
+//# sourceMappingURL=check.js.map
+;// CONCATENATED MODULE: external ["wp","a11y"]
+var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/reducer.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Reducer to keep tract of the active area per scope.
+ *
+ * @param {boolean} state           Previous state.
+ * @param {Object}  action          Action object.
+ * @param {string}  action.type     Action type.
+ * @param {string}  action.itemType Type of item.
+ * @param {string}  action.scope    Item scope.
+ * @param {string}  action.item     Item name.
+ *
+ * @return {Object} Updated state.
+ */
+
+function singleEnableItems(state = {}, {
+  type,
+  itemType,
+  scope,
+  item
+}) {
+  if (type !== 'SET_SINGLE_ENABLE_ITEM' || !itemType || !scope) {
+    return state;
+  }
+
+  return { ...state,
+    [itemType]: { ...state[itemType],
+      [scope]: item || null
+    }
+  };
+}
+/**
+ * Reducer keeping track of the "pinned" items per scope.
+ *
+ * @param {boolean} state           Previous state.
+ * @param {Object}  action          Action object.
+ * @param {string}  action.type     Action type.
+ * @param {string}  action.itemType Type of item.
+ * @param {string}  action.scope    Item scope.
+ * @param {string}  action.item     Item name.
+ * @param {boolean} action.isEnable Whether the item is pinned.
+ *
+ * @return {Object} Updated state.
+ */
+
+function multipleEnableItems(state = {}, {
+  type,
+  itemType,
+  scope,
+  item,
+  isEnable
+}) {
+  if (type !== 'SET_MULTIPLE_ENABLE_ITEM' || !itemType || !scope || !item || (0,external_lodash_namespaceObject.get)(state, [itemType, scope, item]) === isEnable) {
+    return state;
+  }
+
+  const currentTypeState = state[itemType] || {};
+  const currentScopeState = currentTypeState[scope] || {};
+  return { ...state,
+    [itemType]: { ...currentTypeState,
+      [scope]: { ...currentScopeState,
+        [item]: isEnable || false
+      }
+    }
+  };
+}
+/**
+ * Reducer returning the defaults for user preferences.
+ *
+ * This is kept intentionally separate from the preferences
+ * themselves so that defaults are not persisted.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+
+const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+  features(state = {}, action) {
+    if (action.type === 'SET_FEATURE_DEFAULTS') {
+      const {
+        scope,
+        defaults
+      } = action;
+      return { ...state,
+        [scope]: { ...state[scope],
+          ...defaults
+        }
+      };
+    }
+
+    return state;
+  }
+
+});
+/**
+ * Reducer returning the user preferences.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+
+const preferences = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+  features(state = {}, action) {
+    if (action.type === 'SET_FEATURE_VALUE') {
+      const {
+        scope,
+        featureName,
+        value
+      } = action;
+      return { ...state,
+        [scope]: { ...state[scope],
+          [featureName]: value
+        }
+      };
+    }
+
+    return state;
+  }
+
+});
+const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
+  singleEnableItems,
+  multipleEnableItems
+});
+/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
+  enableItems,
+  preferenceDefaults,
+  preferences
+}));
+//# sourceMappingURL=reducer.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
+/**
+ * The identifier for the data store.
+ *
+ * @type {string}
+ */
+const STORE_NAME = 'core/interface';
+//# sourceMappingURL=constants.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Returns an action object used in signalling that an active area should be changed.
+ *
+ * @param {string} itemType Type of item.
+ * @param {string} scope    Item scope.
+ * @param {string} item     Item identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+function setSingleEnableItem(itemType, scope, item) {
+  return {
+    type: 'SET_SINGLE_ENABLE_ITEM',
+    itemType,
+    scope,
+    item
+  };
+}
+/**
+ * Returns an action object used in signalling that a complementary item should be enabled.
+ *
+ * @param {string} scope Complementary area scope.
+ * @param {string} area  Area identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+
+function enableComplementaryArea(scope, area) {
+  return setSingleEnableItem('complementaryArea', scope, area);
+}
+/**
+ * Returns an action object used in signalling that the complementary area of a given scope should be disabled.
+ *
+ * @param {string} scope Complementary area scope.
+ *
+ * @return {Object} Action object.
+ */
+
+function disableComplementaryArea(scope) {
+  return setSingleEnableItem('complementaryArea', scope, undefined);
+}
+/**
+ * Returns an action object to make an area enabled/disabled.
+ *
+ * @param {string}  itemType Type of item.
+ * @param {string}  scope    Item scope.
+ * @param {string}  item     Item identifier.
+ * @param {boolean} isEnable Boolean indicating if an area should be pinned or not.
+ *
+ * @return {Object} Action object.
+ */
+
+function setMultipleEnableItem(itemType, scope, item, isEnable) {
+  return {
+    type: 'SET_MULTIPLE_ENABLE_ITEM',
+    itemType,
+    scope,
+    item,
+    isEnable
+  };
+}
+/**
+ * Returns an action object used in signalling that an item should be pinned.
+ *
+ * @param {string} scope  Item scope.
+ * @param {string} itemId Item identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+
+function pinItem(scope, itemId) {
+  return setMultipleEnableItem('pinnedItems', scope, itemId, true);
+}
+/**
+ * Returns an action object used in signalling that an item should be unpinned.
+ *
+ * @param {string} scope  Item scope.
+ * @param {string} itemId Item identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+function unpinItem(scope, itemId) {
+  return setMultipleEnableItem('pinnedItems', scope, itemId, false);
+}
+/**
+ * Returns an action object used in signalling that a feature should be toggled.
+ *
+ * @param {string} scope       The feature scope (e.g. core/edit-post).
+ * @param {string} featureName The feature name.
+ */
+
+function* toggleFeature(scope, featureName) {
+  const currentValue = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'isFeatureActive', scope, featureName);
+  yield external_wp_data_namespaceObject.controls.dispatch(STORE_NAME, 'setFeatureValue', scope, featureName, !currentValue);
+}
+/**
+ * Returns an action object used in signalling that a feature should be set to
+ * a true or false value
+ *
+ * @param {string}  scope       The feature scope (e.g. core/edit-post).
+ * @param {string}  featureName The feature name.
+ * @param {boolean} value       The value to set.
+ *
+ * @return {Object} Action object.
+ */
+
+function setFeatureValue(scope, featureName, value) {
+  return {
+    type: 'SET_FEATURE_VALUE',
+    scope,
+    featureName,
+    value: !!value
+  };
+}
+/**
+ * Returns an action object used in signalling that defaults should be set for features.
+ *
+ * @param {string}                  scope    The feature scope (e.g. core/edit-post).
+ * @param {Object<string, boolean>} defaults A key/value map of feature names to values.
+ *
+ * @return {Object} Action object.
+ */
+
+function setFeatureDefaults(scope, defaults) {
+  return {
+    type: 'SET_FEATURE_DEFAULTS',
+    scope,
+    defaults
+  };
+}
+//# sourceMappingURL=actions.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/selectors.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Returns the item that is enabled in a given scope.
+ *
+ * @param {Object} state    Global application state.
+ * @param {string} itemType Type of item.
+ * @param {string} scope    Item scope.
+ *
+ * @return {?string|null} The item that is enabled in the passed scope and type.
+ */
+
+function getSingleEnableItem(state, itemType, scope) {
+  return (0,external_lodash_namespaceObject.get)(state.enableItems.singleEnableItems, [itemType, scope]);
+}
+/**
+ * Returns the complementary area that is active in a given scope.
+ *
+ * @param {Object} state Global application state.
+ * @param {string} scope Item scope.
+ *
+ * @return {string} The complementary area that is active in the given scope.
+ */
+
+
+function getActiveComplementaryArea(state, scope) {
+  return getSingleEnableItem(state, 'complementaryArea', scope);
+}
+/**
+ * Returns a boolean indicating if an item is enabled or not in a given scope.
+ *
+ * @param {Object} state    Global application state.
+ * @param {string} itemType Type of item.
+ * @param {string} scope    Scope.
+ * @param {string} item     Item to check.
+ *
+ * @return {boolean|undefined} True if the item is enabled, false otherwise if the item is explicitly disabled, and undefined if there is no information for that item.
+ */
+
+function isMultipleEnabledItemEnabled(state, itemType, scope, item) {
+  return (0,external_lodash_namespaceObject.get)(state.enableItems.multipleEnableItems, [itemType, scope, item]);
+}
+/**
+ * Returns a boolean indicating if an item is pinned or not.
+ *
+ * @param {Object} state Global application state.
+ * @param {string} scope Scope.
+ * @param {string} item  Item to check.
+ *
+ * @return {boolean} True if the item is pinned and false otherwise.
+ */
+
+
+function isItemPinned(state, scope, item) {
+  return isMultipleEnabledItemEnabled(state, 'pinnedItems', scope, item) !== false;
+}
+/**
+ * Returns a boolean indicating whether a feature is active for a particular
+ * scope.
+ *
+ * @param {Object} state       The store state.
+ * @param {string} scope       The scope of the feature (e.g. core/edit-post).
+ * @param {string} featureName The name of the feature.
+ *
+ * @return {boolean} Is the feature enabled?
+ */
+
+function isFeatureActive(state, scope, featureName) {
+  var _state$preferences$fe, _state$preferenceDefa;
+
+  const featureValue = (_state$preferences$fe = state.preferences.features[scope]) === null || _state$preferences$fe === void 0 ? void 0 : _state$preferences$fe[featureName];
+  const defaultedFeatureValue = featureValue !== undefined ? featureValue : (_state$preferenceDefa = state.preferenceDefaults.features[scope]) === null || _state$preferenceDefa === void 0 ? void 0 : _state$preferenceDefa[featureName];
+  return !!defaultedFeatureValue;
+}
+//# sourceMappingURL=selectors.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/index.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+/**
+ * Store definition for the interface namespace.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ *
+ * @type {Object}
+ */
+
+const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
+  reducer: reducer,
+  actions: actions_namespaceObject,
+  selectors: selectors_namespaceObject,
+  persist: ['enableItems', 'preferences']
+}); // Once we build a more generic persistence plugin that works across types of stores
+// we'd be able to replace this with a register call.
+
+(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, {
+  reducer: reducer,
+  actions: actions_namespaceObject,
+  selectors: selectors_namespaceObject,
+  persist: ['enableItems', 'preferences']
+});
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/components/more-menu-feature-toggle/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function MoreMenuFeatureToggle({
+  scope,
+  label,
+  info,
+  messageActivated,
+  messageDeactivated,
+  shortcut,
+  feature
+}) {
+  const isActive = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).isFeatureActive(scope, feature), [feature]);
+  const {
+    toggleFeature
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+
+  const speakMessage = () => {
+    if (isActive) {
+      (0,external_wp_a11y_namespaceObject.speak)(messageDeactivated || (0,external_wp_i18n_namespaceObject.__)('Feature deactivated'));
+    } else {
+      (0,external_wp_a11y_namespaceObject.speak)(messageActivated || (0,external_wp_i18n_namespaceObject.__)('Feature activated'));
+    }
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+    icon: isActive && library_check,
+    isSelected: isActive,
+    onClick: () => {
+      toggleFeature(scope, feature);
+      speakMessage();
+    },
+    role: "menuitemcheckbox",
+    info: info,
+    shortcut: shortcut
+  }, label);
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/components/index.js
+
+
+
+
+
+
+
+
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/index.js
+
+
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: external ["wp","blockEditor"]
 var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
@@ -235,12 +809,8 @@ class ErrorBoundary extends external_wp_element_namespaceObject.Component {
 
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: external "lodash"
-var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","coreData"]
 var external_wp_coreData_namespaceObject = window["wp"]["coreData"];
-;// CONCATENATED MODULE: external ["wp","data"]
-var external_wp_data_namespaceObject = window["wp"]["data"];
 ;// CONCATENATED MODULE: external ["wp","mediaUtils"]
 var external_wp_mediaUtils_namespaceObject = window["wp"]["mediaUtils"];
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
@@ -295,13 +865,8 @@ function BlockInspectorButton({
 
 /* harmony default export */ var block_inspector_button = (BlockInspectorButton);
 //# sourceMappingURL=index.js.map
-// EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(4184);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 ;// CONCATENATED MODULE: external ["wp","keycodes"]
 var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
-;// CONCATENATED MODULE: external ["wp","primitives"]
-var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/undo.js
 
 
@@ -362,48 +927,17 @@ const closeSmall = (0,external_wp_element_namespaceObject.createElement)(externa
 }));
 /* harmony default export */ var close_small = (closeSmall);
 //# sourceMappingURL=close-small.js.map
-;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/store/defaults.js
-const PREFERENCES_DEFAULTS = {
-  features: {
-    fixedToolbar: false,
-    welcomeGuide: true
-  }
-};
-//# sourceMappingURL=defaults.js.map
 ;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/store/reducer.js
-/**
- * External dependencies
- */
-
 /**
  * WordPress dependencies
  */
 
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * Higher-order reducer creator which provides the given initial state for the
- * original reducer.
- *
- * @param {*} initialState Initial state to provide to reducer.
- *
- * @return {Function} Higher-order reducer.
- */
-
-const createWithInitialState = initialState => reducer => {
-  return (state = initialState, action) => reducer(state, action);
-};
 /**
  * Reducer tracking whether the inserter is open.
  *
  * @param {boolean|Object} state
  * @param {Object}         action
  */
-
 
 function blockInserterPanel(state = false, action) {
   switch (action.type) {
@@ -413,54 +947,12 @@ function blockInserterPanel(state = false, action) {
 
   return state;
 }
-/**
- * Reducer returning the user preferences.
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
- */
 
-
-const preferences = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers, createWithInitialState(PREFERENCES_DEFAULTS)])({
-  features(state, action) {
-    if (action.type === 'TOGGLE_FEATURE') {
-      return { ...state,
-        [action.feature]: !state[action.feature]
-      };
-    }
-
-    return state;
-  }
-
-});
-/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
-  blockInserterPanel,
-  preferences
+/* harmony default export */ var store_reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
+  blockInserterPanel
 }));
 //# sourceMappingURL=reducer.js.map
 ;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/store/selectors.js
-/**
- * External dependencies
- */
-
-/**
- * Returns whether the given feature is enabled or not.
- *
- * This function is unstable, as it is mostly copied from the edit-post
- * package. Editor features and preferences have a lot of scope for
- * being generalized and refactored.
- *
- * @param {Object} state   Global application state.
- * @param {string} feature Feature slug.
- *
- * @return {boolean} Is active.
- */
-
-function __unstableIsFeatureActive(state, feature) {
-  return (0,external_lodash_namespaceObject.get)(state.preferences.features, [feature], false);
-}
 /**
  * Returns true if the inserter is opened.
  *
@@ -468,7 +960,6 @@ function __unstableIsFeatureActive(state, feature) {
  *
  * @return {boolean} Whether the inserter is opened.
  */
-
 function isInserterOpened(state) {
   return !!state.blockInserterPanel;
 }
@@ -493,23 +984,6 @@ function __experimentalGetInsertionPoint(state) {
 //# sourceMappingURL=selectors.js.map
 ;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/store/actions.js
 /**
- * Returns an action object used to toggle a feature flag.
- *
- * This function is unstable, as it is mostly copied from the edit-post
- * package. Editor features and preferences have a lot of scope for
- * being generalized and refactored.
- *
- * @param {string} feature Feature name.
- *
- * @return {Object} Action object.
- */
-function __unstableToggleFeature(feature) {
-  return {
-    type: 'TOGGLE_FEATURE',
-    feature
-  };
-}
-/**
  * Returns an action object used to open/close the inserter.
  *
  * @param {boolean|Object} value                Whether the inserter should be
@@ -521,7 +995,6 @@ function __unstableToggleFeature(feature) {
  *
  * @return {Object} Action object.
  */
-
 function setIsInserterOpened(value) {
   return {
     type: 'SET_IS_INSERTER_OPENED',
@@ -533,7 +1006,7 @@ function setIsInserterOpened(value) {
 /**
  * Module Constants
  */
-const STORE_NAME = 'core/customize-widgets';
+const constants_STORE_NAME = 'core/customize-widgets';
 //# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/store/index.js
 /**
@@ -557,10 +1030,9 @@ const STORE_NAME = 'core/customize-widgets';
  */
 
 const storeConfig = {
-  reducer: reducer,
-  selectors: selectors_namespaceObject,
-  actions: actions_namespaceObject,
-  persist: ['preferences']
+  reducer: store_reducer,
+  selectors: store_selectors_namespaceObject,
+  actions: store_actions_namespaceObject
 };
 /**
  * Store definition for the edit widgets namespace.
@@ -570,10 +1042,10 @@ const storeConfig = {
  * @type {Object}
  */
 
-const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, storeConfig); // Once we build a more generic persistence plugin that works across types of stores
+const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(constants_STORE_NAME, storeConfig); // Once we build a more generic persistence plugin that works across types of stores
 // we'd be able to replace this with a register call.
 
-(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, storeConfig);
+(0,external_wp_data_namespaceObject.registerStore)(constants_STORE_NAME, storeConfig);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/components/inserter/index.js
 
@@ -597,7 +1069,7 @@ function Inserter({
   setIsOpened
 }) {
   const inserterTitleId = (0,external_wp_compose_namespaceObject.useInstanceId)(Inserter, 'customize-widget-layout__inserter-panel-title');
-  const insertionPoint = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).__experimentalGetInsertionPoint());
+  const insertionPoint = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).__experimentalGetInsertionPoint());
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "customize-widgets-layout__inserter-panel",
     "aria-labelledby": inserterTitleId
@@ -623,21 +1095,6 @@ function Inserter({
 
 /* harmony default export */ var components_inserter = (Inserter);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-vertical.js
-
-
-/**
- * WordPress dependencies
- */
-
-const moreVertical = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
-}));
-/* harmony default export */ var more_vertical = (moreVertical);
-//# sourceMappingURL=more-vertical.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/external.js
 
 
@@ -655,73 +1112,6 @@ const external = (0,external_wp_element_namespaceObject.createElement)(external_
 //# sourceMappingURL=external.js.map
 ;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
 var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
-
-
-/**
- * WordPress dependencies
- */
-
-const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
-}));
-/* harmony default export */ var library_check = (check);
-//# sourceMappingURL=check.js.map
-;// CONCATENATED MODULE: external ["wp","a11y"]
-var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
-;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/components/more-menu/feature-toggle.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-function FeatureToggle({
-  label,
-  info,
-  messageActivated,
-  messageDeactivated,
-  shortcut,
-  feature
-}) {
-  const isActive = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).__unstableIsFeatureActive(feature), [feature]);
-  const {
-    __unstableToggleFeature: toggleFeature
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-
-  const speakMessage = () => {
-    if (isActive) {
-      (0,external_wp_a11y_namespaceObject.speak)(messageDeactivated || (0,external_wp_i18n_namespaceObject.__)('Feature deactivated'));
-    } else {
-      (0,external_wp_a11y_namespaceObject.speak)(messageActivated || (0,external_wp_i18n_namespaceObject.__)('Feature activated'));
-    }
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-    icon: isActive && library_check,
-    isSelected: isActive,
-    onClick: () => {
-      toggleFeature(feature);
-      speakMessage();
-    },
-    role: "menuitemcheckbox",
-    info: info,
-    shortcut: shortcut
-  }, label);
-}
-//# sourceMappingURL=feature-toggle.js.map
 ;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/components/keyboard-shortcut-help-modal/config.js
 /**
  * WordPress dependencies
@@ -1004,18 +1394,14 @@ function KeyboardShortcutHelpModal({
 
 
 
+
 /**
  * Internal dependencies
  */
 
 
-
 const POPOVER_PROPS = {
-  className: 'customize-widgets-more-menu__content',
-  position: 'bottom left'
-};
-const TOGGLE_PROPS = {
-  tooltipPosition: 'bottom'
+  className: 'customize-widgets-more-menu__content'
 };
 function MoreMenu() {
   const [isKeyboardShortcutsModalActive, setIsKeyboardShortcutsModalVisible] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -1025,17 +1411,14 @@ function MoreMenu() {
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/customize-widgets/keyboard-shortcuts', toggleKeyboardShortcutsModal, {
     bindGlobal: true
   });
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarDropdownMenu, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(MoreMenuDropdown, {
+    as: external_wp_components_namespaceObject.ToolbarDropdownMenu,
     className: "customize-widgets-more-menu",
-    icon: more_vertical
-    /* translators: button label text should, if possible, be under 16 characters. */
-    ,
-    label: (0,external_wp_i18n_namespaceObject.__)('Options'),
-    popoverProps: POPOVER_PROPS,
-    toggleProps: TOGGLE_PROPS
+    popoverProps: POPOVER_PROPS
   }, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
     label: (0,external_wp_i18n_namespaceObject._x)('View', 'noun')
-  }, (0,external_wp_element_namespaceObject.createElement)(FeatureToggle, {
+  }, (0,external_wp_element_namespaceObject.createElement)(MoreMenuFeatureToggle, {
+    scope: "core/customize-widgets",
     feature: "fixedToolbar",
     label: (0,external_wp_i18n_namespaceObject.__)('Top toolbar'),
     info: (0,external_wp_i18n_namespaceObject.__)('Access all block and document tools in a single place'),
@@ -1048,7 +1431,8 @@ function MoreMenu() {
       setIsKeyboardShortcutsModalVisible(true);
     },
     shortcut: external_wp_keycodes_namespaceObject.displayShortcut.access('h')
-  }, (0,external_wp_i18n_namespaceObject.__)('Keyboard shortcuts')), (0,external_wp_element_namespaceObject.createElement)(FeatureToggle, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Keyboard shortcuts')), (0,external_wp_element_namespaceObject.createElement)(MoreMenuFeatureToggle, {
+    scope: "core/customize-widgets",
     feature: "welcomeGuide",
     label: (0,external_wp_i18n_namespaceObject.__)('Welcome Guide')
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
@@ -1063,7 +1447,8 @@ function MoreMenu() {
   /* translators: accessibility text */
   (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)')))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
     label: (0,external_wp_i18n_namespaceObject.__)('Preferences')
-  }, (0,external_wp_element_namespaceObject.createElement)(FeatureToggle, {
+  }, (0,external_wp_element_namespaceObject.createElement)(MoreMenuFeatureToggle, {
+    scope: "core/customize-widgets",
     feature: "keepCaretInsideBlock",
     label: (0,external_wp_i18n_namespaceObject.__)('Contain text cursor inside block'),
     info: (0,external_wp_i18n_namespaceObject.__)('Aids screen readers by stopping text caret from leaving blocks.'),
@@ -1171,10 +1556,10 @@ function Header({
 
 
 function useInserter(inserter) {
-  const isInserterOpened = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).isInserterOpened());
+  const isInserterOpened = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).isInserterOpened());
   const {
     setIsInserterOpened
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (isInserterOpened) {
       inserter.open();
@@ -1186,7 +1571,7 @@ function useInserter(inserter) {
     let isOpen = updater;
 
     if (typeof updater === 'function') {
-      isOpen = updater((0,external_wp_data_namespaceObject.select)(store).isInserterOpened());
+      isOpen = updater((0,external_wp_data_namespaceObject.select)(store_store).isInserterOpened());
     }
 
     setIsInserterOpened(isOpen);
@@ -1570,16 +1955,12 @@ function SidebarEditorProvider({
 
 
 
-/**
- * Internal dependencies
- */
-
 
 function WelcomeGuide({
   sidebar
 }) {
   const {
-    __unstableToggleFeature: toggleFeature
+    toggleFeature
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   const isEntirelyBlockWidgets = sidebar.getWidgets().every(widget => widget.id.startsWith('block-'));
   return (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -1602,7 +1983,7 @@ function WelcomeGuide({
   }, isEntirelyBlockWidgets ? (0,external_wp_i18n_namespaceObject.__)('Your theme provides different “block” areas for you to add and edit content. Try adding a search bar, social icons, or other types of blocks here and see how they’ll look on your site.') : (0,external_wp_i18n_namespaceObject.__)('You can now add any block to your site’s widget areas. Don’t worry, all of your favorite widgets still work flawlessly.')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     className: "customize-widgets-welcome-guide__button",
     variant: "primary",
-    onClick: () => toggleFeature('welcomeGuide')
+    onClick: () => toggleFeature('core/customize-widgets', 'welcomeGuide')
   }, (0,external_wp_i18n_namespaceObject.__)('Got it')), (0,external_wp_element_namespaceObject.createElement)("hr", {
     className: "customize-widgets-welcome-guide__separator"
   }), !isEntirelyBlockWidgets && (0,external_wp_element_namespaceObject.createElement)("p", {
@@ -1743,10 +2124,10 @@ function BlockAppender(props) {
 
 
 
+
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -1768,11 +2149,14 @@ function SidebarBlockEditor({
     keepCaretInsideBlock,
     isWelcomeGuideActive
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      isFeatureActive
+    } = select(store);
     return {
       hasUploadPermissions: (0,external_lodash_namespaceObject.defaultTo)(select(external_wp_coreData_namespaceObject.store).canUser('create', 'media'), true),
-      isFixedToolbarActive: select(store).__unstableIsFeatureActive('fixedToolbar'),
-      keepCaretInsideBlock: select(store).__unstableIsFeatureActive('keepCaretInsideBlock'),
-      isWelcomeGuideActive: select(store).__unstableIsFeatureActive('welcomeGuide')
+      isFixedToolbarActive: isFeatureActive('core/customize-widgets', 'fixedToolbar'),
+      keepCaretInsideBlock: isFeatureActive('core/customize-widgets', 'keepCaretInsideBlock'),
+      isWelcomeGuideActive: isFeatureActive('core/customize-widgets', 'welcomeGuide')
     };
   }, []);
   const settings = (0,external_wp_element_namespaceObject.useMemo)(() => {
@@ -2511,7 +2895,7 @@ function getInserterOuterSection() {
         if (this.expanded() && (event.keyCode === external_wp_keycodes_namespaceObject.ESCAPE || event.code === 'Escape') && !event.defaultPrevented) {
           event.preventDefault();
           event.stopPropagation();
-          (0,external_wp_data_namespaceObject.dispatch)(store).setIsInserterOpened(false);
+          (0,external_wp_data_namespaceObject.dispatch)(store_store).setIsInserterOpened(false);
         }
       }, // Use capture mode to make this run before other event listeners.
       true);
@@ -2522,7 +2906,7 @@ function getInserterOuterSection() {
       this.expanded.bind(() => {
         if (!this.isFromInternalAction) {
           // Propagate the event to React to sync the state.
-          (0,external_wp_data_namespaceObject.dispatch)(store).setIsInserterOpened(this.expanded());
+          (0,external_wp_data_namespaceObject.dispatch)(store_store).setIsInserterOpened(this.expanded());
         }
 
         this.isFromInternalAction = false;
@@ -2624,7 +3008,7 @@ function getSidebarControl() {
       if (!args.unchanged) {
         // Close the inserter when the section collapses.
         if (!expanded) {
-          (0,external_wp_data_namespaceObject.dispatch)(store).setIsInserterOpened(false);
+          (0,external_wp_data_namespaceObject.dispatch)(store_store).setIsInserterOpened(false);
         }
 
         this.subscribers.forEach(subscriber => subscriber(expanded, args));
@@ -2771,6 +3155,8 @@ const withWideWidgetDisplay = (0,external_wp_compose_namespaceObject.createHighe
 
 
 
+
+
 /**
  * Internal dependencies
  */
@@ -2792,6 +3178,11 @@ const ENABLE_EXPERIMENTAL_FSE_BLOCKS = false;
  */
 
 function initialize(editorName, blockEditorSettings) {
+  (0,external_wp_data_namespaceObject.dispatch)(store).setFeatureDefaults('core/customize-widgets', {
+    fixedToolbar: false,
+    welcomeGuide: true
+  });
+
   const coreBlocks = (0,external_wp_blockLibrary_namespaceObject.__experimentalGetCoreBlocks)().filter(block => {
     return !(DISABLED_BLOCKS.includes(block.name) || block.name.startsWith('core/post') || block.name.startsWith('core/query') || block.name.startsWith('core/site'));
   });

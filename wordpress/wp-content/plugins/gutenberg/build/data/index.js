@@ -1276,8 +1276,15 @@ function createRegistryControl(registryControl) {
 //# sourceMappingURL=factory.js.map
 ;// CONCATENATED MODULE: ./packages/data/build-module/controls.js
 /**
+ * External dependencies
+ */
+
+/**
  * Internal dependencies
  */
+
+
+/** @typedef {import('./types').WPDataStore} WPDataStore */
 
 const SELECT = '@@data/SELECT';
 const RESOLVE_SELECT = '@@data/RESOLVE_SELECT';
@@ -1288,9 +1295,9 @@ const DISPATCH = '@@data/DISPATCH';
  * Note: This control synchronously returns the current selector value, triggering the
  * resolution, but not waiting for it.
  *
- * @param {string} storeKey     The key for the store the selector belongs to.
- * @param {string} selectorName The name of the selector.
- * @param {Array}  args         Arguments for the selector.
+ * @param {string|WPDataStore} storeNameOrDefinition Unique namespace identifier for the store
+ * @param {string}             selectorName          The name of the selector.
+ * @param {Array}              args                  Arguments for the selector.
  *
  * @example
  * ```js
@@ -1306,10 +1313,10 @@ const DISPATCH = '@@data/DISPATCH';
  * @return {Object} The control descriptor.
  */
 
-function controls_select(storeKey, selectorName, ...args) {
+function controls_select(storeNameOrDefinition, selectorName, ...args) {
   return {
     type: SELECT,
-    storeKey,
+    storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDefinition) ? storeNameOrDefinition.name : storeNameOrDefinition,
     selectorName,
     args
   };
@@ -1321,9 +1328,9 @@ function controls_select(storeKey, selectorName, ...args) {
  * selectors that may have a resolver. In such case, it will return a `Promise` that resolves
  * after the selector finishes resolving, with the final result value.
  *
- * @param {string} storeKey     The key for the store the selector belongs to
- * @param {string} selectorName The name of the selector
- * @param {Array}  args         Arguments for the selector.
+ * @param {string|WPDataStore} storeNameOrDefinition Unique namespace identifier for the store
+ * @param {string}             selectorName          The name of the selector
+ * @param {Array}              args                  Arguments for the selector.
  *
  * @example
  * ```js
@@ -1340,10 +1347,10 @@ function controls_select(storeKey, selectorName, ...args) {
  */
 
 
-function resolveSelect(storeKey, selectorName, ...args) {
+function resolveSelect(storeNameOrDefinition, selectorName, ...args) {
   return {
     type: RESOLVE_SELECT,
-    storeKey,
+    storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDefinition) ? storeNameOrDefinition.name : storeNameOrDefinition,
     selectorName,
     args
   };
@@ -1351,9 +1358,9 @@ function resolveSelect(storeKey, selectorName, ...args) {
 /**
  * Dispatches a control action for triggering a registry dispatch.
  *
- * @param {string} storeKey   The key for the store the action belongs to
- * @param {string} actionName The name of the action to dispatch
- * @param {Array}  args       Arguments for the dispatch action.
+ * @param {string|WPDataStore} storeNameOrDefinition Unique namespace identifier for the store
+ * @param {string}             actionName            The name of the action to dispatch
+ * @param {Array}              args                  Arguments for the dispatch action.
  *
  * @example
  * ```js
@@ -1370,10 +1377,10 @@ function resolveSelect(storeKey, selectorName, ...args) {
  */
 
 
-function dispatch(storeKey, actionName, ...args) {
+function dispatch(storeNameOrDefinition, actionName, ...args) {
   return {
     type: DISPATCH,
-    storeKey,
+    storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDefinition) ? storeNameOrDefinition.name : storeNameOrDefinition,
     actionName,
     args
   };
@@ -2266,6 +2273,57 @@ function createCoreDataStore(registry) {
 
 /* harmony default export */ var store = (createCoreDataStore);
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/data/build-module/utils/emitter.js
+/**
+ * Create an event emitter.
+ *
+ * @return {import("../types").WPDataEmitter} Emitter.
+ */
+function createEmitter() {
+  let isPaused = false;
+  let isPending = false;
+  const listeners = new Set();
+
+  const notifyListeners = () => // We use Array.from to clone the listeners Set
+  // This ensures that we don't run a listener
+  // that was added as a response to another listener.
+  Array.from(listeners).forEach(listener => listener());
+
+  return {
+    get isPaused() {
+      return isPaused;
+    },
+
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+
+    pause() {
+      isPaused = true;
+    },
+
+    resume() {
+      isPaused = false;
+
+      if (isPending) {
+        isPending = false;
+        notifyListeners();
+      }
+    },
+
+    emit() {
+      if (isPaused) {
+        isPending = true;
+        return;
+      }
+
+      notifyListeners();
+    }
+
+  };
+}
+//# sourceMappingURL=emitter.js.map
 ;// CONCATENATED MODULE: ./packages/data/build-module/registry.js
 /**
  * External dependencies
@@ -2274,6 +2332,7 @@ function createCoreDataStore(registry) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -2318,7 +2377,7 @@ function createCoreDataStore(registry) {
 
 function createRegistry(storeConfigs = {}, parent = null) {
   const stores = {};
-  let listeners = [];
+  const emitter = createEmitter();
 
   const __experimentalListeningStores = new Set();
   /**
@@ -2327,7 +2386,7 @@ function createRegistry(storeConfigs = {}, parent = null) {
 
 
   function globalListener() {
-    listeners.forEach(listener => listener());
+    emitter.emit();
   }
   /**
    * Subscribe to changes to any data.
@@ -2339,10 +2398,7 @@ function createRegistry(storeConfigs = {}, parent = null) {
 
 
   const subscribe = listener => {
-    listeners.push(listener);
-    return () => {
-      listeners = (0,external_lodash_namespaceObject.without)(listeners, listener);
-    };
+    return emitter.subscribe(listener);
   };
   /**
    * Calls a selector given the current state and extra arguments.
@@ -2456,7 +2512,32 @@ function createRegistry(storeConfigs = {}, parent = null) {
 
     if (typeof config.subscribe !== 'function') {
       throw new TypeError('config.subscribe must be a function');
-    }
+    } // Thi emitter is used to keep track of active listeners when the registry
+    // get paused, that way, when resumed we should be able to call all these
+    // pending listeners.
+
+
+    config.emitter = createEmitter();
+    const currentSubscribe = config.subscribe;
+
+    config.subscribe = listener => {
+      const unsubscribeFromStoreEmitter = config.emitter.subscribe(listener);
+      const unsubscribeFromRootStore = currentSubscribe(() => {
+        if (config.emitter.isPaused) {
+          config.emitter.emit();
+          return;
+        }
+
+        listener();
+      });
+      return () => {
+        if (unsubscribeFromRootStore) {
+          unsubscribeFromRootStore();
+        }
+
+        unsubscribeFromStoreEmitter();
+      };
+    };
 
     stores[key] = config;
     config.subscribe(globalListener);
@@ -2496,7 +2577,16 @@ function createRegistry(storeConfigs = {}, parent = null) {
     return parent.__experimentalSubscribeStore(storeName, handler);
   }
 
+  function batch(callback) {
+    emitter.pause();
+    (0,external_lodash_namespaceObject.forEach)(stores, store => store.emitter.pause());
+    callback();
+    emitter.resume();
+    (0,external_lodash_namespaceObject.forEach)(stores, store => store.emitter.resume());
+  }
+
   let registry = {
+    batch,
     registerGenericStore,
     stores,
     namespaces: stores,
@@ -2831,68 +2921,59 @@ function persistencePlugin(registry, pluginOptions) {
   };
 }
 /**
- * Deprecated: Remove this function and the code in WordPress Core that calls
- * it once WordPress 5.4 is released.
+ * Move the 'features' object in local storage from the sourceStoreName to the
+ * interface store.
+ *
+ * @param {Object} persistence     The persistence interface.
+ * @param {string} sourceStoreName The name of the store that has persisted
+ *                                 preferences to migrate to the interface
+ *                                 package.
  */
 
 
+function migrateFeaturePreferencesToInterfaceStore(persistence, sourceStoreName) {
+  var _state$sourceStoreNam;
+
+  const interfaceStoreName = 'core/interface';
+  const state = persistence.get();
+  const sourcePreferences = (_state$sourceStoreNam = state[sourceStoreName]) === null || _state$sourceStoreNam === void 0 ? void 0 : _state$sourceStoreNam.preferences;
+  const sourceFeatures = sourcePreferences === null || sourcePreferences === void 0 ? void 0 : sourcePreferences.features;
+
+  if (sourceFeatures) {
+    var _state$interfaceStore, _state$interfaceStore2;
+
+    const targetFeatures = (_state$interfaceStore = state[interfaceStoreName]) === null || _state$interfaceStore === void 0 ? void 0 : (_state$interfaceStore2 = _state$interfaceStore.preferences) === null || _state$interfaceStore2 === void 0 ? void 0 : _state$interfaceStore2.features; // Avoid migrating features again if they've previously been migrated.
+
+    if (!(targetFeatures !== null && targetFeatures !== void 0 && targetFeatures[sourceStoreName])) {
+      // Set the feature values in the interface store, the features
+      // object is keyed by 'scope', which matches the store name for
+      // the source.
+      persistence.set(interfaceStoreName, {
+        preferences: {
+          features: { ...targetFeatures,
+            [sourceStoreName]: sourceFeatures
+          }
+        }
+      }); // Remove feature preferences from the source.
+
+      persistence.set(sourceStoreName, {
+        preferences: { ...sourcePreferences,
+          features: undefined
+        }
+      });
+    }
+  }
+}
+/**
+ * Deprecated: Remove this function and the code in WordPress Core that calls
+ * it once WordPress 6.0 is released.
+ */
+
 persistencePlugin.__unstableMigrate = pluginOptions => {
-  var _state$coreEditor, _state$coreEditor$pre;
-
   const persistence = createPersistenceInterface(pluginOptions);
-  const state = persistence.get(); // Migrate 'insertUsage' from 'core/editor' to 'core/block-editor'
-
-  const editorInsertUsage = (_state$coreEditor = state['core/editor']) === null || _state$coreEditor === void 0 ? void 0 : (_state$coreEditor$pre = _state$coreEditor.preferences) === null || _state$coreEditor$pre === void 0 ? void 0 : _state$coreEditor$pre.insertUsage;
-
-  if (editorInsertUsage) {
-    var _state$coreBlockEdi, _state$coreBlockEdi$p;
-
-    const blockEditorInsertUsage = (_state$coreBlockEdi = state['core/block-editor']) === null || _state$coreBlockEdi === void 0 ? void 0 : (_state$coreBlockEdi$p = _state$coreBlockEdi.preferences) === null || _state$coreBlockEdi$p === void 0 ? void 0 : _state$coreBlockEdi$p.insertUsage;
-    persistence.set('core/block-editor', {
-      preferences: {
-        insertUsage: { ...editorInsertUsage,
-          ...blockEditorInsertUsage
-        }
-      }
-    });
-  }
-
-  let editPostState = state['core/edit-post']; // Default `fullscreenMode` to `false` if any persisted state had existed
-  // and the user hadn't made an explicit choice about fullscreen mode. This
-  // is needed since `fullscreenMode` previously did not have a default value
-  // and was implicitly false by its absence. It is now `true` by default, but
-  // this change is not intended to affect upgrades from earlier versions.
-
-  const hadPersistedState = Object.keys(state).length > 0;
-  const hadFullscreenModePreference = (0,external_lodash_namespaceObject.has)(state, ['core/edit-post', 'preferences', 'features', 'fullscreenMode']);
-
-  if (hadPersistedState && !hadFullscreenModePreference) {
-    editPostState = (0,external_lodash_namespaceObject.merge)({}, editPostState, {
-      preferences: {
-        features: {
-          fullscreenMode: false
-        }
-      }
-    });
-  } // Migrate 'areTipsEnabled' from 'core/nux' to 'showWelcomeGuide' in 'core/edit-post'
-
-
-  const areTipsEnabled = (0,external_lodash_namespaceObject.get)(state, ['core/nux', 'preferences', 'areTipsEnabled']);
-  const hasWelcomeGuide = (0,external_lodash_namespaceObject.has)(state, ['core/edit-post', 'preferences', 'features', 'welcomeGuide']);
-
-  if (areTipsEnabled !== undefined && !hasWelcomeGuide) {
-    editPostState = (0,external_lodash_namespaceObject.merge)({}, editPostState, {
-      preferences: {
-        features: {
-          welcomeGuide: areTipsEnabled
-        }
-      }
-    });
-  }
-
-  if (editPostState !== state['core/edit-post']) {
-    persistence.set('core/edit-post', editPostState);
-  }
+  migrateFeaturePreferencesToInterfaceStore(persistence, 'core/edit-widgets');
+  migrateFeaturePreferencesToInterfaceStore(persistence, 'core/customize-widgets');
+  migrateFeaturePreferencesToInterfaceStore(persistence, 'core/edit-post');
 };
 
 /* harmony default export */ var persistence = (persistencePlugin);
@@ -3068,7 +3149,7 @@ const RegistryConsumer = Consumer;
  * const registry = createRegistry( {} );
  *
  * const SomeChildUsingRegistry = ( props ) => {
- *   const registry = useRegistry( registry );
+ *   const registry = useRegistry();
  *   // ...logic implementing the registry in other react hooks.
  * };
  *

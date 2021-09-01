@@ -2610,7 +2610,9 @@ function toTree({
     }
 
     if (character === OBJECT_REPLACEMENT_CHARACTER) {
-      if (!isEditableTree && replacements[i].type === 'script') {
+      var _replacements$i;
+
+      if (!isEditableTree && ((_replacements$i = replacements[i]) === null || _replacements$i === void 0 ? void 0 : _replacements$i.type) === 'script') {
         pointer = append(getParent(pointer), fromFormat({
           type: 'script',
           isEditableTree
@@ -4419,15 +4421,63 @@ function useDelete(props) {
   }, []);
 }
 //# sourceMappingURL=use-delete.js.map
-;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/index.js
+;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-space.js
 /**
  * WordPress dependencies
  */
 
 
 /**
+ * For some elements like BUTTON and SUMMARY, the space key doesn't insert a
+ * space character in some browsers even though the element is editable. We have
+ * to manually insert a space and prevent default behaviour.
+ *
+ * DO NOT limit this behaviour to specific tag names! It would mean that this
+ * behaviour is not widely tested. If there's ever any problems, we should find
+ * a different solution entirely or remove it entirely.
+ */
+
+function useSpace() {
+  return (0,external_wp_compose_namespaceObject.useRefEffect)(element => {
+    function onKeyDown(event) {
+      // Don't insert a space if default behaviour is prevented.
+      if (event.defaultPrevented) {
+        return;
+      }
+
+      const {
+        keyCode,
+        altKey,
+        metaKey,
+        ctrlKey
+      } = event; // Only consider the space key without modifiers pressed.
+
+      if (keyCode !== external_wp_keycodes_namespaceObject.SPACE || altKey || metaKey || ctrlKey) {
+        return;
+      }
+
+      event.target.ownerDocument.execCommand('insertText', false, ' ');
+      event.preventDefault();
+    }
+
+    element.addEventListener('keydown', onKeyDown);
+    return () => {
+      element.removeEventListener('keydown', onKeyDown);
+    };
+  }, []);
+}
+//# sourceMappingURL=use-space.js.map
+;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/index.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
  * Internal dependencies
  */
+
 
 
 
@@ -4451,11 +4501,12 @@ function useRichText({
   __unstableMultilineTag: multilineTag,
   __unstableDisableFormats: disableFormats,
   __unstableIsSelected: isSelected,
-  __unstableDependencies,
+  __unstableDependencies = [],
   __unstableAfterParse,
   __unstableBeforeSerialize,
   __unstableAddInvisibleFormats
 }) {
+  const registry = (0,external_wp_data_namespaceObject.useRegistry)();
   const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(() => ({}));
   const ref = (0,external_wp_element_namespaceObject.useRef)();
 
@@ -4510,7 +4561,10 @@ function useRichText({
       record.current.replacements = Array(value.length);
     }
 
-    record.current.formats = __unstableAfterParse(record.current);
+    if (__unstableAfterParse) {
+      record.current.formats = __unstableAfterParse(record.current);
+    }
+
     record.current.start = selectionStart;
     record.current.end = selectionEnd;
   }
@@ -4541,9 +4595,9 @@ function useRichText({
       _value.current = newRecord.text;
     } else {
       _value.current = toHTMLString({
-        value: { ...newRecord,
+        value: __unstableBeforeSerialize ? { ...newRecord,
           formats: __unstableBeforeSerialize(newRecord)
-        },
+        } : newRecord,
         multilineTag,
         preserveWhiteSpace
       });
@@ -4557,11 +4611,14 @@ function useRichText({
       text
     } = newRecord; // Selection must be updated first, so it is recorded in history when
     // the content change happens.
+    // We batch both calls to only attempt to rerender once.
 
-    onSelectionChange(start, end);
-    onChange(_value.current, {
-      __unstableFormats: formats,
-      __unstableText: text
+    registry.batch(() => {
+      onSelectionChange(start, end);
+      onChange(_value.current, {
+        __unstableFormats: formats,
+        __unstableText: text
+      });
     });
     forceRender();
   }
@@ -4617,7 +4674,7 @@ function useRichText({
     handleChange,
     isSelected,
     onSelectionChange
-  }), (0,external_wp_compose_namespaceObject.useRefEffect)(() => {
+  }), useSpace(), (0,external_wp_compose_namespaceObject.useRefEffect)(() => {
     applyFromProps();
     didMount.current = true;
   }, [placeholder, ...__unstableDependencies])]);

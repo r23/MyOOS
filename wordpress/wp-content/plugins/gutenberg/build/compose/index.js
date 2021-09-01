@@ -2223,7 +2223,7 @@ var external_wp_element_namespaceObject = window["wp"]["element"];
 /**
  * Internal dependencies
  */
- // eslint-disable-next-line no-duplicate-imports
+
 
 /**
  * Higher-order component creator, creating a new component which renders if
@@ -2267,7 +2267,7 @@ var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(exte
  * Internal dependencies
  */
 
- // eslint-disable-next-line no-duplicate-imports
+
 
 /**
  * Given a component returns the enhanced component augmented with a component
@@ -2548,7 +2548,6 @@ function useInstanceId(object, prefix, preferredId = '') {
 /**
  * Internal dependencies
  */
- // eslint-disable-next-line no-duplicate-imports
 
 
 /**
@@ -2582,7 +2581,7 @@ const withInstanceId = create_higher_order_component(WrappedComponent => {
  * Internal dependencies
  */
 
- // eslint-disable-next-line no-duplicate-imports
+
 
 /**
  * A higher-order component used to provide and manage delayed function calls
@@ -3779,19 +3778,13 @@ function usePrevious(value) {
  */
 
 /**
- * Whether or not the user agent is Internet Explorer.
- *
- * @type {boolean}
- */
-
-const IS_IE = typeof window !== 'undefined' && window.navigator.userAgent.indexOf('Trident') >= 0;
-/**
  * Hook returning whether the user has a preference for reduced motion.
  *
  * @return {boolean} Reduced motion preference value.
  */
 
-const useReducedMotion = undefined || IS_IE ? () => true : () => useMediaQuery('(prefers-reduced-motion: reduce)');
+const useReducedMotion = () => useMediaQuery('(prefers-reduced-motion: reduce)');
+
 /* harmony default export */ var use_reduced_motion = (useReducedMotion);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-viewport-match/index.js

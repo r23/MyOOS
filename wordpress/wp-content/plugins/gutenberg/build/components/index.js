@@ -15877,12 +15877,12 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalRadio": function() { return /* reexport */ build_module_radio; },
   "__experimentalRadioGroup": function() { return /* reexport */ radio_group; },
   "__experimentalScrollable": function() { return /* reexport */ scrollable_component; },
-  "__experimentalSegmentedControl": function() { return /* reexport */ segmented_control_component; },
-  "__experimentalSegmentedControlOption": function() { return /* reexport */ segmented_control_option; },
   "__experimentalSpacer": function() { return /* reexport */ spacer_component; },
   "__experimentalStyleProvider": function() { return /* reexport */ StyleProvider; },
   "__experimentalSurface": function() { return /* reexport */ surface_component; },
   "__experimentalText": function() { return /* reexport */ text_component; },
+  "__experimentalToggleGroupControl": function() { return /* reexport */ toggle_group_control_component; },
+  "__experimentalToggleGroupControlOption": function() { return /* reexport */ toggle_group_control_option; },
   "__experimentalToolbarContext": function() { return /* reexport */ toolbar_context; },
   "__experimentalToolsPanel": function() { return /* reexport */ tools_panel_component; },
   "__experimentalToolsPanelItem": function() { return /* reexport */ tools_panel_item_component; },
@@ -15929,17 +15929,17 @@ __webpack_require__.d(text_styles_namespaceObject, {
   "upperCase": function() { return upperCase; }
 });
 
-// NAMESPACE OBJECT: ./packages/components/build-module/segmented-control/styles.js
-var segmented_control_styles_namespaceObject = {};
-__webpack_require__.r(segmented_control_styles_namespaceObject);
-__webpack_require__.d(segmented_control_styles_namespaceObject, {
+// NAMESPACE OBJECT: ./packages/components/build-module/toggle-group-control/styles.js
+var toggle_group_control_styles_namespaceObject = {};
+__webpack_require__.r(toggle_group_control_styles_namespaceObject);
+__webpack_require__.d(toggle_group_control_styles_namespaceObject, {
   "BackdropView": function() { return BackdropView; },
   "ButtonContentView": function() { return ButtonContentView; },
   "LabelPlaceholderView": function() { return LabelPlaceholderView; },
   "LabelView": function() { return LabelView; },
-  "SegmentedControl": function() { return SegmentedControl; },
   "SeparatorView": function() { return SeparatorView; },
-  "block": function() { return segmented_control_styles_block; },
+  "ToggleGroupControl": function() { return ToggleGroupControl; },
+  "block": function() { return toggle_group_control_styles_block; },
   "buttonActive": function() { return buttonActive; },
   "buttonView": function() { return buttonView; },
   "labelBlock": function() { return labelBlock; },
@@ -35099,7 +35099,7 @@ const StyledHelp = emotion_styled_base_browser_esm("p",  true ? {
 
 /**
  * @typedef Props
- * @property {string}                    id                    The id of the element to which labels and help text are being generated.
+ * @property {string}                    [id]                  The id of the element to which labels and help text are being generated.
  *                                                             That element should be passed as a child.
  * @property {import('react').ReactNode} help                  If this property is added, a help text will be
  *                                                             generated using help property as the content.
@@ -35179,7 +35179,6 @@ BaseControl.VisualLabel = ({
 /**
  * Internal dependencies
  */
- // eslint-disable-next-line no-duplicate-imports
 
 
 
@@ -35432,6 +35431,103 @@ function useResponsiveValue(values, options = {}) {
   );
 }
 //# sourceMappingURL=use-responsive-value.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/utils/rtl.js
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+const LOWER_LEFT_REGEXP = new RegExp(/-left/g);
+const LOWER_RIGHT_REGEXP = new RegExp(/-right/g);
+const UPPER_LEFT_REGEXP = new RegExp(/Left/g);
+const UPPER_RIGHT_REGEXP = new RegExp(/Right/g);
+/**
+ * Flips a CSS property from left <-> right.
+ *
+ * @param {string} key The CSS property name.
+ *
+ * @return {string} The flipped CSS property name, if applicable.
+ */
+
+function getConvertedKey(key) {
+  if (key === 'left') {
+    return 'right';
+  }
+
+  if (key === 'right') {
+    return 'left';
+  }
+
+  if (LOWER_LEFT_REGEXP.test(key)) {
+    return key.replace(LOWER_LEFT_REGEXP, '-right');
+  }
+
+  if (LOWER_RIGHT_REGEXP.test(key)) {
+    return key.replace(LOWER_RIGHT_REGEXP, '-left');
+  }
+
+  if (UPPER_LEFT_REGEXP.test(key)) {
+    return key.replace(UPPER_LEFT_REGEXP, 'Right');
+  }
+
+  if (UPPER_RIGHT_REGEXP.test(key)) {
+    return key.replace(UPPER_RIGHT_REGEXP, 'Left');
+  }
+
+  return key;
+}
+/**
+ * An incredibly basic ltr -> rtl converter for style properties
+ *
+ * @param {import('react').CSSProperties} ltrStyles
+ *
+ * @return {import('react').CSSProperties} Converted ltr -> rtl styles
+ */
+
+
+const convertLTRToRTL = (ltrStyles = {}) => {
+  return (0,external_lodash_namespaceObject.mapKeys)(ltrStyles, (_value, key) => getConvertedKey(key));
+};
+/**
+ * A higher-order function that create an incredibly basic ltr -> rtl style converter for CSS objects.
+ *
+ * @param {import('react').CSSProperties} ltrStyles   Ltr styles. Converts and renders from ltr -> rtl styles, if applicable.
+ * @param {import('react').CSSProperties} [rtlStyles] Rtl styles. Renders if provided.
+ *
+ * @return {() => import('@emotion/react').SerializedStyles} A function to output CSS styles for Emotion's renderer
+ */
+
+function rtl(ltrStyles = {}, rtlStyles) {
+  return () => {
+    if (rtlStyles) {
+      // @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
+      return (0,external_wp_i18n_namespaceObject.isRTL)() ? /*#__PURE__*/emotion_react_browser_esm_css(rtlStyles,  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(ltrStyles,  true ? "" : 0);
+    } // @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
+
+
+    return (0,external_wp_i18n_namespaceObject.isRTL)() ? /*#__PURE__*/emotion_react_browser_esm_css(convertLTRToRTL(ltrStyles),  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(ltrStyles,  true ? "" : 0);
+  };
+}
+/**
+ * Call this in the `useMemo` dependency array to ensure that subsequent renders will
+ * cause rtl styles to update based on the `isRTL` return value even if all other dependencies
+ * remain the same.
+ *
+ * @example
+ * const styles = useMemo( () => {
+ *   return css`
+ *     ${ rtl( { marginRight: '10px' } ) }
+ *   `;
+ * }, [ rtl.watch() ] );
+ */
+
+rtl.watch = () => (0,external_wp_i18n_namespaceObject.isRTL)();
+//# sourceMappingURL=rtl.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex/hook.js
 /**
  * External dependencies
@@ -35506,33 +35602,27 @@ function useFlex(props) {
       width: !isColumn && expanded ? '100%' : undefined,
       marginBottom: wrap ? `calc(${space(gap)} * -1)` : undefined
     },  true ? "" : 0,  true ? "" : 0);
-    sx.Items = /*#__PURE__*/emotion_react_browser_esm_css({
-      /**
-       * Workaround to optimize DOM rendering.
-       * We'll enhance alignment with naive parent flex assumptions.
-       *
-       * Trade-off:
-       * Far less DOM less. However, UI rendering is not as reliable.
-       */
-      '> * + *:not(marquee)': {
-        marginTop: isColumn ? space(gap) : undefined,
-        marginRight: !isColumn && isReverse ? space(gap) : undefined,
-        marginLeft: !isColumn && !isReverse ? space(gap) : undefined
-      }
-    },  true ? "" : 0,  true ? "" : 0);
-    sx.WrapItems = /*#__PURE__*/emotion_react_browser_esm_css({
-      '> *:not(marquee)': {
-        marginBottom: space(gap),
-        marginLeft: !isColumn && isReverse ? space(gap) : undefined,
-        marginRight: !isColumn && !isReverse ? space(gap) : undefined
-      },
-      '> *:last-child:not(marquee)': {
-        marginLeft: !isColumn && isReverse ? 0 : undefined,
-        marginRight: !isColumn && !isReverse ? 0 : undefined
-      }
-    },  true ? "" : 0,  true ? "" : 0);
+    /**
+     * Workaround to optimize DOM rendering.
+     * We'll enhance alignment with naive parent flex assumptions.
+     *
+     * Trade-off:
+     * Far less DOM less. However, UI rendering is not as reliable.
+     */
+
+    sx.Items = /*#__PURE__*/emotion_react_browser_esm_css(">*+*:not( marquee ){margin-top:", isColumn ? space(gap) : undefined, ";", rtl({
+      marginLeft: !isColumn && !isReverse ? space(gap) : undefined,
+      marginRight: !isColumn && isReverse ? space(gap) : undefined
+    })(), ";}" + ( true ? "" : 0),  true ? "" : 0);
+    sx.WrapItems = /*#__PURE__*/emotion_react_browser_esm_css(">*:not( marquee ){margin-bottom:", space(gap), ";", rtl({
+      marginLeft: !isColumn && isReverse ? space(gap) : undefined,
+      marginRight: !isColumn && !isReverse ? space(gap) : undefined
+    })(), ";}>*:last-child:not( marquee ){", rtl({
+      marginLeft: !isColumn && isReverse ? 0 : undefined,
+      marginRight: !isColumn && !isReverse ? 0 : undefined
+    })(), ";}" + ( true ? "" : 0),  true ? "" : 0);
     return cx(Flex, sx.Base, wrap ? sx.WrapItems : sx.Items, isColumn ? ItemsColumn : ItemsRow, className);
-  }, [align, className, direction, expanded, gap, isColumn, isReverse, justify, wrap]);
+  }, [align, className, direction, expanded, gap, isColumn, isReverse, justify, wrap, rtl.watch()]);
   return { ...otherProps,
     className: classes,
     isColumn
@@ -35886,16 +35976,16 @@ const CONTROL_PROPS = {
   controlHeightLarge: `calc( ${CONTROL_HEIGHT} * 1.2 )`,
   controlHeightXLarge: `calc( ${CONTROL_HEIGHT} * 1.4 )`
 };
-const SEGMENTED_CONTROL_PROPS = {
-  segmentedControlBackgroundColor: CONTROL_PROPS.controlBackgroundColor,
-  segmentedControlBorderColor: COLORS.ui.border,
-  segmentedControlBackdropBackgroundColor: CONTROL_PROPS.controlSurfaceColor,
-  segmentedControlBackdropBorderColor: COLORS.ui.border,
-  segmentedControlBackdropBoxShadow: 'transparent',
-  segmentedControlButtonColorActive: CONTROL_PROPS.controlBackgroundColor
+const TOGGLE_GROUP_CONTROL_PROPS = {
+  toggleGroupControlBackgroundColor: CONTROL_PROPS.controlBackgroundColor,
+  toggleGroupControlBorderColor: COLORS.ui.border,
+  toggleGroupControlBackdropBackgroundColor: CONTROL_PROPS.controlSurfaceColor,
+  toggleGroupControlBackdropBorderColor: COLORS.ui.border,
+  toggleGroupControlBackdropBoxShadow: 'transparent',
+  toggleGroupControlButtonColorActive: CONTROL_PROPS.controlBackgroundColor
 };
 /* harmony default export */ var config_values = ({ ...CONTROL_PROPS,
-  ...SEGMENTED_CONTROL_PROPS,
+  ...TOGGLE_GROUP_CONTROL_PROPS,
   colorDivider: 'rgba(0, 0, 0, 0.1)',
   colorScrollbarThumb: 'rgba(0, 0, 0, 0.2)',
   colorScrollbarThumbHover: 'rgba(0, 0, 0, 0.5)',
@@ -36384,103 +36474,6 @@ const component_Text = create_component_createComponent({
 });
 /* harmony default export */ var text_component = (component_Text);
 //# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/utils/rtl.js
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-const LOWER_LEFT_REGEXP = new RegExp(/-left/g);
-const LOWER_RIGHT_REGEXP = new RegExp(/-right/g);
-const UPPER_LEFT_REGEXP = new RegExp(/Left/g);
-const UPPER_RIGHT_REGEXP = new RegExp(/Right/g);
-/**
- * Flips a CSS property from left <-> right.
- *
- * @param {string} key The CSS property name.
- *
- * @return {string} The flipped CSS property name, if applicable.
- */
-
-function getConvertedKey(key) {
-  if (key === 'left') {
-    return 'right';
-  }
-
-  if (key === 'right') {
-    return 'left';
-  }
-
-  if (LOWER_LEFT_REGEXP.test(key)) {
-    return key.replace(LOWER_LEFT_REGEXP, '-right');
-  }
-
-  if (LOWER_RIGHT_REGEXP.test(key)) {
-    return key.replace(LOWER_RIGHT_REGEXP, '-left');
-  }
-
-  if (UPPER_LEFT_REGEXP.test(key)) {
-    return key.replace(UPPER_LEFT_REGEXP, 'Right');
-  }
-
-  if (UPPER_RIGHT_REGEXP.test(key)) {
-    return key.replace(UPPER_RIGHT_REGEXP, 'Left');
-  }
-
-  return key;
-}
-/**
- * An incredibly basic ltr -> rtl converter for style properties
- *
- * @param {import('react').CSSProperties} ltrStyles
- *
- * @return {import('react').CSSProperties} Converted ltr -> rtl styles
- */
-
-
-const convertLTRToRTL = (ltrStyles = {}) => {
-  return (0,external_lodash_namespaceObject.mapKeys)(ltrStyles, (_value, key) => getConvertedKey(key));
-};
-/**
- * A higher-order function that create an incredibly basic ltr -> rtl style converter for CSS objects.
- *
- * @param {import('react').CSSProperties} ltrStyles   Ltr styles. Converts and renders from ltr -> rtl styles, if applicable.
- * @param {import('react').CSSProperties} [rtlStyles] Rtl styles. Renders if provided.
- *
- * @return {() => import('@emotion/react').SerializedStyles} A function to output CSS styles for Emotion's renderer
- */
-
-function rtl(ltrStyles = {}, rtlStyles) {
-  return () => {
-    if (rtlStyles) {
-      // @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
-      return (0,external_wp_i18n_namespaceObject.isRTL)() ? /*#__PURE__*/emotion_react_browser_esm_css(rtlStyles,  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(ltrStyles,  true ? "" : 0);
-    } // @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
-
-
-    return (0,external_wp_i18n_namespaceObject.isRTL)() ? /*#__PURE__*/emotion_react_browser_esm_css(convertLTRToRTL(ltrStyles),  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(ltrStyles,  true ? "" : 0);
-  };
-}
-/**
- * Call this in the `useMemo` dependency array to ensure that subsequent renders will
- * cause rtl styles to update based on the `isRTL` return value even if all other dependencies
- * remain the same.
- *
- * @example
- * const styles = useMemo( () => {
- *   return css`
- *     ${ rtl( { marginRight: '10px' } ) }
- *   `;
- * }, [ rtl.watch() ] );
- */
-
-rtl.watch = () => (0,external_wp_i18n_namespaceObject.isRTL)();
-//# sourceMappingURL=rtl.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/styles/input-control-styles.js
 
 
@@ -44418,7 +44411,6 @@ const DividerView = emotion_styled_base_browser_esm("hr",  true ? {
 /**
  * Internal dependencies
  */
- // eslint-disable-next-line no-duplicate-imports
 
 
 
@@ -47296,13 +47288,13 @@ function ComboboxControl({
 }) {
   var _currentOption$label;
 
+  const currentOption = options.find(option => option.value === value);
+  const currentLabel = (_currentOption$label = currentOption === null || currentOption === void 0 ? void 0 : currentOption.label) !== null && _currentOption$label !== void 0 ? _currentOption$label : '';
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(ComboboxControl);
-  const [selectedSuggestion, setSelectedSuggestion] = (0,external_wp_element_namespaceObject.useState)(null);
+  const [selectedSuggestion, setSelectedSuggestion] = (0,external_wp_element_namespaceObject.useState)(currentOption || null);
   const [isExpanded, setIsExpanded] = (0,external_wp_element_namespaceObject.useState)(false);
   const [inputValue, setInputValue] = (0,external_wp_element_namespaceObject.useState)('');
   const inputContainer = (0,external_wp_element_namespaceObject.useRef)();
-  const currentOption = options.find(option => option.value === value);
-  const currentLabel = (_currentOption$label = currentOption === null || currentOption === void 0 ? void 0 : currentOption.label) !== null && _currentOption$label !== void 0 ? _currentOption$label : '';
   const matchingSuggestions = (0,external_wp_element_namespaceObject.useMemo)(() => {
     const startsWithMatch = [];
     const containsMatch = [];
@@ -47402,8 +47394,18 @@ function ComboboxControl({
   const handleOnReset = () => {
     onChange(null);
     inputContainer.current.input.focus();
-  }; // Announcements
+  }; // Update current selections when the filter input changes.
 
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    const hasMatchingSuggestions = matchingSuggestions.length > 0;
+    const hasSelectedMatchingSuggestions = matchingSuggestions.indexOf(selectedSuggestion) > 0;
+
+    if (hasMatchingSuggestions && !hasSelectedMatchingSuggestions) {
+      // If the current selection isn't present in the list of suggestions, then automatically select the first item from the list of suggestions.
+      setSelectedSuggestion(matchingSuggestions[0]);
+    }
+  }, [matchingSuggestions, selectedSuggestion]); // Announcements
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     const hasMatchingSuggestions = matchingSuggestions.length > 0;
@@ -51579,6 +51581,7 @@ function useMultipleSelection(userProps) {
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -51624,6 +51627,7 @@ function CustomSelectControl({
   className,
   hideLabelFromVision,
   label,
+  describedBy,
   options: items,
   onChange: onSelectedItemChange,
   value: _selectedItem
@@ -51644,6 +51648,8 @@ function CustomSelectControl({
     selectedItem: _selectedItem,
     stateReducer: custom_select_control_stateReducer
   });
+  const controlDescribedBy = describedBy ? describedBy : // translators: %s: The selected option.
+  (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Currently selected: %s'), selectedItem.name);
   const menuProps = getMenuProps({
     className: 'components-custom-select-control__menu',
     'aria-hidden': !isOpen
@@ -51667,7 +51673,8 @@ function CustomSelectControl({
     'aria-label': label,
     'aria-labelledby': undefined,
     className: 'components-custom-select-control__button',
-    isSmall: true
+    isSmall: true,
+    describedBy: controlDescribedBy
   }), custom_select_control_itemToString(selectedItem), (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
     icon: chevron_down,
     className: "components-custom-select-control__button-icon"
@@ -60374,6 +60381,8 @@ function FontSizePicker({
   }
 
   const selectedFontSizeSlug = getSelectValueFromFontSize(fontSizes, value);
+  const currentFontSizeSR = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font size.
+  (0,external_wp_i18n_namespaceObject.__)('Currently selected font size: %s'), options.find(option => option.key === selectedFontSizeSlug).name);
   return (0,external_wp_element_namespaceObject.createElement)("fieldset", extends_extends({
     className: "components-font-size-picker"
   }, ref ? {} : {
@@ -60385,6 +60394,7 @@ function FontSizePicker({
   }, fontSizes.length > 0 && (0,external_wp_element_namespaceObject.createElement)(CustomSelectControl, {
     className: 'components-font-size-picker__select',
     label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
+    describedBy: currentFontSizeSR,
     options: options,
     value: options.find(option => option.key === selectedFontSizeSlug),
     onChange: ({
@@ -62441,7 +62451,6 @@ function GuidePage(props) {
 /**
  * Internal dependencies
  */
- // eslint-disable-next-line no-duplicate-imports
 
 
 
@@ -67048,331 +67057,6 @@ function SearchControl({
 
 /* harmony default export */ var search_control = (SearchControl);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/segmented-control/styles.js
-
-
-function segmented_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-/**
- * External dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-const SegmentedControl = /*#__PURE__*/emotion_react_browser_esm_css("background:", COLORS.ui.background, ";border:1px solid;border-color:", COLORS.ui.border, ";border-radius:", config_values.controlBorderRadius, ";display:inline-flex;min-height:", config_values.controlHeight, ";min-width:0;padding:2px;position:relative;transition:transform ", config_values.transitionDurationFastest, " linear;", reduceMotion('transition'), " &:hover{border-color:", COLORS.ui.borderHover, ";}&:focus-within{border-color:", COLORS.ui.borderFocus, ";box-shadow:", config_values.controlBoxShadowFocus, ";outline:none;z-index:1;}" + ( true ? "" : 0),  true ? "" : 0);
-const segmented_control_styles_block =  true ? {
-  name: "7whenc",
-  styles: "display:flex;width:100%"
-} : 0;
-const BackdropView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e11bgt254"
-} : 0)("background:", COLORS.gray[900], ";border-radius:", config_values.controlBorderRadius, ";box-shadow:", config_values.segmentedControlBackdropBoxShadow, ";left:0;position:absolute;top:2px;bottom:2px;transition:transform ", config_values.transitionDurationFast, " ease;", reduceMotion('transition'), " z-index:1;" + ( true ? "" : 0));
-const LabelView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e11bgt253"
-} : 0)( true ? {
-  name: "sln1fl",
-  styles: "display:inline-flex;max-width:100%;min-width:0;position:relative"
-} : 0);
-const labelBlock =  true ? {
-  name: "82a6rk",
-  styles: "flex:1"
-} : 0;
-const buttonView = /*#__PURE__*/emotion_react_browser_esm_css("align-items:center;appearance:none;background:transparent;border:none;border-radius:", config_values.controlBorderRadius, ";color:", COLORS.gray[700], ";cursor:pointer;display:flex;height:100%;justify-content:center;line-height:100%;outline:none;padding:0 12px;position:relative;text-align:center;transition:background ", config_values.transitionDurationFast, " linear,color ", config_values.transitionDurationFast, " linear,font-weight 60ms linear;", reduceMotion('transition'), " user-select:none;width:100%;z-index:2;&::-moz-focus-inner{border:0;}&:active{background:", config_values.segmentedControlBackgroundColor, ";}" + ( true ? "" : 0),  true ? "" : 0);
-const buttonActive = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.white, ";" + ( true ? "" : 0),  true ? "" : 0);
-const ButtonContentView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e11bgt252"
-} : 0)("font-size:", config_values.fontSize, ";line-height:1;position:absolute;top:50%;left:50%;transform:translate( -50%, -50% );" + ( true ? "" : 0));
-const SeparatorView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e11bgt251"
-} : 0)("background:", config_values.colorDivider, ";height:calc( 100% - 4px - 4px );position:absolute;right:0;top:4px;transition:background ", config_values.transitionDuration, " linear;", reduceMotion('transition'), " width:1px;" + ( true ? "" : 0));
-const separatorActive =  true ? {
-  name: "1qsuvl4",
-  styles: "background:transparent"
-} : 0;
-const LabelPlaceholderView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e11bgt250"
-} : 0)("font-size:", config_values.fontSize, ";font-weight:bold;height:0;overflow:hidden;visibility:hidden;" + ( true ? "" : 0));
-const medium = /*#__PURE__*/emotion_react_browser_esm_css("min-height:", config_values.controlHeight, ";" + ( true ? "" : 0),  true ? "" : 0);
-//# sourceMappingURL=styles.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/segmented-control/segmented-control-backdrop.js
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-function SegmentedControlBackdrop({
-  containerRef,
-  containerWidth,
-  state
-}) {
-  const [left, setLeft] = (0,external_wp_element_namespaceObject.useState)(0);
-  const [width, setWidth] = (0,external_wp_element_namespaceObject.useState)(0);
-  const [canAnimate, setCanAnimate] = (0,external_wp_element_namespaceObject.useState)(false);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    const containerNode = containerRef === null || containerRef === void 0 ? void 0 : containerRef.current;
-    if (!containerNode) return;
-    /**
-     * Workaround for Reakit
-     */
-
-    const targetNode = containerNode.querySelector(`[data-value="${state}"]`);
-    if (!targetNode) return;
-    const {
-      x: parentX
-    } = containerNode.getBoundingClientRect();
-    const {
-      width: offsetWidth,
-      x
-    } = targetNode.getBoundingClientRect();
-    const borderWidth = 1;
-    const offsetLeft = x - parentX - borderWidth;
-    setLeft(offsetLeft);
-    setWidth(offsetWidth);
-
-    if (!canAnimate) {
-      window.requestAnimationFrame(() => {
-        setCanAnimate(true);
-      });
-    }
-  }, [canAnimate, containerRef, containerWidth, state]);
-  return (0,external_wp_element_namespaceObject.createElement)(BackdropView, {
-    role: "presentation",
-    style: {
-      transform: `translateX(${left}px)`,
-      transition: canAnimate ? undefined : 'none',
-      width
-    }
-  });
-}
-
-/* harmony default export */ var segmented_control_backdrop = ((0,external_wp_element_namespaceObject.memo)(SegmentedControlBackdrop));
-//# sourceMappingURL=segmented-control-backdrop.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/segmented-control/segmented-control-context.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-const SegmentedControlContext = (0,external_wp_element_namespaceObject.createContext)({});
-const useSegmentedControlContext = () => (0,external_wp_element_namespaceObject.useContext)(SegmentedControlContext);
-/* harmony default export */ var segmented_control_context = (SegmentedControlContext);
-//# sourceMappingURL=segmented-control-context.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/segmented-control/component.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-
-
-const component_noop = () => {};
-
-function component_SegmentedControl(props, forwardedRef) {
-  const {
-    className,
-    baseId,
-    isAdaptiveWidth = false,
-    isBlock = false,
-    id,
-    label,
-    onChange = component_noop,
-    value,
-    children,
-    ...otherProps
-  } = useContextSystem(props, 'SegmentedControl');
-  const cx = useCx();
-  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
-  const [resizeListener, sizes] = react_resize_aware_dist_default()();
-  const radio = useRadioState({
-    baseId: baseId || id,
-    state: value
-  }); // Propagate radio.state change
-
-  use_update_effect(() => {
-    onChange(radio.state);
-  }, [radio.state]); // Sync incoming value with radio.state
-
-  use_update_effect(() => {
-    if (value !== radio.state) {
-      radio.setState(value);
-    }
-  }, [value]);
-  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(SegmentedControl, isBlock && segmented_control_styles_block, 'medium', className), [className]);
-  return (0,external_wp_element_namespaceObject.createElement)(segmented_control_context.Provider, {
-    value: { ...radio,
-      isBlock: !isAdaptiveWidth
-    }
-  }, (0,external_wp_element_namespaceObject.createElement)(RadioGroup, extends_extends({}, radio, {
-    "aria-label": label,
-    as: component,
-    className: classes
-  }, otherProps, {
-    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef])
-  }), resizeListener, (0,external_wp_element_namespaceObject.createElement)(segmented_control_backdrop, extends_extends({}, radio, {
-    containerRef: containerRef,
-    containerWidth: sizes.width
-  })), children));
-}
-
-/* harmony default export */ var segmented_control_component = (contextConnect(component_SegmentedControl, 'SegmentedControl'));
-//# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/segmented-control/segmented-control-button.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-const {
-  ButtonContentView: segmented_control_button_ButtonContentView,
-  LabelPlaceholderView: segmented_control_button_LabelPlaceholderView,
-  LabelView: segmented_control_button_LabelView,
-  SeparatorView: segmented_control_button_SeparatorView
-} = segmented_control_styles_namespaceObject;
-
-function SegmentedControlButton({
-  className,
-  forwardedRef,
-  isBlock = false,
-  label,
-  showSeparator,
-  value,
-  ...props
-}) {
-  const isActive = props.state === value;
-  const cx = useCx();
-  const labelViewClasses = cx(isBlock && labelBlock);
-  const classes = cx(buttonView, className, isActive && buttonActive);
-  return (0,external_wp_element_namespaceObject.createElement)(segmented_control_button_LabelView, {
-    className: labelViewClasses,
-    "data-active": isActive
-  }, (0,external_wp_element_namespaceObject.createElement)(Radio, extends_extends({}, props, {
-    as: "button",
-    "aria-label": label,
-    className: classes,
-    "data-value": value,
-    ref: forwardedRef,
-    value: value
-  }), (0,external_wp_element_namespaceObject.createElement)(segmented_control_button_ButtonContentView, null, label), (0,external_wp_element_namespaceObject.createElement)(segmented_control_button_LabelPlaceholderView, {
-    "aria-hidden": true
-  }, label)), (0,external_wp_element_namespaceObject.createElement)(SegmentedControlSeparator, {
-    isActive: !showSeparator
-  }));
-}
-
-const SegmentedControlSeparator = (0,external_wp_element_namespaceObject.memo)(({
-  isActive
-}) => {
-  const cx = useCx();
-  const classes = cx(isActive && separatorActive);
-  return (0,external_wp_element_namespaceObject.createElement)(segmented_control_button_SeparatorView, {
-    "aria-hidden": true,
-    className: classes
-  });
-});
-/* harmony default export */ var segmented_control_button = ((0,external_wp_element_namespaceObject.memo)(SegmentedControlButton));
-//# sourceMappingURL=segmented-control-button.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/segmented-control/segmented-control-option.js
-
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function getShowSeparator(segmentedControlContext, index) {
-  var _items$index, _items;
-
-  const {
-    currentId,
-    items
-  } = segmentedControlContext;
-  const isLast = index === items.length - 1;
-  const isActive = ((_items$index = items[index]) === null || _items$index === void 0 ? void 0 : _items$index.id) === currentId;
-  const isNextActive = ((_items = items[index + 1]) === null || _items === void 0 ? void 0 : _items.id) === currentId;
-  let showSeparator = true;
-
-  if (items.length < 3) {
-    showSeparator = false;
-  }
-
-  if (isActive || isNextActive || isLast) {
-    showSeparator = false;
-  }
-
-  return showSeparator;
-}
-
-function SegmentedControlOption(props, forwardedRef) {
-  const segmentedControlContext = useSegmentedControlContext();
-  const id = (0,external_wp_compose_namespaceObject.useInstanceId)(SegmentedControlOption, segmentedControlContext.baseId || 'segmented-control-option');
-  const buttonProps = useContextSystem({ ...props,
-    id
-  }, 'SegmentedControlOption');
-  const index = segmentedControlContext.items.findIndex(item => item.id === buttonProps.id);
-  const showSeparator = getShowSeparator(segmentedControlContext, index);
-  return (0,external_wp_element_namespaceObject.createElement)(segmented_control_button, extends_extends({
-    ref: forwardedRef
-  }, segmentedControlContext, buttonProps, {
-    showSeparator
-  }));
-}
-
-/* harmony default export */ var segmented_control_option = (contextConnect(SegmentedControlOption, 'SegmentedControlOption'));
-//# sourceMappingURL=segmented-control-option.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/snackbar/index.js
 
 
@@ -67864,7 +67548,6 @@ function SnackbarList({
  * Internal dependencies
  */
 
- // eslint-disable-next-line no-duplicate-imports
 
 
 
@@ -68337,6 +68020,335 @@ function ToggleControl({
   }, label));
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/styles.js
+
+
+function toggle_group_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+const ToggleGroupControl = /*#__PURE__*/emotion_react_browser_esm_css("background:", COLORS.ui.background, ";border:1px solid;border-color:", COLORS.ui.border, ";border-radius:", config_values.controlBorderRadius, ";display:inline-flex;min-height:", config_values.controlHeight, ";min-width:0;padding:2px;position:relative;transition:transform ", config_values.transitionDurationFastest, " linear;", reduceMotion('transition'), " &:hover{border-color:", COLORS.ui.borderHover, ";}&:focus-within{border-color:", COLORS.ui.borderFocus, ";box-shadow:", config_values.controlBoxShadowFocus, ";outline:none;z-index:1;}" + ( true ? "" : 0),  true ? "" : 0);
+const toggle_group_control_styles_block =  true ? {
+  name: "7whenc",
+  styles: "display:flex;width:100%"
+} : 0;
+const BackdropView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e1c5povi4"
+} : 0)("background:", COLORS.gray[900], ";border-radius:", config_values.controlBorderRadius, ";box-shadow:", config_values.toggleGroupControlBackdropBoxShadow, ";left:0;position:absolute;top:2px;bottom:2px;transition:transform ", config_values.transitionDurationFast, " ease;", reduceMotion('transition'), " z-index:1;" + ( true ? "" : 0));
+const LabelView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e1c5povi3"
+} : 0)( true ? {
+  name: "sln1fl",
+  styles: "display:inline-flex;max-width:100%;min-width:0;position:relative"
+} : 0);
+const labelBlock =  true ? {
+  name: "82a6rk",
+  styles: "flex:1"
+} : 0;
+const buttonView = /*#__PURE__*/emotion_react_browser_esm_css("align-items:center;appearance:none;background:transparent;border:none;border-radius:", config_values.controlBorderRadius, ";color:", COLORS.gray[700], ";cursor:pointer;display:flex;height:100%;justify-content:center;line-height:100%;outline:none;padding:0 12px;position:relative;text-align:center;transition:background ", config_values.transitionDurationFast, " linear,color ", config_values.transitionDurationFast, " linear,font-weight 60ms linear;", reduceMotion('transition'), " user-select:none;width:100%;z-index:2;&::-moz-focus-inner{border:0;}&:active{background:", config_values.toggleGroupControlBackgroundColor, ";}" + ( true ? "" : 0),  true ? "" : 0);
+const buttonActive = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.white, ";" + ( true ? "" : 0),  true ? "" : 0);
+const ButtonContentView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e1c5povi2"
+} : 0)("font-size:", config_values.fontSize, ";line-height:1;position:absolute;top:50%;left:50%;transform:translate( -50%, -50% );" + ( true ? "" : 0));
+const SeparatorView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e1c5povi1"
+} : 0)("background:", config_values.colorDivider, ";height:calc( 100% - 4px - 4px );position:absolute;right:0;top:4px;transition:background ", config_values.transitionDuration, " linear;", reduceMotion('transition'), " width:1px;" + ( true ? "" : 0));
+const separatorActive =  true ? {
+  name: "1qsuvl4",
+  styles: "background:transparent"
+} : 0;
+const LabelPlaceholderView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e1c5povi0"
+} : 0)("font-size:", config_values.fontSize, ";font-weight:bold;height:0;overflow:hidden;visibility:hidden;" + ( true ? "" : 0));
+const medium = /*#__PURE__*/emotion_react_browser_esm_css("min-height:", config_values.controlHeight, ";" + ( true ? "" : 0),  true ? "" : 0);
+//# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-backdrop.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function ToggleGroupControlBackdrop({
+  containerRef,
+  containerWidth,
+  state
+}) {
+  const [left, setLeft] = (0,external_wp_element_namespaceObject.useState)(0);
+  const [width, setWidth] = (0,external_wp_element_namespaceObject.useState)(0);
+  const [canAnimate, setCanAnimate] = (0,external_wp_element_namespaceObject.useState)(false);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    const containerNode = containerRef === null || containerRef === void 0 ? void 0 : containerRef.current;
+    if (!containerNode) return;
+    /**
+     * Workaround for Reakit
+     */
+
+    const targetNode = containerNode.querySelector(`[data-value="${state}"]`);
+    if (!targetNode) return;
+    const {
+      x: parentX
+    } = containerNode.getBoundingClientRect();
+    const {
+      width: offsetWidth,
+      x
+    } = targetNode.getBoundingClientRect();
+    const borderWidth = 1;
+    const offsetLeft = x - parentX - borderWidth;
+    setLeft(offsetLeft);
+    setWidth(offsetWidth);
+
+    if (!canAnimate) {
+      window.requestAnimationFrame(() => {
+        setCanAnimate(true);
+      });
+    }
+  }, [canAnimate, containerRef, containerWidth, state]);
+  return (0,external_wp_element_namespaceObject.createElement)(BackdropView, {
+    role: "presentation",
+    style: {
+      transform: `translateX(${left}px)`,
+      transition: canAnimate ? undefined : 'none',
+      width
+    }
+  });
+}
+
+/* harmony default export */ var toggle_group_control_backdrop = ((0,external_wp_element_namespaceObject.memo)(ToggleGroupControlBackdrop));
+//# sourceMappingURL=toggle-group-control-backdrop.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-context.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+const ToggleGroupControlContext = (0,external_wp_element_namespaceObject.createContext)({});
+const useToggleGroupControlContext = () => (0,external_wp_element_namespaceObject.useContext)(ToggleGroupControlContext);
+/* harmony default export */ var toggle_group_control_context = (ToggleGroupControlContext);
+//# sourceMappingURL=toggle-group-control-context.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+
+const component_noop = () => {};
+
+function component_ToggleGroupControl(props, forwardedRef) {
+  const {
+    className,
+    isAdaptiveWidth = false,
+    isBlock = false,
+    label,
+    hideLabelFromVision = false,
+    help,
+    onChange = component_noop,
+    value,
+    children,
+    ...otherProps
+  } = useContextSystem(props, 'ToggleGroupControl');
+  const cx = useCx();
+  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
+  const [resizeListener, sizes] = react_resize_aware_dist_default()();
+  const baseId = (0,external_wp_compose_namespaceObject.useInstanceId)(component_ToggleGroupControl, 'toggle-group-control').toString();
+  const radio = useRadioState({
+    baseId,
+    state: value
+  }); // Propagate radio.state change
+
+  use_update_effect(() => {
+    onChange(radio.state);
+  }, [radio.state]); // Sync incoming value with radio.state
+
+  use_update_effect(() => {
+    if (value !== radio.state) {
+      radio.setState(value);
+    }
+  }, [value]);
+  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(ToggleGroupControl, isBlock && toggle_group_control_styles_block, 'medium', className), [className, isBlock]);
+  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
+    help: help
+  }, (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_context.Provider, {
+    value: { ...radio,
+      isBlock: !isAdaptiveWidth
+    }
+  }, !hideLabelFromVision && (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(base_control.VisualLabel, null, label)), (0,external_wp_element_namespaceObject.createElement)(RadioGroup, extends_extends({}, radio, {
+    "aria-label": label,
+    as: component,
+    className: classes
+  }, otherProps, {
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef])
+  }), resizeListener, (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_backdrop, extends_extends({}, radio, {
+    containerRef: containerRef,
+    containerWidth: sizes.width
+  })), children)));
+}
+
+/* harmony default export */ var toggle_group_control_component = (contextConnect(component_ToggleGroupControl, 'ToggleGroupControl'));
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-button.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const {
+  ButtonContentView: toggle_group_control_button_ButtonContentView,
+  LabelPlaceholderView: toggle_group_control_button_LabelPlaceholderView,
+  LabelView: toggle_group_control_button_LabelView,
+  SeparatorView: toggle_group_control_button_SeparatorView
+} = toggle_group_control_styles_namespaceObject;
+
+function ToggleGroupControlButton({
+  className,
+  forwardedRef,
+  isBlock = false,
+  label,
+  showSeparator,
+  value,
+  ...props
+}) {
+  const isActive = props.state === value;
+  const cx = useCx();
+  const labelViewClasses = cx(isBlock && labelBlock);
+  const classes = cx(buttonView, className, isActive && buttonActive);
+  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button_LabelView, {
+    className: labelViewClasses,
+    "data-active": isActive
+  }, (0,external_wp_element_namespaceObject.createElement)(Radio, extends_extends({}, props, {
+    as: "button",
+    "aria-label": label,
+    className: classes,
+    "data-value": value,
+    ref: forwardedRef,
+    value: value
+  }), (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button_ButtonContentView, null, label), (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button_LabelPlaceholderView, {
+    "aria-hidden": true
+  }, label)), (0,external_wp_element_namespaceObject.createElement)(ToggleGroupControlSeparator, {
+    isActive: !showSeparator
+  }));
+}
+
+const ToggleGroupControlSeparator = (0,external_wp_element_namespaceObject.memo)(({
+  isActive
+}) => {
+  const cx = useCx();
+  const classes = cx(isActive && separatorActive);
+  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button_SeparatorView, {
+    "aria-hidden": true,
+    className: classes
+  });
+});
+/* harmony default export */ var toggle_group_control_button = ((0,external_wp_element_namespaceObject.memo)(ToggleGroupControlButton));
+//# sourceMappingURL=toggle-group-control-button.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-option.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+function getShowSeparator(toggleGroupControlContext, index) {
+  var _items$index, _items;
+
+  const {
+    currentId,
+    items
+  } = toggleGroupControlContext;
+  const isLast = index === items.length - 1;
+  const isActive = ((_items$index = items[index]) === null || _items$index === void 0 ? void 0 : _items$index.id) === currentId;
+  const isNextActive = ((_items = items[index + 1]) === null || _items === void 0 ? void 0 : _items.id) === currentId;
+  let showSeparator = true;
+
+  if (items.length < 3) {
+    showSeparator = false;
+  }
+
+  if (isActive || isNextActive || isLast) {
+    showSeparator = false;
+  }
+
+  return showSeparator;
+}
+
+function ToggleGroupControlOption(props, forwardedRef) {
+  const toggleGroupControlContext = useToggleGroupControlContext();
+  const id = (0,external_wp_compose_namespaceObject.useInstanceId)(ToggleGroupControlOption, toggleGroupControlContext.baseId || 'toggle-group-control-option');
+  const buttonProps = useContextSystem({ ...props,
+    id
+  }, 'ToggleGroupControlOption');
+  const index = toggleGroupControlContext.items.findIndex(item => item.id === buttonProps.id);
+  const showSeparator = getShowSeparator(toggleGroupControlContext, index);
+  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button, extends_extends({
+    ref: forwardedRef
+  }, toggleGroupControlContext, buttonProps, {
+    showSeparator
+  }));
+}
+
+/* harmony default export */ var toggle_group_control_option = (contextConnect(ToggleGroupControlOption, 'ToggleGroupControlOption'));
+//# sourceMappingURL=toggle-group-control-option.js.map
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-ae468c11.js
 // Automatically generated
 var TOOLBAR_STATE_KEYS = ["baseId", "unstable_idCountRef", "unstable_virtual", "rtl", "orientation", "items", "groups", "currentId", "loop", "wrap", "shift", "unstable_moves", "unstable_hasActiveWidget", "unstable_includesBaseElement", "setBaseId", "registerItem", "unregisterItem", "registerGroup", "unregisterGroup", "move", "next", "previous", "up", "down", "first", "last", "sort", "unstable_setVirtual", "setRTL", "setOrientation", "setCurrentId", "setLoop", "setWrap", "setShift", "reset", "unstable_setIncludesBaseElement", "unstable_setHasActiveWidget"];
@@ -69080,6 +69092,12 @@ function useToolsPanel(props) {
 
   const registerPanelItem = item => {
     setPanelItems(items => [...items, item]);
+  }; // Panels need to deregister on unmount to avoid orphans in menu state.
+  // This is an issue when panel items are being injected via SlotFills.
+
+
+  const deregisterPanelItem = label => {
+    setPanelItems(items => items.filter(item => item.label !== label));
   }; // Manage and share display state of menu items representing child controls.
 
 
@@ -69123,7 +69141,8 @@ function useToolsPanel(props) {
 
   const panelContext = {
     menuItems,
-    registerPanelItem
+    registerPanelItem,
+    deregisterPanelItem
   };
   return { ...otherProps,
     panelContext,
@@ -69201,7 +69220,8 @@ function useToolsPanelItem(props) {
   });
   const {
     menuItems,
-    registerPanelItem
+    registerPanelItem,
+    deregisterPanelItem
   } = useToolsPanelContext(); // Registering the panel item allows the panel to include it in its
   // automatically generated menu and determine its initial checked status.
 
@@ -69211,6 +69231,7 @@ function useToolsPanelItem(props) {
       isShownByDefault,
       label
     });
+    return () => deregisterPanelItem(label);
   }, []);
   const isValueSet = hasValue(); // Note: `label` is used as a key when building menu item state in
   // `ToolsPanel`.
@@ -69960,7 +69981,6 @@ const positionRelative =  true ? {
  */
 
 
- // eslint-disable-next-line no-duplicate-imports
 
 
 

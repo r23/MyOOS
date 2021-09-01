@@ -80,7 +80,7 @@ var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
  * WordPress dependencies
  */
 
- // eslint-disable-next-line no-duplicate-imports
+
 
 /**
  * Utility to make a new context value

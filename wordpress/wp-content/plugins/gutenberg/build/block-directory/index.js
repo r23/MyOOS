@@ -566,7 +566,7 @@ function* installBlockType(block) {
       }
     });
     yield loadAssets(assets);
-    const registeredBlocks = yield external_wp_data_namespaceObject.controls.select(external_wp_blocks_namespaceObject.store.name, 'getBlockTypes');
+    const registeredBlocks = yield external_wp_data_namespaceObject.controls.select(external_wp_blocks_namespaceObject.store, 'getBlockTypes');
 
     if (!registeredBlocks.some(i => i.name === block.name)) {
       throw new Error((0,external_wp_i18n_namespaceObject.__)('Error registering block. Try reloading the page.'));

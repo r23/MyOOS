@@ -3777,7 +3777,7 @@ function* resetAutosave(newAutosave) {
     alternative: 'receiveAutosaves action (`core` store)'
   });
   const postId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getCurrentPostId');
-  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store.name, 'receiveAutosaves', postId, newAutosave);
+  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store, 'receiveAutosaves', postId, newAutosave);
   return {
     type: '__INERT__'
   };
@@ -3857,7 +3857,7 @@ function* editPost(edits, options) {
     id,
     type
   } = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getCurrentPost');
-  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store.name, 'editEntityRecord', 'postType', type, id, edits, options);
+  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store, 'editEntityRecord', 'postType', type, id, edits, options);
 }
 /**
  * Action generator for saving the current post in the editor.
@@ -3884,12 +3884,12 @@ function* savePost(options = {}) {
   const previousRecord = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getCurrentPost');
   edits = {
     id: previousRecord.id,
-    ...(yield external_wp_data_namespaceObject.controls.select(external_wp_coreData_namespaceObject.store.name, 'getEntityRecordNonTransientEdits', 'postType', previousRecord.type, previousRecord.id)),
+    ...(yield external_wp_data_namespaceObject.controls.select(external_wp_coreData_namespaceObject.store, 'getEntityRecordNonTransientEdits', 'postType', previousRecord.type, previousRecord.id)),
     ...edits
   };
-  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store.name, 'saveEntityRecord', 'postType', previousRecord.type, edits, options);
+  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store, 'saveEntityRecord', 'postType', previousRecord.type, edits, options);
   yield __experimentalRequestPostUpdateFinish(options);
-  const error = yield external_wp_data_namespaceObject.controls.select(external_wp_coreData_namespaceObject.store.name, 'getLastEntitySaveError', 'postType', previousRecord.type, previousRecord.id);
+  const error = yield external_wp_data_namespaceObject.controls.select(external_wp_coreData_namespaceObject.store, 'getLastEntitySaveError', 'postType', previousRecord.type, previousRecord.id);
 
   if (error) {
     const args = getNotificationArgumentsForSaveFail({
@@ -3906,7 +3906,7 @@ function* savePost(options = {}) {
     const args = getNotificationArgumentsForSaveSuccess({
       previousPost: previousRecord,
       post: updatedRecord,
-      postType: yield external_wp_data_namespaceObject.controls.resolveSelect(external_wp_coreData_namespaceObject.store.name, 'getPostType', updatedRecord.type),
+      postType: yield external_wp_data_namespaceObject.controls.resolveSelect(external_wp_coreData_namespaceObject.store, 'getPostType', updatedRecord.type),
       options
     });
 
@@ -3917,7 +3917,7 @@ function* savePost(options = {}) {
 
 
     if (!options.isAutosave) {
-      yield external_wp_data_namespaceObject.controls.dispatch(external_wp_blockEditor_namespaceObject.store.name, '__unstableMarkLastChangeAsPersistent');
+      yield external_wp_data_namespaceObject.controls.dispatch(external_wp_blockEditor_namespaceObject.store, '__unstableMarkLastChangeAsPersistent');
     }
   }
 }
@@ -3928,7 +3928,7 @@ function* savePost(options = {}) {
 function* refreshPost() {
   const post = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getCurrentPost');
   const postTypeSlug = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getCurrentPostType');
-  const postType = yield external_wp_data_namespaceObject.controls.resolveSelect(external_wp_coreData_namespaceObject.store.name, 'getPostType', postTypeSlug);
+  const postType = yield external_wp_data_namespaceObject.controls.resolveSelect(external_wp_coreData_namespaceObject.store, 'getPostType', postTypeSlug);
   const newPost = yield (0,external_wp_dataControls_namespaceObject.apiFetch)({
     // Timestamp arg allows caller to bypass browser caching, which is
     // expected for this specific function.
@@ -3942,7 +3942,7 @@ function* refreshPost() {
 
 function* trashPost() {
   const postTypeSlug = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getCurrentPostType');
-  const postType = yield external_wp_data_namespaceObject.controls.resolveSelect(external_wp_coreData_namespaceObject.store.name, 'getPostType', postTypeSlug);
+  const postType = yield external_wp_data_namespaceObject.controls.resolveSelect(external_wp_coreData_namespaceObject.store, 'getPostType', postTypeSlug);
   yield external_wp_data_namespaceObject.controls.dispatch(external_wp_notices_namespaceObject.store, 'removeNotice', TRASH_POST_NOTICE_ID);
 
   try {
@@ -4000,7 +4000,7 @@ function* autosave({
  */
 
 function* redo() {
-  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store.name, 'redo');
+  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store, 'redo');
 }
 /**
  * Returns an action object used in signalling that undo history should pop.
@@ -4009,7 +4009,7 @@ function* redo() {
  */
 
 function* undo() {
-  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store.name, 'undo');
+  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store, 'undo');
 }
 /**
  * Returns an action object used in signalling that undo history record should
@@ -4195,10 +4195,10 @@ function* resetEditorBlocks(blocks, options = {}) {
       id,
       type
     } = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getCurrentPost');
-    const noChange = (yield external_wp_data_namespaceObject.controls.select(external_wp_coreData_namespaceObject.store.name, 'getEditedEntityRecord', 'postType', type, id)).blocks === edits.blocks;
+    const noChange = (yield external_wp_data_namespaceObject.controls.select(external_wp_coreData_namespaceObject.store, 'getEditedEntityRecord', 'postType', type, id)).blocks === edits.blocks;
 
     if (noChange) {
-      return yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store.name, '__unstableCreateUndoLevel', 'postType', type, id);
+      return yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store, '__unstableCreateUndoLevel', 'postType', type, id);
     } // We create a new function here on every persistent edit
     // to make sure the edit makes the post dirty and creates
     // a new undo level.
@@ -4234,7 +4234,7 @@ const getBlockEditorAction = name => function* (...args) {
     since: '5.3',
     alternative: "`wp.data.dispatch( 'core/block-editor' )." + name + '`'
   });
-  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_blockEditor_namespaceObject.store.name, name, ...args);
+  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_blockEditor_namespaceObject.store, name, ...args);
 };
 /**
  * @see resetBlocks in core/block-editor store.
@@ -5888,7 +5888,6 @@ function useAutosaveNotice() {
   } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
     postId: select(store).getCurrentPostId(),
     isEditedPostNew: select(store).isEditedPostNew(),
-    getEditedPostAttribute: select(store).getEditedPostAttribute,
     hasRemoteAutosave: !!select(store).getEditorSettings().autosave
   }), []);
   const {
@@ -10664,7 +10663,6 @@ function PostTextEditor() {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -10690,7 +10688,6 @@ function PostTextEditor() {
 
 const REGEXP_NEWLINES = /[\r\n]+/g;
 function PostTitle() {
-  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(PostTitle);
   const ref = (0,external_wp_element_namespaceObject.useRef)();
   const [isSelected, setIsSelected] = (0,external_wp_element_namespaceObject.useState)(false);
   const {
@@ -10763,6 +10760,8 @@ function PostTitle() {
     });
   }
 
+  const [selection, setSelection] = (0,external_wp_element_namespaceObject.useState)({});
+
   function onSelect() {
     setIsSelected(true);
     clearSelectedBlock();
@@ -10770,10 +10769,11 @@ function PostTitle() {
 
   function onUnselect() {
     setIsSelected(false);
+    setSelection({});
   }
 
-  function onChange(event) {
-    onUpdate(event.target.value.replace(REGEXP_NEWLINES, ' '));
+  function onChange(value) {
+    onUpdate(value.replace(REGEXP_NEWLINES, ' '));
   }
 
   function onKeyDown(event) {
@@ -10827,32 +10827,60 @@ function PostTitle() {
   // This same block is used in both the visual and the code editor.
 
 
-  const className = classnames_default()('wp-block editor-post-title editor-post-title__block', {
+  const className = classnames_default()('wp-block editor-post-title editor-post-title__block editor-post-title__input rich-text', {
     'is-selected': isSelected,
     'is-focus-mode': isFocusMode,
     'has-fixed-toolbar': hasFixedToolbar
   });
-  const decodedPlaceholder = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(placeholder);
+
+  const decodedPlaceholder = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(placeholder) || (0,external_wp_i18n_namespaceObject.__)('Add title');
+
+  const {
+    ref: richTextRef
+  } = (0,external_wp_richText_namespaceObject.__unstableUseRichText)({
+    value: title,
+    onChange,
+    placeholder: decodedPlaceholder,
+    selectionStart: selection.start,
+    selectionEnd: selection.end,
+
+    onSelectionChange(newStart, newEnd) {
+      setSelection(sel => {
+        const {
+          start,
+          end
+        } = sel;
+
+        if (start === newStart && end === newEnd) {
+          return sel;
+        }
+
+        return {
+          start: newStart,
+          end: newEnd
+        };
+      });
+    },
+
+    __unstableDisableFormats: true,
+    preserveWhiteSpace: true
+  });
+  /* eslint-disable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-interactions */
+
   return (0,external_wp_element_namespaceObject.createElement)(post_type_support_check, {
     supportKeys: "title"
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: className
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
-    as: "label",
-    htmlFor: `post-title-${instanceId}`
-  }, decodedPlaceholder || (0,external_wp_i18n_namespaceObject.__)('Add title')), (0,external_wp_element_namespaceObject.createElement)(lib/* default */.Z, {
-    ref: ref,
-    id: `post-title-${instanceId}`,
-    className: "editor-post-title__input",
-    value: title,
-    onChange: onChange,
-    placeholder: decodedPlaceholder || (0,external_wp_i18n_namespaceObject.__)('Add title'),
+  }, (0,external_wp_element_namespaceObject.createElement)("h1", {
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([richTextRef, ref]),
+    contentEditable: true,
+    className: className,
+    "aria-label": decodedPlaceholder,
     onFocus: onSelect,
     onBlur: onUnselect,
     onKeyDown: onKeyDown,
     onKeyPress: onUnselect,
     onPaste: onPaste
-  })));
+  }));
+  /* eslint-enable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-interactions */
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-trash/index.js
@@ -11407,7 +11435,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
   const {
     undo
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalGlobalStylesBaseStyles', '__experimentalGlobalStylesUserEntityId', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock']),
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalGlobalStylesBaseStyles', '__experimentalGlobalStylesUserEntityId', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock']),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
     __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),
