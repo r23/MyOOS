@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf103ddfda6fdabed50ebee17a649d2b4
+class ComposerStaticInit4e7cb2d28ffa966de66b9a3e38bae36b
 {
     public static $files = array (
         'ffc2110a578b705d2022d1f7803373a6' => __DIR__ . '/../..' . '/includes/bootstrap.php',
@@ -181,6 +181,7 @@ class ComposerStaticInitf103ddfda6fdabed50ebee17a649d2b4
         'AmpProject\\AmpWP\\Infrastructure\\Conditional' => __DIR__ . '/../..' . '/src/Infrastructure/Conditional.php',
         'AmpProject\\AmpWP\\Infrastructure\\Deactivateable' => __DIR__ . '/../..' . '/src/Infrastructure/Deactivateable.php',
         'AmpProject\\AmpWP\\Infrastructure\\Delayed' => __DIR__ . '/../..' . '/src/Infrastructure/Delayed.php',
+        'AmpProject\\AmpWP\\Infrastructure\\HasRequirements' => __DIR__ . '/../..' . '/src/Infrastructure/HasRequirements.php',
         'AmpProject\\AmpWP\\Infrastructure\\Injector' => __DIR__ . '/../..' . '/src/Infrastructure/Injector.php',
         'AmpProject\\AmpWP\\Infrastructure\\Injector\\FallbackInstantiator' => __DIR__ . '/../..' . '/src/Infrastructure/Injector/FallbackInstantiator.php',
         'AmpProject\\AmpWP\\Infrastructure\\Injector\\InjectionChain' => __DIR__ . '/../..' . '/src/Infrastructure/Injector/InjectionChain.php',
@@ -1292,9 +1293,9 @@ class ComposerStaticInitf103ddfda6fdabed50ebee17a649d2b4
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf103ddfda6fdabed50ebee17a649d2b4::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf103ddfda6fdabed50ebee17a649d2b4::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf103ddfda6fdabed50ebee17a649d2b4::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4e7cb2d28ffa966de66b9a3e38bae36b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4e7cb2d28ffa966de66b9a3e38bae36b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4e7cb2d28ffa966de66b9a3e38bae36b::$classMap;
 
         }, null, ClassLoader::class);
     }

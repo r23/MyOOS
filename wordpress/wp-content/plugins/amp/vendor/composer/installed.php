@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6f1d2c26cba313cf70dcc36bdffee6dda78cecf1',
+        'reference' => '368d4d78e8b779223a7488160af603e0edbc5c71',
         'name' => 'ampproject/amp-wp',
         'dev' => false,
     ),
@@ -25,7 +25,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6f1d2c26cba313cf70dcc36bdffee6dda78cecf1',
+            'reference' => '368d4d78e8b779223a7488160af603e0edbc5c71',
             'dev_requirement' => false,
         ),
         'fasterimage/fasterimage' => array(

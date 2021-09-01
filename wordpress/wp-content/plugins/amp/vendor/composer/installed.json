@@ -156,7 +156,7 @@
                 "codacy/coverage": "^1.4",
                 "phpunit/phpunit": "^4.8.36"
             },
-            "time": "2021-04-23T05:58:34+00:00",
+            "time": "2021-08-01T19:34:12+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
@@ -182,7 +182,7 @@
                 }
             ],
             "description": "Parser for CSS Files written in PHP",
-            "homepage": "http://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+            "homepage": "https://www.sabberworm.com/blog/2010/6/10/php-css-parser",
             "keywords": [
                 "css",
                 "parser",

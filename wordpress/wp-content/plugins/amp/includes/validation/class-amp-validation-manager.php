@@ -1753,6 +1753,24 @@ class AMP_Validation_Manager {
 	}
 
 	/**
+	 * Validate a URL to be validated.
+	 *
+	 * @param string $url URL.
+	 * @return string|WP_Error Validated URL or else error.
+	 */
+	private static function validate_validation_url( $url ) {
+		$validated_url = wp_validate_redirect( $url );
+		if ( ! $validated_url ) {
+			return new WP_Error(
+				'http_request_failed',
+				/* translators: %s is the URL being redirected to. */
+				sprintf( __( 'Unable to validate a URL on another site. Attempted to validate: %s', 'amp' ), $url )
+			);
+		}
+		return $validated_url;
+	}
+
+	/**
 	 * Validates a given URL.
 	 *
 	 * The validation errors will be stored in the validation status custom post type,
@@ -1778,7 +1796,13 @@ class AMP_Validation_Manager {
 			self::VALIDATE_QUERY_VAR   => self::get_amp_validate_nonce(),
 			self::CACHE_BUST_QUERY_VAR => wp_rand(),
 		];
-		$validation_url   = add_query_arg( $added_query_vars, $url );
+
+		// Ensure the URL to be validated is on the site.
+		$validation_url = self::validate_validation_url( $url );
+		if ( is_wp_error( $validation_url ) ) {
+			return $validation_url;
+		}
+		$validation_url = add_query_arg( $added_query_vars, $validation_url );
 
 		$r = null;
 
@@ -1818,13 +1842,12 @@ class AMP_Validation_Manager {
 				$location_header = preg_replace( '#(^https?://[^/]+)/.*#', '$1', home_url( '/' ) ) . $location_header;
 			}
 
-			// Block redirecting to a different host.
-			$location_header = wp_validate_redirect( $location_header );
-			if ( ! $location_header ) {
-				break;
+			// Prevent following a redirect to another site, which won't work for validation anyway.
+			$validation_url = self::validate_validation_url( $location_header );
+			if ( is_wp_error( $validation_url ) ) {
+				return $validation_url;
 			}
-
-			$validation_url = add_query_arg( $added_query_vars, $location_header );
+			$validation_url = add_query_arg( $added_query_vars, $validation_url );
 		}
 
 		if ( is_wp_error( $r ) ) {
@@ -2175,11 +2198,16 @@ class AMP_Validation_Manager {
 			return;
 		}
 
-		$editor_support = Services::get( 'editor.editor_support' );
-
 		// Block validation script uses features only available beginning with WP 5.6.
-		if ( ! $editor_support->editor_supports_amp_block_editor_features() ) {
+		$dependency_support = Services::get( 'dependency_support' );
+		if ( ! $dependency_support->has_support() ) {
 			return; // @codeCoverageIgnore
+		}
+
+		// Only enqueue scripts on the block editor for AMP-enabled posts.
+		$editor_support = Services::get( 'editor.editor_support' );
+		if ( ! $editor_support->is_current_screen_block_editor_for_amp_enabled_post_type() ) {
+			return;
 		}
 
 		$slug = 'amp-block-validation';

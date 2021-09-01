@@ -141,6 +141,7 @@ return array(
     'AmpProject\\AmpWP\\Infrastructure\\Conditional' => $baseDir . '/src/Infrastructure/Conditional.php',
     'AmpProject\\AmpWP\\Infrastructure\\Deactivateable' => $baseDir . '/src/Infrastructure/Deactivateable.php',
     'AmpProject\\AmpWP\\Infrastructure\\Delayed' => $baseDir . '/src/Infrastructure/Delayed.php',
+    'AmpProject\\AmpWP\\Infrastructure\\HasRequirements' => $baseDir . '/src/Infrastructure/HasRequirements.php',
     'AmpProject\\AmpWP\\Infrastructure\\Injector' => $baseDir . '/src/Infrastructure/Injector.php',
     'AmpProject\\AmpWP\\Infrastructure\\Injector\\FallbackInstantiator' => $baseDir . '/src/Infrastructure/Injector/FallbackInstantiator.php',
     'AmpProject\\AmpWP\\Infrastructure\\Injector\\InjectionChain' => $baseDir . '/src/Infrastructure/Injector/InjectionChain.php',
