@@ -1,25 +1,100 @@
 /**
  * @license
- * Video.js 7.10.1 <http://videojs.com/>
+ * Video.js 7.14.3 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
- * <https://github.com/videojs/video.js/blob/master/LICENSE>
+ * <https://github.com/videojs/video.js/blob/main/LICENSE>
  *
  * Includes vtt.js <https://github.com/mozilla/vtt.js>
  * Available under Apache License Version 2.0
- * <https://github.com/mozilla/vtt.js/blob/master/LICENSE>
+ * <https://github.com/mozilla/vtt.js/blob/main/LICENSE>
  */
 
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('global/window'), require('global/document')) :
-  typeof define === 'function' && define.amd ? define(['global/window', 'global/document'], factory) :
-  (global = global || self, global.videojs = factory(global.window, global.document));
-}(this, (function (window$1, document) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+  typeof define === 'function' && define.amd ? define(factory) :
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.videojs = factory());
+}(this, (function () { 'use strict';
 
-  window$1 = window$1 && Object.prototype.hasOwnProperty.call(window$1, 'default') ? window$1['default'] : window$1;
-  document = document && Object.prototype.hasOwnProperty.call(document, 'default') ? document['default'] : document;
+  var version = "7.14.3";
 
-  var version = "7.10.1";
+  var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+  function createCommonjsModule(fn, module) {
+  	return module = { exports: {} }, fn(module, module.exports), module.exports;
+  }
+
+  var win;
+
+  if (typeof window !== "undefined") {
+    win = window;
+  } else if (typeof commonjsGlobal !== "undefined") {
+    win = commonjsGlobal;
+  } else if (typeof self !== "undefined") {
+    win = self;
+  } else {
+    win = {};
+  }
+
+  var window_1 = win;
+
+  var minDoc = {};
+
+  var topLevel = typeof commonjsGlobal !== 'undefined' ? commonjsGlobal : typeof window !== 'undefined' ? window : {};
+  var doccy;
+
+  if (typeof document !== 'undefined') {
+    doccy = document;
+  } else {
+    doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
+
+    if (!doccy) {
+      doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
+    }
+  }
+
+  var document_1 = doccy;
+
+  /**
+   * @file fullscreen-api.js
+   * @module fullscreen-api
+   * @private
+   */
+  /**
+   * Store the browser-specific methods for the fullscreen API.
+   *
+   * @type {Object}
+   * @see [Specification]{@link https://fullscreen.spec.whatwg.org}
+   * @see [Map Approach From Screenfull.js]{@link https://github.com/sindresorhus/screenfull.js}
+   */
+
+  var FullscreenApi = {
+    prefixed: true
+  }; // browser API methods
+
+  var apiMap = [['requestFullscreen', 'exitFullscreen', 'fullscreenElement', 'fullscreenEnabled', 'fullscreenchange', 'fullscreenerror', 'fullscreen'], // WebKit
+  ['webkitRequestFullscreen', 'webkitExitFullscreen', 'webkitFullscreenElement', 'webkitFullscreenEnabled', 'webkitfullscreenchange', 'webkitfullscreenerror', '-webkit-full-screen'], // Mozilla
+  ['mozRequestFullScreen', 'mozCancelFullScreen', 'mozFullScreenElement', 'mozFullScreenEnabled', 'mozfullscreenchange', 'mozfullscreenerror', '-moz-full-screen'], // Microsoft
+  ['msRequestFullscreen', 'msExitFullscreen', 'msFullscreenElement', 'msFullscreenEnabled', 'MSFullscreenChange', 'MSFullscreenError', '-ms-fullscreen']];
+  var specApi = apiMap[0];
+  var browserApi; // determine the supported set of functions
+
+  for (var i = 0; i < apiMap.length; i++) {
+    // check for exitFullscreen function
+    if (apiMap[i][1] in document_1) {
+      browserApi = apiMap[i];
+      break;
+    }
+  } // map the browser API names to the spec API names
+
+
+  if (browserApi) {
+    for (var _i = 0; _i < browserApi.length; _i++) {
+      FullscreenApi[specApi[_i]] = browserApi[_i];
+    }
+
+    FullscreenApi.prefixed = browserApi[0] !== specApi[0];
+  }
 
   /**
    * @file create-logger.js
@@ -60,19 +135,19 @@
       // still be stored in history.
 
 
-      if (!window$1.console) {
+      if (!window_1.console) {
         return;
       } // Was setting these once outside of this function, but containing them
       // in the function makes it easier to test cases where console doesn't exist
       // when the module is executed.
 
 
-      var fn = window$1.console[type];
+      var fn = window_1.console[type];
 
       if (!fn && type === 'debug') {
         // Certain browsers don't have support for console.debug. For those, we
         // should default to the closest comparable log.
-        fn = window$1.console.info || window$1.console.log;
+        fn = window_1.console.info || window_1.console.log;
       } // Bail out if there's no console or if this type is not allowed by the
       // current logging level.
 
@@ -81,11 +156,11 @@
         return;
       }
 
-      fn[Array.isArray(args) ? 'apply' : 'call'](window$1.console, args);
+      fn[Array.isArray(args) ? 'apply' : 'call'](window_1.console, args);
     };
   };
 
-  function createLogger(name) {
+  function createLogger$1(name) {
     // This is the private tracking variable for logging level.
     var level = 'info'; // the curried logByType bound to the specific log and history
 
@@ -137,7 +212,7 @@
      */
 
     log.createLogger = function (subname) {
-      return createLogger(name + ': ' + subname);
+      return createLogger$1(name + ': ' + subname);
     };
     /**
      * Enumeration of available logging levels, where the keys are the level names
@@ -310,12 +385,8 @@
    * @file log.js
    * @module log
    */
-  var log = createLogger('VIDEOJS');
-  var createLogger$1 = log.createLogger;
-
-  function createCommonjsModule(fn, module) {
-  	return module = { exports: {} }, fn(module, module.exports), module.exports;
-  }
+  var log = createLogger$1('VIDEOJS');
+  var createLogger = log.createLogger;
 
   var _extends_1 = createCommonjsModule(function (module) {
     function _extends() {
@@ -369,7 +440,7 @@
    * @return {Mixed}
    *         The new accumulated value.
    */
-  var toString = Object.prototype.toString;
+  var toString$1 = Object.prototype.toString;
   /**
    * Get the keys of an Object
    *
@@ -480,7 +551,7 @@
    */
 
   function isPlain(value) {
-    return isObject(value) && toString.call(value) === '[object Object]' && value.constructor === Object;
+    return isObject(value) && toString$1.call(value) === '[object Object]' && value.constructor === Object;
   }
 
   /**
@@ -509,13 +580,253 @@
       return '';
     }
 
-    if (typeof window$1.getComputedStyle === 'function') {
-      var computedStyleValue = window$1.getComputedStyle(el);
+    if (typeof window_1.getComputedStyle === 'function') {
+      var computedStyleValue;
+
+      try {
+        computedStyleValue = window_1.getComputedStyle(el);
+      } catch (e) {
+        return '';
+      }
+
       return computedStyleValue ? computedStyleValue.getPropertyValue(prop) || computedStyleValue[prop] : '';
     }
 
     return '';
   }
+
+  /**
+   * @file browser.js
+   * @module browser
+   */
+  var USER_AGENT = window_1.navigator && window_1.navigator.userAgent || '';
+  var webkitVersionMap = /AppleWebKit\/([\d.]+)/i.exec(USER_AGENT);
+  var appleWebkitVersion = webkitVersionMap ? parseFloat(webkitVersionMap.pop()) : null;
+  /**
+   * Whether or not this device is an iPod.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_IPOD = /iPod/i.test(USER_AGENT);
+  /**
+   * The detected iOS version - or `null`.
+   *
+   * @static
+   * @const
+   * @type {string|null}
+   */
+
+  var IOS_VERSION = function () {
+    var match = USER_AGENT.match(/OS (\d+)_/i);
+
+    if (match && match[1]) {
+      return match[1];
+    }
+
+    return null;
+  }();
+  /**
+   * Whether or not this is an Android device.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_ANDROID = /Android/i.test(USER_AGENT);
+  /**
+   * The detected Android version - or `null`.
+   *
+   * @static
+   * @const
+   * @type {number|string|null}
+   */
+
+  var ANDROID_VERSION = function () {
+    // This matches Android Major.Minor.Patch versions
+    // ANDROID_VERSION is Major.Minor as a Number, if Minor isn't available, then only Major is returned
+    var match = USER_AGENT.match(/Android (\d+)(?:\.(\d+))?(?:\.(\d+))*/i);
+
+    if (!match) {
+      return null;
+    }
+
+    var major = match[1] && parseFloat(match[1]);
+    var minor = match[2] && parseFloat(match[2]);
+
+    if (major && minor) {
+      return parseFloat(match[1] + '.' + match[2]);
+    } else if (major) {
+      return major;
+    }
+
+    return null;
+  }();
+  /**
+   * Whether or not this is a native Android browser.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_NATIVE_ANDROID = IS_ANDROID && ANDROID_VERSION < 5 && appleWebkitVersion < 537;
+  /**
+   * Whether or not this is Mozilla Firefox.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_FIREFOX = /Firefox/i.test(USER_AGENT);
+  /**
+   * Whether or not this is Microsoft Edge.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_EDGE = /Edg/i.test(USER_AGENT);
+  /**
+   * Whether or not this is Google Chrome.
+   *
+   * This will also be `true` for Chrome on iOS, which will have different support
+   * as it is actually Safari under the hood.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_CHROME = !IS_EDGE && (/Chrome/i.test(USER_AGENT) || /CriOS/i.test(USER_AGENT));
+  /**
+   * The detected Google Chrome version - or `null`.
+   *
+   * @static
+   * @const
+   * @type {number|null}
+   */
+
+  var CHROME_VERSION = function () {
+    var match = USER_AGENT.match(/(Chrome|CriOS)\/(\d+)/);
+
+    if (match && match[2]) {
+      return parseFloat(match[2]);
+    }
+
+    return null;
+  }();
+  /**
+   * The detected Internet Explorer version - or `null`.
+   *
+   * @static
+   * @const
+   * @type {number|null}
+   */
+
+  var IE_VERSION = function () {
+    var result = /MSIE\s(\d+)\.\d/.exec(USER_AGENT);
+    var version = result && parseFloat(result[1]);
+
+    if (!version && /Trident\/7.0/i.test(USER_AGENT) && /rv:11.0/.test(USER_AGENT)) {
+      // IE 11 has a different user agent string than other IE versions
+      version = 11.0;
+    }
+
+    return version;
+  }();
+  /**
+   * Whether or not this is desktop Safari.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_SAFARI = /Safari/i.test(USER_AGENT) && !IS_CHROME && !IS_ANDROID && !IS_EDGE;
+  /**
+   * Whether or not this is a Windows machine.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_WINDOWS = /Windows/i.test(USER_AGENT);
+  /**
+   * Whether or not this device is touch-enabled.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var TOUCH_ENABLED = Boolean(isReal() && ('ontouchstart' in window_1 || window_1.navigator.maxTouchPoints || window_1.DocumentTouch && window_1.document instanceof window_1.DocumentTouch));
+  /**
+   * Whether or not this device is an iPad.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_IPAD = /iPad/i.test(USER_AGENT) || IS_SAFARI && TOUCH_ENABLED && !/iPhone/i.test(USER_AGENT);
+  /**
+   * Whether or not this device is an iPhone.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+  // The Facebook app's UIWebView identifies as both an iPhone and iPad, so
+  // to identify iPhones, we need to exclude iPads.
+  // http://artsy.github.io/blog/2012/10/18/the-perils-of-ios-user-agent-sniffing/
+
+  var IS_IPHONE = /iPhone/i.test(USER_AGENT) && !IS_IPAD;
+  /**
+   * Whether or not this is an iOS device.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_IOS = IS_IPHONE || IS_IPAD || IS_IPOD;
+  /**
+   * Whether or not this is any flavor of Safari - including iOS.
+   *
+   * @static
+   * @const
+   * @type {Boolean}
+   */
+
+  var IS_ANY_SAFARI = (IS_SAFARI || IS_IOS) && !IS_CHROME;
+
+  var browser = /*#__PURE__*/Object.freeze({
+    __proto__: null,
+    IS_IPOD: IS_IPOD,
+    IOS_VERSION: IOS_VERSION,
+    IS_ANDROID: IS_ANDROID,
+    ANDROID_VERSION: ANDROID_VERSION,
+    IS_NATIVE_ANDROID: IS_NATIVE_ANDROID,
+    IS_FIREFOX: IS_FIREFOX,
+    IS_EDGE: IS_EDGE,
+    IS_CHROME: IS_CHROME,
+    CHROME_VERSION: CHROME_VERSION,
+    IE_VERSION: IE_VERSION,
+    IS_SAFARI: IS_SAFARI,
+    IS_WINDOWS: IS_WINDOWS,
+    TOUCH_ENABLED: TOUCH_ENABLED,
+    IS_IPAD: IS_IPAD,
+    IS_IPHONE: IS_IPHONE,
+    IS_IOS: IS_IOS,
+    IS_ANY_SAFARI: IS_ANY_SAFARI
+  });
 
   /**
    * @file dom.js
@@ -586,7 +897,7 @@
 
   function isReal() {
     // Both document and window will never be undefined thanks to `global`.
-    return document === window$1.document;
+    return document_1 === window_1.document;
   }
   /**
    * Determines, via duck typing, whether or not a value is a DOM element.
@@ -613,7 +924,7 @@
     // We need a try/catch here because Safari will throw errors when attempting
     // to get either `parent` or `self`
     try {
-      return window$1.parent !== window$1.self;
+      return window_1.parent !== window_1.self;
     } catch (x) {
       return true;
     }
@@ -632,14 +943,14 @@
   function createQuerier(method) {
     return function (selector, context) {
       if (!isNonBlankString(selector)) {
-        return document[method](null);
+        return document_1[method](null);
       }
 
       if (isNonBlankString(context)) {
-        context = document.querySelector(context);
+        context = document_1.querySelector(context);
       }
 
-      var ctx = isEl(context) ? context : document;
+      var ctx = isEl(context) ? context : document_1;
       return ctx[method] && ctx[method](selector);
     };
   }
@@ -676,7 +987,7 @@
       attributes = {};
     }
 
-    var el = document.createElement(tagName);
+    var el = document_1.createElement(tagName);
     Object.getOwnPropertyNames(properties).forEach(function (propName) {
       var val = properties[propName]; // See #2176
       // We originally were accepting both properties and attributes in the
@@ -688,7 +999,7 @@
         // method for it.
       } else if (propName === 'textContent') {
         textContent(el, val);
-      } else if (el[propName] !== val) {
+      } else if (el[propName] !== val || propName === 'tabIndex') {
         el[propName] = val;
       }
     });
@@ -803,6 +1114,12 @@
    */
 
   function removeClass(element, classToRemove) {
+    // Protect in case the player gets disposed
+    if (!element) {
+      log.warn("removeClass was called with an element that doesn't exist");
+      return null;
+    }
+
     if (element.classList) {
       element.classList.remove(classToRemove);
     } else {
@@ -988,9 +1305,9 @@
    */
 
   function blockTextSelection() {
-    document.body.focus();
+    document_1.body.focus();
 
-    document.onselectstart = function () {
+    document_1.onselectstart = function () {
       return false;
     };
   }
@@ -999,7 +1316,7 @@
    */
 
   function unblockTextSelection() {
-    document.onselectstart = function () {
+    document_1.onselectstart = function () {
       return true;
     };
   }
@@ -1085,11 +1402,11 @@
     var left = 0;
     var top = 0;
 
-    do {
+    while (el.offsetParent && el !== document_1[FullscreenApi.fullscreenElement]) {
       left += el.offsetLeft;
       top += el.offsetTop;
       el = el.offsetParent;
-    } while (el);
+    }
 
     return {
       left: left,
@@ -1127,6 +1444,32 @@
    */
 
   function getPointerPosition(el, event) {
+    var translated = {
+      x: 0,
+      y: 0
+    };
+
+    if (IS_IOS) {
+      var item = el;
+
+      while (item && item.nodeName.toLowerCase() !== 'html') {
+        var transform = computedStyle(item, 'transform');
+
+        if (/^matrix/.test(transform)) {
+          var values = transform.slice(7, -1).split(/,\s/).map(Number);
+          translated.x += values[4];
+          translated.y += values[5];
+        } else if (/^matrix3d/.test(transform)) {
+          var _values = transform.slice(9, -1).split(/,\s/).map(Number);
+
+          translated.x += _values[12];
+          translated.y += _values[13];
+        }
+
+        item = item.parentNode;
+      }
+    }
+
     var position = {};
     var boxTarget = findPosition(event.target);
     var box = findPosition(el);
@@ -1138,6 +1481,11 @@
     if (event.changedTouches) {
       offsetX = event.changedTouches[0].pageX - box.left;
       offsetY = event.changedTouches[0].pageY + box.top;
+
+      if (IS_IOS) {
+        offsetX -= translated.x;
+        offsetY -= translated.y;
+      }
     }
 
     position.y = 1 - Math.max(0, Math.min(1, offsetY / boxH));
@@ -1228,7 +1576,7 @@
       }
 
       if (typeof value === 'string' && /\S/.test(value)) {
-        return document.createTextNode(value);
+        return document_1.createTextNode(value);
       }
     }).filter(function (value) {
       return value;
@@ -1398,20 +1746,19 @@
    * @module setup
    */
   var _windowLoaded = false;
-  var videojs;
+  var videojs$1;
   /**
    * Set up any tags that have a data-setup `attribute` when the player is started.
    */
 
   var autoSetup = function autoSetup() {
-    // Protect against breakage in non-browser environments and check global autoSetup option.
-    if (!isReal() || videojs.options.autoSetup === false) {
+    if (videojs$1.options.autoSetup === false) {
       return;
     }
 
-    var vids = Array.prototype.slice.call(document.getElementsByTagName('video'));
-    var audios = Array.prototype.slice.call(document.getElementsByTagName('audio'));
-    var divs = Array.prototype.slice.call(document.getElementsByTagName('video-js'));
+    var vids = Array.prototype.slice.call(document_1.getElementsByTagName('video'));
+    var audios = Array.prototype.slice.call(document_1.getElementsByTagName('audio'));
+    var divs = Array.prototype.slice.call(document_1.getElementsByTagName('video-js'));
     var mediaEls = vids.concat(audios, divs); // Check if any media elements exist
 
     if (mediaEls && mediaEls.length > 0) {
@@ -1426,7 +1773,7 @@
 
             if (options !== null) {
               // Create new video.js instance.
-              videojs(mediaEl);
+              videojs$1(mediaEl);
             }
           } // If getAttribute isn't defined, we need to wait for the DOM.
 
@@ -1453,11 +1800,16 @@
 
 
   function autoSetupTimeout(wait, vjs) {
-    if (vjs) {
-      videojs = vjs;
+    // Protect against breakage in non-browser environments
+    if (!isReal()) {
+      return;
     }
 
-    window$1.setTimeout(autoSetup, wait);
+    if (vjs) {
+      videojs$1 = vjs;
+    }
+
+    window_1.setTimeout(autoSetup, wait);
   }
   /**
    * Used to set the internal tracking of window loaded state to true.
@@ -1468,11 +1820,11 @@
 
   function setWindowLoaded() {
     _windowLoaded = true;
-    window$1.removeEventListener('load', setWindowLoaded);
+    window_1.removeEventListener('load', setWindowLoaded);
   }
 
   if (isReal()) {
-    if (document.readyState === 'complete') {
+    if (document_1.readyState === 'complete') {
       setWindowLoaded();
     } else {
       /**
@@ -1483,7 +1835,7 @@
        *
        * @listens load
        */
-      window$1.addEventListener('load', setWindowLoaded);
+      window_1.addEventListener('load', setWindowLoaded);
     }
   }
 
@@ -1502,7 +1854,7 @@
    */
 
   var createStyleElement = function createStyleElement(className) {
-    var style = document.createElement('style');
+    var style = document_1.createElement('style');
     style.className = className;
     return style;
   };
@@ -1559,10 +1911,10 @@
    */
   var FakeWeakMap;
 
-  if (!window$1.WeakMap) {
+  if (!window_1.WeakMap) {
     FakeWeakMap = /*#__PURE__*/function () {
       function FakeWeakMap() {
-        this.vdata = 'vdata' + Math.floor(window$1.performance && window$1.performance.now() || Date.now());
+        this.vdata = 'vdata' + Math.floor(window_1.performance && window_1.performance.now() || Date.now());
         this.data = {};
       }
 
@@ -1621,7 +1973,7 @@
    */
 
 
-  var DomData = window$1.WeakMap ? new WeakMap() : new FakeWeakMap();
+  var DomData = window_1.WeakMap ? new WeakMap() : new FakeWeakMap();
 
   /**
    * @file events.js. An Event System (John Resig - Secrets of a JS Ninja http://jsninja.com/)
@@ -1725,8 +2077,8 @@
     // with the Javascript Ninja code. So we're just overriding all events now.
 
 
-    if (!event || !event.isPropagationStopped) {
-      var old = event || window$1.event;
+    if (!event || !event.isPropagationStopped || !event.isImmediatePropagationStopped) {
+      var old = event || window_1.event;
       event = {}; // Clone the old object so that we can modify the values event = {};
       // IE8 Doesn't like when you mess with native event properties
       // Firefox returns false for event.hasOwnProperty('type') and other props
@@ -1748,7 +2100,7 @@
 
 
       if (!event.target) {
-        event.target = event.srcElement || document;
+        event.target = event.srcElement || document_1;
       } // Handle which other element the event is related to
 
 
@@ -1793,8 +2145,8 @@
       event.isImmediatePropagationStopped = returnFalse; // Handle mouse position
 
       if (event.clientX !== null && event.clientX !== undefined) {
-        var doc = document.documentElement;
-        var body = document.body;
+        var doc = document_1.documentElement;
+        var body = document_1.body;
         event.pageX = event.clientX + (doc && doc.scrollLeft || body && body.scrollLeft || 0) - (doc && doc.clientLeft || body && body.clientLeft || 0);
         event.pageY = event.clientY + (doc && doc.scrollTop || body && body.scrollTop || 0) - (doc && doc.clientTop || body && body.clientTop || 0);
       } // Handle key presses
@@ -1833,8 +2185,8 @@
             _supportsPassive = true;
           }
         });
-        window$1.addEventListener('test', null, opts);
-        window$1.removeEventListener('test', null, opts);
+        window_1.addEventListener('test', null, opts);
+        window_1.removeEventListener('test', null, opts);
       } catch (e) {// disregard
       }
     }
@@ -2195,10 +2547,10 @@
    */
 
   var throttle = function throttle(fn, wait) {
-    var last = window$1.performance.now();
+    var last = window_1.performance.now();
 
     var throttled = function throttled() {
-      var now = window$1.performance.now();
+      var now = window_1.performance.now();
 
       if (now - last >= wait) {
         fn.apply(void 0, arguments);
@@ -2237,7 +2589,7 @@
 
   var debounce = function debounce(func, wait, immediate, context) {
     if (context === void 0) {
-      context = window$1;
+      context = window_1;
     }
 
     var timeout;
@@ -2479,8 +2831,8 @@
 
     var oldTimeout = map.get(type);
     map["delete"](type);
-    window$1.clearTimeout(oldTimeout);
-    var timeout = window$1.setTimeout(function () {
+    window_1.clearTimeout(oldTimeout);
+    var timeout = window_1.setTimeout(function () {
       // if we cleared out all timeouts for the current target, delete its map
       if (map.size === 0) {
         map = null;
@@ -2496,6 +2848,26 @@
    * @file mixins/evented.js
    * @module evented
    */
+
+  var objName = function objName(obj) {
+    if (typeof obj.name === 'function') {
+      return obj.name();
+    }
+
+    if (typeof obj.name === 'string') {
+      return obj.name;
+    }
+
+    if (obj.name_) {
+      return obj.name_;
+    }
+
+    if (obj.constructor && obj.constructor.name) {
+      return obj.constructor.name;
+    }
+
+    return typeof obj;
+  };
   /**
    * Returns whether or not an object has had the evented mixin applied.
    *
@@ -2505,6 +2877,7 @@
    * @return {boolean}
    *         Whether or not the object appears to be evented.
    */
+
 
   var isEvented = function isEvented(object) {
     return object instanceof EventTarget || !!object.eventBusEl_ && ['on', 'one', 'off', 'trigger'].every(function (k) {
@@ -2559,12 +2932,18 @@
    *
    * @param  {Object} target
    *         The object to test.
+   *
+   * @param  {Object} obj
+   *         The evented object we are validating for
+   *
+   * @param  {string} fnName
+   *         The name of the evented mixin function that called this.
    */
 
 
-  var validateTarget = function validateTarget(target) {
-    if (!target.nodeName && !isEvented(target)) {
-      throw new Error('Invalid target; must be a DOM node or evented object.');
+  var validateTarget = function validateTarget(target, obj, fnName) {
+    if (!target || !target.nodeName && !isEvented(target)) {
+      throw new Error("Invalid target for " + objName(obj) + "#" + fnName + "; must be a DOM node or evented object.");
     }
   };
   /**
@@ -2576,12 +2955,18 @@
    *
    * @param  {string|Array} type
    *         The type to test.
+   *
+   * @param  {Object} obj
+  *         The evented object we are validating for
+   *
+   * @param  {string} fnName
+   *         The name of the evented mixin function that called this.
    */
 
 
-  var validateEventType = function validateEventType(type) {
+  var validateEventType = function validateEventType(type, obj, fnName) {
     if (!isValidEventType(type)) {
-      throw new Error('Invalid event type; must be a non-empty string or array.');
+      throw new Error("Invalid event type for " + objName(obj) + "#" + fnName + "; must be a non-empty string or array.");
     }
   };
   /**
@@ -2593,12 +2978,18 @@
    *
    * @param  {Function} listener
    *         The listener to test.
+   *
+   * @param  {Object} obj
+   *         The evented object we are validating for
+   *
+   * @param  {string} fnName
+   *         The name of the evented mixin function that called this.
    */
 
 
-  var validateListener = function validateListener(listener) {
+  var validateListener = function validateListener(listener, obj, fnName) {
     if (typeof listener !== 'function') {
-      throw new Error('Invalid listener; must be a function.');
+      throw new Error("Invalid listener for " + objName(obj) + "#" + fnName + "; must be a function.");
     }
   };
   /**
@@ -2613,12 +3004,15 @@
    * @param  {Array} args
    *         An array of arguments passed to `on()` or `one()`.
    *
+   * @param  {string} fnName
+   *         The name of the evented mixin function that called this.
+   *
    * @return {Object}
    *         An object containing useful values for `on()` or `one()` calls.
    */
 
 
-  var normalizeListenArgs = function normalizeListenArgs(self, args) {
+  var normalizeListenArgs = function normalizeListenArgs(self, args, fnName) {
     // If the number of arguments is less than 3, the target is always the
     // evented object itself.
     var isTargetingSelf = args.length < 3 || args[0] === self || args[0] === self.eventBusEl_;
@@ -2642,9 +3036,9 @@
       listener = args[2];
     }
 
-    validateTarget(target);
-    validateEventType(type);
-    validateListener(listener);
+    validateTarget(target, self, fnName);
+    validateEventType(type, self, fnName);
+    validateListener(listener, self, fnName);
     listener = bind(self, listener);
     return {
       isTargetingSelf: isTargetingSelf,
@@ -2673,7 +3067,7 @@
 
 
   var listen = function listen(target, method, type, listener) {
-    validateTarget(target);
+    validateTarget(target, target, method);
 
     if (target.nodeName) {
       Events[method](target, type, listener);
@@ -2720,7 +3114,7 @@
         args[_key] = arguments[_key];
       }
 
-      var _normalizeListenArgs = normalizeListenArgs(this, args),
+      var _normalizeListenArgs = normalizeListenArgs(this, args, 'on'),
           isTargetingSelf = _normalizeListenArgs.isTargetingSelf,
           target = _normalizeListenArgs.target,
           type = _normalizeListenArgs.type,
@@ -2782,7 +3176,7 @@
         args[_key2] = arguments[_key2];
       }
 
-      var _normalizeListenArgs2 = normalizeListenArgs(this, args),
+      var _normalizeListenArgs2 = normalizeListenArgs(this, args, 'one'),
           isTargetingSelf = _normalizeListenArgs2.isTargetingSelf,
           target = _normalizeListenArgs2.target,
           type = _normalizeListenArgs2.type,
@@ -2844,7 +3238,7 @@
         args[_key4] = arguments[_key4];
       }
 
-      var _normalizeListenArgs3 = normalizeListenArgs(this, args),
+      var _normalizeListenArgs3 = normalizeListenArgs(this, args, 'any'),
           isTargetingSelf = _normalizeListenArgs3.isTargetingSelf,
           target = _normalizeListenArgs3.target,
           type = _normalizeListenArgs3.type,
@@ -2898,9 +3292,9 @@
         var target = targetOrType;
         var type = typeOrListener; // Fail fast and in a meaningful way!
 
-        validateTarget(target);
-        validateEventType(type);
-        validateListener(listener); // Ensure there's at least a guid, even if the function hasn't been used
+        validateTarget(target, this, 'off');
+        validateEventType(type, this, 'off');
+        validateListener(listener, this, 'off'); // Ensure there's at least a guid, even if the function hasn't been used
 
         listener = bind(this, listener); // Remove the dispose listener on this evented object, which was given
         // the same guid as the event listener in on().
@@ -2930,6 +3324,19 @@
      *          Whether or not the default behavior was prevented.
      */
     trigger: function trigger$1(event, hash) {
+      validateTarget(this.eventBusEl_, this, 'trigger');
+      var type = event && typeof event !== 'string' ? event.type : event;
+
+      if (!isValidEventType(type)) {
+        var error = "Invalid event type for " + objName(this) + "#trigger; " + 'must be a non-empty string or object with a type key that has a non-empty value.';
+
+        if (event) {
+          (this.log || log).error(error);
+        } else {
+          throw new Error(error);
+        }
+      }
+
       return trigger(this.eventBusEl_, event, hash);
     }
   };
@@ -2982,7 +3389,7 @@
 
     target.on('dispose', function () {
       target.off();
-      window$1.setTimeout(function () {
+      window_1.setTimeout(function () {
         target.eventBusEl_ = null;
       }, 0);
     });
@@ -3227,7 +3634,7 @@
     };
 
     _proto.set = function set(key, value) {
-      this.set_[key] = value;
+      this.map_[key] = value;
       return this;
     };
 
@@ -3240,7 +3647,7 @@
     return MapSham;
   }();
 
-  var Map$1 = window$1.Map ? window$1.Map : MapSham;
+  var Map$1 = window_1.Map ? window_1.Map : MapSham;
 
   var SetSham = /*#__PURE__*/function () {
     function SetSham() {
@@ -3273,7 +3680,7 @@
     return SetSham;
   }();
 
-  var Set = window$1.Set ? window$1.Set : SetSham;
+  var Set = window_1.Set ? window_1.Set : SetSham;
 
   /**
    * Player Component - Base class for all UI objects
@@ -3353,6 +3760,8 @@
         evented(this, {
           eventBusKey: this.el_ ? 'el_' : null
         });
+        this.handleLanguagechange = this.handleLanguagechange.bind(this);
+        this.on(this.player_, 'languagechange', this.handleLanguagechange);
       }
 
       stateful(this, this.constructor.defaultState);
@@ -3367,10 +3776,11 @@
 
       if (options.initChildren !== false) {
         this.initChildren();
-      }
-
-      this.ready(ready); // Don't want to trigger ready here or it will before init is actually
+      } // Don't want to trigger ready here or it will go before init is actually
       // finished for all children that run this constructor
+
+
+      this.ready(ready);
 
       if (options.reportTouchActivity !== false) {
         this.enableTouchActivity();
@@ -3389,6 +3799,10 @@
       // Bail out if the component has already been disposed.
       if (this.isDisposed_) {
         return;
+      }
+
+      if (this.readyQueue_) {
+        this.readyQueue_.length = 0;
       }
       /**
        * Triggered when a `Component` is disposed.
@@ -3585,6 +3999,14 @@
 
       return localizedString;
     }
+    /**
+     * Handles language change for the player in components. Should be overriden by sub-components.
+     *
+     * @abstract
+     */
+    ;
+
+    _proto.handleLanguagechange = function handleLanguagechange() {}
     /**
      * Return the `Component`s DOM element. This is where children get inserted.
      * This will usually be the the same as the element returned in {@link Component#el}.
@@ -4510,7 +4932,7 @@
             pageY: event.touches[0].pageY
           }; // Record start time so we can detect a tap vs. "touch and hold"
 
-          touchStart = window$1.performance.now(); // Reset couldBeTap tracking
+          touchStart = window_1.performance.now(); // Reset couldBeTap tracking
 
           couldBeTap = true;
         }
@@ -4546,7 +4968,7 @@
 
         if (couldBeTap === true) {
           // Measure how long the touch lasted
-          var touchTime = window$1.performance.now() - touchStart; // Make sure the touch was less than the threshold to be considered a tap
+          var touchTime = window_1.performance.now() - touchStart; // Make sure the touch was less than the threshold to be considered a tap
 
           if (touchTime < touchTimeThreshold) {
             // Don't let browser turn this into a click
@@ -4662,7 +5084,7 @@
       var timeoutId;
       fn = bind(this, fn);
       this.clearTimersOnDispose_();
-      timeoutId = window$1.setTimeout(function () {
+      timeoutId = window_1.setTimeout(function () {
         if (_this2.setTimeoutIds_.has(timeoutId)) {
           _this2.setTimeoutIds_["delete"](timeoutId);
         }
@@ -4692,7 +5114,7 @@
     _proto.clearTimeout = function clearTimeout(timeoutId) {
       if (this.setTimeoutIds_.has(timeoutId)) {
         this.setTimeoutIds_["delete"](timeoutId);
-        window$1.clearTimeout(timeoutId);
+        window_1.clearTimeout(timeoutId);
       }
 
       return timeoutId;
@@ -4722,7 +5144,7 @@
     _proto.setInterval = function setInterval(fn, interval) {
       fn = bind(this, fn);
       this.clearTimersOnDispose_();
-      var intervalId = window$1.setInterval(fn, interval);
+      var intervalId = window_1.setInterval(fn, interval);
       this.setIntervalIds_.add(intervalId);
       return intervalId;
     }
@@ -4746,7 +5168,7 @@
     _proto.clearInterval = function clearInterval(intervalId) {
       if (this.setIntervalIds_.has(intervalId)) {
         this.setIntervalIds_["delete"](intervalId);
-        window$1.clearInterval(intervalId);
+        window_1.clearInterval(intervalId);
       }
 
       return intervalId;
@@ -4791,7 +5213,7 @@
 
       var id;
       fn = bind(this, fn);
-      id = window$1.requestAnimationFrame(function () {
+      id = window_1.requestAnimationFrame(function () {
         if (_this3.rafIds_.has(id)) {
           _this3.rafIds_["delete"](id);
         }
@@ -4876,7 +5298,7 @@
 
       if (this.rafIds_.has(id)) {
         this.rafIds_["delete"](id);
-        window$1.cancelAnimationFrame(id);
+        window_1.cancelAnimationFrame(id);
       }
 
       return id;
@@ -5021,7 +5443,7 @@
    */
 
 
-  Component.prototype.supportsRaf_ = typeof window$1.requestAnimationFrame === 'function' && typeof window$1.cancelAnimationFrame === 'function';
+  Component.prototype.supportsRaf_ = typeof window_1.requestAnimationFrame === 'function' && typeof window_1.cancelAnimationFrame === 'function';
   Component.registerComponent('Component', Component);
 
   function _assertThisInitialized(self) {
@@ -5034,37 +5456,6 @@
 
   var assertThisInitialized = _assertThisInitialized;
 
-  var _typeof_1 = createCommonjsModule(function (module) {
-    function _typeof(obj) {
-      "@babel/helpers - typeof";
-
-      if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-        module.exports = _typeof = function _typeof(obj) {
-          return typeof obj;
-        };
-      } else {
-        module.exports = _typeof = function _typeof(obj) {
-          return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-        };
-      }
-
-      return _typeof(obj);
-    }
-
-    module.exports = _typeof;
-  });
-
-  var getPrototypeOf = createCommonjsModule(function (module) {
-    function _getPrototypeOf(o) {
-      module.exports = _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-        return o.__proto__ || Object.getPrototypeOf(o);
-      };
-      return _getPrototypeOf(o);
-    }
-
-    module.exports = _getPrototypeOf;
-  });
-
   function _inheritsLoose(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
     subClass.prototype.constructor = subClass;
@@ -5072,239 +5463,6 @@
   }
 
   var inheritsLoose = _inheritsLoose;
-
-  /**
-   * @file browser.js
-   * @module browser
-   */
-  var USER_AGENT = window$1.navigator && window$1.navigator.userAgent || '';
-  var webkitVersionMap = /AppleWebKit\/([\d.]+)/i.exec(USER_AGENT);
-  var appleWebkitVersion = webkitVersionMap ? parseFloat(webkitVersionMap.pop()) : null;
-  /**
-   * Whether or not this device is an iPod.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_IPOD = /iPod/i.test(USER_AGENT);
-  /**
-   * The detected iOS version - or `null`.
-   *
-   * @static
-   * @const
-   * @type {string|null}
-   */
-
-  var IOS_VERSION = function () {
-    var match = USER_AGENT.match(/OS (\d+)_/i);
-
-    if (match && match[1]) {
-      return match[1];
-    }
-
-    return null;
-  }();
-  /**
-   * Whether or not this is an Android device.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_ANDROID = /Android/i.test(USER_AGENT);
-  /**
-   * The detected Android version - or `null`.
-   *
-   * @static
-   * @const
-   * @type {number|string|null}
-   */
-
-  var ANDROID_VERSION = function () {
-    // This matches Android Major.Minor.Patch versions
-    // ANDROID_VERSION is Major.Minor as a Number, if Minor isn't available, then only Major is returned
-    var match = USER_AGENT.match(/Android (\d+)(?:\.(\d+))?(?:\.(\d+))*/i);
-
-    if (!match) {
-      return null;
-    }
-
-    var major = match[1] && parseFloat(match[1]);
-    var minor = match[2] && parseFloat(match[2]);
-
-    if (major && minor) {
-      return parseFloat(match[1] + '.' + match[2]);
-    } else if (major) {
-      return major;
-    }
-
-    return null;
-  }();
-  /**
-   * Whether or not this is a native Android browser.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_NATIVE_ANDROID = IS_ANDROID && ANDROID_VERSION < 5 && appleWebkitVersion < 537;
-  /**
-   * Whether or not this is Mozilla Firefox.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_FIREFOX = /Firefox/i.test(USER_AGENT);
-  /**
-   * Whether or not this is Microsoft Edge.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_EDGE = /Edg/i.test(USER_AGENT);
-  /**
-   * Whether or not this is Google Chrome.
-   *
-   * This will also be `true` for Chrome on iOS, which will have different support
-   * as it is actually Safari under the hood.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_CHROME = !IS_EDGE && (/Chrome/i.test(USER_AGENT) || /CriOS/i.test(USER_AGENT));
-  /**
-   * The detected Google Chrome version - or `null`.
-   *
-   * @static
-   * @const
-   * @type {number|null}
-   */
-
-  var CHROME_VERSION = function () {
-    var match = USER_AGENT.match(/(Chrome|CriOS)\/(\d+)/);
-
-    if (match && match[2]) {
-      return parseFloat(match[2]);
-    }
-
-    return null;
-  }();
-  /**
-   * The detected Internet Explorer version - or `null`.
-   *
-   * @static
-   * @const
-   * @type {number|null}
-   */
-
-  var IE_VERSION = function () {
-    var result = /MSIE\s(\d+)\.\d/.exec(USER_AGENT);
-    var version = result && parseFloat(result[1]);
-
-    if (!version && /Trident\/7.0/i.test(USER_AGENT) && /rv:11.0/.test(USER_AGENT)) {
-      // IE 11 has a different user agent string than other IE versions
-      version = 11.0;
-    }
-
-    return version;
-  }();
-  /**
-   * Whether or not this is desktop Safari.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_SAFARI = /Safari/i.test(USER_AGENT) && !IS_CHROME && !IS_ANDROID && !IS_EDGE;
-  /**
-   * Whether or not this is a Windows machine.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_WINDOWS = /Windows/i.test(USER_AGENT);
-  /**
-   * Whether or not this device is touch-enabled.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var TOUCH_ENABLED = isReal() && ('ontouchstart' in window$1 || window$1.navigator.maxTouchPoints || window$1.DocumentTouch && window$1.document instanceof window$1.DocumentTouch);
-  /**
-   * Whether or not this device is an iPad.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_IPAD = /iPad/i.test(USER_AGENT) || IS_SAFARI && TOUCH_ENABLED && !/iPhone/i.test(USER_AGENT);
-  /**
-   * Whether or not this device is an iPhone.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-  // The Facebook app's UIWebView identifies as both an iPhone and iPad, so
-  // to identify iPhones, we need to exclude iPads.
-  // http://artsy.github.io/blog/2012/10/18/the-perils-of-ios-user-agent-sniffing/
-
-  var IS_IPHONE = /iPhone/i.test(USER_AGENT) && !IS_IPAD;
-  /**
-   * Whether or not this is an iOS device.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_IOS = IS_IPHONE || IS_IPAD || IS_IPOD;
-  /**
-   * Whether or not this is any flavor of Safari - including iOS.
-   *
-   * @static
-   * @const
-   * @type {Boolean}
-   */
-
-  var IS_ANY_SAFARI = (IS_SAFARI || IS_IOS) && !IS_CHROME;
-
-  var browser = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    IS_IPOD: IS_IPOD,
-    IOS_VERSION: IOS_VERSION,
-    IS_ANDROID: IS_ANDROID,
-    ANDROID_VERSION: ANDROID_VERSION,
-    IS_NATIVE_ANDROID: IS_NATIVE_ANDROID,
-    IS_FIREFOX: IS_FIREFOX,
-    IS_EDGE: IS_EDGE,
-    IS_CHROME: IS_CHROME,
-    CHROME_VERSION: CHROME_VERSION,
-    IE_VERSION: IE_VERSION,
-    IS_SAFARI: IS_SAFARI,
-    IS_WINDOWS: IS_WINDOWS,
-    TOUCH_ENABLED: TOUCH_ENABLED,
-    IS_IPAD: IS_IPAD,
-    IS_IPHONE: IS_IPHONE,
-    IS_IOS: IS_IOS,
-    IS_ANY_SAFARI: IS_ANY_SAFARI
-  });
 
   /**
    * @file time-ranges.js
@@ -5488,47 +5646,6 @@
     }
 
     return bufferedDuration / duration;
-  }
-
-  /**
-   * @file fullscreen-api.js
-   * @module fullscreen-api
-   * @private
-   */
-  /**
-   * Store the browser-specific methods for the fullscreen API.
-   *
-   * @type {Object}
-   * @see [Specification]{@link https://fullscreen.spec.whatwg.org}
-   * @see [Map Approach From Screenfull.js]{@link https://github.com/sindresorhus/screenfull.js}
-   */
-
-  var FullscreenApi = {
-    prefixed: true
-  }; // browser API methods
-
-  var apiMap = [['requestFullscreen', 'exitFullscreen', 'fullscreenElement', 'fullscreenEnabled', 'fullscreenchange', 'fullscreenerror', 'fullscreen'], // WebKit
-  ['webkitRequestFullscreen', 'webkitExitFullscreen', 'webkitFullscreenElement', 'webkitFullscreenEnabled', 'webkitfullscreenchange', 'webkitfullscreenerror', '-webkit-full-screen'], // Mozilla
-  ['mozRequestFullScreen', 'mozCancelFullScreen', 'mozFullScreenElement', 'mozFullScreenEnabled', 'mozfullscreenchange', 'mozfullscreenerror', '-moz-full-screen'], // Microsoft
-  ['msRequestFullscreen', 'msExitFullscreen', 'msFullscreenElement', 'msFullscreenEnabled', 'MSFullscreenChange', 'MSFullscreenError', '-ms-fullscreen']];
-  var specApi = apiMap[0];
-  var browserApi; // determine the supported set of functions
-
-  for (var i = 0; i < apiMap.length; i++) {
-    // check for exitFullscreen function
-    if (apiMap[i][1] in document) {
-      browserApi = apiMap[i];
-      break;
-    }
-  } // map the browser API names to the spec API names
-
-
-  if (browserApi) {
-    for (var _i = 0; _i < browserApi.length; _i++) {
-      FullscreenApi[specApi[_i]] = browserApi[_i];
-    }
-
-    FullscreenApi.prefixed = browserApi[0] !== specApi[0];
   }
 
   /**
@@ -5975,11 +6092,11 @@
       codes[alias] = aliases[alias];
     }
   });
-  var keycode_1 = keycode.code;
-  var keycode_2 = keycode.codes;
-  var keycode_3 = keycode.aliases;
-  var keycode_4 = keycode.names;
-  var keycode_5 = keycode.title;
+  keycode.code;
+  keycode.codes;
+  keycode.aliases;
+  keycode.names;
+  keycode.title;
 
   var MODAL_CLASS_NAME = 'vjs-modal-dialog';
   /**
@@ -6035,6 +6152,15 @@
       var _this;
 
       _this = _Component.call(this, player, options) || this;
+
+      _this.handleKeyDown_ = function (e) {
+        return _this.handleKeyDown(e);
+      };
+
+      _this.close_ = function (e) {
+        return _this.close(e);
+      };
+
       _this.opened_ = _this.hasBeenOpened_ = _this.hasBeenFilled_ = false;
 
       _this.closeable(!_this.options_.uncloseable);
@@ -6164,7 +6290,7 @@
           player.pause();
         }
 
-        this.on('keydown', this.handleKeyDown); // Hide controls and note if they were enabled.
+        this.on('keydown', this.handleKeyDown_); // Hide controls and note if they were enabled.
 
         this.hadControls_ = player.controls();
         player.controls(false);
@@ -6229,7 +6355,7 @@
         player.play();
       }
 
-      this.off('keydown', this.handleKeyDown);
+      this.off('keydown', this.handleKeyDown_);
 
       if (this.hadControls_) {
         player.controls(true);
@@ -6276,12 +6402,12 @@
             controlText: 'Close Modal Dialog'
           });
           this.contentEl_ = temp;
-          this.on(close, 'close', this.close);
+          this.on(close, 'close', this.close_);
         } // If this is being made uncloseable and has a close button, remove it.
 
 
         if (!closeable && close) {
-          this.off(close, 'close', this.close);
+          this.off(close, 'close', this.close_);
           this.removeChild(close);
           close.dispose();
         }
@@ -6408,7 +6534,7 @@
     ;
 
     _proto.conditionalFocus_ = function conditionalFocus_() {
-      var activeEl = document.activeElement;
+      var activeEl = document_1.activeElement;
       var playerEl = this.player_.el_;
       this.previouslyActiveEl_ = null;
 
@@ -6463,7 +6589,7 @@
         }
       }
 
-      if (document.activeElement === this.el_) {
+      if (document_1.activeElement === this.el_) {
         focusIndex = 0;
       }
 
@@ -6485,7 +6611,7 @@
     _proto.focusableEls_ = function focusableEls_() {
       var allChildren = this.el_.querySelectorAll('*');
       return Array.prototype.filter.call(allChildren, function (child) {
-        return (child instanceof window$1.HTMLAnchorElement || child instanceof window$1.HTMLAreaElement) && child.hasAttribute('href') || (child instanceof window$1.HTMLInputElement || child instanceof window$1.HTMLSelectElement || child instanceof window$1.HTMLTextAreaElement || child instanceof window$1.HTMLButtonElement) && !child.hasAttribute('disabled') || child instanceof window$1.HTMLIFrameElement || child instanceof window$1.HTMLObjectElement || child instanceof window$1.HTMLEmbedElement || child.hasAttribute('tabindex') && child.getAttribute('tabindex') !== -1 || child.hasAttribute('contenteditable');
+        return (child instanceof window_1.HTMLAnchorElement || child instanceof window_1.HTMLAreaElement) && child.hasAttribute('href') || (child instanceof window_1.HTMLInputElement || child instanceof window_1.HTMLSelectElement || child instanceof window_1.HTMLTextAreaElement || child instanceof window_1.HTMLButtonElement) && !child.hasAttribute('disabled') || child instanceof window_1.HTMLIFrameElement || child instanceof window_1.HTMLObjectElement || child instanceof window_1.HTMLEmbedElement || child.hasAttribute('tabindex') && child.getAttribute('tabindex') !== -1 || child.hasAttribute('contenteditable');
       });
     };
 
@@ -6564,6 +6690,8 @@
     var _proto = TrackList.prototype;
 
     _proto.addTrack = function addTrack(track) {
+      var _this2 = this;
+
       var index = this.tracks_.length;
 
       if (!('' + index in this)) {
@@ -6591,6 +6719,27 @@
           type: 'addtrack',
           target: this
         });
+      }
+      /**
+       * Triggered when a track label is changed.
+       *
+       * @event TrackList#addtrack
+       * @type {EventTarget~Event}
+       * @property {Track} track
+       *           A reference to track that was added.
+       */
+
+
+      track.labelchange_ = function () {
+        _this2.trigger({
+          track: track,
+          type: 'labelchange',
+          target: _this2
+        });
+      };
+
+      if (isEvented(track)) {
+        track.addEventListener('labelchange', track.labelchange_);
       }
     }
     /**
@@ -6683,7 +6832,8 @@
   TrackList.prototype.allowedEvents_ = {
     change: 'change',
     addtrack: 'addtrack',
-    removetrack: 'removetrack'
+    removetrack: 'removetrack',
+    labelchange: 'labelchange'
   }; // emulate attribute EventHandler support to allow for feature detection
 
   for (var event in TrackList.prototype.allowedEvents_) {
@@ -6703,7 +6853,7 @@
    * @private
    */
 
-  var disableOthers = function disableOthers(list, track) {
+  var disableOthers$1 = function disableOthers(list, track) {
     for (var i = 0; i < list.length; i++) {
       if (!Object.keys(list[i]).length || track.id === list[i].id) {
         continue;
@@ -6741,7 +6891,7 @@
       // sorted from last index to first index
       for (var i = tracks.length - 1; i >= 0; i--) {
         if (tracks[i].enabled) {
-          disableOthers(tracks, tracks[i]);
+          disableOthers$1(tracks, tracks[i]);
           break;
         }
       }
@@ -6766,7 +6916,7 @@
       var _this2 = this;
 
       if (track.enabled) {
-        disableOthers(this, track);
+        disableOthers$1(this, track);
       }
 
       _TrackList.prototype.addTrack.call(this, track); // native tracks don't have this
@@ -6785,7 +6935,7 @@
         }
 
         _this2.changing_ = true;
-        disableOthers(_this2, track);
+        disableOthers$1(_this2, track);
         _this2.changing_ = false;
 
         _this2.trigger('change');
@@ -6823,7 +6973,7 @@
    * @private
    */
 
-  var disableOthers$1 = function disableOthers(list, track) {
+  var disableOthers = function disableOthers(list, track) {
     for (var i = 0; i < list.length; i++) {
       if (!Object.keys(list[i]).length || track.id === list[i].id) {
         continue;
@@ -6861,7 +7011,7 @@
       // sorted from last index to first index
       for (var i = tracks.length - 1; i >= 0; i--) {
         if (tracks[i].selected) {
-          disableOthers$1(tracks, tracks[i]);
+          disableOthers(tracks, tracks[i]);
           break;
         }
       }
@@ -6903,7 +7053,7 @@
       var _this2 = this;
 
       if (track.selected) {
-        disableOthers$1(this, track);
+        disableOthers(this, track);
       }
 
       _TrackList.prototype.addTrack.call(this, track); // native tracks don't have this
@@ -6919,7 +7069,7 @@
         }
 
         _this2.changing_ = true;
-        disableOthers$1(_this2, track);
+        disableOthers(_this2, track);
         _this2.changing_ = false;
 
         _this2.trigger('change');
@@ -7363,9 +7513,9 @@
       var trackProps = {
         id: options.id || 'vjs_track_' + newGUID(),
         kind: options.kind || '',
-        label: options.label || '',
         language: options.language || ''
       };
+      var label = options.label || '';
       /**
        * @memberof Track
        * @member {string} id
@@ -7379,15 +7529,6 @@
        * @memberof Track
        * @member {string} kind
        *         The kind of track that this is. Cannot be changed after creation.
-       * @instance
-       *
-       * @readonly
-       */
-
-      /**
-       * @memberof Track
-       * @member {string} label
-       *         The label of this track. Cannot be changed after creation.
        * @instance
        *
        * @readonly
@@ -7415,7 +7556,36 @@
       for (var key in trackProps) {
         _loop(key);
       }
+      /**
+       * @memberof Track
+       * @member {string} label
+       *         The label of this track. Cannot be changed after creation.
+       * @instance
+       *
+       * @fires Track#labelchange
+       */
 
+
+      Object.defineProperty(assertThisInitialized(_this), 'label', {
+        get: function get() {
+          return label;
+        },
+        set: function set(newLabel) {
+          if (newLabel !== label) {
+            label = newLabel;
+            /**
+             * An event that fires when label changes on this track.
+             *
+             * > Note: This is not part of the spec!
+             *
+             * @event Track#labelchange
+             * @type {EventTarget~Event}
+             */
+
+            this.trigger('labelchange');
+          }
+        }
+      });
       return _this;
     }
 
@@ -7463,33 +7633,19 @@
    */
 
   var parseUrl = function parseUrl(url) {
+    // This entire method can be replace with URL once we are able to drop IE11
     var props = ['protocol', 'hostname', 'port', 'pathname', 'search', 'hash', 'host']; // add the url to an anchor and let the browser parse the URL
 
-    var a = document.createElement('a');
-    a.href = url; // IE8 (and 9?) Fix
-    // ie8 doesn't parse the URL correctly until the anchor is actually
-    // added to the body, and an innerHTML is needed to trigger the parsing
-
-    var addToBody = a.host === '' && a.protocol !== 'file:';
-    var div;
-
-    if (addToBody) {
-      div = document.createElement('div');
-      div.innerHTML = "<a href=\"" + url + "\"></a>";
-      a = div.firstChild; // prevent the div from affecting layout
-
-      div.setAttribute('style', 'display:none; position:absolute;');
-      document.body.appendChild(div);
-    } // Copy the specific URL properties to a new object
-    // This is also needed for IE8 because the anchor loses its
+    var a = document_1.createElement('a');
+    a.href = url; // Copy the specific URL properties to a new object
+    // This is also needed for IE because the anchor loses its
     // properties when it's removed from the dom
-
 
     var details = {};
 
     for (var i = 0; i < props.length; i++) {
       details[props[i]] = a[props[i]];
-    } // IE9 adds the port to the host property unlike everyone else. If
+    } // IE adds the port to the host property unlike everyone else. If
     // a port identifier is added for standard ports, strip it.
 
 
@@ -7502,11 +7658,13 @@
     }
 
     if (!details.protocol) {
-      details.protocol = window$1.location.protocol;
+      details.protocol = window_1.location.protocol;
     }
+    /* istanbul ignore if */
 
-    if (addToBody) {
-      document.body.removeChild(div);
+
+    if (!details.host) {
+      details.host = window_1.location.host;
     }
 
     return details;
@@ -7528,9 +7686,10 @@
     // Check if absolute URL
     if (!url.match(/^https?:\/\//)) {
       // Convert to absolute URL. Flash hosted off-site needs an absolute URL.
-      var div = document.createElement('div');
-      div.innerHTML = "<a href=\"" + url + "\">x</a>";
-      url = div.firstChild.href;
+      // add the url to an anchor and let the browser parse the URL
+      var a = document_1.createElement('a');
+      a.href = url;
+      url = a.href;
     }
 
     return url;
@@ -7582,7 +7741,7 @@
 
   var isCrossOrigin = function isCrossOrigin(url, winLoc) {
     if (winLoc === void 0) {
-      winLoc = window$1.location;
+      winLoc = window_1.location;
     }
 
     var urlInfo = parseUrl(url); // IE8 protocol relative urls will return ':' for protocol
@@ -7603,10 +7762,14 @@
   });
 
   var isFunction_1 = isFunction;
-  var toString$1 = Object.prototype.toString;
+  var toString = Object.prototype.toString;
 
   function isFunction(fn) {
-    var string = toString$1.call(fn);
+    if (!fn) {
+      return false;
+    }
+
+    var string = toString.call(fn);
     return string === '[object Function]' || typeof fn === 'function' && string !== '[object RegExp]' || typeof window !== 'undefined' && ( // IE8 and below
     fn === window.setTimeout || fn === window.alert || fn === window.confirm || fn === window.prompt);
   }
@@ -7646,8 +7809,8 @@
   var xhr = createXHR; // Allow use of default import syntax in TypeScript
 
   var default_1 = createXHR;
-  createXHR.XMLHttpRequest = window$1.XMLHttpRequest || noop;
-  createXHR.XDomainRequest = "withCredentials" in new createXHR.XMLHttpRequest() ? createXHR.XMLHttpRequest : window$1.XDomainRequest;
+  createXHR.XMLHttpRequest = window_1.XMLHttpRequest || noop;
+  createXHR.XDomainRequest = "withCredentials" in new createXHR.XMLHttpRequest() ? createXHR.XMLHttpRequest : window_1.XDomainRequest;
   forEachArray(["get", "put", "post", "patch", "head", "delete"], function (method) {
     createXHR[method === "delete" ? "del" : method] = function (uri, options, callback) {
       options = initParams(uri, options, callback);
@@ -7914,7 +8077,7 @@
    */
 
   var parseCues = function parseCues(srcContent, track) {
-    var parser = new window$1.WebVTT.Parser(window$1, window$1.vttjs, window$1.WebVTT.StringDecoder());
+    var parser = new window_1.WebVTT.Parser(window_1, window_1.vttjs, window_1.WebVTT.StringDecoder());
     var errors = [];
 
     parser.oncue = function (cue) {
@@ -7935,16 +8098,16 @@
     parser.parse(srcContent);
 
     if (errors.length > 0) {
-      if (window$1.console && window$1.console.groupCollapsed) {
-        window$1.console.groupCollapsed("Text Track parsing errors for " + track.src);
+      if (window_1.console && window_1.console.groupCollapsed) {
+        window_1.console.groupCollapsed("Text Track parsing errors for " + track.src);
       }
 
       errors.forEach(function (error) {
         return log.error(error);
       });
 
-      if (window$1.console && window$1.console.groupEnd) {
-        window$1.console.groupEnd();
+      if (window_1.console && window_1.console.groupEnd) {
+        window_1.console.groupEnd();
       }
     }
 
@@ -7987,7 +8150,7 @@
       track.loaded_ = true; // Make sure that vttjs has loaded, otherwise, wait till it finished loading
       // NOTE: this is only used for the alt/video.novtt.js build
 
-      if (typeof window$1.WebVTT !== 'function') {
+      if (typeof window_1.WebVTT !== 'function') {
         if (track.tech_) {
           // to prevent use before define eslint error, we define loadHandler
           // as a let here
@@ -8081,10 +8244,14 @@
       var activeCues = new TextTrackCueList(_this.activeCues_);
       var changed = false;
       var timeupdateHandler = bind(assertThisInitialized(_this), function () {
-        // Accessing this.activeCues for the side-effects of updating itself
+        if (!this.tech_.isReady_ || this.tech_.isDisposed()) {
+          return;
+        } // Accessing this.activeCues for the side-effects of updating itself
         // due to its nature as a getter function. Do not remove or cues will
         // stop updating!
         // Use the setter to prevent deletion from uglify (pure_getters rule)
+
+
         this.activeCues = this.activeCues;
 
         if (changed) {
@@ -8093,10 +8260,14 @@
         }
       });
 
+      var disposeHandler = function disposeHandler() {
+        _this.tech_.off('timeupdate', timeupdateHandler);
+      };
+
+      _this.tech_.one('dispose', disposeHandler);
+
       if (mode !== 'disabled') {
-        _this.tech_.ready(function () {
-          _this.tech_.on('timeupdate', timeupdateHandler);
-        }, true);
+        _this.tech_.on('timeupdate', timeupdateHandler);
       }
 
       Object.defineProperties(assertThisInitialized(_this), {
@@ -8130,9 +8301,11 @@
             return mode;
           },
           set: function set(newMode) {
-            var _this2 = this;
-
             if (!TextTrackMode[newMode]) {
+              return;
+            }
+
+            if (mode === newMode) {
               return;
             }
 
@@ -8143,12 +8316,10 @@
               loadTrack(this.src, this);
             }
 
+            this.tech_.off('timeupdate', timeupdateHandler);
+
             if (mode !== 'disabled') {
-              this.tech_.ready(function () {
-                _this2.tech_.on('timeupdate', timeupdateHandler);
-              }, true);
-            } else {
-              this.tech_.off('timeupdate', timeupdateHandler);
+              this.tech_.on('timeupdate', timeupdateHandler);
             }
             /**
              * An event that fires when mode changes on this track. This allows
@@ -8242,7 +8413,7 @@
           _this.loaded_ = true;
         }
 
-        if (_this.preload_ || default_ || settings.kind !== 'subtitles' && settings.kind !== 'captions') {
+        if (_this.preload_ || settings.kind !== 'subtitles' && settings.kind !== 'captions') {
           loadTrack(_this.src, assertThisInitialized(_this));
         }
       } else {
@@ -8264,8 +8435,8 @@
     _proto.addCue = function addCue(originalCue) {
       var cue = originalCue;
 
-      if (window$1.vttjs && !(originalCue instanceof window$1.vttjs.VTTCue)) {
-        cue = new window$1.vttjs.VTTCue(originalCue.startTime, originalCue.endTime, originalCue.text);
+      if (window_1.vttjs && !(originalCue instanceof window_1.vttjs.VTTCue)) {
+        cue = new window_1.vttjs.VTTCue(originalCue.startTime, originalCue.endTime, originalCue.text);
 
         for (var prop in originalCue) {
           if (!(prop in cue)) {
@@ -8807,9 +8978,8 @@
     },
     // Accept a setting if its a valid percentage.
     percent: function percent(k, v) {
-      var m;
 
-      if (m = v.match(/^([\d]{1,3})(\.[\d]*)?%$/)) {
+      if (v.match(/^([\d]{1,3})(\.[\d]*)?%$/)) {
         v = parseFloat(v);
 
         if (v >= 0 && v <= 100) {
@@ -8974,9 +9144,11 @@
 
     skipWhitespace();
     consumeCueSettings(input, cue);
-  }
+  } // When evaluating this file as part of a Webpack bundle for server
+  // side rendering, `document` is an empty object.
 
-  var TEXTAREA_ELEMENT = document.createElement("textarea");
+
+  var TEXTAREA_ELEMENT = document_1.createElement && document_1.createElement("textarea");
   var TAG_NAME = {
     c: "span",
     i: "i",
@@ -9618,8 +9790,8 @@
     styleBox.move(bestPosition.toCSSCompatValues(containerBox));
   }
 
-  function WebVTT$1() {} // Nothing
-  // Helper to allow strings to be decoded instead of the default binary utf8 data.
+  function WebVTT$1() {// Nothing
+  } // Helper to allow strings to be decoded instead of the default binary utf8 data.
 
 
   WebVTT$1.StringDecoder = function () {
@@ -10511,30 +10683,30 @@
       VTTCue: vttcue,
       VTTRegion: vttregion
     };
-    window$1.vttjs = vttjs;
-    window$1.WebVTT = vttjs.WebVTT;
+    window_1.vttjs = vttjs;
+    window_1.WebVTT = vttjs.WebVTT;
     var cueShim = vttjs.VTTCue;
     var regionShim = vttjs.VTTRegion;
-    var nativeVTTCue = window$1.VTTCue;
-    var nativeVTTRegion = window$1.VTTRegion;
+    var nativeVTTCue = window_1.VTTCue;
+    var nativeVTTRegion = window_1.VTTRegion;
 
     vttjs.shim = function () {
-      window$1.VTTCue = cueShim;
-      window$1.VTTRegion = regionShim;
+      window_1.VTTCue = cueShim;
+      window_1.VTTRegion = regionShim;
     };
 
     vttjs.restore = function () {
-      window$1.VTTCue = nativeVTTCue;
-      window$1.VTTRegion = nativeVTTRegion;
+      window_1.VTTCue = nativeVTTCue;
+      window_1.VTTRegion = nativeVTTRegion;
     };
 
-    if (!window$1.VTTCue) {
+    if (!window_1.VTTCue) {
       vttjs.shim();
     }
   });
-  var browserIndex_1 = browserIndex.WebVTT;
-  var browserIndex_2 = browserIndex.VTTCue;
-  var browserIndex_3 = browserIndex.VTTRegion;
+  browserIndex.WebVTT;
+  browserIndex.VTTCue;
+  browserIndex.VTTRegion;
 
   /**
    * An Object containing a structure like: `{src: 'url', type: 'mimetype'}` or string
@@ -10598,7 +10770,7 @@
   }
   /**
    * This is the base class for media playback technology controllers, such as
-   * {@link Flash} and {@link HTML5}
+   * {@link HTML5}
    *
    * @extends Component
    */
@@ -10630,8 +10802,29 @@
       // we don't want the tech to report user activity automatically.
       // This is done manually in addControlsListeners
       options.reportTouchActivity = false;
-      _this = _Component.call(this, null, options, ready) || this; // keep track of whether the current source has played at all to
+      _this = _Component.call(this, null, options, ready) || this;
+
+      _this.onDurationChange_ = function (e) {
+        return _this.onDurationChange(e);
+      };
+
+      _this.trackProgress_ = function (e) {
+        return _this.trackProgress(e);
+      };
+
+      _this.trackCurrentTime_ = function (e) {
+        return _this.trackCurrentTime(e);
+      };
+
+      _this.stopTrackingCurrentTime_ = function (e) {
+        return _this.stopTrackingCurrentTime(e);
+      };
+
+      _this.disposeSourceHandler_ = function (e) {
+        return _this.disposeSourceHandler(e);
+      }; // keep track of whether the current source has played at all to
       // implement a very limited played()
+
 
       _this.hasStarted_ = false;
 
@@ -10649,11 +10842,11 @@
         if (options && options[props.getterName]) {
           _this[props.privateName] = options[props.getterName];
         }
-      }); // Manually track progress in cases where the browser/flash player doesn't report it.
+      }); // Manually track progress in cases where the browser/tech doesn't report it.
 
       if (!_this.featuresProgressEvents) {
         _this.manualProgressOn();
-      } // Manually track timeupdates in cases where the browser/flash player doesn't report it.
+      } // Manually track timeupdates in cases where the browser/tech doesn't report it.
 
 
       if (!_this.featuresTimeupdateEvents) {
@@ -10741,10 +10934,10 @@
     ;
 
     _proto.manualProgressOn = function manualProgressOn() {
-      this.on('durationchange', this.onDurationChange);
+      this.on('durationchange', this.onDurationChange_);
       this.manualProgress = true; // Trigger progress watching when a source begins loading
 
-      this.one('ready', this.trackProgress);
+      this.one('ready', this.trackProgress_);
     }
     /**
      * Turn off the polyfill for `progress` events that was created in
@@ -10755,7 +10948,7 @@
     _proto.manualProgressOff = function manualProgressOff() {
       this.manualProgress = false;
       this.stopTrackingProgress();
-      this.off('durationchange', this.onDurationChange);
+      this.off('durationchange', this.onDurationChange_);
     }
     /**
      * This is used to trigger a `progress` event when the buffered percent changes. It
@@ -10853,8 +11046,8 @@
 
     _proto.manualTimeUpdatesOn = function manualTimeUpdatesOn() {
       this.manualTimeUpdates = true;
-      this.on('play', this.trackCurrentTime);
-      this.on('pause', this.stopTrackingCurrentTime);
+      this.on('play', this.trackCurrentTime_);
+      this.on('pause', this.stopTrackingCurrentTime_);
     }
     /**
      * Turn off the polyfill for `timeupdate` events that was created in
@@ -10865,8 +11058,8 @@
     _proto.manualTimeUpdatesOff = function manualTimeUpdatesOff() {
       this.manualTimeUpdates = false;
       this.stopTrackingCurrentTime();
-      this.off('play', this.trackCurrentTime);
-      this.off('pause', this.stopTrackingCurrentTime);
+      this.off('play', this.trackCurrentTime_);
+      this.off('pause', this.stopTrackingCurrentTime_);
     }
     /**
      * Sets up an interval function to track current time and trigger `timeupdate` every
@@ -11051,6 +11244,16 @@
       return createTimeRanges();
     }
     /**
+     * Start playback
+     *
+     * @abstract
+     *
+     * @see {Html5#play}
+     */
+    ;
+
+    _proto.play = function play() {}
+    /**
      * Set whether we are scrubbing or not
      *
      * @abstract
@@ -11060,6 +11263,16 @@
     ;
 
     _proto.setScrubbing = function setScrubbing() {}
+    /**
+     * Get whether we are scrubbing or not
+     *
+     * @abstract
+     *
+     * @see {Html5#scrubbing}
+     */
+    ;
+
+    _proto.scrubbing = function scrubbing() {}
     /**
      * Causes a manual time update to occur if {@link Tech#manualTimeUpdatesOn} was
      * previously called.
@@ -11148,14 +11361,14 @@
     _proto.addWebVttScript_ = function addWebVttScript_() {
       var _this5 = this;
 
-      if (window$1.WebVTT) {
+      if (window_1.WebVTT) {
         return;
       } // Initially, Tech.el_ is a child of a dummy-div wait until the Component system
       // signals that the Tech is ready at which point Tech.el_ is part of the DOM
       // before inserting the WebVTT script
 
 
-      if (document.body.contains(this.el())) {
+      if (document_1.body.contains(this.el())) {
         // load via require if available and vtt.js script location was not passed in
         // as an option. novtt builds will turn the above require call into an empty object
         // which will cause this if check to always fail.
@@ -11166,7 +11379,7 @@
         // passed in
 
 
-        var script = document.createElement('script');
+        var script = document_1.createElement('script');
         script.src = this.options_['vtt.js'] || 'https://vjs.zencdn.net/vttjs/0.14.1/vtt.min.js';
 
         script.onload = function () {
@@ -11195,7 +11408,7 @@
         }); // but have not loaded yet and we set it to true before the inject so that
         // we don't overwrite the injected window.WebVTT if it loads right away
 
-        window$1.WebVTT = true;
+        window_1.WebVTT = true;
         this.el().parentNode.appendChild(script);
       } else {
         this.ready(this.addWebVttScript_);
@@ -11410,7 +11623,7 @@
     ;
 
     _proto.requestPictureInPicture = function requestPictureInPicture() {
-      var PromiseClass = this.options_.Promise || window$1.Promise;
+      var PromiseClass = this.options_.Promise || window_1.Promise;
 
       if (PromiseClass) {
         return PromiseClass.reject();
@@ -11609,9 +11822,9 @@
 
       name = toTitleCase(name);
 
-      if (window$1 && window$1.videojs && window$1.videojs[name]) {
+      if (window_1 && window_1.videojs && window_1.videojs[name]) {
         log.warn("The " + name + " tech was added to the videojs object when it should be registered using videojs.registerTech(name, tech)");
-        return window$1.videojs[name];
+        return window_1.videojs[name];
       }
     };
 
@@ -11939,14 +12152,14 @@
 
 
       this.disposeSourceHandler();
-      this.off('dispose', this.disposeSourceHandler);
+      this.off('dispose', this.disposeSourceHandler_);
 
       if (sh !== _Tech.nativeSourceHandler) {
         this.currentSource_ = source;
       }
 
       this.sourceHandler_ = sh.handleSource(source, this, this.options_);
-      this.one('dispose', this.disposeSourceHandler);
+      this.one('dispose', this.disposeSourceHandler_);
     };
     /**
      * Clean up any existing SourceHandlers and listeners when the Tech is disposed.
@@ -12164,7 +12377,8 @@
     played: 1,
     paused: 1,
     seekable: 1,
-    volume: 1
+    volume: 1,
+    ended: 1
   };
   /**
    * Enumeration of allowed setters where the keys are method names.
@@ -12530,7 +12744,7 @@
           }
         }
       } else {
-        // Loop through playback technologies (HTML5, Flash) and check for support.
+        // Loop through playback technologies (e.g. HTML5) and check for support.
         // Then load the best source.
         // A few assumptions here:
         //   All playback technologies respect preload false.
@@ -12571,6 +12785,22 @@
       var _this;
 
       _this = _Component.call(this, player, options) || this;
+
+      _this.handleMouseOver_ = function (e) {
+        return _this.handleMouseOver(e);
+      };
+
+      _this.handleMouseOut_ = function (e) {
+        return _this.handleMouseOut(e);
+      };
+
+      _this.handleClick_ = function (e) {
+        return _this.handleClick(e);
+      };
+
+      _this.handleKeyDown_ = function (e) {
+        return _this.handleKeyDown(e);
+      };
 
       _this.emitTapEvents();
 
@@ -12691,7 +12921,7 @@
       this.controlText_ = text;
       textContent(this.controlTextEl_, localizedText);
 
-      if (!this.nonIconControl) {
+      if (!this.nonIconControl && !this.player_.options_.noUITitleAttributes) {
         // Set title attribute if only an icon is shown
         el.setAttribute('title', localizedText);
       }
@@ -12722,8 +12952,8 @@
           this.el_.setAttribute('tabIndex', this.tabIndex_);
         }
 
-        this.on(['tap', 'click'], this.handleClick);
-        this.on('keydown', this.handleKeyDown);
+        this.on(['tap', 'click'], this.handleClick_);
+        this.on('keydown', this.handleKeyDown_);
       }
     }
     /**
@@ -12740,10 +12970,20 @@
         this.el_.removeAttribute('tabIndex');
       }
 
-      this.off('mouseover', this.handleMouseOver);
-      this.off('mouseout', this.handleMouseOut);
-      this.off(['tap', 'click'], this.handleClick);
-      this.off('keydown', this.handleKeyDown);
+      this.off('mouseover', this.handleMouseOver_);
+      this.off('mouseout', this.handleMouseOut_);
+      this.off(['tap', 'click'], this.handleClick_);
+      this.off('keydown', this.handleKeyDown_);
+    }
+    /**
+     * Handles language change in ClickableComponent for the player in components
+     *
+     *
+     */
+    ;
+
+    _proto.handleLanguagechange = function handleLanguagechange() {
+      this.controlText(this.controlText_);
     }
     /**
      * Event handler that is called when a `ClickableComponent` receives a
@@ -12820,7 +13060,11 @@
 
       _this.update();
 
-      player.on('posterchange', bind(assertThisInitialized(_this), _this.update));
+      _this.update_ = function (e) {
+        return _this.update(e);
+      };
+
+      player.on('posterchange', _this.update_);
       return _this;
     }
     /**
@@ -12831,7 +13075,7 @@
     var _proto = PosterImage.prototype;
 
     _proto.dispose = function dispose() {
-      this.player().off('posterchange', this.update);
+      this.player().off('posterchange', this.update_);
 
       _ClickableComponent.prototype.dispose.call(this);
     }
@@ -13022,10 +13266,18 @@
       var _this;
 
       _this = _Component.call(this, player, options, ready) || this;
-      var updateDisplayHandler = bind(assertThisInitialized(_this), _this.updateDisplay);
-      player.on('loadstart', bind(assertThisInitialized(_this), _this.toggleDisplay));
+
+      var updateDisplayHandler = function updateDisplayHandler(e) {
+        return _this.updateDisplay(e);
+      };
+
+      player.on('loadstart', function (e) {
+        return _this.toggleDisplay(e);
+      });
       player.on('texttrackchange', updateDisplayHandler);
-      player.on('loadedmetadata', bind(assertThisInitialized(_this), _this.preselectTrack)); // This used to be called during player init, but was causing an error
+      player.on('loadedmetadata', function (e) {
+        return _this.preselectTrack(e);
+      }); // This used to be called during player init, but was causing an error
       // if a track should show by default and the display hadn't loaded yet.
       // Should probably be moved to an external track loader when we support
       // tracks that don't need a display.
@@ -13038,9 +13290,9 @@
 
         player.on('fullscreenchange', updateDisplayHandler);
         player.on('playerresize', updateDisplayHandler);
-        window$1.addEventListener('orientationchange', updateDisplayHandler);
+        window_1.addEventListener('orientationchange', updateDisplayHandler);
         player.on('dispose', function () {
-          return window$1.removeEventListener('orientationchange', updateDisplayHandler);
+          return window_1.removeEventListener('orientationchange', updateDisplayHandler);
         });
         var tracks = this.options_.playerOptions.tracks || [];
 
@@ -13151,8 +13403,8 @@
     ;
 
     _proto.clearDisplay = function clearDisplay() {
-      if (typeof window$1.WebVTT === 'function') {
-        window$1.WebVTT.processCues(window$1, [], this.el_);
+      if (typeof window_1.WebVTT === 'function') {
+        window_1.WebVTT.processCues(window_1, [], this.el_);
       }
     }
     /**
@@ -13278,7 +13530,7 @@
         }
 
         if (overrides.fontPercent && overrides.fontPercent !== 1) {
-          var fontSize = window$1.parseFloat(cueDiv.style.fontSize);
+          var fontSize = window_1.parseFloat(cueDiv.style.fontSize);
           cueDiv.style.fontSize = fontSize * overrides.fontPercent + 'px';
           cueDiv.style.height = 'auto';
           cueDiv.style.top = 'auto';
@@ -13306,7 +13558,7 @@
         tracks = [tracks];
       }
 
-      if (typeof window$1.WebVTT !== 'function' || tracks.every(function (track) {
+      if (typeof window_1.WebVTT !== 'function' || tracks.every(function (track) {
         return !track.activeCues;
       })) {
         return;
@@ -13323,7 +13575,7 @@
       } // removes all cues before it processes new ones
 
 
-      window$1.WebVTT.processCues(window$1, cues, this.el_); // add unique class to each language text track & add settings styling if necessary
+      window_1.WebVTT.processCues(window_1, cues, this.el_); // add unique class to each language text track & add settings styling if necessary
 
       for (var _i2 = 0; _i2 < tracks.length; ++_i2) {
         var _track2 = tracks[_i2];
@@ -13539,7 +13791,9 @@
       _this = _Button.call(this, player, options) || this;
       _this.mouseused_ = false;
 
-      _this.on('mousedown', _this.handleMouseDown);
+      _this.on('mousedown', function (e) {
+        return _this.handleMouseDown(e);
+      });
 
       return _this;
     }
@@ -13759,12 +14013,18 @@
 
       options.replay = options.replay === undefined || options.replay;
 
-      _this.on(player, 'play', _this.handlePlay);
+      _this.on(player, 'play', function (e) {
+        return _this.handlePlay(e);
+      });
 
-      _this.on(player, 'pause', _this.handlePause);
+      _this.on(player, 'pause', function (e) {
+        return _this.handlePause(e);
+      });
 
       if (options.replay) {
-        _this.on(player, 'ended', _this.handleEnded);
+        _this.on(player, 'ended', function (e) {
+          return _this.handleEnded(e);
+        });
       }
 
       return _this;
@@ -13797,7 +14057,7 @@
 
     _proto.handleClick = function handleClick(event) {
       if (this.player_.paused()) {
-        this.player_.play();
+        silencePromise(this.player_.play());
       } else {
         this.player_.pause();
       }
@@ -13866,12 +14126,16 @@
     ;
 
     _proto.handleEnded = function handleEnded(event) {
+      var _this2 = this;
+
       this.removeClass('vjs-playing');
       this.addClass('vjs-ended'); // change the button text to "Replay"
 
       this.controlText('Replay'); // on the next seek remove the replay button
 
-      this.one(this.player_, 'seeked', this.handleSeeked);
+      this.one(this.player_, 'seeked', function (e) {
+        return _this2.handleSeeked(e);
+      });
     };
 
     return PlayToggle;
@@ -14003,7 +14267,9 @@
 
       _this = _Component.call(this, player, options) || this;
 
-      _this.on(player, ['timeupdate', 'ended'], _this.updateContent);
+      _this.on(player, ['timeupdate', 'ended'], function (e) {
+        return _this.updateContent(e);
+      });
 
       _this.updateTextNode_();
 
@@ -14077,7 +14343,13 @@
         }
 
         var oldNode = _this2.textNode_;
-        _this2.textNode_ = document.createTextNode(_this2.formattedTime_);
+
+        if (oldNode && _this2.contentEl_.firstChild !== oldNode) {
+          oldNode = null;
+          log.warn('TimeDisplay#updateTextnode_: Prevented replacement of text node element since it was no longer a child of this node. Appending a new node instead.');
+        }
+
+        _this2.textNode_ = document_1.createTextNode(_this2.formattedTime_);
 
         if (!_this2.textNode_) {
           return;
@@ -14217,21 +14489,26 @@
     function DurationDisplay(player, options) {
       var _this;
 
-      _this = _TimeDisplay.call(this, player, options) || this; // we do not want to/need to throttle duration changes,
+      _this = _TimeDisplay.call(this, player, options) || this;
+
+      var updateContent = function updateContent(e) {
+        return _this.updateContent(e);
+      }; // we do not want to/need to throttle duration changes,
       // as they should always display the changed duration as
       // it has changed
 
-      _this.on(player, 'durationchange', _this.updateContent); // Listen to loadstart because the player duration is reset when a new media element is loaded,
+
+      _this.on(player, 'durationchange', updateContent); // Listen to loadstart because the player duration is reset when a new media element is loaded,
       // but the durationchange on the user agent will not fire.
       // @see [Spec]{@link https://www.w3.org/TR/2011/WD-html5-20110113/video.html#media-element-load-algorithm}
 
 
-      _this.on(player, 'loadstart', _this.updateContent); // Also listen for timeupdate (in the parent) and loadedmetadata because removing those
+      _this.on(player, 'loadstart', updateContent); // Also listen for timeupdate (in the parent) and loadedmetadata because removing those
       // listeners could have broken dependent applications/libraries. These
       // can likely be removed for 7.0.
 
 
-      _this.on(player, 'loadedmetadata', _this.updateContent);
+      _this.on(player, 'loadedmetadata', updateContent);
 
       return _this;
     }
@@ -14351,7 +14628,9 @@
 
       _this = _TimeDisplay.call(this, player, options) || this;
 
-      _this.on(player, 'durationchange', _this.updateContent);
+      _this.on(player, 'durationchange', function (e) {
+        return _this.updateContent(e);
+      });
 
       return _this;
     }
@@ -14462,7 +14741,9 @@
 
       _this.updateShowing();
 
-      _this.on(_this.player(), 'durationchange', _this.updateShowing);
+      _this.on(_this.player(), 'durationchange', function (e) {
+        return _this.updateShowing(e);
+      });
 
       return _this;
     }
@@ -14546,7 +14827,11 @@
       _this.updateLiveEdgeStatus();
 
       if (_this.player_.liveTracker) {
-        _this.on(_this.player_.liveTracker, 'liveedgechange', _this.updateLiveEdgeStatus);
+        _this.updateLiveEdgeStatusHandler_ = function (e) {
+          return _this.updateLiveEdgeStatus(e);
+        };
+
+        _this.on(_this.player_.liveTracker, 'liveedgechange', _this.updateLiveEdgeStatusHandler_);
       }
 
       return _this;
@@ -14610,7 +14895,7 @@
 
     _proto.dispose = function dispose() {
       if (this.player_.liveTracker) {
-        this.off(this.player_.liveTracker, 'liveedgechange', this.updateLiveEdgeStatus);
+        this.off(this.player_.liveTracker, 'liveedgechange', this.updateLiveEdgeStatusHandler_);
       }
 
       this.textEl_ = null;
@@ -14665,7 +14950,32 @@
     function Slider(player, options) {
       var _this;
 
-      _this = _Component.call(this, player, options) || this; // Set property names to bar to match with the child Slider class is looking for
+      _this = _Component.call(this, player, options) || this;
+
+      _this.handleMouseDown_ = function (e) {
+        return _this.handleMouseDown(e);
+      };
+
+      _this.handleMouseUp_ = function (e) {
+        return _this.handleMouseUp(e);
+      };
+
+      _this.handleKeyDown_ = function (e) {
+        return _this.handleKeyDown(e);
+      };
+
+      _this.handleClick_ = function (e) {
+        return _this.handleClick(e);
+      };
+
+      _this.handleMouseMove_ = function (e) {
+        return _this.handleMouseMove(e);
+      };
+
+      _this.update_ = function (e) {
+        return _this.update(e);
+      }; // Set property names to bar to match with the child Slider class is looking for
+
 
       _this.bar = _this.getChild(_this.options_.barName); // Set a horizontal or vertical class on the slider depending on the slider type
 
@@ -14698,10 +15008,10 @@
         return;
       }
 
-      this.on('mousedown', this.handleMouseDown);
-      this.on('touchstart', this.handleMouseDown);
-      this.on('keydown', this.handleKeyDown);
-      this.on('click', this.handleClick); // TODO: deprecated, controlsvisible does not seem to be fired
+      this.on('mousedown', this.handleMouseDown_);
+      this.on('touchstart', this.handleMouseDown_);
+      this.on('keydown', this.handleKeyDown_);
+      this.on('click', this.handleClick_); // TODO: deprecated, controlsvisible does not seem to be fired
 
       this.on(this.player_, 'controlsvisible', this.update);
 
@@ -14724,15 +15034,15 @@
       }
 
       var doc = this.bar.el_.ownerDocument;
-      this.off('mousedown', this.handleMouseDown);
-      this.off('touchstart', this.handleMouseDown);
-      this.off('keydown', this.handleKeyDown);
-      this.off('click', this.handleClick);
-      this.off(this.player_, 'controlsvisible', this.update);
-      this.off(doc, 'mousemove', this.handleMouseMove);
-      this.off(doc, 'mouseup', this.handleMouseUp);
-      this.off(doc, 'touchmove', this.handleMouseMove);
-      this.off(doc, 'touchend', this.handleMouseUp);
+      this.off('mousedown', this.handleMouseDown_);
+      this.off('touchstart', this.handleMouseDown_);
+      this.off('keydown', this.handleKeyDown_);
+      this.off('click', this.handleClick_);
+      this.off(this.player_, 'controlsvisible', this.update_);
+      this.off(doc, 'mousemove', this.handleMouseMove_);
+      this.off(doc, 'mouseup', this.handleMouseUp_);
+      this.off(doc, 'touchmove', this.handleMouseMove_);
+      this.off(doc, 'touchend', this.handleMouseUp_);
       this.removeAttribute('tabindex');
       this.addClass('disabled');
 
@@ -14819,10 +15129,10 @@
        */
 
       this.trigger('slideractive');
-      this.on(doc, 'mousemove', this.handleMouseMove);
-      this.on(doc, 'mouseup', this.handleMouseUp);
-      this.on(doc, 'touchmove', this.handleMouseMove);
-      this.on(doc, 'touchend', this.handleMouseUp);
+      this.on(doc, 'mousemove', this.handleMouseMove_);
+      this.on(doc, 'mouseup', this.handleMouseUp_);
+      this.on(doc, 'touchmove', this.handleMouseMove_);
+      this.on(doc, 'touchend', this.handleMouseUp_);
       this.handleMouseMove(event);
     }
     /**
@@ -14865,10 +15175,10 @@
        */
 
       this.trigger('sliderinactive');
-      this.off(doc, 'mousemove', this.handleMouseMove);
-      this.off(doc, 'mouseup', this.handleMouseUp);
-      this.off(doc, 'touchmove', this.handleMouseMove);
-      this.off(doc, 'touchend', this.handleMouseUp);
+      this.off(doc, 'mousemove', this.handleMouseMove_);
+      this.off(doc, 'mouseup', this.handleMouseUp_);
+      this.off(doc, 'touchmove', this.handleMouseMove_);
+      this.off(doc, 'touchend', this.handleMouseUp_);
       this.update();
     }
     /**
@@ -15042,7 +15352,9 @@
       _this = _Component.call(this, player, options) || this;
       _this.partEls_ = [];
 
-      _this.on(player, 'progress', _this.update);
+      _this.on(player, 'progress', function (e) {
+        return _this.update(e);
+      });
 
       return _this;
     }
@@ -15067,7 +15379,7 @@
       var loadedText = createEl('span', {
         textContent: this.localize('Loaded')
       });
-      var separator = document.createTextNode(': ');
+      var separator = document_1.createTextNode(': ');
       this.percentageEl_ = createEl('span', {
         className: 'vjs-control-text-loaded-percentage',
         textContent: '0%'
@@ -15247,8 +15559,13 @@
         pullTooltipBy = 0;
       } else if (pullTooltipBy > tooltipRect.width) {
         pullTooltipBy = tooltipRect.width;
-      }
+      } // prevent small width fluctuations within 0.4px from
+      // changing the value below.
+      // This really helps for live to prevent the play
+      // progress time tooltip from jittering
 
+
+      pullTooltipBy = Math.round(pullTooltipBy);
       this.el_.style.right = "-" + pullTooltipBy + "px";
       this.write(content);
     }
@@ -15520,6 +15837,8 @@
     var _proto = SeekBar.prototype;
 
     _proto.setEventHandlers_ = function setEventHandlers_() {
+      var _this2 = this;
+
       this.update_ = bind(this, this.update);
       this.update = throttle(this.update_, UPDATE_REFRESH_INTERVAL);
       this.on(this.player_, ['ended', 'durationchange', 'timeupdate'], this.update);
@@ -15531,20 +15850,34 @@
 
 
       this.updateInterval = null;
-      this.on(this.player_, ['playing'], this.enableInterval_);
-      this.on(this.player_, ['ended', 'pause', 'waiting'], this.disableInterval_); // we don't need to update the play progress if the document is hidden,
+
+      this.enableIntervalHandler_ = function (e) {
+        return _this2.enableInterval_(e);
+      };
+
+      this.disableIntervalHandler_ = function (e) {
+        return _this2.disableInterval_(e);
+      };
+
+      this.on(this.player_, ['playing'], this.enableIntervalHandler_);
+      this.on(this.player_, ['ended', 'pause', 'waiting'], this.disableIntervalHandler_); // we don't need to update the play progress if the document is hidden,
       // also, this causes the CPU to spike and eventually crash the page on IE11.
 
-      if ('hidden' in document && 'visibilityState' in document) {
-        this.on(document, 'visibilitychange', this.toggleVisibility_);
+      if ('hidden' in document_1 && 'visibilityState' in document_1) {
+        this.on(document_1, 'visibilitychange', this.toggleVisibility_);
       }
     };
 
     _proto.toggleVisibility_ = function toggleVisibility_(e) {
-      if (document.hidden) {
+      if (document_1.visibilityState === 'hidden') {
+        this.cancelNamedAnimationFrame('SeekBar#update');
+        this.cancelNamedAnimationFrame('Slider#update');
         this.disableInterval_(e);
       } else {
-        this.enableInterval_(); // we just switched back to the page and someone may be looking, so, update ASAP
+        if (!this.player_.ended() && !this.player_.paused()) {
+          this.enableInterval_();
+        } // we just switched back to the page and someone may be looking, so, update ASAP
+
 
         this.update();
       }
@@ -15600,41 +15933,62 @@
     ;
 
     _proto.update = function update(event) {
-      var _this2 = this;
+      var _this3 = this;
+
+      // ignore updates while the tab is hidden
+      if (document_1.visibilityState === 'hidden') {
+        return;
+      }
 
       var percent = _Slider.prototype.update.call(this);
 
       this.requestNamedAnimationFrame('SeekBar#update', function () {
-        var currentTime = _this2.player_.ended() ? _this2.player_.duration() : _this2.getCurrentTime_();
-        var liveTracker = _this2.player_.liveTracker;
+        var currentTime = _this3.player_.ended() ? _this3.player_.duration() : _this3.getCurrentTime_();
+        var liveTracker = _this3.player_.liveTracker;
 
-        var duration = _this2.player_.duration();
+        var duration = _this3.player_.duration();
 
         if (liveTracker && liveTracker.isLive()) {
-          duration = _this2.player_.liveTracker.liveCurrentTime();
+          duration = _this3.player_.liveTracker.liveCurrentTime();
         }
 
-        if (_this2.percent_ !== percent) {
+        if (_this3.percent_ !== percent) {
           // machine readable value of progress bar (percentage complete)
-          _this2.el_.setAttribute('aria-valuenow', (percent * 100).toFixed(2));
+          _this3.el_.setAttribute('aria-valuenow', (percent * 100).toFixed(2));
 
-          _this2.percent_ = percent;
+          _this3.percent_ = percent;
         }
 
-        if (_this2.currentTime_ !== currentTime || _this2.duration_ !== duration) {
+        if (_this3.currentTime_ !== currentTime || _this3.duration_ !== duration) {
           // human readable value of progress bar (time complete)
-          _this2.el_.setAttribute('aria-valuetext', _this2.localize('progress bar timing: currentTime={1} duration={2}', [formatTime(currentTime, duration), formatTime(duration, duration)], '{1} of {2}'));
+          _this3.el_.setAttribute('aria-valuetext', _this3.localize('progress bar timing: currentTime={1} duration={2}', [formatTime(currentTime, duration), formatTime(duration, duration)], '{1} of {2}'));
 
-          _this2.currentTime_ = currentTime;
-          _this2.duration_ = duration;
+          _this3.currentTime_ = currentTime;
+          _this3.duration_ = duration;
         } // update the progress bar time tooltip with the current time
 
 
-        if (_this2.bar) {
-          _this2.bar.update(getBoundingClientRect(_this2.el()), _this2.getProgress());
+        if (_this3.bar) {
+          _this3.bar.update(getBoundingClientRect(_this3.el()), _this3.getProgress());
         }
       });
       return percent;
+    }
+    /**
+     * Prevent liveThreshold from causing seeks to seem like they
+     * are not happening from a user perspective.
+     *
+     * @param {number} ct
+     *        current time to seek to
+     */
+    ;
+
+    _proto.userSeek_ = function userSeek_(ct) {
+      if (this.player_.liveTracker && this.player_.liveTracker.isLive()) {
+        this.player_.liveTracker.nextSeekedFromUser();
+      }
+
+      this.player_.currentTime(ct);
     }
     /**
      * Get the value of current time but allows for smooth scrubbing,
@@ -15752,7 +16106,7 @@
       } // Set new time (tell player to seek to new time)
 
 
-      this.player_.currentTime(newTime);
+      this.userSeek_(newTime);
     };
 
     _proto.enable = function enable() {
@@ -15825,7 +16179,7 @@
     ;
 
     _proto.stepForward = function stepForward() {
-      this.player_.currentTime(this.player_.currentTime() + STEP_SECONDS);
+      this.userSeek_(this.player_.currentTime() + STEP_SECONDS);
     }
     /**
      * Move more quickly rewind for keyboard-only users
@@ -15833,7 +16187,7 @@
     ;
 
     _proto.stepBack = function stepBack() {
-      this.player_.currentTime(this.player_.currentTime() - STEP_SECONDS);
+      this.userSeek_(this.player_.currentTime() - STEP_SECONDS);
     }
     /**
      * Toggles the playback state of the player
@@ -15871,6 +16225,8 @@
     ;
 
     _proto.handleKeyDown = function handleKeyDown(event) {
+      var liveTracker = this.player_.liveTracker;
+
       if (keycode.isEventKey(event, 'Space') || keycode.isEventKey(event, 'Enter')) {
         event.preventDefault();
         event.stopPropagation();
@@ -15878,24 +16234,34 @@
       } else if (keycode.isEventKey(event, 'Home')) {
         event.preventDefault();
         event.stopPropagation();
-        this.player_.currentTime(0);
+        this.userSeek_(0);
       } else if (keycode.isEventKey(event, 'End')) {
         event.preventDefault();
         event.stopPropagation();
-        this.player_.currentTime(this.player_.duration());
+
+        if (liveTracker && liveTracker.isLive()) {
+          this.userSeek_(liveTracker.liveCurrentTime());
+        } else {
+          this.userSeek_(this.player_.duration());
+        }
       } else if (/^[0-9]$/.test(keycode(event))) {
         event.preventDefault();
         event.stopPropagation();
         var gotoFraction = (keycode.codes[keycode(event)] - keycode.codes['0']) * 10.0 / 100.0;
-        this.player_.currentTime(this.player_.duration() * gotoFraction);
+
+        if (liveTracker && liveTracker.isLive()) {
+          this.userSeek_(liveTracker.seekableStart() + liveTracker.liveWindow() * gotoFraction);
+        } else {
+          this.userSeek_(this.player_.duration() * gotoFraction);
+        }
       } else if (keycode.isEventKey(event, 'PgDn')) {
         event.preventDefault();
         event.stopPropagation();
-        this.player_.currentTime(this.player_.currentTime() - STEP_SECONDS * PAGE_KEY_MULTIPLIER);
+        this.userSeek_(this.player_.currentTime() - STEP_SECONDS * PAGE_KEY_MULTIPLIER);
       } else if (keycode.isEventKey(event, 'PgUp')) {
         event.preventDefault();
         event.stopPropagation();
-        this.player_.currentTime(this.player_.currentTime() + STEP_SECONDS * PAGE_KEY_MULTIPLIER);
+        this.userSeek_(this.player_.currentTime() + STEP_SECONDS * PAGE_KEY_MULTIPLIER);
       } else {
         // Pass keydown handling up for unsupported keys
         _Slider.prototype.handleKeyDown.call(this, event);
@@ -15907,15 +16273,15 @@
       this.off(this.player_, ['ended', 'durationchange', 'timeupdate'], this.update);
 
       if (this.player_.liveTracker) {
-        this.on(this.player_.liveTracker, 'liveedgechange', this.update);
+        this.off(this.player_.liveTracker, 'liveedgechange', this.update);
       }
 
-      this.off(this.player_, ['playing'], this.enableInterval_);
-      this.off(this.player_, ['ended', 'pause', 'waiting'], this.disableInterval_); // we don't need to update the play progress if the document is hidden,
+      this.off(this.player_, ['playing'], this.enableIntervalHandler_);
+      this.off(this.player_, ['ended', 'pause', 'waiting'], this.disableIntervalHandler_); // we don't need to update the play progress if the document is hidden,
       // also, this causes the CPU to spike and eventually crash the page on IE11.
 
-      if ('hidden' in document && 'visibilityState' in document) {
-        this.off(document, 'visibilitychange', this.toggleVisibility_);
+      if ('hidden' in document_1 && 'visibilityState' in document_1) {
+        this.off(document_1, 'visibilitychange', this.toggleVisibility_);
       }
 
       _Slider.prototype.dispose.call(this);
@@ -15967,6 +16333,14 @@
       _this = _Component.call(this, player, options) || this;
       _this.handleMouseMove = throttle(bind(assertThisInitialized(_this), _this.handleMouseMove), UPDATE_REFRESH_INTERVAL);
       _this.throttledHandleMouseSeek = throttle(bind(assertThisInitialized(_this), _this.handleMouseSeek), UPDATE_REFRESH_INTERVAL);
+
+      _this.handleMouseUpHandler_ = function (e) {
+        return _this.handleMouseUp(e);
+      };
+
+      _this.handleMouseDownHandler_ = function (e) {
+        return _this.handleMouseDown(e);
+      };
 
       _this.enable();
 
@@ -16082,11 +16456,20 @@
         return;
       }
 
-      this.off(['mousedown', 'touchstart'], this.handleMouseDown);
+      this.off(['mousedown', 'touchstart'], this.handleMouseDownHandler_);
       this.off(this.el_, 'mousemove', this.handleMouseMove);
-      this.handleMouseUp();
+      this.removeListenersAddedOnMousedownAndTouchstart();
       this.addClass('disabled');
-      this.enabled_ = false;
+      this.enabled_ = false; // Restore normal playback state if controls are disabled while scrubbing
+
+      if (this.player_.scrubbing()) {
+        var seekBar = this.getChild('seekBar');
+        this.player_.scrubbing(false);
+
+        if (seekBar.videoWasPlaying) {
+          silencePromise(this.player_.play());
+        }
+      }
     }
     /**
      * Enable all controls on the progress control and its children
@@ -16102,10 +16485,22 @@
         return;
       }
 
-      this.on(['mousedown', 'touchstart'], this.handleMouseDown);
+      this.on(['mousedown', 'touchstart'], this.handleMouseDownHandler_);
       this.on(this.el_, 'mousemove', this.handleMouseMove);
       this.removeClass('disabled');
       this.enabled_ = true;
+    }
+    /**
+     * Cleanup listeners after the user finishes interacting with the progress controls
+     */
+    ;
+
+    _proto.removeListenersAddedOnMousedownAndTouchstart = function removeListenersAddedOnMousedownAndTouchstart() {
+      var doc = this.el_.ownerDocument;
+      this.off(doc, 'mousemove', this.throttledHandleMouseSeek);
+      this.off(doc, 'touchmove', this.throttledHandleMouseSeek);
+      this.off(doc, 'mouseup', this.handleMouseUpHandler_);
+      this.off(doc, 'touchend', this.handleMouseUpHandler_);
     }
     /**
      * Handle `mousedown` or `touchstart` events on the `ProgressControl`.
@@ -16128,8 +16523,8 @@
 
       this.on(doc, 'mousemove', this.throttledHandleMouseSeek);
       this.on(doc, 'touchmove', this.throttledHandleMouseSeek);
-      this.on(doc, 'mouseup', this.handleMouseUp);
-      this.on(doc, 'touchend', this.handleMouseUp);
+      this.on(doc, 'mouseup', this.handleMouseUpHandler_);
+      this.on(doc, 'touchend', this.handleMouseUpHandler_);
     }
     /**
      * Handle `mouseup` or `touchend` events on the `ProgressControl`.
@@ -16143,17 +16538,13 @@
     ;
 
     _proto.handleMouseUp = function handleMouseUp(event) {
-      var doc = this.el_.ownerDocument;
       var seekBar = this.getChild('seekBar');
 
       if (seekBar) {
         seekBar.handleMouseUp(event);
       }
 
-      this.off(doc, 'mousemove', this.throttledHandleMouseSeek);
-      this.off(doc, 'touchmove', this.throttledHandleMouseSeek);
-      this.off(doc, 'mouseup', this.handleMouseUp);
-      this.off(doc, 'touchend', this.handleMouseUp);
+      this.removeListenersAddedOnMousedownAndTouchstart();
     };
 
     return ProgressControl;
@@ -16197,9 +16588,13 @@
 
       _this = _Button.call(this, player, options) || this;
 
-      _this.on(player, ['enterpictureinpicture', 'leavepictureinpicture'], _this.handlePictureInPictureChange);
+      _this.on(player, ['enterpictureinpicture', 'leavepictureinpicture'], function (e) {
+        return _this.handlePictureInPictureChange(e);
+      });
 
-      _this.on(player, ['disablepictureinpicturechanged', 'loadedmetadata'], _this.handlePictureInPictureEnabledChange); // TODO: Deactivate button on player emptied event.
+      _this.on(player, ['disablepictureinpicturechanged', 'loadedmetadata'], function (e) {
+        return _this.handlePictureInPictureEnabledChange(e);
+      }); // TODO: Deactivate button on player emptied event.
 
 
       _this.disable();
@@ -16226,7 +16621,7 @@
     ;
 
     _proto.handlePictureInPictureEnabledChange = function handlePictureInPictureEnabledChange() {
-      if (document.pictureInPictureEnabled && this.player_.disablePictureInPicture() === false) {
+      if (document_1.pictureInPictureEnabled && this.player_.disablePictureInPicture() === false) {
         this.enable();
       } else {
         this.disable();
@@ -16310,9 +16705,11 @@
 
       _this = _Button.call(this, player, options) || this;
 
-      _this.on(player, 'fullscreenchange', _this.handleFullscreenChange);
+      _this.on(player, 'fullscreenchange', function (e) {
+        return _this.handleFullscreenChange(e);
+      });
 
-      if (document[player.fsApi_.fullscreenEnabled] === false) {
+      if (document_1[player.fsApi_.fullscreenEnabled] === false) {
         _this.disable();
       }
 
@@ -16444,6 +16841,237 @@
   Component.registerComponent('VolumeLevel', VolumeLevel);
 
   /**
+   * Volume level tooltips display a volume above or side by side the volume bar.
+   *
+   * @extends Component
+   */
+
+  var VolumeLevelTooltip = /*#__PURE__*/function (_Component) {
+    inheritsLoose(VolumeLevelTooltip, _Component);
+
+    /**
+     * Creates an instance of this class.
+     *
+     * @param {Player} player
+     *        The {@link Player} that this class should be attached to.
+     *
+     * @param {Object} [options]
+     *        The key/value store of player options.
+     */
+    function VolumeLevelTooltip(player, options) {
+      var _this;
+
+      _this = _Component.call(this, player, options) || this;
+      _this.update = throttle(bind(assertThisInitialized(_this), _this.update), UPDATE_REFRESH_INTERVAL);
+      return _this;
+    }
+    /**
+     * Create the volume tooltip DOM element
+     *
+     * @return {Element}
+     *         The element that was created.
+     */
+
+
+    var _proto = VolumeLevelTooltip.prototype;
+
+    _proto.createEl = function createEl() {
+      return _Component.prototype.createEl.call(this, 'div', {
+        className: 'vjs-volume-tooltip'
+      }, {
+        'aria-hidden': 'true'
+      });
+    }
+    /**
+     * Updates the position of the tooltip relative to the `VolumeBar` and
+     * its content text.
+     *
+     * @param {Object} rangeBarRect
+     *        The `ClientRect` for the {@link VolumeBar} element.
+     *
+     * @param {number} rangeBarPoint
+     *        A number from 0 to 1, representing a horizontal/vertical reference point
+     *        from the left edge of the {@link VolumeBar}
+     *
+     * @param {boolean} vertical
+     *        Referees to the Volume control position
+     *        in the control bar{@link VolumeControl}
+     *
+     */
+    ;
+
+    _proto.update = function update(rangeBarRect, rangeBarPoint, vertical, content) {
+      if (!vertical) {
+        var tooltipRect = getBoundingClientRect(this.el_);
+        var playerRect = getBoundingClientRect(this.player_.el());
+        var volumeBarPointPx = rangeBarRect.width * rangeBarPoint;
+
+        if (!playerRect || !tooltipRect) {
+          return;
+        }
+
+        var spaceLeftOfPoint = rangeBarRect.left - playerRect.left + volumeBarPointPx;
+        var spaceRightOfPoint = rangeBarRect.width - volumeBarPointPx + (playerRect.right - rangeBarRect.right);
+        var pullTooltipBy = tooltipRect.width / 2;
+
+        if (spaceLeftOfPoint < pullTooltipBy) {
+          pullTooltipBy += pullTooltipBy - spaceLeftOfPoint;
+        } else if (spaceRightOfPoint < pullTooltipBy) {
+          pullTooltipBy = spaceRightOfPoint;
+        }
+
+        if (pullTooltipBy < 0) {
+          pullTooltipBy = 0;
+        } else if (pullTooltipBy > tooltipRect.width) {
+          pullTooltipBy = tooltipRect.width;
+        }
+
+        this.el_.style.right = "-" + pullTooltipBy + "px";
+      }
+
+      this.write(content + "%");
+    }
+    /**
+     * Write the volume to the tooltip DOM element.
+     *
+     * @param {string} content
+     *        The formatted volume for the tooltip.
+     */
+    ;
+
+    _proto.write = function write(content) {
+      textContent(this.el_, content);
+    }
+    /**
+     * Updates the position of the volume tooltip relative to the `VolumeBar`.
+     *
+     * @param {Object} rangeBarRect
+     *        The `ClientRect` for the {@link VolumeBar} element.
+     *
+     * @param {number} rangeBarPoint
+     *        A number from 0 to 1, representing a horizontal/vertical reference point
+     *        from the left edge of the {@link VolumeBar}
+     *
+     * @param {boolean} vertical
+     *        Referees to the Volume control position
+     *        in the control bar{@link VolumeControl}
+     *
+     * @param {number} volume
+     *        The volume level to update the tooltip to
+     *
+     * @param {Function} cb
+     *        A function that will be called during the request animation frame
+     *        for tooltips that need to do additional animations from the default
+     */
+    ;
+
+    _proto.updateVolume = function updateVolume(rangeBarRect, rangeBarPoint, vertical, volume, cb) {
+      var _this2 = this;
+
+      this.requestNamedAnimationFrame('VolumeLevelTooltip#updateVolume', function () {
+        _this2.update(rangeBarRect, rangeBarPoint, vertical, volume.toFixed(0));
+
+        if (cb) {
+          cb();
+        }
+      });
+    };
+
+    return VolumeLevelTooltip;
+  }(Component);
+
+  Component.registerComponent('VolumeLevelTooltip', VolumeLevelTooltip);
+
+  /**
+   * The {@link MouseVolumeLevelDisplay} component tracks mouse movement over the
+   * {@link VolumeControl}. It displays an indicator and a {@link VolumeLevelTooltip}
+   * indicating the volume level which is represented by a given point in the
+   * {@link VolumeBar}.
+   *
+   * @extends Component
+   */
+
+  var MouseVolumeLevelDisplay = /*#__PURE__*/function (_Component) {
+    inheritsLoose(MouseVolumeLevelDisplay, _Component);
+
+    /**
+     * Creates an instance of this class.
+     *
+     * @param {Player} player
+     *        The {@link Player} that this class should be attached to.
+     *
+     * @param {Object} [options]
+     *        The key/value store of player options.
+     */
+    function MouseVolumeLevelDisplay(player, options) {
+      var _this;
+
+      _this = _Component.call(this, player, options) || this;
+      _this.update = throttle(bind(assertThisInitialized(_this), _this.update), UPDATE_REFRESH_INTERVAL);
+      return _this;
+    }
+    /**
+     * Create the DOM element for this class.
+     *
+     * @return {Element}
+     *         The element that was created.
+     */
+
+
+    var _proto = MouseVolumeLevelDisplay.prototype;
+
+    _proto.createEl = function createEl() {
+      return _Component.prototype.createEl.call(this, 'div', {
+        className: 'vjs-mouse-display'
+      });
+    }
+    /**
+     * Enquires updates to its own DOM as well as the DOM of its
+     * {@link VolumeLevelTooltip} child.
+     *
+     * @param {Object} rangeBarRect
+     *        The `ClientRect` for the {@link VolumeBar} element.
+     *
+     * @param {number} rangeBarPoint
+     *        A number from 0 to 1, representing a horizontal/vertical reference point
+     *        from the left edge of the {@link VolumeBar}
+     *
+     * @param {boolean} vertical
+     *        Referees to the Volume control position
+     *        in the control bar{@link VolumeControl}
+     *
+     */
+    ;
+
+    _proto.update = function update(rangeBarRect, rangeBarPoint, vertical) {
+      var _this2 = this;
+
+      var volume = 100 * rangeBarPoint;
+      this.getChild('volumeLevelTooltip').updateVolume(rangeBarRect, rangeBarPoint, vertical, volume, function () {
+        if (vertical) {
+          _this2.el_.style.bottom = rangeBarRect.height * rangeBarPoint + "px";
+        } else {
+          _this2.el_.style.left = rangeBarRect.width * rangeBarPoint + "px";
+        }
+      });
+    };
+
+    return MouseVolumeLevelDisplay;
+  }(Component);
+  /**
+   * Default options for `MouseVolumeLevelDisplay`
+   *
+   * @type {Object}
+   * @private
+   */
+
+
+  MouseVolumeLevelDisplay.prototype.options_ = {
+    children: ['volumeLevelTooltip']
+  };
+  Component.registerComponent('MouseVolumeLevelDisplay', MouseVolumeLevelDisplay);
+
+  /**
    * The bar that contains the volume level and can be clicked on to adjust the level
    *
    * @extends Slider
@@ -16466,9 +17094,13 @@
 
       _this = _Slider.call(this, player, options) || this;
 
-      _this.on('slideractive', _this.updateLastVolume_);
+      _this.on('slideractive', function (e) {
+        return _this.updateLastVolume_(e);
+      });
 
-      _this.on(player, 'volumechange', _this.updateARIAAttributes);
+      _this.on(player, 'volumechange', function (e) {
+        return _this.updateARIAAttributes(e);
+      });
 
       player.ready(function () {
         return _this.updateARIAAttributes();
@@ -16521,6 +17153,21 @@
     ;
 
     _proto.handleMouseMove = function handleMouseMove(event) {
+      var mouseVolumeLevelDisplay = this.getChild('mouseVolumeLevelDisplay');
+
+      if (mouseVolumeLevelDisplay) {
+        var volumeBarEl = this.el();
+        var volumeBarRect = getBoundingClientRect(volumeBarEl);
+        var vertical = this.vertical();
+        var volumeBarPoint = getPointerPosition(volumeBarEl, event);
+        volumeBarPoint = vertical ? volumeBarPoint.y : volumeBarPoint.x; // The default skin has a gap on either side of the `VolumeBar`. This means
+        // that it's possible to trigger this behavior outside the boundaries of
+        // the `VolumeBar`. This ensures we stay within it at all times.
+
+        volumeBarPoint = clamp(volumeBarPoint, 0, 1);
+        mouseVolumeLevelDisplay.update(volumeBarRect, volumeBarPoint, vertical);
+      }
+
       if (!isSingleLeftClick(event)) {
         return;
       }
@@ -16630,12 +17277,17 @@
   VolumeBar.prototype.options_ = {
     children: ['volumeLevel'],
     barName: 'volumeLevel'
-  };
+  }; // MouseVolumeLevelDisplay tooltip should not be added to a player on mobile devices
+
+  if (!IS_IOS && !IS_ANDROID) {
+    VolumeBar.prototype.options_.children.splice(0, 0, 'mouseVolumeLevelDisplay');
+  }
   /**
    * Call the update event for this Slider when this event happens on the player.
    *
    * @type {string}
    */
+
 
   VolumeBar.prototype.playerEvent = 'volumechange';
   Component.registerComponent('VolumeBar', VolumeBar);
@@ -16678,9 +17330,21 @@
       checkVolumeSupport(assertThisInitialized(_this), player);
       _this.throttledHandleMouseMove = throttle(bind(assertThisInitialized(_this), _this.handleMouseMove), UPDATE_REFRESH_INTERVAL);
 
-      _this.on('mousedown', _this.handleMouseDown);
+      _this.handleMouseUpHandler_ = function (e) {
+        return _this.handleMouseUp(e);
+      };
 
-      _this.on('touchstart', _this.handleMouseDown); // while the slider is active (the mouse has been pressed down and
+      _this.on('mousedown', function (e) {
+        return _this.handleMouseDown(e);
+      });
+
+      _this.on('touchstart', function (e) {
+        return _this.handleMouseDown(e);
+      });
+
+      _this.on('mousemove', function (e) {
+        return _this.handleMouseMove(e);
+      }); // while the slider is active (the mouse has been pressed down and
       // is dragging) or in focus we do not want to hide the VolumeBar
 
 
@@ -16738,8 +17402,8 @@
       var doc = this.el_.ownerDocument;
       this.on(doc, 'mousemove', this.throttledHandleMouseMove);
       this.on(doc, 'touchmove', this.throttledHandleMouseMove);
-      this.on(doc, 'mouseup', this.handleMouseUp);
-      this.on(doc, 'touchend', this.handleMouseUp);
+      this.on(doc, 'mouseup', this.handleMouseUpHandler_);
+      this.on(doc, 'touchend', this.handleMouseUpHandler_);
     }
     /**
      * Handle `mouseup` or `touchend` events on the `VolumeControl`.
@@ -16756,8 +17420,8 @@
       var doc = this.el_.ownerDocument;
       this.off(doc, 'mousemove', this.throttledHandleMouseMove);
       this.off(doc, 'touchmove', this.throttledHandleMouseMove);
-      this.off(doc, 'mouseup', this.handleMouseUp);
-      this.off(doc, 'touchend', this.handleMouseUp);
+      this.off(doc, 'mouseup', this.handleMouseUpHandler_);
+      this.off(doc, 'touchend', this.handleMouseUpHandler_);
     }
     /**
      * Handle `mousedown` or `touchstart` events on the `VolumeControl`.
@@ -16841,7 +17505,9 @@
 
       checkMuteSupport(assertThisInitialized(_this), player);
 
-      _this.on(player, ['loadstart', 'volumechange'], _this.update);
+      _this.on(player, ['loadstart', 'volumechange'], function (e) {
+        return _this.update(e);
+      });
 
       return _this;
     }
@@ -17008,19 +17674,35 @@
         options.volumeControl.vertical = !options.inline;
       }
 
-      _this = _Component.call(this, player, options) || this;
+      _this = _Component.call(this, player, options) || this; // this handler is used by mouse handler methods below
 
-      _this.on(player, ['loadstart'], _this.volumePanelState_);
+      _this.handleKeyPressHandler_ = function (e) {
+        return _this.handleKeyPress(e);
+      };
 
-      _this.on(_this.muteToggle, 'keyup', _this.handleKeyPress);
+      _this.on(player, ['loadstart'], function (e) {
+        return _this.volumePanelState_(e);
+      });
 
-      _this.on(_this.volumeControl, 'keyup', _this.handleVolumeControlKeyUp);
+      _this.on(_this.muteToggle, 'keyup', function (e) {
+        return _this.handleKeyPress(e);
+      });
 
-      _this.on('keydown', _this.handleKeyPress);
+      _this.on(_this.volumeControl, 'keyup', function (e) {
+        return _this.handleVolumeControlKeyUp(e);
+      });
 
-      _this.on('mouseover', _this.handleMouseOver);
+      _this.on('keydown', function (e) {
+        return _this.handleKeyPress(e);
+      });
 
-      _this.on('mouseout', _this.handleMouseOut); // while the slider is active (the mouse has been pressed down and
+      _this.on('mouseover', function (e) {
+        return _this.handleMouseOver(e);
+      });
+
+      _this.on('mouseout', function (e) {
+        return _this.handleMouseOut(e);
+      }); // while the slider is active (the mouse has been pressed down and
       // is dragging) we do not want to hide the VolumeBar
 
 
@@ -17135,7 +17817,7 @@
 
     _proto.handleMouseOver = function handleMouseOver(event) {
       this.addClass('vjs-hover');
-      on(document, 'keyup', bind(this, this.handleKeyPress));
+      on(document_1, 'keyup', this.handleKeyPressHandler_);
     }
     /**
      * This gets called when a `VolumePanel` gains hover via a `mouseout` event.
@@ -17151,7 +17833,7 @@
 
     _proto.handleMouseOut = function handleMouseOut(event) {
       this.removeClass('vjs-hover');
-      off(document, 'keyup', bind(this, this.handleKeyPress));
+      off(document_1, 'keyup', this.handleKeyPressHandler_);
     }
     /**
      * Handles `keyup` event on the document or `keydown` event on the `VolumePanel`,
@@ -17216,11 +17898,19 @@
 
       _this.focusedChild_ = -1;
 
-      _this.on('keydown', _this.handleKeyDown); // All the menu item instances share the same blur handler provided by the menu container.
+      _this.on('keydown', function (e) {
+        return _this.handleKeyDown(e);
+      }); // All the menu item instances share the same blur handler provided by the menu container.
 
 
-      _this.boundHandleBlur_ = bind(assertThisInitialized(_this), _this.handleBlur);
-      _this.boundHandleTapClick_ = bind(assertThisInitialized(_this), _this.handleTapClick);
+      _this.boundHandleBlur_ = function (e) {
+        return _this.handleBlur(e);
+      };
+
+      _this.boundHandleTapClick_ = function (e) {
+        return _this.handleTapClick(e);
+      };
+
       return _this;
     }
     /**
@@ -17343,7 +18033,7 @@
     ;
 
     _proto.handleBlur = function handleBlur(event) {
-      var relatedTarget = event.relatedTarget || document.activeElement; // Close menu popup when a user clicks outside the menu
+      var relatedTarget = event.relatedTarget || document_1.activeElement; // Close menu popup when a user clicks outside the menu
 
       if (!this.children().some(function (element) {
         return element.el() === relatedTarget;
@@ -17454,7 +18144,7 @@
       }
 
       var children = this.children().slice();
-      var haveTitle = children.length && children[0].className && /vjs-menu-title/.test(children[0].className);
+      var haveTitle = children.length && children[0].hasClass('vjs-menu-title');
 
       if (haveTitle) {
         children.shift();
@@ -17521,23 +18211,37 @@
 
       _this.enabled_ = true;
 
-      _this.on(_this.menuButton_, 'tap', _this.handleClick);
+      var handleClick = function handleClick(e) {
+        return _this.handleClick(e);
+      };
 
-      _this.on(_this.menuButton_, 'click', _this.handleClick);
+      _this.handleMenuKeyUp_ = function (e) {
+        return _this.handleMenuKeyUp(e);
+      };
 
-      _this.on(_this.menuButton_, 'keydown', _this.handleKeyDown);
+      _this.on(_this.menuButton_, 'tap', handleClick);
+
+      _this.on(_this.menuButton_, 'click', handleClick);
+
+      _this.on(_this.menuButton_, 'keydown', function (e) {
+        return _this.handleKeyDown(e);
+      });
 
       _this.on(_this.menuButton_, 'mouseenter', function () {
         _this.addClass('vjs-hover');
 
         _this.menu.show();
 
-        on(document, 'keyup', bind(assertThisInitialized(_this), _this.handleMenuKeyUp));
+        on(document_1, 'keyup', _this.handleMenuKeyUp_);
       });
 
-      _this.on('mouseleave', _this.handleMouseLeave);
+      _this.on('mouseleave', function (e) {
+        return _this.handleMouseLeave(e);
+      });
 
-      _this.on('keydown', _this.handleSubmenuKeyDown);
+      _this.on('keydown', function (e) {
+        return _this.handleSubmenuKeyDown(e);
+      });
 
       return _this;
     }
@@ -17603,7 +18307,6 @@
           innerHTML: toTitleCase(this.options_.title),
           tabIndex: -1
         });
-        this.hideThreshold_ += 1;
         var titleComponent = new Component(this.player_, {
           el: titleEl
         });
@@ -17747,7 +18450,7 @@
 
     _proto.handleMouseLeave = function handleMouseLeave(event) {
       this.removeClass('vjs-hover');
-      off(document, 'keyup', bind(this, this.handleMenuKeyUp));
+      off(document_1, 'keyup', this.handleMenuKeyUp_);
     }
     /**
      * Set the focus to the actual button, not to this element
@@ -17949,12 +18652,14 @@
       var updateHandler = bind(assertThisInitialized(_this), _this.update);
       tracks.addEventListener('removetrack', updateHandler);
       tracks.addEventListener('addtrack', updateHandler);
+      tracks.addEventListener('labelchange', updateHandler);
 
       _this.player_.on('ready', updateHandler);
 
       _this.player_.on('dispose', function () {
         tracks.removeEventListener('removetrack', updateHandler);
         tracks.removeEventListener('addtrack', updateHandler);
+        tracks.removeEventListener('labelchange', updateHandler);
       });
 
       return _this;
@@ -18182,16 +18887,16 @@
         var event;
 
         _this.on(['tap', 'click'], function () {
-          if (typeof window$1.Event !== 'object') {
+          if (typeof window_1.Event !== 'object') {
             // Android 2.3 throws an Illegal Constructor error for window.Event
             try {
-              event = new window$1.Event('change');
+              event = new window_1.Event('change');
             } catch (err) {// continue regardless of error
             }
           }
 
           if (!event) {
-            event = document.createEvent('Event');
+            event = document_1.createEvent('Event');
             event.initEvent('change', true, true);
           }
 
@@ -19298,14 +20003,11 @@
     ;
 
     _proto.handleClick = function handleClick(event) {
-      var tracks = this.player_.audioTracks();
+      _MenuItem.prototype.handleClick.call(this, event); // the audio track list will automatically toggle other tracks
+      // off for us.
 
-      _MenuItem.prototype.handleClick.call(this, event);
 
-      for (var i = 0; i < tracks.length; i++) {
-        var track = tracks[i];
-        track.enabled = track === this.track;
-      }
+      this.track.enabled = true;
     }
     /**
      * Handle any {@link AudioTrack} change.
@@ -19441,14 +20143,16 @@
       var rate = parseFloat(label, 10); // Modify options for parent MenuItem class's init.
 
       options.label = label;
-      options.selected = rate === 1;
+      options.selected = rate === player.playbackRate();
       options.selectable = true;
       options.multiSelectable = false;
       _this = _MenuItem.call(this, player, options) || this;
       _this.label = label;
       _this.rate = rate;
 
-      _this.on(player, 'ratechange', _this.update);
+      _this.on(player, 'ratechange', function (e) {
+        return _this.update(e);
+      });
 
       return _this;
     }
@@ -19522,13 +20226,23 @@
 
       _this = _MenuButton.call(this, player, options) || this;
 
+      _this.menuButton_.el_.setAttribute('aria-describedby', _this.labelElId_);
+
       _this.updateVisibility();
 
       _this.updateLabel();
 
-      _this.on(player, 'loadstart', _this.updateVisibility);
+      _this.on(player, 'loadstart', function (e) {
+        return _this.updateVisibility(e);
+      });
 
-      _this.on(player, 'ratechange', _this.updateLabel);
+      _this.on(player, 'ratechange', function (e) {
+        return _this.updateLabel(e);
+      });
+
+      _this.on(player, 'playbackrateschange', function (e) {
+        return _this.handlePlaybackRateschange(e);
+      });
 
       return _this;
     }
@@ -19545,8 +20259,10 @@
     _proto.createEl = function createEl$1() {
       var el = _MenuButton.prototype.createEl.call(this);
 
+      this.labelElId_ = 'vjs-playback-rate-value-label-' + this.id_;
       this.labelEl_ = createEl('div', {
         className: 'vjs-playback-rate-value',
+        id: this.labelElId_,
         innerHTML: '1x'
       });
       el.appendChild(this.labelEl_);
@@ -19574,26 +20290,22 @@
       return "vjs-playback-rate " + _MenuButton.prototype.buildWrapperCSSClass.call(this);
     }
     /**
-     * Create the playback rate menu
+     * Create the list of menu items. Specific to each subclass.
      *
-     * @return {Menu}
-     *         Menu object populated with {@link PlaybackRateMenuItem}s
      */
     ;
 
-    _proto.createMenu = function createMenu() {
-      var menu = new Menu(this.player());
+    _proto.createItems = function createItems() {
       var rates = this.playbackRates();
+      var items = [];
 
-      if (rates) {
-        for (var i = rates.length - 1; i >= 0; i--) {
-          menu.addChild(new PlaybackRateMenuItem(this.player(), {
-            rate: rates[i] + 'x'
-          }));
-        }
+      for (var i = rates.length - 1; i >= 0; i--) {
+        items.push(new PlaybackRateMenuItem(this.player(), {
+          rate: rates[i] + 'x'
+        }));
       }
 
-      return menu;
+      return items;
     }
     /**
      * Updates ARIA accessibility attributes
@@ -19634,6 +20346,16 @@
       this.player().playbackRate(newRate);
     }
     /**
+     * On playbackrateschange, update the menu to account for the new items.
+     *
+     * @listens Player#playbackrateschange
+     */
+    ;
+
+    _proto.handlePlaybackRateschange = function handlePlaybackRateschange(event) {
+      this.update();
+    }
+    /**
      * Get possible playback rates
      *
      * @return {Array}
@@ -19642,7 +20364,8 @@
     ;
 
     _proto.playbackRates = function playbackRates() {
-      return this.options_.playbackRates || this.options_.playerOptions && this.options_.playerOptions.playbackRates;
+      var player = this.player();
+      return player.playbackRates && player.playbackRates() || [];
     }
     /**
      * Get whether playback rates is supported by the tech
@@ -19836,7 +20559,7 @@
     children: ['playToggle', 'volumePanel', 'currentTimeDisplay', 'timeDivider', 'durationDisplay', 'progressControl', 'liveDisplay', 'seekToLive', 'remainingTimeDisplay', 'customControlSpacer', 'playbackRateMenuButton', 'chaptersButton', 'descriptionsButton', 'subsCapsButton', 'audioTrackButton', 'fullscreenToggle']
   };
 
-  if ('exitPictureInPicture' in document) {
+  if ('exitPictureInPicture' in document_1) {
     ControlBar.prototype.options_.children.splice(ControlBar.prototype.options_.children.length - 1, 0, 'pictureInPictureToggle');
   }
 
@@ -19866,7 +20589,9 @@
 
       _this = _ModalDialog.call(this, player, options) || this;
 
-      _this.on(player, 'error', _this.open);
+      _this.on(player, 'error', function (e) {
+        return _this.open(e);
+      });
 
       return _this;
     }
@@ -20101,7 +20826,7 @@
 
       options.temporary = false;
       _this = _ModalDialog.call(this, player, options) || this;
-      _this.updateDisplay = bind(assertThisInitialized(_this), _this.updateDisplay); // fill the modal and pretend we have opened it
+      _this.updateDisplay = _this.updateDisplay.bind(assertThisInitialized(_this)); // fill the modal and pretend we have opened it
 
       _this.fill();
 
@@ -20347,7 +21072,7 @@
       var values;
 
       try {
-        values = JSON.parse(window$1.localStorage.getItem(LOCAL_STORAGE_KEY));
+        values = JSON.parse(window_1.localStorage.getItem(LOCAL_STORAGE_KEY));
       } catch (err) {
         log.warn(err);
       }
@@ -20370,9 +21095,9 @@
 
       try {
         if (Object.keys(values).length) {
-          window$1.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values));
+          window_1.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(values));
         } else {
-          window$1.localStorage.removeItem(LOCAL_STORAGE_KEY);
+          window_1.localStorage.removeItem(LOCAL_STORAGE_KEY);
         }
       } catch (err) {
         log.warn(err);
@@ -20451,7 +21176,7 @@
     function ResizeManager(player, options) {
       var _this;
 
-      var RESIZE_OBSERVER_AVAILABLE = options.ResizeObserver || window$1.ResizeObserver; // if `null` was passed, we want to disable the ResizeObserver
+      var RESIZE_OBSERVER_AVAILABLE = options.ResizeObserver || window_1.ResizeObserver; // if `null` was passed, we want to disable the ResizeObserver
 
       if (options.ResizeObserver === null) {
         RESIZE_OBSERVER_AVAILABLE = false;
@@ -20463,7 +21188,7 @@
         reportTouchActivity: false
       }, options);
       _this = _Component.call(this, player, options_) || this;
-      _this.ResizeObserver = options.ResizeObserver || window$1.ResizeObserver;
+      _this.ResizeObserver = options.ResizeObserver || window_1.ResizeObserver;
       _this.loadListener_ = null;
       _this.resizeObserver_ = null;
       _this.debouncedHandler_ = debounce(function () {
@@ -20610,15 +21335,47 @@
       });
       _this = _Component.call(this, player, options_) || this;
 
+      _this.handleVisibilityChange_ = function (e) {
+        return _this.handleVisibilityChange(e);
+      };
+
+      _this.trackLiveHandler_ = function () {
+        return _this.trackLive_();
+      };
+
+      _this.handlePlay_ = function (e) {
+        return _this.handlePlay(e);
+      };
+
+      _this.handleFirstTimeupdate_ = function (e) {
+        return _this.handleFirstTimeupdate(e);
+      };
+
+      _this.handleSeeked_ = function (e) {
+        return _this.handleSeeked(e);
+      };
+
+      _this.seekToLiveEdge_ = function (e) {
+        return _this.seekToLiveEdge(e);
+      };
+
       _this.reset_();
 
-      _this.on(_this.player_, 'durationchange', _this.handleDurationchange); // we don't need to track live playback if the document is hidden,
+      _this.on(_this.player_, 'durationchange', function (e) {
+        return _this.handleDurationchange(e);
+      }); // we should try to toggle tracking on canplay as native playback engines, like Safari
+      // may not have the proper values for things like seekableEnd until then
+
+
+      _this.one(_this.player_, 'canplay', function () {
+        return _this.toggleTracking();
+      }); // we don't need to track live playback if the document is hidden,
       // also, tracking when the document is hidden can
       // cause the CPU to spike and eventually crash the page on IE11.
 
 
-      if (IE_VERSION && 'hidden' in document && 'visibilityState' in document) {
-        _this.on(document, 'visibilitychange', _this.handleVisibilityChange);
+      if (IE_VERSION && 'hidden' in document_1 && 'visibilityState' in document_1) {
+        _this.on(document_1, 'visibilitychange', _this.handleVisibilityChange_);
       }
 
       return _this;
@@ -20635,7 +21392,7 @@
         return;
       }
 
-      if (document.hidden) {
+      if (document_1.hidden) {
         this.stopTracking();
       } else {
         this.startTracking();
@@ -20654,7 +21411,7 @@
         return;
       }
 
-      var newTime = Number(window$1.performance.now().toFixed(4));
+      var newTime = Number(window_1.performance.now().toFixed(4));
       var deltaTime = this.lastTime_ === -1 ? 0 : (newTime - this.lastTime_) / 1000;
       this.lastTime_ = newTime;
       this.pastSeekEnd_ = this.pastSeekEnd() + deltaTime;
@@ -20667,7 +21424,7 @@
 
       var isBehind = this.player_.paused() || this.seekedBehindLive_ || Math.abs(liveCurrentTime - currentTime) > this.options_.liveTolerance; // we cannot be behind if
       // 1. until we have not seen a timeupdate yet
-      // 2. liveCurrentTime is Infinity, which happens on Android
+      // 2. liveCurrentTime is Infinity, which happens on Android and Native Safari
 
       if (!this.timeupdateSeen_ || liveCurrentTime === Infinity) {
         isBehind = false;
@@ -20685,6 +21442,14 @@
     ;
 
     _proto.handleDurationchange = function handleDurationchange() {
+      this.toggleTracking();
+    }
+    /**
+     * start/stop tracking
+     */
+    ;
+
+    _proto.toggleTracking = function toggleTracking() {
       if (this.player_.duration() === Infinity && this.liveWindow() >= this.options_.trackingThreshold) {
         if (this.player_.options_.liveui) {
           this.player_.addClass('vjs-liveui');
@@ -20713,15 +21478,15 @@
         this.timeupdateSeen_ = this.player_.hasStarted();
       }
 
-      this.trackingInterval_ = this.setInterval(this.trackLive_, UPDATE_REFRESH_INTERVAL);
+      this.trackingInterval_ = this.setInterval(this.trackLiveHandler_, UPDATE_REFRESH_INTERVAL);
       this.trackLive_();
-      this.on(this.player_, ['play', 'pause'], this.trackLive_);
+      this.on(this.player_, ['play', 'pause'], this.trackLiveHandler_);
 
       if (!this.timeupdateSeen_) {
-        this.one(this.player_, 'play', this.handlePlay);
-        this.one(this.player_, 'timeupdate', this.handleFirstTimeupdate);
+        this.one(this.player_, 'play', this.handlePlay_);
+        this.one(this.player_, 'timeupdate', this.handleFirstTimeupdate_);
       } else {
-        this.on(this.player_, 'seeked', this.handleSeeked);
+        this.on(this.player_, 'seeked', this.handleSeeked_);
       }
     }
     /**
@@ -20732,7 +21497,7 @@
 
     _proto.handleFirstTimeupdate = function handleFirstTimeupdate() {
       this.timeupdateSeen_ = true;
-      this.on(this.player_, 'seeked', this.handleSeeked);
+      this.on(this.player_, 'seeked', this.handleSeeked_);
     }
     /**
      * Keep track of what time a seek starts, and listen for seeked
@@ -20742,8 +21507,8 @@
 
     _proto.handleSeeked = function handleSeeked() {
       var timeDiff = Math.abs(this.liveCurrentTime() - this.player_.currentTime());
-      this.seekedBehindLive_ = this.skipNextSeeked_ ? false : timeDiff > 2;
-      this.skipNextSeeked_ = false;
+      this.seekedBehindLive_ = this.nextSeekedFromUser_ && timeDiff > 2;
+      this.nextSeekedFromUser_ = false;
       this.trackLive_();
     }
     /**
@@ -20753,7 +21518,7 @@
     ;
 
     _proto.handlePlay = function handlePlay() {
-      this.one(this.player_, 'timeupdate', this.seekToLiveEdge);
+      this.one(this.player_, 'timeupdate', this.seekToLiveEdge_);
     }
     /**
      * Stop tracking, and set all internal variables to
@@ -20768,14 +21533,24 @@
       this.behindLiveEdge_ = true;
       this.timeupdateSeen_ = false;
       this.seekedBehindLive_ = false;
-      this.skipNextSeeked_ = false;
+      this.nextSeekedFromUser_ = false;
       this.clearInterval(this.trackingInterval_);
       this.trackingInterval_ = null;
-      this.off(this.player_, ['play', 'pause'], this.trackLive_);
-      this.off(this.player_, 'seeked', this.handleSeeked);
-      this.off(this.player_, 'play', this.handlePlay);
-      this.off(this.player_, 'timeupdate', this.handleFirstTimeupdate);
-      this.off(this.player_, 'timeupdate', this.seekToLiveEdge);
+      this.off(this.player_, ['play', 'pause'], this.trackLiveHandler_);
+      this.off(this.player_, 'seeked', this.handleSeeked_);
+      this.off(this.player_, 'play', this.handlePlay_);
+      this.off(this.player_, 'timeupdate', this.handleFirstTimeupdate_);
+      this.off(this.player_, 'timeupdate', this.seekToLiveEdge_);
+    }
+    /**
+     * The next seeked event is from the user. Meaning that any seek
+     * > 2s behind live will be considered behind live for real and
+     * liveTolerance will be ignored.
+     */
+    ;
+
+    _proto.nextSeekedFromUser = function nextSeekedFromUser() {
+      this.nextSeekedFromUser_ = true;
     }
     /**
      * stop tracking live playback
@@ -20846,10 +21621,10 @@
     ;
 
     _proto.liveWindow = function liveWindow() {
-      var liveCurrentTime = this.liveCurrentTime();
+      var liveCurrentTime = this.liveCurrentTime(); // if liveCurrenTime is Infinity then we don't have a liveWindow at all
 
       if (liveCurrentTime === Infinity) {
-        return Infinity;
+        return 0;
       }
 
       return liveCurrentTime - this.seekableStart();
@@ -20938,10 +21713,9 @@
 
       if (this.atLiveEdge()) {
         return;
-      } // skipNextSeeked_
+      }
 
-
-      this.skipNextSeeked_ = true;
+      this.nextSeekedFromUser_ = false;
       this.player_.currentTime(this.liveCurrentTime());
     }
     /**
@@ -20950,7 +21724,7 @@
     ;
 
     _proto.dispose = function dispose() {
-      this.off(document, 'visibilitychange', this.handleVisibilityChange);
+      this.off(document_1, 'visibilitychange', this.handleVisibilityChange_);
       this.stopTracking();
 
       _Component.prototype.dispose.call(this);
@@ -21039,11 +21813,11 @@
     },
     set: function set(v) {
       // make a dummy node to use innerHTML on
-      var dummy = document.createElement(this.nodeName.toLowerCase()); // set innerHTML to the value provided
+      var dummy = document_1.createElement(this.nodeName.toLowerCase()); // set innerHTML to the value provided
 
       dummy.innerHTML = v; // make a document fragment to hold the nodes from dummy
 
-      var docFrag = document.createDocumentFragment(); // copy all of the nodes created by the innerHTML on dummy
+      var docFrag = document_1.createDocumentFragment(); // copy all of the nodes created by the innerHTML on dummy
       // to the document fragment
 
       while (dummy.childNodes.length) {
@@ -21054,7 +21828,7 @@
       this.innerText = ''; // now we add all of that html in one by appending the
       // document fragment. This is how innerHTML does it.
 
-      window$1.Element.prototype.appendChild.call(this, docFrag); // then return the result that innerHTML's setter would
+      window_1.Element.prototype.appendChild.call(this, docFrag); // then return the result that innerHTML's setter would
 
       return this.innerHTML;
     }
@@ -21081,7 +21855,7 @@
   };
 
   var getInnerHTMLDescriptor = function getInnerHTMLDescriptor(tech) {
-    return getDescriptor([tech.el(), window$1.HTMLMediaElement.prototype, window$1.Element.prototype, innerHTMLDescriptorPolyfill], 'innerHTML');
+    return getDescriptor([tech.el(), window_1.HTMLMediaElement.prototype, window_1.Element.prototype, innerHTMLDescriptorPolyfill], 'innerHTML');
   };
   /**
    * Patches browser internal functions so that we can tell synchronously
@@ -21160,19 +21934,19 @@
   var srcDescriptorPolyfill = Object.defineProperty({}, 'src', {
     get: function get() {
       if (this.hasAttribute('src')) {
-        return getAbsoluteURL(window$1.Element.prototype.getAttribute.call(this, 'src'));
+        return getAbsoluteURL(window_1.Element.prototype.getAttribute.call(this, 'src'));
       }
 
       return '';
     },
     set: function set(v) {
-      window$1.Element.prototype.setAttribute.call(this, 'src', v);
+      window_1.Element.prototype.setAttribute.call(this, 'src', v);
       return v;
     }
   });
 
   var getSrcDescriptor = function getSrcDescriptor(tech) {
-    return getDescriptor([tech.el(), window$1.HTMLMediaElement.prototype, srcDescriptorPolyfill], 'src');
+    return getDescriptor([tech.el(), window_1.HTMLMediaElement.prototype, srcDescriptorPolyfill], 'src');
   };
   /**
    * setup `sourceset` handling on the `Html5` tech. This function
@@ -21334,6 +22108,8 @@
       if (options.enableSourceset) {
         _this.setupSourcesetHandling_();
       }
+
+      _this.isScrubbing_ = false;
 
       if (_this.el_.hasChildNodes()) {
         var nodes = _this.el_.childNodes;
@@ -21671,7 +22447,7 @@
           Html5.disposeMediaElement(el);
           el = clone;
         } else {
-          el = document.createElement('video'); // determine if native controls should be used
+          el = document_1.createElement('video'); // determine if native controls should be used
 
           var tagAttributes = this.options_.tag && getAttributes(this.options_.tag);
           var attributes = mergeOptions({}, tagAttributes);
@@ -21825,6 +22601,18 @@
       this.isScrubbing_ = isScrubbing;
     }
     /**
+     * Get whether we are scrubbing or not.
+     *
+     * @return {boolean} isScrubbing
+     *                  - true for we are currently scrubbing
+     *                  - false for we are no longer scrubbing
+     */
+    ;
+
+    _proto.scrubbing = function scrubbing() {
+      return this.isScrubbing_;
+    }
+    /**
      * Set current time for the `HTML5` tech.
      *
      * @param {number} seconds
@@ -21954,7 +22742,7 @@
 
     _proto.supportsFullScreen = function supportsFullScreen() {
       if (typeof this.el_.webkitEnterFullScreen === 'function') {
-        var userAgent = window$1.navigator && window$1.navigator.userAgent || ''; // Seems to be broken in Chromium/Chrome && Safari in Leopard
+        var userAgent = window_1.navigator && window_1.navigator.userAgent || ''; // Seems to be broken in Chromium/Chrome && Safari in Leopard
 
         if (/Android/.test(userAgent) || !/Chrome|Mac OS X 10.5/.test(userAgent)) {
           return true;
@@ -22141,7 +22929,7 @@
         return _Tech.prototype.createRemoteTextTrack.call(this, options);
       }
 
-      var htmlTrackElement = document.createElement('track');
+      var htmlTrackElement = document_1.createElement('track');
 
       if (options.kind) {
         htmlTrackElement.kind = options.kind;
@@ -22237,10 +23025,10 @@
         videoPlaybackQuality.totalVideoFrames = this.el().webkitDecodedFrameCount;
       }
 
-      if (window$1.performance && typeof window$1.performance.now === 'function') {
-        videoPlaybackQuality.creationTime = window$1.performance.now();
-      } else if (window$1.performance && window$1.performance.timing && typeof window$1.performance.timing.navigationStart === 'number') {
-        videoPlaybackQuality.creationTime = window$1.Date.now() - window$1.performance.timing.navigationStart;
+      if (window_1.performance && typeof window_1.performance.now === 'function') {
+        videoPlaybackQuality.creationTime = window_1.performance.now();
+      } else if (window_1.performance && window_1.performance.timing && typeof window_1.performance.timing.navigationStart === 'number') {
+        videoPlaybackQuality.creationTime = window_1.Date.now() - window_1.performance.timing.navigationStart;
       }
 
       return videoPlaybackQuality;
@@ -22264,8 +23052,8 @@
       return;
     }
 
-    var video = document.createElement('video');
-    var track = document.createElement('track');
+    var video = document_1.createElement('video');
+    var track = document_1.createElement('track');
     track.kind = 'captions';
     track.srclang = 'en';
     track.label = 'English';
@@ -22407,19 +23195,19 @@
     try {
       var noop = function noop() {};
 
-      Object.defineProperty(document.createElement('video'), 'src', {
+      Object.defineProperty(document_1.createElement('video'), 'src', {
         get: noop,
         set: noop
       });
-      Object.defineProperty(document.createElement('audio'), 'src', {
+      Object.defineProperty(document_1.createElement('audio'), 'src', {
         get: noop,
         set: noop
       });
-      Object.defineProperty(document.createElement('video'), 'innerHTML', {
+      Object.defineProperty(document_1.createElement('video'), 'innerHTML', {
         get: noop,
         set: noop
       });
-      Object.defineProperty(document.createElement('audio'), 'innerHTML', {
+      Object.defineProperty(document_1.createElement('audio'), 'innerHTML', {
         get: noop,
         set: noop
       });
@@ -23613,12 +24401,54 @@
 
       _this = _Component.call(this, null, options, ready) || this; // Create bound methods for document listeners.
 
-      _this.boundDocumentFullscreenChange_ = bind(assertThisInitialized(_this), _this.documentFullscreenChange_);
-      _this.boundFullWindowOnEscKey_ = bind(assertThisInitialized(_this), _this.fullWindowOnEscKey); // default isFullscreen_ to false
+      _this.boundDocumentFullscreenChange_ = function (e) {
+        return _this.documentFullscreenChange_(e);
+      };
+
+      _this.boundFullWindowOnEscKey_ = function (e) {
+        return _this.fullWindowOnEscKey(e);
+      };
+
+      _this.boundUpdateStyleEl_ = function (e) {
+        return _this.updateStyleEl_(e);
+      };
+
+      _this.boundApplyInitTime_ = function (e) {
+        return _this.applyInitTime_(e);
+      };
+
+      _this.boundUpdateCurrentBreakpoint_ = function (e) {
+        return _this.updateCurrentBreakpoint_(e);
+      };
+
+      _this.boundHandleTechClick_ = function (e) {
+        return _this.handleTechClick_(e);
+      };
+
+      _this.boundHandleTechDoubleClick_ = function (e) {
+        return _this.handleTechDoubleClick_(e);
+      };
+
+      _this.boundHandleTechTouchStart_ = function (e) {
+        return _this.handleTechTouchStart_(e);
+      };
+
+      _this.boundHandleTechTouchMove_ = function (e) {
+        return _this.handleTechTouchMove_(e);
+      };
+
+      _this.boundHandleTechTouchEnd_ = function (e) {
+        return _this.handleTechTouchEnd_(e);
+      };
+
+      _this.boundHandleTechTap_ = function (e) {
+        return _this.handleTechTap_(e);
+      }; // default isFullscreen_ to false
+
 
       _this.isFullscreen_ = false; // create logger
 
-      _this.log = createLogger$1(_this.id_); // Hold our own reference to fullscreen api so it can be mocked in tests
+      _this.log = createLogger(_this.id_); // Hold our own reference to fullscreen api so it can be mocked in tests
 
       _this.fsApi_ = FullscreenApi; // Tracks when a tech changes the poster
 
@@ -23709,13 +24539,13 @@
       // our isFullscreen method is updated properly for internal components as well as external.
 
       if (_this.fsApi_.requestFullscreen) {
-        on(document, _this.fsApi_.fullscreenchange, _this.boundDocumentFullscreenChange_);
+        on(document_1, _this.fsApi_.fullscreenchange, _this.boundDocumentFullscreenChange_);
 
         _this.on(_this.fsApi_.fullscreenchange, _this.boundDocumentFullscreenChange_);
       }
 
       if (_this.fluid_) {
-        _this.on('playerreset', _this.updateStyleEl_);
+        _this.on(['playerreset', 'resize'], _this.boundUpdateStyleEl_);
       } // We also want to pass the original player options to each component and plugin
       // as well so they don't need to reach back into the player for options later.
       // We also need to do another copy of this.options_ so we don't end up with
@@ -23737,6 +24567,8 @@
 
       _this.options_.playerOptions = playerOptionsCopy;
       _this.middleware_ = [];
+
+      _this.playbackRates(options.playbackRates);
 
       _this.initChildren(); // Set isAudio based on whether or not an audio tag was used
 
@@ -23794,11 +24626,21 @@
 
       _this.reportUserActivity();
 
-      _this.one('play', _this.listenForUserActivity_);
+      _this.one('play', function (e) {
+        return _this.listenForUserActivity_(e);
+      });
 
-      _this.on('stageclick', _this.handleStageClick_);
+      _this.on('stageclick', function (e) {
+        return _this.handleStageClick_(e);
+      });
 
-      _this.on('keydown', _this.handleKeyDown);
+      _this.on('keydown', function (e) {
+        return _this.handleKeyDown(e);
+      });
+
+      _this.on('languagechange', function (e) {
+        return _this.handleLanguagechange(e);
+      });
 
       _this.breakpoints(_this.options_.breakpoints);
 
@@ -23831,8 +24673,8 @@
 
       this.off('dispose'); // Make sure all player-specific document listeners are unbound. This is
 
-      off(document, this.fsApi_.fullscreenchange, this.boundDocumentFullscreenChange_);
-      off(document, 'keydown', this.boundFullWindowOnEscKey_);
+      off(document_1, this.fsApi_.fullscreenchange, this.boundDocumentFullscreenChange_);
+      off(document_1, 'keydown', this.boundFullWindowOnEscKey_);
 
       if (this.styleEl_ && this.styleEl_.parentNode) {
         this.styleEl_.parentNode.removeChild(this.styleEl_);
@@ -23908,7 +24750,7 @@
 
       if (divEmbed) {
         el = this.el_ = tag;
-        tag = this.tag = document.createElement('video');
+        tag = this.tag = document_1.createElement('video');
 
         while (el.children.length) {
           tag.appendChild(el.firstChild);
@@ -23982,7 +24824,7 @@
       // of the player in a way that's still overrideable by CSS, just like the
       // video element
 
-      if (window$1.VIDEOJS_NO_DYNAMIC_STYLE !== true) {
+      if (window_1.VIDEOJS_NO_DYNAMIC_STYLE !== true) {
         this.styleEl_ = createStyleElement('vjs-styles-dimensions');
         var defaultsStyleEl = $('.vjs-styles-defaults');
         var head = $('head');
@@ -24147,6 +24989,8 @@
     ;
 
     _proto.fluid = function fluid(bool) {
+      var _this3 = this;
+
       if (bool === undefined) {
         return !!this.fluid_;
       }
@@ -24154,14 +24998,14 @@
       this.fluid_ = !!bool;
 
       if (isEvented(this)) {
-        this.off('playerreset', this.updateStyleEl_);
+        this.off(['playerreset', 'resize'], this.boundUpdateStyleEl_);
       }
 
       if (bool) {
         this.addClass('vjs-fluid');
         this.fill(false);
-        addEventedCallback(function () {
-          this.on('playerreset', this.updateStyleEl_);
+        addEventedCallback(this, function () {
+          _this3.on(['playerreset', 'resize'], _this3.boundUpdateStyleEl_);
         });
       } else {
         this.removeClass('vjs-fluid');
@@ -24246,7 +25090,7 @@
     ;
 
     _proto.updateStyleEl_ = function updateStyleEl_() {
-      if (window$1.VIDEOJS_NO_DYNAMIC_STYLE === true) {
+      if (window_1.VIDEOJS_NO_DYNAMIC_STYLE === true) {
         var _width = typeof this.width_ === 'number' ? this.width_ : this.options_.width;
 
         var _height = typeof this.height_ === 'number' ? this.height_ : this.options_.height;
@@ -24331,7 +25175,7 @@
     ;
 
     _proto.loadTech_ = function loadTech_(techName, source) {
-      var _this3 = this;
+      var _this4 = this;
 
       // Pause and remove current playback technology
       if (this.tech_) {
@@ -24349,10 +25193,14 @@
 
       this.techName_ = titleTechName; // Turn off API access because we're loading a new tech that might load asynchronously
 
-      this.isReady_ = false; // if autoplay is a string we pass false to the tech
+      this.isReady_ = false;
+      var autoplay = this.autoplay(); // if autoplay is a string (or `true` with normalizeAutoplay: true) we pass false to the tech
       // because the player is going to handle autoplay on `loadstart`
 
-      var autoplay = typeof this.autoplay() === 'string' ? false : this.autoplay(); // Grab tech-specific options from player options and add source and parent element to use.
+      if (typeof this.autoplay() === 'string' || this.autoplay() === true && this.options_.normalizeAutoplay) {
+        autoplay = false;
+      } // Grab tech-specific options from player options and add source and parent element to use.
+
 
       var techOptions = {
         source: source,
@@ -24375,7 +25223,7 @@
       };
       ALL.names.forEach(function (name) {
         var props = ALL[name];
-        techOptions[props.getterName] = _this3[props.privateName];
+        techOptions[props.getterName] = _this4[props.privateName];
       });
       assign(techOptions, this.options_[titleTechName]);
       assign(techOptions, this.options_[camelTechName]);
@@ -24402,40 +25250,76 @@
       textTrackConverter.jsonToTextTracks(this.textTracksJson_ || [], this.tech_); // Listen to all HTML5-defined events and trigger them on the player
 
       TECH_EVENTS_RETRIGGER.forEach(function (event) {
-        _this3.on(_this3.tech_, event, _this3["handleTech" + toTitleCase(event) + "_"]);
+        _this4.on(_this4.tech_, event, function (e) {
+          return _this4["handleTech" + toTitleCase(event) + "_"](e);
+        });
       });
       Object.keys(TECH_EVENTS_QUEUE).forEach(function (event) {
-        _this3.on(_this3.tech_, event, function (eventObj) {
-          if (_this3.tech_.playbackRate() === 0 && _this3.tech_.seeking()) {
-            _this3.queuedCallbacks_.push({
-              callback: _this3["handleTech" + TECH_EVENTS_QUEUE[event] + "_"].bind(_this3),
+        _this4.on(_this4.tech_, event, function (eventObj) {
+          if (_this4.tech_.playbackRate() === 0 && _this4.tech_.seeking()) {
+            _this4.queuedCallbacks_.push({
+              callback: _this4["handleTech" + TECH_EVENTS_QUEUE[event] + "_"].bind(_this4),
               event: eventObj
             });
 
             return;
           }
 
-          _this3["handleTech" + TECH_EVENTS_QUEUE[event] + "_"](eventObj);
+          _this4["handleTech" + TECH_EVENTS_QUEUE[event] + "_"](eventObj);
         });
       });
-      this.on(this.tech_, 'loadstart', this.handleTechLoadStart_);
-      this.on(this.tech_, 'sourceset', this.handleTechSourceset_);
-      this.on(this.tech_, 'waiting', this.handleTechWaiting_);
-      this.on(this.tech_, 'ended', this.handleTechEnded_);
-      this.on(this.tech_, 'seeking', this.handleTechSeeking_);
-      this.on(this.tech_, 'play', this.handleTechPlay_);
-      this.on(this.tech_, 'firstplay', this.handleTechFirstPlay_);
-      this.on(this.tech_, 'pause', this.handleTechPause_);
-      this.on(this.tech_, 'durationchange', this.handleTechDurationChange_);
-      this.on(this.tech_, 'fullscreenchange', this.handleTechFullscreenChange_);
-      this.on(this.tech_, 'fullscreenerror', this.handleTechFullscreenError_);
-      this.on(this.tech_, 'enterpictureinpicture', this.handleTechEnterPictureInPicture_);
-      this.on(this.tech_, 'leavepictureinpicture', this.handleTechLeavePictureInPicture_);
-      this.on(this.tech_, 'error', this.handleTechError_);
-      this.on(this.tech_, 'loadedmetadata', this.updateStyleEl_);
-      this.on(this.tech_, 'posterchange', this.handleTechPosterChange_);
-      this.on(this.tech_, 'textdata', this.handleTechTextData_);
-      this.on(this.tech_, 'ratechange', this.handleTechRateChange_);
+      this.on(this.tech_, 'loadstart', function (e) {
+        return _this4.handleTechLoadStart_(e);
+      });
+      this.on(this.tech_, 'sourceset', function (e) {
+        return _this4.handleTechSourceset_(e);
+      });
+      this.on(this.tech_, 'waiting', function (e) {
+        return _this4.handleTechWaiting_(e);
+      });
+      this.on(this.tech_, 'ended', function (e) {
+        return _this4.handleTechEnded_(e);
+      });
+      this.on(this.tech_, 'seeking', function (e) {
+        return _this4.handleTechSeeking_(e);
+      });
+      this.on(this.tech_, 'play', function (e) {
+        return _this4.handleTechPlay_(e);
+      });
+      this.on(this.tech_, 'firstplay', function (e) {
+        return _this4.handleTechFirstPlay_(e);
+      });
+      this.on(this.tech_, 'pause', function (e) {
+        return _this4.handleTechPause_(e);
+      });
+      this.on(this.tech_, 'durationchange', function (e) {
+        return _this4.handleTechDurationChange_(e);
+      });
+      this.on(this.tech_, 'fullscreenchange', function (e, data) {
+        return _this4.handleTechFullscreenChange_(e, data);
+      });
+      this.on(this.tech_, 'fullscreenerror', function (e, err) {
+        return _this4.handleTechFullscreenError_(e, err);
+      });
+      this.on(this.tech_, 'enterpictureinpicture', function (e) {
+        return _this4.handleTechEnterPictureInPicture_(e);
+      });
+      this.on(this.tech_, 'leavepictureinpicture', function (e) {
+        return _this4.handleTechLeavePictureInPicture_(e);
+      });
+      this.on(this.tech_, 'error', function (e) {
+        return _this4.handleTechError_(e);
+      });
+      this.on(this.tech_, 'posterchange', function (e) {
+        return _this4.handleTechPosterChange_(e);
+      });
+      this.on(this.tech_, 'textdata', function (e) {
+        return _this4.handleTechTextData_(e);
+      });
+      this.on(this.tech_, 'ratechange', function (e) {
+        return _this4.handleTechRateChange_(e);
+      });
+      this.on(this.tech_, 'loadedmetadata', this.boundUpdateStyleEl_);
       this.usingNativeControls(this.techGet_('controls'));
 
       if (this.controls() && !this.usingNativeControls()) {
@@ -24462,12 +25346,12 @@
     ;
 
     _proto.unloadTech_ = function unloadTech_() {
-      var _this4 = this;
+      var _this5 = this;
 
       // Save the current text tracks so that we can reuse the same text tracks with the next tech
       ALL.names.forEach(function (name) {
         var props = ALL[name];
-        _this4[props.privateName] = _this4[props.getterName]();
+        _this5[props.privateName] = _this5[props.getterName]();
       });
       this.textTracksJson_ = textTrackConverter.textTracksToJson(this.tech_);
       this.isReady_ = false;
@@ -24529,19 +25413,20 @@
       this.removeTechControlsListeners_(); // Some browsers (Chrome & IE) don't trigger a click on a flash swf, but do
       // trigger mousedown/up.
       // http://stackoverflow.com/questions/1444562/javascript-onclick-event-over-flash-object
+      // TODO: Is this needed for any techs other than Flash?
       // Any touch events are set to block the mousedown event from happening
 
-      this.on(this.tech_, 'mouseup', this.handleTechClick_);
-      this.on(this.tech_, 'dblclick', this.handleTechDoubleClick_); // If the controls were hidden we don't want that to change without a tap event
+      this.on(this.tech_, 'mouseup', this.boundHandleTechClick_);
+      this.on(this.tech_, 'dblclick', this.boundHandleTechDoubleClick_); // If the controls were hidden we don't want that to change without a tap event
       // so we'll check if the controls were already showing before reporting user
       // activity
 
-      this.on(this.tech_, 'touchstart', this.handleTechTouchStart_);
-      this.on(this.tech_, 'touchmove', this.handleTechTouchMove_);
-      this.on(this.tech_, 'touchend', this.handleTechTouchEnd_); // The tap listener needs to come after the touchend listener because the tap
+      this.on(this.tech_, 'touchstart', this.boundHandleTechTouchStart_);
+      this.on(this.tech_, 'touchmove', this.boundHandleTechTouchMove_);
+      this.on(this.tech_, 'touchend', this.boundHandleTechTouchEnd_); // The tap listener needs to come after the touchend listener because the tap
       // listener cancels out any reportedUserActivity when setting userActive(false)
 
-      this.on(this.tech_, 'tap', this.handleTechTap_);
+      this.on(this.tech_, 'tap', this.boundHandleTechTap_);
     }
     /**
      * Remove the listeners used for click and tap controls. This is needed for
@@ -24554,12 +25439,12 @@
     _proto.removeTechControlsListeners_ = function removeTechControlsListeners_() {
       // We don't want to just use `this.off()` because there might be other needed
       // listeners added by techs that extend this.
-      this.off(this.tech_, 'tap', this.handleTechTap_);
-      this.off(this.tech_, 'touchstart', this.handleTechTouchStart_);
-      this.off(this.tech_, 'touchmove', this.handleTechTouchMove_);
-      this.off(this.tech_, 'touchend', this.handleTechTouchEnd_);
-      this.off(this.tech_, 'mouseup', this.handleTechClick_);
-      this.off(this.tech_, 'dblclick', this.handleTechDoubleClick_);
+      this.off(this.tech_, 'tap', this.boundHandleTechTap_);
+      this.off(this.tech_, 'touchstart', this.boundHandleTechTouchStart_);
+      this.off(this.tech_, 'touchmove', this.boundHandleTechTouchMove_);
+      this.off(this.tech_, 'touchend', this.boundHandleTechTouchEnd_);
+      this.off(this.tech_, 'mouseup', this.boundHandleTechClick_);
+      this.off(this.tech_, 'dblclick', this.boundHandleTechDoubleClick_);
     }
     /**
      * Player waits for the tech to be ready
@@ -24620,7 +25505,7 @@
       // so we mimic that behavior
 
 
-      this.manualAutoplay_(this.autoplay());
+      this.manualAutoplay_(this.autoplay() === true && this.options_.normalizeAutoplay ? 'play' : this.autoplay());
     }
     /**
      * Handle autoplay string values, rather than the typical boolean
@@ -24631,44 +25516,49 @@
     ;
 
     _proto.manualAutoplay_ = function manualAutoplay_(type) {
-      var _this5 = this;
+      var _this6 = this;
 
       if (!this.tech_ || typeof type !== 'string') {
         return;
-      }
+      } // Save original muted() value, set muted to true, and attempt to play().
+      // On promise rejection, restore muted from saved value
 
-      var muted = function muted() {
-        var previouslyMuted = _this5.muted();
 
-        _this5.muted(true);
+      var resolveMuted = function resolveMuted() {
+        var previouslyMuted = _this6.muted();
+
+        _this6.muted(true);
 
         var restoreMuted = function restoreMuted() {
-          _this5.muted(previouslyMuted);
+          _this6.muted(previouslyMuted);
         }; // restore muted on play terminatation
 
 
-        _this5.playTerminatedQueue_.push(restoreMuted);
+        _this6.playTerminatedQueue_.push(restoreMuted);
 
-        var mutedPromise = _this5.play();
+        var mutedPromise = _this6.play();
 
         if (!isPromise(mutedPromise)) {
           return;
         }
 
-        return mutedPromise["catch"](restoreMuted);
+        return mutedPromise["catch"](function (err) {
+          restoreMuted();
+          throw new Error("Rejection at manualAutoplay. Restoring muted value. " + (err ? err : ''));
+        });
       };
 
       var promise; // if muted defaults to true
       // the only thing we can do is call play
 
-      if (type === 'any' && this.muted() !== true) {
+      if (type === 'any' && !this.muted()) {
         promise = this.play();
 
         if (isPromise(promise)) {
-          promise = promise["catch"](muted);
+          promise = promise["catch"](resolveMuted);
         }
-      } else if (type === 'muted' && this.muted() !== true) {
-        promise = muted();
+      } else if (type === 'muted' && !this.muted()) {
+        promise = resolveMuted();
       } else {
         promise = this.play();
       }
@@ -24678,12 +25568,12 @@
       }
 
       return promise.then(function () {
-        _this5.trigger({
+        _this6.trigger({
           type: 'autoplay-success',
           autoplay: type
         });
-      })["catch"](function (e) {
-        _this5.trigger({
+      })["catch"](function () {
+        _this6.trigger({
           type: 'autoplay-failure',
           autoplay: type
         });
@@ -24796,13 +25686,13 @@
     ;
 
     _proto.handleTechSourceset_ = function handleTechSourceset_(event) {
-      var _this6 = this;
+      var _this7 = this;
 
       // only update the source cache when the source
       // was not updated using the player api
       if (!this.changingSrc_) {
         var updateSourceCaches = function updateSourceCaches(src) {
-          return _this6.updateSourceCaches_(src);
+          return _this7.updateSourceCaches_(src);
         };
 
         var playerSrc = this.currentSource().src;
@@ -24831,11 +25721,11 @@
               return;
             }
 
-            var techSrc = _this6.techGet('currentSrc');
+            var techSrc = _this7.techGet('currentSrc');
 
-            _this6.lastSource_.tech = techSrc;
+            _this7.lastSource_.tech = techSrc;
 
-            _this6.updateSourceCaches_(techSrc);
+            _this7.updateSourceCaches_(techSrc);
           });
         }
       }
@@ -24949,7 +25839,7 @@
     ;
 
     _proto.handleTechWaiting_ = function handleTechWaiting_() {
-      var _this7 = this;
+      var _this8 = this;
 
       this.addClass('vjs-waiting');
       /**
@@ -24965,10 +25855,10 @@
       var timeWhenWaiting = this.currentTime();
 
       var timeUpdateListener = function timeUpdateListener() {
-        if (timeWhenWaiting !== _this7.currentTime()) {
-          _this7.removeClass('vjs-waiting');
+        if (timeWhenWaiting !== _this8.currentTime()) {
+          _this8.removeClass('vjs-waiting');
 
-          _this7.off('timeupdate', timeUpdateListener);
+          _this8.off('timeupdate', timeUpdateListener);
         }
       };
 
@@ -25141,6 +26031,7 @@
 
     _proto.handleTechEnded_ = function handleTechEnded_() {
       this.addClass('vjs-ended');
+      this.removeClass('vjs-waiting');
 
       if (this.options_.loop) {
         this.currentTime(0);
@@ -25288,7 +26179,9 @@
 
     _proto.handleTechTouchEnd_ = function handleTechTouchEnd_(event) {
       // Stop the mouse events from also happening
-      event.preventDefault();
+      if (event.cancelable) {
+        event.preventDefault();
+      }
     }
     /**
      * native click events on the SWF aren't triggered on IE11, Win8.1RT
@@ -25328,7 +26221,7 @@
       }
 
       var el = this.el();
-      var isFs = document[this.fsApi_.fullscreenElement] === el;
+      var isFs = document_1[this.fsApi_.fullscreenElement] === el;
 
       if (!isFs && el.matches) {
         isFs = el.matches(':' + this.fsApi_.fullscreen);
@@ -25480,6 +26373,7 @@
         src: '',
         source: {},
         sources: [],
+        playbackRates: [],
         volume: 1
       };
     }
@@ -25539,6 +26433,7 @@
         return mediate(this.middleware_, this.tech_, method);
       } // Flash likes to die and reload when you hide or reposition it.
       // In these cases the object methods go away and we get errors.
+      // TODO: Is this needed for techs other than Flash?
       // When that happens we'll catch the errors and inform tech that it's not ready any more.
 
 
@@ -25576,13 +26471,13 @@
     ;
 
     _proto.play = function play() {
-      var _this8 = this;
+      var _this9 = this;
 
-      var PromiseClass = this.options_.Promise || window$1.Promise;
+      var PromiseClass = this.options_.Promise || window_1.Promise;
 
       if (PromiseClass) {
         return new PromiseClass(function (resolve) {
-          _this8.play_(resolve);
+          _this9.play_(resolve);
         });
       }
 
@@ -25600,7 +26495,7 @@
     ;
 
     _proto.play_ = function play_(callback) {
-      var _this9 = this;
+      var _this10 = this;
 
       if (callback === void 0) {
         callback = silencePromise;
@@ -25618,7 +26513,7 @@
 
       if (!this.isReady_ || !isSrcReady) {
         this.waitToPlay_ = function (e) {
-          _this9.play_();
+          _this10.play_();
         };
 
         this.one(['ready', 'loadstart'], this.waitToPlay_); // if we are in Safari, there is a high chance that loadstart will trigger after the gesture timeperiod
@@ -25757,8 +26652,8 @@
 
         if (!this.isReady_ || this.changingSrc_ || !this.tech_ || !this.tech_.isReady_) {
           this.cache_.initTime = seconds;
-          this.off('canplay', this.applyInitTime_);
-          this.one('canplay', this.applyInitTime_);
+          this.off('canplay', this.boundApplyInitTime_);
+          this.one('canplay', this.boundApplyInitTime_);
           return;
         }
 
@@ -25791,7 +26686,7 @@
      * in all but the rarest use cases an argument will NOT be passed to the method
      *
      * > **NOTE**: The video must have started loading before the duration can be
-     * known, and in the case of Flash, may not be known until the video starts
+     * known, and depending on preload behaviour may not be known until the video starts
      * playing.
      *
      * @fires Player#durationchange
@@ -25818,6 +26713,7 @@
 
       if (seconds !== this.cache_.duration) {
         // Cache the last set value for optimized scrubbing (esp. Flash)
+        // TODO: Required for techs other than Flash?
         this.cache_.duration = seconds;
 
         if (seconds === Infinity) {
@@ -26034,7 +26930,7 @@
     }
     /**
      * Check if current tech can support native fullscreen
-     * (e.g. with built in controls like iOS, so not our flash swf)
+     * (e.g. with built in controls like iOS)
      *
      * @return {boolean}
      *         if native fullscreen is supported
@@ -26099,7 +26995,7 @@
     ;
 
     _proto.requestFullscreen = function requestFullscreen(fullscreenOptions) {
-      var PromiseClass = this.options_.Promise || window$1.Promise;
+      var PromiseClass = this.options_.Promise || window_1.Promise;
 
       if (PromiseClass) {
         var self = this;
@@ -26125,7 +27021,7 @@
 
           if (promise) {
             promise.then(offHandler, offHandler);
-            return promise;
+            promise.then(resolve, reject);
           }
         });
       }
@@ -26134,7 +27030,7 @@
     };
 
     _proto.requestFullscreenHelper_ = function requestFullscreenHelper_(fullscreenOptions) {
-      var _this10 = this;
+      var _this11 = this;
 
       var fsOptions; // Only pass fullscreen options to requestFullscreen in spec-compliant browsers.
       // Use defaults or player configured option unless passed directly to this method.
@@ -26159,14 +27055,14 @@
 
         if (promise) {
           promise.then(function () {
-            return _this10.isFullscreen(true);
+            return _this11.isFullscreen(true);
           }, function () {
-            return _this10.isFullscreen(false);
+            return _this11.isFullscreen(false);
           });
         }
 
         return promise;
-      } else if (this.tech_.supportsFullScreen()) {
+      } else if (this.tech_.supportsFullScreen() && !this.options_.preferFullWindow === true) {
         // we can't take the video.js controls fullscreen but we can go fullscreen
         // with native controls
         this.techCall_('enterFullScreen');
@@ -26184,7 +27080,7 @@
     ;
 
     _proto.exitFullscreen = function exitFullscreen() {
-      var PromiseClass = this.options_.Promise || window$1.Promise;
+      var PromiseClass = this.options_.Promise || window_1.Promise;
 
       if (PromiseClass) {
         var self = this;
@@ -26209,8 +27105,9 @@
           var promise = self.exitFullscreenHelper_();
 
           if (promise) {
-            promise.then(offHandler, offHandler);
-            return promise;
+            promise.then(offHandler, offHandler); // map the promise to our resolve/reject methods
+
+            promise.then(resolve, reject);
           }
         });
       }
@@ -26219,19 +27116,21 @@
     };
 
     _proto.exitFullscreenHelper_ = function exitFullscreenHelper_() {
-      var _this11 = this;
+      var _this12 = this;
 
       if (this.fsApi_.requestFullscreen) {
-        var promise = document[this.fsApi_.exitFullscreen]();
+        var promise = document_1[this.fsApi_.exitFullscreen]();
 
         if (promise) {
-          promise.then(function () {
-            return _this11.isFullscreen(false);
-          });
+          // we're splitting the promise here, so, we want to catch the
+          // potential error so that this chain doesn't have unhandled errors
+          silencePromise(promise.then(function () {
+            return _this12.isFullscreen(false);
+          }));
         }
 
         return promise;
-      } else if (this.tech_.supportsFullScreen()) {
+      } else if (this.tech_.supportsFullScreen() && !this.options_.preferFullWindow === true) {
         this.techCall_('exitFullScreen');
       } else {
         this.exitFullWindow();
@@ -26249,13 +27148,13 @@
       this.isFullscreen(true);
       this.isFullWindow = true; // Storing original doc overflow value to return to when fullscreen is off
 
-      this.docOrigOverflow = document.documentElement.style.overflow; // Add listener for esc key to exit fullscreen
+      this.docOrigOverflow = document_1.documentElement.style.overflow; // Add listener for esc key to exit fullscreen
 
-      on(document, 'keydown', this.boundFullWindowOnEscKey_); // Hide any scroll bars
+      on(document_1, 'keydown', this.boundFullWindowOnEscKey_); // Hide any scroll bars
 
-      document.documentElement.style.overflow = 'hidden'; // Apply fullscreen styles
+      document_1.documentElement.style.overflow = 'hidden'; // Apply fullscreen styles
 
-      addClass(document.body, 'vjs-full-window');
+      addClass(document_1.body, 'vjs-full-window');
       /**
        * @event Player#enterFullWindow
        * @type {EventTarget~Event}
@@ -26275,9 +27174,11 @@
     _proto.fullWindowOnEscKey = function fullWindowOnEscKey(event) {
       if (keycode.isEventKey(event, 'Esc')) {
         if (this.isFullscreen() === true) {
-          this.exitFullscreen();
-        } else {
-          this.exitFullWindow();
+          if (!this.isFullWindow) {
+            this.exitFullscreen();
+          } else {
+            this.exitFullWindow();
+          }
         }
       }
     }
@@ -26291,11 +27192,11 @@
     _proto.exitFullWindow = function exitFullWindow() {
       this.isFullscreen(false);
       this.isFullWindow = false;
-      off(document, 'keydown', this.boundFullWindowOnEscKey_); // Unhide scroll bars.
+      off(document_1, 'keydown', this.boundFullWindowOnEscKey_); // Unhide scroll bars.
 
-      document.documentElement.style.overflow = this.docOrigOverflow; // Remove fullscreen styles
+      document_1.documentElement.style.overflow = this.docOrigOverflow; // Remove fullscreen styles
 
-      removeClass(document.body, 'vjs-full-window'); // Resize the box, controller, and poster to original sizes
+      removeClass(document_1.body, 'vjs-full-window'); // Resize the box, controller, and poster to original sizes
       // this.positionAll();
 
       /**
@@ -26360,7 +27261,7 @@
     ;
 
     _proto.requestPictureInPicture = function requestPictureInPicture() {
-      if ('pictureInPictureEnabled' in document && this.disablePictureInPicture() === false) {
+      if ('pictureInPictureEnabled' in document_1 && this.disablePictureInPicture() === false) {
         /**
          * This event fires when the player enters picture in picture mode
          *
@@ -26383,14 +27284,14 @@
     ;
 
     _proto.exitPictureInPicture = function exitPictureInPicture() {
-      if ('pictureInPictureEnabled' in document) {
+      if ('pictureInPictureEnabled' in document_1) {
         /**
          * This event fires when the player leaves picture in picture mode
          *
          * @event Player#leavepictureinpicture
          * @type {EventTarget~Event}
          */
-        return document.exitPictureInPicture();
+        return document_1.exitPictureInPicture();
       }
     }
     /**
@@ -26480,7 +27381,7 @@
         event.stopPropagation();
         var FSToggle = Component.getComponent('FullscreenToggle');
 
-        if (document[this.fsApi_.fullscreenEnabled] !== false) {
+        if (document_1[this.fsApi_.fullscreenEnabled] !== false) {
           FSToggle.prototype.handleClick.call(this, event);
         }
       } else if (muteKey.call(this, event)) {
@@ -26552,7 +27453,7 @@
     ;
 
     _proto.selectSource = function selectSource(sources) {
-      var _this12 = this;
+      var _this13 = this;
 
       // Get only the techs specified in `techOrder` that exist and are supported by the
       // current platform
@@ -26600,7 +27501,7 @@
         var techName = _ref2[0],
             tech = _ref2[1];
 
-        if (tech.canPlaySource(source, _this12.options_[techName.toLowerCase()])) {
+        if (tech.canPlaySource(source, _this13.options_[techName.toLowerCase()])) {
           return {
             source: source,
             tech: techName
@@ -26621,7 +27522,7 @@
       return foundSourceAndTech || false;
     }
     /**
-     * Get or set the video source.
+     * Executes source setting and getting logic
      *
      * @param {Tech~SourceObject|Tech~SourceObject[]|string} [source]
      *        A SourceObject, an array of SourceObjects, or a string referencing
@@ -26630,6 +27531,8 @@
      *        algorithms can take the `type` into account.
      *
      *        If not provided, this method acts as a getter.
+     * @param {boolean} isRetry
+     *        Indicates whether this is being called internally as a result of a retry
      *
      * @return {string|undefined}
      *         If the `source` argument is missing, returns the current source
@@ -26637,12 +27540,17 @@
      */
     ;
 
-    _proto.src = function src(source) {
-      var _this13 = this;
+    _proto.handleSrc_ = function handleSrc_(source, isRetry) {
+      var _this14 = this;
 
       // getter usage
       if (typeof source === 'undefined') {
         return this.cache_.src || '';
+      } // Reset retry behavior for new source
+
+
+      if (this.resetRetryOnError_) {
+        this.resetRetryOnError_();
       } // filter out invalid sources and turn our source into
       // an array of source objects
 
@@ -26662,28 +27570,35 @@
       } // initial sources
 
 
-      this.changingSrc_ = true;
-      this.cache_.sources = sources;
+      this.changingSrc_ = true; // Only update the cached source list if we are not retrying a new source after error,
+      // since in that case we want to include the failed source(s) in the cache
+
+      if (!isRetry) {
+        this.cache_.sources = sources;
+      }
+
       this.updateSourceCaches_(sources[0]); // middlewareSource is the source after it has been changed by middleware
 
       setSource(this, sources[0], function (middlewareSource, mws) {
-        _this13.middleware_ = mws; // since sourceSet is async we have to update the cache again after we select a source since
+        _this14.middleware_ = mws; // since sourceSet is async we have to update the cache again after we select a source since
         // the source that is selected could be out of order from the cache update above this callback.
 
-        _this13.cache_.sources = sources;
+        if (!isRetry) {
+          _this14.cache_.sources = sources;
+        }
 
-        _this13.updateSourceCaches_(middlewareSource);
+        _this14.updateSourceCaches_(middlewareSource);
 
-        var err = _this13.src_(middlewareSource);
+        var err = _this14.src_(middlewareSource);
 
         if (err) {
           if (sources.length > 1) {
-            return _this13.src(sources.slice(1));
+            return _this14.handleSrc_(sources.slice(1));
           }
 
-          _this13.changingSrc_ = false; // We need to wrap this in a timeout to give folks a chance to add error event handlers
+          _this14.changingSrc_ = false; // We need to wrap this in a timeout to give folks a chance to add error event handlers
 
-          _this13.setTimeout(function () {
+          _this14.setTimeout(function () {
             this.error({
               code: 4,
               message: this.localize(this.options_.notSupportedMessage)
@@ -26692,13 +27607,55 @@
           // this needs a better comment about why this is needed
 
 
-          _this13.triggerReady();
+          _this14.triggerReady();
 
           return;
         }
 
-        setTech(mws, _this13.tech_);
-      });
+        setTech(mws, _this14.tech_);
+      }); // Try another available source if this one fails before playback.
+
+      if (this.options_.retryOnError && sources.length > 1) {
+        var retry = function retry() {
+          // Remove the error modal
+          _this14.error(null);
+
+          _this14.handleSrc_(sources.slice(1), true);
+        };
+
+        var stopListeningForErrors = function stopListeningForErrors() {
+          _this14.off('error', retry);
+        };
+
+        this.one('error', retry);
+        this.one('playing', stopListeningForErrors);
+
+        this.resetRetryOnError_ = function () {
+          _this14.off('error', retry);
+
+          _this14.off('playing', stopListeningForErrors);
+        };
+      }
+    }
+    /**
+     * Get or set the video source.
+     *
+     * @param {Tech~SourceObject|Tech~SourceObject[]|string} [source]
+     *        A SourceObject, an array of SourceObjects, or a string referencing
+     *        a URL to a media source. It is _highly recommended_ that an object
+     *        or array of objects is used here, so that source selection
+     *        algorithms can take the `type` into account.
+     *
+     *        If not provided, this method acts as a getter.
+     *
+     * @return {string|undefined}
+     *         If the `source` argument is missing, returns the current source
+     *         URL. Otherwise, returns nothing/undefined.
+     */
+    ;
+
+    _proto.src = function src(source) {
+      return this.handleSrc_(source, false);
     }
     /**
      * Set the source object on the tech, returns a boolean that indicates whether
@@ -26716,7 +27673,7 @@
     ;
 
     _proto.src_ = function src_(source) {
-      var _this14 = this;
+      var _this15 = this;
 
       var sourceTech = this.selectSource([source]);
 
@@ -26729,7 +27686,7 @@
 
         this.loadTech_(sourceTech.tech, sourceTech.source);
         this.tech_.ready(function () {
-          _this14.changingSrc_ = false;
+          _this15.changingSrc_ = false;
         });
         return false;
       } // wait until the tech is ready to set the source
@@ -26767,16 +27724,16 @@
     ;
 
     _proto.reset = function reset() {
-      var _this15 = this;
+      var _this16 = this;
 
-      var PromiseClass = this.options_.Promise || window$1.Promise;
+      var PromiseClass = this.options_.Promise || window_1.Promise;
 
       if (this.paused() || !PromiseClass) {
         this.doReset_();
       } else {
         var playPromise = this.play();
         silencePromise(playPromise.then(function () {
-          return _this15.doReset_();
+          return _this16.doReset_();
         }));
       }
     };
@@ -26943,11 +27900,11 @@
         return this.options_.autoplay || false;
       }
 
-      var techAutoplay; // if the value is a valid string set it to that
+      var techAutoplay; // if the value is a valid string set it to that, or normalize `true` to 'play', if need be
 
-      if (typeof value === 'string' && /(any|play|muted)/.test(value)) {
+      if (typeof value === 'string' && /(any|play|muted)/.test(value) || value === true && this.options_.normalizeAutoplay) {
         this.options_.autoplay = value;
-        this.manualAutoplay_(value);
+        this.manualAutoplay_(typeof value === 'string' ? value : 'play');
         techAutoplay = false; // any falsy value sets autoplay to false in the browser,
         // lets do the same
       } else if (!value) {
@@ -27143,7 +28100,7 @@
     }
     /**
      * Toggle native controls on/off. Native controls are the controls built into
-     * devices (e.g. default iPhone controls), Flash, or other techs
+     * devices (e.g. default iPhone controls) or other techs
      * (e.g. Vimeo Controls)
      * **This should only be set by the current tech, because only the tech knows
      * if it can support native controls**
@@ -27631,10 +28588,15 @@
       return this.tech_ && this.tech_.videoHeight && this.tech_.videoHeight() || 0;
     }
     /**
-     * The player's language code
-     * NOTE: The language should be set in the player options if you want the
-     * the controls to be built with a specific language. Changing the language
-     * later will not update controls text.
+     * The player's language code.
+     *
+     * Changing the langauge will trigger
+     * [languagechange]{@link Player#event:languagechange}
+     * which Components can use to update control text.
+     * ClickableComponent will update its control text by default on
+     * [languagechange]{@link Player#event:languagechange}.
+     *
+     * @fires Player#languagechange
      *
      * @param {string} [code]
      *        the language code to set the player to
@@ -27649,7 +28611,19 @@
         return this.language_;
       }
 
-      this.language_ = String(code).toLowerCase();
+      if (this.language_ !== String(code).toLowerCase()) {
+        this.language_ = String(code).toLowerCase(); // during first init, it's possible some things won't be evented
+
+        if (isEvented(this)) {
+          /**
+          * fires when the player language change
+          *
+          * @event Player#languagechange
+          * @type {EventTarget~Event}
+          */
+          this.trigger('languagechange');
+        }
+      }
     }
     /**
      * Get the player's language dictionary
@@ -27707,14 +28681,14 @@
     ;
 
     _proto.createModal = function createModal(content, options) {
-      var _this16 = this;
+      var _this17 = this;
 
       options = options || {};
       options.content = content || '';
       var modal = new ModalDialog(this, options);
       this.addChild(modal);
       modal.on('dispose', function () {
-        _this16.removeChild(modal);
+        _this17.removeChild(modal);
       });
       modal.open();
       return modal;
@@ -27854,10 +28828,10 @@
       // player is now responsive.
 
       if (value) {
-        this.on('playerresize', this.updateCurrentBreakpoint_);
+        this.on('playerresize', this.boundUpdateCurrentBreakpoint_);
         this.updateCurrentBreakpoint_(); // Stop listening for breakpoints if the player is no longer responsive.
       } else {
-        this.off('playerresize', this.updateCurrentBreakpoint_);
+        this.off('playerresize', this.boundUpdateCurrentBreakpoint_);
         this.removeCurrentBreakpoint_();
       }
 
@@ -27945,7 +28919,7 @@
     ;
 
     _proto.loadMedia = function loadMedia(media, ready) {
-      var _this17 = this;
+      var _this18 = this;
 
       if (!media || typeof media !== 'object') {
         return;
@@ -27977,7 +28951,7 @@
 
       if (Array.isArray(textTracks)) {
         textTracks.forEach(function (tt) {
-          return _this17.addRemoteTextTrack(tt, false);
+          return _this18.addRemoteTextTrack(tt, false);
         });
       }
 
@@ -28096,7 +29070,7 @@
     ;
 
     _proto.flexNotSupported_ = function flexNotSupported_() {
-      var elem = document.createElement('i'); // Note: We don't actually use flexBasis (or flexOrder), but it's one of the more
+      var elem = document_1.createElement('i'); // Note: We don't actually use flexBasis (or flexOrder), but it's one of the more
       // common flex features that we can rely on when checking for flex support.
 
       return !('flexBasis' in elem.style || 'webkitFlexBasis' in elem.style || 'mozFlexBasis' in elem.style || 'msFlexBasis' in elem.style || // IE10-specific (2012 flex spec), available for completeness
@@ -28127,6 +29101,47 @@
         this.previousLogLevel_ = undefined;
         this.debugEnabled_ = false;
       }
+    }
+    /**
+     * Set or get current playback rates.
+     * Takes an array and updates the playback rates menu with the new items.
+     * Pass in an empty array to hide the menu.
+     * Values other than arrays are ignored.
+     *
+     * @fires Player#playbackrateschange
+     * @param {number[]} newRates
+     *                   The new rates that the playback rates menu should update to.
+     *                   An empty array will hide the menu
+     * @return {number[]} When used as a getter will return the current playback rates
+     */
+    ;
+
+    _proto.playbackRates = function playbackRates(newRates) {
+      if (newRates === undefined) {
+        return this.cache_.playbackRates;
+      } // ignore any value that isn't an array
+
+
+      if (!Array.isArray(newRates)) {
+        return;
+      } // ignore any arrays that don't only contain numbers
+
+
+      if (!newRates.every(function (rate) {
+        return typeof rate === 'number';
+      })) {
+        return;
+      }
+
+      this.cache_.playbackRates = newRates;
+      /**
+      * fires when the playback rates in a player are changed
+      *
+      * @event Player#playbackrateschange
+      * @type {EventTarget~Event}
+      */
+
+      this.trigger('playbackrateschange');
     };
 
     return Player;
@@ -28222,7 +29237,7 @@
    */
 
   Player.players = {};
-  var navigator = window$1.navigator;
+  var navigator = window_1.navigator;
   /*
    * Player instance options, surfaced using options
    * options = Player.prototype.options_
@@ -28236,7 +29251,6 @@
     // Default order of fallback technology
     techOrder: Tech.defaultTechOrder_,
     html5: {},
-    flash: {},
     // default inactivity timeout
     inactivityTimeout: 2000,
     // default playback rates
@@ -28251,6 +29265,7 @@
     languages: {},
     // Default message to show when a video cannot be played.
     notSupportedMessage: 'No compatible source was found for this media.',
+    normalizeAutoplay: false,
     fullscreen: {
       options: {
         navigationUI: 'hide'
@@ -28671,7 +29686,7 @@
       markPluginAsActive(player, this.name); // Auto-bind the dispose method so we can use it as a listener and unbind
       // it later easily.
 
-      this.dispose = bind(this, this.dispose); // If the player is disposed, dispose the plugin.
+      this.dispose = this.dispose.bind(this); // If the player is disposed, dispose the plugin.
 
       player.on('dispose', this.dispose);
     }
@@ -29176,8 +30191,8 @@
    */
 
 
-  function videojs$1(id, options, ready) {
-    var player = videojs$1.getPlayer(id);
+  function videojs(id, options, ready) {
+    var player = videojs.getPlayer(id);
 
     if (player) {
       if (options) {
@@ -29208,7 +30223,7 @@
     }
 
     options = options || {};
-    videojs$1.hooks('beforesetup').forEach(function (hookFunction) {
+    videojs.hooks('beforesetup').forEach(function (hookFunction) {
       var opts = hookFunction(el, mergeOptions(options));
 
       if (!isObject(opts) || Array.isArray(opts)) {
@@ -29222,7 +30237,7 @@
 
     var PlayerComponent = Component.getComponent('Player');
     player = new PlayerComponent(el, options, ready);
-    videojs$1.hooks('setup').forEach(function (hookFunction) {
+    videojs.hooks('setup').forEach(function (hookFunction) {
       return hookFunction(player);
     });
     return player;
@@ -29235,7 +30250,7 @@
    */
 
 
-  videojs$1.hooks_ = {};
+  videojs.hooks_ = {};
   /**
    * Get a list of hooks for a specific lifecycle
    *
@@ -29249,14 +30264,14 @@
    *         an array of hooks, or an empty array if there are none.
    */
 
-  videojs$1.hooks = function (type, fn) {
-    videojs$1.hooks_[type] = videojs$1.hooks_[type] || [];
+  videojs.hooks = function (type, fn) {
+    videojs.hooks_[type] = videojs.hooks_[type] || [];
 
     if (fn) {
-      videojs$1.hooks_[type] = videojs$1.hooks_[type].concat(fn);
+      videojs.hooks_[type] = videojs.hooks_[type].concat(fn);
     }
 
-    return videojs$1.hooks_[type];
+    return videojs.hooks_[type];
   };
   /**
    * Add a function hook to a specific videojs lifecycle.
@@ -29269,8 +30284,8 @@
    */
 
 
-  videojs$1.hook = function (type, fn) {
-    videojs$1.hooks(type, fn);
+  videojs.hook = function (type, fn) {
+    videojs.hooks(type, fn);
   };
   /**
    * Add a function hook that will only run once to a specific videojs lifecycle.
@@ -29283,10 +30298,10 @@
    */
 
 
-  videojs$1.hookOnce = function (type, fn) {
-    videojs$1.hooks(type, [].concat(fn).map(function (original) {
+  videojs.hookOnce = function (type, fn) {
+    videojs.hooks(type, [].concat(fn).map(function (original) {
       var wrapper = function wrapper() {
-        videojs$1.removeHook(type, wrapper);
+        videojs.removeHook(type, wrapper);
         return original.apply(void 0, arguments);
       };
 
@@ -29307,20 +30322,20 @@
    */
 
 
-  videojs$1.removeHook = function (type, fn) {
-    var index = videojs$1.hooks(type).indexOf(fn);
+  videojs.removeHook = function (type, fn) {
+    var index = videojs.hooks(type).indexOf(fn);
 
     if (index <= -1) {
       return false;
     }
 
-    videojs$1.hooks_[type] = videojs$1.hooks_[type].slice();
-    videojs$1.hooks_[type].splice(index, 1);
+    videojs.hooks_[type] = videojs.hooks_[type].slice();
+    videojs.hooks_[type].splice(index, 1);
     return true;
   }; // Add default styles
 
 
-  if (window$1.VIDEOJS_NO_DYNAMIC_STYLE !== true && isReal()) {
+  if (window_1.VIDEOJS_NO_DYNAMIC_STYLE !== true && isReal()) {
     var style = $('.vjs-styles-defaults');
 
     if (!style) {
@@ -29338,14 +30353,14 @@
   // video in the DOM (weird behavior only with minified version)
 
 
-  autoSetupTimeout(1, videojs$1);
+  autoSetupTimeout(1, videojs);
   /**
    * Current Video.js version. Follows [semantic versioning](https://semver.org/).
    *
    * @type {string}
    */
 
-  videojs$1.VERSION = version;
+  videojs.VERSION = version;
   /**
    * The global options object. These are the settings that take effect
    * if no overrides are specified when the player is created.
@@ -29353,7 +30368,7 @@
    * @type {Object}
    */
 
-  videojs$1.options = Player.prototype.options_;
+  videojs.options = Player.prototype.options_;
   /**
    * Get an object with the currently created players, keyed by player ID
    *
@@ -29361,7 +30376,7 @@
    *         The created players
    */
 
-  videojs$1.getPlayers = function () {
+  videojs.getPlayers = function () {
     return Player.players;
   };
   /**
@@ -29380,7 +30395,7 @@
    */
 
 
-  videojs$1.getPlayer = function (id) {
+  videojs.getPlayer = function (id) {
     var players = Player.players;
     var tag;
 
@@ -29419,7 +30434,7 @@
    */
 
 
-  videojs$1.getAllPlayers = function () {
+  videojs.getAllPlayers = function () {
     return (// Disposed players leave a key with a `null` value, so we need to make sure
       // we filter those out.
       Object.keys(Player.players).map(function (k) {
@@ -29428,8 +30443,8 @@
     );
   };
 
-  videojs$1.players = Player.players;
-  videojs$1.getComponent = Component.getComponent;
+  videojs.players = Player.players;
+  videojs.getComponent = Component.getComponent;
   /**
    * Register a component so it can referred to by name. Used when adding to other
    * components, either through addChild `component.addChild('myComponent')` or through
@@ -29448,7 +30463,7 @@
    *         The newly registered component
    */
 
-  videojs$1.registerComponent = function (name, comp) {
+  videojs.registerComponent = function (name, comp) {
     if (Tech.isTech(comp)) {
       log.warn("The " + name + " tech was registered as a component. It should instead be registered using videojs.registerTech(name, tech)");
     }
@@ -29456,9 +30471,9 @@
     Component.registerComponent.call(Component, name, comp);
   };
 
-  videojs$1.getTech = Tech.getTech;
-  videojs$1.registerTech = Tech.registerTech;
-  videojs$1.use = use;
+  videojs.getTech = Tech.getTech;
+  videojs.registerTech = Tech.registerTech;
+  videojs.use = use;
   /**
    * An object that can be returned by a middleware to signify
    * that the middleware is being terminated.
@@ -29467,12 +30482,12 @@
    * @property {object} middleware.TERMINATOR
    */
 
-  Object.defineProperty(videojs$1, 'middleware', {
+  Object.defineProperty(videojs, 'middleware', {
     value: {},
     writeable: false,
     enumerable: true
   });
-  Object.defineProperty(videojs$1.middleware, 'TERMINATOR', {
+  Object.defineProperty(videojs.middleware, 'TERMINATOR', {
     value: TERMINATOR,
     writeable: false,
     enumerable: true
@@ -29484,7 +30499,7 @@
    * @see  {@link module:browser|browser}
    */
 
-  videojs$1.browser = browser;
+  videojs.browser = browser;
   /**
    * Use {@link module:browser.TOUCH_ENABLED|browser.TOUCH_ENABLED} instead; only
    * included for backward-compatibility with 4.x.
@@ -29493,12 +30508,12 @@
    * @type {boolean}
    */
 
-  videojs$1.TOUCH_ENABLED = TOUCH_ENABLED;
-  videojs$1.extend = extend;
-  videojs$1.mergeOptions = mergeOptions;
-  videojs$1.bind = bind;
-  videojs$1.registerPlugin = Plugin.registerPlugin;
-  videojs$1.deregisterPlugin = Plugin.deregisterPlugin;
+  videojs.TOUCH_ENABLED = TOUCH_ENABLED;
+  videojs.extend = extend;
+  videojs.mergeOptions = mergeOptions;
+  videojs.bind = bind;
+  videojs.registerPlugin = Plugin.registerPlugin;
+  videojs.deregisterPlugin = Plugin.deregisterPlugin;
   /**
    * Deprecated method to register a plugin with Video.js
    *
@@ -29511,14 +30526,14 @@
    *         The plugin sub-class or function
    */
 
-  videojs$1.plugin = function (name, plugin) {
+  videojs.plugin = function (name, plugin) {
     log.warn('videojs.plugin() is deprecated; use videojs.registerPlugin() instead');
     return Plugin.registerPlugin(name, plugin);
   };
 
-  videojs$1.getPlugins = Plugin.getPlugins;
-  videojs$1.getPlugin = Plugin.getPlugin;
-  videojs$1.getPluginVersion = Plugin.getPluginVersion;
+  videojs.getPlugins = Plugin.getPlugins;
+  videojs.getPlugin = Plugin.getPlugin;
+  videojs.getPluginVersion = Plugin.getPluginVersion;
   /**
    * Adding languages so that they're available to all players.
    * Example: `videojs.addLanguage('es', { 'Hello': 'Hola' });`
@@ -29533,12 +30548,12 @@
    *         The resulting language dictionary object
    */
 
-  videojs$1.addLanguage = function (code, data) {
+  videojs.addLanguage = function (code, data) {
     var _mergeOptions;
 
     code = ('' + code).toLowerCase();
-    videojs$1.options.languages = mergeOptions(videojs$1.options.languages, (_mergeOptions = {}, _mergeOptions[code] = data, _mergeOptions));
-    return videojs$1.options.languages[code];
+    videojs.options.languages = mergeOptions(videojs.options.languages, (_mergeOptions = {}, _mergeOptions[code] = data, _mergeOptions));
+    return videojs.options.languages[code];
   };
   /**
    * A reference to the {@link module:log|log utility module} as an object.
@@ -29548,19 +30563,19 @@
    */
 
 
-  videojs$1.log = log;
-  videojs$1.createLogger = createLogger$1;
-  videojs$1.createTimeRange = videojs$1.createTimeRanges = createTimeRanges;
-  videojs$1.formatTime = formatTime;
-  videojs$1.setFormatTime = setFormatTime;
-  videojs$1.resetFormatTime = resetFormatTime;
-  videojs$1.parseUrl = parseUrl;
-  videojs$1.isCrossOrigin = isCrossOrigin;
-  videojs$1.EventTarget = EventTarget;
-  videojs$1.on = on;
-  videojs$1.one = one;
-  videojs$1.off = off;
-  videojs$1.trigger = trigger;
+  videojs.log = log;
+  videojs.createLogger = createLogger;
+  videojs.createTimeRange = videojs.createTimeRanges = createTimeRanges;
+  videojs.formatTime = formatTime;
+  videojs.setFormatTime = setFormatTime;
+  videojs.resetFormatTime = resetFormatTime;
+  videojs.parseUrl = parseUrl;
+  videojs.isCrossOrigin = isCrossOrigin;
+  videojs.EventTarget = EventTarget;
+  videojs.on = on;
+  videojs.one = one;
+  videojs.off = off;
+  videojs.trigger = trigger;
   /**
    * A cross-browser XMLHttpRequest wrapper.
    *
@@ -29574,17 +30589,17 @@
    * @see      https://github.com/Raynos/xhr
    */
 
-  videojs$1.xhr = xhr;
-  videojs$1.TextTrack = TextTrack;
-  videojs$1.AudioTrack = AudioTrack;
-  videojs$1.VideoTrack = VideoTrack;
+  videojs.xhr = xhr;
+  videojs.TextTrack = TextTrack;
+  videojs.AudioTrack = AudioTrack;
+  videojs.VideoTrack = VideoTrack;
   ['isEl', 'isTextNode', 'createEl', 'hasClass', 'addClass', 'removeClass', 'toggleClass', 'setAttributes', 'getAttributes', 'emptyEl', 'appendContent', 'insertContent'].forEach(function (k) {
-    videojs$1[k] = function () {
+    videojs[k] = function () {
       log.warn("videojs." + k + "() is deprecated; use videojs.dom." + k + "() instead");
       return Dom[k].apply(null, arguments);
     };
   });
-  videojs$1.computedStyle = computedStyle;
+  videojs.computedStyle = computedStyle;
   /**
    * A reference to the {@link module:dom|DOM utility module} as an object.
    *
@@ -29592,7 +30607,7 @@
    * @see  {@link module:dom|dom}
    */
 
-  videojs$1.dom = Dom;
+  videojs.dom = Dom;
   /**
    * A reference to the {@link module:url|URL utility module} as an object.
    *
@@ -29600,9 +30615,14 @@
    * @see  {@link module:url|url}
    */
 
-  videojs$1.url = Url;
-  videojs$1.defineLazyProperty = defineLazyProperty;
+  videojs.url = Url;
+  videojs.defineLazyProperty = defineLazyProperty; // Adding less ambiguous text for fullscreen button.
+  // In a major update this could become the default text and key.
 
-  return videojs$1;
+  videojs.addLanguage('en', {
+    'Non-Fullscreen': 'Exit Fullscreen'
+  });
+
+  return videojs;
 
 })));
