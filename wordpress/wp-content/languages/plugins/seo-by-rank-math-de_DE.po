@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-08-16 11:54:29+0000\n"
+"PO-Revision-Date: 2021-09-01 22:14:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,7 +11,60 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:292
+#: includes/settings/titles/global.php:87
+msgid "When a featured image or an OpenGraph Image is not set for individual posts/pages/CPTs, this image will be used as a fallback thumbnail when your post is shared on Facebook. The recommended image size is 1200 x 630 pixels."
+msgstr "Wenn für einzelne Beiträge/Seiten/CPTs kein Ausgewähltes Bild oder OpenGraph Bild eingestellt ist, wird dieses Bild als Ersatzminiaturbild verwendet, wenn dein Beitrag auf Facebook geteilt wird. Die empfohlene Bildgröße ist 1200 x 630 Pixel."
+
+#: includes/modules/robots-txt/options.php:27
+msgid "Rank Math could not detect if a robots.txt file exists or not because of a filesystem issue. The file contents entered here may not be applied."
+msgstr "Rank Math konnte aufgrund eines Dateisystemproblems nicht feststellen, ob eine robots.txt-Datei existiert oder nicht. Der hier eingegebene Dateiinhalt kann nicht angewendet werden."
+
+#. Translators: placeholders are anchor opening and closing tags.
+#: includes/modules/analytics/views/email-reports/header-after.php:37
+msgid "If you can see the site data in your Search Console and Analytics accounts, but not here, then %1$s try reconnecting your account %2$s and make sure that the correct properties are selected in the %1$s Analytics Settings%2$s."
+msgstr "Wenn du die Website-Daten in deinem Search Console- und Analytics-Konten sehen kannst, aber nicht hier, dann %1$s versuche, dein Konto %2$s erneut zu verbinden und stelle  sicher, dass die richtigen Eigenschaften in den %1$s Analytics-Einstellungen%2$s ausgewählt sind."
+
+#: includes/modules/analytics/views/email-reports/header-after.php:35
+msgid "It seems that there are no stats to show right now."
+msgstr "Es scheint, als gäbe es im Moment keine Statistiken zu zeigen."
+
+#: includes/modules/analytics/views/email-reports/header-after.php:34
+msgid "Uh-oh"
+msgstr "Oh-oh"
+
+#. translators: help link
+#: includes/admin/wizard/views/your-site.php:31
+msgid "If you are new to Rank Math, %s to learn more."
+msgstr "Wenn du neu bei Rank Math bist, erfahre mehr über %s."
+
+#: includes/admin/wizard/class-your-site.php:97
+msgid "When a featured image or an OpenGraph Image is not set for individual posts/pages/CPTs, this image will be used as a fallback thumbnail when your post is shared on Facebook. <strong>The recommended image size is 1200 x 630 pixels.</strong>"
+msgstr "Wenn für einzelne Beiträge/Seiten/CPTs kein Ausgewähltes Bild oder OpenGraph Bild eingestellt ist, wird dieses Bild als Ersatzminiaturbild verwendet, wenn dein Beitrag auf Facebook geteilt wird. <strong>Die empfohlene Bildgröße ist 1200 x 630 Pixel.</strong>"
+
+#. Translators: placeholder is the words "advanced SEO features".
+#. Translators: placeholder is the words "advanced SEO features".
+#: includes/admin/class-pro-notice.php:150
+#: includes/admin/class-pro-notice.php:166
+msgid "advanced SEO features"
+msgstr "Erweiterte SEO-Funktionen"
+
+#. Translators: placeholder is the words "advanced SEO features".
+#. Translators: placeholder is the words "advanced SEO features".
+#: includes/admin/class-pro-notice.php:150
+#: includes/admin/class-pro-notice.php:166
+msgid "By upgrading to Rank Math PRO you get access to %s like more Schema Markups, Schema Generator, Advanced Analytics, Email Reporting and much more!"
+msgstr "Wenn du auf Rank Math PRO upgradest, bekommst du  Zugang zu %s wie mehr Schema-Markups, Schema-Generator, erweiterte Analysen, E-Mail-Berichte und vieles mehr!"
+
+#: includes/admin/class-pro-notice.php:147
+#: includes/admin/class-pro-notice.php:163
+msgid "Upgrade to Rank Math PRO and unlock advanced features"
+msgstr "Upgrade auf Rank Math PRO und Freischaltung erweiterter Funktionen"
+
+#: includes/admin/class-import-export.php:345
+msgid "Uploaded file could not be read."
+msgstr "Die hochgeladene Datei konnte nicht gelesen werden."
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:293
 msgid "Could not check Focus Keywords in posts - the post meta table exceeds the size limit."
 msgstr "Fokus-Schlüsselwörter in Beiträgen konnten nicht überprüft werden - die Beitrag-Meta-Tabelle überschreitet die Größenbegrenzung."
 
@@ -57,65 +110,25 @@ msgstr "Einstellungen für den Import von Standorten."
 msgid "Import all the redirections you have already set up in AIO SEO Premium."
 msgstr "Importiere alle Weiterleitungen, die du bereits in AIO SEO Premium eingerichtet hast."
 
-#: includes/admin/class-pro-notice.php:178
+#: includes/admin/class-pro-notice.php:172
 msgid "I already purchased"
 msgstr "Ich habe bereits gekauft"
 
-#: includes/admin/class-pro-notice.php:176
+#: includes/admin/class-pro-notice.php:170
 msgid "Yes, I want better SEO"
 msgstr "Ja, ich will besseres SEO"
 
-#. Translators: placeholder is the words "buy here".
-#: includes/admin/class-pro-notice.php:171
-msgid "BUY HERE"
-msgstr "KAUFE HIER"
-
-#. Translators: placeholder is the words "buy here".
-#: includes/admin/class-pro-notice.php:171
-msgid "%s at a discounted price."
-msgstr "%s zu einem ermäßigten Preis."
-
-#. Translators: placeholder is the plugin name.
-#: includes/admin/class-pro-notice.php:168
-msgctxt "Pro plugin name inside the admin notice"
-msgid "Rank Math PRO"
-msgstr "Rank Math PRO"
-
-#. Translators: placeholder is the plugin name.
-#: includes/admin/class-pro-notice.php:168
-msgid "Hey, did you know that with %1$s, %2$syou can drive more traffic%3$s by easily automating your SEO tasks?"
-msgstr "Hey, wusstest du, dass du mit %1$s, %2$syou mehr Traffic%3$s generieren kannst, indem du deine SEO-Aufgaben einfach automatisierst?"
-
-#: includes/admin/class-pro-notice.php:160
+#: includes/admin/class-pro-notice.php:156
 msgid "I already upgraded"
 msgstr "Ich habe bereits aufgerüstet"
 
-#: includes/admin/class-pro-notice.php:159
+#: includes/admin/class-pro-notice.php:155
 msgid "No, I don't want it"
 msgstr "Nein, ich will es nicht"
 
-#: includes/admin/class-pro-notice.php:158
+#: includes/admin/class-pro-notice.php:154
 msgid "Yes, I want to learn more"
 msgstr "Ja, ich möchte mehr erfahren"
-
-#: includes/admin/class-pro-notice.php:153
-msgid "It has everything that is needed to optimize your website for more traffic from the search engines."
-msgstr "Es enthält alles, was du brauchst, um deine Website für mehr Besucherzahlen in den Suchmaschinen zu optimieren."
-
-#. Translators: placeholder is the words "check here".
-#: includes/admin/class-pro-notice.php:151
-msgid "CHECK HERE"
-msgstr "HIER PRÜFEN"
-
-#. Translators: placeholder is the words "check here".
-#: includes/admin/class-pro-notice.php:151
-msgid "You are missing on the easy SEO traffic to your website. %s why Rank Math PRO is the last SEO tool that you'll ever buy!"
-msgstr "Dir fehlt der einfache SEO-Traffic auf deiner Website. %s warum Rank Math PRO das letzte SEO-Tool ist, das du jemals kaufen wirst!"
-
-#. Translators: placeholders are the opening and closing strong tags.
-#: includes/admin/class-pro-notice.php:148
-msgid "Hey, you know the %1$s secret of success of Rank Math? It's your success! %2$s When you succeed, we succeed as well."
-msgstr "Hey, kennst du das %1$s Erfolgsgeheimnis von Rank Math? Es ist Ihr Erfolg! %2$s Wenn du erfolgreich bist, sind wir auch erfolgreich."
 
 #: includes/admin/wizard/views/ready.php:49
 msgid "Know more about the PRO version"
@@ -155,11 +168,12 @@ msgid "Rank Math: Introducing SEO Performance Reports via Email. %1$sClick here 
 msgstr "Rank Math: Einführung von SEO-Leistungsberichten per E-Mail. %1$sKlicke hier, um diese zu aktivieren%2$s."
 
 #. Translators: placeholder is the site URL.
-#: includes/modules/analytics/class-email-reports.php:268
+#: includes/modules/analytics/class-email-reports.php:274
 msgid "Rank Math [SEO Report] - %s"
 msgstr "Rank Math [SEO-Bericht] - %s"
 
 #. Translators: placeholder is "click here" as a link.
+#: includes/admin/wizard/views/your-site.php:32
 #: includes/modules/analytics/class-email-reports.php:119
 msgid "click here"
 msgstr "Klicke hier"
@@ -174,11 +188,11 @@ msgstr "Um deine E-Mail-Einstellungen zu aktualisieren, %s."
 msgid "This email was sent to you as a registered member of %s."
 msgstr "Diese E-Mail wurde dir als registriertes Mitglied von %s zugesandt."
 
-#: includes/modules/analytics/views/email-reports/header-after.php:22
+#: includes/modules/analytics/views/email-reports/header-after.php:24
 msgid "External Link Icon"
 msgstr "Symbol für externe Links"
 
-#: includes/modules/analytics/views/email-reports/header-after.php:21
+#: includes/modules/analytics/views/email-reports/header-after.php:23
 msgid "FULL REPORT"
 msgstr "KOMPLETTER BERICHT"
 
@@ -191,7 +205,7 @@ msgstr "Diagramm"
 msgid "Last ###PERIOD_DAYS### Days"
 msgstr "Letzte ###PERIOD_DAYS### Tage "
 
-#: includes/modules/analytics/views/email-reports/header-after.php:15
+#: includes/modules/analytics/views/email-reports/header-after.php:17
 #: includes/modules/analytics/views/email-reports/header.php:16
 #: includes/modules/analytics/views/email-reports/header.php:21
 msgid "SEO Report of Your Website"
@@ -425,7 +439,7 @@ msgid "I already did"
 msgstr "Das habe ich bereits"
 
 #: includes/admin/class-ask-review.php:181
-#: includes/admin/class-pro-notice.php:177
+#: includes/admin/class-pro-notice.php:171
 msgid "No, maybe later"
 msgstr "Nein, vielleicht später"
 
@@ -434,8 +448,6 @@ msgid "Yes, you deserve it"
 msgstr "Ja, du hast es verdient"
 
 #: includes/admin/class-ask-review.php:178
-#: includes/admin/class-pro-notice.php:156
-#: includes/admin/class-pro-notice.php:174
 msgid "Co-founder of Rank Math"
 msgstr "Mitbegründer von Rank Math"
 
@@ -825,15 +837,15 @@ msgstr "Neu verbinden"
 msgid "Sorry, no post found for given id."
 msgstr "Es wurde leider kein Beitrag für diese ID gefunden."
 
-#: includes/modules/analytics/views/email-reports/sections/positions.php:40
+#: includes/modules/analytics/views/email-reports/sections/positions.php:44
 msgid "11-50 Positions"
 msgstr "10-50 Positionen"
 
-#: includes/modules/analytics/views/email-reports/sections/positions.php:28
+#: includes/modules/analytics/views/email-reports/sections/positions.php:32
 msgid "4-10 Positions"
 msgstr "5-10 Positionen"
 
-#: includes/modules/analytics/views/email-reports/sections/positions.php:16
+#: includes/modules/analytics/views/email-reports/sections/positions.php:20
 msgid "Top 3 Positions"
 msgstr "Top-3-Positionen"
 
@@ -1801,11 +1813,11 @@ msgstr "Automatische Updates sind für deine Website nicht eingeschaltet. %s"
 msgid "Start Analysis Again"
 msgstr "Analyse erneut starten"
 
-#: includes/modules/status/class-error-log.php:154
+#: includes/modules/status/class-error-log.php:155
 msgid "The error log cannot be retrieved: Error log file is too large."
 msgstr "Das Fehler-Log kann nicht abgerufen werden: die Fehler-Log-Datei ist zu groß."
 
-#: includes/modules/status/class-error-log.php:143
+#: includes/modules/status/class-error-log.php:144
 msgid "The error log cannot be retrieved."
 msgstr "Das Fehler-Log kann nicht abgerufen werden."
 
@@ -2513,11 +2525,11 @@ msgid "Schema Markup"
 msgstr "Schema-Markup"
 
 #. Translators: placeholder is the Settings page URL.
-#: includes/modules/robots-txt/options.php:60
+#: includes/modules/robots-txt/options.php:79
 msgid "<strong>Warning:</strong> your site's search engine visibility is set to Hidden in <a href=\"%1$s\" target=\"_blank\">Settings &gt; Reading</a>. This means that the changes you make here will not take effect. Set the search engine visibility to Public to be able to change the robots.txt content."
 msgstr "<strong>Warnung:</strong> Die Sichtbarkeit deiner Website in der Suchmaschine ist auf Versteckt gesetzt in <a href=\"%1$s\" target=\"_blank\">Einstellungen &gt; Lesen</a>. Das bedeutet, dass die hier vorgenommenen Änderungen nicht wirksam werden. Stelle die Sichtbarkeit der Suchmaschine auf Öffentlich, um die Inhalte der robots.txt ändern zu können."
 
-#: includes/modules/robots-txt/options.php:33
+#: includes/modules/robots-txt/options.php:42
 msgid "robots.txt file is not writable."
 msgstr "robots.txt ist nicht beschreibbar."
 
@@ -2769,7 +2781,7 @@ msgstr "Bitte gebe eine gültige E-Mail-Adresse ein."
 msgid "Please use the correct format."
 msgstr "Bitte nutze das korrekte Format."
 
-#: includes/admin/class-import-export.php:382
+#: includes/admin/class-import-export.php:383
 msgid "Settings could not be imported: Upload failed."
 msgstr "Die Einstellungen konnten nicht importiert werden: Upload fehlgeschlagen."
 
@@ -3013,11 +3025,11 @@ msgstr "Oberhalb des Inhalts"
 msgid "Below Content"
 msgstr "Unterhalb des Inhalts"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:499
+#: includes/modules/seo-analysis/seo-analysis-tests.php:500
 msgid "Your site is accessible by search engine."
 msgstr "Deine Website ist über eine Suchmaschine zugänglich."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:488
+#: includes/modules/seo-analysis/seo-analysis-tests.php:489
 msgid "Attention: Search Engines can't see your website."
 msgstr "Achtung: Suchmaschinen können deine Website nicht sehen."
 
@@ -3026,7 +3038,7 @@ msgstr "Achtung: Suchmaschinen können deine Website nicht sehen."
 #. translators: %1$s resolves to the opening tag of the link to the reading
 #. settings, %1$s resolves to the closing tag for the link
 #: includes/modules/seo-analysis/seo-analysis-tests.php:48
-#: includes/modules/seo-analysis/seo-analysis-tests.php:491
+#: includes/modules/seo-analysis/seo-analysis-tests.php:492
 msgid "You must %1$sgo to your Reading Settings%2$s and uncheck the box for Search Engine Visibility."
 msgstr "Du müsst %1$sgo zu deinen Leseeinstellungen%2$s gehen und das Kontrollkästchen für Suchmaschinensichtbarkeit deaktivieren."
 
@@ -3409,10 +3421,6 @@ msgstr "Kartentyp, der beim Erstellen eines neuen Beitrags ausgewählt wurde. Di
 msgid "Twitter Card Type"
 msgstr "Twitter-Kartentyp"
 
-#: includes/settings/titles/global.php:87
-msgid "When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. Recommended image size 1200 x 630 pixels."
-msgstr "Wenn ein Ausgewähltes Bild nicht eingestellt ist, wird dieses Bild als Miniaturbild verwendet, wenn Ihr Beitrag auf Facebook freigegeben wird. Empfohlene Bildgröße 1200x630px."
-
 #: includes/settings/titles/global.php:86
 msgid "OpenGraph Thumbnail"
 msgstr "OpenGraph Miniaturansicht"
@@ -3600,9 +3608,9 @@ msgstr "Variabel"
 msgid "Available variables"
 msgstr "Verfügbare Variablen"
 
-#: includes/modules/robots-txt/options.php:43
-msgid "Contents are locked because robots.txt file is present in the root folder."
-msgstr "Der Inhalt ist gesperrt, da die Datei robots.txt im Stammordner vorhanden ist."
+#: includes/modules/robots-txt/options.php:20
+msgid "Contents are locked because a robots.txt file is present in the root folder."
+msgstr "Der Inhalt ist gesperrt, weil sich im Stammordner eine robots.txt-Datei befindet."
 
 #: includes/settings/general/others.php:98
 msgid "Add content after each post in your site feeds."
@@ -4058,34 +4066,34 @@ msgstr "Ausgewählte Seite: %s"
 msgid "What is this?"
 msgstr "Was ist das hier?"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:479
+#: includes/modules/seo-analysis/seo-analysis-tests.php:480
 msgid "No sitemaps found."
 msgstr "Keine Sitemaps gefunden."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:479
+#: includes/modules/seo-analysis/seo-analysis-tests.php:480
 msgid "Your site has one or more sitemaps."
 msgstr "Deine Seite hat eine oder mehrere Sitemaps."
 
 #. translators: post ID count
-#: includes/modules/seo-analysis/seo-analysis-tests.php:375
+#: includes/modules/seo-analysis/seo-analysis-tests.php:376
 msgid "+%d More..."
 msgstr "+%d Mehr..."
 
 #. translators: post type links
-#: includes/modules/seo-analysis/seo-analysis-tests.php:381
+#: includes/modules/seo-analysis/seo-analysis-tests.php:382
 msgid "There are %s published posts where the focus keyword does not appear in the post title."
 msgstr "Es gibt %s veröffentlichte Beiträge, bei denen das Fokus-Schlüsselwort nicht im Beitragstitel erscheint."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:360
+#: includes/modules/seo-analysis/seo-analysis-tests.php:361
 msgid "Focus keywords appear in the titles of published posts where it is set."
 msgstr "Fokus-Schlüsselwörter erscheinen in den Titeln der veröffentlichten Beiträge, wo sie gesetzt sind."
 
 #. translators: post type links
-#: includes/modules/seo-analysis/seo-analysis-tests.php:339
+#: includes/modules/seo-analysis/seo-analysis-tests.php:340
 msgid "There are %s with no focus keyword set."
 msgstr "Es gibt %s ohne Fokus-Schlüsselwort."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:329
+#: includes/modules/seo-analysis/seo-analysis-tests.php:330
 msgid "All published posts have focus keywords set."
 msgstr "Alle veröffentlichten Beiträge haben Fokus-Schlüsselwörter gesetzt."
 
@@ -4336,22 +4344,22 @@ msgid "Not a valid settings founds to delete cache."
 msgstr "Es wurde keine gültige Einstellung zum Löschen des Caches gefunden."
 
 #: includes/modules/analytics/class-analytics.php:198
-#: includes/modules/analytics/views/email-reports/sections/summary.php:60
+#: includes/modules/analytics/views/email-reports/sections/summary.php:64
 msgid "Average Position"
 msgstr "Durchschnittliche Position"
 
 #: includes/modules/analytics/class-analytics.php:172
-#: includes/modules/analytics/views/email-reports/sections/summary.php:16
+#: includes/modules/analytics/views/email-reports/sections/summary.php:20
 msgid "Total Impressions"
 msgstr "Gesamtimpressionen"
 
 #: includes/modules/analytics/class-analytics.php:181
-#: includes/modules/analytics/views/email-reports/sections/summary.php:30
+#: includes/modules/analytics/views/email-reports/sections/summary.php:34
 msgid "Total Clicks"
 msgstr "Gesamtanzahl an Klicks"
 
 #: includes/modules/analytics/class-analytics.php:190
-#: includes/modules/analytics/views/email-reports/sections/summary.php:46
+#: includes/modules/analytics/views/email-reports/sections/summary.php:50
 msgid "Total Keywords"
 msgstr "Keywords insgesamt"
 
@@ -5493,25 +5501,25 @@ msgstr "404 Monitorprotokoll"
 msgid "Titles & Meta Settings"
 msgstr "Titel & Meta Einstellungen"
 
-#: includes/admin/class-admin-helper.php:281
+#: includes/admin/class-admin-helper.php:289
 msgid "Share"
 msgstr "Teilen"
 
-#: includes/admin/class-admin-helper.php:278
+#: includes/admin/class-admin-helper.php:286
 msgid "Tweet"
 msgstr "Tweet"
 
-#: includes/admin/class-admin-helper.php:271
+#: includes/admin/class-admin-helper.php:279
 msgid "SEO by Rank Math"
 msgstr "SEO von Rank Math"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:257
+#: includes/admin/class-admin-helper.php:265
 msgid "I just installed Rank Math SEO WordPress Plugin. It looks promising!"
 msgstr "Ich habe gerade das Rank Math SEO WordPress Plugin installiert. Es sieht vielversprechend aus!"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:255
+#: includes/admin/class-admin-helper.php:263
 msgid "I just installed @RankMathSEO #WordPress Plugin. It looks great! %s"
 msgstr "Ich habe gerade @RankMathSEO #WordPress Plugin installiert. Es sieht Klasse aus! %s"
 
@@ -6381,36 +6389,31 @@ msgstr "Bitte lasse nur ein XML-Sitemap-Plugin aktiv, da du sonst möglicherweis
 msgid "Please keep only one SEO plugin active, otherwise, you might lose your rankings and traffic. %s."
 msgstr "Bitte lasse nur ein XML-Sitemap-Plugin aktiv, da du sonst möglicherweise deine Platzierungen und Zugriffe verlierst. %s."
 
-#: includes/admin/wizard/views/your-site.php:56
+#: includes/admin/wizard/views/your-site.php:52
 #: includes/modules/404-monitor/views/main.php:27
 #: includes/modules/redirections/views/main.php:45
 msgid "Search"
 msgstr "Suche"
 
-#: includes/admin/wizard/views/your-site.php:55
+#: includes/admin/wizard/views/your-site.php:51
 msgid "Type here to search..."
 msgstr "Schreibe hier, um zu suchen..."
 
-#: includes/admin/wizard/views/your-site.php:54
+#: includes/admin/wizard/views/your-site.php:50
 msgid "Search the Knowledge Base for answers to your questions:"
 msgstr "Durchsuche die Wissensdatenbank nach Antworten auf deine Fragen:"
 
-#: includes/admin/wizard/views/your-site.php:49
+#: includes/admin/wizard/views/your-site.php:45
 msgid "Click here to learn how to setup Rank Math properly"
 msgstr "Klicken hier, um zu erfahren, wie du Rank Math richtig einrichtest"
 
-#: includes/admin/wizard/views/your-site.php:44
+#: includes/admin/wizard/views/your-site.php:40
 msgid "Knowledge Base"
 msgstr "Wissensdatenbank"
 
-#: includes/admin/wizard/views/your-site.php:43
+#: includes/admin/wizard/views/your-site.php:39
 msgid "Setup Tutorial"
 msgstr "Einrichtungsanleitung"
-
-#. translators: help link
-#: includes/admin/wizard/views/your-site.php:37
-msgid "If you are new to Rank Math, <a href=\"#\" data-target=\"rank-math-wizard-tabs\" class=\"rank-math-collapsible-trigger\">click here</a> to learn more."
-msgstr "Wenn du mit Rank Math noch nicht vertraut bist, <a href=\"#\" data-target=\"rank-math-wizard-tabs\" class=\"rank-math-collapsible-trigger\">klicke hier</a>, um weitere Informationen zu erhalten."
 
 #: includes/admin/wizard/views/your-site.php:22
 msgid "Let us know a few things about your site&hellip;"
@@ -6466,6 +6469,7 @@ msgstr "Weiter zur Hilfe-Seite"
 msgid "Get 24x7 Support"
 msgstr "Erhalte 24/7 Unterstützung"
 
+#: includes/admin/class-admin-header.php:50
 #: includes/admin/wizard/views/ready.php:58
 msgid "Rank Math Knowledge Base"
 msgstr "Rank Math Wissensdatenbank"
@@ -7089,7 +7093,7 @@ msgstr "404 Monitor"
 #: includes/admin/wizard/class-schema-markup.php:41
 #: includes/admin/wizard/class-search-console.php:47
 #: includes/admin/wizard/class-sitemap.php:46
-#: includes/admin/wizard/views/your-site.php:69
+#: includes/admin/wizard/views/your-site.php:65
 msgid "Save and Continue"
 msgstr "Speichern und Fortfahren"
 
@@ -7186,10 +7190,6 @@ msgstr "Sitemaps"
 #: includes/modules/seo-analysis/seo-analysis-tests.php:104
 msgid "Search Console"
 msgstr "Search Console"
-
-#: includes/admin/wizard/class-your-site.php:97
-msgid "When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. <strong>Recommended image size 1200 x 630 pixels.</strong>"
-msgstr "Wenn kein ausgewähltes Bild festgelegt ist, wird dieses Bild als Miniaturansicht verwendet, wenn dein Beitrag auf Facebook geteilt wird. <strong>Empfohlene Bildgröße 1200 x 630 px.</strong>"
 
 #: includes/admin/wizard/class-your-site.php:96
 msgid "Default Social Share Image"
@@ -7550,16 +7550,16 @@ msgstr "Rank Math SEO"
 msgid "The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites."
 msgstr "Das angezeigte Beitragsbild sollte mindestens 200x200 px groß sein, damit Facebook und andere Social-Media-Websites es übernehmen."
 
-#: includes/admin/class-import-export.php:358
+#: includes/admin/class-import-export.php:359
 msgid "No settings found to be imported."
 msgstr "Keine Einstellungen zum Importieren gefunden."
 
-#: includes/admin/class-import-export.php:354
+#: includes/admin/class-import-export.php:355
 msgid "Settings successfully imported. Your old configuration has been saved as a backup."
 msgstr "Einstellungen erfolgreich importiert. Deine alte Konfiguration wurde als Backup gespeichert."
 
-#: includes/admin/class-import-export.php:372
-#: includes/admin/class-import-export.php:377
+#: includes/admin/class-import-export.php:373
+#: includes/admin/class-import-export.php:378
 msgid "Settings could not be imported:"
 msgstr "Einstellungen konnten nicht importiert werden:"
 
@@ -7629,7 +7629,7 @@ msgstr "Bist du sicher, dass du diese Sicherung wiederherstellen möchten? Deine
 msgid "Are you sure you want to import settings into Rank Math? Don't worry, your current configuration will be saved as a backup."
 msgstr "Bist du sicher, dass du die Einstellungen in Rank Math importieren möchtest? Keine Sorge, deine aktuelle Konfiguration wird als Backup gespeichert."
 
-#: includes/admin/class-admin-helper.php:92
+#: includes/admin/class-admin-helper.php:100
 #: includes/admin/class-cmb2-fields.php:281
 #: includes/admin/wizard/class-schema-markup.php:161
 #: includes/helpers/class-taxonomy.php:152
