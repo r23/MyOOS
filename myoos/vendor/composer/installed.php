@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f54ce685f3b332de79a89161158f49fe84d4eef5',
+        'reference' => '4e83b92d9dd1a3a0645ca988267aebdf2162cee2',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -155,21 +155,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
-            'pretty_version' => '2.8.0',
-            'version' => '2.8.0.0',
+            'pretty_version' => '2.9.0',
+            'version' => '2.9.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-escaper',
             'aliases' => array(),
-            'reference' => '2d6dce99668b413610e9544183fa10392437f542',
-            'dev_requirement' => false,
-        ),
-        'laminas/laminas-zendframework-bridge' => array(
-            'pretty_version' => '1.3.0',
-            'version' => '1.3.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../laminas/laminas-zendframework-bridge',
-            'aliases' => array(),
-            'reference' => '13af2502d9bb6f7d33be2de4b51fb68c6cdb476e',
+            'reference' => '891ad70986729e20ed2e86355fcf93c9dc238a5f',
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
@@ -223,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f54ce685f3b332de79a89161158f49fe84d4eef5',
+            'reference' => '4e83b92d9dd1a3a0645ca988267aebdf2162cee2',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -1016,12 +1007,6 @@
             'dev_requirement' => false,
             'replaced' => array(
                 0 => 'v2.12.1',
-            ),
-        ),
-        'zendframework/zend-escaper' => array(
-            'dev_requirement' => false,
-            'replaced' => array(
-                0 => '^2.6.1',
             ),
         ),
     ),
