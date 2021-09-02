@@ -58,7 +58,7 @@ class Cache {
 	 * @return bool
 	 */
 	public function is_writable() {
-		if ( is_null( $this->wp_filesystem ) ) {
+		if ( is_null( $this->wp_filesystem ) || get_filesystem_method() !== 'direct' ) {
 			return false;
 		}
 

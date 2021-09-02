@@ -198,6 +198,7 @@ class Replacer {
 	 * @return array
 	 */
 	private function normalize_args( $string ) {
+		$string = wp_specialchars_decode( $string );
 		if ( ! Str::contains( '=', $string ) ) {
 			return $string;
 		}

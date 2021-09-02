@@ -34,6 +34,14 @@ class Admin_Helper {
 		if ( ! function_exists( 'get_home_path' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
+
+		if ( get_filesystem_method() !== 'direct' ) {
+			return [
+				'content'  => '',
+				'writable' => false,
+			];
+		}
+
 		$wp_filesystem = WordPress::get_filesystem();
 		if ( empty( $wp_filesystem ) ) {
 			return;

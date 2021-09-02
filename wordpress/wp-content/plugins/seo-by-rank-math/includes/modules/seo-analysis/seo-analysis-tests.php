@@ -286,7 +286,8 @@ function rank_math_analyze_search_console() {
 function rank_math_analyze_focus_keywords() {
 	global $wpdb;
 
-	if ( DB::table_size_exceeds( $wpdb->postmeta, 100000 ) ) {
+	$postmeta_table_limit = apply_filters( 'rank_math/seo_analysis/postmeta_table_limit', 200000 );
+	if ( DB::table_size_exceeds( $wpdb->postmeta, $postmeta_table_limit ) ) {
 		return [
 			'status'  => 'warning',
 			'message' => esc_html__( 'Could not check Focus Keywords in posts - the post meta table exceeds the size limit.', 'rank-math' ),

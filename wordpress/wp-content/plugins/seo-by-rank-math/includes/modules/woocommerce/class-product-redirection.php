@@ -85,15 +85,12 @@ class Product_Redirection {
 		$base     = explode( '/', ltrim( $base, '/' ) );
 		$new_link = $uri;
 
-		// Early Bail if new_link length is less then the base.
-		if ( count( explode( '/', $new_link ) ) <= count( $base ) ) {
-			return false;
-		}
-
 		// On Single product page redirect base with shop and product.
 		if ( $is_product ) {
 			$base[] = 'product';
 			$base[] = 'shop';
+
+			$new_link = ! is_feed() ? trim( str_replace( get_home_url(), '', get_permalink() ), '/' ) : $new_link;
 		}
 
 		foreach ( array_unique( $base ) as $remove ) {

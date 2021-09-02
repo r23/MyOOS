@@ -203,6 +203,9 @@ msgstr ""
 msgid "Import &amp; Export"
 msgstr ""
 
+msgid "Rank Math Knowledge Base"
+msgstr ""
+
 msgid "Search Options"
 msgstr ""
 
@@ -423,6 +426,9 @@ msgid "Backup does not exist."
 msgstr ""
 
 msgid "Backup restored successfully."
+msgstr ""
+
+msgid "Uploaded file could not be read."
 msgstr ""
 
 msgid "Settings successfully imported. Your old configuration has been saved as a backup."
@@ -647,18 +653,15 @@ msgstr ""
 msgid "Pillar Content"
 msgstr ""
 
-#. translators: placeholders are the opening and closing strong tags.
-msgid "Hey, you know the %1$s secret of success of Rank Math? It's your success! %2$s When you succeed, we succeed as well."
+msgid "Upgrade to Rank Math PRO and unlock advanced features"
 msgstr ""
 
-#. translators: placeholder is the words "check here".
-msgid "You are missing on the easy SEO traffic to your website. %s why Rank Math PRO is the last SEO tool that you'll ever buy!"
+#. translators: placeholder is the words "advanced SEO features".
+#. translators: placeholder is the words "advanced SEO features".
+msgid "By upgrading to Rank Math PRO you get access to %s like more Schema Markups, Schema Generator, Advanced Analytics, Email Reporting and much more!"
 msgstr ""
 
-msgid "CHECK HERE"
-msgstr ""
-
-msgid "It has everything that is needed to optimize your website for more traffic from the search engines."
+msgid "advanced SEO features"
 msgstr ""
 
 msgid "Yes, I want to learn more"
@@ -668,21 +671,6 @@ msgid "No, I don't want it"
 msgstr ""
 
 msgid "I already upgraded"
-msgstr ""
-
-#. translators: placeholder is the plugin name.
-msgid "Hey, did you know that with %1$s, %2$syou can drive more traffic%3$s by easily automating your SEO tasks?"
-msgstr ""
-
-msgctxt "Pro plugin name inside the admin notice"
-msgid "Rank Math PRO"
-msgstr ""
-
-#. translators: placeholder is the words "buy here".
-msgid "%s at a discounted price."
-msgstr ""
-
-msgid "BUY HERE"
 msgstr ""
 
 msgid "Yes, I want better SEO"
@@ -1047,9 +1035,6 @@ msgstr ""
 msgid "Egypt"
 msgstr ""
 
-msgid "Spain"
-msgstr ""
-
 msgid "Finland"
 msgstr ""
 
@@ -1132,6 +1117,9 @@ msgid "South Africa"
 msgstr ""
 
 msgid "South Korea"
+msgstr ""
+
+msgid "Spain"
 msgstr ""
 
 msgid "Sweden"
@@ -2177,7 +2165,7 @@ msgstr ""
 msgid "Default Social Share Image"
 msgstr ""
 
-msgid "When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. <strong>Recommended image size 1200 x 630 pixels.</strong>"
+msgid "When a featured image or an OpenGraph Image is not set for individual posts/pages/CPTs, this image will be used as a fallback thumbnail when your post is shared on Facebook. <strong>The recommended image size is 1200 x 630 pixels.</strong>"
 msgstr ""
 
 msgid "Personal Blog"
@@ -2884,10 +2872,13 @@ msgstr ""
 msgid "Leave the field empty to let WordPress handle the contents dynamically. If an actual robots.txt file is present in the root folder of your site, this option won't take effect and you have to edit the file directly, or delete it and then edit from here."
 msgstr ""
 
-msgid "robots.txt file is not writable."
+msgid "Contents are locked because a robots.txt file is present in the root folder."
 msgstr ""
 
-msgid "Contents are locked because robots.txt file is present in the root folder."
+msgid "Rank Math could not detect if a robots.txt file exists or not because of a filesystem issue. The file contents entered here may not be applied."
+msgstr ""
+
+msgid "robots.txt file is not writable."
 msgstr ""
 
 #. translators: placeholder is the Settings page URL.
@@ -3836,7 +3827,7 @@ msgstr ""
 msgid "OpenGraph Thumbnail"
 msgstr ""
 
-msgid "When a featured image is not set, this image will be used as a thumbnail when your post is shared on Facebook. Recommended image size 1200 x 630 pixels."
+msgid "When a featured image or an OpenGraph Image is not set for individual posts/pages/CPTs, this image will be used as a fallback thumbnail when your post is shared on Facebook. The recommended image size is 1200 x 630 pixels."
 msgstr ""
 
 msgid "Twitter Card Type"
@@ -4373,9 +4364,6 @@ msgstr ""
 msgid "Join FREE Facebook Group"
 msgstr ""
 
-msgid "Rank Math Knowledge Base"
-msgstr ""
-
 msgid "Get 24x7 Support"
 msgstr ""
 
@@ -4447,7 +4435,7 @@ msgid "Let us know a few things about your site&hellip;"
 msgstr ""
 
 #. translators: help link
-msgid "If you are new to Rank Math, <a href=\"#\" data-target=\"rank-math-wizard-tabs\" class=\"rank-math-collapsible-trigger\">click here</a> to learn more."
+msgid "If you are new to Rank Math, %s to learn more."
 msgstr ""
 
 msgid "Setup Tutorial"
@@ -5335,6 +5323,16 @@ msgid "FULL REPORT"
 msgstr ""
 
 msgid "External Link Icon"
+msgstr ""
+
+msgid "Uh-oh"
+msgstr ""
+
+msgid "It seems that there are no stats to show right now."
+msgstr ""
+
+#. translators: placeholders are anchor opening and closing tags.
+msgid "If you can see the site data in your Search Console and Analytics accounts, but not here, then %1$s try reconnecting your account %2$s and make sure that the correct properties are selected in the %1$s Analytics Settings%2$s."
 msgstr ""
 
 #. translators: don't translate the variable names between the #hashes#.

@@ -26,15 +26,11 @@ defined( 'ABSPATH' ) || exit;
 	<div class="rank-math-wizard-tutorial">
 		<header>
 			<?php
-			$allowed_html = [
-				'a' => [
-					'href'        => [],
-					'class'       => [],
-					'data-target' => [],
-				],
-			];
-			/* translators: help link */
-			printf( wp_kses( __( 'If you are new to Rank Math, <a href="#" data-target="rank-math-wizard-tabs" class="rank-math-collapsible-trigger">click here</a> to learn more.', 'rank-math' ), $allowed_html ) );
+			printf(
+				/* translators: help link */
+				esc_html__( 'If you are new to Rank Math, %s to learn more.', 'rank-math' ),
+				'<a href="#" data-target="rank-math-wizard-tabs" class="rank-math-collapsible-trigger">' . esc_html__( 'click here', 'rank-math' ) . '</a>'
+			);
 			?>
 		</header>
 

@@ -723,6 +723,11 @@ class JsonLD {
 		$author          = Helper::get_post_meta( 'snippet_author' );
 		$parts['author'] = $author ? $author : get_the_author_meta( 'display_name', $this->post->post_author );
 
+		// Modified date cannot be before publish date.
+		if ( strtotime( $this->post->post_modified ) < strtotime( $this->post->post_date ) ) {
+			$parts['modified'] = $parts['published'];
+		}
+
 		$this->parts = $parts;
 	}
 }
