@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c02662a2906faaafabb7f515d4dc6a4b372045f9',
+        'reference' => 'f54ce685f3b332de79a89161158f49fe84d4eef5',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -223,7 +223,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c02662a2906faaafabb7f515d4dc6a4b372045f9',
+            'reference' => 'f54ce685f3b332de79a89161158f49fe84d4eef5',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -449,12 +449,12 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v7.94.0',
-            'version' => '7.94.0.0',
+            'pretty_version' => 'v7.95.0',
+            'version' => '7.95.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),
-            'reference' => '03cd6b5c1c4fc9087ddd1dd046457bff274294d6',
+            'reference' => 'ed372a1f6430b06dda408bb33b27d2be35ceaf07',
             'dev_requirement' => false,
         ),
         'symfony/asset' => array(
