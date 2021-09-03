@@ -139,7 +139,7 @@ define('TEXT_ERROR_SLAVE', 'Dieses Produkt existiert nicht oder ist bereits als 
 
 define('CAT_CATEGORY_ID_TEXT', 'ID # ');
 define('CAT_PRODUCT_ID_TEXT', 'ID # ');
-define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', 'Basispreis: ');
+define('CAT_ATTRIBUTES_BASE_PRICE_TEXT', 'Grundpreis: ');
 define('CAT_LIST_PRICE_TEXT',  'UVP.: ');
 define('CAT_REBATE_PRICE_TEXT', 'Rabate: ');
 define('CAT_QUANTITY_MIN_TEXT', 'Mindestbestellmenge: ');
