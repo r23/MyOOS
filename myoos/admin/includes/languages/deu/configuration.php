@@ -104,7 +104,7 @@ define('ENTRY_DOB_MIN_LENGTH_DESC', 'Mindestlänge des Geburtsdatums');
 define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_TITLE', 'E-Mail Adresse');
 define('ENTRY_EMAIL_ADDRESS_MIN_LENGTH_DESC', 'Mindestlänge der E-Mail Adresse');
 
-define('ENTRY_STREET_ADDRESS_MIN_LENGTH_TITLE', 'Strasse');
+define('ENTRY_STREET_ADDRESS_MIN_LENGTH_TITLE', 'Straße');
 define('ENTRY_STREET_ADDRESS_MIN_LENGTH_DESC', 'Mindestlänge des Straßennamens');
 
 define('ENTRY_COMPANY_LENGTH_TITLE', 'Firma');
