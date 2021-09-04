@@ -10827,7 +10827,7 @@ function PostTitle() {
   // This same block is used in both the visual and the code editor.
 
 
-  const className = classnames_default()('wp-block editor-post-title editor-post-title__block editor-post-title__input rich-text', {
+  const className = classnames_default()('wp-block wp-block-post-title block-editor-block-list__block editor-post-title editor-post-title__input rich-text', {
     'is-selected': isSelected,
     'is-focus-mode': isFocusMode,
     'has-fixed-toolbar': hasFixedToolbar
