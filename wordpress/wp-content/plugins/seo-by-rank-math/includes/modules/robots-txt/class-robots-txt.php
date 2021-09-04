@@ -99,7 +99,7 @@ class Robots_Txt {
 		}
 		$default = apply_filters( 'robots_txt', $default, $public );
 
-		if ( empty( $wp_filesystem ) || get_filesystem_method() !== 'direct' ) {
+		if ( empty( $wp_filesystem ) || ! Helper::is_filesystem_direct() ) {
 			return [
 				'exists'   => false,
 				'default'  => $default,

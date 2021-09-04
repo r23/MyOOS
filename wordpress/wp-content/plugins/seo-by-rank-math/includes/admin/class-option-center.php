@@ -391,7 +391,7 @@ class Option_Center implements Runner {
 	 * @return bool
 	 */
 	private function do_htaccess_backup() {
-		if ( get_filesystem_method() !== 'direct' ) {
+		if ( ! Helper::is_filesystem_direct() ) {
 			return false;
 		}
 
@@ -414,11 +414,7 @@ class Option_Center implements Runner {
 	 * @return string|bool
 	 */
 	private function do_htaccess_update( $content ) {
-		if ( empty( $content ) ) {
-			return false;
-		}
-
-		if ( get_filesystem_method() !== 'direct' ) {
+		if ( empty( $content ) || ! Helper::is_filesystem_direct() ) {
 			return false;
 		}
 

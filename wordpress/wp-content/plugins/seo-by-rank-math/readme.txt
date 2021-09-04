@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.71
+Stable tag: 1.0.71.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -564,6 +564,11 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 12. Rank Math SEO Comes with 15+ FREE modules.
 
 == Changelog ==
+
+= 1.0.71.1 [Sep 04, 2021] =
+* Fixed: WooCommerce Product pages were showing 404 error on Secondary languages with WPML or WooCommerce Multilingual plugin when [Remove Product Base option](https://rankmath.com/kb/general-settings/#remove-base) was enabled
+* Fixed: WooCommerce Product draft preview was showing 404 error when [Remove Product Base option](https://rankmath.com/kb/general-settings/#remove-base) was enabled
+* Fixed: Call to undefined function `get_filesystem_method` error on some setup
 
 = 1.0.71 [Sep 01, 2021] =
 * Improved: [Analytics Email report](https://rankmath.com/kb/seo-email-reporting/) will now show a message when all stats are empty

@@ -341,7 +341,7 @@ class Import_Export implements Runner {
 
 		// Parse Options.
 		$wp_filesystem = WordPress::get_filesystem();
-		if ( is_null( $wp_filesystem ) || get_filesystem_method() !== 'direct' ) {
+		if ( is_null( $wp_filesystem ) || ! Helper::is_filesystem_direct() ) {
 			Helper::add_notification( esc_html__( 'Uploaded file could not be read.', 'rank-math' ), [ 'type' => 'error' ] );
 			return false;
 		}
