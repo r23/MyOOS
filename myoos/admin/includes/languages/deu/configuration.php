@@ -88,6 +88,9 @@ define('DISPLAY_PRICE_WITH_TAX_DESC', 'Preise incl. Steuer anzeigen (true) oder 
 define('BASE_PRICE_TITLE', 'Grundpreis verwenden');
 define('BASE_PRICE_DESC', 'Möchten Sie Produkte mit einem Grundpreis verwenden?');
 
+define('MINIMUM_ORDER_VALUE_TITLE', 'Mindestbestellwert verwenden');
+define('MINIMUM_ORDER_VALUE_DESC', 'Legen Sie einen Mindestbestellwert fest. Eine Zahl ohne Währung.');
+
 
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sortierung Produktoptionen');
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'Möchten Sie die Produktopionen nach Preisen sortieren?');

@@ -95,6 +95,9 @@ define('DISPLAY_PRICE_WITH_TAX_DESC', 'Display prices with tax included (true) o
 define('BASE_PRICE_TITLE', 'Use base price');
 define('BASE_PRICE_DESC', 'Would you like to use products with a basic price?');
 
+define('MINIMUM_ORDER_VALUE_TITLE', 'Use minimum order value');
+define('MINIMUM_ORDER_VALUE_DESC', 'Set a minimum order value. A number without currency.');
+
 
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sorting product options');
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'Would you like to sort the product opions according to prices?');
