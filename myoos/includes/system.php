@@ -233,6 +233,12 @@ if ($aUser['show_price'] == 1) {
 
 $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['information'], 'information_id=5'));
 
+// MINIMUM_ORDER_VALUE
+if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
+	$minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+	$sMinimumOrder = sprintf($aLang['text_info_minimum_order_value'], $oCurrencies->format($minimum_order_value));
+}
+
 $smarty->assign(
 	array(
 		'pangv' => $sPAngV,

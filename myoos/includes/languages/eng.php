@@ -510,6 +510,9 @@ $aLang = [
 'out_of_stock'         => 'available again',
 'available_from'       => 'available from approx. %s', 
 
+
+'text_info_minimum_order_value' => 'Please note the minimum order value of %s', 
+
 'cookie_notice'	=>  '%s uses cookies to provide you with the best possible service. If you continue to surf the site, you consent to the <a href="%s"><strong>use of cookies</strong></a>. ',
 'cookie_agree'  =>  'I agree.',
 

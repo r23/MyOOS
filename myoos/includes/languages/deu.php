@@ -494,6 +494,7 @@ $aLang = [
 'out_of_stock' => 'später wieder lieferbar', 
 'available_from'	=> 'lieferbar ab ca. %s', 
 
+'text_info_minimum_order_value' => 'Bitte beachten Sie den Mindestbestellwert von %s', 
 
 'cookie_notice'	=> '%s verwendet Cookies, um Ihnen den bestmöglichen Service zu gewährleisten. Wenn Sie auf der Seite weitersurfen stimmen Sie der <a href="%s"><strong>Cookie-Nutzung</strong></a> zu. ',
 'cookie_agree'  => 'Ich stimme zu.',
