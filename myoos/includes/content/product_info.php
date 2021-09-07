@@ -306,6 +306,20 @@ if (!$product_info_result->RecordCount()) {
 		$base_product_price = $info_special_price;
 		$info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
 	} 
+	
+	
+// Minimum Order Value
+	if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
+		$minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+
+		if ((($info_special_price > 0) && $info_special_price < $minimum_order_value)
+		|| ($product_info['products_price'] < $minimum_order_value)) {
+
+			$smarty->assign('show_minimum_order_value', 1);
+		}
+	}
+
+
 
 	$discounts_price = false;
     if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 

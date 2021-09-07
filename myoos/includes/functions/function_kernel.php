@@ -295,7 +295,7 @@ function oos_get_products_status($nProductID) {
     $query = "SELECT specials_new_products_price
               FROM $specialstable
               WHERE products_id = '" . intval($nProductID) . "'
-                AND status";
+                AND status = 1";
     $specials_new_products_price = $dbconn->GetOne($query);
 
     return $specials_new_products_price;

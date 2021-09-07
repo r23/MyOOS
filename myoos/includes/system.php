@@ -207,7 +207,7 @@ if (isset($_SESSION)) {
 }
 
 
-// MINIMUM_ORDER_VALUE
+// Minimum Order Value
 if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 	$minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
 	$sMinimumOrder = sprintf($aLang['text_info_minimum_order_value'], $oCurrencies->format($minimum_order_value));
