@@ -301,8 +301,10 @@ if (!$product_info_result->RecordCount()) {
 
 	$info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
 	$schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
+	$calculate_price = $product_info['products_price'];
 
 	if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
+		$calculate_price = $info_special_price;
 		$base_product_price = $info_special_price;
 		$info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
 	} 
@@ -312,9 +314,9 @@ if (!$product_info_result->RecordCount()) {
 	if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 		$minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
 
-		if ((($info_special_price > 0) && $info_special_price < $minimum_order_value)
-		|| ($product_info['products_price'] < $minimum_order_value)) {
+		$calculate_price = $oCurrencies->calculate_price($calculate_price, oos_get_tax_rate($product_info['products_tax_class_id']));
 
+		if ($calculate_price < $minimum_order_value) {
 			$smarty->assign('show_minimum_order_value', 1);
 		}
 	}
