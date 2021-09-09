@@ -55,7 +55,7 @@
 					<h2 class="h6 d-flex flex-wrap justify-content-between align-items-center px-4 py-3 bg-secondary"><span>{$lang.heading_products}</span><a class="font-size-sm" href="{html_href_link content=$filename.home}"><i data-feather="chevron-left" style="width: 1rem; height: 1rem;"></i>{$lang.button_continue_shopping}</a></h2>
 
 					<form name="cart_quantity" action="{html_href_link content=$filename.shopping_cart action=update_product}" method="POST">
-							{if $mySystem.sed}
+						{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 							<input type="hidden" name="formid" value="{$mySystem.formid}">
 						{/if}		
@@ -183,7 +183,7 @@
 									</div>
 								</div>
 							</div>
-							
+					<!--		
 							<div class="card">
 								<div class="card-header">
 									<h3 class="accordion-heading font-weight-semibold"><a class="collapsed" href="#shipping" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="shipping">Shipping estimates<span class="accordion-indicator"><i data-feather="chevron-up"></i></span></a></h3>
@@ -228,6 +228,7 @@
 									</div>
 								</div>
 							</div>
+							-->
 						</div>
 					</div>	
 					
