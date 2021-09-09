@@ -73,6 +73,17 @@ if (!isset($_SESSION['shipping'])) {
 }
 
 
+// Minimum Order Value
+if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
+	$minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+	$subtotal = $_SESSION['cart']->info['subtotal'];
+	if ($subtotal < $minimum_order_value) {
+		oos_redirect(oos_href_link($aContents['shopping_cart']));
+	}				
+}
+
+
+
 // load the selected payment module
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_payment.php';
 

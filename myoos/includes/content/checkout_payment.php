@@ -54,6 +54,16 @@ if ($_SESSION['cart']->count_contents() < 1) {
 	oos_redirect(oos_href_link($aContents['shopping_cart']));
 }
 
+// Minimum Order Value
+if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
+	$minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+	$subtotal = $_SESSION['cart']->info['subtotal'];
+	if ($subtotal < $minimum_order_value) {
+		oos_redirect(oos_href_link($aContents['shopping_cart']));
+	}				
+}
+
+
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
 if (!isset($_SESSION['shipping'])) {
 	oos_redirect(oos_href_link($aContents['checkout_shipping']));

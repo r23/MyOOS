@@ -99,6 +99,16 @@ if (isset($_SESSION)) {
 			$order_total_modules->shopping_cart_process();
 			$order_total_output = $order_total_modules->output();
 
+			// Minimum Order Value
+			if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
+				$minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+
+				if ($subtotal < $minimum_order_value) {
+					$oMessage->add('danger', sprintf($aLang['warning_minimum_order_value'], $oCurrencies->format($minimum_order_value)));
+				}				
+			}
+
+
 			/*
 			 * Shopping Cart
 			*/
