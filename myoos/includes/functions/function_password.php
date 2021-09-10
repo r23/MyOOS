@@ -32,7 +32,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 function oos_validate_password($password, $hash) {
 
 	if (oos_is_not_null($password) && oos_is_not_null($hash)) {
-		return password_verify($password, $hash);;
+		return password_verify($password, $hash);
 	}
 
     return false;
@@ -51,3 +51,4 @@ function oos_encrypt_password($password) {
 
     return $hash;
 }
+
