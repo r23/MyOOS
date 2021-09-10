@@ -22,9 +22,6 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-
-if (!isset($_SESSION['log_times'])) $_SESSION['log_times'] = 1;
-
 $login = '';
 if (isset($_GET['action']) && ($_GET['action'] == 'process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){

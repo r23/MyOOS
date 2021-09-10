@@ -39,8 +39,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
 	$check_admin_result = $dbconn->Execute("SELECT admin_id as login_id, admin_groups_id as login_groups_id, admin_firstname as login_firstname, admin_email_address as login_email_address, admin_password as login_password, admin_modified as login_modified, admin_logdate as login_logdate, admin_lognum as login_lognum FROM " . $oostable['admin'] . " WHERE admin_email_address = '" . oos_db_input($email_address) . "'");
 	if (!$check_admin_result->RecordCount()) {
 		$login = 'fail';
-	} else {
- 	
+	} else {	
 		$check_admin = $check_admin_result->fields;
 		// Check that password is good
 		if (!oos_validate_password($password, $check_admin['login_password'])) {
