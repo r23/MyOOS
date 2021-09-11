@@ -32,6 +32,9 @@ $aLang['table_heading_total'] = 'Total';
 $aLang['text_cart_empty'] = 'Your Cart is Currently Empty';
 $aLang['text_cart_empty_help'] = 'Before proceed to checkout you must add some products to your shopping cart.<br>You will find a lot of interesting products on our "Shop" page.';
 
+
+$aLang['text_shipping_estimates'] = 'Shipping estimates';
+
 $aLang['sub_title_sub_total'] = 'Sub-Total:';
 $aLang['shipping_cost'] = 'Shipping:';
 $aLang['tax'] = ' Tax';
