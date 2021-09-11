@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-08-02 16:57:02+0000\n"
+"PO-Revision-Date: 2021-09-10 20:59:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -358,7 +358,7 @@ msgstr "Viele Plugins können personenbezogene Daten entweder in der WordPress-D
 #. translators: %s: URL to Privacy Policy Guide screen.
 #: wp-admin/export-personal-data.php:45
 msgid "If you are not sure, check the plugin documentation or contact the plugin author to see if the plugin collects data and if it supports the Data Exporter tool. This information may be available in the <a href=\"%s\">Privacy Policy Guide</a>."
-msgstr "Wenn du dir nicht sicher bist, schaue in die Dokumentation des Plugins oder kontaktiere den Autor, um zu erfahren, ob das Plugin Daten sammelt und ob es die Funktionen zum Datenexport unterstützt. Diese Informationen findest du möglicherweise in der <a href=\"%s\">Datenschutzerklärung.</a>."
+msgstr "Wenn du dir nicht sicher bist, schaue in die Dokumentation des Plugins oder kontaktiere den Autor, um zu erfahren, ob das Plugin Daten sammelt und ob es die Funktionen zum Datenexport unterstützt. Diese Informationen findest du möglicherweise in der <a href=\"%s\">Datenschutzerklärung</a>."
 
 #: wp-admin/export-personal-data.php:38
 msgid "<strong>Comments</strong> &mdash; For any comments made by the user, Email Address, IP Address, User Agent (Browser/OS), Date/Time, Comment Content, and Content URL."
@@ -481,7 +481,7 @@ msgstr "Plugindaten"
 #. translators: %s: URL to Privacy Policy Guide screen.
 #: wp-admin/erase-personal-data.php:45
 msgid "If you are not sure, check the plugin documentation or contact the plugin author to see if the plugin collects data and if it supports the Data Eraser tool. This information may be available in the <a href=\"%s\">Privacy Policy Guide</a>."
-msgstr "Wenn du dir nicht sicher bist, schaue in die Dokumentation des Plugins oder kontaktiere den Autor, um zu erfahren, ob das Plugin Daten sammelt und ob es die Funktionen zum Löschen der personenbezogenen Daten unterstützt. Diese Informationen findest du möglicherweise in der <a href=\"%s\">Datenschutzerklärung.</a>."
+msgstr "Wenn du dir nicht sicher bist, schaue in die Dokumentation des Plugins oder kontaktiere den Autor, um zu erfahren, ob das Plugin Daten sammelt und ob es die Funktionen zum Löschen der personenbezogenen Daten unterstützt. Diese Informationen findest du möglicherweise in der <a href=\"%s\">Datenschutzerklärung</a>."
 
 #: wp-admin/erase-personal-data.php:39 wp-admin/export-personal-data.php:39
 msgid "<strong>Media</strong> &mdash; A list of URLs for all media file uploads made by the user."
