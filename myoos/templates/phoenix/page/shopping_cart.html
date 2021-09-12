@@ -190,20 +190,10 @@
 								</div>
 								<div class="collapse" id="shipping" data-parent="#cart-accordion">
 									<div class="card-body">
-									<form class="needs-validation" novalidate>
-										<div class="form-group">
-											<select class="form-control custom-select" required>
-												<option value="">Choose your country</option>
-												<option value="Australia">Australia</option>
-												<option value="Belgium">Belgium</option>
-												<option value="Canada">Canada</option>
-												<option value="Finland">Finland</option>
-												<option value="Mexico">Mexico</option>
-												<option value="New Zealand">New Zealand</option>
-												<option value="Switzerland">Switzerland</option>
-												<option value="United States">United States</option>
-											</select>
-												<div class="invalid-feedback">Please choose your country!</div>
+
+									<form class="needs-validation" action="{html_href_link content=$filename.shopping_cart action=shipping}" method="POST" novalidate>		
+										<div class="form-group">									
+											{oos_get_cart_country_list name=country selected=$country}									
 										</div>
 										<div class="form-group">
 											<select class="form-control custom-select" required>
