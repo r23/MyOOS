@@ -26,6 +26,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shoppi
 $hidden_field = '';
 $any_out_of_stock = 0;
 $order_total_output = array();
+$country = STORE_COUNTRY;
+
+
 
 if (isset($_SESSION)) { 
 
@@ -186,6 +189,9 @@ if (isset($_SESSION)) {
 					}
 				}
 			}  
+			
+			// or $_SESSION['sendto']? 
+			$country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;		
 		}
 	}
 }
@@ -220,6 +226,7 @@ $smarty->assign(
 		'products'				=> $products,
 		'any_out_of_stock'		=> $any_out_of_stock,
 		'order_total_output'	=> $order_total_output,
+		'country'				=> $country
        )
 );
 
