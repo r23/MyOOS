@@ -196,22 +196,10 @@
 											{oos_get_cart_country_list name=country selected=$country}									
 										</div>
 										<div class="form-group">
-											<select class="form-control custom-select" required>
-												<option value="">Choose your city</option>
-												<option value="Bern">Bern</option>
-												<option value="Brussels">Brussels</option>
-												<option value="Canberra">Canberra</option>
-												<option value="Helsinki">Helsinki</option>
-												<option value="Mexico City">Mexico City</option>
-												<option value="Ottawa">Ottawa</option>
-												<option value="Washington D.C.">Washington D.C.</option>
-												<option value="Wellington">Wellington</option>
-											</select>
-												<div class="invalid-feedback">Please choose your city!</div>
+											<input class="form-control" id="city" name="city" type="text" value="{$city}" placeholder="City" required" />
 										</div>
 										<div class="form-group">
-											<input class="form-control" type="text" placeholder="ZIP / Postal code" required>
-											<div class="invalid-feedback">Please provide a valid zip!</div>
+											<input class="form-control" id="postcode" name="postcode" type="text" value="{$postcode}" placeholder="ZIP / Postal code" required" />
 										</div>
 										<button class="btn btn-outline-primary btn-block" type="submit">Calculate shipping</button>
 									</form>
