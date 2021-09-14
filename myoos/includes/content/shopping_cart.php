@@ -28,8 +28,6 @@ $any_out_of_stock = 0;
 $order_total_output = array();
 $country = STORE_COUNTRY;
 
-
-
 if (isset($_SESSION)) { 
 
 	if (is_object($_SESSION['cart'])) {
@@ -37,8 +35,49 @@ if (isset($_SESSION)) {
 			
 			// Add Shipping Cost
 			require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+			require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
 			require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
 			require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
+			
+			// or $_SESSION['sendto']? 
+			$country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
+
+			// Redeem coupons
+			if ( isset($_GET['action']) && ($_GET['action'] == 'shipping') && 
+				( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+
+
+					$country = oos_db_prepare_input($_POST['country']);
+					$postcode = oos_db_prepare_input($_POST['postcode']);
+					$city = oos_db_prepare_input($_POST['city']);
+
+					$postcode = strtoupper($postcode);
+					$city = oos_remove_shouting($city);	
+
+
+					if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
+						$oMessage->add('danger', $aLang['entry_post_code_error']);
+					}
+ 
+					if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
+						$oMessage->add('danger', $aLang['entry_city_error']);
+					}
+
+					if (is_numeric($country) == false) {
+						$oMessage->add('danger', $aLang['entry_country_error']);
+					}					
+/*
+$city =
+$postcode =
+*/
+
+
+			#	$order_total_modules->shopping_cart_collect_posts();
+			}
+
+
+
+
 		
 			// if no shipping destination address was selected, use the customers own address as default
 			if (!isset($_SESSION['sendto'])) {
@@ -188,13 +227,13 @@ if (isset($_SESSION)) {
 						
 					}
 				}
-			}  
-			
-			// or $_SESSION['sendto']? 
-			$country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;		
+			}  	
 		}
 	}
 }
+
+
+
 
 
 // links breadcrumb
@@ -226,7 +265,9 @@ $smarty->assign(
 		'products'				=> $products,
 		'any_out_of_stock'		=> $any_out_of_stock,
 		'order_total_output'	=> $order_total_output,
-		'country'				=> $country
+		'country'				=> $country,
+		'city'					=> $city,
+		'postcode'				=> $postcode
        )
 );
 

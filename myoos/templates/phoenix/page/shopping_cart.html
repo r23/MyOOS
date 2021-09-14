@@ -190,16 +190,19 @@
 								</div>
 								<div class="collapse" id="shipping" data-parent="#cart-accordion">
 									<div class="card-body">
-
 									<form class="needs-validation" action="{html_href_link content=$filename.shopping_cart action=shipping}" method="POST" novalidate>		
+										{if $mySystem.sed}
+											<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+											<input type="hidden" name="formid" value="{$mySystem.formid}">
+										{/if}
 										<div class="form-group">									
 											{oos_get_cart_country_list name=country selected=$country}									
 										</div>
 										<div class="form-group">
-											<input class="form-control" id="city" name="city" type="text" value="{$city}" placeholder="City" required" />
+											<input class="form-control" id="city" name="city" type="text" value="{$city}" placeholder="{$lang.entry_city}" required" />
 										</div>
 										<div class="form-group">
-											<input class="form-control" id="postcode" name="postcode" type="text" value="{$postcode}" placeholder="ZIP / Postal code" required" />
+											<input class="form-control" id="postcode" name="postcode" type="text" value="{$postcode}" placeholder="{$lang.entry_post_code}" required" />
 										</div>
 										<button class="btn btn-outline-primary btn-block" type="submit">Calculate shipping</button>
 									</form>
