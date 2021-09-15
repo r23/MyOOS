@@ -25,9 +25,6 @@ define('MODULE_ORDER_TOTAL_SHIPPING_STATUS_DESC', 'Anzeige der Versandkosten?');
 define('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER_TITLE', 'Sortierreihenfolge');
 define('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
 
-define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_TITLE', 'Versandkostenfrei erlauben');
-define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_DESC', 'Versandkostenfreie Lieferung erlauben?');
-
 define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_TITLE', 'Versandkostenfrei für Bestellungen ab');
 define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_DESC', 'Versandkostenfrei ab einem Bestellwert von:');
 

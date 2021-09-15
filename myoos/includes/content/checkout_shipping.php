@@ -113,7 +113,8 @@ if ($oOrder->delivery['country']['iso_code_2'] != '') {
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 $shipping_modules = new shipping;
 
-if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+ # if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER > 0) ) {
 	switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
       case 'national':
         if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;

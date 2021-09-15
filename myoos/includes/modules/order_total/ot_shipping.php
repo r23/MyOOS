@@ -48,7 +48,8 @@
 		}
 
 
-	  if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+	 # if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+	 if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER > 0) ) {	  
         switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
           case 'national':
             if ($oOrder->delivery['country_id'] == STORE_COUNTRY) $pass = true; break;
@@ -138,7 +139,8 @@
 		$delivery_zone_id = isset($_SESSION['zone_id']) ? intval($_SESSION['zone_id']) : STORE_ZONE;
 
 
-		if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+	#	if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+		if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER > 0) ) {	 		
 			switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
 				case 'national':
 					if ($delivery_country_id == STORE_COUNTRY) $pass = true; break;
@@ -226,7 +228,7 @@
     }
 
     function keys() {
-      return array('MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', 'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION');
+      return array('MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', 'MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', 'MODULE_ORDER_TOTAL_SHIPPING_DESTINATION');
     }
 
     function install() {
@@ -238,7 +240,6 @@
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', '5', '6', '2', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING', 'false', '6', '3', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER', '50', '6', '4', 'currencies->format', now())");
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_SHIPPING_DESTINATION', 'national', '6', '5', 'oos_cfg_select_option(array(\'national\', \'international\', \'both\'), ', now())");
     }

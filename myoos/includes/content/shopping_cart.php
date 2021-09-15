@@ -81,7 +81,7 @@ $postcode =
 		
 			// if no shipping destination address was selected, use the customers own address as default
 			if (!isset($_SESSION['sendto'])) {
-				$_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
+				# $_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
 			} else {
 				// verify the selected shipping address
 				$address_booktable = $oostable['address_book'];
@@ -93,7 +93,7 @@ $postcode =
 				$check_address = $check_address_result->fields;
 
 				if ($check_address['total'] != '1') {
-					$_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
+					# $_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
 				}
 			}
 			
@@ -101,7 +101,10 @@ $postcode =
 			$total_weight = $_SESSION['cart']->info['weight'];
 			$subtotal = $_SESSION['cart']->info['subtotal'];
 			$total_count = $_SESSION['cart']->count_contents();
-			
+
+
+
+		
 			// if the order contains only virtual products
 			if (($content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0)) {
 				$_SESSION['shipping'] = false;
