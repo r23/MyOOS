@@ -81,7 +81,7 @@ $postcode =
 		
 			// if no shipping destination address was selected, use the customers own address as default
 			if (!isset($_SESSION['sendto'])) {
-				$_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
+				$_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
 			} else {
 				// verify the selected shipping address
 				$address_booktable = $oostable['address_book'];
