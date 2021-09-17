@@ -22,7 +22,11 @@ function gutenberg_render_block_core_query_pagination_next( $attributes, $conten
 	$wrapper_attributes = get_block_wrapper_attributes();
 	$default_label      = __( 'Next Page' );
 	$label              = isset( $attributes['label'] ) && ! empty( $attributes['label'] ) ? $attributes['label'] : $default_label;
-	$content            = '';
+	$pagination_arrow   = get_query_pagination_arrow( $block, true );
+	if ( $pagination_arrow ) {
+		$label .= $pagination_arrow;
+	}
+	$content = '';
 
 	// Check if the pagination is for Query that inherits the global context.
 	if ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] ) {

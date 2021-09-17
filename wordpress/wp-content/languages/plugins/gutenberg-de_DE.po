@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-09-10 20:52:31+0000\n"
+"PO-Revision-Date: 2021-09-16 16:29:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,16 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Gutenberg - Stable (latest release)\n"
+
+#: build/block-library/blocks/table/block.json
+msgctxt "block description"
+msgid "Create structured content in rows and columns to display information."
+msgstr "Erstelle strukturierte Inhalte in Zeilen und Spalten, um Informationen darzustellen."
+
+#: build/block-library/blocks/site-logo/block.json
+msgctxt "block description"
+msgid "Display a graphic to represent this site. Update the block, and the changes apply everywhere it’s used. This is different than the site icon, which is the smaller image visible in your dashboard, browser tabs, etc used to help others recognize this site."
+msgstr "Zeige eine Grafik an, um diese Website zu repräsentieren. Wenn du den Block aktualisiert, werden die Änderungen an jeder verwendeten Stelle übernommen. Das ist etwas anderes als das Website-Icon, das kleinere Bild, das in deinem Dashboard, in Browser-Tabs usw. verwendet wird, damit andere leichter diese Website wiedererkennen."
 
 #: lib/block-patterns.php:76
 msgctxt "Block pattern title"
@@ -307,11 +317,6 @@ msgstr "Eine Wolke deiner meist genutzten Schlagwörter."
 msgctxt "block style label"
 msgid "Stripes"
 msgstr "Streifen"
-
-#: build/block-library/blocks/table/block.json
-msgctxt "block description"
-msgid "Insert a table — perfect for sharing charts and data."
-msgstr "Füge eine Tabelle ein -- ideal um Diagramme und Daten zu teilen."
 
 #: build/block-library/blocks/table-of-contents/block.json
 msgctxt "block keyword"
@@ -950,7 +955,7 @@ msgstr "Favicon-Bild-Link des Elements <link rel=\"icon\"> aus der URL."
 
 #. translators: %1$s: Block type, %2$s: typography supports key e.g: fontSize,
 #. lineHeight etc...
-#: lib/blocks.php:497
+#: lib/blocks.php:499
 msgid "Block %1$s is declaring %2$s support on block.json under supports.%2$s. %2$s support is now declared under supports.typography.%2$s."
 msgstr "Block %1$s erklärt %2$s Unterstützung auf block.json unter supports.%2$s. %2$s-Unterstützung wird jetzt unter supports.typography.%2$s erklärt."
 
@@ -958,13 +963,13 @@ msgstr "Block %1$s erklärt %2$s Unterstützung auf block.json unter supports.%2
 msgid "(Home link, opens in a new tab)"
 msgstr "(Link zur Startseite, öffnet in einem neuen Tab)"
 
-#: build/block-library/blocks/navigation.php:310
-#: build/block-library/index.js:21085
+#: build/block-library/blocks/navigation.php:314
+#: build/block-library/index.js:21110
 msgid "Close menu"
 msgstr "Menü schließen"
 
-#: build/block-library/blocks/navigation.php:309
-#: build/block-library/index.js:21050
+#: build/block-library/blocks/navigation.php:313
+#: build/block-library/index.js:21075
 msgid "Open menu"
 msgstr "Menü öffnen"
 
@@ -1100,11 +1105,6 @@ msgctxt "block title"
 msgid "Post Comments Link"
 msgstr "Kommentar-Link veröffentlichen"
 
-#: build/block-library/blocks/site-logo/block.json
-msgctxt "block description"
-msgid "Useful for displaying a graphic mark, design, or symbol to represent the site. Once a site logo is set, it can be reused in different places and templates. It should not be confused with the site icon, which is the small image used in the dashboard, browser tabs, public search results, etc, to help recognize a site."
-msgstr "Nützlich, um ein grafisches Zeichen, Design oder Symbol anzuzeigen, das die Website repräsentiert. Sobald ein Website-Logo gesetzt ist, lässt es sich an verschiedenen Stellen und in Templates verwenden. Nicht zu verwechseln mit dem Website-Icon, dem kleinen Bild, an dem man eine Website im Dashboard, in Browser-Tabs, öffentlichen Suchergebnissen etc. leichter wiedererkennt. "
-
 #: build/block-library/blocks/loginout/block.json
 msgctxt "block title"
 msgid "Login/out"
@@ -1125,7 +1125,7 @@ msgstr "Beitragsformat-Link"
 
 #: build/block-library/blocks/latest-posts.php:139
 #: build/block-library/blocks/latest-posts.php:154
-#: build/block-library/index.js:37526
+#: build/block-library/index.js:37800
 msgid "This content is password protected."
 msgstr "Dieser Inhalt ist passwortgeschützt."
 
@@ -1176,7 +1176,7 @@ msgctxt "block category"
 msgid "Text"
 msgstr "Text"
 
-#: lib/blocks.php:445 lib/compat/wordpress-5.8/block-editor.php:46
+#: lib/blocks.php:447 lib/compat/wordpress-5.8/block-editor.php:46
 msgctxt "block category"
 msgid "Theme"
 msgstr "Theme"
@@ -1240,12 +1240,12 @@ msgid "Skip to content"
 msgstr "Direkt zum Inhalt wechseln"
 
 #: lib/full-site-editing/template-parts.php:195
-#: build/block-library/index.js:35058
+#: build/block-library/index.js:35228
 msgid "The Footer template defines a page area that typically contains site credits, social links, or any other combination of blocks."
 msgstr "Das Footer-Template definiert einen Seitenbereich, der typischerweise Impressum, Social Links oder jede andere Kombination von Blöcken enthält."
 
 #: lib/full-site-editing/template-parts.php:185
-#: build/block-library/index.js:35049
+#: build/block-library/index.js:35219
 msgid "The Header template defines a page area that typically contains a title, logo, and main navigation."
 msgstr "Das Header-Template definiert einen Seitenbereich, der typischerweise Titel, Logo und Hauptnavigation enthält."
 
@@ -1288,6 +1288,7 @@ msgid "Serialized widget form data to encode into instance settings."
 msgstr "Serialisierte Widget-Formulardaten zur Kodierung in Instanzen-Einstellungen."
 
 #: lib/class-wp-rest-widget-types-controller.php:82
+#: lib/compat/wordpress-5.8.1/widget-render-api-endpoint/class-gb-rest-widget-render-endpoint-polyfill.php:44
 msgid "Current instance settings of the widget."
 msgstr "Aktuelle Instanz-Einstellungen des Widgets."
 
@@ -1397,6 +1398,7 @@ msgstr "Menschenlesbarer Name, der den Widget-Typ bezeichnet."
 
 #: lib/class-wp-rest-widget-types-controller.php:57
 #: lib/class-wp-rest-widget-types-controller.php:77
+#: lib/compat/wordpress-5.8.1/widget-render-api-endpoint/class-gb-rest-widget-render-endpoint-polyfill.php:39
 msgid "The widget type id."
 msgstr "Die Widget-Typ-ID."
 
@@ -1461,7 +1463,7 @@ msgid "The URL to process."
 msgstr "Zu verarbeitende URL."
 
 #: build/block-library/blocks/query-pagination-previous.php:22
-#: build/block-library/index.js:37060
+#: build/block-library/index.js:37334
 msgid "Previous Page"
 msgstr "Vorherige Seite"
 
@@ -1476,7 +1478,7 @@ msgid "Query Pagination Numbers"
 msgstr "Seitennummerierung abfragen"
 
 #: build/block-library/blocks/query-pagination-next.php:23
-#: build/block-library/index.js:36875
+#: build/block-library/index.js:37133
 msgid "Next Page"
 msgstr "Nächste Seite"
 
@@ -1488,7 +1490,7 @@ msgstr "Nächste Seitennummerierung abfragen"
 #. translators: %s: Template part slug.
 #. translators: %s: Template part slug
 #: build/block-library/blocks/template-part.php:70
-#: build/block-library/index.js:34923
+#: build/block-library/index.js:35093
 msgid "Template part has been deleted or is unavailable: %s"
 msgstr "Das Template-Teil wurde gelöscht oder ist nicht verfügbar: %s"
 
@@ -1913,11 +1915,6 @@ msgstr "Du bist leider nicht berechtigt, auf die Templates dieser Website zuzugr
 msgid "The id of a template"
 msgstr "Die ID eines Templates."
 
-#: lib/client-assets.php:101 build/i18n/index.js:1414
-msgctxt "text direction"
-msgid "ltr"
-msgstr "ltr"
-
 #: lib/full-site-editing/default-template-types.php:29
 msgctxt "Template name"
 msgid "Singular"
@@ -2114,7 +2111,7 @@ msgid "Gutenberg block."
 msgstr "Gutenberg-Block."
 
 #: lib/full-site-editing/templates-utils.php:16
-#: build/block-library/index.js:22334
+#: build/block-library/index.js:22372
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -2247,7 +2244,7 @@ msgstr "Der Vorlagentitel in menschenlesbarem Format."
 #. translators: %s: the author.
 #. translators: byline. %s: current author.
 #: build/block-library/blocks/latest-posts.php:115
-#: build/block-library/blocks/rss.php:60 build/block-library/index.js:23611
+#: build/block-library/blocks/rss.php:60 build/block-library/index.js:23640
 msgid "by %s"
 msgstr "von %s"
 
@@ -2256,17 +2253,17 @@ msgid "Query"
 msgstr "Abfrage"
 
 #. translators: accessibility text for the content landmark region.
-#: lib/navigation.php:343 build/block-editor/index.js:11994
-#: build/edit-navigation/index.js:1221 build/edit-post/index.js:1310
-#: build/edit-site/index.js:2846 build/edit-site/index.js:6991
+#: lib/navigation.php:349 build/block-editor/index.js:12264
+#: build/edit-navigation/index.js:3307 build/edit-post/index.js:1312
+#: build/edit-site/index.js:2846 build/edit-site/index.js:7039
 #: build/edit-widgets/index.js:1247
 msgid "Content"
 msgstr "Inhalt"
 
 #. translators: accessibility text for the top bar landmark region.
 #: lib/full-site-editing/template-parts.php:184
-#: build/block-library/index.js:35048 build/edit-navigation/index.js:1218
-#: build/edit-post/index.js:1307 build/edit-site/index.js:2843
+#: build/block-library/index.js:35218 build/edit-navigation/index.js:3304
+#: build/edit-post/index.js:1309 build/edit-site/index.js:2843
 #: build/edit-widgets/index.js:1244
 msgid "Header"
 msgstr "Header"
@@ -2503,8 +2500,8 @@ msgctxt "block keyword"
 msgid "links"
 msgstr "Links"
 
-#: lib/class-wp-theme-json-resolver-gutenberg.php:428
-#: build/edit-site/index.js:5412
+#: lib/class-wp-theme-json-resolver-gutenberg.php:435
+#: build/edit-site/index.js:5460
 msgid "Global Styles"
 msgstr "Globale Stile"
 
@@ -2513,8 +2510,8 @@ msgid "No matching template found."
 msgstr "Kein passendes Template gefunden."
 
 #: lib/full-site-editing/templates-utils.php:18
-#: lib/full-site-editing/templates.php:80 build/blocks/index.js:6585
-#: build/edit-site/index.js:6983
+#: lib/full-site-editing/templates.php:80 build/blocks/index.js:6586
+#: build/edit-site/index.js:7031
 msgid "Theme"
 msgstr "Theme"
 
@@ -2603,17 +2600,17 @@ msgstr "Template-Teile"
 #. Translators: %s for the template part variation ("Header", "Footer",
 #. "Template Part").
 #: lib/full-site-editing/template-parts.php:18
-#: build/block-library/index.js:34301 build/block-library/index.js:34635
+#: build/block-library/index.js:34471 build/block-library/index.js:34805
 msgid "Template Part"
 msgstr "Template-Teil"
 
-#: lib/full-site-editing/template-parts.php:17 build/edit-site/index.js:6932
-#: build/edit-site/index.js:6988
+#: lib/full-site-editing/template-parts.php:17 build/edit-site/index.js:6980
+#: build/edit-site/index.js:7036
 msgid "Template Parts"
 msgstr "Template-Teile"
 
-#: lib/experiments-page.php:45 build/block-library/index.js:20488
-#: build/block-library/index.js:20976 build/edit-navigation/index.js:3916
+#: lib/experiments-page.php:45 build/block-library/index.js:20512
+#: build/block-library/index.js:21001 build/edit-navigation/index.js:4436
 msgid "Navigation"
 msgstr "Navigation"
 
@@ -2689,11 +2686,11 @@ msgstr "Templates"
 
 #. translators: ARIA label for the Template Settings Sidebar tab, not selected.
 #. translators: Text label for the Template Settings Sidebar tab.
-#: lib/full-site-editing/templates.php:18 build/edit-post/index.js:4721
-#: build/edit-post/index.js:6194 build/edit-post/index.js:6206
-#: build/edit-post/index.js:6207 build/edit-post/index.js:7644
-#: build/edit-site/index.js:5256 build/edit-site/index.js:5267
-#: build/edit-site/index.js:5269
+#: lib/full-site-editing/templates.php:18 build/edit-post/index.js:4769
+#: build/edit-post/index.js:6242 build/edit-post/index.js:6254
+#: build/edit-post/index.js:6255 build/edit-post/index.js:7713
+#: build/edit-site/index.js:5304 build/edit-site/index.js:5315
+#: build/edit-site/index.js:5317
 msgid "Template"
 msgstr "Template"
 
@@ -2705,8 +2702,8 @@ msgstr "Kein passendes Template gefunden"
 msgid "Templates to include in your theme."
 msgstr "Templates, die in dein Theme eingefügt werden können."
 
-#: lib/full-site-editing/templates.php:17 build/edit-site/index.js:6801
-#: build/edit-site/index.js:6985
+#: lib/full-site-editing/templates.php:17 build/edit-site/index.js:6849
+#: build/edit-site/index.js:7033
 msgid "Templates"
 msgstr "Templates"
 
@@ -2725,8 +2722,8 @@ msgstr "Deine Website hat keine %s, also gibt es hier im Moment nichts zu sehen.
 
 #. translators: accessibility text for the footer landmark region.
 #: lib/full-site-editing/template-parts.php:194
-#: build/block-library/index.js:35057 build/edit-navigation/index.js:1233
-#: build/edit-post/index.js:1322 build/edit-site/index.js:2858
+#: build/block-library/index.js:35227 build/edit-navigation/index.js:3319
+#: build/edit-post/index.js:1324 build/edit-site/index.js:2858
 #: build/edit-widgets/index.js:1259
 msgid "Footer"
 msgstr "Footer"
@@ -2741,23 +2738,23 @@ msgstr "RSS Fehler:"
 
 #: build/block-library/blocks/search.php:25
 #: build/block-library/blocks/search.php:26
-#: build/block-library/blocks/search.php:57 build/block-editor/index.js:24047
-#: build/block-editor/index.js:24153 build/block-library/index.js:27053
-#: build/block-library/index.js:27054 build/components/index.js:67020
+#: build/block-library/blocks/search.php:57 build/block-editor/index.js:24539
+#: build/block-editor/index.js:24645 build/block-library/index.js:27084
+#: build/block-library/index.js:27085 build/components/index.js:66858
 msgid "Search"
 msgstr "Suchen"
 
 #: lib/compat/wordpress-5.8/block-editor.php:183
-#: build/block-editor/index.js:6224
+#: build/block-editor/index.js:6243
 msgid "Thumbnail"
 msgstr "Vorschaubild"
 
 #: lib/compat/wordpress-5.8/block-editor.php:186
-#: build/block-editor/index.js:6233
+#: build/block-editor/index.js:6252
 msgid "Full Size"
 msgstr "Vollständige Größe"
 
-#: build/block-library/index.js:17456
+#: build/block-library/index.js:17471
 #: build/block-library/blocks/embed/block.json
 msgctxt "block title"
 msgid "Embed"
@@ -2769,8 +2766,8 @@ msgid "Classic"
 msgstr "Classic"
 
 #: lib/full-site-editing/default-template-types.php:65
-#: build/block-editor/index.js:37698 build/blocks/index.js:6576
-#: build/core-data/index.js:1838
+#: build/block-editor/index.js:38104 build/blocks/index.js:6577
+#: build/core-data/index.js:1774
 msgid "Media"
 msgstr "Medien"
 
@@ -2784,14 +2781,13 @@ msgctxt "block description"
 msgid "Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content."
 msgstr "Führe neue Abschnitte ein und organisiere Inhalte, damit Besucher (und Suchmaschinen) die Struktur deiner Inhalte besser verstehen können."
 
-#: lib/full-site-editing/template-parts.php:174 build/edit-post/index.js:4662
+#: lib/full-site-editing/template-parts.php:174 build/edit-post/index.js:4710
 #: build/edit-site/index.js:562
 msgid "General"
 msgstr "Allgemein"
 
 #: lib/compat/wordpress-5.8/block-editor.php:184
-#: build/block-editor/index.js:6227 build/block-editor/index.js:15535
-#: build/components/index.js:52511
+#: build/block-editor/index.js:6246 build/block-editor/index.js:15832
 msgid "Medium"
 msgstr "Mittel"
 
@@ -2825,7 +2821,7 @@ msgstr "Falls du mehr darüber erfahren willst, wie zusätzliche Blöcke erstell
 msgid "The WordPress community"
 msgstr "Die WordPress-Community"
 
-#: post-content.php:159 build/block-library/index.js:7729
+#: post-content.php:159 build/block-library/index.js:7694
 msgid "Code is Poetry"
 msgstr "Code ist Poesie"
 
@@ -3013,8 +3009,7 @@ msgid "Archives"
 msgstr "Archive"
 
 #: lib/compat/wordpress-5.8/block-editor.php:185
-#: build/block-editor/index.js:6230 build/block-library/index.js:31831
-#: build/components/index.js:52514
+#: build/block-editor/index.js:6249 build/block-library/index.js:32002
 msgid "Large"
 msgstr "Groß"
 
@@ -3047,19 +3042,20 @@ msgstr "Status"
 #. translators: ARIA label for the Block Settings Sidebar tab, not selected.
 #. translators: Text label for the Block Settings Sidebar tab.
 #: lib/class-wp-widget-block.php:49 lib/navigation.php:91 lib/navigation.php:96
-#: build/edit-navigation/index.js:3492 build/edit-navigation/index.js:3507
-#: build/edit-navigation/index.js:3509 build/edit-post/index.js:6193
-#: build/edit-post/index.js:6212 build/edit-post/index.js:6214
-#: build/edit-site/index.js:5259 build/edit-site/index.js:5274
-#: build/edit-site/index.js:5276 build/edit-widgets/index.js:3359
+#: build/edit-navigation/index.js:3912 build/edit-navigation/index.js:3927
+#: build/edit-navigation/index.js:3929 build/edit-post/index.js:6241
+#: build/edit-post/index.js:6260 build/edit-post/index.js:6262
+#: build/edit-site/index.js:5307 build/edit-site/index.js:5322
+#: build/edit-site/index.js:5324 build/edit-widgets/index.js:3359
 msgid "Block"
 msgstr "Block"
 
 #: build/block-library/blocks/latest-comments.php:31
 #: build/block-library/blocks/latest-posts.php:103
-#: build/block-library/blocks/rss.php:31 build/block-library/index.js:23607
-#: build/core-data/index.js:5141 build/edit-post/index.js:7396
-#: build/edit-site/index.js:6048 build/editor/index.js:9363
+#: build/block-library/blocks/rss.php:31 build/block-library/index.js:23636
+#: build/core-data/index.js:5209 build/edit-navigation/index.js:2188
+#: build/edit-post/index.js:7465 build/edit-site/index.js:6096
+#: build/editor/index.js:9363
 msgid "(no title)"
 msgstr "(kein Titel)"
 
@@ -3068,14 +3064,14 @@ msgid "Experiments"
 msgstr "Experimente"
 
 #: build/block-library/blocks/categories.php:31
-#: build/block-library/index.js:13822 build/block-library/index.js:13856
-#: build/block-library/index.js:35763 build/components/index.js:64913
-#: build/edit-site/index.js:6404 build/edit-site/index.js:6996
+#: build/block-library/index.js:13837 build/block-library/index.js:13871
+#: build/block-library/index.js:35933 build/components/index.js:64751
+#: build/edit-site/index.js:6452 build/edit-site/index.js:7044
 msgid "Categories"
 msgstr "Kategorien"
 
-#: lib/init.php:39 lib/init.php:40 build/blocks/index.js:6582
-#: build/core-data/index.js:1869 build/customize-widgets/index.js:2466
+#: lib/init.php:39 lib/init.php:40 build/blocks/index.js:6583
+#: build/core-data/index.js:1805 build/customize-widgets/index.js:2470
 #: build/edit-widgets/index.js:3969 build/edit-widgets/index.js:3972
 #: build/edit-widgets/index.js:4255
 msgid "Widgets"
@@ -3105,7 +3101,7 @@ msgstr "https://github.com/WordPress/gutenberg"
 msgid "Gutenberg"
 msgstr "Gutenberg"
 
-#: lib/full-site-editing/templates-utils.php:15 build/components/index.js:46826
+#: lib/full-site-editing/templates-utils.php:15 build/components/index.js:46846
 #: build/editor/index.js:9987
 msgid "Slug"
 msgstr "Titelform"

@@ -985,7 +985,7 @@ function isSelectionForward(selection) {
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/caretRangeFromPoint
  *
- * @param {Document} doc The document of the range.
+ * @param {DocumentMaybeWithCaretPositionFromPoint} doc The document of the range.
  * @param {number}   x   Horizontal position within the current viewport.
  * @param {number}   y   Vertical position within the current viewport.
  *
@@ -1012,6 +1012,10 @@ function caretRangeFromPoint(doc, x, y) {
   range.collapse(true);
   return range;
 }
+/**
+ * @typedef {{caretPositionFromPoint?: (x: number, y: number)=> CaretPosition | null} & Document } DocumentMaybeWithCaretPositionFromPoint
+ * @typedef {{ readonly offset: number; readonly offsetNode: Node; getClientRect(): DOMRect | null; }} CaretPosition
+ */
 //# sourceMappingURL=caret-range-from-point.js.map
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/hidden-caret-range-from-point.js
 /**
@@ -1572,7 +1576,7 @@ const textContentSchema = {
   del: {},
   ins: {},
   a: {
-    attributes: ['href', 'target', 'rel']
+    attributes: ['href', 'target', 'rel', 'id']
   },
   code: {},
   abbr: {

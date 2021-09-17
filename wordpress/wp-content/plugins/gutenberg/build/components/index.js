@@ -15810,7 +15810,7 @@ __webpack_require__.d(__webpack_exports__, {
   "MenuGroup": function() { return /* reexport */ menu_group; },
   "MenuItem": function() { return /* reexport */ menu_item; },
   "MenuItemsChoice": function() { return /* reexport */ MenuItemsChoice; },
-  "Modal": function() { return /* reexport */ modal; },
+  "Modal": function() { return /* reexport */ Modal; },
   "NavigableMenu": function() { return /* reexport */ navigable_container_menu; },
   "Notice": function() { return /* reexport */ build_module_notice; },
   "NoticeList": function() { return /* reexport */ list; },
@@ -18608,34 +18608,57 @@ function computePopoverXAxisPosition(anchorRect, contentSize, xAxis, corner, sti
 /**
  * Utility used to compute the popover position over the yAxis
  *
- * @param {Object}  anchorRect            Anchor Rect.
- * @param {Object}  contentSize           Content Size.
- * @param {string}  yAxis                 Desired yAxis.
- * @param {string}  corner                Desired corner.
- * @param {boolean} stickyBoundaryElement The boundary element to use when
- *                                        switching between sticky and normal
- *                                        position.
- * @param {Element} anchorRef             The anchor element.
- * @param {Element} relativeOffsetTop     If applicable, top offset of the
- *                                        relative positioned parent container.
- * @param {boolean} forcePosition         Don't adjust position based on anchor.
- *
+ * @param {Object}       anchorRect            Anchor Rect.
+ * @param {Object}       contentSize           Content Size.
+ * @param {string}       yAxis                 Desired yAxis.
+ * @param {string}       corner                Desired corner.
+ * @param {boolean}      stickyBoundaryElement The boundary element to use when switching between sticky
+ *                                             and normal position.
+ * @param {Element}      anchorRef             The anchor element.
+ * @param {Element}      relativeOffsetTop     If applicable, top offset of the relative positioned
+ *                                             parent container.
+ * @param {boolean}      forcePosition         Don't adjust position based on anchor.
+ * @param {Element|null} editorWrapper         Element that wraps the editor content. Used to access
+ *                                             scroll position to determine sticky behavior.
  * @return {Object} Popover xAxis position and constraints.
  */
 
-function computePopoverYAxisPosition(anchorRect, contentSize, yAxis, corner, stickyBoundaryElement, anchorRef, relativeOffsetTop, forcePosition) {
+function computePopoverYAxisPosition(anchorRect, contentSize, yAxis, corner, stickyBoundaryElement, anchorRef, relativeOffsetTop, forcePosition, editorWrapper) {
   const {
     height
   } = contentSize;
 
   if (stickyBoundaryElement) {
     const stickyRect = stickyBoundaryElement.getBoundingClientRect();
-    const stickyPosition = stickyRect.top + height - relativeOffsetTop;
+    const stickyPositionTop = stickyRect.top + height - relativeOffsetTop;
+    const stickyPositionBottom = stickyRect.bottom - height - relativeOffsetTop;
 
-    if (anchorRect.top <= stickyPosition) {
+    if (anchorRect.top <= stickyPositionTop) {
+      if (editorWrapper) {
+        // If a popover cannot be positioned above the anchor, even after scrolling, we must
+        // ensure we use the bottom position instead of the popover slot.  This prevents the
+        // popover from always restricting block content and interaction while selected if the
+        // block is near the top of the site editor.
+        const isRoomAboveInCanvas = height + HEIGHT_OFFSET < editorWrapper.scrollTop + anchorRect.top;
+
+        if (!isRoomAboveInCanvas) {
+          return {
+            yAxis: 'bottom',
+            // If the bottom of the block is also below the bottom sticky position (ex -
+            // block is also taller than the editor window), return the bottom sticky
+            // position instead.  We do this instead of the top sticky position both to
+            // allow a smooth transition and more importantly to ensure every section of
+            // the block can be free from popover obscuration at some point in the
+            // scroll position.
+            popoverTop: Math.min(anchorRect.bottom, stickyPositionBottom)
+          };
+        }
+      } // Default sticky behavior.
+
+
       return {
         yAxis,
-        popoverTop: Math.min(anchorRect.bottom, stickyPosition)
+        popoverTop: Math.min(anchorRect.bottom, stickyPositionTop)
       };
     }
   } // y axis alignment choices
@@ -18696,28 +18719,28 @@ function computePopoverYAxisPosition(anchorRect, contentSize, yAxis, corner, sti
   };
 }
 /**
- * Utility used to compute the popover position and the content max width/height
- * for a popover given its anchor rect and its content size.
+ * Utility used to compute the popover position and the content max width/height for a popover given
+ * its anchor rect and its content size.
  *
- * @param {Object}  anchorRect            Anchor Rect.
- * @param {Object}  contentSize           Content Size.
- * @param {string}  position              Position.
- * @param {boolean} stickyBoundaryElement The boundary element to use when
- *                                        switching between sticky and normal
- *                                        position.
- * @param {Element} anchorRef             The anchor element.
- * @param {number}  relativeOffsetTop     If applicable, top offset of the
- *                                        relative positioned parent container.
- * @param {Element} boundaryElement       Boundary element.
- * @param {boolean} forcePosition         Don't adjust position based on anchor.
- * @param {boolean} forceXAlignment       Don't adjust alignment based on YAxis
- *
+ * @param {Object}       anchorRect            Anchor Rect.
+ * @param {Object}       contentSize           Content Size.
+ * @param {string}       position              Position.
+ * @param {boolean}      stickyBoundaryElement The boundary element to use when switching between
+ *                                             sticky and normal position.
+ * @param {Element}      anchorRef             The anchor element.
+ * @param {number}       relativeOffsetTop     If applicable, top offset of the relative positioned
+ *                                             parent container.
+ * @param {Element}      boundaryElement       Boundary element.
+ * @param {boolean}      forcePosition         Don't adjust position based on anchor.
+ * @param {boolean}      forceXAlignment       Don't adjust alignment based on YAxis
+ * @param {Element|null} editorWrapper         Element that wraps the editor content. Used to access
+ *                                             scroll position to determine sticky behavior.
  * @return {Object} Popover position and constraints.
  */
 
-function computePopoverPosition(anchorRect, contentSize, position = 'top', stickyBoundaryElement, anchorRef, relativeOffsetTop, boundaryElement, forcePosition, forceXAlignment) {
+function computePopoverPosition(anchorRect, contentSize, position = 'top', stickyBoundaryElement, anchorRef, relativeOffsetTop, boundaryElement, forcePosition, forceXAlignment, editorWrapper) {
   const [yAxis, xAxis = 'center', corner] = position.split(' ');
-  const yAxisPosition = computePopoverYAxisPosition(anchorRect, contentSize, yAxis, corner, stickyBoundaryElement, anchorRef, relativeOffsetTop, forcePosition);
+  const yAxisPosition = computePopoverYAxisPosition(anchorRect, contentSize, yAxis, corner, stickyBoundaryElement, anchorRef, relativeOffsetTop, forcePosition, editorWrapper);
   const xAxisPosition = computePopoverXAxisPosition(anchorRect, contentSize, xAxis, corner, stickyBoundaryElement, yAxisPosition.yAxis, boundaryElement, forcePosition, forceXAlignment);
   return { ...xAxisPosition,
     ...yAxisPosition
@@ -21430,12 +21453,12 @@ function useContextSystem(props, namespace) {
  * The hope is that we can improve render performance by removing functional
  * component wrappers.
  *
- * @template {import('./polymorphic-component').PolymorphicComponentProps<{}, any, any>} P
+ * @template {import('./wordpress-component').WordPressComponentProps<{}, any, any>} P
  * @param {(props: P, ref: import('react').Ref<any>) => JSX.Element | null} Component            The component to register into the Context system.
  * @param {string}                                                          namespace            The namespace to register the component under.
  * @param {Object}                                                          options
  * @param {boolean}                                                         [options.memo=false]
- * @return {import('./polymorphic-component').PolymorphicComponentFromProps<P>} The connected PolymorphicComponent
+ * @return {import('./wordpress-component').WordPressComponentFromProps<P>} The connected WordPressComponent
  */
 
 function contextConnect(Component, namespace, options = {}) {
@@ -21470,7 +21493,7 @@ function contextConnect(Component, namespace, options = {}) {
 
   WrappedComponent.displayName = namespace; // @ts-ignore internal property
 
-  WrappedComponent[CONNECT_STATIC_NAMESPACE] = (0,external_lodash_namespaceObject.uniq)(mergedNamespace); // @ts-ignore PolymorphicComponent property
+  WrappedComponent[CONNECT_STATIC_NAMESPACE] = (0,external_lodash_namespaceObject.uniq)(mergedNamespace); // @ts-ignore WordPressComponent property
 
   WrappedComponent.selector = `.${getStyledClassNameFromKey(namespace)}`; // @ts-ignore
 
@@ -21996,7 +22019,7 @@ var createStyled = function createStyled(tag, options) {
  * }
  * ```
  *
- * @type {import('../ui/context').PolymorphicComponent<'div', { children?: import('react').ReactNode }, true>}
+ * @type {import('../ui/context').WordPressComponent<'div', { children?: import('react').ReactNode }, true>}
  */
 // @ts-ignore
 const View = emotion_styled_base_browser_esm("div",  true ? {
@@ -22018,8 +22041,8 @@ View.displayName = 'View';
 
 
 /**
- * @param {import('../ui/context').PolymorphicComponentProps<{ children: import('react').ReactNode }, 'div'>} props
- * @param {import('react').Ref<any>}                                                                          forwardedRef
+ * @param {import('../ui/context').WordPressComponentProps<{ children: import('react').ReactNode }, 'div'>} props
+ * @param {import('react').Ref<any>}                                                                        forwardedRef
  */
 
 function VisuallyHidden(props, forwardedRef) {
@@ -23279,6 +23302,7 @@ const Popover = ({
   __unstableBoundaryParent,
   __unstableForcePosition,
   __unstableForceXAlignment,
+  __unstableEditorCanvasWrapper,
 
   /* eslint-enable no-unused-vars */
   ...contentProps
@@ -23348,7 +23372,7 @@ const Popover = ({
         yAxis,
         contentHeight,
         contentWidth
-      } = computePopoverPosition(anchor, usedContentSize, position, __unstableStickyBoundaryElement, containerRef.current, relativeOffsetTop, boundaryElement, __unstableForcePosition, __unstableForceXAlignment);
+      } = computePopoverPosition(anchor, usedContentSize, position, __unstableStickyBoundaryElement, containerRef.current, relativeOffsetTop, boundaryElement, __unstableForcePosition, __unstableForceXAlignment, __unstableEditorCanvasWrapper);
 
       if (typeof popoverTop === 'number' && typeof popoverLeft === 'number') {
         setStyle(containerRef.current, 'top', popoverTop + 'px');
@@ -35039,7 +35063,7 @@ const GRID_BASE = '4px';
  */
 
 function space(value) {
-  var _CSS$supports, _CSS;
+  var _window$CSS, _window$CSS$supports;
 
   if (typeof value === 'undefined') {
     return undefined;
@@ -35052,7 +35076,7 @@ function space(value) {
 
   const asInt = typeof value === 'number' ? value : Number(value); // test if the input has a unit, was NaN, or was one of the named CSS values (like `auto`), in which case just use that value
 
-  if ((_CSS$supports = (_CSS = CSS).supports) !== null && _CSS$supports !== void 0 && _CSS$supports.call(_CSS, 'margin', value.toString()) || Number.isNaN(asInt)) {
+  if (typeof window !== 'undefined' && (_window$CSS = window.CSS) !== null && _window$CSS !== void 0 && (_window$CSS$supports = _window$CSS.supports) !== null && _window$CSS$supports !== void 0 && _window$CSS$supports.call(_window$CSS, 'margin', value.toString()) || Number.isNaN(asInt)) {
     return value.toString();
   }
 
@@ -35278,7 +35302,7 @@ const ItemsRow =  true ? {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').FlexItemProps, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').FlexItemProps, 'div'>} props
  */
 
 function useFlexItem(props) {
@@ -35307,7 +35331,7 @@ function useFlexItem(props) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').FlexBlockProps, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').FlexBlockProps, 'div'>} props
  */
 
 function useFlexBlock(props) {
@@ -35401,16 +35425,12 @@ const useBreakpointIndex = (options = {}) => {
     onResize();
 
     if (typeof window !== 'undefined') {
-      // Disable reason: We don't really care about what document we listen to, we just want to know that we're resizing.
-
-      /* eslint-disable @wordpress/no-global-event-listener */
       window.addEventListener('resize', onResize);
     }
 
     return () => {
       if (typeof window !== 'undefined') {
         window.removeEventListener('resize', onResize);
-        /* eslint-enable @wordpress/no-global-event-listener */
       }
     };
   }, [value]);
@@ -35550,8 +35570,8 @@ rtl.watch = () => (0,external_wp_i18n_namespaceObject.isRTL)();
 
 /**
  *
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').FlexProps, 'div'>} props
- * @return {import('../../ui/context').PolymorphicComponentProps<import('../types').FlexProps, 'div'>} Props with the deprecated props removed.
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').FlexProps, 'div'>} props
+ * @return {import('../../ui/context').WordPressComponentProps<import('../types').FlexProps, 'div'>} Props with the deprecated props removed.
  */
 
 function hook_useDeprecatedProps({
@@ -35571,7 +35591,7 @@ function hook_useDeprecatedProps({
   return otherProps;
 }
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').FlexProps, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').FlexProps, 'div'>} props
  */
 
 
@@ -35641,8 +35661,8 @@ function useFlex(props) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').FlexProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                  forwardedRef
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').FlexProps, 'div'>} props
+ * @param {import('react').Ref<any>}                                                                forwardedRef
  */
 
 function component_Flex(props, forwardedRef) {
@@ -35821,7 +35841,7 @@ function truncateContent(words = '', props) {
 
 
 /**
- * @param {import('../ui/context').PolymorphicComponentProps<import('./types').Props, 'span'>} props
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'span'>} props
  */
 
 function useTruncate(props) {
@@ -36308,7 +36328,7 @@ function hook_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to strin
 
 
 /**
- * @param {import('../ui/context').PolymorphicComponentProps<import('./types').Props, 'span'>} props
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'span'>} props
  */
 
 var hook_ref =  true ? {
@@ -43642,7 +43662,7 @@ function getBoxShadow(value) {
   return boxShadow;
 }
 /**
- * @param {import('../ui/context').PolymorphicComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
  */
 
 function useElevation(props) {
@@ -43923,7 +43943,7 @@ const getVariant = (variant, surfaceBackgroundSize, surfaceBackgroundSizeDotted)
 
 
 /**
- * @param {import('../ui/context').PolymorphicComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
  */
 
 function useSurface(props) {
@@ -43968,7 +43988,7 @@ function useSurface(props) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').Props, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div'>} props
  */
 
 function card_hook_useDeprecatedProps({
@@ -43976,7 +43996,7 @@ function card_hook_useDeprecatedProps({
   isElevated,
   ...otherProps
 }) {
-  /**@type {import('../../ui/context').PolymorphicComponentProps<import('../types').Props, 'div'>} */
+  /**@type {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div'>} */
   const propsToReturn = { ...otherProps
   };
   let computedElevation = elevation;
@@ -44000,7 +44020,7 @@ function card_hook_useDeprecatedProps({
   return propsToReturn;
 }
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').Props, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div'>} props
  */
 
 
@@ -44054,8 +44074,8 @@ function useCard(props) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                              forwardedRef
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div'>} props
+ * @param {import('react').Ref<any>}                                                            forwardedRef
  */
 
 function component_Card(props, forwardedRef) {
@@ -44190,7 +44210,7 @@ const scrollAuto =  true ? {
 /* eslint-disable jsdoc/valid-types */
 
 /**
- * @param {import('../ui/context').PolymorphicComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
  */
 
 /* eslint-enable jsdoc/valid-types */
@@ -44252,7 +44272,7 @@ const component_Scrollable = create_component_createComponent({
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').BodyProps, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').BodyProps, 'div'>} props
  */
 
 function useCardBody(props) {
@@ -44284,8 +44304,8 @@ function useCardBody(props) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').BodyProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                  forwardedRef
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').BodyProps, 'div'>} props
+ * @param {import('react').Ref<any>}                                                                forwardedRef
  */
 
 function CardBody(props, forwardedRef) {
@@ -44461,7 +44481,7 @@ const ConnectedDivider = contextConnect(component_Divider, 'Divider');
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../../divider').DividerProps, 'hr', false>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../../divider').DividerProps, 'hr', false>} props
  */
 
 function useCardDivider(props) {
@@ -44488,8 +44508,8 @@ function useCardDivider(props) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../../divider').DividerProps, 'hr', false>} props
- * @param {import('react').Ref<any>}                                                                                forwardedRef
+ * @param {import('../../ui/context').WordPressComponentProps<import('../../divider').DividerProps, 'hr', false>} props
+ * @param {import('react').Ref<any>}                                                                              forwardedRef
  */
 
 function CardDivider(props, forwardedRef) {
@@ -44531,7 +44551,7 @@ const ConnectedCardDivider = contextConnect(CardDivider, 'CardDivider');
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').FooterProps, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').FooterProps, 'div'>} props
  */
 
 function useCardFooter(props) {
@@ -44563,8 +44583,8 @@ function useCardFooter(props) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').FooterProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                    forwardedRef
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').FooterProps, 'div'>} props
+ * @param {import('react').Ref<any>}                                                                  forwardedRef
  */
 
 function CardFooter(props, forwardedRef) {
@@ -44604,7 +44624,7 @@ const ConnectedCardFooter = contextConnect(CardFooter, 'CardFooter');
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').HeaderProps, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').HeaderProps, 'div'>} props
  */
 
 function useCardHeader(props) {
@@ -44634,8 +44654,8 @@ function useCardHeader(props) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').HeaderProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                    forwardedRef
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').HeaderProps, 'div'>} props
+ * @param {import('react').Ref<any>}                                                                  forwardedRef
  */
 
 function CardHeader(props, forwardedRef) {
@@ -44675,7 +44695,7 @@ const ConnectedCardHeader = contextConnect(CardHeader, 'CardHeader');
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<{ children: import('react').ReactNode }, 'div'>} props
+ * @param {import('../../ui/context').WordPressComponentProps<{ children: import('react').ReactNode }, 'div'>} props
  */
 
 function useCardMedia(props) {
@@ -47293,6 +47313,7 @@ function ComboboxControl({
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(ComboboxControl);
   const [selectedSuggestion, setSelectedSuggestion] = (0,external_wp_element_namespaceObject.useState)(currentOption || null);
   const [isExpanded, setIsExpanded] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [inputHasFocus, setInputHasFocus] = (0,external_wp_element_namespaceObject.useState)(false);
   const [inputValue, setInputValue] = (0,external_wp_element_namespaceObject.useState)('');
   const inputContainer = (0,external_wp_element_namespaceObject.useRef)();
   const matchingSuggestions = (0,external_wp_element_namespaceObject.useMemo)(() => {
@@ -47374,7 +47395,12 @@ function ComboboxControl({
     }
   };
 
+  const onBlur = () => {
+    setInputHasFocus(false);
+  };
+
   const onFocus = () => {
+    setInputHasFocus(true);
     setIsExpanded(true);
     onFilterValueChange('');
     setInputValue('');
@@ -47388,7 +47414,10 @@ function ComboboxControl({
     const text = event.value;
     setInputValue(text);
     onFilterValueChange(text);
-    setIsExpanded(true);
+
+    if (inputHasFocus) {
+      setIsExpanded(true);
+    }
   };
 
   const handleOnReset = () => {
@@ -47442,6 +47471,7 @@ function ComboboxControl({
     value: isExpanded ? inputValue : currentLabel,
     "aria-label": currentLabel ? `${currentLabel}, ${label}` : null,
     onFocus: onFocus,
+    onBlur: onBlur,
     isExpanded: isExpanded,
     selectedSuggestionIndex: matchingSuggestions.indexOf(selectedSuggestion),
     onChange: onInputChange
@@ -51645,11 +51675,25 @@ function CustomSelectControl({
     items,
     itemToString: custom_select_control_itemToString,
     onSelectedItemChange,
-    selectedItem: _selectedItem,
+    ...(typeof _selectedItem !== 'undefined' && _selectedItem !== null ? {
+      selectedItem: _selectedItem
+    } : undefined),
     stateReducer: custom_select_control_stateReducer
   });
-  const controlDescribedBy = describedBy ? describedBy : // translators: %s: The selected option.
-  (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Currently selected: %s'), selectedItem.name);
+
+  function getDescribedBy() {
+    if (describedBy) {
+      return describedBy;
+    }
+
+    if (!selectedItem) {
+      return (0,external_wp_i18n_namespaceObject.__)('No selection');
+    } // translators: %s: The selected option.
+
+
+    return (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Currently selected: %s'), selectedItem.name);
+  }
+
   const menuProps = getMenuProps({
     className: 'components-custom-select-control__menu',
     'aria-hidden': !isOpen
@@ -51674,7 +51718,7 @@ function CustomSelectControl({
     'aria-labelledby': undefined,
     className: 'components-custom-select-control__button',
     isSmall: true,
-    describedBy: controlDescribedBy
+    describedBy: getDescribedBy()
   }), custom_select_control_itemToString(selectedItem), (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
     icon: chevron_down,
     className: "components-custom-select-control__button-icon"
@@ -52502,19 +52546,19 @@ const select_control_ForwardedComponent = (0,external_wp_element_namespaceObject
 
 const findSizeBySlug = (sizes, slug) => sizes.find(size => slug === size.slug);
 /* harmony default export */ var dimension_control_sizes = ([{
-  name: (0,external_wp_i18n_namespaceObject.__)('None'),
+  name: (0,external_wp_i18n_namespaceObject._x)('None', 'Size of a UI element'),
   slug: 'none'
 }, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Small'),
+  name: (0,external_wp_i18n_namespaceObject._x)('Small', 'Size of a UI element'),
   slug: 'small'
 }, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Medium'),
+  name: (0,external_wp_i18n_namespaceObject._x)('Medium', 'Size of a UI element'),
   slug: 'medium'
 }, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Large'),
+  name: (0,external_wp_i18n_namespaceObject._x)('Large', 'Size of a UI element'),
   slug: 'large'
 }, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Extra Large'),
+  name: (0,external_wp_i18n_namespaceObject._x)('Extra Large', 'Size of a UI element'),
   slug: 'xlarge'
 }]);
 //# sourceMappingURL=sizes.js.map
@@ -53580,9 +53624,11 @@ function DropdownMenu({
         },
         className: classnames_default()('components-dropdown-menu__menu-item', {
           'has-separator': indexOfSet > 0 && indexOfControl === 0,
-          'is-active': control.isActive
+          'is-active': control.isActive,
+          'is-icon-only': !control.title
         }),
         icon: control.icon,
+        label: control.label,
         "aria-checked": control.role === 'menuitemcheckbox' || control.role === 'menuitemradio' ? control.isActive : undefined,
         role: control.role === 'menuitemcheckbox' || control.role === 'menuitemradio' ? control.role : 'menuitem',
         disabled: control.isDisabled
@@ -54008,6 +54054,7 @@ function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElemen
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -54019,48 +54066,15 @@ function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElemen
 
 
 
-
-function ControlPointKeyboardMove({
-  value: position,
-  onChange,
-  children
-}) {
-  const shortcuts = {
-    right(event) {
-      // Stop propagation of the key press event to avoid focus moving
-      // to another editor area.
-      event.stopPropagation();
-      const newPosition = clampPercent(position + KEYBOARD_CONTROL_POINT_VARIATION);
-      onChange(newPosition);
-    },
-
-    left(event) {
-      // Stop propagation of the key press event to avoid focus moving
-      // to another editor area.
-      event.stopPropagation();
-      const newPosition = clampPercent(position - KEYBOARD_CONTROL_POINT_VARIATION);
-      onChange(newPosition);
-    }
-
-  };
-  return (0,external_wp_element_namespaceObject.createElement)(keyboard_shortcuts, {
-    shortcuts: shortcuts
-  }, children);
-}
-
 function ControlPointButton({
   isOpen,
   position,
   color,
-  onChange,
   ...additionalProps
 }) {
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(ControlPointButton);
   const descriptionId = `components-custom-gradient-picker__control-point-button-description-${instanceId}`;
-  return (0,external_wp_element_namespaceObject.createElement)(ControlPointKeyboardMove, {
-    value: position,
-    onChange: onChange
-  }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
     "aria-label": (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1$s: gradient position e.g: 70, %2$s: gradient color code e.g: rgb(52,121,151).
     (0,external_wp_i18n_namespaceObject.__)('Gradient control point at position %1$s%% with color code %2$s.'), position, color),
     "aria-describedby": descriptionId,
@@ -54154,12 +54168,22 @@ function ControlPoints({
             window.addEventListener('mouseup', cleanEventListeners);
           }
         },
+        onKeyDown: event => {
+          if (event.keyCode === external_wp_keycodes_namespaceObject.LEFT) {
+            // Stop propagation of the key press event to avoid focus moving
+            // to another editor area.
+            event.stopPropagation();
+            onChange(updateControlPointPosition(controlPoints, index, clampPercent(point.position - KEYBOARD_CONTROL_POINT_VARIATION)));
+          } else if (event.keyCode === external_wp_keycodes_namespaceObject.RIGHT) {
+            // Stop propagation of the key press event to avoid focus moving
+            // to another editor area.
+            event.stopPropagation();
+            onChange(updateControlPointPosition(controlPoints, index, clampPercent(point.position + KEYBOARD_CONTROL_POINT_VARIATION)));
+          }
+        },
         isOpen: isOpen,
         position: point.position,
-        color: point.color,
-        onChange: newPosition => {
-          onChange(updateControlPointPosition(controlPoints, index, newPosition));
-        }
+        color: point.color
       }),
       renderContent: ({
         onClose
@@ -56194,8 +56218,8 @@ const CardView = /*#__PURE__*/emotion_styled_base_browser_esm(card_component,  t
 
 /**
  *
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').ContentProps, 'div', false>} props
- * @param {import('react').Ref<any>}                                                                            forwardedRef
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').ContentProps, 'div', false>} props
+ * @param {import('react').Ref<any>}                                                                          forwardedRef
  */
 
 function FlyoutContent(props, forwardedRef) {
@@ -58439,7 +58463,7 @@ function usePopoverState(initialState) {
 
 
 /**
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').Props, 'div', false>} props
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div', false>} props
  */
 
 function useFlyout(props) {
@@ -58498,8 +58522,8 @@ function useFlyout(props) {
 
 /**
  *
- * @param {import('../../ui/context').PolymorphicComponentProps<import('../types').Props, 'div', false>} props
- * @param {import('react').Ref<any>}                                                                     forwardedRef
+ * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div', false>} props
+ * @param {import('react').Ref<any>}                                                                   forwardedRef
  */
 
 function component_Flyout(props, forwardedRef) {
@@ -58732,7 +58756,7 @@ function FocalPointPickerControls({
 function controls_UnitControl(props) {
   return (0,external_wp_element_namespaceObject.createElement)(focal_point_picker_style_UnitControl, extends_extends({
     className: "focal-point-picker__controls-position-unit-control",
-    labelPosition: "side",
+    labelPosition: "top",
     max: TEXTCONTROL_MAX,
     min: TEXTCONTROL_MIN,
     unit: "%",
@@ -61763,7 +61787,7 @@ function getAlignmentProps(alignment) {
 
 
 /**
- * @param {import('../ui/context').PolymorphicComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
  */
 
 function useGrid(props) {
@@ -61845,145 +61869,6 @@ const Grid = create_component_createComponent({
 });
 /* harmony default export */ var grid_component = (Grid);
 //# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/modal/frame.js
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-function ModalFrameContent({
-  overlayClassName,
-  contentLabel,
-  aria: {
-    describedby,
-    labelledby
-  },
-  children,
-  className,
-  role,
-  style,
-  focusOnMount,
-  shouldCloseOnEsc,
-  onRequestClose
-}) {
-  function handleEscapeKeyDown(event) {
-    if (shouldCloseOnEsc && event.keyCode === external_wp_keycodes_namespaceObject.ESCAPE && !event.defaultPrevented) {
-      event.preventDefault();
-
-      if (onRequestClose) {
-        onRequestClose(event);
-      }
-    }
-  }
-
-  const focusOnMountRef = (0,external_wp_compose_namespaceObject.useFocusOnMount)(focusOnMount);
-  const constrainedTabbingRef = (0,external_wp_compose_namespaceObject.useConstrainedTabbing)();
-  const focusReturnRef = (0,external_wp_compose_namespaceObject.useFocusReturn)();
-  return (// eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: classnames_default()('components-modal__screen-overlay', overlayClassName),
-      onKeyDown: handleEscapeKeyDown
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: classnames_default()('components-modal__frame', className),
-      style: style,
-      ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([constrainedTabbingRef, focusReturnRef, focusOnMountRef]),
-      role: role,
-      "aria-label": contentLabel,
-      "aria-labelledby": contentLabel ? null : labelledby,
-      "aria-describedby": describedby,
-      tabIndex: "-1"
-    }, children))
-  );
-}
-
-class ModalFrame extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.handleFocusOutside = this.handleFocusOutside.bind(this);
-  }
-  /**
-   * Callback function called when clicked outside the modal.
-   *
-   * @param {Object} event Mouse click event.
-   */
-
-
-  handleFocusOutside(event) {
-    if (this.props.shouldCloseOnClickOutside && this.props.onRequestClose) {
-      this.props.onRequestClose(event);
-    }
-  }
-  /**
-   * Renders the modal frame element.
-   *
-   * @return {WPElement} The modal frame element.
-   */
-
-
-  render() {
-    return (0,external_wp_element_namespaceObject.createElement)(ModalFrameContent, this.props);
-  }
-
-}
-
-/* harmony default export */ var modal_frame = (with_focus_outside(ModalFrame));
-//# sourceMappingURL=frame.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/modal/header.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-const ModalHeader = ({
-  icon,
-  title,
-  onClose,
-  closeLabel,
-  headingId,
-  isDismissible
-}) => {
-  const label = closeLabel ? closeLabel : (0,external_wp_i18n_namespaceObject.__)('Close dialog');
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-modal__header"
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-modal__header-heading-container"
-  }, icon && (0,external_wp_element_namespaceObject.createElement)("span", {
-    className: "components-modal__icon-container",
-    "aria-hidden": true
-  }, icon), title && (0,external_wp_element_namespaceObject.createElement)("h1", {
-    id: headingId,
-    className: "components-modal__header-heading"
-  }, title)), isDismissible && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    onClick: onClose,
-    icon: close_small,
-    label: label
-  }));
-};
-
-/* harmony default export */ var header = (ModalHeader);
-//# sourceMappingURL=header.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/modal/aria-helper.js
 /**
  * External dependencies
@@ -62057,8 +61942,16 @@ function showApp() {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
+
+
+
+
 
 
 
@@ -62067,168 +61960,112 @@ function showApp() {
  */
 
 
-
  // Used to count the number of open modals.
 
-let parentElement,
-    openModalCount = 0;
+let openModalCount = 0;
+function Modal({
+  bodyOpenClassName = 'modal-open',
+  role = 'dialog',
+  title = null,
+  focusOnMount = true,
+  shouldCloseOnEsc = true,
+  shouldCloseOnClickOutside = true,
+  isDismissable,
+  // Deprecated
+  isDismissible = isDismissable || true,
 
-class Modal extends external_wp_element_namespaceObject.Component {
-  constructor(props) {
-    super(props);
-    this.prepareDOM();
-  }
-  /**
-   * Appends the modal's node to the DOM, so the portal can render the
-   * modal in it. Also calls the openFirstModal when this is the first modal to be
-   * opened.
-   */
-
-
-  componentDidMount() {
+  /* accessibility */
+  aria = {
+    labelledby: null,
+    describedby: null
+  },
+  onRequestClose,
+  icon,
+  closeButtonLabel,
+  children,
+  style,
+  overlayClassName,
+  className,
+  contentLabel,
+  onKeyDown
+}) {
+  const ref = (0,external_wp_element_namespaceObject.useRef)();
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(Modal);
+  const headingId = title ? `components-modal-header-${instanceId}` : aria.labelledby;
+  const focusOnMountRef = (0,external_wp_compose_namespaceObject.useFocusOnMount)(focusOnMount);
+  const constrainedTabbingRef = (0,external_wp_compose_namespaceObject.useConstrainedTabbing)();
+  const focusReturnRef = (0,external_wp_compose_namespaceObject.useFocusReturn)();
+  const focusOutsideProps = (0,external_wp_compose_namespaceObject.__experimentalUseFocusOutside)(onRequestClose);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     openModalCount++;
 
     if (openModalCount === 1) {
-      this.openFirstModal();
-    }
-  }
-  /**
-   * Removes the modal's node from the DOM. Also calls closeLastModal when this is
-   * the last modal to be closed.
-   */
-
-
-  componentWillUnmount() {
-    openModalCount--;
-
-    if (openModalCount === 0) {
-      this.closeLastModal();
+      hideApp(ref.current);
+      document.body.classList.add(bodyOpenClassName);
     }
 
-    this.cleanDOM();
-  }
-  /**
-   * Prepares the DOM for the modals to be rendered.
-   *
-   * Every modal is mounted in a separate div appended to a parent div
-   * that is appended to the document body.
-   *
-   * The parent div will be created if it does not yet exist, and the
-   * separate div for this specific modal will be appended to that.
-   */
+    return () => {
+      openModalCount--;
 
-
-  prepareDOM() {
-    if (!parentElement) {
-      parentElement = document.createElement('div');
-      document.body.appendChild(parentElement);
-    }
-
-    this.node = document.createElement('div');
-    parentElement.appendChild(this.node);
-  }
-  /**
-   * Removes the specific mounting point for this modal from the DOM.
-   */
-
-
-  cleanDOM() {
-    parentElement.removeChild(this.node);
-  }
-  /**
-   * Prepares the DOM for this modal and any additional modal to be mounted.
-   *
-   * It appends an additional div to the body for the modals to be rendered in,
-   * it hides any other elements from screen-readers and adds an additional class
-   * to the body to prevent scrolling while the modal is open.
-   */
-
-
-  openFirstModal() {
-    hideApp(parentElement);
-    document.body.classList.add(this.props.bodyOpenClassName);
-  }
-  /**
-   * Cleans up the DOM after the last modal is closed and makes the app available
-   * for screen-readers again.
-   */
-
-
-  closeLastModal() {
-    document.body.classList.remove(this.props.bodyOpenClassName);
-    showApp();
-  }
-  /**
-   * Renders the modal.
-   *
-   * @return {WPElement} The modal element.
-   */
-
-
-  render() {
-    const {
-      onRequestClose,
-      title,
-      icon,
-      closeButtonLabel,
-      children,
-      aria,
-      instanceId,
-      isDismissible,
-      isDismissable,
-      //Deprecated
-      // Many of the documented props for Modal are passed straight through
-      // to the ModalFrame component and handled there.
-      ...otherProps
-    } = this.props;
-    const headingId = title ? `components-modal-header-${instanceId}` : aria.labelledby;
-
-    if (isDismissable) {
-      external_wp_deprecated_default()('isDismissable prop of the Modal component', {
-        since: '5.4',
-        alternative: 'isDismissible prop (renamed) of the Modal component'
-      });
-    } // Disable reason: this stops mouse events from triggering tooltips and
-    // other elements underneath the modal overlay.
-
-
-    return (0,external_wp_element_namespaceObject.createPortal)((0,external_wp_element_namespaceObject.createElement)(modal_frame, extends_extends({
-      onRequestClose: onRequestClose,
-      aria: {
-        labelledby: headingId,
-        describedby: aria.describedby
+      if (openModalCount === 0) {
+        document.body.classList.remove(bodyOpenClassName);
+        showApp();
       }
-    }, otherProps), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: 'components-modal__content',
-      role: "document"
-    }, (0,external_wp_element_namespaceObject.createElement)(header, {
-      closeLabel: closeButtonLabel,
-      headingId: title && headingId,
-      icon: icon,
-      isDismissible: isDismissible || isDismissable,
-      onClose: onRequestClose,
-      title: title
-    }), children)), this.node);
+    };
+  }, []);
+
+  if (isDismissable) {
+    external_wp_deprecated_default()('isDismissable prop of the Modal component', {
+      since: '5.4',
+      alternative: 'isDismissible prop (renamed) of the Modal component'
+    });
   }
 
+  function handleEscapeKeyDown(event) {
+    if (shouldCloseOnEsc && event.keyCode === external_wp_keycodes_namespaceObject.ESCAPE && !event.defaultPrevented) {
+      event.preventDefault();
+
+      if (onRequestClose) {
+        onRequestClose(event);
+      }
+    }
+  }
+
+  return (0,external_wp_element_namespaceObject.createPortal)( // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+  (0,external_wp_element_namespaceObject.createElement)("div", {
+    ref: ref,
+    className: classnames_default()('components-modal__screen-overlay', overlayClassName),
+    onKeyDown: handleEscapeKeyDown
+  }, (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
+    className: classnames_default()('components-modal__frame', className),
+    style: style,
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([constrainedTabbingRef, focusReturnRef, focusOnMountRef]),
+    role: role,
+    "aria-label": contentLabel,
+    "aria-labelledby": contentLabel ? null : headingId,
+    "aria-describedby": aria.describedby,
+    tabIndex: "-1"
+  }, shouldCloseOnClickOutside ? focusOutsideProps : {}, {
+    onKeyDown: onKeyDown
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: 'components-modal__content',
+    role: "document"
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-modal__header"
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-modal__header-heading-container"
+  }, icon && (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: "components-modal__icon-container",
+    "aria-hidden": true
+  }, icon), title && (0,external_wp_element_namespaceObject.createElement)("h1", {
+    id: headingId,
+    className: "components-modal__header-heading"
+  }, title)), isDismissible && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    onClick: onRequestClose,
+    icon: close_small,
+    label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close dialog')
+  })), children))), document.body);
 }
-
-Modal.defaultProps = {
-  bodyOpenClassName: 'modal-open',
-  role: 'dialog',
-  title: null,
-  focusOnMount: true,
-  shouldCloseOnEsc: true,
-  shouldCloseOnClickOutside: true,
-  isDismissible: true,
-
-  /* accessibility */
-  aria: {
-    labelledby: null,
-    describedby: null
-  }
-};
-/* harmony default export */ var modal = ((0,external_wp_compose_namespaceObject.withInstanceId)(Modal));
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/icons.js
 
@@ -62342,10 +62179,10 @@ function FinishButton(props) {
 
 
 
+
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -62394,17 +62231,18 @@ function Guide({
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(modal, {
+  return (0,external_wp_element_namespaceObject.createElement)(Modal, {
     className: classnames_default()('components-guide', className),
     contentLabel: contentLabel,
-    onRequestClose: onFinish
-  }, (0,external_wp_element_namespaceObject.createElement)(keyboard_shortcuts, {
-    key: currentPage,
-    shortcuts: {
-      left: goBack,
-      right: goForward
+    onRequestClose: onFinish,
+    onKeyDown: event => {
+      if (event.keyCode === external_wp_keycodes_namespaceObject.LEFT) {
+        goBack();
+      } else if (event.keyCode === external_wp_keycodes_namespaceObject.RIGHT) {
+        goForward();
+      }
     }
-  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-guide__container"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-guide__page"
@@ -62669,7 +62507,7 @@ function getValidChildren(children) {
 
 /**
  *
- * @param {import('../ui/context').PolymorphicComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
  */
 
 function useHStack(props) {
@@ -68085,6 +67923,7 @@ const medium = /*#__PURE__*/emotion_react_browser_esm_css("min-height:", config_
 function ToggleGroupControlBackdrop({
   containerRef,
   containerWidth,
+  isAdaptiveWidth,
   state
 }) {
   const [left, setLeft] = (0,external_wp_element_namespaceObject.useState)(0);
@@ -68116,7 +67955,7 @@ function ToggleGroupControlBackdrop({
         setCanAnimate(true);
       });
     }
-  }, [canAnimate, containerRef, containerWidth, state]);
+  }, [canAnimate, containerRef, containerWidth, state, isAdaptiveWidth]);
   return (0,external_wp_element_namespaceObject.createElement)(BackdropView, {
     role: "presentation",
     style: {
@@ -68218,7 +68057,8 @@ function component_ToggleGroupControl(props, forwardedRef) {
     ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef])
   }), resizeListener, (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_backdrop, extends_extends({}, radio, {
     containerRef: containerRef,
-    containerWidth: sizes.width
+    containerWidth: sizes.width,
+    isAdaptiveWidth: isAdaptiveWidth
   })), children)));
 }
 
@@ -68924,21 +68764,21 @@ function ToolbarDropdownMenu(props, ref) {
 
 /* harmony default export */ var toolbar_dropdown_menu = ((0,external_wp_element_namespaceObject.forwardRef)(ToolbarDropdownMenu));
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-horizontal.js
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-vertical.js
 
 
 /**
  * WordPress dependencies
  */
 
-const moreHorizontal = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+const moreVertical = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M11 13h2v-2h-2v2zm-6 0h2v-2H5v2zm12-2v2h2v-2h-2z"
+  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
 }));
-/* harmony default export */ var more_horizontal = (moreHorizontal);
-//# sourceMappingURL=more-horizontal.js.map
+/* harmony default export */ var more_vertical = (moreVertical);
+//# sourceMappingURL=more-vertical.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/styles.js
 function tools_panel_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -69037,7 +68877,7 @@ const component_ToolsPanelHeader = (props, forwardedRef) => {
   return (0,external_wp_element_namespaceObject.createElement)("h2", extends_extends({}, headerProps, {
     ref: forwardedRef
   }), header, hasMenuItems && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
-    icon: more_horizontal,
+    icon: more_vertical,
     label: menuLabel
   }, ({
     onClose
@@ -69718,7 +69558,7 @@ const component_Truncate = create_component_createComponent({
 
 /**
  *
- * @param {import('../ui/context').PolymorphicComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
  */
 
 function useVStack(props) {
@@ -70024,10 +69864,23 @@ function ZStack(props, forwardedRef) {
 
 
 const defaultShortcuts = {
-  previous: ['ctrl+shift+`', external_wp_keycodes_namespaceObject.rawShortcut.access('p')],
-  next: ['ctrl+`', external_wp_keycodes_namespaceObject.rawShortcut.access('n')]
+  previous: [{
+    modifier: 'ctrlShift',
+    character: '`'
+  }, {
+    modifier: 'access',
+    character: 'p'
+  }],
+  next: [{
+    modifier: 'ctrl',
+    character: '`'
+  }, {
+    modifier: 'access',
+    character: 'n'
+  }]
 };
-function useNavigateRegions(ref, shortcuts = defaultShortcuts) {
+function useNavigateRegions(shortcuts = defaultShortcuts) {
+  const ref = (0,external_wp_element_namespaceObject.useRef)();
   const [isFocusingRegions, setIsFocusingRegions] = (0,external_wp_element_namespaceObject.useState)(false);
 
   function focusRegion(offset) {
@@ -70051,44 +69904,44 @@ function useNavigateRegions(ref, shortcuts = defaultShortcuts) {
     setIsFocusingRegions(true);
   }
 
-  const focusPrevious = (0,external_wp_element_namespaceObject.useCallback)(() => focusRegion(-1), []);
-  const focusNext = (0,external_wp_element_namespaceObject.useCallback)(() => focusRegion(1), []);
-  (0,external_wp_compose_namespaceObject.useKeyboardShortcut)(shortcuts.previous, focusPrevious, {
-    bindGlobal: true
-  });
-  (0,external_wp_compose_namespaceObject.useKeyboardShortcut)(shortcuts.next, focusNext, {
-    bindGlobal: true
-  });
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
+  const clickRef = (0,external_wp_compose_namespaceObject.useRefEffect)(element => {
     function onClick() {
       setIsFocusingRegions(false);
     }
 
-    ref.current.addEventListener('click', onClick);
+    element.addEventListener('click', onClick);
     return () => {
-      var _ref$current;
-
-      (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.removeEventListener('click', onClick);
+      element.removeEventListener('click', onClick);
     };
   }, [setIsFocusingRegions]);
+  return {
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, clickRef]),
+    className: isFocusingRegions ? 'is-focusing-regions' : '',
 
-  if (!isFocusingRegions) {
-    return;
-  }
+    onKeyDown(event) {
+      if (shortcuts.previous.some(({
+        modifier,
+        character
+      }) => {
+        return external_wp_keycodes_namespaceObject.isKeyboardEvent[modifier](event, character);
+      })) {
+        focusRegion(-1);
+      } else if (shortcuts.next.some(({
+        modifier,
+        character
+      }) => {
+        return external_wp_keycodes_namespaceObject.isKeyboardEvent[modifier](event, character);
+      })) {
+        focusRegion(1);
+      }
+    }
 
-  return 'is-focusing-regions';
+  };
 }
 /* harmony default export */ var navigate_regions = ((0,external_wp_compose_namespaceObject.createHigherOrderComponent)(Component => ({
   shortcuts,
   ...props
-}) => {
-  const ref = (0,external_wp_element_namespaceObject.useRef)();
-  const className = useNavigateRegions(ref, shortcuts);
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: ref,
-    className: className
-  }, (0,external_wp_element_namespaceObject.createElement)(Component, props));
-}, 'navigateRegions'));
+}) => (0,external_wp_element_namespaceObject.createElement)("div", useNavigateRegions(shortcuts), (0,external_wp_element_namespaceObject.createElement)(Component, props)), 'navigateRegions'));
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-constrained-tabbing/index.js
 

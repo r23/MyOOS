@@ -1188,6 +1188,7 @@ var external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: ./packages/interface/build-module/components/interface-skeleton/index.js
 
 
+
 /**
  * External dependencies
  */
@@ -1233,8 +1234,7 @@ function InterfaceSkeleton({
   className,
   shortcuts
 }, ref) {
-  const fallbackRef = (0,external_wp_element_namespaceObject.useRef)();
-  const regionsClassName = (0,external_wp_components_namespaceObject.__unstableUseNavigateRegions)(fallbackRef, shortcuts);
+  const navigateRegionsProps = (0,external_wp_components_namespaceObject.__unstableUseNavigateRegions)(shortcuts);
   useHTMLClass('interface-interface-skeleton__html-container');
   const defaultLabels = {
     /* translators: accessibility text for the nav bar landmark region. */
@@ -1261,10 +1261,10 @@ function InterfaceSkeleton({
   const mergedLabels = { ...defaultLabels,
     ...labels
   };
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, fallbackRef]),
-    className: classnames_default()(className, 'interface-interface-skeleton', regionsClassName, !!footer && 'has-footer')
-  }, !!drawer && (0,external_wp_element_namespaceObject.createElement)("div", {
+  return (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, navigateRegionsProps, {
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, navigateRegionsProps.ref]),
+    className: classnames_default()(className, 'interface-interface-skeleton', navigateRegionsProps.className, !!footer && 'has-footer')
+  }), !!drawer && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__drawer",
     role: "region",
     "aria-label": mergedLabels.drawer
@@ -4206,8 +4206,8 @@ function Interface({
     hasSidebarEnabled: !!select(store).getActiveComplementaryArea(store_store.name),
     isInserterOpened: !!select(store_store).isInserterOpened(),
     hasBlockBreadCrumbsEnabled: select(store).isFeatureActive('core/edit-widgets', 'showBlockBreadcrumbs'),
-    previousShortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getAllShortcutRawKeyCombinations('core/edit-widgets/previous-region'),
-    nextShortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getAllShortcutRawKeyCombinations('core/edit-widgets/next-region')
+    previousShortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getAllShortcutKeyCombinations('core/edit-widgets/previous-region'),
+    nextShortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getAllShortcutKeyCombinations('core/edit-widgets/next-region')
   }), []); // Inserter and Sidebars are mutually exclusive
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -4535,6 +4535,7 @@ function initialize(id, settings) {
 
   (0,external_wp_widgets_namespaceObject.registerLegacyWidgetVariations)(settings);
   registerBlock(widget_area_namespaceObject);
+  (0,external_wp_widgets_namespaceObject.registerWidgetGroupBlock)();
 
   settings.__experimentalFetchLinkSuggestions = (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings); // As we are unregistering `core/freeform` to avoid the Classic block, we must
   // replace it with something as the default freeform content handler. Failure to

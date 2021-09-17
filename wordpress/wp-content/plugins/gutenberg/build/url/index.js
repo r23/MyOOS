@@ -44,6 +44,7 @@ __webpack_require__.d(__webpack_exports__, {
   "cleanForSlug": function() { return /* reexport */ cleanForSlug; },
   "filterURLForDisplay": function() { return /* reexport */ filterURLForDisplay; },
   "getAuthority": function() { return /* reexport */ getAuthority; },
+  "getFilename": function() { return /* reexport */ getFilename; },
   "getFragment": function() { return /* reexport */ getFragment; },
   "getPath": function() { return /* reexport */ getPath; },
   "getPathAndQueryString": function() { return /* reexport */ getPathAndQueryString; },
@@ -789,7 +790,34 @@ function cleanForSlug(string) {
   return (0,external_lodash_namespaceObject.trim)((0,external_lodash_namespaceObject.deburr)(string).replace(/[\s\./]+/g, '-').replace(/[^\w-]+/g, '').toLowerCase(), '-');
 }
 //# sourceMappingURL=clean-for-slug.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/get-filename.js
+/**
+ * Returns the filename part of the URL.
+ *
+ * @param {string} url The full URL.
+ *
+ * @example
+ * ```js
+ * const filename1 = getFilename( 'http://localhost:8080/this/is/a/test.jpg' ); // 'test.jpg'
+ * const filename2 = getFilename( '/this/is/a/test.png' ); // 'test.png'
+ * ```
+ *
+ * @return {string|void} The filename part of the URL.
+ */
+function getFilename(url) {
+  let filename;
+
+  try {
+    filename = new URL(url, 'http://example.com').pathname.split('/').pop();
+  } catch (error) {}
+
+  if (filename) {
+    return filename;
+  }
+}
+//# sourceMappingURL=get-filename.js.map
 ;// CONCATENATED MODULE: ./packages/url/build-module/index.js
+
 
 
 

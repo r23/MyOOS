@@ -2787,6 +2787,7 @@ var external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: ./packages/interface/build-module/components/interface-skeleton/index.js
 
 
+
 /**
  * External dependencies
  */
@@ -2832,8 +2833,7 @@ function InterfaceSkeleton({
   className,
   shortcuts
 }, ref) {
-  const fallbackRef = (0,external_wp_element_namespaceObject.useRef)();
-  const regionsClassName = (0,external_wp_components_namespaceObject.__unstableUseNavigateRegions)(fallbackRef, shortcuts);
+  const navigateRegionsProps = (0,external_wp_components_namespaceObject.__unstableUseNavigateRegions)(shortcuts);
   useHTMLClass('interface-interface-skeleton__html-container');
   const defaultLabels = {
     /* translators: accessibility text for the nav bar landmark region. */
@@ -2860,10 +2860,10 @@ function InterfaceSkeleton({
   const mergedLabels = { ...defaultLabels,
     ...labels
   };
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, fallbackRef]),
-    className: classnames_default()(className, 'interface-interface-skeleton', regionsClassName, !!footer && 'has-footer')
-  }, !!drawer && (0,external_wp_element_namespaceObject.createElement)("div", {
+  return (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, navigateRegionsProps, {
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, navigateRegionsProps.ref]),
+    className: classnames_default()(className, 'interface-interface-skeleton', navigateRegionsProps.className, !!footer && 'has-footer')
+  }), !!drawer && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__drawer",
     role: "region",
     "aria-label": mergedLabels.drawer
@@ -3263,7 +3263,7 @@ function getBlockDisplayText(block) {
 function useSecondaryText() {
   const {
     getBlock
-  } = (0,external_wp_data_namespaceObject.useSelect)('core/block-editor');
+  } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_blockEditor_namespaceObject.store);
   const activeEntityBlockId = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_blockEditor_namespaceObject.store).__experimentalGetActiveBlockIdByBlockNames(['core/template-part']), []);
 
   if (activeEntityBlockId) {
@@ -3650,6 +3650,7 @@ function DefaultSidebar({
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -3718,12 +3719,6 @@ function getPresetMetadataFromStyleProperty(styleProperty) {
   return getPresetMetadataFromStyleProperty.MAP[styleProperty];
 }
 
-const PATHS_WITH_MERGE = {
-  'color.gradients': true,
-  'color.palette': true,
-  'typography.fontFamilies': true,
-  'typography.fontSizes': true
-};
 function useSetting(path, blockName = '') {
   var _get;
 
@@ -3734,7 +3729,7 @@ function useSetting(path, blockName = '') {
   const blockPath = `__experimentalFeatures.blocks.${blockName}.${path}`;
   const result = (_get = (0,external_lodash_namespaceObject.get)(settings, blockPath)) !== null && _get !== void 0 ? _get : (0,external_lodash_namespaceObject.get)(settings, topLevelPath);
 
-  if (result && PATHS_WITH_MERGE[path]) {
+  if (result && external_wp_blocks_namespaceObject.__EXPERIMENTAL_PATHS_WITH_MERGE[path]) {
     var _ref, _result$user;
 
     return (_ref = (_result$user = result.user) !== null && _result$user !== void 0 ? _result$user : result.theme) !== null && _ref !== void 0 ? _ref : result.core;
@@ -4250,8 +4245,21 @@ const useGlobalStylesReset = () => {
 const extractSupportKeys = supports => {
   const supportKeys = [];
   Object.keys(external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY).forEach(name => {
+    if (!external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[name].support) {
+      return;
+    } // Opting out means that, for certain support keys like background color,
+    // blocks have to explicitly set the support value false. If the key is
+    // unset, we still enable it.
+
+
+    if (external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[name].requiresOptOut) {
+      if ((0,external_lodash_namespaceObject.has)(supports, external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[name].support[0]) && (0,external_lodash_namespaceObject.get)(supports, external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[name].support) !== false) {
+        return supportKeys.push(name);
+      }
+    }
+
     if ((0,external_lodash_namespaceObject.get)(supports, external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[name].support, false)) {
-      supportKeys.push(name);
+      return supportKeys.push(name);
     }
   });
   return supportKeys;
@@ -4610,7 +4618,7 @@ function useHasBorderPanel({
     supports,
     name
   })];
-  return controls.every(Boolean);
+  return controls.some(Boolean);
 }
 
 function useHasBorderColorControl({
@@ -4697,7 +4705,7 @@ function BorderPanel({
     onChange: value => setStyle(name, 'borderStyle', value)
   })), hasBorderColor && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalColorGradientControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Color'),
-    value: borderColor,
+    colorValue: borderColor,
     colors: colors,
     gradients: undefined,
     disableCustomColors: disableCustomColors,
@@ -4804,13 +4812,20 @@ function ColorPanel({
   getSetting,
   setSetting
 }) {
-  const colors = useSetting('color.palette', name);
-  const disableCustomColors = !useSetting('color.custom', name);
+  const solids = useSetting('color.palette', name);
   const gradients = useSetting('color.gradients', name);
-  const disableCustomGradients = !useSetting('color.customGradient', name);
+  const areCustomSolidsEnabled = useSetting('color.custom', name);
+  const areCustomGradientsEnabled = useSetting('color.customGradient', name);
+  const isLinkEnabled = useSetting('color.link', name);
+  const isTextEnabled = useSetting('color.text', name);
+  const isBackgroundEnabled = useSetting('color.background', name);
+  const hasLinkColor = supports.includes('linkColor') && isLinkEnabled && (solids.length > 0 || areCustomSolidsEnabled);
+  const hasTextColor = supports.includes('color') && isTextEnabled && (solids.length > 0 || areCustomSolidsEnabled);
+  const hasBackgroundColor = supports.includes('backgroundColor') && isBackgroundEnabled && (solids.length > 0 || areCustomSolidsEnabled);
+  const hasGradientColor = supports.includes('background') && (gradients.length > 0 || areCustomGradientsEnabled);
   const settings = [];
 
-  if (supports.includes('color')) {
+  if (hasTextColor) {
     const color = getStyle(name, 'color');
     const userColor = getStyle(name, 'color', 'user');
     settings.push({
@@ -4823,7 +4838,7 @@ function ColorPanel({
 
   let backgroundSettings = {};
 
-  if (supports.includes('backgroundColor')) {
+  if (hasBackgroundColor) {
     const backgroundColor = getStyle(name, 'backgroundColor');
     const userBackgroundColor = getStyle(name, 'backgroundColor', 'user');
     backgroundSettings = {
@@ -4838,7 +4853,7 @@ function ColorPanel({
 
   let gradientSettings = {};
 
-  if (supports.includes('background')) {
+  if (hasGradientColor) {
     const gradient = getStyle(name, 'background');
     const userGradient = getStyle(name, 'background', 'user');
     gradientSettings = {
@@ -4851,14 +4866,14 @@ function ColorPanel({
     }
   }
 
-  if (supports.includes('background') || supports.includes('backgroundColor')) {
+  if (hasBackgroundColor || hasGradientColor) {
     settings.push({ ...backgroundSettings,
       ...gradientSettings,
       label: (0,external_wp_i18n_namespaceObject.__)('Background color')
     });
   }
 
-  if (supports.includes('linkColor')) {
+  if (hasLinkColor) {
     const color = getStyle(name, 'linkColor');
     const userColor = getStyle(name, 'linkColor', 'user');
     settings.push({
@@ -4872,10 +4887,10 @@ function ColorPanel({
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalPanelColorGradientSettings, {
     title: (0,external_wp_i18n_namespaceObject.__)('Color'),
     settings: settings,
-    colors: colors,
+    colors: solids,
     gradients: gradients,
-    disableCustomColors: disableCustomColors,
-    disableCustomGradients: disableCustomGradients
+    disableCustomColors: !areCustomSolidsEnabled,
+    disableCustomGradients: !areCustomGradientsEnabled
   }, (0,external_wp_element_namespaceObject.createElement)(ColorPalettePanel, {
     key: 'color-palette-panel-' + name,
     contextName: name,
@@ -4902,7 +4917,8 @@ const AXIAL_SIDES = ['horizontal', 'vertical'];
 function useHasDimensionsPanel(context) {
   const hasPadding = useHasPadding(context);
   const hasMargin = useHasMargin(context);
-  return hasPadding || hasMargin;
+  const hasGap = useHasGap(context);
+  return hasPadding || hasMargin || hasGap;
 }
 
 function useHasPadding({
@@ -4919,6 +4935,14 @@ function useHasMargin({
 }) {
   const settings = useSetting('spacing.customMargin', name);
   return settings && supports.includes('margin');
+}
+
+function useHasGap({
+  name,
+  supports
+}) {
+  const settings = useSetting('spacing.blockGap', name);
+  return settings && supports.includes('--wp--style--block-gap');
 }
 
 function filterValuesBySides(values, sides) {
@@ -4970,6 +4994,7 @@ function DimensionsPanel({
   } = context;
   const showPaddingControl = useHasPadding(context);
   const showMarginControl = useHasMargin(context);
+  const showGapControl = useHasGap(context);
   const units = (0,external_wp_components_namespaceObject.__experimentalUseCustomUnits)({
     availableUnits: useSetting('spacing.units', name) || ['%', 'px', 'em', 'rem', 'vw']
   });
@@ -4999,9 +5024,20 @@ function DimensionsPanel({
 
   const hasMarginValue = () => marginValues && Object.keys(marginValues).length;
 
+  const gapValue = getStyle(name, '--wp--style--block-gap');
+
+  const setGapValue = newGapValue => {
+    setStyle(name, '--wp--style--block-gap', newGapValue);
+  };
+
+  const resetGapValue = () => setGapValue(undefined);
+
+  const hasGapValue = () => !!gapValue;
+
   const resetAll = () => {
     resetPaddingValue();
     resetMarginValue();
+    resetGapValue();
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanel, {
@@ -5034,6 +5070,18 @@ function DimensionsPanel({
     units: units,
     allowReset: false,
     splitOnAxis: isAxialMargin
+  })), showGapControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    hasValue: hasGapValue,
+    label: (0,external_wp_i18n_namespaceObject.__)('Block gap'),
+    onDeselect: resetGapValue,
+    isShownByDefault: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalUnitControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Block gap'),
+    min: 0,
+    onChange: setGapValue,
+    units: units,
+    value: gapValue
   })));
 }
 //# sourceMappingURL=dimensions-panel.js.map
@@ -5429,8 +5477,8 @@ function ConvertToRegularBlocks({
   clientId
 }) {
   const {
-    innerBlocks
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_blockEditor_namespaceObject.store).__unstableGetBlockWithBlockTree(clientId), [clientId]);
+    getBlocks
+  } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_blockEditor_namespaceObject.store);
   const {
     replaceBlocks
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
@@ -5438,7 +5486,7 @@ function ConvertToRegularBlocks({
     onClose
   }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     onClick: () => {
-      replaceBlocks(clientId, innerBlocks);
+      replaceBlocks(clientId, getBlocks(clientId));
       onClose();
     }
   }, (0,external_wp_i18n_namespaceObject.__)('Detach blocks from template part')));

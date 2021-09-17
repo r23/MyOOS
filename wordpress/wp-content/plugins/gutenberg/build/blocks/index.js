@@ -6425,6 +6425,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "__EXPERIMENTAL_ELEMENTS": function() { return /* reexport */ __EXPERIMENTAL_ELEMENTS; },
+  "__EXPERIMENTAL_PATHS_WITH_MERGE": function() { return /* reexport */ __EXPERIMENTAL_PATHS_WITH_MERGE; },
   "__EXPERIMENTAL_STYLE_PROPERTY": function() { return /* reexport */ __EXPERIMENTAL_STYLE_PROPERTY; },
   "__experimentalCloneSanitizedBlock": function() { return /* reexport */ __experimentalCloneSanitizedBlock; },
   "__experimentalGetAccessibleBlockLabel": function() { return /* reexport */ getAccessibleBlockLabel; },
@@ -7695,30 +7696,141 @@ function v4(options, buf, offset) {
 /* harmony default export */ var esm_browser_v4 = (v4);
 ;// CONCATENATED MODULE: external ["wp","hooks"]
 var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
-;// CONCATENATED MODULE: external ["wp","element"]
-var external_wp_element_namespaceObject = window["wp"]["element"];
-;// CONCATENATED MODULE: external ["wp","primitives"]
-var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/block-default.js
-
-
-/**
- * WordPress dependencies
- */
-
-const blockDefault = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M19 8h-1V6h-5v2h-2V6H6v2H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm.5 10c0 .3-.2.5-.5.5H5c-.3 0-.5-.2-.5-.5v-8c0-.3.2-.5.5-.5h14c.3 0 .5.2.5.5v8z"
-}));
-/* harmony default export */ var block_default = (blockDefault);
-//# sourceMappingURL=block-default.js.map
 // EXTERNAL MODULE: ./node_modules/tinycolor2/tinycolor.js
 var tinycolor = __webpack_require__(7621);
 var tinycolor_default = /*#__PURE__*/__webpack_require__.n(tinycolor);
+;// CONCATENATED MODULE: external ["wp","element"]
+var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external ["wp","dom"]
 var external_wp_dom_namespaceObject = window["wp"]["dom"];
+;// CONCATENATED MODULE: ./packages/blocks/build-module/api/constants.js
+const BLOCK_ICON_DEFAULT = 'block-default';
+/**
+ * Array of valid keys in a block type settings deprecation object.
+ *
+ * @type {string[]}
+ */
+
+const DEPRECATED_ENTRY_KEYS = ['attributes', 'supports', 'save', 'migrate', 'isEligible', 'apiVersion'];
+const __EXPERIMENTAL_STYLE_PROPERTY = {
+  //kept for back-compatibility purposes.
+  '--wp--style--color--link': {
+    value: ['color', 'link'],
+    support: ['color', 'link']
+  },
+  background: {
+    value: ['color', 'gradient'],
+    support: ['color', 'gradients']
+  },
+  backgroundColor: {
+    value: ['color', 'background'],
+    support: ['color', 'background'],
+    requiresOptOut: true
+  },
+  borderColor: {
+    value: ['border', 'color'],
+    support: ['__experimentalBorder', 'color']
+  },
+  borderRadius: {
+    value: ['border', 'radius'],
+    support: ['__experimentalBorder', 'radius'],
+    properties: {
+      borderTopLeftRadius: 'topLeft',
+      borderTopRightRadius: 'topRight',
+      borderBottomLeftRadius: 'bottomLeft',
+      borderBottomRightRadius: 'bottomRight'
+    }
+  },
+  borderStyle: {
+    value: ['border', 'style'],
+    support: ['__experimentalBorder', 'style']
+  },
+  borderWidth: {
+    value: ['border', 'width'],
+    support: ['__experimentalBorder', 'width']
+  },
+  color: {
+    value: ['color', 'text'],
+    support: ['color', 'text'],
+    requiresOptOut: true
+  },
+  linkColor: {
+    value: ['elements', 'link', 'color', 'text'],
+    support: ['color', 'link']
+  },
+  fontFamily: {
+    value: ['typography', 'fontFamily'],
+    support: ['typography', '__experimentalFontFamily']
+  },
+  fontSize: {
+    value: ['typography', 'fontSize'],
+    support: ['typography', 'fontSize']
+  },
+  fontStyle: {
+    value: ['typography', 'fontStyle'],
+    support: ['typography', '__experimentalFontStyle']
+  },
+  fontWeight: {
+    value: ['typography', 'fontWeight'],
+    support: ['typography', '__experimentalFontWeight']
+  },
+  lineHeight: {
+    value: ['typography', 'lineHeight'],
+    support: ['typography', 'lineHeight']
+  },
+  margin: {
+    value: ['spacing', 'margin'],
+    support: ['spacing', 'margin'],
+    properties: {
+      marginTop: 'top',
+      marginRight: 'right',
+      marginBottom: 'bottom',
+      marginLeft: 'left'
+    }
+  },
+  padding: {
+    value: ['spacing', 'padding'],
+    support: ['spacing', 'padding'],
+    properties: {
+      paddingTop: 'top',
+      paddingRight: 'right',
+      paddingBottom: 'bottom',
+      paddingLeft: 'left'
+    }
+  },
+  textDecoration: {
+    value: ['typography', 'textDecoration'],
+    support: ['typography', '__experimentalTextDecoration']
+  },
+  textTransform: {
+    value: ['typography', 'textTransform'],
+    support: ['typography', '__experimentalTextTransform']
+  },
+  letterSpacing: {
+    value: ['typography', 'letterSpacing'],
+    support: ['typography', '__experimentalLetterSpacing']
+  },
+  '--wp--style--block-gap': {
+    value: ['spacing', 'blockGap'],
+    support: ['spacing', 'blockGap']
+  }
+};
+const __EXPERIMENTAL_ELEMENTS = {
+  link: 'a',
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6'
+};
+const __EXPERIMENTAL_PATHS_WITH_MERGE = {
+  'color.gradients': true,
+  'color.palette': true,
+  'typography.fontFamilies': true,
+  'typography.fontSizes': true
+};
+//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/utils.js
 /**
  * External dependencies
@@ -7735,6 +7847,7 @@ var external_wp_dom_namespaceObject = window["wp"]["dom"];
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -7797,6 +7910,8 @@ function isValidIcon(icon) {
  */
 
 function normalizeIconObject(icon) {
+  icon = icon || BLOCK_ICON_DEFAULT;
+
   if (isValidIcon(icon)) {
     return {
       src: icon
@@ -7981,123 +8096,6 @@ function __experimentalGetBlockAttributesNamesByRole(name, role) {
   });
 }
 //# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/blocks/build-module/api/constants.js
-/**
- * Array of valid keys in a block type settings deprecation object.
- *
- * @type {string[]}
- */
-const DEPRECATED_ENTRY_KEYS = ['attributes', 'supports', 'save', 'migrate', 'isEligible', 'apiVersion'];
-const __EXPERIMENTAL_STYLE_PROPERTY = {
-  //kept for back-compatibility purposes.
-  '--wp--style--color--link': {
-    value: ['color', 'link'],
-    support: ['color', 'link']
-  },
-  background: {
-    value: ['color', 'gradient'],
-    support: ['color', 'gradients']
-  },
-  backgroundColor: {
-    value: ['color', 'background'],
-    support: ['color']
-  },
-  borderColor: {
-    value: ['border', 'color'],
-    support: ['__experimentalBorder', 'color']
-  },
-  borderRadius: {
-    value: ['border', 'radius'],
-    support: ['__experimentalBorder', 'radius'],
-    properties: {
-      borderTopLeftRadius: 'topLeft',
-      borderTopRightRadius: 'topRight',
-      borderBottomLeftRadius: 'bottomLeft',
-      borderBottomRightRadius: 'bottomRight'
-    }
-  },
-  borderStyle: {
-    value: ['border', 'style'],
-    support: ['__experimentalBorder', 'style']
-  },
-  borderWidth: {
-    value: ['border', 'width'],
-    support: ['__experimentalBorder', 'width']
-  },
-  color: {
-    value: ['color', 'text'],
-    support: ['color']
-  },
-  linkColor: {
-    value: ['elements', 'link', 'color', 'text'],
-    support: ['color', 'link']
-  },
-  fontFamily: {
-    value: ['typography', 'fontFamily'],
-    support: ['typography', '__experimentalFontFamily']
-  },
-  fontSize: {
-    value: ['typography', 'fontSize'],
-    support: ['typography', 'fontSize']
-  },
-  fontStyle: {
-    value: ['typography', 'fontStyle'],
-    support: ['typography', '__experimentalFontStyle']
-  },
-  fontWeight: {
-    value: ['typography', 'fontWeight'],
-    support: ['typography', '__experimentalFontWeight']
-  },
-  lineHeight: {
-    value: ['typography', 'lineHeight'],
-    support: ['typography', 'lineHeight']
-  },
-  margin: {
-    value: ['spacing', 'margin'],
-    support: ['spacing', 'margin'],
-    properties: {
-      marginTop: 'top',
-      marginRight: 'right',
-      marginBottom: 'bottom',
-      marginLeft: 'left'
-    }
-  },
-  padding: {
-    value: ['spacing', 'padding'],
-    support: ['spacing', 'padding'],
-    properties: {
-      paddingTop: 'top',
-      paddingRight: 'right',
-      paddingBottom: 'bottom',
-      paddingLeft: 'left'
-    }
-  },
-  textDecoration: {
-    value: ['typography', 'textDecoration'],
-    support: ['typography', '__experimentalTextDecoration']
-  },
-  textTransform: {
-    value: ['typography', 'textTransform'],
-    support: ['typography', '__experimentalTextTransform']
-  },
-  letterSpacing: {
-    value: ['typography', 'letterSpacing'],
-    support: ['__experimentalLetterSpacing']
-  },
-  '--wp--style--block-gap': {
-    value: ['spacing', 'blockGap']
-  }
-};
-const __EXPERIMENTAL_ELEMENTS = {
-  link: 'a',
-  h1: 'h1',
-  h2: 'h2',
-  h3: 'h3',
-  h4: 'h4',
-  h5: 'h5',
-  h6: 'h6'
-};
-//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/registration.js
 /* eslint no-console: [ 'error', { allow: [ 'error', 'warn' ] } ] */
 
@@ -8108,7 +8106,6 @@ const __EXPERIMENTAL_ELEMENTS = {
 /**
  * WordPress dependencies
  */
-
 
 
 
@@ -8340,7 +8337,7 @@ function registerBlockType(blockNameOrMetadata, settings) {
 
   settings = {
     name,
-    icon: block_default,
+    icon: BLOCK_ICON_DEFAULT,
     keywords: [],
     attributes: {},
     providesContext: {},
@@ -8903,8 +8900,9 @@ const isPossibleTransformForSource = (transform, direction, blocks) => {
 
   if ((0,external_lodash_namespaceObject.isFunction)(transform.isMatch)) {
     const attributes = transform.isMultiBlock ? blocks.map(block => block.attributes) : sourceBlock.attributes;
+    const block = transform.isMultiBlock ? blocks : sourceBlock;
 
-    if (!transform.isMatch(attributes)) {
+    if (!transform.isMatch(attributes, block)) {
       return false;
     }
   }
@@ -9378,9 +9376,8 @@ function getSaveElement(blockTypeOrName, attributes, innerBlocks = []) {
     attributes,
     innerBlocks
   });
-  const hasLightBlockWrapper = blockType.apiVersion > 1 || registration_hasBlockSupport(blockType, 'lightBlockWrapper', false);
 
-  if ((0,external_lodash_namespaceObject.isObject)(element) && (0,external_wp_hooks_namespaceObject.hasFilter)('blocks.getSaveContent.extraProps') && !hasLightBlockWrapper) {
+  if ((0,external_lodash_namespaceObject.isObject)(element) && (0,external_wp_hooks_namespaceObject.hasFilter)('blocks.getSaveContent.extraProps') && !(blockType.apiVersion > 1)) {
     /**
      * Filters the props applied to the block save result element.
      *
@@ -13033,6 +13030,16 @@ function phrasingContentReducer(node, doc) {
     } else {
       node.removeAttribute('target');
       node.removeAttribute('rel');
+    } // Saves anchor elements name attribute as id
+
+
+    if (node.name && !node.id) {
+      node.id = node.name;
+    } // Keeps id only if there is an internal link pointing to it
+
+
+    if (node.id && !node.ownerDocument.querySelector(`[href="#${node.id}"]`)) {
+      node.removeAttribute('id');
     }
   }
 }

@@ -2398,6 +2398,10 @@ function getInspectorSection() {
       this.contentContainer[0].classList.add('customize-widgets-layout__inspector');
     }
 
+    isContextuallyActive() {
+      return this.active();
+    }
+
     onChangeExpanded(expanded, args) {
       super.onChangeExpanded(expanded, args);
 
@@ -2467,6 +2471,10 @@ function getSidebarSection() {
       });
       customize.section.add(this.inspector);
       this.contentContainer[0].classList.add('customize-widgets__sidebar-section');
+    }
+
+    isContextuallyActive() {
+      return this.active();
     }
 
     hasSubSectionOpened() {
@@ -3196,7 +3204,8 @@ function initialize(editorName, blockEditorSettings) {
     });
   }
 
-  (0,external_wp_widgets_namespaceObject.registerLegacyWidgetVariations)(blockEditorSettings); // As we are unregistering `core/freeform` to avoid the Classic block, we must
+  (0,external_wp_widgets_namespaceObject.registerLegacyWidgetVariations)(blockEditorSettings);
+  (0,external_wp_widgets_namespaceObject.registerWidgetGroupBlock)(); // As we are unregistering `core/freeform` to avoid the Classic block, we must
   // replace it with something as the default freeform content handler. Failure to
   // do this will result in errors in the default block parser.
   // see: https://github.com/WordPress/gutenberg/issues/33097
