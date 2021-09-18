@@ -325,6 +325,7 @@ $aLang = [
 'button_apply_coupon'                => 'apply coupon',
 'button_back'                        => 'Back',
 'button_buy_it_again'                => 'Buy it Again',
+'button_calculate_shipping'			 => 'Calculate shipping',
 'button_change_address'              => 'Change Address',
 'button_checkout'                    => 'Checkout',
 'button_clear_cart'                  => 'Clear Cart',

@@ -307,6 +307,7 @@ $aLang = [
 'button_apply_coupon'                => 'Gutschein einlösen',
 'button_back'                        => 'Zurück',
 'button_buy_it_again'                => 'Nochmals kaufen',
+'button_calculate_shipping'			 => 'Versand berechnen',
 'button_change_address'              => 'Adresse ändern',
 'button_checkout'                    => 'Kasse',
 'button_clear_cart'                  => 'Warenkorb löschen',
