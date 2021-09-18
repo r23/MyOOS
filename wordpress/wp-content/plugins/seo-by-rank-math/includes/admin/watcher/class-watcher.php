@@ -136,7 +136,7 @@ class Watcher implements Runner {
 			}
 		}
 
-		Helper::redirect( Security::remove_query_arg_raw( [ 'rank_math_deactivate_plugins', 'plugin_type', '_wpnonce' ] ) );
+		GlobalHelper::redirect( Security::remove_query_arg_raw( [ 'rank_math_deactivate_plugins', 'plugin_type', '_wpnonce' ] ) );
 	}
 
 	/**

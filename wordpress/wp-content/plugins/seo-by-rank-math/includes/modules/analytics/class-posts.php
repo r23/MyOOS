@@ -135,7 +135,7 @@ class Posts extends Objects {
 			$new_rows[ $page ] = $object;
 		}
 
-		$count    = count( $new_rows );
+		$count = count( $new_rows );
 
 		if ( $offset + 25 <= $count ) {
 			$new_rows = array_slice( $new_rows, $offset, 25 );
@@ -144,7 +144,9 @@ class Posts extends Objects {
 			$rest     = $count - $offset;
 			$new_rows = array_slice( $new_rows, $offset, $rest );
 		}
-
+		if ( empty( $new_rows ) ) {
+			$new_rows['response'] = 'No Data';
+		}
 		return [
 			'rows'      => $new_rows,
 			'rowsFound' => $objects['rowsFound'],

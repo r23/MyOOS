@@ -68,8 +68,11 @@ class Keywords extends Posts {
 				'sub_where' => " AND query IN ('" . join( "', '", $keywords ) . "')",
 			]
 		);
-
-		return apply_filters( 'rank_math/analytics/keywords', $rows );
+		$rows = apply_filters( 'rank_math/analytics/keywords', $rows );
+		if ( empty( $rows ) ) {
+			$rows['response'] = 'No Data';
+		}
+		return $rows;
 	}
 
 	/**

@@ -108,7 +108,28 @@ class Product_Redirection {
 		}
 
 		$new_link = implode( '/', array_map( 'rawurlencode', explode( '/', $new_link ) ) ); // encode everything but slashes.
-		return $new_link === $uri ? false : trailingslashit( home_url( strtolower( $new_link ) ) );
+
+		return $new_link === $this->strip_ignored_parts( $uri ) ? false : trailingslashit( home_url( strtolower( $new_link ) ) );
+	}
+
+	/**
+	 * Remove unneeded parts from the URI.
+	 *
+	 * @param string $uri Original URI.
+	 *
+	 * @return string
+	 */
+	private function strip_ignored_parts( $uri ) {
+		$ignore_url_parts = [
+			'#/comment-page-([0-9]{1,})$#',
+		];
+
+		$ignore_url_parts = $this->do_filter( 'woocommerce/product_redirection_ignore_url_parts', $ignore_url_parts );
+		foreach ( $ignore_url_parts as $pattern ) {
+			$uri = preg_replace( $pattern, '', $uri );
+		}
+
+		return $uri;
 	}
 
 	/**

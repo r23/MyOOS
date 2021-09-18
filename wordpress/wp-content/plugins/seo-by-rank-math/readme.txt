@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.71.1
+Stable tag: 1.0.72
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -386,11 +386,8 @@ and many more
 **<a href="https://www.facebook.com/groups/rankmathseopluginwordpress/?utm_campaign=Rank+Math" target="_blank">JOIN FACEBOOK GROUP COMMUNITY</a>**: The purpose of this Facebook group is to have a collective place where the community can help each other, and we can get some feedback to improve Rank Math SEO as well. Joining the group is also a great way to connect with like-minded people and share your SEO experience.
 
 = Branding Guideline =
-Rank Math SEO® is a registered trademark. Please use the following format when mentioning the Rank Math SEO plugin anywhere.
+Rank Math® SEO is a registered trademark. Please use the following format when mentioning the Rank Math SEO plugin anywhere.
 * Rank Math SEO [correct]
-* Rank Math SEO [incorrect]
-* Rank Math SEO [incorrect]
-* Rank Math SEO [incorrect]
 * RankMath [incorrect]
 * Rankmath [incorrect]
 * rankmath [incorrect]
@@ -565,27 +562,15 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.71.1 [Sep 04, 2021] =
-* Fixed: WooCommerce Product pages were showing 404 error on Secondary languages with WPML or WooCommerce Multilingual plugin when [Remove Product Base option](https://rankmath.com/kb/general-settings/#remove-base) was enabled
-* Fixed: WooCommerce Product draft preview was showing 404 error when [Remove Product Base option](https://rankmath.com/kb/general-settings/#remove-base) was enabled
-* Fixed: Call to undefined function `get_filesystem_method` error on some setup
-
-= 1.0.71 [Sep 01, 2021] =
-* Improved: [Analytics Email report](https://rankmath.com/kb/seo-email-reporting/) will now show a message when all stats are empty
-* Improved: Updated the field description of [OpenGraph Thumbnail option](https://rankmath.com/kb/meta-box-social-tab/#image)
-* Improved: Code to output the `dateModified` property in the schema
-* Fixed: Spaces are added between the keywords in the Common Keyword test of [SEO Analysis page](https://rankmath.com/kb/seo-analysis/) for better accessibility. Thanks to [Taylor Arndt](https://taylorstechtalks.com/rank-math-seo-taylors-teardowns-episode-2/)
-* Fixed: Disabling tests via [filter](https://rankmath.com/kb/filters-hooks-api-developer/#remove-content-analysis) was not working on secondary keywords
-* Fixed: SEO Analysis was showing error on some setups where the rows in postmeta table exceeded 100k rows
-* Fixed: Organization URL variable `%org_url%` was showing incorrect value
-* Fixed: Social settings were visible even when the user didn't have the capability to edit those settings
-* Fixed: Options in Category or Tags variable `%categories(limit=3&separator= | &exclude=12,23)%` were not working correctly
-* Fixed: Upgrade to PRO notice was showing even when PRO is active on multisite
-* Fixed: Option to connect Rank Math account was not showing on the multisite setup
-* Fixed: Warnings when `FS_METHOD` constant is set to ftpext or ssh2
-* Fixed: [Reomove base option](https://rankmath.com/kb/general-settings/#remove-base) allowed another base to be used in the URL
-* Fixed: [Setup Wizard](https://rankmath.com/kb/how-to-setup/) screen was showing an error on PHP 8.0 setups
-* Fixed: Some variables were hidden in the Meta Description field in the SERP Preview modal
-* Fixed: Incompatibility with Geo My WP plugin. The GEO My WP plugin users can now use `rank_math/redirection/fallback_exclude_locations` to prevent the plugin's search page from redirecting to the homepage
+= 1.0.72 [Sep 17, 2021] =
+* Added: Loading effect to the [Analytics](https://rankmath.com/kb/analytics/) tables when data is being loaded
+* Improved: Default date will be added in `priceValidUntil` field of [Product schema](https://rankmath.com/kb/woocommerce-product-schema/)
+* Fixed: Elementor editor was showing an error when [Remove Product Base](https://rankmath.com/kb/general-settings/#remove-base) option was enabled and WPML plugin was active
+* Fixed: Browser console was showing errors in Elementor editor when SEO Tab was disabled using the [Filter](https://rankmath.com/kb/filters-hooks-api-developer/#remove-seo-panel-elementor)
+* Fixed: On RTL sites of [Divi frontend builder](https://rankmath.com/blog/divi-seo/), the SEO popup was going out of the screen
+* Fixed: Compilation failed warning when special characters were used in the Focus Keyword
+* Fixed: WooCommerce Product paginated reviews page were redirecting to the main page when [Remove Product base](https://rankmath.com/kb/general-settings/#remove-base) option was enabled
+* Fixed: The [Quick edit](https://rankmath.com/kb/bulk-editing-in-rank-math/#quick-editing) was breaking the Posts list table when [bulk edit option](https://rankmath.com/kb/bulk-editing-in-rank-math/#what-is-bulk-editing) was disabled
+* Fixed: Fatal error when deactivating the conflicting plugin from the notice
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

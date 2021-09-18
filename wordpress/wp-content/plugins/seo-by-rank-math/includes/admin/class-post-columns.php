@@ -123,10 +123,14 @@ class Post_Columns implements Runner {
 	 */
 	public function add_columns( $columns ) {
 		global $post_type;
-
+		$current_pt = $post_type;
+		if ( ! $post_type && 'inline-save' === Param::post( 'action' ) ) {
+			$post_id    = Param::post( 'post_ID' );
+			$current_pt = get_post_type( $post_id );
+		}
 		$columns['rank_math_seo_details'] = esc_html__( 'SEO Details', 'rank-math' );
 
-		if ( Helper::get_settings( 'titles.pt_' . $post_type . '_bulk_editing', true ) ) {
+		if ( Helper::get_settings( 'titles.pt_' . $current_pt . '_bulk_editing', true ) ) {
 			$columns['rank_math_title']       = esc_html__( 'SEO Title', 'rank-math' );
 			$columns['rank_math_description'] = esc_html__( 'SEO Desc', 'rank-math' );
 		}

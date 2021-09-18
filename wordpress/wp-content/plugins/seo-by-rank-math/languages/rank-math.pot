@@ -814,7 +814,7 @@ msgstr ""
 msgid "Schema Markup"
 msgstr ""
 
-msgid "Advance Options"
+msgid "Advanced Options"
 msgstr ""
 
 msgid "Deactivated"

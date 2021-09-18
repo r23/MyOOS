@@ -481,10 +481,11 @@ class Post_Variables extends Advanced_Variables {
 		$post_content = wp_kses( $post_content, [ 'p' => [] ] );
 
 		// Remove empty paragraph tags.
-		$post_content = preg_replace( '/<p[^>]*>[\s|&nbsp;]*<\/p>/', '', $post_content );
+		$post_content = preg_replace( '/<p[^>]*>(\s|&nbsp;)*<\/p>/', '', $post_content );
 
 		// 4. Paragraph with the focus keyword.
 		if ( ! empty( $keywords ) ) {
+			$keywords = implode( ',', array_map( 'preg_quote', array_map( 'trim', explode( ',', $keywords ) ) ) );
 			$regex = '/<p>(.*' . str_replace( [ ',', ' ', '/' ], [ '|', '.', '\/' ], $keywords ) . '.*)<\/p>/iu';
 			\preg_match_all( $regex, $post_content, $matches );
 			if ( isset( $matches[1], $matches[1][0] ) ) {
