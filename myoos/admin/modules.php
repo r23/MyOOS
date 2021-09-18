@@ -21,7 +21,10 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
+require 'includes/classes/class_currencies.php';
 require 'includes/functions/function_modules.php';
+
+$currencies = new currencies();
 
 $set = (isset($_GET['set']) ? $_GET['set'] : '');
 
@@ -299,10 +302,7 @@ switch ($action) {
 				if ($value['use_function']) {
 					$use_function = $value['use_function'];
 					if (preg_match('/->/', $use_function)) {
-						$class_method = explode('->', $use_function);
-echo '<pre>';
-print_r($class_method);
-echo '</pre>';						
+						$class_method = explode('->', $use_function);				
 						if (!is_object(${$class_method[0]})) {
 							include 'includes/classes/class_'. $class_method[0] . '.php';
 							${$class_method[0]} = new $class_method[0]();
