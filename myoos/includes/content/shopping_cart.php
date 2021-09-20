@@ -39,7 +39,6 @@ if (isset($_SESSION)) {
 			require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
 			require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
 			
-			// or $_SESSION['sendto']? 
 			$country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
 
 			// Redeem coupons
@@ -48,37 +47,34 @@ if (isset($_SESSION)) {
 
 
 					$country = oos_db_prepare_input($_POST['country']);
-					$postcode = oos_db_prepare_input($_POST['postcode']);
-					$city = oos_db_prepare_input($_POST['city']);
-
-					$postcode = strtoupper($postcode);
-					$city = oos_remove_shouting($city);	
-
-
-					if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
-						$oMessage->add('danger', $aLang['entry_post_code_error']);
-					}
- 
-					if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
-						$oMessage->add('danger', $aLang['entry_city_error']);
-					}
-
 					if (is_numeric($country) == false) {
 						$oMessage->add('danger', $aLang['entry_country_error']);
-					}					
-/*
-$city =
-$postcode =
+					} else {			
+						$_SESSION['delivery_country_id'] = intval($country);
+					}
+
+					if (isset($_POST['postcode'])) {
+						$postcode = oos_db_prepare_input($_POST['postcode']);		
+						$postcode = strtoupper($postcode);
+/* todo: postcode
+						if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
+							$oMessage->add('danger', $aLang['entry_post_code_error']);
+						}
 */
+					}
 
-
-			#	$order_total_modules->shopping_cart_collect_posts();
+					if (isset($_POST['city'])) {
+						$city = oos_db_prepare_input($_POST['city']);
+						$city = oos_remove_shouting($city);	
+/* todo: city	
+						if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
+							$oMessage->add('danger', $aLang['entry_city_error']);
+						}
+*/
+					}
 			}
 
 
-
-
-		
 			// if no shipping destination address was selected, use the customers own address as default
 			if (!isset($_SESSION['sendto'])) {
 				# $_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
@@ -234,9 +230,6 @@ $postcode =
 		}
 	}
 }
-
-
-
 
 
 // links breadcrumb
