@@ -203,11 +203,11 @@ function quote($method = '') {
       for ($i = 1; $i <= $this->num_zones; $i++) {
         $default_countries = '';
         if ($i == 1) {
-          $default_countries = 'US,CA';
+          $default_countries = 'DE,US';
         }
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_COUNTRIES_" . $i ."', '" . $default_countries . "', '6', '0', now())");
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_COST_" . $i ."', '3:8.50,7:10.50,99:20.00', '6', '0', now())");
-        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_HANDLING_" . $i."', '0', '6', '0', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_SHIPPING_ZONES_HANDLING_" . $i."', '0', '6', '0', 'currencies->format', now())");
       }
     }
 

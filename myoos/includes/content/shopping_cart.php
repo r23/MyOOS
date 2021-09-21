@@ -41,7 +41,6 @@ if (isset($_SESSION)) {
 			
 			$country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
 
-			// Redeem coupons
 			if ( isset($_GET['action']) && ($_GET['action'] == 'shipping') && 
 				( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
 
@@ -51,6 +50,11 @@ if (isset($_SESSION)) {
 						$oMessage->add('danger', $aLang['entry_country_error']);
 					} else {			
 						$_SESSION['delivery_country_id'] = intval($country);
+
+						$aCountries = oos_get_countries($_SESSION['delivery_country_id'], true);
+						if (!empty($aCountries['countries_iso_code_2'])) {
+							$_SESSION['delivery_zone'] = $aCountries['countries_iso_code_2'];
+						}
 					}
 
 					if (isset($_POST['postcode'])) {
