@@ -138,8 +138,6 @@
 		$delivery_country_id = isset($_SESSION['delivery_country_id']) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
 		$delivery_zone_id = isset($_SESSION['zone_id']) ? intval($_SESSION['zone_id']) : STORE_ZONE;
 
-
-	#	if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 		if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER > 0) ) {	 		
 			switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
 				case 'national':

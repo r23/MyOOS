@@ -102,8 +102,6 @@ if (isset($_SESSION)) {
 			$subtotal = $_SESSION['cart']->info['subtotal'];
 			$total_count = $_SESSION['cart']->count_contents();
 
-
-
 		
 			// if the order contains only virtual products
 			if (($content_type == 'virtual') || ($_SESSION['cart']->show_total() == 0)) {
