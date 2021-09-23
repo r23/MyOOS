@@ -330,7 +330,6 @@ define('ICON_PREVIOUS_LEVEL', 'Previous Level');
 define('ICON_PREVIEW', 'Preview');
 define('ICON_STATISTICS', 'Statistics');
 define('ICON_SUCCESS', 'Success');
-define('ICON_TICK', 'true');
 define('ICON_UNLOCKED', 'Unlocked');
 define('ICON_WARNING', 'Warning');
 
