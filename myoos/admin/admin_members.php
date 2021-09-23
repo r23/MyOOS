@@ -381,7 +381,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
     }
 ?>
                 <td>&nbsp;<b><?php echo $groups['admin_groups_name']; ?></b></td>
-                <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($groups['admin_groups_id'] == $gInfo->admin_groups_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $groups['admin_groups_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     $count_groups++;
@@ -436,7 +436,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
                 <td><?php echo $admin['admin_email_address']; ?></td>
                 <td class="text-center"><?php echo $admin_group['admin_groups_name']; ?></td>
                 <td class="text-center"><?php echo $admin['admin_lognum']; ?></td>
-                <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($mInfo) && is_object($mInfo) && ($admin['admin_id'] == $mInfo->admin_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['admin_members'], 'page=' . $nPage . '&mID=' . $admin['admin_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!

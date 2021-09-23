@@ -376,7 +376,7 @@ if ($action == 'new' || $action == 'edit') {
   }
 ?></td>
 				<td><?php echo $information['sort_order']; ?></td>
-                <td class="text-right"><?php if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
              </tr>
 <?php
     // Move that ADOdb pointer!

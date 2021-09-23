@@ -844,7 +844,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
              '            <td class="smallText" align="center">' . oos_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
              '            <td class="smallText" align="center">';
         if ($orders_history['customer_notified'] == '1') {
-          echo '<i class="fa fa-check">' . "</td>\n"
+          echo '<i class="fa fa-check" aria-hidden="true"></i>' . "</td>\n"
         } else {
           echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS) . "</td>\n";
         }

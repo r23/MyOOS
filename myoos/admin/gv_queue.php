@@ -192,7 +192,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td class="text-center"><?php echo $gv_list['order_id']; ?></td>
                 <td class="text-right"><?php echo $currencies->format($gv_list['amount']); ?></td>
                 <td class="text-right"><?php echo oos_datetime_short($gv_list['date_created']); ?></td>
-                <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!

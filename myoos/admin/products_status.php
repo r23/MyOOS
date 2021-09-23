@@ -197,7 +197,7 @@ if (!empty($action)) {
       echo '                <td>' . $products_status['products_status_name'] . '</td>' . "\n";
     }
 ?>
-                <td class="text-right"><?php if (isset($psInfo) && is_object($psInfo) && ($products_status['products_status_id'] == $psInfo->products_status_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $products_status['products_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($psInfo) && is_object($psInfo) && ($products_status['products_status_id'] == $psInfo->products_status_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $products_status['products_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!

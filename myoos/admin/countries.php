@@ -124,7 +124,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td><?php echo $countries['countries_name']; ?></td>
                 <td align="center" width="40"><?php echo $countries['countries_iso_code_2']; ?></td>
                 <td align="center" width="40"><?php echo $countries['countries_iso_code_3']; ?></td>
-                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($countries['countries_id'] == $cInfo->countries_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $countries['countries_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($countries['countries_id'] == $cInfo->countries_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['countries'], 'page=' . $nPage . '&cID=' . $countries['countries_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!

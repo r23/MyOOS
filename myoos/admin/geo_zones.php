@@ -240,7 +240,7 @@ function update_zone(theForm) {
 ?>
                 <td><?php echo (($zones['countries_name']) ? $zones['countries_name'] : TEXT_ALL_COUNTRIES); ?></td>
                 <td><?php echo (($zones['zone_id']) ? $zones['zone_name'] : PLEASE_SELECT); ?></td>
-                <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . intval($nzPage) . '&zID=' . intval($_GET['zID']) . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($zones['association_id'] == $sInfo->association_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . intval($nzPage) . '&zID=' . intval($_GET['zID']) . '&action=list&spage=' . $nsPage . '&sID=' . $zones['association_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
@@ -288,7 +288,7 @@ function update_zone(theForm) {
       }
 ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id'] . '&action=list') . '"><i class="fa fa-folder"></i></button></a>&nbsp;' . $zones['geo_zone_name']; ?></td>
-                <td class="text-right"><?php if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check"></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($zInfo) && is_object($zInfo) && ($zones['geo_zone_id'] == $zInfo->geo_zone_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zones['geo_zone_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
