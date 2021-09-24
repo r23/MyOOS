@@ -62,6 +62,12 @@ if (!empty($action)) {
 
 			foreach ($_POST['configuration'] as $key => $value) {
 				$configurationtable = $oostable['configuration'];
+
+				// todo
+				if ($key == 'MODULE_SHIPPING_ZONES_HANDLING_2') {
+					$value = oos_tofloat($value);
+				}
+				
 				$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($value) . "' WHERE configuration_key = '" . oos_db_input($key) . "'");
 			}
 		
@@ -70,6 +76,7 @@ if (!empty($action)) {
 				$dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($code) . "' WHERE configuration_key = 'DEFAULT_SHIPPING_METHOD'");
 			}
 			
+
 			oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $_GET['set'] . '&module=' . $_GET['module']));
 			break;
 
