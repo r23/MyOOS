@@ -63,14 +63,27 @@ if (!empty($action)) {
 			foreach ($_POST['configuration'] as $key => $value) {
 				$configurationtable = $oostable['configuration'];
 
+				$aKeys = array();
+
+				if (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true')) {
+					$num_zones = (defined('MODULE_SHIPPING_ZONES_NUM_ZONES') ? MODULE_SHIPPING_ZONES_NUM_ZONES : 2);
+					for ($i=1; $i<=$num_zones; $i++) {
+						$aKeys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
+					}
+				}
+			
+
 				// todo
-				if ($key == 'MODULE_SHIPPING_ZONES_HANDLING_2') {
+				if (in_array($key, $aKeys)) {
+			#	if ($key == 'MODULE_SHIPPING_ZONES_HANDLING_2') {
+					echo 'enthalten';
+
 					$value = oos_tofloat($value);
 				}
-				
+		
 				$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($value) . "' WHERE configuration_key = '" . oos_db_input($key) . "'");
 			}
-		
+								exit;	
 			if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
 				$code = oos_db_prepare_input($_POST['code']);				
 				$dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($code) . "' WHERE configuration_key = 'DEFAULT_SHIPPING_METHOD'");

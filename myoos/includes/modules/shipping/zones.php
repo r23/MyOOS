@@ -101,137 +101,137 @@
    Shipping Tables and Zone Countries. 
    ---------------------------------------------------------------------- */
 
-  class zones {
-    var $code, $title, $description, $num_zones, $enabled = false;
+
+class zones {
+	var $code, $title, $description, $num_zones, $enabled = false;
 
 // class constructor
-    public function __construct() {
-      global $oOrder, $aLang;
+	public function __construct() {
+		global $oOrder, $aLang;
 
-      $this->code = 'zones';
-      $this->title = $aLang['module_shipping_zones_text_title'];
-      $this->description = $aLang['module_shipping_zones_text_description'];
-      $this->sort_order = (defined('MODULE_SHIPPING_ZONES_SORT_ORDER') ? MODULE_SHIPPING_ZONES_SORT_ORDER : null);
-      $this->icon = '';
-      $this->enabled = (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true') ? true : false);
+		$this->code = 'zones';
+		$this->title = $aLang['module_shipping_zones_text_title'];
+		$this->description = $aLang['module_shipping_zones_text_description'];
+		$this->sort_order = (defined('MODULE_SHIPPING_ZONES_SORT_ORDER') ? MODULE_SHIPPING_ZONES_SORT_ORDER : null);
+		$this->icon = '';
+		$this->enabled = (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true') ? true : false);
 
-
-      // CUSTOMIZE THIS SETTING FOR THE NUMBER OF ZONES NEEDED
-      $this->num_zones = 2;
+		// CUSTOMIZE THIS SETTING FOR THE NUMBER OF ZONES NEEDED
+		$this->num_zones = (defined('MODULE_SHIPPING_ZONES_NUM_ZONES') ? MODULE_SHIPPING_ZONES_NUM_ZONES : 2);
     }
 
-// class methods
-function quote($method = '') {
-	global $oOrder, $aLang, $shipping_weight;
+	// class methods
+	function quote($method = '') {
+		global $oOrder, $aLang, $shipping_weight;
 
-	if (!is_object($oOrder)) {
-		$dest_country = isset($_SESSION['delivery_zone']) ? oos_prepare_input($_SESSION['delivery_zone']) : STORE_ORIGIN_COUNTRY;
-	} else {
-		$dest_country = $oOrder->delivery['country']['iso_code_2'];
-	}
-
-	$dest_zone = 0;
-	$error = false;
-
-	for ($i=1; $i<=$this->num_zones; $i++) {
-        $countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
-        $country_zones = preg_split("/[,]/", $countries_table);
-		if (in_array($dest_country, $country_zones)) {
-			$dest_zone = $i;
-			break;
+		if (!is_object($oOrder)) {
+			$dest_country = isset($_SESSION['delivery_zone']) ? oos_prepare_input($_SESSION['delivery_zone']) : STORE_ORIGIN_COUNTRY;
+		} else {
+			$dest_country = $oOrder->delivery['country']['iso_code_2'];
 		}
-	}
-	  
 
-	if ($dest_zone == 0) {
-		$error = true;
-	} else {
-        $shipping = -1;
-        $zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $dest_zone);
-
-        $zones_table = preg_split("/[:,]/", $zones_cost);
-        $size = count($zones_table);
-        for ($i=0; $i<$size; $i+=2) {
-			if ($shipping_weight <= $zones_table[$i]) {
-				$shipping = $zones_table[$i+1];
-				$shipping_method = $aLang['module_shipping_zones_text_way'] . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . $aLang['module_shipping_zones_text_units'];
+		$dest_zone = 0;
+		$error = false;
+	
+		for ($i=1; $i<=$this->num_zones; $i++) {
+			$countries_table = constant('MODULE_SHIPPING_ZONES_COUNTRIES_' . $i);
+			$country_zones = preg_split("/[,]/", $countries_table);
+			if (in_array($dest_country, $country_zones)) {
+				$dest_zone = $i;
 				break;
 			}
-        }
+		}
+	  
 
-		if ($shipping == -1) {
-			$shipping_cost = 0;
-			$shipping_method = $aLang['module_shipping_zones_undefined_rate'];
-        } else {
-			$shipping_cost = ($shipping + constant('MODULE_SHIPPING_ZONES_HANDLING_' . $dest_zone));
-        }
-	}
+		if ($dest_zone == 0) {
+			$error = true;
+		} else {
+			$shipping = -1;
+			$zones_cost = constant('MODULE_SHIPPING_ZONES_COST_' . $dest_zone);
 
-	$this->quotes = array('id' => $this->code,
-                          'module' => $aLang['module_shipping_zones_text_title'],
-                          'methods' => array(array('id' => $this->code,
+			$zones_table = preg_split("/[:,]/", $zones_cost);
+			$size = count($zones_table);
+			for ($i=0; $i<$size; $i+=2) {
+				if ($shipping_weight <= $zones_table[$i]) {
+					$shipping = $zones_table[$i+1];
+					$shipping_method = $aLang['module_shipping_zones_text_way'] . ' ' . $dest_country . ' : ' . $shipping_weight . ' ' . $aLang['module_shipping_zones_text_units'];
+					break;
+				}
+			}
+
+			if ($shipping == -1) {
+				$shipping_cost = 0;
+				$shipping_method = $aLang['module_shipping_zones_undefined_rate'];
+			} else {
+				$shipping_cost = ($shipping + constant('MODULE_SHIPPING_ZONES_HANDLING_' . $dest_zone));
+			}
+		}
+
+		$this->quotes = array('id' => $this->code,
+							'module' => $aLang['module_shipping_zones_text_title'],
+							'methods' => array(array('id' => $this->code,
                                                    'title' => $shipping_method,
                                                    'cost' => $shipping_cost)));
 
-	if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
+		if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
 
-	if ($error == true) $this->quotes['error'] = $aLang['module_shipping_zones_invalid_zone'];
+		if ($error == true) $this->quotes['error'] = $aLang['module_shipping_zones_invalid_zone'];
 
-	return $this->quotes;
-}
-
-
-function check() {
-	if (!isset($this->_check)) {
-		$this->_check = defined('MODULE_SHIPPING_ZONES_STATUS');
+		return $this->quotes;
 	}
 
-	return $this->_check;
-}
+
+	function check() {
+		if (!isset($this->_check)) {
+			$this->_check = defined('MODULE_SHIPPING_ZONES_STATUS');
+		}
+
+		return $this->_check;
+	}
 
 
-function install() {
+	function install() {
 
-	// Get database information
-	$dbconn =& oosDBGetConn();
-	$oostable =& oosDBGetTables();
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
 
-	$configurationtable = $oostable['configuration'];
-	$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_ZONES_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+		$configurationtable = $oostable['configuration'];
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_ZONES_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
 	  
-	$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_SORT_ORDER', '0', '6', '0', now())");
-	for ($i = 1; $i <= $this->num_zones; $i++) {
-		$default_countries = '';
-		if ($i == 1) {
-			$default_countries = 'DE,US';
-        }
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_COUNTRIES_" . $i ."', '" . $default_countries . "', '6', '0', now())");
-        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_COST_" . $i ."', '3:8.50,7:10.50,99:20.00', '6', '0', now())");
-        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_SHIPPING_ZONES_HANDLING_" . $i."', '0', '6', '0', 'currencies->format', now())");
-	}
-}
-
-
-function remove() {
-
-	// Get database information
-	$dbconn =& oosDBGetConn();
-	$oostable =& oosDBGetTables();
-
-	$configurationtable = $oostable['configuration'];
-	$dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
-}
-
-
-function keys() {
-	$keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_SORT_ORDER');
-
-	for ($i=1; $i<=$this->num_zones; $i++) {
-		$keys[] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;
-		$keys[] = 'MODULE_SHIPPING_ZONES_COST_' . $i;
-		$keys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_SORT_ORDER', '0', '6', '0', now())");
+		for ($i = 1; $i <= $this->num_zones; $i++) {
+			$default_countries = '';
+			if ($i == 1) {
+				$default_countries = 'DE,US';
+			}
+			$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_COUNTRIES_" . $i ."', '" . $default_countries . "', '6', '0', now())");
+			$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_ZONES_COST_" . $i ."', '3:8.50,7:10.50,99:20.00', '6', '0', now())");
+			$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_SHIPPING_ZONES_HANDLING_" . $i."', '0', '6', '0', 'currencies->format', now())");
+		}
 	}
 
-      return $keys;
+
+	function remove() {
+
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
+
+		$configurationtable = $oostable['configuration'];
+		$dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
+	}
+
+
+	function keys() {
+		$keys = array('MODULE_SHIPPING_ZONES_STATUS', 'MODULE_SHIPPING_ZONES_SORT_ORDER');
+
+		for ($i=1; $i<=$this->num_zones; $i++) {
+			$keys[] = 'MODULE_SHIPPING_ZONES_COUNTRIES_' . $i;
+			$keys[] = 'MODULE_SHIPPING_ZONES_COST_' . $i;
+			$keys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
+		}
+
+		return $keys;
 	}
 }
