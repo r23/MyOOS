@@ -33,14 +33,21 @@
       $this->icon = '';
       $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true') ? true : false);
 
-      if ( ($this->enabled == true) && isset($oOrder->delivery['country']['id']) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0)) ) {
+      if ( ($this->enabled == true) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0)) ) {
         $check_flag = false;
+
+		if (!is_object($oOrder)) {
+			$dest_country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
+		} else {
+			$dest_country = $oOrder->delivery['country']['id'];
+		}
+
 
         // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
-        $check_result = $dbconn->Execute("SELECT zone_id FROM " . $oostable['zones_to_geo_zones'] . " WHERE geo_zone_id = '" . MODULE_SHIPPING_WEIGHT_ZONE . "' AND zone_country_id = '" . intval($oOrder->delivery['country']['id']) . "' ORDER BY zone_id");
+        $check_result = $dbconn->Execute("SELECT zone_id FROM " . $oostable['zones_to_geo_zones'] . " WHERE geo_zone_id = '" . MODULE_SHIPPING_WEIGHT_ZONE . "' AND zone_country_id = '" . intval($dest_country) . "' ORDER BY zone_id");
         while ($check = $check_result->fields) {
           if ($check['zone_id'] < 1) {
             $check_flag = true;
