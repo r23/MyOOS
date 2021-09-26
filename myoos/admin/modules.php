@@ -64,6 +64,10 @@ if (!empty($action)) {
 				$configurationtable = $oostable['configuration'];
 
 				$aKeys = array();
+				
+				if (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true')) {
+					$aKeys[] = 'MODULE_SHIPPING_WEIGHT_STEP';
+				}
 
 				if (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true')) {
 					$num_zones = (defined('MODULE_SHIPPING_ZONES_NUM_ZONES') ? MODULE_SHIPPING_ZONES_NUM_ZONES : 2);
@@ -71,19 +75,15 @@ if (!empty($action)) {
 						$aKeys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
 					}
 				}
-			
 
 				// todo
 				if (in_array($key, $aKeys)) {
-			#	if ($key == 'MODULE_SHIPPING_ZONES_HANDLING_2') {
-					echo 'enthalten';
-
 					$value = oos_tofloat($value);
 				}
 		
 				$dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($value) . "' WHERE configuration_key = '" . oos_db_input($key) . "'");
 			}
-								exit;	
+
 			if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
 				$code = oos_db_prepare_input($_POST['code']);				
 				$dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '" . oos_db_input($code) . "' WHERE configuration_key = 'DEFAULT_SHIPPING_METHOD'");
@@ -304,7 +304,9 @@ switch ($action) {
 		$contents[] = array('text' => $keys);
 
 		if ($set == 'shipping') {
-			if (DEFAULT_SHIPPING_METHOD != $module->code) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT . oos_draw_hidden_field('code', $mInfo->code));	  
+			if (DEFAULT_SHIPPING_METHOD != $mInfo->code) {
+				$contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT . oos_draw_hidden_field('code', $mInfo->code));
+			}		
 		}
 	
 		$contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $_GET['module']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
