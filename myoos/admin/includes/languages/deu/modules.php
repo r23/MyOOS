@@ -30,4 +30,4 @@ define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_MODULE_DIRECTORY', 'Modul Verzeichnis:');
-
+define('ERROR_REMOVE_DEFAULT_SHIPPING', 'Fehler: Die Standardversandart darf nicht gelöscht werden. Bitte definieren Sie eine neue Standardversandart und wiederholen Sie den Vorgang.');

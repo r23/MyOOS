@@ -106,7 +106,12 @@ if (!empty($action)) {
 				if ($action == 'install') {
 					$module->install();
 				} elseif ($action == 'remove') {
-					$module->remove();
+					
+					if ($class == DEFAULT_SHIPPING_METHOD) {
+						$messageStack->add_session(ERROR_REMOVE_DEFAULT_SHIPPING, 'error');
+					} else {				
+						$module->remove();
+					}
 				}
 			}
 			oos_redirect_admin(oos_href_link_admin($aContents['modules'], 'set=' . $set . '&module=' . $class));

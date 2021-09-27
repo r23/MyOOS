@@ -31,4 +31,4 @@ define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('TEXT_MODULE_DIRECTORY', 'Module Directory:');
-
+define('ERROR_REMOVE_DEFAULT_SHIPPING', 'Error: The default shipping method must not be deleted. Please define a new default shipping method and repeat the process.');
