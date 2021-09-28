@@ -60,21 +60,25 @@ if (!empty($action)) {
     switch ($action) {
 		case 'save':
 
+			$aKeys = array();
+
+			if (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true')) {
+				$aKeys[] = 'MODULE_SHIPPING_TABLE_HANDLING';
+			}
+	
+			if (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true')) {
+				$aKeys[] = 'MODULE_SHIPPING_WEIGHT_HANDLING';
+			}
+
+			if (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true')) {
+				$num_zones = (defined('MODULE_SHIPPING_ZONES_NUM_ZONES') ? MODULE_SHIPPING_ZONES_NUM_ZONES : 2);
+				for ($i=1; $i<=$num_zones; $i++) {
+					$aKeys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
+				}
+			}
+
 			foreach ($_POST['configuration'] as $key => $value) {
 				$configurationtable = $oostable['configuration'];
-
-				$aKeys = array();
-				
-				if (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true')) {
-					$aKeys[] = 'MODULE_SHIPPING_WEIGHT_STEP';
-				}
-
-				if (defined('MODULE_SHIPPING_ZONES_STATUS') && (MODULE_SHIPPING_ZONES_STATUS == 'true')) {
-					$num_zones = (defined('MODULE_SHIPPING_ZONES_NUM_ZONES') ? MODULE_SHIPPING_ZONES_NUM_ZONES : 2);
-					for ($i=1; $i<=$num_zones; $i++) {
-						$aKeys[] = 'MODULE_SHIPPING_ZONES_HANDLING_' . $i;
-					}
-				}
 
 				// todo
 				if (in_array($key, $aKeys)) {
