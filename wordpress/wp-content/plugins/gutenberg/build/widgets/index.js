@@ -1438,26 +1438,7 @@ const group = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 }));
 /* harmony default export */ var library_group = (group);
 //# sourceMappingURL=group.js.map
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 ;// CONCATENATED MODULE: ./packages/widgets/build-module/blocks/widget-group/edit.js
-
 
 
 /**
@@ -1468,32 +1449,16 @@ function _extends() {
 
 
 
-
 function edit_Edit(props) {
   const {
-    clientId,
-    isSelected
+    clientId
   } = props;
   const {
     innerBlocks
   } = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_blockEditor_namespaceObject.store).getBlock(clientId));
-  let content;
-
-  if (innerBlocks.length === 0) {
-    content = (0,external_wp_element_namespaceObject.createElement)(PlaceholderContent, props);
-  } else if (isSelected) {
-    content = (0,external_wp_element_namespaceObject.createElement)(EditFormContent, _extends({}, props, {
-      innerBlocks: innerBlocks
-    }));
-  } else {
-    content = (0,external_wp_element_namespaceObject.createElement)(PreviewContent, _extends({}, props, {
-      innerBlocks: innerBlocks
-    }));
-  }
-
   return (0,external_wp_element_namespaceObject.createElement)("div", (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
     className: 'widget'
-  }), content);
+  }), innerBlocks.length === 0 ? (0,external_wp_element_namespaceObject.createElement)(PlaceholderContent, props) : (0,external_wp_element_namespaceObject.createElement)(PreviewContent, props));
 }
 
 function PlaceholderContent({
@@ -1512,42 +1477,22 @@ function PlaceholderContent({
   }));
 }
 
-function EditFormContent({
+function PreviewContent({
   attributes,
-  setAttributes,
-  innerBlocks
+  setAttributes
 }) {
   var _attributes$title;
 
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "wp-block-widget-group__edit-form"
-  }, (0,external_wp_element_namespaceObject.createElement)("h2", {
-    className: "wp-block-widget-group__edit-form-title"
-  }, (0,external_wp_i18n_namespaceObject.__)('Widget Group')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Title'),
-    placeholder: getDefaultTitle(innerBlocks),
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
+    tagName: "h2",
+    className: "widget-title",
+    allowedFormats: [],
+    placeholder: (0,external_wp_i18n_namespaceObject.__)('Title'),
     value: (_attributes$title = attributes.title) !== null && _attributes$title !== void 0 ? _attributes$title : '',
     onChange: title => setAttributes({
       title
     })
-  }));
-}
-
-function PreviewContent({
-  attributes,
-  innerBlocks
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("h2", {
-    className: "widget-title"
-  }, attributes.title || getDefaultTitle(innerBlocks)), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks, null));
-}
-
-function getDefaultTitle(innerBlocks) {
-  if (innerBlocks.length === 0) {
-    return null;
-  }
-
-  return (0,external_wp_blocks_namespaceObject.getBlockType)(innerBlocks[0].name).title;
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks, null));
 }
 //# sourceMappingURL=edit.js.map
 ;// CONCATENATED MODULE: ./packages/widgets/build-module/blocks/widget-group/save.js

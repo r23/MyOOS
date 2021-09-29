@@ -290,7 +290,7 @@ const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
+  d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
 }));
 /* harmony default export */ var library_check = (check);
 //# sourceMappingURL=check.js.map
@@ -3096,17 +3096,19 @@ function isInserterOpened(state) {
  *
  * @param {Object} state Global application state.
  *
- * @return {Object} The root client ID and index to insert at.
+ * @return {Object} The root client ID, index to insert at and starting filter value.
  */
 
 function __experimentalGetInsertionPoint(state) {
   const {
     rootClientId,
-    insertionIndex
+    insertionIndex,
+    filterValue
   } = state.blockInserterPanel;
   return {
     rootClientId,
-    insertionIndex
+    insertionIndex,
+    filterValue
   };
 }
 /**
@@ -3357,6 +3359,8 @@ function WelcomeGuideMenuItem() {
 
 });
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
+var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/prevent-event-discovery.js
 /* harmony default export */ var prevent_event_discovery = ({
   't a l e s o f g u t e n b e r g': event => {
@@ -3375,8 +3379,6 @@ function WelcomeGuideMenuItem() {
   }
 });
 //# sourceMappingURL=prevent-event-discovery.js.map
-;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/text-editor/index.js
 
 
@@ -3815,13 +3817,10 @@ function KeyboardShortcuts() {
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-mode', () => {
     switchEditorMode(getEditorMode() === 'visual' ? 'text' : 'visual');
   }, {
-    bindGlobal: true,
     isDisabled: isModeToggleDisabled
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-fullscreen', () => {
     toggleFeature('fullscreenMode');
-  }, {
-    bindGlobal: true
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-sidebar', event => {
     // This shortcut has no known clashes, but use preventDefault to prevent any
@@ -3834,12 +3833,8 @@ function KeyboardShortcuts() {
       const sidebarToOpen = getBlockSelectionStart() ? 'edit-post/block' : 'edit-post/document';
       openGeneralSidebar(sidebarToOpen);
     }
-  }, {
-    bindGlobal: true
   });
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-list-view', () => setIsListViewOpened(!isListViewOpened()), {
-    bindGlobal: true
-  });
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-list-view', () => setIsListViewOpened(!isListViewOpened()));
   return null;
 }
 
@@ -4066,9 +4061,7 @@ function KeyboardShortcutHelpModal({
   isModalActive,
   toggleModal
 }) {
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/keyboard-shortcuts', toggleModal, {
-    bindGlobal: true
-  });
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/keyboard-shortcuts', toggleModal);
 
   if (!isModalActive) {
     return null;
@@ -6107,7 +6100,8 @@ function InserterSidebar() {
     showInserterHelpPanel: true,
     shouldFocusBlock: isMobileViewport,
     rootClientId: insertionPoint.rootClientId,
-    __experimentalInsertionIndex: insertionPoint.insertionIndex
+    __experimentalInsertionIndex: insertionPoint.insertionIndex,
+    __experimentalFilterValue: insertionPoint.filterValue
   })));
 }
 //# sourceMappingURL=inserter-sidebar.js.map
@@ -7537,6 +7531,11 @@ function PostTemplateActions() {
 
   async function onCreateTemplate(event) {
     event.preventDefault();
+
+    if (isBusy) {
+      return;
+    }
+
     setIsBusy(true);
     const newTemplateContent = defaultTemplate !== null && defaultTemplate !== void 0 ? defaultTemplate : (0,external_wp_blocks_namespaceObject.serialize)([(0,external_wp_blocks_namespaceObject.createBlock)('core/group', {
       tagName: 'header',
@@ -7582,7 +7581,7 @@ function PostTemplateActions() {
     },
     overlayClassName: "edit-post-template__modal"
   }, (0,external_wp_element_namespaceObject.createElement)("form", {
-    onSubmit: isBusy ? undefined : onCreateTemplate
+    onSubmit: onCreateTemplate
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
     align: "flex-start",
     gap: 8
@@ -8491,9 +8490,7 @@ function Layout({
     }
 
     if (mode === 'visual' && isListViewOpened) {
-      return (0,external_wp_element_namespaceObject.createElement)(external_wp_data_namespaceObject.AsyncModeProvider, {
-        value: "true"
-      }, (0,external_wp_element_namespaceObject.createElement)(ListViewSidebar, null));
+      return (0,external_wp_element_namespaceObject.createElement)(ListViewSidebar, null);
     }
 
     return null;
@@ -8655,6 +8652,7 @@ function EditorInitialization({
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -8777,7 +8775,7 @@ function Editor({
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.StrictMode, null, (0,external_wp_element_namespaceObject.createElement)(edit_post_settings.Provider, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.StrictMode, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_keyboardShortcuts_namespaceObject.ShortcutProvider, null, (0,external_wp_element_namespaceObject.createElement)(edit_post_settings.Provider, {
     value: settings
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SlotFillProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.EditorProvider, _extends({
     settings: editorSettings,
@@ -8793,7 +8791,7 @@ function Editor({
     styles: styles
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.KeyboardShortcuts, {
     shortcuts: prevent_event_discovery
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostLockedModal, null)))));
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostLockedModal, null))))));
 }
 
 /* harmony default export */ var editor = (Editor);

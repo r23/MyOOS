@@ -130,11 +130,26 @@ function DefaultErrorResponsePlaceholder({
 }
 
 function DefaultLoadingResponsePlaceholder({
-  className
+  children,
+  showLoader
 }) {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
-    className: className
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null));
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    style: {
+      position: 'relative'
+    }
+  }, showLoader && (0,external_wp_element_namespaceObject.createElement)("div", {
+    style: {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      marginTop: '-9px',
+      marginLeft: '-9px'
+    }
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null)), (0,external_wp_element_namespaceObject.createElement)("div", {
+    style: {
+      opacity: showLoader ? '0.3' : 1
+    }
+  }, children));
 }
 
 function ServerSideRender(props) {
@@ -149,8 +164,10 @@ function ServerSideRender(props) {
     LoadingResponsePlaceholder = DefaultLoadingResponsePlaceholder
   } = props;
   const isMountedRef = (0,external_wp_element_namespaceObject.useRef)(true);
+  const [showLoader, setShowLoader] = (0,external_wp_element_namespaceObject.useState)(false);
   const fetchRequestRef = (0,external_wp_element_namespaceObject.useRef)();
   const [response, setResponse] = (0,external_wp_element_namespaceObject.useState)(null);
+  const prevResponse = (0,external_wp_compose_namespaceObject.usePrevious)(response);
   const prevProps = (0,external_wp_compose_namespaceObject.usePrevious)(props);
 
   function fetchData() {
@@ -208,11 +225,31 @@ function ServerSideRender(props) {
       debouncedFetchData();
     }
   });
+  /**
+   * Effect to handle showing the loading placeholder.
+   * Show it only if there is no previous response or
+   * the request takes more than one second.
+   */
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (response !== null) {
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setShowLoader(true);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [response]);
 
   if (response === '') {
     return (0,external_wp_element_namespaceObject.createElement)(EmptyResponsePlaceholder, props);
   } else if (!response) {
-    return (0,external_wp_element_namespaceObject.createElement)(LoadingResponsePlaceholder, props);
+    return (0,external_wp_element_namespaceObject.createElement)(LoadingResponsePlaceholder, _extends({}, props, {
+      showLoader: !prevResponse || showLoader
+    }), !!prevResponse && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
+      className: className
+    }, prevResponse));
   } else if (response.error) {
     return (0,external_wp_element_namespaceObject.createElement)(ErrorResponsePlaceholder, _extends({
       response: response

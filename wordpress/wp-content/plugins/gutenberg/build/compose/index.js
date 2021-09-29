@@ -2184,6 +2184,7 @@ __webpack_require__.d(__webpack_exports__, {
   "useDebounce": function() { return /* reexport */ useDebounce; },
   "useFocusOnMount": function() { return /* reexport */ useFocusOnMount; },
   "useFocusReturn": function() { return /* reexport */ use_focus_return; },
+  "useFocusableIframe": function() { return /* reexport */ useFocusableIframe; },
   "useInstanceId": function() { return /* reexport */ useInstanceId; },
   "useIsomorphicLayoutEffect": function() { return /* reexport */ use_isomorphic_layout_effect; },
   "useKeyboardShortcut": function() { return /* reexport */ use_keyboard_shortcut; },
@@ -4421,6 +4422,47 @@ function useDropZone({
   }, [isDisabled]);
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focusable-iframe/index.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Dispatches a bubbling focus event when the iframe receives focus. Use
+ * `onFocus` as usual on the iframe or a parent element.
+ *
+ * @return {Object} Ref to pass to the iframe.
+ */
+
+function useFocusableIframe() {
+  return useRefEffect(element => {
+    const {
+      ownerDocument
+    } = element;
+    if (!ownerDocument) return;
+    const {
+      defaultView
+    } = ownerDocument;
+    if (!defaultView) return;
+    /**
+     * Checks whether the iframe is the activeElement, inferring that it has
+     * then received focus, and dispatches a focus event.
+     */
+
+    function checkFocus() {
+      if (ownerDocument && ownerDocument.activeElement === element) {
+        /** @type {HTMLElement} */
+        element.focus();
+      }
+    }
+
+    defaultView.addEventListener('blur', checkFocus);
+    return () => {
+      defaultView.removeEventListener('blur', checkFocus);
+    };
+  }, []);
+}
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/compose/build-module/index.js
 // Utils
  // Compose helper (aliased flowRight from Lodash)
@@ -4433,6 +4475,7 @@ function useDropZone({
 
 
  // Hooks
+
 
 
 

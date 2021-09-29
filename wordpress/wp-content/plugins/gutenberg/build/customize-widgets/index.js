@@ -267,7 +267,7 @@ const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
+  d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
 }));
 /* harmony default export */ var library_check = (check);
 //# sourceMappingURL=check.js.map
@@ -748,6 +748,8 @@ function MoreMenuFeatureToggle({
 
 
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
+var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
 ;// CONCATENATED MODULE: external ["wp","blockEditor"]
 var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
@@ -1110,8 +1112,6 @@ const external = (0,external_wp_element_namespaceObject.createElement)(external_
 }));
 /* harmony default export */ var library_external = (external);
 //# sourceMappingURL=external.js.map
-;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
 ;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/components/keyboard-shortcut-help-modal/config.js
 /**
  * WordPress dependencies
@@ -1342,9 +1342,7 @@ function KeyboardShortcutHelpModal({
       character: 'h'
     }
   });
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/customize-widgets/keyboard-shortcuts', toggleModal, {
-    bindGlobal: true
-  });
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/customize-widgets/keyboard-shortcuts', toggleModal);
 
   if (!isModalActive) {
     return null;
@@ -1408,9 +1406,7 @@ function MoreMenu() {
 
   const toggleKeyboardShortcutsModal = () => setIsKeyboardShortcutsModalVisible(!isKeyboardShortcutsModalActive);
 
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/customize-widgets/keyboard-shortcuts', toggleKeyboardShortcutsModal, {
-    bindGlobal: true
-  });
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/customize-widgets/keyboard-shortcuts', toggleKeyboardShortcutsModal);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(MoreMenuDropdown, {
     as: external_wp_components_namespaceObject.ToolbarDropdownMenu,
     className: "customize-widgets-more-menu",
@@ -2014,20 +2010,14 @@ function KeyboardShortcuts({
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/customize-widgets/undo', event => {
     undo();
     event.preventDefault();
-  }, {
-    bindGlobal: true
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/customize-widgets/redo', event => {
     redo();
     event.preventDefault();
-  }, {
-    bindGlobal: true
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/customize-widgets/save', event => {
     event.preventDefault();
     save();
-  }, {
-    bindGlobal: true
   });
   return null;
 }
@@ -2330,6 +2320,7 @@ function useClearSelectedBlock(sidebarControl, popoverRef) {
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -2371,13 +2362,13 @@ function CustomizeWidgets({
     className: "customize-widgets-popover",
     ref: popoverRef
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null)), parentContainer);
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SlotFillProvider, null, (0,external_wp_element_namespaceObject.createElement)(SidebarControls, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_keyboardShortcuts_namespaceObject.ShortcutProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SlotFillProvider, null, (0,external_wp_element_namespaceObject.createElement)(SidebarControls, {
     sidebarControls: sidebarControls,
     activeSidebarControl: activeSidebarControl
   }, (0,external_wp_element_namespaceObject.createElement)(FocusControl, {
     api: api,
     sidebarControls: sidebarControls
-  }, activeSidebar, popover)));
+  }, activeSidebar, popover))));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/customize-widgets/build-module/controls/inspector-section.js

@@ -491,8 +491,6 @@ __webpack_require__.d(resolvers_namespaceObject, {
 
 ;// CONCATENATED MODULE: external ["wp","data"]
 var external_wp_data_namespaceObject = window["wp"]["data"];
-;// CONCATENATED MODULE: external ["wp","dataControls"]
-var external_wp_dataControls_namespaceObject = window["wp"]["dataControls"];
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
@@ -1031,38 +1029,6 @@ class ObservableSet {
 
 }
 //# sourceMappingURL=create-batch.js.map
-;// CONCATENATED MODULE: ./packages/core-data/build-module/controls.js
-/**
- * WordPress dependencies
- */
-
-function regularFetch(url) {
-  return {
-    type: 'REGULAR_FETCH',
-    url
-  };
-}
-function getDispatch() {
-  return {
-    type: 'GET_DISPATCH'
-  };
-}
-const controls = {
-  async REGULAR_FETCH({
-    url
-  }) {
-    const {
-      data
-    } = await window.fetch(url).then(res => res.json());
-    return data;
-  },
-
-  GET_DISPATCH: (0,external_wp_data_namespaceObject.createRegistryControl)(({
-    dispatch
-  }) => () => dispatch)
-};
-/* harmony default export */ var build_module_controls = (controls);
-//# sourceMappingURL=controls.js.map
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/name.js
 /**
  * The reducer key used by core data in store registration.
@@ -1084,11 +1050,9 @@ const STORE_NAME = 'core';
 
 
 
-
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -1245,7 +1209,7 @@ const deleteEntityRecord = (kind, name, recordId, query, {
   let error;
   let deletedRecord = false;
 
-  if (!entity) {
+  if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
     return;
   }
 
@@ -1303,7 +1267,7 @@ const deleteEntityRecord = (kind, name, recordId, query, {
  * @return {Object} Action object.
  */
 
-const editEntityRecord = (kind, name, recordId, edits, options = {}) => async ({
+const editEntityRecord = (kind, name, recordId, edits, options = {}) => ({
   select,
   dispatch
 }) => {
@@ -1336,7 +1300,7 @@ const editEntityRecord = (kind, name, recordId, edits, options = {}) => async ({
     }, {}),
     transientEdits
   };
-  return await dispatch({
+  dispatch({
     type: 'EDIT_ENTITY_RECORD',
     ...edit,
     meta: {
@@ -1438,7 +1402,7 @@ const saveEntityRecord = (kind, name, record, {
     name
   });
 
-  if (!entity) {
+  if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
     return;
   }
 
@@ -1454,7 +1418,7 @@ const saveEntityRecord = (kind, name, record, {
     for (const [key, value] of Object.entries(record)) {
       if (typeof value === 'function') {
         const evaluatedValue = value(select.getEditedEntityRecord(kind, name, recordId));
-        await dispatch.editEntityRecord(kind, name, recordId, {
+        dispatch.editEntityRecord(kind, name, recordId, {
           [key]: evaluatedValue
         }, {
           undoIgnore: true
@@ -1463,7 +1427,7 @@ const saveEntityRecord = (kind, name, record, {
       }
     }
 
-    await dispatch({
+    dispatch({
       type: 'SAVE_ENTITY_RECORD_START',
       kind,
       name,
@@ -1502,12 +1466,11 @@ const saveEntityRecord = (kind, name, record, {
         }, {
           status: data.status === 'auto-draft' ? 'draft' : data.status
         });
-        const options = {
+        updatedRecord = await __unstableFetch({
           path: `${path}/autosaves`,
           method: 'POST',
           data
-        };
-        updatedRecord = await __unstableFetch(options); // An autosave may be processed by the server as a regular save
+        }); // An autosave may be processed by the server as a regular save
         // when its update is requested by the author and the post had
         // draft or auto-draft status.
 
@@ -1531,9 +1494,9 @@ const saveEntityRecord = (kind, name, record, {
 
             return acc;
           }, {});
-          await dispatch.receiveEntityRecords(kind, name, newRecord, undefined, true);
+          dispatch.receiveEntityRecords(kind, name, newRecord, undefined, true);
         } else {
-          await dispatch.receiveAutosaves(persistedRecord.id, updatedRecord);
+          dispatch.receiveAutosaves(persistedRecord.id, updatedRecord);
         }
       } else {
         let edits = record;
@@ -1544,13 +1507,12 @@ const saveEntityRecord = (kind, name, record, {
           };
         }
 
-        const options = {
+        updatedRecord = await __unstableFetch({
           path,
           method: recordId ? 'PUT' : 'POST',
           data: edits
-        };
-        updatedRecord = await __unstableFetch(options);
-        await dispatch.receiveEntityRecords(kind, name, updatedRecord, undefined, true, edits);
+        });
+        dispatch.receiveEntityRecords(kind, name, updatedRecord, undefined, true, edits);
       }
     } catch (_error) {
       error = _error;
@@ -1566,7 +1528,7 @@ const saveEntityRecord = (kind, name, record, {
     });
     return updatedRecord;
   } finally {
-    await dispatch.__unstableReleaseStoreLock(lock);
+    dispatch.__unstableReleaseStoreLock(lock);
   }
 };
 /**
@@ -1592,33 +1554,34 @@ const saveEntityRecord = (kind, name, record, {
  *                   values of each function given in `requests`.
  */
 
-function* __experimentalBatch(requests) {
+const __experimentalBatch = requests => async ({
+  dispatch
+}) => {
   const batch = createBatch();
-  const dispatch = yield getDispatch();
   const api = {
     saveEntityRecord(kind, name, record, options) {
-      return batch.add(add => dispatch(STORE_NAME).saveEntityRecord(kind, name, record, { ...options,
+      return batch.add(add => dispatch.saveEntityRecord(kind, name, record, { ...options,
         __unstableFetch: add
       }));
     },
 
     saveEditedEntityRecord(kind, name, recordId, options) {
-      return batch.add(add => dispatch(STORE_NAME).saveEditedEntityRecord(kind, name, recordId, { ...options,
+      return batch.add(add => dispatch.saveEditedEntityRecord(kind, name, recordId, { ...options,
         __unstableFetch: add
       }));
     },
 
     deleteEntityRecord(kind, name, recordId, query, options) {
-      return batch.add(add => dispatch(STORE_NAME).deleteEntityRecord(kind, name, recordId, query, { ...options,
+      return batch.add(add => dispatch.deleteEntityRecord(kind, name, recordId, query, { ...options,
         __unstableFetch: add
       }));
     }
 
   };
   const resultPromises = requests.map(request => request(api));
-  const [, ...results] = yield (0,external_wp_dataControls_namespaceObject.__unstableAwaitPromise)(Promise.all([batch.run(), ...resultPromises]));
+  const [, ...results] = await Promise.all([batch.run(), ...resultPromises]);
   return results;
-}
+};
 /**
  * Action triggered to save an entity record's edits.
  *
@@ -1847,7 +1810,8 @@ const defaultEntities = [{
     context: 'edit'
   },
   plural: 'menuItems',
-  label: (0,external_wp_i18n_namespaceObject.__)('Menu Item')
+  label: (0,external_wp_i18n_namespaceObject.__)('Menu Item'),
+  rawAttributes: ['title', 'content']
 }, {
   name: 'menuLocation',
   kind: 'root',
@@ -4119,10 +4083,6 @@ const ifNotResolved = (resolver, selectorName) => (...args) => async ({
  */
 
 
-/**
- * Internal dependencies
- */
-
 
 
 /**
@@ -4173,7 +4133,7 @@ const resolvers_getEntityRecord = (kind, name, key = '', query) => async ({
     name
   });
 
-  if (!entity) {
+  if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
     return;
   }
 
@@ -4243,14 +4203,6 @@ const resolvers_getEditedEntityRecord = if_not_resolved(resolvers_getRawEntityRe
  * @param {Object?} query Query Object.
  */
 
-/**
- * Requests the entity's records from the REST API.
- *
- * @param {string}  kind  Entity kind.
- * @param {string}  name  Entity name.
- * @param {Object?} query Query Object.
- */
-
 const resolvers_getEntityRecords = (kind, name, query = {}) => async ({
   dispatch
 }) => {
@@ -4260,7 +4212,7 @@ const resolvers_getEntityRecords = (kind, name, query = {}) => async ({
     name
   });
 
-  if (!entity) {
+  if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
     return;
   }
 
@@ -5299,11 +5251,9 @@ const fetchUrlData = async (url, options = {}) => {
  * WordPress dependencies
  */
 
-
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -5359,9 +5309,6 @@ const entityActions = defaultEntities.reduce((result, entity) => {
 
 const storeConfig = () => ({
   reducer: build_module_reducer,
-  controls: { ...build_module_controls,
-    ...external_wp_dataControls_namespaceObject.controls
-  },
   actions: { ...build_module_actions_namespaceObject,
     ...entityActions,
     ...createLocksActions()

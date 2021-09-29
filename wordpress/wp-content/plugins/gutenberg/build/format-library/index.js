@@ -1155,9 +1155,8 @@ function TextColorEdit({
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextToolbarButton, {
-    key: isActive ? 'text-color' : 'text-color-not-active',
     className: "format-library-text-color-button",
-    name: isActive ? 'text-color' : undefined,
+    isActive: isActive,
     icon: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(icon, {
       icon: text_color
     }), isActive && (0,external_wp_element_namespaceObject.createElement)("span", {

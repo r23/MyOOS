@@ -24,9 +24,12 @@ function gutenberg_experimental_global_styles_get_stylesheet( $tree, $type = nul
 		! is_admin()
 	);
 
+	$transient_name = 'gutenberg_global_styles_' . get_stylesheet();
 	if ( $can_use_cached ) {
 		// Check if we have the styles already cached.
-		$cached = get_transient( 'gutenberg_global_styles' );
+		// It's cached by theme to make sure that theme switching
+		// is inmediately reflected.
+		$cached = get_transient( $transient_name );
 		if ( $cached ) {
 			return $cached;
 		}
@@ -57,7 +60,7 @@ function gutenberg_experimental_global_styles_get_stylesheet( $tree, $type = nul
 	if ( $can_use_cached ) {
 		// Cache for a minute.
 		// This cache doesn't need to be any longer, we only want to avoid spikes on high-traffic sites.
-		set_transient( 'gutenberg_global_styles', $stylesheet, MINUTE_IN_SECONDS );
+		set_transient( $transient_name, $stylesheet, MINUTE_IN_SECONDS );
 	}
 
 	return $stylesheet;

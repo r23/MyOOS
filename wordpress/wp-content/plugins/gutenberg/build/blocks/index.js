@@ -7159,7 +7159,7 @@ function getActiveBlockVariation(state, blockName, attributes, scope) {
 
     if (Array.isArray(variation.isActive)) {
       const blockType = getBlockType(state, blockName);
-      const attributeKeys = Object.keys(blockType.attributes || {});
+      const attributeKeys = Object.keys((blockType === null || blockType === void 0 ? void 0 : blockType.attributes) || {});
       const definedAttributes = variation.isActive.filter(attribute => attributeKeys.includes(attribute));
 
       if (definedAttributes.length === 0) {
@@ -8585,7 +8585,9 @@ function registration_getDefaultBlockName() {
  */
 
 function registration_getBlockType(name) {
-  return (0,external_wp_data_namespaceObject.select)(store).getBlockType(name);
+  var _select;
+
+  return (_select = (0,external_wp_data_namespaceObject.select)(store)) === null || _select === void 0 ? void 0 : _select.getBlockType(name);
 }
 /**
  * Returns all registered blocks.
@@ -8955,7 +8957,7 @@ const getBlockTypesForPossibleToTransforms = blocks => {
 
   const sourceBlock = (0,external_lodash_namespaceObject.first)(blocks);
   const blockType = registration_getBlockType(sourceBlock.name);
-  const transformsTo = getBlockTransforms('to', blockType.name); // filter all 'to' transforms to find those that are possible.
+  const transformsTo = blockType ? getBlockTransforms('to', blockType.name) : []; // filter all 'to' transforms to find those that are possible.
 
   const possibleTransforms = (0,external_lodash_namespaceObject.filter)(transformsTo, transform => {
     return transform && isPossibleTransformForSource(transform, 'to', blocks);

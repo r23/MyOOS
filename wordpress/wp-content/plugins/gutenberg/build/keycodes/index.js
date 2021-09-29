@@ -45,10 +45,14 @@ __webpack_require__.d(__webpack_exports__, {
   "CTRL": function() { return /* binding */ CTRL; },
   "DELETE": function() { return /* binding */ DELETE; },
   "DOWN": function() { return /* binding */ DOWN; },
+  "END": function() { return /* binding */ END; },
   "ENTER": function() { return /* binding */ ENTER; },
   "ESCAPE": function() { return /* binding */ ESCAPE; },
   "F10": function() { return /* binding */ F10; },
+  "HOME": function() { return /* binding */ HOME; },
   "LEFT": function() { return /* binding */ LEFT; },
+  "PAGEDOWN": function() { return /* binding */ PAGEDOWN; },
+  "PAGEUP": function() { return /* binding */ PAGEUP; },
   "RIGHT": function() { return /* binding */ RIGHT; },
   "SHIFT": function() { return /* binding */ SHIFT; },
   "SPACE": function() { return /* binding */ SPACE; },
@@ -167,6 +171,26 @@ const ESCAPE = 27;
  */
 
 const SPACE = 32;
+/**
+ * Keycode for PAGEUP key.
+ */
+
+const PAGEUP = 33;
+/**
+ * Keycode for PAGEDOWN key.
+ */
+
+const PAGEDOWN = 34;
+/**
+ * Keycode for END key.
+ */
+
+const END = 35;
+/**
+ * Keycode for HOME key.
+ */
+
+const HOME = 36;
 /**
  * Keycode for LEFT key.
  */
@@ -419,7 +443,7 @@ const isKeyboardEvent = (0,external_lodash_namespaceObject.mapValues)(modifiers,
         return (0,external_lodash_namespaceObject.includes)(mods, key);
       }
 
-      if (event.altKey) {
+      if (event.altKey && character.length === 1) {
         key = String.fromCharCode(event.keyCode).toLowerCase();
       } // For backwards compatibility.
 
@@ -428,7 +452,7 @@ const isKeyboardEvent = (0,external_lodash_namespaceObject.mapValues)(modifiers,
         character = 'delete';
       }
 
-      return key === character;
+      return key === character.toLowerCase();
     }
   );
 });

@@ -986,8 +986,8 @@ function isSelectionForward(selection) {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Document/caretRangeFromPoint
  *
  * @param {DocumentMaybeWithCaretPositionFromPoint} doc The document of the range.
- * @param {number}   x   Horizontal position within the current viewport.
- * @param {number}   y   Vertical position within the current viewport.
+ * @param {number}                                  x   Horizontal position within the current viewport.
+ * @param {number}                                  y   Vertical position within the current viewport.
  *
  * @return {Range | null} The best range for the given point.
  */
@@ -1078,7 +1078,7 @@ function hiddenCaretRangeFromPoint(doc, x, y, container) {
  */
 
 function isEdge(container, isReverse, onlyVertical = false) {
-  if (isInputOrTextArea(container)) {
+  if (isInputOrTextArea(container) && typeof container.selectionStart === 'number') {
     if (container.selectionStart !== container.selectionEnd) {
       return false;
     }
@@ -1209,11 +1209,7 @@ function isVerticalEdge(container, isReverse) {
   return isEdge(container, isReverse, true);
 }
 //# sourceMappingURL=is-vertical-edge.js.map
-;// CONCATENATED MODULE: ./packages/dom/build-module/dom/place-caret-at-horizontal-edge.js
-/**
- * Internal dependencies
- */
-
+;// CONCATENATED MODULE: ./packages/dom/build-module/dom/place-caret-at-edge.js
 /**
  * Internal dependencies
  */
@@ -1224,13 +1220,14 @@ function isVerticalEdge(container, isReverse) {
 /**
  * Gets the range to place.
  *
- * @param {HTMLElement} container Focusable element.
- * @param {boolean}     isReverse True for end, false for start.
+ * @param {HTMLElement}      container Focusable element.
+ * @param {boolean}          isReverse True for end, false for start.
+ * @param {number|undefined} x         X coordinate to vertically position.
  *
  * @return {Range|null} The range to place.
  */
 
-function getRange(container, isReverse) {
+function getRange(container, isReverse, x) {
   const {
     ownerDocument
   } = container; // In the case of RTL scripts, the horizontal edge is at the opposite side.
@@ -1239,19 +1236,23 @@ function getRange(container, isReverse) {
   const containerRect = container.getBoundingClientRect(); // When placing at the end (isReverse), find the closest range to the bottom
   // right corner. When placing at the start, to the top left corner.
 
-  const x = isReverse ? containerRect.right - 1 : containerRect.left + 1;
+  if (x === undefined) {
+    x = isReverse ? containerRect.right - 1 : containerRect.left + 1;
+  }
+
   const y = isReverseDir ? containerRect.bottom - 1 : containerRect.top + 1;
   return hiddenCaretRangeFromPoint(ownerDocument, x, y, container);
 }
 /**
  * Places the caret at start or end of a given element.
  *
- * @param {HTMLElement} container Focusable element.
- * @param {boolean}     isReverse True for end, false for start.
+ * @param {HTMLElement}      container Focusable element.
+ * @param {boolean}          isReverse True for end, false for start.
+ * @param {number|undefined} x         X coordinate to vertically position.
  */
 
 
-function placeCaretAtHorizontalEdge(container, isReverse) {
+function placeCaretAtEdge(container, isReverse, x) {
   if (!container) {
     return;
   }
@@ -1279,12 +1280,12 @@ function placeCaretAtHorizontalEdge(container, isReverse) {
     return;
   }
 
-  let range = getRange(container, isReverse); // If no range range can be created or it is outside the container, the
+  let range = getRange(container, isReverse, x); // If no range range can be created or it is outside the container, the
   // element may be out of view.
 
   if (!range || !range.startContainer || !container.contains(range.startContainer)) {
     container.scrollIntoView(isReverse);
-    range = getRange(container, isReverse);
+    range = range = getRange(container, isReverse, x);
 
     if (!range || !range.startContainer || !container.contains(range.startContainer)) {
       return;
@@ -1303,70 +1304,38 @@ function placeCaretAtHorizontalEdge(container, isReverse) {
   selection.removeAllRanges();
   selection.addRange(range);
 }
+//# sourceMappingURL=place-caret-at-edge.js.map
+;// CONCATENATED MODULE: ./packages/dom/build-module/dom/place-caret-at-horizontal-edge.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Places the caret at start or end of a given element.
+ *
+ * @param {HTMLElement} container Focusable element.
+ * @param {boolean}     isReverse True for end, false for start.
+ */
+
+function placeCaretAtHorizontalEdge(container, isReverse) {
+  return placeCaretAtEdge(container, isReverse, undefined);
+}
 //# sourceMappingURL=place-caret-at-horizontal-edge.js.map
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/place-caret-at-vertical-edge.js
 /**
  * Internal dependencies
  */
 
-
-
 /**
  * Places the caret at the top or bottom of a given element.
  *
- * @param {HTMLElement} container           Focusable element.
- * @param {boolean}     isReverse           True for bottom, false for top.
- * @param {DOMRect}     [rect]              The rectangle to position the caret with.
- * @param {boolean}     [mayUseScroll=true] True to allow scrolling, false to disallow.
+ * @param {HTMLElement} container Focusable element.
+ * @param {boolean}     isReverse True for bottom, false for top.
+ * @param {DOMRect}     [rect]    The rectangle to position the caret with.
  */
 
-function placeCaretAtVerticalEdge(container, isReverse, rect, mayUseScroll = true) {
-  if (!container) {
-    return;
-  }
-
-  if (!rect || !container.isContentEditable) {
-    placeCaretAtHorizontalEdge(container, isReverse);
-    return;
-  }
-
-  container.focus(); // Offset by a buffer half the height of the caret rect. This is needed
-  // because caretRangeFromPoint may default to the end of the selection if
-  // offset is too close to the edge. It's unclear how to precisely calculate
-  // this threshold; it may be the padded area of some combination of line
-  // height, caret height, and font size. The buffer offset is effectively
-  // equivalent to a point at half the height of a line of text.
-
-  const buffer = rect.height / 2;
-  const editableRect = container.getBoundingClientRect();
-  const x = rect.left;
-  const y = isReverse ? editableRect.bottom - buffer : editableRect.top + buffer;
-  const {
-    ownerDocument
-  } = container;
-  const {
-    defaultView
-  } = ownerDocument;
-  const range = hiddenCaretRangeFromPoint(ownerDocument, x, y, container);
-
-  if (!range || !container.contains(range.startContainer)) {
-    if (mayUseScroll && (!range || !range.startContainer || !range.startContainer.contains(container))) {
-      // Might be out of view.
-      // Easier than attempting to calculate manually.
-      container.scrollIntoView(isReverse);
-      placeCaretAtVerticalEdge(container, isReverse, rect, false);
-      return;
-    }
-
-    placeCaretAtHorizontalEdge(container, isReverse);
-    return;
-  }
-
-  assertIsDefined(defaultView, 'defaultView');
-  const selection = defaultView.getSelection();
-  assertIsDefined(selection, 'selection');
-  selection.removeAllRanges();
-  selection.addRange(range);
+function placeCaretAtVerticalEdge(container, isReverse, rect) {
+  return placeCaretAtEdge(container, isReverse, rect === null || rect === void 0 ? void 0 : rect.left);
 }
 //# sourceMappingURL=place-caret-at-vertical-edge.js.map
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/insert-after.js

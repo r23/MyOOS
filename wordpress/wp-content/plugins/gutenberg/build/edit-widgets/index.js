@@ -269,7 +269,7 @@ const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
+  d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
 }));
 /* harmony default export */ var library_check = (check);
 //# sourceMappingURL=check.js.map
@@ -2902,20 +2902,14 @@ function KeyboardShortcuts() {
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-widgets/undo', event => {
     undo();
     event.preventDefault();
-  }, {
-    bindGlobal: true
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-widgets/redo', event => {
     redo();
     event.preventDefault();
-  }, {
-    bindGlobal: true
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-widgets/save', event => {
     event.preventDefault();
     saveEditedWidgetAreas();
-  }, {
-    bindGlobal: true
   });
   return null;
 }
@@ -3072,6 +3066,7 @@ const ENABLE_EXPERIMENTAL_FSE_BLOCKS = false;
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -3134,7 +3129,7 @@ function WidgetAreasBlockEditorProvider({
   const [blocks, onInput, onChange] = (0,external_wp_coreData_namespaceObject.useEntityBlockEditor)(KIND, POST_TYPE, {
     id: buildWidgetAreasPostId()
   });
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorKeyboardShortcuts.Register, null), (0,external_wp_element_namespaceObject.createElement)(keyboard_shortcuts.Register, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SlotFillProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorProvider, _extends({
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_keyboardShortcuts_namespaceObject.ShortcutProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorKeyboardShortcuts.Register, null), (0,external_wp_element_namespaceObject.createElement)(keyboard_shortcuts.Register, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SlotFillProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorProvider, _extends({
     value: blocks,
     onInput: onInput,
     onChange: onChange,
@@ -3839,9 +3834,7 @@ function MoreMenu() {
 
   const toggleKeyboardShortcutsModal = () => setIsKeyboardShortcutsModalVisible(!isKeyboardShortcutsModalActive);
 
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-widgets/keyboard-shortcuts', toggleKeyboardShortcutsModal, {
-    bindGlobal: true
-  });
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-widgets/keyboard-shortcuts', toggleKeyboardShortcutsModal);
   const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(MoreMenuDropdown, null, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isLargeViewport && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
     label: (0,external_wp_i18n_namespaceObject._x)('View', 'noun')
@@ -4485,7 +4478,7 @@ function Layout({
 
 
 
-const disabledBlocks = ['core/more', 'core/freeform', ...(!ALLOW_REUSABLE_BLOCKS && ['core/block'])];
+const disabledBlocks = ['core/more', 'core/freeform', ...(ALLOW_REUSABLE_BLOCKS ? [] : ['core/block'])];
 /**
  * Reinitializes the editor after the user chooses to reboot the editor after
  * an unhandled error occurs, replacing previously mounted editor element using

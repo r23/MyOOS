@@ -972,7 +972,6 @@ __webpack_require__.d(selectors_namespaceObject, {
   "didPostSaveRequestSucceed": function() { return didPostSaveRequestSucceed; },
   "getActivePostLock": function() { return getActivePostLock; },
   "getAdjacentBlockClientId": function() { return getAdjacentBlockClientId; },
-  "getAutosave": function() { return getAutosave; },
   "getAutosaveAttribute": function() { return getAutosaveAttribute; },
   "getBlock": function() { return getBlock; },
   "getBlockAttributes": function() { return getBlockAttributes; },
@@ -989,7 +988,6 @@ __webpack_require__.d(selectors_namespaceObject, {
   "getBlockSelectionStart": function() { return getBlockSelectionStart; },
   "getBlocks": function() { return getBlocks; },
   "getBlocksByClientId": function() { return getBlocksByClientId; },
-  "getBlocksForSerialization": function() { return getBlocksForSerialization; },
   "getClientIdsOfDescendants": function() { return getClientIdsOfDescendants; },
   "getClientIdsWithDescendants": function() { return getClientIdsWithDescendants; },
   "getCurrentPost": function() { return getCurrentPost; },
@@ -1032,7 +1030,6 @@ __webpack_require__.d(selectors_namespaceObject, {
   "getSuggestedPostFormat": function() { return getSuggestedPostFormat; },
   "getTemplate": function() { return getTemplate; },
   "getTemplateLock": function() { return getTemplateLock; },
-  "hasAutosave": function() { return hasAutosave; },
   "hasChangedContent": function() { return hasChangedContent; },
   "hasEditorRedo": function() { return hasEditorRedo; },
   "hasEditorUndo": function() { return hasEditorUndo; },
@@ -1112,7 +1109,6 @@ __webpack_require__.d(actions_namespaceObject, {
   "removeBlocks": function() { return removeBlocks; },
   "replaceBlock": function() { return replaceBlock; },
   "replaceBlocks": function() { return replaceBlocks; },
-  "resetAutosave": function() { return resetAutosave; },
   "resetBlocks": function() { return resetBlocks; },
   "resetEditorBlocks": function() { return resetEditorBlocks; },
   "resetPost": function() { return resetPost; },
@@ -2527,51 +2523,6 @@ const isEditedPostAutosaveable = (0,external_wp_data_namespaceObject.createRegis
   return ['title', 'excerpt'].some(field => getPostRawValue(autosave[field]) !== getEditedPostAttribute(state, field));
 });
 /**
- * Returns the current autosave, or null if one is not set (i.e. if the post
- * has yet to be autosaved, or has been saved or published since the last
- * autosave).
- *
- * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )`
- * 			   selector from the '@wordpress/core-data' package.
- *
- * @param {Object} state Editor state.
- *
- * @return {?Object} Current autosave, if exists.
- */
-
-const getAutosave = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
-  external_wp_deprecated_default()("`wp.data.select( 'core/editor' ).getAutosave()`", {
-    since: '5.3',
-    alternative: "`wp.data.select( 'core' ).getAutosave( postType, postId, userId )`"
-  });
-  const postType = getCurrentPostType(state);
-  const postId = getCurrentPostId(state);
-  const currentUserId = (0,external_lodash_namespaceObject.get)(select(external_wp_coreData_namespaceObject.store).getCurrentUser(), ['id']);
-  const autosave = select(external_wp_coreData_namespaceObject.store).getAutosave(postType, postId, currentUserId);
-  return (0,external_lodash_namespaceObject.mapValues)((0,external_lodash_namespaceObject.pick)(autosave, AUTOSAVE_PROPERTIES), getPostRawValue);
-});
-/**
- * Returns the true if there is an existing autosave, otherwise false.
- *
- * @deprecated since 5.6. Callers should use the `getAutosave( postType, postId, userId )` selector
- *             from the '@wordpress/core-data' package and check for a truthy value.
- *
- * @param {Object} state Global application state.
- *
- * @return {boolean} Whether there is an existing autosave.
- */
-
-const hasAutosave = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => state => {
-  external_wp_deprecated_default()("`wp.data.select( 'core/editor' ).hasAutosave()`", {
-    since: '5.3',
-    alternative: "`!! wp.data.select( 'core' ).getAutosave( postType, postId, userId )`"
-  });
-  const postType = getCurrentPostType(state);
-  const postId = getCurrentPostId(state);
-  const currentUserId = (0,external_lodash_namespaceObject.get)(select(external_wp_coreData_namespaceObject.store).getCurrentUser(), ['id']);
-  return !!select(external_wp_coreData_namespaceObject.store).getAutosave(postType, postId, currentUserId);
-});
-/**
  * Return true if the post being edited is being scheduled. Preferring the
  * unsaved status values.
  *
@@ -2797,38 +2748,6 @@ function getSuggestedPostFormat(state) {
     default:
       return null;
   }
-}
-/**
- * Returns a set of blocks which are to be used in consideration of the post's
- * generated save content.
- *
- * @deprecated since Gutenberg 6.2.0.
- *
- * @param {Object} state Editor state.
- *
- * @return {WPBlock[]} Filtered set of blocks for save.
- */
-
-function getBlocksForSerialization(state) {
-  external_wp_deprecated_default()('`core/editor` getBlocksForSerialization selector', {
-    since: '5.3',
-    alternative: 'getEditorBlocks',
-    hint: 'Blocks serialization pre-processing occurs at save time'
-  });
-  const blocks = state.editor.present.blocks.value; // WARNING: Any changes to the logic of this function should be verified
-  // against the implementation of isEditedPostEmpty, which bypasses this
-  // function for performance' sake, in an assumption of this current logic
-  // being irrelevant to the optimized condition of emptiness.
-  // A single unmodified default block is assumed to be equivalent to an
-  // empty post.
-
-  const isSingleUnmodifiedDefaultBlock = blocks.length === 1 && (0,external_wp_blocks_namespaceObject.isUnmodifiedDefaultBlock)(blocks[0]);
-
-  if (isSingleUnmodifiedDefaultBlock) {
-    return [];
-  }
-
-  return blocks;
 }
 /**
  * Returns the content of the post being edited.
@@ -3757,29 +3676,6 @@ function resetPost(post) {
   return {
     type: 'RESET_POST',
     post
-  };
-}
-/**
- * Returns an action object used in signalling that the latest autosave of the
- * post has been received, by initialization or autosave.
- *
- * @deprecated since 5.6. Callers should use the `receiveAutosaves( postId, autosave )`
- * 			   selector from the '@wordpress/core-data' package.
- *
- * @param {Object} newAutosave Autosave post object.
- *
- * @return {Object} Action object.
- */
-
-function* resetAutosave(newAutosave) {
-  external_wp_deprecated_default()('resetAutosave action (`core/editor` store)', {
-    since: '5.3',
-    alternative: 'receiveAutosaves action (`core` store)'
-  });
-  const postId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getCurrentPostId');
-  yield external_wp_data_namespaceObject.controls.dispatch(external_wp_coreData_namespaceObject.store, 'receiveAutosaves', postId, newAutosave);
-  return {
-    type: '__INERT__'
   };
 }
 /**
@@ -5078,8 +4974,6 @@ function SaveShortcut({
     }
 
     savePost();
-  }, {
-    bindGlobal: true
   });
   return null;
 }
@@ -5109,14 +5003,10 @@ function VisualEditorGlobalKeyboardShortcuts() {
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/editor/undo', event => {
     undo();
     event.preventDefault();
-  }, {
-    bindGlobal: true
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/editor/redo', event => {
     redo();
     event.preventDefault();
-  }, {
-    bindGlobal: true
   });
   return (0,external_wp_element_namespaceObject.createElement)(save_shortcut, null);
 }
@@ -9561,6 +9451,21 @@ class PostPublishPanel extends external_wp_element_namespaceObject.Component {
   };
 }), external_wp_components_namespaceObject.withFocusReturn, external_wp_components_namespaceObject.withConstrainedTabbing])(PostPublishPanel));
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/cloud-upload.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const cloudUpload = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M17.3 10.1c0-2.5-2.1-4.4-4.8-4.4-2.2 0-4.1 1.4-4.6 3.3h-.2C5.7 9 4 10.7 4 12.8c0 2.1 1.7 3.8 3.7 3.8h9c1.8 0 3.2-1.5 3.2-3.3.1-1.6-1.1-2.9-2.6-3.2zm-.5 5.1h-4v-2.4L14 14l1-1-3-3-3 3 1 1 1.2-1.2v2.4H7.7c-1.2 0-2.2-1.1-2.2-2.3s1-2.4 2.2-2.4H9l.3-1.1c.4-1.3 1.7-2.2 3.2-2.2 1.8 0 3.3 1.3 3.3 2.9v1.3l1.3.2c.8.1 1.4.9 1.4 1.8 0 1-.8 1.8-1.7 1.8z"
+}));
+/* harmony default export */ var cloud_upload = (cloudUpload);
+//# sourceMappingURL=cloud-upload.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
 /**
  * WordPress dependencies
@@ -9592,6 +9497,21 @@ function Icon({
 
 /* harmony default export */ var icon = (Icon);
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const check_check = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
+}));
+/* harmony default export */ var library_check = (check_check);
+//# sourceMappingURL=check.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/cloud.js
 
 
@@ -9607,36 +9527,6 @@ const cloud = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 }));
 /* harmony default export */ var library_cloud = (cloud);
 //# sourceMappingURL=cloud.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
-
-
-/**
- * WordPress dependencies
- */
-
-const check_check = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
-}));
-/* harmony default export */ var library_check = (check_check);
-//# sourceMappingURL=check.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/cloud-upload.js
-
-
-/**
- * WordPress dependencies
- */
-
-const cloudUpload = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M17.3 10.1c0-2.5-2.1-4.4-4.8-4.4-2.2 0-4.1 1.4-4.6 3.3h-.2C5.7 9 4 10.7 4 12.8c0 2.1 1.7 3.8 3.7 3.8h9c1.8 0 3.2-1.5 3.2-3.3.1-1.6-1.1-2.9-2.6-3.2zm-.5 5.1h-4v-2.4L14 14l1-1-3-3-3 3 1 1 1.2-1.2v2.4H7.7c-1.2 0-2.2-1.1-2.2-2.3s1-2.4 2.2-2.4H9l.3-1.1c.4-1.3 1.7-2.2 3.2-2.2 1.8 0 3.3 1.3 3.3 2.9v1.3l1.3.2c.8.1 1.4.9 1.4 1.8 0 1-.8 1.8-1.7 1.8z"
-}));
-/* harmony default export */ var cloud_upload = (cloudUpload);
-//# sourceMappingURL=cloud-upload.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-switch-to-draft-button/index.js
 
 
@@ -9809,44 +9699,15 @@ function PostSavedState({
     }
 
     return () => clearTimeout(timeoutId);
-  }, [isSaving]);
+  }, [isSaving]); // Once the post has been submitted for review this button
+  // is not needed for the contributor role.
 
-  if (isSaving) {
-    // TODO: Classes generation should be common across all return
-    // paths of this function, including proper naming convention for
-    // the "Save Draft" button.
-    const classes = classnames_default()('editor-post-saved-state', 'is-saving', (0,external_wp_components_namespaceObject.__unstableGetAnimateClassName)({
-      type: 'loading'
-    }), {
-      'is-autosaving': isAutosaving
-    });
-    return (0,external_wp_element_namespaceObject.createElement)("span", {
-      className: classes
-    }, (0,external_wp_element_namespaceObject.createElement)(icon, {
-      icon: library_cloud
-    }), isAutosaving ? (0,external_wp_i18n_namespaceObject.__)('Autosaving') : (0,external_wp_i18n_namespaceObject.__)('Saving'));
+  if (!hasPublishAction && isPending) {
+    return null;
   }
 
   if (isPublished || isScheduled) {
     return (0,external_wp_element_namespaceObject.createElement)(post_switch_to_draft_button, null);
-  }
-
-  if (!isSaveable) {
-    return null;
-  }
-
-  if (forceSavedMessage || !isNew && !isDirty) {
-    return (0,external_wp_element_namespaceObject.createElement)("span", {
-      className: "editor-post-saved-state is-saved"
-    }, (0,external_wp_element_namespaceObject.createElement)(icon, {
-      icon: library_check
-    }), (0,external_wp_i18n_namespaceObject.__)('Saved'));
-  } // Once the post has been submitted for review this button
-  // is not needed for the contributor role.
-
-
-  if (!hasPublishAction && isPending) {
-    return null;
   }
   /* translators: button label text should, if possible, be under 16 characters. */
 
@@ -9856,22 +9717,43 @@ function PostSavedState({
 
   const shortLabel = (0,external_wp_i18n_namespaceObject.__)('Save');
 
-  if (!isLargeViewport) {
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-      className: "editor-post-save-draft",
-      label: label,
-      onClick: () => savePost(),
-      shortcut: external_wp_keycodes_namespaceObject.displayShortcut.primary('s'),
-      icon: cloud_upload
-    }, showIconLabels && shortLabel);
-  }
+  const isSaved = forceSavedMessage || !isNew && !isDirty;
+  const isSavedState = isSaving || isSaved;
+  const isDisabled = isSaving || isSaved || !isSaveable;
+  let text;
+
+  if (isSaving) {
+    text = isAutosaving ? (0,external_wp_i18n_namespaceObject.__)('Autosaving') : (0,external_wp_i18n_namespaceObject.__)('Saving');
+  } else if (isSaved) {
+    text = (0,external_wp_i18n_namespaceObject.__)('Saved');
+  } else if (isLargeViewport) {
+    text = label;
+  } else if (showIconLabels) {
+    text = shortLabel;
+  } // Use common Button instance for all saved states so that focus is not
+  // lost.
+
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    className: "editor-post-save-draft",
-    onClick: () => savePost(),
+    className: isSaveable || isSaving ? classnames_default()({
+      'editor-post-save-draft': !isSavedState,
+      'editor-post-saved-state': isSavedState,
+      'is-saving': isSaving,
+      'is-autosaving': isAutosaving,
+      'is-saved': isSaved,
+      [(0,external_wp_components_namespaceObject.__unstableGetAnimateClassName)({
+        type: 'loading'
+      })]: isSaving
+    }) : undefined,
+    onClick: isDisabled ? undefined : () => savePost(),
     shortcut: external_wp_keycodes_namespaceObject.displayShortcut.primary('s'),
-    variant: "tertiary"
-  }, label);
+    variant: isLargeViewport ? 'tertiary' : undefined,
+    icon: isLargeViewport ? undefined : cloud_upload,
+    label: isLargeViewport ? undefined : label,
+    "aria-disabled": isDisabled
+  }, isSavedState && (0,external_wp_element_namespaceObject.createElement)(icon, {
+    icon: isSaved ? library_check : library_cloud
+  }), text);
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-schedule/check.js

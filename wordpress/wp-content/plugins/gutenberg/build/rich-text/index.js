@@ -793,7 +793,6 @@ const ZWNBSP = '\ufeff';
 
 
 
-
 /**
  * @typedef {Object} RichTextFormat
  *
@@ -1084,16 +1083,16 @@ function filterRange(node, range, filter) {
 function collapseWhiteSpace(string) {
   return string.replace(/[\n\r\t]+/g, ' ');
 }
-
-const ZWNBSPRegExp = new RegExp(ZWNBSP, 'g');
 /**
- * Removes padding (zero width non breaking spaces) added by `toTree`.
+ * Removes reserved characters used by rich-text (zero width non breaking spaces added by `toTree` and object replacement characters).
  *
  * @param {string} string
  */
 
-function removePadding(string) {
-  return string.replace(ZWNBSPRegExp, '');
+
+function removeReservedCharacters(string) {
+  //with the global flag, note that we should create a new regex each time OR reset lastIndex state.
+  return string.replace(new RegExp(`[${ZWNBSP}${OBJECT_REPLACEMENT_CHARACTER}]`, 'gu'), '');
 }
 /**
  * Creates a Rich Text value from a DOM element and range.
@@ -1112,7 +1111,6 @@ function removePadding(string) {
  *
  * @return {RichTextValue} A rich text value.
  */
-
 
 function createFromElement({
   element,
@@ -1141,10 +1139,10 @@ function createFromElement({
     const type = node.nodeName.toLowerCase();
 
     if (node.nodeType === node.TEXT_NODE) {
-      let filter = removePadding;
+      let filter = removeReservedCharacters;
 
       if (!preserveWhiteSpace) {
-        filter = string => removePadding(collapseWhiteSpace(string));
+        filter = string => removeReservedCharacters(collapseWhiteSpace(string));
       }
 
       const text = filter(node.nodeValue);
@@ -1195,15 +1193,12 @@ function createFromElement({
       continue;
     }
 
-    const lastFormats = accumulator.formats[accumulator.formats.length - 1];
-    const lastFormat = lastFormats && lastFormats[lastFormats.length - 1];
-    const newFormat = toFormat({
+    const format = toFormat({
       type,
       attributes: getAttributes({
         element: node
       })
     });
-    const format = isFormatEqual(newFormat, lastFormat) ? lastFormat : newFormat;
 
     if (multilineWrapperTags && multilineWrapperTags.indexOf(type) !== -1) {
       const value = createFromMultilineElement({
@@ -3872,39 +3867,24 @@ function useFormatBoundaries(props) {
 
       const formatsBefore = formats[start - 1] || EMPTY_ACTIVE_FORMATS;
       const formatsAfter = formats[start] || EMPTY_ACTIVE_FORMATS;
+      const destination = isReverse ? formatsBefore : formatsAfter;
+      const isIncreasing = currentActiveFormats.every((format, index) => format === destination[index]);
       let newActiveFormatsLength = currentActiveFormats.length;
-      let source = formatsAfter;
 
-      if (formatsBefore.length > formatsAfter.length) {
-        source = formatsBefore;
-      } // If the amount of formats before the caret and after the caret is
-      // different, the caret is at a format boundary.
-
-
-      if (formatsBefore.length < formatsAfter.length) {
-        if (!isReverse && currentActiveFormats.length < formatsAfter.length) {
-          newActiveFormatsLength++;
-        }
-
-        if (isReverse && currentActiveFormats.length > formatsBefore.length) {
-          newActiveFormatsLength--;
-        }
-      } else if (formatsBefore.length > formatsAfter.length) {
-        if (!isReverse && currentActiveFormats.length > formatsAfter.length) {
-          newActiveFormatsLength--;
-        }
-
-        if (isReverse && currentActiveFormats.length < formatsBefore.length) {
-          newActiveFormatsLength++;
-        }
+      if (!isIncreasing) {
+        newActiveFormatsLength--;
+      } else if (newActiveFormatsLength < destination.length) {
+        newActiveFormatsLength++;
       }
 
       if (newActiveFormatsLength === currentActiveFormats.length) {
-        record.current._newActiveFormats = isReverse ? formatsBefore : formatsAfter;
+        record.current._newActiveFormats = destination;
         return;
       }
 
       event.preventDefault();
+      const origin = isReverse ? formatsAfter : formatsBefore;
+      const source = isIncreasing ? destination : origin;
       const newActiveFormats = source.slice(0, newActiveFormatsLength);
       const newValue = { ...record.current,
         activeFormats: newActiveFormats
@@ -4049,8 +4029,11 @@ function updateFormats({
   end,
   formats
 }) {
-  const formatsBefore = value.formats[start - 1] || [];
-  const formatsAfter = value.formats[end] || []; // First, fix the references. If any format right before or after are
+  // Start and end may be switched in case of delete.
+  const min = Math.min(start, end);
+  const max = Math.max(start, end);
+  const formatsBefore = value.formats[min - 1] || [];
+  const formatsAfter = value.formats[max] || []; // First, fix the references. If any format right before or after are
   // equal, the replacement format should use the same reference.
 
   value.activeFormats = formats.map((format, index) => {

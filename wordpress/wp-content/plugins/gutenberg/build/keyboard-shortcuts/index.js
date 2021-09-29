@@ -39,9 +39,10 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  "ShortcutProvider": function() { return /* reexport */ ShortcutProvider; },
   "__unstableUseShortcutEventMatch": function() { return /* reexport */ useShortcutEventMatch; },
   "store": function() { return /* reexport */ store; },
-  "useShortcut": function() { return /* reexport */ use_shortcut; }
+  "useShortcut": function() { return /* reexport */ useShortcut; }
 });
 
 // NAMESPACE OBJECT: ./packages/keyboard-shortcuts/build-module/store/actions.js
@@ -605,36 +606,8 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
 });
 (0,external_wp_data_namespaceObject.register)(store);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: external ["wp","compose"]
-var external_wp_compose_namespaceObject = window["wp"]["compose"];
-;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/hooks/use-shortcut.js
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * Attach a keyboard shortcut handler.
- *
- * @param {string}   name     Shortcut name.
- * @param {Function} callback Shortcut callback.
- * @param {Object}   options  Shortcut options.
- */
-
-function useShortcut(name, callback, options) {
-  const shortcuts = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    return select(store).getAllShortcutRawKeyCombinations(name);
-  }, [name]);
-  (0,external_wp_compose_namespaceObject.useKeyboardShortcut)(shortcuts, callback, options);
-}
-
-/* harmony default export */ var use_shortcut = (useShortcut);
-//# sourceMappingURL=use-shortcut.js.map
+;// CONCATENATED MODULE: external ["wp","element"]
+var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/hooks/use-shortcut-event-match.js
 /**
  * WordPress dependencies
@@ -679,7 +652,123 @@ function useShortcutEventMatch() {
   return isMatch;
 }
 //# sourceMappingURL=use-shortcut-event-match.js.map
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/context.js
+/**
+ * WordPress dependencies
+ */
+
+const context = (0,external_wp_element_namespaceObject.createContext)();
+//# sourceMappingURL=context.js.map
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/hooks/use-shortcut.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Attach a keyboard shortcut handler.
+ *
+ * @param {string}   name               Shortcut name.
+ * @param {Function} callback           Shortcut callback.
+ * @param {Object}   options            Shortcut options.
+ * @param {boolean}  options.isDisabled Whether to disable to shortut.
+ */
+
+function useShortcut(name, callback, {
+  isDisabled
+} = {}) {
+  const shortcuts = (0,external_wp_element_namespaceObject.useContext)(context);
+  const isMatch = useShortcutEventMatch();
+  const callbackRef = (0,external_wp_element_namespaceObject.useRef)();
+  callbackRef.current = callback;
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (isDisabled) {
+      return;
+    }
+
+    function _callback(event) {
+      if (isMatch(name, event)) {
+        callbackRef.current(event);
+      }
+    }
+
+    shortcuts.current.add(_callback);
+    return () => {
+      shortcuts.current.delete(_callback);
+    };
+  }, [name, isDisabled]);
+}
+//# sourceMappingURL=use-shortcut.js.map
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/components/shortcut-provider.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+const {
+  Provider
+} = context;
+/**
+ * Handles callbacks added to context by `useShortcut`.
+ *
+ * @param {Object} props Props to pass to `div`.
+ *
+ * @return {import('@wordpress/element').WPElement} Component.
+ */
+
+function ShortcutProvider(props) {
+  const keyboardShortcuts = (0,external_wp_element_namespaceObject.useRef)(new Set());
+
+  function onKeyDown(event) {
+    if (props.onKeyDown) props.onKeyDown(event);
+
+    for (const keyboardShortcut of keyboardShortcuts.current) {
+      keyboardShortcut(event);
+    }
+  }
+  /* eslint-disable jsx-a11y/no-static-element-interactions */
+
+
+  return (0,external_wp_element_namespaceObject.createElement)(Provider, {
+    value: keyboardShortcuts
+  }, (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, props, {
+    onKeyDown: onKeyDown
+  })));
+  /* eslint-enable jsx-a11y/no-static-element-interactions */
+}
+//# sourceMappingURL=shortcut-provider.js.map
 ;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/index.js
+
 
 
 

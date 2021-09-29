@@ -149,25 +149,25 @@ __webpack_require__.d(__webpack_exports__, {
 var resolvers_namespaceObject = {};
 __webpack_require__.r(resolvers_namespaceObject);
 __webpack_require__.d(resolvers_namespaceObject, {
-  "getNavigationPostForMenu": function() { return resolvers_getNavigationPostForMenu; }
+  "getNavigationPostForMenu": function() { return getNavigationPostForMenu; }
 });
 
 // NAMESPACE OBJECT: ./packages/edit-navigation/build-module/store/selectors.js
 var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
-  "getMenuItemForClientId": function() { return getMenuItemForClientId; },
   "getNavigationPostForMenu": function() { return selectors_getNavigationPostForMenu; },
   "getSelectedMenuId": function() { return getSelectedMenuId; },
-  "hasResolvedNavigationPost": function() { return hasResolvedNavigationPost; }
+  "hasResolvedNavigationPost": function() { return hasResolvedNavigationPost; },
+  "isInserterOpened": function() { return isInserterOpened; }
 });
 
 // NAMESPACE OBJECT: ./packages/edit-navigation/build-module/store/actions.js
 var actions_namespaceObject = {};
 __webpack_require__.r(actions_namespaceObject);
 __webpack_require__.d(actions_namespaceObject, {
-  "createMissingMenuItems": function() { return createMissingMenuItems; },
   "saveNavigationPost": function() { return saveNavigationPost; },
+  "setIsInserterOpened": function() { return setIsInserterOpened; },
   "setSelectedMenuId": function() { return setSelectedMenuId; }
 });
 
@@ -199,53 +199,10 @@ var external_wp_element_namespaceObject = window["wp"]["element"];
 var external_wp_blockLibrary_namespaceObject = window["wp"]["blockLibrary"];
 ;// CONCATENATED MODULE: external ["wp","coreData"]
 var external_wp_coreData_namespaceObject = window["wp"]["coreData"];
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-;// CONCATENATED MODULE: external ["wp","hooks"]
-var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
-;// CONCATENATED MODULE: external ["wp","compose"]
-var external_wp_compose_namespaceObject = window["wp"]["compose"];
-;// CONCATENATED MODULE: external ["wp","blocks"]
-var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
-;// CONCATENATED MODULE: external ["wp","components"]
-var external_wp_components_namespaceObject = window["wp"]["components"];
-;// CONCATENATED MODULE: external ["wp","i18n"]
-var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
-;// CONCATENATED MODULE: external ["wp","primitives"]
-var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-down.js
-
-
-/**
- * WordPress dependencies
- */
-
-const chevronDown = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
-}));
-/* harmony default export */ var chevron_down = (chevronDown);
-//# sourceMappingURL=chevron-down.js.map
 ;// CONCATENATED MODULE: external ["wp","data"]
 var external_wp_data_namespaceObject = window["wp"]["data"];
+;// CONCATENATED MODULE: external ["wp","i18n"]
+var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/constants/index.js
 /**
  * "Kind" of the menu post.
@@ -273,7 +230,7 @@ const NAVIGATION_POST_KIND = 'root';
  * @type {string}
  */
 
-const NAVIGATION_POST_POST_TYPE = 'postType';
+const NAVIGATION_POST_POST_TYPE = 'navigationPost';
 /**
  * The scope name of the editor's complementary area.
  *
@@ -304,6 +261,1067 @@ const SIDEBAR_BLOCK = 'edit-navigation/block-inspector';
 
 const NEW_TAB_TARGET_ATTRIBUTE = '_blank';
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/reducer.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Reducer keeping track of selected menu ID.
+ *
+ * @param {number} state  Current state.
+ * @param {Object} action Dispatched action.
+ * @return {Object} Updated state.
+ */
+
+function selectedMenuId(state = null, action) {
+  switch (action.type) {
+    case 'SET_SELECTED_MENU_ID':
+      return action.menuId;
+  }
+
+  return state;
+}
+/**
+ * Reducer tracking whether the inserter is open.
+ *
+ * @param {boolean|Object} state        Current state.
+ * @param {Object}         action       Dispatched action.
+ * @param {string}         action.type  String indicating action type.
+ * @param {boolean}        action.value Flag indicating whether the panel should be open/close.
+ */
+
+function blockInserterPanel(state = false, action) {
+  switch (action.type) {
+    case 'SET_IS_INSERTER_OPENED':
+      return action.value;
+  }
+
+  return state;
+}
+
+/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
+  selectedMenuId,
+  blockInserterPanel
+}));
+//# sourceMappingURL=reducer.js.map
+;// CONCATENATED MODULE: external ["wp","blocks"]
+var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/utils.js
+/**
+ * A WP nav_menu_item object.
+ * For more documentation on the individual fields present on a menu item please see:
+ * https://core.trac.wordpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L789
+ *
+ * Changes made here should also be mirrored in packages/block-library/src/navigation/map-menu-items-to-blocks.js.
+ *
+ * @typedef WPNavMenuItem
+ *
+ * @property {Object} title       stores the raw and rendered versions of the title/label for this menu item.
+ * @property {Array}  xfn         the XFN relationships expressed in the link of this menu item.
+ * @property {Array}  classes     the HTML class attributes for this menu item.
+ * @property {string} attr_title  the HTML title attribute for this menu item.
+ * @property {string} object      The type of object originally represented, such as 'category', 'post', or 'attachment'.
+ * @property {string} object_id   The DB ID of the original object this menu item represents, e.g. ID for posts and term_id for categories.
+ * @property {string} description The description of this menu item.
+ * @property {string} url         The URL to which this menu item points.
+ * @property {string} type        The family of objects originally represented, such as 'post_type' or 'taxonomy'.
+ * @property {string} target      The target attribute of the link element for this menu item.
+ */
+
+/**
+ * Builds an ID for a new navigation post.
+ *
+ * @param {number} menuId Menu id.
+ * @return {string} An ID.
+ */
+const buildNavigationPostId = menuId => `navigation-post-${menuId}`;
+/**
+ * Builds a query to resolve menu items.
+ *
+ * @param {number} menuId Menu id.
+ * @return {Object} Query.
+ */
+
+function menuItemsQuery(menuId) {
+  return {
+    menus: menuId,
+    per_page: -1
+  };
+}
+/**
+ * Get the internal record id from block.
+ *
+ * @typedef  {Object} Attributes
+ * @property {string}     __internalRecordId The internal record id.
+ * @typedef  {Object} Block
+ * @property {Attributes} attributes         The attributes of the block.
+ *
+ * @param    {Block}      block              The block.
+ * @return {string} The internal record id.
+ */
+
+function getRecordIdFromBlock(block) {
+  return block.attributes.__internalRecordId;
+}
+/**
+ * Add internal record id to block's attributes.
+ *
+ * @param {Block}  block    The block.
+ * @param {string} recordId The record id.
+ * @return {Block} The updated block.
+ */
+
+function addRecordIdToBlock(block, recordId) {
+  return { ...block,
+    attributes: { ...(block.attributes || {}),
+      __internalRecordId: recordId
+    }
+  };
+}
+/**
+ * Checks if a given block should be persisted as a menu item.
+ *
+ * @param {Object} block Block to check.
+ * @return {boolean} True if a given block should be persisted as a menu item, false otherwise.
+ */
+
+const isBlockSupportedInNav = block => ['core/navigation-link', 'core/navigation-submenu'].includes(block.name);
+//# sourceMappingURL=utils.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/controls.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Resolves menu items for given menu id.
+ *
+ * @param {number} menuId Menu ID.
+ * @return {Object} Action.
+ */
+
+function resolveMenuItems(menuId) {
+  return {
+    type: 'RESOLVE_MENU_ITEMS',
+    query: menuItemsQuery(menuId)
+  };
+}
+/**
+ * Dispatches an action using chosen registry.
+ *
+ * @param {string} registryName Registry name.
+ * @param {string} actionName   Action name.
+ * @param {Array}  args         Selector arguments.
+ * @return {Object} control descriptor.
+ */
+
+function dispatch(registryName, actionName, ...args) {
+  return {
+    type: 'DISPATCH',
+    registryName,
+    actionName,
+    args
+  };
+}
+const controls = {
+  DISPATCH: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
+    registryName,
+    actionName,
+    args
+  }) => {
+    return registry.dispatch(registryName)[actionName](...args);
+  }),
+  RESOLVE_MENU_ITEMS: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
+    query
+  }) => {
+    return registry.resolveSelect('core').getMenuItems(query);
+  })
+};
+/* harmony default export */ var store_controls = (controls);
+//# sourceMappingURL=controls.js.map
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/transform.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * A WP nav_menu_item object.
+ * For more documentation on the individual fields present on a menu item please see:
+ * https://core.trac.wordpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L789
+ *
+ * Changes made here should also be mirrored in packages/edit-navigation/src/store/utils.js.
+ *
+ * @typedef WPNavMenuItem
+ *
+ * @property {Object} title       stores the raw and rendered versions of the title/label for this menu item.
+ * @property {Array}  xfn         the XFN relationships expressed in the link of this menu item.
+ * @property {Array}  classes     the HTML class attributes for this menu item.
+ * @property {string} attr_title  the HTML title attribute for this menu item.
+ * @property {string} object      The type of object originally represented, such as 'category', 'post', or 'attachment'.
+ * @property {string} object_id   The DB ID of the original object this menu item represents, e.g. ID for posts and term_id for categories.
+ * @property {string} description The description of this menu item.
+ * @property {string} url         The URL to which this menu item points.
+ * @property {string} type        The family of objects originally represented, such as 'post_type' or 'taxonomy'.
+ * @property {string} target      The target attribute of the link element for this menu item.
+ */
+
+function blockToMenuItem(block, menuItem, parentId, blockPosition, menuId) {
+  menuItem = (0,external_lodash_namespaceObject.omit)(menuItem, 'menus', 'meta', '_links');
+  menuItem.content = (0,external_lodash_namespaceObject.get)(menuItem.content, 'raw', menuItem.content);
+  let attributes;
+
+  if (isBlockSupportedInNav(block)) {
+    attributes = blockAttributesToMenuItem(block.attributes);
+  } else {
+    attributes = {
+      type: 'block',
+      content: (0,external_wp_blocks_namespaceObject.serialize)(block)
+    };
+  }
+
+  return { ...menuItem,
+    ...attributes,
+    content: attributes.content || '',
+    id: getRecordIdFromBlock(block),
+    menu_order: blockPosition + 1,
+    menus: menuId,
+    parent: !parentId ? 0 : parentId,
+    status: 'publish'
+  };
+}
+/**
+ * Convert block attributes to menu item fields.
+ *
+ * Note that nav_menu_item has defaults provided in Core so in the case of undefined Block attributes
+ * we need only include a subset of values in the knowledge that the defaults will be provided in Core.
+ *
+ * See: https://core.trac.wordpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L438.
+ *
+ * @param {Object}  blockAttributes               the block attributes of the block to be converted into menu item fields.
+ * @param {string}  blockAttributes.label         the visual name of the block shown in the UI.
+ * @param {string}  blockAttributes.url           the URL for the link.
+ * @param {string}  blockAttributes.description   a link description.
+ * @param {string}  blockAttributes.rel           the XFN relationship expressed in the link of this menu item.
+ * @param {string}  blockAttributes.className     the custom CSS classname attributes for this block.
+ * @param {string}  blockAttributes.title         the HTML title attribute for the block's link.
+ * @param {string}  blockAttributes.type          the type of variation of the block used (eg: 'Post', 'Custom', 'Category'...etc).
+ * @param {number}  blockAttributes.id            the ID of the entity optionally associated with the block's link (eg: the Post ID).
+ * @param {string}  blockAttributes.kind          the family of objects originally represented, such as 'post-type' or 'taxonomy'.
+ * @param {boolean} blockAttributes.opensInNewTab whether or not the block's link should open in a new tab.
+ * @return {WPNavMenuItem} the menu item (converted from block attributes).
+ */
+
+const blockAttributesToMenuItem = ({
+  label = '',
+  url = '',
+  description,
+  rel,
+  className,
+  title: blockTitleAttr,
+  type,
+  id,
+  kind,
+  opensInNewTab
+}) => {
+  var _type;
+
+  // For historical reasons, the `core/navigation-link` variation type is `tag`
+  // whereas WP Core expects `post_tag` as the `object` type.
+  // To avoid writing a block migration we perform a conversion here.
+  // See also inverse equivalent in `menuItemToBlockAttributes`.
+  if (type && type === 'tag') {
+    type = 'post_tag';
+  }
+
+  return {
+    title: label,
+    url,
+    ...((description === null || description === void 0 ? void 0 : description.length) && {
+      description
+    }),
+    ...((rel === null || rel === void 0 ? void 0 : rel.length) && {
+      xfn: rel === null || rel === void 0 ? void 0 : rel.trim().split(' ')
+    }),
+    ...((className === null || className === void 0 ? void 0 : className.length) && {
+      classes: className === null || className === void 0 ? void 0 : className.trim().split(' ')
+    }),
+    ...((blockTitleAttr === null || blockTitleAttr === void 0 ? void 0 : blockTitleAttr.length) && {
+      attr_title: blockTitleAttr
+    }),
+    ...(((_type = type) === null || _type === void 0 ? void 0 : _type.length) && {
+      object: type
+    }),
+    ...((kind === null || kind === void 0 ? void 0 : kind.length) && {
+      type: kind === null || kind === void 0 ? void 0 : kind.replace('-', '_')
+    }),
+    // Only assign object_id if it's a entity type (ie: not "custom").
+    ...(id && 'custom' !== type && {
+      object_id: id
+    }),
+    target: opensInNewTab ? NEW_TAB_TARGET_ATTRIBUTE : ''
+  };
+};
+/**
+ * Convert a flat menu item structure to a nested blocks structure.
+ *
+ * @param {Object[]} menuItems An array of menu items.
+ *
+ * @return {WPBlock[]} An array of blocks.
+ */
+
+function menuItemsToBlocks(menuItems) {
+  if (!menuItems) {
+    return null;
+  }
+
+  const menuTree = createDataTree(menuItems);
+  return mapMenuItemsToBlocks(menuTree);
+}
+/**
+ * A recursive function that maps menu item nodes to blocks.
+ *
+ * @param {WPNavMenuItem[]} menuItems An array of WPNavMenuItem items.
+ * @return {Object} Object containing innerBlocks and mapping.
+ */
+
+function mapMenuItemsToBlocks(menuItems) {
+  // The menuItem should be in menu_order sort order.
+  const sortedItems = (0,external_lodash_namespaceObject.sortBy)(menuItems, 'menu_order');
+  const blocks = sortedItems.map(menuItem => {
+    var _menuItem$children;
+
+    if (menuItem.type === 'block') {
+      const [block] = (0,external_wp_blocks_namespaceObject.parse)(menuItem.content.raw);
+
+      if (!block) {
+        return (0,external_wp_blocks_namespaceObject.createBlock)('core/freeform', {
+          content: menuItem.content
+        });
+      }
+
+      return block;
+    }
+
+    const attributes = menuItemToBlockAttributes(menuItem); // If there are children recurse to build those nested blocks.
+
+    const nestedBlocks = (_menuItem$children = menuItem.children) !== null && _menuItem$children !== void 0 && _menuItem$children.length ? mapMenuItemsToBlocks(menuItem.children) : []; // Create a submenu block when there are inner blocks, or just a link
+    // for a standalone item.
+
+    const itemBlockName = nestedBlocks !== null && nestedBlocks !== void 0 && nestedBlocks.length ? 'core/navigation-submenu' : 'core/navigation-link'; // Create block with nested "innerBlocks".
+
+    return (0,external_wp_blocks_namespaceObject.createBlock)(itemBlockName, attributes, nestedBlocks);
+  });
+  return (0,external_lodash_namespaceObject.zip)(blocks, sortedItems).map(([block, menuItem]) => addRecordIdToBlock(block, menuItem.id));
+} // A few parameters are using snake case, let's embrace that for convenience:
+
+/* eslint-disable camelcase */
+
+/**
+ * Convert block attributes to menu item.
+ *
+ * @param {WPNavMenuItem} menuItem the menu item to be converted to block attributes.
+ * @return {Object} the block attributes converted from the WPNavMenuItem item.
+ */
+
+
+function menuItemToBlockAttributes({
+  title: menuItemTitleField,
+  xfn,
+  classes,
+  attr_title,
+  object,
+  object_id,
+  description,
+  url,
+  type: menuItemTypeField,
+  target
+}) {
+  var _object;
+
+  // For historical reasons, the `core/navigation-link` variation type is `tag`
+  // whereas WP Core expects `post_tag` as the `object` type.
+  // To avoid writing a block migration we perform a conversion here.
+  // See also inverse equivalent in `blockAttributesToMenuItem`.
+  if (object && object === 'post_tag') {
+    object = 'tag';
+  }
+
+  return {
+    label: (menuItemTitleField === null || menuItemTitleField === void 0 ? void 0 : menuItemTitleField.rendered) || '',
+    ...(((_object = object) === null || _object === void 0 ? void 0 : _object.length) && {
+      type: object
+    }),
+    kind: (menuItemTypeField === null || menuItemTypeField === void 0 ? void 0 : menuItemTypeField.replace('_', '-')) || 'custom',
+    url: url || '',
+    ...((xfn === null || xfn === void 0 ? void 0 : xfn.length) && xfn.join(' ').trim() && {
+      rel: xfn.join(' ').trim()
+    }),
+    ...((classes === null || classes === void 0 ? void 0 : classes.length) && classes.join(' ').trim() && {
+      className: classes.join(' ').trim()
+    }),
+    ...((attr_title === null || attr_title === void 0 ? void 0 : attr_title.length) && {
+      title: attr_title
+    }),
+    ...(object_id && 'custom' !== object && {
+      id: object_id
+    }),
+    ...((description === null || description === void 0 ? void 0 : description.length) && {
+      description
+    }),
+    ...(target === NEW_TAB_TARGET_ATTRIBUTE && {
+      opensInNewTab: true
+    })
+  };
+}
+/* eslint-enable camelcase */
+
+/**
+ * Creates a nested, hierarchical tree representation from unstructured data that
+ * has an inherent relationship defined between individual items.
+ *
+ * For example, by default, each element in the dataset should have an `id` and
+ * `parent` property where the `parent` property indicates a relationship between
+ * the current item and another item with a matching `id` properties.
+ *
+ * This is useful for building linked lists of data from flat data structures.
+ *
+ * @param {Array}  dataset  linked data to be rearranged into a hierarchical tree based on relational fields.
+ * @param {string} id       the property which uniquely identifies each entry within the array.
+ * @param {*}      relation the property which identifies how the current item is related to other items in the data (if at all).
+ * @return {Array} a nested array of parent/child relationships
+ */
+
+function createDataTree(dataset, id = 'id', relation = 'parent') {
+  const hashTable = Object.create(null);
+  const dataTree = [];
+
+  for (const data of dataset) {
+    hashTable[data[id]] = { ...data,
+      children: []
+    };
+  }
+
+  for (const data of dataset) {
+    if (data[relation]) {
+      hashTable[data[relation]].children.push(hashTable[data[id]]);
+    } else {
+      dataTree.push(hashTable[data[id]]);
+    }
+  }
+
+  return dataTree;
+}
+//# sourceMappingURL=transform.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/resolvers.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+/**
+ * Creates a "stub" navigation post reflecting the contents of menu with id=menuId. The
+ * post is meant as a convenient to only exists in runtime and should never be saved. It
+ * enables a convenient way of editing the navigation by using a regular post editor.
+ *
+ * Fetches all menu items, converts them into blocks, and hydrates a new post with them.
+ *
+ * @param {number} menuId The id of menu to create a post from
+ * @return {void}
+ */
+
+function* getNavigationPostForMenu(menuId) {
+  if (!menuId) {
+    return;
+  }
+
+  const stubPost = createStubPost(menuId); // Persist an empty post to warm up the state
+
+  yield persistPost(stubPost); // Dispatch startResolution to skip the execution of the real getEntityRecord resolver - it would
+  // issue an http request and fail.
+
+  const args = [NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, stubPost.id];
+  yield dispatch('core', 'startResolution', 'getEntityRecord', args); // Now let's create a proper one hydrated using actual menu items
+
+  const menuItems = yield resolveMenuItems(menuId);
+  const navigationBlock = createNavigationBlock(menuItems); // Persist the actual post containing the navigation block
+
+  yield persistPost(createStubPost(menuId, navigationBlock)); // Dispatch finishResolution to conclude startResolution dispatched earlier
+
+  yield dispatch('core', 'finishResolution', 'getEntityRecord', args);
+}
+
+const createStubPost = (menuId, navigationBlock = null) => {
+  const id = buildNavigationPostId(menuId);
+  return {
+    id,
+    slug: id,
+    status: 'draft',
+    type: 'page',
+    blocks: navigationBlock ? [navigationBlock] : [],
+    meta: {
+      menuId
+    }
+  };
+};
+
+const persistPost = post => dispatch('core', 'receiveEntityRecords', NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, post, {
+  id: post.id
+}, false);
+/**
+ * Converts an adjacency list of menuItems into a navigation block.
+ *
+ * @param {Array} menuItems a list of menu items
+ * @return {Object} Navigation block
+ */
+
+
+function createNavigationBlock(menuItems) {
+  const innerBlocks = menuItemsToBlocks(menuItems);
+  return (0,external_wp_blocks_namespaceObject.createBlock)('core/navigation', {
+    orientation: 'vertical'
+  }, innerBlocks);
+}
+//# sourceMappingURL=resolvers.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/selectors.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Returns the selected menu ID.
+ *
+ * @param {Object} state Global application state.
+ * @return {number} The selected menu ID.
+ */
+
+function getSelectedMenuId(state) {
+  var _state$selectedMenuId;
+
+  return (_state$selectedMenuId = state.selectedMenuId) !== null && _state$selectedMenuId !== void 0 ? _state$selectedMenuId : null;
+}
+/**
+ * Returns a "stub" navigation post reflecting the contents of menu with id=menuId. The
+ * post is meant as a convenient to only exists in runtime and should never be saved. It
+ * enables a convenient way of editing the navigation by using a regular post editor.
+ *
+ * Related resolver fetches all menu items, converts them into blocks, and hydrates a new post with them.
+ *
+ * @param {number} menuId The id of menu to create a post from.
+ * @return {null|Object} Post once the resolver fetches it, otherwise null
+ */
+
+const selectors_getNavigationPostForMenu = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, menuId) => {
+  // When the record is unavailable, calling getEditedEntityRecord triggers a http
+  // request via it's related resolver. Let's return nothing until getNavigationPostForMenu
+  // resolver marks the record as resolved.
+  if (!hasResolvedNavigationPost(state, menuId)) {
+    return null;
+  }
+
+  return select(external_wp_coreData_namespaceObject.store).getEditedEntityRecord(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, buildNavigationPostId(menuId));
+});
+/**
+ * Returns true if the navigation post related to menuId was already resolved.
+ *
+ * @param {number} menuId The id of menu.
+ * @return {boolean} True if the navigation post related to menuId was already resolved, false otherwise.
+ */
+
+const hasResolvedNavigationPost = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, menuId) => {
+  return select(external_wp_coreData_namespaceObject.store).hasFinishedResolution('getEntityRecord', [NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, buildNavigationPostId(menuId)]);
+});
+/**
+ * Returns true if the inserter is opened.
+ *
+ * @param {Object} state Global application state.
+ * @return {boolean} Whether the inserter is opened.
+ */
+
+function isInserterOpened(state = false) {
+  return !!(state !== null && state !== void 0 && state.blockInserterPanel);
+}
+//# sourceMappingURL=selectors.js.map
+;// CONCATENATED MODULE: external ["wp","notices"]
+var external_wp_notices_namespaceObject = window["wp"]["notices"];
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/constants.js
+/**
+ * Module Constants
+ */
+const STORE_NAME = 'core/edit-navigation';
+//# sourceMappingURL=constants.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/actions.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+/**
+ * Returns an action object used to select menu.
+ *
+ * @param {number} menuId The menu ID.
+ * @return {Object} Action object.
+ */
+
+function setSelectedMenuId(menuId) {
+  return {
+    type: 'SET_SELECTED_MENU_ID',
+    menuId
+  };
+}
+/**
+ * Converts all the blocks into menu items and submits a batch request to save everything at once.
+ *
+ * @param {Object} post A navigation post to process
+ * @return {Function} An action creator
+ */
+
+const saveNavigationPost = post => async ({
+  registry,
+  dispatch
+}) => {
+  const lock = await registry.dispatch(external_wp_coreData_namespaceObject.store).__unstableAcquireStoreLock(STORE_NAME, ['savingMenu'], {
+    exclusive: true
+  });
+
+  try {
+    const menuId = post.meta.menuId; // Save menu
+
+    await registry.dispatch(external_wp_coreData_namespaceObject.store).saveEditedEntityRecord('root', 'menu', menuId);
+    const error = registry.select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError('root', 'menu', menuId);
+
+    if (error) {
+      throw new Error(error.message);
+    } // Save menu items
+
+
+    const updatedBlocks = await dispatch(batchSaveMenuItems(post.blocks[0], menuId)); // Clear "stub" navigation post edits to avoid a false "dirty" state.
+
+    registry.dispatch(external_wp_coreData_namespaceObject.store).receiveEntityRecords(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, post, undefined);
+    const updatedPost = { ...post,
+      blocks: [updatedBlocks]
+    };
+    registry.dispatch(external_wp_coreData_namespaceObject.store).receiveEntityRecords(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, updatedPost, undefined);
+    registry.dispatch(external_wp_notices_namespaceObject.store).createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Navigation saved.'), {
+      type: 'snackbar'
+    });
+  } catch (saveError) {
+    const errorMessage = saveError ? (0,external_wp_i18n_namespaceObject.sprintf)(
+    /* translators: %s: The text of an error message (potentially untranslated). */
+    (0,external_wp_i18n_namespaceObject.__)("Unable to save: '%s'"), saveError.message) : (0,external_wp_i18n_namespaceObject.__)('Unable to save: An error ocurred.');
+    registry.dispatch(external_wp_notices_namespaceObject.store).createErrorNotice(errorMessage, {
+      type: 'snackbar'
+    });
+  } finally {
+    registry.dispatch(external_wp_coreData_namespaceObject.store).__unstableReleaseStoreLock(lock);
+  }
+};
+/**
+ * Executes appropriate insert, update, and delete operations to turn the current
+ * menu (with id=menuId) into one represented by the passed navigation block.
+ *
+ * @param {Object} navigationBlock The navigation block representing the desired state of the menu.
+ * @param {number} menuId          Menu Id to process.
+ * @return {Function} An action creator
+ */
+
+const batchSaveMenuItems = (navigationBlock, menuId) => async ({
+  dispatch,
+  registry
+}) => {
+  // Make sure all the existing menu items are available before proceeding
+  const oldMenuItems = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getMenuItems({
+    menus: menuId,
+    per_page: -1
+  }); // Insert placeholders for new menu items to have an ID to work with.
+  // We need that in case these new items have any children. If so,
+  // we need to provide a parent id that we don't have yet.
+
+  const navBlockWithRecordIds = await dispatch(batchInsertPlaceholderMenuItems(navigationBlock)); // Update menu items. This is separate from deleting, because there
+  // are no consistency guarantees and we don't want to delete something
+  // that was a parent node before another node takes it place.
+
+  const navBlockAfterUpdates = await dispatch(batchUpdateMenuItems(navBlockWithRecordIds, menuId)); // Delete menu items
+
+  const deletedIds = (0,external_lodash_namespaceObject.difference)(oldMenuItems.map(({
+    id
+  }) => id), blocksTreeToList(navBlockAfterUpdates).map(getRecordIdFromBlock));
+  await dispatch(batchDeleteMenuItems(deletedIds));
+  return navBlockAfterUpdates;
+};
+/**
+ * Creates a menu item for every block that doesn't have an associated menuItem.
+ * Sends a batch request with one POST /wp/v2/menu-items for every created menu item.
+ *
+ * @param {Object} navigationBlock A navigation block to find created menu items in.
+ * @return {Function} An action creator
+ */
+
+
+const batchInsertPlaceholderMenuItems = navigationBlock => async ({
+  registry
+}) => {
+  const blocksWithoutRecordId = blocksTreeToList(navigationBlock).filter(block => isBlockSupportedInNav(block) && !getRecordIdFromBlock(block));
+  const tasks = blocksWithoutRecordId.map(() => ({
+    saveEntityRecord
+  }) => saveEntityRecord('root', 'menuItem', {
+    title: (0,external_wp_i18n_namespaceObject.__)('Menu item'),
+    url: '#placeholder',
+    menu_order: 1
+  }));
+  const results = await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(tasks); // Return an updated navigation block with all the IDs in
+
+  const blockToResult = new Map((0,external_lodash_namespaceObject.zip)(blocksWithoutRecordId, results));
+  return mapBlocksTree(navigationBlock, block => {
+    if (!blockToResult.has(block)) {
+      return block;
+    }
+
+    return addRecordIdToBlock(block, blockToResult.get(block).id);
+  });
+};
+/**
+ * Updates every menu item where a related block has changed.
+ * Sends a batch request with one PUT /wp/v2/menu-items for every updated menu item.
+ *
+ * @param {Object} navigationBlock A navigation block to find updated menu items in.
+ * @param {number} menuId          Menu ID.
+ * @return {Function} An action creator
+ */
+
+
+const batchUpdateMenuItems = (navigationBlock, menuId) => async ({
+  registry
+}) => {
+  const updatedMenuItems = blocksTreeToAnnotatedList(navigationBlock) // Filter out unsupported blocks
+  .filter(({
+    block
+  }) => isBlockSupportedInNav(block)) // Transform the blocks into menu items
+  .map(({
+    block,
+    parentBlock,
+    childIndex
+  }) => blockToMenuItem(block, registry.select(external_wp_coreData_namespaceObject.store).getMenuItem(getRecordIdFromBlock(block)), getRecordIdFromBlock(parentBlock), childIndex, menuId)) // Filter out menu items without any edits
+  .filter(menuItem => {
+    // Update an existing entity record.
+    registry.dispatch(external_wp_coreData_namespaceObject.store).editEntityRecord('root', 'menuItem', menuItem.id, menuItem, {
+      undoIgnore: true
+    });
+    return registry.select(external_wp_coreData_namespaceObject.store).hasEditsForEntityRecord('root', 'menuItem', menuItem.id);
+  }); // Map the edited menu items to batch tasks
+
+  const tasks = updatedMenuItems.map(menuItem => ({
+    saveEditedEntityRecord
+  }) => saveEditedEntityRecord('root', 'menuItem', menuItem.id));
+  await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(tasks); // Throw on failure. @TODO failures should be thrown in core-data
+
+  updatedMenuItems.forEach(menuItem => {
+    const failure = registry.select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError('root', 'menuItem', menuItem.id);
+
+    if (failure) {
+      throw new Error(failure.message);
+    }
+  }); // Return an updated navigation block reflecting the changes persisted in the batch update.
+
+  return mapBlocksTree(navigationBlock, block => {
+    if (!isBlockSupportedInNav(block)) {
+      return block;
+    }
+
+    const updatedMenuItem = registry.select(external_wp_coreData_namespaceObject.store).getMenuItem(getRecordIdFromBlock(block));
+    return addRecordIdToBlock({ ...block,
+      attributes: menuItemToBlockAttributes(updatedMenuItem)
+    }, updatedMenuItem.id);
+  });
+};
+/**
+ * Deletes multiple menu items.
+ * Sends a batch request with one DELETE /wp/v2/menu-items for every deleted menu item.
+ *
+ * @param {Object} deletedIds A list of menu item ids to delete
+ * @return {Function} An action creator
+ */
+
+
+const batchDeleteMenuItems = deletedIds => async ({
+  registry
+}) => {
+  const deleteBatch = deletedIds.map(id => async ({
+    deleteEntityRecord
+  }) => {
+    const success = await deleteEntityRecord('root', 'menuItem', id, {
+      force: true
+    }); // @TODO failures should be thrown in core-data
+
+    if (!success) {
+      throw new Error(id);
+    }
+
+    return success;
+  });
+  return await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(deleteBatch);
+};
+/**
+ * Turns a recursive list of blocks into a flat list of blocks annotated with
+ * their child index and parent block.
+ *
+ * @param {Object} parentBlock A parent block to flatten
+ * @return {Object} A flat list of blocks, annotated by their index and parent ID, consisting
+ * 							    of all the input blocks and all the inner blocks in the tree.
+ */
+
+
+function blocksTreeToAnnotatedList(parentBlock) {
+  return (parentBlock.innerBlocks || []).flatMap((innerBlock, index) => [{
+    block: innerBlock,
+    parentBlock,
+    childIndex: index
+  }].concat(blocksTreeToAnnotatedList(innerBlock)));
+}
+
+function blocksTreeToList(parentBlock) {
+  return blocksTreeToAnnotatedList(parentBlock).map(({
+    block
+  }) => block);
+}
+/**
+ * Maps one tree of blocks into another tree by invoking a callback on every node.
+ *
+ * @param {Object}   block       The root of the mapped tree.
+ * @param {Function} callback    The callback to invoke.
+ * @param {Object}   parentBlock Internal. The current parent block.
+ * @param {number}   idx         Internal. The current child index.
+ * @return {Object} A mapped tree.
+ */
+
+
+function mapBlocksTree(block, callback, parentBlock = null, idx = 0) {
+  return { ...callback(block, parentBlock, idx),
+    innerBlocks: (block.innerBlocks || []).map((innerBlock, index) => mapBlocksTree(innerBlock, callback, block, index))
+  };
+}
+/**
+ * Returns an action object used to open/close the inserter.
+ *
+ * @param {boolean|Object} value                Whether the inserter should be
+ *                                              opened (true) or closed (false).
+ *                                              To specify an insertion point,
+ *                                              use an object.
+ * @param {string}         value.rootClientId   The root client ID to insert at.
+ * @param {number}         value.insertionIndex The index to insert at.
+ *
+ * @return {Object} Action object.
+ */
+
+
+function setIsInserterOpened(value) {
+  return {
+    type: 'SET_IS_INSERTER_OPENED',
+    value
+  };
+}
+//# sourceMappingURL=actions.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/index.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Block editor data store configuration.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#registerStore
+ *
+ * @type {Object}
+ */
+
+const storeConfig = {
+  reducer: reducer,
+  controls: store_controls,
+  selectors: selectors_namespaceObject,
+  resolvers: resolvers_namespaceObject,
+  actions: actions_namespaceObject,
+  persist: ['selectedMenuId'],
+  __experimentalUseThunks: true
+};
+/**
+ * Store definition for the edit navigation namespace.
+ *
+ * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
+ *
+ * @type {Object}
+ */
+
+const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, storeConfig); // Once we build a more generic persistence plugin that works across types of stores
+// we'd be able to replace this with a register call.
+
+(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, storeConfig);
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+;// CONCATENATED MODULE: external ["wp","hooks"]
+var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
+;// CONCATENATED MODULE: external ["wp","compose"]
+var external_wp_compose_namespaceObject = window["wp"]["compose"];
+;// CONCATENATED MODULE: external ["wp","blockEditor"]
+var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/filters/add-navigation-editor-custom-appender.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+function CustomAppender() {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks.ButtonBlockAppender, {
+    isToggle: true
+  });
+}
+
+function EnhancedNavigationBlock({
+  blockEdit: BlockEdit,
+  ...props
+}) {
+  const clientId = props.clientId;
+  const {
+    noBlockSelected,
+    isSelected,
+    isImmediateParentOfSelectedBlock,
+    selectedBlockHasDescendants
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _getClientIdsOfDescen;
+
+    const {
+      getClientIdsOfDescendants,
+      hasSelectedInnerBlock,
+      getSelectedBlockClientId
+    } = select(external_wp_blockEditor_namespaceObject.store);
+
+    const _isImmediateParentOfSelectedBlock = hasSelectedInnerBlock(clientId, false);
+
+    const selectedBlockId = getSelectedBlockClientId();
+
+    const _selectedBlockHasDescendants = !!((_getClientIdsOfDescen = getClientIdsOfDescendants([selectedBlockId])) !== null && _getClientIdsOfDescen !== void 0 && _getClientIdsOfDescen.length);
+
+    return {
+      isSelected: selectedBlockId === clientId,
+      noBlockSelected: !selectedBlockId,
+      isImmediateParentOfSelectedBlock: _isImmediateParentOfSelectedBlock,
+      selectedBlockHasDescendants: _selectedBlockHasDescendants
+    };
+  }, [clientId]);
+  const customAppender = noBlockSelected || isSelected || isImmediateParentOfSelectedBlock && !selectedBlockHasDescendants ? CustomAppender : false;
+  return (0,external_wp_element_namespaceObject.createElement)(BlockEdit, _extends({}, props, {
+    customAppender: customAppender
+  }));
+}
+
+const addNavigationEditorCustomAppender = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockEdit => props => {
+  if (props.name !== 'core/navigation') {
+    return (0,external_wp_element_namespaceObject.createElement)(BlockEdit, props);
+  } // Use a separate component so that `useSelect` only run on the navigation block.
+
+
+  return (0,external_wp_element_namespaceObject.createElement)(EnhancedNavigationBlock, _extends({
+    blockEdit: BlockEdit
+  }, props));
+}, 'withNavigationEditorCustomAppender');
+/* harmony default export */ var add_navigation_editor_custom_appender = (() => (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/edit-navigation/with-navigation-editor-custom-appender', addNavigationEditorCustomAppender));
+//# sourceMappingURL=add-navigation-editor-custom-appender.js.map
+;// CONCATENATED MODULE: external ["wp","components"]
+var external_wp_components_namespaceObject = window["wp"]["components"];
+;// CONCATENATED MODULE: external ["wp","primitives"]
+var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-down.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const chevronDown = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
+}));
+/* harmony default export */ var chevron_down = (chevronDown);
+//# sourceMappingURL=chevron-down.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/use-menu-entity.js
 /**
  * WordPress dependencies
@@ -363,1266 +1381,6 @@ function useMenuEntityProp(prop, menuId) {
   return (0,external_wp_coreData_namespaceObject.useEntityProp)(MENU_KIND, MENU_POST_TYPE, prop, menuId);
 }
 //# sourceMappingURL=use-menu-entity-prop.js.map
-;// CONCATENATED MODULE: external ["wp","notices"]
-var external_wp_notices_namespaceObject = window["wp"]["notices"];
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/reducer.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal to edit-navigation package.
- *
- * Stores menuItemId -> clientId mapping which is necessary for saving the navigation.
- *
- * @param {Object} state  Redux state
- * @param {Object} action Redux action
- * @return {Object} Updated state
- */
-
-function mapping(state, action) {
-  const {
-    type,
-    postId,
-    ...rest
-  } = action;
-
-  if (type === 'SET_MENU_ITEM_TO_CLIENT_ID_MAPPING') {
-    return { ...state,
-      [postId]: rest.mapping
-    };
-  }
-
-  return state || {};
-}
-/**
- * Internal to edit-navigation package.
- *
- * Enables serializeProcessing action wrapper by storing the underlying execution
- * state and any pending actions.
- *
- * @param {Object} state  Redux state
- * @param {Object} action Redux action
- * @return {Object} Updated state
- */
-
-function processingQueue(state, action) {
-  var _state$postId;
-
-  const {
-    type,
-    postId,
-    ...rest
-  } = action;
-
-  switch (type) {
-    case 'START_PROCESSING_POST':
-      return { ...state,
-        [postId]: { ...state[postId],
-          inProgress: true
-        }
-      };
-
-    case 'FINISH_PROCESSING_POST':
-      return { ...state,
-        [postId]: { ...state[postId],
-          inProgress: false
-        }
-      };
-
-    case 'POP_PENDING_ACTION':
-      const postState = { ...state[postId]
-      };
-
-      if ('pendingActions' in postState) {
-        var _postState$pendingAct;
-
-        postState.pendingActions = (_postState$pendingAct = postState.pendingActions) === null || _postState$pendingAct === void 0 ? void 0 : _postState$pendingAct.filter(item => item !== rest.action);
-      }
-
-      return { ...state,
-        [postId]: postState
-      };
-
-    case 'ENQUEUE_AFTER_PROCESSING':
-      const pendingActions = ((_state$postId = state[postId]) === null || _state$postId === void 0 ? void 0 : _state$postId.pendingActions) || [];
-
-      if (!pendingActions.includes(rest.action)) {
-        return { ...state,
-          [postId]: { ...state[postId],
-            pendingActions: [...pendingActions, rest.action]
-          }
-        };
-      }
-
-      break;
-  }
-
-  return state || {};
-}
-/**
- * Reducer keeping track of selected menu ID.
- *
- * @param {number} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
- */
-
-function selectedMenuId(state = null, action) {
-  switch (action.type) {
-    case 'SET_SELECTED_MENU_ID':
-      return action.menuId;
-  }
-
-  return state;
-}
-/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
-  mapping,
-  processingQueue,
-  selectedMenuId
-}));
-//# sourceMappingURL=reducer.js.map
-;// CONCATENATED MODULE: external ["wp","apiFetch"]
-var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
-var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
-;// CONCATENATED MODULE: external "lodash"
-var external_lodash_namespaceObject = window["lodash"];
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/utils.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * A WP nav_menu_item object.
- * For more documentation on the individual fields present on a menu item please see:
- * https://core.trac.wordpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L789
- *
- * Changes made here should also be mirrored in packages/block-library/src/navigation/map-menu-items-to-blocks.js.
- *
- * @typedef WPNavMenuItem
- *
- * @property {Object} title       stores the raw and rendered versions of the title/label for this menu item.
- * @property {Array}  xfn         the XFN relationships expressed in the link of this menu item.
- * @property {Array}  classes     the HTML class attributes for this menu item.
- * @property {string} attr_title  the HTML title attribute for this menu item.
- * @property {string} object      The type of object originally represented, such as 'category', 'post', or 'attachment'.
- * @property {string} object_id   The DB ID of the original object this menu item represents, e.g. ID for posts and term_id for categories.
- * @property {string} description The description of this menu item.
- * @property {string} url         The URL to which this menu item points.
- * @property {string} type        The family of objects originally represented, such as 'post_type' or 'taxonomy'.
- * @property {string} target      The target attribute of the link element for this menu item.
- */
-
-/**
- * Builds an ID for a new navigation post.
- *
- * @param {number} menuId Menu id.
- * @return {string} An ID.
- */
-
-const buildNavigationPostId = menuId => `navigation-post-${menuId}`;
-/**
- * Builds a query to resolve menu items.
- *
- * @param {number} menuId Menu id.
- * @return {Object} Query.
- */
-
-function menuItemsQuery(menuId) {
-  return {
-    menus: menuId,
-    per_page: -1
-  };
-}
-/**
- * This wrapper guarantees serial execution of data processing actions.
- *
- * Examples:
- * * saveNavigationPost() needs to wait for all the missing items to be created.
- * * Concurrent createMissingMenuItems() could result in sending more requests than required.
- *
- * @param {Function} callback An action creator to wrap
- * @return {Function} Original callback wrapped in a serial execution context
- */
-
-function serializeProcessing(callback) {
-  return function* (post) {
-    const postId = post.id;
-    const isProcessing = yield isProcessingPost(postId);
-
-    if (isProcessing) {
-      yield {
-        type: 'ENQUEUE_AFTER_PROCESSING',
-        postId,
-        action: callback
-      };
-      return {
-        status: 'pending'
-      };
-    }
-
-    yield {
-      type: 'POP_PENDING_ACTION',
-      postId,
-      action: callback
-    };
-    yield {
-      type: 'START_PROCESSING_POST',
-      postId
-    };
-
-    try {
-      yield* callback( // re-select the post as it could be outdated by now
-      yield getNavigationPostForMenu(post.meta.menuId));
-    } finally {
-      yield {
-        type: 'FINISH_PROCESSING_POST',
-        postId,
-        action: callback
-      };
-      const pendingActions = yield getPendingActions(postId);
-
-      if (pendingActions.length) {
-        const serializedCallback = serializeProcessing(pendingActions[0]);
-        yield* serializedCallback(post);
-      }
-    }
-  };
-}
-function computeCustomizedAttribute(blocks, menuId, menuItemsByClientId) {
-  const blocksList = blocksTreeToFlatList(blocks);
-  const dataList = blocksList.map(({
-    block,
-    parentId,
-    position
-  }) => blockToRequestItem(block, parentId, position)); // Create an object like { "nav_menu_item[12]": {...}} }
-
-  const computeKey = item => `nav_menu_item[${item.id}]`;
-
-  const dataObject = (0,external_lodash_namespaceObject.keyBy)(dataList, computeKey); // Deleted menu items should be sent as false, e.g. { "nav_menu_item[13]": false }
-
-  for (const clientId in menuItemsByClientId) {
-    const key = computeKey(menuItemsByClientId[clientId]);
-
-    if (!(key in dataObject)) {
-      dataObject[key] = false;
-    }
-  }
-
-  return JSON.stringify(dataObject);
-
-  function blocksTreeToFlatList(innerBlocks, parentId = 0) {
-    return innerBlocks.flatMap((block, index) => {
-      var _getMenuItemForBlock;
-
-      return [{
-        block,
-        parentId,
-        position: index + 1
-      }].concat(blocksTreeToFlatList(block.innerBlocks, (_getMenuItemForBlock = getMenuItemForBlock(block)) === null || _getMenuItemForBlock === void 0 ? void 0 : _getMenuItemForBlock.id));
-    });
-  }
-
-  function blockToRequestItem(block, parentId, position) {
-    const menuItem = (0,external_lodash_namespaceObject.omit)(getMenuItemForBlock(block), 'menus', 'meta');
-    let attributes;
-
-    if (block.name === 'core/navigation-link') {
-      attributes = blockAttributesToMenuItem(block.attributes);
-    } else {
-      attributes = {
-        type: 'block',
-        content: (0,external_wp_blocks_namespaceObject.serialize)(block)
-      };
-    }
-
-    return { ...menuItem,
-      ...attributes,
-      position,
-      nav_menu_term_id: menuId,
-      menu_item_parent: parentId,
-      status: 'publish',
-      _invalid: false
-    };
-  }
-
-  function getMenuItemForBlock(block) {
-    return (0,external_lodash_namespaceObject.omit)(menuItemsByClientId[block.clientId] || {}, '_links');
-  }
-}
-/**
- * Convert block attributes to menu item fields.
- *
- * Note that nav_menu_item has defaults provided in Core so in the case of undefined Block attributes
- * we need only include a subset of values in the knowledge that the defaults will be provided in Core.
- *
- * See: https://core.trac.wordpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L438.
- *
- * @param {Object}  blockAttributes               the block attributes of the block to be converted into menu item fields.
- * @param {string}  blockAttributes.label         the visual name of the block shown in the UI.
- * @param {string}  blockAttributes.url           the URL for the link.
- * @param {string}  blockAttributes.description   a link description.
- * @param {string}  blockAttributes.rel           the XFN relationship expressed in the link of this menu item.
- * @param {string}  blockAttributes.className     the custom CSS classname attributes for this block.
- * @param {string}  blockAttributes.title         the HTML title attribute for the block's link.
- * @param {string}  blockAttributes.type          the type of variation of the block used (eg: 'Post', 'Custom', 'Category'...etc).
- * @param {number}  blockAttributes.id            the ID of the entity optionally associated with the block's link (eg: the Post ID).
- * @param {string}  blockAttributes.kind          the family of objects originally represented, such as 'post-type' or 'taxonomy'.
- * @param {boolean} blockAttributes.opensInNewTab whether or not the block's link should open in a new tab.
- * @return {Object} the menu item (converted from block attributes).
- */
-
-const blockAttributesToMenuItem = ({
-  label = '',
-  url = '',
-  description,
-  rel,
-  className,
-  title: blockTitleAttr,
-  type,
-  id,
-  kind,
-  opensInNewTab
-}) => {
-  var _type;
-
-  // For historical reasons, the `core/navigation-link` variation type is `tag`
-  // whereas WP Core expects `post_tag` as the `object` type.
-  // To avoid writing a block migration we perform a conversion here.
-  // See also inverse equivalent in `menuItemToBlockAttributes`.
-  if (type && type === 'tag') {
-    type = 'post_tag';
-  }
-
-  return {
-    title: label,
-    url,
-    ...((description === null || description === void 0 ? void 0 : description.length) && {
-      description
-    }),
-    ...((rel === null || rel === void 0 ? void 0 : rel.length) && {
-      xfn: rel === null || rel === void 0 ? void 0 : rel.trim().split(' ')
-    }),
-    ...((className === null || className === void 0 ? void 0 : className.length) && {
-      classes: className === null || className === void 0 ? void 0 : className.trim().split(' ')
-    }),
-    ...((blockTitleAttr === null || blockTitleAttr === void 0 ? void 0 : blockTitleAttr.length) && {
-      attr_title: blockTitleAttr
-    }),
-    ...(((_type = type) === null || _type === void 0 ? void 0 : _type.length) && {
-      object: type
-    }),
-    ...((kind === null || kind === void 0 ? void 0 : kind.length) && {
-      type: kind === null || kind === void 0 ? void 0 : kind.replace('-', '_')
-    }),
-    // Only assign object_id if it's a entity type (ie: not "custom").
-    ...(id && 'custom' !== type && {
-      object_id: id
-    }),
-    target: opensInNewTab ? NEW_TAB_TARGET_ATTRIBUTE : ''
-  };
-};
-/**
- * Convert block attributes to menu item.
- *
- * @param {WPNavMenuItem} menuItem the menu item to be converted to block attributes.
- * @return {Object} the block attributes converted from the menu item.
- */
-
-const menuItemToBlockAttributes = ({
-  title: menuItemTitleField,
-  xfn,
-  classes,
-  // eslint-disable-next-line camelcase
-  attr_title,
-  object,
-  // eslint-disable-next-line camelcase
-  object_id,
-  description,
-  url,
-  type: menuItemTypeField,
-  target
-}) => {
-  var _object;
-
-  // For historical reasons, the `core/navigation-link` variation type is `tag`
-  // whereas WP Core expects `post_tag` as the `object` type.
-  // To avoid writing a block migration we perform a conversion here.
-  // See also inverse equivalent in `blockAttributesToMenuItem`.
-  if (object && object === 'post_tag') {
-    object = 'tag';
-  }
-
-  return {
-    label: (menuItemTitleField === null || menuItemTitleField === void 0 ? void 0 : menuItemTitleField.rendered) || '',
-    ...(((_object = object) === null || _object === void 0 ? void 0 : _object.length) && {
-      type: object
-    }),
-    kind: (menuItemTypeField === null || menuItemTypeField === void 0 ? void 0 : menuItemTypeField.replace('_', '-')) || 'custom',
-    url: url || '',
-    ...((xfn === null || xfn === void 0 ? void 0 : xfn.length) && xfn.join(' ').trim() && {
-      rel: xfn.join(' ').trim()
-    }),
-    ...((classes === null || classes === void 0 ? void 0 : classes.length) && classes.join(' ').trim() && {
-      className: classes.join(' ').trim()
-    }),
-    ...((attr_title === null || attr_title === void 0 ? void 0 : attr_title.length) && {
-      title: attr_title
-    }),
-    // eslint-disable-next-line camelcase
-    ...(object_id && 'custom' !== object && {
-      id: object_id
-    }),
-    ...((description === null || description === void 0 ? void 0 : description.length) && {
-      description
-    }),
-    ...(target === NEW_TAB_TARGET_ATTRIBUTE && {
-      opensInNewTab: true
-    })
-  };
-};
-//# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/constants.js
-/**
- * Module Constants
- */
-const STORE_NAME = 'core/edit-navigation';
-//# sourceMappingURL=constants.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/controls.js
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * Trigger an API Fetch request.
- *
- * @param {Object} request API Fetch Request Object.
- * @return {Object} control descriptor.
- */
-
-function apiFetch(request) {
-  return {
-    type: 'API_FETCH',
-    request
-  };
-}
-/**
- * Returns a list of pending actions for given post id.
- *
- * @param {number} postId Post ID.
- * @return {Array} List of pending actions.
- */
-
-function getPendingActions(postId) {
-  return {
-    type: 'GET_PENDING_ACTIONS',
-    postId
-  };
-}
-/**
- * Returns boolean indicating whether or not an action processing specified
- * post is currently running.
- *
- * @param {number} postId Post ID.
- * @return {Object} Action.
- */
-
-function isProcessingPost(postId) {
-  return {
-    type: 'IS_PROCESSING_POST',
-    postId
-  };
-}
-/**
- * Selects menuItemId -> clientId mapping (necessary for saving the navigation).
- *
- * @param {number} postId Navigation post ID.
- * @return {Object} Action.
- */
-
-function getMenuItemToClientIdMapping(postId) {
-  return {
-    type: 'GET_MENU_ITEM_TO_CLIENT_ID_MAPPING',
-    postId
-  };
-}
-/**
- * Resolves navigation post for given menuId.
- *
- * @see selectors.js
- * @param {number} menuId Menu ID.
- * @return {Object} Action.
- */
-
-function getNavigationPostForMenu(menuId) {
-  return {
-    type: 'SELECT',
-    registryName: STORE_NAME,
-    selectorName: 'getNavigationPostForMenu',
-    args: [menuId]
-  };
-}
-/**
- * Resolves menu items for given menu id.
- *
- * @param {number} menuId Menu ID.
- * @return {Object} Action.
- */
-
-function resolveMenuItems(menuId) {
-  return {
-    type: 'RESOLVE_MENU_ITEMS',
-    query: menuItemsQuery(menuId)
-  };
-}
-/**
- * Calls a selector using chosen registry.
- *
- * @param {string} registryName Registry name.
- * @param {string} selectorName Selector name.
- * @param {Array}  args         Selector arguments.
- * @return {Object} control descriptor.
- */
-
-function controls_select(registryName, selectorName, ...args) {
-  return {
-    type: 'SELECT',
-    registryName,
-    selectorName,
-    args
-  };
-}
-/**
- * Dispatches an action using chosen registry.
- *
- * @param {string} registryName Registry name.
- * @param {string} actionName   Action name.
- * @param {Array}  args         Selector arguments.
- * @return {Object} control descriptor.
- */
-
-function dispatch(registryName, actionName, ...args) {
-  return {
-    type: 'DISPATCH',
-    registryName,
-    actionName,
-    args
-  };
-}
-const controls = {
-  API_FETCH({
-    request
-  }) {
-    return external_wp_apiFetch_default()(request);
-  },
-
-  SELECT: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    registryName,
-    selectorName,
-    args
-  }) => {
-    return registry.select(registryName)[selectorName](...args);
-  }),
-  GET_PENDING_ACTIONS: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    postId
-  }) => {
-    var _getState$processingQ;
-
-    return ((_getState$processingQ = getState(registry).processingQueue[postId]) === null || _getState$processingQ === void 0 ? void 0 : _getState$processingQ.pendingActions) || [];
-  }),
-  IS_PROCESSING_POST: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    postId
-  }) => {
-    var _getState$processingQ2;
-
-    return !!((_getState$processingQ2 = getState(registry).processingQueue[postId]) !== null && _getState$processingQ2 !== void 0 && _getState$processingQ2.inProgress);
-  }),
-  GET_MENU_ITEM_TO_CLIENT_ID_MAPPING: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    postId
-  }) => {
-    return getState(registry).mapping[postId] || {};
-  }),
-  DISPATCH: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    registryName,
-    actionName,
-    args
-  }) => {
-    return registry.dispatch(registryName)[actionName](...args);
-  }),
-  RESOLVE_MENU_ITEMS: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    query
-  }) => {
-    return registry.resolveSelect('core').getMenuItems(query);
-  })
-};
-
-const getState = registry => registry.stores[STORE_NAME].store.getState();
-
-/* harmony default export */ var store_controls = (controls);
-//# sourceMappingURL=controls.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/menu-items-to-blocks.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Convert a flat menu item structure to a nested blocks structure.
- *
- * @param {Object[]} menuItems An array of menu items.
- *
- * @return {WPBlock[]} An array of blocks.
- */
-
-function menuItemsToBlocks(menuItems) {
-  if (!menuItems) {
-    return null;
-  }
-
-  const menuTree = createDataTree(menuItems);
-  return mapMenuItemsToBlocks(menuTree);
-}
-/**
- * A recursive function that maps menu item nodes to blocks.
- *
- * @param {WPNavMenuItem[]} menuItems An array of WPNavMenuItem items.
- * @return {Object} Object containing innerBlocks and mapping.
- */
-
-function mapMenuItemsToBlocks(menuItems) {
-  let mapping = {}; // The menuItem should be in menu_order sort order.
-
-  const sortedItems = (0,external_lodash_namespaceObject.sortBy)(menuItems, 'menu_order');
-  const innerBlocks = sortedItems.map(menuItem => {
-    var _menuItem$children;
-
-    if (menuItem.type === 'block') {
-      const [block] = (0,external_wp_blocks_namespaceObject.parse)(menuItem.content.raw);
-
-      if (!block) {
-        return (0,external_wp_blocks_namespaceObject.createBlock)('core/freeform', {
-          content: menuItem.content
-        });
-      }
-
-      return block;
-    }
-
-    const attributes = menu_items_to_blocks_menuItemToBlockAttributes(menuItem); // If there are children recurse to build those nested blocks.
-
-    const {
-      innerBlocks: nestedBlocks = [],
-      // alias to avoid shadowing
-      mapping: nestedMapping = {} // alias to avoid shadowing
-
-    } = (_menuItem$children = menuItem.children) !== null && _menuItem$children !== void 0 && _menuItem$children.length ? mapMenuItemsToBlocks(menuItem.children) : {}; // Update parent mapping with nested mapping.
-
-    mapping = { ...mapping,
-      ...nestedMapping
-    }; // Create block with nested "innerBlocks".
-
-    const block = (0,external_wp_blocks_namespaceObject.createBlock)('core/navigation-link', attributes, nestedBlocks); // Create mapping for menuItem -> block
-
-    mapping[menuItem.id] = block.clientId;
-    return block;
-  });
-  return {
-    innerBlocks,
-    mapping
-  };
-}
-/**
- * A WP nav_menu_item object.
- * For more documentation on the individual fields present on a menu item please see:
- * https://core.trac.wordpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L789
- *
- * Changes made here should also be mirrored in packages/edit-navigation/src/store/utils.js.
- *
- * @typedef WPNavMenuItem
- *
- * @property {Object} title       stores the raw and rendered versions of the title/label for this menu item.
- * @property {Array}  xfn         the XFN relationships expressed in the link of this menu item.
- * @property {Array}  classes     the HTML class attributes for this menu item.
- * @property {string} attr_title  the HTML title attribute for this menu item.
- * @property {string} object      The type of object originally represented, such as 'category', 'post', or 'attachment'.
- * @property {string} object_id   The DB ID of the original object this menu item represents, e.g. ID for posts and term_id for categories.
- * @property {string} description The description of this menu item.
- * @property {string} url         The URL to which this menu item points.
- * @property {string} type        The family of objects originally represented, such as 'post_type' or 'taxonomy'.
- * @property {string} target      The target attribute of the link element for this menu item.
- */
-
-/**
- * Convert block attributes to menu item.
- *
- * @param {WPNavMenuItem} menuItem the menu item to be converted to block attributes.
- * @return {Object} the block attributes converted from the WPNavMenuItem item.
- */
-
-
-function menu_items_to_blocks_menuItemToBlockAttributes({
-  title: menuItemTitleField,
-  xfn,
-  classes,
-  // eslint-disable-next-line camelcase
-  attr_title,
-  object,
-  // eslint-disable-next-line camelcase
-  object_id,
-  description,
-  url,
-  type: menuItemTypeField,
-  target
-}) {
-  var _object;
-
-  // For historical reasons, the `core/navigation-link` variation type is `tag`
-  // whereas WP Core expects `post_tag` as the `object` type.
-  // To avoid writing a block migration we perform a conversion here.
-  // See also inverse equivalent in `blockAttributesToMenuItem`.
-  if (object && object === 'post_tag') {
-    object = 'tag';
-  }
-
-  return {
-    label: (menuItemTitleField === null || menuItemTitleField === void 0 ? void 0 : menuItemTitleField.rendered) || '',
-    ...(((_object = object) === null || _object === void 0 ? void 0 : _object.length) && {
-      type: object
-    }),
-    kind: (menuItemTypeField === null || menuItemTypeField === void 0 ? void 0 : menuItemTypeField.replace('_', '-')) || 'custom',
-    url: url || '',
-    ...((xfn === null || xfn === void 0 ? void 0 : xfn.length) && xfn.join(' ').trim() && {
-      rel: xfn.join(' ').trim()
-    }),
-    ...((classes === null || classes === void 0 ? void 0 : classes.length) && classes.join(' ').trim() && {
-      className: classes.join(' ').trim()
-    }),
-    ...((attr_title === null || attr_title === void 0 ? void 0 : attr_title.length) && {
-      title: attr_title
-    }),
-    // eslint-disable-next-line camelcase
-    ...(object_id && 'custom' !== object && {
-      id: object_id
-    }),
-    ...((description === null || description === void 0 ? void 0 : description.length) && {
-      description
-    }),
-    ...(target === '_blank' && {
-      opensInNewTab: true
-    })
-  };
-}
-/**
- * Creates a nested, hierarchical tree representation from unstructured data that
- * has an inherent relationship defined between individual items.
- *
- * For example, by default, each element in the dataset should have an `id` and
- * `parent` property where the `parent` property indicates a relationship between
- * the current item and another item with a matching `id` properties.
- *
- * This is useful for building linked lists of data from flat data structures.
- *
- * @param {Array}  dataset  linked data to be rearranged into a hierarchical tree based on relational fields.
- * @param {string} id       the property which uniquely identifies each entry within the array.
- * @param {*}      relation the property which identifies how the current item is related to other items in the data (if at all).
- * @return {Array} a nested array of parent/child relationships
- */
-
-
-function createDataTree(dataset, id = 'id', relation = 'parent') {
-  const hashTable = Object.create(null);
-  const dataTree = [];
-
-  for (const data of dataset) {
-    hashTable[data[id]] = { ...data,
-      children: []
-    };
-  }
-
-  for (const data of dataset) {
-    if (data[relation]) {
-      hashTable[data[relation]].children.push(hashTable[data[id]]);
-    } else {
-      dataTree.push(hashTable[data[id]]);
-    }
-  }
-
-  return dataTree;
-}
-//# sourceMappingURL=menu-items-to-blocks.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/resolvers.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-/**
- * Creates a "stub" navigation post reflecting the contents of menu with id=menuId. The
- * post is meant as a convenient to only exists in runtime and should never be saved. It
- * enables a convenient way of editing the navigation by using a regular post editor.
- *
- * Fetches all menu items, converts them into blocks, and hydrates a new post with them.
- *
- * @param {number} menuId The id of menu to create a post from
- * @return {void}
- */
-
-function* resolvers_getNavigationPostForMenu(menuId) {
-  if (!menuId) {
-    return;
-  }
-
-  const stubPost = createStubPost(menuId); // Persist an empty post to warm up the state
-
-  yield persistPost(stubPost); // Dispatch startResolution to skip the execution of the real getEntityRecord resolver - it would
-  // issue an http request and fail.
-
-  const args = [NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, stubPost.id];
-  yield dispatch('core', 'startResolution', 'getEntityRecord', args); // Now let's create a proper one hydrated using actual menu items
-
-  const menuItems = yield resolveMenuItems(menuId);
-  const [navigationBlock, menuItemIdToClientId] = createNavigationBlock(menuItems);
-  yield {
-    type: 'SET_MENU_ITEM_TO_CLIENT_ID_MAPPING',
-    postId: stubPost.id,
-    mapping: menuItemIdToClientId
-  }; // Persist the actual post containing the navigation block
-
-  yield persistPost(createStubPost(menuId, navigationBlock)); // Dispatch finishResolution to conclude startResolution dispatched earlier
-
-  yield dispatch('core', 'finishResolution', 'getEntityRecord', args);
-}
-
-const createStubPost = (menuId, navigationBlock = null) => {
-  const id = buildNavigationPostId(menuId);
-  return {
-    id,
-    slug: id,
-    status: 'draft',
-    type: 'page',
-    blocks: navigationBlock ? [navigationBlock] : [],
-    meta: {
-      menuId
-    }
-  };
-};
-
-const persistPost = post => dispatch('core', 'receiveEntityRecords', NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, post, {
-  id: post.id
-}, false);
-/**
- * Converts an adjacency list of menuItems into a navigation block.
- *
- * @param {Array} menuItems a list of menu items
- * @return {Object} Navigation block
- */
-
-
-function createNavigationBlock(menuItems) {
-  const {
-    innerBlocks,
-    mapping: menuItemIdToClientId
-  } = menuItemsToBlocks(menuItems);
-  const navigationBlock = (0,external_wp_blocks_namespaceObject.createBlock)('core/navigation', {
-    orientation: 'vertical'
-  }, innerBlocks);
-  return [navigationBlock, menuItemIdToClientId];
-}
-//# sourceMappingURL=resolvers.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/selectors.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * Returns the selected menu ID.
- *
- * @param {Object} state Global application state.
- *
- * @return {number} The selected menu ID.
- */
-
-function getSelectedMenuId(state) {
-  var _state$selectedMenuId;
-
-  return (_state$selectedMenuId = state.selectedMenuId) !== null && _state$selectedMenuId !== void 0 ? _state$selectedMenuId : null;
-}
-/**
- * Returns a "stub" navigation post reflecting the contents of menu with id=menuId. The
- * post is meant as a convenient to only exists in runtime and should never be saved. It
- * enables a convenient way of editing the navigation by using a regular post editor.
- *
- * Related resolver fetches all menu items, converts them into blocks, and hydrates a new post with them.
- *
- * @param {number} menuId The id of menu to create a post from.
- * @return {null|Object} Post once the resolver fetches it, otherwise null
- */
-
-const selectors_getNavigationPostForMenu = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, menuId) => {
-  // When the record is unavailable, calling getEditedEntityRecord triggers a http
-  // request via it's related resolver. Let's return nothing until getNavigationPostForMenu
-  // resolver marks the record as resolved.
-  if (!hasResolvedNavigationPost(state, menuId)) {
-    return null;
-  }
-
-  return select(external_wp_coreData_namespaceObject.store).getEditedEntityRecord(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, buildNavigationPostId(menuId));
-});
-/**
- * Returns true if the navigation post related to menuId was already resolved.
- *
- * @param {number} menuId The id of menu.
- * @return {boolean} True if the navigation post related to menuId was already resolved, false otherwise.
- */
-
-const hasResolvedNavigationPost = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, menuId) => {
-  return select(external_wp_coreData_namespaceObject.store).hasFinishedResolution('getEntityRecord', [NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, buildNavigationPostId(menuId)]);
-});
-/**
- * Returns a menu item represented by the block with id clientId.
- *
- * @param {number} postId   Navigation post id
- * @param {number} clientId Block clientId
- * @return {Object|null} Menu item entity
- */
-
-const getMenuItemForClientId = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, postId, clientId) => {
-  const mapping = (0,external_lodash_namespaceObject.invert)(state.mapping[postId]);
-  return select(external_wp_coreData_namespaceObject.store).getMenuItem(mapping[clientId]);
-});
-//# sourceMappingURL=selectors.js.map
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
-// Unique ID creation requires a high quality random # generator. In the browser we therefore
-// require the crypto API and do not support built-in fallback to lower quality random number
-// generators (like Math.random()).
-// getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
-// find the complete implementation of crypto (msCrypto) on IE11.
-var getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
-var rnds8 = new Uint8Array(16);
-function rng() {
-  if (!getRandomValues) {
-    throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
-  }
-
-  return getRandomValues(rnds8);
-}
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/regex.js
-/* harmony default export */ var regex = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/validate.js
-
-
-function validate(uuid) {
-  return typeof uuid === 'string' && regex.test(uuid);
-}
-
-/* harmony default export */ var esm_browser_validate = (validate);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/stringify.js
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-
-var byteToHex = [];
-
-for (var i = 0; i < 256; ++i) {
-  byteToHex.push((i + 0x100).toString(16).substr(1));
-}
-
-function stringify(arr) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  // Note: Be careful editing this code!  It's been tuned for performance
-  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
-  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
-  // of the following:
-  // - One or more input array values don't map to a hex octet (leading to
-  // "undefined" in the uuid)
-  // - Invalid input values for the RFC `version` or `variant` fields
-
-  if (!esm_browser_validate(uuid)) {
-    throw TypeError('Stringified UUID is invalid');
-  }
-
-  return uuid;
-}
-
-/* harmony default export */ var esm_browser_stringify = (stringify);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/v4.js
-
-
-
-function v4(options, buf, offset) {
-  options = options || {};
-  var rnds = options.random || (options.rng || rng)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
-  rnds[6] = rnds[6] & 0x0f | 0x40;
-  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
-
-  if (buf) {
-    offset = offset || 0;
-
-    for (var i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-
-    return buf;
-  }
-
-  return esm_browser_stringify(rnds);
-}
-
-/* harmony default export */ var esm_browser_v4 = (v4);
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/actions.js
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-const {
-  ajaxurl
-} = window;
-/**
- * Returns an action object used to select menu.
- *
- * @param {number} menuId The menu ID.
- * @return {Object} Action object.
- */
-
-function setSelectedMenuId(menuId) {
-  return {
-    type: 'SET_SELECTED_MENU_ID',
-    menuId
-  };
-}
-/**
- * Creates a menu item for every block that doesn't have an associated menuItem.
- * Requests POST /wp/v2/menu-items once for every menu item created.
- *
- * @param {Object} post A navigation post to process
- * @return {Function} An action creator
- */
-
-const createMissingMenuItems = serializeProcessing(function* (post) {
-  const menuId = post.meta.menuId;
-  const mapping = yield getMenuItemToClientIdMapping(post.id);
-  const clientIdToMenuId = (0,external_lodash_namespaceObject.invert)(mapping);
-  const stack = [post.blocks[0]];
-
-  while (stack.length) {
-    const block = stack.pop();
-
-    if (!(block.clientId in clientIdToMenuId)) {
-      const menuItem = yield apiFetch({
-        path: `/__experimental/menu-items`,
-        method: 'POST',
-        data: {
-          title: 'Placeholder',
-          url: 'Placeholder',
-          menu_order: 0
-        }
-      });
-      mapping[menuItem.id] = block.clientId;
-      const menuItems = yield resolveMenuItems(menuId);
-      yield dispatch('core', 'receiveEntityRecords', 'root', 'menuItem', [...menuItems, menuItem], menuItemsQuery(menuId), false);
-    }
-
-    stack.push(...block.innerBlocks);
-  }
-
-  yield {
-    type: 'SET_MENU_ITEM_TO_CLIENT_ID_MAPPING',
-    postId: post.id,
-    mapping
-  };
-});
-/**
- * Converts all the blocks into menu items and submits a batch request to save everything at once.
- *
- * @param {Object} post A navigation post to process
- * @return {Function} An action creator
- */
-
-const saveNavigationPost = serializeProcessing(function* (post) {
-  const menuId = post.meta.menuId;
-  const menuItemsByClientId = mapMenuItemsByClientId(yield resolveMenuItems(menuId), yield getMenuItemToClientIdMapping(post.id));
-
-  try {
-    // Save edits to the menu, like the menu name.
-    yield dispatch('core', 'saveEditedEntityRecord', 'root', 'menu', menuId);
-    const error = yield controls_select('core', 'getLastEntitySaveError', 'root', 'menu', menuId);
-
-    if (error) {
-      throw new Error(error.message);
-    } // Save blocks as menu items.
-
-
-    const batchSaveResponse = yield* batchSave(menuId, menuItemsByClientId, post.blocks[0]);
-
-    if (!batchSaveResponse.success) {
-      throw new Error(batchSaveResponse.data.message);
-    } // Clear "stub" navigation post edits to avoid a false "dirty" state.
-
-
-    yield dispatch('core', 'receiveEntityRecords', NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, [post], undefined);
-    yield dispatch(external_wp_notices_namespaceObject.store, 'createSuccessNotice', (0,external_wp_i18n_namespaceObject.__)('Navigation saved.'), {
-      type: 'snackbar'
-    });
-  } catch (saveError) {
-    const errorMessage = saveError ? (0,external_wp_i18n_namespaceObject.sprintf)(
-    /* translators: %s: The text of an error message (potentially untranslated). */
-    (0,external_wp_i18n_namespaceObject.__)("Unable to save: '%s'"), saveError.message) : (0,external_wp_i18n_namespaceObject.__)('Unable to save: An error ocurred.');
-    yield dispatch(external_wp_notices_namespaceObject.store, 'createErrorNotice', errorMessage, {
-      type: 'snackbar'
-    });
-  }
-});
-
-function mapMenuItemsByClientId(menuItems, clientIdsByMenuId) {
-  const result = {};
-
-  if (!menuItems || !clientIdsByMenuId) {
-    return result;
-  }
-
-  for (const menuItem of menuItems) {
-    const clientId = clientIdsByMenuId[menuItem.id];
-
-    if (clientId) {
-      result[clientId] = menuItem;
-    }
-  }
-
-  return result;
-}
-
-function* batchSave(menuId, menuItemsByClientId, navigationBlock) {
-  const {
-    nonce,
-    stylesheet
-  } = yield apiFetch({
-    path: '/__experimental/customizer-nonces/get-save-nonce'
-  });
-
-  if (!nonce) {
-    throw new Error();
-  } // eslint-disable-next-line no-undef
-
-
-  const body = new FormData();
-  body.append('wp_customize', 'on');
-  body.append('customize_theme', stylesheet);
-  body.append('nonce', nonce);
-  body.append('customize_changeset_uuid', esm_browser_v4());
-  body.append('customize_autosaved', 'on');
-  body.append('customize_changeset_status', 'publish');
-  body.append('action', 'customize_save');
-  body.append('customized', computeCustomizedAttribute(navigationBlock.innerBlocks, menuId, menuItemsByClientId));
-  return yield apiFetch({
-    url: ajaxurl || '/wp-admin/admin-ajax.php',
-    method: 'POST',
-    body
-  });
-}
-//# sourceMappingURL=actions.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/index.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-
-/**
- * Block editor data store configuration.
- *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#registerStore
- *
- * @type {Object}
- */
-
-const storeConfig = {
-  reducer: reducer,
-  controls: store_controls,
-  selectors: selectors_namespaceObject,
-  resolvers: resolvers_namespaceObject,
-  actions: actions_namespaceObject,
-  persist: ['selectedMenuId']
-};
-/**
- * Store definition for the edit navigation namespace.
- *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
- *
- * @type {Object}
- */
-
-const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, storeConfig); // Once we build a more generic persistence plugin that works across types of stores
-// we'd be able to replace this with a register call.
-
-(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, storeConfig);
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/use-navigation-editor.js
 /**
  * WordPress dependencies
@@ -1730,33 +1488,23 @@ function useNavigationEditor() {
   };
 }
 //# sourceMappingURL=use-navigation-editor.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/use-navigation-block-editor.js
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/utils/index.js
 /**
- * WordPress dependencies
+ * Removes any HTML tags from the provided string.
+ *
+ * @todo Use `stripHTML` from `@wordpress/dom` package
+ * after https://github.com/WordPress/gutenberg/issues/33424
+ * is resolved.
+ *
+ * @param {string} html The string containing html.
+ *
+ * @return {string} The text content with any html removed.
  */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-function useNavigationBlockEditor(post) {
-  const {
-    createMissingMenuItems
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-  const [blocks, onInput, onEntityChange] = (0,external_wp_coreData_namespaceObject.useEntityBlockEditor)(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, {
-    id: post === null || post === void 0 ? void 0 : post.id
-  });
-  const onChange = (0,external_wp_element_namespaceObject.useCallback)(async (...args) => {
-    await onEntityChange(...args);
-    createMissingMenuItems(post);
-  }, [onEntityChange, post]);
-  return [blocks, onInput, onChange];
+function stripHTML(html) {
+  const document = new window.DOMParser().parseFromString(html, 'text/html');
+  return document.body.textContent || '';
 }
-//# sourceMappingURL=use-navigation-block-editor.js.map
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/use-menu-notifications.js
 /**
  * WordPress dependencies
@@ -1770,34 +1518,19 @@ function useNavigationBlockEditor(post) {
  */
 
 
+
 function useMenuNotifications(menuId) {
-  const {
-    lastSaveError,
-    lastDeleteError
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
-    lastSaveError: select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError(MENU_KIND, MENU_POST_TYPE),
-    lastDeleteError: select(external_wp_coreData_namespaceObject.store).getLastEntityDeleteError(MENU_KIND, MENU_POST_TYPE, menuId)
-  }), [menuId]);
   const {
     createErrorNotice
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
-
-  const processError = error => {
-    const document = new window.DOMParser().parseFromString(error.message, 'text/html');
-    const errorText = document.body.textContent || '';
-    createErrorNotice(errorText, {
-      id: 'edit-navigation-error'
-    });
-  };
-
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (lastSaveError) {
-      processError(lastSaveError);
-    }
-  }, [lastSaveError]);
+  const lastDeleteError = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return select(external_wp_coreData_namespaceObject.store).getLastEntityDeleteError(MENU_KIND, MENU_POST_TYPE, menuId);
+  }, [menuId]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (lastDeleteError) {
-      processError(lastDeleteError);
+      createErrorNotice(stripHTML(lastDeleteError === null || lastDeleteError === void 0 ? void 0 : lastDeleteError.message), {
+        id: 'edit-navigation-error'
+      });
     }
   }, [lastDeleteError]);
 }
@@ -1828,6 +1561,9 @@ function useSelectedMenuId() {
   return [selectedMenuId, setSelectedMenuId];
 }
 //# sourceMappingURL=use-selected-menu-id.js.map
+;// CONCATENATED MODULE: external ["wp","apiFetch"]
+var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
+var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/use-menu-locations.js
 /**
  * WordPress dependencies
@@ -1902,6 +1638,31 @@ function useMenuLocations() {
   };
 }
 //# sourceMappingURL=use-menu-locations.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/use-navigation-editor-root-block.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+const useNavigationEditorRootBlock = () => {
+  return (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getBlockOrder
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    const lockedNavigationBlock = getBlockOrder()[0];
+    return {
+      navBlockClientId: lockedNavigationBlock,
+      lastNavBlockItemIndex: getBlockOrder(lockedNavigationBlock).length
+    };
+  }, []);
+};
+
+/* harmony default export */ var use_navigation_editor_root_block = (useNavigationEditorRootBlock);
+//# sourceMappingURL=use-navigation-editor-root-block.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/index.js
 /**
  * WordPress dependencies
@@ -2037,114 +1798,6 @@ function usePageEntities() {
   };
 }
 //# sourceMappingURL=use-navigation-entities.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/block-placeholder/menu-items-to-blocks.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * Convert a flat menu item structure to a nested blocks structure.
- *
- * @param {Object[]} menuItems An array of menu items.
- *
- * @return {WPBlock[]} An array of blocks.
- */
-
-function menu_items_to_blocks_menuItemsToBlocks(menuItems) {
-  if (!menuItems) {
-    return null;
-  }
-
-  const menuTree = menu_items_to_blocks_createDataTree(menuItems);
-  return menu_items_to_blocks_mapMenuItemsToBlocks(menuTree);
-}
-/** @typedef {import('../..store/utils').WPNavMenuItem} WPNavMenuItem */
-
-/**
- * A recursive function that maps menu item nodes to blocks.
- *
- * @param {WPNavMenuItem[]} menuItems An array of WPNavMenuItem items.
- * @return {Object} Object containing innerBlocks and mapping.
- */
-
-function menu_items_to_blocks_mapMenuItemsToBlocks(menuItems) {
-  let mapping = {}; // The menuItem should be in menu_order sort order.
-
-  const sortedItems = (0,external_lodash_namespaceObject.sortBy)(menuItems, 'menu_order');
-  const innerBlocks = sortedItems.map(menuItem => {
-    var _menuItem$children;
-
-    const attributes = menuItemToBlockAttributes(menuItem); // If there are children recurse to build those nested blocks.
-
-    const {
-      innerBlocks: nestedBlocks = [],
-      // alias to avoid shadowing
-      mapping: nestedMapping = {} // alias to avoid shadowing
-
-    } = (_menuItem$children = menuItem.children) !== null && _menuItem$children !== void 0 && _menuItem$children.length ? menu_items_to_blocks_mapMenuItemsToBlocks(menuItem.children) : {}; // Update parent mapping with nested mapping.
-
-    mapping = { ...mapping,
-      ...nestedMapping
-    }; // Create block with nested "innerBlocks".
-
-    const block = (0,external_wp_blocks_namespaceObject.createBlock)('core/navigation-link', attributes, nestedBlocks); // Create mapping for menuItem -> block
-
-    mapping[menuItem.id] = block.clientId;
-    return block;
-  });
-  return {
-    innerBlocks,
-    mapping
-  };
-}
-/**
- * Creates a nested, hierarchical tree representation from unstructured data that
- * has an inherent relationship defined between individual items.
- *
- * For example, by default, each element in the dataset should have an `id` and
- * `parent` property where the `parent` property indicates a relationship between
- * the current item and another item with a matching `id` properties.
- *
- * This is useful for building linked lists of data from flat data structures.
- *
- * @param {Array}  dataset  linked data to be rearranged into a hierarchical tree based on relational fields.
- * @param {string} id       the property which uniquely identifies each entry within the array.
- * @param {*}      relation the property which identifies how the current item is related to other items in the data (if at all).
- * @return {Array} a nested array of parent/child relationships
- */
-
-
-function menu_items_to_blocks_createDataTree(dataset, id = 'id', relation = 'parent') {
-  const hashTable = Object.create(null);
-  const dataTree = [];
-
-  for (const data of dataset) {
-    hashTable[data[id]] = { ...data,
-      children: []
-    };
-  }
-
-  for (const data of dataset) {
-    if (data[relation]) {
-      hashTable[data[relation]].children.push(hashTable[data[id]]);
-    } else {
-      dataTree.push(hashTable[data[id]]);
-    }
-  }
-
-  return dataTree;
-}
-//# sourceMappingURL=menu-items-to-blocks.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/block-placeholder/index.js
 
 
@@ -2218,10 +1871,10 @@ function BlockPlaceholder({
   const createFromMenu = (0,external_wp_element_namespaceObject.useCallback)(() => {
     const {
       innerBlocks: blocks
-    } = menu_items_to_blocks_menuItemsToBlocks(menuItems);
+    } = menuItemsToBlocks(menuItems);
     const selectNavigationBlock = true;
     onCreate(blocks, selectNavigationBlock);
-  }, [menuItems, menu_items_to_blocks_menuItemsToBlocks, onCreate]);
+  }, [menuItems, menuItemsToBlocks, onCreate]);
 
   const onCreateFromMenu = () => {
     // If we have menu items, create the block right away.
@@ -2300,10 +1953,10 @@ function BlockPlaceholder({
  * WordPress dependencies
  */
 
+
 /**
  * Internal dependencies
  */
-
 
 
 const addNavigationEditorPlaceholder = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockEdit => props => {
@@ -2317,8 +1970,6 @@ const addNavigationEditorPlaceholder = (0,external_wp_compose_namespaceObject.cr
 }, 'withNavigationEditorPlaceholder');
 /* harmony default export */ var add_navigation_editor_placeholder = (() => (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/edit-navigation/with-navigation-editor-placeholder', addNavigationEditorPlaceholder));
 //# sourceMappingURL=add-navigation-editor-placeholder.js.map
-;// CONCATENATED MODULE: external ["wp","blockEditor"]
-var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(4184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
@@ -2333,7 +1984,7 @@ const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
+  d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
 }));
 /* harmony default export */ var library_check = (check);
 //# sourceMappingURL=check.js.map
@@ -3369,6 +3020,61 @@ function InterfaceSkeleton({
 
 /* harmony default export */ var interface_skeleton = ((0,external_wp_element_namespaceObject.forwardRef)(InterfaceSkeleton));
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-vertical.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const moreVertical = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
+}));
+/* harmony default export */ var more_vertical = (moreVertical);
+//# sourceMappingURL=more-vertical.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/components/more-menu-dropdown/index.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+function MoreMenuDropdown({
+  as: DropdownComponent = external_wp_components_namespaceObject.DropdownMenu,
+  className,
+
+  /* translators: button label text should, if possible, be under 16 characters. */
+  label = (0,external_wp_i18n_namespaceObject.__)('Options'),
+  popoverProps,
+  toggleProps,
+  children
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(DropdownComponent, {
+    className: classnames_default()('interface-more-menu-dropdown', className),
+    icon: more_vertical,
+    label: label,
+    popoverProps: {
+      position: 'bottom left',
+      ...popoverProps,
+      className: classnames_default()('interface-more-menu-dropdown__content', popoverProps === null || popoverProps === void 0 ? void 0 : popoverProps.className)
+    },
+    toggleProps: {
+      tooltipPosition: 'bottom',
+      ...toggleProps
+    }
+  }, onClose => children(onClose));
+}
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/components/index.js
 
 
@@ -3456,7 +3162,7 @@ const addMenuNameEditor = (0,external_wp_compose_namespaceObject.createHigherOrd
 
 
 function disableInsertingNonNavigationBlocks(settings, name) {
-  if (!['core/navigation', 'core/navigation-link'].includes(name)) {
+  if (!['core/navigation', 'core/navigation-link', 'core/navigation-submenu'].includes(name)) {
     (0,external_lodash_namespaceObject.set)(settings, ['supports', 'inserter'], false);
   }
 
@@ -3520,7 +3226,9 @@ function removeNavigationBlockSettingsUnsupportedFeatures(settings, name) {
 
 
 
+
 const addFilters = shouldAddDisableInsertingNonNavigationBlocksFilter => {
+  add_navigation_editor_custom_appender();
   add_navigation_editor_placeholder();
   add_menu_name_editor();
 
@@ -3532,13 +3240,14 @@ const addFilters = shouldAddDisableInsertingNonNavigationBlocksFilter => {
   remove_settings_unsupported_features();
 };
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
+var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/add-menu/index.js
 
 
 /**
  * External dependencies
  */
-
 
 /**
  * WordPress dependencies
@@ -3551,49 +3260,54 @@ const addFilters = shouldAddDisableInsertingNonNavigationBlocksFilter => {
 
 
 
+/**
+ * Internal dependencies
+ */
 
-const menuNameMatches = menuName => menu => menu.name.toLowerCase() === menuName.toLowerCase();
+
+
 
 function AddMenu({
   className,
-  menus,
   onCreate,
   titleText,
   helpText,
-  focusInputOnMount = false
+  focusInputOnMount = false,
+  noticeUI,
+  noticeOperations
 }) {
+  const inputRef = (0,external_wp_compose_namespaceObject.useFocusOnMount)(focusInputOnMount);
   const [menuName, setMenuName] = (0,external_wp_element_namespaceObject.useState)('');
-  const {
-    createErrorNotice,
-    createInfoNotice,
-    removeNotice
-  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
   const [isCreatingMenu, setIsCreatingMenu] = (0,external_wp_element_namespaceObject.useState)(false);
+  const {
+    createInfoNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
   const {
     saveMenu
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
-  const inputRef = (0,external_wp_compose_namespaceObject.useFocusOnMount)(focusInputOnMount);
+  const {
+    createErrorNotice,
+    removeAllNotices
+  } = noticeOperations;
+  const lastSaveError = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError(MENU_KIND, MENU_POST_TYPE);
+  }, []);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (lastSaveError) {
+      createErrorNotice(stripHTML(lastSaveError === null || lastSaveError === void 0 ? void 0 : lastSaveError.message));
+    }
+  }, [lastSaveError]);
 
   const createMenu = async event => {
     event.preventDefault();
 
-    if (!menuName.length) {
-      return;
-    } // Remove any existing notices so duplicates aren't created.
-
-
-    removeNotice('edit-navigation-error');
-
-    if ((0,external_lodash_namespaceObject.some)(menus, menuNameMatches(menuName))) {
-      const message = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of a menu.
-      (0,external_wp_i18n_namespaceObject.__)('The menu name %s conflicts with another menu name. Please try another.'), menuName);
-      createErrorNotice(message, {
-        id: 'edit-navigation-error'
-      });
+    if (!menuName.length || isCreatingMenu) {
       return;
     }
 
-    setIsCreatingMenu(true);
+    setIsCreatingMenu(true); // Remove any existing notices.
+
+    removeAllNotices();
     const menu = await saveMenu({
       name: menuName
     });
@@ -3614,7 +3328,7 @@ function AddMenu({
   return (0,external_wp_element_namespaceObject.createElement)("form", {
     className: classnames_default()('edit-navigation-add-menu', className),
     onSubmit: createMenu
-  }, titleText && (0,external_wp_element_namespaceObject.createElement)("h3", {
+  }, noticeUI, titleText && (0,external_wp_element_namespaceObject.createElement)("h3", {
     className: "edit-navigation-add-menu__title"
   }, titleText), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
     ref: inputRef,
@@ -3628,8 +3342,13 @@ function AddMenu({
     variant: "primary",
     disabled: !menuName.length,
     isBusy: isCreatingMenu
+    /* Button is disabled but still focusable */
+    ,
+    "aria-disabled": !menuName.length || isCreatingMenu
   }, (0,external_wp_i18n_namespaceObject.__)('Create menu')));
 }
+
+/* harmony default export */ var add_menu = ((0,external_wp_components_namespaceObject.withNotices)(AddMenu));
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/menu-switcher/index.js
 
@@ -3678,14 +3397,13 @@ function MenuSwitcher({
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
     hideSeparator: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-    variant: "primary",
+    className: "edit-navigation-menu-switcher__new-button",
     onClick: openModal
   }, (0,external_wp_i18n_namespaceObject.__)('Create a new menu')), isModalVisible && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
     title: (0,external_wp_i18n_namespaceObject.__)('Create a new menu'),
+    className: "edit-navigation-menu-switcher__modal",
     onRequestClose: closeModal
-  }, (0,external_wp_element_namespaceObject.createElement)(AddMenu, {
-    className: "edit-navigation-menu-switcher__add-menu",
-    menus: menus,
+  }, (0,external_wp_element_namespaceObject.createElement)(add_menu, {
     onCreate: menuId => {
       closeModal();
       onSelectMenu(menuId);
@@ -3719,7 +3437,7 @@ function UnselectedMenuState({
   }, showMenuSwitcher && (0,external_wp_element_namespaceObject.createElement)("h4", null, (0,external_wp_i18n_namespaceObject.__)('Choose a menu to edit:')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Card, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardBody, null, showMenuSwitcher ? (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.NavigableMenu, null, (0,external_wp_element_namespaceObject.createElement)(MenuSwitcher, {
     onSelectMenu: onSelectMenu,
     menus: menus
-  })) : (0,external_wp_element_namespaceObject.createElement)(AddMenu, {
+  })) : (0,external_wp_element_namespaceObject.createElement)(add_menu, {
     onCreate: onCreate,
     titleText: (0,external_wp_i18n_namespaceObject.__)('Create your first menu'),
     helpText: (0,external_wp_i18n_namespaceObject.__)('A short descriptive name for your menu.'),
@@ -3782,8 +3500,6 @@ class ErrorBoundary extends external_wp_element_namespaceObject.Component {
 
 /* harmony default export */ var error_boundary = (ErrorBoundary);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
-var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/layout/shortcuts.js
 /**
  * WordPress dependencies
@@ -3797,11 +3513,9 @@ var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortc
 function NavigationEditorShortcuts({
   saveBlocks
 }) {
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-navigation/save-menu', (0,external_wp_element_namespaceObject.useCallback)(event => {
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-navigation/save-menu', event => {
     event.preventDefault();
     saveBlocks();
-  }), {
-    bindGlobal: true
   });
   const {
     redo,
@@ -3810,14 +3524,10 @@ function NavigationEditorShortcuts({
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-navigation/undo', event => {
     undo();
     event.preventDefault();
-  }, {
-    bindGlobal: true
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-navigation/redo', event => {
     redo();
     event.preventDefault();
-  }, {
-    bindGlobal: true
   });
   return null;
 }
@@ -4022,6 +3732,9 @@ function MenuSettings({
 
 
 
+
+
+
 /**
  * Internal dependencies
  */
@@ -4042,6 +3755,59 @@ function ManageLocations({
   const openModal = () => setIsModalOpen(true);
 
   const closeModal = () => setIsModalOpen(false);
+
+  const {
+    createSuccessNotice,
+    createErrorNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+
+  const validateBatchResponse = batchResponse => {
+    if (batchResponse.failed) {
+      return false;
+    }
+
+    const errorResponses = batchResponse.responses.filter(response => {
+      return 200 > response.status || 300 <= response.status;
+    });
+    return 1 > errorResponses.length;
+  };
+
+  const handleUpdateMenuLocations = async () => {
+    const method = 'POST';
+    const batchRequests = menus.map(({
+      id
+    }) => {
+      const locations = menuLocations.filter(menuLocation => menuLocation.menu === id).map(menuLocation => menuLocation.name);
+      return {
+        path: `/__experimental/menus/${id}`,
+        body: {
+          locations
+        },
+        method
+      };
+    });
+    const batchResponse = await external_wp_apiFetch_default()({
+      path: 'batch/v1',
+      data: {
+        validation: 'require-all-validate',
+        requests: batchRequests
+      },
+      method
+    });
+    const isSuccess = validateBatchResponse(batchResponse);
+
+    if (isSuccess) {
+      createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Menu locations have been updated.'), {
+        type: 'snackbar'
+      });
+      closeModal();
+      return;
+    }
+
+    createErrorNotice((0,external_wp_i18n_namespaceObject.__)('An error occurred while trying to update menu locations.'), {
+      type: 'snackbar'
+    });
+  };
 
   if (!menuLocations || !(menus !== null && menus !== void 0 && menus.length)) {
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null);
@@ -4128,7 +3894,11 @@ function ManageLocations({
     onRequestClose: closeModal
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-navigation-manage-locations__theme-location-text-modal"
-  }, themeLocationCountTextModal), menuLocationCard));
+  }, themeLocationCountTextModal), menuLocationCard, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    className: "edit-navigation-manage-locations__save-button",
+    variant: "primary",
+    onClick: handleUpdateMenuLocations
+  }, (0,external_wp_i18n_namespaceObject.__)('Update'))));
 }
 //# sourceMappingURL=manage-locations.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/sidebar/delete-menu.js
@@ -4249,6 +4019,108 @@ function Sidebar({
   })), sidebarName === SIDEBAR_BLOCK && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockInspector, null));
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/menu-actions.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function MenuActions({
+  menus,
+  isLoading
+}) {
+  const [selectedMenuId, setSelectedMenuId] = useSelectedMenuId();
+  const [menuName] = useMenuEntityProp('name', selectedMenuId); // The title ref is passed to the popover as the anchorRef so that the
+  // dropdown is centered over the whole title area rather than just one
+  // part of it.
+
+  const titleRef = (0,external_wp_element_namespaceObject.useRef)();
+
+  if (isLoading) {
+    return (0,external_wp_element_namespaceObject.createElement)("div", {
+      className: "edit-navigation-menu-actions"
+    }, (0,external_wp_i18n_namespaceObject.__)('Loading…'));
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-navigation-menu-actions"
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    ref: titleRef,
+    className: "edit-navigation-menu-actions__subtitle-wrapper"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
+    size: "body",
+    className: "edit-navigation-menu-actions__subtitle",
+    as: "h2"
+  }, (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(menuName)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
+    icon: chevron_down,
+    toggleProps: {
+      label: (0,external_wp_i18n_namespaceObject.__)('Switch menu'),
+      className: 'edit-navigation-menu-actions__switcher-toggle',
+      showTooltip: false,
+      __experimentalIsFocusable: true
+    },
+    popoverProps: {
+      className: 'edit-navigation-menu-actions__switcher-dropdown',
+      position: 'bottom center',
+      anchorRef: titleRef.current
+    }
+  }, ({
+    onClose
+  }) => (0,external_wp_element_namespaceObject.createElement)(MenuSwitcher, {
+    menus: menus,
+    selectedMenuId: selectedMenuId,
+    onSelectMenu: menuId => {
+      setSelectedMenuId(menuId);
+      onClose();
+    }
+  }))));
+}
+//# sourceMappingURL=menu-actions.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/new-button.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function NewButton() {
+  const [isModalOpen, setIsModalOpen] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [, setSelectedMenuId] = useSelectedMenuId();
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "tertiary",
+    onClick: () => setIsModalOpen(true)
+  }, (0,external_wp_i18n_namespaceObject.__)('New menu')), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Create a new menu'),
+    className: "edit-navigation-menu-switcher__modal",
+    onRequestClose: () => setIsModalOpen(false)
+  }, (0,external_wp_element_namespaceObject.createElement)(add_menu, {
+    helpText: (0,external_wp_i18n_namespaceObject.__)('A short descriptive name for your menu.'),
+    onCreate: menuId => {
+      setIsModalOpen(false);
+      setSelectedMenuId(menuId);
+    }
+  })));
+}
+//# sourceMappingURL=new-button.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/save-button.js
 
 
@@ -4384,7 +4256,22 @@ function RedoButton() {
   });
 }
 //# sourceMappingURL=redo-button.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/index.js
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/plus.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const plus = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z"
+}));
+/* harmony default export */ var library_plus = (plus);
+//# sourceMappingURL=plus.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/inserter-toggle.js
 
 
 /**
@@ -4392,6 +4279,99 @@ function RedoButton() {
  */
 
 
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function InserterToggle() {
+  const {
+    navBlockClientId
+  } = use_navigation_editor_root_block();
+  const {
+    isInserterOpened,
+    hasInserterItems
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return {
+      hasInserterItems: select(external_wp_blockEditor_namespaceObject.store).hasInserterItems(navBlockClientId),
+      isInserterOpened: select(store).isInserterOpened()
+    };
+  }, [navBlockClientId]);
+  const {
+    setIsInserterOpened
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, {
+    as: external_wp_components_namespaceObject.Button,
+    className: "edit-navigation-header-inserter-toggle",
+    variant: "primary",
+    isPressed: isInserterOpened,
+    onMouseDown: event => {
+      event.preventDefault();
+    },
+    onClick: () => setIsInserterOpened(!isInserterOpened),
+    icon: library_plus
+    /* translators: button label text should, if possible, be under 16
+    		characters. */
+    ,
+    label: (0,external_wp_i18n_namespaceObject._x)('Toggle block inserter', 'Generic label for block inserter button'),
+    disabled: !hasInserterItems
+  });
+}
+
+/* harmony default export */ var inserter_toggle = (InserterToggle);
+//# sourceMappingURL=inserter-toggle.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/external.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const external = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18.2 17c0 .7-.6 1.2-1.2 1.2H7c-.7 0-1.2-.6-1.2-1.2V7c0-.7.6-1.2 1.2-1.2h3.2V4.2H7C5.5 4.2 4.2 5.5 4.2 7v10c0 1.5 1.2 2.8 2.8 2.8h10c1.5 0 2.8-1.2 2.8-2.8v-3.6h-1.5V17zM14.9 3v1.5h3.7l-6.4 6.4 1.1 1.1 6.4-6.4v3.7h1.5V3h-6.3z"
+}));
+/* harmony default export */ var library_external = (external);
+//# sourceMappingURL=external.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/more-menu.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+function MoreMenu() {
+  return (0,external_wp_element_namespaceObject.createElement)(MoreMenuDropdown, null, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Tools')
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+    role: "menuitem",
+    icon: library_external,
+    href: (0,external_wp_i18n_namespaceObject.__)('https://github.com/WordPress/gutenberg/tree/trunk/packages/edit-navigation/docs/user-documentation.md'),
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, (0,external_wp_i18n_namespaceObject.__)('Help'), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
+    as: "span"
+  },
+  /* translators: accessibility text */
+  (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)')))));
+}
+//# sourceMappingURL=more-menu.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/index.js
+
+
+/**
+ * WordPress dependencies
+ */
 
 
 
@@ -4405,69 +4385,45 @@ function RedoButton() {
 
 
 
+
+
 function Header({
   isMenuSelected,
   menus,
-  selectedMenuId,
-  onSelectMenu,
   isPending,
   navigationPost
 }) {
   const isMediumViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
-  const [menuName] = useMenuEntityProp('name', selectedMenuId);
-  let actionHeaderText;
 
-  if (menuName) {
-    actionHeaderText = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Name of the menu being edited, e.g. 'Main Menu'.
-    (0,external_wp_i18n_namespaceObject.__)('Editing: %s'), menuName);
-  } else if (isPending) {
-    // Loading text won't be displayed if menus are preloaded.
-    actionHeaderText = (0,external_wp_i18n_namespaceObject.__)('Loading …');
-  } else {
-    actionHeaderText = (0,external_wp_i18n_namespaceObject.__)('No menus available');
+  if (!isMenuSelected) {
+    return (0,external_wp_element_namespaceObject.createElement)("div", {
+      className: "edit-navigation-header"
+    }, (0,external_wp_element_namespaceObject.createElement)("div", {
+      className: "edit-navigation-header__toolbar-wrapper"
+    }, (0,external_wp_element_namespaceObject.createElement)("h1", {
+      className: "edit-navigation-header__title"
+    }, (0,external_wp_i18n_namespaceObject.__)('Navigation'))));
   }
 
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-navigation-header"
-  }, isMediumViewport && (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-navigation-header__toolbar-wrapper"
-  }, (0,external_wp_element_namespaceObject.createElement)("h1", {
+  }, isMediumViewport && (0,external_wp_element_namespaceObject.createElement)("h1", {
     className: "edit-navigation-header__title"
   }, (0,external_wp_i18n_namespaceObject.__)('Navigation')), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.NavigableToolbar, {
     className: "edit-navigation-header__toolbar",
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Document tools')
-  }, (0,external_wp_element_namespaceObject.createElement)(UndoButton, null), (0,external_wp_element_namespaceObject.createElement)(RedoButton, null))), (0,external_wp_element_namespaceObject.createElement)("h2", {
-    className: "edit-navigation-header__subtitle"
-  }, isMenuSelected && (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(actionHeaderText)), isMenuSelected && (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-navigation-header__actions"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
-    icon: null,
-    toggleProps: {
-      children: (0,external_wp_i18n_namespaceObject.__)('Switch menu'),
-      'aria-label': (0,external_wp_i18n_namespaceObject.__)('Switch menu, or create a new menu'),
-      showTooltip: false,
-      variant: 'tertiary',
-      disabled: !(menus !== null && menus !== void 0 && menus.length),
-      __experimentalIsFocusable: true
-    },
-    popoverProps: {
-      className: 'edit-navigation-header__menu-switcher-dropdown',
-      position: 'bottom center'
-    }
-  }, ({
-    onClose
-  }) => (0,external_wp_element_namespaceObject.createElement)(MenuSwitcher, {
+  }, (0,external_wp_element_namespaceObject.createElement)(inserter_toggle, null), isMediumViewport && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(UndoButton, null), (0,external_wp_element_namespaceObject.createElement)(RedoButton, null)))), (0,external_wp_element_namespaceObject.createElement)(MenuActions, {
     menus: menus,
-    selectedMenuId: selectedMenuId,
-    onSelectMenu: menuId => {
-      onSelectMenu(menuId);
-      onClose();
-    }
-  })), (0,external_wp_element_namespaceObject.createElement)(SaveButton, {
+    isLoading: isPending
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-navigation-header__actions"
+  }, isMediumViewport && (0,external_wp_element_namespaceObject.createElement)(NewButton, null), (0,external_wp_element_namespaceObject.createElement)(SaveButton, {
     navigationPost: navigationPost
   }), (0,external_wp_element_namespaceObject.createElement)(pinned_items.Slot, {
     scope: "core/edit-navigation"
-  })));
+  }), (0,external_wp_element_namespaceObject.createElement)(MoreMenu, null)));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/notices/index.js
@@ -4532,6 +4488,97 @@ function Editor({
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.WritingFlow, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.ObserveTyping, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockList, null)))));
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/close.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const close_close = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
+}));
+/* harmony default export */ var library_close = (close_close);
+//# sourceMappingURL=close.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/inserter-sidebar/index.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const SHOW_PREVIEWS = false;
+
+function InserterSidebar() {
+  const isMobileViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium', '<');
+  const {
+    navBlockClientId,
+    lastNavBlockItemIndex
+  } = use_navigation_editor_root_block();
+  const {
+    hasInserterItems,
+    selectedBlockClientId
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _select$getSelectedBl;
+
+    return {
+      hasInserterItems: select(external_wp_blockEditor_namespaceObject.store).hasInserterItems(navBlockClientId),
+      selectedBlockClientId: (_select$getSelectedBl = select(external_wp_blockEditor_namespaceObject.store).getSelectedBlock()) === null || _select$getSelectedBl === void 0 ? void 0 : _select$getSelectedBl.clientId
+    };
+  }, [navBlockClientId]);
+  const {
+    setIsInserterOpened
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const [inserterDialogRef, inserterDialogProps] = (0,external_wp_compose_namespaceObject.__experimentalUseDialog)({
+    onClose: () => setIsInserterOpened(false)
+  }); // Only concerned with whether there are items to display. If not then
+  // we shouldn't render.
+
+  if (!hasInserterItems) {
+    return null;
+  }
+
+  const shouldInsertInNavBlock = !selectedBlockClientId || navBlockClientId === selectedBlockClientId;
+  return (0,external_wp_element_namespaceObject.createElement)("div", _extends({
+    ref: inserterDialogRef
+  }, inserterDialogProps, {
+    className: "edit-navigation-layout__inserter-panel"
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-navigation-layout__inserter-panel-header"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    icon: library_close,
+    onClick: () => setIsInserterOpened(false)
+  })), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-navigation-layout__inserter-panel-content"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLibrary // If the root Nav block is selected then any items inserted by the
+  // global inserter should append after the last nav item. Otherwise
+  // simply allow default Gutenberg behaviour.
+  , {
+    rootClientId: shouldInsertInNavBlock ? navBlockClientId : undefined // If set, insertion will be into the block with this ID.
+    ,
+    __experimentalInsertionIndex: // If set, insertion will be into this explicit position.
+    shouldInsertInNavBlock ? lastNavBlockItemIndex : undefined,
+    shouldFocusBlock: isMobileViewport,
+    showInserterHelpPanel: SHOW_PREVIEWS
+  })));
+}
+
+/* harmony default export */ var inserter_sidebar = (InserterSidebar);
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/layout/unsaved-changes-warning.js
 /**
  * WordPress dependencies
@@ -4594,9 +4641,13 @@ function UnsavedChangesWarning() {
 
 
 
+
+
 /**
  * Internal dependencies
  */
+
+
 
 
 
@@ -4616,7 +4667,8 @@ const interfaceLabels = {
   body: (0,external_wp_i18n_namespaceObject.__)('Navigation menu blocks'),
 
   /* translators: accessibility text for the navigation screen settings landmark region. */
-  sidebar: (0,external_wp_i18n_namespaceObject.__)('Navigation settings')
+  sidebar: (0,external_wp_i18n_namespaceObject.__)('Navigation settings'),
+  secondarySidebar: (0,external_wp_i18n_namespaceObject.__)('Block library')
 };
 function Layout({
   blockEditorSettings
@@ -4640,11 +4692,15 @@ function Layout({
     deleteMenu,
     isMenuSelected
   } = useNavigationEditor();
-  const [blocks, onInput, onChange] = useNavigationBlockEditor(navigationPost);
+  const [blocks, onInput, onChange] = (0,external_wp_coreData_namespaceObject.useEntityBlockEditor)(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, {
+    id: navigationPost === null || navigationPost === void 0 ? void 0 : navigationPost.id
+  });
   const {
-    hasSidebarEnabled
+    hasSidebarEnabled,
+    isInserterOpened
   } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
-    hasSidebarEnabled: !!select(store_store).getActiveComplementaryArea('core/edit-navigation')
+    hasSidebarEnabled: !!select(store_store).getActiveComplementaryArea('core/edit-navigation'),
+    isInserterOpened: select(store).isInserterOpened()
   }), []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!selectedMenuId && menus !== null && menus !== void 0 && menus.length) {
@@ -4654,12 +4710,12 @@ function Layout({
   useMenuNotifications(selectedMenuId);
   const hasMenus = !!(menus !== null && menus !== void 0 && menus.length);
   const isBlockEditorReady = !!(hasMenus && navigationPost && isMenuSelected);
-  return (0,external_wp_element_namespaceObject.createElement)(error_boundary, null, (0,external_wp_element_namespaceObject.createElement)("div", {
+  return (0,external_wp_element_namespaceObject.createElement)(error_boundary, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_keyboardShortcuts_namespaceObject.ShortcutProvider, null, (0,external_wp_element_namespaceObject.createElement)("div", {
     hidden: !isMenuBeingDeleted,
     className: 'edit-navigation-layout__overlay'
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SlotFillProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorKeyboardShortcuts.Register, null), (0,external_wp_element_namespaceObject.createElement)(shortcuts.Register, null), (0,external_wp_element_namespaceObject.createElement)(shortcuts, {
     saveBlocks: savePost
-  }), (0,external_wp_element_namespaceObject.createElement)(EditNavigationNotices, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorProvider, {
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorProvider, {
     value: blocks,
     onInput: onInput,
     onChange: onChange,
@@ -4676,11 +4732,9 @@ function Layout({
       isMenuSelected: isMenuSelected,
       isPending: !hasLoadedMenus,
       menus: menus,
-      selectedMenuId: selectedMenuId,
-      onSelectMenu: selectMenu,
       navigationPost: navigationPost
     }),
-    content: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, !hasFinishedInitialLoad && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), !isMenuSelected && hasFinishedInitialLoad && (0,external_wp_element_namespaceObject.createElement)(UnselectedMenuState, {
+    content: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(EditNavigationNotices, null), !hasFinishedInitialLoad && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), !isMenuSelected && hasFinishedInitialLoad && (0,external_wp_element_namespaceObject.createElement)(UnselectedMenuState, {
       onSelectMenu: selectMenu,
       onCreate: selectMenu,
       menus: menus
@@ -4688,19 +4742,19 @@ function Layout({
       className: "edit-navigation-layout__content-area",
       ref: contentAreaRef
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockTools, null, (0,external_wp_element_namespaceObject.createElement)(Editor, {
-      isPending: !hasLoadedMenus,
-      blocks: blocks
+      isPending: !hasLoadedMenus
     })))),
     sidebar: hasSidebarEnabled && (0,external_wp_element_namespaceObject.createElement)(complementary_area.Slot, {
       scope: "core/edit-navigation"
-    })
+    }),
+    secondarySidebar: isInserterOpened && (0,external_wp_element_namespaceObject.createElement)(inserter_sidebar, null)
   }), isMenuSelected && (0,external_wp_element_namespaceObject.createElement)(Sidebar, {
     menus: menus,
     menuId: selectedMenuId,
     onSelectMenu: selectMenu,
     onDeleteMenu: deleteMenu,
     isMenuBeingDeleted: isMenuBeingDeleted
-  })), (0,external_wp_element_namespaceObject.createElement)(UnsavedChangesWarning, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null)));
+  })), (0,external_wp_element_namespaceObject.createElement)(UnsavedChangesWarning, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null))));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/index.js
@@ -4712,9 +4766,6 @@ function Layout({
 
 
 
-/**
- * Internal dependencies
- */
 
 
 /**
@@ -4723,18 +4774,74 @@ function Layout({
 
 
 
-function initialize(id, settings) {
+
+
+
+function NavEditor({
+  settings
+}) {
+  const {
+    setIsInserterOpened
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store); // Allows the QuickInserter to toggle the sidebar inserter.
+  // This is marked as experimental to give time for the quick inserter to mature.
+
+  const __experimentalSetIsInserterOpened = setIsInserterOpened; // Provide link suggestions handler to fetch search results for Link UI.
+
+  const __experimentalFetchLinkSuggestions = (search, searchOptions) => {
+    // Bump the default number of suggestions.
+    // See https://github.com/WordPress/gutenberg/issues/34283.
+    searchOptions.perPage = 10;
+    return (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings);
+  };
+
+  const editorSettings = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return { ...settings,
+      __experimentalFetchLinkSuggestions,
+      __experimentalSetIsInserterOpened
+    };
+  }, [settings, __experimentalFetchLinkSuggestions, __experimentalSetIsInserterOpened]);
+  return (0,external_wp_element_namespaceObject.createElement)(Layout, {
+    blockEditorSettings: editorSettings
+  });
+}
+/**
+ * Setup and registration of editor.
+ *
+ * @param {Object} settings blockEditor settings.
+ */
+
+
+function setUpEditor(settings) {
   addFilters(!settings.blockNavMenus);
-  (0,external_wp_blockLibrary_namespaceObject.registerCoreBlocks)();
+  (0,external_wp_blockLibrary_namespaceObject.registerCoreBlocks)(); // Set up the navigation post entity.
+
+  (0,external_wp_data_namespaceObject.dispatch)(external_wp_coreData_namespaceObject.store).addEntities([{
+    kind: NAVIGATION_POST_KIND,
+    name: NAVIGATION_POST_POST_TYPE,
+    transientEdits: {
+      blocks: true,
+      selection: true
+    },
+    label: (0,external_wp_i18n_namespaceObject.__)('Navigation Post'),
+    __experimentalNoFetch: true
+  }]);
 
   if (true) {
     (0,external_wp_blockLibrary_namespaceObject.__experimentalRegisterExperimentalCoreBlocks)();
   }
+}
+/**
+ * Initalise and render editor into DOM.
+ *
+ * @param {string} id       ID of HTML element into which the editor will be rendered.
+ * @param {Object} settings blockEditor settings.
+ */
 
-  settings.__experimentalFetchLinkSuggestions = (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings);
 
-  (0,external_wp_element_namespaceObject.render)((0,external_wp_element_namespaceObject.createElement)(Layout, {
-    blockEditorSettings: settings
+function initialize(id, settings) {
+  setUpEditor(settings);
+  (0,external_wp_element_namespaceObject.render)((0,external_wp_element_namespaceObject.createElement)(NavEditor, {
+    settings: settings
   }), document.getElementById(id));
 }
 //# sourceMappingURL=index.js.map

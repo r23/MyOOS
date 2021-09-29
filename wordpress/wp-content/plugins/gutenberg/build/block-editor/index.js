@@ -1,106 +1,6 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 1506:
-/***/ (function(module) {
-
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
-
-  return self;
-}
-
-module.exports = _assertThisInitialized;
-module.exports.default = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ 7154:
-/***/ (function(module) {
-
-function _extends() {
-  module.exports = _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  module.exports.default = module.exports, module.exports.__esModule = true;
-  return _extends.apply(this, arguments);
-}
-
-module.exports = _extends;
-module.exports.default = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ 5354:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var setPrototypeOf = __webpack_require__(9489);
-
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  setPrototypeOf(subClass, superClass);
-}
-
-module.exports = _inheritsLoose;
-module.exports.default = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ 7316:
-/***/ (function(module) {
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-module.exports = _objectWithoutPropertiesLoose;
-module.exports.default = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
-/***/ 9489:
-/***/ (function(module) {
-
-function _setPrototypeOf(o, p) {
-  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  module.exports.default = module.exports, module.exports.__esModule = true;
-  return _setPrototypeOf(o, p);
-}
-
-module.exports = _setPrototypeOf;
-module.exports.default = module.exports, module.exports.__esModule = true;
-
-/***/ }),
-
 /***/ 9367:
 /***/ (function(module, exports) {
 
@@ -1835,2324 +1735,6 @@ exports.Z = TextareaAutosize_1.TextareaAutosize;
 
 /***/ }),
 
-/***/ 8088:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-__webpack_unused_export__ = ({ value: true });
-
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var _extends = _interopDefault(__webpack_require__(7154));
-var _objectWithoutPropertiesLoose = _interopDefault(__webpack_require__(7316));
-var React = __webpack_require__(3804);
-var React__default = _interopDefault(React);
-var _inheritsLoose = _interopDefault(__webpack_require__(5354));
-var _assertThisInitialized = _interopDefault(__webpack_require__(1506));
-
-var is = {
-  arr: Array.isArray,
-  obj: function obj(a) {
-    return Object.prototype.toString.call(a) === '[object Object]';
-  },
-  fun: function fun(a) {
-    return typeof a === 'function';
-  },
-  str: function str(a) {
-    return typeof a === 'string';
-  },
-  num: function num(a) {
-    return typeof a === 'number';
-  },
-  und: function und(a) {
-    return a === void 0;
-  },
-  nul: function nul(a) {
-    return a === null;
-  },
-  set: function set(a) {
-    return a instanceof Set;
-  },
-  map: function map(a) {
-    return a instanceof Map;
-  },
-  equ: function equ(a, b) {
-    if (typeof a !== typeof b) return false;
-    if (is.str(a) || is.num(a)) return a === b;
-    if (is.obj(a) && is.obj(b) && Object.keys(a).length + Object.keys(b).length === 0) return true;
-    var i;
-
-    for (i in a) {
-      if (!(i in b)) return false;
-    }
-
-    for (i in b) {
-      if (a[i] !== b[i]) return false;
-    }
-
-    return is.und(i) ? a === b : true;
-  }
-};
-function merge(target, lowercase) {
-  if (lowercase === void 0) {
-    lowercase = true;
-  }
-
-  return function (object) {
-    return (is.arr(object) ? object : Object.keys(object)).reduce(function (acc, element) {
-      var key = lowercase ? element[0].toLowerCase() + element.substring(1) : element;
-      acc[key] = target(key);
-      return acc;
-    }, target);
-  };
-}
-function useForceUpdate() {
-  var _useState = React.useState(false),
-      f = _useState[1];
-
-  var forceUpdate = React.useCallback(function () {
-    return f(function (v) {
-      return !v;
-    });
-  }, []);
-  return forceUpdate;
-}
-function withDefault(value, defaultValue) {
-  return is.und(value) || is.nul(value) ? defaultValue : value;
-}
-function toArray(a) {
-  return !is.und(a) ? is.arr(a) ? a : [a] : [];
-}
-function callProp(obj) {
-  for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    args[_key - 1] = arguments[_key];
-  }
-
-  return is.fun(obj) ? obj.apply(void 0, args) : obj;
-}
-
-function getForwardProps(props) {
-  var to = props.to,
-      from = props.from,
-      config = props.config,
-      onStart = props.onStart,
-      onRest = props.onRest,
-      onFrame = props.onFrame,
-      children = props.children,
-      reset = props.reset,
-      reverse = props.reverse,
-      force = props.force,
-      immediate = props.immediate,
-      delay = props.delay,
-      attach = props.attach,
-      destroyed = props.destroyed,
-      interpolateTo = props.interpolateTo,
-      ref = props.ref,
-      lazy = props.lazy,
-      forward = _objectWithoutPropertiesLoose(props, ["to", "from", "config", "onStart", "onRest", "onFrame", "children", "reset", "reverse", "force", "immediate", "delay", "attach", "destroyed", "interpolateTo", "ref", "lazy"]);
-
-  return forward;
-}
-
-function interpolateTo(props) {
-  var forward = getForwardProps(props);
-  if (is.und(forward)) return _extends({
-    to: forward
-  }, props);
-  var rest = Object.keys(props).reduce(function (a, k) {
-    var _extends2;
-
-    return !is.und(forward[k]) ? a : _extends({}, a, (_extends2 = {}, _extends2[k] = props[k], _extends2));
-  }, {});
-  return _extends({
-    to: forward
-  }, rest);
-}
-function handleRef(ref, forward) {
-  if (forward) {
-    // If it's a function, assume it's a ref callback
-    if (is.fun(forward)) forward(ref);else if (is.obj(forward)) {
-      forward.current = ref;
-    }
-  }
-
-  return ref;
-}
-
-var Animated =
-/*#__PURE__*/
-function () {
-  function Animated() {
-    this.payload = void 0;
-    this.children = [];
-  }
-
-  var _proto = Animated.prototype;
-
-  _proto.getAnimatedValue = function getAnimatedValue() {
-    return this.getValue();
-  };
-
-  _proto.getPayload = function getPayload() {
-    return this.payload || this;
-  };
-
-  _proto.attach = function attach() {};
-
-  _proto.detach = function detach() {};
-
-  _proto.getChildren = function getChildren() {
-    return this.children;
-  };
-
-  _proto.addChild = function addChild(child) {
-    if (this.children.length === 0) this.attach();
-    this.children.push(child);
-  };
-
-  _proto.removeChild = function removeChild(child) {
-    var index = this.children.indexOf(child);
-    this.children.splice(index, 1);
-    if (this.children.length === 0) this.detach();
-  };
-
-  return Animated;
-}();
-var AnimatedArray =
-/*#__PURE__*/
-function (_Animated) {
-  _inheritsLoose(AnimatedArray, _Animated);
-
-  function AnimatedArray() {
-    var _this;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _Animated.call.apply(_Animated, [this].concat(args)) || this;
-    _this.payload = [];
-
-    _this.attach = function () {
-      return _this.payload.forEach(function (p) {
-        return p instanceof Animated && p.addChild(_assertThisInitialized(_this));
-      });
-    };
-
-    _this.detach = function () {
-      return _this.payload.forEach(function (p) {
-        return p instanceof Animated && p.removeChild(_assertThisInitialized(_this));
-      });
-    };
-
-    return _this;
-  }
-
-  return AnimatedArray;
-}(Animated);
-var AnimatedObject =
-/*#__PURE__*/
-function (_Animated2) {
-  _inheritsLoose(AnimatedObject, _Animated2);
-
-  function AnimatedObject() {
-    var _this2;
-
-    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-      args[_key3] = arguments[_key3];
-    }
-
-    _this2 = _Animated2.call.apply(_Animated2, [this].concat(args)) || this;
-    _this2.payload = {};
-
-    _this2.attach = function () {
-      return Object.values(_this2.payload).forEach(function (s) {
-        return s instanceof Animated && s.addChild(_assertThisInitialized(_this2));
-      });
-    };
-
-    _this2.detach = function () {
-      return Object.values(_this2.payload).forEach(function (s) {
-        return s instanceof Animated && s.removeChild(_assertThisInitialized(_this2));
-      });
-    };
-
-    return _this2;
-  }
-
-  var _proto2 = AnimatedObject.prototype;
-
-  _proto2.getValue = function getValue(animated) {
-    if (animated === void 0) {
-      animated = false;
-    }
-
-    var payload = {};
-
-    for (var _key4 in this.payload) {
-      var value = this.payload[_key4];
-      if (animated && !(value instanceof Animated)) continue;
-      payload[_key4] = value instanceof Animated ? value[animated ? 'getAnimatedValue' : 'getValue']() : value;
-    }
-
-    return payload;
-  };
-
-  _proto2.getAnimatedValue = function getAnimatedValue() {
-    return this.getValue(true);
-  };
-
-  return AnimatedObject;
-}(Animated);
-
-var applyAnimatedValues;
-function injectApplyAnimatedValues(fn, transform) {
-  applyAnimatedValues = {
-    fn: fn,
-    transform: transform
-  };
-}
-var colorNames;
-function injectColorNames(names) {
-  colorNames = names;
-}
-var requestFrame = function requestFrame(cb) {
-  return typeof window !== 'undefined' ? window.requestAnimationFrame(cb) : -1;
-};
-var cancelFrame = function cancelFrame(id) {
-  typeof window !== 'undefined' && window.cancelAnimationFrame(id);
-};
-function injectFrame(raf, caf) {
-  requestFrame = raf;
-  cancelFrame = caf;
-}
-var interpolation;
-function injectStringInterpolator(fn) {
-  interpolation = fn;
-}
-var now = function now() {
-  return Date.now();
-};
-function injectNow(nowFn) {
-  now = nowFn;
-}
-var defaultElement;
-function injectDefaultElement(el) {
-  defaultElement = el;
-}
-var animatedApi = function animatedApi(node) {
-  return node.current;
-};
-function injectAnimatedApi(fn) {
-  animatedApi = fn;
-}
-var createAnimatedStyle;
-function injectCreateAnimatedStyle(factory) {
-  createAnimatedStyle = factory;
-}
-var manualFrameloop;
-function injectManualFrameloop(callback) {
-  manualFrameloop = callback;
-}
-
-var Globals = /*#__PURE__*/Object.freeze({
-  get applyAnimatedValues () { return applyAnimatedValues; },
-  injectApplyAnimatedValues: injectApplyAnimatedValues,
-  get colorNames () { return colorNames; },
-  injectColorNames: injectColorNames,
-  get requestFrame () { return requestFrame; },
-  get cancelFrame () { return cancelFrame; },
-  injectFrame: injectFrame,
-  get interpolation () { return interpolation; },
-  injectStringInterpolator: injectStringInterpolator,
-  get now () { return now; },
-  injectNow: injectNow,
-  get defaultElement () { return defaultElement; },
-  injectDefaultElement: injectDefaultElement,
-  get animatedApi () { return animatedApi; },
-  injectAnimatedApi: injectAnimatedApi,
-  get createAnimatedStyle () { return createAnimatedStyle; },
-  injectCreateAnimatedStyle: injectCreateAnimatedStyle,
-  get manualFrameloop () { return manualFrameloop; },
-  injectManualFrameloop: injectManualFrameloop
-});
-
-/**
- * Wraps the `style` property with `AnimatedStyle`.
- */
-
-var AnimatedProps =
-/*#__PURE__*/
-function (_AnimatedObject) {
-  _inheritsLoose(AnimatedProps, _AnimatedObject);
-
-  function AnimatedProps(props, callback) {
-    var _this;
-
-    _this = _AnimatedObject.call(this) || this;
-    _this.update = void 0;
-    _this.payload = !props.style ? props : _extends({}, props, {
-      style: createAnimatedStyle(props.style)
-    });
-    _this.update = callback;
-
-    _this.attach();
-
-    return _this;
-  }
-
-  return AnimatedProps;
-}(AnimatedObject);
-
-var createAnimatedComponent = function createAnimatedComponent(Component) {
-  var AnimatedComponent = React.forwardRef(function (props, _ref) {
-    var forceUpdate = useForceUpdate();
-    var mounted = React.useRef(true);
-    var propsAnimated = React.useRef(null);
-    var node = React.useRef(null);
-    var attachProps = React.useCallback(function (props) {
-      var oldPropsAnimated = propsAnimated.current;
-
-      var callback = function callback() {
-        if (node.current) {
-          var didUpdate = applyAnimatedValues.fn(node.current, propsAnimated.current.getAnimatedValue());
-          if (didUpdate === false) forceUpdate();
-        }
-      };
-
-      propsAnimated.current = new AnimatedProps(props, callback);
-      oldPropsAnimated && oldPropsAnimated.detach();
-    }, []);
-    React.useEffect(function () {
-      return function () {
-        mounted.current = false;
-        propsAnimated.current && propsAnimated.current.detach();
-      };
-    }, []);
-    React.useImperativeHandle(_ref, function () {
-      return animatedApi(node, mounted, forceUpdate);
-    });
-    attachProps(props);
-
-    var _getValue = propsAnimated.current.getValue(),
-        scrollTop = _getValue.scrollTop,
-        scrollLeft = _getValue.scrollLeft,
-        animatedProps = _objectWithoutPropertiesLoose(_getValue, ["scrollTop", "scrollLeft"]);
-
-    return React__default.createElement(Component, _extends({}, animatedProps, {
-      ref: function ref(childRef) {
-        return node.current = handleRef(childRef, _ref);
-      }
-    }));
-  });
-  return AnimatedComponent;
-};
-
-var active = false;
-var controllers = new Set();
-
-var update = function update() {
-  if (!active) return false;
-  var time = now();
-
-  for (var _iterator = controllers, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-    var _ref;
-
-    if (_isArray) {
-      if (_i >= _iterator.length) break;
-      _ref = _iterator[_i++];
-    } else {
-      _i = _iterator.next();
-      if (_i.done) break;
-      _ref = _i.value;
-    }
-
-    var controller = _ref;
-    var isActive = false;
-
-    for (var configIdx = 0; configIdx < controller.configs.length; configIdx++) {
-      var config = controller.configs[configIdx];
-      var endOfAnimation = void 0,
-          lastTime = void 0;
-
-      for (var valIdx = 0; valIdx < config.animatedValues.length; valIdx++) {
-        var animation = config.animatedValues[valIdx]; // If an animation is done, skip, until all of them conclude
-
-        if (animation.done) continue;
-        var from = config.fromValues[valIdx];
-        var to = config.toValues[valIdx];
-        var position = animation.lastPosition;
-        var isAnimated = to instanceof Animated;
-        var velocity = Array.isArray(config.initialVelocity) ? config.initialVelocity[valIdx] : config.initialVelocity;
-        if (isAnimated) to = to.getValue(); // Conclude animation if it's either immediate, or from-values match end-state
-
-        if (config.immediate) {
-          animation.setValue(to);
-          animation.done = true;
-          continue;
-        } // Break animation when string values are involved
-
-
-        if (typeof from === 'string' || typeof to === 'string') {
-          animation.setValue(to);
-          animation.done = true;
-          continue;
-        }
-
-        if (config.duration !== void 0) {
-          /** Duration easing */
-          position = from + config.easing((time - animation.startTime) / config.duration) * (to - from);
-          endOfAnimation = time >= animation.startTime + config.duration;
-        } else if (config.decay) {
-          /** Decay easing */
-          position = from + velocity / (1 - 0.998) * (1 - Math.exp(-(1 - 0.998) * (time - animation.startTime)));
-          endOfAnimation = Math.abs(animation.lastPosition - position) < 0.1;
-          if (endOfAnimation) to = position;
-        } else {
-          /** Spring easing */
-          lastTime = animation.lastTime !== void 0 ? animation.lastTime : time;
-          velocity = animation.lastVelocity !== void 0 ? animation.lastVelocity : config.initialVelocity; // If we lost a lot of frames just jump to the end.
-
-          if (time > lastTime + 64) lastTime = time; // http://gafferongames.com/game-physics/fix-your-timestep/
-
-          var numSteps = Math.floor(time - lastTime);
-
-          for (var i = 0; i < numSteps; ++i) {
-            var force = -config.tension * (position - to);
-            var damping = -config.friction * velocity;
-            var acceleration = (force + damping) / config.mass;
-            velocity = velocity + acceleration * 1 / 1000;
-            position = position + velocity * 1 / 1000;
-          } // Conditions for stopping the spring animation
-
-
-          var isOvershooting = config.clamp && config.tension !== 0 ? from < to ? position > to : position < to : false;
-          var isVelocity = Math.abs(velocity) <= config.precision;
-          var isDisplacement = config.tension !== 0 ? Math.abs(to - position) <= config.precision : true;
-          endOfAnimation = isOvershooting || isVelocity && isDisplacement;
-          animation.lastVelocity = velocity;
-          animation.lastTime = time;
-        } // Trails aren't done until their parents conclude
-
-
-        if (isAnimated && !config.toValues[valIdx].done) endOfAnimation = false;
-
-        if (endOfAnimation) {
-          // Ensure that we end up with a round value
-          if (animation.value !== to) position = to;
-          animation.done = true;
-        } else isActive = true;
-
-        animation.setValue(position);
-        animation.lastPosition = position;
-      } // Keep track of updated values only when necessary
-
-
-      if (controller.props.onFrame) controller.values[config.name] = config.interpolation.getValue();
-    } // Update callbacks in the end of the frame
-
-
-    if (controller.props.onFrame) controller.props.onFrame(controller.values); // Either call onEnd or next frame
-
-    if (!isActive) {
-      controllers.delete(controller);
-      controller.stop(true);
-    }
-  } // Loop over as long as there are controllers ...
-
-
-  if (controllers.size) {
-    if (manualFrameloop) manualFrameloop();else requestFrame(update);
-  } else {
-    active = false;
-  }
-
-  return active;
-};
-
-var start = function start(controller) {
-  if (!controllers.has(controller)) controllers.add(controller);
-
-  if (!active) {
-    active = true;
-    if (manualFrameloop) requestFrame(manualFrameloop);else requestFrame(update);
-  }
-};
-
-var stop = function stop(controller) {
-  if (controllers.has(controller)) controllers.delete(controller);
-};
-
-function createInterpolator(range, output, extrapolate) {
-  if (typeof range === 'function') {
-    return range;
-  }
-
-  if (Array.isArray(range)) {
-    return createInterpolator({
-      range: range,
-      output: output,
-      extrapolate: extrapolate
-    });
-  }
-
-  if (interpolation && typeof range.output[0] === 'string') {
-    return interpolation(range);
-  }
-
-  var config = range;
-  var outputRange = config.output;
-  var inputRange = config.range || [0, 1];
-  var extrapolateLeft = config.extrapolateLeft || config.extrapolate || 'extend';
-  var extrapolateRight = config.extrapolateRight || config.extrapolate || 'extend';
-
-  var easing = config.easing || function (t) {
-    return t;
-  };
-
-  return function (input) {
-    var range = findRange(input, inputRange);
-    return interpolate(input, inputRange[range], inputRange[range + 1], outputRange[range], outputRange[range + 1], easing, extrapolateLeft, extrapolateRight, config.map);
-  };
-}
-
-function interpolate(input, inputMin, inputMax, outputMin, outputMax, easing, extrapolateLeft, extrapolateRight, map) {
-  var result = map ? map(input) : input; // Extrapolate
-
-  if (result < inputMin) {
-    if (extrapolateLeft === 'identity') return result;else if (extrapolateLeft === 'clamp') result = inputMin;
-  }
-
-  if (result > inputMax) {
-    if (extrapolateRight === 'identity') return result;else if (extrapolateRight === 'clamp') result = inputMax;
-  }
-
-  if (outputMin === outputMax) return outputMin;
-  if (inputMin === inputMax) return input <= inputMin ? outputMin : outputMax; // Input Range
-
-  if (inputMin === -Infinity) result = -result;else if (inputMax === Infinity) result = result - inputMin;else result = (result - inputMin) / (inputMax - inputMin); // Easing
-
-  result = easing(result); // Output Range
-
-  if (outputMin === -Infinity) result = -result;else if (outputMax === Infinity) result = result + outputMin;else result = result * (outputMax - outputMin) + outputMin;
-  return result;
-}
-
-function findRange(input, inputRange) {
-  for (var i = 1; i < inputRange.length - 1; ++i) {
-    if (inputRange[i] >= input) break;
-  }
-
-  return i - 1;
-}
-
-var AnimatedInterpolation =
-/*#__PURE__*/
-function (_AnimatedArray) {
-  _inheritsLoose(AnimatedInterpolation, _AnimatedArray);
-
-  function AnimatedInterpolation(parents, range, output) {
-    var _this;
-
-    _this = _AnimatedArray.call(this) || this;
-    _this.calc = void 0;
-    _this.payload = parents instanceof AnimatedArray && !(parents instanceof AnimatedInterpolation) ? parents.getPayload() : Array.isArray(parents) ? parents : [parents];
-    _this.calc = createInterpolator(range, output);
-    return _this;
-  }
-
-  var _proto = AnimatedInterpolation.prototype;
-
-  _proto.getValue = function getValue() {
-    return this.calc.apply(this, this.payload.map(function (value) {
-      return value.getValue();
-    }));
-  };
-
-  _proto.updateConfig = function updateConfig(range, output) {
-    this.calc = createInterpolator(range, output);
-  };
-
-  _proto.interpolate = function interpolate(range, output) {
-    return new AnimatedInterpolation(this, range, output);
-  };
-
-  return AnimatedInterpolation;
-}(AnimatedArray);
-
-var interpolate$1 = function interpolate(parents, range, output) {
-  return parents && new AnimatedInterpolation(parents, range, output);
-};
-
-var config = {
-  default: {
-    tension: 170,
-    friction: 26
-  },
-  gentle: {
-    tension: 120,
-    friction: 14
-  },
-  wobbly: {
-    tension: 180,
-    friction: 12
-  },
-  stiff: {
-    tension: 210,
-    friction: 20
-  },
-  slow: {
-    tension: 280,
-    friction: 60
-  },
-  molasses: {
-    tension: 280,
-    friction: 120
-  }
-};
-
-/** API
- *  useChain(references, timeSteps, timeFrame)
- */
-
-function useChain(refs, timeSteps, timeFrame) {
-  if (timeFrame === void 0) {
-    timeFrame = 1000;
-  }
-
-  var previous = React.useRef();
-  React.useEffect(function () {
-    if (is.equ(refs, previous.current)) refs.forEach(function (_ref) {
-      var current = _ref.current;
-      return current && current.start();
-    });else if (timeSteps) {
-      refs.forEach(function (_ref2, index) {
-        var current = _ref2.current;
-
-        if (current) {
-          var ctrls = current.controllers;
-
-          if (ctrls.length) {
-            var t = timeFrame * timeSteps[index];
-            ctrls.forEach(function (ctrl) {
-              ctrl.queue = ctrl.queue.map(function (e) {
-                return _extends({}, e, {
-                  delay: e.delay + t
-                });
-              });
-              ctrl.start();
-            });
-          }
-        }
-      });
-    } else refs.reduce(function (q, _ref3, rI) {
-      var current = _ref3.current;
-      return q = q.then(function () {
-        return current.start();
-      });
-    }, Promise.resolve());
-    previous.current = refs;
-  });
-}
-
-/**
- * Animated works by building a directed acyclic graph of dependencies
- * transparently when you render your Animated components.
- *
- *               new Animated.Value(0)
- *     .interpolate()        .interpolate()    new Animated.Value(1)
- *         opacity               translateY      scale
- *          style                         transform
- *         View#234                         style
- *                                         View#123
- *
- * A) Top Down phase
- * When an AnimatedValue is updated, we recursively go down through this
- * graph in order to find leaf nodes: the views that we flag as needing
- * an update.
- *
- * B) Bottom Up phase
- * When a view is flagged as needing an update, we recursively go back up
- * in order to build the new value that it needs. The reason why we need
- * this two-phases process is to deal with composite props such as
- * transform which can receive values from multiple parents.
- */
-function addAnimatedStyles(node, styles) {
-  if ('update' in node) {
-    styles.add(node);
-  } else {
-    node.getChildren().forEach(function (child) {
-      return addAnimatedStyles(child, styles);
-    });
-  }
-}
-
-var AnimatedValue =
-/*#__PURE__*/
-function (_Animated) {
-  _inheritsLoose(AnimatedValue, _Animated);
-
-  function AnimatedValue(_value) {
-    var _this;
-
-    _this = _Animated.call(this) || this;
-    _this.animatedStyles = new Set();
-    _this.value = void 0;
-    _this.startPosition = void 0;
-    _this.lastPosition = void 0;
-    _this.lastVelocity = void 0;
-    _this.startTime = void 0;
-    _this.lastTime = void 0;
-    _this.done = false;
-
-    _this.setValue = function (value, flush) {
-      if (flush === void 0) {
-        flush = true;
-      }
-
-      _this.value = value;
-      if (flush) _this.flush();
-    };
-
-    _this.value = _value;
-    _this.startPosition = _value;
-    _this.lastPosition = _value;
-    return _this;
-  }
-
-  var _proto = AnimatedValue.prototype;
-
-  _proto.flush = function flush() {
-    if (this.animatedStyles.size === 0) {
-      addAnimatedStyles(this, this.animatedStyles);
-    }
-
-    this.animatedStyles.forEach(function (animatedStyle) {
-      return animatedStyle.update();
-    });
-  };
-
-  _proto.clearStyles = function clearStyles() {
-    this.animatedStyles.clear();
-  };
-
-  _proto.getValue = function getValue() {
-    return this.value;
-  };
-
-  _proto.interpolate = function interpolate(range, output) {
-    return new AnimatedInterpolation(this, range, output);
-  };
-
-  return AnimatedValue;
-}(Animated);
-
-var AnimatedValueArray =
-/*#__PURE__*/
-function (_AnimatedArray) {
-  _inheritsLoose(AnimatedValueArray, _AnimatedArray);
-
-  function AnimatedValueArray(values) {
-    var _this;
-
-    _this = _AnimatedArray.call(this) || this;
-    _this.payload = values.map(function (n) {
-      return new AnimatedValue(n);
-    });
-    return _this;
-  }
-
-  var _proto = AnimatedValueArray.prototype;
-
-  _proto.setValue = function setValue(value, flush) {
-    var _this2 = this;
-
-    if (flush === void 0) {
-      flush = true;
-    }
-
-    if (Array.isArray(value)) {
-      if (value.length === this.payload.length) {
-        value.forEach(function (v, i) {
-          return _this2.payload[i].setValue(v, flush);
-        });
-      }
-    } else {
-      this.payload.forEach(function (p) {
-        return p.setValue(value, flush);
-      });
-    }
-  };
-
-  _proto.getValue = function getValue() {
-    return this.payload.map(function (v) {
-      return v.getValue();
-    });
-  };
-
-  _proto.interpolate = function interpolate(range, output) {
-    return new AnimatedInterpolation(this, range, output);
-  };
-
-  return AnimatedValueArray;
-}(AnimatedArray);
-
-var G = 0;
-
-var Controller =
-/*#__PURE__*/
-function () {
-  function Controller() {
-    var _this = this;
-
-    this.id = void 0;
-    this.idle = true;
-    this.hasChanged = false;
-    this.guid = 0;
-    this.local = 0;
-    this.props = {};
-    this.merged = {};
-    this.animations = {};
-    this.interpolations = {};
-    this.values = {};
-    this.configs = [];
-    this.listeners = [];
-    this.queue = [];
-    this.localQueue = void 0;
-
-    this.getValues = function () {
-      return _this.interpolations;
-    };
-
-    this.id = G++;
-  }
-  /** update(props)
-   *  This function filters input props and creates an array of tasks which are executed in .start()
-   *  Each task is allowed to carry a delay, which means it can execute asnychroneously */
-
-
-  var _proto = Controller.prototype;
-
-  _proto.update = function update$$1(args) {
-    //this._id = n + this.id
-    if (!args) return this; // Extract delay and the to-prop from props
-
-    var _ref = interpolateTo(args),
-        _ref$delay = _ref.delay,
-        delay = _ref$delay === void 0 ? 0 : _ref$delay,
-        to = _ref.to,
-        props = _objectWithoutPropertiesLoose(_ref, ["delay", "to"]);
-
-    if (is.arr(to) || is.fun(to)) {
-      // If config is either a function or an array queue it up as is
-      this.queue.push(_extends({}, props, {
-        delay: delay,
-        to: to
-      }));
-    } else if (to) {
-      // Otherwise go through each key since it could be delayed individually
-      var ops = {};
-      Object.entries(to).forEach(function (_ref2) {
-        var _to;
-
-        var k = _ref2[0],
-            v = _ref2[1];
-
-        // Fetch delay and create an entry, consisting of the to-props, the delay, and basic props
-        var entry = _extends({
-          to: (_to = {}, _to[k] = v, _to),
-          delay: callProp(delay, k)
-        }, props);
-
-        var previous = ops[entry.delay] && ops[entry.delay].to;
-        ops[entry.delay] = _extends({}, ops[entry.delay], entry, {
-          to: _extends({}, previous, entry.to)
-        });
-      });
-      this.queue = Object.values(ops);
-    } // Sort queue, so that async calls go last
-
-
-    this.queue = this.queue.sort(function (a, b) {
-      return a.delay - b.delay;
-    }); // Diff the reduced props immediately (they'll contain the from-prop and some config)
-
-    this.diff(props);
-    return this;
-  }
-  /** start(onEnd)
-   *  This function either executes a queue, if present, or starts the frameloop, which animates */
-  ;
-
-  _proto.start = function start$$1(onEnd) {
-    var _this2 = this;
-
-    // If a queue is present we must excecute it
-    if (this.queue.length) {
-      this.idle = false; // Updates can interrupt trailing queues, in that case we just merge values
-
-      if (this.localQueue) {
-        this.localQueue.forEach(function (_ref3) {
-          var _ref3$from = _ref3.from,
-              from = _ref3$from === void 0 ? {} : _ref3$from,
-              _ref3$to = _ref3.to,
-              to = _ref3$to === void 0 ? {} : _ref3$to;
-          if (is.obj(from)) _this2.merged = _extends({}, from, _this2.merged);
-          if (is.obj(to)) _this2.merged = _extends({}, _this2.merged, to);
-        });
-      } // The guid helps us tracking frames, a new queue over an old one means an override
-      // We discard async calls in that caseÍ
-
-
-      var local = this.local = ++this.guid;
-      var queue = this.localQueue = this.queue;
-      this.queue = []; // Go through each entry and execute it
-
-      queue.forEach(function (_ref4, index) {
-        var delay = _ref4.delay,
-            props = _objectWithoutPropertiesLoose(_ref4, ["delay"]);
-
-        var cb = function cb(finished) {
-          if (index === queue.length - 1 && local === _this2.guid && finished) {
-            _this2.idle = true;
-            if (_this2.props.onRest) _this2.props.onRest(_this2.merged);
-          }
-
-          if (onEnd) onEnd();
-        }; // Entries can be delayed, ansyc or immediate
-
-
-        var async = is.arr(props.to) || is.fun(props.to);
-
-        if (delay) {
-          setTimeout(function () {
-            if (local === _this2.guid) {
-              if (async) _this2.runAsync(props, cb);else _this2.diff(props).start(cb);
-            }
-          }, delay);
-        } else if (async) _this2.runAsync(props, cb);else _this2.diff(props).start(cb);
-      });
-    } // Otherwise we kick of the frameloop
-    else {
-        if (is.fun(onEnd)) this.listeners.push(onEnd);
-        if (this.props.onStart) this.props.onStart();
-
-        start(this);
-      }
-
-    return this;
-  };
-
-  _proto.stop = function stop$$1(finished) {
-    this.listeners.forEach(function (onEnd) {
-      return onEnd(finished);
-    });
-    this.listeners = [];
-    return this;
-  }
-  /** Pause sets onEnd listeners free, but also removes the controller from the frameloop */
-  ;
-
-  _proto.pause = function pause(finished) {
-    this.stop(true);
-    if (finished) stop(this);
-    return this;
-  };
-
-  _proto.runAsync = function runAsync(_ref5, onEnd) {
-    var _this3 = this;
-
-    var delay = _ref5.delay,
-        props = _objectWithoutPropertiesLoose(_ref5, ["delay"]);
-
-    var local = this.local; // If "to" is either a function or an array it will be processed async, therefor "to" should be empty right now
-    // If the view relies on certain values "from" has to be present
-
-    var queue = Promise.resolve(undefined);
-
-    if (is.arr(props.to)) {
-      var _loop = function _loop(i) {
-        var index = i;
-
-        var fresh = _extends({}, props, interpolateTo(props.to[index]));
-
-        if (is.arr(fresh.config)) fresh.config = fresh.config[index];
-        queue = queue.then(function () {
-          //this.stop()
-          if (local === _this3.guid) return new Promise(function (r) {
-            return _this3.diff(fresh).start(r);
-          });
-        });
-      };
-
-      for (var i = 0; i < props.to.length; i++) {
-        _loop(i);
-      }
-    } else if (is.fun(props.to)) {
-      var index = 0;
-      var last;
-      queue = queue.then(function () {
-        return props.to( // next(props)
-        function (p) {
-          var fresh = _extends({}, props, interpolateTo(p));
-
-          if (is.arr(fresh.config)) fresh.config = fresh.config[index];
-          index++; //this.stop()
-
-          if (local === _this3.guid) return last = new Promise(function (r) {
-            return _this3.diff(fresh).start(r);
-          });
-          return;
-        }, // cancel()
-        function (finished) {
-          if (finished === void 0) {
-            finished = true;
-          }
-
-          return _this3.stop(finished);
-        }).then(function () {
-          return last;
-        });
-      });
-    }
-
-    queue.then(onEnd);
-  };
-
-  _proto.diff = function diff(props) {
-    var _this4 = this;
-
-    this.props = _extends({}, this.props, props);
-    var _this$props = this.props,
-        _this$props$from = _this$props.from,
-        from = _this$props$from === void 0 ? {} : _this$props$from,
-        _this$props$to = _this$props.to,
-        to = _this$props$to === void 0 ? {} : _this$props$to,
-        _this$props$config = _this$props.config,
-        config = _this$props$config === void 0 ? {} : _this$props$config,
-        reverse = _this$props.reverse,
-        attach = _this$props.attach,
-        reset = _this$props.reset,
-        immediate = _this$props.immediate; // Reverse values when requested
-
-    if (reverse) {
-      var _ref6 = [to, from];
-      from = _ref6[0];
-      to = _ref6[1];
-    } // This will collect all props that were ever set, reset merged props when necessary
-
-
-    this.merged = _extends({}, from, this.merged, to);
-    this.hasChanged = false; // Attachment handling, trailed springs can "attach" themselves to a previous spring
-
-    var target = attach && attach(this); // Reduces input { name: value } pairs into animated values
-
-    this.animations = Object.entries(this.merged).reduce(function (acc, _ref7) {
-      var name = _ref7[0],
-          value = _ref7[1];
-      // Issue cached entries, except on reset
-      var entry = acc[name] || {}; // Figure out what the value is supposed to be
-
-      var isNumber = is.num(value);
-      var isString = is.str(value) && !value.startsWith('#') && !/\d/.test(value) && !colorNames[value];
-      var isArray = is.arr(value);
-      var isInterpolation = !isNumber && !isArray && !isString;
-      var fromValue = !is.und(from[name]) ? from[name] : value;
-      var toValue = isNumber || isArray ? value : isString ? value : 1;
-      var toConfig = callProp(config, name);
-      if (target) toValue = target.animations[name].parent;
-      var parent = entry.parent,
-          interpolation$$1 = entry.interpolation,
-          toValues = toArray(target ? toValue.getPayload() : toValue),
-          animatedValues;
-      var newValue = value;
-      if (isInterpolation) newValue = interpolation({
-        range: [0, 1],
-        output: [value, value]
-      })(1);
-      var currentValue = interpolation$$1 && interpolation$$1.getValue(); // Change detection flags
-
-      var isFirst = is.und(parent);
-      var isActive = !isFirst && entry.animatedValues.some(function (v) {
-        return !v.done;
-      });
-      var currentValueDiffersFromGoal = !is.equ(newValue, currentValue);
-      var hasNewGoal = !is.equ(newValue, entry.previous);
-      var hasNewConfig = !is.equ(toConfig, entry.config); // Change animation props when props indicate a new goal (new value differs from previous one)
-      // and current values differ from it. Config changes trigger a new update as well (though probably shouldn't?)
-
-      if (reset || hasNewGoal && currentValueDiffersFromGoal || hasNewConfig) {
-        var _extends2;
-
-        // Convert regular values into animated values, ALWAYS re-use if possible
-        if (isNumber || isString) parent = interpolation$$1 = entry.parent || new AnimatedValue(fromValue);else if (isArray) parent = interpolation$$1 = entry.parent || new AnimatedValueArray(fromValue);else if (isInterpolation) {
-          var prev = entry.interpolation && entry.interpolation.calc(entry.parent.value);
-          prev = prev !== void 0 && !reset ? prev : fromValue;
-
-          if (entry.parent) {
-            parent = entry.parent;
-            parent.setValue(0, false);
-          } else parent = new AnimatedValue(0);
-
-          var range = {
-            output: [prev, value]
-          };
-
-          if (entry.interpolation) {
-            interpolation$$1 = entry.interpolation;
-            entry.interpolation.updateConfig(range);
-          } else interpolation$$1 = parent.interpolate(range);
-        }
-        toValues = toArray(target ? toValue.getPayload() : toValue);
-        animatedValues = toArray(parent.getPayload());
-        if (reset && !isInterpolation) parent.setValue(fromValue, false);
-        _this4.hasChanged = true; // Reset animated values
-
-        animatedValues.forEach(function (value) {
-          value.startPosition = value.value;
-          value.lastPosition = value.value;
-          value.lastVelocity = isActive ? value.lastVelocity : undefined;
-          value.lastTime = isActive ? value.lastTime : undefined;
-          value.startTime = now();
-          value.done = false;
-          value.animatedStyles.clear();
-        }); // Set immediate values
-
-        if (callProp(immediate, name)) {
-          parent.setValue(isInterpolation ? toValue : value, false);
-        }
-
-        return _extends({}, acc, (_extends2 = {}, _extends2[name] = _extends({}, entry, {
-          name: name,
-          parent: parent,
-          interpolation: interpolation$$1,
-          animatedValues: animatedValues,
-          toValues: toValues,
-          previous: newValue,
-          config: toConfig,
-          fromValues: toArray(parent.getValue()),
-          immediate: callProp(immediate, name),
-          initialVelocity: withDefault(toConfig.velocity, 0),
-          clamp: withDefault(toConfig.clamp, false),
-          precision: withDefault(toConfig.precision, 0.01),
-          tension: withDefault(toConfig.tension, 170),
-          friction: withDefault(toConfig.friction, 26),
-          mass: withDefault(toConfig.mass, 1),
-          duration: toConfig.duration,
-          easing: withDefault(toConfig.easing, function (t) {
-            return t;
-          }),
-          decay: toConfig.decay
-        }), _extends2));
-      } else {
-        if (!currentValueDiffersFromGoal) {
-          var _extends3;
-
-          // So ... the current target value (newValue) appears to be different from the previous value,
-          // which normally constitutes an update, but the actual value (currentValue) matches the target!
-          // In order to resolve this without causing an animation update we silently flag the animation as done,
-          // which it technically is. Interpolations also needs a config update with their target set to 1.
-          if (isInterpolation) {
-            parent.setValue(1, false);
-            interpolation$$1.updateConfig({
-              output: [newValue, newValue]
-            });
-          }
-
-          parent.done = true;
-          _this4.hasChanged = true;
-          return _extends({}, acc, (_extends3 = {}, _extends3[name] = _extends({}, acc[name], {
-            previous: newValue
-          }), _extends3));
-        }
-
-        return acc;
-      }
-    }, this.animations);
-
-    if (this.hasChanged) {
-      // Make animations available to frameloop
-      this.configs = Object.values(this.animations);
-      this.values = {};
-      this.interpolations = {};
-
-      for (var key in this.animations) {
-        this.interpolations[key] = this.animations[key].interpolation;
-        this.values[key] = this.animations[key].interpolation.getValue();
-      }
-    }
-
-    return this;
-  };
-
-  _proto.destroy = function destroy() {
-    this.stop();
-    this.props = {};
-    this.merged = {};
-    this.animations = {};
-    this.interpolations = {};
-    this.values = {};
-    this.configs = [];
-    this.local = 0;
-  };
-
-  return Controller;
-}();
-
-/** API
- * const props = useSprings(number, [{ ... }, { ... }, ...])
- * const [props, set] = useSprings(number, (i, controller) => ({ ... }))
- */
-
-var useSprings = function useSprings(length, props) {
-  var mounted = React.useRef(false);
-  var ctrl = React.useRef();
-  var isFn = is.fun(props); // The controller maintains the animation values, starts and stops animations
-
-  var _useMemo = React.useMemo(function () {
-    // Remove old controllers
-    if (ctrl.current) {
-      ctrl.current.map(function (c) {
-        return c.destroy();
-      });
-      ctrl.current = undefined;
-    }
-
-    var ref;
-    return [new Array(length).fill().map(function (_, i) {
-      var ctrl = new Controller();
-      var newProps = isFn ? callProp(props, i, ctrl) : props[i];
-      if (i === 0) ref = newProps.ref;
-      ctrl.update(newProps);
-      if (!ref) ctrl.start();
-      return ctrl;
-    }), ref];
-  }, [length]),
-      controllers = _useMemo[0],
-      ref = _useMemo[1];
-
-  ctrl.current = controllers; // The hooks reference api gets defined here ...
-
-  var api = React.useImperativeHandle(ref, function () {
-    return {
-      start: function start() {
-        return Promise.all(ctrl.current.map(function (c) {
-          return new Promise(function (r) {
-            return c.start(r);
-          });
-        }));
-      },
-      stop: function stop(finished) {
-        return ctrl.current.forEach(function (c) {
-          return c.stop(finished);
-        });
-      },
-
-      get controllers() {
-        return ctrl.current;
-      }
-
-    };
-  }); // This function updates the controllers
-
-  var updateCtrl = React.useMemo(function () {
-    return function (updateProps) {
-      return ctrl.current.map(function (c, i) {
-        c.update(isFn ? callProp(updateProps, i, c) : updateProps[i]);
-        if (!ref) c.start();
-      });
-    };
-  }, [length]); // Update controller if props aren't functional
-
-  React.useEffect(function () {
-    if (mounted.current) {
-      if (!isFn) updateCtrl(props);
-    } else if (!ref) ctrl.current.forEach(function (c) {
-      return c.start();
-    });
-  }); // Update mounted flag and destroy controller on unmount
-
-  React.useEffect(function () {
-    return mounted.current = true, function () {
-      return ctrl.current.forEach(function (c) {
-        return c.destroy();
-      });
-    };
-  }, []); // Return animated props, or, anim-props + the update-setter above
-
-  var propValues = ctrl.current.map(function (c) {
-    return c.getValues();
-  });
-  return isFn ? [propValues, updateCtrl, function (finished) {
-    return ctrl.current.forEach(function (c) {
-      return c.pause(finished);
-    });
-  }] : propValues;
-};
-
-/** API
- * const props = useSpring({ ... })
- * const [props, set] = useSpring(() => ({ ... }))
- */
-
-var useSpring = function useSpring(props) {
-  var isFn = is.fun(props);
-
-  var _useSprings = useSprings(1, isFn ? props : [props]),
-      result = _useSprings[0],
-      set = _useSprings[1],
-      pause = _useSprings[2];
-
-  return isFn ? [result[0], set, pause] : result;
-};
-
-/** API
- * const trails = useTrail(number, { ... })
- * const [trails, set] = useTrail(number, () => ({ ... }))
- */
-
-var useTrail = function useTrail(length, props) {
-  var mounted = React.useRef(false);
-  var isFn = is.fun(props);
-  var updateProps = callProp(props);
-  var instances = React.useRef();
-
-  var _useSprings = useSprings(length, function (i, ctrl) {
-    if (i === 0) instances.current = [];
-    instances.current.push(ctrl);
-    return _extends({}, updateProps, {
-      config: callProp(updateProps.config, i),
-      attach: i > 0 && function () {
-        return instances.current[i - 1];
-      }
-    });
-  }),
-      result = _useSprings[0],
-      set = _useSprings[1],
-      pause = _useSprings[2]; // Set up function to update controller
-
-
-  var updateCtrl = React.useMemo(function () {
-    return function (props) {
-      return set(function (i, ctrl) {
-        var last = props.reverse ? i === 0 : length - 1 === i;
-        var attachIdx = props.reverse ? i + 1 : i - 1;
-        var attachController = instances.current[attachIdx];
-        return _extends({}, props, {
-          config: callProp(props.config || updateProps.config, i),
-          attach: attachController && function () {
-            return attachController;
-          }
-        });
-      });
-    };
-  }, [length, updateProps.reverse]); // Update controller if props aren't functional
-
-  React.useEffect(function () {
-    return void (mounted.current && !isFn && updateCtrl(props));
-  }); // Update mounted flag and destroy controller on unmount
-
-  React.useEffect(function () {
-    return void (mounted.current = true);
-  }, []);
-  return isFn ? [result, updateCtrl, pause] : result;
-};
-
-/** API
- * const transitions = useTransition(items, itemKeys, { ... })
- * const [transitions, update] = useTransition(items, itemKeys, () => ({ ... }))
- */
-
-var guid = 0;
-var ENTER = 'enter';
-var LEAVE = 'leave';
-var UPDATE = 'update';
-
-var mapKeys = function mapKeys(items, keys) {
-  return (typeof keys === 'function' ? items.map(keys) : toArray(keys)).map(String);
-};
-
-var get = function get(props) {
-  var items = props.items,
-      _props$keys = props.keys,
-      keys = _props$keys === void 0 ? function (item) {
-    return item;
-  } : _props$keys,
-      rest = _objectWithoutPropertiesLoose(props, ["items", "keys"]);
-
-  items = toArray(items !== void 0 ? items : null);
-  return _extends({
-    items: items,
-    keys: mapKeys(items, keys)
-  }, rest);
-};
-
-function useTransition(input, keyTransform, config) {
-  var props = _extends({
-    items: input,
-    keys: keyTransform || function (i) {
-      return i;
-    }
-  }, config);
-
-  var _get = get(props),
-      _get$lazy = _get.lazy,
-      lazy = _get$lazy === void 0 ? false : _get$lazy,
-      _get$unique = _get.unique,
-      _get$reset = _get.reset,
-      reset = _get$reset === void 0 ? false : _get$reset,
-      enter = _get.enter,
-      leave = _get.leave,
-      update = _get.update,
-      onDestroyed = _get.onDestroyed,
-      keys = _get.keys,
-      items = _get.items,
-      onFrame = _get.onFrame,
-      _onRest = _get.onRest,
-      onStart = _get.onStart,
-      ref = _get.ref,
-      extra = _objectWithoutPropertiesLoose(_get, ["lazy", "unique", "reset", "enter", "leave", "update", "onDestroyed", "keys", "items", "onFrame", "onRest", "onStart", "ref"]);
-
-  var forceUpdate = useForceUpdate();
-  var mounted = React.useRef(false);
-  var state = React.useRef({
-    mounted: false,
-    first: true,
-    deleted: [],
-    current: {},
-    transitions: [],
-    prevProps: {},
-    paused: !!props.ref,
-    instances: !mounted.current && new Map(),
-    forceUpdate: forceUpdate
-  });
-  React.useImperativeHandle(props.ref, function () {
-    return {
-      start: function start() {
-        return Promise.all(Array.from(state.current.instances).map(function (_ref) {
-          var c = _ref[1];
-          return new Promise(function (r) {
-            return c.start(r);
-          });
-        }));
-      },
-      stop: function stop(finished) {
-        return Array.from(state.current.instances).forEach(function (_ref2) {
-          var c = _ref2[1];
-          return c.stop(finished);
-        });
-      },
-
-      get controllers() {
-        return Array.from(state.current.instances).map(function (_ref3) {
-          var c = _ref3[1];
-          return c;
-        });
-      }
-
-    };
-  }); // Update state
-
-  state.current = diffItems(state.current, props);
-
-  if (state.current.changed) {
-    // Update state
-    state.current.transitions.forEach(function (transition) {
-      var slot = transition.slot,
-          from = transition.from,
-          to = transition.to,
-          config = transition.config,
-          trail = transition.trail,
-          key = transition.key,
-          item = transition.item;
-      if (!state.current.instances.has(key)) state.current.instances.set(key, new Controller()); // update the map object
-
-      var ctrl = state.current.instances.get(key);
-
-      var newProps = _extends({}, extra, {
-        to: to,
-        from: from,
-        config: config,
-        ref: ref,
-        onRest: function onRest(values) {
-          if (state.current.mounted) {
-            if (transition.destroyed) {
-              // If no ref is given delete destroyed items immediately
-              if (!ref && !lazy) cleanUp(state, key);
-              if (onDestroyed) onDestroyed(item);
-            } // A transition comes to rest once all its springs conclude
-
-
-            var curInstances = Array.from(state.current.instances);
-            var active = curInstances.some(function (_ref4) {
-              var c = _ref4[1];
-              return !c.idle;
-            });
-            if (!active && (ref || lazy) && state.current.deleted.length > 0) cleanUp(state);
-            if (_onRest) _onRest(item, slot, values);
-          }
-        },
-        onStart: onStart && function () {
-          return onStart(item, slot);
-        },
-        onFrame: onFrame && function (values) {
-          return onFrame(item, slot, values);
-        },
-        delay: trail,
-        reset: reset && slot === ENTER // Update controller
-
-      });
-
-      ctrl.update(newProps);
-      if (!state.current.paused) ctrl.start();
-    });
-  }
-
-  React.useEffect(function () {
-    state.current.mounted = mounted.current = true;
-    return function () {
-      state.current.mounted = mounted.current = false;
-      Array.from(state.current.instances).map(function (_ref5) {
-        var c = _ref5[1];
-        return c.destroy();
-      });
-      state.current.instances.clear();
-    };
-  }, []);
-  return state.current.transitions.map(function (_ref6) {
-    var item = _ref6.item,
-        slot = _ref6.slot,
-        key = _ref6.key;
-    return {
-      item: item,
-      key: key,
-      state: slot,
-      props: state.current.instances.get(key).getValues()
-    };
-  });
-}
-
-function cleanUp(state, filterKey) {
-  var deleted = state.current.deleted;
-
-  var _loop = function _loop() {
-    if (_isArray) {
-      if (_i >= _iterator.length) return "break";
-      _ref8 = _iterator[_i++];
-    } else {
-      _i = _iterator.next();
-      if (_i.done) return "break";
-      _ref8 = _i.value;
-    }
-
-    var _ref7 = _ref8;
-    var key = _ref7.key;
-
-    var filter = function filter(t) {
-      return t.key !== key;
-    };
-
-    if (is.und(filterKey) || filterKey === key) {
-      state.current.instances.delete(key);
-      state.current.transitions = state.current.transitions.filter(filter);
-      state.current.deleted = state.current.deleted.filter(filter);
-    }
-  };
-
-  for (var _iterator = deleted, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-    var _ref8;
-
-    var _ret = _loop();
-
-    if (_ret === "break") break;
-  }
-
-  state.current.forceUpdate();
-}
-
-function diffItems(_ref9, props) {
-  var first = _ref9.first,
-      prevProps = _ref9.prevProps,
-      state = _objectWithoutPropertiesLoose(_ref9, ["first", "prevProps"]);
-
-  var _get2 = get(props),
-      items = _get2.items,
-      keys = _get2.keys,
-      initial = _get2.initial,
-      from = _get2.from,
-      enter = _get2.enter,
-      leave = _get2.leave,
-      update = _get2.update,
-      _get2$trail = _get2.trail,
-      trail = _get2$trail === void 0 ? 0 : _get2$trail,
-      unique = _get2.unique,
-      config = _get2.config,
-      _get2$order = _get2.order,
-      order = _get2$order === void 0 ? [ENTER, LEAVE, UPDATE] : _get2$order;
-
-  var _get3 = get(prevProps),
-      _keys = _get3.keys,
-      _items = _get3.items;
-
-  var current = _extends({}, state.current);
-
-  var deleted = [].concat(state.deleted); // Compare next keys with current keys
-
-  var currentKeys = Object.keys(current);
-  var currentSet = new Set(currentKeys);
-  var nextSet = new Set(keys);
-  var added = keys.filter(function (item) {
-    return !currentSet.has(item);
-  });
-  var removed = state.transitions.filter(function (item) {
-    return !item.destroyed && !nextSet.has(item.originalKey);
-  }).map(function (i) {
-    return i.originalKey;
-  });
-  var updated = keys.filter(function (item) {
-    return currentSet.has(item);
-  });
-  var delay = -trail;
-
-  while (order.length) {
-    var changeType = order.shift();
-
-    switch (changeType) {
-      case ENTER:
-        {
-          added.forEach(function (key, index) {
-            // In unique mode, remove fading out transitions if their key comes in again
-            if (unique && deleted.find(function (d) {
-              return d.originalKey === key;
-            })) deleted = deleted.filter(function (t) {
-              return t.originalKey !== key;
-            });
-            var keyIndex = keys.indexOf(key);
-            var item = items[keyIndex];
-            var slot = first && initial !== void 0 ? 'initial' : ENTER;
-            current[key] = {
-              slot: slot,
-              originalKey: key,
-              key: unique ? String(key) : guid++,
-              item: item,
-              trail: delay = delay + trail,
-              config: callProp(config, item, slot),
-              from: callProp(first ? initial !== void 0 ? initial || {} : from : from, item),
-              to: callProp(enter, item)
-            };
-          });
-          break;
-        }
-
-      case LEAVE:
-        {
-          removed.forEach(function (key) {
-            var keyIndex = _keys.indexOf(key);
-
-            var item = _items[keyIndex];
-            var slot = LEAVE;
-            deleted.unshift(_extends({}, current[key], {
-              slot: slot,
-              destroyed: true,
-              left: _keys[Math.max(0, keyIndex - 1)],
-              right: _keys[Math.min(_keys.length, keyIndex + 1)],
-              trail: delay = delay + trail,
-              config: callProp(config, item, slot),
-              to: callProp(leave, item)
-            }));
-            delete current[key];
-          });
-          break;
-        }
-
-      case UPDATE:
-        {
-          updated.forEach(function (key) {
-            var keyIndex = keys.indexOf(key);
-            var item = items[keyIndex];
-            var slot = UPDATE;
-            current[key] = _extends({}, current[key], {
-              item: item,
-              slot: slot,
-              trail: delay = delay + trail,
-              config: callProp(config, item, slot),
-              to: callProp(update, item)
-            });
-          });
-          break;
-        }
-    }
-  }
-
-  var out = keys.map(function (key) {
-    return current[key];
-  }); // This tries to restore order for deleted items by finding their last known siblings
-  // only using the left sibling to keep order placement consistent for all deleted items
-
-  deleted.forEach(function (_ref10) {
-    var left = _ref10.left,
-        right = _ref10.right,
-        item = _objectWithoutPropertiesLoose(_ref10, ["left", "right"]);
-
-    var pos; // Was it the element on the left, if yes, move there ...
-
-    if ((pos = out.findIndex(function (t) {
-      return t.originalKey === left;
-    })) !== -1) pos += 1; // And if nothing else helps, move it to the start ¯\_(ツ)_/¯
-
-    pos = Math.max(0, pos);
-    out = [].concat(out.slice(0, pos), [item], out.slice(pos));
-  });
-  return _extends({}, state, {
-    changed: added.length || removed.length || updated.length,
-    first: first && added.length === 0,
-    transitions: out,
-    current: current,
-    deleted: deleted,
-    prevProps: props
-  });
-}
-
-var AnimatedStyle =
-/*#__PURE__*/
-function (_AnimatedObject) {
-  _inheritsLoose(AnimatedStyle, _AnimatedObject);
-
-  function AnimatedStyle(style) {
-    var _this;
-
-    if (style === void 0) {
-      style = {};
-    }
-
-    _this = _AnimatedObject.call(this) || this;
-
-    if (style.transform && !(style.transform instanceof Animated)) {
-      style = applyAnimatedValues.transform(style);
-    }
-
-    _this.payload = style;
-    return _this;
-  }
-
-  return AnimatedStyle;
-}(AnimatedObject);
-
-// http://www.w3.org/TR/css3-color/#svg-color
-var colors = {
-  transparent: 0x00000000,
-  aliceblue: 0xf0f8ffff,
-  antiquewhite: 0xfaebd7ff,
-  aqua: 0x00ffffff,
-  aquamarine: 0x7fffd4ff,
-  azure: 0xf0ffffff,
-  beige: 0xf5f5dcff,
-  bisque: 0xffe4c4ff,
-  black: 0x000000ff,
-  blanchedalmond: 0xffebcdff,
-  blue: 0x0000ffff,
-  blueviolet: 0x8a2be2ff,
-  brown: 0xa52a2aff,
-  burlywood: 0xdeb887ff,
-  burntsienna: 0xea7e5dff,
-  cadetblue: 0x5f9ea0ff,
-  chartreuse: 0x7fff00ff,
-  chocolate: 0xd2691eff,
-  coral: 0xff7f50ff,
-  cornflowerblue: 0x6495edff,
-  cornsilk: 0xfff8dcff,
-  crimson: 0xdc143cff,
-  cyan: 0x00ffffff,
-  darkblue: 0x00008bff,
-  darkcyan: 0x008b8bff,
-  darkgoldenrod: 0xb8860bff,
-  darkgray: 0xa9a9a9ff,
-  darkgreen: 0x006400ff,
-  darkgrey: 0xa9a9a9ff,
-  darkkhaki: 0xbdb76bff,
-  darkmagenta: 0x8b008bff,
-  darkolivegreen: 0x556b2fff,
-  darkorange: 0xff8c00ff,
-  darkorchid: 0x9932ccff,
-  darkred: 0x8b0000ff,
-  darksalmon: 0xe9967aff,
-  darkseagreen: 0x8fbc8fff,
-  darkslateblue: 0x483d8bff,
-  darkslategray: 0x2f4f4fff,
-  darkslategrey: 0x2f4f4fff,
-  darkturquoise: 0x00ced1ff,
-  darkviolet: 0x9400d3ff,
-  deeppink: 0xff1493ff,
-  deepskyblue: 0x00bfffff,
-  dimgray: 0x696969ff,
-  dimgrey: 0x696969ff,
-  dodgerblue: 0x1e90ffff,
-  firebrick: 0xb22222ff,
-  floralwhite: 0xfffaf0ff,
-  forestgreen: 0x228b22ff,
-  fuchsia: 0xff00ffff,
-  gainsboro: 0xdcdcdcff,
-  ghostwhite: 0xf8f8ffff,
-  gold: 0xffd700ff,
-  goldenrod: 0xdaa520ff,
-  gray: 0x808080ff,
-  green: 0x008000ff,
-  greenyellow: 0xadff2fff,
-  grey: 0x808080ff,
-  honeydew: 0xf0fff0ff,
-  hotpink: 0xff69b4ff,
-  indianred: 0xcd5c5cff,
-  indigo: 0x4b0082ff,
-  ivory: 0xfffff0ff,
-  khaki: 0xf0e68cff,
-  lavender: 0xe6e6faff,
-  lavenderblush: 0xfff0f5ff,
-  lawngreen: 0x7cfc00ff,
-  lemonchiffon: 0xfffacdff,
-  lightblue: 0xadd8e6ff,
-  lightcoral: 0xf08080ff,
-  lightcyan: 0xe0ffffff,
-  lightgoldenrodyellow: 0xfafad2ff,
-  lightgray: 0xd3d3d3ff,
-  lightgreen: 0x90ee90ff,
-  lightgrey: 0xd3d3d3ff,
-  lightpink: 0xffb6c1ff,
-  lightsalmon: 0xffa07aff,
-  lightseagreen: 0x20b2aaff,
-  lightskyblue: 0x87cefaff,
-  lightslategray: 0x778899ff,
-  lightslategrey: 0x778899ff,
-  lightsteelblue: 0xb0c4deff,
-  lightyellow: 0xffffe0ff,
-  lime: 0x00ff00ff,
-  limegreen: 0x32cd32ff,
-  linen: 0xfaf0e6ff,
-  magenta: 0xff00ffff,
-  maroon: 0x800000ff,
-  mediumaquamarine: 0x66cdaaff,
-  mediumblue: 0x0000cdff,
-  mediumorchid: 0xba55d3ff,
-  mediumpurple: 0x9370dbff,
-  mediumseagreen: 0x3cb371ff,
-  mediumslateblue: 0x7b68eeff,
-  mediumspringgreen: 0x00fa9aff,
-  mediumturquoise: 0x48d1ccff,
-  mediumvioletred: 0xc71585ff,
-  midnightblue: 0x191970ff,
-  mintcream: 0xf5fffaff,
-  mistyrose: 0xffe4e1ff,
-  moccasin: 0xffe4b5ff,
-  navajowhite: 0xffdeadff,
-  navy: 0x000080ff,
-  oldlace: 0xfdf5e6ff,
-  olive: 0x808000ff,
-  olivedrab: 0x6b8e23ff,
-  orange: 0xffa500ff,
-  orangered: 0xff4500ff,
-  orchid: 0xda70d6ff,
-  palegoldenrod: 0xeee8aaff,
-  palegreen: 0x98fb98ff,
-  paleturquoise: 0xafeeeeff,
-  palevioletred: 0xdb7093ff,
-  papayawhip: 0xffefd5ff,
-  peachpuff: 0xffdab9ff,
-  peru: 0xcd853fff,
-  pink: 0xffc0cbff,
-  plum: 0xdda0ddff,
-  powderblue: 0xb0e0e6ff,
-  purple: 0x800080ff,
-  rebeccapurple: 0x663399ff,
-  red: 0xff0000ff,
-  rosybrown: 0xbc8f8fff,
-  royalblue: 0x4169e1ff,
-  saddlebrown: 0x8b4513ff,
-  salmon: 0xfa8072ff,
-  sandybrown: 0xf4a460ff,
-  seagreen: 0x2e8b57ff,
-  seashell: 0xfff5eeff,
-  sienna: 0xa0522dff,
-  silver: 0xc0c0c0ff,
-  skyblue: 0x87ceebff,
-  slateblue: 0x6a5acdff,
-  slategray: 0x708090ff,
-  slategrey: 0x708090ff,
-  snow: 0xfffafaff,
-  springgreen: 0x00ff7fff,
-  steelblue: 0x4682b4ff,
-  tan: 0xd2b48cff,
-  teal: 0x008080ff,
-  thistle: 0xd8bfd8ff,
-  tomato: 0xff6347ff,
-  turquoise: 0x40e0d0ff,
-  violet: 0xee82eeff,
-  wheat: 0xf5deb3ff,
-  white: 0xffffffff,
-  whitesmoke: 0xf5f5f5ff,
-  yellow: 0xffff00ff,
-  yellowgreen: 0x9acd32ff
-};
-
-// const INTEGER = '[-+]?\\d+';
-var NUMBER = '[-+]?\\d*\\.?\\d+';
-var PERCENTAGE = NUMBER + '%';
-
-function call() {
-  for (var _len = arguments.length, parts = new Array(_len), _key = 0; _key < _len; _key++) {
-    parts[_key] = arguments[_key];
-  }
-
-  return '\\(\\s*(' + parts.join(')\\s*,\\s*(') + ')\\s*\\)';
-}
-
-var rgb = new RegExp('rgb' + call(NUMBER, NUMBER, NUMBER));
-var rgba = new RegExp('rgba' + call(NUMBER, NUMBER, NUMBER, NUMBER));
-var hsl = new RegExp('hsl' + call(NUMBER, PERCENTAGE, PERCENTAGE));
-var hsla = new RegExp('hsla' + call(NUMBER, PERCENTAGE, PERCENTAGE, NUMBER));
-var hex3 = /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/;
-var hex4 = /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/;
-var hex6 = /^#([0-9a-fA-F]{6})$/;
-var hex8 = /^#([0-9a-fA-F]{8})$/;
-
-/*
-https://github.com/react-community/normalize-css-color
-
-BSD 3-Clause License
-
-Copyright (c) 2016, React Community
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of the copyright holder nor the names of its
-  contributors may be used to endorse or promote products derived from
-  this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
-function normalizeColor(color) {
-  var match;
-
-  if (typeof color === 'number') {
-    return color >>> 0 === color && color >= 0 && color <= 0xffffffff ? color : null;
-  } // Ordered based on occurrences on Facebook codebase
-
-
-  if (match = hex6.exec(color)) return parseInt(match[1] + 'ff', 16) >>> 0;
-  if (colors.hasOwnProperty(color)) return colors[color];
-
-  if (match = rgb.exec(color)) {
-    return (parse255(match[1]) << 24 | // r
-    parse255(match[2]) << 16 | // g
-    parse255(match[3]) << 8 | // b
-    0x000000ff) >>> // a
-    0;
-  }
-
-  if (match = rgba.exec(color)) {
-    return (parse255(match[1]) << 24 | // r
-    parse255(match[2]) << 16 | // g
-    parse255(match[3]) << 8 | // b
-    parse1(match[4])) >>> // a
-    0;
-  }
-
-  if (match = hex3.exec(color)) {
-    return parseInt(match[1] + match[1] + // r
-    match[2] + match[2] + // g
-    match[3] + match[3] + // b
-    'ff', // a
-    16) >>> 0;
-  } // https://drafts.csswg.org/css-color-4/#hex-notation
-
-
-  if (match = hex8.exec(color)) return parseInt(match[1], 16) >>> 0;
-
-  if (match = hex4.exec(color)) {
-    return parseInt(match[1] + match[1] + // r
-    match[2] + match[2] + // g
-    match[3] + match[3] + // b
-    match[4] + match[4], // a
-    16) >>> 0;
-  }
-
-  if (match = hsl.exec(color)) {
-    return (hslToRgb(parse360(match[1]), // h
-    parsePercentage(match[2]), // s
-    parsePercentage(match[3]) // l
-    ) | 0x000000ff) >>> // a
-    0;
-  }
-
-  if (match = hsla.exec(color)) {
-    return (hslToRgb(parse360(match[1]), // h
-    parsePercentage(match[2]), // s
-    parsePercentage(match[3]) // l
-    ) | parse1(match[4])) >>> // a
-    0;
-  }
-
-  return null;
-}
-
-function hue2rgb(p, q, t) {
-  if (t < 0) t += 1;
-  if (t > 1) t -= 1;
-  if (t < 1 / 6) return p + (q - p) * 6 * t;
-  if (t < 1 / 2) return q;
-  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-  return p;
-}
-
-function hslToRgb(h, s, l) {
-  var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-  var p = 2 * l - q;
-  var r = hue2rgb(p, q, h + 1 / 3);
-  var g = hue2rgb(p, q, h);
-  var b = hue2rgb(p, q, h - 1 / 3);
-  return Math.round(r * 255) << 24 | Math.round(g * 255) << 16 | Math.round(b * 255) << 8;
-}
-
-function parse255(str) {
-  var int = parseInt(str, 10);
-  if (int < 0) return 0;
-  if (int > 255) return 255;
-  return int;
-}
-
-function parse360(str) {
-  var int = parseFloat(str);
-  return (int % 360 + 360) % 360 / 360;
-}
-
-function parse1(str) {
-  var num = parseFloat(str);
-  if (num < 0) return 0;
-  if (num > 1) return 255;
-  return Math.round(num * 255);
-}
-
-function parsePercentage(str) {
-  // parseFloat conveniently ignores the final %
-  var int = parseFloat(str);
-  if (int < 0) return 0;
-  if (int > 100) return 1;
-  return int / 100;
-}
-
-function colorToRgba(input) {
-  var int32Color = normalizeColor(input);
-  if (int32Color === null) return input;
-  int32Color = int32Color || 0;
-  var r = (int32Color & 0xff000000) >>> 24;
-  var g = (int32Color & 0x00ff0000) >>> 16;
-  var b = (int32Color & 0x0000ff00) >>> 8;
-  var a = (int32Color & 0x000000ff) / 255;
-  return "rgba(" + r + ", " + g + ", " + b + ", " + a + ")";
-} // Problem: https://github.com/animatedjs/animated/pull/102
-// Solution: https://stackoverflow.com/questions/638565/parsing-scientific-notation-sensibly/658662
-
-
-var stringShapeRegex = /[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?/g; // Covers rgb, rgba, hsl, hsla
-// Taken from https://gist.github.com/olmokramer/82ccce673f86db7cda5e
-
-var colorRegex = /(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\))/gi; // Covers color names (transparent, blue, etc.)
-
-var colorNamesRegex = new RegExp("(" + Object.keys(colors).join('|') + ")", 'g');
-/**
- * Supports string shapes by extracting numbers so new values can be computed,
- * and recombines those values into new strings of the same shape.  Supports
- * things like:
- *
- *   rgba(123, 42, 99, 0.36)           // colors
- *   -45deg                            // values with units
- *   0 2px 2px 0px rgba(0, 0, 0, 0.12) // box shadows
- */
-
-var createStringInterpolator = function createStringInterpolator(config) {
-  // Replace colors with rgba
-  var outputRange = config.output.map(function (rangeValue) {
-    return rangeValue.replace(colorRegex, colorToRgba);
-  }).map(function (rangeValue) {
-    return rangeValue.replace(colorNamesRegex, colorToRgba);
-  });
-  var outputRanges = outputRange[0].match(stringShapeRegex).map(function () {
-    return [];
-  });
-  outputRange.forEach(function (value) {
-    value.match(stringShapeRegex).forEach(function (number, i) {
-      return outputRanges[i].push(+number);
-    });
-  });
-  var interpolations = outputRange[0].match(stringShapeRegex).map(function (_value, i) {
-    return createInterpolator(_extends({}, config, {
-      output: outputRanges[i]
-    }));
-  });
-  return function (input) {
-    var i = 0;
-    return outputRange[0] // 'rgba(0, 100, 200, 0)'
-    // ->
-    // 'rgba(${interpolations[0](input)}, ${interpolations[1](input)}, ...'
-    .replace(stringShapeRegex, function () {
-      return interpolations[i++](input);
-    }) // rgba requires that the r,g,b are integers.... so we want to round them, but we *dont* want to
-    // round the opacity (4th column).
-    .replace(/rgba\(([0-9\.-]+), ([0-9\.-]+), ([0-9\.-]+), ([0-9\.-]+)\)/gi, function (_, p1, p2, p3, p4) {
-      return "rgba(" + Math.round(p1) + ", " + Math.round(p2) + ", " + Math.round(p3) + ", " + p4 + ")";
-    });
-  };
-};
-
-var isUnitlessNumber = {
-  animationIterationCount: true,
-  borderImageOutset: true,
-  borderImageSlice: true,
-  borderImageWidth: true,
-  boxFlex: true,
-  boxFlexGroup: true,
-  boxOrdinalGroup: true,
-  columnCount: true,
-  columns: true,
-  flex: true,
-  flexGrow: true,
-  flexPositive: true,
-  flexShrink: true,
-  flexNegative: true,
-  flexOrder: true,
-  gridRow: true,
-  gridRowEnd: true,
-  gridRowSpan: true,
-  gridRowStart: true,
-  gridColumn: true,
-  gridColumnEnd: true,
-  gridColumnSpan: true,
-  gridColumnStart: true,
-  fontWeight: true,
-  lineClamp: true,
-  lineHeight: true,
-  opacity: true,
-  order: true,
-  orphans: true,
-  tabSize: true,
-  widows: true,
-  zIndex: true,
-  zoom: true,
-  // SVG-related properties
-  fillOpacity: true,
-  floodOpacity: true,
-  stopOpacity: true,
-  strokeDasharray: true,
-  strokeDashoffset: true,
-  strokeMiterlimit: true,
-  strokeOpacity: true,
-  strokeWidth: true
-};
-
-var prefixKey = function prefixKey(prefix, key) {
-  return prefix + key.charAt(0).toUpperCase() + key.substring(1);
-};
-
-var prefixes = ['Webkit', 'Ms', 'Moz', 'O'];
-isUnitlessNumber = Object.keys(isUnitlessNumber).reduce(function (acc, prop) {
-  prefixes.forEach(function (prefix) {
-    return acc[prefixKey(prefix, prop)] = acc[prop];
-  });
-  return acc;
-}, isUnitlessNumber);
-
-function dangerousStyleValue(name, value, isCustomProperty) {
-  if (value == null || typeof value === 'boolean' || value === '') return '';
-  if (!isCustomProperty && typeof value === 'number' && value !== 0 && !(isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name])) return value + 'px'; // Presumes implicit 'px' suffix for unitless numbers
-
-  return ('' + value).trim();
-}
-
-var attributeCache = {};
-injectCreateAnimatedStyle(function (style) {
-  return new AnimatedStyle(style);
-});
-injectDefaultElement('div');
-injectStringInterpolator(createStringInterpolator);
-injectColorNames(colors);
-injectApplyAnimatedValues(function (instance, props) {
-  if (instance.nodeType && instance.setAttribute !== undefined) {
-    var style = props.style,
-        children = props.children,
-        scrollTop = props.scrollTop,
-        scrollLeft = props.scrollLeft,
-        attributes = _objectWithoutPropertiesLoose(props, ["style", "children", "scrollTop", "scrollLeft"]);
-
-    var filter = instance.nodeName === 'filter' || instance.parentNode && instance.parentNode.nodeName === 'filter';
-    if (scrollTop !== void 0) instance.scrollTop = scrollTop;
-    if (scrollLeft !== void 0) instance.scrollLeft = scrollLeft; // Set textContent, if children is an animatable value
-
-    if (children !== void 0) instance.textContent = children; // Set styles ...
-
-    for (var styleName in style) {
-      if (!style.hasOwnProperty(styleName)) continue;
-      var isCustomProperty = styleName.indexOf('--') === 0;
-      var styleValue = dangerousStyleValue(styleName, style[styleName], isCustomProperty);
-      if (styleName === 'float') styleName = 'cssFloat';
-      if (isCustomProperty) instance.style.setProperty(styleName, styleValue);else instance.style[styleName] = styleValue;
-    } // Set attributes ...
-
-
-    for (var name in attributes) {
-      // Attributes are written in dash case
-      var dashCase = filter ? name : attributeCache[name] || (attributeCache[name] = name.replace(/([A-Z])/g, function (n) {
-        return '-' + n.toLowerCase();
-      }));
-      if (typeof instance.getAttribute(dashCase) !== 'undefined') instance.setAttribute(dashCase, attributes[name]);
-    }
-
-    return;
-  } else return false;
-}, function (style) {
-  return style;
-});
-
-var domElements = ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'menuitem', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', // SVG
-'circle', 'clipPath', 'defs', 'ellipse', 'foreignObject', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'svg', 'text', 'tspan'];
-// Extend animated with all the available THREE elements
-var apply = merge(createAnimatedComponent, false);
-var extendedAnimated = apply(domElements);
-
-__webpack_unused_export__ = apply;
-__webpack_unused_export__ = config;
-__webpack_unused_export__ = update;
-exports.q = extendedAnimated;
-__webpack_unused_export__ = extendedAnimated;
-__webpack_unused_export__ = interpolate$1;
-__webpack_unused_export__ = Globals;
-exports.q_ = useSpring;
-__webpack_unused_export__ = useTrail;
-__webpack_unused_export__ = useTransition;
-__webpack_unused_export__ = useChain;
-__webpack_unused_export__ = useSprings;
-
-
-/***/ }),
-
 /***/ 7621:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5805,7 +3387,7 @@ __webpack_require__.d(__webpack_exports__, {
   "MediaPlaceholder": function() { return /* reexport */ media_placeholder; },
   "MediaReplaceFlow": function() { return /* reexport */ media_replace_flow; },
   "MediaUpload": function() { return /* reexport */ media_upload; },
-  "MediaUploadCheck": function() { return /* reexport */ check; },
+  "MediaUploadCheck": function() { return /* reexport */ media_upload_check; },
   "MultiSelectScrollIntoView": function() { return /* reexport */ MultiSelectScrollIntoView; },
   "NavigableToolbar": function() { return /* reexport */ navigable_toolbar; },
   "ObserveTyping": function() { return /* reexport */ observe_typing; },
@@ -5842,6 +3424,8 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalGetGradientObjectByGradientValue": function() { return /* reexport */ __experimentalGetGradientObjectByGradientValue; },
   "__experimentalGetMatchingVariation": function() { return /* reexport */ __experimentalGetMatchingVariation; },
   "__experimentalGetSpacingClassesAndStyles": function() { return /* reexport */ getSpacingClassesAndStyles; },
+  "__experimentalImageEditingProvider": function() { return /* reexport */ ImageEditingProvider; },
+  "__experimentalImageEditor": function() { return /* reexport */ ImageEditor; },
   "__experimentalImageSizeControl": function() { return /* reexport */ ImageSizeControl; },
   "__experimentalImageURLInputUI": function() { return /* reexport */ ImageURLInputUI; },
   "__experimentalLayoutStyle": function() { return /* reexport */ LayoutStyle; },
@@ -5920,6 +3504,10 @@ __webpack_require__.d(selectors_namespaceObject, {
   "areInnerBlocksControlled": function() { return areInnerBlocksControlled; },
   "canInsertBlockType": function() { return canInsertBlockType; },
   "canInsertBlocks": function() { return canInsertBlocks; },
+  "canMoveBlock": function() { return canMoveBlock; },
+  "canMoveBlocks": function() { return canMoveBlocks; },
+  "canRemoveBlock": function() { return canRemoveBlock; },
+  "canRemoveBlocks": function() { return canRemoveBlocks; },
   "didAutomaticChange": function() { return didAutomaticChange; },
   "getAdjacentBlockClientId": function() { return getAdjacentBlockClientId; },
   "getBlock": function() { return getBlock; },
@@ -7186,7 +4774,7 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange)({
           const blockOrder = mapBlockOrder(action.blocks);
           return { ...state,
             ...(0,external_lodash_namespaceObject.omit)(blockOrder, ''),
-            '': ((state === null || state === void 0 ? void 0 : state['']) || []).concat(blockOrder)
+            '': ((state === null || state === void 0 ? void 0 : state['']) || []).concat(blockOrder[''])
           };
         }
 
@@ -8872,6 +6460,8 @@ function getPreviousBlockClientId(state, startClientId) {
 function getNextBlockClientId(state, startClientId) {
   return getAdjacentBlockClientId(state, startClientId, 1);
 }
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * Returns the initial caret position for the selected block.
  * This position is to used to position the caret properly when the selected block changes.
@@ -8883,6 +6473,7 @@ function getNextBlockClientId(state, startClientId) {
  */
 
 function getSelectedBlocksInitialCaretPosition(state) {
+  /* eslint-enable jsdoc/valid-types */
   return state.initialPosition;
 }
 /**
@@ -9514,6 +7105,90 @@ function canInsertBlocks(state, clientIds, rootClientId = null) {
   return clientIds.every(id => canInsertBlockType(state, getBlockName(state, id), rootClientId));
 }
 /**
+ * Determines if the given block is allowed to be deleted.
+ *
+ * @param {Object}  state        Editor state.
+ * @param {string}  clientId     The block client Id.
+ * @param {?string} rootClientId Optional root client ID of block list.
+ *
+ * @return {boolean} Whether the given block is allowed to be removed.
+ */
+
+function canRemoveBlock(state, clientId, rootClientId = null) {
+  const attributes = getBlockAttributes(state, clientId); // attributes can be null if the block is already deleted.
+
+  if (attributes === null) {
+    return true;
+  }
+
+  const {
+    lock
+  } = attributes;
+  const parentIsLocked = !!getTemplateLock(state, rootClientId); // If we don't have a lock on the blockType level, we differ to the parent templateLock.
+
+  if (lock === undefined || (lock === null || lock === void 0 ? void 0 : lock.remove) === undefined) {
+    return !parentIsLocked;
+  } // when remove is true, it means we cannot remove it.
+
+
+  return !(lock !== null && lock !== void 0 && lock.remove);
+}
+/**
+ * Determines if the given blocks are allowed to be removed.
+ *
+ * @param {Object}  state        Editor state.
+ * @param {string}  clientIds    The block client IDs to be removed.
+ * @param {?string} rootClientId Optional root client ID of block list.
+ *
+ * @return {boolean} Whether the given blocks are allowed to be removed.
+ */
+
+function canRemoveBlocks(state, clientIds, rootClientId = null) {
+  return clientIds.every(clientId => canRemoveBlock(state, clientId, rootClientId));
+}
+/**
+ * Determines if the given block is allowed to be moved.
+ *
+ * @param {Object}  state        Editor state.
+ * @param {string}  clientId     The block client Id.
+ * @param {?string} rootClientId Optional root client ID of block list.
+ *
+ * @return {boolean} Whether the given block is allowed to be moved.
+ */
+
+function canMoveBlock(state, clientId, rootClientId = null) {
+  const attributes = getBlockAttributes(state, clientId);
+
+  if (attributes === null) {
+    return;
+  }
+
+  const {
+    lock
+  } = attributes;
+  const parentIsLocked = getTemplateLock(state, rootClientId) === 'all'; // If we don't have a lock on the blockType level, we differ to the parent templateLock.
+
+  if (lock === undefined || (lock === null || lock === void 0 ? void 0 : lock.move) === undefined) {
+    return !parentIsLocked;
+  } // when move is true, it means we cannot move it.
+
+
+  return !(lock !== null && lock !== void 0 && lock.move);
+}
+/**
+ * Determines if the given blocks are allowed to be moved.
+ *
+ * @param {Object}  state        Editor state.
+ * @param {string}  clientIds    The block client IDs to be moved.
+ * @param {?string} rootClientId Optional root client ID of block list.
+ *
+ * @return {boolean} Whether the given blocks are allowed to be moved.
+ */
+
+function canMoveBlocks(state, clientIds, rootClientId = null) {
+  return clientIds.every(clientId => canMoveBlock(state, clientId, rootClientId));
+}
+/**
  * Returns information about how recently and frequently a block has been inserted.
  *
  * @param {Object} state Global application state.
@@ -9724,7 +7399,7 @@ const getInserterItems = rememo((state, rootClientId = null) => {
         ref: reusableBlock.id
       },
       title: reusableBlock.title.raw,
-      icon: referencedBlockType ? referencedBlockType.icon : library_symbol,
+      icon: referencedBlockType && external_wp_element_namespaceObject.Platform.OS === 'web' ? referencedBlockType.icon : library_symbol,
       category: 'reusable',
       keywords: [],
       isDisabled: false,
@@ -10394,6 +8069,8 @@ function* validateBlocksToTemplate(blocks) {
  *                                 text value. See `wp.richText.create`.
  */
 
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * Returns an action object used in signalling that selection state should be
  * reset to the specified selection.
@@ -10406,6 +8083,7 @@ function* validateBlocksToTemplate(blocks) {
  */
 
 function resetSelection(selectionStart, selectionEnd, initialPosition) {
+  /* eslint-enable jsdoc/valid-types */
   return {
     type: 'RESET_SELECTION',
     selectionStart,
@@ -10471,6 +8149,8 @@ function updateBlock(clientId, updates) {
     updates
   };
 }
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * Returns an action object used in signalling that the block with the
  * specified client ID has been selected, optionally accepting a position
@@ -10485,6 +8165,7 @@ function updateBlock(clientId, updates) {
  */
 
 function selectBlock(clientId, initialPosition = 0) {
+  /* eslint-enable jsdoc/valid-types */
   return {
     type: 'SELECT_BLOCK',
     initialPosition,
@@ -10629,6 +8310,8 @@ function getBlocksWithDefaultStylesApplied(blocks, blockEditorSettings) {
     };
   });
 }
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * Returns an action object signalling that a blocks should be replaced with
  * one or more replacement blocks.
@@ -10644,6 +8327,7 @@ function getBlocksWithDefaultStylesApplied(blocks, blockEditorSettings) {
 
 
 function* replaceBlocks(clientIds, blocks, indexToSelect, initialPosition = 0, meta) {
+  /* eslint-enable jsdoc/valid-types */
   clientIds = (0,external_lodash_namespaceObject.castArray)(clientIds);
   blocks = getBlocksWithDefaultStylesApplied((0,external_lodash_namespaceObject.castArray)(blocks), yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getSettings'));
   const rootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', (0,external_lodash_namespaceObject.first)(clientIds)); // Replace is valid if the new blocks can be inserted in the root block.
@@ -10691,8 +8375,14 @@ function replaceBlock(clientId, block) {
  */
 
 function createOnMove(type) {
-  return (clientIds, rootClientId) => {
-    return {
+  return function* (clientIds, rootClientId) {
+    const canMoveBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canMoveBlocks', clientIds, rootClientId); // If one of the blocks is locked or the parent is locked, we cannot move any block.
+
+    if (!canMoveBlocks) {
+      return;
+    }
+
+    yield {
       clientIds: (0,external_lodash_namespaceObject.castArray)(clientIds),
       type,
       rootClientId
@@ -10715,10 +8405,10 @@ const moveBlocksUp = createOnMove('MOVE_BLOCKS_UP');
  */
 
 function* moveBlocksToPosition(clientIds, fromRootClientId = '', toRootClientId = '', index) {
-  const templateLock = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getTemplateLock', fromRootClientId); // If locking is equal to all on the original clientId (fromRootClientId),
-  // it is not possible to move the block to any other position.
+  const canMoveBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canMoveBlocks', clientIds, fromRootClientId);
+  const canRemoveBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canRemoveBlocks', clientIds, fromRootClientId); // If one of the blocks is locked or the parent is locked, we cannot move any block.
 
-  if (templateLock === 'all') {
+  if (!canMoveBlocks) {
     return;
   }
 
@@ -10733,12 +8423,11 @@ function* moveBlocksToPosition(clientIds, fromRootClientId = '', toRootClientId 
   if (fromRootClientId === toRootClientId) {
     yield action;
     return;
-  } // If templateLock is insert we can not remove the block from the parent.
-  // Given that here we know that we are moving the block to a different
-  // parent, the move should not be possible if the condition is true.
+  } // If we're moving to another block, it means we're deleting blocks from
+  // the original block, so we need to check if removing is possible.
 
 
-  if (templateLock === 'insert') {
+  if (!canRemoveBlocks) {
     return;
   }
 
@@ -10779,6 +8468,8 @@ function* moveBlockToPosition(clientId, fromRootClientId = '', toRootClientId = 
 function insertBlock(block, index, rootClientId, updateSelection = true, meta) {
   return insertBlocks([block], index, rootClientId, updateSelection, 0, meta);
 }
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * Returns an action object used in signalling that an array of blocks should
  * be inserted, optionally at a specific index respective a root block list.
@@ -10793,6 +8484,7 @@ function insertBlock(block, index, rootClientId, updateSelection = true, meta) {
  */
 
 function* insertBlocks(blocks, index, rootClientId, updateSelection = true, initialPosition = 0, meta) {
+  /* eslint-enable jsdoc/valid-types */
   if ((0,external_lodash_namespaceObject.isObject)(initialPosition)) {
     meta = initialPosition;
     initialPosition = 0;
@@ -10907,7 +8599,7 @@ function* mergeBlocks(firstBlockClientId, secondBlockClientId) {
   const blockA = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlock', clientIdA);
   const blockAType = (0,external_wp_blocks_namespaceObject.getBlockType)(blockA.name); // Only focus the previous block if it's not mergeable
 
-  if (!blockAType.merge) {
+  if (blockAType && !blockAType.merge) {
     yield selectBlock(blockA.clientId);
     return;
   }
@@ -11022,9 +8714,9 @@ function* removeBlocks(clientIds, selectPrevious = true) {
 
   clientIds = (0,external_lodash_namespaceObject.castArray)(clientIds);
   const rootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', clientIds[0]);
-  const isLocked = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getTemplateLock', rootClientId);
+  const canRemoveBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canRemoveBlocks', clientIds, rootClientId);
 
-  if (isLocked) {
+  if (!canRemoveBlocks) {
     return;
   }
 
@@ -11059,6 +8751,8 @@ function* removeBlocks(clientIds, selectPrevious = true) {
 function removeBlock(clientId, selectPrevious) {
   return removeBlocks([clientId], selectPrevious);
 }
+/* eslint-disable jsdoc/valid-types */
+
 /**
  * Returns an action object used in signalling that the inner blocks with the
  * specified client ID should be replaced.
@@ -11071,6 +8765,7 @@ function removeBlock(clientId, selectPrevious) {
  */
 
 function replaceInnerBlocks(rootClientId, blocks, updateSelection = false, initialPosition = 0) {
+  /* eslint-enable jsdoc/valid-types */
   return {
     type: 'REPLACE_INNER_BLOCKS',
     rootClientId,
@@ -11571,7 +9266,7 @@ function useDisplayBlockControls() {
 
 
 
-function useBlockControlsFill(group, exposeToChildren) {
+function useBlockControlsFill(group, shareWithChildBlocks) {
   const isDisplayed = useDisplayBlockControls();
   const {
     clientId
@@ -11584,8 +9279,8 @@ function useBlockControlsFill(group, exposeToChildren) {
     const {
       hasBlockSupport
     } = select(external_wp_blocks_namespaceObject.store);
-    return exposeToChildren && hasBlockSupport(getBlockName(clientId), '__experimentalExposeControlsToChildren', false) && hasSelectedInnerBlock(clientId);
-  }, [exposeToChildren, clientId]);
+    return shareWithChildBlocks && hasBlockSupport(getBlockName(clientId), '__experimentalExposeControlsToChildren', false) && hasSelectedInnerBlock(clientId);
+  }, [shareWithChildBlocks, clientId]);
 
   if (isDisplayed) {
     var _groups$group;
@@ -11621,9 +9316,9 @@ function BlockControlsFill({
   group = 'default',
   controls,
   children,
-  __experimentalExposeToChildren = false
+  __experimentalShareWithChildBlocks = false
 }) {
-  const Fill = useBlockControlsFill(group, __experimentalExposeToChildren);
+  const Fill = useBlockControlsFill(group, __experimentalShareWithChildBlocks);
 
   if (!Fill) {
     return null;
@@ -12095,7 +9790,7 @@ const justifyContentMap = {
 
     return (0,external_wp_element_namespaceObject.createElement)(block_controls, {
       group: "block",
-      __experimentalExposeToChildren: true
+      __experimentalShareWithChildBlocks: true
     }, (0,external_wp_element_namespaceObject.createElement)(FlexLayoutJustifyContentControl, {
       layout: layout,
       onChange: onChange,
@@ -12567,12 +10262,14 @@ function BlockAlignmentUI({
   const extraProps = isToolbar ? {
     isCollapsed
   } : {};
+  const hasActive = enabledControls.some(control => control === value);
   return (0,external_wp_element_namespaceObject.createElement)(UIComponent, _extends({
     popoverProps: POPOVER_PROPS,
     icon: activeAlignmentControl ? activeAlignmentControl.icon : defaultAlignmentControl.icon,
     label: (0,external_wp_i18n_namespaceObject.__)('Align'),
     toggleProps: {
-      describedBy: (0,external_wp_i18n_namespaceObject.__)('Change alignment')
+      describedBy: (0,external_wp_i18n_namespaceObject.__)('Change alignment'),
+      className: hasActive ? 'is-pressed' : undefined
     },
     controls: enabledControls.map(control => {
       return { ...BLOCK_ALIGNMENTS_CONTROLS[control],
@@ -12728,7 +10425,7 @@ const withToolbarControls = (0,external_wp_compose_namespaceObject.createHigherO
       var _blockType$attributes, _blockType$attributes2;
 
       const blockType = (0,external_wp_blocks_namespaceObject.getBlockType)(props.name);
-      const blockDefaultAlign = (_blockType$attributes = blockType.attributes) === null || _blockType$attributes === void 0 ? void 0 : (_blockType$attributes2 = _blockType$attributes.align) === null || _blockType$attributes2 === void 0 ? void 0 : _blockType$attributes2.default;
+      const blockDefaultAlign = blockType === null || blockType === void 0 ? void 0 : (_blockType$attributes = blockType.attributes) === null || _blockType$attributes === void 0 ? void 0 : (_blockType$attributes2 = _blockType$attributes.align) === null || _blockType$attributes2 === void 0 ? void 0 : _blockType$attributes2.default;
 
       if (blockDefaultAlign) {
         nextAlign = '';
@@ -12742,7 +10439,7 @@ const withToolbarControls = (0,external_wp_compose_namespaceObject.createHigherO
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, blockAllowedAlignments.length > 0 && (0,external_wp_element_namespaceObject.createElement)(block_controls, {
     group: "block",
-    __experimentalExposeToChildren: true
+    __experimentalShareWithChildBlocks: true
   }, (0,external_wp_element_namespaceObject.createElement)(BlockAlignmentControl, {
     value: props.attributes.align,
     onChange: updateAlignment,
@@ -12818,6 +10515,40 @@ function addAssignedAlign(props, blockType, attributes) {
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/editor/align/with-toolbar-controls', withToolbarControls);
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.getSaveContent.extraProps', 'core/align/addAssignedAlign', addAssignedAlign);
 //# sourceMappingURL=align.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/lock.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Filters registered block settings, extending attributes to include `lock`.
+ *
+ * @param {Object} settings Original block settings.
+ *
+ * @return {Object} Filtered block settings.
+ */
+
+function lock_addAttribute(settings) {
+  // allow blocks to specify their own attribute definition with default values if needed.
+  if ((0,external_lodash_namespaceObject.has)(settings.attributes, ['lock', 'type'])) {
+    return settings;
+  } // Gracefully handle if settings.attributes is undefined.
+
+
+  settings.attributes = { ...settings.attributes,
+    lock: {
+      type: 'object'
+    }
+  };
+  return settings;
+}
+(0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/lock/addAttribute', lock_addAttribute);
+//# sourceMappingURL=lock.js.map
 ;// CONCATENATED MODULE: external ["wp","warning"]
 var external_wp_warning_namespaceObject = window["wp"]["warning"];
 var external_wp_warning_default = /*#__PURE__*/__webpack_require__.n(external_wp_warning_namespaceObject);
@@ -12828,9 +10559,11 @@ var external_wp_warning_default = /*#__PURE__*/__webpack_require__.n(external_wp
 
 const InspectorControlsDefault = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControls');
 const InspectorControlsAdvanced = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorAdvancedControls');
+const InspectorControlsDimensions = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControlsDimensions');
 const groups_groups = {
   default: InspectorControlsDefault,
-  advanced: InspectorControlsAdvanced
+  advanced: InspectorControlsAdvanced,
+  dimensions: InspectorControlsDimensions
 };
 /* harmony default export */ var inspector_controls_groups = (groups_groups);
 //# sourceMappingURL=groups.js.map
@@ -12871,6 +10604,92 @@ function InspectorControlsFill({
   }, (0,external_wp_element_namespaceObject.createElement)(Fill, null, children));
 }
 //# sourceMappingURL=fill.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/utils.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Removed falsy values from nested object.
+ *
+ * @param {*} object
+ * @return {*} Object cleaned from falsy values
+ */
+
+const cleanEmptyObject = object => {
+  if (!(0,external_lodash_namespaceObject.isObject)(object) || Array.isArray(object)) {
+    return object;
+  }
+
+  const cleanedNestedObjects = (0,external_lodash_namespaceObject.pickBy)((0,external_lodash_namespaceObject.mapValues)(object, cleanEmptyObject), external_lodash_namespaceObject.identity);
+  return (0,external_lodash_namespaceObject.isEmpty)(cleanedNestedObjects) ? undefined : cleanedNestedObjects;
+};
+//# sourceMappingURL=utils.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inspector-controls/block-support-tools-panel.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function BlockSupportToolsPanel({
+  children,
+  label,
+  header
+}) {
+  const {
+    clientId,
+    attributes
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getBlockAttributes,
+      getSelectedBlockClientId
+    } = select(store);
+    const selectedBlockClientId = getSelectedBlockClientId();
+    return {
+      clientId: selectedBlockClientId,
+      attributes: getBlockAttributes(selectedBlockClientId)
+    };
+  });
+  const {
+    updateBlockAttributes
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+
+  const resetAll = (resetFilters = []) => {
+    const {
+      style
+    } = attributes;
+    let newAttributes = {
+      style
+    };
+    resetFilters.forEach(resetFilter => {
+      newAttributes = { ...newAttributes,
+        ...resetFilter(newAttributes)
+      };
+    }); // Enforce a cleaned style object.
+
+    newAttributes = { ...newAttributes,
+      style: cleanEmptyObject(newAttributes.style)
+    };
+    updateBlockAttributes(clientId, newAttributes);
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanel, {
+    label: label,
+    header: header,
+    resetAll: resetAll,
+    key: clientId,
+    panelId: clientId
+  }, children);
+}
+//# sourceMappingURL=block-support-tools-panel.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inspector-controls/slot.js
 
 
@@ -12885,9 +10704,11 @@ function InspectorControlsFill({
  */
 
 
+
 function InspectorControlsSlot({
   __experimentalGroup: group = 'default',
   bubblesVirtually = true,
+  label,
   ...props
 }) {
   var _groups$group;
@@ -12904,6 +10725,15 @@ function InspectorControlsSlot({
 
   if (!hasFills) {
     return null;
+  }
+
+  if (label) {
+    return (0,external_wp_element_namespaceObject.createElement)(BlockSupportToolsPanel, {
+      group: group,
+      label: label
+    }, (0,external_wp_element_namespaceObject.createElement)(Slot, _extends({}, props, {
+      bubblesVirtually: bubblesVirtually
+    })));
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(Slot, _extends({}, props, {
@@ -13541,27 +11371,6 @@ function ColorGradientControl(props) {
 
 /* harmony default export */ var control = (ColorGradientControl);
 //# sourceMappingURL=control.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/utils.js
-/**
- * External dependencies
- */
-
-/**
- * Removed falsy values from nested object.
- *
- * @param {*} object
- * @return {*} Object cleaned from falsy values
- */
-
-const cleanEmptyObject = object => {
-  if (!(0,external_lodash_namespaceObject.isObject)(object) || Array.isArray(object)) {
-    return object;
-  }
-
-  const cleanedNestedObjects = (0,external_lodash_namespaceObject.pickBy)((0,external_lodash_namespaceObject.mapValues)(object, cleanEmptyObject), external_lodash_namespaceObject.identity);
-  return (0,external_lodash_namespaceObject.isEmpty)(cleanedNestedObjects) ? undefined : cleanedNestedObjects;
-};
-//# sourceMappingURL=utils.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/border-color.js
 
 
@@ -14578,6 +12387,7 @@ const PanelColorGradientSettingsInner = ({
   children,
   settings,
   title,
+  showTitle = true,
   ...props
 }) => {
   if ((0,external_lodash_namespaceObject.isEmpty)(colors) && (0,external_lodash_namespaceObject.isEmpty)(gradients) && disableCustomColors && disableCustomGradients && (0,external_lodash_namespaceObject.every)(settings, setting => (0,external_lodash_namespaceObject.isEmpty)(setting.colors) && (0,external_lodash_namespaceObject.isEmpty)(setting.gradients) && (setting.disableCustomColors === undefined || setting.disableCustomColors) && (setting.disableCustomGradients === undefined || setting.disableCustomGradients))) {
@@ -14593,7 +12403,7 @@ const PanelColorGradientSettingsInner = ({
   }));
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, _extends({
     className: classnames_default()('block-editor-panel-color-gradient-settings', className),
-    title: titleElement
+    title: showTitle ? titleElement : undefined
   }, props), settings.map((setting, index) => (0,external_wp_element_namespaceObject.createElement)(control, _extends({
     key: index,
     colors,
@@ -14850,7 +12660,8 @@ function getComputedStyle(node) {
 function ColorPanel({
   settings,
   clientId,
-  enableContrastChecking = true
+  enableContrastChecking = true,
+  showTitle = true
 }) {
   const [detectedBackgroundColor, setDetectedBackgroundColor] = (0,external_wp_element_namespaceObject.useState)();
   const [detectedColor, setDetectedColor] = (0,external_wp_element_namespaceObject.useState)();
@@ -14878,7 +12689,8 @@ function ColorPanel({
   return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, null, (0,external_wp_element_namespaceObject.createElement)(panel_color_gradient_settings, {
     title: (0,external_wp_i18n_namespaceObject.__)('Color'),
     initialOpen: false,
-    settings: settings
+    settings: settings,
+    showTitle: showTitle
   }, enableContrastChecking && (0,external_wp_element_namespaceObject.createElement)(contrast_checker, {
     backgroundColor: detectedBackgroundColor,
     textColor: detectedColor
@@ -15194,7 +13006,7 @@ function ColorEdit(props) {
   const onChangeLinkColor = value => {
     const colorObject = getColorObjectByColorValue(solids, value);
     const newLinkColorValue = colorObject !== null && colorObject !== void 0 && colorObject.slug ? `var:preset|color|${colorObject.slug}` : value;
-    const newStyle = immutableSet(style, ['elements', 'link', 'color', 'text'], newLinkColorValue);
+    const newStyle = cleanEmptyObject(immutableSet(style, ['elements', 'link', 'color', 'text'], newLinkColorValue));
     props.setAttributes({
       style: newStyle
     });
@@ -15943,9 +13755,10 @@ function FontAppearanceControl(props) {
     }
 
     return hasFontStyles ? styleOptions() : weightOptions();
-  }, [props.options]); // Find current selection by comparing font style & weight against options.
+  }, [props.options]); // Find current selection by comparing font style & weight against options,
+  // and fall back to the Default option if there is no matching option.
 
-  const currentSelection = selectOptions.find(option => option.style.fontStyle === fontStyle && option.style.fontWeight === fontWeight); // Adjusts field label in case either styles or weights are disabled.
+  const currentSelection = selectOptions.find(option => option.style.fontStyle === fontStyle && option.style.fontWeight === fontWeight) || selectOptions[0]; // Adjusts field label in case either styles or weights are disabled.
 
   const getLabel = () => {
     if (!hasFontStyles) {
@@ -17173,7 +14986,6 @@ function PaddingEdit(props) {
 
 
 
-
 const SPACING_SUPPORT_KEY = 'spacing';
 const ALL_SIDES = ['top', 'right', 'bottom', 'left'];
 const AXIAL_SIDES = ['vertical', 'horizontal'];
@@ -17196,46 +15008,45 @@ function DimensionsPanel(props) {
     return null;
   }
 
-  const defaultSpacingControls = (0,external_wp_blocks_namespaceObject.getBlockSupport)(props.name, [SPACING_SUPPORT_KEY, '__experimentalDefaultControls']); // Callback to reset all block support attributes controlled via this panel.
+  const defaultSpacingControls = (0,external_wp_blocks_namespaceObject.getBlockSupport)(props.name, [SPACING_SUPPORT_KEY, '__experimentalDefaultControls']);
 
-  const resetAll = () => {
-    const {
-      style
-    } = props.attributes;
-    props.setAttributes({
-      style: cleanEmptyObject({ ...style,
-        spacing: { ...(style === null || style === void 0 ? void 0 : style.spacing),
-          blockGap: undefined,
-          margin: undefined,
-          padding: undefined
+  const createResetAllFilter = attribute => newAttributes => {
+    var _newAttributes$style;
+
+    return { ...newAttributes,
+      style: { ...newAttributes.style,
+        spacing: { ...((_newAttributes$style = newAttributes.style) === null || _newAttributes$style === void 0 ? void 0 : _newAttributes$style.spacing),
+          [attribute]: undefined
         }
-      })
-    });
+      }
+    };
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, {
-    key: "dimensions"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanel, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Dimensions options'),
-    header: (0,external_wp_i18n_namespaceObject.__)('Dimensions'),
-    resetAll: resetAll
+    __experimentalGroup: "dimensions"
   }, !isPaddingDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
     hasValue: () => hasPaddingValue(props),
     label: (0,external_wp_i18n_namespaceObject.__)('Padding'),
     onDeselect: () => resetPadding(props),
-    isShownByDefault: defaultSpacingControls === null || defaultSpacingControls === void 0 ? void 0 : defaultSpacingControls.padding
+    resetAllFilter: createResetAllFilter('padding'),
+    isShownByDefault: defaultSpacingControls === null || defaultSpacingControls === void 0 ? void 0 : defaultSpacingControls.padding,
+    panelId: props.clientId
   }, (0,external_wp_element_namespaceObject.createElement)(PaddingEdit, props)), !isMarginDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
     hasValue: () => hasMarginValue(props),
     label: (0,external_wp_i18n_namespaceObject.__)('Margin'),
     onDeselect: () => resetMargin(props),
-    isShownByDefault: defaultSpacingControls === null || defaultSpacingControls === void 0 ? void 0 : defaultSpacingControls.margin
+    resetAllFilter: createResetAllFilter('margin'),
+    isShownByDefault: defaultSpacingControls === null || defaultSpacingControls === void 0 ? void 0 : defaultSpacingControls.margin,
+    panelId: props.clientId
   }, (0,external_wp_element_namespaceObject.createElement)(MarginEdit, props)), !isGapDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
     className: "single-column",
     hasValue: () => hasGapValue(props),
     label: (0,external_wp_i18n_namespaceObject.__)('Block gap'),
     onDeselect: () => resetGap(props),
-    isShownByDefault: defaultSpacingControls === null || defaultSpacingControls === void 0 ? void 0 : defaultSpacingControls.blockGap
-  }, (0,external_wp_element_namespaceObject.createElement)(GapEdit, props))));
+    resetAllFilter: createResetAllFilter('blockGap'),
+    isShownByDefault: defaultSpacingControls === null || defaultSpacingControls === void 0 ? void 0 : defaultSpacingControls.blockGap,
+    panelId: props.clientId
+  }, (0,external_wp_element_namespaceObject.createElement)(GapEdit, props)));
 }
 /**
  * Determine whether there is dimensions related block support.
@@ -17395,7 +15206,7 @@ function compileElementsStyles(selector, elements = {}) {
     const elementStyles = getInlineStyles(styles);
 
     if (!(0,external_lodash_namespaceObject.isEmpty)(elementStyles)) {
-      return [`.${selector} ${external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[element]}{`, ...(0,external_lodash_namespaceObject.map)(elementStyles, (value, property) => `\t${(0,external_lodash_namespaceObject.kebabCase)(property)}: ${value}${element === 'link' ? '!important' : ''};`), '}'].join('\n');
+      return [`.${selector} ${external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[element]}{`, ...(0,external_lodash_namespaceObject.map)(elementStyles, (value, property) => `\t${(0,external_lodash_namespaceObject.kebabCase)(property)}: ${value};`), '}'].join('\n');
     }
 
     return '';
@@ -18201,8 +16012,4009 @@ function BlockHTML({
 
 /* harmony default export */ var block_html = (BlockHTML);
 //# sourceMappingURL=block-html.js.map
-// EXTERNAL MODULE: ./node_modules/react-spring/web.cjs.js
-var web_cjs = __webpack_require__(8088);
+;// CONCATENATED MODULE: ./node_modules/@react-spring/rafz/dist/react-spring-rafz.esm.js
+let updateQueue = makeQueue();
+const raf = fn => schedule(fn, updateQueue);
+let writeQueue = makeQueue();
+
+raf.write = fn => schedule(fn, writeQueue);
+
+let onStartQueue = makeQueue();
+
+raf.onStart = fn => schedule(fn, onStartQueue);
+
+let onFrameQueue = makeQueue();
+
+raf.onFrame = fn => schedule(fn, onFrameQueue);
+
+let onFinishQueue = makeQueue();
+
+raf.onFinish = fn => schedule(fn, onFinishQueue);
+
+let timeouts = [];
+
+raf.setTimeout = (handler, ms) => {
+  let time = raf.now() + ms;
+
+  let cancel = () => {
+    let i = timeouts.findIndex(t => t.cancel == cancel);
+    if (~i) timeouts.splice(i, 1);
+    __raf.count -= ~i ? 1 : 0;
+  };
+
+  let timeout = {
+    time,
+    handler,
+    cancel
+  };
+  timeouts.splice(findTimeout(time), 0, timeout);
+  __raf.count += 1;
+  start();
+  return timeout;
+};
+
+let findTimeout = time => ~(~timeouts.findIndex(t => t.time > time) || ~timeouts.length);
+
+raf.cancel = fn => {
+  updateQueue.delete(fn);
+  writeQueue.delete(fn);
+};
+
+raf.sync = fn => {
+  sync = true;
+  raf.batchedUpdates(fn);
+  sync = false;
+};
+
+raf.throttle = fn => {
+  let lastArgs;
+
+  function queuedFn() {
+    try {
+      fn(...lastArgs);
+    } finally {
+      lastArgs = null;
+    }
+  }
+
+  function throttled(...args) {
+    lastArgs = args;
+    raf.onStart(queuedFn);
+  }
+
+  throttled.handler = fn;
+
+  throttled.cancel = () => {
+    onStartQueue.delete(queuedFn);
+    lastArgs = null;
+  };
+
+  return throttled;
+};
+
+let nativeRaf = typeof window != 'undefined' ? window.requestAnimationFrame : () => {};
+
+raf.use = impl => nativeRaf = impl;
+
+raf.now = typeof performance != 'undefined' ? () => performance.now() : Date.now;
+
+raf.batchedUpdates = fn => fn();
+
+raf.catch = console.error;
+raf.frameLoop = 'always';
+
+raf.advance = () => {
+  if (raf.frameLoop !== 'demand') {
+    console.warn('Cannot call the manual advancement of rafz whilst frameLoop is not set as demand');
+  } else {
+    update();
+  }
+};
+
+let ts = -1;
+let sync = false;
+
+function schedule(fn, queue) {
+  if (sync) {
+    queue.delete(fn);
+    fn(0);
+  } else {
+    queue.add(fn);
+    start();
+  }
+}
+
+function start() {
+  if (ts < 0) {
+    ts = 0;
+
+    if (raf.frameLoop !== 'demand') {
+      nativeRaf(loop);
+    }
+  }
+}
+
+function loop() {
+  if (~ts) {
+    nativeRaf(loop);
+    raf.batchedUpdates(update);
+  }
+}
+
+function update() {
+  let prevTs = ts;
+  ts = raf.now();
+  let count = findTimeout(ts);
+
+  if (count) {
+    eachSafely(timeouts.splice(0, count), t => t.handler());
+    __raf.count -= count;
+  }
+
+  onStartQueue.flush();
+  updateQueue.flush(prevTs ? Math.min(64, ts - prevTs) : 16.667);
+  onFrameQueue.flush();
+  writeQueue.flush();
+  onFinishQueue.flush();
+}
+
+function makeQueue() {
+  let next = new Set();
+  let current = next;
+  return {
+    add(fn) {
+      __raf.count += current == next && !next.has(fn) ? 1 : 0;
+      next.add(fn);
+    },
+
+    delete(fn) {
+      __raf.count -= current == next && next.has(fn) ? 1 : 0;
+      return next.delete(fn);
+    },
+
+    flush(arg) {
+      if (current.size) {
+        next = new Set();
+        __raf.count -= current.size;
+        eachSafely(current, fn => fn(arg) && next.add(fn));
+        __raf.count += next.size;
+        current = next;
+      }
+    }
+
+  };
+}
+
+function eachSafely(values, each) {
+  values.forEach(value => {
+    try {
+      each(value);
+    } catch (e) {
+      raf.catch(e);
+    }
+  });
+}
+
+const __raf = {
+  count: 0,
+
+  clear() {
+    ts = -1;
+    timeouts = [];
+    onStartQueue = makeQueue();
+    updateQueue = makeQueue();
+    onFrameQueue = makeQueue();
+    writeQueue = makeQueue();
+    onFinishQueue = makeQueue();
+    __raf.count = 0;
+  }
+
+};
+
+
+
+// EXTERNAL MODULE: external "React"
+var external_React_ = __webpack_require__(3804);
+var external_React_default = /*#__PURE__*/__webpack_require__.n(external_React_);
+;// CONCATENATED MODULE: ./node_modules/@react-spring/shared/dist/react-spring-shared.esm.js
+
+
+
+
+
+function noop() {}
+const defineHidden = (obj, key, value) => Object.defineProperty(obj, key, {
+  value,
+  writable: true,
+  configurable: true
+});
+const react_spring_shared_esm_is = {
+  arr: Array.isArray,
+  obj: a => !!a && a.constructor.name === 'Object',
+  fun: a => typeof a === 'function',
+  str: a => typeof a === 'string',
+  num: a => typeof a === 'number',
+  und: a => a === undefined
+};
+function isEqual(a, b) {
+  if (react_spring_shared_esm_is.arr(a)) {
+    if (!react_spring_shared_esm_is.arr(b) || a.length !== b.length) return false;
+
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] !== b[i]) return false;
+    }
+
+    return true;
+  }
+
+  return a === b;
+}
+const react_spring_shared_esm_each = (obj, fn) => obj.forEach(fn);
+function eachProp(obj, fn, ctx) {
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      fn.call(ctx, obj[key], key);
+    }
+  }
+}
+const react_spring_shared_esm_toArray = a => react_spring_shared_esm_is.und(a) ? [] : react_spring_shared_esm_is.arr(a) ? a : [a];
+function flush(queue, iterator) {
+  if (queue.size) {
+    const items = Array.from(queue);
+    queue.clear();
+    react_spring_shared_esm_each(items, iterator);
+  }
+}
+const flushCalls = (queue, ...args) => flush(queue, fn => fn(...args));
+
+let createStringInterpolator$1;
+let to;
+let colors$1 = null;
+let skipAnimation = false;
+let willAdvance = noop;
+const react_spring_shared_esm_assign = globals => {
+  if (globals.to) to = globals.to;
+  if (globals.now) raf.now = globals.now;
+  if (globals.colors !== undefined) colors$1 = globals.colors;
+  if (globals.skipAnimation != null) skipAnimation = globals.skipAnimation;
+  if (globals.createStringInterpolator) createStringInterpolator$1 = globals.createStringInterpolator;
+  if (globals.requestAnimationFrame) raf.use(globals.requestAnimationFrame);
+  if (globals.batchedUpdates) raf.batchedUpdates = globals.batchedUpdates;
+  if (globals.willAdvance) willAdvance = globals.willAdvance;
+  if (globals.frameLoop) raf.frameLoop = globals.frameLoop;
+};
+
+var globals = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  get createStringInterpolator () { return createStringInterpolator$1; },
+  get to () { return to; },
+  get colors () { return colors$1; },
+  get skipAnimation () { return skipAnimation; },
+  get willAdvance () { return willAdvance; },
+  assign: react_spring_shared_esm_assign
+});
+
+const startQueue = new Set();
+let currentFrame = [];
+let prevFrame = [];
+let priority = 0;
+const frameLoop = {
+  get idle() {
+    return !startQueue.size && !currentFrame.length;
+  },
+
+  start(animation) {
+    if (priority > animation.priority) {
+      startQueue.add(animation);
+      raf.onStart(flushStartQueue);
+    } else {
+      startSafely(animation);
+      raf(advance);
+    }
+  },
+
+  advance,
+
+  sort(animation) {
+    if (priority) {
+      raf.onFrame(() => frameLoop.sort(animation));
+    } else {
+      const prevIndex = currentFrame.indexOf(animation);
+
+      if (~prevIndex) {
+        currentFrame.splice(prevIndex, 1);
+        startUnsafely(animation);
+      }
+    }
+  },
+
+  clear() {
+    currentFrame = [];
+    startQueue.clear();
+  }
+
+};
+
+function flushStartQueue() {
+  startQueue.forEach(startSafely);
+  startQueue.clear();
+  raf(advance);
+}
+
+function startSafely(animation) {
+  if (!currentFrame.includes(animation)) startUnsafely(animation);
+}
+
+function startUnsafely(animation) {
+  currentFrame.splice(findIndex(currentFrame, other => other.priority > animation.priority), 0, animation);
+}
+
+function advance(dt) {
+  const nextFrame = prevFrame;
+
+  for (let i = 0; i < currentFrame.length; i++) {
+    const animation = currentFrame[i];
+    priority = animation.priority;
+
+    if (!animation.idle) {
+      willAdvance(animation);
+      animation.advance(dt);
+
+      if (!animation.idle) {
+        nextFrame.push(animation);
+      }
+    }
+  }
+
+  priority = 0;
+  prevFrame = currentFrame;
+  prevFrame.length = 0;
+  currentFrame = nextFrame;
+  return currentFrame.length > 0;
+}
+
+function findIndex(arr, test) {
+  const index = arr.findIndex(test);
+  return index < 0 ? arr.length : index;
+}
+
+const colors = {
+  transparent: 0x00000000,
+  aliceblue: 0xf0f8ffff,
+  antiquewhite: 0xfaebd7ff,
+  aqua: 0x00ffffff,
+  aquamarine: 0x7fffd4ff,
+  azure: 0xf0ffffff,
+  beige: 0xf5f5dcff,
+  bisque: 0xffe4c4ff,
+  black: 0x000000ff,
+  blanchedalmond: 0xffebcdff,
+  blue: 0x0000ffff,
+  blueviolet: 0x8a2be2ff,
+  brown: 0xa52a2aff,
+  burlywood: 0xdeb887ff,
+  burntsienna: 0xea7e5dff,
+  cadetblue: 0x5f9ea0ff,
+  chartreuse: 0x7fff00ff,
+  chocolate: 0xd2691eff,
+  coral: 0xff7f50ff,
+  cornflowerblue: 0x6495edff,
+  cornsilk: 0xfff8dcff,
+  crimson: 0xdc143cff,
+  cyan: 0x00ffffff,
+  darkblue: 0x00008bff,
+  darkcyan: 0x008b8bff,
+  darkgoldenrod: 0xb8860bff,
+  darkgray: 0xa9a9a9ff,
+  darkgreen: 0x006400ff,
+  darkgrey: 0xa9a9a9ff,
+  darkkhaki: 0xbdb76bff,
+  darkmagenta: 0x8b008bff,
+  darkolivegreen: 0x556b2fff,
+  darkorange: 0xff8c00ff,
+  darkorchid: 0x9932ccff,
+  darkred: 0x8b0000ff,
+  darksalmon: 0xe9967aff,
+  darkseagreen: 0x8fbc8fff,
+  darkslateblue: 0x483d8bff,
+  darkslategray: 0x2f4f4fff,
+  darkslategrey: 0x2f4f4fff,
+  darkturquoise: 0x00ced1ff,
+  darkviolet: 0x9400d3ff,
+  deeppink: 0xff1493ff,
+  deepskyblue: 0x00bfffff,
+  dimgray: 0x696969ff,
+  dimgrey: 0x696969ff,
+  dodgerblue: 0x1e90ffff,
+  firebrick: 0xb22222ff,
+  floralwhite: 0xfffaf0ff,
+  forestgreen: 0x228b22ff,
+  fuchsia: 0xff00ffff,
+  gainsboro: 0xdcdcdcff,
+  ghostwhite: 0xf8f8ffff,
+  gold: 0xffd700ff,
+  goldenrod: 0xdaa520ff,
+  gray: 0x808080ff,
+  green: 0x008000ff,
+  greenyellow: 0xadff2fff,
+  grey: 0x808080ff,
+  honeydew: 0xf0fff0ff,
+  hotpink: 0xff69b4ff,
+  indianred: 0xcd5c5cff,
+  indigo: 0x4b0082ff,
+  ivory: 0xfffff0ff,
+  khaki: 0xf0e68cff,
+  lavender: 0xe6e6faff,
+  lavenderblush: 0xfff0f5ff,
+  lawngreen: 0x7cfc00ff,
+  lemonchiffon: 0xfffacdff,
+  lightblue: 0xadd8e6ff,
+  lightcoral: 0xf08080ff,
+  lightcyan: 0xe0ffffff,
+  lightgoldenrodyellow: 0xfafad2ff,
+  lightgray: 0xd3d3d3ff,
+  lightgreen: 0x90ee90ff,
+  lightgrey: 0xd3d3d3ff,
+  lightpink: 0xffb6c1ff,
+  lightsalmon: 0xffa07aff,
+  lightseagreen: 0x20b2aaff,
+  lightskyblue: 0x87cefaff,
+  lightslategray: 0x778899ff,
+  lightslategrey: 0x778899ff,
+  lightsteelblue: 0xb0c4deff,
+  lightyellow: 0xffffe0ff,
+  lime: 0x00ff00ff,
+  limegreen: 0x32cd32ff,
+  linen: 0xfaf0e6ff,
+  magenta: 0xff00ffff,
+  maroon: 0x800000ff,
+  mediumaquamarine: 0x66cdaaff,
+  mediumblue: 0x0000cdff,
+  mediumorchid: 0xba55d3ff,
+  mediumpurple: 0x9370dbff,
+  mediumseagreen: 0x3cb371ff,
+  mediumslateblue: 0x7b68eeff,
+  mediumspringgreen: 0x00fa9aff,
+  mediumturquoise: 0x48d1ccff,
+  mediumvioletred: 0xc71585ff,
+  midnightblue: 0x191970ff,
+  mintcream: 0xf5fffaff,
+  mistyrose: 0xffe4e1ff,
+  moccasin: 0xffe4b5ff,
+  navajowhite: 0xffdeadff,
+  navy: 0x000080ff,
+  oldlace: 0xfdf5e6ff,
+  olive: 0x808000ff,
+  olivedrab: 0x6b8e23ff,
+  orange: 0xffa500ff,
+  orangered: 0xff4500ff,
+  orchid: 0xda70d6ff,
+  palegoldenrod: 0xeee8aaff,
+  palegreen: 0x98fb98ff,
+  paleturquoise: 0xafeeeeff,
+  palevioletred: 0xdb7093ff,
+  papayawhip: 0xffefd5ff,
+  peachpuff: 0xffdab9ff,
+  peru: 0xcd853fff,
+  pink: 0xffc0cbff,
+  plum: 0xdda0ddff,
+  powderblue: 0xb0e0e6ff,
+  purple: 0x800080ff,
+  rebeccapurple: 0x663399ff,
+  red: 0xff0000ff,
+  rosybrown: 0xbc8f8fff,
+  royalblue: 0x4169e1ff,
+  saddlebrown: 0x8b4513ff,
+  salmon: 0xfa8072ff,
+  sandybrown: 0xf4a460ff,
+  seagreen: 0x2e8b57ff,
+  seashell: 0xfff5eeff,
+  sienna: 0xa0522dff,
+  silver: 0xc0c0c0ff,
+  skyblue: 0x87ceebff,
+  slateblue: 0x6a5acdff,
+  slategray: 0x708090ff,
+  slategrey: 0x708090ff,
+  snow: 0xfffafaff,
+  springgreen: 0x00ff7fff,
+  steelblue: 0x4682b4ff,
+  tan: 0xd2b48cff,
+  teal: 0x008080ff,
+  thistle: 0xd8bfd8ff,
+  tomato: 0xff6347ff,
+  turquoise: 0x40e0d0ff,
+  violet: 0xee82eeff,
+  wheat: 0xf5deb3ff,
+  white: 0xffffffff,
+  whitesmoke: 0xf5f5f5ff,
+  yellow: 0xffff00ff,
+  yellowgreen: 0x9acd32ff
+};
+
+const NUMBER = '[-+]?\\d*\\.?\\d+';
+const PERCENTAGE = NUMBER + '%';
+
+function call(...parts) {
+  return '\\(\\s*(' + parts.join(')\\s*,\\s*(') + ')\\s*\\)';
+}
+
+const rgb = new RegExp('rgb' + call(NUMBER, NUMBER, NUMBER));
+const rgba = new RegExp('rgba' + call(NUMBER, NUMBER, NUMBER, NUMBER));
+const hsl = new RegExp('hsl' + call(NUMBER, PERCENTAGE, PERCENTAGE));
+const hsla = new RegExp('hsla' + call(NUMBER, PERCENTAGE, PERCENTAGE, NUMBER));
+const hex3 = /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/;
+const hex4 = /^#([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/;
+const hex6 = /^#([0-9a-fA-F]{6})$/;
+const hex8 = /^#([0-9a-fA-F]{8})$/;
+
+function normalizeColor(color) {
+  let match;
+
+  if (typeof color === 'number') {
+    return color >>> 0 === color && color >= 0 && color <= 0xffffffff ? color : null;
+  }
+
+  if (match = hex6.exec(color)) return parseInt(match[1] + 'ff', 16) >>> 0;
+
+  if (colors$1 && colors$1[color] !== undefined) {
+    return colors$1[color];
+  }
+
+  if (match = rgb.exec(color)) {
+    return (parse255(match[1]) << 24 | parse255(match[2]) << 16 | parse255(match[3]) << 8 | 0x000000ff) >>> 0;
+  }
+
+  if (match = rgba.exec(color)) {
+    return (parse255(match[1]) << 24 | parse255(match[2]) << 16 | parse255(match[3]) << 8 | parse1(match[4])) >>> 0;
+  }
+
+  if (match = hex3.exec(color)) {
+    return parseInt(match[1] + match[1] + match[2] + match[2] + match[3] + match[3] + 'ff', 16) >>> 0;
+  }
+
+  if (match = hex8.exec(color)) return parseInt(match[1], 16) >>> 0;
+
+  if (match = hex4.exec(color)) {
+    return parseInt(match[1] + match[1] + match[2] + match[2] + match[3] + match[3] + match[4] + match[4], 16) >>> 0;
+  }
+
+  if (match = hsl.exec(color)) {
+    return (hslToRgb(parse360(match[1]), parsePercentage(match[2]), parsePercentage(match[3])) | 0x000000ff) >>> 0;
+  }
+
+  if (match = hsla.exec(color)) {
+    return (hslToRgb(parse360(match[1]), parsePercentage(match[2]), parsePercentage(match[3])) | parse1(match[4])) >>> 0;
+  }
+
+  return null;
+}
+
+function hue2rgb(p, q, t) {
+  if (t < 0) t += 1;
+  if (t > 1) t -= 1;
+  if (t < 1 / 6) return p + (q - p) * 6 * t;
+  if (t < 1 / 2) return q;
+  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+  return p;
+}
+
+function hslToRgb(h, s, l) {
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+  const r = hue2rgb(p, q, h + 1 / 3);
+  const g = hue2rgb(p, q, h);
+  const b = hue2rgb(p, q, h - 1 / 3);
+  return Math.round(r * 255) << 24 | Math.round(g * 255) << 16 | Math.round(b * 255) << 8;
+}
+
+function parse255(str) {
+  const int = parseInt(str, 10);
+  if (int < 0) return 0;
+  if (int > 255) return 255;
+  return int;
+}
+
+function parse360(str) {
+  const int = parseFloat(str);
+  return (int % 360 + 360) % 360 / 360;
+}
+
+function parse1(str) {
+  const num = parseFloat(str);
+  if (num < 0) return 0;
+  if (num > 1) return 255;
+  return Math.round(num * 255);
+}
+
+function parsePercentage(str) {
+  const int = parseFloat(str);
+  if (int < 0) return 0;
+  if (int > 100) return 1;
+  return int / 100;
+}
+
+function colorToRgba(input) {
+  let int32Color = normalizeColor(input);
+  if (int32Color === null) return input;
+  int32Color = int32Color || 0;
+  let r = (int32Color & 0xff000000) >>> 24;
+  let g = (int32Color & 0x00ff0000) >>> 16;
+  let b = (int32Color & 0x0000ff00) >>> 8;
+  let a = (int32Color & 0x000000ff) / 255;
+  return `rgba(${r}, ${g}, ${b}, ${a})`;
+}
+
+const createInterpolator = (range, output, extrapolate) => {
+  if (react_spring_shared_esm_is.fun(range)) {
+    return range;
+  }
+
+  if (react_spring_shared_esm_is.arr(range)) {
+    return createInterpolator({
+      range,
+      output: output,
+      extrapolate
+    });
+  }
+
+  if (react_spring_shared_esm_is.str(range.output[0])) {
+    return createStringInterpolator$1(range);
+  }
+
+  const config = range;
+  const outputRange = config.output;
+  const inputRange = config.range || [0, 1];
+  const extrapolateLeft = config.extrapolateLeft || config.extrapolate || 'extend';
+  const extrapolateRight = config.extrapolateRight || config.extrapolate || 'extend';
+
+  const easing = config.easing || (t => t);
+
+  return input => {
+    const range = findRange(input, inputRange);
+    return interpolate(input, inputRange[range], inputRange[range + 1], outputRange[range], outputRange[range + 1], easing, extrapolateLeft, extrapolateRight, config.map);
+  };
+};
+
+function interpolate(input, inputMin, inputMax, outputMin, outputMax, easing, extrapolateLeft, extrapolateRight, map) {
+  let result = map ? map(input) : input;
+
+  if (result < inputMin) {
+    if (extrapolateLeft === 'identity') return result;else if (extrapolateLeft === 'clamp') result = inputMin;
+  }
+
+  if (result > inputMax) {
+    if (extrapolateRight === 'identity') return result;else if (extrapolateRight === 'clamp') result = inputMax;
+  }
+
+  if (outputMin === outputMax) return outputMin;
+  if (inputMin === inputMax) return input <= inputMin ? outputMin : outputMax;
+  if (inputMin === -Infinity) result = -result;else if (inputMax === Infinity) result = result - inputMin;else result = (result - inputMin) / (inputMax - inputMin);
+  result = easing(result);
+  if (outputMin === -Infinity) result = -result;else if (outputMax === Infinity) result = result + outputMin;else result = result * (outputMax - outputMin) + outputMin;
+  return result;
+}
+
+function findRange(input, inputRange) {
+  for (var i = 1; i < inputRange.length - 1; ++i) if (inputRange[i] >= input) break;
+
+  return i - 1;
+}
+
+function react_spring_shared_esm_extends() {
+  react_spring_shared_esm_extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return react_spring_shared_esm_extends.apply(this, arguments);
+}
+
+const $get = Symbol.for('FluidValue.get');
+const $observers = Symbol.for('FluidValue.observers');
+
+const hasFluidValue = arg => Boolean(arg && arg[$get]);
+
+const getFluidValue = arg => arg && arg[$get] ? arg[$get]() : arg;
+
+const getFluidObservers = target => target[$observers] || null;
+
+function callFluidObserver(observer, event) {
+  if (observer.eventObserved) {
+    observer.eventObserved(event);
+  } else {
+    observer(event);
+  }
+}
+
+function callFluidObservers(target, event) {
+  let observers = target[$observers];
+
+  if (observers) {
+    observers.forEach(observer => {
+      callFluidObserver(observer, event);
+    });
+  }
+}
+
+class FluidValue {
+  constructor(get) {
+    this[$get] = void 0;
+    this[$observers] = void 0;
+
+    if (!get && !(get = this.get)) {
+      throw Error('Unknown getter');
+    }
+
+    setFluidGetter(this, get);
+  }
+
+}
+
+const setFluidGetter = (target, get) => setHidden(target, $get, get);
+
+function addFluidObserver(target, observer) {
+  if (target[$get]) {
+    let observers = target[$observers];
+
+    if (!observers) {
+      setHidden(target, $observers, observers = new Set());
+    }
+
+    if (!observers.has(observer)) {
+      observers.add(observer);
+
+      if (target.observerAdded) {
+        target.observerAdded(observers.size, observer);
+      }
+    }
+  }
+
+  return observer;
+}
+
+function removeFluidObserver(target, observer) {
+  let observers = target[$observers];
+
+  if (observers && observers.has(observer)) {
+    const count = observers.size - 1;
+
+    if (count) {
+      observers.delete(observer);
+    } else {
+      target[$observers] = null;
+    }
+
+    if (target.observerRemoved) {
+      target.observerRemoved(count, observer);
+    }
+  }
+}
+
+const setHidden = (target, key, value) => Object.defineProperty(target, key, {
+  value,
+  writable: true,
+  configurable: true
+});
+
+const numberRegex = /[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?/g;
+const colorRegex = /(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\))/gi;
+let namedColorRegex;
+const rgbaRegex = /rgba\(([0-9\.-]+), ([0-9\.-]+), ([0-9\.-]+), ([0-9\.-]+)\)/gi;
+
+const rgbaRound = (_, p1, p2, p3, p4) => `rgba(${Math.round(p1)}, ${Math.round(p2)}, ${Math.round(p3)}, ${p4})`;
+
+const createStringInterpolator = config => {
+  if (!namedColorRegex) namedColorRegex = colors$1 ? new RegExp(`(${Object.keys(colors$1).join('|')})(?!\\w)`, 'g') : /^\b$/;
+  const output = config.output.map(value => getFluidValue(value).replace(colorRegex, colorToRgba).replace(namedColorRegex, colorToRgba));
+  const keyframes = output.map(value => value.match(numberRegex).map(Number));
+  const outputRanges = keyframes[0].map((_, i) => keyframes.map(values => {
+    if (!(i in values)) {
+      throw Error('The arity of each "output" value must be equal');
+    }
+
+    return values[i];
+  }));
+  const interpolators = outputRanges.map(output => createInterpolator(react_spring_shared_esm_extends({}, config, {
+    output
+  })));
+  return input => {
+    let i = 0;
+    return output[0].replace(numberRegex, () => String(interpolators[i++](input))).replace(rgbaRegex, rgbaRound);
+  };
+};
+
+const prefix = 'react-spring: ';
+
+const once = fn => {
+  const func = fn;
+  let called = false;
+
+  if (typeof func != 'function') {
+    throw new TypeError(`${prefix}once requires a function parameter`);
+  }
+
+  return (...args) => {
+    if (!called) {
+      func(...args);
+      called = true;
+    }
+  };
+};
+
+const warnInterpolate = once(console.warn);
+function react_spring_shared_esm_deprecateInterpolate() {
+  warnInterpolate(`${prefix}The "interpolate" function is deprecated in v9 (use "to" instead)`);
+}
+const warnDirectCall = once(console.warn);
+function deprecateDirectCall() {
+  warnDirectCall(`${prefix}Directly calling start instead of using the api object is deprecated in v9 (use ".start" instead), this will be removed in later 0.X.0 versions`);
+}
+
+function isAnimatedString(value) {
+  return react_spring_shared_esm_is.str(value) && (value[0] == '#' || /\d/.test(value) || value in (colors$1 || {}));
+}
+
+const react_spring_shared_esm_useOnce = effect => (0,external_React_.useEffect)(effect, emptyDeps);
+const emptyDeps = [];
+
+function react_spring_shared_esm_useForceUpdate() {
+  const update = (0,external_React_.useState)()[1];
+  const mounted = (0,external_React_.useState)(makeMountedRef)[0];
+  react_spring_shared_esm_useOnce(mounted.unmount);
+  return () => {
+    if (mounted.current) {
+      update({});
+    }
+  };
+}
+
+function makeMountedRef() {
+  const mounted = {
+    current: true,
+    unmount: () => () => {
+      mounted.current = false;
+    }
+  };
+  return mounted;
+}
+
+function useMemoOne(getResult, inputs) {
+  const [initial] = (0,external_React_.useState)(() => ({
+    inputs,
+    result: getResult()
+  }));
+  const committed = (0,external_React_.useRef)();
+  const prevCache = committed.current;
+  let cache = prevCache;
+
+  if (cache) {
+    const useCache = Boolean(inputs && cache.inputs && areInputsEqual(inputs, cache.inputs));
+
+    if (!useCache) {
+      cache = {
+        inputs,
+        result: getResult()
+      };
+    }
+  } else {
+    cache = initial;
+  }
+
+  (0,external_React_.useEffect)(() => {
+    committed.current = cache;
+
+    if (prevCache == initial) {
+      initial.inputs = initial.result = undefined;
+    }
+  }, [cache]);
+  return cache.result;
+}
+
+function areInputsEqual(next, prev) {
+  if (next.length !== prev.length) {
+    return false;
+  }
+
+  for (let i = 0; i < next.length; i++) {
+    if (next[i] !== prev[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function react_spring_shared_esm_usePrev(value) {
+  const prevRef = (0,external_React_.useRef)();
+  (0,external_React_.useEffect)(() => {
+    prevRef.current = value;
+  });
+  return prevRef.current;
+}
+
+const react_spring_shared_esm_useLayoutEffect = typeof window !== 'undefined' && window.document && window.document.createElement ? external_React_.useLayoutEffect : external_React_.useEffect;
+
+
+
+;// CONCATENATED MODULE: ./node_modules/@react-spring/animated/dist/react-spring-animated.esm.js
+
+
+
+
+const $node = Symbol.for('Animated:node');
+const isAnimated = value => !!value && value[$node] === value;
+const getAnimated = owner => owner && owner[$node];
+const setAnimated = (owner, node) => defineHidden(owner, $node, node);
+const getPayload = owner => owner && owner[$node] && owner[$node].getPayload();
+class Animated {
+  constructor() {
+    this.payload = void 0;
+    setAnimated(this, this);
+  }
+
+  getPayload() {
+    return this.payload || [];
+  }
+
+}
+
+class AnimatedValue extends Animated {
+  constructor(_value) {
+    super();
+    this.done = true;
+    this.elapsedTime = void 0;
+    this.lastPosition = void 0;
+    this.lastVelocity = void 0;
+    this.v0 = void 0;
+    this.durationProgress = 0;
+    this._value = _value;
+
+    if (react_spring_shared_esm_is.num(this._value)) {
+      this.lastPosition = this._value;
+    }
+  }
+
+  static create(value) {
+    return new AnimatedValue(value);
+  }
+
+  getPayload() {
+    return [this];
+  }
+
+  getValue() {
+    return this._value;
+  }
+
+  setValue(value, step) {
+    if (react_spring_shared_esm_is.num(value)) {
+      this.lastPosition = value;
+
+      if (step) {
+        value = Math.round(value / step) * step;
+
+        if (this.done) {
+          this.lastPosition = value;
+        }
+      }
+    }
+
+    if (this._value === value) {
+      return false;
+    }
+
+    this._value = value;
+    return true;
+  }
+
+  reset() {
+    const {
+      done
+    } = this;
+    this.done = false;
+
+    if (react_spring_shared_esm_is.num(this._value)) {
+      this.elapsedTime = 0;
+      this.durationProgress = 0;
+      this.lastPosition = this._value;
+      if (done) this.lastVelocity = null;
+      this.v0 = null;
+    }
+  }
+
+}
+
+class AnimatedString extends AnimatedValue {
+  constructor(value) {
+    super(0);
+    this._string = null;
+    this._toString = void 0;
+    this._toString = createInterpolator({
+      output: [value, value]
+    });
+  }
+
+  static create(value) {
+    return new AnimatedString(value);
+  }
+
+  getValue() {
+    let value = this._string;
+    return value == null ? this._string = this._toString(this._value) : value;
+  }
+
+  setValue(value) {
+    if (react_spring_shared_esm_is.str(value)) {
+      if (value == this._string) {
+        return false;
+      }
+
+      this._string = value;
+      this._value = 1;
+    } else if (super.setValue(value)) {
+      this._string = null;
+    } else {
+      return false;
+    }
+
+    return true;
+  }
+
+  reset(goal) {
+    if (goal) {
+      this._toString = createInterpolator({
+        output: [this.getValue(), goal]
+      });
+    }
+
+    this._value = 0;
+    super.reset();
+  }
+
+}
+
+const TreeContext = {
+  dependencies: null
+};
+
+class AnimatedObject extends Animated {
+  constructor(source) {
+    super();
+    this.source = source;
+    this.setValue(source);
+  }
+
+  getValue(animated) {
+    const values = {};
+    eachProp(this.source, (source, key) => {
+      if (isAnimated(source)) {
+        values[key] = source.getValue(animated);
+      } else if (hasFluidValue(source)) {
+        values[key] = getFluidValue(source);
+      } else if (!animated) {
+        values[key] = source;
+      }
+    });
+    return values;
+  }
+
+  setValue(source) {
+    this.source = source;
+    this.payload = this._makePayload(source);
+  }
+
+  reset() {
+    if (this.payload) {
+      react_spring_shared_esm_each(this.payload, node => node.reset());
+    }
+  }
+
+  _makePayload(source) {
+    if (source) {
+      const payload = new Set();
+      eachProp(source, this._addToPayload, payload);
+      return Array.from(payload);
+    }
+  }
+
+  _addToPayload(source) {
+    if (TreeContext.dependencies && hasFluidValue(source)) {
+      TreeContext.dependencies.add(source);
+    }
+
+    const payload = getPayload(source);
+
+    if (payload) {
+      react_spring_shared_esm_each(payload, node => this.add(node));
+    }
+  }
+
+}
+
+class AnimatedArray extends AnimatedObject {
+  constructor(source) {
+    super(source);
+  }
+
+  static create(source) {
+    return new AnimatedArray(source);
+  }
+
+  getValue() {
+    return this.source.map(node => node.getValue());
+  }
+
+  setValue(source) {
+    const payload = this.getPayload();
+
+    if (source.length == payload.length) {
+      return payload.map((node, i) => node.setValue(source[i])).some(Boolean);
+    }
+
+    super.setValue(source.map(makeAnimated));
+    return true;
+  }
+
+}
+
+function makeAnimated(value) {
+  const nodeType = isAnimatedString(value) ? AnimatedString : AnimatedValue;
+  return nodeType.create(value);
+}
+
+function getAnimatedType(value) {
+  const parentNode = getAnimated(value);
+  return parentNode ? parentNode.constructor : react_spring_shared_esm_is.arr(value) ? AnimatedArray : isAnimatedString(value) ? AnimatedString : AnimatedValue;
+}
+
+function react_spring_animated_esm_extends() {
+  react_spring_animated_esm_extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return react_spring_animated_esm_extends.apply(this, arguments);
+}
+
+const withAnimated = (Component, host) => {
+  const hasInstance = !react_spring_shared_esm_is.fun(Component) || Component.prototype && Component.prototype.isReactComponent;
+  return (0,external_React_.forwardRef)((givenProps, givenRef) => {
+    const instanceRef = (0,external_React_.useRef)(null);
+    const ref = hasInstance && (0,external_React_.useCallback)(value => {
+      instanceRef.current = updateRef(givenRef, value);
+    }, [givenRef]);
+    const [props, deps] = getAnimatedState(givenProps, host);
+    const forceUpdate = react_spring_shared_esm_useForceUpdate();
+
+    const callback = () => {
+      const instance = instanceRef.current;
+
+      if (hasInstance && !instance) {
+        return;
+      }
+
+      const didUpdate = instance ? host.applyAnimatedValues(instance, props.getValue(true)) : false;
+
+      if (didUpdate === false) {
+        forceUpdate();
+      }
+    };
+
+    const observer = new PropsObserver(callback, deps);
+    const observerRef = (0,external_React_.useRef)();
+    react_spring_shared_esm_useLayoutEffect(() => {
+      const lastObserver = observerRef.current;
+      observerRef.current = observer;
+      react_spring_shared_esm_each(deps, dep => addFluidObserver(dep, observer));
+
+      if (lastObserver) {
+        react_spring_shared_esm_each(lastObserver.deps, dep => removeFluidObserver(dep, lastObserver));
+        raf.cancel(lastObserver.update);
+      }
+    });
+    (0,external_React_.useEffect)(callback, []);
+    react_spring_shared_esm_useOnce(() => () => {
+      const observer = observerRef.current;
+      react_spring_shared_esm_each(observer.deps, dep => removeFluidObserver(dep, observer));
+    });
+    const usedProps = host.getComponentProps(props.getValue());
+    return external_React_.createElement(Component, react_spring_animated_esm_extends({}, usedProps, {
+      ref: ref
+    }));
+  });
+};
+
+class PropsObserver {
+  constructor(update, deps) {
+    this.update = update;
+    this.deps = deps;
+  }
+
+  eventObserved(event) {
+    if (event.type == 'change') {
+      raf.write(this.update);
+    }
+  }
+
+}
+
+function getAnimatedState(props, host) {
+  const dependencies = new Set();
+  TreeContext.dependencies = dependencies;
+  if (props.style) props = react_spring_animated_esm_extends({}, props, {
+    style: host.createAnimatedStyle(props.style)
+  });
+  props = new AnimatedObject(props);
+  TreeContext.dependencies = null;
+  return [props, dependencies];
+}
+
+function updateRef(ref, value) {
+  if (ref) {
+    if (react_spring_shared_esm_is.fun(ref)) ref(value);else ref.current = value;
+  }
+
+  return value;
+}
+
+const cacheKey = Symbol.for('AnimatedComponent');
+const createHost = (components, {
+  applyAnimatedValues: _applyAnimatedValues = () => false,
+  createAnimatedStyle: _createAnimatedStyle = style => new AnimatedObject(style),
+  getComponentProps: _getComponentProps = props => props
+} = {}) => {
+  const hostConfig = {
+    applyAnimatedValues: _applyAnimatedValues,
+    createAnimatedStyle: _createAnimatedStyle,
+    getComponentProps: _getComponentProps
+  };
+
+  const animated = Component => {
+    const displayName = getDisplayName(Component) || 'Anonymous';
+
+    if (react_spring_shared_esm_is.str(Component)) {
+      Component = animated[Component] || (animated[Component] = withAnimated(Component, hostConfig));
+    } else {
+      Component = Component[cacheKey] || (Component[cacheKey] = withAnimated(Component, hostConfig));
+    }
+
+    Component.displayName = `Animated(${displayName})`;
+    return Component;
+  };
+
+  eachProp(components, (Component, key) => {
+    if (react_spring_shared_esm_is.arr(components)) {
+      key = getDisplayName(Component);
+    }
+
+    animated[key] = animated(Component);
+  });
+  return {
+    animated
+  };
+};
+
+const getDisplayName = arg => react_spring_shared_esm_is.str(arg) ? arg : arg && react_spring_shared_esm_is.str(arg.displayName) ? arg.displayName : react_spring_shared_esm_is.fun(arg) && arg.name || null;
+
+
+
+;// CONCATENATED MODULE: ./node_modules/@react-spring/core/dist/react-spring-core.esm.js
+
+
+
+
+
+
+
+
+function react_spring_core_esm_extends() {
+  react_spring_core_esm_extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return react_spring_core_esm_extends.apply(this, arguments);
+}
+
+function callProp(value, ...args) {
+  return react_spring_shared_esm_is.fun(value) ? value(...args) : value;
+}
+const matchProp = (value, key) => value === true || !!(key && value && (react_spring_shared_esm_is.fun(value) ? value(key) : react_spring_shared_esm_toArray(value).includes(key)));
+const resolveProp = (prop, key) => react_spring_shared_esm_is.obj(prop) ? key && prop[key] : prop;
+const getDefaultProp = (props, key) => props.default === true ? props[key] : props.default ? props.default[key] : undefined;
+
+const noopTransform = value => value;
+
+const getDefaultProps = (props, transform = noopTransform) => {
+  let keys = DEFAULT_PROPS;
+
+  if (props.default && props.default !== true) {
+    props = props.default;
+    keys = Object.keys(props);
+  }
+
+  const defaults = {};
+
+  for (const key of keys) {
+    const value = transform(props[key], key);
+
+    if (!react_spring_shared_esm_is.und(value)) {
+      defaults[key] = value;
+    }
+  }
+
+  return defaults;
+};
+const DEFAULT_PROPS = ['config', 'onProps', 'onStart', 'onChange', 'onPause', 'onResume', 'onRest'];
+const RESERVED_PROPS = {
+  config: 1,
+  from: 1,
+  to: 1,
+  ref: 1,
+  loop: 1,
+  reset: 1,
+  pause: 1,
+  cancel: 1,
+  reverse: 1,
+  immediate: 1,
+  default: 1,
+  delay: 1,
+  onProps: 1,
+  onStart: 1,
+  onChange: 1,
+  onPause: 1,
+  onResume: 1,
+  onRest: 1,
+  onResolve: 1,
+  items: 1,
+  trail: 1,
+  sort: 1,
+  expires: 1,
+  initial: 1,
+  enter: 1,
+  update: 1,
+  leave: 1,
+  children: 1,
+  onDestroyed: 1,
+  keys: 1,
+  callId: 1,
+  parentId: 1
+};
+
+function getForwardProps(props) {
+  const forward = {};
+  let count = 0;
+  eachProp(props, (value, prop) => {
+    if (!RESERVED_PROPS[prop]) {
+      forward[prop] = value;
+      count++;
+    }
+  });
+
+  if (count) {
+    return forward;
+  }
+}
+
+function inferTo(props) {
+  const to = getForwardProps(props);
+
+  if (to) {
+    const out = {
+      to
+    };
+    eachProp(props, (val, key) => key in to || (out[key] = val));
+    return out;
+  }
+
+  return react_spring_core_esm_extends({}, props);
+}
+function computeGoal(value) {
+  value = getFluidValue(value);
+  return react_spring_shared_esm_is.arr(value) ? value.map(computeGoal) : isAnimatedString(value) ? globals.createStringInterpolator({
+    range: [0, 1],
+    output: [value, value]
+  })(1) : value;
+}
+function hasProps(props) {
+  for (const _ in props) return true;
+
+  return false;
+}
+function isAsyncTo(to) {
+  return react_spring_shared_esm_is.fun(to) || react_spring_shared_esm_is.arr(to) && react_spring_shared_esm_is.obj(to[0]);
+}
+function detachRefs(ctrl, ref) {
+  var _ctrl$ref;
+
+  (_ctrl$ref = ctrl.ref) == null ? void 0 : _ctrl$ref.delete(ctrl);
+  ref == null ? void 0 : ref.delete(ctrl);
+}
+function replaceRef(ctrl, ref) {
+  if (ref && ctrl.ref !== ref) {
+    var _ctrl$ref2;
+
+    (_ctrl$ref2 = ctrl.ref) == null ? void 0 : _ctrl$ref2.delete(ctrl);
+    ref.add(ctrl);
+    ctrl.ref = ref;
+  }
+}
+
+function useChain(refs, timeSteps, timeFrame = 1000) {
+  useLayoutEffect(() => {
+    if (timeSteps) {
+      let prevDelay = 0;
+      each(refs, (ref, i) => {
+        const controllers = ref.current;
+
+        if (controllers.length) {
+          let delay = timeFrame * timeSteps[i];
+          if (isNaN(delay)) delay = prevDelay;else prevDelay = delay;
+          each(controllers, ctrl => {
+            each(ctrl.queue, props => {
+              const memoizedDelayProp = props.delay;
+
+              props.delay = key => delay + callProp(memoizedDelayProp || 0, key);
+            });
+            ctrl.start();
+          });
+        }
+      });
+    } else {
+      let p = Promise.resolve();
+      each(refs, ref => {
+        const controllers = ref.current;
+
+        if (controllers.length) {
+          const queues = controllers.map(ctrl => {
+            const q = ctrl.queue;
+            ctrl.queue = [];
+            return q;
+          });
+          p = p.then(() => {
+            each(controllers, (ctrl, i) => each(queues[i] || [], update => ctrl.queue.push(update)));
+            return ref.start();
+          });
+        }
+      });
+    }
+  });
+}
+
+const config = {
+  default: {
+    tension: 170,
+    friction: 26
+  },
+  gentle: {
+    tension: 120,
+    friction: 14
+  },
+  wobbly: {
+    tension: 180,
+    friction: 12
+  },
+  stiff: {
+    tension: 210,
+    friction: 20
+  },
+  slow: {
+    tension: 280,
+    friction: 60
+  },
+  molasses: {
+    tension: 280,
+    friction: 120
+  }
+};
+
+const linear = t => t;
+
+const defaults = react_spring_core_esm_extends({}, config.default, {
+  mass: 1,
+  damping: 1,
+  easing: linear,
+  clamp: false
+});
+
+class AnimationConfig {
+  constructor() {
+    this.tension = void 0;
+    this.friction = void 0;
+    this.frequency = void 0;
+    this.damping = void 0;
+    this.mass = void 0;
+    this.velocity = 0;
+    this.restVelocity = void 0;
+    this.precision = void 0;
+    this.progress = void 0;
+    this.duration = void 0;
+    this.easing = void 0;
+    this.clamp = void 0;
+    this.bounce = void 0;
+    this.decay = void 0;
+    this.round = void 0;
+    Object.assign(this, defaults);
+  }
+
+}
+function mergeConfig(config, newConfig, defaultConfig) {
+  if (defaultConfig) {
+    defaultConfig = react_spring_core_esm_extends({}, defaultConfig);
+    sanitizeConfig(defaultConfig, newConfig);
+    newConfig = react_spring_core_esm_extends({}, defaultConfig, newConfig);
+  }
+
+  sanitizeConfig(config, newConfig);
+  Object.assign(config, newConfig);
+
+  for (const key in defaults) {
+    if (config[key] == null) {
+      config[key] = defaults[key];
+    }
+  }
+
+  let {
+    mass,
+    frequency,
+    damping
+  } = config;
+
+  if (!react_spring_shared_esm_is.und(frequency)) {
+    if (frequency < 0.01) frequency = 0.01;
+    if (damping < 0) damping = 0;
+    config.tension = Math.pow(2 * Math.PI / frequency, 2) * mass;
+    config.friction = 4 * Math.PI * damping * mass / frequency;
+  }
+
+  return config;
+}
+
+function sanitizeConfig(config, props) {
+  if (!react_spring_shared_esm_is.und(props.decay)) {
+    config.duration = undefined;
+  } else {
+    const isTensionConfig = !react_spring_shared_esm_is.und(props.tension) || !react_spring_shared_esm_is.und(props.friction);
+
+    if (isTensionConfig || !react_spring_shared_esm_is.und(props.frequency) || !react_spring_shared_esm_is.und(props.damping) || !react_spring_shared_esm_is.und(props.mass)) {
+      config.duration = undefined;
+      config.decay = undefined;
+    }
+
+    if (isTensionConfig) {
+      config.frequency = undefined;
+    }
+  }
+}
+
+const emptyArray = [];
+class Animation {
+  constructor() {
+    this.changed = false;
+    this.values = emptyArray;
+    this.toValues = null;
+    this.fromValues = emptyArray;
+    this.to = void 0;
+    this.from = void 0;
+    this.config = new AnimationConfig();
+    this.immediate = false;
+  }
+
+}
+
+function scheduleProps(callId, {
+  key,
+  props,
+  defaultProps,
+  state,
+  actions
+}) {
+  return new Promise((resolve, reject) => {
+    var _props$cancel;
+
+    let delay;
+    let timeout;
+    let cancel = matchProp((_props$cancel = props.cancel) != null ? _props$cancel : defaultProps == null ? void 0 : defaultProps.cancel, key);
+
+    if (cancel) {
+      onStart();
+    } else {
+      if (!react_spring_shared_esm_is.und(props.pause)) {
+        state.paused = matchProp(props.pause, key);
+      }
+
+      let pause = defaultProps == null ? void 0 : defaultProps.pause;
+
+      if (pause !== true) {
+        pause = state.paused || matchProp(pause, key);
+      }
+
+      delay = callProp(props.delay || 0, key);
+
+      if (pause) {
+        state.resumeQueue.add(onResume);
+        actions.pause();
+      } else {
+        actions.resume();
+        onResume();
+      }
+    }
+
+    function onPause() {
+      state.resumeQueue.add(onResume);
+      state.timeouts.delete(timeout);
+      timeout.cancel();
+      delay = timeout.time - raf.now();
+    }
+
+    function onResume() {
+      if (delay > 0) {
+        timeout = raf.setTimeout(onStart, delay);
+        state.pauseQueue.add(onPause);
+        state.timeouts.add(timeout);
+      } else {
+        onStart();
+      }
+    }
+
+    function onStart() {
+      state.pauseQueue.delete(onPause);
+      state.timeouts.delete(timeout);
+
+      if (callId <= (state.cancelId || 0)) {
+        cancel = true;
+      }
+
+      try {
+        actions.start(react_spring_core_esm_extends({}, props, {
+          callId,
+          cancel
+        }), resolve);
+      } catch (err) {
+        reject(err);
+      }
+    }
+  });
+}
+
+const getCombinedResult = (target, results) => results.length == 1 ? results[0] : results.some(result => result.cancelled) ? getCancelledResult(target.get()) : results.every(result => result.noop) ? getNoopResult(target.get()) : getFinishedResult(target.get(), results.every(result => result.finished));
+const getNoopResult = value => ({
+  value,
+  noop: true,
+  finished: true,
+  cancelled: false
+});
+const getFinishedResult = (value, finished, cancelled = false) => ({
+  value,
+  finished,
+  cancelled
+});
+const getCancelledResult = value => ({
+  value,
+  cancelled: true,
+  finished: false
+});
+
+function runAsync(to, props, state, target) {
+  const {
+    callId,
+    parentId,
+    onRest
+  } = props;
+  const {
+    asyncTo: prevTo,
+    promise: prevPromise
+  } = state;
+
+  if (!parentId && to === prevTo && !props.reset) {
+    return prevPromise;
+  }
+
+  return state.promise = (async () => {
+    state.asyncId = callId;
+    state.asyncTo = to;
+    const defaultProps = getDefaultProps(props, (value, key) => key === 'onRest' ? undefined : value);
+    let preventBail;
+    let bail;
+    const bailPromise = new Promise((resolve, reject) => (preventBail = resolve, bail = reject));
+
+    const bailIfEnded = bailSignal => {
+      const bailResult = callId <= (state.cancelId || 0) && getCancelledResult(target) || callId !== state.asyncId && getFinishedResult(target, false);
+
+      if (bailResult) {
+        bailSignal.result = bailResult;
+        bail(bailSignal);
+        throw bailSignal;
+      }
+    };
+
+    const animate = (arg1, arg2) => {
+      const bailSignal = new BailSignal();
+      const skipAnimationSignal = new SkipAniamtionSignal();
+      return (async () => {
+        if (globals.skipAnimation) {
+          stopAsync(state);
+          skipAnimationSignal.result = getFinishedResult(target, false);
+          bail(skipAnimationSignal);
+          throw skipAnimationSignal;
+        }
+
+        bailIfEnded(bailSignal);
+        const props = react_spring_shared_esm_is.obj(arg1) ? react_spring_core_esm_extends({}, arg1) : react_spring_core_esm_extends({}, arg2, {
+          to: arg1
+        });
+        props.parentId = callId;
+        eachProp(defaultProps, (value, key) => {
+          if (react_spring_shared_esm_is.und(props[key])) {
+            props[key] = value;
+          }
+        });
+        const result = await target.start(props);
+        bailIfEnded(bailSignal);
+
+        if (state.paused) {
+          await new Promise(resume => {
+            state.resumeQueue.add(resume);
+          });
+        }
+
+        return result;
+      })();
+    };
+
+    let result;
+
+    if (globals.skipAnimation) {
+      stopAsync(state);
+      return getFinishedResult(target, false);
+    }
+
+    try {
+      let animating;
+
+      if (react_spring_shared_esm_is.arr(to)) {
+        animating = (async queue => {
+          for (const props of queue) {
+            await animate(props);
+          }
+        })(to);
+      } else {
+          animating = Promise.resolve(to(animate, target.stop.bind(target)));
+        }
+
+      await Promise.all([animating.then(preventBail), bailPromise]);
+      result = getFinishedResult(target.get(), true, false);
+    } catch (err) {
+      if (err instanceof BailSignal) {
+        result = err.result;
+      } else if (err instanceof SkipAniamtionSignal) {
+        result = err.result;
+      } else {
+        throw err;
+      }
+    } finally {
+      if (callId == state.asyncId) {
+        state.asyncId = parentId;
+        state.asyncTo = parentId ? prevTo : undefined;
+        state.promise = parentId ? prevPromise : undefined;
+      }
+    }
+
+    if (react_spring_shared_esm_is.fun(onRest)) {
+      raf.batchedUpdates(() => {
+        onRest(result, target, target.item);
+      });
+    }
+
+    return result;
+  })();
+}
+function stopAsync(state, cancelId) {
+  flush(state.timeouts, t => t.cancel());
+  state.pauseQueue.clear();
+  state.resumeQueue.clear();
+  state.asyncId = state.asyncTo = state.promise = undefined;
+  if (cancelId) state.cancelId = cancelId;
+}
+class BailSignal extends Error {
+  constructor() {
+    super('An async animation has been interrupted. You see this error because you ' + 'forgot to use `await` or `.catch(...)` on its returned promise.');
+    this.result = void 0;
+  }
+
+}
+class SkipAniamtionSignal extends Error {
+  constructor() {
+    super('SkipAnimationSignal');
+    this.result = void 0;
+  }
+
+}
+
+const isFrameValue = value => value instanceof FrameValue;
+let nextId$1 = 1;
+class FrameValue extends FluidValue {
+  constructor(...args) {
+    super(...args);
+    this.id = nextId$1++;
+    this.key = void 0;
+    this._priority = 0;
+  }
+
+  get priority() {
+    return this._priority;
+  }
+
+  set priority(priority) {
+    if (this._priority != priority) {
+      this._priority = priority;
+
+      this._onPriorityChange(priority);
+    }
+  }
+
+  get() {
+    const node = getAnimated(this);
+    return node && node.getValue();
+  }
+
+  to(...args) {
+    return globals.to(this, args);
+  }
+
+  interpolate(...args) {
+    react_spring_shared_esm_deprecateInterpolate();
+    return globals.to(this, args);
+  }
+
+  toJSON() {
+    return this.get();
+  }
+
+  observerAdded(count) {
+    if (count == 1) this._attach();
+  }
+
+  observerRemoved(count) {
+    if (count == 0) this._detach();
+  }
+
+  _attach() {}
+
+  _detach() {}
+
+  _onChange(value, idle = false) {
+    callFluidObservers(this, {
+      type: 'change',
+      parent: this,
+      value,
+      idle
+    });
+  }
+
+  _onPriorityChange(priority) {
+    if (!this.idle) {
+      frameLoop.sort(this);
+    }
+
+    callFluidObservers(this, {
+      type: 'priority',
+      parent: this,
+      priority
+    });
+  }
+
+}
+
+const $P = Symbol.for('SpringPhase');
+const HAS_ANIMATED = 1;
+const IS_ANIMATING = 2;
+const IS_PAUSED = 4;
+const hasAnimated = target => (target[$P] & HAS_ANIMATED) > 0;
+const isAnimating = target => (target[$P] & IS_ANIMATING) > 0;
+const isPaused = target => (target[$P] & IS_PAUSED) > 0;
+const setActiveBit = (target, active) => active ? target[$P] |= IS_ANIMATING | HAS_ANIMATED : target[$P] &= ~IS_ANIMATING;
+const setPausedBit = (target, paused) => paused ? target[$P] |= IS_PAUSED : target[$P] &= ~IS_PAUSED;
+
+class SpringValue extends FrameValue {
+  constructor(arg1, arg2) {
+    super();
+    this.key = void 0;
+    this.animation = new Animation();
+    this.queue = void 0;
+    this.defaultProps = {};
+    this._state = {
+      paused: false,
+      pauseQueue: new Set(),
+      resumeQueue: new Set(),
+      timeouts: new Set()
+    };
+    this._pendingCalls = new Set();
+    this._lastCallId = 0;
+    this._lastToId = 0;
+    this._memoizedDuration = 0;
+
+    if (!react_spring_shared_esm_is.und(arg1) || !react_spring_shared_esm_is.und(arg2)) {
+      const props = react_spring_shared_esm_is.obj(arg1) ? react_spring_core_esm_extends({}, arg1) : react_spring_core_esm_extends({}, arg2, {
+        from: arg1
+      });
+
+      if (react_spring_shared_esm_is.und(props.default)) {
+        props.default = true;
+      }
+
+      this.start(props);
+    }
+  }
+
+  get idle() {
+    return !(isAnimating(this) || this._state.asyncTo) || isPaused(this);
+  }
+
+  get goal() {
+    return getFluidValue(this.animation.to);
+  }
+
+  get velocity() {
+    const node = getAnimated(this);
+    return node instanceof AnimatedValue ? node.lastVelocity || 0 : node.getPayload().map(node => node.lastVelocity || 0);
+  }
+
+  get hasAnimated() {
+    return hasAnimated(this);
+  }
+
+  get isAnimating() {
+    return isAnimating(this);
+  }
+
+  get isPaused() {
+    return isPaused(this);
+  }
+
+  advance(dt) {
+    let idle = true;
+    let changed = false;
+    const anim = this.animation;
+    let {
+      config,
+      toValues
+    } = anim;
+    const payload = getPayload(anim.to);
+
+    if (!payload && hasFluidValue(anim.to)) {
+      toValues = react_spring_shared_esm_toArray(getFluidValue(anim.to));
+    }
+
+    anim.values.forEach((node, i) => {
+      if (node.done) return;
+      const to = node.constructor == AnimatedString ? 1 : payload ? payload[i].lastPosition : toValues[i];
+      let finished = anim.immediate;
+      let position = to;
+
+      if (!finished) {
+        position = node.lastPosition;
+
+        if (config.tension <= 0) {
+          node.done = true;
+          return;
+        }
+
+        let elapsed = node.elapsedTime += dt;
+        const from = anim.fromValues[i];
+        const v0 = node.v0 != null ? node.v0 : node.v0 = react_spring_shared_esm_is.arr(config.velocity) ? config.velocity[i] : config.velocity;
+        let velocity;
+
+        if (!react_spring_shared_esm_is.und(config.duration)) {
+          let p = 1;
+
+          if (config.duration > 0) {
+            if (this._memoizedDuration !== config.duration) {
+              this._memoizedDuration = config.duration;
+
+              if (node.durationProgress > 0) {
+                node.elapsedTime = config.duration * node.durationProgress;
+                elapsed = node.elapsedTime += dt;
+              }
+            }
+
+            p = (config.progress || 0) + elapsed / this._memoizedDuration;
+            p = p > 1 ? 1 : p < 0 ? 0 : p;
+            node.durationProgress = p;
+          }
+
+          position = from + config.easing(p) * (to - from);
+          velocity = (position - node.lastPosition) / dt;
+          finished = p == 1;
+        } else if (config.decay) {
+            const decay = config.decay === true ? 0.998 : config.decay;
+            const e = Math.exp(-(1 - decay) * elapsed);
+            position = from + v0 / (1 - decay) * (1 - e);
+            finished = Math.abs(node.lastPosition - position) < 0.1;
+            velocity = v0 * e;
+          } else {
+              velocity = node.lastVelocity == null ? v0 : node.lastVelocity;
+              const precision = config.precision || (from == to ? 0.005 : Math.min(1, Math.abs(to - from) * 0.001));
+              const restVelocity = config.restVelocity || precision / 10;
+              const bounceFactor = config.clamp ? 0 : config.bounce;
+              const canBounce = !react_spring_shared_esm_is.und(bounceFactor);
+              const isGrowing = from == to ? node.v0 > 0 : from < to;
+              let isMoving;
+              let isBouncing = false;
+              const step = 1;
+              const numSteps = Math.ceil(dt / step);
+
+              for (let n = 0; n < numSteps; ++n) {
+                isMoving = Math.abs(velocity) > restVelocity;
+
+                if (!isMoving) {
+                  finished = Math.abs(to - position) <= precision;
+
+                  if (finished) {
+                    break;
+                  }
+                }
+
+                if (canBounce) {
+                  isBouncing = position == to || position > to == isGrowing;
+
+                  if (isBouncing) {
+                    velocity = -velocity * bounceFactor;
+                    position = to;
+                  }
+                }
+
+                const springForce = -config.tension * 0.000001 * (position - to);
+                const dampingForce = -config.friction * 0.001 * velocity;
+                const acceleration = (springForce + dampingForce) / config.mass;
+                velocity = velocity + acceleration * step;
+                position = position + velocity * step;
+              }
+            }
+
+        node.lastVelocity = velocity;
+
+        if (Number.isNaN(position)) {
+          console.warn(`Got NaN while animating:`, this);
+          finished = true;
+        }
+      }
+
+      if (payload && !payload[i].done) {
+        finished = false;
+      }
+
+      if (finished) {
+        node.done = true;
+      } else {
+        idle = false;
+      }
+
+      if (node.setValue(position, config.round)) {
+        changed = true;
+      }
+    });
+    const node = getAnimated(this);
+    const currVal = node.getValue();
+
+    if (idle) {
+      const finalVal = getFluidValue(anim.to);
+
+      if ((currVal !== finalVal || changed) && !config.decay) {
+        node.setValue(finalVal);
+
+        this._onChange(finalVal);
+      } else if (changed && config.decay) {
+        this._onChange(currVal);
+      }
+
+      this._stop();
+    } else if (changed) {
+      this._onChange(currVal);
+    }
+  }
+
+  set(value) {
+    raf.batchedUpdates(() => {
+      this._stop();
+
+      this._focus(value);
+
+      this._set(value);
+    });
+    return this;
+  }
+
+  pause() {
+    this._update({
+      pause: true
+    });
+  }
+
+  resume() {
+    this._update({
+      pause: false
+    });
+  }
+
+  finish() {
+    if (isAnimating(this)) {
+      const {
+        to,
+        config
+      } = this.animation;
+      raf.batchedUpdates(() => {
+        this._onStart();
+
+        if (!config.decay) {
+          this._set(to, false);
+        }
+
+        this._stop();
+      });
+    }
+
+    return this;
+  }
+
+  update(props) {
+    const queue = this.queue || (this.queue = []);
+    queue.push(props);
+    return this;
+  }
+
+  start(to, arg2) {
+    let queue;
+
+    if (!react_spring_shared_esm_is.und(to)) {
+      queue = [react_spring_shared_esm_is.obj(to) ? to : react_spring_core_esm_extends({}, arg2, {
+        to
+      })];
+    } else {
+      queue = this.queue || [];
+      this.queue = [];
+    }
+
+    return Promise.all(queue.map(props => this._update(props))).then(results => getCombinedResult(this, results));
+  }
+
+  stop(cancel) {
+    const {
+      to
+    } = this.animation;
+
+    this._focus(this.get());
+
+    stopAsync(this._state, cancel && this._lastCallId);
+    raf.batchedUpdates(() => this._stop(to, cancel));
+    return this;
+  }
+
+  reset() {
+    this._update({
+      reset: true
+    });
+  }
+
+  eventObserved(event) {
+    if (event.type == 'change') {
+      this._start();
+    } else if (event.type == 'priority') {
+      this.priority = event.priority + 1;
+    }
+  }
+
+  _prepareNode(props) {
+    const key = this.key || '';
+    let {
+      to,
+      from
+    } = props;
+    to = react_spring_shared_esm_is.obj(to) ? to[key] : to;
+
+    if (to == null || isAsyncTo(to)) {
+      to = undefined;
+    }
+
+    from = react_spring_shared_esm_is.obj(from) ? from[key] : from;
+
+    if (from == null) {
+      from = undefined;
+    }
+
+    const range = {
+      to,
+      from
+    };
+
+    if (!hasAnimated(this)) {
+      if (props.reverse) [to, from] = [from, to];
+      from = getFluidValue(from);
+
+      if (!react_spring_shared_esm_is.und(from)) {
+        this._set(from);
+      } else if (!getAnimated(this)) {
+          this._set(to);
+        }
+    }
+
+    return range;
+  }
+
+  _update(_ref, isLoop) {
+    let props = react_spring_core_esm_extends({}, _ref);
+
+    const {
+      key,
+      defaultProps
+    } = this;
+    if (props.default) Object.assign(defaultProps, getDefaultProps(props, (value, prop) => /^on/.test(prop) ? resolveProp(value, key) : value));
+    mergeActiveFn(this, props, 'onProps');
+    sendEvent(this, 'onProps', props, this);
+
+    const range = this._prepareNode(props);
+
+    if (Object.isFrozen(this)) {
+      throw Error('Cannot animate a `SpringValue` object that is frozen. ' + 'Did you forget to pass your component to `animated(...)` before animating its props?');
+    }
+
+    const state = this._state;
+    return scheduleProps(++this._lastCallId, {
+      key,
+      props,
+      defaultProps,
+      state,
+      actions: {
+        pause: () => {
+          if (!isPaused(this)) {
+            setPausedBit(this, true);
+            flushCalls(state.pauseQueue);
+            sendEvent(this, 'onPause', getFinishedResult(this, checkFinished(this, this.animation.to)), this);
+          }
+        },
+        resume: () => {
+          if (isPaused(this)) {
+            setPausedBit(this, false);
+
+            if (isAnimating(this)) {
+              this._resume();
+            }
+
+            flushCalls(state.resumeQueue);
+            sendEvent(this, 'onResume', getFinishedResult(this, checkFinished(this, this.animation.to)), this);
+          }
+        },
+        start: this._merge.bind(this, range)
+      }
+    }).then(result => {
+      if (props.loop && result.finished && !(isLoop && result.noop)) {
+        const nextProps = createLoopUpdate(props);
+
+        if (nextProps) {
+          return this._update(nextProps, true);
+        }
+      }
+
+      return result;
+    });
+  }
+
+  _merge(range, props, resolve) {
+    if (props.cancel) {
+      this.stop(true);
+      return resolve(getCancelledResult(this));
+    }
+
+    const hasToProp = !react_spring_shared_esm_is.und(range.to);
+    const hasFromProp = !react_spring_shared_esm_is.und(range.from);
+
+    if (hasToProp || hasFromProp) {
+      if (props.callId > this._lastToId) {
+        this._lastToId = props.callId;
+      } else {
+        return resolve(getCancelledResult(this));
+      }
+    }
+
+    const {
+      key,
+      defaultProps,
+      animation: anim
+    } = this;
+    const {
+      to: prevTo,
+      from: prevFrom
+    } = anim;
+    let {
+      to = prevTo,
+      from = prevFrom
+    } = range;
+
+    if (hasFromProp && !hasToProp && (!props.default || react_spring_shared_esm_is.und(to))) {
+      to = from;
+    }
+
+    if (props.reverse) [to, from] = [from, to];
+    const hasFromChanged = !isEqual(from, prevFrom);
+
+    if (hasFromChanged) {
+      anim.from = from;
+    }
+
+    from = getFluidValue(from);
+    const hasToChanged = !isEqual(to, prevTo);
+
+    if (hasToChanged) {
+      this._focus(to);
+    }
+
+    const hasAsyncTo = isAsyncTo(props.to);
+    const {
+      config
+    } = anim;
+    const {
+      decay,
+      velocity
+    } = config;
+
+    if (hasToProp || hasFromProp) {
+      config.velocity = 0;
+    }
+
+    if (props.config && !hasAsyncTo) {
+      mergeConfig(config, callProp(props.config, key), props.config !== defaultProps.config ? callProp(defaultProps.config, key) : void 0);
+    }
+
+    let node = getAnimated(this);
+
+    if (!node || react_spring_shared_esm_is.und(to)) {
+      return resolve(getFinishedResult(this, true));
+    }
+
+    const reset = react_spring_shared_esm_is.und(props.reset) ? hasFromProp && !props.default : !react_spring_shared_esm_is.und(from) && matchProp(props.reset, key);
+    const value = reset ? from : this.get();
+    const goal = computeGoal(to);
+    const isAnimatable = react_spring_shared_esm_is.num(goal) || react_spring_shared_esm_is.arr(goal) || isAnimatedString(goal);
+    const immediate = !hasAsyncTo && (!isAnimatable || matchProp(defaultProps.immediate || props.immediate, key));
+
+    if (hasToChanged) {
+      const nodeType = getAnimatedType(to);
+
+      if (nodeType !== node.constructor) {
+        if (immediate) {
+          node = this._set(goal);
+        } else throw Error(`Cannot animate between ${node.constructor.name} and ${nodeType.name}, as the "to" prop suggests`);
+      }
+    }
+
+    const goalType = node.constructor;
+    let started = hasFluidValue(to);
+    let finished = false;
+
+    if (!started) {
+      const hasValueChanged = reset || !hasAnimated(this) && hasFromChanged;
+
+      if (hasToChanged || hasValueChanged) {
+        finished = isEqual(computeGoal(value), goal);
+        started = !finished;
+      }
+
+      if (!isEqual(anim.immediate, immediate) && !immediate || !isEqual(config.decay, decay) || !isEqual(config.velocity, velocity)) {
+        started = true;
+      }
+    }
+
+    if (finished && isAnimating(this)) {
+      if (anim.changed && !reset) {
+        started = true;
+      } else if (!started) {
+          this._stop(prevTo);
+        }
+    }
+
+    if (!hasAsyncTo) {
+      if (started || hasFluidValue(prevTo)) {
+        anim.values = node.getPayload();
+        anim.toValues = hasFluidValue(to) ? null : goalType == AnimatedString ? [1] : react_spring_shared_esm_toArray(goal);
+      }
+
+      if (anim.immediate != immediate) {
+        anim.immediate = immediate;
+
+        if (!immediate && !reset) {
+          this._set(prevTo);
+        }
+      }
+
+      if (started) {
+        const {
+          onRest
+        } = anim;
+        react_spring_shared_esm_each(ACTIVE_EVENTS, type => mergeActiveFn(this, props, type));
+        const result = getFinishedResult(this, checkFinished(this, prevTo));
+        flushCalls(this._pendingCalls, result);
+
+        this._pendingCalls.add(resolve);
+
+        if (anim.changed) raf.batchedUpdates(() => {
+          anim.changed = !reset;
+          onRest == null ? void 0 : onRest(result, this);
+
+          if (reset) {
+            callProp(defaultProps.onRest, result);
+          } else {
+              anim.onStart == null ? void 0 : anim.onStart(result, this);
+            }
+        });
+      }
+    }
+
+    if (reset) {
+      this._set(value);
+    }
+
+    if (hasAsyncTo) {
+      resolve(runAsync(props.to, props, this._state, this));
+    } else if (started) {
+        this._start();
+      } else if (isAnimating(this) && !hasToChanged) {
+          this._pendingCalls.add(resolve);
+        } else {
+            resolve(getNoopResult(value));
+          }
+  }
+
+  _focus(value) {
+    const anim = this.animation;
+
+    if (value !== anim.to) {
+      if (getFluidObservers(this)) {
+        this._detach();
+      }
+
+      anim.to = value;
+
+      if (getFluidObservers(this)) {
+        this._attach();
+      }
+    }
+  }
+
+  _attach() {
+    let priority = 0;
+    const {
+      to
+    } = this.animation;
+
+    if (hasFluidValue(to)) {
+      addFluidObserver(to, this);
+
+      if (isFrameValue(to)) {
+        priority = to.priority + 1;
+      }
+    }
+
+    this.priority = priority;
+  }
+
+  _detach() {
+    const {
+      to
+    } = this.animation;
+
+    if (hasFluidValue(to)) {
+      removeFluidObserver(to, this);
+    }
+  }
+
+  _set(arg, idle = true) {
+    const value = getFluidValue(arg);
+
+    if (!react_spring_shared_esm_is.und(value)) {
+      const oldNode = getAnimated(this);
+
+      if (!oldNode || !isEqual(value, oldNode.getValue())) {
+        const nodeType = getAnimatedType(value);
+
+        if (!oldNode || oldNode.constructor != nodeType) {
+          setAnimated(this, nodeType.create(value));
+        } else {
+          oldNode.setValue(value);
+        }
+
+        if (oldNode) {
+          raf.batchedUpdates(() => {
+            this._onChange(value, idle);
+          });
+        }
+      }
+    }
+
+    return getAnimated(this);
+  }
+
+  _onStart() {
+    const anim = this.animation;
+
+    if (!anim.changed) {
+      anim.changed = true;
+      sendEvent(this, 'onStart', getFinishedResult(this, checkFinished(this, anim.to)), this);
+    }
+  }
+
+  _onChange(value, idle) {
+    if (!idle) {
+      this._onStart();
+
+      callProp(this.animation.onChange, value, this);
+    }
+
+    callProp(this.defaultProps.onChange, value, this);
+
+    super._onChange(value, idle);
+  }
+
+  _start() {
+    const anim = this.animation;
+    getAnimated(this).reset(getFluidValue(anim.to));
+
+    if (!anim.immediate) {
+      anim.fromValues = anim.values.map(node => node.lastPosition);
+    }
+
+    if (!isAnimating(this)) {
+      setActiveBit(this, true);
+
+      if (!isPaused(this)) {
+        this._resume();
+      }
+    }
+  }
+
+  _resume() {
+    if (globals.skipAnimation) {
+      this.finish();
+    } else {
+      frameLoop.start(this);
+    }
+  }
+
+  _stop(goal, cancel) {
+    if (isAnimating(this)) {
+      setActiveBit(this, false);
+      const anim = this.animation;
+      react_spring_shared_esm_each(anim.values, node => {
+        node.done = true;
+      });
+
+      if (anim.toValues) {
+        anim.onChange = anim.onPause = anim.onResume = undefined;
+      }
+
+      callFluidObservers(this, {
+        type: 'idle',
+        parent: this
+      });
+      const result = cancel ? getCancelledResult(this.get()) : getFinishedResult(this.get(), checkFinished(this, goal != null ? goal : anim.to));
+      flushCalls(this._pendingCalls, result);
+
+      if (anim.changed) {
+        anim.changed = false;
+        sendEvent(this, 'onRest', result, this);
+      }
+    }
+  }
+
+}
+
+function checkFinished(target, to) {
+  const goal = computeGoal(to);
+  const value = computeGoal(target.get());
+  return isEqual(value, goal);
+}
+
+function createLoopUpdate(props, loop = props.loop, to = props.to) {
+  let loopRet = callProp(loop);
+
+  if (loopRet) {
+    const overrides = loopRet !== true && inferTo(loopRet);
+    const reverse = (overrides || props).reverse;
+    const reset = !overrides || overrides.reset;
+    return createUpdate(react_spring_core_esm_extends({}, props, {
+      loop,
+      default: false,
+      pause: undefined,
+      to: !reverse || isAsyncTo(to) ? to : undefined,
+      from: reset ? props.from : undefined,
+      reset
+    }, overrides));
+  }
+}
+function createUpdate(props) {
+  const {
+    to,
+    from
+  } = props = inferTo(props);
+  const keys = new Set();
+  if (react_spring_shared_esm_is.obj(to)) findDefined(to, keys);
+  if (react_spring_shared_esm_is.obj(from)) findDefined(from, keys);
+  props.keys = keys.size ? Array.from(keys) : null;
+  return props;
+}
+function declareUpdate(props) {
+  const update = createUpdate(props);
+
+  if (react_spring_shared_esm_is.und(update.default)) {
+    update.default = getDefaultProps(update);
+  }
+
+  return update;
+}
+
+function findDefined(values, keys) {
+  eachProp(values, (value, key) => value != null && keys.add(key));
+}
+
+const ACTIVE_EVENTS = ['onStart', 'onRest', 'onChange', 'onPause', 'onResume'];
+
+function mergeActiveFn(target, props, type) {
+  target.animation[type] = props[type] !== getDefaultProp(props, type) ? resolveProp(props[type], target.key) : undefined;
+}
+
+function sendEvent(target, type, ...args) {
+  var _target$animation$typ, _target$animation, _target$defaultProps$, _target$defaultProps;
+
+  (_target$animation$typ = (_target$animation = target.animation)[type]) == null ? void 0 : _target$animation$typ.call(_target$animation, ...args);
+  (_target$defaultProps$ = (_target$defaultProps = target.defaultProps)[type]) == null ? void 0 : _target$defaultProps$.call(_target$defaultProps, ...args);
+}
+
+const BATCHED_EVENTS = ['onStart', 'onChange', 'onRest'];
+let nextId = 1;
+class Controller {
+  constructor(props, flush) {
+    this.id = nextId++;
+    this.springs = {};
+    this.queue = [];
+    this.ref = void 0;
+    this._flush = void 0;
+    this._initialProps = void 0;
+    this._lastAsyncId = 0;
+    this._active = new Set();
+    this._changed = new Set();
+    this._started = false;
+    this._item = void 0;
+    this._state = {
+      paused: false,
+      pauseQueue: new Set(),
+      resumeQueue: new Set(),
+      timeouts: new Set()
+    };
+    this._events = {
+      onStart: new Map(),
+      onChange: new Map(),
+      onRest: new Map()
+    };
+    this._onFrame = this._onFrame.bind(this);
+
+    if (flush) {
+      this._flush = flush;
+    }
+
+    if (props) {
+      this.start(react_spring_core_esm_extends({
+        default: true
+      }, props));
+    }
+  }
+
+  get idle() {
+    return !this._state.asyncTo && Object.values(this.springs).every(spring => spring.idle);
+  }
+
+  get item() {
+    return this._item;
+  }
+
+  set item(item) {
+    this._item = item;
+  }
+
+  get() {
+    const values = {};
+    this.each((spring, key) => values[key] = spring.get());
+    return values;
+  }
+
+  set(values) {
+    for (const key in values) {
+      const value = values[key];
+
+      if (!react_spring_shared_esm_is.und(value)) {
+        this.springs[key].set(value);
+      }
+    }
+  }
+
+  update(props) {
+    if (props) {
+      this.queue.push(createUpdate(props));
+    }
+
+    return this;
+  }
+
+  start(props) {
+    let {
+      queue
+    } = this;
+
+    if (props) {
+      queue = react_spring_shared_esm_toArray(props).map(createUpdate);
+    } else {
+      this.queue = [];
+    }
+
+    if (this._flush) {
+      return this._flush(this, queue);
+    }
+
+    prepareKeys(this, queue);
+    return flushUpdateQueue(this, queue);
+  }
+
+  stop(arg, keys) {
+    if (arg !== !!arg) {
+      keys = arg;
+    }
+
+    if (keys) {
+      const springs = this.springs;
+      react_spring_shared_esm_each(react_spring_shared_esm_toArray(keys), key => springs[key].stop(!!arg));
+    } else {
+      stopAsync(this._state, this._lastAsyncId);
+      this.each(spring => spring.stop(!!arg));
+    }
+
+    return this;
+  }
+
+  pause(keys) {
+    if (react_spring_shared_esm_is.und(keys)) {
+      this.start({
+        pause: true
+      });
+    } else {
+      const springs = this.springs;
+      react_spring_shared_esm_each(react_spring_shared_esm_toArray(keys), key => springs[key].pause());
+    }
+
+    return this;
+  }
+
+  resume(keys) {
+    if (react_spring_shared_esm_is.und(keys)) {
+      this.start({
+        pause: false
+      });
+    } else {
+      const springs = this.springs;
+      react_spring_shared_esm_each(react_spring_shared_esm_toArray(keys), key => springs[key].resume());
+    }
+
+    return this;
+  }
+
+  each(iterator) {
+    eachProp(this.springs, iterator);
+  }
+
+  _onFrame() {
+    const {
+      onStart,
+      onChange,
+      onRest
+    } = this._events;
+    const active = this._active.size > 0;
+    const changed = this._changed.size > 0;
+
+    if (active && !this._started || changed && !this._started) {
+      this._started = true;
+      flush(onStart, ([onStart, result]) => {
+        result.value = this.get();
+        onStart(result, this, this._item);
+      });
+    }
+
+    const idle = !active && this._started;
+    const values = changed || idle && onRest.size ? this.get() : null;
+
+    if (changed && onChange.size) {
+      flush(onChange, ([onChange, result]) => {
+        result.value = values;
+        onChange(result, this, this._item);
+      });
+    }
+
+    if (idle) {
+      this._started = false;
+      flush(onRest, ([onRest, result]) => {
+        result.value = values;
+        onRest(result, this, this._item);
+      });
+    }
+  }
+
+  eventObserved(event) {
+    if (event.type == 'change') {
+      this._changed.add(event.parent);
+
+      if (!event.idle) {
+        this._active.add(event.parent);
+      }
+    } else if (event.type == 'idle') {
+      this._active.delete(event.parent);
+    } else return;
+
+    raf.onFrame(this._onFrame);
+  }
+
+}
+function flushUpdateQueue(ctrl, queue) {
+  return Promise.all(queue.map(props => flushUpdate(ctrl, props))).then(results => getCombinedResult(ctrl, results));
+}
+async function flushUpdate(ctrl, props, isLoop) {
+  const {
+    keys,
+    to,
+    from,
+    loop,
+    onRest,
+    onResolve
+  } = props;
+  const defaults = react_spring_shared_esm_is.obj(props.default) && props.default;
+
+  if (loop) {
+    props.loop = false;
+  }
+
+  if (to === false) props.to = null;
+  if (from === false) props.from = null;
+  const asyncTo = react_spring_shared_esm_is.arr(to) || react_spring_shared_esm_is.fun(to) ? to : undefined;
+
+  if (asyncTo) {
+    props.to = undefined;
+    props.onRest = undefined;
+
+    if (defaults) {
+      defaults.onRest = undefined;
+    }
+  } else {
+      react_spring_shared_esm_each(BATCHED_EVENTS, key => {
+        const handler = props[key];
+
+        if (react_spring_shared_esm_is.fun(handler)) {
+          const queue = ctrl['_events'][key];
+
+          props[key] = ({
+            finished,
+            cancelled
+          }) => {
+            const result = queue.get(handler);
+
+            if (result) {
+              if (!finished) result.finished = false;
+              if (cancelled) result.cancelled = true;
+            } else {
+              queue.set(handler, {
+                value: null,
+                finished: finished || false,
+                cancelled: cancelled || false
+              });
+            }
+          };
+
+          if (defaults) {
+            defaults[key] = props[key];
+          }
+        }
+      });
+    }
+
+  const state = ctrl['_state'];
+
+  if (props.pause === !state.paused) {
+    state.paused = props.pause;
+    flushCalls(props.pause ? state.pauseQueue : state.resumeQueue);
+  } else if (state.paused) {
+      props.pause = true;
+    }
+
+  const promises = (keys || Object.keys(ctrl.springs)).map(key => ctrl.springs[key].start(props));
+  const cancel = props.cancel === true || getDefaultProp(props, 'cancel') === true;
+
+  if (asyncTo || cancel && state.asyncId) {
+    promises.push(scheduleProps(++ctrl['_lastAsyncId'], {
+      props,
+      state,
+      actions: {
+        pause: noop,
+        resume: noop,
+
+        start(props, resolve) {
+          if (cancel) {
+            stopAsync(state, ctrl['_lastAsyncId']);
+            resolve(getCancelledResult(ctrl));
+          } else {
+            props.onRest = onRest;
+            resolve(runAsync(asyncTo, props, state, ctrl));
+          }
+        }
+
+      }
+    }));
+  }
+
+  if (state.paused) {
+    await new Promise(resume => {
+      state.resumeQueue.add(resume);
+    });
+  }
+
+  const result = getCombinedResult(ctrl, await Promise.all(promises));
+
+  if (loop && result.finished && !(isLoop && result.noop)) {
+    const nextProps = createLoopUpdate(props, loop, to);
+
+    if (nextProps) {
+      prepareKeys(ctrl, [nextProps]);
+      return flushUpdate(ctrl, nextProps, true);
+    }
+  }
+
+  if (onResolve) {
+    raf.batchedUpdates(() => onResolve(result, ctrl, ctrl.item));
+  }
+
+  return result;
+}
+function getSprings(ctrl, props) {
+  const springs = react_spring_core_esm_extends({}, ctrl.springs);
+
+  if (props) {
+    react_spring_shared_esm_each(react_spring_shared_esm_toArray(props), props => {
+      if (react_spring_shared_esm_is.und(props.keys)) {
+        props = createUpdate(props);
+      }
+
+      if (!react_spring_shared_esm_is.obj(props.to)) {
+        props = react_spring_core_esm_extends({}, props, {
+          to: undefined
+        });
+      }
+
+      prepareSprings(springs, props, key => {
+        return createSpring(key);
+      });
+    });
+  }
+
+  setSprings(ctrl, springs);
+  return springs;
+}
+function setSprings(ctrl, springs) {
+  eachProp(springs, (spring, key) => {
+    if (!ctrl.springs[key]) {
+      ctrl.springs[key] = spring;
+      addFluidObserver(spring, ctrl);
+    }
+  });
+}
+
+function createSpring(key, observer) {
+  const spring = new SpringValue();
+  spring.key = key;
+
+  if (observer) {
+    addFluidObserver(spring, observer);
+  }
+
+  return spring;
+}
+
+function prepareSprings(springs, props, create) {
+  if (props.keys) {
+    react_spring_shared_esm_each(props.keys, key => {
+      const spring = springs[key] || (springs[key] = create(key));
+      spring['_prepareNode'](props);
+    });
+  }
+}
+
+function prepareKeys(ctrl, queue) {
+  react_spring_shared_esm_each(queue, props => {
+    prepareSprings(ctrl.springs, props, key => {
+      return createSpring(key, ctrl);
+    });
+  });
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+const _excluded$3 = ["children"];
+const SpringContext = _ref => {
+  let {
+    children
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$3);
+
+  const inherited = (0,external_React_.useContext)(ctx);
+  const pause = props.pause || !!inherited.pause,
+        immediate = props.immediate || !!inherited.immediate;
+  props = useMemoOne(() => ({
+    pause,
+    immediate
+  }), [pause, immediate]);
+  const {
+    Provider
+  } = ctx;
+  return external_React_.createElement(Provider, {
+    value: props
+  }, children);
+};
+const ctx = makeContext(SpringContext, {});
+SpringContext.Provider = ctx.Provider;
+SpringContext.Consumer = ctx.Consumer;
+
+function makeContext(target, init) {
+  Object.assign(target, external_React_.createContext(init));
+  target.Provider._context = target;
+  target.Consumer._context = target;
+  return target;
+}
+
+const SpringRef = () => {
+  const current = [];
+
+  const SpringRef = function SpringRef(props) {
+    deprecateDirectCall();
+    const results = [];
+    react_spring_shared_esm_each(current, (ctrl, i) => {
+      if (react_spring_shared_esm_is.und(props)) {
+        results.push(ctrl.start());
+      } else {
+        const update = _getProps(props, ctrl, i);
+
+        if (update) {
+          results.push(ctrl.start(update));
+        }
+      }
+    });
+    return results;
+  };
+
+  SpringRef.current = current;
+
+  SpringRef.add = function (ctrl) {
+    if (!current.includes(ctrl)) {
+      current.push(ctrl);
+    }
+  };
+
+  SpringRef.delete = function (ctrl) {
+    const i = current.indexOf(ctrl);
+    if (~i) current.splice(i, 1);
+  };
+
+  SpringRef.pause = function () {
+    react_spring_shared_esm_each(current, ctrl => ctrl.pause(...arguments));
+    return this;
+  };
+
+  SpringRef.resume = function () {
+    react_spring_shared_esm_each(current, ctrl => ctrl.resume(...arguments));
+    return this;
+  };
+
+  SpringRef.set = function (values) {
+    react_spring_shared_esm_each(current, ctrl => ctrl.set(values));
+  };
+
+  SpringRef.start = function (props) {
+    const results = [];
+    react_spring_shared_esm_each(current, (ctrl, i) => {
+      if (react_spring_shared_esm_is.und(props)) {
+        results.push(ctrl.start());
+      } else {
+        const update = this._getProps(props, ctrl, i);
+
+        if (update) {
+          results.push(ctrl.start(update));
+        }
+      }
+    });
+    return results;
+  };
+
+  SpringRef.stop = function () {
+    react_spring_shared_esm_each(current, ctrl => ctrl.stop(...arguments));
+    return this;
+  };
+
+  SpringRef.update = function (props) {
+    react_spring_shared_esm_each(current, (ctrl, i) => ctrl.update(this._getProps(props, ctrl, i)));
+    return this;
+  };
+
+  const _getProps = function _getProps(arg, ctrl, index) {
+    return react_spring_shared_esm_is.fun(arg) ? arg(index, ctrl) : arg;
+  };
+
+  SpringRef._getProps = _getProps;
+  return SpringRef;
+};
+
+function useSprings(length, props, deps) {
+  const propsFn = react_spring_shared_esm_is.fun(props) && props;
+  if (propsFn && !deps) deps = [];
+  const ref = (0,external_React_.useMemo)(() => propsFn || arguments.length == 3 ? SpringRef() : void 0, []);
+  const layoutId = (0,external_React_.useRef)(0);
+  const forceUpdate = react_spring_shared_esm_useForceUpdate();
+  const state = (0,external_React_.useMemo)(() => ({
+    ctrls: [],
+    queue: [],
+
+    flush(ctrl, updates) {
+      const springs = getSprings(ctrl, updates);
+      const canFlushSync = layoutId.current > 0 && !state.queue.length && !Object.keys(springs).some(key => !ctrl.springs[key]);
+      return canFlushSync ? flushUpdateQueue(ctrl, updates) : new Promise(resolve => {
+        setSprings(ctrl, springs);
+        state.queue.push(() => {
+          resolve(flushUpdateQueue(ctrl, updates));
+        });
+        forceUpdate();
+      });
+    }
+
+  }), []);
+  const ctrls = (0,external_React_.useRef)([...state.ctrls]);
+  const updates = [];
+  const prevLength = react_spring_shared_esm_usePrev(length) || 0;
+  (0,external_React_.useMemo)(() => {
+    react_spring_shared_esm_each(ctrls.current.slice(length, prevLength), ctrl => {
+      detachRefs(ctrl, ref);
+      ctrl.stop(true);
+    });
+    ctrls.current.length = length;
+    declareUpdates(prevLength, length);
+  }, [length]);
+  (0,external_React_.useMemo)(() => {
+    declareUpdates(0, Math.min(prevLength, length));
+  }, deps);
+
+  function declareUpdates(startIndex, endIndex) {
+    for (let i = startIndex; i < endIndex; i++) {
+      const ctrl = ctrls.current[i] || (ctrls.current[i] = new Controller(null, state.flush));
+      const update = propsFn ? propsFn(i, ctrl) : props[i];
+
+      if (update) {
+        updates[i] = declareUpdate(update);
+      }
+    }
+  }
+
+  const springs = ctrls.current.map((ctrl, i) => getSprings(ctrl, updates[i]));
+  const context = (0,external_React_.useContext)(SpringContext);
+  const prevContext = react_spring_shared_esm_usePrev(context);
+  const hasContext = context !== prevContext && hasProps(context);
+  react_spring_shared_esm_useLayoutEffect(() => {
+    layoutId.current++;
+    state.ctrls = ctrls.current;
+    const {
+      queue
+    } = state;
+
+    if (queue.length) {
+      state.queue = [];
+      react_spring_shared_esm_each(queue, cb => cb());
+    }
+
+    react_spring_shared_esm_each(ctrls.current, (ctrl, i) => {
+      ref == null ? void 0 : ref.add(ctrl);
+
+      if (hasContext) {
+        ctrl.start({
+          default: context
+        });
+      }
+
+      const update = updates[i];
+
+      if (update) {
+        replaceRef(ctrl, update.ref);
+
+        if (ctrl.ref) {
+          ctrl.queue.push(update);
+        } else {
+          ctrl.start(update);
+        }
+      }
+    });
+  });
+  react_spring_shared_esm_useOnce(() => () => {
+    react_spring_shared_esm_each(state.ctrls, ctrl => ctrl.stop(true));
+  });
+  const values = springs.map(x => react_spring_core_esm_extends({}, x));
+  return ref ? [values, ref] : values;
+}
+
+function useSpring(props, deps) {
+  const isFn = react_spring_shared_esm_is.fun(props);
+  const [[values], ref] = useSprings(1, isFn ? props : [props], isFn ? deps || [] : deps);
+  return isFn || arguments.length == 2 ? [values, ref] : values;
+}
+
+const initSpringRef = () => SpringRef();
+
+const useSpringRef = () => useState(initSpringRef)[0];
+
+function useTrail(length, propsArg, deps) {
+  const propsFn = is.fun(propsArg) && propsArg;
+  if (propsFn && !deps) deps = [];
+  let reverse = true;
+  const result = useSprings(length, (i, ctrl) => {
+    const props = propsFn ? propsFn(i, ctrl) : propsArg;
+    reverse = reverse && props.reverse;
+    return props;
+  }, deps || [{}]);
+  const ref = result[1];
+  useLayoutEffect(() => {
+    each(ref.current, (ctrl, i) => {
+      const parent = ref.current[i + (reverse ? 1 : -1)];
+      if (parent) ctrl.start({
+        to: parent.springs
+      });
+    });
+  }, deps);
+
+  if (propsFn || arguments.length == 3) {
+    ref['_getProps'] = (propsArg, ctrl, i) => {
+      const props = is.fun(propsArg) ? propsArg(i, ctrl) : propsArg;
+
+      if (props) {
+        const parent = ref.current[i + (props.reverse ? 1 : -1)];
+        if (parent) props.to = parent.springs;
+        return props;
+      }
+    };
+
+    return result;
+  }
+
+  return result[0];
+}
+
+let TransitionPhase;
+
+(function (TransitionPhase) {
+  TransitionPhase["MOUNT"] = "mount";
+  TransitionPhase["ENTER"] = "enter";
+  TransitionPhase["UPDATE"] = "update";
+  TransitionPhase["LEAVE"] = "leave";
+})(TransitionPhase || (TransitionPhase = {}));
+
+function useTransition(data, props, deps) {
+  const propsFn = is.fun(props) && props;
+  const {
+    reset,
+    sort,
+    trail = 0,
+    expires = true,
+    onDestroyed,
+    ref: propsRef,
+    config: propsConfig
+  } = propsFn ? propsFn() : props;
+  const ref = useMemo(() => propsFn || arguments.length == 3 ? SpringRef() : void 0, []);
+  const items = toArray(data);
+  const transitions = [];
+  const usedTransitions = useRef(null);
+  const prevTransitions = reset ? null : usedTransitions.current;
+  useLayoutEffect(() => {
+    usedTransitions.current = transitions;
+  });
+  useOnce(() => () => each(usedTransitions.current, t => {
+    if (t.expired) {
+      clearTimeout(t.expirationId);
+    }
+
+    detachRefs(t.ctrl, ref);
+    t.ctrl.stop(true);
+  }));
+  const keys = getKeys(items, propsFn ? propsFn() : props, prevTransitions);
+  const expired = reset && usedTransitions.current || [];
+  useLayoutEffect(() => each(expired, ({
+    ctrl,
+    item,
+    key
+  }) => {
+    detachRefs(ctrl, ref);
+    callProp(onDestroyed, item, key);
+  }));
+  const reused = [];
+  if (prevTransitions) each(prevTransitions, (t, i) => {
+    if (t.expired) {
+      clearTimeout(t.expirationId);
+      expired.push(t);
+    } else {
+      i = reused[i] = keys.indexOf(t.key);
+      if (~i) transitions[i] = t;
+    }
+  });
+  each(items, (item, i) => {
+    if (!transitions[i]) {
+      transitions[i] = {
+        key: keys[i],
+        item,
+        phase: TransitionPhase.MOUNT,
+        ctrl: new Controller()
+      };
+      transitions[i].ctrl.item = item;
+    }
+  });
+
+  if (reused.length) {
+    let i = -1;
+    const {
+      leave
+    } = propsFn ? propsFn() : props;
+    each(reused, (keyIndex, prevIndex) => {
+      const t = prevTransitions[prevIndex];
+
+      if (~keyIndex) {
+        i = transitions.indexOf(t);
+        transitions[i] = react_spring_core_esm_extends({}, t, {
+          item: items[keyIndex]
+        });
+      } else if (leave) {
+        transitions.splice(++i, 0, t);
+      }
+    });
+  }
+
+  if (is.fun(sort)) {
+    transitions.sort((a, b) => sort(a.item, b.item));
+  }
+
+  let delay = -trail;
+  const forceUpdate = useForceUpdate();
+  const defaultProps = getDefaultProps(props);
+  const changes = new Map();
+  each(transitions, (t, i) => {
+    const key = t.key;
+    const prevPhase = t.phase;
+    const p = propsFn ? propsFn() : props;
+    let to;
+    let phase;
+    let propsDelay = callProp(p.delay || 0, key);
+
+    if (prevPhase == TransitionPhase.MOUNT) {
+      to = p.enter;
+      phase = TransitionPhase.ENTER;
+    } else {
+      const isLeave = keys.indexOf(key) < 0;
+
+      if (prevPhase != TransitionPhase.LEAVE) {
+        if (isLeave) {
+          to = p.leave;
+          phase = TransitionPhase.LEAVE;
+        } else if (to = p.update) {
+          phase = TransitionPhase.UPDATE;
+        } else return;
+      } else if (!isLeave) {
+        to = p.enter;
+        phase = TransitionPhase.ENTER;
+      } else return;
+    }
+
+    to = callProp(to, t.item, i);
+    to = is.obj(to) ? inferTo(to) : {
+      to
+    };
+
+    if (!to.config) {
+      const config = propsConfig || defaultProps.config;
+      to.config = callProp(config, t.item, i, phase);
+    }
+
+    delay += trail;
+
+    const payload = react_spring_core_esm_extends({}, defaultProps, {
+      delay: propsDelay + delay,
+      ref: propsRef,
+      immediate: p.immediate,
+      reset: false
+    }, to);
+
+    if (phase == TransitionPhase.ENTER && is.und(payload.from)) {
+      const _p = propsFn ? propsFn() : props;
+
+      const from = is.und(_p.initial) || prevTransitions ? _p.from : _p.initial;
+      payload.from = callProp(from, t.item, i);
+    }
+
+    const {
+      onResolve
+    } = payload;
+
+    payload.onResolve = result => {
+      callProp(onResolve, result);
+      const transitions = usedTransitions.current;
+      const t = transitions.find(t => t.key === key);
+      if (!t) return;
+
+      if (result.cancelled && t.phase != TransitionPhase.UPDATE) {
+        return;
+      }
+
+      if (t.ctrl.idle) {
+        const idle = transitions.every(t => t.ctrl.idle);
+
+        if (t.phase == TransitionPhase.LEAVE) {
+          const expiry = callProp(expires, t.item);
+
+          if (expiry !== false) {
+            const expiryMs = expiry === true ? 0 : expiry;
+            t.expired = true;
+
+            if (!idle && expiryMs > 0) {
+              if (expiryMs <= 0x7fffffff) t.expirationId = setTimeout(forceUpdate, expiryMs);
+              return;
+            }
+          }
+        }
+
+        if (idle && transitions.some(t => t.expired)) {
+          forceUpdate();
+        }
+      }
+    };
+
+    const springs = getSprings(t.ctrl, payload);
+    changes.set(t, {
+      phase,
+      springs,
+      payload
+    });
+  });
+  const context = useContext(SpringContext);
+  const prevContext = usePrev(context);
+  const hasContext = context !== prevContext && hasProps(context);
+  useLayoutEffect(() => {
+    if (hasContext) each(transitions, t => {
+      t.ctrl.start({
+        default: context
+      });
+    });
+  }, [context]);
+  useLayoutEffect(() => {
+    each(changes, ({
+      phase,
+      payload
+    }, t) => {
+      const {
+        ctrl
+      } = t;
+      t.phase = phase;
+      ref == null ? void 0 : ref.add(ctrl);
+
+      if (hasContext && phase == TransitionPhase.ENTER) {
+        ctrl.start({
+          default: context
+        });
+      }
+
+      if (payload) {
+        replaceRef(ctrl, payload.ref);
+
+        if (ctrl.ref) {
+          ctrl.update(payload);
+        } else {
+          ctrl.start(payload);
+        }
+      }
+    });
+  }, reset ? void 0 : deps);
+
+  const renderTransitions = render => React.createElement(React.Fragment, null, transitions.map((t, i) => {
+    const {
+      springs
+    } = changes.get(t) || t.ctrl;
+    const elem = render(react_spring_core_esm_extends({}, springs), t.item, t, i);
+    return elem && elem.type ? React.createElement(elem.type, react_spring_core_esm_extends({}, elem.props, {
+      key: is.str(t.key) || is.num(t.key) ? t.key : t.ctrl.id,
+      ref: elem.ref
+    })) : elem;
+  }));
+
+  return ref ? [renderTransitions, ref] : renderTransitions;
+}
+let nextKey = 1;
+
+function getKeys(items, {
+  key,
+  keys = key
+}, prevTransitions) {
+  if (keys === null) {
+    const reused = new Set();
+    return items.map(item => {
+      const t = prevTransitions && prevTransitions.find(t => t.item === item && t.phase !== TransitionPhase.LEAVE && !reused.has(t));
+
+      if (t) {
+        reused.add(t);
+        return t.key;
+      }
+
+      return nextKey++;
+    });
+  }
+
+  return is.und(keys) ? items : is.fun(keys) ? items.map(keys) : toArray(keys);
+}
+
+const _excluded$2 = (/* unused pure expression or super */ null && (["children"]));
+function Spring(_ref) {
+  let {
+    children
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$2);
+
+  return children(useSpring(props));
+}
+
+const _excluded$1 = (/* unused pure expression or super */ null && (["items", "children"]));
+function Trail(_ref) {
+  let {
+    items,
+    children
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded$1);
+
+  const trails = useTrail(items.length, props);
+  return items.map((item, index) => {
+    const result = children(item, index);
+    return is.fun(result) ? result(trails[index]) : result;
+  });
+}
+
+const _excluded = (/* unused pure expression or super */ null && (["items", "children"]));
+function Transition(_ref) {
+  let {
+    items,
+    children
+  } = _ref,
+      props = _objectWithoutPropertiesLoose(_ref, _excluded);
+
+  return useTransition(items, props)(children);
+}
+
+class Interpolation extends FrameValue {
+  constructor(source, args) {
+    super();
+    this.key = void 0;
+    this.idle = true;
+    this.calc = void 0;
+    this._active = new Set();
+    this.source = source;
+    this.calc = createInterpolator(...args);
+
+    const value = this._get();
+
+    const nodeType = getAnimatedType(value);
+    setAnimated(this, nodeType.create(value));
+  }
+
+  advance(_dt) {
+    const value = this._get();
+
+    const oldValue = this.get();
+
+    if (!isEqual(value, oldValue)) {
+      getAnimated(this).setValue(value);
+
+      this._onChange(value, this.idle);
+    }
+
+    if (!this.idle && checkIdle(this._active)) {
+      becomeIdle(this);
+    }
+  }
+
+  _get() {
+    const inputs = react_spring_shared_esm_is.arr(this.source) ? this.source.map(getFluidValue) : react_spring_shared_esm_toArray(getFluidValue(this.source));
+    return this.calc(...inputs);
+  }
+
+  _start() {
+    if (this.idle && !checkIdle(this._active)) {
+      this.idle = false;
+      react_spring_shared_esm_each(getPayload(this), node => {
+        node.done = false;
+      });
+
+      if (globals.skipAnimation) {
+        raf.batchedUpdates(() => this.advance());
+        becomeIdle(this);
+      } else {
+        frameLoop.start(this);
+      }
+    }
+  }
+
+  _attach() {
+    let priority = 1;
+    react_spring_shared_esm_each(react_spring_shared_esm_toArray(this.source), source => {
+      if (hasFluidValue(source)) {
+        addFluidObserver(source, this);
+      }
+
+      if (isFrameValue(source)) {
+        if (!source.idle) {
+          this._active.add(source);
+        }
+
+        priority = Math.max(priority, source.priority + 1);
+      }
+    });
+    this.priority = priority;
+
+    this._start();
+  }
+
+  _detach() {
+    react_spring_shared_esm_each(react_spring_shared_esm_toArray(this.source), source => {
+      if (hasFluidValue(source)) {
+        removeFluidObserver(source, this);
+      }
+    });
+
+    this._active.clear();
+
+    becomeIdle(this);
+  }
+
+  eventObserved(event) {
+    if (event.type == 'change') {
+      if (event.idle) {
+        this.advance();
+      } else {
+        this._active.add(event.parent);
+
+        this._start();
+      }
+    } else if (event.type == 'idle') {
+        this._active.delete(event.parent);
+      } else if (event.type == 'priority') {
+          this.priority = react_spring_shared_esm_toArray(this.source).reduce((highest, parent) => Math.max(highest, (isFrameValue(parent) ? parent.priority : 0) + 1), 0);
+        }
+  }
+
+}
+
+function isIdle(source) {
+  return source.idle !== false;
+}
+
+function checkIdle(active) {
+  return !active.size || Array.from(active).every(isIdle);
+}
+
+function becomeIdle(self) {
+  if (!self.idle) {
+    self.idle = true;
+    react_spring_shared_esm_each(getPayload(self), node => {
+      node.done = true;
+    });
+    callFluidObservers(self, {
+      type: 'idle',
+      parent: self
+    });
+  }
+}
+
+const react_spring_core_esm_to = (source, ...args) => new Interpolation(source, args);
+const react_spring_core_esm_interpolate = (source, ...args) => (deprecateInterpolate(), new Interpolation(source, args));
+
+globals.assign({
+  createStringInterpolator: createStringInterpolator,
+  to: (source, args) => new Interpolation(source, args)
+});
+const react_spring_core_esm_update = frameLoop.advance;
+
+
+
+;// CONCATENATED MODULE: external "ReactDOM"
+var external_ReactDOM_namespaceObject = window["ReactDOM"];
+;// CONCATENATED MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
+
+
+
+
+
+
+function react_spring_web_esm_objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+const react_spring_web_esm_excluded$2 = ["style", "children", "scrollTop", "scrollLeft"];
+const isCustomPropRE = /^--/;
+
+function dangerousStyleValue(name, value) {
+  if (value == null || typeof value === 'boolean' || value === '') return '';
+  if (typeof value === 'number' && value !== 0 && !isCustomPropRE.test(name) && !(isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name])) return value + 'px';
+  return ('' + value).trim();
+}
+
+const attributeCache = {};
+function applyAnimatedValues(instance, props) {
+  if (!instance.nodeType || !instance.setAttribute) {
+    return false;
+  }
+
+  const isFilterElement = instance.nodeName === 'filter' || instance.parentNode && instance.parentNode.nodeName === 'filter';
+
+  const _ref = props,
+        {
+    style,
+    children,
+    scrollTop,
+    scrollLeft
+  } = _ref,
+        attributes = react_spring_web_esm_objectWithoutPropertiesLoose(_ref, react_spring_web_esm_excluded$2);
+
+  const values = Object.values(attributes);
+  const names = Object.keys(attributes).map(name => isFilterElement || instance.hasAttribute(name) ? name : attributeCache[name] || (attributeCache[name] = name.replace(/([A-Z])/g, n => '-' + n.toLowerCase())));
+
+  if (children !== void 0) {
+    instance.textContent = children;
+  }
+
+  for (let name in style) {
+    if (style.hasOwnProperty(name)) {
+      const value = dangerousStyleValue(name, style[name]);
+
+      if (isCustomPropRE.test(name)) {
+        instance.style.setProperty(name, value);
+      } else {
+        instance.style[name] = value;
+      }
+    }
+  }
+
+  names.forEach((name, i) => {
+    instance.setAttribute(name, values[i]);
+  });
+
+  if (scrollTop !== void 0) {
+    instance.scrollTop = scrollTop;
+  }
+
+  if (scrollLeft !== void 0) {
+    instance.scrollLeft = scrollLeft;
+  }
+}
+let isUnitlessNumber = {
+  animationIterationCount: true,
+  borderImageOutset: true,
+  borderImageSlice: true,
+  borderImageWidth: true,
+  boxFlex: true,
+  boxFlexGroup: true,
+  boxOrdinalGroup: true,
+  columnCount: true,
+  columns: true,
+  flex: true,
+  flexGrow: true,
+  flexPositive: true,
+  flexShrink: true,
+  flexNegative: true,
+  flexOrder: true,
+  gridRow: true,
+  gridRowEnd: true,
+  gridRowSpan: true,
+  gridRowStart: true,
+  gridColumn: true,
+  gridColumnEnd: true,
+  gridColumnSpan: true,
+  gridColumnStart: true,
+  fontWeight: true,
+  lineClamp: true,
+  lineHeight: true,
+  opacity: true,
+  order: true,
+  orphans: true,
+  tabSize: true,
+  widows: true,
+  zIndex: true,
+  zoom: true,
+  fillOpacity: true,
+  floodOpacity: true,
+  stopOpacity: true,
+  strokeDasharray: true,
+  strokeDashoffset: true,
+  strokeMiterlimit: true,
+  strokeOpacity: true,
+  strokeWidth: true
+};
+
+const prefixKey = (prefix, key) => prefix + key.charAt(0).toUpperCase() + key.substring(1);
+
+const prefixes = ['Webkit', 'Ms', 'Moz', 'O'];
+isUnitlessNumber = Object.keys(isUnitlessNumber).reduce((acc, prop) => {
+  prefixes.forEach(prefix => acc[prefixKey(prefix, prop)] = acc[prop]);
+  return acc;
+}, isUnitlessNumber);
+
+const react_spring_web_esm_excluded$1 = ["x", "y", "z"];
+const domTransforms = /^(matrix|translate|scale|rotate|skew)/;
+const pxTransforms = /^(translate)/;
+const degTransforms = /^(rotate|skew)/;
+
+const addUnit = (value, unit) => react_spring_shared_esm_is.num(value) && value !== 0 ? value + unit : value;
+
+const isValueIdentity = (value, id) => react_spring_shared_esm_is.arr(value) ? value.every(v => isValueIdentity(v, id)) : react_spring_shared_esm_is.num(value) ? value === id : parseFloat(value) === id;
+
+class AnimatedStyle extends AnimatedObject {
+  constructor(_ref) {
+    let {
+      x,
+      y,
+      z
+    } = _ref,
+        style = react_spring_web_esm_objectWithoutPropertiesLoose(_ref, react_spring_web_esm_excluded$1);
+
+    const inputs = [];
+    const transforms = [];
+
+    if (x || y || z) {
+      inputs.push([x || 0, y || 0, z || 0]);
+      transforms.push(xyz => [`translate3d(${xyz.map(v => addUnit(v, 'px')).join(',')})`, isValueIdentity(xyz, 0)]);
+    }
+
+    eachProp(style, (value, key) => {
+      if (key === 'transform') {
+        inputs.push([value || '']);
+        transforms.push(transform => [transform, transform === '']);
+      } else if (domTransforms.test(key)) {
+        delete style[key];
+        if (react_spring_shared_esm_is.und(value)) return;
+        const unit = pxTransforms.test(key) ? 'px' : degTransforms.test(key) ? 'deg' : '';
+        inputs.push(react_spring_shared_esm_toArray(value));
+        transforms.push(key === 'rotate3d' ? ([x, y, z, deg]) => [`rotate3d(${x},${y},${z},${addUnit(deg, unit)})`, isValueIdentity(deg, 0)] : input => [`${key}(${input.map(v => addUnit(v, unit)).join(',')})`, isValueIdentity(input, key.startsWith('scale') ? 1 : 0)]);
+      }
+    });
+
+    if (inputs.length) {
+      style.transform = new FluidTransform(inputs, transforms);
+    }
+
+    super(style);
+  }
+
+}
+
+class FluidTransform extends FluidValue {
+  constructor(inputs, transforms) {
+    super();
+    this._value = null;
+    this.inputs = inputs;
+    this.transforms = transforms;
+  }
+
+  get() {
+    return this._value || (this._value = this._get());
+  }
+
+  _get() {
+    let transform = '';
+    let identity = true;
+    react_spring_shared_esm_each(this.inputs, (input, i) => {
+      const arg1 = getFluidValue(input[0]);
+      const [t, id] = this.transforms[i](react_spring_shared_esm_is.arr(arg1) ? arg1 : input.map(getFluidValue));
+      transform += ' ' + t;
+      identity = identity && id;
+    });
+    return identity ? 'none' : transform;
+  }
+
+  observerAdded(count) {
+    if (count == 1) react_spring_shared_esm_each(this.inputs, input => react_spring_shared_esm_each(input, value => hasFluidValue(value) && addFluidObserver(value, this)));
+  }
+
+  observerRemoved(count) {
+    if (count == 0) react_spring_shared_esm_each(this.inputs, input => react_spring_shared_esm_each(input, value => hasFluidValue(value) && removeFluidObserver(value, this)));
+  }
+
+  eventObserved(event) {
+    if (event.type == 'change') {
+      this._value = null;
+    }
+
+    callFluidObservers(this, event);
+  }
+
+}
+
+const primitives = ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'menu', 'menuitem', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', 'circle', 'clipPath', 'defs', 'ellipse', 'foreignObject', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'svg', 'text', 'tspan'];
+
+const react_spring_web_esm_excluded = ["scrollTop", "scrollLeft"];
+globals.assign({
+  batchedUpdates: external_ReactDOM_namespaceObject.unstable_batchedUpdates,
+  createStringInterpolator: createStringInterpolator,
+  colors: colors
+});
+const host = createHost(primitives, {
+  applyAnimatedValues,
+  createAnimatedStyle: style => new AnimatedStyle(style),
+  getComponentProps: _ref => {
+    let props = react_spring_web_esm_objectWithoutPropertiesLoose(_ref, react_spring_web_esm_excluded);
+
+    return props;
+  }
+});
+const animated = host.animated;
+
+
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/use-moving-animation/index.js
 /**
  * External dependencies
@@ -18329,26 +20141,29 @@ function useMovingAnimation({
   } // Called for every frame computed by useSpring.
 
 
-  function onFrame({
-    x,
-    y
+  function onChange({
+    value
   }) {
+    let {
+      x,
+      y
+    } = value;
     x = Math.round(x);
     y = Math.round(y);
 
-    if (x !== onFrame.x || y !== onFrame.y) {
+    if (x !== onChange.x || y !== onChange.y) {
       onFrameChange({
         x,
         y
       });
-      onFrame.x = x;
-      onFrame.y = y;
+      onChange.x = x;
+      onChange.y = y;
     }
   }
 
-  onFrame.x = 0;
-  onFrame.y = 0;
-  (0,web_cjs/* useSpring */.q_)({
+  onChange.x = 0;
+  onChange.y = 0;
+  useSpring({
     from: {
       x: transform.x,
       y: transform.y
@@ -18364,7 +20179,7 @@ function useMovingAnimation({
       friction: 200
     },
     immediate: prefersReducedMotion,
-    onFrame
+    onChange
   });
   return ref;
 }
@@ -19462,6 +21277,7 @@ function Block({
 function BlockListBlock({
   mode,
   isLocked,
+  canRemove,
   clientId,
   isSelected,
   isSelectionEnabled,
@@ -19490,9 +21306,9 @@ function BlockListBlock({
     attributes: attributes,
     setAttributes: setAttributes,
     insertBlocksAfter: isLocked ? undefined : onInsertBlocksAfter,
-    onReplace: isLocked ? undefined : onReplace,
-    onRemove: isLocked ? undefined : onRemove,
-    mergeBlocks: isLocked ? undefined : onMerge,
+    onReplace: canRemove ? onReplace : undefined,
+    onRemove: canRemove ? onRemove : undefined,
+    mergeBlocks: canRemove ? onMerge : undefined,
     clientId: clientId,
     isSelectionEnabled: isSelectionEnabled,
     toggleSelection: toggleSelection
@@ -19565,13 +21381,17 @@ const applyWithSelect = (0,external_wp_data_namespaceObject.withSelect)((select,
     getBlockMode,
     isSelectionEnabled,
     getTemplateLock,
-    __unstableGetBlockWithoutInnerBlocks
+    __unstableGetBlockWithoutInnerBlocks,
+    canRemoveBlock,
+    canMoveBlock
   } = select(store);
 
   const block = __unstableGetBlockWithoutInnerBlocks(clientId);
 
   const isSelected = isBlockSelected(clientId);
-  const templateLock = getTemplateLock(rootClientId); // The fallback to `{}` is a temporary fix.
+  const templateLock = getTemplateLock(rootClientId);
+  const canRemove = canRemoveBlock(clientId, rootClientId);
+  const canMove = canMoveBlock(clientId, rootClientId); // The fallback to `{}` is a temporary fix.
   // This function should never be called when a block is not present in
   // the state. It happens now because the order in withSelect rendering
   // is not correct.
@@ -19587,6 +21407,8 @@ const applyWithSelect = (0,external_wp_data_namespaceObject.withSelect)((select,
     mode: getBlockMode(clientId),
     isSelectionEnabled: isSelectionEnabled(),
     isLocked: !!templateLock,
+    canRemove,
+    canMove,
     // Users of the editor.BlockListBlock filter used to be able to
     // access the block prop.
     // Ideally these blocks would rely on the clientId prop only.
@@ -20391,7 +22213,8 @@ function useTabNav() {
   const lastFocus = (0,external_wp_element_namespaceObject.useRef)();
   const {
     hasMultiSelection,
-    getSelectedBlockClientId
+    getSelectedBlockClientId,
+    getBlockCount
   } = (0,external_wp_data_namespaceObject.useSelect)(store);
   const {
     setNavigationMode
@@ -20490,6 +22313,14 @@ function useTabNav() {
 
     function onFocusOut(event) {
       lastFocus.current = event.target;
+      const {
+        ownerDocument
+      } = node; // If focus disappears due to there being no blocks, move focus to
+      // the writing flow wrapper.
+
+      if (!event.relatedTarget && ownerDocument.activeElement === ownerDocument.body && getBlockCount() === 0) {
+        node.focus();
+      }
     } // When tabbing back to an element in block list, this event handler prevents scrolling if the
     // focus capture divs (before/after) are outside of the viewport. (For example shift+tab back to a paragraph
     // when focus is on a sidebar element. This prevents the scrollable writing area from jumping either to the
@@ -21085,7 +22916,7 @@ function bubbleEvents(doc) {
     }
   }
 
-  const eventTypes = ['keydown', 'keypress', 'dragover'];
+  const eventTypes = ['dragover'];
 
   for (const name of eventTypes) {
     doc.addEventListener(name, bubbleEvent);
@@ -21129,11 +22960,13 @@ function Iframe({
   tabIndex = 0,
   ...props
 }, ref) {
+  var _window$__editorAsset, _window$__editorAsset2;
+
   const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(() => ({}));
   const [iframeDocument, setIframeDocument] = (0,external_wp_element_namespaceObject.useState)();
   const [bodyClasses, setBodyClasses] = (0,external_wp_element_namespaceObject.useState)([]);
-  const styles = useParsedAssets(window.__editorAssets.styles);
-  const scripts = useParsedAssets(window.__editorAssets.scripts);
+  const styles = useParsedAssets((_window$__editorAsset = window.__editorAssets) === null || _window$__editorAsset === void 0 ? void 0 : _window$__editorAsset.styles);
+  const scripts = useParsedAssets((_window$__editorAsset2 = window.__editorAssets) === null || _window$__editorAsset2 === void 0 ? void 0 : _window$__editorAsset2.scripts);
   const clearerRef = useBlockSelectionClearer();
   const [before, writingFlowRef, after] = useWritingFlow();
   const setRef = (0,external_wp_compose_namespaceObject.useRefEffect)(node => {
@@ -24446,9 +26279,10 @@ function InserterMenu({
   onSelect,
   showInserterHelpPanel,
   showMostUsedBlocks,
+  __experimentalFilterValue = '',
   shouldFocusBlock = true
 }) {
-  const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
+  const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)(__experimentalFilterValue);
   const [hoveredItem, setHoveredItem] = (0,external_wp_element_namespaceObject.useState)(null);
   const [selectedPatternCategory, setSelectedPatternCategory] = (0,external_wp_element_namespaceObject.useState)(null);
   const [destinationRootClientId, onInsertBlocks, onToggleInsertionPoint] = use_insertion_point({
@@ -24626,7 +26460,8 @@ function QuickInserter({
   const onBrowseAll = () => {
     setInserterIsOpened({
       rootClientId,
-      insertionIndex
+      insertionIndex,
+      filterValue
     });
   };
 
@@ -25867,11 +27702,12 @@ function BlockTitle({
   const blockInformation = useBlockDisplayInformation(clientId);
   if (!name || !blockInformation) return null;
   const blockType = (0,external_wp_blocks_namespaceObject.getBlockType)(name);
-  const label = reusableBlockTitle || (0,external_wp_blocks_namespaceObject.__experimentalGetBlockLabel)(blockType, attributes); // Label will fallback to the title if no label is defined for the current
+  const blockLabel = blockType ? (0,external_wp_blocks_namespaceObject.__experimentalGetBlockLabel)(blockType, attributes) : null;
+  const label = reusableBlockTitle || blockLabel; // Label will fallback to the title if no label is defined for the current
   // label context. If the label is defined we prioritize it over possible
   // possible block variation title match.
 
-  if (label !== blockType.title) {
+  if (label && label !== blockType.title) {
     return (0,external_lodash_namespaceObject.truncate)(label, {
       length: 35
     });
@@ -26403,10 +28239,7 @@ function useToolbarFocus(ref, focusOnMount, isAccessibleToolbar, defaultIndex, o
     focusFirstTabbableIn(ref.current);
   }, []); // Focus on toolbar when pressing alt+F10 when the toolbar is visible
 
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/block-editor/focus-toolbar', focusToolbar, {
-    bindGlobal: true,
-    eventName: 'keydown'
-  });
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/block-editor/focus-toolbar', focusToolbar);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (initialFocusOnMount) {
       focusToolbar();
@@ -26878,7 +28711,7 @@ function BlockMover({
   isFirst,
   isLast,
   clientIds,
-  isLocked,
+  canMove,
   isHidden,
   rootClientId,
   orientation,
@@ -26890,7 +28723,7 @@ function BlockMover({
 
   const onBlur = () => setIsFocused(false);
 
-  if (isLocked || isFirst && isLast && !rootClientId) {
+  if (!canMove || isFirst && isLast && !rootClientId) {
     return null;
   }
 
@@ -26940,7 +28773,7 @@ function BlockMover({
     getBlock,
     getBlockIndex,
     getBlockListSettings,
-    getTemplateLock,
+    canMoveBlocks,
     getBlockOrder,
     getBlockRootClientId
   } = select(store);
@@ -26955,7 +28788,7 @@ function BlockMover({
   const isLast = lastIndex === blockOrder.length - 1;
   return {
     blockType: block ? (0,external_wp_blocks_namespaceObject.getBlockType)(block.name) : null,
-    isLocked: getTemplateLock(rootClientId) === 'all',
+    canMove: canMoveBlocks(clientIds, rootClientId),
     rootClientId,
     firstIndex,
     isFirst,
@@ -27912,11 +29745,14 @@ const BlockSwitcherDropdownMenu = ({
   const blockInformation = useBlockDisplayInformation(blocks[0].clientId);
   const {
     possibleBlockTransformations,
+    canRemove,
     hasBlockStyles,
     icon,
     blockTitle,
     patterns
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _getBlockType2;
+
     const {
       getBlockRootClientId,
       getBlockTransformItems,
@@ -27926,6 +29762,9 @@ const BlockSwitcherDropdownMenu = ({
       getBlockStyles,
       getBlockType
     } = select(external_wp_blocks_namespaceObject.store);
+    const {
+      canRemoveBlocks
+    } = select(store);
     const rootClientId = getBlockRootClientId((0,external_lodash_namespaceObject.castArray)(clientIds)[0]);
     const [{
       name: firstBlockName
@@ -27952,9 +29791,10 @@ const BlockSwitcherDropdownMenu = ({
 
     return {
       possibleBlockTransformations: getBlockTransformItems(blocks, rootClientId),
+      canRemove: canRemoveBlocks(clientIds, rootClientId),
       hasBlockStyles: !!(styles !== null && styles !== void 0 && styles.length),
       icon: _icon,
-      blockTitle: getBlockType(firstBlockName).title,
+      blockTitle: (_getBlockType2 = getBlockType(firstBlockName)) === null || _getBlockType2 === void 0 ? void 0 : _getBlockType2.title,
       patterns: __experimentalGetPatternTransformItems(blocks, rootClientId)
     };
   }, [clientIds, blocks, blockInformation === null || blockInformation === void 0 ? void 0 : blockInformation.icon]);
@@ -27966,8 +29806,8 @@ const BlockSwitcherDropdownMenu = ({
 
   const onPatternTransform = transformedBlocks => replaceBlocks(clientIds, transformedBlocks);
 
-  const hasPossibleBlockTransformations = !!possibleBlockTransformations.length;
-  const hasPatternTransformation = !!(patterns !== null && patterns !== void 0 && patterns.length);
+  const hasPossibleBlockTransformations = !!possibleBlockTransformations.length && canRemove;
+  const hasPatternTransformation = !!(patterns !== null && patterns !== void 0 && patterns.length) && canRemove;
 
   if (!hasBlockStyles && !hasPossibleBlockTransformations) {
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
@@ -28206,6 +30046,7 @@ function useClipboardHandler() {
         return;
       }
 
+      const eventDefaultPrevented = event.defaultPrevented;
       event.preventDefault();
 
       if (event.type === 'copy' || event.type === 'cut') {
@@ -28223,6 +30064,11 @@ function useClipboardHandler() {
       if (event.type === 'cut') {
         removeBlocks(selectedBlockClientIds);
       } else if (event.type === 'paste') {
+        if (eventDefaultPrevented) {
+          // This was likely already handled in rich-text/use-paste-handler.js
+          return;
+        }
+
         const {
           __experimentalCanUserUseUnfilteredHTML: canUserUseUnfilteredHTML
         } = getSettings();
@@ -28287,6 +30133,7 @@ function BlockActions({
     canInsertBlockType,
     getBlockRootClientId,
     getBlocksByClientId,
+    canRemoveBlocks,
     getTemplateLock
   } = (0,external_wp_data_namespaceObject.useSelect)(select => select(store), []);
   const {
@@ -28299,6 +30146,7 @@ function BlockActions({
     return !!block && (0,external_wp_blocks_namespaceObject.hasBlockSupport)(block.name, 'multiple', true) && canInsertBlockType(block.name, rootClientId);
   });
   const canInsertDefaultBlock = canInsertBlockType(getDefaultBlockName(), rootClientId);
+  const canRemove = canRemoveBlocks(clientIds, rootClientId);
   const {
     removeBlocks,
     replaceBlocks,
@@ -28314,6 +30162,7 @@ function BlockActions({
   return children({
     canDuplicate,
     canInsertDefaultBlock,
+    canRemove,
     isLocked: !!getTemplateLock(rootClientId),
     rootClientId,
     blocks,
@@ -28823,10 +30672,11 @@ function BlockSettingsDropdown({
   }, ({
     canDuplicate,
     canInsertDefaultBlock,
-    isLocked,
+    canRemove,
     onDuplicate,
     onInsertAfter,
     onInsertBefore,
+    isLocked,
     onRemove,
     onCopy,
     onMoveTo,
@@ -28871,7 +30721,7 @@ function BlockSettingsDropdown({
     onClose
   }) : external_wp_element_namespaceObject.Children.map(child => (0,external_wp_element_namespaceObject.cloneElement)(child, {
     onClose
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, !isLocked && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+  })), canRemove && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     onClick: (0,external_lodash_namespaceObject.flow)(onClose, onRemove, updateSelection),
     shortcut: shortcuts.remove
   }, removeBlockLabel)))));
@@ -29211,12 +31061,10 @@ function BlockPopover({
   const shouldShowBreadcrumb = isNavigationMode;
   const shouldShowContextualToolbar = !isNavigationMode && !hasFixedToolbar && isLargeViewport && !showEmptyBlockSideInserter && !isMultiSelecting && (!isTyping || isCaretWithinFormattedText);
   const canFocusHiddenToolbar = !isNavigationMode && !shouldShowContextualToolbar && !hasFixedToolbar && !isEmptyDefaultBlock;
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/block-editor/focus-toolbar', (0,external_wp_element_namespaceObject.useCallback)(() => {
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/block-editor/focus-toolbar', () => {
     setIsToolbarForced(true);
     stopTyping(true);
-  }, []), {
-    bindGlobal: true,
-    eventName: 'keydown',
+  }, {
     isDisabled: !canFocusHiddenToolbar
   });
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -29484,17 +31332,26 @@ const withClientId = (0,external_wp_compose_namespaceObject.createHigherOrderCom
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * Internal dependencies
  */
+
 
 
 const button_block_appender_ButtonBlockAppender = ({
   clientId,
   showSeparator,
   isFloating,
-  onAddBlock
+  onAddBlock,
+  isToggle
 }) => {
   return (0,external_wp_element_namespaceObject.createElement)(button_block_appender, {
+    className: classnames_default()({
+      'block-list-appender__toggle': isToggle
+    }),
     rootClientId: clientId,
     showSeparator: showSeparator,
     isFloating: isFloating,
@@ -30593,7 +32450,7 @@ function DuotonePanel({
 
   return (0,external_wp_element_namespaceObject.createElement)(block_controls, {
     group: "block",
-    __experimentalExposeToChildren: true
+    __experimentalShareWithChildBlocks: true
   }, (0,external_wp_element_namespaceObject.createElement)(duotone_control, {
     duotonePalette: duotonePalette,
     colorPalette: colorPalette,
@@ -31119,6 +32976,7 @@ function getSpacingClassesAndStyles(attributes) {
 
 
 
+
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors/with-colors.js
 
@@ -31559,7 +33417,8 @@ function AlignmentUI({
     icon: setIcon(),
     label: label,
     toggleProps: {
-      describedBy
+      describedBy,
+      className: activeAlignment ? 'is-pressed' : undefined
     },
     popoverProps: ui_POPOVER_PROPS,
     controls: alignmentControls.map(control => {
@@ -32207,7 +34066,7 @@ const listView = (0,external_wp_element_namespaceObject.createElement)(external_
  */
 
 
-const AnimatedTreeGridRow = (0,web_cjs/* animated */.q)(external_wp_components_namespaceObject.__experimentalTreeGridRow);
+const AnimatedTreeGridRow = animated(external_wp_components_namespaceObject.__experimentalTreeGridRow);
 function ListViewLeaf({
   isSelected,
   position,
@@ -32592,6 +34451,7 @@ const ListViewBlockContents = (0,external_wp_element_namespaceObject.forwardRef)
 function ListViewBlock({
   block,
   isSelected,
+  isDragged,
   isBranchSelected,
   isLastOfSelectedBranch,
   onClick,
@@ -32609,19 +34469,8 @@ function ListViewBlock({
   const {
     clientId
   } = block;
-  const {
-    isDragging,
-    blockParents
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      isBlockBeingDragged,
-      isAncestorBeingDragged,
-      getBlockParents
-    } = select(store);
-    return {
-      isDragging: isBlockBeingDragged(clientId) || isAncestorBeingDragged(clientId),
-      blockParents: getBlockParents(clientId)
-    };
+  const blockParents = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return select(store).getBlockParents(clientId);
   }, [clientId]);
   const {
     selectBlock: selectEditorBlock,
@@ -32671,7 +34520,7 @@ function ListViewBlock({
     'is-selected': isSelected,
     'is-branch-selected': withExperimentalPersistentListViewFeatures && isBranchSelected,
     'is-last-of-selected-branch': withExperimentalPersistentListViewFeatures && isLastOfSelectedBranch,
-    'is-dragging': isDragging
+    'is-dragging': isDragged
   });
   return (0,external_wp_element_namespaceObject.createElement)(ListViewLeaf, {
     className: classes,
@@ -32865,7 +34714,6 @@ function ListViewBranch(props) {
   const {
     blocks,
     selectBlock,
-    selectedBlockClientIds,
     showAppender,
     showBlockMovers,
     showNestedBlocks,
@@ -32876,21 +34724,23 @@ function ListViewBranch(props) {
     isBranchSelected = false,
     isLastOfBranch = false
   } = props;
+  const {
+    expandedState,
+    expand,
+    collapse,
+    draggedClientIds,
+    selectedClientIds
+  } = useListViewContext();
   const isTreeRoot = !parentBlockClientId;
   const filteredBlocks = (0,external_lodash_namespaceObject.compact)(blocks);
 
-  const itemHasAppender = parentClientId => showAppender && !isTreeRoot && isClientIdSelected(parentClientId, selectedBlockClientIds);
+  const itemHasAppender = parentClientId => showAppender && !isTreeRoot && isClientIdSelected(parentClientId, selectedClientIds);
 
   const hasAppender = itemHasAppender(parentBlockClientId); // Add +1 to the rowCount to take the block appender into account.
 
   const blockCount = filteredBlocks.length;
   const rowCount = hasAppender ? blockCount + 1 : blockCount;
   const appenderPosition = rowCount;
-  const {
-    expandedState,
-    expand,
-    collapse
-  } = useListViewContext();
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_lodash_namespaceObject.map)(filteredBlocks, (block, index) => {
     var _expandedState$client;
 
@@ -32905,7 +34755,7 @@ function ListViewBranch(props) {
     const hasNestedBlocks = showNestedBlocks && !!innerBlocks && !!innerBlocks.length;
     const hasNestedAppender = itemHasAppender(clientId);
     const hasNestedBranch = hasNestedBlocks || hasNestedAppender;
-    const isSelected = isClientIdSelected(clientId, selectedBlockClientIds);
+    const isSelected = isClientIdSelected(clientId, selectedClientIds);
     const isSelectedBranch = isBranchSelected || isSelected && hasNestedBranch; // Logic needed to target the last item of a selected branch which might be deeply nested.
     // This is currently only needed for styling purposes. See: `.is-last-of-selected-branch`.
 
@@ -32927,14 +34777,19 @@ function ListViewBranch(props) {
       } else if (isExpanded === false) {
         expand(clientId);
       }
-    };
+    }; // Make updates to the selected or dragged blocks synchronous,
+    // but asynchronous for any other block.
 
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, {
-      key: clientId
+
+    const isDragged = !!(draggedClientIds !== null && draggedClientIds !== void 0 && draggedClientIds.includes(clientId));
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_data_namespaceObject.AsyncModeProvider, {
+      key: clientId,
+      value: !isSelected
     }, (0,external_wp_element_namespaceObject.createElement)(ListViewBlock, {
       block: block,
       onClick: selectBlockWithClientId,
       onToggleExpanded: toggleExpanded,
+      isDragged: isDragged,
       isSelected: isSelected,
       isBranchSelected: isSelectedBranch,
       isLastOfSelectedBranch: isLastOfSelectedBranch,
@@ -32946,9 +34801,8 @@ function ListViewBranch(props) {
       terminatedLevels: terminatedLevels,
       path: updatedPath,
       isExpanded: isExpanded
-    }), hasNestedBranch && isExpanded && (0,external_wp_element_namespaceObject.createElement)(ListViewBranch, {
+    }), hasNestedBranch && isExpanded && !isDragged && (0,external_wp_element_namespaceObject.createElement)(ListViewBranch, {
       blocks: innerBlocks,
-      selectedBlockClientIds: selectedBlockClientIds,
       selectBlock: selectBlock,
       isBranchSelected: isSelectedBranch,
       isLastOfBranch: isLast,
@@ -33094,19 +34948,6 @@ function ListViewDropIndicator({
 
 
 
-const useListViewSelectedClientIds = __experimentalPersistentListViewFeatures => (0,external_wp_data_namespaceObject.useSelect)(select => {
-  const {
-    getSelectedBlockClientId,
-    getSelectedBlockClientIds
-  } = select(store);
-
-  if (__experimentalPersistentListViewFeatures) {
-    return getSelectedBlockClientIds();
-  }
-
-  return getSelectedBlockClientId();
-}, [__experimentalPersistentListViewFeatures]);
-
 const useListViewClientIdsTree = (blocks, selectedClientIds, showOnlyCurrentHierarchy) => (0,external_wp_data_namespaceObject.useSelect)(select => {
   const {
     getBlockHierarchyRootClientId,
@@ -33140,11 +34981,33 @@ const useListViewClientIdsTree = (blocks, selectedClientIds, showOnlyCurrentHier
 }, [blocks, selectedClientIds, showOnlyCurrentHierarchy]);
 
 function useListViewClientIds(blocks, showOnlyCurrentHierarchy, __experimentalPersistentListViewFeatures) {
-  const selectedClientIds = useListViewSelectedClientIds(__experimentalPersistentListViewFeatures);
+  const {
+    selectedClientIds,
+    draggedClientIds
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getSelectedBlockClientId,
+      getSelectedBlockClientIds,
+      getDraggedBlockClientIds
+    } = select(store);
+
+    if (__experimentalPersistentListViewFeatures) {
+      return {
+        selectedClientIds: getSelectedBlockClientIds(),
+        draggedClientIds: getDraggedBlockClientIds()
+      };
+    }
+
+    return {
+      selectedClientIds: getSelectedBlockClientId(),
+      draggedClientIds: getDraggedBlockClientIds()
+    };
+  }, [__experimentalPersistentListViewFeatures]);
   const clientIdsTree = useListViewClientIdsTree(blocks, selectedClientIds, showOnlyCurrentHierarchy);
   return {
     clientIdsTree,
-    selectedClientIds
+    selectedClientIds,
+    draggedClientIds
   };
 }
 //# sourceMappingURL=use-list-view-client-ids.js.map
@@ -33405,7 +35268,7 @@ function useListViewDropZone() {
 
 
 
-const noop = () => {};
+const list_view_noop = () => {};
 
 const expanded = (state, action) => {
   switch (action.type) {
@@ -33446,14 +35309,15 @@ const expanded = (state, action) => {
 function ListView({
   blocks,
   showOnlyCurrentHierarchy,
-  onSelect = noop,
+  onSelect = list_view_noop,
   __experimentalFeatures,
   __experimentalPersistentListViewFeatures,
   ...props
 }, ref) {
   const {
     clientIdsTree,
-    selectedClientIds
+    selectedClientIds,
+    draggedClientIds
   } = useListViewClientIds(blocks, showOnlyCurrentHierarchy, __experimentalPersistentListViewFeatures);
   const {
     selectBlock
@@ -33473,8 +35337,7 @@ function ListView({
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     isMounted.current = true;
   }, []);
-
-  const expand = clientId => {
+  const expand = (0,external_wp_element_namespaceObject.useCallback)(clientId => {
     if (!clientId) {
       return;
     }
@@ -33483,9 +35346,8 @@ function ListView({
       type: 'expand',
       clientId
     });
-  };
-
-  const collapse = clientId => {
+  }, [setExpandedState]);
+  const collapse = (0,external_wp_element_namespaceObject.useCallback)(clientId => {
     if (!clientId) {
       return;
     }
@@ -33494,7 +35356,7 @@ function ListView({
       type: 'collapse',
       clientId
     });
-  };
+  }, [setExpandedState]);
 
   const expandRow = row => {
     var _row$dataset;
@@ -33512,11 +35374,15 @@ function ListView({
     __experimentalFeatures,
     __experimentalPersistentListViewFeatures,
     isTreeGridMounted: isMounted.current,
+    draggedClientIds,
+    selectedClientIds,
     expandedState,
     expand,
     collapse
-  }), [__experimentalFeatures, __experimentalPersistentListViewFeatures, isMounted.current, expandedState, expand, collapse]);
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(ListViewDropIndicator, {
+  }), [__experimentalFeatures, __experimentalPersistentListViewFeatures, isMounted.current, draggedClientIds, selectedClientIds, expandedState, expand, collapse]);
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_data_namespaceObject.AsyncModeProvider, {
+    value: true
+  }, (0,external_wp_element_namespaceObject.createElement)(ListViewDropIndicator, {
     listViewRef: elementRef,
     blockDropTarget: blockDropTarget
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGrid, {
@@ -33529,8 +35395,7 @@ function ListView({
     value: contextValue
   }, (0,external_wp_element_namespaceObject.createElement)(ListViewBranch, _extends({
     blocks: clientIdsTree,
-    selectBlock: selectEditorBlock,
-    selectedBlockClientIds: selectedClientIds
+    selectBlock: selectEditorBlock
   }, props)))));
 }
 
@@ -34289,12 +36154,1606 @@ function ColorPaletteControl({
   }));
 }
 //# sourceMappingURL=control.js.map
+;// CONCATENATED MODULE: ./node_modules/react-easy-crop/node_modules/tslib/tslib.es6.js
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+function __exportStar(m, exports) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+
+function __values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result.default = mod;
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+function __classPrivateFieldGet(receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+}
+
+function __classPrivateFieldSet(receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+}
+
+;// CONCATENATED MODULE: ./node_modules/react-easy-crop/index.module.js
+
+
+
+/**
+ * Compute the dimension of the crop area based on media size,
+ * aspect ratio and optionally rotatation
+ */
+
+function getCropSize(mediaWidth, mediaHeight, aspect, rotation) {
+  if (rotation === void 0) {
+    rotation = 0;
+  }
+
+  var _a = translateSize(mediaWidth, mediaHeight, rotation),
+      width = _a.width,
+      height = _a.height;
+
+  if (mediaWidth >= mediaHeight * aspect && width > mediaHeight * aspect) {
+    return {
+      width: mediaHeight * aspect,
+      height: mediaHeight
+    };
+  }
+
+  if (width > mediaHeight * aspect) {
+    return {
+      width: mediaWidth,
+      height: mediaWidth / aspect
+    };
+  }
+
+  if (width > height * aspect) {
+    return {
+      width: height * aspect,
+      height: height
+    };
+  }
+
+  return {
+    width: width,
+    height: width / aspect
+  };
+}
+/**
+ * Ensure a new media position stays in the crop area.
+ */
+
+function restrictPosition(position, mediaSize, cropSize, zoom, rotation) {
+  if (rotation === void 0) {
+    rotation = 0;
+  }
+
+  var _a = translateSize(mediaSize.width, mediaSize.height, rotation),
+      width = _a.width,
+      height = _a.height;
+
+  return {
+    x: restrictPositionCoord(position.x, width, cropSize.width, zoom),
+    y: restrictPositionCoord(position.y, height, cropSize.height, zoom)
+  };
+}
+
+function restrictPositionCoord(position, mediaSize, cropSize, zoom) {
+  var maxPosition = mediaSize * zoom / 2 - cropSize / 2;
+  return Math.min(maxPosition, Math.max(position, -maxPosition));
+}
+
+function getDistanceBetweenPoints(pointA, pointB) {
+  return Math.sqrt(Math.pow(pointA.y - pointB.y, 2) + Math.pow(pointA.x - pointB.x, 2));
+}
+function getRotationBetweenPoints(pointA, pointB) {
+  return Math.atan2(pointB.y - pointA.y, pointB.x - pointA.x) * 180 / Math.PI;
+}
+/**
+ * Compute the output cropped area of the media in percentages and pixels.
+ * x/y are the top-left coordinates on the src media
+ */
+
+function computeCroppedArea(crop, mediaSize, cropSize, aspect, zoom, rotation, restrictPosition) {
+  if (rotation === void 0) {
+    rotation = 0;
+  }
+
+  if (restrictPosition === void 0) {
+    restrictPosition = true;
+  } // if the media is rotated by the user, we cannot limit the position anymore
+  // as it might need to be negative.
+
+
+  var limitAreaFn = restrictPosition && rotation === 0 ? limitArea : noOp;
+  var croppedAreaPercentages = {
+    x: limitAreaFn(100, ((mediaSize.width - cropSize.width / zoom) / 2 - crop.x / zoom) / mediaSize.width * 100),
+    y: limitAreaFn(100, ((mediaSize.height - cropSize.height / zoom) / 2 - crop.y / zoom) / mediaSize.height * 100),
+    width: limitAreaFn(100, cropSize.width / mediaSize.width * 100 / zoom),
+    height: limitAreaFn(100, cropSize.height / mediaSize.height * 100 / zoom)
+  }; // we compute the pixels size naively
+
+  var widthInPixels = Math.round(limitAreaFn(mediaSize.naturalWidth, croppedAreaPercentages.width * mediaSize.naturalWidth / 100));
+  var heightInPixels = Math.round(limitAreaFn(mediaSize.naturalHeight, croppedAreaPercentages.height * mediaSize.naturalHeight / 100));
+  var isImgWiderThanHigh = mediaSize.naturalWidth >= mediaSize.naturalHeight * aspect; // then we ensure the width and height exactly match the aspect (to avoid rounding approximations)
+  // if the media is wider than high, when zoom is 0, the crop height will be equals to iamge height
+  // thus we want to compute the width from the height and aspect for accuracy.
+  // Otherwise, we compute the height from width and aspect.
+
+  var sizePixels = isImgWiderThanHigh ? {
+    width: Math.round(heightInPixels * aspect),
+    height: heightInPixels
+  } : {
+    width: widthInPixels,
+    height: Math.round(widthInPixels / aspect)
+  };
+
+  var croppedAreaPixels = __assign(__assign({}, sizePixels), {
+    x: Math.round(limitAreaFn(mediaSize.naturalWidth - sizePixels.width, croppedAreaPercentages.x * mediaSize.naturalWidth / 100)),
+    y: Math.round(limitAreaFn(mediaSize.naturalHeight - sizePixels.height, croppedAreaPercentages.y * mediaSize.naturalHeight / 100))
+  });
+
+  return {
+    croppedAreaPercentages: croppedAreaPercentages,
+    croppedAreaPixels: croppedAreaPixels
+  };
+}
+/**
+ * Ensure the returned value is between 0 and max
+ */
+
+function limitArea(max, value) {
+  return Math.min(max, Math.max(0, value));
+}
+
+function noOp(_max, value) {
+  return value;
+}
+/**
+ * Compute the crop and zoom from the croppedAreaPixels
+ */
+
+
+function getZoomFromCroppedAreaPixels(croppedAreaPixels, mediaSize, cropSize) {
+  var mediaZoom = mediaSize.width / mediaSize.naturalWidth;
+
+  if (cropSize) {
+    var isHeightMaxSize_1 = cropSize.height > cropSize.width;
+    return isHeightMaxSize_1 ? cropSize.height / mediaZoom / croppedAreaPixels.height : cropSize.width / mediaZoom / croppedAreaPixels.width;
+  }
+
+  var aspect = croppedAreaPixels.width / croppedAreaPixels.height;
+  var isHeightMaxSize = mediaSize.naturalWidth >= mediaSize.naturalHeight * aspect;
+  return isHeightMaxSize ? mediaSize.naturalHeight / croppedAreaPixels.height : mediaSize.naturalWidth / croppedAreaPixels.width;
+}
+/**
+ * Compute the crop and zoom from the croppedAreaPixels
+ */
+
+
+function getInitialCropFromCroppedAreaPixels(croppedAreaPixels, mediaSize, cropSize) {
+  var mediaZoom = mediaSize.width / mediaSize.naturalWidth;
+  var zoom = getZoomFromCroppedAreaPixels(croppedAreaPixels, mediaSize, cropSize);
+  var cropZoom = mediaZoom * zoom;
+  var crop = {
+    x: ((mediaSize.naturalWidth - croppedAreaPixels.width) / 2 - croppedAreaPixels.x) * cropZoom,
+    y: ((mediaSize.naturalHeight - croppedAreaPixels.height) / 2 - croppedAreaPixels.y) * cropZoom
+  };
+  return {
+    crop: crop,
+    zoom: zoom
+  };
+}
+/**
+ * Return the point that is the center of point a and b
+ */
+
+function getCenter(a, b) {
+  return {
+    x: (b.x + a.x) / 2,
+    y: (b.y + a.y) / 2
+  };
+}
+/**
+ *
+ * Returns an x,y point once rotated around xMid,yMid
+ */
+
+function rotateAroundMidPoint(x, y, xMid, yMid, degrees) {
+  var cos = Math.cos;
+  var sin = Math.sin;
+  var radian = degrees * Math.PI / 180; // Convert to radians
+  // Subtract midpoints, so that midpoint is translated to origin
+  // and add it in the end again
+
+  var xr = (x - xMid) * cos(radian) - (y - yMid) * sin(radian) + xMid;
+  var yr = (x - xMid) * sin(radian) + (y - yMid) * cos(radian) + yMid;
+  return [xr, yr];
+}
+/**
+ * Returns the new bounding area of a rotated rectangle.
+ */
+
+function translateSize(width, height, rotation) {
+  var centerX = width / 2;
+  var centerY = height / 2;
+  var outerBounds = [rotateAroundMidPoint(0, 0, centerX, centerY, rotation), rotateAroundMidPoint(width, 0, centerX, centerY, rotation), rotateAroundMidPoint(width, height, centerX, centerY, rotation), rotateAroundMidPoint(0, height, centerX, centerY, rotation)];
+  var minX = Math.min.apply(Math, outerBounds.map(function (p) {
+    return p[0];
+  }));
+  var maxX = Math.max.apply(Math, outerBounds.map(function (p) {
+    return p[0];
+  }));
+  var minY = Math.min.apply(Math, outerBounds.map(function (p) {
+    return p[1];
+  }));
+  var maxY = Math.max.apply(Math, outerBounds.map(function (p) {
+    return p[1];
+  }));
+  return {
+    width: maxX - minX,
+    height: maxY - minY
+  };
+}
+/**
+ * Combine multiple class names into a single string.
+ */
+
+function classNames() {
+  var args = [];
+
+  for (var _i = 0; _i < arguments.length; _i++) {
+    args[_i] = arguments[_i];
+  }
+
+  return args.filter(function (value) {
+    if (typeof value === 'string' && value.length > 0) {
+      return true;
+    }
+
+    return false;
+  }).join(' ').trim();
+}
+
+var css = ".reactEasyCrop_Container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: hidden;\n  user-select: none;\n  touch-action: none;\n  cursor: move;\n}\n\n.reactEasyCrop_Image,\n.reactEasyCrop_Video {\n  max-width: 100%;\n  max-height: 100%;\n  margin: auto;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  will-change: transform; /* this improves performances and prevent painting issues on iOS Chrome */\n}\n\n.reactEasyCrop_CropArea {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n  border: 1px solid rgba(255, 255, 255, 0.5);\n  box-sizing: border-box;\n  box-shadow: 0 0 0 9999em;\n  color: rgba(0, 0, 0, 0.5);\n  overflow: hidden;\n}\n\n.reactEasyCrop_CropAreaRound {\n  border-radius: 50%;\n}\n\n.reactEasyCrop_CropAreaGrid::before {\n  content: ' ';\n  box-sizing: border-box;\n  position: absolute;\n  border: 1px solid rgba(255, 255, 255, 0.5);\n  top: 0;\n  bottom: 0;\n  left: 33.33%;\n  right: 33.33%;\n  border-top: 0;\n  border-bottom: 0;\n}\n\n.reactEasyCrop_CropAreaGrid::after {\n  content: ' ';\n  box-sizing: border-box;\n  position: absolute;\n  border: 1px solid rgba(255, 255, 255, 0.5);\n  top: 33.33%;\n  bottom: 33.33%;\n  left: 0;\n  right: 0;\n  border-left: 0;\n  border-right: 0;\n}\n";
+
+var MIN_ZOOM = 1;
+var MAX_ZOOM = 3;
+
+var Cropper =
+/** @class */
+function (_super) {
+  __extends(Cropper, _super);
+
+  function Cropper() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.imageRef = null;
+    _this.videoRef = null;
+    _this.containerRef = null;
+    _this.styleRef = null;
+    _this.containerRect = null;
+    _this.mediaSize = {
+      width: 0,
+      height: 0,
+      naturalWidth: 0,
+      naturalHeight: 0
+    };
+    _this.dragStartPosition = {
+      x: 0,
+      y: 0
+    };
+    _this.dragStartCrop = {
+      x: 0,
+      y: 0
+    };
+    _this.lastPinchDistance = 0;
+    _this.lastPinchRotation = 0;
+    _this.rafDragTimeout = null;
+    _this.rafPinchTimeout = null;
+    _this.wheelTimer = null;
+    _this.state = {
+      cropSize: null,
+      hasWheelJustStarted: false
+    }; // this is to prevent Safari on iOS >= 10 to zoom the page
+
+    _this.preventZoomSafari = function (e) {
+      return e.preventDefault();
+    };
+
+    _this.cleanEvents = function () {
+      document.removeEventListener('mousemove', _this.onMouseMove);
+      document.removeEventListener('mouseup', _this.onDragStopped);
+      document.removeEventListener('touchmove', _this.onTouchMove);
+      document.removeEventListener('touchend', _this.onDragStopped);
+    };
+
+    _this.clearScrollEvent = function () {
+      if (_this.containerRef) _this.containerRef.removeEventListener('wheel', _this.onWheel);
+
+      if (_this.wheelTimer) {
+        clearTimeout(_this.wheelTimer);
+      }
+    };
+
+    _this.onMediaLoad = function () {
+      _this.computeSizes();
+
+      _this.emitCropData();
+
+      _this.setInitialCrop();
+
+      if (_this.props.onMediaLoaded) {
+        _this.props.onMediaLoaded(_this.mediaSize);
+      }
+    };
+
+    _this.setInitialCrop = function () {
+      var _a = _this.props,
+          initialCroppedAreaPixels = _a.initialCroppedAreaPixels,
+          cropSize = _a.cropSize;
+
+      if (!initialCroppedAreaPixels) {
+        return;
+      }
+
+      var _b = getInitialCropFromCroppedAreaPixels(initialCroppedAreaPixels, _this.mediaSize, cropSize),
+          crop = _b.crop,
+          zoom = _b.zoom;
+
+      _this.props.onCropChange(crop);
+
+      _this.props.onZoomChange && _this.props.onZoomChange(zoom);
+    };
+
+    _this.computeSizes = function () {
+      var _a, _b, _c, _d;
+
+      var mediaRef = _this.imageRef || _this.videoRef;
+
+      if (mediaRef) {
+        _this.mediaSize = {
+          width: mediaRef.offsetWidth,
+          height: mediaRef.offsetHeight,
+          naturalWidth: ((_a = _this.imageRef) === null || _a === void 0 ? void 0 : _a.naturalWidth) || ((_b = _this.videoRef) === null || _b === void 0 ? void 0 : _b.videoWidth) || 0,
+          naturalHeight: ((_c = _this.imageRef) === null || _c === void 0 ? void 0 : _c.naturalHeight) || ((_d = _this.videoRef) === null || _d === void 0 ? void 0 : _d.videoHeight) || 0
+        };
+        var cropSize = _this.props.cropSize ? _this.props.cropSize : getCropSize(mediaRef.offsetWidth, mediaRef.offsetHeight, _this.props.aspect, _this.props.rotation);
+
+        _this.setState({
+          cropSize: cropSize
+        }, _this.recomputeCropPosition);
+      }
+
+      if (_this.containerRef) {
+        _this.containerRect = _this.containerRef.getBoundingClientRect();
+      }
+    };
+
+    _this.onMouseDown = function (e) {
+      e.preventDefault();
+      document.addEventListener('mousemove', _this.onMouseMove);
+      document.addEventListener('mouseup', _this.onDragStopped);
+
+      _this.onDragStart(Cropper.getMousePoint(e));
+    };
+
+    _this.onMouseMove = function (e) {
+      return _this.onDrag(Cropper.getMousePoint(e));
+    };
+
+    _this.onTouchStart = function (e) {
+      e.preventDefault();
+      document.addEventListener('touchmove', _this.onTouchMove, {
+        passive: false
+      }); // iOS 11 now defaults to passive: true
+
+      document.addEventListener('touchend', _this.onDragStopped);
+
+      if (e.touches.length === 2) {
+        _this.onPinchStart(e);
+      } else if (e.touches.length === 1) {
+        _this.onDragStart(Cropper.getTouchPoint(e.touches[0]));
+      }
+    };
+
+    _this.onTouchMove = function (e) {
+      // Prevent whole page from scrolling on iOS.
+      e.preventDefault();
+
+      if (e.touches.length === 2) {
+        _this.onPinchMove(e);
+      } else if (e.touches.length === 1) {
+        _this.onDrag(Cropper.getTouchPoint(e.touches[0]));
+      }
+    };
+
+    _this.onDragStart = function (_a) {
+      var x = _a.x,
+          y = _a.y;
+
+      var _b, _c;
+
+      _this.dragStartPosition = {
+        x: x,
+        y: y
+      };
+      _this.dragStartCrop = __assign({}, _this.props.crop);
+      (_c = (_b = _this.props).onInteractionStart) === null || _c === void 0 ? void 0 : _c.call(_b);
+    };
+
+    _this.onDrag = function (_a) {
+      var x = _a.x,
+          y = _a.y;
+      if (_this.rafDragTimeout) window.cancelAnimationFrame(_this.rafDragTimeout);
+      _this.rafDragTimeout = window.requestAnimationFrame(function () {
+        if (!_this.state.cropSize) return;
+        if (x === undefined || y === undefined) return;
+        var offsetX = x - _this.dragStartPosition.x;
+        var offsetY = y - _this.dragStartPosition.y;
+        var requestedPosition = {
+          x: _this.dragStartCrop.x + offsetX,
+          y: _this.dragStartCrop.y + offsetY
+        };
+        var newPosition = _this.props.restrictPosition ? restrictPosition(requestedPosition, _this.mediaSize, _this.state.cropSize, _this.props.zoom, _this.props.rotation) : requestedPosition;
+
+        _this.props.onCropChange(newPosition);
+      });
+    };
+
+    _this.onDragStopped = function () {
+      var _a, _b;
+
+      _this.cleanEvents();
+
+      _this.emitCropData();
+
+      (_b = (_a = _this.props).onInteractionEnd) === null || _b === void 0 ? void 0 : _b.call(_a);
+    };
+
+    _this.onWheel = function (e) {
+      e.preventDefault();
+      var point = Cropper.getMousePoint(e);
+      var newZoom = _this.props.zoom - e.deltaY * _this.props.zoomSpeed / 200;
+
+      _this.setNewZoom(newZoom, point);
+
+      if (!_this.state.hasWheelJustStarted) {
+        _this.setState({
+          hasWheelJustStarted: true
+        }, function () {
+          var _a, _b;
+
+          return (_b = (_a = _this.props).onInteractionStart) === null || _b === void 0 ? void 0 : _b.call(_a);
+        });
+      }
+
+      if (_this.wheelTimer) {
+        clearTimeout(_this.wheelTimer);
+      }
+
+      _this.wheelTimer = window.setTimeout(function () {
+        return _this.setState({
+          hasWheelJustStarted: false
+        }, function () {
+          var _a, _b;
+
+          return (_b = (_a = _this.props).onInteractionEnd) === null || _b === void 0 ? void 0 : _b.call(_a);
+        });
+      }, 250);
+    };
+
+    _this.getPointOnContainer = function (_a) {
+      var x = _a.x,
+          y = _a.y;
+
+      if (!_this.containerRect) {
+        throw new Error('The Cropper is not mounted');
+      }
+
+      return {
+        x: _this.containerRect.width / 2 - (x - _this.containerRect.left),
+        y: _this.containerRect.height / 2 - (y - _this.containerRect.top)
+      };
+    };
+
+    _this.getPointOnMedia = function (_a) {
+      var x = _a.x,
+          y = _a.y;
+      var _b = _this.props,
+          crop = _b.crop,
+          zoom = _b.zoom;
+      return {
+        x: (x + crop.x) / zoom,
+        y: (y + crop.y) / zoom
+      };
+    };
+
+    _this.setNewZoom = function (zoom, point) {
+      if (!_this.state.cropSize || !_this.props.onZoomChange) return;
+
+      var zoomPoint = _this.getPointOnContainer(point);
+
+      var zoomTarget = _this.getPointOnMedia(zoomPoint);
+
+      var newZoom = Math.min(_this.props.maxZoom, Math.max(zoom, _this.props.minZoom));
+      var requestedPosition = {
+        x: zoomTarget.x * newZoom - zoomPoint.x,
+        y: zoomTarget.y * newZoom - zoomPoint.y
+      };
+      var newPosition = _this.props.restrictPosition ? restrictPosition(requestedPosition, _this.mediaSize, _this.state.cropSize, newZoom, _this.props.rotation) : requestedPosition;
+
+      _this.props.onCropChange(newPosition);
+
+      _this.props.onZoomChange(newZoom);
+    };
+
+    _this.emitCropData = function () {
+      if (!_this.state.cropSize) return; // this is to ensure the crop is correctly restricted after a zoom back (https://github.com/ricardo-ch/react-easy-crop/issues/6)
+
+      var restrictedPosition = _this.props.restrictPosition ? restrictPosition(_this.props.crop, _this.mediaSize, _this.state.cropSize, _this.props.zoom, _this.props.rotation) : _this.props.crop;
+
+      var _a = computeCroppedArea(restrictedPosition, _this.mediaSize, _this.state.cropSize, _this.getAspect(), _this.props.zoom, _this.props.rotation, _this.props.restrictPosition),
+          croppedAreaPercentages = _a.croppedAreaPercentages,
+          croppedAreaPixels = _a.croppedAreaPixels;
+
+      _this.props.onCropComplete && _this.props.onCropComplete(croppedAreaPercentages, croppedAreaPixels);
+    };
+
+    _this.recomputeCropPosition = function () {
+      if (!_this.state.cropSize) return;
+      var newPosition = _this.props.restrictPosition ? restrictPosition(_this.props.crop, _this.mediaSize, _this.state.cropSize, _this.props.zoom, _this.props.rotation) : _this.props.crop;
+
+      _this.props.onCropChange(newPosition);
+
+      _this.emitCropData();
+    };
+
+    return _this;
+  }
+
+  Cropper.prototype.componentDidMount = function () {
+    window.addEventListener('resize', this.computeSizes);
+
+    if (this.containerRef) {
+      this.props.zoomWithScroll && this.containerRef.addEventListener('wheel', this.onWheel, {
+        passive: false
+      });
+      this.containerRef.addEventListener('gesturestart', this.preventZoomSafari);
+      this.containerRef.addEventListener('gesturechange', this.preventZoomSafari);
+    }
+
+    if (!this.props.disableAutomaticStylesInjection) {
+      this.styleRef = document.createElement('style');
+      this.styleRef.setAttribute('type', 'text/css');
+      this.styleRef.innerHTML = css;
+      document.head.appendChild(this.styleRef);
+    } // when rendered via SSR, the image can already be loaded and its onLoad callback will never be called
+
+
+    if (this.imageRef && this.imageRef.complete) {
+      this.onMediaLoad();
+    }
+  };
+
+  Cropper.prototype.componentWillUnmount = function () {
+    window.removeEventListener('resize', this.computeSizes);
+
+    if (this.containerRef) {
+      this.containerRef.removeEventListener('gesturestart', this.preventZoomSafari);
+      this.containerRef.removeEventListener('gesturechange', this.preventZoomSafari);
+    }
+
+    if (this.styleRef) {
+      this.styleRef.remove();
+    }
+
+    this.cleanEvents();
+    this.props.zoomWithScroll && this.clearScrollEvent();
+  };
+
+  Cropper.prototype.componentDidUpdate = function (prevProps) {
+    if (prevProps.rotation !== this.props.rotation) {
+      this.computeSizes();
+      this.recomputeCropPosition();
+    } else if (prevProps.aspect !== this.props.aspect) {
+      this.computeSizes();
+    } else if (prevProps.zoom !== this.props.zoom) {
+      this.recomputeCropPosition();
+    } else if (prevProps.cropSize !== this.props.cropSize) {
+      this.computeSizes();
+    }
+
+    if (prevProps.zoomWithScroll !== this.props.zoomWithScroll && this.containerRef) {
+      this.props.zoomWithScroll ? this.containerRef.addEventListener('wheel', this.onWheel, {
+        passive: false
+      }) : this.clearScrollEvent();
+    }
+  };
+
+  Cropper.prototype.getAspect = function () {
+    var _a = this.props,
+        cropSize = _a.cropSize,
+        aspect = _a.aspect;
+
+    if (cropSize) {
+      return cropSize.width / cropSize.height;
+    }
+
+    return aspect;
+  };
+
+  Cropper.prototype.onPinchStart = function (e) {
+    var pointA = Cropper.getTouchPoint(e.touches[0]);
+    var pointB = Cropper.getTouchPoint(e.touches[1]);
+    this.lastPinchDistance = getDistanceBetweenPoints(pointA, pointB);
+    this.lastPinchRotation = getRotationBetweenPoints(pointA, pointB);
+    this.onDragStart(getCenter(pointA, pointB));
+  };
+
+  Cropper.prototype.onPinchMove = function (e) {
+    var _this = this;
+
+    var pointA = Cropper.getTouchPoint(e.touches[0]);
+    var pointB = Cropper.getTouchPoint(e.touches[1]);
+    var center = getCenter(pointA, pointB);
+    this.onDrag(center);
+    if (this.rafPinchTimeout) window.cancelAnimationFrame(this.rafPinchTimeout);
+    this.rafPinchTimeout = window.requestAnimationFrame(function () {
+      var distance = getDistanceBetweenPoints(pointA, pointB);
+      var newZoom = _this.props.zoom * (distance / _this.lastPinchDistance);
+
+      _this.setNewZoom(newZoom, center);
+
+      _this.lastPinchDistance = distance;
+      var rotation = getRotationBetweenPoints(pointA, pointB);
+      var newRotation = _this.props.rotation + (rotation - _this.lastPinchRotation);
+      _this.props.onRotationChange && _this.props.onRotationChange(newRotation);
+      _this.lastPinchRotation = rotation;
+    });
+  };
+
+  Cropper.prototype.render = function () {
+    var _this = this;
+
+    var _a = this.props,
+        image = _a.image,
+        video = _a.video,
+        mediaProps = _a.mediaProps,
+        _b = _a.crop,
+        x = _b.x,
+        y = _b.y,
+        rotation = _a.rotation,
+        zoom = _a.zoom,
+        cropShape = _a.cropShape,
+        showGrid = _a.showGrid,
+        _c = _a.style,
+        containerStyle = _c.containerStyle,
+        cropAreaStyle = _c.cropAreaStyle,
+        mediaStyle = _c.mediaStyle,
+        _d = _a.classes,
+        containerClassName = _d.containerClassName,
+        cropAreaClassName = _d.cropAreaClassName,
+        mediaClassName = _d.mediaClassName;
+    return external_React_default().createElement("div", {
+      onMouseDown: this.onMouseDown,
+      onTouchStart: this.onTouchStart,
+      ref: function ref(el) {
+        return _this.containerRef = el;
+      },
+      "data-testid": "container",
+      style: containerStyle,
+      className: classNames('reactEasyCrop_Container', containerClassName)
+    }, image ? external_React_default().createElement("img", __assign({
+      alt: "",
+      className: classNames('reactEasyCrop_Image', mediaClassName)
+    }, mediaProps, {
+      src: image,
+      ref: function ref(el) {
+        return _this.imageRef = el;
+      },
+      style: __assign(__assign({}, mediaStyle), {
+        transform: "translate(" + x + "px, " + y + "px) rotate(" + rotation + "deg) scale(" + zoom + ")"
+      }),
+      onLoad: this.onMediaLoad
+    })) : video && external_React_default().createElement("video", __assign({
+      autoPlay: true,
+      loop: true,
+      muted: true,
+      className: classNames('reactEasyCrop_Video', mediaClassName)
+    }, mediaProps, {
+      src: video,
+      ref: function ref(el) {
+        return _this.videoRef = el;
+      },
+      onLoadedMetadata: this.onMediaLoad,
+      style: __assign(__assign({}, mediaStyle), {
+        transform: "translate(" + x + "px, " + y + "px) rotate(" + rotation + "deg) scale(" + zoom + ")"
+      }),
+      controls: false
+    })), this.state.cropSize && external_React_default().createElement("div", {
+      style: __assign(__assign({}, cropAreaStyle), {
+        width: this.state.cropSize.width,
+        height: this.state.cropSize.height
+      }),
+      "data-testid": "cropper",
+      className: classNames('reactEasyCrop_CropArea', cropShape === 'round' && 'reactEasyCrop_CropAreaRound', showGrid && 'reactEasyCrop_CropAreaGrid', cropAreaClassName)
+    }));
+  };
+
+  Cropper.defaultProps = {
+    zoom: 1,
+    rotation: 0,
+    aspect: 4 / 3,
+    maxZoom: MAX_ZOOM,
+    minZoom: MIN_ZOOM,
+    cropShape: 'rect',
+    showGrid: true,
+    style: {},
+    classes: {},
+    mediaProps: {},
+    zoomSpeed: 1,
+    restrictPosition: true,
+    zoomWithScroll: true
+  };
+
+  Cropper.getMousePoint = function (e) {
+    return {
+      x: Number(e.clientX),
+      y: Number(e.clientY)
+    };
+  };
+
+  Cropper.getTouchPoint = function (touch) {
+    return {
+      x: Number(touch.clientX),
+      y: Number(touch.clientY)
+    };
+  };
+
+  return Cropper;
+}((external_React_default()).Component);
+
+/* harmony default export */ var index_module = (Cropper);
+//# sourceMappingURL=index.module.js.map
+
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/constants.js
+const constants_MIN_ZOOM = 100;
+const constants_MAX_ZOOM = 300;
+const constants_POPOVER_PROPS = {
+  position: 'bottom right',
+  isAlternate: true
+};
+//# sourceMappingURL=constants.js.map
+;// CONCATENATED MODULE: external ["wp","apiFetch"]
+var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
+var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/use-save-image.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+function useSaveImage({
+  crop,
+  rotation,
+  height,
+  width,
+  aspect,
+  url,
+  id,
+  onSaveImage,
+  onFinishEditing
+}) {
+  const {
+    createErrorNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+  const [isInProgress, setIsInProgress] = (0,external_wp_element_namespaceObject.useState)(false);
+  const cancel = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    setIsInProgress(false);
+    onFinishEditing();
+  }, [setIsInProgress, onFinishEditing]);
+  const apply = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    setIsInProgress(true);
+    let attrs = {}; // The crop script may return some very small, sub-pixel values when the image was not cropped.
+    // Crop only when the new size has changed by more than 0.1%.
+
+    if (crop.width < 99.9 || crop.height < 99.9) {
+      attrs = crop;
+    }
+
+    if (rotation > 0) {
+      attrs.rotation = rotation;
+    }
+
+    attrs.src = url;
+    external_wp_apiFetch_default()({
+      path: `/wp/v2/media/${id}/edit`,
+      method: 'POST',
+      data: attrs
+    }).then(response => {
+      onSaveImage({
+        id: response.id,
+        url: response.source_url,
+        height: height && width ? width / aspect : undefined
+      });
+    }).catch(error => {
+      createErrorNotice((0,external_wp_i18n_namespaceObject.sprintf)(
+      /* translators: 1. Error message */
+      (0,external_wp_i18n_namespaceObject.__)('Could not edit image. %s'), error.message), {
+        id: 'image-editing-error',
+        type: 'snackbar'
+      });
+    }).finally(() => {
+      setIsInProgress(false);
+      onFinishEditing();
+    });
+  }, [setIsInProgress, crop, rotation, height, width, aspect, url, onSaveImage, createErrorNotice, setIsInProgress, onFinishEditing]);
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    isInProgress,
+    apply,
+    cancel
+  }), [isInProgress, apply, cancel]);
+}
+//# sourceMappingURL=use-save-image.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/use-transform-image.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+function useTransformState({
+  url,
+  naturalWidth,
+  naturalHeight
+}) {
+  const [editedUrl, setEditedUrl] = (0,external_wp_element_namespaceObject.useState)();
+  const [crop, setCrop] = (0,external_wp_element_namespaceObject.useState)();
+  const [position, setPosition] = (0,external_wp_element_namespaceObject.useState)({
+    x: 0,
+    y: 0
+  });
+  const [zoom, setZoom] = (0,external_wp_element_namespaceObject.useState)();
+  const [rotation, setRotation] = (0,external_wp_element_namespaceObject.useState)();
+  const [aspect, setAspect] = (0,external_wp_element_namespaceObject.useState)();
+  const [defaultAspect, setDefaultAspect] = (0,external_wp_element_namespaceObject.useState)();
+  const initializeTransformValues = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    setPosition({
+      x: 0,
+      y: 0
+    });
+    setZoom(100);
+    setRotation(0);
+    setAspect(naturalWidth / naturalHeight);
+    setDefaultAspect(naturalWidth / naturalHeight);
+  }, [naturalWidth, naturalHeight, setPosition, setZoom, setRotation, setAspect, setDefaultAspect]);
+  const rotateClockwise = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    const angle = (rotation + 90) % 360;
+    let naturalAspectRatio = naturalWidth / naturalHeight;
+
+    if (rotation % 180 === 90) {
+      naturalAspectRatio = naturalHeight / naturalWidth;
+    }
+
+    if (angle === 0) {
+      setEditedUrl();
+      setRotation(angle);
+      setAspect(1 / aspect);
+      setPosition({
+        x: -(position.y * naturalAspectRatio),
+        y: position.x * naturalAspectRatio
+      });
+      return;
+    }
+
+    function editImage(event) {
+      const canvas = document.createElement('canvas');
+      let translateX = 0;
+      let translateY = 0;
+
+      if (angle % 180) {
+        canvas.width = event.target.height;
+        canvas.height = event.target.width;
+      } else {
+        canvas.width = event.target.width;
+        canvas.height = event.target.height;
+      }
+
+      if (angle === 90 || angle === 180) {
+        translateX = canvas.width;
+      }
+
+      if (angle === 270 || angle === 180) {
+        translateY = canvas.height;
+      }
+
+      const context = canvas.getContext('2d');
+      context.translate(translateX, translateY);
+      context.rotate(angle * Math.PI / 180);
+      context.drawImage(event.target, 0, 0);
+      canvas.toBlob(blob => {
+        setEditedUrl(URL.createObjectURL(blob));
+        setRotation(angle);
+        setAspect(1 / aspect);
+        setPosition({
+          x: -(position.y * naturalAspectRatio),
+          y: position.x * naturalAspectRatio
+        });
+      });
+    }
+
+    const el = new window.Image();
+    el.src = url;
+    el.onload = editImage;
+    const imgCrossOrigin = (0,external_wp_hooks_namespaceObject.applyFilters)('media.crossOrigin', undefined, url);
+
+    if (typeof imgCrossOrigin === 'string') {
+      el.crossOrigin = imgCrossOrigin;
+    }
+  }, [rotation, naturalWidth, naturalHeight, setEditedUrl, setRotation, setAspect, setPosition]);
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    editedUrl,
+    setEditedUrl,
+    crop,
+    setCrop,
+    position,
+    setPosition,
+    zoom,
+    setZoom,
+    rotation,
+    setRotation,
+    rotateClockwise,
+    aspect,
+    setAspect,
+    defaultAspect,
+    initializeTransformValues
+  }), [editedUrl, setEditedUrl, crop, setCrop, position, setPosition, zoom, setZoom, rotation, setRotation, rotateClockwise, aspect, setAspect, defaultAspect, initializeTransformValues]);
+}
+
+function useTransformImage(imageProperties, isEditing) {
+  const transformState = useTransformState(imageProperties);
+  const {
+    initializeTransformValues
+  } = transformState;
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (isEditing) {
+      initializeTransformValues();
+    }
+  }, [isEditing, initializeTransformValues]);
+  return transformState;
+}
+//# sourceMappingURL=use-transform-image.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/context.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const ImageEditingContext = (0,external_wp_element_namespaceObject.createContext)({});
+const useImageEditingContext = () => (0,external_wp_element_namespaceObject.useContext)(ImageEditingContext);
+function ImageEditingProvider({
+  id,
+  url,
+  naturalWidth,
+  naturalHeight,
+  isEditing,
+  onFinishEditing,
+  onSaveImage,
+  children
+}) {
+  const transformImage = useTransformImage({
+    url,
+    naturalWidth,
+    naturalHeight
+  }, isEditing);
+  const saveImage = useSaveImage({
+    id,
+    url,
+    onSaveImage,
+    onFinishEditing,
+    ...transformImage
+  });
+  const providerValue = (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...transformImage,
+    ...saveImage
+  }), [transformImage, saveImage]);
+  return (0,external_wp_element_namespaceObject.createElement)(ImageEditingContext.Provider, {
+    value: providerValue
+  }, children);
+}
+//# sourceMappingURL=context.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/cropper.js
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function ImageCropper({
+  url,
+  width,
+  height,
+  clientWidth,
+  naturalHeight,
+  naturalWidth
+}) {
+  const {
+    isInProgress,
+    editedUrl,
+    position,
+    zoom,
+    aspect,
+    setPosition,
+    setCrop,
+    setZoom,
+    rotation
+  } = useImageEditingContext();
+  let editedHeight = height || clientWidth * naturalHeight / naturalWidth;
+
+  if (rotation % 180 === 90) {
+    editedHeight = clientWidth * naturalWidth / naturalHeight;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: classnames_default()('wp-block-image__crop-area', {
+      'is-applying': isInProgress
+    }),
+    style: {
+      width: width || clientWidth,
+      height: editedHeight
+    }
+  }, (0,external_wp_element_namespaceObject.createElement)(index_module, {
+    image: editedUrl || url,
+    disabled: isInProgress,
+    minZoom: constants_MIN_ZOOM / 100,
+    maxZoom: constants_MAX_ZOOM / 100,
+    crop: position,
+    zoom: zoom / 100,
+    aspect: aspect,
+    onCropChange: setPosition,
+    onCropComplete: newCropPercent => {
+      setCrop(newCropPercent);
+    },
+    onZoomChange: newZoom => {
+      setZoom(newZoom * 100);
+    }
+  }), isInProgress && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null));
+}
+//# sourceMappingURL=cropper.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/search.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const search = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13.5 6C10.5 6 8 8.5 8 11.5c0 1.1.3 2.1.9 3l-3.4 3 1 1.1 3.4-2.9c1 .9 2.2 1.4 3.6 1.4 3 0 5.5-2.5 5.5-5.5C19 8.5 16.5 6 13.5 6zm0 9.5c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"
+}));
+/* harmony default export */ var library_search = (search);
+//# sourceMappingURL=search.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/zoom-dropdown.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function ZoomDropdown() {
+  const {
+    isInProgress,
+    zoom,
+    setZoom
+  } = useImageEditingContext();
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
+    contentClassName: "wp-block-image__zoom",
+    popoverProps: constants_POPOVER_PROPS,
+    renderToggle: ({
+      isOpen,
+      onToggle
+    }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+      icon: library_search,
+      label: (0,external_wp_i18n_namespaceObject.__)('Zoom'),
+      onClick: onToggle,
+      "aria-expanded": isOpen,
+      disabled: isInProgress
+    }),
+    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.RangeControl, {
+      label: (0,external_wp_i18n_namespaceObject.__)('Zoom'),
+      min: constants_MIN_ZOOM,
+      max: constants_MAX_ZOOM,
+      value: Math.round(zoom),
+      onChange: setZoom
+    })
+  });
+}
+//# sourceMappingURL=zoom-dropdown.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
+}));
+/* harmony default export */ var library_check = (check);
+//# sourceMappingURL=check.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/aspect-ratio.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const aspectRatio = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18.5 5.5h-13c-1.1 0-2 .9-2 2v9c0 1.1.9 2 2 2h13c1.1 0 2-.9 2-2v-9c0-1.1-.9-2-2-2zm.5 11c0 .3-.2.5-.5.5h-13c-.3 0-.5-.2-.5-.5v-9c0-.3.2-.5.5-.5h13c.3 0 .5.2.5.5v9zM6.5 12H8v-2h2V8.5H6.5V12zm9.5 2h-2v1.5h3.5V12H16v2z"
+}));
+/* harmony default export */ var aspect_ratio = (aspectRatio);
+//# sourceMappingURL=aspect-ratio.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/aspect-ratio-dropdown.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function AspectGroup({
+  aspectRatios,
+  isDisabled,
+  label,
+  onClick,
+  value
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
+    label: label
+  }, aspectRatios.map(({
+    title,
+    aspect
+  }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+    key: aspect,
+    disabled: isDisabled,
+    onClick: () => {
+      onClick(aspect);
+    },
+    role: "menuitemradio",
+    isSelected: aspect === value,
+    icon: aspect === value ? library_check : undefined
+  }, title)));
+}
+
+function AspectRatioDropdown({
+  toggleProps
+}) {
+  const {
+    isInProgress,
+    aspect,
+    setAspect,
+    defaultAspect
+  } = useImageEditingContext();
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
+    icon: aspect_ratio,
+    label: (0,external_wp_i18n_namespaceObject.__)('Aspect Ratio'),
+    popoverProps: constants_POPOVER_PROPS,
+    toggleProps: toggleProps,
+    className: "wp-block-image__aspect-ratio"
+  }, ({
+    onClose
+  }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(AspectGroup, {
+    isDisabled: isInProgress,
+    onClick: newAspect => {
+      setAspect(newAspect);
+      onClose();
+    },
+    value: aspect,
+    aspectRatios: [{
+      title: (0,external_wp_i18n_namespaceObject.__)('Original'),
+      aspect: defaultAspect
+    }, {
+      title: (0,external_wp_i18n_namespaceObject.__)('Square'),
+      aspect: 1
+    }]
+  }), (0,external_wp_element_namespaceObject.createElement)(AspectGroup, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Landscape'),
+    isDisabled: isInProgress,
+    onClick: newAspect => {
+      setAspect(newAspect);
+      onClose();
+    },
+    value: aspect,
+    aspectRatios: [{
+      title: (0,external_wp_i18n_namespaceObject.__)('16:10'),
+      aspect: 16 / 10
+    }, {
+      title: (0,external_wp_i18n_namespaceObject.__)('16:9'),
+      aspect: 16 / 9
+    }, {
+      title: (0,external_wp_i18n_namespaceObject.__)('4:3'),
+      aspect: 4 / 3
+    }, {
+      title: (0,external_wp_i18n_namespaceObject.__)('3:2'),
+      aspect: 3 / 2
+    }]
+  }), (0,external_wp_element_namespaceObject.createElement)(AspectGroup, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Portrait'),
+    isDisabled: isInProgress,
+    onClick: newAspect => {
+      setAspect(newAspect);
+      onClose();
+    },
+    value: aspect,
+    aspectRatios: [{
+      title: (0,external_wp_i18n_namespaceObject.__)('10:16'),
+      aspect: 10 / 16
+    }, {
+      title: (0,external_wp_i18n_namespaceObject.__)('9:16'),
+      aspect: 9 / 16
+    }, {
+      title: (0,external_wp_i18n_namespaceObject.__)('3:4'),
+      aspect: 3 / 4
+    }, {
+      title: (0,external_wp_i18n_namespaceObject.__)('2:3'),
+      aspect: 2 / 3
+    }]
+  })));
+}
+//# sourceMappingURL=aspect-ratio-dropdown.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/rotate-right.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const rotateRight = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M15.1 4.8l-3-2.5V4c-4.4 0-8 3.6-8 8 0 3.7 2.5 6.9 6 7.7.3.1.6.1 1 .2l.2-1.5c-.4 0-.7-.1-1.1-.2l-.1.2v-.2c-2.6-.8-4.5-3.3-4.5-6.2 0-3.6 2.9-6.5 6.5-6.5v1.8l3-2.5zM20 11c-.2-1.4-.7-2.7-1.6-3.8l-1.2.8c.7.9 1.1 2 1.3 3.1L20 11zm-1.5 1.8c-.1.5-.2 1.1-.4 1.6s-.5 1-.8 1.5l1.2.9c.4-.5.8-1.1 1-1.8s.5-1.3.5-2l-1.5-.2zm-5.6 5.6l.2 1.5c1.4-.2 2.7-.7 3.8-1.6l-.9-1.1c-.9.7-2 1.1-3.1 1.2z"
+}));
+/* harmony default export */ var rotate_right = (rotateRight);
+//# sourceMappingURL=rotate-right.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/rotation-button.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function RotationButton() {
+  const {
+    isInProgress,
+    rotateClockwise
+  } = useImageEditingContext();
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+    icon: rotate_right,
+    label: (0,external_wp_i18n_namespaceObject.__)('Rotate'),
+    onClick: rotateClockwise,
+    disabled: isInProgress
+  });
+}
+//# sourceMappingURL=rotation-button.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/form-controls.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function FormControls() {
+  const {
+    isInProgress,
+    apply,
+    cancel
+  } = useImageEditingContext();
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+    onClick: apply,
+    disabled: isInProgress
+  }, (0,external_wp_i18n_namespaceObject.__)('Apply')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+    onClick: cancel
+  }, (0,external_wp_i18n_namespaceObject.__)('Cancel')));
+}
+//# sourceMappingURL=form-controls.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-editor/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+function ImageEditor({
+  url,
+  width,
+  height,
+  clientWidth,
+  naturalHeight,
+  naturalWidth
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(ImageCropper, {
+    url: url,
+    width: width,
+    height: height,
+    clientWidth: clientWidth,
+    naturalHeight: naturalHeight,
+    naturalWidth: naturalWidth
+  }), (0,external_wp_element_namespaceObject.createElement)(block_controls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(ZoomDropdown, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, null, toggleProps => (0,external_wp_element_namespaceObject.createElement)(AspectRatioDropdown, {
+    toggleProps: toggleProps
+  })), (0,external_wp_element_namespaceObject.createElement)(RotationButton, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(FormControls, null))));
+}
+
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/image-size-control/use-dimension-handler.js
 /**
  * WordPress dependencies
  */
 
-function useDimensionHander(customHeight, customWidth, defaultHeight, defaultWidth, onChange) {
+function useDimensionHandler(customHeight, customWidth, defaultHeight, defaultWidth, onChange) {
   var _ref, _ref2;
 
   const [currentWidth, setCurrentWidth] = (0,external_wp_element_namespaceObject.useState)((_ref = customWidth !== null && customWidth !== void 0 ? customWidth : defaultWidth) !== null && _ref !== void 0 ? _ref : '');
@@ -34310,7 +37769,18 @@ function useDimensionHander(customHeight, customWidth, defaultHeight, defaultWid
     if (customHeight === undefined && defaultHeight !== undefined) {
       setCurrentHeight(defaultHeight);
     }
-  }, [defaultWidth, defaultHeight]);
+  }, [defaultWidth, defaultHeight]); // If custom values change, it means an outsider has resized the image using some other method (eg resize box)
+  // this keeps track of these values too. We need to parse before comparing; custom values can be strings.
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (customWidth !== undefined && Number.parseInt(customWidth) !== Number.parseInt(currentWidth)) {
+      setCurrentWidth(customWidth);
+    }
+
+    if (customHeight !== undefined && Number.parseInt(customHeight) !== Number.parseInt(currentHeight)) {
+      setCurrentHeight(customHeight);
+    }
+  }, [customWidth, customHeight]);
 
   const updateDimension = (dimension, value) => {
     if (dimension === 'width') {
@@ -34376,7 +37846,7 @@ function ImageSizeControl({
     currentWidth,
     updateDimension,
     updateDimensions
-  } = useDimensionHander(height, width, imageHeight, imageWidth, onChange);
+  } = useDimensionHandler(height, width, imageHeight, imageWidth, onChange);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, !(0,external_lodash_namespaceObject.isEmpty)(imageSizeOptions) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Image size'),
     value: slug,
@@ -35996,6 +39466,7 @@ LinkControl.ViewerFill = ViewerFill;
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
@@ -36009,22 +39480,38 @@ const format_toolbar_POPOVER_PROPS = {
 };
 
 const FormatToolbar = () => {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, ['bold', 'italic', 'link', 'text-color'].map(format => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, ['bold', 'italic', 'link'].map(format => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, {
     name: `RichText.ToolbarControls.${format}`,
     key: format
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, {
     name: "RichText.ToolbarControls"
-  }, fills => fills.length !== 0 && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, null, toggleProps => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
-    icon: chevron_down
-    /* translators: button label text should, if possible, be under 16 characters. */
-    ,
-    label: (0,external_wp_i18n_namespaceObject.__)('More'),
-    toggleProps: toggleProps,
-    controls: (0,external_lodash_namespaceObject.orderBy)(fills.map(([{
+  }, fills => {
+    if (!fills.length) {
+      return null;
+    }
+
+    const allProps = fills.map(([{
       props
-    }]) => props), 'title'),
-    popoverProps: format_toolbar_POPOVER_PROPS
-  }))));
+    }]) => props);
+    const hasActive = allProps.some(({
+      isActive
+    }) => isActive);
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, null, toggleProps => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
+      icon: chevron_down
+      /* translators: button label text should, if possible, be under 16 characters. */
+      ,
+      label: (0,external_wp_i18n_namespaceObject.__)('More'),
+      toggleProps: { ...toggleProps,
+        className: classnames_default()(toggleProps.className, {
+          'is-pressed': hasActive
+        })
+      },
+      controls: (0,external_lodash_namespaceObject.orderBy)(fills.map(([{
+        props
+      }]) => props), 'title'),
+      popoverProps: format_toolbar_POPOVER_PROPS
+    }));
+  }));
 };
 
 /* harmony default export */ var format_toolbar = (FormatToolbar);
@@ -37502,7 +40989,7 @@ function MediaUploadCheck({
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/media-upload/README.md
  */
 
-/* harmony default export */ var check = (MediaUploadCheck);
+/* harmony default export */ var media_upload_check = (MediaUploadCheck);
 //# sourceMappingURL=check.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/media-replace-flow/index.js
 
@@ -37576,8 +41063,9 @@ const MediaReplaceFlow = ({
   };
 
   const selectMedia = media => {
+    setMediaURLValue(media.url); // Calling `onSelect` after the state update since it might unmount the component.
+
     onSelect(media);
-    setMediaURLValue(media.url);
     (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('The media file has been replaced'));
     removeNotice(errorNoticeID);
   };
@@ -37639,7 +41127,7 @@ const MediaReplaceFlow = ({
         icon: library_media,
         onClick: open
       }, (0,external_wp_i18n_namespaceObject.__)('Open Media Library'))
-    }), (0,external_wp_element_namespaceObject.createElement)(check, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FormFileUpload, {
+    }), (0,external_wp_element_namespaceObject.createElement)(media_upload_check, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FormFileUpload, {
       onChange: event => {
         uploadFiles(event, onClose);
       },
@@ -38070,7 +41558,7 @@ function MediaPlaceholder({
     onFilesUpload(event.target.files);
   };
 
-  const renderPlaceholder = (content, onClick) => {
+  const renderPlaceholder = content => {
     let {
       instructions,
       title
@@ -38122,7 +41610,6 @@ function MediaPlaceholder({
       instructions: instructions,
       className: placeholderClassName,
       notices: notices,
-      onClick: onClick,
       onDoubleClick: onDoubleClick,
       preview: mediaPreview
     }, content, children);
@@ -38196,9 +41683,10 @@ function MediaPlaceholder({
         }) => {
           const content = (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
             variant: "primary",
-            className: classnames_default()('block-editor-media-placeholder__button', 'block-editor-media-placeholder__upload-button')
+            className: classnames_default()('block-editor-media-placeholder__button', 'block-editor-media-placeholder__upload-button'),
+            onClick: openFileDialog
           }, (0,external_wp_i18n_namespaceObject.__)('Upload')), mediaLibraryButton, renderUrlSelectionUI(), renderCancelLink());
-          return renderPlaceholder(content, openFileDialog);
+          return renderPlaceholder(content);
         }
       }));
     }
@@ -38225,10 +41713,10 @@ function MediaPlaceholder({
       });
     }
 
-    return (0,external_wp_element_namespaceObject.createElement)(check, null, renderDropZone());
+    return (0,external_wp_element_namespaceObject.createElement)(media_upload_check, null, renderDropZone());
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(check, {
+  return (0,external_wp_element_namespaceObject.createElement)(media_upload_check, {
     fallback: renderPlaceholder(renderUrlSelectionUI())
   }, renderMediaUploadChecked());
 }
@@ -39055,21 +42543,6 @@ const ImageURLInputUI = ({
 
 
 //# sourceMappingURL=image-url-input-ui.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
-
-
-/**
- * WordPress dependencies
- */
-
-const check_check = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M18.3 5.6L9.9 16.9l-4.6-3.4-.9 1.2 5.8 4.3 9.3-12.6z"
-}));
-/* harmony default export */ var library_check = (check_check);
-//# sourceMappingURL=check.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/preview-options/index.js
 
 
@@ -39454,6 +42927,10 @@ const BlockInspectorSingleBlock = ({
     blockName: blockName
   }))), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
     bubblesVirtually: bubblesVirtually
+  }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
+    __experimentalGroup: "dimensions",
+    bubblesVirtually: false,
+    label: (0,external_wp_i18n_namespaceObject.__)('Dimensions')
   }), (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(AdvancedControls, {
     bubblesVirtually: bubblesVirtually
   })), (0,external_wp_element_namespaceObject.createElement)(skip_to_selected_block, {
@@ -39645,6 +43122,7 @@ function InserterLibrary({
   showInserterHelpPanel,
   showMostUsedBlocks = false,
   __experimentalInsertionIndex,
+  __experimentalFilterValue,
   onSelect = external_lodash_namespaceObject.noop,
   shouldFocusBlock = false
 }) {
@@ -39662,6 +43140,7 @@ function InserterLibrary({
     showInserterHelpPanel: showInserterHelpPanel,
     showMostUsedBlocks: showMostUsedBlocks,
     __experimentalInsertionIndex: __experimentalInsertionIndex,
+    __experimentalFilterValue: __experimentalFilterValue,
     shouldFocusBlock: shouldFocusBlock
   });
 }
@@ -40406,6 +43885,7 @@ function useNoRecursiveRenders(uniqueId, blockName = '') {
 /*
  * Block Creation Components
  */
+
 
 
 
