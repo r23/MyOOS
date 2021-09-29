@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.72
+Stable tag: 1.0.73
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -17,7 +17,7 @@ Rank Math SEO is the Best WordPress SEO plugin combines the features of many SEO
 ★★★★★<br>
 
 **SEO is the most consistent source of traffic for any website.** We created <a href="https://rankmath.com/wordpress/plugin/seo-suite/?utm_source=LP&utm_campaign=WP" target="_blank">**Rank Math SEO, a WordPress SEO plugin**</a>, to help every website owner get access to the SEO tools they need to improve their SEO and attract more traffic to their website.
-## <a href="https://demo.rankmath.com/wp-admin/admin.php?page=rank-math-wizard" target="_blank">Try The Demo</a> ##
+## <a href="https://demo.rankmath.com/wp-admin/admin.php?page=rank-math-wizard" target="_blank">Try The FREE Demo of Rank Math SEO</a> ##
 
 [youtube https://www.youtube.com/watch?v=NgeaqIy2OB0]
 
@@ -316,9 +316,9 @@ and many more
 ## Check RANK MATH PRO WHICH MAKES SEO EASIER & FASTER  ##
 [youtube https://www.youtube.com/watch?v=fq8Dnl09W5g]
 
-## <a href="https://rankmath.com/free-vs-pro/" target="_blank">FREE VS PRO COMPARISON</a> ##
+## <a href="https://rankmath.com/free-vs-pro/" target="_blank">Rank Math SEO FREE VS PRO COMPARISON</a> ##
 
-## UNIQUE FEATURES OF RANK MATH PRO ##
+## UNIQUE FEATURES OF RANK MATH SEO PRO ##
 
 **Google Analytics & Search Console Integration (The only SEO plugin that provides it)**
 ✔ Integrated Google Analytics, AdSense & Search Console Data
@@ -350,7 +350,7 @@ and many more
 ✔ Open External Links in New Tabs
 ✔ Nofollow External Links
 ✔ `Noindex` Paginated, Archive, Search Result Pages
-✔ Instant Indexing for Bing [Also Google using our <a href="https://wordpress.org/plugins/fast-indexing-api/" target="_blank">Instant Indexing Plugin</a>]
+✔ Instant Indexing for Bing [Also Google using our <a href="https://rankmath.com/blog/google-indexing-api/" target="_blank">Instant Indexing Plugin</a>]
 
 **WooCommerce SEO**
 ✔ Automatic Schema for WooCommerce Products
@@ -371,7 +371,7 @@ and many more
 ✔ Easy and Advanced Mode
 
 **Miscellaneous**
-✔ Supports bbPress and BuddyPress SEO
+✔ Supports bbPress SEO and BuddyPress SEO
 ✔ Version Control - Rollback or Try Beta Versions
 
 **MANY MORE FEATURES**
@@ -562,15 +562,11 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.72 [Sep 17, 2021] =
-* Added: Loading effect to the [Analytics](https://rankmath.com/kb/analytics/) tables when data is being loaded
-* Improved: Default date will be added in `priceValidUntil` field of [Product schema](https://rankmath.com/kb/woocommerce-product-schema/)
-* Fixed: Elementor editor was showing an error when [Remove Product Base](https://rankmath.com/kb/general-settings/#remove-base) option was enabled and WPML plugin was active
-* Fixed: Browser console was showing errors in Elementor editor when SEO Tab was disabled using the [Filter](https://rankmath.com/kb/filters-hooks-api-developer/#remove-seo-panel-elementor)
-* Fixed: On RTL sites of [Divi frontend builder](https://rankmath.com/blog/divi-seo/), the SEO popup was going out of the screen
-* Fixed: Compilation failed warning when special characters were used in the Focus Keyword
-* Fixed: WooCommerce Product paginated reviews page were redirecting to the main page when [Remove Product base](https://rankmath.com/kb/general-settings/#remove-base) option was enabled
-* Fixed: The [Quick edit](https://rankmath.com/kb/bulk-editing-in-rank-math/#quick-editing) was breaking the Posts list table when [bulk edit option](https://rankmath.com/kb/bulk-editing-in-rank-math/#what-is-bulk-editing) was disabled
-* Fixed: Fatal error when deactivating the conflicting plugin from the notice
+= 1.0.73 [Sep 29, 2021] =
+* Improved: NGINX configuration related notice can be dismissed in the [Sitemap settings page](https://rankmath.com/kb/configure-sitemaps/?utm_source=Plugin&utm_campaign=WP#general)
+* Fixed: Paginated WooCommerce Product category page with UTF8 slugs were showing 404 error when [Remove category base](https://rankmath.com/kb/general-settings/#remove-category-base) option was enabled
+* Fixed: The `primaryImageofPage` Schema entity was incorrectly added on the Collection Page
+* Fixed: Compatibility issue with [Redux Framework](https://wordpress.org/plugins/redux-framework/) plugin
+* Fixed: [Admin menu bar](https://rankmath.com/kb/quick-actions/#homepage-seo) was showing incorrect options for static Home & Blog page
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

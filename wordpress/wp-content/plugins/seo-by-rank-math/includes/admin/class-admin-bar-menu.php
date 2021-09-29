@@ -169,8 +169,8 @@ class Admin_Bar_Menu {
 	 */
 	private function add_page_menu() {
 		$hash = [
-			'add_home_menu'      => is_home(),
-			'add_post_type_menu' => is_singular( Helper::get_accessible_post_types() ),
+			'add_home_menu'      => is_front_page(),
+			'add_post_type_menu' => is_singular( Helper::get_accessible_post_types() ) || is_home(),
 			'add_date_menu'      => is_date(),
 			'add_taxonomy_menu'  => is_archive() && ! is_post_type_archive() && ! is_author(),
 			'add_search_menu'    => is_search(),
@@ -205,12 +205,18 @@ class Admin_Bar_Menu {
 	 */
 	private function add_post_type_menu() {
 		$post_type = get_post_type();
-		$object    = get_post_type_object( $post_type );
+		$name      = get_post_type_object( $post_type )->labels->name;
+
+		if ( is_home() ) {
+			$post_type = 'page';
+			$name      = esc_html__( 'Pages', 'rank-math' );
+		}
+
 		$this->add_sub_menu(
 			'posttype',
 			[
 				/* translators: Post Type Singular Name */
-				'title'    => sprintf( esc_html__( 'SEO Settings for %s', 'rank-math' ), $object->labels->name ),
+				'title'    => sprintf( esc_html__( 'SEO Settings for %s', 'rank-math' ), $name ),
 				'href'     => Helper::get_admin_url( 'options-titles#setting-panel-post-type-' . $post_type ),
 				'meta'     => [ 'title' => esc_html__( 'Edit default SEO settings for this post type', 'rank-math' ) ],
 				'priority' => 35,

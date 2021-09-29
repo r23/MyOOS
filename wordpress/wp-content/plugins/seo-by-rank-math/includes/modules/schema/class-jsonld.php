@@ -230,7 +230,7 @@ class JsonLD {
 		$snippets           = [
 			'\\RankMath\\Schema\\Publisher'     => ! isset( $data['publisher'] ) && $can_add_global,
 			'\\RankMath\\Schema\\Website'       => $can_add_global,
-			'\\RankMath\\Schema\\PrimaryImage'  => ! post_password_required() && $can_add_global,
+			'\\RankMath\\Schema\\PrimaryImage'  => is_singular() && ! post_password_required() && $can_add_global,
 			'\\RankMath\\Schema\\Breadcrumbs'   => $this->can_add_breadcrumb(),
 			'\\RankMath\\Schema\\Author'        => is_author() || ( is_singular() && $can_add_global ),
 			'\\RankMath\\Schema\\Webpage'       => $can_add_global,

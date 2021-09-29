@@ -129,7 +129,7 @@ class Product_Redirection {
 			$uri = preg_replace( $pattern, '', $uri );
 		}
 
-		return $uri;
+		return implode( '/', array_map( 'rawurlencode', explode( '/', $uri ) ) );
 	}
 
 	/**

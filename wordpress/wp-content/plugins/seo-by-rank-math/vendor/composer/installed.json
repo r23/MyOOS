@@ -105,28 +105,28 @@
         },
         {
             "name": "donatj/phpuseragentparser",
-            "version": "v1.4.0",
-            "version_normalized": "1.4.0.0",
+            "version": "v1.5.0",
+            "version_normalized": "1.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/donatj/PhpUserAgent.git",
-                "reference": "246c1cf0a44f07168c702203bf30d5f48f17bab0"
+                "reference": "cc9d872cddfc180c52d084d0dff1e4aad653d37f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/246c1cf0a44f07168c702203bf30d5f48f17bab0",
-                "reference": "246c1cf0a44f07168c702203bf30d5f48f17bab0",
+                "url": "https://api.github.com/repos/donatj/PhpUserAgent/zipball/cc9d872cddfc180c52d084d0dff1e4aad653d37f",
+                "reference": "cc9d872cddfc180c52d084d0dff1e4aad653d37f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=5.4.0"
             },
             "require-dev": {
                 "camspiers/json-pretty": "~1.0",
                 "donatj/drop": "*",
                 "phpunit/phpunit": "~4.8|~9"
             },
-            "time": "2021-03-16T16:25:14+00:00",
+            "time": "2021-09-16T17:05:03+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -160,7 +160,7 @@
             ],
             "support": {
                 "issues": "https://github.com/donatj/PhpUserAgent/issues",
-                "source": "https://github.com/donatj/PhpUserAgent/tree/v1.4.0"
+                "source": "https://github.com/donatj/PhpUserAgent/tree/v1.5.0"
             },
             "funding": [
                 {
@@ -222,17 +222,17 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.2.1",
-            "version_normalized": "3.2.1.0",
+            "version": "3.3.0",
+            "version_normalized": "3.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "3c24064f115cd55e972d73d5d48f14133ac60b0d"
+                "reference": "5588a831cd2453ecf7d4803f3a81063e13cde93d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/3c24064f115cd55e972d73d5d48f14133ac60b0d",
-                "reference": "3c24064f115cd55e972d73d5d48f14133ac60b0d",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/5588a831cd2453ecf7d4803f3a81063e13cde93d",
+                "reference": "5588a831cd2453ecf7d4803f3a81063e13cde93d",
                 "shasum": ""
             },
             "require-dev": {
@@ -240,7 +240,7 @@
                 "woocommerce/woocommerce-sniffs": "0.1.0",
                 "wp-cli/wp-cli": "~2.5.0"
             },
-            "time": "2021-06-21T20:21:35+00:00",
+            "time": "2021-09-15T21:08:48+00:00",
             "type": "wordpress-plugin",
             "extra": {
                 "scripts-description": {
@@ -258,7 +258,7 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.2.1"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.3.0"
             },
             "install-path": "../woocommerce/action-scheduler"
         }

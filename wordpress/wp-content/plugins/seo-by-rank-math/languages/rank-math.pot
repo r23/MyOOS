@@ -123,6 +123,9 @@ msgstr ""
 msgid "Edit Homepage SEO Settings"
 msgstr ""
 
+msgid "Pages"
+msgstr ""
+
 #. translators: Post Type Singular Name
 #. translators: Taxonomy Singular Name
 msgid "SEO Settings for %s"
@@ -3232,6 +3235,9 @@ msgid "configuration file"
 msgstr ""
 
 msgid "Click here to see the code."
+msgstr ""
+
+msgid "I already added"
 msgstr ""
 
 #. translators: placeholder is the post type name.
