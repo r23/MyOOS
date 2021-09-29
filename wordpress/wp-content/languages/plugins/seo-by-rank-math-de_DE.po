@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-09-01 22:14:13+0000\n"
+"PO-Revision-Date: 2021-09-29 09:19:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+
+#: includes/modules/sitemap/class-admin.php:309
+msgid "I already added"
+msgstr "Ich habe es bereits gemacht"
 
 #: includes/settings/titles/global.php:87
 msgid "When a featured image or an OpenGraph Image is not set for individual posts/pages/CPTs, this image will be used as a fallback thumbnail when your post is shared on Facebook. The recommended image size is 1200 x 630 pixels."
@@ -284,7 +288,7 @@ msgid "Rank Math SEO Analysis error: "
 msgstr "Rank Math SEO Analysefehler: "
 
 #. Translators: the placeholder is for the sitemap base url.
-#: includes/modules/sitemap/class-admin.php:286
+#: includes/modules/sitemap/class-admin.php:302
 msgid "Since you are using an NGINX server, you may need to add the following code to your %s <strong>if your Sitemap pages are not loading</strong>. If you are unsure how to do it, please contact your hosting provider."
 msgstr "Da du einen NGINX-Server verwendest, musst du möglicherweise den folgenden Code zu deinem %s hinzufügen, <strong>wenn deine Sitemap-Seiten nicht geladen werden</strong>. Wenn du dir nicht sicher bist, wie das geht, wenden dich bitte an deinen Hosting-Anbieter."
 
@@ -1776,8 +1780,8 @@ msgstr "Rank Math erzeugt nur die Standard-Sitemaps, WPML kümmert sich um den R
 
 #. translators: %1$s: thing, %2$s: Learn more link.
 #. translators: %1$s: thing, %2$s: Learn more link.
-#: includes/modules/sitemap/class-admin.php:131
-#: includes/modules/sitemap/class-admin.php:189
+#: includes/modules/sitemap/class-admin.php:135
+#: includes/modules/sitemap/class-admin.php:193
 msgid "Change Sitemap settings of %1$s. %2$s."
 msgstr "Ändere die Sitemap-Einstellungen für %1$s. %2$s."
 
@@ -1813,24 +1817,24 @@ msgstr "Automatische Updates sind für deine Website nicht eingeschaltet. %s"
 msgid "Start Analysis Again"
 msgstr "Analyse erneut starten"
 
-#: includes/modules/status/class-error-log.php:155
+#: includes/modules/status/class-error-log.php:156
 msgid "The error log cannot be retrieved: Error log file is too large."
 msgstr "Das Fehler-Log kann nicht abgerufen werden: die Fehler-Log-Datei ist zu groß."
 
-#: includes/modules/status/class-error-log.php:144
+#: includes/modules/status/class-error-log.php:145
 msgid "The error log cannot be retrieved."
 msgstr "Das Fehler-Log kann nicht abgerufen werden."
 
-#: includes/modules/status/class-error-log.php:76
+#: includes/modules/status/class-error-log.php:77
 msgid "Copy Log to Clipboard"
 msgstr "Protokoll in die Zwischenablage kopieren"
 
 #. Translators: placeholder is a link to WP_DEBUG documentation.
-#: includes/modules/status/class-error-log.php:51
+#: includes/modules/status/class-error-log.php:52
 msgid "If you have %s enabled, errors will be stored in a log file. Here you can find the last 100 lines in reversed order so that you or the Rank Math support team can view it easily. The file cannot be edited here."
 msgstr "Wenn du %s aktiviert hast, werden Fehler in eine Log-Datei gespeichert. Du findest hier die letzten 100 Zeilen in umgekehrter Reihenfolge, damit der Support von Rank Math sie leicht einsehen kann. Du kannst die Datei an dieser Stelle nicht bearbeiten."
 
-#: includes/modules/status/class-error-log.php:44
+#: includes/modules/status/class-error-log.php:45
 msgid "Error Log"
 msgstr "Fehlerprotokoll"
 
@@ -1918,11 +1922,11 @@ msgstr "Du darfst diesen Beitragstyp leider nicht bearbeiten."
 msgid "Sorry, you are not allowed to create/update redirection."
 msgstr "Entschuldigung, du hast keine Erlaubnis Weiterleitungen zu erstellen oder zu bearbeiten."
 
-#: includes/modules/sitemap/class-admin.php:292
+#: includes/modules/sitemap/class-admin.php:308
 msgid "Click here to see the code."
 msgstr "Klicke hier, um den Code zu sehen."
 
-#: includes/modules/sitemap/class-admin.php:287
+#: includes/modules/sitemap/class-admin.php:303
 msgid "configuration file"
 msgstr "Konfigurationsdatei"
 
@@ -2003,7 +2007,7 @@ msgstr[0] "%d Tag"
 msgstr[1] "%d Tage"
 
 #. translators: sitemap url
-#: includes/modules/sitemap/class-admin.php:64
+#: includes/modules/sitemap/class-admin.php:68
 msgid "Your sitemap index can be found here: %s"
 msgstr "Deinen Sitemap-Index findest du hier: %s"
 
@@ -2169,7 +2173,7 @@ msgstr "Dieses Update installiert eine Beta-Version von Rank Math."
 msgid "Database Tools"
 msgstr "Datenbank-Tools"
 
-#: includes/modules/status/class-error-log.php:78
+#: includes/modules/status/class-error-log.php:79
 #: includes/modules/status/class-system-status.php:50
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -2189,7 +2193,7 @@ msgid "Redirect Orphan Attachments"
 msgstr "Umleitung von verwaisten Anhängen"
 
 #: includes/admin/class-option-center.php:238
-#: includes/modules/sitemap/class-admin.php:128
+#: includes/modules/sitemap/class-admin.php:132
 msgid "Attachments"
 msgstr "Anhänge"
 
@@ -2608,19 +2612,19 @@ msgstr "Einstellungen zurücksetzen"
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: includes/admin/class-admin-bar-menu.php:367
+#: includes/admin/class-admin-bar-menu.php:373
 msgid "Google Rich Results Test - Googlebot Desktop"
 msgstr "Test für Google Rich-Suchergebnisse - Googlebot Desktop"
 
-#: includes/admin/class-admin-bar-menu.php:365
+#: includes/admin/class-admin-bar-menu.php:371
 msgid "Google Rich Results (Desktop)"
 msgstr "Google Rich-Suchergebnisse (Desktop)"
 
-#: includes/admin/class-admin-bar-menu.php:361
+#: includes/admin/class-admin-bar-menu.php:367
 msgid "Google Rich Results Test - Googlebot Smartphone"
 msgstr "Test für Google Rich-Suchergebnisse - Googlebot Smartphone"
 
-#: includes/admin/class-admin-bar-menu.php:359
+#: includes/admin/class-admin-bar-menu.php:365
 msgid "Google Rich Results (Mobile)"
 msgstr "Google Rich-Suchergebnisse (Mobile)"
 
@@ -3062,7 +3066,7 @@ msgstr "Preis gültig bis"
 msgid "Page %s"
 msgstr "Seite %s"
 
-#: includes/admin/class-post-columns.php:245
+#: includes/admin/class-post-columns.php:249
 msgid "Is Pillar"
 msgstr "Ist Säule"
 
@@ -3072,7 +3076,7 @@ msgstr "Ist Säule"
 msgid "Performer"
 msgstr "Darsteller"
 
-#: includes/admin/class-post-columns.php:252
+#: includes/admin/class-post-columns.php:256
 msgid "Not Set"
 msgstr "Nicht festgelegt"
 
@@ -3987,54 +3991,54 @@ msgstr "XML-Sitemap %1$s %2$s"
 msgid "Rank Math has detected new post types: %1$s. You may want to check the settings of the <a href=\"%2$s\">Titles &amp; Meta page</a> and <a href=\"%3$s\">the Sitemap</a>."
 msgstr "Wir haben neue Beitrags-Typen (%1$s) entdeckt und du solltest die Einstellungen von <a href=\"%2$s\">Titel &amp; Meta Seite</a> und <a href=\"%3$s\">der Sitemap</a> überprüfen."
 
-#: includes/modules/sitemap/class-admin.php:211
+#: includes/modules/sitemap/class-admin.php:215
 msgid "Exclude this image from sitemap"
 msgstr "Dieses Bild von der Sitemap ausschließen"
 
 #. translators: Taxonomy singular label
-#: includes/modules/sitemap/class-admin.php:180
+#: includes/modules/sitemap/class-admin.php:184
 msgid "%s archives"
 msgstr "%s Archive"
 
 #. translators: Taxonomy singular label
-#: includes/modules/sitemap/class-admin.php:174
+#: includes/modules/sitemap/class-admin.php:178
 msgid "your product %s pages"
 msgstr "Ihre Produkt %s Seiten"
 
-#: includes/modules/sitemap/class-admin.php:159
+#: includes/modules/sitemap/class-admin.php:163
 msgid "Taxonomies:"
 msgstr "Taxonomien:"
 
-#: includes/modules/sitemap/class-admin.php:139
+#: includes/modules/sitemap/class-admin.php:143
 msgid "Please note that this will add the attachment page URLs to the sitemap, not direct image URLs."
 msgstr "Bitte beachte, dass die URLs der Anhänge zur Sitemap hinzugefügt werden und nicht die direkten Bild-URLs."
 
 #. translators: Post Type Sitemap Url
 #. translators: Taxonomy Sitemap Url
-#: includes/modules/sitemap/class-admin.php:135
-#: includes/modules/sitemap/class-admin.php:193
+#: includes/modules/sitemap/class-admin.php:139
+#: includes/modules/sitemap/class-admin.php:197
 msgid "Sitemap URL: %s"
 msgstr "Sitemap URL: %s"
 
 #. translators: Post Type label
-#: includes/modules/sitemap/class-admin.php:124
+#: includes/modules/sitemap/class-admin.php:128
 msgid "single %s"
 msgstr "einzelne %s"
 
-#: includes/modules/sitemap/class-admin.php:104
+#: includes/modules/sitemap/class-admin.php:108
 msgid "your product pages"
 msgstr "Deine Produktseiten"
 
-#: includes/modules/sitemap/class-admin.php:103
+#: includes/modules/sitemap/class-admin.php:107
 msgid "attachments"
 msgstr "Anhänge"
 
 #. translators: Learn more link.
-#: includes/modules/sitemap/class-admin.php:73
+#: includes/modules/sitemap/class-admin.php:77
 msgid "Set the sitemap options for author archive pages. %s."
 msgstr "Lege die Sitemap-Optionen für Autorenarchivseiten fest. %s."
 
-#: includes/modules/sitemap/class-admin.php:62
+#: includes/modules/sitemap/class-admin.php:66
 msgid "This tab contains General settings related to the XML sitemaps."
 msgstr "Diese Registerkarte enthält allgemeine Einstellungen in Bezug auf die XML-Sitemaps."
 
@@ -4366,6 +4370,10 @@ msgstr "Keywords insgesamt"
 #: includes/modules/analytics/google/class-request.php:225
 msgid "Bad request. Please check the code."
 msgstr "Fehlerhafte Anfrage. Bitte überprüfe den Code."
+
+#: includes/admin/class-admin-bar-menu.php:212
+msgid "Pages"
+msgstr "Seiten"
 
 #: includes/admin/class-setup-wizard.php:112
 #: includes/admin/wizard/views/search-console-ui.php:109
@@ -4841,7 +4849,7 @@ msgid "Delete Permanently"
 msgstr "Dauerhaft löschen"
 
 #: includes/modules/redirections/class-table.php:147
-#: includes/modules/sitemap/class-admin.php:292
+#: includes/modules/sitemap/class-admin.php:308
 msgid "Hide"
 msgstr "Ausblenden"
 
@@ -5361,43 +5369,43 @@ msgstr "<strong>Details anzeigen</strong> zeigt Details zu den 404 Anfragen."
 msgid "Hovering over a row in the list will display action links that allow you to manage the item. You can perform the following actions:"
 msgstr "Wenn du mit der Maus über eine Zeile in der Liste fährst, werden Aktionslinks angezeigt, mit denen du das Element verwalten kannst. DU kannst die folgenden Aktionen durchführen:"
 
-#: includes/modules/404-monitor/class-table.php:212
+#: includes/modules/404-monitor/class-table.php:221
 msgid "Access Time"
 msgstr "Zugriffszeit"
 
-#: includes/modules/404-monitor/class-table.php:211
+#: includes/modules/404-monitor/class-table.php:220
 #: includes/modules/redirections/class-table.php:218
 msgid "Hits"
 msgstr "Treffer"
 
-#: includes/modules/404-monitor/class-table.php:210
+#: includes/modules/404-monitor/class-table.php:219
 msgid "User-Agent"
 msgstr "Benutzer-Agent"
 
-#: includes/modules/404-monitor/class-table.php:209
+#: includes/modules/404-monitor/class-table.php:218
 msgid "Referer"
 msgstr "Referer"
 
-#: includes/modules/404-monitor/class-table.php:208
+#: includes/modules/404-monitor/class-table.php:217
 msgid "URI"
 msgstr "URL"
 
-#: includes/modules/404-monitor/class-table.php:196
-#: includes/modules/404-monitor/class-table.php:245
+#: includes/modules/404-monitor/class-table.php:205
+#: includes/modules/404-monitor/class-table.php:268
 #: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
 #: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
 msgid "Redirect"
 msgstr "Umleiten"
 
-#: includes/modules/404-monitor/class-table.php:180
+#: includes/modules/404-monitor/class-table.php:189
 msgid "View Redirection"
 msgstr "Umleitung anzeigen"
 
-#: includes/modules/404-monitor/class-table.php:83
+#: includes/modules/404-monitor/class-table.php:86
 msgid "Clear Log"
 msgstr "Protokoll löschen"
 
-#: includes/modules/404-monitor/class-table.php:34
+#: includes/modules/404-monitor/class-table.php:37
 msgid "The 404 error log is empty."
 msgstr "Das 404-Fehlerprotokoll ist leer."
 
@@ -5501,25 +5509,25 @@ msgstr "404 Monitorprotokoll"
 msgid "Titles & Meta Settings"
 msgstr "Titel & Meta Einstellungen"
 
-#: includes/admin/class-admin-helper.php:289
+#: includes/admin/class-admin-helper.php:285
 msgid "Share"
 msgstr "Teilen"
 
-#: includes/admin/class-admin-helper.php:286
+#: includes/admin/class-admin-helper.php:282
 msgid "Tweet"
 msgstr "Tweet"
 
-#: includes/admin/class-admin-helper.php:279
+#: includes/admin/class-admin-helper.php:275
 msgid "SEO by Rank Math"
 msgstr "SEO von Rank Math"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:265
+#: includes/admin/class-admin-helper.php:261
 msgid "I just installed Rank Math SEO WordPress Plugin. It looks promising!"
 msgstr "Ich habe gerade das Rank Math SEO WordPress Plugin installiert. Es sieht vielversprechend aus!"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:263
+#: includes/admin/class-admin-helper.php:259
 msgid "I just installed @RankMathSEO #WordPress Plugin. It looks great! %s"
 msgstr "Ich habe gerade @RankMathSEO #WordPress Plugin installiert. Es sieht Klasse aus! %s"
 
@@ -5693,7 +5701,7 @@ msgstr "Nicht folgen"
 msgid "Prevents pages from being indexed and displayed in search engine result pages"
 msgstr "Verhindert, dass Seiten indiziert und in Suchmaschinen-Ergebnisseiten angezeigt werden"
 
-#: includes/admin/class-post-columns.php:228
+#: includes/admin/class-post-columns.php:232
 #: includes/helpers/class-choices.php:74 assets/admin/js/classic.js:1
 #: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 #: assets/admin/js/gutenberg.js:1
@@ -5782,7 +5790,7 @@ msgid "Post Formats"
 msgstr "Beitrags-Formate"
 
 #: includes/admin/class-option-center.php:228
-#: includes/modules/sitemap/class-admin.php:113
+#: includes/modules/sitemap/class-admin.php:117
 msgid "Post Types:"
 msgstr "Inhaltstypen:"
 
@@ -5799,7 +5807,7 @@ msgid "Misc Pages"
 msgstr "Sonstige Seiten"
 
 #: includes/admin/class-option-center.php:168
-#: includes/modules/sitemap/class-admin.php:71
+#: includes/modules/sitemap/class-admin.php:75
 msgid "Authors"
 msgstr "Autoren"
 
@@ -5967,7 +5975,7 @@ msgstr "Seite"
 msgid "Focus Keyword of the current post"
 msgstr "Fokus-Schlüsselwort des aktuellen Beitrags"
 
-#: includes/admin/class-post-columns.php:249
+#: includes/admin/class-post-columns.php:253
 #: includes/replace-variables/class-advanced-variables.php:44
 #: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
 #: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
@@ -6282,83 +6290,83 @@ msgstr "Rank Math WordPress SEO Plugin"
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: includes/admin/class-admin-bar-menu.php:379
+#: includes/admin/class-admin-bar-menu.php:385
 msgid "Facebook Sharing Debugger"
 msgstr "Facebook teilen Debugger"
 
-#: includes/admin/class-admin-bar-menu.php:377
+#: includes/admin/class-admin-bar-menu.php:383
 msgid "Facebook Debugger"
 msgstr "Facebook Fehlersuchprogramm"
 
-#: includes/admin/class-admin-bar-menu.php:373
+#: includes/admin/class-admin-bar-menu.php:379
 msgid "See Google's cached version of your site"
 msgstr "Sehe dir die von Google zwischengespeicherte Version deiner Website an"
 
-#: includes/admin/class-admin-bar-menu.php:371
+#: includes/admin/class-admin-bar-menu.php:377
 msgid "Google Cache"
 msgstr "Google Cache"
 
-#: includes/admin/class-admin-bar-menu.php:355
+#: includes/admin/class-admin-bar-menu.php:361
 msgid "Google Mobile-Friendly Test"
 msgstr "Google Mobile-Friendly Test"
 
-#: includes/admin/class-admin-bar-menu.php:353
+#: includes/admin/class-admin-bar-menu.php:359
 msgid "Google Mobile-Friendly"
 msgstr "Google Mobile-Friendly"
 
-#: includes/admin/class-admin-bar-menu.php:349
+#: includes/admin/class-admin-bar-menu.php:355
 msgid "Google PageSpeed Insights"
 msgstr "Google PageSpeed Insights"
 
-#: includes/admin/class-admin-bar-menu.php:347
+#: includes/admin/class-admin-bar-menu.php:353
 msgid "Google PageSpeed"
 msgstr "Google PageSpeed"
 
-#: includes/admin/class-admin-bar-menu.php:338
+#: includes/admin/class-admin-bar-menu.php:344
 msgid "External Tools"
 msgstr "Externe Werkzeuge"
 
-#: includes/admin/class-admin-bar-menu.php:322
+#: includes/admin/class-admin-bar-menu.php:328
 msgid "As NoFollow"
 msgstr "Als NoFollow"
 
-#: includes/admin/class-admin-bar-menu.php:311
+#: includes/admin/class-admin-bar-menu.php:317
 msgid "As NoIndex"
 msgstr "Als NoIndex"
 
-#: includes/admin/class-admin-bar-menu.php:297
+#: includes/admin/class-admin-bar-menu.php:303
 msgid "As Pillar Content"
 msgstr "Als Säuleninhalt"
 
-#: includes/admin/class-admin-bar-menu.php:280
+#: includes/admin/class-admin-bar-menu.php:286
 msgid "Mark this page"
 msgstr "Markiere diese Seite"
 
-#: includes/admin/class-admin-bar-menu.php:267
+#: includes/admin/class-admin-bar-menu.php:273
 msgid "Edit SEO settings for the search results page"
 msgstr "Bearbeite die SEO-Einstellungen für die Suchergebnisseite"
 
-#: includes/admin/class-admin-bar-menu.php:265
+#: includes/admin/class-admin-bar-menu.php:271
 msgid "SEO Settings for Search Page"
 msgstr "SEO-Einstellungen für Suchseite"
 
-#: includes/admin/class-admin-bar-menu.php:250
+#: includes/admin/class-admin-bar-menu.php:256
 msgid "SEO Settings for Date Archives"
 msgstr "SEO-Einstellungen für Datumsarchive"
 
-#: includes/admin/class-admin-bar-menu.php:237
-#: includes/admin/class-admin-bar-menu.php:252
+#: includes/admin/class-admin-bar-menu.php:243
+#: includes/admin/class-admin-bar-menu.php:258
 msgid "Edit SEO settings for this archive page"
 msgstr "SEO-Einstellungen für diese Archivseite bearbeiten"
 
-#: includes/admin/class-admin-bar-menu.php:215
+#: includes/admin/class-admin-bar-menu.php:221
 msgid "Edit default SEO settings for this post type"
 msgstr "Bearbeite die Standard-SEO-Einstellungen für diesen Beitragstyp"
 
 #. translators: Post Type Singular Name
 #. translators: Taxonomy Singular Name
-#: includes/admin/class-admin-bar-menu.php:213
-#: includes/admin/class-admin-bar-menu.php:235
+#: includes/admin/class-admin-bar-menu.php:219
+#: includes/admin/class-admin-bar-menu.php:241
 msgid "SEO Settings for %s"
 msgstr "SEO-Einstellungen für %s"
 
@@ -6523,10 +6531,10 @@ msgstr "Werde Mitglied der KOSTENLOSEN Facebook-Gruppe"
 #: includes/modules/redirections/class-admin.php:175
 #: includes/modules/robots-txt/class-robots-txt.php:69
 #: includes/modules/role-manager/views/main.php:26
-#: includes/modules/sitemap/class-admin.php:62
-#: includes/modules/sitemap/class-admin.php:73
-#: includes/modules/sitemap/class-admin.php:131
-#: includes/modules/sitemap/class-admin.php:189
+#: includes/modules/sitemap/class-admin.php:66
+#: includes/modules/sitemap/class-admin.php:77
+#: includes/modules/sitemap/class-admin.php:135
+#: includes/modules/sitemap/class-admin.php:193
 #: includes/modules/woocommerce/class-admin.php:76
 msgid "Learn more"
 msgstr "Mehr erfahren"
@@ -6761,8 +6769,8 @@ msgstr "Es gibt kein Sicherung."
 
 #: includes/admin/views/import-export/backup-panel.php:33
 #: includes/admin/views/import-export/backup-panel.php:43
-#: includes/modules/404-monitor/class-table.php:140
-#: includes/modules/404-monitor/class-table.php:246
+#: includes/modules/404-monitor/class-table.php:149
+#: includes/modules/404-monitor/class-table.php:269
 #: includes/modules/database-tools/class-database-tools.php:385
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -6940,8 +6948,8 @@ msgid "Import Settings"
 msgstr "Importeinstellungen"
 
 #: includes/admin/class-setup-wizard.php:195
-msgid "Advance Options"
-msgstr "Erweiterungsoptionen"
+msgid "Advanced Options"
+msgstr "Erweiterte Optionen"
 
 #: includes/admin/wizard/views/header.php:19
 msgid "Setup Wizard - Rank Math"
@@ -7411,11 +7419,11 @@ msgstr "KOSTENLOSES Konto verbinden"
 msgid "Pillar Content"
 msgstr "Säulen-Inhalt"
 
-#: includes/admin/class-post-columns.php:159
+#: includes/admin/class-post-columns.php:163
 msgid "Alternative Text"
 msgstr "Alternativer Text"
 
-#: includes/admin/class-post-columns.php:158 assets/admin/js/classic.js:1
+#: includes/admin/class-post-columns.php:162 assets/admin/js/classic.js:1
 #: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 #: assets/admin/js/gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
@@ -7423,30 +7431,30 @@ msgstr "Alternativer Text"
 msgid "Title"
 msgstr "Titel"
 
-#: includes/admin/class-post-columns.php:251
+#: includes/admin/class-post-columns.php:255
 msgid "Keyword"
 msgstr "Keyword"
 
-#: includes/admin/class-post-columns.php:192
-#: includes/admin/class-post-columns.php:214
-#: includes/admin/class-post-columns.php:262
-#: includes/admin/class-post-columns.php:282
-#: includes/admin/class-post-columns.php:295
+#: includes/admin/class-post-columns.php:196
+#: includes/admin/class-post-columns.php:218
+#: includes/admin/class-post-columns.php:266
+#: includes/admin/class-post-columns.php:286
+#: includes/admin/class-post-columns.php:299
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Save"
 msgstr "Speichern"
 
-#: includes/admin/class-post-columns.php:131
+#: includes/admin/class-post-columns.php:135
 msgid "SEO Desc"
 msgstr "SEO-Beschreibung"
 
-#: includes/admin/class-post-columns.php:130
+#: includes/admin/class-post-columns.php:134
 #: includes/replace-variables/class-post-variables.php:78
 msgid "SEO Title"
 msgstr "SEO-Titel"
 
-#: includes/admin/class-post-columns.php:127
+#: includes/admin/class-post-columns.php:131
 msgid "SEO Details"
 msgstr "SEO-Details"
 
@@ -7467,11 +7475,11 @@ msgid "SEO Score: Good"
 msgstr "SEO Score: Gut"
 
 #: includes/admin/class-post-columns.php:114
-#: includes/admin/class-post-columns.php:193
-#: includes/admin/class-post-columns.php:215
-#: includes/admin/class-post-columns.php:263
-#: includes/admin/class-post-columns.php:283
-#: includes/admin/class-post-columns.php:296
+#: includes/admin/class-post-columns.php:197
+#: includes/admin/class-post-columns.php:219
+#: includes/admin/class-post-columns.php:267
+#: includes/admin/class-post-columns.php:287
+#: includes/admin/class-post-columns.php:300
 #: includes/modules/redirections/class-form.php:51
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -7486,8 +7494,8 @@ msgstr "Massenbearbeitung dieses Feldes"
 
 #: includes/admin/views/import-export/import-export-panel.php:57
 #: includes/modules/role-manager/class-capability-manager.php:58
-#: includes/modules/sitemap/class-admin.php:83
-#: includes/modules/sitemap/class-admin.php:84
+#: includes/modules/sitemap/class-admin.php:87
+#: includes/modules/sitemap/class-admin.php:88
 msgid "Sitemap Settings"
 msgstr "Sitemap-Einstellungen"
 
@@ -7511,7 +7519,7 @@ msgstr "Bedienfeld"
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: includes/modules/sitemap/class-admin.php:60 assets/admin/js/classic.js:1
+#: includes/modules/sitemap/class-admin.php:64 assets/admin/js/classic.js:1
 #: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 #: assets/admin/js/gutenberg.js:1
 msgid "General"
@@ -7629,7 +7637,7 @@ msgstr "Bist du sicher, dass du diese Sicherung wiederherstellen möchten? Deine
 msgid "Are you sure you want to import settings into Rank Math? Don't worry, your current configuration will be saved as a backup."
 msgstr "Bist du sicher, dass du die Einstellungen in Rank Math importieren möchtest? Keine Sorge, deine aktuelle Konfiguration wird als Backup gespeichert."
 
-#: includes/admin/class-admin-helper.php:100
+#: includes/admin/class-admin-helper.php:96
 #: includes/admin/class-cmb2-fields.php:281
 #: includes/admin/wizard/class-schema-markup.php:161
 #: includes/helpers/class-taxonomy.php:152
