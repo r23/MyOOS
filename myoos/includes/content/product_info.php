@@ -142,6 +142,9 @@ if (!$product_info_result->RecordCount()) {
 	$bTypeRadio = false;
 	$aSelector = array();
 
+	$options = '';
+
+
     $products_optionstable = $oostable['products_options'];
     $products_attributestable = $oostable['products_attributes'];
     $attributes_sql = "SELECT COUNT(*) AS total
@@ -152,6 +155,14 @@ if (!$product_info_result->RecordCount()) {
                          AND popt.products_options_languages_id = '" . intval($nLanguageID) . "'";
     $products_attributes = $dbconn->Execute($attributes_sql);
     if ($products_attributes->fields['total'] > 0) {
+
+		if (PRODUCTS_OPTIONS_SORT_BY_PRICE == 'true') {
+			$options_sort_by = ' ORDER BY pa.options_sort_order, pa.options_values_price';
+		} else {
+			$options_sort_by = ' ORDER BY pa.options_sort_order, pov.products_options_values_name';
+		}
+
+
 
 		$products_optionstable = $oostable['products_options'];
 		$products_attributestable = $oostable['products_attributes'];
@@ -180,7 +191,7 @@ if (!$product_info_result->RecordCount()) {
                                      FROM $products_attributestable pa,
                                           $products_options_valuestable pov
                                      WHERE pa.products_id = '" . intval($nProductsID) . "' 
-                                       AND pa.options_id = '" . $products_options_name['products_options_id'] . "' 
+                                       AND pa.options_id = '" . intval($products_options_name['products_options_id']) . "' 
                                        AND pa.options_values_id = pov.products_options_values_id 
                                        AND pov.products_options_values_languages_id = '" . intval($nLanguageID) . "'  
                                    ORDER BY pa.options_sort_order, pa.options_values_price";
@@ -286,8 +297,54 @@ if (!$product_info_result->RecordCount()) {
 					}
 
 					break;
+
+	
+				case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
+					$options .= $products_options_name['products_options_name'] . ': ';
+
+					$products_attributestable = $oostable['products_attributes'];
+					$products_options_valuestable = $oostable['products_options_values'];
+					$products_attribs_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
+                                            pa.options_values_price, pa.price_prefix, pa.options_sort_order
+                                     FROM $products_attributestable pa,
+                                          $products_options_valuestable pov
+                                     WHERE pa.products_id = '" . intval($nProductsID) . "'
+                                       AND pa.options_id = '" . $products_options_name['products_options_id'] . "'
+                                       AND pa.options_values_id = pov.products_options_values_id
+                                       AND pov.products_options_values_languages_id = '" . intval($nLanguageID) . "'  
+                                    " . $options_sort_by;
+					$products_attribs_result = $dbconn->Execute($products_attribs_sql);
+
+					$row = 0;
+					while ($products_attribs_array = $products_attribs_result->fields) {
+						$row++;
+
+						$checked = false;
+						if ($_SESSION['cart']->contents[$sProductsId]['attributes'][$products_options_name['products_options_id']] == $products_attribs_array['products_options_values_id']) {
+							$checked = true;
+						}
+						$options .= oos_draw_checkbox_field('id[' . $products_options_name['products_options_id'] . ']', $products_attribs_array['products_options_values_id'], $checked);
+	
+						$options .= $products_attribs_array['products_options_values_name'];
+						$options .= $products_options_name['products_options_comment'];
+
+						if ($products_attribs_array['options_values_price'] > '0') {
+							if ($aUser['show_price'] == 1 ) {
+								if ($info_product_discount != 0 ) {
+									$options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
+								} else {
+									$options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp;';
+								}
+							}
+						}
+
+						// Move that ADOdb pointer!
+						$products_attribs_result->MoveNext();
+					}
+					break;
+
 				}
-				
+	
 				// Move that ADOdb pointer!
 				$products_options_name_result->MoveNext();
 		}
