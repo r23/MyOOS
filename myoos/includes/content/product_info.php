@@ -162,7 +162,7 @@ if (!$product_info_result->RecordCount()) {
 			$options_sort_by = ' ORDER BY pa.options_sort_order, pov.products_options_values_name';
 		}
 
-
+		$options .= '<form class="pb-4">' . "\n";
 
 		$products_optionstable = $oostable['products_options'];
 		$products_attributestable = $oostable['products_attributes'];
@@ -300,7 +300,8 @@ if (!$product_info_result->RecordCount()) {
 
 	
 				case PRODUCTS_OPTIONS_TYPE_CHECKBOX:
-					$options .= $products_options_name['products_options_name'] . ': ';
+					$options .= '<div class="form-group">' . "\n";
+					$options .= '  <div class="pb-2">'  . $products_options_name['products_options_name'] . '</div>' . "\n";
 
 					$products_attributestable = $oostable['products_attributes'];
 					$products_options_valuestable = $oostable['products_options_values'];
@@ -341,13 +342,57 @@ if (!$product_info_result->RecordCount()) {
 						// Move that ADOdb pointer!
 						$products_attribs_result->MoveNext();
 					}
+					
+					$options .= '</div>' . "\n";
 					break;
 
+
+				case PRODUCTS_OPTIONS_TYPE_SELECT:
+				default:
+					$options .= '<div class="form-group">' . "\n";
+					$options .= '  <div class="pb-2">'  . $products_options_name['products_options_name'] . '</div>' . "\n";
+
+					$selected = 0;
+					$products_options_array = array();
+					$products_attributestable = $oostable['products_attributes'];
+					$products_options_valuestable = $oostable['products_options_values'];
+					$products_options_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,
+                                            pa.options_values_price, pa.price_prefix, pa.options_sort_order
+                                     FROM $products_attributestable pa,
+                                          $products_options_valuestable pov
+                                     WHERE pa.products_id = '" . intval($nProductsID) . "'
+                                       AND pa.options_id = '" . $products_options_name['products_options_id'] . "' 
+                                       AND pa.options_values_id = pov.products_options_values_id 
+                                       AND pov.products_options_values_languages_id = '" .  intval($nLanguageID) . "'
+                                    " . $options_sort_by;
+					$products_options_result = $dbconn->Execute($products_options_sql);
+					while ($products_options = $products_options_result->fields) {
+						$products_options_array[] = array('id' => $products_options['products_options_values_id'], 'text' => $products_options['products_options_values_name']);
+
+						if ($products_options['options_values_price'] > '0') {
+							if ($aUser['show_price'] == 1 ) {
+								if ($info_product_discount != 0 ) {
+									$products_options_array[count($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
+								} else {
+									$products_options_array[count($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp';
+								}
+							}
+						}
+
+						// Move that ADOdb pointer!
+						$products_options_result->MoveNext();
+					}
+
+
+					$options .= oos_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $_SESSION['cart']->contents[$sProductsId]['attributes'][$products_options_name['products_options_id']]);
+					$options .= '</div>' . "\n";
 				}
 	
 				// Move that ADOdb pointer!
 				$products_options_name_result->MoveNext();
 		}
+		
+		$options .= '</div>' . "\n";
 	}
 
 	$smarty->assign('selector_array', $aSelector);
