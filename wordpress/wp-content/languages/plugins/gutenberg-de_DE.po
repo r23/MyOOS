@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-09-30 13:11:34+0000\n"
+"PO-Revision-Date: 2021-10-01 13:59:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,7 @@ msgstr "Untermenü"
 #: build/block-library/blocks/columns/block.json
 msgctxt "block description"
 msgid "Display content in multiple columns, with blocks added to each column."
-msgstr "Inhalte mehrspaltig darstellen, wobei in jede Spalte Blöcke hinzugefügt werden."
+msgstr "Inhalte mehrspaltig darstellen, wobei jeder Spalte Blöcke hinzugefügt werden."
 
 #: lib/class-wp-rest-menus-controller.php:86
 msgid "Required to be true, as terms do not support trashing."
