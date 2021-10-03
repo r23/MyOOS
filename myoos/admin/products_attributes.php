@@ -838,7 +838,7 @@ function go_option() {
 ?>
                 </select>&nbsp;</td>
                 <td class="smallText"><?php echo $inputs; ?></td>
-                <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(IMAGE_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '') . '" role="button">'; ?><?php echo oos_button('cancel', BUTTON_CANCEL); ?></a>&nbsp;</td>
+                <td align="center" class="smallText">&nbsp;<?php echo oos_submit_button(IMAGE_UPDATE); ?>&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '') . '" role="button"><strong>' .  BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
 <?php
         echo '</form>';
       } else {
