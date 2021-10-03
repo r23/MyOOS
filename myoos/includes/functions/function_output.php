@@ -274,9 +274,11 @@ function oos_draw_hidden_field($name, $value = '', $parameters = '')
 function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = null, $required = false)
 {
 
-    $field = '<select name="' . oos_output_string($name) . '"';
+    $field = '<select class="form-control custom-select" name="' . oos_output_string($name) . '"';
 
     if (!empty( $parameters ) && is_string( $parameters ) ) $field .= ' ' . $parameters;
+
+	if ($required == true) $field .= ' required';
 
     $field .= '>';
 

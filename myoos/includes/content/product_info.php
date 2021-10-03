@@ -143,7 +143,7 @@ if (!$product_info_result->RecordCount()) {
 	$aSelector = array();
 
 	$options = '';
-
+	$number_of_uploads = 0;
 
     $products_optionstable = $oostable['products_options'];
     $products_attributestable = $oostable['products_attributes'];
@@ -162,7 +162,7 @@ if (!$product_info_result->RecordCount()) {
 			$options_sort_by = ' ORDER BY pa.options_sort_order, pov.products_options_values_name';
 		}
 
-		$options .= '<form class="pb-4">' . "\n";
+		$options .= '<div class="pb-4">' . "\n";
 
 		$products_optionstable = $oostable['products_options'];
 		$products_attributestable = $oostable['products_attributes'];
@@ -295,7 +295,6 @@ if (!$product_info_result->RecordCount()) {
 						// Move that ADOdb pointer!
 						$products_options_result->MoveNext();
 					}
-
 					break;
 
 	
@@ -345,7 +344,38 @@ if (!$product_info_result->RecordCount()) {
 					
 					$options .= '</div>' . "\n";
 					break;
+					
+					
+				case PRODUCTS_OPTIONS_TYPE_FILE:
+					$number_of_uploads++;
 
+					$products_attributestable = $oostable['products_attributes'];
+					$products_attribs_sql = "SELECT DISTINCT patrib.options_values_price, patrib.price_prefix
+											FROM $products_attributestable patrib
+											WHERE patrib.products_id= '" . intval($nProductsID) . "'
+											AND patrib.options_id = '" . $products_options_name['products_options_id'] . "'";
+					$products_attribs_result = $dbconn->Execute($products_attribs_sql);
+					$products_attribs_array = $products_attribs_result->fields;
+
+
+					$options .= '<div class="form-group">' . "\n";
+					$options .= '  <div class="pb-2">'  . $products_options_name['products_options_name'] . '</div>' . "\n";
+
+					if ($products_attribs_array['options_values_price'] > '0') {
+						if ($aUser['show_price'] == 1 ) {
+							if ($info_product_discount != 0 ) {
+								$options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
+							} else {
+								$options .= ' (' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp';
+							}
+						}
+					}
+
+					$options .= '<input type="file" name="id[' . TEXT_PREFIX . $products_options_name['products_options_id'] . ']"><br />' . $_SESSION['cart']->contents[$sProductsId]['attributes_values'][$products_options_name['products_options_id']] . oos_draw_hidden_field(UPLOAD_PREFIX . $number_of_uploads, $products_options_name['products_options_id']) . oos_draw_hidden_field(TEXT_PREFIX . UPLOAD_PREFIX . $number_of_uploads, $_SESSION['cart']->contents[$sProductsId]['attributes_values'][$products_options_name['products_options_id']]);
+					$options .= oos_draw_hidden_field('number_of_uploads', $number_of_uploads);
+					
+					$options .= '</div>' . "\n";
+					break;
 
 				case PRODUCTS_OPTIONS_TYPE_SELECT:
 				default:
@@ -372,9 +402,9 @@ if (!$product_info_result->RecordCount()) {
 						if ($products_options['options_values_price'] > '0') {
 							if ($aUser['show_price'] == 1 ) {
 								if ($info_product_discount != 0 ) {
-									$products_options_array[count($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp';
+									$products_options_array[count($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )&nbsp;';
 								} else {
-									$products_options_array[count($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp';
+									$products_options_array[count($products_options_array)-1]['text'] .= ' (' . $products_options['price_prefix'] . $oCurrencies->display_price($products_options['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')&nbsp;';
 								}
 							}
 						}
