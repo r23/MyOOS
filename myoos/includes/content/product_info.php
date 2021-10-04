@@ -377,6 +377,33 @@ if (!$product_info_result->RecordCount()) {
 					$options .= '</div>' . "\n";
 					break;
 
+				case PRODUCTS_OPTIONS_TYPE_TEXT:
+		  
+					$options .= '<div class="form-group">' . "\n";
+					$options .= '  <div class="pb-2">'  . $products_options_name['products_options_name'] . '</div>' . "\n";		  
+
+
+					$products_attributestable = $oostable['products_attributes'];
+					$products_attribs_sql = "SELECT DISTINCT patrib.options_values_price, patrib.price_prefix
+											FROM $products_attributestable patrib
+											WHERE patrib.products_id = '" . intval($nProductsID) . "'
+											AND patrib.options_id = '" . $products_options_name['products_options_id'] . "'";
+					$products_attribs_result = $dbconn->Execute($products_attribs_sql);
+					$products_attribs_array = $products_attribs_result->fields;
+
+					$options .= '<input type="text" name ="id[' . TEXT_PREFIX . $products_options_name['products_options_id'] . ']" size="' . $products_options_name['products_options_length'] .'" maxlength="' . $products_options_name['products_options_length'] . '" value="' .  $_SESSION['cart']->contents[$sProductsId]['attributes_values'][$products_options_name['products_options_id']] .'">' . $products_options_name['products_options_comment'];
+					if ($products_attribs_array['options_values_price'] > '0') {
+						if ($aUser['show_price'] == 1 ) {
+							if ($info_product_discount != 0 ) {
+								$options .= '(' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) . ' -' . number_format($info_product_discount, 2) . '% )';
+							} else {
+								$options .= '(' . $products_attribs_array['price_prefix'] . $oCurrencies->display_price($products_attribs_array['options_values_price'], oos_get_tax_rate($product_info['products_tax_class_id'])) .')';
+							}
+						}
+					}
+					$options .= '</div>' . "\n";
+					break;
+
 				case PRODUCTS_OPTIONS_TYPE_SELECT:
 				default:
 					$options .= '<div class="form-group">' . "\n";
