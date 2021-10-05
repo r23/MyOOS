@@ -1348,3 +1348,4 @@ RewriteRule ^(.*)$ app.php [QSA,L]
 		</Files>
 	</IfModule>
 </IfModule>
+

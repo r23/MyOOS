@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a
+class ComposerStaticInit091ee507e950562916a7b9e983cb8bba
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -69,7 +69,6 @@ class ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Container\\' => 14,
-            'Patchwork\\' => 10,
             'PackageVersions\\' => 16,
         ),
         'G' => 
@@ -205,10 +204,6 @@ class ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a
         'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'Patchwork\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork',
         ),
         'PackageVersions\\' => 
         array (
@@ -360,7 +355,7 @@ class ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a
         'GuzzleHttp\\TransferStats' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/TransferStats.php',
         'GuzzleHttp\\UriTemplate' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/UriTemplate.php',
         'GuzzleHttp\\Utils' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Utils.php',
-        'Normalizer' => __DIR__ . '/..' . '/patchwork/utf8/src/Normalizer.php',
+        'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
         'OAuth\\Common\\AutoLoader' => __DIR__ . '/..' . '/lusitanian/oauth/src/OAuth/Common/AutoLoader.php',
         'OAuth\\Common\\Consumer\\Credentials' => __DIR__ . '/..' . '/lusitanian/oauth/src/OAuth/Common/Consumer/Credentials.php',
         'OAuth\\Common\\Consumer\\CredentialsInterface' => __DIR__ . '/..' . '/lusitanian/oauth/src/OAuth/Common/Consumer/CredentialsInterface.php',
@@ -460,16 +455,6 @@ class ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a
         'PackageVersions\\FallbackVersions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/FallbackVersions.php',
         'PackageVersions\\Installer' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Installer.php',
         'PackageVersions\\Versions' => __DIR__ . '/..' . '/composer/package-versions-deprecated/src/PackageVersions/Versions.php',
-        'Patchwork\\PHP\\Shim\\Iconv' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/PHP/Shim/Iconv.php',
-        'Patchwork\\PHP\\Shim\\Intl' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/PHP/Shim/Intl.php',
-        'Patchwork\\PHP\\Shim\\Mbstring' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/PHP/Shim/Mbstring.php',
-        'Patchwork\\PHP\\Shim\\Normalizer' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/PHP/Shim/Normalizer.php',
-        'Patchwork\\PHP\\Shim\\Xml' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/PHP/Shim/Xml.php',
-        'Patchwork\\TurkishUtf8' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/TurkishUtf8.php',
-        'Patchwork\\Utf8' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/Utf8.php',
-        'Patchwork\\Utf8\\BestFit' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/Utf8/BestFit.php',
-        'Patchwork\\Utf8\\Bootup' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/Utf8/Bootup.php',
-        'Patchwork\\Utf8\\WindowsStreamWrapper' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/Utf8/WindowsStreamWrapper.php',
         'ProxyManager\\Autoloader\\Autoloader' => __DIR__ . '/..' . '/ocramius/proxy-manager/src/ProxyManager/Autoloader/Autoloader.php',
         'ProxyManager\\Autoloader\\AutoloaderInterface' => __DIR__ . '/..' . '/ocramius/proxy-manager/src/ProxyManager/Autoloader/AutoloaderInterface.php',
         'ProxyManager\\Configuration' => __DIR__ . '/..' . '/ocramius/proxy-manager/src/ProxyManager/Configuration.php',
@@ -1967,6 +1952,7 @@ class ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a
         's9e\\TextFormatter\\Configurator\\RendererGenerators\\PHP\\XPathConvertor\\Convertors\\Core' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/RendererGenerators/PHP/XPathConvertor/Convertors/Core.php',
         's9e\\TextFormatter\\Configurator\\RendererGenerators\\PHP\\XPathConvertor\\Convertors\\Math' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/RendererGenerators/PHP/XPathConvertor/Convertors/Math.php',
         's9e\\TextFormatter\\Configurator\\RendererGenerators\\PHP\\XPathConvertor\\Convertors\\MultiByteStringManipulation' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/RendererGenerators/PHP/XPathConvertor/Convertors/MultiByteStringManipulation.php',
+        's9e\\TextFormatter\\Configurator\\RendererGenerators\\PHP\\XPathConvertor\\Convertors\\PHP80Functions' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/RendererGenerators/PHP/XPathConvertor/Convertors/PHP80Functions.php',
         's9e\\TextFormatter\\Configurator\\RendererGenerators\\PHP\\XPathConvertor\\Convertors\\SingleByteStringFunctions' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/RendererGenerators/PHP/XPathConvertor/Convertors/SingleByteStringFunctions.php',
         's9e\\TextFormatter\\Configurator\\RendererGenerators\\PHP\\XPathConvertor\\Convertors\\SingleByteStringManipulation' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/RendererGenerators/PHP/XPathConvertor/Convertors/SingleByteStringManipulation.php',
         's9e\\TextFormatter\\Configurator\\RendererGenerators\\Unformatted' => __DIR__ . '/..' . '/s9e/text-formatter/src/Configurator/RendererGenerators/Unformatted.php',
@@ -2163,10 +2149,10 @@ class ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitbf9f0e1d00158eb46e2937b252569f3a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit091ee507e950562916a7b9e983cb8bba::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit091ee507e950562916a7b9e983cb8bba::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit091ee507e950562916a7b9e983cb8bba::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit091ee507e950562916a7b9e983cb8bba::$classMap;
 
         }, null, ClassLoader::class);
     }
