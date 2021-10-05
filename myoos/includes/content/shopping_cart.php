@@ -60,21 +60,21 @@ if (isset($_SESSION)) {
 					if (isset($_POST['postcode'])) {
 						$postcode = oos_db_prepare_input($_POST['postcode']);		
 						$postcode = strtoupper($postcode);
-/* todo: postcode
+						/* todo: postcode
 						if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
 							$oMessage->add('danger', $aLang['entry_post_code_error']);
 						}
-*/
+						*/
 					}
 
 					if (isset($_POST['city'])) {
 						$city = oos_db_prepare_input($_POST['city']);
 						$city = oos_remove_shouting($city);	
-/* todo: city	
+						/* todo: city	
 						if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
 							$oMessage->add('danger', $aLang['entry_city_error']);
 						}
-*/
+						*/
 					}
 			}
 

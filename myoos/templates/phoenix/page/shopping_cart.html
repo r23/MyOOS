@@ -103,16 +103,15 @@
 										{if $product.products_quantity_order_units > 1 }
 											<p>{$lang.products_order_qty_unit_text} {$product.products_quantity_order_units|quantity}</p>
 										{/if}							
-<!-- 																    
-    if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
-		reset($products[$i]['attributes']);
-		<ul class="list-unstyled mb-0">
-			foreach($products[$i]['attributes'] as $option => $value) {		  
-				'<li> - ' . $products[$i][$option]['products_options_name'] . ' ' . $products[$i][$option]['products_options_values_name'] . '</li>';
-			}
-	  </ul>
-    }
- -->
+	
+							
+										
+										{if ( isset($product.attributes) && is_array($product.attributes) )}						
+											{foreach key=key item=item from=$product.attributes}
+												<br><nobr><small>&nbsp;<i> - {$product.$key.products_options_name} : {$product.$key.products_options_values_name}</i></small></nobr>
+											{/foreach}
+										{/if}
+
 											<p><a href="{product_link products_id=$product.id}">{$lang.text_modify}</a> | <a href="{html_href_link content=$filename.shopping_cart action=add_wishlist products_id=$product.id}">{$lang.text_on_memo}</a></p>
 										</div>
 									</td>
