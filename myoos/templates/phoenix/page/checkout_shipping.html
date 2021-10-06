@@ -73,34 +73,44 @@
 
 				{if $counts_shipping_modules > 0 }
  
- 						<div class="page-header">
-							<h4>{$lang.table_heading_shipping_method}</h4>
-						</div>
-						
-					{if sizeof($quotes) > 1 }
 
-						<div class="row shipping-info">
-							<div class="col-10">
-								<p>{$lang.text_choose_shipping_method}</p>
-							</div>
-							<div class="col-2">
-								<strong>{$lang.title_please_select}</strong>
-							</div>
-						</div>	
-	
-					{elseif $free_shipping eq false }
-						<div class="row shipping-info">
-							<div class="col-12">
-								<p>{$lang.text_enter_shipping_information}</p>
-							</div>
-						</div>
-					{/if}
-
+		
 					{if $free_shipping eq true }
 
 						<div class="page-header">
 							<h4>{$lang.free_shipping_title} {$quotes[i].icon}</h4>
 						</div>
+
+						
+					{else}
+
+ 						<div class="page-header">
+							<h4>{$lang.table_heading_shipping_method}</h4>
+						</div>
+
+
+						{if sizeof($quotes) > 1 }
+
+							<div class="row shipping-info">
+								<div class="col-10">
+									<p>{$lang.text_choose_shipping_method}</p>
+								</div>
+								<div class="col-2">
+									<strong>{$lang.title_please_select}</strong>
+								</div>
+							</div>	
+	
+						{elseif $free_shipping eq false }
+							<div class="row shipping-info">
+								<div class="col-12">
+									<p>{$lang.text_enter_shipping_information}</p>
+								</div>
+							</div>
+						{/if}
+					{/if}
+					
+					
+					{if $free_shipping eq true }
 						
 						<p>{$oos_free_shipping_description}</p>
 						<input type="hidden" name="shipping" value="free_free">
