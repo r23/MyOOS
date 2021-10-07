@@ -116,7 +116,7 @@
 										<a href="{html_href_link content=$filename.checkout_payment}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a>
 									</span>
 								</div>	
-								<p>{$order->info.comments|nl2br}></p>
+								<p>{$order->info.comments|nl2br}</p>
 							</div>
 						</div>
 					{/if}						
@@ -131,9 +131,9 @@
 						<p><strong>{$lang.heading_shooping_card}</strong> <a href="{html_href_link content=$filename.shopping_cart}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a></p>
 
 							<div class="table-responsive bg-light">
-								<table class="table">
+								<table class="table table-success">
 									<thead>
-										<tr>
+										<tr class="table-success">
 											<th>{$lang.heading_products}</th>
 											<th></th>
 											<th>{$lang.table_heading_price}</th>
@@ -172,10 +172,9 @@
 								{/foreach}			
 									<tbody>				
 								</table>
-							</div>
-							
-							<div class="table-responsive">
-								<table class="table">
+							</div>					
+							<div class="table-responsive bg-light">
+								<table class="table table-success">
  {if !empty($order_total_output)}
     {$order_total_output}
  {/if}
