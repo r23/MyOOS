@@ -130,7 +130,7 @@
 
 						<p><strong>{$lang.heading_shooping_card}</strong> <a href="{html_href_link content=$filename.shopping_cart}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a></p>
 
-							<div class="table-responsive bg-light">
+							<div class="table-responsive bg-confirmation">
 								<table class="table table-success">
 									<thead>
 										<tr class="table-success">
@@ -173,8 +173,8 @@
 									<tbody>				
 								</table>
 							</div>					
-							<div class="table-responsive bg-light">
-								<table class="table table-success">
+							<div class="table-responsive bg-confirmation">
+								<table class="table">
  {if !empty($order_total_output)}
     {$order_total_output}
  {/if}

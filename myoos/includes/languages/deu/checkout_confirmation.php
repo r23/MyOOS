@@ -48,6 +48,7 @@ $aLang['heading_conditions_text'] = 'Fügen Sie hier Ihren Text zum Widerrufsrec
 
 $aLang['text_checkout_info'] = 'Vor dem Absenden Ihrer Bestellung haben Sie hier die Möglichkeit, die von Ihnen eingegebenen Daten und Artikel zu korrigieren.<br>
 Den Bestellvorgang können Sie jederzeit durch Schließen des Browser-Fensters beenden, oder durch Drücken des <strong>Jetzt zum genannten Preis bestellen</strong> Buttons abschließen.';
-$aLang['text_conditions'] = 'Ich habe die <a href="%s" target="_blank" rel="noopener"><strong>Allgemeinen Geschäftsbedingungen</strong></a> des Anbieters gelesen und erkläre mit dem Absenden der Bestellung mein Einverständnis.<br>
-Die <a href="%s" target="_blank" rel="noopener"><strong>Widerrufsbelehrung/das Muster-Widerrufsformular</strong></a> habe ich zur Kenntnis genommen.<br>
-Ich habe die Bestimmungen der <a href="%s" target="_blank" rel="noopener"><strong>Datenschutzerklärung</strong></a> gelesen und bin mit den dargelegten Bestimmungen einverstanden.';
+
+$aLang['text_conditions'] = 'Bitte beachten Sie unsere <a href="%s" target="_blank" rel="noopener"><strong>Allgemeinen Geschäftsbedingungen</strong></a>.<br>
+Bitte beachten Sie unsere <a href="%s" target="_blank" rel="noopener"><strong>Widerrufsbelehrung und das Muster-Widerrufsformular</strong></a>.<br>
+Bitte beachten Sie unsere <a href="%s" target="_blank" rel="noopener"><strong>Datenschutzerklärung</strong></a>.';
