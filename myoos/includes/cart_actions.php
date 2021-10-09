@@ -422,9 +422,9 @@ switch ($action) {
 		break;
 
 	case 'add_wishlist' :
-		if (isset($_GET['products_id']) && is_numeric($_GET['products_id'])) {
+		if (isset($_GET['products_id'])) {
 			$wishlist_products_id = oos_prepare_input($_GET['products_id']);
-			
+	
 			// start the session
 			if ( $session->hasStarted() === false ) $session->start();
 			if (!isset($_SESSION['customer_id'])) {
@@ -444,10 +444,12 @@ switch ($action) {
 				oos_redirect(oos_href_link($aContents['login']));
 			}
 
+			/*
 			if (oos_has_product_attributes($_GET['products_id'])) {
 				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $wishlist_products_id));
 			}
-
+			*/
+			
 			$customers_wishlisttable = $oostable['customers_wishlist'];
 			$dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($wishlist_products_id) . "'");
 
@@ -458,6 +460,12 @@ switch ($action) {
                                                                     . $dbconn->qstr($wishlist_products_id) . ','
                                                                     . $dbconn->qstr(date('Ymd')) . ")");
 			oos_redirect(oos_href_link($aContents['account_wishlist']));
+			
+/*
+			$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
+			$dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
+*/			
+			
 		}
 		break;	  
 	  
