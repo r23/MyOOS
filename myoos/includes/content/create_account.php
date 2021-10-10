@@ -360,7 +360,8 @@ if ( isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 			$email_text .= $aLang['email_welcome'];
 
-			if (MODULE_ORDER_TOTAL_GV_STATUS == 'true') {
+			$b_gv_status = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
+			if ( $b_gv_status === true ) {
 				if (NEW_SIGNUP_GIFT_VOUCHER_AMOUNT > 0) {
 					$coupon_code = oos_create_coupon_code();
 					$couponstable = $oostable['coupons'];

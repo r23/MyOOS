@@ -25,8 +25,8 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$bGV_status = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
-if ( $bGV_status === false ) {
+$b_gv_status = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
+if ( $b_gv_status === false ) {
 	oos_redirect(oos_href_link($aContents['home']));
 }
 
