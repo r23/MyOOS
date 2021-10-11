@@ -423,7 +423,7 @@ switch ($action) {
 
 	case 'add_wishlist' :
 		if (isset($_GET['products_id'])) {
-			$wishlist_products_id = oos_prepare_input($_GET['products_id']);
+			$wishlist_products_id = oos_get_product_id($_GET['products_id']);
 	
 			// start the session
 			if ( $session->hasStarted() === false ) $session->start();
@@ -443,12 +443,6 @@ switch ($action) {
 				$_SESSION['navigation']->set_snapshot($aPage);
 				oos_redirect(oos_href_link($aContents['login']));
 			}
-
-			/*
-			if (oos_has_product_attributes($_GET['products_id'])) {
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $wishlist_products_id));
-			}
-			*/
 			
 			$customers_wishlisttable = $oostable['customers_wishlist'];
 			$dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($wishlist_products_id) . "'");
@@ -459,13 +453,7 @@ switch ($action) {
                                                                     . $dbconn->qstr($_SESSION['customer_wishlist_link_id']) . ','
                                                                     . $dbconn->qstr($wishlist_products_id) . ','
                                                                     . $dbconn->qstr(date('Ymd')) . ")");
-			oos_redirect(oos_href_link($aContents['account_wishlist']));
-			
-/*
-			$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
-			$dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($_GET['pid']) . "'");
-*/			
-			
+			oos_redirect(oos_href_link($aContents['account_wishlist']));			
 		}
 		break;	  
 	  

@@ -217,17 +217,6 @@ class shoppingCart {
 					$_SESSION['new_products_id_in_cart'] = $sProductsId;
 				}
 
-				/* delete products automatically from the wish list
-				if (isset($_SESSION['customer_wishlist_link_id']) && ($_SESSION['customer_wishlist_link_id'] == $towlid)) {
-					$towlid = '';
-					$customers_wishlisttable = $oostable['customers_wishlist'];
-					$dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($sProductsId) . "'");
-					
-					$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
-					$dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($sProductsId) . "'");
-				}
-				*/
-
 				if ($this->in_cart($sProductsId)) {
 					$this->update_quantity($sProductsId, $nQuantity, $attributes, $towlid);
 				} else {
