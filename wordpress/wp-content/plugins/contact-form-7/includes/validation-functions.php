@@ -54,13 +54,18 @@ function wpcf7_is_date( $date ) {
 function wpcf7_is_mailbox_list( $mailbox_list ) {
 	if ( ! is_array( $mailbox_list ) ) {
 		$mailbox_text = (string) $mailbox_list;
-		$mailbox_text = wp_unslash( $mailbox_text );
 
-		$mailbox_text = preg_replace( '/\\\\(?:\"|\')/', 'esc-quote',
-			$mailbox_text );
+		$mailbox_text = preg_replace(
+			'/\\\\(?:\"|\')/',
+			'esc-quote',
+			$mailbox_text
+		);
 
-		$mailbox_text = preg_replace( '/(?:\".*?\"|\'.*?\')/', 'quoted-string',
-			$mailbox_text );
+		$mailbox_text = preg_replace(
+			'/(?:\".*?\"|\'.*?\')/',
+			'quoted-string',
+			$mailbox_text
+		);
 
 		$mailbox_list = explode( ',', $mailbox_text );
 	}
@@ -73,6 +78,10 @@ function wpcf7_is_mailbox_list( $mailbox_list ) {
 		}
 
 		$mailbox = trim( $mailbox );
+
+		if ( '' === $mailbox ) {
+			continue;
+		}
 
 		if ( preg_match( '/<(.+)>$/', $mailbox, $matches ) ) {
 			$addr_spec = $matches[1];
@@ -154,13 +163,30 @@ function wpcf7_is_email_in_site_domain( $email ) {
 	return false;
 }
 
+
+/**
+ * Verifies that a given file path is under the directories that WordPress
+ * manages for user contents.
+ *
+ * Returns false if the file at the given path doesn't exist yet.
+ *
+ * @param string $path A file path.
+ * @return bool True if the path is under the content directories,
+ *              false otherwise.
+ */
 function wpcf7_is_file_path_in_content_dir( $path ) {
-	if ( 0 === strpos( realpath( $path ), realpath( WP_CONTENT_DIR ) ) ) {
+	if ( $real_path = realpath( $path ) ) {
+		$path = $real_path;
+	} else {
+		return false;
+	}
+
+	if ( 0 === strpos( $path, realpath( WP_CONTENT_DIR ) ) ) {
 		return true;
 	}
 
 	if ( defined( 'UPLOADS' )
-	and 0 === strpos( realpath( $path ), realpath( ABSPATH . UPLOADS ) ) ) {
+	and 0 === strpos( $path, realpath( ABSPATH . UPLOADS ) ) ) {
 		return true;
 	}
 

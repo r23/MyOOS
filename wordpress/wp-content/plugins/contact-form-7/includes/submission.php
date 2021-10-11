@@ -17,6 +17,8 @@ class WPCF7_Submission {
 	private $meta = array();
 	private $consent = array();
 	private $spam_log = array();
+	private $result_props = array();
+
 
 	public static function get_instance( $contact_form = null, $args = '' ) {
 		if ( $contact_form instanceof WPCF7_ContactForm ) {
@@ -36,9 +38,11 @@ class WPCF7_Submission {
 		}
 	}
 
+
 	public static function is_restful() {
 		return defined( 'REST_REQUEST' ) && REST_REQUEST;
 	}
+
 
 	private function __construct( WPCF7_ContactForm $contact_form, $args = '' ) {
 		$args = wp_parse_args( $args, array(
@@ -48,6 +52,7 @@ class WPCF7_Submission {
 		$this->contact_form = $contact_form;
 		$this->skip_mail = (bool) $args['skip_mail'];
 	}
+
 
 	private function proceed() {
 		$contact_form = $this->contact_form;
@@ -108,9 +113,11 @@ class WPCF7_Submission {
 		$this->remove_uploaded_files();
 	}
 
+
 	public function get_status() {
 		return $this->status;
 	}
+
 
 	public function set_status( $status ) {
 		if ( preg_match( '/^[a-z][0-9a-z_]+$/', $status ) ) {
@@ -121,22 +128,75 @@ class WPCF7_Submission {
 		return false;
 	}
 
+
 	public function is( $status ) {
 		return $this->status == $status;
 	}
 
+
+	/**
+	 * Returns an associative array of submission result properties.
+	 *
+	 * @return array Submission result properties.
+	 */
+	public function get_result() {
+		$result = array_merge( $this->result_props, array(
+			'status' => $this->get_status(),
+			'message' => $this->get_response(),
+		) );
+
+		if ( $this->is( 'validation_failed' ) ) {
+			$result['invalid_fields'] = $this->get_invalid_fields();
+		}
+
+		switch ( $this->get_status() ) {
+			case 'init':
+			case 'validation_failed':
+			case 'acceptance_missing':
+			case 'spam':
+				$result['posted_data_hash'] = '';
+				break;
+			default:
+				$result['posted_data_hash'] = $this->get_posted_data_hash();
+				break;
+		}
+
+		$result = apply_filters( 'wpcf7_submission_result', $result, $this );
+
+		return $result;
+	}
+
+
+	/**
+	 * Adds items to the array of submission result properties.
+	 *
+	 * @param string|array|object $args Value to add to result properties.
+	 * @return array Added result properties.
+	 */
+	public function add_result_props( $args = '' ) {
+		$args = wp_parse_args( $args, array() );
+
+		$this->result_props = array_merge( $this->result_props, $args );
+
+		return $args;
+	}
+
+
 	public function get_response() {
 		return $this->response;
 	}
+
 
 	public function set_response( $response ) {
 		$this->response = $response;
 		return true;
 	}
 
+
 	public function get_contact_form() {
 		return $this->contact_form;
 	}
+
 
 	public function get_invalid_field( $name ) {
 		if ( isset( $this->invalid_fields[$name] ) ) {
@@ -146,15 +206,18 @@ class WPCF7_Submission {
 		}
 	}
 
+
 	public function get_invalid_fields() {
 		return $this->invalid_fields;
 	}
+
 
 	public function get_meta( $name ) {
 		if ( isset( $this->meta[$name] ) ) {
 			return $this->meta[$name];
 		}
 	}
+
 
 	private function setup_meta_data() {
 		$timestamp = time();
@@ -170,7 +233,7 @@ class WPCF7_Submission {
 		$url = $this->get_request_url();
 
 		$unit_tag = isset( $_POST['_wpcf7_unit_tag'] )
-			? $_POST['_wpcf7_unit_tag'] : '';
+			? wpcf7_sanitize_unit_tag( $_POST['_wpcf7_unit_tag'] ) : '';
 
 		$container_post_id = isset( $_POST['_wpcf7_container_post'] )
 			? (int) $_POST['_wpcf7_container_post'] : 0;
@@ -194,6 +257,7 @@ class WPCF7_Submission {
 		return $this->meta;
 	}
 
+
 	public function get_posted_data( $name = '' ) {
 		if ( ! empty( $name ) ) {
 			if ( isset( $this->posted_data[$name] ) ) {
@@ -205,6 +269,7 @@ class WPCF7_Submission {
 
 		return $this->posted_data;
 	}
+
 
 	private function setup_posted_data() {
 		$posted_data = array_filter( (array) $_POST, function( $key ) {
@@ -262,7 +327,14 @@ class WPCF7_Submission {
 						-1, 1
 					);
 
-					$tied_item = html_entity_decode( $tied_item, ENT_QUOTES, 'UTF-8' );
+					list( $last_val, $tied_item ) = array_map(
+						function ( $item ) {
+							return wpcf7_canonicalize( $item, array(
+								'strto' => 'as-is',
+							) );
+						},
+						array( $last_val, $tied_item )
+					);
 
 					if ( $last_val === $tied_item ) {
 						$value[] = sprintf( '%s %s',
@@ -290,20 +362,11 @@ class WPCF7_Submission {
 
 		$this->posted_data = apply_filters( 'wpcf7_posted_data', $posted_data );
 
-		$this->posted_data_hash = wp_hash(
-			wpcf7_flat_join( array_merge(
-				array(
-					$this->get_meta( 'remote_ip' ),
-					$this->get_meta( 'remote_port' ),
-					$this->get_meta( 'unit_tag' ),
-				),
-				$this->posted_data
-			) ),
-			'wpcf7_submission'
-		);
+		$this->posted_data_hash = $this->create_posted_data_hash();
 
 		return $this->posted_data;
 	}
+
 
 	private function sanitize_posted_data( $value ) {
 		if ( is_array( $value ) ) {
@@ -316,9 +379,95 @@ class WPCF7_Submission {
 		return $value;
 	}
 
+
+	/**
+	 * Returns the time-dependent variable for hash creation.
+	 *
+	 * @return float Float value rounded up to the next highest integer.
+	 */
+	private function posted_data_hash_tick() {
+		return ceil( time() / ( HOUR_IN_SECONDS / 2 ) );
+	}
+
+
+	/**
+	 * Creates a hash string based on posted data, the remote IP address,
+	 * contact form location, and window of time.
+	 *
+	 * @param string $tick Optional. If not specified, result of
+	 *               posted_data_hash_tick() will be used.
+	 * @return string The hash.
+	 */
+	private function create_posted_data_hash( $tick = '' ) {
+		if ( '' === $tick ) {
+			$tick = $this->posted_data_hash_tick();
+		}
+
+		$hash = wp_hash(
+			wpcf7_flat_join( array_merge(
+				array(
+					$tick,
+					$this->get_meta( 'remote_ip' ),
+					$this->get_meta( 'unit_tag' ),
+				),
+				$this->posted_data
+			) ),
+			'wpcf7_submission'
+		);
+
+		return $hash;
+	}
+
+
+	/**
+	 * Returns the hash string created for this submission.
+	 *
+	 * @return string The current hash for the submission.
+	 */
 	public function get_posted_data_hash() {
 		return $this->posted_data_hash;
 	}
+
+
+	/**
+	 * Verifies that the given string is equivalent to the posted data hash.
+	 *
+	 * @param string $hash Optional. This value will be compared to the
+	 *               current posted data hash for the submission. If not
+	 *               specified, the value of $_POST['_wpcf7_posted_data_hash']
+	 *               will be used.
+	 * @return int|bool 1 if $hash is created 0-30 minutes ago,
+	 *                  2 if $hash is created 30-60 minutes ago,
+	 *                  false if $hash is invalid.
+	 */
+	public function verify_posted_data_hash( $hash = '' ) {
+		if ( '' === $hash and ! empty( $_POST['_wpcf7_posted_data_hash'] ) ) {
+			$hash = trim( $_POST['_wpcf7_posted_data_hash'] );
+		}
+
+		if ( '' === $hash ) {
+			return false;
+		}
+
+		$tick = $this->posted_data_hash_tick();
+
+		// Hash created 0-30 minutes ago.
+		$expected_1 = $this->create_posted_data_hash( $tick );
+
+		if ( hash_equals( $expected_1, $hash ) ) {
+			return 1;
+		}
+
+		// Hash created 30-60 minutes ago.
+		$expected_2 = $this->create_posted_data_hash( $tick - 1 );
+
+		if ( hash_equals( $expected_2, $hash ) ) {
+			return 2;
+		}
+
+		return false;
+	}
+
 
 	private function get_remote_ip_addr() {
 		$ip_addr = '';
@@ -330,6 +479,7 @@ class WPCF7_Submission {
 
 		return apply_filters( 'wpcf7_remote_ip_addr', $ip_addr );
 	}
+
 
 	private function get_request_url() {
 		$home_url = untrailingslashit( home_url() );
@@ -349,6 +499,7 @@ class WPCF7_Submission {
 
 		return $url;
 	}
+
 
 	private function validate() {
 		if ( $this->invalid_fields ) {
@@ -373,18 +524,22 @@ class WPCF7_Submission {
 		return $result->is_valid();
 	}
 
+
 	private function accepted() {
 		return apply_filters( 'wpcf7_acceptance', true, $this );
 	}
+
 
 	public function add_consent( $name, $conditions ) {
 		$this->consent[$name] = $conditions;
 		return true;
 	}
 
+
 	public function collect_consent() {
 		return (array) $this->consent;
 	}
+
 
 	private function spam() {
 		$spam = false;
@@ -426,6 +581,7 @@ class WPCF7_Submission {
 		return apply_filters( 'wpcf7_spam', $spam, $this );
 	}
 
+
 	public function add_spam_log( $args = '' ) {
 		$args = wp_parse_args( $args, array(
 			'agent' => '',
@@ -435,9 +591,11 @@ class WPCF7_Submission {
 		$this->spam_log[] = $args;
 	}
 
+
 	public function get_spam_log() {
 		return $this->spam_log;
 	}
+
 
 	private function verify_nonce() {
 		if ( ! $this->contact_form->nonce_is_active() ) {
@@ -446,6 +604,7 @@ class WPCF7_Submission {
 
 		return wpcf7_verify_nonce( $_POST['_wpnonce'] );
 	}
+
 
 	/* Mail */
 
@@ -460,6 +619,7 @@ class WPCF7_Submission {
 
 		return ! $abort;
 	}
+
 
 	private function mail() {
 		$contact_form = $this->contact_form;
@@ -496,9 +656,11 @@ class WPCF7_Submission {
 		return false;
 	}
 
+
 	public function uploaded_files() {
 		return $this->uploaded_files;
 	}
+
 
 	private function add_uploaded_file( $name, $file_path ) {
 		if ( ! wpcf7_is_name( $name ) ) {
@@ -523,6 +685,7 @@ class WPCF7_Submission {
 		}
 	}
 
+
 	private function remove_uploaded_files() {
 		foreach ( (array) $this->uploaded_files as $file_path ) {
 			$paths = (array) $file_path;
@@ -539,6 +702,7 @@ class WPCF7_Submission {
 			}
 		}
 	}
+
 
 	private function unship_uploaded_files() {
 		$result = new WPCF7_Validation();

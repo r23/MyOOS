@@ -34,14 +34,28 @@ class WPCF7_Pipes {
 		$this->pipes[] = $pipe;
 	}
 
-	public function do_pipe( $before ) {
+	public function do_pipe( $input ) {
+		$input_canonical = wpcf7_canonicalize( $input, array(
+			'strto' => 'as-is',
+		) );
+
 		foreach ( $this->pipes as $pipe ) {
-			if ( $pipe->before == $before ) {
-				return $pipe->after;
+
+			list( $before, $after ) = array_map(
+				function ( $item ) {
+					return wpcf7_canonicalize( $item, array(
+						'strto' => 'as-is',
+					) );
+				},
+				array( $pipe->before, $pipe->after )
+			);
+
+			if ( $input_canonical === $before ) {
+				return $after;
 			}
 		}
 
-		return $before;
+		return $input;
 	}
 
 	public function collect_befores() {

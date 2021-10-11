@@ -29,8 +29,12 @@ if ( is_admin() ) {
 	require_once WPCF7_PLUGIN_DIR . '/includes/controller.php';
 }
 
+
 class WPCF7 {
 
+	/**
+	 * Loads modules from the modules directory.
+	 */
 	public static function load_modules() {
 		self::load_module( 'acceptance' );
 		self::load_module( 'akismet' );
@@ -50,11 +54,19 @@ class WPCF7 {
 		self::load_module( 'response' );
 		self::load_module( 'select' );
 		self::load_module( 'sendinblue' );
+		self::load_module( 'stripe' );
 		self::load_module( 'submit' );
 		self::load_module( 'text' );
 		self::load_module( 'textarea' );
 	}
 
+
+	/**
+	 * Loads the specified module.
+	 *
+	 * @param string $mod Name of module.
+	 * @return bool True on success, false on failure.
+	 */
 	protected static function load_module( $mod ) {
 		$dir = WPCF7_PLUGIN_MODULES_DIR;
 
@@ -77,6 +89,16 @@ class WPCF7 {
 		return false;
 	}
 
+
+	/**
+	 * Retrieves a named entry from the option array of Contact Form 7.
+	 *
+	 * @param string $name Array item key.
+	 * @param mixed $default Optional. Default value to return if the entry
+	 *                       does not exist. Default false.
+	 * @return mixed Array value tied to the $name key. If nothing found,
+	 *               the $default value will be returned.
+	 */
 	public static function get_option( $name, $default = false ) {
 		$option = get_option( 'wpcf7' );
 
@@ -91,6 +113,13 @@ class WPCF7 {
 		}
 	}
 
+
+	/**
+	 * Update an entry value on the option array of Contact Form 7.
+	 *
+	 * @param string $name Array item key.
+	 * @param mixed $value Option value.
+	 */
 	public static function update_option( $name, $value ) {
 		$option = get_option( 'wpcf7' );
 		$option = ( false === $option ) ? array() : (array) $option;
@@ -99,18 +128,25 @@ class WPCF7 {
 	}
 }
 
+
 add_action( 'plugins_loaded', 'wpcf7', 10, 0 );
 
+/**
+ * Loads modules and registers WordPress shortcodes.
+ */
 function wpcf7() {
 	WPCF7::load_modules();
 
-	/* Shortcodes */
 	add_shortcode( 'contact-form-7', 'wpcf7_contact_form_tag_func' );
 	add_shortcode( 'contact-form', 'wpcf7_contact_form_tag_func' );
 }
 
+
 add_action( 'init', 'wpcf7_init', 10, 0 );
 
+/**
+ * Registers post types for contact forms.
+ */
 function wpcf7_init() {
 	wpcf7_get_request_uri();
 	wpcf7_register_post_types();
@@ -118,8 +154,12 @@ function wpcf7_init() {
 	do_action( 'wpcf7_init' );
 }
 
+
 add_action( 'admin_init', 'wpcf7_upgrade', 10, 0 );
 
+/**
+ * Upgrades option data when necessary.
+ */
 function wpcf7_upgrade() {
 	$old_ver = WPCF7::get_option( 'version', '0' );
 	$new_ver = WPCF7_VERSION;
@@ -133,10 +173,13 @@ function wpcf7_upgrade() {
 	WPCF7::update_option( 'version', $new_ver );
 }
 
-/* Install and default settings */
 
 add_action( 'activate_' . WPCF7_PLUGIN_BASENAME, 'wpcf7_install', 10, 0 );
 
+/**
+ * Callback tied to plugin activation action hook. Attempts to create
+ * initial user dataset.
+ */
 function wpcf7_install() {
 	if ( $opt = get_option( 'wpcf7' ) ) {
 		return;

@@ -77,7 +77,7 @@ function wpcf7_unship_uploaded_file( $file, $args = '' ) {
 		}
 
 		$filename = $name;
-		$filename = wpcf7_canonicalize( $filename, 'as-is' );
+		$filename = wpcf7_canonicalize( $filename, array( 'strto' => 'as-is' ) );
 		$filename = wpcf7_antiscript_file_name( $filename );
 
 		$filename = apply_filters( 'wpcf7_upload_file_name',
@@ -109,6 +109,10 @@ add_filter(
 	10, 1
 );
 
+/**
+ * A wpcf7_messages filter callback that adds messages for
+ * file-uploading fields.
+ */
 function wpcf7_file_messages( $messages ) {
 	return array_merge( $messages, array(
 		'upload_failed' => array(
@@ -140,6 +144,10 @@ add_filter(
 	10, 1
 );
 
+/**
+ * A wpcf7_form_enctype filter callback that sets the enctype attribute
+ * to multipart/form-data if the form has file-uploading fields.
+ */
 function wpcf7_file_form_enctype_filter( $enctype ) {
 	$multipart = (bool) wpcf7_scan_form_tags( array(
 		'feature' => 'file-uploading',
@@ -234,9 +242,11 @@ add_action(
 	10, 0
 );
 
+/**
+ * Initializes the temporary directory for uploaded files.
+ */
 function wpcf7_init_uploads() {
 	$dir = wpcf7_upload_tmp_dir();
-	wp_mkdir_p( $dir );
 
 	if ( is_dir( $dir ) and is_writable( $dir ) ) {
 		$htaccess_file = path_join( $dir, '.htaccess' );
@@ -250,6 +260,12 @@ function wpcf7_init_uploads() {
 }
 
 
+/**
+ * Creates a child directory with a randomly generated name.
+ *
+ * @param string $dir The parent directory path.
+ * @return string The child directory path if created, otherwise the parent.
+ */
 function wpcf7_maybe_add_random_dir( $dir ) {
 	do {
 		$rand_max = mt_getrandmax();
@@ -265,12 +281,24 @@ function wpcf7_maybe_add_random_dir( $dir ) {
 }
 
 
+/**
+ * Returns the directory path for uploaded files.
+ *
+ * @return string Directory path.
+ */
 function wpcf7_upload_tmp_dir() {
 	if ( defined( 'WPCF7_UPLOADS_TMP_DIR' ) ) {
-		return WPCF7_UPLOADS_TMP_DIR;
-	} else {
-		return path_join( wpcf7_upload_dir( 'dir' ), 'wpcf7_uploads' );
+		$dir = path_join( WP_CONTENT_DIR, WPCF7_UPLOADS_TMP_DIR );
+		wp_mkdir_p( $dir );
+
+		if ( wpcf7_is_file_path_in_content_dir( $dir ) ) {
+			return $dir;
+		}
 	}
+
+	$dir = path_join( wpcf7_upload_dir( 'dir' ), 'wpcf7_uploads' );
+	wp_mkdir_p( $dir );
+	return $dir;
 }
 
 
@@ -280,6 +308,13 @@ add_action(
 	20, 0
 );
 
+/**
+ * Cleans up files in the temporary directory for uploaded files.
+ *
+ * @param int $seconds Files older than this are removed. Default 60.
+ * @param int $max Maximum number of files to be removed in a function call.
+ *                 Default 100.
+ */
 function wpcf7_cleanup_upload_files( $seconds = 60, $max = 100 ) {
 	if ( is_admin()
 	or 'GET' != $_SERVER['REQUEST_METHOD']
@@ -334,6 +369,9 @@ add_action(
 	10, 3
 );
 
+/**
+ * Displays warning messages about file-uploading fields.
+ */
 function wpcf7_file_display_warning_message( $page, $action, $object ) {
 	if ( $object instanceof WPCF7_ContactForm ) {
 		$contact_form = $object;
