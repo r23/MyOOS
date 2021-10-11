@@ -216,11 +216,13 @@
 								<link itemprop="availability" href="https://schema.org/InStock"/>               
 								<span class="stock-label text-success"><i class="fa fa-check"></i> {$lang.in_stock}</span>
 							</div>					
-						</form>
 						
-                        <div class="others_info_area mb-15 d-flex">
-                            <a class="add_to_wishlist" href="{html_href_link content=$filename.account_wishlist action=add_wishlist products_id=$product_info.products_id}" rel="nofollow"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
-                        </div>
+						
+							<div class="others_info_area mb-15 d-flex">
+								<button type="submit" name="add_wishlist" value="1" class="btn btn-link add_to_wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Artikel merken</button>
+								<a class="add_to_wishlist" href="{html_href_link content=$filename.account_wishlist action=add_wishlist products_id=$product_info.products_id}" rel="nofollow"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</a>
+							</div>
+						</form>
 					{elseif $product_info.products_status eq 4 }
 						<div class="clearfix mb-30">
 							<span class="text-danger"><i class="fa fa-remove"></i> {$lang.text_no_longer_available}
