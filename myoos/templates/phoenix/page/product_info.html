@@ -212,14 +212,14 @@
 								<p>{$lang.products_order_qty_unit_text} {$product_info.products_quantity_order_units|quantity}</p>
 							{/if}							
 
-							<div class="stock-status available">
+							<div class="stock-status available mb-15 d-flex">
 								<link itemprop="availability" href="https://schema.org/InStock"/>               
 								<span class="stock-label text-success"><i class="fa fa-check"></i> {$lang.in_stock}</span>
 							</div>					
 						
 						
-							<div class="others_info_area mb-15 d-flex">
-								<button type="submit" name="add_wishlist" value="1" class="btn btn-link add_to_wishlist"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</button>
+							<div class="mb-15 d-flex">
+								<button type="submit" name="add_wishlist" value="1" class="btn btn-link"><i class="fa fa-heart" aria-hidden="true"></i> {$lang.button_add_wishlist}</button>
 							</div>
 						</form>
 					{elseif $product_info.products_status eq 4 }
