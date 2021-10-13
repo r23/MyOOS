@@ -165,6 +165,7 @@ class Screen implements IScreen {
 				'isPro'              => defined( 'RANK_MATH_PRO_FILE' ),
 				'is_front_page'      => Admin_Helper::is_home_page(),
 				'trendsUpgradeLink'  => esc_url_raw( $trends_link ),
+				'trendsUpgradeLabel' => esc_html__( 'Upgrade', 'rank-math' ),
 				'trendsPreviewImage' => esc_url( rank_math()->plugin_url() . 'assets/admin/img/trends-preview.jpg' ),
 			]
 		);

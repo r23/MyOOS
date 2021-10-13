@@ -130,6 +130,8 @@ class Assets implements Runner {
 			]
 		);
 
+		Helper::add_json( 'capitalizeTitle', Helper::get_settings( 'titles.capitalize_titles' ) );
+
 		/**
 		 * Allow other plugins to register/deregister admin styles or scripts after plugin assets.
 		 */

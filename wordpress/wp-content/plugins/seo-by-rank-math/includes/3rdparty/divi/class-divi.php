@@ -125,12 +125,14 @@ class Divi {
 				'nonce' => ( wp_installing() && ! is_multisite() ) ? '' : wp_create_nonce( 'wp_rest' ),
 			]
 		);
+
 		Helper::add_json(
 			'keywordsApi',
 			[
 				'url' => 'https://rankmathapi.com/ltkw/v1/',
 			]
 		);
+
 		Helper::add_json(
 			'validationl10n',
 			[
@@ -140,6 +142,9 @@ class Divi {
 				'urlErrorDefault'      => __( 'Please enter a valid URL.', 'rank-math' ),
 			]
 		);
+
+		Helper::add_json( 'capitalizeTitle', Helper::get_settings( 'titles.capitalize_titles' ) );
+
 		if ( is_admin_bar_showing() && Helper::has_cap( 'admin_bar' ) ) {
 			Helper::add_json( 'objectID', get_the_ID() );
 			Helper::add_json( 'objectType', 'post' );
@@ -168,7 +173,6 @@ class Divi {
 			'wp-media-utils',
 			'tagify',
 			'rank-math-analyzer',
-			'rank-math-schema',
 		];
 
 		if ( is_admin_bar_showing() && Helper::has_cap( 'admin_bar' ) ) {
@@ -177,16 +181,19 @@ class Divi {
 		}
 
 		wp_enqueue_style( 'wp-components' );
-		wp_enqueue_style( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/css/schema.css', [ 'wp-components' ], rank_math()->version );
 		wp_enqueue_style( 'rank-math-divi', rank_math()->plugin_url() . 'assets/admin/css/divi.css', [], rank_math()->version );
 
 		wp_register_script( 'tagify', rank_math()->plugin_url() . 'assets/vendor/tagify/tagify.min.js', null, '2.31.6', true );
 		wp_register_script( 'rank-math-analyzer', rank_math()->plugin_url() . 'assets/admin/js/analyzer.js', null, rank_math()->version, true );
-		wp_register_script( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/js/schema-gutenberg.js', null, rank_math()->version, true );
 		wp_enqueue_script( 'rank-math-divi', rank_math()->plugin_url() . 'assets/admin/js/divi.js', $divi_deps, rank_math()->version, true );
 		wp_enqueue_script( 'rank-math-divi-iframe', rank_math()->plugin_url() . 'assets/admin/js/divi-iframe.js', [ 'jquery', 'lodash' ], rank_math()->version, true );
 
-		wp_set_script_translations( 'rank-math-schema', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
+		if ( Helper::is_module_active( 'rich-snippet' ) ) {
+			wp_enqueue_style( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/css/schema.css', [ 'wp-components' ], rank_math()->version );
+
+			wp_enqueue_script( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/js/schema-gutenberg.js', [ 'rank-math-divi' ], rank_math()->version, true );
+			wp_set_script_translations( 'rank-math-schema', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
+		}
 
 		rank_math()->variables->setup();
 		rank_math()->variables->setup_json();

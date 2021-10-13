@@ -362,10 +362,7 @@ class Image_Parser {
 	 * @return array A list of arrays, each containing gallery data.
 	 */
 	private function get_content_galleries( $content ) {
-		if (
-			! has_shortcode( $content, 'gallery' ) ||
-			! preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER )
-		) {
+		if ( ! preg_match_all( '/' . get_shortcode_regex( [ 'gallery' ] ) . '/s', $content, $matches, PREG_SET_ORDER ) ) {
 			return [];
 		}
 

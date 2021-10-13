@@ -74,7 +74,7 @@ $cmb->add_field(
 		'id'      => 'capitalize_titles',
 		'type'    => 'toggle',
 		'name'    => esc_html__( 'Capitalize Titles', 'rank-math' ),
-		'desc'    => esc_html__( 'Automatically capitalize the first character of all title tags.', 'rank-math' ),
+		'desc'    => esc_html__( 'Automatically capitalize the first character of each word in the titles.', 'rank-math' ),
 		'default' => 'off',
 	]
 );

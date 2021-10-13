@@ -70,7 +70,9 @@ class Head {
 		}
 
 		// Remove core robots data.
-		remove_all_filters( 'wp_robots' );
+		if ( ! is_embed() ) {
+			remove_all_filters( 'wp_robots' );
+		}
 	}
 
 	/**

@@ -85,8 +85,8 @@ class Stats extends Keywords {
 	public function set_date_range( $range = false ) {
 		// Shift 3 days prior.
 		$subtract = DAY_IN_SECONDS * 3;
-		$start    = strtotime( false !== $range ? $range : $this->get_date_from_cookie( 'date_range', '-30 days' ) ) - $subtract;
 		$end      = strtotime( $this->do_filter( 'analytics/end_date', 'today' ) ) - $subtract;
+		$start    = strtotime( false !== $range ? $range : $this->get_date_from_cookie( 'date_range', '-30 days' ), $end ) - $subtract;
 
 		// Timestamp.
 		$this->end   = Helper::get_midnight( $end );

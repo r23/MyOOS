@@ -360,7 +360,6 @@ class Installer {
 					'frontend_seo_score'                  => 'off',
 					'frontend_seo_score_post_types'       => [ 'post' ],
 					'frontend_seo_score_position'         => 'top',
-					'frontend_seo_score'                  => 'off',
 					'setup_mode'                          => 'advanced',
 				]
 			)

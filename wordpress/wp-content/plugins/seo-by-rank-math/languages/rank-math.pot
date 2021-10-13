@@ -1862,6 +1862,9 @@ msgstr ""
 msgid "The featured image should be at least 200 by 200 pixels to be picked up by Facebook and other social media sites."
 msgstr ""
 
+msgid "Upgrade"
+msgstr ""
+
 msgid "username"
 msgstr ""
 
@@ -3406,10 +3409,7 @@ msgstr ""
 msgid "Database Table: Keyword Manager"
 msgstr ""
 
-msgid "Created"
-msgstr ""
-
-msgid "Doesn't exists"
+msgid "Not found"
 msgstr ""
 
 msgid "This update will install a beta version of Rank Math."
@@ -3827,7 +3827,7 @@ msgstr ""
 msgid "Capitalize Titles"
 msgstr ""
 
-msgid "Automatically capitalize the first character of all title tags."
+msgid "Automatically capitalize the first character of each word in the titles."
 msgstr ""
 
 msgid "OpenGraph Thumbnail"
@@ -4229,13 +4229,13 @@ msgid "Less"
 msgstr ""
 
 #. translators: php version
-msgid "Your PHP Version: %s | Recommended version: 7.2 | Minimal required: 5.4"
+msgid "Your PHP Version: %s | Recommended version: 7.4 | Minimal required: 7.2"
 msgstr ""
 
 msgid "Your PHP Version: %s"
 msgstr ""
 
-msgid "Recommended: PHP 7.2 or later"
+msgid "Recommended: PHP 7.4 or later"
 msgstr ""
 
 msgid "Rank Math is compatible with your PHP version but we recommend updating to PHP 7.2 for increased speed and security."

@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.73
+Stable tag: 1.0.74
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -120,9 +120,9 @@ Even with significantly more features than other plugins, Rank Math SEO loads am
 
 * **Google AMP SEO** - Accelerated Mobile Pages need to be prepared for search engines. What better way to do that than letting Rank Math SEO use your regular SEO details and optimizing AMPs based on that data?
 
-* **bbPress SEO** - User-generated content in bbPress is properly optimized with Rank Math handling all the important SEO aspects. Q&A Schema is added to bbPress topics along with other essential meta tags.
+* **bbPress SEO** - User-generated content in bbPress is properly optimized with Rank Math SEO handling all the important SEO aspects. Q&A Schema is added to bbPress topics along with other essential meta tags.
 
-* **BuddyPress SEO** - As with bbPress, SEO for BuddyPress content is done automatically done using Rank Math. You get all the options you need to get higher rankings with your user-generated content.
+* **BuddyPress SEO** - As with bbPress, SEO for BuddyPress content is done automatically done using Rank Math SEO. You get all the options you need to get higher rankings with your user-generated content.
 
 * **Quick Edit SEO Details** - Go through a lot of posts/pages quickly by ensuring they are optimized for search engines. Quickly edit multiple SEO fields at once using Rank Math SEO.
 
@@ -562,11 +562,13 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.73 [Sep 29, 2021] =
-* Improved: NGINX configuration related notice can be dismissed in the [Sitemap settings page](https://rankmath.com/kb/configure-sitemaps/?utm_source=Plugin&utm_campaign=WP#general)
-* Fixed: Paginated WooCommerce Product category page with UTF8 slugs were showing 404 error when [Remove category base](https://rankmath.com/kb/general-settings/#remove-category-base) option was enabled
-* Fixed: The `primaryImageofPage` Schema entity was incorrectly added on the Collection Page
-* Fixed: Compatibility issue with [Redux Framework](https://wordpress.org/plugins/redux-framework/) plugin
-* Fixed: [Admin menu bar](https://rankmath.com/kb/quick-actions/#homepage-seo) was showing incorrect options for static Home & Blog page
+= 1.0.74 [Oct 13, 2021] =
+* Improved: The table check on the [System Status page](https://rankmath.com/kb/rank-math-status-and-tools/#system-status) will now show the table size
+* Improved: Updated the recommended PHP version to 7.4 in [Setup Wizard](https://rankmath.com/kb/how-to-setup/). Though, we suggest upgrading to PHP 8
+* Fixed: [Capitalize Titles](https://rankmath.com/kb/titles-and-meta/#capitalize-titles) option was not showing the title capitalized in [SERP Preview](https://rankmath.com/kb/general-tab/#the-preview-section) in the admin area
+* Fixed: Fatal error on some sites when [Schema shortcode](https://rankmath.com/kb/rich-snippets/#shortcode) was used in the [Beaver Builder](https://rankmath.com/compatibility/beaver-builder/)
+* Fixed: Divi Builder was showing the [Schema tab](https://rankmath.com/kb/schema-generator/) even when the Schema module was not enabled
+* Fixed: Sitemap was not showing the images data added using the Gravity View gallery Shortcode
+* Fixed: Robots meta data was getting removed from the embed pages
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

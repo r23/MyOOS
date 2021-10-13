@@ -17,7 +17,7 @@ update_option( 'rank_math_wizard_completed', true );
 
 $php_version           = phpversion();
 $php_version_ok        = version_compare( $php_version, rank_math()->php_version, '>' );
-$php_version_recommend = version_compare( $php_version, '7', '<' );
+$php_version_recommend = version_compare( $php_version, '7.4', '<' );
 
 $dom_ext       = extension_loaded( 'dom' );
 $simplexml_ext = extension_loaded( 'SimpleXML' );
@@ -54,7 +54,7 @@ if ( $all_good ) :
 					printf( esc_html__( 'Your PHP Version: %s', 'rank-math' ), $php_version );
 					if ( $php_version_recommend ) {
 						?>
-						<?php echo ' | ' . esc_html__( 'Recommended: PHP 7.2 or later', 'rank-math' ); ?>
+						<?php echo ' | ' . esc_html__( 'Recommended: PHP 7.4 or later', 'rank-math' ); ?>
 						<p class="description">
 						<?php
 							echo ( ! Helper::is_whitelabel() ) ?
@@ -66,7 +66,7 @@ if ( $all_good ) :
 					}
 				} else {
 					/* translators: php version */
-					printf( esc_html__( 'Your PHP Version: %s | Recommended version: 7.2 | Minimal required: 5.4', 'rank-math' ), $php_version );
+					printf( esc_html__( 'Your PHP Version: %s | Recommended version: 7.4 | Minimal required: 7.2', 'rank-math' ), $php_version );
 				}
 				?>
 			</th>

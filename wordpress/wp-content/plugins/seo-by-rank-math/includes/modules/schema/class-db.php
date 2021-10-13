@@ -99,7 +99,7 @@ class DB {
 		$data = self::table()
 			->select( 'post_id' )
 			->select( 'meta_value' )
-			->whereLike( 'meta_value', $id )
+			->whereLike( 'meta_value', $id, '%:"' )
 			->one();
 
 		if ( ! empty( $data ) ) {
