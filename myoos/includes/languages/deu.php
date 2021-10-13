@@ -429,6 +429,7 @@ $aLang = [
 'error_products_quantity_invalid'           => 'Fehler: Menge: ',
 'error_products_quantity_order_units_text'  => '',
 'error_products_units_invalid'              => 'Fehler: Menge ',
+'error_product_has_attributes'				=> 'Dieses Produkt hat Variationen. Wählen Sie bitte die gewünschte Variation aus.',
 
 'error_destination_does_not_exist'          => 'Fehler: Speicherort existiert nicht.',
 'error_destination_not_writeable'           => 'Fehler: Speicherort ist nicht beschreibbar.',

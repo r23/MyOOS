@@ -442,6 +442,9 @@ $aLang = [
 'error_products_quantity_order_units_text'    => '',
 'error_products_units_invalid'             => 'Invalid Units: ',
 
+'error_product_has_attributes'				=> 'This product has variations. Please select the variation you want.',
+
+
 // File upload ~/includes/classes/oos_upload.php
 'error_destination_does_not_exist'   => 'Error: Destination does not exist.',
 'error_destination_not_writeable'    => 'Error: Destination not writeable.',
