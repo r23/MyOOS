@@ -227,7 +227,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
         oos_redirect(oos_href_link($aContents['403']));
     }
 
-	$passwordLength = 24 ;
+	$passwordLength = 24;
 	$newkey2 = RandomPassword($passwordLength);
 
 	$manual_infotable = $oostable['manual_info'];
