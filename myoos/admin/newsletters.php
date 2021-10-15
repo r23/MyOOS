@@ -357,7 +357,7 @@ if (!empty($action)) {
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $newsletters['title']; ?></td>
                 <td class="text-right"><?php echo number_format($newsletters['content_length']) . ' bytes'; ?></td>
                 <td class="text-right"><?php echo $newsletters['module']; ?></td>
-                <td class="text-center"><?php if ($newsletters['status'] == '1') { echo  echo '<i class="fa fa-check" aria-hidden="true"></i>'; } else { echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS); } ?></td>
+                <td class="text-center"><?php if ($newsletters['status'] == '1') { echo '<i class="fa fa-check" aria-hidden="true"></i>'; } else { echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS); } ?></td>
                 <td class="text-center"><?php if ($newsletters['locked'] > 0) { echo oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED); } else { echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED); } ?></td>
                 <td class="text-right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
               </tr>

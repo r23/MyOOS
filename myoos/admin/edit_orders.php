@@ -150,7 +150,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
           $notify_comments = sprintf(EMAIL_TEXT_COMMENTS_UPDATE, $comments) . "\n\n";
         }
         $email = STORE_NAME . "\n" . EMAIL_SEPARATOR . "\n" . EMAIL_TEXT_ORDER_NUMBER . ' ' . $oID . "\n" . EMAIL_TEXT_INVOICE_URL . ' ' . oos_catalog_link($aContents['catalog_account_history_info'], 'order_id=' . $oID) . "\n" . EMAIL_TEXT_DATE_ORDERED . ' ' . oos_date_long($check_status['date_purchased']) . "\n\n" . $notify_comments . sprintf(EMAIL_TEXT_STATUS_UPDATE, $orders_status_array[$status]);
-        oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_text), nl2br($email_text) STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+        oos_mail($check_status['customers_name'], $check_status['customers_email_address'], EMAIL_TEXT_SUBJECT, nl2br($email_text), nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
         $customer_notified = '1';
       }
 
@@ -844,7 +844,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
              '            <td class="smallText" align="center">' . oos_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
              '            <td class="smallText" align="center">';
         if ($orders_history['customer_notified'] == '1') {
-          echo '<i class="fa fa-check" aria-hidden="true"></i>' . "</td>\n"
+          echo '<i class="fa fa-check" aria-hidden="true"></i>' . "</td>\n";
         } else {
           echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS) . "</td>\n";
         }
