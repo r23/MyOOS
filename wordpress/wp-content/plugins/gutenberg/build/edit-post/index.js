@@ -431,7 +431,7 @@ function multipleEnableItems(state = {}, {
  * @return {Object} Updated state.
  */
 
-const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+const preferenceDefaults = (0,external_wp_data_namespaceObject.combineReducers)({
   features(state = {}, action) {
     if (action.type === 'SET_FEATURE_DEFAULTS') {
       const {
@@ -458,7 +458,7 @@ const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp
  * @return {Object} Updated state.
  */
 
-const preferences = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+const preferences = (0,external_wp_data_namespaceObject.combineReducers)({
   features(state = {}, action) {
     if (action.type === 'SET_FEATURE_VALUE') {
       const {
@@ -487,24 +487,7 @@ const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
   preferences
 }));
 //# sourceMappingURL=reducer.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
-/**
- * The identifier for the data store.
- *
- * @type {string}
- */
-const STORE_NAME = 'core/interface';
-//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
 /**
  * Returns an action object used in signalling that an active area should be changed.
  *
@@ -514,7 +497,6 @@ const STORE_NAME = 'core/interface';
  *
  * @return {Object} Action object.
  */
-
 function setSingleEnableItem(itemType, scope, item) {
   return {
     type: 'SET_SINGLE_ENABLE_ITEM',
@@ -599,9 +581,14 @@ function unpinItem(scope, itemId) {
  * @param {string} featureName The feature name.
  */
 
-function* toggleFeature(scope, featureName) {
-  const currentValue = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'isFeatureActive', scope, featureName);
-  yield external_wp_data_namespaceObject.controls.dispatch(STORE_NAME, 'setFeatureValue', scope, featureName, !currentValue);
+function toggleFeature(scope, featureName) {
+  return function ({
+    select,
+    dispatch
+  }) {
+    const currentValue = select.isFeatureActive(scope, featureName);
+    dispatch.setFeatureValue(scope, featureName, !currentValue);
+  };
 }
 /**
  * Returns an action object used in signalling that a feature should be set to
@@ -717,6 +704,14 @@ function isFeatureActive(state, scope, featureName) {
   return !!defaultedFeatureValue;
 }
 //# sourceMappingURL=selectors.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
+/**
+ * The identifier for the data store.
+ *
+ * @type {string}
+ */
+const STORE_NAME = 'core/interface';
+//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -742,7 +737,8 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   reducer: reducer,
   actions: actions_namespaceObject,
   selectors: selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems', 'preferences'],
+  __experimentalUseThunks: true
 }); // Once we build a more generic persistence plugin that works across types of stores
 // we'd be able to replace this with a register call.
 
@@ -750,7 +746,8 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   reducer: reducer,
   actions: actions_namespaceObject,
   selectors: selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems', 'preferences'],
+  __experimentalUseThunks: true
 });
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: external ["wp","plugins"]
@@ -3968,7 +3965,7 @@ function DynamicShortcut({
       aliases: getShortcutAliases(name),
       description: getShortcutDescription(name)
     };
-  });
+  }, [name]);
 
   if (!keyCombination) {
     return null;
@@ -4112,6 +4109,67 @@ function KeyboardShortcutHelpModal({
   };
 })])(KeyboardShortcutHelpModal));
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
+/**
+ * WordPress dependencies
+ */
+
+/** @typedef {{icon: JSX.Element, size?: number} & import('@wordpress/primitives').SVGProps} IconProps */
+
+/**
+ * Return an SVG icon.
+ *
+ * @param {IconProps} props icon is the SVG component to render
+ *                          size is a number specifiying the icon size in pixels
+ *                          Other props will be passed to wrapped SVG component
+ *
+ * @return {JSX.Element}  Icon component
+ */
+
+function Icon({
+  icon,
+  size = 24,
+  ...props
+}) {
+  return (0,external_wp_element_namespaceObject.cloneElement)(icon, {
+    width: size,
+    height: size,
+    ...props
+  });
+}
+
+/* harmony default export */ var icon = (Icon);
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-left.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const chevronLeft = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M14.6 7l-1.2-1L8 12l5.4 6 1.2-1-4.6-5z"
+}));
+/* harmony default export */ var chevron_left = (chevronLeft);
+//# sourceMappingURL=chevron-left.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-right.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const chevronRight = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z"
+}));
+/* harmony default export */ var chevron_right = (chevronRight);
+//# sourceMappingURL=chevron-right.js.map
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/preferences-modal/section.js
 
 
@@ -4638,6 +4696,7 @@ function BlockManager({
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/preferences-modal/index.js
 
 
+
 /**
  * External dependencies
  */
@@ -4645,6 +4704,7 @@ function BlockManager({
 /**
  * WordPress dependencies
  */
+
 
 
 
@@ -4664,6 +4724,21 @@ function BlockManager({
 
 const preferences_modal_MODAL_NAME = 'edit-post/preferences';
 const PREFERENCES_MENU = 'preferences-menu';
+
+function NavigationButton({
+  as: Tag = external_wp_components_namespaceObject.Button,
+  path,
+  isBack = false,
+  ...props
+}) {
+  const navigator = (0,external_wp_components_namespaceObject.__experimentalUseNavigator)();
+  return (0,external_wp_element_namespaceObject.createElement)(Tag, _extends({
+    onClick: () => navigator.push(path, {
+      isBack
+    })
+  }, props));
+}
+
 function PreferencesModal() {
   const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
   const {
@@ -4829,25 +4904,34 @@ function PreferencesModal() {
       orientation: "vertical"
     }, getCurrentTab);
   } else {
-    modalContent = (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigation, {
-      activeMenu: activeMenu,
-      onActivateMenu: setActiveMenu
-    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigationMenu, {
-      menu: PREFERENCES_MENU
-    }, tabs.map(tab => {
-      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigationItem, {
+    modalContent = (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Card, {
+      isBorderless: true
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardBody, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorProvider, {
+      initialPath: "/"
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorScreen, {
+      path: "/"
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, tabs.map(tab => {
+      return (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
         key: tab.name,
-        title: tab.title,
-        navigateToMenu: tab.name
-      });
-    })), sections.map(section => {
-      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigationMenu, {
+        path: tab.name,
+        as: external_wp_components_namespaceObject.__experimentalItem,
+        isAction: true
+      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+        justify: "space-between"
+      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTruncate, null, tab.title)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(icon, {
+        icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_left : chevron_right
+      }))));
+    }))), sections.map(section => {
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorScreen, {
         key: `${section.name}-menu`,
-        menu: section.name,
-        title: section.tabLabel,
-        parentMenu: PREFERENCES_MENU
-      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigationItem, null, section.content));
-    }));
+        path: section.name
+      }, (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+        path: "/",
+        icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_right : chevron_left,
+        isBack: true,
+        "aria-label": (0,external_wp_i18n_namespaceObject.__)('Navigate to the previous view')
+      }, (0,external_wp_i18n_namespaceObject.__)('Back')), (0,external_wp_element_namespaceObject.createElement)("h2", null, section.tabLabel), section.content);
+    }))));
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
@@ -5896,7 +5980,7 @@ function TemplateTitle() {
     return {
       template: _isEditing ? getEditedPostTemplate() : null,
       isEditing: _isEditing,
-      title: getEditedPostAttribute('title')
+      title: getEditedPostAttribute('title') ? getEditedPostAttribute('title') : (0,external_wp_i18n_namespaceObject.__)('Untitled')
     };
   }, []);
   const {
@@ -7452,7 +7536,7 @@ function PluginSidebarEditPost({
       shortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getShortcutRepresentation('core/edit-post/toggle-sidebar'),
       showIconLabels: select(store_store).isFeatureActive('showIconLabels')
     };
-  });
+  }, []);
   return (0,external_wp_element_namespaceObject.createElement)(complementary_area, _extends({
     panelClassName: className,
     className: "edit-post-sidebar",
@@ -7739,37 +7823,6 @@ function TemplatePanel() {
   }), canUserCreate && (0,external_wp_element_namespaceObject.createElement)(actions, null));
 }
 /* harmony default export */ var template = (TemplatePanel);
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
-/**
- * WordPress dependencies
- */
-
-/** @typedef {{icon: JSX.Element, size?: number} & import('@wordpress/primitives').SVGProps} IconProps */
-
-/**
- * Return an SVG icon.
- *
- * @param {IconProps} props icon is the SVG component to render
- *                          size is a number specifiying the icon size in pixels
- *                          Other props will be passed to wrapped SVG component
- *
- * @return {JSX.Element}  Icon component
- */
-
-function Icon({
-  icon,
-  size = 24,
-  ...props
-}) {
-  return (0,external_wp_element_namespaceObject.cloneElement)(icon, {
-    width: size,
-    height: size,
-    ...props
-  });
-}
-
-/* harmony default export */ var icon = (Icon);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/layout.js
 
@@ -8735,7 +8788,7 @@ function Editor({
       template: supportsTemplateMode && isViewable ? getEditedPostTemplate() : null,
       post: postObject
     };
-  });
+  }, [postType, postId]);
   const {
     updatePreferredStyleVariations,
     setIsInserterOpened

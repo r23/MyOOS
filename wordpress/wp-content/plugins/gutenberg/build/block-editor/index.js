@@ -1735,1207 +1735,6 @@ exports.Z = TextareaAutosize_1.TextareaAutosize;
 
 /***/ }),
 
-/***/ 7621:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_RESULT__;// TinyColor v1.4.2
-// https://github.com/bgrins/TinyColor
-// Brian Grinstead, MIT License
-
-(function(Math) {
-
-var trimLeft = /^\s+/,
-    trimRight = /\s+$/,
-    tinyCounter = 0,
-    mathRound = Math.round,
-    mathMin = Math.min,
-    mathMax = Math.max,
-    mathRandom = Math.random;
-
-function tinycolor (color, opts) {
-
-    color = (color) ? color : '';
-    opts = opts || { };
-
-    // If input is already a tinycolor, return itself
-    if (color instanceof tinycolor) {
-       return color;
-    }
-    // If we are called as a function, call using new instead
-    if (!(this instanceof tinycolor)) {
-        return new tinycolor(color, opts);
-    }
-
-    var rgb = inputToRGB(color);
-    this._originalInput = color,
-    this._r = rgb.r,
-    this._g = rgb.g,
-    this._b = rgb.b,
-    this._a = rgb.a,
-    this._roundA = mathRound(100*this._a) / 100,
-    this._format = opts.format || rgb.format;
-    this._gradientType = opts.gradientType;
-
-    // Don't let the range of [0,255] come back in [0,1].
-    // Potentially lose a little bit of precision here, but will fix issues where
-    // .5 gets interpreted as half of the total, instead of half of 1
-    // If it was supposed to be 128, this was already taken care of by `inputToRgb`
-    if (this._r < 1) { this._r = mathRound(this._r); }
-    if (this._g < 1) { this._g = mathRound(this._g); }
-    if (this._b < 1) { this._b = mathRound(this._b); }
-
-    this._ok = rgb.ok;
-    this._tc_id = tinyCounter++;
-}
-
-tinycolor.prototype = {
-    isDark: function() {
-        return this.getBrightness() < 128;
-    },
-    isLight: function() {
-        return !this.isDark();
-    },
-    isValid: function() {
-        return this._ok;
-    },
-    getOriginalInput: function() {
-      return this._originalInput;
-    },
-    getFormat: function() {
-        return this._format;
-    },
-    getAlpha: function() {
-        return this._a;
-    },
-    getBrightness: function() {
-        //http://www.w3.org/TR/AERT#color-contrast
-        var rgb = this.toRgb();
-        return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
-    },
-    getLuminance: function() {
-        //http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
-        var rgb = this.toRgb();
-        var RsRGB, GsRGB, BsRGB, R, G, B;
-        RsRGB = rgb.r/255;
-        GsRGB = rgb.g/255;
-        BsRGB = rgb.b/255;
-
-        if (RsRGB <= 0.03928) {R = RsRGB / 12.92;} else {R = Math.pow(((RsRGB + 0.055) / 1.055), 2.4);}
-        if (GsRGB <= 0.03928) {G = GsRGB / 12.92;} else {G = Math.pow(((GsRGB + 0.055) / 1.055), 2.4);}
-        if (BsRGB <= 0.03928) {B = BsRGB / 12.92;} else {B = Math.pow(((BsRGB + 0.055) / 1.055), 2.4);}
-        return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
-    },
-    setAlpha: function(value) {
-        this._a = boundAlpha(value);
-        this._roundA = mathRound(100*this._a) / 100;
-        return this;
-    },
-    toHsv: function() {
-        var hsv = rgbToHsv(this._r, this._g, this._b);
-        return { h: hsv.h * 360, s: hsv.s, v: hsv.v, a: this._a };
-    },
-    toHsvString: function() {
-        var hsv = rgbToHsv(this._r, this._g, this._b);
-        var h = mathRound(hsv.h * 360), s = mathRound(hsv.s * 100), v = mathRound(hsv.v * 100);
-        return (this._a == 1) ?
-          "hsv("  + h + ", " + s + "%, " + v + "%)" :
-          "hsva(" + h + ", " + s + "%, " + v + "%, "+ this._roundA + ")";
-    },
-    toHsl: function() {
-        var hsl = rgbToHsl(this._r, this._g, this._b);
-        return { h: hsl.h * 360, s: hsl.s, l: hsl.l, a: this._a };
-    },
-    toHslString: function() {
-        var hsl = rgbToHsl(this._r, this._g, this._b);
-        var h = mathRound(hsl.h * 360), s = mathRound(hsl.s * 100), l = mathRound(hsl.l * 100);
-        return (this._a == 1) ?
-          "hsl("  + h + ", " + s + "%, " + l + "%)" :
-          "hsla(" + h + ", " + s + "%, " + l + "%, "+ this._roundA + ")";
-    },
-    toHex: function(allow3Char) {
-        return rgbToHex(this._r, this._g, this._b, allow3Char);
-    },
-    toHexString: function(allow3Char) {
-        return '#' + this.toHex(allow3Char);
-    },
-    toHex8: function(allow4Char) {
-        return rgbaToHex(this._r, this._g, this._b, this._a, allow4Char);
-    },
-    toHex8String: function(allow4Char) {
-        return '#' + this.toHex8(allow4Char);
-    },
-    toRgb: function() {
-        return { r: mathRound(this._r), g: mathRound(this._g), b: mathRound(this._b), a: this._a };
-    },
-    toRgbString: function() {
-        return (this._a == 1) ?
-          "rgb("  + mathRound(this._r) + ", " + mathRound(this._g) + ", " + mathRound(this._b) + ")" :
-          "rgba(" + mathRound(this._r) + ", " + mathRound(this._g) + ", " + mathRound(this._b) + ", " + this._roundA + ")";
-    },
-    toPercentageRgb: function() {
-        return { r: mathRound(bound01(this._r, 255) * 100) + "%", g: mathRound(bound01(this._g, 255) * 100) + "%", b: mathRound(bound01(this._b, 255) * 100) + "%", a: this._a };
-    },
-    toPercentageRgbString: function() {
-        return (this._a == 1) ?
-          "rgb("  + mathRound(bound01(this._r, 255) * 100) + "%, " + mathRound(bound01(this._g, 255) * 100) + "%, " + mathRound(bound01(this._b, 255) * 100) + "%)" :
-          "rgba(" + mathRound(bound01(this._r, 255) * 100) + "%, " + mathRound(bound01(this._g, 255) * 100) + "%, " + mathRound(bound01(this._b, 255) * 100) + "%, " + this._roundA + ")";
-    },
-    toName: function() {
-        if (this._a === 0) {
-            return "transparent";
-        }
-
-        if (this._a < 1) {
-            return false;
-        }
-
-        return hexNames[rgbToHex(this._r, this._g, this._b, true)] || false;
-    },
-    toFilter: function(secondColor) {
-        var hex8String = '#' + rgbaToArgbHex(this._r, this._g, this._b, this._a);
-        var secondHex8String = hex8String;
-        var gradientType = this._gradientType ? "GradientType = 1, " : "";
-
-        if (secondColor) {
-            var s = tinycolor(secondColor);
-            secondHex8String = '#' + rgbaToArgbHex(s._r, s._g, s._b, s._a);
-        }
-
-        return "progid:DXImageTransform.Microsoft.gradient("+gradientType+"startColorstr="+hex8String+",endColorstr="+secondHex8String+")";
-    },
-    toString: function(format) {
-        var formatSet = !!format;
-        format = format || this._format;
-
-        var formattedString = false;
-        var hasAlpha = this._a < 1 && this._a >= 0;
-        var needsAlphaFormat = !formatSet && hasAlpha && (format === "hex" || format === "hex6" || format === "hex3" || format === "hex4" || format === "hex8" || format === "name");
-
-        if (needsAlphaFormat) {
-            // Special case for "transparent", all other non-alpha formats
-            // will return rgba when there is transparency.
-            if (format === "name" && this._a === 0) {
-                return this.toName();
-            }
-            return this.toRgbString();
-        }
-        if (format === "rgb") {
-            formattedString = this.toRgbString();
-        }
-        if (format === "prgb") {
-            formattedString = this.toPercentageRgbString();
-        }
-        if (format === "hex" || format === "hex6") {
-            formattedString = this.toHexString();
-        }
-        if (format === "hex3") {
-            formattedString = this.toHexString(true);
-        }
-        if (format === "hex4") {
-            formattedString = this.toHex8String(true);
-        }
-        if (format === "hex8") {
-            formattedString = this.toHex8String();
-        }
-        if (format === "name") {
-            formattedString = this.toName();
-        }
-        if (format === "hsl") {
-            formattedString = this.toHslString();
-        }
-        if (format === "hsv") {
-            formattedString = this.toHsvString();
-        }
-
-        return formattedString || this.toHexString();
-    },
-    clone: function() {
-        return tinycolor(this.toString());
-    },
-
-    _applyModification: function(fn, args) {
-        var color = fn.apply(null, [this].concat([].slice.call(args)));
-        this._r = color._r;
-        this._g = color._g;
-        this._b = color._b;
-        this.setAlpha(color._a);
-        return this;
-    },
-    lighten: function() {
-        return this._applyModification(lighten, arguments);
-    },
-    brighten: function() {
-        return this._applyModification(brighten, arguments);
-    },
-    darken: function() {
-        return this._applyModification(darken, arguments);
-    },
-    desaturate: function() {
-        return this._applyModification(desaturate, arguments);
-    },
-    saturate: function() {
-        return this._applyModification(saturate, arguments);
-    },
-    greyscale: function() {
-        return this._applyModification(greyscale, arguments);
-    },
-    spin: function() {
-        return this._applyModification(spin, arguments);
-    },
-
-    _applyCombination: function(fn, args) {
-        return fn.apply(null, [this].concat([].slice.call(args)));
-    },
-    analogous: function() {
-        return this._applyCombination(analogous, arguments);
-    },
-    complement: function() {
-        return this._applyCombination(complement, arguments);
-    },
-    monochromatic: function() {
-        return this._applyCombination(monochromatic, arguments);
-    },
-    splitcomplement: function() {
-        return this._applyCombination(splitcomplement, arguments);
-    },
-    triad: function() {
-        return this._applyCombination(triad, arguments);
-    },
-    tetrad: function() {
-        return this._applyCombination(tetrad, arguments);
-    }
-};
-
-// If input is an object, force 1 into "1.0" to handle ratios properly
-// String input requires "1.0" as input, so 1 will be treated as 1
-tinycolor.fromRatio = function(color, opts) {
-    if (typeof color == "object") {
-        var newColor = {};
-        for (var i in color) {
-            if (color.hasOwnProperty(i)) {
-                if (i === "a") {
-                    newColor[i] = color[i];
-                }
-                else {
-                    newColor[i] = convertToPercentage(color[i]);
-                }
-            }
-        }
-        color = newColor;
-    }
-
-    return tinycolor(color, opts);
-};
-
-// Given a string or object, convert that input to RGB
-// Possible string inputs:
-//
-//     "red"
-//     "#f00" or "f00"
-//     "#ff0000" or "ff0000"
-//     "#ff000000" or "ff000000"
-//     "rgb 255 0 0" or "rgb (255, 0, 0)"
-//     "rgb 1.0 0 0" or "rgb (1, 0, 0)"
-//     "rgba (255, 0, 0, 1)" or "rgba 255, 0, 0, 1"
-//     "rgba (1.0, 0, 0, 1)" or "rgba 1.0, 0, 0, 1"
-//     "hsl(0, 100%, 50%)" or "hsl 0 100% 50%"
-//     "hsla(0, 100%, 50%, 1)" or "hsla 0 100% 50%, 1"
-//     "hsv(0, 100%, 100%)" or "hsv 0 100% 100%"
-//
-function inputToRGB(color) {
-
-    var rgb = { r: 0, g: 0, b: 0 };
-    var a = 1;
-    var s = null;
-    var v = null;
-    var l = null;
-    var ok = false;
-    var format = false;
-
-    if (typeof color == "string") {
-        color = stringInputToObject(color);
-    }
-
-    if (typeof color == "object") {
-        if (isValidCSSUnit(color.r) && isValidCSSUnit(color.g) && isValidCSSUnit(color.b)) {
-            rgb = rgbToRgb(color.r, color.g, color.b);
-            ok = true;
-            format = String(color.r).substr(-1) === "%" ? "prgb" : "rgb";
-        }
-        else if (isValidCSSUnit(color.h) && isValidCSSUnit(color.s) && isValidCSSUnit(color.v)) {
-            s = convertToPercentage(color.s);
-            v = convertToPercentage(color.v);
-            rgb = hsvToRgb(color.h, s, v);
-            ok = true;
-            format = "hsv";
-        }
-        else if (isValidCSSUnit(color.h) && isValidCSSUnit(color.s) && isValidCSSUnit(color.l)) {
-            s = convertToPercentage(color.s);
-            l = convertToPercentage(color.l);
-            rgb = hslToRgb(color.h, s, l);
-            ok = true;
-            format = "hsl";
-        }
-
-        if (color.hasOwnProperty("a")) {
-            a = color.a;
-        }
-    }
-
-    a = boundAlpha(a);
-
-    return {
-        ok: ok,
-        format: color.format || format,
-        r: mathMin(255, mathMax(rgb.r, 0)),
-        g: mathMin(255, mathMax(rgb.g, 0)),
-        b: mathMin(255, mathMax(rgb.b, 0)),
-        a: a
-    };
-}
-
-
-// Conversion Functions
-// --------------------
-
-// `rgbToHsl`, `rgbToHsv`, `hslToRgb`, `hsvToRgb` modified from:
-// <http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript>
-
-// `rgbToRgb`
-// Handle bounds / percentage checking to conform to CSS color spec
-// <http://www.w3.org/TR/css3-color/>
-// *Assumes:* r, g, b in [0, 255] or [0, 1]
-// *Returns:* { r, g, b } in [0, 255]
-function rgbToRgb(r, g, b){
-    return {
-        r: bound01(r, 255) * 255,
-        g: bound01(g, 255) * 255,
-        b: bound01(b, 255) * 255
-    };
-}
-
-// `rgbToHsl`
-// Converts an RGB color value to HSL.
-// *Assumes:* r, g, and b are contained in [0, 255] or [0, 1]
-// *Returns:* { h, s, l } in [0,1]
-function rgbToHsl(r, g, b) {
-
-    r = bound01(r, 255);
-    g = bound01(g, 255);
-    b = bound01(b, 255);
-
-    var max = mathMax(r, g, b), min = mathMin(r, g, b);
-    var h, s, l = (max + min) / 2;
-
-    if(max == min) {
-        h = s = 0; // achromatic
-    }
-    else {
-        var d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        switch(max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-        }
-
-        h /= 6;
-    }
-
-    return { h: h, s: s, l: l };
-}
-
-// `hslToRgb`
-// Converts an HSL color value to RGB.
-// *Assumes:* h is contained in [0, 1] or [0, 360] and s and l are contained [0, 1] or [0, 100]
-// *Returns:* { r, g, b } in the set [0, 255]
-function hslToRgb(h, s, l) {
-    var r, g, b;
-
-    h = bound01(h, 360);
-    s = bound01(s, 100);
-    l = bound01(l, 100);
-
-    function hue2rgb(p, q, t) {
-        if(t < 0) t += 1;
-        if(t > 1) t -= 1;
-        if(t < 1/6) return p + (q - p) * 6 * t;
-        if(t < 1/2) return q;
-        if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-        return p;
-    }
-
-    if(s === 0) {
-        r = g = b = l; // achromatic
-    }
-    else {
-        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-        var p = 2 * l - q;
-        r = hue2rgb(p, q, h + 1/3);
-        g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1/3);
-    }
-
-    return { r: r * 255, g: g * 255, b: b * 255 };
-}
-
-// `rgbToHsv`
-// Converts an RGB color value to HSV
-// *Assumes:* r, g, and b are contained in the set [0, 255] or [0, 1]
-// *Returns:* { h, s, v } in [0,1]
-function rgbToHsv(r, g, b) {
-
-    r = bound01(r, 255);
-    g = bound01(g, 255);
-    b = bound01(b, 255);
-
-    var max = mathMax(r, g, b), min = mathMin(r, g, b);
-    var h, s, v = max;
-
-    var d = max - min;
-    s = max === 0 ? 0 : d / max;
-
-    if(max == min) {
-        h = 0; // achromatic
-    }
-    else {
-        switch(max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-        }
-        h /= 6;
-    }
-    return { h: h, s: s, v: v };
-}
-
-// `hsvToRgb`
-// Converts an HSV color value to RGB.
-// *Assumes:* h is contained in [0, 1] or [0, 360] and s and v are contained in [0, 1] or [0, 100]
-// *Returns:* { r, g, b } in the set [0, 255]
- function hsvToRgb(h, s, v) {
-
-    h = bound01(h, 360) * 6;
-    s = bound01(s, 100);
-    v = bound01(v, 100);
-
-    var i = Math.floor(h),
-        f = h - i,
-        p = v * (1 - s),
-        q = v * (1 - f * s),
-        t = v * (1 - (1 - f) * s),
-        mod = i % 6,
-        r = [v, q, p, p, t, v][mod],
-        g = [t, v, v, q, p, p][mod],
-        b = [p, p, t, v, v, q][mod];
-
-    return { r: r * 255, g: g * 255, b: b * 255 };
-}
-
-// `rgbToHex`
-// Converts an RGB color to hex
-// Assumes r, g, and b are contained in the set [0, 255]
-// Returns a 3 or 6 character hex
-function rgbToHex(r, g, b, allow3Char) {
-
-    var hex = [
-        pad2(mathRound(r).toString(16)),
-        pad2(mathRound(g).toString(16)),
-        pad2(mathRound(b).toString(16))
-    ];
-
-    // Return a 3 character hex if possible
-    if (allow3Char && hex[0].charAt(0) == hex[0].charAt(1) && hex[1].charAt(0) == hex[1].charAt(1) && hex[2].charAt(0) == hex[2].charAt(1)) {
-        return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0);
-    }
-
-    return hex.join("");
-}
-
-// `rgbaToHex`
-// Converts an RGBA color plus alpha transparency to hex
-// Assumes r, g, b are contained in the set [0, 255] and
-// a in [0, 1]. Returns a 4 or 8 character rgba hex
-function rgbaToHex(r, g, b, a, allow4Char) {
-
-    var hex = [
-        pad2(mathRound(r).toString(16)),
-        pad2(mathRound(g).toString(16)),
-        pad2(mathRound(b).toString(16)),
-        pad2(convertDecimalToHex(a))
-    ];
-
-    // Return a 4 character hex if possible
-    if (allow4Char && hex[0].charAt(0) == hex[0].charAt(1) && hex[1].charAt(0) == hex[1].charAt(1) && hex[2].charAt(0) == hex[2].charAt(1) && hex[3].charAt(0) == hex[3].charAt(1)) {
-        return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0) + hex[3].charAt(0);
-    }
-
-    return hex.join("");
-}
-
-// `rgbaToArgbHex`
-// Converts an RGBA color to an ARGB Hex8 string
-// Rarely used, but required for "toFilter()"
-function rgbaToArgbHex(r, g, b, a) {
-
-    var hex = [
-        pad2(convertDecimalToHex(a)),
-        pad2(mathRound(r).toString(16)),
-        pad2(mathRound(g).toString(16)),
-        pad2(mathRound(b).toString(16))
-    ];
-
-    return hex.join("");
-}
-
-// `equals`
-// Can be called with any tinycolor input
-tinycolor.equals = function (color1, color2) {
-    if (!color1 || !color2) { return false; }
-    return tinycolor(color1).toRgbString() == tinycolor(color2).toRgbString();
-};
-
-tinycolor.random = function() {
-    return tinycolor.fromRatio({
-        r: mathRandom(),
-        g: mathRandom(),
-        b: mathRandom()
-    });
-};
-
-
-// Modification Functions
-// ----------------------
-// Thanks to less.js for some of the basics here
-// <https://github.com/cloudhead/less.js/blob/master/lib/less/functions.js>
-
-function desaturate(color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var hsl = tinycolor(color).toHsl();
-    hsl.s -= amount / 100;
-    hsl.s = clamp01(hsl.s);
-    return tinycolor(hsl);
-}
-
-function saturate(color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var hsl = tinycolor(color).toHsl();
-    hsl.s += amount / 100;
-    hsl.s = clamp01(hsl.s);
-    return tinycolor(hsl);
-}
-
-function greyscale(color) {
-    return tinycolor(color).desaturate(100);
-}
-
-function lighten (color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var hsl = tinycolor(color).toHsl();
-    hsl.l += amount / 100;
-    hsl.l = clamp01(hsl.l);
-    return tinycolor(hsl);
-}
-
-function brighten(color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var rgb = tinycolor(color).toRgb();
-    rgb.r = mathMax(0, mathMin(255, rgb.r - mathRound(255 * - (amount / 100))));
-    rgb.g = mathMax(0, mathMin(255, rgb.g - mathRound(255 * - (amount / 100))));
-    rgb.b = mathMax(0, mathMin(255, rgb.b - mathRound(255 * - (amount / 100))));
-    return tinycolor(rgb);
-}
-
-function darken (color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var hsl = tinycolor(color).toHsl();
-    hsl.l -= amount / 100;
-    hsl.l = clamp01(hsl.l);
-    return tinycolor(hsl);
-}
-
-// Spin takes a positive or negative amount within [-360, 360] indicating the change of hue.
-// Values outside of this range will be wrapped into this range.
-function spin(color, amount) {
-    var hsl = tinycolor(color).toHsl();
-    var hue = (hsl.h + amount) % 360;
-    hsl.h = hue < 0 ? 360 + hue : hue;
-    return tinycolor(hsl);
-}
-
-// Combination Functions
-// ---------------------
-// Thanks to jQuery xColor for some of the ideas behind these
-// <https://github.com/infusion/jQuery-xcolor/blob/master/jquery.xcolor.js>
-
-function complement(color) {
-    var hsl = tinycolor(color).toHsl();
-    hsl.h = (hsl.h + 180) % 360;
-    return tinycolor(hsl);
-}
-
-function triad(color) {
-    var hsl = tinycolor(color).toHsl();
-    var h = hsl.h;
-    return [
-        tinycolor(color),
-        tinycolor({ h: (h + 120) % 360, s: hsl.s, l: hsl.l }),
-        tinycolor({ h: (h + 240) % 360, s: hsl.s, l: hsl.l })
-    ];
-}
-
-function tetrad(color) {
-    var hsl = tinycolor(color).toHsl();
-    var h = hsl.h;
-    return [
-        tinycolor(color),
-        tinycolor({ h: (h + 90) % 360, s: hsl.s, l: hsl.l }),
-        tinycolor({ h: (h + 180) % 360, s: hsl.s, l: hsl.l }),
-        tinycolor({ h: (h + 270) % 360, s: hsl.s, l: hsl.l })
-    ];
-}
-
-function splitcomplement(color) {
-    var hsl = tinycolor(color).toHsl();
-    var h = hsl.h;
-    return [
-        tinycolor(color),
-        tinycolor({ h: (h + 72) % 360, s: hsl.s, l: hsl.l}),
-        tinycolor({ h: (h + 216) % 360, s: hsl.s, l: hsl.l})
-    ];
-}
-
-function analogous(color, results, slices) {
-    results = results || 6;
-    slices = slices || 30;
-
-    var hsl = tinycolor(color).toHsl();
-    var part = 360 / slices;
-    var ret = [tinycolor(color)];
-
-    for (hsl.h = ((hsl.h - (part * results >> 1)) + 720) % 360; --results; ) {
-        hsl.h = (hsl.h + part) % 360;
-        ret.push(tinycolor(hsl));
-    }
-    return ret;
-}
-
-function monochromatic(color, results) {
-    results = results || 6;
-    var hsv = tinycolor(color).toHsv();
-    var h = hsv.h, s = hsv.s, v = hsv.v;
-    var ret = [];
-    var modification = 1 / results;
-
-    while (results--) {
-        ret.push(tinycolor({ h: h, s: s, v: v}));
-        v = (v + modification) % 1;
-    }
-
-    return ret;
-}
-
-// Utility Functions
-// ---------------------
-
-tinycolor.mix = function(color1, color2, amount) {
-    amount = (amount === 0) ? 0 : (amount || 50);
-
-    var rgb1 = tinycolor(color1).toRgb();
-    var rgb2 = tinycolor(color2).toRgb();
-
-    var p = amount / 100;
-
-    var rgba = {
-        r: ((rgb2.r - rgb1.r) * p) + rgb1.r,
-        g: ((rgb2.g - rgb1.g) * p) + rgb1.g,
-        b: ((rgb2.b - rgb1.b) * p) + rgb1.b,
-        a: ((rgb2.a - rgb1.a) * p) + rgb1.a
-    };
-
-    return tinycolor(rgba);
-};
-
-
-// Readability Functions
-// ---------------------
-// <http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef (WCAG Version 2)
-
-// `contrast`
-// Analyze the 2 colors and returns the color contrast defined by (WCAG Version 2)
-tinycolor.readability = function(color1, color2) {
-    var c1 = tinycolor(color1);
-    var c2 = tinycolor(color2);
-    return (Math.max(c1.getLuminance(),c2.getLuminance())+0.05) / (Math.min(c1.getLuminance(),c2.getLuminance())+0.05);
-};
-
-// `isReadable`
-// Ensure that foreground and background color combinations meet WCAG2 guidelines.
-// The third argument is an optional Object.
-//      the 'level' property states 'AA' or 'AAA' - if missing or invalid, it defaults to 'AA';
-//      the 'size' property states 'large' or 'small' - if missing or invalid, it defaults to 'small'.
-// If the entire object is absent, isReadable defaults to {level:"AA",size:"small"}.
-
-// *Example*
-//    tinycolor.isReadable("#000", "#111") => false
-//    tinycolor.isReadable("#000", "#111",{level:"AA",size:"large"}) => false
-tinycolor.isReadable = function(color1, color2, wcag2) {
-    var readability = tinycolor.readability(color1, color2);
-    var wcag2Parms, out;
-
-    out = false;
-
-    wcag2Parms = validateWCAG2Parms(wcag2);
-    switch (wcag2Parms.level + wcag2Parms.size) {
-        case "AAsmall":
-        case "AAAlarge":
-            out = readability >= 4.5;
-            break;
-        case "AAlarge":
-            out = readability >= 3;
-            break;
-        case "AAAsmall":
-            out = readability >= 7;
-            break;
-    }
-    return out;
-
-};
-
-// `mostReadable`
-// Given a base color and a list of possible foreground or background
-// colors for that base, returns the most readable color.
-// Optionally returns Black or White if the most readable color is unreadable.
-// *Example*
-//    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:false}).toHexString(); // "#112255"
-//    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:true}).toHexString();  // "#ffffff"
-//    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"large"}).toHexString(); // "#faf3f3"
-//    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"small"}).toHexString(); // "#ffffff"
-tinycolor.mostReadable = function(baseColor, colorList, args) {
-    var bestColor = null;
-    var bestScore = 0;
-    var readability;
-    var includeFallbackColors, level, size ;
-    args = args || {};
-    includeFallbackColors = args.includeFallbackColors ;
-    level = args.level;
-    size = args.size;
-
-    for (var i= 0; i < colorList.length ; i++) {
-        readability = tinycolor.readability(baseColor, colorList[i]);
-        if (readability > bestScore) {
-            bestScore = readability;
-            bestColor = tinycolor(colorList[i]);
-        }
-    }
-
-    if (tinycolor.isReadable(baseColor, bestColor, {"level":level,"size":size}) || !includeFallbackColors) {
-        return bestColor;
-    }
-    else {
-        args.includeFallbackColors=false;
-        return tinycolor.mostReadable(baseColor,["#fff", "#000"],args);
-    }
-};
-
-
-// Big List of Colors
-// ------------------
-// <http://www.w3.org/TR/css3-color/#svg-color>
-var names = tinycolor.names = {
-    aliceblue: "f0f8ff",
-    antiquewhite: "faebd7",
-    aqua: "0ff",
-    aquamarine: "7fffd4",
-    azure: "f0ffff",
-    beige: "f5f5dc",
-    bisque: "ffe4c4",
-    black: "000",
-    blanchedalmond: "ffebcd",
-    blue: "00f",
-    blueviolet: "8a2be2",
-    brown: "a52a2a",
-    burlywood: "deb887",
-    burntsienna: "ea7e5d",
-    cadetblue: "5f9ea0",
-    chartreuse: "7fff00",
-    chocolate: "d2691e",
-    coral: "ff7f50",
-    cornflowerblue: "6495ed",
-    cornsilk: "fff8dc",
-    crimson: "dc143c",
-    cyan: "0ff",
-    darkblue: "00008b",
-    darkcyan: "008b8b",
-    darkgoldenrod: "b8860b",
-    darkgray: "a9a9a9",
-    darkgreen: "006400",
-    darkgrey: "a9a9a9",
-    darkkhaki: "bdb76b",
-    darkmagenta: "8b008b",
-    darkolivegreen: "556b2f",
-    darkorange: "ff8c00",
-    darkorchid: "9932cc",
-    darkred: "8b0000",
-    darksalmon: "e9967a",
-    darkseagreen: "8fbc8f",
-    darkslateblue: "483d8b",
-    darkslategray: "2f4f4f",
-    darkslategrey: "2f4f4f",
-    darkturquoise: "00ced1",
-    darkviolet: "9400d3",
-    deeppink: "ff1493",
-    deepskyblue: "00bfff",
-    dimgray: "696969",
-    dimgrey: "696969",
-    dodgerblue: "1e90ff",
-    firebrick: "b22222",
-    floralwhite: "fffaf0",
-    forestgreen: "228b22",
-    fuchsia: "f0f",
-    gainsboro: "dcdcdc",
-    ghostwhite: "f8f8ff",
-    gold: "ffd700",
-    goldenrod: "daa520",
-    gray: "808080",
-    green: "008000",
-    greenyellow: "adff2f",
-    grey: "808080",
-    honeydew: "f0fff0",
-    hotpink: "ff69b4",
-    indianred: "cd5c5c",
-    indigo: "4b0082",
-    ivory: "fffff0",
-    khaki: "f0e68c",
-    lavender: "e6e6fa",
-    lavenderblush: "fff0f5",
-    lawngreen: "7cfc00",
-    lemonchiffon: "fffacd",
-    lightblue: "add8e6",
-    lightcoral: "f08080",
-    lightcyan: "e0ffff",
-    lightgoldenrodyellow: "fafad2",
-    lightgray: "d3d3d3",
-    lightgreen: "90ee90",
-    lightgrey: "d3d3d3",
-    lightpink: "ffb6c1",
-    lightsalmon: "ffa07a",
-    lightseagreen: "20b2aa",
-    lightskyblue: "87cefa",
-    lightslategray: "789",
-    lightslategrey: "789",
-    lightsteelblue: "b0c4de",
-    lightyellow: "ffffe0",
-    lime: "0f0",
-    limegreen: "32cd32",
-    linen: "faf0e6",
-    magenta: "f0f",
-    maroon: "800000",
-    mediumaquamarine: "66cdaa",
-    mediumblue: "0000cd",
-    mediumorchid: "ba55d3",
-    mediumpurple: "9370db",
-    mediumseagreen: "3cb371",
-    mediumslateblue: "7b68ee",
-    mediumspringgreen: "00fa9a",
-    mediumturquoise: "48d1cc",
-    mediumvioletred: "c71585",
-    midnightblue: "191970",
-    mintcream: "f5fffa",
-    mistyrose: "ffe4e1",
-    moccasin: "ffe4b5",
-    navajowhite: "ffdead",
-    navy: "000080",
-    oldlace: "fdf5e6",
-    olive: "808000",
-    olivedrab: "6b8e23",
-    orange: "ffa500",
-    orangered: "ff4500",
-    orchid: "da70d6",
-    palegoldenrod: "eee8aa",
-    palegreen: "98fb98",
-    paleturquoise: "afeeee",
-    palevioletred: "db7093",
-    papayawhip: "ffefd5",
-    peachpuff: "ffdab9",
-    peru: "cd853f",
-    pink: "ffc0cb",
-    plum: "dda0dd",
-    powderblue: "b0e0e6",
-    purple: "800080",
-    rebeccapurple: "663399",
-    red: "f00",
-    rosybrown: "bc8f8f",
-    royalblue: "4169e1",
-    saddlebrown: "8b4513",
-    salmon: "fa8072",
-    sandybrown: "f4a460",
-    seagreen: "2e8b57",
-    seashell: "fff5ee",
-    sienna: "a0522d",
-    silver: "c0c0c0",
-    skyblue: "87ceeb",
-    slateblue: "6a5acd",
-    slategray: "708090",
-    slategrey: "708090",
-    snow: "fffafa",
-    springgreen: "00ff7f",
-    steelblue: "4682b4",
-    tan: "d2b48c",
-    teal: "008080",
-    thistle: "d8bfd8",
-    tomato: "ff6347",
-    turquoise: "40e0d0",
-    violet: "ee82ee",
-    wheat: "f5deb3",
-    white: "fff",
-    whitesmoke: "f5f5f5",
-    yellow: "ff0",
-    yellowgreen: "9acd32"
-};
-
-// Make it easy to access colors via `hexNames[hex]`
-var hexNames = tinycolor.hexNames = flip(names);
-
-
-// Utilities
-// ---------
-
-// `{ 'name1': 'val1' }` becomes `{ 'val1': 'name1' }`
-function flip(o) {
-    var flipped = { };
-    for (var i in o) {
-        if (o.hasOwnProperty(i)) {
-            flipped[o[i]] = i;
-        }
-    }
-    return flipped;
-}
-
-// Return a valid alpha value [0,1] with all invalid values being set to 1
-function boundAlpha(a) {
-    a = parseFloat(a);
-
-    if (isNaN(a) || a < 0 || a > 1) {
-        a = 1;
-    }
-
-    return a;
-}
-
-// Take input from [0, n] and return it as [0, 1]
-function bound01(n, max) {
-    if (isOnePointZero(n)) { n = "100%"; }
-
-    var processPercent = isPercentage(n);
-    n = mathMin(max, mathMax(0, parseFloat(n)));
-
-    // Automatically convert percentage into number
-    if (processPercent) {
-        n = parseInt(n * max, 10) / 100;
-    }
-
-    // Handle floating point rounding errors
-    if ((Math.abs(n - max) < 0.000001)) {
-        return 1;
-    }
-
-    // Convert into [0, 1] range if it isn't already
-    return (n % max) / parseFloat(max);
-}
-
-// Force a number between 0 and 1
-function clamp01(val) {
-    return mathMin(1, mathMax(0, val));
-}
-
-// Parse a base-16 hex value into a base-10 integer
-function parseIntFromHex(val) {
-    return parseInt(val, 16);
-}
-
-// Need to handle 1.0 as 100%, since once it is a number, there is no difference between it and 1
-// <http://stackoverflow.com/questions/7422072/javascript-how-to-detect-number-as-a-decimal-including-1-0>
-function isOnePointZero(n) {
-    return typeof n == "string" && n.indexOf('.') != -1 && parseFloat(n) === 1;
-}
-
-// Check to see if string passed in is a percentage
-function isPercentage(n) {
-    return typeof n === "string" && n.indexOf('%') != -1;
-}
-
-// Force a hex value to have 2 characters
-function pad2(c) {
-    return c.length == 1 ? '0' + c : '' + c;
-}
-
-// Replace a decimal with it's percentage value
-function convertToPercentage(n) {
-    if (n <= 1) {
-        n = (n * 100) + "%";
-    }
-
-    return n;
-}
-
-// Converts a decimal to a hex value
-function convertDecimalToHex(d) {
-    return Math.round(parseFloat(d) * 255).toString(16);
-}
-// Converts a hex value to a decimal
-function convertHexToDecimal(h) {
-    return (parseIntFromHex(h) / 255);
-}
-
-var matchers = (function() {
-
-    // <http://www.w3.org/TR/css3-values/#integers>
-    var CSS_INTEGER = "[-\\+]?\\d+%?";
-
-    // <http://www.w3.org/TR/css3-values/#number-value>
-    var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
-
-    // Allow positive/negative integer/number.  Don't capture the either/or, just the entire outcome.
-    var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")";
-
-    // Actual matching.
-    // Parentheses and commas are optional, but not required.
-    // Whitespace can take the place of commas or opening paren
-    var PERMISSIVE_MATCH3 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
-    var PERMISSIVE_MATCH4 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
-
-    return {
-        CSS_UNIT: new RegExp(CSS_UNIT),
-        rgb: new RegExp("rgb" + PERMISSIVE_MATCH3),
-        rgba: new RegExp("rgba" + PERMISSIVE_MATCH4),
-        hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
-        hsla: new RegExp("hsla" + PERMISSIVE_MATCH4),
-        hsv: new RegExp("hsv" + PERMISSIVE_MATCH3),
-        hsva: new RegExp("hsva" + PERMISSIVE_MATCH4),
-        hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
-        hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
-        hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
-        hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
-    };
-})();
-
-// `isValidCSSUnit`
-// Take in a single string / number and check to see if it looks like a CSS unit
-// (see `matchers` above for definition).
-function isValidCSSUnit(color) {
-    return !!matchers.CSS_UNIT.exec(color);
-}
-
-// `stringInputToObject`
-// Permissive string parsing.  Take in a number of formats, and output an object
-// based on detected format.  Returns `{ r, g, b }` or `{ h, s, l }` or `{ h, s, v}`
-function stringInputToObject(color) {
-
-    color = color.replace(trimLeft,'').replace(trimRight, '').toLowerCase();
-    var named = false;
-    if (names[color]) {
-        color = names[color];
-        named = true;
-    }
-    else if (color == 'transparent') {
-        return { r: 0, g: 0, b: 0, a: 0, format: "name" };
-    }
-
-    // Try to match string input using regular expressions.
-    // Keep most of the number bounding out of this function - don't worry about [0,1] or [0,100] or [0,360]
-    // Just return an object and let the conversion functions handle that.
-    // This way the result will be the same whether the tinycolor is initialized with string or object.
-    var match;
-    if ((match = matchers.rgb.exec(color))) {
-        return { r: match[1], g: match[2], b: match[3] };
-    }
-    if ((match = matchers.rgba.exec(color))) {
-        return { r: match[1], g: match[2], b: match[3], a: match[4] };
-    }
-    if ((match = matchers.hsl.exec(color))) {
-        return { h: match[1], s: match[2], l: match[3] };
-    }
-    if ((match = matchers.hsla.exec(color))) {
-        return { h: match[1], s: match[2], l: match[3], a: match[4] };
-    }
-    if ((match = matchers.hsv.exec(color))) {
-        return { h: match[1], s: match[2], v: match[3] };
-    }
-    if ((match = matchers.hsva.exec(color))) {
-        return { h: match[1], s: match[2], v: match[3], a: match[4] };
-    }
-    if ((match = matchers.hex8.exec(color))) {
-        return {
-            r: parseIntFromHex(match[1]),
-            g: parseIntFromHex(match[2]),
-            b: parseIntFromHex(match[3]),
-            a: convertHexToDecimal(match[4]),
-            format: named ? "name" : "hex8"
-        };
-    }
-    if ((match = matchers.hex6.exec(color))) {
-        return {
-            r: parseIntFromHex(match[1]),
-            g: parseIntFromHex(match[2]),
-            b: parseIntFromHex(match[3]),
-            format: named ? "name" : "hex"
-        };
-    }
-    if ((match = matchers.hex4.exec(color))) {
-        return {
-            r: parseIntFromHex(match[1] + '' + match[1]),
-            g: parseIntFromHex(match[2] + '' + match[2]),
-            b: parseIntFromHex(match[3] + '' + match[3]),
-            a: convertHexToDecimal(match[4] + '' + match[4]),
-            format: named ? "name" : "hex8"
-        };
-    }
-    if ((match = matchers.hex3.exec(color))) {
-        return {
-            r: parseIntFromHex(match[1] + '' + match[1]),
-            g: parseIntFromHex(match[2] + '' + match[2]),
-            b: parseIntFromHex(match[3] + '' + match[3]),
-            format: named ? "name" : "hex"
-        };
-    }
-
-    return false;
-}
-
-function validateWCAG2Parms(parms) {
-    // return valid WCAG2 parms for isReadable.
-    // If input parms are invalid, return {"level":"AA", "size":"small"}
-    var level, size;
-    parms = parms || {"level":"AA", "size":"small"};
-    level = (parms.level || "AA").toUpperCase();
-    size = (parms.size || "small").toLowerCase();
-    if (level !== "AA" && level !== "AAA") {
-        level = "AA";
-    }
-    if (size !== "small" && size !== "large") {
-        size = "small";
-    }
-    return {"level":level, "size":size};
-}
-
-// Node: Export function
-if ( true && module.exports) {
-    module.exports = tinycolor;
-}
-// AMD/requirejs: Define the module
-else if (true) {
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {return tinycolor;}).call(exports, __webpack_require__, exports, module),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}
-// Browser: Expose to window
-else {}
-
-})(Math);
-
-
-/***/ }),
-
 /***/ 3692:
 /***/ (function(module) {
 
@@ -3469,6 +2268,7 @@ __webpack_require__.d(__webpack_exports__, {
   "getFontSizeObjectByValue": function() { return /* reexport */ getFontSizeObjectByValue; },
   "getGradientSlugByValue": function() { return /* reexport */ getGradientSlugByValue; },
   "getGradientValueBySlug": function() { return /* reexport */ getGradientValueBySlug; },
+  "getPxFromCssUnit": function() { return /* reexport */ parse_css_unit_to_px; },
   "store": function() { return /* reexport */ store; },
   "storeConfig": function() { return /* reexport */ storeConfig; },
   "transformStyles": function() { return /* reexport */ transform_styles; },
@@ -3491,6 +2291,7 @@ __webpack_require__.d(selectors_namespaceObject, {
   "__experimentalGetAllowedBlocks": function() { return __experimentalGetAllowedBlocks; },
   "__experimentalGetAllowedPatterns": function() { return __experimentalGetAllowedPatterns; },
   "__experimentalGetBlockListSettingsForBlocks": function() { return __experimentalGetBlockListSettingsForBlocks; },
+  "__experimentalGetDirectInsertBlock": function() { return __experimentalGetDirectInsertBlock; },
   "__experimentalGetLastBlockAttributeChanges": function() { return __experimentalGetLastBlockAttributeChanges; },
   "__experimentalGetParsedPattern": function() { return __experimentalGetParsedPattern; },
   "__experimentalGetParsedReusableBlock": function() { return __experimentalGetParsedReusableBlock; },
@@ -7536,6 +6337,35 @@ const __experimentalGetAllowedBlocks = rememo((state, rootClientId = null) => {
 
   return (0,external_lodash_namespaceObject.filter)((0,external_wp_blocks_namespaceObject.getBlockTypes)(), blockType => canIncludeBlockTypeInInserter(state, blockType, rootClientId));
 }, (state, rootClientId) => [state.blockListSettings[rootClientId], state.blocks.byClientId, state.settings.allowedBlockTypes, state.settings.templateLock, (0,external_wp_blocks_namespaceObject.getBlockTypes)()]);
+/**
+ * Returns the block to be directly inserted by the block appender.
+ *
+ * @param {Object}  state        Editor state.
+ * @param {?string} rootClientId Optional root client ID of block list.
+ *
+ * @return {?Array} The block type to be directly inserted.
+ */
+
+const __experimentalGetDirectInsertBlock = rememo((state, rootClientId = null) => {
+  var _state$blockListSetti, _state$blockListSetti2;
+
+  if (!rootClientId) {
+    return;
+  }
+
+  const defaultBlock = (_state$blockListSetti = state.blockListSettings[rootClientId]) === null || _state$blockListSetti === void 0 ? void 0 : _state$blockListSetti.__experimentalDefaultBlock;
+  const directInsert = (_state$blockListSetti2 = state.blockListSettings[rootClientId]) === null || _state$blockListSetti2 === void 0 ? void 0 : _state$blockListSetti2.__experimentalDirectInsert;
+
+  if (!defaultBlock || !directInsert) {
+    return;
+  }
+
+  if (typeof directInsert === 'function') {
+    return directInsert(getBlock(state, rootClientId)) ? defaultBlock : null;
+  }
+
+  return defaultBlock;
+}, (state, rootClientId) => [state.blockListSettings[rootClientId], state.blocks.tree[rootClientId]]);
 
 const checkAllowListRecursive = (blocks, allowedBlockTypes) => {
   if ((0,external_lodash_namespaceObject.isBoolean)(allowedBlockTypes)) {
@@ -9405,6 +8235,21 @@ BlockFormatControls.Slot = props => {
 
 /* harmony default export */ var block_controls = (BlockControls);
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/align-none.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const alignNone = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M5 15h14V9H5v6zm0 4.8h14v-1.5H5v1.5zM5 4.2v1.5h14V4.2H5z"
+}));
+/* harmony default export */ var align_none = (alignNone);
+//# sourceMappingURL=align-none.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/position-left.js
 
 
@@ -9431,7 +8276,7 @@ const positionCenter = (0,external_wp_element_namespaceObject.createElement)(ext
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M5 15h14V9H5v6zm0 4.8h14v-1.5H5v1.5zM5 4.2v1.5h14V4.2H5z"
+  d: "M7 9v6h10V9H7zM5 19.8h14v-1.5H5v1.5zM5 4.3v1.5h14V4.3H5z"
 }));
 /* harmony default export */ var position_center = (positionCenter);
 //# sourceMappingURL=position-center.js.map
@@ -9920,7 +8765,7 @@ function Icon({
   });
 }
 
-/* harmony default export */ var icon = (Icon);
+/* harmony default export */ var build_module_icon = (Icon);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/layouts/flow.js
 
@@ -9967,7 +8812,7 @@ function Icon({
         });
       },
       units: units
-    }), (0,external_wp_element_namespaceObject.createElement)(icon, {
+    }), (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
       icon: position_center
     })), (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "block-editor-hooks__layout-controls-unit"
@@ -9983,7 +8828,7 @@ function Icon({
         });
       },
       units: units
-    }), (0,external_wp_element_namespaceObject.createElement)(icon, {
+    }), (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
       icon: stretch_wide
     }))), (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "block-editor-hooks__layout-controls-reset"
@@ -10058,24 +8903,87 @@ function Icon({
   },
 
   getAlignments(layout) {
+    const alignmentInfo = getAlignmentsInfo(layout);
+
     if (layout.alignments !== undefined) {
-      return layout.alignments;
+      if (!layout.alignments.includes('none')) {
+        layout.alignments.unshift('none');
+      }
+
+      return layout.alignments.map(alignment => ({
+        name: alignment,
+        info: alignmentInfo[alignment]
+      }));
     }
 
-    const alignments = ['left', 'center', 'right'];
+    const {
+      contentSize,
+      wideSize
+    } = layout;
+    const alignments = [{
+      name: 'left'
+    }, {
+      name: 'center'
+    }, {
+      name: 'right'
+    }];
 
-    if (layout.contentSize) {
-      alignments.unshift('full');
+    if (contentSize) {
+      alignments.unshift({
+        name: 'full'
+      });
     }
 
-    if (layout.wideSize) {
-      alignments.unshift('wide');
+    if (wideSize) {
+      alignments.unshift({
+        name: 'wide',
+        info: alignmentInfo.wide
+      });
     }
 
+    alignments.unshift({
+      name: 'none',
+      info: alignmentInfo.none
+    });
     return alignments;
   }
 
 });
+/**
+ * Helper method to assign contextual info to clarify
+ * alignment settings.
+ *
+ * Besides checking if `contentSize` and `wideSize` have a
+ * value, we now show this information only if their values
+ * are not a `css var`. This needs to change when parsing
+ * css variables land.
+ *
+ * @see https://github.com/WordPress/gutenberg/pull/34710#issuecomment-918000752
+ *
+ * @param {Object} layout The layout object.
+ * @return {Object} An object with contextual info per alignment.
+ */
+
+function getAlignmentsInfo(layout) {
+  const {
+    contentSize,
+    wideSize
+  } = layout;
+  const alignmentInfo = {};
+  const sizeRegex = /^(?!0)\d+(px|em|rem|vw|vh|%)?$/i;
+
+  if (sizeRegex.test(contentSize)) {
+    // translators: %s: container size (i.e. 600px etc)
+    alignmentInfo.none = (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Max %s wide'), contentSize);
+  }
+
+  if (sizeRegex.test(wideSize)) {
+    // translators: %s: container size (i.e. 600px etc)
+    alignmentInfo.wide = (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Max %s wide'), wideSize);
+  }
+
+  return alignmentInfo;
+}
 //# sourceMappingURL=flow.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/layouts/index.js
 /**
@@ -10160,9 +9068,14 @@ function LayoutStyle({
 
 
 
-const DEFAULT_CONTROLS = ['left', 'center', 'right', 'wide', 'full'];
+const DEFAULT_CONTROLS = ['none', 'left', 'center', 'right', 'wide', 'full'];
 const WIDE_CONTROLS = ['wide', 'full'];
 function useAvailableAlignments(controls = DEFAULT_CONTROLS) {
+  // Always add the `none` option if not exists.
+  if (!controls.includes('none')) {
+    controls.unshift('none');
+  }
+
   const {
     wideControlsEnabled = false,
     themeSupportsLayout
@@ -10181,7 +9094,9 @@ function useAvailableAlignments(controls = DEFAULT_CONTROLS) {
   const layoutAlignments = layoutType.getAlignments(layout);
 
   if (themeSupportsLayout) {
-    return layoutAlignments.filter(control => controls.includes(control));
+    return layoutAlignments.filter(({
+      name: alignmentName
+    }) => controls.includes(alignmentName));
   } // Starting here, it's the fallback for themes not supporting the layout config.
 
 
@@ -10193,7 +9108,9 @@ function useAvailableAlignments(controls = DEFAULT_CONTROLS) {
     alignments: availableAlignments = DEFAULT_CONTROLS
   } = layout;
   const enabledControls = controls.filter(control => (layout.alignments || // Ignore the global wideAlignment check if the layout explicitely defines alignments.
-  wideControlsEnabled || !WIDE_CONTROLS.includes(control)) && availableAlignments.includes(control));
+  wideControlsEnabled || !WIDE_CONTROLS.includes(control)) && availableAlignments.includes(control)).map(enabledControl => ({
+    name: enabledControl
+  }));
   return enabledControls;
 }
 //# sourceMappingURL=use-available-alignments.js.map
@@ -10202,8 +9119,14 @@ function useAvailableAlignments(controls = DEFAULT_CONTROLS) {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
+
+
 
 
 
@@ -10213,6 +9136,10 @@ function useAvailableAlignments(controls = DEFAULT_CONTROLS) {
 
 
 const BLOCK_ALIGNMENTS_CONTROLS = {
+  none: {
+    icon: align_none,
+    title: (0,external_wp_i18n_namespaceObject.__)('None')
+  },
   left: {
     icon: position_left,
     title: (0,external_wp_i18n_namespaceObject.__)('Align left')
@@ -10234,7 +9161,7 @@ const BLOCK_ALIGNMENTS_CONTROLS = {
     title: (0,external_wp_i18n_namespaceObject.__)('Full width')
   }
 };
-const DEFAULT_CONTROL = 'center';
+const DEFAULT_CONTROL = 'none';
 const POPOVER_PROPS = {
   isAlternate: true
 };
@@ -10247,38 +9174,73 @@ function BlockAlignmentUI({
   isCollapsed = true
 }) {
   const enabledControls = useAvailableAlignments(controls);
+  const hasEnabledControls = !!enabledControls.length;
 
-  if (enabledControls.length === 0) {
+  if (!hasEnabledControls) {
     return null;
   }
 
-  function applyOrUnset(align) {
-    return () => onChange(value === align ? undefined : align);
+  function onChangeAlignment(align) {
+    onChange([value, 'none'].includes(align) ? undefined : align);
   }
 
   const activeAlignmentControl = BLOCK_ALIGNMENTS_CONTROLS[value];
   const defaultAlignmentControl = BLOCK_ALIGNMENTS_CONTROLS[DEFAULT_CONTROL];
   const UIComponent = isToolbar ? external_wp_components_namespaceObject.ToolbarGroup : external_wp_components_namespaceObject.ToolbarDropdownMenu;
-  const extraProps = isToolbar ? {
-    isCollapsed
-  } : {};
-  const hasActive = enabledControls.some(control => control === value);
-  return (0,external_wp_element_namespaceObject.createElement)(UIComponent, _extends({
+  const commonProps = {
     popoverProps: POPOVER_PROPS,
     icon: activeAlignmentControl ? activeAlignmentControl.icon : defaultAlignmentControl.icon,
     label: (0,external_wp_i18n_namespaceObject.__)('Align'),
     toggleProps: {
-      describedBy: (0,external_wp_i18n_namespaceObject.__)('Change alignment'),
-      className: hasActive ? 'is-pressed' : undefined
-    },
-    controls: enabledControls.map(control => {
-      return { ...BLOCK_ALIGNMENTS_CONTROLS[control],
-        isActive: value === control,
+      describedBy: (0,external_wp_i18n_namespaceObject.__)('Change alignment')
+    }
+  };
+  const extraProps = isToolbar || external_wp_element_namespaceObject.Platform.isNative ? {
+    isCollapsed: isToolbar ? isCollapsed : undefined,
+    controls: enabledControls.map(({
+      name: controlName
+    }) => {
+      return { ...BLOCK_ALIGNMENTS_CONTROLS[controlName],
+        isActive: value === controlName || !value && controlName === 'none',
         role: isCollapsed ? 'menuitemradio' : undefined,
-        onClick: applyOrUnset(control)
+        onClick: () => onChangeAlignment(controlName)
       };
     })
-  }, extraProps));
+  } : {
+    children: ({
+      onClose
+    }) => {
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
+        className: "block-editor-block-alignment-control__menu-group"
+      }, enabledControls.map(({
+        name: controlName,
+        info
+      }) => {
+        const {
+          icon,
+          title
+        } = BLOCK_ALIGNMENTS_CONTROLS[controlName]; // If no value is provided, mark as selected the `none` option.
+
+        const isSelected = controlName === value || !value && controlName === 'none';
+        return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+          key: controlName,
+          icon: icon,
+          iconPosition: "left",
+          className: classnames_default()('components-dropdown-menu__menu-item', {
+            'is-active': isSelected
+          }),
+          isSelected: isSelected,
+          onClick: () => {
+            onChangeAlignment(controlName);
+            onClose();
+          },
+          role: "menuitemradio",
+          info: info
+        }, title);
+      })));
+    }
+  };
+  return (0,external_wp_element_namespaceObject.createElement)(UIComponent, _extends({}, commonProps, extraProps));
 }
 
 /* harmony default export */ var block_alignment_control_ui = (BlockAlignmentUI);
@@ -10472,7 +9434,7 @@ const withDataAlign = (0,external_wp_compose_namespaceObject.createHigherOrderCo
 
   let wrapperProps = props.wrapperProps;
 
-  if (validAlignments.includes(align)) {
+  if (validAlignments.some(alignment => alignment.name === align)) {
     wrapperProps = { ...wrapperProps,
       'data-align': align
     };
@@ -10657,7 +9619,7 @@ function BlockSupportToolsPanel({
       clientId: selectedBlockClientId,
       attributes: getBlockAttributes(selectedBlockClientId)
     };
-  });
+  }, []);
   const {
     updateBlockAttributes
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
@@ -11032,15 +9994,24 @@ function addGeneratedClassName(extraProps, blockType) {
 }
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.getSaveContent.extraProps', 'core/generated-class-name/save-props', addGeneratedClassName);
 //# sourceMappingURL=generated-class-name.js.map
-// EXTERNAL MODULE: ./node_modules/tinycolor2/tinycolor.js
-var tinycolor = __webpack_require__(7621);
-var tinycolor_default = /*#__PURE__*/__webpack_require__.n(tinycolor);
+;// CONCATENATED MODULE: ./packages/block-editor/node_modules/colord/index.mjs
+var r={grad:.9,turn:360,rad:360/(2*Math.PI)},t=function(r){return"string"==typeof r?r.length>0:"number"==typeof r},n=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=Math.pow(10,t)),Math.round(n*r)/n+0},e=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=1),r>n?n:r>t?r:t},u=function(r){return(r=isFinite(r)?r%360:0)>0?r:r+360},a=function(r){return{r:e(r.r,0,255),g:e(r.g,0,255),b:e(r.b,0,255),a:e(r.a)}},o=function(r){return{r:n(r.r),g:n(r.g),b:n(r.b),a:n(r.a,3)}},i=/^#([0-9a-f]{3,8})$/i,s=function(r){var t=r.toString(16);return t.length<2?"0"+t:t},h=function(r){var t=r.r,n=r.g,e=r.b,u=r.a,a=Math.max(t,n,e),o=a-Math.min(t,n,e),i=o?a===t?(n-e)/o:a===n?2+(e-t)/o:4+(t-n)/o:0;return{h:60*(i<0?i+6:i),s:a?o/a*100:0,v:a/255*100,a:u}},b=function(r){var t=r.h,n=r.s,e=r.v,u=r.a;t=t/360*6,n/=100,e/=100;var a=Math.floor(t),o=e*(1-n),i=e*(1-(t-a)*n),s=e*(1-(1-t+a)*n),h=a%6;return{r:255*[e,i,o,o,s,e][h],g:255*[s,e,e,i,o,o][h],b:255*[o,o,s,e,e,i][h],a:u}},g=function(r){return{h:u(r.h),s:e(r.s,0,100),l:e(r.l,0,100),a:e(r.a)}},d=function(r){return{h:n(r.h),s:n(r.s),l:n(r.l),a:n(r.a,3)}},f=function(r){return b((n=(t=r).s,{h:t.h,s:(n*=((e=t.l)<50?e:100-e)/100)>0?2*n/(e+n)*100:0,v:e+n,a:t.a}));var t,n,e},c=function(r){return{h:(t=h(r)).h,s:(u=(200-(n=t.s))*(e=t.v)/100)>0&&u<200?n*e/100/(u<=100?u:200-u)*100:0,l:u/2,a:t.a};var t,n,e,u},l=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,p=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,v=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,m=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,y={string:[[function(r){var t=i.exec(r);return t?(r=t[1]).length<=4?{r:parseInt(r[0]+r[0],16),g:parseInt(r[1]+r[1],16),b:parseInt(r[2]+r[2],16),a:4===r.length?n(parseInt(r[3]+r[3],16)/255,2):1}:6===r.length||8===r.length?{r:parseInt(r.substr(0,2),16),g:parseInt(r.substr(2,2),16),b:parseInt(r.substr(4,2),16),a:8===r.length?n(parseInt(r.substr(6,2),16)/255,2):1}:null:null},"hex"],[function(r){var t=v.exec(r)||m.exec(r);return t?t[2]!==t[4]||t[4]!==t[6]?null:a({r:Number(t[1])/(t[2]?100/255:1),g:Number(t[3])/(t[4]?100/255:1),b:Number(t[5])/(t[6]?100/255:1),a:void 0===t[7]?1:Number(t[7])/(t[8]?100:1)}):null},"rgb"],[function(t){var n=l.exec(t)||p.exec(t);if(!n)return null;var e,u,a=g({h:(e=n[1],u=n[2],void 0===u&&(u="deg"),Number(e)*(r[u]||1)),s:Number(n[3]),l:Number(n[4]),a:void 0===n[5]?1:Number(n[5])/(n[6]?100:1)});return f(a)},"hsl"]],object:[[function(r){var n=r.r,e=r.g,u=r.b,o=r.a,i=void 0===o?1:o;return t(n)&&t(e)&&t(u)?a({r:Number(n),g:Number(e),b:Number(u),a:Number(i)}):null},"rgb"],[function(r){var n=r.h,e=r.s,u=r.l,a=r.a,o=void 0===a?1:a;if(!t(n)||!t(e)||!t(u))return null;var i=g({h:Number(n),s:Number(e),l:Number(u),a:Number(o)});return f(i)},"hsl"],[function(r){var n=r.h,a=r.s,o=r.v,i=r.a,s=void 0===i?1:i;if(!t(n)||!t(a)||!t(o))return null;var h=function(r){return{h:u(r.h),s:e(r.s,0,100),v:e(r.v,0,100),a:e(r.a)}}({h:Number(n),s:Number(a),v:Number(o),a:Number(s)});return b(h)},"hsv"]]},N=function(r,t){for(var n=0;n<t.length;n++){var e=t[n][0](r);if(e)return[e,t[n][1]]}return[null,void 0]},x=function(r){return"string"==typeof r?N(r.trim(),y.string):"object"==typeof r&&null!==r?N(r,y.object):[null,void 0]},I=function(r){return x(r)[1]},M=function(r,t){var n=c(r);return{h:n.h,s:e(n.s+100*t,0,100),l:n.l,a:n.a}},H=function(r){return(299*r.r+587*r.g+114*r.b)/1e3/255},$=function(r,t){var n=c(r);return{h:n.h,s:n.s,l:e(n.l+100*t,0,100),a:n.a}},j=function(){function r(r){this.parsed=x(r)[0],this.rgba=this.parsed||{r:0,g:0,b:0,a:1}}return r.prototype.isValid=function(){return null!==this.parsed},r.prototype.brightness=function(){return n(H(this.rgba),2)},r.prototype.isDark=function(){return H(this.rgba)<.5},r.prototype.isLight=function(){return H(this.rgba)>=.5},r.prototype.toHex=function(){return r=o(this.rgba),t=r.r,e=r.g,u=r.b,i=(a=r.a)<1?s(n(255*a)):"","#"+s(t)+s(e)+s(u)+i;var r,t,e,u,a,i},r.prototype.toRgb=function(){return o(this.rgba)},r.prototype.toRgbString=function(){return r=o(this.rgba),t=r.r,n=r.g,e=r.b,(u=r.a)<1?"rgba("+t+", "+n+", "+e+", "+u+")":"rgb("+t+", "+n+", "+e+")";var r,t,n,e,u},r.prototype.toHsl=function(){return d(c(this.rgba))},r.prototype.toHslString=function(){return r=d(c(this.rgba)),t=r.h,n=r.s,e=r.l,(u=r.a)<1?"hsla("+t+", "+n+"%, "+e+"%, "+u+")":"hsl("+t+", "+n+"%, "+e+"%)";var r,t,n,e,u},r.prototype.toHsv=function(){return r=h(this.rgba),{h:n(r.h),s:n(r.s),v:n(r.v),a:n(r.a,3)};var r},r.prototype.invert=function(){return w({r:255-(r=this.rgba).r,g:255-r.g,b:255-r.b,a:r.a});var r},r.prototype.saturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,r))},r.prototype.desaturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,-r))},r.prototype.grayscale=function(){return w(M(this.rgba,-1))},r.prototype.lighten=function(r){return void 0===r&&(r=.1),w($(this.rgba,r))},r.prototype.darken=function(r){return void 0===r&&(r=.1),w($(this.rgba,-r))},r.prototype.rotate=function(r){return void 0===r&&(r=15),this.hue(this.hue()+r)},r.prototype.alpha=function(r){return"number"==typeof r?w({r:(t=this.rgba).r,g:t.g,b:t.b,a:r}):n(this.rgba.a,3);var t},r.prototype.hue=function(r){var t=c(this.rgba);return"number"==typeof r?w({h:r,s:t.s,l:t.l,a:t.a}):n(t.h)},r.prototype.isEqual=function(r){return this.toHex()===w(r).toHex()},r}(),w=function(r){return r instanceof j?r:new j(r)},S=[],k=function(r){r.forEach(function(r){S.indexOf(r)<0&&(r(j,y),S.push(r))})},E=function(){return new j({r:255*Math.random(),g:255*Math.random(),b:255*Math.random()})};
+
+;// CONCATENATED MODULE: ./packages/block-editor/node_modules/colord/plugins/names.mjs
+/* harmony default export */ function names(e,f){var a={white:"#ffffff",bisque:"#ffe4c4",blue:"#0000ff",cadetblue:"#5f9ea0",chartreuse:"#7fff00",chocolate:"#d2691e",coral:"#ff7f50",antiquewhite:"#faebd7",aqua:"#00ffff",azure:"#f0ffff",whitesmoke:"#f5f5f5",papayawhip:"#ffefd5",plum:"#dda0dd",blanchedalmond:"#ffebcd",black:"#000000",gold:"#ffd700",goldenrod:"#daa520",gainsboro:"#dcdcdc",cornsilk:"#fff8dc",cornflowerblue:"#6495ed",burlywood:"#deb887",aquamarine:"#7fffd4",beige:"#f5f5dc",crimson:"#dc143c",cyan:"#00ffff",darkblue:"#00008b",darkcyan:"#008b8b",darkgoldenrod:"#b8860b",darkkhaki:"#bdb76b",darkgray:"#a9a9a9",darkgreen:"#006400",darkgrey:"#a9a9a9",peachpuff:"#ffdab9",darkmagenta:"#8b008b",darkred:"#8b0000",darkorchid:"#9932cc",darkorange:"#ff8c00",darkslateblue:"#483d8b",gray:"#808080",darkslategray:"#2f4f4f",darkslategrey:"#2f4f4f",deeppink:"#ff1493",deepskyblue:"#00bfff",wheat:"#f5deb3",firebrick:"#b22222",floralwhite:"#fffaf0",ghostwhite:"#f8f8ff",darkviolet:"#9400d3",magenta:"#ff00ff",green:"#008000",dodgerblue:"#1e90ff",grey:"#808080",honeydew:"#f0fff0",hotpink:"#ff69b4",blueviolet:"#8a2be2",forestgreen:"#228b22",lawngreen:"#7cfc00",indianred:"#cd5c5c",indigo:"#4b0082",fuchsia:"#ff00ff",brown:"#a52a2a",maroon:"#800000",mediumblue:"#0000cd",lightcoral:"#f08080",darkturquoise:"#00ced1",lightcyan:"#e0ffff",ivory:"#fffff0",lightyellow:"#ffffe0",lightsalmon:"#ffa07a",lightseagreen:"#20b2aa",linen:"#faf0e6",mediumaquamarine:"#66cdaa",lemonchiffon:"#fffacd",lime:"#00ff00",khaki:"#f0e68c",mediumseagreen:"#3cb371",limegreen:"#32cd32",mediumspringgreen:"#00fa9a",lightskyblue:"#87cefa",lightblue:"#add8e6",midnightblue:"#191970",lightpink:"#ffb6c1",mistyrose:"#ffe4e1",moccasin:"#ffe4b5",mintcream:"#f5fffa",lightslategray:"#778899",lightslategrey:"#778899",navajowhite:"#ffdead",navy:"#000080",mediumvioletred:"#c71585",powderblue:"#b0e0e6",palegoldenrod:"#eee8aa",oldlace:"#fdf5e6",paleturquoise:"#afeeee",mediumturquoise:"#48d1cc",mediumorchid:"#ba55d3",rebeccapurple:"#663399",lightsteelblue:"#b0c4de",mediumslateblue:"#7b68ee",thistle:"#d8bfd8",tan:"#d2b48c",orchid:"#da70d6",mediumpurple:"#9370db",purple:"#800080",pink:"#ffc0cb",skyblue:"#87ceeb",springgreen:"#00ff7f",palegreen:"#98fb98",red:"#ff0000",yellow:"#ffff00",slateblue:"#6a5acd",lavenderblush:"#fff0f5",peru:"#cd853f",palevioletred:"#db7093",violet:"#ee82ee",teal:"#008080",slategray:"#708090",slategrey:"#708090",aliceblue:"#f0f8ff",darkseagreen:"#8fbc8f",darkolivegreen:"#556b2f",greenyellow:"#adff2f",seagreen:"#2e8b57",seashell:"#fff5ee",tomato:"#ff6347",silver:"#c0c0c0",sienna:"#a0522d",lavender:"#e6e6fa",lightgreen:"#90ee90",orange:"#ffa500",orangered:"#ff4500",steelblue:"#4682b4",royalblue:"#4169e1",turquoise:"#40e0d0",yellowgreen:"#9acd32",salmon:"#fa8072",saddlebrown:"#8b4513",sandybrown:"#f4a460",rosybrown:"#bc8f8f",darksalmon:"#e9967a",lightgoldenrodyellow:"#fafad2",snow:"#fffafa",lightgrey:"#d3d3d3",lightgray:"#d3d3d3",dimgray:"#696969",dimgrey:"#696969",olivedrab:"#6b8e23",olive:"#808000"},r={};for(var d in a)r[a[d]]=d;var l={};e.prototype.toName=function(f){if(!(this.rgba.a||this.rgba.r||this.rgba.g||this.rgba.b))return"transparent";var d,i,n=r[this.toHex()];if(n)return n;if(null==f?void 0:f.closest){var o=this.toRgb(),t=1/0,b="black";if(!l.length)for(var c in a)l[c]=new e(a[c]).toRgb();for(var g in a){var u=(d=o,i=l[g],Math.pow(d.r-i.r,2)+Math.pow(d.g-i.g,2)+Math.pow(d.b-i.b,2));u<t&&(t=u,b=g)}return b}};f.string.push([function(f){var r=f.toLowerCase(),d="transparent"===r?"#0000":a[r];return d?new e(d).toRgb():null},"name"])}
+
+;// CONCATENATED MODULE: ./packages/block-editor/node_modules/colord/plugins/a11y.mjs
+var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors/utils.js
 /**
  * External dependencies
  */
 
 
+
+
+k([names, a11y]);
 /**
  * Provided an array of color objects as set by the theme or by the editor defaults,
  * and the values of the defined color or custom color returns a color object describing the color.
@@ -11111,7 +10082,10 @@ function getColorClassName(colorContextName, colorSlug) {
  */
 
 function getMostReadableColor(colors, colorValue) {
-  return tinycolor_default().mostReadable(colorValue, (0,external_lodash_namespaceObject.map)(colors, 'color')).toHexString();
+  const colordColor = w(colorValue);
+  return (0,external_lodash_namespaceObject.maxBy)(colors, ({
+    color
+  }) => colordColor.contrast(color)).color;
 }
 //# sourceMappingURL=utils.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/gradients/use-gradient.js
@@ -12439,6 +11413,8 @@ const PanelColorGradientSettings = props => {
  * External dependencies
  */
 
+
+
 /**
  * WordPress dependencies
  */
@@ -12447,14 +11423,15 @@ const PanelColorGradientSettings = props => {
 
 
 
+k([names, a11y]);
 
 function ContrastCheckerMessage({
-  tinyBackgroundColor,
-  tinyTextColor,
+  colordBackgroundColor,
+  colordTextColor,
   backgroundColor,
   textColor
 }) {
-  const msg = tinyBackgroundColor.getBrightness() < tinyTextColor.getBrightness() ? (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read. Try using a darker background color and/or a brighter text color.') : (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read. Try using a brighter background color and/or a darker text color.'); // Note: The `Notice` component can speak messages via its `spokenMessage`
+  const msg = colordBackgroundColor.brightness() < colordTextColor.brightness() ? (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read. Try using a darker background color and/or a brighter text color.') : (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read. Try using a brighter background color and/or a darker text color.'); // Note: The `Notice` component can speak messages via its `spokenMessage`
   // prop, but the contrast checker requires granular control over when the
   // announcements are made. Notably, the message will be re-announced if a
   // new color combination is selected and the contrast is still insufficient.
@@ -12484,11 +11461,11 @@ function ContrastChecker({
     return null;
   }
 
-  const tinyBackgroundColor = tinycolor_default()(backgroundColor || fallbackBackgroundColor);
-  const tinyTextColor = tinycolor_default()(textColor || fallbackTextColor);
-  const hasTransparency = tinyBackgroundColor.getAlpha() !== 1 || tinyTextColor.getAlpha() !== 1;
+  const colordBackgroundColor = w(backgroundColor || fallbackBackgroundColor);
+  const colordTextColor = w(textColor || fallbackTextColor);
+  const hasTransparency = colordBackgroundColor.alpha() !== 1 || colordTextColor.alpha() !== 1;
 
-  if (hasTransparency || tinycolor_default().isReadable(tinyBackgroundColor, tinyTextColor, {
+  if (hasTransparency || colordTextColor.isReadable(colordBackgroundColor, {
     level: 'AA',
     size: isLargeText || isLargeText !== false && fontSize >= 24 ? 'large' : 'small'
   })) {
@@ -12498,8 +11475,8 @@ function ContrastChecker({
   return (0,external_wp_element_namespaceObject.createElement)(ContrastCheckerMessage, {
     backgroundColor: backgroundColor,
     textColor: textColor,
-    tinyBackgroundColor: tinyBackgroundColor,
-    tinyTextColor: tinyTextColor
+    colordBackgroundColor: colordBackgroundColor,
+    colordTextColor: colordTextColor
   });
 }
 
@@ -14668,7 +13645,8 @@ function GapEdit(props) {
 
   return external_wp_element_namespaceObject.Platform.select({
     web: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalUnitControl, {
-      label: (0,external_wp_i18n_namespaceObject.__)('Block gap'),
+      label: (0,external_wp_i18n_namespaceObject.__)('Block spacing'),
+      __unstableInputWidth: "80px",
       min: 0,
       onChange: onChange,
       units: units,
@@ -15039,9 +14017,8 @@ function DimensionsPanel(props) {
     isShownByDefault: defaultSpacingControls === null || defaultSpacingControls === void 0 ? void 0 : defaultSpacingControls.margin,
     panelId: props.clientId
   }, (0,external_wp_element_namespaceObject.createElement)(MarginEdit, props)), !isGapDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
-    className: "single-column",
     hasValue: () => hasGapValue(props),
-    label: (0,external_wp_i18n_namespaceObject.__)('Block gap'),
+    label: (0,external_wp_i18n_namespaceObject.__)('Block spacing'),
     onDeselect: () => resetGap(props),
     resetAllFilter: createResetAllFilter('blockGap'),
     isShownByDefault: defaultSpacingControls === null || defaultSpacingControls === void 0 ? void 0 : defaultSpacingControls.blockGap,
@@ -15365,42 +14342,6 @@ const withElementsStyles = (0,external_wp_compose_namespaceObject.createHigherOr
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/style/with-block-controls', withBlockControls);
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockListBlock', 'core/editor/with-elements-styles', withElementsStyles);
 //# sourceMappingURL=style.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/duotone-control/duotone-picker-popover.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-function DuotonePickerPopover({
-  value,
-  onChange,
-  onToggle,
-  duotonePalette,
-  colorPalette,
-  disableCustomColors,
-  disableCustomDuotone
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
-    className: "block-editor-duotone-control__popover",
-    headerTitle: (0,external_wp_i18n_namespaceObject.__)('Duotone'),
-    onFocusOutside: onToggle
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Duotone')
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotonePicker, {
-    colorPalette: colorPalette,
-    duotonePalette: duotonePalette,
-    disableCustomColors: disableCustomColors,
-    disableCustomDuotone: disableCustomDuotone,
-    value: value,
-    onChange: onChange
-  })));
-}
-
-/* harmony default export */ var duotone_picker_popover = (DuotonePickerPopover);
-//# sourceMappingURL=duotone-picker-popover.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/duotone-control/index.js
 
 
@@ -15408,12 +14349,6 @@ function DuotonePickerPopover({
  * WordPress dependencies
  */
 
-
-
-
-/**
- * Internal dependencies
- */
 
 
 
@@ -15425,38 +14360,45 @@ function DuotoneControl({
   value,
   onChange
 }) {
-  const [isOpen, setIsOpen] = (0,external_wp_element_namespaceObject.useState)(false);
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
+    popoverProps: {
+      className: 'block-editor-duotone-control__popover',
+      headerTitle: (0,external_wp_i18n_namespaceObject.__)('Duotone')
+    },
+    renderToggle: ({
+      isOpen,
+      onToggle
+    }) => {
+      const openOnArrowDown = event => {
+        if (!isOpen && event.keyCode === external_wp_keycodes_namespaceObject.DOWN) {
+          event.preventDefault();
+          onToggle();
+        }
+      };
 
-  const onToggle = () => {
-    setIsOpen(prev => !prev);
-  };
-
-  const openOnArrowDown = event => {
-    if (!isOpen && event.keyCode === external_wp_keycodes_namespaceObject.DOWN) {
-      event.preventDefault();
-      onToggle();
-    }
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
-    showTooltip: true,
-    onClick: onToggle,
-    "aria-haspopup": "true",
-    "aria-expanded": isOpen,
-    onKeyDown: openOnArrowDown,
-    label: (0,external_wp_i18n_namespaceObject.__)('Apply duotone filter'),
-    icon: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotoneSwatch, {
-      values: value
-    })
-  }), isOpen && (0,external_wp_element_namespaceObject.createElement)(duotone_picker_popover, {
-    value: value,
-    onChange: onChange,
-    onToggle: onToggle,
-    duotonePalette: duotonePalette,
-    colorPalette: colorPalette,
-    disableCustomColors: disableCustomColors,
-    disableCustomDuotone: disableCustomDuotone
-  }));
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+        showTooltip: true,
+        onClick: onToggle,
+        "aria-haspopup": "true",
+        "aria-expanded": isOpen,
+        onKeyDown: openOnArrowDown,
+        label: (0,external_wp_i18n_namespaceObject.__)('Apply duotone filter'),
+        icon: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotoneSwatch, {
+          values: value
+        })
+      });
+    },
+    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
+      label: (0,external_wp_i18n_namespaceObject.__)('Duotone')
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotonePicker, {
+      colorPalette: colorPalette,
+      duotonePalette: duotonePalette,
+      disableCustomColors: disableCustomColors,
+      disableCustomDuotone: disableCustomDuotone,
+      value: value,
+      onChange: onChange
+    }))
+  });
 }
 
 /* harmony default export */ var duotone_control = (DuotoneControl);
@@ -22159,6 +21101,12 @@ function use_multi_selection_useMultiSelection() {
 
     if (length < 2) {
       return;
+    } // The block refs might not be immediately available
+    // when dragging blocks into another block.
+
+
+    if (!startRef.current || !endRef.current) {
+      return;
     } // For some browsers, like Safari, it is important that focus happens
     // BEFORE selection.
 
@@ -24465,6 +23413,8 @@ const transformStyles = (styles, wrapperClassName = '') => {
  * External dependencies
  */
 
+
+
 /**
  * WordPress dependencies
  */
@@ -24476,6 +23426,7 @@ const transformStyles = (styles, wrapperClassName = '') => {
 
 
 const EDITOR_STYLES_SELECTOR = '.editor-styles-wrapper';
+k([names, a11y]);
 
 function useDarkThemeBodyClassName(styles) {
   return (0,external_wp_element_namespaceObject.useCallback)(node => {
@@ -24504,10 +23455,11 @@ function useDarkThemeBodyClassName(styles) {
       body.removeChild(tempCanvas);
     } else {
       backgroundColor = defaultView.getComputedStyle(canvas, null).getPropertyValue('background-color');
-    } // If background is transparent, it should be treated as light color.
+    }
 
+    const colordBackgroundColor = w(backgroundColor); // If background is transparent, it should be treated as light color.
 
-    if (tinycolor_default()(backgroundColor).getLuminance() > 0.5 || tinycolor_default()(backgroundColor).getAlpha() === 0) {
+    if (colordBackgroundColor.luminance() > 0.5 || colordBackgroundColor.alpha() === 0) {
       body.classList.remove('is-dark-theme');
     } else {
       body.classList.add('is-dark-theme');
@@ -24558,7 +23510,7 @@ function AutoBlockPreview({
   }] = (0,external_wp_compose_namespaceObject.useResizeObserver)();
   const styles = (0,external_wp_data_namespaceObject.useSelect)(select => {
     return select(store).getSettings().styles;
-  }); // Initialize on render instead of module top level, to avoid circular dependency issues.
+  }, []); // Initialize on render instead of module top level, to avoid circular dependency issues.
 
   MemoizedBlockList = MemoizedBlockList || (0,external_wp_compose_namespaceObject.pure)(BlockList);
   const scale = containerWidth / viewportWidth;
@@ -25686,7 +24638,7 @@ var external_wp_url_namespaceObject = window["wp"]["url"];
 function InserterNoResults() {
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-inserter__no-results"
-  }, (0,external_wp_element_namespaceObject.createElement)(icon, {
+  }, (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
     className: "block-editor-inserter__no-results-icon",
     icon: block_default
   }), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('No results found.')));
@@ -26606,6 +25558,7 @@ class Inserter extends external_wp_element_namespaceObject.Component {
       disabled,
       blockTitle,
       hasSingleBlockType,
+      directInsertBlock,
       toggleProps,
       hasItems,
       renderToggle = defaultRenderToggle
@@ -26616,6 +25569,7 @@ class Inserter extends external_wp_element_namespaceObject.Component {
       disabled: disabled || !hasItems,
       blockTitle,
       hasSingleBlockType,
+      directInsertBlock,
       toggleProps
     });
   }
@@ -26669,12 +25623,13 @@ class Inserter extends external_wp_element_namespaceObject.Component {
     const {
       position,
       hasSingleBlockType,
+      directInsertBlock,
       insertOnlyAllowedBlock,
       __experimentalIsQuick: isQuick,
       onSelectOrClose
     } = this.props;
 
-    if (hasSingleBlockType) {
+    if (hasSingleBlockType || directInsertBlock !== null && directInsertBlock !== void 0 && directInsertBlock.length) {
       return this.renderToggle({
         onToggle: insertOnlyAllowedBlock
       });
@@ -26704,7 +25659,8 @@ class Inserter extends external_wp_element_namespaceObject.Component {
   const {
     getBlockRootClientId,
     hasInserterItems,
-    __experimentalGetAllowedBlocks
+    __experimentalGetAllowedBlocks,
+    __experimentalGetDirectInsertBlock
   } = select(store);
   const {
     getBlockVariations
@@ -26712,6 +25668,8 @@ class Inserter extends external_wp_element_namespaceObject.Component {
   rootClientId = rootClientId || getBlockRootClientId(clientId) || undefined;
 
   const allowedBlocks = __experimentalGetAllowedBlocks(rootClientId);
+
+  const directInsertBlock = __experimentalGetDirectInsertBlock(rootClientId);
 
   const hasSingleBlockType = (0,external_lodash_namespaceObject.size)(allowedBlocks) === 1 && (0,external_lodash_namespaceObject.size)(getBlockVariations(allowedBlocks[0].name, 'inserter')) === 0;
   let allowedBlockType = false;
@@ -26725,6 +25683,7 @@ class Inserter extends external_wp_element_namespaceObject.Component {
     hasSingleBlockType,
     blockTitle: allowedBlockType ? allowedBlockType.title : '',
     allowedBlockType,
+    directInsertBlock,
     rootClientId
   };
 }), (0,external_wp_data_namespaceObject.withDispatch)((dispatch, ownProps, {
@@ -26738,10 +25697,11 @@ class Inserter extends external_wp_element_namespaceObject.Component {
         isAppender,
         hasSingleBlockType,
         allowedBlockType,
+        directInsertBlock,
         onSelectOrClose
       } = ownProps;
 
-      if (!hasSingleBlockType) {
+      if (!hasSingleBlockType && !(directInsertBlock !== null && directInsertBlock !== void 0 && directInsertBlock.length)) {
         return;
       }
 
@@ -26771,7 +25731,7 @@ class Inserter extends external_wp_element_namespaceObject.Component {
       const {
         insertBlock
       } = dispatch(store);
-      const blockToInsert = (0,external_wp_blocks_namespaceObject.createBlock)(allowedBlockType.name);
+      const blockToInsert = directInsertBlock !== null && directInsertBlock !== void 0 && directInsertBlock.length ? (0,external_wp_blocks_namespaceObject.createBlock)(...directInsertBlock) : (0,external_wp_blocks_namespaceObject.createBlock)(allowedBlockType.name);
       insertBlock(blockToInsert, getInsertionIndex(), rootClientId);
 
       if (onSelectOrClose) {
@@ -26961,7 +25921,7 @@ function ButtonBlockAppender({
         label: label
       }, !hasSingleBlockType && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
         as: "span"
-      }, label), (0,external_wp_element_namespaceObject.createElement)(icon, {
+      }, label), (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
         icon: library_plus
       }));
 
@@ -31424,20 +30384,23 @@ var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(exte
  * the block-editor store, then the store is updated with the new settings which
  * came from props.
  *
- * @param {string}   clientId        The client ID of the block to update.
- * @param {string[]} allowedBlocks   An array of block names which are permitted
- *                                   in inner blocks.
- * @param {string}   [templateLock]  The template lock specified for the inner
- *                                   blocks component. (e.g. "all")
- * @param {boolean}  captureToolbars Whether or children toolbars should be shown
- *                                   in the inner blocks component rather than on
- *                                   the child block.
- * @param {string}   orientation     The direction in which the block
- *                                   should face.
- * @param {Object}   layout          The layout object for the block container.
+ * @param {string}            clientId                   The client ID of the block to update.
+ * @param {string[]}          allowedBlocks              An array of block names which are permitted
+ *                                                       in inner blocks.
+ * @param {?Array}            __experimentalDefaultBlock The default block to insert: [ blockName, { blockAttributes } ].
+ * @param {?Function|boolean} __experimentalDirectInsert If a default block should be inserted directly by the
+ *                                                       appender.
+ * @param {string}            [templateLock]             The template lock specified for the inner
+ *                                                       blocks component. (e.g. "all")
+ * @param {boolean}           captureToolbars            Whether or children toolbars should be shown
+ *                                                       in the inner blocks component rather than on
+ *                                                       the child block.
+ * @param {string}            orientation                The direction in which the block
+ *                                                       should face.
+ * @param {Object}            layout                     The layout object for the block container.
  */
 
-function useNestedSettingsUpdate(clientId, allowedBlocks, templateLock, captureToolbars, orientation, layout) {
+function useNestedSettingsUpdate(clientId, allowedBlocks, __experimentalDefaultBlock, __experimentalDirectInsert, templateLock, captureToolbars, orientation, layout) {
   const {
     updateBlockListSettings
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
@@ -31475,10 +30438,18 @@ function useNestedSettingsUpdate(clientId, allowedBlocks, templateLock, captureT
       newSettings.orientation = layoutType.getOrientation(layout);
     }
 
+    if (__experimentalDefaultBlock !== undefined) {
+      newSettings.__experimentalDefaultBlock = __experimentalDefaultBlock;
+    }
+
+    if (__experimentalDirectInsert !== undefined) {
+      newSettings.__experimentalDirectInsert = __experimentalDirectInsert;
+    }
+
     if (!external_wp_isShallowEqual_default()(blockListSettings, newSettings)) {
       updateBlockListSettings(clientId, newSettings);
     }
-  }, [clientId, blockListSettings, _allowedBlocks, templateLock, parentLock, captureToolbars, orientation, updateBlockListSettings, layout]);
+  }, [clientId, blockListSettings, _allowedBlocks, __experimentalDefaultBlock, __experimentalDirectInsert, templateLock, parentLock, captureToolbars, orientation, updateBlockListSettings, layout]);
 }
 //# sourceMappingURL=use-nested-settings-update.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inner-blocks/use-inner-block-template-sync.js
@@ -31655,7 +30626,8 @@ function onBlockDrop(targetRootClientId, targetBlockIndex, getBlockIndex, getCli
 
     if (dropType === 'inserter') {
       clearSelectedBlock();
-      insertBlocks(blocks, targetBlockIndex, targetRootClientId, true, null);
+      const blocksToInsert = blocks.map(block => (0,external_wp_blocks_namespaceObject.cloneBlock)(block));
+      insertBlocks(blocksToInsert, targetBlockIndex, targetRootClientId, true, null);
     } // If the user is moving a block
 
 
@@ -32034,6 +31006,8 @@ function UncontrolledInnerBlocks(props) {
   const {
     clientId,
     allowedBlocks,
+    __experimentalDefaultBlock,
+    __experimentalDirectInsert,
     template,
     templateLock,
     wrapperRef,
@@ -32045,7 +31019,7 @@ function UncontrolledInnerBlocks(props) {
     placeholder,
     __experimentalLayout
   } = props;
-  useNestedSettingsUpdate(clientId, allowedBlocks, templateLock, captureToolbars, orientation, __experimentalLayout);
+  useNestedSettingsUpdate(clientId, allowedBlocks, __experimentalDefaultBlock, __experimentalDirectInsert, templateLock, captureToolbars, orientation, __experimentalLayout);
   useInnerBlockTemplateSync(clientId, template, templateLock, templateInsertUpdatesSelection);
   const context = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const block = select(store).getBlock(clientId);
@@ -32323,6 +31297,7 @@ function BlockListItems(props) {
  */
 
 
+
 /**
  * WordPress dependencies
  */
@@ -32339,6 +31314,7 @@ function BlockListItems(props) {
 
 
 const duotone_EMPTY_ARRAY = [];
+k([names]);
 /**
  * Convert a list of colors to an object of R, G, and B values.
  *
@@ -32354,11 +31330,10 @@ function getValuesFromColors(colors = []) {
     b: []
   };
   colors.forEach(color => {
-    // Access values directly to skip extra rounding that tinycolor.toRgb() does.
-    const tcolor = tinycolor_default()(color);
-    values.r.push(tcolor._r / 255);
-    values.g.push(tcolor._g / 255);
-    values.b.push(tcolor._b / 255);
+    const rgbColor = w(color).toRgb();
+    values.r.push(rgbColor.r / 255);
+    values.g.push(rgbColor.g / 255);
+    values.b.push(rgbColor.b / 255);
   });
   return values;
 }
@@ -32511,12 +31486,42 @@ const withDuotoneControls = (0,external_wp_compose_namespaceObject.createHigherO
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(BlockEdit, props), hasDuotoneSupport && (0,external_wp_element_namespaceObject.createElement)(DuotonePanel, props));
 }, 'withDuotoneControls');
 /**
+ * Function that scopes a selector with another one. This works a bit like
+ * SCSS nesting except the `&` operator isn't supported.
+ *
+ * @example
+ * ```js
+ * const scope = '.a, .b .c';
+ * const selector = '> .x, .y';
+ * const merged = scopeSelector( scope, selector );
+ * // merged is '.a > .x, .a .y, .b .c > .x, .b .c .y'
+ * ```
+ *
+ * @param {string} scope    Selector to scope to.
+ * @param {string} selector Original selector.
+ *
+ * @return {string} Scoped selector.
+ */
+
+function scopeSelector(scope, selector) {
+  const scopes = scope.split(',');
+  const selectors = selector.split(',');
+  const selectorsScoped = [];
+  scopes.forEach(outer => {
+    selectors.forEach(inner => {
+      selectorsScoped.push(`${outer.trim()} ${inner.trim()}`);
+    });
+  });
+  return selectorsScoped.join(', ');
+}
+/**
  * Override the default block element to include duotone styles.
  *
  * @param {Function} BlockListBlock Original component.
  *
  * @return {Function} Wrapped component.
  */
+
 
 const withDuotoneStyles = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockListBlock => props => {
   var _props$attributes, _props$attributes$sty, _props$attributes$sty2;
@@ -32528,10 +31533,11 @@ const withDuotoneStyles = (0,external_wp_compose_namespaceObject.createHigherOrd
     return (0,external_wp_element_namespaceObject.createElement)(BlockListBlock, props);
   }
 
-  const id = `wp-duotone-filter-${(0,external_wp_compose_namespaceObject.useInstanceId)(BlockListBlock)}`;
-  const selectors = duotoneSupport.split(',');
-  const selectorsScoped = selectors.map(selector => `.${id} ${selector.trim()}`);
-  const selectorsGroup = selectorsScoped.join(', ');
+  const id = `wp-duotone-${(0,external_wp_compose_namespaceObject.useInstanceId)(BlockListBlock)}`; // Extra .editor-styles-wrapper specificity is needed in the editor
+  // since we're not using inline styles to apply the filter. We need to
+  // override duotone applied by global styles and theme.json.
+
+  const selectorsGroup = scopeSelector(`.editor-styles-wrapper .${id}`, duotoneSupport);
   const className = classnames_default()(props === null || props === void 0 ? void 0 : props.className, id);
   const element = (0,external_wp_element_namespaceObject.useContext)(BlockList.__unstableElementContext);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, element && (0,external_wp_element_namespaceObject.createPortal)((0,external_wp_element_namespaceObject.createElement)(DuotoneFilter, {
@@ -33601,7 +32607,7 @@ function useCompleters({
   return (0,external_wp_element_namespaceObject.useMemo)(() => {
     let filteredCompleters = completers;
 
-    if (name === (0,external_wp_blocks_namespaceObject.getDefaultBlockName)()) {
+    if (name === (0,external_wp_blocks_namespaceObject.getDefaultBlockName)() || (0,external_wp_blocks_namespaceObject.getBlockSupport)(name, '__experimentalSlashInserter', false)) {
       filteredCompleters = filteredCompleters.concat([autocompleters_block]);
     }
 
@@ -33835,7 +32841,7 @@ function BlockBreadcrumb({
     className: "block-editor-block-breadcrumb__button",
     variant: "tertiary",
     onClick: clearSelectedBlock
-  }, rootLabel), !hasSelection && rootLabel, !!clientId && (0,external_wp_element_namespaceObject.createElement)(icon, {
+  }, rootLabel), !hasSelection && rootLabel, !!clientId && (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
     icon: chevron_right_small,
     className: "block-editor-block-breadcrumb__separator"
   })), parents.map(parentClientId => (0,external_wp_element_namespaceObject.createElement)("li", {
@@ -33846,7 +32852,7 @@ function BlockBreadcrumb({
     onClick: () => selectBlock(parentClientId)
   }, (0,external_wp_element_namespaceObject.createElement)(BlockTitle, {
     clientId: parentClientId
-  })), (0,external_wp_element_namespaceObject.createElement)(icon, {
+  })), (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
     icon: chevron_right_small,
     className: "block-editor-block-breadcrumb__separator"
   }))), !!clientId && (0,external_wp_element_namespaceObject.createElement)("li", {
@@ -34153,7 +33159,7 @@ function ListViewExpander({
         forceToggle: true
       }),
       "aria-hidden": "true"
-    }, (0,external_wp_element_namespaceObject.createElement)(icon, {
+    }, (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
       icon: chevron_right_small
     }))
   );
@@ -38060,6 +37066,8 @@ class URLInput extends external_wp_element_namespaceObject.Component {
   }
 
   updateSuggestions(value = '') {
+    var _value;
+
     const {
       __experimentalFetchLinkSuggestions: fetchLinkSuggestions,
       __experimentalHandleURLSuggestions: handleURLSuggestions
@@ -38067,9 +37075,14 @@ class URLInput extends external_wp_element_namespaceObject.Component {
 
     if (!fetchLinkSuggestions) {
       return;
-    }
+    } // Initial suggestions may only show if there is no value
+    // (note: this includes whitespace).
 
-    const isInitialSuggestions = !(value && value.length); // Allow a suggestions request if:
+
+    const isInitialSuggestions = !((_value = value) !== null && _value !== void 0 && _value.length); // Trim only now we've determined whether or not it originally had a "length"
+    // (even if that value was all whitespace).
+
+    value = value.trim(); // Allow a suggestions request if:
     // - there are at least 2 characters in the search input (except manual searches where
     //   search input length is not required to trigger a fetch)
     // - this is a direct entry (eg: a URL)
@@ -38132,7 +37145,7 @@ class URLInput extends external_wp_element_namespaceObject.Component {
     this.props.onChange(inputValue);
 
     if (!this.props.disableSuggestions) {
-      this.updateSuggestions(inputValue.trim());
+      this.updateSuggestions(inputValue);
     }
   }
 
@@ -38148,7 +37161,7 @@ class URLInput extends external_wp_element_namespaceObject.Component {
 
     if (value && !disableSuggestions && !this.isUpdatingSuggestions && !(suggestions && suggestions.length)) {
       // Ensure the suggestions are updated with the current input value
-      this.updateSuggestions(value.trim());
+      this.updateSuggestions(value);
     }
   }
 
@@ -38198,7 +37211,7 @@ class URLInput extends external_wp_element_namespaceObject.Component {
         case external_wp_keycodes_namespaceObject.ENTER:
           {
             if (this.props.onSubmit) {
-              this.props.onSubmit();
+              this.props.onSubmit(null, event);
             }
 
             break;
@@ -38248,10 +37261,10 @@ class URLInput extends external_wp_element_namespaceObject.Component {
             this.selectLink(suggestion);
 
             if (this.props.onSubmit) {
-              this.props.onSubmit(suggestion);
+              this.props.onSubmit(suggestion, event);
             }
           } else if (this.props.onSubmit) {
-            this.props.onSubmit();
+            this.props.onSubmit(null, event);
           }
 
           break;
@@ -38480,7 +37493,7 @@ const LinkControlSearchCreate = ({
       'is-selected': isSelected
     }),
     onClick: onClick
-  }), (0,external_wp_element_namespaceObject.createElement)(icon, {
+  }), (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
     className: "block-editor-link-control__search-item-icon",
     icon: library_plus
   }), (0,external_wp_element_namespaceObject.createElement)("span", {
@@ -38500,9 +37513,9 @@ const LinkControlSearchCreate = ({
 
 const globe = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
   xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "-2 -2 24 24"
+  viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M9 0C4.03 0 0 4.03 0 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zM1.11 9.68h2.51c.04.91.167 1.814.38 2.7H1.84c-.403-.85-.65-1.764-.73-2.7zm8.57-5.4V1.19c.964.366 1.756 1.08 2.22 2 .205.347.386.708.54 1.08l-2.76.01zm3.22 1.35c.232.883.37 1.788.41 2.7H9.68v-2.7h3.22zM8.32 1.19v3.09H5.56c.154-.372.335-.733.54-1.08.462-.924 1.255-1.64 2.22-2.01zm0 4.44v2.7H4.7c.04-.912.178-1.817.41-2.7h3.21zm-4.7 2.69H1.11c.08-.936.327-1.85.73-2.7H4c-.213.886-.34 1.79-.38 2.7zM4.7 9.68h3.62v2.7H5.11c-.232-.883-.37-1.788-.41-2.7zm3.63 4v3.09c-.964-.366-1.756-1.08-2.22-2-.205-.347-.386-.708-.54-1.08l2.76-.01zm1.35 3.09v-3.04h2.76c-.154.372-.335.733-.54 1.08-.464.92-1.256 1.634-2.22 2v-.04zm0-4.44v-2.7h3.62c-.04.912-.178 1.817-.41 2.7H9.68zm4.71-2.7h2.51c-.08.936-.327 1.85-.73 2.7H14c.21-.87.337-1.757.38-2.65l.01-.05zm0-1.35c-.046-.894-.176-1.78-.39-2.65h2.16c.403.85.65 1.764.73 2.7l-2.5-.05zm1-4H13.6c-.324-.91-.793-1.76-1.39-2.52 1.244.56 2.325 1.426 3.14 2.52h.04zm-9.6-2.52c-.597.76-1.066 1.61-1.39 2.52H2.65c.815-1.094 1.896-1.96 3.14-2.52zm-3.15 12H4.4c.324.91.793 1.76 1.39 2.52-1.248-.567-2.33-1.445-3.14-2.55l-.01.03zm9.56 2.52c.597-.76 1.066-1.61 1.39-2.52h1.76c-.82 1.08-1.9 1.933-3.14 2.48l-.01.04z"
+  d: "M12 3.3c-4.8 0-8.8 3.9-8.8 8.8 0 4.8 3.9 8.8 8.8 8.8 4.8 0 8.8-3.9 8.8-8.8s-4-8.8-8.8-8.8zm6.5 5.5h-2.6C15.4 7.3 14.8 6 14 5c2 .6 3.6 2 4.5 3.8zm.7 3.2c0 .6-.1 1.2-.2 1.8h-2.9c.1-.6.1-1.2.1-1.8s-.1-1.2-.1-1.8H19c.2.6.2 1.2.2 1.8zM12 18.7c-1-.7-1.8-1.9-2.3-3.5h4.6c-.5 1.6-1.3 2.9-2.3 3.5zm-2.6-4.9c-.1-.6-.1-1.1-.1-1.8 0-.6.1-1.2.1-1.8h5.2c.1.6.1 1.1.1 1.8s-.1 1.2-.1 1.8H9.4zM4.8 12c0-.6.1-1.2.2-1.8h2.9c-.1.6-.1 1.2-.1 1.8 0 .6.1 1.2.1 1.8H5c-.2-.6-.2-1.2-.2-1.8zM12 5.3c1 .7 1.8 1.9 2.3 3.5H9.7c.5-1.6 1.3-2.9 2.3-3.5zM10 5c-.8 1-1.4 2.3-1.8 3.8H5.5C6.4 7 8 5.6 10 5zM5.5 15.3h2.6c.4 1.5 1 2.8 1.8 3.7-1.8-.6-3.5-2-4.4-3.7zM14 19c.8-1 1.4-2.2 1.8-3.7h2.6C17.6 17 16 18.4 14 19z"
 }));
 /* harmony default export */ var library_globe = (globe);
 //# sourceMappingURL=globe.js.map
@@ -38538,7 +37551,7 @@ const LinkControlSearchItem = ({
       'is-url': isURL,
       'is-entity': !isURL
     })
-  }), isURL && (0,external_wp_element_namespaceObject.createElement)(icon, {
+  }), isURL && (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
     className: "block-editor-link-control__search-item-icon",
     icon: library_globe
   }), (0,external_wp_element_namespaceObject.createElement)("span", {
@@ -38924,16 +37937,40 @@ const LinkControlSearchInput = (0,external_wp_element_namespaceObject.forwardRef
     __experimentalFetchLinkSuggestions: searchHandler,
     __experimentalHandleURLSuggestions: true,
     __experimentalShowInitialSuggestions: showInitialSuggestions,
-    onSubmit: suggestion => {
-      onSuggestionSelected(suggestion || focusedSuggestion || {
-        url: value
-      });
+    onSubmit: (suggestion, event) => {
+      var _value$trim;
+
+      const hasSuggestion = suggestion || focusedSuggestion; // If there is no suggestion and the value (ie: any manually entered URL) is empty
+      // then don't allow submission otherwise we get empty links.
+
+      if (!hasSuggestion && !(value !== null && value !== void 0 && (_value$trim = value.trim()) !== null && _value$trim !== void 0 && _value$trim.length)) {
+        event.preventDefault();
+      } else {
+        onSuggestionSelected(hasSuggestion || {
+          url: value
+        });
+      }
     },
     ref: ref
   }), children);
 });
 /* harmony default export */ var search_input = (LinkControlSearchInput);
 //# sourceMappingURL=search-input.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/info.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const info = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M12 3.2c-4.8 0-8.8 3.9-8.8 8.8 0 4.8 3.9 8.8 8.8 8.8 4.8 0 8.8-3.9 8.8-8.8 0-4.8-4-8.8-8.8-8.8zm0 16c-4 0-7.2-3.3-7.2-7.2C4.8 8 8 4.8 12 4.8s7.2 3.3 7.2 7.2c0 4-3.2 7.2-7.2 7.2zM11 17h2v-6h-2v6zm0-8h2V7h-2v2z"
+}));
+/* harmony default export */ var library_info = (info);
+//# sourceMappingURL=info.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/link-control/viewer-slot.js
 /**
  * WordPress dependencies
@@ -39068,6 +38105,25 @@ function LinkPreview({
 
   const hasRichData = richData && Object.keys(richData).length;
   const displayURL = value && (0,external_wp_url_namespaceObject.filterURLForDisplay)((0,external_wp_url_namespaceObject.safeDecodeURI)(value.url), 16) || '';
+  const isEmptyURL = !value.url.length;
+  let icon;
+
+  if (richData !== null && richData !== void 0 && richData.icon) {
+    icon = (0,external_wp_element_namespaceObject.createElement)("img", {
+      src: richData === null || richData === void 0 ? void 0 : richData.icon,
+      alt: ""
+    });
+  } else if (isEmptyURL) {
+    icon = (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
+      icon: library_info,
+      size: 32
+    });
+  } else {
+    icon = (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
+      icon: library_globe
+    });
+  }
+
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Currently selected'),
     "aria-selected": "true",
@@ -39075,7 +38131,8 @@ function LinkPreview({
       'is-current': true,
       'is-rich': hasRichData,
       'is-fetching': !!isFetching,
-      'is-preview': true
+      'is-preview': true,
+      'is-error': isEmptyURL
     })
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-link-control__search-item-top"
@@ -39085,19 +38142,16 @@ function LinkPreview({
     className: classnames_default()('block-editor-link-control__search-item-icon', {
       'is-image': richData === null || richData === void 0 ? void 0 : richData.icon
     })
-  }, richData !== null && richData !== void 0 && richData.icon ? (0,external_wp_element_namespaceObject.createElement)("img", {
-    src: richData === null || richData === void 0 ? void 0 : richData.icon,
-    alt: ""
-  }) : (0,external_wp_element_namespaceObject.createElement)(icon, {
-    icon: library_globe
-  })), (0,external_wp_element_namespaceObject.createElement)("span", {
+  }, icon), (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "block-editor-link-control__search-item-details"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+  }, !isEmptyURL ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
     className: "block-editor-link-control__search-item-title",
     href: value.url
   }, (richData === null || richData === void 0 ? void 0 : richData.title) || (value === null || value === void 0 ? void 0 : value.title) || displayURL), (value === null || value === void 0 ? void 0 : value.url) && (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "block-editor-link-control__search-item-info"
-  }, displayURL))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  }, displayURL)) : (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: "block-editor-link-control__search-item-error-notice"
+  }, "Link is empty"))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "secondary",
     onClick: () => onEditClick(),
     className: "block-editor-link-control__search-item-action"
@@ -39330,6 +38384,8 @@ function LinkControl({
   createSuggestionButtonText,
   hasRichPreviews = false
 }) {
+  var _currentInputValue$tr;
+
   if (withCreateSuggestion === undefined && createSuggestion) {
     withCreateSuggestion = true;
   }
@@ -39340,6 +38396,7 @@ function LinkControl({
   const currentInputValue = propInputValue || internalInputValue;
   const [isEditingLink, setIsEditingLink] = (0,external_wp_element_namespaceObject.useState)(forceIsEditingLink !== undefined ? forceIsEditingLink : !value || !value.url);
   const isEndingEditWithFocus = (0,external_wp_element_namespaceObject.useRef)(false);
+  const currentInputIsEmpty = !(currentInputValue !== null && currentInputValue !== void 0 && (_currentInputValue$tr = currentInputValue.trim()) !== null && _currentInputValue$tr !== void 0 && _currentInputValue$tr.length);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (forceIsEditingLink !== undefined && forceIsEditingLink !== isEditingLink) {
       setIsEditingLink(forceIsEditingLink);
@@ -39424,14 +38481,17 @@ function LinkControl({
         keyCode
       } = event;
 
-      if (keyCode === external_wp_keycodes_namespaceObject.ENTER) {
-        event.preventDefault();
-        handleSubmitButton();
-      }
+      if (keyCode === external_wp_keycodes_namespaceObject.ENTER && !currentInputIsEmpty // disallow submitting empty values.
+      ) {
+          event.preventDefault();
+          handleSubmitButton();
+        }
     },
     label: (0,external_wp_i18n_namespaceObject.__)('Submit'),
     icon: keyboard_return,
-    className: "block-editor-link-control__search-submit"
+    className: "block-editor-link-control__search-submit",
+    disabled: currentInputIsEmpty // disallow submitting empty values.
+
   })))), errorMessage && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Notice, {
     className: "block-editor-link-control__search-error",
     status: "error",
@@ -39835,6 +38895,26 @@ function splitValue({
 
 
 
+/** @typedef {import('@wordpress/rich-text').RichTextValue} RichTextValue */
+
+/**
+ * Replaces line separators with line breaks if not multiline.
+ * Replaces line breaks with line separators if multiline.
+ *
+ * @param {RichTextValue} value       Value to adjust.
+ * @param {boolean}       isMultiline Whether to adjust to multiline or not.
+ *
+ * @return {RichTextValue} Adjusted value.
+ */
+
+function adjustLines(value, isMultiline) {
+  if (isMultiline) {
+    return (0,external_wp_richText_namespaceObject.replace)(value, /\n+/g, external_wp_richText_namespaceObject.__UNSTABLE_LINE_SEPARATOR);
+  }
+
+  return (0,external_wp_richText_namespaceObject.replace)(value, new RegExp(external_wp_richText_namespaceObject.__UNSTABLE_LINE_SEPARATOR, 'g'), '\n');
+}
+
 function usePasteHandler(props) {
   const propsRef = (0,external_wp_element_namespaceObject.useRef)(props);
   propsRef.current = props;
@@ -39920,12 +39000,14 @@ function usePasteHandler(props) {
       // pasted content and remove inline styles.
 
       if (isInternal) {
-        const pastedValue = (0,external_wp_richText_namespaceObject.create)({
+        const pastedMultilineTag = clipboardData.getData('rich-text-multi-line-tag') || undefined;
+        let pastedValue = (0,external_wp_richText_namespaceObject.create)({
           html,
-          multilineTag,
-          multilineWrapperTags: multilineTag === 'li' ? ['ul', 'ol'] : undefined,
+          multilineTag: pastedMultilineTag,
+          multilineWrapperTags: pastedMultilineTag === 'li' ? ['ul', 'ol'] : undefined,
           preserveWhiteSpace
         });
+        pastedValue = adjustLines(pastedValue, !!multilineTag);
         addActiveFormats(pastedValue, value.activeFormats);
         onChange((0,external_wp_richText_namespaceObject.insert)(value, pastedValue));
         return;
@@ -39991,14 +39073,11 @@ function usePasteHandler(props) {
       if (typeof content === 'string') {
         let valueToInsert = (0,external_wp_richText_namespaceObject.create)({
           html: content
-        });
-        addActiveFormats(valueToInsert, value.activeFormats); // If the content should be multiline, we should process text
+        }); // If the content should be multiline, we should process text
         // separated by a line break as separate lines.
 
-        if (multilineTag) {
-          valueToInsert = (0,external_wp_richText_namespaceObject.replace)(valueToInsert, /\n+/g, external_wp_richText_namespaceObject.__UNSTABLE_LINE_SEPARATOR);
-        }
-
+        valueToInsert = adjustLines(valueToInsert, !!multilineTag);
+        addActiveFormats(valueToInsert, value.activeFormats);
         onChange((0,external_wp_richText_namespaceObject.insert)(value, valueToInsert));
       } else if (content.length > 0) {
         if (onReplace && (0,external_wp_richText_namespaceObject.isEmpty)(value)) {
@@ -42118,7 +41197,7 @@ function ToolSelector(props, ref) {
       onSelect: onSwitchMode,
       choices: [{
         value: 'edit',
-        label: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(icon, {
+        label: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
           icon: library_edit
         }), (0,external_wp_i18n_namespaceObject.__)('Edit'))
       }, {
@@ -42296,7 +41375,7 @@ const LINK_DESTINATION_CUSTOM = 'custom';
 const LINK_DESTINATION_MEDIA = 'media';
 const LINK_DESTINATION_ATTACHMENT = 'attachment';
 const NEW_TAB_REL = ['noreferrer', 'noopener'];
-const image_url_input_ui_icon = (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SVG, {
+const icon = (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SVG, {
   viewBox: "0 0 24 24",
   xmlns: "http://www.w3.org/2000/svg"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Path, {
@@ -42429,7 +41508,7 @@ const ImageURLInputUI = ({
       linkDestination: LINK_DESTINATION_MEDIA,
       title: (0,external_wp_i18n_namespaceObject.__)('Media File'),
       url: mediaType === 'image' ? mediaUrl : undefined,
-      icon: image_url_input_ui_icon
+      icon
     }];
 
     if (mediaType === 'image' && mediaLink) {
@@ -43329,7 +42408,7 @@ function isKeyDownEligibleForStartTyping(event) {
 
 
 function useMouseMoveTypingReset() {
-  const isTyping = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).isTyping());
+  const isTyping = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).isTyping(), []);
   const {
     stopTyping
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
@@ -43546,7 +42625,7 @@ const isIE = window.navigator.userAgent.indexOf('Trident') !== -1;
 const arrowKeyCodes = new Set([external_wp_keycodes_namespaceObject.UP, external_wp_keycodes_namespaceObject.DOWN, external_wp_keycodes_namespaceObject.LEFT, external_wp_keycodes_namespaceObject.RIGHT]);
 const initialTriggerPercentage = 0.75;
 function useTypewriter() {
-  const hasSelectedBlock = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).hasSelectedBlock());
+  const hasSelectedBlock = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).hasSelectedBlock(), []);
   return (0,external_wp_compose_namespaceObject.useRefEffect)(node => {
     if (!hasSelectedBlock) {
       return;
@@ -44044,7 +43123,294 @@ function validateThemeGradients(gradients) {
   return gradients;
 }
 //# sourceMappingURL=theme.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/utils/parse-css-unit-to-px.js
+/**
+ * Converts string to object { value, unit }.
+ *
+ * @param {string} cssUnit
+ * @return {Object} parsedUnit
+ */
+function parseUnit(cssUnit) {
+  const match = cssUnit === null || cssUnit === void 0 ? void 0 : cssUnit.trim().match(/^(0?[-.]?\d+)(r?e[m|x]|v[h|w|min|max]+|p[x|t|c]|[c|m]m|%|in|ch|Q|lh)$/);
+
+  if (!isNaN(cssUnit) && !isNaN(parseFloat(cssUnit))) {
+    return {
+      value: parseFloat(cssUnit),
+      unit: 'px'
+    };
+  }
+
+  return match ? {
+    value: parseFloat(match[1]) || match[1],
+    unit: match[2]
+  } : {
+    value: cssUnit,
+    unit: undefined
+  };
+}
+/**
+ * Evaluate a math expression.
+ *
+ * @param {string} expression
+ * @return {number} evaluated expression.
+ */
+
+
+function calculate(expression) {
+  return Function(`'use strict'; return (${expression})`)();
+}
+/**
+ * Calculates the css function value for the supported css functions such as max, min, clamp and calc.
+ *
+ * @param {string} functionUnitValue string should be in a particular format (for example min(12px,12px) ) no nested loops.
+ * @param {Object} options
+ * @return {string} unit containing the unit in PX.
+ */
+
+
+function getFunctionUnitValue(functionUnitValue, options) {
+  const functionUnit = functionUnitValue.split(/[(),]/g).filter(Boolean);
+  const units = functionUnit.slice(1).map(unit => parseUnit(getPxFromCssUnit(unit, options)).value).filter(Boolean);
+
+  switch (functionUnit[0]) {
+    case 'min':
+      return Math.min(...units) + 'px';
+
+    case 'max':
+      return Math.max(...units) + 'px';
+
+    case 'clamp':
+      if (units.length !== 3) {
+        return null;
+      }
+
+      if (units[1] < units[0]) {
+        return units[0] + 'px';
+      }
+
+      if (units[1] > units[2]) {
+        return units[2] + 'px';
+      }
+
+      return units[1] + 'px';
+
+    case 'calc':
+      return units[0] + 'px';
+  }
+}
+/**
+ * Take a css function such as min, max, calc, clamp and returns parsedUnit
+ *
+ * How this works for the nested function is that it first replaces the inner function call.
+ * Then it tackles the outer onces.
+ * So for example: min( max(25px, 35px), 40px )
+ * in the first pass we would replace max(25px, 35px) with 35px.
+ * then we would try to evaluate min( 35px, 40px )
+ * and then finally return 35px.
+ *
+ * @param {string} cssUnit
+ * @return {Object} parsedUnit object.
+ */
+
+
+function parseUnitFunction(cssUnit) {
+  while (true) {
+    const currentCssUnit = cssUnit;
+    const regExp = /(max|min|calc|clamp)\(([^()]*)\)/g;
+    const matches = regExp.exec(cssUnit) || [];
+
+    if (matches[0]) {
+      const functionUnitValue = getFunctionUnitValue(matches[0]);
+      cssUnit = cssUnit.replace(matches[0], functionUnitValue);
+    } // if the unit hasn't been modified or we have a single value break free.
+
+
+    if (cssUnit === currentCssUnit || parseFloat(cssUnit)) {
+      break;
+    }
+  }
+
+  return parseUnit(cssUnit);
+}
+/**
+ * Return true if we think this is a math expression.
+ *
+ * @param {string} cssUnit the cssUnit value being evaluted.
+ * @return {boolean} Whether the cssUnit is a math expression.
+ */
+
+
+function isMathExpression(cssUnit) {
+  for (let i = 0; i < cssUnit.length; i++) {
+    if (['+', '-', '/', '*'].includes(cssUnit[i])) {
+      return true;
+    }
+  }
+
+  return false;
+}
+/**
+ * Evaluates the math expression and return a px value.
+ *
+ * @param {string} cssUnit the cssUnit value being evaluted.
+ * @return {string} return a converfted value to px.
+ */
+
+
+function evalMathExpression(cssUnit) {
+  let errorFound = false; // Convert every part of the expression to px values.
+
+  const cssUnitsBits = cssUnit.split(/[+-/*/]/g).filter(Boolean);
+
+  for (const unit of cssUnitsBits) {
+    // Standardize the unit to px and extract the value.
+    const parsedUnit = parseUnit(getPxFromCssUnit(unit));
+
+    if (!parseFloat(parsedUnit.value)) {
+      errorFound = true; // end early since we are dealing with a null value.
+
+      break;
+    }
+
+    cssUnit = cssUnit.replace(unit, parsedUnit.value);
+  }
+
+  return errorFound ? null : calculate(cssUnit).toFixed(0) + 'px';
+}
+/**
+ * Convert a parsedUnit object to px value.
+ *
+ * @param {Object} parsedUnit
+ * @param {Object} options
+ * @return {string} or {null} returns the converted with in a px value format.
+ */
+
+
+function convertParsedUnitToPx(parsedUnit, options) {
+  const PIXELS_PER_INCH = 96;
+  const ONE_PERCENT = 0.01;
+  const defaultProperties = {
+    fontSize: 16,
+    lineHeight: 16,
+    width: 375,
+    height: 812,
+    type: 'font'
+  };
+  const setOptions = Object.assign({}, defaultProperties, options);
+  const relativeUnits = {
+    em: setOptions.fontSize,
+    rem: setOptions.fontSize,
+    vh: setOptions.height * ONE_PERCENT,
+    vw: setOptions.width * ONE_PERCENT,
+    vmin: (setOptions.width < setOptions.height ? setOptions.width : setOptions.height) * ONE_PERCENT,
+    vmax: (setOptions.width > setOptions.height ? setOptions.width : setOptions.height) * ONE_PERCENT,
+    '%': (setOptions.type === 'font' ? setOptions.fontSize : setOptions.width) * ONE_PERCENT,
+    ch: 8,
+    // The advance measure (width) of the glyph "0" of the element's font. Approximate
+    ex: 7.15625,
+    // x-height of the element's font. Approximate
+    lh: setOptions.lineHeight
+  };
+  const absoluteUnits = {
+    in: PIXELS_PER_INCH,
+    cm: PIXELS_PER_INCH / 2.54,
+    mm: PIXELS_PER_INCH / 25.4,
+    pt: PIXELS_PER_INCH / 72,
+    pc: PIXELS_PER_INCH / 6,
+    px: 1,
+    Q: PIXELS_PER_INCH / 2.54 / 40
+  };
+
+  if (relativeUnits[parsedUnit.unit]) {
+    return (relativeUnits[parsedUnit.unit] * parsedUnit.value).toFixed(0) + 'px';
+  }
+
+  if (absoluteUnits[parsedUnit.unit]) {
+    return (absoluteUnits[parsedUnit.unit] * parsedUnit.value).toFixed(0) + 'px';
+  }
+
+  return null;
+}
+/**
+ * Returns the px value of a cssUnit.
+ *
+ * @param {string} cssUnit
+ * @param {Object} options
+ * @return {string} returns the cssUnit value in a simple px format.
+ */
+
+
+function getPxFromCssUnit(cssUnit, options = {}) {
+  if (Number.isFinite(cssUnit)) {
+    return cssUnit.toFixed(0) + 'px';
+  }
+
+  if (cssUnit === undefined) {
+    return null;
+  }
+
+  let parsedUnit = parseUnit(cssUnit);
+
+  if (!parsedUnit.unit) {
+    parsedUnit = parseUnitFunction(cssUnit, options);
+  }
+
+  if (isMathExpression(cssUnit) && !parsedUnit.unit) {
+    return evalMathExpression(cssUnit);
+  }
+
+  return convertParsedUnitToPx(parsedUnit, options);
+} // Use simple cache.
+
+const cache = {};
+/**
+ * Returns the px value of a cssUnit. The memoized version of getPxFromCssUnit;
+ *
+ * @param {string} cssUnit
+ * @param {Object} options
+ * @return {string} returns the cssUnit value in a simple px format.
+ */
+
+function memoizedGetPxFromCssUnit(cssUnit, options = {}) {
+  const hash = cssUnit + hashOptions(options);
+
+  if (!cache[hash]) {
+    cache[hash] = getPxFromCssUnit(cssUnit, options);
+  }
+
+  return cache[hash];
+}
+
+function hashOptions(options) {
+  let hash = '';
+
+  if (options.hasOwnProperty('fontSize')) {
+    hash = ':' + options.width;
+  }
+
+  if (options.hasOwnProperty('lineHeight')) {
+    hash = ':' + options.lineHeight;
+  }
+
+  if (options.hasOwnProperty('width')) {
+    hash = ':' + options.width;
+  }
+
+  if (options.hasOwnProperty('height')) {
+    hash = ':' + options.height;
+  }
+
+  if (options.hasOwnProperty('type')) {
+    hash = ':' + options.type;
+  }
+
+  return hash;
+}
+
+/* harmony default export */ var parse_css_unit_to_px = (memoizedGetPxFromCssUnit);
+//# sourceMappingURL=parse-css-unit-to-px.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/utils/index.js
+
 
 
 

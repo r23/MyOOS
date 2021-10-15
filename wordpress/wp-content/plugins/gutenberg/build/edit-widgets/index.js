@@ -410,7 +410,7 @@ function multipleEnableItems(state = {}, {
  * @return {Object} Updated state.
  */
 
-const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+const preferenceDefaults = (0,external_wp_data_namespaceObject.combineReducers)({
   features(state = {}, action) {
     if (action.type === 'SET_FEATURE_DEFAULTS') {
       const {
@@ -437,7 +437,7 @@ const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp
  * @return {Object} Updated state.
  */
 
-const preferences = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+const preferences = (0,external_wp_data_namespaceObject.combineReducers)({
   features(state = {}, action) {
     if (action.type === 'SET_FEATURE_VALUE') {
       const {
@@ -466,24 +466,7 @@ const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
   preferences
 }));
 //# sourceMappingURL=reducer.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
-/**
- * The identifier for the data store.
- *
- * @type {string}
- */
-const STORE_NAME = 'core/interface';
-//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
 /**
  * Returns an action object used in signalling that an active area should be changed.
  *
@@ -493,7 +476,6 @@ const STORE_NAME = 'core/interface';
  *
  * @return {Object} Action object.
  */
-
 function setSingleEnableItem(itemType, scope, item) {
   return {
     type: 'SET_SINGLE_ENABLE_ITEM',
@@ -578,9 +560,14 @@ function unpinItem(scope, itemId) {
  * @param {string} featureName The feature name.
  */
 
-function* toggleFeature(scope, featureName) {
-  const currentValue = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'isFeatureActive', scope, featureName);
-  yield external_wp_data_namespaceObject.controls.dispatch(STORE_NAME, 'setFeatureValue', scope, featureName, !currentValue);
+function toggleFeature(scope, featureName) {
+  return function ({
+    select,
+    dispatch
+  }) {
+    const currentValue = select.isFeatureActive(scope, featureName);
+    dispatch.setFeatureValue(scope, featureName, !currentValue);
+  };
 }
 /**
  * Returns an action object used in signalling that a feature should be set to
@@ -696,6 +683,14 @@ function isFeatureActive(state, scope, featureName) {
   return !!defaultedFeatureValue;
 }
 //# sourceMappingURL=selectors.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
+/**
+ * The identifier for the data store.
+ *
+ * @type {string}
+ */
+const STORE_NAME = 'core/interface';
+//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -721,7 +716,8 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   reducer: reducer,
   actions: actions_namespaceObject,
   selectors: selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems', 'preferences'],
+  __experimentalUseThunks: true
 }); // Once we build a more generic persistence plugin that works across types of stores
 // we'd be able to replace this with a register call.
 
@@ -729,7 +725,8 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   reducer: reducer,
   actions: actions_namespaceObject,
   selectors: selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems', 'preferences'],
+  __experimentalUseThunks: true
 });
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: external ["wp","plugins"]
@@ -1497,6 +1494,86 @@ function blockInserterPanel(state = false, action) {
   widgetAreasOpenState
 }));
 //# sourceMappingURL=reducer.js.map
+;// CONCATENATED MODULE: external ["wp","notices"]
+var external_wp_notices_namespaceObject = window["wp"]["notices"];
+;// CONCATENATED MODULE: external ["wp","blockEditor"]
+var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
+;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/store/transformers.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Converts a widget entity record into a block.
+ *
+ * @param {Object} widget The widget entity record.
+ * @return {Object} a block (converted from the entity record).
+ */
+
+function transformWidgetToBlock(widget) {
+  if (widget.id_base === 'block') {
+    const parsedBlocks = (0,external_wp_blocks_namespaceObject.parse)(widget.instance.raw.content);
+
+    if (!parsedBlocks.length) {
+      return (0,external_wp_widgets_namespaceObject.addWidgetIdToBlock)((0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {}, []), widget.id);
+    }
+
+    return (0,external_wp_widgets_namespaceObject.addWidgetIdToBlock)(parsedBlocks[0], widget.id);
+  }
+
+  let attributes;
+
+  if (widget._embedded.about[0].is_multi) {
+    attributes = {
+      idBase: widget.id_base,
+      instance: widget.instance
+    };
+  } else {
+    attributes = {
+      id: widget.id
+    };
+  }
+
+  return (0,external_wp_widgets_namespaceObject.addWidgetIdToBlock)((0,external_wp_blocks_namespaceObject.createBlock)('core/legacy-widget', attributes, []), widget.id);
+}
+/**
+ * Converts a block to a widget entity record.
+ *
+ * @param {Object}  block         The block.
+ * @param {Object?} relatedWidget A related widget entity record from the API (optional).
+ * @return {Object} the widget object (converted from block).
+ */
+
+function transformBlockToWidget(block, relatedWidget = {}) {
+  let widget;
+  const isValidLegacyWidgetBlock = block.name === 'core/legacy-widget' && (block.attributes.id || block.attributes.instance);
+
+  if (isValidLegacyWidgetBlock) {
+    var _block$attributes$id, _block$attributes$idB, _block$attributes$ins;
+
+    widget = { ...relatedWidget,
+      id: (_block$attributes$id = block.attributes.id) !== null && _block$attributes$id !== void 0 ? _block$attributes$id : relatedWidget.id,
+      id_base: (_block$attributes$idB = block.attributes.idBase) !== null && _block$attributes$idB !== void 0 ? _block$attributes$idB : relatedWidget.id_base,
+      instance: (_block$attributes$ins = block.attributes.instance) !== null && _block$attributes$ins !== void 0 ? _block$attributes$ins : relatedWidget.instance
+    };
+  } else {
+    widget = { ...relatedWidget,
+      id_base: 'block',
+      instance: {
+        raw: {
+          content: (0,external_wp_blocks_namespaceObject.serialize)(block)
+        }
+      }
+    };
+  } // Delete read-only properties.
+
+
+  delete widget.rendered;
+  delete widget.rendered_form;
+  return widget;
+}
+//# sourceMappingURL=transformers.js.map
 ;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/store/utils.js
 /**
  * "Kind" of the navigation post.
@@ -1582,244 +1659,6 @@ const createStubPost = (id, blocks) => ({
  */
 const constants_STORE_NAME = 'core/edit-widgets';
 //# sourceMappingURL=constants.js.map
-;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/store/controls.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * Trigger an API Fetch request.
- *
- * @param {Object} request API Fetch Request Object.
- * @return {Object} control descriptor.
- */
-
-function apiFetch(request) {
-  return {
-    type: 'API_FETCH',
-    request
-  };
-}
-/**
- * Returns a list of pending actions for given post id.
- *
- * @param {number} postId Post ID.
- * @return {Array} List of pending actions.
- */
-
-function getPendingActions(postId) {
-  return {
-    type: 'GET_PENDING_ACTIONS',
-    postId
-  };
-}
-/**
- * Returns boolean indicating whether or not an action processing specified
- * post is currently running.
- *
- * @param {number} postId Post ID.
- * @return {Object} Action.
- */
-
-function isProcessingPost(postId) {
-  return {
-    type: 'IS_PROCESSING_POST',
-    postId
-  };
-}
-/**
- * Resolves navigation post for given menuId.
- *
- * @see selectors.js
- * @param {number} menuId Menu ID.
- * @return {Object} Action.
- */
-
-function getNavigationPostForMenu(menuId) {
-  return {
-    type: 'SELECT',
-    registryName: 'core/edit-navigation',
-    selectorName: 'getNavigationPostForMenu',
-    args: [menuId]
-  };
-}
-/**
- * Resolves widget areas.
- *
- * @param {Object} query Query.
- * @return {Object} Action.
- */
-
-function resolveWidgetAreas(query = buildWidgetAreasQuery()) {
-  return {
-    type: 'RESOLVE_WIDGET_AREAS',
-    query
-  };
-}
-/**
- * Resolves widgets.
- *
- * @param {Object} query Query.
- * @return {Object} Action.
- */
-
-function resolveWidgets(query = buildWidgetsQuery()) {
-  return {
-    type: 'RESOLVE_WIDGETS',
-    query
-  };
-}
-/**
- * Calls a selector using chosen registry.
- *
- * @param {string} registryName Registry name.
- * @param {string} selectorName Selector name.
- * @param {Array}  args         Selector arguments.
- * @return {Object} control descriptor.
- */
-
-function controls_select(registryName, selectorName, ...args) {
-  return {
-    type: 'SELECT',
-    registryName,
-    selectorName,
-    args
-  };
-}
-/**
- * Dispatches an action using chosen registry.
- *
- * @param {string} registryName Registry name.
- * @param {string} actionName   Action name.
- * @param {Array}  args         Selector arguments.
- * @return {Object} control descriptor.
- */
-
-function dispatch(registryName, actionName, ...args) {
-  return {
-    type: 'DISPATCH',
-    registryName,
-    actionName,
-    args
-  };
-}
-const controls = {
-  AWAIT_PROMISE: ({
-    promise
-  }) => promise,
-  SELECT: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    registryName,
-    selectorName,
-    args
-  }) => {
-    return registry.select(registryName)[selectorName](...args);
-  }),
-  GET_PENDING_ACTIONS: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    postId
-  }) => {
-    var _getState$processingQ;
-
-    return ((_getState$processingQ = getState(registry).processingQueue[postId]) === null || _getState$processingQ === void 0 ? void 0 : _getState$processingQ.pendingActions) || [];
-  }),
-  IS_PROCESSING_POST: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    postId
-  }) => {
-    var _getState$processingQ2;
-
-    return (_getState$processingQ2 = getState(registry).processingQueue[postId]) === null || _getState$processingQ2 === void 0 ? void 0 : _getState$processingQ2.inProgress;
-  }),
-  DISPATCH: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    registryName,
-    actionName,
-    args
-  }) => {
-    return registry.dispatch(registryName)[actionName](...args);
-  }),
-  RESOLVE_WIDGET_AREAS: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    query
-  }) => {
-    return registry.resolveSelect('core').getEntityRecords(KIND, WIDGET_AREA_ENTITY_TYPE, query);
-  }),
-  RESOLVE_WIDGETS: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    query
-  }) => {
-    return registry.resolveSelect('core').getEntityRecords('root', 'widget', query);
-  })
-};
-
-const getState = registry => registry.stores[constants_STORE_NAME].store.getState();
-
-/* harmony default export */ var store_controls = (controls);
-//# sourceMappingURL=controls.js.map
-;// CONCATENATED MODULE: external ["wp","notices"]
-var external_wp_notices_namespaceObject = window["wp"]["notices"];
-;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/store/transformers.js
-/**
- * WordPress dependencies
- */
-
-
-function transformWidgetToBlock(widget) {
-  if (widget.id_base === 'block') {
-    const parsedBlocks = (0,external_wp_blocks_namespaceObject.parse)(widget.instance.raw.content);
-
-    if (!parsedBlocks.length) {
-      return (0,external_wp_widgets_namespaceObject.addWidgetIdToBlock)((0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {}, []), widget.id);
-    }
-
-    return (0,external_wp_widgets_namespaceObject.addWidgetIdToBlock)(parsedBlocks[0], widget.id);
-  }
-
-  let attributes;
-
-  if (widget._embedded.about[0].is_multi) {
-    attributes = {
-      idBase: widget.id_base,
-      instance: widget.instance
-    };
-  } else {
-    attributes = {
-      id: widget.id
-    };
-  }
-
-  return (0,external_wp_widgets_namespaceObject.addWidgetIdToBlock)((0,external_wp_blocks_namespaceObject.createBlock)('core/legacy-widget', attributes, []), widget.id);
-}
-function transformBlockToWidget(block, relatedWidget = {}) {
-  let widget;
-  const isValidLegacyWidgetBlock = block.name === 'core/legacy-widget' && (block.attributes.id || block.attributes.instance);
-
-  if (isValidLegacyWidgetBlock) {
-    var _block$attributes$id, _block$attributes$idB, _block$attributes$ins;
-
-    widget = { ...relatedWidget,
-      id: (_block$attributes$id = block.attributes.id) !== null && _block$attributes$id !== void 0 ? _block$attributes$id : relatedWidget.id,
-      id_base: (_block$attributes$idB = block.attributes.idBase) !== null && _block$attributes$idB !== void 0 ? _block$attributes$idB : relatedWidget.id_base,
-      instance: (_block$attributes$ins = block.attributes.instance) !== null && _block$attributes$ins !== void 0 ? _block$attributes$ins : relatedWidget.instance
-    };
-  } else {
-    widget = { ...relatedWidget,
-      id_base: 'block',
-      instance: {
-        raw: {
-          content: (0,external_wp_blocks_namespaceObject.serialize)(block)
-        }
-      }
-    };
-  } // Delete read-only properties.
-
-
-  delete widget.rendered;
-  delete widget.rendered_form;
-  return widget;
-}
-//# sourceMappingURL=transformers.js.map
 ;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/store/actions.js
 /**
  * WordPress dependencies
@@ -1828,10 +1667,11 @@ function transformBlockToWidget(block, relatedWidget = {}) {
 
 
 
+
+
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -1845,46 +1685,84 @@ function transformBlockToWidget(block, relatedWidget = {}) {
  * @return {Object} The post object.
  */
 
-const persistStubPost = function* (id, blocks) {
+const persistStubPost = (id, blocks) => ({
+  registry
+}) => {
   const stubPost = createStubPost(id, blocks);
-  yield dispatch('core', 'receiveEntityRecords', KIND, POST_TYPE, stubPost, {
+  registry.dispatch(external_wp_coreData_namespaceObject.store).receiveEntityRecords(KIND, POST_TYPE, stubPost, {
     id: stubPost.id
   }, false);
   return stubPost;
 };
-function* saveEditedWidgetAreas() {
-  const editedWidgetAreas = yield controls_select(constants_STORE_NAME, 'getEditedWidgetAreas');
+/**
+ * Converts all the blocks from edited widget areas into widgets,
+ * and submits a batch request to save everything at once.
+ *
+ * Creates a snackbar notice on either success or error.
+ *
+ * @return {Function} An action creator.
+ */
+
+const saveEditedWidgetAreas = () => async ({
+  select,
+  dispatch,
+  registry
+}) => {
+  const editedWidgetAreas = select.getEditedWidgetAreas();
 
   if (!(editedWidgetAreas !== null && editedWidgetAreas !== void 0 && editedWidgetAreas.length)) {
     return;
   }
 
   try {
-    yield* saveWidgetAreas(editedWidgetAreas);
-    yield dispatch(external_wp_notices_namespaceObject.store, 'createSuccessNotice', (0,external_wp_i18n_namespaceObject.__)('Widgets saved.'), {
+    await dispatch.saveWidgetAreas(editedWidgetAreas);
+    registry.dispatch(external_wp_notices_namespaceObject.store).createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Widgets saved.'), {
       type: 'snackbar'
     });
   } catch (e) {
-    yield dispatch(external_wp_notices_namespaceObject.store, 'createErrorNotice',
+    registry.dispatch(external_wp_notices_namespaceObject.store).createErrorNotice(
     /* translators: %s: The error message. */
     (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('There was an error. %s'), e.message), {
       type: 'snackbar'
     });
   }
-}
-function* saveWidgetAreas(widgetAreas) {
+};
+/**
+ * Converts all the blocks from specified widget areas into widgets,
+ * and submits a batch request to save everything at once.
+ *
+ * @param {Object[]} widgetAreas Widget areas to save.
+ * @return {Function} An action creator.
+ */
+
+const saveWidgetAreas = widgetAreas => async ({
+  dispatch,
+  registry
+}) => {
   try {
     for (const widgetArea of widgetAreas) {
-      yield* saveWidgetArea(widgetArea.id);
+      await dispatch.saveWidgetArea(widgetArea.id);
     }
   } finally {
     // saveEditedEntityRecord resets the resolution status, let's fix it manually
-    yield dispatch('core', 'finishResolution', 'getEntityRecord', KIND, WIDGET_AREA_ENTITY_TYPE, buildWidgetAreasQuery());
+    await registry.dispatch(external_wp_coreData_namespaceObject.store).finishResolution('getEntityRecord', KIND, WIDGET_AREA_ENTITY_TYPE, buildWidgetAreasQuery());
   }
-}
-function* saveWidgetArea(widgetAreaId) {
-  const widgets = yield controls_select(constants_STORE_NAME, 'getWidgets');
-  const post = yield controls_select('core', 'getEditedEntityRecord', KIND, POST_TYPE, buildWidgetAreaPostId(widgetAreaId)); // Get all widgets from this area
+};
+/**
+ * Converts all the blocks from a widget area specified by ID into widgets,
+ * and submits a batch request to save everything at once.
+ *
+ * @param {string} widgetAreaId ID of the widget area to process.
+ * @return {Function} An action creator.
+ */
+
+const saveWidgetArea = widgetAreaId => async ({
+  dispatch,
+  select,
+  registry
+}) => {
+  const widgets = select.getWidgets();
+  const post = registry.select(external_wp_coreData_namespaceObject.store).getEditedEntityRecord(KIND, POST_TYPE, buildWidgetAreaPostId(widgetAreaId)); // Get all widgets from this area
 
   const areaWidgets = Object.values(widgets).filter(({
     sidebar
@@ -1915,7 +1793,7 @@ function* saveWidgetArea(widgetAreaId) {
   const deletedWidgets = [];
 
   for (const widget of areaWidgets) {
-    const widgetsNewArea = yield controls_select(constants_STORE_NAME, 'getWidgetAreaForWidgetId', widget.id);
+    const widgetsNewArea = select.getWidgetAreaForWidgetId(widget.id);
 
     if (!widgetsNewArea) {
       deletedWidgets.push(widget);
@@ -1938,12 +1816,12 @@ function* saveWidgetArea(widgetAreaId) {
 
     if (oldWidget) {
       // Update an existing widget.
-      yield dispatch('core', 'editEntityRecord', 'root', 'widget', widgetId, { ...widget,
+      registry.dispatch(external_wp_coreData_namespaceObject.store).editEntityRecord('root', 'widget', widgetId, { ...widget,
         sidebar: widgetAreaId
       }, {
         undoIgnore: true
       });
-      const hasEdits = yield controls_select('core', 'hasEditsForEntityRecord', 'root', 'widget', widgetId);
+      const hasEdits = registry.select(external_wp_coreData_namespaceObject.store).hasEditsForEntityRecord('root', 'widget', widgetId);
 
       if (!hasEdits) {
         continue;
@@ -1976,7 +1854,7 @@ function* saveWidgetArea(widgetAreaId) {
     }));
   }
 
-  const records = yield dispatch('core', '__experimentalBatch', batchTasks);
+  const records = await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(batchTasks);
   const preservedRecords = records.filter(record => !record.hasOwnProperty('deleted'));
   const failedWidgetNames = [];
 
@@ -1989,7 +1867,7 @@ function* saveWidgetArea(widgetAreaId) {
     // store when we dispatch receiveEntityRecords( post ) below.
 
     post.blocks[position].attributes.__internalWidgetId = widget.id;
-    const error = yield controls_select('core', 'getLastEntitySaveError', 'root', 'widget', widget.id);
+    const error = registry.select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError('root', 'widget', widget.id);
 
     if (error) {
       var _block$attributes;
@@ -2008,24 +1886,26 @@ function* saveWidgetArea(widgetAreaId) {
     (0,external_wp_i18n_namespaceObject.__)('Could not save the following widgets: %s.'), failedWidgetNames.join(', ')));
   }
 
-  yield dispatch('core', 'editEntityRecord', KIND, WIDGET_AREA_ENTITY_TYPE, widgetAreaId, {
+  registry.dispatch(external_wp_coreData_namespaceObject.store).editEntityRecord(KIND, WIDGET_AREA_ENTITY_TYPE, widgetAreaId, {
     widgets: sidebarWidgetsIds
   }, {
     undoIgnore: true
   });
-  yield* trySaveWidgetArea(widgetAreaId);
-  yield dispatch('core', 'receiveEntityRecords', KIND, POST_TYPE, post, undefined);
-}
+  dispatch(trySaveWidgetArea(widgetAreaId));
+  registry.dispatch(external_wp_coreData_namespaceObject.store).receiveEntityRecords(KIND, POST_TYPE, post, undefined);
+};
 
-function* trySaveWidgetArea(widgetAreaId) {
-  const saveErrorBefore = yield controls_select('core', 'getLastEntitySaveError', KIND, WIDGET_AREA_ENTITY_TYPE, widgetAreaId);
-  yield dispatch('core', 'saveEditedEntityRecord', KIND, WIDGET_AREA_ENTITY_TYPE, widgetAreaId);
-  const saveErrorAfter = yield controls_select('core', 'getLastEntitySaveError', KIND, WIDGET_AREA_ENTITY_TYPE, widgetAreaId);
+const trySaveWidgetArea = widgetAreaId => ({
+  registry
+}) => {
+  const saveErrorBefore = registry.select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError(KIND, WIDGET_AREA_ENTITY_TYPE, widgetAreaId);
+  registry.dispatch(external_wp_coreData_namespaceObject.store).saveEditedEntityRecord(KIND, WIDGET_AREA_ENTITY_TYPE, widgetAreaId);
+  const saveErrorAfter = registry.select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError(KIND, WIDGET_AREA_ENTITY_TYPE, widgetAreaId);
 
   if (saveErrorAfter && saveErrorBefore !== saveErrorAfter) {
     throw new Error(saveErrorAfter);
   }
-}
+};
 /**
  * Sets the clientId stored for a particular widgetId.
  *
@@ -2095,12 +1975,14 @@ function setIsInserterOpened(value) {
 /**
  * Returns an action object signalling that the user closed the sidebar.
  *
- * @yield {Object} Action object.
+ * @return {Object} Action creator.
  */
 
-function* closeGeneralSidebar() {
-  yield dispatch(store, 'disableComplementaryArea', constants_STORE_NAME);
-}
+const closeGeneralSidebar = () => ({
+  registry
+}) => {
+  registry.dispatch(store).disableComplementaryArea(constants_STORE_NAME);
+};
 /**
  * Action that handles moving a block between widget areas
  *
@@ -2108,34 +1990,39 @@ function* closeGeneralSidebar() {
  * @param {string} widgetAreaId The id of the widget area to move the block to.
  */
 
-function* moveBlockToWidgetArea(clientId, widgetAreaId) {
-  const sourceRootClientId = yield controls_select('core/block-editor', 'getBlockRootClientId', [clientId]); // Search the top level blocks (widget areas) for the one with the matching
+const moveBlockToWidgetArea = (clientId, widgetAreaId) => async ({
+  dispatch,
+  select,
+  registry
+}) => {
+  const sourceRootClientId = registry.select(external_wp_blockEditor_namespaceObject.store).getBlockRootClientId([clientId]); // Search the top level blocks (widget areas) for the one with the matching
   // id attribute. Makes the assumption that all top-level blocks are widget
   // areas.
 
-  const widgetAreas = yield controls_select('core/block-editor', 'getBlocks');
+  const widgetAreas = registry.select(external_wp_blockEditor_namespaceObject.store).getBlocks();
   const destinationWidgetAreaBlock = widgetAreas.find(({
     attributes
   }) => attributes.id === widgetAreaId);
   const destinationRootClientId = destinationWidgetAreaBlock.clientId; // Get the index for moving to the end of the the destination widget area.
 
-  const destinationInnerBlocksClientIds = yield controls_select('core/block-editor', 'getBlockOrder', destinationRootClientId);
+  const destinationInnerBlocksClientIds = registry.select(external_wp_blockEditor_namespaceObject.store).getBlockOrder(destinationRootClientId);
   const destinationIndex = destinationInnerBlocksClientIds.length; // Reveal the widget area, if it's not open.
 
-  const isDestinationWidgetAreaOpen = yield controls_select(constants_STORE_NAME, 'getIsWidgetAreaOpen', destinationRootClientId);
+  const isDestinationWidgetAreaOpen = select.getIsWidgetAreaOpen(destinationRootClientId);
 
   if (!isDestinationWidgetAreaOpen) {
-    yield dispatch(constants_STORE_NAME, 'setIsWidgetAreaOpen', destinationRootClientId, true);
+    dispatch.setIsWidgetAreaOpen(destinationRootClientId, true);
   } // Move the block.
 
 
-  yield dispatch('core/block-editor', 'moveBlocksToPosition', [clientId], sourceRootClientId, destinationRootClientId, destinationIndex);
-}
+  registry.dispatch(external_wp_blockEditor_namespaceObject.store).moveBlocksToPosition([clientId], sourceRootClientId, destinationRootClientId, destinationIndex);
+};
 //# sourceMappingURL=actions.js.map
 ;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/store/resolvers.js
 /**
  * WordPress dependencies
  */
+
 
 /**
  * Internal dependencies
@@ -2144,11 +2031,22 @@ function* moveBlockToWidgetArea(clientId, widgetAreaId) {
 
 
 
+/**
+ * Creates a "stub" widgets post reflecting all available widget areas. The
+ * post is meant as a convenient to only exists in runtime and should never be saved. It
+ * enables a convenient way of editing the widgets by using a regular post editor.
+ *
+ * Fetches all widgets from all widgets aras, converts them into blocks, and hydrates a new post with them.
+ *
+ * @return {Function} An action creator.
+ */
 
-function* getWidgetAreas() {
+const getWidgetAreas = () => async ({
+  dispatch,
+  registry
+}) => {
   const query = buildWidgetAreasQuery();
-  yield resolveWidgetAreas(query);
-  const widgetAreas = yield controls_select('core', 'getEntityRecords', KIND, WIDGET_AREA_ENTITY_TYPE, query);
+  const widgetAreas = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getEntityRecords(KIND, WIDGET_AREA_ENTITY_TYPE, query);
   const widgetAreaBlocks = [];
   const sortedWidgetAreas = widgetAreas.sort((a, b) => {
     if (a.id === 'wp_inactive_widgets') {
@@ -2171,7 +2069,7 @@ function* getWidgetAreas() {
     if (!widgetArea.widgets.length) {
       // If this widget area has no widgets, it won't get a post setup by
       // the getWidgets resolver.
-      yield persistStubPost(buildWidgetAreaPostId(widgetArea.id), []);
+      dispatch(persistStubPost(buildWidgetAreaPostId(widgetArea.id), []));
     }
   }
 
@@ -2180,13 +2078,21 @@ function* getWidgetAreas() {
     // Defaults to open the first widget area.
     widgetAreasOpenState[widgetAreaBlock.clientId] = index === 0;
   });
-  yield setWidgetAreasOpenState(widgetAreasOpenState);
-  yield persistStubPost(buildWidgetAreasPostId(), widgetAreaBlocks);
-}
-function* getWidgets() {
+  dispatch(setWidgetAreasOpenState(widgetAreasOpenState));
+  dispatch(persistStubPost(buildWidgetAreasPostId(), widgetAreaBlocks));
+};
+/**
+ * Fetches all widgets from all widgets ares, and groups them by widget area Id.
+ *
+ * @return {Function} An action creator.
+ */
+
+const getWidgets = () => async ({
+  dispatch,
+  registry
+}) => {
   const query = buildWidgetsQuery();
-  yield resolveWidgets(query);
-  const widgets = yield controls_select('core', 'getEntityRecords', 'root', 'widget', query);
+  const widgets = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getEntityRecords('root', 'widget', query);
   const groupedBySidebar = {};
 
   for (const widget of widgets) {
@@ -2198,13 +2104,11 @@ function* getWidgets() {
   for (const sidebarId in groupedBySidebar) {
     if (groupedBySidebar.hasOwnProperty(sidebarId)) {
       // Persist the actual post containing the widget block
-      yield persistStubPost(buildWidgetAreaPostId(sidebarId), groupedBySidebar[sidebarId]);
+      dispatch(persistStubPost(buildWidgetAreaPostId(sidebarId), groupedBySidebar[sidebarId]));
     }
   }
-}
+};
 //# sourceMappingURL=resolvers.js.map
-;// CONCATENATED MODULE: external ["wp","blockEditor"]
-var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 ;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/store/selectors.js
 /**
  * External dependencies
@@ -2224,6 +2128,12 @@ var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 
 
 
+/**
+ * Returns all API widgets.
+ *
+ * @return {Object[]} API List of widgets.
+ */
+
 const selectors_getWidgets = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => {
   const widgets = select(external_wp_coreData_namespaceObject.store).getEntityRecords('root', 'widget', buildWidgetsQuery());
   return (0,external_lodash_namespaceObject.keyBy)(widgets, 'id');
@@ -2240,6 +2150,12 @@ const getWidget = (0,external_wp_data_namespaceObject.createRegistrySelector)(se
   const widgets = select(constants_STORE_NAME).getWidgets();
   return widgets[id];
 });
+/**
+ * Returns all API widget areas.
+ *
+ * @return {Object[]} API List of widget areas.
+ */
+
 const selectors_getWidgetAreas = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => {
   const query = buildWidgetAreasQuery();
   return select(external_wp_coreData_namespaceObject.store).getEntityRecords(KIND, WIDGET_AREA_ENTITY_TYPE, query);
@@ -2277,6 +2193,12 @@ const getParentWidgetAreaBlock = (0,external_wp_data_namespaceObject.createRegis
   const widgetAreaClientId = blockParents.find(parentClientId => getBlockName(parentClientId) === 'core/widget-area');
   return getBlock(widgetAreaClientId);
 });
+/**
+ * Returns all edited widget area entity records.
+ *
+ * @return {Object[]} List of edited widget area entity records.
+ */
+
 const getEditedWidgetAreas = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, ids) => {
   let widgetAreas = select(constants_STORE_NAME).getWidgetAreas();
 
@@ -2321,6 +2243,12 @@ const getReferenceWidgetBlocks = (0,external_wp_data_namespaceObject.createRegis
 
   return results;
 });
+/**
+ * Returns true if any widget area is currently being saved.
+ *
+ * @return {boolean} True if any widget area is currently being saved. False otherwise.
+ */
+
 const isSavingWidgetAreas = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => {
   var _select$getWidgetArea;
 
@@ -2431,7 +2359,6 @@ const canInsertBlockInWidgetArea = (0,external_wp_data_namespaceObject.createReg
 
 
 
-
 /**
  * Block editor data store configuration.
  *
@@ -2442,10 +2369,10 @@ const canInsertBlockInWidgetArea = (0,external_wp_data_namespaceObject.createReg
 
 const storeConfig = {
   reducer: store_reducer,
-  controls: store_controls,
   selectors: store_selectors_namespaceObject,
   resolvers: resolvers_namespaceObject,
-  actions: store_actions_namespaceObject
+  actions: store_actions_namespaceObject,
+  __experimentalUseThunks: true
 };
 /**
  * Store definition for the edit widgets namespace.
@@ -3492,7 +3419,7 @@ var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 
 
 function UndoButton() {
-  const hasUndo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasUndo());
+  const hasUndo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasUndo(), []);
   const {
     undo
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
@@ -3521,7 +3448,7 @@ function UndoButton() {
 
 
 function RedoButton() {
-  const hasRedo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasRedo());
+  const hasRedo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasRedo(), []);
   const {
     redo
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
@@ -3680,7 +3607,7 @@ function DynamicShortcut({
       aliases: getShortcutAliases(name),
       description: getShortcutDescription(name)
     };
-  });
+  }, [name]);
 
   if (!keyCombination) {
     return null;
@@ -3923,7 +3850,7 @@ function Header() {
   const inserterButton = (0,external_wp_element_namespaceObject.useRef)();
   const widgetAreaClientId = use_last_selected_widget_area();
   const isLastSelectedWidgetAreaOpen = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getIsWidgetAreaOpen(widgetAreaClientId), [widgetAreaClientId]);
-  const isInserterOpened = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).isInserterOpened());
+  const isInserterOpened = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).isInserterOpened(), []);
   const {
     setIsWidgetAreaOpen,
     setIsInserterOpened
@@ -4063,7 +3990,7 @@ function Notices() {
 function WidgetAreasBlockEditorContent({
   blockEditorSettings
 }) {
-  const hasThemeStyles = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).isFeatureActive('core/edit-widgets', 'themeStyles'));
+  const hasThemeStyles = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).isFeatureActive('core/edit-widgets', 'themeStyles'), []);
   const styles = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return hasThemeStyles ? blockEditorSettings.styles : [];
   }, [blockEditorSettings, hasThemeStyles]);
@@ -4333,7 +4260,7 @@ function WelcomeGuide() {
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   const widgetAreas = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getWidgetAreas({
     per_page: -1
-  }));
+  }), []);
 
   if (!isActive) {
     return null;

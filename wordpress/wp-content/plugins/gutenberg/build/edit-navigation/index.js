@@ -388,62 +388,6 @@ function addRecordIdToBlock(block, recordId) {
 
 const isBlockSupportedInNav = block => ['core/navigation-link', 'core/navigation-submenu'].includes(block.name);
 //# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/controls.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * Resolves menu items for given menu id.
- *
- * @param {number} menuId Menu ID.
- * @return {Object} Action.
- */
-
-function resolveMenuItems(menuId) {
-  return {
-    type: 'RESOLVE_MENU_ITEMS',
-    query: menuItemsQuery(menuId)
-  };
-}
-/**
- * Dispatches an action using chosen registry.
- *
- * @param {string} registryName Registry name.
- * @param {string} actionName   Action name.
- * @param {Array}  args         Selector arguments.
- * @return {Object} control descriptor.
- */
-
-function dispatch(registryName, actionName, ...args) {
-  return {
-    type: 'DISPATCH',
-    registryName,
-    actionName,
-    args
-  };
-}
-const controls = {
-  DISPATCH: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    registryName,
-    actionName,
-    args
-  }) => {
-    return registry.dispatch(registryName)[actionName](...args);
-  }),
-  RESOLVE_MENU_ITEMS: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => ({
-    query
-  }) => {
-    return registry.resolveSelect('core').getMenuItems(query);
-  })
-};
-/* harmony default export */ var store_controls = (controls);
-//# sourceMappingURL=controls.js.map
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/transform.js
@@ -721,6 +665,8 @@ function createDataTree(dataset, id = 'id', relation = 'parent') {
 
   for (const data of dataset) {
     if (data[relation]) {
+      hashTable[data[relation]] = hashTable[data[relation]] || {};
+      hashTable[data[relation]].children = hashTable[data[relation]].children || [];
       hashTable[data[relation]].children.push(hashTable[data[id]]);
     } else {
       dataTree.push(hashTable[data[id]]);
@@ -735,10 +681,10 @@ function createDataTree(dataset, id = 'id', relation = 'parent') {
  * WordPress dependencies
  */
 
+
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -754,26 +700,30 @@ function createDataTree(dataset, id = 'id', relation = 'parent') {
  * @return {void}
  */
 
-function* getNavigationPostForMenu(menuId) {
+const getNavigationPostForMenu = menuId => async ({
+  registry,
+  dispatch
+}) => {
   if (!menuId) {
     return;
   }
 
   const stubPost = createStubPost(menuId); // Persist an empty post to warm up the state
 
-  yield persistPost(stubPost); // Dispatch startResolution to skip the execution of the real getEntityRecord resolver - it would
+  dispatch(persistPost(stubPost)); // Dispatch startResolution to skip the execution of the real getEntityRecord resolver - it would
   // issue an http request and fail.
 
   const args = [NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, stubPost.id];
-  yield dispatch('core', 'startResolution', 'getEntityRecord', args); // Now let's create a proper one hydrated using actual menu items
+  registry.dispatch(external_wp_coreData_namespaceObject.store).startResolution('getEntityRecord', args); // Now let's create a proper one hydrated using actual menu items
 
-  const menuItems = yield resolveMenuItems(menuId);
+  const menuItems = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getMenuItems(menuItemsQuery(menuId));
   const navigationBlock = createNavigationBlock(menuItems); // Persist the actual post containing the navigation block
 
-  yield persistPost(createStubPost(menuId, navigationBlock)); // Dispatch finishResolution to conclude startResolution dispatched earlier
+  const builtPost = createStubPost(menuId, navigationBlock);
+  dispatch(persistPost(builtPost)); // Dispatch finishResolution to conclude startResolution dispatched earlier
 
-  yield dispatch('core', 'finishResolution', 'getEntityRecord', args);
-}
+  registry.dispatch(external_wp_coreData_namespaceObject.store).finishResolution('getEntityRecord', args);
+};
 
 const createStubPost = (menuId, navigationBlock = null) => {
   const id = buildNavigationPostId(menuId);
@@ -789,9 +739,13 @@ const createStubPost = (menuId, navigationBlock = null) => {
   };
 };
 
-const persistPost = post => dispatch('core', 'receiveEntityRecords', NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, post, {
-  id: post.id
-}, false);
+const persistPost = post => ({
+  registry
+}) => {
+  registry.dispatch(external_wp_coreData_namespaceObject.store).receiveEntityRecords(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, post, {
+    id: post.id
+  }, false);
+};
 /**
  * Converts an adjacency list of menuItems into a navigation block.
  *
@@ -1180,7 +1134,6 @@ function setIsInserterOpened(value) {
 
 
 
-
 /**
  * Block editor data store configuration.
  *
@@ -1191,7 +1144,6 @@ function setIsInserterOpened(value) {
 
 const storeConfig = {
   reducer: reducer,
-  controls: store_controls,
   selectors: selectors_namespaceObject,
   resolvers: resolvers_namespaceObject,
   actions: actions_namespaceObject,
@@ -1488,23 +1440,8 @@ function useNavigationEditor() {
   };
 }
 //# sourceMappingURL=use-navigation-editor.js.map
-;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/utils/index.js
-/**
- * Removes any HTML tags from the provided string.
- *
- * @todo Use `stripHTML` from `@wordpress/dom` package
- * after https://github.com/WordPress/gutenberg/issues/33424
- * is resolved.
- *
- * @param {string} html The string containing html.
- *
- * @return {string} The text content with any html removed.
- */
-function stripHTML(html) {
-  const document = new window.DOMParser().parseFromString(html, 'text/html');
-  return document.body.textContent || '';
-}
-//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: external ["wp","dom"]
+var external_wp_dom_namespaceObject = window["wp"]["dom"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/use-menu-notifications.js
 /**
  * WordPress dependencies
@@ -1513,10 +1450,10 @@ function stripHTML(html) {
 
 
 
+
 /**
  * Internal dependencies
  */
-
 
 
 function useMenuNotifications(menuId) {
@@ -1528,7 +1465,7 @@ function useMenuNotifications(menuId) {
   }, [menuId]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (lastDeleteError) {
-      createErrorNotice(stripHTML(lastDeleteError === null || lastDeleteError === void 0 ? void 0 : lastDeleteError.message), {
+      createErrorNotice((0,external_wp_dom_namespaceObject.__unstableStripHTML)(lastDeleteError === null || lastDeleteError === void 0 ? void 0 : lastDeleteError.message), {
         id: 'edit-navigation-error'
       });
     }
@@ -2123,7 +2060,7 @@ function multipleEnableItems(state = {}, {
  * @return {Object} Updated state.
  */
 
-const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+const preferenceDefaults = (0,external_wp_data_namespaceObject.combineReducers)({
   features(state = {}, action) {
     if (action.type === 'SET_FEATURE_DEFAULTS') {
       const {
@@ -2150,7 +2087,7 @@ const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp
  * @return {Object} Updated state.
  */
 
-const preferences = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+const preferences = (0,external_wp_data_namespaceObject.combineReducers)({
   features(state = {}, action) {
     if (action.type === 'SET_FEATURE_VALUE') {
       const {
@@ -2179,24 +2116,7 @@ const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
   preferences
 }));
 //# sourceMappingURL=reducer.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
-/**
- * The identifier for the data store.
- *
- * @type {string}
- */
-const constants_STORE_NAME = 'core/interface';
-//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
 /**
  * Returns an action object used in signalling that an active area should be changed.
  *
@@ -2206,7 +2126,6 @@ const constants_STORE_NAME = 'core/interface';
  *
  * @return {Object} Action object.
  */
-
 function setSingleEnableItem(itemType, scope, item) {
   return {
     type: 'SET_SINGLE_ENABLE_ITEM',
@@ -2291,9 +2210,14 @@ function unpinItem(scope, itemId) {
  * @param {string} featureName The feature name.
  */
 
-function* toggleFeature(scope, featureName) {
-  const currentValue = yield external_wp_data_namespaceObject.controls.select(constants_STORE_NAME, 'isFeatureActive', scope, featureName);
-  yield external_wp_data_namespaceObject.controls.dispatch(constants_STORE_NAME, 'setFeatureValue', scope, featureName, !currentValue);
+function toggleFeature(scope, featureName) {
+  return function ({
+    select,
+    dispatch
+  }) {
+    const currentValue = select.isFeatureActive(scope, featureName);
+    dispatch.setFeatureValue(scope, featureName, !currentValue);
+  };
 }
 /**
  * Returns an action object used in signalling that a feature should be set to
@@ -2409,6 +2333,14 @@ function isFeatureActive(state, scope, featureName) {
   return !!defaultedFeatureValue;
 }
 //# sourceMappingURL=selectors.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
+/**
+ * The identifier for the data store.
+ *
+ * @type {string}
+ */
+const constants_STORE_NAME = 'core/interface';
+//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -2434,7 +2366,8 @@ const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(consta
   reducer: store_reducer,
   actions: store_actions_namespaceObject,
   selectors: store_selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems', 'preferences'],
+  __experimentalUseThunks: true
 }); // Once we build a more generic persistence plugin that works across types of stores
 // we'd be able to replace this with a register call.
 
@@ -2442,7 +2375,8 @@ const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(consta
   reducer: store_reducer,
   actions: store_actions_namespaceObject,
   selectors: store_selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems', 'preferences'],
+  __experimentalUseThunks: true
 });
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: external ["wp","plugins"]
@@ -3125,7 +3059,11 @@ function NameDisplay() {
       enableComplementaryArea(SIDEBAR_SCOPE, SIDEBAR_MENU);
       setIsMenuNameEditFocused(true);
     }
-  }, menuName)));
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
+    limit: 24,
+    ellipsizeMode: "tail",
+    truncate: true
+  }, menuName))));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/filters/add-menu-name-editor.js
@@ -3260,10 +3198,10 @@ var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortc
 
 
 
+
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -3294,7 +3232,7 @@ function AddMenu({
   }, []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (lastSaveError) {
-      createErrorNotice(stripHTML(lastSaveError === null || lastSaveError === void 0 ? void 0 : lastSaveError.message));
+      createErrorNotice((0,external_wp_dom_namespaceObject.__unstableStripHTML)(lastSaveError === null || lastSaveError === void 0 ? void 0 : lastSaveError.message));
     }
   }, [lastSaveError]);
 
@@ -4061,7 +3999,10 @@ function MenuActions({
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
     size: "body",
     className: "edit-navigation-menu-actions__subtitle",
-    as: "h2"
+    as: "h2",
+    limit: 24,
+    ellipsizeMode: "tail",
+    truncate: true
   }, (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(menuName)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
     icon: chevron_down,
     toggleProps: {
@@ -4211,7 +4152,7 @@ var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 
 
 function UndoButton() {
-  const hasUndo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasUndo());
+  const hasUndo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasUndo(), []);
   const {
     undo
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
@@ -4240,7 +4181,7 @@ function UndoButton() {
 
 
 function RedoButton() {
-  const hasRedo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasRedo());
+  const hasRedo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasRedo(), []);
   const {
     redo
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
@@ -4356,7 +4297,7 @@ function MoreMenu() {
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     role: "menuitem",
     icon: library_external,
-    href: (0,external_wp_i18n_namespaceObject.__)('https://github.com/WordPress/gutenberg/tree/trunk/packages/edit-navigation/docs/user-documentation.md'),
+    href: "https://github.com/WordPress/gutenberg/tree/trunk/packages/edit-navigation/docs/user-documentation.md",
     target: "_blank",
     rel: "noopener noreferrer"
   }, (0,external_wp_i18n_namespaceObject.__)('Help'), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {

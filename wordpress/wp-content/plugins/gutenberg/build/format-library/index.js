@@ -464,6 +464,8 @@ const link_link = (0,external_wp_element_namespaceObject.createElement)(external
 //# sourceMappingURL=link.js.map
 ;// CONCATENATED MODULE: external ["wp","a11y"]
 var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
+;// CONCATENATED MODULE: external ["wp","data"]
+var external_wp_data_namespaceObject = window["wp"]["data"];
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/link/utils.js
@@ -588,6 +590,7 @@ function createLinkFormat({
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -614,6 +617,21 @@ function InlineLinkUI({
    * @type {[Object|undefined,Function]}
    */
   const [nextLinkValue, setNextLinkValue] = (0,external_wp_element_namespaceObject.useState)();
+  const {
+    createPageEntity,
+    userCanCreatePages
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getSettings
+    } = select(external_wp_blockEditor_namespaceObject.store);
+
+    const _settings = getSettings();
+
+    return {
+      createPageEntity: _settings.__experimentalCreatePageEntity,
+      userCanCreatePages: _settings.__experimentalUserCanCreatePages
+    };
+  }, []);
   const linkValue = {
     url: activeAttributes.url,
     type: activeAttributes.type,
@@ -694,6 +712,29 @@ function InlineLinkUI({
   // otherwise it causes a render of the content.
 
   const focusOnMount = (0,external_wp_element_namespaceObject.useRef)(addingLink ? 'firstElement' : false);
+
+  async function handleCreate(pageTitle) {
+    const page = await createPageEntity({
+      title: pageTitle,
+      status: 'draft'
+    });
+    return {
+      id: page.id,
+      type: page.type,
+      title: page.title.rendered,
+      url: page.link,
+      kind: 'post-type'
+    };
+  }
+
+  function createButtonText(searchTerm) {
+    return (0,external_wp_element_namespaceObject.createInterpolateElement)((0,external_wp_i18n_namespaceObject.sprintf)(
+    /* translators: %s: search term. */
+    (0,external_wp_i18n_namespaceObject.__)('Create Page: <mark>%s</mark>'), searchTerm), {
+      mark: (0,external_wp_element_namespaceObject.createElement)("mark", null)
+    });
+  }
+
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
     anchorRef: anchorRef,
     focusOnMount: focusOnMount.current,
@@ -704,7 +745,10 @@ function InlineLinkUI({
     onChange: onChangeLink,
     onRemove: removeLink,
     forceIsEditingLink: addingLink,
-    hasRichPreviews: true
+    hasRichPreviews: true,
+    createSuggestion: createPageEntity && handleCreate,
+    withCreateSuggestion: userCanCreatePages,
+    createSuggestionButtonText: createButtonText
   }));
 }
 
@@ -998,8 +1042,6 @@ const textColor = (0,external_wp_element_namespaceObject.createElement)(external
 }));
 /* harmony default export */ var text_color = (textColor);
 //# sourceMappingURL=text-color.js.map
-;// CONCATENATED MODULE: external ["wp","data"]
-var external_wp_data_namespaceObject = window["wp"]["data"];
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/text-color/inline.js
 
 
@@ -1015,64 +1057,116 @@ var external_wp_data_namespaceObject = window["wp"]["data"];
 
 
 
+
+
 /**
  * Internal dependencies
  */
 
 
-function getActiveColor(formatName, formatValue, colors) {
-  const activeColorFormat = (0,external_wp_richText_namespaceObject.getActiveFormat)(formatValue, formatName);
 
-  if (!activeColorFormat) {
-    return;
-  }
+function parseCSS(css = '') {
+  return css.split(';').reduce((accumulator, rule) => {
+    if (rule) {
+      const [property, value] = rule.split(':');
+      if (property === 'color') accumulator.color = value;
+      if (property === 'background-color') accumulator.backgroundColor = value;
+    }
 
-  const styleColor = activeColorFormat.attributes.style;
-
-  if (styleColor) {
-    return styleColor.replace(new RegExp(`^color:\\s*`), '');
-  }
-
-  const currentClass = activeColorFormat.attributes.class;
-
-  if (currentClass) {
-    const colorSlug = currentClass.replace(/.*has-([^\s]*)-color.*/, '$1');
-    return (0,external_wp_blockEditor_namespaceObject.getColorObjectByAttributeValues)(colors, colorSlug).color;
-  }
+    return accumulator;
+  }, {});
 }
 
-const ColorPicker = ({
+function parseClassName(className = '', colorSettings) {
+  return className.split(' ').reduce((accumulator, name) => {
+    const match = name.match(/^has-([^-]+)-color$/);
+
+    if (match) {
+      const [, colorSlug] = name.match(/^has-([^-]+)-color$/);
+      const colorObject = (0,external_wp_blockEditor_namespaceObject.getColorObjectByAttributeValues)(colorSettings, colorSlug);
+      accumulator.color = colorObject.color;
+    }
+
+    return accumulator;
+  }, {});
+}
+
+function getActiveColors(value, name, colorSettings) {
+  const activeColorFormat = (0,external_wp_richText_namespaceObject.getActiveFormat)(value, name);
+
+  if (!activeColorFormat) {
+    return {};
+  }
+
+  return { ...parseCSS(activeColorFormat.attributes.style),
+    ...parseClassName(activeColorFormat.attributes.class, colorSettings)
+  };
+}
+
+function setColors(value, name, colorSettings, colors) {
+  const {
+    color,
+    backgroundColor
+  } = { ...getActiveColors(value, name, colorSettings),
+    ...colors
+  };
+
+  if (!color && !backgroundColor) {
+    return (0,external_wp_richText_namespaceObject.removeFormat)(value, name);
+  }
+
+  const styles = [];
+  const classNames = [];
+  const attributes = {};
+
+  if (backgroundColor) {
+    styles.push(['background-color', backgroundColor].join(':'));
+  } else {
+    // Override default browser color for mark element.
+    styles.push(['background-color', 'rgba(0, 0, 0, 0)'].join(':'));
+  }
+
+  if (color) {
+    const colorObject = (0,external_wp_blockEditor_namespaceObject.getColorObjectByColorValue)(colorSettings, color);
+
+    if (colorObject) {
+      classNames.push((0,external_wp_blockEditor_namespaceObject.getColorClassName)('color', colorObject.slug));
+    } else {
+      styles.push(['color', color].join(':'));
+    }
+  }
+
+  if (styles.length) attributes.style = styles.join(';');
+  if (classNames.length) attributes.class = classNames.join(' ');
+  return (0,external_wp_richText_namespaceObject.applyFormat)(value, {
+    type: name,
+    attributes
+  });
+}
+
+function ColorPicker({
   name,
+  property,
   value,
   onChange
-}) => {
+}) {
   const colors = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getSettings
     } = select(external_wp_blockEditor_namespaceObject.store);
     return (0,external_lodash_namespaceObject.get)(getSettings(), ['colors'], []);
-  });
+  }, []);
   const onColorChange = (0,external_wp_element_namespaceObject.useCallback)(color => {
-    if (color) {
-      const colorObject = (0,external_wp_blockEditor_namespaceObject.getColorObjectByColorValue)(colors, color);
-      onChange((0,external_wp_richText_namespaceObject.applyFormat)(value, {
-        type: name,
-        attributes: colorObject ? {
-          class: (0,external_wp_blockEditor_namespaceObject.getColorClassName)('color', colorObject.slug)
-        } : {
-          style: `color:${color}`
-        }
-      }));
-    } else {
-      onChange((0,external_wp_richText_namespaceObject.removeFormat)(value, name));
-    }
-  }, [colors, onChange]);
-  const activeColor = (0,external_wp_element_namespaceObject.useMemo)(() => getActiveColor(name, value, colors), [name, value, colors]);
+    onChange(setColors(value, name, colors, {
+      [property]: color
+    }));
+  }, [colors, onChange, property]);
+  const activeColors = (0,external_wp_element_namespaceObject.useMemo)(() => getActiveColors(value, name, colors), [name, value, colors]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.ColorPalette, {
-    value: activeColor,
+    value: activeColors[property],
     onChange: onColorChange
   });
-};
+}
 
 function InlineColorUI({
   name,
@@ -1086,16 +1180,24 @@ function InlineColorUI({
     value,
     settings: text_color_textColor
   });
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.URLPopover, {
-    value: value,
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
     onClose: onClose,
     className: "components-inline-color-popover",
     anchorRef: anchorRef
-  }, (0,external_wp_element_namespaceObject.createElement)(ColorPicker, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TabPanel, {
+    tabs: [{
+      name: 'color',
+      title: (0,external_wp_i18n_namespaceObject.__)('Text')
+    }, {
+      name: 'backgroundColor',
+      title: (0,external_wp_i18n_namespaceObject.__)('Background')
+    }]
+  }, tab => (0,external_wp_element_namespaceObject.createElement)(ColorPicker, {
     name: name,
+    property: tab.name,
     value: value,
     onChange: onChange
-  }));
+  })));
 }
 //# sourceMappingURL=inline.js.map
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/text-color/index.js
@@ -1121,9 +1223,40 @@ function InlineColorUI({
 
 const text_color_name = 'core/text-color';
 
-const text_color_title = (0,external_wp_i18n_namespaceObject.__)('Text color');
+const text_color_title = (0,external_wp_i18n_namespaceObject.__)('Highlight');
 
 const EMPTY_ARRAY = [];
+
+function getComputedStyleProperty(element, property) {
+  const {
+    ownerDocument
+  } = element;
+  const {
+    defaultView
+  } = ownerDocument;
+  const style = defaultView.getComputedStyle(element);
+  const value = style.getPropertyValue(property);
+
+  if (property === 'background-color' && value === 'rgba(0, 0, 0, 0)' && element.parentElement) {
+    return getComputedStyleProperty(element.parentElement, property);
+  }
+
+  return value;
+}
+
+function fillComputedColors(element, {
+  color,
+  backgroundColor
+}) {
+  if (!color && !backgroundColor) {
+    return;
+  }
+
+  return {
+    color: color || getComputedStyleProperty(element, 'color'),
+    backgroundColor: backgroundColor === 'rgba(0, 0, 0, 0)' ? getComputedStyleProperty(element, 'background-color') : backgroundColor
+  };
+}
 
 function TextColorEdit({
   value,
@@ -1137,17 +1270,7 @@ function TextColorEdit({
   const [isAddingColor, setIsAddingColor] = (0,external_wp_element_namespaceObject.useState)(false);
   const enableIsAddingColor = (0,external_wp_element_namespaceObject.useCallback)(() => setIsAddingColor(true), [setIsAddingColor]);
   const disableIsAddingColor = (0,external_wp_element_namespaceObject.useCallback)(() => setIsAddingColor(false), [setIsAddingColor]);
-  const colorIndicatorStyle = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    const activeColor = getActiveColor(text_color_name, value, colors);
-
-    if (!activeColor) {
-      return undefined;
-    }
-
-    return {
-      backgroundColor: activeColor
-    };
-  }, [value, colors]);
+  const colorIndicatorStyle = (0,external_wp_element_namespaceObject.useMemo)(() => fillComputedColors(contentRef.current, getActiveColors(value, text_color_name, colors)), [value, colors]);
   const hasColorsToChoose = !(0,external_lodash_namespaceObject.isEmpty)(colors) || !allowCustomControl;
 
   if (!hasColorsToChoose && !isActive) {
@@ -1157,12 +1280,10 @@ function TextColorEdit({
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextToolbarButton, {
     className: "format-library-text-color-button",
     isActive: isActive,
-    icon: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(icon, {
-      icon: text_color
-    }), isActive && (0,external_wp_element_namespaceObject.createElement)("span", {
-      className: "format-library-text-color-button__indicator",
+    icon: (0,external_wp_element_namespaceObject.createElement)(icon, {
+      icon: text_color,
       style: colorIndicatorStyle
-    })),
+    }),
     title: text_color_title // If has no colors to choose but a color is active remove the color onClick
     ,
     onClick: hasColorsToChoose ? enableIsAddingColor : () => onChange((0,external_wp_richText_namespaceObject.removeFormat)(value, text_color_name))
@@ -1179,7 +1300,7 @@ function TextColorEdit({
 const text_color_textColor = {
   name: text_color_name,
   title: text_color_title,
-  tagName: 'span',
+  tagName: 'mark',
   className: 'has-inline-color',
   attributes: {
     style: 'style',

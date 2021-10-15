@@ -947,6 +947,7 @@ __webpack_require__.d(__webpack_exports__, {
   "getColorObjectByColorValue": function() { return /* reexport */ getColorObjectByColorValue; },
   "getFontSize": function() { return /* reexport */ getFontSize; },
   "getFontSizeClass": function() { return /* reexport */ getFontSizeClass; },
+  "getTemplatePartIcon": function() { return /* reexport */ getTemplatePartIcon; },
   "mediaUpload": function() { return /* reexport */ mediaUpload; },
   "store": function() { return /* reexport */ store; },
   "storeConfig": function() { return /* reexport */ storeConfig; },
@@ -1923,7 +1924,7 @@ const sidebar = (0,external_wp_element_namespaceObject.createElement)(external_w
 }));
 /* harmony default export */ var library_sidebar = (sidebar);
 //# sourceMappingURL=sidebar.js.map
-;// CONCATENATED MODULE: ./packages/editor/build-module/store/utils/get-template-part-icon.js
+;// CONCATENATED MODULE: ./packages/editor/build-module/utils/get-template-part-icon.js
 /**
  * WordPress dependencies
  */
@@ -4938,23 +4939,23 @@ function SaveShortcut({
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   const {
     isEditedPostDirty,
-    getPostEdits
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      isEditedPostDirty: _isEditedPostDirty,
-      getPostEdits: _getPostEdits
-    } = select(store);
-    return {
-      isEditedPostDirty: _isEditedPostDirty,
-      getPostEdits: _getPostEdits
-    };
-  }, []);
+    getPostEdits,
+    isPostSavingLocked
+  } = (0,external_wp_data_namespaceObject.useSelect)(store);
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/editor/save', event => {
-    event.preventDefault(); // TODO: This should be handled in the `savePost` effect in
+    event.preventDefault();
+    /**
+     * Do not save the post if post saving is locked.
+     */
+
+    if (isPostSavingLocked()) {
+      return;
+    } // TODO: This should be handled in the `savePost` effect in
     // considering `isSaveable`. See note on `isEditedPostSaveable`
     // selector about dirtiness and meta-boxes.
     //
     // See: `isEditedPostSaveable`
+
 
     if (!isEditedPostDirty()) {
       return;
@@ -7169,7 +7170,9 @@ function PostFormat() {
   }, (0,external_wp_i18n_namespaceObject.__)('Suggestion:'), ' ', (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "link",
     onClick: () => onUpdatePostFormat(suggestion.id)
-  }, suggestion.caption))));
+  }, (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: post format */
+  (0,external_wp_i18n_namespaceObject.__)('Apply format: %s'), suggestion.caption)))));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/backup.js
@@ -7593,7 +7596,7 @@ function PostLockedModal() {
       activePostLock: getActivePostLock(),
       postType: getPostType(getEditedPostAttribute('type'))
     };
-  });
+  }, []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     /**
      * Keep the lock refreshed.
@@ -9749,7 +9752,7 @@ function PostSavedState({
     shortcut: external_wp_keycodes_namespaceObject.displayShortcut.primary('s'),
     variant: isLargeViewport ? 'tertiary' : undefined,
     icon: isLargeViewport ? undefined : cloud_upload,
-    label: isLargeViewport ? undefined : label,
+    label: label,
     "aria-disabled": isDisabled
   }, isSavedState && (0,external_wp_element_namespaceObject.createElement)(icon, {
     icon: isSaved ? library_check : library_cloud
@@ -10606,7 +10609,7 @@ function PostTitle() {
       isFocusMode: focusMode,
       hasFixedToolbar: _hasFixedToolbar
     };
-  });
+  }, []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!ref.current) {
       return;
@@ -10930,7 +10933,7 @@ var external_wp_wordcount_namespaceObject = window["wp"]["wordcount"];
 
 
 function WordCount() {
-  const content = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).getEditedPostAttribute('content'));
+  const content = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).getEditedPostAttribute('content'), []);
   /*
    * translators: If your word count is based on single characters (e.g. East Asian characters),
    * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
@@ -10956,7 +10959,7 @@ function WordCount() {
 
 
 function CharacterCount() {
-  const content = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).getEditedPostAttribute('content'));
+  const content = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).getEditedPostAttribute('content'), []);
   return (0,external_wp_wordcount_namespaceObject.count)(content, 'characters_including_spaces');
 }
 //# sourceMappingURL=index.js.map
@@ -11271,6 +11274,7 @@ function mediaUpload({
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -11290,7 +11294,8 @@ function useBlockEditorSettings(settings, hasTemplate) {
   const {
     reusableBlocks,
     hasUploadPermissions,
-    canUseUnfilteredHTML
+    canUseUnfilteredHTML,
+    userCanCreatePages
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       canUserUseUnfilteredHTML
@@ -11311,12 +11316,34 @@ function useBlockEditorSettings(settings, hasTemplate) {
       // Reusable blocks are fetched in the native version of this hook.
       hasUploadPermissions: (0,external_lodash_namespaceObject.defaultTo)(canUser('create', 'media'), true),
       hasResolvedLocalSiteData: hasFinishedResolvingSiteData,
-      baseUrl: (siteData === null || siteData === void 0 ? void 0 : siteData.url) || ''
+      baseUrl: (siteData === null || siteData === void 0 ? void 0 : siteData.url) || '',
+      userCanCreatePages: canUser('create', 'pages')
     };
   }, []);
   const {
     undo
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const {
+    saveEntityRecord
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+  /**
+   * Creates a Post entity.
+   * This is utilised by the Link UI to allow for on-the-fly creation of Posts/Pages.
+   *
+   * @param {Object} options parameters for the post being created. These mirror those used on 3rd param of saveEntityRecord.
+   * @return {Object} the post type object that was created.
+   */
+
+  const createPageEntity = options => {
+    if (!userCanCreatePages) {
+      return Promise.reject({
+        message: (0,external_wp_i18n_namespaceObject.__)('You do not have permission to create Pages.')
+      });
+    }
+
+    return saveEntityRecord('postType', 'page', options);
+  };
+
   return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalGlobalStylesBaseStyles', '__experimentalGlobalStylesUserEntityId', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock']),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
@@ -11324,8 +11351,10 @@ function useBlockEditorSettings(settings, hasTemplate) {
     __experimentalFetchRichUrlData: external_wp_coreData_namespaceObject.__experimentalFetchUrlData,
     __experimentalCanUserUseUnfilteredHTML: canUseUnfilteredHTML,
     __experimentalUndo: undo,
-    outlineMode: hasTemplate
-  }), [settings, hasUploadPermissions, reusableBlocks, canUseUnfilteredHTML, undo, hasTemplate]);
+    outlineMode: hasTemplate,
+    __experimentalCreatePageEntity: createPageEntity,
+    __experimentalUserCanCreatePages: userCanCreatePages
+  }), [settings, hasUploadPermissions, reusableBlocks, canUseUnfilteredHTML, undo, hasTemplate, userCanCreatePages]);
 }
 
 /* harmony default export */ var use_block_editor_settings = (useBlockEditorSettings);
@@ -11623,6 +11652,7 @@ const withFontSizes = deprecateFunction('withFontSizes', external_wp_blockEditor
 /**
  * Internal dependencies
  */
+
 
 
 

@@ -361,7 +361,7 @@ function multipleEnableItems(state = {}, {
  * @return {Object} Updated state.
  */
 
-const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+const preferenceDefaults = (0,external_wp_data_namespaceObject.combineReducers)({
   features(state = {}, action) {
     if (action.type === 'SET_FEATURE_DEFAULTS') {
       const {
@@ -388,7 +388,7 @@ const preferenceDefaults = (0,external_lodash_namespaceObject.flow)([external_wp
  * @return {Object} Updated state.
  */
 
-const preferences = (0,external_lodash_namespaceObject.flow)([external_wp_data_namespaceObject.combineReducers])({
+const preferences = (0,external_wp_data_namespaceObject.combineReducers)({
   features(state = {}, action) {
     if (action.type === 'SET_FEATURE_VALUE') {
       const {
@@ -417,24 +417,7 @@ const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
   preferences
 }));
 //# sourceMappingURL=reducer.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
-/**
- * The identifier for the data store.
- *
- * @type {string}
- */
-const STORE_NAME = 'core/interface';
-//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
 /**
  * Returns an action object used in signalling that an active area should be changed.
  *
@@ -444,7 +427,6 @@ const STORE_NAME = 'core/interface';
  *
  * @return {Object} Action object.
  */
-
 function setSingleEnableItem(itemType, scope, item) {
   return {
     type: 'SET_SINGLE_ENABLE_ITEM',
@@ -529,9 +511,14 @@ function unpinItem(scope, itemId) {
  * @param {string} featureName The feature name.
  */
 
-function* toggleFeature(scope, featureName) {
-  const currentValue = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'isFeatureActive', scope, featureName);
-  yield external_wp_data_namespaceObject.controls.dispatch(STORE_NAME, 'setFeatureValue', scope, featureName, !currentValue);
+function toggleFeature(scope, featureName) {
+  return function ({
+    select,
+    dispatch
+  }) {
+    const currentValue = select.isFeatureActive(scope, featureName);
+    dispatch.setFeatureValue(scope, featureName, !currentValue);
+  };
 }
 /**
  * Returns an action object used in signalling that a feature should be set to
@@ -647,6 +634,14 @@ function isFeatureActive(state, scope, featureName) {
   return !!defaultedFeatureValue;
 }
 //# sourceMappingURL=selectors.js.map
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
+/**
+ * The identifier for the data store.
+ *
+ * @type {string}
+ */
+const STORE_NAME = 'core/interface';
+//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -672,7 +667,8 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   reducer: reducer,
   actions: actions_namespaceObject,
   selectors: selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems', 'preferences'],
+  __experimentalUseThunks: true
 }); // Once we build a more generic persistence plugin that works across types of stores
 // we'd be able to replace this with a register call.
 
@@ -680,7 +676,8 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   reducer: reducer,
   actions: actions_namespaceObject,
   selectors: selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems', 'preferences'],
+  __experimentalUseThunks: true
 });
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/interface/build-module/components/more-menu-feature-toggle/index.js
@@ -1071,7 +1068,7 @@ function Inserter({
   setIsOpened
 }) {
   const inserterTitleId = (0,external_wp_compose_namespaceObject.useInstanceId)(Inserter, 'customize-widget-layout__inserter-panel-title');
-  const insertionPoint = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).__experimentalGetInsertionPoint());
+  const insertionPoint = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).__experimentalGetInsertionPoint(), []);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "customize-widgets-layout__inserter-panel",
     "aria-labelledby": inserterTitleId
@@ -1240,7 +1237,7 @@ function DynamicShortcut({
       aliases: getShortcutAliases(name),
       description: getShortcutDescription(name)
     };
-  });
+  }, [name]);
 
   if (!keyCombination) {
     return null;
@@ -1552,7 +1549,7 @@ function Header({
 
 
 function useInserter(inserter) {
-  const isInserterOpened = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).isInserterOpened());
+  const isInserterOpened = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).isInserterOpened(), []);
   const {
     setIsInserterOpened
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
@@ -2383,6 +2380,16 @@ function getInspectorSection() {
       super(id, options);
       this.parentSection = options.parentSection;
       this.returnFocusWhenClose = null;
+      this._isOpen = false;
+    }
+
+    get isOpen() {
+      return this._isOpen;
+    }
+
+    set isOpen(value) {
+      this._isOpen = value;
+      this.triggerActiveCallbacks();
     }
 
     ready() {
@@ -2390,7 +2397,7 @@ function getInspectorSection() {
     }
 
     isContextuallyActive() {
-      return this.active();
+      return this.isOpen;
     }
 
     onChangeExpanded(expanded, args) {
@@ -2418,6 +2425,7 @@ function getInspectorSection() {
     open({
       returnFocusWhenClose
     } = {}) {
+      this.isOpen = true;
       this.returnFocusWhenClose = returnFocusWhenClose;
       this.expand({
         allowMultiple: true
@@ -2428,6 +2436,36 @@ function getInspectorSection() {
       this.collapse({
         allowMultiple: true
       });
+    }
+
+    collapse(options) {
+      // Overridden collapse() function. Mostly call the parent collapse(), but also
+      // move our .isOpen to false.
+      // Initially, I tried tracking this with onChangeExpanded(), but it doesn't work
+      // because the block settings sidebar is a layer "on top of" the G editor sidebar.
+      //
+      // For example, when closing the block settings sidebar, the G
+      // editor sidebar would display, and onChangeExpanded in
+      // inspector-section would run with expanded=true, but I want
+      // isOpen to be false when the block settings is closed.
+      this.isOpen = false;
+      super.collapse(options);
+    }
+
+    triggerActiveCallbacks() {
+      // Manually fire the callbacks associated with moving this.active
+      // from false to true.  "active" is always true for this section,
+      // and "isContextuallyActive" reflects if the block settings
+      // sidebar is currently visible, that is, it has replaced the main
+      // Gutenberg view.
+      // The WP customizer only checks ".isContextuallyActive()" when
+      // ".active" changes values. But our ".active" never changes value.
+      // The WP customizer never foresaw a section being used a way we
+      // fit the block settings sidebar into a section. By manually
+      // triggering the "this.active" callbacks, we force the WP
+      // customizer to query our .isContextuallyActive() function and
+      // update its view of our status.
+      this.active.callbacks.fireWith(this.active, [false, true]);
     }
 
   };
@@ -2462,10 +2500,6 @@ function getSidebarSection() {
       });
       customize.section.add(this.inspector);
       this.contentContainer[0].classList.add('customize-widgets__sidebar-section');
-    }
-
-    isContextuallyActive() {
-      return this.active();
     }
 
     hasSubSectionOpened() {

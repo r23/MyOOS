@@ -2051,6 +2051,8 @@ function withWeakMapCache(fn) {
  * @property {?(string[])} fields    Target subset of fields to derive from
  *                                   item objects.
  * @property {?(number[])} include   Specific item IDs to include.
+ * @property {string}      context   Scope under which the request is made;
+ *                                   determines returned fields in response.
  */
 
 /**
@@ -3435,7 +3437,7 @@ function getEntity(state, kind, name) {
  * @return {Object?} Record.
  */
 
-function getEntityRecord(state, kind, name, key, query) {
+const getEntityRecord = rememo((state, kind, name, key, query) => {
   var _query$context, _queriedState$items$c;
 
   const queriedState = (0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'queriedData']);
@@ -3473,7 +3475,12 @@ function getEntityRecord(state, kind, name, key, query) {
   }
 
   return item;
-}
+}, (state, kind, name, recordId, query) => {
+  var _query$context2;
+
+  const context = (_query$context2 = query === null || query === void 0 ? void 0 : query.context) !== null && _query$context2 !== void 0 ? _query$context2 : 'default';
+  return [(0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'queriedData', 'items', context, recordId]), (0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'queriedData', 'itemIsComplete', context, recordId])];
+});
 /**
  * Returns the Entity's record object by key. Doesn't trigger a resolver nor requests the entity from the API if the entity record isn't available in the local state.
  *
@@ -3514,7 +3521,12 @@ const getRawEntityRecord = rememo((state, kind, name, key) => {
 
     return accumulator;
   }, {});
-}, state => [state.entities.data]);
+}, (state, kind, name, recordId, query) => {
+  var _query$context3;
+
+  const context = (_query$context3 = query === null || query === void 0 ? void 0 : query.context) !== null && _query$context3 !== void 0 ? _query$context3 : 'default';
+  return [state.entities.config, (0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'queriedData', 'items', context, recordId]), (0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'queriedData', 'itemIsComplete', context, recordId])];
+});
 /**
  * Returns true if records have been received for the given set of parameters,
  * or false otherwise.
@@ -3678,7 +3690,7 @@ const getEntityRecordNonTransientEdits = rememo((state, kind, name, recordId) =>
 
     return acc;
   }, {});
-}, state => [state.entities.config, state.entities.data]);
+}, (state, kind, name, recordId) => [state.entities.config, (0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'edits', recordId])]);
 /**
  * Returns true if the specified entity record has edits,
  * and false otherwise.
@@ -3707,7 +3719,12 @@ function hasEditsForEntityRecord(state, kind, name, recordId) {
 
 const getEditedEntityRecord = rememo((state, kind, name, recordId) => ({ ...getRawEntityRecord(state, kind, name, recordId),
   ...getEntityRecordEdits(state, kind, name, recordId)
-}), state => [state.entities.data]);
+}), (state, kind, name, recordId, query) => {
+  var _query$context4;
+
+  const context = (_query$context4 = query === null || query === void 0 ? void 0 : query.context) !== null && _query$context4 !== void 0 ? _query$context4 : 'default';
+  return [state.entities.config, (0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'queriedData', 'items', context, recordId]), (0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'queriedData', 'itemIsComplete', context, recordId]), (0,external_lodash_namespaceObject.get)(state.entities.data, [kind, name, 'edits', recordId])];
+});
 /**
  * Returns true if the specified entity record is autosaving, and false otherwise.
  *

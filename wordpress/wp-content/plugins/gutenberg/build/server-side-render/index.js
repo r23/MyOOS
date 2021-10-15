@@ -167,17 +167,15 @@ function ServerSideRender(props) {
   const [showLoader, setShowLoader] = (0,external_wp_element_namespaceObject.useState)(false);
   const fetchRequestRef = (0,external_wp_element_namespaceObject.useRef)();
   const [response, setResponse] = (0,external_wp_element_namespaceObject.useState)(null);
-  const prevResponse = (0,external_wp_compose_namespaceObject.usePrevious)(response);
   const prevProps = (0,external_wp_compose_namespaceObject.usePrevious)(props);
+  const [isLoading, setIsLoading] = (0,external_wp_element_namespaceObject.useState)(false);
 
   function fetchData() {
     if (!isMountedRef.current) {
       return;
     }
 
-    if (null !== response) {
-      setResponse(null);
-    }
+    setIsLoading(true);
 
     const sanitizedAttributes = attributes && (0,external_wp_blocks_namespaceObject.__experimentalSanitizeBlockAttributes)(block, attributes); // If httpMethod is 'POST', send the attributes in the request body instead of the URL.
     // This allows sending a larger attributes object than in a GET request, where the attributes are in the URL.
@@ -206,6 +204,10 @@ function ServerSideRender(props) {
           errorMsg: error.message
         });
       }
+    }).finally(() => {
+      if (isMountedRef.current && fetchRequest === fetchRequestRef.current) {
+        setIsLoading(false);
+      }
     });
     return fetchRequest;
   }
@@ -232,7 +234,7 @@ function ServerSideRender(props) {
    */
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (response !== null) {
+    if (!isLoading) {
       return;
     }
 
@@ -240,20 +242,27 @@ function ServerSideRender(props) {
       setShowLoader(true);
     }, 1000);
     return () => clearTimeout(timeout);
-  }, [response]);
+  }, [isLoading]);
+  const hasResponse = !!response;
+  const hasEmptyResponse = response === '';
+  const hasError = response === null || response === void 0 ? void 0 : response.error;
 
-  if (response === '') {
+  if (hasEmptyResponse || !hasResponse) {
     return (0,external_wp_element_namespaceObject.createElement)(EmptyResponsePlaceholder, props);
-  } else if (!response) {
-    return (0,external_wp_element_namespaceObject.createElement)(LoadingResponsePlaceholder, _extends({}, props, {
-      showLoader: !prevResponse || showLoader
-    }), !!prevResponse && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
-      className: className
-    }, prevResponse));
-  } else if (response.error) {
+  }
+
+  if (hasError) {
     return (0,external_wp_element_namespaceObject.createElement)(ErrorResponsePlaceholder, _extends({
       response: response
     }, props));
+  }
+
+  if (isLoading) {
+    return (0,external_wp_element_namespaceObject.createElement)(LoadingResponsePlaceholder, _extends({}, props, {
+      showLoader: showLoader
+    }), hasResponse && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
+      className: className
+    }, response));
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {

@@ -509,15 +509,24 @@ function parseAndThrowError(response, shouldParseResponse = true) {
 
 
 /**
+ * @param {import('../types').APIFetchOptions} options
+ * @return {boolean} True if the request is for media upload.
+ */
+
+function isMediaUploadRequest(options) {
+  const isCreateMethod = !!options.method && options.method === 'POST';
+  const isMediaEndpoint = !!options.path && options.path.indexOf('/wp/v2/media') !== -1 || !!options.url && options.url.indexOf('/wp/v2/media') !== -1;
+  return isMediaEndpoint && isCreateMethod;
+}
+/**
  * Middleware handling media upload failures and retries.
  *
  * @type {import('../types').APIFetchMiddleware}
  */
 
-const mediaUploadMiddleware = (options, next) => {
-  const isMediaUploadRequest = options.path && options.path.indexOf('/wp/v2/media') !== -1 || options.url && options.url.indexOf('/wp/v2/media') !== -1;
 
-  if (!isMediaUploadRequest) {
+const mediaUploadMiddleware = (options, next) => {
+  if (!isMediaUploadRequest(options)) {
     return next(options);
   }
 
