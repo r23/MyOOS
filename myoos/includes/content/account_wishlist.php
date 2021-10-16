@@ -151,7 +151,8 @@ while ($wishlist = $wishlist_result->fields) {
                          'base_product_price' => $wishlist_base_product_price,
                          'products_base_price' => $wishlist_product['products_base_price'],
                          'products_base_unit' => $wishlist_product['products_base_unit'],
-                         'attributes_print' => $attributes_print);
+                         'attributes_print' => $attributes_print,
+						 'attributes_hidden' => $attributes_hidden_field);
     $wishlist_result->MoveNext();
 }
 
