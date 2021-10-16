@@ -165,8 +165,15 @@ if (isset($_SESSION)) {
 		$cart_show_total = $oCurrencies->format($_SESSION['cart']->info['total']); 
 	}
 
-	# todo counter for wishlist
-	$wishlist_count_contents = 0;
+	# counter for wishlist
+	$customers_wishlisttable = $oostable['customers_wishlist'];
+	$wishlist_count_result = $dbconn->Execute("SELECT COUNT(*) AS total 
+                          FROM $customers_wishlisttable
+                          WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
+                            AND customers_wishlist_link_id = '" . oos_db_input($_SESSION['customer_wishlist_link_id']) . "'");
+	$wishlist_count = $wishlist_count_result->fields;	
+	$wishlist_count_contents = $wishlist_count['total'];
+	
 }
 
 $smarty->assign(
