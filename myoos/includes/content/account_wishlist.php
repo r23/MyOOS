@@ -139,20 +139,20 @@ while ($wishlist = $wishlist_result->fields) {
 
     // with option $wishlist['products_id'] = 2{3}1
     $aWishlist[] = array('products_id' => $wishlist['products_id'],
-                         'wl_products_id' => $wl_products_id,
-                         'products_image' => $wishlist_product['products_image'],
-                         'products_name' => $wishlist_product['products_name'],
-                         'order_min' => $order_min,
-                         'order_max' => $order_max,
+						'wl_products_id' => $wl_products_id,
+						'products_image' => $wishlist_product['products_image'],
+						'products_name' => $wishlist_product['products_name'],
+						'order_min' => $order_min,
+						'order_max' => $order_max,
 						'product_quantity' => $wishlist_product['products_product_quantity'],
 						'product_units' => $wishlist_product['products_units_id'],						
-                         'product_price' => $wishlist_product_price,
-                         'product_special_price' => $wishlist_product_special_price,
-                         'base_product_price' => $wishlist_base_product_price,
-                         'products_base_price' => $wishlist_product['products_base_price'],
-                         'products_base_unit' => $wishlist_product['products_base_unit'],
-                         'attributes_print' => $attributes_print,
-						 'attributes_hidden' => $attributes_hidden_field);
+						'product_price' => $wishlist_product_price,
+						'product_special_price' => $wishlist_product_special_price,
+						'base_product_price' => $wishlist_base_product_price,
+						'products_base_price' => $wishlist_product['products_base_price'],
+						'products_base_unit' => $wishlist_product['products_base_unit'],
+						'attributes_print' => $attributes_print,
+						'attributes_hidden' => $attributes_hidden_field);
     $wishlist_result->MoveNext();
 }
 
@@ -187,9 +187,7 @@ $smarty->assign(
 		'numpages' 			=> $wishlist_split->number_of_pages,
 
 		'page'				=> $nPage,
-		'wishlist'		 	=> $aWishlist,
-		'attributes_hidden'	=> $attributes_hidden_field,
-		'attributes_print'	=> $attributes_print
+		'wishlist'		 	=> $aWishlist
 	)
 );
 

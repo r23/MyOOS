@@ -146,9 +146,6 @@ switch ($action) {
 					$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
 					$dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($wishlist_products_id) . "'"); 
 
-				#	$contents = array();
-				#	$contents[] = array($wishlist_products_id);
-
 					$customers_wishlisttable = $oostable['customers_wishlist'];
 					$dbconn->Execute("INSERT INTO $customers_wishlisttable 
 								(customers_id, customers_wishlist_link_id, products_id, 
@@ -159,7 +156,6 @@ switch ($action) {
 					if (is_array($_POST['id'])) {
 						reset($_POST['id']);
 						foreach ($_POST['id'] as $option => $value) {
-						#	$contents[$wishlist_products_id]['attributes'][$option] = $value;
 
 							$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
 							$dbconn->Execute("INSERT INTO $customers_wishlist_attributestable
