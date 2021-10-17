@@ -1057,6 +1057,50 @@ function oos_get_uprid($prid, $parameters) {
 
 
  /**
+  * Return attributes ID
+  *
+  * @param $sProductsId
+  * @return array
+  */
+function oos_get_attributes($sProductsId) {
+	
+	$real_ids = array();
+
+	$uprid = oos_get_product_id($sProductsId);
+
+	if (is_numeric($uprid)) {
+		if (strpos($sProductsId, '{') !== false) {
+			$attributes_check = true;
+			$attributes_ids = array();
+
+			// strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
+			$attributes = explode('{', substr($sProductsId, strpos($sProductsId, '{')+1));
+
+			for ($i=0, $n=count($attributes); $i<$n; $i++) {
+				$pair = explode('}', $attributes[$i]);
+
+				if (is_numeric($pair[0]) && is_numeric($pair[1])) {
+					$attributes_ids += [intval($pair[0]) => intval($pair[1])];						
+				} else {
+					$attributes_check = false;
+					break;
+				}
+			}
+
+			if ($attributes_check == true) {
+				$real_ids = $attributes_ids;
+			}
+		}
+	} else {
+		return false;
+	}
+
+    return $real_ids;
+}
+
+
+
+ /**
   * Check if product has attributes
   *
   * @param $products_id
