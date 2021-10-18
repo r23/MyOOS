@@ -78,18 +78,12 @@ while ($wishlist = $wishlist_result->fields) {
     $wishlist_product_special_price = NULL;
     $wishlist_base_product_price = NULL;
     $wishlist_special_price = NULL;
-
+	
 	$base_product_price = $wishlist_product['products_price'];
-	$wishlist_product_price = $oCurrencies->display_price($wishlist_product['products_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
 
 	if ($wishlist_special_price = oos_get_products_special_price($wl_products_id)) {
 		$base_product_price = $wishlist_special_price;
-		$wishlist_product_special_price = $oCurrencies->display_price($wishlist_special_price, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
     } 
-
-	if ($wishlist_product['products_base_price'] != 1) {
-		$wishlist_base_product_price = $oCurrencies->display_price($base_product_price * $wishlist_product['products_base_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
-	}
 
     $customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
     $sql = "SELECT products_options_id, products_options_value_id
@@ -98,8 +92,10 @@ while ($wishlist = $wishlist_result->fields) {
               AND customers_wishlist_link_id = '" . oos_db_input($_SESSION['customer_wishlist_link_id']) . "'
               AND products_id = '" . oos_db_input($wishlist['products_id']) . "'";
     $attributes_result = $dbconn->Execute($sql);
+	
     $attributes_print = '';
 	$attributes_hidden_field = '';
+
 	while ($attributes = $attributes_result->fields) {
 		$attributes_hidden_field .=  oos_draw_hidden_field('id[' . $attributes['products_options_id'] . ']', $attributes['products_options_value_id']);
 		$attributes_print .=  '<ul class="list-unstyled mb-0">';
@@ -109,7 +105,7 @@ while ($wishlist = $wishlist_result->fields) {
 		$products_attributestable = $oostable['products_attributes'];
 		$sql = "SELECT popt.products_options_name,
                      poval.products_options_values_name,
-                     pa.options_values_price, pa.price_prefix
+                     pa.options_values_price, pa.price_prefix, pa.options_values_image
               FROM $products_optionstable popt,
                    $products_options_valuestable poval,
                    $products_attributestable pa
@@ -122,16 +118,43 @@ while ($wishlist = $wishlist_result->fields) {
                AND poval.products_options_values_languages_id = '" .  intval($nLanguageID) . "'";
 		$option_values = $dbconn->GetRow($sql);
 
+		// image
+		if ($option_values['options_values_image'] != '') {
+			$attributes_image = $option_values['options_values_image'];
+		}
+		
 		$attributes_print .=  '<li> - ' . $option_values['products_options_name'] . ' ' . $option_values['products_options_values_name'] . ' ';
 
 		if ($option_values['options_values_price'] != 0) {
-			$attributes_print .=  $option_values['price_prefix'] . $oCurrencies->display_price($option_values['options_values_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id'])) . '</li>';
+			//	$attributes_print .=  $option_values['price_prefix'] . $oCurrencies->display_price($option_values['options_values_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id'])) . '</li>';					
+			$sAttributesPrice = $option_values['options_values_price'];
+			if ($option_values['price_prefix'] == '+') {
+				$base_product_price += $sAttributesPrice;
+			} else {
+				$base_product_price -= $sAttributesPrice;
+			}
+			
 		} else {
 			$attributes_print .=  '</li>';
 		}
 		$attributes_print .=  '</ul>';
 
 		$attributes_result->MoveNext();
+	}
+
+
+	// image
+    $image = isset($attributes_image) ? $attributes_image : $wishlist_product['products_image'];
+
+	// price wirth attribute price
+	$wishlist_product_price = $oCurrencies->display_price($base_product_price, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
+
+	if ($wishlist_special_price = oos_get_products_special_price($wl_products_id)) {
+		$wishlist_product_special_price = $oCurrencies->display_price($wishlist_special_price, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
+    } 
+
+	if ($wishlist_product['products_base_price'] != 1) {
+		$wishlist_base_product_price = $oCurrencies->display_price($base_product_price * $wishlist_product['products_base_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
 	}
 	
 	$order_min = number_format($wishlist_product['products_quantity_order_min']);
@@ -140,7 +163,7 @@ while ($wishlist = $wishlist_result->fields) {
     // with option $wishlist['products_id'] = 2{3}1
     $aWishlist[] = array('products_id' => $wishlist['products_id'],
 						'wl_products_id' => $wl_products_id,
-						'products_image' => $wishlist_product['products_image'],
+						'products_image' => $image,
 						'products_name' => $wishlist_product['products_name'],
 						'order_min' => $order_min,
 						'order_max' => $order_max,

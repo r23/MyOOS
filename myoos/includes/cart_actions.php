@@ -497,6 +497,21 @@ switch ($action) {
                                                                     . $dbconn->qstr($_SESSION['customer_wishlist_link_id']) . ','
                                                                     . $dbconn->qstr($wishlist_products_id) . ','
                                                                     . $dbconn->qstr(date('Ymd')) . ")");
+																	
+			if (is_array($attributes)) {
+				reset($attributes);
+				foreach ($attributes as $option => $value) {
+
+					$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
+					$dbconn->Execute("INSERT INTO $customers_wishlist_attributestable
+									(customers_id, customers_wishlist_link_id, products_id, products_options_id, 
+									products_options_value_id) VALUES (" . $dbconn->qstr($_SESSION['customer_id']) . ','
+																		. $dbconn->qstr($_SESSION['customer_wishlist_link_id']) . ','
+																		. $dbconn->qstr($wishlist_products_id) . ','
+																		. $dbconn->qstr($option) . ','
+																		. $dbconn->qstr($value) . ")");
+				}	
+			}																	
 			oos_redirect(oos_href_link($aContents['account_wishlist']));			
 		}
 		break;	  
