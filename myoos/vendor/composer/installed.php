@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'de5820246711deefb2cb852570092aa85f03aaf1',
+        'reference' => '683716ac322259a7839cb7e0ec52448a23033264',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'de5820246711deefb2cb852570092aa85f03aaf1',
+            'reference' => '683716ac322259a7839cb7e0ec52448a23033264',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -242,12 +242,12 @@
             'dev_requirement' => false,
         ),
         'phenx/php-svg-lib' => array(
-            'pretty_version' => 'v0.3.3',
-            'version' => '0.3.3.0',
+            'pretty_version' => '0.3.4',
+            'version' => '0.3.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-svg-lib',
             'aliases' => array(),
-            'reference' => '5fa61b65e612ce1ae15f69b3d223cb14ecc60e32',
+            'reference' => 'f627771eb854aa7f45f80add0f23c6c4d67ea0f2',
             'dev_requirement' => false,
         ),
         'php-amqplib/php-amqplib' => array(
