@@ -68,15 +68,17 @@ switch ($action) {
 						$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
 						$_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, false, $_POST['to_wl_id'][$i]);
 					} else {
-						$oMessage->add_session('danger', oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
+						$oMessage->add_session('danger', oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . oos_prepare_input($_POST['cart_quantity'][$i]) . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
 					}
 				} else {
-					$oMessage->add_session('danger',  $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . $_POST['cart_quantity'][$i] . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min);
+					$oMessage->add_session('danger',  $aLang['error_products_quantity_order_min_text'] . ' ' . oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_quantity_invalid'] . ' ' . oos_prepare_input($_POST['cart_quantity'][$i]) . ' - ' . $aLang['products_order_qty_min_text_cart'] . ' ' . $products_order_min);
 				}
 			}
 		}
 
-		oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
+		# oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
+		# todo remove?
+		oos_redirect(oos_href_link($aContents['shopping_cart']));
 		break;
 
 	case 'add_product' :	
@@ -321,23 +323,29 @@ switch ($action) {
 		if (!isset($_SESSION['cart'])) {
 			$_SESSION['cart'] = new shoppingCart();
 		}
-	
-		if (isset($_GET['slave_id'])) {
-			if (oos_has_product_attributes($_GET['slave_id'])) {
+		
+		if ( isset($_GET['slave_id']) || isset($_POST['slave_id']) )  {		
+			$slave_id  = oos_prepare_input($_GET['slave_id']) ?? oos_prepare_input($_POST['slave_id']);
+			
+			if ( empty( $slave_id ) || !is_string( $slave_id ) ) {
+				oos_redirect(oos_href_link($aContents['403']));
+			}		
+			
+			if (oos_has_product_attributes($slave_id)) {
 				$oMessage->add_session('danger', $aLang['error_product_has_attributes']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $slave_id));
 			} else {
 			
-				$cart_quantity = 1;
-				$cart_qty = $_SESSION['cart']->get_quantity($_GET['slave_id']);
+				$cart_quantity = isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity']) ? oos_prepare_input($_POST['cart_quantity']) : 1;
+				$cart_qty = $_SESSION['cart']->get_quantity($slave_id);
 				$news_qty = $cart_qty + $cart_quantity;
 
-				$products_order_min = oos_get_products_quantity_order_min($_GET['slave_id']);
-				$products_order_units = oos_get_products_quantity_order_units($_GET['slave_id']);
+				$products_order_min = oos_get_products_quantity_order_min($slave_id);
+				$products_order_units = oos_get_products_quantity_order_units($slave_id);
 
 				if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
 					if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-						$_SESSION['cart']->add_cart($_GET['slave_id'], $news_qty);
+						$_SESSION['cart']->add_cart($slave_id, $news_qty);
 					} else {
 						$oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
 					}
@@ -345,40 +353,11 @@ switch ($action) {
 					$oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
 				}
 			}
-			if ($oMessage->size('danger') == 0) {
-				oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
-			} else {
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_GET['slave_id']));
-			}
-		} elseif (isset($_POST['slave_id']) && is_numeric($_POST['slave_id'])) {
-			if (oos_has_product_attributes($_POST['slave_id'])) {
-				$oMessage->add_session('danger', $aLang['error_product_has_attributes']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
-			} else {	
 
-				if (isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity'])) {
-					$cart_quantity = oos_prepare_input($_POST['cart_quantity']);
-					$cart_qty = $_SESSION['cart']->get_quantity($_POST['slave_id']);
-					$news_qty = $cart_qty + $cart_quantity;
-
-					$products_order_min = oos_get_products_quantity_order_min($_POST['slave_id']);
-					$products_order_units = oos_get_products_quantity_order_units($_POST['slave_id']);
-
-					if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
-						if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-							$_SESSION['cart']->add_cart($_POST['slave_id'], $news_qty);
-						} else {
-							$oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
-						}
-					} else {
-						$oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
-					}
-				}
-			}
 			if ($oMessage->size('danger') == 0) {
 				oos_redirect(oos_href_link($goto_file, oos_get_all_post_parameters($parameters)));
 			} else {
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['slave_id']));
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $slave_id));
 			}
 		}
 		break;
