@@ -335,72 +335,73 @@ switch ($action) {
 		break;
 
     case 'notify' :
-      if (isset($_SESSION['customer_id'])) {
-        if (isset($_GET['products_id'])) {
-          $notify = oos_var_prep_for_os($_GET['products_id']);
-        } elseif (isset($_GET['notify'])) {
-          $notify = oos_var_prep_for_os($_GET['notify']);
-        } elseif (isset($_POST['notify'])) {
-          $notify = oos_var_prep_for_os($_POST['notify']);
-        } else {
-          oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action', 'notify'))));
-        }
+		if (isset($_SESSION['customer_id'])) {
+			if (isset($_GET['products_id'])) {
+				$notify = oos_var_prep_for_os($_GET['products_id']);
+			} elseif (isset($_GET['notify'])) {
+				$notify = oos_var_prep_for_os($_GET['notify']);
+			} elseif (isset($_POST['notify'])) {
+				$notify = oos_var_prep_for_os($_POST['notify']);
+			} else {
+				oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action', 'notify'))));
+			}
 
-        $products_notificationstable = $oostable['products_notifications'];
-
-        if (!is_array($notify)) $notify = array($notify);
-        for ($i=0, $n=count($notify); $i<$n; $i++) {
-          $check_sql = "SELECT COUNT(*) AS total 
+			if (!is_array($notify)) $notify = array($notify);
+			
+			$products_notificationstable = $oostable['products_notifications'];
+			for ($i=0, $n=count($notify); $i<$n; $i++) {
+				$check_sql = "SELECT COUNT(*) AS total 
                         FROM $products_notificationstable 
                         WHERE products_id = '" . intval($notify[$i]) . "'
                         AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
-          $check = $dbconn->Execute($check_sql);
-          if ($check->fields['total'] < 1) {
-		    $today = date("Y-m-d H:i:s");
-            $sql = "INSERT INTO $products_notificationstable
-                    (products_id, customers_id, 
-                     date_added) VALUES (" . $dbconn->qstr($notify[$i]) . ','
+				$check = $dbconn->Execute($check_sql);
+				if ($check->fields['total'] < 1) {
+					$today = date("Y-m-d H:i:s");
+					$sql = "INSERT INTO $products_notificationstable
+						(products_id, customers_id, 
+						date_added) VALUES (" . $dbconn->qstr($notify[$i]) . ','
                                            . $dbconn->qstr($_SESSION['customer_id']) . ','
                                            . $dbconn->DBTimeStamp($today) . ")";
-            $dbconn->Execute($sql);
-          }
-        }
-        oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
-      } else {
-		// navigation history
-		if (!isset($_SESSION['navigation'])) {
-			$_SESSION['navigation'] = new navigationHistory();
-		}		  
-        $_SESSION['navigation']->set_snapshot();
-        oos_redirect(oos_href_link($aContents['login']));
-      }
-      break;
+					$dbconn->Execute($sql);
+				}
+			}
+			oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
+		} else {
+			// navigation history
+			if (!isset($_SESSION['navigation'])) {
+				$_SESSION['navigation'] = new navigationHistory();
+			}		  
+			$_SESSION['navigation']->set_snapshot();
+			oos_redirect(oos_href_link($aContents['login']));
+		}
+		break;
 
     case 'notify_remove' :
 		// start the session
 		if ( $session->hasStarted() === false ) $session->start();
 		
-      $products_notificationstable = $oostable['products_notifications'];
-      if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
-        if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
-        $check_sql = "SELECT COUNT(*) AS total
+		$products_notificationstable = $oostable['products_notifications'];
+		if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
+			if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
+			
+			$check_sql = "SELECT COUNT(*) AS total
                       FROM $products_notificationstable
                       WHERE products_id = '" . intval($nProductsID) . "'
                       AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
-        $check = $dbconn->Execute($check_sql);
-        if ($check->fields['total'] > 0) {
-          $dbconn->Execute("DELETE FROM $products_notificationstable WHERE products_id = '" . intval($nProductsID) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'");
-        }
-        oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
-      } else {
-		// navigation history
-		if (!isset($_SESSION['navigation'])) {
-			$_SESSION['navigation'] = new navigationHistory();
-		} 
-        $_SESSION['navigation']->set_snapshot();
-        oos_redirect(oos_href_link($aContents['login']));
-      }
-      break;
+			$check = $dbconn->Execute($check_sql);
+			if ($check->fields['total'] > 0) {
+				$dbconn->Execute("DELETE FROM $products_notificationstable WHERE products_id = '" . intval($nProductsID) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'");
+			}
+			oos_redirect(oos_href_link($sContent, oos_get_all_get_parameters(array('action'))));
+		} else {
+			// navigation history
+			if (!isset($_SESSION['navigation'])) {
+				$_SESSION['navigation'] = new navigationHistory();
+			} 
+			$_SESSION['navigation']->set_snapshot();
+			oos_redirect(oos_href_link($aContents['login']));
+		}
+		break;
 
 
 	case 'remove_wishlist' :	
