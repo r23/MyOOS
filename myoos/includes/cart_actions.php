@@ -416,6 +416,10 @@ switch ($action) {
 	case 'add_wishlist' :
 		if (isset($_GET['products_id'])) {
 
+			$sProductsId  = oos_prepare_input($_GET['products_id']);
+			$wishlist_products_id = oos_get_product_id($sProductsId);
+			$attributes = oos_get_attributes($sProductsId);
+
 			// start the session
 			if ( $session->hasStarted() === false ) $session->start();
 			if (!isset($_SESSION['customer_id'])) {
@@ -434,11 +438,7 @@ switch ($action) {
 				$_SESSION['navigation']->set_snapshot($aPage);
 				oos_redirect(oos_href_link($aContents['login']));
 			}
-			
-			$wishlist_products_id = oos_get_product_id($_GET['products_id']);
-			$attributes = oos_get_attributes($_GET['products_id']);
-		
-			
+						
 			$customers_wishlisttable = $oostable['customers_wishlist'];
 			$dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($wishlist_products_id) . "'");
 
