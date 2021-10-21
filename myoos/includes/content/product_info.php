@@ -45,7 +45,7 @@ $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_title, 
                               p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4,
                               p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                               p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_date_added,
-                              p.products_date_available, p.manufacturers_id, p.products_price_list, p.products_status
+                              p.products_date_available, p.products_last_modified, p.manufacturers_id, p.products_price_list, p.products_status
                         FROM $productstable p,
                              $products_descriptiontable pd
                         WHERE p.products_setting = '2'

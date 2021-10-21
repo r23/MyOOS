@@ -345,8 +345,11 @@
 								<p class="text-danger">{$product_info.products_date_available|oos_date_long|string_format:$lang.text_date_available}</p>
 							{else}
 								{if $smarty.const.SHOW_DATE_ADDED_AVAILABLE eq 'true'}
-									<p class="text-secondary">{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</p>  
+									<p>{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</p>  
 								{/if}
+								
+								<p>Last update on <time datetime="{$product_info.products_last_modified|oos_date_short_schema}">{$product_info.products_last_modified|oos_date_short}</time></p>
+								
 							{/if}
                     </div>
                 </div>
