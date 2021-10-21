@@ -488,15 +488,18 @@ switch ($action) {
 		
 		if (isset($_POST['products_id'])) {
 
-			$cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($_POST['products_id'], $_POST['id']));
+			$sProductsId  = oos_prepare_input($_POST['products_id']);
+
+
+			$cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($sProductsId, $_POST['id']));
 			$news_qty = $cart_qty + $cart_quantity;
 	
-			$products_order_min = oos_get_products_quantity_order_min($_POST['products_id']);
-			$products_order_units = oos_get_products_quantity_order_units($_POST['products_id']);
+			$products_order_min = oos_get_products_quantity_order_min($sProductsId);
+			$products_order_units = oos_get_products_quantity_order_units($sProductsId);
 
 			if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
 				if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-					$_SESSION['cart']->add_cart($_POST['products_id'], $news_qty, $_POST['id'], true, $_POST['wl_products_id']);   
+					$_SESSION['cart']->add_cart($sProductsId, $news_qty, $_POST['id'], true, $_POST['wl_products_id']);   
 				} else {
 					$oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
 				}
@@ -504,9 +507,10 @@ switch ($action) {
 				$oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
 			}
 			if ($oMessage->size('danger') == 0) {
-				oos_redirect(oos_href_link($aContents['account_wishlist'], 'page=' . intval($_POST['page'])));
+				$nPage = (isset($_POST['page']) ? intval($_POST['page']) : 1);
+				oos_redirect(oos_href_link($aContents['account_wishlist'], 'page=' . $nPage));
 			} else {
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $_POST['products_id']));
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));
 			}
 		}
 		break;
