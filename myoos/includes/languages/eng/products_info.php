@@ -25,6 +25,7 @@ $aLang['text_more_information'] = 'For more information, please visit this produ
 $aLang['text_manufacturer_info_homepage'] = '%s Homepage';
 $aLang['text_date_added'] = 'This product was added to our catalog on %s.';
 $aLang['text_date_available'] = 'This product will be in stock on %s.';
+$aLang['text_date_last_update'] = 'Last update on: ';
 $aLang['text_also_purchased_products'] = 'Customers who bought this product also purchased';
 $aLang['text_xsell_products'] = 'Family Products:';
 $aLang['text_up_sell_products'] = 'Best Value:';
