@@ -19,6 +19,15 @@
    ---------------------------------------------------------------------- */
 
 define('OOS_VALID_MOD', 'yes');
+
+error_reporting(E_ALL & ~E_STRICT);
+   
+//setting basic configuration parameters
+if (function_exists('ini_set')) {
+	ini_set('display_errors', true);
+}
+
+
 require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
@@ -551,7 +560,7 @@ if (!empty($action)) {
                            VALUES ('" . intval($dup_products_id) . "',
                                    '" . intval($categories_id) . "')");
 
-				$products_images_copy_result= $dbconn->Execute("SELECT image_name, sort_order FROM " . $oostable['products_images'] . " WHERE products_id='" . intval($products_id_from) . "'");
+				$products_images_copy_result= $dbconn->Execute("SELECT image_name, sort_order FROM " . $oostable['products_gallery'] . " WHERE products_id='" . intval($products_id_from) . "'");
 				while ( $products_images_copy = $products_images_copy_result->fields) {
 						$sql = "INSERT INTO " . $oostable['products_images'] . "
 							(products_id,
@@ -567,19 +576,33 @@ if (!empty($action)) {
 				}
 
 				if ( $_POST['copy_attributes']=='copy_attributes_yes' and $_POST['copy_as'] == 'duplicate' ) {
-					$products_copy_from_result= $dbconn->Execute("SELECT options_id, options_values_id, options_values_price, price_prefix, options_sort_order FROM " . $oostable['products_attributes'] . " WHERE products_id='" . intval($products_id_from) . "'");
+					$products_copy_from_result= $dbconn->Execute("SELECT options_id,  options_values_model, options_values_image, options_values_id, options_values_status, options_values_price, options_values_quantity, options_values_base_price, options_values_base_quantity, options_values_base_unit, price_prefix, options_sort_order FROM " . $oostable['products_attributes'] . " WHERE products_id='" . intval($products_id_from) . "'");
 					while ( $products_copy_from = $products_copy_from_result->fields) {
 						$sql = "INSERT INTO " . $oostable['products_attributes'] . "
 							(products_id,
 							options_id,
+							options_values_model,
+							options_values_image,
 							options_values_id,
+							options_values_status,
 							options_values_price,
+							options_values_quantity,
+							options_values_base_price,
+							options_values_base_quantity,
+							options_values_base_unit,
 							price_prefix,
 							options_sort_order)
 							VALUES ('" . intval($products_id_to) . "',
 									'" . $products_copy_from['options_id'] . "',
+									'" . $products_copy_from['options_values_model'] . "',
+									'" . $products_copy_from['options_values_image'] . "',
 									'" . $products_copy_from['options_values_id'] . "',
+									'" . $products_copy_from['options_values_status'] . "',
 									'" . $products_copy_from['options_values_price'] . "',
+									'" . $products_copy_from['options_values_quantity'] . "',
+									'" . $products_copy_from['options_values_base_price'] . "',
+									'" . $products_copy_from['options_values_base_quantity'] . "',
+									'" . $products_copy_from['options_values_base_unit'] . "',
 									'" . $products_copy_from['price_prefix'] . "',
 									'" . $products_copy_from['options_sort_order'] . "')";
 						$dbconn->Execute($sql);
@@ -590,7 +613,7 @@ if (!empty($action)) {
 				}
 			}
 		}
-
+exit;
 		oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $categories_id . '&pID=' . $products_id));
 		break;
     }
