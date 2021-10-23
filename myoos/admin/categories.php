@@ -20,14 +20,6 @@
 
 define('OOS_VALID_MOD', 'yes');
 
-error_reporting(E_ALL & ~E_STRICT);
-   
-//setting basic configuration parameters
-if (function_exists('ini_set')) {
-	ini_set('display_errors', true);
-}
-
-
 require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
@@ -613,7 +605,7 @@ if (!empty($action)) {
 				}
 			}
 		}
-exit;
+
 		oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $categories_id . '&pID=' . $products_id));
 		break;
     }
