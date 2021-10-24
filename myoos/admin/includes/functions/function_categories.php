@@ -1196,6 +1196,8 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '') {
   */
 function oos_get_model_viewer_title($model_viewer_id, $language_id = '') {
 
+	if (empty($model_viewer_id) || !is_numeric($model_viewer_id)) return '';
+
     if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 
     // Get database information
