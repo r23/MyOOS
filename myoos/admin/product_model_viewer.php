@@ -395,6 +395,8 @@ if ($action == 'edit_3d') {
 <?php						
 			}
 
+	$model_viewer_id = (isset($models['model_viewer_id'])) ? $models['model_viewer_id'] : '';
+	
     for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 ?>
 
@@ -403,8 +405,8 @@ if ($action == 'edit_3d') {
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_MODELS_TITLE; ?></label>
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
-								<?php echo oos_draw_input_field('model_viewer_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($model_viewer_title[$aLanguages[$i]['id']]) ? stripslashes($model_viewer_title[$aLanguages[$i]['id']]) : oos_get_model_viewer_title($models['model_viewer_id'], $aLanguages[$i]['id']))); ?>		
-								
+								<?php echo oos_draw_input_field('model_viewer_title['. $nCounter . '][' . $aLanguages[$i]['id'] . ']', (isset($model_viewer_title[$aLanguages[$i]['id']]) ? stripslashes($model_viewer_title[$aLanguages[$i]['id']]) : oos_get_model_viewer_title($model_viewer_id, $aLanguages[$i]['id']))); ?>		
+							
                               </div>
                            </div>
                         </fieldset>						
@@ -418,7 +420,7 @@ if ($action == 'edit_3d') {
 							  <?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
                               <div class="col-lg-9">
 <?php
-       echo oos_draw_textarea_field('model_viewer_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['model_viewer_description' .$aLanguages[$i]['id']]) ? stripslashes($_POST['model_viewer_description' .$aLanguages[$i]['id']]) : oos_get_model_viewer_description($models['model_viewer_id'], $aLanguages[$i]['id'])));
+       echo oos_draw_textarea_field('model_viewer_description_'. $nCounter . '_' . $aLanguages[$i]['id'], 'soft', '70', '15', (isset($_POST['model_viewer_description' .$aLanguages[$i]['id']]) ? stripslashes($_POST['model_viewer_description' .$aLanguages[$i]['id']]) : oos_get_model_viewer_description($model_viewer_id , $aLanguages[$i]['id'])));
 	   
 ?>
                               </div>
