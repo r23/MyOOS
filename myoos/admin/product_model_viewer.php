@@ -34,7 +34,7 @@ if (!empty($action)) {
 		case 'insert_model':
 		case 'update_model':
 		
-			if (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {		
+			if (isset($_SESSION['formid']) && isset($_POST['formid']) && ($_SESSION['formid'] == $_POST['formid'])) {		
 				$products_id = intval($_POST['products_id']);		
 
 				if (isset($_FILES['files'])) {
