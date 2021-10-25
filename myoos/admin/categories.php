@@ -527,8 +527,8 @@ if (!empty($action)) {
 									products_url,
 									products_viewed,
 									products_description_meta)
-									VALUES ('" . $dup_products_id . "',
-											'" . $description['products_languages_id'] . "',
+									VALUES ('" . intval($dup_products_id) . "',
+											'" . intval($description['products_languages_id']) . "',
 											'" . oos_db_input($description['products_name']) . "',
 											'" . oos_db_input($description['products_title']) . "',
 											'" . oos_db_input($description['products_description']) . "',
@@ -603,9 +603,53 @@ if (!empty($action)) {
 						$products_copy_from_result->MoveNext();
 					}
 				}
+				
+				// products_model_viewer
+				$products_model_viewer_copy_result = $dbconn->Execute("SELECT model_viewer_id, products_id, model_viewer_glb, model_viewer_usdz, model_viewer_background_color, model_viewer_auto_rotate, model_viewer_scale, model_viewer_hdr FROM " . $oostable['products_model_viewer'] . " WHERE products_id='" . intval($products_id_from) . "'");
+				$products_models_copy = $products_model_viewer_copy_result->fields;
+				$sql = "INSERT INTO " . $oostable['products_model_viewer'] . "
+							(products_id,
+							model_viewer_glb,
+							model_viewer_usdz,
+							model_viewer_background_color,
+							model_viewer_auto_rotate,
+							model_viewer_scale,
+							model_viewer_hdr,
+							model_viewer_date_added
+							VALUES ('" . intval($products_id_to) . "',
+									'" . $products_models_copy['model_viewer_glb'] . "',
+									'" . $products_models_copy['model_viewer_usdz'] . "',
+									'" . $products_models_copy['model_viewer_background_color'] . "',
+									'" . $products_models_copy['model_viewer_auto_rotate'] . "',
+									'" . $products_models_copy['model_viewer_scale'] . "',									
+									'" . $products_models_copy['model_viewer_hdr']. "
+									now() . ')";
+				$dbconn->Execute($sql);
+				$dup_model_viewer_id = $dbconn->Insert_ID();
+
+				$model_viewer_description_result = $dbconn->Execute("SELECT model_viewer_languages_id, model_viewer_title, model_viewer_description, model_viewer_viewed, model_viewer_keywords FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_id = '" . intval($products_models_copy['model_viewer_id']) . "'");
+				while ($description = $model_viewer_description_result->fields) {
+					$dbconn->Execute("INSERT INTO " . $oostable['products_model_viewer_description'] . "
+									(model_viewer_id,
+									model_viewer_languages_id,
+									model_viewer_title,
+									model_viewer_description,
+									model_viewer_viewed,
+									model_viewer_keywords)
+									VALUES ('" . intval($dup_model_viewer_id) . "',
+											'" . intval($description['model_viewer_languages_id']) . "',
+											'" . oos_db_input($description['model_viewer_title']) . "',
+											'" . oos_db_input($description['model_viewer_description']) . "',
+											'" . oos_db_input($description['model_viewer_viewed']) . "',
+											'" . oos_db_input($description['model_viewer_keywords']). "')");
+
+					// Move that ADOdb pointer!
+					$model_viewer_description_result->MoveNext();
+				}			
+				
 			}
 		}
-
+	
 		oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $categories_id . '&pID=' . $products_id));
 		break;
     }
