@@ -483,10 +483,6 @@ if ($action == 'edit_3d') {
 										</label>
 									</div>
 								</div>
-								<div class="col-sm">
-									<div class="c-radio c-radio-nofont">
-									</div>
-								</div>
                            </div>	
 
 
