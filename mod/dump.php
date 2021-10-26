@@ -106,9 +106,9 @@ $mp2=array(
 FillMultiDBarrays();
 if ($databases['db_actual_tableselected']!=''&&$config['multi_dump']==0)
 {
-	$dump['tblarray']=explode('|',$databases['db_actual_tableselected']);
+	$dump['tblArray']=explode('|',$databases['db_actual_tableselected']);
 	$tbl_sel=true;
-	$msgTbl=sprintf($lang['L_NR_TABLES_SELECTED'],count($dump['tblarray']));
+	$msgTbl=sprintf($lang['L_NR_TABLES_SELECTED'],count($dump['tblArray']));
 }
 // Korrektur -> Multi-DB-array ist gefuellt (damit die Infos in der Konfig nicht verloren gehen), aber Multidump ist nicht aktiviert)
 if (isset($config['multi_dump']) && ($config['multi_dump']==0))
