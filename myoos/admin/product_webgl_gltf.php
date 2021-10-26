@@ -110,7 +110,7 @@ if (!empty($action)) {
 					}
 
 
-					if ( ($_POST['remove_products_model'][$i] == 'yes') && (isset($_POST['models_webgl_gltf'][$i])) ) {
+					if ( isset($_POST['remove_products_model'][$i]) && ($_POST['remove_products_model'][$i] == 'yes') && (isset($_POST['models_webgl_gltf'][$i])) ) {
 						$models_webgl_gltf = oos_db_prepare_input($_POST['models_webgl_gltf'][$i]);
 
 						$dbconn->Execute("DELETE FROM " . $oostable['products_models'] . " WHERE models_id = '" . intval($_POST['models_id'][$i]) . "'");	
@@ -179,6 +179,7 @@ if (!empty($action)) {
 						}
 					}
 				}
+
 				oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
 			}
 			break;
@@ -466,10 +467,31 @@ if ($action == 'edit_3d') {
                            </div>
                         </fieldset>
 
-
                        <fieldset>
                            <div class="form-group row mt-5">
 								<label class="col-sm col-form-label"><?php echo TEXT_MODELS_HDR; ?></label>
+								<div class="col-sm">
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+										/*
+											echo '<input type="radio" name="models_hdr['. $nCounter . ']" value="none"'; 
+											if ($models['models_hdr'] == 'none') echo ' checked="checked"';
+											echo  '>&nbsp;' . TEXT_MODELS_HDR_NONE;
+										*/
+										?>
+										</label>
+									</div>
+								</div>
+								<div class="col-sm">
+									<div class="c-radio c-radio-nofont">
+									</div>
+								</div>
+                           </div>	
+
+
+                           <div class="form-group row mt-5">
+								<label class="col-sm col-form-label"></label>
 								<div class="col-sm">
 									<div class="c-radio c-radio-nofont">
 										<label>
@@ -497,7 +519,7 @@ if ($action == 'edit_3d') {
                            </div>
 						   
 						   
-	                           <div class="form-group row mt-5">
+	                        <div class="form-group row mt-5">
 								<label class="col-sm col-form-label"></label>
 								<div class="col-sm">
 									<div class="c-radio c-radio-nofont">
@@ -523,7 +545,7 @@ if ($action == 'edit_3d') {
 										</label>
 									</div>
 								</div>
-                           </div>					   
+							</div>					   
                         </fieldset>
                        <fieldset>
                            <div class="form-group row">
