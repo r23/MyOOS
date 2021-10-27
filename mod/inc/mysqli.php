@@ -318,13 +318,29 @@ function GetMySQLVersion()
 function mod_query($query, $error_output=true)
 {
 	global $config;
+	print_mem();
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
-//	echo "<br>Query: ".htmlspecialchars($query);
+	echo "<br>Query: ".htmlspecialchars($query) . '<br>';
 	$res=mysqli_query($config['dbconnection'],$query);
+	print_mem();
 	if (false === $res && $error_output) SQLError($query,mysqli_error($config['dbconnection']));
 	return $res;
-
 }
+
+
+function print_mem()
+{
+   /* Currently used memory */
+   $mem_usage = memory_get_usage();
+   
+   /* Peak memory usage */
+   $mem_peak = memory_get_peak_usage();
+
+   echo 'The script is now using: <strong>' . round($mem_usage / 1024) . ' KB</strong> of memory.<br>';
+   echo 'Peak usage: <strong>' . round($mem_peak / 1024) . ' KB</strong> of memory.<br><br>';
+}
+
+
 
 function SQLError($sql, $error, $return_output=false)
 {
