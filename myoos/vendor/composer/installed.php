@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'fc55979112dbdb9b4ef94d46f46740834aedfc74',
+        'reference' => '07c5e39a2d11cc199bbbe3ce8567b4428b745572',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'fc55979112dbdb9b4ef94d46f46740834aedfc74',
+            'reference' => '07c5e39a2d11cc199bbbe3ce8567b4428b745572',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -290,12 +290,12 @@
             'dev_requirement' => false,
         ),
         'phpseclib/phpseclib' => array(
-            'pretty_version' => '2.0.33',
-            'version' => '2.0.33.0',
+            'pretty_version' => '2.0.34',
+            'version' => '2.0.34.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpseclib/phpseclib',
             'aliases' => array(),
-            'reference' => 'fb53b7889497ec7c1362c94e61d8127ac67ea094',
+            'reference' => '98a6fe587f3481aea319eef7e656d02cfe1675ec',
             'dev_requirement' => false,
         ),
         'psr/cache' => array(
