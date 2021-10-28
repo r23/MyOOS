@@ -621,17 +621,17 @@
         },
         {
             "name": "doctrine/persistence",
-            "version": "2.2.2",
-            "version_normalized": "2.2.2.0",
+            "version": "2.2.3",
+            "version_normalized": "2.2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/persistence.git",
-                "reference": "4ce4712e6dc84a156176a0fbbb11954a25c93103"
+                "reference": "5e7bdbbfe9811c06e1f745d1c166647d5c47d6ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/persistence/zipball/4ce4712e6dc84a156176a0fbbb11954a25c93103",
-                "reference": "4ce4712e6dc84a156176a0fbbb11954a25c93103",
+                "url": "https://api.github.com/repos/doctrine/persistence/zipball/5e7bdbbfe9811c06e1f745d1c166647d5c47d6ee",
+                "reference": "5e7bdbbfe9811c06e1f745d1c166647d5c47d6ee",
                 "shasum": ""
             },
             "require": {
@@ -655,7 +655,7 @@
                 "symfony/cache": "^4.4|^5.0",
                 "vimeo/psalm": "4.7.0"
             },
-            "time": "2021-08-10T19:01:29+00:00",
+            "time": "2021-10-25T19:59:10+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -705,7 +705,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/persistence/issues",
-                "source": "https://github.com/doctrine/persistence/tree/2.2.2"
+                "source": "https://github.com/doctrine/persistence/tree/2.2.3"
             },
             "install-path": "../doctrine/persistence"
         },
