@@ -1924,6 +1924,21 @@ const sidebar = (0,external_wp_element_namespaceObject.createElement)(external_w
 }));
 /* harmony default export */ var library_sidebar = (sidebar);
 //# sourceMappingURL=sidebar.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/symbol-filled.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const symbolFilled = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M21.3 10.8l-5.6-5.6c-.7-.7-1.8-.7-2.5 0l-5.6 5.6c-.7.7-.7 1.8 0 2.5l5.6 5.6c.3.3.8.5 1.2.5s.9-.2 1.2-.5l5.6-5.6c.8-.7.8-1.9.1-2.5zm-17.6 1L10 5.5l-1-1-6.3 6.3c-.7.7-.7 1.8 0 2.5L9 19.5l1.1-1.1-6.3-6.3c-.2 0-.2-.2-.1-.3z"
+}));
+/* harmony default export */ var symbol_filled = (symbolFilled);
+//# sourceMappingURL=symbol-filled.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/utils/get-template-part-icon.js
 /**
  * WordPress dependencies
@@ -1946,7 +1961,7 @@ function getTemplatePartIcon(iconName) {
     return library_sidebar;
   }
 
-  return library_layout;
+  return symbol_filled;
 }
 //# sourceMappingURL=get-template-part-icon.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/store/selectors.js
@@ -3489,11 +3504,12 @@ function getNotificationArgumentsForSaveSuccess(data) {
   const isPublished = (0,external_lodash_namespaceObject.includes)(publishStatus, previousPost.status);
   const willPublish = (0,external_lodash_namespaceObject.includes)(publishStatus, post.status);
   let noticeMessage;
-  let shouldShowLink = (0,external_lodash_namespaceObject.get)(postType, ['viewable'], false);
+  let shouldShowLink = (0,external_lodash_namespaceObject.get)(postType, ['viewable'], false); // Always should a notice, which will be spoken for accessibility.
 
   if (!isPublished && !willPublish) {
     // If saving a non-published post, don't show notice.
-    noticeMessage = null;
+    noticeMessage = (0,external_wp_i18n_namespaceObject.__)('Saved');
+    shouldShowLink = false;
   } else if (isPublished && !willPublish) {
     // If undoing publish status, show specific notice
     noticeMessage = postType.labels.item_reverted_to_draft;
@@ -3511,24 +3527,20 @@ function getNotificationArgumentsForSaveSuccess(data) {
     noticeMessage = postType.labels.item_updated;
   }
 
-  if (noticeMessage) {
-    const actions = [];
+  const actions = [];
 
-    if (shouldShowLink) {
-      actions.push({
-        label: postType.labels.view_item,
-        url: post.link
-      });
-    }
-
-    return [noticeMessage, {
-      id: SAVE_POST_NOTICE_ID,
-      type: 'snackbar',
-      actions
-    }];
+  if (shouldShowLink) {
+    actions.push({
+      label: postType.labels.view_item,
+      url: post.link
+    });
   }
 
-  return [];
+  return [noticeMessage, {
+    id: SAVE_POST_NOTICE_ID,
+    type: 'snackbar',
+    actions
+  }];
 }
 /**
  * Builds the fail notification arguments for dispatch.
@@ -11344,7 +11356,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
     return saveEntityRecord('postType', 'page', options);
   };
 
-  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalGlobalStylesBaseStyles', '__experimentalGlobalStylesUserEntityId', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock']),
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalGlobalStylesBaseConfig', '__experimentalGlobalStylesUserEntityId', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock']),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
     __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),

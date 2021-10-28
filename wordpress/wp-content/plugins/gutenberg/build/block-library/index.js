@@ -1476,9 +1476,9 @@ __webpack_require__.d(post_comment_author_namespaceObject, {
 });
 
 // NAMESPACE OBJECT: ./packages/block-library/build-module/post-comment-content/index.js
-var post_comment_content_namespaceObject = {};
-__webpack_require__.r(post_comment_content_namespaceObject);
-__webpack_require__.d(post_comment_content_namespaceObject, {
+var build_module_post_comment_content_namespaceObject = {};
+__webpack_require__.r(build_module_post_comment_content_namespaceObject);
+__webpack_require__.d(build_module_post_comment_content_namespaceObject, {
   "metadata": function() { return post_comment_content_metadata; },
   "name": function() { return post_comment_content_name; },
   "settings": function() { return post_comment_content_settings; }
@@ -4551,6 +4551,68 @@ function HeadingLevelDropdown({
   });
 }
 //# sourceMappingURL=heading-level-dropdown.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/heading/autogenerate-anchors.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Returns the text without markup.
+ *
+ * @param {string} text The text.
+ *
+ * @return {string} The text without markup.
+ */
+
+const getTextWithoutMarkup = text => {
+  const dummyElement = document.createElement('div');
+  dummyElement.innerHTML = text;
+  return dummyElement.innerText;
+};
+/**
+ * Get the slug from the content.
+ *
+ * @param {string} content The block content.
+ *
+ * @return {string} Returns the slug.
+ */
+
+
+const getSlug = content => {
+  // Get the slug.
+  return (0,external_lodash_namespaceObject.trim)((0,external_lodash_namespaceObject.deburr)(getTextWithoutMarkup(content)).replace(/[^\p{L}\p{N}]+/gu, '-').toLowerCase(), '-');
+};
+/**
+ * Generate the anchor for a heading.
+ *
+ * @param {string}   clientId          The block ID.
+ * @param {string}   content           The block content.
+ * @param {string[]} allHeadingAnchors An array containing all headings anchors.
+ *
+ * @return {string|null} Return the heading anchor.
+ */
+
+
+const generateAnchor = (clientId, content, allHeadingAnchors) => {
+  const slug = getSlug(content); // If slug is empty, then return null.
+  // Returning null instead of an empty string allows us to check again when the content changes.
+
+  if ('' === slug) {
+    return null;
+  }
+
+  delete allHeadingAnchors[clientId];
+  let anchor = slug;
+  let i = 0; // If the anchor already exists in another heading, append -i.
+
+  while (Object.values(allHeadingAnchors).includes(anchor)) {
+    i += 1;
+    anchor = slug + '-' + i;
+  }
+
+  return anchor;
+};
+//# sourceMappingURL=autogenerate-anchors.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/heading/edit.js
 
 
@@ -4566,11 +4628,15 @@ function HeadingLevelDropdown({
 
 
 
+
+
 /**
  * Internal dependencies
  */
 
 
+
+const allHeadingAnchors = {};
 
 function HeadingEdit({
   attributes,
@@ -4584,7 +4650,8 @@ function HeadingEdit({
     textAlign,
     content,
     level,
-    placeholder
+    placeholder,
+    anchor
   } = attributes;
   const tagName = 'h' + level;
   const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
@@ -4593,6 +4660,39 @@ function HeadingEdit({
     }),
     style
   });
+  const {
+    __unstableMarkNextChangeAsNotPersistent
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store); // Initially set anchor for headings that have content but no anchor set.
+  // This is used when transforming a block to heading, or for legacy anchors.
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (!anchor && content) {
+      // This side-effect should not create an undo level.
+      __unstableMarkNextChangeAsNotPersistent();
+
+      setAttributes({
+        anchor: generateAnchor(clientId, content, allHeadingAnchors)
+      });
+    }
+
+    allHeadingAnchors[clientId] = anchor;
+    return () => {
+      delete allHeadingAnchors[clientId];
+    };
+  }, [content, anchor]);
+
+  const onContentChange = value => {
+    const newAttrs = {
+      content: value
+    };
+
+    if (!anchor || !value || generateAnchor(clientId, content, allHeadingAnchors) === anchor) {
+      newAttrs.anchor = generateAnchor(clientId, value, allHeadingAnchors);
+    }
+
+    setAttributes(newAttrs);
+  };
+
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, {
     group: "block"
   }, (0,external_wp_element_namespaceObject.createElement)(HeadingLevelDropdown, {
@@ -4611,9 +4711,7 @@ function HeadingEdit({
     identifier: "content",
     tagName: tagName,
     value: content,
-    onChange: value => setAttributes({
-      content: value
-    }),
+    onChange: onContentChange,
     onMerge: mergeBlocks,
     onSplit: (value, isOriginal) => {
       let block;
@@ -4623,7 +4721,9 @@ function HeadingEdit({
           content: value
         });
       } else {
-        block = (0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph');
+        var _getDefaultBlockName;
+
+        block = (0,external_wp_blocks_namespaceObject.createBlock)((_getDefaultBlockName = (0,external_wp_blocks_namespaceObject.getDefaultBlockName)()) !== null && _getDefaultBlockName !== void 0 ? _getDefaultBlockName : 'core/heading');
       }
 
       if (isOriginal) {
@@ -4731,13 +4831,17 @@ const {
     color: {
       link: true
     },
+    spacing: {
+      margin: true
+    },
     typography: {
       fontSize: true,
       lineHeight: true,
       __experimentalFontWeight: true
     },
     __experimentalSelector: "h1,h2,h3,h4,h5,h6",
-    __unstablePasteTextInline: true
+    __unstablePasteTextInline: true,
+    __experimentalSlashInserter: true
   },
   editorStyle: "wp-block-heading-editor",
   style: "wp-block-heading"
@@ -4878,13 +4982,17 @@ const heading_metadata = {
     color: {
       link: true
     },
+    spacing: {
+      margin: true
+    },
     typography: {
       fontSize: true,
       lineHeight: true,
       __experimentalFontWeight: true
     },
     __experimentalSelector: "h1,h2,h3,h4,h5,h6",
-    __unstablePasteTextInline: true
+    __unstablePasteTextInline: true,
+    __experimentalSlashInserter: true
   },
   editorStyle: "wp-block-heading-editor",
   style: "wp-block-heading"
@@ -5055,6 +5163,15 @@ const quote_deprecated_deprecated = [{
       type: 'number',
       default: 1
     }
+  },
+
+  migrate(attributes) {
+    if (!isNaN(parseInt(attributes.style))) {
+      return { ...(0,external_lodash_namespaceObject.omit)(attributes, ['style'])
+      };
+    }
+
+    return attributes;
   },
 
   save({
@@ -5438,12 +5555,16 @@ const quote_metadata = {
     }
   },
   supports: {
-    anchor: true
+    anchor: true,
+    __experimentalSlashInserter: true
   },
   styles: [{
     name: "default",
     label: "Default",
     isDefault: true
+  }, {
+    name: "plain",
+    label: "Plain"
   }, {
     name: "large",
     label: "Large"
@@ -6630,19 +6751,13 @@ function useGetMedia(innerBlockImages) {
       return currentImageMedia;
     }
 
-    const getMedia = select(external_wp_coreData_namespaceObject.store).getMedia;
-    const newImageMedia = imageIds.map(img => {
-      return getMedia(img);
+    return select(external_wp_coreData_namespaceObject.store).getMediaItems({
+      include: imageIds.join(','),
+      per_page: -1
     });
-
-    if (newImageMedia.some(img => !img)) {
-      return currentImageMedia;
-    }
-
-    return newImageMedia;
   }, [innerBlockImages]);
 
-  if ((imageMedia === null || imageMedia === void 0 ? void 0 : imageMedia.length) !== currentImageMedia.length || imageMedia.some(newImage => !currentImageMedia.find(currentImage => currentImage.id === newImage.id))) {
+  if ((imageMedia === null || imageMedia === void 0 ? void 0 : imageMedia.length) !== (currentImageMedia === null || currentImageMedia === void 0 ? void 0 : currentImageMedia.length) || imageMedia !== null && imageMedia !== void 0 && imageMedia.some(newImage => !currentImageMedia.find(currentImage => currentImage.id === newImage.id))) {
     setCurrentImageMedia(imageMedia);
     return imageMedia;
   }
@@ -9383,7 +9498,14 @@ const {
   supports: {
     anchor: true,
     align: ["wide", "full"],
-    __experimentalExposeControlsToChildren: true
+    __experimentalExposeControlsToChildren: true,
+    spacing: {
+      blockGap: true,
+      margin: ["top", "bottom"],
+      __experimentalDefaultControls: {
+        blockGap: true
+      }
+    }
   },
   editorStyle: "wp-block-buttons-editor",
   style: "wp-block-buttons"
@@ -9443,6 +9565,68 @@ const button_button = (0,external_wp_element_namespaceObject.createElement)(exte
 }));
 /* harmony default export */ var library_button = (button_button);
 //# sourceMappingURL=button.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/utils/clean-empty-object.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Removed empty nodes from nested objects.
+ *
+ * @param {Object} object
+ * @return {Object} Object cleaned from empty nodes.
+ */
+
+const cleanEmptyObject = object => {
+  if (!(0,external_lodash_namespaceObject.isObject)(object) || Array.isArray(object)) {
+    return object;
+  }
+
+  const cleanedNestedObjects = (0,external_lodash_namespaceObject.pickBy)((0,external_lodash_namespaceObject.mapValues)(object, cleanEmptyObject), external_lodash_namespaceObject.identity);
+  return (0,external_lodash_namespaceObject.isEmpty)(cleanedNestedObjects) ? undefined : cleanedNestedObjects;
+};
+
+/* harmony default export */ var clean_empty_object = (cleanEmptyObject);
+//# sourceMappingURL=clean-empty-object.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/utils/migrate-font-family.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Migrates the current style.typography.fontFamily attribute,
+ * whose value was "var:preset|font-family|helvetica-arial",
+ * to the style.fontFamily attribute, whose value will be "helvetica-arial".
+ *
+ * @param {Object} attributes The current attributes
+ * @return {Object} The updated attributes.
+ */
+
+/* harmony default export */ function migrate_font_family(attributes) {
+  var _attributes$style, _attributes$style$typ;
+
+  if (!(attributes !== null && attributes !== void 0 && (_attributes$style = attributes.style) !== null && _attributes$style !== void 0 && (_attributes$style$typ = _attributes$style.typography) !== null && _attributes$style$typ !== void 0 && _attributes$style$typ.fontFamily)) {
+    return attributes;
+  } // Clone first so when we delete the fontFamily
+  // below we're not modifying the original
+  // attributes. Because the deprecation may be discarded
+  // we don't want to alter the original attributes.
+
+
+  const atts = (0,external_lodash_namespaceObject.cloneDeep)(attributes);
+  const fontFamily = atts.style.typography.fontFamily.split('|').pop();
+  delete atts.style.typography.fontFamily;
+  atts.style = clean_empty_object(atts.style);
+  return { ...atts,
+    fontFamily
+  };
+}
+//# sourceMappingURL=migrate-font-family.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/button/deprecated.js
 
 
@@ -9455,6 +9639,11 @@ const button_button = (0,external_wp_element_namespaceObject.createElement)(exte
  * WordPress dependencies
  */
 
+
+
+/**
+ * Internal dependencies
+ */
 
 
 
@@ -9536,7 +9725,146 @@ const button_deprecated_blockAttributes = {
     selector: 'a'
   }
 };
-const button_deprecated_deprecated = [{
+const v10 = {
+  attributes: {
+    url: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'href'
+    },
+    title: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'title'
+    },
+    text: {
+      type: 'string',
+      source: 'html',
+      selector: 'a'
+    },
+    linkTarget: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'target'
+    },
+    rel: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'rel'
+    },
+    placeholder: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    textColor: {
+      type: 'string'
+    },
+    gradient: {
+      type: 'string'
+    },
+    width: {
+      type: 'number'
+    }
+  },
+  supports: {
+    anchor: true,
+    align: true,
+    alignWide: false,
+    color: {
+      __experimentalSkipSerialization: true,
+      gradients: true
+    },
+    typography: {
+      fontSize: true,
+      __experimentalFontFamily: true
+    },
+    reusable: false,
+    spacing: {
+      __experimentalSkipSerialization: true,
+      padding: ['horizontal', 'vertical'],
+      __experimentalDefaultControls: {
+        padding: true
+      }
+    },
+    __experimentalBorder: {
+      radius: true,
+      __experimentalSkipSerialization: true
+    },
+    __experimentalSelector: '.wp-block-button__link'
+  },
+
+  save({
+    attributes,
+    className
+  }) {
+    var _style$border, _style$typography;
+
+    const {
+      fontSize,
+      linkTarget,
+      rel,
+      style,
+      text,
+      title,
+      url,
+      width
+    } = attributes;
+
+    if (!text) {
+      return null;
+    }
+
+    const borderProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetBorderClassesAndStyles)(attributes);
+    const colorProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetColorClassesAndStyles)(attributes);
+    const spacingProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetSpacingClassesAndStyles)(attributes);
+    const buttonClasses = classnames_default()('wp-block-button__link', colorProps.className, borderProps.className, {
+      // For backwards compatibility add style that isn't provided via
+      // block support.
+      'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.radius) === 0
+    });
+    const buttonStyle = { ...borderProps.style,
+      ...colorProps.style,
+      ...spacingProps.style
+    }; // The use of a `title` attribute here is soft-deprecated, but still applied
+    // if it had already been assigned, for the sake of backward-compatibility.
+    // A title will no longer be assigned for new or updated button block links.
+
+    const wrapperClasses = classnames_default()(className, {
+      [`has-custom-width wp-block-button__width-${width}`]: width,
+      [`has-custom-font-size`]: fontSize || (style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontSize)
+    });
+    return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
+      className: wrapperClasses
+    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText.Content, {
+      tagName: "a",
+      className: buttonClasses,
+      href: url,
+      title: title,
+      style: buttonStyle,
+      value: text,
+      target: linkTarget,
+      rel: rel
+    }));
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography2;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography2 = style.typography) === null || _style$typography2 === void 0 ? void 0 : _style$typography2.fontFamily;
+  }
+
+};
+const button_deprecated_deprecated = [v10, {
   supports: {
     anchor: true,
     align: true,
@@ -9585,16 +9913,16 @@ const button_deprecated_deprecated = [{
   isEligible({
     style
   }) {
-    var _style$border;
+    var _style$border2;
 
-    return typeof (style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.radius) === 'number';
+    return typeof (style === null || style === void 0 ? void 0 : (_style$border2 = style.border) === null || _style$border2 === void 0 ? void 0 : _style$border2.radius) === 'number';
   },
 
   save({
     attributes,
     className
   }) {
-    var _style$border2, _style$border3, _style$typography;
+    var _style$border3, _style$border4, _style$typography3;
 
     const {
       fontSize,
@@ -9611,10 +9939,10 @@ const button_deprecated_deprecated = [{
       return null;
     }
 
-    const borderRadius = style === null || style === void 0 ? void 0 : (_style$border2 = style.border) === null || _style$border2 === void 0 ? void 0 : _style$border2.radius;
+    const borderRadius = style === null || style === void 0 ? void 0 : (_style$border3 = style.border) === null || _style$border3 === void 0 ? void 0 : _style$border3.radius;
     const colorProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetColorClassesAndStyles)(attributes);
     const buttonClasses = classnames_default()('wp-block-button__link', colorProps.className, {
-      'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border3 = style.border) === null || _style$border3 === void 0 ? void 0 : _style$border3.radius) === 0
+      'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border4 = style.border) === null || _style$border4 === void 0 ? void 0 : _style$border4.radius) === 0
     });
     const buttonStyle = {
       borderRadius: borderRadius ? borderRadius : undefined,
@@ -9625,7 +9953,7 @@ const button_deprecated_deprecated = [{
 
     const wrapperClasses = classnames_default()(className, {
       [`has-custom-width wp-block-button__width-${width}`]: width,
-      [`has-custom-font-size`]: fontSize || (style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontSize)
+      [`has-custom-font-size`]: fontSize || (style === null || style === void 0 ? void 0 : (_style$typography3 = style.typography) === null || _style$typography3 === void 0 ? void 0 : _style$typography3.fontSize)
     });
     return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
       className: wrapperClasses
@@ -9641,7 +9969,7 @@ const button_deprecated_deprecated = [{
     }));
   },
 
-  migrate: migrateBorderRadius
+  migrate: (0,external_wp_compose_namespaceObject.compose)(migrate_font_family, migrateBorderRadius)
 }, {
   supports: {
     anchor: true,
@@ -9730,7 +10058,7 @@ const button_deprecated_deprecated = [{
     }));
   },
 
-  migrate: migrateBorderRadius
+  migrate: (0,external_wp_compose_namespaceObject.compose)(migrate_font_family, migrateBorderRadius)
 }, {
   supports: {
     anchor: true,
@@ -9819,7 +10147,7 @@ const button_deprecated_deprecated = [{
     }));
   },
 
-  migrate: migrateBorderRadius
+  migrate: (0,external_wp_compose_namespaceObject.compose)(migrate_font_family, migrateBorderRadius)
 }, {
   supports: {
     align: true,
@@ -10833,7 +11161,14 @@ const buttons_metadata = {
   supports: {
     anchor: true,
     align: ["wide", "full"],
-    __experimentalExposeControlsToChildren: true
+    __experimentalExposeControlsToChildren: true,
+    spacing: {
+      blockGap: true,
+      margin: ["top", "bottom"],
+      __experimentalDefaultControls: {
+        blockGap: true
+      }
+    }
   },
   editorStyle: "wp-block-buttons-editor",
   style: "wp-block-buttons"
@@ -11068,7 +11403,8 @@ function CategoriesEdit({
   attributes: {
     displayAsDropdown,
     showHierarchy,
-    showPostCounts
+    showPostCounts,
+    showOnlyTopLevel
   },
   setAttributes
 }) {
@@ -11086,11 +11422,16 @@ function CategoriesEdit({
       hide_empty: true,
       context: 'view'
     };
+
+    if (showOnlyTopLevel) {
+      query.parent = 0;
+    }
+
     return {
       categories: getEntityRecords('taxonomy', 'category', query),
       isRequesting: isResolving('getEntityRecords', ['taxonomy', 'category', query])
     };
-  }, []);
+  }, [showOnlyTopLevel]);
 
   const getCategoriesList = parentId => {
     if (!(categories !== null && categories !== void 0 && categories.length)) {
@@ -11176,13 +11517,17 @@ function CategoriesEdit({
     checked: displayAsDropdown,
     onChange: toggleAttribute('displayAsDropdown')
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Show hierarchy'),
-    checked: showHierarchy,
-    onChange: toggleAttribute('showHierarchy')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Show post counts'),
     checked: showPostCounts,
     onChange: toggleAttribute('showPostCounts')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Show only top level categories'),
+    checked: showOnlyTopLevel,
+    onChange: toggleAttribute('showOnlyTopLevel')
+  }), !showOnlyTopLevel && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Show hierarchy'),
+    checked: showHierarchy,
+    onChange: toggleAttribute('showHierarchy')
   }))), isRequesting && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
     icon: library_pin,
     label: (0,external_wp_i18n_namespaceObject.__)('Categories')
@@ -11215,6 +11560,10 @@ const categories_metadata = {
       "default": false
     },
     showPostCounts: {
+      type: "boolean",
+      "default": false
+    },
+    showOnlyTopLevel: {
       type: "boolean",
       "default": false
     }
@@ -12502,7 +12851,8 @@ function ColumnEdit({
   attributes: {
     verticalAlignment,
     width,
-    templateLock = false
+    templateLock = false,
+    allowedBlocks
   },
   setAttributes,
   clientId
@@ -12560,6 +12910,7 @@ function ColumnEdit({
     'aria-label': label
   }, {
     templateLock,
+    allowedBlocks,
     renderAppender: hasChildBlocks ? undefined : external_wp_blockEditor_namespaceObject.InnerBlocks.ButtonBlockAppender
   });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockVerticalAlignmentToolbar, {
@@ -12655,6 +13006,9 @@ const column_metadata = {
     width: {
       type: "string"
     },
+    allowedBlocks: {
+      type: "array"
+    },
     templateLock: {
       "enum": ["all", "insert", false]
     }
@@ -12731,9 +13085,9 @@ function backgroundImageStyles(url) {
 }
 const shared_ALLOWED_MEDIA_TYPES = ['image', 'video'];
 function dimRatioToClass(ratio) {
-  return ratio === 0 || ratio === 50 || !ratio ? null : 'has-background-dim-' + 10 * Math.round(ratio / 10);
+  return ratio === 50 || !ratio === undefined ? null : 'has-background-dim-' + 10 * Math.round(ratio / 10);
 }
-function attributesFromMedia(setAttributes) {
+function attributesFromMedia(setAttributes, dimRatio) {
   return media => {
     if (!media || !media.url) {
       setAttributes({
@@ -12767,6 +13121,7 @@ function attributesFromMedia(setAttributes) {
     }
 
     setAttributes({
+      dimRatio: dimRatio === 100 ? 50 : dimRatio,
       url: media.url,
       id: media.id,
       alt: media === null || media === void 0 ? void 0 : media.alt,
@@ -12824,6 +13179,25 @@ function getPositionClassName(contentPosition) {
  */
 
 
+/**
+ * Original function to determine the background opacity classname
+ *
+ * Used in deprecations: v1-7.
+ *
+ * @param {number} ratio ratio to use for opacity.
+ * @return {string}       background opacity class   .
+ */
+
+function dimRatioToClassV1(ratio) {
+  return ratio === 0 || ratio === 50 || !ratio ? null : 'has-background-dim-' + 10 * Math.round(ratio / 10);
+}
+
+function migrateDimRatio(attributes) {
+  return { ...attributes,
+    dimRatio: !attributes.url ? 100 : attributes.dimRatio
+  };
+}
+
 const cover_deprecated_blockAttributes = {
   url: {
     type: 'string'
@@ -12853,7 +13227,133 @@ const cover_deprecated_blockAttributes = {
     type: 'object'
   }
 };
-const cover_deprecated_deprecated = [{
+const v7 = {
+  attributes: { ...cover_deprecated_blockAttributes,
+    isRepeated: {
+      type: 'boolean',
+      default: false
+    },
+    minHeight: {
+      type: 'number'
+    },
+    minHeightUnit: {
+      type: 'string'
+    },
+    gradient: {
+      type: 'string'
+    },
+    customGradient: {
+      type: 'string'
+    },
+    contentPosition: {
+      type: 'string'
+    },
+    alt: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'img',
+      attribute: 'alt',
+      default: ''
+    }
+  },
+  supports: {
+    anchor: true,
+    align: true,
+    html: false,
+    spacing: {
+      padding: true,
+      __experimentalDefaultControls: {
+        padding: true
+      }
+    },
+    color: {
+      __experimentalDuotone: '> .wp-block-cover__image-background, > .wp-block-cover__video-background',
+      text: false,
+      background: false
+    }
+  },
+
+  save({
+    attributes
+  }) {
+    const {
+      backgroundType,
+      gradient,
+      contentPosition,
+      customGradient,
+      customOverlayColor,
+      dimRatio,
+      focalPoint,
+      hasParallax,
+      isRepeated,
+      overlayColor,
+      url,
+      alt,
+      id,
+      minHeight: minHeightProp,
+      minHeightUnit
+    } = attributes;
+    const overlayColorClass = (0,external_wp_blockEditor_namespaceObject.getColorClassName)('background-color', overlayColor);
+
+    const gradientClass = (0,external_wp_blockEditor_namespaceObject.__experimentalGetGradientClass)(gradient);
+
+    const minHeight = minHeightUnit ? `${minHeightProp}${minHeightUnit}` : minHeightProp;
+    const isImageBackground = IMAGE_BACKGROUND_TYPE === backgroundType;
+    const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
+    const isImgElement = !(hasParallax || isRepeated);
+    const style = { ...(isImageBackground && !isImgElement ? backgroundImageStyles(url) : {}),
+      backgroundColor: !overlayColorClass ? customOverlayColor : undefined,
+      background: customGradient && !url ? customGradient : undefined,
+      minHeight: minHeight || undefined
+    };
+    const objectPosition = // prettier-ignore
+    focalPoint && isImgElement ? `${Math.round(focalPoint.x * 100)}% ${Math.round(focalPoint.y * 100)}%` : undefined;
+    const classes = classnames_default()(dimRatioToClassV1(dimRatio), overlayColorClass, {
+      'has-background-dim': dimRatio !== 0,
+      'has-parallax': hasParallax,
+      'is-repeated': isRepeated,
+      'has-background-gradient': gradient || customGradient,
+      [gradientClass]: !url && gradientClass,
+      'has-custom-content-position': !isContentPositionCenter(contentPosition)
+    }, getPositionClassName(contentPosition));
+    return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
+      className: classes,
+      style
+    }), url && (gradient || customGradient) && dimRatio !== 0 && (0,external_wp_element_namespaceObject.createElement)("span", {
+      "aria-hidden": "true",
+      className: classnames_default()('wp-block-cover__gradient-background', gradientClass),
+      style: customGradient ? {
+        background: customGradient
+      } : undefined
+    }), isImageBackground && isImgElement && url && (0,external_wp_element_namespaceObject.createElement)("img", {
+      className: classnames_default()('wp-block-cover__image-background', id ? `wp-image-${id}` : null),
+      alt: alt,
+      src: url,
+      style: {
+        objectPosition
+      },
+      "data-object-fit": "cover",
+      "data-object-position": objectPosition
+    }), isVideoBackground && url && (0,external_wp_element_namespaceObject.createElement)("video", {
+      className: classnames_default()('wp-block-cover__video-background', 'intrinsic-ignore'),
+      autoPlay: true,
+      muted: true,
+      loop: true,
+      playsInline: true,
+      src: url,
+      style: {
+        objectPosition
+      },
+      "data-object-fit": "cover",
+      "data-object-position": objectPosition
+    }), (0,external_wp_element_namespaceObject.createElement)("div", {
+      className: "wp-block-cover__inner-container"
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks.Content, null)));
+  },
+
+  migrate: migrateDimRatio
+};
+const v6 = {
   attributes: { ...cover_deprecated_blockAttributes,
     isRepeated: {
       type: 'boolean',
@@ -12930,7 +13430,7 @@ const cover_deprecated_deprecated = [{
       }
     }
 
-    const classes = classnames_default()(dimRatioToClass(dimRatio), overlayColorClass, {
+    const classes = classnames_default()(dimRatioToClassV1(dimRatio), overlayColorClass, {
       'has-background-dim': dimRatio !== 0,
       'has-parallax': hasParallax,
       'is-repeated': isRepeated,
@@ -12958,9 +13458,11 @@ const cover_deprecated_deprecated = [{
     }), (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "wp-block-cover__inner-container"
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks.Content, null)));
-  }
+  },
 
-}, {
+  migrate: migrateDimRatio
+};
+const v5 = {
   attributes: { ...cover_deprecated_blockAttributes,
     minHeight: {
       type: 'number'
@@ -13010,7 +13512,7 @@ const cover_deprecated_deprecated = [{
     }
 
     style.minHeight = minHeight || undefined;
-    const classes = classnames_default()(dimRatioToClass(dimRatio), overlayColorClass, {
+    const classes = classnames_default()(dimRatioToClassV1(dimRatio), overlayColorClass, {
       'has-background-dim': dimRatio !== 0,
       'has-parallax': hasParallax,
       'has-background-gradient': customGradient,
@@ -13034,9 +13536,11 @@ const cover_deprecated_deprecated = [{
     }), (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "wp-block-cover__inner-container"
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks.Content, null)));
-  }
+  },
 
-}, {
+  migrate: migrateDimRatio
+};
+const v4 = {
   attributes: { ...cover_deprecated_blockAttributes,
     minHeight: {
       type: 'number'
@@ -13086,7 +13590,7 @@ const cover_deprecated_deprecated = [{
     }
 
     style.minHeight = minHeight || undefined;
-    const classes = classnames_default()(dimRatioToClass(dimRatio), overlayColorClass, {
+    const classes = classnames_default()(dimRatioToClassV1(dimRatio), overlayColorClass, {
       'has-background-dim': dimRatio !== 0,
       'has-parallax': hasParallax,
       'has-background-gradient': customGradient,
@@ -13110,9 +13614,11 @@ const cover_deprecated_deprecated = [{
     }), (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "wp-block-cover__inner-container"
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks.Content, null)));
-  }
+  },
 
-}, {
+  migrate: migrateDimRatio
+};
+const v3 = {
   attributes: { ...cover_deprecated_blockAttributes,
     title: {
       type: 'string',
@@ -13153,7 +13659,7 @@ const cover_deprecated_deprecated = [{
       style.backgroundPosition = `${focalPoint.x * 100}% ${focalPoint.y * 100}%`;
     }
 
-    const classes = classnames_default()(dimRatioToClass(dimRatio), overlayColorClass, {
+    const classes = classnames_default()(dimRatioToClassV1(dimRatio), overlayColorClass, {
       'has-background-dim': dimRatio !== 0,
       'has-parallax': hasParallax,
       [`has-${contentAlign}-content`]: contentAlign !== 'center'
@@ -13175,7 +13681,10 @@ const cover_deprecated_deprecated = [{
   },
 
   migrate(attributes) {
-    return [(0,external_lodash_namespaceObject.omit)(attributes, ['title', 'contentAlign']), [(0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {
+    const newAttribs = { ...attributes,
+      dimRatio: !attributes.url ? 100 : attributes.dimRatio
+    };
+    return [(0,external_lodash_namespaceObject.omit)(newAttribs, ['title', 'contentAlign']), [(0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {
       content: attributes.title,
       align: attributes.contentAlign,
       fontSize: 'large',
@@ -13183,7 +13692,8 @@ const cover_deprecated_deprecated = [{
     })]];
   }
 
-}, {
+};
+const v2 = {
   attributes: { ...cover_deprecated_blockAttributes,
     title: {
       type: 'string',
@@ -13222,7 +13732,7 @@ const cover_deprecated_deprecated = [{
       style.backgroundColor = customOverlayColor;
     }
 
-    const classes = classnames_default()('wp-block-cover-image', dimRatioToClass(dimRatio), overlayColorClass, {
+    const classes = classnames_default()('wp-block-cover-image', dimRatioToClassV1(dimRatio), overlayColorClass, {
       'has-background-dim': dimRatio !== 0,
       'has-parallax': hasParallax,
       [`has-${contentAlign}-content`]: contentAlign !== 'center'
@@ -13238,7 +13748,10 @@ const cover_deprecated_deprecated = [{
   },
 
   migrate(attributes) {
-    return [(0,external_lodash_namespaceObject.omit)(attributes, ['title', 'contentAlign', 'align']), [(0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {
+    const newAttribs = { ...attributes,
+      dimRatio: !attributes.url ? 100 : attributes.dimRatio
+    };
+    return [(0,external_lodash_namespaceObject.omit)(newAttribs, ['title', 'contentAlign', 'align']), [(0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {
       content: attributes.title,
       align: attributes.contentAlign,
       fontSize: 'large',
@@ -13246,7 +13759,8 @@ const cover_deprecated_deprecated = [{
     })]];
   }
 
-}, {
+};
+const v1 = {
   attributes: { ...cover_deprecated_blockAttributes,
     title: {
       type: 'string',
@@ -13276,7 +13790,7 @@ const cover_deprecated_deprecated = [{
       align
     } = attributes;
     const style = backgroundImageStyles(url);
-    const classes = classnames_default()('wp-block-cover-image', dimRatioToClass(dimRatio), {
+    const classes = classnames_default()('wp-block-cover-image', dimRatioToClassV1(dimRatio), {
       'has-background-dim': dimRatio !== 0,
       'has-parallax': hasParallax
     }, align ? `align${align}` : null);
@@ -13290,7 +13804,10 @@ const cover_deprecated_deprecated = [{
   },
 
   migrate(attributes) {
-    return [(0,external_lodash_namespaceObject.omit)(attributes, ['title', 'contentAlign', 'align']), [(0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {
+    const newAttribs = { ...attributes,
+      dimRatio: !attributes.url ? 100 : attributes.dimRatio
+    };
+    return [(0,external_lodash_namespaceObject.omit)(newAttribs, ['title', 'contentAlign', 'align']), [(0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {
       content: attributes.title,
       align: attributes.contentAlign,
       fontSize: 'large',
@@ -13298,8 +13815,8 @@ const cover_deprecated_deprecated = [{
     })]];
   }
 
-}];
-/* harmony default export */ var cover_deprecated = (cover_deprecated_deprecated);
+};
+/* harmony default export */ var cover_deprecated = ([v7, v6, v5, v4, v3, v2, v1]);
 //# sourceMappingURL=deprecated.js.map
 // EXTERNAL MODULE: ./node_modules/fast-average-color/dist/index.js
 var dist = __webpack_require__(7667);
@@ -13381,7 +13898,7 @@ function CoverHeightInput({
   });
 
   const handleOnChange = unprocessedValue => {
-    const inputValue = unprocessedValue !== '' ? parseInt(unprocessedValue, 10) : undefined;
+    const inputValue = unprocessedValue !== '' ? parseFloat(unprocessedValue) : undefined;
 
     if (isNaN(inputValue) && inputValue !== undefined) {
       setTemporaryInput(unprocessedValue);
@@ -13414,7 +13931,6 @@ function CoverHeightInput({
     onBlur: handleOnBlur,
     onChange: handleOnChange,
     onUnitChange: onUnitChange,
-    step: "1",
     style: {
       maxWidth: 80
     },
@@ -13462,8 +13978,7 @@ function ResizableCover({
     onResizeStop: (_event, _direction, elt) => {
       onResizeStop(elt.clientHeight);
       setIsResizing(false);
-    },
-    minHeight: COVER_MIN_HEIGHT
+    }
   }, props));
 }
 /**
@@ -13539,7 +14054,8 @@ function CoverPlaceholder({
   children,
   noticeUI,
   noticeOperations,
-  onSelectMedia
+  onSelectMedia,
+  style
 }) {
   const {
     removeAllNotices,
@@ -13551,7 +14067,7 @@ function CoverPlaceholder({
     }),
     labels: {
       title: (0,external_wp_i18n_namespaceObject.__)('Cover'),
-      instructions: (0,external_wp_i18n_namespaceObject.__)('Upload an image or video file, or pick one from your media library.')
+      instructions: (0,external_wp_i18n_namespaceObject.__)('Drag and drop onto this block, upload, or select existing media from your library.')
     },
     onSelect: onSelectMedia,
     accept: "image/*,video/*",
@@ -13561,7 +14077,8 @@ function CoverPlaceholder({
     onError: message => {
       removeAllNotices();
       createErrorNotice(message);
-    }
+    },
+    style: style
   }, children);
 }
 
@@ -13585,12 +14102,15 @@ function CoverEdit({
     dimRatio,
     focalPoint,
     hasParallax,
+    isDark,
     isRepeated,
     minHeight,
     minHeightUnit,
     style: styleAttribute,
     url,
-    alt
+    alt,
+    allowedBlocks,
+    templateLock
   } = attributes;
 
   const {
@@ -13599,7 +14119,7 @@ function CoverEdit({
     setGradient
   } = (0,external_wp_blockEditor_namespaceObject.__experimentalUseGradient)();
 
-  const onSelectMedia = attributesFromMedia(setAttributes);
+  const onSelectMedia = attributesFromMedia(setAttributes, dimRatio);
   const isUploadingMedia = isTemporaryMedia(id, url);
   const [prevMinHeightValue, setPrevMinHeightValue] = (0,external_wp_element_namespaceObject.useState)(minHeight);
   const [prevMinHeightUnit, setPrevMinHeightUnit] = (0,external_wp_element_namespaceObject.useState)(minHeightUnit);
@@ -13647,17 +14167,22 @@ function CoverEdit({
   };
 
   const isDarkElement = (0,external_wp_element_namespaceObject.useRef)();
-  const isDark = useCoverIsDark(url, dimRatio, overlayColor.color, isDarkElement);
+  const isCoverDark = useCoverIsDark(url, dimRatio, overlayColor.color, isDarkElement);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    setAttributes({
+      isDark: isCoverDark
+    });
+  }, [isCoverDark]);
   const isImageBackground = IMAGE_BACKGROUND_TYPE === backgroundType;
   const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
   const [temporaryMinHeight, setTemporaryMinHeight] = (0,external_wp_element_namespaceObject.useState)(null);
   const minHeightWithUnit = minHeightUnit ? `${minHeight}${minHeightUnit}` : minHeight;
   const isImgElement = !(hasParallax || isRepeated);
-  const style = { ...(isImageBackground && !isImgElement ? backgroundImageStyles(url) : {
-      backgroundImage: gradientValue ? gradientValue : undefined
-    }),
-    backgroundColor: overlayColor.color,
+  const style = { ...(isImageBackground && !isImgElement ? backgroundImageStyles(url) : undefined),
     minHeight: temporaryMinHeight || minHeightWithUnit || undefined
+  };
+  const bgStyle = {
+    backgroundColor: overlayColor.color
   };
   const mediaStyle = {
     objectPosition: focalPoint && isImgElement ? mediaPosition(focalPoint) : undefined
@@ -13729,7 +14254,6 @@ function CoverEdit({
       url: undefined,
       id: undefined,
       backgroundType: undefined,
-      dimRatio: undefined,
       focalPoint: undefined,
       hasParallax: undefined,
       isRepeated: undefined
@@ -13744,7 +14268,7 @@ function CoverEdit({
       onGradientChange: setGradient,
       label: (0,external_wp_i18n_namespaceObject.__)('Color')
     }]
-  }, !!url && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.RangeControl, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.RangeControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Opacity'),
     value: dimRatio,
     onChange: newDimRation => setAttributes({
@@ -13792,7 +14316,9 @@ function CoverEdit({
     className: 'wp-block-cover__inner-container'
   }, {
     template: innerBlocksTemplate,
-    templateInsertUpdatesSelection: true
+    templateInsertUpdatesSelection: true,
+    allowedBlocks,
+    templateLock
   });
 
   if (!hasInnerBlocks && !hasBackground) {
@@ -13801,7 +14327,10 @@ function CoverEdit({
     }), (0,external_wp_element_namespaceObject.createElement)(CoverPlaceholder, {
       noticeUI: noticeUI,
       onSelectMedia: onSelectMedia,
-      noticeOperations: noticeOperations
+      noticeOperations: noticeOperations,
+      style: {
+        minHeight: temporaryMinHeight || minHeightWithUnit || undefined
+      }
     }, (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "wp-block-cover__placeholder-background-options"
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.ColorPalette, {
@@ -13809,18 +14338,32 @@ function CoverEdit({
       value: overlayColor.color,
       onChange: setOverlayColor,
       clearable: false
-    })))));
+    }))), (0,external_wp_element_namespaceObject.createElement)(ResizableCover, {
+      className: "block-library-cover__resize-container",
+      onResizeStart: () => {
+        setAttributes({
+          minHeightUnit: 'px'
+        });
+        toggleSelection(false);
+      },
+      onResize: setTemporaryMinHeight,
+      onResizeStop: newMinHeight => {
+        toggleSelection(true);
+        setAttributes({
+          minHeight: newMinHeight
+        });
+        setTemporaryMinHeight(null);
+      },
+      showHandle: isSelected
+    })));
   }
 
-  const classes = classnames_default()(dimRatioToClass(dimRatio), {
+  const classes = classnames_default()({
     'is-dark-theme': isDark,
-    'has-background-dim': dimRatio !== 0,
+    'is-light': !isDark,
     'is-transient': isUploadingMedia,
     'has-parallax': hasParallax,
     'is-repeated': isRepeated,
-    [overlayColor.class]: overlayColor.class,
-    'has-background-gradient': gradientValue,
-    [gradientClass]: !url && gradientClass,
     'has-custom-content-position': !isContentPositionCenter(contentPosition)
   }, getPositionClassName(contentPosition));
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, controls, (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, blockProps, {
@@ -13849,11 +14392,18 @@ function CoverEdit({
       setTemporaryMinHeight(null);
     },
     showHandle: isSelected
-  }), url && gradientValue && dimRatio !== 0 && (0,external_wp_element_namespaceObject.createElement)("span", {
+  }), (0,external_wp_element_namespaceObject.createElement)("span", {
     "aria-hidden": "true",
-    className: classnames_default()('wp-block-cover__gradient-background', gradientClass),
+    className: classnames_default()(dimRatioToClass(dimRatio), {
+      [overlayColor.class]: overlayColor.class
+    }, 'wp-block-cover__gradient-background', gradientClass, {
+      'has-background-dim': dimRatio !== undefined,
+      'has-background-gradient': gradientValue,
+      [gradientClass]: !url && gradientClass
+    }),
     style: {
-      backgroundImage: gradientValue
+      backgroundImage: gradientValue,
+      ...bgStyle
     }
   }), url && isImageBackground && isImgElement && (0,external_wp_element_namespaceObject.createElement)("img", {
     ref: isDarkElement,
@@ -13917,6 +14467,7 @@ function cover_save_save({
     dimRatio,
     focalPoint,
     hasParallax,
+    isDark,
     isRepeated,
     overlayColor,
     url,
@@ -13934,29 +14485,31 @@ function cover_save_save({
   const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
   const isImgElement = !(hasParallax || isRepeated);
   const style = { ...(isImageBackground && !isImgElement ? backgroundImageStyles(url) : {}),
-    backgroundColor: !overlayColorClass ? customOverlayColor : undefined,
-    background: customGradient && !url ? customGradient : undefined,
     minHeight: minHeight || undefined
+  };
+  const bgStyle = {
+    backgroundColor: !overlayColorClass ? customOverlayColor : undefined,
+    background: customGradient ? customGradient : undefined
   };
   const objectPosition = // prettier-ignore
   focalPoint && isImgElement ? `${Math.round(focalPoint.x * 100)}% ${Math.round(focalPoint.y * 100)}%` : undefined;
-  const classes = classnames_default()(dimRatioToClass(dimRatio), overlayColorClass, {
-    'has-background-dim': dimRatio !== 0,
+  const classes = classnames_default()({
+    'is-light': !isDark,
     'has-parallax': hasParallax,
     'is-repeated': isRepeated,
-    'has-background-gradient': gradient || customGradient,
-    [gradientClass]: !url && gradientClass,
     'has-custom-content-position': !isContentPositionCenter(contentPosition)
   }, getPositionClassName(contentPosition));
   return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
     className: classes,
     style
-  }), url && (gradient || customGradient) && dimRatio !== 0 && (0,external_wp_element_namespaceObject.createElement)("span", {
+  }), (0,external_wp_element_namespaceObject.createElement)("span", {
     "aria-hidden": "true",
-    className: classnames_default()('wp-block-cover__gradient-background', gradientClass),
-    style: customGradient ? {
-      background: customGradient
-    } : undefined
+    className: classnames_default()(overlayColorClass, dimRatioToClass(dimRatio), 'wp-block-cover__gradient-background', gradientClass, {
+      'has-background-dim': dimRatio !== undefined,
+      'has-background-gradient': gradient || customGradient,
+      [gradientClass]: !url && gradientClass
+    }),
+    style: bgStyle
   }), isImageBackground && isImgElement && url && (0,external_wp_element_namespaceObject.createElement)("img", {
     className: classnames_default()('wp-block-cover__image-background', id ? `wp-image-${id}` : null),
     alt: alt,
@@ -14204,7 +14757,7 @@ const cover_metadata = {
     },
     dimRatio: {
       type: "number",
-      "default": 50
+      "default": 100
     },
     overlayColor: {
       type: "string"
@@ -14233,6 +14786,16 @@ const cover_metadata = {
     },
     contentPosition: {
       type: "string"
+    },
+    isDark: {
+      type: "boolean",
+      "default": true
+    },
+    allowedBlocks: {
+      type: "array"
+    },
+    templateLock: {
+      "enum": ["all", "insert", false]
     }
   },
   supports: {
@@ -14461,6 +15024,14 @@ const embedDailymotionIcon = (0,external_wp_element_namespaceObject.createElemen
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Path, {
   d: "m12.1479 18.5957c-2.4949 0-4.28131-1.7558-4.28131-4.0658 0-2.2176 1.78641-4.0965 4.09651-4.0965 2.2793 0 4.0349 1.7864 4.0349 4.1581 0 2.2794-1.7556 4.0042-3.8501 4.0042zm8.3521-18.5957-4.5329 1v7c-1.1088-1.41691-2.8028-1.8787-4.8049-1.8787-2.09443 0-3.97329.76993-5.5133 2.27917-1.72483 1.66323-2.6489 3.78863-2.6489 6.16033 0 2.5873.98562 4.8049 2.89526 6.499 1.44763 1.2936 3.17251 1.9402 5.17454 1.9402 1.9713 0 3.4498-.5236 4.8973-1.9402v1.9402h4.5329c0-7.6359 0-15.3641 0-23z",
   fill: "#333436"
+}));
+const embedPinterestIcon = (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SVG, {
+  width: "24",
+  height: "24",
+  viewBox: "0 0 24 24",
+  version: "1.1"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Path, {
+  d: "M12.289,2C6.617,2,3.606,5.648,3.606,9.622c0,1.846,1.025,4.146,2.666,4.878c0.25,0.111,0.381,0.063,0.439-0.169 c0.044-0.175,0.267-1.029,0.365-1.428c0.032-0.128,0.017-0.237-0.091-0.362C6.445,11.911,6.01,10.75,6.01,9.668 c0-2.777,2.194-5.464,5.933-5.464c3.23,0,5.49,2.108,5.49,5.122c0,3.407-1.794,5.768-4.13,5.768c-1.291,0-2.257-1.021-1.948-2.277 c0.372-1.495,1.089-3.112,1.089-4.191c0-0.967-0.542-1.775-1.663-1.775c-1.319,0-2.379,1.309-2.379,3.059 c0,1.115,0.394,1.869,0.394,1.869s-1.302,5.279-1.54,6.261c-0.405,1.666,0.053,4.368,0.094,4.604 c0.021,0.126,0.167,0.169,0.25,0.063c0.129-0.165,1.699-2.419,2.142-4.051c0.158-0.59,0.817-2.995,0.817-2.995 c0.43,0.784,1.681,1.446,3.013,1.446c3.963,0,6.822-3.494,6.822-7.833C20.394,5.112,16.849,2,12.289,2"
 }));
 //# sourceMappingURL=icons.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/embed/embed-loading.js
@@ -15485,6 +16056,16 @@ const embed_variations_variations = [{
   patterns: [/^https?:\/\/([a-z0-9-]+\.)?(amazon|amzn)(\.[a-z]{2,4})+\/.+/i, /^https?:\/\/(www\.)?(a\.co|z\.cn)\/.+/i],
   attributes: {
     providerNameSlug: 'amazon-kindle'
+  }
+}, {
+  name: 'pinterest',
+  title: 'Pinterest',
+  icon: embedPinterestIcon,
+  keywords: [(0,external_wp_i18n_namespaceObject.__)('social'), (0,external_wp_i18n_namespaceObject.__)('bookmark')],
+  description: (0,external_wp_i18n_namespaceObject.__)('Embed Pinterest pins, boards, and profiles.'),
+  patterns: [/^https?:\/\/([a-z]{2}|www)\.pinterest\.com(\.(au|mx))?\/.*/i],
+  attributes: {
+    providerNameSlug: 'pinterest'
   }
 }];
 /**
@@ -18520,21 +19101,26 @@ function ResponsiveWrapper({
   id,
   isOpen,
   isResponsive,
-  onToggle
+  onToggle,
+  isHiddenByDefault
 }) {
   if (!isResponsive) {
     return children;
   }
 
   const responsiveContainerClasses = classnames_default()('wp-block-navigation__responsive-container', {
-    'is-menu-open': isOpen
+    'is-menu-open': isOpen,
+    'hidden-by-default': isHiddenByDefault
+  });
+  const openButtonClasses = classnames_default()('wp-block-navigation__responsive-container-open', {
+    'always-shown': isHiddenByDefault
   });
   const modalId = `${id}-modal`;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, !isOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     "aria-haspopup": "true",
     "aria-expanded": isOpen,
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Open menu'),
-    className: "wp-block-navigation__responsive-container-open",
+    className: openButtonClasses,
     onClick: () => onToggle(true)
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
     xmlns: "http://www.w3.org/2000/svg",
@@ -18675,7 +19261,7 @@ function Navigation({
     className: classnames_default()(className, {
       [`items-justified-${attributes.itemsJustification}`]: attributes.itemsJustification,
       'is-vertical': attributes.orientation === 'vertical',
-      'is-responsive': attributes.isResponsive,
+      'is-responsive': 'never' !== attributes.overlayMenu,
       'has-text-color': !!textColor.color || !!(textColor !== null && textColor !== void 0 && textColor.class),
       [(0,external_wp_blockEditor_namespaceObject.getColorClassName)('color', textColor === null || textColor === void 0 ? void 0 : textColor.slug)]: !!(textColor !== null && textColor !== void 0 && textColor.slug),
       'has-background': !!backgroundColor.color || backgroundColor.class,
@@ -18759,23 +19345,33 @@ function Navigation({
       isAlternate: true
     }
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, navigatorToolbarButton)), navigatorModal, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, null, hasSubmenuIndicatorSetting && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
-    title: (0,external_wp_i18n_namespaceObject.__)('Display settings')
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
-    checked: attributes.isResponsive,
-    onChange: value => {
-      setAttributes({
-        isResponsive: value
-      });
-    },
-    label: (0,external_wp_i18n_namespaceObject.__)('Enable responsive menu')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Display')
+  }, (0,external_wp_element_namespaceObject.createElement)("h3", null, (0,external_wp_i18n_namespaceObject.__)('Overlay Menu')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Configure overlay menu'),
+    value: attributes.overlayMenu,
+    help: (0,external_wp_i18n_namespaceObject.__)('Collapses the navigation options in a menu icon opening an overlay.'),
+    onChange: value => setAttributes({
+      overlayMenu: value
+    }),
+    isBlock: true,
+    hideLabelFromVision: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "never",
+    label: (0,external_wp_i18n_namespaceObject.__)('Off')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "mobile",
+    label: (0,external_wp_i18n_namespaceObject.__)('Mobile')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "always",
+    label: (0,external_wp_i18n_namespaceObject.__)('Always')
+  })), (0,external_wp_element_namespaceObject.createElement)("h3", null, (0,external_wp_i18n_namespaceObject.__)('Submenus')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     checked: attributes.openSubmenusOnClick,
     onChange: value => {
       setAttributes({
         openSubmenusOnClick: value
       });
     },
-    label: (0,external_wp_i18n_namespaceObject.__)('Open submenus on click')
+    label: (0,external_wp_i18n_namespaceObject.__)('Open on click')
   }), !attributes.openSubmenusOnClick && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     checked: attributes.showSubmenuIcon,
     onChange: value => {
@@ -18783,7 +19379,7 @@ function Navigation({
         showSubmenuIcon: value
       });
     },
-    label: (0,external_wp_i18n_namespaceObject.__)('Show submenu indicator icons')
+    label: (0,external_wp_i18n_namespaceObject.__)('Show icons')
   })), hasColorSettings && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.PanelColorSettings, {
     title: (0,external_wp_i18n_namespaceObject.__)('Color'),
     initialOpen: false,
@@ -18814,7 +19410,8 @@ function Navigation({
     id: clientId,
     onToggle: setResponsiveMenuVisibility,
     isOpen: isResponsiveMenuOpen,
-    isResponsive: attributes.isResponsive
+    isResponsive: 'never' !== attributes.overlayMenu,
+    isHiddenByDefault: 'always' === attributes.overlayMenu
   }, (0,external_wp_element_namespaceObject.createElement)("div", innerBlocksProps))));
 }
 
@@ -18886,13 +19483,224 @@ function navigation_save_save() {
  */
 
 
+
+/**
+ * Internal dependencies
+ */
+
+
 const TYPOGRAPHY_PRESET_DEPRECATION_MAP = {
   fontStyle: 'var:preset|font-style|',
   fontWeight: 'var:preset|font-weight|',
   textDecoration: 'var:preset|text-decoration|',
   textTransform: 'var:preset|text-transform|'
 };
-/* harmony default export */ var navigation_deprecated = ([{
+const deprecated_v4 = {
+  attributes: {
+    orientation: {
+      type: 'string',
+      default: 'horizontal'
+    },
+    textColor: {
+      type: 'string'
+    },
+    customTextColor: {
+      type: 'string'
+    },
+    rgbTextColor: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    customBackgroundColor: {
+      type: 'string'
+    },
+    rgbBackgroundColor: {
+      type: 'string'
+    },
+    itemsJustification: {
+      type: 'string'
+    },
+    showSubmenuIcon: {
+      type: 'boolean',
+      default: true
+    },
+    openSubmenusOnClick: {
+      type: 'boolean',
+      default: false
+    },
+    overlayMenu: {
+      type: 'string',
+      default: 'never'
+    },
+    __unstableLocation: {
+      type: 'string'
+    },
+    overlayBackgroundColor: {
+      type: 'string'
+    },
+    customOverlayBackgroundColor: {
+      type: 'string'
+    },
+    overlayTextColor: {
+      type: 'string'
+    },
+    customOverlayTextColor: {
+      type: 'string'
+    }
+  },
+  supports: {
+    align: ['wide', 'full'],
+    anchor: true,
+    html: false,
+    inserter: true,
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontStyle: true,
+      __experimentalFontWeight: true,
+      __experimentalTextTransform: true,
+      __experimentalFontFamily: true,
+      __experimentalTextDecoration: true
+    },
+    spacing: {
+      blockGap: true,
+      units: ['px', 'em', 'rem', 'vh', 'vw'],
+      __experimentalDefaultControls: {
+        blockGap: true
+      }
+    }
+  },
+
+  save() {
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks.Content, null);
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+
+const migrateIsResponsive = function (attributes) {
+  delete attributes.isResponsive;
+  return { ...attributes,
+    overlayMenu: 'mobile'
+  };
+};
+
+const migrateTypographyPresets = function (attributes) {
+  return { ...attributes,
+    style: { ...attributes.style,
+      typography: (0,external_lodash_namespaceObject.mapValues)(attributes.style.typography, (value, key) => {
+        const prefix = TYPOGRAPHY_PRESET_DEPRECATION_MAP[key];
+
+        if (prefix && value.startsWith(prefix)) {
+          const newValue = value.slice(prefix.length);
+
+          if ('textDecoration' === key && 'strikethrough' === newValue) {
+            return 'line-through';
+          }
+
+          return newValue;
+        }
+
+        return value;
+      })
+    }
+  };
+};
+
+const navigation_deprecated_deprecated = [deprecated_v4, // Remove `isResponsive` attribute.
+{
+  attributes: {
+    orientation: {
+      type: 'string',
+      default: 'horizontal'
+    },
+    textColor: {
+      type: 'string'
+    },
+    customTextColor: {
+      type: 'string'
+    },
+    rgbTextColor: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    customBackgroundColor: {
+      type: 'string'
+    },
+    rgbBackgroundColor: {
+      type: 'string'
+    },
+    itemsJustification: {
+      type: 'string'
+    },
+    showSubmenuIcon: {
+      type: 'boolean',
+      default: true
+    },
+    openSubmenusOnClick: {
+      type: 'boolean',
+      default: false
+    },
+    isResponsive: {
+      type: 'boolean',
+      default: 'false'
+    },
+    __unstableLocation: {
+      type: 'string'
+    },
+    overlayBackgroundColor: {
+      type: 'string'
+    },
+    customOverlayBackgroundColor: {
+      type: 'string'
+    },
+    overlayTextColor: {
+      type: 'string'
+    },
+    customOverlayTextColor: {
+      type: 'string'
+    }
+  },
+  supports: {
+    align: ['wide', 'full'],
+    anchor: true,
+    html: false,
+    inserter: true,
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontStyle: true,
+      __experimentalFontWeight: true,
+      __experimentalTextTransform: true,
+      __experimentalFontFamily: true,
+      __experimentalTextDecoration: true
+    }
+  },
+
+  isEligible(attributes) {
+    return attributes.isResponsive;
+  },
+
+  migrate: (0,external_wp_compose_namespaceObject.compose)(migrate_font_family, migrateIsResponsive),
+
+  save() {
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks.Content, null);
+  }
+
+}, {
   attributes: {
     orientation: {
       type: 'string'
@@ -18957,28 +19765,7 @@ const TYPOGRAPHY_PRESET_DEPRECATION_MAP = {
     return false;
   },
 
-  migrate(attributes) {
-    return { ...attributes,
-      style: { ...attributes.style,
-        typography: (0,external_lodash_namespaceObject.mapValues)(attributes.style.typography, (value, key) => {
-          const prefix = TYPOGRAPHY_PRESET_DEPRECATION_MAP[key];
-
-          if (prefix && value.startsWith(prefix)) {
-            const newValue = value.slice(prefix.length);
-
-            if ('textDecoration' === key && 'strikethrough' === newValue) {
-              return 'line-through';
-            }
-
-            return newValue;
-          }
-
-          return value;
-        })
-      }
-    };
-  }
-
+  migrate: (0,external_wp_compose_namespaceObject.compose)(migrate_font_family, migrateTypographyPresets)
 }, {
   attributes: {
     className: {
@@ -19032,7 +19819,8 @@ const TYPOGRAPHY_PRESET_DEPRECATION_MAP = {
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InnerBlocks.Content, null);
   }
 
-}]);
+}];
+/* harmony default export */ var navigation_deprecated = (navigation_deprecated_deprecated);
 //# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/variations.js
 /**
@@ -19110,9 +19898,9 @@ const navigation_metadata = {
       type: "boolean",
       "default": false
     },
-    isResponsive: {
-      type: "boolean",
-      "default": false
+    overlayMenu: {
+      type: "string",
+      "default": "never"
     },
     __unstableLocation: {
       type: "string"
@@ -19159,6 +19947,13 @@ const navigation_metadata = {
       __experimentalTextTransform: true,
       __experimentalFontFamily: true,
       __experimentalTextDecoration: true
+    },
+    spacing: {
+      blockGap: true,
+      units: ["px", "em", "rem", "vh", "vw"],
+      __experimentalDefaultControls: {
+        blockGap: true
+      }
     }
   },
   viewScript: "file:./view.min.js",
@@ -19776,7 +20571,7 @@ function NavigationLinkEdit({
     blockProps.onClick = () => setIsLinkOpen(true);
   }
 
-  const classes = classnames_default()('wp-block-navigation-link__content', 'wp-block-navigation-item__content', {
+  const classes = classnames_default()('wp-block-navigation-item__content', {
     'wp-block-navigation-link__placeholder': !url
   });
   let missingText = '';
@@ -19857,7 +20652,7 @@ function NavigationLinkEdit({
   }, (0,external_wp_element_namespaceObject.createElement)("span", null, missingText))) : (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
     ref: ref,
     identifier: "label",
-    className: "wp-block-navigation-link__label",
+    className: "wp-block-navigation-item__label",
     value: label,
     onChange: labelValue => setAttributes({
       label: labelValue
@@ -20923,7 +21718,7 @@ function NavigationSubmenuEdit({
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
     ref: ref,
     identifier: "label",
-    className: "wp-block-navigation-link__label",
+    className: "wp-block-navigation-item__label",
     value: label,
     onChange: labelValue => setAttributes({
       label: labelValue
@@ -22205,6 +23000,106 @@ const loginout_settings = {
   edit: LoginOutEdit
 };
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/list/deprecated.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+const deprecated_v1 = {
+  attributes: {
+    ordered: {
+      type: 'boolean',
+      default: false,
+      __experimentalRole: 'content'
+    },
+    values: {
+      type: 'string',
+      source: 'html',
+      selector: 'ol,ul',
+      multiline: 'li',
+      __unstableMultilineWrapperTags: ['ol', 'ul'],
+      default: '',
+      __experimentalRole: 'content'
+    },
+    type: {
+      type: 'string'
+    },
+    start: {
+      type: 'number'
+    },
+    reversed: {
+      type: 'boolean'
+    },
+    placeholder: {
+      type: 'string'
+    }
+  },
+  supports: {
+    anchor: true,
+    className: false,
+    typography: {
+      fontSize: true,
+      __experimentalFontFamily: true
+    },
+    color: {
+      gradients: true,
+      link: true
+    },
+    __unstablePasteTextInline: true,
+    __experimentalSelector: 'ol,ul',
+    __experimentalSlashInserter: true
+  },
+
+  save({
+    attributes
+  }) {
+    const {
+      ordered,
+      values,
+      type,
+      reversed,
+      start
+    } = attributes;
+    const TagName = ordered ? 'ol' : 'ul';
+    return (0,external_wp_element_namespaceObject.createElement)(TagName, external_wp_blockEditor_namespaceObject.useBlockProps.save({
+      type,
+      reversed,
+      start
+    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText.Content, {
+      value: values,
+      multiline: "li"
+    }));
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var list_deprecated = ([deprecated_v1]);
+//# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-list-bullets-rtl.js
 
 
@@ -22770,6 +23665,7 @@ const list_transforms_transforms = {
  */
 
 
+
 const list_metadata = {
   apiVersion: 2,
   name: "core/list",
@@ -22818,7 +23714,8 @@ const list_metadata = {
       link: true
     },
     __unstablePasteTextInline: true,
-    __experimentalSelector: "ol,ul"
+    __experimentalSelector: "ol,ul",
+    __experimentalSlashInserter: true
   },
   editorStyle: "wp-block-list-editor",
   style: "wp-block-list"
@@ -22853,7 +23750,8 @@ const list_settings = {
   },
 
   edit: ListEdit,
-  save: list_save_save
+  save: list_save_save,
+  deprecated: list_deprecated
 };
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/missing/edit.js
@@ -23579,7 +24477,8 @@ function PageListEdit({
     clientId: clientId
   }), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)((external_wp_serverSideRender_default()), {
     block: "core/page-list",
-    attributes: attributesWithParentStatus
+    attributes: attributesWithParentStatus,
+    EmptyResponsePlaceholder: () => (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Page List: No pages to show.'))
   })));
 }
 //# sourceMappingURL=edit.js.map
@@ -23682,12 +24581,15 @@ function PreformattedEdit({
   attributes,
   mergeBlocks,
   setAttributes,
-  onRemove
+  onRemove,
+  style
 }) {
   const {
     content
   } = attributes;
-  const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)();
+  const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
+    style
+  });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, _extends({
     tagName: "pre",
     identifier: "content",
@@ -28561,22 +29463,31 @@ const verse = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
 
-const verse_deprecated_blockAttributes = {
-  content: {
-    type: 'string',
-    source: 'html',
-    selector: 'pre',
-    default: ''
+
+/**
+ * Internal dependencies
+ */
+
+
+const verse_deprecated_v1 = {
+  attributes: {
+    content: {
+      type: 'string',
+      source: 'html',
+      selector: 'pre',
+      default: ''
+    },
+    textAlign: {
+      type: 'string'
+    }
   },
-  textAlign: {
-    type: 'string'
-  }
-};
-const verse_deprecated_deprecated = [{
-  attributes: verse_deprecated_blockAttributes,
 
   save({
     attributes
@@ -28594,8 +29505,74 @@ const verse_deprecated_deprecated = [{
     });
   }
 
-}];
-/* harmony default export */ var verse_deprecated = (verse_deprecated_deprecated);
+};
+const deprecated_v2 = {
+  attributes: {
+    content: {
+      type: 'string',
+      source: 'html',
+      selector: 'pre',
+      default: '',
+      __unstablePreserveWhiteSpace: true,
+      __experimentalRole: 'content'
+    },
+    textAlign: {
+      type: 'string'
+    }
+  },
+  supports: {
+    anchor: true,
+    color: {
+      gradients: true,
+      link: true
+    },
+    typography: {
+      fontSize: true,
+      __experimentalFontFamily: true
+    },
+    spacing: {
+      padding: true
+    }
+  },
+
+  save({
+    attributes
+  }) {
+    const {
+      textAlign,
+      content
+    } = attributes;
+    const className = classnames_default()({
+      [`has-text-align-${textAlign}`]: textAlign
+    });
+    return (0,external_wp_element_namespaceObject.createElement)("pre", external_wp_blockEditor_namespaceObject.useBlockProps.save({
+      className
+    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText.Content, {
+      value: content
+    }));
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var verse_deprecated = ([deprecated_v2, verse_deprecated_v1]);
 //# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/verse/edit.js
 
@@ -30637,6 +31614,7 @@ const social_links_metadata = {
     },
     spacing: {
       blockGap: true,
+      margin: ["top", "bottom"],
       units: ["px", "em", "rem", "vh", "vw"],
       __experimentalDefaultControls: {
         blockGap: true
@@ -31933,6 +32911,8 @@ const siteLogo = (0,external_wp_element_namespaceObject.createElement)(external_
 
 
 
+
+
 /**
  * Internal dependencies
  */
@@ -32183,7 +33163,6 @@ function LogoEdit({
     width
   } = attributes;
   const [logoUrl, setLogoUrl] = (0,external_wp_element_namespaceObject.useState)();
-  const [error, setError] = (0,external_wp_element_namespaceObject.useState)();
   const ref = (0,external_wp_element_namespaceObject.useRef)();
   const {
     siteLogoId,
@@ -32254,7 +33233,6 @@ function LogoEdit({
     if (!media.id && media.url) {
       // This is a temporary blob image
       setLogo(undefined);
-      setError(null);
       setLogoUrl(media.url);
       return;
     }
@@ -32267,8 +33245,14 @@ function LogoEdit({
     setLogoUrl(undefined);
   };
 
+  const {
+    createErrorNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+
   const onUploadError = message => {
-    setError(message[2] ? message[2] : null);
+    createErrorNotice(message[2], {
+      type: 'snackbar'
+    });
   };
 
   const controls = canUserEdit && logoUrl && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, {
@@ -32279,12 +33263,9 @@ function LogoEdit({
     accept: ACCEPT_MEDIA_STRING,
     onSelect: onSelectLogo,
     onError: onUploadError
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     onClick: onRemoveLogo
   }, (0,external_wp_i18n_namespaceObject.__)('Reset'))));
-
-  const label = (0,external_wp_i18n_namespaceObject.__)('Site Logo');
-
   let logoImage;
   const isLoading = siteLogoId === undefined || isRequestingMediaItem;
 
@@ -32307,6 +33288,22 @@ function LogoEdit({
     });
   }
 
+  const placeholder = content => {
+    const placeholderClassName = classnames_default()('block-editor-media-placeholder', className);
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
+      className: placeholderClassName,
+      preview: logoImage
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+      className: "components-placeholder__illustration",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg",
+      viewBox: "0 0 60 60"
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+      vectorEffect: "non-scaling-stroke",
+      d: "m61 32.622-13.555-9.137-15.888 9.859a5 5 0 0 1-5.386-.073l-9.095-5.989L1 37.5"
+    })), content);
+  };
+
   const classes = classnames_default()(className, {
     'is-default-size': !width
   });
@@ -32314,29 +33311,33 @@ function LogoEdit({
     ref,
     className: classes
   });
+
+  const label = (0,external_wp_i18n_namespaceObject.__)('Add a site logo');
+
   return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, controls, !!logoUrl && logoImage, !logoUrl && !canUserEdit && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
-    className: "site-logo_placeholder",
-    icon: site_logo,
-    label: label
+    className: "site-logo_placeholder"
   }, isLoading && (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "components-placeholder__preview"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null))), !logoUrl && canUserEdit && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.MediaPlaceholder, {
-    icon: (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockIcon, {
-      icon: site_logo
-    }),
-    labels: {
-      title: label,
-      instructions: (0,external_wp_i18n_namespaceObject.__)('Upload an image, or pick one from your media library, to be your site logo')
-    },
     onSelect: onSelectLogo,
     accept: ACCEPT_MEDIA_STRING,
     allowedTypes: site_logo_edit_ALLOWED_MEDIA_TYPES,
-    mediaPreview: logoImage,
-    notices: error && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Notice, {
-      status: "error",
-      isDismissible: false
-    }, error),
-    onError: onUploadError
+    onError: onUploadError,
+    placeholder: placeholder,
+    mediaLibraryButton: ({
+      open
+    }) => {
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+        icon: library_upload,
+        variant: "primary",
+        label: label,
+        showTooltip: true,
+        tooltipPosition: "top center",
+        onClick: () => {
+          open();
+        }
+      });
+    }
   }));
 }
 //# sourceMappingURL=edit.js.map
@@ -32370,6 +33371,12 @@ const site_logo_metadata = {
     linkTarget: {
       type: "string",
       "default": "_self"
+    }
+  },
+  example: {
+    viewportWidth: 500,
+    attributes: {
+      width: 350
     }
   },
   supports: {
@@ -32483,6 +33490,64 @@ function SiteTaglineEdit({
   d: "M4 9h16v2H4V9zm0 4h10v2H4v-2z"
 })));
 //# sourceMappingURL=icon.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/site-tagline/deprecated.js
+/**
+ * Internal dependencies
+ */
+
+const site_tagline_deprecated_v1 = {
+  attributes: {
+    textAlign: {
+      type: 'string'
+    }
+  },
+  supports: {
+    align: ['wide', 'full'],
+    html: false,
+    color: {
+      gradients: true
+    },
+    spacing: {
+      margin: true,
+      padding: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalTextTransform: true,
+      __experimentalFontStyle: true,
+      __experimentalFontWeight: true,
+      __experimentalLetterSpacing: true
+    }
+  },
+
+  save() {
+    return null;
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var site_tagline_deprecated = ([site_tagline_deprecated_v1]);
+//# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/site-tagline/index.js
 /**
  * Internal dependencies
@@ -32501,6 +33566,7 @@ const site_tagline_metadata = {
     }
   },
   supports: {
+    align: ["wide", "full"],
     html: false,
     color: {
       gradients: true
@@ -32513,13 +33579,15 @@ const site_tagline_metadata = {
       fontSize: true,
       lineHeight: true,
       __experimentalFontFamily: true,
-      __experimentalFontWeight: true,
       __experimentalTextTransform: true,
+      __experimentalFontStyle: true,
+      __experimentalFontWeight: true,
       __experimentalLetterSpacing: true
     }
   },
   editorStyle: "wp-block-site-tagline-editor"
 };
+
 
 
 const {
@@ -32528,7 +33596,8 @@ const {
 
 const site_tagline_settings = {
   icon: site_tagline_icon,
-  edit: SiteTaglineEdit
+  edit: SiteTaglineEdit,
+  deprecated: site_tagline_deprecated
 };
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/map-marker.js
@@ -32720,6 +33789,77 @@ function SiteTitleEdit({
   }))), siteTitleContent);
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/site-title/deprecated.js
+/**
+ * Internal dependencies
+ */
+
+const site_title_deprecated_v1 = {
+  attributes: {
+    level: {
+      type: 'number',
+      default: 1
+    },
+    textAlign: {
+      type: 'string'
+    },
+    isLink: {
+      type: 'boolean',
+      default: true
+    },
+    linkTarget: {
+      type: 'string',
+      default: '_self'
+    }
+  },
+  supports: {
+    align: ['wide', 'full'],
+    html: false,
+    color: {
+      gradients: true,
+      link: true
+    },
+    spacing: {
+      padding: true,
+      margin: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalTextTransform: true,
+      __experimentalFontStyle: true,
+      __experimentalFontWeight: true,
+      __experimentalLetterSpacing: true
+    }
+  },
+
+  save() {
+    return null;
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var site_title_deprecated = ([site_title_deprecated_v1]);
+//# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/site-title/index.js
 /**
  * WordPress dependencies
@@ -32753,6 +33893,9 @@ const site_title_metadata = {
       "default": "_self"
     }
   },
+  example: {
+    viewportWidth: 500
+  },
   supports: {
     align: ["wide", "full"],
     html: false,
@@ -32777,13 +33920,15 @@ const site_title_metadata = {
   editorStyle: "wp-block-site-title-editor"
 };
 
+
 const {
   name: site_title_name
 } = site_title_metadata;
 
 const site_title_settings = {
   icon: map_marker,
-  edit: SiteTitleEdit
+  edit: SiteTitleEdit,
+  deprecated: site_title_deprecated
 };
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/symbol-filled.js
@@ -32949,7 +34094,7 @@ function TemplatePartsByArea({
     return (0,external_wp_element_namespaceObject.createElement)(PanelGroup, {
       title: getAreaGroupTitle(labelsByArea[area] || labelsByArea.uncategorized)
     }, (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s for the template part variation ("Header", "Footer", "Template Part").
-    'There is no other %s available. If you are looking for another type of template part, try searching for it using the input above.', area && area !== 'uncategorized' ? labelsByArea[area] || area : (0,external_wp_i18n_namespaceObject.__)('Template Part')));
+    (0,external_wp_i18n_namespaceObject.__)('There is no other %s available. If you are looking for another type of template part, try searching for it using the input above.'), area && area !== 'uncategorized' ? labelsByArea[area] || area : (0,external_wp_i18n_namespaceObject.__)('Template Part')));
   }
 
   return templatePartsByArea.map(templatePartList => {
@@ -33188,7 +34333,8 @@ function PatternsSetup({
       return pattern === null || pattern === void 0 ? void 0 : (_pattern$blockTypes = pattern.blockTypes) === null || _pattern$blockTypes === void 0 ? void 0 : (_pattern$blockTypes$s = _pattern$blockTypes.some) === null || _pattern$blockTypes$s === void 0 ? void 0 : _pattern$blockTypes$s.call(_pattern$blockTypes, blockType => blockType === blockNameWithArea);
     }
   }), isTitleStep && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
-    title: (0,external_wp_i18n_namespaceObject.sprintf)('Name and create your new %s', areaLabel.toLowerCase()),
+    title: (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s as template part area title ("Header", "Footer", etc.).
+    (0,external_wp_i18n_namespaceObject.__)('Name and create your new %s'), areaLabel.toLowerCase()),
     closeLabel: (0,external_wp_i18n_namespaceObject.__)('Cancel'),
     onRequestClose: resetPlaceholder,
     overlayClassName: "wp-block-template-part__placeholder-create-new__title-form"
@@ -33224,7 +34370,7 @@ function StartBlankComponent({
     label: areaLabel,
     icon: areaIcon,
     instructions: (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s as template part area title ("Header", "Footer", "Template Part", etc.).
-    'Creating your new %s...', areaLabel.toLowerCase())
+    (0,external_wp_i18n_namespaceObject.__)('Creating your new %s…'), areaLabel.toLowerCase())
   });
 }
 //# sourceMappingURL=patterns-setup.js.map
@@ -33310,8 +34456,8 @@ function TemplatePartPlaceholder({
     icon: areaIcon,
     label: areaLabel,
     instructions: enableSelection ? (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s as template part area title ("Header", "Footer", etc.).
-    'Choose an existing %s or create a new one.', areaLabel.toLowerCase()) : (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s as template part area title ("Header", "Footer", etc.).
-    'Create a new %s.', areaLabel.toLowerCase())
+    (0,external_wp_i18n_namespaceObject.__)('Choose an existing %s or create a new one.'), areaLabel.toLowerCase()) : (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s as template part area title ("Header", "Footer", etc.).
+    (0,external_wp_i18n_namespaceObject.__)('Create a new %s.'), areaLabel.toLowerCase())
   }, !hasResolvedReplacements ? (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null) : (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
     contentClassName: "wp-block-template-part__placeholder-preview-dropdown-content",
     position: "bottom right left",
@@ -33326,7 +34472,7 @@ function TemplatePartPlaceholder({
       variant: enableSelection ? 'tertiary' : 'primary',
       onClick: () => setStep(PLACEHOLDER_STEPS.patterns)
     }, (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s as template part area title ("Header", "Footer", etc.).
-    'New %s', areaLabel.toLowerCase()))),
+    (0,external_wp_i18n_namespaceObject.__)('New %s'), areaLabel.toLowerCase()))),
     renderContent: ({
       onClose
     }) => (0,external_wp_element_namespaceObject.createElement)(TemplatePartSelection, {
@@ -33667,21 +34813,6 @@ const sidebar = (0,external_wp_element_namespaceObject.createElement)(external_w
 }));
 /* harmony default export */ var library_sidebar = (sidebar);
 //# sourceMappingURL=sidebar.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/layout.js
-
-
-/**
- * WordPress dependencies
- */
-
-const layout = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M18 5.5H6a.5.5 0 00-.5.5v3h13V6a.5.5 0 00-.5-.5zm.5 5H10v8h8a.5.5 0 00.5-.5v-7.5zm-10 0h-3V18a.5.5 0 00.5.5h2.5v-8zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
-}));
-/* harmony default export */ var library_layout = (layout);
-//# sourceMappingURL=layout.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/template-part/fallback-variations.js
 /**
  * WordPress dependencies
@@ -33752,7 +34883,7 @@ function getTemplatePartIcon(iconName) {
     return library_sidebar;
   }
 
-  return library_layout;
+  return symbol_filled;
 }
 
 function enhanceTemplatePartVariations(settings, name) {
@@ -35014,6 +36145,21 @@ const query_settings = {
 
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/query', hooks);
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/layout.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const layout = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18 5.5H6a.5.5 0 00-.5.5v3h13V6a.5.5 0 00-.5-.5zm.5 5H10v8h8a.5.5 0 00.5-.5v-7.5zm-10 0h-3V18a.5.5 0 00.5.5h2.5v-8zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
+}));
+/* harmony default export */ var library_layout = (layout);
+//# sourceMappingURL=layout.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-template/edit.js
 
 
@@ -35317,6 +36463,66 @@ query_title_variations_variations.forEach(variation => {
 });
 /* harmony default export */ var query_title_variations = (query_title_variations_variations);
 //# sourceMappingURL=variations.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/query-title/deprecated.js
+/**
+ * Internal dependencies
+ */
+
+const query_title_deprecated_v1 = {
+  attributes: {
+    type: {
+      type: 'string'
+    },
+    textAlign: {
+      type: 'string'
+    },
+    level: {
+      type: 'number',
+      default: 1
+    }
+  },
+  supports: {
+    align: ['wide', 'full'],
+    html: false,
+    color: {
+      gradients: true
+    },
+    spacing: {
+      margin: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true
+    }
+  },
+
+  save() {
+    return null;
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var query_title_deprecated = ([query_title_deprecated_v1]);
+//# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/query-title/index.js
 /**
  * Internal dependencies
@@ -35346,6 +36552,9 @@ const query_title_metadata = {
     color: {
       gradients: true
     },
+    spacing: {
+      margin: true
+    },
     typography: {
       fontSize: true,
       lineHeight: true,
@@ -35356,13 +36565,15 @@ const query_title_metadata = {
 };
 
 
+
 const {
   name: query_title_name
 } = query_title_metadata;
 
 const query_title_settings = {
   edit: QueryTitleEdit,
-  variations: query_title_variations
+  variations: query_title_variations,
+  deprecated: query_title_deprecated
 };
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/query-pagination.js
@@ -36160,7 +37371,7 @@ function PostTitleEdit({
       [`has-text-align-${textAlign}`]: textAlign
     })
   });
-  let titleElement = (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_i18n_namespaceObject.__)('An example title'));
+  let titleElement = (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_i18n_namespaceObject.__)('Post Title'));
 
   if (postType && postId) {
     titleElement = userCanEdit && !isDescendentOfQueryLoop ? (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.PlainText, _extends({
@@ -36231,6 +37442,80 @@ function PostTitleEdit({
   })))), titleElement);
 }
 //# sourceMappingURL=edit.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/post-title/deprecated.js
+/**
+ * Internal dependencies
+ */
+
+const post_title_deprecated_v1 = {
+  attributes: {
+    textAlign: {
+      type: 'string'
+    },
+    level: {
+      type: 'number',
+      default: 2
+    },
+    isLink: {
+      type: 'boolean',
+      default: false
+    },
+    rel: {
+      type: 'string',
+      attribute: 'rel',
+      default: ''
+    },
+    linkTarget: {
+      type: 'string',
+      default: '_self'
+    }
+  },
+  supports: {
+    align: ['wide', 'full'],
+    html: false,
+    color: {
+      gradients: true,
+      link: true
+    },
+    spacing: {
+      margin: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalFontWeight: true,
+      __experimentalFontStyle: true,
+      __experimentalTextTransform: true
+    }
+  },
+
+  save() {
+    return null;
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var post_title_deprecated = ([post_title_deprecated_v1]);
+//# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-title/index.js
 /**
  * WordPress dependencies
@@ -36277,6 +37562,9 @@ const post_title_metadata = {
       gradients: true,
       link: true
     },
+    spacing: {
+      margin: true
+    },
     typography: {
       fontSize: true,
       lineHeight: true,
@@ -36289,13 +37577,15 @@ const post_title_metadata = {
   style: "wp-block-post-title"
 };
 
+
 const {
   name: post_title_name
 } = post_title_metadata;
 
 const post_title_settings = {
   icon: post_title,
-  edit: PostTitleEdit
+  edit: PostTitleEdit,
+  deprecated: post_title_deprecated
 };
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/post-content.js
@@ -36394,7 +37684,7 @@ function Content(props) {
 
 function edit_Placeholder() {
   const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)();
-  return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('This is a placeholder for post content.')));
+  return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Post Content')));
 }
 
 function RecursionError() {
@@ -36813,16 +38103,34 @@ const post_comment_settings = {
 
 
 
+
+/**
+ * Renders the `core/post-comment-author` block on the editor.
+ *
+ * @param {Object} props               React props.
+ * @param {Object} props.setAttributes Callback for updating block attributes.
+ * @param {Object} props.attributes    Block attributes.
+ * @param {Object} props.context       Inherited context.
+ *
+ * @return {JSX.Element} React element.
+ */
+
 function edit_Edit({
   attributes,
-  context
+  context,
+  setAttributes
 }) {
   const {
-    className
+    className,
+    isLink,
+    linkTarget
   } = attributes;
   const {
     commentId
   } = context;
+  const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
+    className
+  });
   const displayName = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getEntityRecord
@@ -36839,11 +38147,114 @@ function edit_Edit({
 
     return authorName !== null && authorName !== void 0 ? authorName : '';
   }, [commentId]);
-  return (0,external_wp_element_namespaceObject.createElement)("div", (0,external_wp_blockEditor_namespaceObject.useBlockProps)(), (0,external_wp_element_namespaceObject.createElement)("p", {
-    className: className
-  }, displayName));
+  const displayAuthor = isLink ? (0,external_wp_element_namespaceObject.createElement)("a", {
+    href: "#comment-author-pseudo-link",
+    onClick: event => event.preventDefault()
+  }, displayName) : (0,external_wp_element_namespaceObject.createElement)("p", null, displayName);
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Link settings')
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Link to authors URL'),
+    onChange: () => setAttributes({
+      isLink: !isLink
+    }),
+    checked: isLink
+  }), isLink && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Open in new tab'),
+    onChange: value => setAttributes({
+      linkTarget: value ? '_blank' : '_self'
+    }),
+    checked: linkTarget === '_blank'
+  }))), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, displayAuthor));
 }
 //# sourceMappingURL=edit.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/post-comment-author/deprecated.js
+/**
+ * Internal dependencies
+ */
+
+const post_comment_author_deprecated_v1 = {
+  attributes: {
+    isLink: {
+      type: 'boolean',
+      default: false
+    },
+    linkTarget: {
+      type: 'string',
+      default: '_self'
+    }
+  },
+  supports: {
+    html: false,
+    color: {
+      gradients: true,
+      link: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalFontWeight: true,
+      __experimentalFontStyle: true,
+      __experimentalTextTransform: true,
+      __experimentalLetterSpacing: true
+    }
+  },
+
+  save() {
+    return null;
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var post_comment_author_deprecated = ([post_comment_author_deprecated_v1]);
+//# sourceMappingURL=deprecated.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/comment-author.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const commentAuthor = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg",
+  fill: "#FFFFFF"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M18 4H6c-1.1 0-2 .9-2 2v12.9c0 .6.5 1.1 1.1 1.1.3 0 .5-.1.8-.3L8.5 17H18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm.5 11c0 .3-.2.5-.5.5H7.9l-2.4 2.4V6c0-.3.2-.5.5-.5h12c.3 0 .5.2.5.5v9z",
+  fillRule: "evenodd",
+  clipRule: "evenodd"
+}), (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M15 15V15C15 13.8954 14.1046 13 13 13L11 13C9.89543 13 9 13.8954 9 15V15",
+  fillRule: "evenodd",
+  clipRule: "evenodd"
+}), (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Circle, {
+  cx: "12",
+  cy: "9",
+  r: "2",
+  fillRule: "evenodd",
+  clipRule: "evenodd"
+}));
+/* harmony default export */ var comment_author = (commentAuthor);
+//# sourceMappingURL=comment-author.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-comment-author/index.js
 /**
  * Internal dependencies
@@ -36856,11 +38267,35 @@ const post_comment_author_metadata = {
   parent: ["core/post-comment"],
   description: "Post comment author.",
   textdomain: "default",
+  attributes: {
+    isLink: {
+      type: "boolean",
+      "default": false
+    },
+    linkTarget: {
+      type: "string",
+      "default": "_self"
+    }
+  },
   usesContext: ["commentId"],
   supports: {
-    html: false
+    html: false,
+    color: {
+      gradients: true,
+      link: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalFontWeight: true,
+      __experimentalFontStyle: true,
+      __experimentalTextTransform: true,
+      __experimentalLetterSpacing: true
+    }
   }
 };
+
 
 /**
  * WordPress dependencies
@@ -36872,12 +38307,34 @@ const {
 } = post_comment_author_metadata;
 
 const post_comment_author_settings = {
-  icon: post_author,
-  edit: edit_Edit
+  icon: comment_author,
+  edit: edit_Edit,
+  deprecated: post_comment_author_deprecated
 };
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/post-comment-content.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const postCommentContent = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  fillRule: "evenodd",
+  clipRule: "evenodd",
+  d: "M6.68822 16.625L5.5 17.8145L5.5 5.5L18.5 5.5L18.5 16.625L6.68822 16.625ZM7.31 18.125L19 18.125C19.5523 18.125 20 17.6773 20 17.125L20 5C20 4.44772 19.5523 4 19 4H5C4.44772 4 4 4.44772 4 5V19.5247C4 19.8173 4.16123 20.086 4.41935 20.2237C4.72711 20.3878 5.10601 20.3313 5.35252 20.0845L7.31 18.125ZM16 9.99997H8V8.49997H16V9.99997ZM8 14H13V12.5H8V14Z"
+}));
+/* harmony default export */ var post_comment_content = (postCommentContent);
+//# sourceMappingURL=post-comment-content.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-comment-content/edit.js
 
+
+/**
+ * External dependencies
+ */
 
 /**
  * WordPress dependencies
@@ -36887,21 +38344,45 @@ const post_comment_author_settings = {
 
 
 
+
+/**
+ * Renders the `core/post-comment-content` block on the editor.
+ *
+ * @param {Object} props                      React props.
+ * @param {Object} props.setAttributes        Callback for updating block attributes.
+ * @param {Object} props.attributes           Block attributes.
+ * @param {string} props.attributes.textAlign The `textAlign` attribute.
+ * @param {Object} props.context              Inherited context.
+ * @param {string} props.context.commentId    The comment ID.
+ *
+ * @return {JSX.Element} React element.
+ */
+
 function post_comment_content_edit_Edit({
+  setAttributes,
+  attributes: {
+    textAlign
+  },
   context: {
     commentId
   }
 }) {
-  const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)();
+  const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
+    className: classnames_default()({
+      [`has-text-align-${textAlign}`]: textAlign
+    })
+  });
   const [content] = (0,external_wp_coreData_namespaceObject.useEntityProp)('root', 'comment', 'content', commentId);
-
-  if (!(content !== null && content !== void 0 && content.rendered)) {
-    return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.__)('Comment has no content.')));
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Disabled, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, {
+    group: "block"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.AlignmentControl, {
+    value: textAlign,
+    onChange: newAlign => setAttributes({
+      textAlign: newAlign
+    })
+  })), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, !commentId || !content ? (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Post Comment Content')) : (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Disabled, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
     key: "html"
-  }, content.rendered)));
+  }, content.rendered))));
 }
 //# sourceMappingURL=edit.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-comment-content/index.js
@@ -36922,7 +38403,31 @@ const post_comment_content_metadata = {
   description: "Post comment content",
   textdomain: "default",
   usesContext: ["commentId"],
+  attributes: {
+    textAlign: {
+      type: "string"
+    }
+  },
   supports: {
+    color: {
+      gradients: true,
+      link: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalFontWeight: true,
+      __experimentalFontStyle: true,
+      __experimentalTextTransform: true,
+      __experimentalLetterSpacing: true
+    },
+    spacing: {
+      padding: ["horizontal", "vertical"],
+      __experimentalDefaultControls: {
+        padding: true
+      }
+    },
     html: false
   }
 };
@@ -36932,7 +38437,7 @@ const {
 } = post_comment_content_metadata;
 
 const post_comment_content_settings = {
-  icon: post_content,
+  icon: post_comment_content,
   edit: post_comment_content_edit_Edit
 };
 //# sourceMappingURL=index.js.map
@@ -36971,7 +38476,8 @@ function post_comment_date_edit_Edit({
 }) {
   const {
     className,
-    format
+    format,
+    isLink
   } = attributes;
   const {
     commentId
@@ -36989,6 +38495,17 @@ function post_comment_date_edit_Edit({
   const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
     className
   });
+  let commentDate = (0,external_wp_element_namespaceObject.createElement)("time", {
+    dateTime: (0,external_wp_date_namespaceObject.dateI18n)('c', date)
+  }, (0,external_wp_date_namespaceObject.dateI18n)(resolvedFormat, date));
+
+  if (isLink) {
+    commentDate = (0,external_wp_element_namespaceObject.createElement)("a", {
+      href: "#comment-date-pseudo-link",
+      onClick: event => event.preventDefault()
+    }, commentDate);
+  }
+
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
     title: (0,external_wp_i18n_namespaceObject.__)('Format settings')
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CustomSelectControl, {
@@ -37001,11 +38518,75 @@ function post_comment_date_edit_Edit({
       format: selectedItem.key
     }),
     value: formatOptions.find(option => option.key === resolvedFormat)
-  }))), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)("time", {
-    dateTime: (0,external_wp_date_namespaceObject.dateI18n)('c', date)
-  }, (0,external_wp_date_namespaceObject.dateI18n)(resolvedFormat, date))));
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Link settings')
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Link to comment'),
+    onChange: () => setAttributes({
+      isLink: !isLink
+    }),
+    checked: isLink
+  }))), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, commentDate));
 }
 //# sourceMappingURL=edit.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/post-comment-date/deprecated.js
+/**
+ * Internal dependencies
+ */
+
+const post_comment_date_deprecated_v1 = {
+  attributes: {
+    format: {
+      type: 'string'
+    },
+    isLink: {
+      type: 'boolean',
+      default: false
+    }
+  },
+  supports: {
+    html: false,
+    color: {
+      gradients: true,
+      link: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalFontWeight: true,
+      __experimentalFontStyle: true,
+      __experimentalTextTransform: true,
+      __experimentalLetterSpacing: true
+    }
+  },
+
+  save() {
+    return null;
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var post_comment_date_deprecated = ([post_comment_date_deprecated_v1]);
+//# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-comment-date/index.js
 /**
  * WordPress dependencies
@@ -37026,13 +38607,31 @@ const post_comment_date_metadata = {
   attributes: {
     format: {
       type: "string"
+    },
+    isLink: {
+      type: "boolean",
+      "default": false
     }
   },
   usesContext: ["commentId"],
   supports: {
-    html: false
+    html: false,
+    color: {
+      gradients: true,
+      link: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalFontWeight: true,
+      __experimentalFontStyle: true,
+      __experimentalTextTransform: true,
+      __experimentalLetterSpacing: true
+    }
   }
 };
+
 
 const {
   name: post_comment_date_name
@@ -37040,7 +38639,8 @@ const {
 
 const post_comment_date_settings = {
   icon: post_date,
-  edit: post_comment_date_edit_Edit
+  edit: post_comment_date_edit_Edit,
+  deprecated: post_comment_date_deprecated
 };
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/post-comments.js
@@ -37385,7 +38985,7 @@ const post_comments_form_metadata = {
       lineHeight: true
     }
   },
-  style: "wp-block-post-comments-form"
+  style: ["wp-block-post-comments-form", "wp-block-buttons", "wp-block-button"]
 };
 
 const {
@@ -37594,7 +39194,7 @@ function PostDateEdit({
   let postDate = date ? (0,external_wp_element_namespaceObject.createElement)("time", {
     dateTime: (0,external_wp_date_namespaceObject.dateI18n)('c', date),
     ref: timeRef
-  }, (0,external_wp_date_namespaceObject.dateI18n)(resolvedFormat, date)) : (0,external_wp_i18n_namespaceObject.__)('No Date');
+  }, (0,external_wp_date_namespaceObject.dateI18n)(resolvedFormat, date)) : (0,external_wp_i18n_namespaceObject.__)('Post Date');
 
   if (isLink && date) {
     postDate = (0,external_wp_element_namespaceObject.createElement)("a", {
@@ -37664,6 +39264,67 @@ function PostDateEdit({
   }))), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, postDate));
 }
 //# sourceMappingURL=edit.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/post-date/deprecated.js
+/**
+ * Internal dependencies
+ */
+
+const post_date_deprecated_v1 = {
+  attributes: {
+    textAlign: {
+      type: 'string'
+    },
+    format: {
+      type: 'string'
+    },
+    isLink: {
+      type: 'boolean',
+      default: false
+    }
+  },
+  supports: {
+    html: false,
+    color: {
+      gradients: true,
+      link: true
+    },
+    typography: {
+      fontSize: true,
+      lineHeight: true,
+      __experimentalFontFamily: true,
+      __experimentalFontWeight: true,
+      __experimentalFontStyle: true,
+      __experimentalTextTransform: true,
+      __experimentalLetterSpacing: true
+    }
+  },
+
+  save() {
+    return null;
+  },
+
+  migrate: migrate_font_family,
+
+  isEligible({
+    style
+  }) {
+    var _style$typography;
+
+    return style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontFamily;
+  }
+
+};
+/**
+ * New deprecations need to be placed first
+ * for them to have higher priority.
+ *
+ * Old deprecations may need to be updated as well.
+ *
+ * See block-deprecation.md
+ */
+
+/* harmony default export */ var post_date_deprecated = ([post_date_deprecated_v1]);
+//# sourceMappingURL=deprecated.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-date/index.js
 /**
  * WordPress dependencies
@@ -37702,10 +39363,15 @@ const post_date_metadata = {
     typography: {
       fontSize: true,
       lineHeight: true,
-      __experimentalFontWeight: true
+      __experimentalFontFamily: true,
+      __experimentalFontWeight: true,
+      __experimentalFontStyle: true,
+      __experimentalTextTransform: true,
+      __experimentalLetterSpacing: true
     }
   }
 };
+
 
 const {
   name: post_date_name
@@ -37713,7 +39379,8 @@ const {
 
 const post_date_settings = {
   icon: post_date,
-  edit: PostDateEdit
+  edit: PostDateEdit,
+  deprecated: post_date_deprecated
 };
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/post-excerpt.js
@@ -37791,7 +39458,7 @@ function PostExcerptEditor({
   }, [renderedExcerpt]);
 
   if (!postType || !postId) {
-    return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.__)('Post excerpt block: no post found.')));
+    return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_i18n_namespaceObject.__)('Post Excerpt'));
   }
 
   if (isProtected && !userCanEdit) {
@@ -38173,7 +39840,11 @@ const post_featured_image_metadata = {
       text: false,
       background: false
     },
-    html: false
+    html: false,
+    spacing: {
+      margin: true,
+      padding: true
+    }
   },
   editorStyle: "wp-block-post-featured-image-editor",
   style: "wp-block-post-featured-image"
@@ -38316,12 +39987,8 @@ function PostTermsEdit({
     })
   });
 
-  if (!hasPost) {
-    return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_i18n_namespaceObject.__)('Post Terms block: post not found.'));
-  }
-
-  if (!term) {
-    return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_i18n_namespaceObject.__)('Post Terms block: no term specified.'));
+  if (!hasPost || !term) {
+    return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_i18n_namespaceObject.__)('Post Terms'));
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.AlignmentToolbar, {
@@ -38504,7 +40171,7 @@ function TermDescriptionEdit({
     }
   })), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "wp-block-term-description__placeholder"
-  }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Term description.')))));
+  }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Term Description')))));
 }
 //# sourceMappingURL=edit.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/term-description/index.js
@@ -38719,7 +40386,7 @@ const __experimentalRegisterExperimentalCoreBlocks =  true ? ({
   enableFSEBlocks
 } = {}) => {
   [build_module_navigation_namespaceObject, navigation_link_namespaceObject, home_link_namespaceObject, navigation_submenu_namespaceObject, // Register Full Site Editing Blocks.
-  ...(enableFSEBlocks ? [template_part_namespaceObject, build_module_post_author_namespaceObject, post_comment_namespaceObject, post_comment_author_namespaceObject, post_comment_content_namespaceObject, post_comment_date_namespaceObject, build_module_post_comments_namespaceObject, build_module_post_comments_count_namespaceObject, build_module_post_comments_form_namespaceObject, post_comments_link_namespaceObject, post_navigation_link_namespaceObject, build_module_term_description_namespaceObject] : [])].forEach(registerBlock);
+  ...(enableFSEBlocks ? [template_part_namespaceObject, build_module_post_author_namespaceObject, post_comment_namespaceObject, post_comment_author_namespaceObject, build_module_post_comment_content_namespaceObject, post_comment_date_namespaceObject, build_module_post_comments_namespaceObject, build_module_post_comments_count_namespaceObject, build_module_post_comments_form_namespaceObject, post_comments_link_namespaceObject, post_navigation_link_namespaceObject, build_module_term_description_namespaceObject] : [])].forEach(registerBlock);
 } : 0;
 //# sourceMappingURL=index.js.map
 }();

@@ -14447,1207 +14447,6 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
-/***/ 7621:
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_RESULT__;// TinyColor v1.4.2
-// https://github.com/bgrins/TinyColor
-// Brian Grinstead, MIT License
-
-(function(Math) {
-
-var trimLeft = /^\s+/,
-    trimRight = /\s+$/,
-    tinyCounter = 0,
-    mathRound = Math.round,
-    mathMin = Math.min,
-    mathMax = Math.max,
-    mathRandom = Math.random;
-
-function tinycolor (color, opts) {
-
-    color = (color) ? color : '';
-    opts = opts || { };
-
-    // If input is already a tinycolor, return itself
-    if (color instanceof tinycolor) {
-       return color;
-    }
-    // If we are called as a function, call using new instead
-    if (!(this instanceof tinycolor)) {
-        return new tinycolor(color, opts);
-    }
-
-    var rgb = inputToRGB(color);
-    this._originalInput = color,
-    this._r = rgb.r,
-    this._g = rgb.g,
-    this._b = rgb.b,
-    this._a = rgb.a,
-    this._roundA = mathRound(100*this._a) / 100,
-    this._format = opts.format || rgb.format;
-    this._gradientType = opts.gradientType;
-
-    // Don't let the range of [0,255] come back in [0,1].
-    // Potentially lose a little bit of precision here, but will fix issues where
-    // .5 gets interpreted as half of the total, instead of half of 1
-    // If it was supposed to be 128, this was already taken care of by `inputToRgb`
-    if (this._r < 1) { this._r = mathRound(this._r); }
-    if (this._g < 1) { this._g = mathRound(this._g); }
-    if (this._b < 1) { this._b = mathRound(this._b); }
-
-    this._ok = rgb.ok;
-    this._tc_id = tinyCounter++;
-}
-
-tinycolor.prototype = {
-    isDark: function() {
-        return this.getBrightness() < 128;
-    },
-    isLight: function() {
-        return !this.isDark();
-    },
-    isValid: function() {
-        return this._ok;
-    },
-    getOriginalInput: function() {
-      return this._originalInput;
-    },
-    getFormat: function() {
-        return this._format;
-    },
-    getAlpha: function() {
-        return this._a;
-    },
-    getBrightness: function() {
-        //http://www.w3.org/TR/AERT#color-contrast
-        var rgb = this.toRgb();
-        return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
-    },
-    getLuminance: function() {
-        //http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
-        var rgb = this.toRgb();
-        var RsRGB, GsRGB, BsRGB, R, G, B;
-        RsRGB = rgb.r/255;
-        GsRGB = rgb.g/255;
-        BsRGB = rgb.b/255;
-
-        if (RsRGB <= 0.03928) {R = RsRGB / 12.92;} else {R = Math.pow(((RsRGB + 0.055) / 1.055), 2.4);}
-        if (GsRGB <= 0.03928) {G = GsRGB / 12.92;} else {G = Math.pow(((GsRGB + 0.055) / 1.055), 2.4);}
-        if (BsRGB <= 0.03928) {B = BsRGB / 12.92;} else {B = Math.pow(((BsRGB + 0.055) / 1.055), 2.4);}
-        return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
-    },
-    setAlpha: function(value) {
-        this._a = boundAlpha(value);
-        this._roundA = mathRound(100*this._a) / 100;
-        return this;
-    },
-    toHsv: function() {
-        var hsv = rgbToHsv(this._r, this._g, this._b);
-        return { h: hsv.h * 360, s: hsv.s, v: hsv.v, a: this._a };
-    },
-    toHsvString: function() {
-        var hsv = rgbToHsv(this._r, this._g, this._b);
-        var h = mathRound(hsv.h * 360), s = mathRound(hsv.s * 100), v = mathRound(hsv.v * 100);
-        return (this._a == 1) ?
-          "hsv("  + h + ", " + s + "%, " + v + "%)" :
-          "hsva(" + h + ", " + s + "%, " + v + "%, "+ this._roundA + ")";
-    },
-    toHsl: function() {
-        var hsl = rgbToHsl(this._r, this._g, this._b);
-        return { h: hsl.h * 360, s: hsl.s, l: hsl.l, a: this._a };
-    },
-    toHslString: function() {
-        var hsl = rgbToHsl(this._r, this._g, this._b);
-        var h = mathRound(hsl.h * 360), s = mathRound(hsl.s * 100), l = mathRound(hsl.l * 100);
-        return (this._a == 1) ?
-          "hsl("  + h + ", " + s + "%, " + l + "%)" :
-          "hsla(" + h + ", " + s + "%, " + l + "%, "+ this._roundA + ")";
-    },
-    toHex: function(allow3Char) {
-        return rgbToHex(this._r, this._g, this._b, allow3Char);
-    },
-    toHexString: function(allow3Char) {
-        return '#' + this.toHex(allow3Char);
-    },
-    toHex8: function(allow4Char) {
-        return rgbaToHex(this._r, this._g, this._b, this._a, allow4Char);
-    },
-    toHex8String: function(allow4Char) {
-        return '#' + this.toHex8(allow4Char);
-    },
-    toRgb: function() {
-        return { r: mathRound(this._r), g: mathRound(this._g), b: mathRound(this._b), a: this._a };
-    },
-    toRgbString: function() {
-        return (this._a == 1) ?
-          "rgb("  + mathRound(this._r) + ", " + mathRound(this._g) + ", " + mathRound(this._b) + ")" :
-          "rgba(" + mathRound(this._r) + ", " + mathRound(this._g) + ", " + mathRound(this._b) + ", " + this._roundA + ")";
-    },
-    toPercentageRgb: function() {
-        return { r: mathRound(bound01(this._r, 255) * 100) + "%", g: mathRound(bound01(this._g, 255) * 100) + "%", b: mathRound(bound01(this._b, 255) * 100) + "%", a: this._a };
-    },
-    toPercentageRgbString: function() {
-        return (this._a == 1) ?
-          "rgb("  + mathRound(bound01(this._r, 255) * 100) + "%, " + mathRound(bound01(this._g, 255) * 100) + "%, " + mathRound(bound01(this._b, 255) * 100) + "%)" :
-          "rgba(" + mathRound(bound01(this._r, 255) * 100) + "%, " + mathRound(bound01(this._g, 255) * 100) + "%, " + mathRound(bound01(this._b, 255) * 100) + "%, " + this._roundA + ")";
-    },
-    toName: function() {
-        if (this._a === 0) {
-            return "transparent";
-        }
-
-        if (this._a < 1) {
-            return false;
-        }
-
-        return hexNames[rgbToHex(this._r, this._g, this._b, true)] || false;
-    },
-    toFilter: function(secondColor) {
-        var hex8String = '#' + rgbaToArgbHex(this._r, this._g, this._b, this._a);
-        var secondHex8String = hex8String;
-        var gradientType = this._gradientType ? "GradientType = 1, " : "";
-
-        if (secondColor) {
-            var s = tinycolor(secondColor);
-            secondHex8String = '#' + rgbaToArgbHex(s._r, s._g, s._b, s._a);
-        }
-
-        return "progid:DXImageTransform.Microsoft.gradient("+gradientType+"startColorstr="+hex8String+",endColorstr="+secondHex8String+")";
-    },
-    toString: function(format) {
-        var formatSet = !!format;
-        format = format || this._format;
-
-        var formattedString = false;
-        var hasAlpha = this._a < 1 && this._a >= 0;
-        var needsAlphaFormat = !formatSet && hasAlpha && (format === "hex" || format === "hex6" || format === "hex3" || format === "hex4" || format === "hex8" || format === "name");
-
-        if (needsAlphaFormat) {
-            // Special case for "transparent", all other non-alpha formats
-            // will return rgba when there is transparency.
-            if (format === "name" && this._a === 0) {
-                return this.toName();
-            }
-            return this.toRgbString();
-        }
-        if (format === "rgb") {
-            formattedString = this.toRgbString();
-        }
-        if (format === "prgb") {
-            formattedString = this.toPercentageRgbString();
-        }
-        if (format === "hex" || format === "hex6") {
-            formattedString = this.toHexString();
-        }
-        if (format === "hex3") {
-            formattedString = this.toHexString(true);
-        }
-        if (format === "hex4") {
-            formattedString = this.toHex8String(true);
-        }
-        if (format === "hex8") {
-            formattedString = this.toHex8String();
-        }
-        if (format === "name") {
-            formattedString = this.toName();
-        }
-        if (format === "hsl") {
-            formattedString = this.toHslString();
-        }
-        if (format === "hsv") {
-            formattedString = this.toHsvString();
-        }
-
-        return formattedString || this.toHexString();
-    },
-    clone: function() {
-        return tinycolor(this.toString());
-    },
-
-    _applyModification: function(fn, args) {
-        var color = fn.apply(null, [this].concat([].slice.call(args)));
-        this._r = color._r;
-        this._g = color._g;
-        this._b = color._b;
-        this.setAlpha(color._a);
-        return this;
-    },
-    lighten: function() {
-        return this._applyModification(lighten, arguments);
-    },
-    brighten: function() {
-        return this._applyModification(brighten, arguments);
-    },
-    darken: function() {
-        return this._applyModification(darken, arguments);
-    },
-    desaturate: function() {
-        return this._applyModification(desaturate, arguments);
-    },
-    saturate: function() {
-        return this._applyModification(saturate, arguments);
-    },
-    greyscale: function() {
-        return this._applyModification(greyscale, arguments);
-    },
-    spin: function() {
-        return this._applyModification(spin, arguments);
-    },
-
-    _applyCombination: function(fn, args) {
-        return fn.apply(null, [this].concat([].slice.call(args)));
-    },
-    analogous: function() {
-        return this._applyCombination(analogous, arguments);
-    },
-    complement: function() {
-        return this._applyCombination(complement, arguments);
-    },
-    monochromatic: function() {
-        return this._applyCombination(monochromatic, arguments);
-    },
-    splitcomplement: function() {
-        return this._applyCombination(splitcomplement, arguments);
-    },
-    triad: function() {
-        return this._applyCombination(triad, arguments);
-    },
-    tetrad: function() {
-        return this._applyCombination(tetrad, arguments);
-    }
-};
-
-// If input is an object, force 1 into "1.0" to handle ratios properly
-// String input requires "1.0" as input, so 1 will be treated as 1
-tinycolor.fromRatio = function(color, opts) {
-    if (typeof color == "object") {
-        var newColor = {};
-        for (var i in color) {
-            if (color.hasOwnProperty(i)) {
-                if (i === "a") {
-                    newColor[i] = color[i];
-                }
-                else {
-                    newColor[i] = convertToPercentage(color[i]);
-                }
-            }
-        }
-        color = newColor;
-    }
-
-    return tinycolor(color, opts);
-};
-
-// Given a string or object, convert that input to RGB
-// Possible string inputs:
-//
-//     "red"
-//     "#f00" or "f00"
-//     "#ff0000" or "ff0000"
-//     "#ff000000" or "ff000000"
-//     "rgb 255 0 0" or "rgb (255, 0, 0)"
-//     "rgb 1.0 0 0" or "rgb (1, 0, 0)"
-//     "rgba (255, 0, 0, 1)" or "rgba 255, 0, 0, 1"
-//     "rgba (1.0, 0, 0, 1)" or "rgba 1.0, 0, 0, 1"
-//     "hsl(0, 100%, 50%)" or "hsl 0 100% 50%"
-//     "hsla(0, 100%, 50%, 1)" or "hsla 0 100% 50%, 1"
-//     "hsv(0, 100%, 100%)" or "hsv 0 100% 100%"
-//
-function inputToRGB(color) {
-
-    var rgb = { r: 0, g: 0, b: 0 };
-    var a = 1;
-    var s = null;
-    var v = null;
-    var l = null;
-    var ok = false;
-    var format = false;
-
-    if (typeof color == "string") {
-        color = stringInputToObject(color);
-    }
-
-    if (typeof color == "object") {
-        if (isValidCSSUnit(color.r) && isValidCSSUnit(color.g) && isValidCSSUnit(color.b)) {
-            rgb = rgbToRgb(color.r, color.g, color.b);
-            ok = true;
-            format = String(color.r).substr(-1) === "%" ? "prgb" : "rgb";
-        }
-        else if (isValidCSSUnit(color.h) && isValidCSSUnit(color.s) && isValidCSSUnit(color.v)) {
-            s = convertToPercentage(color.s);
-            v = convertToPercentage(color.v);
-            rgb = hsvToRgb(color.h, s, v);
-            ok = true;
-            format = "hsv";
-        }
-        else if (isValidCSSUnit(color.h) && isValidCSSUnit(color.s) && isValidCSSUnit(color.l)) {
-            s = convertToPercentage(color.s);
-            l = convertToPercentage(color.l);
-            rgb = hslToRgb(color.h, s, l);
-            ok = true;
-            format = "hsl";
-        }
-
-        if (color.hasOwnProperty("a")) {
-            a = color.a;
-        }
-    }
-
-    a = boundAlpha(a);
-
-    return {
-        ok: ok,
-        format: color.format || format,
-        r: mathMin(255, mathMax(rgb.r, 0)),
-        g: mathMin(255, mathMax(rgb.g, 0)),
-        b: mathMin(255, mathMax(rgb.b, 0)),
-        a: a
-    };
-}
-
-
-// Conversion Functions
-// --------------------
-
-// `rgbToHsl`, `rgbToHsv`, `hslToRgb`, `hsvToRgb` modified from:
-// <http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript>
-
-// `rgbToRgb`
-// Handle bounds / percentage checking to conform to CSS color spec
-// <http://www.w3.org/TR/css3-color/>
-// *Assumes:* r, g, b in [0, 255] or [0, 1]
-// *Returns:* { r, g, b } in [0, 255]
-function rgbToRgb(r, g, b){
-    return {
-        r: bound01(r, 255) * 255,
-        g: bound01(g, 255) * 255,
-        b: bound01(b, 255) * 255
-    };
-}
-
-// `rgbToHsl`
-// Converts an RGB color value to HSL.
-// *Assumes:* r, g, and b are contained in [0, 255] or [0, 1]
-// *Returns:* { h, s, l } in [0,1]
-function rgbToHsl(r, g, b) {
-
-    r = bound01(r, 255);
-    g = bound01(g, 255);
-    b = bound01(b, 255);
-
-    var max = mathMax(r, g, b), min = mathMin(r, g, b);
-    var h, s, l = (max + min) / 2;
-
-    if(max == min) {
-        h = s = 0; // achromatic
-    }
-    else {
-        var d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        switch(max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-        }
-
-        h /= 6;
-    }
-
-    return { h: h, s: s, l: l };
-}
-
-// `hslToRgb`
-// Converts an HSL color value to RGB.
-// *Assumes:* h is contained in [0, 1] or [0, 360] and s and l are contained [0, 1] or [0, 100]
-// *Returns:* { r, g, b } in the set [0, 255]
-function hslToRgb(h, s, l) {
-    var r, g, b;
-
-    h = bound01(h, 360);
-    s = bound01(s, 100);
-    l = bound01(l, 100);
-
-    function hue2rgb(p, q, t) {
-        if(t < 0) t += 1;
-        if(t > 1) t -= 1;
-        if(t < 1/6) return p + (q - p) * 6 * t;
-        if(t < 1/2) return q;
-        if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-        return p;
-    }
-
-    if(s === 0) {
-        r = g = b = l; // achromatic
-    }
-    else {
-        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-        var p = 2 * l - q;
-        r = hue2rgb(p, q, h + 1/3);
-        g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1/3);
-    }
-
-    return { r: r * 255, g: g * 255, b: b * 255 };
-}
-
-// `rgbToHsv`
-// Converts an RGB color value to HSV
-// *Assumes:* r, g, and b are contained in the set [0, 255] or [0, 1]
-// *Returns:* { h, s, v } in [0,1]
-function rgbToHsv(r, g, b) {
-
-    r = bound01(r, 255);
-    g = bound01(g, 255);
-    b = bound01(b, 255);
-
-    var max = mathMax(r, g, b), min = mathMin(r, g, b);
-    var h, s, v = max;
-
-    var d = max - min;
-    s = max === 0 ? 0 : d / max;
-
-    if(max == min) {
-        h = 0; // achromatic
-    }
-    else {
-        switch(max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-        }
-        h /= 6;
-    }
-    return { h: h, s: s, v: v };
-}
-
-// `hsvToRgb`
-// Converts an HSV color value to RGB.
-// *Assumes:* h is contained in [0, 1] or [0, 360] and s and v are contained in [0, 1] or [0, 100]
-// *Returns:* { r, g, b } in the set [0, 255]
- function hsvToRgb(h, s, v) {
-
-    h = bound01(h, 360) * 6;
-    s = bound01(s, 100);
-    v = bound01(v, 100);
-
-    var i = Math.floor(h),
-        f = h - i,
-        p = v * (1 - s),
-        q = v * (1 - f * s),
-        t = v * (1 - (1 - f) * s),
-        mod = i % 6,
-        r = [v, q, p, p, t, v][mod],
-        g = [t, v, v, q, p, p][mod],
-        b = [p, p, t, v, v, q][mod];
-
-    return { r: r * 255, g: g * 255, b: b * 255 };
-}
-
-// `rgbToHex`
-// Converts an RGB color to hex
-// Assumes r, g, and b are contained in the set [0, 255]
-// Returns a 3 or 6 character hex
-function rgbToHex(r, g, b, allow3Char) {
-
-    var hex = [
-        pad2(mathRound(r).toString(16)),
-        pad2(mathRound(g).toString(16)),
-        pad2(mathRound(b).toString(16))
-    ];
-
-    // Return a 3 character hex if possible
-    if (allow3Char && hex[0].charAt(0) == hex[0].charAt(1) && hex[1].charAt(0) == hex[1].charAt(1) && hex[2].charAt(0) == hex[2].charAt(1)) {
-        return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0);
-    }
-
-    return hex.join("");
-}
-
-// `rgbaToHex`
-// Converts an RGBA color plus alpha transparency to hex
-// Assumes r, g, b are contained in the set [0, 255] and
-// a in [0, 1]. Returns a 4 or 8 character rgba hex
-function rgbaToHex(r, g, b, a, allow4Char) {
-
-    var hex = [
-        pad2(mathRound(r).toString(16)),
-        pad2(mathRound(g).toString(16)),
-        pad2(mathRound(b).toString(16)),
-        pad2(convertDecimalToHex(a))
-    ];
-
-    // Return a 4 character hex if possible
-    if (allow4Char && hex[0].charAt(0) == hex[0].charAt(1) && hex[1].charAt(0) == hex[1].charAt(1) && hex[2].charAt(0) == hex[2].charAt(1) && hex[3].charAt(0) == hex[3].charAt(1)) {
-        return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0) + hex[3].charAt(0);
-    }
-
-    return hex.join("");
-}
-
-// `rgbaToArgbHex`
-// Converts an RGBA color to an ARGB Hex8 string
-// Rarely used, but required for "toFilter()"
-function rgbaToArgbHex(r, g, b, a) {
-
-    var hex = [
-        pad2(convertDecimalToHex(a)),
-        pad2(mathRound(r).toString(16)),
-        pad2(mathRound(g).toString(16)),
-        pad2(mathRound(b).toString(16))
-    ];
-
-    return hex.join("");
-}
-
-// `equals`
-// Can be called with any tinycolor input
-tinycolor.equals = function (color1, color2) {
-    if (!color1 || !color2) { return false; }
-    return tinycolor(color1).toRgbString() == tinycolor(color2).toRgbString();
-};
-
-tinycolor.random = function() {
-    return tinycolor.fromRatio({
-        r: mathRandom(),
-        g: mathRandom(),
-        b: mathRandom()
-    });
-};
-
-
-// Modification Functions
-// ----------------------
-// Thanks to less.js for some of the basics here
-// <https://github.com/cloudhead/less.js/blob/master/lib/less/functions.js>
-
-function desaturate(color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var hsl = tinycolor(color).toHsl();
-    hsl.s -= amount / 100;
-    hsl.s = clamp01(hsl.s);
-    return tinycolor(hsl);
-}
-
-function saturate(color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var hsl = tinycolor(color).toHsl();
-    hsl.s += amount / 100;
-    hsl.s = clamp01(hsl.s);
-    return tinycolor(hsl);
-}
-
-function greyscale(color) {
-    return tinycolor(color).desaturate(100);
-}
-
-function lighten (color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var hsl = tinycolor(color).toHsl();
-    hsl.l += amount / 100;
-    hsl.l = clamp01(hsl.l);
-    return tinycolor(hsl);
-}
-
-function brighten(color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var rgb = tinycolor(color).toRgb();
-    rgb.r = mathMax(0, mathMin(255, rgb.r - mathRound(255 * - (amount / 100))));
-    rgb.g = mathMax(0, mathMin(255, rgb.g - mathRound(255 * - (amount / 100))));
-    rgb.b = mathMax(0, mathMin(255, rgb.b - mathRound(255 * - (amount / 100))));
-    return tinycolor(rgb);
-}
-
-function darken (color, amount) {
-    amount = (amount === 0) ? 0 : (amount || 10);
-    var hsl = tinycolor(color).toHsl();
-    hsl.l -= amount / 100;
-    hsl.l = clamp01(hsl.l);
-    return tinycolor(hsl);
-}
-
-// Spin takes a positive or negative amount within [-360, 360] indicating the change of hue.
-// Values outside of this range will be wrapped into this range.
-function spin(color, amount) {
-    var hsl = tinycolor(color).toHsl();
-    var hue = (hsl.h + amount) % 360;
-    hsl.h = hue < 0 ? 360 + hue : hue;
-    return tinycolor(hsl);
-}
-
-// Combination Functions
-// ---------------------
-// Thanks to jQuery xColor for some of the ideas behind these
-// <https://github.com/infusion/jQuery-xcolor/blob/master/jquery.xcolor.js>
-
-function complement(color) {
-    var hsl = tinycolor(color).toHsl();
-    hsl.h = (hsl.h + 180) % 360;
-    return tinycolor(hsl);
-}
-
-function triad(color) {
-    var hsl = tinycolor(color).toHsl();
-    var h = hsl.h;
-    return [
-        tinycolor(color),
-        tinycolor({ h: (h + 120) % 360, s: hsl.s, l: hsl.l }),
-        tinycolor({ h: (h + 240) % 360, s: hsl.s, l: hsl.l })
-    ];
-}
-
-function tetrad(color) {
-    var hsl = tinycolor(color).toHsl();
-    var h = hsl.h;
-    return [
-        tinycolor(color),
-        tinycolor({ h: (h + 90) % 360, s: hsl.s, l: hsl.l }),
-        tinycolor({ h: (h + 180) % 360, s: hsl.s, l: hsl.l }),
-        tinycolor({ h: (h + 270) % 360, s: hsl.s, l: hsl.l })
-    ];
-}
-
-function splitcomplement(color) {
-    var hsl = tinycolor(color).toHsl();
-    var h = hsl.h;
-    return [
-        tinycolor(color),
-        tinycolor({ h: (h + 72) % 360, s: hsl.s, l: hsl.l}),
-        tinycolor({ h: (h + 216) % 360, s: hsl.s, l: hsl.l})
-    ];
-}
-
-function analogous(color, results, slices) {
-    results = results || 6;
-    slices = slices || 30;
-
-    var hsl = tinycolor(color).toHsl();
-    var part = 360 / slices;
-    var ret = [tinycolor(color)];
-
-    for (hsl.h = ((hsl.h - (part * results >> 1)) + 720) % 360; --results; ) {
-        hsl.h = (hsl.h + part) % 360;
-        ret.push(tinycolor(hsl));
-    }
-    return ret;
-}
-
-function monochromatic(color, results) {
-    results = results || 6;
-    var hsv = tinycolor(color).toHsv();
-    var h = hsv.h, s = hsv.s, v = hsv.v;
-    var ret = [];
-    var modification = 1 / results;
-
-    while (results--) {
-        ret.push(tinycolor({ h: h, s: s, v: v}));
-        v = (v + modification) % 1;
-    }
-
-    return ret;
-}
-
-// Utility Functions
-// ---------------------
-
-tinycolor.mix = function(color1, color2, amount) {
-    amount = (amount === 0) ? 0 : (amount || 50);
-
-    var rgb1 = tinycolor(color1).toRgb();
-    var rgb2 = tinycolor(color2).toRgb();
-
-    var p = amount / 100;
-
-    var rgba = {
-        r: ((rgb2.r - rgb1.r) * p) + rgb1.r,
-        g: ((rgb2.g - rgb1.g) * p) + rgb1.g,
-        b: ((rgb2.b - rgb1.b) * p) + rgb1.b,
-        a: ((rgb2.a - rgb1.a) * p) + rgb1.a
-    };
-
-    return tinycolor(rgba);
-};
-
-
-// Readability Functions
-// ---------------------
-// <http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef (WCAG Version 2)
-
-// `contrast`
-// Analyze the 2 colors and returns the color contrast defined by (WCAG Version 2)
-tinycolor.readability = function(color1, color2) {
-    var c1 = tinycolor(color1);
-    var c2 = tinycolor(color2);
-    return (Math.max(c1.getLuminance(),c2.getLuminance())+0.05) / (Math.min(c1.getLuminance(),c2.getLuminance())+0.05);
-};
-
-// `isReadable`
-// Ensure that foreground and background color combinations meet WCAG2 guidelines.
-// The third argument is an optional Object.
-//      the 'level' property states 'AA' or 'AAA' - if missing or invalid, it defaults to 'AA';
-//      the 'size' property states 'large' or 'small' - if missing or invalid, it defaults to 'small'.
-// If the entire object is absent, isReadable defaults to {level:"AA",size:"small"}.
-
-// *Example*
-//    tinycolor.isReadable("#000", "#111") => false
-//    tinycolor.isReadable("#000", "#111",{level:"AA",size:"large"}) => false
-tinycolor.isReadable = function(color1, color2, wcag2) {
-    var readability = tinycolor.readability(color1, color2);
-    var wcag2Parms, out;
-
-    out = false;
-
-    wcag2Parms = validateWCAG2Parms(wcag2);
-    switch (wcag2Parms.level + wcag2Parms.size) {
-        case "AAsmall":
-        case "AAAlarge":
-            out = readability >= 4.5;
-            break;
-        case "AAlarge":
-            out = readability >= 3;
-            break;
-        case "AAAsmall":
-            out = readability >= 7;
-            break;
-    }
-    return out;
-
-};
-
-// `mostReadable`
-// Given a base color and a list of possible foreground or background
-// colors for that base, returns the most readable color.
-// Optionally returns Black or White if the most readable color is unreadable.
-// *Example*
-//    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:false}).toHexString(); // "#112255"
-//    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:true}).toHexString();  // "#ffffff"
-//    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"large"}).toHexString(); // "#faf3f3"
-//    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"small"}).toHexString(); // "#ffffff"
-tinycolor.mostReadable = function(baseColor, colorList, args) {
-    var bestColor = null;
-    var bestScore = 0;
-    var readability;
-    var includeFallbackColors, level, size ;
-    args = args || {};
-    includeFallbackColors = args.includeFallbackColors ;
-    level = args.level;
-    size = args.size;
-
-    for (var i= 0; i < colorList.length ; i++) {
-        readability = tinycolor.readability(baseColor, colorList[i]);
-        if (readability > bestScore) {
-            bestScore = readability;
-            bestColor = tinycolor(colorList[i]);
-        }
-    }
-
-    if (tinycolor.isReadable(baseColor, bestColor, {"level":level,"size":size}) || !includeFallbackColors) {
-        return bestColor;
-    }
-    else {
-        args.includeFallbackColors=false;
-        return tinycolor.mostReadable(baseColor,["#fff", "#000"],args);
-    }
-};
-
-
-// Big List of Colors
-// ------------------
-// <http://www.w3.org/TR/css3-color/#svg-color>
-var names = tinycolor.names = {
-    aliceblue: "f0f8ff",
-    antiquewhite: "faebd7",
-    aqua: "0ff",
-    aquamarine: "7fffd4",
-    azure: "f0ffff",
-    beige: "f5f5dc",
-    bisque: "ffe4c4",
-    black: "000",
-    blanchedalmond: "ffebcd",
-    blue: "00f",
-    blueviolet: "8a2be2",
-    brown: "a52a2a",
-    burlywood: "deb887",
-    burntsienna: "ea7e5d",
-    cadetblue: "5f9ea0",
-    chartreuse: "7fff00",
-    chocolate: "d2691e",
-    coral: "ff7f50",
-    cornflowerblue: "6495ed",
-    cornsilk: "fff8dc",
-    crimson: "dc143c",
-    cyan: "0ff",
-    darkblue: "00008b",
-    darkcyan: "008b8b",
-    darkgoldenrod: "b8860b",
-    darkgray: "a9a9a9",
-    darkgreen: "006400",
-    darkgrey: "a9a9a9",
-    darkkhaki: "bdb76b",
-    darkmagenta: "8b008b",
-    darkolivegreen: "556b2f",
-    darkorange: "ff8c00",
-    darkorchid: "9932cc",
-    darkred: "8b0000",
-    darksalmon: "e9967a",
-    darkseagreen: "8fbc8f",
-    darkslateblue: "483d8b",
-    darkslategray: "2f4f4f",
-    darkslategrey: "2f4f4f",
-    darkturquoise: "00ced1",
-    darkviolet: "9400d3",
-    deeppink: "ff1493",
-    deepskyblue: "00bfff",
-    dimgray: "696969",
-    dimgrey: "696969",
-    dodgerblue: "1e90ff",
-    firebrick: "b22222",
-    floralwhite: "fffaf0",
-    forestgreen: "228b22",
-    fuchsia: "f0f",
-    gainsboro: "dcdcdc",
-    ghostwhite: "f8f8ff",
-    gold: "ffd700",
-    goldenrod: "daa520",
-    gray: "808080",
-    green: "008000",
-    greenyellow: "adff2f",
-    grey: "808080",
-    honeydew: "f0fff0",
-    hotpink: "ff69b4",
-    indianred: "cd5c5c",
-    indigo: "4b0082",
-    ivory: "fffff0",
-    khaki: "f0e68c",
-    lavender: "e6e6fa",
-    lavenderblush: "fff0f5",
-    lawngreen: "7cfc00",
-    lemonchiffon: "fffacd",
-    lightblue: "add8e6",
-    lightcoral: "f08080",
-    lightcyan: "e0ffff",
-    lightgoldenrodyellow: "fafad2",
-    lightgray: "d3d3d3",
-    lightgreen: "90ee90",
-    lightgrey: "d3d3d3",
-    lightpink: "ffb6c1",
-    lightsalmon: "ffa07a",
-    lightseagreen: "20b2aa",
-    lightskyblue: "87cefa",
-    lightslategray: "789",
-    lightslategrey: "789",
-    lightsteelblue: "b0c4de",
-    lightyellow: "ffffe0",
-    lime: "0f0",
-    limegreen: "32cd32",
-    linen: "faf0e6",
-    magenta: "f0f",
-    maroon: "800000",
-    mediumaquamarine: "66cdaa",
-    mediumblue: "0000cd",
-    mediumorchid: "ba55d3",
-    mediumpurple: "9370db",
-    mediumseagreen: "3cb371",
-    mediumslateblue: "7b68ee",
-    mediumspringgreen: "00fa9a",
-    mediumturquoise: "48d1cc",
-    mediumvioletred: "c71585",
-    midnightblue: "191970",
-    mintcream: "f5fffa",
-    mistyrose: "ffe4e1",
-    moccasin: "ffe4b5",
-    navajowhite: "ffdead",
-    navy: "000080",
-    oldlace: "fdf5e6",
-    olive: "808000",
-    olivedrab: "6b8e23",
-    orange: "ffa500",
-    orangered: "ff4500",
-    orchid: "da70d6",
-    palegoldenrod: "eee8aa",
-    palegreen: "98fb98",
-    paleturquoise: "afeeee",
-    palevioletred: "db7093",
-    papayawhip: "ffefd5",
-    peachpuff: "ffdab9",
-    peru: "cd853f",
-    pink: "ffc0cb",
-    plum: "dda0dd",
-    powderblue: "b0e0e6",
-    purple: "800080",
-    rebeccapurple: "663399",
-    red: "f00",
-    rosybrown: "bc8f8f",
-    royalblue: "4169e1",
-    saddlebrown: "8b4513",
-    salmon: "fa8072",
-    sandybrown: "f4a460",
-    seagreen: "2e8b57",
-    seashell: "fff5ee",
-    sienna: "a0522d",
-    silver: "c0c0c0",
-    skyblue: "87ceeb",
-    slateblue: "6a5acd",
-    slategray: "708090",
-    slategrey: "708090",
-    snow: "fffafa",
-    springgreen: "00ff7f",
-    steelblue: "4682b4",
-    tan: "d2b48c",
-    teal: "008080",
-    thistle: "d8bfd8",
-    tomato: "ff6347",
-    turquoise: "40e0d0",
-    violet: "ee82ee",
-    wheat: "f5deb3",
-    white: "fff",
-    whitesmoke: "f5f5f5",
-    yellow: "ff0",
-    yellowgreen: "9acd32"
-};
-
-// Make it easy to access colors via `hexNames[hex]`
-var hexNames = tinycolor.hexNames = flip(names);
-
-
-// Utilities
-// ---------
-
-// `{ 'name1': 'val1' }` becomes `{ 'val1': 'name1' }`
-function flip(o) {
-    var flipped = { };
-    for (var i in o) {
-        if (o.hasOwnProperty(i)) {
-            flipped[o[i]] = i;
-        }
-    }
-    return flipped;
-}
-
-// Return a valid alpha value [0,1] with all invalid values being set to 1
-function boundAlpha(a) {
-    a = parseFloat(a);
-
-    if (isNaN(a) || a < 0 || a > 1) {
-        a = 1;
-    }
-
-    return a;
-}
-
-// Take input from [0, n] and return it as [0, 1]
-function bound01(n, max) {
-    if (isOnePointZero(n)) { n = "100%"; }
-
-    var processPercent = isPercentage(n);
-    n = mathMin(max, mathMax(0, parseFloat(n)));
-
-    // Automatically convert percentage into number
-    if (processPercent) {
-        n = parseInt(n * max, 10) / 100;
-    }
-
-    // Handle floating point rounding errors
-    if ((Math.abs(n - max) < 0.000001)) {
-        return 1;
-    }
-
-    // Convert into [0, 1] range if it isn't already
-    return (n % max) / parseFloat(max);
-}
-
-// Force a number between 0 and 1
-function clamp01(val) {
-    return mathMin(1, mathMax(0, val));
-}
-
-// Parse a base-16 hex value into a base-10 integer
-function parseIntFromHex(val) {
-    return parseInt(val, 16);
-}
-
-// Need to handle 1.0 as 100%, since once it is a number, there is no difference between it and 1
-// <http://stackoverflow.com/questions/7422072/javascript-how-to-detect-number-as-a-decimal-including-1-0>
-function isOnePointZero(n) {
-    return typeof n == "string" && n.indexOf('.') != -1 && parseFloat(n) === 1;
-}
-
-// Check to see if string passed in is a percentage
-function isPercentage(n) {
-    return typeof n === "string" && n.indexOf('%') != -1;
-}
-
-// Force a hex value to have 2 characters
-function pad2(c) {
-    return c.length == 1 ? '0' + c : '' + c;
-}
-
-// Replace a decimal with it's percentage value
-function convertToPercentage(n) {
-    if (n <= 1) {
-        n = (n * 100) + "%";
-    }
-
-    return n;
-}
-
-// Converts a decimal to a hex value
-function convertDecimalToHex(d) {
-    return Math.round(parseFloat(d) * 255).toString(16);
-}
-// Converts a hex value to a decimal
-function convertHexToDecimal(h) {
-    return (parseIntFromHex(h) / 255);
-}
-
-var matchers = (function() {
-
-    // <http://www.w3.org/TR/css3-values/#integers>
-    var CSS_INTEGER = "[-\\+]?\\d+%?";
-
-    // <http://www.w3.org/TR/css3-values/#number-value>
-    var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
-
-    // Allow positive/negative integer/number.  Don't capture the either/or, just the entire outcome.
-    var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")";
-
-    // Actual matching.
-    // Parentheses and commas are optional, but not required.
-    // Whitespace can take the place of commas or opening paren
-    var PERMISSIVE_MATCH3 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
-    var PERMISSIVE_MATCH4 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
-
-    return {
-        CSS_UNIT: new RegExp(CSS_UNIT),
-        rgb: new RegExp("rgb" + PERMISSIVE_MATCH3),
-        rgba: new RegExp("rgba" + PERMISSIVE_MATCH4),
-        hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
-        hsla: new RegExp("hsla" + PERMISSIVE_MATCH4),
-        hsv: new RegExp("hsv" + PERMISSIVE_MATCH3),
-        hsva: new RegExp("hsva" + PERMISSIVE_MATCH4),
-        hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
-        hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
-        hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
-        hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
-    };
-})();
-
-// `isValidCSSUnit`
-// Take in a single string / number and check to see if it looks like a CSS unit
-// (see `matchers` above for definition).
-function isValidCSSUnit(color) {
-    return !!matchers.CSS_UNIT.exec(color);
-}
-
-// `stringInputToObject`
-// Permissive string parsing.  Take in a number of formats, and output an object
-// based on detected format.  Returns `{ r, g, b }` or `{ h, s, l }` or `{ h, s, v}`
-function stringInputToObject(color) {
-
-    color = color.replace(trimLeft,'').replace(trimRight, '').toLowerCase();
-    var named = false;
-    if (names[color]) {
-        color = names[color];
-        named = true;
-    }
-    else if (color == 'transparent') {
-        return { r: 0, g: 0, b: 0, a: 0, format: "name" };
-    }
-
-    // Try to match string input using regular expressions.
-    // Keep most of the number bounding out of this function - don't worry about [0,1] or [0,100] or [0,360]
-    // Just return an object and let the conversion functions handle that.
-    // This way the result will be the same whether the tinycolor is initialized with string or object.
-    var match;
-    if ((match = matchers.rgb.exec(color))) {
-        return { r: match[1], g: match[2], b: match[3] };
-    }
-    if ((match = matchers.rgba.exec(color))) {
-        return { r: match[1], g: match[2], b: match[3], a: match[4] };
-    }
-    if ((match = matchers.hsl.exec(color))) {
-        return { h: match[1], s: match[2], l: match[3] };
-    }
-    if ((match = matchers.hsla.exec(color))) {
-        return { h: match[1], s: match[2], l: match[3], a: match[4] };
-    }
-    if ((match = matchers.hsv.exec(color))) {
-        return { h: match[1], s: match[2], v: match[3] };
-    }
-    if ((match = matchers.hsva.exec(color))) {
-        return { h: match[1], s: match[2], v: match[3], a: match[4] };
-    }
-    if ((match = matchers.hex8.exec(color))) {
-        return {
-            r: parseIntFromHex(match[1]),
-            g: parseIntFromHex(match[2]),
-            b: parseIntFromHex(match[3]),
-            a: convertHexToDecimal(match[4]),
-            format: named ? "name" : "hex8"
-        };
-    }
-    if ((match = matchers.hex6.exec(color))) {
-        return {
-            r: parseIntFromHex(match[1]),
-            g: parseIntFromHex(match[2]),
-            b: parseIntFromHex(match[3]),
-            format: named ? "name" : "hex"
-        };
-    }
-    if ((match = matchers.hex4.exec(color))) {
-        return {
-            r: parseIntFromHex(match[1] + '' + match[1]),
-            g: parseIntFromHex(match[2] + '' + match[2]),
-            b: parseIntFromHex(match[3] + '' + match[3]),
-            a: convertHexToDecimal(match[4] + '' + match[4]),
-            format: named ? "name" : "hex8"
-        };
-    }
-    if ((match = matchers.hex3.exec(color))) {
-        return {
-            r: parseIntFromHex(match[1] + '' + match[1]),
-            g: parseIntFromHex(match[2] + '' + match[2]),
-            b: parseIntFromHex(match[3] + '' + match[3]),
-            format: named ? "name" : "hex"
-        };
-    }
-
-    return false;
-}
-
-function validateWCAG2Parms(parms) {
-    // return valid WCAG2 parms for isReadable.
-    // If input parms are invalid, return {"level":"AA", "size":"small"}
-    var level, size;
-    parms = parms || {"level":"AA", "size":"small"};
-    level = (parms.level || "AA").toUpperCase();
-    size = (parms.size || "small").toLowerCase();
-    if (level !== "AA" && level !== "AAA") {
-        level = "AA";
-    }
-    if (size !== "small" && size !== "large") {
-        size = "small";
-    }
-    return {"level":level, "size":size};
-}
-
-// Node: Export function
-if ( true && module.exports) {
-    module.exports = tinycolor;
-}
-// AMD/requirejs: Define the module
-else if (true) {
-    !(__WEBPACK_AMD_DEFINE_RESULT__ = (function () {return tinycolor;}).call(exports, __webpack_require__, exports, module),
-		__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}
-// Browser: Expose to window
-else {}
-
-})(Math);
-
-
-/***/ }),
-
 /***/ 3804:
 /***/ (function(module) {
 
@@ -15771,7 +14570,7 @@ __webpack_require__.d(__webpack_exports__, {
   "ClipboardButton": function() { return /* reexport */ ClipboardButton; },
   "ColorIndicator": function() { return /* reexport */ color_indicator; },
   "ColorPalette": function() { return /* reexport */ ColorPalette; },
-  "ColorPicker": function() { return /* reexport */ ColorPicker; },
+  "ColorPicker": function() { return /* reexport */ LegacyAdapter; },
   "ComboboxControl": function() { return /* reexport */ combobox_control; },
   "CustomGradientPicker": function() { return /* reexport */ CustomGradientPicker; },
   "CustomSelectControl": function() { return /* reexport */ CustomSelectControl; },
@@ -15884,7 +14683,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalSurface": function() { return /* reexport */ surface_component; },
   "__experimentalText": function() { return /* reexport */ text_component; },
   "__experimentalToggleGroupControl": function() { return /* reexport */ toggle_group_control_component; },
-  "__experimentalToggleGroupControlOption": function() { return /* reexport */ toggle_group_control_option; },
+  "__experimentalToggleGroupControlOption": function() { return /* reexport */ toggle_group_control_option_component; },
   "__experimentalToolbarContext": function() { return /* reexport */ toolbar_context; },
   "__experimentalToolsPanel": function() { return /* reexport */ tools_panel_component; },
   "__experimentalToolsPanelContext": function() { return /* reexport */ ToolsPanelContext; },
@@ -15934,17 +14733,23 @@ __webpack_require__.d(text_styles_namespaceObject, {
   "upperCase": function() { return upperCase; }
 });
 
-// NAMESPACE OBJECT: ./packages/components/build-module/toggle-group-control/styles.js
-var toggle_group_control_styles_namespaceObject = {};
-__webpack_require__.r(toggle_group_control_styles_namespaceObject);
-__webpack_require__.d(toggle_group_control_styles_namespaceObject, {
-  "BackdropView": function() { return BackdropView; },
+// NAMESPACE OBJECT: ./packages/components/build-module/ui/tooltip/styles.js
+var tooltip_styles_namespaceObject = {};
+__webpack_require__.r(tooltip_styles_namespaceObject);
+__webpack_require__.d(tooltip_styles_namespaceObject, {
+  "TooltipContent": function() { return TooltipContent; },
+  "TooltipPopoverView": function() { return TooltipPopoverView; },
+  "TooltipShortcut": function() { return TooltipShortcut; },
+  "noOutline": function() { return noOutline; }
+});
+
+// NAMESPACE OBJECT: ./packages/components/build-module/toggle-group-control/toggle-group-control-option/styles.js
+var toggle_group_control_option_styles_namespaceObject = {};
+__webpack_require__.r(toggle_group_control_option_styles_namespaceObject);
+__webpack_require__.d(toggle_group_control_option_styles_namespaceObject, {
   "ButtonContentView": function() { return ButtonContentView; },
   "LabelPlaceholderView": function() { return LabelPlaceholderView; },
   "LabelView": function() { return LabelView; },
-  "SeparatorView": function() { return SeparatorView; },
-  "ToggleGroupControl": function() { return ToggleGroupControl; },
-  "block": function() { return toggle_group_control_styles_block; },
   "buttonActive": function() { return buttonActive; },
   "buttonView": function() { return buttonView; },
   "labelBlock": function() { return labelBlock; },
@@ -23113,6 +21918,7 @@ function Animate({
  */
 
 const SLOT_NAME = 'Popover';
+const slotNameContext = (0,external_wp_element_namespaceObject.createContext)();
 
 function computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect, anchorRef = false, shouldAnchorIncludePadding, container) {
   if (anchorRect) {
@@ -23316,7 +22122,10 @@ const Popover = ({
   const containerRef = (0,external_wp_element_namespaceObject.useRef)();
   const isMobileViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium', '<');
   const [animateOrigin, setAnimateOrigin] = (0,external_wp_element_namespaceObject.useState)();
-  const slot = use_slot_useSlot(__unstableSlotName);
+
+  const slotName = (0,external_wp_element_namespaceObject.useContext)(slotNameContext) || __unstableSlotName;
+
+  const slot = use_slot_useSlot(slotName);
   const isExpanded = expandOnMobile && isMobileViewport;
   const [containerResizeListener, contentSize] = (0,external_wp_compose_namespaceObject.useResizeObserver)();
   noArrow = isExpanded || noArrow;
@@ -23455,8 +22264,10 @@ const Popover = ({
       defaultView.cancelAnimationFrame(rafId);
 
       if (anchorDocument && anchorDocument !== ownerDocument) {
-        anchorDocument.defaultView.removeEventListener('resize', refresh);
-        anchorDocument.defaultView.removeEventListener('scroll', refresh, true);
+        var _anchorDocument$defau, _anchorDocument$defau2;
+
+        (_anchorDocument$defau = anchorDocument.defaultView) === null || _anchorDocument$defau === void 0 ? void 0 : _anchorDocument$defau.removeEventListener('resize', refresh);
+        (_anchorDocument$defau2 = anchorDocument.defaultView) === null || _anchorDocument$defau2 === void 0 ? void 0 : _anchorDocument$defau2.removeEventListener('scroll', refresh, true);
       }
 
       if (observer) {
@@ -23520,7 +22331,7 @@ const Popover = ({
 
   if (slot.ref) {
     content = (0,external_wp_element_namespaceObject.createElement)(slot_fill_Fill, {
-      name: __unstableSlotName
+      name: slotName
     }, content);
   }
 
@@ -23547,6 +22358,7 @@ function PopoverSlot({
 }
 
 PopoverContainer.Slot = (0,external_wp_element_namespaceObject.forwardRef)(PopoverSlot);
+PopoverContainer.__unstableSlotNameProvider = slotNameContext.Provider;
 /* harmony default export */ var popover = (PopoverContainer);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/shortcut/index.js
@@ -23636,7 +22448,7 @@ const getDisabledElement = ({
   className: "disabled-element-wrapper"
 }, (0,external_wp_element_namespaceObject.cloneElement)(eventCatcher, eventHandlers), (0,external_wp_element_namespaceObject.cloneElement)(child, {
   children: childrenWithPopover
-}), ","), eventHandlers);
+})), eventHandlers);
 
 const getRegularElement = ({
   child,
@@ -23669,7 +22481,11 @@ const emitToChild = (children, eventName, event) => {
     return;
   }
 
-  const child = external_wp_element_namespaceObject.Children.only(children);
+  const child = external_wp_element_namespaceObject.Children.only(children); // If the underlying element is disabled, do not emit the event.
+
+  if (child.props.disabled) {
+    return;
+  }
 
   if (typeof child.props[eventName] === 'function') {
     child.props[eventName](event);
@@ -24189,14 +23005,19 @@ if (false) { var globalKey, globalContext, isJest, emotion_react_browser_esm_isB
 
 
 
-// EXTERNAL MODULE: ./node_modules/tinycolor2/tinycolor.js
-var tinycolor = __webpack_require__(7621);
-var tinycolor_default = /*#__PURE__*/__webpack_require__.n(tinycolor);
+;// CONCATENATED MODULE: ./packages/components/node_modules/colord/index.mjs
+var r={grad:.9,turn:360,rad:360/(2*Math.PI)},t=function(r){return"string"==typeof r?r.length>0:"number"==typeof r},colord_n=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=Math.pow(10,t)),Math.round(n*r)/n+0},colord_e=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=1),r>n?n:r>t?r:t},u=function(r){return(r=isFinite(r)?r%360:0)>0?r:r+360},colord_a=function(r){return{r:colord_e(r.r,0,255),g:colord_e(r.g,0,255),b:colord_e(r.b,0,255),a:colord_e(r.a)}},colord_o=function(r){return{r:colord_n(r.r),g:colord_n(r.g),b:colord_n(r.b),a:colord_n(r.a,3)}},i=/^#([0-9a-f]{3,8})$/i,s=function(r){var t=r.toString(16);return t.length<2?"0"+t:t},h=function(r){var t=r.r,n=r.g,e=r.b,u=r.a,a=Math.max(t,n,e),o=a-Math.min(t,n,e),i=o?a===t?(n-e)/o:a===n?2+(e-t)/o:4+(t-n)/o:0;return{h:60*(i<0?i+6:i),s:a?o/a*100:0,v:a/255*100,a:u}},b=function(r){var t=r.h,n=r.s,e=r.v,u=r.a;t=t/360*6,n/=100,e/=100;var a=Math.floor(t),o=e*(1-n),i=e*(1-(t-a)*n),s=e*(1-(1-t+a)*n),h=a%6;return{r:255*[e,i,o,o,s,e][h],g:255*[s,e,e,i,o,o][h],b:255*[o,o,s,e,e,i][h],a:u}},g=function(r){return{h:u(r.h),s:colord_e(r.s,0,100),l:colord_e(r.l,0,100),a:colord_e(r.a)}},d=function(r){return{h:colord_n(r.h),s:colord_n(r.s),l:colord_n(r.l),a:colord_n(r.a,3)}},f=function(r){return b((n=(t=r).s,{h:t.h,s:(n*=((e=t.l)<50?e:100-e)/100)>0?2*n/(e+n)*100:0,v:e+n,a:t.a}));var t,n,e},c=function(r){return{h:(t=h(r)).h,s:(u=(200-(n=t.s))*(e=t.v)/100)>0&&u<200?n*e/100/(u<=100?u:200-u)*100:0,l:u/2,a:t.a};var t,n,e,u},l=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,p=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,v=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,m=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,y={string:[[function(r){var t=i.exec(r);return t?(r=t[1]).length<=4?{r:parseInt(r[0]+r[0],16),g:parseInt(r[1]+r[1],16),b:parseInt(r[2]+r[2],16),a:4===r.length?colord_n(parseInt(r[3]+r[3],16)/255,2):1}:6===r.length||8===r.length?{r:parseInt(r.substr(0,2),16),g:parseInt(r.substr(2,2),16),b:parseInt(r.substr(4,2),16),a:8===r.length?colord_n(parseInt(r.substr(6,2),16)/255,2):1}:null:null},"hex"],[function(r){var t=v.exec(r)||m.exec(r);return t?t[2]!==t[4]||t[4]!==t[6]?null:colord_a({r:Number(t[1])/(t[2]?100/255:1),g:Number(t[3])/(t[4]?100/255:1),b:Number(t[5])/(t[6]?100/255:1),a:void 0===t[7]?1:Number(t[7])/(t[8]?100:1)}):null},"rgb"],[function(t){var n=l.exec(t)||p.exec(t);if(!n)return null;var e,u,a=g({h:(e=n[1],u=n[2],void 0===u&&(u="deg"),Number(e)*(r[u]||1)),s:Number(n[3]),l:Number(n[4]),a:void 0===n[5]?1:Number(n[5])/(n[6]?100:1)});return f(a)},"hsl"]],object:[[function(r){var n=r.r,e=r.g,u=r.b,o=r.a,i=void 0===o?1:o;return t(n)&&t(e)&&t(u)?colord_a({r:Number(n),g:Number(e),b:Number(u),a:Number(i)}):null},"rgb"],[function(r){var n=r.h,e=r.s,u=r.l,a=r.a,o=void 0===a?1:a;if(!t(n)||!t(e)||!t(u))return null;var i=g({h:Number(n),s:Number(e),l:Number(u),a:Number(o)});return f(i)},"hsl"],[function(r){var n=r.h,a=r.s,o=r.v,i=r.a,s=void 0===i?1:i;if(!t(n)||!t(a)||!t(o))return null;var h=function(r){return{h:u(r.h),s:colord_e(r.s,0,100),v:colord_e(r.v,0,100),a:colord_e(r.a)}}({h:Number(n),s:Number(a),v:Number(o),a:Number(s)});return b(h)},"hsv"]]},N=function(r,t){for(var n=0;n<t.length;n++){var e=t[n][0](r);if(e)return[e,t[n][1]]}return[null,void 0]},x=function(r){return"string"==typeof r?N(r.trim(),y.string):"object"==typeof r&&null!==r?N(r,y.object):[null,void 0]},I=function(r){return x(r)[1]},M=function(r,t){var n=c(r);return{h:n.h,s:colord_e(n.s+100*t,0,100),l:n.l,a:n.a}},H=function(r){return(299*r.r+587*r.g+114*r.b)/1e3/255},$=function(r,t){var n=c(r);return{h:n.h,s:n.s,l:colord_e(n.l+100*t,0,100),a:n.a}},j=function(){function r(r){this.parsed=x(r)[0],this.rgba=this.parsed||{r:0,g:0,b:0,a:1}}return r.prototype.isValid=function(){return null!==this.parsed},r.prototype.brightness=function(){return colord_n(H(this.rgba),2)},r.prototype.isDark=function(){return H(this.rgba)<.5},r.prototype.isLight=function(){return H(this.rgba)>=.5},r.prototype.toHex=function(){return r=colord_o(this.rgba),t=r.r,e=r.g,u=r.b,i=(a=r.a)<1?s(colord_n(255*a)):"","#"+s(t)+s(e)+s(u)+i;var r,t,e,u,a,i},r.prototype.toRgb=function(){return colord_o(this.rgba)},r.prototype.toRgbString=function(){return r=colord_o(this.rgba),t=r.r,n=r.g,e=r.b,(u=r.a)<1?"rgba("+t+", "+n+", "+e+", "+u+")":"rgb("+t+", "+n+", "+e+")";var r,t,n,e,u},r.prototype.toHsl=function(){return d(c(this.rgba))},r.prototype.toHslString=function(){return r=d(c(this.rgba)),t=r.h,n=r.s,e=r.l,(u=r.a)<1?"hsla("+t+", "+n+"%, "+e+"%, "+u+")":"hsl("+t+", "+n+"%, "+e+"%)";var r,t,n,e,u},r.prototype.toHsv=function(){return r=h(this.rgba),{h:colord_n(r.h),s:colord_n(r.s),v:colord_n(r.v),a:colord_n(r.a,3)};var r},r.prototype.invert=function(){return w({r:255-(r=this.rgba).r,g:255-r.g,b:255-r.b,a:r.a});var r},r.prototype.saturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,r))},r.prototype.desaturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,-r))},r.prototype.grayscale=function(){return w(M(this.rgba,-1))},r.prototype.lighten=function(r){return void 0===r&&(r=.1),w($(this.rgba,r))},r.prototype.darken=function(r){return void 0===r&&(r=.1),w($(this.rgba,-r))},r.prototype.rotate=function(r){return void 0===r&&(r=15),this.hue(this.hue()+r)},r.prototype.alpha=function(r){return"number"==typeof r?w({r:(t=this.rgba).r,g:t.g,b:t.b,a:r}):colord_n(this.rgba.a,3);var t},r.prototype.hue=function(r){var t=c(this.rgba);return"number"==typeof r?w({h:r,s:t.s,l:t.l,a:t.a}):colord_n(t.h)},r.prototype.isEqual=function(r){return this.toHex()===w(r).toHex()},r}(),w=function(r){return r instanceof j?r:new j(r)},S=[],k=function(r){r.forEach(function(r){S.indexOf(r)<0&&(r(j,y),S.push(r))})},E=function(){return new j({r:255*Math.random(),g:255*Math.random(),b:255*Math.random()})};
+
+;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/names.mjs
+/* harmony default export */ function names(e,f){var a={white:"#ffffff",bisque:"#ffe4c4",blue:"#0000ff",cadetblue:"#5f9ea0",chartreuse:"#7fff00",chocolate:"#d2691e",coral:"#ff7f50",antiquewhite:"#faebd7",aqua:"#00ffff",azure:"#f0ffff",whitesmoke:"#f5f5f5",papayawhip:"#ffefd5",plum:"#dda0dd",blanchedalmond:"#ffebcd",black:"#000000",gold:"#ffd700",goldenrod:"#daa520",gainsboro:"#dcdcdc",cornsilk:"#fff8dc",cornflowerblue:"#6495ed",burlywood:"#deb887",aquamarine:"#7fffd4",beige:"#f5f5dc",crimson:"#dc143c",cyan:"#00ffff",darkblue:"#00008b",darkcyan:"#008b8b",darkgoldenrod:"#b8860b",darkkhaki:"#bdb76b",darkgray:"#a9a9a9",darkgreen:"#006400",darkgrey:"#a9a9a9",peachpuff:"#ffdab9",darkmagenta:"#8b008b",darkred:"#8b0000",darkorchid:"#9932cc",darkorange:"#ff8c00",darkslateblue:"#483d8b",gray:"#808080",darkslategray:"#2f4f4f",darkslategrey:"#2f4f4f",deeppink:"#ff1493",deepskyblue:"#00bfff",wheat:"#f5deb3",firebrick:"#b22222",floralwhite:"#fffaf0",ghostwhite:"#f8f8ff",darkviolet:"#9400d3",magenta:"#ff00ff",green:"#008000",dodgerblue:"#1e90ff",grey:"#808080",honeydew:"#f0fff0",hotpink:"#ff69b4",blueviolet:"#8a2be2",forestgreen:"#228b22",lawngreen:"#7cfc00",indianred:"#cd5c5c",indigo:"#4b0082",fuchsia:"#ff00ff",brown:"#a52a2a",maroon:"#800000",mediumblue:"#0000cd",lightcoral:"#f08080",darkturquoise:"#00ced1",lightcyan:"#e0ffff",ivory:"#fffff0",lightyellow:"#ffffe0",lightsalmon:"#ffa07a",lightseagreen:"#20b2aa",linen:"#faf0e6",mediumaquamarine:"#66cdaa",lemonchiffon:"#fffacd",lime:"#00ff00",khaki:"#f0e68c",mediumseagreen:"#3cb371",limegreen:"#32cd32",mediumspringgreen:"#00fa9a",lightskyblue:"#87cefa",lightblue:"#add8e6",midnightblue:"#191970",lightpink:"#ffb6c1",mistyrose:"#ffe4e1",moccasin:"#ffe4b5",mintcream:"#f5fffa",lightslategray:"#778899",lightslategrey:"#778899",navajowhite:"#ffdead",navy:"#000080",mediumvioletred:"#c71585",powderblue:"#b0e0e6",palegoldenrod:"#eee8aa",oldlace:"#fdf5e6",paleturquoise:"#afeeee",mediumturquoise:"#48d1cc",mediumorchid:"#ba55d3",rebeccapurple:"#663399",lightsteelblue:"#b0c4de",mediumslateblue:"#7b68ee",thistle:"#d8bfd8",tan:"#d2b48c",orchid:"#da70d6",mediumpurple:"#9370db",purple:"#800080",pink:"#ffc0cb",skyblue:"#87ceeb",springgreen:"#00ff7f",palegreen:"#98fb98",red:"#ff0000",yellow:"#ffff00",slateblue:"#6a5acd",lavenderblush:"#fff0f5",peru:"#cd853f",palevioletred:"#db7093",violet:"#ee82ee",teal:"#008080",slategray:"#708090",slategrey:"#708090",aliceblue:"#f0f8ff",darkseagreen:"#8fbc8f",darkolivegreen:"#556b2f",greenyellow:"#adff2f",seagreen:"#2e8b57",seashell:"#fff5ee",tomato:"#ff6347",silver:"#c0c0c0",sienna:"#a0522d",lavender:"#e6e6fa",lightgreen:"#90ee90",orange:"#ffa500",orangered:"#ff4500",steelblue:"#4682b4",royalblue:"#4169e1",turquoise:"#40e0d0",yellowgreen:"#9acd32",salmon:"#fa8072",saddlebrown:"#8b4513",sandybrown:"#f4a460",rosybrown:"#bc8f8f",darksalmon:"#e9967a",lightgoldenrodyellow:"#fafad2",snow:"#fffafa",lightgrey:"#d3d3d3",lightgray:"#d3d3d3",dimgray:"#696969",dimgrey:"#696969",olivedrab:"#6b8e23",olive:"#808000"},r={};for(var d in a)r[a[d]]=d;var l={};e.prototype.toName=function(f){if(!(this.rgba.a||this.rgba.r||this.rgba.g||this.rgba.b))return"transparent";var d,i,n=r[this.toHex()];if(n)return n;if(null==f?void 0:f.closest){var o=this.toRgb(),t=1/0,b="black";if(!l.length)for(var c in a)l[c]=new e(a[c]).toRgb();for(var g in a){var u=(d=o,i=l[g],Math.pow(d.r-i.r,2)+Math.pow(d.g-i.g,2)+Math.pow(d.b-i.b,2));u<t&&(t=u,b=g)}return b}};f.string.push([function(f){var r=f.toLowerCase(),d="transparent"===r?"#0000":a[r];return d?new e(d).toRgb():null},"name"])}
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/colors.js
 /**
  * External dependencies
  */
 
+
+k([names]);
 /**
  * Generating a CSS compliant rgba() color value.
  *
@@ -24210,12 +23031,7 @@ var tinycolor_default = /*#__PURE__*/__webpack_require__.n(tinycolor);
  */
 
 function rgba(hexValue = '', alpha = 1) {
-  const {
-    r,
-    g,
-    b
-  } = tinycolor_default()(hexValue).toRgb();
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  return w(hexValue).alpha(alpha).toRgbString();
 }
 //# sourceMappingURL=colors.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/colors-values.js
@@ -27393,6 +26209,247 @@ var getValueAsType = function (value, type) {
 
 
 
+;// CONCATENATED MODULE: ./node_modules/style-value-types/node_modules/tslib/tslib.es6.js
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var tslib_es6_extendStatics = function(d, b) {
+    tslib_es6_extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+    return tslib_es6_extendStatics(d, b);
+};
+
+function tslib_es6_extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    tslib_es6_extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var tslib_es6_assign = function() {
+    tslib_es6_assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return tslib_es6_assign.apply(this, arguments);
+}
+
+function tslib_es6_rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function tslib_es6_decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function tslib_es6_param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function tslib_es6_metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function tslib_es6_awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function tslib_es6_generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var tslib_es6_createBinding = Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+});
+
+function tslib_es6_exportStar(m, o) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) tslib_es6_createBinding(o, m, p);
+}
+
+function tslib_es6_values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+
+function tslib_tslib_es6_read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+/** @deprecated */
+function tslib_es6_spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(tslib_tslib_es6_read(arguments[i]));
+    return ar;
+}
+
+/** @deprecated */
+function tslib_es6_spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
+function tslib_tslib_es6_spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || from);
+}
+
+function tslib_es6_await(v) {
+    return this instanceof tslib_es6_await ? (this.v = v, this) : new tslib_es6_await(v);
+}
+
+function tslib_es6_asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof tslib_es6_await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function tslib_es6_asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: tslib_es6_await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function tslib_es6_asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof tslib_es6_values === "function" ? tslib_es6_values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function tslib_es6_makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+var tslib_es6_setModuleDefault = Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+};
+
+function tslib_es6_importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) tslib_es6_createBinding(result, mod, k);
+    tslib_es6_setModuleDefault(result, mod);
+    return result;
+}
+
+function tslib_es6_importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+function tslib_es6_classPrivateFieldGet(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+}
+
+function tslib_es6_classPrivateFieldSet(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
+}
+
 ;// CONCATENATED MODULE: ./node_modules/style-value-types/dist/es/utils.js
 var clamp = function (min, max) { return function (v) {
     return Math.max(Math.min(v, max), min);
@@ -27423,7 +26480,7 @@ var percent = createUnitType('%');
 var px = createUnitType('px');
 var vh = createUnitType('vh');
 var vw = createUnitType('vw');
-var progressPercentage = __assign(__assign({}, percent), { parse: function (v) { return percent.parse(v) / 100; }, transform: function (v) { return percent.transform(v * 100); } });
+var progressPercentage = tslib_es6_assign(tslib_es6_assign({}, percent), { parse: function (v) { return percent.parse(v) / 100; }, transform: function (v) { return percent.transform(v * 100); } });
 
 
 
@@ -27436,8 +26493,8 @@ var number = {
     parse: parseFloat,
     transform: function (v) { return v; },
 };
-var alpha = __assign(__assign({}, number), { transform: clamp(0, 1) });
-var scale = __assign(__assign({}, number), { default: 1 });
+var alpha = tslib_es6_assign(tslib_es6_assign({}, number), { transform: clamp(0, 1) });
+var scale = tslib_es6_assign(tslib_es6_assign({}, number), { default: 1 });
 
 
 
@@ -28964,7 +28021,7 @@ var splitColor = function (aName, bName, cName) { return function (v) {
 
 
 var clampRgbUnit = clamp(0, 255);
-var rgbUnit = __assign(__assign({}, number), { transform: function (v) { return Math.round(clampRgbUnit(v)); } });
+var rgbUnit = tslib_es6_assign(tslib_es6_assign({}, number), { transform: function (v) { return Math.round(clampRgbUnit(v)); } });
 var rgba_rgba = {
     test: isColorString('rgb', 'red'),
     parse: splitColor('red', 'green', 'blue'),
@@ -29858,14 +28915,14 @@ var secondsToMilliseconds = function (seconds) { return seconds * 1000; };
 ;// CONCATENATED MODULE: ./node_modules/popmotion/dist/es/easing/cubic-bezier.js
 
 
-var a = function (a1, a2) { return 1.0 - 3.0 * a2 + 3.0 * a1; };
-var b = function (a1, a2) { return 3.0 * a2 - 6.0 * a1; };
-var c = function (a1) { return 3.0 * a1; };
+var cubic_bezier_a = function (a1, a2) { return 1.0 - 3.0 * a2 + 3.0 * a1; };
+var cubic_bezier_b = function (a1, a2) { return 3.0 * a2 - 6.0 * a1; };
+var cubic_bezier_c = function (a1) { return 3.0 * a1; };
 var calcBezier = function (t, a1, a2) {
-    return ((a(a1, a2) * t + b(a1, a2)) * t + c(a1)) * t;
+    return ((cubic_bezier_a(a1, a2) * t + cubic_bezier_b(a1, a2)) * t + cubic_bezier_c(a1)) * t;
 };
 var getSlope = function (t, a1, a2) {
-    return 3.0 * a(a1, a2) * t * t + 2.0 * b(a1, a2) * t + c(a1);
+    return 3.0 * cubic_bezier_a(a1, a2) * t * t + 2.0 * cubic_bezier_b(a1, a2) * t + cubic_bezier_c(a1);
 };
 var subdivisionPrecision = 0.0000001;
 var subdivisionMaxIterations = 10;
@@ -30088,7 +29145,7 @@ function applyDefaultFilter(v) {
     return name + '(' + defaultValue + unit + ')';
 }
 var functionRegex = /([a-z-]*)\(.*?\)/g;
-var filter = __assign(__assign({}, complex), { getAnimatableNone: function (v) {
+var filter = tslib_es6_assign(tslib_es6_assign({}, complex), { getAnimatableNone: function (v) {
         var functions = v.match(functionRegex);
         return functions ? functions.map(applyDefaultFilter).join(' ') : v;
     } });
@@ -33675,7 +32732,7 @@ var identityProjection = buildLayoutProjectionTransform(zeroLayout.delta, zeroLa
 
 
 
-var names = [
+var lifecycles_names = [
     "LayoutMeasure",
     "BeforeLayoutMeasure",
     "LayoutUpdate",
@@ -33689,12 +32746,12 @@ var names = [
     "Unmount",
 ];
 function createLifecycles() {
-    var managers = names.map(function () { return new SubscriptionManager(); });
+    var managers = lifecycles_names.map(function () { return new SubscriptionManager(); });
     var propSubscriptions = {};
     var lifecycles = {
         clearAllListeners: function () { return managers.forEach(function (manager) { return manager.clear(); }); },
         updatePropListeners: function (props) {
-            return names.forEach(function (name) {
+            return lifecycles_names.forEach(function (name) {
                 var _a;
                 (_a = propSubscriptions[name]) === null || _a === void 0 ? void 0 : _a.call(propSubscriptions);
                 var on = "on" + name;
@@ -33706,8 +32763,8 @@ function createLifecycles() {
         },
     };
     managers.forEach(function (manager, i) {
-        lifecycles["on" + names[i]] = function (handler) { return manager.add(handler); };
-        lifecycles["notify" + names[i]] = function () {
+        lifecycles["on" + lifecycles_names[i]] = function (handler) { return manager.add(handler); };
+        lifecycles["notify" + lifecycles_names[i]] = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
@@ -35715,9 +34772,11 @@ function useTruncate(props) {
  */
 
 
+
 /** @type {HTMLDivElement} */
 
 let colorComputationNode;
+k([names]);
 /**
  * @return {HTMLDivElement | undefined} The HTML element for color computation.
  */
@@ -35745,7 +34804,7 @@ function getColorComputationNode() {
 
 function isColor(value) {
   if (typeof value !== 'string') return false;
-  const test = tinycolor_default()(value);
+  const test = w(value);
   return test.isValid();
 }
 /**
@@ -35787,8 +34846,7 @@ const getComputedBackgroundColor = memize_default()(_getComputedBackgroundColor)
 
 function getOptimalTextColor(backgroundColor) {
   const background = getComputedBackgroundColor(backgroundColor);
-  const isReadableWithBlackText = tinycolor_default().isReadable(background, '#000000');
-  return isReadableWithBlackText ? '#000000' : '#ffffff';
+  return w(background).isLight() ? '#000000' : '#ffffff';
 }
 /**
  * Get the text shade optimized for readability, based on a background color.
@@ -41491,55 +40549,6 @@ function roundClampString(...args) {
   return roundClamp(...args).toString();
 }
 //# sourceMappingURL=math.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-jump-step.js
-/**
- * WordPress dependencies
- */
-
-/**
- * A custom hook that calculates a step value (used by elements like input
- * [type="number"]). This value can be modified based on whether the Shift
- * key is being held down.
- *
- * For example, a shiftStep of 10, and a step of 1...
- * Starting from 10, the next incremented value will be 11.
- *
- * Holding down shift...
- * Starting from 10, the next incremented value will be 20.
- *
- * @param {Object}  props                           Properties for the hook.
- * @param {boolean} [props.isShiftStepEnabled=true] Determines if jumping values with shift is enabled
- * @param {number}  [props.shiftStep=10]            Multiplier to jump by, when holding shift key.
- * @param {number}  [props.step=1]                  Multiplier to jump by, when not-holding shift key.
- *
- * @return {number} The jump step value.
- */
-
-function useJumpStep({
-  isShiftStepEnabled = true,
-  shiftStep = 10,
-  step = 1
-}) {
-  const [isShiftKey, setIsShiftKey] = (0,external_wp_element_namespaceObject.useState)(false);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    /** @type {(event: KeyboardEvent)=>void} */
-    const handleShiftKeyToggle = event => {
-      setIsShiftKey(event.shiftKey);
-    };
-
-    window.addEventListener('keydown', handleShiftKeyToggle);
-    window.addEventListener('keyup', handleShiftKeyToggle);
-    return () => {
-      window.removeEventListener('keydown', handleShiftKeyToggle);
-      window.removeEventListener('keyup', handleShiftKeyToggle);
-    };
-  }, []);
-  const isEnabled = isShiftStepEnabled && isShiftKey;
-  return isEnabled ? shiftStep * step : step;
-}
-
-/* harmony default export */ var use_jump_step = (useJumpStep);
-//# sourceMappingURL=use-jump-step.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/number-control/index.js
 
 
@@ -41564,7 +40573,6 @@ function useJumpStep({
 
 
 
-
 function NumberControl({
   __unstableStateReducer: stateReducer = state => state,
   className,
@@ -41582,12 +40590,15 @@ function NumberControl({
   value: valueProp,
   ...props
 }, ref) {
-  const baseValue = roundClamp(0, min, max, step);
-  const jumpStep = use_jump_step({
-    step,
-    shiftStep,
-    isShiftStepEnabled
-  });
+  const isStepAny = step === 'any';
+  const baseStep = isStepAny ? 1 : parseFloat(step);
+  const baseValue = roundClamp(0, min, max, baseStep);
+
+  const constrainValue = (value, stepOverride) => {
+    // When step is "any" clamp the value, otherwise round and clamp it
+    return isStepAny ? Math.min(max, Math.max(min, value)) : roundClamp(value, min, max, stepOverride !== null && stepOverride !== void 0 ? stepOverride : baseStep);
+  };
+
   const autoComplete = typeProp === 'number' ? 'off' : null;
   const classes = classnames_default()('components-number-control', className);
   /**
@@ -41613,7 +40624,7 @@ function NumberControl({
 
     if (type === PRESS_UP || type === PRESS_DOWN) {
       const enableShift = event.shiftKey && isShiftStepEnabled;
-      const incrementalValue = enableShift ? parseFloat(shiftStep) * parseFloat(step) : parseFloat(step);
+      const incrementalValue = enableShift ? parseFloat(shiftStep) * baseStep : baseStep;
       let nextValue = isValueEmpty(currentValue) ? baseValue : currentValue;
 
       if (event !== null && event !== void 0 && event.preventDefault) {
@@ -41628,8 +40639,7 @@ function NumberControl({
         nextValue = subtract(nextValue, incrementalValue);
       }
 
-      nextValue = roundClamp(nextValue, min, max, incrementalValue);
-      state.value = nextValue;
+      state.value = constrainValue(nextValue, enableShift ? incrementalValue : null);
     }
     /**
      * Handles drag to update events
@@ -41637,43 +40647,38 @@ function NumberControl({
 
 
     if (type === DRAG && isDragEnabled) {
-      const {
-        delta,
-        shiftKey
-      } = payload;
-      const [x, y] = delta;
-      const modifier = shiftKey ? parseFloat(shiftStep) * parseFloat(step) : parseFloat(step);
+      const [x, y] = payload.delta;
+      const enableShift = payload.shiftKey && isShiftStepEnabled;
+      const modifier = enableShift ? parseFloat(shiftStep) * baseStep : baseStep;
       let directionModifier;
-      let directionBaseValue;
+      let delta;
 
       switch (dragDirection) {
         case 'n':
-          directionBaseValue = y;
+          delta = y;
           directionModifier = -1;
           break;
 
         case 'e':
-          directionBaseValue = x;
+          delta = x;
           directionModifier = (0,external_wp_i18n_namespaceObject.isRTL)() ? -1 : 1;
           break;
 
         case 's':
-          directionBaseValue = y;
+          delta = y;
           directionModifier = 1;
           break;
 
         case 'w':
-          directionBaseValue = x;
+          delta = x;
           directionModifier = (0,external_wp_i18n_namespaceObject.isRTL)() ? 1 : -1;
           break;
       }
 
-      const distance = directionBaseValue * modifier * directionModifier;
-      let nextValue;
-
-      if (distance !== 0) {
-        nextValue = roundClamp(add(currentValue, distance), min, max, modifier);
-        state.value = nextValue;
+      if (delta !== 0) {
+        delta = Math.ceil(Math.abs(delta)) * Math.sign(delta);
+        const distance = delta * modifier * directionModifier;
+        state.value = constrainValue(add(currentValue, distance), enableShift ? modifier : null);
       }
     }
     /**
@@ -41683,7 +40688,7 @@ function NumberControl({
 
     if (type === PRESS_ENTER || type === COMMIT) {
       const applyEmptyValue = required === false && currentValue === '';
-      state.value = applyEmptyValue ? currentValue : roundClamp(currentValue, min, max, step);
+      state.value = applyEmptyValue ? currentValue : constrainValue(currentValue);
     }
 
     return state;
@@ -41702,7 +40707,7 @@ function NumberControl({
     min: min,
     ref: ref,
     required: required,
-    step: jumpStep,
+    step: step,
     type: typeProp,
     value: valueProp,
     __unstableStateReducer: composeStateReducers(numberControlStateReducer, stateReducer)
@@ -41726,7 +40731,7 @@ function unit_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have
 
 
 const unit_control_styles_Root = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1agakv03"
+  target: "e1bagdl33"
 } : 0)( true ? {
   name: "100d0a9",
   styles: "box-sizing:border-box;position:relative"
@@ -41756,11 +40761,11 @@ const arrowStyles = ({
 
 
 const ValueInput = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
-  target: "e1agakv02"
+  target: "e1bagdl32"
 } : 0)("&&&{input{appearance:none;-moz-appearance:textfield;display:block;width:100%;", arrowStyles, ";", paddingStyles, ";}}" + ( true ? "" : 0));
 
 const unitSizeStyles = ({
-  size
+  selectSize
 }) => {
   const sizes = {
     default: {
@@ -41776,7 +40781,7 @@ const unitSizeStyles = ({
       top: 1
     }
   };
-  return /*#__PURE__*/emotion_react_browser_esm_css(sizes[size],  true ? "" : 0,  true ? "" : 0);
+  return /*#__PURE__*/emotion_react_browser_esm_css(sizes[selectSize],  true ? "" : 0,  true ? "" : 0);
 };
 
 const baseUnitLabelStyles = props => {
@@ -41789,10 +40794,10 @@ const baseUnitLabelStyles = props => {
 };
 
 const UnitLabel = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1agakv01"
+  target: "e1bagdl31"
 } : 0)("&&&{pointer-events:none;", baseUnitLabelStyles, ";}" + ( true ? "" : 0));
 const UnitSelect = emotion_styled_base_browser_esm("select",  true ? {
-  target: "e1agakv00"
+  target: "e1bagdl30"
 } : 0)("&&&{", baseUnitLabelStyles, ";cursor:pointer;border:1px solid transparent;&:hover{background-color:", COLORS.lightGray[300], ";}&:focus{border-color:", COLORS.ui.borderFocus, ";outline:2px solid transparent;outline-offset:0;}&:disabled{cursor:initial;&:hover{background-color:transparent;}}}" + ( true ? "" : 0));
 //# sourceMappingURL=unit-control-styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/unit-control/utils.js
@@ -41963,8 +40968,8 @@ function parseUnit(initialValue, units = ALL_CSS_UNITS) {
   const value = String(initialValue).trim();
   let num = parseFloat(value);
   num = isNaN(num) ? '' : num;
-  const unitMatch = value.match(/[\d.\-\+]*\s*(.*)/)[1];
-  let unit = unitMatch !== undefined ? unitMatch : '';
+  const unitMatch = value.match(/[\d.\-\+]*\s*(.*)/);
+  let unit = (unitMatch === null || unitMatch === void 0 ? void 0 : unitMatch[1]) !== undefined ? unitMatch[1] : '';
   unit = unit.toLowerCase();
 
   if (hasUnits(units) && units !== false) {
@@ -42003,7 +41008,7 @@ function getValidParsedUnit(next, units, fallbackValue, fallbackUnit) {
    * of units as a default fallback.
    */
 
-  if (hasUnits(units) && !baseUnit) {
+  if (Array.isArray(units) && hasUnits(units) && !baseUnit) {
     var _units$;
 
     baseUnit = (_units$ = units[0]) === null || _units$ === void 0 ? void 0 : _units$.value;
@@ -42108,47 +41113,31 @@ function getUnitsWithCurrentUnit(currentValue, legacyUnit, units = ALL_CSS_UNITS
  * External dependencies
  */
 
-
-/**
- * Internal dependencies
- */
+ // eslint-disable-next-line no-restricted-imports
 
 
-
-/**
- * Renders a `select` if there are multiple units.
- * Otherwise, renders a non-selectable label.
- *
- * @param {Object}   props                     Component props.
- * @param {string}   [props.className]         Class to set on the `select` element.
- * @param {boolean}  [props.isTabbable=true]   Whether the control can be focused via keyboard navigation.
- * @param {Array}    [props.options=CSS_UNITS] Available units to select from.
- * @param {Function} [props.onChange=noop]     A callback function invoked when the value is changed.
- * @param {string}   [props.size="default"]    Size of the control option. Supports "default" and "small".
- * @param {string}   [props.value="px"]        Current unit.
- */
 
 function UnitSelectControl({
   className,
-  isTabbable = true,
-  options = CSS_UNITS,
+  isUnitSelectTabbable: isTabbable = true,
   onChange = external_lodash_namespaceObject.noop,
   size = 'default',
-  value = 'px',
+  unit = 'px',
+  units = CSS_UNITS,
   ...props
 }) {
-  if (!hasUnits(options) || options.length === 1) {
+  if (!units || !hasUnits(units) || (units === null || units === void 0 ? void 0 : units.length) === 1) {
     return (0,external_wp_element_namespaceObject.createElement)(UnitLabel, {
       className: "components-unit-control__unit-label",
-      size: size
-    }, value);
+      selectSize: size
+    }, unit);
   }
 
   const handleOnChange = event => {
     const {
       value: unitValue
     } = event.target;
-    const data = options.find(option => option.value === unitValue);
+    const data = units.find(option => option.value === unitValue);
     onChange(unitValue, {
       event,
       data
@@ -42159,10 +41148,10 @@ function UnitSelectControl({
   return (0,external_wp_element_namespaceObject.createElement)(UnitSelect, extends_extends({
     className: classes,
     onChange: handleOnChange,
-    size: size,
-    tabIndex: isTabbable ? null : '-1',
-    value: value
-  }, props), options.map(option => (0,external_wp_element_namespaceObject.createElement)("option", {
+    selectSize: size,
+    tabIndex: isTabbable ? undefined : -1,
+    value: unit
+  }, props), units.map(option => (0,external_wp_element_namespaceObject.createElement)("option", {
     value: option.value,
     key: option.value
   }, option.label)));
@@ -42263,6 +41252,7 @@ function useControlledState(currentState, options = defaultOptions) {
 /**
  * External dependencies
  */
+// eslint-disable-next-line no-restricted-imports
 
 
 /**
@@ -42301,11 +41291,12 @@ function UnitControl({
   units: unitsProp = CSS_UNITS,
   value: valueProp,
   ...props
-}, ref) {
+}, forwardedRef) {
   const units = (0,external_wp_element_namespaceObject.useMemo)(() => getUnitsWithCurrentUnit(valueProp, unitProp, unitsProp), [valueProp, unitProp, unitsProp]);
   const [value, initialUnit] = getParsedValue(valueProp, unitProp, units);
   const [unit, setUnit] = use_controlled_state(unitProp, {
-    initial: initialUnit
+    initial: initialUnit,
+    fallback: ''
   }); // Stores parsed value for hand-off in state reducer
 
   const refParsedValue = (0,external_wp_element_namespaceObject.useRef)(null);
@@ -42342,16 +41333,16 @@ function UnitControl({
   };
 
   const mayUpdateUnit = event => {
-    if (!isNaN(event.target.value)) {
+    if (!isNaN(Number(event.currentTarget.value))) {
       refParsedValue.current = null;
       return;
     }
 
-    const [parsedValue, parsedUnit] = getValidParsedUnit(event.target.value, units, value, unit);
-    refParsedValue.current = parsedValue;
+    const [parsedValue, parsedUnit] = getValidParsedUnit(event.currentTarget.value, units, value, unit);
+    refParsedValue.current = parsedValue.toString();
 
     if (isPressEnterToChange && parsedUnit !== unit) {
-      const data = units.find(option => option.value === parsedUnit);
+      const data = Array.isArray(units) ? units.find(option => option.value === parsedUnit) : undefined;
       const changeProps = {
         event,
         data
@@ -42378,9 +41369,9 @@ function UnitControl({
    * This allows us to tap into actions to transform the (next) state for
    * InputControl.
    *
-   * @param {Object} state  State from InputControl
-   * @param {Object} action Action triggering state change
-   * @return {Object} The updated state to apply to InputControl
+   * @param  state  State from InputControl
+   * @param  action Action triggering state change
+   * @return The updated state to apply to InputControl
    */
 
 
@@ -42403,11 +41394,11 @@ function UnitControl({
   const inputSuffix = !disableUnits ? (0,external_wp_element_namespaceObject.createElement)(UnitSelectControl, {
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Select unit'),
     disabled: disabled,
-    isTabbable: isUnitSelectTabbable,
-    options: units,
+    isUnitSelectTabbable: isUnitSelectTabbable,
     onChange: handleOnUnitChange,
     size: size,
-    value: unit
+    unit: unit,
+    units: units
   }) : null;
   let step = props.step;
   /*
@@ -42438,7 +41429,7 @@ function UnitControl({
     onBlur: handleOnBlur,
     onKeyDown: handleOnKeyDown,
     onChange: handleOnChange,
-    ref: ref,
+    ref: forwardedRef,
     size: size,
     suffix: inputSuffix,
     value: value,
@@ -42446,6 +41437,23 @@ function UnitControl({
     __unstableStateReducer: composeStateReducers(unitControlStateReducer, stateReducer)
   })));
 }
+/**
+ * `UnitControl` allows the user to set a value as well as a unit (e.g. `px`).
+ *
+ *
+ * @example
+ * ```jsx
+ * import { __experimentalUnitControl as UnitControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const Example = () => {
+ *   const [ value, setValue ] = useState( '10px' );
+ *
+ *   return <UnitControl onChange={ setValue } value={ value } />;
+ * };
+ * ```
+ */
+
 
 const ForwardedUnitControl = (0,external_wp_element_namespaceObject.forwardRef)(UnitControl);
 
@@ -44157,8 +43165,7 @@ function useCard(props) {
   } = useContextSystem(card_hook_useDeprecatedProps(props), 'Card');
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(Card, isBorderless && boxShadowless, isRounded && rounded, // This classname is added for legacy compatibility reasons.
-    'components-card', className);
+    return cx(Card, isBorderless && boxShadowless, isRounded && rounded, className);
   }, [className, isBorderless, isRounded]);
   const surfaceProps = useSurface({ ...otherProps,
     className: classes
@@ -45330,33 +44337,274 @@ CircularOptionPicker.Option = Option;
 CircularOptionPicker.ButtonAction = ButtonAction;
 CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/utils.js
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/settings.js
+
+
 /**
- * Parts of this source were derived and modified from react-color,
- * released under the MIT license.
- *
- * https://github.com/casesandberg/react-color/
- *
- * Copyright (c) 2015 Case Sandberg
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * WordPress dependencies
  */
+
+const settings = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M14.5 13.8c-1.1 0-2.1.7-2.4 1.8H4V17h8.1c.3 1 1.3 1.8 2.4 1.8s2.1-.7 2.4-1.8H20v-1.5h-3.1c-.3-1-1.3-1.7-2.4-1.7zM11.9 7c-.3-1-1.3-1.8-2.4-1.8S7.4 6 7.1 7H4v1.5h3.1c.3 1 1.3 1.8 2.4 1.8s2.1-.7 2.4-1.8H20V7h-8.1z"
+}));
+/* harmony default export */ var library_settings = (settings);
+//# sourceMappingURL=settings.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/utils.js
+/**
+ * External dependencies
+ */
+
+/** @type {import('./types').Alignments} */
+
+const utils_ALIGNMENTS = {
+  bottom: {
+    align: 'flex-end',
+    justify: 'center'
+  },
+  bottomLeft: {
+    align: 'flex-start',
+    justify: 'flex-end'
+  },
+  bottomRight: {
+    align: 'flex-end',
+    justify: 'flex-end'
+  },
+  center: {
+    align: 'center',
+    justify: 'center'
+  },
+  edge: {
+    align: 'center',
+    justify: 'space-between'
+  },
+  left: {
+    align: 'center',
+    justify: 'flex-start'
+  },
+  right: {
+    align: 'center',
+    justify: 'flex-end'
+  },
+  stretch: {
+    align: 'stretch'
+  },
+  top: {
+    align: 'flex-start',
+    justify: 'center'
+  },
+  topLeft: {
+    align: 'flex-start',
+    justify: 'flex-start'
+  },
+  topRight: {
+    align: 'flex-start',
+    justify: 'flex-end'
+  }
+};
+/** @type {import('./types').Alignments} */
+
+const V_ALIGNMENTS = {
+  bottom: {
+    justify: 'flex-end',
+    align: 'center'
+  },
+  bottomLeft: {
+    justify: 'flex-start',
+    align: 'flex-end'
+  },
+  bottomRight: {
+    justify: 'flex-end',
+    align: 'flex-end'
+  },
+  center: {
+    justify: 'center',
+    align: 'center'
+  },
+  edge: {
+    justify: 'space-between',
+    align: 'center'
+  },
+  left: {
+    justify: 'center',
+    align: 'flex-start'
+  },
+  right: {
+    justify: 'center',
+    align: 'flex-end'
+  },
+  stretch: {
+    justify: 'stretch'
+  },
+  top: {
+    justify: 'flex-start',
+    align: 'center'
+  },
+  topLeft: {
+    justify: 'flex-start',
+    align: 'flex-start'
+  },
+  topRight: {
+    justify: 'flex-start',
+    align: 'flex-end'
+  }
+};
+/* eslint-disable jsdoc/valid-types */
+
+/**
+ * @param {import('./types').HStackAlignment | import('react').CSSProperties[ 'alignItems' ]} alignment         Where to align.
+ * @param {import('../flex/types').FlexDirection}                                             [direction='row'] Direction to align.
+ * @return {import('./types').AlignmentProps} Alignment props.
+ */
+
+/* eslint-enable jsdoc/valid-types */
+
+function getAlignmentProps(alignment, direction = 'row') {
+  if ((0,external_lodash_namespaceObject.isNil)(alignment)) {
+    return {};
+  }
+
+  const isVertical = direction === 'column';
+  const props = isVertical ? V_ALIGNMENTS : utils_ALIGNMENTS;
+  const alignmentProps = alignment in props ? props[
+  /** @type {keyof typeof ALIGNMENTS} */
+  alignment] : {
+    align: alignment
+  };
+  return alignmentProps;
+}
+//# sourceMappingURL=utils.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/get-valid-children.js
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Gets a collection of available children elements from a React component's children prop.
+ *
+ * @param  children
+ *
+ * @return An array of available children.
+ */
+
+function getValidChildren(children) {
+  if (typeof children === 'string') return [children];
+  return external_wp_element_namespaceObject.Children.toArray(children).filter(child => (0,external_wp_element_namespaceObject.isValidElement)(child));
+}
+//# sourceMappingURL=get-valid-children.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/hook.js
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ *
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
+ */
+
+function useHStack(props) {
+  const {
+    alignment = 'edge',
+    children,
+    direction,
+    spacing = 2,
+    ...otherProps
+  } = useContextSystem(props, 'HStack');
+  const align = getAlignmentProps(alignment, direction);
+  const validChildren = getValidChildren(children);
+  const clonedChildren = validChildren.map( // @ts-ignore
+  (
+  /** @type {import('react').ReactElement} */
+  child, index) => {
+    const _key = child.key || `hstack-${index}`;
+
+    const _isSpacer = hasConnectNamespace(child, ['Spacer']);
+
+    if (_isSpacer) {
+      return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, extends_extends({
+        isBlock: true,
+        key: _key
+      }, child.props));
+    }
+
+    return child;
+  });
+  const propsForFlex = {
+    children: clonedChildren,
+    direction,
+    justify: 'center',
+    ...align,
+    ...otherProps,
+    gap: spacing
+  };
+  const flexProps = useFlex(propsForFlex);
+  return flexProps;
+}
+//# sourceMappingURL=hook.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/component.js
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('react').Ref<any>}                                                        forwardedRef
+ */
+
+function HStack(props, forwardedRef) {
+  const hStackProps = useHStack(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, hStackProps, {
+    ref: forwardedRef
+  }));
+}
+/**
+ * `HStack` (Horizontal Stack) arranges child elements in a horizontal line.
+ *
+ * `HStack` can render anything inside.
+ *
+ * @example
+ * ```jsx
+ * import {
+ * 	__experimentalHStack as HStack,
+ * 	__experimentalText as Text,
+ * } from `@wordpress/components`;
+ *
+ * function Example() {
+ * 	return (
+ * 		<HStack>
+ * 			<Text>Code</Text>
+ * 			<Text>is</Text>
+ * 			<Text>Poetry</Text>
+ * 		</HStack>
+ * 	);
+ * }
+ * ```
+ */
+
+
+const ConnectedHStack = contextConnect(HStack, 'HStack');
+/* harmony default export */ var h_stack_component = (ConnectedHStack);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/select-control/styles/select-control-styles.js
+
 
 /**
  * External dependencies
@@ -45364,234 +44612,536 @@ CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
 
 
 /**
- * Given a hex color, get all other color properties (rgb, alpha, etc).
- *
- * @param {Object|string} data   A hex color string or an object with a hex property
- * @param {string}        oldHue A reference to the hue of the previous color, otherwise dragging the saturation to zero will reset the current hue to zero as well. See https://github.com/casesandberg/react-color/issues/29#issuecomment-132686909.
- * @return {Object} An object of different color representations.
+ * Internal dependencies
  */
 
-function colorToState(data = {}, oldHue = false) {
-  const color = data.hex ? tinycolor_default()(data.hex) : tinycolor_default()(data);
-  const hsl = color.toHsl();
-  hsl.h = Math.round(hsl.h);
-  hsl.s = Math.round(hsl.s * 100);
-  hsl.l = Math.round(hsl.l * 100);
-  const hsv = color.toHsv();
-  hsv.h = Math.round(hsv.h);
-  hsv.s = Math.round(hsv.s * 100);
-  hsv.v = Math.round(hsv.v * 100);
-  const rgb = color.toRgb();
-  const hex = color.toHex();
 
-  if (hsl.s === 0) {
-    hsl.h = oldHue || 0;
-    hsv.h = oldHue || 0;
-  }
+const select_control_styles_disabledStyles = ({
+  disabled
+}) => {
+  if (!disabled) return '';
+  return /*#__PURE__*/emotion_react_browser_esm_css({
+    color: COLORS.ui.textDisabled
+  },  true ? "" : 0,  true ? "" : 0);
+};
 
-  const transparent = hex === '000000' && rgb.a === 0;
-  return {
-    color,
-    hex: transparent ? 'transparent' : `#${hex}`,
-    hsl,
-    hsv,
-    oldHue: data.h || oldHue || hsl.h,
-    rgb,
-    source: data.source
+const select_control_styles_fontSizeStyles = ({
+  selectSize
+}) => {
+  const sizes = {
+    default: '13px',
+    small: '11px'
   };
-}
-/**
- * Get the top/left offsets of a point in a container, also returns the container width/height.
- *
- * @param {Event}       e         Mouse or touch event with a location coordinate.
- * @param {HTMLElement} container The container div, returned point is relative to this container.
- * @return {Object} An object of the offset positions & container size.
- */
+  const fontSize = sizes[selectSize];
+  const fontSizeMobile = '16px';
+  if (!fontSize) return '';
+  return /*#__PURE__*/emotion_react_browser_esm_css("font-size:", fontSizeMobile, ";@media ( min-width: 600px ){font-size:", fontSize, ";}" + ( true ? "" : 0),  true ? "" : 0);
+};
 
-function getPointOffset(e, container) {
-  e.preventDefault();
-  const {
-    left: containerLeft,
-    top: containerTop,
-    width,
-    height
-  } = container.getBoundingClientRect();
-  const x = typeof e.pageX === 'number' ? e.pageX : e.touches[0].pageX;
-  const y = typeof e.pageY === 'number' ? e.pageY : e.touches[0].pageY;
-  let left = x - (containerLeft + window.pageXOffset);
-  let top = y - (containerTop + window.pageYOffset);
-
-  if (left < 0) {
-    left = 0;
-  } else if (left > width) {
-    left = width;
-  } else if (top < 0) {
-    top = 0;
-  } else if (top > height) {
-    top = height;
-  }
-
-  return {
-    top,
-    left,
-    width,
-    height
-  };
-}
-/**
- * Check if a string is a valid hex color code.
- *
- * @param {string} hex A possible hex color.
- * @return {boolean} True if the color is a valid hex color.
- */
-
-
-function isValidHex(hex) {
-  // disable hex4 and hex8
-  const lh = String(hex).charAt(0) === '#' ? 1 : 0;
-  return hex.length !== 4 + lh && hex.length < 7 + lh && tinycolor_default()(hex).isValid();
-}
-/**
- * Check an object for any valid color properties.
- *
- * @param {Object} data A possible object representing a color.
- * @return {Object|boolean} If a valid representation of color, returns the data object. Otherwise returns false.
- */
-
-function simpleCheckForValidColor(data) {
-  const keysToCheck = ['r', 'g', 'b', 'a', 'h', 's', 'l', 'v'];
-  let checked = 0;
-  let passed = 0;
-  (0,external_lodash_namespaceObject.each)(keysToCheck, letter => {
-    if (data[letter]) {
-      checked += 1;
-
-      if (!isNaN(data[letter])) {
-        passed += 1;
-      }
+const select_control_styles_sizeStyles = ({
+  selectSize
+}) => {
+  const sizes = {
+    default: {
+      height: 30,
+      lineHeight: 1,
+      minHeight: 30
+    },
+    small: {
+      height: 24,
+      lineHeight: 1,
+      minHeight: 24
     }
+  };
+  const style = sizes[selectSize] || sizes.default;
+  return /*#__PURE__*/emotion_react_browser_esm_css(style,  true ? "" : 0,  true ? "" : 0);
+}; // TODO: Resolve need to use &&& to increase specificity
+// https://github.com/WordPress/gutenberg/issues/18483
+
+
+const Select = emotion_styled_base_browser_esm("select",  true ? {
+  target: "e1mv6sxx1"
+} : 0)("&&&{appearance:none;background:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.black, ";display:block;margin:0;width:100%;", select_control_styles_disabledStyles, ";", select_control_styles_fontSizeStyles, ";", select_control_styles_sizeStyles, ";", rtl({
+  paddingLeft: 8,
+  paddingRight: 24
+}), ";}" + ( true ? "" : 0));
+const DownArrowWrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e1mv6sxx0"
+} : 0)("align-items:center;bottom:0;box-sizing:border-box;display:flex;padding:0 4px;pointer-events:none;position:absolute;top:0;", rtl({
+  right: 0
+}), " svg{display:block;}" + ( true ? "" : 0));
+//# sourceMappingURL=select-control-styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/select-control/index.js
+
+
+
+/**
+ * External dependencies
+ */
+
+ // eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+function select_control_useUniqueId(idProp) {
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(SelectControl);
+  const id = `inspector-select-control-${instanceId}`;
+  return idProp || id;
+}
+
+function SelectControl({
+  className,
+  disabled = false,
+  help,
+  hideLabelFromVision,
+  id: idProp,
+  label,
+  multiple = false,
+  onBlur = external_lodash_namespaceObject.noop,
+  onChange = external_lodash_namespaceObject.noop,
+  onFocus = external_lodash_namespaceObject.noop,
+  options = [],
+  size = 'default',
+  value: valueProp,
+  labelPosition = 'top',
+  children,
+  prefix,
+  suffix,
+  ...props
+}, ref) {
+  const [isFocused, setIsFocused] = (0,external_wp_element_namespaceObject.useState)(false);
+  const id = select_control_useUniqueId(idProp);
+  const helpId = help ? `${id}__help` : undefined; // Disable reason: A select with an onchange throws a warning
+
+  if ((0,external_lodash_namespaceObject.isEmpty)(options) && !children) return null;
+
+  const handleOnBlur = event => {
+    onBlur(event);
+    setIsFocused(false);
+  };
+
+  const handleOnFocus = event => {
+    onFocus(event);
+    setIsFocused(true);
+  };
+
+  const handleOnChange = event => {
+    if (multiple) {
+      const selectedOptions = Array.from(event.target.options).filter(({
+        selected
+      }) => selected);
+      const newValues = selectedOptions.map(({
+        value
+      }) => value);
+      onChange(newValues);
+      return;
+    }
+
+    onChange(event.target.value, {
+      event
+    });
+  };
+
+  const classes = classnames_default()('components-select-control', className);
+  /* eslint-disable jsx-a11y/no-onchange */
+
+  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
+    help: help,
+    id: id
+  }, (0,external_wp_element_namespaceObject.createElement)(input_base, {
+    className: classes,
+    disabled: disabled,
+    hideLabelFromVision: hideLabelFromVision,
+    id: id,
+    isFocused: isFocused,
+    label: label,
+    size: size,
+    suffix: suffix || (0,external_wp_element_namespaceObject.createElement)(DownArrowWrapper, null, (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
+      icon: chevron_down,
+      size: 18
+    })),
+    prefix: prefix,
+    labelPosition: labelPosition
+  }, (0,external_wp_element_namespaceObject.createElement)(Select, extends_extends({}, props, {
+    "aria-describedby": helpId,
+    className: "components-select-control__input",
+    disabled: disabled,
+    id: id,
+    multiple: multiple,
+    onBlur: handleOnBlur,
+    onChange: handleOnChange,
+    onFocus: handleOnFocus,
+    ref: ref,
+    selectSize: size,
+    value: valueProp
+  }), children || options.map((option, index) => {
+    const key = option.id || `${option.label}-${option.value}-${index}`;
+    return (0,external_wp_element_namespaceObject.createElement)("option", {
+      key: key,
+      value: option.value,
+      disabled: option.disabled
+    }, option.label);
+  }))));
+  /* eslint-enable jsx-a11y/no-onchange */
+}
+
+const select_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(SelectControl);
+/* harmony default export */ var select_control = (select_control_ForwardedComponent);
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/range-control/utils.js
+// @ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * A float supported clamp function for a specific value.
+ *
+ * @param {number|null} value The value to clamp.
+ * @param {number}      min   The minimum value.
+ * @param {number}      max   The maximum value.
+ *
+ * @return {number} A (float) number
+ */
+
+function floatClamp(value, min, max) {
+  if (typeof value !== 'number') {
+    return null;
+  }
+
+  return parseFloat((0,external_lodash_namespaceObject.clamp)(value, min, max));
+}
+/**
+ * Hook to store a clamped value, derived from props.
+ *
+ * @param {Object} settings         Hook settings.
+ * @param {number} settings.min     The minimum value.
+ * @param {number} settings.max     The maximum value.
+ * @param {number} settings.value   The current value.
+ * @param {any}    settings.initial The initial value.
+ *
+ * @return {[*, Function]} The controlled value and the value setter.
+ */
+
+function useControlledRangeValue({
+  min,
+  max,
+  value: valueProp,
+  initial
+}) {
+  const [state, setInternalState] = use_controlled_state(floatClamp(valueProp, min, max), {
+    initial,
+    fallback: null
   });
-  return checked === passed ? data : false;
+  const setState = (0,external_wp_element_namespaceObject.useCallback)(nextValue => {
+    if (nextValue === null) {
+      setInternalState(null);
+    } else {
+      setInternalState(floatClamp(nextValue, min, max));
+    }
+  }, [min, max]);
+  return [state, setState];
 }
 /**
- * Calculate the current alpha based on a mouse or touch event
+ * Hook to encapsulate the debouncing "hover" to better handle the showing
+ * and hiding of the Tooltip.
  *
- * @param {Event}       e         A mouse or touch event on the alpha bar.
- * @param {Object}      props     The current component props
- * @param {HTMLElement} container The container div for the alpha bar graph.
- * @return {Object|null} If the alpha value has changed, returns a new color object.
+ * @param {Object}   settings                     Hook settings.
+ * @param {Function} [settings.onShow=noop]       A callback function invoked when the element is shown.
+ * @param {Function} [settings.onHide=noop]       A callback function invoked when the element is hidden.
+ * @param {Function} [settings.onMouseMove=noop]  A callback function invoked when the mouse is moved.
+ * @param {Function} [settings.onMouseLeave=noop] A callback function invoked when the mouse is moved out of the element.
+ * @param {number}   [settings.timeout=300]       Timeout before the element is shown or hidden.
+ *
+ * @return {Object} Bound properties for use on a React.Node.
  */
 
-function calculateAlphaChange(e, props, container) {
-  const {
-    left,
-    width
-  } = getPointOffset(e, container);
-  const a = left < 0 ? 0 : Math.round(left * 100 / width) / 100;
-
-  if (props.hsl.a !== a) {
-    return {
-      h: props.hsl.h,
-      s: props.hsl.s,
-      l: props.hsl.l,
-      a,
-      source: 'rgb'
+function useDebouncedHoverInteraction({
+  onHide = external_lodash_namespaceObject.noop,
+  onMouseLeave = external_lodash_namespaceObject.noop,
+  onMouseMove = external_lodash_namespaceObject.noop,
+  onShow = external_lodash_namespaceObject.noop,
+  timeout = 300
+}) {
+  const [show, setShow] = (0,external_wp_element_namespaceObject.useState)(false);
+  const timeoutRef = (0,external_wp_element_namespaceObject.useRef)();
+  const setDebouncedTimeout = (0,external_wp_element_namespaceObject.useCallback)(callback => {
+    window.clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(callback, timeout);
+  }, [timeout]);
+  const handleOnMouseMove = (0,external_wp_element_namespaceObject.useCallback)(event => {
+    onMouseMove(event);
+    setDebouncedTimeout(() => {
+      if (!show) {
+        setShow(true);
+        onShow();
+      }
+    });
+  }, []);
+  const handleOnMouseLeave = (0,external_wp_element_namespaceObject.useCallback)(event => {
+    onMouseLeave(event);
+    setDebouncedTimeout(() => {
+      setShow(false);
+      onHide();
+    });
+  }, []);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    return () => {
+      window.clearTimeout(timeoutRef.current);
     };
-  }
-
-  return null;
-}
-/**
- * Calculate the current hue based on a mouse or touch event
- *
- * @param {Event}       e         A mouse or touch event on the hue bar.
- * @param {Object}      props     The current component props
- * @param {HTMLElement} container The container div for the hue bar graph.
- * @return {Object|null} If the hue value has changed, returns a new color object.
- */
-
-function calculateHueChange(e, props, container) {
-  const {
-    left,
-    width
-  } = getPointOffset(e, container);
-  const percent = left * 100 / width;
-  const h = left >= width ? 359 : 360 * percent / 100;
-
-  if (props.hsl.h !== h) {
-    return {
-      h,
-      s: props.hsl.s,
-      l: props.hsl.l,
-      a: props.hsl.a,
-      source: 'rgb'
-    };
-  }
-
-  return null;
-}
-/**
- * Calculate the current saturation & brightness based on a mouse or touch event
- *
- * @param {Event}       e         A mouse or touch event on the saturation graph.
- * @param {Object}      props     The current component props
- * @param {HTMLElement} container The container div for the 2D saturation graph.
- * @return {Object} Returns a new color object.
- */
-
-function calculateSaturationChange(e, props, container) {
-  const {
-    top,
-    left,
-    width,
-    height
-  } = getPointOffset(e, container);
-  const saturation = left < 0 ? 0 : left * 100 / width;
-  let bright = top >= height ? 0 : -(top * 100 / height) + 100; // `v` values less than 1 are considered in the [0,1] range, causing unexpected behavior at the bottom
-  // of the chart. To fix this, we assume any value less than 1 should be 0 brightness.
-
-  if (bright < 1) {
-    bright = 0;
-  }
-
+  });
   return {
-    h: props.hsl.h,
-    s: saturation,
-    v: bright,
-    a: props.hsl.a,
-    source: 'rgb'
+    onMouseMove: handleOnMouseMove,
+    onMouseLeave: handleOnMouseLeave
   };
 }
 //# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/alpha.js
+;// CONCATENATED MODULE: ./packages/components/build-module/range-control/styles/range-control-styles.js
+
+
+function range_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+// @ts-nocheck
+
+/**
+ * External dependencies
+ */
 
 
 /**
- * Parts of this source were derived and modified from react-color,
- * released under the MIT license.
- *
- * https://github.com/casesandberg/react-color/
- *
- * Copyright (c) 2015 Case Sandberg
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * Internal dependencies
  */
+
+
+
+const rangeHeightValue = 30;
+const railHeight = 4;
+
+const rangeHeight = () => /*#__PURE__*/emotion_react_browser_esm_css({
+  height: rangeHeightValue,
+  minHeight: rangeHeightValue
+},  true ? "" : 0,  true ? "" : 0);
+
+const thumbSize = 12;
+const range_control_styles_Root = emotion_styled_base_browser_esm("div",  true ? {
+  target: "exqw8y214"
+} : 0)( true ? {
+  name: "17z6zai",
+  styles: "-webkit-tap-highlight-color:transparent;box-sizing:border-box;align-items:flex-start;display:inline-flex;justify-content:flex-start;padding:0;position:relative;touch-action:none;width:100%"
+} : 0);
+
+const wrapperColor = ({
+  color: colorProp = COLORS.ui.borderFocus
+}) => {
+  return /*#__PURE__*/emotion_react_browser_esm_css({
+    color: colorProp
+  },  true ? "" : 0,  true ? "" : 0);
+};
+
+const wrapperMargin = ({
+  marks
+}) => /*#__PURE__*/emotion_react_browser_esm_css({
+  marginBottom: marks ? 16 : null
+},  true ? "" : 0,  true ? "" : 0);
+
+const range_control_styles_Wrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "exqw8y213"
+} : 0)("box-sizing:border-box;color:", COLORS.blue.medium.focus, ";display:block;flex:1;position:relative;width:100%;", wrapperColor, ";", rangeHeight, ";", wrapperMargin, ";" + ( true ? "" : 0));
+const BeforeIconWrapper = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y212"
+} : 0)("margin-top:", railHeight, "px;", rtl({
+  marginRight: 6
+}), ";" + ( true ? "" : 0));
+const AfterIconWrapper = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y211"
+} : 0)("margin-top:", railHeight, "px;", rtl({
+  marginLeft: 16
+}), ";" + ( true ? "" : 0));
+
+const railBackgroundColor = ({
+  disabled,
+  railColor
+}) => {
+  let background = railColor || null;
+
+  if (disabled) {
+    background = COLORS.lightGray[400];
+  }
+
+  return /*#__PURE__*/emotion_react_browser_esm_css({
+    background
+  },  true ? "" : 0,  true ? "" : 0);
+};
+
+const Rail = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y210"
+} : 0)("background-color:", COLORS.lightGray[600], ";box-sizing:border-box;left:0;pointer-events:none;right:0;display:block;height:", railHeight, "px;position:absolute;margin-top:", (rangeHeightValue - railHeight) / 2, "px;top:0;border-radius:", railHeight, "px;", railBackgroundColor, ";" + ( true ? "" : 0));
+
+const trackBackgroundColor = ({
+  disabled,
+  trackColor
+}) => {
+  let background = trackColor || 'currentColor';
+
+  if (disabled) {
+    background = COLORS.lightGray[800];
+  }
+
+  return /*#__PURE__*/emotion_react_browser_esm_css({
+    background
+  },  true ? "" : 0,  true ? "" : 0);
+};
+
+const Track = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y29"
+} : 0)("background-color:currentColor;border-radius:", railHeight, "px;box-sizing:border-box;height:", railHeight, "px;pointer-events:none;display:block;position:absolute;margin-top:", (rangeHeightValue - railHeight) / 2, "px;top:0;", trackBackgroundColor, ";" + ( true ? "" : 0));
+const MarksWrapper = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y28"
+} : 0)( true ? {
+  name: "1xuuvmv",
+  styles: "box-sizing:border-box;display:block;pointer-events:none;position:relative;width:100%;user-select:none"
+} : 0);
+
+const markFill = ({
+  disabled,
+  isFilled
+}) => {
+  let backgroundColor = isFilled ? 'currentColor' : COLORS.lightGray[600];
+
+  if (disabled) {
+    backgroundColor = COLORS.lightGray[800];
+  }
+
+  return /*#__PURE__*/emotion_react_browser_esm_css({
+    backgroundColor
+  },  true ? "" : 0,  true ? "" : 0);
+};
+
+const Mark = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y27"
+} : 0)("box-sizing:border-box;height:", thumbSize, "px;left:0;position:absolute;top:-4px;width:1px;", markFill, ";" + ( true ? "" : 0));
+
+const markLabelFill = ({
+  isFilled
+}) => {
+  return /*#__PURE__*/emotion_react_browser_esm_css({
+    color: isFilled ? COLORS.darkGray[300] : COLORS.lightGray[600]
+  },  true ? "" : 0,  true ? "" : 0);
+};
+
+const MarkLabel = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y26"
+} : 0)("box-sizing:border-box;color:", COLORS.lightGray[600], ";left:0;font-size:11px;position:absolute;top:12px;transform:translateX( -50% );white-space:nowrap;", markLabelFill, ";" + ( true ? "" : 0));
+
+var range_control_styles_ref3 =  true ? {
+  name: "1sb75b3",
+  styles: "background-color:var( --wp-admin-theme-color )"
+} : 0;
+
+const thumbColor = ({
+  disabled
+}) => disabled ? /*#__PURE__*/emotion_react_browser_esm_css("background-color:", COLORS.lightGray[800], ";" + ( true ? "" : 0),  true ? "" : 0) : range_control_styles_ref3;
+
+const ThumbWrapper = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y25"
+} : 0)("align-items:center;box-sizing:border-box;display:flex;height:", thumbSize, "px;justify-content:center;margin-top:", (rangeHeightValue - thumbSize) / 2, "px;outline:0;pointer-events:none;position:absolute;top:0;user-select:none;width:", thumbSize, "px;border-radius:50%;", thumbColor, ";", rtl({
+  marginLeft: -10
+}), ";", rtl({
+  transform: 'translateX( 4.5px )'
+}, {
+  transform: 'translateX( -4.5px )'
+}), ";" + ( true ? "" : 0));
+
+const thumbFocus = ({
+  isFocused
+}) => {
+  return isFocused ? /*#__PURE__*/emotion_react_browser_esm_css("&::before{content:' ';position:absolute;background-color:var( --wp-admin-theme-color );opacity:0.4;border-radius:50%;height:", thumbSize + 8, "px;width:", thumbSize + 8, "px;top:-4px;left:-4px;}" + ( true ? "" : 0),  true ? "" : 0) : '';
+};
+
+const Thumb = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y24"
+} : 0)("align-items:center;border-radius:50%;box-sizing:border-box;height:100%;outline:0;position:absolute;user-select:none;width:100%;", thumbColor, ";", thumbFocus, ";" + ( true ? "" : 0));
+const InputRange = emotion_styled_base_browser_esm("input",  true ? {
+  target: "exqw8y23"
+} : 0)("box-sizing:border-box;cursor:pointer;display:block;height:100%;left:0;margin:0 -", thumbSize / 2, "px;opacity:0;outline:none;position:absolute;right:0;top:0;width:calc( 100% + ", thumbSize, "px );" + ( true ? "" : 0));
+
+const tooltipShow = ({
+  show
+}) => {
+  return /*#__PURE__*/emotion_react_browser_esm_css({
+    opacity: show ? 1 : 0
+  },  true ? "" : 0,  true ? "" : 0);
+};
+
+var range_control_styles_ref =  true ? {
+  name: "1cypxip",
+  styles: "top:-80%"
+} : 0;
+
+var range_control_styles_ref2 =  true ? {
+  name: "1lr98c4",
+  styles: "bottom:-80%"
+} : 0;
+
+const tooltipPosition = ({
+  position
+}) => {
+  const isBottom = position === 'bottom';
+
+  if (isBottom) {
+    return range_control_styles_ref2;
+  }
+
+  return range_control_styles_ref;
+};
+
+const range_control_styles_Tooltip = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y22"
+} : 0)("background:rgba( 0, 0, 0, 0.8 );border-radius:2px;box-sizing:border-box;color:white;display:inline-block;font-size:12px;min-width:32px;opacity:0;padding:4px 8px;pointer-events:none;position:absolute;text-align:center;transition:opacity 120ms ease;user-select:none;line-height:1.4;", tooltipShow, ";", tooltipPosition, ";", reduceMotion('transition'), ";", rtl({
+  transform: 'translateX(-50%)'
+}, {
+  transform: 'translateX(50%)'
+}), ";" + ( true ? "" : 0)); // @todo: Refactor RangeControl with latest HStack configuration
+// @wordpress/components/ui/hstack
+
+const InputNumber = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
+  target: "exqw8y21"
+} : 0)("box-sizing:border-box;display:inline-block;font-size:13px;margin-top:0;width:", space(16), "!important;input[type='number']&{", rangeHeight, ";}", rtl({
+  marginLeft: `${space(4)} !important`
+}), ";" + ( true ? "" : 0));
+const ActionRightWrapper = emotion_styled_base_browser_esm("span",  true ? {
+  target: "exqw8y20"
+} : 0)("box-sizing:border-box;display:block;margin-top:0;button,button.is-small{margin-left:0;", rangeHeight, ";}", rtl({
+  marginLeft: 8
+}), ";" + ( true ? "" : 0));
+//# sourceMappingURL=range-control-styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/range-control/input-range.js
+
+
+// @ts-nocheck
 
 /**
  * External dependencies
@@ -45602,6 +45152,271 @@ function calculateSaturationChange(e, props, container) {
  */
 
 
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function input_range_InputRange({
+  describedBy,
+  label,
+  onHideTooltip = external_lodash_namespaceObject.noop,
+  onMouseLeave = external_lodash_namespaceObject.noop,
+  onMouseMove = external_lodash_namespaceObject.noop,
+  onShowTooltip = external_lodash_namespaceObject.noop,
+  value,
+  ...props
+}, ref) {
+  const hoverInteractions = useDebouncedHoverInteraction({
+    onHide: onHideTooltip,
+    onMouseLeave,
+    onMouseMove,
+    onShow: onShowTooltip
+  });
+  return (0,external_wp_element_namespaceObject.createElement)(InputRange, extends_extends({}, props, hoverInteractions, {
+    "aria-describedby": describedBy,
+    "aria-label": label,
+    "aria-hidden": false,
+    ref: ref,
+    tabIndex: 0,
+    type: "range",
+    value: value
+  }));
+}
+
+const input_range_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(input_range_InputRange);
+/* harmony default export */ var input_range = (input_range_ForwardedComponent);
+//# sourceMappingURL=input-range.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/range-control/mark.js
+
+
+// @ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+function RangeMark({
+  className,
+  isFilled = false,
+  label,
+  style = {},
+  ...props
+}) {
+  const classes = classnames_default()('components-range-control__mark', isFilled && 'is-filled', className);
+  const labelClasses = classnames_default()('components-range-control__mark-label', isFilled && 'is-filled');
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(Mark, extends_extends({}, props, {
+    "aria-hidden": "true",
+    className: classes,
+    isFilled: isFilled,
+    style: style
+  })), label && (0,external_wp_element_namespaceObject.createElement)(MarkLabel, {
+    "aria-hidden": "true",
+    className: labelClasses,
+    isFilled: isFilled,
+    style: style
+  }, label));
+}
+//# sourceMappingURL=mark.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/range-control/rail.js
+
+
+// @ts-nocheck
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function RangeRail({
+  disabled = false,
+  marks = false,
+  min = 0,
+  max = 100,
+  step = 1,
+  value = 0,
+  ...restProps
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(Rail, extends_extends({
+    disabled: disabled
+  }, restProps)), marks && (0,external_wp_element_namespaceObject.createElement)(Marks, {
+    disabled: disabled,
+    marks: marks,
+    min: min,
+    max: max,
+    step: step,
+    value: value
+  }));
+}
+
+function Marks({
+  disabled = false,
+  marks = false,
+  min = 0,
+  max = 100,
+  step = 1,
+  value = 0
+}) {
+  if (step === 'any') {
+    step = 1;
+  }
+
+  const marksData = useMarks({
+    marks,
+    min,
+    max,
+    step,
+    value
+  });
+  return (0,external_wp_element_namespaceObject.createElement)(MarksWrapper, {
+    "aria-hidden": "true",
+    className: "components-range-control__marks"
+  }, marksData.map(mark => (0,external_wp_element_namespaceObject.createElement)(RangeMark, extends_extends({}, mark, {
+    key: mark.key,
+    "aria-hidden": "true",
+    disabled: disabled
+  }))));
+}
+
+function useMarks({
+  marks,
+  min = 0,
+  max = 100,
+  step = 1,
+  value = 0
+}) {
+  if (!marks) {
+    return [];
+  }
+
+  const range = max - min;
+
+  if (!Array.isArray(marks)) {
+    marks = [];
+    const count = 1 + Math.round(range / step);
+
+    while (count > marks.push({
+      value: step * marks.length + min
+    }));
+  }
+
+  const placedMarks = [];
+  marks.forEach((mark, index) => {
+    if (mark.value < min || mark.value > max) {
+      return;
+    }
+
+    const key = `mark-${index}`;
+    const isFilled = mark.value <= value;
+    const offset = `${(mark.value - min) / range * 100}%`;
+    const offsetStyle = {
+      [(0,external_wp_i18n_namespaceObject.isRTL)() ? 'right' : 'left']: offset
+    };
+    placedMarks.push({ ...mark,
+      isFilled,
+      key,
+      style: offsetStyle
+    });
+  });
+  return placedMarks;
+}
+//# sourceMappingURL=rail.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/range-control/tooltip.js
+
+
+// @ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function SimpleTooltip({
+  className,
+  inputRef,
+  tooltipPosition,
+  show = false,
+  style = {},
+  value = 0,
+  renderTooltipContent = v => v,
+  zIndex = 100,
+  ...restProps
+}) {
+  const position = useTooltipPosition({
+    inputRef,
+    tooltipPosition
+  });
+  const classes = classnames_default()('components-simple-tooltip', className);
+  const styles = { ...style,
+    zIndex
+  };
+  return (0,external_wp_element_namespaceObject.createElement)(range_control_styles_Tooltip, extends_extends({}, restProps, {
+    "aria-hidden": show,
+    className: classes,
+    position: position,
+    show: show,
+    role: "tooltip",
+    style: styles
+  }), renderTooltipContent(value));
+}
+
+function useTooltipPosition({
+  inputRef,
+  tooltipPosition
+}) {
+  const [position, setPosition] = (0,external_wp_element_namespaceObject.useState)();
+  const setTooltipPosition = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    if (inputRef && inputRef.current) {
+      setPosition(tooltipPosition);
+    }
+  }, [tooltipPosition]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    setTooltipPosition();
+  }, [setTooltipPosition]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    window.addEventListener('resize', setTooltipPosition);
+    return () => {
+      window.removeEventListener('resize', setTooltipPosition);
+    };
+  });
+  return position;
+}
+//# sourceMappingURL=tooltip.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/range-control/index.js
+
+
+// @ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
 
 
 
@@ -45610,175 +45425,3206 @@ function calculateSaturationChange(e, props, container) {
  */
 
 
-class Alpha extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.container = (0,external_wp_element_namespaceObject.createRef)();
-    this.increase = this.increase.bind(this);
-    this.decrease = this.decrease.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
+
+
+
+
+
+
+
+
+
+function RangeControl({
+  afterIcon,
+  allowReset = false,
+  beforeIcon,
+  className,
+  currentInput,
+  color: colorProp = COLORS.ui.theme,
+  disabled = false,
+  help,
+  initialPosition,
+  isShiftStepEnabled = true,
+  label,
+  hideLabelFromVision = false,
+  marks = false,
+  max = 100,
+  min = 0,
+  onBlur = external_lodash_namespaceObject.noop,
+  onChange = external_lodash_namespaceObject.noop,
+  onFocus = external_lodash_namespaceObject.noop,
+  onMouseMove = external_lodash_namespaceObject.noop,
+  onMouseLeave = external_lodash_namespaceObject.noop,
+  railColor,
+  resetFallbackValue,
+  renderTooltipContent = v => v,
+  showTooltip: showTooltipProp,
+  shiftStep = 10,
+  step = 1,
+  trackColor,
+  value: valueProp,
+  withInputField = true,
+  ...props
+}, ref) {
+  var _inputRef$current;
+
+  const [value, setValue] = useControlledRangeValue({
+    min,
+    max,
+    value: valueProp,
+    initial: initialPosition
+  });
+  const isResetPendent = (0,external_wp_element_namespaceObject.useRef)(false);
+
+  if (step === 'any') {
+    // The tooltip and number input field are hidden when the step is "any"
+    // because the decimals get too lengthy to fit well.
+    showTooltipProp = false;
+    withInputField = false;
   }
 
-  componentWillUnmount() {
-    this.unbindEventListeners();
-  }
+  const [showTooltip, setShowTooltip] = (0,external_wp_element_namespaceObject.useState)(showTooltipProp);
+  const [isFocused, setIsFocused] = (0,external_wp_element_namespaceObject.useState)(false);
+  const inputRef = (0,external_wp_element_namespaceObject.useRef)();
 
-  increase(amount = 0.01) {
-    const {
-      hsl,
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    amount = parseInt(amount * 100, 10);
-    const change = {
-      h: hsl.h,
-      s: hsl.s,
-      l: hsl.l,
-      a: (parseInt(hsl.a * 100, 10) + amount) / 100,
-      source: 'rgb'
-    };
-    onChange(change);
-  }
+  const setRef = nodeRef => {
+    inputRef.current = nodeRef;
 
-  decrease(amount = 0.01) {
-    const {
-      hsl,
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    const intValue = parseInt(hsl.a * 100, 10) - parseInt(amount * 100, 10);
-    const change = {
-      h: hsl.h,
-      s: hsl.s,
-      l: hsl.l,
-      a: hsl.a <= amount ? 0 : intValue / 100,
-      source: 'rgb'
-    };
-    onChange(change);
-  }
-
-  handleChange(e) {
-    const {
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    const change = calculateAlphaChange(e, this.props, this.container.current);
-
-    if (change) {
-      onChange(change, e);
+    if (ref) {
+      ref(nodeRef);
     }
-  }
+  };
 
-  handleMouseDown(e) {
-    this.handleChange(e);
-    window.addEventListener('mousemove', this.handleChange);
-    window.addEventListener('mouseup', this.handleMouseUp);
-  }
+  const isCurrentlyFocused = (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.matches(':focus');
+  const isThumbFocused = !disabled && isFocused;
+  const isValueReset = value === null;
+  const currentValue = value !== undefined ? value : currentInput;
+  const inputSliderValue = isValueReset ? '' : currentValue;
+  const rangeFillValue = isValueReset ? (max - min) / 2 + min : value;
+  const calculatedFillValue = (value - min) / (max - min) * 100;
+  const fillValue = isValueReset ? 50 : calculatedFillValue;
+  const fillValueOffset = `${(0,external_lodash_namespaceObject.clamp)(fillValue, 0, 100)}%`;
+  const classes = classnames_default()('components-range-control', className);
+  const wrapperClasses = classnames_default()('components-range-control__wrapper', !!marks && 'is-marked');
+  const id = (0,external_wp_compose_namespaceObject.useInstanceId)(RangeControl, 'inspector-range-control');
+  const describedBy = !!help ? `${id}__help` : undefined;
+  const enableTooltip = showTooltipProp !== false && (0,external_lodash_namespaceObject.isFinite)(value);
 
-  handleMouseUp() {
-    this.unbindEventListeners();
-  }
+  const handleOnRangeChange = event => {
+    const nextValue = parseFloat(event.target.value);
+    setValue(nextValue);
+    onChange(nextValue);
+  };
 
-  unbindEventListeners() {
-    window.removeEventListener('mousemove', this.handleChange);
-    window.removeEventListener('mouseup', this.handleMouseUp);
-  }
+  const handleOnChange = nextValue => {
+    nextValue = parseFloat(nextValue);
+    setValue(nextValue);
+    /*
+     * Calls onChange only when nextValue is numeric
+     * otherwise may queue a reset for the blur event.
+     */
 
-  handleKeyDown(event) {
-    const {
-      keyCode,
-      shiftKey
-    } = event;
-    const shortcuts = {
-      [external_wp_keycodes_namespaceObject.UP]: () => this.increase(shiftKey ? 0.1 : 0.01),
-      [external_wp_keycodes_namespaceObject.RIGHT]: () => this.increase(shiftKey ? 0.1 : 0.01),
-      [external_wp_keycodes_namespaceObject.PAGEUP]: () => this.increase(0.1),
-      [external_wp_keycodes_namespaceObject.END]: () => this.increase(1),
-      [external_wp_keycodes_namespaceObject.DOWN]: () => this.decrease(shiftKey ? 0.1 : 0.01),
-      [external_wp_keycodes_namespaceObject.LEFT]: () => this.decrease(shiftKey ? 0.1 : 0.01),
-      [external_wp_keycodes_namespaceObject.PAGEDOWN]: () => this.decrease(0.1),
-      [external_wp_keycodes_namespaceObject.HOME]: () => this.decrease(1)
-    };
-
-    for (const code in shortcuts) {
-      if (code === String(keyCode)) {
-        shortcuts[keyCode]();
+    if (!isNaN(nextValue)) {
+      if (nextValue < min || nextValue > max) {
+        nextValue = floatClamp(nextValue, min, max);
       }
+
+      onChange(nextValue);
+      isResetPendent.current = false;
+    } else if (allowReset) {
+      isResetPendent.current = true;
+    }
+  };
+
+  const handleOnInputNumberBlur = () => {
+    if (isResetPendent.current) {
+      handleOnReset();
+      isResetPendent.current = false;
+    }
+  };
+
+  const handleOnReset = () => {
+    let resetValue = parseFloat(resetFallbackValue);
+    let onChangeResetValue = resetValue;
+
+    if (isNaN(resetValue)) {
+      resetValue = null;
+      onChangeResetValue = undefined;
     }
 
-    if (keyCode !== external_wp_keycodes_namespaceObject.TAB) {
-      event.preventDefault();
+    setValue(resetValue);
+    /**
+     * Previously, this callback would always receive undefined as
+     * an argument. This behavior is unexpected, specifically
+     * when resetFallbackValue is defined.
+     *
+     * The value of undefined is not ideal. Passing it through
+     * to internal <input /> elements would change it from a
+     * controlled component to an uncontrolled component.
+     *
+     * For now, to minimize unexpected regressions, we're going to
+     * preserve the undefined callback argument, except when a
+     * resetFallbackValue is defined.
+     */
+
+    onChange(onChangeResetValue);
+  };
+
+  const handleShowTooltip = () => setShowTooltip(true);
+
+  const handleHideTooltip = () => setShowTooltip(false);
+
+  const handleOnBlur = event => {
+    onBlur(event);
+    setIsFocused(false);
+    handleHideTooltip();
+  };
+
+  const handleOnFocus = event => {
+    onFocus(event);
+    setIsFocused(true);
+    handleShowTooltip();
+  };
+
+  const offsetStyle = {
+    [(0,external_wp_i18n_namespaceObject.isRTL)() ? 'right' : 'left']: fillValueOffset
+  };
+  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
+    className: classes,
+    label: label,
+    hideLabelFromVision: hideLabelFromVision,
+    id: id,
+    help: help
+  }, (0,external_wp_element_namespaceObject.createElement)(range_control_styles_Root, {
+    className: "components-range-control__root"
+  }, beforeIcon && (0,external_wp_element_namespaceObject.createElement)(BeforeIconWrapper, null, (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
+    icon: beforeIcon
+  })), (0,external_wp_element_namespaceObject.createElement)(range_control_styles_Wrapper, {
+    className: wrapperClasses,
+    color: colorProp,
+    marks: !!marks
+  }, (0,external_wp_element_namespaceObject.createElement)(input_range, extends_extends({}, props, {
+    className: "components-range-control__slider",
+    describedBy: describedBy,
+    disabled: disabled,
+    id: id,
+    label: label,
+    max: max,
+    min: min,
+    onBlur: handleOnBlur,
+    onChange: handleOnRangeChange,
+    onFocus: handleOnFocus,
+    onMouseMove: onMouseMove,
+    onMouseLeave: onMouseLeave,
+    ref: setRef,
+    step: step,
+    value: inputSliderValue
+  })), (0,external_wp_element_namespaceObject.createElement)(RangeRail, {
+    "aria-hidden": true,
+    disabled: disabled,
+    marks: marks,
+    max: max,
+    min: min,
+    railColor: railColor,
+    step: step,
+    value: rangeFillValue
+  }), (0,external_wp_element_namespaceObject.createElement)(Track, {
+    "aria-hidden": true,
+    className: "components-range-control__track",
+    disabled: disabled,
+    style: {
+      width: fillValueOffset
+    },
+    trackColor: trackColor
+  }), (0,external_wp_element_namespaceObject.createElement)(ThumbWrapper, {
+    style: offsetStyle,
+    disabled: disabled
+  }, (0,external_wp_element_namespaceObject.createElement)(Thumb, {
+    "aria-hidden": true,
+    isFocused: isThumbFocused,
+    disabled: disabled
+  })), enableTooltip && (0,external_wp_element_namespaceObject.createElement)(SimpleTooltip, {
+    className: "components-range-control__tooltip",
+    inputRef: inputRef,
+    tooltipPosition: "bottom",
+    renderTooltipContent: renderTooltipContent,
+    show: isCurrentlyFocused || showTooltip,
+    style: offsetStyle,
+    value: value
+  })), afterIcon && (0,external_wp_element_namespaceObject.createElement)(AfterIconWrapper, null, (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
+    icon: afterIcon
+  })), withInputField && (0,external_wp_element_namespaceObject.createElement)(InputNumber, {
+    "aria-label": label,
+    className: "components-range-control__number",
+    disabled: disabled,
+    inputMode: "decimal",
+    isShiftStepEnabled: isShiftStepEnabled,
+    max: max,
+    min: min,
+    onBlur: handleOnInputNumberBlur,
+    onChange: handleOnChange,
+    shiftStep: shiftStep,
+    step: step,
+    value: inputSliderValue
+  }), allowReset && (0,external_wp_element_namespaceObject.createElement)(ActionRightWrapper, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    className: "components-range-control__reset",
+    disabled: disabled || value === undefined,
+    variant: "secondary",
+    isSmall: true,
+    onClick: handleOnReset
+  }, (0,external_wp_i18n_namespaceObject.__)('Reset')))));
+}
+
+const range_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(RangeControl);
+/* harmony default export */ var range_control = (range_control_ForwardedComponent);
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/styles.js
+
+
+function color_picker_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+
+const NumberControlWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
+  target: "ez9hsf46"
+} : 0)(Container, "{width:", space(24), ";}" + ( true ? "" : 0));
+const styles_SelectControl = /*#__PURE__*/emotion_styled_base_browser_esm(select_control,  true ? {
+  target: "ez9hsf45"
+} : 0)("margin-left:", space(-2), ";width:5em;", BackdropUI, "{display:none;}" + ( true ? "" : 0));
+const styles_RangeControl = /*#__PURE__*/emotion_styled_base_browser_esm(range_control,  true ? {
+  target: "ez9hsf44"
+} : 0)("flex:1;", StyledField, "{margin-bottom:0;}" + ( true ? "" : 0)); // All inputs should be the same height so this should be changed at the component level.
+// That involves changing heights of multiple input types probably buttons too etc.
+// So until that is done we are already using the new height on the color picker so it matches the mockups.
+
+const inputHeightStyle = `
+&&& ${Input} {
+	height: 40px;
+}`; // Make the Hue circle picker not go out of the bar
+
+const interactiveHueStyles = `
+.react-colorful__interactive {
+	width: calc( 100% - ${space(2)} );
+	margin-left: ${space(1)};
+}`;
+const AuxiliaryColorArtefactWrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "ez9hsf43"
+} : 0)("padding:", space(2), " ", space(4), ";" + ( true ? "" : 0));
+const ColorfulWrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "ez9hsf42"
+} : 0)("width:216px;.react-colorful{display:flex;flex-direction:column;align-items:center;width:216px;height:auto;}.react-colorful__saturation{width:100%;border-radius:0;height:216px;margin-bottom:", space(4), ";border-bottom:none;}.react-colorful__hue,.react-colorful__alpha{width:184px;height:16px;border-radius:16px;margin-bottom:", space(2), ";}.react-colorful__pointer{height:16px;width:16px;border:none;box-shadow:0 0 2px 0 rgba( 0, 0, 0, 0.25 );outline:2px solid transparent;}.react-colorful__pointer-fill{box-shadow:inset 0 0 0 ", config_values.borderWidthFocus, " #fff;}", interactiveHueStyles, " ", StyledField, "{margin-bottom:0;}", inputHeightStyle, ";" + ( true ? "" : 0));
+const DetailsControlButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
+  target: "ez9hsf41"
+} : 0)("&&&&&{min-width:", space(6), ";padding:0;}" + ( true ? "" : 0));
+const ColorHexInputControl = /*#__PURE__*/emotion_styled_base_browser_esm(input_control,  true ? {
+  target: "ez9hsf40"
+} : 0)( true ? {
+  name: "1287a6j",
+  styles: "width:8em"
+} : 0);
+//# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js
+function getBoundingClientRect(element) {
+  var rect = element.getBoundingClientRect();
+  return {
+    width: rect.width,
+    height: rect.height,
+    top: rect.top,
+    right: rect.right,
+    bottom: rect.bottom,
+    left: rect.left,
+    x: rect.left,
+    y: rect.top
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getWindow.js
+/*:: import type { Window } from '../types'; */
+
+/*:: declare function getWindow(node: Node | Window): Window; */
+function getWindow_getWindow(node) {
+  if (node.toString() !== '[object Window]') {
+    var ownerDocument = node.ownerDocument;
+    return ownerDocument ? ownerDocument.defaultView || window : window;
+  }
+
+  return node;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getWindowScroll.js
+
+function getWindowScroll(node) {
+  var win = getWindow_getWindow(node);
+  var scrollLeft = win.pageXOffset;
+  var scrollTop = win.pageYOffset;
+  return {
+    scrollLeft: scrollLeft,
+    scrollTop: scrollTop
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/instanceOf.js
+
+/*:: declare function isElement(node: mixed): boolean %checks(node instanceof
+  Element); */
+
+function isElement(node) {
+  var OwnElement = getWindow_getWindow(node).Element;
+  return node instanceof OwnElement || node instanceof Element;
+}
+/*:: declare function isHTMLElement(node: mixed): boolean %checks(node instanceof
+  HTMLElement); */
+
+
+function isHTMLElement(node) {
+  var OwnElement = getWindow_getWindow(node).HTMLElement;
+  return node instanceof OwnElement || node instanceof HTMLElement;
+}
+/*:: declare function isShadowRoot(node: mixed): boolean %checks(node instanceof
+  ShadowRoot); */
+
+
+function isShadowRoot(node) {
+  var OwnElement = getWindow_getWindow(node).ShadowRoot;
+  return node instanceof OwnElement || node instanceof ShadowRoot;
+}
+
+
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getHTMLElementScroll.js
+function getHTMLElementScroll(element) {
+  return {
+    scrollLeft: element.scrollLeft,
+    scrollTop: element.scrollTop
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getNodeScroll.js
+
+
+
+
+function getNodeScroll(node) {
+  if (node === getWindow_getWindow(node) || !isHTMLElement(node)) {
+    return getWindowScroll(node);
+  } else {
+    return getHTMLElementScroll(node);
+  }
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getNodeName.js
+function getNodeName(element) {
+  return element ? (element.nodeName || '').toLowerCase() : null;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getDocumentElement.js
+
+function getDocumentElement(element) {
+  // $FlowFixMe[incompatible-return]: assume body is always available
+  return ((isElement(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
+  element.document) || window.document).documentElement;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getWindowScrollBarX.js
+
+
+
+function getWindowScrollBarX(element) {
+  // If <html> has a CSS width greater than the viewport, then this will be
+  // incorrect for RTL.
+  // Popper 1 is broken in this case and never had a bug report so let's assume
+  // it's not an issue. I don't think anyone ever specifies width on <html>
+  // anyway.
+  // Browsers where the left scrollbar doesn't cause an issue report `0` for
+  // this (e.g. Edge 2019, IE11, Safari)
+  return getBoundingClientRect(getDocumentElement(element)).left + getWindowScroll(element).scrollLeft;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getComputedStyle.js
+
+function getComputedStyle_getComputedStyle(element) {
+  return getWindow_getWindow(element).getComputedStyle(element);
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/isScrollParent.js
+
+function isScrollParent(element) {
+  // Firefox wants us to check `-x` and `-y` variations as well
+  var _getComputedStyle = getComputedStyle_getComputedStyle(element),
+      overflow = _getComputedStyle.overflow,
+      overflowX = _getComputedStyle.overflowX,
+      overflowY = _getComputedStyle.overflowY;
+
+  return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getCompositeRect.js
+
+
+
+
+
+
+ // Returns the composite rect of an element relative to its offsetParent.
+// Composite means it takes into account transforms as well as layout.
+
+function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
+  if (isFixed === void 0) {
+    isFixed = false;
+  }
+
+  var documentElement = getDocumentElement(offsetParent);
+  var rect = getBoundingClientRect(elementOrVirtualElement);
+  var isOffsetParentAnElement = isHTMLElement(offsetParent);
+  var scroll = {
+    scrollLeft: 0,
+    scrollTop: 0
+  };
+  var offsets = {
+    x: 0,
+    y: 0
+  };
+
+  if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
+    if (getNodeName(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
+    isScrollParent(documentElement)) {
+      scroll = getNodeScroll(offsetParent);
+    }
+
+    if (isHTMLElement(offsetParent)) {
+      offsets = getBoundingClientRect(offsetParent);
+      offsets.x += offsetParent.clientLeft;
+      offsets.y += offsetParent.clientTop;
+    } else if (documentElement) {
+      offsets.x = getWindowScrollBarX(documentElement);
     }
   }
 
-  render() {
-    const {
-      rgb
-    } = this.props;
-    const rgbString = `${rgb.r},${rgb.g},${rgb.b}`;
-    const gradient = {
-      background: `linear-gradient(to right, rgba(${rgbString}, 0) 0%, rgba(${rgbString}, 1) 100%)`
+  return {
+    x: rect.left + scroll.scrollLeft - offsets.x,
+    y: rect.top + scroll.scrollTop - offsets.y,
+    width: rect.width,
+    height: rect.height
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getLayoutRect.js
+// Returns the layout rect of an element relative to its offsetParent. Layout
+// means it doesn't take into account transforms.
+function getLayoutRect(element) {
+  return {
+    x: element.offsetLeft,
+    y: element.offsetTop,
+    width: element.offsetWidth,
+    height: element.offsetHeight
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getParentNode.js
+
+
+function getParentNode(element) {
+  if (getNodeName(element) === 'html') {
+    return element;
+  }
+
+  return (// this is a quicker (but less type safe) way to save quite some bytes from the bundle
+    // $FlowFixMe[incompatible-return]
+    // $FlowFixMe[prop-missing]
+    element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
+    element.parentNode || // DOM Element detected
+    // $FlowFixMe[incompatible-return]: need a better way to handle this...
+    element.host || // ShadowRoot detected
+    // $FlowFixMe[incompatible-call]: HTMLElement is a Node
+    getDocumentElement(element) // fallback
+
+  );
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getScrollParent.js
+
+
+
+
+function getScrollParent(node) {
+  if (['html', 'body', '#document'].indexOf(getNodeName(node)) >= 0) {
+    // $FlowFixMe[incompatible-return]: assume body is always available
+    return node.ownerDocument.body;
+  }
+
+  if (isHTMLElement(node) && isScrollParent(node)) {
+    return node;
+  }
+
+  return getScrollParent(getParentNode(node));
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/listScrollParents.js
+
+
+
+
+
+/*
+given a DOM element, return the list of all scroll parents, up the list of ancesors
+until we get to the top window object. This list is what we attach scroll listeners
+to, because if any of these parent elements scroll, we'll need to re-calculate the
+reference element's position.
+*/
+
+function listScrollParents(element, list) {
+  if (list === void 0) {
+    list = [];
+  }
+
+  var scrollParent = getScrollParent(element);
+  var isBody = getNodeName(scrollParent) === 'body';
+  var win = getWindow_getWindow(scrollParent);
+  var target = isBody ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : []) : scrollParent;
+  var updatedList = list.concat(target);
+  return isBody ? updatedList : // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
+  updatedList.concat(listScrollParents(getParentNode(target)));
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/isTableElement.js
+
+function isTableElement(element) {
+  return ['table', 'td', 'th'].indexOf(getNodeName(element)) >= 0;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getOffsetParent.js
+
+
+
+
+
+
+
+
+function getTrueOffsetParent(element) {
+  if (!isHTMLElement(element) || // https://github.com/popperjs/popper-core/issues/837
+  getComputedStyle_getComputedStyle(element).position === 'fixed') {
+    return null;
+  }
+
+  var offsetParent = element.offsetParent;
+
+  if (offsetParent) {
+    var html = getDocumentElement(offsetParent);
+
+    if (getNodeName(offsetParent) === 'body' && getComputedStyle_getComputedStyle(offsetParent).position === 'static' && getComputedStyle_getComputedStyle(html).position !== 'static') {
+      return html;
+    }
+  }
+
+  return offsetParent;
+} // `.offsetParent` reports `null` for fixed elements, while absolute elements
+// return the containing block
+
+
+function getContainingBlock(element) {
+  var currentNode = getParentNode(element);
+
+  while (isHTMLElement(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
+    var css = getComputedStyle_getComputedStyle(currentNode); // This is non-exhaustive but covers the most common CSS properties that
+    // create a containing block.
+
+    if (css.transform !== 'none' || css.perspective !== 'none' || css.willChange && css.willChange !== 'auto') {
+      return currentNode;
+    } else {
+      currentNode = currentNode.parentNode;
+    }
+  }
+
+  return null;
+} // Gets the closest ancestor positioned element. Handles some edge cases,
+// such as table ancestors and cross browser bugs.
+
+
+function getOffsetParent(element) {
+  var window = getWindow_getWindow(element);
+  var offsetParent = getTrueOffsetParent(element);
+
+  while (offsetParent && isTableElement(offsetParent) && getComputedStyle_getComputedStyle(offsetParent).position === 'static') {
+    offsetParent = getTrueOffsetParent(offsetParent);
+  }
+
+  if (offsetParent && getNodeName(offsetParent) === 'body' && getComputedStyle_getComputedStyle(offsetParent).position === 'static') {
+    return window;
+  }
+
+  return offsetParent || getContainingBlock(element) || window;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/enums.js
+var enums_top = 'top';
+var bottom = 'bottom';
+var right = 'right';
+var left = 'left';
+var enums_auto = 'auto';
+var basePlacements = [enums_top, bottom, right, left];
+var start = 'start';
+var end = 'end';
+var clippingParents = 'clippingParents';
+var viewport = 'viewport';
+var popper = 'popper';
+var reference = 'reference';
+var variationPlacements = /*#__PURE__*/basePlacements.reduce(function (acc, placement) {
+  return acc.concat([placement + "-" + start, placement + "-" + end]);
+}, []);
+var enums_placements = /*#__PURE__*/[].concat(basePlacements, [enums_auto]).reduce(function (acc, placement) {
+  return acc.concat([placement, placement + "-" + start, placement + "-" + end]);
+}, []); // modifiers that need to read the DOM
+
+var beforeRead = 'beforeRead';
+var read = 'read';
+var afterRead = 'afterRead'; // pure-logic modifiers
+
+var beforeMain = 'beforeMain';
+var main = 'main';
+var afterMain = 'afterMain'; // modifier with the purpose to write to the DOM (or write into a framework state)
+
+var beforeWrite = 'beforeWrite';
+var write = 'write';
+var afterWrite = 'afterWrite';
+var modifierPhases = [beforeRead, read, afterRead, beforeMain, main, afterMain, beforeWrite, write, afterWrite];
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/orderModifiers.js
+ // source: https://stackoverflow.com/questions/49875255
+
+function orderModifiers_order(modifiers) {
+  var map = new Map();
+  var visited = new Set();
+  var result = [];
+  modifiers.forEach(function (modifier) {
+    map.set(modifier.name, modifier);
+  }); // On visiting object, check for its dependencies and visit them recursively
+
+  function sort(modifier) {
+    visited.add(modifier.name);
+    var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
+    requires.forEach(function (dep) {
+      if (!visited.has(dep)) {
+        var depModifier = map.get(dep);
+
+        if (depModifier) {
+          sort(depModifier);
+        }
+      }
+    });
+    result.push(modifier);
+  }
+
+  modifiers.forEach(function (modifier) {
+    if (!visited.has(modifier.name)) {
+      // check for visited object
+      sort(modifier);
+    }
+  });
+  return result;
+}
+
+function orderModifiers(modifiers) {
+  // order based on dependencies
+  var orderedModifiers = orderModifiers_order(modifiers); // order based on phase
+
+  return modifierPhases.reduce(function (acc, phase) {
+    return acc.concat(orderedModifiers.filter(function (modifier) {
+      return modifier.phase === phase;
+    }));
+  }, []);
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/debounce.js
+function debounce(fn) {
+  var pending;
+  return function () {
+    if (!pending) {
+      pending = new Promise(function (resolve) {
+        Promise.resolve().then(function () {
+          pending = undefined;
+          resolve(fn());
+        });
+      });
+    }
+
+    return pending;
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/mergeByName.js
+function mergeByName(modifiers) {
+  var merged = modifiers.reduce(function (merged, current) {
+    var existing = merged[current.name];
+    merged[current.name] = existing ? Object.assign(Object.assign(Object.assign({}, existing), current), {}, {
+      options: Object.assign(Object.assign({}, existing.options), current.options),
+      data: Object.assign(Object.assign({}, existing.data), current.data)
+    }) : current;
+    return merged;
+  }, {}); // IE11 does not support Object.values
+
+  return Object.keys(merged).map(function (key) {
+    return merged[key];
+  });
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/createPopper.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var INVALID_ELEMENT_ERROR = 'Popper: Invalid reference or popper argument provided. They must be either a DOM element or virtual element.';
+var INFINITE_LOOP_ERROR = 'Popper: An infinite loop in the modifiers cycle has been detected! The cycle has been interrupted to prevent a browser crash.';
+var DEFAULT_OPTIONS = {
+  placement: 'bottom',
+  modifiers: [],
+  strategy: 'absolute'
+};
+
+function areValidElements() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return !args.some(function (element) {
+    return !(element && typeof element.getBoundingClientRect === 'function');
+  });
+}
+
+function popperGenerator(generatorOptions) {
+  if (generatorOptions === void 0) {
+    generatorOptions = {};
+  }
+
+  var _generatorOptions = generatorOptions,
+      _generatorOptions$def = _generatorOptions.defaultModifiers,
+      defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def,
+      _generatorOptions$def2 = _generatorOptions.defaultOptions,
+      defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
+  return function createPopper(reference, popper, options) {
+    if (options === void 0) {
+      options = defaultOptions;
+    }
+
+    var state = {
+      placement: 'bottom',
+      orderedModifiers: [],
+      options: Object.assign(Object.assign({}, DEFAULT_OPTIONS), defaultOptions),
+      modifiersData: {},
+      elements: {
+        reference: reference,
+        popper: popper
+      },
+      attributes: {},
+      styles: {}
     };
-    const pointerLocation = {
-      left: `${rgb.a * 100}%`
+    var effectCleanupFns = [];
+    var isDestroyed = false;
+    var instance = {
+      state: state,
+      setOptions: function setOptions(options) {
+        cleanupModifierEffects();
+        state.options = Object.assign(Object.assign(Object.assign({}, defaultOptions), state.options), options);
+        state.scrollParents = {
+          reference: isElement(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
+          popper: listScrollParents(popper)
+        }; // Orders the modifiers based on their dependencies and `phase`
+        // properties
+
+        var orderedModifiers = orderModifiers(mergeByName([].concat(defaultModifiers, state.options.modifiers))); // Strip out disabled modifiers
+
+        state.orderedModifiers = orderedModifiers.filter(function (m) {
+          return m.enabled;
+        }); // Validate the provided modifiers so that the consumer will get warned
+        // if one of the modifiers is invalid for any reason
+
+        if (false) { var _getComputedStyle, marginTop, marginRight, marginBottom, marginLeft, flipModifier, modifiers; }
+
+        runModifierEffects();
+        return instance.update();
+      },
+      // Sync update – it will always be executed, even if not necessary. This
+      // is useful for low frequency updates where sync behavior simplifies the
+      // logic.
+      // For high frequency updates (e.g. `resize` and `scroll` events), always
+      // prefer the async Popper#update method
+      forceUpdate: function forceUpdate() {
+        if (isDestroyed) {
+          return;
+        }
+
+        var _state$elements = state.elements,
+            reference = _state$elements.reference,
+            popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
+        // anymore
+
+        if (!areValidElements(reference, popper)) {
+          if (false) {}
+
+          return;
+        } // Store the reference and popper rects to be read by modifiers
+
+
+        state.rects = {
+          reference: getCompositeRect(reference, getOffsetParent(popper), state.options.strategy === 'fixed'),
+          popper: getLayoutRect(popper)
+        }; // Modifiers have the ability to reset the current update cycle. The
+        // most common use case for this is the `flip` modifier changing the
+        // placement, which then needs to re-run all the modifiers, because the
+        // logic was previously ran for the previous placement and is therefore
+        // stale/incorrect
+
+        state.reset = false;
+        state.placement = state.options.placement; // On each update cycle, the `modifiersData` property for each modifier
+        // is filled with the initial data specified by the modifier. This means
+        // it doesn't persist and is fresh on each update.
+        // To ensure persistent data, use `${name}#persistent`
+
+        state.orderedModifiers.forEach(function (modifier) {
+          return state.modifiersData[modifier.name] = Object.assign({}, modifier.data);
+        });
+        var __debug_loops__ = 0;
+
+        for (var index = 0; index < state.orderedModifiers.length; index++) {
+          if (false) {}
+
+          if (state.reset === true) {
+            state.reset = false;
+            index = -1;
+            continue;
+          }
+
+          var _state$orderedModifie = state.orderedModifiers[index],
+              fn = _state$orderedModifie.fn,
+              _state$orderedModifie2 = _state$orderedModifie.options,
+              _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
+              name = _state$orderedModifie.name;
+
+          if (typeof fn === 'function') {
+            state = fn({
+              state: state,
+              options: _options,
+              name: name,
+              instance: instance
+            }) || state;
+          }
+        }
+      },
+      // Async and optimistically optimized update – it will not be executed if
+      // not necessary (debounced to run at most once-per-tick)
+      update: debounce(function () {
+        return new Promise(function (resolve) {
+          instance.forceUpdate();
+          resolve(state);
+        });
+      }),
+      destroy: function destroy() {
+        cleanupModifierEffects();
+        isDestroyed = true;
+      }
     };
-    return (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__alpha"
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__alpha-gradient",
-      style: gradient
-    }), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__alpha-bar",
-      ref: this.container,
-      onMouseDown: this.handleMouseDown,
-      onTouchMove: this.handleChange,
-      onTouchStart: this.handleChange
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      tabIndex: "0",
-      role: "slider",
-      "aria-valuemax": "1",
-      "aria-valuemin": "0",
-      "aria-valuenow": rgb.a,
-      "aria-orientation": "horizontal",
-      "aria-label": (0,external_wp_i18n_namespaceObject.__)('Alpha value, from 0 (transparent) to 1 (fully opaque).'),
-      className: "components-color-picker__alpha-pointer",
-      style: pointerLocation,
-      onKeyDown: this.handleKeyDown
+
+    if (!areValidElements(reference, popper)) {
+      if (false) {}
+
+      return instance;
+    }
+
+    instance.setOptions(options).then(function (state) {
+      if (!isDestroyed && options.onFirstUpdate) {
+        options.onFirstUpdate(state);
+      }
+    }); // Modifiers have the ability to execute arbitrary code before the first
+    // update cycle runs. They will be executed in the same order as the update
+    // cycle. This is useful when a modifier adds some persistent data that
+    // other modifiers need to use, but the modifier is run after the dependent
+    // one.
+
+    function runModifierEffects() {
+      state.orderedModifiers.forEach(function (_ref3) {
+        var name = _ref3.name,
+            _ref3$options = _ref3.options,
+            options = _ref3$options === void 0 ? {} : _ref3$options,
+            effect = _ref3.effect;
+
+        if (typeof effect === 'function') {
+          var cleanupFn = effect({
+            state: state,
+            name: name,
+            instance: instance,
+            options: options
+          });
+
+          var noopFn = function noopFn() {};
+
+          effectCleanupFns.push(cleanupFn || noopFn);
+        }
+      });
+    }
+
+    function cleanupModifierEffects() {
+      effectCleanupFns.forEach(function (fn) {
+        return fn();
+      });
+      effectCleanupFns = [];
+    }
+
+    return instance;
+  };
+}
+var createPopper = /*#__PURE__*/(/* unused pure expression or super */ null && (popperGenerator())); // eslint-disable-next-line import/no-unused-modules
+
+
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/eventListeners.js
+ // eslint-disable-next-line import/no-unused-modules
+
+var passive = {
+  passive: true
+};
+
+function effect(_ref) {
+  var state = _ref.state,
+      instance = _ref.instance,
+      options = _ref.options;
+  var _options$scroll = options.scroll,
+      scroll = _options$scroll === void 0 ? true : _options$scroll,
+      _options$resize = options.resize,
+      resize = _options$resize === void 0 ? true : _options$resize;
+  var window = getWindow_getWindow(state.elements.popper);
+  var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
+
+  if (scroll) {
+    scrollParents.forEach(function (scrollParent) {
+      scrollParent.addEventListener('scroll', instance.update, passive);
+    });
+  }
+
+  if (resize) {
+    window.addEventListener('resize', instance.update, passive);
+  }
+
+  return function () {
+    if (scroll) {
+      scrollParents.forEach(function (scrollParent) {
+        scrollParent.removeEventListener('scroll', instance.update, passive);
+      });
+    }
+
+    if (resize) {
+      window.removeEventListener('resize', instance.update, passive);
+    }
+  };
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var eventListeners = ({
+  name: 'eventListeners',
+  enabled: true,
+  phase: 'write',
+  fn: function fn() {},
+  effect: effect,
+  data: {}
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getBasePlacement.js
+
+function getBasePlacement(placement) {
+  return placement.split('-')[0];
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getVariation.js
+function getVariation(placement) {
+  return placement.split('-')[1];
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getMainAxisFromPlacement.js
+function getMainAxisFromPlacement(placement) {
+  return ['top', 'bottom'].indexOf(placement) >= 0 ? 'x' : 'y';
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/computeOffsets.js
+
+
+
+
+function computeOffsets(_ref) {
+  var reference = _ref.reference,
+      element = _ref.element,
+      placement = _ref.placement;
+  var basePlacement = placement ? getBasePlacement(placement) : null;
+  var variation = placement ? getVariation(placement) : null;
+  var commonX = reference.x + reference.width / 2 - element.width / 2;
+  var commonY = reference.y + reference.height / 2 - element.height / 2;
+  var offsets;
+
+  switch (basePlacement) {
+    case enums_top:
+      offsets = {
+        x: commonX,
+        y: reference.y - element.height
+      };
+      break;
+
+    case bottom:
+      offsets = {
+        x: commonX,
+        y: reference.y + reference.height
+      };
+      break;
+
+    case right:
+      offsets = {
+        x: reference.x + reference.width,
+        y: commonY
+      };
+      break;
+
+    case left:
+      offsets = {
+        x: reference.x - element.width,
+        y: commonY
+      };
+      break;
+
+    default:
+      offsets = {
+        x: reference.x,
+        y: reference.y
+      };
+  }
+
+  var mainAxis = basePlacement ? getMainAxisFromPlacement(basePlacement) : null;
+
+  if (mainAxis != null) {
+    var len = mainAxis === 'y' ? 'height' : 'width';
+
+    switch (variation) {
+      case start:
+        offsets[mainAxis] = offsets[mainAxis] - (reference[len] / 2 - element[len] / 2);
+        break;
+
+      case end:
+        offsets[mainAxis] = offsets[mainAxis] + (reference[len] / 2 - element[len] / 2);
+        break;
+
+      default:
+    }
+  }
+
+  return offsets;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/popperOffsets.js
+
+
+function popperOffsets(_ref) {
+  var state = _ref.state,
+      name = _ref.name;
+  // Offsets are the actual position the popper needs to have to be
+  // properly positioned near its reference element
+  // This is the most basic placement, and will be adjusted by
+  // the modifiers in the next step
+  state.modifiersData[name] = computeOffsets({
+    reference: state.rects.reference,
+    element: state.rects.popper,
+    strategy: 'absolute',
+    placement: state.placement
+  });
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var modifiers_popperOffsets = ({
+  name: 'popperOffsets',
+  enabled: true,
+  phase: 'read',
+  fn: popperOffsets,
+  data: {}
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/computeStyles.js
+
+
+
+
+
+ // eslint-disable-next-line import/no-unused-modules
+
+var unsetSides = {
+  top: 'auto',
+  right: 'auto',
+  bottom: 'auto',
+  left: 'auto'
+}; // Round the offsets to the nearest suitable subpixel based on the DPR.
+// Zooming can change the DPR, but it seems to report a value that will
+// cleanly divide the values into the appropriate subpixels.
+
+function roundOffsetsByDPR(_ref) {
+  var x = _ref.x,
+      y = _ref.y;
+  var win = window;
+  var dpr = win.devicePixelRatio || 1;
+  return {
+    x: Math.round(x * dpr) / dpr || 0,
+    y: Math.round(y * dpr) / dpr || 0
+  };
+}
+
+function mapToStyles(_ref2) {
+  var _Object$assign2;
+
+  var popper = _ref2.popper,
+      popperRect = _ref2.popperRect,
+      placement = _ref2.placement,
+      offsets = _ref2.offsets,
+      position = _ref2.position,
+      gpuAcceleration = _ref2.gpuAcceleration,
+      adaptive = _ref2.adaptive,
+      roundOffsets = _ref2.roundOffsets;
+
+  var _ref3 = roundOffsets ? roundOffsetsByDPR(offsets) : offsets,
+      _ref3$x = _ref3.x,
+      x = _ref3$x === void 0 ? 0 : _ref3$x,
+      _ref3$y = _ref3.y,
+      y = _ref3$y === void 0 ? 0 : _ref3$y;
+
+  var hasX = offsets.hasOwnProperty('x');
+  var hasY = offsets.hasOwnProperty('y');
+  var sideX = left;
+  var sideY = enums_top;
+  var win = window;
+
+  if (adaptive) {
+    var offsetParent = getOffsetParent(popper);
+
+    if (offsetParent === getWindow_getWindow(popper)) {
+      offsetParent = getDocumentElement(popper);
+    } // $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
+
+    /*:: offsetParent = (offsetParent: Element); */
+
+
+    if (placement === enums_top) {
+      sideY = bottom;
+      y -= offsetParent.clientHeight - popperRect.height;
+      y *= gpuAcceleration ? 1 : -1;
+    }
+
+    if (placement === left) {
+      sideX = right;
+      x -= offsetParent.clientWidth - popperRect.width;
+      x *= gpuAcceleration ? 1 : -1;
+    }
+  }
+
+  var commonStyles = Object.assign({
+    position: position
+  }, adaptive && unsetSides);
+
+  if (gpuAcceleration) {
+    var _Object$assign;
+
+    return Object.assign(Object.assign({}, commonStyles), {}, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) < 2 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
+  }
+
+  return Object.assign(Object.assign({}, commonStyles), {}, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
+}
+
+function computeStyles(_ref4) {
+  var state = _ref4.state,
+      options = _ref4.options;
+  var _options$gpuAccelerat = options.gpuAcceleration,
+      gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
+      _options$adaptive = options.adaptive,
+      adaptive = _options$adaptive === void 0 ? true : _options$adaptive,
+      _options$roundOffsets = options.roundOffsets,
+      roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
+
+  if (false) { var transitionProperty; }
+
+  var commonStyles = {
+    placement: getBasePlacement(state.placement),
+    popper: state.elements.popper,
+    popperRect: state.rects.popper,
+    gpuAcceleration: gpuAcceleration
+  };
+
+  if (state.modifiersData.popperOffsets != null) {
+    state.styles.popper = Object.assign(Object.assign({}, state.styles.popper), mapToStyles(Object.assign(Object.assign({}, commonStyles), {}, {
+      offsets: state.modifiersData.popperOffsets,
+      position: state.options.strategy,
+      adaptive: adaptive,
+      roundOffsets: roundOffsets
     })));
   }
 
+  if (state.modifiersData.arrow != null) {
+    state.styles.arrow = Object.assign(Object.assign({}, state.styles.arrow), mapToStyles(Object.assign(Object.assign({}, commonStyles), {}, {
+      offsets: state.modifiersData.arrow,
+      position: 'absolute',
+      adaptive: false,
+      roundOffsets: roundOffsets
+    })));
+  }
+
+  state.attributes.popper = Object.assign(Object.assign({}, state.attributes.popper), {}, {
+    'data-popper-placement': state.placement
+  });
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var modifiers_computeStyles = ({
+  name: 'computeStyles',
+  enabled: true,
+  phase: 'beforeWrite',
+  fn: computeStyles,
+  data: {}
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/applyStyles.js
+
+ // This modifier takes the styles prepared by the `computeStyles` modifier
+// and applies them to the HTMLElements such as popper and arrow
+
+function applyStyles(_ref) {
+  var state = _ref.state;
+  Object.keys(state.elements).forEach(function (name) {
+    var style = state.styles[name] || {};
+    var attributes = state.attributes[name] || {};
+    var element = state.elements[name]; // arrow is optional + virtual elements
+
+    if (!isHTMLElement(element) || !getNodeName(element)) {
+      return;
+    } // Flow doesn't support to extend this property, but it's the most
+    // effective way to apply styles to an HTMLElement
+    // $FlowFixMe[cannot-write]
+
+
+    Object.assign(element.style, style);
+    Object.keys(attributes).forEach(function (name) {
+      var value = attributes[name];
+
+      if (value === false) {
+        element.removeAttribute(name);
+      } else {
+        element.setAttribute(name, value === true ? '' : value);
+      }
+    });
+  });
 }
-/* harmony default export */ var color_picker_alpha = ((0,external_wp_compose_namespaceObject.pure)(Alpha));
-//# sourceMappingURL=alpha.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/hue.js
+
+function applyStyles_effect(_ref2) {
+  var state = _ref2.state;
+  var initialStyles = {
+    popper: {
+      position: state.options.strategy,
+      left: '0',
+      top: '0',
+      margin: '0'
+    },
+    arrow: {
+      position: 'absolute'
+    },
+    reference: {}
+  };
+  Object.assign(state.elements.popper.style, initialStyles.popper);
+
+  if (state.elements.arrow) {
+    Object.assign(state.elements.arrow.style, initialStyles.arrow);
+  }
+
+  return function () {
+    Object.keys(state.elements).forEach(function (name) {
+      var element = state.elements[name];
+      var attributes = state.attributes[name] || {};
+      var styleProperties = Object.keys(state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]); // Set all values to an empty string to unset them
+
+      var style = styleProperties.reduce(function (style, property) {
+        style[property] = '';
+        return style;
+      }, {}); // arrow is optional + virtual elements
+
+      if (!isHTMLElement(element) || !getNodeName(element)) {
+        return;
+      }
+
+      Object.assign(element.style, style);
+      Object.keys(attributes).forEach(function (attribute) {
+        element.removeAttribute(attribute);
+      });
+    });
+  };
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var modifiers_applyStyles = ({
+  name: 'applyStyles',
+  enabled: true,
+  phase: 'write',
+  fn: applyStyles,
+  effect: applyStyles_effect,
+  requires: ['computeStyles']
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/offset.js
+
+
+function distanceAndSkiddingToXY(placement, rects, offset) {
+  var basePlacement = getBasePlacement(placement);
+  var invertDistance = [left, enums_top].indexOf(basePlacement) >= 0 ? -1 : 1;
+
+  var _ref = typeof offset === 'function' ? offset(Object.assign(Object.assign({}, rects), {}, {
+    placement: placement
+  })) : offset,
+      skidding = _ref[0],
+      distance = _ref[1];
+
+  skidding = skidding || 0;
+  distance = (distance || 0) * invertDistance;
+  return [left, right].indexOf(basePlacement) >= 0 ? {
+    x: distance,
+    y: skidding
+  } : {
+    x: skidding,
+    y: distance
+  };
+}
+
+function offset(_ref2) {
+  var state = _ref2.state,
+      options = _ref2.options,
+      name = _ref2.name;
+  var _options$offset = options.offset,
+      offset = _options$offset === void 0 ? [0, 0] : _options$offset;
+  var data = enums_placements.reduce(function (acc, placement) {
+    acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset);
+    return acc;
+  }, {});
+  var _data$state$placement = data[state.placement],
+      x = _data$state$placement.x,
+      y = _data$state$placement.y;
+
+  if (state.modifiersData.popperOffsets != null) {
+    state.modifiersData.popperOffsets.x += x;
+    state.modifiersData.popperOffsets.y += y;
+  }
+
+  state.modifiersData[name] = data;
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var modifiers_offset = ({
+  name: 'offset',
+  enabled: true,
+  phase: 'main',
+  requires: ['popperOffsets'],
+  fn: offset
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getOppositePlacement.js
+var getOppositePlacement_hash = {
+  left: 'right',
+  right: 'left',
+  bottom: 'top',
+  top: 'bottom'
+};
+function getOppositePlacement(placement) {
+  return placement.replace(/left|right|bottom|top/g, function (matched) {
+    return getOppositePlacement_hash[matched];
+  });
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getOppositeVariationPlacement.js
+var getOppositeVariationPlacement_hash = {
+  start: 'end',
+  end: 'start'
+};
+function getOppositeVariationPlacement(placement) {
+  return placement.replace(/start|end/g, function (matched) {
+    return getOppositeVariationPlacement_hash[matched];
+  });
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getViewportRect.js
+
+
+
+function getViewportRect(element) {
+  var win = getWindow_getWindow(element);
+  var html = getDocumentElement(element);
+  var visualViewport = win.visualViewport;
+  var width = html.clientWidth;
+  var height = html.clientHeight;
+  var x = 0;
+  var y = 0; // NB: This isn't supported on iOS <= 12. If the keyboard is open, the popper
+  // can be obscured underneath it.
+  // Also, `html.clientHeight` adds the bottom bar height in Safari iOS, even
+  // if it isn't open, so if this isn't available, the popper will be detected
+  // to overflow the bottom of the screen too early.
+
+  if (visualViewport) {
+    width = visualViewport.width;
+    height = visualViewport.height; // Uses Layout Viewport (like Chrome; Safari does not currently)
+    // In Chrome, it returns a value very close to 0 (+/-) but contains rounding
+    // errors due to floating point numbers, so we need to check precision.
+    // Safari returns a number <= 0, usually < -1 when pinch-zoomed
+    // Feature detection fails in mobile emulation mode in Chrome.
+    // Math.abs(win.innerWidth / visualViewport.scale - visualViewport.width) <
+    // 0.001
+    // Fallback here: "Not Safari" userAgent
+
+    if (!/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+      x = visualViewport.offsetLeft;
+      y = visualViewport.offsetTop;
+    }
+  }
+
+  return {
+    width: width,
+    height: height,
+    x: x + getWindowScrollBarX(element),
+    y: y
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getDocumentRect.js
+
+
+
+ // Gets the entire size of the scrollable document area, even extending outside
+// of the `<html>` and `<body>` rect bounds if horizontally scrollable
+
+function getDocumentRect(element) {
+  var html = getDocumentElement(element);
+  var winScroll = getWindowScroll(element);
+  var body = element.ownerDocument.body;
+  var width = Math.max(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
+  var height = Math.max(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
+  var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
+  var y = -winScroll.scrollTop;
+
+  if (getComputedStyle_getComputedStyle(body || html).direction === 'rtl') {
+    x += Math.max(html.clientWidth, body ? body.clientWidth : 0) - width;
+  }
+
+  return {
+    width: width,
+    height: height,
+    x: x,
+    y: y
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/contains.js
+
+function contains_contains(parent, child) {
+  var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
+
+  if (parent.contains(child)) {
+    return true;
+  } // then fallback to custom implementation with Shadow DOM support
+  else if (rootNode && isShadowRoot(rootNode)) {
+      var next = child;
+
+      do {
+        if (next && parent.isSameNode(next)) {
+          return true;
+        } // $FlowFixMe[prop-missing]: need a better way to handle this...
+
+
+        next = next.parentNode || next.host;
+      } while (next);
+    } // Give up, the result is false
+
+
+  return false;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/rectToClientRect.js
+function rectToClientRect(rect) {
+  return Object.assign(Object.assign({}, rect), {}, {
+    left: rect.x,
+    top: rect.y,
+    right: rect.x + rect.width,
+    bottom: rect.y + rect.height
+  });
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getClippingRect.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getInnerBoundingClientRect(element) {
+  var rect = getBoundingClientRect(element);
+  rect.top = rect.top + element.clientTop;
+  rect.left = rect.left + element.clientLeft;
+  rect.bottom = rect.top + element.clientHeight;
+  rect.right = rect.left + element.clientWidth;
+  rect.width = element.clientWidth;
+  rect.height = element.clientHeight;
+  rect.x = rect.left;
+  rect.y = rect.top;
+  return rect;
+}
+
+function getClientRectFromMixedType(element, clippingParent) {
+  return clippingParent === viewport ? rectToClientRect(getViewportRect(element)) : isHTMLElement(clippingParent) ? getInnerBoundingClientRect(clippingParent) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
+} // A "clipping parent" is an overflowable container with the characteristic of
+// clipping (or hiding) overflowing elements with a position different from
+// `initial`
+
+
+function getClippingParents(element) {
+  var clippingParents = listScrollParents(getParentNode(element));
+  var canEscapeClipping = ['absolute', 'fixed'].indexOf(getComputedStyle_getComputedStyle(element).position) >= 0;
+  var clipperElement = canEscapeClipping && isHTMLElement(element) ? getOffsetParent(element) : element;
+
+  if (!isElement(clipperElement)) {
+    return [];
+  } // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
+
+
+  return clippingParents.filter(function (clippingParent) {
+    return isElement(clippingParent) && contains_contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
+  });
+} // Gets the maximum area that the element is visible in due to any number of
+// clipping parents
+
+
+function getClippingRect(element, boundary, rootBoundary) {
+  var mainClippingParents = boundary === 'clippingParents' ? getClippingParents(element) : [].concat(boundary);
+  var clippingParents = [].concat(mainClippingParents, [rootBoundary]);
+  var firstClippingParent = clippingParents[0];
+  var clippingRect = clippingParents.reduce(function (accRect, clippingParent) {
+    var rect = getClientRectFromMixedType(element, clippingParent);
+    accRect.top = Math.max(rect.top, accRect.top);
+    accRect.right = Math.min(rect.right, accRect.right);
+    accRect.bottom = Math.min(rect.bottom, accRect.bottom);
+    accRect.left = Math.max(rect.left, accRect.left);
+    return accRect;
+  }, getClientRectFromMixedType(element, firstClippingParent));
+  clippingRect.width = clippingRect.right - clippingRect.left;
+  clippingRect.height = clippingRect.bottom - clippingRect.top;
+  clippingRect.x = clippingRect.left;
+  clippingRect.y = clippingRect.top;
+  return clippingRect;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getFreshSideObject.js
+function getFreshSideObject() {
+  return {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  };
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/mergePaddingObject.js
+
+function mergePaddingObject(paddingObject) {
+  return Object.assign(Object.assign({}, getFreshSideObject()), paddingObject);
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/expandToHashMap.js
+function expandToHashMap(value, keys) {
+  return keys.reduce(function (hashMap, key) {
+    hashMap[key] = value;
+    return hashMap;
+  }, {});
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/detectOverflow.js
+
+
+
+
+
+
+
+
+ // eslint-disable-next-line import/no-unused-modules
+
+function detectOverflow(state, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _options = options,
+      _options$placement = _options.placement,
+      placement = _options$placement === void 0 ? state.placement : _options$placement,
+      _options$boundary = _options.boundary,
+      boundary = _options$boundary === void 0 ? clippingParents : _options$boundary,
+      _options$rootBoundary = _options.rootBoundary,
+      rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary,
+      _options$elementConte = _options.elementContext,
+      elementContext = _options$elementConte === void 0 ? popper : _options$elementConte,
+      _options$altBoundary = _options.altBoundary,
+      altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
+      _options$padding = _options.padding,
+      padding = _options$padding === void 0 ? 0 : _options$padding;
+  var paddingObject = mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements));
+  var altContext = elementContext === popper ? reference : popper;
+  var referenceElement = state.elements.reference;
+  var popperRect = state.rects.popper;
+  var element = state.elements[altBoundary ? altContext : elementContext];
+  var clippingClientRect = getClippingRect(isElement(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary);
+  var referenceClientRect = getBoundingClientRect(referenceElement);
+  var popperOffsets = computeOffsets({
+    reference: referenceClientRect,
+    element: popperRect,
+    strategy: 'absolute',
+    placement: placement
+  });
+  var popperClientRect = rectToClientRect(Object.assign(Object.assign({}, popperRect), popperOffsets));
+  var elementClientRect = elementContext === popper ? popperClientRect : referenceClientRect; // positive = overflowing the clipping rect
+  // 0 or negative = within the clipping rect
+
+  var overflowOffsets = {
+    top: clippingClientRect.top - elementClientRect.top + paddingObject.top,
+    bottom: elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom,
+    left: clippingClientRect.left - elementClientRect.left + paddingObject.left,
+    right: elementClientRect.right - clippingClientRect.right + paddingObject.right
+  };
+  var offsetData = state.modifiersData.offset; // Offsets can be applied only to the popper element
+
+  if (elementContext === popper && offsetData) {
+    var offset = offsetData[placement];
+    Object.keys(overflowOffsets).forEach(function (key) {
+      var multiply = [right, bottom].indexOf(key) >= 0 ? 1 : -1;
+      var axis = [enums_top, bottom].indexOf(key) >= 0 ? 'y' : 'x';
+      overflowOffsets[key] += offset[axis] * multiply;
+    });
+  }
+
+  return overflowOffsets;
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/computeAutoPlacement.js
+
+
+
+
+
+/*:: type OverflowsMap = { [ComputedPlacement]: number }; */
+
+/*;; type OverflowsMap = { [key in ComputedPlacement]: number }; */
+function computeAutoPlacement(state, options) {
+  if (options === void 0) {
+    options = {};
+  }
+
+  var _options = options,
+      placement = _options.placement,
+      boundary = _options.boundary,
+      rootBoundary = _options.rootBoundary,
+      padding = _options.padding,
+      flipVariations = _options.flipVariations,
+      _options$allowedAutoP = _options.allowedAutoPlacements,
+      allowedAutoPlacements = _options$allowedAutoP === void 0 ? enums_placements : _options$allowedAutoP;
+  var variation = getVariation(placement);
+  var placements = variation ? flipVariations ? variationPlacements : variationPlacements.filter(function (placement) {
+    return getVariation(placement) === variation;
+  }) : basePlacements;
+  var allowedPlacements = placements.filter(function (placement) {
+    return allowedAutoPlacements.indexOf(placement) >= 0;
+  });
+
+  if (allowedPlacements.length === 0) {
+    allowedPlacements = placements;
+
+    if (false) {}
+  } // $FlowFixMe[incompatible-type]: Flow seems to have problems with two array unions...
+
+
+  var overflows = allowedPlacements.reduce(function (acc, placement) {
+    acc[placement] = detectOverflow(state, {
+      placement: placement,
+      boundary: boundary,
+      rootBoundary: rootBoundary,
+      padding: padding
+    })[getBasePlacement(placement)];
+    return acc;
+  }, {});
+  return Object.keys(overflows).sort(function (a, b) {
+    return overflows[a] - overflows[b];
+  });
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/flip.js
+
+
+
+
+
+
+ // eslint-disable-next-line import/no-unused-modules
+
+function getExpandedFallbackPlacements(placement) {
+  if (getBasePlacement(placement) === enums_auto) {
+    return [];
+  }
+
+  var oppositePlacement = getOppositePlacement(placement);
+  return [getOppositeVariationPlacement(placement), oppositePlacement, getOppositeVariationPlacement(oppositePlacement)];
+}
+
+function flip(_ref) {
+  var state = _ref.state,
+      options = _ref.options,
+      name = _ref.name;
+
+  if (state.modifiersData[name]._skip) {
+    return;
+  }
+
+  var _options$mainAxis = options.mainAxis,
+      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
+      _options$altAxis = options.altAxis,
+      checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis,
+      specifiedFallbackPlacements = options.fallbackPlacements,
+      padding = options.padding,
+      boundary = options.boundary,
+      rootBoundary = options.rootBoundary,
+      altBoundary = options.altBoundary,
+      _options$flipVariatio = options.flipVariations,
+      flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
+      allowedAutoPlacements = options.allowedAutoPlacements;
+  var preferredPlacement = state.options.placement;
+  var basePlacement = getBasePlacement(preferredPlacement);
+  var isBasePlacement = basePlacement === preferredPlacement;
+  var fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipVariations ? [getOppositePlacement(preferredPlacement)] : getExpandedFallbackPlacements(preferredPlacement));
+  var placements = [preferredPlacement].concat(fallbackPlacements).reduce(function (acc, placement) {
+    return acc.concat(getBasePlacement(placement) === enums_auto ? computeAutoPlacement(state, {
+      placement: placement,
+      boundary: boundary,
+      rootBoundary: rootBoundary,
+      padding: padding,
+      flipVariations: flipVariations,
+      allowedAutoPlacements: allowedAutoPlacements
+    }) : placement);
+  }, []);
+  var referenceRect = state.rects.reference;
+  var popperRect = state.rects.popper;
+  var checksMap = new Map();
+  var makeFallbackChecks = true;
+  var firstFittingPlacement = placements[0];
+
+  for (var i = 0; i < placements.length; i++) {
+    var placement = placements[i];
+
+    var _basePlacement = getBasePlacement(placement);
+
+    var isStartVariation = getVariation(placement) === start;
+    var isVertical = [enums_top, bottom].indexOf(_basePlacement) >= 0;
+    var len = isVertical ? 'width' : 'height';
+    var overflow = detectOverflow(state, {
+      placement: placement,
+      boundary: boundary,
+      rootBoundary: rootBoundary,
+      altBoundary: altBoundary,
+      padding: padding
+    });
+    var mainVariationSide = isVertical ? isStartVariation ? right : left : isStartVariation ? bottom : enums_top;
+
+    if (referenceRect[len] > popperRect[len]) {
+      mainVariationSide = getOppositePlacement(mainVariationSide);
+    }
+
+    var altVariationSide = getOppositePlacement(mainVariationSide);
+    var checks = [];
+
+    if (checkMainAxis) {
+      checks.push(overflow[_basePlacement] <= 0);
+    }
+
+    if (checkAltAxis) {
+      checks.push(overflow[mainVariationSide] <= 0, overflow[altVariationSide] <= 0);
+    }
+
+    if (checks.every(function (check) {
+      return check;
+    })) {
+      firstFittingPlacement = placement;
+      makeFallbackChecks = false;
+      break;
+    }
+
+    checksMap.set(placement, checks);
+  }
+
+  if (makeFallbackChecks) {
+    // `2` may be desired in some cases – research later
+    var numberOfChecks = flipVariations ? 3 : 1;
+
+    var _loop = function _loop(_i) {
+      var fittingPlacement = placements.find(function (placement) {
+        var checks = checksMap.get(placement);
+
+        if (checks) {
+          return checks.slice(0, _i).every(function (check) {
+            return check;
+          });
+        }
+      });
+
+      if (fittingPlacement) {
+        firstFittingPlacement = fittingPlacement;
+        return "break";
+      }
+    };
+
+    for (var _i = numberOfChecks; _i > 0; _i--) {
+      var _ret = _loop(_i);
+
+      if (_ret === "break") break;
+    }
+  }
+
+  if (state.placement !== firstFittingPlacement) {
+    state.modifiersData[name]._skip = true;
+    state.placement = firstFittingPlacement;
+    state.reset = true;
+  }
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var modifiers_flip = ({
+  name: 'flip',
+  enabled: true,
+  phase: 'main',
+  fn: flip,
+  requiresIfExists: ['offset'],
+  data: {
+    _skip: false
+  }
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getAltAxis.js
+function getAltAxis(axis) {
+  return axis === 'x' ? 'y' : 'x';
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/within.js
+function within(min, value, max) {
+  return Math.max(min, Math.min(value, max));
+}
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/preventOverflow.js
+
+
+
+
+
+
+
+
+
+
+
+function preventOverflow(_ref) {
+  var state = _ref.state,
+      options = _ref.options,
+      name = _ref.name;
+  var _options$mainAxis = options.mainAxis,
+      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
+      _options$altAxis = options.altAxis,
+      checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis,
+      boundary = options.boundary,
+      rootBoundary = options.rootBoundary,
+      altBoundary = options.altBoundary,
+      padding = options.padding,
+      _options$tether = options.tether,
+      tether = _options$tether === void 0 ? true : _options$tether,
+      _options$tetherOffset = options.tetherOffset,
+      tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
+  var overflow = detectOverflow(state, {
+    boundary: boundary,
+    rootBoundary: rootBoundary,
+    padding: padding,
+    altBoundary: altBoundary
+  });
+  var basePlacement = getBasePlacement(state.placement);
+  var variation = getVariation(state.placement);
+  var isBasePlacement = !variation;
+  var mainAxis = getMainAxisFromPlacement(basePlacement);
+  var altAxis = getAltAxis(mainAxis);
+  var popperOffsets = state.modifiersData.popperOffsets;
+  var referenceRect = state.rects.reference;
+  var popperRect = state.rects.popper;
+  var tetherOffsetValue = typeof tetherOffset === 'function' ? tetherOffset(Object.assign(Object.assign({}, state.rects), {}, {
+    placement: state.placement
+  })) : tetherOffset;
+  var data = {
+    x: 0,
+    y: 0
+  };
+
+  if (!popperOffsets) {
+    return;
+  }
+
+  if (checkMainAxis) {
+    var mainSide = mainAxis === 'y' ? enums_top : left;
+    var altSide = mainAxis === 'y' ? bottom : right;
+    var len = mainAxis === 'y' ? 'height' : 'width';
+    var offset = popperOffsets[mainAxis];
+    var min = popperOffsets[mainAxis] + overflow[mainSide];
+    var max = popperOffsets[mainAxis] - overflow[altSide];
+    var additive = tether ? -popperRect[len] / 2 : 0;
+    var minLen = variation === start ? referenceRect[len] : popperRect[len];
+    var maxLen = variation === start ? -popperRect[len] : -referenceRect[len]; // We need to include the arrow in the calculation so the arrow doesn't go
+    // outside the reference bounds
+
+    var arrowElement = state.elements.arrow;
+    var arrowRect = tether && arrowElement ? getLayoutRect(arrowElement) : {
+      width: 0,
+      height: 0
+    };
+    var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : getFreshSideObject();
+    var arrowPaddingMin = arrowPaddingObject[mainSide];
+    var arrowPaddingMax = arrowPaddingObject[altSide]; // If the reference length is smaller than the arrow length, we don't want
+    // to include its full size in the calculation. If the reference is small
+    // and near the edge of a boundary, the popper can overflow even if the
+    // reference is not overflowing as well (e.g. virtual elements with no
+    // width or height)
+
+    var arrowLen = within(0, referenceRect[len], arrowRect[len]);
+    var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - tetherOffsetValue : minLen - arrowLen - arrowPaddingMin - tetherOffsetValue;
+    var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + tetherOffsetValue : maxLen + arrowLen + arrowPaddingMax + tetherOffsetValue;
+    var arrowOffsetParent = state.elements.arrow && getOffsetParent(state.elements.arrow);
+    var clientOffset = arrowOffsetParent ? mainAxis === 'y' ? arrowOffsetParent.clientTop || 0 : arrowOffsetParent.clientLeft || 0 : 0;
+    var offsetModifierValue = state.modifiersData.offset ? state.modifiersData.offset[state.placement][mainAxis] : 0;
+    var tetherMin = popperOffsets[mainAxis] + minOffset - offsetModifierValue - clientOffset;
+    var tetherMax = popperOffsets[mainAxis] + maxOffset - offsetModifierValue;
+    var preventedOffset = within(tether ? Math.min(min, tetherMin) : min, offset, tether ? Math.max(max, tetherMax) : max);
+    popperOffsets[mainAxis] = preventedOffset;
+    data[mainAxis] = preventedOffset - offset;
+  }
+
+  if (checkAltAxis) {
+    var _mainSide = mainAxis === 'x' ? enums_top : left;
+
+    var _altSide = mainAxis === 'x' ? bottom : right;
+
+    var _offset = popperOffsets[altAxis];
+
+    var _min = _offset + overflow[_mainSide];
+
+    var _max = _offset - overflow[_altSide];
+
+    var _preventedOffset = within(_min, _offset, _max);
+
+    popperOffsets[altAxis] = _preventedOffset;
+    data[altAxis] = _preventedOffset - _offset;
+  }
+
+  state.modifiersData[name] = data;
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var modifiers_preventOverflow = ({
+  name: 'preventOverflow',
+  enabled: true,
+  phase: 'main',
+  fn: preventOverflow,
+  requiresIfExists: ['offset']
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/arrow.js
+
+
+
+
+
+
+
+
+
+ // eslint-disable-next-line import/no-unused-modules
+
+function arrow(_ref) {
+  var _state$modifiersData$;
+
+  var state = _ref.state,
+      name = _ref.name;
+  var arrowElement = state.elements.arrow;
+  var popperOffsets = state.modifiersData.popperOffsets;
+  var basePlacement = getBasePlacement(state.placement);
+  var axis = getMainAxisFromPlacement(basePlacement);
+  var isVertical = [left, right].indexOf(basePlacement) >= 0;
+  var len = isVertical ? 'height' : 'width';
+
+  if (!arrowElement || !popperOffsets) {
+    return;
+  }
+
+  var paddingObject = state.modifiersData[name + "#persistent"].padding;
+  var arrowRect = getLayoutRect(arrowElement);
+  var minProp = axis === 'y' ? enums_top : left;
+  var maxProp = axis === 'y' ? bottom : right;
+  var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets[axis] - state.rects.popper[len];
+  var startDiff = popperOffsets[axis] - state.rects.reference[axis];
+  var arrowOffsetParent = getOffsetParent(arrowElement);
+  var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
+  var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
+  // outside of the popper bounds
+
+  var min = paddingObject[minProp];
+  var max = clientSize - arrowRect[len] - paddingObject[maxProp];
+  var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
+  var offset = within(min, center, max); // Prevents breaking syntax highlighting...
+
+  var axisProp = axis;
+  state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProp] = offset, _state$modifiersData$.centerOffset = offset - center, _state$modifiersData$);
+}
+
+function arrow_effect(_ref2) {
+  var state = _ref2.state,
+      options = _ref2.options,
+      name = _ref2.name;
+  var _options$element = options.element,
+      arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element,
+      _options$padding = options.padding,
+      padding = _options$padding === void 0 ? 0 : _options$padding;
+
+  if (arrowElement == null) {
+    return;
+  } // CSS selector
+
+
+  if (typeof arrowElement === 'string') {
+    arrowElement = state.elements.popper.querySelector(arrowElement);
+
+    if (!arrowElement) {
+      return;
+    }
+  }
+
+  if (false) {}
+
+  if (!contains_contains(state.elements.popper, arrowElement)) {
+    if (false) {}
+
+    return;
+  }
+
+  state.elements.arrow = arrowElement;
+  state.modifiersData[name + "#persistent"] = {
+    padding: mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements))
+  };
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var modifiers_arrow = ({
+  name: 'arrow',
+  enabled: true,
+  phase: 'main',
+  fn: arrow,
+  effect: arrow_effect,
+  requires: ['popperOffsets'],
+  requiresIfExists: ['preventOverflow']
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/hide.js
+
+
+
+function getSideOffsets(overflow, rect, preventedOffsets) {
+  if (preventedOffsets === void 0) {
+    preventedOffsets = {
+      x: 0,
+      y: 0
+    };
+  }
+
+  return {
+    top: overflow.top - rect.height - preventedOffsets.y,
+    right: overflow.right - rect.width + preventedOffsets.x,
+    bottom: overflow.bottom - rect.height + preventedOffsets.y,
+    left: overflow.left - rect.width - preventedOffsets.x
+  };
+}
+
+function isAnySideFullyClipped(overflow) {
+  return [enums_top, right, bottom, left].some(function (side) {
+    return overflow[side] >= 0;
+  });
+}
+
+function hide(_ref) {
+  var state = _ref.state,
+      name = _ref.name;
+  var referenceRect = state.rects.reference;
+  var popperRect = state.rects.popper;
+  var preventedOffsets = state.modifiersData.preventOverflow;
+  var referenceOverflow = detectOverflow(state, {
+    elementContext: 'reference'
+  });
+  var popperAltOverflow = detectOverflow(state, {
+    altBoundary: true
+  });
+  var referenceClippingOffsets = getSideOffsets(referenceOverflow, referenceRect);
+  var popperEscapeOffsets = getSideOffsets(popperAltOverflow, popperRect, preventedOffsets);
+  var isReferenceHidden = isAnySideFullyClipped(referenceClippingOffsets);
+  var hasPopperEscaped = isAnySideFullyClipped(popperEscapeOffsets);
+  state.modifiersData[name] = {
+    referenceClippingOffsets: referenceClippingOffsets,
+    popperEscapeOffsets: popperEscapeOffsets,
+    isReferenceHidden: isReferenceHidden,
+    hasPopperEscaped: hasPopperEscaped
+  };
+  state.attributes.popper = Object.assign(Object.assign({}, state.attributes.popper), {}, {
+    'data-popper-reference-hidden': isReferenceHidden,
+    'data-popper-escaped': hasPopperEscaped
+  });
+} // eslint-disable-next-line import/no-unused-modules
+
+
+/* harmony default export */ var modifiers_hide = ({
+  name: 'hide',
+  enabled: true,
+  phase: 'main',
+  requiresIfExists: ['preventOverflow'],
+  fn: hide
+});
+;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/popper.js
+
+
+
+
+
+
+
+
+
+
+var defaultModifiers = [eventListeners, modifiers_popperOffsets, modifiers_computeStyles, modifiers_applyStyles, modifiers_offset, modifiers_flip, modifiers_preventOverflow, modifiers_arrow, modifiers_hide];
+var popper_createPopper = /*#__PURE__*/popperGenerator({
+  defaultModifiers: defaultModifiers
+}); // eslint-disable-next-line import/no-unused-modules
+
+ // eslint-disable-next-line import/no-unused-modules
+
+ // eslint-disable-next-line import/no-unused-modules
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Disclosure/DisclosureState.js
+
+
+
+
+
+
+
+
+function useLastValue(value) {
+  var lastValue = (0,external_React_.useRef)(null);
+  useIsomorphicEffect(function () {
+    lastValue.current = value;
+  }, [value]);
+  return lastValue;
+}
+
+function useDisclosureState(initialState) {
+  if (initialState === void 0) {
+    initialState = {};
+  }
+
+  var _useSealedState = useSealedState(initialState),
+      _useSealedState$visib = _useSealedState.visible,
+      initialVisible = _useSealedState$visib === void 0 ? false : _useSealedState$visib,
+      _useSealedState$anima = _useSealedState.animated,
+      initialAnimated = _useSealedState$anima === void 0 ? false : _useSealedState$anima,
+      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["visible", "animated"]);
+
+  var id = unstable_useIdState(sealed);
+
+  var _React$useState = (0,external_React_.useState)(initialVisible),
+      visible = _React$useState[0],
+      setVisible = _React$useState[1];
+
+  var _React$useState2 = (0,external_React_.useState)(initialAnimated),
+      animated = _React$useState2[0],
+      setAnimated = _React$useState2[1];
+
+  var _React$useState3 = (0,external_React_.useState)(false),
+      animating = _React$useState3[0],
+      setAnimating = _React$useState3[1];
+
+  var lastVisible = useLastValue(visible);
+  var visibleHasChanged = lastVisible.current != null && lastVisible.current !== visible;
+
+  if (animated && !animating && visibleHasChanged) {
+    // Sets animating to true when when visible is updated
+    setAnimating(true);
+  }
+
+  (0,external_React_.useEffect)(function () {
+    if (typeof animated === "number" && animating) {
+      var timeout = setTimeout(function () {
+        return setAnimating(false);
+      }, animated);
+      return function () {
+        clearTimeout(timeout);
+      };
+    }
+
+    if (animated && animating && "production" === "development") {
+      var _timeout = setTimeout(function () {
+         false ? 0 : void 0;
+      }, 8000);
+
+      return function () {
+        clearTimeout(_timeout);
+      };
+    }
+
+    return function () {};
+  }, [animated, animating]);
+  var show = (0,external_React_.useCallback)(function () {
+    return setVisible(true);
+  }, []);
+  var hide = (0,external_React_.useCallback)(function () {
+    return setVisible(false);
+  }, []);
+  var toggle = (0,external_React_.useCallback)(function () {
+    return setVisible(function (v) {
+      return !v;
+    });
+  }, []);
+  var stopAnimation = (0,external_React_.useCallback)(function () {
+    return setAnimating(false);
+  }, []);
+  return _objectSpread2(_objectSpread2({}, id), {}, {
+    visible: visible,
+    animated: animated,
+    animating: animating,
+    show: show,
+    hide: hide,
+    toggle: toggle,
+    setVisible: setVisible,
+    setAnimated: setAnimated,
+    stopAnimation: stopAnimation
+  });
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Dialog/DialogState.js
+
+
+
+
+
+
+
+
+
+function useDialogState(initialState) {
+  if (initialState === void 0) {
+    initialState = {};
+  }
+
+  var _useSealedState = useSealedState(initialState),
+      _useSealedState$modal = _useSealedState.modal,
+      initialModal = _useSealedState$modal === void 0 ? true : _useSealedState$modal,
+      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["modal"]);
+
+  var disclosure = useDisclosureState(sealed);
+
+  var _React$useState = (0,external_React_.useState)(initialModal),
+      modal = _React$useState[0],
+      setModal = _React$useState[1];
+
+  var disclosureRef = (0,external_React_.useRef)(null);
+  return _objectSpread2(_objectSpread2({}, disclosure), {}, {
+    modal: modal,
+    setModal: setModal,
+    unstable_disclosureRef: disclosureRef
+  });
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Popover/PopoverState.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+var isSafari = isUA("Mac") && !isUA("Chrome") && isUA("Safari");
+
+function PopoverState_applyStyles(styles) {
+  return function (prevStyles) {
+    if (styles && !shallowEqual(prevStyles, styles)) {
+      return styles;
+    }
+
+    return prevStyles;
+  };
+}
+
+function usePopoverState(initialState) {
+  if (initialState === void 0) {
+    initialState = {};
+  }
+
+  var _useSealedState = useSealedState(initialState),
+      _useSealedState$gutte = _useSealedState.gutter,
+      gutter = _useSealedState$gutte === void 0 ? 12 : _useSealedState$gutte,
+      _useSealedState$place = _useSealedState.placement,
+      sealedPlacement = _useSealedState$place === void 0 ? "bottom" : _useSealedState$place,
+      _useSealedState$unsta = _useSealedState.unstable_flip,
+      flip = _useSealedState$unsta === void 0 ? true : _useSealedState$unsta,
+      sealedOffset = _useSealedState.unstable_offset,
+      _useSealedState$unsta2 = _useSealedState.unstable_preventOverflow,
+      preventOverflow = _useSealedState$unsta2 === void 0 ? true : _useSealedState$unsta2,
+      _useSealedState$unsta3 = _useSealedState.unstable_fixed,
+      fixed = _useSealedState$unsta3 === void 0 ? false : _useSealedState$unsta3,
+      _useSealedState$modal = _useSealedState.modal,
+      modal = _useSealedState$modal === void 0 ? false : _useSealedState$modal,
+      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["gutter", "placement", "unstable_flip", "unstable_offset", "unstable_preventOverflow", "unstable_fixed", "modal"]);
+
+  var popper = (0,external_React_.useRef)(null);
+  var referenceRef = (0,external_React_.useRef)(null);
+  var popoverRef = (0,external_React_.useRef)(null);
+  var arrowRef = (0,external_React_.useRef)(null);
+
+  var _React$useState = (0,external_React_.useState)(sealedPlacement),
+      originalPlacement = _React$useState[0],
+      place = _React$useState[1];
+
+  var _React$useState2 = (0,external_React_.useState)(sealedPlacement),
+      placement = _React$useState2[0],
+      setPlacement = _React$useState2[1];
+
+  var _React$useState3 = (0,external_React_.useState)(sealedOffset || [0, gutter]),
+      offset = _React$useState3[0];
+
+  var _React$useState4 = (0,external_React_.useState)({
+    position: "fixed",
+    left: "100%",
+    top: "100%"
+  }),
+      popoverStyles = _React$useState4[0],
+      setPopoverStyles = _React$useState4[1];
+
+  var _React$useState5 = (0,external_React_.useState)({}),
+      arrowStyles = _React$useState5[0],
+      setArrowStyles = _React$useState5[1];
+
+  var dialog = useDialogState(_objectSpread2({
+    modal: modal
+  }, sealed));
+  var update = (0,external_React_.useCallback)(function () {
+    if (popper.current) {
+      popper.current.forceUpdate();
+      return true;
+    }
+
+    return false;
+  }, []);
+  var updateState = (0,external_React_.useCallback)(function (state) {
+    if (state.placement) {
+      setPlacement(state.placement);
+    }
+
+    if (state.styles) {
+      setPopoverStyles(PopoverState_applyStyles(state.styles.popper));
+
+      if (arrowRef.current) {
+        setArrowStyles(PopoverState_applyStyles(state.styles.arrow));
+      }
+    }
+  }, []);
+  useIsomorphicEffect(function () {
+    if (referenceRef.current && popoverRef.current) {
+      popper.current = popper_createPopper(referenceRef.current, popoverRef.current, {
+        // https://popper.js.org/docs/v2/constructors/#options
+        placement: originalPlacement,
+        strategy: fixed ? "fixed" : "absolute",
+        // Safari needs styles to be applied in the first render, otherwise
+        // hovering over the popover when it gets visible for the first time
+        // will change its dimensions unexpectedly.
+        onFirstUpdate: isSafari ? updateState : undefined,
+        modifiers: [{
+          // https://popper.js.org/docs/v2/modifiers/event-listeners/
+          name: "eventListeners",
+          enabled: dialog.visible
+        }, {
+          // https://popper.js.org/docs/v2/modifiers/apply-styles/
+          name: "applyStyles",
+          enabled: false
+        }, {
+          // https://popper.js.org/docs/v2/modifiers/flip/
+          name: "flip",
+          enabled: flip,
+          options: {
+            padding: 8
+          }
+        }, {
+          // https://popper.js.org/docs/v2/modifiers/offset/
+          name: "offset",
+          options: {
+            offset: offset
+          }
+        }, {
+          // https://popper.js.org/docs/v2/modifiers/prevent-overflow/
+          name: "preventOverflow",
+          enabled: preventOverflow,
+          options: {
+            tetherOffset: function tetherOffset() {
+              var _arrowRef$current;
+
+              return ((_arrowRef$current = arrowRef.current) === null || _arrowRef$current === void 0 ? void 0 : _arrowRef$current.clientWidth) || 0;
+            }
+          }
+        }, {
+          // https://popper.js.org/docs/v2/modifiers/arrow/
+          name: "arrow",
+          enabled: !!arrowRef.current,
+          options: {
+            element: arrowRef.current
+          }
+        }, {
+          // https://popper.js.org/docs/v2/modifiers/#custom-modifiers
+          name: "updateState",
+          phase: "write",
+          requires: ["computeStyles"],
+          enabled: dialog.visible && "production" !== "test",
+          fn: function fn(_ref) {
+            var state = _ref.state;
+            return updateState(state);
+          }
+        }]
+      });
+    }
+
+    return function () {
+      if (popper.current) {
+        popper.current.destroy();
+        popper.current = null;
+      }
+    };
+  }, [originalPlacement, fixed, dialog.visible, flip, offset, preventOverflow]); // Ensure that the popover will be correctly positioned with an additional
+  // update.
+
+  (0,external_React_.useEffect)(function () {
+    if (!dialog.visible) return undefined;
+    var id = window.requestAnimationFrame(function () {
+      var _popper$current;
+
+      (_popper$current = popper.current) === null || _popper$current === void 0 ? void 0 : _popper$current.forceUpdate();
+    });
+    return function () {
+      window.cancelAnimationFrame(id);
+    };
+  }, [dialog.visible]);
+  return _objectSpread2(_objectSpread2({}, dialog), {}, {
+    unstable_referenceRef: referenceRef,
+    unstable_popoverRef: popoverRef,
+    unstable_arrowRef: arrowRef,
+    unstable_popoverStyles: popoverStyles,
+    unstable_arrowStyles: arrowStyles,
+    unstable_update: update,
+    unstable_originalPlacement: originalPlacement,
+    placement: placement,
+    place: place
+  });
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/__globalState-300469f0.js
+var globalState = {
+  currentTooltipId: null,
+  listeners: new Set(),
+  subscribe: function subscribe(listener) {
+    var _this = this;
+
+    this.listeners.add(listener);
+    return function () {
+      _this.listeners.delete(listener);
+    };
+  },
+  show: function show(id) {
+    this.currentTooltipId = id;
+    this.listeners.forEach(function (listener) {
+      return listener(id);
+    });
+  },
+  hide: function hide(id) {
+    if (this.currentTooltipId === id) {
+      this.currentTooltipId = null;
+      this.listeners.forEach(function (listener) {
+        return listener(null);
+      });
+    }
+  }
+};
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Tooltip/TooltipState.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function useTooltipState(initialState) {
+  if (initialState === void 0) {
+    initialState = {};
+  }
+
+  var _useSealedState = useSealedState(initialState),
+      _useSealedState$place = _useSealedState.placement,
+      placement = _useSealedState$place === void 0 ? "top" : _useSealedState$place,
+      _useSealedState$unsta = _useSealedState.unstable_timeout,
+      initialTimeout = _useSealedState$unsta === void 0 ? 0 : _useSealedState$unsta,
+      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["placement", "unstable_timeout"]);
+
+  var _React$useState = (0,external_React_.useState)(initialTimeout),
+      timeout = _React$useState[0],
+      setTimeout = _React$useState[1];
+
+  var showTimeout = (0,external_React_.useRef)(null);
+  var hideTimeout = (0,external_React_.useRef)(null);
+
+  var _usePopoverState = usePopoverState(_objectSpread2(_objectSpread2({}, sealed), {}, {
+    placement: placement
+  })),
+      modal = _usePopoverState.modal,
+      setModal = _usePopoverState.setModal,
+      popover = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_usePopoverState, ["modal", "setModal"]);
+
+  var clearTimeouts = (0,external_React_.useCallback)(function () {
+    if (showTimeout.current !== null) {
+      window.clearTimeout(showTimeout.current);
+    }
+
+    if (hideTimeout.current !== null) {
+      window.clearTimeout(hideTimeout.current);
+    }
+  }, []);
+  var hide = (0,external_React_.useCallback)(function () {
+    clearTimeouts();
+    popover.hide(); // Let's give some time so people can move from a reference to another
+    // and still show tooltips immediately
+
+    hideTimeout.current = window.setTimeout(function () {
+      globalState.hide(popover.baseId);
+    }, timeout);
+  }, [clearTimeouts, popover.hide, timeout, popover.baseId]);
+  var show = (0,external_React_.useCallback)(function () {
+    clearTimeouts();
+
+    if (!timeout || globalState.currentTooltipId) {
+      // If there's no timeout or a tooltip visible already, we can show this
+      // immediately
+      globalState.show(popover.baseId);
+      popover.show();
+    } else {
+      // There may be a reference with focus whose tooltip is still not visible
+      // In this case, we want to update it before it gets shown.
+      globalState.show(null); // Otherwise, wait a little bit to show the tooltip
+
+      showTimeout.current = window.setTimeout(function () {
+        globalState.show(popover.baseId);
+        popover.show();
+      }, timeout);
+    }
+  }, [clearTimeouts, timeout, popover.show, popover.baseId]);
+  (0,external_React_.useEffect)(function () {
+    return globalState.subscribe(function (id) {
+      if (id !== popover.baseId) {
+        clearTimeouts();
+
+        if (popover.visible) {
+          // Make sure there will be only one tooltip visible
+          popover.hide();
+        }
+      }
+    });
+  }, [popover.baseId, clearTimeouts, popover.visible, popover.hide]);
+  (0,external_React_.useEffect)(function () {
+    return function () {
+      clearTimeouts();
+      globalState.hide(popover.baseId);
+    };
+  }, [clearTimeouts, popover.baseId]);
+  return _objectSpread2(_objectSpread2({}, popover), {}, {
+    hide: hide,
+    show: show,
+    unstable_timeout: timeout,
+    unstable_setTimeout: setTimeout
+  });
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-d101cb3b.js
+// Automatically generated
+var TOOLTIP_STATE_KEYS = ["baseId", "unstable_idCountRef", "visible", "animated", "animating", "setBaseId", "show", "hide", "toggle", "setVisible", "setAnimated", "stopAnimation", "unstable_disclosureRef", "unstable_referenceRef", "unstable_popoverRef", "unstable_arrowRef", "unstable_popoverStyles", "unstable_arrowStyles", "unstable_originalPlacement", "unstable_update", "placement", "place", "unstable_timeout", "unstable_setTimeout"];
+var TOOLTIP_KEYS = [].concat(TOOLTIP_STATE_KEYS, ["unstable_portal"]);
+var TOOLTIP_ARROW_KEYS = TOOLTIP_STATE_KEYS;
+var TOOLTIP_REFERENCE_KEYS = TOOLTIP_ARROW_KEYS;
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Tooltip/TooltipReference.js
+
+
+
+
+
+
+
+
+
+
+var useTooltipReference = createHook({
+  name: "TooltipReference",
+  compose: useRole,
+  keys: TOOLTIP_REFERENCE_KEYS,
+  useProps: function useProps(options, _ref) {
+    var htmlRef = _ref.ref,
+        htmlOnFocus = _ref.onFocus,
+        htmlOnBlur = _ref.onBlur,
+        htmlOnMouseEnter = _ref.onMouseEnter,
+        htmlOnMouseLeave = _ref.onMouseLeave,
+        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["ref", "onFocus", "onBlur", "onMouseEnter", "onMouseLeave"]);
+
+    var onFocusRef = useLiveRef(htmlOnFocus);
+    var onBlurRef = useLiveRef(htmlOnBlur);
+    var onMouseEnterRef = useLiveRef(htmlOnMouseEnter);
+    var onMouseLeaveRef = useLiveRef(htmlOnMouseLeave);
+    var onFocus = (0,external_React_.useCallback)(function (event) {
+      var _onFocusRef$current, _options$show;
+
+      (_onFocusRef$current = onFocusRef.current) === null || _onFocusRef$current === void 0 ? void 0 : _onFocusRef$current.call(onFocusRef, event);
+      if (event.defaultPrevented) return;
+      (_options$show = options.show) === null || _options$show === void 0 ? void 0 : _options$show.call(options);
+    }, [options.show]);
+    var onBlur = (0,external_React_.useCallback)(function (event) {
+      var _onBlurRef$current, _options$hide;
+
+      (_onBlurRef$current = onBlurRef.current) === null || _onBlurRef$current === void 0 ? void 0 : _onBlurRef$current.call(onBlurRef, event);
+      if (event.defaultPrevented) return;
+      (_options$hide = options.hide) === null || _options$hide === void 0 ? void 0 : _options$hide.call(options);
+    }, [options.hide]);
+    var onMouseEnter = (0,external_React_.useCallback)(function (event) {
+      var _onMouseEnterRef$curr, _options$show2;
+
+      (_onMouseEnterRef$curr = onMouseEnterRef.current) === null || _onMouseEnterRef$curr === void 0 ? void 0 : _onMouseEnterRef$curr.call(onMouseEnterRef, event);
+      if (event.defaultPrevented) return;
+      (_options$show2 = options.show) === null || _options$show2 === void 0 ? void 0 : _options$show2.call(options);
+    }, [options.show]);
+    var onMouseLeave = (0,external_React_.useCallback)(function (event) {
+      var _onMouseLeaveRef$curr, _options$hide2;
+
+      (_onMouseLeaveRef$curr = onMouseLeaveRef.current) === null || _onMouseLeaveRef$curr === void 0 ? void 0 : _onMouseLeaveRef$curr.call(onMouseLeaveRef, event);
+      if (event.defaultPrevented) return;
+      (_options$hide2 = options.hide) === null || _options$hide2 === void 0 ? void 0 : _options$hide2.call(options);
+    }, [options.hide]);
+    return _objectSpread2({
+      ref: useForkRef(options.unstable_referenceRef, htmlRef),
+      tabIndex: 0,
+      onFocus: onFocus,
+      onBlur: onBlur,
+      onMouseEnter: onMouseEnter,
+      onMouseLeave: onMouseLeave,
+      "aria-describedby": options.baseId
+    }, htmlProps);
+  }
+});
+var TooltipReference = createComponent({
+  as: "div",
+  useHook: useTooltipReference
+});
+
+
+
+;// CONCATENATED MODULE: ./packages/components/build-module/ui/tooltip/context.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * @type {import('react').Context<{ tooltip?: import('reakit').TooltipState }>}
+ */
+
+const TooltipContext = (0,external_wp_element_namespaceObject.createContext)({});
+const useTooltipContext = () => (0,external_wp_element_namespaceObject.useContext)(TooltipContext);
+//# sourceMappingURL=context.js.map
+;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-e6a5cfbe.js
+// Automatically generated
+var DISCLOSURE_STATE_KEYS = ["baseId", "unstable_idCountRef", "visible", "animated", "animating", "setBaseId", "show", "hide", "toggle", "setVisible", "setAnimated", "stopAnimation"];
+var DISCLOSURE_KEYS = DISCLOSURE_STATE_KEYS;
+var DISCLOSURE_CONTENT_KEYS = DISCLOSURE_KEYS;
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Disclosure/DisclosureContent.js
+
+
+
+
+
+
+
+
+
+
+var useDisclosureContent = createHook({
+  name: "DisclosureContent",
+  compose: useRole,
+  keys: DISCLOSURE_CONTENT_KEYS,
+  useProps: function useProps(options, _ref) {
+    var htmlOnTransitionEnd = _ref.onTransitionEnd,
+        htmlOnAnimationEnd = _ref.onAnimationEnd,
+        htmlStyle = _ref.style,
+        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["onTransitionEnd", "onAnimationEnd", "style"]);
+
+    var animating = options.animated && options.animating;
+
+    var _React$useState = (0,external_React_.useState)(null),
+        transition = _React$useState[0],
+        setTransition = _React$useState[1];
+
+    var hidden = !options.visible && !animating;
+    var style = hidden ? _objectSpread2({
+      display: "none"
+    }, htmlStyle) : htmlStyle;
+    var onTransitionEndRef = useLiveRef(htmlOnTransitionEnd);
+    var onAnimationEndRef = useLiveRef(htmlOnAnimationEnd);
+    var raf = (0,external_React_.useRef)(0);
+    (0,external_React_.useEffect)(function () {
+      if (!options.animated) return undefined; // Double RAF is needed so the browser has enough time to paint the
+      // default styles before processing the `data-enter` attribute. Otherwise
+      // it wouldn't be considered a transition.
+      // See https://github.com/reakit/reakit/issues/643
+
+      raf.current = window.requestAnimationFrame(function () {
+        raf.current = window.requestAnimationFrame(function () {
+          if (options.visible) {
+            setTransition("enter");
+          } else if (animating) {
+            setTransition("leave");
+          } else {
+            setTransition(null);
+          }
+        });
+      });
+      return function () {
+        return window.cancelAnimationFrame(raf.current);
+      };
+    }, [options.animated, options.visible, animating]);
+    var onEnd = (0,external_React_.useCallback)(function (event) {
+      if (!isSelfTarget(event)) return;
+      if (!animating) return; // Ignores number animated
+
+      if (options.animated === true) {
+        var _options$stopAnimatio;
+
+        (_options$stopAnimatio = options.stopAnimation) === null || _options$stopAnimatio === void 0 ? void 0 : _options$stopAnimatio.call(options);
+      }
+    }, [options.animated, animating, options.stopAnimation]);
+    var onTransitionEnd = (0,external_React_.useCallback)(function (event) {
+      var _onTransitionEndRef$c;
+
+      (_onTransitionEndRef$c = onTransitionEndRef.current) === null || _onTransitionEndRef$c === void 0 ? void 0 : _onTransitionEndRef$c.call(onTransitionEndRef, event);
+      onEnd(event);
+    }, [onEnd]);
+    var onAnimationEnd = (0,external_React_.useCallback)(function (event) {
+      var _onAnimationEndRef$cu;
+
+      (_onAnimationEndRef$cu = onAnimationEndRef.current) === null || _onAnimationEndRef$cu === void 0 ? void 0 : _onAnimationEndRef$cu.call(onAnimationEndRef, event);
+      onEnd(event);
+    }, [onEnd]);
+    return _objectSpread2({
+      id: options.baseId,
+      "data-enter": transition === "enter" ? "" : undefined,
+      "data-leave": transition === "leave" ? "" : undefined,
+      onTransitionEnd: onTransitionEnd,
+      onAnimationEnd: onAnimationEnd,
+      hidden: hidden,
+      style: style
+    }, htmlProps);
+  }
+});
+var DisclosureContent = createComponent({
+  as: "div",
+  useHook: useDisclosureContent
+});
+
+
+
+;// CONCATENATED MODULE: external "ReactDOM"
+var external_ReactDOM_namespaceObject = window["ReactDOM"];
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Portal/Portal.js
+
+
+
+
+
+function getBodyElement() {
+  return canUseDOM ? document.body : null;
+}
+
+var PortalContext = /*#__PURE__*/(0,external_React_.createContext)(getBodyElement());
+function Portal(_ref) {
+  var children = _ref.children;
+  // if it's a nested portal, context is the parent portal
+  // otherwise it's document.body
+  // https://github.com/reakit/reakit/issues/513
+  var context = (0,external_React_.useContext)(PortalContext) || getBodyElement();
+
+  var _React$useState = (0,external_React_.useState)(function () {
+    if (canUseDOM) {
+      var element = document.createElement("div");
+      element.className = Portal.__className;
+      return element;
+    } // ssr
+
+
+    return null;
+  }),
+      hostNode = _React$useState[0];
+
+  useIsomorphicEffect(function () {
+    if (!hostNode || !context) return undefined;
+    context.appendChild(hostNode);
+    return function () {
+      context.removeChild(hostNode);
+    };
+  }, [hostNode, context]);
+
+  if (hostNode) {
+    return /*#__PURE__*/(0,external_ReactDOM_namespaceObject.createPortal)( /*#__PURE__*/(0,external_React_.createElement)(PortalContext.Provider, {
+      value: hostNode
+    }, children), hostNode);
+  } // ssr
+
+
+  return null;
+}
+Portal.__className = "__reakit-portal";
+Portal.__selector = "." + Portal.__className;
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Tooltip/Tooltip.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function globallyHideTooltipOnEscape(event) {
+  if (event.defaultPrevented) return;
+
+  if (event.key === "Escape") {
+    globalState.show(null);
+  }
+}
+
+var useTooltip = createHook({
+  name: "Tooltip",
+  compose: useDisclosureContent,
+  keys: TOOLTIP_KEYS,
+  useOptions: function useOptions(_ref) {
+    var _ref$unstable_portal = _ref.unstable_portal,
+        unstable_portal = _ref$unstable_portal === void 0 ? true : _ref$unstable_portal,
+        options = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["unstable_portal"]);
+
+    return _objectSpread2({
+      unstable_portal: unstable_portal
+    }, options);
+  },
+  useProps: function useProps(options, _ref2) {
+    var htmlRef = _ref2.ref,
+        htmlStyle = _ref2.style,
+        htmlWrapElement = _ref2.wrapElement,
+        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref2, ["ref", "style", "wrapElement"]);
+
+    (0,external_React_.useEffect)(function () {
+      var _options$unstable_pop;
+
+      var document = getDocument((_options$unstable_pop = options.unstable_popoverRef) === null || _options$unstable_pop === void 0 ? void 0 : _options$unstable_pop.current);
+      document.addEventListener("keydown", globallyHideTooltipOnEscape);
+    }, []);
+    var wrapElement = (0,external_React_.useCallback)(function (element) {
+      if (options.unstable_portal) {
+        element = /*#__PURE__*/(0,external_React_.createElement)(Portal, null, element);
+      }
+
+      if (htmlWrapElement) {
+        return htmlWrapElement(element);
+      }
+
+      return element;
+    }, [options.unstable_portal, htmlWrapElement]);
+    return _objectSpread2({
+      ref: useForkRef(options.unstable_popoverRef, htmlRef),
+      role: "tooltip",
+      style: _objectSpread2(_objectSpread2({}, options.unstable_popoverStyles), {}, {
+        pointerEvents: "none"
+      }, htmlStyle),
+      wrapElement: wrapElement
+    }, htmlProps);
+  }
+});
+var Tooltip_Tooltip = createComponent({
+  as: "div",
+  memo: true,
+  useHook: useTooltip
+});
+
+
+
+;// CONCATENATED MODULE: ./packages/components/build-module/ui/shortcut/component.js
+
 
 
 /**
- * Parts of this source were derived and modified from react-color,
- * released under the MIT license.
- *
- * https://github.com/casesandberg/react-color/
- *
- * Copyright (c) 2015 Case Sandberg
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * External dependencies
  */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function component_Shortcut(props, forwardedRef) {
+  const {
+    as: asProp = 'span',
+    shortcut,
+    className,
+    ...otherProps
+  } = useContextSystem(props, 'Shortcut');
+
+  if (!shortcut) {
+    return null;
+  }
+
+  let displayText;
+  let ariaLabel;
+
+  if (typeof shortcut === 'string') {
+    displayText = shortcut;
+  } else {
+    displayText = shortcut.display;
+    ariaLabel = shortcut.ariaLabel;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
+    as: asProp,
+    className: className,
+    "aria-label": ariaLabel,
+    ref: forwardedRef
+  }, otherProps), displayText);
+}
+
+const ConnectedShortcut = contextConnect(component_Shortcut, 'Shortcut');
+/* harmony default export */ var shortcut_component = (ConnectedShortcut);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/utils/z-index.js
+const Flyout = 10000;
+const z_index_Tooltip = 1000002;
+//# sourceMappingURL=z-index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/ui/tooltip/styles.js
+
+
+function tooltip_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+const TooltipContent = /*#__PURE__*/emotion_react_browser_esm_css("z-index:", z_index_Tooltip, ";box-sizing:border-box;opacity:0;outline:none;transform-origin:top center;transition:opacity ", config_values.transitionDurationFastest, " ease;&[data-enter]{opacity:1;}" + ( true ? "" : 0),  true ? "" : 0);
+const TooltipPopoverView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e7tfjmw1"
+} : 0)("background:rgba( 0, 0, 0, 0.8 );border-radius:2px;box-shadow:0 0 0 1px rgba( 255, 255, 255, 0.04 );color:", COLORS.white, ";padding:4px 8px;" + ( true ? "" : 0));
+const noOutline =  true ? {
+  name: "12mkfdx",
+  styles: "outline:none"
+} : 0;
+const TooltipShortcut = /*#__PURE__*/emotion_styled_base_browser_esm(shortcut_component,  true ? {
+  target: "e7tfjmw0"
+} : 0)("display:inline-block;margin-left:", space(1), ";" + ( true ? "" : 0));
+//# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/ui/tooltip/content.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+const {
+  TooltipPopoverView: content_TooltipPopoverView
+} = tooltip_styles_namespaceObject;
+/**
+ *
+ * @param {import('../context').WordPressComponentProps<import('./types').ContentProps, 'div'>} props
+ * @param {import('react').Ref<any>}                                                            forwardedRef
+ */
+
+function content_TooltipContent(props, forwardedRef) {
+  const {
+    children,
+    className,
+    ...otherProps
+  } = useContextSystem(props, 'TooltipContent');
+  const {
+    tooltip
+  } = useTooltipContext();
+  const cx = useCx();
+  const classes = cx(TooltipContent, className);
+  return (0,external_wp_element_namespaceObject.createElement)(Tooltip_Tooltip, extends_extends({
+    as: component
+  }, otherProps, tooltip, {
+    className: classes,
+    ref: forwardedRef
+  }), (0,external_wp_element_namespaceObject.createElement)(content_TooltipPopoverView, null, children));
+}
+
+/* harmony default export */ var tooltip_content = (contextConnect(content_TooltipContent, 'TooltipContent'));
+//# sourceMappingURL=content.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/ui/tooltip/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+/**
+ * @param {import('../context').WordPressComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('react').Ref<any>}                                                     forwardedRef
+ */
+
+function component_Tooltip(props, forwardedRef) {
+  const {
+    animated = true,
+    animationDuration = 160,
+    baseId,
+    children,
+    content,
+    focusable = true,
+    gutter = 4,
+    id,
+    modal = true,
+    placement,
+    visible = false,
+    shortcut,
+    ...otherProps
+  } = useContextSystem(props, 'Tooltip');
+  const tooltip = useTooltipState({
+    animated: animated ? animationDuration : undefined,
+    baseId: baseId || id,
+    gutter,
+    placement,
+    visible,
+    ...otherProps
+  });
+  const contextProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    tooltip
+  }), [tooltip]);
+  return (0,external_wp_element_namespaceObject.createElement)(TooltipContext.Provider, {
+    value: contextProps
+  }, content && (0,external_wp_element_namespaceObject.createElement)(tooltip_content, {
+    unstable_portal: modal,
+    ref: forwardedRef
+  }, content, shortcut && (0,external_wp_element_namespaceObject.createElement)(TooltipShortcut, {
+    shortcut: shortcut
+  })), children && (0,external_wp_element_namespaceObject.createElement)(TooltipReference, extends_extends({}, tooltip, children.props, {
+    // @ts-ignore If ref doesn't exist that's fine with us, it'll just be undefined, but it can exist on ReactElement and there's no reason to try to scope this (it'll just overcomplicate things)
+    ref: children === null || children === void 0 ? void 0 : children.ref
+  }), referenceProps => {
+    if (!focusable) {
+      referenceProps.tabIndex = undefined;
+    }
+
+    return (0,external_wp_element_namespaceObject.cloneElement)(children, referenceProps);
+  }));
+}
+/**
+ * `Tooltip` is a component that provides context for a user interface element.
+ *
+ * @example
+ * ```jsx
+ * import { Tooltip, Text } from `@wordpress/components/ui`;
+ *
+ * function Example() {
+ * 	return (
+ * 		<Tooltip content="Code is Poetry">
+ * 			<Text>WordPress.org</Text>
+ * 		</Tooltip>
+ * 	)
+ * }
+ * ```
+ */
+
+
+const ConnectedTooltip = contextConnect(component_Tooltip, 'Tooltip');
+/* harmony default export */ var tooltip_component = (ConnectedTooltip);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/color-display.js
+
 
 /**
  * External dependencies
@@ -45790,6 +48636,156 @@ class Alpha extends external_wp_element_namespaceObject.Component {
 
 
 
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+const ValueDisplay = ({
+  values
+}) => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, values.map(([value, abbreviation]) => {
+  return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
+    key: abbreviation,
+    isBlock: true,
+    display: "flex"
+  }, (0,external_wp_element_namespaceObject.createElement)(text_component, {
+    color: "blue"
+  }, abbreviation), (0,external_wp_element_namespaceObject.createElement)(text_component, null, value));
+}));
+
+const HslDisplay = ({
+  color,
+  enableAlpha
+}) => {
+  const {
+    h,
+    s,
+    l,
+    a
+  } = color.toHsl();
+  const values = [[Math.floor(h), 'H'], [Math.round(s * 100), 'S'], [Math.round(l * 100), 'L']];
+
+  if (enableAlpha) {
+    values.push([Math.round(a * 100), 'A']);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(ValueDisplay, {
+    values: values
+  });
+};
+
+const RgbDisplay = ({
+  color,
+  enableAlpha
+}) => {
+  const {
+    r,
+    g,
+    b,
+    a
+  } = color.toRgb();
+  const values = [[r, 'R'], [g, 'G'], [b, 'B']];
+
+  if (enableAlpha) {
+    values.push([Math.round(a * 100), 'A']);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(ValueDisplay, {
+    values: values
+  });
+};
+
+const HexDisplay = ({
+  color
+}) => {
+  const colorWithoutHash = color.toHex().slice(1).toUpperCase();
+  return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(text_component, {
+    color: "blue"
+  }, "#"), (0,external_wp_element_namespaceObject.createElement)(text_component, null, colorWithoutHash));
+};
+
+const getComponent = colorType => {
+  switch (colorType) {
+    case 'hsl':
+      return HslDisplay;
+
+    case 'rgb':
+      return RgbDisplay;
+
+    default:
+    case 'hex':
+      return HexDisplay;
+  }
+};
+
+const ColorDisplay = ({
+  color,
+  colorType,
+  enableAlpha
+}) => {
+  const [copiedColor, setCopiedColor] = (0,external_wp_element_namespaceObject.useState)(null);
+  const copyTimer = (0,external_wp_element_namespaceObject.useRef)();
+  const props = {
+    color,
+    enableAlpha
+  };
+  const Component = getComponent(colorType);
+  const copyRef = (0,external_wp_compose_namespaceObject.useCopyToClipboard)(() => {
+    switch (colorType) {
+      case 'hsl':
+        {
+          return color.toHslString();
+        }
+
+      case 'rgb':
+        {
+          return color.toRgbString();
+        }
+
+      default:
+      case 'hex':
+        {
+          return color.toHex();
+        }
+    }
+  }, () => {
+    if (copyTimer.current) {
+      clearTimeout(copyTimer.current);
+    }
+
+    setCopiedColor(color.toHex());
+    copyTimer.current = setTimeout(() => {
+      setCopiedColor(null);
+      copyTimer.current = undefined;
+    }, 3000);
+  });
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // clear copyTimer on component unmount.
+    return () => {
+      if (copyTimer.current) {
+        clearTimeout(copyTimer.current);
+      }
+    };
+  }, []);
+  return (0,external_wp_element_namespaceObject.createElement)(tooltip_component, {
+    content: (0,external_wp_element_namespaceObject.createElement)(text_component, {
+      color: "white"
+    }, copiedColor === color.toHex() ? (0,external_wp_i18n_namespaceObject.__)('Copied!') : (0,external_wp_i18n_namespaceObject.__)('Copy'))
+  }, (0,external_wp_element_namespaceObject.createElement)(flex_component, {
+    justify: "flex-start",
+    gap: space(1),
+    ref: copyRef,
+    style: {
+      height: 30
+    }
+  }, (0,external_wp_element_namespaceObject.createElement)(Component, props)));
+};
+//# sourceMappingURL=color-display.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/input-with-slider.js
 
 
 /**
@@ -45798,144 +48794,501 @@ class Alpha extends external_wp_element_namespaceObject.Component {
 
 
 
-class Hue extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.container = (0,external_wp_element_namespaceObject.createRef)();
-    this.increase = this.increase.bind(this);
-    this.decrease = this.decrease.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
 
-  componentWillUnmount() {
-    this.unbindEventListeners();
-  }
 
-  increase(amount = 1) {
-    const {
-      hsl,
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    const change = {
-      h: hsl.h + amount >= 359 ? 359 : hsl.h + amount,
-      s: hsl.s,
-      l: hsl.l,
-      a: hsl.a,
-      source: 'rgb'
-    };
-    onChange(change);
-  }
+const InputWithSlider = ({
+  min,
+  max,
+  label,
+  abbreviation,
+  onChange,
+  value
+}) => {
+  return (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
+    as: h_stack_component,
+    spacing: 4
+  }, (0,external_wp_element_namespaceObject.createElement)(NumberControlWrapper, {
+    min: min,
+    max: max,
+    label: label,
+    hideLabelFromVision: true,
+    value: value,
+    onChange: onChange,
+    prefix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
+      as: text_component,
+      paddingLeft: space(3.5),
+      color: "blue",
+      lineHeight: 1
+    }, abbreviation),
+    hideHTMLArrows: true
+  }), (0,external_wp_element_namespaceObject.createElement)(styles_RangeControl, {
+    label: label,
+    hideLabelFromVision: true,
+    min: min,
+    max: max,
+    value: value,
+    onChange: onChange,
+    withInputField: false
+  }));
+};
+//# sourceMappingURL=input-with-slider.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/rgb-input.js
 
-  decrease(amount = 1) {
-    const {
-      hsl,
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    const change = {
-      h: hsl.h <= amount ? 0 : hsl.h - amount,
-      s: hsl.s,
-      l: hsl.l,
-      a: hsl.a,
-      source: 'rgb'
-    };
-    onChange(change);
-  }
 
-  handleChange(e) {
-    const {
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    const change = calculateHueChange(e, this.props, this.container.current);
+/**
+ * External dependencies
+ */
 
-    if (change) {
-      onChange(change, e);
+/**
+ * Internal dependencies
+ */
+
+
+const RgbInput = ({
+  color,
+  onChange,
+  enableAlpha
+}) => {
+  const {
+    r,
+    g,
+    b,
+    a
+  } = color.toRgb();
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(InputWithSlider, {
+    min: 0,
+    max: 255,
+    label: "Red",
+    abbreviation: "R",
+    value: r,
+    onChange: nextR => onChange(w({
+      r: nextR,
+      g,
+      b,
+      a
+    }))
+  }), (0,external_wp_element_namespaceObject.createElement)(InputWithSlider, {
+    min: 0,
+    max: 255,
+    label: "Green",
+    abbreviation: "G",
+    value: g,
+    onChange: nextG => onChange(w({
+      r,
+      g: nextG,
+      b,
+      a
+    }))
+  }), (0,external_wp_element_namespaceObject.createElement)(InputWithSlider, {
+    min: 0,
+    max: 255,
+    label: "Blue",
+    abbreviation: "B",
+    value: b,
+    onChange: nextB => onChange(w({
+      r,
+      g,
+      b: nextB,
+      a
+    }))
+  }), enableAlpha && (0,external_wp_element_namespaceObject.createElement)(InputWithSlider, {
+    min: 0,
+    max: 100,
+    label: "Alpha",
+    abbreviation: "A",
+    value: Math.trunc(a * 100),
+    onChange: nextA => onChange(w({
+      r,
+      g,
+      b,
+      a: nextA / 100
+    }))
+  }));
+};
+//# sourceMappingURL=rgb-input.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/hsl-input.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+const HslInput = ({
+  color,
+  onChange,
+  enableAlpha
+}) => {
+  const {
+    h,
+    s,
+    l,
+    a
+  } = color.toHsl();
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(InputWithSlider, {
+    min: 0,
+    max: 359,
+    label: "Hue",
+    abbreviation: "H",
+    value: h,
+    onChange: nextH => {
+      onChange(w({
+        h: nextH,
+        s,
+        l,
+        a
+      }));
     }
-  }
-
-  handleMouseDown(e) {
-    this.handleChange(e);
-    window.addEventListener('mousemove', this.handleChange);
-    window.addEventListener('mouseup', this.handleMouseUp);
-  }
-
-  handleMouseUp() {
-    this.unbindEventListeners();
-  }
-
-  unbindEventListeners() {
-    window.removeEventListener('mousemove', this.handleChange);
-    window.removeEventListener('mouseup', this.handleMouseUp);
-  }
-
-  handleKeyDown(event) {
-    const {
-      keyCode,
-      shiftKey
-    } = event;
-    const shortcuts = {
-      [external_wp_keycodes_namespaceObject.UP]: () => this.increase(shiftKey ? 10 : 1),
-      [external_wp_keycodes_namespaceObject.RIGHT]: () => this.increase(shiftKey ? 10 : 1),
-      [external_wp_keycodes_namespaceObject.PAGEUP]: () => this.increase(10),
-      [external_wp_keycodes_namespaceObject.END]: () => this.increase(359),
-      [external_wp_keycodes_namespaceObject.DOWN]: () => this.decrease(shiftKey ? 10 : 1),
-      [external_wp_keycodes_namespaceObject.LEFT]: () => this.decrease(shiftKey ? 10 : 1),
-      [external_wp_keycodes_namespaceObject.PAGEDOWN]: () => this.decrease(10),
-      [external_wp_keycodes_namespaceObject.HOME]: () => this.decrease(359)
-    };
-
-    for (const code in shortcuts) {
-      if (code === String(keyCode)) {
-        shortcuts[keyCode]();
-      }
+  }), (0,external_wp_element_namespaceObject.createElement)(InputWithSlider, {
+    min: 0,
+    max: 100,
+    label: "Saturation",
+    abbreviation: "S",
+    value: s,
+    onChange: nextS => {
+      onChange(w({
+        h,
+        s: nextS,
+        l,
+        a
+      }));
     }
-
-    if (keyCode !== external_wp_keycodes_namespaceObject.TAB) {
-      event.preventDefault();
+  }), (0,external_wp_element_namespaceObject.createElement)(InputWithSlider, {
+    min: 0,
+    max: 100,
+    label: "Lightness",
+    abbreviation: "L",
+    value: l,
+    onChange: nextL => {
+      onChange(w({
+        h,
+        s,
+        l: nextL,
+        a
+      }));
     }
-  }
+  }), enableAlpha && (0,external_wp_element_namespaceObject.createElement)(InputWithSlider, {
+    min: 0,
+    max: 100,
+    label: "Alpha",
+    abbreviation: "A",
+    value: Math.trunc(100 * a),
+    onChange: nextA => {
+      onChange(w({
+        h,
+        s,
+        l,
+        a: nextA / 100
+      }));
+    }
+  }));
+};
+//# sourceMappingURL=hsl-input.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/hex-input.js
 
-  render() {
-    const {
-      hsl = {},
-      instanceId
-    } = this.props;
-    const pointerLocation = {
-      left: `${hsl.h * 100 / 360}%`
-    };
-    return (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__hue"
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__hue-gradient"
-    }), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__hue-bar",
-      ref: this.container,
-      onMouseDown: this.handleMouseDown,
-      onTouchMove: this.handleChange,
-      onTouchStart: this.handleChange
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      tabIndex: "0",
-      role: "slider",
-      "aria-valuemax": "1",
-      "aria-valuemin": "359",
-      "aria-valuenow": hsl.h,
-      "aria-orientation": "horizontal",
-      "aria-label": (0,external_wp_i18n_namespaceObject.__)('Hue value in degrees, from 0 to 359.'),
-      "aria-describedby": `components-color-picker__hue-description-${instanceId}`,
-      className: "components-color-picker__hue-pointer",
-      style: pointerLocation,
-      onKeyDown: this.handleKeyDown
-    }), (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
-      as: "p",
-      id: `components-color-picker__hue-description-${instanceId}`
-    }, (0,external_wp_i18n_namespaceObject.__)('Move the arrow left or right to change hue.'))));
-  }
 
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+const HexInput = ({
+  color,
+  onChange,
+  enableAlpha
+}) => {
+  const handleValidate = value => {
+    if (!w('#' + value).isValid()) {
+      throw new Error('Invalid hex color input');
+    }
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(ColorHexInputControl, {
+    prefix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
+      as: text_component,
+      marginLeft: space(3.5),
+      color: "blue",
+      lineHeight: 1
+    }, "#"),
+    value: color.toHex().slice(1).toUpperCase(),
+    onChange: nextValue => {
+      onChange(w('#' + nextValue));
+    },
+    onValidate: handleValidate,
+    maxLength: enableAlpha ? 8 : 6,
+    label: (0,external_wp_i18n_namespaceObject.__)('Hex color'),
+    hideLabelFromVision: true
+  });
+};
+//# sourceMappingURL=hex-input.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/color-input.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const ColorInput = ({
+  colorType,
+  color,
+  onChange,
+  enableAlpha
+}) => {
+  const props = {
+    color,
+    onChange,
+    enableAlpha
+  };
+
+  switch (colorType) {
+    case 'hsl':
+      return (0,external_wp_element_namespaceObject.createElement)(HslInput, props);
+
+    case 'rgb':
+      return (0,external_wp_element_namespaceObject.createElement)(RgbInput, props);
+
+    default:
+    case 'hex':
+      return (0,external_wp_element_namespaceObject.createElement)(HexInput, props);
+  }
+};
+//# sourceMappingURL=color-input.js.map
+;// CONCATENATED MODULE: ./node_modules/react-colorful/dist/index.module.js
+function index_module_u(){return(index_module_u=Object.assign||function(e){for(var r=1;r<arguments.length;r++){var t=arguments[r];for(var o in t)Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o])}return e}).apply(this,arguments)}function index_module_c(e,r){if(null==e)return{};var t,o,n={},a=Object.keys(e);for(o=0;o<a.length;o++)r.indexOf(t=a[o])>=0||(n[t]=e[t]);return n}function index_module_s(e){var t=(0,external_React_.useRef)(e),o=(0,external_React_.useRef)(function(e){t.current&&t.current(e)});return t.current=e,o.current}var index_module_i=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=1),e>t?t:e<r?r:e},index_module_f=function(e){return"touches"in e},index_module_v=function(e,r){var t=e.getBoundingClientRect(),o=index_module_f(r)?r.touches[0]:r;return{left:index_module_i((o.pageX-(t.left+window.pageXOffset))/t.width),top:index_module_i((o.pageY-(t.top+window.pageYOffset))/t.height)}},index_module_d=function(e){!index_module_f(e)&&e.preventDefault()},index_module_h=external_React_default().memo(function(n){var a=n.onMove,l=n.onKey,i=index_module_c(n,["onMove","onKey"]),h=(0,external_React_.useRef)(null),m=index_module_s(a),g=index_module_s(l),p=(0,external_React_.useRef)(!1),b=(0,external_React_.useMemo)(function(){var e=function(e){index_module_d(e),(index_module_f(e)?e.touches.length>0:e.buttons>0)&&h.current?m(index_module_v(h.current,e)):t(!1)},r=function(){return t(!1)};function t(t){var o=p.current,n=t?self.addEventListener:self.removeEventListener;n(o?"touchmove":"mousemove",e),n(o?"touchend":"mouseup",r)}return[function(e){var r=e.nativeEvent,o=h.current;o&&(index_module_d(r),!function(e,r){return r&&!index_module_f(e)}(r,p.current)&&o&&(p.current=index_module_f(r),o.focus(),m(index_module_v(o,r)),t(!0)))},function(e){var r=e.which||e.keyCode;r<37||r>40||(e.preventDefault(),g({left:39===r?.05:37===r?-.05:0,top:40===r?.05:38===r?-.05:0}))},t]},[g,m]),_=b[0],C=b[1],x=b[2];return (0,external_React_.useEffect)(function(){return x},[x]),external_React_default().createElement("div",index_module_u({},i,{onTouchStart:_,onMouseDown:_,className:"react-colorful__interactive",ref:h,onKeyDown:C,tabIndex:0,role:"slider"}))}),index_module_m=function(e){return e.filter(Boolean).join(" ")},index_module_g=function(r){var t=r.color,o=r.left,n=r.top,a=void 0===n?.5:n,l=index_module_m(["react-colorful__pointer",r.className]);return external_React_default().createElement("div",{className:l,style:{top:100*a+"%",left:100*o+"%"}},external_React_default().createElement("div",{className:"react-colorful__pointer-fill",style:{backgroundColor:t}}))},index_module_p=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=Math.pow(10,r)),Math.round(t*e)/t},index_module_b={grad:.9,turn:360,rad:360/(2*Math.PI)},_=function(e){return"#"===e[0]&&(e=e.substr(1)),e.length<6?{r:parseInt(e[0]+e[0],16),g:parseInt(e[1]+e[1],16),b:parseInt(e[2]+e[2],16),a:1}:{r:parseInt(e.substr(0,2),16),g:parseInt(e.substr(2,2),16),b:parseInt(e.substr(4,2),16),a:1}},C=function(e,r){return void 0===r&&(r="deg"),Number(e)*(index_module_b[r]||1)},index_module_x=function(e){var r=/hsla?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?index_module_H({h:C(r[1],r[2]),s:Number(r[3]),l:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_E=index_module_x,index_module_H=function(e){var r=e.s,t=e.l;return{h:e.h,s:(r*=(t<50?t:100-t)/100)>0?2*r/(t+r)*100:0,v:t+r,a:e.a}},index_module_M=function(e){var r=e.s,t=e.v,o=e.a,n=(200-r)*t/100;return{h:index_module_p(e.h),s:index_module_p(n>0&&n<200?r*t/100/(n<=100?n:200-n)*100:0),l:index_module_p(n/2),a:index_module_p(o,2)}},index_module_N=function(e){var r=index_module_M(e);return"hsl("+r.h+", "+r.s+"%, "+r.l+"%)"},index_module_w=function(e){var r=index_module_M(e);return"hsla("+r.h+", "+r.s+"%, "+r.l+"%, "+r.a+")"},index_module_y=function(e){var r=e.h,t=e.s,o=e.v,n=e.a;r=r/360*6,t/=100,o/=100;var a=Math.floor(r),l=o*(1-t),u=o*(1-(r-a)*t),c=o*(1-(1-r+a)*t),s=a%6;return{r:index_module_p(255*[o,u,l,l,c,o][s]),g:index_module_p(255*[c,o,o,u,l,l][s]),b:index_module_p(255*[l,l,c,o,o,u][s]),a:index_module_p(n,2)}},q=function(e){var r=/hsva?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?B({h:C(r[1],r[2]),s:Number(r[3]),v:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_k=q,O=function(e){var r=/rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?z({r:Number(r[1])/(r[2]?100/255:1),g:Number(r[3])/(r[4]?100/255:1),b:Number(r[5])/(r[6]?100/255:1),a:void 0===r[7]?1:Number(r[7])/(r[8]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_I=O,index_module_j=function(e){var r=e.toString(16);return r.length<2?"0"+r:r},z=function(e){var r=e.r,t=e.g,o=e.b,n=e.a,a=Math.max(r,t,o),l=a-Math.min(r,t,o),u=l?a===r?(t-o)/l:a===t?2+(o-r)/l:4+(r-t)/l:0;return{h:index_module_p(60*(u<0?u+6:u)),s:index_module_p(a?l/a*100:0),v:index_module_p(a/255*100),a:n}},B=function(e){return{h:index_module_p(e.h),s:index_module_p(e.s),v:index_module_p(e.v),a:index_module_p(e.a,2)}},K=external_React_default().memo(function(r){var t=r.hue,o=r.onChange,n=index_module_m(["react-colorful__hue",r.className]);return external_React_default().createElement("div",{className:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({h:360*e.left})},onKey:function(e){o({h:index_module_i(t+360*e.left,0,360)})},"aria-label":"Hue","aria-valuetext":index_module_p(t)},external_React_default().createElement(index_module_g,{className:"react-colorful__hue-pointer",left:t/360,color:index_module_N({h:t,s:100,v:100,a:1})})))}),A=external_React_default().memo(function(r){var t=r.hsva,o=r.onChange,n={backgroundColor:index_module_N({h:t.h,s:100,v:100,a:1})};return external_React_default().createElement("div",{className:"react-colorful__saturation",style:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({s:100*e.left,v:100-100*e.top})},onKey:function(e){o({s:index_module_i(t.s+100*e.left,0,100),v:index_module_i(t.v-100*e.top,0,100)})},"aria-label":"Color","aria-valuetext":"Saturation "+index_module_p(t.s)+"%, Brightness "+index_module_p(t.v)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__saturation-pointer",top:1-t.v/100,left:t.s/100,color:index_module_N(t)})))}),L=function(e,r){if(e===r)return!0;for(var t in e)if(e[t]!==r[t])return!1;return!0},D=function(e,r){return e.replace(/\s/g,"")===r.replace(/\s/g,"")};function F(e,t,l){var u=index_module_s(l),c=(0,external_React_.useState)(function(){return e.toHsva(t)}),i=c[0],f=c[1],v=(0,external_React_.useRef)({color:t,hsva:i});(0,external_React_.useEffect)(function(){if(!e.equal(t,v.current.color)){var r=e.toHsva(t);v.current={hsva:r,color:t},f(r)}},[t,e]),(0,external_React_.useEffect)(function(){var r;L(i,v.current.hsva)||e.equal(r=e.fromHsva(i),v.current.color)||(v.current={hsva:i,color:r},u(r))},[i,e,u]);var d=(0,external_React_.useCallback)(function(e){f(function(r){return Object.assign({},r,e)})},[]);return[i,d]}var index_module_S,P,T="undefined"!=typeof window?external_React_.useLayoutEffect:external_React_.useEffect,X=function(){return index_module_S||( true?__webpack_require__.nc:0)},Y=function(e){index_module_S=e},index_module_$=function(){T(function(){if("undefined"!=typeof document&&!P){(P=document.createElement("style")).innerHTML='.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url(\'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>\')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}';var e=X();e&&P.setAttribute("nonce",e),document.head.appendChild(P)}},[])},R=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v,className:"react-colorful__last-control"}))},G={defaultColor:"000",toHsva:function(e){return z(_(e))},fromHsva:function(e){return t=(r=index_module_y(e)).g,o=r.b,"#"+index_module_j(r.r)+index_module_j(t)+index_module_j(o);var r,t,o},equal:function(e,r){return e.toLowerCase()===r.toLowerCase()||L(_(e),_(r))}},J=function(r){return e.createElement(R,index_module_u({},r,{colorModel:G}))},Q=function(r){var t=r.className,o=r.hsva,n=r.onChange,a={backgroundImage:"linear-gradient(90deg, "+index_module_w(Object.assign({},o,{a:0}))+", "+index_module_w(Object.assign({},o,{a:1}))+")"},l=index_module_m(["react-colorful__alpha",t]);return external_React_default().createElement("div",{className:l},external_React_default().createElement("div",{className:"react-colorful__alpha-gradient",style:a}),external_React_default().createElement(index_module_h,{onMove:function(e){n({a:e.left})},onKey:function(e){n({a:index_module_i(o.a+e.left)})},"aria-label":"Alpha","aria-valuetext":index_module_p(100*o.a)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__alpha-pointer",left:o.a,color:index_module_w(o)})))},U=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v}),external_React_default().createElement(Q,{hsva:f,onChange:v,className:"react-colorful__last-control"}))},V={defaultColor:{h:0,s:0,l:0,a:1},toHsva:index_module_H,fromHsva:index_module_M,equal:L},W=function(r){return e.createElement(U,index_module_u({},r,{colorModel:V}))},Z={defaultColor:"hsla(0, 0%, 0%, 1)",toHsva:index_module_x,fromHsva:index_module_w,equal:D},ee=function(r){return e.createElement(U,index_module_u({},r,{colorModel:Z}))},re={defaultColor:{h:0,s:0,l:0},toHsva:function(e){return index_module_H({h:e.h,s:e.s,l:e.l,a:1})},fromHsva:function(e){return{h:(r=index_module_M(e)).h,s:r.s,l:r.l};var r},equal:L},te=function(r){return e.createElement(R,index_module_u({},r,{colorModel:re}))},oe={defaultColor:"hsl(0, 0%, 0%)",toHsva:index_module_E,fromHsva:index_module_N,equal:D},ne=function(r){return e.createElement(R,index_module_u({},r,{colorModel:oe}))},ae={defaultColor:{h:0,s:0,v:0,a:1},toHsva:function(e){return e},fromHsva:B,equal:L},le=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ae}))},ue={defaultColor:"hsva(0, 0%, 0%, 1)",toHsva:q,fromHsva:function(e){var r=B(e);return"hsva("+r.h+", "+r.s+"%, "+r.v+"%, "+r.a+")"},equal:D},ce=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ue}))},se={defaultColor:{h:0,s:0,v:0},toHsva:function(e){return{h:e.h,s:e.s,v:e.v,a:1}},fromHsva:function(e){var r=B(e);return{h:r.h,s:r.s,v:r.v}},equal:L},ie=function(r){return e.createElement(R,index_module_u({},r,{colorModel:se}))},fe={defaultColor:"hsv(0, 0%, 0%)",toHsva:index_module_k,fromHsva:function(e){var r=B(e);return"hsv("+r.h+", "+r.s+"%, "+r.v+"%)"},equal:D},ve=function(r){return e.createElement(R,index_module_u({},r,{colorModel:fe}))},de={defaultColor:{r:0,g:0,b:0,a:1},toHsva:z,fromHsva:index_module_y,equal:L},he=function(r){return e.createElement(U,index_module_u({},r,{colorModel:de}))},me={defaultColor:"rgba(0, 0, 0, 1)",toHsva:O,fromHsva:function(e){var r=index_module_y(e);return"rgba("+r.r+", "+r.g+", "+r.b+", "+r.a+")"},equal:D},ge=function(r){return external_React_default().createElement(U,index_module_u({},r,{colorModel:me}))},pe={defaultColor:{r:0,g:0,b:0},toHsva:function(e){return z({r:e.r,g:e.g,b:e.b,a:1})},fromHsva:function(e){return{r:(r=index_module_y(e)).r,g:r.g,b:r.b};var r},equal:L},be=function(r){return e.createElement(R,index_module_u({},r,{colorModel:pe}))},_e={defaultColor:"rgb(0, 0, 0)",toHsva:index_module_I,fromHsva:function(e){var r=index_module_y(e);return"rgb("+r.r+", "+r.g+", "+r.b+")"},equal:D},Ce=function(r){return external_React_default().createElement(R,index_module_u({},r,{colorModel:_e}))},xe=/^#?[0-9A-F]{3}$/i,Ee=/^#?[0-9A-F]{6}$/i,He=function(e){return Ee.test(e)||xe.test(e)},Me=function(e){return e.replace(/([^0-9A-F]+)/gi,"").substr(0,6)},Ne=function(r){var t=r.color,l=void 0===t?"":t,i=r.onChange,f=r.onBlur,v=r.prefixed,d=index_module_c(r,["color","onChange","onBlur","prefixed"]),h=n(function(){return Me(l)}),m=h[0],g=h[1],p=index_module_s(i),b=index_module_s(f),_=a(function(e){var r=Me(e.target.value);g(r),He(r)&&p("#"+r)},[p]),C=a(function(e){He(e.target.value)||g(Me(l)),b(e)},[l,b]);return o(function(){g(Me(l))},[l]),e.createElement("input",index_module_u({},d,{value:(v?"#":"")+m,spellCheck:"false",onChange:_,onBlur:C}))};
+//# sourceMappingURL=index.module.js.map
+
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/picker.js
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+const Picker = ({
+  color,
+  enableAlpha,
+  onChange
+}) => {
+  const Component = enableAlpha ? ge : Ce;
+  const rgbColor = (0,external_wp_element_namespaceObject.useMemo)(() => color.toRgbString(), [color]);
+  return (0,external_wp_element_namespaceObject.createElement)(Component, {
+    color: rgbColor,
+    onChange: nextColor => {
+      onChange(w(nextColor));
+    }
+  });
+};
+//# sourceMappingURL=picker.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+k([names]);
+const options = [{
+  label: 'RGB',
+  value: 'rgb'
+}, {
+  label: 'HSL',
+  value: 'hsl'
+}, {
+  label: 'Hex',
+  value: 'hex'
+}];
+
+const ColorPicker = (props, forwardedRef) => {
+  const {
+    enableAlpha = false,
+    color,
+    onChange,
+    defaultValue = '#fff',
+    copyFormat,
+    ...divProps
+  } = useContextSystem(props, 'ColorPicker'); // Use a safe default value for the color and remove the possibility of `undefined`.
+
+  const safeColordColor = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return color ? w(color) : w(defaultValue);
+  }, [color, defaultValue]);
+  const handleChange = (0,external_React_.useCallback)(nextValue => {
+    onChange(nextValue.toHex());
+  }, [onChange]);
+  const [showInputs, setShowInputs] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [colorType, setColorType] = (0,external_wp_element_namespaceObject.useState)(copyFormat || 'hex');
+  return (0,external_wp_element_namespaceObject.createElement)(ColorfulWrapper, extends_extends({
+    ref: forwardedRef
+  }, divProps), (0,external_wp_element_namespaceObject.createElement)(Picker, {
+    onChange: handleChange,
+    color: safeColordColor,
+    enableAlpha: enableAlpha
+  }), (0,external_wp_element_namespaceObject.createElement)(AuxiliaryColorArtefactWrapper, null, (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
+    justify: "space-between"
+  }, showInputs ? (0,external_wp_element_namespaceObject.createElement)(styles_SelectControl, {
+    options: options,
+    value: colorType,
+    onChange: nextColorType => setColorType(nextColorType),
+    label: (0,external_wp_i18n_namespaceObject.__)('Color format'),
+    hideLabelFromVision: true
+  }) : (0,external_wp_element_namespaceObject.createElement)(ColorDisplay, {
+    color: safeColordColor,
+    colorType: copyFormat || colorType,
+    enableAlpha: enableAlpha
+  }), (0,external_wp_element_namespaceObject.createElement)(DetailsControlButton, {
+    isSmall: true,
+    onClick: () => setShowInputs(!showInputs),
+    icon: library_settings,
+    isPressed: showInputs,
+    label: showInputs ? (0,external_wp_i18n_namespaceObject.__)('Hide detailed inputs') : (0,external_wp_i18n_namespaceObject.__)('Show detailed inputs')
+  })), (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
+    margin: 4
+  }), showInputs && (0,external_wp_element_namespaceObject.createElement)(ColorInput, {
+    colorType: colorType,
+    color: safeColordColor,
+    onChange: handleChange,
+    enableAlpha: enableAlpha
+  })));
+};
+
+const ConnectedColorPicker = contextConnect(ColorPicker, 'ColorPicker');
+/* harmony default export */ var color_picker_component = (ConnectedColorPicker);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/use-deprecated-props.js
+/**
+ * External dependencies
+ */
+ // eslint-disable-next-line no-restricted-imports
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+function isLegacyProps(props) {
+  var _props$color;
+
+  return typeof props.onChangeComplete !== 'undefined' || typeof props.disableAlpha !== 'undefined' || typeof ((_props$color = props.color) === null || _props$color === void 0 ? void 0 : _props$color.hex) === 'string';
 }
-/* harmony default export */ var hue = ((0,external_wp_compose_namespaceObject.compose)(external_wp_compose_namespaceObject.pure, external_wp_compose_namespaceObject.withInstanceId)(Hue));
-//# sourceMappingURL=hue.js.map
+
+function getColorFromLegacyProps(props) {
+  if (typeof (props === null || props === void 0 ? void 0 : props.color) === 'undefined') {
+    return undefined;
+  }
+
+  if (typeof props.color === 'string') {
+    return props.color;
+  }
+
+  if (props.color.hex) {
+    return props.color.hex;
+  }
+}
+
+const transformColorStringToLegacyColor = memize_default()(color => {
+  const colordColor = w(color);
+  const hex = colordColor.toHex();
+  const rgb = colordColor.toRgb();
+  const hsv = colordColor.toHsv();
+  const hsl = colordColor.toHsl();
+  return {
+    hex,
+    rgb,
+    hsv,
+    hsl,
+    source: 'hex',
+    oldHue: hsl.h
+  };
+});
+function use_deprecated_props_useDeprecatedProps(props) {
+  const onChange = (0,external_wp_element_namespaceObject.useCallback)(color => {
+    var _props$onChange;
+
+    if (isLegacyProps(props)) {
+      return props.onChangeComplete(transformColorStringToLegacyColor(color));
+    }
+
+    return (_props$onChange = props.onChange) === null || _props$onChange === void 0 ? void 0 : _props$onChange.call(props, color);
+  }, [props.onChangeComplete, props.onChange]);
+  const color = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return isLegacyProps(props) ? getColorFromLegacyProps(props) : props.color;
+  }, [props.color]);
+  const enableAlpha = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return isLegacyProps(props) ? !props.disableAlpha : props.enableAlpha;
+  }, [props.disableAlpha, props.enableAlpha]);
+  return { ...(isLegacyProps(props) ? {} : props),
+    onChange,
+    color,
+    enableAlpha
+  };
+}
+//# sourceMappingURL=use-deprecated-props.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/legacy-adapter.js
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const LegacyAdapter = props => {
+  return (0,external_wp_element_namespaceObject.createElement)(color_picker_component, use_deprecated_props_useDeprecatedProps(props));
+};
+//# sourceMappingURL=legacy-adapter.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/text-control/index.js
 
 
@@ -46004,788 +49357,6 @@ function TextControl({
 }
 
 /* harmony default export */ var text_control = ((0,external_wp_element_namespaceObject.forwardRef)(TextControl));
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/inputs.js
-
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-/* Wrapper for TextControl, only used to handle intermediate state while typing. */
-
-class inputs_Input extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
-
-  handleBlur() {
-    const {
-      value,
-      valueKey,
-      onChange,
-      source
-    } = this.props;
-    onChange({
-      source,
-      state: 'commit',
-      value,
-      valueKey
-    });
-  }
-
-  handleChange(value) {
-    const {
-      valueKey,
-      onChange,
-      source
-    } = this.props;
-
-    if (value.length > 4 && isValidHex(value)) {
-      onChange({
-        source,
-        state: 'commit',
-        value,
-        valueKey
-      });
-    } else {
-      onChange({
-        source,
-        state: 'draft',
-        value,
-        valueKey
-      });
-    }
-  }
-
-  handleKeyDown({
-    keyCode
-  }) {
-    if (keyCode !== external_wp_keycodes_namespaceObject.ENTER && keyCode !== external_wp_keycodes_namespaceObject.UP && keyCode !== external_wp_keycodes_namespaceObject.DOWN) {
-      return;
-    }
-
-    const {
-      value,
-      valueKey,
-      onChange,
-      source
-    } = this.props;
-    onChange({
-      source,
-      state: 'commit',
-      value,
-      valueKey
-    });
-  }
-
-  render() {
-    const {
-      label,
-      value,
-      ...props
-    } = this.props;
-    return (0,external_wp_element_namespaceObject.createElement)(text_control, extends_extends({
-      className: "components-color-picker__inputs-field",
-      label: label,
-      value: value,
-      onChange: newValue => this.handleChange(newValue),
-      onBlur: this.handleBlur,
-      onKeyDown: this.handleKeyDown
-    }, (0,external_lodash_namespaceObject.omit)(props, ['onChange', 'valueKey', 'source'])));
-  }
-
-}
-const PureButton = (0,external_wp_compose_namespaceObject.pure)(build_module_button);
-class Inputs extends external_wp_element_namespaceObject.Component {
-  constructor({
-    hsl
-  }) {
-    super(...arguments);
-    const view = hsl.a === 1 ? 'hex' : 'rgb';
-    this.state = {
-      view
-    };
-    this.toggleViews = this.toggleViews.bind(this);
-    this.resetDraftValues = this.resetDraftValues.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.normalizeValue = this.normalizeValue.bind(this);
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.hsl.a !== 1 && state.view === 'hex') {
-      return {
-        view: 'rgb'
-      };
-    }
-
-    return null;
-  }
-
-  toggleViews() {
-    if (this.state.view === 'hex') {
-      this.setState({
-        view: 'rgb'
-      }, this.resetDraftValues);
-      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('RGB mode active'));
-    } else if (this.state.view === 'rgb') {
-      this.setState({
-        view: 'hsl'
-      }, this.resetDraftValues);
-      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Hue/saturation/lightness mode active'));
-    } else if (this.state.view === 'hsl') {
-      if (this.props.hsl.a === 1) {
-        this.setState({
-          view: 'hex'
-        }, this.resetDraftValues);
-        (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Hex color mode active'));
-      } else {
-        this.setState({
-          view: 'rgb'
-        }, this.resetDraftValues);
-        (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('RGB mode active'));
-      }
-    }
-  }
-
-  resetDraftValues() {
-    return this.props.onChange({
-      state: 'reset'
-    });
-  }
-
-  normalizeValue(valueKey, value) {
-    if (valueKey !== 'a') {
-      return value;
-    }
-
-    if (value < 0) {
-      return 0;
-    } else if (value > 1) {
-      return 1;
-    }
-
-    return Math.round(value * 100) / 100;
-  }
-
-  handleChange({
-    source,
-    state,
-    value,
-    valueKey
-  }) {
-    this.props.onChange({
-      source,
-      state,
-      valueKey,
-      value: this.normalizeValue(valueKey, value)
-    });
-  }
-
-  renderFields() {
-    const {
-      disableAlpha = false
-    } = this.props;
-
-    if (this.state.view === 'hex') {
-      return (0,external_wp_element_namespaceObject.createElement)("div", {
-        className: "components-color-picker__inputs-fields"
-      }, (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: (0,external_wp_i18n_namespaceObject.__)('Color value in hexadecimal'),
-        valueKey: "hex",
-        value: this.props.hex,
-        onChange: this.handleChange
-      }));
-    } else if (this.state.view === 'rgb') {
-      const legend = disableAlpha ? (0,external_wp_i18n_namespaceObject.__)('Color value in RGB') : (0,external_wp_i18n_namespaceObject.__)('Color value in RGBA');
-      return (0,external_wp_element_namespaceObject.createElement)("fieldset", null, (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
-        as: "legend"
-      }, legend), (0,external_wp_element_namespaceObject.createElement)("div", {
-        className: "components-color-picker__inputs-fields"
-      }, (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: "r",
-        valueKey: "r",
-        value: this.props.rgb.r,
-        onChange: this.handleChange,
-        type: "number",
-        min: "0",
-        max: "255"
-      }), (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: "g",
-        valueKey: "g",
-        value: this.props.rgb.g,
-        onChange: this.handleChange,
-        type: "number",
-        min: "0",
-        max: "255"
-      }), (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: "b",
-        valueKey: "b",
-        value: this.props.rgb.b,
-        onChange: this.handleChange,
-        type: "number",
-        min: "0",
-        max: "255"
-      }), disableAlpha ? null : (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: "a",
-        valueKey: "a",
-        value: this.props.rgb.a,
-        onChange: this.handleChange,
-        type: "number",
-        min: "0",
-        max: "1",
-        step: "0.01"
-      })));
-    } else if (this.state.view === 'hsl') {
-      const legend = disableAlpha ? (0,external_wp_i18n_namespaceObject.__)('Color value in HSL') : (0,external_wp_i18n_namespaceObject.__)('Color value in HSLA');
-      return (0,external_wp_element_namespaceObject.createElement)("fieldset", null, (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
-        as: "legend"
-      }, legend), (0,external_wp_element_namespaceObject.createElement)("div", {
-        className: "components-color-picker__inputs-fields"
-      }, (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: "h",
-        valueKey: "h",
-        value: this.props.hsl.h,
-        onChange: this.handleChange,
-        type: "number",
-        min: "0",
-        max: "359"
-      }), (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: "s",
-        valueKey: "s",
-        value: this.props.hsl.s,
-        onChange: this.handleChange,
-        type: "number",
-        min: "0",
-        max: "100"
-      }), (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: "l",
-        valueKey: "l",
-        value: this.props.hsl.l,
-        onChange: this.handleChange,
-        type: "number",
-        min: "0",
-        max: "100"
-      }), disableAlpha ? null : (0,external_wp_element_namespaceObject.createElement)(inputs_Input, {
-        source: this.state.view,
-        label: "a",
-        valueKey: "a",
-        value: this.props.hsl.a,
-        onChange: this.handleChange,
-        type: "number",
-        min: "0",
-        max: "1",
-        step: "0.05"
-      })));
-    }
-  }
-
-  render() {
-    return (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__inputs-wrapper"
-    }, this.renderFields(), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__inputs-toggle-wrapper"
-    }, (0,external_wp_element_namespaceObject.createElement)(PureButton, {
-      className: "components-color-picker__inputs-toggle",
-      icon: chevron_down,
-      label: (0,external_wp_i18n_namespaceObject.__)('Change color format'),
-      onClick: this.toggleViews
-    })));
-  }
-
-}
-/* harmony default export */ var inputs = (Inputs);
-//# sourceMappingURL=inputs.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/saturation.js
-
-
-/**
- * Parts of this source were derived and modified from react-color,
- * released under the MIT license.
- *
- * https://github.com/casesandberg/react-color/
- *
- * Copyright (c) 2015 Case Sandberg
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-class Saturation extends external_wp_element_namespaceObject.Component {
-  constructor(props) {
-    super(props);
-    this.throttle = (0,external_lodash_namespaceObject.throttle)((fn, data, e) => {
-      fn(data, e);
-    }, 50);
-    this.container = (0,external_wp_element_namespaceObject.createRef)();
-    this.saturate = this.saturate.bind(this);
-    this.brighten = this.brighten.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.handleMouseUp = this.handleMouseUp.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
-
-  componentWillUnmount() {
-    this.throttle.cancel();
-    this.unbindEventListeners();
-  }
-
-  saturate(amount = 0.01) {
-    const {
-      hsv,
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    const intSaturation = (0,external_lodash_namespaceObject.clamp)(hsv.s + Math.round(amount * 100), 0, 100);
-    const change = {
-      h: hsv.h,
-      s: intSaturation,
-      v: hsv.v,
-      a: hsv.a,
-      source: 'rgb'
-    };
-    onChange(change);
-  }
-
-  brighten(amount = 0.01) {
-    const {
-      hsv,
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    const intValue = (0,external_lodash_namespaceObject.clamp)(hsv.v + Math.round(amount * 100), 0, 100);
-    const change = {
-      h: hsv.h,
-      s: hsv.s,
-      v: intValue,
-      a: hsv.a,
-      source: 'rgb'
-    };
-    onChange(change);
-  }
-
-  handleChange(e) {
-    const {
-      onChange = external_lodash_namespaceObject.noop
-    } = this.props;
-    const change = calculateSaturationChange(e, this.props, this.container.current);
-    this.throttle(onChange, change, e);
-  }
-
-  handleMouseDown(e) {
-    this.handleChange(e);
-    window.addEventListener('mousemove', this.handleChange);
-    window.addEventListener('mouseup', this.handleMouseUp);
-  }
-
-  handleMouseUp() {
-    this.unbindEventListeners();
-  }
-
-  unbindEventListeners() {
-    window.removeEventListener('mousemove', this.handleChange);
-    window.removeEventListener('mouseup', this.handleMouseUp);
-  }
-
-  handleKeyDown(event) {
-    const {
-      keyCode,
-      shiftKey
-    } = event;
-    const shortcuts = {
-      [external_wp_keycodes_namespaceObject.UP]: () => this.brighten(shiftKey ? 0.1 : 0.01),
-      [external_wp_keycodes_namespaceObject.PAGEUP]: () => this.brighten(1),
-      [external_wp_keycodes_namespaceObject.DOWN]: () => this.brighten(shiftKey ? -0.1 : -0.01),
-      [external_wp_keycodes_namespaceObject.PAGEDOWN]: () => this.brighten(-1),
-      [external_wp_keycodes_namespaceObject.RIGHT]: () => this.saturate(shiftKey ? 0.1 : 0.01),
-      [external_wp_keycodes_namespaceObject.END]: () => this.saturate(1),
-      [external_wp_keycodes_namespaceObject.LEFT]: () => this.saturate(shiftKey ? -0.1 : -0.01),
-      [external_wp_keycodes_namespaceObject.HOME]: () => this.saturate(-1)
-    };
-
-    for (const code in shortcuts) {
-      if (code === String(keyCode)) {
-        shortcuts[keyCode]();
-      }
-    }
-
-    if (keyCode !== external_wp_keycodes_namespaceObject.TAB) {
-      event.preventDefault();
-    }
-  }
-
-  render() {
-    const {
-      hsv,
-      hsl,
-      instanceId
-    } = this.props;
-    const pointerLocation = {
-      top: `${-hsv.v + 100}%`,
-      left: `${hsv.s}%`
-    };
-    /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-
-    return (0,external_wp_element_namespaceObject.createElement)("div", {
-      style: {
-        background: `hsl(${hsl.h},100%, 50%)`
-      },
-      className: "components-color-picker__saturation-color",
-      ref: this.container,
-      onMouseDown: this.handleMouseDown,
-      onTouchMove: this.handleChange,
-      onTouchStart: this.handleChange,
-      role: "application"
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__saturation-white"
-    }), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__saturation-black"
-    }), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-      "aria-label": (0,external_wp_i18n_namespaceObject.__)('Choose a shade'),
-      "aria-describedby": `color-picker-saturation-${instanceId}`,
-      className: "components-color-picker__saturation-pointer",
-      style: pointerLocation,
-      onKeyDown: this.handleKeyDown
-    }), (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
-      id: `color-picker-saturation-${instanceId}`
-    }, (0,external_wp_i18n_namespaceObject.__)('Use your arrow keys to change the base color. Move up to lighten the color, down to darken, left to decrease saturation, and right to increase saturation.')));
-    /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
-  }
-
-}
-/* harmony default export */ var saturation = ((0,external_wp_compose_namespaceObject.compose)(external_wp_compose_namespaceObject.pure, external_wp_compose_namespaceObject.withInstanceId)(Saturation));
-//# sourceMappingURL=saturation.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/index.js
-
-
-/**
- * Parts of this source were derived and modified from react-color,
- * released under the MIT license.
- *
- * https://github.com/casesandberg/react-color/
- *
- * Copyright (c) 2015 Case Sandberg
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-
-const toLowerCase = value => String(value).toLowerCase();
-
-const color_picker_isValueEmpty = data => {
-  if (data.source === 'hex' && data.hex === undefined) {
-    return true;
-  }
-
-  if (data.source === 'hsl' && (data.h === undefined || data.s === undefined || data.l === undefined)) {
-    return true;
-  }
-  /**
-   * Check that if source is `rgb`:
-   * `r`, `g` or `b` properties are not undefined
-   * OR (||) `h`, `s`, `v` or `a` properties are not undefined
-   * OR (||) `h`, `s`, `l` or `a` properties are not undefined
-   *
-   * before it was checking with NOT(!) statement witch for `0` (bool|int) values returns `true`
-   * this is a typecasting issue only visible for hex values that derive from #000000
-   */
-
-
-  return data.source === 'rgb' && (data.r === undefined || data.g === undefined || data.b === undefined) && (data.h === undefined || data.s === undefined || data.v === undefined || data.a === undefined) && (data.h === undefined || data.s === undefined || data.l === undefined || data.a === undefined);
-};
-
-const isValidColor = colors => colors.hex ? isValidHex(colors.hex) : simpleCheckForValidColor(colors);
-/**
- * Function that creates the new color object
- * from old data and the new value.
- *
- * @param {Object}        oldColors          The old color object.
- * @param {string}        oldColors.hex
- * @param {Object}        oldColors.rgb
- * @param {number}        oldColors.rgb.r
- * @param {number}        oldColors.rgb.g
- * @param {number}        oldColors.rgb.b
- * @param {number}        oldColors.rgb.a
- * @param {Object}        oldColors.hsl
- * @param {number}        oldColors.hsl.h
- * @param {number}        oldColors.hsl.s
- * @param {number}        oldColors.hsl.l
- * @param {number}        oldColors.hsl.a
- * @param {string}        oldColors.draftHex Same format as oldColors.hex
- * @param {Object}        oldColors.draftRgb Same format as oldColors.rgb
- * @param {Object}        oldColors.draftHsl Same format as oldColors.hsl
- * @param {Object}        data               Data containing the new value to update.
- * @param {Object}        data.source        One of `hex`, `rgb`, `hsl`.
- * @param {string|number} data.value         Value to update.
- * @param {string}        data.valueKey      Depends on `data.source` values:
- *                                           - when source = `rgb`, valuKey can be `r`, `g`, `b`, or `a`.
- *                                           - when source = `hsl`, valuKey can be `h`, `s`, `l`, or `a`.
- * @return {Object} A new color object for a specific source. For example:
- * { source: 'rgb', r: 1, g: 2, b:3, a:0 }
- */
-
-
-const dataToColors = (oldColors, {
-  source,
-  valueKey,
-  value
-}) => {
-  if (source === 'hex') {
-    return {
-      source,
-      [source]: value
-    };
-  }
-
-  return {
-    source,
-    ...{ ...oldColors[source],
-      ...{
-        [valueKey]: value
-      }
-    }
-  };
-};
-
-class ColorPicker extends external_wp_element_namespaceObject.Component {
-  constructor({
-    color = '0071a1'
-  }) {
-    super(...arguments);
-    const colors = colorToState(color);
-    this.state = { ...colors,
-      draftHex: toLowerCase(colors.hex),
-      draftRgb: colors.rgb,
-      draftHsl: colors.hsl
-    };
-    this.commitValues = this.commitValues.bind(this);
-    this.setDraftValues = this.setDraftValues.bind(this);
-    this.resetDraftValues = this.resetDraftValues.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  commitValues(data) {
-    const {
-      oldHue,
-      onChangeComplete = external_lodash_namespaceObject.noop
-    } = this.props;
-
-    if (isValidColor(data)) {
-      const colors = colorToState(data, data.h || oldHue);
-      this.setState({ ...colors,
-        draftHex: toLowerCase(colors.hex),
-        draftHsl: colors.hsl,
-        draftRgb: colors.rgb
-      }, (0,external_lodash_namespaceObject.debounce)((0,external_lodash_namespaceObject.partial)(onChangeComplete, colors), 100));
-    }
-  }
-
-  resetDraftValues() {
-    this.setState({
-      draftHex: this.state.hex,
-      draftHsl: this.state.hsl,
-      draftRgb: this.state.rgb
-    });
-  }
-
-  setDraftValues(data) {
-    switch (data.source) {
-      case 'hex':
-        this.setState({
-          draftHex: toLowerCase(data.hex)
-        });
-        break;
-
-      case 'rgb':
-        this.setState({
-          draftRgb: data
-        });
-        break;
-
-      case 'hsl':
-        this.setState({
-          draftHsl: data
-        });
-        break;
-    }
-  }
-
-  handleInputChange(data) {
-    switch (data.state) {
-      case 'reset':
-        this.resetDraftValues();
-        break;
-
-      case 'commit':
-        const colors = dataToColors(this.state, data);
-
-        if (!color_picker_isValueEmpty(colors)) {
-          this.commitValues(colors);
-        }
-
-        break;
-
-      case 'draft':
-        this.setDraftValues(dataToColors(this.state, data));
-        break;
-    }
-  }
-
-  render() {
-    const {
-      className,
-      disableAlpha
-    } = this.props;
-    const {
-      color,
-      hsl,
-      hsv,
-      rgb,
-      draftHex,
-      draftHsl,
-      draftRgb
-    } = this.state;
-    const classes = classnames_default()(className, {
-      'components-color-picker': true,
-      'is-alpha-disabled': disableAlpha,
-      'is-alpha-enabled': !disableAlpha
-    });
-    return (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: classes
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__saturation"
-    }, (0,external_wp_element_namespaceObject.createElement)(saturation, {
-      hsl: hsl,
-      hsv: hsv,
-      onChange: this.commitValues
-    })), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__body"
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__controls"
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__swatch"
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__active",
-      style: {
-        backgroundColor: color && color.toRgbString()
-      }
-    })), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-color-picker__toggles"
-    }, (0,external_wp_element_namespaceObject.createElement)(hue, {
-      hsl: hsl,
-      onChange: this.commitValues
-    }), disableAlpha ? null : (0,external_wp_element_namespaceObject.createElement)(color_picker_alpha, {
-      rgb: rgb,
-      hsl: hsl,
-      onChange: this.commitValues
-    }))), (0,external_wp_element_namespaceObject.createElement)(inputs, {
-      rgb: draftRgb,
-      hsl: draftHsl,
-      hex: draftHex,
-      onChange: this.handleInputChange,
-      disableAlpha: disableAlpha
-    })));
-  }
-
-}
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-edit/index.js
 
@@ -46876,14 +49447,13 @@ function ColorOption({
       onClick: onToggle,
       "aria-label": (0,external_wp_i18n_namespaceObject.__)('Edit color value')
     })),
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(ColorPicker, {
+    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
       color: color,
-      onChangeComplete: newColor => onChange({
-        color: newColor.hex,
+      onChange: newColor => onChange({
+        color: newColor,
         slug,
         name
-      }),
-      disableAlpha: true
+      })
     })
   }), !isEditingName && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-color-edit__color-option-color-name"
@@ -47051,12 +49621,6 @@ const ColorIndicator = ({
 
 /* harmony default export */ var color_indicator = (ColorIndicator);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/node_modules/colord/index.mjs
-var r={grad:.9,turn:360,rad:360/(2*Math.PI)},t=function(r){return"string"==typeof r?r.length>0:"number"==typeof r},n=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=Math.pow(10,t)),Math.round(n*r)/n+0},e=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=1),r>n?n:r>t?r:t},u=function(r){return(r=isFinite(r)?r%360:0)>0?r:r+360},colord_a=function(r){return{r:e(r.r,0,255),g:e(r.g,0,255),b:e(r.b,0,255),a:e(r.a)}},o=function(r){return{r:n(r.r),g:n(r.g),b:n(r.b),a:n(r.a,3)}},i=/^#([0-9a-f]{3,8})$/i,s=function(r){var t=r.toString(16);return t.length<2?"0"+t:t},h=function(r){var t=r.r,n=r.g,e=r.b,u=r.a,a=Math.max(t,n,e),o=a-Math.min(t,n,e),i=o?a===t?(n-e)/o:a===n?2+(e-t)/o:4+(t-n)/o:0;return{h:60*(i<0?i+6:i),s:a?o/a*100:0,v:a/255*100,a:u}},colord_b=function(r){var t=r.h,n=r.s,e=r.v,u=r.a;t=t/360*6,n/=100,e/=100;var a=Math.floor(t),o=e*(1-n),i=e*(1-(t-a)*n),s=e*(1-(1-t+a)*n),h=a%6;return{r:255*[e,i,o,o,s,e][h],g:255*[s,e,e,i,o,o][h],b:255*[o,o,s,e,e,i][h],a:u}},g=function(r){return{h:u(r.h),s:e(r.s,0,100),l:e(r.l,0,100),a:e(r.a)}},d=function(r){return{h:n(r.h),s:n(r.s),l:n(r.l),a:n(r.a,3)}},f=function(r){return colord_b((n=(t=r).s,{h:t.h,s:(n*=((e=t.l)<50?e:100-e)/100)>0?2*n/(e+n)*100:0,v:e+n,a:t.a}));var t,n,e},colord_c=function(r){return{h:(t=h(r)).h,s:(u=(200-(n=t.s))*(e=t.v)/100)>0&&u<200?n*e/100/(u<=100?u:200-u)*100:0,l:u/2,a:t.a};var t,n,e,u},l=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,p=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,v=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,m=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,y={string:[[function(r){var t=i.exec(r);return t?(r=t[1]).length<=4?{r:parseInt(r[0]+r[0],16),g:parseInt(r[1]+r[1],16),b:parseInt(r[2]+r[2],16),a:4===r.length?n(parseInt(r[3]+r[3],16)/255,2):1}:6===r.length||8===r.length?{r:parseInt(r.substr(0,2),16),g:parseInt(r.substr(2,2),16),b:parseInt(r.substr(4,2),16),a:8===r.length?n(parseInt(r.substr(6,2),16)/255,2):1}:null:null},"hex"],[function(r){var t=v.exec(r)||m.exec(r);return t?t[2]!==t[4]||t[4]!==t[6]?null:colord_a({r:Number(t[1])/(t[2]?100/255:1),g:Number(t[3])/(t[4]?100/255:1),b:Number(t[5])/(t[6]?100/255:1),a:void 0===t[7]?1:Number(t[7])/(t[8]?100:1)}):null},"rgb"],[function(t){var n=l.exec(t)||p.exec(t);if(!n)return null;var e,u,a=g({h:(e=n[1],u=n[2],void 0===u&&(u="deg"),Number(e)*(r[u]||1)),s:Number(n[3]),l:Number(n[4]),a:void 0===n[5]?1:Number(n[5])/(n[6]?100:1)});return f(a)},"hsl"]],object:[[function(r){var n=r.r,e=r.g,u=r.b,o=r.a,i=void 0===o?1:o;return t(n)&&t(e)&&t(u)?colord_a({r:Number(n),g:Number(e),b:Number(u),a:Number(i)}):null},"rgb"],[function(r){var n=r.h,e=r.s,u=r.l,a=r.a,o=void 0===a?1:a;if(!t(n)||!t(e)||!t(u))return null;var i=g({h:Number(n),s:Number(e),l:Number(u),a:Number(o)});return f(i)},"hsl"],[function(r){var n=r.h,a=r.s,o=r.v,i=r.a,s=void 0===i?1:i;if(!t(n)||!t(a)||!t(o))return null;var h=function(r){return{h:u(r.h),s:e(r.s,0,100),v:e(r.v,0,100),a:e(r.a)}}({h:Number(n),s:Number(a),v:Number(o),a:Number(s)});return colord_b(h)},"hsv"]]},N=function(r,t){for(var n=0;n<t.length;n++){var e=t[n][0](r);if(e)return[e,t[n][1]]}return[null,void 0]},x=function(r){return"string"==typeof r?N(r.trim(),y.string):"object"==typeof r&&null!==r?N(r,y.object):[null,void 0]},I=function(r){return x(r)[1]},M=function(r,t){var n=colord_c(r);return{h:n.h,s:e(n.s+100*t,0,100),l:n.l,a:n.a}},H=function(r){return(299*r.r+587*r.g+114*r.b)/1e3/255},$=function(r,t){var n=colord_c(r);return{h:n.h,s:n.s,l:e(n.l+100*t,0,100),a:n.a}},j=function(){function r(r){this.parsed=x(r)[0],this.rgba=this.parsed||{r:0,g:0,b:0,a:1}}return r.prototype.isValid=function(){return null!==this.parsed},r.prototype.brightness=function(){return n(H(this.rgba),2)},r.prototype.isDark=function(){return H(this.rgba)<.5},r.prototype.isLight=function(){return H(this.rgba)>=.5},r.prototype.toHex=function(){return r=o(this.rgba),t=r.r,e=r.g,u=r.b,i=(a=r.a)<1?s(n(255*a)):"","#"+s(t)+s(e)+s(u)+i;var r,t,e,u,a,i},r.prototype.toRgb=function(){return o(this.rgba)},r.prototype.toRgbString=function(){return r=o(this.rgba),t=r.r,n=r.g,e=r.b,(u=r.a)<1?"rgba("+t+", "+n+", "+e+", "+u+")":"rgb("+t+", "+n+", "+e+")";var r,t,n,e,u},r.prototype.toHsl=function(){return d(colord_c(this.rgba))},r.prototype.toHslString=function(){return r=d(colord_c(this.rgba)),t=r.h,n=r.s,e=r.l,(u=r.a)<1?"hsla("+t+", "+n+"%, "+e+"%, "+u+")":"hsl("+t+", "+n+"%, "+e+"%)";var r,t,n,e,u},r.prototype.toHsv=function(){return r=h(this.rgba),{h:n(r.h),s:n(r.s),v:n(r.v),a:n(r.a,3)};var r},r.prototype.invert=function(){return w({r:255-(r=this.rgba).r,g:255-r.g,b:255-r.b,a:r.a});var r},r.prototype.saturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,r))},r.prototype.desaturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,-r))},r.prototype.grayscale=function(){return w(M(this.rgba,-1))},r.prototype.lighten=function(r){return void 0===r&&(r=.1),w($(this.rgba,r))},r.prototype.darken=function(r){return void 0===r&&(r=.1),w($(this.rgba,-r))},r.prototype.rotate=function(r){return void 0===r&&(r=15),this.hue(this.hue()+r)},r.prototype.alpha=function(r){return"number"==typeof r?w({r:(t=this.rgba).r,g:t.g,b:t.b,a:r}):n(this.rgba.a,3);var t},r.prototype.hue=function(r){var t=colord_c(this.rgba);return"number"==typeof r?w({h:r,s:t.s,l:t.l,a:t.a}):n(t.h)},r.prototype.isEqual=function(r){return this.toHex()===w(r).toHex()},r}(),w=function(r){return r instanceof j?r:new j(r)},S=[],k=function(r){r.forEach(function(r){S.indexOf(r)<0&&(r(j,y),S.push(r))})},E=function(){return new j({r:255*Math.random(),g:255*Math.random(),b:255*Math.random()})};
-
-;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/names.mjs
-/* harmony default export */ function plugins_names(e,f){var a={white:"#ffffff",bisque:"#ffe4c4",blue:"#0000ff",cadetblue:"#5f9ea0",chartreuse:"#7fff00",chocolate:"#d2691e",coral:"#ff7f50",antiquewhite:"#faebd7",aqua:"#00ffff",azure:"#f0ffff",whitesmoke:"#f5f5f5",papayawhip:"#ffefd5",plum:"#dda0dd",blanchedalmond:"#ffebcd",black:"#000000",gold:"#ffd700",goldenrod:"#daa520",gainsboro:"#dcdcdc",cornsilk:"#fff8dc",cornflowerblue:"#6495ed",burlywood:"#deb887",aquamarine:"#7fffd4",beige:"#f5f5dc",crimson:"#dc143c",cyan:"#00ffff",darkblue:"#00008b",darkcyan:"#008b8b",darkgoldenrod:"#b8860b",darkkhaki:"#bdb76b",darkgray:"#a9a9a9",darkgreen:"#006400",darkgrey:"#a9a9a9",peachpuff:"#ffdab9",darkmagenta:"#8b008b",darkred:"#8b0000",darkorchid:"#9932cc",darkorange:"#ff8c00",darkslateblue:"#483d8b",gray:"#808080",darkslategray:"#2f4f4f",darkslategrey:"#2f4f4f",deeppink:"#ff1493",deepskyblue:"#00bfff",wheat:"#f5deb3",firebrick:"#b22222",floralwhite:"#fffaf0",ghostwhite:"#f8f8ff",darkviolet:"#9400d3",magenta:"#ff00ff",green:"#008000",dodgerblue:"#1e90ff",grey:"#808080",honeydew:"#f0fff0",hotpink:"#ff69b4",blueviolet:"#8a2be2",forestgreen:"#228b22",lawngreen:"#7cfc00",indianred:"#cd5c5c",indigo:"#4b0082",fuchsia:"#ff00ff",brown:"#a52a2a",maroon:"#800000",mediumblue:"#0000cd",lightcoral:"#f08080",darkturquoise:"#00ced1",lightcyan:"#e0ffff",ivory:"#fffff0",lightyellow:"#ffffe0",lightsalmon:"#ffa07a",lightseagreen:"#20b2aa",linen:"#faf0e6",mediumaquamarine:"#66cdaa",lemonchiffon:"#fffacd",lime:"#00ff00",khaki:"#f0e68c",mediumseagreen:"#3cb371",limegreen:"#32cd32",mediumspringgreen:"#00fa9a",lightskyblue:"#87cefa",lightblue:"#add8e6",midnightblue:"#191970",lightpink:"#ffb6c1",mistyrose:"#ffe4e1",moccasin:"#ffe4b5",mintcream:"#f5fffa",lightslategray:"#778899",lightslategrey:"#778899",navajowhite:"#ffdead",navy:"#000080",mediumvioletred:"#c71585",powderblue:"#b0e0e6",palegoldenrod:"#eee8aa",oldlace:"#fdf5e6",paleturquoise:"#afeeee",mediumturquoise:"#48d1cc",mediumorchid:"#ba55d3",rebeccapurple:"#663399",lightsteelblue:"#b0c4de",mediumslateblue:"#7b68ee",thistle:"#d8bfd8",tan:"#d2b48c",orchid:"#da70d6",mediumpurple:"#9370db",purple:"#800080",pink:"#ffc0cb",skyblue:"#87ceeb",springgreen:"#00ff7f",palegreen:"#98fb98",red:"#ff0000",yellow:"#ffff00",slateblue:"#6a5acd",lavenderblush:"#fff0f5",peru:"#cd853f",palevioletred:"#db7093",violet:"#ee82ee",teal:"#008080",slategray:"#708090",slategrey:"#708090",aliceblue:"#f0f8ff",darkseagreen:"#8fbc8f",darkolivegreen:"#556b2f",greenyellow:"#adff2f",seagreen:"#2e8b57",seashell:"#fff5ee",tomato:"#ff6347",silver:"#c0c0c0",sienna:"#a0522d",lavender:"#e6e6fa",lightgreen:"#90ee90",orange:"#ffa500",orangered:"#ff4500",steelblue:"#4682b4",royalblue:"#4169e1",turquoise:"#40e0d0",yellowgreen:"#9acd32",salmon:"#fa8072",saddlebrown:"#8b4513",sandybrown:"#f4a460",rosybrown:"#bc8f8f",darksalmon:"#e9967a",lightgoldenrodyellow:"#fafad2",snow:"#fffafa",lightgrey:"#d3d3d3",lightgray:"#d3d3d3",dimgray:"#696969",dimgrey:"#696969",olivedrab:"#6b8e23",olive:"#808000"},r={};for(var d in a)r[a[d]]=d;var l={};e.prototype.toName=function(f){if(!(this.rgba.a||this.rgba.r||this.rgba.g||this.rgba.b))return"transparent";var d,i,n=r[this.toHex()];if(n)return n;if(null==f?void 0:f.closest){var o=this.toRgb(),t=1/0,b="black";if(!l.length)for(var c in a)l[c]=new e(a[c]).toRgb();for(var g in a){var u=(d=o,i=l[g],Math.pow(d.r-i.r,2)+Math.pow(d.g-i.g,2)+Math.pow(d.b-i.b,2));u<t&&(t=u,b=g)}return b}};f.string.push([function(f){var r=f.toLowerCase(),d="transparent"===r?"#0000":a[r];return d?new e(d).toRgb():null},"name"])}
-
 ;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
 var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
 
@@ -47082,7 +49646,7 @@ var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.0
 
 
 
-k([plugins_names, a11y]);
+k([names, a11y]);
 function ColorPalette({
   clearable = true,
   className,
@@ -47118,10 +49682,9 @@ function ColorPalette({
     });
   }, [colors, value, onChange, clearColor]);
 
-  const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(ColorPicker, {
+  const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
     color: value,
-    onChangeComplete: color => onChange(color.hex),
-    disableAlpha: true
+    onChange: color => onChange(color)
   });
 
   return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
@@ -47710,7 +50273,7 @@ function isOrContainsNode(parent, child) {
  */
 
 
-function debounce(fn, time) {
+function downshift_esm_debounce(fn, time) {
   var timeoutId;
 
   function cancel() {
@@ -48069,7 +50632,7 @@ var validateControlledUnchanged = (/* unused pure expression or super */ null &&
 
 if (false) {}
 
-var cleanupStatus = debounce(function (documentProp) {
+var cleanupStatus = downshift_esm_debounce(function (documentProp) {
   getStatusDiv(documentProp).textContent = '';
 }, 500);
 /**
@@ -48845,7 +51408,7 @@ var Downshift = /*#__PURE__*/(/* unused pure expression or super */ null && (fun
         }, cb);
       };
 
-      _this.updateStatus = debounce(function () {
+      _this.updateStatus = downshift_esm_debounce(function () {
         var state = _this.getState();
 
         var item = _this.items[state.highlightedIndex];
@@ -49325,7 +51888,7 @@ function getA11ySelectionMessage(selectionParameters) {
  */
 
 
-var updateA11yStatus = debounce(function (getA11yMessage, document) {
+var updateA11yStatus = downshift_esm_debounce(function (getA11yMessage, document) {
   setStatus(getA11yMessage(), document);
 }, 200); // istanbul ignore next
 
@@ -50092,7 +52655,7 @@ function useSelect(userProps) {
   (0,external_React_.useEffect)(function () {
     // init the clean function here as we need access to dispatch.
     if (isInitialMountRef.current) {
-      clearTimeoutRef.current = debounce(function (outerDispatch) {
+      clearTimeoutRef.current = downshift_esm_debounce(function (outerDispatch) {
         outerDispatch({
           type: FunctionSetInputValue,
           inputValue: ''
@@ -51736,7 +54299,7 @@ function useMultipleSelection(userProps) {
 
 
 
-const custom_select_control_itemToString = item => item && item.name; // This is needed so that in Windows, where
+const custom_select_control_itemToString = item => item === null || item === void 0 ? void 0 : item.name; // This is needed so that in Windows, where
 // the menu does not necessarily open on
 // key up/down, you can still switch between
 // options with the menu closed.
@@ -51780,6 +54343,8 @@ function CustomSelectControl({
   onChange: onSelectedItemChange,
   value: _selectedItem
 }) {
+  var _menuProps$ariaActiv;
+
   const {
     getLabelProps,
     getToggleButtonProps,
@@ -51815,10 +54380,9 @@ function CustomSelectControl({
   const menuProps = getMenuProps({
     className: 'components-custom-select-control__menu',
     'aria-hidden': !isOpen
-  }); // We need this here, because the null active descendant is not
-  // fully ARIA compliant.
+  }); // We need this here, because the null active descendant is not fully ARIA compliant.
 
-  if (menuProps['aria-activedescendant'] && menuProps['aria-activedescendant'].slice(0, 'downshift-null'.length) === 'downshift-null') {
+  if ((_menuProps$ariaActiv = menuProps['aria-activedescendant']) !== null && _menuProps$ariaActiv !== void 0 && _menuProps$ariaActiv.startsWith('downshift-null')) {
     delete menuProps['aria-activedescendant'];
   }
 
@@ -51846,10 +54410,13 @@ function CustomSelectControl({
     index,
     key: item.key,
     className: classnames_default()(item.className, 'components-custom-select-control__item', {
-      'is-highlighted': index === highlightedIndex
+      'is-highlighted': index === highlightedIndex,
+      'has-hint': !!item.__experimentalHint
     }),
     style: item.style
-  }), item.name, item === selectedItem && (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
+  }), item.name, item.__experimentalHint && (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: "components-custom-select-control__item-hint"
+  }, item.__experimentalHint), item === selectedItem && (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
     icon: library_check,
     className: "components-custom-select-control__item-icon"
   })))));
@@ -52427,7 +54994,7 @@ function DateTimePicker({
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Home and End')
   }, (0,external_wp_i18n_namespaceObject.__)('Home/End')), ' '
   /* JSX removes whitespace, but a space is required for screen readers. */
-  , (0,external_wp_i18n_namespaceObject.__)('Go to the first (home) or last (end) day of a week.'))))), (0,external_wp_element_namespaceObject.createElement)("div", {
+  , (0,external_wp_i18n_namespaceObject.__)('Go to the first (Home) or last (End) day of a week.'))))), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-datetime__buttons"
   }, !calendarHelpIsVisible && currentDate && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-datetime__date-reset-button",
@@ -52441,202 +55008,6 @@ function DateTimePicker({
 }
 
 /* harmony default export */ var date_time = ((0,external_wp_element_namespaceObject.forwardRef)(DateTimePicker));
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/select-control/styles/select-control-styles.js
-
-
-/**
- * External dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-const select_control_styles_disabledStyles = ({
-  disabled
-}) => {
-  if (!disabled) return '';
-  return /*#__PURE__*/emotion_react_browser_esm_css({
-    color: COLORS.ui.textDisabled
-  },  true ? "" : 0,  true ? "" : 0);
-};
-
-const select_control_styles_fontSizeStyles = ({
-  selectSize
-}) => {
-  const sizes = {
-    default: '13px',
-    small: '11px'
-  };
-  const fontSize = sizes[selectSize];
-  const fontSizeMobile = '16px';
-  if (!fontSize) return '';
-  return /*#__PURE__*/emotion_react_browser_esm_css("font-size:", fontSizeMobile, ";@media ( min-width: 600px ){font-size:", fontSize, ";}" + ( true ? "" : 0),  true ? "" : 0);
-};
-
-const select_control_styles_sizeStyles = ({
-  selectSize
-}) => {
-  const sizes = {
-    default: {
-      height: 30,
-      lineHeight: 1,
-      minHeight: 30
-    },
-    small: {
-      height: 24,
-      lineHeight: 1,
-      minHeight: 24
-    }
-  };
-  const style = sizes[selectSize] || sizes.default;
-  return /*#__PURE__*/emotion_react_browser_esm_css(style,  true ? "" : 0,  true ? "" : 0);
-}; // TODO: Resolve need to use &&& to increase specificity
-// https://github.com/WordPress/gutenberg/issues/18483
-
-
-const Select = emotion_styled_base_browser_esm("select",  true ? {
-  target: "e1mv6sxx1"
-} : 0)("&&&{appearance:none;background:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.black, ";display:block;margin:0;width:100%;", select_control_styles_disabledStyles, ";", select_control_styles_fontSizeStyles, ";", select_control_styles_sizeStyles, ";", rtl({
-  paddingLeft: 8,
-  paddingRight: 24
-}), ";}" + ( true ? "" : 0));
-const DownArrowWrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1mv6sxx0"
-} : 0)("align-items:center;bottom:0;box-sizing:border-box;display:flex;padding:0 4px;pointer-events:none;position:absolute;top:0;", rtl({
-  right: 0
-}), " svg{display:block;}" + ( true ? "" : 0));
-//# sourceMappingURL=select-control-styles.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/select-control/index.js
-
-
-
-/**
- * External dependencies
- */
-
- // eslint-disable-next-line no-restricted-imports
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function select_control_useUniqueId(idProp) {
-  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(SelectControl);
-  const id = `inspector-select-control-${instanceId}`;
-  return idProp || id;
-}
-
-function SelectControl({
-  className,
-  disabled = false,
-  help,
-  hideLabelFromVision,
-  id: idProp,
-  label,
-  multiple = false,
-  onBlur = external_lodash_namespaceObject.noop,
-  onChange = external_lodash_namespaceObject.noop,
-  onFocus = external_lodash_namespaceObject.noop,
-  options = [],
-  size = 'default',
-  value: valueProp,
-  labelPosition = 'top',
-  prefix,
-  suffix,
-  ...props
-}, ref) {
-  const [isFocused, setIsFocused] = (0,external_wp_element_namespaceObject.useState)(false);
-  const id = select_control_useUniqueId(idProp);
-  const helpId = help ? `${id}__help` : undefined; // Disable reason: A select with an onchange throws a warning
-
-  if ((0,external_lodash_namespaceObject.isEmpty)(options)) return null;
-
-  const handleOnBlur = event => {
-    onBlur(event);
-    setIsFocused(false);
-  };
-
-  const handleOnFocus = event => {
-    onFocus(event);
-    setIsFocused(true);
-  };
-
-  const handleOnChange = event => {
-    if (multiple) {
-      const selectedOptions = Array.from(event.target.options).filter(({
-        selected
-      }) => selected);
-      const newValues = selectedOptions.map(({
-        value
-      }) => value);
-      onChange(newValues);
-      return;
-    }
-
-    onChange(event.target.value, {
-      event
-    });
-  };
-
-  const classes = classnames_default()('components-select-control', className);
-  /* eslint-disable jsx-a11y/no-onchange */
-
-  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
-    help: help,
-    id: id
-  }, (0,external_wp_element_namespaceObject.createElement)(input_base, {
-    className: classes,
-    disabled: disabled,
-    hideLabelFromVision: hideLabelFromVision,
-    id: id,
-    isFocused: isFocused,
-    label: label,
-    size: size,
-    suffix: suffix || (0,external_wp_element_namespaceObject.createElement)(DownArrowWrapper, null, (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
-      icon: chevron_down,
-      size: 18
-    })),
-    prefix: prefix,
-    labelPosition: labelPosition
-  }, (0,external_wp_element_namespaceObject.createElement)(Select, extends_extends({}, props, {
-    "aria-describedby": helpId,
-    className: "components-select-control__input",
-    disabled: disabled,
-    id: id,
-    multiple: multiple,
-    onBlur: handleOnBlur,
-    onChange: handleOnChange,
-    onFocus: handleOnFocus,
-    ref: ref,
-    selectSize: size,
-    value: valueProp
-  }), options.map((option, index) => {
-    const key = option.id || `${option.label}-${option.value}-${index}`;
-    return (0,external_wp_element_namespaceObject.createElement)("option", {
-      key: key,
-      value: option.value,
-      disabled: option.disabled
-    }, option.label);
-  }))));
-  /* eslint-enable jsx-a11y/no-onchange */
-}
-
-const select_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(SelectControl);
-/* harmony default export */ var select_control = (select_control_ForwardedComponent);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/dimension-control/sizes.js
 /**
@@ -52901,109 +55272,6 @@ Disabled.Context = Context;
 Disabled.Consumer = Consumer;
 /* harmony default export */ var disabled = (Disabled);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-e6a5cfbe.js
-// Automatically generated
-var DISCLOSURE_STATE_KEYS = ["baseId", "unstable_idCountRef", "visible", "animated", "animating", "setBaseId", "show", "hide", "toggle", "setVisible", "setAnimated", "stopAnimation"];
-var DISCLOSURE_KEYS = DISCLOSURE_STATE_KEYS;
-var DISCLOSURE_CONTENT_KEYS = DISCLOSURE_KEYS;
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Disclosure/DisclosureContent.js
-
-
-
-
-
-
-
-
-
-
-var useDisclosureContent = createHook({
-  name: "DisclosureContent",
-  compose: useRole,
-  keys: DISCLOSURE_CONTENT_KEYS,
-  useProps: function useProps(options, _ref) {
-    var htmlOnTransitionEnd = _ref.onTransitionEnd,
-        htmlOnAnimationEnd = _ref.onAnimationEnd,
-        htmlStyle = _ref.style,
-        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["onTransitionEnd", "onAnimationEnd", "style"]);
-
-    var animating = options.animated && options.animating;
-
-    var _React$useState = (0,external_React_.useState)(null),
-        transition = _React$useState[0],
-        setTransition = _React$useState[1];
-
-    var hidden = !options.visible && !animating;
-    var style = hidden ? _objectSpread2({
-      display: "none"
-    }, htmlStyle) : htmlStyle;
-    var onTransitionEndRef = useLiveRef(htmlOnTransitionEnd);
-    var onAnimationEndRef = useLiveRef(htmlOnAnimationEnd);
-    var raf = (0,external_React_.useRef)(0);
-    (0,external_React_.useEffect)(function () {
-      if (!options.animated) return undefined; // Double RAF is needed so the browser has enough time to paint the
-      // default styles before processing the `data-enter` attribute. Otherwise
-      // it wouldn't be considered a transition.
-      // See https://github.com/reakit/reakit/issues/643
-
-      raf.current = window.requestAnimationFrame(function () {
-        raf.current = window.requestAnimationFrame(function () {
-          if (options.visible) {
-            setTransition("enter");
-          } else if (animating) {
-            setTransition("leave");
-          } else {
-            setTransition(null);
-          }
-        });
-      });
-      return function () {
-        return window.cancelAnimationFrame(raf.current);
-      };
-    }, [options.animated, options.visible, animating]);
-    var onEnd = (0,external_React_.useCallback)(function (event) {
-      if (!isSelfTarget(event)) return;
-      if (!animating) return; // Ignores number animated
-
-      if (options.animated === true) {
-        var _options$stopAnimatio;
-
-        (_options$stopAnimatio = options.stopAnimation) === null || _options$stopAnimatio === void 0 ? void 0 : _options$stopAnimatio.call(options);
-      }
-    }, [options.animated, animating, options.stopAnimation]);
-    var onTransitionEnd = (0,external_React_.useCallback)(function (event) {
-      var _onTransitionEndRef$c;
-
-      (_onTransitionEndRef$c = onTransitionEndRef.current) === null || _onTransitionEndRef$c === void 0 ? void 0 : _onTransitionEndRef$c.call(onTransitionEndRef, event);
-      onEnd(event);
-    }, [onEnd]);
-    var onAnimationEnd = (0,external_React_.useCallback)(function (event) {
-      var _onAnimationEndRef$cu;
-
-      (_onAnimationEndRef$cu = onAnimationEndRef.current) === null || _onAnimationEndRef$cu === void 0 ? void 0 : _onAnimationEndRef$cu.call(onAnimationEndRef, event);
-      onEnd(event);
-    }, [onEnd]);
-    return _objectSpread2({
-      id: options.baseId,
-      "data-enter": transition === "enter" ? "" : undefined,
-      "data-leave": transition === "leave" ? "" : undefined,
-      onTransitionEnd: onTransitionEnd,
-      onAnimationEnd: onAnimationEnd,
-      hidden: hidden,
-      style: style
-    }, htmlProps);
-  }
-});
-var DisclosureContent = createComponent({
-  as: "div",
-  useHook: useDisclosureContent
-});
-
-
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/draggable/index.js
 
 
@@ -53235,6 +55503,261 @@ const upload = (0,external_wp_element_namespaceObject.createElement)(external_wp
 }));
 /* harmony default export */ var library_upload = (upload);
 //# sourceMappingURL=upload.js.map
+;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-force-update.js
+
+
+
+
+function use_force_update_useForceUpdate() {
+    var unloadingRef = (0,external_React_.useRef)(false);
+    var _a = tslib_es6_read((0,external_React_.useState)(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
+    useUnmountEffect(function () { return (unloadingRef.current = true); });
+    return (0,external_React_.useCallback)(function () {
+        !unloadingRef.current && setForcedRenderCount(forcedRenderCount + 1);
+    }, [forcedRenderCount]);
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.js
+
+
+
+
+
+var presenceId = 0;
+function getPresenceId() {
+    var id = presenceId;
+    presenceId++;
+    return id;
+}
+var PresenceChild = function (_a) {
+    var children = _a.children, initial = _a.initial, isPresent = _a.isPresent, onExitComplete = _a.onExitComplete, custom = _a.custom, presenceAffectsLayout = _a.presenceAffectsLayout;
+    var presenceChildren = useConstant(newChildrenMap);
+    var id = useConstant(getPresenceId);
+    var context = (0,external_React_.useMemo)(function () { return ({
+        id: id,
+        initial: initial,
+        isPresent: isPresent,
+        custom: custom,
+        onExitComplete: function (childId) {
+            presenceChildren.set(childId, true);
+            var allComplete = true;
+            presenceChildren.forEach(function (isComplete) {
+                if (!isComplete)
+                    allComplete = false;
+            });
+            allComplete && (onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete());
+        },
+        register: function (childId) {
+            presenceChildren.set(childId, false);
+            return function () { return presenceChildren.delete(childId); };
+        },
+    }); }, 
+    /**
+     * If the presence of a child affects the layout of the components around it,
+     * we want to make a new context value to ensure they get re-rendered
+     * so they can detect that layout change.
+     */
+    presenceAffectsLayout ? undefined : [isPresent]);
+    (0,external_React_.useMemo)(function () {
+        presenceChildren.forEach(function (_, key) { return presenceChildren.set(key, false); });
+    }, [isPresent]);
+    /**
+     * If there's no `motion` components to fire exit animations, we want to remove this
+     * component immediately.
+     */
+    external_React_.useEffect(function () {
+        !isPresent && !presenceChildren.size && (onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete());
+    }, [isPresent]);
+    return (external_React_.createElement(PresenceContext_PresenceContext.Provider, { value: context }, children));
+};
+function newChildrenMap() {
+    return new Map();
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/index.js
+
+
+
+
+
+
+
+function getChildKey(child) {
+    return child.key || "";
+}
+function updateChildLookup(children, allChildren) {
+    var seenChildren =  false ? 0 : null;
+    children.forEach(function (child) {
+        var key = getChildKey(child);
+        if (false) {}
+        allChildren.set(key, child);
+    });
+}
+function onlyElements(children) {
+    var filtered = [];
+    // We use forEach here instead of map as map mutates the component key by preprending `.$`
+    external_React_.Children.forEach(children, function (child) {
+        if ((0,external_React_.isValidElement)(child))
+            filtered.push(child);
+    });
+    return filtered;
+}
+/**
+ * `AnimatePresence` enables the animation of components that have been removed from the tree.
+ *
+ * When adding/removing more than a single child, every child **must** be given a unique `key` prop.
+ *
+ * @library
+ *
+ * Any `Frame` components that have an `exit` property defined will animate out when removed from
+ * the tree.
+ *
+ * ```jsx
+ * import { Frame, AnimatePresence } from 'framer'
+ *
+ * // As items are added and removed from `items`
+ * export function Items({ items }) {
+ *   return (
+ *     <AnimatePresence>
+ *       {items.map(item => (
+ *         <Frame
+ *           key={item.id}
+ *           initial={{ opacity: 0 }}
+ *           animate={{ opacity: 1 }}
+ *           exit={{ opacity: 0 }}
+ *         />
+ *       ))}
+ *     </AnimatePresence>
+ *   )
+ * }
+ * ```
+ *
+ * You can sequence exit animations throughout a tree using variants.
+ *
+ * @motion
+ *
+ * Any `motion` components that have an `exit` property defined will animate out when removed from
+ * the tree.
+ *
+ * ```jsx
+ * import { motion, AnimatePresence } from 'framer-motion'
+ *
+ * export const Items = ({ items }) => (
+ *   <AnimatePresence>
+ *     {items.map(item => (
+ *       <motion.div
+ *         key={item.id}
+ *         initial={{ opacity: 0 }}
+ *         animate={{ opacity: 1 }}
+ *         exit={{ opacity: 0 }}
+ *       />
+ *     ))}
+ *   </AnimatePresence>
+ * )
+ * ```
+ *
+ * You can sequence exit animations throughout a tree using variants.
+ *
+ * If a child contains multiple `motion` components with `exit` props, it will only unmount the child
+ * once all `motion` components have finished animating out. Likewise, any components using
+ * `usePresence` all need to call `safeToRemove`.
+ *
+ * @public
+ */
+var AnimatePresence = function (_a) {
+    var children = _a.children, custom = _a.custom, _b = _a.initial, initial = _b === void 0 ? true : _b, onExitComplete = _a.onExitComplete, exitBeforeEnter = _a.exitBeforeEnter, _c = _a.presenceAffectsLayout, presenceAffectsLayout = _c === void 0 ? true : _c;
+    // We want to force a re-render once all exiting animations have finished. We
+    // either use a local forceRender function, or one from a parent context if it exists.
+    var forceRender = use_force_update_useForceUpdate();
+    var layoutContext = (0,external_React_.useContext)(SharedLayoutContext);
+    if (isSharedLayout(layoutContext)) {
+        forceRender = layoutContext.forceUpdate;
+    }
+    var isInitialRender = (0,external_React_.useRef)(true);
+    // Filter out any children that aren't ReactElements. We can only track ReactElements with a props.key
+    var filteredChildren = onlyElements(children);
+    // Keep a living record of the children we're actually rendering so we
+    // can diff to figure out which are entering and exiting
+    var presentChildren = (0,external_React_.useRef)(filteredChildren);
+    // A lookup table to quickly reference components by key
+    var allChildren = (0,external_React_.useRef)(new Map())
+        .current;
+    // A living record of all currently exiting components.
+    var exiting = (0,external_React_.useRef)(new Set()).current;
+    updateChildLookup(filteredChildren, allChildren);
+    // If this is the initial component render, just deal with logic surrounding whether
+    // we play onMount animations or not.
+    if (isInitialRender.current) {
+        isInitialRender.current = false;
+        return (external_React_.createElement(external_React_.Fragment, null, filteredChildren.map(function (child) { return (external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? undefined : false, presenceAffectsLayout: presenceAffectsLayout }, child)); })));
+    }
+    // If this is a subsequent render, deal with entering and exiting children
+    var childrenToRender = tslib_es6_spreadArray([], tslib_es6_read(filteredChildren));
+    // Diff the keys of the currently-present and target children to update our
+    // exiting list.
+    var presentKeys = presentChildren.current.map(getChildKey);
+    var targetKeys = filteredChildren.map(getChildKey);
+    // Diff the present children with our target children and mark those that are exiting
+    var numPresent = presentKeys.length;
+    for (var i = 0; i < numPresent; i++) {
+        var key = presentKeys[i];
+        if (targetKeys.indexOf(key) === -1) {
+            exiting.add(key);
+        }
+        else {
+            // In case this key has re-entered, remove from the exiting list
+            exiting.delete(key);
+        }
+    }
+    // If we currently have exiting children, and we're deferring rendering incoming children
+    // until after all current children have exiting, empty the childrenToRender array
+    if (exitBeforeEnter && exiting.size) {
+        childrenToRender = [];
+    }
+    // Loop through all currently exiting components and clone them to overwrite `animate`
+    // with any `exit` prop they might have defined.
+    exiting.forEach(function (key) {
+        // If this component is actually entering again, early return
+        if (targetKeys.indexOf(key) !== -1)
+            return;
+        var child = allChildren.get(key);
+        if (!child)
+            return;
+        var insertionIndex = presentKeys.indexOf(key);
+        var onExit = function () {
+            allChildren.delete(key);
+            exiting.delete(key);
+            // Remove this child from the present children
+            var removeIndex = presentChildren.current.findIndex(function (presentChild) { return presentChild.key === key; });
+            presentChildren.current.splice(removeIndex, 1);
+            // Defer re-rendering until all exiting children have indeed left
+            if (!exiting.size) {
+                presentChildren.current = filteredChildren;
+                forceRender();
+                onExitComplete && onExitComplete();
+            }
+        };
+        childrenToRender.splice(insertionIndex, 0, external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom: custom, presenceAffectsLayout: presenceAffectsLayout }, child));
+    });
+    // Add `MotionContext` even to children that don't need it to ensure we're rendering
+    // the same tree between renders
+    childrenToRender = childrenToRender.map(function (child) {
+        var key = child.key;
+        return exiting.has(key) ? (child) : (external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout: presenceAffectsLayout }, child));
+    });
+    presentChildren.current = childrenToRender;
+    if (false) {}
+    return (external_React_.createElement(external_React_.Fragment, null, exiting.size
+        ? childrenToRender
+        : childrenToRender.map(function (child) { return (0,external_React_.cloneElement)(child); })));
+};
+
+
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/drop-zone/index.js
 
 
@@ -53250,6 +55773,11 @@ const upload = (0,external_wp_element_namespaceObject.createElement)(external_wp
 
 
 
+
+
+/**
+ * Internal dependencies
+ */
 
 
 function DropZoneComponent({
@@ -53305,17 +55833,62 @@ function DropZoneComponent({
     }
 
   });
+  const disableMotion = (0,external_wp_compose_namespaceObject.useReducedMotion)();
   let children;
+  const backdrop = {
+    hidden: {
+      scaleY: 0,
+      opacity: 0
+    },
+    show: {
+      scaleY: 1,
+      opacity: 1,
+      transition: {
+        type: 'tween',
+        duration: 0.2,
+        delay: 0.1,
+        delayChildren: 0.2
+      }
+    },
+    exit: {
+      scaleY: 1,
+      opacity: 0,
+      transition: {
+        duration: 0.3,
+        delayChildren: 0
+      }
+    }
+  };
+  const foreground = {
+    hidden: {
+      opacity: 0,
+      scale: 0.75
+    },
+    show: {
+      opacity: 1,
+      scale: 1
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.9
+    }
+  };
 
   if (isDraggingOverElement) {
-    children = (0,external_wp_element_namespaceObject.createElement)("div", {
+    children = (0,external_wp_element_namespaceObject.createElement)(motion.div, {
+      variants: backdrop,
+      initial: disableMotion ? 'show' : 'hidden',
+      animate: "show",
+      exit: disableMotion ? 'show' : 'exit',
       className: "components-drop-zone__content"
+    }, (0,external_wp_element_namespaceObject.createElement)(motion.div, {
+      variants: foreground
     }, (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
       icon: library_upload,
       className: "components-drop-zone__content-icon"
     }), (0,external_wp_element_namespaceObject.createElement)("span", {
       className: "components-drop-zone__content-text"
-    }, label ? label : (0,external_wp_i18n_namespaceObject.__)('Drop files to upload')));
+    }, label ? label : (0,external_wp_i18n_namespaceObject.__)('Drop files to upload'))));
   }
 
   const classes = classnames_default()('components-drop-zone', className, {
@@ -53327,7 +55900,7 @@ function DropZoneComponent({
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     ref: ref,
     className: classes
-  }, children);
+  }, disableMotion ? children : (0,external_wp_element_namespaceObject.createElement)(AnimatePresence, null, children));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/drop-zone/provider.js
@@ -53792,7 +56365,7 @@ function Swatch({
  */
 
 
-k([plugins_names]);
+k([names]);
 /**
  * Object representation for a color.
  *
@@ -54152,6 +56725,7 @@ function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElemen
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
@@ -54293,13 +56867,11 @@ function ControlPoints({
       }),
       renderContent: ({
         onClose
-      }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(ColorPicker, {
-        disableAlpha: disableAlpha,
+      }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+        enableAlpha: !disableAlpha,
         color: point.color,
-        onChangeComplete: ({
-          color
-        }) => {
-          onChange(updateControlPointColor(controlPoints, index, color.toRgbString()));
+        onChange: color => {
+          onChange(updateControlPointColor(controlPoints, index, w(color).toRgbString()));
         }
       }), !disableRemove && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
         className: "components-custom-gradient-picker__remove-control-point",
@@ -54350,16 +56922,14 @@ function InsertPoint({
         left: insertPosition !== null ? `${insertPosition}%` : undefined
       }
     }),
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(ColorPicker, {
-      disableAlpha: disableAlpha,
-      onChangeComplete: ({
-        color
-      }) => {
+    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+      enableAlpha: !disableAlpha,
+      onChange: color => {
         if (!alreadyInsertedPoint) {
-          onChange(addControlPoint(controlPoints, insertPosition, color.toRgbString()));
+          onChange(addControlPoint(controlPoints, insertPosition, w(color).toRgbString()));
           setAlreadyInsertedPoint(true);
         } else {
-          onChange(updateControlPointColorByPosition(controlPoints, insertPosition, color.toRgbString()));
+          onChange(updateControlPointColorByPosition(controlPoints, insertPosition, w(color).toRgbString()));
         }
       }
     }),
@@ -55019,60 +57589,6 @@ var PopoverDisclosure = createComponent({
   memo: true,
   useHook: usePopoverDisclosure
 });
-
-
-
-;// CONCATENATED MODULE: external "ReactDOM"
-var external_ReactDOM_namespaceObject = window["ReactDOM"];
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Portal/Portal.js
-
-
-
-
-
-function getBodyElement() {
-  return canUseDOM ? document.body : null;
-}
-
-var PortalContext = /*#__PURE__*/(0,external_React_.createContext)(getBodyElement());
-function Portal(_ref) {
-  var children = _ref.children;
-  // if it's a nested portal, context is the parent portal
-  // otherwise it's document.body
-  // https://github.com/reakit/reakit/issues/513
-  var context = (0,external_React_.useContext)(PortalContext) || getBodyElement();
-
-  var _React$useState = (0,external_React_.useState)(function () {
-    if (canUseDOM) {
-      var element = document.createElement("div");
-      element.className = Portal.__className;
-      return element;
-    } // ssr
-
-
-    return null;
-  }),
-      hostNode = _React$useState[0];
-
-  useIsomorphicEffect(function () {
-    if (!hostNode || !context) return undefined;
-    context.appendChild(hostNode);
-    return function () {
-      context.removeChild(hostNode);
-    };
-  }, [hostNode, context]);
-
-  if (hostNode) {
-    return /*#__PURE__*/(0,external_ReactDOM_namespaceObject.createPortal)( /*#__PURE__*/(0,external_React_.createElement)(PortalContext.Provider, {
-      value: hostNode
-    }, children), hostNode);
-  } // ssr
-
-
-  return null;
-}
-Portal.__className = "__reakit-portal";
-Portal.__selector = "." + Portal.__className;
 
 
 
@@ -56286,10 +58802,6 @@ var Popover_Popover = createComponent({
 
 
 
-;// CONCATENATED MODULE: ./packages/components/build-module/utils/z-index.js
-const Flyout = 10000;
-const z_index_Tooltip = 1000002;
-//# sourceMappingURL=z-index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/flyout/styles.js
 
 
@@ -56364,2199 +58876,6 @@ function FlyoutContent(props, forwardedRef) {
 const ConnectedFlyoutContent = contextConnect(FlyoutContent, 'FlyoutContent');
 /* harmony default export */ var flyout_content_component = (ConnectedFlyoutContent);
 //# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js
-function getBoundingClientRect(element) {
-  var rect = element.getBoundingClientRect();
-  return {
-    width: rect.width,
-    height: rect.height,
-    top: rect.top,
-    right: rect.right,
-    bottom: rect.bottom,
-    left: rect.left,
-    x: rect.left,
-    y: rect.top
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getWindow.js
-/*:: import type { Window } from '../types'; */
-
-/*:: declare function getWindow(node: Node | Window): Window; */
-function getWindow_getWindow(node) {
-  if (node.toString() !== '[object Window]') {
-    var ownerDocument = node.ownerDocument;
-    return ownerDocument ? ownerDocument.defaultView || window : window;
-  }
-
-  return node;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getWindowScroll.js
-
-function getWindowScroll(node) {
-  var win = getWindow_getWindow(node);
-  var scrollLeft = win.pageXOffset;
-  var scrollTop = win.pageYOffset;
-  return {
-    scrollLeft: scrollLeft,
-    scrollTop: scrollTop
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/instanceOf.js
-
-/*:: declare function isElement(node: mixed): boolean %checks(node instanceof
-  Element); */
-
-function isElement(node) {
-  var OwnElement = getWindow_getWindow(node).Element;
-  return node instanceof OwnElement || node instanceof Element;
-}
-/*:: declare function isHTMLElement(node: mixed): boolean %checks(node instanceof
-  HTMLElement); */
-
-
-function isHTMLElement(node) {
-  var OwnElement = getWindow_getWindow(node).HTMLElement;
-  return node instanceof OwnElement || node instanceof HTMLElement;
-}
-/*:: declare function isShadowRoot(node: mixed): boolean %checks(node instanceof
-  ShadowRoot); */
-
-
-function isShadowRoot(node) {
-  var OwnElement = getWindow_getWindow(node).ShadowRoot;
-  return node instanceof OwnElement || node instanceof ShadowRoot;
-}
-
-
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getHTMLElementScroll.js
-function getHTMLElementScroll(element) {
-  return {
-    scrollLeft: element.scrollLeft,
-    scrollTop: element.scrollTop
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getNodeScroll.js
-
-
-
-
-function getNodeScroll(node) {
-  if (node === getWindow_getWindow(node) || !isHTMLElement(node)) {
-    return getWindowScroll(node);
-  } else {
-    return getHTMLElementScroll(node);
-  }
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getNodeName.js
-function getNodeName(element) {
-  return element ? (element.nodeName || '').toLowerCase() : null;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getDocumentElement.js
-
-function getDocumentElement(element) {
-  // $FlowFixMe[incompatible-return]: assume body is always available
-  return ((isElement(element) ? element.ownerDocument : // $FlowFixMe[prop-missing]
-  element.document) || window.document).documentElement;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getWindowScrollBarX.js
-
-
-
-function getWindowScrollBarX(element) {
-  // If <html> has a CSS width greater than the viewport, then this will be
-  // incorrect for RTL.
-  // Popper 1 is broken in this case and never had a bug report so let's assume
-  // it's not an issue. I don't think anyone ever specifies width on <html>
-  // anyway.
-  // Browsers where the left scrollbar doesn't cause an issue report `0` for
-  // this (e.g. Edge 2019, IE11, Safari)
-  return getBoundingClientRect(getDocumentElement(element)).left + getWindowScroll(element).scrollLeft;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getComputedStyle.js
-
-function getComputedStyle_getComputedStyle(element) {
-  return getWindow_getWindow(element).getComputedStyle(element);
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/isScrollParent.js
-
-function isScrollParent(element) {
-  // Firefox wants us to check `-x` and `-y` variations as well
-  var _getComputedStyle = getComputedStyle_getComputedStyle(element),
-      overflow = _getComputedStyle.overflow,
-      overflowX = _getComputedStyle.overflowX,
-      overflowY = _getComputedStyle.overflowY;
-
-  return /auto|scroll|overlay|hidden/.test(overflow + overflowY + overflowX);
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getCompositeRect.js
-
-
-
-
-
-
- // Returns the composite rect of an element relative to its offsetParent.
-// Composite means it takes into account transforms as well as layout.
-
-function getCompositeRect(elementOrVirtualElement, offsetParent, isFixed) {
-  if (isFixed === void 0) {
-    isFixed = false;
-  }
-
-  var documentElement = getDocumentElement(offsetParent);
-  var rect = getBoundingClientRect(elementOrVirtualElement);
-  var isOffsetParentAnElement = isHTMLElement(offsetParent);
-  var scroll = {
-    scrollLeft: 0,
-    scrollTop: 0
-  };
-  var offsets = {
-    x: 0,
-    y: 0
-  };
-
-  if (isOffsetParentAnElement || !isOffsetParentAnElement && !isFixed) {
-    if (getNodeName(offsetParent) !== 'body' || // https://github.com/popperjs/popper-core/issues/1078
-    isScrollParent(documentElement)) {
-      scroll = getNodeScroll(offsetParent);
-    }
-
-    if (isHTMLElement(offsetParent)) {
-      offsets = getBoundingClientRect(offsetParent);
-      offsets.x += offsetParent.clientLeft;
-      offsets.y += offsetParent.clientTop;
-    } else if (documentElement) {
-      offsets.x = getWindowScrollBarX(documentElement);
-    }
-  }
-
-  return {
-    x: rect.left + scroll.scrollLeft - offsets.x,
-    y: rect.top + scroll.scrollTop - offsets.y,
-    width: rect.width,
-    height: rect.height
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getLayoutRect.js
-// Returns the layout rect of an element relative to its offsetParent. Layout
-// means it doesn't take into account transforms.
-function getLayoutRect(element) {
-  return {
-    x: element.offsetLeft,
-    y: element.offsetTop,
-    width: element.offsetWidth,
-    height: element.offsetHeight
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getParentNode.js
-
-
-function getParentNode(element) {
-  if (getNodeName(element) === 'html') {
-    return element;
-  }
-
-  return (// this is a quicker (but less type safe) way to save quite some bytes from the bundle
-    // $FlowFixMe[incompatible-return]
-    // $FlowFixMe[prop-missing]
-    element.assignedSlot || // step into the shadow DOM of the parent of a slotted node
-    element.parentNode || // DOM Element detected
-    // $FlowFixMe[incompatible-return]: need a better way to handle this...
-    element.host || // ShadowRoot detected
-    // $FlowFixMe[incompatible-call]: HTMLElement is a Node
-    getDocumentElement(element) // fallback
-
-  );
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getScrollParent.js
-
-
-
-
-function getScrollParent(node) {
-  if (['html', 'body', '#document'].indexOf(getNodeName(node)) >= 0) {
-    // $FlowFixMe[incompatible-return]: assume body is always available
-    return node.ownerDocument.body;
-  }
-
-  if (isHTMLElement(node) && isScrollParent(node)) {
-    return node;
-  }
-
-  return getScrollParent(getParentNode(node));
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/listScrollParents.js
-
-
-
-
-
-/*
-given a DOM element, return the list of all scroll parents, up the list of ancesors
-until we get to the top window object. This list is what we attach scroll listeners
-to, because if any of these parent elements scroll, we'll need to re-calculate the
-reference element's position.
-*/
-
-function listScrollParents(element, list) {
-  if (list === void 0) {
-    list = [];
-  }
-
-  var scrollParent = getScrollParent(element);
-  var isBody = getNodeName(scrollParent) === 'body';
-  var win = getWindow_getWindow(scrollParent);
-  var target = isBody ? [win].concat(win.visualViewport || [], isScrollParent(scrollParent) ? scrollParent : []) : scrollParent;
-  var updatedList = list.concat(target);
-  return isBody ? updatedList : // $FlowFixMe[incompatible-call]: isBody tells us target will be an HTMLElement here
-  updatedList.concat(listScrollParents(getParentNode(target)));
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/isTableElement.js
-
-function isTableElement(element) {
-  return ['table', 'td', 'th'].indexOf(getNodeName(element)) >= 0;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getOffsetParent.js
-
-
-
-
-
-
-
-
-function getTrueOffsetParent(element) {
-  if (!isHTMLElement(element) || // https://github.com/popperjs/popper-core/issues/837
-  getComputedStyle_getComputedStyle(element).position === 'fixed') {
-    return null;
-  }
-
-  var offsetParent = element.offsetParent;
-
-  if (offsetParent) {
-    var html = getDocumentElement(offsetParent);
-
-    if (getNodeName(offsetParent) === 'body' && getComputedStyle_getComputedStyle(offsetParent).position === 'static' && getComputedStyle_getComputedStyle(html).position !== 'static') {
-      return html;
-    }
-  }
-
-  return offsetParent;
-} // `.offsetParent` reports `null` for fixed elements, while absolute elements
-// return the containing block
-
-
-function getContainingBlock(element) {
-  var currentNode = getParentNode(element);
-
-  while (isHTMLElement(currentNode) && ['html', 'body'].indexOf(getNodeName(currentNode)) < 0) {
-    var css = getComputedStyle_getComputedStyle(currentNode); // This is non-exhaustive but covers the most common CSS properties that
-    // create a containing block.
-
-    if (css.transform !== 'none' || css.perspective !== 'none' || css.willChange && css.willChange !== 'auto') {
-      return currentNode;
-    } else {
-      currentNode = currentNode.parentNode;
-    }
-  }
-
-  return null;
-} // Gets the closest ancestor positioned element. Handles some edge cases,
-// such as table ancestors and cross browser bugs.
-
-
-function getOffsetParent(element) {
-  var window = getWindow_getWindow(element);
-  var offsetParent = getTrueOffsetParent(element);
-
-  while (offsetParent && isTableElement(offsetParent) && getComputedStyle_getComputedStyle(offsetParent).position === 'static') {
-    offsetParent = getTrueOffsetParent(offsetParent);
-  }
-
-  if (offsetParent && getNodeName(offsetParent) === 'body' && getComputedStyle_getComputedStyle(offsetParent).position === 'static') {
-    return window;
-  }
-
-  return offsetParent || getContainingBlock(element) || window;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/enums.js
-var enums_top = 'top';
-var bottom = 'bottom';
-var right = 'right';
-var left = 'left';
-var enums_auto = 'auto';
-var basePlacements = [enums_top, bottom, right, left];
-var start = 'start';
-var end = 'end';
-var clippingParents = 'clippingParents';
-var viewport = 'viewport';
-var popper = 'popper';
-var reference = 'reference';
-var variationPlacements = /*#__PURE__*/basePlacements.reduce(function (acc, placement) {
-  return acc.concat([placement + "-" + start, placement + "-" + end]);
-}, []);
-var enums_placements = /*#__PURE__*/[].concat(basePlacements, [enums_auto]).reduce(function (acc, placement) {
-  return acc.concat([placement, placement + "-" + start, placement + "-" + end]);
-}, []); // modifiers that need to read the DOM
-
-var beforeRead = 'beforeRead';
-var read = 'read';
-var afterRead = 'afterRead'; // pure-logic modifiers
-
-var beforeMain = 'beforeMain';
-var main = 'main';
-var afterMain = 'afterMain'; // modifier with the purpose to write to the DOM (or write into a framework state)
-
-var beforeWrite = 'beforeWrite';
-var write = 'write';
-var afterWrite = 'afterWrite';
-var modifierPhases = [beforeRead, read, afterRead, beforeMain, main, afterMain, beforeWrite, write, afterWrite];
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/orderModifiers.js
- // source: https://stackoverflow.com/questions/49875255
-
-function orderModifiers_order(modifiers) {
-  var map = new Map();
-  var visited = new Set();
-  var result = [];
-  modifiers.forEach(function (modifier) {
-    map.set(modifier.name, modifier);
-  }); // On visiting object, check for its dependencies and visit them recursively
-
-  function sort(modifier) {
-    visited.add(modifier.name);
-    var requires = [].concat(modifier.requires || [], modifier.requiresIfExists || []);
-    requires.forEach(function (dep) {
-      if (!visited.has(dep)) {
-        var depModifier = map.get(dep);
-
-        if (depModifier) {
-          sort(depModifier);
-        }
-      }
-    });
-    result.push(modifier);
-  }
-
-  modifiers.forEach(function (modifier) {
-    if (!visited.has(modifier.name)) {
-      // check for visited object
-      sort(modifier);
-    }
-  });
-  return result;
-}
-
-function orderModifiers(modifiers) {
-  // order based on dependencies
-  var orderedModifiers = orderModifiers_order(modifiers); // order based on phase
-
-  return modifierPhases.reduce(function (acc, phase) {
-    return acc.concat(orderedModifiers.filter(function (modifier) {
-      return modifier.phase === phase;
-    }));
-  }, []);
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/debounce.js
-function debounce_debounce(fn) {
-  var pending;
-  return function () {
-    if (!pending) {
-      pending = new Promise(function (resolve) {
-        Promise.resolve().then(function () {
-          pending = undefined;
-          resolve(fn());
-        });
-      });
-    }
-
-    return pending;
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/mergeByName.js
-function mergeByName(modifiers) {
-  var merged = modifiers.reduce(function (merged, current) {
-    var existing = merged[current.name];
-    merged[current.name] = existing ? Object.assign(Object.assign(Object.assign({}, existing), current), {}, {
-      options: Object.assign(Object.assign({}, existing.options), current.options),
-      data: Object.assign(Object.assign({}, existing.data), current.data)
-    }) : current;
-    return merged;
-  }, {}); // IE11 does not support Object.values
-
-  return Object.keys(merged).map(function (key) {
-    return merged[key];
-  });
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/createPopper.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var INVALID_ELEMENT_ERROR = 'Popper: Invalid reference or popper argument provided. They must be either a DOM element or virtual element.';
-var INFINITE_LOOP_ERROR = 'Popper: An infinite loop in the modifiers cycle has been detected! The cycle has been interrupted to prevent a browser crash.';
-var DEFAULT_OPTIONS = {
-  placement: 'bottom',
-  modifiers: [],
-  strategy: 'absolute'
-};
-
-function areValidElements() {
-  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
-
-  return !args.some(function (element) {
-    return !(element && typeof element.getBoundingClientRect === 'function');
-  });
-}
-
-function popperGenerator(generatorOptions) {
-  if (generatorOptions === void 0) {
-    generatorOptions = {};
-  }
-
-  var _generatorOptions = generatorOptions,
-      _generatorOptions$def = _generatorOptions.defaultModifiers,
-      defaultModifiers = _generatorOptions$def === void 0 ? [] : _generatorOptions$def,
-      _generatorOptions$def2 = _generatorOptions.defaultOptions,
-      defaultOptions = _generatorOptions$def2 === void 0 ? DEFAULT_OPTIONS : _generatorOptions$def2;
-  return function createPopper(reference, popper, options) {
-    if (options === void 0) {
-      options = defaultOptions;
-    }
-
-    var state = {
-      placement: 'bottom',
-      orderedModifiers: [],
-      options: Object.assign(Object.assign({}, DEFAULT_OPTIONS), defaultOptions),
-      modifiersData: {},
-      elements: {
-        reference: reference,
-        popper: popper
-      },
-      attributes: {},
-      styles: {}
-    };
-    var effectCleanupFns = [];
-    var isDestroyed = false;
-    var instance = {
-      state: state,
-      setOptions: function setOptions(options) {
-        cleanupModifierEffects();
-        state.options = Object.assign(Object.assign(Object.assign({}, defaultOptions), state.options), options);
-        state.scrollParents = {
-          reference: isElement(reference) ? listScrollParents(reference) : reference.contextElement ? listScrollParents(reference.contextElement) : [],
-          popper: listScrollParents(popper)
-        }; // Orders the modifiers based on their dependencies and `phase`
-        // properties
-
-        var orderedModifiers = orderModifiers(mergeByName([].concat(defaultModifiers, state.options.modifiers))); // Strip out disabled modifiers
-
-        state.orderedModifiers = orderedModifiers.filter(function (m) {
-          return m.enabled;
-        }); // Validate the provided modifiers so that the consumer will get warned
-        // if one of the modifiers is invalid for any reason
-
-        if (false) { var _getComputedStyle, marginTop, marginRight, marginBottom, marginLeft, flipModifier, modifiers; }
-
-        runModifierEffects();
-        return instance.update();
-      },
-      // Sync update – it will always be executed, even if not necessary. This
-      // is useful for low frequency updates where sync behavior simplifies the
-      // logic.
-      // For high frequency updates (e.g. `resize` and `scroll` events), always
-      // prefer the async Popper#update method
-      forceUpdate: function forceUpdate() {
-        if (isDestroyed) {
-          return;
-        }
-
-        var _state$elements = state.elements,
-            reference = _state$elements.reference,
-            popper = _state$elements.popper; // Don't proceed if `reference` or `popper` are not valid elements
-        // anymore
-
-        if (!areValidElements(reference, popper)) {
-          if (false) {}
-
-          return;
-        } // Store the reference and popper rects to be read by modifiers
-
-
-        state.rects = {
-          reference: getCompositeRect(reference, getOffsetParent(popper), state.options.strategy === 'fixed'),
-          popper: getLayoutRect(popper)
-        }; // Modifiers have the ability to reset the current update cycle. The
-        // most common use case for this is the `flip` modifier changing the
-        // placement, which then needs to re-run all the modifiers, because the
-        // logic was previously ran for the previous placement and is therefore
-        // stale/incorrect
-
-        state.reset = false;
-        state.placement = state.options.placement; // On each update cycle, the `modifiersData` property for each modifier
-        // is filled with the initial data specified by the modifier. This means
-        // it doesn't persist and is fresh on each update.
-        // To ensure persistent data, use `${name}#persistent`
-
-        state.orderedModifiers.forEach(function (modifier) {
-          return state.modifiersData[modifier.name] = Object.assign({}, modifier.data);
-        });
-        var __debug_loops__ = 0;
-
-        for (var index = 0; index < state.orderedModifiers.length; index++) {
-          if (false) {}
-
-          if (state.reset === true) {
-            state.reset = false;
-            index = -1;
-            continue;
-          }
-
-          var _state$orderedModifie = state.orderedModifiers[index],
-              fn = _state$orderedModifie.fn,
-              _state$orderedModifie2 = _state$orderedModifie.options,
-              _options = _state$orderedModifie2 === void 0 ? {} : _state$orderedModifie2,
-              name = _state$orderedModifie.name;
-
-          if (typeof fn === 'function') {
-            state = fn({
-              state: state,
-              options: _options,
-              name: name,
-              instance: instance
-            }) || state;
-          }
-        }
-      },
-      // Async and optimistically optimized update – it will not be executed if
-      // not necessary (debounced to run at most once-per-tick)
-      update: debounce_debounce(function () {
-        return new Promise(function (resolve) {
-          instance.forceUpdate();
-          resolve(state);
-        });
-      }),
-      destroy: function destroy() {
-        cleanupModifierEffects();
-        isDestroyed = true;
-      }
-    };
-
-    if (!areValidElements(reference, popper)) {
-      if (false) {}
-
-      return instance;
-    }
-
-    instance.setOptions(options).then(function (state) {
-      if (!isDestroyed && options.onFirstUpdate) {
-        options.onFirstUpdate(state);
-      }
-    }); // Modifiers have the ability to execute arbitrary code before the first
-    // update cycle runs. They will be executed in the same order as the update
-    // cycle. This is useful when a modifier adds some persistent data that
-    // other modifiers need to use, but the modifier is run after the dependent
-    // one.
-
-    function runModifierEffects() {
-      state.orderedModifiers.forEach(function (_ref3) {
-        var name = _ref3.name,
-            _ref3$options = _ref3.options,
-            options = _ref3$options === void 0 ? {} : _ref3$options,
-            effect = _ref3.effect;
-
-        if (typeof effect === 'function') {
-          var cleanupFn = effect({
-            state: state,
-            name: name,
-            instance: instance,
-            options: options
-          });
-
-          var noopFn = function noopFn() {};
-
-          effectCleanupFns.push(cleanupFn || noopFn);
-        }
-      });
-    }
-
-    function cleanupModifierEffects() {
-      effectCleanupFns.forEach(function (fn) {
-        return fn();
-      });
-      effectCleanupFns = [];
-    }
-
-    return instance;
-  };
-}
-var createPopper = /*#__PURE__*/(/* unused pure expression or super */ null && (popperGenerator())); // eslint-disable-next-line import/no-unused-modules
-
-
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/eventListeners.js
- // eslint-disable-next-line import/no-unused-modules
-
-var passive = {
-  passive: true
-};
-
-function effect(_ref) {
-  var state = _ref.state,
-      instance = _ref.instance,
-      options = _ref.options;
-  var _options$scroll = options.scroll,
-      scroll = _options$scroll === void 0 ? true : _options$scroll,
-      _options$resize = options.resize,
-      resize = _options$resize === void 0 ? true : _options$resize;
-  var window = getWindow_getWindow(state.elements.popper);
-  var scrollParents = [].concat(state.scrollParents.reference, state.scrollParents.popper);
-
-  if (scroll) {
-    scrollParents.forEach(function (scrollParent) {
-      scrollParent.addEventListener('scroll', instance.update, passive);
-    });
-  }
-
-  if (resize) {
-    window.addEventListener('resize', instance.update, passive);
-  }
-
-  return function () {
-    if (scroll) {
-      scrollParents.forEach(function (scrollParent) {
-        scrollParent.removeEventListener('scroll', instance.update, passive);
-      });
-    }
-
-    if (resize) {
-      window.removeEventListener('resize', instance.update, passive);
-    }
-  };
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var eventListeners = ({
-  name: 'eventListeners',
-  enabled: true,
-  phase: 'write',
-  fn: function fn() {},
-  effect: effect,
-  data: {}
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getBasePlacement.js
-
-function getBasePlacement(placement) {
-  return placement.split('-')[0];
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getVariation.js
-function getVariation(placement) {
-  return placement.split('-')[1];
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getMainAxisFromPlacement.js
-function getMainAxisFromPlacement(placement) {
-  return ['top', 'bottom'].indexOf(placement) >= 0 ? 'x' : 'y';
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/computeOffsets.js
-
-
-
-
-function computeOffsets(_ref) {
-  var reference = _ref.reference,
-      element = _ref.element,
-      placement = _ref.placement;
-  var basePlacement = placement ? getBasePlacement(placement) : null;
-  var variation = placement ? getVariation(placement) : null;
-  var commonX = reference.x + reference.width / 2 - element.width / 2;
-  var commonY = reference.y + reference.height / 2 - element.height / 2;
-  var offsets;
-
-  switch (basePlacement) {
-    case enums_top:
-      offsets = {
-        x: commonX,
-        y: reference.y - element.height
-      };
-      break;
-
-    case bottom:
-      offsets = {
-        x: commonX,
-        y: reference.y + reference.height
-      };
-      break;
-
-    case right:
-      offsets = {
-        x: reference.x + reference.width,
-        y: commonY
-      };
-      break;
-
-    case left:
-      offsets = {
-        x: reference.x - element.width,
-        y: commonY
-      };
-      break;
-
-    default:
-      offsets = {
-        x: reference.x,
-        y: reference.y
-      };
-  }
-
-  var mainAxis = basePlacement ? getMainAxisFromPlacement(basePlacement) : null;
-
-  if (mainAxis != null) {
-    var len = mainAxis === 'y' ? 'height' : 'width';
-
-    switch (variation) {
-      case start:
-        offsets[mainAxis] = offsets[mainAxis] - (reference[len] / 2 - element[len] / 2);
-        break;
-
-      case end:
-        offsets[mainAxis] = offsets[mainAxis] + (reference[len] / 2 - element[len] / 2);
-        break;
-
-      default:
-    }
-  }
-
-  return offsets;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/popperOffsets.js
-
-
-function popperOffsets(_ref) {
-  var state = _ref.state,
-      name = _ref.name;
-  // Offsets are the actual position the popper needs to have to be
-  // properly positioned near its reference element
-  // This is the most basic placement, and will be adjusted by
-  // the modifiers in the next step
-  state.modifiersData[name] = computeOffsets({
-    reference: state.rects.reference,
-    element: state.rects.popper,
-    strategy: 'absolute',
-    placement: state.placement
-  });
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var modifiers_popperOffsets = ({
-  name: 'popperOffsets',
-  enabled: true,
-  phase: 'read',
-  fn: popperOffsets,
-  data: {}
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/computeStyles.js
-
-
-
-
-
- // eslint-disable-next-line import/no-unused-modules
-
-var unsetSides = {
-  top: 'auto',
-  right: 'auto',
-  bottom: 'auto',
-  left: 'auto'
-}; // Round the offsets to the nearest suitable subpixel based on the DPR.
-// Zooming can change the DPR, but it seems to report a value that will
-// cleanly divide the values into the appropriate subpixels.
-
-function roundOffsetsByDPR(_ref) {
-  var x = _ref.x,
-      y = _ref.y;
-  var win = window;
-  var dpr = win.devicePixelRatio || 1;
-  return {
-    x: Math.round(x * dpr) / dpr || 0,
-    y: Math.round(y * dpr) / dpr || 0
-  };
-}
-
-function mapToStyles(_ref2) {
-  var _Object$assign2;
-
-  var popper = _ref2.popper,
-      popperRect = _ref2.popperRect,
-      placement = _ref2.placement,
-      offsets = _ref2.offsets,
-      position = _ref2.position,
-      gpuAcceleration = _ref2.gpuAcceleration,
-      adaptive = _ref2.adaptive,
-      roundOffsets = _ref2.roundOffsets;
-
-  var _ref3 = roundOffsets ? roundOffsetsByDPR(offsets) : offsets,
-      _ref3$x = _ref3.x,
-      x = _ref3$x === void 0 ? 0 : _ref3$x,
-      _ref3$y = _ref3.y,
-      y = _ref3$y === void 0 ? 0 : _ref3$y;
-
-  var hasX = offsets.hasOwnProperty('x');
-  var hasY = offsets.hasOwnProperty('y');
-  var sideX = left;
-  var sideY = enums_top;
-  var win = window;
-
-  if (adaptive) {
-    var offsetParent = getOffsetParent(popper);
-
-    if (offsetParent === getWindow_getWindow(popper)) {
-      offsetParent = getDocumentElement(popper);
-    } // $FlowFixMe[incompatible-cast]: force type refinement, we compare offsetParent with window above, but Flow doesn't detect it
-
-    /*:: offsetParent = (offsetParent: Element); */
-
-
-    if (placement === enums_top) {
-      sideY = bottom;
-      y -= offsetParent.clientHeight - popperRect.height;
-      y *= gpuAcceleration ? 1 : -1;
-    }
-
-    if (placement === left) {
-      sideX = right;
-      x -= offsetParent.clientWidth - popperRect.width;
-      x *= gpuAcceleration ? 1 : -1;
-    }
-  }
-
-  var commonStyles = Object.assign({
-    position: position
-  }, adaptive && unsetSides);
-
-  if (gpuAcceleration) {
-    var _Object$assign;
-
-    return Object.assign(Object.assign({}, commonStyles), {}, (_Object$assign = {}, _Object$assign[sideY] = hasY ? '0' : '', _Object$assign[sideX] = hasX ? '0' : '', _Object$assign.transform = (win.devicePixelRatio || 1) < 2 ? "translate(" + x + "px, " + y + "px)" : "translate3d(" + x + "px, " + y + "px, 0)", _Object$assign));
-  }
-
-  return Object.assign(Object.assign({}, commonStyles), {}, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : '', _Object$assign2[sideX] = hasX ? x + "px" : '', _Object$assign2.transform = '', _Object$assign2));
-}
-
-function computeStyles(_ref4) {
-  var state = _ref4.state,
-      options = _ref4.options;
-  var _options$gpuAccelerat = options.gpuAcceleration,
-      gpuAcceleration = _options$gpuAccelerat === void 0 ? true : _options$gpuAccelerat,
-      _options$adaptive = options.adaptive,
-      adaptive = _options$adaptive === void 0 ? true : _options$adaptive,
-      _options$roundOffsets = options.roundOffsets,
-      roundOffsets = _options$roundOffsets === void 0 ? true : _options$roundOffsets;
-
-  if (false) { var transitionProperty; }
-
-  var commonStyles = {
-    placement: getBasePlacement(state.placement),
-    popper: state.elements.popper,
-    popperRect: state.rects.popper,
-    gpuAcceleration: gpuAcceleration
-  };
-
-  if (state.modifiersData.popperOffsets != null) {
-    state.styles.popper = Object.assign(Object.assign({}, state.styles.popper), mapToStyles(Object.assign(Object.assign({}, commonStyles), {}, {
-      offsets: state.modifiersData.popperOffsets,
-      position: state.options.strategy,
-      adaptive: adaptive,
-      roundOffsets: roundOffsets
-    })));
-  }
-
-  if (state.modifiersData.arrow != null) {
-    state.styles.arrow = Object.assign(Object.assign({}, state.styles.arrow), mapToStyles(Object.assign(Object.assign({}, commonStyles), {}, {
-      offsets: state.modifiersData.arrow,
-      position: 'absolute',
-      adaptive: false,
-      roundOffsets: roundOffsets
-    })));
-  }
-
-  state.attributes.popper = Object.assign(Object.assign({}, state.attributes.popper), {}, {
-    'data-popper-placement': state.placement
-  });
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var modifiers_computeStyles = ({
-  name: 'computeStyles',
-  enabled: true,
-  phase: 'beforeWrite',
-  fn: computeStyles,
-  data: {}
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/applyStyles.js
-
- // This modifier takes the styles prepared by the `computeStyles` modifier
-// and applies them to the HTMLElements such as popper and arrow
-
-function applyStyles(_ref) {
-  var state = _ref.state;
-  Object.keys(state.elements).forEach(function (name) {
-    var style = state.styles[name] || {};
-    var attributes = state.attributes[name] || {};
-    var element = state.elements[name]; // arrow is optional + virtual elements
-
-    if (!isHTMLElement(element) || !getNodeName(element)) {
-      return;
-    } // Flow doesn't support to extend this property, but it's the most
-    // effective way to apply styles to an HTMLElement
-    // $FlowFixMe[cannot-write]
-
-
-    Object.assign(element.style, style);
-    Object.keys(attributes).forEach(function (name) {
-      var value = attributes[name];
-
-      if (value === false) {
-        element.removeAttribute(name);
-      } else {
-        element.setAttribute(name, value === true ? '' : value);
-      }
-    });
-  });
-}
-
-function applyStyles_effect(_ref2) {
-  var state = _ref2.state;
-  var initialStyles = {
-    popper: {
-      position: state.options.strategy,
-      left: '0',
-      top: '0',
-      margin: '0'
-    },
-    arrow: {
-      position: 'absolute'
-    },
-    reference: {}
-  };
-  Object.assign(state.elements.popper.style, initialStyles.popper);
-
-  if (state.elements.arrow) {
-    Object.assign(state.elements.arrow.style, initialStyles.arrow);
-  }
-
-  return function () {
-    Object.keys(state.elements).forEach(function (name) {
-      var element = state.elements[name];
-      var attributes = state.attributes[name] || {};
-      var styleProperties = Object.keys(state.styles.hasOwnProperty(name) ? state.styles[name] : initialStyles[name]); // Set all values to an empty string to unset them
-
-      var style = styleProperties.reduce(function (style, property) {
-        style[property] = '';
-        return style;
-      }, {}); // arrow is optional + virtual elements
-
-      if (!isHTMLElement(element) || !getNodeName(element)) {
-        return;
-      }
-
-      Object.assign(element.style, style);
-      Object.keys(attributes).forEach(function (attribute) {
-        element.removeAttribute(attribute);
-      });
-    });
-  };
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var modifiers_applyStyles = ({
-  name: 'applyStyles',
-  enabled: true,
-  phase: 'write',
-  fn: applyStyles,
-  effect: applyStyles_effect,
-  requires: ['computeStyles']
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/offset.js
-
-
-function distanceAndSkiddingToXY(placement, rects, offset) {
-  var basePlacement = getBasePlacement(placement);
-  var invertDistance = [left, enums_top].indexOf(basePlacement) >= 0 ? -1 : 1;
-
-  var _ref = typeof offset === 'function' ? offset(Object.assign(Object.assign({}, rects), {}, {
-    placement: placement
-  })) : offset,
-      skidding = _ref[0],
-      distance = _ref[1];
-
-  skidding = skidding || 0;
-  distance = (distance || 0) * invertDistance;
-  return [left, right].indexOf(basePlacement) >= 0 ? {
-    x: distance,
-    y: skidding
-  } : {
-    x: skidding,
-    y: distance
-  };
-}
-
-function offset(_ref2) {
-  var state = _ref2.state,
-      options = _ref2.options,
-      name = _ref2.name;
-  var _options$offset = options.offset,
-      offset = _options$offset === void 0 ? [0, 0] : _options$offset;
-  var data = enums_placements.reduce(function (acc, placement) {
-    acc[placement] = distanceAndSkiddingToXY(placement, state.rects, offset);
-    return acc;
-  }, {});
-  var _data$state$placement = data[state.placement],
-      x = _data$state$placement.x,
-      y = _data$state$placement.y;
-
-  if (state.modifiersData.popperOffsets != null) {
-    state.modifiersData.popperOffsets.x += x;
-    state.modifiersData.popperOffsets.y += y;
-  }
-
-  state.modifiersData[name] = data;
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var modifiers_offset = ({
-  name: 'offset',
-  enabled: true,
-  phase: 'main',
-  requires: ['popperOffsets'],
-  fn: offset
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getOppositePlacement.js
-var getOppositePlacement_hash = {
-  left: 'right',
-  right: 'left',
-  bottom: 'top',
-  top: 'bottom'
-};
-function getOppositePlacement(placement) {
-  return placement.replace(/left|right|bottom|top/g, function (matched) {
-    return getOppositePlacement_hash[matched];
-  });
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getOppositeVariationPlacement.js
-var getOppositeVariationPlacement_hash = {
-  start: 'end',
-  end: 'start'
-};
-function getOppositeVariationPlacement(placement) {
-  return placement.replace(/start|end/g, function (matched) {
-    return getOppositeVariationPlacement_hash[matched];
-  });
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getViewportRect.js
-
-
-
-function getViewportRect(element) {
-  var win = getWindow_getWindow(element);
-  var html = getDocumentElement(element);
-  var visualViewport = win.visualViewport;
-  var width = html.clientWidth;
-  var height = html.clientHeight;
-  var x = 0;
-  var y = 0; // NB: This isn't supported on iOS <= 12. If the keyboard is open, the popper
-  // can be obscured underneath it.
-  // Also, `html.clientHeight` adds the bottom bar height in Safari iOS, even
-  // if it isn't open, so if this isn't available, the popper will be detected
-  // to overflow the bottom of the screen too early.
-
-  if (visualViewport) {
-    width = visualViewport.width;
-    height = visualViewport.height; // Uses Layout Viewport (like Chrome; Safari does not currently)
-    // In Chrome, it returns a value very close to 0 (+/-) but contains rounding
-    // errors due to floating point numbers, so we need to check precision.
-    // Safari returns a number <= 0, usually < -1 when pinch-zoomed
-    // Feature detection fails in mobile emulation mode in Chrome.
-    // Math.abs(win.innerWidth / visualViewport.scale - visualViewport.width) <
-    // 0.001
-    // Fallback here: "Not Safari" userAgent
-
-    if (!/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
-      x = visualViewport.offsetLeft;
-      y = visualViewport.offsetTop;
-    }
-  }
-
-  return {
-    width: width,
-    height: height,
-    x: x + getWindowScrollBarX(element),
-    y: y
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getDocumentRect.js
-
-
-
- // Gets the entire size of the scrollable document area, even extending outside
-// of the `<html>` and `<body>` rect bounds if horizontally scrollable
-
-function getDocumentRect(element) {
-  var html = getDocumentElement(element);
-  var winScroll = getWindowScroll(element);
-  var body = element.ownerDocument.body;
-  var width = Math.max(html.scrollWidth, html.clientWidth, body ? body.scrollWidth : 0, body ? body.clientWidth : 0);
-  var height = Math.max(html.scrollHeight, html.clientHeight, body ? body.scrollHeight : 0, body ? body.clientHeight : 0);
-  var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
-  var y = -winScroll.scrollTop;
-
-  if (getComputedStyle_getComputedStyle(body || html).direction === 'rtl') {
-    x += Math.max(html.clientWidth, body ? body.clientWidth : 0) - width;
-  }
-
-  return {
-    width: width,
-    height: height,
-    x: x,
-    y: y
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/contains.js
-
-function contains_contains(parent, child) {
-  var rootNode = child.getRootNode && child.getRootNode(); // First, attempt with faster native method
-
-  if (parent.contains(child)) {
-    return true;
-  } // then fallback to custom implementation with Shadow DOM support
-  else if (rootNode && isShadowRoot(rootNode)) {
-      var next = child;
-
-      do {
-        if (next && parent.isSameNode(next)) {
-          return true;
-        } // $FlowFixMe[prop-missing]: need a better way to handle this...
-
-
-        next = next.parentNode || next.host;
-      } while (next);
-    } // Give up, the result is false
-
-
-  return false;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/rectToClientRect.js
-function rectToClientRect(rect) {
-  return Object.assign(Object.assign({}, rect), {}, {
-    left: rect.x,
-    top: rect.y,
-    right: rect.x + rect.width,
-    bottom: rect.y + rect.height
-  });
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getClippingRect.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function getInnerBoundingClientRect(element) {
-  var rect = getBoundingClientRect(element);
-  rect.top = rect.top + element.clientTop;
-  rect.left = rect.left + element.clientLeft;
-  rect.bottom = rect.top + element.clientHeight;
-  rect.right = rect.left + element.clientWidth;
-  rect.width = element.clientWidth;
-  rect.height = element.clientHeight;
-  rect.x = rect.left;
-  rect.y = rect.top;
-  return rect;
-}
-
-function getClientRectFromMixedType(element, clippingParent) {
-  return clippingParent === viewport ? rectToClientRect(getViewportRect(element)) : isHTMLElement(clippingParent) ? getInnerBoundingClientRect(clippingParent) : rectToClientRect(getDocumentRect(getDocumentElement(element)));
-} // A "clipping parent" is an overflowable container with the characteristic of
-// clipping (or hiding) overflowing elements with a position different from
-// `initial`
-
-
-function getClippingParents(element) {
-  var clippingParents = listScrollParents(getParentNode(element));
-  var canEscapeClipping = ['absolute', 'fixed'].indexOf(getComputedStyle_getComputedStyle(element).position) >= 0;
-  var clipperElement = canEscapeClipping && isHTMLElement(element) ? getOffsetParent(element) : element;
-
-  if (!isElement(clipperElement)) {
-    return [];
-  } // $FlowFixMe[incompatible-return]: https://github.com/facebook/flow/issues/1414
-
-
-  return clippingParents.filter(function (clippingParent) {
-    return isElement(clippingParent) && contains_contains(clippingParent, clipperElement) && getNodeName(clippingParent) !== 'body';
-  });
-} // Gets the maximum area that the element is visible in due to any number of
-// clipping parents
-
-
-function getClippingRect(element, boundary, rootBoundary) {
-  var mainClippingParents = boundary === 'clippingParents' ? getClippingParents(element) : [].concat(boundary);
-  var clippingParents = [].concat(mainClippingParents, [rootBoundary]);
-  var firstClippingParent = clippingParents[0];
-  var clippingRect = clippingParents.reduce(function (accRect, clippingParent) {
-    var rect = getClientRectFromMixedType(element, clippingParent);
-    accRect.top = Math.max(rect.top, accRect.top);
-    accRect.right = Math.min(rect.right, accRect.right);
-    accRect.bottom = Math.min(rect.bottom, accRect.bottom);
-    accRect.left = Math.max(rect.left, accRect.left);
-    return accRect;
-  }, getClientRectFromMixedType(element, firstClippingParent));
-  clippingRect.width = clippingRect.right - clippingRect.left;
-  clippingRect.height = clippingRect.bottom - clippingRect.top;
-  clippingRect.x = clippingRect.left;
-  clippingRect.y = clippingRect.top;
-  return clippingRect;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getFreshSideObject.js
-function getFreshSideObject() {
-  return {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
-  };
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/mergePaddingObject.js
-
-function mergePaddingObject(paddingObject) {
-  return Object.assign(Object.assign({}, getFreshSideObject()), paddingObject);
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/expandToHashMap.js
-function expandToHashMap(value, keys) {
-  return keys.reduce(function (hashMap, key) {
-    hashMap[key] = value;
-    return hashMap;
-  }, {});
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/detectOverflow.js
-
-
-
-
-
-
-
-
- // eslint-disable-next-line import/no-unused-modules
-
-function detectOverflow(state, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var _options = options,
-      _options$placement = _options.placement,
-      placement = _options$placement === void 0 ? state.placement : _options$placement,
-      _options$boundary = _options.boundary,
-      boundary = _options$boundary === void 0 ? clippingParents : _options$boundary,
-      _options$rootBoundary = _options.rootBoundary,
-      rootBoundary = _options$rootBoundary === void 0 ? viewport : _options$rootBoundary,
-      _options$elementConte = _options.elementContext,
-      elementContext = _options$elementConte === void 0 ? popper : _options$elementConte,
-      _options$altBoundary = _options.altBoundary,
-      altBoundary = _options$altBoundary === void 0 ? false : _options$altBoundary,
-      _options$padding = _options.padding,
-      padding = _options$padding === void 0 ? 0 : _options$padding;
-  var paddingObject = mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements));
-  var altContext = elementContext === popper ? reference : popper;
-  var referenceElement = state.elements.reference;
-  var popperRect = state.rects.popper;
-  var element = state.elements[altBoundary ? altContext : elementContext];
-  var clippingClientRect = getClippingRect(isElement(element) ? element : element.contextElement || getDocumentElement(state.elements.popper), boundary, rootBoundary);
-  var referenceClientRect = getBoundingClientRect(referenceElement);
-  var popperOffsets = computeOffsets({
-    reference: referenceClientRect,
-    element: popperRect,
-    strategy: 'absolute',
-    placement: placement
-  });
-  var popperClientRect = rectToClientRect(Object.assign(Object.assign({}, popperRect), popperOffsets));
-  var elementClientRect = elementContext === popper ? popperClientRect : referenceClientRect; // positive = overflowing the clipping rect
-  // 0 or negative = within the clipping rect
-
-  var overflowOffsets = {
-    top: clippingClientRect.top - elementClientRect.top + paddingObject.top,
-    bottom: elementClientRect.bottom - clippingClientRect.bottom + paddingObject.bottom,
-    left: clippingClientRect.left - elementClientRect.left + paddingObject.left,
-    right: elementClientRect.right - clippingClientRect.right + paddingObject.right
-  };
-  var offsetData = state.modifiersData.offset; // Offsets can be applied only to the popper element
-
-  if (elementContext === popper && offsetData) {
-    var offset = offsetData[placement];
-    Object.keys(overflowOffsets).forEach(function (key) {
-      var multiply = [right, bottom].indexOf(key) >= 0 ? 1 : -1;
-      var axis = [enums_top, bottom].indexOf(key) >= 0 ? 'y' : 'x';
-      overflowOffsets[key] += offset[axis] * multiply;
-    });
-  }
-
-  return overflowOffsets;
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/computeAutoPlacement.js
-
-
-
-
-
-/*:: type OverflowsMap = { [ComputedPlacement]: number }; */
-
-/*;; type OverflowsMap = { [key in ComputedPlacement]: number }; */
-function computeAutoPlacement(state, options) {
-  if (options === void 0) {
-    options = {};
-  }
-
-  var _options = options,
-      placement = _options.placement,
-      boundary = _options.boundary,
-      rootBoundary = _options.rootBoundary,
-      padding = _options.padding,
-      flipVariations = _options.flipVariations,
-      _options$allowedAutoP = _options.allowedAutoPlacements,
-      allowedAutoPlacements = _options$allowedAutoP === void 0 ? enums_placements : _options$allowedAutoP;
-  var variation = getVariation(placement);
-  var placements = variation ? flipVariations ? variationPlacements : variationPlacements.filter(function (placement) {
-    return getVariation(placement) === variation;
-  }) : basePlacements;
-  var allowedPlacements = placements.filter(function (placement) {
-    return allowedAutoPlacements.indexOf(placement) >= 0;
-  });
-
-  if (allowedPlacements.length === 0) {
-    allowedPlacements = placements;
-
-    if (false) {}
-  } // $FlowFixMe[incompatible-type]: Flow seems to have problems with two array unions...
-
-
-  var overflows = allowedPlacements.reduce(function (acc, placement) {
-    acc[placement] = detectOverflow(state, {
-      placement: placement,
-      boundary: boundary,
-      rootBoundary: rootBoundary,
-      padding: padding
-    })[getBasePlacement(placement)];
-    return acc;
-  }, {});
-  return Object.keys(overflows).sort(function (a, b) {
-    return overflows[a] - overflows[b];
-  });
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/flip.js
-
-
-
-
-
-
- // eslint-disable-next-line import/no-unused-modules
-
-function getExpandedFallbackPlacements(placement) {
-  if (getBasePlacement(placement) === enums_auto) {
-    return [];
-  }
-
-  var oppositePlacement = getOppositePlacement(placement);
-  return [getOppositeVariationPlacement(placement), oppositePlacement, getOppositeVariationPlacement(oppositePlacement)];
-}
-
-function flip(_ref) {
-  var state = _ref.state,
-      options = _ref.options,
-      name = _ref.name;
-
-  if (state.modifiersData[name]._skip) {
-    return;
-  }
-
-  var _options$mainAxis = options.mainAxis,
-      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
-      _options$altAxis = options.altAxis,
-      checkAltAxis = _options$altAxis === void 0 ? true : _options$altAxis,
-      specifiedFallbackPlacements = options.fallbackPlacements,
-      padding = options.padding,
-      boundary = options.boundary,
-      rootBoundary = options.rootBoundary,
-      altBoundary = options.altBoundary,
-      _options$flipVariatio = options.flipVariations,
-      flipVariations = _options$flipVariatio === void 0 ? true : _options$flipVariatio,
-      allowedAutoPlacements = options.allowedAutoPlacements;
-  var preferredPlacement = state.options.placement;
-  var basePlacement = getBasePlacement(preferredPlacement);
-  var isBasePlacement = basePlacement === preferredPlacement;
-  var fallbackPlacements = specifiedFallbackPlacements || (isBasePlacement || !flipVariations ? [getOppositePlacement(preferredPlacement)] : getExpandedFallbackPlacements(preferredPlacement));
-  var placements = [preferredPlacement].concat(fallbackPlacements).reduce(function (acc, placement) {
-    return acc.concat(getBasePlacement(placement) === enums_auto ? computeAutoPlacement(state, {
-      placement: placement,
-      boundary: boundary,
-      rootBoundary: rootBoundary,
-      padding: padding,
-      flipVariations: flipVariations,
-      allowedAutoPlacements: allowedAutoPlacements
-    }) : placement);
-  }, []);
-  var referenceRect = state.rects.reference;
-  var popperRect = state.rects.popper;
-  var checksMap = new Map();
-  var makeFallbackChecks = true;
-  var firstFittingPlacement = placements[0];
-
-  for (var i = 0; i < placements.length; i++) {
-    var placement = placements[i];
-
-    var _basePlacement = getBasePlacement(placement);
-
-    var isStartVariation = getVariation(placement) === start;
-    var isVertical = [enums_top, bottom].indexOf(_basePlacement) >= 0;
-    var len = isVertical ? 'width' : 'height';
-    var overflow = detectOverflow(state, {
-      placement: placement,
-      boundary: boundary,
-      rootBoundary: rootBoundary,
-      altBoundary: altBoundary,
-      padding: padding
-    });
-    var mainVariationSide = isVertical ? isStartVariation ? right : left : isStartVariation ? bottom : enums_top;
-
-    if (referenceRect[len] > popperRect[len]) {
-      mainVariationSide = getOppositePlacement(mainVariationSide);
-    }
-
-    var altVariationSide = getOppositePlacement(mainVariationSide);
-    var checks = [];
-
-    if (checkMainAxis) {
-      checks.push(overflow[_basePlacement] <= 0);
-    }
-
-    if (checkAltAxis) {
-      checks.push(overflow[mainVariationSide] <= 0, overflow[altVariationSide] <= 0);
-    }
-
-    if (checks.every(function (check) {
-      return check;
-    })) {
-      firstFittingPlacement = placement;
-      makeFallbackChecks = false;
-      break;
-    }
-
-    checksMap.set(placement, checks);
-  }
-
-  if (makeFallbackChecks) {
-    // `2` may be desired in some cases – research later
-    var numberOfChecks = flipVariations ? 3 : 1;
-
-    var _loop = function _loop(_i) {
-      var fittingPlacement = placements.find(function (placement) {
-        var checks = checksMap.get(placement);
-
-        if (checks) {
-          return checks.slice(0, _i).every(function (check) {
-            return check;
-          });
-        }
-      });
-
-      if (fittingPlacement) {
-        firstFittingPlacement = fittingPlacement;
-        return "break";
-      }
-    };
-
-    for (var _i = numberOfChecks; _i > 0; _i--) {
-      var _ret = _loop(_i);
-
-      if (_ret === "break") break;
-    }
-  }
-
-  if (state.placement !== firstFittingPlacement) {
-    state.modifiersData[name]._skip = true;
-    state.placement = firstFittingPlacement;
-    state.reset = true;
-  }
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var modifiers_flip = ({
-  name: 'flip',
-  enabled: true,
-  phase: 'main',
-  fn: flip,
-  requiresIfExists: ['offset'],
-  data: {
-    _skip: false
-  }
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/getAltAxis.js
-function getAltAxis(axis) {
-  return axis === 'x' ? 'y' : 'x';
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/utils/within.js
-function within(min, value, max) {
-  return Math.max(min, Math.min(value, max));
-}
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/preventOverflow.js
-
-
-
-
-
-
-
-
-
-
-
-function preventOverflow(_ref) {
-  var state = _ref.state,
-      options = _ref.options,
-      name = _ref.name;
-  var _options$mainAxis = options.mainAxis,
-      checkMainAxis = _options$mainAxis === void 0 ? true : _options$mainAxis,
-      _options$altAxis = options.altAxis,
-      checkAltAxis = _options$altAxis === void 0 ? false : _options$altAxis,
-      boundary = options.boundary,
-      rootBoundary = options.rootBoundary,
-      altBoundary = options.altBoundary,
-      padding = options.padding,
-      _options$tether = options.tether,
-      tether = _options$tether === void 0 ? true : _options$tether,
-      _options$tetherOffset = options.tetherOffset,
-      tetherOffset = _options$tetherOffset === void 0 ? 0 : _options$tetherOffset;
-  var overflow = detectOverflow(state, {
-    boundary: boundary,
-    rootBoundary: rootBoundary,
-    padding: padding,
-    altBoundary: altBoundary
-  });
-  var basePlacement = getBasePlacement(state.placement);
-  var variation = getVariation(state.placement);
-  var isBasePlacement = !variation;
-  var mainAxis = getMainAxisFromPlacement(basePlacement);
-  var altAxis = getAltAxis(mainAxis);
-  var popperOffsets = state.modifiersData.popperOffsets;
-  var referenceRect = state.rects.reference;
-  var popperRect = state.rects.popper;
-  var tetherOffsetValue = typeof tetherOffset === 'function' ? tetherOffset(Object.assign(Object.assign({}, state.rects), {}, {
-    placement: state.placement
-  })) : tetherOffset;
-  var data = {
-    x: 0,
-    y: 0
-  };
-
-  if (!popperOffsets) {
-    return;
-  }
-
-  if (checkMainAxis) {
-    var mainSide = mainAxis === 'y' ? enums_top : left;
-    var altSide = mainAxis === 'y' ? bottom : right;
-    var len = mainAxis === 'y' ? 'height' : 'width';
-    var offset = popperOffsets[mainAxis];
-    var min = popperOffsets[mainAxis] + overflow[mainSide];
-    var max = popperOffsets[mainAxis] - overflow[altSide];
-    var additive = tether ? -popperRect[len] / 2 : 0;
-    var minLen = variation === start ? referenceRect[len] : popperRect[len];
-    var maxLen = variation === start ? -popperRect[len] : -referenceRect[len]; // We need to include the arrow in the calculation so the arrow doesn't go
-    // outside the reference bounds
-
-    var arrowElement = state.elements.arrow;
-    var arrowRect = tether && arrowElement ? getLayoutRect(arrowElement) : {
-      width: 0,
-      height: 0
-    };
-    var arrowPaddingObject = state.modifiersData['arrow#persistent'] ? state.modifiersData['arrow#persistent'].padding : getFreshSideObject();
-    var arrowPaddingMin = arrowPaddingObject[mainSide];
-    var arrowPaddingMax = arrowPaddingObject[altSide]; // If the reference length is smaller than the arrow length, we don't want
-    // to include its full size in the calculation. If the reference is small
-    // and near the edge of a boundary, the popper can overflow even if the
-    // reference is not overflowing as well (e.g. virtual elements with no
-    // width or height)
-
-    var arrowLen = within(0, referenceRect[len], arrowRect[len]);
-    var minOffset = isBasePlacement ? referenceRect[len] / 2 - additive - arrowLen - arrowPaddingMin - tetherOffsetValue : minLen - arrowLen - arrowPaddingMin - tetherOffsetValue;
-    var maxOffset = isBasePlacement ? -referenceRect[len] / 2 + additive + arrowLen + arrowPaddingMax + tetherOffsetValue : maxLen + arrowLen + arrowPaddingMax + tetherOffsetValue;
-    var arrowOffsetParent = state.elements.arrow && getOffsetParent(state.elements.arrow);
-    var clientOffset = arrowOffsetParent ? mainAxis === 'y' ? arrowOffsetParent.clientTop || 0 : arrowOffsetParent.clientLeft || 0 : 0;
-    var offsetModifierValue = state.modifiersData.offset ? state.modifiersData.offset[state.placement][mainAxis] : 0;
-    var tetherMin = popperOffsets[mainAxis] + minOffset - offsetModifierValue - clientOffset;
-    var tetherMax = popperOffsets[mainAxis] + maxOffset - offsetModifierValue;
-    var preventedOffset = within(tether ? Math.min(min, tetherMin) : min, offset, tether ? Math.max(max, tetherMax) : max);
-    popperOffsets[mainAxis] = preventedOffset;
-    data[mainAxis] = preventedOffset - offset;
-  }
-
-  if (checkAltAxis) {
-    var _mainSide = mainAxis === 'x' ? enums_top : left;
-
-    var _altSide = mainAxis === 'x' ? bottom : right;
-
-    var _offset = popperOffsets[altAxis];
-
-    var _min = _offset + overflow[_mainSide];
-
-    var _max = _offset - overflow[_altSide];
-
-    var _preventedOffset = within(_min, _offset, _max);
-
-    popperOffsets[altAxis] = _preventedOffset;
-    data[altAxis] = _preventedOffset - _offset;
-  }
-
-  state.modifiersData[name] = data;
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var modifiers_preventOverflow = ({
-  name: 'preventOverflow',
-  enabled: true,
-  phase: 'main',
-  fn: preventOverflow,
-  requiresIfExists: ['offset']
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/arrow.js
-
-
-
-
-
-
-
-
-
- // eslint-disable-next-line import/no-unused-modules
-
-function arrow(_ref) {
-  var _state$modifiersData$;
-
-  var state = _ref.state,
-      name = _ref.name;
-  var arrowElement = state.elements.arrow;
-  var popperOffsets = state.modifiersData.popperOffsets;
-  var basePlacement = getBasePlacement(state.placement);
-  var axis = getMainAxisFromPlacement(basePlacement);
-  var isVertical = [left, right].indexOf(basePlacement) >= 0;
-  var len = isVertical ? 'height' : 'width';
-
-  if (!arrowElement || !popperOffsets) {
-    return;
-  }
-
-  var paddingObject = state.modifiersData[name + "#persistent"].padding;
-  var arrowRect = getLayoutRect(arrowElement);
-  var minProp = axis === 'y' ? enums_top : left;
-  var maxProp = axis === 'y' ? bottom : right;
-  var endDiff = state.rects.reference[len] + state.rects.reference[axis] - popperOffsets[axis] - state.rects.popper[len];
-  var startDiff = popperOffsets[axis] - state.rects.reference[axis];
-  var arrowOffsetParent = getOffsetParent(arrowElement);
-  var clientSize = arrowOffsetParent ? axis === 'y' ? arrowOffsetParent.clientHeight || 0 : arrowOffsetParent.clientWidth || 0 : 0;
-  var centerToReference = endDiff / 2 - startDiff / 2; // Make sure the arrow doesn't overflow the popper if the center point is
-  // outside of the popper bounds
-
-  var min = paddingObject[minProp];
-  var max = clientSize - arrowRect[len] - paddingObject[maxProp];
-  var center = clientSize / 2 - arrowRect[len] / 2 + centerToReference;
-  var offset = within(min, center, max); // Prevents breaking syntax highlighting...
-
-  var axisProp = axis;
-  state.modifiersData[name] = (_state$modifiersData$ = {}, _state$modifiersData$[axisProp] = offset, _state$modifiersData$.centerOffset = offset - center, _state$modifiersData$);
-}
-
-function arrow_effect(_ref2) {
-  var state = _ref2.state,
-      options = _ref2.options,
-      name = _ref2.name;
-  var _options$element = options.element,
-      arrowElement = _options$element === void 0 ? '[data-popper-arrow]' : _options$element,
-      _options$padding = options.padding,
-      padding = _options$padding === void 0 ? 0 : _options$padding;
-
-  if (arrowElement == null) {
-    return;
-  } // CSS selector
-
-
-  if (typeof arrowElement === 'string') {
-    arrowElement = state.elements.popper.querySelector(arrowElement);
-
-    if (!arrowElement) {
-      return;
-    }
-  }
-
-  if (false) {}
-
-  if (!contains_contains(state.elements.popper, arrowElement)) {
-    if (false) {}
-
-    return;
-  }
-
-  state.elements.arrow = arrowElement;
-  state.modifiersData[name + "#persistent"] = {
-    padding: mergePaddingObject(typeof padding !== 'number' ? padding : expandToHashMap(padding, basePlacements))
-  };
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var modifiers_arrow = ({
-  name: 'arrow',
-  enabled: true,
-  phase: 'main',
-  fn: arrow,
-  effect: arrow_effect,
-  requires: ['popperOffsets'],
-  requiresIfExists: ['preventOverflow']
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/modifiers/hide.js
-
-
-
-function getSideOffsets(overflow, rect, preventedOffsets) {
-  if (preventedOffsets === void 0) {
-    preventedOffsets = {
-      x: 0,
-      y: 0
-    };
-  }
-
-  return {
-    top: overflow.top - rect.height - preventedOffsets.y,
-    right: overflow.right - rect.width + preventedOffsets.x,
-    bottom: overflow.bottom - rect.height + preventedOffsets.y,
-    left: overflow.left - rect.width - preventedOffsets.x
-  };
-}
-
-function isAnySideFullyClipped(overflow) {
-  return [enums_top, right, bottom, left].some(function (side) {
-    return overflow[side] >= 0;
-  });
-}
-
-function hide(_ref) {
-  var state = _ref.state,
-      name = _ref.name;
-  var referenceRect = state.rects.reference;
-  var popperRect = state.rects.popper;
-  var preventedOffsets = state.modifiersData.preventOverflow;
-  var referenceOverflow = detectOverflow(state, {
-    elementContext: 'reference'
-  });
-  var popperAltOverflow = detectOverflow(state, {
-    altBoundary: true
-  });
-  var referenceClippingOffsets = getSideOffsets(referenceOverflow, referenceRect);
-  var popperEscapeOffsets = getSideOffsets(popperAltOverflow, popperRect, preventedOffsets);
-  var isReferenceHidden = isAnySideFullyClipped(referenceClippingOffsets);
-  var hasPopperEscaped = isAnySideFullyClipped(popperEscapeOffsets);
-  state.modifiersData[name] = {
-    referenceClippingOffsets: referenceClippingOffsets,
-    popperEscapeOffsets: popperEscapeOffsets,
-    isReferenceHidden: isReferenceHidden,
-    hasPopperEscaped: hasPopperEscaped
-  };
-  state.attributes.popper = Object.assign(Object.assign({}, state.attributes.popper), {}, {
-    'data-popper-reference-hidden': isReferenceHidden,
-    'data-popper-escaped': hasPopperEscaped
-  });
-} // eslint-disable-next-line import/no-unused-modules
-
-
-/* harmony default export */ var modifiers_hide = ({
-  name: 'hide',
-  enabled: true,
-  phase: 'main',
-  requiresIfExists: ['preventOverflow'],
-  fn: hide
-});
-;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/popper.js
-
-
-
-
-
-
-
-
-
-
-var defaultModifiers = [eventListeners, modifiers_popperOffsets, modifiers_computeStyles, modifiers_applyStyles, modifiers_offset, modifiers_flip, modifiers_preventOverflow, modifiers_arrow, modifiers_hide];
-var popper_createPopper = /*#__PURE__*/popperGenerator({
-  defaultModifiers: defaultModifiers
-}); // eslint-disable-next-line import/no-unused-modules
-
- // eslint-disable-next-line import/no-unused-modules
-
- // eslint-disable-next-line import/no-unused-modules
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Disclosure/DisclosureState.js
-
-
-
-
-
-
-
-
-function useLastValue(value) {
-  var lastValue = (0,external_React_.useRef)(null);
-  useIsomorphicEffect(function () {
-    lastValue.current = value;
-  }, [value]);
-  return lastValue;
-}
-
-function useDisclosureState(initialState) {
-  if (initialState === void 0) {
-    initialState = {};
-  }
-
-  var _useSealedState = useSealedState(initialState),
-      _useSealedState$visib = _useSealedState.visible,
-      initialVisible = _useSealedState$visib === void 0 ? false : _useSealedState$visib,
-      _useSealedState$anima = _useSealedState.animated,
-      initialAnimated = _useSealedState$anima === void 0 ? false : _useSealedState$anima,
-      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["visible", "animated"]);
-
-  var id = unstable_useIdState(sealed);
-
-  var _React$useState = (0,external_React_.useState)(initialVisible),
-      visible = _React$useState[0],
-      setVisible = _React$useState[1];
-
-  var _React$useState2 = (0,external_React_.useState)(initialAnimated),
-      animated = _React$useState2[0],
-      setAnimated = _React$useState2[1];
-
-  var _React$useState3 = (0,external_React_.useState)(false),
-      animating = _React$useState3[0],
-      setAnimating = _React$useState3[1];
-
-  var lastVisible = useLastValue(visible);
-  var visibleHasChanged = lastVisible.current != null && lastVisible.current !== visible;
-
-  if (animated && !animating && visibleHasChanged) {
-    // Sets animating to true when when visible is updated
-    setAnimating(true);
-  }
-
-  (0,external_React_.useEffect)(function () {
-    if (typeof animated === "number" && animating) {
-      var timeout = setTimeout(function () {
-        return setAnimating(false);
-      }, animated);
-      return function () {
-        clearTimeout(timeout);
-      };
-    }
-
-    if (animated && animating && "production" === "development") {
-      var _timeout = setTimeout(function () {
-         false ? 0 : void 0;
-      }, 8000);
-
-      return function () {
-        clearTimeout(_timeout);
-      };
-    }
-
-    return function () {};
-  }, [animated, animating]);
-  var show = (0,external_React_.useCallback)(function () {
-    return setVisible(true);
-  }, []);
-  var hide = (0,external_React_.useCallback)(function () {
-    return setVisible(false);
-  }, []);
-  var toggle = (0,external_React_.useCallback)(function () {
-    return setVisible(function (v) {
-      return !v;
-    });
-  }, []);
-  var stopAnimation = (0,external_React_.useCallback)(function () {
-    return setAnimating(false);
-  }, []);
-  return _objectSpread2(_objectSpread2({}, id), {}, {
-    visible: visible,
-    animated: animated,
-    animating: animating,
-    show: show,
-    hide: hide,
-    toggle: toggle,
-    setVisible: setVisible,
-    setAnimated: setAnimated,
-    stopAnimation: stopAnimation
-  });
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Dialog/DialogState.js
-
-
-
-
-
-
-
-
-
-function useDialogState(initialState) {
-  if (initialState === void 0) {
-    initialState = {};
-  }
-
-  var _useSealedState = useSealedState(initialState),
-      _useSealedState$modal = _useSealedState.modal,
-      initialModal = _useSealedState$modal === void 0 ? true : _useSealedState$modal,
-      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["modal"]);
-
-  var disclosure = useDisclosureState(sealed);
-
-  var _React$useState = (0,external_React_.useState)(initialModal),
-      modal = _React$useState[0],
-      setModal = _React$useState[1];
-
-  var disclosureRef = (0,external_React_.useRef)(null);
-  return _objectSpread2(_objectSpread2({}, disclosure), {}, {
-    modal: modal,
-    setModal: setModal,
-    unstable_disclosureRef: disclosureRef
-  });
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Popover/PopoverState.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-var isSafari = isUA("Mac") && !isUA("Chrome") && isUA("Safari");
-
-function PopoverState_applyStyles(styles) {
-  return function (prevStyles) {
-    if (styles && !shallowEqual(prevStyles, styles)) {
-      return styles;
-    }
-
-    return prevStyles;
-  };
-}
-
-function usePopoverState(initialState) {
-  if (initialState === void 0) {
-    initialState = {};
-  }
-
-  var _useSealedState = useSealedState(initialState),
-      _useSealedState$gutte = _useSealedState.gutter,
-      gutter = _useSealedState$gutte === void 0 ? 12 : _useSealedState$gutte,
-      _useSealedState$place = _useSealedState.placement,
-      sealedPlacement = _useSealedState$place === void 0 ? "bottom" : _useSealedState$place,
-      _useSealedState$unsta = _useSealedState.unstable_flip,
-      flip = _useSealedState$unsta === void 0 ? true : _useSealedState$unsta,
-      sealedOffset = _useSealedState.unstable_offset,
-      _useSealedState$unsta2 = _useSealedState.unstable_preventOverflow,
-      preventOverflow = _useSealedState$unsta2 === void 0 ? true : _useSealedState$unsta2,
-      _useSealedState$unsta3 = _useSealedState.unstable_fixed,
-      fixed = _useSealedState$unsta3 === void 0 ? false : _useSealedState$unsta3,
-      _useSealedState$modal = _useSealedState.modal,
-      modal = _useSealedState$modal === void 0 ? false : _useSealedState$modal,
-      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["gutter", "placement", "unstable_flip", "unstable_offset", "unstable_preventOverflow", "unstable_fixed", "modal"]);
-
-  var popper = (0,external_React_.useRef)(null);
-  var referenceRef = (0,external_React_.useRef)(null);
-  var popoverRef = (0,external_React_.useRef)(null);
-  var arrowRef = (0,external_React_.useRef)(null);
-
-  var _React$useState = (0,external_React_.useState)(sealedPlacement),
-      originalPlacement = _React$useState[0],
-      place = _React$useState[1];
-
-  var _React$useState2 = (0,external_React_.useState)(sealedPlacement),
-      placement = _React$useState2[0],
-      setPlacement = _React$useState2[1];
-
-  var _React$useState3 = (0,external_React_.useState)(sealedOffset || [0, gutter]),
-      offset = _React$useState3[0];
-
-  var _React$useState4 = (0,external_React_.useState)({
-    position: "fixed",
-    left: "100%",
-    top: "100%"
-  }),
-      popoverStyles = _React$useState4[0],
-      setPopoverStyles = _React$useState4[1];
-
-  var _React$useState5 = (0,external_React_.useState)({}),
-      arrowStyles = _React$useState5[0],
-      setArrowStyles = _React$useState5[1];
-
-  var dialog = useDialogState(_objectSpread2({
-    modal: modal
-  }, sealed));
-  var update = (0,external_React_.useCallback)(function () {
-    if (popper.current) {
-      popper.current.forceUpdate();
-      return true;
-    }
-
-    return false;
-  }, []);
-  var updateState = (0,external_React_.useCallback)(function (state) {
-    if (state.placement) {
-      setPlacement(state.placement);
-    }
-
-    if (state.styles) {
-      setPopoverStyles(PopoverState_applyStyles(state.styles.popper));
-
-      if (arrowRef.current) {
-        setArrowStyles(PopoverState_applyStyles(state.styles.arrow));
-      }
-    }
-  }, []);
-  useIsomorphicEffect(function () {
-    if (referenceRef.current && popoverRef.current) {
-      popper.current = popper_createPopper(referenceRef.current, popoverRef.current, {
-        // https://popper.js.org/docs/v2/constructors/#options
-        placement: originalPlacement,
-        strategy: fixed ? "fixed" : "absolute",
-        // Safari needs styles to be applied in the first render, otherwise
-        // hovering over the popover when it gets visible for the first time
-        // will change its dimensions unexpectedly.
-        onFirstUpdate: isSafari ? updateState : undefined,
-        modifiers: [{
-          // https://popper.js.org/docs/v2/modifiers/event-listeners/
-          name: "eventListeners",
-          enabled: dialog.visible
-        }, {
-          // https://popper.js.org/docs/v2/modifiers/apply-styles/
-          name: "applyStyles",
-          enabled: false
-        }, {
-          // https://popper.js.org/docs/v2/modifiers/flip/
-          name: "flip",
-          enabled: flip,
-          options: {
-            padding: 8
-          }
-        }, {
-          // https://popper.js.org/docs/v2/modifiers/offset/
-          name: "offset",
-          options: {
-            offset: offset
-          }
-        }, {
-          // https://popper.js.org/docs/v2/modifiers/prevent-overflow/
-          name: "preventOverflow",
-          enabled: preventOverflow,
-          options: {
-            tetherOffset: function tetherOffset() {
-              var _arrowRef$current;
-
-              return ((_arrowRef$current = arrowRef.current) === null || _arrowRef$current === void 0 ? void 0 : _arrowRef$current.clientWidth) || 0;
-            }
-          }
-        }, {
-          // https://popper.js.org/docs/v2/modifiers/arrow/
-          name: "arrow",
-          enabled: !!arrowRef.current,
-          options: {
-            element: arrowRef.current
-          }
-        }, {
-          // https://popper.js.org/docs/v2/modifiers/#custom-modifiers
-          name: "updateState",
-          phase: "write",
-          requires: ["computeStyles"],
-          enabled: dialog.visible && "production" !== "test",
-          fn: function fn(_ref) {
-            var state = _ref.state;
-            return updateState(state);
-          }
-        }]
-      });
-    }
-
-    return function () {
-      if (popper.current) {
-        popper.current.destroy();
-        popper.current = null;
-      }
-    };
-  }, [originalPlacement, fixed, dialog.visible, flip, offset, preventOverflow]); // Ensure that the popover will be correctly positioned with an additional
-  // update.
-
-  (0,external_React_.useEffect)(function () {
-    if (!dialog.visible) return undefined;
-    var id = window.requestAnimationFrame(function () {
-      var _popper$current;
-
-      (_popper$current = popper.current) === null || _popper$current === void 0 ? void 0 : _popper$current.forceUpdate();
-    });
-    return function () {
-      window.cancelAnimationFrame(id);
-    };
-  }, [dialog.visible]);
-  return _objectSpread2(_objectSpread2({}, dialog), {}, {
-    unstable_referenceRef: referenceRef,
-    unstable_popoverRef: popoverRef,
-    unstable_arrowRef: arrowRef,
-    unstable_popoverStyles: popoverStyles,
-    unstable_arrowStyles: arrowStyles,
-    unstable_update: update,
-    unstable_originalPlacement: originalPlacement,
-    placement: placement,
-    place: place
-  });
-}
-
-
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/flyout/flyout/hook.js
 /**
  * External dependencies
@@ -59495,30 +59814,114 @@ function FocusableIframe({
   }, props));
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/text-color.js
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/RadioState.js
 
 
-/**
- * WordPress dependencies
- */
 
-const textColor = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M12.9 6h-2l-4 11h1.9l1.1-3h4.2l1.1 3h1.9L12.9 6zm-2.5 6.5l1.5-4.9 1.7 4.9h-3.2z"
-}));
-/* harmony default export */ var text_color = (textColor);
-//# sourceMappingURL=text-color.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/range-control/utils.js
-// @ts-nocheck
+
+
+
+
+
+
+
+
+
+
+function useRadioState(initialState) {
+  if (initialState === void 0) {
+    initialState = {};
+  }
+
+  var _useSealedState = useSealedState(initialState),
+      initialValue = _useSealedState.state,
+      _useSealedState$loop = _useSealedState.loop,
+      loop = _useSealedState$loop === void 0 ? true : _useSealedState$loop,
+      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["state", "loop"]);
+
+  var _React$useState = (0,external_React_.useState)(initialValue),
+      state = _React$useState[0],
+      setState = _React$useState[1];
+
+  var composite = useCompositeState(_objectSpread2(_objectSpread2({}, sealed), {}, {
+    loop: loop
+  }));
+  return _objectSpread2(_objectSpread2({}, composite), {}, {
+    state: state,
+    setState: setState
+  });
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-d251e56b.js
+// Automatically generated
+var RADIO_STATE_KEYS = ["baseId", "unstable_idCountRef", "unstable_virtual", "rtl", "orientation", "items", "groups", "currentId", "loop", "wrap", "shift", "unstable_moves", "unstable_hasActiveWidget", "unstable_includesBaseElement", "state", "setBaseId", "registerItem", "unregisterItem", "registerGroup", "unregisterGroup", "move", "next", "previous", "up", "down", "first", "last", "sort", "unstable_setVirtual", "setRTL", "setOrientation", "setCurrentId", "setLoop", "setWrap", "setShift", "reset", "unstable_setIncludesBaseElement", "unstable_setHasActiveWidget", "setState"];
+var RADIO_KEYS = [].concat(RADIO_STATE_KEYS, ["value", "checked", "unstable_checkOnFocus"]);
+var RADIO_GROUP_KEYS = RADIO_STATE_KEYS;
+
+
+
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/RadioGroup.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var useRadioGroup = createHook({
+  name: "RadioGroup",
+  compose: useComposite,
+  keys: RADIO_GROUP_KEYS,
+  useProps: function useProps(_, htmlProps) {
+    return _objectSpread2({
+      role: "radiogroup"
+    }, htmlProps);
+  }
+});
+var RadioGroup = createComponent({
+  as: "div",
+  useHook: useRadioGroup,
+  useCreateElement: function useCreateElement$1(type, props, children) {
+     false ? 0 : void 0;
+    return useCreateElement(type, props, children);
+  }
+});
+
+
+
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control/styles.js
+
+
+function toggle_group_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
 /**
  * External dependencies
- */
-
-/**
- * WordPress dependencies
  */
 
 
@@ -59526,874 +59929,629 @@ const textColor = (0,external_wp_element_namespaceObject.createElement)(external
  * Internal dependencies
  */
 
+const ToggleGroupControl = /*#__PURE__*/emotion_react_browser_esm_css("background:", COLORS.ui.background, ";border:1px solid;border-color:", COLORS.ui.border, ";border-radius:", config_values.controlBorderRadius, ";display:inline-flex;min-height:", config_values.controlHeight, ";min-width:0;padding:2px;position:relative;transition:transform ", config_values.transitionDurationFastest, " linear;", reduceMotion('transition'), " &:hover{border-color:", COLORS.ui.borderHover, ";}&:focus-within{border-color:", COLORS.ui.borderFocus, ";box-shadow:", config_values.controlBoxShadowFocus, ";outline:none;z-index:1;}" + ( true ? "" : 0),  true ? "" : 0);
+const toggle_group_control_styles_block =  true ? {
+  name: "7whenc",
+  styles: "display:flex;width:100%"
+} : 0;
+const BackdropView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "eakva830"
+} : 0)("background:", COLORS.gray[900], ";border-radius:", config_values.controlBorderRadius, ";box-shadow:", config_values.toggleGroupControlBackdropBoxShadow, ";left:0;position:absolute;top:2px;bottom:2px;transition:transform ", config_values.transitionDurationFast, " ease;", reduceMotion('transition'), " z-index:1;" + ( true ? "" : 0));
+//# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control/toggle-group-control-backdrop.js
+
 
 /**
- * A float supported clamp function for a specific value.
- *
- * @param {number|null} value The value to clamp.
- * @param {number}      min   The minimum value.
- * @param {number}      max   The maximum value.
- *
- * @return {number} A (float) number
+ * WordPress dependencies
  */
 
-function floatClamp(value, min, max) {
-  if (typeof value !== 'number') {
-    return null;
-  }
-
-  return parseFloat((0,external_lodash_namespaceObject.clamp)(value, min, max));
-}
 /**
- * Hook to store a clamped value, derived from props.
- *
- * @param {Object} settings         Hook settings.
- * @param {number} settings.min     The minimum value.
- * @param {number} settings.max     The maximum value.
- * @param {number} settings.value   The current value.
- * @param {any}    settings.initial The initial value.
- *
- * @return {[*, Function]} The controlled value and the value setter.
+ * Internal dependencies
  */
 
-function useControlledRangeValue({
-  min,
-  max,
-  value: valueProp,
-  initial
+
+
+function ToggleGroupControlBackdrop({
+  containerRef,
+  containerWidth,
+  isAdaptiveWidth,
+  state
 }) {
-  const [state, setInternalState] = use_controlled_state(floatClamp(valueProp, min, max), {
-    initial,
-    fallback: null
-  });
-  const setState = (0,external_wp_element_namespaceObject.useCallback)(nextValue => {
-    if (nextValue === null) {
-      setInternalState(null);
-    } else {
-      setInternalState(floatClamp(nextValue, min, max));
-    }
-  }, [min, max]);
-  return [state, setState];
-}
-/**
- * Hook to encapsulate the debouncing "hover" to better handle the showing
- * and hiding of the Tooltip.
- *
- * @param {Object}   settings                     Hook settings.
- * @param {Function} [settings.onShow=noop]       A callback function invoked when the element is shown.
- * @param {Function} [settings.onHide=noop]       A callback function invoked when the element is hidden.
- * @param {Function} [settings.onMouseMove=noop]  A callback function invoked when the mouse is moved.
- * @param {Function} [settings.onMouseLeave=noop] A callback function invoked when the mouse is moved out of the element.
- * @param {number}   [settings.timeout=300]       Timeout before the element is shown or hidden.
- *
- * @return {Object} Bound properties for use on a React.Node.
- */
-
-function useDebouncedHoverInteraction({
-  onHide = external_lodash_namespaceObject.noop,
-  onMouseLeave = external_lodash_namespaceObject.noop,
-  onMouseMove = external_lodash_namespaceObject.noop,
-  onShow = external_lodash_namespaceObject.noop,
-  timeout = 300
-}) {
-  const [show, setShow] = (0,external_wp_element_namespaceObject.useState)(false);
-  const timeoutRef = (0,external_wp_element_namespaceObject.useRef)();
-  const setDebouncedTimeout = (0,external_wp_element_namespaceObject.useCallback)(callback => {
-    window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(callback, timeout);
-  }, [timeout]);
-  const handleOnMouseMove = (0,external_wp_element_namespaceObject.useCallback)(event => {
-    onMouseMove(event);
-    setDebouncedTimeout(() => {
-      if (!show) {
-        setShow(true);
-        onShow();
-      }
-    });
-  }, []);
-  const handleOnMouseLeave = (0,external_wp_element_namespaceObject.useCallback)(event => {
-    onMouseLeave(event);
-    setDebouncedTimeout(() => {
-      setShow(false);
-      onHide();
-    });
-  }, []);
+  const [left, setLeft] = (0,external_wp_element_namespaceObject.useState)(0);
+  const [width, setWidth] = (0,external_wp_element_namespaceObject.useState)(0);
+  const [canAnimate, setCanAnimate] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [renderBackdrop, setRenderBackdrop] = (0,external_wp_element_namespaceObject.useState)(false);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    return () => {
-      window.clearTimeout(timeoutRef.current);
-    };
-  });
-  return {
-    onMouseMove: handleOnMouseMove,
-    onMouseLeave: handleOnMouseLeave
-  };
-}
-//# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/range-control/styles/range-control-styles.js
-
-
-function range_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-const rangeHeightValue = 30;
-const railHeight = 4;
-
-const rangeHeight = () => /*#__PURE__*/emotion_react_browser_esm_css({
-  height: rangeHeightValue,
-  minHeight: rangeHeightValue
-},  true ? "" : 0,  true ? "" : 0);
-
-const thumbSize = 9;
-const range_control_styles_Root = emotion_styled_base_browser_esm("div",  true ? {
-  target: "exqw8y214"
-} : 0)( true ? {
-  name: "17z6zai",
-  styles: "-webkit-tap-highlight-color:transparent;box-sizing:border-box;align-items:flex-start;display:inline-flex;justify-content:flex-start;padding:0;position:relative;touch-action:none;width:100%"
-} : 0);
-
-const wrapperColor = ({
-  color: colorProp = COLORS.ui.borderFocus
-}) => {
-  return /*#__PURE__*/emotion_react_browser_esm_css({
-    color: colorProp
-  },  true ? "" : 0,  true ? "" : 0);
-};
-
-const wrapperMargin = ({
-  marks
-}) => /*#__PURE__*/emotion_react_browser_esm_css({
-  marginBottom: marks ? 16 : null
-},  true ? "" : 0,  true ? "" : 0);
-
-const range_control_styles_Wrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "exqw8y213"
-} : 0)("box-sizing:border-box;color:", COLORS.blue.medium.focus, ";display:block;flex:1;position:relative;width:100%;", wrapperColor, ";", rangeHeight, ";", wrapperMargin, ";" + ( true ? "" : 0));
-const BeforeIconWrapper = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y212"
-} : 0)("margin-top:", railHeight, "px;", rtl({
-  marginRight: 6
-}), ";" + ( true ? "" : 0));
-const AfterIconWrapper = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y211"
-} : 0)("margin-top:", railHeight, "px;", rtl({
-  marginLeft: 16
-}), ";" + ( true ? "" : 0));
-
-const railBackgroundColor = ({
-  disabled,
-  railColor
-}) => {
-  let background = railColor || null;
-
-  if (disabled) {
-    background = COLORS.lightGray[400];
-  }
-
-  return /*#__PURE__*/emotion_react_browser_esm_css({
-    background
-  },  true ? "" : 0,  true ? "" : 0);
-};
-
-const Rail = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y210"
-} : 0)("background-color:", COLORS.lightGray[600], ";box-sizing:border-box;left:0;pointer-events:none;right:0;display:block;height:", railHeight, "px;position:absolute;margin-top:", (rangeHeightValue - railHeight) / 2, "px;top:0;border-radius:", railHeight, "px;", railBackgroundColor, ";" + ( true ? "" : 0));
-
-const trackBackgroundColor = ({
-  disabled,
-  trackColor
-}) => {
-  let background = trackColor || 'currentColor';
-
-  if (disabled) {
-    background = COLORS.lightGray[800];
-  }
-
-  return /*#__PURE__*/emotion_react_browser_esm_css({
-    background
-  },  true ? "" : 0,  true ? "" : 0);
-};
-
-const Track = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y29"
-} : 0)("background-color:currentColor;border-radius:", railHeight, "px;box-sizing:border-box;height:", railHeight, "px;pointer-events:none;display:block;position:absolute;margin-top:", (rangeHeightValue - railHeight) / 2, "px;top:0;", trackBackgroundColor, ";" + ( true ? "" : 0));
-const MarksWrapper = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y28"
-} : 0)( true ? {
-  name: "1xuuvmv",
-  styles: "box-sizing:border-box;display:block;pointer-events:none;position:relative;width:100%;user-select:none"
-} : 0);
-
-const markFill = ({
-  disabled,
-  isFilled
-}) => {
-  let backgroundColor = isFilled ? 'currentColor' : COLORS.lightGray[600];
-
-  if (disabled) {
-    backgroundColor = COLORS.lightGray[800];
-  }
-
-  return /*#__PURE__*/emotion_react_browser_esm_css({
-    backgroundColor
-  },  true ? "" : 0,  true ? "" : 0);
-};
-
-const Mark = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y27"
-} : 0)("box-sizing:border-box;height:", thumbSize, "px;left:0;position:absolute;top:-4px;width:1px;", markFill, ";" + ( true ? "" : 0));
-
-const markLabelFill = ({
-  isFilled
-}) => {
-  return /*#__PURE__*/emotion_react_browser_esm_css({
-    color: isFilled ? COLORS.darkGray[300] : COLORS.lightGray[600]
-  },  true ? "" : 0,  true ? "" : 0);
-};
-
-const MarkLabel = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y26"
-} : 0)("box-sizing:border-box;color:", COLORS.lightGray[600], ";left:0;font-size:11px;position:absolute;top:12px;transform:translateX( -50% );white-space:nowrap;", markLabelFill, ";" + ( true ? "" : 0));
-
-var range_control_styles_ref3 =  true ? {
-  name: "1sb75b3",
-  styles: "background-color:var( --wp-admin-theme-color )"
-} : 0;
-
-const thumbColor = ({
-  disabled
-}) => disabled ? /*#__PURE__*/emotion_react_browser_esm_css("background-color:", COLORS.lightGray[800], ";" + ( true ? "" : 0),  true ? "" : 0) : range_control_styles_ref3;
-
-const ThumbWrapper = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y25"
-} : 0)("align-items:center;box-sizing:border-box;display:flex;height:", thumbSize, "px;justify-content:center;margin-top:", (rangeHeightValue - thumbSize) / 2, "px;outline:0;pointer-events:none;position:absolute;top:0;user-select:none;width:", thumbSize, "px;border-radius:50%;transform:translateX( 4.5px );", thumbColor, ";", rtl({
-  marginLeft: -10
-}), ";" + ( true ? "" : 0));
-
-const thumbFocus = ({
-  isFocused
-}) => {
-  return isFocused ? /*#__PURE__*/emotion_react_browser_esm_css("&::before{content:' ';position:absolute;background-color:transparent;box-shadow:0 0 0 1.5px var( --wp-admin-theme-color );border-radius:50%;height:", thumbSize + 4, "px;width:", thumbSize + 4, "px;top:-2px;left:-2px;}" + ( true ? "" : 0),  true ? "" : 0) : '';
-};
-
-const Thumb = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y24"
-} : 0)("align-items:center;border-radius:50%;box-sizing:border-box;height:100%;outline:0;position:absolute;user-select:none;width:100%;", thumbColor, ";", thumbFocus, ";" + ( true ? "" : 0));
-const InputRange = emotion_styled_base_browser_esm("input",  true ? {
-  target: "exqw8y23"
-} : 0)("box-sizing:border-box;cursor:pointer;display:block;height:100%;left:0;margin:0 -", thumbSize / 2, "px;opacity:0;outline:none;position:absolute;right:0;top:0;width:calc( 100% + ", thumbSize, "px );" + ( true ? "" : 0));
-
-const tooltipShow = ({
-  show
-}) => {
-  return /*#__PURE__*/emotion_react_browser_esm_css({
-    opacity: show ? 1 : 0
-  },  true ? "" : 0,  true ? "" : 0);
-};
-
-var range_control_styles_ref =  true ? {
-  name: "1lr98c4",
-  styles: "bottom:-80%"
-} : 0;
-
-var range_control_styles_ref2 =  true ? {
-  name: "1cypxip",
-  styles: "top:-80%"
-} : 0;
-
-const tooltipPosition = ({
-  position
-}) => {
-  const isTop = position === 'top';
-
-  if (isTop) {
-    return range_control_styles_ref2;
-  }
-
-  return range_control_styles_ref;
-};
-
-const range_control_styles_Tooltip = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y22"
-} : 0)("background:rgba( 0, 0, 0, 0.8 );border-radius:2px;box-sizing:border-box;color:white;display:inline-block;font-size:12px;min-width:32px;opacity:0;padding:4px 8px;pointer-events:none;position:absolute;text-align:center;transition:opacity 120ms ease;user-select:none;line-height:1.4;", tooltipShow, ";", tooltipPosition, ";", reduceMotion('transition'), ";", rtl({
-  transform: 'translateX(-50%)'
-}, {
-  transform: 'translateX(50%)'
-}), ";" + ( true ? "" : 0)); // @todo: Refactor RangeControl with latest HStack configuration
-// @wordpress/components/ui/hstack
-
-const InputNumber = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
-  target: "exqw8y21"
-} : 0)("box-sizing:border-box;display:inline-block;font-size:13px;margin-top:0;width:", space(16), "!important;input[type='number']&{", rangeHeight, ";}", rtl({
-  marginLeft: `${space(4)} !important`
-}), ";" + ( true ? "" : 0));
-const ActionRightWrapper = emotion_styled_base_browser_esm("span",  true ? {
-  target: "exqw8y20"
-} : 0)("box-sizing:border-box;display:block;margin-top:0;button,button.is-small{margin-left:0;", rangeHeight, ";}", rtl({
-  marginLeft: 8
-}), ";" + ( true ? "" : 0));
-//# sourceMappingURL=range-control-styles.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/range-control/input-range.js
-
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-function input_range_InputRange({
-  describedBy,
-  label,
-  onHideTooltip = external_lodash_namespaceObject.noop,
-  onMouseLeave = external_lodash_namespaceObject.noop,
-  onMouseMove = external_lodash_namespaceObject.noop,
-  onShowTooltip = external_lodash_namespaceObject.noop,
-  value,
-  ...props
-}, ref) {
-  const hoverInteractions = useDebouncedHoverInteraction({
-    onHide: onHideTooltip,
-    onMouseLeave,
-    onMouseMove,
-    onShow: onShowTooltip
-  });
-  return (0,external_wp_element_namespaceObject.createElement)(InputRange, extends_extends({}, props, hoverInteractions, {
-    "aria-describedby": describedBy,
-    "aria-label": label,
-    "aria-hidden": false,
-    ref: ref,
-    tabIndex: 0,
-    type: "range",
-    value: value
-  }));
-}
-
-const input_range_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(input_range_InputRange);
-/* harmony default export */ var input_range = (input_range_ForwardedComponent);
-//# sourceMappingURL=input-range.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/range-control/mark.js
-
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-function RangeMark({
-  className,
-  isFilled = false,
-  label,
-  style = {},
-  ...props
-}) {
-  const classes = classnames_default()('components-range-control__mark', isFilled && 'is-filled', className);
-  const labelClasses = classnames_default()('components-range-control__mark-label', isFilled && 'is-filled');
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(Mark, extends_extends({}, props, {
-    "aria-hidden": "true",
-    className: classes,
-    isFilled: isFilled,
-    style: style
-  })), label && (0,external_wp_element_namespaceObject.createElement)(MarkLabel, {
-    "aria-hidden": "true",
-    className: labelClasses,
-    isFilled: isFilled,
-    style: style
-  }, label));
-}
-//# sourceMappingURL=mark.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/range-control/rail.js
-
-
-// @ts-nocheck
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-function RangeRail({
-  disabled = false,
-  marks = false,
-  min = 0,
-  max = 100,
-  step = 1,
-  value = 0,
-  ...restProps
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(Rail, extends_extends({
-    disabled: disabled
-  }, restProps)), marks && (0,external_wp_element_namespaceObject.createElement)(Marks, {
-    disabled: disabled,
-    marks: marks,
-    min: min,
-    max: max,
-    step: step,
-    value: value
-  }));
-}
-
-function Marks({
-  disabled = false,
-  marks = false,
-  min = 0,
-  max = 100,
-  step = 1,
-  value = 0
-}) {
-  const marksData = useMarks({
-    marks,
-    min,
-    max,
-    step,
-    value
-  });
-  return (0,external_wp_element_namespaceObject.createElement)(MarksWrapper, {
-    "aria-hidden": "true",
-    className: "components-range-control__marks"
-  }, marksData.map(mark => (0,external_wp_element_namespaceObject.createElement)(RangeMark, extends_extends({}, mark, {
-    key: mark.key,
-    "aria-hidden": "true",
-    disabled: disabled
-  }))));
-}
-
-function useMarks({
-  marks,
-  min = 0,
-  max = 100,
-  step = 1,
-  value = 0
-}) {
-  if (!marks) {
-    return [];
-  }
-
-  const range = max - min;
-
-  if (!Array.isArray(marks)) {
-    marks = [];
-    const count = 1 + Math.round(range / step);
-
-    while (count > marks.push({
-      value: step * marks.length + min
-    }));
-  }
-
-  const placedMarks = [];
-  marks.forEach((mark, index) => {
-    if (mark.value < min || mark.value > max) {
+    const containerNode = containerRef === null || containerRef === void 0 ? void 0 : containerRef.current;
+    if (!containerNode) return;
+    /**
+     * Workaround for Reakit
+     */
+
+    const targetNode = containerNode.querySelector(`[data-value="${state}"]`);
+    setRenderBackdrop(!!targetNode);
+
+    if (!targetNode) {
       return;
     }
 
-    const key = `mark-${index}`;
-    const isFilled = mark.value <= value;
-    const offset = `${(mark.value - min) / range * 100}%`;
-    const offsetStyle = {
-      [(0,external_wp_i18n_namespaceObject.isRTL)() ? 'right' : 'left']: offset
-    };
-    placedMarks.push({ ...mark,
-      isFilled,
-      key,
-      style: offsetStyle
-    });
-  });
-  return placedMarks;
-}
-//# sourceMappingURL=rail.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/range-control/tooltip.js
+    const {
+      x: parentX
+    } = containerNode.getBoundingClientRect();
+    const {
+      width: offsetWidth,
+      x
+    } = targetNode.getBoundingClientRect();
+    const borderWidth = 1;
+    const offsetLeft = x - parentX - borderWidth;
+    setLeft(offsetLeft);
+    setWidth(offsetWidth);
+    let requestId;
 
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-const TOOLTIP_OFFSET_HEIGHT = 32;
-function SimpleTooltip({
-  className,
-  inputRef,
-  position: positionProp = 'auto',
-  show = false,
-  style = {},
-  value = 0,
-  renderTooltipContent = v => v,
-  zIndex = 100,
-  ...restProps
-}) {
-  const position = useTooltipPosition({
-    inputRef,
-    position: positionProp
-  });
-  const classes = classnames_default()('components-simple-tooltip', className);
-  const styles = { ...style,
-    zIndex
-  };
-  return (0,external_wp_element_namespaceObject.createElement)(range_control_styles_Tooltip, extends_extends({}, restProps, {
-    "aria-hidden": show,
-    className: classes,
-    position: position,
-    show: show,
-    role: "tooltip",
-    style: styles
-  }), renderTooltipContent(value));
-}
-
-function useTooltipPosition({
-  inputRef,
-  position: positionProp
-}) {
-  const [position, setPosition] = (0,external_wp_element_namespaceObject.useState)('top');
-  const calculatePosition = (0,external_wp_element_namespaceObject.useCallback)(() => {
-    if (inputRef && inputRef.current) {
-      let nextPosition = positionProp;
-
-      if (positionProp === 'auto') {
-        const {
-          top
-        } = inputRef.current.getBoundingClientRect();
-        const isOffscreenTop = top - TOOLTIP_OFFSET_HEIGHT < 0;
-        nextPosition = isOffscreenTop ? 'bottom' : 'top';
-      }
-
-      setPosition(nextPosition);
-    }
-  }, [positionProp]);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    calculatePosition();
-  }, [calculatePosition]);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    window.addEventListener('resize', calculatePosition);
-    return () => {
-      window.removeEventListener('resize', calculatePosition);
-    };
-  });
-  return position;
-}
-//# sourceMappingURL=tooltip.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/range-control/index.js
-
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-
-
-
-
-
-function RangeControl({
-  afterIcon,
-  allowReset = false,
-  beforeIcon,
-  className,
-  currentInput,
-  color: colorProp = COLORS.ui.theme,
-  disabled = false,
-  help,
-  initialPosition,
-  isShiftStepEnabled = true,
-  label,
-  hideLabelFromVision = false,
-  marks = false,
-  max = 100,
-  min = 0,
-  onBlur = external_lodash_namespaceObject.noop,
-  onChange = external_lodash_namespaceObject.noop,
-  onFocus = external_lodash_namespaceObject.noop,
-  onMouseMove = external_lodash_namespaceObject.noop,
-  onMouseLeave = external_lodash_namespaceObject.noop,
-  railColor,
-  resetFallbackValue,
-  renderTooltipContent = v => v,
-  showTooltip: showTooltipProp,
-  shiftStep = 10,
-  step = 1,
-  trackColor,
-  value: valueProp,
-  withInputField = true,
-  ...props
-}, ref) {
-  var _inputRef$current;
-
-  const [value, setValue] = useControlledRangeValue({
-    min,
-    max,
-    value: valueProp,
-    initial: initialPosition
-  });
-  const isResetPendent = (0,external_wp_element_namespaceObject.useRef)(false);
-  const [showTooltip, setShowTooltip] = (0,external_wp_element_namespaceObject.useState)(showTooltipProp);
-  const [isFocused, setIsFocused] = (0,external_wp_element_namespaceObject.useState)(false);
-  const inputRef = (0,external_wp_element_namespaceObject.useRef)();
-
-  const setRef = nodeRef => {
-    inputRef.current = nodeRef;
-
-    if (ref) {
-      ref(nodeRef);
-    }
-  };
-
-  const isCurrentlyFocused = (_inputRef$current = inputRef.current) === null || _inputRef$current === void 0 ? void 0 : _inputRef$current.matches(':focus');
-  const isThumbFocused = !disabled && isFocused;
-  const isValueReset = value === null;
-  const currentValue = value !== undefined ? value : currentInput;
-  const inputSliderValue = isValueReset ? '' : currentValue;
-  const rangeFillValue = isValueReset ? (max - min) / 2 + min : value;
-  const calculatedFillValue = (value - min) / (max - min) * 100;
-  const fillValue = isValueReset ? 50 : calculatedFillValue;
-  const fillValueOffset = `${(0,external_lodash_namespaceObject.clamp)(fillValue, 0, 100)}%`;
-  const classes = classnames_default()('components-range-control', className);
-  const wrapperClasses = classnames_default()('components-range-control__wrapper', !!marks && 'is-marked');
-  const id = (0,external_wp_compose_namespaceObject.useInstanceId)(RangeControl, 'inspector-range-control');
-  const describedBy = !!help ? `${id}__help` : undefined;
-  const enableTooltip = showTooltipProp !== false && (0,external_lodash_namespaceObject.isFinite)(value);
-
-  const handleOnRangeChange = event => {
-    const nextValue = parseFloat(event.target.value);
-    setValue(nextValue);
-    onChange(nextValue);
-  };
-
-  const handleOnChange = nextValue => {
-    nextValue = parseFloat(nextValue);
-    setValue(nextValue);
-    /*
-     * Calls onChange only when nextValue is numeric
-     * otherwise may queue a reset for the blur event.
-     */
-
-    if (!isNaN(nextValue)) {
-      if (nextValue < min || nextValue > max) {
-        nextValue = floatClamp(nextValue, min, max);
-      }
-
-      onChange(nextValue);
-      isResetPendent.current = false;
-    } else if (allowReset) {
-      isResetPendent.current = true;
-    }
-  };
-
-  const handleOnInputNumberBlur = () => {
-    if (isResetPendent.current) {
-      handleOnReset();
-      isResetPendent.current = false;
-    }
-  };
-
-  const handleOnReset = () => {
-    let resetValue = parseFloat(resetFallbackValue);
-    let onChangeResetValue = resetValue;
-
-    if (isNaN(resetValue)) {
-      resetValue = null;
-      onChangeResetValue = undefined;
+    if (!canAnimate) {
+      requestId = window.requestAnimationFrame(() => {
+        setCanAnimate(true);
+      });
     }
 
-    setValue(resetValue);
-    /**
-     * Previously, this callback would always receive undefined as
-     * an argument. This behavior is unexpected, specifically
-     * when resetFallbackValue is defined.
-     *
-     * The value of undefined is not ideal. Passing it through
-     * to internal <input /> elements would change it from a
-     * controlled component to an uncontrolled component.
-     *
-     * For now, to minimize unexpected regressions, we're going to
-     * preserve the undefined callback argument, except when a
-     * resetFallbackValue is defined.
-     */
+    return () => window.cancelAnimationFrame(requestId);
+  }, [canAnimate, containerRef, containerWidth, state, isAdaptiveWidth]);
 
-    onChange(onChangeResetValue);
-  };
+  if (!renderBackdrop) {
+    return null;
+  }
 
-  const handleShowTooltip = () => setShowTooltip(true);
-
-  const handleHideTooltip = () => setShowTooltip(false);
-
-  const handleOnBlur = event => {
-    onBlur(event);
-    setIsFocused(false);
-    handleHideTooltip();
-  };
-
-  const handleOnFocus = event => {
-    onFocus(event);
-    setIsFocused(true);
-    handleShowTooltip();
-  };
-
-  const offsetStyle = {
-    [(0,external_wp_i18n_namespaceObject.isRTL)() ? 'right' : 'left']: fillValueOffset
-  };
-  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
-    className: classes,
-    label: label,
-    hideLabelFromVision: hideLabelFromVision,
-    id: id,
-    help: help
-  }, (0,external_wp_element_namespaceObject.createElement)(range_control_styles_Root, {
-    className: "components-range-control__root"
-  }, beforeIcon && (0,external_wp_element_namespaceObject.createElement)(BeforeIconWrapper, null, (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
-    icon: beforeIcon
-  })), (0,external_wp_element_namespaceObject.createElement)(range_control_styles_Wrapper, {
-    className: wrapperClasses,
-    color: colorProp,
-    marks: !!marks
-  }, (0,external_wp_element_namespaceObject.createElement)(input_range, extends_extends({}, props, {
-    className: "components-range-control__slider",
-    describedBy: describedBy,
-    disabled: disabled,
-    id: id,
-    label: label,
-    max: max,
-    min: min,
-    onBlur: handleOnBlur,
-    onChange: handleOnRangeChange,
-    onFocus: handleOnFocus,
-    onMouseMove: onMouseMove,
-    onMouseLeave: onMouseLeave,
-    ref: setRef,
-    step: step,
-    value: inputSliderValue
-  })), (0,external_wp_element_namespaceObject.createElement)(RangeRail, {
-    "aria-hidden": true,
-    disabled: disabled,
-    marks: marks,
-    max: max,
-    min: min,
-    railColor: railColor,
-    step: step,
-    value: rangeFillValue
-  }), (0,external_wp_element_namespaceObject.createElement)(Track, {
-    "aria-hidden": true,
-    className: "components-range-control__track",
-    disabled: disabled,
+  return (0,external_wp_element_namespaceObject.createElement)(BackdropView, {
+    role: "presentation",
     style: {
-      width: fillValueOffset
-    },
-    trackColor: trackColor
-  }), (0,external_wp_element_namespaceObject.createElement)(ThumbWrapper, {
-    style: offsetStyle,
-    disabled: disabled
-  }, (0,external_wp_element_namespaceObject.createElement)(Thumb, {
-    "aria-hidden": true,
-    isFocused: isThumbFocused,
-    disabled: disabled
-  })), enableTooltip && (0,external_wp_element_namespaceObject.createElement)(SimpleTooltip, {
-    className: "components-range-control__tooltip",
-    inputRef: inputRef,
-    renderTooltipContent: renderTooltipContent,
-    show: isCurrentlyFocused || showTooltip,
-    style: offsetStyle,
-    value: value
-  })), afterIcon && (0,external_wp_element_namespaceObject.createElement)(AfterIconWrapper, null, (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
-    icon: afterIcon
-  })), withInputField && (0,external_wp_element_namespaceObject.createElement)(InputNumber, {
-    "aria-label": label,
-    className: "components-range-control__number",
-    disabled: disabled,
-    inputMode: "decimal",
-    isShiftStepEnabled: isShiftStepEnabled,
-    max: max,
-    min: min,
-    onBlur: handleOnInputNumberBlur,
-    onChange: handleOnChange,
-    shiftStep: shiftStep,
-    step: step,
-    value: inputSliderValue
-  }), allowReset && (0,external_wp_element_namespaceObject.createElement)(ActionRightWrapper, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    className: "components-range-control__reset",
-    disabled: disabled || value === undefined,
-    variant: "secondary",
-    isSmall: true,
-    onClick: handleOnReset
-  }, (0,external_wp_i18n_namespaceObject.__)('Reset')))));
+      transform: `translateX(${left}px)`,
+      transition: canAnimate ? undefined : 'none',
+      width
+    }
+  });
 }
 
-const range_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(RangeControl);
-/* harmony default export */ var range_control = (range_control_ForwardedComponent);
-//# sourceMappingURL=index.js.map
+/* harmony default export */ var toggle_group_control_backdrop = ((0,external_wp_element_namespaceObject.memo)(ToggleGroupControlBackdrop));
+//# sourceMappingURL=toggle-group-control-backdrop.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/context.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+const ToggleGroupControlContext = (0,external_wp_element_namespaceObject.createContext)({});
+const useToggleGroupControlContext = () => (0,external_wp_element_namespaceObject.useContext)(ToggleGroupControlContext);
+/* harmony default export */ var toggle_group_control_context = (ToggleGroupControlContext);
+//# sourceMappingURL=context.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+// eslint-disable-next-line no-restricted-imports
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+
+const component_noop = () => {};
+
+function component_ToggleGroupControl(props, forwardedRef) {
+  const {
+    className,
+    isAdaptiveWidth = false,
+    isBlock = false,
+    label,
+    hideLabelFromVision = false,
+    help,
+    onChange = component_noop,
+    value,
+    children,
+    ...otherProps
+  } = useContextSystem(props, 'ToggleGroupControl');
+  const cx = useCx();
+  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
+  const [resizeListener, sizes] = react_resize_aware_dist_default()();
+  const baseId = (0,external_wp_compose_namespaceObject.useInstanceId)(component_ToggleGroupControl, 'toggle-group-control').toString();
+  const radio = useRadioState({
+    baseId,
+    state: value
+  }); // Propagate radio.state change
+
+  use_update_effect(() => {
+    onChange(radio.state);
+  }, [radio.state]); // Sync incoming value with radio.state
+
+  use_update_effect(() => {
+    if (value !== radio.state) {
+      radio.setState(value);
+    }
+  }, [value]);
+  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(ToggleGroupControl, isBlock && toggle_group_control_styles_block, 'medium', className), [className, isBlock]);
+  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
+    help: help
+  }, (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_context.Provider, {
+    value: { ...radio,
+      isBlock: !isAdaptiveWidth
+    }
+  }, !hideLabelFromVision && (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(base_control.VisualLabel, null, label)), (0,external_wp_element_namespaceObject.createElement)(RadioGroup, extends_extends({}, radio, {
+    "aria-label": label,
+    as: component,
+    className: classes
+  }, otherProps, {
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef])
+  }), resizeListener, (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_backdrop, extends_extends({}, radio, {
+    containerRef: containerRef,
+    containerWidth: sizes.width,
+    isAdaptiveWidth: isAdaptiveWidth
+  })), children)));
+}
+/**
+ * `ToggleGroupControl` is a form component that lets users choose options
+ * represented in horizontal segments. To render options for this control use
+ * `ToggleGroupControlOption` component.
+ *
+ * Only use this control when you know for sure the labels of items inside won't
+ * wrap. For items with longer labels, you can consider a `SelectControl` or a
+ * `CustomSelectControl` component instead.
+ *
+ * @example
+ * ```jsx
+ * import {
+ *   __experimentalToggleGroupControl as ToggleGroupControl,
+ *   __experimentalToggleGroupControlOption as ToggleGroupControlOption,
+ * } from '@wordpress/components';
+ *
+ * function Example() {
+ *   return (
+ *     <ToggleGroupControl label="my label" value="vertical" isBlock>
+ *       <ToggleGroupControlOption value="horizontal" label="Horizontal" />
+ *       <ToggleGroupControlOption value="vertical" label="Vertical" />
+ *     </ToggleGroupControl>
+ *   );
+ * }
+ * ```
+ */
+
+
+const ConnectedToggleGroupControl = contextConnect(component_ToggleGroupControl, 'ToggleGroupControl');
+/* harmony default export */ var toggle_group_control_component = (ConnectedToggleGroupControl);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/Radio.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getChecked(options) {
+  if (typeof options.checked !== "undefined") {
+    return options.checked;
+  }
+
+  return typeof options.value !== "undefined" && options.state === options.value;
+}
+
+function useInitialChecked(options) {
+  var _React$useState = (0,external_React_.useState)(function () {
+    return getChecked(options);
+  }),
+      initialChecked = _React$useState[0];
+
+  var _React$useState2 = (0,external_React_.useState)(options.currentId),
+      initialCurrentId = _React$useState2[0];
+
+  var id = options.id,
+      setCurrentId = options.setCurrentId;
+  (0,external_React_.useEffect)(function () {
+    if (initialChecked && id && initialCurrentId !== id) {
+      setCurrentId === null || setCurrentId === void 0 ? void 0 : setCurrentId(id);
+    }
+  }, [initialChecked, id, setCurrentId, initialCurrentId]);
+}
+
+function fireChange(element, onChange) {
+  var event = createEvent(element, "change");
+  Object.defineProperties(event, {
+    type: {
+      value: "change"
+    },
+    target: {
+      value: element
+    },
+    currentTarget: {
+      value: element
+    }
+  });
+  onChange === null || onChange === void 0 ? void 0 : onChange(event);
+}
+
+var useRadio = createHook({
+  name: "Radio",
+  compose: useCompositeItem,
+  keys: RADIO_KEYS,
+  useOptions: function useOptions(_ref, _ref2) {
+    var _options$value;
+
+    var value = _ref2.value,
+        checked = _ref2.checked;
+
+    var _ref$unstable_clickOn = _ref.unstable_clickOnEnter,
+        unstable_clickOnEnter = _ref$unstable_clickOn === void 0 ? false : _ref$unstable_clickOn,
+        _ref$unstable_checkOn = _ref.unstable_checkOnFocus,
+        unstable_checkOnFocus = _ref$unstable_checkOn === void 0 ? true : _ref$unstable_checkOn,
+        options = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["unstable_clickOnEnter", "unstable_checkOnFocus"]);
+
+    return _objectSpread2(_objectSpread2({
+      checked: checked,
+      unstable_clickOnEnter: unstable_clickOnEnter,
+      unstable_checkOnFocus: unstable_checkOnFocus
+    }, options), {}, {
+      value: (_options$value = options.value) != null ? _options$value : value
+    });
+  },
+  useProps: function useProps(options, _ref3) {
+    var htmlRef = _ref3.ref,
+        htmlOnChange = _ref3.onChange,
+        htmlOnClick = _ref3.onClick,
+        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref3, ["ref", "onChange", "onClick"]);
+
+    var ref = (0,external_React_.useRef)(null);
+
+    var _React$useState3 = (0,external_React_.useState)(true),
+        isNativeRadio = _React$useState3[0],
+        setIsNativeRadio = _React$useState3[1];
+
+    var checked = getChecked(options);
+    var isCurrentItemRef = useLiveRef(options.currentId === options.id);
+    var onChangeRef = useLiveRef(htmlOnChange);
+    var onClickRef = useLiveRef(htmlOnClick);
+    useInitialChecked(options);
+    (0,external_React_.useEffect)(function () {
+      var element = ref.current;
+
+      if (!element) {
+         false ? 0 : void 0;
+        return;
+      }
+
+      if (element.tagName !== "INPUT" || element.type !== "radio") {
+        setIsNativeRadio(false);
+      }
+    }, []);
+    var onChange = (0,external_React_.useCallback)(function (event) {
+      var _onChangeRef$current, _options$setState;
+
+      (_onChangeRef$current = onChangeRef.current) === null || _onChangeRef$current === void 0 ? void 0 : _onChangeRef$current.call(onChangeRef, event);
+      if (event.defaultPrevented) return;
+      if (options.disabled) return;
+      (_options$setState = options.setState) === null || _options$setState === void 0 ? void 0 : _options$setState.call(options, options.value);
+    }, [options.disabled, options.setState, options.value]);
+    var onClick = (0,external_React_.useCallback)(function (event) {
+      var _onClickRef$current;
+
+      (_onClickRef$current = onClickRef.current) === null || _onClickRef$current === void 0 ? void 0 : _onClickRef$current.call(onClickRef, event);
+      if (event.defaultPrevented) return;
+      if (isNativeRadio) return;
+      fireChange(event.currentTarget, onChange);
+    }, [onChange, isNativeRadio]);
+    (0,external_React_.useEffect)(function () {
+      var element = ref.current;
+      if (!element) return;
+
+      if (options.unstable_moves && isCurrentItemRef.current && options.unstable_checkOnFocus) {
+        fireChange(element, onChange);
+      }
+    }, [options.unstable_moves, options.unstable_checkOnFocus, onChange]);
+    return _objectSpread2({
+      ref: useForkRef(ref, htmlRef),
+      role: !isNativeRadio ? "radio" : undefined,
+      type: isNativeRadio ? "radio" : undefined,
+      value: isNativeRadio ? options.value : undefined,
+      name: isNativeRadio ? options.baseId : undefined,
+      "aria-checked": checked,
+      checked: checked,
+      onChange: onChange,
+      onClick: onClick
+    }, htmlProps);
+  }
+});
+var Radio = createComponent({
+  as: "input",
+  memo: true,
+  useHook: useRadio
+});
+
+
+
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-option/styles.js
+
+
+function toggle_group_control_option_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+const LabelView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "eu1cvm72"
+} : 0)( true ? {
+  name: "sln1fl",
+  styles: "display:inline-flex;max-width:100%;min-width:0;position:relative"
+} : 0);
+const labelBlock =  true ? {
+  name: "82a6rk",
+  styles: "flex:1"
+} : 0;
+const buttonView = /*#__PURE__*/emotion_react_browser_esm_css("align-items:center;appearance:none;background:transparent;border:none;border-radius:", config_values.controlBorderRadius, ";color:", COLORS.gray[700], ";cursor:pointer;display:flex;height:100%;justify-content:center;line-height:100%;outline:none;padding:0 12px;position:relative;text-align:center;transition:background ", config_values.transitionDurationFast, " linear,color ", config_values.transitionDurationFast, " linear,font-weight 60ms linear;", reduceMotion('transition'), " user-select:none;width:100%;z-index:2;&::-moz-focus-inner{border:0;}&:active{background:", config_values.toggleGroupControlBackgroundColor, ";}" + ( true ? "" : 0),  true ? "" : 0);
+const buttonActive = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.white, ";" + ( true ? "" : 0),  true ? "" : 0);
+const ButtonContentView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "eu1cvm71"
+} : 0)("font-size:", config_values.fontSize, ";line-height:1;position:absolute;top:50%;left:50%;transform:translate( -50%, -50% );" + ( true ? "" : 0));
+const separatorActive =  true ? {
+  name: "1qsuvl4",
+  styles: "background:transparent"
+} : 0;
+const LabelPlaceholderView = emotion_styled_base_browser_esm("div",  true ? {
+  target: "eu1cvm70"
+} : 0)("font-size:", config_values.fontSize, ";font-weight:bold;height:0;overflow:hidden;visibility:hidden;" + ( true ? "" : 0));
+const medium = /*#__PURE__*/emotion_react_browser_esm_css("min-height:", config_values.controlHeight, ";" + ( true ? "" : 0),  true ? "" : 0);
+//# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-option/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+const {
+  ButtonContentView: component_ButtonContentView,
+  LabelPlaceholderView: component_LabelPlaceholderView,
+  LabelView: component_LabelView
+} = toggle_group_control_option_styles_namespaceObject;
+
+function ToggleGroupControlOption(props, forwardedRef) {
+  var _radioProps$ariaLabe;
+
+  const toggleGroupControlContext = useToggleGroupControlContext();
+  const id = (0,external_wp_compose_namespaceObject.useInstanceId)(ToggleGroupControlOption, toggleGroupControlContext.baseId || 'toggle-group-control-option');
+  const buttonProps = useContextSystem({ ...props,
+    id
+  }, 'ToggleGroupControlOption');
+  const {
+    className,
+    isBlock = false,
+    label,
+    value,
+    ...radioProps
+  } = { ...toggleGroupControlContext,
+    ...buttonProps
+  };
+  const isActive = radioProps.state === value;
+  const cx = useCx();
+  const labelViewClasses = cx(isBlock && labelBlock);
+  const classes = cx(buttonView, className, isActive && buttonActive);
+  return (0,external_wp_element_namespaceObject.createElement)(component_LabelView, {
+    className: labelViewClasses,
+    "data-active": isActive
+  }, (0,external_wp_element_namespaceObject.createElement)(Radio, extends_extends({}, radioProps, {
+    as: "button",
+    "aria-label": (_radioProps$ariaLabe = radioProps['aria-label']) !== null && _radioProps$ariaLabe !== void 0 ? _radioProps$ariaLabe : label,
+    className: classes,
+    "data-value": value,
+    ref: forwardedRef,
+    value: value
+  }), (0,external_wp_element_namespaceObject.createElement)(component_ButtonContentView, null, label), (0,external_wp_element_namespaceObject.createElement)(component_LabelPlaceholderView, {
+    "aria-hidden": true
+  }, label)));
+}
+/**
+ * `ToggleGroupControlOption` is a form component and is meant to be used as a
+ * child of `ToggleGroupControl`.
+ *
+ * @example
+ * ```jsx
+ * import {
+ *   __experimentalToggleGroupControl as ToggleGroupControl,
+ *   __experimentalToggleGroupControlOption as ToggleGroupControlOption,
+ * } from '@wordpress/components';
+ *
+ * function Example() {
+ *   return (
+ *     <ToggleGroupControl label="my label" value="vertical" isBlock>
+ *       <ToggleGroupControlOption value="horizontal" label="Horizontal" />
+ *       <ToggleGroupControlOption value="vertical" label="Vertical" />
+ *     </ToggleGroupControl>
+ *   );
+ * }
+ * ```
+ */
+
+
+const ConnectedToggleGroupControlOption = contextConnect(ToggleGroupControlOption, 'ToggleGroupControlOption');
+/* harmony default export */ var toggle_group_control_option_component = (ConnectedToggleGroupControlOption);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/utils.js
+/**
+ * WordPress dependencies
+ */
+
+const DEFAULT_FONT_SIZE = 'default';
+const DEFAULT_FONT_SIZE_OPTION = {
+  slug: DEFAULT_FONT_SIZE,
+  name: (0,external_wp_i18n_namespaceObject.__)('Default')
+};
+const CUSTOM_FONT_SIZE = 'custom';
+const CUSTOM_FONT_SIZE_OPTION = {
+  slug: CUSTOM_FONT_SIZE,
+  name: (0,external_wp_i18n_namespaceObject.__)('Custom')
+};
+/**
+ * Helper util to split a font size to its numeric value
+ * and its `unit`, if exists.
+ *
+ * @param {string|number} size Font size.
+ * @return {[number, string]} An array with the numeric value and the unit if exists.
+ */
+
+function splitValueAndUnitFromSize(size) {
+  /**
+   * The first matched result is ignored as it's the left
+   * hand side of the capturing group in the regex.
+   */
+  const [, numericValue, unit] = size.split(/(\d+)/);
+  return [numericValue, unit];
+}
+/**
+ * Some themes use css vars for their font sizes, so until we
+ * have the way of calculating them don't display them.
+ *
+ * @param {string|number} value The value that is checked.
+ * @return {boolean} Whether the value is a simple css value.
+ */
+
+function isSimpleCssValue(value) {
+  const sizeRegex = /^(?!0)\d+(px|em|rem|vw|vh|%)?$/i;
+  return sizeRegex.test(value);
+}
+/**
+ * Return font size options in the proper format depending
+ * on the currently used control (select, toggle group).
+ *
+ * @param {boolean}  useSelectControl       Whether to use a select control.
+ * @param {Object[]} optionsArray           Array of available font sizes objects.
+ * @param {*}        disableCustomFontSizes Flag that indicates if custom font sizes are disabled.
+ * @return {Object[]|null} Array of font sizes in proper format for the used control.
+ */
+
+function getFontSizeOptions(useSelectControl, optionsArray, disableCustomFontSizes) {
+  if (disableCustomFontSizes && !optionsArray.length) {
+    return null;
+  }
+
+  return useSelectControl ? getSelectOptions(optionsArray, disableCustomFontSizes) : getToggleGroupOptions(optionsArray);
+}
+
+function getSelectOptions(optionsArray, disableCustomFontSizes) {
+  const options = [DEFAULT_FONT_SIZE_OPTION, ...optionsArray, ...(disableCustomFontSizes ? [] : [CUSTOM_FONT_SIZE_OPTION])];
+  return options.map(({
+    slug,
+    name,
+    size
+  }) => ({
+    key: slug,
+    name,
+    size,
+    __experimentalHint: size && isSimpleCssValue(size) && parseInt(size)
+  }));
+}
+
+function getToggleGroupOptions(optionsArray) {
+  return optionsArray.map(({
+    slug,
+    size,
+    name
+  }) => {
+    let label = size;
+
+    if (typeof size === 'string') {
+      const [numericValue] = splitValueAndUnitFromSize(size);
+      label = numericValue;
+    }
+
+    return {
+      key: slug,
+      value: size,
+      label,
+      name
+    };
+  });
+}
+
+function getSelectedOption(fontSizes, value) {
+  if (!value) {
+    return DEFAULT_FONT_SIZE_OPTION;
+  }
+
+  return fontSizes.find(font => font.size === value) || CUSTOM_FONT_SIZE_OPTION;
+}
+//# sourceMappingURL=utils.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/index.js
 
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -60406,40 +60564,9 @@ const range_control_ForwardedComponent = (0,external_wp_element_namespaceObject.
 
 
 
-const DEFAULT_FONT_SIZE = 'default';
-const CUSTOM_FONT_SIZE = 'custom';
-const MAX_FONT_SIZE_DISPLAY = '25px';
 
-function getSelectValueFromFontSize(fontSizes, value) {
-  if (value) {
-    const fontSizeValue = fontSizes.find(font => font.size === value);
-    return fontSizeValue ? fontSizeValue.slug : CUSTOM_FONT_SIZE;
-  }
 
-  return DEFAULT_FONT_SIZE;
-}
 
-function getSelectOptions(optionsArray, disableCustomFontSizes) {
-  if (disableCustomFontSizes && !optionsArray.length) {
-    return null;
-  }
-
-  optionsArray = [{
-    slug: DEFAULT_FONT_SIZE,
-    name: (0,external_wp_i18n_namespaceObject.__)('Default')
-  }, ...optionsArray, ...(disableCustomFontSizes ? [] : [{
-    slug: CUSTOM_FONT_SIZE,
-    name: (0,external_wp_i18n_namespaceObject.__)('Custom')
-  }])];
-  return optionsArray.map(option => ({
-    key: option.slug,
-    name: option.name,
-    size: option.size,
-    style: {
-      fontSize: `min( ${option.size}, ${MAX_FONT_SIZE_DISPLAY} )`
-    }
-  }));
-}
 
 function FontSizePicker({
   fallbackFontSize,
@@ -60447,57 +60574,124 @@ function FontSizePicker({
   disableCustomFontSizes = false,
   onChange,
   value,
-  withSlider = false
+  withSlider = false,
+  withReset = true
 }, ref) {
-  const hasUnits = (0,external_lodash_namespaceObject.isString)(value) || fontSizes[0] && (0,external_lodash_namespaceObject.isString)(fontSizes[0].size);
-  let noUnitsValue;
+  var _fontSizes$, _value$endsWith;
 
-  if (!hasUnits) {
-    noUnitsValue = value;
-  } else {
-    noUnitsValue = parseInt(value);
-  }
-
-  const isPixelValue = (0,external_lodash_namespaceObject.isNumber)(value) || (0,external_lodash_namespaceObject.isString)(value) && value.endsWith('px');
+  const hasUnits = [typeof value, typeof (fontSizes === null || fontSizes === void 0 ? void 0 : (_fontSizes$ = fontSizes[0]) === null || _fontSizes$ === void 0 ? void 0 : _fontSizes$.size)].includes('string');
+  const noUnitsValue = !hasUnits ? value : parseInt(value);
+  const isPixelValue = typeof value === 'number' || (value === null || value === void 0 ? void 0 : (_value$endsWith = value.endsWith) === null || _value$endsWith === void 0 ? void 0 : _value$endsWith.call(value, 'px'));
   const units = useCustomUnits({
     availableUnits: ['px', 'em', 'rem']
-  });
-  const options = (0,external_wp_element_namespaceObject.useMemo)(() => getSelectOptions(fontSizes, disableCustomFontSizes), [fontSizes, disableCustomFontSizes]);
+  }); // The main font size UI displays a toggle group when the presets are less
+  // than six and a select control when they are more.
+  //
+  // A select control is also used when the value of a preset cannot be
+  // immediately computed (eg. 'calc', 'var').
+
+  const shouldUseSelectControl = fontSizes.length > 5 || fontSizes.some(({
+    size
+  }) => !isSimpleCssValue(size));
+  const options = (0,external_wp_element_namespaceObject.useMemo)(() => getFontSizeOptions(shouldUseSelectControl, fontSizes, disableCustomFontSizes), [shouldUseSelectControl, fontSizes, disableCustomFontSizes]);
+  const selectedOption = getSelectedOption(fontSizes, value);
+  const isCustomValue = selectedOption.slug === CUSTOM_FONT_SIZE;
+  const [showCustomValueControl, setShowCustomValueControl] = (0,external_wp_element_namespaceObject.useState)(!disableCustomFontSizes && isCustomValue);
+  const headerHint = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (showCustomValueControl) {
+      return `(${(0,external_wp_i18n_namespaceObject.__)('Custom')})`;
+    } // If we have a custom value that is not available in the font sizes,
+    // show it as a hint as long as it's a simple CSS value.
+
+
+    if (isCustomValue) {
+      return isSimpleCssValue(value) && `(${value})`;
+    }
+
+    if (shouldUseSelectControl) {
+      return isSimpleCssValue(selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.size) && `(${selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.size})`;
+    } // Calculate the `hint` for toggle group control.
+
+
+    let hint = selectedOption.name;
+
+    if (typeof selectedOption.size === 'string') {
+      const [, unit] = splitValueAndUnitFromSize(selectedOption.size);
+      hint += `(${unit})`;
+    }
+
+    return hint;
+  }, [showCustomValueControl, selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.slug, value, isCustomValue]);
 
   if (!options) {
     return null;
-  }
+  } // This is used for select control only. We need to add support
+  // for ToggleGroupControl.
 
-  const selectedFontSizeSlug = getSelectValueFromFontSize(fontSizes, value);
+
   const currentFontSizeSR = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font size.
-  (0,external_wp_i18n_namespaceObject.__)('Currently selected font size: %s'), options.find(option => option.key === selectedFontSizeSlug).name);
+  (0,external_wp_i18n_namespaceObject.__)('Currently selected font size: %s'), selectedOption.name);
+  const baseClassName = 'components-font-size-picker';
   return (0,external_wp_element_namespaceObject.createElement)("fieldset", extends_extends({
-    className: "components-font-size-picker"
+    className: baseClassName
   }, ref ? {} : {
     ref
   }), (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
     as: "legend"
-  }, (0,external_wp_i18n_namespaceObject.__)('Font size')), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-font-size-picker__controls"
-  }, fontSizes.length > 0 && (0,external_wp_element_namespaceObject.createElement)(CustomSelectControl, {
-    className: 'components-font-size-picker__select',
+  }, (0,external_wp_i18n_namespaceObject.__)('Font size')), (0,external_wp_element_namespaceObject.createElement)(flex_component, {
+    justify: "space-between",
+    className: `${baseClassName}__header`
+  }, (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_i18n_namespaceObject.__)('Size'), headerHint && (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: `${baseClassName}__header__hint`
+  }, headerHint)), !disableCustomFontSizes && (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    label: showCustomValueControl ? (0,external_wp_i18n_namespaceObject.__)('Use size preset') : (0,external_wp_i18n_namespaceObject.__)('Set custom size'),
+    showTooltip: false,
+    icon: library_settings,
+    onClick: () => {
+      setShowCustomValueControl(!showCustomValueControl);
+    },
+    isPressed: showCustomValueControl,
+    isSmall: true
+  }))), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: `${baseClassName}__controls`
+  }, !!fontSizes.length && shouldUseSelectControl && !showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(CustomSelectControl, {
+    className: `${baseClassName}__select`,
     label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
+    hideLabelFromVision: true,
     describedBy: currentFontSizeSR,
     options: options,
-    value: options.find(option => option.key === selectedFontSizeSlug),
+    value: options.find(option => option.key === selectedOption.slug),
     onChange: ({
       selectedItem
     }) => {
-      if (hasUnits) {
-        onChange(selectedItem.size);
-      } else {
-        onChange(Number(selectedItem.size));
+      onChange(hasUnits ? selectedItem.size : Number(selectedItem.size));
+
+      if (selectedItem.key === CUSTOM_FONT_SIZE) {
+        setShowCustomValueControl(true);
       }
     }
-  }), !withSlider && !disableCustomFontSizes && (0,external_wp_element_namespaceObject.createElement)(unit_control, {
+  }), !shouldUseSelectControl && !showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_component, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
+    hideLabelFromVision: true,
+    value: value,
+    onChange: newValue => {
+      onChange(hasUnits ? newValue : Number(newValue));
+    },
+    isBlock: true
+  }, options.map(option => (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_option_component, {
+    key: option.key,
+    value: option.value,
+    label: option.label,
+    "aria-label": option.name
+  }))), !withSlider && !disableCustomFontSizes && showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(flex_component, {
+    justify: "space-between",
+    className: `${baseClassName}__custom-size-control`
+  }, (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
+    isBlock: true
+  }, (0,external_wp_element_namespaceObject.createElement)(unit_control, {
     label: (0,external_wp_i18n_namespaceObject.__)('Custom'),
     labelPosition: "top",
-    __unstableInputWidth: "60px",
+    hideLabelFromVision: true,
     value: value,
     onChange: nextSize => {
       if (0 === parseFloat(nextSize) || !nextSize) {
@@ -60507,7 +60701,9 @@ function FontSizePicker({
       }
     },
     units: hasUnits ? units : false
-  }), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+  })), withReset && (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
+    isBlock: true
+  }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-color-palette__clear",
     disabled: value === undefined,
     onClick: () => {
@@ -60515,8 +60711,8 @@ function FontSizePicker({
     },
     isSmall: true,
     variant: "secondary"
-  }, (0,external_wp_i18n_namespaceObject.__)('Reset'))), withSlider && (0,external_wp_element_namespaceObject.createElement)(range_control, {
-    className: "components-font-size-picker__custom-input",
+  }, (0,external_wp_i18n_namespaceObject.__)('Reset'))))), withSlider && (0,external_wp_element_namespaceObject.createElement)(range_control, {
+    className: `${baseClassName}__custom-input`,
     label: (0,external_wp_i18n_namespaceObject.__)('Custom Size'),
     value: isPixelValue && noUnitsValue || '',
     initialPosition: fallbackFontSize,
@@ -60524,9 +60720,7 @@ function FontSizePicker({
       onChange(hasUnits ? newValue + 'px' : newValue);
     },
     min: 12,
-    max: 100,
-    beforeIcon: text_color,
-    afterIcon: text_color
+    max: 100
   }));
 }
 
@@ -61467,7 +61661,7 @@ function serializeGradient({
 
 
 
-k([plugins_names]);
+k([names]);
 function getLinearGradientRepresentation(gradientAST) {
   return serializeGradient({
     type: 'linear-gradient',
@@ -61776,7 +61970,7 @@ function GradientPicker({
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/grid/utils.js
-const utils_ALIGNMENTS = {
+const grid_utils_ALIGNMENTS = {
   bottom: {
     alignItems: 'flex-end',
     justifyContent: 'center'
@@ -61828,8 +62022,8 @@ const utils_ALIGNMENTS = {
  * @return {{ alignItems?: import('react').CSSProperties['alignItems'], justifyContent?: import('react').CSSProperties['justifyContent']}} CSS props for alignment
  */
 
-function getAlignmentProps(alignment) {
-  const alignmentProps = alignment ? utils_ALIGNMENTS[alignment] : {};
+function utils_getAlignmentProps(alignment) {
+  const alignmentProps = alignment ? grid_utils_ALIGNMENTS[alignment] : {};
   return alignmentProps;
 }
 /* eslint-enable jsdoc/valid-types */
@@ -61881,7 +62075,7 @@ function useGrid(props) {
   const gridTemplateRows = templateRows || !!rows && `repeat( ${row}, 1fr )`;
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    const alignmentProps = getAlignmentProps(alignment);
+    const alignmentProps = utils_getAlignmentProps(alignment);
     const gridClasses = /*#__PURE__*/emotion_react_browser_esm_css({
       alignItems: align,
       display: isInline ? 'inline-grid' : 'grid',
@@ -62438,257 +62632,6 @@ function Heading(props, forwardedRef) {
 
 const ConnectedHeading = contextConnect(Heading, 'Heading');
 /* harmony default export */ var heading_component = (ConnectedHeading);
-//# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/utils.js
-/**
- * External dependencies
- */
-
-/** @type {import('./types').Alignments} */
-
-const h_stack_utils_ALIGNMENTS = {
-  bottom: {
-    align: 'flex-end',
-    justify: 'center'
-  },
-  bottomLeft: {
-    align: 'flex-start',
-    justify: 'flex-end'
-  },
-  bottomRight: {
-    align: 'flex-end',
-    justify: 'flex-end'
-  },
-  center: {
-    align: 'center',
-    justify: 'center'
-  },
-  edge: {
-    align: 'center',
-    justify: 'space-between'
-  },
-  left: {
-    align: 'center',
-    justify: 'flex-start'
-  },
-  right: {
-    align: 'center',
-    justify: 'flex-end'
-  },
-  stretch: {
-    align: 'stretch'
-  },
-  top: {
-    align: 'flex-start',
-    justify: 'center'
-  },
-  topLeft: {
-    align: 'flex-start',
-    justify: 'flex-start'
-  },
-  topRight: {
-    align: 'flex-start',
-    justify: 'flex-end'
-  }
-};
-/** @type {import('./types').Alignments} */
-
-const V_ALIGNMENTS = {
-  bottom: {
-    justify: 'flex-end',
-    align: 'center'
-  },
-  bottomLeft: {
-    justify: 'flex-start',
-    align: 'flex-end'
-  },
-  bottomRight: {
-    justify: 'flex-end',
-    align: 'flex-end'
-  },
-  center: {
-    justify: 'center',
-    align: 'center'
-  },
-  edge: {
-    justify: 'space-between',
-    align: 'center'
-  },
-  left: {
-    justify: 'center',
-    align: 'flex-start'
-  },
-  right: {
-    justify: 'center',
-    align: 'flex-end'
-  },
-  stretch: {
-    justify: 'stretch'
-  },
-  top: {
-    justify: 'flex-start',
-    align: 'center'
-  },
-  topLeft: {
-    justify: 'flex-start',
-    align: 'flex-start'
-  },
-  topRight: {
-    justify: 'flex-start',
-    align: 'flex-end'
-  }
-};
-/* eslint-disable jsdoc/valid-types */
-
-/**
- * @param {import('./types').HStackAlignment | import('react').CSSProperties[ 'alignItems' ]} alignment         Where to align.
- * @param {import('../flex/types').FlexDirection}                                             [direction='row'] Direction to align.
- * @return {import('./types').AlignmentProps} Alignment props.
- */
-
-/* eslint-enable jsdoc/valid-types */
-
-function utils_getAlignmentProps(alignment, direction = 'row') {
-  if ((0,external_lodash_namespaceObject.isNil)(alignment)) {
-    return {};
-  }
-
-  const isVertical = direction === 'column';
-  const props = isVertical ? V_ALIGNMENTS : h_stack_utils_ALIGNMENTS;
-  const alignmentProps = alignment in props ? props[
-  /** @type {keyof typeof ALIGNMENTS} */
-  alignment] : {
-    align: alignment
-  };
-  return alignmentProps;
-}
-//# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/get-valid-children.js
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Gets a collection of available children elements from a React component's children prop.
- *
- * @param  children
- *
- * @return An array of available children.
- */
-
-function getValidChildren(children) {
-  if (typeof children === 'string') return [children];
-  return external_wp_element_namespaceObject.Children.toArray(children).filter(child => (0,external_wp_element_namespaceObject.isValidElement)(child));
-}
-//# sourceMappingURL=get-valid-children.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/hook.js
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-/**
- *
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- */
-
-function useHStack(props) {
-  const {
-    alignment = 'edge',
-    children,
-    direction,
-    spacing = 2,
-    ...otherProps
-  } = useContextSystem(props, 'HStack');
-  const align = utils_getAlignmentProps(alignment, direction);
-  const validChildren = getValidChildren(children);
-  const clonedChildren = validChildren.map( // @ts-ignore
-  (
-  /** @type {import('react').ReactElement} */
-  child, index) => {
-    const _key = child.key || `hstack-${index}`;
-
-    const _isSpacer = hasConnectNamespace(child, ['Spacer']);
-
-    if (_isSpacer) {
-      return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, extends_extends({
-        isBlock: true,
-        key: _key
-      }, child.props));
-    }
-
-    return child;
-  });
-  const propsForFlex = {
-    children: clonedChildren,
-    direction,
-    justify: 'center',
-    ...align,
-    ...otherProps,
-    gap: spacing
-  };
-  const flexProps = useFlex(propsForFlex);
-  return flexProps;
-}
-//# sourceMappingURL=hook.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/component.js
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                        forwardedRef
- */
-
-function HStack(props, forwardedRef) {
-  const hStackProps = useHStack(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, hStackProps, {
-    ref: forwardedRef
-  }));
-}
-/**
- * `HStack` (Horizontal Stack) arranges child elements in a horizontal line.
- *
- * `HStack` can render anything inside.
- *
- * @example
- * ```jsx
- * import {
- * 	__experimentalHStack as HStack,
- * 	__experimentalText as Text,
- * } from `@wordpress/components`;
- *
- * function Example() {
- * 	return (
- * 		<HStack>
- * 			<Text>Code</Text>
- * 			<Text>is</Text>
- * 			<Text>Poetry</Text>
- * 		</HStack>
- * 	);
- * }
- * ```
- */
-
-
-const ConnectedHStack = contextConnect(HStack, 'HStack');
-/* harmony default export */ var h_stack_component = (ConnectedHStack);
 //# sourceMappingURL=component.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/button/deprecated.js
 
@@ -64265,6 +64208,8 @@ const NavigatorContext = (0,external_wp_element_namespaceObject.createContext)(i
 
 
 
+function component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
 /**
  * External dependencies
  */
@@ -64274,6 +64219,7 @@ const NavigatorContext = (0,external_wp_element_namespaceObject.createContext)(i
  * WordPress dependencies
  */
 
+
 /**
  * Internal dependencies
  */
@@ -64282,17 +64228,28 @@ const NavigatorContext = (0,external_wp_element_namespaceObject.createContext)(i
 
 
 
+
+var component_ref =  true ? {
+  name: "15bx5k",
+  styles: "overflow-x:hidden"
+} : 0;
+
 function NavigatorProvider(props, forwardedRef) {
   const {
     initialPath,
     children,
+    className,
     ...otherProps
   } = useContextSystem(props, 'NavigatorProvider');
   const [path, setPath] = (0,external_wp_element_namespaceObject.useState)({
     path: initialPath
   });
+  const cx = useCx();
+  const classes = (0,external_wp_element_namespaceObject.useMemo)( // Prevents horizontal overflow while animating screen transitions
+  () => cx(component_ref, className), [className]);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
-    ref: forwardedRef
+    ref: forwardedRef,
+    className: classes
   }, otherProps), (0,external_wp_element_namespaceObject.createElement)(NavigatorContext.Provider, {
     value: [path, setPath]
   }, children));
@@ -64351,11 +64308,14 @@ const ConnectedNavigatorProvider = contextConnect(NavigatorProvider, 'NavigatorP
 
 
 
+function navigator_screen_component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
 /**
  * External dependencies
  */
 // eslint-disable-next-line no-restricted-imports
 // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * WordPress dependencies
@@ -64371,22 +64331,31 @@ const ConnectedNavigatorProvider = contextConnect(NavigatorProvider, 'NavigatorP
 
 
 
+
 const animationEnterDelay = 0;
 const animationEnterDuration = 0.14;
 const animationExitDuration = 0.14;
 const animationExitDelay = 0; // Props specific to `framer-motion` can't be currently passed to `NavigatorScreen`,
 // as some of them would overlap with HTML props (e.g. `onAnimationStart`, ...)
 
+var navigator_screen_component_ref =  true ? {
+  name: "14x3t6z",
+  styles: "overflow-x:auto;max-height:100%"
+} : 0;
+
 function NavigatorScreen(props, forwardedRef) {
   const {
     children,
+    className,
     path,
     ...otherProps
   } = useContextSystem(props, 'NavigatorScreen');
   const prefersReducedMotion = (0,external_wp_compose_namespaceObject.useReducedMotion)();
   const [currentPath] = (0,external_wp_element_namespaceObject.useContext)(NavigatorContext);
   const isMatch = currentPath.path === path;
-  const ref = (0,external_wp_compose_namespaceObject.useFocusOnMount)(); // This flag is used to only apply the focus on mount when the actual path changes.
+  const ref = (0,external_wp_compose_namespaceObject.useFocusOnMount)();
+  const cx = useCx();
+  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(navigator_screen_component_ref, className), [className]); // This flag is used to only apply the focus on mount when the actual path changes.
   // It avoids the focus to happen on the first render.
 
   const [hasPathChanged, setHasPathChanged] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -64400,7 +64369,8 @@ function NavigatorScreen(props, forwardedRef) {
 
   if (prefersReducedMotion) {
     return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
-      ref: forwardedRef
+      ref: forwardedRef,
+      className: classes
     }, otherProps), children);
   }
 
@@ -64432,7 +64402,8 @@ function NavigatorScreen(props, forwardedRef) {
     initial
   };
   return (0,external_wp_element_namespaceObject.createElement)(motion.div, extends_extends({
-    ref: hasPathChanged ? ref : undefined
+    ref: hasPathChanged ? ref : undefined,
+    className: classes
   }, otherProps, animatedProps), children);
 }
 /**
@@ -65204,188 +65175,6 @@ function QueryControls({
   })];
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-d251e56b.js
-// Automatically generated
-var RADIO_STATE_KEYS = ["baseId", "unstable_idCountRef", "unstable_virtual", "rtl", "orientation", "items", "groups", "currentId", "loop", "wrap", "shift", "unstable_moves", "unstable_hasActiveWidget", "unstable_includesBaseElement", "state", "setBaseId", "registerItem", "unregisterItem", "registerGroup", "unregisterGroup", "move", "next", "previous", "up", "down", "first", "last", "sort", "unstable_setVirtual", "setRTL", "setOrientation", "setCurrentId", "setLoop", "setWrap", "setShift", "reset", "unstable_setIncludesBaseElement", "unstable_setHasActiveWidget", "setState"];
-var RADIO_KEYS = [].concat(RADIO_STATE_KEYS, ["value", "checked", "unstable_checkOnFocus"]);
-var RADIO_GROUP_KEYS = RADIO_STATE_KEYS;
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/Radio.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function getChecked(options) {
-  if (typeof options.checked !== "undefined") {
-    return options.checked;
-  }
-
-  return typeof options.value !== "undefined" && options.state === options.value;
-}
-
-function useInitialChecked(options) {
-  var _React$useState = (0,external_React_.useState)(function () {
-    return getChecked(options);
-  }),
-      initialChecked = _React$useState[0];
-
-  var _React$useState2 = (0,external_React_.useState)(options.currentId),
-      initialCurrentId = _React$useState2[0];
-
-  var id = options.id,
-      setCurrentId = options.setCurrentId;
-  (0,external_React_.useEffect)(function () {
-    if (initialChecked && id && initialCurrentId !== id) {
-      setCurrentId === null || setCurrentId === void 0 ? void 0 : setCurrentId(id);
-    }
-  }, [initialChecked, id, setCurrentId, initialCurrentId]);
-}
-
-function fireChange(element, onChange) {
-  var event = createEvent(element, "change");
-  Object.defineProperties(event, {
-    type: {
-      value: "change"
-    },
-    target: {
-      value: element
-    },
-    currentTarget: {
-      value: element
-    }
-  });
-  onChange === null || onChange === void 0 ? void 0 : onChange(event);
-}
-
-var useRadio = createHook({
-  name: "Radio",
-  compose: useCompositeItem,
-  keys: RADIO_KEYS,
-  useOptions: function useOptions(_ref, _ref2) {
-    var _options$value;
-
-    var value = _ref2.value,
-        checked = _ref2.checked;
-
-    var _ref$unstable_clickOn = _ref.unstable_clickOnEnter,
-        unstable_clickOnEnter = _ref$unstable_clickOn === void 0 ? false : _ref$unstable_clickOn,
-        _ref$unstable_checkOn = _ref.unstable_checkOnFocus,
-        unstable_checkOnFocus = _ref$unstable_checkOn === void 0 ? true : _ref$unstable_checkOn,
-        options = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["unstable_clickOnEnter", "unstable_checkOnFocus"]);
-
-    return _objectSpread2(_objectSpread2({
-      checked: checked,
-      unstable_clickOnEnter: unstable_clickOnEnter,
-      unstable_checkOnFocus: unstable_checkOnFocus
-    }, options), {}, {
-      value: (_options$value = options.value) != null ? _options$value : value
-    });
-  },
-  useProps: function useProps(options, _ref3) {
-    var htmlRef = _ref3.ref,
-        htmlOnChange = _ref3.onChange,
-        htmlOnClick = _ref3.onClick,
-        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref3, ["ref", "onChange", "onClick"]);
-
-    var ref = (0,external_React_.useRef)(null);
-
-    var _React$useState3 = (0,external_React_.useState)(true),
-        isNativeRadio = _React$useState3[0],
-        setIsNativeRadio = _React$useState3[1];
-
-    var checked = getChecked(options);
-    var isCurrentItemRef = useLiveRef(options.currentId === options.id);
-    var onChangeRef = useLiveRef(htmlOnChange);
-    var onClickRef = useLiveRef(htmlOnClick);
-    useInitialChecked(options);
-    (0,external_React_.useEffect)(function () {
-      var element = ref.current;
-
-      if (!element) {
-         false ? 0 : void 0;
-        return;
-      }
-
-      if (element.tagName !== "INPUT" || element.type !== "radio") {
-        setIsNativeRadio(false);
-      }
-    }, []);
-    var onChange = (0,external_React_.useCallback)(function (event) {
-      var _onChangeRef$current, _options$setState;
-
-      (_onChangeRef$current = onChangeRef.current) === null || _onChangeRef$current === void 0 ? void 0 : _onChangeRef$current.call(onChangeRef, event);
-      if (event.defaultPrevented) return;
-      if (options.disabled) return;
-      (_options$setState = options.setState) === null || _options$setState === void 0 ? void 0 : _options$setState.call(options, options.value);
-    }, [options.disabled, options.setState, options.value]);
-    var onClick = (0,external_React_.useCallback)(function (event) {
-      var _onClickRef$current;
-
-      (_onClickRef$current = onClickRef.current) === null || _onClickRef$current === void 0 ? void 0 : _onClickRef$current.call(onClickRef, event);
-      if (event.defaultPrevented) return;
-      if (isNativeRadio) return;
-      fireChange(event.currentTarget, onChange);
-    }, [onChange, isNativeRadio]);
-    (0,external_React_.useEffect)(function () {
-      var element = ref.current;
-      if (!element) return;
-
-      if (options.unstable_moves && isCurrentItemRef.current && options.unstable_checkOnFocus) {
-        fireChange(element, onChange);
-      }
-    }, [options.unstable_moves, options.unstable_checkOnFocus, onChange]);
-    return _objectSpread2({
-      ref: useForkRef(ref, htmlRef),
-      role: !isNativeRadio ? "radio" : undefined,
-      type: isNativeRadio ? "radio" : undefined,
-      value: isNativeRadio ? options.value : undefined,
-      name: isNativeRadio ? options.baseId : undefined,
-      "aria-checked": checked,
-      checked: checked,
-      onChange: onChange,
-      onClick: onClick
-    }, htmlProps);
-  }
-});
-var Radio = createComponent({
-  as: "input",
-  memo: true,
-  useHook: useRadio
-});
-
-
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/radio-context/index.js
 /**
  * WordPress dependencies
@@ -65434,99 +65223,6 @@ function radio_Radio({
 
 /* harmony default export */ var build_module_radio = ((0,external_wp_element_namespaceObject.forwardRef)(radio_Radio));
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/RadioState.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-function useRadioState(initialState) {
-  if (initialState === void 0) {
-    initialState = {};
-  }
-
-  var _useSealedState = useSealedState(initialState),
-      initialValue = _useSealedState.state,
-      _useSealedState$loop = _useSealedState.loop,
-      loop = _useSealedState$loop === void 0 ? true : _useSealedState$loop,
-      sealed = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_useSealedState, ["state", "loop"]);
-
-  var _React$useState = (0,external_React_.useState)(initialValue),
-      state = _React$useState[0],
-      setState = _React$useState[1];
-
-  var composite = useCompositeState(_objectSpread2(_objectSpread2({}, sealed), {}, {
-    loop: loop
-  }));
-  return _objectSpread2(_objectSpread2({}, composite), {}, {
-    state: state,
-    setState: setState
-  });
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/RadioGroup.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var useRadioGroup = createHook({
-  name: "RadioGroup",
-  compose: useComposite,
-  keys: RADIO_GROUP_KEYS,
-  useProps: function useProps(_, htmlProps) {
-    return _objectSpread2({
-      role: "radiogroup"
-    }, htmlProps);
-  }
-});
-var RadioGroup = createComponent({
-  as: "div",
-  useHook: useRadioGroup,
-  useCreateElement: function useCreateElement$1(type, props, children) {
-     false ? 0 : void 0;
-    return useCreateElement(type, props, children);
-  }
-});
-
-
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/radio-group/index.js
 
 
@@ -66519,32 +66215,25 @@ var Resizable = /** @class */ (function (_super) {
 const {
   clearTimeout: utils_clearTimeout,
   setTimeout: utils_setTimeout
-} = typeof window !== 'undefined' ? window : {};
+} = window;
 const POSITIONS = {
   bottom: 'bottom',
   corner: 'corner'
 };
-/**
- * @typedef {Object} UseResizeLabelProps
- *
- * @property {undefined|string} label          The label value.
- * @property {Function}         resizeListener Element to be rendered for resize listening events.
- */
 
 /**
  * Custom hook that manages resize listener events. It also provides a label
  * based on current resize width x height values.
  *
- * @param {Object}  props
- * @param {string}  props.axis        Only shows the label corresponding to the axis.
- * @param {number}  props.fadeTimeout Duration (ms) before deactivating the resize label.
- * @param {boolean} props.onResize    Callback when a resize occurs. Provides { width, height } callback.
- * @param {string}  props.position    Adjusts label value.
- * @param {boolean} props.showPx      Whether to add `PX` to the label.
+ * @param  props
+ * @param  props.axis        Only shows the label corresponding to the axis.
+ * @param  props.fadeTimeout Duration (ms) before deactivating the resize label.
+ * @param  props.onResize    Callback when a resize occurs. Provides { width, height } callback.
+ * @param  props.position    Adjusts label value.
+ * @param  props.showPx      Whether to add `PX` to the label.
  *
- * @return {UseResizeLabelProps} Properties for hook.
+ * @return Properties for hook.
  */
-
 function useResizeLabel({
   axis,
   fadeTimeout = 180,
@@ -66665,21 +66354,21 @@ function useResizeLabel({
     resizeListener
   };
 }
+
 /**
  * Gets the resize label based on width and height values (as well as recent changes).
  *
- * @param {Object}  props
- * @param {string}  props.axis     Only shows the label corresponding to the axis.
- * @param {number}  props.height   Height value.
- * @param {boolean} props.moveX    Recent width (x axis) changes.
- * @param {boolean} props.moveY    Recent width (y axis) changes.
- * @param {string}  props.position Adjusts label value.
- * @param {boolean} props.showPx   Whether to add `PX` to the label.
- * @param {number}  props.width    Width value.
+ * @param  props
+ * @param  props.axis     Only shows the label corresponding to the axis.
+ * @param  props.height   Height value.
+ * @param  props.moveX    Recent width (x axis) changes.
+ * @param  props.moveY    Recent width (y axis) changes.
+ * @param  props.position Adjusts label value.
+ * @param  props.showPx   Whether to add `PX` to the label.
+ * @param  props.width    Width value.
  *
- * @return {undefined | string} The rendered label.
+ * @return The rendered label.
  */
-
 function getSizeLabel({
   axis,
   height,
@@ -66689,7 +66378,7 @@ function getSizeLabel({
   showPx = false,
   width
 }) {
-  if (!moveX && !moveY) return null;
+  if (!moveX && !moveY) return undefined;
   /*
    * Corner position...
    * We want the label to appear like width x height.
@@ -66732,7 +66421,7 @@ function getSizeLabel({
     return `${height}${labelUnit}`;
   }
 
-  return null;
+  return undefined;
 }
 //# sourceMappingURL=utils.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/resizable-box/resize-tooltip/styles/resize-tooltip.styles.js
@@ -66768,14 +66457,16 @@ const resize_tooltip_styles_Tooltip = emotion_styled_base_browser_esm("div",  tr
 
 const LabelText = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
   target: "ekdag500"
-} : 0)( true ? {
-  name: "1kboj1g",
-  styles: "&&&{color:white;display:block;font-size:13px;line-height:1.4;}"
-} : 0);
+} : 0)("&&&{color:", COLORS.ui.textDark, ";display:block;font-size:13px;line-height:1.4;}" + ( true ? "" : 0));
 //# sourceMappingURL=resize-tooltip.styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/resizable-box/resize-tooltip/label.js
 
 
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -66802,7 +66493,7 @@ function resize_tooltip_label_Label({
   const isCorner = position === POSITIONS.corner;
   if (!showLabel) return null;
   let style = {
-    opacity: showLabel ? 1 : null,
+    opacity: showLabel ? 1 : undefined,
     zIndex
   };
   let labelStyle = {};
@@ -66823,15 +66514,14 @@ function resize_tooltip_label_Label({
     style = { ...style,
       position: 'absolute',
       top: CORNER_OFFSET,
-      right: (0,external_wp_i18n_namespaceObject.isRTL)() ? null : CORNER_OFFSET,
-      left: (0,external_wp_i18n_namespaceObject.isRTL)() ? CORNER_OFFSET : null
+      right: (0,external_wp_i18n_namespaceObject.isRTL)() ? undefined : CORNER_OFFSET,
+      left: (0,external_wp_i18n_namespaceObject.isRTL)() ? CORNER_OFFSET : undefined
     };
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(TooltipWrapper, extends_extends({
     "aria-hidden": "true",
     className: "components-resizable-tooltip__tooltip-wrapper",
-    isActive: showLabel,
     ref: ref,
     style: style
   }, props), (0,external_wp_element_namespaceObject.createElement)(resize_tooltip_styles_Tooltip, {
@@ -66858,11 +66548,11 @@ const label_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardR
  * WordPress dependencies
  */
 
+ // eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -66897,8 +66587,6 @@ function ResizeTooltip({
     ref: ref
   }, props), resizeListener, (0,external_wp_element_namespaceObject.createElement)(resize_tooltip_label, {
     "aria-hidden": props['aria-hidden'],
-    fadeTimeout: fadeTimeout,
-    isVisible: isVisible,
     label: label,
     position: position,
     ref: labelRef,
@@ -66923,11 +66611,43 @@ const resize_tooltip_ForwardedComponent = (0,external_wp_element_namespaceObject
 
 
 
+
 /**
  * Internal dependencies
  */
 
+const HANDLE_CLASS_NAME = 'components-resizable-box__handle';
+const SIDE_HANDLE_CLASS_NAME = 'components-resizable-box__side-handle';
+const CORNER_HANDLE_CLASS_NAME = 'components-resizable-box__corner-handle';
+const HANDLE_CLASSES = {
+  top: classnames_default()(HANDLE_CLASS_NAME, SIDE_HANDLE_CLASS_NAME, 'components-resizable-box__handle-top'),
+  right: classnames_default()(HANDLE_CLASS_NAME, SIDE_HANDLE_CLASS_NAME, 'components-resizable-box__handle-right'),
+  bottom: classnames_default()(HANDLE_CLASS_NAME, SIDE_HANDLE_CLASS_NAME, 'components-resizable-box__handle-bottom'),
+  left: classnames_default()(HANDLE_CLASS_NAME, SIDE_HANDLE_CLASS_NAME, 'components-resizable-box__handle-left'),
+  topLeft: classnames_default()(HANDLE_CLASS_NAME, CORNER_HANDLE_CLASS_NAME, 'components-resizable-box__handle-top', 'components-resizable-box__handle-left'),
+  topRight: classnames_default()(HANDLE_CLASS_NAME, CORNER_HANDLE_CLASS_NAME, 'components-resizable-box__handle-top', 'components-resizable-box__handle-right'),
+  bottomRight: classnames_default()(HANDLE_CLASS_NAME, CORNER_HANDLE_CLASS_NAME, 'components-resizable-box__handle-bottom', 'components-resizable-box__handle-right'),
+  bottomLeft: classnames_default()(HANDLE_CLASS_NAME, CORNER_HANDLE_CLASS_NAME, 'components-resizable-box__handle-bottom', 'components-resizable-box__handle-left')
+}; // Removes the inline styles in the drag handles.
 
+const HANDLE_STYLES_OVERRIDES = {
+  width: undefined,
+  height: undefined,
+  top: undefined,
+  right: undefined,
+  bottom: undefined,
+  left: undefined
+};
+const HANDLE_STYLES = {
+  top: HANDLE_STYLES_OVERRIDES,
+  right: HANDLE_STYLES_OVERRIDES,
+  bottom: HANDLE_STYLES_OVERRIDES,
+  left: HANDLE_STYLES_OVERRIDES,
+  topLeft: HANDLE_STYLES_OVERRIDES,
+  topRight: HANDLE_STYLES_OVERRIDES,
+  bottomRight: HANDLE_STYLES_OVERRIDES,
+  bottomLeft: HANDLE_STYLES_OVERRIDES
+};
 
 function ResizableBox({
   className,
@@ -66937,40 +66657,10 @@ function ResizableBox({
   __experimentalTooltipProps: tooltipProps = {},
   ...props
 }, ref) {
-  // Removes the inline styles in the drag handles.
-  const handleStylesOverrides = {
-    width: null,
-    height: null,
-    top: null,
-    right: null,
-    bottom: null,
-    left: null
-  };
-  const handleClassName = 'components-resizable-box__handle';
-  const sideHandleClassName = 'components-resizable-box__side-handle';
-  const cornerHandleClassName = 'components-resizable-box__corner-handle';
   return (0,external_wp_element_namespaceObject.createElement)(Resizable, extends_extends({
     className: classnames_default()('components-resizable-box__container', showHandle && 'has-show-handle', className),
-    handleClasses: {
-      top: classnames_default()(handleClassName, sideHandleClassName, 'components-resizable-box__handle-top'),
-      right: classnames_default()(handleClassName, sideHandleClassName, 'components-resizable-box__handle-right'),
-      bottom: classnames_default()(handleClassName, sideHandleClassName, 'components-resizable-box__handle-bottom'),
-      left: classnames_default()(handleClassName, sideHandleClassName, 'components-resizable-box__handle-left'),
-      topLeft: classnames_default()(handleClassName, cornerHandleClassName, 'components-resizable-box__handle-top', 'components-resizable-box__handle-left'),
-      topRight: classnames_default()(handleClassName, cornerHandleClassName, 'components-resizable-box__handle-top', 'components-resizable-box__handle-right'),
-      bottomRight: classnames_default()(handleClassName, cornerHandleClassName, 'components-resizable-box__handle-bottom', 'components-resizable-box__handle-right'),
-      bottomLeft: classnames_default()(handleClassName, cornerHandleClassName, 'components-resizable-box__handle-bottom', 'components-resizable-box__handle-left')
-    },
-    handleStyles: {
-      top: handleStylesOverrides,
-      right: handleStylesOverrides,
-      bottom: handleStylesOverrides,
-      left: handleStylesOverrides,
-      topLeft: handleStylesOverrides,
-      topRight: handleStylesOverrides,
-      bottomRight: handleStylesOverrides,
-      bottomLeft: handleStylesOverrides
-    },
+    handleClasses: HANDLE_CLASSES,
+    handleStyles: HANDLE_STYLES,
     ref: ref
   }, props), children, showTooltip && (0,external_wp_element_namespaceObject.createElement)(resize_tooltip, tooltipProps));
 }
@@ -67460,261 +67150,6 @@ function Snackbar({
 
 /* harmony default export */ var snackbar = ((0,external_wp_element_namespaceObject.forwardRef)(Snackbar));
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-force-update.js
-
-
-
-
-function use_force_update_useForceUpdate() {
-    var unloadingRef = (0,external_React_.useRef)(false);
-    var _a = tslib_es6_read((0,external_React_.useState)(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
-    useUnmountEffect(function () { return (unloadingRef.current = true); });
-    return (0,external_React_.useCallback)(function () {
-        !unloadingRef.current && setForcedRenderCount(forcedRenderCount + 1);
-    }, [forcedRenderCount]);
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.js
-
-
-
-
-
-var presenceId = 0;
-function getPresenceId() {
-    var id = presenceId;
-    presenceId++;
-    return id;
-}
-var PresenceChild = function (_a) {
-    var children = _a.children, initial = _a.initial, isPresent = _a.isPresent, onExitComplete = _a.onExitComplete, custom = _a.custom, presenceAffectsLayout = _a.presenceAffectsLayout;
-    var presenceChildren = useConstant(newChildrenMap);
-    var id = useConstant(getPresenceId);
-    var context = (0,external_React_.useMemo)(function () { return ({
-        id: id,
-        initial: initial,
-        isPresent: isPresent,
-        custom: custom,
-        onExitComplete: function (childId) {
-            presenceChildren.set(childId, true);
-            var allComplete = true;
-            presenceChildren.forEach(function (isComplete) {
-                if (!isComplete)
-                    allComplete = false;
-            });
-            allComplete && (onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete());
-        },
-        register: function (childId) {
-            presenceChildren.set(childId, false);
-            return function () { return presenceChildren.delete(childId); };
-        },
-    }); }, 
-    /**
-     * If the presence of a child affects the layout of the components around it,
-     * we want to make a new context value to ensure they get re-rendered
-     * so they can detect that layout change.
-     */
-    presenceAffectsLayout ? undefined : [isPresent]);
-    (0,external_React_.useMemo)(function () {
-        presenceChildren.forEach(function (_, key) { return presenceChildren.set(key, false); });
-    }, [isPresent]);
-    /**
-     * If there's no `motion` components to fire exit animations, we want to remove this
-     * component immediately.
-     */
-    external_React_.useEffect(function () {
-        !isPresent && !presenceChildren.size && (onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete());
-    }, [isPresent]);
-    return (external_React_.createElement(PresenceContext_PresenceContext.Provider, { value: context }, children));
-};
-function newChildrenMap() {
-    return new Map();
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/index.js
-
-
-
-
-
-
-
-function getChildKey(child) {
-    return child.key || "";
-}
-function updateChildLookup(children, allChildren) {
-    var seenChildren =  false ? 0 : null;
-    children.forEach(function (child) {
-        var key = getChildKey(child);
-        if (false) {}
-        allChildren.set(key, child);
-    });
-}
-function onlyElements(children) {
-    var filtered = [];
-    // We use forEach here instead of map as map mutates the component key by preprending `.$`
-    external_React_.Children.forEach(children, function (child) {
-        if ((0,external_React_.isValidElement)(child))
-            filtered.push(child);
-    });
-    return filtered;
-}
-/**
- * `AnimatePresence` enables the animation of components that have been removed from the tree.
- *
- * When adding/removing more than a single child, every child **must** be given a unique `key` prop.
- *
- * @library
- *
- * Any `Frame` components that have an `exit` property defined will animate out when removed from
- * the tree.
- *
- * ```jsx
- * import { Frame, AnimatePresence } from 'framer'
- *
- * // As items are added and removed from `items`
- * export function Items({ items }) {
- *   return (
- *     <AnimatePresence>
- *       {items.map(item => (
- *         <Frame
- *           key={item.id}
- *           initial={{ opacity: 0 }}
- *           animate={{ opacity: 1 }}
- *           exit={{ opacity: 0 }}
- *         />
- *       ))}
- *     </AnimatePresence>
- *   )
- * }
- * ```
- *
- * You can sequence exit animations throughout a tree using variants.
- *
- * @motion
- *
- * Any `motion` components that have an `exit` property defined will animate out when removed from
- * the tree.
- *
- * ```jsx
- * import { motion, AnimatePresence } from 'framer-motion'
- *
- * export const Items = ({ items }) => (
- *   <AnimatePresence>
- *     {items.map(item => (
- *       <motion.div
- *         key={item.id}
- *         initial={{ opacity: 0 }}
- *         animate={{ opacity: 1 }}
- *         exit={{ opacity: 0 }}
- *       />
- *     ))}
- *   </AnimatePresence>
- * )
- * ```
- *
- * You can sequence exit animations throughout a tree using variants.
- *
- * If a child contains multiple `motion` components with `exit` props, it will only unmount the child
- * once all `motion` components have finished animating out. Likewise, any components using
- * `usePresence` all need to call `safeToRemove`.
- *
- * @public
- */
-var AnimatePresence = function (_a) {
-    var children = _a.children, custom = _a.custom, _b = _a.initial, initial = _b === void 0 ? true : _b, onExitComplete = _a.onExitComplete, exitBeforeEnter = _a.exitBeforeEnter, _c = _a.presenceAffectsLayout, presenceAffectsLayout = _c === void 0 ? true : _c;
-    // We want to force a re-render once all exiting animations have finished. We
-    // either use a local forceRender function, or one from a parent context if it exists.
-    var forceRender = use_force_update_useForceUpdate();
-    var layoutContext = (0,external_React_.useContext)(SharedLayoutContext);
-    if (isSharedLayout(layoutContext)) {
-        forceRender = layoutContext.forceUpdate;
-    }
-    var isInitialRender = (0,external_React_.useRef)(true);
-    // Filter out any children that aren't ReactElements. We can only track ReactElements with a props.key
-    var filteredChildren = onlyElements(children);
-    // Keep a living record of the children we're actually rendering so we
-    // can diff to figure out which are entering and exiting
-    var presentChildren = (0,external_React_.useRef)(filteredChildren);
-    // A lookup table to quickly reference components by key
-    var allChildren = (0,external_React_.useRef)(new Map())
-        .current;
-    // A living record of all currently exiting components.
-    var exiting = (0,external_React_.useRef)(new Set()).current;
-    updateChildLookup(filteredChildren, allChildren);
-    // If this is the initial component render, just deal with logic surrounding whether
-    // we play onMount animations or not.
-    if (isInitialRender.current) {
-        isInitialRender.current = false;
-        return (external_React_.createElement(external_React_.Fragment, null, filteredChildren.map(function (child) { return (external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? undefined : false, presenceAffectsLayout: presenceAffectsLayout }, child)); })));
-    }
-    // If this is a subsequent render, deal with entering and exiting children
-    var childrenToRender = tslib_es6_spreadArray([], tslib_es6_read(filteredChildren));
-    // Diff the keys of the currently-present and target children to update our
-    // exiting list.
-    var presentKeys = presentChildren.current.map(getChildKey);
-    var targetKeys = filteredChildren.map(getChildKey);
-    // Diff the present children with our target children and mark those that are exiting
-    var numPresent = presentKeys.length;
-    for (var i = 0; i < numPresent; i++) {
-        var key = presentKeys[i];
-        if (targetKeys.indexOf(key) === -1) {
-            exiting.add(key);
-        }
-        else {
-            // In case this key has re-entered, remove from the exiting list
-            exiting.delete(key);
-        }
-    }
-    // If we currently have exiting children, and we're deferring rendering incoming children
-    // until after all current children have exiting, empty the childrenToRender array
-    if (exitBeforeEnter && exiting.size) {
-        childrenToRender = [];
-    }
-    // Loop through all currently exiting components and clone them to overwrite `animate`
-    // with any `exit` prop they might have defined.
-    exiting.forEach(function (key) {
-        // If this component is actually entering again, early return
-        if (targetKeys.indexOf(key) !== -1)
-            return;
-        var child = allChildren.get(key);
-        if (!child)
-            return;
-        var insertionIndex = presentKeys.indexOf(key);
-        var onExit = function () {
-            allChildren.delete(key);
-            exiting.delete(key);
-            // Remove this child from the present children
-            var removeIndex = presentChildren.current.findIndex(function (presentChild) { return presentChild.key === key; });
-            presentChildren.current.splice(removeIndex, 1);
-            // Defer re-rendering until all exiting children have indeed left
-            if (!exiting.size) {
-                presentChildren.current = filteredChildren;
-                forceRender();
-                onExitComplete && onExitComplete();
-            }
-        };
-        childrenToRender.splice(insertionIndex, 0, external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom: custom, presenceAffectsLayout: presenceAffectsLayout }, child));
-    });
-    // Add `MotionContext` even to children that don't need it to ensure we're rendering
-    // the same tree between renders
-    childrenToRender = childrenToRender.map(function (child) {
-        var key = child.key;
-        return exiting.has(key) ? (child) : (external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout: presenceAffectsLayout }, child));
-    });
-    presentChildren.current = childrenToRender;
-    if (false) {}
-    return (external_React_.createElement(external_React_.Fragment, null, exiting.size
-        ? childrenToRender
-        : childrenToRender.map(function (child) { return (0,external_React_.cloneElement)(child); })));
-};
-
-
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/snackbar/list.js
 
 
@@ -68227,340 +67662,6 @@ function ToggleControl({
   }, label));
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/styles.js
-
-
-function toggle_group_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-/**
- * External dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-const ToggleGroupControl = /*#__PURE__*/emotion_react_browser_esm_css("background:", COLORS.ui.background, ";border:1px solid;border-color:", COLORS.ui.border, ";border-radius:", config_values.controlBorderRadius, ";display:inline-flex;min-height:", config_values.controlHeight, ";min-width:0;padding:2px;position:relative;transition:transform ", config_values.transitionDurationFastest, " linear;", reduceMotion('transition'), " &:hover{border-color:", COLORS.ui.borderHover, ";}&:focus-within{border-color:", COLORS.ui.borderFocus, ";box-shadow:", config_values.controlBoxShadowFocus, ";outline:none;z-index:1;}" + ( true ? "" : 0),  true ? "" : 0);
-const toggle_group_control_styles_block =  true ? {
-  name: "7whenc",
-  styles: "display:flex;width:100%"
-} : 0;
-const BackdropView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1c5povi4"
-} : 0)("background:", COLORS.gray[900], ";border-radius:", config_values.controlBorderRadius, ";box-shadow:", config_values.toggleGroupControlBackdropBoxShadow, ";left:0;position:absolute;top:2px;bottom:2px;transition:transform ", config_values.transitionDurationFast, " ease;", reduceMotion('transition'), " z-index:1;" + ( true ? "" : 0));
-const LabelView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1c5povi3"
-} : 0)( true ? {
-  name: "sln1fl",
-  styles: "display:inline-flex;max-width:100%;min-width:0;position:relative"
-} : 0);
-const labelBlock =  true ? {
-  name: "82a6rk",
-  styles: "flex:1"
-} : 0;
-const buttonView = /*#__PURE__*/emotion_react_browser_esm_css("align-items:center;appearance:none;background:transparent;border:none;border-radius:", config_values.controlBorderRadius, ";color:", COLORS.gray[700], ";cursor:pointer;display:flex;height:100%;justify-content:center;line-height:100%;outline:none;padding:0 12px;position:relative;text-align:center;transition:background ", config_values.transitionDurationFast, " linear,color ", config_values.transitionDurationFast, " linear,font-weight 60ms linear;", reduceMotion('transition'), " user-select:none;width:100%;z-index:2;&::-moz-focus-inner{border:0;}&:active{background:", config_values.toggleGroupControlBackgroundColor, ";}" + ( true ? "" : 0),  true ? "" : 0);
-const buttonActive = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.white, ";" + ( true ? "" : 0),  true ? "" : 0);
-const ButtonContentView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1c5povi2"
-} : 0)("font-size:", config_values.fontSize, ";line-height:1;position:absolute;top:50%;left:50%;transform:translate( -50%, -50% );" + ( true ? "" : 0));
-const SeparatorView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1c5povi1"
-} : 0)("background:", config_values.colorDivider, ";height:calc( 100% - 4px - 4px );position:absolute;right:0;top:4px;transition:background ", config_values.transitionDuration, " linear;", reduceMotion('transition'), " width:1px;" + ( true ? "" : 0));
-const separatorActive =  true ? {
-  name: "1qsuvl4",
-  styles: "background:transparent"
-} : 0;
-const LabelPlaceholderView = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1c5povi0"
-} : 0)("font-size:", config_values.fontSize, ";font-weight:bold;height:0;overflow:hidden;visibility:hidden;" + ( true ? "" : 0));
-const medium = /*#__PURE__*/emotion_react_browser_esm_css("min-height:", config_values.controlHeight, ";" + ( true ? "" : 0),  true ? "" : 0);
-//# sourceMappingURL=styles.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-backdrop.js
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-function ToggleGroupControlBackdrop({
-  containerRef,
-  containerWidth,
-  isAdaptiveWidth,
-  state
-}) {
-  const [left, setLeft] = (0,external_wp_element_namespaceObject.useState)(0);
-  const [width, setWidth] = (0,external_wp_element_namespaceObject.useState)(0);
-  const [canAnimate, setCanAnimate] = (0,external_wp_element_namespaceObject.useState)(false);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    const containerNode = containerRef === null || containerRef === void 0 ? void 0 : containerRef.current;
-    if (!containerNode) return;
-    /**
-     * Workaround for Reakit
-     */
-
-    const targetNode = containerNode.querySelector(`[data-value="${state}"]`);
-    if (!targetNode) return;
-    const {
-      x: parentX
-    } = containerNode.getBoundingClientRect();
-    const {
-      width: offsetWidth,
-      x
-    } = targetNode.getBoundingClientRect();
-    const borderWidth = 1;
-    const offsetLeft = x - parentX - borderWidth;
-    setLeft(offsetLeft);
-    setWidth(offsetWidth);
-    let requestId;
-
-    if (!canAnimate) {
-      requestId = window.requestAnimationFrame(() => {
-        setCanAnimate(true);
-      });
-    }
-
-    return () => window.cancelAnimationFrame(requestId);
-  }, [canAnimate, containerRef, containerWidth, state, isAdaptiveWidth]);
-  return (0,external_wp_element_namespaceObject.createElement)(BackdropView, {
-    role: "presentation",
-    style: {
-      transform: `translateX(${left}px)`,
-      transition: canAnimate ? undefined : 'none',
-      width
-    }
-  });
-}
-
-/* harmony default export */ var toggle_group_control_backdrop = ((0,external_wp_element_namespaceObject.memo)(ToggleGroupControlBackdrop));
-//# sourceMappingURL=toggle-group-control-backdrop.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-context.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-const ToggleGroupControlContext = (0,external_wp_element_namespaceObject.createContext)({});
-const useToggleGroupControlContext = () => (0,external_wp_element_namespaceObject.useContext)(ToggleGroupControlContext);
-/* harmony default export */ var toggle_group_control_context = (ToggleGroupControlContext);
-//# sourceMappingURL=toggle-group-control-context.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/component.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-
-
-
-const component_noop = () => {};
-
-function component_ToggleGroupControl(props, forwardedRef) {
-  const {
-    className,
-    isAdaptiveWidth = false,
-    isBlock = false,
-    label,
-    hideLabelFromVision = false,
-    help,
-    onChange = component_noop,
-    value,
-    children,
-    ...otherProps
-  } = useContextSystem(props, 'ToggleGroupControl');
-  const cx = useCx();
-  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
-  const [resizeListener, sizes] = react_resize_aware_dist_default()();
-  const baseId = (0,external_wp_compose_namespaceObject.useInstanceId)(component_ToggleGroupControl, 'toggle-group-control').toString();
-  const radio = useRadioState({
-    baseId,
-    state: value
-  }); // Propagate radio.state change
-
-  use_update_effect(() => {
-    onChange(radio.state);
-  }, [radio.state]); // Sync incoming value with radio.state
-
-  use_update_effect(() => {
-    if (value !== radio.state) {
-      radio.setState(value);
-    }
-  }, [value]);
-  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(ToggleGroupControl, isBlock && toggle_group_control_styles_block, 'medium', className), [className, isBlock]);
-  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
-    help: help
-  }, (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_context.Provider, {
-    value: { ...radio,
-      isBlock: !isAdaptiveWidth
-    }
-  }, !hideLabelFromVision && (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(base_control.VisualLabel, null, label)), (0,external_wp_element_namespaceObject.createElement)(RadioGroup, extends_extends({}, radio, {
-    "aria-label": label,
-    as: component,
-    className: classes
-  }, otherProps, {
-    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef])
-  }), resizeListener, (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_backdrop, extends_extends({}, radio, {
-    containerRef: containerRef,
-    containerWidth: sizes.width,
-    isAdaptiveWidth: isAdaptiveWidth
-  })), children)));
-}
-
-/* harmony default export */ var toggle_group_control_component = (contextConnect(component_ToggleGroupControl, 'ToggleGroupControl'));
-//# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-button.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-const {
-  ButtonContentView: toggle_group_control_button_ButtonContentView,
-  LabelPlaceholderView: toggle_group_control_button_LabelPlaceholderView,
-  LabelView: toggle_group_control_button_LabelView,
-  SeparatorView: toggle_group_control_button_SeparatorView
-} = toggle_group_control_styles_namespaceObject;
-
-function ToggleGroupControlButton({
-  className,
-  forwardedRef,
-  isBlock = false,
-  label,
-  showSeparator,
-  value,
-  ...props
-}) {
-  const isActive = props.state === value;
-  const cx = useCx();
-  const labelViewClasses = cx(isBlock && labelBlock);
-  const classes = cx(buttonView, className, isActive && buttonActive);
-  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button_LabelView, {
-    className: labelViewClasses,
-    "data-active": isActive
-  }, (0,external_wp_element_namespaceObject.createElement)(Radio, extends_extends({}, props, {
-    as: "button",
-    "aria-label": label,
-    className: classes,
-    "data-value": value,
-    ref: forwardedRef,
-    value: value
-  }), (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button_ButtonContentView, null, label), (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button_LabelPlaceholderView, {
-    "aria-hidden": true
-  }, label)), (0,external_wp_element_namespaceObject.createElement)(ToggleGroupControlSeparator, {
-    isActive: !showSeparator
-  }));
-}
-
-const ToggleGroupControlSeparator = (0,external_wp_element_namespaceObject.memo)(({
-  isActive
-}) => {
-  const cx = useCx();
-  const classes = cx(isActive && separatorActive);
-  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button_SeparatorView, {
-    "aria-hidden": true,
-    className: classes
-  });
-});
-/* harmony default export */ var toggle_group_control_button = ((0,external_wp_element_namespaceObject.memo)(ToggleGroupControlButton));
-//# sourceMappingURL=toggle-group-control-button.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-option.js
-
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function getShowSeparator(toggleGroupControlContext, index) {
-  var _items$index, _items;
-
-  const {
-    currentId,
-    items
-  } = toggleGroupControlContext;
-  const isLast = index === items.length - 1;
-  const isActive = ((_items$index = items[index]) === null || _items$index === void 0 ? void 0 : _items$index.id) === currentId;
-  const isNextActive = ((_items = items[index + 1]) === null || _items === void 0 ? void 0 : _items.id) === currentId;
-  let showSeparator = true;
-
-  if (items.length < 3) {
-    showSeparator = false;
-  }
-
-  if (isActive || isNextActive || isLast) {
-    showSeparator = false;
-  }
-
-  return showSeparator;
-}
-
-function ToggleGroupControlOption(props, forwardedRef) {
-  const toggleGroupControlContext = useToggleGroupControlContext();
-  const id = (0,external_wp_compose_namespaceObject.useInstanceId)(ToggleGroupControlOption, toggleGroupControlContext.baseId || 'toggle-group-control-option');
-  const buttonProps = useContextSystem({ ...props,
-    id
-  }, 'ToggleGroupControlOption');
-  const index = toggleGroupControlContext.items.findIndex(item => item.id === buttonProps.id);
-  const showSeparator = getShowSeparator(toggleGroupControlContext, index);
-  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_button, extends_extends({
-    ref: forwardedRef
-  }, toggleGroupControlContext, buttonProps, {
-    showSeparator
-  }));
-}
-
-/* harmony default export */ var toggle_group_control_option = (contextConnect(ToggleGroupControlOption, 'ToggleGroupControlOption'));
-//# sourceMappingURL=toggle-group-control-option.js.map
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-ae468c11.js
 // Automatically generated
 var TOOLBAR_STATE_KEYS = ["baseId", "unstable_idCountRef", "unstable_virtual", "rtl", "orientation", "items", "groups", "currentId", "loop", "wrap", "shift", "unstable_moves", "unstable_hasActiveWidget", "unstable_includesBaseElement", "setBaseId", "registerItem", "unregisterItem", "registerGroup", "unregisterGroup", "move", "next", "previous", "up", "down", "first", "last", "sort", "unstable_setVirtual", "setRTL", "setOrientation", "setCurrentId", "setLoop", "setWrap", "setShift", "reset", "unstable_setIncludesBaseElement", "unstable_setHasActiveWidget"];
@@ -69179,11 +68280,41 @@ function tools_panel_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have 
 
 
 
-const ToolsPanel = /*#__PURE__*/emotion_react_browser_esm_css("border-top:", config_values.borderWidth, " solid ", COLORS.gray[200], ";column-gap:", space(4), ";display:grid;grid-template-columns:1fr 1fr;margin-top:-1px;padding:", space(4), ";row-gap:", space(6), ";" + ( true ? "" : 0),  true ? "" : 0);
-const ToolsPanelHeader = /*#__PURE__*/emotion_react_browser_esm_css("align-items:center;display:flex;font-size:inherit;font-weight:500;grid-column:span 2;justify-content:space-between;line-height:normal;.components-tools-panel &{margin:0;}.components-dropdown-menu{margin-top:", space(-1), ";margin-bottom:", space(-1), ";height:", space(6), ";}.components-dropdown-menu__toggle{padding:0;height:", space(6), ";min-width:", space(6), ";width:", space(6), ";}" + ( true ? "" : 0),  true ? "" : 0);
-const ToolsPanelItem =  true ? {
-  name: "12lwk96",
-  styles: "grid-column:span 2;&.single-column{grid-column:span 1;}&>div,&>fieldset{padding-bottom:0;margin-bottom:0;max-width:100%;}"
+
+const toolsPanelGrid = {
+  container: /*#__PURE__*/emotion_react_browser_esm_css("column-gap:", space(4), ";display:grid;grid-template-columns:1fr 1fr;row-gap:", space(6), ";" + ( true ? "" : 0),  true ? "" : 0),
+  item: {
+    halfWidth:  true ? {
+      name: "957xgf",
+      styles: "grid-column:span 1"
+    } : 0,
+    fullWidth:  true ? {
+      name: "1kmi7xh",
+      styles: "grid-column:span 2"
+    } : 0
+  }
+};
+const ToolsPanel = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.container, ";border-top:", config_values.borderWidth, " solid ", COLORS.gray[200], ";margin-top:-1px;padding:", space(4), ";" + ( true ? "" : 0),  true ? "" : 0);
+/**
+ * Items injected into a ToolsPanel via a virtual bubbling slot will require
+ * an inner dom element to be injected. The following rule allows for the
+ * CSS grid display to be re-established.
+ */
+
+const ToolsPanelWithInnerWrapper = /*#__PURE__*/emotion_react_browser_esm_css(">div:not( :first-of-type ){", toolsPanelGrid.container, " ", toolsPanelGrid.item.fullWidth, ";}" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanelHiddenInnerWrapper =  true ? {
+  name: "huufmu",
+  styles: ">div:not( :first-of-type ){display:none;}"
+} : 0;
+const ToolsPanelHeader = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, " gap:", space(2), ";.components-dropdown-menu{margin:", space(-1), " 0;height:", space(6), ";.components-dropdown-menu__toggle{padding:0;height:", space(6), ";min-width:", space(6), ";width:", space(6), ";}}" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanelHeading =  true ? {
+  name: "1pmxm02",
+  styles: "font-size:inherit;font-weight:500;line-height:normal;&&{margin:0;}"
+} : 0;
+const ToolsPanelItem = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, " &.single-column{", toolsPanelGrid.item.halfWidth, ";}&>div,&>fieldset{padding-bottom:0;margin-bottom:0;max-width:100%;}&& ", base_control_styles_Wrapper, "{margin-bottom:0;", StyledField, "{margin-bottom:0;}}" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanelItemPlaceholder =  true ? {
+  name: "eivff4",
+  styles: "display:none"
 } : 0;
 const styles_DropdownMenu =  true ? {
   name: "16gsvie",
@@ -69208,9 +68339,11 @@ const ToolsPanelContext = (0,external_wp_element_namespaceObject.createContext)(
   },
   hasMenuItems: false,
   isResetting: false,
+  shouldRenderPlaceholderItems: false,
   registerPanelItem: context_noop,
   deregisterPanelItem: context_noop,
-  flagItemCustomization: context_noop
+  flagItemCustomization: context_noop,
+  areAllOptionalControlsHidden: true
 });
 const useToolsPanelContext = () => (0,external_wp_element_namespaceObject.useContext)(ToolsPanelContext);
 //# sourceMappingURL=context.js.map
@@ -69239,13 +68372,19 @@ function useToolsPanelHeader(props) {
   const dropdownMenuClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return cx(styles_DropdownMenu);
   }, []);
+  const headingClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return cx(ToolsPanelHeading);
+  }, []);
   const {
     menuItems,
-    hasMenuItems
+    hasMenuItems,
+    areAllOptionalControlsHidden
   } = useToolsPanelContext();
   return { ...otherProps,
+    areAllOptionalControlsHidden,
     dropdownMenuClassName,
     hasMenuItems,
+    headingClassName,
     menuItems,
     className: classes
   };
@@ -69268,6 +68407,8 @@ function useToolsPanelHeader(props) {
 /**
  * Internal dependencies
  */
+
+
 
 
 
@@ -69334,8 +68475,10 @@ const OptionalControlsGroup = ({
 
 const component_ToolsPanelHeader = (props, forwardedRef) => {
   const {
+    areAllOptionalControlsHidden,
     dropdownMenuClassName,
     hasMenuItems,
+    headingClassName,
     label: labelText,
     menuItems,
     resetAll,
@@ -69349,11 +68492,16 @@ const component_ToolsPanelHeader = (props, forwardedRef) => {
 
   const defaultItems = Object.entries((menuItems === null || menuItems === void 0 ? void 0 : menuItems.default) || {});
   const optionalItems = Object.entries((menuItems === null || menuItems === void 0 ? void 0 : menuItems.optional) || {});
-  return (0,external_wp_element_namespaceObject.createElement)("h2", extends_extends({}, headerProps, {
+  const dropDownMenuIcon = areAllOptionalControlsHidden ? library_plus : more_vertical;
+  const dropDownMenuLabelText = areAllOptionalControlsHidden ? (0,external_wp_i18n_namespaceObject._x)('View and add options', 'Button label to reveal tool panel options') : (0,external_wp_i18n_namespaceObject._x)('View options', 'Button label to reveal tool panel options');
+  return (0,external_wp_element_namespaceObject.createElement)(h_stack_component, extends_extends({}, headerProps, {
     ref: forwardedRef
-  }), labelText, hasMenuItems && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
-    icon: more_vertical,
-    label: labelText,
+  }), (0,external_wp_element_namespaceObject.createElement)(heading_component, {
+    level: 2,
+    className: headingClassName
+  }, labelText), hasMenuItems && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
+    icon: dropDownMenuIcon,
+    label: dropDownMenuLabelText,
     menuProps: {
       className: dropdownMenuClassName
     }
@@ -69416,12 +68564,10 @@ function useToolsPanel(props) {
     className,
     resetAll,
     panelId,
+    hasInnerWrapper,
+    shouldRenderPlaceholderItems,
     ...otherProps
   } = useContextSystem(props, 'ToolsPanel');
-  const cx = useCx();
-  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(ToolsPanel, className);
-  }, [className]);
   const isResetting = (0,external_wp_element_namespaceObject.useRef)(false);
   const wasResetting = isResetting.current; // `isResetting` is cleared via this hook to effectively batch together
   // the resetAll task. Without this, the flag is cleared after the first
@@ -69477,9 +68623,28 @@ function useToolsPanel(props) {
         [label]: true
       }
     });
-  }; // Toggle the checked state of a menu item which is then used to determine
-  // display of the item within the panel.
+  }; // Whether all optional menu items are hidden or not must be tracked
+  // in order to later determine if the panel display is empty and handle
+  // conditional display of a plus icon to indicate the presence of further
+  // menu items.
 
+
+  const [areAllOptionalControlsHidden, setAreAllOptionalControlsHidden] = (0,external_wp_element_namespaceObject.useState)(false);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (menuItems.optional) {
+      const optionalItems = Object.entries(menuItems.optional);
+      const allControlsHidden = optionalItems.length > 0 && !optionalItems.some(([, isSelected]) => isSelected);
+      setAreAllOptionalControlsHidden(allControlsHidden);
+    }
+  }, [menuItems.optional]);
+  const cx = useCx();
+  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const hasDefaultMenuItems = (menuItems === null || menuItems === void 0 ? void 0 : menuItems.default) && !!Object.keys(menuItems === null || menuItems === void 0 ? void 0 : menuItems.default).length;
+    const wrapperStyle = hasInnerWrapper && ToolsPanelWithInnerWrapper;
+    const emptyStyle = !hasDefaultMenuItems && areAllOptionalControlsHidden && ToolsPanelHiddenInnerWrapper;
+    return cx(ToolsPanel, wrapperStyle, emptyStyle, className);
+  }, [className, hasInnerWrapper, menuItems, areAllOptionalControlsHidden]); // Toggle the checked state of a menu item which is then used to determine
+  // display of the item within the panel.
 
   const toggleItem = label => {
     const currentItem = panelItems.find(item => item.label === label);
@@ -69528,8 +68693,10 @@ function useToolsPanel(props) {
     registerPanelItem,
     deregisterPanelItem,
     flagItemCustomization,
+    areAllOptionalControlsHidden,
     hasMenuItems: !!panelItems.length,
-    isResetting: isResetting.current
+    isResetting: isResetting.current,
+    shouldRenderPlaceholderItems
   };
   return { ...otherProps,
     panelContext,
@@ -69608,17 +68775,14 @@ function useToolsPanelItem(props) {
     onSelect,
     ...otherProps
   } = useContextSystem(props, 'ToolsPanelItem');
-  const cx = useCx();
-  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(ToolsPanelItem, className);
-  }, [className]);
   const {
     panelId: currentPanelId,
     menuItems,
     registerPanelItem,
     deregisterPanelItem,
     flagItemCustomization,
-    isResetting
+    isResetting,
+    shouldRenderPlaceholderItems: shouldRenderPlaceholder
   } = useToolsPanelContext();
   const hasValueCallback = (0,external_wp_element_namespaceObject.useCallback)(hasValue, [panelId]);
   const resetAllFilterCallback = (0,external_wp_element_namespaceObject.useCallback)(resetAllFilter, [panelId]); // Registering the panel item allows the panel to include it in its
@@ -69670,8 +68834,14 @@ function useToolsPanelItem(props) {
   // a value.
 
   const isShown = isShownByDefault ? (menuItems === null || menuItems === void 0 ? void 0 : (_menuItems$menuGroup2 = menuItems[menuGroup]) === null || _menuItems$menuGroup2 === void 0 ? void 0 : _menuItems$menuGroup2[label]) !== undefined : isMenuItemChecked;
+  const cx = useCx();
+  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const placeholderStyle = shouldRenderPlaceholder && !isShown && ToolsPanelItemPlaceholder;
+    return cx(ToolsPanelItem, placeholderStyle, className);
+  }, [isShown, shouldRenderPlaceholder, className]);
   return { ...otherProps,
     isShown,
+    shouldRenderPlaceholder,
     className: classes
   };
 }
@@ -69698,11 +68868,14 @@ const component_ToolsPanelItem = (props, forwardedRef) => {
   const {
     children,
     isShown,
+    shouldRenderPlaceholder,
     ...toolsPanelItemProps
   } = useToolsPanelItem(props);
 
   if (!isShown) {
-    return null;
+    return shouldRenderPlaceholder ? (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, toolsPanelItemProps, {
+      ref: forwardedRef
+    })) : null;
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, toolsPanelItemProps, {
@@ -69789,7 +68962,9 @@ function RovingTabIndex({
  */
 
 function getRowFocusables(rowElement) {
-  const focusablesInRow = external_wp_dom_namespaceObject.focus.focusable.find(rowElement);
+  const focusablesInRow = external_wp_dom_namespaceObject.focus.focusable.find(rowElement, {
+    sequential: true
+  });
 
   if (!focusablesInRow || !focusablesInRow.length) {
     return;

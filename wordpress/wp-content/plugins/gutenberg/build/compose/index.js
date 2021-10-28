@@ -2711,11 +2711,56 @@ function withState(initialState = {}) {
 var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: external ["wp","dom"]
 var external_wp_dom_namespaceObject = window["wp"]["dom"];
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-ref-effect/index.js
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Effect-like ref callback. Just like with `useEffect`, this allows you to
+ * return a cleanup function to be run if the ref changes or one of the
+ * dependencies changes. The ref is provided as an argument to the callback
+ * functions. The main difference between this and `useEffect` is that
+ * the `useEffect` callback is not called when the ref changes, but this is.
+ * Pass the returned ref callback as the component's ref and merge multiple refs
+ * with `useMergeRefs`.
+ *
+ * It's worth noting that if the dependencies array is empty, there's not
+ * strictly a need to clean up event handlers for example, because the node is
+ * to be removed. It *is* necessary if you add dependencies because the ref
+ * callback will be called multiple times for the same node.
+ *
+ * @param  callback     Callback with ref as argument.
+ * @param  dependencies Dependencies of the callback.
+ *
+ * @return Ref callback.
+ */
+
+function useRefEffect(callback, dependencies) {
+  const cleanup = (0,external_wp_element_namespaceObject.useRef)();
+  return (0,external_wp_element_namespaceObject.useCallback)(node => {
+    if (node) {
+      cleanup.current = callback(node);
+    } else if (cleanup.current) {
+      cleanup.current();
+    }
+  }, dependencies);
+}
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-constrained-tabbing/index.js
 /**
  * WordPress dependencies
  */
 
+
+/**
+ * Internal dependencies
+ */
 
 
 /**
@@ -2741,58 +2786,55 @@ var external_wp_dom_namespaceObject = window["wp"]["dom"];
  */
 
 function useConstrainedTabbing() {
-  const ref = (0,external_wp_element_namespaceObject.useCallback)(
-  /** @type {Element} */
+  return useRefEffect(
+  /** @type {HTMLElement} */
   node => {
-    if (!node) {
-      return;
+    /** @type {number|undefined} */
+    let timeoutId;
+
+    function onKeyDown(
+    /** @type {KeyboardEvent} */
+    event) {
+      const {
+        keyCode,
+        shiftKey,
+        target
+      } = event;
+
+      if (keyCode !== external_wp_keycodes_namespaceObject.TAB) {
+        return;
+      }
+
+      const action = shiftKey ? 'findPrevious' : 'findNext';
+      const nextElement = external_wp_dom_namespaceObject.focus.tabbable[action](
+      /** @type {HTMLElement} */
+      target) || null; // If the element that is about to receive focus is outside the
+      // area, move focus to a div and insert it at the start or end of
+      // the area, depending on the direction. Without preventing default
+      // behaviour, the browser will then move focus to the next element.
+
+      if (node.contains(nextElement)) {
+        return;
+      }
+
+      const domAction = shiftKey ? 'append' : 'prepend';
+      const {
+        ownerDocument
+      } = node;
+      const trap = ownerDocument.createElement('div');
+      trap.tabIndex = -1;
+      node[domAction](trap);
+      trap.focus(); // Remove after the browser moves focus to the next element.
+
+      timeoutId = setTimeout(() => node.removeChild(trap));
     }
 
-    node.addEventListener('keydown',
-    /** @type {Event} */
-    event => {
-      if (!(event instanceof window.KeyboardEvent)) {
-        return;
-      }
-
-      if (event.keyCode !== external_wp_keycodes_namespaceObject.TAB) {
-        return;
-      }
-
-      const tabbables = external_wp_dom_namespaceObject.focus.tabbable.find(node);
-
-      if (!tabbables.length) {
-        return;
-      }
-
-      const firstTabbable = tabbables[0];
-      const lastTabbable = tabbables[tabbables.length - 1];
-
-      if (event.shiftKey && event.target === firstTabbable) {
-        event.preventDefault();
-        /** @type {HTMLElement} */
-
-        lastTabbable.focus();
-      } else if (!event.shiftKey && event.target === lastTabbable) {
-        event.preventDefault();
-        /** @type {HTMLElement} */
-
-        firstTabbable.focus();
-        /*
-         * When pressing Tab and none of the tabbables has focus, the keydown
-         * event happens on the wrapper div: move focus on the first tabbable.
-         */
-      } else if (!tabbables.includes(
-      /** @type {Element} */
-      event.target)) {
-        event.preventDefault();
-        /** @type {HTMLElement} */
-
-        firstTabbable.focus();
-      }
-    });
+    node.addEventListener('keydown', onKeyDown);
+    return () => {
+      node.removeEventListener('keydown', onKeyDown);
+      clearTimeout(timeoutId);
+    };
   }, []);
-  return ref;
 }
 
 /* harmony default export */ var use_constrained_tabbing = (useConstrainedTabbing);
@@ -2879,47 +2921,6 @@ function useCopyOnClick(ref, text, timeout = 4000) {
     };
   }, [text, timeout, setHasCopied]);
   return hasCopied;
-}
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-ref-effect/index.js
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Effect-like ref callback. Just like with `useEffect`, this allows you to
- * return a cleanup function to be run if the ref changes or one of the
- * dependencies changes. The ref is provided as an argument to the callback
- * functions. The main difference between this and `useEffect` is that
- * the `useEffect` callback is not called when the ref changes, but this is.
- * Pass the returned ref callback as the component's ref and merge multiple refs
- * with `useMergeRefs`.
- *
- * It's worth noting that if the dependencies array is empty, there's not
- * strictly a need to clean up event handlers for example, because the node is
- * to be removed. It *is* necessary if you add dependencies because the ref
- * callback will be called multiple times for the same node.
- *
- * @param  callback     Callback with ref as argument.
- * @param  dependencies Dependencies of the callback.
- *
- * @return Ref callback.
- */
-
-function useRefEffect(callback, dependencies) {
-  const cleanup = (0,external_wp_element_namespaceObject.useRef)();
-  return (0,external_wp_element_namespaceObject.useCallback)(node => {
-    if (node) {
-      cleanup.current = callback(node);
-    } else if (cleanup.current) {
-      cleanup.current();
-    }
-  }, dependencies);
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-to-clipboard/index.js
@@ -3777,24 +3778,13 @@ function useMediaQuery(query) {
  * Use something's value from the previous render.
  * Based on https://usehooks.com/usePrevious/.
  *
- * @template T
+ * @param  value The value to track.
  *
- * @param {T} value The value to track.
- *
- * @return {T | undefined} The value from the previous render.
+ * @return The value from the previous render.
  */
 
 function usePrevious(value) {
-  // Disable reason: without an explicit type detail, the type of ref will be
-  // inferred based on the initial useRef argument, which is undefined.
-  // https://github.com/WordPress/gutenberg/pull/22597#issuecomment-633588366
-
-  /* eslint-disable jsdoc/no-undefined-types */
-  const ref = (0,external_wp_element_namespaceObject.useRef)(
-  /** @type {T | undefined} */
-  undefined);
-  /* eslint-enable jsdoc/no-undefined-types */
-  // Store current value in ref.
+  const ref = (0,external_wp_element_namespaceObject.useRef)(); // Store current value in ref.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     ref.current = value;

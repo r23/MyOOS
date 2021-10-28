@@ -107,7 +107,21 @@ __webpack_require__.d(tabbable_namespaceObject, {
  * AREA elements associated with an IMG:
  *  - https://w3c.github.io/html/editing.html#data-model
  */
-const SELECTOR = ['[tabindex]', 'a[href]', 'button:not([disabled])', 'input:not([type="hidden"]):not([disabled])', 'select:not([disabled])', 'textarea:not([disabled])', 'iframe', 'object', 'embed', 'area[href]', '[contenteditable]:not([contenteditable=false])'].join(',');
+
+/**
+ * Returns a CSS selector used to query for focusable elements.
+ *
+ * @param {boolean} sequential If set, only query elements that are sequentially
+ *                             focusable. Non-interactive elements with a
+ *                             negative `tabindex` are focusable but not
+ *                             sequentially focusable.
+ *                             https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute
+ *
+ * @return {string} CSS selector.
+ */
+function buildSelector(sequential) {
+  return [sequential ? '[tabindex]:not([tabindex^="-"])' : '[tabindex]', 'a[href]', 'button:not([disabled])', 'input:not([type="hidden"]):not([disabled])', 'select:not([disabled])', 'textarea:not([disabled])', 'iframe:not([tabindex^="-"])', 'object', 'embed', 'area[href]', '[contenteditable]:not([contenteditable=false])'].join(',');
+}
 /**
  * Returns true if the specified element is visible (i.e. neither display: none
  * nor visibility: hidden).
@@ -117,21 +131,9 @@ const SELECTOR = ['[tabindex]', 'a[href]', 'button:not([disabled])', 'input:not(
  * @return {boolean} Whether element is visible.
  */
 
+
 function isVisible(element) {
   return element.offsetWidth > 0 || element.offsetHeight > 0 || element.getClientRects().length > 0;
-}
-/**
- * Returns true if the specified element should be skipped from focusable elements.
- * For now it rather specific for `iframes` and  if tabindex attribute is set to -1.
- *
- * @param {Element} element DOM element to test.
- *
- * @return {boolean} Whether element should be skipped from focusable elements.
- */
-
-
-function skipFocus(element) {
-  return element.nodeName.toLowerCase() === 'iframe' && element.getAttribute('tabindex') === '-1';
 }
 /**
  * Returns true if the specified area element is a valid focusable element, or
@@ -160,21 +162,30 @@ function isValidFocusableArea(element) {
 /**
  * Returns all focusable elements within a given context.
  *
- * @param {Element} context Element in which to search.
+ * @param {Element} context              Element in which to search.
+ * @param {Object}  [options]
+ * @param {boolean} [options.sequential] If set, only return elements that are
+ *                                       sequentially focusable.
+ *                                       Non-interactive elements with a
+ *                                       negative `tabindex` are focusable but
+ *                                       not sequentially focusable.
+ *                                       https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute
  *
  * @return {Element[]} Focusable elements.
  */
 
 
-function find(context) {
+function find(context, {
+  sequential = false
+} = {}) {
   /* eslint-disable jsdoc/no-undefined-types */
 
   /** @type {NodeListOf<HTMLElement>} */
 
   /* eslint-enable jsdoc/no-undefined-types */
-  const elements = context.querySelectorAll(SELECTOR);
+  const elements = context.querySelectorAll(buildSelector(sequential));
   return Array.from(elements).filter(element => {
-    if (!isVisible(element) || skipFocus(element)) {
+    if (!isVisible(element)) {
       return false;
     }
 
@@ -381,9 +392,9 @@ function findPrevious(element) {
 
 function findNext(element) {
   const focusables = find(element.ownerDocument.body);
-  const index = focusables.indexOf(element); // Remove all focusables before and inside `element`.
+  const index = focusables.indexOf(element); // Remove all focusables before and including `element`.
 
-  const remaining = focusables.slice(index + 1).filter(node => !element.contains(node));
+  const remaining = focusables.slice(index + 1);
   return (0,external_lodash_namespaceObject.first)(filterTabbable(remaining));
 }
 //# sourceMappingURL=tabbable.js.map

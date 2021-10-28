@@ -1569,7 +1569,7 @@ function InstallButton({
         const blockType = (0,external_wp_blocks_namespaceObject.getBlockType)(block.name);
         const [originalBlock] = (0,external_wp_blocks_namespaceObject.parse)(attributes.originalContent);
 
-        if (originalBlock) {
+        if (originalBlock && blockType) {
           replaceBlock(clientId, (0,external_wp_blocks_namespaceObject.createBlock)(blockType.name, originalBlock.attributes, originalBlock.innerBlocks));
         }
       }

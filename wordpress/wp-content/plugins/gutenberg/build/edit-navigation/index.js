@@ -142,6 +142,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
+  "__unstableCreateMenuPreloadingMiddleware": function() { return /* reexport */ createMenuPreloadingMiddleware; },
   "initialize": function() { return /* binding */ initialize; }
 });
 
@@ -195,12 +196,14 @@ __webpack_require__.d(store_selectors_namespaceObject, {
 
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
+;// CONCATENATED MODULE: external ["wp","blocks"]
+var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 ;// CONCATENATED MODULE: external ["wp","blockLibrary"]
 var external_wp_blockLibrary_namespaceObject = window["wp"]["blockLibrary"];
-;// CONCATENATED MODULE: external ["wp","coreData"]
-var external_wp_coreData_namespaceObject = window["wp"]["coreData"];
 ;// CONCATENATED MODULE: external ["wp","data"]
 var external_wp_data_namespaceObject = window["wp"]["data"];
+;// CONCATENATED MODULE: external ["wp","coreData"]
+var external_wp_coreData_namespaceObject = window["wp"]["coreData"];
 ;// CONCATENATED MODULE: external ["wp","i18n"]
 var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/constants/index.js
@@ -305,8 +308,6 @@ function blockInserterPanel(state = false, action) {
   blockInserterPanel
 }));
 //# sourceMappingURL=reducer.js.map
-;// CONCATENATED MODULE: external ["wp","blocks"]
-var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/utils.js
 /**
  * A WP nav_menu_item object.
@@ -4698,12 +4699,135 @@ function Layout({
   })), (0,external_wp_element_namespaceObject.createElement)(UnsavedChangesWarning, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null))));
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/utils/index.js
+/**
+ * The purpose of this function is to create a middleware that is responsible for preloading menu-related data.
+ * It uses data that is returned from the /__experimental/menus endpoint for requests
+ * to the /__experimental/menu/<menuId> endpoint, because the data is the same.
+ * This way, we can avoid making additional REST API requests.
+ * This middleware can be removed if/when we implement caching at the wordpress/core-data level.
+ *
+ * @param {Object} preloadedData
+ * @return {Function} Preloading middleware.
+ */
+function createMenuPreloadingMiddleware(preloadedData) {
+  const cache = Object.keys(preloadedData).reduce((result, path) => {
+    result[getStablePath(path)] = preloadedData[path];
+    return result;
+  },
+  /** @type {Record<string, any>} */
+  {});
+  let menusDataLoaded = false;
+  let menuDataLoaded = false;
+  return (options, next) => {
+    var _Object$keys, _cache$key;
+
+    const {
+      parse = true
+    } = options;
+
+    if ('string' !== typeof options.path) {
+      return next(options);
+    }
+
+    const method = options.method || 'GET';
+
+    if ('GET' !== method) {
+      return next(options);
+    }
+
+    const path = getStablePath(options.path);
+
+    if (!menusDataLoaded && cache[path]) {
+      menusDataLoaded = true;
+      return sendSuccessResponse(cache[path], parse);
+    }
+
+    if (menuDataLoaded) {
+      return next(options);
+    }
+
+    const matches = path.match(/^\/__experimental\/menus\/(\d+)\?context=edit$/);
+
+    if (!matches) {
+      return next(options);
+    }
+
+    const key = (_Object$keys = Object.keys(cache)) === null || _Object$keys === void 0 ? void 0 : _Object$keys[0];
+    const menuData = (_cache$key = cache[key]) === null || _cache$key === void 0 ? void 0 : _cache$key.body;
+
+    if (!menuData) {
+      return next(options);
+    }
+
+    const menuId = parseInt(matches[1]);
+    const menu = menuData.filter(({
+      id
+    }) => id === menuId);
+
+    if (menu.length > 0) {
+      menuDataLoaded = true; // We don't have headers because we "emulate" this request
+
+      return sendSuccessResponse({
+        body: menu[0],
+        headers: {}
+      }, parse);
+    }
+
+    return next(options);
+  };
+}
+/**
+ * This is a helper function that sends a success response.
+ *
+ * @param {Object}  responseData An object with the menu data
+ * @param {boolean} parse        A boolean that controls whether to send a response or just the response data
+ * @return {Object} Resolved promise
+ */
+
+function sendSuccessResponse(responseData, parse) {
+  return Promise.resolve(parse ? responseData.body : new window.Response(JSON.stringify(responseData.body), {
+    status: 200,
+    statusText: 'OK',
+    headers: responseData.headers
+  }));
+}
+/**
+ * Given a path, returns a normalized path where equal query parameter values
+ * will be treated as identical, regardless of order they appear in the original
+ * text.
+ *
+ * @param {string} path Original path.
+ *
+ * @return {string} Normalized path.
+ */
+
+
+function getStablePath(path) {
+  const splitted = path.split('?');
+  const query = splitted[1];
+  const base = splitted[0];
+
+  if (!query) {
+    return base;
+  } // 'b=1&c=2&a=5'
+
+
+  return base + '?' + query // [ 'b=1', 'c=2', 'a=5' ]
+  .split('&') // [ [ 'b, '1' ], [ 'c', '2' ], [ 'a', '5' ] ]
+  .map(entry => entry.split('=')) // [ [ 'a', '5' ], [ 'b, '1' ], [ 'c', '2' ] ]
+  .sort((a, b) => a[0].localeCompare(b[0])) // [ 'a=5', 'b=1', 'c=2' ]
+  .map(pair => pair.join('=')) // 'a=5&b=1&c=2'
+  .join('&');
+}
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/index.js
 
 
 /**
  * WordPress dependencies
  */
+
 
 
 
@@ -4753,8 +4877,7 @@ function NavEditor({
 
 
 function setUpEditor(settings) {
-  addFilters(!settings.blockNavMenus);
-  (0,external_wp_blockLibrary_namespaceObject.registerCoreBlocks)(); // Set up the navigation post entity.
+  addFilters(!settings.blockNavMenus); // Set up the navigation post entity.
 
   (0,external_wp_data_namespaceObject.dispatch)(external_wp_coreData_namespaceObject.store).addEntities([{
     kind: NAVIGATION_POST_KIND,
@@ -4766,6 +4889,10 @@ function setUpEditor(settings) {
     label: (0,external_wp_i18n_namespaceObject.__)('Navigation Post'),
     __experimentalNoFetch: true
   }]);
+
+  (0,external_wp_data_namespaceObject.dispatch)(external_wp_blocks_namespaceObject.store).__experimentalReapplyBlockTypeFilters();
+
+  (0,external_wp_blockLibrary_namespaceObject.registerCoreBlocks)();
 
   if (true) {
     (0,external_wp_blockLibrary_namespaceObject.__experimentalRegisterExperimentalCoreBlocks)();
@@ -4785,6 +4912,7 @@ function initialize(id, settings) {
     settings: settings
   }), document.getElementById(id));
 }
+
 //# sourceMappingURL=index.js.map
 }();
 (window.wp = window.wp || {}).editNavigation = __webpack_exports__;

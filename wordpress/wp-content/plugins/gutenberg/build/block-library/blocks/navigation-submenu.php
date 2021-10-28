@@ -233,7 +233,7 @@ function gutenberg_render_block_core_navigation_submenu( $attributes, $content, 
 		$html .= '<button class="wp-block-navigation-item__content wp-block-navigation-submenu__toggle" aria-expanded="false">';
 
 		// Wrap title with span to isolate it from submenu icon.
-		$html .= '<span class="wp-block-navigation-link__label">';
+		$html .= '<span class="wp-block-navigation-item__label">';
 
 		if ( isset( $attributes['label'] ) ) {
 			$html .= wp_kses(

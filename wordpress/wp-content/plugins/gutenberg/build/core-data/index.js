@@ -4174,7 +4174,7 @@ const resolvers_getEntityRecord = (kind, name, key = '', query) => async ({
     // eslint-disable-next-line @wordpress/no-unused-vars-before-return
 
 
-    const path = (0,external_wp_url_namespaceObject.addQueryArgs)(entity.baseURL + '/' + key, { ...entity.baseURLParams,
+    const path = (0,external_wp_url_namespaceObject.addQueryArgs)(entity.baseURL + (key ? '/' + key : ''), { ...entity.baseURLParams,
       ...query
     });
 

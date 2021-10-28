@@ -754,8 +754,9 @@ var external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
  * To preserve additional props, a `div` wrapper _will_ be created if any props
  * aside from `children` are passed.
  *
- * @param {RawHTMLProps} props Children should be a string of HTML. Other props
- *                             will be passed through to div wrapper.
+ * @param {RawHTMLProps} props Children should be a string of HTML or an array
+ *                             of strings. Other props will be passed through
+ *                             to the div wrapper.
  *
  * @return {JSX.Element} Dangerously-rendering component.
  */
@@ -764,11 +765,18 @@ function RawHTML({
   children,
   ...props
 }) {
-  // The DIV wrapper will be stripped by serializer, unless there are
-  // non-children props present.
+  let rawHtml = ''; // Cast children as an array, and concatenate each element if it is a string.
+
+  external_React_namespaceObject.Children.toArray(children).forEach(child => {
+    if (typeof child === 'string' && child.trim() !== '') {
+      rawHtml += child;
+    }
+  }); // The `div` wrapper will be stripped by the `renderElement` serializer in
+  // `./serialize.js` unless there are non-children props present.
+
   return (0,external_React_namespaceObject.createElement)('div', {
     dangerouslySetInnerHTML: {
-      __html: children
+      __html: rawHtml
     },
     ...props
   });
