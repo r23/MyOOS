@@ -320,7 +320,8 @@ class JsonLD {
 		$new_schemas = [];
 
 		foreach ( $schemas as $key => $schema ) {
-			$type = strtolower( $schema['@type'] );
+			$type = is_array( $schema['@type'] ) ? $schema['@type'][0] : $schema['@type'];
+			$type = strtolower( $type );
 			$type = in_array( $type, [ 'musicgroup', 'musicalbum' ], true )
 				? 'music'
 				: ( in_array( $type, [ 'blogposting', 'newsarticle' ], true ) ? 'article' : $type );

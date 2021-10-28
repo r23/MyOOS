@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.74
+Stable tag: 1.0.75
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -562,13 +562,11 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.74 [Oct 13, 2021] =
-* Improved: The table check on the [System Status page](https://rankmath.com/kb/rank-math-status-and-tools/#system-status) will now show the table size
-* Improved: Updated the recommended PHP version to 7.4 in [Setup Wizard](https://rankmath.com/kb/how-to-setup/). Though, we suggest upgrading to PHP 8
-* Fixed: [Capitalize Titles](https://rankmath.com/kb/titles-and-meta/#capitalize-titles) option was not showing the title capitalized in [SERP Preview](https://rankmath.com/kb/general-tab/#the-preview-section) in the admin area
-* Fixed: Fatal error on some sites when [Schema shortcode](https://rankmath.com/kb/rich-snippets/#shortcode) was used in the [Beaver Builder](https://rankmath.com/compatibility/beaver-builder/)
-* Fixed: Divi Builder was showing the [Schema tab](https://rankmath.com/kb/schema-generator/) even when the Schema module was not enabled
-* Fixed: Sitemap was not showing the images data added using the Gravity View gallery Shortcode
-* Fixed: Robots meta data was getting removed from the embed pages
+= 1.0.75 [Oct 27, 2021] =
+* Fixed: [Link Suggestion](https://rankmath.com/kb/pillar-content-internal-linking/) option was not working in the Block editor
+* Fixed: [SEO description](https://rankmath.com/kb/titles-and-meta/#bulk-editing) in the Post lists column was showing the wrong description
+* Fixed: Tooltip position on the [Ananlytics](https://rankmath.com/kb/analytics/) Overview page
+* Fixed: SERP preview on Category page was not showing the title & description from [global settings](https://rankmath.com/kb/titles-and-meta/#categories)
+* Fixed: Default WordPress redirection from plain permalink to new structure was not working when [Fallback behavior](https://rankmath.com/kb/general-settings/#fallback-behaviour) option was enabled
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

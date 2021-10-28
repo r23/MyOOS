@@ -204,7 +204,8 @@ class Shared extends WP_REST_Controller {
 		$schemas     = $request->get_param( 'schemas' );
 		$new_ids     = [];
 		foreach ( $schemas as $meta_id => $schema ) {
-			$meta_key = 'rank_math_schema_' . $schema['@type'];
+			$type     = is_array( $schema['@type'] ) ? $schema['@type'][0] : $schema['@type'];
+			$meta_key = 'rank_math_schema_' . $type;
 			$schema   = wp_kses_post_deep( $schema );
 
 			// Add new.

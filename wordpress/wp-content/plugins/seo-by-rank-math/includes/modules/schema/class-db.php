@@ -77,7 +77,19 @@ class DB {
 			return false;
 		}
 
-		$types = wp_list_pluck( $schemas, '@type' );
+		$types = array_reduce(
+			wp_list_pluck( $schemas, '@type' ),
+			function( $carry, $type ) {
+				if ( is_array( $type ) ) {
+					return array_merge( $carry, $type );
+				}
+
+				$carry[] = $type;
+				return $carry;
+			},
+			[]
+		);
+
 		if ( $sanitize ) {
 			$types = array_map(
 				function ( $type ) {

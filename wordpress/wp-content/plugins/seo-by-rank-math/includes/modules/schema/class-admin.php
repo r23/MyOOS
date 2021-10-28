@@ -204,7 +204,20 @@ class Admin extends Base {
 
 		$types = [];
 		foreach ( $schemas as $schema ) {
-			$types[] = Helper::sanitize_schema_title( $schema['@type'] );
+			if ( ! is_array( $schema['@type'] ) ) {
+				$types[] = Helper::sanitize_schema_title( $schema['@type'] );
+				continue;
+			}
+
+			$types = array_merge(
+				$types,
+				array_map(
+					function( $type ) {
+						return Helper::sanitize_schema_title( $type );
+					},
+					$schema['@type']
+				)
+			);
 		}
 
 		return implode( ', ', $types );

@@ -209,7 +209,7 @@ class Post_Columns implements Runner {
 		$description = get_post_meta( $post_id, 'rank_math_description', true );
 
 		if ( ! $description ) {
-			$description = Helper::get_settings( "titles.pt_{$post_type}_description" );
+			$description = has_excerpt( $post_id ) ? '%excerpt%' : Helper::get_settings( "titles.pt_{$post_type}_description" );
 		}
 		?>
 		<span class="rank-math-column-display"><?php echo esc_html( $description ); ?></span>

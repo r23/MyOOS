@@ -112,28 +112,11 @@ class Taxonomy_Screen implements IScreen {
 	 * @return array
 	 */
 	public function get_object_values() {
+		$taxonomy = $this->get_taxonomy();
 		return [
-			'titleTemplate'       => '%term% %sep% %sitename%',
-			'descriptionTemplate' => '%term_description%',
+			'titleTemplate'       => Helper::get_settings( "titles.tax_{$taxonomy}_title", '%term% %sep% %sitename%' ),
+			'descriptionTemplate' => Helper::get_settings( "titles.tax_{$taxonomy}_description", '%term_description%' ),
 		];
-	}
-
-	/**
-	 * Adds custom category description editor.
-	 *
-	 * @return {void}
-	 */
-	private function description_field_editor() {
-		$taxonomy        = filter_input( INPUT_GET, 'taxonomy', FILTER_DEFAULT, [ 'options' => [ 'default' => '' ] ] );
-		$taxonomy_object = get_taxonomy( $taxonomy );
-		if ( empty( $taxonomy_object ) || empty( $taxonomy_object->public ) ) {
-			return;
-		}
-
-		if ( ! Helper::get_settings( 'titles.tax_' . $taxonomy . '_add_meta_box' ) ) {
-			return;
-		}
-		add_action( "{$taxonomy}_edit_form_fields", [ $this, 'category_description_editor' ], 1 );
 	}
 
 	/**
@@ -163,5 +146,34 @@ class Taxonomy_Screen implements IScreen {
 			</script>
 		</tr>
 		<?php
+	}
+
+	/**
+	 * Adds custom category description editor.
+	 *
+	 * @return {void}
+	 */
+	private function description_field_editor() {
+		$taxonomy = $this->get_taxonomy();
+		if ( ! Helper::get_settings( 'titles.tax_' . $taxonomy . '_add_meta_box' ) ) {
+			return;
+		}
+
+		add_action( "{$taxonomy}_edit_form_fields", [ $this, 'category_description_editor' ], 1 );
+	}
+
+	/**
+	 * Get current taxonomy.
+	 *
+	 * @return {string} Taxonomy slug.
+	 */
+	private function get_taxonomy() {
+		$taxonomy        = filter_input( INPUT_GET, 'taxonomy', FILTER_DEFAULT, [ 'options' => [ 'default' => '' ] ] );
+		$taxonomy_object = get_taxonomy( $taxonomy );
+		if ( empty( $taxonomy_object ) || empty( $taxonomy_object->public ) ) {
+			return;
+		}
+
+		return $taxonomy;
 	}
 }
