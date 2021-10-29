@@ -646,7 +646,61 @@ if (!empty($action)) {
 					// Move that ADOdb pointer!
 					$model_viewer_description_result->MoveNext();
 				}			
-				
+
+				// product_webgl_gltf
+				$products_model_copy_result = $dbconn->Execute("SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_add_env_map, models_extensions, models_hdr FROM " . $oostable['products_models'] . " WHERE products_id='" . intval($products_id_from) . "'");
+				$products_models_copy = $products_model_copy_result->fields;
+				$sql = "INSERT INTO " . $oostable['products_models'] . "
+							(products_id,
+							models_webgl_gltf,
+							models_author,
+							models_author_url,
+							models_camera_pos,
+							models_object_rotation,
+							models_add_lights,
+							models_add_ground,
+							models_shadows,
+							models_add_env_map,
+							models_extensions,
+							models_hdr,							
+							models_date_added
+							VALUES ('" . intval($products_id_to) . "',
+									'" . $products_models_copy['models_webgl_gltf'] . "',
+									'" . $products_models_copy['models_author'] . "',
+									'" . $products_models_copy['models_author_url'] . "',
+									'" . $products_models_copy['models_camera_pos'] . "',
+									'" . $products_models_copy['models_object_rotation'] . "',	
+									'" . $products_models_copy['models_add_lights'] . "',
+									'" . $products_models_copy['models_add_ground'] . "',
+									'" . $products_models_copy['models_shadows'] . "',
+									'" . $products_models_copy['models_add_env_map'] . "',	
+									'" . $products_models_copy['models_extensions'] . "',
+									'" . $products_models_copy['models_hdr'] . "',						
+									now() . ')";
+				$dbconn->Execute($sql);
+				$dup_models_id = $dbconn->Insert_ID();
+
+				$models_description_result = $dbconn->Execute("SELECT models_languages_id, models_name, models_title, models_viewed, models_description_meta, models_keywords FROM " . $oostable['products_models_description'] . " WHERE models_id = '" . intval($products_models_copy['models_id']) . "'");
+				while ($description = $models_description_result->fields) {
+					$dbconn->Execute("INSERT INTO " . $oostable['products_models_description'] . "
+									(models_id,
+									models_languages_id,
+									models_name,
+									models_title,
+									models_viewed,
+									models_description_meta,
+									models_keywords)
+									VALUES ('" . intval($dup_models_id) . "',
+											'" . intval($description['models_languages_id']) . "',
+											'" . oos_db_input($description['models_name']) . "',
+											'" . oos_db_input($description['models_title']) . "',
+											'" . oos_db_input($description['models_viewed']) . "',
+											'" . oos_db_input($description['models_description_meta']) . "',
+											'" . oos_db_input($description['models_keywords']). "')");
+
+					// Move that ADOdb pointer!
+					$models_description_result->MoveNext();
+				}				
 			}
 		}
 	
@@ -654,7 +708,6 @@ if (!empty($action)) {
 		break;
     }
 }
-
 
 
 
