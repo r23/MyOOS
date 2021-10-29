@@ -77,6 +77,10 @@ $ending = '/cache/cachify/%{ENV:CACHIFY_HOST}%{ENV:CACHIFY_DIR}index.html%{ENV:C
   CacheDisable /
 &lt;/IfModule&gt;</pre>
 					</li>
+					<li>
+						<?php esc_html_e( 'In case of special character errors, you can add the following to the .htaccess file:', 'cachify' ); ?><br />
+						<pre>AddDefaultCharset UTF-8</pre>
+					</li>
 				</ul>
 			</td>
 		</tr>
@@ -85,7 +89,7 @@ $ending = '/cache/cachify/%{ENV:CACHIFY_HOST}%{ENV:CACHIFY_DIR}index.html%{ENV:C
 	<div style="background:#fff;border:1px solid #ccc;padding:10px 20px">
 		<pre style="white-space: pre-wrap">
 			<?php
-			echo sprintf(
+			printf(
 				'%s%s%s%s%s',
 				esc_html( $beginning ),
 				esc_html( WP_CONTENT_DIR ),
