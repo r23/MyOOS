@@ -44,7 +44,7 @@ $featured_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_FEATURED_PRODUCTS);
 // MIN_DISPLAY_FEATURED
 if ($featured_result->RecordCount() >= 1) {
 	
-    $aFeatured = array();
+    $aFeatured = [];
     while ($featured = $featured_result->fields) {
 
 		$featured_product_price = null;
@@ -77,7 +77,7 @@ if ($featured_result->RecordCount() >= 1) {
 		$order_min = number_format($featured['products_quantity_order_min']);
 		$order_max = number_format($listing['products_quantity_order_max']);
 
-		$aCategoryPath = array();
+		$aCategoryPath = [];
 		$aCategoryPath = oos_get_category_path($new_products['products_id']);
 
 		$aFeatured[] = array('products_id' => $featured['products_id'],

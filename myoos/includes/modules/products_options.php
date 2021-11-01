@@ -276,7 +276,7 @@ while ($products_options_name = $products_options_name_result->fields) {
 			$options .= '  <div class="pb-2">'  . $products_options_name['products_options_name'] . '</div>' . "\n";
 
 			$selected = 0;
-			$products_options_array = array();
+			$products_options_array = [];
 			$products_attributestable = $oostable['products_attributes'];
 			$products_options_valuestable = $oostable['products_options_values'];
 			$products_options_sql = "SELECT pov.products_options_values_id, pov.products_options_values_name,

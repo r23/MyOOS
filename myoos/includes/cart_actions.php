@@ -128,7 +128,7 @@ switch ($action) {
 				if (!isset($_SESSION['customer_id'])) {
 					$wishlist_products_id = oos_get_uprid($_POST['products_id'], $_POST['id']);
 
-					$aPage = array();
+					$aPage = [];
 					$aPage['modules'] = $sMp;
 					$aPage['file'] = $sFile;
 					$aPage['mode'] = $request_type;
@@ -432,7 +432,7 @@ switch ($action) {
 				$_SESSION['info_message'] = $aLang['info_login_for_wichlist'];
 				$_SESSION['guest_login'] = 'off';
 				
-				$aPage = array();
+				$aPage = [];
 				$aPage['content'] = $sContent;
 				$aPage['get'] = 'products_id=' . rawurlencode($wishlist_products_id) . '&amp;action=add_wishlist';
 

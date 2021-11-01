@@ -190,7 +190,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 	} else {
 		$sInfo = new objectInfo(array());
 
-		$specials_array = array();
+		$specials_array = [];
 		$productstable = $oostable['products'];
 		$specialstable = $oostable['specials'];
 		$specials_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $specialstable s WHERE s.products_id = p.products_id");
@@ -379,8 +379,8 @@ if ( ($action == 'new') || ($action == 'edit') ) {
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
   switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SPECIALS . '</b>');

@@ -30,11 +30,11 @@ class order {
     var $content_type;
 
 	public function __construct( $order_id = '') {
-		$this->info = array();
-		$this->totals = array();
-		$this->products = array();
-		$this->customer = array();
-		$this->delivery = array();
+		$this->info = [];
+		$this->totals = [];
+		$this->products = [];
+		$this->customer = [];
+		$this->delivery = [];
 
 		if (oos_is_not_null($order_id)) {
 			$this->query($order_id);

@@ -117,13 +117,13 @@ if (!empty($action)) {
 				$categories_id = intval($_GET['cID']);
 			}
 
-			$sql_data_array = array();
+			$sql_data_array = [];
 			$sql_data_array = array('color' => oos_db_prepare_input($color),
 									'menu_type' => oos_db_prepare_input($menu_type),
 									'sort_order' => intval($sort_order));
 
 			if ($action == 'insert_category') {
-				$insert_sql_data = array();
+				$insert_sql_data = [];
 				$insert_sql_data = array('parent_id' => intval($current_category_id),
 										'date_added' => 'now()',
 										'categories_status' => intval($nStatus));
@@ -346,8 +346,8 @@ if (!empty($action)) {
 				$categories_id = oos_db_prepare_input($_POST['categories_id']);
 
 				$categories = oos_get_category_tree($categories_id, '', '0', '', TRUE);
-				$products = array();
-				$products_delete = array();
+				$products = [];
+				$products_delete = [];
 
 				for ($i = 0, $n = count($categories); $i < $n; $i++) {
 					$product_ids_result = $dbconn->Execute("SELECT products_id FROM " . $oostable['products_to_categories'] . " WHERE categories_id = '" . intval($categories[$i]['id']) . "'");
@@ -821,7 +821,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
 	$text_new_or_edit = ($action=='new_category') ? TEXT_INFO_HEADING_NEW_CATEGORY : TEXT_INFO_HEADING_EDIT_CATEGORY;
 
-	$aSetting = array();
+	$aSetting = [];
 	$settingstable = $oostable['setting'];
 	$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "'");
 	while ($setting = $setting_result->fields) {
@@ -831,7 +831,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 		$setting_result->MoveNext();
 	}
 
-	$aColor = array();
+	$aColor = [];
 	$aColor = array('text-primary', 'text-success', 'text-danger', 'text-warning', 'text-dark', 'text-muted');
 
 	if (isset($_GET['origin'])) {
@@ -1358,7 +1358,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 <!-- body_text_eof //-->
 <?php
 } else {
-	$image_icon_status_array = array();
+	$image_icon_status_array = [];
 	$image_icon_status_array = array(array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE));
 	$image_icon_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
 	while ($image_icon_status = $image_icon_status_result->fields) {
@@ -1562,8 +1562,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
               </tr>
             </table></td>
 <?php
-    $heading = array();
-    $contents = array();
+    $heading = [];
+    $contents = [];
 
     switch ($action) {
       case 'slave_products':

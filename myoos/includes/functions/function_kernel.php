@@ -156,7 +156,7 @@ function oos_var_prep_for_os() {
                             '_',
                             '_');
 
-    $resarray = array();
+    $resarray = [];
     foreach (func_get_args() as $ourvar) {
 		// Parse out bad things
 		$ourvar = preg_replace($search, $replace, $ourvar);
@@ -475,10 +475,10 @@ function oos_get_products_status($nProductID) {
   function oos_get_all_get_parameters($aExclude = '') {
 	global $session;
 
-    if (!is_array($aExclude)) $aExclude = array();
+    if (!is_array($aExclude)) $aExclude = [];
     $aParameters = array('p', 'error', 'rewrite', 'c', 'm', 'content', 'infex.php', 'history_back', 'formid', 'gclid', 'x', 'y');
 
-	$urlValues = array();
+	$urlValues = [];
 	if (is_array($_GET)
 		&& (count($_GET) > 0))
 	{
@@ -519,7 +519,7 @@ function oos_get_products_status($nProductID) {
   function oos_get_all_post_parameters($aExclude = '') {
 	global $session;
 	
-    if (!is_array($aExclude)) $aExclude = array();
+    if (!is_array($aExclude)) $aExclude = [];
 
     $aParameters = array('formid', 'content', 'x', 'y');
 	
@@ -554,7 +554,7 @@ function oos_get_products_status($nProductID) {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $aCountries = array();
+    $aCountries = [];
     if (!empty($countries_id)) {
         if ($bWithIsoCodes == true) {
             $countriestable = $oostable['countries'];
@@ -645,7 +645,7 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
 		return 0;
     }
 
-    static $tax_rates = array();
+    static $tax_rates = [];
 
 	if ( ($country_id == -1) && ($zone_id == -1) ) {
 		if (!isset($_SESSION['customer_id'])) {
@@ -706,7 +706,7 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1) {
 function oos_get_tax_description($class_id, $country_id, $zone_id) {
     global $aLang;
 
-	static $tax_rates = array();
+	static $tax_rates = [];
 
 	if (!isset($tax_rates[$class_id][$country_id][$zone_id]['description'])) {
 		// Get database information
@@ -807,7 +807,7 @@ function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '') {
 
     $parent_id = oos_db_prepare_input($parent_id);
 
-    if (!is_array($aCategories)) $aCategories = array();
+    if (!is_array($aCategories)) $aCategories = [];
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -897,7 +897,7 @@ function oos_get_product_path($products_id) {
     $cat_count_data = $dbconn->Execute($query);
 
     if ($cat_count_data->fields['total'] > 0) {
-      $categories = array();
+      $categories = [];
       $products_to_categoriestable = $oostable['products_to_categories'];
       $query = "SELECT categories_id
                 FROM $products_to_categoriestable
@@ -928,7 +928,7 @@ function oos_get_product_path($products_id) {
   */
 function oos_get_category_path($nProductsId) {
 
-    $aCategory = array();
+    $aCategory = [];
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -944,7 +944,7 @@ function oos_get_category_path($nProductsId) {
     $cat_id_data = $cat_id_sql->fields;
 	
 
-	$categories_arr = array();
+	$categories_arr = [];
     oos_get_parent_categories($categories_arr, $cat_id_data['categories_id']);
 
 	$sCategory = '';
@@ -1064,14 +1064,14 @@ function oos_get_uprid($prid, $parameters) {
   */
 function oos_get_attributes($sProductsId) {
 	
-	$real_ids = array();
+	$real_ids = [];
 
 	$uprid = oos_get_product_id($sProductsId);
 
 	if (is_numeric($uprid)) {
 		if (strpos($sProductsId, '{') !== false) {
 			$attributes_check = true;
-			$attributes_ids = array();
+			$attributes_ids = [];
 
 			// strpos()+1 to remove up to and including the first { which would create an empty array element in explode()
 			$attributes = explode('{', substr($sProductsId, strpos($sProductsId, '{')+1));
@@ -1299,7 +1299,7 @@ function oos_output_string($sStr, $aTranslate = null) {
     $aCategoryPath = array_map('oos_string_to_int', explode('_', $sCategory));
 
     // make sure no duplicate category IDs exist which could lock the server in a loop
-    $aTmp = array();
+    $aTmp = [];
     for ($i=0, $n=count($aCategoryPath); $i<$n; $i++) {
       if (!in_array($aCategoryPath[$i], $aTmp)) {
         $aTmp[] = $aCategoryPath[$i];

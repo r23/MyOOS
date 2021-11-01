@@ -19,7 +19,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$aContentBlock = array();
+$aContentBlock = [];
 $blocktable = $oostable['block'];
 $block_infotable = $oostable['block_info'];
 $block_to_page_typetable = $oostable['block_to_page_type'];

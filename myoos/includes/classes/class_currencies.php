@@ -26,7 +26,7 @@ class currencies {
 
 	public function __construct() {
 
-		$this->currencies = array();
+		$this->currencies = [];
 
 		// Get database information
 		$dbconn =& oosDBGetConn();

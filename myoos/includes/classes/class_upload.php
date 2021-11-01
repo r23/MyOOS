@@ -55,7 +55,7 @@
     public function parse() {
       global $oMessage, $aLang;
 
-		$file = array();
+		$file = [];
 
 		if (isset($_FILES[$this->file])) {
 			$file = array('name' => $_FILES[$this->file]['name'],
@@ -152,7 +152,7 @@
           $this->extensions = array($extensions);
         }
       } else {
-        $this->extensions = array();
+        $this->extensions = [];
       }
     }
 

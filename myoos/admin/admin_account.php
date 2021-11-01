@@ -211,8 +211,8 @@
             </table>
             </td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'edit_process':

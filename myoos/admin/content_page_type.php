@@ -51,7 +51,7 @@ function oosGetPageTypeName($page_type_id, $language_id = '') {
   */
 function oosGetPageType() {
 
-    $page_type_array = array();
+    $page_type_array = [];
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -237,8 +237,8 @@ if (!empty($action)) {
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'new':

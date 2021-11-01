@@ -59,14 +59,14 @@ if (!empty($action)) {
 				
 			if (isset($_POST['scene_id'])) $scene_id = intval($_POST['scene_id']);
 
-			$sql_data_array = array();
+			$sql_data_array = [];
 			$sql_data_array = array('categories_id' => intval($categories_id),
 									'panorama_author' => (isset($_POST['panorama_author']) ? oos_db_prepare_input($_POST['panorama_author']) : ''),
 									'panorama_autoload' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autoload']) : 'false'),
 									'panorama_autorotates' => (isset($_POST['panorama_autoload']) ? oos_db_prepare_input($_POST['panorama_autorotates']) : '-2'));
 
 			if ($action == 'insert_panorama') {
-				$insert_sql_data = array();
+				$insert_sql_data = [];
 				$insert_sql_data = array('panorama_date_added' => 'now()');
 
 				$sql_data_array = array_merge($sql_data_array, $insert_sql_data);
@@ -206,7 +206,7 @@ if (!empty($action)) {
 								$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED, 'success');
 
 
-								$sql_data_array = array();
+								$sql_data_array = [];
 								$sql_data_array = array('panorama_id' => intval($panorama_id),
 														'scene_image' => oos_db_prepare_input($scene_image),
 														'scene_type' => 'equirectangular');
@@ -253,7 +253,7 @@ if (!empty($action)) {
 							}
 
 					
-							$sql_data_array = array();
+							$sql_data_array = [];
 							$sql_data_array = array('panorama_id' => intval($panorama_id),
 													'scene_id' => intval($scene_id),
 													'hotspot_pitch' => (isset($_POST['hotspot_pitch'][$h]) ? oos_db_prepare_input($_POST['hotspot_pitch'][$h]) : ''), 
@@ -476,7 +476,7 @@ if ($action == 'delete_panorama') {
 		$back_url_params .= '&cID=' . $pInfo->categories_id;
 	}			
 
-	$aAutorotates = array();
+	$aAutorotates = [];
 	$aAutorotates = array('-3', '-2', '-1', '1', '2', '3');
 
 ?>
@@ -760,8 +760,8 @@ pannellum.viewer('panorama', {
 
 <?php
 
-$spot_array = array();
-$array = array();
+$spot_array = [];
+$array = [];
 $array[] = '';
 
 if (!empty($pInfo->panorama_id)) {

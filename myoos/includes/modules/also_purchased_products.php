@@ -21,7 +21,7 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-$aPurchased = array();
+$aPurchased = [];
 
 if (isset($_GET['products_id']) && is_numeric(MAX_DISPLAY_ALSO_PURCHASED)) {
 	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);

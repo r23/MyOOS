@@ -22,7 +22,7 @@
   require 'includes/main.php';
 
   $languages = oos_get_languages();
-  $languages_array = array();
+  $languages_array = [];
   $languages_selected = DEFAULT_LANGUAGE;
   for ($i = 0, $n = count($languages); $i < $n; $i++) {
     $languages_array[] = array('id' => $languages[$i]['iso_639_2'],

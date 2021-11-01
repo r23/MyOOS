@@ -195,8 +195,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                </table></td></tr>
            </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'delete':

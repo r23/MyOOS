@@ -54,11 +54,11 @@ if (!empty($action)) {
 				$information_id = intval($_GET['iID']);
 			}
 
-			$sql_data_array = array();
+			$sql_data_array = [];
 			$sql_data_array = array('sort_order' => $sort_order);
 
 			if ($action == 'insert') {
-				$insert_sql_data = array();
+				$insert_sql_data = [];
 				$insert_sql_data = array('date_added' => 'now()',
 										'status' => 1);
 
@@ -402,8 +402,8 @@ if ($action == 'new' || $action == 'edit') {
 ?>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
 

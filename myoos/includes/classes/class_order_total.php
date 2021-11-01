@@ -46,13 +46,13 @@ class order_total {
 	}
 
 	public function process() {
-		$order_total_array = array();
+		$order_total_array = [];
 		if (is_array($this->modules)) {
 			reset($this->modules);
 			foreach ($this->modules as $value) {
 				$class = substr($value, 0, strrpos($value, '.'));
 				if ($GLOBALS[$class]->enabled) {
-					$GLOBALS[$class]->output = array();
+					$GLOBALS[$class]->output = [];
 					$GLOBALS[$class]->process();
 
 					for ($i=0, $n=sizeof($GLOBALS[$class]->output); $i<$n; $i++) {
@@ -72,13 +72,13 @@ class order_total {
     }
 
 	public function shopping_cart_process() {
-		$order_total_array = array();
+		$order_total_array = [];
 		if (is_array($this->modules)) {
 			reset($this->modules);
 			foreach ($this->modules as $value) {
 				$class = substr($value, 0, strrpos($value, '.'));
 				if ($GLOBALS[$class]->enabled) {
-					$GLOBALS[$class]->output = array();
+					$GLOBALS[$class]->output = [];
 					$GLOBALS[$class]->shopping_cart_process();
 
 					for ($i=0, $n=sizeof($GLOBALS[$class]->output); $i<$n; $i++) {

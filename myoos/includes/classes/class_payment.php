@@ -34,7 +34,7 @@ class payment {
 		if (defined('MODULE_PAYMENT_INSTALLED') && oos_is_not_null($aUser['payment'])) {
 			$this->modules = explode(';', $aUser['payment']);
 
-			$include_modules = array();
+			$include_modules = [];
 
 			if ( (oos_is_not_null($module)) ) {
 				$this->selected_module = $module;
@@ -141,7 +141,7 @@ class payment {
     public function selection() {
 		global $aUser, $aLang;
 		
-		$selection_array = array();
+		$selection_array = [];
 
 		if (is_array($this->modules)) {		  
 			foreach ($this->modules as $value) { 

@@ -373,8 +373,8 @@ case 'voucherreport':
 
              </table></td>
 <?php
-    $heading = array();
-    $contents = array();
+    $heading = [];
+    $contents = [];
 		$coupon_description_result = $dbconn->Execute("SELECT coupon_name
                                                 FROM " . $oostable['coupons_description'] . "
                                                 WHERE coupon_id = '" . intval($_GET['cID']) . "' AND
@@ -562,7 +562,7 @@ case 'voucherreport':
                 <td colspan="2"></td>
               </tr>
 <?php
-    $customers = array();
+    $customers = [];
     $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
     $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
     $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
@@ -1104,8 +1104,8 @@ case 'voucherreport':
 
 <?php
 
-    $heading = array();
-    $contents = array();
+    $heading = [];
+    $contents = [];
 
     switch ($action) {
     case 'release':

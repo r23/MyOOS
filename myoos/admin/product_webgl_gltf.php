@@ -283,7 +283,7 @@ if ($action == 'edit_3d') {
 		}
 	} 
 
-	$aExtensions = array();
+	$aExtensions = [];
 	$aExtensions = array('glTF', 'glTF-Embedded', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco');
 
     $aLanguages = oos_get_languages();

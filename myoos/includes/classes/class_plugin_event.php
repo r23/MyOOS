@@ -28,7 +28,7 @@
     }
 
     public function getInstance() {
-      $this->aPlugins = array();
+      $this->aPlugins = [];
 
       foreach ($this->aEventPlugins as $event) {
         $this->load_plugin($event);
@@ -75,7 +75,7 @@
 
 
     public function introspect() {
-      $this->aPlugins = array();
+      $this->aPlugins = [];
 
       foreach ($this->aEventPlugins as $event) {
         $this->get_intro($event);

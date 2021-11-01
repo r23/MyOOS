@@ -41,7 +41,7 @@ if ($nManufacturersRecordCount < 1) {
     // Display a list
     $display_a_list = true;
     $manufacturers_block = true;
-    $manufacturers_list = array();
+    $manufacturers_list = [];
 
 	while ($manufacturers = $manufacturers_result->fields) {
 		$manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN) . '..' : $manufacturers['manufacturers_name']);
@@ -59,8 +59,8 @@ if ($nManufacturersRecordCount < 1) {
 } else {
 	// Display a drop-down
 	$manufacturers_block = true;
-	$manufacturers_names = array();
-	$manufacturers_values = array();
+	$manufacturers_names = [];
+	$manufacturers_values = [];
 	if (MAX_MANUFACTURERS_LIST < 2) {
 		$manufacturers_values[] = '';
 		$manufacturers_names[] = $aLang['pull_down_default'];

@@ -56,7 +56,7 @@ require 'includes/main.php';
   */
   function oos_get_products_units() {
 
-    $products_units_array = array();
+    $products_units_array = [];
 
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -267,8 +267,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'new':

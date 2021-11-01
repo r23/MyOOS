@@ -27,7 +27,7 @@ class breadcrumb {
 	/**
 	 * @var array	Array of individual (linked) html strings created from crumbs
 	 */
-	private $links = array();
+	private $links = [];
 
 
 	/**
@@ -41,7 +41,7 @@ class breadcrumb {
 	 * reset
 	 */
     private function reset() {
-		$this->links = array();
+		$this->links = [];
     }
 
 	/**

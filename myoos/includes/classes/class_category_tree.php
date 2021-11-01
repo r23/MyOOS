@@ -71,7 +71,7 @@ class oosCategoryTree {
       } else {
         $categories_result = $dbconn->Execute($sql);
       }
-      $this->data = array(); 
+      $this->data = []; 
 
       while ($categories = $categories_result->fields) {
         $this->data[$categories['parent_id']][$categories['categories_id']] = array('name' => $categories['categories_name'], 'count' => 0);
@@ -87,7 +87,7 @@ class oosCategoryTree {
 
     public function setData(&$data_array) {
       if (is_array($data_array)) {
-        $this->data = array();
+        $this->data = [];
 
         for ($i=0, $n=count($data_array); $i<$n; $i++) {
           $this->data[$data_array[$i]['parent_id']][$data_array[$i]['categories_id']] = array('name' => $data_array[$i]['categories_name'], 'count' => $data_array[$i]['categories_count']);
@@ -170,7 +170,7 @@ class oosCategoryTree {
 
     public function buildBranchArray($parent_id, $level = 0, $result = '') {
       if (empty($result)) {
-        $result = array();
+        $result = [];
       }
 
       if (isset($this->data[$parent_id])) {

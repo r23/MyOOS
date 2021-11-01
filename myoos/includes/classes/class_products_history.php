@@ -104,7 +104,7 @@
      *
      */
       public function reset() {
-        $this->products_history = array();
+        $this->products_history = [];
       }
     }
 

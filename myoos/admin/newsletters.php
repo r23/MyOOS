@@ -170,7 +170,7 @@ if (!empty($action)) {
     }
 
     $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-    $directory_array = array();
+    $directory_array = [];
     if ($dir = dir('includes/modules/newsletters/')) {
       while ($file = $dir->read()) {
         if (!is_dir('includes/modules/newsletters/' . $file)) {
@@ -379,8 +379,8 @@ if (!empty($action)) {
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'delete':

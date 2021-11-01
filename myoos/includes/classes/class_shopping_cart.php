@@ -170,8 +170,8 @@ class shoppingCart {
 
 	public function reset($reset_database = false) {
 
-		$this->contents = array();
-		$this->info = array();
+		$this->contents = [];
+		$this->info = [];
 		$this->subtotal = 0; 
 		$this->total = 0;
 		$this->weight = 0;
@@ -463,7 +463,7 @@ class shoppingCart {
 		$this->subtotal = 0; 
 		$this->total = 0;
 		$this->weight = 0;
-		$this->info = array();
+		$this->info = [];
 		if (!is_array($this->contents)) return 0;
 
 		// Get database information
@@ -684,7 +684,7 @@ class shoppingCart {
 
 		$nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
 
-		$aProducts = array();
+		$aProducts = [];
 		reset($this->contents);
 		foreach ( array_keys($this->contents) as $products_id ) {
 			$nQuantity = $this->contents[$products_id]['qty'];

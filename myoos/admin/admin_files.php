@@ -191,7 +191,7 @@
                               ORDER BY admin_files_name";
     $installed_boxes_result = $dbconn->Execute($installed_boxes_query);
 
-    $installed_boxes = array();
+    $installed_boxes = [];
     while($db_boxes = $installed_boxes_result->fields) {
       $installed_boxes[] = $db_boxes['admin_boxes_name'];
 
@@ -201,7 +201,7 @@
 
 
     $none = 0;
-    $boxes = array();
+    $boxes = [];
     $dir = dir(OOS_ABSOLUTE_PATH . 'admin/includes/boxes/');
     while ($boxes_file = $dir->read()) {
       if ( (substr("$boxes_file", -4) == '.php') && !(in_array($boxes_file, $installed_boxes))){
@@ -276,14 +276,14 @@
 ?>
             </td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'store_file':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_FILE . '</b>');
 
-      $files_array = array();
+      $files_array = [];
       $admin_filestable = $oostable['admin_files'];
       $file_query = "SELECT admin_files_name FROM $admin_filestable WHERE admin_files_is_boxes = '0' ";
       $file_result = $dbconn->Execute($file_query);
@@ -294,7 +294,7 @@
         $file_result->MoveNext();
       }
 
-      $file_dir = array();
+      $file_dir = [];
       $dir = dir(OOS_ABSOLUTE_PATH . OOS_ADMIN);
 
       while ($file = $dir->read()) {
@@ -310,7 +310,7 @@
 
       sort ($result);
       reset ($result);
-      $show = array();
+      $show = [];
 	  foreach ($result as $key => $val) {		  
         $show[] = array('id' => $val,
                         'text' => $val);

@@ -213,8 +213,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 	$date_created = isset($gInfo->date_created) ? $gInfo->date_created : '';
 	$amount = isset($gInfo->amount) ? $gInfo->amount : 0;
 	
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
   switch ($action) {
     case 'release':
       $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));

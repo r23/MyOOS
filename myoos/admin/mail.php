@@ -224,7 +224,7 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
                 <td colspan="2"></td>
               </tr>
 <?php
-    $customers = array();
+    $customers = [];
     $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
     $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
     $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);

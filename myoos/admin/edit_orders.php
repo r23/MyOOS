@@ -58,8 +58,8 @@ require_once OOS_ABSOLUTE_PATH . '/includes/classes/class_order.php';
   // Optional Tax Rate/Percent
   $AddShippingTax = "19.0"; // e.g. shipping tax of 17.5% is "17.5"
 
-  $orders_statuses = array();
-  $orders_status_array = array();
+  $orders_statuses = [];
+  $orders_status_array = [];
   $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM " . $oostable['orders_status'] . " WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
   while ($orders_status = $orders_status_result->fields) {
     $orders_statuses[] = array('id' => $orders_status['orders_status_id'],
@@ -692,7 +692,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
   <?php
         // Override order.php Class's Field Limitations
     $index = 0;
-    $order->products = array();
+    $order->products = [];
     $orders_products_result = $dbconn->Execute("select * from " . $oostable['orders_products'] . " WHERE orders_id = '" . intval($oID) . "'");
     while ($orders_products = $orders_products_result->fields) {
     $order->products[$index] = array('qty' => $orders_products['products_quantity'],
@@ -766,10 +766,10 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
 
         // Override order.php Class's Field Limitations
     $totals_result = $dbconn->Execute("select * from " . $oostable['orders_total'] . " WHERE orders_id = '" . intval($oID) . "' order by sort_order");
-    $order->totals = array();
+    $order->totals = [];
     while ($totals = $totals_result->fields) { $order->totals[] = array('title' => $totals['title'], 'text' => $totals['text'], 'class' => $totals['class'], 'value' => $totals['value'], 'orders_total_id' => $totals['orders_total_id']); $totals_result->MoveNext();}
 
-  $TotalsArray = array();
+  $TotalsArray = [];
   for ($i=0; $i < count($order->totals); $i++) {
     $TotalsArray[] = array("Name" => $order->totals[$i]['title'], "Price" => number_format($order->totals[$i]['value'], 2, '.', ''), "Class" => $order->totals[$i]['class'], "TotalID" => $order->totals[$i]['orders_total_id']);
     $TotalsArray[] = array("Name" => "          ", "Price" => "", "Class" => "ot_custom", "TotalID" => "0");

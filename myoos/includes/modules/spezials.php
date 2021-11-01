@@ -41,7 +41,7 @@ $sql = "SELECT p.products_id, pd.products_name, pd.products_short_description, p
           ORDER BY s.specials_date_added DESC";
 $new_spezials_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_NEW_SPEZILAS);
 if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
-    $aSpezials = array();
+    $aSpezials = [];
     while ($new_spezials = $new_spezials_result->fields) {
 
 		$new_spezials_base_product_price = null;
@@ -61,7 +61,7 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
 		$order_min = number_format($new_spezials['products_quantity_order_min']);
 		$order_max = number_format($new_spezials['products_quantity_order_max']);
 
-		$aCategoryPath = array();
+		$aCategoryPath = [];
 		$aCategoryPath = oos_get_category_path($new_products['products_id']);
 		
 		$aSpezials[] = array('products_id' => $new_spezials['products_id'],

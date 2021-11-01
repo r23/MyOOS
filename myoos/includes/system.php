@@ -129,14 +129,14 @@ $smarty->assign('oos_base', OOS_HTTPS_SERVER . OOS_SHOP);
 $sNavMenue = $oNavMenu->build();
 $smarty->assign('nav_menu', $sNavMenue);
 
-$cart_products = array();
+$cart_products = [];
 $cart_count_contents = 0;
 $cart_show_subtotal = 0;
 $cart_show_total = 0;
 $wishlist_count_contents = 0;
 
 
-$aSystem = array();
+$aSystem = [];
 
 if (isset($_SESSION)) {
  
@@ -259,7 +259,7 @@ $smarty->assign(
 
 // cookie-notice 
 $hideEffect = isset($hideEffect) ? oos_prepare_input($hideEffect) : 'none';
-$aCookie = array();
+$aCookie = [];
 $aCookie = array(
 				'hideEffect'			=> $hideEffect,
 				'onScroll'				=> 'no',

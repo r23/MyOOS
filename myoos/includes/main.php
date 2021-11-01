@@ -259,7 +259,7 @@ if ( $session->hasStarted() === true ) {
 	$oUser->anonymous();
 }
 
-$aUser = array();
+$aUser = [];
 $aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
 
 
@@ -269,7 +269,7 @@ $oEvent = new plugin_event;
 $oEvent->getInstance();
 
 // initialize the message stack for output messages
-$aInfoMessage = array();
+$aInfoMessage = [];
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack();
 
@@ -294,4 +294,4 @@ if ( isset($_GET['action']) || isset($_POST['action']) )  {
 
 // templates selection
 $sTheme = STORE_TEMPLATES;
-$aTemplate = array();
+$aTemplate = [];

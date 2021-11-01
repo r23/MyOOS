@@ -60,7 +60,7 @@ if (!empty($action)) {
     switch ($action) {
 		case 'save':
 
-			$aKeys = array();
+			$aKeys = [];
 
 			if (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true')) {
 				$aKeys[] = 'MODULE_SHIPPING_TABLE_HANDLING';
@@ -184,7 +184,7 @@ require 'includes/header.php';
 					</thead>
 <?php
 	$file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-	$directory_array = array();
+	$directory_array = [];
 	if ($oDir = @dir($module_directory)) {
 		while ($file = $oDir->read()) {
 			if (!is_dir($module_directory . $file)) {
@@ -197,7 +197,7 @@ require 'includes/header.php';
 		$oDir->close();
 	}
 
-	$installed_modules = array();
+	$installed_modules = [];
 	for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
 		$file = $directory_array[$i];
 
@@ -223,7 +223,7 @@ require 'includes/header.php';
 
 				$module_keys = $module->keys();
 
-				$keys_extra = array();
+				$keys_extra = [];
 				for ($j = 0, $k = count($module_keys); $j < $k; $j++) {
 					$key_value_result = $dbconn->Execute("SELECT configuration_value, use_function, set_function FROM " . $oostable['configuration'] . " WHERE configuration_key = '" . $module_keys[$j] . "'");
 					$key_value = $key_value_result->fields;
@@ -290,8 +290,8 @@ require 'includes/header.php';
               </tr>
             </table></td>
 <?php
-$heading = array();
-$contents = array();
+$heading = [];
+$contents = [];
 
 switch ($action) {
 	case 'edit':

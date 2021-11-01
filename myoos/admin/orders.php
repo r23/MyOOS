@@ -88,8 +88,8 @@ require 'includes/main.php';
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
-$orders_statuses = array();
-$orders_status_array = array();
+$orders_statuses = [];
+$orders_status_array = [];
 $orders_statustable = $oostable['orders_status'];
 $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
 while ($orders_status = $orders_status_result->fields) {
@@ -143,8 +143,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               $orders_status_result = $dbconn->Execute("SELECT orders_status_id, orders_status_name FROM $orders_statustable WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
             }
 
-            $orders_statuses = array();
-            $orders_status_array = array();
+            $orders_statuses = [];
+            $orders_status_array = [];
             while ($orders_status = $orders_status_result->fields) {
               $orders_statuses[] = array('id' => $orders_status['orders_status_id'],
                                          'text' => $orders_status['orders_status_name']);
@@ -632,8 +632,8 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'delete':

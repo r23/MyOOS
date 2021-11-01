@@ -36,7 +36,7 @@ function oos_get_products_status_name($products_status_id, $language_id = '') {
 
 function oos_get_products_status() {
 
-    $products_status_array = array();
+    $products_status_array = [];
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -214,8 +214,8 @@ if (!empty($action)) {
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
   switch ($action) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_PRODUCTS_STATUS . '</b>');

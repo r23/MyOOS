@@ -252,11 +252,11 @@ if (!empty($action)) {
 ?>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
-  $block_status_array = array();
-  $block_login_flag_array = array();
+  $block_status_array = [];
+  $block_login_flag_array = [];
   $block_login_flag_array = array(array('id' => '0', 'text' => ENTRY_NO),
                                   array('id' => '1', 'text' => ENTRY_YES));
   $block_status_array = array(array('id' => '0', 'text' => ENTRY_NO),

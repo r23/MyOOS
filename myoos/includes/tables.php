@@ -26,7 +26,7 @@ $prefix_table = OOS_DB_PREFIX;
 if (!$prefix_table == '') $prefix_table = $prefix_table . '_';
 
 // Initialise table array
-$oostable = array();
+$oostable = [];
 
 $oostable['address_book'] = $prefix_table . 'address_book';
 $oostable['address_format'] = $prefix_table . 'address_format';

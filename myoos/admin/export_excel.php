@@ -192,7 +192,7 @@
 <?php
 if ($dir_ok) {
 	$dir = dir(OOS_EXPORT_PATH);
-	$contents = array();
+	$contents = [];
 	while ($file = $dir->read()) {
         if ( ($file != '.') && ($file != '..') && ($file != '.htaccess') ) {
 			if (!is_dir(OOS_EXPORT_PATH . $file)) {
@@ -240,8 +240,8 @@ if ($dir_ok) {
              </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'backup':

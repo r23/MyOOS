@@ -28,7 +28,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 
 class language {
     var $languages;
-    var $_languages = array();
+    var $_languages = [];
 
     public function __construct() {
 

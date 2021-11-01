@@ -139,8 +139,8 @@ require 'includes/header.php';
 	$coupon_code = isset($gInfo->coupon_code) ? $gInfo->coupon_code : '';
 	$emailed_to = isset($gInfo->emailed_to) ? $gInfo->emailed_to : '';
  
- $heading = array();
-  $contents = array();
+ $heading = [];
+  $contents = [];
 
   $heading[] = array('text' => '[' . $coupon_id . '] ' . ' ' . $currencies->format($coupon_amount));
   $redeem_result = $dbconn->Execute("SELECT * FROM " . $oostable['coupon_redeem_track'] . " WHERE coupon_id = '" . intval($coupon_id) . "'");

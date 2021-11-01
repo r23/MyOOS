@@ -71,7 +71,7 @@ class nav_menu {
 		} else {
 			$categories_result = $dbconn->Execute($sql);
 		}
-		$this->data = array(); 
+		$this->data = []; 
 
 		while ($categories = $categories_result->fields) {
 			$this->data[$categories['parent_id']][$categories['categories_id']] = array('name' => $categories['categories_name'], 

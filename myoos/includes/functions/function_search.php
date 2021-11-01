@@ -63,7 +63,7 @@
 
     // Break up $sSearch on whitespace; quoted string will be reconstructed later
     $pieces = preg_split('/[[:space:]]+/', $sSearch);
-    $objects = array();
+    $objects = [];
     $tmpstring = '';
     $flag = '';
 
@@ -77,7 +77,7 @@
         }
       }
 
-      $post_objects = array();
+      $post_objects = [];
 
       while (substr($pieces[$k], -1) == ')')  {
         $post_objects[] = ')';
@@ -177,7 +177,7 @@
     }
 
     // add default logical operators if needed
-    $temp = array();
+    $temp = [];
     for($i=0; $i<(count($objects)-1); $i++) {
       $temp[count($temp)] = $objects[$i];
 

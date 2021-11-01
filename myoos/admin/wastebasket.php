@@ -58,8 +58,8 @@ if (!empty($action)) {
 				$categories_id = oos_db_prepare_input($_POST['categories_id']);
 
 				$categories = oos_get_category_tree($categories_id, '', '0', '', TRUE);
-				$products = array();
-				$products_delete = array();
+				$products = [];
+				$products_delete = [];
 
 				for ($i = 0, $n = count($categories); $i < $n; $i++) {
 					$product_ids_result = $dbconn->Execute("SELECT products_id FROM " . $oostable['products_to_categories'] . " WHERE categories_id = '" . intval($categories[$i]['id']) . "'");
@@ -269,8 +269,8 @@ require 'includes/header.php';
 
             </table></td>
 <?php
-    $heading = array();
-    $contents = array();
+    $heading = [];
+    $contents = [];
 
     switch ($action) {
 

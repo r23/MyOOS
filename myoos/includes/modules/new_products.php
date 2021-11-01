@@ -68,7 +68,7 @@ if ( (!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0') ) {
 }
   
 $new_products_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_NEW_PRODUCTS);
-$aNewProducts = array();
+$aNewProducts = [];
 
 while ($new_products = $new_products_result->fields) {
 
@@ -121,7 +121,7 @@ while ($new_products = $new_products_result->fields) {
 	$order_min = number_format($new_products['products_quantity_order_min']);
 	$order_max = number_format($new_products['products_quantity_order_max']);
 
-	$aCategoryPath = array();
+	$aCategoryPath = [];
 	$aCategoryPath = oos_get_category_path($new_products['products_id']);
 
 	$aNewProducts[] = array('products_id' => $new_products['products_id'],

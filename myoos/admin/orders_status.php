@@ -55,7 +55,7 @@ require 'includes/main.php';
   */
   function oos_get_orders_status() {
 
-    $orders_status_array = array();
+    $orders_status_array = [];
 
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -267,8 +267,8 @@ if (!empty($action)) {
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'new':

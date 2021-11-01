@@ -38,8 +38,8 @@ class navigationHistory {
 	}
 
 	public function reset() {
-		$this->path = array();
-		$this->snapshot = array();
+		$this->path = [];
+		$this->snapshot = [];
 	}
 
 
@@ -62,7 +62,7 @@ class navigationHistory {
 
 
     public function clear_snapshot() {
-      $this->snapshot = array();
+      $this->snapshot = [];
     }
 
     public function set_path_as_snapshot($history = 0) {

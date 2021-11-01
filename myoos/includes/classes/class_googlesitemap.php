@@ -75,7 +75,7 @@ class GoogleSitemap {
 		$this->filename = "sitemap";
 		$this->savepath = OOS_ABSOLUTE_PATH;
 		$this->base_url = OOS_HTTPS_SERVER . OOS_SHOP;
-		$this->debug = array();
+		$this->debug = [];
 	}
 
 
@@ -220,7 +220,7 @@ class GoogleSitemap {
        if ( $products_query = $dbconn->Execute($sql) ){
 			$this->debug['QUERY']['PRODUCTS']['STATUS'] = 'success';
 			$this->debug['QUERY']['PRODUCTS']['NUM_ROWS'] = $products_query->RecordCount();
-			$container = array();
+			$container = [];
 			$number = 0;
 			$top = 0;
 			while ( $result = $products_query->fields ) {
@@ -239,7 +239,7 @@ class GoogleSitemap {
 				if ( sizeof($container) >= 50000 ){
 					$type = $number == 0 ? 'products' : 'products' . $number;
 					$this->GenerateSitemap($container, $type);
-					$container = array();
+					$container = [];
 					$number++;
 				}
 
@@ -277,7 +277,7 @@ class GoogleSitemap {
 		if ( $categories_query = $dbconn->Execute($sql) ){
 			$this->debug['QUERY']['CATEOGRY']['STATUS'] = 'success';
 			$this->debug['QUERY']['CATEOGRY']['NUM_ROWS'] = $categories_query->RecordCount();
-			$container = array();
+			$container = [];
 			$number = 0;
 			while( $result = $categories_query->fields ) {
 				$location = oos_href_link($aContents['shop'], 'category=' . $this->GetFullcPath($result['cid']), false, true);
@@ -293,7 +293,7 @@ class GoogleSitemap {
 				if ( sizeof($container) >= 50000 ){
 					$type = $number == 0 ? 'categories' : 'categories' . $number;
 					$this->GenerateSitemap($container, $type);
-					$container = array();
+					$container = [];
 					$number++;
 				}
 
@@ -322,7 +322,7 @@ class GoogleSitemap {
 		if ( preg_match('/_/', $cID) ){
 			return $cID;
 		} else {
-			$c = array();
+			$c = [];
 			$this->GetParentCategories($c, $cID);
 			$c = array_reverse($c);
 			$c[] = $cID;

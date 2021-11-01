@@ -218,7 +218,7 @@ if ( $session->hasStarted() === true ) {
 	$oUser->anonymous();
 }
 
-$aUser = array();
+$aUser = [];
 $aUser = isset($_SESSION['user']) ? $_SESSION['user']->group : $oUser->group;
 
 	

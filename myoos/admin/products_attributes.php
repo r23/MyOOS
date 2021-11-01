@@ -390,7 +390,7 @@ if (!empty($action)) {
   }
 
 
-  $products_options_types_list = array();
+  $products_options_types_list = [];
   $products_options_typestable = $oostable['products_options_types'];
   $products_options_types_sql = "SELECT products_options_types_id, products_options_types_name
                                  FROM $products_options_typestable

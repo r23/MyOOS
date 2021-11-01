@@ -164,7 +164,7 @@ if ( ($action == 'new') || ($action == 'edit') ) {
 	} else {
 		$sInfo = new objectInfo(array());
 
-		$featured_array = array();
+		$featured_array = [];
 		$featuredtable = $oostable['featured'];
 		$productstable = $oostable['products'];
 		$featured_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $featuredtable f WHERE f.products_id = p.products_id");
@@ -308,8 +308,8 @@ if ( ($action == 'new') || ($action == 'edit') ) {
               </tr>
             </table></td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'delete':

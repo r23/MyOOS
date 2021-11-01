@@ -313,8 +313,8 @@ function update_zone(theForm) {
 ?>
             </td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   if ($action == 'list') {
     switch ($saction) {

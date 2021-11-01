@@ -107,7 +107,7 @@ function oosDBInit() {
     $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
     $GLOBALS['oosDB_connections'][0] = $dbconn;
-    $GLOBALS['oosDB_tables'] = array();
+    $GLOBALS['oosDB_tables'] = [];
 
 	$sql ="SET NAMES 'utf8mb4'";
 	$dbconn->execute($sql);

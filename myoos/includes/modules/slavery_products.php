@@ -23,7 +23,7 @@
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
 // create column list
-$aDefineList = array();
+$aDefineList = [];
 $aDefineList = array('PRODUCT_LIST_MODEL' => '1',
                        'PRODUCT_LIST_NAME' => '2',
                        'PRODUCT_LIST_MANUFACTURER' => '3',
@@ -34,7 +34,7 @@ $aDefineList = array('PRODUCT_LIST_MODEL' => '1',
                        'PRODUCT_SLAVE_BUY_NOW' => '8');
 asort($aDefineList);
 
-$column_list = array();
+$column_list = [];
 reset($aDefineList);
 foreach($aDefineList as $column => $value) {	  
 	if ($value) $column_list[] = $column;

@@ -57,7 +57,7 @@
             AND opd.orders_products_filename != ''";
   $downloads_result = $dbconn->Execute($sql);
   if ($downloads_result->RecordCount() > 0) {
-    $downloads_array = array();
+    $downloads_array = [];
     while ($downloads = $downloads_result->fields) {
       // MySQL 3.22 does not have INTERVAL
       list($dt_year, $dt_month, $dt_day) = explode('-', $downloads['date_purchased_day']);

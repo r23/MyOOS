@@ -141,7 +141,7 @@
   }
 
   $sLocaleDir = OOS_ABSOLUTE_PATH . 'includes/plugins/';
-  $aDirectory = array();
+  $aDirectory = [];
 
   if (is_dir($sLocaleDir)) {
     if ($dh = opendir($sLocaleDir)) {
@@ -241,7 +241,7 @@
                            'preceeds' => $oPlugin->preceeds);
 
       $plugin_keys = $oPlugin->config_item();
-      $keys_extra = array();
+      $keys_extra = [];
 
       if (is_array($plugin_keys) && (sizeof($plugin_keys) > 0)) {
         foreach ($plugin_keys as $key) {
@@ -294,8 +294,8 @@
             </table></td>
 
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'edit':

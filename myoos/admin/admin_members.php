@@ -457,8 +457,8 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
 ?>
             </td>
 <?php
-  $heading = array();
-  $contents = array();
+  $heading = [];
+  $contents = [];
 
   switch ($action) {
     case 'new_member':
@@ -472,7 +472,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
       $contents[] = array('text' => '<br />&nbsp;' . TEXT_INFO_LASTNAME . '<br />&nbsp;' . oos_draw_input_field('admin_lastname'));
       $contents[] = array('text' => '<br />&nbsp;' . TEXT_INFO_EMAIL . '<br />&nbsp;' . oos_draw_input_field('admin_email_address'));
 
-      $groups_array = array();
+      $groups_array = [];
       $groups_array = array(array('id' => '0', 'text' => TEXT_NONE));
       $groups_query = "SELECT admin_groups_id, admin_groups_name FROM ". $oostable['admin_groups'];
       $groups_result = $dbconn->Execute($groups_query);
@@ -501,7 +501,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
       if ($mInfo->admin_id == 1) {
         $contents[] = array('text' => oos_draw_hidden_field('admin_groups_id', $mInfo->admin_groups_id));
       } else {
-        $groups_array = array();
+        $groups_array = [];
         $groups_array = array(array('id' => '0', 'text' => TEXT_NONE));
         $groups_query = "SELECT admin_groups_id, admin_groups_name FROM ". $oostable['admin_groups'];
         $groups_result = $dbconn->Execute($groups_query);

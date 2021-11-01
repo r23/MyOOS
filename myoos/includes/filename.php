@@ -24,7 +24,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
 $prefix_filename = '';
 if (!$prefix_filename == '') $prefix_filename = $prefix_filename . '_';
 
-$aContents = array();
+$aContents = [];
 $aContents = [
 'conditions_download'             => $prefix_filename . 'conditions.pdf',     
 //account

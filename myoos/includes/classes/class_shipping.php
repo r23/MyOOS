@@ -32,7 +32,7 @@ class shipping {
 		if (defined('MODULE_SHIPPING_INSTALLED') && oos_is_not_null(MODULE_SHIPPING_INSTALLED)) {
 			$this->modules = explode(';', MODULE_SHIPPING_INSTALLED);
 
-			$include_modules = array();
+			$include_modules = [];
 
 			if ( (oos_is_not_null($module)) ) {
 				$this->selected_module = $module;
@@ -66,7 +66,7 @@ class shipping {
 	public function quote($method = '', $module = '') {
 		global $total_weight, $shipping_weight, $shipping_quoted, $shipping_num_boxes;
 
-		$quotes_array = array();
+		$quotes_array = [];
 
 		if (is_array($this->modules)) {
 			$shipping_quoted = '';
@@ -84,7 +84,7 @@ class shipping {
 				$shipping_weight = $shipping_weight + ($shipping_weight*SHIPPING_BOX_PADDING/100);
 			}
 
-			$include_quotes = array();
+			$include_quotes = [];
 
 			foreach ($this->modules as $value) {
 				$class = basename($value, '.php');
@@ -109,7 +109,7 @@ class shipping {
 
 	public function cheapest() {
 		if (is_array($this->modules)) {
-			$rates = array();
+			$rates = [];
 
 			foreach ($this->modules as $value) {
 				$class = basename($value, '.php');

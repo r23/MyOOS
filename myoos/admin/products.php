@@ -418,7 +418,7 @@ if ($action == 'new_product') {
 		}
     } 
 	
-    $manufacturers_array = array();
+    $manufacturers_array = [];
     $manufacturers_array = array(array('id' => '', 'text' => TEXT_NONE));
     $manufacturerstable = $oostable['manufacturers'];
     $manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM $manufacturerstable ORDER BY manufacturers_name");
@@ -430,7 +430,7 @@ if ($action == 'new_product') {
 		$manufacturers_result->MoveNext();
     }
 
-    $tax_class_array = array();
+    $tax_class_array = [];
     $tax_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
     $tax_classtable = $oostable['tax_class'];
     $tax_class_result = $dbconn->Execute("SELECT tax_class_id, tax_class_title FROM $tax_classtable ORDER BY tax_class_title");
@@ -443,7 +443,7 @@ if ($action == 'new_product') {
     }
 
 
-    $products_units_array = array();
+    $products_units_array = [];
     $products_units_array = array(array('id' => '0', 'text' => TEXT_NONE));
     $products_unitstable = $oostable['products_units'];
     $products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name FROM $products_unitstable WHERE languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_unit_name");
@@ -457,7 +457,7 @@ if ($action == 'new_product') {
 
 
 
-    $products_status_array = array();
+    $products_status_array = [];
     $products_status_array = array(array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE));
     $products_statustable = $oostable['products_status'];
     $products_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM $products_statustable WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
@@ -474,7 +474,7 @@ if ($action == 'new_product') {
 	
     $form_action = (isset($_GET['pID'])) ? 'update_product' : 'insert_product';
 
-	$aSetting = array();
+	$aSetting = [];
 	$settingstable = $oostable['setting'];
 	$setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY setting_id");
 	while ($setting = $setting_result->fields) {

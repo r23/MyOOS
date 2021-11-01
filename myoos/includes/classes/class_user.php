@@ -102,7 +102,7 @@ class oosUser {
 
 	public function reset() {
 
-		$this->group = array();
+		$this->group = [];
 
 		unset($this->groupID);
 		if (isset($_SESSION['groupID'])) unset($_SESSION['groupID']);

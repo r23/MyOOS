@@ -37,7 +37,7 @@ $listing_split = new splitPageResults($listing_sql, MAX_DISPLAY_SEARCH_RESULTS);
 if ($listing_split->number_of_rows > 0) {
     if (!isset($all_get_listing)) $all_get_listing = oos_get_all_get_parameters(array('action'));
 
-	$aListing = array();
+	$aListing = [];
     $listing_result = $dbconn->Execute($listing_split->sql_query);
     while ($listing = $listing_result->fields) {
 

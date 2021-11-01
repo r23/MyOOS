@@ -47,7 +47,7 @@ $sPAngV .= sprintf($aLang['text_shipping'], oos_href_link($aContents['informatio
 
 
 
-$aData = array();
+$aData = [];
 $aData['content'] = '';
 
 
