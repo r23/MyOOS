@@ -382,7 +382,7 @@ if (!$product_info_result->RecordCount()) {
 
 				// Create a basic QR code
 				$qrCode = new QrCode($sUrl);
-				$qrCode->setSize(150);
+				$qrCode->setSize(110);
 				$qrCode->setMargin(10);
 				
 				// Set advanced options

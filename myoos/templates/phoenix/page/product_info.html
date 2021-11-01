@@ -348,7 +348,7 @@
 									<p>{$product_info.products_date_added|oos_date_long|string_format:$lang.text_date_added}</p>  
 
 									{if !empty($product_info.products_last_modified)}
-										<p>{$product_info.products_last_modified}{$lang.text_date_last_update} <time datetime="{$product_info.products_last_modified|oos_date_short_schema}">{$product_info.products_last_modified|oos_date_short}</time></p>
+										<p>{$lang.text_date_last_update} <time datetime="{$product_info.products_last_modified|oos_date_short_schema}">{$product_info.products_last_modified|oos_date_short}</time></p>
 									{/if}	
 								{/if}		
 							{/if}
