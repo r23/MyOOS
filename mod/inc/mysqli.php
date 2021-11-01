@@ -273,6 +273,10 @@ function mod_mysqli_connect($encoding='utf8mb4', $keycheck_off=false, $actual_ta
     $port = ( isset($config['dbport']) && !empty($config['dbport']) ) ? ':' . $config['dbport'] : '';
     $socket = ( isset($config['dbsocket']) && !empty($config['dbsocket']) ) ? ':' . $config['dbsocket'] : '';
 
+	// Forcing error reporting mode to OFF, which is no longer the default
+	// starting with PHP 8.1 
+	@mysqli_report(MYSQLI_REPORT_OFF);
+
 	$config['dbconnection'] = @mysqli_connect($config['dbhost'] . $port . $socket, $config['dbuser'], $config['dbpass']);
 
 	if (!$config['dbconnection']) {
@@ -318,11 +322,11 @@ function GetMySQLVersion()
 function mod_query($query, $error_output=true)
 {
 	global $config;
-	print_mem();
+	// print_mem();
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
-	echo "<br>Query: ".htmlspecialchars($query) . '<br>';
+	// echo "<br>Query: ".htmlspecialchars($query) . '<br>';
 	$res=mysqli_query($config['dbconnection'],$query);
-	print_mem();
+	// print_mem();
 	if (false === $res && $error_output) SQLError($query,mysqli_error($config['dbconnection']));
 	return $res;
 }
