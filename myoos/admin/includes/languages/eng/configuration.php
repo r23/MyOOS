@@ -304,29 +304,26 @@ define('DOWNLOAD_MAX_DAYS_DESC', 'Set number of days before the download link ex
 define('DOWNLOAD_MAX_COUNT_TITLE', 'Maximum number of downloads');
 define('DOWNLOAD_MAX_COUNT_DESC', 'Set the maximum number of downloads. 0 means no download authorized.');
 
-define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_TITLE', 'Downloads Controller Download on hold message');
-define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_DESC', 'Downloads Controller Download on hold message');
-
 define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_TITLE', 'Downloads Controller Order Status Value');
 define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_DESC', 'Downloads Controller Order Status Value - Default=2');
 
-define('SHOW_PRICE_TITLE', 'Produktpreis');
-define('SHOW_PRICE_DESC', 'M&ouml;chten Sie den Produktpreis anzeigen?');
+define('SHOW_PRICE_TITLE', 'Product price');
+define('SHOW_PRICE_DESC', 'Do you want to view the product price?');
 
-define('SHOW_SPECIALS_PRICE_TITLE', 'Sonderangebote');
-define('SHOW_SPECIALS_PRICE_DESC', 'M&ouml;chten Sie den Angebotspreis anzeigen?');
+define('SHOW_SPECIALS_PRICE_TITLE', 'Special offers');
+define('SHOW_SPECIALS_PRICE_DESC', 'Do you want to see the offer price?');
 
-define('SHOW_SPECIALS_PRICE_EXPIRES_TITLE', 'Datum Sonderangebote');
-define('SHOW_SPECIALS_PRICE_EXPIRES_DESC', 'M&ouml;chten Sie das Gültigkeitsdatum der Angebotspreise anzeigen?');
+define('SHOW_SPECIALS_PRICE_EXPIRES_TITLE', 'Date special offers');
+define('SHOW_SPECIALS_PRICE_EXPIRES_DESC', 'Do you want to see the validity date of the offer prices?');
 
-define('SHOW_TAX_CLASS_ID_TITLE', 'Steuersatz');
-define('SHOW_TAX_CLASS_ID_DESC', 'M&ouml;chten Sie den Steuersatz anzeigen?');
+define('SHOW_TAX_CLASS_ID_TITLE', 'Tax rate');
+define('SHOW_TAX_CLASS_ID_DESC', 'Do you want to display the tax rate?');
 
-define('SHOW_OPTIONS_TITLE', 'Produktoptionen');
-define('SHOW_OPTIONS_DESC', 'M&ouml;chten Sie die Produktoptionen anzeigen?');
+define('SHOW_OPTIONS_TITLE', 'Product options');
+define('SHOW_OPTIONS_DESC', 'Do you want to view the product options?');
 
-define('SHOW_OPTIONS_PRICE_TITLE', 'Preis der Produktoptionen');
-define('SHOW_OPTIONS_PRICE_DESC', 'M&ouml;chten Sie die Preise der Produktoptionen anzeigen?');
+define('SHOW_OPTIONS_PRICE_TITLE', 'Product options price');
+define('SHOW_OPTIONS_PRICE_DESC', 'Do you want to see the prices of the product options?');
 
 define('SECURITY_CODE_LENGTH_TITLE', 'Redeem Code');
 define('SECURITY_CODE_LENGTH_DESC', 'Set the length of the redeem code, the longer the more secure');

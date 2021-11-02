@@ -289,8 +289,8 @@ define('PHPBB_URL_DESC', 'URL der phpBB 3 Seite');
 define('DOWNLOAD_ENABLED_TITLE', 'Ermögliche Download');
 define('DOWNLOAD_ENABLED_DESC', 'Aktiviert die Shop-Funktionen, die es ermöglichen Datei herunterzuladen.');
 
-define('DOWNLOAD_BY_REDIRECT_TITLE', 'Download by redirect');
-define('DOWNLOAD_BY_REDIRECT_DESC', 'Use browser redirection for download. Disable on non-Unix systems.');
+define('DOWNLOAD_BY_REDIRECT_TITLE', 'Download durch Umleitung (redirect)');
+define('DOWNLOAD_BY_REDIRECT_DESC', 'Browserumleitung für den Download verwenden. Bitte auch Nicht-Unix-Systemen deaktivieren.');
 
 define('DOWNLOAD_MAX_DAYS_TITLE', 'Ablaufzeit (Tage)');
 define('DOWNLOAD_MAX_DAYS_DESC', 'Setzt die Anzahl der Tage, nach denen der Link ungültig wird. 0 hei&szlig;t immer gütig.');
@@ -298,11 +298,8 @@ define('DOWNLOAD_MAX_DAYS_DESC', 'Setzt die Anzahl der Tage, nach denen der Link
 define('DOWNLOAD_MAX_COUNT_TITLE', 'Maximale Anzahl der Downloads');
 define('DOWNLOAD_MAX_COUNT_DESC', 'Setzt die maximal mögliche Anzahl der Downloads, 0 hei&szlig;t dass kein Download erlaubt ist.');
 
-define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_TITLE', 'Downloads Controller Download on hold message');
-define('DOWNLOADS_CONTROLLER_ON_HOLD_MSG_DESC', 'Downloads Controller Download on hold message');
-
-define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_TITLE', 'Downloads Controller Order Status Value');
-define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_DESC', 'Downloads Controller Order Status Value - Default=2');
+define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_TITLE', 'Downloads Controller Auftragsstatus Wert');
+define('DOWNLOADS_CONTROLLER_ORDERS_STATUS_DESC', 'Downloads Controller Auftragsstatus Wert - Standard=2');
 
 define('SHOW_PRICE_TITLE', 'Produktpreis');
 define('SHOW_PRICE_DESC', 'Möchten Sie den Produktpreis anzeigen?');
