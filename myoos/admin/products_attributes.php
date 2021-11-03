@@ -1307,6 +1307,9 @@ function calcBasePriceFactor() {
       if (DOWNLOAD_ENABLED == 'true') {
         $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
         $products_attributes_maxcount = DOWNLOAD_MAX_COUNT;
+		
+		$products_attributes_filename = isset($products_attributes_filename) ? oos_db_prepare_input($products_attributes_filename) : '';
+		
 ?>
           <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
             <td>&nbsp;</td>
