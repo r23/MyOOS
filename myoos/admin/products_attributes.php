@@ -370,7 +370,8 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM $products_optionstable WHERE products_options_id = '" . intval($_GET['option_id']) . "'");
 
         $products_options_values_to_products_optionstable = $oostable['products_options_values_to_products_options'];
-        $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_id = '" . intval($option_id) . "' AND products_options_values_id = '" . PRODUCTS_OPTIONS_VALUES_TEXT_ID . "'");
+      //  $dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_id = '" . intval($_GET['option_id']) . "' AND products_options_values_id = '" . PRODUCTS_OPTIONS_VALUES_TEXT_ID . "'");
+		$dbconn->Execute("DELETE FROM $products_options_values_to_products_optionstable WHERE products_options_id = '" . intval($_GET['option_id']) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
       case 'delete_value':
