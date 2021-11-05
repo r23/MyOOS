@@ -464,5 +464,5 @@ define('TEXT_DISPLAY_NUMBER_OF_FILENAMES', 'Zeige an <b>%d</b> bis <b>%d</b> (vo
 define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Zeige an <b>%d</b> bis <b>%d</b> (von <b>%d</b> Mitglieder)');
 
 
-define('PULL_DOWN_DEFAULT', 'Bitte wählen');
+define('PULL_DOWN_DEFAULT', 'Bitte auswählen');
 

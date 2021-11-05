@@ -27,6 +27,8 @@ require 'includes/functions/function_products_attributes.php';
 require 'includes/classes/class_upload.php';
 
 
+# array_merge(array(array('id' => '0', 'text' => PULL_DOWN_DEFAULT))
+
 $aLanguages = oos_get_languages();
 $nLanguages = count($aLanguages);
 
@@ -303,7 +305,7 @@ if (!empty($action)) {
 			} 
 
 	  
-          if ( ($_POST['delete_image'] == 'yes') && (isset($_POST['products_previous_image'])) ) {
+			if ( ($_POST['delete_image'] == 'yes') && (isset($_POST['products_previous_image'])) ) {
 				$image = oos_db_prepare_input($_POST['products_previous_image']);				
 				oos_remove_product_image($image);
 				$options_values_image = '';				
@@ -1241,6 +1243,8 @@ function calcBasePriceFactor() {
 			?></td>
             <td class="smallText">&nbsp;<select name="options_id">
 <?php
+	echo '<option name="id" value="0" selected>' . PULL_DOWN_DEFAULT . '</option>';
+	
     $products_optionstable = $oostable['products_options'];
     $options = $dbconn->Execute("SELECT * FROM $products_optionstable WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_name");
     while ($options_values = $options->fields) {
@@ -1253,6 +1257,8 @@ function calcBasePriceFactor() {
             </select>&nbsp;</td>
             <td class="smallText">&nbsp;<select name="values_id">
 <?php
+	echo '<option name="id" value="0" selected>' . PULL_DOWN_DEFAULT . '</option>';
+
     $products_options_valuestable = $oostable['products_options_values'];
     $values = $dbconn->Execute("SELECT * FROM $products_options_valuestable WHERE products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_options_values_name");
     while ($values_values = $values->fields) {
