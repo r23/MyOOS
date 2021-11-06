@@ -31,6 +31,10 @@ function oos_options_name($options_id) {
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
+	if (empty($options_id) || ($options_id == 0)) {
+		return '';
+	}
+
     $products_optionstable = $oostable['products_options'];
     $query = "SELECT products_options_name
               FROM $products_optionstable
@@ -55,6 +59,11 @@ function oos_values_name($values_id) {
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
+
+	if (empty($values_id) || ($values_id == 0)) {
+		return '';
+	}
+
 
     $products_options_valuestable = $oostable['products_options_values'];
     $query = "SELECT products_options_values_name
