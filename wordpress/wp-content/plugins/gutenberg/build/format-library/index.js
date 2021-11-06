@@ -1175,11 +1175,18 @@ function InlineColorUI({
   onClose,
   contentRef
 }) {
-  const anchorRef = (0,external_wp_richText_namespaceObject.useAnchorRef)({
+  /* 
+   As you change the text color by typing a HEX value into a field,
+   the return value of document.getSelection jumps to the field you're editing,
+   not the highlighted text. Given that useAnchorRef uses document.getSelection,
+   it will return null, since it can't find the <mark> element within the HEX input.
+   This caches the last truthy value of the selection anchor reference.
+   */
+  const anchorRef = (0,external_wp_blockEditor_namespaceObject.useCachedTruthy)((0,external_wp_richText_namespaceObject.useAnchorRef)({
     ref: contentRef,
     value,
     settings: text_color_textColor
-  });
+  }));
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
     onClose: onClose,
     className: "components-inline-color-popover",

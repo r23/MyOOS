@@ -2273,6 +2273,7 @@ __webpack_require__.d(__webpack_exports__, {
   "useBlockDisplayInformation": function() { return /* reexport */ useBlockDisplayInformation; },
   "useBlockEditContext": function() { return /* reexport */ useBlockEditContext; },
   "useBlockProps": function() { return /* reexport */ useBlockProps; },
+  "useCachedTruthy": function() { return /* reexport */ useCachedTruthy; },
   "useSetting": function() { return /* reexport */ useSetting; },
   "validateThemeColors": function() { return /* reexport */ validateThemeColors; },
   "validateThemeGradients": function() { return /* reexport */ validateThemeGradients; },
@@ -32247,10 +32248,33 @@ function getSpacingClassesAndStyles(attributes) {
   };
 }
 //# sourceMappingURL=use-spacing-props.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/use-cached-truthy.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Keeps an up-to-date copy of the passed value and returns it. If value becomes falsy, it will return the last truthy copy.
+ *
+ * @param {any} value
+ * @return {any} value
+ */
+
+function useCachedTruthy(value) {
+  const [cachedValue, setCachedValue] = (0,external_wp_element_namespaceObject.useState)(value);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (value) {
+      setCachedValue(value);
+    }
+  }, [value]);
+  return cachedValue;
+}
+//# sourceMappingURL=use-cached-truthy.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/index.js
 /**
  * Internal dependencies
  */
+
 
 
 
