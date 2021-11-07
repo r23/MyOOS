@@ -1214,18 +1214,56 @@ function calcBasePriceFactor() {
             <td align="center" class="smallText">&nbsp;<?php echo '<a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=update_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_EDIT . '</strong></a>'; ?>&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_product_attribute&attribute_id=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) , '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;</td>
 <?php
     }
-    $products_attributestable = $oostable['products_attributes'];
-    $max_attributes_id_result = $dbconn->Execute("SELECT max(products_attributes_id) + 1 as next_id FROM $products_attributestable");
-    $max_attributes_id_values = $max_attributes_id_result->fields;
-    $next_id = $max_attributes_id_values['next_id'];
 ?>
           </tr>
 <?php
-    // Move that ADOdb pointer!
-    $attributes->MoveNext();
-  }
+		if (DOWNLOAD_ENABLED == 'true') {
+			$products_attributes_downloadtable = $oostable['products_attributes_download'];
+			$download_result_raw ="SELECT products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount
+								FROM $products_attributes_downloadtable
+								WHERE products_attributes_id = '" . $attributes_values['products_attributes_id'] . "'";
+			$download_result = $dbconn->Execute($download_result_raw);
+			if ($download_result->RecordCount() > 0) {
+				$download = $download_result->fields;
+				$products_attributes_filename = $download['products_attributes_filename'];
+				$products_attributes_maxdays  = $download['products_attributes_maxdays'];
+				$products_attributes_maxcount = $download['products_attributes_maxcount'];
+
+?>
+          <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+            <td>&nbsp;</td>
+			<td>&nbsp;</td>
+            <td colspan="8">
+              <table>
+                <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
+                  <td>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?>&nbsp;</td>
+                  <td class="smallText"><b><?php echo $products_attributes_filename; ?></b>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
+                  <td class="smallText"><?php echo $products_attributes_maxdays; ?>&nbsp;</td>
+                  <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
+                  <td class="smallText"><?php echo $products_attributes_maxcount; ?>&nbsp;</td>
+                </tr>
+              </table>
+            </td>
+            <td>&nbsp;</td>
+          </tr>
+<?php
+			}
+
+		} // end of DOWNLOAD_ENABLED section		  
+
+		// Move that ADOdb pointer!
+		$attributes->MoveNext();
+	}
 
   if ($action != 'update_attribute') {
+	  
+    $products_attributestable = $oostable['products_attributes'];
+    $max_attributes_id_result = $dbconn->Execute("SELECT max(products_attributes_id) + 1 as next_id FROM $products_attributestable");
+    $max_attributes_id_values = $max_attributes_id_result->fields;
+    $next_id = $max_attributes_id_values['next_id'];	  
+	  
 ?>
           <tr>
             <td colspan="11"><?php echo oos_black_line(); ?></td>
@@ -1327,8 +1365,6 @@ function calcBasePriceFactor() {
         $products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
         $products_attributes_maxcount = DOWNLOAD_MAX_COUNT;
 		
-		$products_attributes_filename = isset($products_attributes_filename) ? oos_db_prepare_input($products_attributes_filename) : '';
-		
 ?>
           <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
             <td>&nbsp;</td>
@@ -1338,7 +1374,7 @@ function calcBasePriceFactor() {
                 <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
                   <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
-                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', $products_attributes_filename, 'size="15"'); ?>&nbsp;</td>
+                  <td class="smallText"><?php echo oos_draw_input_field('products_attributes_filename', '', 'size="15"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_DAYS; ?></td>
                   <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
