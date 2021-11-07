@@ -353,7 +353,7 @@ if (!empty($action)) {
 						options_values_base_quantity= '" . oos_db_prepare_input($options_values_base_quantity) . "',
 						options_values_base_unit= '" . oos_db_prepare_input($options_values_base_unit) . "',
 						price_prefix = '" . oos_db_prepare_input($_POST['price_prefix']) . "',
-						 options_sort_order = '" . oos_db_prepare_input($_POST['sort_order']) . "' WHERE products_attributes_id = '" . oos_db_prepare_input($_POST['attribute_id']) . "'");
+						 options_sort_order = '" . oos_db_prepare_input($_POST['sort_order']) . "' WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");
 
 
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
@@ -1332,8 +1332,9 @@ function calcBasePriceFactor() {
 ?>
           <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
             <td>&nbsp;</td>
-            <td colspan="6">
-              <table>
+			<td>&nbsp;</td>
+            <td colspan="8">
+          <table> 
                 <tr class="<?php echo (!($rows % 2)? 'attributes-even' : 'attributes-odd');?>">
                   <td><?php echo TABLE_HEADING_DOWNLOAD; ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_FILENAME; ?></td>
@@ -1342,9 +1343,9 @@ function calcBasePriceFactor() {
                   <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxdays', $products_attributes_maxdays, 'size="5"'); ?>&nbsp;</td>
                   <td class="smallText"><?php echo TABLE_TEXT_MAX_COUNT; ?></td>
                   <td class="smallText"><?php echo oos_draw_input_field('products_attributes_maxcount', $products_attributes_maxcount, 'size="5"'); ?>&nbsp;</td>
-                  <td class="smallText">&nbsp;</td>
-                </tr>
-              </table>
+
+			</tr> 
+             </table>  
             </td>
             <td>&nbsp;</td>
           </tr>
