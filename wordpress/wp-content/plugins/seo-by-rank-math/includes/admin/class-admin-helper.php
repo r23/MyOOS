@@ -321,7 +321,7 @@ class Admin_Helper {
 
 		return apply_filters(
 			'rank_math/license/activate_url',
-			Security::add_query_arg_raw( $args, 'https://rankmath.com/auth/' ),
+			Security::add_query_arg_raw( $args, 'https://rankmath.com/auth' ),
 			$args
 		);
 	}

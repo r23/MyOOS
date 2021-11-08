@@ -127,6 +127,8 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\CMB2' => __DIR__ . '/../..' . '/includes/class-cmb2.php',
         'RankMath\\Common' => __DIR__ . '/../..' . '/includes/class-common.php',
         'RankMath\\Compatibility' => __DIR__ . '/../..' . '/includes/class-compatibility.php',
+        'RankMath\\ContentAI\\Content_AI' => __DIR__ . '/../..' . '/includes/modules/content-ai/class-content-ai.php',
+        'RankMath\\ContentAI\\Rest' => __DIR__ . '/../..' . '/includes/modules/content-ai/class-rest.php',
         'RankMath\\Data_Encryption' => __DIR__ . '/../..' . '/includes/class-data-encryption.php',
         'RankMath\\Defaults' => __DIR__ . '/../..' . '/includes/class-defaults.php',
         'RankMath\\Divi\\Divi' => __DIR__ . '/../..' . '/includes/3rdparty/divi/class-divi.php',

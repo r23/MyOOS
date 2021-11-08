@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.75
+Stable tag: 1.0.76
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -13,7 +13,8 @@ Rank Math SEO is the Best WordPress SEO plugin combines the features of many SEO
 
 == Description ==
 
-**Rank Math SEO - Best SEO Plugin for WordPress**
+### Rank Math SEO - Best SEO Plugin for WordPress ###
+**1st WordPress SEO Plugin to use AI (Artificial Intelligence)** 🦾
 ★★★★★<br>
 
 **SEO is the most consistent source of traffic for any website.** We created <a href="https://rankmath.com/wordpress/plugin/seo-suite/?utm_source=LP&utm_campaign=WP" target="_blank">**Rank Math SEO, a WordPress SEO plugin**</a>, to help every website owner get access to the SEO tools they need to improve their SEO and attract more traffic to their website.
@@ -27,6 +28,20 @@ SEO might be the best and most **consistent source of traffic** for one's websit
 
 Its host of **intelligent features** brings top SEO capabilities in your hands that were previously out of reach. The **smart automation** features give you the **power of an entire SEO team** with just a few clicks. A **well thought out design, powerful features, and years of development** by the MyThemeShop squad make Rank Math SEO a game-changing SEO plugin that will level the SEO playing field in your favor to help increase traffic.
 
+### Exclusive Content AI. Write Highly Optimized SEO Content ###
+
+[youtube https://www.youtube.com/watch?v=tm_dhgbIWow]
+
+➜ Use Artificial Intelligence to write SEO optimized content
+➜ Dynamic Suggestions
+➜ Intelligent Recommendations
+➜ Dynamic Keywords
+➜ Intelligent Questions (With Schema Markup)
+➜ Smart Link Suggestions
+➜ Extra Keyword Info
+➜ Related Keywords
+➜ Full Control via Role Manager
+
 ### Rank Math SEO beats all of its competitors, hands down. ###
 
 See the features which are exclusive to the Rank Math SEO plugin and understand why Rank Math SEO is possibly the **Best SEO Plugin for WordPress**.
@@ -39,6 +54,9 @@ Configuring Google Schema Markup, aka Rich Snippets, is now easy, thanks to Rank
 
 * **Optimize Unlimited Keywords**
 Unlike other plugins, Rank Math SEO lets you optimize your posts for **unlimited focus keywords** per post. 5 by default. Increase by adding this [filter](https://rankmath.com/kb/filters-hooks-api-developer/#unlimited-keywords).
+
+* **Content AI**
+Rank Math is the FIRST & ONLY SEO plugin that uses AI to help you write content. Your personal AI Assistant for creating SEO friendly content. Our Content AI takes all the hassle out of writing. It ensures that the content you write is not only great for your visitors, but for search engines (SEO) as well. [Learn how to use Content AI for writing SEO optimized content that ranks](https://rankmath.com/kb/how-to-use-content-ai/).
 
 * **Google Search Console Integration**
 Rank Math SEO saves you a ton of time by integrating with Google Search Console and displaying important information about your website right inside WordPress.
@@ -547,26 +565,26 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Screenshots ==
 
-1. Fully integrated with the Gutenberg aka Block Editor.
-2. Optimize Content without any hassle and works with the Classic Editor.
-3. Analyze your website's SEO with one click and fix the issues.
-4. Simple Setup Wizard with 1-Click Importer.
-5. Support for 15+ Rich Snippet types.
-6. No need to pay for any service when you can track keyword ranking change from our own Search Console.
-7. Comes with in-built options for social media optimization.
-8. Rank Math SEO Comes with a 404 monitor and easy-to-use Redirection Manager.
-9. Ground Breaking Integration with Elementor Page Builder.
-10. Powerful XML Sitemap.
-11. Role Manager gives you full control. Useful for multi-author sites.
-12. Rank Math SEO Comes with 15+ FREE modules.
+1. Exclusive AI Assistant for creating content that ranks.
+2. Fully integrated with the Gutenberg aka Block Editor.
+3. Optimize Content without any hassle and works with the Classic Editor.
+4. Analyze your website's SEO with one click and fix the issues.
+5. Simple Setup Wizard with 1-Click Importer.
+6. Support for 15+ Rich Snippet types.
+7. No need to pay for any service when you can track keyword ranking change from our own Search Console.
+8. Comes with in-built options for social media optimization.
+9. Rank Math SEO Comes with a 404 monitor and easy-to-use Redirection Manager.
+10. Ground Breaking Integration with Elementor Page Builder.
+11. Powerful XML Sitemap.
+12. Role Manager gives you full control. Useful for multi-author sites.
+13. Rank Math SEO Comes with 15+ FREE modules.
 
 == Changelog ==
 
-= 1.0.75 [Oct 27, 2021] =
-* Fixed: [Link Suggestion](https://rankmath.com/kb/pillar-content-internal-linking/) option was not working in the Block editor
-* Fixed: [SEO description](https://rankmath.com/kb/titles-and-meta/#bulk-editing) in the Post lists column was showing the wrong description
-* Fixed: Tooltip position on the [Ananlytics](https://rankmath.com/kb/analytics/) Overview page
-* Fixed: SERP preview on Category page was not showing the title & description from [global settings](https://rankmath.com/kb/titles-and-meta/#categories)
-* Fixed: Default WordPress redirection from plain permalink to new structure was not working when [Fallback behavior](https://rankmath.com/kb/general-settings/#fallback-behaviour) option was enabled
+= 1.0.76 [Nov 08, 2021] =
+* Added: [HUGE!] Introducing [Content AI](https://rankmath.com/content-ai/) - Your personal AI assistant for writing SEO Optimized Content!I assistant
+* Fixed: PHP warning after enabling the [Web Stories](https://rankmath.com/kb/google-web-stories/) moduleies/) module
+* Fixed: [Homepage SEO](https://rankmath.com/kb/homepage-meta-title-and-description/) settings were not displaying when no static page was selected as the homepage
+* Fixed: Content Analysis was wrongly counting the links without href as internal links
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

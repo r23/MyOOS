@@ -288,6 +288,7 @@ class Installer {
 			'bbpress',
 			'acf',
 			'web-stories',
+			'content-ai',
 		];
 
 		// Role Manager.
@@ -314,6 +315,11 @@ class Installer {
 	 * Add defaults for general options.
 	 */
 	private function create_general_options() {
+		$post_types = Helper::get_accessible_post_types();
+		if ( isset( $post_types['attachment'] ) ) {
+			unset( $post_types['attachment'] );
+		}
+
 		add_option(
 			'rank-math-options-general',
 			$this->do_filter(
@@ -361,6 +367,7 @@ class Installer {
 					'frontend_seo_score_post_types'       => [ 'post' ],
 					'frontend_seo_score_position'         => 'top',
 					'setup_mode'                          => 'advanced',
+					'content_ai_post_types'               => array_keys( $post_types ),
 				]
 			)
 		);

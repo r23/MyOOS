@@ -97,6 +97,8 @@ return array(
     'RankMath\\CMB2' => $baseDir . '/includes/class-cmb2.php',
     'RankMath\\Common' => $baseDir . '/includes/class-common.php',
     'RankMath\\Compatibility' => $baseDir . '/includes/class-compatibility.php',
+    'RankMath\\ContentAI\\Content_AI' => $baseDir . '/includes/modules/content-ai/class-content-ai.php',
+    'RankMath\\ContentAI\\Rest' => $baseDir . '/includes/modules/content-ai/class-rest.php',
     'RankMath\\Data_Encryption' => $baseDir . '/includes/class-data-encryption.php',
     'RankMath\\Defaults' => $baseDir . '/includes/class-defaults.php',
     'RankMath\\Divi\\Divi' => $baseDir . '/includes/3rdparty/divi/class-divi.php',

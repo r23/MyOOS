@@ -170,6 +170,15 @@ class Manager {
 			'settings' => Helper::get_admin_url( 'options-instant-indexing' ),
 		];
 
+		$modules['content-ai'] = [
+			'title'     => esc_html__( 'Content AI', 'rank-math' ),
+			'desc'      => esc_html__( 'Get sophisticated AI suggestions for related Keywords, Questions & Links to include in the SEO meta & Content Area. Supports 80+ Countries.', 'rank-math' ),
+			'class'     => 'RankMath\ContentAI\Content_AI',
+			'icon'      => 'target',
+			'settings'  => Helper::get_admin_url( 'options-general' ) . '#setting-panel-content-ai',
+			'betabadge' => true,
+		];
+
 		return $modules;
 	}
 
@@ -336,7 +345,7 @@ class Manager {
 	 */
 	public function display_form() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			echo 'You cant access this page.';
+			echo esc_html__( 'You cant access this page.', 'rank-math' );
 			return;
 		}
 		?>
@@ -349,10 +358,11 @@ class Manager {
 					continue;
 				}
 
-				$is_active   = $module->is_active();
-				$is_disabled = $module->is_disabled();
-				$is_hidden   = $module->is_hidden();
-				$is_probadge = $module->is_probadge();
+				$is_active    = $module->is_active();
+				$is_disabled  = $module->is_disabled();
+				$is_hidden    = $module->is_hidden();
+				$is_betabadge = $module->is_betabadge();
+				$is_probadge  = $module->is_probadge();
 				?>
 				<div class="rank-math-box <?php echo $is_active ? 'active' : ''; ?> <?php echo $is_hidden ? 'hidden' : ''; ?>">
 
@@ -361,9 +371,11 @@ class Manager {
 					<header>
 
 						<h3>
-							<?php echo $module->get( 'title' ); // phpcs:ignore ?>
-							<?php if ( $is_probadge ) { ?>
-							<span class="rank-math-pro-badge">PRO</span>
+							<?php echo esc_html( $module->get( 'title' ) ); ?>
+							<?php if ( $is_betabadge ) { ?>
+								<span class="rank-math-pro-badge beta"><?php echo esc_html__( 'NEW!', 'rank-math' ); ?></span>
+							<?php } elseif ( $is_probadge ) { ?>
+								<span class="rank-math-pro-badge"><?php echo esc_html__( 'PRO', 'rank-math' ); ?></span>
 							<?php } ?>
 						</h3>
 
@@ -424,7 +436,7 @@ class Manager {
 		}
 
 		if ( class_exists( $object_class ) ) {
-			$this->controls[ $id ] = new $object_class;
+			$this->controls[ $id ] = new $object_class();
 		}
 	}
 
@@ -437,7 +449,7 @@ class Manager {
 		$object_class = $module->get( 'class' );
 		if ( class_exists( $object_class . '_Common' ) ) {
 			$module_common_class                             = $object_class . '_Common';
-			$this->controls[ $module->get_id() . '_common' ] = new $module_common_class;
+			$this->controls[ $module->get_id() . '_common' ] = new $module_common_class();
 		}
 	}
 
