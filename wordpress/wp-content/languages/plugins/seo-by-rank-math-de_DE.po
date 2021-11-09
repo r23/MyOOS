@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-10-28 06:51:09+0000\n"
+"PO-Revision-Date: 2021-11-08 13:45:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -144,11 +144,11 @@ msgstr "Erfahre mehr über die PRO Version"
 
 #: rank-math.php:465
 msgid "This action is IRREVERSIBLE."
-msgstr "Diese Aktion ist NICHT UMKEHRBAR"
+msgstr "Diese Aktion ist NICHT UMKEHRBAR."
 
 #: rank-math.php:464
 msgid "CAUTION:"
-msgstr "VORSICHT: "
+msgstr "VORSICHT:"
 
 #: includes/modules/database-tools/class-database-tools.php:384
 msgid "Are you sure you want to delete the old schema data? This action is irreversible."
@@ -211,13 +211,13 @@ msgstr "Diagramm"
 #. Translators: don't translate the variable names between the #hashes#.
 #: includes/modules/analytics/views/email-reports/header.php:43
 msgid "Last ###PERIOD_DAYS### Days"
-msgstr "Letzte ###PERIOD_DAYS### Tage "
+msgstr "Letzte ###PERIOD_DAYS### Tage"
 
 #: includes/modules/analytics/views/email-reports/header-after.php:17
 #: includes/modules/analytics/views/email-reports/header.php:16
 #: includes/modules/analytics/views/email-reports/header.php:21
 msgid "SEO Report of Your Website"
-msgstr "SEO-Bericht deiner Website "
+msgstr "SEO-Bericht deiner Website"
 
 #: includes/modules/analytics/views/email-reports/cta.php:16
 msgid "Rank Math PRO"
@@ -1703,7 +1703,7 @@ msgstr "Gib hier die Überprüfungscodes für Webmaster Tools von Drittanbietern
 
 #: includes/admin/class-option-center.php:63
 msgid "Use the following code in your theme template files to display breadcrumbs."
-msgstr "Verwende den folgenden Code in deinen Theme-Vorlagen, um Breadcrumbs anzuzeigen:"
+msgstr "Verwende den folgenden Code in deinen Theme-Vorlagen, um Breadcrumbs anzuzeigen."
 
 #. translators: Link to kb article
 #: includes/admin/class-option-center.php:62
