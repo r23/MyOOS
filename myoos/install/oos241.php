@@ -32,11 +32,19 @@ $today = date("Y-m-d H:i:s");
 
 // configuration
 $table = $prefix_table . 'configuration';
-$result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MINIMUM_ORDER_VALUE', '', 1, 20, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)");
+$result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MINIMUM_ORDER_VALUE', '', 1, 21, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)");
 if ($result === false) {
 	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
+$result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('TAKE_BACK_OBLIGATION', '', 1, 22, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)");
+if ($result === false) {
+	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
 
 $result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('BLOG_URL', '', 11, 6, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)");
 if ($result === false) {

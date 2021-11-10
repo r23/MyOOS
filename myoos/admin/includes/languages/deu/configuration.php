@@ -88,6 +88,11 @@ define('DISPLAY_PRICE_WITH_TAX_DESC', 'Preise incl. Steuer anzeigen (true) oder 
 define('BASE_PRICE_TITLE', 'Grundpreis verwenden');
 define('BASE_PRICE_DESC', 'Möchten Sie Produkte mit einem Grundpreis verwenden?');
 
+define('TAKE_BACK_OBLIGATION_TITLE', 'Rücknahmepflicht für Elektroaltgeräte verwenden');
+define('TAKE_BACK_OBLIGATION_DESC', 'Sind Sie verpflichtet, bei bestimmten Geräten, Altgeräte bei Ablieferung des Neugerätes gleich mitzunehmen?');
+
+
+
 define('MINIMUM_ORDER_VALUE_TITLE', 'Mindestbestellwert verwenden');
 define('MINIMUM_ORDER_VALUE_DESC', 'Legen Sie einen Mindestbestellwert fest. Eine Zahl ohne Währung.');
 

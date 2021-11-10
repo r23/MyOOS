@@ -95,6 +95,10 @@ define('DISPLAY_PRICE_WITH_TAX_DESC', 'Display prices with tax included (true) o
 define('BASE_PRICE_TITLE', 'Use base price');
 define('BASE_PRICE_DESC', 'Would you like to use products with a basic price?');
 
+define('TAKE_BACK_OBLIGATION_TITLE', 'Rücknahmepflicht für Elektroaltgeräte verwenden');
+define('TAKE_BACK_OBLIGATION_DESC', 'Sind Sie verpflichtet, bei bestimmten Geräten, Altgeräte bei Ablieferung des Neugerätes gleich mitzunehmen?');
+
+
 define('MINIMUM_ORDER_VALUE_TITLE', 'Use minimum order value');
 define('MINIMUM_ORDER_VALUE_DESC', 'Set a minimum order value. A number without currency.');
 
