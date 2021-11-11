@@ -47,6 +47,16 @@ class Rest extends WP_REST_Controller {
 				'permission_callback' => [ $this, 'has_permission' ],
 			]
 		);
+
+		register_rest_route(
+			$this->namespace,
+			'/getCredits',
+			[
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => [ $this, 'get_credits' ],
+				'permission_callback' => [ $this, 'has_permission' ],
+			]
+		);
 	}
 
 	/**
@@ -67,7 +77,51 @@ class Rest extends WP_REST_Controller {
 	}
 
 	/**
-	 * Get top 5 winning and losing posts rows.
+	 * Get Content AI Credits.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
+	 * @return int Credits.
+	 */
+	public function get_credits( WP_REST_Request $request ) {
+		$credits = get_option( 'rank_math_ca_credits' );
+		if ( $credits ) {
+			return $credits;
+		}
+
+		$args = [
+			'username' => rawurlencode( $this->registered['username'] ),
+			'api_key'  => rawurlencode( $this->registered['api_key'] ),
+			'site_url' => rawurlencode( home_url() ),
+		];
+
+		$url = add_query_arg(
+			$args,
+			'https://rankmath.com/wp-json/rankmath/v1/contentAiCredits'
+		);
+
+		$data = wp_remote_get(
+			$url,
+			[
+				'timeout' => 60,
+			]
+		);
+
+		$response_code = wp_remote_retrieve_response_code( $data );
+		if ( 200 !== $response_code ) {
+			return 0;
+		}
+
+		$data = wp_remote_retrieve_body( $data );
+		$data = json_decode( $data, true );
+
+		$credits = ! empty( $data['remaining_credits'] ) ? $data['remaining_credits'] : 0;
+		update_option( 'rank_math_ca_credits', $credits, false );
+		return $credits;
+	}
+
+	/**
+	 * Research a keyword.
 	 *
 	 * @param WP_REST_Request $request Full details about the request.
 	 *
@@ -153,6 +207,7 @@ class Rest extends WP_REST_Controller {
 			'api_key'  => rawurlencode( $this->registered['api_key'] ),
 			'keyword'  => rawurlencode( $keyword ),
 			'site_url' => rawurlencode( home_url() ),
+			'new_api'  => 1,
 		];
 
 		if ( 'all' !== $country ) {
@@ -167,7 +222,7 @@ class Rest extends WP_REST_Controller {
 		$data = wp_remote_get(
 			$url,
 			[
-				'timeout' => 20000,
+				'timeout' => 60,
 			]
 		);
 
@@ -201,6 +256,18 @@ class Rest extends WP_REST_Controller {
 		if ( empty( $error['code'] ) ) {
 			return [
 				'data' => $error,
+			];
+		}
+
+		if ( 'invalid_domain' === $error['code'] ) {
+			return [
+				'data' => esc_html__( 'This feature is not available on the localhost.', 'rank-math' ),
+			];
+		}
+
+		if ( 'domain_limit_reached' === $error['code'] ) {
+			return [
+				'data' => esc_html__( 'You have used all the free credits which are allowed to this domain.', 'rank-math' ),
 			];
 		}
 

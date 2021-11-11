@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.76
+Stable tag: 1.0.76.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -580,6 +580,11 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 13. Rank Math SEO Comes with 15+ FREE modules.
 
 == Changelog ==
+
+= 1.0.76.1 [Nov 11, 2021] =
+* Fixed: [Content AI](https://rankmath.com/kb/how-to-use-content-ai/#credits-usage) was not showing any Credits after updating the plugin
+* Fixed: [Keyword Tooltip](https://rankmath.com/kb/how-to-use-content-ai/#num-7-1-use-keyword-in) was not showing any data when Post content was empty
+* Fixed: Dark mode styling of [Content AI](https://rankmath.com/kb/how-to-use-content-ai/) in the Elementor editor
 
 = 1.0.76 [Nov 08, 2021] =
 * Added: [HUGE!] Introducing [Content AI](https://rankmath.com/content-ai/) - Your personal AI assistant for writing SEO Optimized Content!I assistant

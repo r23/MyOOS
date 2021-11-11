@@ -175,6 +175,8 @@ class Admin_Helper {
 		if ( $registered && isset( $registered['username'] ) && isset( $registered['api_key'] ) ) {
 			Api::get()->deactivate_site( $registered['username'], $registered['api_key'] );
 			self::get_registration_data( false );
+
+			do_action( 'rank_math/deregister_site' );
 		}
 	}
 

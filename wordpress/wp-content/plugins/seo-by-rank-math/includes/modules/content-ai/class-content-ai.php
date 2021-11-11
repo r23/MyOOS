@@ -39,6 +39,7 @@ class Content_AI {
 		$this->action( 'elementor/editor/before_enqueue_scripts', 'elementor_enqueue', 11 );
 		$this->filter( 'rank_math/metabox/post/values', 'add_metadata', 10, 2 );
 		$this->action( 'cmb2_admin_init', 'add_content_ai_metabox', 11 );
+		$this->action( 'rank_math/deregister_site', 'remove_credits_data' );
 	}
 
 	/**
@@ -47,6 +48,13 @@ class Content_AI {
 	public function init_rest_api() {
 		$rest = new Rest();
 		$rest->register_routes();
+	}
+
+	/**
+	 * Remove credits data when site is disconnected.
+	 */
+	public function remove_credits_data() {
+		delete_option( 'rank_math_ca_credits' );
 	}
 
 	/**

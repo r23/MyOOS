@@ -2619,6 +2619,12 @@ msgstr ""
 msgid "No data found for the researched keyword."
 msgstr ""
 
+msgid "This feature is not available on the localhost."
+msgstr ""
+
+msgid "You have used all the free credits which are allowed to this domain."
+msgstr ""
+
 msgid "No Rank Math transients found."
 msgstr ""
 
