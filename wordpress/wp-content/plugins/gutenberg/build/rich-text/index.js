@@ -3148,10 +3148,20 @@ function createChildrenHTML(children = []) {
   }).join('');
 }
 //# sourceMappingURL=to-html-string.js.map
+;// CONCATENATED MODULE: external ["wp","a11y"]
+var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
+;// CONCATENATED MODULE: external ["wp","i18n"]
+var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/toggle-format.js
+/**
+ * WordPress dependencies
+ */
+
+
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -3170,7 +3180,19 @@ function createChildrenHTML(children = []) {
 
 function toggleFormat(value, format) {
   if (getActiveFormat(value, format.type)) {
+    // For screen readers, will announce if formatting control is disabled.
+    if (format.title) {
+      // translators: %s: title of the formatting control
+      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('%s removed.'), format.title), 'assertive');
+    }
+
     return removeFormat(value, format.type);
+  } // For screen readers, will announce if formatting control is enabled.
+
+
+  if (format.title) {
+    // translators: %s: title of the formatting control
+    (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('%s applied.'), format.title), 'assertive');
   }
 
   return applyFormat(value, format);

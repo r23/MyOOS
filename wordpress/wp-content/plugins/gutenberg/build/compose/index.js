@@ -2172,6 +2172,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalUseDialog": function() { return /* reexport */ use_dialog; },
   "__experimentalUseDragging": function() { return /* reexport */ useDragging; },
   "__experimentalUseDropZone": function() { return /* reexport */ useDropZone; },
+  "__experimentalUseFixedWindowList": function() { return /* reexport */ useFixedWindowList; },
   "__experimentalUseFocusOutside": function() { return /* reexport */ useFocusOutside; },
   "compose": function() { return /* reexport */ compose; },
   "createHigherOrderComponent": function() { return /* reexport */ create_higher_order_component; },
@@ -4453,6 +4454,171 @@ function useFocusableIframe() {
   }, []);
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-fixed-window-list/index.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+const DEFAULT_INIT_WINDOW_SIZE = 30;
+/**
+ * @typedef {Object} WPFixedWindowList
+ *
+ * @property {number}                  visibleItems Items visible in the current viewport
+ * @property {number}                  start        Start index of the window
+ * @property {number}                  end          End index of the window
+ * @property {(index:number)=>boolean} itemInView   Returns true if item is in the window
+ */
+
+/**
+ * @typedef {Object} WPFixedWindowListOptions
+ *
+ * @property {number}  [windowOverscan] Renders windowOverscan number of items before and after the calculated visible window.
+ * @property {boolean} [useWindowing]   When false avoids calculating the window size
+ * @property {number}  [initWindowSize] Initial window size to use on first render before we can calculate the window size.
+ */
+
+/**
+ *
+ * @param {import('react').RefObject<HTMLElement>} elementRef Used to find the closest scroll container that contains element.
+ * @param { number }                               itemHeight Fixed item height in pixels
+ * @param { number }                               totalItems Total items in list
+ * @param { WPFixedWindowListOptions }             [options]  Options object
+ * @return {[ WPFixedWindowList, setFixedListWindow:(nextWindow:WPFixedWindowList)=>void]} Array with the fixed window list and setter
+ */
+
+function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
+  var _options$initWindowSi, _options$useWindowing;
+
+  const initWindowSize = (_options$initWindowSi = options === null || options === void 0 ? void 0 : options.initWindowSize) !== null && _options$initWindowSi !== void 0 ? _options$initWindowSi : DEFAULT_INIT_WINDOW_SIZE;
+  const useWindowing = (_options$useWindowing = options === null || options === void 0 ? void 0 : options.useWindowing) !== null && _options$useWindowing !== void 0 ? _options$useWindowing : true;
+  const [fixedListWindow, setFixedListWindow] = (0,external_wp_element_namespaceObject.useState)({
+    visibleItems: initWindowSize,
+    start: 0,
+    end: initWindowSize,
+    itemInView:
+    /** @type {number} */
+    index => {
+      return index >= 0 && index <= initWindowSize;
+    }
+  });
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    var _scrollContainer$owne, _scrollContainer$owne2, _scrollContainer$owne3, _scrollContainer$owne4;
+
+    if (!useWindowing) {
+      return;
+    }
+
+    const scrollContainer = (0,external_wp_dom_namespaceObject.getScrollContainer)(elementRef.current);
+
+    const measureWindow =
+    /** @type {boolean | undefined} */
+    initRender => {
+      var _options$windowOversc;
+
+      if (!scrollContainer) {
+        return;
+      }
+
+      const visibleItems = Math.ceil(scrollContainer.clientHeight / itemHeight); // Aim to keep opening list view fast, afterward we can optimize for scrolling
+
+      const windowOverscan = initRender ? visibleItems : (_options$windowOversc = options === null || options === void 0 ? void 0 : options.windowOverscan) !== null && _options$windowOversc !== void 0 ? _options$windowOversc : visibleItems;
+      const firstViewableIndex = Math.floor(scrollContainer.scrollTop / itemHeight);
+      const start = Math.max(0, firstViewableIndex - windowOverscan);
+      const end = Math.min(totalItems - 1, firstViewableIndex + visibleItems + windowOverscan);
+      setFixedListWindow(lastWindow => {
+        const nextWindow = {
+          visibleItems,
+          start,
+          end,
+          itemInView:
+          /** @type {number} */
+          index => {
+            return start <= index && index <= end;
+          }
+        };
+
+        if (lastWindow.start !== nextWindow.start || lastWindow.end !== nextWindow.end || lastWindow.visibleItems !== nextWindow.visibleItems) {
+          return nextWindow;
+        }
+
+        return lastWindow;
+      });
+    };
+
+    measureWindow(true);
+    const debounceMeasureList = (0,external_lodash_namespaceObject.debounce)(() => {
+      measureWindow();
+    }, 16);
+    scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.addEventListener('scroll', debounceMeasureList);
+    scrollContainer === null || scrollContainer === void 0 ? void 0 : (_scrollContainer$owne = scrollContainer.ownerDocument) === null || _scrollContainer$owne === void 0 ? void 0 : (_scrollContainer$owne2 = _scrollContainer$owne.defaultView) === null || _scrollContainer$owne2 === void 0 ? void 0 : _scrollContainer$owne2.addEventListener('resize', debounceMeasureList);
+    scrollContainer === null || scrollContainer === void 0 ? void 0 : (_scrollContainer$owne3 = scrollContainer.ownerDocument) === null || _scrollContainer$owne3 === void 0 ? void 0 : (_scrollContainer$owne4 = _scrollContainer$owne3.defaultView) === null || _scrollContainer$owne4 === void 0 ? void 0 : _scrollContainer$owne4.addEventListener('resize', debounceMeasureList);
+    return () => {
+      var _scrollContainer$owne5, _scrollContainer$owne6;
+
+      scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.removeEventListener('scroll', debounceMeasureList);
+      scrollContainer === null || scrollContainer === void 0 ? void 0 : (_scrollContainer$owne5 = scrollContainer.ownerDocument) === null || _scrollContainer$owne5 === void 0 ? void 0 : (_scrollContainer$owne6 = _scrollContainer$owne5.defaultView) === null || _scrollContainer$owne6 === void 0 ? void 0 : _scrollContainer$owne6.removeEventListener('resize', debounceMeasureList);
+    };
+  }, [itemHeight, elementRef, totalItems]);
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    var _scrollContainer$owne7, _scrollContainer$owne8;
+
+    if (!useWindowing) {
+      return;
+    }
+
+    const scrollContainer = (0,external_wp_dom_namespaceObject.getScrollContainer)(elementRef.current);
+
+    const handleKeyDown =
+    /** @type {KeyboardEvent} */
+    event => {
+      switch (event.keyCode) {
+        case external_wp_keycodes_namespaceObject.HOME:
+          {
+            return scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.scrollTo({
+              top: 0
+            });
+          }
+
+        case external_wp_keycodes_namespaceObject.END:
+          {
+            return scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.scrollTo({
+              top: totalItems * itemHeight
+            });
+          }
+
+        case external_wp_keycodes_namespaceObject.PAGEUP:
+          {
+            return scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.scrollTo({
+              top: scrollContainer.scrollTop - fixedListWindow.visibleItems * itemHeight
+            });
+          }
+
+        case external_wp_keycodes_namespaceObject.PAGEDOWN:
+          {
+            return scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.scrollTo({
+              top: scrollContainer.scrollTop + fixedListWindow.visibleItems * itemHeight
+            });
+          }
+      }
+    };
+
+    scrollContainer === null || scrollContainer === void 0 ? void 0 : (_scrollContainer$owne7 = scrollContainer.ownerDocument) === null || _scrollContainer$owne7 === void 0 ? void 0 : (_scrollContainer$owne8 = _scrollContainer$owne7.defaultView) === null || _scrollContainer$owne8 === void 0 ? void 0 : _scrollContainer$owne8.addEventListener('keydown', handleKeyDown);
+    return () => {
+      var _scrollContainer$owne9, _scrollContainer$owne10;
+
+      scrollContainer === null || scrollContainer === void 0 ? void 0 : (_scrollContainer$owne9 = scrollContainer.ownerDocument) === null || _scrollContainer$owne9 === void 0 ? void 0 : (_scrollContainer$owne10 = _scrollContainer$owne9.defaultView) === null || _scrollContainer$owne10 === void 0 ? void 0 : _scrollContainer$owne10.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [totalItems, itemHeight, elementRef, fixedListWindow.visibleItems]);
+  return [fixedListWindow, setFixedListWindow];
+}
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/compose/build-module/index.js
 // Utils
  // Compose helper (aliased flowRight from Lodash)
@@ -4465,6 +4631,7 @@ function useFocusableIframe() {
 
 
  // Hooks
+
 
 
 

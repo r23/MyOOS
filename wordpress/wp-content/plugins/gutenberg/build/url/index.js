@@ -60,6 +60,7 @@ __webpack_require__.d(__webpack_exports__, {
   "isValidPath": function() { return /* reexport */ isValidPath; },
   "isValidProtocol": function() { return /* reexport */ isValidProtocol; },
   "isValidQueryString": function() { return /* reexport */ isValidQueryString; },
+  "normalizePath": function() { return /* reexport */ normalizePath; },
   "prependHTTP": function() { return /* reexport */ prependHTTP; },
   "removeQueryArgs": function() { return /* reexport */ removeQueryArgs; },
   "safeDecodeURI": function() { return /* reexport */ safeDecodeURI; },
@@ -816,7 +817,36 @@ function getFilename(url) {
   }
 }
 //# sourceMappingURL=get-filename.js.map
+;// CONCATENATED MODULE: ./packages/url/build-module/normalize-path.js
+/**
+ * Given a path, returns a normalized path where equal query parameter values
+ * will be treated as identical, regardless of order they appear in the original
+ * text.
+ *
+ * @param {string} path Original path.
+ *
+ * @return {string} Normalized path.
+ */
+function normalizePath(path) {
+  const splitted = path.split('?');
+  const query = splitted[1];
+  const base = splitted[0];
+
+  if (!query) {
+    return base;
+  } // 'b=1&c=2&a=5'
+
+
+  return base + '?' + query // [ 'b=1', 'c=2', 'a=5' ]
+  .split('&') // [ [ 'b, '1' ], [ 'c', '2' ], [ 'a', '5' ] ]
+  .map(entry => entry.split('=')) // [ [ 'a', '5' ], [ 'b, '1' ], [ 'c', '2' ] ]
+  .sort((a, b) => a[0].localeCompare(b[0])) // [ 'a=5', 'b=1', 'c=2' ]
+  .map(pair => pair.join('=')) // 'a=5&b=1&c=2'
+  .join('&');
+}
+//# sourceMappingURL=normalize-path.js.map
 ;// CONCATENATED MODULE: ./packages/url/build-module/index.js
+
 
 
 

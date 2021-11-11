@@ -536,7 +536,7 @@ function computeCaretRect(win) {
 
 /**
  * Check whether the current document has selected text. This applies to ranges
- * of text in the document, and not selection inside <input> and <textarea>
+ * of text in the document, and not selection inside `<input>` and `<textarea>`
  * elements.
  *
  * See: https://developer.mozilla.org/en-US/docs/Web/API/Window/getSelection#Related_objects.
@@ -666,8 +666,8 @@ function inputFieldHasUncollapsedSelection(element) {
 
 /**
  * Check whether the current document has any sort of selection. This includes
- * ranges of text across elements and any selection inside <input> and
- * <textarea> elements.
+ * ranges of text across elements and any selection inside `<input>` and
+ * `<textarea>` elements.
  *
  * @param {Document} doc The document to check.
  *
@@ -1474,7 +1474,55 @@ function wrap(newNode, referenceNode) {
   newNode.appendChild(referenceNode);
 }
 //# sourceMappingURL=wrap.js.map
+;// CONCATENATED MODULE: ./packages/dom/build-module/dom/safe-html.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Strips scripts and on* attributes from HTML.
+ *
+ * @param {string} html HTML to sanitize.
+ *
+ * @return {string} The sanitized HTML.
+ */
+
+function safeHTML(html) {
+  const {
+    body
+  } = document.implementation.createHTMLDocument('');
+  body.innerHTML = html;
+  const elements = body.getElementsByTagName('*');
+  let elementIndex = elements.length;
+
+  while (elementIndex--) {
+    const element = elements[elementIndex];
+
+    if (element.tagName === 'SCRIPT') {
+      remove(element);
+    } else {
+      let attributeIndex = element.attributes.length;
+
+      while (attributeIndex--) {
+        const {
+          name: key
+        } = element.attributes[attributeIndex];
+
+        if (key.startsWith('on')) {
+          element.removeAttribute(key);
+        }
+      }
+    }
+  }
+
+  return body.innerHTML;
+}
+//# sourceMappingURL=safe-html.js.map
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/strip-html.js
+/**
+ * Internal dependencies
+ */
+
 /**
  * Removes any HTML tags from the provided string.
  *
@@ -1482,9 +1530,14 @@ function wrap(newNode, referenceNode) {
  *
  * @return {string} The text content with any html removed.
  */
+
 function stripHTML(html) {
-  const document = new window.DOMParser().parseFromString(html, 'text/html');
-  return document.body.textContent || '';
+  // Remove any script tags or on* attributes otherwise their *contents* will be left
+  // in place following removal of HTML tags.
+  html = safeHTML(html);
+  const doc = document.implementation.createHTMLDocument('');
+  doc.body.innerHTML = html;
+  return doc.body.textContent || '';
 }
 //# sourceMappingURL=strip-html.js.map
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/is-empty.js
@@ -1886,50 +1939,6 @@ function removeInvalidHTML(HTML, schema, inline) {
   return doc.body.innerHTML;
 }
 //# sourceMappingURL=remove-invalid-html.js.map
-;// CONCATENATED MODULE: ./packages/dom/build-module/dom/safe-html.js
-/**
- * Internal dependencies
- */
-
-/**
- * Strips scripts and on* attributes from HTML.
- *
- * @param {string} html HTML to sanitize.
- *
- * @return {string} The sanitized HTML.
- */
-
-function safeHTML(html) {
-  const {
-    body
-  } = document.implementation.createHTMLDocument('');
-  body.innerHTML = html;
-  const elements = body.getElementsByTagName('*');
-  let elementIndex = elements.length;
-
-  while (elementIndex--) {
-    const element = elements[elementIndex];
-
-    if (element.tagName === 'SCRIPT') {
-      remove(element);
-    } else {
-      let attributeIndex = element.attributes.length;
-
-      while (attributeIndex--) {
-        const {
-          name: key
-        } = element.attributes[attributeIndex];
-
-        if (key.startsWith('on')) {
-          element.removeAttribute(key);
-        }
-      }
-    }
-  }
-
-  return body.innerHTML;
-}
-//# sourceMappingURL=safe-html.js.map
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/index.js
 
 

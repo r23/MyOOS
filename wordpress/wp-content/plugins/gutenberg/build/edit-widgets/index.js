@@ -179,6 +179,7 @@ __webpack_require__.d(store_actions_namespaceObject, {
   "saveWidgetArea": function() { return saveWidgetArea; },
   "saveWidgetAreas": function() { return saveWidgetAreas; },
   "setIsInserterOpened": function() { return setIsInserterOpened; },
+  "setIsListViewOpened": function() { return setIsListViewOpened; },
   "setIsWidgetAreaOpen": function() { return setIsWidgetAreaOpen; },
   "setWidgetAreasOpenState": function() { return setWidgetAreasOpenState; },
   "setWidgetIdForClientId": function() { return setWidgetIdForClientId; }
@@ -207,6 +208,7 @@ __webpack_require__.d(store_selectors_namespaceObject, {
   "getWidgetAreas": function() { return selectors_getWidgetAreas; },
   "getWidgets": function() { return selectors_getWidgets; },
   "isInserterOpened": function() { return isInserterOpened; },
+  "isListViewOpened": function() { return isListViewOpened; },
   "isSavingWidgetAreas": function() { return isSavingWidgetAreas; }
 });
 
@@ -1474,23 +1476,50 @@ function widgetAreasOpenState(state = {}, action) {
   }
 }
 /**
- * Reducer tracking whether the inserter is open.
+ * Reducer to set the block inserter panel open or closed.
  *
- * @param {boolean|Object} state
- * @param {Object}         action
+ * Note: this reducer interacts with the list view panel reducer
+ * to make sure that only one of the two panels is open at the same time.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
  */
 
 function blockInserterPanel(state = false, action) {
   switch (action.type) {
+    case 'SET_IS_LIST_VIEW_OPENED':
+      return action.isOpen ? false : state;
+
     case 'SET_IS_INSERTER_OPENED':
       return action.value;
   }
 
   return state;
 }
+/**
+ * Reducer to set the list view panel open or closed.
+ *
+ * Note: this reducer interacts with the inserter panel reducer
+ * to make sure that only one of the two panels is open at the same time.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ */
 
+function listViewPanel(state = false, action) {
+  switch (action.type) {
+    case 'SET_IS_INSERTER_OPENED':
+      return action.value ? false : state;
+
+    case 'SET_IS_LIST_VIEW_OPENED':
+      return action.isOpen;
+  }
+
+  return state;
+}
 /* harmony default export */ var store_reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
   blockInserterPanel,
+  listViewPanel,
   widgetAreasOpenState
 }));
 //# sourceMappingURL=reducer.js.map
@@ -1973,6 +2002,19 @@ function setIsInserterOpened(value) {
   };
 }
 /**
+ * Returns an action object used to open/close the list view.
+ *
+ * @param {boolean} isOpen A boolean representing whether the list view should be opened or closed.
+ * @return {Object} Action object.
+ */
+
+function setIsListViewOpened(isOpen) {
+  return {
+    type: 'SET_IS_LIST_VIEW_OPENED',
+    isOpen
+  };
+}
+/**
  * Returns an action object signalling that the user closed the sidebar.
  *
  * @return {Object} Action creator.
@@ -2343,6 +2385,17 @@ const canInsertBlockInWidgetArea = (0,external_wp_data_namespaceObject.createReg
   const [firstWidgetArea] = widgetAreas;
   return select(external_wp_blockEditor_namespaceObject.store).canInsertBlockType(blockName, firstWidgetArea.clientId);
 });
+/**
+ * Returns true if the list view is opened.
+ *
+ * @param {Object} state Global application state.
+ *
+ * @return {boolean} Whether the list view is opened.
+ */
+
+function isListViewOpened(state) {
+  return state.listViewPanel;
+}
 //# sourceMappingURL=selectors.js.map
 ;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/store/index.js
 /**
@@ -2561,7 +2614,7 @@ function WidgetAreaInnerBlocks({
   const isDraggingWithinInnerBlocks = use_is_dragging_within(innerBlocksRef);
   const shouldHighlightDropZone = isDraggingWithinInnerBlocks; // Using the experimental hook so that we can control the className of the element.
 
-  const innerBlocksProps = (0,external_wp_blockEditor_namespaceObject.__experimentalUseInnerBlocksProps)({
+  const innerBlocksProps = (0,external_wp_blockEditor_namespaceObject.useInnerBlocksProps)({
     ref: innerBlocksRef
   }, {
     value: blocks,
@@ -2570,7 +2623,6 @@ function WidgetAreaInnerBlocks({
     templateLock: false,
     renderAppender: external_wp_blockEditor_namespaceObject.InnerBlocks.ButtonBlockAppender
   });
-
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     "data-widget-area-id": id,
     className: classnames_default()('wp-block-widget-area__inner-blocks block-editor-inner-blocks editor-styles-wrapper', {
@@ -3299,21 +3351,6 @@ function Sidebar() {
   }, (0,external_wp_i18n_namespaceObject.__)('No block selected.'))));
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/close.js
-
-
-/**
- * WordPress dependencies
- */
-
-const close_close = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
-}));
-/* harmony default export */ var library_close = (close_close);
-//# sourceMappingURL=close.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/plus.js
 
 
@@ -3329,6 +3366,21 @@ const plus = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 }));
 /* harmony default export */ var library_plus = (plus);
 //# sourceMappingURL=plus.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/list-view.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const listView = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13.8 5.2H3v1.5h10.8V5.2zm-3.6 12v1.5H21v-1.5H10.2zm7.2-6H6.6v1.5h10.8v-1.5z"
+}));
+/* harmony default export */ var list_view = (listView);
+//# sourceMappingURL=list-view.js.map
 ;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/components/save-button/index.js
 
 
@@ -3850,19 +3902,32 @@ function Header() {
   const inserterButton = (0,external_wp_element_namespaceObject.useRef)();
   const widgetAreaClientId = use_last_selected_widget_area();
   const isLastSelectedWidgetAreaOpen = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getIsWidgetAreaOpen(widgetAreaClientId), [widgetAreaClientId]);
-  const isInserterOpened = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).isInserterOpened(), []);
+  const {
+    isInserterOpen,
+    isListViewOpen
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      isInserterOpened,
+      isListViewOpened
+    } = select(store_store);
+    return {
+      isInserterOpen: isInserterOpened(),
+      isListViewOpen: isListViewOpened()
+    };
+  }, []);
   const {
     setIsWidgetAreaOpen,
-    setIsInserterOpened
+    setIsInserterOpened,
+    setIsListViewOpened
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
   const {
     selectBlock
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
 
   const handleClick = () => {
-    if (isInserterOpened) {
+    if (isInserterOpen) {
       // Focusing the inserter button closes the inserter popover
-      inserterButton.current.focus();
+      setIsInserterOpened(false);
     } else {
       if (!isLastSelectedWidgetAreaOpen) {
         // Select the last selected block if hasn't already.
@@ -3880,6 +3945,7 @@ function Header() {
     }
   };
 
+  const toggleListView = (0,external_wp_element_namespaceObject.useCallback)(() => setIsListViewOpened(!isListViewOpen), [setIsListViewOpened, isListViewOpen]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-widgets-header"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -3897,7 +3963,7 @@ function Header() {
     as: external_wp_components_namespaceObject.Button,
     className: "edit-widgets-header-toolbar__inserter-toggle",
     variant: "primary",
-    isPressed: isInserterOpened,
+    isPressed: isInserterOpen,
     onMouseDown: event => {
       event.preventDefault();
     },
@@ -3908,7 +3974,14 @@ function Header() {
     ,
     label: (0,external_wp_i18n_namespaceObject._x)('Toggle block inserter', 'Generic label for block inserter button')
   }), isMediumViewport && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(UndoButton, null), (0,external_wp_element_namespaceObject.createElement)(RedoButton, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, {
-    as: external_wp_blockEditor_namespaceObject.BlockNavigationDropdown
+    as: external_wp_components_namespaceObject.Button,
+    className: "edit-widgets-header-toolbar__list-view-toggle",
+    icon: list_view,
+    isPressed: isListViewOpen
+    /* translators: button label text should, if possible, be under 16 characters. */
+    ,
+    label: (0,external_wp_i18n_namespaceObject.__)('List View'),
+    onClick: toggleListView
   })))), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-widgets-header__actions"
   }, (0,external_wp_element_namespaceObject.createElement)(save_button, null), (0,external_wp_element_namespaceObject.createElement)(pinned_items.Slot, {
@@ -4003,6 +4076,21 @@ function WidgetAreasBlockEditorContent({
   }))))));
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/close.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const close_close = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
+}));
+/* harmony default export */ var library_close = (close_close);
+//# sourceMappingURL=close.js.map
 ;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/hooks/use-widget-library-insertion-point.js
 /**
  * WordPress dependencies
@@ -4065,7 +4153,7 @@ const useWidgetLibraryInsertionPoint = () => {
 
 /* harmony default export */ var use_widget_library_insertion_point = (useWidgetLibraryInsertionPoint);
 //# sourceMappingURL=use-widget-library-insertion-point.js.map
-;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/components/layout/interface.js
+;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/components/secondary-sidebar/inserter-sidebar.js
 
 
 
@@ -4074,6 +4162,170 @@ const useWidgetLibraryInsertionPoint = () => {
  */
 
 
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function InserterSidebar() {
+  const isMobileViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium', '<');
+  const {
+    rootClientId,
+    insertionIndex
+  } = use_widget_library_insertion_point();
+  const {
+    setIsInserterOpened
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const closeInserter = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    return () => setIsInserterOpened(false);
+  }, [setIsInserterOpened]);
+  const [inserterDialogRef, inserterDialogProps] = (0,external_wp_compose_namespaceObject.__experimentalUseDialog)({
+    onClose: closeInserter
+  });
+  return (0,external_wp_element_namespaceObject.createElement)("div", _extends({
+    ref: inserterDialogRef
+  }, inserterDialogProps, {
+    className: "edit-widgets-layout__inserter-panel"
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-widgets-layout__inserter-panel-header"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    icon: library_close,
+    onClick: closeInserter
+  })), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-widgets-layout__inserter-panel-content"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLibrary, {
+    showInserterHelpPanel: true,
+    shouldFocusBlock: isMobileViewport,
+    rootClientId: rootClientId,
+    __experimentalInsertionIndex: insertionIndex
+  })));
+}
+//# sourceMappingURL=inserter-sidebar.js.map
+;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/components/secondary-sidebar/list-view-sidebar.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function ListViewSidebar() {
+  const {
+    setIsListViewOpened
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    clearSelectedBlock,
+    selectBlock
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+
+  async function selectEditorBlock(clientId) {
+    await clearSelectedBlock();
+    selectBlock(clientId, -1);
+  }
+
+  const focusOnMountRef = (0,external_wp_compose_namespaceObject.useFocusOnMount)('firstElement');
+  const focusReturnRef = (0,external_wp_compose_namespaceObject.useFocusReturn)();
+
+  function closeOnEscape(event) {
+    if (event.keyCode === external_wp_keycodes_namespaceObject.ESCAPE && !event.defaultPrevented) {
+      event.preventDefault();
+      setIsListViewOpened(false);
+    }
+  }
+
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(ListViewSidebar);
+  const labelId = `edit-widgets-editor__list-view-panel-label-${instanceId}`;
+  return (// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    (0,external_wp_element_namespaceObject.createElement)("div", {
+      "aria-labelledby": labelId,
+      className: "edit-widgets-editor__list-view-panel",
+      onKeyDown: closeOnEscape
+    }, (0,external_wp_element_namespaceObject.createElement)("div", {
+      className: "edit-widgets-editor__list-view-panel-header"
+    }, (0,external_wp_element_namespaceObject.createElement)("strong", {
+      id: labelId
+    }, (0,external_wp_i18n_namespaceObject.__)('List view')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+      icon: close_small,
+      label: (0,external_wp_i18n_namespaceObject.__)('Close list view sidebar'),
+      onClick: () => setIsListViewOpened(false)
+    })), (0,external_wp_element_namespaceObject.createElement)("div", {
+      className: "edit-widgets-editor__list-view-panel-content",
+      ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([focusReturnRef, focusOnMountRef])
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, {
+      onSelect: selectEditorBlock,
+      showNestedBlocks: true,
+      __experimentalHideContainerBlockActions: true,
+      __experimentalFeatures: true,
+      __experimentalPersistentListViewFeatures: true
+    })))
+  );
+}
+//# sourceMappingURL=list-view-sidebar.js.map
+;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/components/secondary-sidebar/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function SecondarySidebar() {
+  const {
+    isInserterOpen,
+    isListViewOpen
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      isInserterOpened,
+      isListViewOpened
+    } = select(store_store);
+    return {
+      isInserterOpen: isInserterOpened(),
+      isListViewOpen: isListViewOpened()
+    };
+  }, []);
+
+  if (isInserterOpen) {
+    return (0,external_wp_element_namespaceObject.createElement)(InserterSidebar, null);
+  }
+
+  if (isListViewOpen) {
+    return (0,external_wp_element_namespaceObject.createElement)(ListViewSidebar, null);
+  }
+
+  return null;
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/components/layout/interface.js
+
+
+/**
+ * WordPress dependencies
+ */
 
 
 
@@ -4110,21 +4362,20 @@ function Interface({
   const isHugeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('huge', '>=');
   const {
     setIsInserterOpened,
+    setIsListViewOpened,
     closeGeneralSidebar
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
-  const {
-    rootClientId,
-    insertionIndex
-  } = use_widget_library_insertion_point();
   const {
     hasBlockBreadCrumbsEnabled,
     hasSidebarEnabled,
     isInserterOpened,
+    isListViewOpened,
     previousShortcut,
     nextShortcut
   } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
     hasSidebarEnabled: !!select(store).getActiveComplementaryArea(store_store.name),
     isInserterOpened: !!select(store_store).isInserterOpened(),
+    isListViewOpened: !!select(store_store).isListViewOpened(),
     hasBlockBreadCrumbsEnabled: select(store).isFeatureActive('core/edit-widgets', 'showBlockBreadcrumbs'),
     previousShortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getAllShortcutKeyCombinations('core/edit-widgets/previous-region'),
     nextShortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getAllShortcutKeyCombinations('core/edit-widgets/next-region')
@@ -4133,36 +4384,18 @@ function Interface({
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (hasSidebarEnabled && !isHugeViewport) {
       setIsInserterOpened(false);
+      setIsListViewOpened(false);
     }
   }, [hasSidebarEnabled, isHugeViewport]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (isInserterOpened && !isHugeViewport) {
+    if ((isInserterOpened || isListViewOpened) && !isHugeViewport) {
       closeGeneralSidebar();
     }
-  }, [isInserterOpened, isHugeViewport]);
-  const [inserterDialogRef, inserterDialogProps] = (0,external_wp_compose_namespaceObject.__experimentalUseDialog)({
-    onClose: () => setIsInserterOpened(false)
-  });
+  }, [isInserterOpened, isListViewOpened, isHugeViewport]);
   return (0,external_wp_element_namespaceObject.createElement)(interface_skeleton, {
     labels: interfaceLabels,
     header: (0,external_wp_element_namespaceObject.createElement)(header, null),
-    secondarySidebar: isInserterOpened && (0,external_wp_element_namespaceObject.createElement)("div", _extends({
-      ref: inserterDialogRef
-    }, inserterDialogProps, {
-      className: "edit-widgets-layout__inserter-panel"
-    }), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "edit-widgets-layout__inserter-panel-header"
-    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-      icon: library_close,
-      onClick: () => setIsInserterOpened(false)
-    })), (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "edit-widgets-layout__inserter-panel-content"
-    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLibrary, {
-      showInserterHelpPanel: true,
-      shouldFocusBlock: isMobileViewport,
-      rootClientId: rootClientId,
-      __experimentalInsertionIndex: insertionIndex
-    }))),
+    secondarySidebar: (0,external_wp_element_namespaceObject.createElement)(SecondarySidebar, null),
     sidebar: hasSidebarEnabled && (0,external_wp_element_namespaceObject.createElement)(complementary_area.Slot, {
       scope: "core/edit-widgets"
     }),
@@ -4405,7 +4638,7 @@ function Layout({
 
 
 
-const disabledBlocks = ['core/more', 'core/freeform', ...(ALLOW_REUSABLE_BLOCKS ? [] : ['core/block'])];
+const disabledBlocks = ['core/more', 'core/freeform', 'core/template-part', ...(ALLOW_REUSABLE_BLOCKS ? [] : ['core/block'])];
 /**
  * Reinitializes the editor after the user chooses to reboot the editor after
  * an unhandled error occurs, replacing previously mounted editor element using
@@ -4435,7 +4668,7 @@ function initialize(id, settings) {
   const reboot = reinitializeEditor.bind(null, target, settings);
 
   const coreBlocks = (0,external_wp_blockLibrary_namespaceObject.__experimentalGetCoreBlocks)().filter(block => {
-    return !(disabledBlocks.includes(block.name) || block.name.startsWith('core/post') || block.name.startsWith('core/query') || block.name.startsWith('core/site'));
+    return !(disabledBlocks.includes(block.name) || block.name.startsWith('core/post') || block.name.startsWith('core/query') || block.name.startsWith('core/site') || block.name.startsWith('core/navigation'));
   });
 
   (0,external_wp_data_namespaceObject.dispatch)(store).setFeatureDefaults('core/edit-widgets', {

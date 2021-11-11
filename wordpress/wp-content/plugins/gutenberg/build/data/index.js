@@ -1864,22 +1864,34 @@ function invalidateResolutionForStoreSelector(selectorName) {
 
 /** @typedef {import('../types').WPDataReduxStoreConfig} WPDataReduxStoreConfig */
 
+const trimUndefinedValues = array => {
+  const result = [...array];
+
+  for (let i = result.length - 1; i >= 0; i--) {
+    if (result[i] === undefined) {
+      result.splice(i, 1);
+    }
+  }
+
+  return result;
+};
 /**
  * Create a cache to track whether resolvers started running or not.
  *
  * @return {Object} Resolvers Cache.
  */
 
+
 function createResolversCache() {
   const cache = {};
   return {
     isRunning(selectorName, args) {
-      return cache[selectorName] && cache[selectorName].get(args);
+      return cache[selectorName] && cache[selectorName].get(trimUndefinedValues(args));
     },
 
     clear(selectorName, args) {
       if (cache[selectorName]) {
-        cache[selectorName].delete(args);
+        cache[selectorName].delete(trimUndefinedValues(args));
       }
     },
 
@@ -1888,7 +1900,7 @@ function createResolversCache() {
         cache[selectorName] = new (equivalent_key_map_default())();
       }
 
-      cache[selectorName].set(args, true);
+      cache[selectorName].set(trimUndefinedValues(args), true);
     }
 
   };

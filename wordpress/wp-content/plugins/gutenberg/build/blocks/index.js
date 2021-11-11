@@ -5232,6 +5232,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalGetBlockLabel": function() { return /* reexport */ getBlockLabel; },
   "__experimentalSanitizeBlockAttributes": function() { return /* reexport */ __experimentalSanitizeBlockAttributes; },
   "__unstableGetBlockProps": function() { return /* reexport */ getBlockProps; },
+  "__unstableGetInnerBlocksProps": function() { return /* reexport */ getInnerBlocksProps; },
   "__unstableSerializeAndClean": function() { return /* reexport */ __unstableSerializeAndClean; },
   "children": function() { return /* reexport */ children; },
   "cloneBlock": function() { return /* reexport */ cloneBlock; },
@@ -5277,7 +5278,7 @@ __webpack_require__.d(__webpack_exports__, {
   "registerBlockStyle": function() { return /* reexport */ registerBlockStyle; },
   "registerBlockType": function() { return /* reexport */ registerBlockType; },
   "registerBlockVariation": function() { return /* reexport */ registerBlockVariation; },
-  "serialize": function() { return /* reexport */ serialize; },
+  "serialize": function() { return /* reexport */ serializer_serialize; },
   "setCategories": function() { return /* reexport */ categories_setCategories; },
   "setDefaultBlockName": function() { return /* reexport */ setDefaultBlockName; },
   "setFreeformContentHandlerName": function() { return /* reexport */ setFreeformContentHandlerName; },
@@ -8117,98 +8118,6 @@ var external_wp_autop_namespaceObject = window["wp"]["autop"];
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
 var external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-;// CONCATENATED MODULE: external ["wp","compose"]
-var external_wp_compose_namespaceObject = window["wp"]["compose"];
-;// CONCATENATED MODULE: ./packages/blocks/build-module/block-content-provider/index.js
-
-
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-const {
-  Consumer,
-  Provider
-} = (0,external_wp_element_namespaceObject.createContext)(() => {});
-/**
- * An internal block component used in block content serialization to inject
- * nested block content within the `save` implementation of the ancestor
- * component in which it is nested. The component provides a pre-bound
- * `BlockContent` component via context, which is used by the developer-facing
- * `InnerBlocks.Content` component to render block content.
- *
- * @example
- *
- * ```jsx
- * <BlockContentProvider innerBlocks={ innerBlocks }>
- * 	{ blockSaveElement }
- * </BlockContentProvider>
- * ```
- *
- * @param {Object}    props             Component props.
- * @param {WPElement} props.children    Block save result.
- * @param {Array}     props.innerBlocks Block(s) to serialize.
- *
- * @return {WPComponent} Element with BlockContent injected via context.
- */
-
-const BlockContentProvider = ({
-  children,
-  innerBlocks
-}) => {
-  const BlockContent = () => {
-    // Value is an array of blocks, so defer to block serializer
-    const html = serialize(innerBlocks, {
-      isInnerBlocks: true
-    }); // Use special-cased raw HTML tag to avoid default escaping
-
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, null, html);
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(Provider, {
-    value: BlockContent
-  }, children);
-};
-/**
- * A Higher Order Component used to inject BlockContent using context to the
- * wrapped component.
- *
- * @return {WPComponent} Enhanced component with injected BlockContent as prop.
- */
-
-
-const withBlockContentContext = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(OriginalComponent => {
-  return props => (0,external_wp_element_namespaceObject.createElement)(Consumer, null, context => (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, _extends({}, props, {
-    BlockContent: context
-  })));
-}, 'withBlockContentContext');
-/* harmony default export */ var block_content_provider = (BlockContentProvider);
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/serializer.js
 
 
@@ -8227,7 +8136,6 @@ const withBlockContentContext = (0,external_wp_compose_namespaceObject.createHig
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -8266,6 +8174,7 @@ function getBlockMenuDefaultClassName(blockName) {
   return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.getBlockMenuDefaultClassName', className, blockName);
 }
 const blockPropsProvider = {};
+const innerBlocksPropsProvider = {};
 /**
  * Call within a save function to get the props for the block wrapper.
  *
@@ -8279,6 +8188,26 @@ function getBlockProps(props = {}) {
   } = blockPropsProvider;
   return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.getSaveContent.extraProps', { ...props
   }, blockType, attributes);
+}
+/**
+ * Call within a save function to get the props for the inner blocks wrapper.
+ *
+ * @param {Object} props Optional. Props to pass to the element.
+ */
+
+function getInnerBlocksProps(props = {}) {
+  const {
+    innerBlocks
+  } = innerBlocksPropsProvider; // Value is an array of blocks, so defer to block serializer
+
+  const html = serializer_serialize(innerBlocks, {
+    isInnerBlocks: true
+  }); // Use special-cased raw HTML tag to avoid default escaping.
+
+  const children = (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, null, html);
+  return { ...props,
+    children
+  };
 }
 /**
  * Given a block type containing a save render implementation and attributes, returns the
@@ -8308,6 +8237,7 @@ function getSaveElement(blockTypeOrName, attributes, innerBlocks = []) {
 
   blockPropsProvider.blockType = blockType;
   blockPropsProvider.attributes = attributes;
+  innerBlocksPropsProvider.innerBlocks = innerBlocks;
   let element = save({
     attributes,
     innerBlocks
@@ -8337,10 +8267,7 @@ function getSaveElement(blockTypeOrName, attributes, innerBlocks = []) {
    */
 
 
-  element = (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.getSaveElement', element, blockType, attributes);
-  return (0,external_wp_element_namespaceObject.createElement)(block_content_provider, {
-    innerBlocks: innerBlocks
-  }, element);
+  return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.getSaveElement', element, blockType, attributes);
 }
 /**
  * Given a block type containing a save render implementation and attributes, returns the
@@ -8492,7 +8419,7 @@ function __unstableSerializeAndClean(blocks) {
     blocks = [];
   }
 
-  let content = serialize(blocks); // For compatibility, treat a post consisting of a
+  let content = serializer_serialize(blocks); // For compatibility, treat a post consisting of a
   // single freeform block as legacy content and apply
   // pre-block-editor removep'd content formatting.
 
@@ -8511,7 +8438,7 @@ function __unstableSerializeAndClean(blocks) {
  * @return {string} The post content.
  */
 
-function serialize(blocks, options) {
+function serializer_serialize(blocks, options) {
   return (0,external_lodash_namespaceObject.castArray)(blocks).map(block => serializeBlock(block, options)).join('\n\n');
 }
 //# sourceMappingURL=serializer.js.map
@@ -9899,6 +9826,20 @@ function convertLegacyBlockNameAndAttributes(name, attributes) {
 
   if (name === 'core/query-loop') {
     name = 'core/post-template';
+  } // Convert Post Comment blocks in existing content to Comment blocks.
+  // TODO: Remove these checks when WordPress 6.0 is released.
+
+
+  if (name === 'core/post-comment-author') {
+    name = 'core/comment-author-name';
+  }
+
+  if (name === 'core/post-comment-content') {
+    name = 'core/comment-content';
+  }
+
+  if (name === 'core/post-comment-date') {
+    name = 'core/comment-date';
   }
 
   return [name, newAttributes];
@@ -12738,6 +12679,98 @@ function synchronizeBlocksWithTemplate(blocks = [], template) {
 
 
 
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+;// CONCATENATED MODULE: external ["wp","compose"]
+var external_wp_compose_namespaceObject = window["wp"]["compose"];
+;// CONCATENATED MODULE: ./packages/blocks/build-module/block-content-provider/index.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const {
+  Consumer,
+  Provider
+} = (0,external_wp_element_namespaceObject.createContext)(() => {});
+/**
+ * An internal block component used in block content serialization to inject
+ * nested block content within the `save` implementation of the ancestor
+ * component in which it is nested. The component provides a pre-bound
+ * `BlockContent` component via context, which is used by the developer-facing
+ * `InnerBlocks.Content` component to render block content.
+ *
+ * @example
+ *
+ * ```jsx
+ * <BlockContentProvider innerBlocks={ innerBlocks }>
+ * 	{ blockSaveElement }
+ * </BlockContentProvider>
+ * ```
+ *
+ * @param {Object}    props             Component props.
+ * @param {WPElement} props.children    Block save result.
+ * @param {Array}     props.innerBlocks Block(s) to serialize.
+ *
+ * @return {WPComponent} Element with BlockContent injected via context.
+ */
+
+const BlockContentProvider = ({
+  children,
+  innerBlocks
+}) => {
+  const BlockContent = () => {
+    // Value is an array of blocks, so defer to block serializer
+    const html = serialize(innerBlocks, {
+      isInnerBlocks: true
+    }); // Use special-cased raw HTML tag to avoid default escaping
+
+    return createElement(RawHTML, null, html);
+  };
+
+  return createElement(Provider, {
+    value: BlockContent
+  }, children);
+};
+/**
+ * A Higher Order Component used to inject BlockContent using context to the
+ * wrapped component.
+ *
+ * @return {WPComponent} Enhanced component with injected BlockContent as prop.
+ */
+
+
+const withBlockContentContext = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(OriginalComponent => {
+  return props => (0,external_wp_element_namespaceObject.createElement)(Consumer, null, context => (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, _extends({}, props, {
+    BlockContent: context
+  })));
+}, 'withBlockContentContext');
+/* harmony default export */ var block_content_provider = ((/* unused pure expression or super */ null && (BlockContentProvider)));
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/index.js
 // A "block" is the abstract term used to describe units of markup that,

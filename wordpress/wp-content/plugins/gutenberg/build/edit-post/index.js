@@ -8847,9 +8847,17 @@ function Editor({
     return result;
   }, [settings, hasFixedToolbar, focusMode, hasReducedUI, hiddenBlockTypes, blockTypes, preferredStyleVariations, __experimentalLocalAutosaveInterval, setIsInserterOpened, updatePreferredStyleVariations, keepCaretInsideBlock]);
   const styles = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    var _settings$styles;
-
-    return hasThemeStyles && (_settings$styles = settings.styles) !== null && _settings$styles !== void 0 && _settings$styles.length ? settings.styles : settings.defaultEditorStyles;
+    const themeStyles = [];
+    const presetStyles = [];
+    settings.styles.forEach(style => {
+      if (!style.__unstableType || style.__unstableType === 'theme') {
+        themeStyles.push(style);
+      } else {
+        presetStyles.push(style);
+      }
+    });
+    const defaultEditorStyles = [...settings.defaultEditorStyles, ...presetStyles];
+    return hasThemeStyles && themeStyles.length ? settings.styles : defaultEditorStyles;
   }, [settings, hasThemeStyles]);
 
   if (!post) {
@@ -9187,6 +9195,7 @@ function initializeEditor(id, postType, postId, settings, initialEdits) {
   (0,external_wp_data_namespaceObject.dispatch)(store).setFeatureDefaults('core/edit-post', {
     fixedToolbar: false,
     welcomeGuide: true,
+    mobileGalleryWarning: true,
     fullscreenMode: true,
     showIconLabels: false,
     themeStyles: true,

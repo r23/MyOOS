@@ -1,24 +1,29 @@
 <?php
 /**
- * Server-side rendering of the `core/post-comment-content` block.
+ * Server-side rendering of the `core/comment-content` block.
  *
  * @package WordPress
  */
 
 /**
- * Renders the `core/post-comment-content` block on the server.
+ * Renders the `core/comment-content` block on the server.
  *
  * @param array    $attributes Block attributes.
  * @param string   $content    Block default content.
  * @param WP_Block $block      Block instance.
  * @return string Return the post comment's content.
  */
-function gutenberg_render_block_core_post_comment_content( $attributes, $content, $block ) {
+function gutenberg_render_block_core_comment_content( $attributes, $content, $block ) {
 	if ( ! isset( $block->context['commentId'] ) ) {
 		return '';
 	}
 
-	$comment_text = get_comment_text( $block->context['commentId'] );
+	$comment = get_comment( $block->context['commentId'] );
+	if ( empty( $comment ) ) {
+		return '';
+	}
+
+	$comment_text = get_comment_text( $comment );
 	if ( ! $comment_text ) {
 		return '';
 	}
@@ -38,14 +43,14 @@ function gutenberg_render_block_core_post_comment_content( $attributes, $content
 }
 
 /**
- * Registers the `core/post-comment-content` block on the server.
+ * Registers the `core/comment-content` block on the server.
  */
-function gutenberg_register_block_core_post_comment_content() {
+function gutenberg_register_block_core_comment_content() {
 	register_block_type_from_metadata(
-		__DIR__ . '/post-comment-content',
+		__DIR__ . '/comment-content',
 		array(
-			'render_callback' => 'gutenberg_render_block_core_post_comment_content',
+			'render_callback' => 'gutenberg_render_block_core_comment_content',
 		)
 	);
 }
-add_action( 'init', 'gutenberg_register_block_core_post_comment_content', 20 );
+add_action( 'init', 'gutenberg_register_block_core_comment_content', 20 );

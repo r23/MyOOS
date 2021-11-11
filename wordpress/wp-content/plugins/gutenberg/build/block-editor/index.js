@@ -2154,7 +2154,7 @@ __webpack_require__.d(__webpack_exports__, {
   "BlockEditorKeyboardShortcuts": function() { return /* reexport */ keyboard_shortcuts; },
   "BlockEditorProvider": function() { return /* reexport */ provider; },
   "BlockFormatControls": function() { return /* reexport */ BlockFormatControls; },
-  "BlockIcon": function() { return /* reexport */ BlockIcon; },
+  "BlockIcon": function() { return /* reexport */ block_icon; },
   "BlockInspector": function() { return /* reexport */ block_inspector; },
   "BlockList": function() { return /* reexport */ BlockList; },
   "BlockMover": function() { return /* reexport */ block_mover; },
@@ -2238,12 +2238,13 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalPanelColorGradientSettings": function() { return /* reexport */ panel_color_gradient_settings; },
   "__experimentalPreviewOptions": function() { return /* reexport */ PreviewOptions; },
   "__experimentalResponsiveBlockControl": function() { return /* reexport */ responsive_block_control; },
+  "__experimentalTextDecorationControl": function() { return /* reexport */ TextDecorationControl; },
+  "__experimentalTextTransformControl": function() { return /* reexport */ TextTransformControl; },
   "__experimentalUnitControl": function() { return /* reexport */ UnitControl; },
   "__experimentalUseBorderProps": function() { return /* reexport */ useBorderProps; },
   "__experimentalUseColorProps": function() { return /* reexport */ useColorProps; },
   "__experimentalUseCustomSides": function() { return /* reexport */ useCustomSides; },
   "__experimentalUseGradient": function() { return /* reexport */ __experimentalUseGradient; },
-  "__experimentalUseInnerBlocksProps": function() { return /* reexport */ useInnerBlocksProps; },
   "__experimentalUseNoRecursiveRenders": function() { return /* reexport */ useNoRecursiveRenders; },
   "__experimentalUseResizeCanvas": function() { return /* reexport */ useResizeCanvas; },
   "__unstableBlockSettingsMenuFirstItem": function() { return /* reexport */ block_settings_menu_first_item; },
@@ -2274,6 +2275,7 @@ __webpack_require__.d(__webpack_exports__, {
   "useBlockEditContext": function() { return /* reexport */ useBlockEditContext; },
   "useBlockProps": function() { return /* reexport */ useBlockProps; },
   "useCachedTruthy": function() { return /* reexport */ useCachedTruthy; },
+  "useInnerBlocksProps": function() { return /* reexport */ useInnerBlocksProps; },
   "useSetting": function() { return /* reexport */ useSetting; },
   "validateThemeColors": function() { return /* reexport */ validateThemeColors; },
   "validateThemeGradients": function() { return /* reexport */ validateThemeGradients; },
@@ -2293,7 +2295,6 @@ __webpack_require__.d(selectors_namespaceObject, {
   "__experimentalGetDirectInsertBlock": function() { return __experimentalGetDirectInsertBlock; },
   "__experimentalGetLastBlockAttributeChanges": function() { return __experimentalGetLastBlockAttributeChanges; },
   "__experimentalGetParsedPattern": function() { return __experimentalGetParsedPattern; },
-  "__experimentalGetParsedReusableBlock": function() { return __experimentalGetParsedReusableBlock; },
   "__experimentalGetPatternTransformItems": function() { return __experimentalGetPatternTransformItems; },
   "__experimentalGetPatternsByBlockTypes": function() { return __experimentalGetPatternsByBlockTypes; },
   "__experimentalGetReusableBlockTitle": function() { return __experimentalGetReusableBlockTitle; },
@@ -2383,7 +2384,6 @@ var actions_namespaceObject = {};
 __webpack_require__.r(actions_namespaceObject);
 __webpack_require__.d(actions_namespaceObject, {
   "__unstableMarkAutomaticChange": function() { return __unstableMarkAutomaticChange; },
-  "__unstableMarkAutomaticChangeFinal": function() { return __unstableMarkAutomaticChangeFinal; },
   "__unstableMarkLastChangeAsPersistent": function() { return __unstableMarkLastChangeAsPersistent; },
   "__unstableMarkNextChangeAsNotPersistent": function() { return __unstableMarkNextChangeAsNotPersistent; },
   "__unstableSaveReusableBlock": function() { return __unstableSaveReusableBlock; },
@@ -2964,35 +2964,35 @@ function buildBlockTree(state, blocks) {
   return result;
 }
 
-function updateParentInnerBlocksInTree(state, tree, updatedClientIds) {
-  const clientIds = new Set([]);
+function updateParentInnerBlocksInTree(state, tree, updatedClientIds, updateChildrenOfUpdatedClientIds = false) {
+  const uncontrolledParents = new Set([]);
   const controlledParents = new Set();
 
   for (const clientId of updatedClientIds) {
-    let current = clientId;
+    let current = updateChildrenOfUpdatedClientIds ? clientId : state.parents[clientId];
 
     do {
       if (state.controlledInnerBlocks[current]) {
-        controlledParents.add(current); // If we reach a controlled parent, break out of the loop.
-
+        // Should stop on controlled blocks.
+        // If we reach a controlled parent, break out of the loop.
+        controlledParents.add(current);
         break;
       } else {
-        clientIds.add(current);
-      } // Should stop on controlled blocks.
-
-
-      current = state.parents[current];
+        // else continue traversing up through parents.
+        uncontrolledParents.add(current);
+        current = state.parents[current];
+      }
     } while (current !== undefined);
   } // To make sure the order of assignments doesn't matter,
   // we first create empty objects and mutates the inner blocks later.
 
 
-  for (const clientId of clientIds) {
+  for (const clientId of uncontrolledParents) {
     tree[clientId] = { ...tree[clientId]
     };
   }
 
-  for (const clientId of clientIds) {
+  for (const clientId of uncontrolledParents) {
     tree[clientId].innerBlocks = (state.order[clientId] || []).map(subClientId => tree[subClientId]);
   } // Controlled parent blocks, need a dedicated key for their inner blocks
   // to be used when doing getBlocks( controlledBlockClientId ).
@@ -3033,16 +3033,17 @@ const withBlockTree = reducer => (state = {}, action) => {
         const subTree = buildBlockTree(newState, action.blocks);
         newState.tree = updateParentInnerBlocksInTree(newState, { ...newState.tree,
           ...subTree
-        }, action.rootClientId ? [action.rootClientId] : ['']);
+        }, action.rootClientId ? [action.rootClientId] : [''], true);
         break;
       }
 
     case 'UPDATE_BLOCK':
       newState.tree = updateParentInnerBlocksInTree(newState, { ...newState.tree,
-        [action.clientId]: { ...newState.byClientId[action.clientId],
+        [action.clientId]: { ...newState.tree[action.clientId],
+          ...newState.byClientId[action.clientId],
           attributes: newState.attributes[action.clientId]
         }
-      }, [action.clientId]);
+      }, [action.clientId], false);
       break;
 
     case 'UPDATE_BLOCK_ATTRIBUTES':
@@ -3055,7 +3056,7 @@ const withBlockTree = reducer => (state = {}, action) => {
         }, {});
         newState.tree = updateParentInnerBlocksInTree(newState, { ...newState.tree,
           ...newSubTree
-        }, action.clientIds);
+        }, action.clientIds, false);
         break;
       }
 
@@ -3064,7 +3065,7 @@ const withBlockTree = reducer => (state = {}, action) => {
         const subTree = buildBlockTree(newState, action.blocks);
         newState.tree = updateParentInnerBlocksInTree(newState, { ...(0,external_lodash_namespaceObject.omit)(newState.tree, action.replacedClientIds.concat(action.replacedClientIds.map(clientId => 'controlled||' + clientId))),
           ...subTree
-        }, action.blocks.map(b => b.clientId)); // If there are no replaced blocks, it means we're removing blocks so we need to update their parent.
+        }, action.blocks.map(b => b.clientId), false); // If there are no replaced blocks, it means we're removing blocks so we need to update their parent.
 
         const parentsOfRemovedBlocks = [];
 
@@ -3074,7 +3075,7 @@ const withBlockTree = reducer => (state = {}, action) => {
           }
         }
 
-        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, parentsOfRemovedBlocks);
+        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, parentsOfRemovedBlocks, true);
         break;
       }
 
@@ -3087,7 +3088,7 @@ const withBlockTree = reducer => (state = {}, action) => {
         }
       }
 
-      newState.tree = updateParentInnerBlocksInTree(newState, (0,external_lodash_namespaceObject.omit)(newState.tree, action.removedClientIds.concat(action.removedClientIds.map(clientId => 'controlled||' + clientId))), parentsOfRemovedBlocks);
+      newState.tree = updateParentInnerBlocksInTree(newState, (0,external_lodash_namespaceObject.omit)(newState.tree, action.removedClientIds.concat(action.removedClientIds.map(clientId => 'controlled||' + clientId))), parentsOfRemovedBlocks, true);
       break;
 
     case 'MOVE_BLOCKS_TO_POSITION':
@@ -3106,7 +3107,7 @@ const withBlockTree = reducer => (state = {}, action) => {
           updatedBlockUids.push('');
         }
 
-        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, updatedBlockUids);
+        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, updatedBlockUids, true);
         break;
       }
 
@@ -3114,7 +3115,7 @@ const withBlockTree = reducer => (state = {}, action) => {
     case 'MOVE_BLOCKS_DOWN':
       {
         const updatedBlockUids = [action.rootClientId ? action.rootClientId : ''];
-        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, updatedBlockUids);
+        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, updatedBlockUids, true);
         break;
       }
 
@@ -3131,7 +3132,7 @@ const withBlockTree = reducer => (state = {}, action) => {
             };
             return result;
           }, {})
-        }, updatedBlockUids);
+        }, updatedBlockUids, false);
       }
   }
 
@@ -6183,18 +6184,48 @@ const getInserterItems = rememo((state, rootClientId = null) => {
   const buildBlockTypeInserterItem = buildBlockTypeItem(state, {
     buildScope: 'inserter'
   });
+  /*
+   * Matches block comment delimiters amid serialized content.
+   *
+   * @see `tokenizer` in `@wordpress/block-serialization-default-parser`
+   * package
+   *
+   * blockParserTokenizer differs from the original tokenizer in the
+   * following ways:
+   *
+   * - removed global flag (/g)
+   * - prepended ^\s*
+   *
+   */
+
+  const blockParserTokenizer = /^\s*<!--\s+(\/)?wp:([a-z][a-z0-9_-]*\/)?([a-z][a-z0-9_-]*)\s+({(?:(?=([^}]+|}+(?=})|(?!}\s+\/?-->)[^])*)\5|[^]*?)}\s+)?(\/)?-->/;
 
   const buildReusableBlockInserterItem = reusableBlock => {
-    const id = `core/block/${reusableBlock.id}`;
+    let icon = library_symbol;
+    /*
+     * Instead of always displaying a generic "symbol" icon for every
+     * reusable block, try to use an icon that represents the first
+     * outermost block contained in the reusable block. This requires
+     * scanning the serialized form of the reusable block to find its
+     * first block delimiter, then looking up the corresponding block
+     * type, if available.
+     */
 
-    const referencedBlocks = __experimentalGetParsedReusableBlock(state, reusableBlock.id);
+    if (external_wp_element_namespaceObject.Platform.OS === 'web') {
+      const content = typeof reusableBlock.content.raw === 'string' ? reusableBlock.content.raw : reusableBlock.content;
+      const rawBlockMatch = content.match(blockParserTokenizer);
 
-    let referencedBlockType;
+      if (rawBlockMatch) {
+        const [,, namespace = 'core/', blockName] = rawBlockMatch;
+        const referencedBlockType = (0,external_wp_blocks_namespaceObject.getBlockType)(namespace + blockName);
 
-    if (referencedBlocks.length === 1) {
-      referencedBlockType = (0,external_wp_blocks_namespaceObject.getBlockType)(referencedBlocks[0].name);
+        if (referencedBlockType) {
+          icon = referencedBlockType.icon;
+        }
+      }
     }
 
+    const id = `core/block/${reusableBlock.id}`;
     const {
       time,
       count = 0
@@ -6207,7 +6238,7 @@ const getInserterItems = rememo((state, rootClientId = null) => {
         ref: reusableBlock.id
       },
       title: reusableBlock.title.raw,
-      icon: referencedBlockType && external_wp_element_namespaceObject.Platform.OS === 'web' ? referencedBlockType.icon : library_symbol,
+      icon,
       category: 'reusable',
       keywords: [],
       isDisabled: false,
@@ -6418,7 +6449,9 @@ const getAllAllowedPatterns = rememo(state => {
   const {
     allowedBlockTypes
   } = getSettings(state);
-  const parsedPatterns = patterns.map(({
+  const parsedPatterns = patterns.filter(({
+    inserter = true
+  }) => !!inserter).map(({
     name
   }) => __experimentalGetParsedPattern(state, name));
   const allowedPatterns = parsedPatterns.filter(({
@@ -6575,26 +6608,6 @@ const __experimentalGetBlockListSettingsForBlocks = rememo((state, clientIds = [
     };
   }, {});
 }, state => [state.blockListSettings]);
-/**
- * Returns the parsed block saved as shared block with the given ID.
- *
- * @param {Object}        state Global application state.
- * @param {number|string} ref   The shared block's ID.
- *
- * @return {Object} The parsed block.
- */
-
-const __experimentalGetParsedReusableBlock = rememo((state, ref) => {
-  const reusableBlock = (0,external_lodash_namespaceObject.find)(getReusableBlocks(state), block => block.id === ref);
-
-  if (!reusableBlock) {
-    return null;
-  } // Only reusableBlock.content.raw should be used here, `reusableBlock.content` is a
-  // workaround until #22127 is fixed.
-
-
-  return (0,external_wp_blocks_namespaceObject.parse)(typeof reusableBlock.content.raw === 'string' ? reusableBlock.content.raw : reusableBlock.content);
-}, state => [getReusableBlocks(state)]);
 /**
  * Returns the title of a given reusable block
  *
@@ -6774,42 +6787,6 @@ var external_wp_richText_namespaceObject = window["wp"]["richText"];
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/controls.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-const __unstableMarkAutomaticChangeFinalControl = function () {
-  return {
-    type: 'MARK_AUTOMATIC_CHANGE_FINAL_CONTROL'
-  };
-};
-const controls = {
-  SLEEP({
-    duration
-  }) {
-    return new Promise(resolve => {
-      setTimeout(resolve, duration);
-    });
-  },
-
-  MARK_AUTOMATIC_CHANGE_FINAL_CONTROL: (0,external_wp_data_namespaceObject.createRegistryControl)(registry => () => {
-    const {
-      requestIdleCallback = callback => setTimeout(callback, 100)
-    } = window;
-    requestIdleCallback(() => registry.dispatch(store).__unstableMarkAutomaticChangeFinal());
-  })
-};
-/* harmony default export */ var store_controls = (controls);
-//# sourceMappingURL=controls.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/constants.js
-const STORE_NAME = 'core/block-editor';
-//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/actions.js
 /**
  * External dependencies
@@ -6824,54 +6801,55 @@ const STORE_NAME = 'core/block-editor';
 
 
 
-
 /**
- * Internal dependencies
- */
-
-
-
-/**
- * Generator which will yield a default block insert action if there
- * are no other blocks at the root of the editor. This generator should be used
+ * Action which will insert a default block insert action if there
+ * are no other blocks at the root of the editor. This action should be used
  * in actions which may result in no blocks remaining in the editor (removal,
  * replacement, etc).
  */
 
-function* ensureDefaultBlock() {
-  const count = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockCount'); // To avoid a focus loss when removing the last block, assure there is
+const ensureDefaultBlock = () => ({
+  select,
+  dispatch
+}) => {
+  // To avoid a focus loss when removing the last block, assure there is
   // always a default block if the last of the blocks have been removed.
+  const count = select.getBlockCount();
 
-  if (count === 0) {
-    const {
-      __unstableHasCustomAppender
-    } = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getSettings'); // If there's an custom appender, don't insert default block.
-    // We have to remember to manually move the focus elsewhere to
-    // prevent it from being lost though.
+  if (count > 0) {
+    return;
+  } // If there's an custom appender, don't insert default block.
+  // We have to remember to manually move the focus elsewhere to
+  // prevent it from being lost though.
 
-    if (__unstableHasCustomAppender) {
-      return;
-    }
 
-    return yield insertDefaultBlock();
+  const {
+    __unstableHasCustomAppender
+  } = select.getSettings();
+
+  if (__unstableHasCustomAppender) {
+    return;
   }
-}
+
+  dispatch.insertDefaultBlock();
+};
 /**
- * Returns an action object used in signalling that blocks state should be
- * reset to the specified array of blocks, taking precedence over any other
- * content reflected as an edit in state.
+ * Action that resets blocks state to the specified array of blocks, taking precedence
+ * over any other content reflected as an edit in state.
  *
  * @param {Array} blocks Array of blocks.
  */
 
 
-function* resetBlocks(blocks) {
-  yield {
+const resetBlocks = blocks => ({
+  dispatch
+}) => {
+  dispatch({
     type: 'RESET_BLOCKS',
     blocks
-  };
-  return yield* validateBlocksToTemplate(blocks);
-}
+  });
+  dispatch(validateBlocksToTemplate(blocks));
+};
 /**
  * Block validity is a function of blocks state (at the point of a
  * reset) and the template setting. As a compromise to its placement
@@ -6881,20 +6859,23 @@ function* resetBlocks(blocks) {
  * @param {Array} blocks Array of blocks.
  */
 
-function* validateBlocksToTemplate(blocks) {
-  const template = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getTemplate');
-  const templateLock = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getTemplateLock'); // Unlocked templates are considered always valid because they act
+const validateBlocksToTemplate = blocks => ({
+  select,
+  dispatch
+}) => {
+  const template = select.getTemplate();
+  const templateLock = select.getTemplateLock(); // Unlocked templates are considered always valid because they act
   // as default values only.
 
   const isBlocksValidToTemplate = !template || templateLock !== 'all' || (0,external_wp_blocks_namespaceObject.doBlocksMatchTemplate)(blocks, template); // Update if validity has changed.
 
-  const isValidTemplate = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'isValidTemplate');
+  const isValidTemplate = select.isValidTemplate();
 
   if (isBlocksValidToTemplate !== isValidTemplate) {
-    yield setTemplateValidity(isBlocksValidToTemplate);
+    dispatch.setTemplateValidity(isBlocksValidToTemplate);
     return isBlocksValidToTemplate;
   }
-}
+};
 /**
  * A block selection object.
  *
@@ -6951,8 +6932,7 @@ function receiveBlocks(blocks) {
   };
 }
 /**
- * Returns an action object used in signalling that the multiple blocks'
- * attributes with the specified client IDs have been updated.
+ * Action that updates attributes of multiple blocks with the specified client IDs.
  *
  * @param {string|string[]} clientIds     Block client IDs.
  * @param {Object}          attributes    Block attributes to be merged. Should be keyed by clientIds if
@@ -6970,8 +6950,7 @@ function updateBlockAttributes(clientIds, attributes, uniqueByBlock = false) {
   };
 }
 /**
- * Returns an action object used in signalling that the block with the
- * specified client ID has been updated.
+ * Action that updates the block with the specified client ID.
  *
  * @param {string} clientId Block client ID.
  * @param {Object} updates  Block attributes to be merged.
@@ -7016,14 +6995,16 @@ function selectBlock(clientId, initialPosition = 0) {
  * @param {string} clientId Block client ID.
  */
 
-function* selectPreviousBlock(clientId) {
-  const previousBlockClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getPreviousBlockClientId', clientId);
+const selectPreviousBlock = clientId => ({
+  select,
+  dispatch
+}) => {
+  const previousBlockClientId = select.getPreviousBlockClientId(clientId);
 
   if (previousBlockClientId) {
-    yield selectBlock(previousBlockClientId, -1);
-    return [previousBlockClientId];
+    dispatch.selectBlock(previousBlockClientId, -1);
   }
-}
+};
 /**
  * Yields action objects used in signalling that the block following the given
  * clientId should be selected.
@@ -7031,16 +7012,18 @@ function* selectPreviousBlock(clientId) {
  * @param {string} clientId Block client ID.
  */
 
-function* selectNextBlock(clientId) {
-  const nextBlockClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getNextBlockClientId', clientId);
+const selectNextBlock = clientId => ({
+  select,
+  dispatch
+}) => {
+  const nextBlockClientId = select.getNextBlockClientId(clientId);
 
   if (nextBlockClientId) {
-    yield selectBlock(nextBlockClientId);
-    return [nextBlockClientId];
+    dispatch.selectBlock(nextBlockClientId);
   }
-}
+};
 /**
- * Returns an action object used in signalling that a block multi-selection has started.
+ * Action that starts block multi-selection.
  *
  * @return {Object} Action object.
  */
@@ -7051,7 +7034,7 @@ function startMultiSelect() {
   };
 }
 /**
- * Returns an action object used in signalling that block multi-selection stopped.
+ * Action that stops block multi-selection.
  *
  * @return {Object} Action object.
  */
@@ -7062,32 +7045,35 @@ function stopMultiSelect() {
   };
 }
 /**
- * Returns an action object used in signalling that block multi-selection changed.
+ * Action that changes block multi-selection.
  *
  * @param {string} start First block of the multi selection.
  * @param {string} end   Last block of the multiselection.
  */
 
-function* multiSelect(start, end) {
-  const startBlockRootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', start);
-  const endBlockRootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', end); // Only allow block multi-selections at the same level.
+const multiSelect = (start, end) => ({
+  select,
+  dispatch
+}) => {
+  const startBlockRootClientId = select.getBlockRootClientId(start);
+  const endBlockRootClientId = select.getBlockRootClientId(end); // Only allow block multi-selections at the same level.
 
   if (startBlockRootClientId !== endBlockRootClientId) {
     return;
   }
 
-  yield {
+  dispatch({
     type: 'MULTI_SELECT',
     start,
     end
-  };
-  const blockCount = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getSelectedBlockCount');
+  });
+  const blockCount = select.getSelectedBlockCount();
   (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: %s: number of selected blocks */
   (0,external_wp_i18n_namespaceObject._n)('%s block selected.', '%s blocks selected.', blockCount), blockCount), 'assertive');
-}
+};
 /**
- * Returns an action object used in signalling that the block selection is cleared.
+ * Action that clears the block selection.
  *
  * @return {Object} Action object.
  */
@@ -7098,7 +7084,7 @@ function clearSelectedBlock() {
   };
 }
 /**
- * Returns an action object that enables or disables block selection.
+ * Action that enables or disables block selection.
  *
  * @param {boolean} [isSelectionEnabled=true] Whether block selection should
  *                                            be enabled.
@@ -7150,8 +7136,7 @@ function getBlocksWithDefaultStylesApplied(blocks, blockEditorSettings) {
 /* eslint-disable jsdoc/valid-types */
 
 /**
- * Returns an action object signalling that a blocks should be replaced with
- * one or more replacement blocks.
+ * Action that replaces given blocks with one or more replacement blocks.
  *
  * @param {(string|string[])} clientIds       Block client ID(s) to replace.
  * @param {(Object|Object[])} blocks          Replacement block(s).
@@ -7159,26 +7144,29 @@ function getBlocksWithDefaultStylesApplied(blocks, blockEditorSettings) {
  * @param {0|-1|null}         initialPosition Index of caret after in the selected block after the operation.
  * @param {?Object}           meta            Optional Meta values to be passed to the action object.
  *
- * @yield {Object} Action object.
+ * @return {Object} Action object.
  */
 
 
-function* replaceBlocks(clientIds, blocks, indexToSelect, initialPosition = 0, meta) {
+const replaceBlocks = (clientIds, blocks, indexToSelect, initialPosition = 0, meta) => ({
+  select,
+  dispatch
+}) => {
   /* eslint-enable jsdoc/valid-types */
   clientIds = (0,external_lodash_namespaceObject.castArray)(clientIds);
-  blocks = getBlocksWithDefaultStylesApplied((0,external_lodash_namespaceObject.castArray)(blocks), yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getSettings'));
-  const rootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', (0,external_lodash_namespaceObject.first)(clientIds)); // Replace is valid if the new blocks can be inserted in the root block.
+  blocks = getBlocksWithDefaultStylesApplied((0,external_lodash_namespaceObject.castArray)(blocks), select.getSettings());
+  const rootClientId = select.getBlockRootClientId((0,external_lodash_namespaceObject.first)(clientIds)); // Replace is valid if the new blocks can be inserted in the root block.
 
   for (let index = 0; index < blocks.length; index++) {
     const block = blocks[index];
-    const canInsertBlock = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canInsertBlockType', block.name, rootClientId);
+    const canInsertBlock = select.canInsertBlockType(block.name, rootClientId);
 
     if (!canInsertBlock) {
       return;
     }
   }
 
-  yield {
+  dispatch({
     type: 'REPLACE_BLOCKS',
     clientIds,
     blocks,
@@ -7186,12 +7174,11 @@ function* replaceBlocks(clientIds, blocks, indexToSelect, initialPosition = 0, m
     indexToSelect,
     initialPosition,
     meta
-  };
-  yield* ensureDefaultBlock();
-}
+  });
+  dispatch(ensureDefaultBlock());
+};
 /**
- * Returns an action object signalling that a single block should be replaced
- * with one or more replacement blocks.
+ * Action that replaces a single block with one or more replacement blocks.
  *
  * @param {(string|string[])} clientId Block client ID to replace.
  * @param {(Object|Object[])} block    Replacement block(s).
@@ -7211,87 +7198,83 @@ function replaceBlock(clientId, block) {
  * @return {Function} Action creator.
  */
 
-function createOnMove(type) {
-  return function* (clientIds, rootClientId) {
-    const canMoveBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canMoveBlocks', clientIds, rootClientId); // If one of the blocks is locked or the parent is locked, we cannot move any block.
-
-    if (!canMoveBlocks) {
-      return;
-    }
-
-    yield {
-      clientIds: (0,external_lodash_namespaceObject.castArray)(clientIds),
-      type,
-      rootClientId
-    };
-  };
-}
-
-const moveBlocksDown = createOnMove('MOVE_BLOCKS_DOWN');
-const moveBlocksUp = createOnMove('MOVE_BLOCKS_UP');
-/**
- * Returns an action object signalling that the given blocks should be moved to
- * a new position.
- *
- * @param {?string} clientIds        The client IDs of the blocks.
- * @param {?string} fromRootClientId Root client ID source.
- * @param {?string} toRootClientId   Root client ID destination.
- * @param {number}  index            The index to move the blocks to.
- *
- * @yield {Object} Action object.
- */
-
-function* moveBlocksToPosition(clientIds, fromRootClientId = '', toRootClientId = '', index) {
-  const canMoveBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canMoveBlocks', clientIds, fromRootClientId);
-  const canRemoveBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canRemoveBlocks', clientIds, fromRootClientId); // If one of the blocks is locked or the parent is locked, we cannot move any block.
+const createOnMove = type => (clientIds, rootClientId) => ({
+  select,
+  dispatch
+}) => {
+  // If one of the blocks is locked or the parent is locked, we cannot move any block.
+  const canMoveBlocks = select.canMoveBlocks(clientIds, rootClientId);
 
   if (!canMoveBlocks) {
     return;
   }
 
-  const action = {
+  dispatch({
+    type,
+    clientIds: (0,external_lodash_namespaceObject.castArray)(clientIds),
+    rootClientId
+  });
+};
+
+const moveBlocksDown = createOnMove('MOVE_BLOCKS_DOWN');
+const moveBlocksUp = createOnMove('MOVE_BLOCKS_UP');
+/**
+ * Action that moves given blocks to a new position.
+ *
+ * @param {?string} clientIds        The client IDs of the blocks.
+ * @param {?string} fromRootClientId Root client ID source.
+ * @param {?string} toRootClientId   Root client ID destination.
+ * @param {number}  index            The index to move the blocks to.
+ */
+
+const moveBlocksToPosition = (clientIds, fromRootClientId = '', toRootClientId = '', index) => ({
+  select,
+  dispatch
+}) => {
+  const canMoveBlocks = select.canMoveBlocks(clientIds, fromRootClientId); // If one of the blocks is locked or the parent is locked, we cannot move any block.
+
+  if (!canMoveBlocks) {
+    return;
+  } // If moving inside the same root block the move is always possible.
+
+
+  if (fromRootClientId !== toRootClientId) {
+    const canRemoveBlocks = select.canRemoveBlocks(clientIds, fromRootClientId); // If we're moving to another block, it means we're deleting blocks from
+    // the original block, so we need to check if removing is possible.
+
+    if (!canRemoveBlocks) {
+      return;
+    }
+
+    const canInsertBlocks = select.canInsertBlocks(clientIds, toRootClientId); // If moving to other parent block, the move is possible if we can insert a block of the same type inside the new parent block.
+
+    if (!canInsertBlocks) {
+      return;
+    }
+  }
+
+  dispatch({
     type: 'MOVE_BLOCKS_TO_POSITION',
     fromRootClientId,
     toRootClientId,
     clientIds,
     index
-  }; // If moving inside the same root block the move is always possible.
-
-  if (fromRootClientId === toRootClientId) {
-    yield action;
-    return;
-  } // If we're moving to another block, it means we're deleting blocks from
-  // the original block, so we need to check if removing is possible.
-
-
-  if (!canRemoveBlocks) {
-    return;
-  }
-
-  const canInsertBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canInsertBlocks', clientIds, toRootClientId); // If moving to other parent block, the move is possible if we can insert a block of the same type inside the new parent block.
-
-  if (canInsertBlocks) {
-    yield action;
-  }
-}
+  });
+};
 /**
- * Returns an action object signalling that the given block should be moved to a
- * new position.
+ * Action that moves given block to a new position.
  *
  * @param {?string} clientId         The client ID of the block.
  * @param {?string} fromRootClientId Root client ID source.
  * @param {?string} toRootClientId   Root client ID destination.
  * @param {number}  index            The index to move the block to.
- *
- * @yield {Object} Action object.
  */
 
-function* moveBlockToPosition(clientId, fromRootClientId = '', toRootClientId = '', index) {
-  yield moveBlocksToPosition([clientId], fromRootClientId, toRootClientId, index);
+function moveBlockToPosition(clientId, fromRootClientId = '', toRootClientId = '', index) {
+  return moveBlocksToPosition([clientId], fromRootClientId, toRootClientId, index);
 }
 /**
- * Returns an action object used in signalling that a single block should be
- * inserted, optionally at a specific index respective a root block list.
+ * Action that inserts a single block, optionally at a specific index respective a root block list.
  *
  * @param {Object}   block           Block object to insert.
  * @param {?number}  index           Index at which block should be inserted.
@@ -7302,14 +7285,13 @@ function* moveBlockToPosition(clientId, fromRootClientId = '', toRootClientId = 
  * @return {Object} Action object.
  */
 
-function insertBlock(block, index, rootClientId, updateSelection = true, meta) {
+function insertBlock(block, index, rootClientId, updateSelection, meta) {
   return insertBlocks([block], index, rootClientId, updateSelection, 0, meta);
 }
 /* eslint-disable jsdoc/valid-types */
 
 /**
- * Returns an action object used in signalling that an array of blocks should
- * be inserted, optionally at a specific index respective a root block list.
+ * Action that inserts an array of blocks, optionally at a specific index respective a root block list.
  *
  * @param {Object[]}  blocks          Block objects to insert.
  * @param {?number}   index           Index at which block should be inserted.
@@ -7320,7 +7302,10 @@ function insertBlock(block, index, rootClientId, updateSelection = true, meta) {
  * @return {Object} Action object.
  */
 
-function* insertBlocks(blocks, index, rootClientId, updateSelection = true, initialPosition = 0, meta) {
+const insertBlocks = (blocks, index, rootClientId, updateSelection = true, initialPosition = 0, meta) => ({
+  select,
+  dispatch
+}) => {
   /* eslint-enable jsdoc/valid-types */
   if ((0,external_lodash_namespaceObject.isObject)(initialPosition)) {
     meta = initialPosition;
@@ -7332,11 +7317,11 @@ function* insertBlocks(blocks, index, rootClientId, updateSelection = true, init
     });
   }
 
-  blocks = getBlocksWithDefaultStylesApplied((0,external_lodash_namespaceObject.castArray)(blocks), yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getSettings'));
+  blocks = getBlocksWithDefaultStylesApplied((0,external_lodash_namespaceObject.castArray)(blocks), select.getSettings());
   const allowedBlocks = [];
 
   for (const block of blocks) {
-    const isValid = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canInsertBlockType', block.name, rootClientId);
+    const isValid = select.canInsertBlockType(block.name, rootClientId);
 
     if (isValid) {
       allowedBlocks.push(block);
@@ -7344,7 +7329,7 @@ function* insertBlocks(blocks, index, rootClientId, updateSelection = true, init
   }
 
   if (allowedBlocks.length) {
-    return {
+    dispatch({
       type: 'INSERT_BLOCKS',
       blocks: allowedBlocks,
       index,
@@ -7353,12 +7338,11 @@ function* insertBlocks(blocks, index, rootClientId, updateSelection = true, init
       updateSelection,
       initialPosition: updateSelection ? initialPosition : null,
       meta
-    };
+    });
   }
-}
+};
 /**
- * Returns an action object used in signalling that the insertion point should
- * be shown.
+ * Action that shows the insertion point.
  *
  * @param {?string} rootClientId      Optional root client ID of block list on
  *                                    which to insert.
@@ -7380,7 +7364,7 @@ function showInsertionPoint(rootClientId, index, __unstableOptions = {}) {
   };
 }
 /**
- * Returns an action object hiding the insertion point.
+ * Action that hides the insertion point.
  *
  * @return {Object} Action object.
  */
@@ -7391,7 +7375,7 @@ function hideInsertionPoint() {
   };
 }
 /**
- * Returns an action object resetting the template validity.
+ * Action that resets the template validity.
  *
  * @param {boolean} isValid template validity flag.
  *
@@ -7405,49 +7389,55 @@ function setTemplateValidity(isValid) {
   };
 }
 /**
- * Returns an action object synchronize the template with the list of blocks
+ * Action that synchronizes the template with the list of blocks.
  *
  * @return {Object} Action object.
  */
 
-function* synchronizeTemplate() {
-  yield {
+const synchronizeTemplate = () => ({
+  select,
+  dispatch
+}) => {
+  dispatch({
     type: 'SYNCHRONIZE_TEMPLATE'
-  };
-  const blocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlocks');
-  const template = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getTemplate');
+  });
+  const blocks = select.getBlocks();
+  const template = select.getTemplate();
   const updatedBlockList = (0,external_wp_blocks_namespaceObject.synchronizeBlocksWithTemplate)(blocks, template);
-  return yield resetBlocks(updatedBlockList);
-}
+  dispatch.resetBlocks(updatedBlockList);
+};
 /**
- * Returns an action object used in signalling that two blocks should be merged
+ * Action that merges two blocks.
  *
  * @param {string} firstBlockClientId  Client ID of the first block to merge.
  * @param {string} secondBlockClientId Client ID of the second block to merge.
  */
 
-function* mergeBlocks(firstBlockClientId, secondBlockClientId) {
+const mergeBlocks = (firstBlockClientId, secondBlockClientId) => ({
+  select,
+  dispatch
+}) => {
   const blocks = [firstBlockClientId, secondBlockClientId];
-  yield {
+  dispatch({
     type: 'MERGE_BLOCKS',
     blocks
-  };
+  });
   const [clientIdA, clientIdB] = blocks;
-  const blockA = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlock', clientIdA);
+  const blockA = select.getBlock(clientIdA);
   const blockAType = (0,external_wp_blocks_namespaceObject.getBlockType)(blockA.name); // Only focus the previous block if it's not mergeable
 
   if (blockAType && !blockAType.merge) {
-    yield selectBlock(blockA.clientId);
+    dispatch.selectBlock(blockA.clientId);
     return;
   }
 
-  const blockB = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlock', clientIdB);
+  const blockB = select.getBlock(clientIdB);
   const blockBType = (0,external_wp_blocks_namespaceObject.getBlockType)(blockB.name);
   const {
     clientId,
     attributeKey,
     offset
-  } = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getSelectionStart');
+  } = select.getSelectionStart();
   const selectedBlockType = clientId === clientIdA ? blockAType : blockBType;
   const attributeDefinition = selectedBlockType.attributes[attributeKey];
   const canRestoreTextSelection = (clientId === clientIdA || clientId === clientIdB) && attributeKey !== undefined && offset !== undefined && // We cannot restore text selection if the RichText identifier
@@ -7525,16 +7515,16 @@ function* mergeBlocks(firstBlockClientId, secondBlockClientId) {
       preserveWhiteSpace
     });
     updatedAttributes[newAttributeKey] = newHtml;
-    yield selectionChange(blockA.clientId, newAttributeKey, newOffset, newOffset);
+    dispatch.selectionChange(blockA.clientId, newAttributeKey, newOffset, newOffset);
   }
 
-  yield* replaceBlocks([blockA.clientId, blockB.clientId], [{ ...blockA,
+  dispatch.replaceBlocks([blockA.clientId, blockB.clientId], [{ ...blockA,
     attributes: { ...blockA.attributes,
       ...updatedAttributes
     }
   }, ...blocksWithTheSameType.slice(1)], 0 // If we don't pass the `indexToSelect` it will default to the last block.
   );
-}
+};
 /**
  * Yields action objects used in signalling that the blocks corresponding to
  * the set of specified client IDs are to be removed.
@@ -7544,36 +7534,34 @@ function* mergeBlocks(firstBlockClientId, secondBlockClientId) {
  *                                         selected when a block is removed.
  */
 
-function* removeBlocks(clientIds, selectPrevious = true) {
+const removeBlocks = (clientIds, selectPrevious = true) => ({
+  select,
+  dispatch
+}) => {
   if (!clientIds || !clientIds.length) {
     return;
   }
 
   clientIds = (0,external_lodash_namespaceObject.castArray)(clientIds);
-  const rootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', clientIds[0]);
-  const canRemoveBlocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'canRemoveBlocks', clientIds, rootClientId);
+  const rootClientId = select.getBlockRootClientId(clientIds[0]);
+  const canRemoveBlocks = select.canRemoveBlocks(clientIds, rootClientId);
 
   if (!canRemoveBlocks) {
     return;
   }
 
-  let previousBlockId;
-
   if (selectPrevious) {
-    previousBlockId = yield selectPreviousBlock(clientIds[0]);
-  } else {
-    previousBlockId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getPreviousBlockClientId', clientIds[0]);
+    dispatch.selectPreviousBlock(clientIds[0]);
   }
 
-  yield {
+  dispatch({
     type: 'REMOVE_BLOCKS',
     clientIds
-  }; // To avoid a focus loss when removing the last block, assure there is
+  }); // To avoid a focus loss when removing the last block, assure there is
   // always a default block if the last of the blocks have been removed.
 
-  const defaultBlockId = yield* ensureDefaultBlock();
-  return [previousBlockId || defaultBlockId];
-}
+  dispatch(ensureDefaultBlock());
+};
 /**
  * Returns an action object used in signalling that the block with the
  * specified client ID is to be removed.
@@ -7697,8 +7685,7 @@ function exitFormattedText() {
   };
 }
 /**
- * Returns an action object used in signalling that the user caret has changed
- * position.
+ * Action that changes the position of the user caret.
  *
  * @param {string} clientId     The selected block client ID.
  * @param {string} attributeKey The selected block attribute key.
@@ -7718,8 +7705,7 @@ function selectionChange(clientId, attributeKey, startOffset, endOffset) {
   };
 }
 /**
- * Returns an action object used in signalling that a new block of the default
- * type should be added to the block list.
+ * Action that adds a new block of the default type to the block list.
  *
  * @param {?Object} attributes   Optional attributes of the block to assign.
  * @param {?string} rootClientId Optional root client ID of block list on which
@@ -7741,7 +7727,7 @@ function insertDefaultBlock(attributes, rootClientId, index) {
   return insertBlock(block, index, rootClientId);
 }
 /**
- * Returns an action object that changes the nested settings of a given block.
+ * Action that changes the nested settings of a given block.
  *
  * @param {string} clientId Client ID of the block whose nested setting are
  *                          being received.
@@ -7758,7 +7744,7 @@ function updateBlockListSettings(clientId, settings) {
   };
 }
 /**
- * Returns an action object used in signalling that the block editor settings have been updated.
+ * Action that updates the block editor settings.
  *
  * @param {Object} settings Updated settings
  *
@@ -7772,7 +7758,7 @@ function updateSettings(settings) {
   };
 }
 /**
- * Returns an action object used in signalling that a temporary reusable blocks have been saved
+ * Action that signals that a temporary reusable block has been saved
  * in order to switch its temporary id with the real id.
  *
  * @param {string} id        Reusable block's id.
@@ -7789,7 +7775,7 @@ function __unstableSaveReusableBlock(id, updatedId) {
   };
 }
 /**
- * Returns an action object used in signalling that the last block change should be marked explicitly as persistent.
+ * Action that marks the last block change explicitly as persistent.
  *
  * @return {Object} Action object.
  */
@@ -7800,7 +7786,7 @@ function __unstableMarkLastChangeAsPersistent() {
   };
 }
 /**
- * Returns an action object used in signalling that the next block change should be marked explicitly as not persistent.
+ * Action that signals that the next block change should be marked explicitly as not persistent.
  *
  * @return {Object} Action object.
  */
@@ -7811,138 +7797,156 @@ function __unstableMarkNextChangeAsNotPersistent() {
   };
 }
 /**
- * Returns an action object used in signalling that the last block change is
- * an automatic change, meaning it was not performed by the user, and can be
- * undone using the `Escape` and `Backspace` keys. This action must be called
- * after the change was made, and any actions that are a consequence of it, so
- * it is recommended to be called at the next idle period to ensure all
+ * Action that marks the last block change as an automatic change, meaning it was not
+ * performed by the user, and can be undone using the `Escape` and `Backspace` keys.
+ * This action must be called after the change was made, and any actions that are a
+ * consequence of it, so it is recommended to be called at the next idle period to ensure all
  * selection changes have been recorded.
  */
 
-function* __unstableMarkAutomaticChange() {
-  yield {
+const __unstableMarkAutomaticChange = () => ({
+  dispatch
+}) => {
+  dispatch({
     type: 'MARK_AUTOMATIC_CHANGE'
-  };
-  yield __unstableMarkAutomaticChangeFinalControl();
-}
-function __unstableMarkAutomaticChangeFinal() {
-  return {
-    type: 'MARK_AUTOMATIC_CHANGE_FINAL'
-  };
-}
+  });
+  const {
+    requestIdleCallback = cb => setTimeout(cb, 100)
+  } = window;
+  requestIdleCallback(() => {
+    dispatch({
+      type: 'MARK_AUTOMATIC_CHANGE_FINAL'
+    });
+  });
+};
 /**
- * Generators that triggers an action used to enable or disable the navigation mode.
+ * Action that enables or disables the navigation mode.
  *
  * @param {string} isNavigationMode Enable/Disable navigation mode.
  */
 
-function* setNavigationMode(isNavigationMode = true) {
-  yield {
+const setNavigationMode = (isNavigationMode = true) => ({
+  dispatch
+}) => {
+  dispatch({
     type: 'SET_NAVIGATION_MODE',
     isNavigationMode
-  };
+  });
 
   if (isNavigationMode) {
     (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('You are currently in navigation mode. Navigate blocks using the Tab key and Arrow keys. Use Left and Right Arrow keys to move between nesting levels. To exit navigation mode and edit the selected block, press Enter.'));
   } else {
     (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('You are currently in edit mode. To return to the navigation mode, press Escape.'));
   }
-}
+};
 /**
- * Generator that triggers an action used to enable or disable the block moving mode.
+ * Action that enables or disables the block moving mode.
  *
  * @param {string|null} hasBlockMovingClientId Enable/Disable block moving mode.
  */
 
-function* setBlockMovingClientId(hasBlockMovingClientId = null) {
-  yield {
+const setBlockMovingClientId = (hasBlockMovingClientId = null) => ({
+  dispatch
+}) => {
+  dispatch({
     type: 'SET_BLOCK_MOVING_MODE',
     hasBlockMovingClientId
-  };
+  });
 
   if (hasBlockMovingClientId) {
     (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Use the Tab key and Arrow keys to choose new block location. Use Left and Right Arrow keys to move between nesting levels. Once location is selected press Enter or Space to move the block.'));
   }
-}
+};
 /**
- * Generator that triggers an action used to duplicate a list of blocks.
+ * Action that duplicates a list of blocks.
  *
  * @param {string[]} clientIds
  * @param {boolean}  updateSelection
  */
 
-function* duplicateBlocks(clientIds, updateSelection = true) {
-  if (!clientIds && !clientIds.length) {
+const duplicateBlocks = (clientIds, updateSelection = true) => ({
+  select,
+  dispatch
+}) => {
+  if (!clientIds || !clientIds.length) {
     return;
-  }
+  } // Return early if blocks don't exist.
 
-  const blocks = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlocksByClientId', clientIds);
-  const rootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', clientIds[0]); // Return early if blocks don't exist.
+
+  const blocks = select.getBlocksByClientId(clientIds);
 
   if ((0,external_lodash_namespaceObject.some)(blocks, block => !block)) {
     return;
-  }
+  } // Return early if blocks don't support multiple usage.
 
-  const blockNames = blocks.map(block => block.name); // Return early if blocks don't support multiple usage.
 
-  if ((0,external_lodash_namespaceObject.some)(blockNames, blockName => !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, 'multiple', true))) {
+  const blockNames = blocks.map(block => block.name);
+
+  if (blockNames.some(blockName => !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, 'multiple', true))) {
     return;
   }
 
-  const lastSelectedIndex = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockIndex', (0,external_lodash_namespaceObject.last)((0,external_lodash_namespaceObject.castArray)(clientIds)), rootClientId);
+  const rootClientId = select.getBlockRootClientId(clientIds[0]);
+  const lastSelectedIndex = select.getBlockIndex((0,external_lodash_namespaceObject.last)((0,external_lodash_namespaceObject.castArray)(clientIds)), rootClientId);
   const clonedBlocks = blocks.map(block => (0,external_wp_blocks_namespaceObject.__experimentalCloneSanitizedBlock)(block));
-  yield insertBlocks(clonedBlocks, lastSelectedIndex + 1, rootClientId, updateSelection);
+  dispatch.insertBlocks(clonedBlocks, lastSelectedIndex + 1, rootClientId, updateSelection);
 
   if (clonedBlocks.length > 1 && updateSelection) {
-    yield multiSelect((0,external_lodash_namespaceObject.first)(clonedBlocks).clientId, (0,external_lodash_namespaceObject.last)(clonedBlocks).clientId);
+    dispatch.multiSelect((0,external_lodash_namespaceObject.first)(clonedBlocks).clientId, (0,external_lodash_namespaceObject.last)(clonedBlocks).clientId);
   }
 
   return clonedBlocks.map(block => block.clientId);
-}
+};
 /**
- * Generator used to insert an empty block after a given block.
+ * Action that inserts an empty block before a given block.
  *
  * @param {string} clientId
  */
 
-function* insertBeforeBlock(clientId) {
+const insertBeforeBlock = clientId => ({
+  select,
+  dispatch
+}) => {
   if (!clientId) {
     return;
   }
 
-  const rootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', clientId);
-  const isLocked = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getTemplateLock', rootClientId);
+  const rootClientId = select.getBlockRootClientId(clientId);
+  const isLocked = select.getTemplateLock(rootClientId);
 
   if (isLocked) {
     return;
   }
 
-  const firstSelectedIndex = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockIndex', clientId, rootClientId);
-  return yield insertDefaultBlock({}, rootClientId, firstSelectedIndex);
-}
+  const firstSelectedIndex = select.getBlockIndex(clientId, rootClientId);
+  return dispatch.insertDefaultBlock({}, rootClientId, firstSelectedIndex);
+};
 /**
- * Generator used to insert an empty block before a given block.
+ * Action that inserts an empty block after a given block.
  *
  * @param {string} clientId
  */
 
-function* insertAfterBlock(clientId) {
+const insertAfterBlock = clientId => ({
+  select,
+  dispatch
+}) => {
   if (!clientId) {
     return;
   }
 
-  const rootClientId = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockRootClientId', clientId);
-  const isLocked = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getTemplateLock', rootClientId);
+  const rootClientId = select.getBlockRootClientId(clientId);
+  const isLocked = select.getTemplateLock(rootClientId);
 
   if (isLocked) {
     return;
   }
 
-  const firstSelectedIndex = yield external_wp_data_namespaceObject.controls.select(STORE_NAME, 'getBlockIndex', clientId, rootClientId);
-  return yield insertDefaultBlock({}, rootClientId, firstSelectedIndex + 1);
-}
+  const firstSelectedIndex = select.getBlockIndex(clientId, rootClientId);
+  return dispatch.insertDefaultBlock({}, rootClientId, firstSelectedIndex + 1);
+};
 /**
- * Returns an action object that toggles the highlighted block state.
+ * Action that toggles the highlighted block state.
  *
  * @param {string}  clientId      The block's clientId.
  * @param {boolean} isHighlighted The highlight state.
@@ -7956,22 +7960,20 @@ function toggleBlockHighlight(clientId, isHighlighted) {
   };
 }
 /**
- * Yields action objects used in signalling that the block corresponding to the
- * given clientId should appear to "flash" by rhythmically highlighting it.
+ * Action that "flashes" the block with a given `clientId` by rhythmically highlighting it.
  *
  * @param {string} clientId Target block client ID.
  */
 
-function* flashBlock(clientId) {
-  yield toggleBlockHighlight(clientId, true);
-  yield {
-    type: 'SLEEP',
-    duration: 150
-  };
-  yield toggleBlockHighlight(clientId, false);
-}
+const flashBlock = clientId => async ({
+  dispatch
+}) => {
+  dispatch(toggleBlockHighlight(clientId, true));
+  await new Promise(resolve => setTimeout(resolve, 150));
+  dispatch(toggleBlockHighlight(clientId, false));
+};
 /**
- * Returns an action object that sets whether the block has controlled innerblocks.
+ * Action that sets whether a block has controlled inner blocks.
  *
  * @param {string}  clientId                 The block's clientId.
  * @param {boolean} hasControlledInnerBlocks True if the block's inner blocks are controlled.
@@ -7985,6 +7987,9 @@ function setHasControlledInnerBlocks(clientId, hasControlledInnerBlocks) {
   };
 }
 //# sourceMappingURL=actions.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/constants.js
+const STORE_NAME = 'core/block-editor';
+//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -7993,7 +7998,6 @@ function setHasControlledInnerBlocks(clientId, hasControlledInnerBlocks) {
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -8011,7 +8015,7 @@ const storeConfig = {
   reducer: reducer,
   selectors: selectors_namespaceObject,
   actions: actions_namespaceObject,
-  controls: store_controls
+  __experimentalUseThunks: true
 };
 /**
  * Store definition for the block editor namespace.
@@ -8392,6 +8396,36 @@ const justifySpaceBetween = (0,external_wp_element_namespaceObject.createElement
 }));
 /* harmony default export */ var justify_space_between = (justifySpaceBetween);
 //# sourceMappingURL=justify-space-between.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/arrow-right.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const arrowRight = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M14.3 6.7l-1.1 1.1 4 4H4v1.5h13.3l-4.1 4.4 1.1 1.1 5.8-6.3z"
+}));
+/* harmony default export */ var arrow_right = (arrowRight);
+//# sourceMappingURL=arrow-right.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/arrow-down.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const arrowDown = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M16.2 13.2l-4 4V4h-1.5v13.3l-4.5-4.1-1 1.1 6.2 5.8 5.8-5.8-1-1.1z"
+}));
+/* harmony default export */ var arrow_down = (arrowDown);
+//# sourceMappingURL=arrow-down.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/layouts/utils.js
 /**
  * Utility to generate the proper CSS selector for layout styles.
@@ -8434,7 +8468,7 @@ const deprecatedFlags = {
   'color.customGradient': settings => settings.disableCustomGradients === undefined ? undefined : !settings.disableCustomGradients,
   'typography.fontSizes': settings => settings.fontSizes === undefined ? undefined : settings.fontSizes,
   'typography.customFontSize': settings => settings.disableCustomFontSizes === undefined ? undefined : !settings.disableCustomFontSizes,
-  'typography.customLineHeight': settings => settings.enableCustomLineHeight,
+  'typography.lineHeight': settings => settings.enableCustomLineHeight,
   'spacing.units': settings => {
     if (settings.enableCustomUnits === undefined) {
       return;
@@ -8446,21 +8480,59 @@ const deprecatedFlags = {
 
     return settings.enableCustomUnits;
   },
-  'spacing.customPadding': settings => settings.enableCustomSpacing
+  'spacing.padding': settings => settings.enableCustomSpacing
+};
+const prefixedFlags = {
+  /*
+   * These were only available in the plugin
+   * and can be removed when the minimum WordPress version
+   * for the plugin is 5.9.
+   */
+  'border.customColor': 'border.color',
+  'border.customStyle': 'border.style',
+  'border.customWidth': 'border.width',
+  'typography.customFontStyle': 'typography.fontStyle',
+  'typography.customFontWeight': 'typography.fontWeight',
+  'typography.customLetterSpacing': 'typography.letterSpacing',
+  'typography.customTextDecorations': 'typography.textDecoration',
+  'typography.customTextTransforms': 'typography.textTransform',
+
+  /*
+   * These were part of WordPress 5.8 and we need to keep them.
+   */
+  'border.customRadius': 'border.radius',
+  'spacing.customMargin': 'spacing.margin',
+  'spacing.customPadding': 'spacing.padding',
+  'typography.customLineHeight': 'typography.lineHeight'
+};
+/**
+ * Remove `custom` prefixes for flags that did not land in 5.8.
+ *
+ * This provides continued support for `custom` prefixed properties. It will
+ * be removed once third party devs have had sufficient time to update themes,
+ * plugins, etc.
+ *
+ * @see https://github.com/WordPress/gutenberg/pull/34485
+ *
+ * @param {string} path Path to desired value in settings.
+ * @return {string}     The value for defined setting.
+ */
+
+const removeCustomPrefixes = path => {
+  return prefixedFlags[path] || path;
 };
 /**
  * Hook that retrieves the editor setting.
  * It works with nested objects using by finding the value at path.
  *
  * @param {string} path The path to the setting.
- *
  * @return {any} Returns the value defined for the setting.
- *
  * @example
  * ```js
  * const isEnabled = useSetting( 'typography.dropCap' );
  * ```
  */
+
 
 function useSetting(path) {
   const {
@@ -8472,12 +8544,13 @@ function useSetting(path) {
     const settings = select(store).getSettings(); // 1 - Use __experimental features, if available.
     // We cascade to the all value if the block one is not available.
 
-    const defaultsPath = `__experimentalFeatures.${path}`;
-    const blockPath = `__experimentalFeatures.blocks.${blockName}.${path}`;
+    const normalizedPath = removeCustomPrefixes(path);
+    const defaultsPath = `__experimentalFeatures.${normalizedPath}`;
+    const blockPath = `__experimentalFeatures.blocks.${blockName}.${normalizedPath}`;
     const experimentalFeaturesResult = (_get = (0,external_lodash_namespaceObject.get)(settings, blockPath)) !== null && _get !== void 0 ? _get : (0,external_lodash_namespaceObject.get)(settings, defaultsPath);
 
     if (experimentalFeaturesResult !== undefined) {
-      if (external_wp_blocks_namespaceObject.__EXPERIMENTAL_PATHS_WITH_MERGE[path]) {
+      if (external_wp_blocks_namespaceObject.__EXPERIMENTAL_PATHS_WITH_MERGE[normalizedPath]) {
         var _ref, _experimentalFeatures;
 
         return (_ref = (_experimentalFeatures = experimentalFeaturesResult.user) !== null && _experimentalFeatures !== void 0 ? _experimentalFeatures : experimentalFeaturesResult.theme) !== null && _ref !== void 0 ? _ref : experimentalFeaturesResult.core;
@@ -8487,7 +8560,7 @@ function useSetting(path) {
     } // 2 - Use deprecated settings, otherwise.
 
 
-    const deprecatedSettingsValue = deprecatedFlags[path] ? deprecatedFlags[path](settings) : undefined;
+    const deprecatedSettingsValue = deprecatedFlags[normalizedPath] ? deprecatedFlags[normalizedPath](settings) : undefined;
 
     if (deprecatedSettingsValue !== undefined) {
       return deprecatedSettingsValue;
@@ -8497,7 +8570,7 @@ function useSetting(path) {
     // To remove when __experimentalFeatures are ported to core.
 
 
-    return path === 'typography.dropCap' ? true : undefined;
+    return normalizedPath === 'typography.dropCap' ? true : undefined;
   }, [blockName, path]);
   return setting;
 }
@@ -8612,13 +8685,21 @@ function JustifyToolbar(props) {
 
 
 
+ // Used with the default, horizontal flex orientation.
 
 const justifyContentMap = {
   left: 'flex-start',
   right: 'flex-end',
   center: 'center',
   'space-between': 'space-between'
+}; // Used with the vertical (column) flex orientation.
+
+const alignItemsMap = {
+  left: 'flex-start',
+  right: 'flex-end',
+  center: 'center'
 };
+const flexWrapOptions = ['wrap', 'nowrap'];
 /* harmony default export */ var flex = ({
   name: 'flex',
   label: (0,external_wp_i18n_namespaceObject.__)('Flex'),
@@ -8626,10 +8707,19 @@ const justifyContentMap = {
     layout = {},
     onChange
   }) {
-    return (0,external_wp_element_namespaceObject.createElement)(FlexLayoutJustifyContentControl, {
+    const {
+      allowOrientation = true
+    } = layout;
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(FlexLayoutJustifyContentControl, {
       layout: layout,
       onChange: onChange
-    });
+    })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, allowOrientation && (0,external_wp_element_namespaceObject.createElement)(OrientationControl, {
+      layout: layout,
+      onChange: onChange
+    }))), (0,external_wp_element_namespaceObject.createElement)(FlexWrapControl, {
+      layout: layout,
+      onChange: onChange
+    }));
   },
   toolBarControls: function FlexLayoutToolbarControls({
     layout = {},
@@ -8653,17 +8743,53 @@ const justifyContentMap = {
     selector,
     layout
   }) {
+    const {
+      orientation = 'horizontal',
+      setCascadingProperties = false
+    } = layout;
     const blockGapSupport = useSetting('spacing.blockGap');
     const hasBlockGapStylesSupport = blockGapSupport !== null;
-    const justifyContent = justifyContentMap[layout.justifyContent] || 'flex-start';
+    const justifyContent = justifyContentMap[layout.justifyContent] || justifyContentMap.left;
+    const flexWrap = flexWrapOptions.includes(layout.flexWrap) ? layout.flexWrap : 'wrap';
+    let rowOrientation = `
+		flex-direction: row;
+		align-items: center;
+		justify-content: ${justifyContent};
+		`;
+
+    if (setCascadingProperties) {
+      // --layout-justification-setting allows children to inherit the value
+      // regardless or row or column direction.
+      rowOrientation += `
+			--layout-justification-setting: ${justifyContent};
+			--layout-direction: row;
+			--layout-wrap: ${flexWrap};
+			--layout-justify: ${justifyContent};
+			--layout-align: center;
+			`;
+    }
+
+    const alignItems = alignItemsMap[layout.justifyContent] || alignItemsMap.left;
+    let columnOrientation = `
+		flex-direction: column;
+		align-items: ${alignItems};
+		`;
+
+    if (setCascadingProperties) {
+      columnOrientation += `
+			--layout-justification-setting: ${alignItems};
+			--layout-direction: column;
+			--layout-justify: initial;
+			--layout-align: ${alignItems};
+			`;
+    }
+
     return (0,external_wp_element_namespaceObject.createElement)("style", null, `
 				${appendSelectors(selector)} {
 					display: flex;
 					gap: ${hasBlockGapStylesSupport ? 'var( --wp--style--block-gap, 0.5em )' : '0.5em'};
-					flex-wrap: wrap;
-					align-items: center;
-					flex-direction: row;
-					justify-content: ${justifyContent};
+					flex-wrap: ${flexWrap};
+					${orientation === 'horizontal' ? rowOrientation : columnOrientation}
 				}
 
 				${appendSelectors(selector, '> *')} {
@@ -8672,8 +8798,11 @@ const justifyContentMap = {
 			`);
   },
 
-  getOrientation() {
-    return 'horizontal';
+  getOrientation(layout) {
+    const {
+      orientation = 'horizontal'
+    } = layout;
+    return orientation;
   },
 
   getAlignments() {
@@ -8681,23 +8810,6 @@ const justifyContentMap = {
   }
 
 });
-const justificationOptions = [{
-  value: 'left',
-  icon: justify_left,
-  label: (0,external_wp_i18n_namespaceObject.__)('Justify items left')
-}, {
-  value: 'center',
-  icon: justify_center,
-  label: (0,external_wp_i18n_namespaceObject.__)('Justify items center')
-}, {
-  value: 'right',
-  icon: justify_right,
-  label: (0,external_wp_i18n_namespaceObject.__)('Justify items right')
-}, {
-  value: 'space-between',
-  icon: justify_space_between,
-  label: (0,external_wp_i18n_namespaceObject.__)('Space between items')
-}];
 
 function FlexLayoutJustifyContentControl({
   layout,
@@ -8705,7 +8817,8 @@ function FlexLayoutJustifyContentControl({
   isToolbar = false
 }) {
   const {
-    justifyContent = 'left'
+    justifyContent = 'left',
+    orientation = 'horizontal'
   } = layout;
 
   const onJustificationChange = value => {
@@ -8714,15 +8827,43 @@ function FlexLayoutJustifyContentControl({
     });
   };
 
+  const allowedControls = ['left', 'center', 'right'];
+
+  if (orientation === 'horizontal') {
+    allowedControls.push('space-between');
+  }
+
   if (isToolbar) {
     return (0,external_wp_element_namespaceObject.createElement)(JustifyContentControl, {
-      allowedControls: ['left', 'center', 'right', 'space-between'],
+      allowedControls: allowedControls,
       value: justifyContent,
       onChange: onJustificationChange,
       popoverProps: {
         position: 'bottom right',
         isAlternate: true
       }
+    });
+  }
+
+  const justificationOptions = [{
+    value: 'left',
+    icon: justify_left,
+    label: (0,external_wp_i18n_namespaceObject.__)('Justify items left')
+  }, {
+    value: 'center',
+    icon: justify_center,
+    label: (0,external_wp_i18n_namespaceObject.__)('Justify items center')
+  }, {
+    value: 'right',
+    icon: justify_right,
+    label: (0,external_wp_i18n_namespaceObject.__)('Justify items right')
+  }];
+
+  if (orientation === 'horizontal') {
+    justificationOptions.push({
+      value: 'space-between',
+      icon: justify_space_between,
+      label: (0,external_wp_i18n_namespaceObject.__)('Space between items')
     });
   }
 
@@ -8741,6 +8882,50 @@ function FlexLayoutJustifyContentControl({
       onClick: () => onJustificationChange(value)
     });
   })));
+}
+
+function FlexWrapControl({
+  layout,
+  onChange
+}) {
+  const {
+    flexWrap = 'wrap'
+  } = layout;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Allow to wrap to multiple lines'),
+    onChange: value => {
+      onChange({ ...layout,
+        flexWrap: value ? 'wrap' : 'nowrap'
+      });
+    },
+    checked: flexWrap === 'wrap'
+  });
+}
+
+function OrientationControl({
+  layout,
+  onChange
+}) {
+  const {
+    orientation = 'horizontal'
+  } = layout;
+  return (0,external_wp_element_namespaceObject.createElement)("fieldset", {
+    className: "block-editor-hooks__flex-layout-orientation-controls"
+  }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_i18n_namespaceObject.__)('Orientation')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    label: 'horizontal',
+    icon: arrow_right,
+    isPressed: orientation === 'horizontal',
+    onClick: () => onChange({ ...layout,
+      orientation: 'horizontal'
+    })
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    label: 'vertical',
+    icon: arrow_down,
+    isPressed: orientation === 'vertical',
+    onClick: () => onChange({ ...layout,
+      orientation: 'vertical'
+    })
+  }));
 }
 //# sourceMappingURL=flex.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
@@ -9548,10 +9733,12 @@ var external_wp_warning_default = /*#__PURE__*/__webpack_require__.n(external_wp
 const InspectorControlsDefault = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControls');
 const InspectorControlsAdvanced = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorAdvancedControls');
 const InspectorControlsDimensions = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControlsDimensions');
+const InspectorControlsTypography = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControlsTypography');
 const groups_groups = {
   default: InspectorControlsDefault,
   advanced: InspectorControlsAdvanced,
-  dimensions: InspectorControlsDimensions
+  dimensions: InspectorControlsDimensions,
+  typography: InspectorControlsTypography
 };
 /* harmony default export */ var inspector_controls_groups = (groups_groups);
 //# sourceMappingURL=groups.js.map
@@ -15747,12 +15934,18 @@ function useMultiSelection(clientId) {
         const startParents = getBlockParents(blockSelectionStart);
 
         if (blockSelectionStart && blockSelectionStart !== clientId && !(startParents !== null && startParents !== void 0 && startParents.includes(clientId))) {
-          toggleRichText(node, false);
           const startPath = [...startParents, blockSelectionStart];
           const endPath = [...getBlockParents(clientId), clientId];
           const depth = Math.min(startPath.length, endPath.length) - 1;
-          multiSelect(startPath[depth], endPath[depth]);
-          event.preventDefault();
+          const start = startPath[depth];
+          const end = endPath[depth]; // Handle the case of having selected a parent block and
+          // then sfift+click on a child.
+
+          if (start !== end) {
+            toggleRichText(node, false);
+            multiSelect(start, end);
+            event.preventDefault();
+          }
         }
       } else if (hasMultiSelection()) {
         // Allow user to escape out of a multi-selection to a
@@ -16323,6 +16516,8 @@ const blockDefault = (0,external_wp_element_namespaceObject.createElement)(exter
 
 
 
+
+
 function BlockIcon({
   icon,
   showColors = false,
@@ -16350,6 +16545,8 @@ function BlockIcon({
     })
   }, renderedIcon);
 }
+
+/* harmony default export */ var block_icon = ((0,external_wp_element_namespaceObject.memo)(BlockIcon));
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-card/index.js
 
@@ -16384,7 +16581,7 @@ function BlockCard({
 
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-block-card"
-  }, (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+  }, (0,external_wp_element_namespaceObject.createElement)(block_icon, {
     icon: icon,
     showColors: true
   }), (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -19595,11 +19792,11 @@ function BlockDraggableChip({
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
     justify: "center",
     className: "block-editor-block-draggable-chip__content"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, icon ? (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, icon ? (0,external_wp_element_namespaceObject.createElement)(block_icon, {
     icon: icon
   }) : (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: %d: Number of blocks. */
-  (0,external_wp_i18n_namespaceObject._n)('%d block', '%d blocks', count), count)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+  (0,external_wp_i18n_namespaceObject._n)('%d block', '%d blocks', count), count)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(block_icon, {
     icon: drag_handle
   })))));
 }
@@ -19767,7 +19964,7 @@ function InserterListItem({
   }, props), (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "block-editor-block-types-list__item-icon",
     style: itemIconStyle
-  }, (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+  }, (0,external_wp_element_namespaceObject.createElement)(block_icon, {
     icon: item.icon,
     showColors: true
   })), (0,external_wp_element_namespaceObject.createElement)("span", {
@@ -20144,12 +20341,15 @@ function BlockTypesTab({
 
 
 
+
 function PatternInserterPanel({
   selectedCategory,
   patternCategories,
   onClickCategory,
-  children
+  openPatternExplorer
 }) {
+  const isMobile = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium', '<');
+
   const categoryOptions = () => {
     const options = [];
     patternCategories.map(patternCategory => {
@@ -20165,13 +20365,10 @@ function PatternInserterPanel({
     onClickCategory(patternCategories.find(patternCategory => selected === patternCategory.name));
   };
 
-  const getPanelHeaderClassName = () => {
-    return classnames_default()('block-editor-inserter__panel-header', 'block-editor-inserter__panel-header-patterns');
-  }; // In iOS-based mobile devices, the onBlur will fire when selecting an option
+  const className = classnames_default()('block-editor-inserter__panel-header', 'block-editor-inserter__panel-header-patterns'); // In iOS-based mobile devices, the onBlur will fire when selecting an option
   // from a Select element. To prevent closing the useDialog on iOS devices, we
   // stop propagating the onBlur event if there is no relatedTarget, which means
   // that the user most likely did not click on an element within the editor canvas.
-
 
   const onBlur = event => {
     if (!(event !== null && event !== void 0 && event.relatedTarget)) {
@@ -20179,8 +20376,13 @@ function PatternInserterPanel({
     }
   };
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: getPanelHeaderClassName()
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
+    justify: "space-between",
+    align: "start",
+    gap: "4",
+    className: className
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    isBlock: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
     className: "block-editor-inserter__panel-dropdown",
     label: (0,external_wp_i18n_namespaceObject.__)('Filter patterns'),
@@ -20189,9 +20391,12 @@ function PatternInserterPanel({
     onChange: onChangeSelect,
     onBlur: onBlur,
     options: categoryOptions()
-  })), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-inserter__panel-content"
-  }, children));
+  })), !isMobile && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "secondary",
+    className: "block-editor-inserter__patterns-explorer-expand",
+    label: (0,external_wp_i18n_namespaceObject.__)('Explore all patterns'),
+    onClick: () => openPatternExplorer()
+  }, (0,external_wp_i18n_namespaceObject._x)('Explore', 'Label for showing all block patterns'))));
 }
 
 /* harmony default export */ var pattern_panel = (PatternInserterPanel);
@@ -20266,11 +20471,9 @@ const usePatternsState = (onInsert, rootClientId) => {
 
 
 
-
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -20282,12 +20485,9 @@ function BlockPattern({
   composite
 }) {
   const {
-    name,
+    blocks,
     viewportWidth
   } = pattern;
-  const {
-    blocks
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).__experimentalGetParsedPattern(name), [name]);
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(BlockPattern);
   const descriptionId = `block-editor-block-patterns-list__item-description-${instanceId}`;
   return (0,external_wp_element_namespaceObject.createElement)(inserter_draggable_blocks, {
@@ -20357,12 +20557,8 @@ function BlockPatternList({
 
 /* harmony default export */ var block_patterns_list = (BlockPatternList);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/block-patterns-tab.js
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/block-patterns-explorer/sidebar.js
 
-
-/**
- * External dependencies
- */
 
 /**
  * WordPress dependencies
@@ -20370,97 +20566,67 @@ function BlockPatternList({
 
 
 
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function BlockPatternsCategory({
-  rootClientId,
-  onInsert,
+function PatternCategoriesList({
   selectedCategory,
+  patternCategories,
   onClickCategory
 }) {
-  const [allPatterns, allCategories, onClick] = use_patterns_state(onInsert, rootClientId); // Remove any empty categories
-
-  const populatedCategories = (0,external_wp_element_namespaceObject.useMemo)(() => allCategories.filter(category => allPatterns.some(pattern => {
-    var _pattern$categories;
-
-    return (_pattern$categories = pattern.categories) === null || _pattern$categories === void 0 ? void 0 : _pattern$categories.includes(category.name);
-  })).sort(({
-    name: currentName
-  }, {
-    name: nextName
+  const baseClassName = 'block-editor-block-patterns-explorer__sidebar';
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: `${baseClassName}__categories-list`
+  }, patternCategories.map(({
+    name,
+    label
   }) => {
-    if (![currentName, nextName].includes('featured')) {
-      return 0;
-    }
-
-    return currentName === 'featured' ? -1 : 1;
-  }), [allPatterns, allCategories]);
-  const patternCategory = selectedCategory ? selectedCategory : populatedCategories[0];
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (allPatterns.some(pattern => getPatternIndex(pattern) === Infinity) && !populatedCategories.find(category => category.name === 'uncategorized')) {
-      populatedCategories.push({
-        name: 'uncategorized',
-        label: (0,external_wp_i18n_namespaceObject._x)('Uncategorized')
-      });
-    }
-  }, [populatedCategories, allPatterns]);
-  const getPatternIndex = (0,external_wp_element_namespaceObject.useCallback)(pattern => {
-    if (!pattern.categories || !pattern.categories.length) {
-      return Infinity;
-    }
-
-    const indexedCategories = (0,external_lodash_namespaceObject.fromPairs)(populatedCategories.map(({
-      name
-    }, index) => [name, index]));
-    return Math.min(...pattern.categories.map(cat => indexedCategories[cat] !== undefined ? indexedCategories[cat] : Infinity));
-  }, [populatedCategories]);
-  const currentCategoryPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => allPatterns.filter(pattern => patternCategory.name === 'uncategorized' ? getPatternIndex(pattern) === Infinity : pattern.categories && pattern.categories.includes(patternCategory.name)), [allPatterns, patternCategory]); // Ordering the patterns is important for the async rendering.
-
-  const orderedPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return currentCategoryPatterns.sort((a, b) => {
-      return getPatternIndex(a) - getPatternIndex(b);
-    });
-  }, [currentCategoryPatterns, getPatternIndex]);
-  const currentShownPatterns = (0,external_wp_compose_namespaceObject.useAsyncList)(orderedPatterns);
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, !!currentCategoryPatterns.length && (0,external_wp_element_namespaceObject.createElement)(pattern_panel, {
-    selectedCategory: patternCategory,
-    patternCategories: populatedCategories,
-    onClickCategory: onClickCategory
-  }, (0,external_wp_element_namespaceObject.createElement)(block_patterns_list, {
-    shownPatterns: currentShownPatterns,
-    blockPatterns: currentCategoryPatterns,
-    onClickPattern: onClick,
-    label: patternCategory.label,
-    orientation: "vertical",
-    isDraggable: true
-  })));
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+      key: name,
+      label: label,
+      className: `${baseClassName}__categories-list__item`,
+      isPressed: selectedCategory === name,
+      onClick: () => {
+        onClickCategory(name);
+      }
+    }, label);
+  }));
 }
 
-function BlockPatternsTabs({
-  rootClientId,
-  onInsert,
-  onClickCategory,
-  selectedCategory
+function PatternsExplorerSearch({
+  filterValue,
+  setFilterValue
 }) {
-  return (0,external_wp_element_namespaceObject.createElement)(BlockPatternsCategory, {
-    rootClientId: rootClientId,
-    selectedCategory: selectedCategory,
-    onInsert: onInsert,
-    onClickCategory: onClickCategory
-  });
+  const baseClassName = 'block-editor-block-patterns-explorer__search';
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: baseClassName
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SearchControl, {
+    onChange: setFilterValue,
+    value: filterValue,
+    label: (0,external_wp_i18n_namespaceObject.__)('Search for patterns'),
+    placeholder: (0,external_wp_i18n_namespaceObject.__)('Search')
+  }));
 }
 
-/* harmony default export */ var block_patterns_tab = (BlockPatternsTabs);
-//# sourceMappingURL=block-patterns-tab.js.map
-;// CONCATENATED MODULE: external ["wp","url"]
-var external_wp_url_namespaceObject = window["wp"]["url"];
+function PatternExplorerSidebar({
+  selectedCategory,
+  patternCategories,
+  onClickCategory,
+  filterValue,
+  setFilterValue
+}) {
+  const baseClassName = 'block-editor-block-patterns-explorer__sidebar';
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: baseClassName
+  }, (0,external_wp_element_namespaceObject.createElement)(PatternsExplorerSearch, {
+    filterValue: filterValue,
+    setFilterValue: setFilterValue
+  }), !filterValue && (0,external_wp_element_namespaceObject.createElement)(PatternCategoriesList, {
+    selectedCategory: selectedCategory,
+    patternCategories: patternCategories,
+    onClickCategory: onClickCategory
+  }));
+}
+
+/* harmony default export */ var sidebar = (PatternExplorerSidebar);
+//# sourceMappingURL=sidebar.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/no-results.js
 
 
@@ -20481,94 +20647,6 @@ function InserterNoResults() {
 
 /* harmony default export */ var no_results = (InserterNoResults);
 //# sourceMappingURL=no-results.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/reusable-blocks-tab.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-function ReusableBlocksList({
-  onHover,
-  onInsert,
-  rootClientId
-}) {
-  const [items,,, onSelectItem] = use_block_types_state(rootClientId, onInsert);
-  const filteredItems = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return items.filter(({
-      category
-    }) => category === 'reusable');
-  }, [items]);
-
-  if (filteredItems.length === 0) {
-    return (0,external_wp_element_namespaceObject.createElement)(no_results, null);
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(panel, {
-    title: (0,external_wp_i18n_namespaceObject.__)('Reusable blocks')
-  }, (0,external_wp_element_namespaceObject.createElement)(block_types_list, {
-    items: filteredItems,
-    onSelect: onSelectItem,
-    onHover: onHover,
-    label: (0,external_wp_i18n_namespaceObject.__)('Reusable blocks')
-  }));
-} // The unwrapped component is only exported for use by unit tests.
-
-/**
- * List of reusable blocks shown in the "Reusable" tab of the inserter.
- *
- * @param {Object}   props              Component props.
- * @param {?string}  props.rootClientId Client id of block to insert into.
- * @param {Function} props.onInsert     Callback to run when item is inserted.
- * @param {Function} props.onHover      Callback to run when item is hovered.
- *
- * @return {WPComponent} The component.
- */
-
-
-function ReusableBlocksTab({
-  rootClientId,
-  onInsert,
-  onHover
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(ReusableBlocksList, {
-    onHover: onHover,
-    onInsert: onInsert,
-    rootClientId: rootClientId
-  }), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-inserter__manage-reusable-blocks-container"
-  }, (0,external_wp_element_namespaceObject.createElement)("a", {
-    className: "block-editor-inserter__manage-reusable-blocks",
-    href: (0,external_wp_url_namespaceObject.addQueryArgs)('edit.php', {
-      post_type: 'wp_block'
-    })
-  }, (0,external_wp_i18n_namespaceObject.__)('Manage Reusable blocks'))));
-}
-/* harmony default export */ var reusable_blocks_tab = (ReusableBlocksTab);
-//# sourceMappingURL=reusable-blocks-tab.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter-menu-extension/index.js
-/**
- * WordPress dependencies
- */
-
-const {
-  Fill: __unstableInserterMenuExtension,
-  Slot
-} = (0,external_wp_components_namespaceObject.createSlotFill)('__unstableInserterMenuExtension');
-__unstableInserterMenuExtension.Slot = Slot;
-/* harmony default export */ var inserter_menu_extension = (__unstableInserterMenuExtension);
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/hooks/use-insertion-point.js
 /**
  * External dependencies
@@ -20846,6 +20924,371 @@ function getItemSearchRank(item, searchTerm, config = {}) {
   return rank;
 }
 //# sourceMappingURL=search-items.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/block-patterns-explorer/patterns-list.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+const INITIAL_INSERTER_RESULTS = 2;
+
+function PatternsListHeader({
+  filterValue,
+  filteredBlockPatternsLength
+}) {
+  if (!filterValue) {
+    return null;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
+    level: 2,
+    lineHeight: '48px',
+    className: "block-editor-block-patterns-explorer__search-results-count"
+  }, (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %d: number of patterns. %s: block pattern search query */
+  (0,external_wp_i18n_namespaceObject._n)('%1$d pattern found for "%2$s"', '%1$d patterns found for "%2$s"', filteredBlockPatternsLength), filteredBlockPatternsLength, filterValue));
+}
+
+function PatternList({
+  filterValue,
+  selectedCategory,
+  patternCategories
+}) {
+  const debouncedSpeak = (0,external_wp_compose_namespaceObject.useDebounce)(external_wp_a11y_namespaceObject.speak, 500);
+  const [destinationRootClientId, onInsertBlocks] = use_insertion_point({
+    shouldFocusBlock: true
+  });
+  const [allPatterns,, onSelectBlockPattern] = use_patterns_state(onInsertBlocks, destinationRootClientId);
+  const registeredPatternCategories = (0,external_wp_element_namespaceObject.useMemo)(() => patternCategories.map(patternCategory => patternCategory.name), [patternCategories]);
+  const filteredBlockPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (!filterValue) {
+      return allPatterns.filter(pattern => {
+        var _pattern$categories, _pattern$categories2;
+
+        return selectedCategory === 'uncategorized' ? !((_pattern$categories = pattern.categories) !== null && _pattern$categories !== void 0 && _pattern$categories.length) || pattern.categories.every(category => !registeredPatternCategories.includes(category)) : (_pattern$categories2 = pattern.categories) === null || _pattern$categories2 === void 0 ? void 0 : _pattern$categories2.includes(selectedCategory);
+      });
+    }
+
+    return searchItems(allPatterns, filterValue);
+  }, [filterValue, selectedCategory, allPatterns]); // Announce search results on change.
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (!filterValue) {
+      return;
+    }
+
+    const count = filteredBlockPatterns.length;
+    const resultsFoundMessage = (0,external_wp_i18n_namespaceObject.sprintf)(
+    /* translators: %d: number of results. */
+    (0,external_wp_i18n_namespaceObject._n)('%d result found.', '%d results found.', count), count);
+    debouncedSpeak(resultsFoundMessage);
+  }, [filterValue, debouncedSpeak]);
+  const currentShownPatterns = (0,external_wp_compose_namespaceObject.useAsyncList)(filteredBlockPatterns, {
+    step: INITIAL_INSERTER_RESULTS
+  });
+  const hasItems = !!(filteredBlockPatterns !== null && filteredBlockPatterns !== void 0 && filteredBlockPatterns.length);
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-block-patterns-explorer__list"
+  }, hasItems && (0,external_wp_element_namespaceObject.createElement)(PatternsListHeader, {
+    filterValue: filterValue,
+    filteredBlockPatternsLength: filteredBlockPatterns.length
+  }), (0,external_wp_element_namespaceObject.createElement)(inserter_listbox, null, !hasItems && (0,external_wp_element_namespaceObject.createElement)(no_results, null), hasItems && (0,external_wp_element_namespaceObject.createElement)(block_patterns_list, {
+    shownPatterns: currentShownPatterns,
+    blockPatterns: filteredBlockPatterns,
+    onClickPattern: onSelectBlockPattern,
+    isDraggable: false
+  })));
+}
+
+/* harmony default export */ var patterns_list = (PatternList);
+//# sourceMappingURL=patterns-list.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/block-patterns-explorer/explorer.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function PatternsExplorer({
+  initialCategory,
+  patternCategories
+}) {
+  const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
+  const [selectedCategory, setSelectedCategory] = (0,external_wp_element_namespaceObject.useState)(initialCategory === null || initialCategory === void 0 ? void 0 : initialCategory.name);
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-block-patterns-explorer"
+  }, (0,external_wp_element_namespaceObject.createElement)(sidebar, {
+    selectedCategory: selectedCategory,
+    patternCategories: patternCategories,
+    onClickCategory: setSelectedCategory,
+    filterValue: filterValue,
+    setFilterValue: setFilterValue
+  }), (0,external_wp_element_namespaceObject.createElement)(patterns_list, {
+    filterValue: filterValue,
+    selectedCategory: selectedCategory,
+    patternCategories: patternCategories
+  }));
+}
+
+function PatternsExplorerModal({
+  onModalClose,
+  ...restProps
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Patterns'),
+    closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close'),
+    onRequestClose: onModalClose,
+    isFullScreen: true
+  }, (0,external_wp_element_namespaceObject.createElement)(PatternsExplorer, restProps));
+}
+
+/* harmony default export */ var explorer = (PatternsExplorerModal);
+//# sourceMappingURL=explorer.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/block-patterns-tab.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+function BlockPatternsCategory({
+  rootClientId,
+  onInsert,
+  selectedCategory,
+  populatedCategories
+}) {
+  const [allPatterns,, onClick] = use_patterns_state(onInsert, rootClientId);
+  const getPatternIndex = (0,external_wp_element_namespaceObject.useCallback)(pattern => {
+    var _pattern$categories;
+
+    if (!((_pattern$categories = pattern.categories) !== null && _pattern$categories !== void 0 && _pattern$categories.length)) {
+      return Infinity;
+    }
+
+    const indexedCategories = populatedCategories.reduce((accumulator, {
+      name
+    }, index) => {
+      accumulator[name] = index;
+      return accumulator;
+    }, {});
+    return Math.min(...pattern.categories.map(cat => indexedCategories[cat] !== undefined ? indexedCategories[cat] : Infinity));
+  }, [populatedCategories]);
+  const currentCategoryPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => allPatterns.filter(pattern => {
+    var _pattern$categories2;
+
+    return selectedCategory.name === 'uncategorized' ? getPatternIndex(pattern) === Infinity : (_pattern$categories2 = pattern.categories) === null || _pattern$categories2 === void 0 ? void 0 : _pattern$categories2.includes(selectedCategory.name);
+  }), [allPatterns, selectedCategory]); // Ordering the patterns is important for the async rendering.
+
+  const orderedPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return currentCategoryPatterns.sort((a, b) => {
+      return getPatternIndex(a) - getPatternIndex(b);
+    });
+  }, [currentCategoryPatterns, getPatternIndex]);
+  const currentShownPatterns = (0,external_wp_compose_namespaceObject.useAsyncList)(orderedPatterns);
+
+  if (!currentCategoryPatterns.length) {
+    return null;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-inserter__panel-content"
+  }, (0,external_wp_element_namespaceObject.createElement)(block_patterns_list, {
+    shownPatterns: currentShownPatterns,
+    blockPatterns: currentCategoryPatterns,
+    onClickPattern: onClick,
+    label: selectedCategory.label,
+    orientation: "vertical",
+    isDraggable: true
+  }));
+}
+
+function BlockPatternsTabs({
+  rootClientId,
+  onInsert,
+  onClickCategory,
+  selectedCategory
+}) {
+  const [showPatternsExplorer, setShowPatternsExplorer] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [allPatterns, allCategories] = use_patterns_state();
+  const hasRegisteredCategory = (0,external_wp_element_namespaceObject.useCallback)(pattern => {
+    if (!pattern.categories || !pattern.categories.length) {
+      return false;
+    }
+
+    return pattern.categories.some(cat => allCategories.some(category => category.name === cat));
+  }, [allCategories]); // Remove any empty categories
+
+  const populatedCategories = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const categories = allCategories.filter(category => allPatterns.some(pattern => {
+      var _pattern$categories3;
+
+      return (_pattern$categories3 = pattern.categories) === null || _pattern$categories3 === void 0 ? void 0 : _pattern$categories3.includes(category.name);
+    })).sort(({
+      name: currentName
+    }, {
+      name: nextName
+    }) => {
+      if (![currentName, nextName].includes('featured')) {
+        return 0;
+      }
+
+      return currentName === 'featured' ? -1 : 1;
+    });
+
+    if (allPatterns.some(pattern => !hasRegisteredCategory(pattern)) && !categories.find(category => category.name === 'uncategorized')) {
+      categories.push({
+        name: 'uncategorized',
+        label: (0,external_wp_i18n_namespaceObject._x)('Uncategorized')
+      });
+    }
+
+    return categories;
+  }, [allPatterns, allCategories]);
+  const patternCategory = selectedCategory ? selectedCategory : populatedCategories[0];
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, !showPatternsExplorer && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(pattern_panel, {
+    selectedCategory: patternCategory,
+    patternCategories: populatedCategories,
+    onClickCategory: onClickCategory,
+    openPatternExplorer: () => setShowPatternsExplorer(true)
+  }), (0,external_wp_element_namespaceObject.createElement)(BlockPatternsCategory, {
+    rootClientId: rootClientId,
+    onInsert: onInsert,
+    selectedCategory: patternCategory,
+    populatedCategories: populatedCategories
+  })), showPatternsExplorer && (0,external_wp_element_namespaceObject.createElement)(explorer, {
+    initialCategory: patternCategory,
+    patternCategories: populatedCategories,
+    onModalClose: () => setShowPatternsExplorer(false)
+  }));
+}
+
+/* harmony default export */ var block_patterns_tab = (BlockPatternsTabs);
+//# sourceMappingURL=block-patterns-tab.js.map
+;// CONCATENATED MODULE: external ["wp","url"]
+var external_wp_url_namespaceObject = window["wp"]["url"];
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/reusable-blocks-tab.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+function ReusableBlocksList({
+  onHover,
+  onInsert,
+  rootClientId
+}) {
+  const [items,,, onSelectItem] = use_block_types_state(rootClientId, onInsert);
+  const filteredItems = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return items.filter(({
+      category
+    }) => category === 'reusable');
+  }, [items]);
+
+  if (filteredItems.length === 0) {
+    return (0,external_wp_element_namespaceObject.createElement)(no_results, null);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(panel, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Reusable blocks')
+  }, (0,external_wp_element_namespaceObject.createElement)(block_types_list, {
+    items: filteredItems,
+    onSelect: onSelectItem,
+    onHover: onHover,
+    label: (0,external_wp_i18n_namespaceObject.__)('Reusable blocks')
+  }));
+} // The unwrapped component is only exported for use by unit tests.
+
+/**
+ * List of reusable blocks shown in the "Reusable" tab of the inserter.
+ *
+ * @param {Object}   props              Component props.
+ * @param {?string}  props.rootClientId Client id of block to insert into.
+ * @param {Function} props.onInsert     Callback to run when item is inserted.
+ * @param {Function} props.onHover      Callback to run when item is hovered.
+ *
+ * @return {WPComponent} The component.
+ */
+
+
+function ReusableBlocksTab({
+  rootClientId,
+  onInsert,
+  onHover
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(ReusableBlocksList, {
+    onHover: onHover,
+    onInsert: onInsert,
+    rootClientId: rootClientId
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-inserter__manage-reusable-blocks-container"
+  }, (0,external_wp_element_namespaceObject.createElement)("a", {
+    className: "block-editor-inserter__manage-reusable-blocks",
+    href: (0,external_wp_url_namespaceObject.addQueryArgs)('edit.php', {
+      post_type: 'wp_block'
+    })
+  }, (0,external_wp_i18n_namespaceObject.__)('Manage Reusable blocks'))));
+}
+/* harmony default export */ var reusable_blocks_tab = (ReusableBlocksTab);
+//# sourceMappingURL=reusable-blocks-tab.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter-menu-extension/index.js
+/**
+ * WordPress dependencies
+ */
+
+const {
+  Fill: __unstableInserterMenuExtension,
+  Slot
+} = (0,external_wp_components_namespaceObject.createSlotFill)('__unstableInserterMenuExtension');
+__unstableInserterMenuExtension.Slot = Slot;
+/* harmony default export */ var inserter_menu_extension = (__unstableInserterMenuExtension);
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/search-results.js
 
 
@@ -20876,7 +21319,7 @@ function getItemSearchRank(item, searchTerm, config = {}) {
 
 
 
-const INITIAL_INSERTER_RESULTS = 9;
+const search_results_INITIAL_INSERTER_RESULTS = 9;
 /**
  * Shared reference to an empty array for cases where it is important to avoid
  * returning a new array reference on every invocation and rerendering the component.
@@ -20932,7 +21375,7 @@ function InserterSearchResults({
     debouncedSpeak(resultsFoundMessage);
   }, [filterValue, debouncedSpeak]);
   const currentShownBlockTypes = (0,external_wp_compose_namespaceObject.useAsyncList)(filteredBlockTypes, {
-    step: INITIAL_INSERTER_RESULTS
+    step: search_results_INITIAL_INSERTER_RESULTS
   });
   const currentShownPatterns = (0,external_wp_compose_namespaceObject.useAsyncList)(currentShownBlockTypes.length === filteredBlockTypes.length ? filteredBlockPatterns : search_results_EMPTY_ARRAY);
   const hasItems = !(0,external_lodash_namespaceObject.isEmpty)(filteredBlockTypes) || !(0,external_lodash_namespaceObject.isEmpty)(filteredBlockPatterns);
@@ -23016,7 +23459,7 @@ function BlockSelectionButton({
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
     justify: "center",
     className: "block-editor-block-list__block-selection-button__content"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(block_icon, {
     icon: blockInformation === null || blockInformation === void 0 ? void 0 : blockInformation.icon,
     showColors: true
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(block_draggable, {
@@ -23949,7 +24392,7 @@ function BlockParentSelector() {
     /* translators: %s: Name of the block's parent. */
     (0,external_wp_i18n_namespaceObject.__)('Select %s'), blockInformation.title),
     showTooltip: true,
-    icon: (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+    icon: (0,external_wp_element_namespaceObject.createElement)(block_icon, {
       icon: blockInformation.icon
     })
   }));
@@ -24050,7 +24493,7 @@ const BlockTransformationsMenu = ({
       disabled: isDisabled,
       onMouseLeave: () => setHoveredTransformItemName(null),
       onMouseEnter: () => setHoveredTransformItemName(name)
-    }, (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+    }, (0,external_wp_element_namespaceObject.createElement)(block_icon, {
       icon: icon,
       showColors: true
     }), title);
@@ -24708,7 +25151,7 @@ const BlockSwitcherDropdownMenu = ({
       disabled: true,
       className: "block-editor-block-switcher__no-switcher-icon",
       title: blockTitle,
-      icon: (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+      icon: (0,external_wp_element_namespaceObject.createElement)(block_icon, {
         icon: icon,
         showColors: true
       })
@@ -24730,7 +25173,7 @@ const BlockSwitcherDropdownMenu = ({
       isAlternate: true,
       className: 'block-editor-block-switcher__popover'
     },
-    icon: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+    icon: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(block_icon, {
       icon: icon,
       className: "block-editor-block-switcher__toggle",
       showColors: true
@@ -25548,7 +25991,24 @@ function BlockSettingsDropdown({
   const blockClientIds = (0,external_lodash_namespaceObject.castArray)(clientIds);
   const count = blockClientIds.length;
   const firstBlockClientId = blockClientIds[0];
-  const onlyBlock = (0,external_wp_data_namespaceObject.useSelect)(select => 1 === select(store).getBlockCount(), []);
+  const {
+    onlyBlock,
+    title
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _getBlockType;
+
+    const {
+      getBlockCount,
+      getBlockName
+    } = select(store);
+    const {
+      getBlockType
+    } = select(external_wp_blocks_namespaceObject.store);
+    return {
+      onlyBlock: 1 === getBlockCount(),
+      title: (_getBlockType = getBlockType(getBlockName(firstBlockClientId))) === null || _getBlockType === void 0 ? void 0 : _getBlockType.title
+    };
+  }, [firstBlockClientId]);
   const shortcuts = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getShortcutRepresentation
@@ -25567,7 +26027,10 @@ function BlockSettingsDropdown({
       __experimentalSelectBlock(ids[0]);
     }
   } : external_lodash_namespaceObject.noop, [__experimentalSelectBlock]);
-  const removeBlockLabel = count === 1 ? (0,external_wp_i18n_namespaceObject.__)('Remove block') : (0,external_wp_i18n_namespaceObject.__)('Remove blocks');
+  const label = (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: block name */
+  (0,external_wp_i18n_namespaceObject.__)('Remove %s'), title);
+  const removeBlockLabel = count === 1 ? label : (0,external_wp_i18n_namespaceObject.__)('Remove blocks');
   return (0,external_wp_element_namespaceObject.createElement)(BlockActions, {
     clientIds: clientIds,
     __experimentalUpdateSelection: !__experimentalSelectBlock
@@ -27069,16 +27532,17 @@ function useInnerBlocksProps(props = {}, options = {}) {
       clientId: clientId
     })) : (0,external_wp_element_namespaceObject.createElement)(BlockListItems, options)
   };
-} // Expose default appender placeholders as components.
+}
+useInnerBlocksProps.save = external_wp_blocks_namespaceObject.__unstableGetInnerBlocksProps; // Expose default appender placeholders as components.
 
 ForwardedInnerBlocks.DefaultBlockAppender = inner_blocks_default_block_appender;
 ForwardedInnerBlocks.ButtonBlockAppender = inner_blocks_button_block_appender;
-ForwardedInnerBlocks.Content = (0,external_wp_blocks_namespaceObject.withBlockContentContext)(({
-  BlockContent
-}) => (0,external_wp_element_namespaceObject.createElement)(BlockContent, null));
+
+ForwardedInnerBlocks.Content = () => useInnerBlocksProps.save().children;
 /**
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/inner-blocks/README.md
  */
+
 
 /* harmony default export */ var inner_blocks = (ForwardedInnerBlocks);
 //# sourceMappingURL=index.js.map
@@ -27230,6 +27694,112 @@ function BlockListItems(props) {
   }, (0,external_wp_element_namespaceObject.createElement)(Items, props));
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/control.js
+
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const colorsAndGradientKeys = ['colors', 'disableCustomColors', 'gradients', 'disableCustomGradients'];
+
+function ColorGradientControlInner({
+  colors,
+  gradients,
+  disableCustomColors,
+  disableCustomGradients,
+  __experimentalHasMultipleOrigins,
+  className,
+  label,
+  onColorChange,
+  onGradientChange,
+  colorValue,
+  gradientValue,
+  clearable,
+  showTitle = true
+}) {
+  const canChooseAColor = onColorChange && (!(0,external_lodash_namespaceObject.isEmpty)(colors) || !disableCustomColors);
+  const canChooseAGradient = onGradientChange && (!(0,external_lodash_namespaceObject.isEmpty)(gradients) || !disableCustomGradients);
+  const [currentTab, setCurrentTab] = (0,external_wp_element_namespaceObject.useState)(gradientValue ? 'gradient' : !!canChooseAColor && 'color');
+
+  if (!canChooseAColor && !canChooseAGradient) {
+    return null;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.BaseControl, {
+    className: classnames_default()('block-editor-color-gradient-control', className)
+  }, (0,external_wp_element_namespaceObject.createElement)("fieldset", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
+    spacing: 1
+  }, showTitle && (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-color-gradient-control__color-indicator"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.BaseControl.VisualLabel, null, label))), canChooseAColor && canChooseAGradient && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
+    value: currentTab,
+    onChange: setCurrentTab,
+    label: (0,external_wp_i18n_namespaceObject.__)('Select color type'),
+    hideLabelFromVision: true,
+    isBlock: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "color",
+    label: (0,external_wp_i18n_namespaceObject.__)('Solid')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "gradient",
+    label: (0,external_wp_i18n_namespaceObject.__)('Gradient')
+  })), (currentTab === 'color' || !canChooseAGradient) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorPalette, {
+    value: colorValue,
+    onChange: canChooseAGradient ? newColor => {
+      onColorChange(newColor);
+      onGradientChange();
+    } : onColorChange,
+    colors,
+    disableCustomColors,
+    __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
+    clearable: clearable
+  }), (currentTab === 'gradient' || !canChooseAColor) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.GradientPicker, {
+    value: gradientValue,
+    onChange: canChooseAColor ? newGradient => {
+      onGradientChange(newGradient);
+      onColorChange();
+    } : onGradientChange,
+    gradients,
+    disableCustomGradients,
+    __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
+    clearable: clearable
+  }))));
+}
+
+function ColorGradientControlSelect(props) {
+  const colorGradientSettings = {};
+  colorGradientSettings.colors = useSetting('color.palette');
+  colorGradientSettings.gradients = useSetting('color.gradients');
+  colorGradientSettings.disableCustomColors = !useSetting('color.custom');
+  colorGradientSettings.disableCustomGradients = !useSetting('color.customGradient');
+  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlInner, _extends({}, colorGradientSettings, props));
+}
+
+function ColorGradientControl(props) {
+  if ((0,external_lodash_namespaceObject.every)(colorsAndGradientKeys, key => props.hasOwnProperty(key))) {
+    return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlInner, props);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlSelect, props);
+}
+
+/* harmony default export */ var control = (ColorGradientControl);
+//# sourceMappingURL=control.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors/utils.js
 /**
  * External dependencies
@@ -27315,267 +27885,6 @@ function getMostReadableColor(colors, colorValue) {
   }) => colordColor.contrast(color)).color;
 }
 //# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/gradients/use-gradient.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-const use_gradient_EMPTY_ARRAY = [];
-function __experimentalGetGradientClass(gradientSlug) {
-  if (!gradientSlug) {
-    return undefined;
-  }
-
-  return `has-${gradientSlug}-gradient-background`;
-}
-/**
- * Retrieves the gradient value per slug.
- *
- * @param {Array}  gradients Gradient Palette
- * @param {string} slug      Gradient slug
- *
- * @return {string} Gradient value.
- */
-
-function getGradientValueBySlug(gradients, slug) {
-  const gradient = (0,external_lodash_namespaceObject.find)(gradients, ['slug', slug]);
-  return gradient && gradient.gradient;
-}
-function __experimentalGetGradientObjectByGradientValue(gradients, value) {
-  const gradient = (0,external_lodash_namespaceObject.find)(gradients, ['gradient', value]);
-  return gradient;
-}
-/**
- * Retrieves the gradient slug per slug.
- *
- * @param {Array}  gradients Gradient Palette
- * @param {string} value     Gradient value
- * @return {string} Gradient slug.
- */
-
-function getGradientSlugByValue(gradients, value) {
-  const gradient = __experimentalGetGradientObjectByGradientValue(gradients, value);
-
-  return gradient && gradient.slug;
-}
-function __experimentalUseGradient({
-  gradientAttribute = 'gradient',
-  customGradientAttribute = 'customGradient'
-} = {}) {
-  const {
-    clientId
-  } = useBlockEditContext();
-  const gradients = useSetting('color.gradients') || use_gradient_EMPTY_ARRAY;
-  const {
-    gradient,
-    customGradient
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getBlockAttributes
-    } = select(store);
-    const attributes = getBlockAttributes(clientId) || {};
-    return {
-      customGradient: attributes[customGradientAttribute],
-      gradient: attributes[gradientAttribute]
-    };
-  }, [clientId, gradientAttribute, customGradientAttribute]);
-  const {
-    updateBlockAttributes
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-  const setGradient = (0,external_wp_element_namespaceObject.useCallback)(newGradientValue => {
-    const slug = getGradientSlugByValue(gradients, newGradientValue);
-
-    if (slug) {
-      updateBlockAttributes(clientId, {
-        [gradientAttribute]: slug,
-        [customGradientAttribute]: undefined
-      });
-      return;
-    }
-
-    updateBlockAttributes(clientId, {
-      [gradientAttribute]: undefined,
-      [customGradientAttribute]: newGradientValue
-    });
-  }, [gradients, clientId, updateBlockAttributes]);
-
-  const gradientClass = __experimentalGetGradientClass(gradient);
-
-  let gradientValue;
-
-  if (gradient) {
-    gradientValue = getGradientValueBySlug(gradients, gradient);
-  } else {
-    gradientValue = customGradient;
-  }
-
-  return {
-    gradientClass,
-    gradientValue,
-    setGradient
-  };
-}
-//# sourceMappingURL=use-gradient.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/control.js
-
-
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
- // translators: first %s: the color name or value (e.g. red or #ff0000)
-
-const colorIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(Color: %s)'); // translators: first %s: the gradient name or value (e.g. red to green or linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%)
-
-
-const gradientIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(Gradient: %s)');
-
-const colorsAndGradientKeys = ['colors', 'disableCustomColors', 'gradients', 'disableCustomGradients'];
-
-function VisualLabel({
-  colors,
-  gradients,
-  label,
-  currentTab,
-  colorValue,
-  gradientValue
-}) {
-  let value, ariaLabel;
-
-  if (currentTab === 'color') {
-    if (colorValue) {
-      value = colorValue;
-      const colorObject = getColorObjectByColorValue(colors, value);
-      const colorName = colorObject && colorObject.name;
-      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(colorIndicatorAriaLabel, colorName || value);
-    }
-  } else if (currentTab === 'gradient' && gradientValue) {
-    value = gradientValue;
-
-    const gradientObject = __experimentalGetGradientObjectByGradientValue(gradients, value);
-
-    const gradientName = gradientObject && gradientObject.name;
-    ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(gradientIndicatorAriaLabel, gradientName || value);
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, label, !!value && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
-    colorValue: value,
-    "aria-label": ariaLabel
-  }));
-}
-
-function ColorGradientControlInner({
-  colors,
-  gradients,
-  disableCustomColors,
-  disableCustomGradients,
-  className,
-  label,
-  onColorChange,
-  onGradientChange,
-  colorValue,
-  gradientValue,
-  clearable
-}) {
-  const canChooseAColor = onColorChange && (!(0,external_lodash_namespaceObject.isEmpty)(colors) || !disableCustomColors);
-  const canChooseAGradient = onGradientChange && (!(0,external_lodash_namespaceObject.isEmpty)(gradients) || !disableCustomGradients);
-  const [currentTab, setCurrentTab] = (0,external_wp_element_namespaceObject.useState)(gradientValue ? 'gradient' : !!canChooseAColor && 'color');
-
-  if (!canChooseAColor && !canChooseAGradient) {
-    return null;
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.BaseControl, {
-    className: classnames_default()('block-editor-color-gradient-control', className)
-  }, (0,external_wp_element_namespaceObject.createElement)("fieldset", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
-    space: 3
-  }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-color-gradient-control__color-indicator"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.BaseControl.VisualLabel, null, (0,external_wp_element_namespaceObject.createElement)(VisualLabel, {
-    currentTab: currentTab,
-    label: label,
-    colorValue: colorValue,
-    gradientValue: gradientValue
-  })))), canChooseAColor && canChooseAGradient && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
-    value: currentTab,
-    onChange: setCurrentTab,
-    label: (0,external_wp_i18n_namespaceObject.__)('Select color type'),
-    hideLabelFromVision: true,
-    isBlock: true
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "color",
-    label: (0,external_wp_i18n_namespaceObject.__)('Solid')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "gradient",
-    label: (0,external_wp_i18n_namespaceObject.__)('Gradient')
-  })), (currentTab === 'color' || !canChooseAGradient) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorPalette, {
-    value: colorValue,
-    onChange: canChooseAGradient ? newColor => {
-      onColorChange(newColor);
-      onGradientChange();
-    } : onColorChange,
-    colors,
-    disableCustomColors,
-    clearable: clearable
-  }), (currentTab === 'gradient' || !canChooseAColor) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.GradientPicker, {
-    value: gradientValue,
-    onChange: canChooseAColor ? newGradient => {
-      onGradientChange(newGradient);
-      onColorChange();
-    } : onGradientChange,
-    gradients,
-    disableCustomGradients,
-    clearable: clearable
-  }))));
-}
-
-function ColorGradientControlSelect(props) {
-  const colorGradientSettings = {};
-  colorGradientSettings.colors = useSetting('color.palette');
-  colorGradientSettings.gradients = useSetting('color.gradients');
-  colorGradientSettings.disableCustomColors = !useSetting('color.custom');
-  colorGradientSettings.disableCustomGradients = !useSetting('color.customGradient');
-  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlInner, _extends({}, colorGradientSettings, props));
-}
-
-function ColorGradientControl(props) {
-  if ((0,external_lodash_namespaceObject.every)(colorsAndGradientKeys, key => props.hasOwnProperty(key))) {
-    return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlInner, props);
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlSelect, props);
-}
-
-/* harmony default export */ var control = (ColorGradientControl);
-//# sourceMappingURL=control.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/border-color.js
 
 
@@ -28458,10 +28767,10 @@ const BORDER_SUPPORT_KEY = '__experimentalBorder';
 function BorderPanel(props) {
   const isDisabled = useIsBorderDisabled(props);
   const isSupported = hasBorderSupport(props.name);
-  const isColorSupported = useSetting('border.customColor') && hasBorderSupport(props.name, 'color');
-  const isRadiusSupported = useSetting('border.customRadius') && hasBorderSupport(props.name, 'radius');
-  const isStyleSupported = useSetting('border.customStyle') && hasBorderSupport(props.name, 'style');
-  const isWidthSupported = useSetting('border.customWidth') && hasBorderSupport(props.name, 'width');
+  const isColorSupported = useSetting('border.color') && hasBorderSupport(props.name, 'color');
+  const isRadiusSupported = useSetting('border.radius') && hasBorderSupport(props.name, 'radius');
+  const isStyleSupported = useSetting('border.style') && hasBorderSupport(props.name, 'style');
+  const isWidthSupported = useSetting('border.width') && hasBorderSupport(props.name, 'width');
 
   if (isDisabled || !isSupported) {
     return null;
@@ -28520,10 +28829,124 @@ function shouldSkipSerialization(blockType) {
  */
 
 const useIsBorderDisabled = () => {
-  const configs = [!useSetting('border.customColor'), !useSetting('border.customRadius'), !useSetting('border.customStyle'), !useSetting('border.customWidth')];
+  const configs = [!useSetting('border.color'), !useSetting('border.radius'), !useSetting('border.style'), !useSetting('border.width')];
   return configs.every(Boolean);
 };
 //# sourceMappingURL=border.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/gradients/use-gradient.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+const use_gradient_EMPTY_ARRAY = [];
+function __experimentalGetGradientClass(gradientSlug) {
+  if (!gradientSlug) {
+    return undefined;
+  }
+
+  return `has-${gradientSlug}-gradient-background`;
+}
+/**
+ * Retrieves the gradient value per slug.
+ *
+ * @param {Array}  gradients Gradient Palette
+ * @param {string} slug      Gradient slug
+ *
+ * @return {string} Gradient value.
+ */
+
+function getGradientValueBySlug(gradients, slug) {
+  const gradient = (0,external_lodash_namespaceObject.find)(gradients, ['slug', slug]);
+  return gradient && gradient.gradient;
+}
+function __experimentalGetGradientObjectByGradientValue(gradients, value) {
+  const gradient = (0,external_lodash_namespaceObject.find)(gradients, ['gradient', value]);
+  return gradient;
+}
+/**
+ * Retrieves the gradient slug per slug.
+ *
+ * @param {Array}  gradients Gradient Palette
+ * @param {string} value     Gradient value
+ * @return {string} Gradient slug.
+ */
+
+function getGradientSlugByValue(gradients, value) {
+  const gradient = __experimentalGetGradientObjectByGradientValue(gradients, value);
+
+  return gradient && gradient.slug;
+}
+function __experimentalUseGradient({
+  gradientAttribute = 'gradient',
+  customGradientAttribute = 'customGradient'
+} = {}) {
+  const {
+    clientId
+  } = useBlockEditContext();
+  const gradients = useSetting('color.gradients') || use_gradient_EMPTY_ARRAY;
+  const {
+    gradient,
+    customGradient
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getBlockAttributes
+    } = select(store);
+    const attributes = getBlockAttributes(clientId) || {};
+    return {
+      customGradient: attributes[customGradientAttribute],
+      gradient: attributes[gradientAttribute]
+    };
+  }, [clientId, gradientAttribute, customGradientAttribute]);
+  const {
+    updateBlockAttributes
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const setGradient = (0,external_wp_element_namespaceObject.useCallback)(newGradientValue => {
+    const slug = getGradientSlugByValue(gradients, newGradientValue);
+
+    if (slug) {
+      updateBlockAttributes(clientId, {
+        [gradientAttribute]: slug,
+        [customGradientAttribute]: undefined
+      });
+      return;
+    }
+
+    updateBlockAttributes(clientId, {
+      [gradientAttribute]: undefined,
+      [customGradientAttribute]: newGradientValue
+    });
+  }, [gradients, clientId, updateBlockAttributes]);
+
+  const gradientClass = __experimentalGetGradientClass(gradient);
+
+  let gradientValue;
+
+  if (gradient) {
+    gradientValue = getGradientValueBySlug(gradients, gradient);
+  } else {
+    gradientValue = customGradient;
+  }
+
+  return {
+    gradientClass,
+    gradientValue,
+    setGradient
+  };
+}
+//# sourceMappingURL=use-gradient.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/panel-color-gradient-settings.js
 
 
@@ -28539,6 +28962,7 @@ const useIsBorderDisabled = () => {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -28548,10 +28972,10 @@ const useIsBorderDisabled = () => {
 
  // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
 
-const panel_color_gradient_settings_colorIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: color %s)'); // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
+const colorIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: color %s)'); // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
 
 
-const panel_color_gradient_settings_gradientIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: gradient %s)');
+const gradientIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: gradient %s)');
 
 const panel_color_gradient_settings_colorsAndGradientKeys = ['colors', 'disableCustomColors', 'gradients', 'disableCustomGradients'];
 
@@ -28575,11 +28999,11 @@ const Indicators = ({
 
     if (colorValue) {
       const colorObject = getColorObjectByColorValue(availableColors || colors, colorValue);
-      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(panel_color_gradient_settings_colorIndicatorAriaLabel, label.toLowerCase(), colorObject && colorObject.name || colorValue);
+      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(colorIndicatorAriaLabel, label.toLowerCase(), colorObject && colorObject.name || colorValue);
     } else {
       const gradientObject = __experimentalGetGradientObjectByGradientValue(availableGradients || gradients, colorValue);
 
-      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(panel_color_gradient_settings_gradientIndicatorAriaLabel, label.toLowerCase(), gradientObject && gradientObject.name || gradientValue);
+      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(gradientIndicatorAriaLabel, label.toLowerCase(), gradientObject && gradientObject.name || gradientValue);
     }
 
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
@@ -28600,6 +29024,7 @@ const PanelColorGradientSettingsInner = ({
   settings,
   title,
   showTitle = true,
+  __experimentalHasMultipleOrigins,
   ...props
 }) => {
   if ((0,external_lodash_namespaceObject.isEmpty)(colors) && (0,external_lodash_namespaceObject.isEmpty)(gradients) && disableCustomColors && disableCustomGradients && (0,external_lodash_namespaceObject.every)(settings, setting => (0,external_lodash_namespaceObject.isEmpty)(setting.colors) && (0,external_lodash_namespaceObject.isEmpty)(setting.gradients) && (setting.disableCustomColors === undefined || setting.disableCustomColors) && (setting.disableCustomGradients === undefined || setting.disableCustomGradients))) {
@@ -28617,20 +29042,90 @@ const PanelColorGradientSettingsInner = ({
     className: classnames_default()('block-editor-panel-color-gradient-settings', className),
     title: showTitle ? titleElement : undefined
   }, props), settings.map((setting, index) => (0,external_wp_element_namespaceObject.createElement)(control, _extends({
+    showTitle: showTitle,
     key: index,
     colors,
     gradients,
     disableCustomColors,
-    disableCustomGradients
+    disableCustomGradients,
+    __experimentalHasMultipleOrigins
   }, setting))), children);
 };
 
-const PanelColorGradientSettingsSelect = props => {
-  const colorGradientSettings = {};
+function useCommonSingleMultipleSelects() {
+  return {
+    disableCustomColors: !useSetting('color.custom'),
+    disableCustomGradients: !useSetting('color.customGradient')
+  };
+}
+
+const PanelColorGradientSettingsSingleSelect = props => {
+  const colorGradientSettings = useCommonSingleMultipleSelects();
   colorGradientSettings.colors = useSetting('color.palette');
   colorGradientSettings.gradients = useSetting('color.gradients');
-  colorGradientSettings.disableCustomColors = !useSetting('color.custom');
-  colorGradientSettings.disableCustomGradients = !useSetting('color.customGradient');
+  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, _extends({}, colorGradientSettings, props));
+};
+
+const PanelColorGradientSettingsMultipleSelect = props => {
+  const colorGradientSettings = useCommonSingleMultipleSelects();
+  const userColors = useSetting('color.palette.user');
+  const themeColors = useSetting('color.palette.theme');
+  const coreColors = useSetting('color.palette.core');
+  colorGradientSettings.colors = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const result = [];
+
+    if (coreColors && coreColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject.__)('Core'),
+        colors: coreColors
+      });
+    }
+
+    if (themeColors && themeColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject.__)('Theme'),
+        colors: themeColors
+      });
+    }
+
+    if (userColors && userColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject.__)('User'),
+        colors: userColors
+      });
+    }
+
+    return result;
+  }, [coreColors, themeColors, userColors]);
+  const userGradients = useSetting('color.gradients.user');
+  const themeGradients = useSetting('color.gradients.theme');
+  const coreGradients = useSetting('color.gradients.core');
+  colorGradientSettings.gradients = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const result = [];
+
+    if (coreGradients && coreGradients.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject.__)('Core'),
+        gradients: coreGradients
+      });
+    }
+
+    if (themeGradients && themeGradients.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject.__)('Theme'),
+        gradients: themeGradients
+      });
+    }
+
+    if (userGradients && userGradients.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject.__)('User'),
+        gradients: userGradients
+      });
+    }
+
+    return result;
+  }, [userGradients, themeGradients, coreGradients]);
   return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, _extends({}, colorGradientSettings, props));
 };
 
@@ -28639,7 +29134,11 @@ const PanelColorGradientSettings = props => {
     return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, props);
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsSelect, props);
+  if (props.__experimentalHasMultipleOrigins) {
+    return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsMultipleSelect, props);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsSingleSelect, props);
 };
 
 /* harmony default export */ var panel_color_gradient_settings = (PanelColorGradientSettings);
@@ -28774,7 +29273,8 @@ function ColorPanel({
     title: (0,external_wp_i18n_namespaceObject.__)('Color'),
     initialOpen: false,
     settings: settings,
-    showTitle: showTitle
+    showTitle: showTitle,
+    __experimentalHasMultipleOrigins: true
   }, enableContrastChecking && (0,external_wp_element_namespaceObject.createElement)(contrast_checker, {
     backgroundColor: detectedBackgroundColor,
     textColor: detectedColor
@@ -29163,37 +29663,7 @@ const withColorPaletteStyles = (0,external_wp_compose_namespaceObject.createHigh
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/color/addEditProps', color_addEditProps);
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockListBlock', 'core/color/with-color-palette-styles', withColorPaletteStyles);
 //# sourceMappingURL=color.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-underline.js
-
-
-/**
- * WordPress dependencies
- */
-
-const formatUnderline = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M7 18v1h10v-1H7zm5-2c1.5 0 2.6-.4 3.4-1.2.8-.8 1.1-2 1.1-3.5V5H15v5.8c0 1.2-.2 2.1-.6 2.8-.4.7-1.2 1-2.4 1s-2-.3-2.4-1c-.4-.7-.6-1.6-.6-2.8V5H7.5v6.2c0 1.5.4 2.7 1.1 3.5.8.9 1.9 1.3 3.4 1.3z"
-}));
-/* harmony default export */ var format_underline = (formatUnderline);
-//# sourceMappingURL=format-underline.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-strikethrough.js
-
-
-/**
- * WordPress dependencies
- */
-
-const formatStrikethrough = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M9.1 9v-.5c0-.6.2-1.1.7-1.4.5-.3 1.2-.5 2-.5.7 0 1.4.1 2.1.3.7.2 1.4.5 2.1.9l.2-1.9c-.6-.3-1.2-.5-1.9-.7-.8-.1-1.6-.2-2.4-.2-1.5 0-2.7.3-3.6 1-.8.7-1.2 1.5-1.2 2.6V9h2zM20 12H4v1h8.3c.3.1.6.2.8.3.5.2.9.5 1.1.8.3.3.4.7.4 1.2 0 .7-.2 1.1-.8 1.5-.5.3-1.2.5-2.1.5-.8 0-1.6-.1-2.4-.3-.8-.2-1.5-.5-2.2-.8L7 18.1c.5.2 1.2.4 2 .6.8.2 1.6.3 2.4.3 1.7 0 3-.3 3.9-1 .9-.7 1.3-1.6 1.3-2.8 0-.9-.2-1.7-.7-2.2H20v-1z"
-}));
-/* harmony default export */ var format_strikethrough = (formatStrikethrough);
-//# sourceMappingURL=format-strikethrough.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/text-decoration-control/index.js
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/font-appearance-control/index.js
 
 
 /**
@@ -29202,319 +29672,195 @@ const formatStrikethrough = (0,external_wp_element_namespaceObject.createElement
 
 
 
-const TEXT_DECORATIONS = [{
-  name: (0,external_wp_i18n_namespaceObject.__)('Underline'),
-  value: 'underline',
-  icon: format_underline
+const FONT_STYLES = [{
+  name: (0,external_wp_i18n_namespaceObject.__)('Regular'),
+  value: 'normal'
 }, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Strikethrough'),
-  value: 'line-through',
-  icon: format_strikethrough
+  name: (0,external_wp_i18n_namespaceObject.__)('Italic'),
+  value: 'italic'
+}];
+const FONT_WEIGHTS = [{
+  name: (0,external_wp_i18n_namespaceObject.__)('Thin'),
+  value: '100'
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Extra Light'),
+  value: '200'
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Light'),
+  value: '300'
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Regular'),
+  value: '400'
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Medium'),
+  value: '500'
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Semi Bold'),
+  value: '600'
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Bold'),
+  value: '700'
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Extra Bold'),
+  value: '800'
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Black'),
+  value: '900'
 }];
 /**
- * Control to facilitate text decoration selections.
+ * Adjusts font appearance field label in case either font styles or weights
+ * are disabled.
  *
- * @param {Object}   props          Component props.
- * @param {string}   props.value    Currently selected text decoration.
- * @param {Function} props.onChange Handles change in text decoration selection.
+ * @param {boolean} hasFontStyles  Whether font styles are enabled and present.
+ * @param {boolean} hasFontWeights Whether font weights are enabled and present.
+ * @return {string} A label representing what font appearance is being edited.
+ */
+
+const getFontAppearanceLabel = (hasFontStyles, hasFontWeights) => {
+  if (!hasFontStyles) {
+    return (0,external_wp_i18n_namespaceObject.__)('Font weight');
+  }
+
+  if (!hasFontWeights) {
+    return (0,external_wp_i18n_namespaceObject.__)('Font style');
+  }
+
+  return (0,external_wp_i18n_namespaceObject.__)('Appearance');
+};
+/**
+ * Control to display unified font style and weight options.
  *
- * @return {WPElement} Text decoration control.
- */
-
-function TextDecorationControl({
-  value,
-  onChange
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)("fieldset", {
-    className: "block-editor-text-decoration-control"
-  }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_i18n_namespaceObject.__)('Decoration')), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-text-decoration-control__buttons"
-  }, TEXT_DECORATIONS.map(textDecoration => {
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-      key: textDecoration.value,
-      icon: textDecoration.icon,
-      isSmall: true,
-      isPressed: textDecoration.value === value,
-      onClick: () => onChange(textDecoration.value === value ? undefined : textDecoration.value),
-      "aria-label": textDecoration.name
-    });
-  })));
-}
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/text-decoration.js
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-/**
- * Key within block settings' supports array indicating support for text
- * decorations e.g. settings found in `block.json`.
- */
-
-const TEXT_DECORATION_SUPPORT_KEY = 'typography.__experimentalTextDecoration';
-/**
- * Inspector control panel containing the text decoration options.
+ * @param {Object} props Component props.
  *
- * @param {Object} props Block properties.
- *
- * @return {WPElement} Text decoration edit element.
+ * @return {WPElement} Font appearance control.
  */
 
-function TextDecorationEdit(props) {
-  var _style$typography;
-
+function FontAppearanceControl(props) {
   const {
-    attributes: {
-      style
-    },
-    setAttributes
+    onChange,
+    hasFontStyles = true,
+    hasFontWeights = true,
+    value: {
+      fontStyle,
+      fontWeight
+    }
   } = props;
-  const isDisabled = useIsTextDecorationDisabled(props);
+  const hasStylesOrWeights = hasFontStyles || hasFontWeights;
+  const label = getFontAppearanceLabel(hasFontStyles, hasFontWeights);
+  const defaultOption = {
+    key: 'default',
+    name: (0,external_wp_i18n_namespaceObject.__)('Default'),
+    style: {
+      fontStyle: undefined,
+      fontWeight: undefined
+    }
+  }; // Combines both font style and weight options into a single dropdown.
 
-  if (isDisabled) {
-    return null;
-  }
+  const combineOptions = () => {
+    const combinedOptions = [defaultOption];
+    FONT_STYLES.forEach(({
+      name: styleName,
+      value: styleValue
+    }) => {
+      FONT_WEIGHTS.forEach(({
+        name: weightName,
+        value: weightValue
+      }) => {
+        const optionName = styleValue === 'normal' ? weightName : (0,external_wp_i18n_namespaceObject.sprintf)(
+        /* translators: 1: Font weight name. 2: Font style name. */
+        (0,external_wp_i18n_namespaceObject.__)('%1$s %2$s'), weightName, styleName);
+        combinedOptions.push({
+          key: `${styleValue}-${weightValue}`,
+          name: optionName,
+          style: {
+            fontStyle: styleValue,
+            fontWeight: weightValue
+          }
+        });
+      });
+    });
+    return combinedOptions;
+  }; // Generates select options for font styles only.
 
-  function onChange(newDecoration) {
-    setAttributes({
-      style: cleanEmptyObject({ ...style,
-        typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
-          textDecoration: newDecoration
+
+  const styleOptions = () => {
+    const combinedOptions = [defaultOption];
+    FONT_STYLES.forEach(({
+      name,
+      value
+    }) => {
+      combinedOptions.push({
+        key: value,
+        name,
+        style: {
+          fontStyle: value,
+          fontWeight: undefined
         }
-      })
+      });
     });
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(TextDecorationControl, {
-    value: style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.textDecoration,
-    onChange: onChange
-  });
-}
-/**
- * Checks if text-decoration settings have been disabled.
- *
- * @param {string} name Name of the block.
- *
- * @return {boolean} Whether or not the setting is disabled.
- */
-
-function useIsTextDecorationDisabled({
-  name: blockName
-} = {}) {
-  const notSupported = !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, TEXT_DECORATION_SUPPORT_KEY);
-  const hasTextDecoration = useSetting('typography.customTextDecorations');
-  return notSupported || !hasTextDecoration;
-}
-//# sourceMappingURL=text-decoration.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-uppercase.js
+    return combinedOptions;
+  }; // Generates select options for font weights only.
 
 
-/**
- * WordPress dependencies
- */
-
-const formatUppercase = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M6.1 6.8L2.1 18h1.6l1.1-3h4.3l1.1 3h1.6l-4-11.2H6.1zm-.8 6.8L7 8.9l1.7 4.7H5.3zm15.1-.7c-.4-.5-.9-.8-1.6-1 .4-.2.7-.5.8-.9.2-.4.3-.9.3-1.4 0-.9-.3-1.6-.8-2-.6-.5-1.3-.7-2.4-.7h-3.5V18h4.2c1.1 0 2-.3 2.6-.8.6-.6 1-1.4 1-2.4-.1-.8-.3-1.4-.6-1.9zm-5.7-4.7h1.8c.6 0 1.1.1 1.4.4.3.2.5.7.5 1.3 0 .6-.2 1.1-.5 1.3-.3.2-.8.4-1.4.4h-1.8V8.2zm4 8c-.4.3-.9.5-1.5.5h-2.6v-3.8h2.6c1.4 0 2 .6 2 1.9.1.6-.1 1-.5 1.4z"
-}));
-/* harmony default export */ var format_uppercase = (formatUppercase);
-//# sourceMappingURL=format-uppercase.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-lowercase.js
-
-
-/**
- * WordPress dependencies
- */
-
-const formatLowercase = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M11 16.8c-.1-.1-.2-.3-.3-.5v-2.6c0-.9-.1-1.7-.3-2.2-.2-.5-.5-.9-.9-1.2-.4-.2-.9-.3-1.6-.3-.5 0-1 .1-1.5.2s-.9.3-1.2.6l.2 1.2c.4-.3.7-.4 1.1-.5.3-.1.7-.2 1-.2.6 0 1 .1 1.3.4.3.2.4.7.4 1.4-1.2 0-2.3.2-3.3.7s-1.4 1.1-1.4 2.1c0 .7.2 1.2.7 1.6.4.4 1 .6 1.8.6.9 0 1.7-.4 2.4-1.2.1.3.2.5.4.7.1.2.3.3.6.4.3.1.6.1 1.1.1h.1l.2-1.2h-.1c-.4.1-.6 0-.7-.1zM9.2 16c-.2.3-.5.6-.9.8-.3.1-.7.2-1.1.2-.4 0-.7-.1-.9-.3-.2-.2-.3-.5-.3-.9 0-.6.2-1 .7-1.3.5-.3 1.3-.4 2.5-.5v2zm10.6-3.9c-.3-.6-.7-1.1-1.2-1.5-.6-.4-1.2-.6-1.9-.6-.5 0-.9.1-1.4.3-.4.2-.8.5-1.1.8V6h-1.4v12h1.3l.2-1c.2.4.6.6 1 .8.4.2.9.3 1.4.3.7 0 1.2-.2 1.8-.5.5-.4 1-.9 1.3-1.5.3-.6.5-1.3.5-2.1-.1-.6-.2-1.3-.5-1.9zm-1.7 4c-.4.5-.9.8-1.6.8s-1.2-.2-1.7-.7c-.4-.5-.7-1.2-.7-2.1 0-.9.2-1.6.7-2.1.4-.5 1-.7 1.7-.7s1.2.3 1.6.8c.4.5.6 1.2.6 2s-.2 1.4-.6 2z"
-}));
-/* harmony default export */ var format_lowercase = (formatLowercase);
-//# sourceMappingURL=format-lowercase.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-capitalize.js
-
-
-/**
- * WordPress dependencies
- */
-
-const formatCapitalize = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M7.1 6.8L3.1 18h1.6l1.1-3h4.3l1.1 3h1.6l-4-11.2H7.1zm-.8 6.8L8 8.9l1.7 4.7H6.3zm14.5-1.5c-.3-.6-.7-1.1-1.2-1.5-.6-.4-1.2-.6-1.9-.6-.5 0-.9.1-1.4.3-.4.2-.8.5-1.1.8V6h-1.4v12h1.3l.2-1c.2.4.6.6 1 .8.4.2.9.3 1.4.3.7 0 1.2-.2 1.8-.5.5-.4 1-.9 1.3-1.5.3-.6.5-1.3.5-2.1-.1-.6-.2-1.3-.5-1.9zm-1.7 4c-.4.5-.9.8-1.6.8s-1.2-.2-1.7-.7c-.4-.5-.7-1.2-.7-2.1 0-.9.2-1.6.7-2.1.4-.5 1-.7 1.7-.7s1.2.3 1.6.8c.4.5.6 1.2.6 2 .1.8-.2 1.4-.6 2z"
-}));
-/* harmony default export */ var format_capitalize = (formatCapitalize);
-//# sourceMappingURL=format-capitalize.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/text-transform-control/index.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-const TEXT_TRANSFORMS = [{
-  name: (0,external_wp_i18n_namespaceObject.__)('Uppercase'),
-  value: 'uppercase',
-  icon: format_uppercase
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Lowercase'),
-  value: 'lowercase',
-  icon: format_lowercase
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Capitalize'),
-  value: 'capitalize',
-  icon: format_capitalize
-}];
-/**
- * Control to facilitate text transform selections.
- *
- * @param {Object}   props          Component props.
- * @param {string}   props.value    Currently selected text transform.
- * @param {Function} props.onChange Handles change in text transform selection.
- *
- * @return {WPElement} Text transform control.
- */
-
-function TextTransformControl({
-  value,
-  onChange
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)("fieldset", {
-    className: "block-editor-text-transform-control"
-  }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_i18n_namespaceObject.__)('Letter case')), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-text-transform-control__buttons"
-  }, TEXT_TRANSFORMS.map(textTransform => {
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-      key: textTransform.value,
-      icon: textTransform.icon,
-      isSmall: true,
-      isPressed: value === textTransform.value,
-      "aria-label": textTransform.name,
-      onClick: () => onChange(value === textTransform.value ? undefined : textTransform.value)
-    });
-  })));
-}
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/text-transform.js
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-/**
- * Key within block settings' supports array indicating support for text
- * transforms e.g. settings found in `block.json`.
- */
-
-const TEXT_TRANSFORM_SUPPORT_KEY = 'typography.__experimentalTextTransform';
-/**
- * Inspector control panel containing the text transform options.
- *
- * @param {Object} props Block properties.
- *
- * @return {WPElement} Text transform edit element.
- */
-
-function TextTransformEdit(props) {
-  var _style$typography;
-
-  const {
-    attributes: {
-      style
-    },
-    setAttributes
-  } = props;
-  const isDisabled = useIsTextTransformDisabled(props);
-
-  if (isDisabled) {
-    return null;
-  }
-
-  function onChange(newTransform) {
-    setAttributes({
-      style: cleanEmptyObject({ ...style,
-        typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
-          textTransform: newTransform
+  const weightOptions = () => {
+    const combinedOptions = [defaultOption];
+    FONT_WEIGHTS.forEach(({
+      name,
+      value
+    }) => {
+      combinedOptions.push({
+        key: value,
+        name,
+        style: {
+          fontStyle: undefined,
+          fontWeight: value
         }
-      })
+      });
     });
-  }
+    return combinedOptions;
+  }; // Map font styles and weights to select options.
 
-  return (0,external_wp_element_namespaceObject.createElement)(TextTransformControl, {
-    value: style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.textTransform,
-    onChange: onChange
+
+  const selectOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (hasFontStyles && hasFontWeights) {
+      return combineOptions();
+    }
+
+    return hasFontStyles ? styleOptions() : weightOptions();
+  }, [props.options]); // Find current selection by comparing font style & weight against options,
+  // and fall back to the Default option if there is no matching option.
+
+  const currentSelection = selectOptions.find(option => option.style.fontStyle === fontStyle && option.style.fontWeight === fontWeight) || selectOptions[0]; // Adjusts screen reader description based on styles or weights.
+
+  const getDescribedBy = () => {
+    if (!currentSelection) {
+      return (0,external_wp_i18n_namespaceObject.__)('No selected font appearance');
+    }
+
+    if (!hasFontStyles) {
+      return (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font weight.
+      (0,external_wp_i18n_namespaceObject.__)('Currently selected font weight: %s'), currentSelection.name);
+    }
+
+    if (!hasFontWeights) {
+      return (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font style.
+      (0,external_wp_i18n_namespaceObject.__)('Currently selected font style: %s'), currentSelection.name);
+    }
+
+    return (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font appearance.
+    (0,external_wp_i18n_namespaceObject.__)('Currently selected font appearance: %s'), currentSelection.name);
+  };
+
+  return hasStylesOrWeights && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CustomSelectControl, {
+    className: "components-font-appearance-control",
+    label: label,
+    describedBy: getDescribedBy(),
+    options: selectOptions,
+    value: currentSelection,
+    onChange: ({
+      selectedItem
+    }) => onChange(selectedItem.style)
   });
-}
-/**
- * Checks if text-transform settings have been disabled.
- *
- * @param {string} name Name of the block.
- *
- * @return {boolean} Whether or not the setting is disabled.
- */
-
-function useIsTextTransformDisabled({
-  name: blockName
-} = {}) {
-  const notSupported = !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, TEXT_TRANSFORM_SUPPORT_KEY);
-  const hasTextTransforms = useSetting('typography.customTextTransforms');
-  return notSupported || !hasTextTransforms;
-}
-//# sourceMappingURL=text-transform.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/text-decoration-and-transform/index.js
-
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * Handles grouping related text decoration and text transform edit components
- * so they can be laid out in a more flexible manner within the Typography
- * InspectorControls panel.
- *
- * @param {Object} props Block props to be passed on to individual controls.
- *
- * @return {WPElement} Component containing text decoration or transform controls.
- */
-
-function TextDecorationAndTransformEdit(props) {
-  const decorationAvailable = !useIsTextDecorationDisabled(props);
-  const transformAvailable = !useIsTextTransformDisabled(props);
-
-  if (!decorationAvailable && !transformAvailable) {
-    return null;
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-text-decoration-and-transform"
-  }, decorationAvailable && (0,external_wp_element_namespaceObject.createElement)(TextDecorationEdit, props), transformAvailable && (0,external_wp_element_namespaceObject.createElement)(TextTransformEdit, props));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/line-height-control/utils.js
@@ -29656,13 +30002,9 @@ function LineHeightEdit(props) {
   const {
     attributes: {
       style
-    }
+    },
+    setAttributes
   } = props;
-  const isDisabled = useIsLineHeightDisabled(props);
-
-  if (isDisabled) {
-    return null;
-  }
 
   const onChange = newLineHeightValue => {
     const newStyle = { ...style,
@@ -29670,7 +30012,7 @@ function LineHeightEdit(props) {
         lineHeight: newLineHeightValue
       }
     };
-    props.setAttributes({
+    setAttributes({
       style: cleanEmptyObject(newStyle)
     });
   };
@@ -29690,202 +30032,47 @@ function LineHeightEdit(props) {
 function useIsLineHeightDisabled({
   name: blockName
 } = {}) {
-  const isDisabled = !useSetting('typography.customLineHeight');
+  const isDisabled = !useSetting('typography.lineHeight');
   return !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, LINE_HEIGHT_SUPPORT_KEY) || isDisabled;
 }
-//# sourceMappingURL=line-height.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/font-appearance-control/index.js
-
-
 /**
- * WordPress dependencies
+ * Checks if there is a current value set for the line height block support.
+ *
+ * @param {Object} props Block props.
+ * @return {boolean}     Whether or not the block has a line height value set.
  */
 
+function hasLineHeightValue(props) {
+  var _props$attributes$sty, _props$attributes$sty2;
 
-
-const FONT_STYLES = [{
-  name: (0,external_wp_i18n_namespaceObject.__)('Regular'),
-  value: 'normal'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Italic'),
-  value: 'italic'
-}];
-const FONT_WEIGHTS = [{
-  name: (0,external_wp_i18n_namespaceObject.__)('Thin'),
-  value: '100'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Extra Light'),
-  value: '200'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Light'),
-  value: '300'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Regular'),
-  value: '400'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Medium'),
-  value: '500'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Semi Bold'),
-  value: '600'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Bold'),
-  value: '700'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Extra Bold'),
-  value: '800'
-}, {
-  name: (0,external_wp_i18n_namespaceObject.__)('Black'),
-  value: '900'
-}];
+  return !!((_props$attributes$sty = props.attributes.style) !== null && _props$attributes$sty !== void 0 && (_props$attributes$sty2 = _props$attributes$sty.typography) !== null && _props$attributes$sty2 !== void 0 && _props$attributes$sty2.lineHeight);
+}
 /**
- * Control to display unified font style and weight options.
+ * Resets the line height block support attribute. This can be used when
+ * disabling the line height support controls for a block via a progressive
+ * discovery panel.
  *
- * @param {Object} props Component props.
- *
- * @return {WPElement} Font appearance control.
+ * @param {Object} props               Block props.
+ * @param {Object} props.attributes    Block's attributes.
+ * @param {Object} props.setAttributes Function to set block's attributes.
  */
 
-function FontAppearanceControl(props) {
+function resetLineHeight({
+  attributes = {},
+  setAttributes
+}) {
   const {
-    onChange,
-    hasFontStyles = true,
-    hasFontWeights = true,
-    value: {
-      fontStyle,
-      fontWeight
-    }
-  } = props;
-  const hasStylesOrWeights = hasFontStyles || hasFontWeights;
-  const defaultOption = {
-    key: 'default',
-    name: (0,external_wp_i18n_namespaceObject.__)('Default'),
-    style: {
-      fontStyle: undefined,
-      fontWeight: undefined
-    }
-  }; // Combines both font style and weight options into a single dropdown.
-
-  const combineOptions = () => {
-    const combinedOptions = [defaultOption];
-    FONT_STYLES.forEach(({
-      name: styleName,
-      value: styleValue
-    }) => {
-      FONT_WEIGHTS.forEach(({
-        name: weightName,
-        value: weightValue
-      }) => {
-        const optionName = styleValue === 'normal' ? weightName : (0,external_wp_i18n_namespaceObject.sprintf)(
-        /* translators: 1: Font weight name. 2: Font style name. */
-        (0,external_wp_i18n_namespaceObject.__)('%1$s %2$s'), weightName, styleName);
-        combinedOptions.push({
-          key: `${styleValue}-${weightValue}`,
-          name: optionName,
-          style: {
-            fontStyle: styleValue,
-            fontWeight: weightValue
-          }
-        });
-      });
-    });
-    return combinedOptions;
-  }; // Generates select options for font styles only.
-
-
-  const styleOptions = () => {
-    const combinedOptions = [defaultOption];
-    FONT_STYLES.forEach(({
-      name,
-      value
-    }) => {
-      combinedOptions.push({
-        key: value,
-        name,
-        style: {
-          fontStyle: value,
-          fontWeight: undefined
-        }
-      });
-    });
-    return combinedOptions;
-  }; // Generates select options for font weights only.
-
-
-  const weightOptions = () => {
-    const combinedOptions = [defaultOption];
-    FONT_WEIGHTS.forEach(({
-      name,
-      value
-    }) => {
-      combinedOptions.push({
-        key: value,
-        name,
-        style: {
-          fontStyle: undefined,
-          fontWeight: value
-        }
-      });
-    });
-    return combinedOptions;
-  }; // Map font styles and weights to select options.
-
-
-  const selectOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    if (hasFontStyles && hasFontWeights) {
-      return combineOptions();
-    }
-
-    return hasFontStyles ? styleOptions() : weightOptions();
-  }, [props.options]); // Find current selection by comparing font style & weight against options,
-  // and fall back to the Default option if there is no matching option.
-
-  const currentSelection = selectOptions.find(option => option.style.fontStyle === fontStyle && option.style.fontWeight === fontWeight) || selectOptions[0]; // Adjusts field label in case either styles or weights are disabled.
-
-  const getLabel = () => {
-    if (!hasFontStyles) {
-      return (0,external_wp_i18n_namespaceObject.__)('Font weight');
-    }
-
-    if (!hasFontWeights) {
-      return (0,external_wp_i18n_namespaceObject.__)('Font style');
-    }
-
-    return (0,external_wp_i18n_namespaceObject.__)('Appearance');
-  }; // Adjusts screen reader description based on styles or weights.
-
-
-  const getDescribedBy = () => {
-    if (!currentSelection) {
-      return (0,external_wp_i18n_namespaceObject.__)('No selected font appearance');
-    }
-
-    if (!hasFontStyles) {
-      return (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font weight.
-      (0,external_wp_i18n_namespaceObject.__)('Currently selected font weight: %s'), currentSelection.name);
-    }
-
-    if (!hasFontWeights) {
-      return (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font style.
-      (0,external_wp_i18n_namespaceObject.__)('Currently selected font style: %s'), currentSelection.name);
-    }
-
-    return (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font appearance.
-    (0,external_wp_i18n_namespaceObject.__)('Currently selected font appearance: %s'), currentSelection.name);
-  };
-
-  return hasStylesOrWeights && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CustomSelectControl, {
-    className: "components-font-appearance-control",
-    label: getLabel(),
-    describedBy: getDescribedBy(),
-    options: selectOptions,
-    value: currentSelection,
-    onChange: ({
-      selectedItem
-    }) => onChange(selectedItem.style)
+    style
+  } = attributes;
+  setAttributes({
+    style: cleanEmptyObject({ ...style,
+      typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
+        lineHeight: undefined
+      }
+    })
   });
 }
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=line-height.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/font-appearance.js
 
 
@@ -29930,10 +30117,6 @@ function FontAppearanceEdit(props) {
   const hasFontStyles = !useIsFontStyleDisabled(props);
   const hasFontWeights = !useIsFontWeightDisabled(props);
 
-  if (!hasFontStyles && !hasFontWeights) {
-    return null;
-  }
-
   const onChange = newStyles => {
     setAttributes({
       style: cleanEmptyObject({ ...style,
@@ -29971,7 +30154,7 @@ function useIsFontStyleDisabled({
   name: blockName
 } = {}) {
   const styleSupport = (0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, FONT_STYLE_SUPPORT_KEY);
-  const hasFontStyles = useSetting('typography.customFontStyle');
+  const hasFontStyles = useSetting('typography.fontStyle');
   return !styleSupport || !hasFontStyles;
 }
 /**
@@ -29988,7 +30171,7 @@ function useIsFontWeightDisabled({
   name: blockName
 } = {}) {
   const weightSupport = (0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, FONT_WEIGHT_SUPPORT_KEY);
-  const hasFontWeights = useSetting('typography.customFontWeight');
+  const hasFontWeights = useSetting('typography.fontWeight');
   return !weightSupport || !hasFontWeights;
 }
 /**
@@ -30003,6 +30186,49 @@ function useIsFontAppearanceDisabled(props) {
   const stylesDisabled = useIsFontStyleDisabled(props);
   const weightsDisabled = useIsFontWeightDisabled(props);
   return stylesDisabled && weightsDisabled;
+}
+/**
+ * Checks if there is either a font style or weight value set within the
+ * typography styles.
+ *
+ * @param {Object} props Block props.
+ * @return {boolean}     Whether or not the block has a font style or weight.
+ */
+
+function hasFontAppearanceValue(props) {
+  var _props$attributes$sty;
+
+  const {
+    fontStyle,
+    fontWeight
+  } = ((_props$attributes$sty = props.attributes.style) === null || _props$attributes$sty === void 0 ? void 0 : _props$attributes$sty.typography) || {};
+  return !!fontStyle || !!fontWeight;
+}
+/**
+ * Resets the font style and weight block support attributes. This can be used
+ * when disabling the font appearance support controls for a block via a
+ * progressive discovery panel.
+ *
+ * @param {Object} props               Block props.
+ * @param {Object} props.attributes    Block's attributes.
+ * @param {Object} props.setAttributes Function to set block's attributes.
+ */
+
+function resetFontAppearance({
+  attributes = {},
+  setAttributes
+}) {
+  const {
+    style
+  } = attributes;
+  setAttributes({
+    style: cleanEmptyObject({ ...style,
+      typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
+        fontStyle: undefined,
+        fontWeight: undefined
+      }
+    })
+  });
 }
 //# sourceMappingURL=font-appearance.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/font-family/index.js
@@ -30086,8 +30312,8 @@ const FONT_FAMILY_SUPPORT_KEY = 'typography.__experimentalFontFamily';
  * Filters registered block settings, extending attributes to include
  * the `fontFamily` attribute.
  *
- * @param  {Object} settings Original block settings
- * @return {Object}          Filtered block settings
+ * @param {Object} settings Original block settings
+ * @return {Object}         Filtered block settings
  */
 
 function font_family_addAttributes(settings) {
@@ -30109,10 +30335,10 @@ function font_family_addAttributes(settings) {
 /**
  * Override props assigned to save component to inject font family.
  *
- * @param  {Object} props      Additional props applied to save element
- * @param  {Object} blockType  Block type
- * @param  {Object} attributes Block attributes
- * @return {Object}            Filtered props applied to save element
+ * @param {Object} props      Additional props applied to save element
+ * @param {Object} blockType  Block type
+ * @param {Object} attributes Block attributes
+ * @return {Object}           Filtered props applied to save element
  */
 
 
@@ -30121,7 +30347,7 @@ function font_family_addSaveProps(props, blockType, attributes) {
     return props;
   }
 
-  if ((0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockType, '__experimentalSkipTypographySerialization')) {
+  if ((0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockType, 'typography.__experimentalSkipSerialization')) {
     return props;
   }
 
@@ -30167,7 +30393,6 @@ function font_family_addEditProps(settings) {
 }
 
 function FontFamilyEdit({
-  name,
   setAttributes,
   attributes: {
     fontFamily
@@ -30176,14 +30401,6 @@ function FontFamilyEdit({
   var _find;
 
   const fontFamilies = useSetting('typography.fontFamilies');
-  const isDisable = useIsFontFamilyDisabled({
-    name
-  });
-
-  if (isDisable) {
-    return null;
-  }
-
   const value = (_find = (0,external_lodash_namespaceObject.find)(fontFamilies, ({
     slug
   }) => fontFamily === slug)) === null || _find === void 0 ? void 0 : _find.fontFamily;
@@ -30216,6 +30433,32 @@ function useIsFontFamilyDisabled({
 }) {
   const fontFamilies = useSetting('typography.fontFamilies');
   return !fontFamilies || fontFamilies.length === 0 || !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(name, FONT_FAMILY_SUPPORT_KEY);
+}
+/**
+ * Checks if there is a current value set for the font family block support.
+ *
+ * @param {Object} props Block props.
+ * @return {boolean}     Whether or not the block has a font family value set.
+ */
+
+function hasFontFamilyValue(props) {
+  return !!props.attributes.fontFamily;
+}
+/**
+ * Resets the font family block support attribute. This can be used when
+ * disabling the font family support controls for a block via a progressive
+ * discovery panel.
+ *
+ * @param {Object} props               Block props.
+ * @param {Object} props.setAttributes Function to set block's attributes.
+ */
+
+function resetFontFamily({
+  setAttributes
+}) {
+  setAttributes({
+    fontFamily: undefined
+  });
 }
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/fontFamily/addAttribute', font_family_addAttributes);
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.getSaveContent.extraProps', 'core/fontFamily/addSaveProps', font_family_addSaveProps);
@@ -30435,7 +30678,6 @@ function FontSizeEdit(props) {
     },
     setAttributes
   } = props;
-  const isDisabled = useIsFontSizeDisabled(props);
   const fontSizes = useSetting('typography.fontSizes');
 
   const onChange = value => {
@@ -30450,15 +30692,54 @@ function FontSizeEdit(props) {
     });
   };
 
-  if (isDisabled) {
-    return null;
-  }
-
   const fontSizeObject = getFontSize(fontSizes, fontSize, style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontSize);
   const fontSizeValue = (fontSizeObject === null || fontSizeObject === void 0 ? void 0 : fontSizeObject.size) || (style === null || style === void 0 ? void 0 : (_style$typography2 = style.typography) === null || _style$typography2 === void 0 ? void 0 : _style$typography2.fontSize) || fontSize;
   return (0,external_wp_element_namespaceObject.createElement)(font_size_picker, {
     onChange: onChange,
-    value: fontSizeValue
+    value: fontSizeValue,
+    withReset: false
+  });
+}
+/**
+ * Checks if there is a current value set for the font size block support.
+ *
+ * @param {Object} props Block props.
+ * @return {boolean}     Whether or not the block has a font size value set.
+ */
+
+function hasFontSizeValue(props) {
+  var _style$typography3;
+
+  const {
+    fontSize,
+    style
+  } = props.attributes;
+  return !!fontSize || !!(style !== null && style !== void 0 && (_style$typography3 = style.typography) !== null && _style$typography3 !== void 0 && _style$typography3.fontSize);
+}
+/**
+ * Resets the font size block support attribute. This can be used when
+ * disabling the font size support controls for a block via a progressive
+ * discovery panel.
+ *
+ * @param {Object} props               Block props.
+ * @param {Object} props.attributes    Block's attributes.
+ * @param {Object} props.setAttributes Function to set block's attributes.
+ */
+
+function resetFontSize({
+  attributes = {},
+  setAttributes
+}) {
+  const {
+    style
+  } = attributes;
+  setAttributes({
+    fontSize: undefined,
+    style: cleanEmptyObject({ ...style,
+      typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
+        fontSize: undefined
+      }
+    })
   });
 }
 /**
@@ -30486,7 +30767,7 @@ function useIsFontSizeDisabled({
  */
 
 const withFontSizeInlineStyles = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockListBlock => props => {
-  var _style$typography3, _style$typography4;
+  var _style$typography4, _style$typography5;
 
   const fontSizes = useSetting('typography.fontSizes');
   const {
@@ -30501,11 +30782,11 @@ const withFontSizeInlineStyles = (0,external_wp_compose_namespaceObject.createHi
   // doesn't already have an inline font size,
   // and does have a class to extract the font size from.
 
-  if (!(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, FONT_SIZE_SUPPORT_KEY) || (0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, 'typography.__experimentalSkipSerialization') || !fontSize || style !== null && style !== void 0 && (_style$typography3 = style.typography) !== null && _style$typography3 !== void 0 && _style$typography3.fontSize) {
+  if (!(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, FONT_SIZE_SUPPORT_KEY) || (0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, 'typography.__experimentalSkipSerialization') || !fontSize || style !== null && style !== void 0 && (_style$typography4 = style.typography) !== null && _style$typography4 !== void 0 && _style$typography4.fontSize) {
     return (0,external_wp_element_namespaceObject.createElement)(BlockListBlock, props);
   }
 
-  const fontSizeValue = getFontSize(fontSizes, fontSize, style === null || style === void 0 ? void 0 : (_style$typography4 = style.typography) === null || _style$typography4 === void 0 ? void 0 : _style$typography4.fontSize).size;
+  const fontSizeValue = getFontSize(fontSizes, fontSize, style === null || style === void 0 ? void 0 : (_style$typography5 = style.typography) === null || _style$typography5 === void 0 ? void 0 : _style$typography5.fontSize).size;
   const newProps = { ...props,
     wrapperProps: { ...wrapperProps,
       style: {
@@ -30521,6 +30802,393 @@ const withFontSizeInlineStyles = (0,external_wp_compose_namespaceObject.createHi
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/font/addEditProps', font_size_addEditProps);
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockListBlock', 'core/font-size/with-font-size-inline-styles', withFontSizeInlineStyles);
 //# sourceMappingURL=font-size.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-underline.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const formatUnderline = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M7 18v1h10v-1H7zm5-2c1.5 0 2.6-.4 3.4-1.2.8-.8 1.1-2 1.1-3.5V5H15v5.8c0 1.2-.2 2.1-.6 2.8-.4.7-1.2 1-2.4 1s-2-.3-2.4-1c-.4-.7-.6-1.6-.6-2.8V5H7.5v6.2c0 1.5.4 2.7 1.1 3.5.8.9 1.9 1.3 3.4 1.3z"
+}));
+/* harmony default export */ var format_underline = (formatUnderline);
+//# sourceMappingURL=format-underline.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-strikethrough.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const formatStrikethrough = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M9.1 9v-.5c0-.6.2-1.1.7-1.4.5-.3 1.2-.5 2-.5.7 0 1.4.1 2.1.3.7.2 1.4.5 2.1.9l.2-1.9c-.6-.3-1.2-.5-1.9-.7-.8-.1-1.6-.2-2.4-.2-1.5 0-2.7.3-3.6 1-.8.7-1.2 1.5-1.2 2.6V9h2zM20 12H4v1h8.3c.3.1.6.2.8.3.5.2.9.5 1.1.8.3.3.4.7.4 1.2 0 .7-.2 1.1-.8 1.5-.5.3-1.2.5-2.1.5-.8 0-1.6-.1-2.4-.3-.8-.2-1.5-.5-2.2-.8L7 18.1c.5.2 1.2.4 2 .6.8.2 1.6.3 2.4.3 1.7 0 3-.3 3.9-1 .9-.7 1.3-1.6 1.3-2.8 0-.9-.2-1.7-.7-2.2H20v-1z"
+}));
+/* harmony default export */ var format_strikethrough = (formatStrikethrough);
+//# sourceMappingURL=format-strikethrough.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/text-decoration-control/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+const TEXT_DECORATIONS = [{
+  name: (0,external_wp_i18n_namespaceObject.__)('Underline'),
+  value: 'underline',
+  icon: format_underline
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Strikethrough'),
+  value: 'line-through',
+  icon: format_strikethrough
+}];
+/**
+ * Control to facilitate text decoration selections.
+ *
+ * @param {Object}   props          Component props.
+ * @param {string}   props.value    Currently selected text decoration.
+ * @param {Function} props.onChange Handles change in text decoration selection.
+ *
+ * @return {WPElement} Text decoration control.
+ */
+
+function TextDecorationControl({
+  value,
+  onChange
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)("fieldset", {
+    className: "block-editor-text-decoration-control"
+  }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_i18n_namespaceObject.__)('Decoration')), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-text-decoration-control__buttons"
+  }, TEXT_DECORATIONS.map(textDecoration => {
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+      key: textDecoration.value,
+      icon: textDecoration.icon,
+      isSmall: true,
+      isPressed: textDecoration.value === value,
+      onClick: () => onChange(textDecoration.value === value ? undefined : textDecoration.value),
+      "aria-label": textDecoration.name
+    });
+  })));
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/text-decoration.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ * Key within block settings' supports array indicating support for text
+ * decorations e.g. settings found in `block.json`.
+ */
+
+const TEXT_DECORATION_SUPPORT_KEY = 'typography.__experimentalTextDecoration';
+/**
+ * Inspector control panel containing the text decoration options.
+ *
+ * @param {Object} props Block properties.
+ *
+ * @return {WPElement} Text decoration edit element.
+ */
+
+function TextDecorationEdit(props) {
+  var _style$typography;
+
+  const {
+    attributes: {
+      style
+    },
+    setAttributes
+  } = props;
+
+  function onChange(newDecoration) {
+    setAttributes({
+      style: cleanEmptyObject({ ...style,
+        typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
+          textDecoration: newDecoration
+        }
+      })
+    });
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(TextDecorationControl, {
+    value: style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.textDecoration,
+    onChange: onChange
+  });
+}
+/**
+ * Checks if text-decoration settings have been disabled.
+ *
+ * @param {string} name Name of the block.
+ *
+ * @return {boolean} Whether or not the setting is disabled.
+ */
+
+function useIsTextDecorationDisabled({
+  name: blockName
+} = {}) {
+  const notSupported = !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, TEXT_DECORATION_SUPPORT_KEY);
+  const hasTextDecoration = useSetting('typography.textDecoration');
+  return notSupported || !hasTextDecoration;
+}
+/**
+ * Checks if there is a current value set for the text decoration block support.
+ *
+ * @param {Object} props Block props.
+ * @return {boolean}     Whether or not the block has a text decoration set.
+ */
+
+function hasTextDecorationValue(props) {
+  var _props$attributes$sty, _props$attributes$sty2;
+
+  return !!((_props$attributes$sty = props.attributes.style) !== null && _props$attributes$sty !== void 0 && (_props$attributes$sty2 = _props$attributes$sty.typography) !== null && _props$attributes$sty2 !== void 0 && _props$attributes$sty2.textDecoration);
+}
+/**
+ * Resets the text decoration block support attribute. This can be used when
+ * disabling the text decoration support controls for a block via a progressive
+ * discovery panel.
+ *
+ * @param {Object} props               Block props.
+ * @param {Object} props.attributes    Block's attributes.
+ * @param {Object} props.setAttributes Function to set block's attributes.
+ */
+
+function resetTextDecoration({
+  attributes = {},
+  setAttributes
+}) {
+  const {
+    style
+  } = attributes;
+  setAttributes({
+    style: cleanEmptyObject({ ...style,
+      typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
+        textDecoration: undefined
+      }
+    })
+  });
+}
+//# sourceMappingURL=text-decoration.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-uppercase.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const formatUppercase = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M6.1 6.8L2.1 18h1.6l1.1-3h4.3l1.1 3h1.6l-4-11.2H6.1zm-.8 6.8L7 8.9l1.7 4.7H5.3zm15.1-.7c-.4-.5-.9-.8-1.6-1 .4-.2.7-.5.8-.9.2-.4.3-.9.3-1.4 0-.9-.3-1.6-.8-2-.6-.5-1.3-.7-2.4-.7h-3.5V18h4.2c1.1 0 2-.3 2.6-.8.6-.6 1-1.4 1-2.4-.1-.8-.3-1.4-.6-1.9zm-5.7-4.7h1.8c.6 0 1.1.1 1.4.4.3.2.5.7.5 1.3 0 .6-.2 1.1-.5 1.3-.3.2-.8.4-1.4.4h-1.8V8.2zm4 8c-.4.3-.9.5-1.5.5h-2.6v-3.8h2.6c1.4 0 2 .6 2 1.9.1.6-.1 1-.5 1.4z"
+}));
+/* harmony default export */ var format_uppercase = (formatUppercase);
+//# sourceMappingURL=format-uppercase.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-lowercase.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const formatLowercase = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M11 16.8c-.1-.1-.2-.3-.3-.5v-2.6c0-.9-.1-1.7-.3-2.2-.2-.5-.5-.9-.9-1.2-.4-.2-.9-.3-1.6-.3-.5 0-1 .1-1.5.2s-.9.3-1.2.6l.2 1.2c.4-.3.7-.4 1.1-.5.3-.1.7-.2 1-.2.6 0 1 .1 1.3.4.3.2.4.7.4 1.4-1.2 0-2.3.2-3.3.7s-1.4 1.1-1.4 2.1c0 .7.2 1.2.7 1.6.4.4 1 .6 1.8.6.9 0 1.7-.4 2.4-1.2.1.3.2.5.4.7.1.2.3.3.6.4.3.1.6.1 1.1.1h.1l.2-1.2h-.1c-.4.1-.6 0-.7-.1zM9.2 16c-.2.3-.5.6-.9.8-.3.1-.7.2-1.1.2-.4 0-.7-.1-.9-.3-.2-.2-.3-.5-.3-.9 0-.6.2-1 .7-1.3.5-.3 1.3-.4 2.5-.5v2zm10.6-3.9c-.3-.6-.7-1.1-1.2-1.5-.6-.4-1.2-.6-1.9-.6-.5 0-.9.1-1.4.3-.4.2-.8.5-1.1.8V6h-1.4v12h1.3l.2-1c.2.4.6.6 1 .8.4.2.9.3 1.4.3.7 0 1.2-.2 1.8-.5.5-.4 1-.9 1.3-1.5.3-.6.5-1.3.5-2.1-.1-.6-.2-1.3-.5-1.9zm-1.7 4c-.4.5-.9.8-1.6.8s-1.2-.2-1.7-.7c-.4-.5-.7-1.2-.7-2.1 0-.9.2-1.6.7-2.1.4-.5 1-.7 1.7-.7s1.2.3 1.6.8c.4.5.6 1.2.6 2s-.2 1.4-.6 2z"
+}));
+/* harmony default export */ var format_lowercase = (formatLowercase);
+//# sourceMappingURL=format-lowercase.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-capitalize.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const formatCapitalize = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M7.1 6.8L3.1 18h1.6l1.1-3h4.3l1.1 3h1.6l-4-11.2H7.1zm-.8 6.8L8 8.9l1.7 4.7H6.3zm14.5-1.5c-.3-.6-.7-1.1-1.2-1.5-.6-.4-1.2-.6-1.9-.6-.5 0-.9.1-1.4.3-.4.2-.8.5-1.1.8V6h-1.4v12h1.3l.2-1c.2.4.6.6 1 .8.4.2.9.3 1.4.3.7 0 1.2-.2 1.8-.5.5-.4 1-.9 1.3-1.5.3-.6.5-1.3.5-2.1-.1-.6-.2-1.3-.5-1.9zm-1.7 4c-.4.5-.9.8-1.6.8s-1.2-.2-1.7-.7c-.4-.5-.7-1.2-.7-2.1 0-.9.2-1.6.7-2.1.4-.5 1-.7 1.7-.7s1.2.3 1.6.8c.4.5.6 1.2.6 2 .1.8-.2 1.4-.6 2z"
+}));
+/* harmony default export */ var format_capitalize = (formatCapitalize);
+//# sourceMappingURL=format-capitalize.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/text-transform-control/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+const TEXT_TRANSFORMS = [{
+  name: (0,external_wp_i18n_namespaceObject.__)('Uppercase'),
+  value: 'uppercase',
+  icon: format_uppercase
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Lowercase'),
+  value: 'lowercase',
+  icon: format_lowercase
+}, {
+  name: (0,external_wp_i18n_namespaceObject.__)('Capitalize'),
+  value: 'capitalize',
+  icon: format_capitalize
+}];
+/**
+ * Control to facilitate text transform selections.
+ *
+ * @param {Object}   props          Component props.
+ * @param {string}   props.value    Currently selected text transform.
+ * @param {Function} props.onChange Handles change in text transform selection.
+ *
+ * @return {WPElement} Text transform control.
+ */
+
+function TextTransformControl({
+  value,
+  onChange
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)("fieldset", {
+    className: "block-editor-text-transform-control"
+  }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_i18n_namespaceObject.__)('Letter case')), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-text-transform-control__buttons"
+  }, TEXT_TRANSFORMS.map(textTransform => {
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+      key: textTransform.value,
+      icon: textTransform.icon,
+      isSmall: true,
+      isPressed: value === textTransform.value,
+      "aria-label": textTransform.name,
+      onClick: () => onChange(value === textTransform.value ? undefined : textTransform.value)
+    });
+  })));
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/text-transform.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ * Key within block settings' supports array indicating support for text
+ * transforms e.g. settings found in `block.json`.
+ */
+
+const TEXT_TRANSFORM_SUPPORT_KEY = 'typography.__experimentalTextTransform';
+/**
+ * Inspector control panel containing the text transform options.
+ *
+ * @param {Object} props Block properties.
+ *
+ * @return {WPElement} Text transform edit element.
+ */
+
+function TextTransformEdit(props) {
+  var _style$typography;
+
+  const {
+    attributes: {
+      style
+    },
+    setAttributes
+  } = props;
+
+  function onChange(newTransform) {
+    setAttributes({
+      style: cleanEmptyObject({ ...style,
+        typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
+          textTransform: newTransform
+        }
+      })
+    });
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(TextTransformControl, {
+    value: style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.textTransform,
+    onChange: onChange
+  });
+}
+/**
+ * Checks if text-transform settings have been disabled.
+ *
+ * @param {string} name Name of the block.
+ *
+ * @return {boolean} Whether or not the setting is disabled.
+ */
+
+function useIsTextTransformDisabled({
+  name: blockName
+} = {}) {
+  const notSupported = !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, TEXT_TRANSFORM_SUPPORT_KEY);
+  const hasTextTransforms = useSetting('typography.textTransform');
+  return notSupported || !hasTextTransforms;
+}
+/**
+ * Checks if there is a current value set for the text transform block support.
+ *
+ * @param {Object} props Block props.
+ * @return {boolean}     Whether or not the block has a text transform set.
+ */
+
+function hasTextTransformValue(props) {
+  var _props$attributes$sty, _props$attributes$sty2;
+
+  return !!((_props$attributes$sty = props.attributes.style) !== null && _props$attributes$sty !== void 0 && (_props$attributes$sty2 = _props$attributes$sty.typography) !== null && _props$attributes$sty2 !== void 0 && _props$attributes$sty2.textTransform);
+}
+/**
+ * Resets the text transform block support attribute. This can be used when
+ * disabling the text transform support controls for a block via a progressive
+ * discovery panel.
+ *
+ * @param {Object} props               Block props.
+ * @param {Object} props.attributes    Block's attributes.
+ * @param {Object} props.setAttributes Function to set block's attributes.
+ */
+
+function resetTextTransform({
+  attributes = {},
+  setAttributes
+}) {
+  const {
+    style
+  } = attributes;
+  setAttributes({
+    style: cleanEmptyObject({ ...style,
+      typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
+        textTransform: undefined
+      }
+    })
+  });
+}
+//# sourceMappingURL=text-transform.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/letter-spacing-control/index.js
 
 
@@ -30537,15 +31205,18 @@ const withFontSizeInlineStyles = (0,external_wp_compose_namespaceObject.createHi
 /**
  * Control for letter-spacing.
  *
- * @param {Object}   props          Component props.
- * @param {string}   props.value    Currently selected letter-spacing.
- * @param {Function} props.onChange Handles change in letter-spacing selection.
- * @return {WPElement}                      Letter-spacing control.
+ * @param {Object}   props                      Component props.
+ * @param {string}   props.value                Currently selected letter-spacing.
+ * @param {Function} props.onChange             Handles change in letter-spacing selection.
+ * @param {boolean}  props.__unstableInputWidth Input width to pass through to inner UnitControl.
+ *
+ * @return {WPElement}                          Letter-spacing control.
  */
 
 function LetterSpacingControl({
   value,
-  onChange
+  onChange,
+  __unstableInputWidth = '60px'
 }) {
   const units = (0,external_wp_components_namespaceObject.__experimentalUseCustomUnits)({
     availableUnits: useSetting('spacing.units') || ['px', 'em', 'rem'],
@@ -30558,7 +31229,7 @@ function LetterSpacingControl({
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalUnitControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Letter-spacing'),
     value: value,
-    __unstableInputWidth: "60px",
+    __unstableInputWidth: __unstableInputWidth,
     units: units,
     onChange: onChange
   });
@@ -30600,11 +31271,6 @@ function LetterSpacingEdit(props) {
     },
     setAttributes
   } = props;
-  const isDisabled = useIsLetterSpacingDisabled(props);
-
-  if (isDisabled) {
-    return null;
-  }
 
   function onChange(newSpacing) {
     setAttributes({
@@ -30618,7 +31284,8 @@ function LetterSpacingEdit(props) {
 
   return (0,external_wp_element_namespaceObject.createElement)(LetterSpacingControl, {
     value: style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.letterSpacing,
-    onChange: onChange
+    onChange: onChange,
+    __unstableInputWidth: false
   });
 }
 /**
@@ -30632,8 +31299,45 @@ function useIsLetterSpacingDisabled({
   name: blockName
 } = {}) {
   const notSupported = !(0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, LETTER_SPACING_SUPPORT_KEY);
-  const hasLetterSpacing = useSetting('typography.customLetterSpacing');
+  const hasLetterSpacing = useSetting('typography.letterSpacing');
   return notSupported || !hasLetterSpacing;
+}
+/**
+ * Checks if there is a current value set for the letter spacing block support.
+ *
+ * @param {Object} props Block props.
+ * @return {boolean}     Whether or not the block has a letter spacing set.
+ */
+
+function hasLetterSpacingValue(props) {
+  var _props$attributes$sty, _props$attributes$sty2;
+
+  return !!((_props$attributes$sty = props.attributes.style) !== null && _props$attributes$sty !== void 0 && (_props$attributes$sty2 = _props$attributes$sty.typography) !== null && _props$attributes$sty2 !== void 0 && _props$attributes$sty2.letterSpacing);
+}
+/**
+ * Resets the letter spacing block support attribute. This can be used when
+ * disabling the letter spacing support controls for a block via a progressive
+ * discovery panel.
+ *
+ * @param {Object} props               Block props.
+ * @param {Object} props.attributes    Block's attributes.
+ * @param {Object} props.setAttributes Function to set block's attributes.
+ */
+
+function resetLetterSpacing({
+  attributes = {},
+  setAttributes
+}) {
+  const {
+    style
+  } = attributes;
+  setAttributes({
+    style: cleanEmptyObject({ ...style,
+      typography: { ...(style === null || style === void 0 ? void 0 : style.typography),
+        letterSpacing: undefined
+      }
+    })
+  });
 }
 //# sourceMappingURL=letter-spacing.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/typography.js
@@ -30641,10 +31345,6 @@ function useIsLetterSpacingDisabled({
 
 /**
  * WordPress dependencies
- */
-
-/**
- * External dependencies
  */
 
 
@@ -30665,12 +31365,116 @@ function useIsLetterSpacingDisabled({
 const TYPOGRAPHY_SUPPORT_KEY = 'typography';
 const TYPOGRAPHY_SUPPORT_KEYS = [LINE_HEIGHT_SUPPORT_KEY, FONT_SIZE_SUPPORT_KEY, FONT_STYLE_SUPPORT_KEY, FONT_WEIGHT_SUPPORT_KEY, FONT_FAMILY_SUPPORT_KEY, TEXT_DECORATION_SUPPORT_KEY, TEXT_TRANSFORM_SUPPORT_KEY, LETTER_SPACING_SUPPORT_KEY];
 function TypographyPanel(props) {
+  const {
+    clientId
+  } = props;
+  const isFontFamilyDisabled = useIsFontFamilyDisabled(props);
+  const isFontSizeDisabled = useIsFontSizeDisabled(props);
+  const isFontAppearanceDisabled = useIsFontAppearanceDisabled(props);
+  const isLineHeightDisabled = useIsLineHeightDisabled(props);
+  const isTextDecorationDisabled = useIsTextDecorationDisabled(props);
+  const isTextTransformDisabled = useIsTextTransformDisabled(props);
+  const isLetterSpacingDisabled = useIsLetterSpacingDisabled(props);
+  const hasFontStyles = !useIsFontStyleDisabled(props);
+  const hasFontWeights = !useIsFontWeightDisabled(props);
   const isDisabled = useIsTypographyDisabled(props);
   const isSupported = hasTypographySupport(props.name);
   if (isDisabled || !isSupported) return null;
-  return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
-    title: (0,external_wp_i18n_namespaceObject.__)('Typography')
-  }, (0,external_wp_element_namespaceObject.createElement)(FontFamilyEdit, props), (0,external_wp_element_namespaceObject.createElement)(FontSizeEdit, props), (0,external_wp_element_namespaceObject.createElement)(FontAppearanceEdit, props), (0,external_wp_element_namespaceObject.createElement)(LineHeightEdit, props), (0,external_wp_element_namespaceObject.createElement)(TextDecorationAndTransformEdit, props), (0,external_wp_element_namespaceObject.createElement)(LetterSpacingEdit, props)));
+  const defaultControls = (0,external_wp_blocks_namespaceObject.getBlockSupport)(props.name, [TYPOGRAPHY_SUPPORT_KEY, '__experimentalDefaultControls']);
+
+  const createResetAllFilter = attribute => newAttributes => {
+    var _newAttributes$style;
+
+    return { ...newAttributes,
+      style: { ...newAttributes.style,
+        typography: { ...((_newAttributes$style = newAttributes.style) === null || _newAttributes$style === void 0 ? void 0 : _newAttributes$style.typography),
+          [attribute]: undefined
+        }
+      }
+    };
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, {
+    __experimentalGroup: "typography"
+  }, !isFontFamilyDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    hasValue: () => hasFontFamilyValue(props),
+    label: (0,external_wp_i18n_namespaceObject.__)('Font family'),
+    onDeselect: () => resetFontFamily(props),
+    isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.fontFamily,
+    resetAllFilter: newAttributes => ({ ...newAttributes,
+      fontFamily: undefined
+    }),
+    panelId: clientId
+  }, (0,external_wp_element_namespaceObject.createElement)(FontFamilyEdit, props)), !isFontSizeDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    hasValue: () => hasFontSizeValue(props),
+    label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
+    onDeselect: () => resetFontSize(props),
+    isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.fontSize,
+    resetAllFilter: newAttributes => {
+      var _newAttributes$style2;
+
+      return { ...newAttributes,
+        fontSize: undefined,
+        style: { ...newAttributes.style,
+          typography: { ...((_newAttributes$style2 = newAttributes.style) === null || _newAttributes$style2 === void 0 ? void 0 : _newAttributes$style2.typography),
+            fontSize: undefined
+          }
+        }
+      };
+    },
+    panelId: clientId
+  }, (0,external_wp_element_namespaceObject.createElement)(FontSizeEdit, props)), !isFontAppearanceDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    hasValue: () => hasFontAppearanceValue(props),
+    label: getFontAppearanceLabel(hasFontStyles, hasFontWeights),
+    onDeselect: () => resetFontAppearance(props),
+    isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.fontAppearance,
+    resetAllFilter: newAttributes => {
+      var _newAttributes$style3;
+
+      return { ...newAttributes,
+        style: { ...newAttributes.style,
+          typography: { ...((_newAttributes$style3 = newAttributes.style) === null || _newAttributes$style3 === void 0 ? void 0 : _newAttributes$style3.typography),
+            fontStyle: undefined,
+            fontWeight: undefined
+          }
+        }
+      };
+    },
+    panelId: clientId
+  }, (0,external_wp_element_namespaceObject.createElement)(FontAppearanceEdit, props)), !isLineHeightDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    hasValue: () => hasLineHeightValue(props),
+    label: (0,external_wp_i18n_namespaceObject.__)('Line height'),
+    onDeselect: () => resetLineHeight(props),
+    isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.lineHeight,
+    resetAllFilter: createResetAllFilter('lineHeight'),
+    panelId: clientId
+  }, (0,external_wp_element_namespaceObject.createElement)(LineHeightEdit, props)), !isTextDecorationDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    hasValue: () => hasTextDecorationValue(props),
+    label: (0,external_wp_i18n_namespaceObject.__)('Decoration'),
+    onDeselect: () => resetTextDecoration(props),
+    isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.textDecoration,
+    resetAllFilter: createResetAllFilter('textDecoration'),
+    panelId: clientId
+  }, (0,external_wp_element_namespaceObject.createElement)(TextDecorationEdit, props)), !isTextTransformDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    hasValue: () => hasTextTransformValue(props),
+    label: (0,external_wp_i18n_namespaceObject.__)('Letter case'),
+    onDeselect: () => resetTextTransform(props),
+    isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.textTransform,
+    resetAllFilter: createResetAllFilter('textTransform'),
+    panelId: clientId
+  }, (0,external_wp_element_namespaceObject.createElement)(TextTransformEdit, props)), !isLetterSpacingDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    hasValue: () => hasLetterSpacingValue(props),
+    label: (0,external_wp_i18n_namespaceObject.__)('Letter-spacing'),
+    onDeselect: () => resetLetterSpacing(props),
+    isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.letterSpacing,
+    resetAllFilter: createResetAllFilter('letterSpacing'),
+    panelId: clientId
+  }, (0,external_wp_element_namespaceObject.createElement)(LetterSpacingEdit, props)));
 }
 
 const hasTypographySupport = blockName => {
@@ -30899,7 +31703,7 @@ function resetMargin({
 function useIsMarginDisabled({
   name: blockName
 } = {}) {
-  const isDisabled = !useSetting('spacing.customMargin');
+  const isDisabled = !useSetting('spacing.margin');
   const isInvalid = !useIsDimensionsSupportValid(blockName, 'margin');
   return !hasMarginSupport(blockName) || isDisabled || isInvalid;
 }
@@ -31044,7 +31848,7 @@ function resetPadding({
 function useIsPaddingDisabled({
   name: blockName
 } = {}) {
-  const isDisabled = !useSetting('spacing.customPadding');
+  const isDisabled = !useSetting('spacing.padding');
   const isInvalid = !useIsDimensionsSupportValid(blockName, 'padding');
   return !hasPaddingSupport(blockName) || isDisabled || isInvalid;
 }
@@ -31533,7 +32337,8 @@ function DuotoneControl({
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
     popoverProps: {
       className: 'block-editor-duotone-control__popover',
-      headerTitle: (0,external_wp_i18n_namespaceObject.__)('Duotone')
+      headerTitle: (0,external_wp_i18n_namespaceObject.__)('Duotone'),
+      isAlternate: true
     },
     renderToggle: ({
       isOpen,
@@ -31560,7 +32365,9 @@ function DuotoneControl({
     },
     renderContent: () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
       label: (0,external_wp_i18n_namespaceObject.__)('Duotone')
-    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotonePicker, {
+    }, (0,external_wp_element_namespaceObject.createElement)("div", {
+      className: "block-editor-duotone-control__description"
+    }, (0,external_wp_i18n_namespaceObject.__)('Create a two-tone color effect without losing your original image.')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotonePicker, {
       colorPalette: colorPalette,
       duotonePalette: duotonePalette,
       disableCustomColors: disableCustomColors,
@@ -31612,13 +32419,15 @@ function getValuesFromColors(colors = []) {
   const values = {
     r: [],
     g: [],
-    b: []
+    b: [],
+    a: []
   };
   colors.forEach(color => {
     const rgbColor = w(color).toRgb();
     values.r.push(rgbColor.r / 255);
     values.g.push(rgbColor.g / 255);
     values.b.push(rgbColor.b / 255);
+    values.a.push(rgbColor.a);
   });
   return values;
 }
@@ -31629,6 +32438,7 @@ function getValuesFromColors(colors = []) {
  * @property {number[]} r Red values.
  * @property {number[]} g Green values.
  * @property {number[]} b Blue values.
+ * @property {number[]} a Alpha values.
  */
 
 /**
@@ -31637,7 +32447,7 @@ function getValuesFromColors(colors = []) {
  * @param {Object} props          Duotone props.
  * @param {string} props.selector Selector to apply the filter to.
  * @param {string} props.id       Unique id for this duotone filter.
- * @param {Values} props.values   R, G, and B values to filter with.
+ * @param {Values} props.values   R, G, B, and A values to filter with.
  *
  * @return {WPElement} Duotone element.
  */
@@ -31668,10 +32478,11 @@ ${selector} {
   }, (0,external_wp_element_namespaceObject.createElement)("defs", null, (0,external_wp_element_namespaceObject.createElement)("filter", {
     id: id
   }, (0,external_wp_element_namespaceObject.createElement)("feColorMatrix", {
+    // Use sRGB instead of linearRGB so transparency looks correct.
+    colorInterpolationFilters: "sRGB",
     type: "matrix" // Use perceptual brightness to convert to grayscale.
-    // prettier-ignore
     ,
-    values: ".299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 0 0 0 1 0"
+    values: " .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "
   }), (0,external_wp_element_namespaceObject.createElement)("feComponentTransfer", {
     // Use sRGB instead of linearRGB to be consistent with how CSS gradients work.
     colorInterpolationFilters: "sRGB"
@@ -31684,7 +32495,14 @@ ${selector} {
   }), (0,external_wp_element_namespaceObject.createElement)("feFuncB", {
     type: "table",
     tableValues: values.b.join(' ')
-  }))))), (0,external_wp_element_namespaceObject.createElement)("style", {
+  }), (0,external_wp_element_namespaceObject.createElement)("feFuncA", {
+    type: "table",
+    tableValues: values.a.join(' ')
+  })), (0,external_wp_element_namespaceObject.createElement)("feComposite", {
+    // Re-mask the image with the original transparency since the feColorMatrix above loses that information.
+    in2: "SourceGraphic",
+    operator: "in"
+  })))), (0,external_wp_element_namespaceObject.createElement)("style", {
     dangerouslySetInnerHTML: {
       __html: stylesheet
     }
@@ -32731,8 +33549,7 @@ function AlignmentUI({
     icon: setIcon(),
     label: label,
     toggleProps: {
-      describedBy,
-      className: activeAlignment ? 'is-pressed' : undefined
+      describedBy
     },
     popoverProps: ui_POPOVER_PROPS,
     controls: alignmentControls.map(control => {
@@ -32837,7 +33654,7 @@ function createBlockCompleter() {
         return {
           key: `block-${blockItem.id}`,
           value: blockItem,
-          label: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+          label: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(block_icon, {
             key: "icon",
             icon: icon,
             showColors: true
@@ -33395,7 +34212,7 @@ function ListViewLeaf({
     isSelected,
     adjustScrolling: false,
     enableAnimation: true,
-    triggerAnimationOnChange: path.join('_')
+    triggerAnimationOnChange: path
   });
   return (0,external_wp_element_namespaceObject.createElement)(AnimatedTreeGridRow, _extends({
     ref: ref,
@@ -33520,7 +34337,7 @@ function ListViewBlockSelectButton({
     draggable: draggable
   }, (0,external_wp_element_namespaceObject.createElement)(ListViewExpander, {
     onClick: onToggleExpanded
-  }), (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+  }), (0,external_wp_element_namespaceObject.createElement)(block_icon, {
     icon: blockInformation === null || blockInformation === void 0 ? void 0 : blockInformation.icon,
     showColors: true
   }), (0,external_wp_element_namespaceObject.createElement)(BlockTitle, {
@@ -33647,14 +34464,13 @@ const useListViewContext = () => (0,external_wp_element_namespaceObject.useConte
 
 
 
+
 function ListViewBlock({
   block,
-  isSelected,
   isDragged,
+  isSelected,
   isBranchSelected,
-  isLastOfSelectedBranch,
-  onClick,
-  onToggleExpanded,
+  selectBlock,
   position,
   level,
   rowCount,
@@ -33671,16 +34487,19 @@ function ListViewBlock({
   const {
     toggleBlockHighlight
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const {
+    __experimentalFeatures: withExperimentalFeatures,
+    __experimentalPersistentListViewFeatures: withExperimentalPersistentListViewFeatures,
+    __experimentalHideContainerBlockActions: hideContainerBlockActions,
+    isTreeGridMounted,
+    expand,
+    collapse
+  } = useListViewContext();
   const hasSiblings = siblingBlockCount > 0;
   const hasRenderedMovers = showBlockMovers && hasSiblings;
   const moverCellClassName = classnames_default()('block-editor-list-view-block__mover-cell', {
     'is-visible': isHovered || isSelected
   });
-  const {
-    __experimentalFeatures: withExperimentalFeatures,
-    __experimentalPersistentListViewFeatures: withExperimentalPersistentListViewFeatures,
-    isTreeGridMounted
-  } = useListViewContext();
   const listViewBlockSettingsClassName = classnames_default()('block-editor-list-view-block__menu-cell', {
     'is-visible': isHovered || isSelected
   }); // If ListView has experimental features related to the Persistent List View,
@@ -33693,22 +34512,43 @@ function ListViewBlock({
     }
   }, []);
   const highlightBlock = withExperimentalPersistentListViewFeatures ? toggleBlockHighlight : () => {};
-
-  const onMouseEnter = () => {
+  const onMouseEnter = (0,external_wp_element_namespaceObject.useCallback)(() => {
     setIsHovered(true);
     highlightBlock(clientId, true);
-  };
-
-  const onMouseLeave = () => {
+  }, [clientId, setIsHovered, highlightBlock]);
+  const onMouseLeave = (0,external_wp_element_namespaceObject.useCallback)(() => {
     setIsHovered(false);
     highlightBlock(clientId, false);
-  };
+  }, [clientId, setIsHovered, highlightBlock]);
+  const selectEditorBlock = (0,external_wp_element_namespaceObject.useCallback)(event => {
+    event.stopPropagation();
+    selectBlock(clientId);
+  }, [clientId, selectBlock]);
+  const toggleExpanded = (0,external_wp_element_namespaceObject.useCallback)(event => {
+    event.stopPropagation();
+
+    if (isExpanded === true) {
+      collapse(clientId);
+    } else if (isExpanded === false) {
+      expand(clientId);
+    }
+  }, [clientId, expand, collapse, isExpanded]);
+  const showBlockActions = withExperimentalFeatures && ( //hide actions for blocks like core/widget-areas
+  !hideContainerBlockActions || hideContainerBlockActions && level > 1);
+  const hideBlockActions = withExperimentalFeatures && !showBlockActions;
+  let colSpan;
+
+  if (hasRenderedMovers) {
+    colSpan = 2;
+  } else if (hideBlockActions) {
+    colSpan = 3;
+  }
 
   const classes = classnames_default()({
     'is-selected': isSelected,
     'is-branch-selected': withExperimentalPersistentListViewFeatures && isBranchSelected,
-    'is-last-of-selected-branch': withExperimentalPersistentListViewFeatures && isLastOfSelectedBranch,
-    'is-dragging': isDragged
+    'is-dragging': isDragged,
+    'has-single-cell': hideBlockActions
   });
   return (0,external_wp_element_namespaceObject.createElement)(ListViewLeaf, {
     className: classes,
@@ -33725,7 +34565,7 @@ function ListViewBlock({
     isExpanded: isExpanded
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridCell, {
     className: "block-editor-list-view-block__contents-cell",
-    colSpan: hasRenderedMovers ? undefined : 2,
+    colSpan: colSpan,
     ref: cellRef
   }, ({
     ref,
@@ -33735,8 +34575,8 @@ function ListViewBlock({
     className: "block-editor-list-view-block__contents-container"
   }, (0,external_wp_element_namespaceObject.createElement)(block_contents, {
     block: block,
-    onClick: onClick,
-    onToggleExpanded: onToggleExpanded,
+    onClick: selectEditorBlock,
+    onToggleExpanded: toggleExpanded,
     isSelected: isSelected,
     position: position,
     siblingBlockCount: siblingBlockCount,
@@ -33767,7 +34607,7 @@ function ListViewBlock({
     ref: ref,
     tabIndex: tabIndex,
     onFocus: onFocus
-  })))), withExperimentalFeatures && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridCell, {
+  })))), showBlockActions && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridCell, {
     className: listViewBlockSettingsClassName
   }, ({
     ref,
@@ -33783,83 +34623,12 @@ function ListViewBlock({
       onFocus
     },
     disableOpenOnArrowDown: true,
-    __experimentalSelectBlock: onClick
+    __experimentalSelectBlock: selectEditorBlock
   })));
 }
+
+/* harmony default export */ var list_view_block = ((0,external_wp_element_namespaceObject.memo)(ListViewBlock));
 //# sourceMappingURL=block.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/list-view/appender.js
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-function ListViewAppender({
-  parentBlockClientId,
-  position,
-  level,
-  rowCount,
-  path
-}) {
-  const isDragging = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      isBlockBeingDragged,
-      isAncestorBeingDragged
-    } = select(store);
-    return isBlockBeingDragged(parentBlockClientId) || isAncestorBeingDragged(parentBlockClientId);
-  }, [parentBlockClientId]);
-  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(ListViewAppender);
-  const descriptionId = `list-view-appender-row__description_${instanceId}`;
-  const appenderPositionDescription = (0,external_wp_i18n_namespaceObject.sprintf)(
-  /* translators: 1: The numerical position of the block that will be inserted. 2: The level of nesting for the block that will be inserted. */
-  (0,external_wp_i18n_namespaceObject.__)('Add block at position %1$d, Level %2$d'), position, level);
-  return (0,external_wp_element_namespaceObject.createElement)(ListViewLeaf, {
-    className: classnames_default()({
-      'is-dragging': isDragging
-    }),
-    level: level,
-    position: position,
-    rowCount: rowCount,
-    path: path
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridCell, {
-    className: "block-editor-list-view-appender__cell",
-    colSpan: "3"
-  }, ({
-    ref,
-    tabIndex,
-    onFocus
-  }) => (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-list-view-appender__container"
-  }, (0,external_wp_element_namespaceObject.createElement)(inserter, {
-    rootClientId: parentBlockClientId,
-    __experimentalIsQuick: true,
-    "aria-describedby": descriptionId,
-    toggleProps: {
-      ref,
-      tabIndex,
-      onFocus
-    }
-  }), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-list-view-appender__description",
-    id: descriptionId
-  }, appenderPositionDescription))));
-}
-//# sourceMappingURL=appender.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/list-view/branch.js
 
 
@@ -33872,6 +34641,7 @@ function ListViewAppender({
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -33879,123 +34649,141 @@ function ListViewAppender({
 
 
 
+/**
+ * Given a block, returns the total number of blocks in that subtree. This is used to help determine
+ * the list position of a block.
+ *
+ * When a block is collapsed, we do not count their children as part of that total. In the current drag
+ * implementation dragged blocks and their children are not counted.
+ *
+ * @param {Object} block            block tree
+ * @param {Object} expandedState    state that notes which branches are collapsed
+ * @param {Array}  draggedClientIds a list of dragged client ids
+ * @return {number} block count
+ */
+
+function countBlocks(block, expandedState, draggedClientIds) {
+  var _expandedState$block$;
+
+  const isDragged = draggedClientIds === null || draggedClientIds === void 0 ? void 0 : draggedClientIds.includes(block.clientId);
+
+  if (isDragged) {
+    return 0;
+  }
+
+  const isExpanded = (_expandedState$block$ = expandedState[block.clientId]) !== null && _expandedState$block$ !== void 0 ? _expandedState$block$ : true;
+
+  if (isExpanded) {
+    return 1 + block.innerBlocks.reduce(countReducer(expandedState, draggedClientIds), 0);
+  }
+
+  return 1;
+}
+
+const countReducer = (expandedState, draggedClientIds) => (count, block) => {
+  var _expandedState$block$2;
+
+  const isDragged = draggedClientIds === null || draggedClientIds === void 0 ? void 0 : draggedClientIds.includes(block.clientId);
+
+  if (isDragged) {
+    return count;
+  }
+
+  const isExpanded = (_expandedState$block$2 = expandedState[block.clientId]) !== null && _expandedState$block$2 !== void 0 ? _expandedState$block$2 : true;
+
+  if (isExpanded && block.innerBlocks.length > 0) {
+    return count + countBlocks(block, expandedState, draggedClientIds);
+  }
+
+  return count + 1;
+};
 
 function ListViewBranch(props) {
   const {
     blocks,
     selectBlock,
-    showAppender,
     showBlockMovers,
     showNestedBlocks,
-    parentBlockClientId,
+    selectedClientIds,
     level = 1,
-    terminatedLevels = [],
-    path = [],
+    path = '',
     isBranchSelected = false,
-    isLastOfBranch = false
+    listPosition = 0,
+    fixedListWindow
   } = props;
   const {
     expandedState,
-    expand,
-    collapse,
     draggedClientIds,
-    selectedClientIds
+    __experimentalPersistentListViewFeatures
   } = useListViewContext();
-  const isTreeRoot = !parentBlockClientId;
   const filteredBlocks = (0,external_lodash_namespaceObject.compact)(blocks);
-
-  const itemHasAppender = parentClientId => showAppender && !isTreeRoot && isClientIdSelected(parentClientId, selectedClientIds);
-
-  const hasAppender = itemHasAppender(parentBlockClientId); // Add +1 to the rowCount to take the block appender into account.
-
   const blockCount = filteredBlocks.length;
-  const rowCount = hasAppender ? blockCount + 1 : blockCount;
-  const appenderPosition = rowCount;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_lodash_namespaceObject.map)(filteredBlocks, (block, index) => {
+  let nextPosition = listPosition;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, filteredBlocks.map((block, index) => {
     var _expandedState$client;
 
     const {
       clientId,
       innerBlocks
     } = block;
+
+    if (index > 0) {
+      nextPosition += countBlocks(filteredBlocks[index - 1], expandedState, draggedClientIds);
+    }
+
+    const usesWindowing = __experimentalPersistentListViewFeatures;
+    const {
+      itemInView
+    } = fixedListWindow;
+    const blockInView = !usesWindowing || itemInView(nextPosition);
     const position = index + 1;
-    const isLastRowAtLevel = rowCount === position;
-    const updatedTerminatedLevels = isLastRowAtLevel ? [...terminatedLevels, level] : terminatedLevels;
-    const updatedPath = [...path, position];
+    const updatedPath = path.length > 0 ? `${path}_${position}` : `${position}`;
     const hasNestedBlocks = showNestedBlocks && !!innerBlocks && !!innerBlocks.length;
-    const hasNestedAppender = itemHasAppender(clientId);
-    const hasNestedBranch = hasNestedBlocks || hasNestedAppender;
-    const isSelected = isClientIdSelected(clientId, selectedClientIds);
-    const isSelectedBranch = isBranchSelected || isSelected && hasNestedBranch; // Logic needed to target the last item of a selected branch which might be deeply nested.
-    // This is currently only needed for styling purposes. See: `.is-last-of-selected-branch`.
-
-    const isLastBlock = index === blockCount - 1;
-    const isLast = isSelected || isLastOfBranch && isLastBlock;
-    const isLastOfSelectedBranch = isLastOfBranch && !hasNestedBranch && isLastBlock;
-    const isExpanded = hasNestedBranch ? (_expandedState$client = expandedState[clientId]) !== null && _expandedState$client !== void 0 ? _expandedState$client : true : undefined;
-
-    const selectBlockWithClientId = event => {
-      event.stopPropagation();
-      selectBlock(clientId);
-    };
-
-    const toggleExpanded = event => {
-      event.stopPropagation();
-
-      if (isExpanded === true) {
-        collapse(clientId);
-      } else if (isExpanded === false) {
-        expand(clientId);
-      }
-    }; // Make updates to the selected or dragged blocks synchronous,
+    const isExpanded = hasNestedBlocks ? (_expandedState$client = expandedState[clientId]) !== null && _expandedState$client !== void 0 ? _expandedState$client : true : undefined;
+    const isDragged = !!(draggedClientIds !== null && draggedClientIds !== void 0 && draggedClientIds.includes(clientId));
+    const showBlock = isDragged || blockInView; // Make updates to the selected or dragged blocks synchronous,
     // but asynchronous for any other block.
 
-
-    const isDragged = !!(draggedClientIds !== null && draggedClientIds !== void 0 && draggedClientIds.includes(clientId));
+    const isSelected = isClientIdSelected(clientId, selectedClientIds);
+    const isSelectedBranch = isBranchSelected || isSelected && hasNestedBlocks;
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_data_namespaceObject.AsyncModeProvider, {
       key: clientId,
       value: !isSelected
-    }, (0,external_wp_element_namespaceObject.createElement)(ListViewBlock, {
+    }, showBlock && (0,external_wp_element_namespaceObject.createElement)(list_view_block, {
       block: block,
-      onClick: selectBlockWithClientId,
-      onToggleExpanded: toggleExpanded,
-      isDragged: isDragged,
+      selectBlock: selectBlock,
       isSelected: isSelected,
       isBranchSelected: isSelectedBranch,
-      isLastOfSelectedBranch: isLastOfSelectedBranch,
+      isDragged: isDragged,
       level: level,
       position: position,
-      rowCount: rowCount,
+      rowCount: blockCount,
       siblingBlockCount: blockCount,
       showBlockMovers: showBlockMovers,
-      terminatedLevels: terminatedLevels,
       path: updatedPath,
-      isExpanded: isExpanded
-    }), hasNestedBranch && isExpanded && !isDragged && (0,external_wp_element_namespaceObject.createElement)(ListViewBranch, {
+      isExpanded: isExpanded,
+      listPosition: nextPosition
+    }), !showBlock && (0,external_wp_element_namespaceObject.createElement)("tr", null, (0,external_wp_element_namespaceObject.createElement)("td", {
+      className: "block-editor-list-view-placeholder"
+    })), hasNestedBlocks && isExpanded && !isDragged && (0,external_wp_element_namespaceObject.createElement)(ListViewBranch, {
       blocks: innerBlocks,
       selectBlock: selectBlock,
-      isBranchSelected: isSelectedBranch,
-      isLastOfBranch: isLast,
-      showAppender: showAppender,
       showBlockMovers: showBlockMovers,
       showNestedBlocks: showNestedBlocks,
-      parentBlockClientId: clientId,
       level: level + 1,
-      terminatedLevels: updatedTerminatedLevels,
-      path: updatedPath
+      path: updatedPath,
+      listPosition: nextPosition + 1,
+      fixedListWindow: fixedListWindow,
+      isBranchSelected: isSelectedBranch,
+      selectedClientIds: selectedClientIds
     }));
-  }), hasAppender && (0,external_wp_element_namespaceObject.createElement)(ListViewAppender, {
-    parentBlockClientId: parentBlockClientId,
-    position: rowCount,
-    rowCount: appenderPosition,
-    level: level,
-    terminatedLevels: terminatedLevels,
-    path: [...path, appenderPosition]
   }));
 }
+
 ListViewBranch.defaultProps = {
   selectBlock: () => {}
 };
+/* harmony default export */ var branch = ((0,external_wp_element_namespaceObject.memo)(ListViewBranch));
 //# sourceMappingURL=branch.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/list-view/drop-indicator.js
 
@@ -34116,69 +34904,19 @@ function ListViewDropIndicator({
  */
 
 
-
-
-const useListViewClientIdsTree = (blocks, selectedClientIds, showOnlyCurrentHierarchy) => (0,external_wp_data_namespaceObject.useSelect)(select => {
-  const {
-    getBlockHierarchyRootClientId,
-    __unstableGetClientIdsTree,
-    __unstableGetClientIdWithClientIdsTree
-  } = select(store);
-
-  if (blocks) {
-    return blocks;
-  }
-
-  const isSingleBlockSelected = selectedClientIds && !Array.isArray(selectedClientIds);
-
-  if (!showOnlyCurrentHierarchy || !isSingleBlockSelected) {
-    return __unstableGetClientIdsTree();
-  }
-
-  const rootBlock = __unstableGetClientIdWithClientIdsTree(getBlockHierarchyRootClientId(selectedClientIds));
-
-  if (!rootBlock) {
-    return __unstableGetClientIdsTree();
-  }
-
-  const hasHierarchy = !isClientIdSelected(rootBlock.clientId, selectedClientIds) || rootBlock.innerBlocks && rootBlock.innerBlocks.length !== 0;
-
-  if (hasHierarchy) {
-    return [rootBlock];
-  }
-
-  return __unstableGetClientIdsTree();
-}, [blocks, selectedClientIds, showOnlyCurrentHierarchy]);
-
-function useListViewClientIds(blocks, showOnlyCurrentHierarchy, __experimentalPersistentListViewFeatures) {
-  const {
-    selectedClientIds,
-    draggedClientIds
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+function useListViewClientIds(blocks) {
+  return (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
-      getSelectedBlockClientId,
+      getDraggedBlockClientIds,
       getSelectedBlockClientIds,
-      getDraggedBlockClientIds
+      __unstableGetClientIdsTree
     } = select(store);
-
-    if (__experimentalPersistentListViewFeatures) {
-      return {
-        selectedClientIds: getSelectedBlockClientIds(),
-        draggedClientIds: getDraggedBlockClientIds()
-      };
-    }
-
     return {
-      selectedClientIds: getSelectedBlockClientId(),
-      draggedClientIds: getDraggedBlockClientIds()
+      selectedClientIds: getSelectedBlockClientIds(),
+      draggedClientIds: getDraggedBlockClientIds(),
+      clientIdsTree: blocks ? blocks : __unstableGetClientIdsTree()
     };
-  }, [__experimentalPersistentListViewFeatures]);
-  const clientIdsTree = useListViewClientIdsTree(blocks, selectedClientIds, showOnlyCurrentHierarchy);
-  return {
-    clientIdsTree,
-    selectedClientIds,
-    draggedClientIds
-  };
+  }, [blocks]);
 }
 //# sourceMappingURL=use-list-view-client-ids.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/list-view/use-list-view-drop-zone.js
@@ -34469,29 +35207,44 @@ const expanded = (state, action) => {
  * @param {Array}    props.blocks                                   Custom subset of block client IDs to be used instead of the default hierarchy.
  * @param {Function} props.onSelect                                 Block selection callback.
  * @param {boolean}  props.showNestedBlocks                         Flag to enable displaying nested blocks.
- * @param {boolean}  props.showOnlyCurrentHierarchy                 Flag to limit the list to the current hierarchy of blocks.
+ * @param {boolean}  props.showBlockMovers                          Flag to enable block movers
  * @param {boolean}  props.__experimentalFeatures                   Flag to enable experimental features.
  * @param {boolean}  props.__experimentalPersistentListViewFeatures Flag to enable features for the Persistent List View experiment.
+ * @param {boolean}  props.__experimentalHideContainerBlockActions  Flag to hide actions of top level blocks (like core/widget-area)
  * @param {Object}   ref                                            Forwarded ref
  */
 
 
 function ListView({
   blocks,
-  showOnlyCurrentHierarchy,
   onSelect = list_view_noop,
   __experimentalFeatures,
   __experimentalPersistentListViewFeatures,
+  __experimentalHideContainerBlockActions,
+  showNestedBlocks,
+  showBlockMovers,
   ...props
 }, ref) {
   const {
     clientIdsTree,
-    selectedClientIds,
-    draggedClientIds
-  } = useListViewClientIds(blocks, showOnlyCurrentHierarchy, __experimentalPersistentListViewFeatures);
+    draggedClientIds,
+    selectedClientIds
+  } = useListViewClientIds(blocks);
   const {
     selectBlock
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const {
+    visibleBlockCount
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getGlobalBlockCount,
+      getClientIdsOfDescendants
+    } = select(store);
+    const draggedBlockCount = (draggedClientIds === null || draggedClientIds === void 0 ? void 0 : draggedClientIds.length) > 0 ? getClientIdsOfDescendants(draggedClientIds).length + 1 : 0;
+    return {
+      visibleBlockCount: getGlobalBlockCount() - draggedBlockCount
+    };
+  }, [draggedClientIds]);
   const selectEditorBlock = (0,external_wp_element_namespaceObject.useCallback)(clientId => {
     selectBlock(clientId);
     onSelect(clientId);
@@ -34506,7 +35259,14 @@ function ListView({
   const isMounted = (0,external_wp_element_namespaceObject.useRef)(false);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     isMounted.current = true;
-  }, []);
+  }, []); // List View renders a fixed number of items and relies on each having a fixed item height of 36px.
+  // If this value changes, we should also change the itemHeight value set in useFixedWindowList.
+  // See: https://github.com/WordPress/gutenberg/pull/35230 for additional context.
+
+  const [fixedListWindow] = (0,external_wp_compose_namespaceObject.__experimentalUseFixedWindowList)(elementRef, 36, visibleBlockCount, {
+    useWindowing: __experimentalPersistentListViewFeatures,
+    windowOverscan: 40
+  });
   const expand = (0,external_wp_element_namespaceObject.useCallback)(clientId => {
     if (!clientId) {
       return;
@@ -34527,29 +35287,26 @@ function ListView({
       clientId
     });
   }, [setExpandedState]);
-
-  const expandRow = row => {
+  const expandRow = (0,external_wp_element_namespaceObject.useCallback)(row => {
     var _row$dataset;
 
     expand(row === null || row === void 0 ? void 0 : (_row$dataset = row.dataset) === null || _row$dataset === void 0 ? void 0 : _row$dataset.block);
-  };
-
-  const collapseRow = row => {
+  }, [expand]);
+  const collapseRow = (0,external_wp_element_namespaceObject.useCallback)(row => {
     var _row$dataset2;
 
     collapse(row === null || row === void 0 ? void 0 : (_row$dataset2 = row.dataset) === null || _row$dataset2 === void 0 ? void 0 : _row$dataset2.block);
-  };
-
+  }, [collapse]);
   const contextValue = (0,external_wp_element_namespaceObject.useMemo)(() => ({
     __experimentalFeatures,
     __experimentalPersistentListViewFeatures,
+    __experimentalHideContainerBlockActions,
     isTreeGridMounted: isMounted.current,
     draggedClientIds,
-    selectedClientIds,
     expandedState,
     expand,
     collapse
-  }), [__experimentalFeatures, __experimentalPersistentListViewFeatures, isMounted.current, draggedClientIds, selectedClientIds, expandedState, expand, collapse]);
+  }), [__experimentalFeatures, __experimentalPersistentListViewFeatures, __experimentalHideContainerBlockActions, isMounted.current, draggedClientIds, expandedState, expand, collapse]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_data_namespaceObject.AsyncModeProvider, {
     value: true
   }, (0,external_wp_element_namespaceObject.createElement)(ListViewDropIndicator, {
@@ -34563,9 +35320,13 @@ function ListView({
     onExpandRow: expandRow
   }, (0,external_wp_element_namespaceObject.createElement)(ListViewContext.Provider, {
     value: contextValue
-  }, (0,external_wp_element_namespaceObject.createElement)(ListViewBranch, _extends({
+  }, (0,external_wp_element_namespaceObject.createElement)(branch, _extends({
     blocks: clientIdsTree,
-    selectBlock: selectEditorBlock
+    selectBlock: selectEditorBlock,
+    showNestedBlocks: showNestedBlocks,
+    showBlockMovers: showBlockMovers,
+    fixedListWindow: fixedListWindow,
+    selectedClientIds: selectedClientIds
   }, props)))));
 }
 
@@ -34636,7 +35397,6 @@ function BlockNavigationDropdown({
       className: "block-editor-block-navigation__label"
     }, (0,external_wp_i18n_namespaceObject.__)('List view')), (0,external_wp_element_namespaceObject.createElement)(components_list_view, {
       showNestedBlocks: true,
-      showOnlyCurrentHierarchy: true,
       __experimentalFeatures: __experimentalFeatures
     }))
   });
@@ -37179,7 +37939,8 @@ class URLInput extends external_wp_element_namespaceObject.Component {
       selectedSuggestion
     } = this.state;
     const {
-      value
+      value,
+      __experimentalShowInitialSuggestions = false
     } = this.props; // only have to worry about scrolling selected suggestion into view
     // when already expanded
 
@@ -37191,11 +37952,17 @@ class URLInput extends external_wp_element_namespaceObject.Component {
       this.props.setTimeout(() => {
         this.scrollingIntoView = false;
       }, 100);
-    } // Only attempt an update on suggestions if the input value has actually changed.
+    } // Update suggestions when the value changes
 
 
-    if (prevProps.value !== value && this.shouldShowInitialSuggestions()) {
-      this.updateSuggestions();
+    if (prevProps.value !== value && !this.props.disableSuggestions && !this.isUpdatingSuggestions) {
+      if (value !== null && value !== void 0 && value.length) {
+        // If the new value is not empty we need to update with suggestions for it
+        this.updateSuggestions(value);
+      } else if (__experimentalShowInitialSuggestions) {
+        // If the new value is empty and we can show initial suggestions, then show initial suggestions
+        this.updateSuggestions();
+      }
     }
   }
 
@@ -37995,6 +38762,7 @@ function useSearchHandler(suggestionsQuery, allowDirectEntry, withCreateSuggesti
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
@@ -38032,7 +38800,8 @@ const LinkControlSearchInput = (0,external_wp_element_namespaceObject.forwardRef
   showInitialSuggestions = false,
   suggestionsQuery = {},
   withURLSuggestion = true,
-  createSuggestionButtonText
+  createSuggestionButtonText,
+  useLabel = false
 }, ref) => {
   const genericSearchHandler = useSearchHandler(suggestionsQuery, allowDirectEntry, withCreateSuggestion, withURLSuggestion);
   const searchHandler = showSuggestions ? fetchSuggestions || genericSearchHandler : noopSearchHandler;
@@ -38092,8 +38861,14 @@ const LinkControlSearchInput = (0,external_wp_element_namespaceObject.forwardRef
     }
   };
 
-  return (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(url_input, {
-    className: className,
+  const inputClasses = classnames_default()(className, {
+    'has-no-label': !useLabel
+  });
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-link-control__search-input-container"
+  }, (0,external_wp_element_namespaceObject.createElement)(url_input, {
+    label: useLabel ? 'URL' : undefined,
+    className: inputClasses,
     value: value,
     onChange: onInputChange,
     placeholder: placeholder !== null && placeholder !== void 0 ? placeholder : (0,external_wp_i18n_namespaceObject.__)('Search or type url'),
@@ -38135,6 +38910,28 @@ const info = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 }));
 /* harmony default export */ var library_info = (info);
 //# sourceMappingURL=info.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/pencil.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const pencil = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M20.1 5.1L16.9 2 6.2 12.7l-1.3 4.4 4.5-1.3L20.1 5.1zM4 20.8h8v-1.5H4v1.5z"
+}));
+/* harmony default export */ var library_pencil = (pencil);
+//# sourceMappingURL=pencil.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/edit.js
+/**
+ * Internal dependencies
+ */
+
+/* harmony default export */ var library_edit = (library_pencil);
+//# sourceMappingURL=edit.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/link-control/viewer-slot.js
 /**
  * WordPress dependencies
@@ -38249,6 +39046,7 @@ function useRemoteUrlData(url) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -38258,7 +39056,9 @@ function useRemoteUrlData(url) {
 function LinkPreview({
   value,
   onEditClick,
-  hasRichPreviews = false
+  hasRichPreviews = false,
+  hasUnlinkControl = false,
+  onRemove
 }) {
   // Avoid fetching if rich previews are not desired.
   const showRichPreviews = hasRichPreviews ? value === null || value === void 0 ? void 0 : value.url : null;
@@ -38269,6 +39069,7 @@ function LinkPreview({
 
   const hasRichData = richData && Object.keys(richData).length;
   const displayURL = value && (0,external_wp_url_namespaceObject.filterURLForDisplay)((0,external_wp_url_namespaceObject.safeDecodeURI)(value.url), 16) || '';
+  const displayTitle = (richData === null || richData === void 0 ? void 0 : richData.title) || (value === null || value === void 0 ? void 0 : value.title) || displayURL;
   const isEmptyURL = !value.url.length;
   let icon;
 
@@ -38311,15 +39112,23 @@ function LinkPreview({
   }, !isEmptyURL ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
     className: "block-editor-link-control__search-item-title",
     href: value.url
-  }, (richData === null || richData === void 0 ? void 0 : richData.title) || (value === null || value === void 0 ? void 0 : value.title) || displayURL), (value === null || value === void 0 ? void 0 : value.url) && (0,external_wp_element_namespaceObject.createElement)("span", {
+  }, (0,external_wp_dom_namespaceObject.__unstableStripHTML)(displayTitle)), (value === null || value === void 0 ? void 0 : value.url) && (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "block-editor-link-control__search-item-info"
   }, displayURL)) : (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "block-editor-link-control__search-item-error-notice"
   }, "Link is empty"))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    variant: "secondary",
-    onClick: () => onEditClick(),
-    className: "block-editor-link-control__search-item-action"
-  }, (0,external_wp_i18n_namespaceObject.__)('Edit')), (0,external_wp_element_namespaceObject.createElement)(ViewerSlot, {
+    icon: library_edit,
+    label: (0,external_wp_i18n_namespaceObject.__)('Edit'),
+    className: "block-editor-link-control__search-item-action",
+    onClick: onEditClick,
+    iconSize: 24
+  }), hasUnlinkControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    icon: link_off,
+    label: (0,external_wp_i18n_namespaceObject.__)('Unlink'),
+    className: "block-editor-link-control__search-item-action block-editor-link-control__unlink",
+    onClick: onRemove,
+    iconSize: 24
+  }), (0,external_wp_element_namespaceObject.createElement)(ViewerSlot, {
     fillProps: value
   })), (hasRichData && ((richData === null || richData === void 0 ? void 0 : richData.image) || (richData === null || richData === void 0 ? void 0 : richData.description)) || isFetching) && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-link-control__search-item-bottom"
@@ -38428,6 +39237,7 @@ const makeCancelable = promise => {
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
@@ -38520,6 +39330,7 @@ const makeCancelable = promise => {
  * @property {Object=}                    suggestionsQuery           Query parameters to pass along to wp.blockEditor.__experimentalFetchLinkSuggestions.
  * @property {boolean=}                   noURLSuggestion            Whether to add a fallback suggestion which treats the search query as a URL.
  * @property {string|Function|undefined}  createSuggestionButtonText The text to use in the button that calls createSuggestion.
+ * @property {Function}                   renderControlBottom        Optional controls to be rendered at the bottom of the component.
  */
 
 /**
@@ -38546,9 +39357,11 @@ function LinkControl({
   suggestionsQuery = {},
   noURLSuggestion = false,
   createSuggestionButtonText,
-  hasRichPreviews = false
+  hasRichPreviews = false,
+  hasTextControl = false,
+  renderControlBottom = null
 }) {
-  var _currentInputValue$tr;
+  var _currentInputValue$tr, _value$url, _value$url$trim;
 
   if (withCreateSuggestion === undefined && createSuggestion) {
     withCreateSuggestion = true;
@@ -38556,7 +39369,9 @@ function LinkControl({
 
   const isMounting = (0,external_wp_element_namespaceObject.useRef)(true);
   const wrapperNode = (0,external_wp_element_namespaceObject.useRef)();
-  const [internalInputValue, setInternalInputValue] = (0,external_wp_element_namespaceObject.useState)(value && value.url || '');
+  const textInputRef = (0,external_wp_element_namespaceObject.useRef)();
+  const [internalInputValue, setInternalInputValue] = (0,external_wp_element_namespaceObject.useState)((value === null || value === void 0 ? void 0 : value.url) || '');
+  const [internalTextValue, setInternalTextValue] = (0,external_wp_element_namespaceObject.useState)((value === null || value === void 0 ? void 0 : value.title) || '');
   const currentInputValue = propInputValue || internalInputValue;
   const [isEditingLink, setIsEditingLink] = (0,external_wp_element_namespaceObject.useState)(forceIsEditingLink !== undefined ? forceIsEditingLink : !value || !value.url);
   const isEndingEditWithFocus = (0,external_wp_element_namespaceObject.useRef)(false);
@@ -38567,17 +39382,47 @@ function LinkControl({
     }
   }, [forceIsEditingLink]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // We don't auto focus into the Link UI on mount
+    // because otherwise using the keyboard to select text
+    // *within* the link format is not possible.
     if (isMounting.current) {
       isMounting.current = false;
       return;
-    } // When switching between editable and non editable LinkControl
-    // move focus to the first element to avoid focus loss.
+    } // Unless we are mounting, we always want to focus either:
+    // - the URL input
+    // - the first focusable element in the Link UI.
+    // But in editing mode if there is a text input present then
+    // the URL input is at index 1. If not then it is at index 0.
 
 
-    const nextFocusTarget = external_wp_dom_namespaceObject.focus.focusable.find(wrapperNode.current)[0] || wrapperNode.current;
+    const whichFocusTargetIndex = textInputRef !== null && textInputRef !== void 0 && textInputRef.current ? 1 : 0; // Scenario - when:
+    // - switching between editable and non editable LinkControl
+    // - clicking on a link
+    // ...then move focus to the *first* element to avoid focus loss
+    // and to ensure focus is *within* the Link UI.
+
+    const nextFocusTarget = external_wp_dom_namespaceObject.focus.focusable.find(wrapperNode.current)[whichFocusTargetIndex] || wrapperNode.current;
     nextFocusTarget.focus();
     isEndingEditWithFocus.current = false;
   }, [isEditingLink]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    /**
+     * If the value's `text` property changes then sync this
+     * back up with state.
+     */
+    if (value !== null && value !== void 0 && value.title && value.title !== internalTextValue) {
+      setInternalTextValue(value.title);
+    }
+    /**
+     * Update the state value internalInputValue if the url value changes
+     * for example when clicking on another anchor
+     */
+
+
+    if (value !== null && value !== void 0 && value.url) {
+      setInternalInputValue(value.url);
+    }
+  }, [value]);
   /**
    * Cancels editing state and marks that focus may need to be restored after
    * the next render, if focus was within the wrapper when editing finished.
@@ -38597,22 +39442,41 @@ function LinkControl({
   } = useCreatePage(createSuggestion);
 
   const handleSelectSuggestion = updatedValue => {
-    onChange(updatedValue);
+    onChange({ ...updatedValue,
+      title: internalTextValue || (updatedValue === null || updatedValue === void 0 ? void 0 : updatedValue.title)
+    });
     stopEditing();
   };
 
-  const handleSubmitButton = () => {
-    if (currentInputValue !== (value === null || value === void 0 ? void 0 : value.url)) {
+  const handleSubmit = () => {
+    if (currentInputValue !== (value === null || value === void 0 ? void 0 : value.url) || internalTextValue !== (value === null || value === void 0 ? void 0 : value.title)) {
       onChange({
-        url: currentInputValue
+        url: currentInputValue,
+        title: internalTextValue
       });
     }
 
     stopEditing();
   };
 
+  const handleSubmitWithEnter = event => {
+    const {
+      keyCode
+    } = event;
+
+    if (keyCode === external_wp_keycodes_namespaceObject.ENTER && !currentInputIsEmpty // disallow submitting empty values.
+    ) {
+        event.preventDefault();
+        handleSubmit();
+      }
+  };
+
   const shownUnlinkControl = onRemove && value && !isEditingLink && !isCreatingPage;
-  const showSettingsDrawer = !!(settings !== null && settings !== void 0 && settings.length);
+  const showSettingsDrawer = !!(settings !== null && settings !== void 0 && settings.length); // Only show text control once a URL value has been committed
+  // and it isn't just empty whitespace.
+  // See https://github.com/WordPress/gutenberg/pull/33849/#issuecomment-932194927.
+
+  const showTextControl = (value === null || value === void 0 ? void 0 : (_value$url = value.url) === null || _value$url === void 0 ? void 0 : (_value$url$trim = _value$url.trim()) === null || _value$url$trim === void 0 ? void 0 : _value$url$trim.length) > 0 && hasTextControl;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     tabIndex: -1,
     ref: wrapperNode,
@@ -38620,10 +39484,20 @@ function LinkControl({
   }, isCreatingPage && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-link-control__loading"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), " ", (0,external_wp_i18n_namespaceObject.__)('Creating'), "\u2026"), (isEditingLink || !value) && !isCreatingPage && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-link-control__search-input-wrapper"
-  }, (0,external_wp_element_namespaceObject.createElement)(search_input, {
+    className: classnames_default()({
+      'block-editor-link-control__search-input-wrapper': true,
+      'has-text-control': showTextControl
+    })
+  }, showTextControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
+    ref: textInputRef,
+    className: "block-editor-link-control__field block-editor-link-control__text-content",
+    label: "Text",
+    value: internalTextValue,
+    onChange: setInternalTextValue,
+    onKeyDown: handleSubmitWithEnter
+  }), (0,external_wp_element_namespaceObject.createElement)(search_input, {
     currentLink: value,
-    className: "block-editor-link-control__search-input",
+    className: "block-editor-link-control__field block-editor-link-control__search-input",
     placeholder: searchInputPlaceholder,
     value: currentInputValue,
     withCreateSuggestion: withCreateSuggestion,
@@ -38635,22 +39509,12 @@ function LinkControl({
     showSuggestions: showSuggestions,
     suggestionsQuery: suggestionsQuery,
     withURLSuggestion: !noURLSuggestion,
-    createSuggestionButtonText: createSuggestionButtonText
+    createSuggestionButtonText: createSuggestionButtonText,
+    useLabel: showTextControl
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-link-control__search-actions"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    onClick: () => handleSubmitButton(),
-    onKeyDown: event => {
-      const {
-        keyCode
-      } = event;
-
-      if (keyCode === external_wp_keycodes_namespaceObject.ENTER && !currentInputIsEmpty // disallow submitting empty values.
-      ) {
-          event.preventDefault();
-          handleSubmitButton();
-        }
-    },
+    onClick: handleSubmit,
     label: (0,external_wp_i18n_namespaceObject.__)('Submit'),
     icon: keyboard_return,
     className: "block-editor-link-control__search-submit",
@@ -38665,19 +39529,16 @@ function LinkControl({
     ,
     value: value,
     onEditClick: () => setIsEditingLink(true),
-    hasRichPreviews: hasRichPreviews
-  }), (showSettingsDrawer || shownUnlinkControl) && (0,external_wp_element_namespaceObject.createElement)("div", {
+    hasRichPreviews: hasRichPreviews,
+    hasUnlinkControl: shownUnlinkControl,
+    onRemove: onRemove
+  }), showSettingsDrawer && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-link-control__tools"
   }, (0,external_wp_element_namespaceObject.createElement)(settings_drawer, {
     value: value,
     settings: settings,
     onChange: onChange
-  }), shownUnlinkControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    className: "block-editor-link-control__unlink",
-    isDestructive: true,
-    variant: "link",
-    onClick: onRemove
-  }, (0,external_wp_i18n_namespaceObject.__)('Unlink'))));
+  })), renderControlBottom && renderControlBottom());
 }
 
 LinkControl.ViewerFill = ViewerFill;
@@ -38947,28 +39808,6 @@ const MediaReplaceFlow = ({
   };
 }), (0,external_wp_components_namespaceObject.withFilters)('editor.MediaReplaceFlow')])(MediaReplaceFlow));
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/pencil.js
-
-
-/**
- * WordPress dependencies
- */
-
-const pencil = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M20.1 5.1L16.9 2 6.2 12.7l-1.3 4.4 4.5-1.3L20.1 5.1zM4 20.8h8v-1.5H4v1.5z"
-}));
-/* harmony default export */ var library_pencil = (pencil);
-//# sourceMappingURL=pencil.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/edit.js
-/**
- * Internal dependencies
- */
-
-/* harmony default export */ var library_edit = (library_pencil);
-//# sourceMappingURL=edit.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/url-popover/link-viewer-url.js
 
 
@@ -39582,7 +40421,8 @@ const FormatToolbar = () => {
       toggleProps: { ...toggleProps,
         className: classnames_default()(toggleProps.className, {
           'is-pressed': hasActive
-        })
+        }),
+        describedBy: (0,external_wp_i18n_namespaceObject.__)('Displays more block tools')
       },
       controls: (0,external_lodash_namespaceObject.orderBy)(fills.map(([{
         props
@@ -40582,6 +41422,11 @@ function useInputEvents(inputEvents) {
  * WordPress dependencies
  */
 
+/**
+ * External dependencies
+ */
+
+
 function FormatEdit({
   formatTypes,
   onChange,
@@ -40600,9 +41445,29 @@ function FormatEdit({
     }
 
     const activeFormat = (0,external_wp_richText_namespaceObject.getActiveFormat)(value, name);
-    const isActive = activeFormat !== undefined;
+    let isActive = activeFormat !== undefined;
     const activeObject = (0,external_wp_richText_namespaceObject.getActiveObject)(value);
-    const isObjectActive = activeObject !== undefined && activeObject.type === name;
+    const isObjectActive = activeObject !== undefined && activeObject.type === name; // Edge case: un-collapsed link formats.
+    // If there is a missing link format at either end of the selection
+    // then we shouldn't show the Edit UI because the selection has exceeded
+    // the bounds of the link format.
+    // Also if the format objects don't match then we're dealing with two separate
+    // links so we should not allow the link to be modified over the top.
+
+    if (name === 'core/link' && !(0,external_wp_richText_namespaceObject.isCollapsed)(value)) {
+      const formats = value.formats;
+      const linkFormatAtStart = (0,external_lodash_namespaceObject.find)(formats[value.start], {
+        type: 'core/link'
+      });
+      const linkFormatAtEnd = (0,external_lodash_namespaceObject.find)(formats[value.end - 1], {
+        type: 'core/link'
+      });
+
+      if (!linkFormatAtStart || !linkFormatAtEnd || linkFormatAtStart !== linkFormatAtEnd) {
+        isActive = false;
+      }
+    }
+
     return (0,external_wp_element_namespaceObject.createElement)(Edit, {
       key: name,
       isActive: isActive,
@@ -41985,7 +42850,7 @@ function MultiSelectionInspector({
   const words = (0,external_wp_wordcount_namespaceObject.count)((0,external_wp_blocks_namespaceObject.serialize)(blocks), 'words');
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-multi-selection-inspector__card"
-  }, (0,external_wp_element_namespaceObject.createElement)(BlockIcon, {
+  }, (0,external_wp_element_namespaceObject.createElement)(block_icon, {
     icon: library_stack,
     showColors: true
   }), (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -42177,6 +43042,10 @@ const BlockInspectorSingleBlock = ({
     blockName: blockName
   }))), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
     bubblesVirtually: bubblesVirtually
+  }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
+    __experimentalGroup: "typography",
+    bubblesVirtually: bubblesVirtually,
+    label: (0,external_wp_i18n_namespaceObject.__)('Typography')
   }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
     __experimentalGroup: "dimensions",
     bubblesVirtually: bubblesVirtually,
@@ -43138,6 +44007,8 @@ function useNoRecursiveRenders(uniqueId, blockName = '') {
 /*
  * Block Creation Components
  */
+
+
 
 
 

@@ -993,7 +993,19 @@ const batchInsertPlaceholderMenuItems = navigationBlock => async ({
 const batchUpdateMenuItems = (navigationBlock, menuId) => async ({
   registry
 }) => {
-  const updatedMenuItems = blocksTreeToAnnotatedList(navigationBlock) // Filter out unsupported blocks
+  const allMenuItems = blocksTreeToAnnotatedList(navigationBlock);
+  const unsupportedMenuItems = allMenuItems.filter(({
+    block
+  }) => !isBlockSupportedInNav(block)).map(({
+    block
+  }) => block.name);
+
+  if (unsupportedMenuItems.length) {
+    window.console.warn((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Name of block (i.e. core/legacy-widget)
+    (0,external_wp_i18n_namespaceObject.__)('The following blocks haven\'t been saved because they are not supported: "%s".'), unsupportedMenuItems.join('", "')));
+  }
+
+  const updatedMenuItems = allMenuItems // Filter out unsupported blocks
   .filter(({
     block
   }) => isBlockSupportedInNav(block)) // Transform the blocks into menu items
@@ -4699,7 +4711,13 @@ function Layout({
   })), (0,external_wp_element_namespaceObject.createElement)(UnsavedChangesWarning, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null))));
 }
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: external ["wp","url"]
+var external_wp_url_namespaceObject = window["wp"]["url"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/utils/index.js
+/**
+ * WordPress dependencies
+ */
+
 /**
  * The purpose of this function is to create a middleware that is responsible for preloading menu-related data.
  * It uses data that is returned from the /__experimental/menus endpoint for requests
@@ -4710,9 +4728,10 @@ function Layout({
  * @param {Object} preloadedData
  * @return {Function} Preloading middleware.
  */
+
 function createMenuPreloadingMiddleware(preloadedData) {
   const cache = Object.keys(preloadedData).reduce((result, path) => {
-    result[getStablePath(path)] = preloadedData[path];
+    result[(0,external_wp_url_namespaceObject.normalizePath)(path)] = preloadedData[path];
     return result;
   },
   /** @type {Record<string, any>} */
@@ -4736,7 +4755,7 @@ function createMenuPreloadingMiddleware(preloadedData) {
       return next(options);
     }
 
-    const path = getStablePath(options.path);
+    const path = (0,external_wp_url_namespaceObject.normalizePath)(options.path);
 
     if (!menusDataLoaded && cache[path]) {
       menusDataLoaded = true;
@@ -4791,34 +4810,6 @@ function sendSuccessResponse(responseData, parse) {
     statusText: 'OK',
     headers: responseData.headers
   }));
-}
-/**
- * Given a path, returns a normalized path where equal query parameter values
- * will be treated as identical, regardless of order they appear in the original
- * text.
- *
- * @param {string} path Original path.
- *
- * @return {string} Normalized path.
- */
-
-
-function getStablePath(path) {
-  const splitted = path.split('?');
-  const query = splitted[1];
-  const base = splitted[0];
-
-  if (!query) {
-    return base;
-  } // 'b=1&c=2&a=5'
-
-
-  return base + '?' + query // [ 'b=1', 'c=2', 'a=5' ]
-  .split('&') // [ [ 'b, '1' ], [ 'c', '2' ], [ 'a', '5' ] ]
-  .map(entry => entry.split('=')) // [ [ 'a', '5' ], [ 'b, '1' ], [ 'c', '2' ] ]
-  .sort((a, b) => a[0].localeCompare(b[0])) // [ 'a=5', 'b=1', 'c=2' ]
-  .map(pair => pair.join('=')) // 'a=5&b=1&c=2'
-  .join('&');
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/index.js

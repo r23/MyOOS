@@ -4655,6 +4655,11 @@ class AutosaveMonitor extends external_wp_element_namespaceObject.Component {
       return;
     }
 
+    if (this.props.interval !== prevProps.interval) {
+      clearTimeout(this.timerId);
+      this.setAutosaveTimer();
+    }
+
     if (!this.props.isDirty) {
       this.needsAutosave = false;
       return;
@@ -5353,21 +5358,6 @@ const close_close = (0,external_wp_element_namespaceObject.createElement)(extern
 }));
 /* harmony default export */ var library_close = (close_close);
 //# sourceMappingURL=close.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/page.js
-
-
-/**
- * WordPress dependencies
- */
-
-const page = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M7 5.5h10a.5.5 0 01.5.5v12a.5.5 0 01-.5.5H7a.5.5 0 01-.5-.5V6a.5.5 0 01.5-.5zM17 4H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V6a2 2 0 00-2-2zm-1 3.75H8v1.5h8v-1.5zM8 11h8v1.5H8V11zm6 3.25H8v1.5h6v-1.5z"
-}));
-/* harmony default export */ var library_page = (page);
-//# sourceMappingURL=page.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/entity-record-item.js
 
 
@@ -5466,10 +5456,21 @@ function EntityRecordItem({
  */
 
 
-const ENTITY_NAME_ICONS = {
-  site: library_layout,
-  page: library_page
-};
+
+function getEntityDescription(entity, length) {
+  switch (entity) {
+    case 'site':
+      return (0,external_wp_i18n_namespaceObject._n)('This change will affect your whole site.', 'These changes will affect your whole site.', length);
+
+    case 'wp_template':
+      return (0,external_wp_i18n_namespaceObject._n)('This change will affect pages and posts that use this template.', 'These changes will affect pages and posts that use these templates.', length);
+
+    case 'page':
+    case 'post':
+      return (0,external_wp_i18n_namespaceObject.__)('The following content has been modified.');
+  }
+}
+
 function EntityTypeList({
   list,
   unselectedEntities,
@@ -5477,17 +5478,17 @@ function EntityTypeList({
   closePanel
 }) {
   const firstRecord = list[0];
-  const entity = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getEntity(firstRecord.kind, firstRecord.name), [firstRecord.kind, firstRecord.name]); // Set icon based on type of entity.
-
+  const entity = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getEntity(firstRecord.kind, firstRecord.name), [firstRecord.kind, firstRecord.name]);
   const {
     name
   } = firstRecord;
-  const icon = ENTITY_NAME_ICONS[name];
+  const entityLabel = name === 'wp_template_part' ? (0,external_wp_i18n_namespaceObject._n)('Template Part', 'Template Parts', list.length) : entity.label; // Set description based on type of entity.
+
+  const description = getEntityDescription(name, list.length);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
-    title: entity.label,
-    initialOpen: true,
-    icon: icon
-  }, list.map(record => {
+    title: entityLabel,
+    initialOpen: true
+  }, description && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, null, description), list.map(record => {
     return (0,external_wp_element_namespaceObject.createElement)(EntityRecordItem, {
       key: record.key || record.property,
       record: record,
@@ -5522,13 +5523,17 @@ function EntityTypeList({
  */
 
 
-const TRANSLATED_SITE_PROTPERTIES = {
+const TRANSLATED_SITE_PROPERTIES = {
   title: (0,external_wp_i18n_namespaceObject.__)('Title'),
   description: (0,external_wp_i18n_namespaceObject.__)('Tagline'),
   site_logo: (0,external_wp_i18n_namespaceObject.__)('Logo'),
   show_on_front: (0,external_wp_i18n_namespaceObject.__)('Show on front'),
   page_on_front: (0,external_wp_i18n_namespaceObject.__)('Page on front')
 };
+const PUBLISH_ON_SAVE_ENTITIES = [{
+  kind: 'postType',
+  name: 'wp_navigation'
+}];
 function EntitiesSavedStates({
   close
 }) {
@@ -5547,7 +5552,7 @@ function EntitiesSavedStates({
       siteEditsAsEntities.push({
         kind: 'root',
         name: 'site',
-        title: TRANSLATED_SITE_PROTPERTIES[property] || property,
+        title: TRANSLATED_SITE_PROPERTIES[property] || property,
         property
       });
     }
@@ -5558,11 +5563,20 @@ function EntitiesSavedStates({
     };
   }, []);
   const {
+    editEntityRecord,
     saveEditedEntityRecord,
     __experimentalSaveSpecifiedEntityEdits: saveSpecifiedEntityEdits
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store); // To group entities by type.
 
-  const partitionedSavables = Object.values((0,external_lodash_namespaceObject.groupBy)(dirtyEntityRecords, 'name')); // Unchecked entities to be ignored by save function.
+  const partitionedSavables = (0,external_lodash_namespaceObject.groupBy)(dirtyEntityRecords, 'name'); // Sort entity groups.
+
+  const {
+    site: siteSavables,
+    wp_template: templateSavables,
+    wp_template_part: templatePartSavables,
+    ...contentSavables
+  } = partitionedSavables;
+  const sortedPartitionedSavables = [siteSavables, templateSavables, templatePartSavables, ...Object.values(contentSavables)].filter(Array.isArray); // Unchecked entities to be ignored by save function.
 
   const [unselectedEntities, _setUnselectedEntities] = (0,external_wp_element_namespaceObject.useState)([]);
 
@@ -5604,6 +5618,12 @@ function EntitiesSavedStates({
       if ('root' === kind && 'site' === name) {
         siteItemsToSave.push(property);
       } else {
+        if (PUBLISH_ON_SAVE_ENTITIES.some(typeToPublish => typeToPublish.kind === kind && typeToPublish.name === name)) {
+          editEntityRecord(kind, name, key, {
+            status: 'publish'
+          });
+        }
+
         saveEditedEntityRecord(kind, name, key);
       }
     });
@@ -5634,7 +5654,7 @@ function EntitiesSavedStates({
     label: (0,external_wp_i18n_namespaceObject.__)('Close panel')
   })), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "entities-saved-states__text-prompt"
-  }, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Select the changes you want to save')), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Some changes may affect other areas of your site.'))), partitionedSavables.map(list => {
+  }, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Are you ready to save?')), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('The following changes have been made to your site, templates, and content.'))), sortedPartitionedSavables.map(list => {
     return (0,external_wp_element_namespaceObject.createElement)(EntityTypeList, {
       key: list[0].name,
       list: list,
@@ -8521,6 +8541,8 @@ function PostScheduleLabel({
 ;// CONCATENATED MODULE: external ["wp","apiFetch"]
 var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
+;// CONCATENATED MODULE: external ["wp","a11y"]
+var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/most-used-terms.js
 
 
@@ -8604,6 +8626,7 @@ function MostUsedTerms({
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -8611,6 +8634,14 @@ function MostUsedTerms({
 
 
 
+/**
+ * Shared reference to an empty array for cases where it is important to avoid
+ * returning a new array reference on every invocation.
+ *
+ * @type {Array<any>}
+ */
+
+const flat_term_selector_EMPTY_ARRAY = [];
 /**
  * Module constants
  */
@@ -8620,256 +8651,189 @@ const flat_term_selector_DEFAULT_QUERY = {
   per_page: MAX_TERMS_SUGGESTIONS,
   orderby: 'count',
   order: 'desc',
-  _fields: 'id,name,count'
+  _fields: 'id,name',
+  context: 'view'
 };
 
 const isSameTermName = (termA, termB) => unescapeString(termA).toLowerCase() === unescapeString(termB).toLowerCase();
 
 const termNamesToIds = (names, terms) => {
   return names.map(termName => (0,external_lodash_namespaceObject.find)(terms, term => isSameTermName(term.name, termName)).id);
-};
+}; // Tries to create a term or fetch it if it already exists.
 
-class FlatTermSelector extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.onChange = this.onChange.bind(this);
-    this.searchTerms = (0,external_lodash_namespaceObject.debounce)(this.searchTerms.bind(this), 500);
-    this.findOrCreateTerm = this.findOrCreateTerm.bind(this);
-    this.appendTerm = this.appendTerm.bind(this);
-    this.state = {
-      loading: !(0,external_lodash_namespaceObject.isEmpty)(this.props.terms),
-      availableTerms: [],
-      selectedTerms: []
-    };
-  }
 
-  componentDidMount() {
-    if (!(0,external_lodash_namespaceObject.isEmpty)(this.props.terms)) {
-      this.initRequest = this.fetchTerms({
-        include: this.props.terms.join(','),
-        per_page: -1
-      });
-      this.initRequest.then(() => {
-        this.setState({
-          loading: false
-        });
-      }, xhr => {
-        if (xhr.statusText === 'abort') {
-          return;
-        }
+function findOrCreateTerm(termName, restBase) {
+  const escapedTermName = (0,external_lodash_namespaceObject.escape)(termName);
+  return external_wp_apiFetch_default()({
+    path: `/wp/v2/${restBase}`,
+    method: 'POST',
+    data: {
+      name: escapedTermName
+    }
+  }).catch(error => {
+    const errorCode = error.code;
 
-        this.setState({
-          loading: false
-        });
+    if (errorCode === 'term_exists') {
+      // If the terms exist, fetch it instead of creating a new one.
+      const addRequest = external_wp_apiFetch_default()({
+        path: (0,external_wp_url_namespaceObject.addQueryArgs)(`/wp/v2/${restBase}`, { ...flat_term_selector_DEFAULT_QUERY,
+          search: escapedTermName
+        })
+      }).then(unescapeTerms);
+      return addRequest.then(searchResult => {
+        return (0,external_lodash_namespaceObject.find)(searchResult, result => isSameTermName(result.name, termName));
       });
     }
-  }
 
-  componentWillUnmount() {
-    (0,external_lodash_namespaceObject.invoke)(this.initRequest, ['abort']);
-    (0,external_lodash_namespaceObject.invoke)(this.searchRequest, ['abort']);
-  }
+    return Promise.reject(error);
+  }).then(unescapeTerm);
+}
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.terms !== this.props.terms) {
-      this.updateSelectedTerms(this.props.terms);
-    }
-  }
-
-  fetchTerms(params = {}) {
+function FlatTermSelector({
+  slug
+}) {
+  const [values, setValues] = (0,external_wp_element_namespaceObject.useState)([]);
+  const [search, setSearch] = (0,external_wp_element_namespaceObject.useState)('');
+  const debouncedSearch = (0,external_wp_compose_namespaceObject.useDebounce)(setSearch, 500);
+  const {
+    terms,
+    termIds,
+    taxonomy,
+    hasAssignAction,
+    hasCreateAction,
+    hasResolvedTerms
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
-      taxonomy
-    } = this.props;
+      getCurrentPost,
+      getEditedPostAttribute
+    } = select(store);
+    const {
+      getEntityRecords,
+      getTaxonomy,
+      hasFinishedResolution
+    } = select(external_wp_coreData_namespaceObject.store);
+    const post = getCurrentPost();
+
+    const _taxonomy = getTaxonomy(slug);
+
+    const _termIds = _taxonomy ? getEditedPostAttribute(_taxonomy.rest_base) : flat_term_selector_EMPTY_ARRAY;
+
     const query = { ...flat_term_selector_DEFAULT_QUERY,
-      ...params
+      include: _termIds.join(','),
+      per_page: -1
     };
-    const request = external_wp_apiFetch_default()({
-      path: (0,external_wp_url_namespaceObject.addQueryArgs)(`/wp/v2/${taxonomy.rest_base}`, query)
-    });
-    request.then(unescapeTerms).then(terms => {
-      this.setState(state => ({
-        availableTerms: state.availableTerms.concat(terms.filter(term => !(0,external_lodash_namespaceObject.find)(state.availableTerms, availableTerm => availableTerm.id === term.id)))
-      }));
-      this.updateSelectedTerms(this.props.terms);
-    });
-    return request;
-  }
-
-  updateSelectedTerms(terms = []) {
-    const selectedTerms = terms.reduce((accumulator, termId) => {
-      const termObject = (0,external_lodash_namespaceObject.find)(this.state.availableTerms, term => term.id === termId);
-
-      if (termObject) {
-        accumulator.push(termObject.name);
-      }
-
-      return accumulator;
-    }, []);
-    this.setState({
-      selectedTerms
-    });
-  }
-
-  findOrCreateTerm(termName) {
+    return {
+      hasCreateAction: _taxonomy ? (0,external_lodash_namespaceObject.get)(post, ['_links', 'wp:action-create-' + _taxonomy.rest_base], false) : false,
+      hasAssignAction: _taxonomy ? (0,external_lodash_namespaceObject.get)(post, ['_links', 'wp:action-assign-' + _taxonomy.rest_base], false) : false,
+      taxonomy: _taxonomy,
+      termIds: _termIds,
+      terms: _termIds.length ? getEntityRecords('taxonomy', slug, query) : flat_term_selector_EMPTY_ARRAY,
+      hasResolvedTerms: hasFinishedResolution('getEntityRecords', ['taxonomy', slug, query])
+    };
+  }, [slug]);
+  const {
+    searchResults
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
-      taxonomy
-    } = this.props;
-    const termNameEscaped = (0,external_lodash_namespaceObject.escape)(termName); // Tries to create a term or fetch it if it already exists.
+      getEntityRecords
+    } = select(external_wp_coreData_namespaceObject.store);
+    return {
+      searchResults: !!search ? getEntityRecords('taxonomy', slug, { ...flat_term_selector_DEFAULT_QUERY,
+        search
+      }) : flat_term_selector_EMPTY_ARRAY
+    };
+  }, [search]); // Update terms state only after the selectors are resolved.
+  // We're using this to avoid terms temporarily disappearing on slow networks
+  // while core data makes REST API requests.
 
-    return external_wp_apiFetch_default()({
-      path: `/wp/v2/${taxonomy.rest_base}`,
-      method: 'POST',
-      data: {
-        name: termNameEscaped
-      }
-    }).catch(error => {
-      const errorCode = error.code;
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (hasResolvedTerms) {
+      const newValues = terms.map(term => unescapeString(term.name));
+      setValues(newValues);
+    }
+  }, [terms, hasResolvedTerms]);
+  const suggestions = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return (searchResults !== null && searchResults !== void 0 ? searchResults : []).map(term => unescapeString(term.name));
+  }, [searchResults]);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
 
-      if (errorCode === 'term_exists') {
-        // If the terms exist, fetch it instead of creating a new one.
-        this.addRequest = external_wp_apiFetch_default()({
-          path: (0,external_wp_url_namespaceObject.addQueryArgs)(`/wp/v2/${taxonomy.rest_base}`, { ...flat_term_selector_DEFAULT_QUERY,
-            search: termNameEscaped
-          })
-        }).then(unescapeTerms);
-        return this.addRequest.then(searchResult => {
-          return (0,external_lodash_namespaceObject.find)(searchResult, result => isSameTermName(result.name, termName));
-        });
-      }
-
-      return Promise.reject(error);
-    }).then(unescapeTerm);
+  if (!hasAssignAction) {
+    return null;
   }
 
-  onChange(termNames) {
-    const uniqueTerms = (0,external_lodash_namespaceObject.uniqBy)(termNames, term => term.toLowerCase());
-    this.setState({
-      selectedTerms: uniqueTerms
+  function onUpdateTerms(newTermIds) {
+    editPost({
+      [taxonomy.rest_base]: newTermIds
     });
-    const newTermNames = uniqueTerms.filter(termName => !(0,external_lodash_namespaceObject.find)(this.state.availableTerms, term => isSameTermName(term.name, termName)));
+  }
+
+  function onChange(termNames) {
+    const availableTerms = [...terms, ...(searchResults !== null && searchResults !== void 0 ? searchResults : [])];
+    const uniqueTerms = (0,external_lodash_namespaceObject.uniqBy)(termNames, term => term.toLowerCase());
+    const newTermNames = uniqueTerms.filter(termName => !(0,external_lodash_namespaceObject.find)(availableTerms, term => isSameTermName(term.name, termName))); // Optimistically update term values.
+    // The selector will always re-fetch terms later.
+
+    setValues(uniqueTerms);
 
     if (newTermNames.length === 0) {
-      return this.props.onUpdateTerms(termNamesToIds(uniqueTerms, this.state.availableTerms), this.props.taxonomy.rest_base);
+      return onUpdateTerms(termNamesToIds(uniqueTerms, availableTerms));
     }
 
-    Promise.all(newTermNames.map(this.findOrCreateTerm)).then(newTerms => {
-      const newAvailableTerms = this.state.availableTerms.concat(newTerms);
-      this.setState({
-        availableTerms: newAvailableTerms
-      });
-      return this.props.onUpdateTerms(termNamesToIds(uniqueTerms, newAvailableTerms), this.props.taxonomy.rest_base);
-    });
-  }
-
-  searchTerms(search = '') {
-    (0,external_lodash_namespaceObject.invoke)(this.searchRequest, ['abort']);
-
-    if (search.length >= 3) {
-      this.searchRequest = this.fetchTerms({
-        search
-      });
-    }
-  }
-
-  appendTerm(newTerm) {
-    const {
-      onUpdateTerms,
-      taxonomy,
-      terms = [],
-      slug,
-      speak
-    } = this.props;
-
-    if (terms.includes(newTerm.id)) {
+    if (!hasCreateAction) {
       return;
     }
 
-    const newTerms = [...terms, newTerm.id];
+    Promise.all(newTermNames.map(termName => findOrCreateTerm(termName, taxonomy.rest_base))).then(newTerms => {
+      const newAvailableTerms = availableTerms.concat(newTerms);
+      return onUpdateTerms(termNamesToIds(uniqueTerms, newAvailableTerms));
+    });
+  }
+
+  function appendTerm(newTerm) {
+    if (termIds.includes(newTerm.id)) {
+      return;
+    }
+
+    const newTermIds = [...termIds, newTerm.id];
     const termAddedMessage = (0,external_wp_i18n_namespaceObject.sprintf)(
     /* translators: %s: term name. */
     (0,external_wp_i18n_namespaceObject._x)('%s added', 'term'), (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'singular_name'], slug === 'post_tag' ? (0,external_wp_i18n_namespaceObject.__)('Tag') : (0,external_wp_i18n_namespaceObject.__)('Term')));
-    speak(termAddedMessage, 'assertive');
-    this.setState({
-      availableTerms: [...this.state.availableTerms, newTerm]
-    });
-    onUpdateTerms(newTerms, taxonomy.rest_base);
+    (0,external_wp_a11y_namespaceObject.speak)(termAddedMessage, 'assertive');
+    onUpdateTerms(newTermIds);
   }
 
-  render() {
-    const {
-      slug,
-      taxonomy,
-      hasAssignAction
-    } = this.props;
-
-    if (!hasAssignAction) {
-      return null;
+  const newTermLabel = (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'add_new_item'], slug === 'post_tag' ? (0,external_wp_i18n_namespaceObject.__)('Add new tag') : (0,external_wp_i18n_namespaceObject.__)('Add new Term'));
+  const singularName = (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'singular_name'], slug === 'post_tag' ? (0,external_wp_i18n_namespaceObject.__)('Tag') : (0,external_wp_i18n_namespaceObject.__)('Term'));
+  const termAddedLabel = (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: term name. */
+  (0,external_wp_i18n_namespaceObject._x)('%s added', 'term'), singularName);
+  const termRemovedLabel = (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: term name. */
+  (0,external_wp_i18n_namespaceObject._x)('%s removed', 'term'), singularName);
+  const removeTermLabel = (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: term name. */
+  (0,external_wp_i18n_namespaceObject._x)('Remove %s', 'term'), singularName);
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FormTokenField, {
+    value: values,
+    suggestions: suggestions,
+    onChange: onChange,
+    onInputChange: debouncedSearch,
+    maxSuggestions: MAX_TERMS_SUGGESTIONS,
+    label: newTermLabel,
+    messages: {
+      added: termAddedLabel,
+      removed: termRemovedLabel,
+      remove: removeTermLabel
     }
-
-    const {
-      loading,
-      availableTerms,
-      selectedTerms
-    } = this.state;
-    const termNames = availableTerms.map(term => term.name);
-    const newTermLabel = (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'add_new_item'], slug === 'post_tag' ? (0,external_wp_i18n_namespaceObject.__)('Add new tag') : (0,external_wp_i18n_namespaceObject.__)('Add new Term'));
-    const singularName = (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'singular_name'], slug === 'post_tag' ? (0,external_wp_i18n_namespaceObject.__)('Tag') : (0,external_wp_i18n_namespaceObject.__)('Term'));
-    const termAddedLabel = (0,external_wp_i18n_namespaceObject.sprintf)(
-    /* translators: %s: term name. */
-    (0,external_wp_i18n_namespaceObject._x)('%s added', 'term'), singularName);
-    const termRemovedLabel = (0,external_wp_i18n_namespaceObject.sprintf)(
-    /* translators: %s: term name. */
-    (0,external_wp_i18n_namespaceObject._x)('%s removed', 'term'), singularName);
-    const removeTermLabel = (0,external_wp_i18n_namespaceObject.sprintf)(
-    /* translators: %s: term name. */
-    (0,external_wp_i18n_namespaceObject._x)('Remove %s', 'term'), singularName);
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FormTokenField, {
-      value: selectedTerms,
-      suggestions: termNames,
-      onChange: this.onChange,
-      onInputChange: this.searchTerms,
-      maxSuggestions: MAX_TERMS_SUGGESTIONS,
-      disabled: loading,
-      label: newTermLabel,
-      messages: {
-        added: termAddedLabel,
-        removed: termRemovedLabel,
-        remove: removeTermLabel
-      }
-    }), (0,external_wp_element_namespaceObject.createElement)(MostUsedTerms, {
-      taxonomy: taxonomy,
-      onSelect: this.appendTerm
-    }));
-  }
-
+  }), (0,external_wp_element_namespaceObject.createElement)(MostUsedTerms, {
+    taxonomy: taxonomy,
+    onSelect: appendTerm
+  }));
 }
 
-/* harmony default export */ var flat_term_selector = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)((select, {
-  slug
-}) => {
-  const {
-    getCurrentPost
-  } = select(store);
-  const {
-    getTaxonomy
-  } = select(external_wp_coreData_namespaceObject.store);
-  const taxonomy = getTaxonomy(slug);
-  return {
-    hasCreateAction: taxonomy ? (0,external_lodash_namespaceObject.get)(getCurrentPost(), ['_links', 'wp:action-create-' + taxonomy.rest_base], false) : false,
-    hasAssignAction: taxonomy ? (0,external_lodash_namespaceObject.get)(getCurrentPost(), ['_links', 'wp:action-assign-' + taxonomy.rest_base], false) : false,
-    terms: taxonomy ? select(store).getEditedPostAttribute(taxonomy.rest_base) : [],
-    taxonomy
-  };
-}), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => {
-  return {
-    onUpdateTerms(terms, restBase) {
-      dispatch(store).editPost({
-        [restBase]: terms
-      });
-    }
-
-  };
-}), external_wp_components_namespaceObject.withSpokenMessages, (0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType'))(FlatTermSelector));
+/* harmony default export */ var flat_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(FlatTermSelector));
 //# sourceMappingURL=flat-term-selector.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/maybe-tags-panel.js
 
@@ -9999,8 +9963,6 @@ function PostSticky({
   };
 })])(PostSticky));
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: external ["wp","a11y"]
-var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/hierarchical-term-selector.js
 
 
@@ -10762,7 +10724,7 @@ function PostTitle() {
     __unstableDisableFormats: true,
     preserveWhiteSpace: true
   });
-  /* eslint-disable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-interactions */
+  /* eslint-disable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-to-interactive-role */
 
   return (0,external_wp_element_namespaceObject.createElement)(post_type_support_check, {
     supportKeys: "title"
@@ -10771,13 +10733,15 @@ function PostTitle() {
     contentEditable: true,
     className: className,
     "aria-label": decodedPlaceholder,
+    role: "textbox",
+    "aria-multiline": "true",
     onFocus: onSelect,
     onBlur: onUnselect,
     onKeyDown: onKeyDown,
     onKeyPress: onUnselect,
     onPaste: onPaste
   }));
-  /* eslint-enable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-interactions */
+  /* eslint-enable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-to-interactive-role */
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-trash/index.js
@@ -11356,7 +11320,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
     return saveEntityRecord('postType', 'page', options);
   };
 
-  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalGlobalStylesBaseConfig', '__experimentalGlobalStylesUserEntityId', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock']),
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock']),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
     __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),

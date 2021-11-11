@@ -152,12 +152,6 @@ function gutenberg_render_block_core_navigation_link( $attributes, $content, $bl
 	$has_submenu = count( $block->inner_blocks ) > 0;
 	$is_active   = ! empty( $attributes['id'] ) && ( get_the_ID() === $attributes['id'] );
 
-	$class_name = ! empty( $attributes['className'] ) ? implode( ' ', (array) $attributes['className'] ) : false;
-
-	if ( false !== $class_name ) {
-		$css_classes .= ' ' . $class_name;
-	}
-
 	$wrapper_attributes = get_block_wrapper_attributes(
 		array(
 			'class' => $css_classes . ' wp-block-navigation-item' . ( $has_submenu ? ' has-child' : '' ) .
@@ -171,6 +165,10 @@ function gutenberg_render_block_core_navigation_link( $attributes, $content, $bl
 	// Start appending HTML attributes to anchor tag.
 	if ( isset( $attributes['url'] ) ) {
 		$html .= ' href="' . esc_url( $attributes['url'] ) . '"';
+	}
+
+	if ( $is_active ) {
+		$html .= ' aria-current="page"';
 	}
 
 	if ( isset( $attributes['opensInNewTab'] ) && true === $attributes['opensInNewTab'] ) {

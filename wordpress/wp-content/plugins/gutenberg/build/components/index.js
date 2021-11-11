@@ -14781,6 +14781,7 @@ function extends_extends() {
 var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
+var external_lodash_default = /*#__PURE__*/__webpack_require__.n(external_lodash_namespaceObject);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(4184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
@@ -34956,7 +34957,7 @@ function text_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried t
  */
 
 
-const Text = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.black, ";line-height:", config_values.fontLineHeightBase, ";margin:0;" + ( true ? "" : 0),  true ? "" : 0);
+const Text = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.darkGray.primary, ";line-height:", config_values.fontLineHeightBase, ";margin:0;" + ( true ? "" : 0),  true ? "" : 0);
 const styles_block =  true ? {
   name: "4zleql",
   styles: "display:block"
@@ -39463,7 +39464,7 @@ const CircleIndicatorWrapper = emotion_styled_base_browser_esm("div",  true ? {
 } : 0);
 const CircleIndicator = emotion_styled_base_browser_esm("div",  true ? {
   target: "e65ony40"
-} : 0)("background:#3858e9;border-radius:50%;border:", INNER_CIRCLE_SIZE, "px solid #3858e9;bottom:0;box-sizing:border-box;display:block;height:0px;left:0;margin:auto;position:absolute;right:0;top:-", CIRCLE_SIZE / 2, "px;width:0px;" + ( true ? "" : 0));
+} : 0)("background:", COLORS.admin.theme, ";border-radius:50%;border:", INNER_CIRCLE_SIZE, "px solid ", COLORS.admin.theme, ";bottom:0;box-sizing:border-box;display:block;height:0px;left:0;margin:auto;position:absolute;right:0;top:-", CIRCLE_SIZE / 2, "px;width:0px;" + ( true ? "" : 0));
 //# sourceMappingURL=angle-picker-control-styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/angle-circle.js
 
@@ -39713,7 +39714,9 @@ function AnglePickerControl({
     suffix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
       as: text_component,
       marginRight: space(3),
-      color: "blue"
+      style: {
+        color: 'var( --wp-admin-theme-color )'
+      }
     }, "\xB0")
   })), (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
     style: {
@@ -40398,7 +40401,7 @@ function BaseControl({
   }, label)), label && !id && (hideLabelFromVision ? (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
     as: "label"
   }, label) : (0,external_wp_element_namespaceObject.createElement)(BaseControl.VisualLabel, null, label)), children), !!help && (0,external_wp_element_namespaceObject.createElement)(StyledHelp, {
-    id: id + '__help',
+    id: id ? id + '__help' : undefined,
     className: "components-base-control__help"
   }, help));
 }
@@ -44070,58 +44073,23 @@ function ClipboardButton({
   }), children);
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/pencil.js
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/line-solid.js
 
 
 /**
  * WordPress dependencies
  */
 
-const pencil = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+const lineSolid = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
   xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
+  width: "24",
+  height: "24",
+  fill: "none"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M20.1 5.1L16.9 2 6.2 12.7l-1.3 4.4 4.5-1.3L20.1 5.1zM4 20.8h8v-1.5H4v1.5z"
+  d: "M5 11.25h14v1.5H5z"
 }));
-/* harmony default export */ var library_pencil = (pencil);
-//# sourceMappingURL=pencil.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/edit.js
-/**
- * Internal dependencies
- */
-
-/* harmony default export */ var edit = (library_pencil);
-//# sourceMappingURL=edit.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-up.js
-
-
-/**
- * WordPress dependencies
- */
-
-const chevronUp = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"
-}));
-/* harmony default export */ var chevron_up = (chevronUp);
-//# sourceMappingURL=chevron-up.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-down.js
-
-
-/**
- * WordPress dependencies
- */
-
-const chevronDown = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
-}));
-/* harmony default export */ var chevron_down = (chevronDown);
-//# sourceMappingURL=chevron-down.js.map
+/* harmony default export */ var line_solid = (lineSolid);
+//# sourceMappingURL=line-solid.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/plus.js
 
 
@@ -44137,206 +44105,21 @@ const plus = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 }));
 /* harmony default export */ var library_plus = (plus);
 //# sourceMappingURL=plus.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/dropdown/index.js
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-vertical.js
 
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
 
 /**
  * WordPress dependencies
  */
 
-
-/**
- * Internal dependencies
- */
-
-
-
-function useObservableState(initialState, onStateChange) {
-  const [state, setState] = (0,external_wp_element_namespaceObject.useState)(initialState);
-  return [state, value => {
-    setState(value);
-
-    if (onStateChange) {
-      onStateChange(value);
-    }
-  }];
-}
-
-function Dropdown({
-  renderContent,
-  renderToggle,
-  position = 'bottom right',
-  className,
-  contentClassName,
-  expandOnMobile,
-  headerTitle,
-  focusOnMount,
-  popoverProps,
-  onClose,
-  onToggle
-}) {
-  var _popoverProps$anchorR;
-
-  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
-  const [isOpen, setIsOpen] = useObservableState(false, onToggle);
-  (0,external_wp_element_namespaceObject.useEffect)(() => () => {
-    if (onToggle) {
-      onToggle(false);
-    }
-  }, []);
-
-  function toggle() {
-    setIsOpen(!isOpen);
-  }
-  /**
-   * Closes the popover when focus leaves it unless the toggle was pressed or
-   * focus has moved to a separate dialog. The former is to let the toggle
-   * handle closing the popover and the latter is to preserve presence in
-   * case a dialog has opened, allowing focus to return when it's dismissed.
-   */
-
-
-  function closeIfFocusOutside() {
-    const {
-      ownerDocument
-    } = containerRef.current;
-    const dialog = ownerDocument.activeElement.closest('[role="dialog"]');
-
-    if (!containerRef.current.contains(ownerDocument.activeElement) && (!dialog || dialog.contains(containerRef.current))) {
-      close();
-    }
-  }
-
-  function close() {
-    if (onClose) {
-      onClose();
-    }
-
-    setIsOpen(false);
-  }
-
-  const args = {
-    isOpen,
-    onToggle: toggle,
-    onClose: close
-  };
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: classnames_default()('components-dropdown', className),
-    ref: containerRef // Some UAs focus the closest focusable parent when the toggle is
-    // clicked. Making this div focusable ensures such UAs will focus
-    // it and `closeIfFocusOutside` can tell if the toggle was clicked.
-    ,
-    tabIndex: "-1"
-  }, renderToggle(args), isOpen && (0,external_wp_element_namespaceObject.createElement)(popover, extends_extends({
-    position: position,
-    onClose: close,
-    onFocusOutside: closeIfFocusOutside,
-    expandOnMobile: expandOnMobile,
-    headerTitle: headerTitle,
-    focusOnMount: focusOnMount
-  }, popoverProps, {
-    anchorRef: (_popoverProps$anchorR = popoverProps === null || popoverProps === void 0 ? void 0 : popoverProps.anchorRef) !== null && _popoverProps$anchorR !== void 0 ? _popoverProps$anchorR : containerRef.current,
-    className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
-  }), renderContent(args)));
-}
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/circular-option-picker/index.js
-
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function Option({
-  className,
-  isSelected,
-  selectedIconProps,
-  tooltipText,
-  ...additionalProps
-}) {
-  const optionButton = (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
-    isPressed: isSelected,
-    className: classnames_default()(className, 'components-circular-option-picker__option')
-  }, additionalProps));
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-circular-option-picker__option-wrapper"
-  }, tooltipText ? (0,external_wp_element_namespaceObject.createElement)(tooltip, {
-    text: tooltipText
-  }, optionButton) : optionButton, isSelected && (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, extends_extends({
-    icon: library_check
-  }, selectedIconProps ? selectedIconProps : {})));
-}
-
-function DropdownLinkAction({
-  buttonProps,
-  className,
-  dropdownProps,
-  linkText
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, extends_extends({
-    className: classnames_default()('components-circular-option-picker__dropdown-link-action', className),
-    renderToggle: ({
-      isOpen,
-      onToggle
-    }) => (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
-      "aria-expanded": isOpen,
-      "aria-haspopup": "true",
-      onClick: onToggle,
-      variant: "link"
-    }, buttonProps), linkText)
-  }, dropdownProps));
-}
-
-function ButtonAction({
-  className,
-  children,
-  ...additionalProps
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
-    className: classnames_default()('components-circular-option-picker__clear', className),
-    isSmall: true,
-    variant: "secondary"
-  }, additionalProps), children);
-}
-
-function CircularOptionPicker({
-  actions,
-  className,
-  options,
-  children
-}) {
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: classnames_default()('components-circular-option-picker', className)
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-circular-option-picker__swatches"
-  }, options), children, actions && (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-circular-option-picker__custom-clear-wrapper"
-  }, actions));
-}
-CircularOptionPicker.Option = Option;
-CircularOptionPicker.ButtonAction = ButtonAction;
-CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
-//# sourceMappingURL=index.js.map
+const moreVertical = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
+}));
+/* harmony default export */ var more_vertical = (moreVertical);
+//# sourceMappingURL=more-vertical.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/settings.js
 
 
@@ -44603,6 +44386,21 @@ function HStack(props, forwardedRef) {
 const ConnectedHStack = contextConnect(HStack, 'HStack');
 /* harmony default export */ var h_stack_component = (ConnectedHStack);
 //# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-down.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const chevronDown = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
+}));
+/* harmony default export */ var chevron_down = (chevronDown);
+//# sourceMappingURL=chevron-down.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/select-control/styles/select-control-styles.js
 
 
@@ -49289,88 +49087,333 @@ const LegacyAdapter = props => {
   return (0,external_wp_element_namespaceObject.createElement)(color_picker_component, use_deprecated_props_useDeprecatedProps(props));
 };
 //# sourceMappingURL=legacy-adapter.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/text-control/index.js
-
-
+;// CONCATENATED MODULE: ./packages/components/build-module/item-group/styles.js
+function item_group_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
 /**
- * WordPress dependencies
+ * External dependencies
  */
-
 
 /**
  * Internal dependencies
  */
 
 
-/**
- * @typedef OwnProps
- * @property {string}                  label                 Label for the control.
- * @property {boolean}                 [hideLabelFromVision] Whether to accessibly hide the label.
- * @property {string}                  value                 Value of the input.
- * @property {string}                  [help]                Optional help text for the control.
- * @property {string}                  [className]           Classname passed to BaseControl wrapper
- * @property {(value: string) => void} onChange              Handle changes.
- * @property {string}                  [type='text']         Type of the input.
+const unstyledButton = /*#__PURE__*/emotion_react_browser_esm_css("appearance:none;border:1px solid transparent;cursor:pointer;background:none;text-align:left;&:hover{color:", COLORS.admin.theme, ";}&:focus{background-color:transparent;color:", COLORS.admin.theme, ";border-color:", COLORS.admin.theme, ";outline:3px solid transparent;}" + ( true ? "" : 0),  true ? "" : 0);
+const itemWrapper =  true ? {
+  name: "1bcj5ek",
+  styles: "width:100%;display:block"
+} : 0;
+const item =  true ? {
+  name: "5vij5u",
+  styles: "width:100%;display:block;margin:0"
+} : 0;
+const bordered = /*#__PURE__*/emotion_react_browser_esm_css("border:1px solid ", config_values.surfaceBorderColor, ";" + ( true ? "" : 0),  true ? "" : 0);
+const separated = /*#__PURE__*/emotion_react_browser_esm_css(">*:not( marquee )>*{border-bottom:1px solid ", config_values.surfaceBorderColor, ";}>*:last-of-type>*:not( :focus ){border-bottom-color:transparent;}" + ( true ? "" : 0),  true ? "" : 0);
+const styles_borderRadius = config_values.controlBorderRadius;
+const styles_spacedAround = /*#__PURE__*/emotion_react_browser_esm_css("border-radius:", styles_borderRadius, ";" + ( true ? "" : 0),  true ? "" : 0);
+const styles_rounded = /*#__PURE__*/emotion_react_browser_esm_css("border-radius:", styles_borderRadius, ";>*:first-of-type>*{border-top-left-radius:", styles_borderRadius, ";border-top-right-radius:", styles_borderRadius, ";}>*:last-of-type>*{border-bottom-left-radius:", styles_borderRadius, ";border-bottom-right-radius:", styles_borderRadius, ";}" + ( true ? "" : 0),  true ? "" : 0);
+const baseFontHeight = `calc(${config_values.fontSize} * ${config_values.fontLineHeightBase})`;
+/*
+ * Math:
+ * - Use the desired height as the base value
+ * - Subtract the computed height of (default) text
+ * - Subtract the effects of border
+ * - Divide the calculated number by 2, in order to get an individual top/bottom padding
  */
 
-/** @typedef {OwnProps & import('react').ComponentProps<'input'>} Props */
+const paddingY = `calc((${config_values.controlHeight} - ${baseFontHeight} - 2px) / 2)`;
+const paddingYSmall = `calc((${config_values.controlHeightSmall} - ${baseFontHeight} - 2px) / 2)`;
+const paddingYLarge = `calc((${config_values.controlHeightLarge} - ${baseFontHeight} - 2px) / 2)`;
+const itemSizes = {
+  small: /*#__PURE__*/emotion_react_browser_esm_css("padding:", paddingYSmall, " ", config_values.controlPaddingXSmall, ";" + ( true ? "" : 0),  true ? "" : 0),
+  medium: /*#__PURE__*/emotion_react_browser_esm_css("padding:", paddingY, " ", config_values.controlPaddingX, ";" + ( true ? "" : 0),  true ? "" : 0),
+  large: /*#__PURE__*/emotion_react_browser_esm_css("padding:", paddingYLarge, " ", config_values.controlPaddingXLarge, ";" + ( true ? "" : 0),  true ? "" : 0)
+};
+//# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item-group/hook.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function useItemGroup(props) {
+  const {
+    className,
+    isBordered = false,
+    isRounded = true,
+    isSeparated = false,
+    role = 'list',
+    ...otherProps
+  } = useContextSystem(props, 'ItemGroup');
+  const cx = useCx();
+  const classes = cx(isBordered && bordered, isSeparated && separated, isRounded && styles_rounded, className);
+  return {
+    isBordered,
+    className: classes,
+    role,
+    isSeparated,
+    ...otherProps
+  };
+}
+//# sourceMappingURL=hook.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/item-group/context.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+const ItemGroupContext = (0,external_wp_element_namespaceObject.createContext)({
+  size: 'medium'
+});
+const useItemGroupContext = () => (0,external_wp_element_namespaceObject.useContext)(ItemGroupContext);
+//# sourceMappingURL=context.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item-group/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+function ItemGroup(props, forwardedRef) {
+  const {
+    isBordered,
+    isSeparated,
+    size: sizeProp,
+    ...otherProps
+  } = useItemGroup(props);
+  const {
+    size: contextSize
+  } = useItemGroupContext();
+  const spacedAround = !isBordered && !isSeparated;
+  const size = sizeProp || contextSize;
+  const contextValue = {
+    spacedAround,
+    size
+  };
+  return (0,external_wp_element_namespaceObject.createElement)(ItemGroupContext.Provider, {
+    value: contextValue
+  }, (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, otherProps, {
+    ref: forwardedRef
+  })));
+}
+
+/* harmony default export */ var item_group_component = (contextConnect(ItemGroup, 'ItemGroup'));
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/v-stack/hook.js
+/**
+ * Internal dependencies
+ */
+
 
 /**
  *
- * @param {Props}                                 props Props
- * @param {import('react').Ref<HTMLInputElement>} [ref]
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
  */
 
-function TextControl({
-  label,
-  hideLabelFromVision,
-  value,
-  help,
-  className,
-  onChange,
-  type = 'text',
-  ...props
-}, ref) {
-  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(TextControl);
-  const id = `inspector-text-control-${instanceId}`;
-
-  const onChangeValue =
-  /** @type {import('react').ChangeEvent<HTMLInputElement>} */
-  event => onChange(event.target.value);
-
-  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
-    label: label,
-    hideLabelFromVision: hideLabelFromVision,
-    id: id,
-    help: help,
-    className: className
-  }, (0,external_wp_element_namespaceObject.createElement)("input", extends_extends({
-    className: "components-text-control__input",
-    type: type,
-    id: id,
-    value: value,
-    onChange: onChangeValue,
-    "aria-describedby": !!help ? id + '__help' : undefined,
-    ref: ref
-  }, props)));
+function useVStack(props) {
+  const {
+    expanded = false,
+    ...otherProps
+  } = useContextSystem(props, 'VStack');
+  const hStackProps = useHStack({
+    direction: 'column',
+    expanded,
+    ...otherProps
+  });
+  return hStackProps;
 }
+//# sourceMappingURL=hook.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/v-stack/component.js
 
-/* harmony default export */ var text_control = ((0,external_wp_element_namespaceObject.forwardRef)(TextControl));
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-edit/index.js
 
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('react').Ref<any>}                                                        forwardedRef
+ */
+
+function VStack(props, forwardedRef) {
+  const vStackProps = useVStack(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, vStackProps, {
+    ref: forwardedRef
+  }));
+}
+/**
+ * `VStack` (or Vertical Stack) is a layout component that arranges child elements in a vertical line.
+ *
+ * `VStack` can render anything inside.
+ *
+ * @example
+ * ```jsx
+ * import {
+ * 	__experimentalText as Text,
+ * 	__experimentalVStack as VStack,
+ * } from `@wordpress/components`;
+ *
+ * function Example() {
+ * 	return (
+ * 		<VStack>
+ * 			<Text>Code</Text>
+ * 			<Text>is</Text>
+ * 			<Text>Poetry</Text>
+ * 		</VStack>
+ * 	);
+ * }
+ * ```
+ */
+
+
+const ConnectedVStack = contextConnect(VStack, 'VStack');
+/* harmony default export */ var v_stack_component = (ConnectedVStack);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
+var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/dropdown/index.js
+
+
+// @ts-nocheck
 
 /**
  * External dependencies
  */
-
 
 /**
  * WordPress dependencies
  */
 
 
+/**
+ * Internal dependencies
+ */
+
+
+
+function useObservableState(initialState, onStateChange) {
+  const [state, setState] = (0,external_wp_element_namespaceObject.useState)(initialState);
+  return [state, value => {
+    setState(value);
+
+    if (onStateChange) {
+      onStateChange(value);
+    }
+  }];
+}
+
+function Dropdown({
+  renderContent,
+  renderToggle,
+  position = 'bottom right',
+  className,
+  contentClassName,
+  expandOnMobile,
+  headerTitle,
+  focusOnMount,
+  popoverProps,
+  onClose,
+  onToggle
+}) {
+  var _popoverProps$anchorR;
+
+  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
+  const [isOpen, setIsOpen] = useObservableState(false, onToggle);
+  (0,external_wp_element_namespaceObject.useEffect)(() => () => {
+    if (onToggle) {
+      onToggle(false);
+    }
+  }, []);
+
+  function toggle() {
+    setIsOpen(!isOpen);
+  }
+  /**
+   * Closes the popover when focus leaves it unless the toggle was pressed or
+   * focus has moved to a separate dialog. The former is to let the toggle
+   * handle closing the popover and the latter is to preserve presence in
+   * case a dialog has opened, allowing focus to return when it's dismissed.
+   */
+
+
+  function closeIfFocusOutside() {
+    const {
+      ownerDocument
+    } = containerRef.current;
+    const dialog = ownerDocument.activeElement.closest('[role="dialog"]');
+
+    if (!containerRef.current.contains(ownerDocument.activeElement) && (!dialog || dialog.contains(containerRef.current))) {
+      close();
+    }
+  }
+
+  function close() {
+    if (onClose) {
+      onClose();
+    }
+
+    setIsOpen(false);
+  }
+
+  const args = {
+    isOpen,
+    onToggle: toggle,
+    onClose: close
+  };
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: classnames_default()('components-dropdown', className),
+    ref: containerRef // Some UAs focus the closest focusable parent when the toggle is
+    // clicked. Making this div focusable ensures such UAs will focus
+    // it and `closeIfFocusOutside` can tell if the toggle was clicked.
+    ,
+    tabIndex: "-1"
+  }, renderToggle(args), isOpen && (0,external_wp_element_namespaceObject.createElement)(popover, extends_extends({
+    position: position,
+    onClose: close,
+    onFocusOutside: closeIfFocusOutside,
+    expandOnMobile: expandOnMobile,
+    headerTitle: headerTitle,
+    focusOnMount: focusOnMount
+  }, popoverProps, {
+    anchorRef: (_popoverProps$anchorR = popoverProps === null || popoverProps === void 0 ? void 0 : popoverProps.anchorRef) !== null && _popoverProps$anchorR !== void 0 ? _popoverProps$anchorR : containerRef.current,
+    className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
+  }), renderContent(args)));
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/circular-option-picker/index.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
 
 
 /**
@@ -49381,249 +49424,171 @@ function TextControl({
 
 
 
-
-
-
-function DropdownOpenOnMount({
-  shouldOpen,
-  isOpen,
-  onToggle
+function Option({
+  className,
+  isSelected,
+  selectedIconProps,
+  tooltipText,
+  ...additionalProps
 }) {
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (shouldOpen && !isOpen) {
-      onToggle();
-    }
-  }, []);
-  return null;
+  const optionButton = (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
+    isPressed: isSelected,
+    className: classnames_default()(className, 'components-circular-option-picker__option')
+  }, additionalProps));
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-circular-option-picker__option-wrapper"
+  }, tooltipText ? (0,external_wp_element_namespaceObject.createElement)(tooltip, {
+    text: tooltipText
+  }, optionButton) : optionButton, isSelected && (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, extends_extends({
+    icon: library_check
+  }, selectedIconProps ? selectedIconProps : {})));
 }
 
-function ColorOption({
-  color,
-  name,
-  slug,
-  onChange,
-  onRemove,
-  onConfirm,
-  confirmLabel = (0,external_wp_i18n_namespaceObject.__)('OK'),
-  isEditingNameOnMount = false,
-  isEditingColorOnMount = false,
-  onCancel,
-  immutableColorSlugs = []
+function DropdownLinkAction({
+  buttonProps,
+  className,
+  dropdownProps,
+  linkText
 }) {
-  const [isHover, setIsHover] = (0,external_wp_element_namespaceObject.useState)(false);
-  const [isFocused, setIsFocused] = (0,external_wp_element_namespaceObject.useState)(false);
-  const [isEditingName, setIsEditingName] = (0,external_wp_element_namespaceObject.useState)(isEditingNameOnMount);
-  const [isShowingAdvancedPanel, setIsShowingAdvancedPanel] = (0,external_wp_element_namespaceObject.useState)(false);
-  const isShowingControls = (isHover || isFocused || isEditingName || isShowingAdvancedPanel) && !immutableColorSlugs.includes(slug);
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    tabIndex: 0,
-    className: classnames_default()('components-color-edit__color-option', {
-      'is-hover': isHover && !isEditingName && !isShowingAdvancedPanel
-    }),
-    onMouseEnter: () => setIsHover(true),
-    onMouseLeave: () => setIsHover(false),
-    onFocus: () => setIsFocused(true),
-    onBlur: () => setIsFocused(false),
-    "aria-label": name ? // translators: %s: The name of the color e.g: "vivid red".
-    (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Color: %s'), name) : // translators: %s: color hex code e.g: "#f00".
-    (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Color code: %s'), color)
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-color-edit__color-option-main-area"
-  }, (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, extends_extends({
+    className: classnames_default()('components-circular-option-picker__dropdown-link-action', className),
     renderToggle: ({
       isOpen,
       onToggle
-    }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(DropdownOpenOnMount, {
-      shouldOpen: isEditingColorOnMount,
-      isOpen: isOpen,
-      onToggle: onToggle
-    }), (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
-      style: {
-        backgroundColor: color,
-        color
-      },
+    }) => (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
       "aria-expanded": isOpen,
       "aria-haspopup": "true",
       onClick: onToggle,
-      "aria-label": (0,external_wp_i18n_namespaceObject.__)('Edit color value')
-    })),
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
-      color: color,
-      onChange: newColor => onChange({
-        color: newColor,
-        slug,
-        name
-      })
-    })
-  }), !isEditingName && (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-color-edit__color-option-color-name"
-  }, name), isEditingName && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(text_control, {
-    className: "components-color-edit__color-option-color-name-input",
-    hideLabelFromVision: true,
-    onChange: newColorName => onChange({
-      color,
-      slug: (0,external_lodash_namespaceObject.kebabCase)(newColorName),
-      name: newColorName
-    }),
-    label: (0,external_wp_i18n_namespaceObject.__)('Color name'),
-    placeholder: (0,external_wp_i18n_namespaceObject.__)('Name'),
-    value: name
-  }), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    onClick: () => {
-      setIsEditingName(false);
-      setIsFocused(false);
-
-      if (onConfirm) {
-        onConfirm();
-      }
-    },
-    variant: "primary"
-  }, confirmLabel)), !isEditingName && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    className: classnames_default()({
-      'components-color-edit__hidden-control': !isShowingControls
-    }),
-    icon: edit,
-    label: (0,external_wp_i18n_namespaceObject.__)('Edit color name'),
-    onClick: () => setIsEditingName(true)
-  }), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    className: classnames_default()({
-      'components-color-edit__hidden-control': !isShowingControls
-    }),
-    icon: library_close,
-    label: (0,external_wp_i18n_namespaceObject.__)('Remove color'),
-    onClick: onRemove
-  })), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    className: classnames_default()({
-      'components-color-edit__hidden-control': !isShowingControls
-    }),
-    icon: isShowingAdvancedPanel ? chevron_up : chevron_down,
-    label: (0,external_wp_i18n_namespaceObject.__)('Additional color settings'),
-    onClick: () => {
-      if (isShowingAdvancedPanel) {
-        setIsFocused(false);
-      }
-
-      setIsShowingAdvancedPanel(!isShowingAdvancedPanel);
-    },
-    "aria-expanded": isShowingAdvancedPanel
-  })), onCancel && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    className: "components-color-edit__cancel-button",
-    onClick: onCancel
-  }, (0,external_wp_i18n_namespaceObject.__)('Cancel')), isShowingAdvancedPanel && (0,external_wp_element_namespaceObject.createElement)(text_control, {
-    className: "components-color-edit__slug-input",
-    onChange: newSlug => onChange({
-      color,
-      slug: newSlug,
-      name
-    }),
-    label: (0,external_wp_i18n_namespaceObject.__)('Slug'),
-    value: slug
-  }));
+      variant: "link"
+    }, buttonProps), linkText)
+  }, dropdownProps));
 }
 
-function ColorInserter({
-  onInsert,
-  onCancel
+function ButtonAction({
+  className,
+  children,
+  ...additionalProps
 }) {
-  const [color, setColor] = (0,external_wp_element_namespaceObject.useState)({
-    color: '#fff',
-    name: '',
-    slug: ''
-  });
-  return (0,external_wp_element_namespaceObject.createElement)(ColorOption, {
-    color: color.color,
-    name: color.name,
-    slug: color.slug,
-    onChange: setColor,
-    confirmLabel: (0,external_wp_i18n_namespaceObject.__)('Save'),
-    onConfirm: () => onInsert(color),
-    isEditingNameOnMount: true,
-    isEditingColorOnMount: true,
-    onCancel: onCancel
-  });
-}
-
-function ColorEdit({
-  colors,
-  onChange,
-  emptyUI,
-  immutableColorSlugs,
-  canReset = true
-}) {
-  const [isInsertingColor, setIsInsertingColor] = (0,external_wp_element_namespaceObject.useState)(false);
-  return (0,external_wp_element_namespaceObject.createElement)(base_control, null, (0,external_wp_element_namespaceObject.createElement)("fieldset", null, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-color-edit__label-and-insert-container"
-  }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(base_control.VisualLabel, null, (0,external_wp_i18n_namespaceObject.__)('Color palette')))), !isInsertingColor && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    onClick: () => {
-      setIsInsertingColor(true);
-    },
-    className: "components-color-edit__insert-button",
-    icon: library_plus
-  })), (0,external_wp_element_namespaceObject.createElement)("div", null, !(0,external_lodash_namespaceObject.isEmpty)(colors) && colors.map((color, index) => {
-    return (0,external_wp_element_namespaceObject.createElement)(ColorOption, {
-      key: index,
-      color: color.color,
-      name: color.name,
-      slug: color.slug,
-      immutableColorSlugs: immutableColorSlugs,
-      onChange: newColor => {
-        onChange(colors.map((currentColor, currentIndex) => {
-          if (currentIndex === index) {
-            return newColor;
-          }
-
-          return currentColor;
-        }));
-      },
-      onRemove: () => {
-        onChange(colors.filter((_currentColor, currentIndex) => {
-          if (currentIndex === index) {
-            return false;
-          }
-
-          return true;
-        }));
-      }
-    });
-  }), isInsertingColor && (0,external_wp_element_namespaceObject.createElement)(ColorInserter, {
-    onInsert: newColor => {
-      setIsInsertingColor(false);
-      onChange([...(colors || []), newColor]);
-    },
-    onCancel: () => setIsInsertingColor(false)
-  }), !isInsertingColor && (0,external_lodash_namespaceObject.isEmpty)(colors) && emptyUI), !!canReset && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+  return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
+    className: classnames_default()('components-circular-option-picker__clear', className),
     isSmall: true,
-    variant: "secondary",
-    className: "components-color-edit__reset-button",
-    onClick: () => onChange()
-  }, (0,external_wp_i18n_namespaceObject.__)('Reset'))));
+    variant: "secondary"
+  }, additionalProps), children);
 }
+
+function CircularOptionPicker({
+  actions,
+  className,
+  options,
+  children
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: classnames_default()('components-circular-option-picker', className)
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-circular-option-picker__swatches"
+  }, options), children, actions && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-circular-option-picker__custom-clear-wrapper"
+  }, actions));
+}
+CircularOptionPicker.Option = Option;
+CircularOptionPicker.ButtonAction = ButtonAction;
+CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-indicator/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/heading/hook.js
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function useHeading(props) {
+  const {
+    as: asProp,
+    level = 2,
+    ...otherProps
+  } = useContextSystem(props, 'Heading');
+  const as = asProp || `h${level}`;
+  const a11yProps = {};
+
+  if (typeof as === 'string' && as[0] !== 'h') {
+    // if not a semantic `h` element, add a11y props:
+    a11yProps.role = 'heading';
+    a11yProps['aria-level'] = typeof level === 'string' ? parseInt(level) : level;
+  }
+
+  const textProps = useText({
+    color: COLORS.darkGray.heading,
+    size: getHeadingFontSize(level),
+    isBlock: true,
+    weight: config_values.fontWeightHeading,
+    ...otherProps
+  });
+  return { ...textProps,
+    ...a11yProps,
+    as
+  };
+}
+//# sourceMappingURL=hook.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/heading/component.js
 
 
 
 /**
  * External dependencies
  */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * Internal dependencies
+ */
 
 
-const ColorIndicator = ({
-  className,
-  colorValue,
-  ...props
-}) => (0,external_wp_element_namespaceObject.createElement)("span", extends_extends({
-  className: classnames_default()('component-color-indicator', className),
-  style: {
-    background: colorValue
-  }
-}, props));
 
-/* harmony default export */ var color_indicator = (ColorIndicator);
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
-var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
 
+function Heading(props, forwardedRef) {
+  const headerProps = useHeading(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, headerProps, {
+    ref: forwardedRef
+  }));
+}
+/**
+ * `Heading` renders headings and titles using the library's typography system.
+ *
+ * @example
+ * ```jsx
+ * import { Heading } from `@wordpress/components`
+ *
+ * function Example() {
+ *   return <Heading>Code is Poetry</Heading>;
+ * }
+ * ```
+ */
+
+
+const ConnectedHeading = contextConnect(Heading, 'Heading');
+/* harmony default export */ var heading_component = (ConnectedHeading);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/styles.js
+
+
+function color_palette_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+const ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_component,  true ? {
+  target: "e1uu5br00"
+} : 0)( true ? {
+  name: "13lxv2o",
+  styles: "text-transform:uppercase;line-height:24px;font-weight:500;&&&{font-size:11px;margin-bottom:0;}"
+} : 0);
+//# sourceMappingURL=styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/index.js
 
 
@@ -49646,16 +49611,19 @@ var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.0
 
 
 
+
+
+
 k([names, a11y]);
-function ColorPalette({
-  clearable = true,
+
+function SinglePalette({
   className,
+  clearColor,
   colors,
-  disableCustomColors = false,
   onChange,
-  value
+  value,
+  actions
 }) {
-  const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
   const colorOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return (0,external_lodash_namespaceObject.map)(colors, ({
       color,
@@ -49681,28 +49649,858 @@ function ColorPalette({
       });
     });
   }, [colors, value, onChange, clearColor]);
-
-  const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
-    color: value,
-    onChange: color => onChange(color)
-  });
-
   return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
     className: className,
     options: colorOptions,
-    actions: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, !disableCustomColors && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.DropdownLinkAction, {
-      dropdownProps: {
-        renderContent: renderCustomColorPicker,
-        contentClassName: 'components-color-palette__picker'
-      },
-      buttonProps: {
-        'aria-label': (0,external_wp_i18n_namespaceObject.__)('Custom color picker')
-      },
-      linkText: (0,external_wp_i18n_namespaceObject.__)('Custom color')
-    }), !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
-      onClick: clearColor
-    }, (0,external_wp_i18n_namespaceObject.__)('Clear')))
+    actions: actions
   });
+}
+
+function MultiplePalettes({
+  className,
+  clearColor,
+  colors,
+  onChange,
+  value,
+  actions
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: 3,
+    className: className
+  }, colors.map(({
+    name,
+    colors: colorPalette
+  }, index) => {
+    return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+      spacing: 2,
+      key: index
+    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, null, name), (0,external_wp_element_namespaceObject.createElement)(SinglePalette, {
+      clearColor: clearColor,
+      colors: colorPalette,
+      onChange: onChange,
+      value: value,
+      actions: colors.length === index + 1 ? actions : null
+    }));
+  }));
+}
+
+function ColorPalette({
+  clearable = true,
+  className,
+  colors,
+  disableCustomColors = false,
+  enableAlpha,
+  onChange,
+  value,
+  __experimentalHasMultipleOrigins = false
+}) {
+  const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
+  const Component = __experimentalHasMultipleOrigins ? MultiplePalettes : SinglePalette;
+
+  const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+    color: value,
+    onChange: color => onChange(color),
+    enableAlpha: enableAlpha
+  });
+
+  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: 3,
+    className: className
+  }, !disableCustomColors && (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+    renderContent: renderCustomColorPicker,
+    renderToggle: ({
+      isOpen,
+      onToggle
+    }) => (0,external_wp_element_namespaceObject.createElement)("button", {
+      className: "components-color-palette__custom-color",
+      "aria-expanded": isOpen,
+      "aria-haspopup": "true",
+      onClick: onToggle,
+      "aria-label": (0,external_wp_i18n_namespaceObject.__)('Custom color picker'),
+      style: {
+        background: value
+      }
+    }, value)
+  }), (0,external_wp_element_namespaceObject.createElement)(Component, {
+    clearable: clearable,
+    clearColor: clearColor,
+    colors: colors,
+    onChange: onChange,
+    value: value,
+    actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
+      onClick: clearColor
+    }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
+  }));
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/menu.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const menu = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M5 5v1.5h14V5H5zm0 7.8h14v-1.5H5v1.5zM5 19h14v-1.5H5V19z"
+}));
+/* harmony default export */ var library_menu = (menu);
+//# sourceMappingURL=menu.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/container.js
+
+
+// @ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+const MENU_ITEM_ROLES = ['menuitem', 'menuitemradio', 'menuitemcheckbox'];
+
+function cycleValue(value, total, offset) {
+  const nextValue = value + offset;
+
+  if (nextValue < 0) {
+    return total + nextValue;
+  } else if (nextValue >= total) {
+    return nextValue - total;
+  }
+
+  return nextValue;
+}
+
+class NavigableContainer extends external_wp_element_namespaceObject.Component {
+  constructor() {
+    super(...arguments);
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.bindContainer = this.bindContainer.bind(this);
+    this.getFocusableContext = this.getFocusableContext.bind(this);
+    this.getFocusableIndex = this.getFocusableIndex.bind(this);
+  }
+
+  componentDidMount() {
+    // We use DOM event listeners instead of React event listeners
+    // because we want to catch events from the underlying DOM tree
+    // The React Tree can be different from the DOM tree when using
+    // portals. Block Toolbars for instance are rendered in a separate
+    // React Trees.
+    this.container.addEventListener('keydown', this.onKeyDown);
+    this.container.addEventListener('focus', this.onFocus);
+  }
+
+  componentWillUnmount() {
+    this.container.removeEventListener('keydown', this.onKeyDown);
+    this.container.removeEventListener('focus', this.onFocus);
+  }
+
+  bindContainer(ref) {
+    const {
+      forwardedRef
+    } = this.props;
+    this.container = ref;
+
+    if ((0,external_lodash_namespaceObject.isFunction)(forwardedRef)) {
+      forwardedRef(ref);
+    } else if (forwardedRef && 'current' in forwardedRef) {
+      forwardedRef.current = ref;
+    }
+  }
+
+  getFocusableContext(target) {
+    const {
+      onlyBrowserTabstops
+    } = this.props;
+    const finder = onlyBrowserTabstops ? external_wp_dom_namespaceObject.focus.tabbable : external_wp_dom_namespaceObject.focus.focusable;
+    const focusables = finder.find(this.container);
+    const index = this.getFocusableIndex(focusables, target);
+
+    if (index > -1 && target) {
+      return {
+        index,
+        target,
+        focusables
+      };
+    }
+
+    return null;
+  }
+
+  getFocusableIndex(focusables, target) {
+    const directIndex = focusables.indexOf(target);
+
+    if (directIndex !== -1) {
+      return directIndex;
+    }
+  }
+
+  onKeyDown(event) {
+    if (this.props.onKeyDown) {
+      this.props.onKeyDown(event);
+    }
+
+    const {
+      getFocusableContext
+    } = this;
+    const {
+      cycle = true,
+      eventToOffset,
+      onNavigate = external_lodash_namespaceObject.noop,
+      stopNavigationEvents
+    } = this.props;
+    const offset = eventToOffset(event); // eventToOffset returns undefined if the event is not handled by the component
+
+    if (offset !== undefined && stopNavigationEvents) {
+      // Prevents arrow key handlers bound to the document directly interfering
+      event.stopImmediatePropagation(); // When navigating a collection of items, prevent scroll containers
+      // from scrolling. The preventDefault also prevents Voiceover from
+      // 'handling' the event, as voiceover will try to use arrow keys
+      // for highlighting text.
+
+      const targetRole = event.target.getAttribute('role');
+
+      if (MENU_ITEM_ROLES.includes(targetRole)) {
+        event.preventDefault();
+      }
+    }
+
+    if (!offset) {
+      return;
+    }
+
+    const context = getFocusableContext(event.target.ownerDocument.activeElement);
+
+    if (!context) {
+      return;
+    }
+
+    const {
+      index,
+      focusables
+    } = context;
+    const nextIndex = cycle ? cycleValue(index, focusables.length, offset) : index + offset;
+
+    if (nextIndex >= 0 && nextIndex < focusables.length) {
+      focusables[nextIndex].focus();
+      onNavigate(nextIndex, focusables[nextIndex]);
+    }
+  }
+
+  render() {
+    const {
+      children,
+      ...props
+    } = this.props;
+    return (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
+      ref: this.bindContainer
+    }, (0,external_lodash_namespaceObject.omit)(props, ['stopNavigationEvents', 'eventToOffset', 'onNavigate', 'onKeyDown', 'cycle', 'onlyBrowserTabstops', 'forwardedRef'])), children);
+  }
+
+}
+
+const forwardedNavigableContainer = (props, ref) => {
+  return (0,external_wp_element_namespaceObject.createElement)(NavigableContainer, extends_extends({}, props, {
+    forwardedRef: ref
+  }));
+};
+
+forwardedNavigableContainer.displayName = 'NavigableContainer';
+/* harmony default export */ var container = ((0,external_wp_element_namespaceObject.forwardRef)(forwardedNavigableContainer));
+//# sourceMappingURL=container.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/menu.js
+
+
+// @ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function NavigableMenu({
+  role = 'menu',
+  orientation = 'vertical',
+  ...rest
+}, ref) {
+  const eventToOffset = evt => {
+    const {
+      keyCode
+    } = evt;
+    let next = [external_wp_keycodes_namespaceObject.DOWN];
+    let previous = [external_wp_keycodes_namespaceObject.UP];
+
+    if (orientation === 'horizontal') {
+      next = [external_wp_keycodes_namespaceObject.RIGHT];
+      previous = [external_wp_keycodes_namespaceObject.LEFT];
+    }
+
+    if (orientation === 'both') {
+      next = [external_wp_keycodes_namespaceObject.RIGHT, external_wp_keycodes_namespaceObject.DOWN];
+      previous = [external_wp_keycodes_namespaceObject.LEFT, external_wp_keycodes_namespaceObject.UP];
+    }
+
+    if ((0,external_lodash_namespaceObject.includes)(next, keyCode)) {
+      return 1;
+    } else if ((0,external_lodash_namespaceObject.includes)(previous, keyCode)) {
+      return -1;
+    } else if ((0,external_lodash_namespaceObject.includes)([external_wp_keycodes_namespaceObject.DOWN, external_wp_keycodes_namespaceObject.UP, external_wp_keycodes_namespaceObject.LEFT, external_wp_keycodes_namespaceObject.RIGHT], keyCode)) {
+      // Key press should be handled, e.g. have event propagation and
+      // default behavior handled by NavigableContainer but not result
+      // in an offset.
+      return 0;
+    }
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(container, extends_extends({
+    ref: ref,
+    stopNavigationEvents: true,
+    onlyBrowserTabstops: false,
+    role: role,
+    "aria-orientation": role === 'presentation' ? null : orientation,
+    eventToOffset: eventToOffset
+  }, rest));
+}
+/* harmony default export */ var navigable_container_menu = ((0,external_wp_element_namespaceObject.forwardRef)(NavigableMenu));
+//# sourceMappingURL=menu.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/dropdown-menu/index.js
+
+
+// @ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+function mergeProps(defaultProps = {}, props = {}) {
+  const mergedProps = { ...defaultProps,
+    ...props
+  };
+
+  if (props.className && defaultProps.className) {
+    mergedProps.className = classnames_default()(props.className, defaultProps.className);
+  }
+
+  return mergedProps;
+}
+
+function DropdownMenu(dropdownMenuProps) {
+  const {
+    children,
+    className,
+    controls,
+    icon = library_menu,
+    label,
+    popoverProps,
+    toggleProps,
+    menuProps,
+    disableOpenOnArrowDown = false,
+    text,
+    noIcons
+  } = dropdownMenuProps;
+
+  if ((0,external_lodash_namespaceObject.isEmpty)(controls) && !(0,external_lodash_namespaceObject.isFunction)(children)) {
+    return null;
+  } // Normalize controls to nested array of objects (sets of controls)
+
+
+  let controlSets;
+
+  if (!(0,external_lodash_namespaceObject.isEmpty)(controls)) {
+    controlSets = controls;
+
+    if (!Array.isArray(controlSets[0])) {
+      controlSets = [controlSets];
+    }
+  }
+
+  const mergedPopoverProps = mergeProps({
+    className: 'components-dropdown-menu__popover'
+  }, popoverProps);
+  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+    className: classnames_default()('components-dropdown-menu', className),
+    popoverProps: mergedPopoverProps,
+    renderToggle: ({
+      isOpen,
+      onToggle
+    }) => {
+      var _toggleProps$showTool;
+
+      const openOnArrowDown = event => {
+        if (disableOpenOnArrowDown) {
+          return;
+        }
+
+        if (!isOpen && event.keyCode === external_wp_keycodes_namespaceObject.DOWN) {
+          event.preventDefault();
+          onToggle();
+        }
+      };
+
+      const mergedToggleProps = mergeProps({
+        className: classnames_default()('components-dropdown-menu__toggle', {
+          'is-opened': isOpen
+        })
+      }, toggleProps);
+      return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({}, mergedToggleProps, {
+        icon: icon,
+        onClick: event => {
+          onToggle(event);
+
+          if (mergedToggleProps.onClick) {
+            mergedToggleProps.onClick(event);
+          }
+        },
+        onKeyDown: event => {
+          openOnArrowDown(event);
+
+          if (mergedToggleProps.onKeyDown) {
+            mergedToggleProps.onKeyDown(event);
+          }
+        },
+        "aria-haspopup": "true",
+        "aria-expanded": isOpen,
+        label: label,
+        text: text,
+        showTooltip: (_toggleProps$showTool = toggleProps === null || toggleProps === void 0 ? void 0 : toggleProps.showTooltip) !== null && _toggleProps$showTool !== void 0 ? _toggleProps$showTool : true
+      }), mergedToggleProps.children);
+    },
+    renderContent: props => {
+      const mergedMenuProps = mergeProps({
+        'aria-label': label,
+        className: classnames_default()('components-dropdown-menu__menu', {
+          'no-icons': noIcons
+        })
+      }, menuProps);
+      return (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, extends_extends({}, mergedMenuProps, {
+        role: "menu"
+      }), (0,external_lodash_namespaceObject.isFunction)(children) ? children(props) : null, (0,external_lodash_namespaceObject.flatMap)(controlSets, (controlSet, indexOfSet) => controlSet.map((control, indexOfControl) => (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+        key: [indexOfSet, indexOfControl].join(),
+        onClick: event => {
+          event.stopPropagation();
+          props.onClose();
+
+          if (control.onClick) {
+            control.onClick();
+          }
+        },
+        className: classnames_default()('components-dropdown-menu__menu-item', {
+          'has-separator': indexOfSet > 0 && indexOfControl === 0,
+          'is-active': control.isActive,
+          'is-icon-only': !control.title
+        }),
+        icon: control.icon,
+        label: control.label,
+        "aria-checked": control.role === 'menuitemcheckbox' || control.role === 'menuitemradio' ? control.isActive : undefined,
+        role: control.role === 'menuitemcheckbox' || control.role === 'menuitemradio' ? control.role : 'menuitem',
+        disabled: control.isDisabled
+      }, control.title))));
+    }
+  });
+}
+
+/* harmony default export */ var dropdown_menu = (DropdownMenu);
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-indicator/index.js
+
+
+
+/**
+ * External dependencies
+ */
+
+
+const ColorIndicator = ({
+  className,
+  colorValue,
+  ...props
+}) => (0,external_wp_element_namespaceObject.createElement)("span", extends_extends({
+  className: classnames_default()('component-color-indicator', className),
+  style: {
+    background: colorValue
+  }
+}, props));
+
+/* harmony default export */ var color_indicator = (ColorIndicator);
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item/hook.js
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+function hook_useItem(props) {
+  const {
+    as: asProp,
+    className,
+    onClick,
+    role = 'listitem',
+    size: sizeProp,
+    ...otherProps
+  } = useContextSystem(props, 'Item');
+  const {
+    spacedAround,
+    size: contextSize
+  } = useItemGroupContext();
+  const size = sizeProp || contextSize;
+  const as = asProp || (typeof onClick !== 'undefined' ? 'button' : 'div');
+  const cx = useCx();
+  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(as === 'button' && unstyledButton, itemSizes[size] || itemSizes.medium, item, spacedAround && styles_spacedAround, className), [as, className, size, spacedAround]);
+  const wrapperClassName = cx(itemWrapper);
+  return {
+    as,
+    className: classes,
+    onClick,
+    wrapperClassName,
+    role,
+    ...otherProps
+  };
+}
+//# sourceMappingURL=hook.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function component_Item(props, forwardedRef) {
+  const {
+    role,
+    wrapperClassName,
+    ...otherProps
+  } = hook_useItem(props);
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    role: role,
+    className: wrapperClassName
+  }, (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, otherProps, {
+    ref: forwardedRef
+  })));
+}
+
+/* harmony default export */ var item_component = (contextConnect(component_Item, 'Item'));
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-edit/styles.js
+
+
+function color_edit_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+
+
+const ColorIndicatorStyled = /*#__PURE__*/emotion_styled_base_browser_esm(color_indicator,  true ? {
+  target: "e3doru19"
+} : 0)("&&{display:block;border-radius:50%;border:0;height:", space(6), ";width:", space(6), ";margin-left:0;padding:0;}" + ( true ? "" : 0));
+const ColorNameInputControl = /*#__PURE__*/emotion_styled_base_browser_esm(input_control,  true ? {
+  target: "e3doru18"
+} : 0)(Container, "{background:", COLORS.gray[100], ";border-radius:2px;", Input, Input, Input, Input, "{height:", space(8), ";}", BackdropUI, BackdropUI, BackdropUI, "{border-color:transparent;box-shadow:none;}}" + ( true ? "" : 0));
+const ColorItem = /*#__PURE__*/emotion_styled_base_browser_esm(item_component,  true ? {
+  target: "e3doru17"
+} : 0)("padding:3px 0 3px ", space(3), ";height:calc( 40px - ", config_values.borderWidth, " );" + ( true ? "" : 0));
+const ColorNameContainer = emotion_styled_base_browser_esm("span",  true ? {
+  target: "e3doru16"
+} : 0)("line-height:", space(8), ";margin-left:", space(2), ";" + ( true ? "" : 0));
+const styles_ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_component,  true ? {
+  target: "e3doru15"
+} : 0)("text-transform:uppercase;line-height:", space(6), ";font-weight:500;&&&{font-size:11px;margin-bottom:0;}" + ( true ? "" : 0));
+const ColorActionsContainer = /*#__PURE__*/emotion_styled_base_browser_esm(component,  true ? {
+  target: "e3doru14"
+} : 0)("height:", space(6), ";display:flex;" + ( true ? "" : 0));
+const ColorHStackHeader = /*#__PURE__*/emotion_styled_base_browser_esm(h_stack_component,  true ? {
+  target: "e3doru13"
+} : 0)("margin-bottom:", space(2), ";" + ( true ? "" : 0));
+const ColorEditStyles = /*#__PURE__*/emotion_styled_base_browser_esm(component,  true ? {
+  target: "e3doru12"
+} : 0)( true ? {
+  name: "u6wnko",
+  styles: "&&&{.components-button.has-icon{min-width:0;padding:0;}}"
+} : 0);
+const DoneButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
+  target: "e3doru11"
+} : 0)("&&{color:", COLORS.ui.theme, ";}" + ( true ? "" : 0));
+const RemoveButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
+  target: "e3doru10"
+} : 0)("&&{margin-top:", space(1), ";}" + ( true ? "" : 0));
+//# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-edit/index.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+function ColorNameInput({
+  value,
+  onChange
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(ColorNameInputControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Color name'),
+    hideLabelFromVision: true,
+    value: value,
+    onChange: onChange
+  });
+}
+
+function ColorOption({
+  color,
+  onChange,
+  isEditing,
+  onStartEditing,
+  onRemove,
+  onStopEditing
+}) {
+  const focusOutsideProps = (0,external_wp_compose_namespaceObject.__experimentalUseFocusOutside)(onStopEditing);
+  return (0,external_wp_element_namespaceObject.createElement)(ColorItem, extends_extends({
+    as: "div",
+    onClick: onStartEditing
+  }, isEditing ? focusOutsideProps : {}), (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
+    justify: "flex-start"
+  }, (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(ColorIndicatorStyled, {
+    colorValue: color.color
+  })), (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, isEditing ? (0,external_wp_element_namespaceObject.createElement)(ColorNameInput, {
+    value: color.name,
+    onChange: nextName => onChange({ ...color,
+      name: nextName,
+      slug: external_lodash_default()(nextName)
+    })
+  }) : (0,external_wp_element_namespaceObject.createElement)(ColorNameContainer, null, color.name)), isEditing && (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(RemoveButton, {
+    isSmall: true,
+    icon: line_solid,
+    label: (0,external_wp_i18n_namespaceObject.__)('Remove color'),
+    onClick: onRemove
+  }))), isEditing && (0,external_wp_element_namespaceObject.createElement)(popover, {
+    position: "bottom left",
+    className: "components-color-edit__color-popover"
+  }, (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+    color: color.color,
+    onChange: newColor => onChange({ ...color,
+      color: newColor
+    })
+  })));
+}
+
+function ColorPaletteEditListView({
+  colors,
+  onChange,
+  editingColor,
+  setEditingColor
+}) {
+  // When unmounting the component if there are empty colors (the user did not complete the insertion) clean them.
+  const colorReference = (0,external_wp_element_namespaceObject.useRef)();
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    colorReference.current = colors;
+  }, [colors]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    return () => {
+      if (colorReference.current.some(({
+        slug
+      }) => !slug)) {
+        const newColors = colorReference.current.filter(({
+          slug
+        }) => slug);
+        onChange(newColors.length ? newColors : undefined);
+      }
+    };
+  }, []);
+  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: 3
+  }, (0,external_wp_element_namespaceObject.createElement)(item_group_component, {
+    isBordered: true,
+    isSeparated: true
+  }, colors.map((color, index) => (0,external_wp_element_namespaceObject.createElement)(ColorOption, {
+    key: index,
+    color: color,
+    onStartEditing: () => {
+      if (editingColor !== index) {
+        setEditingColor(index);
+      }
+    },
+    onChange: newColor => {
+      onChange(colors.map((currentColor, currentIndex) => {
+        if (currentIndex === index) {
+          return newColor;
+        }
+
+        return currentColor;
+      }));
+    },
+    onRemove: () => {
+      setEditingColor(null);
+      const newColors = colors.filter((_currentColor, currentIndex) => {
+        if (currentIndex === index) {
+          return false;
+        }
+
+        return true;
+      });
+      onChange(newColors.length ? newColors : undefined);
+    },
+    isEditing: index === editingColor,
+    onStopEditing: () => {
+      if (index === editingColor) {
+        setEditingColor(null);
+      }
+    }
+  }))));
+}
+
+const EMPTY_ARRAY = [];
+function ColorEdit({
+  colors = EMPTY_ARRAY,
+  onChange
+}) {
+  const [isEditing, setIsEditing] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [editingColor, setEditingColor] = (0,external_wp_element_namespaceObject.useState)(null);
+  const isAdding = isEditing && editingColor && colors[editingColor] && !colors[editingColor].slug;
+  const hasColors = colors.length > 0;
+  return (0,external_wp_element_namespaceObject.createElement)(ColorEditStyles, null, (0,external_wp_element_namespaceObject.createElement)(ColorHStackHeader, null, (0,external_wp_element_namespaceObject.createElement)(styles_ColorHeading, null, (0,external_wp_i18n_namespaceObject.__)('Custom')), (0,external_wp_element_namespaceObject.createElement)(ColorActionsContainer, null, isEditing && (0,external_wp_element_namespaceObject.createElement)(DoneButton, {
+    isSmall: true,
+    onClick: () => {
+      setIsEditing(false);
+      setEditingColor(null);
+    }
+  }, (0,external_wp_i18n_namespaceObject.__)('Done')), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    isSmall: true,
+    isPressed: isAdding,
+    icon: library_plus,
+    label: (0,external_wp_i18n_namespaceObject.__)('Add custom color'),
+    onClick: () => {
+      onChange([...colors, {
+        color: '#000',
+        name: '',
+        slug: ''
+      }]);
+      setIsEditing(true);
+      setEditingColor(colors.length);
+    }
+  }), !isEditing && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    disabled: !hasColors,
+    isSmall: true,
+    icon: more_vertical,
+    label: (0,external_wp_i18n_namespaceObject.__)('Edit colors'),
+    onClick: () => {
+      setIsEditing(true);
+    }
+  }), isEditing && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
+    icon: more_vertical,
+    label: (0,external_wp_i18n_namespaceObject.__)('Custom color options'),
+    toggleProps: {
+      isSmall: true
+    }
+  }, ({
+    onClose
+  }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, {
+    role: "menu"
+  }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    variant: "tertiary",
+    onClick: () => {
+      setEditingColor(null);
+      setIsEditing(false);
+      onChange();
+      onClose();
+    }
+  }, (0,external_wp_i18n_namespaceObject.__)('Remove all custom colors'))))))), hasColors && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isEditing && (0,external_wp_element_namespaceObject.createElement)(ColorPaletteEditListView, {
+    colors: colors,
+    onChange: onChange,
+    editingColor: editingColor,
+    setEditingColor: setEditingColor
+  }), !isEditing && (0,external_wp_element_namespaceObject.createElement)(ColorPalette, {
+    colors: colors,
+    onChange: () => {},
+    clearable: false,
+    disableCustomColors: true
+  })), !hasColors && (0,external_wp_i18n_namespaceObject.__)('Custom colors are empty! Add some colors to create your own color palette.'));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/close-small.js
@@ -55917,405 +56715,6 @@ function DropZoneProvider({
   return children;
 }
 //# sourceMappingURL=provider.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/menu.js
-
-
-/**
- * WordPress dependencies
- */
-
-const menu = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M5 5v1.5h14V5H5zm0 7.8h14v-1.5H5v1.5zM5 19h14v-1.5H5V19z"
-}));
-/* harmony default export */ var library_menu = (menu);
-//# sourceMappingURL=menu.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/container.js
-
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-const MENU_ITEM_ROLES = ['menuitem', 'menuitemradio', 'menuitemcheckbox'];
-
-function cycleValue(value, total, offset) {
-  const nextValue = value + offset;
-
-  if (nextValue < 0) {
-    return total + nextValue;
-  } else if (nextValue >= total) {
-    return nextValue - total;
-  }
-
-  return nextValue;
-}
-
-class NavigableContainer extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.bindContainer = this.bindContainer.bind(this);
-    this.getFocusableContext = this.getFocusableContext.bind(this);
-    this.getFocusableIndex = this.getFocusableIndex.bind(this);
-  }
-
-  componentDidMount() {
-    // We use DOM event listeners instead of React event listeners
-    // because we want to catch events from the underlying DOM tree
-    // The React Tree can be different from the DOM tree when using
-    // portals. Block Toolbars for instance are rendered in a separate
-    // React Trees.
-    this.container.addEventListener('keydown', this.onKeyDown);
-    this.container.addEventListener('focus', this.onFocus);
-  }
-
-  componentWillUnmount() {
-    this.container.removeEventListener('keydown', this.onKeyDown);
-    this.container.removeEventListener('focus', this.onFocus);
-  }
-
-  bindContainer(ref) {
-    const {
-      forwardedRef
-    } = this.props;
-    this.container = ref;
-
-    if ((0,external_lodash_namespaceObject.isFunction)(forwardedRef)) {
-      forwardedRef(ref);
-    } else if (forwardedRef && 'current' in forwardedRef) {
-      forwardedRef.current = ref;
-    }
-  }
-
-  getFocusableContext(target) {
-    const {
-      onlyBrowserTabstops
-    } = this.props;
-    const finder = onlyBrowserTabstops ? external_wp_dom_namespaceObject.focus.tabbable : external_wp_dom_namespaceObject.focus.focusable;
-    const focusables = finder.find(this.container);
-    const index = this.getFocusableIndex(focusables, target);
-
-    if (index > -1 && target) {
-      return {
-        index,
-        target,
-        focusables
-      };
-    }
-
-    return null;
-  }
-
-  getFocusableIndex(focusables, target) {
-    const directIndex = focusables.indexOf(target);
-
-    if (directIndex !== -1) {
-      return directIndex;
-    }
-  }
-
-  onKeyDown(event) {
-    if (this.props.onKeyDown) {
-      this.props.onKeyDown(event);
-    }
-
-    const {
-      getFocusableContext
-    } = this;
-    const {
-      cycle = true,
-      eventToOffset,
-      onNavigate = external_lodash_namespaceObject.noop,
-      stopNavigationEvents
-    } = this.props;
-    const offset = eventToOffset(event); // eventToOffset returns undefined if the event is not handled by the component
-
-    if (offset !== undefined && stopNavigationEvents) {
-      // Prevents arrow key handlers bound to the document directly interfering
-      event.stopImmediatePropagation(); // When navigating a collection of items, prevent scroll containers
-      // from scrolling. The preventDefault also prevents Voiceover from
-      // 'handling' the event, as voiceover will try to use arrow keys
-      // for highlighting text.
-
-      const targetRole = event.target.getAttribute('role');
-
-      if (MENU_ITEM_ROLES.includes(targetRole)) {
-        event.preventDefault();
-      }
-    }
-
-    if (!offset) {
-      return;
-    }
-
-    const context = getFocusableContext(event.target.ownerDocument.activeElement);
-
-    if (!context) {
-      return;
-    }
-
-    const {
-      index,
-      focusables
-    } = context;
-    const nextIndex = cycle ? cycleValue(index, focusables.length, offset) : index + offset;
-
-    if (nextIndex >= 0 && nextIndex < focusables.length) {
-      focusables[nextIndex].focus();
-      onNavigate(nextIndex, focusables[nextIndex]);
-    }
-  }
-
-  render() {
-    const {
-      children,
-      ...props
-    } = this.props;
-    return (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
-      ref: this.bindContainer
-    }, (0,external_lodash_namespaceObject.omit)(props, ['stopNavigationEvents', 'eventToOffset', 'onNavigate', 'onKeyDown', 'cycle', 'onlyBrowserTabstops', 'forwardedRef'])), children);
-  }
-
-}
-
-const forwardedNavigableContainer = (props, ref) => {
-  return (0,external_wp_element_namespaceObject.createElement)(NavigableContainer, extends_extends({}, props, {
-    forwardedRef: ref
-  }));
-};
-
-forwardedNavigableContainer.displayName = 'NavigableContainer';
-/* harmony default export */ var container = ((0,external_wp_element_namespaceObject.forwardRef)(forwardedNavigableContainer));
-//# sourceMappingURL=container.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/menu.js
-
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-function NavigableMenu({
-  role = 'menu',
-  orientation = 'vertical',
-  ...rest
-}, ref) {
-  const eventToOffset = evt => {
-    const {
-      keyCode
-    } = evt;
-    let next = [external_wp_keycodes_namespaceObject.DOWN];
-    let previous = [external_wp_keycodes_namespaceObject.UP];
-
-    if (orientation === 'horizontal') {
-      next = [external_wp_keycodes_namespaceObject.RIGHT];
-      previous = [external_wp_keycodes_namespaceObject.LEFT];
-    }
-
-    if (orientation === 'both') {
-      next = [external_wp_keycodes_namespaceObject.RIGHT, external_wp_keycodes_namespaceObject.DOWN];
-      previous = [external_wp_keycodes_namespaceObject.LEFT, external_wp_keycodes_namespaceObject.UP];
-    }
-
-    if ((0,external_lodash_namespaceObject.includes)(next, keyCode)) {
-      return 1;
-    } else if ((0,external_lodash_namespaceObject.includes)(previous, keyCode)) {
-      return -1;
-    } else if ((0,external_lodash_namespaceObject.includes)([external_wp_keycodes_namespaceObject.DOWN, external_wp_keycodes_namespaceObject.UP, external_wp_keycodes_namespaceObject.LEFT, external_wp_keycodes_namespaceObject.RIGHT], keyCode)) {
-      // Key press should be handled, e.g. have event propagation and
-      // default behavior handled by NavigableContainer but not result
-      // in an offset.
-      return 0;
-    }
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(container, extends_extends({
-    ref: ref,
-    stopNavigationEvents: true,
-    onlyBrowserTabstops: false,
-    role: role,
-    "aria-orientation": role === 'presentation' ? null : orientation,
-    eventToOffset: eventToOffset
-  }, rest));
-}
-/* harmony default export */ var navigable_container_menu = ((0,external_wp_element_namespaceObject.forwardRef)(NavigableMenu));
-//# sourceMappingURL=menu.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/dropdown-menu/index.js
-
-
-// @ts-nocheck
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function mergeProps(defaultProps = {}, props = {}) {
-  const mergedProps = { ...defaultProps,
-    ...props
-  };
-
-  if (props.className && defaultProps.className) {
-    mergedProps.className = classnames_default()(props.className, defaultProps.className);
-  }
-
-  return mergedProps;
-}
-
-function DropdownMenu(dropdownMenuProps) {
-  const {
-    children,
-    className,
-    controls,
-    icon = library_menu,
-    label,
-    popoverProps,
-    toggleProps,
-    menuProps,
-    disableOpenOnArrowDown = false,
-    text,
-    noIcons
-  } = dropdownMenuProps;
-
-  if ((0,external_lodash_namespaceObject.isEmpty)(controls) && !(0,external_lodash_namespaceObject.isFunction)(children)) {
-    return null;
-  } // Normalize controls to nested array of objects (sets of controls)
-
-
-  let controlSets;
-
-  if (!(0,external_lodash_namespaceObject.isEmpty)(controls)) {
-    controlSets = controls;
-
-    if (!Array.isArray(controlSets[0])) {
-      controlSets = [controlSets];
-    }
-  }
-
-  const mergedPopoverProps = mergeProps({
-    className: 'components-dropdown-menu__popover'
-  }, popoverProps);
-  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
-    className: classnames_default()('components-dropdown-menu', className),
-    popoverProps: mergedPopoverProps,
-    renderToggle: ({
-      isOpen,
-      onToggle
-    }) => {
-      var _toggleProps$showTool;
-
-      const openOnArrowDown = event => {
-        if (disableOpenOnArrowDown) {
-          return;
-        }
-
-        if (!isOpen && event.keyCode === external_wp_keycodes_namespaceObject.DOWN) {
-          event.preventDefault();
-          onToggle();
-        }
-      };
-
-      const mergedToggleProps = mergeProps({
-        className: classnames_default()('components-dropdown-menu__toggle', {
-          'is-opened': isOpen
-        })
-      }, toggleProps);
-      return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({}, mergedToggleProps, {
-        icon: icon,
-        onClick: event => {
-          onToggle(event);
-
-          if (mergedToggleProps.onClick) {
-            mergedToggleProps.onClick(event);
-          }
-        },
-        onKeyDown: event => {
-          openOnArrowDown(event);
-
-          if (mergedToggleProps.onKeyDown) {
-            mergedToggleProps.onKeyDown(event);
-          }
-        },
-        "aria-haspopup": "true",
-        "aria-expanded": isOpen,
-        label: label,
-        text: text,
-        showTooltip: (_toggleProps$showTool = toggleProps === null || toggleProps === void 0 ? void 0 : toggleProps.showTooltip) !== null && _toggleProps$showTool !== void 0 ? _toggleProps$showTool : true
-      }), mergedToggleProps.children);
-    },
-    renderContent: props => {
-      const mergedMenuProps = mergeProps({
-        'aria-label': label,
-        className: classnames_default()('components-dropdown-menu__menu', {
-          'no-icons': noIcons
-        })
-      }, menuProps);
-      return (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, extends_extends({}, mergedMenuProps, {
-        role: "menu"
-      }), (0,external_lodash_namespaceObject.isFunction)(children) ? children(props) : null, (0,external_lodash_namespaceObject.flatMap)(controlSets, (controlSet, indexOfSet) => controlSet.map((control, indexOfControl) => (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-        key: [indexOfSet, indexOfControl].join(),
-        onClick: event => {
-          event.stopPropagation();
-          props.onClose();
-
-          if (control.onClick) {
-            control.onClick();
-          }
-        },
-        className: classnames_default()('components-dropdown-menu__menu-item', {
-          'has-separator': indexOfSet > 0 && indexOfControl === 0,
-          'is-active': control.isActive,
-          'is-icon-only': !control.title
-        }),
-        icon: control.icon,
-        label: control.label,
-        "aria-checked": control.role === 'menuitemcheckbox' || control.role === 'menuitemradio' ? control.isActive : undefined,
-        role: control.role === 'menuitemcheckbox' || control.role === 'menuitemradio' ? control.role : 'menuitem',
-        disabled: control.isDisabled
-      }, control.title))));
-    }
-  });
-}
-
-/* harmony default export */ var dropdown_menu = (DropdownMenu);
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/swatch.js
 
 
@@ -56482,6 +56881,7 @@ function color_list_picker_ColorOption({
   value,
   colors,
   disableCustomColors,
+  enableAlpha,
   onChange
 }) {
   const [isOpen, setIsOpen] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -56492,11 +56892,13 @@ function color_list_picker_ColorOption({
     }),
     onClick: () => setIsOpen(prev => !prev)
   }, label), isOpen && (0,external_wp_element_namespaceObject.createElement)(ColorPalette, {
+    className: "components-color-list-picker__color-picker",
     colors: colors,
     value: value,
     clearable: false,
     onChange: onChange,
-    disableCustomColors: disableCustomColors
+    disableCustomColors: disableCustomColors,
+    enableAlpha: enableAlpha
   }));
 }
 
@@ -56505,6 +56907,7 @@ function ColorListPicker({
   labels,
   value = [],
   disableCustomColors,
+  enableAlpha,
   onChange
 }) {
   return (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -56515,6 +56918,7 @@ function ColorListPicker({
     value: value[index],
     colors: colors,
     disableCustomColors: disableCustomColors,
+    enableAlpha: enableAlpha,
     onChange: newColor => {
       const newColors = value.slice();
       newColors[index] = newColor;
@@ -57135,7 +57539,6 @@ function CustomDuotoneBar({
   const controlPoints = getColorStopsFromColors(values);
   return (0,external_wp_element_namespaceObject.createElement)(CustomGradientBar, {
     disableInserter: true,
-    disableAlpha: true,
     background: background,
     hasGradient: hasGradient,
     value: controlPoints,
@@ -57215,6 +57618,7 @@ function DuotonePicker({
     colors: colorPalette,
     value: value,
     disableCustomColors: disableCustomColors,
+    enableAlpha: true,
     onChange: newColors => {
       if (!newColors[0]) {
         newColors[0] = defaultDark;
@@ -61912,6 +62316,7 @@ function CustomGradientPicker({
 ;// CONCATENATED MODULE: ./packages/components/build-module/gradient-picker/index.js
 
 
+
 /**
  * External dependencies
  */
@@ -61928,15 +62333,18 @@ function CustomGradientPicker({
 
 
 
-function GradientPicker({
+
+
+
+function SingleOrigin({
   className,
+  clearGradient,
   gradients,
   onChange,
   value,
-  clearable = true,
-  disableCustomGradients = false
+  actions,
+  content
 }) {
-  const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
   const gradientOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return (0,external_lodash_namespaceObject.map)(gradients, ({
       gradient,
@@ -61960,13 +62368,67 @@ function GradientPicker({
   return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
     className: className,
     options: gradientOptions,
+    actions: actions
+  }, content);
+}
+
+function MultipleOrigin({
+  className,
+  clearGradient,
+  gradients,
+  onChange,
+  value,
+  actions,
+  content
+}) {
+  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: 3,
+    className: className
+  }, gradients.map(({
+    name,
+    gradients: gradientSet
+  }, index) => {
+    return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+      spacing: 2,
+      key: index
+    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, null, name), (0,external_wp_element_namespaceObject.createElement)(SingleOrigin, extends_extends({
+      clearGradient: clearGradient,
+      gradients: gradientSet,
+      onChange: onChange,
+      value: value
+    }, gradients.length === index + 1 ? {
+      actions,
+      content
+    } : {})));
+  }));
+}
+
+function GradientPicker({
+  className,
+  gradients,
+  onChange,
+  value,
+  clearable = true,
+  disableCustomGradients = false,
+  __experimentalHasMultipleOrigins
+}) {
+  const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
+  const Component = __experimentalHasMultipleOrigins ? MultipleOrigin : SingleOrigin;
+  return (0,external_wp_element_namespaceObject.createElement)(Component, {
+    className: className,
+    clearable: clearable,
+    clearGradient: clearGradient,
+    gradients: gradients,
+    onChange: onChange,
+    value: value,
     actions: clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
       onClick: clearGradient
-    }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
-  }, !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
-    value: value,
-    onChange: onChange
-  }));
+    }, (0,external_wp_i18n_namespaceObject.__)('Clear')),
+    content: !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
+      value: value,
+      onChange: onChange
+    })
+  });
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/grid/utils.js
@@ -62210,6 +62672,126 @@ function showApp() {
   isHidden = false;
 }
 //# sourceMappingURL=aria-helper.js.map
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
+// Unique ID creation requires a high quality random # generator. In the browser we therefore
+// require the crypto API and do not support built-in fallback to lower quality random number
+// generators (like Math.random()).
+// getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
+// find the complete implementation of crypto (msCrypto) on IE11.
+var getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
+var rnds8 = new Uint8Array(16);
+function rng() {
+  if (!getRandomValues) {
+    throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
+  }
+
+  return getRandomValues(rnds8);
+}
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/regex.js
+/* harmony default export */ var regex = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i);
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/validate.js
+
+
+function validate(uuid) {
+  return typeof uuid === 'string' && regex.test(uuid);
+}
+
+/* harmony default export */ var esm_browser_validate = (validate);
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/stringify.js
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+
+var byteToHex = [];
+
+for (var stringify_i = 0; stringify_i < 256; ++stringify_i) {
+  byteToHex.push((stringify_i + 0x100).toString(16).substr(1));
+}
+
+function stringify_stringify(arr) {
+  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  // Note: Be careful editing this code!  It's been tuned for performance
+  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
+  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
+  // of the following:
+  // - One or more input array values don't map to a hex octet (leading to
+  // "undefined" in the uuid)
+  // - Invalid input values for the RFC `version` or `variant` fields
+
+  if (!esm_browser_validate(uuid)) {
+    throw TypeError('Stringified UUID is invalid');
+  }
+
+  return uuid;
+}
+
+/* harmony default export */ var esm_browser_stringify = (stringify_stringify);
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/v4.js
+
+
+
+function v4(options, buf, offset) {
+  options = options || {};
+  var rnds = options.random || (options.rng || rng)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+
+  rnds[6] = rnds[6] & 0x0f | 0x40;
+  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
+
+  if (buf) {
+    offset = offset || 0;
+
+    for (var i = 0; i < 16; ++i) {
+      buf[offset + i] = rnds[i];
+    }
+
+    return buf;
+  }
+
+  return esm_browser_stringify(rnds);
+}
+
+/* harmony default export */ var esm_browser_v4 = (v4);
+;// CONCATENATED MODULE: ./packages/components/build-module/style-provider/index.js
+
+
+/**
+ * External dependencies
+ */
+
+
+
+
+const uuidCache = new Set();
+const memoizedCreateCacheWithContainer = memize_default()(container => {
+  // emotion only accepts alphabetical and hyphenated keys so we just strip the numbers from the UUID. It _should_ be fine.
+  let key = esm_browser_v4().replace(/[0-9]/g, '');
+
+  while (uuidCache.has(key)) {
+    key = esm_browser_v4().replace(/[0-9]/g, '');
+  }
+
+  uuidCache.add(key);
+  return emotion_cache_browser_esm({
+    container,
+    key
+  });
+});
+function StyleProvider({
+  children,
+  document
+}) {
+  if (!document) {
+    return null;
+  }
+
+  const cache = memoizedCreateCacheWithContainer(document.head);
+  return (0,external_wp_element_namespaceObject.createElement)(CacheProvider, {
+    value: cache
+  }, children);
+}
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/modal/index.js
 
 
@@ -62231,6 +62813,7 @@ function showApp() {
 /**
  * Internal dependencies
  */
+
 
 
  // Used to count the number of open modals.
@@ -62260,7 +62843,8 @@ function Modal({
   overlayClassName,
   className,
   contentLabel,
-  onKeyDown
+  onKeyDown,
+  isFullScreen = false
 }) {
   const ref = (0,external_wp_element_namespaceObject.useRef)();
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(Modal);
@@ -62309,8 +62893,12 @@ function Modal({
     ref: ref,
     className: classnames_default()('components-modal__screen-overlay', overlayClassName),
     onKeyDown: handleEscapeKeyDown
+  }, (0,external_wp_element_namespaceObject.createElement)(StyleProvider, {
+    document: document
   }, (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
-    className: classnames_default()('components-modal__frame', className),
+    className: classnames_default()('components-modal__frame', className, {
+      'is-full-screen': isFullScreen
+    }),
     style: style,
     ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([constrainedTabbingRef, focusReturnRef, focusOnMountRef]),
     role: role,
@@ -62337,7 +62925,7 @@ function Modal({
     onClick: onRequestClose,
     icon: close_small,
     label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close dialog')
-  })), children))), document.body);
+  })), children)))), document.body);
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/icons.js
@@ -62558,81 +63146,6 @@ function GuidePage(props) {
   return (0,external_wp_element_namespaceObject.createElement)("div", props);
 }
 //# sourceMappingURL=page.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/heading/hook.js
-/**
- * Internal dependencies
- */
-
-
-
-
-function useHeading(props) {
-  const {
-    as: asProp,
-    level = 2,
-    ...otherProps
-  } = useContextSystem(props, 'Heading');
-  const as = asProp || `h${level}`;
-  const a11yProps = {};
-
-  if (typeof as === 'string' && as[0] !== 'h') {
-    // if not a semantic `h` element, add a11y props:
-    a11yProps.role = 'heading';
-    a11yProps['aria-level'] = typeof level === 'string' ? parseInt(level) : level;
-  }
-
-  const textProps = useText({
-    color: COLORS.darkGray.heading,
-    size: getHeadingFontSize(level),
-    isBlock: true,
-    weight: config_values.fontWeightHeading,
-    ...otherProps
-  });
-  return { ...textProps,
-    ...a11yProps,
-    as
-  };
-}
-//# sourceMappingURL=hook.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/heading/component.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * Internal dependencies
- */
-
-
-
-
-function Heading(props, forwardedRef) {
-  const headerProps = useHeading(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, headerProps, {
-    ref: forwardedRef
-  }));
-}
-/**
- * `Heading` renders headings and titles using the library's typography system.
- *
- * @example
- * ```jsx
- * import { Heading } from `@wordpress/components`
- *
- * function Example() {
- *   return <Heading>Code is Poetry</Heading>;
- * }
- * ```
- */
-
-
-const ConnectedHeading = contextConnect(Heading, 'Heading');
-/* harmony default export */ var heading_component = (ConnectedHeading);
-//# sourceMappingURL=component.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/button/deprecated.js
 
 
@@ -62671,215 +63184,6 @@ function IconButton({
 
 /* harmony default export */ var deprecated = ((0,external_wp_element_namespaceObject.forwardRef)(IconButton));
 //# sourceMappingURL=deprecated.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/item-group/styles.js
-function item_group_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-const unstyledButton = /*#__PURE__*/emotion_react_browser_esm_css("appearance:none;border:1px solid transparent;cursor:pointer;background:none;text-align:left;&:hover{color:", COLORS.admin.theme, ";}&:focus{background-color:transparent;color:", COLORS.admin.theme, ";border-color:", COLORS.admin.theme, ";outline:3px solid transparent;}" + ( true ? "" : 0),  true ? "" : 0);
-const itemWrapper =  true ? {
-  name: "1bcj5ek",
-  styles: "width:100%;display:block"
-} : 0;
-const item =  true ? {
-  name: "5vij5u",
-  styles: "width:100%;display:block;margin:0"
-} : 0;
-const bordered = /*#__PURE__*/emotion_react_browser_esm_css("border:1px solid ", config_values.surfaceBorderColor, ";" + ( true ? "" : 0),  true ? "" : 0);
-const separated = /*#__PURE__*/emotion_react_browser_esm_css(">*:not( marquee )>*{border-bottom:1px solid ", config_values.surfaceBorderColor, ";}>*:last-of-type>*:not( :focus ){border-bottom-color:transparent;}" + ( true ? "" : 0),  true ? "" : 0);
-const styles_borderRadius = config_values.controlBorderRadius;
-const styles_spacedAround = /*#__PURE__*/emotion_react_browser_esm_css("border-radius:", styles_borderRadius, ";" + ( true ? "" : 0),  true ? "" : 0);
-const styles_rounded = /*#__PURE__*/emotion_react_browser_esm_css("border-radius:", styles_borderRadius, ";>*:first-of-type>*{border-top-left-radius:", styles_borderRadius, ";border-top-right-radius:", styles_borderRadius, ";}>*:last-of-type>*{border-bottom-left-radius:", styles_borderRadius, ";border-bottom-right-radius:", styles_borderRadius, ";}" + ( true ? "" : 0),  true ? "" : 0);
-const baseFontHeight = `calc(${config_values.fontSize} * ${config_values.fontLineHeightBase})`;
-/*
- * Math:
- * - Use the desired height as the base value
- * - Subtract the computed height of (default) text
- * - Subtract the effects of border
- * - Divide the calculated number by 2, in order to get an individual top/bottom padding
- */
-
-const paddingY = `calc((${config_values.controlHeight} - ${baseFontHeight} - 2px) / 2)`;
-const paddingYSmall = `calc((${config_values.controlHeightSmall} - ${baseFontHeight} - 2px) / 2)`;
-const paddingYLarge = `calc((${config_values.controlHeightLarge} - ${baseFontHeight} - 2px) / 2)`;
-const itemSizes = {
-  small: /*#__PURE__*/emotion_react_browser_esm_css("padding:", paddingYSmall, " ", config_values.controlPaddingXSmall, ";" + ( true ? "" : 0),  true ? "" : 0),
-  medium: /*#__PURE__*/emotion_react_browser_esm_css("padding:", paddingY, " ", config_values.controlPaddingX, ";" + ( true ? "" : 0),  true ? "" : 0),
-  large: /*#__PURE__*/emotion_react_browser_esm_css("padding:", paddingYLarge, " ", config_values.controlPaddingXLarge, ";" + ( true ? "" : 0),  true ? "" : 0)
-};
-//# sourceMappingURL=styles.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item-group/hook.js
-/**
- * Internal dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-function useItemGroup(props) {
-  const {
-    className,
-    isBordered = false,
-    isRounded = true,
-    isSeparated = false,
-    role = 'list',
-    ...otherProps
-  } = useContextSystem(props, 'ItemGroup');
-  const cx = useCx();
-  const classes = cx(isBordered && bordered, isSeparated && separated, isRounded && styles_rounded, className);
-  return {
-    isBordered,
-    className: classes,
-    role,
-    isSeparated,
-    ...otherProps
-  };
-}
-//# sourceMappingURL=hook.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/item-group/context.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-const ItemGroupContext = (0,external_wp_element_namespaceObject.createContext)({
-  size: 'medium'
-});
-const useItemGroupContext = () => (0,external_wp_element_namespaceObject.useContext)(ItemGroupContext);
-//# sourceMappingURL=context.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item-group/component.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function ItemGroup(props, forwardedRef) {
-  const {
-    isBordered,
-    isSeparated,
-    size: sizeProp,
-    ...otherProps
-  } = useItemGroup(props);
-  const {
-    size: contextSize
-  } = useItemGroupContext();
-  const spacedAround = !isBordered && !isSeparated;
-  const size = sizeProp || contextSize;
-  const contextValue = {
-    spacedAround,
-    size
-  };
-  return (0,external_wp_element_namespaceObject.createElement)(ItemGroupContext.Provider, {
-    value: contextValue
-  }, (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, otherProps, {
-    ref: forwardedRef
-  })));
-}
-
-/* harmony default export */ var item_group_component = (contextConnect(ItemGroup, 'ItemGroup'));
-//# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item/hook.js
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function hook_useItem(props) {
-  const {
-    as: asProp,
-    className,
-    onClick,
-    role = 'listitem',
-    size: sizeProp,
-    ...otherProps
-  } = useContextSystem(props, 'Item');
-  const {
-    spacedAround,
-    size: contextSize
-  } = useItemGroupContext();
-  const size = sizeProp || contextSize;
-  const as = asProp || (typeof onClick !== 'undefined' ? 'button' : 'div');
-  const cx = useCx();
-  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(as === 'button' && unstyledButton, itemSizes[size] || itemSizes.medium, item, spacedAround && styles_spacedAround, className), [as, className, size, spacedAround]);
-  const wrapperClassName = cx(itemWrapper);
-  return {
-    as,
-    className: classes,
-    onClick,
-    wrapperClassName,
-    role,
-    ...otherProps
-  };
-}
-//# sourceMappingURL=hook.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item/component.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * Internal dependencies
- */
-
-
-
-
-function component_Item(props, forwardedRef) {
-  const {
-    role,
-    wrapperClassName,
-    ...otherProps
-  } = hook_useItem(props);
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    role: role,
-    className: wrapperClassName
-  }, (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, otherProps, {
-    ref: forwardedRef
-  })));
-}
-
-/* harmony default export */ var item_component = (contextConnect(component_Item, 'Item'));
-//# sourceMappingURL=component.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/keyboard-shortcuts/index.js
 
 
@@ -63192,6 +63496,135 @@ const NavigationContext = (0,external_wp_element_namespaceObject.createContext)(
 });
 const useNavigationContext = () => (0,external_wp_element_namespaceObject.useContext)(NavigationContext);
 //# sourceMappingURL=context.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/search.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const search = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13.5 6C10.5 6 8 8.5 8 11.5c0 1.1.3 2.1.9 3l-3.4 3 1 1.1 3.4-2.9c1 .9 2.2 1.4 3.6 1.4 3 0 5.5-2.5 5.5-5.5C19 8.5 16.5 6 13.5 6zm0 9.5c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"
+}));
+/* harmony default export */ var library_search = (search);
+//# sourceMappingURL=search.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-combined-ref.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+function useCombinedRef(...refs) {
+  const targetRef = (0,external_wp_element_namespaceObject.useRef)(null);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    refs.forEach(ref => {
+      if (!ref) return;
+
+      if (typeof ref === 'function') {
+        ref(targetRef.current);
+      } else {
+        ref.current = targetRef.current;
+      }
+    });
+  }, [refs]);
+  return targetRef;
+}
+//# sourceMappingURL=use-combined-ref.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/search-control/index.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+function SearchControl({
+  className,
+  onChange,
+  onKeyDown,
+  value,
+  label,
+  placeholder = (0,external_wp_i18n_namespaceObject.__)('Search'),
+  hideLabelFromVision = true,
+  help,
+  onClose
+}, ref) {
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(SearchControl);
+  const searchInput = useCombinedRef(ref);
+  const id = `components-search-control-${instanceId}`;
+
+  const renderRightButton = () => {
+    if (onClose) {
+      return (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+        icon: close_small,
+        label: (0,external_wp_i18n_namespaceObject.__)('Close search'),
+        onClick: onClose
+      });
+    }
+
+    if (!!value) {
+      return (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+        icon: close_small,
+        label: (0,external_wp_i18n_namespaceObject.__)('Reset search'),
+        onClick: () => {
+          onChange('');
+          searchInput.current.focus();
+        }
+      });
+    }
+
+    return (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
+      icon: library_search
+    });
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
+    label: label,
+    id: id,
+    hideLabelFromVision: hideLabelFromVision,
+    help: help,
+    className: classnames_default()(className, 'components-search-control')
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-search-control__input-wrapper"
+  }, (0,external_wp_element_namespaceObject.createElement)("input", {
+    ref: searchInput,
+    className: "components-search-control__input",
+    id: id,
+    type: "search",
+    placeholder: placeholder,
+    onChange: event => onChange(event.target.value),
+    onKeyDown: onKeyDown,
+    autoComplete: "off",
+    value: value || ''
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-search-control__icon"
+  }, renderRightButton())));
+}
+
+/* harmony default export */ var search_control = ((0,external_wp_element_namespaceObject.forwardRef)(SearchControl));
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/styles/navigation-styles.js
 
 
@@ -63214,36 +63647,38 @@ function navigation_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have t
 
 
 
+
+
 const NavigationUI = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ejwewyf11"
+  target: "ejwewyf10"
 } : 0)("width:100%;box-sizing:border-box;padding:0 ", space(4), ";overflow:hidden;" + ( true ? "" : 0));
 const MenuUI = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ejwewyf10"
+  target: "ejwewyf9"
 } : 0)("margin-top:", space(6), ";margin-bottom:", space(6), ";display:flex;flex-direction:column;ul{padding:0;margin:0;list-style:none;}.components-navigation__back-button{margin-bottom:", space(6), ";}.components-navigation__group+.components-navigation__group{margin-top:", space(6), ";}" + ( true ? "" : 0));
 const MenuBackButtonUI = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
-  target: "ejwewyf9"
+  target: "ejwewyf8"
 } : 0)( true ? {
   name: "26l0q2",
   styles: "&.is-tertiary{color:inherit;opacity:0.7;&:hover:not( :disabled ){opacity:1;box-shadow:none;color:inherit;}&:active:not( :disabled ){background:transparent;opacity:1;color:inherit;}}"
 } : 0);
 const MenuTitleUI = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ejwewyf8"
+  target: "ejwewyf7"
 } : 0)( true ? {
   name: "1aubja5",
   styles: "overflow:hidden;width:100%"
 } : 0);
-const MenuTitleHeadingUI = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
-  target: "ejwewyf7"
-} : 0)("align-items:center;color:inherit;display:flex;justify-content:space-between;margin-bottom:", space(2), ";padding:", () => (0,external_wp_i18n_namespaceObject.isRTL)() ? `${space(1)} ${space(4)} ${space(1)} ${space(3)}` : `${space(1)} ${space(3)} ${space(1)} ${space(4)}`, ";" + ( true ? "" : 0));
 const MenuTitleActionsUI = emotion_styled_base_browser_esm("span",  true ? {
   target: "ejwewyf6"
 } : 0)("height:", space(6), ";.components-button.is-small{color:inherit;opacity:0.7;margin-right:", space(1), ";padding:0;&:active:not( :disabled ){background:none;opacity:1;color:inherit;}&:hover:not( :disabled ){box-shadow:none;opacity:1;color:inherit;}}" + ( true ? "" : 0));
-const MenuTitleSearchUI = emotion_styled_base_browser_esm("div",  true ? {
+const MenuTitleSearchUI = /*#__PURE__*/emotion_styled_base_browser_esm(search_control,  true ? {
   target: "ejwewyf5"
-} : 0)("padding:0;position:relative;input{height:", space(9), ";margin-bottom:", space(2), ";padding-left:", space(8), ";padding-right:", space(8), ";&::-webkit-search-decoration,&::-webkit-search-cancel-button,&::-webkit-search-results-button,&::-webkit-search-results-decoration{-webkit-appearance:none;}}>svg{left:", space(1), ";position:absolute;top:6px;}.components-button.is-small{height:30px;padding:0;position:absolute;right:", space(2), ";top:3px;&:active:not( :disabled ){background:none;}&:hover:not( :disabled ){box-shadow:none;}}" + ( true ? "" : 0));
-const GroupTitleUI = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
+} : 0)( true ? {
+  name: "za3n3e",
+  styles: "input[type='search'].components-search-control__input{margin:0;background:#303030;color:#fff;&:focus{background:#434343;color:#fff;}&::placeholder{color:rgba( 255, 255, 255, 0.6 );}}svg{fill:white;}.components-button.has-icon{padding:0;min-width:auto;}"
+} : 0);
+const GroupTitleUI = /*#__PURE__*/emotion_styled_base_browser_esm(heading_component,  true ? {
   target: "ejwewyf4"
-} : 0)("color:inherit;margin-top:", space(2), ";padding:", () => (0,external_wp_i18n_namespaceObject.isRTL)() ? `${space(1)} ${space(4)} ${space(1)} 0` : `${space(1)} 0 ${space(1)} ${space(4)}`, ";text-transform:uppercase;" + ( true ? "" : 0));
+} : 0)("min-height:", space(12), ";align-items:center;color:inherit;display:flex;justify-content:space-between;margin-bottom:", space(2), ";padding:", () => (0,external_wp_i18n_namespaceObject.isRTL)() ? `${space(1)} ${space(4)} ${space(1)} ${space(2)}` : `${space(1)} ${space(2)} ${space(1)} ${space(4)}`, ";" + ( true ? "" : 0));
 const ItemBaseUI = emotion_styled_base_browser_esm("li",  true ? {
   target: "ejwewyf3"
 } : 0)("border-radius:2px;color:inherit;margin-bottom:0;>button,>a.components-button,>a{width:100%;color:inherit;opacity:0.7;padding:", space(2), " ", space(4), ";", rtl({
@@ -63619,10 +64054,9 @@ function NavigationGroup({
   }, (0,external_wp_element_namespaceObject.createElement)("li", {
     className: classes
   }, title && (0,external_wp_element_namespaceObject.createElement)(GroupTitleUI, {
-    as: "h3",
     className: "components-navigation__group-title",
     id: groupTitleId,
-    variant: "caption"
+    level: 3
   }, title), (0,external_wp_element_namespaceObject.createElement)("ul", {
     "aria-labelledby": groupTitleId,
     role: "group"
@@ -63870,21 +64304,6 @@ const useNavigationTreeMenu = props => {
   }, []);
 };
 //# sourceMappingURL=use-navigation-tree-menu.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/search.js
-
-
-/**
- * WordPress dependencies
- */
-
-const search = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13.5 6C10.5 6 8 8.5 8 11.5c0 1.1.3 2.1.9 3l-3.4 3 1 1.1 3.4-2.9c1 .9 2.2 1.4 3.6 1.4 3 0 5.5-2.5 5.5-5.5C19 8.5 16.5 6 13.5 6zm0 9.5c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"
-}));
-/* harmony default export */ var library_search = (search);
-//# sourceMappingURL=search.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/menu/menu-title-search.js
 
 
@@ -63899,12 +64318,9 @@ const search = (0,external_wp_element_namespaceObject.createElement)(external_wp
 
 
 
-
 /**
  * Internal dependencies
  */
-
-
 
 
 
@@ -63962,37 +64378,24 @@ function MenuTitleSearch({
     }
   }
 
-  const menuTitleId = `components-navigation__menu-title-${menu}`;
   const inputId = `components-navigation__menu-title-search-${menu}`;
+  const placeholder = (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: placeholder for menu search box. %s: menu title */
-
-  const placeholder = (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Search in %s'), title);
-  return (0,external_wp_element_namespaceObject.createElement)(MenuTitleSearchUI, {
+  (0,external_wp_i18n_namespaceObject.__)('Search %s'), title === null || title === void 0 ? void 0 : title.toLowerCase()).trim();
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-navigation__menu-title-search"
-  }, (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
-    icon: library_search
-  }), (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
-    as: "label",
-    htmlFor: inputId,
-    id: menuTitleId
-  }, placeholder), (0,external_wp_element_namespaceObject.createElement)("input", {
+  }, (0,external_wp_element_namespaceObject.createElement)(MenuTitleSearchUI, {
     autoComplete: "off",
-    className: "components-text-control__input",
+    className: "components-navigation__menu-search-input",
     id: inputId,
-    onChange: event => onSearch(event.target.value),
+    onChange: value => onSearch(value),
     onKeyDown: onKeyDown,
     placeholder: placeholder,
+    onClose: onClose,
     ref: inputRef,
     type: "search",
     value: search
-  }), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    isSmall: true,
-    variant: "tertiary",
-    label: (0,external_wp_i18n_namespaceObject.__)('Close search'),
-    onClick: onClose
-  }, (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
-    icon: close_small
-  })));
+  }));
 }
 
 /* harmony default export */ var menu_title_search = (with_spoken_messages(MenuTitleSearch));
@@ -64048,10 +64451,10 @@ function NavigationMenuTitle({
   const searchButtonLabel = (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Search in %s'), title);
   return (0,external_wp_element_namespaceObject.createElement)(MenuTitleUI, {
     className: "components-navigation__menu-title"
-  }, !isSearching && (0,external_wp_element_namespaceObject.createElement)(MenuTitleHeadingUI, {
+  }, !isSearching && (0,external_wp_element_namespaceObject.createElement)(GroupTitleUI, {
     as: "h2",
     className: "components-navigation__menu-title-heading",
-    variant: "title.small"
+    level: 3
   }, (0,external_wp_element_namespaceObject.createElement)("span", {
     id: menuTitleId
   }, title), (hasSearch || titleAction) && (0,external_wp_element_namespaceObject.createElement)(MenuTitleActionsUI, null, titleAction, hasSearch && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
@@ -64714,6 +65117,21 @@ function Panel({
 
 /* harmony default export */ var panel = ((0,external_wp_element_namespaceObject.forwardRef)(Panel));
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-up.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const chevronUp = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"
+}));
+/* harmony default export */ var chevron_up = (chevronUp);
+//# sourceMappingURL=chevron-up.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/panel/body.js
 
 
@@ -66944,73 +67362,6 @@ function Sandbox({
   });
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/search-control/index.js
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-function SearchControl({
-  className,
-  onChange,
-  value,
-  label,
-  placeholder = (0,external_wp_i18n_namespaceObject.__)('Search'),
-  hideLabelFromVision = true,
-  help
-}) {
-  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(SearchControl);
-  const searchInput = (0,external_wp_element_namespaceObject.useRef)();
-  const id = `components-search-control-${instanceId}`;
-  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
-    label: label,
-    id: id,
-    hideLabelFromVision: hideLabelFromVision,
-    help: help,
-    className: classnames_default()(className, 'components-search-control')
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-search-control__input-wrapper"
-  }, (0,external_wp_element_namespaceObject.createElement)("input", {
-    ref: searchInput,
-    className: "components-search-control__input",
-    id: id,
-    type: "search",
-    placeholder: placeholder,
-    onChange: event => onChange(event.target.value),
-    autoComplete: "off",
-    value: value || ''
-  }), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-search-control__icon"
-  }, !!value && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    icon: close_small,
-    label: (0,external_wp_i18n_namespaceObject.__)('Reset search'),
-    onClick: () => {
-      onChange('');
-      searchInput.current.focus();
-    }
-  }), !value && (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
-    icon: library_search
-  }))));
-}
-
-/* harmony default export */ var search_control = (SearchControl);
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/snackbar/index.js
 
 
@@ -67427,6 +67778,75 @@ function TabPanel({
     className: "components-tab-panel__tab-content"
   }, children(selectedTab)));
 }
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/text-control/index.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * @typedef OwnProps
+ * @property {string}                  label                 Label for the control.
+ * @property {boolean}                 [hideLabelFromVision] Whether to accessibly hide the label.
+ * @property {string}                  value                 Value of the input.
+ * @property {string}                  [help]                Optional help text for the control.
+ * @property {string}                  [className]           Classname passed to BaseControl wrapper
+ * @property {(value: string) => void} onChange              Handle changes.
+ * @property {string}                  [type='text']         Type of the input.
+ */
+
+/** @typedef {OwnProps & import('react').ComponentProps<'input'>} Props */
+
+/**
+ *
+ * @param {Props}                                 props Props
+ * @param {import('react').Ref<HTMLInputElement>} [ref]
+ */
+
+function TextControl({
+  label,
+  hideLabelFromVision,
+  value,
+  help,
+  className,
+  onChange,
+  type = 'text',
+  ...props
+}, ref) {
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(TextControl);
+  const id = `inspector-text-control-${instanceId}`;
+
+  const onChangeValue =
+  /** @type {import('react').ChangeEvent<HTMLInputElement>} */
+  event => onChange(event.target.value);
+
+  return (0,external_wp_element_namespaceObject.createElement)(base_control, {
+    label: label,
+    hideLabelFromVision: hideLabelFromVision,
+    id: id,
+    help: help,
+    className: className
+  }, (0,external_wp_element_namespaceObject.createElement)("input", extends_extends({
+    className: "components-text-control__input",
+    type: type,
+    id: id,
+    value: value,
+    onChange: onChangeValue,
+    "aria-describedby": !!help ? id + '__help' : undefined,
+    ref: ref
+  }, props)));
+}
+
+/* harmony default export */ var text_control = ((0,external_wp_element_namespaceObject.forwardRef)(TextControl));
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/input/base.js
 /**
@@ -68252,21 +68672,6 @@ const reset_reset = (0,external_wp_element_namespaceObject.createElement)(extern
 }));
 /* harmony default export */ var library_reset = (reset_reset);
 //# sourceMappingURL=reset.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-vertical.js
-
-
-/**
- * WordPress dependencies
- */
-
-const moreVertical = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
-}));
-/* harmony default export */ var more_vertical = (moreVertical);
-//# sourceMappingURL=more-vertical.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/styles.js
 function tools_panel_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -68282,36 +68687,34 @@ function tools_panel_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have 
 
 
 const toolsPanelGrid = {
-  container: /*#__PURE__*/emotion_react_browser_esm_css("column-gap:", space(4), ";display:grid;grid-template-columns:1fr 1fr;row-gap:", space(6), ";" + ( true ? "" : 0),  true ? "" : 0),
+  spacing: /*#__PURE__*/emotion_react_browser_esm_css("column-gap:", space(4), ";row-gap:", space(6), ";" + ( true ? "" : 0),  true ? "" : 0),
   item: {
-    halfWidth:  true ? {
-      name: "957xgf",
-      styles: "grid-column:span 1"
-    } : 0,
     fullWidth:  true ? {
-      name: "1kmi7xh",
-      styles: "grid-column:span 2"
+      name: "18iuzk9",
+      styles: "grid-column:1/-1"
     } : 0
   }
 };
-const ToolsPanel = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.container, ";border-top:", config_values.borderWidth, " solid ", COLORS.gray[200], ";margin-top:-1px;padding:", space(4), ";" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanel = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.spacing, ";border-top:", config_values.borderWidth, " solid ", COLORS.gray[200], ";margin-top:-1px;padding:", space(4), ";" + ( true ? "" : 0),  true ? "" : 0);
 /**
  * Items injected into a ToolsPanel via a virtual bubbling slot will require
  * an inner dom element to be injected. The following rule allows for the
  * CSS grid display to be re-established.
  */
 
-const ToolsPanelWithInnerWrapper = /*#__PURE__*/emotion_react_browser_esm_css(">div:not( :first-of-type ){", toolsPanelGrid.container, " ", toolsPanelGrid.item.fullWidth, ";}" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanelWithInnerWrapper = columns => {
+  return /*#__PURE__*/emotion_react_browser_esm_css(">div:not( :first-of-type ){display:grid;grid-template-columns:", `repeat( ${columns}, 1fr )`, ";", toolsPanelGrid.spacing, " ", toolsPanelGrid.item.fullWidth, ";}" + ( true ? "" : 0),  true ? "" : 0);
+};
 const ToolsPanelHiddenInnerWrapper =  true ? {
   name: "huufmu",
   styles: ">div:not( :first-of-type ){display:none;}"
 } : 0;
-const ToolsPanelHeader = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, " gap:", space(2), ";.components-dropdown-menu{margin:", space(-1), " 0;height:", space(6), ";.components-dropdown-menu__toggle{padding:0;height:", space(6), ";min-width:", space(6), ";width:", space(6), ";}}" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanelHeader = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, " gap:", space(2), ";.components-dropdown-menu{margin:", space(-1), " 0;}&&&& .components-dropdown-menu__toggle{padding:0;min-width:", space(6), ";}" + ( true ? "" : 0),  true ? "" : 0);
 const ToolsPanelHeading =  true ? {
   name: "1pmxm02",
   styles: "font-size:inherit;font-weight:500;line-height:normal;&&{margin:0;}"
 } : 0;
-const ToolsPanelItem = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, " &.single-column{", toolsPanelGrid.item.halfWidth, ";}&>div,&>fieldset{padding-bottom:0;margin-bottom:0;max-width:100%;}&& ", base_control_styles_Wrapper, "{margin-bottom:0;", StyledField, "{margin-bottom:0;}}" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanelItem = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, "&>div,&>fieldset{padding-bottom:0;margin-bottom:0;max-width:100%;}&& ", base_control_styles_Wrapper, "{margin-bottom:0;", StyledField, "{margin-bottom:0;}}" + ( true ? "" : 0),  true ? "" : 0);
 const ToolsPanelItemPlaceholder =  true ? {
   name: "eivff4",
   styles: "display:none"
@@ -68504,6 +68907,9 @@ const component_ToolsPanelHeader = (props, forwardedRef) => {
     label: dropDownMenuLabelText,
     menuProps: {
       className: dropdownMenuClassName
+    },
+    toggleProps: {
+      isSmall: true
     }
   }, ({
     onClose = tools_panel_header_component_noop
@@ -68539,6 +68945,7 @@ const ConnectedToolsPanelHeader = contextConnect(component_ToolsPanelHeader, 'To
 
 
 
+const DEFAULT_COLUMNS = 2;
 
 const generateMenuItems = ({
   panelItems,
@@ -68640,7 +69047,7 @@ function useToolsPanel(props) {
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
     const hasDefaultMenuItems = (menuItems === null || menuItems === void 0 ? void 0 : menuItems.default) && !!Object.keys(menuItems === null || menuItems === void 0 ? void 0 : menuItems.default).length;
-    const wrapperStyle = hasInnerWrapper && ToolsPanelWithInnerWrapper;
+    const wrapperStyle = hasInnerWrapper && ToolsPanelWithInnerWrapper(DEFAULT_COLUMNS);
     const emptyStyle = !hasDefaultMenuItems && areAllOptionalControlsHidden && ToolsPanelHiddenInnerWrapper;
     return cx(ToolsPanel, wrapperStyle, emptyStyle, className);
   }, [className, hasInnerWrapper, menuItems, areAllOptionalControlsHidden]); // Toggle the checked state of a menu item which is then used to determine
@@ -68709,7 +69116,6 @@ function useToolsPanel(props) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/tools-panel/component.js
 
 
-
 /**
  * External dependencies
  */
@@ -68731,11 +69137,16 @@ const component_ToolsPanel = (props, forwardedRef) => {
     panelContext,
     resetAllItems,
     toggleItem,
-    ...toolsPanelProps
-  } = useToolsPanel(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, toolsPanelProps, {
+    className
+  } = useToolsPanel(props); // Props are not directly passed through to avoid exposing Grid props
+  // until agreement has been reached on how ToolsPanel layout should be
+  // handled.
+
+  return (0,external_wp_element_namespaceObject.createElement)(grid_component, {
+    columns: 2,
+    className: className,
     ref: forwardedRef
-  }), (0,external_wp_element_namespaceObject.createElement)(ToolsPanelContext.Provider, {
+  }, (0,external_wp_element_namespaceObject.createElement)(ToolsPanelContext.Provider, {
     value: panelContext
   }, (0,external_wp_element_namespaceObject.createElement)(tools_panel_header_component, {
     label: label,
@@ -69326,79 +69737,6 @@ function component_Truncate(props, forwardedRef) {
 const ConnectedTruncate = contextConnect(component_Truncate, 'Truncate');
 /* harmony default export */ var truncate_component = (ConnectedTruncate);
 //# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/v-stack/hook.js
-/**
- * Internal dependencies
- */
-
-
-/**
- *
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- */
-
-function useVStack(props) {
-  const {
-    expanded = false,
-    ...otherProps
-  } = useContextSystem(props, 'VStack');
-  const hStackProps = useHStack({
-    direction: 'column',
-    expanded,
-    ...otherProps
-  });
-  return hStackProps;
-}
-//# sourceMappingURL=hook.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/v-stack/component.js
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                        forwardedRef
- */
-
-function VStack(props, forwardedRef) {
-  const vStackProps = useVStack(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, vStackProps, {
-    ref: forwardedRef
-  }));
-}
-/**
- * `VStack` (or Vertical Stack) is a layout component that arranges child elements in a vertical line.
- *
- * `VStack` can render anything inside.
- *
- * @example
- * ```jsx
- * import {
- * 	__experimentalText as Text,
- * 	__experimentalVStack as VStack,
- * } from `@wordpress/components`;
- *
- * function Example() {
- * 	return (
- * 		<VStack>
- * 			<Text>Code</Text>
- * 			<Text>is</Text>
- * 			<Text>Poetry</Text>
- * 		</VStack>
- * 	);
- * }
- * ```
- */
-
-
-const ConnectedVStack = contextConnect(VStack, 'VStack');
-/* harmony default export */ var v_stack_component = (ConnectedVStack);
-//# sourceMappingURL=component.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/isolated-event-container/index.js
 
 
@@ -69430,126 +69768,6 @@ function stopPropagation(event) {
   }), children);
   /* eslint-enable jsx-a11y/no-static-element-interactions */
 }));
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
-// Unique ID creation requires a high quality random # generator. In the browser we therefore
-// require the crypto API and do not support built-in fallback to lower quality random number
-// generators (like Math.random()).
-// getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
-// find the complete implementation of crypto (msCrypto) on IE11.
-var getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
-var rnds8 = new Uint8Array(16);
-function rng() {
-  if (!getRandomValues) {
-    throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
-  }
-
-  return getRandomValues(rnds8);
-}
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/regex.js
-/* harmony default export */ var regex = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/validate.js
-
-
-function validate(uuid) {
-  return typeof uuid === 'string' && regex.test(uuid);
-}
-
-/* harmony default export */ var esm_browser_validate = (validate);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/stringify.js
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-
-var byteToHex = [];
-
-for (var stringify_i = 0; stringify_i < 256; ++stringify_i) {
-  byteToHex.push((stringify_i + 0x100).toString(16).substr(1));
-}
-
-function stringify_stringify(arr) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  // Note: Be careful editing this code!  It's been tuned for performance
-  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
-  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
-  // of the following:
-  // - One or more input array values don't map to a hex octet (leading to
-  // "undefined" in the uuid)
-  // - Invalid input values for the RFC `version` or `variant` fields
-
-  if (!esm_browser_validate(uuid)) {
-    throw TypeError('Stringified UUID is invalid');
-  }
-
-  return uuid;
-}
-
-/* harmony default export */ var esm_browser_stringify = (stringify_stringify);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/v4.js
-
-
-
-function v4(options, buf, offset) {
-  options = options || {};
-  var rnds = options.random || (options.rng || rng)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
-  rnds[6] = rnds[6] & 0x0f | 0x40;
-  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
-
-  if (buf) {
-    offset = offset || 0;
-
-    for (var i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-
-    return buf;
-  }
-
-  return esm_browser_stringify(rnds);
-}
-
-/* harmony default export */ var esm_browser_v4 = (v4);
-;// CONCATENATED MODULE: ./packages/components/build-module/style-provider/index.js
-
-
-/**
- * External dependencies
- */
-
-
-
-
-const uuidCache = new Set();
-const memoizedCreateCacheWithContainer = memize_default()(container => {
-  // emotion only accepts alphabetical and hyphenated keys so we just strip the numbers from the UUID. It _should_ be fine.
-  let key = esm_browser_v4().replace(/[0-9]/g, '');
-
-  while (uuidCache.has(key)) {
-    key = esm_browser_v4().replace(/[0-9]/g, '');
-  }
-
-  uuidCache.add(key);
-  return emotion_cache_browser_esm({
-    container,
-    key
-  });
-});
-function StyleProvider({
-  children,
-  document
-}) {
-  if (!document) {
-    return null;
-  }
-
-  const cache = memoizedCreateCacheWithContainer(document.head);
-  return (0,external_wp_element_namespaceObject.createElement)(CacheProvider, {
-    value: cache
-  }, children);
-}
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/z-stack/styles.js
 
