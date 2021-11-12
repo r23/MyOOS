@@ -25,12 +25,19 @@ switch ($_GET['action']) {
 
 	case 'url':  
 		if (isset($_GET['goto']) && oos_is_not_null($_GET['goto'])) {
+			
+			$sgoto = oos_prepare_input($_GET['goto']);
+	
+			if ( empty( $sgoto ) || !is_string( $sgoto ) ) {
+				oos_redirect(oos_href_link($aContents['403']));
+			}
+			
 			$products_descriptiontable = $oostable['products_description'];
-			$check_sql = "SELECT products_url FROM $products_descriptiontable WHERE products_url = '" . oos_db_input($_GET['goto']) . "'";
+			$check_sql = "SELECT products_url FROM $products_descriptiontable WHERE products_url = '" . oos_db_input($sgoto) . "'";
 			$check_result = $dbconn->Execute($check_sql);
 
 			if ($check_result->RecordCount() >= 1) {
-				oos_redirect('http://' . $_GET['goto']);
+				oos_redirect('https://' . $sgoto);
 			}
         }
 		break;
