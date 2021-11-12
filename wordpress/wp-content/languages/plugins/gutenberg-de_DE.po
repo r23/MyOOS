@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-11-11 07:28:46+0000\n"
+"PO-Revision-Date: 2021-11-12 13:45:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,277 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Gutenberg - Stable (latest release)\n"
+
+#: build/block-library/blocks/post-comment/block.json
+msgctxt "block description"
+msgid "This block is deprecated. Please use the Comments Query Loop block instead."
+msgstr "Dieser Block ist veraltet. Bitte verwende stattdessen den Block Kommentar-Abfrageschleife."
+
+#: build/block-library/blocks/post-comment/block.json
+msgctxt "block title"
+msgid "Post Comment (deprecated)"
+msgstr "Kommentar veröffentlichen (veraltet)"
+
+#: build/block-library/blocks/pattern/block.json
+msgctxt "block description"
+msgid "Show a block pattern."
+msgstr "Block-Vorlage anzeigen."
+
+#: build/block-library/blocks/pattern/block.json
+msgctxt "block title"
+msgid "Pattern"
+msgstr "Vorlage"
+
+#: build/block-library/blocks/navigation-area/block.json
+msgctxt "block keyword"
+msgid "location"
+msgstr "Position"
+
+#: build/block-library/blocks/navigation-area/block.json
+msgctxt "block description"
+msgid "Define a navigation area for your theme. The navigation block associated with this area will be automatically displayed."
+msgstr "Lege einen Navigationsbereich für dein Theme fest. Der diesem Bereich zugeordnete Navigations-Block wird automatisch angezeigt."
+
+#: build/block-library/blocks/navigation-area/block.json
+msgctxt "block title"
+msgid "Navigation Area"
+msgstr "Navigationsbereich"
+
+#: build/block-library/blocks/comments-query-loop/block.json
+msgctxt "block description"
+msgid "An advanced block that allows displaying post comments based on different query parameters and visual configurations."
+msgstr "Ein erweiterter Block, der das Anzeigen von Beitragskommentaren anhand verschiedener Abfrage-Parameter und visueller Konfigurationen erlaubt."
+
+#: build/block-library/blocks/comments-query-loop/block.json
+msgctxt "block title"
+msgid "Comments Query Loop"
+msgstr "Kommentar-Abfrageschleife"
+
+#: build/block-library/blocks/comment-template/block.json
+msgctxt "block description"
+msgid "Contains the block elements used to render a comment, like the title, date, author, avatar and more."
+msgstr "Enthält die Block-Elemente für das Anzeigen eines Kommentars wie Titel, Datum, Autor, Avatar und mehr."
+
+#: build/block-library/blocks/comment-template/block.json
+msgctxt "block title"
+msgid "Comment Template"
+msgstr "Kommentar-Template"
+
+#: build/block-library/blocks/comment-reply-link/block.json
+msgctxt "block description"
+msgid "Displays a link to reply to a comment."
+msgstr "Zeigt einen Link zum Antworten auf einen Kommentar an."
+
+#: build/block-library/blocks/comment-reply-link/block.json
+msgctxt "block title"
+msgid "Comment Reply Link"
+msgstr "Kommentar-Antwort-Link"
+
+#: build/block-library/blocks/comment-edit-link/block.json
+msgctxt "block description"
+msgid "Displays a link to edit the comment in the WordPress Dashboard. This link is only visible to users with the edit comment capability."
+msgstr "Zeigt einen Link an, um den Kommentar im WordPress-Dashboard zu bearbeiten. Dieser Link ist nur für Benutzer sichtbar, die Kommentare bearbeiten dürfen."
+
+#: build/block-library/blocks/comment-edit-link/block.json
+msgctxt "block title"
+msgid "Comment Edit Link"
+msgstr "Kommentar-bearbeiten-Link"
+
+#: build/block-library/blocks/comment-date/block.json
+msgctxt "block description"
+msgid "Add the date of this comment."
+msgstr "Das Datum dieses Kommentars hinzufügen."
+
+#: build/block-library/blocks/comment-content/block.json
+msgctxt "block description"
+msgid "Displays the contents of a comment."
+msgstr "Zeigt den Inhalt eines Kommentars an."
+
+#: build/block-library/blocks/comment-author-name/block.json
+msgctxt "block description"
+msgid "Add the author name of this comment."
+msgstr "Den Autor dieses Kommentars hinzufügen."
+
+#: build/block-library/blocks/comment-author-name/block.json
+msgctxt "block title"
+msgid "Comment Author Name"
+msgstr "Kommentar-Autorenname"
+
+#: build/block-library/blocks/comment-author-avatar/block.json
+msgctxt "block description"
+msgid "Add the avatar of this comment's author."
+msgstr "Den Autoren-Avatar dieses Kommentars hinzufügen."
+
+#: build/block-library/index.js:6723
+#: build/block-library/blocks/comment-author-avatar/block.json
+msgctxt "block title"
+msgid "Comment Author Avatar"
+msgstr "Kommentarautor-Avatar"
+
+#. translators: %s: the name of the menu, e.g. "Main Menu".
+#: lib/navigation.php:646
+msgid "Classic menu: %s"
+msgstr "Klassisches Menü: %s"
+
+#: lib/navigation.php:413
+msgid "Navigation Menus list"
+msgstr "Liste der Navigationsmenüs"
+
+#: lib/navigation.php:412
+msgid "Navigation Menus list navigation"
+msgstr "Navigation der Navigationsmenüs-Liste"
+
+#: lib/navigation.php:411
+msgid "Filter Navigation Menu list"
+msgstr "Navigationsmenü-Liste filtern"
+
+#: lib/navigation.php:409
+msgid "Uploaded to this Navigation Menu"
+msgstr "In dieses Navigationsmenü hochgeladen"
+
+#: lib/navigation.php:408
+msgid "Insert into Navigation Menu"
+msgstr "Ins Navigationsmenü einfügen"
+
+#: lib/navigation.php:407
+msgid "Navigation Menu archives"
+msgstr "Navigationsmenü-Archive"
+
+#: lib/navigation.php:406
+msgid "No Navigation Menu found in Trash."
+msgstr "Kein Navigationsmenü im Papierkorb gefunden."
+
+#: lib/navigation.php:405
+msgid "No Navigation Menu found."
+msgstr "Kein Navigationsmenü gefunden."
+
+#: lib/navigation.php:404
+msgid "Parent Navigation Menu:"
+msgstr "Übergeordnetes Navigationsmenü: "
+
+#: lib/navigation.php:403
+msgid "Search Navigation Menus"
+msgstr "Navigationsmenüs durchsuchen"
+
+#: lib/navigation.php:402
+msgid "All Navigation Menus"
+msgstr "Alle Navigationsmenüs"
+
+#: lib/navigation.php:401
+msgid "View Navigation Menu"
+msgstr "Navigationsmenü anzeigen"
+
+#: lib/navigation.php:400
+msgid "Edit Navigation Menu"
+msgstr "Navigationsmenü bearbeiten"
+
+#: lib/navigation.php:399
+msgid "New Navigation Menu"
+msgstr "Neues Navigationsmenü"
+
+#: lib/navigation.php:398
+msgid "Add New Navigation Menu"
+msgstr "Neues Navigationsmenü hinzufügen"
+
+#: lib/navigation.php:397
+msgctxt "Navigation Menu"
+msgid "Add New"
+msgstr "Neues hinzufügen"
+
+#: lib/navigation.php:396
+msgctxt "Admin Menu text"
+msgid "Navigation Menus"
+msgstr "Navigationsmenüs"
+
+#. translators: %s: "beta" label.
+#: lib/init.php:102
+msgid "Editor %s"
+msgstr "Editor %s"
+
+#: lib/init.php:99
+msgid "Editor (beta)"
+msgstr "Editor (Beta)"
+
+#. translators: 1: Path to the JSON file, 2: Error message.
+#: lib/compat/wordpress-5.9/json-file-decode.php:43
+msgid "Error when decoding a JSON file at path %1$s: %2$s"
+msgstr "Fehler beim Dekodieren einer JSON-Datei unter %1$s: %2$s"
+
+#. translators: %s: Path to the JSON file.
+#: lib/compat/wordpress-5.9/json-file-decode.php:29
+msgid "File %s doesn't exist!"
+msgstr "Die Datei %s existiert nicht!"
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:413
+msgid "Theme not found."
+msgstr "Das Theme wurde nicht gefunden."
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:376
+msgid "HTML title for the post, transformed for display."
+msgstr "HTML-Titel für den Beitrag, für die Anzeige transformiert."
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:371
+msgid "Title for the global styles variation, as it exists in the database."
+msgstr "Titel für die globale Styles-Variation, wie er in der Datenbank existiert."
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:365
+msgid "Title of the global styles variation."
+msgstr "Titel der globalen Styles-Variation."
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:360
+msgid "Global settings."
+msgstr "Globale Einstellungen"
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:355
+msgid "Global styles."
+msgstr "Globale Styles."
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:349
+msgid "ID of global styles config."
+msgstr "ID der Globale-Styles-Konfiguration."
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:114
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:139
+msgid "No global styles config exist with that id."
+msgstr "Es existiert keine Globale-Styles-Konfiguration mit dieser ID."
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:84
+msgid "Sorry, you are not allowed to access the global styles on this site."
+msgstr "Du bist leider nicht berechtigt, auf die globalen Styles auf dieser Website zuzugreifen."
+
+#: lib/compat/wordpress-5.9/class-gutenberg-rest-global-styles-controller.php:38
+msgid "The theme identifier"
+msgstr "Bezeichnung des Themes"
+
+#: lib/class-wp-rest-block-navigation-areas-controller.php:262
+msgid "The ID of the assigned navigation."
+msgstr "Die ID der zugewiesenen Navigation."
+
+#: lib/class-wp-rest-block-navigation-areas-controller.php:256
+msgid "The description of the navigation area."
+msgstr "Die Beschreibung des Navigationsbereichs."
+
+#: lib/class-wp-rest-block-navigation-areas-controller.php:250
+msgid "The name of the navigation area."
+msgstr "Der Name des Navigationsbereichs."
+
+#: lib/class-wp-rest-block-navigation-areas-controller.php:125
+msgid "Invalid navigation area."
+msgstr "Ungültiger Navigationsbereich."
+
+#: lib/class-wp-rest-block-navigation-areas-controller.php:84
+#: lib/class-wp-rest-block-navigation-areas-controller.php:120
+msgid "Sorry, you are not allowed to view navigation areas."
+msgstr "Du bist leider nicht berechtigt, Navigationsbereiche anzuzeigen."
+
+#: lib/class-wp-rest-block-navigation-areas-controller.php:50
+msgid "An alphanumeric identifier for the navigation area."
+msgstr "Ein alphanumerischer Bezeichner für den Navigationsbereich."
+
+#. translators: %s is the Comment Author name
+#: build/block-library/blocks/comment-author-avatar.php:34
+msgid "%s Avatar"
+msgstr "Avatar von %s"
 
 #: build/block-library/blocks/quote/block.json
 msgctxt "block style label"
