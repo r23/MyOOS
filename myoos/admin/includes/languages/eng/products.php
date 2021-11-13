@@ -24,6 +24,8 @@ define('HEADING_TITLE', 'New Product');
 define('TEXT_NEW_PRODUCT', 'New Product in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Products');
 define('TEXT_PRODUCTS_DATA', 'Productsdata');
+define('TEXT_PRODUCTS_INFORMATION_OBLIGATIONS', 'Information obligations');
+define('TEXT_HEADER_INFORMATION_OBLIGATIONS', 'Information obligations');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
 define('TEXT_PRODUCTS_TAX_CLASS', 'Tax Class:');
 define('TEXT_PRODUCTS_AVERAGE_RATING', 'Average Rating:');

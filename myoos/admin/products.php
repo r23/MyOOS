@@ -629,6 +629,9 @@ function calcBasePriceFactor() {
                         <a class="nav-link" href="#data" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_DATA; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
+                        <a class="nav-link" href="#obligation" aria-controls="obligation" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS_INFORMATION_OBLIGATIONS; ?></a>
+                     </li>					 
+                     <li class="nav-item" role="presentation">
                         <a class="nav-link" href="#social" aria-controls="data" role="tab" data-toggle="tab"><?php echo TEXT_SOCIAL; ?></a>
                      </li>					 
                      <li class="nav-item" role="presentation">
@@ -1034,7 +1037,15 @@ updateWithTax();
 
 
                      </div>
+##
+                     <div class="tab-pane" id="obligation" role="tabpanel">
 
+						<div class="col-12 mt-3">
+							<h2><?php echo TEXT_HEADER_INFORMATION_OBLIGATIONS; ?></h2>
+						</div>
+                     </div>
+					 
+					 
 					<div class="tab-pane" id="social" role="tabpanel">
 
 						<div class="col-12 mt-3">
