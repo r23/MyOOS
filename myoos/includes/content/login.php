@@ -31,21 +31,21 @@ if ( $bNecessary === false ) {
 }
 
 
-// start the session
-if ( $session->hasStarted() === false ) $session->start();
-
-if (!isset($_SESSION['user'])) {
-	$_SESSION['user'] = new oosUser();
-	$_SESSION['user']->anonymous();
-}
-
-
 // require  the password crypto functions
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_login.php';
   
 if ( isset($_POST['action']) && ($_POST['action'] == 'process') && 
 	( isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) ){
+
+
+	// start the session
+	if ( $session->hasStarted() === false ) $session->start();
+
+	if (!isset($_SESSION['user'])) {
+		$_SESSION['user'] = new oosUser();
+		$_SESSION['user']->anonymous();
+	}
 
     $email_address = oos_prepare_input($_POST['email_address']);
     $password = oos_prepare_input($_POST['password']);
@@ -156,7 +156,7 @@ $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['login']));
 $sCanonical = oos_href_link($aContents['login'], '', false, true);
 
 if (isset($bError) && ($bError == true)) {
-    $sErrorMessage = $aLang['text_login_error'];
+    $_SESSION['error_message'] = $aLang['text_login_error'];
 } 
   
 $aTemplate['page'] = $sTheme . '/page/user_login.html';
