@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Cachify - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-03-29 19:19:31+0000\n"
+"PO-Revision-Date: 2021-11-14 16:19:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Cachify - Stable (latest release)\n"
+
+#: inc/setup/cachify.hdd.htaccess.php:81
+msgid "In case of special character errors, you can add the following to the .htaccess file:"
+msgstr "Im Falle von Sonderzeichenfehlern, kannst du die .htaccess-Datei wie folgt ergänzen:"
 
 #: inc/setup/cachify.hdd.htaccess.php:75
 msgid "If there are partial errors in the redirects within the blog, the shutdown of the Apache Content Cache can help:"
@@ -31,7 +35,7 @@ msgstr ".htaccess-HDD-Einrichtung"
 msgid "nginx HDD setup"
 msgstr "nginx-HDD-Einrichtung"
 
-#: inc/setup/cachify.memcached.nginx.php:91 inc/setup/cachify.hdd.nginx.php:83
+#: inc/setup/cachify.hdd.nginx.php:83 inc/setup/cachify.memcached.nginx.php:91
 msgid "You might need to adjust the location directives to your needs."
 msgstr "Möglicherweise musst du die Speicherortsrichtlinien an deine Bedürfnisse anpassen."
 
@@ -41,16 +45,17 @@ msgid "If you have errors please try to change %1$s to %2$s This forces IPv4 bec
 msgstr "Wenn du Fehler feststellst, versuche bitte %1$s mit %2$s zu ersetzen. Dies erzwingt IPv4, da einige Server, die IPv4 und IPv6 zulassen, so konfiguriert sind, dass sie memcached nur an IPv4 binden."
 
 #. translators: variable names
-#: inc/setup/cachify.memcached.nginx.php:34 inc/setup/cachify.hdd.nginx.php:34
+#. translators: variable names
+#: inc/setup/cachify.hdd.nginx.php:34 inc/setup/cachify.memcached.nginx.php:34
 msgid "For domains with FQDN, the variable %1$s must be used instead of %2$s."
 msgstr "Für Domains mit FQDN muss die Variable %1$s anstelle von %2$s verwendet werden."
 
-#: inc/setup/cachify.memcached.nginx.php:26
 #: inc/setup/cachify.hdd.htaccess.php:64 inc/setup/cachify.hdd.nginx.php:26
+#: inc/setup/cachify.memcached.nginx.php:26
 msgid "Notes"
 msgstr "Hinweise"
 
-#: inc/setup/cachify.memcached.nginx.php:19 inc/setup/cachify.hdd.nginx.php:19
+#: inc/setup/cachify.hdd.nginx.php:19 inc/setup/cachify.memcached.nginx.php:19
 msgid "Please add the following lines to your nginx.conf"
 msgstr "Bitte füge die folgenden Zeilen zu deiner nginx.conf hinzu"
 
@@ -86,49 +91,49 @@ msgstr "Häufige Fragen"
 msgid "https://cachify.pluginkollektiv.org/documentation/faq/"
 msgstr "https://cachify.pluginkollektiv.org/de/documentation/faq/"
 
-#: inc/class-cachify.php:1656 inc/class-cachify.php:1662
-#: inc/class-cachify.php:1668
+#: inc/class-cachify.php:1655 inc/class-cachify.php:1661
+#: inc/class-cachify.php:1667
 msgid "Setup"
 msgstr "Einrichtung"
 
-#: inc/class-cachify.php:1566
+#: inc/class-cachify.php:1565
 msgid "The server configuration file (e.g. .htaccess) needs to be adjusted. Please have a look at the setup tab."
 msgstr "Die Server-Konfigurationsdatei (z.&nbsp;B. .htaccess) muss angepasst werden. Bitte wirf einen Blick auf den Einrichtungs-Tab."
 
-#: inc/class-cachify.php:1508
+#: inc/class-cachify.php:1521
 msgid "HTML + Inline JavaScript"
 msgstr "HTML + Inline-JavaScript"
 
-#: inc/class-cachify.php:1507
+#: inc/class-cachify.php:1520
 msgid "HTML"
 msgstr "HTML"
 
-#: inc/class-cachify.php:1475
+#: inc/class-cachify.php:1488
 msgid "Memcached"
 msgstr "Memcached"
 
-#: inc/class-cachify.php:1473
+#: inc/class-cachify.php:1486
 msgid "APC"
 msgstr "APC"
 
-#: inc/class-cachify.php:675
+#: inc/class-cachify.php:688
 msgid "Flush site cache"
 msgstr "Website-Cache leeren"
 
 #. translators: %s: cache size
-#: inc/class-cachify.php:591
+#: inc/class-cachify.php:604
 msgid "%s Cache"
 msgstr "%s Cache"
 
-#: inc/class-cachify.php:589
+#: inc/class-cachify.php:602
 msgid "Empty Cache"
 msgstr "Leerer Cache"
 
-#: inc/cachify.settings-footer.php:15 inc/class-cachify.php:556
+#: inc/cachify.settings-footer.php:15 inc/class-cachify.php:569
 msgid "Support"
 msgstr "Support"
 
-#: inc/cachify.settings-footer.php:16 inc/class-cachify.php:555
+#: inc/cachify.settings-footer.php:16 inc/class-cachify.php:568
 msgid "Donate"
 msgstr "Spenden"
 
@@ -181,8 +186,8 @@ msgstr "Leere den Cache, indem du auf den Button unten oder auf das Symbol %1$s 
 msgid "HDD cache will only expire as you update posts or flush it yourself."
 msgstr "Der HDD-Cache verfällt nur dann, wenn du Beiträge aktualisierst oder ihn selbst leerst."
 
-#: inc/class-cachify-hdd.php:144 inc/class-cachify-db.php:198
-#: inc/class-cachify-apc.php:146 inc/class-cachify-memcached.php:192
+#: inc/class-cachify-apc.php:149 inc/class-cachify-db.php:201
+#: inc/class-cachify-hdd.php:147 inc/class-cachify-memcached.php:195
 msgid "Generated"
 msgstr "Generiert"
 
@@ -238,35 +243,35 @@ msgstr "Cache-Ablauf"
 msgid "Cache method"
 msgstr "Cache-Methode"
 
-#: inc/class-cachify.php:1506
+#: inc/class-cachify.php:1519
 msgid "No minify"
 msgstr "Keine Minimierung"
 
-#: inc/class-cachify.php:1474
+#: inc/class-cachify.php:1487
 msgid "Hard disk"
 msgstr "Festplatte"
 
-#: inc/class-cachify.php:1472
+#: inc/class-cachify.php:1485
 msgid "Database"
 msgstr "Datenbank"
 
 #. Plugin Name of the plugin
-#: inc/class-cachify.php:1450 inc/class-cachify.php:1451
+#: inc/class-cachify.php:1463 inc/class-cachify.php:1464
 msgid "Cachify"
 msgstr "Cachify"
 
-#: inc/class-cachify.php:787
+#: inc/class-cachify.php:800
 msgid "Cachify cache is flushed."
 msgstr "Der Cachify-Cache wurde geleert."
 
-#: inc/class-cachify.php:681 inc/cachify.settings.php:47
+#: inc/cachify.settings.php:47 inc/class-cachify.php:694
 msgid "Flush the cachify cache"
 msgstr "Cachify-Cache leeren"
 
-#: inc/class-cachify.php:606
+#: inc/class-cachify.php:619
 msgid "Caching method"
 msgstr "Caching-Methode"
 
-#: inc/class-cachify.php:530 inc/class-cachify.php:1648
+#: inc/class-cachify.php:543 inc/class-cachify.php:1647
 msgid "Settings"
 msgstr "Einstellungen"
