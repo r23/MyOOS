@@ -20,7 +20,7 @@
   /** ensure this file is being included by a parent file */
   defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
-  class oos_event_spezials {
+  class oos_event_cart {
 
     var $name;
     var $description;
@@ -37,8 +37,8 @@
     */
     public function __construct() {
 
-      $this->name          = PLUGIN_EVENT_SPEZIALS_NAME;
-      $this->description   = PLUGIN_EVENT_SPEZIALS_DESC;
+      $this->name          = PLUGIN_EVENT_CART_NAME;
+      $this->description   = PLUGIN_EVENT_CART_DESC;
       $this->uninstallable = true;
       $this->author        = 'MyOOS Development Team';
       $this->version       = '2.0';
@@ -51,11 +51,13 @@
     }
 
     static function create_plugin_instance() {
+
+		if (!is_numeric(AUTOMATICALLY_DELETE_DAY)) return false;
 		
 		// Get database information
 		$dbconn =& oosDBGetConn();
-		$oostable =& oosDBGetTables();	
-		
+		$oostable =& oosDBGetTables();
+
 		$configurationtable = $oostable['configuration'];
 		$sql = "SELECT configuration_value FROM $configurationtable WHERE configuration_key = 'CRON_CART_RUN'";
 		$prevent_result = $dbconn->Execute($sql);
@@ -73,7 +75,7 @@
 			return false;
 		}
 
-		$sd = mktime(0, 0, 0, date("m"), date("d")-1, date("Y"));
+		$sd = mktime(0, 0, 0, date("m"), date("d")-AUTOMATICALLY_DELETE_DAY, date("Y"));
 
 		$customers_baskettable = $oostable['customers_basket'];
 		$customers_basket_attributestable = $oostable['customers_basket_attributes'];
@@ -81,17 +83,16 @@
 
 		if ($basket_result->RecordCount() > 0) {
 			while($basket = $basket_result->fields) {
-			#	echo $basket['customers_id'];
-			#	echo '<br>';
-			$dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($basket['customers_id']) . "'");
-			$dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($basket['customers_id']) . "'");
+				#	echo $basket['customers_id'];
+				#	echo '<br>';
+				$dbconn->Execute("DELETE FROM $customers_baskettable WHERE customers_id = '" . intval($basket['customers_id']) . "'");
+				$dbconn->Execute("DELETE FROM $customers_basket_attributestable WHERE customers_id = '" . intval($basket['customers_id']) . "'");
 
-			// Move that ADOdb pointer!
-			$basket_result->MoveNext();
+				// Move that ADOdb pointer!
+				$basket_result->MoveNext();
+			}
 		}
-	}
-
-      return true;
+		return true;
     }
 
     function install() {
@@ -104,6 +105,7 @@
 
       $configurationtable = $oostable['configuration'];
       $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('CRON_CART_RUN', '" . date("Ymd") . "', 6, 4, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
+      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('AUTOMATICALLY_DELETE_DAY', '230', 6, 5, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
 
       return true;
     }
@@ -115,13 +117,14 @@
       $oostable =& oosDBGetTables();
 
       $configurationtable = $oostable['configuration'];
+	  $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key = 'CRON_CART_RUN'");
       $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->config_item()) . "')");
 
       return true;
     }
 
     function config_item() {
-      return array('CRON_CART_RUN', 'MAX_DISPLAY_NEW_SPEZILAS', 'MAX_RANDOM_SELECT_SPECIALS', 'MAX_DISPLAY_SPECIAL_PRODUCTS');
+      return array('AUTOMATICALLY_DELETE_DAY');
 
     }
 }
