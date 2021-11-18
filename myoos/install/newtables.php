@@ -945,6 +945,7 @@ $flds = "
   products_setting I1 NOTNULL DEFAULT '0',
   products_tax_class_id I NOTNULL DEFAULT '0',
   products_units_id I NOTNULL DEFAULT '0',
+  products_old_electrical_equipment I1 NOTNULL DEFAULT '0', 
   manufacturers_id I NULL,
   permissions I1 NOTNULL DEFAULT '0',
   products_ordered I NOTNULL DEFAULT '0',

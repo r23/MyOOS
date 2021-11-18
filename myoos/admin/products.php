@@ -113,6 +113,7 @@ if (!empty($action)) {
                                     'products_setting' => oos_db_prepare_input($_POST['products_setting']),
                                     'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
                                     'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : DEFAULT_PRODUCTS_UNITS_ID),
+                                    'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? intval($_POST['products_old_electrical_equipment']) : 0),									
                                     'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
                                     'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
                                     'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
@@ -375,6 +376,7 @@ if ($action == 'new_product') {
                        'products_status' => DEFAULT_PRODUTS_STATUS_ID,
                        'products_tax_class_id' => DEFAULT_TAX_CLASS_ID,
 					   'products_units_id' => DEFAULT_PRODUCTS_UNITS_ID,
+					   'products_old_electrical_equipment' => 0, 
                        'manufacturers_id' => '');
 
     $pInfo = new objectInfo($parameters);	  
@@ -392,7 +394,7 @@ if ($action == 'new_product') {
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
                                                  p.products_status, p.products_setting, p.products_tax_class_id, p.products_units_id,
-												 p.manufacturers_id, p.products_price_list,
+												 p,products_old_electrical_equipment, p.manufacturers_id, p.products_price_list,
                                                  p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
@@ -1043,6 +1045,18 @@ updateWithTax();
 						<div class="col-12 mt-3">
 							<h2><?php echo TEXT_HEADER_INFORMATION_OBLIGATIONS; ?></h2>
 						</div>
+
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_old_electrical_equipment', '', (isset($pInfo->products_old_electrical_equipment) ? $pInfo->products_old_electrical_equipment : '0')); ?></div>
+                           </div>
+                        </fieldset>
+
+
+						
+				
+						
                      </div>
 					 
 					 
@@ -1320,7 +1334,7 @@ updateWithTax();
 <!-- body_text_eof //-->
 <?php
   } elseif ($action == 'new_product_preview') {
-      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . intval($pID) . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+      $product_result = $dbconn->Execute("SELECT pd.products_name, pd.products_description, pd.products_description_meta, pd.products_url, p.products_id, p.products_quantity, p.products_reorder_level, p.products_model, p.products_replacement_product_id, p.products_ean, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '%Y-%m-%d') as products_date_available, p.products_status, p.products_tax_class_id, p.products_units_id, p.products_old_electrical_equipment, p.manufacturers_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE p.products_id = '" . intval($pID) . "' and p.products_id = pd.products_id and pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
       $product = $product_result->fields;
 
       $pInfo = new objectInfo($product);

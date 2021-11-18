@@ -238,6 +238,7 @@ if ($result === false) {
 }
 
 
+$table = $prefix_table . 'products';
 $result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `products_units_id` INT( 11 ) DEFAULT '0' NOT NULL AFTER `products_tax_class_id`");
 if ($result === false) {
   echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
