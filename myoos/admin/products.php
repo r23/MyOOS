@@ -211,7 +211,7 @@ if (!empty($action)) {
 			}
 
 			for ($i = 1, $n = $nImageCounter+1; $i < $n; $i++) {
-				if ( ($_POST['remove_products_image'][$i] == 'yes') && (isset($_POST['products_previous_large_image'][$i])) ) {
+				if ( (isset($_POST['remove_products_image']) && ($_POST['remove_products_image'][$i] == 'yes')) && (isset($_POST['products_previous_large_image'][$i])) ) {
 					$products_previous_large_image = oos_db_prepare_input($_POST['products_previous_large_image'][$i]);
 
 					$dbconn->Execute("DELETE FROM " . $oostable['products_gallery'] . " WHERE image_name = '" . oos_db_input($products_previous_large_image) . "'");		
@@ -1052,10 +1052,6 @@ updateWithTax();
                               <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_old_electrical_equipment', '', (isset($pInfo->products_old_electrical_equipment) ? $pInfo->products_old_electrical_equipment : '0')); ?></div>
                            </div>
                         </fieldset>
-
-
-						
-				
 						
                      </div>
 					 
