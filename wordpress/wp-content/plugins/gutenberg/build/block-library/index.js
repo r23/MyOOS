@@ -9479,6 +9479,7 @@ const cover_transforms_transforms = {
       var _style$color;
 
       return (0,external_wp_blocks_namespaceObject.createBlock)('core/cover', {
+        dimRatio: 50,
         url,
         alt,
         align,
@@ -9504,6 +9505,7 @@ const cover_transforms_transforms = {
       id,
       anchor
     }) => (0,external_wp_blocks_namespaceObject.createBlock)('core/cover', {
+      dimRatio: 50,
       url: src,
       align,
       id,
@@ -13723,7 +13725,7 @@ function GalleryEdit(props) {
   useMobileWarning(newImages);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     newImages === null || newImages === void 0 ? void 0 : newImages.forEach(newImage => {
-      updateBlockAttributes(newImage.clientId, { ...buildImageAttributes(false, newImage.attributes),
+      updateBlockAttributes(newImage.clientId, { ...buildImageAttributes(newImage.attributes),
         id: newImage.id,
         align: undefined
       });
@@ -13750,25 +13752,23 @@ function GalleryEdit(props) {
    * it already existed in the gallery. If the image is in fact new, we need
    * to apply the gallery's current settings to the image.
    *
-   * @param {Object} existingBlock Existing Image block that still exists after gallery update.
-   * @param {Object} image         Media object for the actual image.
-   * @return {Object}               Attributes to set on the new image block.
+   * @param {Object} imageAttributes Media object for the actual image.
+   * @return {Object}                Attributes to set on the new image block.
    */
 
-  function buildImageAttributes(existingBlock, image) {
-    if (existingBlock) {
-      return existingBlock.attributes;
-    }
-
+  function buildImageAttributes(imageAttributes) {
+    const image = imageAttributes.id ? (0,external_lodash_namespaceObject.find)(imageData, {
+      id: imageAttributes.id
+    }) : null;
     let newClassName;
 
-    if (image.className && image.className !== '') {
-      newClassName = image.className;
+    if (imageAttributes.className && imageAttributes.className !== '') {
+      newClassName = imageAttributes.className;
     } else {
       newClassName = preferredStyle ? `is-style-${preferredStyle}` : undefined;
     }
 
-    return { ...pickRelevantMediaFiles(image, sizeSlug),
+    return { ...pickRelevantMediaFiles(imageAttributes, sizeSlug),
       ...getHrefAndDestination(image, linkTo),
       ...getUpdatedLinkTargetSettings(linkTarget, attributes),
       className: newClassName,
@@ -14494,21 +14494,22 @@ const updateGallery = ({
       sizeSlug,
       linkTo,
       images,
-      caption
+      caption,
+      columns
     }
   } = getBlock(clientId);
 
   switch (linkTo) {
     case 'post':
-      link = v1_constants_LINK_DESTINATION_ATTACHMENT;
+      link = LINK_DESTINATION_ATTACHMENT;
       break;
 
     case 'file':
-      link = v1_constants_LINK_DESTINATION_MEDIA;
+      link = LINK_DESTINATION_MEDIA;
       break;
 
     default:
-      link = v1_constants_LINK_DESTINATION_NONE;
+      link = LINK_DESTINATION_NONE;
       break;
   }
 
@@ -14522,7 +14523,8 @@ const updateGallery = ({
   replaceBlocks(clientId, (0,external_wp_blocks_namespaceObject.createBlock)('core/gallery', {
     sizeSlug,
     linkTo: link,
-    caption
+    caption,
+    columns
   }, innerBlocks));
 };
 function UpdateGalleryModal({
