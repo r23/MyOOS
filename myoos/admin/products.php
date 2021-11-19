@@ -382,6 +382,8 @@ if ($action == 'new_product') {
     $pInfo = new objectInfo($parameters);	  
 	  
 	if (isset($_GET['pID']) && empty($_POST)) {	  
+	    $pID = intval($_GET['pID']);
+
 		$productstable = $oostable['products'];
 		$products_descriptiontable = $oostable['products_description'];
 		$product_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description,
@@ -394,7 +396,7 @@ if ($action == 'new_product') {
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
                                                  p.products_status, p.products_setting, p.products_tax_class_id, p.products_units_id,
-												 p,products_old_electrical_equipment, p.manufacturers_id, p.products_price_list,
+												 p.products_old_electrical_equipment, p.manufacturers_id, p.products_price_list,
                                                  p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
@@ -403,7 +405,7 @@ if ($action == 'new_product') {
                                                  $products_descriptiontable pd
                                            WHERE p.products_id = '" . intval($pID) . "' AND
                                                  p.products_id = pd.products_id AND
-                                                 pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+                                                 pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");	
 		$product = $product_result->fields;
 
 		$pInfo = new objectInfo($product);
