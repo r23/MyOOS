@@ -337,7 +337,7 @@ if (!$product_info_result->RecordCount()) {
 
 			$name = oos_strip_suffix($model_viewer['model_viewer_glb']);
 			$url = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb']; 
-
+			$url_glb = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb']; 
 
 			$aModelViewer[] = array('model_viewer_id' => $model_viewer['model_viewer_id'],
                            'model_viewer_glb' => $model_viewer['model_viewer_glb'],

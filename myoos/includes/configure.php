@@ -27,7 +27,7 @@ define('OOS_ADMIN', 'admin/');
 
 define('OOS_IMAGES', 'images/');
 
-define('OOS_SHOP_IMAGES', '../' . OOS_IMAGES);
+define('OOS_SHOP_IMAGES', OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES);
 define('OOS_ICONS', OOS_IMAGES . 'icons/');
 
 define('OOS_MEDIA', 'media/');

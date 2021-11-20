@@ -31,7 +31,7 @@ function smarty_function_product_image($params, &$smarty)
 {
 	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
-    $basedir = OOS_IMAGES . 'product/';
+    $basedir = OOS_SHOP_IMAGES . 'product/';
 	$dir = 'large';
     $border = 0;
     $alt = '';

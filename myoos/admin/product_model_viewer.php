@@ -110,11 +110,11 @@ if (!empty($action)) {
 						$model_viewer_usds =  oos_db_prepare_input($_POST['model_viewer_usdz'][$i]);
 
 						$dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer'] . " WHERE model_viewer_id = '" . intval($_POST['model_viewer_id'][$i]) . "'");	
-
+						$dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_id = '" . intval($_POST['model_viewer_id'][$i]) . "'");	
+						
 						oos_remove_products_model($model_viewer_glb);
 						oos_remove_model_usds($model_viewer_usds);
 					}
-
 
 					// glb
 					if (isset($_FILES['glb'])) {
