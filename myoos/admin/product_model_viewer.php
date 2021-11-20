@@ -105,7 +105,7 @@ if (!empty($action)) {
 					}
 
 
-					if ( ($_POST['remove_products_model_viewer'][$i] == 'yes') && (isset($_POST['model_viewer_glb'][$i])) ) {
+					if ( (isset($_POST['remove_products_model_viewer']) && ($_POST['remove_products_model_viewer'] == 'yes')) && (isset($_POST['model_viewer_glb'][$i])) ) {
 						$model_viewer_glb = oos_db_prepare_input($_POST['model_viewer_glb'][$i]);
 						$model_viewer_usds =  oos_db_prepare_input($_POST['model_viewer_usdz'][$i]);
 
@@ -171,8 +171,6 @@ if (!empty($action)) {
 								$targetdir = $path;  // target directory
 								$uploadfile = $path . $filename; // target zip file
 													
-								mkdir($targetdir, 0755);
-
 								if (move_uploaded_file($source, $uploadfile)) {
 									$messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_USDZ, 'success');
 								} else {
