@@ -149,7 +149,7 @@ if (!empty($action)) {
   if (empty($action)) {
 ?>
                   <tr>
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&action=new') . '">' . oos_button('new_tex_class', IMAGE_NEW_TAX_CLASS) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAX_CLASS) . '</a>'; ?></td>
                   </tr>
 <?php
   }
