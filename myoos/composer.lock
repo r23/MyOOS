@@ -3647,16 +3647,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.3.10",
+            "version": "v5.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "6287c41bf0c71d2f77839d0ec4924529eabd9bbc"
+                "reference": "9139d520453c584a8f79d626b0d978603c1ec423"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/6287c41bf0c71d2f77839d0ec4924529eabd9bbc",
-                "reference": "6287c41bf0c71d2f77839d0ec4924529eabd9bbc",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/9139d520453c584a8f79d626b0d978603c1ec423",
+                "reference": "9139d520453c584a8f79d626b0d978603c1ec423",
                 "shasum": ""
             },
             "require": {
@@ -3704,7 +3704,7 @@
                 "psr/http-client-implementation": "1.0",
                 "psr/link-implementation": "1.0",
                 "psr/log-implementation": "1.0|2.0",
-                "psr/simple-cache-implementation": "1.0",
+                "psr/simple-cache-implementation": "1.0|2.0",
                 "symfony/cache-implementation": "1.0|2.0",
                 "symfony/event-dispatcher-implementation": "2.0",
                 "symfony/http-client-implementation": "2.4",
@@ -3797,7 +3797,7 @@
                 "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
                 "predis/predis": "~1.1",
                 "psr/http-client": "^1.0",
-                "psr/simple-cache": "^1.0",
+                "psr/simple-cache": "^1.0|^2.0",
                 "symfony/mercure-bundle": "^0.3",
                 "symfony/phpunit-bridge": "^5.2",
                 "symfony/runtime": "self.version",
@@ -3847,7 +3847,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.3.10"
+                "source": "https://github.com/symfony/symfony/tree/v5.3.11"
             },
             "funding": [
                 {
@@ -3863,7 +3863,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-29T08:37:01+00:00"
+            "time": "2021-11-22T14:24:37+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
