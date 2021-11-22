@@ -24,6 +24,9 @@
     "require-dev": {
         "symfony/polyfill-intl-idn": "^1.10"
     },
+    "conflict": {
+        "ext-psr": "<1.1|>=2"
+    },
     "replace": {
         "symfony/cache-contracts": "self.version",
         "symfony/deprecation-contracts": "self.version",
@@ -49,7 +52,7 @@
     "minimum-stability": "dev",
     "extra": {
         "branch-alias": {
-            "dev-main": "2.4-dev"
+            "dev-main": "2.5-dev"
         }
     }
 }
