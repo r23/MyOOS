@@ -363,10 +363,10 @@ var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
         cookieSettings.showDialog()
     }
 
-	(function($){
+    $(document).ready(function () {
         $("#settingsOutput").text(JSON.stringify(cookieSettings.getSettings()))
         $("#settingsAnalysisOutput").text(cookieSettings.getSettings("analyses"))
-    })(jQuery);	
+    })
 </script>
 {/literal}
 </body>
