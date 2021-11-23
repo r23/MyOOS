@@ -1012,6 +1012,7 @@ $flds = "
   products_description XL,
   products_short_description X,  
   products_essential_characteristics X,
+  products_old_electrical_equipment_description X,    
   products_url C(255) NULL,
   products_viewed I2 DEFAULT '0',
   products_description_meta C(250) NULL,

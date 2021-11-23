@@ -45,8 +45,17 @@ if ($result === false) {
   echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
+
 $table = $prefix_table . 'products';
-$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `products_old_electrical_equipment` TINYINT NOT NULL DEFAULT '0' AFTER `products_units_id`");
+$result = $db->Execute("ALTER TABLE " . $table . " ADD `products_old_electrical_equipment` TINYINT NOT NULL DEFAULT '0' AFTER `products_units_id`");
+if ($result === false) {
+	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+	echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+$table = $prefix_table . 'products_description';
+$result = $db->Execute("ALTER TABLE " . $table . " ADD `products_old_electrical_equipment_description`  TEXT NULL DEFAULT NULL AFTER `products_essential_characteristics`");
 if ($result === false) {
 	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {

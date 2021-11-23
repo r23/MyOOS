@@ -113,7 +113,7 @@ if (!empty($action)) {
                                     'products_setting' => oos_db_prepare_input($_POST['products_setting']),
                                     'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
                                     'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : DEFAULT_PRODUCTS_UNITS_ID),
-                                    'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? intval($_POST['products_old_electrical_equipment']) : 0),									
+                                    'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? 1 : 0),									
                                     'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
                                     'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
                                     'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
@@ -1054,6 +1054,25 @@ updateWithTax();
                               <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_old_electrical_equipment', '', (isset($pInfo->products_old_electrical_equipment) ? $pInfo->products_old_electrical_equipment : '0')); ?></div>
                            </div>
                         </fieldset>
+
+
+<?php
+	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION_META; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_description_meta_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+	}
+?>
+
+
 						
                      </div>
 					 
