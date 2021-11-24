@@ -43,10 +43,6 @@ class Web_Stories {
 	 * Add Rank Math meta tags.
 	 */
 	public function add_rank_math_tags() {
-		add_filter( 'rank_math/frontend/description', '__return_false' );
-		add_filter( 'rank_math/opengraph/facebook/og_description', '__return_false' );
-		add_filter( 'rank_math/opengraph/twitter/twitter_description', '__return_false' );
-		add_filter( 'rank_math/json_ld/breadcrumbs_enabled', '__return_false' );
 		do_action( 'rank_math/head' );
 	}
 }

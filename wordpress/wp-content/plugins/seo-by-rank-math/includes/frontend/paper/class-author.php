@@ -26,7 +26,7 @@ class Author implements IPaper {
 	 * @return string The SEO title for the user.
 	 */
 	public function title() {
-		$title = User::get_meta( 'title', get_query_var( 'author' ) );
+		$title = User::get_meta( 'title', $this->get_user_id() );
 		if ( '' !== $title ) {
 			return $title;
 		}
@@ -40,7 +40,7 @@ class Author implements IPaper {
 	 * @return string The SEO description for the user.
 	 */
 	public function description() {
-		$description = User::get_meta( 'description', get_query_var( 'author' ) );
+		$description = User::get_meta( 'description', $this->get_user_id() );
 		if ( '' !== $description ) {
 			return $description;
 		}
@@ -54,7 +54,7 @@ class Author implements IPaper {
 	 * @return string The robots for the specified user.
 	 */
 	public function robots() {
-		$robots = Paper::robots_combine( User::get_meta( 'robots', get_query_var( 'author' ) ) );
+		$robots = Paper::robots_combine( User::get_meta( 'robots', $this->get_user_id() ) );
 
 		if ( empty( $robots ) && Helper::get_settings( 'titles.author_custom_robots' ) ) {
 			$robots = Paper::robots_combine( Helper::get_settings( 'titles.author_robots' ), true );
@@ -69,7 +69,7 @@ class Author implements IPaper {
 	 * @return array The advanced robots for the specified user.
 	 */
 	public function advanced_robots() {
-		$robots = Paper::advanced_robots_combine( User::get_meta( 'advanced_robots', get_query_var( 'author' ) ) );
+		$robots = Paper::advanced_robots_combine( User::get_meta( 'advanced_robots', $this->get_user_id() ) );
 
 		if ( empty( $robots ) && Helper::get_settings( 'titles.author_custom_robots' ) ) {
 			$robots = Paper::advanced_robots_combine( Helper::get_settings( 'titles.author_advanced_robots' ), true );
@@ -85,8 +85,8 @@ class Author implements IPaper {
 	 */
 	public function canonical() {
 		return [
-			'canonical'          => get_author_posts_url( get_query_var( 'author' ), get_query_var( 'author_name' ) ),
-			'canonical_override' => User::get_meta( 'canonical_url', get_query_var( 'author' ) ),
+			'canonical'          => get_author_posts_url( $this->get_user_id(), get_query_var( 'author_name' ) ),
+			'canonical_override' => User::get_meta( 'canonical_url', $this->get_user_id() ),
 		];
 	}
 
@@ -96,6 +96,20 @@ class Author implements IPaper {
 	 * @return string The focus keywords.
 	 */
 	public function keywords() {
-		return User::get_meta( 'focus_keyword', get_query_var( 'author' ) );
+		return User::get_meta( 'focus_keyword', $this->get_user_id() );
+	}
+
+	/**
+	 * Get User ID.
+	 *
+	 * @return int Current user ID.
+	 */
+	private function get_user_id() {
+		$author_id = get_query_var( 'author' );
+		if ( $author_id ) {
+			return $author_id;
+		}
+
+		return get_query_var( 'bbp_user_id' );
 	}
 }

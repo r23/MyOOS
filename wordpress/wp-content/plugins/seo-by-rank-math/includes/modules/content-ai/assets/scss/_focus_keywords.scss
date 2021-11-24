@@ -1,124 +1,153 @@
 #wpwrap,
 #elementor-editor-wrapper,
 #rank-math-rm-app-root {
-    div.rank-math-ca-top-section {
-        display: flex;
+	div.rank-math-ca-top-section {
+		display: flex;
 
-        padding: 10px 16px;
+		padding: 10px 16px;
 
-        align-items: flex-start;
-        justify-content: space-between;
+		align-items: flex-start;
+		justify-content: space-between;
 
-        button {
-            height: 30px;
-            padding: 0;
+		button {
+			height: 30px;
+			padding: 0;
 
-            color: $primary;
+			color: $primary;
 
-            i {
-                font-size: 12px;
+			i {
+				font-size: 12px;
 
-                display: flex;
+				display: flex;
 
-                width: auto;
-                margin-right: 5px;
+				width: auto;
+				margin-right: 5px;
 
-                align-items: center;
-            }
-        }
+				align-items: center;
+			}
+		}
 
-        .components-select-control {
-            border-radius: 4px;
+		.components-select-control {
+			border-radius: 4px;
 
-            select {
-                max-width: 136px;
-                height: 30px;
-                padding-left: 8px;
+			select {
+				max-width: 136px;
+				height: 30px;
+				padding-left: 8px;
 
-                color: $dark_gray;
-            }
+				color: $dark_gray;
+			}
 
-            .components-input-control__backdrop {
-                border-color: $gray;
-            }
-        }
+			.components-input-control__backdrop {
+				border-color: $gray;
+			}
+		}
 
-        .components-base-control__field {
-            margin-bottom: 0;
-        }
-    }
+		.components-base-control__field {
+			margin-bottom: 0;
+		}
+	}
 }
 
 button.rank-math-ca-force-update {
-    position: absolute;
-    z-index: 1;
-    right: 1px;
-    bottom: 27px;
+	position: absolute;
+	z-index: 1;
+	right: 1px;
+	bottom: 27px;
 
-    display: block;
+	display: block;
 
-    width: 34px;
-    height: 34px;
-    padding: 0;
+	width: 34px;
+	height: 34px;
+	padding: 0;
 
-    transform: scaleX(-1);
-    text-align: center;
+	transform: scaleX(-1);
+	text-align: center;
 
-    color: #606060;
-    background: #fff;
+	color: #606060;
+	background: #fff;
 
-    i {
-        font-size: 1rem;
-        line-height: 20px;
-    }
+	i {
+		font-size: 1rem;
+		line-height: 20px;
+	}
 
-    &.left span {
-        transform: scaleX(-1) translate3d(10%, 0, 0);
-    }
+	&.left span {
+		transform: scaleX(-1) translate3d(10%, 0, 0);
+	}
 }
 
 div.rank-math-ca-keywords-wrapper {
-    padding: 10px 16px;
+	padding: 10px 16px;
 
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    background-color: lighten($light_gray, 10);
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	background-color: lighten($light_gray, 10);
 
-    .rank-math-ca-credits-wrapper {
-        position: relative;
+	.rank-math-ca-credits-wrapper {
+		position: relative;
 
-        color: #606060;
+		color: #606060;
 
-        label {
-            font-weight: 500;
-        }
+		label {
+			font-weight: 500;
+		}
 
-        .rank-math-ca-credits {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
+		.rank-math-ca-credits {
+			position: absolute;
+			top: 0;
+			right: 0;
 
-        input {
-            font-size: 1rem;
-            font-weight: 600;
+			.update-credits {
+				display: none;
+				position: absolute;
+				left: -22px;
+				margin: 0;
+				padding: 0;
+				box-shadow: none;
 
-            height: 36px;
+				i {
+					font-size: 12px;
+					display: flex;
+					align-items: center;
+					transform: scaleX(-1);
 
-            background: #fff;
-        }
+					&:before {
+						margin-bottom: 2px;
+						margin-left: 3px;
+					}
+				}
 
-        .components-base-control__help {
-            margin-bottom: 0;
-        }
-    }
+				&.loading i:before {
+					animation: spin 1s infinite linear;
+				}
+			}
+		}
 
-    button:not(.rank-math-ca-force-update) {
-        margin-top: 7px;
-        padding: 10px 22px;
+		input {
+			font-size: 1rem;
+			font-weight: 600;
 
-        &[disabled] {
-            opacity: 0.5!important;
-        }
-    }
+			height: 36px;
+
+			background: #fff;
+		}
+
+		.components-base-control__help {
+			margin-bottom: 0;
+		}
+	}
+
+	button:not(.rank-math-ca-force-update) {
+		margin-top: 7px;
+		padding: 10px 22px;
+
+		&[disabled] {
+			opacity: 0.5!important;
+		}
+	}
+
+	&:hover .rank-math-ca-credits-wrapper .update-credits {
+		display: inline;
+	}
 }

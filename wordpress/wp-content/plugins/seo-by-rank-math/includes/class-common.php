@@ -168,6 +168,10 @@ class Common {
 	 * @return array
 	 */
 	public function reorder_the_terms( $terms, $post_id, $taxonomy ) {
+		if ( empty( $terms ) || is_wp_error( $terms ) ) {
+			return $terms;
+		}
+
 		/**
 		 * Filter: Allow disabling the primary term feature.
 		 * 'rank_math/primary_term' is deprecated,
@@ -186,10 +190,6 @@ class Common {
 		$primary = absint( Helper::get_post_meta( "primary_{$taxonomy}", $post_id ) );
 		if ( ! $primary ) {
 			return $terms;
-		}
-
-		if ( empty( $terms ) || is_wp_error( $terms ) ) {
-			return [ $primary ];
 		}
 
 		$primary_term = null;

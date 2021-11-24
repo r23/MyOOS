@@ -1797,6 +1797,9 @@ msgstr ""
 msgid "Site token"
 msgstr ""
 
+msgid "URL to get HTML tags for."
+msgstr ""
+
 msgid "No meta rows found to update."
 msgstr ""
 
@@ -3760,6 +3763,16 @@ msgstr ""
 msgid "Automatically add <code>target=\"_blank\"</code> attribute for external links appearing in your posts, pages, and other post types to make them open in a new browser tab or window. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
 msgstr ""
 
+msgid "Headless CMS Support"
+msgstr ""
+
+#. translators: placeholder is a link to "Read more".
+msgid "Enable this option to register a REST API endpoint that returns the HTML meta tags for a given URL. %s"
+msgstr ""
+
+msgid "Read more"
+msgstr ""
+
 msgid "Show SEO Score to Visitors"
 msgstr ""
 
@@ -4800,6 +4813,9 @@ msgid "Select Post Type"
 msgstr ""
 
 msgid "Select the post type you use for Content AI."
+msgstr ""
+
+msgid "Click to refresh the available credits."
 msgstr ""
 
 #. translators: 1. Credits left 2. Buy more credits link

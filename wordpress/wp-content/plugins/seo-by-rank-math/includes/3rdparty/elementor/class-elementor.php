@@ -92,7 +92,7 @@ class Elementor {
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_style( 'site-health' );
 		wp_enqueue_style( 'rank-math-elementor', rank_math()->plugin_url() . 'assets/admin/css/elementor.css', [], rank_math()->version );
-
+		$media_query = '';
 		if ( 'light' !== $mode ) {
 			$media_query = 'auto' === $mode ? '(prefers-color-scheme: dark)' : 'all';
 			wp_enqueue_style( 'rank-math-elementor-dark', rank_math()->plugin_url() . 'assets/admin/css/elementor-dark.css', [], rank_math()->version, $media_query );
@@ -103,6 +103,8 @@ class Elementor {
 		wp_enqueue_script( 'rank-math-elementor', rank_math()->plugin_url() . 'assets/admin/js/elementor.js', $deps, rank_math()->version, true );
 		rank_math()->variables->setup();
 		rank_math()->variables->setup_json();
+
+		$this->content_ai_style( $media_query );
 	}
 
 	/**
@@ -122,6 +124,20 @@ class Elementor {
 		}
 
 		return $content;
+	}
+
+	/**
+	 * Enqueue Content AI style.
+	 *
+	 * @param string $media_query The media for which this stylesheet has been defined.
+	 */
+	private function content_ai_style( $media_query ) {
+		if ( ! Helper::is_module_active( 'content-ai' ) ) {
+			return;
+		}
+
+		wp_enqueue_style( 'rank-math-content-ai-dark', rank_math()->plugin_url() . 'includes/modules/content-ai/assets/css/content-ai-dark.css', [ 'rank-math-elementor-dark' ], rank_math()->version, $media_query );
+		Helper::add_json( 'elementorContentAI', rank_math()->plugin_url() . 'includes/modules/content-ai/assets/css/content-ai-dark.css' );
 	}
 
 	/**

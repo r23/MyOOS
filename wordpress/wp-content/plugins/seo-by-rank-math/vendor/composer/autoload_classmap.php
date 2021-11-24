@@ -196,6 +196,7 @@ return array(
     'RankMath\\Replace_Variables\\Variable' => $baseDir . '/includes/replace-variables/class-variable.php',
     'RankMath\\Rest\\Admin' => $baseDir . '/includes/rest/class-admin.php',
     'RankMath\\Rest\\Front' => $baseDir . '/includes/rest/class-front.php',
+    'RankMath\\Rest\\Headless' => $baseDir . '/includes/rest/class-headless.php',
     'RankMath\\Rest\\Post' => $baseDir . '/includes/rest/class-post.php',
     'RankMath\\Rest\\Rest_Helper' => $baseDir . '/includes/rest/class-rest-helper.php',
     'RankMath\\Rest\\Sanitize' => $baseDir . '/includes/rest/class-sanitize.php',

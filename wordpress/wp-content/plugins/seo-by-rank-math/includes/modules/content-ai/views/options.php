@@ -38,12 +38,17 @@ $cmb->add_field(
 
 $credits = get_option( 'rank_math_ca_credits' );
 if ( false !== $credits ) {
+	$update_credits = '<a href="#" class="rank-math-tooltip update-credit">
+		<i class="dashicons dashicons-image-rotate"></i>
+		<span>' . esc_html__( 'Click to refresh the available credits.', 'rank-math' ) . '</span>
+	</a>';
+
 	$cmb->add_field(
 		[
 			'id'      => 'content_ai_credits',
 			'type'    => 'raw',
 			/* translators: 1. Credits left 2. Buy more credits link */
-			'content' => '<div class="cmb-row buy-more-credits">' . sprintf( esc_html__( '%1$s credits left. Upgrade to get more credits from %2$s.', 'rank-math' ), '<strong>' . $credits . '</strong>', '<a href="https://rankmath.com/pricing/?utm_source=Plugin&utm_medium=Buy%20CAI%20Credits%20Options%20Panel&utm_campaign=WP" target="_blank">' . esc_html__( 'here', 'rank-math' ) . '</a>' ) . '</div>',
+			'content' => '<div class="cmb-row buy-more-credits">' . $update_credits . sprintf( esc_html__( '%1$s credits left. Upgrade to get more credits from %2$s.', 'rank-math' ), '<strong>' . $credits . '</strong>', '<a href="https://rankmath.com/pricing/?utm_source=Plugin&utm_medium=Buy%20CAI%20Credits%20Options%20Panel&utm_campaign=WP" target="_blank">' . esc_html__( 'here', 'rank-math' ) . '</a>' ) . '</div>',
 		]
 	);
 }

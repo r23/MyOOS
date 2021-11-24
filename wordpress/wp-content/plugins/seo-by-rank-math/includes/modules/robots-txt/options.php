@@ -30,7 +30,7 @@ if ( isset( $data['writable'] ) && false === $data['writable'] ) {
 }
 
 if ( 0 === $data['public'] ) {
-	$attributes['disabled'] = 'disabled';
+	$attributes['readonly'] = 'readonly';
 }
 
 if ( ! Helper::is_edit_allowed() ) {

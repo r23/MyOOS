@@ -80,7 +80,12 @@ class Author_Variables extends Term_Variables {
 	 * @return string
 	 */
 	public function get_userid() {
-		return ! empty( $this->args->post_author ) ? $this->args->post_author : get_query_var( 'author' );
+		$user_id = ! empty( $this->args->post_author ) ? $this->args->post_author : get_query_var( 'author' );
+		if ( $user_id ) {
+			return $user_id;
+		}
+
+		return get_query_var( 'bbp_user_id' );
 	}
 
 	/**

@@ -84,40 +84,7 @@ class Rest extends WP_REST_Controller {
 	 * @return int Credits.
 	 */
 	public function get_credits( WP_REST_Request $request ) {
-		$credits = get_option( 'rank_math_ca_credits' );
-		if ( $credits ) {
-			return $credits;
-		}
-
-		$args = [
-			'username' => rawurlencode( $this->registered['username'] ),
-			'api_key'  => rawurlencode( $this->registered['api_key'] ),
-			'site_url' => rawurlencode( home_url() ),
-		];
-
-		$url = add_query_arg(
-			$args,
-			'https://rankmath.com/wp-json/rankmath/v1/contentAiCredits'
-		);
-
-		$data = wp_remote_get(
-			$url,
-			[
-				'timeout' => 60,
-			]
-		);
-
-		$response_code = wp_remote_retrieve_response_code( $data );
-		if ( 200 !== $response_code ) {
-			return 0;
-		}
-
-		$data = wp_remote_retrieve_body( $data );
-		$data = json_decode( $data, true );
-
-		$credits = ! empty( $data['remaining_credits'] ) ? $data['remaining_credits'] : 0;
-		update_option( 'rank_math_ca_credits', $credits, false );
-		return $credits;
+		return Helper::get_content_ai_credits( true );
 	}
 
 	/**
@@ -166,7 +133,7 @@ class Rest extends WP_REST_Controller {
 			];
 		}
 
-		$data = $this->get_researched_data( $keyword, $country );
+		$data = $this->get_researched_data( $keyword, $country, $force_update );
 		if ( ! empty( $data['error'] ) ) {
 			return $this->get_errored_data( $data['error'] );
 		}
@@ -196,12 +163,13 @@ class Rest extends WP_REST_Controller {
 	/**
 	 * Get data from the API.
 	 *
-	 * @param string $keyword Researched keyword.
-	 * @param string $country Researched country.
+	 * @param string $keyword      Researched keyword.
+	 * @param string $country      Researched country.
+	 * @param bool   $force_update Whether to force update the researched data.
 	 *
 	 * @return array
 	 */
-	private function get_researched_data( $keyword, $country ) {
+	private function get_researched_data( $keyword, $country, $force_update = false ) {
 		$args = [
 			'username' => rawurlencode( $this->registered['username'] ),
 			'api_key'  => rawurlencode( $this->registered['api_key'] ),
@@ -212,6 +180,10 @@ class Rest extends WP_REST_Controller {
 
 		if ( 'all' !== $country ) {
 			$args['locale'] = rawurlencode( $country );
+		}
+
+		if ( $force_update ) {
+			$args['force_refresh'] = 1;
 		}
 
 		$url = add_query_arg(

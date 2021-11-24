@@ -118,6 +118,7 @@ class KB {
 		'instant-indexing'            => 'https://rankmath.com/blog/google-indexing-api/?utm_source=Plugin&utm_campaign=WP',
 		'bing-instant-indexing'       => 'https://rankmath.com/blog/bing-indexing-api/?utm_source=Plugin&utm_campaign=WP',
 		'email-reports-logo'          => 'https://rankmath.com/kb/seo-email-reporting/?utm_source=Plugin&utm_medium=Email%20Report%20Logo&utm_campaign=WP',
+		'headless-support'            => 'https://rankmath.com/kb/headless-support/?utm_source=Plugin&utm_medium=Others%20Tab%20KB%20Link&utm_campaign=WP',
 	];
 
 	/**

@@ -76,7 +76,7 @@ class Admin_Bar_Menu {
 			$robots = array_filter( $robots );
 
 			Arr::add_delete_value( $robots, $what );
-			$robots = array_unique( $robots );
+			$robots = $this->normalize_robots( $what, array_unique( $robots ) );
 
 			$this->update_meta( $object_type, $object_id, 'rank_math_robots', $robots );
 
@@ -124,6 +124,31 @@ class Admin_Bar_Menu {
 		$this->add_order();
 		uasort( $this->items, [ $this, 'sort_by_priority' ] );
 		array_walk( $this->items, [ $wp_admin_bar, 'add_node' ] );
+	}
+
+	/**
+	 * Normalize robots.
+	 *
+	 * @param string $what   Current admin menu process.
+	 * @param array  $robots Array to normalize.
+	 *
+	 * @return array
+	 */
+	private function normalize_robots( $what, $robots ) {
+		if ( 'noindex' !== $what ) {
+			return $robots;
+		}
+		
+		if ( ! in_array( 'noindex', $robots, true ) ) {
+			$robots[] = ! in_array( 'index', $robots, true ) ? 'index' : '';
+			return $robots;
+		}
+
+		if ( false !== ( $key = array_search( 'index', $robots ) ) ) { // @codingStandardsIgnoreLine
+			unset( $robots[ $key ] );
+		}
+
+		return $robots;
 	}
 
 	/**
