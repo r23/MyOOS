@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-11-10 20:49:29+0000\n"
+"PO-Revision-Date: 2021-11-24 11:05:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,8 +11,21 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
 
+#. Translators: placeholder is a link to "Read more".
+#: includes/settings/general/others.php:20
+msgid "Enable this option to register a REST API endpoint that returns the HTML meta tags for a given URL. %s"
+msgstr "Aktiviere diese Option, um einen REST-API-Endpunkt zu registrieren, der die HTML-Meta-Tags für eine bestimmte URL zurückgibt. %s"
+
+#: includes/settings/general/others.php:18
+msgid "Headless CMS Support"
+msgstr "Unterstützung für Headless-CMS"
+
+#: includes/rest/class-headless.php:57
+msgid "URL to get HTML tags for."
+msgstr "URL zum Abrufen von HTML-Tags."
+
 #. translators: 1. Credits left 2. Buy more credits link
-#: includes/modules/content-ai/views/options.php:46
+#: includes/modules/content-ai/views/options.php:51
 msgid "%1$s credits left. Upgrade to get more credits from %2$s."
 msgstr "%1$s Guthaben übrig. Aktualisiere, um mehr Guthaben von %2$s zu erhalten."
 
@@ -28,19 +41,19 @@ msgstr "Beitragstyp auswählen"
 msgid "Default Country"
 msgstr "Standard Land"
 
-#: includes/modules/content-ai/class-rest.php:270
+#: includes/modules/content-ai/class-rest.php:242
 msgid "You have used all the free credits which are allowed to this domain."
 msgstr "Du hast für diese Domäne das kostenlose Guthaben aufgebraucht."
 
-#: includes/modules/content-ai/class-rest.php:264
+#: includes/modules/content-ai/class-rest.php:236
 msgid "This feature is not available on the localhost."
 msgstr "Diese Funktion ist auf dem localhost nicht verfügbar."
 
-#: includes/modules/content-ai/class-rest.php:241
+#: includes/modules/content-ai/class-rest.php:213
 msgid "No data found for the researched keyword."
 msgstr "Für das recherchierte Schlüsselwort wurden keine Daten gefunden."
 
-#: includes/modules/content-ai/class-rest.php:139
+#: includes/modules/content-ai/class-rest.php:106
 msgid "Content AI is not enabled on this Post type."
 msgstr "Inhalts-KI ist für diesen Beitragstyp nicht aktiviert."
 
@@ -48,7 +61,7 @@ msgstr "Inhalts-KI ist für diesen Beitragstyp nicht aktiviert."
 msgid "Sorry, only authenticated users can research the keyword."
 msgstr "Leider können nur authentifizierte Benutzer das Schlüsselwort recherchieren."
 
-#: includes/modules/content-ai/class-content-ai.php:95
+#: includes/modules/content-ai/class-content-ai.php:96
 msgid "Rank Math Content AI"
 msgstr "Rang Math Inhalts-KI"
 
@@ -61,12 +74,12 @@ msgid "You cant access this page."
 msgstr "Du kannst diese Seite nicht aufrufen."
 
 #: includes/module/class-manager.php:175
-#: includes/modules/content-ai/class-content-ai.php:73
+#: includes/modules/content-ai/class-content-ai.php:74
 msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links to include in the SEO meta & Content Area. Supports 80+ Countries."
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fragen und Links, die du in den SEO-Meta- und Inhaltsbereich aufnehmen können. Unterstützt 80+ Länder."
 
 #: includes/module/class-manager.php:174
-#: includes/modules/content-ai/class-content-ai.php:72
+#: includes/modules/content-ai/class-content-ai.php:73
 #: includes/modules/role-manager/class-capability-manager.php:70
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "Content AI"
@@ -372,11 +385,11 @@ msgstr "Ja, ich möchte mehr erfahren"
 msgid "Know more about the PRO version"
 msgstr "Erfahre mehr über die PRO Version"
 
-#: rank-math.php:465
+#: rank-math.php:466
 msgid "This action is IRREVERSIBLE."
 msgstr "Diese Aktion ist NICHT UMKEHRBAR."
 
-#: rank-math.php:464
+#: rank-math.php:465
 msgid "CAUTION:"
 msgstr "VORSICHT:"
 
@@ -615,11 +628,11 @@ msgstr "Aktive Module"
 msgid "If nothing similar is found, this behavior will be applied. <strong>Note</strong>: If the requested URL ends with <code>/login</code>, <code>/admin</code>, or <code>/dashboard</code>, WordPress will automatically redirect to respective locations within the WordPress admin area."
 msgstr "Wenn nichts Ähnliches gefunden wird, wird dieses Verhalten angewendet. <strong>Hinweis</strong>: Wenn die angeforderte URL mit <code>/login</code>, <code>/admin</code> oder <code>/dashboard</code> endet, leitet WordPress automatisch zu den entsprechenden Stellen im WordPress-Adminbereich um."
 
-#: includes/settings/general/others.php:18
+#: includes/settings/general/others.php:30
 msgid "Proudly display the calculated SEO Score as a badge on the front end. It can be disabled for specific posts in the post editor."
 msgstr "Zeige den berechneten SEO-Score stolz als Abzeichen im Frontend an. Es kann für bestimmte Beiträge im Beitragseditor deaktiviert werden."
 
-#: includes/settings/general/others.php:17
+#: includes/settings/general/others.php:29
 msgid "Show SEO Score to Visitors"
 msgstr "SEO-Score für Besucher anzeigen"
 
@@ -1169,49 +1182,49 @@ msgid "Disconnect"
 msgstr "Verbindung trennen"
 
 #: includes/admin/wizard/views/google-connect.php:37
-#: includes/admin/wizard/views/rank-math-connect.php:41
+#: includes/admin/wizard/views/rank-math-connect.php:39
 #: includes/admin/wizard/views/search-console-ui.php:313
 msgid "We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take your privacy extremely seriously and ensure it is never misused. %s"
 msgstr "Wir speichern keinerlei Daten aus deinem Google-Konto auf unseren Servern, alles wird auf deinem Server verarbeitet und gespeichert. Wir nehmen den Schutz deiner Daten extrem ernst und stellen sich, dass sie nie missbraucht werden. %s"
 
 #: includes/admin/wizard/views/google-connect.php:29
-#: includes/admin/wizard/views/rank-math-connect.php:33
+#: includes/admin/wizard/views/rank-math-connect.php:31
 msgid "Learn more about the benefits of connecting your account here."
 msgstr "Lerne hier mehr über die Vorteile der Verbindung deines Kontos."
 
-#: includes/admin/wizard/views/rank-math-connect.php:32
+#: includes/admin/wizard/views/rank-math-connect.php:30
 msgid "Use our revolutionary SEO Analyzer to scan your website for SEO errors"
 msgstr "Nutze unseren revolutionären SEO-Analyzer, um deine Website auf SEO-Fehler zu überprüfen"
 
-#: includes/admin/wizard/views/rank-math-connect.php:31
+#: includes/admin/wizard/views/rank-math-connect.php:29
 msgid "Free keyword suggestions when entering a focus keyword"
 msgstr "Kostenlose Keyword-Vorschläge beim Eingeben von Fokus-Schlüsselwörter"
 
 #: includes/admin/wizard/views/google-connect.php:28
-#: includes/admin/wizard/views/rank-math-connect.php:30
+#: includes/admin/wizard/views/rank-math-connect.php:28
 msgid "Automatically submit sitemaps to the Google Search Console"
 msgstr "Sitemaps automatisch an die Google Search Console übertragen"
 
 #: includes/admin/wizard/views/google-connect.php:27
-#: includes/admin/wizard/views/rank-math-connect.php:29
+#: includes/admin/wizard/views/rank-math-connect.php:27
 msgid "Easily set up Google Analytics without using another 3rd party plugin"
 msgstr "Baue Google Analytics ganz einfach ohne zusätzliche Plugins ein"
 
 #: includes/admin/wizard/views/google-connect.php:26
-#: includes/admin/wizard/views/rank-math-connect.php:28
+#: includes/admin/wizard/views/rank-math-connect.php:26
 msgid "Track page and keyword rankings with the Advanced Analytics module"
 msgstr "Verfolge Seiten- und Keyword-Rankings mit dem Advanced-Analytics-Modul"
 
 #: includes/admin/wizard/views/google-connect.php:25
-#: includes/admin/wizard/views/rank-math-connect.php:27
+#: includes/admin/wizard/views/rank-math-connect.php:25
 msgid "Verify site ownership on Google Search Console in a single click"
 msgstr "Verifiziere für die Google Search Console mit einem Klick, dass die Website dir gehört"
 
-#: includes/admin/wizard/views/rank-math-connect.php:25
+#: includes/admin/wizard/views/rank-math-connect.php:23
 msgid "Benefits of Connecting Rank Math Account"
 msgstr "Vorteile der Rank Math Kontoverbindung"
 
-#: includes/admin/wizard/views/rank-math-connect.php:21
+#: includes/admin/wizard/views/rank-math-connect.php:19
 msgid "Connect Your Rank Math Account"
 msgstr "Verbinde dein Rank-Math-Konto"
 
@@ -2147,13 +2160,13 @@ msgstr "Du bist leider nicht berechtigt, Plugins dieser Website zu deaktivieren.
 
 #. Translators: %s is the word "nofollow" code tag and second one for the
 #. filter link
-#: includes/settings/general/others.php:78
+#: includes/settings/general/others.php:90
 msgid "filter"
 msgstr "Auswahl einschränken"
 
 #. Translators: %s is the word "nofollow" code tag and second one for the
 #. filter link
-#: includes/settings/general/others.php:78
+#: includes/settings/general/others.php:90
 msgid "If you are showing the SEO scores on the front end, this option will insert a %1$s backlink to RankMath.com to show your support. You can change the link & the text by using this %2$s."
 msgstr "Wenn du die SEO-Scores im Front-End anzeigt, fügt diese Option einen %1$s Backlink auf Rankmath.com ein, um deine Unterstützung zu zeigen. Du kannst Link und Text mit diesem %2$s ändern."
 
@@ -2522,13 +2535,20 @@ msgid "Custom or Generated SEO Title of the current post/page"
 msgstr "Benutzerdefinierter oder generierter SEO-Titel des aktuellen Beitrags/der aktuellen Seite"
 
 #. translators: 1. Bold text 2. Bold text
-#: rank-math.php:463
+#: rank-math.php:464
 msgid "%1$s A filter to remove the Rank Math data from the database is present. Deactivating & Deleting this plugin will remove everything related to the Rank Math plugin. %2$s"
 msgstr "%1$s In deinem Theme ist ein Filter zum Entfernen der Rank Math Daten aus der Datenbank vorhanden. Das Deaktivieren dieses Plugins entfernt alles, was mit dem Rank Math-Plugin zusammenhängt. %2$s"
 
 #: includes/helpers/class-choices.php:452
 msgid "Review (Unsupported)"
 msgstr "Rezension (Nicht unterstützt)"
+
+#. Translators: placeholder is a link to "Read more".
+#: includes/settings/general/others.php:20 assets/admin/js/classic.js:1
+#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
+#: assets/admin/js/gutenberg.js:1
+msgid "Read more"
+msgstr "Weiterlesen"
 
 #: includes/rest/class-shared.php:188
 msgid "Meta to add or update data."
@@ -2700,7 +2720,7 @@ msgstr "Du hast noch keinen Slogan eingegeben. Es ist eine gute Idee, einen zu w
 #. translators: 1. Credits left 2. Buy more credits link
 #: includes/modules/analytics/class-analytics.php:559
 #: includes/modules/analytics/class-analytics.php:565
-#: includes/modules/content-ai/views/options.php:46
+#: includes/modules/content-ai/views/options.php:51
 msgid "here"
 msgstr "hier"
 
@@ -2819,19 +2839,19 @@ msgstr "<strong>Warnung:</strong> Die Sichtbarkeit deiner Website in der Suchmas
 msgid "robots.txt file is not writable."
 msgstr "robots.txt ist nicht beschreibbar."
 
-#: includes/modules/buddypress/class-buddypress.php:105
+#: includes/modules/buddypress/class-buddypress.php:119
 msgid "Group description of the current group"
 msgstr "Gruppenbeschreibung der aktuellen Gruppe"
 
-#: includes/modules/buddypress/class-buddypress.php:104
+#: includes/modules/buddypress/class-buddypress.php:118
 msgid "Group Description."
 msgstr "Gruppenbeschreibung."
 
-#: includes/modules/buddypress/class-buddypress.php:94
+#: includes/modules/buddypress/class-buddypress.php:108
 msgid "Group name of the current group"
 msgstr "Gruppenname der aktuellen Gruppe"
 
-#: includes/modules/buddypress/class-buddypress.php:93
+#: includes/modules/buddypress/class-buddypress.php:107
 msgid "Group name."
 msgstr "Gruppenname."
 
@@ -2894,19 +2914,19 @@ msgstr "Einstellungen zurücksetzen"
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: includes/admin/class-admin-bar-menu.php:373
+#: includes/admin/class-admin-bar-menu.php:398
 msgid "Google Rich Results Test - Googlebot Desktop"
 msgstr "Test für Google Rich-Suchergebnisse - Googlebot Desktop"
 
-#: includes/admin/class-admin-bar-menu.php:371
+#: includes/admin/class-admin-bar-menu.php:396
 msgid "Google Rich Results (Desktop)"
 msgstr "Google Rich-Suchergebnisse (Desktop)"
 
-#: includes/admin/class-admin-bar-menu.php:367
+#: includes/admin/class-admin-bar-menu.php:392
 msgid "Google Rich Results Test - Googlebot Smartphone"
 msgstr "Test für Google Rich-Suchergebnisse - Googlebot Smartphone"
 
-#: includes/admin/class-admin-bar-menu.php:365
+#: includes/admin/class-admin-bar-menu.php:390
 msgid "Google Rich Results (Mobile)"
 msgstr "Google Rich-Suchergebnisse (Mobile)"
 
@@ -2984,36 +3004,36 @@ msgstr "Die Website wurde erfolgreich getrennt."
 msgid "Powered by %s"
 msgstr "Präsentiert von %s"
 
-#: includes/settings/general/others.php:76
+#: includes/settings/general/others.php:88
 msgid "Support Us with a Link"
 msgstr "Unterstütze uns mit einem Link"
 
 #. translators: 1.SEO Score Shortcode 2. SEO Score function
-#: includes/settings/general/others.php:56
+#: includes/settings/general/others.php:68
 msgid "Display the badges automatically, or insert the %1$s shortcode in your posts and the %2$s template tag in your theme template files."
 msgstr "Zeige die Badges automatisch an, oder füge den Shortcode %1$s in deine Beiträge und den Template-Tag %2$s in deine Themen-Vorlagendateien ein."
 
-#: includes/settings/general/others.php:53
+#: includes/settings/general/others.php:65
 msgid "SEO Score Position"
 msgstr "Position der SEO-Wertung"
 
-#: includes/settings/general/others.php:42
+#: includes/settings/general/others.php:54
 msgid "Square"
 msgstr "Quadrat"
 
-#: includes/settings/general/others.php:41
+#: includes/settings/general/others.php:53
 msgid "Circle"
 msgstr "Kreis"
 
-#: includes/settings/general/others.php:39
+#: includes/settings/general/others.php:51
 msgid "Change the styling for the front end SEO score badge."
 msgstr "Ändere das Styling für das Frontend-SEO-Wertungs Abzeichen."
 
-#: includes/settings/general/others.php:38
+#: includes/settings/general/others.php:50
 msgid "SEO Score Template"
 msgstr "Template der SEO-Wertung"
 
-#: includes/settings/general/others.php:27
+#: includes/settings/general/others.php:39
 msgid "SEO Score Post Types"
 msgstr "Inhaltstyp der SEO-Wertung"
 
@@ -3295,19 +3315,19 @@ msgstr "Homepage Link"
 msgid "Editor's Rating:"
 msgstr "Bewertung des Redakteurs:"
 
-#: includes/settings/general/others.php:66
+#: includes/settings/general/others.php:78
 msgid "Custom (use shortcode)"
 msgstr "Benutzerdefiniert (Shortcode verwenden)"
 
-#: includes/settings/general/others.php:65
+#: includes/settings/general/others.php:77
 msgid "Above & Below Content"
 msgstr "Ober- und unterhalb des Inhalts"
 
-#: includes/settings/general/others.php:64
+#: includes/settings/general/others.php:76
 msgid "Above Content"
 msgstr "Oberhalb des Inhalts"
 
-#: includes/settings/general/others.php:63
+#: includes/settings/general/others.php:75
 msgid "Below Content"
 msgstr "Unterhalb des Inhalts"
 
@@ -3894,19 +3914,19 @@ msgstr "Verfügbare Variablen"
 msgid "Contents are locked because a robots.txt file is present in the root folder."
 msgstr "Der Inhalt ist gesperrt, weil sich im Stammordner eine robots.txt-Datei befindet."
 
-#: includes/settings/general/others.php:98
+#: includes/settings/general/others.php:110
 msgid "Add content after each post in your site feeds."
 msgstr "Füge Inhalte nach jedem Beitrag in deinen Seitenfeeds hinzu."
 
-#: includes/settings/general/others.php:97
+#: includes/settings/general/others.php:109
 msgid "RSS After Content"
 msgstr "RSS nach dem Inhalt"
 
-#: includes/settings/general/others.php:89
+#: includes/settings/general/others.php:101
 msgid "Add content before each post in your site feeds."
 msgstr "Füge Inhalte vor jedem Beitrag in deinen Seitenfeeds hinzu."
 
-#: includes/settings/general/others.php:88
+#: includes/settings/general/others.php:100
 msgid "RSS Before Content"
 msgstr "RSS vor dem Inhalt"
 
@@ -4653,7 +4673,7 @@ msgstr "Nicht gefunden"
 msgid "Bad request. Please check the code."
 msgstr "Fehlerhafte Anfrage. Bitte überprüfe den Code."
 
-#: includes/admin/class-admin-bar-menu.php:212
+#: includes/admin/class-admin-bar-menu.php:237
 msgid "Pages"
 msgstr "Seiten"
 
@@ -6472,11 +6492,11 @@ msgstr "Beitragstitel"
 msgid "Page %1$d of %2$d"
 msgstr "Seite %1$d von %2$d"
 
-#: rank-math.php:537
+#: rank-math.php:538
 msgid "Once Weekly"
 msgstr "Einmal wöchentlich"
 
-#: rank-math.php:485
+#: rank-math.php:486
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -6495,7 +6515,7 @@ msgstr "Aktiv"
 #: includes/module/class-module.php:96
 #: includes/modules/404-monitor/class-admin.php:220
 #: includes/modules/instant-indexing/class-instant-indexing.php:225
-#: includes/modules/redirections/class-admin.php:334 rank-math.php:425
+#: includes/modules/redirections/class-admin.php:334 rank-math.php:426
 #: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
 #: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
 msgid "Settings"
@@ -6575,95 +6595,95 @@ msgstr "Rank Math WordPress SEO Plugin"
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: includes/admin/class-admin-bar-menu.php:385
+#: includes/admin/class-admin-bar-menu.php:410
 msgid "Facebook Sharing Debugger"
 msgstr "Facebook teilen Debugger"
 
-#: includes/admin/class-admin-bar-menu.php:383
+#: includes/admin/class-admin-bar-menu.php:408
 msgid "Facebook Debugger"
 msgstr "Facebook Fehlersuchprogramm"
 
-#: includes/admin/class-admin-bar-menu.php:379
+#: includes/admin/class-admin-bar-menu.php:404
 msgid "See Google's cached version of your site"
 msgstr "Sehe dir die von Google zwischengespeicherte Version deiner Website an"
 
-#: includes/admin/class-admin-bar-menu.php:377
+#: includes/admin/class-admin-bar-menu.php:402
 msgid "Google Cache"
 msgstr "Google Cache"
 
-#: includes/admin/class-admin-bar-menu.php:361
+#: includes/admin/class-admin-bar-menu.php:386
 msgid "Google Mobile-Friendly Test"
 msgstr "Google Mobile-Friendly Test"
 
-#: includes/admin/class-admin-bar-menu.php:359
+#: includes/admin/class-admin-bar-menu.php:384
 msgid "Google Mobile-Friendly"
 msgstr "Google Mobile-Friendly"
 
-#: includes/admin/class-admin-bar-menu.php:355
+#: includes/admin/class-admin-bar-menu.php:380
 msgid "Google PageSpeed Insights"
 msgstr "Google PageSpeed Insights"
 
-#: includes/admin/class-admin-bar-menu.php:353
+#: includes/admin/class-admin-bar-menu.php:378
 msgid "Google PageSpeed"
 msgstr "Google PageSpeed"
 
-#: includes/admin/class-admin-bar-menu.php:344
+#: includes/admin/class-admin-bar-menu.php:369
 msgid "External Tools"
 msgstr "Externe Werkzeuge"
 
-#: includes/admin/class-admin-bar-menu.php:328
+#: includes/admin/class-admin-bar-menu.php:353
 msgid "As NoFollow"
 msgstr "Als NoFollow"
 
-#: includes/admin/class-admin-bar-menu.php:317
+#: includes/admin/class-admin-bar-menu.php:342
 msgid "As NoIndex"
 msgstr "Als NoIndex"
 
-#: includes/admin/class-admin-bar-menu.php:303
+#: includes/admin/class-admin-bar-menu.php:328
 msgid "As Pillar Content"
 msgstr "Als Säuleninhalt"
 
-#: includes/admin/class-admin-bar-menu.php:286
+#: includes/admin/class-admin-bar-menu.php:311
 msgid "Mark this page"
 msgstr "Markiere diese Seite"
 
-#: includes/admin/class-admin-bar-menu.php:273
+#: includes/admin/class-admin-bar-menu.php:298
 msgid "Edit SEO settings for the search results page"
 msgstr "Bearbeite die SEO-Einstellungen für die Suchergebnisseite"
 
-#: includes/admin/class-admin-bar-menu.php:271
+#: includes/admin/class-admin-bar-menu.php:296
 msgid "SEO Settings for Search Page"
 msgstr "SEO-Einstellungen für Suchseite"
 
-#: includes/admin/class-admin-bar-menu.php:256
+#: includes/admin/class-admin-bar-menu.php:281
 msgid "SEO Settings for Date Archives"
 msgstr "SEO-Einstellungen für Datumsarchive"
 
-#: includes/admin/class-admin-bar-menu.php:243
-#: includes/admin/class-admin-bar-menu.php:258
+#: includes/admin/class-admin-bar-menu.php:268
+#: includes/admin/class-admin-bar-menu.php:283
 msgid "Edit SEO settings for this archive page"
 msgstr "SEO-Einstellungen für diese Archivseite bearbeiten"
 
-#: includes/admin/class-admin-bar-menu.php:221
+#: includes/admin/class-admin-bar-menu.php:246
 msgid "Edit default SEO settings for this post type"
 msgstr "Bearbeite die Standard-SEO-Einstellungen für diesen Beitragstyp"
 
 #. translators: Post Type Singular Name
 #. translators: Taxonomy Singular Name
-#: includes/admin/class-admin-bar-menu.php:219
-#: includes/admin/class-admin-bar-menu.php:241
+#: includes/admin/class-admin-bar-menu.php:244
+#: includes/admin/class-admin-bar-menu.php:266
 msgid "SEO Settings for %s"
 msgstr "SEO-Einstellungen für %s"
 
-#: includes/admin/class-admin-bar-menu.php:197
+#: includes/admin/class-admin-bar-menu.php:222
 msgid "Edit Homepage SEO Settings"
 msgstr "SEO-Einstellungen der Startseite bearbeiten"
 
-#: includes/admin/class-admin-bar-menu.php:195
+#: includes/admin/class-admin-bar-menu.php:220
 msgid "Homepage SEO"
 msgstr "SEO Startseite"
 
-#: includes/admin/class-admin-bar-menu.php:150
+#: includes/admin/class-admin-bar-menu.php:175
 msgid "Rank Math Dashboard"
 msgstr "Rank Math Dashboard"
 
@@ -6720,7 +6740,7 @@ msgstr "Deine Website: %s"
 #. translators: Link to How to Setup Sitemap KB article
 #: includes/admin/wizard/class-sitemap.php:37
 #: includes/admin/wizard/views/google-connect.php:37
-#: includes/admin/wizard/views/rank-math-connect.php:41
+#: includes/admin/wizard/views/rank-math-connect.php:39
 #: includes/admin/wizard/views/search-console-ui.php:313
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Learn more."
@@ -6849,7 +6869,7 @@ msgstr "Automatisiere einige deiner SEO-Aufgaben, wie z.B. externe Links, Umleit
 msgid "SEO Tweaks"
 msgstr "SEO Optimierungen"
 
-#: includes/admin/wizard/views/navigation.php:17 rank-math.php:484
+#: includes/admin/wizard/views/navigation.php:17 rank-math.php:485
 msgid "Getting Started"
 msgstr "Erste Schritte"
 
@@ -7835,7 +7855,7 @@ msgid "Link Suggestions"
 msgstr "Linkvorschläge"
 
 #. Plugin Name of the plugin
-#: includes/admin/class-admin-bar-menu.php:148
+#: includes/admin/class-admin-bar-menu.php:173
 #: includes/admin/metabox/class-metabox.php:327
 msgid "Rank Math SEO"
 msgstr "Rank Math SEO"
@@ -7972,8 +7992,8 @@ msgstr "Import &amp; Export"
 
 #: includes/admin/class-admin-dashboard-nav.php:111
 #: includes/admin/class-setup-wizard.php:255
-#: includes/admin/class-setup-wizard.php:256 rank-math.php:426
-#: rank-math.php:431
+#: includes/admin/class-setup-wizard.php:256 rank-math.php:427
+#: rank-math.php:432
 msgid "Setup Wizard"
 msgstr "Einrichtungsassistent"
 
@@ -7996,8 +8016,8 @@ msgstr "Facebook Profil-URL"
 msgid "Twitter username (without @)"
 msgstr "Twitter-Benutzername (ohne @)"
 
-#: includes/admin/class-admin-bar-menu.php:158
-#: includes/admin/class-admin-bar-menu.php:160
+#: includes/admin/class-admin-bar-menu.php:183
+#: includes/admin/class-admin-bar-menu.php:185
 #: includes/admin/class-admin-breadcrumbs.php:32
 #: includes/admin/class-admin-menu.php:89
 #: includes/modules/version-control/class-version-control.php:220
