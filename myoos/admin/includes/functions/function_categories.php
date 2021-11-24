@@ -251,7 +251,29 @@ function oos_get_products_description_meta($product_id, $language_id = '') {
 }
 
 
-function oos_get_products_facebook_title($product_id, $language_id = '') {
+function oos_get_products_old_electrical_equipment_description($product_id, $language_id = '') {
+
+    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_descriptiontable = $oostable['products_description'];
+    $query = "SELECT products_old_electrical_equipment_description
+              FROM $products_descriptiontable
+              WHERE products_id = '" . intval($product_id) . "'
+                AND products_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $products_old_electrical_equipment_description = isset($result->fields['products_old_electrical_equipment_description']) ? $result->fields['products_old_electrical_equipment_description'] : '';
+
+    return $products_old_electrical_equipment_description;
+}
+
+
+
+function oos_get_products_facebook_title($product_id, $language_id) {
 
     if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
 

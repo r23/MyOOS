@@ -156,8 +156,10 @@ if (!empty($action)) {
 			for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
 				$language_id = $aLanguages[$i]['id'];
 	
-				$products_description = oos_db_prepare_input($_POST['products_description_' . $aLanguages[$i]['id']]);		
-				$products_description_meta = oos_db_prepare_input($_POST['products_description_meta_' . $aLanguages[$i]['id']]);	
+	
+				$products_description = isset($_POST['products_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_description_' . $language_id]) : '';
+				$products_description_meta  = isset($_POST['products_description_meta_' . $language_id]) ? oos_db_prepare_input($_POST['products_description_meta_' . $language_id]) : '';
+	
 
 				if (empty($products_description_meta)) {				
 					$products_description_meta =  substr(strip_tags(preg_replace('!(\r\n|\r|\n)!', '',$products_description)),0 , 250);
@@ -173,12 +175,17 @@ if (!empty($action)) {
 
 				if (empty($products_twitter_title)) $products_twitter_title = $products_facebook_title;
 				if (empty($products_twitter_description)) $products_twitter_description = $products_facebook_description;
-	
+				
+				$products_short_description = isset($_POST['products_short_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_short_description_' . $language_id]) : '';
+				$products_essential_characteristics  = isset($_POST['products_essential_characteristics_' . $language_id]) ? oos_db_prepare_input($_POST['products_essential_characteristics_' . $language_id]) : '';
+				$products_old_electrical_equipment_description = isset($_POST['products_old_electrical_equipment_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_old_electrical_equipment_description_' . $language_id]) : '';
+
 				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
 										'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]),
 										'products_description' => $products_description,
-										'products_short_description' => oos_db_prepare_input($_POST['products_short_description_' . $aLanguages[$i]['id']]),
-										'products_essential_characteristics' => oos_db_prepare_input($_POST['products_essential_characteristics_' . $aLanguages[$i]['id']]),
+										'products_short_description' => $products_short_description,
+										'products_essential_characteristics' => $products_essential_characteristics,
+										'products_old_electrical_equipment_description' => $products_old_electrical_equipment_description,
 										'products_description_meta' => $products_description_meta,
 										'products_facebook_title' => $products_facebook_title,
 										'products_facebook_description' => $products_facebook_description,
@@ -1061,10 +1068,10 @@ updateWithTax();
 ?>
 					<fieldset>
 						<div class="form-group row">
-							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_PRODUCTS_DESCRIPTION_META; ?></label>
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS_NOTE; ?></label>
 							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
 							<div class="col-lg-9">
-								<?php echo oos_draw_textarea_field('products_description_meta_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_description_meta_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_description_meta_' .$aLanguages[$i]['id']]) : oos_get_products_description_meta($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+								<?php echo oos_draw_textarea_field('products_old_electrical_equipment_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_old_electrical_equipment_description_' .$aLanguages[$i]['id']]) : oos_get_products_old_electrical_equipment_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
 							</div>
 						</div>
 					</fieldset>
