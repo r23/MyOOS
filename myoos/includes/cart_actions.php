@@ -252,6 +252,9 @@ switch ($action) {
 			if (oos_has_product_attributes($sProductsId)) {
 				$oMessage->add_session('danger', $aLang['error_product_has_attributes']);
 				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));
+			} elseif (oos_has_product_information_obligation($sProductsId)) {
+				$oMessage->add_session('danger', $aLang['error_product_information_obligation']);
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));				
 			} else {
 			
 				if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
@@ -306,6 +309,9 @@ switch ($action) {
 			if (oos_has_product_attributes($slave_id)) {
 				$oMessage->add_session('danger', $aLang['error_product_has_attributes']);
 				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $slave_id));
+			} elseif (oos_has_product_information_obligation($sProductsId)) {
+				$oMessage->add_session('danger', $aLang['error_product_information_obligation']);
+				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));				
 			} else {
 			
 				$cart_quantity = isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity']) ? oos_prepare_input($_POST['cart_quantity']) : 1;

@@ -1126,6 +1126,35 @@ function oos_has_product_attributes($sProductsId) {
     }
 }
 
+ /**
+  * Check if product has information obligation
+  *
+  * @param $products_id
+  * @return boolean
+  */
+function oos_has_product_information_obligation($sProductsId) {
+
+
+	if (TAKE_BACK_OBLIGATION != 'true') return false;	
+
+    $nProductID = oos_get_product_id($sProductsId);
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+	$productstable = $oostable['products'];
+    $query = "SELECT products_old_electrical_equipment
+              FROM $productstable
+              WHERE products_id = '" . intval($nProductID) . "'";
+    $result = $dbconn->Execute($query);
+    if ($result->fields['products_old_electrical_equipment'] == 0) {
+		return false;
+    } else {
+		return true;
+    }
+}
+
 
  /**
   * Check if product has attributes

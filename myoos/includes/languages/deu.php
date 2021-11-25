@@ -430,6 +430,7 @@ $aLang = [
 'error_products_quantity_order_units_text'  => '',
 'error_products_units_invalid'              => 'Fehler: Menge ',
 'error_product_has_attributes'				=> 'Dieses Produkt hat Variationen. Wählen Sie bitte die gewünschte Variation aus.',
+'error_product_information_obligation' 		=> 'Bei diesem Produkt haben Sie die Möglichkeit der unentgeltlichen Rücknahme Ihres Altgerätes. Weitere Informationen erhalten Sie hier in den Produktdetials.',
 
 'error_destination_does_not_exist'          => 'Fehler: Speicherort existiert nicht.',
 'error_destination_not_writeable'           => 'Fehler: Speicherort ist nicht beschreibbar.',

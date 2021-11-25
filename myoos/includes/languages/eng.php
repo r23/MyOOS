@@ -442,9 +442,8 @@ $aLang = [
 'error_products_quantity_invalid'            => 'Invalid Qty: ',
 'error_products_quantity_order_units_text'    => '',
 'error_products_units_invalid'             => 'Invalid Units: ',
-
 'error_product_has_attributes'				=> 'This product has variations. Please select the variation you want.',
-
+'error_product_information_obligation' 		=> 'With this product, you have the option of taking back your old device free of charge. You can find more information here in the product detials.',
 
 // File upload ~/includes/classes/oos_upload.php
 'error_destination_does_not_exist'   => 'Error: Destination does not exist.',
