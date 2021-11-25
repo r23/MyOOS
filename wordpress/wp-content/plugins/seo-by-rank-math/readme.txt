@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.77
+Stable tag: 1.0.77.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -580,6 +580,9 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 13. Rank Math SEO Comes with 15+ FREE modules.
 
 == Changelog ==
+
+= 1.0.77.1 [Nov 25, 2021] =
+* Fixed: Classic Editor was showing an alert when [Content AI](https://rankmath.com/kb/how-to-use-content-ai/) module was active, and the site was not [connected](https://rankmath.com/kb/free-account-benefits/) to the Rank Math Account
 
 = 1.0.77 [Nov 24, 2021] =
 * Added: [HUGE!] Extended headless support, you can access SEO meta tags, Open Graph, and Schema Markup using a REST API endpoint, [learn more](https://rankmath.com/kb/headless-support/)
