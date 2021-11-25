@@ -628,11 +628,12 @@ class PluginArea extends external_wp_element_namespaceObject.Component {
 
   getCurrentPluginsState() {
     return {
-      plugins: (0,external_lodash_namespaceObject.map)(getPlugins(this.props.scope), ({
-        icon,
-        name,
-        render
-      }) => {
+      plugins: (0,external_lodash_namespaceObject.map)(getPlugins(this.props.scope), _ref => {
+        let {
+          icon,
+          name,
+          render
+        } = _ref;
         return {
           Plugin: render,
           context: this.memoizedContext(name, icon)
@@ -660,13 +661,16 @@ class PluginArea extends external_wp_element_namespaceObject.Component {
       style: {
         display: 'none'
       }
-    }, (0,external_lodash_namespaceObject.map)(this.state.plugins, ({
-      context,
-      Plugin
-    }) => (0,external_wp_element_namespaceObject.createElement)(Provider, {
-      key: context.name,
-      value: context
-    }, (0,external_wp_element_namespaceObject.createElement)(Plugin, null))));
+    }, (0,external_lodash_namespaceObject.map)(this.state.plugins, _ref2 => {
+      let {
+        context,
+        Plugin
+      } = _ref2;
+      return (0,external_wp_element_namespaceObject.createElement)(Provider, {
+        key: context.name,
+        value: context
+      }, (0,external_wp_element_namespaceObject.createElement)(Plugin, null));
+    }));
   }
 
 }

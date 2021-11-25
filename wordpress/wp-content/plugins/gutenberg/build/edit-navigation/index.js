@@ -277,7 +277,10 @@ const NEW_TAB_TARGET_ATTRIBUTE = '_blank';
  * @return {Object} Updated state.
  */
 
-function selectedMenuId(state = null, action) {
+function selectedMenuId() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'SET_SELECTED_MENU_ID':
       return action.menuId;
@@ -294,7 +297,10 @@ function selectedMenuId(state = null, action) {
  * @param {boolean}        action.value Flag indicating whether the panel should be open/close.
  */
 
-function blockInserterPanel(state = false, action) {
+function blockInserterPanel() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'SET_IS_INSERTER_OPENED':
       return action.value;
@@ -474,19 +480,21 @@ function blockToMenuItem(block, menuItem, parentId, blockPosition, menuId) {
  * @return {WPNavMenuItem} the menu item (converted from block attributes).
  */
 
-const blockAttributesToMenuItem = ({
-  label = '',
-  url = '',
-  description,
-  rel,
-  className,
-  title: blockTitleAttr,
-  type,
-  id,
-  kind,
-  opensInNewTab
-}) => {
+const blockAttributesToMenuItem = _ref => {
   var _type;
+
+  let {
+    label = '',
+    url = '',
+    description,
+    rel,
+    className,
+    title: blockTitleAttr,
+    type,
+    id,
+    kind,
+    opensInNewTab
+  } = _ref;
 
   // For historical reasons, the `core/navigation-link` variation type is `tag`
   // whereas WP Core expects `post_tag` as the `object` type.
@@ -574,7 +582,10 @@ function mapMenuItemsToBlocks(menuItems) {
 
     return (0,external_wp_blocks_namespaceObject.createBlock)(itemBlockName, attributes, nestedBlocks);
   });
-  return (0,external_lodash_namespaceObject.zip)(blocks, sortedItems).map(([block, menuItem]) => addRecordIdToBlock(block, menuItem.id));
+  return (0,external_lodash_namespaceObject.zip)(blocks, sortedItems).map(_ref2 => {
+    let [block, menuItem] = _ref2;
+    return addRecordIdToBlock(block, menuItem.id);
+  });
 } // A few parameters are using snake case, let's embrace that for convenience:
 
 /* eslint-disable camelcase */
@@ -587,19 +598,21 @@ function mapMenuItemsToBlocks(menuItems) {
  */
 
 
-function menuItemToBlockAttributes({
-  title: menuItemTitleField,
-  xfn,
-  classes,
-  attr_title,
-  object,
-  object_id,
-  description,
-  url,
-  type: menuItemTypeField,
-  target
-}) {
+function menuItemToBlockAttributes(_ref3) {
   var _object;
+
+  let {
+    title: menuItemTitleField,
+    xfn,
+    classes,
+    attr_title,
+    object,
+    object_id,
+    description,
+    url,
+    type: menuItemTypeField,
+    target
+  } = _ref3;
 
   // For historical reasons, the `core/navigation-link` variation type is `tag`
   // whereas WP Core expects `post_tag` as the `object` type.
@@ -654,7 +667,9 @@ function menuItemToBlockAttributes({
  * @return {Array} a nested array of parent/child relationships
  */
 
-function createDataTree(dataset, id = 'id', relation = 'parent') {
+function createDataTree(dataset) {
+  let id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'id';
+  let relation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'parent';
   const hashTable = Object.create(null);
   const dataTree = [];
 
@@ -701,10 +716,12 @@ function createDataTree(dataset, id = 'id', relation = 'parent') {
  * @return {void}
  */
 
-const getNavigationPostForMenu = menuId => async ({
-  registry,
-  dispatch
-}) => {
+const getNavigationPostForMenu = menuId => async _ref => {
+  let {
+    registry,
+    dispatch
+  } = _ref;
+
   if (!menuId) {
     return;
   }
@@ -726,7 +743,8 @@ const getNavigationPostForMenu = menuId => async ({
   registry.dispatch(external_wp_coreData_namespaceObject.store).finishResolution('getEntityRecord', args);
 };
 
-const createStubPost = (menuId, navigationBlock = null) => {
+const createStubPost = function (menuId) {
+  let navigationBlock = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   const id = buildNavigationPostId(menuId);
   return {
     id,
@@ -740,9 +758,10 @@ const createStubPost = (menuId, navigationBlock = null) => {
   };
 };
 
-const persistPost = post => ({
-  registry
-}) => {
+const persistPost = post => _ref2 => {
+  let {
+    registry
+  } = _ref2;
   registry.dispatch(external_wp_coreData_namespaceObject.store).receiveEntityRecords(NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, post, {
     id: post.id
   }, false);
@@ -824,7 +843,8 @@ const hasResolvedNavigationPost = (0,external_wp_data_namespaceObject.createRegi
  * @return {boolean} Whether the inserter is opened.
  */
 
-function isInserterOpened(state = false) {
+function isInserterOpened() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   return !!(state !== null && state !== void 0 && state.blockInserterPanel);
 }
 //# sourceMappingURL=selectors.js.map
@@ -876,10 +896,11 @@ function setSelectedMenuId(menuId) {
  * @return {Function} An action creator
  */
 
-const saveNavigationPost = post => async ({
-  registry,
-  dispatch
-}) => {
+const saveNavigationPost = post => async _ref => {
+  let {
+    registry,
+    dispatch
+  } = _ref;
   const lock = await registry.dispatch(external_wp_coreData_namespaceObject.store).__unstableAcquireStoreLock(STORE_NAME, ['savingMenu'], {
     exclusive: true
   });
@@ -925,10 +946,11 @@ const saveNavigationPost = post => async ({
  * @return {Function} An action creator
  */
 
-const batchSaveMenuItems = (navigationBlock, menuId) => async ({
-  dispatch,
-  registry
-}) => {
+const batchSaveMenuItems = (navigationBlock, menuId) => async _ref2 => {
+  let {
+    dispatch,
+    registry
+  } = _ref2;
   // Make sure all the existing menu items are available before proceeding
   const oldMenuItems = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getMenuItems({
     menus: menuId,
@@ -943,9 +965,12 @@ const batchSaveMenuItems = (navigationBlock, menuId) => async ({
 
   const navBlockAfterUpdates = await dispatch(batchUpdateMenuItems(navBlockWithRecordIds, menuId)); // Delete menu items
 
-  const deletedIds = (0,external_lodash_namespaceObject.difference)(oldMenuItems.map(({
-    id
-  }) => id), blocksTreeToList(navBlockAfterUpdates).map(getRecordIdFromBlock));
+  const deletedIds = (0,external_lodash_namespaceObject.difference)(oldMenuItems.map(_ref3 => {
+    let {
+      id
+    } = _ref3;
+    return id;
+  }), blocksTreeToList(navBlockAfterUpdates).map(getRecordIdFromBlock));
   await dispatch(batchDeleteMenuItems(deletedIds));
   return navBlockAfterUpdates;
 };
@@ -958,17 +983,21 @@ const batchSaveMenuItems = (navigationBlock, menuId) => async ({
  */
 
 
-const batchInsertPlaceholderMenuItems = navigationBlock => async ({
-  registry
-}) => {
+const batchInsertPlaceholderMenuItems = navigationBlock => async _ref4 => {
+  let {
+    registry
+  } = _ref4;
   const blocksWithoutRecordId = blocksTreeToList(navigationBlock).filter(block => isBlockSupportedInNav(block) && !getRecordIdFromBlock(block));
-  const tasks = blocksWithoutRecordId.map(() => ({
-    saveEntityRecord
-  }) => saveEntityRecord('root', 'menuItem', {
-    title: (0,external_wp_i18n_namespaceObject.__)('Menu item'),
-    url: '#placeholder',
-    menu_order: 1
-  }));
+  const tasks = blocksWithoutRecordId.map(() => _ref5 => {
+    let {
+      saveEntityRecord
+    } = _ref5;
+    return saveEntityRecord('root', 'menuItem', {
+      title: (0,external_wp_i18n_namespaceObject.__)('Menu item'),
+      url: '#placeholder',
+      menu_order: 1
+    });
+  });
   const results = await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(tasks); // Return an updated navigation block with all the IDs in
 
   const blockToResult = new Map((0,external_lodash_namespaceObject.zip)(blocksWithoutRecordId, results));
@@ -990,15 +1019,22 @@ const batchInsertPlaceholderMenuItems = navigationBlock => async ({
  */
 
 
-const batchUpdateMenuItems = (navigationBlock, menuId) => async ({
-  registry
-}) => {
+const batchUpdateMenuItems = (navigationBlock, menuId) => async _ref6 => {
+  let {
+    registry
+  } = _ref6;
   const allMenuItems = blocksTreeToAnnotatedList(navigationBlock);
-  const unsupportedMenuItems = allMenuItems.filter(({
-    block
-  }) => !isBlockSupportedInNav(block)).map(({
-    block
-  }) => block.name);
+  const unsupportedMenuItems = allMenuItems.filter(_ref7 => {
+    let {
+      block
+    } = _ref7;
+    return !isBlockSupportedInNav(block);
+  }).map(_ref8 => {
+    let {
+      block
+    } = _ref8;
+    return block.name;
+  });
 
   if (unsupportedMenuItems.length) {
     window.console.warn((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Name of block (i.e. core/legacy-widget)
@@ -1006,14 +1042,20 @@ const batchUpdateMenuItems = (navigationBlock, menuId) => async ({
   }
 
   const updatedMenuItems = allMenuItems // Filter out unsupported blocks
-  .filter(({
-    block
-  }) => isBlockSupportedInNav(block)) // Transform the blocks into menu items
-  .map(({
-    block,
-    parentBlock,
-    childIndex
-  }) => blockToMenuItem(block, registry.select(external_wp_coreData_namespaceObject.store).getMenuItem(getRecordIdFromBlock(block)), getRecordIdFromBlock(parentBlock), childIndex, menuId)) // Filter out menu items without any edits
+  .filter(_ref9 => {
+    let {
+      block
+    } = _ref9;
+    return isBlockSupportedInNav(block);
+  }) // Transform the blocks into menu items
+  .map(_ref10 => {
+    let {
+      block,
+      parentBlock,
+      childIndex
+    } = _ref10;
+    return blockToMenuItem(block, registry.select(external_wp_coreData_namespaceObject.store).getMenuItem(getRecordIdFromBlock(block)), getRecordIdFromBlock(parentBlock), childIndex, menuId);
+  }) // Filter out menu items without any edits
   .filter(menuItem => {
     // Update an existing entity record.
     registry.dispatch(external_wp_coreData_namespaceObject.store).editEntityRecord('root', 'menuItem', menuItem.id, menuItem, {
@@ -1022,9 +1064,12 @@ const batchUpdateMenuItems = (navigationBlock, menuId) => async ({
     return registry.select(external_wp_coreData_namespaceObject.store).hasEditsForEntityRecord('root', 'menuItem', menuItem.id);
   }); // Map the edited menu items to batch tasks
 
-  const tasks = updatedMenuItems.map(menuItem => ({
-    saveEditedEntityRecord
-  }) => saveEditedEntityRecord('root', 'menuItem', menuItem.id));
+  const tasks = updatedMenuItems.map(menuItem => _ref11 => {
+    let {
+      saveEditedEntityRecord
+    } = _ref11;
+    return saveEditedEntityRecord('root', 'menuItem', menuItem.id);
+  });
   await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(tasks); // Throw on failure. @TODO failures should be thrown in core-data
 
   updatedMenuItems.forEach(menuItem => {
@@ -1055,12 +1100,14 @@ const batchUpdateMenuItems = (navigationBlock, menuId) => async ({
  */
 
 
-const batchDeleteMenuItems = deletedIds => async ({
-  registry
-}) => {
-  const deleteBatch = deletedIds.map(id => async ({
-    deleteEntityRecord
-  }) => {
+const batchDeleteMenuItems = deletedIds => async _ref12 => {
+  let {
+    registry
+  } = _ref12;
+  const deleteBatch = deletedIds.map(id => async _ref13 => {
+    let {
+      deleteEntityRecord
+    } = _ref13;
     const success = await deleteEntityRecord('root', 'menuItem', id, {
       force: true
     }); // @TODO failures should be thrown in core-data
@@ -1092,9 +1139,12 @@ function blocksTreeToAnnotatedList(parentBlock) {
 }
 
 function blocksTreeToList(parentBlock) {
-  return blocksTreeToAnnotatedList(parentBlock).map(({
-    block
-  }) => block);
+  return blocksTreeToAnnotatedList(parentBlock).map(_ref14 => {
+    let {
+      block
+    } = _ref14;
+    return block;
+  });
 }
 /**
  * Maps one tree of blocks into another tree by invoking a callback on every node.
@@ -1107,7 +1157,9 @@ function blocksTreeToList(parentBlock) {
  */
 
 
-function mapBlocksTree(block, callback, parentBlock = null, idx = 0) {
+function mapBlocksTree(block, callback) {
+  let parentBlock = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  let idx = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
   return { ...callback(block, parentBlock, idx),
     innerBlocks: (block.innerBlocks || []).map((innerBlock, index) => mapBlocksTree(innerBlock, callback, block, index))
   };
@@ -1218,10 +1270,11 @@ function CustomAppender() {
   });
 }
 
-function EnhancedNavigationBlock({
-  blockEdit: BlockEdit,
-  ...props
-}) {
+function EnhancedNavigationBlock(_ref) {
+  let {
+    blockEdit: BlockEdit,
+    ...props
+  } = _ref;
   const clientId = props.clientId;
   const {
     noBlockSelected,
@@ -1407,9 +1460,12 @@ function useNavigationEditor() {
     createInfoNotice
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
   const isMenuBeingDeleted = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).isDeletingEntityRecord('root', 'menu', selectedMenuId), [selectedMenuId]);
-  const selectedMenuName = (menus === null || menus === void 0 ? void 0 : (_menus$find = menus.find(({
-    id
-  }) => id === selectedMenuId)) === null || _menus$find === void 0 ? void 0 : _menus$find.name) || '';
+  const selectedMenuName = (menus === null || menus === void 0 ? void 0 : (_menus$find = menus.find(_ref => {
+    let {
+      id
+    } = _ref;
+    return id === selectedMenuId;
+  })) === null || _menus$find === void 0 ? void 0 : _menus$find.name) || '';
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (hasLoadedMenus) {
       setHasFinishedInitialLoad(true);
@@ -1531,11 +1587,17 @@ var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_w
 
 
 
-const locationsForMenuId = (menuLocationsByName, id) => Object.values(menuLocationsByName).filter(({
-  menu
-}) => menu === id).map(({
-  name
-}) => name);
+const locationsForMenuId = (menuLocationsByName, id) => Object.values(menuLocationsByName).filter(_ref => {
+  let {
+    menu
+  } = _ref;
+  return menu === id;
+}).map(_ref2 => {
+  let {
+    name
+  } = _ref2;
+  return name;
+});
 
 function useMenuLocations() {
   const [menuLocationsByName, setMenuLocationsByName] = (0,external_wp_element_namespaceObject.useState)(null);
@@ -1550,7 +1612,7 @@ function useMenuLocations() {
     const fetchMenuLocationsByName = async () => {
       const newMenuLocationsByName = await external_wp_apiFetch_default()({
         method: 'GET',
-        path: '/__experimental/menu-locations'
+        path: '/wp/v2/menu-locations'
       });
 
       if (isMounted) {
@@ -1779,18 +1841,21 @@ function convertPagesToBlocks(pages) {
     return null;
   }
 
-  return pages.map(({
-    title,
-    type,
-    link: url,
-    id
-  }) => (0,external_wp_blocks_namespaceObject.createBlock)('core/navigation-link', {
-    type,
-    id,
-    url,
-    label: !title.rendered ? (0,external_wp_i18n_namespaceObject.__)('(no title)') : title.rendered,
-    opensInNewTab: false
-  }));
+  return pages.map(_ref => {
+    let {
+      title,
+      type,
+      link: url,
+      id
+    } = _ref;
+    return (0,external_wp_blocks_namespaceObject.createBlock)('core/navigation-link', {
+      type,
+      id,
+      url,
+      label: !title.rendered ? (0,external_wp_i18n_namespaceObject.__)('(no title)') : title.rendered,
+      opensInNewTab: false
+    });
+  });
 }
 
 const TOGGLE_PROPS = {
@@ -1800,9 +1865,10 @@ const POPOVER_PROPS = {
   position: 'bottom center'
 };
 
-function BlockPlaceholder({
-  onCreate
-}, ref) {
+function BlockPlaceholder(_ref2, ref) {
+  let {
+    onCreate
+  } = _ref2;
   const [selectedMenu, setSelectedMenu] = (0,external_wp_element_namespaceObject.useState)();
   const [isCreatingFromMenu, setIsCreatingFromMenu] = (0,external_wp_element_namespaceObject.useState)(false);
   const [selectedMenuId] = useSelectedMenuId();
@@ -1879,18 +1945,21 @@ function BlockPlaceholder({
     icon: chevron_down,
     toggleProps: TOGGLE_PROPS,
     popoverProps: POPOVER_PROPS
-  }, ({
-    onClose
-  }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, selectableMenus.map(menu => {
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-      onClick: () => {
-        setSelectedMenu(menu.id);
-        onCreateFromMenu();
-      },
-      onClose: onClose,
-      key: menu.id
-    }, menu.name);
-  }))) : undefined)));
+  }, _ref3 => {
+    let {
+      onClose
+    } = _ref3;
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, selectableMenus.map(menu => {
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+        onClick: () => {
+          setSelectedMenu(menu.id);
+          onCreateFromMenu();
+        },
+        onClose: onClose,
+        key: menu.id
+      }, menu.name);
+    }));
+  }) : undefined)));
 }
 
 /* harmony default export */ var block_placeholder = ((0,external_wp_element_namespaceObject.forwardRef)(BlockPlaceholder));
@@ -2010,12 +2079,15 @@ const closeSmall = (0,external_wp_element_namespaceObject.createElement)(externa
  * @return {Object} Updated state.
  */
 
-function singleEnableItems(state = {}, {
-  type,
-  itemType,
-  scope,
-  item
-}) {
+function singleEnableItems() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let {
+    type,
+    itemType,
+    scope,
+    item
+  } = arguments.length > 1 ? arguments[1] : undefined;
+
   if (type !== 'SET_SINGLE_ENABLE_ITEM' || !itemType || !scope) {
     return state;
   }
@@ -2040,13 +2112,16 @@ function singleEnableItems(state = {}, {
  * @return {Object} Updated state.
  */
 
-function multipleEnableItems(state = {}, {
-  type,
-  itemType,
-  scope,
-  item,
-  isEnable
-}) {
+function multipleEnableItems() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let {
+    type,
+    itemType,
+    scope,
+    item,
+    isEnable
+  } = arguments.length > 1 ? arguments[1] : undefined;
+
   if (type !== 'SET_MULTIPLE_ENABLE_ITEM' || !itemType || !scope || !item || (0,external_lodash_namespaceObject.get)(state, [itemType, scope, item]) === isEnable) {
     return state;
   }
@@ -2074,7 +2149,10 @@ function multipleEnableItems(state = {}, {
  */
 
 const preferenceDefaults = (0,external_wp_data_namespaceObject.combineReducers)({
-  features(state = {}, action) {
+  features() {
+    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    let action = arguments.length > 1 ? arguments[1] : undefined;
+
     if (action.type === 'SET_FEATURE_DEFAULTS') {
       const {
         scope,
@@ -2101,7 +2179,10 @@ const preferenceDefaults = (0,external_wp_data_namespaceObject.combineReducers)(
  */
 
 const preferences = (0,external_wp_data_namespaceObject.combineReducers)({
-  features(state = {}, action) {
+  features() {
+    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    let action = arguments.length > 1 ? arguments[1] : undefined;
+
     if (action.type === 'SET_FEATURE_VALUE') {
       const {
         scope,
@@ -2224,10 +2305,11 @@ function unpinItem(scope, itemId) {
  */
 
 function toggleFeature(scope, featureName) {
-  return function ({
-    select,
-    dispatch
-  }) {
+  return function (_ref) {
+    let {
+      select,
+      dispatch
+    } = _ref;
     const currentValue = select.isFeatureActive(scope, featureName);
     dispatch.setFeatureValue(scope, featureName, !currentValue);
   };
@@ -2427,14 +2509,15 @@ var external_wp_plugins_namespaceObject = window["wp"]["plugins"];
 
 
 
-function ComplementaryAreaToggle({
-  as = external_wp_components_namespaceObject.Button,
-  scope,
-  identifier,
-  icon,
-  selectedIcon,
-  ...props
-}) {
+function ComplementaryAreaToggle(_ref) {
+  let {
+    as = external_wp_components_namespaceObject.Button,
+    scope,
+    identifier,
+    icon,
+    selectedIcon,
+    ...props
+  } = _ref;
   const ComponentToUse = as;
   const isSelected = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getActiveComplementaryArea(scope) === identifier, [identifier]);
   const {
@@ -2474,12 +2557,13 @@ function ComplementaryAreaToggle({
 
 
 
-const ComplementaryAreaHeader = ({
-  smallScreenTitle,
-  children,
-  className,
-  toggleButtonProps
-}) => {
+const ComplementaryAreaHeader = _ref => {
+  let {
+    smallScreenTitle,
+    children,
+    className,
+    toggleButtonProps
+  } = _ref;
   const toggleButton = (0,external_wp_element_namespaceObject.createElement)(complementary_area_toggle, _extends({
     icon: close_small
   }, toggleButtonProps));
@@ -2510,13 +2594,14 @@ const ComplementaryAreaHeader = ({
 
 
 
-function ActionItemSlot({
-  name,
-  as: Component = external_wp_components_namespaceObject.ButtonGroup,
-  fillProps = {},
-  bubblesVirtually,
-  ...props
-}) {
+function ActionItemSlot(_ref) {
+  let {
+    name,
+    as: Component = external_wp_components_namespaceObject.ButtonGroup,
+    fillProps = {},
+    bubblesVirtually,
+    ...props
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, {
     name: name,
     bubblesVirtually: bubblesVirtually,
@@ -2532,12 +2617,14 @@ function ActionItemSlot({
 
 
     const initializedByPlugins = [];
-    external_wp_element_namespaceObject.Children.forEach(fills, ({
-      props: {
-        __unstableExplicitMenuItem,
-        __unstableTarget
-      }
-    }) => {
+    external_wp_element_namespaceObject.Children.forEach(fills, _ref2 => {
+      let {
+        props: {
+          __unstableExplicitMenuItem,
+          __unstableTarget
+        }
+      } = _ref2;
+
       if (__unstableTarget && __unstableExplicitMenuItem) {
         initializedByPlugins.push(__unstableTarget);
       }
@@ -2553,21 +2640,23 @@ function ActionItemSlot({
   });
 }
 
-function ActionItem({
-  name,
-  as: Component = external_wp_components_namespaceObject.Button,
-  onClick,
-  ...props
-}) {
+function ActionItem(_ref3) {
+  let {
+    name,
+    as: Component = external_wp_components_namespaceObject.Button,
+    onClick,
+    ...props
+  } = _ref3;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Fill, {
     name: name
-  }, ({
-    onClick: fpOnClick
-  }) => {
+  }, _ref4 => {
+    let {
+      onClick: fpOnClick
+    } = _ref4;
     return (0,external_wp_element_namespaceObject.createElement)(Component, _extends({
-      onClick: onClick || fpOnClick ? (...args) => {
-        (onClick || external_lodash_namespaceObject.noop)(...args);
-        (fpOnClick || external_lodash_namespaceObject.noop)(...args);
+      onClick: onClick || fpOnClick ? function () {
+        (onClick || external_lodash_namespaceObject.noop)(...arguments);
+        (fpOnClick || external_lodash_namespaceObject.noop)(...arguments);
       } : undefined
     }, props));
   });
@@ -2602,12 +2691,13 @@ const PluginsMenuItem = props => // Menu item is marked with unstable prop for b
 // @see https://github.com/WordPress/gutenberg/issues/14457
 (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, (0,external_lodash_namespaceObject.omit)(props, ['__unstableExplicitMenuItem', '__unstableTarget']));
 
-function ComplementaryAreaMoreMenuItem({
-  scope,
-  target,
-  __unstableExplicitMenuItem,
-  ...props
-}) {
+function ComplementaryAreaMoreMenuItem(_ref) {
+  let {
+    scope,
+    target,
+    __unstableExplicitMenuItem,
+    ...props
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(complementary_area_toggle, _extends({
     as: toggleProps => {
       return (0,external_wp_element_namespaceObject.createElement)(action_item, _extends({
@@ -2639,20 +2729,22 @@ function ComplementaryAreaMoreMenuItem({
 
 
 
-function PinnedItems({
-  scope,
-  ...props
-}) {
+function PinnedItems(_ref) {
+  let {
+    scope,
+    ...props
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Fill, _extends({
     name: `PinnedItems/${scope}`
   }, props));
 }
 
-function PinnedItemsSlot({
-  scope,
-  className,
-  ...props
-}) {
+function PinnedItemsSlot(_ref2) {
+  let {
+    scope,
+    className,
+    ...props
+  } = _ref2;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, _extends({
     name: `PinnedItems/${scope}`
   }, props), fills => !(0,external_lodash_namespaceObject.isEmpty)(fills) && (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -2692,20 +2784,22 @@ PinnedItems.Slot = PinnedItemsSlot;
 
 
 
-function ComplementaryAreaSlot({
-  scope,
-  ...props
-}) {
+function ComplementaryAreaSlot(_ref) {
+  let {
+    scope,
+    ...props
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, _extends({
     name: `ComplementaryArea/${scope}`
   }, props));
 }
 
-function ComplementaryAreaFill({
-  scope,
-  children,
-  className
-}) {
+function ComplementaryAreaFill(_ref2) {
+  let {
+    scope,
+    children,
+    className
+  } = _ref2;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Fill, {
     name: `ComplementaryArea/${scope}`
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -2746,24 +2840,25 @@ function useAdjustComplementaryListener(scope, identifier, activeArea, isActive,
   }, [isActive, isSmall, scope, identifier, activeArea]);
 }
 
-function ComplementaryArea({
-  children,
-  className,
-  closeLabel = (0,external_wp_i18n_namespaceObject.__)('Close plugin'),
-  identifier,
-  header,
-  headerClassName,
-  icon,
-  isPinnable = true,
-  panelClassName,
-  scope,
-  name,
-  smallScreenTitle,
-  title,
-  toggleShortcut,
-  isActiveByDefault,
-  showIconLabels = false
-}) {
+function ComplementaryArea(_ref3) {
+  let {
+    children,
+    className,
+    closeLabel = (0,external_wp_i18n_namespaceObject.__)('Close plugin'),
+    identifier,
+    header,
+    headerClassName,
+    icon,
+    isPinnable = true,
+    panelClassName,
+    scope,
+    name,
+    smallScreenTitle,
+    title,
+    toggleShortcut,
+    isActiveByDefault,
+    showIconLabels = false
+  } = _ref3;
   const {
     isActive,
     isPinned,
@@ -2879,19 +2974,20 @@ function useHTMLClass(className) {
   }, [className]);
 }
 
-function InterfaceSkeleton({
-  footer,
-  header,
-  sidebar,
-  secondarySidebar,
-  notices,
-  content,
-  drawer,
-  actions,
-  labels,
-  className,
-  shortcuts
-}, ref) {
+function InterfaceSkeleton(_ref, ref) {
+  let {
+    footer,
+    header,
+    sidebar,
+    secondarySidebar,
+    notices,
+    content,
+    drawer,
+    actions,
+    labels,
+    className,
+    shortcuts
+  } = _ref;
   const navigateRegionsProps = (0,external_wp_components_namespaceObject.__unstableUseNavigateRegions)(shortcuts);
   useHTMLClass('interface-interface-skeleton__html-container');
   const defaultLabels = {
@@ -2996,16 +3092,17 @@ const moreVertical = (0,external_wp_element_namespaceObject.createElement)(exter
 
 
 
-function MoreMenuDropdown({
-  as: DropdownComponent = external_wp_components_namespaceObject.DropdownMenu,
-  className,
+function MoreMenuDropdown(_ref) {
+  let {
+    as: DropdownComponent = external_wp_components_namespaceObject.DropdownMenu,
+    className,
 
-  /* translators: button label text should, if possible, be under 16 characters. */
-  label = (0,external_wp_i18n_namespaceObject.__)('Options'),
-  popoverProps,
-  toggleProps,
-  children
-}) {
+    /* translators: button label text should, if possible, be under 16 characters. */
+    label = (0,external_wp_i18n_namespaceObject.__)('Options'),
+    popoverProps,
+    toggleProps,
+    children
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(DropdownComponent, {
     className: classnames_default()('interface-more-menu-dropdown', className),
     icon: more_vertical,
@@ -3218,15 +3315,16 @@ var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortc
 
 
 
-function AddMenu({
-  className,
-  onCreate,
-  titleText,
-  helpText,
-  focusInputOnMount = false,
-  noticeUI,
-  noticeOperations
-}) {
+function AddMenu(_ref) {
+  let {
+    className,
+    onCreate,
+    titleText,
+    helpText,
+    focusInputOnMount = false,
+    noticeUI,
+    noticeOperations
+  } = _ref;
   const inputRef = (0,external_wp_compose_namespaceObject.useFocusOnMount)(focusInputOnMount);
   const [menuName, setMenuName] = (0,external_wp_element_namespaceObject.useState)('');
   const [isCreatingMenu, setIsCreatingMenu] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -3321,11 +3419,12 @@ function AddMenu({
  */
 
 
-function MenuSwitcher({
-  menus,
-  selectedMenuId,
-  onSelectMenu = external_lodash_namespaceObject.noop
-}) {
+function MenuSwitcher(_ref) {
+  let {
+    menus,
+    selectedMenuId,
+    onSelectMenu = external_lodash_namespaceObject.noop
+  } = _ref;
   const [isModalVisible, setIsModalVisible] = (0,external_wp_element_namespaceObject.useState)(false);
 
   const openModal = () => setIsModalVisible(true);
@@ -3335,16 +3434,19 @@ function MenuSwitcher({
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItemsChoice, {
     value: selectedMenuId,
     onSelect: onSelectMenu,
-    choices: menus.map(({
-      id,
-      name
-    }) => ({
-      value: id,
-      label: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(name),
-      'aria-label': (0,external_wp_i18n_namespaceObject.sprintf)(
-      /* translators: %s: The name of a menu. */
-      (0,external_wp_i18n_namespaceObject.__)("Switch to '%s'"), name)
-    }))
+    choices: menus.map(_ref2 => {
+      let {
+        id,
+        name
+      } = _ref2;
+      return {
+        value: id,
+        label: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(name),
+        'aria-label': (0,external_wp_i18n_namespaceObject.sprintf)(
+        /* translators: %s: The name of a menu. */
+        (0,external_wp_i18n_namespaceObject.__)("Switch to '%s'"), name)
+      };
+    })
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
     hideSeparator: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
@@ -3377,11 +3479,12 @@ function MenuSwitcher({
 
 
 
-function UnselectedMenuState({
-  onCreate,
-  onSelectMenu,
-  menus
-}) {
+function UnselectedMenuState(_ref) {
+  let {
+    onCreate,
+    onSelectMenu,
+    menus
+  } = _ref;
   const showMenuSwitcher = (menus === null || menus === void 0 ? void 0 : menus.length) > 0;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-navigation-empty-state"
@@ -3461,9 +3564,10 @@ class ErrorBoundary extends external_wp_element_namespaceObject.Component {
 
 
 
-function NavigationEditorShortcuts({
-  saveBlocks
-}) {
+function NavigationEditorShortcuts(_ref) {
+  let {
+    saveBlocks
+  } = _ref;
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-navigation/save-menu', event => {
     event.preventDefault();
     saveBlocks();
@@ -3554,9 +3658,10 @@ const cog = (0,external_wp_element_namespaceObject.createElement)(external_wp_pr
  */
 
 
-function SidebarHeader({
-  sidebarName
-}) {
+function SidebarHeader(_ref) {
+  let {
+    sidebarName
+  } = _ref;
   const {
     enableComplementaryArea
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
@@ -3637,9 +3742,10 @@ function NameEditor() {
  */
 
 
-function AutoAddPages({
-  menuId
-}) {
+function AutoAddPages(_ref) {
+  let {
+    menuId
+  } = _ref;
   const [autoAddPages, setAutoAddPages] = useMenuEntityProp('auto_add', menuId);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Add new pages'),
@@ -3663,9 +3769,10 @@ function AutoAddPages({
 
 
 
-function MenuSettings({
-  menuId
-}) {
+function MenuSettings(_ref) {
+  let {
+    menuId
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
     title: (0,external_wp_i18n_namespaceObject.__)('Menu settings')
   }, (0,external_wp_element_namespaceObject.createElement)(NameEditor, null), (0,external_wp_element_namespaceObject.createElement)(AutoAddPages, {
@@ -3691,11 +3798,12 @@ function MenuSettings({
  */
 
 
-function ManageLocations({
-  menus,
-  selectedMenuId,
-  onSelectMenu
-}) {
+function ManageLocations(_ref) {
+  let {
+    menus,
+    selectedMenuId,
+    onSelectMenu
+  } = _ref;
   const {
     menuLocations,
     assignMenuToLocation,
@@ -3725,12 +3833,13 @@ function ManageLocations({
 
   const handleUpdateMenuLocations = async () => {
     const method = 'POST';
-    const batchRequests = menus.map(({
-      id
-    }) => {
+    const batchRequests = menus.map(_ref2 => {
+      let {
+        id
+      } = _ref2;
       const locations = menuLocations.filter(menuLocation => menuLocation.menu === id).map(menuLocation => menuLocation.name);
       return {
-        path: `/__experimental/menus/${id}`,
+        path: `/wp/v2/menus/${id}`,
         body: {
           locations
         },
@@ -3774,16 +3883,23 @@ function ManageLocations({
   (0,external_wp_i18n_namespaceObject.__)('Your current theme provides %d different locations to place menu.'), menuLocations.length);
   const themeLocationCountTextModal = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Number of available theme locations.
   (0,external_wp_i18n_namespaceObject.__)('Your current theme supports %d different locations. Select which menu appears in each location.'), menuLocations.length);
-  const menusWithSelection = menuLocations.map(({
-    name,
-    description,
-    menu
-  }) => {
-    const menuOnLocation = menus.filter(({
-      id
-    }) => ![0, selectedMenuId].includes(id)).find(({
-      id
-    }) => id === menu);
+  const menusWithSelection = menuLocations.map(_ref3 => {
+    let {
+      name,
+      description,
+      menu
+    } = _ref3;
+    const menuOnLocation = menus.filter(_ref4 => {
+      let {
+        id
+      } = _ref4;
+      return ![0, selectedMenuId].includes(id);
+    }).find(_ref5 => {
+      let {
+        id
+      } = _ref5;
+      return id === menu;
+    });
     return (0,external_wp_element_namespaceObject.createElement)("li", {
       key: name,
       className: "edit-navigation-manage-locations__checklist-item"
@@ -3809,14 +3925,17 @@ function ManageLocations({
       value: 0,
       label: (0,external_wp_i18n_namespaceObject.__)('Select a Menu'),
       key: 0
-    }, ...menus.map(({
-      id,
-      name
-    }) => ({
-      key: id,
-      value: id,
-      label: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(name)
-    }))],
+    }, ...menus.map(_ref6 => {
+      let {
+        id,
+        name
+      } = _ref6;
+      return {
+        key: id,
+        value: id,
+        label: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(name)
+      };
+    })],
     onChange: menuId => {
       assignMenuToLocation(menuLocation.name, Number(menuId));
     }
@@ -3860,10 +3979,11 @@ function ManageLocations({
  */
 
 
-function DeleteMenu({
-  onDeleteMenu,
-  isMenuBeingDeleted
-}) {
+function DeleteMenu(_ref) {
+  let {
+    onDeleteMenu,
+    isMenuBeingDeleted
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     className: "edit-navigation-inspector-additions__delete-menu-button",
     variant: "secondary",
@@ -3900,13 +4020,14 @@ function DeleteMenu({
 
 
 
-function Sidebar({
-  menuId,
-  menus,
-  isMenuBeingDeleted,
-  onDeleteMenu,
-  onSelectMenu
-}) {
+function Sidebar(_ref) {
+  let {
+    menuId,
+    menus,
+    isMenuBeingDeleted,
+    onDeleteMenu,
+    onSelectMenu
+  } = _ref;
   const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
   const {
     sidebar,
@@ -3987,10 +4108,11 @@ function Sidebar({
 
 
 
-function MenuActions({
-  menus,
-  isLoading
-}) {
+function MenuActions(_ref) {
+  let {
+    menus,
+    isLoading
+  } = _ref;
   const [selectedMenuId, setSelectedMenuId] = useSelectedMenuId();
   const [menuName] = useMenuEntityProp('name', selectedMenuId); // The title ref is passed to the popover as the anchorRef so that the
   // dropdown is centered over the whole title area rather than just one
@@ -4029,16 +4151,19 @@ function MenuActions({
       position: 'bottom center',
       anchorRef: titleRef.current
     }
-  }, ({
-    onClose
-  }) => (0,external_wp_element_namespaceObject.createElement)(MenuSwitcher, {
-    menus: menus,
-    selectedMenuId: selectedMenuId,
-    onSelectMenu: menuId => {
-      setSelectedMenuId(menuId);
-      onClose();
-    }
-  }))));
+  }, _ref2 => {
+    let {
+      onClose
+    } = _ref2;
+    return (0,external_wp_element_namespaceObject.createElement)(MenuSwitcher, {
+      menus: menus,
+      selectedMenuId: selectedMenuId,
+      onSelectMenu: menuId => {
+        setSelectedMenuId(menuId);
+        onClose();
+      }
+    });
+  })));
 }
 //# sourceMappingURL=menu-actions.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/new-button.js
@@ -4090,9 +4215,10 @@ function NewButton() {
  */
 
 
-function SaveButton({
-  navigationPost
-}) {
+function SaveButton(_ref) {
+  let {
+    navigationPost
+  } = _ref;
   const {
     isDirty
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
@@ -4341,12 +4467,13 @@ function MoreMenu() {
 
 
 
-function Header({
-  isMenuSelected,
-  menus,
-  isPending,
-  navigationPost
-}) {
+function Header(_ref) {
+  let {
+    isMenuSelected,
+    menus,
+    isPending,
+    navigationPost
+  } = _ref;
   const isMediumViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
 
   if (!isMenuSelected) {
@@ -4432,9 +4559,10 @@ function EditNavigationNotices() {
  */
 
 
-function Editor({
-  isPending
-}) {
+function Editor(_ref) {
+  let {
+    isPending
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-navigation-editor"
   }, isPending ? (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null) : (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -4624,9 +4752,10 @@ const interfaceLabels = {
   sidebar: (0,external_wp_i18n_namespaceObject.__)('Navigation settings'),
   secondarySidebar: (0,external_wp_i18n_namespaceObject.__)('Block library')
 };
-function Layout({
-  blockEditorSettings
-}) {
+function Layout(_ref) {
+  let {
+    blockEditorSettings
+  } = _ref;
   const contentAreaRef = (0,external_wp_blockEditor_namespaceObject.__unstableUseBlockSelectionClearer)();
   const [isMenuNameControlFocused, setIsMenuNameControlFocused] = (0,external_wp_element_namespaceObject.useState)(false);
   const {
@@ -4720,8 +4849,8 @@ var external_wp_url_namespaceObject = window["wp"]["url"];
 
 /**
  * The purpose of this function is to create a middleware that is responsible for preloading menu-related data.
- * It uses data that is returned from the /__experimental/menus endpoint for requests
- * to the /__experimental/menu/<menuId> endpoint, because the data is the same.
+ * It uses data that is returned from the /wp/v2/menus endpoint for requests
+ * to the /wp/v2/menu/<menuId> endpoint, because the data is the same.
  * This way, we can avoid making additional REST API requests.
  * This middleware can be removed if/when we implement caching at the wordpress/core-data level.
  *
@@ -4766,7 +4895,7 @@ function createMenuPreloadingMiddleware(preloadedData) {
       return next(options);
     }
 
-    const matches = path.match(/^\/__experimental\/menus\/(\d+)\?context=edit$/);
+    const matches = path.match(/^\/wp\/v2\/menus\/(\d+)\?context=edit$/);
 
     if (!matches) {
       return next(options);
@@ -4780,9 +4909,12 @@ function createMenuPreloadingMiddleware(preloadedData) {
     }
 
     const menuId = parseInt(matches[1]);
-    const menu = menuData.filter(({
-      id
-    }) => id === menuId);
+    const menu = menuData.filter(_ref => {
+      let {
+        id
+      } = _ref;
+      return id === menuId;
+    });
 
     if (menu.length > 0) {
       menuDataLoaded = true; // We don't have headers because we "emulate" this request
@@ -4833,9 +4965,10 @@ function sendSuccessResponse(responseData, parse) {
 
 
 
-function NavEditor({
-  settings
-}) {
+function NavEditor(_ref) {
+  let {
+    settings
+  } = _ref;
   const {
     setIsInserterOpened
   } = (0,external_wp_data_namespaceObject.useDispatch)(store); // Allows the QuickInserter to toggle the sidebar inserter.
@@ -4853,7 +4986,8 @@ function NavEditor({
   const editorSettings = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return { ...settings,
       __experimentalFetchLinkSuggestions,
-      __experimentalSetIsInserterOpened
+      __experimentalSetIsInserterOpened,
+      __experimentalFetchRichUrlData: external_wp_coreData_namespaceObject.__experimentalFetchUrlData
     };
   }, [settings, __experimentalFetchLinkSuggestions, __experimentalSetIsInserterOpened]);
   return (0,external_wp_element_namespaceObject.createElement)(Layout, {

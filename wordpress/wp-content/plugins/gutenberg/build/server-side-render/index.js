@@ -100,7 +100,9 @@ var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 
 
 
-function rendererPath(block, attributes = null, urlQueryArgs = {}) {
+function rendererPath(block) {
+  let attributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  let urlQueryArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   return (0,external_wp_url_namespaceObject.addQueryArgs)(`/wp/v2/block-renderer/${block}`, {
     context: 'edit',
     ...(null !== attributes ? {
@@ -110,18 +112,20 @@ function rendererPath(block, attributes = null, urlQueryArgs = {}) {
   });
 }
 
-function DefaultEmptyResponsePlaceholder({
-  className
-}) {
+function DefaultEmptyResponsePlaceholder(_ref) {
+  let {
+    className
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
     className: className
   }, (0,external_wp_i18n_namespaceObject.__)('Block rendered as empty.'));
 }
 
-function DefaultErrorResponsePlaceholder({
-  response,
-  className
-}) {
+function DefaultErrorResponsePlaceholder(_ref2) {
+  let {
+    response,
+    className
+  } = _ref2;
   const errorMessage = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: error message describing the problem
   (0,external_wp_i18n_namespaceObject.__)('Error loading block: %s'), response.errorMsg);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
@@ -129,10 +133,11 @@ function DefaultErrorResponsePlaceholder({
   }, errorMessage);
 }
 
-function DefaultLoadingResponsePlaceholder({
-  children,
-  showLoader
-}) {
+function DefaultLoadingResponsePlaceholder(_ref3) {
+  let {
+    children,
+    showLoader
+  } = _ref3;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     style: {
       position: 'relative'
@@ -310,11 +315,12 @@ const ExportedServerSideRender = (0,external_wp_data_namespaceObject.withSelect)
   }
 
   return EMPTY_OBJECT;
-})(({
-  urlQueryArgs = EMPTY_OBJECT,
-  currentPostId,
-  ...props
-}) => {
+})(_ref => {
+  let {
+    urlQueryArgs = EMPTY_OBJECT,
+    currentPostId,
+    ...props
+  } = _ref;
   const newUrlQueryArgs = (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (!currentPostId) {
       return urlQueryArgs;

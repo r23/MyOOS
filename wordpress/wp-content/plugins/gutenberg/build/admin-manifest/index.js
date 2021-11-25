@@ -25,13 +25,14 @@ function createSvgElement(html) {
   return svgElement;
 }
 
-function createIcon({
-  svgElement,
-  size,
-  color,
-  backgroundColor,
-  circle
-}) {
+function createIcon(_ref) {
+  let {
+    svgElement,
+    size,
+    color,
+    backgroundColor,
+    circle
+  } = _ref;
   return new Promise(resolve => {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d'); // Leave 1/8th padding around the logo.

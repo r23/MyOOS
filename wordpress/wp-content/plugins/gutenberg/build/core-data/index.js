@@ -596,7 +596,9 @@ function conservativeMapItem(item, nextItem) {
  *
  * @return {Function} Higher-order reducer.
  */
-const onSubKey = actionProperty => reducer => (state = {}, action) => {
+const onSubKey = actionProperty => reducer => function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
   // Retrieve subkey from action. Do not track if undefined; useful for cases
   // where reducer is scoped by action shape.
   const key = action[actionProperty];
@@ -742,7 +744,8 @@ function receiveItems(items, edits) {
  * @return {Object} Action object.
  */
 
-function removeItems(kind, name, records, invalidateCache = false) {
+function removeItems(kind, name, records) {
+  let invalidateCache = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   return {
     type: 'REMOVE_ITEMS',
     itemIds: (0,external_lodash_namespaceObject.castArray)(records),
@@ -762,7 +765,9 @@ function removeItems(kind, name, records, invalidateCache = false) {
  * @return {Object} Action object.
  */
 
-function receiveQueriedItems(items, query = {}, edits) {
+function receiveQueriedItems(items) {
+  let query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  let edits = arguments.length > 2 ? arguments[2] : undefined;
   return { ...receiveItems(items, edits),
     query
   };
@@ -892,7 +897,8 @@ async function defaultProcessor(requests) {
  *                               either `output` or `error`.
  */
 
-function createBatch(processor = defaultProcessor) {
+function createBatch() {
+  let processor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultProcessor;
   let lastId = 0;
   let queue = [];
   const pending = new ObservableSet();
@@ -967,9 +973,12 @@ function createBatch(processor = defaultProcessor) {
       let results;
 
       try {
-        results = await processor(queue.map(({
-          input
-        }) => input));
+        results = await processor(queue.map(_ref => {
+          let {
+            input
+          } = _ref;
+          return input;
+        }));
 
         if (results.length !== queue.length) {
           throw new Error('run: Array returned by processor must be same size as input array.');
@@ -1008,7 +1017,11 @@ function createBatch(processor = defaultProcessor) {
 }
 
 class ObservableSet {
-  constructor(...args) {
+  constructor() {
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
     this.set = new Set(...args);
     this.subscribers = new Set();
   }
@@ -1017,14 +1030,14 @@ class ObservableSet {
     return this.set.size;
   }
 
-  add(...args) {
-    this.set.add(...args);
+  add() {
+    this.set.add(...arguments);
     this.subscribers.forEach(subscriber => subscriber());
     return this;
   }
 
-  delete(...args) {
-    const isSuccess = this.set.delete(...args);
+  delete() {
+    const isSuccess = this.set.delete(...arguments);
     this.subscribers.forEach(subscriber => subscriber());
     return isSuccess;
   }
@@ -1124,7 +1137,10 @@ function addEntities(entities) {
  * @return {Object} Action object.
  */
 
-function receiveEntityRecords(kind, name, records, query, invalidateCache = false, edits) {
+function receiveEntityRecords(kind, name, records, query) {
+  let invalidateCache = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+  let edits = arguments.length > 5 ? arguments[5] : undefined;
+
   // Auto drafts should not have titles, but some plugins rely on them so we can't filter this
   // on the server.
   if (kind === 'postType') {
@@ -1238,62 +1254,66 @@ function receiveEmbedPreview(url, preview) {
  *                                             Must return a promise.
  */
 
-const deleteEntityRecord = (kind, name, recordId, query, {
-  __unstableFetch = (external_wp_apiFetch_default())
-} = {}) => async ({
-  dispatch
-}) => {
-  const entities = await dispatch(getKindEntities(kind));
-  const entity = (0,external_lodash_namespaceObject.find)(entities, {
-    kind,
-    name
-  });
-  let error;
-  let deletedRecord = false;
-
-  if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
-    return;
-  }
-
-  const lock = await dispatch.__unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, recordId], {
-    exclusive: true
-  });
-
-  try {
-    dispatch({
-      type: 'DELETE_ENTITY_RECORD_START',
+const deleteEntityRecord = function (kind, name, recordId, query) {
+  let {
+    __unstableFetch = (external_wp_apiFetch_default())
+  } = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+  return async _ref => {
+    let {
+      dispatch
+    } = _ref;
+    const entities = await dispatch(getKindEntities(kind));
+    const entity = (0,external_lodash_namespaceObject.find)(entities, {
       kind,
-      name,
-      recordId
+      name
+    });
+    let error;
+    let deletedRecord = false;
+
+    if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
+      return;
+    }
+
+    const lock = await dispatch.__unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, recordId], {
+      exclusive: true
     });
 
     try {
-      let path = `${entity.baseURL}/${recordId}`;
+      dispatch({
+        type: 'DELETE_ENTITY_RECORD_START',
+        kind,
+        name,
+        recordId
+      });
 
-      if (query) {
-        path = (0,external_wp_url_namespaceObject.addQueryArgs)(path, query);
+      try {
+        let path = `${entity.baseURL}/${recordId}`;
+
+        if (query) {
+          path = (0,external_wp_url_namespaceObject.addQueryArgs)(path, query);
+        }
+
+        deletedRecord = await __unstableFetch({
+          path,
+          method: 'DELETE'
+        });
+        await dispatch(removeItems(kind, name, recordId, true));
+      } catch (_error) {
+        error = _error;
       }
 
-      deletedRecord = await __unstableFetch({
-        path,
-        method: 'DELETE'
+      dispatch({
+        type: 'DELETE_ENTITY_RECORD_FINISH',
+        kind,
+        name,
+        recordId,
+        error
       });
-      await dispatch(removeItems(kind, name, recordId, true));
-    } catch (_error) {
-      error = _error;
+      return deletedRecord;
+    } finally {
+      dispatch.__unstableReleaseStoreLock(lock);
     }
-
-    dispatch({
-      type: 'DELETE_ENTITY_RECORD_FINISH',
-      kind,
-      name,
-      recordId,
-      error
-    });
-    return deletedRecord;
-  } finally {
-    dispatch.__unstableReleaseStoreLock(lock);
-  }
+  };
 };
 /**
  * Returns an action object that triggers an
@@ -1309,52 +1329,56 @@ const deleteEntityRecord = (kind, name, recordId, query, {
  * @return {Object} Action object.
  */
 
-const editEntityRecord = (kind, name, recordId, edits, options = {}) => ({
-  select,
-  dispatch
-}) => {
-  const entity = select.getEntity(kind, name);
+const editEntityRecord = function (kind, name, recordId, edits) {
+  let options = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
+  return _ref2 => {
+    let {
+      select,
+      dispatch
+    } = _ref2;
+    const entity = select.getEntity(kind, name);
 
-  if (!entity) {
-    throw new Error(`The entity being edited (${kind}, ${name}) does not have a loaded config.`);
-  }
-
-  const {
-    transientEdits = {},
-    mergedEdits = {}
-  } = entity;
-  const record = select.getRawEntityRecord(kind, name, recordId);
-  const editedRecord = select.getEditedEntityRecord(kind, name, recordId);
-  const edit = {
-    kind,
-    name,
-    recordId,
-    // Clear edits when they are equal to their persisted counterparts
-    // so that the property is not considered dirty.
-    edits: Object.keys(edits).reduce((acc, key) => {
-      const recordValue = record[key];
-      const editedRecordValue = editedRecord[key];
-      const value = mergedEdits[key] ? { ...editedRecordValue,
-        ...edits[key]
-      } : edits[key];
-      acc[key] = (0,external_lodash_namespaceObject.isEqual)(recordValue, value) ? undefined : value;
-      return acc;
-    }, {}),
-    transientEdits
-  };
-  dispatch({
-    type: 'EDIT_ENTITY_RECORD',
-    ...edit,
-    meta: {
-      undo: !options.undoIgnore && { ...edit,
-        // Send the current values for things like the first undo stack entry.
-        edits: Object.keys(edits).reduce((acc, key) => {
-          acc[key] = editedRecord[key];
-          return acc;
-        }, {})
-      }
+    if (!entity) {
+      throw new Error(`The entity being edited (${kind}, ${name}) does not have a loaded config.`);
     }
-  });
+
+    const {
+      transientEdits = {},
+      mergedEdits = {}
+    } = entity;
+    const record = select.getRawEntityRecord(kind, name, recordId);
+    const editedRecord = select.getEditedEntityRecord(kind, name, recordId);
+    const edit = {
+      kind,
+      name,
+      recordId,
+      // Clear edits when they are equal to their persisted counterparts
+      // so that the property is not considered dirty.
+      edits: Object.keys(edits).reduce((acc, key) => {
+        const recordValue = record[key];
+        const editedRecordValue = editedRecord[key];
+        const value = mergedEdits[key] ? { ...editedRecordValue,
+          ...edits[key]
+        } : edits[key];
+        acc[key] = (0,external_lodash_namespaceObject.isEqual)(recordValue, value) ? undefined : value;
+        return acc;
+      }, {}),
+      transientEdits
+    };
+    dispatch({
+      type: 'EDIT_ENTITY_RECORD',
+      ...edit,
+      meta: {
+        undo: !options.undoIgnore && { ...edit,
+          // Send the current values for things like the first undo stack entry.
+          edits: Object.keys(edits).reduce((acc, key) => {
+            acc[key] = editedRecord[key];
+            return acc;
+          }, {})
+        }
+      }
+    });
+  };
 };
 /**
  * Action triggered to undo the last edit to
@@ -1363,10 +1387,11 @@ const editEntityRecord = (kind, name, recordId, edits, options = {}) => ({
  * @return {undefined}
  */
 
-const undo = () => ({
-  select,
-  dispatch
-}) => {
+const undo = () => _ref3 => {
+  let {
+    select,
+    dispatch
+  } = _ref3;
   const undoEdit = select.getUndoEdit();
 
   if (!undoEdit) {
@@ -1388,10 +1413,11 @@ const undo = () => ({
  * @return {undefined}
  */
 
-const redo = () => ({
-  select,
-  dispatch
-}) => {
+const redo = () => _ref4 => {
+  let {
+    select,
+    dispatch
+  } = _ref4;
   const redoEdit = select.getRedoEdit();
 
   if (!redoEdit) {
@@ -1430,148 +1456,152 @@ function __unstableCreateUndoLevel() {
  *                                              Must return a promise.
  */
 
-const saveEntityRecord = (kind, name, record, {
-  isAutosave = false,
-  __unstableFetch = (external_wp_apiFetch_default())
-} = {}) => async ({
-  select,
-  resolveSelect,
-  dispatch
-}) => {
-  const entities = await dispatch(getKindEntities(kind));
-  const entity = (0,external_lodash_namespaceObject.find)(entities, {
-    kind,
-    name
-  });
+const saveEntityRecord = function (kind, name, record) {
+  let {
+    isAutosave = false,
+    __unstableFetch = (external_wp_apiFetch_default())
+  } = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+  return async _ref5 => {
+    let {
+      select,
+      resolveSelect,
+      dispatch
+    } = _ref5;
+    const entities = await dispatch(getKindEntities(kind));
+    const entity = (0,external_lodash_namespaceObject.find)(entities, {
+      kind,
+      name
+    });
 
-  if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
-    return;
-  }
-
-  const entityIdKey = entity.key || DEFAULT_ENTITY_KEY;
-  const recordId = record[entityIdKey];
-  const lock = await dispatch.__unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, recordId || esm_browser_v4()], {
-    exclusive: true
-  });
-
-  try {
-    // Evaluate optimized edits.
-    // (Function edits that should be evaluated on save to avoid expensive computations on every edit.)
-    for (const [key, value] of Object.entries(record)) {
-      if (typeof value === 'function') {
-        const evaluatedValue = value(select.getEditedEntityRecord(kind, name, recordId));
-        dispatch.editEntityRecord(kind, name, recordId, {
-          [key]: evaluatedValue
-        }, {
-          undoIgnore: true
-        });
-        record[key] = evaluatedValue;
-      }
+    if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
+      return;
     }
 
-    dispatch({
-      type: 'SAVE_ENTITY_RECORD_START',
-      kind,
-      name,
-      recordId,
-      isAutosave
+    const entityIdKey = entity.key || DEFAULT_ENTITY_KEY;
+    const recordId = record[entityIdKey];
+    const lock = await dispatch.__unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, recordId || esm_browser_v4()], {
+      exclusive: true
     });
-    let updatedRecord;
-    let error;
 
     try {
-      const path = `${entity.baseURL}${recordId ? '/' + recordId : ''}`;
-      const persistedRecord = select.getRawEntityRecord(kind, name, recordId);
+      // Evaluate optimized edits.
+      // (Function edits that should be evaluated on save to avoid expensive computations on every edit.)
+      for (const [key, value] of Object.entries(record)) {
+        if (typeof value === 'function') {
+          const evaluatedValue = value(select.getEditedEntityRecord(kind, name, recordId));
+          dispatch.editEntityRecord(kind, name, recordId, {
+            [key]: evaluatedValue
+          }, {
+            undoIgnore: true
+          });
+          record[key] = evaluatedValue;
+        }
+      }
 
-      if (isAutosave) {
-        // Most of this autosave logic is very specific to posts.
-        // This is fine for now as it is the only supported autosave,
-        // but ideally this should all be handled in the back end,
-        // so the client just sends and receives objects.
-        const currentUser = select.getCurrentUser();
-        const currentUserId = currentUser ? currentUser.id : undefined;
-        const autosavePost = resolveSelect.getAutosave(persistedRecord.type, persistedRecord.id, currentUserId); // Autosaves need all expected fields to be present.
-        // So we fallback to the previous autosave and then
-        // to the actual persisted entity if the edits don't
-        // have a value.
+      dispatch({
+        type: 'SAVE_ENTITY_RECORD_START',
+        kind,
+        name,
+        recordId,
+        isAutosave
+      });
+      let updatedRecord;
+      let error;
 
-        let data = { ...persistedRecord,
-          ...autosavePost,
-          ...record
-        };
-        data = Object.keys(data).reduce((acc, key) => {
-          if (['title', 'excerpt', 'content'].includes(key)) {
-            acc[key] = data[key];
-          }
+      try {
+        const path = `${entity.baseURL}${recordId ? '/' + recordId : ''}`;
+        const persistedRecord = select.getRawEntityRecord(kind, name, recordId);
 
-          return acc;
-        }, {
-          status: data.status === 'auto-draft' ? 'draft' : data.status
-        });
-        updatedRecord = await __unstableFetch({
-          path: `${path}/autosaves`,
-          method: 'POST',
-          data
-        }); // An autosave may be processed by the server as a regular save
-        // when its update is requested by the author and the post had
-        // draft or auto-draft status.
+        if (isAutosave) {
+          // Most of this autosave logic is very specific to posts.
+          // This is fine for now as it is the only supported autosave,
+          // but ideally this should all be handled in the back end,
+          // so the client just sends and receives objects.
+          const currentUser = select.getCurrentUser();
+          const currentUserId = currentUser ? currentUser.id : undefined;
+          const autosavePost = resolveSelect.getAutosave(persistedRecord.type, persistedRecord.id, currentUserId); // Autosaves need all expected fields to be present.
+          // So we fallback to the previous autosave and then
+          // to the actual persisted entity if the edits don't
+          // have a value.
 
-        if (persistedRecord.id === updatedRecord.id) {
-          let newRecord = { ...persistedRecord,
-            ...data,
-            ...updatedRecord
+          let data = { ...persistedRecord,
+            ...autosavePost,
+            ...record
           };
-          newRecord = Object.keys(newRecord).reduce((acc, key) => {
-            // These properties are persisted in autosaves.
+          data = Object.keys(data).reduce((acc, key) => {
             if (['title', 'excerpt', 'content'].includes(key)) {
-              acc[key] = newRecord[key];
-            } else if (key === 'status') {
-              // Status is only persisted in autosaves when going from
-              // "auto-draft" to "draft".
-              acc[key] = persistedRecord.status === 'auto-draft' && newRecord.status === 'draft' ? newRecord.status : persistedRecord.status;
-            } else {
-              // These properties are not persisted in autosaves.
-              acc[key] = persistedRecord[key];
+              acc[key] = data[key];
             }
 
             return acc;
-          }, {});
-          dispatch.receiveEntityRecords(kind, name, newRecord, undefined, true);
+          }, {
+            status: data.status === 'auto-draft' ? 'draft' : data.status
+          });
+          updatedRecord = await __unstableFetch({
+            path: `${path}/autosaves`,
+            method: 'POST',
+            data
+          }); // An autosave may be processed by the server as a regular save
+          // when its update is requested by the author and the post had
+          // draft or auto-draft status.
+
+          if (persistedRecord.id === updatedRecord.id) {
+            let newRecord = { ...persistedRecord,
+              ...data,
+              ...updatedRecord
+            };
+            newRecord = Object.keys(newRecord).reduce((acc, key) => {
+              // These properties are persisted in autosaves.
+              if (['title', 'excerpt', 'content'].includes(key)) {
+                acc[key] = newRecord[key];
+              } else if (key === 'status') {
+                // Status is only persisted in autosaves when going from
+                // "auto-draft" to "draft".
+                acc[key] = persistedRecord.status === 'auto-draft' && newRecord.status === 'draft' ? newRecord.status : persistedRecord.status;
+              } else {
+                // These properties are not persisted in autosaves.
+                acc[key] = persistedRecord[key];
+              }
+
+              return acc;
+            }, {});
+            dispatch.receiveEntityRecords(kind, name, newRecord, undefined, true);
+          } else {
+            dispatch.receiveAutosaves(persistedRecord.id, updatedRecord);
+          }
         } else {
-          dispatch.receiveAutosaves(persistedRecord.id, updatedRecord);
-        }
-      } else {
-        let edits = record;
+          let edits = record;
 
-        if (entity.__unstablePrePersist) {
-          edits = { ...edits,
-            ...entity.__unstablePrePersist(persistedRecord, edits)
-          };
-        }
+          if (entity.__unstablePrePersist) {
+            edits = { ...edits,
+              ...entity.__unstablePrePersist(persistedRecord, edits)
+            };
+          }
 
-        updatedRecord = await __unstableFetch({
-          path,
-          method: recordId ? 'PUT' : 'POST',
-          data: edits
-        });
-        dispatch.receiveEntityRecords(kind, name, updatedRecord, undefined, true, edits);
+          updatedRecord = await __unstableFetch({
+            path,
+            method: recordId ? 'PUT' : 'POST',
+            data: edits
+          });
+          dispatch.receiveEntityRecords(kind, name, updatedRecord, undefined, true, edits);
+        }
+      } catch (_error) {
+        error = _error;
       }
-    } catch (_error) {
-      error = _error;
-    }
 
-    dispatch({
-      type: 'SAVE_ENTITY_RECORD_FINISH',
-      kind,
-      name,
-      recordId,
-      error,
-      isAutosave
-    });
-    return updatedRecord;
-  } finally {
-    dispatch.__unstableReleaseStoreLock(lock);
-  }
+      dispatch({
+        type: 'SAVE_ENTITY_RECORD_FINISH',
+        kind,
+        name,
+        recordId,
+        error,
+        isAutosave
+      });
+      return updatedRecord;
+    } finally {
+      dispatch.__unstableReleaseStoreLock(lock);
+    }
+  };
 };
 /**
  * Runs multiple core-data actions at the same time using one API request.
@@ -1596,9 +1626,10 @@ const saveEntityRecord = (kind, name, record, {
  *                   values of each function given in `requests`.
  */
 
-const __experimentalBatch = requests => async ({
-  dispatch
-}) => {
+const __experimentalBatch = requests => async _ref6 => {
+  let {
+    dispatch
+  } = _ref6;
   const batch = createBatch();
   const api = {
     saveEntityRecord(kind, name, record, options) {
@@ -1633,10 +1664,12 @@ const __experimentalBatch = requests => async ({
  * @param {Object} options  Saving options.
  */
 
-const saveEditedEntityRecord = (kind, name, recordId, options) => async ({
-  select,
-  dispatch
-}) => {
+const saveEditedEntityRecord = (kind, name, recordId, options) => async _ref7 => {
+  let {
+    select,
+    dispatch
+  } = _ref7;
+
   if (!select.hasEditsForEntityRecord(kind, name, recordId)) {
     return;
   }
@@ -1669,10 +1702,12 @@ const saveEditedEntityRecord = (kind, name, recordId, options) => async ({
  * @param {Object} options     Saving options.
  */
 
-const __experimentalSaveSpecifiedEntityEdits = (kind, name, recordId, itemsToSave, options) => async ({
-  select,
-  dispatch
-}) => {
+const __experimentalSaveSpecifiedEntityEdits = (kind, name, recordId, itemsToSave, options) => async _ref8 => {
+  let {
+    select,
+    dispatch
+  } = _ref8;
+
   if (!select.hasEditsForEntityRecord(kind, name, recordId)) {
     return;
   }
@@ -1849,7 +1884,7 @@ const defaultEntities = [{
 }, {
   name: 'menu',
   kind: 'root',
-  baseURL: '/__experimental/menus',
+  baseURL: '/wp/v2/menus',
   baseURLParams: {
     context: 'edit'
   },
@@ -1858,7 +1893,7 @@ const defaultEntities = [{
 }, {
   name: 'menuItem',
   kind: 'root',
-  baseURL: '/__experimental/menu-items',
+  baseURL: '/wp/v2/menu-items',
   baseURLParams: {
     context: 'edit'
   },
@@ -1868,7 +1903,7 @@ const defaultEntities = [{
 }, {
   name: 'menuLocation',
   kind: 'root',
-  baseURL: '/__experimental/menu-locations',
+  baseURL: '/wp/v2/menu-locations',
   baseURLParams: {
     context: 'edit'
   },
@@ -1878,7 +1913,7 @@ const defaultEntities = [{
 }, {
   name: 'navigationArea',
   kind: 'root',
-  baseURL: '/__experimental/block-navigation-areas',
+  baseURL: '/wp/v2/block-navigation-areas',
   baseURLParams: {
     context: 'edit'
   },
@@ -2022,7 +2057,9 @@ async function loadTaxonomyEntities() {
  */
 
 
-const getMethodName = (kind, name, prefix = 'get', usePlural = false) => {
+const getMethodName = function (kind, name) {
+  let prefix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'get';
+  let usePlural = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   const entity = (0,external_lodash_namespaceObject.find)(defaultEntities, {
     kind,
     name
@@ -2040,10 +2077,11 @@ const getMethodName = (kind, name, prefix = 'get', usePlural = false) => {
  * @return {Array} Entities
  */
 
-const getKindEntities = kind => async ({
-  select,
-  dispatch
-}) => {
+const getKindEntities = kind => async _ref => {
+  let {
+    select,
+    dispatch
+  } = _ref;
   let entities = select.getEntitiesByKind(kind);
 
   if (entities && entities.length !== 0) {
@@ -2302,7 +2340,10 @@ function getMergedItemIds(itemIds, nextItemIds, page, perPage) {
  * @return {Object} Next state.
  */
 
-function items(state = {}, action) {
+function items() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_ITEMS':
       {
@@ -2340,7 +2381,10 @@ function items(state = {}, action) {
  * @return {Object<string,boolean>} Next state.
  */
 
-function itemIsComplete(state = {}, action) {
+function itemIsComplete() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_ITEMS':
       {
@@ -2404,7 +2448,9 @@ replace_action(action => {
   return action;
 }), on_sub_key('context'), // Queries shape is shared, but keyed by query `stableKey` part. Original
 // reducer tracks only a single query object.
-on_sub_key('stableKey')])((state = null, action) => {
+on_sub_key('stableKey')])(function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
   const {
     type,
     page,
@@ -2427,7 +2473,10 @@ on_sub_key('stableKey')])((state = null, action) => {
  * @return {Object} Next state.
  */
 
-const queries = (state = {}, action) => {
+const queries = function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_ITEMS':
       return receiveQueries(state, action);
@@ -2486,7 +2535,10 @@ const queries = (state = {}, action) => {
  * @return {Object} Updated state.
  */
 
-function terms(state = {}, action) {
+function terms() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_TERMS':
       return { ...state,
@@ -2505,10 +2557,13 @@ function terms(state = {}, action) {
  * @return {Object} Updated state.
  */
 
-function users(state = {
-  byId: {},
-  queries: {}
-}, action) {
+function users() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    byId: {},
+    queries: {}
+  };
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_USER_QUERY':
       return {
@@ -2532,7 +2587,10 @@ function users(state = {
  * @return {Object} Updated state.
  */
 
-function currentUser(state = {}, action) {
+function currentUser() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_CURRENT_USER':
       return action.currentUser;
@@ -2549,7 +2607,10 @@ function currentUser(state = {}, action) {
  * @return {Object} Updated state.
  */
 
-function taxonomies(state = [], action) {
+function taxonomies() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_TAXONOMIES':
       return action.taxonomies;
@@ -2566,7 +2627,10 @@ function taxonomies(state = [], action) {
  * @return {string} Updated state.
  */
 
-function currentTheme(state = undefined, action) {
+function currentTheme() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_CURRENT_THEME':
       return action.currentTheme.stylesheet;
@@ -2583,7 +2647,10 @@ function currentTheme(state = undefined, action) {
  * @return {string} Updated state.
  */
 
-function currentGlobalStylesId(state = undefined, action) {
+function currentGlobalStylesId() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_CURRENT_GLOBAL_STYLES_ID':
       return action.id;
@@ -2600,7 +2667,10 @@ function currentGlobalStylesId(state = undefined, action) {
  * @return {string} Updated state.
  */
 
-function themeBaseGlobalStyles(state = {}, action) {
+function themeBaseGlobalStyles() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_THEME_GLOBAL_STYLES':
       return { ...state,
@@ -2632,8 +2702,11 @@ function entity(entityConfig) {
     };
   })])((0,external_wp_data_namespaceObject.combineReducers)({
     queriedData: reducer,
-    edits: (state = {}, action) => {
+    edits: function () {
       var _action$query$context, _action$query;
+
+      let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      let action = arguments.length > 1 ? arguments[1] : undefined;
 
       switch (action.type) {
         case 'RECEIVE_ITEMS':
@@ -2696,7 +2769,10 @@ function entity(entityConfig) {
 
       return state;
     },
-    saving: (state = {}, action) => {
+    saving: function () {
+      let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      let action = arguments.length > 1 ? arguments[1] : undefined;
+
       switch (action.type) {
         case 'SAVE_ENTITY_RECORD_START':
         case 'SAVE_ENTITY_RECORD_FINISH':
@@ -2711,7 +2787,10 @@ function entity(entityConfig) {
 
       return state;
     },
-    deleting: (state = {}, action) => {
+    deleting: function () {
+      let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      let action = arguments.length > 1 ? arguments[1] : undefined;
+
       switch (action.type) {
         case 'DELETE_ENTITY_RECORD_START':
         case 'DELETE_ENTITY_RECORD_FINISH':
@@ -2737,7 +2816,10 @@ function entity(entityConfig) {
  */
 
 
-function entitiesConfig(state = defaultEntities, action) {
+function entitiesConfig() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultEntities;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'ADD_ENTITIES':
       return [...state, ...action.entities];
@@ -2754,14 +2836,17 @@ function entitiesConfig(state = defaultEntities, action) {
  * @return {Object} Updated state.
  */
 
-const entities = (state = {}, action) => {
+const entities = function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
   const newConfig = entitiesConfig(state.config, action); // Generates a dynamic reducer for the entities
 
   let entitiesDataReducer = state.reducer;
 
   if (!entitiesDataReducer || newConfig !== state.config) {
     const entitiesByKind = (0,external_lodash_namespaceObject.groupBy)(newConfig, 'kind');
-    entitiesDataReducer = (0,external_wp_data_namespaceObject.combineReducers)(Object.entries(entitiesByKind).reduce((memo, [kind, subEntities]) => {
+    entitiesDataReducer = (0,external_wp_data_namespaceObject.combineReducers)(Object.entries(entitiesByKind).reduce((memo, _ref) => {
+      let [kind, subEntities] = _ref;
       const kindReducer = (0,external_wp_data_namespaceObject.combineReducers)(subEntities.reduce((kindMemo, entityConfig) => ({ ...kindMemo,
         [entityConfig.name]: entity(entityConfig)
       }), {}));
@@ -2794,7 +2879,10 @@ const entities = (state = {}, action) => {
 const UNDO_INITIAL_STATE = [];
 UNDO_INITIAL_STATE.offset = 0;
 let lastEditAction;
-function reducer_undo(state = UNDO_INITIAL_STATE, action) {
+function reducer_undo() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : UNDO_INITIAL_STATE;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'EDIT_ENTITY_RECORD':
     case 'CREATE_UNDO_LEVEL':
@@ -2899,7 +2987,10 @@ function reducer_undo(state = UNDO_INITIAL_STATE, action) {
  * @return {Object} Updated state.
  */
 
-function embedPreviews(state = {}, action) {
+function embedPreviews() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_EMBED_PREVIEW':
       const {
@@ -2923,7 +3014,10 @@ function embedPreviews(state = {}, action) {
  * @return {Object} Updated state.
  */
 
-function userPermissions(state = {}, action) {
+function userPermissions() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_USER_PERMISSION':
       return { ...state,
@@ -2942,7 +3036,10 @@ function userPermissions(state = {}, action) {
  * @return {Object} Updated state.
  */
 
-function autosaves(state = {}, action) {
+function autosaves() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'RECEIVE_AUTOSAVES':
       const {
@@ -3362,7 +3459,8 @@ function getQueriedItemsUncached(state, query) {
  */
 
 
-const getQueriedItems = rememo((state, query = {}) => {
+const getQueriedItems = rememo(function (state) {
+  let query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   let queriedItemsCache = queriedItemsCacheByState.get(state);
 
   if (queriedItemsCache) {
@@ -4198,10 +4296,17 @@ function __experimentalGetCurrentThemeBaseGlobalStyles(state) {
  *
  * @return {Function} Enhanced resolver.
  */
-const forwardResolver = resolverName => (...args) => async ({
-  resolveSelect
-}) => {
-  await resolveSelect[resolverName](...args);
+const forwardResolver = resolverName => function () {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return async _ref => {
+    let {
+      resolveSelect
+    } = _ref;
+    await resolveSelect[resolverName](...args);
+  };
 };
 
 /* harmony default export */ var forward_resolver = (forwardResolver);
@@ -4231,9 +4336,10 @@ const forwardResolver = resolverName => (...args) => async ({
  *                                 include with request.
  */
 
-const resolvers_getAuthors = query => async ({
-  dispatch
-}) => {
+const resolvers_getAuthors = query => async _ref => {
+  let {
+    dispatch
+  } = _ref;
   const path = (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/users/?who=authors&per_page=100', query);
   const users = await external_wp_apiFetch_default()({
     path
@@ -4244,9 +4350,10 @@ const resolvers_getAuthors = query => async ({
  * Requests the current user from the REST API.
  */
 
-const resolvers_getCurrentUser = () => async ({
-  dispatch
-}) => {
+const resolvers_getCurrentUser = () => async _ref2 => {
+  let {
+    dispatch
+  } = _ref2;
   const currentUser = await external_wp_apiFetch_default()({
     path: '/wp/v2/users/me'
   });
@@ -4262,68 +4369,73 @@ const resolvers_getCurrentUser = () => async ({
  *                                 include with request.
  */
 
-const resolvers_getEntityRecord = (kind, name, key = '', query) => async ({
-  select,
-  dispatch
-}) => {
-  const entities = await dispatch(getKindEntities(kind));
-  const entity = (0,external_lodash_namespaceObject.find)(entities, {
-    kind,
-    name
-  });
-
-  if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
-    return;
-  }
-
-  const lock = await dispatch.__unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, key], {
-    exclusive: false
-  });
-
-  try {
-    if (query !== undefined && query._fields) {
-      // If requesting specific fields, items and query association to said
-      // records are stored by ID reference. Thus, fields must always include
-      // the ID.
-      query = { ...query,
-        _fields: (0,external_lodash_namespaceObject.uniq)([...(get_normalized_comma_separable(query._fields) || []), entity.key || DEFAULT_ENTITY_KEY]).join()
-      };
-    } // Disable reason: While true that an early return could leave `path`
-    // unused, it's important that path is derived using the query prior to
-    // additional query modifications in the condition below, since those
-    // modifications are relevant to how the data is tracked in state, and not
-    // for how the request is made to the REST API.
-    // eslint-disable-next-line @wordpress/no-unused-vars-before-return
-
-
-    const path = (0,external_wp_url_namespaceObject.addQueryArgs)(entity.baseURL + (key ? '/' + key : ''), { ...entity.baseURLParams,
-      ...query
+const resolvers_getEntityRecord = function (kind, name) {
+  let key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+  let query = arguments.length > 3 ? arguments[3] : undefined;
+  return async _ref3 => {
+    let {
+      select,
+      dispatch
+    } = _ref3;
+    const entities = await dispatch(getKindEntities(kind));
+    const entity = (0,external_lodash_namespaceObject.find)(entities, {
+      kind,
+      name
     });
 
-    if (query !== undefined) {
-      query = { ...query,
-        include: [key]
-      }; // The resolution cache won't consider query as reusable based on the
-      // fields, so it's tested here, prior to initiating the REST request,
-      // and without causing `getEntityRecords` resolution to occur.
-
-      const hasRecords = select.hasEntityRecords(kind, name, query);
-
-      if (hasRecords) {
-        return;
-      }
+    if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
+      return;
     }
 
-    const record = await external_wp_apiFetch_default()({
-      path
+    const lock = await dispatch.__unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name, key], {
+      exclusive: false
     });
-    dispatch.receiveEntityRecords(kind, name, record, query);
-  } catch (error) {// We need a way to handle and access REST API errors in state
-    // Until then, catching the error ensures the resolver is marked as resolved.
-    // See similar implementation in `getEntityRecords()`.
-  } finally {
-    dispatch.__unstableReleaseStoreLock(lock);
-  }
+
+    try {
+      if (query !== undefined && query._fields) {
+        // If requesting specific fields, items and query association to said
+        // records are stored by ID reference. Thus, fields must always include
+        // the ID.
+        query = { ...query,
+          _fields: (0,external_lodash_namespaceObject.uniq)([...(get_normalized_comma_separable(query._fields) || []), entity.key || DEFAULT_ENTITY_KEY]).join()
+        };
+      } // Disable reason: While true that an early return could leave `path`
+      // unused, it's important that path is derived using the query prior to
+      // additional query modifications in the condition below, since those
+      // modifications are relevant to how the data is tracked in state, and not
+      // for how the request is made to the REST API.
+      // eslint-disable-next-line @wordpress/no-unused-vars-before-return
+
+
+      const path = (0,external_wp_url_namespaceObject.addQueryArgs)(entity.baseURL + (key ? '/' + key : ''), { ...entity.baseURLParams,
+        ...query
+      });
+
+      if (query !== undefined) {
+        query = { ...query,
+          include: [key]
+        }; // The resolution cache won't consider query as reusable based on the
+        // fields, so it's tested here, prior to initiating the REST request,
+        // and without causing `getEntityRecords` resolution to occur.
+
+        const hasRecords = select.hasEntityRecords(kind, name, query);
+
+        if (hasRecords) {
+          return;
+        }
+      }
+
+      const record = await external_wp_apiFetch_default()({
+        path
+      });
+      dispatch.receiveEntityRecords(kind, name, record, query);
+    } catch (error) {// We need a way to handle and access REST API errors in state
+      // Until then, catching the error ensures the resolver is marked as resolved.
+      // See similar implementation in `getEntityRecords()`.
+    } finally {
+      dispatch.__unstableReleaseStoreLock(lock);
+    }
+  };
 };
 /**
  * Requests an entity's record from the REST API.
@@ -4343,80 +4455,84 @@ const resolvers_getEditedEntityRecord = forward_resolver('getEntityRecord');
  * @param {Object?} query Query Object.
  */
 
-const resolvers_getEntityRecords = (kind, name, query = {}) => async ({
-  dispatch
-}) => {
-  const entities = await dispatch(getKindEntities(kind));
-  const entity = (0,external_lodash_namespaceObject.find)(entities, {
-    kind,
-    name
-  });
-
-  if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
-    return;
-  }
-
-  const lock = await dispatch.__unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name], {
-    exclusive: false
-  });
-
-  try {
-    var _query;
-
-    if (query._fields) {
-      // If requesting specific fields, items and query association to said
-      // records are stored by ID reference. Thus, fields must always include
-      // the ID.
-      query = { ...query,
-        _fields: (0,external_lodash_namespaceObject.uniq)([...(get_normalized_comma_separable(query._fields) || []), entity.key || DEFAULT_ENTITY_KEY]).join()
-      };
-    }
-
-    const path = (0,external_wp_url_namespaceObject.addQueryArgs)(entity.baseURL, { ...entity.baseURLParams,
-      ...query
+const resolvers_getEntityRecords = function (kind, name) {
+  let query = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  return async _ref4 => {
+    let {
+      dispatch
+    } = _ref4;
+    const entities = await dispatch(getKindEntities(kind));
+    const entity = (0,external_lodash_namespaceObject.find)(entities, {
+      kind,
+      name
     });
-    let records = Object.values(await external_wp_apiFetch_default()({
-      path
-    })); // If we request fields but the result doesn't contain the fields,
-    // explicitely set these fields as "undefined"
-    // that way we consider the query "fullfilled".
 
-    if (query._fields) {
-      records = records.map(record => {
-        query._fields.split(',').forEach(field => {
-          if (!record.hasOwnProperty(field)) {
-            record[field] = undefined;
-          }
+    if (!entity || entity !== null && entity !== void 0 && entity.__experimentalNoFetch) {
+      return;
+    }
+
+    const lock = await dispatch.__unstableAcquireStoreLock(STORE_NAME, ['entities', 'data', kind, name], {
+      exclusive: false
+    });
+
+    try {
+      var _query;
+
+      if (query._fields) {
+        // If requesting specific fields, items and query association to said
+        // records are stored by ID reference. Thus, fields must always include
+        // the ID.
+        query = { ...query,
+          _fields: (0,external_lodash_namespaceObject.uniq)([...(get_normalized_comma_separable(query._fields) || []), entity.key || DEFAULT_ENTITY_KEY]).join()
+        };
+      }
+
+      const path = (0,external_wp_url_namespaceObject.addQueryArgs)(entity.baseURL, { ...entity.baseURLParams,
+        ...query
+      });
+      let records = Object.values(await external_wp_apiFetch_default()({
+        path
+      })); // If we request fields but the result doesn't contain the fields,
+      // explicitely set these fields as "undefined"
+      // that way we consider the query "fullfilled".
+
+      if (query._fields) {
+        records = records.map(record => {
+          query._fields.split(',').forEach(field => {
+            if (!record.hasOwnProperty(field)) {
+              record[field] = undefined;
+            }
+          });
+
+          return record;
         });
+      }
 
-        return record;
-      });
+      dispatch.receiveEntityRecords(kind, name, records, query); // When requesting all fields, the list of results can be used to
+      // resolve the `getEntityRecord` selector in addition to `getEntityRecords`.
+      // See https://github.com/WordPress/gutenberg/pull/26575
+
+      if (!((_query = query) !== null && _query !== void 0 && _query._fields) && !query.context) {
+        const key = entity.key || DEFAULT_ENTITY_KEY;
+        const resolutionsArgs = records.filter(record => record[key]).map(record => [kind, name, record[key]]);
+        dispatch({
+          type: 'START_RESOLUTIONS',
+          selectorName: 'getEntityRecord',
+          args: resolutionsArgs
+        });
+        dispatch({
+          type: 'FINISH_RESOLUTIONS',
+          selectorName: 'getEntityRecord',
+          args: resolutionsArgs
+        });
+      }
+    } catch (error) {// We need a way to handle and access REST API errors in state
+      // Until then, catching the error ensures the resolver is marked as resolved.
+      // See similar implementation in `getEntityRecord()`.
+    } finally {
+      dispatch.__unstableReleaseStoreLock(lock);
     }
-
-    dispatch.receiveEntityRecords(kind, name, records, query); // When requesting all fields, the list of results can be used to
-    // resolve the `getEntityRecord` selector in addition to `getEntityRecords`.
-    // See https://github.com/WordPress/gutenberg/pull/26575
-
-    if (!((_query = query) !== null && _query !== void 0 && _query._fields) && !query.context) {
-      const key = entity.key || DEFAULT_ENTITY_KEY;
-      const resolutionsArgs = records.filter(record => record[key]).map(record => [kind, name, record[key]]);
-      dispatch({
-        type: 'START_RESOLUTIONS',
-        selectorName: 'getEntityRecord',
-        args: resolutionsArgs
-      });
-      dispatch({
-        type: 'FINISH_RESOLUTIONS',
-        selectorName: 'getEntityRecord',
-        args: resolutionsArgs
-      });
-    }
-  } catch (error) {// We need a way to handle and access REST API errors in state
-    // Until then, catching the error ensures the resolver is marked as resolved.
-    // See similar implementation in `getEntityRecord()`.
-  } finally {
-    dispatch.__unstableReleaseStoreLock(lock);
-  }
+  };
 };
 
 resolvers_getEntityRecords.shouldInvalidate = (action, kind, name) => {
@@ -4427,10 +4543,11 @@ resolvers_getEntityRecords.shouldInvalidate = (action, kind, name) => {
  */
 
 
-const resolvers_getCurrentTheme = () => async ({
-  dispatch,
-  resolveSelect
-}) => {
+const resolvers_getCurrentTheme = () => async _ref5 => {
+  let {
+    dispatch,
+    resolveSelect
+  } = _ref5;
   const activeThemes = await resolveSelect.getEntityRecords('root', 'theme', {
     status: 'active'
   });
@@ -4447,9 +4564,11 @@ const resolvers_getThemeSupports = forward_resolver('getCurrentTheme');
  * @param {string} url URL to get the preview for.
  */
 
-const resolvers_getEmbedPreview = url => async ({
-  dispatch
-}) => {
+const resolvers_getEmbedPreview = url => async _ref6 => {
+  let {
+    dispatch
+  } = _ref6;
+
   try {
     const embedProxyResponse = await external_wp_apiFetch_default()({
       path: (0,external_wp_url_namespaceObject.addQueryArgs)('/oembed/1.0/proxy', {
@@ -4472,9 +4591,10 @@ const resolvers_getEmbedPreview = url => async ({
  * @param {?string} id       ID of the rest resource to check.
  */
 
-const resolvers_canUser = (action, resource, id) => async ({
-  dispatch
-}) => {
+const resolvers_canUser = (action, resource, id) => async _ref7 => {
+  let {
+    dispatch
+  } = _ref7;
   const methods = {
     create: 'POST',
     read: 'GET',
@@ -4531,9 +4651,10 @@ const resolvers_canUser = (action, resource, id) => async ({
  * @param {string} recordId Record's id.
  */
 
-const resolvers_canUserEditEntityRecord = (kind, name, recordId) => async ({
-  dispatch
-}) => {
+const resolvers_canUserEditEntityRecord = (kind, name, recordId) => async _ref8 => {
+  let {
+    dispatch
+  } = _ref8;
   const entities = await dispatch(getKindEntities(kind));
   const entity = (0,external_lodash_namespaceObject.find)(entities, {
     kind,
@@ -4554,10 +4675,11 @@ const resolvers_canUserEditEntityRecord = (kind, name, recordId) => async ({
  * @param {number} postId   The id of the parent post.
  */
 
-const resolvers_getAutosaves = (postType, postId) => async ({
-  dispatch,
-  resolveSelect
-}) => {
+const resolvers_getAutosaves = (postType, postId) => async _ref9 => {
+  let {
+    dispatch,
+    resolveSelect
+  } = _ref9;
   const {
     rest_base: restBase
   } = await resolveSelect.getPostType(postType);
@@ -4579,9 +4701,10 @@ const resolvers_getAutosaves = (postType, postId) => async ({
  * @param {number} postId   The id of the parent post.
  */
 
-const resolvers_getAutosave = (postType, postId) => async ({
-  resolveSelect
-}) => {
+const resolvers_getAutosave = (postType, postId) => async _ref10 => {
+  let {
+    resolveSelect
+  } = _ref10;
   await resolveSelect.getAutosaves(postType, postId);
 };
 /**
@@ -4590,10 +4713,11 @@ const resolvers_getAutosave = (postType, postId) => async ({
  * @param {string} link Link.
  */
 
-const resolvers_experimentalGetTemplateForLink = link => async ({
-  dispatch,
-  resolveSelect
-}) => {
+const resolvers_experimentalGetTemplateForLink = link => async _ref11 => {
+  let {
+    dispatch,
+    resolveSelect
+  } = _ref11;
   // Ideally this should be using an apiFetch call
   // We could potentially do so by adding a "filter" to the `wp_template` end point.
   // Also it seems the returned object is not a regular REST API post type.
@@ -4602,9 +4726,12 @@ const resolvers_experimentalGetTemplateForLink = link => async ({
   try {
     template = await window.fetch((0,external_wp_url_namespaceObject.addQueryArgs)(link, {
       '_wp-find-template': true
-    })).then(res => res.json()).then(({
-      data
-    }) => data);
+    })).then(res => res.json()).then(_ref12 => {
+      let {
+        data
+      } = _ref12;
+      return data;
+    });
   } catch (e) {// For non-FSE themes, it is possible that this request returns an error.
   }
 
@@ -4625,10 +4752,11 @@ resolvers_experimentalGetTemplateForLink.shouldInvalidate = action => {
   return (action.type === 'RECEIVE_ITEMS' || action.type === 'REMOVE_ITEMS') && action.invalidateCache && action.kind === 'postType' && action.name === 'wp_template';
 };
 
-const resolvers_experimentalGetCurrentGlobalStylesId = () => async ({
-  dispatch,
-  resolveSelect
-}) => {
+const resolvers_experimentalGetCurrentGlobalStylesId = () => async _ref13 => {
+  let {
+    dispatch,
+    resolveSelect
+  } = _ref13;
   const activeThemes = await resolveSelect.getEntityRecords('root', 'theme', {
     status: 'active'
   });
@@ -4642,10 +4770,11 @@ const resolvers_experimentalGetCurrentGlobalStylesId = () => async ({
     dispatch.__experimentalReceiveCurrentGlobalStylesId(globalStylesObject.id);
   }
 };
-const resolvers_experimentalGetCurrentThemeBaseGlobalStyles = () => async ({
-  resolveSelect,
-  dispatch
-}) => {
+const resolvers_experimentalGetCurrentThemeBaseGlobalStyles = () => async _ref14 => {
+  let {
+    resolveSelect,
+    dispatch
+  } = _ref14;
   const currentTheme = await resolveSelect.getCurrentTheme();
   const themeGlobalStyles = await external_wp_apiFetch_default()({
     path: `/wp/v2/global-styles/themes/${currentTheme.stylesheet}`
@@ -4711,9 +4840,11 @@ function* iterateDescendants(node) {
     stack.push(...Object.values(childNode.children));
   }
 }
-function hasConflictingLock({
-  exclusive
-}, locks) {
+function hasConflictingLock(_ref, locks) {
+  let {
+    exclusive
+  } = _ref;
+
   if (exclusive && locks.length) {
     return true;
   }
@@ -4746,7 +4877,10 @@ const DEFAULT_STATE = {
  * @return {Object} Updated state.
  */
 
-function locks(state = DEFAULT_STATE, action) {
+function locks() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_STATE;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'ENQUEUE_LOCK_REQUEST':
       {
@@ -4804,9 +4938,10 @@ function locks(state = DEFAULT_STATE, action) {
 function getPendingLockRequests(state) {
   return state.requests;
 }
-function isLockAvailable(state, store, path, {
-  exclusive
-}) {
+function isLockAvailable(state, store, path, _ref) {
+  let {
+    exclusive
+  } = _ref;
   const storePath = [store, ...path];
   const locks = state.tree; // Validate all parents and the node itself
 
@@ -4913,9 +5048,10 @@ function createLocks() {
 function createLocksActions() {
   const locks = createLocks();
 
-  function __unstableAcquireStoreLock(store, path, {
-    exclusive
-  }) {
+  function __unstableAcquireStoreLock(store, path, _ref) {
+    let {
+      exclusive
+    } = _ref;
     return () => locks.acquire(store, path, exclusive);
   }
 
@@ -4997,12 +5133,13 @@ const entity_provider_getEntity = (kind, type) => {
  */
 
 
-function EntityProvider({
-  kind,
-  type,
-  id,
-  children
-}) {
+function EntityProvider(_ref) {
+  let {
+    kind,
+    type,
+    id,
+    children
+  } = _ref;
   const Provider = entity_provider_getEntity(kind, type).context.Provider;
   return (0,external_wp_element_namespaceObject.createElement)(Provider, {
     value: id
@@ -5085,9 +5222,10 @@ function useEntityProp(kind, type, prop, _id) {
  * @return {[WPBlock[], Function, Function]} The block array and setters.
  */
 
-function useEntityBlockEditor(kind, type, {
-  id: _id
-} = {}) {
+function useEntityBlockEditor(kind, type) {
+  let {
+    id: _id
+  } = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const providerId = useEntityId(kind, type);
   const id = _id !== null && _id !== void 0 ? _id : providerId;
   const {
@@ -5137,9 +5275,12 @@ function useEntityBlockEditor(kind, type, {
     // a new undo level.
 
 
-    edits.content = ({
-      blocks: blocksForSerialization = []
-    }) => (0,external_wp_blocks_namespaceObject.__unstableSerializeAndClean)(blocksForSerialization);
+    edits.content = _ref2 => {
+      let {
+        blocks: blocksForSerialization = []
+      } = _ref2;
+      return (0,external_wp_blocks_namespaceObject.__unstableSerializeAndClean)(blocksForSerialization);
+    };
 
     editEntityRecord(kind, type, id, edits);
   }, [kind, type, id, blocks]);
@@ -5228,7 +5369,9 @@ var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
  * @return {Promise< WPLinkSearchResult[] >} List of search suggestions
  */
 
-const fetchLinkSuggestions = async (search, searchOptions = {}, settings = {}) => {
+const fetchLinkSuggestions = async function (search) {
+  let searchOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  let settings = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const {
     isInitialSuggestions = false,
     type = undefined,
@@ -5374,7 +5517,8 @@ const CACHE = new Map();
  * @return {Promise< WPRemoteUrlData[] >} Remote URL data.
  */
 
-const fetchUrlData = async (url, options = {}) => {
+const fetchUrlData = async function (url) {
+  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   const endpoint = '/wp-block-editor/v1/url-details';
   const args = {
     url: (0,external_wp_url_namespaceObject.prependHTTP)(url)
@@ -5439,7 +5583,13 @@ const entitySelectors = defaultEntities.reduce((result, entity) => {
 
   result[getMethodName(kind, name)] = (state, key, query) => getEntityRecord(state, kind, name, key, query);
 
-  result[getMethodName(kind, name, 'get', true)] = (state, ...args) => getEntityRecords(state, kind, name, ...args);
+  result[getMethodName(kind, name, 'get', true)] = function (state) {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return getEntityRecords(state, kind, name, ...args);
+  };
 
   return result;
 }, {});
@@ -5453,9 +5603,21 @@ const entityResolvers = defaultEntities.reduce((result, entity) => {
 
   const pluralMethodName = getMethodName(kind, name, 'get', true);
 
-  result[pluralMethodName] = (...args) => resolvers_getEntityRecords(kind, name, ...args);
+  result[pluralMethodName] = function () {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
 
-  result[pluralMethodName].shouldInvalidate = (action, ...args) => resolvers_getEntityRecords.shouldInvalidate(action, kind, name, ...args);
+    return resolvers_getEntityRecords(kind, name, ...args);
+  };
+
+  result[pluralMethodName].shouldInvalidate = function (action) {
+    for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+      args[_key3 - 1] = arguments[_key3];
+    }
+
+    return resolvers_getEntityRecords.shouldInvalidate(action, kind, name, ...args);
+  };
 
   return result;
 }, {});

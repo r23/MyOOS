@@ -1517,7 +1517,8 @@ const formatMap = {
  * @return {string} Formatted date.
  */
 
-function format(dateFormat, dateValue = new Date()) {
+function format(dateFormat) {
+  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
   let i, char;
   const newFormat = [];
   const momentDate = moment__WEBPACK_IMPORTED_MODULE_0___default()(dateValue);
@@ -1570,7 +1571,9 @@ function format(dateFormat, dateValue = new Date()) {
  * @return {string} Formatted date in English.
  */
 
-function date(dateFormat, dateValue = new Date(), timezone) {
+function date(dateFormat) {
+  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
+  let timezone = arguments.length > 2 ? arguments[2] : undefined;
   const dateMoment = buildMoment(dateValue, timezone);
   return format(dateFormat, dateMoment);
 }
@@ -1585,7 +1588,8 @@ function date(dateFormat, dateValue = new Date(), timezone) {
  * @return {string} Formatted date in English.
  */
 
-function gmdate(dateFormat, dateValue = new Date()) {
+function gmdate(dateFormat) {
+  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
   const dateMoment = moment__WEBPACK_IMPORTED_MODULE_0___default()(dateValue).utc();
   return format(dateFormat, dateMoment);
 }
@@ -1611,7 +1615,10 @@ function gmdate(dateFormat, dateValue = new Date()) {
  * @return {string} Formatted date.
  */
 
-function dateI18n(dateFormat, dateValue = new Date(), timezone) {
+function dateI18n(dateFormat) {
+  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
+  let timezone = arguments.length > 2 ? arguments[2] : undefined;
+
   if (true === timezone) {
     return gmdateI18n(dateFormat, dateValue);
   }
@@ -1636,7 +1643,8 @@ function dateI18n(dateFormat, dateValue = new Date(), timezone) {
  * @return {string} Formatted date.
  */
 
-function gmdateI18n(dateFormat, dateValue = new Date()) {
+function gmdateI18n(dateFormat) {
+  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
   const dateMoment = moment__WEBPACK_IMPORTED_MODULE_0___default()(dateValue).utc();
   dateMoment.locale(settings.l10n.locale);
   return format(dateFormat, dateMoment);
@@ -1684,7 +1692,8 @@ function getDate(dateString) {
  * @return {Moment} a moment instance.
  */
 
-function buildMoment(dateValue, timezone = '') {
+function buildMoment(dateValue) {
+  let timezone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
   const dateMoment = moment__WEBPACK_IMPORTED_MODULE_0___default()(dateValue);
 
   if (timezone && !isUTCOffset(timezone)) {

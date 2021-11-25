@@ -353,25 +353,32 @@ class ImportForm extends external_wp_element_namespaceObject.Component {
 
 
 
-function ImportDropdown({
-  onUpload
-}) {
+function ImportDropdown(_ref) {
+  let {
+    onUpload
+  } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
     position: "bottom right",
     contentClassName: "list-reusable-blocks-import-dropdown__content",
-    renderToggle: ({
-      isOpen,
-      onToggle
-    }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-      "aria-expanded": isOpen,
-      onClick: onToggle,
-      variant: "primary"
-    }, (0,external_wp_i18n_namespaceObject.__)('Import from JSON')),
-    renderContent: ({
-      onClose
-    }) => (0,external_wp_element_namespaceObject.createElement)(import_form, {
-      onUpload: (0,external_lodash_namespaceObject.flow)(onClose, onUpload)
-    })
+    renderToggle: _ref2 => {
+      let {
+        isOpen,
+        onToggle
+      } = _ref2;
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+        "aria-expanded": isOpen,
+        onClick: onToggle,
+        variant: "primary"
+      }, (0,external_wp_i18n_namespaceObject.__)('Import from JSON'));
+    },
+    renderContent: _ref3 => {
+      let {
+        onClose
+      } = _ref3;
+      return (0,external_wp_element_namespaceObject.createElement)(import_form, {
+        onUpload: (0,external_lodash_namespaceObject.flow)(onClose, onUpload)
+      });
+    }
   });
 }
 

@@ -84,7 +84,10 @@ var external_lodash_namespaceObject = window["lodash"];
  * @return {Object} Updated state.
  */
 
-function reducer(state = {}, action) {
+function reducer() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'REGISTER_SHORTCUT':
       return { ...state,
@@ -136,13 +139,14 @@ function reducer(state = {}, action) {
  *
  * @return {Object} action.
  */
-function registerShortcut({
-  name,
-  category,
-  description,
-  keyCombination,
-  aliases
-}) {
+function registerShortcut(_ref) {
+  let {
+    name,
+    category,
+    description,
+    keyCombination,
+    aliases
+  } = _ref;
   return {
     type: 'REGISTER_SHORTCUT',
     name,
@@ -522,7 +526,8 @@ function getShortcutKeyCombination(state, name) {
  * @return {string?} Shortcut representation.
  */
 
-function getShortcutRepresentation(state, name, representation = 'display') {
+function getShortcutRepresentation(state, name) {
+  let representation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'display';
   const shortcut = getShortcutKeyCombination(state, name);
   return getKeyCombinationRepresentation(shortcut, representation);
 }
@@ -575,7 +580,13 @@ const getAllShortcutRawKeyCombinations = rememo((state, name) => {
  */
 
 const getCategoryShortcuts = rememo((state, categoryName) => {
-  return Object.entries(state).filter(([, shortcut]) => shortcut.category === categoryName).map(([name]) => name);
+  return Object.entries(state).filter(_ref => {
+    let [, shortcut] = _ref;
+    return shortcut.category === categoryName;
+  }).map(_ref2 => {
+    let [name] = _ref2;
+    return name;
+  });
 }, state => [state]);
 //# sourceMappingURL=selectors.js.map
 ;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/store/index.js
@@ -641,10 +652,11 @@ function useShortcutEventMatch() {
    */
 
   function isMatch(name, event) {
-    return getAllShortcutKeyCombinations(name).some(({
-      modifier,
-      character
-    }) => {
+    return getAllShortcutKeyCombinations(name).some(_ref => {
+      let {
+        modifier,
+        character
+      } = _ref;
       return external_wp_keycodes_namespaceObject.isKeyboardEvent[modifier](event, character);
     });
   }
@@ -679,9 +691,10 @@ const context = (0,external_wp_element_namespaceObject.createContext)();
  * @param {boolean}  options.isDisabled Whether to disable to shortut.
  */
 
-function useShortcut(name, callback, {
-  isDisabled
-} = {}) {
+function useShortcut(name, callback) {
+  let {
+    isDisabled
+  } = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const shortcuts = (0,external_wp_element_namespaceObject.useContext)(context);
   const isMatch = useShortcutEventMatch();
   const callbackRef = (0,external_wp_element_namespaceObject.useRef)();

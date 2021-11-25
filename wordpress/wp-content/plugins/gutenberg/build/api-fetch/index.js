@@ -214,14 +214,17 @@ function createPreloadingMiddleware(preloadedData) {
  * @return {import('../types').APIFetchOptions} The request with the modified query args
  */
 
-const modifyQuery = ({
-  path,
-  url,
-  ...options
-}, queryArgs) => ({ ...options,
-  url: url && (0,external_wp_url_namespaceObject.addQueryArgs)(url, queryArgs),
-  path: path && (0,external_wp_url_namespaceObject.addQueryArgs)(path, queryArgs)
-});
+const modifyQuery = (_ref, queryArgs) => {
+  let {
+    path,
+    url,
+    ...options
+  } = _ref;
+  return { ...options,
+    url: url && (0,external_wp_url_namespaceObject.addQueryArgs)(url, queryArgs),
+    path: path && (0,external_wp_url_namespaceObject.addQueryArgs)(path, queryArgs)
+  };
+};
 /**
  * Duplicates parsing functionality from apiFetch.
  *
@@ -421,7 +424,9 @@ const userLocaleMiddleware = (options, next) => {
  * @return {Promise<any> | null | Response} Parsed response.
  */
 
-const response_parseResponse = (response, shouldParseResponse = true) => {
+const response_parseResponse = function (response) {
+  let shouldParseResponse = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
   if (shouldParseResponse) {
     if (response.status === 204) {
       return null;
@@ -465,7 +470,8 @@ const parseJsonAndNormalizeError = response => {
  */
 
 
-const parseResponseAndNormalizeError = (response, shouldParseResponse = true) => {
+const parseResponseAndNormalizeError = function (response) {
+  let shouldParseResponse = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
   return Promise.resolve(response_parseResponse(response, shouldParseResponse)).catch(res => parseAndThrowError(res, shouldParseResponse));
 };
 /**
@@ -476,7 +482,9 @@ const parseResponseAndNormalizeError = (response, shouldParseResponse = true) =>
  * @return {Promise<any>} Parsed response.
  */
 
-function parseAndThrowError(response, shouldParseResponse = true) {
+function parseAndThrowError(response) {
+  let shouldParseResponse = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
   if (!shouldParseResponse) {
     throw response;
   }

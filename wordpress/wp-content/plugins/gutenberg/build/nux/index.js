@@ -94,7 +94,10 @@ var external_wp_data_namespaceObject = window["wp"]["data"];
  * @return {Array} Updated state.
  */
 
-function guides(state = [], action) {
+function guides() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'TRIGGER_GUIDE':
       return [...state, action.tipIds];
@@ -111,7 +114,10 @@ function guides(state = [], action) {
  * @return {boolean} Updated state.
  */
 
-function areTipsEnabled(state = true, action) {
+function areTipsEnabled() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'DISABLE_TIPS':
       return false;
@@ -132,7 +138,10 @@ function areTipsEnabled(state = true, action) {
  * @return {Object} Updated state.
  */
 
-function dismissedTips(state = {}, action) {
+function dismissedTips() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'DISMISS_TIP':
       return { ...state,
@@ -651,14 +660,15 @@ function onClick(event) {
   event.stopPropagation();
 }
 
-function DotTip({
-  position = 'middle right',
-  children,
-  isVisible,
-  hasNextTip,
-  onDismiss,
-  onDisable
-}) {
+function DotTip(_ref) {
+  let {
+    position = 'middle right',
+    children,
+    isVisible,
+    hasNextTip,
+    onDismiss,
+    onDisable
+  } = _ref;
   const anchorParent = (0,external_wp_element_namespaceObject.useRef)(null);
   const onFocusOutsideCallback = (0,external_wp_element_namespaceObject.useCallback)(event => {
     if (!anchorParent.current) {
@@ -696,9 +706,10 @@ function DotTip({
     onClick: onDisable
   }));
 }
-/* harmony default export */ var dot_tip = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)((select, {
-  tipId
-}) => {
+/* harmony default export */ var dot_tip = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)((select, _ref2) => {
+  let {
+    tipId
+  } = _ref2;
   const {
     isTipVisible,
     getAssociatedGuide
@@ -708,9 +719,10 @@ function DotTip({
     isVisible: isTipVisible(tipId),
     hasNextTip: !!(associatedGuide && associatedGuide.nextTipId)
   };
-}), (0,external_wp_data_namespaceObject.withDispatch)((dispatch, {
-  tipId
-}) => {
+}), (0,external_wp_data_namespaceObject.withDispatch)((dispatch, _ref3) => {
+  let {
+    tipId
+  } = _ref3;
   const {
     dismissTip,
     disableTips

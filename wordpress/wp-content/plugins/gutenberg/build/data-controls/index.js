@@ -107,12 +107,12 @@ function apiFetch(request) {
  * @param {Array} args Arguments passed without change to the `@wordpress/data` control.
  */
 
-function build_module_select(...args) {
+function build_module_select() {
   external_wp_deprecated_default()('`select` control in `@wordpress/data-controls`', {
     since: '5.7',
     alternative: 'built-in `resolveSelect` control in `@wordpress/data`'
   });
-  return external_wp_data_namespaceObject.controls.resolveSelect(...args);
+  return external_wp_data_namespaceObject.controls.resolveSelect(...arguments);
 }
 /**
  * Control for calling a selector in a registered data store.
@@ -121,12 +121,12 @@ function build_module_select(...args) {
  * @param {Array} args Arguments passed without change to the `@wordpress/data` control.
  */
 
-function syncSelect(...args) {
+function syncSelect() {
   external_wp_deprecated_default()('`syncSelect` control in `@wordpress/data-controls`', {
     since: '5.7',
     alternative: 'built-in `select` control in `@wordpress/data`'
   });
-  return external_wp_data_namespaceObject.controls.select(...args);
+  return external_wp_data_namespaceObject.controls.select(...arguments);
 }
 /**
  * Control for dispatching an action in a registered data store.
@@ -135,12 +135,12 @@ function syncSelect(...args) {
  * @param {Array} args Arguments passed without change to the `@wordpress/data` control.
  */
 
-function dispatch(...args) {
+function dispatch() {
   external_wp_deprecated_default()('`dispatch` control in `@wordpress/data-controls`', {
     since: '5.7',
     alternative: 'built-in `dispatch` control in `@wordpress/data`'
   });
-  return external_wp_data_namespaceObject.controls.dispatch(...args);
+  return external_wp_data_namespaceObject.controls.dispatch(...arguments);
 }
 /**
  * Dispatches a control action for awaiting on a promise to be resolved.
@@ -197,13 +197,17 @@ const __unstableAwaitPromise = function (promise) {
  */
 
 const controls = {
-  AWAIT_PROMISE: ({
-    promise
-  }) => promise,
+  AWAIT_PROMISE: _ref => {
+    let {
+      promise
+    } = _ref;
+    return promise;
+  },
 
-  API_FETCH({
-    request
-  }) {
+  API_FETCH(_ref2) {
+    let {
+      request
+    } = _ref2;
     return external_wp_apiFetch_default()(request);
   }
 

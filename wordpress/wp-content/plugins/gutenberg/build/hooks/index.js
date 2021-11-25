@@ -149,7 +149,8 @@ function validateHookName(hookName) {
  */
 
 function createAddHook(hooks, storeKey) {
-  return function addHook(hookName, namespace, callback, priority = 10) {
+  return function addHook(hookName, namespace, callback) {
+    let priority = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 10;
     const hooksStore = hooks[storeKey];
 
     if (!build_module_validateHookName(hookName)) {
@@ -256,7 +257,8 @@ function createAddHook(hooks, storeKey) {
  * @return {RemoveHook} Function that removes hooks.
  */
 
-function createRemoveHook(hooks, storeKey, removeAll = false) {
+function createRemoveHook(hooks, storeKey) {
+  let removeAll = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
   return function removeHook(hookName, namespace) {
     const hooksStore = hooks[storeKey];
 
@@ -363,8 +365,9 @@ function createHasHook(hooks, storeKey) {
  *
  * @return {(hookName:string, ...args: unknown[]) => unknown} Function that runs hook callbacks.
  */
-function createRunHook(hooks, storeKey, returnFirstArg = false) {
-  return function runHooks(hookName, ...args) {
+function createRunHook(hooks, storeKey) {
+  let returnFirstArg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  return function runHooks(hookName) {
     const hooksStore = hooks[storeKey];
 
     if (!hooksStore[hookName]) {
@@ -378,6 +381,10 @@ function createRunHook(hooks, storeKey, returnFirstArg = false) {
     const handlers = hooksStore[hookName].handlers; // The following code is stripped from production builds.
 
     if (false) {}
+
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
 
     if (!handlers || !handlers.length) {
       return returnFirstArg ? args[0] : undefined;

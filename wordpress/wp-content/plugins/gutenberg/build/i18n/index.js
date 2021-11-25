@@ -521,8 +521,12 @@ const logErrorOnce = memize_default()(console.error); // eslint-disable-line no-
  * @return {string} The formatted string.
  */
 
-function sprintf_sprintf(format, ...args) {
+function sprintf_sprintf(format) {
   try {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
     return sprintf_default().sprintf(format, ...args);
   } catch (error) {
     if (error instanceof Error) {
@@ -1220,14 +1224,18 @@ const createI18n = (initialData, initialDomain, hooks) => {
   /** @type {GetLocaleData} */
 
 
-  const getLocaleData = (domain = 'default') => tannin.data[domain];
+  const getLocaleData = function () {
+    let domain = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+    return tannin.data[domain];
+  };
   /**
    * @param {LocaleData} [data]
    * @param {string}     [domain]
    */
 
 
-  const doSetLocaleData = (data, domain = 'default') => {
+  const doSetLocaleData = function (data) {
+    let domain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
     tannin.data[domain] = { ...DEFAULT_LOCALE_DATA,
       ...tannin.data[domain],
       ...data
@@ -1272,7 +1280,13 @@ const createI18n = (initialData, initialDomain, hooks) => {
    */
 
 
-  const dcnpgettext = (domain = 'default', context, single, plural, number) => {
+  const dcnpgettext = function () {
+    let domain = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+    let context = arguments.length > 1 ? arguments[1] : undefined;
+    let single = arguments.length > 2 ? arguments[2] : undefined;
+    let plural = arguments.length > 3 ? arguments[3] : undefined;
+    let number = arguments.length > 4 ? arguments[4] : undefined;
+
     if (!tannin.data[domain]) {
       // use `doSetLocaleData` to set silently, without notifying listeners
       doSetLocaleData(undefined, domain);
@@ -1283,7 +1297,10 @@ const createI18n = (initialData, initialDomain, hooks) => {
   /** @type {GetFilterDomain} */
 
 
-  const getFilterDomain = (domain = 'default') => domain;
+  const getFilterDomain = function () {
+    let domain = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'default';
+    return domain;
+  };
   /** @type {__} */
 
 

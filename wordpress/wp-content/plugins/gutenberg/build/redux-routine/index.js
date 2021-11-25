@@ -785,7 +785,9 @@ function isActionOfType(object, expectedType) {
  * @param  dispatch Unhandled action dispatch.
  */
 
-function createRuntime(controls = {}, dispatch) {
+function createRuntime() {
+  let controls = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let dispatch = arguments.length > 1 ? arguments[1] : undefined;
   const rungenControls = (0,external_lodash_namespaceObject.map)(controls, (control, actionType) => (value, next, iterate, yieldNext, yieldError) => {
     if (!isActionOfType(value, actionType)) {
       return false;
@@ -843,7 +845,8 @@ function createRuntime(controls = {}, dispatch) {
  * @return {import('redux').Middleware} Co-routine runtime
  */
 
-function createMiddleware(controls = {}) {
+function createMiddleware() {
+  let controls = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return store => {
     const runtime = createRuntime(controls, store.dispatch);
     return next => action => {

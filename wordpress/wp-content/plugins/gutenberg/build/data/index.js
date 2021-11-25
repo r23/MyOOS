@@ -538,9 +538,13 @@ function ownKeys(object, enumerableOnly) {
 
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
-    if (enumerableOnly) symbols = symbols.filter(function (sym) {
-      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-    });
+
+    if (enumerableOnly) {
+      symbols = symbols.filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+      });
+    }
+
     keys.push.apply(keys, symbols);
   }
 
@@ -1235,7 +1239,9 @@ function createRegistrySelector(registrySelector) {
   // create a selector function that is bound to the registry referenced by `selector.registry`
   // and that has the same API as a regular selector. Binding it in such a way makes it
   // possible to call the selector directly from another selector.
-  const selector = (...args) => registrySelector(selector.registry.select)(...args);
+  const selector = function () {
+    return registrySelector(selector.registry.select)(...arguments);
+  };
   /**
    * Flag indicating that the selector is a registry selector that needs the correct registry
    * reference to be assigned to `selecto.registry` to make it work correctly.
@@ -1313,7 +1319,11 @@ const DISPATCH = '@@data/DISPATCH';
  * @return {Object} The control descriptor.
  */
 
-function controls_select(storeNameOrDefinition, selectorName, ...args) {
+function controls_select(storeNameOrDefinition, selectorName) {
+  for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    args[_key - 2] = arguments[_key];
+  }
+
   return {
     type: SELECT,
     storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDefinition) ? storeNameOrDefinition.name : storeNameOrDefinition,
@@ -1347,7 +1357,11 @@ function controls_select(storeNameOrDefinition, selectorName, ...args) {
  */
 
 
-function resolveSelect(storeNameOrDefinition, selectorName, ...args) {
+function resolveSelect(storeNameOrDefinition, selectorName) {
+  for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+    args[_key2 - 2] = arguments[_key2];
+  }
+
   return {
     type: RESOLVE_SELECT,
     storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDefinition) ? storeNameOrDefinition.name : storeNameOrDefinition,
@@ -1377,7 +1391,11 @@ function resolveSelect(storeNameOrDefinition, selectorName, ...args) {
  */
 
 
-function dispatch(storeNameOrDefinition, actionName, ...args) {
+function dispatch(storeNameOrDefinition, actionName) {
+  for (var _len3 = arguments.length, args = new Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
+    args[_key3 - 2] = arguments[_key3];
+  }
+
   return {
     type: DISPATCH,
     storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDefinition) ? storeNameOrDefinition.name : storeNameOrDefinition,
@@ -1392,24 +1410,31 @@ const controls = {
   dispatch
 };
 const builtinControls = {
-  [SELECT]: createRegistryControl(registry => ({
-    storeKey,
-    selectorName,
-    args
-  }) => registry.select(storeKey)[selectorName](...args)),
-  [RESOLVE_SELECT]: createRegistryControl(registry => ({
-    storeKey,
-    selectorName,
-    args
-  }) => {
+  [SELECT]: createRegistryControl(registry => _ref => {
+    let {
+      storeKey,
+      selectorName,
+      args
+    } = _ref;
+    return registry.select(storeKey)[selectorName](...args);
+  }),
+  [RESOLVE_SELECT]: createRegistryControl(registry => _ref2 => {
+    let {
+      storeKey,
+      selectorName,
+      args
+    } = _ref2;
     const method = registry.select(storeKey)[selectorName].hasResolver ? 'resolveSelect' : 'select';
     return registry[method](storeKey)[selectorName](...args);
   }),
-  [DISPATCH]: createRegistryControl(registry => ({
-    storeKey,
-    actionName,
-    args
-  }) => registry.dispatch(storeKey)[actionName](...args))
+  [DISPATCH]: createRegistryControl(registry => _ref3 => {
+    let {
+      storeKey,
+      actionName,
+      args
+    } = _ref3;
+    return registry.dispatch(storeKey)[actionName](...args);
+  })
 };
 //# sourceMappingURL=controls.js.map
 ;// CONCATENATED MODULE: ./node_modules/is-promise/index.mjs
@@ -1475,7 +1500,8 @@ const STORE_NAME = 'core/data';
 
 const createResolversCacheMiddleware = (registry, reducerKey) => () => next => action => {
   const resolvers = registry.select(STORE_NAME).getCachedResolvers(reducerKey);
-  Object.entries(resolvers).forEach(([selectorName, resolversByArgs]) => {
+  Object.entries(resolvers).forEach(_ref => {
+    let [selectorName, resolversByArgs] = _ref;
     const resolver = (0,external_lodash_namespaceObject.get)(registry.stores, [reducerKey, 'resolvers', selectorName]);
 
     if (!resolver || !resolver.shouldInvalidate) {
@@ -1522,11 +1548,11 @@ function createThunkMiddleware(args) {
  *
  * @return {(reducer: import('redux').Reducer<TState, TAction>) => import('redux').Reducer<Record<string, TState>, TAction>} Higher-order reducer.
  */
-const onSubKey = actionProperty => reducer => (
-/* eslint-disable jsdoc/no-undefined-types */
-state =
-/** @type {Record<string, TState>} */
-{}, action) => {
+const onSubKey = actionProperty => reducer => function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] :
+  /** @type {Record<string, TState>} */
+  {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
   // Retrieve subkey from action. Do not track if undefined; useful for cases
   // where reducer is scoped by action shape.
 
@@ -1570,7 +1596,10 @@ state =
  *
  *  selectorName -> EquivalentKeyMap<Array,boolean>
  */
-const subKeysIsResolved = onSubKey('selectorName')((state = new (equivalent_key_map_default())(), action) => {
+const subKeysIsResolved = onSubKey('selectorName')(function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new (equivalent_key_map_default())();
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'START_RESOLUTION':
     case 'FINISH_RESOLUTION':
@@ -1615,7 +1644,10 @@ const subKeysIsResolved = onSubKey('selectorName')((state = new (equivalent_key_
  * @return Next state.
  */
 
-const isResolved = (state = {}, action) => {
+const isResolved = function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
   switch (action.type) {
     case 'INVALIDATE_RESOLUTION_FOR_STORE':
       return {};
@@ -1676,7 +1708,8 @@ function getIsResolving(state, selectorName, args) {
  * @return {boolean} Whether resolution has been triggered.
  */
 
-function hasStartedResolution(state, selectorName, args = []) {
+function hasStartedResolution(state, selectorName) {
+  let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
   return getIsResolving(state, selectorName, args) !== undefined;
 }
 /**
@@ -1690,7 +1723,8 @@ function hasStartedResolution(state, selectorName, args = []) {
  * @return {boolean} Whether resolution has completed.
  */
 
-function hasFinishedResolution(state, selectorName, args = []) {
+function hasFinishedResolution(state, selectorName) {
+  let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
   return getIsResolving(state, selectorName, args) === false;
 }
 /**
@@ -1704,7 +1738,8 @@ function hasFinishedResolution(state, selectorName, args = []) {
  * @return {boolean} Whether resolution is in progress.
  */
 
-function isResolving(state, selectorName, args = []) {
+function isResolving(state, selectorName) {
+  let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
   return getIsResolving(state, selectorName, args) === true;
 }
 /**
@@ -1957,13 +1992,25 @@ function createReduxStore(key, options) {
       const actions = mapActions({ ...actions_namespaceObject,
         ...options.actions
       }, store);
-      let selectors = mapSelectors({ ...(0,external_lodash_namespaceObject.mapValues)(selectors_namespaceObject, selector => (state, ...args) => selector(state.metadata, ...args)),
+      let selectors = mapSelectors({ ...(0,external_lodash_namespaceObject.mapValues)(selectors_namespaceObject, selector => function (state) {
+          for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            args[_key - 1] = arguments[_key];
+          }
+
+          return selector(state.metadata, ...args);
+        }),
         ...(0,external_lodash_namespaceObject.mapValues)(options.selectors, selector => {
           if (selector.isRegistrySelector) {
             selector.registry = registry;
           }
 
-          return (state, ...args) => selector(state.root, ...args);
+          return function (state) {
+            for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+              args[_key2 - 1] = arguments[_key2];
+            }
+
+            return selector(state.root, ...args);
+          };
         })
       }, store);
 
@@ -2114,8 +2161,8 @@ function mapSelectors(selectors, store) {
 
 
 function mapActions(actions, store) {
-  const createBoundAction = action => (...args) => {
-    return Promise.resolve(store.dispatch(action(...args)));
+  const createBoundAction = action => function () {
+    return Promise.resolve(store.dispatch(action(...arguments)));
   };
 
   return (0,external_lodash_namespaceObject.mapValues)(actions, createBoundAction);
@@ -2131,25 +2178,31 @@ function mapActions(actions, store) {
 
 
 function mapResolveSelectors(selectors, store) {
-  return (0,external_lodash_namespaceObject.mapValues)((0,external_lodash_namespaceObject.omit)(selectors, ['getIsResolving', 'hasStartedResolution', 'hasFinishedResolution', 'isResolving', 'getCachedResolvers']), (selector, selectorName) => (...args) => new Promise(resolve => {
-    const hasFinished = () => selectors.hasFinishedResolution(selectorName, args);
-
-    const getResult = () => selector.apply(null, args); // trigger the selector (to trigger the resolver)
-
-
-    const result = getResult();
-
-    if (hasFinished()) {
-      return resolve(result);
+  return (0,external_lodash_namespaceObject.mapValues)((0,external_lodash_namespaceObject.omit)(selectors, ['getIsResolving', 'hasStartedResolution', 'hasFinishedResolution', 'isResolving', 'getCachedResolvers']), (selector, selectorName) => function () {
+    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+      args[_key3] = arguments[_key3];
     }
 
-    const unsubscribe = store.subscribe(() => {
+    return new Promise(resolve => {
+      const hasFinished = () => selectors.hasFinishedResolution(selectorName, args);
+
+      const getResult = () => selector.apply(null, args); // trigger the selector (to trigger the resolver)
+
+
+      const result = getResult();
+
       if (hasFinished()) {
-        unsubscribe();
-        resolve(getResult());
+        return resolve(result);
       }
+
+      const unsubscribe = store.subscribe(() => {
+        if (hasFinished()) {
+          unsubscribe();
+          resolve(getResult());
+        }
+      });
     });
-  }));
+  });
 }
 /**
  * Returns resolvers with matched selectors for a given namespace.
@@ -2187,7 +2240,11 @@ function mapResolvers(resolvers, selectors, store, resolversCache) {
       return selector;
     }
 
-    const selectorResolver = (...args) => {
+    const selectorResolver = function () {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
+      }
+
       async function fulfillSelector() {
         const state = store.getState();
 
@@ -2235,11 +2292,15 @@ function mapResolvers(resolvers, selectors, store, resolversCache) {
  */
 
 
-async function fulfillResolver(store, resolvers, selectorName, ...args) {
+async function fulfillResolver(store, resolvers, selectorName) {
   const resolver = (0,external_lodash_namespaceObject.get)(resolvers, [selectorName]);
 
   if (!resolver) {
     return;
+  }
+
+  for (var _len5 = arguments.length, args = new Array(_len5 > 3 ? _len5 - 3 : 0), _key5 = 3; _key5 < _len5; _key5++) {
+    args[_key5 - 3] = arguments[_key5];
   }
 
   const action = resolver.fulfill(...args);
@@ -2251,11 +2312,19 @@ async function fulfillResolver(store, resolvers, selectorName, ...args) {
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/data/build-module/store/index.js
 function createCoreDataStore(registry) {
-  const getCoreDataSelector = selectorName => (key, ...args) => {
+  const getCoreDataSelector = selectorName => function (key) {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
     return registry.select(key)[selectorName](...args);
   };
 
-  const getCoreDataAction = actionName => (key, ...args) => {
+  const getCoreDataAction = actionName => function (key) {
+    for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+      args[_key2 - 1] = arguments[_key2];
+    }
+
     return registry.dispatch(key)[actionName](...args);
   };
 
@@ -2387,7 +2456,9 @@ function createEmitter() {
  * @return {WPDataRegistry} Data registry.
  */
 
-function createRegistry(storeConfigs = {}, parent = null) {
+function createRegistry() {
+  let storeConfigs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   const stores = {};
   const emitter = createEmitter();
 
@@ -2508,51 +2579,48 @@ function createRegistry(storeConfigs = {}, parent = null) {
   /**
    * Registers a generic store.
    *
-   * @param {string} key    Store registry key.
-   * @param {Object} config Configuration (getSelectors, getActions, subscribe).
+   * @param {string} name Store registry name.
+   * @param {Object} store Store instance object (getSelectors, getActions, subscribe).
    */
 
 
-  function registerGenericStore(key, config) {
-    if (typeof config.getSelectors !== 'function') {
-      throw new TypeError('config.getSelectors must be a function');
+  function registerGenericStore(name, store) {
+    if (typeof store.getSelectors !== 'function') {
+      throw new TypeError('store.getSelectors must be a function');
     }
 
-    if (typeof config.getActions !== 'function') {
-      throw new TypeError('config.getActions must be a function');
+    if (typeof store.getActions !== 'function') {
+      throw new TypeError('store.getActions must be a function');
     }
 
-    if (typeof config.subscribe !== 'function') {
-      throw new TypeError('config.subscribe must be a function');
-    } // Thi emitter is used to keep track of active listeners when the registry
+    if (typeof store.subscribe !== 'function') {
+      throw new TypeError('store.subscribe must be a function');
+    } // The emitter is used to keep track of active listeners when the registry
     // get paused, that way, when resumed we should be able to call all these
     // pending listeners.
 
 
-    config.emitter = createEmitter();
-    const currentSubscribe = config.subscribe;
+    store.emitter = createEmitter();
+    const currentSubscribe = store.subscribe;
 
-    config.subscribe = listener => {
-      const unsubscribeFromStoreEmitter = config.emitter.subscribe(listener);
-      const unsubscribeFromRootStore = currentSubscribe(() => {
-        if (config.emitter.isPaused) {
-          config.emitter.emit();
+    store.subscribe = listener => {
+      const unsubscribeFromEmitter = store.emitter.subscribe(listener);
+      const unsubscribeFromStore = currentSubscribe(() => {
+        if (store.emitter.isPaused) {
+          store.emitter.emit();
           return;
         }
 
         listener();
       });
       return () => {
-        if (unsubscribeFromRootStore) {
-          unsubscribeFromRootStore();
-        }
-
-        unsubscribeFromStoreEmitter();
+        unsubscribeFromStore === null || unsubscribeFromStore === void 0 ? void 0 : unsubscribeFromStore();
+        unsubscribeFromEmitter === null || unsubscribeFromEmitter === void 0 ? void 0 : unsubscribeFromEmitter();
       };
     };
 
-    stores[key] = config;
-    config.subscribe(globalListener);
+    stores[name] = store;
+    store.subscribe(globalListener);
   }
   /**
    * Registers a new store definition.
@@ -2643,7 +2711,10 @@ function createRegistry(storeConfigs = {}, parent = null) {
   }
 
   registerGenericStore(STORE_NAME, store(registry));
-  Object.entries(storeConfigs).forEach(([name, config]) => registry.registerStore(name, config));
+  Object.entries(storeConfigs).forEach(_ref => {
+    let [name, config] = _ref;
+    return registry.registerStore(name, config);
+  });
 
   if (parent) {
     parent.subscribe(globalListener);
@@ -3561,7 +3632,9 @@ const useDispatchWithMap = (dispatchMap, deps) => {
         console.warn(`Property ${propName} returned from dispatchMap in useDispatchWithMap must be a function.`);
       }
 
-      return (...args) => currentDispatchMap.current(registry.dispatch, registry)[propName](...args);
+      return function () {
+        return currentDispatchMap.current(registry.dispatch, registry)[propName](...arguments);
+      };
     });
   }, [registry, ...deps]);
 };
@@ -3913,12 +3986,12 @@ const build_module_dispatch = default_registry.dispatch;
 
 const subscribe = default_registry.subscribe;
 /**
- * Registers a generic store.
+ * Registers a generic store instance.
  *
- * @deprecated Use `register` instead.
+ * @deprecated Use `register( storeDescriptor )` instead.
  *
- * @param {string} key    Store registry key.
- * @param {Object} config Configuration (getSelectors, getActions, subscribe).
+ * @param {string} name Store registry name.
+ * @param {Object} store Store instance (`{ getSelectors, getActions, subscribe }`).
  */
 
 const registerGenericStore = default_registry.registerGenericStore;
