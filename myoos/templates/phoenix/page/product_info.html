@@ -273,12 +273,23 @@
             <div class="row">
                 <div class="col-12">
                     <div class="product_details_desc clearfix">
-                                <div class="description_area">
-									{$product_info.products_description}                            
-								</div>
+						<div class="description_area">
+							{$product_info.products_description} 							
+						</div>
 					</div>
                 </div>
             </div>
+		{if !empty($product_info.products_old_electrical_equipment_description)}
+	        <div class="row">
+                <div class="col-12">
+                    <div class="product_details_desc clearfix">
+                        <div class="description_area">
+							{$product_info.products_old_electrical_equipment_description} 							
+						</div>
+					</div>
+                </div>
+            </div>		
+		{/if}	
         </div>							
 
 	{if $model_viewer_array}
