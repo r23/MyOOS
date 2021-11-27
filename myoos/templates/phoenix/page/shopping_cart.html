@@ -112,10 +112,16 @@
 											{/foreach}
 										{/if}
 
+
+										{if $product.old_electrical_equipment == 1 }
+											<p>Zum einen muss der Käufer über die Möglichkeit der unentgeltlichen Rücknahme informiert werden. Er muss ferner im Kaufprozess befragt werden, ob er bei Auslieferung des neuen Gerätes ein Altgerät zurückgeben will.</p>
+										{/if}	
+
+
 											<p><a href="{product_link products_id=$product.id}">{$lang.text_modify}</a> | <a href="{html_href_link content=$filename.shopping_cart action=add_wishlist products_id=$product.id}">{$lang.text_on_memo}</a></p>
 										</div>
 									</td>
-									<td><div class="final_price">{display_price price=$product.final_price tax_class_id=$product.tax_class_id}</div></td>
+									<td><div class="final_price"><span style="white-space: nowrap;">{display_price price=$product.final_price tax_class_id=$product.tax_class_id}</span></div></td>
 									<td class="count-input">
 										<div class="cart clearfix mb-15 d-flex align-items-center">
 											<div class="quantity">
@@ -125,9 +131,10 @@
 											</div>
 										</div>
 									</td>
-									<td align="right"><div class="total_price">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</div></td>
+									<td align="right"><div class="total_price"><span style="white-space: nowrap;">{display_price price=$product.final_price tax_class_id=$product.tax_class_id quantity=$product.quantity}</span></div></td>
 									<td><a href="{html_href_link content=$filename.shopping_cart action=cart_delete products_id=$product.id}" class="remove_item"><i class="fa fa-times"></i></a></td>
 								</tr>
+
 						{/foreach}
 
 							</tbody>

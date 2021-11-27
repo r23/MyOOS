@@ -692,7 +692,7 @@ class shoppingCart {
 			$products_descriptiontable = $oostable['products_description'];
 			$sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
 						p.products_ean, p.products_price, p.products_weight, p.products_tax_class_id, p.products_quantity, 
-						p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units
+						p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_old_electrical_equipment
 					FROM $productstable p,
 						$products_descriptiontable pd
 					WHERE p.products_setting >= '1' AND 
@@ -764,6 +764,8 @@ class shoppingCart {
                                     'tax_class_id' => $products['products_tax_class_id'],
                                     'attributes' => (isset($this->contents[$products_id]['attributes']) ? $this->contents[$products_id]['attributes'] : ''),
                                     'attributes_values' => (isset($this->contents[$products_id]['attributes_values']) ? $this->contents[$products_id]['attributes_values'] : ''),
+									'old_electrical_equipment' => $products['products_old_electrical_equipment'],
+									'return_free_of_charge' => (isset($this->contents[$products_id]['return_free_of_charge']) ? $this->contents[$products_id]['return_free_of_charge'] : ''),
                                     'towlid' => $this->contents[$products_id]['towlid']);
 									
 															
