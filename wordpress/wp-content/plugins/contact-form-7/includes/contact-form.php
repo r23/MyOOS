@@ -124,7 +124,11 @@ class WPCF7_ContactForm {
 		$properties = $contact_form->get_properties();
 
 		foreach ( $properties as $key => $value ) {
-			$properties[$key] = WPCF7_ContactFormTemplate::get_default( $key );
+			$default_template = WPCF7_ContactFormTemplate::get_default( $key );
+
+			if ( isset( $default_template ) ) {
+				$properties[$key] = $default_template;
+			}
 		}
 
 		$contact_form->properties = $properties;
@@ -200,18 +204,10 @@ class WPCF7_ContactForm {
 			$this->title = $post->post_title;
 			$this->locale = get_post_meta( $post->ID, '_locale', true );
 
-			$properties = $this->get_properties();
-
-			foreach ( $properties as $key => $value ) {
-				if ( metadata_exists( 'post', $post->ID, '_' . $key ) ) {
-					$properties[$key] = get_post_meta( $post->ID, '_' . $key, true );
-				} elseif ( metadata_exists( 'post', $post->ID, $key ) ) {
-					$properties[$key] = get_post_meta( $post->ID, $key, true );
-				}
-			}
-
-			$this->properties = $properties;
+			$this->construct_properties( $post );
 			$this->upgrade();
+		} else {
+			$this->construct_properties();
 		}
 
 		do_action( 'wpcf7_contact_form', $this );
@@ -264,6 +260,85 @@ class WPCF7_ContactForm {
 
 
 	/**
+	 * Constructs contact form properties. This is called only once
+	 * from the constructor.
+	 */
+	private function construct_properties( $post = null ) {
+		$builtin_properties = array(
+			'form' => '',
+			'mail' => array(),
+			'mail_2' => array(),
+			'messages' => array(),
+			'additional_settings' => '',
+		);
+
+		$properties = apply_filters(
+			'wpcf7_pre_construct_contact_form_properties',
+			$builtin_properties, $this
+		);
+
+		// Filtering out properties with invalid name
+		$properties = array_filter(
+			$properties,
+			function ( $key ) {
+				$sanitized_key = sanitize_key( $key );
+				return $key === $sanitized_key;
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+
+		foreach ( $properties as $name => $val ) {
+			$prop = $this->retrieve_property( $name );
+
+			if ( isset( $prop ) ) {
+				$properties[$name] = $prop;
+			}
+		}
+
+		$this->properties = $properties;
+
+		foreach ( $properties as $name => $val ) {
+			$properties[$name] = apply_filters(
+				"wpcf7_contact_form_property_{$name}",
+				$val, $this
+			);
+		}
+
+		$this->properties = $properties;
+
+		$properties = (array) apply_filters(
+			'wpcf7_contact_form_properties',
+			$properties, $this
+		);
+
+		$this->properties = $properties;
+	}
+
+
+	/**
+	 * Retrieves contact form property of the specified name from the database.
+	 *
+	 * @param string $name Property name.
+	 * @return array|string|null Property value. Null if property doesn't exist.
+	 */
+	private function retrieve_property( $name ) {
+		$property = null;
+
+		if ( ! $this->initial() ) {
+			$post_id = $this->id;
+
+			if ( metadata_exists( 'post', $post_id, '_' . $name ) ) {
+				$property = get_post_meta( $post_id, '_' . $name, true );
+			} elseif ( metadata_exists( 'post', $post_id, $name ) ) {
+				$property = get_post_meta( $post_id, $name, true );
+			}
+		}
+
+		return $property;
+	}
+
+
+	/**
 	 * Returns the value for the given property name.
 	 *
 	 * @param string $name Property name.
@@ -281,22 +356,7 @@ class WPCF7_ContactForm {
 	 * @return array This contact form's properties.
 	 */
 	public function get_properties() {
-		$properties = (array) $this->properties;
-
-		$properties = wp_parse_args( $properties, array(
-			'form' => '',
-			'mail' => array(),
-			'mail_2' => array(),
-			'messages' => array(),
-			'additional_settings' => '',
-		) );
-
-		$properties = (array) apply_filters(
-			'wpcf7_contact_form_properties',
-			$properties, $this
-		);
-
-		return $properties;
+		return (array) $this->properties;
 	}
 
 
