@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-11-24 11:05:55+0000\n"
+"PO-Revision-Date: 2021-11-27 17:06:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,6 +23,11 @@ msgstr "Unterstützung für Headless-CMS"
 #: includes/rest/class-headless.php:57
 msgid "URL to get HTML tags for."
 msgstr "URL zum Abrufen von HTML-Tags."
+
+#: includes/modules/content-ai/views/options.php:43
+#: includes/modules/content-ai/assets/js/content-ai.js:1
+msgid "Click to refresh the available credits."
+msgstr "Klicke auf aktualisieren, um das verfügbare Guthaben zu aktualisieren."
 
 #. translators: 1. Credits left 2. Buy more credits link
 #: includes/modules/content-ai/views/options.php:51
