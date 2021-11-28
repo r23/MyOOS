@@ -32,16 +32,22 @@ $aLang['table_heading_total'] = 'Total';
 $aLang['text_cart_empty'] = 'Your Cart is Currently Empty';
 $aLang['text_cart_empty_help'] = 'Before proceed to checkout you must add some products to your shopping cart.<br>You will find a lot of interesting products on our "Shop" page.';
 
-
 $aLang['text_shipping_estimates'] = 'Shipping estimates';
+
+$aLang['text_modify'] = 'Modify';
+$aLang['text_on_memo'] = 'On the memo';
+
+$aLang['text_free_redemption']			 	= 'Free redemption';
+$aLang['text_free_redemption_selection'] 	= 'Would you like to return an old device free of charge when the new device is delivered?';
+$aLang['text_yes']            			 	= 'Yes';
+$aLang['text_no']      	   					= 'No';
+$aLang['text_error'] 						= 'Please select: Would you like to return an old device free of charge when the new device is delivered?';
+
 
 $aLang['sub_title_sub_total'] = 'Sub-Total:';
 $aLang['shipping_cost'] = 'Shipping:';
 $aLang['tax'] = ' Tax';
 $aLang['total'] = 'Total:';
-
-$aLang['text_modify'] = 'Modify';
-$aLang['text_on_memo'] = 'On the memo';
 
 $aLang['out_of_stock_cant_checkout'] = 'Products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' dont exist in desired quantity in our stock.<br />Please alter the quantity of products marked with (' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . '), Thank you';
 $aLang['out_of_stock_can_checkout'] = 'Products marked with ' . STOCK_MARK_PRODUCT_OUT_OF_STOCK . ' dont exist in desired quantity in our stock.<br />You can buy them anyway and check the quantity we have in stock for immediate deliver in the checkout process.';

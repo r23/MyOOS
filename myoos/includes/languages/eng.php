@@ -519,8 +519,5 @@ $aLang = [
 'warning_minimum_order_value' => 'The minimum order value of %s has not been reached yet. Therefore, no order is currently possible with this shopping cart.',
 
 
-'cookie_notice'	=>  '%s uses cookies to provide you with the best possible service. If you continue to surf the site, you consent to the <a href="%s"><strong>use of cookies</strong></a>. ',
-'cookie_agree'  =>  'I agree.',
-
 ];
 
