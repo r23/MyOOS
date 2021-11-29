@@ -53,9 +53,12 @@ switch ($action) {
 		if (!isset($_SESSION['cart'])) {
 			$_SESSION['cart'] = new shoppingCart();
 		}
-		
+
+
 		// customer wants to update the product quantity in their shopping cart
-		for ($i=0; $i<count($_POST['products_id']);$i++) {
+		$n = count($_POST['products_id']);
+		for ($i=0, $n; $i<$n; $i++) {		
+
 			if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array())) or $_POST['cart_quantity'][$i] == 0) {
 				$_SESSION['cart']->remove($_POST['products_id'][$i]);
 			} else {
@@ -66,6 +69,7 @@ switch ($action) {
 				if ( ($_POST['cart_quantity'][$i] >= $products_order_min) ) {
 					if ($_POST['cart_quantity'][$i]%$products_order_units == 0) {
 						$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
+						$free_redemption  = (isset($_POST['free_redemption'][$i])) && is_numeric($_POST['free_redemption'][$i]) ? intval($_POST['free_redemption'][$i]) : '';
 						$_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, false, $_POST['to_wl_id'][$i]);
 					} else {
 						$oMessage->add_session('danger', oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . oos_prepare_input($_POST['cart_quantity'][$i]) . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
@@ -76,7 +80,6 @@ switch ($action) {
 			}
 		}
 
-		# oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
 		# todo remove?
 		oos_redirect(oos_href_link($aContents['shopping_cart']));
 		break;

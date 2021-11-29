@@ -156,8 +156,9 @@ if (isset($_SESSION)) {
 			 * Shopping Cart
 			*/
 			$products = $_SESSION['cart']->get_products();
-
 			$n = count($products);
+			$nError = 0;
+
 			for ($i=0, $n; $i<$n; $i++) {
 
 				$hidden_field .= oos_draw_hidden_field('products_id[]', $products[$i]['id']);
@@ -173,6 +174,11 @@ if (isset($_SESSION)) {
 				// Wishlist names
 				if (oos_is_not_null($products[$i]['towlid'])) {
 					$hidden_field .= oos_draw_hidden_field('to_wl_id[]', $products[$i]['towlid']);
+				}
+
+				if ( ($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '') && ($nError == 0) ) {
+					$nError = 1;
+					$oMessage->add('danger', $aLang['text_error']);
 				}
 
 				// Push all attributes information in an array
@@ -261,6 +267,7 @@ $smarty->assign(
 			
 		'hidden_field'			=> $hidden_field,
 		'products'				=> $products,
+		'error'					=> $nError,
 		'any_out_of_stock'		=> $any_out_of_stock,
 		'order_total_output'	=> $order_total_output,
 		'country'				=> $country,
