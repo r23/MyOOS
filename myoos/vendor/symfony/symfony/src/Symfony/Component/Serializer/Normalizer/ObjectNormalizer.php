@@ -108,16 +108,8 @@ class ObjectNormalizer extends AbstractObjectNormalizer
         }
 
         // properties
-        $propertyValues = !method_exists($object, '__get') ? (array) $object : null;
         foreach ($reflClass->getProperties() as $reflProperty) {
-            if (null !== $propertyValues && !\array_key_exists($reflProperty->name, $propertyValues)) {
-                if ($reflProperty->isPublic()
-                    || ($reflProperty->isProtected() && !\array_key_exists("\0*\0{$reflProperty->name}", $propertyValues))
-                    || ($reflProperty->isPrivate() && !\array_key_exists("\0{$reflProperty->class}\0{$reflProperty->name}", $propertyValues))
-                ) {
-                    unset($attributes[$reflProperty->name]);
-                }
-
+            if (!$reflProperty->isPublic()) {
                 continue;
             }
 
@@ -176,9 +168,11 @@ class ObjectNormalizer extends AbstractObjectNormalizer
             }
 
             if (null !== $discriminatorMapping = $this->classDiscriminatorResolver->getMappingForClass($class)) {
+                $attributes = [];
                 foreach ($discriminatorMapping->getTypesMapping() as $mappedClass) {
-                    $allowedAttributes = array_merge($allowedAttributes, parent::getAllowedAttributes($mappedClass, $context, $attributesAsString));
+                    $attributes[] = parent::getAllowedAttributes($mappedClass, $context, $attributesAsString);
                 }
+                $allowedAttributes = array_merge($allowedAttributes, ...$attributes);
             }
         }
 

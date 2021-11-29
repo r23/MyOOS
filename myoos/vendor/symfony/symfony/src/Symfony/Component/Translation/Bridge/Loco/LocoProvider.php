@@ -27,8 +27,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  *  * Tags refers to Symfony's translation domains
  *  * Assets refers to Symfony's translation keys
  *  * Translations refers to Symfony's translated messages
- *
- * @experimental in 5.3
  */
 final class LocoProvider implements ProviderInterface
 {
@@ -75,8 +73,15 @@ final class LocoProvider implements ProviderInterface
             }
 
             foreach ($catalogue->all() as $domain => $messages) {
-                $ids = $this->getAssetsIds($domain);
-                $this->translateAssets(array_combine($ids, array_values($messages)), $locale);
+                $keysIdsMap = [];
+
+                foreach ($this->getAssetsIds($domain) as $id) {
+                    $keysIdsMap[$this->retrieveKeyFromId($id, $domain)] = $id;
+                }
+
+                $ids = array_intersect_key($keysIdsMap, $messages);
+
+                $this->translateAssets(array_combine(array_values($ids), array_values($messages)), $locale);
             }
         }
     }
@@ -122,11 +127,7 @@ final class LocoProvider implements ProviderInterface
             $catalogue = new MessageCatalogue($locale);
 
             foreach ($locoCatalogue->all($domain) as $key => $message) {
-                if (str_starts_with($key, $domain.'__')) {
-                    $key = substr($key, \strlen($domain) + 2);
-                }
-
-                $catalogue->set($key, $message, $domain);
+                $catalogue->set($this->retrieveKeyFromId($key, $domain), $message, $domain);
             }
 
             $translatorBag->addCatalogue($catalogue);
@@ -288,5 +289,14 @@ final class LocoProvider implements ProviderInterface
 
             return $carry;
         }, []);
+    }
+
+    private function retrieveKeyFromId(string $id, string $domain): string
+    {
+        if (str_starts_with($id, $domain.'__')) {
+            return substr($id, \strlen($domain) + 2);
+        }
+
+        return $id;
     }
 }

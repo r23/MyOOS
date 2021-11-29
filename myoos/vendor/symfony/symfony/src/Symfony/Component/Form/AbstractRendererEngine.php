@@ -68,7 +68,7 @@ abstract class AbstractRendererEngine implements FormRendererEngineInterface
 
         // Do not cast, as casting turns objects into arrays of properties
         $this->themes[$cacheKey] = \is_array($themes) ? $themes : [$themes];
-        $this->useDefaultThemes[$cacheKey] = (bool) $useDefaultThemes;
+        $this->useDefaultThemes[$cacheKey] = $useDefaultThemes;
 
         // Unset instead of resetting to an empty array, in order to allow
         // implementations (like TwigRendererEngine) to check whether $cacheKey
@@ -132,7 +132,7 @@ abstract class AbstractRendererEngine implements FormRendererEngineInterface
      *
      * @see getResourceForBlock()
      *
-     * @return bool True if the resource could be loaded, false otherwise
+     * @return bool
      */
     abstract protected function loadResourceForBlockName(string $cacheKey, FormView $view, string $blockName);
 

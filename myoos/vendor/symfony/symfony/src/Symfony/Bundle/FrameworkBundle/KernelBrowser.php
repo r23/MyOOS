@@ -67,7 +67,7 @@ class KernelBrowser extends HttpKernelBrowser
     /**
      * Gets the profile associated with the current Response.
      *
-     * @return HttpProfile|false|null A Profile instance
+     * @return HttpProfile|false|null
      */
     public function getProfile()
     {
@@ -111,6 +111,8 @@ class KernelBrowser extends HttpKernelBrowser
 
     /**
      * @param UserInterface $user
+     *
+     * @return $this
      */
     public function loginUser(object $user, string $firewallContext = 'main'): self
     {
@@ -123,7 +125,10 @@ class KernelBrowser extends HttpKernelBrowser
         }
 
         $token = new TestBrowserToken($user->getRoles(), $user, $firewallContext);
-        $token->setAuthenticated(true);
+        // @deprecated since Symfony 5.4
+        if (method_exists($token, 'isAuthenticated')) {
+            $token->setAuthenticated(true, false);
+        }
 
         $container = $this->getContainer();
         $container->get('security.untracked_token_storage')->setToken($token);
@@ -152,7 +157,7 @@ class KernelBrowser extends HttpKernelBrowser
      *
      * @return Response
      */
-    protected function doRequest($request)
+    protected function doRequest(object $request)
     {
         // avoid shutting down the Kernel if no request has been performed yet
         // WebTestCase::createClient() boots the Kernel but do not handle a request
@@ -179,7 +184,7 @@ class KernelBrowser extends HttpKernelBrowser
      *
      * @return Response
      */
-    protected function doRequestInProcess($request)
+    protected function doRequestInProcess(object $request)
     {
         $response = parent::doRequestInProcess($request);
 
@@ -200,7 +205,7 @@ class KernelBrowser extends HttpKernelBrowser
      *
      * @return string
      */
-    protected function getScript($request)
+    protected function getScript(object $request)
     {
         $kernel = var_export(serialize($this->kernel), true);
         $request = var_export(serialize($request), true);
