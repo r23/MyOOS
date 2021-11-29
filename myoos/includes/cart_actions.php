@@ -70,7 +70,7 @@ switch ($action) {
 					if ($_POST['cart_quantity'][$i]%$products_order_units == 0) {
 						$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
 						$free_redemption  = (isset($_POST['free_redemption'][$i])) && is_numeric($_POST['free_redemption'][$i]) ? intval($_POST['free_redemption'][$i]) : '';
-						$_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, false, $_POST['to_wl_id'][$i]);
+						$_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, $free_redemption, false, $_POST['to_wl_id'][$i]);
 					} else {
 						$oMessage->add_session('danger', oos_get_products_name($_POST['products_id'][$i]) . ' - ' . $aLang['error_products_units_invalid'] . ' ' . oos_prepare_input($_POST['cart_quantity'][$i]) . ' - ' . $aLang['products_order_qty_unit_text_cart'] . ' ' . $products_order_units);
 					}
@@ -508,7 +508,8 @@ switch ($action) {
 
 			if ( ($cart_quantity >= $products_order_min) or ($cart_qty >= $products_order_min) ) {
 				if ( ($cart_quantity%$products_order_units == 0) and ($news_qty >= $products_order_min) ) {
-					$_SESSION['cart']->add_cart($sProductsId, $news_qty, $_POST['id'], true, $_POST['wl_products_id']);   
+					$free_redemption  = (isset($_POST['free_redemption'])) && is_numeric($_POST['free_redemption']) ? intval($_POST['free_redemption']) : '';
+					$_SESSION['cart']->add_cart($sProductsId, $news_qty, $_POST['id'], $free_redemption, true, $_POST['wl_products_id']);   
 				} else {
 					$oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_units_invalid'] . $cart_quantity  . ' - ' . $aLang['products_order_qty_unit_text_info'] . ' ' . $products_order_units);
 				}

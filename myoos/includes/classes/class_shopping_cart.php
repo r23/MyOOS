@@ -194,7 +194,7 @@ class shoppingCart {
     }
 
 
-    public function add_cart($products_id, $nQuantity = 1, $attributes = '', $notify = true, $towlid = '') {
+    public function add_cart($products_id, $nQuantity = 1, $attributes = '', $free_redemption = '', $notify = true, $towlid = '') {
 
 		// Get database information
 		$dbconn =& oosDBGetConn();
@@ -218,7 +218,7 @@ class shoppingCart {
 				}
 
 				if ($this->in_cart($sProductsId)) {
-					$this->update_quantity($sProductsId, $nQuantity, $attributes, $towlid);
+					$this->update_quantity($sProductsId, $nQuantity, $attributes, $free_redemption, $towlid);
 				} else {
 					$this->contents[] = array($sProductsId);
 					$this->contents[$sProductsId] = array('qty' => $nQuantity,
@@ -288,7 +288,7 @@ class shoppingCart {
 	}
 
 
-    public function update_quantity($products_id, $nQuantity = 1, $attributes = '', $towlid = '') {
+    public function update_quantity($products_id, $nQuantity = 1, $attributes = '', $free_redemption = '', $towlid = '') {
 
 		$sProductsId = oos_get_uprid($products_id, $attributes);
 		$nProductsID = oos_get_product_id($sProductsId);
