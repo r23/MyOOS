@@ -222,6 +222,7 @@ class shoppingCart {
 				} else {
 					$this->contents[] = array($sProductsId);
 					$this->contents[$sProductsId] = array('qty' => $nQuantity,
+														'redemption' => $free_redemption,
 														'towlid' => $towlid);
 
 					// insert into database
@@ -232,10 +233,12 @@ class shoppingCart {
                              to_wishlist_id,
                              products_id,
                              customers_basket_quantity,
+							 free_redemption,
                              customers_basket_date_added) VALUES (" . $dbconn->qstr($_SESSION['customer_id']) . ','
                                                                     . $dbconn->qstr($towlid) . ','
                                                                     . $dbconn->qstr($sProductsId) . ','
                                                                     . $dbconn->qstr($nQuantity) . ','
+																	. $dbconn->qstr($free_redemption) . ','	
                                                                     . $dbconn->qstr(date('Ymd')) . ")");
 					}
 					
@@ -301,13 +304,15 @@ class shoppingCart {
 
 			$nQuantity = intval($nQuantity);
 
-			$this->contents[$sProductsId] = array('qty' => $nQuantity,
+			$this->contents[$sProductsId] = array(	'qty' => $nQuantity,
+													'redemption' => $free_redemption,
 													'towlid' => $towlid);
-
+						
 			if (isset($_SESSION['customer_id'])) {
 				$customers_baskettable = $oostable['customers_basket'];
 				$dbconn->Execute("UPDATE $customers_baskettable
-                            SET customers_basket_quantity = '" . oos_db_input($nQuantity) . "'
+                            SET customers_basket_quantity = '" . oos_db_input($nQuantity) . "',
+								free_redemption = '" . oos_db_input($free_redemption) . "',
                             WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
                                   products_id = '" . oos_db_input($sProductsId) . "'");
 			}

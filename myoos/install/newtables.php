@@ -503,7 +503,8 @@ $flds = "
   customers_id I NOTNULL,
   to_wishlist_id C(32) NOTNULL,
   products_id C(32) NOTNULL,
-  customers_basket_quantity I2 NOTNULL DEFAULT '1', 
+  customers_basket_quantity I2 NOTNULL DEFAULT '1',
+  free_redemption C(1) DEFAULT '',
   final_price N '10.4'  NOTNULL,
   customers_basket_date_added C(8)
 ";
@@ -577,6 +578,7 @@ $flds = "
   customers_wishlist_link_id C(32) NOTNULL DEFAULT '',
   products_id C(32) NOTNULL,
   customers_wishlist_quantity I2 NOTNULL DEFAULT '1', 
+  free_redemption C(1) DEFAULT '',
   final_price N '10.4'  NOTNULL,
   customers_wishlist_date_added C(8) DEFAULT ''
 ";
@@ -826,6 +828,7 @@ $flds = "
   products_name C(64) NOTNULL,
   products_image C(255),
   products_serial_number C(250),
+  products_free_redemption C(1) DEFAULT '',
   products_price N '10.4' NOTNULL DEFAULT '0.0000',
   final_price N '10.4' NOTNULL DEFAULT '0.0000',
   products_tax N '7.4' NOTNULL DEFAULT '0.0000',

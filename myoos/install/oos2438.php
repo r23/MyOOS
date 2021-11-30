@@ -53,3 +53,31 @@ if ($result === false) {
 } else {
 	echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
+
+// customers_basket
+$table = $prefix_table . 'customers_basket';
+$result = $db->Execute("ALTER TABLE  " . $table . " ADD `free_redemption` VARCHAR(1) NOT NULL DEFAULT ''  AFTER `customers_basket_quantity`");
+if ($result === false) {
+	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+// customers_wishlist
+$table = $prefix_table . 'customers_wishlist';
+$result = $db->Execute("ALTER TABLE  " . $table . " ADD `free_redemption` VARCHAR(1) NOT NULL DEFAULT '' AFTER `customers_wishlist_quantity`");
+if ($result === false) {
+	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+
+// orders_products
+$table = $prefix_table . 'orders_products';
+$result = $db->Execute("ALTER TABLE  " . $table . " ADD `products_free_redemption` VARCHAR(1) NOT NULL DEFAULT '' AFTER `customers_wishlist_quantity`");
+if ($result === false) {
+	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}

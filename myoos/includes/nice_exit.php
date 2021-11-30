@@ -21,6 +21,13 @@
 /** ensure this file is being included by a parent file */
 defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
 
+echo '<pre>';
+	print_r($_SESSION);
+	echo '<br />';
+	print_r($_POST);
+	echo '<br />';
+	echo '</pre>';
+	
 if ($debug == 1) {
 	echo '<pre>';
 	print_r($_SESSION);
