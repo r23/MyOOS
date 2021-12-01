@@ -161,6 +161,24 @@
 											{/foreach}
 										{/if}
 
+										{if $product.old_electrical_equipment eq 1 }
+											<h5>{$lang.text_free_redemption}</h5>
+											<p>{$lang.text_free_redemption_selection}</p>
+										
+
+											<!-- Inline radio buttons -->
+											<div class="custom-control custom-radio custom-control-inline">
+												<input class="custom-control-input" type="radio" id="ex-radio-{$product@iteration}" name="free_redemption[]" value="1" {if $product.return_free_of_charge eq 1}checked {/if}>
+												<label class="custom-control-label" for="ex-radio-{$product@iteration}">{$lang.text_yes}</label>
+											</div>
+											<div class="custom-control custom-radio custom-control-inline">
+												<input class="custom-control-input" type="radio" id="ex-radio-{$product@iteration+1}" name="free_redemption[]" value="0" {if $product.return_free_of_charge eq 0}checked {/if}>
+												<label class="custom-control-label" for="ex-radio-{$product@iteration+1}">{$lang.text_no}</label>
+											</div>
+											<div class="clearfix mb-15"></div>		
+										{else}
+											<input type="hidden" name="free_redemption[]" value="">											
+										{/if}
 										</td>
 										<td><nobr>{oos_price price=$products.final_price tax=$products.tax qty=1}&nbsp;</nobr></td>
 										<td>{$products.qty|quantity}&nbsp;</td>

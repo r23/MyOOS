@@ -142,7 +142,7 @@ class order {
 
 		$orders_productstable = $oostable['orders_products'];
 		$sql = "SELECT orders_products_id, products_id, products_name, products_model, products_image,
-                      products_ean, products_serial_number, products_price, products_tax,
+                      products_ean, products_serial_number, products_old_electrical_equipment, products_free_redemption, products_price, products_tax,
                      products_quantity, final_price
               FROM $orders_productstable
               WHERE orders_id = '" . intval($order_id) . "'";
@@ -158,6 +158,8 @@ class order {
                                         'model' => $orders_products['products_model'],
                                         'ean' => $orders_products['products_ean'],
                                         'serial_number' => $orders_products['products_serial_number'],
+										'old_electrical_equipment' => $orders_products['products_old_electrical_equipment'],
+										'return_free_of_charge' => $orders_products['products_free_redemption'],
                                         'tax' => $orders_products['products_tax'],
                                         'price' => $orders_products['products_price'],
                                         'final_price' => $orders_products['final_price']);
@@ -341,6 +343,8 @@ class order {
                                         'final_price' => $products[$i]['price'] + $_SESSION['cart']->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
                                         'towlid' => $products[$i]['towlid'],
+										'old_electrical_equipment' => $products[$i]['products_old_electrical_equipment'],
+										'return_free_of_charge' => $products[$i]['return_free_of_charge'],
                                         'id' => $products[$i]['id']);
 
 			if ($products[$i]['attributes']) {

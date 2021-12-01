@@ -41,7 +41,7 @@ $aLang['text_shipping_estimates'] = 'Versandkosten berechnen';
 $aLang['text_modify'] = 'Ändern';
 $aLang['text_on_memo'] = 'Auf den Merkzettel';
 
-$aLang['text_free_redemption'] 				= 'Unentgeltlichen Rücknahme';
+$aLang['text_free_redemption'] 				= 'Unentgeltliche Rücknahme';
 $aLang['text_free_redemption_selection']  	= 'Möchten Sie bei Auslieferung des neuen Gerätes ein Altgerät unentgeltlich zurückgeben?';
 $aLang['text_yes']           				= 'Ja';
 $aLang['text_no']            				= 'Nein';

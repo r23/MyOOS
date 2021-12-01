@@ -53,7 +53,9 @@ class shoppingCart {
 		
 				$qty = $this->contents[$products_id]['qty'];
 				$towlid = $this->contents[$products_id]['towlid'];
+				$free_redemption = $this->contents[$products_id]['return_free_of_charge'];
 
+/*
 				if ($_SESSION['customer_wishlist_link_id'] == $towlid) {
 					$towlid = '';
 					$customers_wishlisttable = $oostable['customers_wishlist'];
@@ -61,6 +63,7 @@ class shoppingCart {
 					$customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
 					$dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id= '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($products_id) . "'");
 				}
+*/
 
 				$customers_baskettable = $oostable['customers_basket'];
 				$product_sql = "SELECT products_id
@@ -75,10 +78,12 @@ class shoppingCart {
 								to_wishlist_id,
 								products_id,
 								customers_basket_quantity,
+								free_redemption,
 								customers_basket_date_added) VALUES ('" . intval($_SESSION['customer_id']) . "',
                                                              '" . oos_db_input($towlid) . "',
                                                              '" . oos_db_input($products_id) . "',
                                                              '" . oos_db_input($qty) . "',
+															 '" . oos_db_input($free_redemption) . "',
                                                              '" . oos_db_input(date('Ymd')) . "')");
 					if (isset($this->contents[$products_id]['attributes'])) {
 						reset($this->contents[$products_id]['attributes']);
@@ -222,8 +227,9 @@ class shoppingCart {
 				} else {
 					$this->contents[] = array($sProductsId);
 					$this->contents[$sProductsId] = array('qty' => $nQuantity,
-														'redemption' => $free_redemption,
+														'return_free_of_charge' => $free_redemption,
 														'towlid' => $towlid);
+
 
 					// insert into database
 					if (isset($_SESSION['customer_id'])) {
@@ -305,7 +311,7 @@ class shoppingCart {
 			$nQuantity = intval($nQuantity);
 
 			$this->contents[$sProductsId] = array(	'qty' => $nQuantity,
-													'redemption' => $free_redemption,
+													'return_free_of_charge' => $free_redemption,
 													'towlid' => $towlid);
 						
 			if (isset($_SESSION['customer_id'])) {

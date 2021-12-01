@@ -233,7 +233,15 @@ if ($result === false) {
 
 // orders_products
 $table = $prefix_table . 'orders_products';
-$result = $db->Execute("ALTER TABLE  " . $table . " ADD `products_free_redemption` VARCHAR(1) NOT NULL DEFAULT '' AFTER `customers_wishlist_quantity`");
+$result = $db->Execute("ALTER TABLE  " . $table . " ADD `products_free_redemption` VARCHAR(1) NOT NULL DEFAULT '' AFTER `products_serial_number`");
+if ($result === false) {
+	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+$table = $prefix_table . 'orders_products';
+$result = $db->Execute("ALTER TABLE  " . $table . " ADD `products_old_electrical_equipment` TINYINT NOT NULL DEFAULT '0' AFTER `products_serial_number`");
 if ($result === false) {
 	echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
