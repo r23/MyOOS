@@ -69,6 +69,9 @@ define('ENTRY_NOTIFY_CUSTOMER', 'Notify Customer:');
 define('ENTRY_NOTIFY_COMMENTS', 'Append Comments:');
 define('ENTRY_PRINTABLE', 'Print Invoice');
 
+define('TEXT_YES', 'Yes, I would like to return an old device free of charge upon delivery of the new device.');
+define('TEXT_NO', 'No, I do not want to return an old device free of charge when the new device is delivered.');
+
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Delete Order');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this order?');
 define('TEXT_INFO_RESTOCK_PRODUCT_QUANTITY', 'Restock product quantity');

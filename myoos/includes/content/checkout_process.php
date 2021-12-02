@@ -56,16 +56,6 @@ if (TAKE_BACK_OBLIGATION == 'true') {
 			oos_redirect(oos_href_link($aContents['shopping_cart']));
 		}
 	}
-	
-	
-	// customer wants to update the free_redemption
-	$n = count($_POST['products_id']);
-	for ($i=0, $n; $i<$n; $i++) {		
-
-		$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
-		$free_redemption  = (isset($_POST['free_redemption'][$i])) && is_numeric($_POST['free_redemption'][$i]) ? intval($_POST['free_redemption'][$i]) : '';
-		$_SESSION['cart']->update_free_redemption($_POST['products_id'][$i], $attributes, $free_redemption);
-	}		
 }
 
 
@@ -231,7 +221,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                             'products_name' => $oOrder->products[$i]['name'],
 							'products_image' => $oOrder->products[$i]['image'],
 							'products_old_electrical_equipment' => $oOrder->products[$i]['old_electrical_equipment'],
-							'return_free_of_charge' => $oOrder->products[$i]['return_free_of_charge'],							
+							'products_free_redemption' => $oOrder->products[$i]['return_free_of_charge'],							
                             'products_price' => $oOrder->products[$i]['price'],
                             'final_price' => $oOrder->products[$i]['final_price'],
                             'products_tax' => $oOrder->products[$i]['tax'],

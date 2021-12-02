@@ -376,6 +376,14 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           echo '</i></small></nobr>';
         }
       }
+
+		if (isset($order->products[$i]['old_electrical_equipment']) && ($order->products[$i]['old_electrical_equipment'] == 1)) {	  
+			if ($order->products[$i]['return_free_of_charge'] == 1) {
+				echo '<br>' .TEXT_YES;
+			} elseif ($order->products[$i]['return_free_of_charge'] == 0) {
+				echo '<br>' .TEXT_NO;
+			}
+		}
       echo '            </td>' . "\n";
 
       $serial_number = "Add Serial #";

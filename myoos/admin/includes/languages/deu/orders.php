@@ -69,6 +69,10 @@ define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
 define('ENTRY_NOTIFY_COMMENTS', 'Kommentare mitsenden:');
 define('ENTRY_PRINTABLE', 'Rechnung drucken');
 
+define('TEXT_YES', 'Ja, ich möchte bei Auslieferung des neuen Gerätes ein Altgerät unentgeltlich zurückgeben.');
+define('TEXT_NO', 'Nein, ich möchte bei Auslieferung des neuen Gerätes kein Altgerät unentgeltlich zurückgeben.');
+
+
 define('TEXT_INFO_HEADING_DELETE_ORDER', 'Bestellung löschen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, das Sie diese Bestellung löschen möchten?');
 define('TEXT_INFO_RESTOCK_PRODUCT_QUANTITY', 'Artikelanzahl dem Lager gutschreiben');

@@ -43,9 +43,8 @@ $aLang['text_edit'] = 'Edit';
 $aLang['text_edit'] = 'More ...';
 
 $aLang['text_free_redemption']			 	= 'Free redemption';
-$aLang['text_free_redemption_selection'] 	= 'Would you like to return an old device free of charge when the new device is delivered?';
-$aLang['text_yes']            			 	= 'Yes';
-$aLang['text_no']      	   					= 'No';
+$aLang['text_yes'] = 'Yes, I would like to return an old device free of charge upon delivery of the new device.';
+$aLang['text_no'] = 'No, I do not want to return an old device free of charge when the new device is delivered.';
 
 $aLang['heading_conditions_information'] = 'Right of revocation';
 $aLang['heading_conditions_text'] = 'Put here your information about the right of revocation.';
