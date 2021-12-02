@@ -55,6 +55,17 @@ if (isset($_SESSION['cart']->cartID) && isset($_SESSION['cartID'])) {
 	}
 }
 
+
+if (TAKE_BACK_OBLIGATION == 'true') {
+	$products = $_SESSION['cart']->get_products();
+	$n = count($products);
+	for ($i=0, $n; $i<$n; $i++) {
+		if ( ($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '') ) {
+			oos_redirect(oos_href_link($aContents['shopping_cart']));
+		}
+	}
+}
+
 if (isset($_POST['payment'])) $_SESSION['payment'] = oos_db_prepare_input($_POST['payment']);
 
 
@@ -106,6 +117,7 @@ if ( (isset($_SESSION['shipping'])) && ($_SESSION['shipping']['id'] == 'free_fre
 		oos_redirect(oos_href_link($aContents['checkout_shipping']));
 	}
 }
+
 
 $payment_modules->update_status();
 $order_total_modules = new order_total;

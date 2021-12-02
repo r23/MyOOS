@@ -48,6 +48,25 @@ if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 	}				
 }
 
+if (TAKE_BACK_OBLIGATION == 'true') {
+	$products = $_SESSION['cart']->get_products();
+	$n = count($products);
+	for ($i=0, $n; $i<$n; $i++) {
+		if ( ($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '') ) {
+			oos_redirect(oos_href_link($aContents['shopping_cart']));
+		}
+	}
+	
+	
+	// customer wants to update the free_redemption
+	$n = count($_POST['products_id']);
+	for ($i=0, $n; $i<$n; $i++) {		
+
+		$attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
+		$free_redemption  = (isset($_POST['free_redemption'][$i])) && is_numeric($_POST['free_redemption'][$i]) ? intval($_POST['free_redemption'][$i]) : '';
+		$_SESSION['cart']->update_free_redemption($_POST['products_id'][$i], $attributes, $free_redemption);
+	}		
+}
 
 
 if (!isset($_SESSION['shipping']) || !isset($_SESSION['sendto'])) {
@@ -211,6 +230,8 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                             'products_ean' => $oOrder->products[$i]['ean'],
                             'products_name' => $oOrder->products[$i]['name'],
 							'products_image' => $oOrder->products[$i]['image'],
+							'products_old_electrical_equipment' => $oOrder->products[$i]['old_electrical_equipment'],
+							'return_free_of_charge' => $oOrder->products[$i]['return_free_of_charge'],							
                             'products_price' => $oOrder->products[$i]['price'],
                             'final_price' => $oOrder->products[$i]['final_price'],
                             'products_tax' => $oOrder->products[$i]['tax'],
@@ -319,6 +340,15 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
     $total_cost += $total_products_price;
 
     $products_ordered .= $oOrder->products[$i]['qty'] . ' x ' . $oOrder->products[$i]['name'] . ' (' . $oOrder->products[$i]['model'] . ') = ' . $oCurrencies->display_price($oOrder->products[$i]['final_price'], $oOrder->products[$i]['tax'], $oOrder->products[$i]['qty']) . $products_ordered_attributes . "\n";
+	if (TAKE_BACK_OBLIGATION == 'true') {
+		if ($oOrder->products[$i]['old_electrical_equipment'] == 1) {
+			if ($oOrder->products[$i]['return_free_of_charge'] == 1) {
+				$products_ordered .= '         ' . $aLang['email_text_yes'] . "\n";
+			} elseif ($oOrder->products[$i]['return_free_of_charge'] == 0) {
+				$products_ordered .= '         ' . $aLang['email_text_no'] . "\n";		
+			}			
+		}	
+	}
 }
 
 $order_total_modules->apply_credit();
@@ -370,6 +400,7 @@ if (is_object(${$_SESSION['payment']})) {
 		$email_order .= $payment_class->email_footer . "\n\n";
 	}
 }
+
   
 if (!isset($_SESSION['man_key'])) {
 	oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);

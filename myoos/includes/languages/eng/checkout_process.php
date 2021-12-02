@@ -38,6 +38,9 @@ $aLang['email_text_delivery_address'] = 'Delivery Address';
 $aLang['email_text_billing_address'] = 'Billing Address';
 $aLang['email_text_payment_method'] = 'Payment Method';
 
+$aLang['email_text_yes'] = 'Yes, I would like to return an old device free of charge upon delivery of the new device.';
+$aLang['email_text_no'] = 'No, I do not want to return an old device free of charge when the new device is delivered.';
+
 $aLang['email_separator'] = '------------------------------------------------------';
 $aLang['text_email_via'] = 'via';
 

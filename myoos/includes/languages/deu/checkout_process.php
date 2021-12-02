@@ -32,6 +32,10 @@ $aLang['email_text_delivery_address'] = 'Lieferanschrift';
 $aLang['email_text_billing_address'] = 'Rechnungsanschrift';
 $aLang['email_text_payment_method'] = 'Zahlungsweise';
 
+$aLang['email_text_yes'] = 'Ja, ich möchte bei Auslieferung des neuen Gerätes ein Altgerät unentgeltlich zurückgeben.';
+$aLang['email_text_no'] = 'Nein, ich möchte bei Auslieferung des neuen Gerätes kein Altgerät unentgeltlich zurückgeben.';
+
+
 $aLang['email_separator'] = '------------------------------------------------------';
 $aLang['text_email_via'] = 'durch';
 

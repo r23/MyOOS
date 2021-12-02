@@ -55,6 +55,18 @@ if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
 	}				
 }
 
+
+if (TAKE_BACK_OBLIGATION == 'true') {
+	$products = $_SESSION['cart']->get_products();
+	$n = count($products);
+	for ($i=0, $n; $i<$n; $i++) {
+		if ( ($products[$i]['old_electrical_equipment'] == 1) && ($products[$i]['return_free_of_charge'] == '') ) {
+			oos_redirect(oos_href_link($aContents['shopping_cart']));
+		}
+	}
+}
+
+
 // check for maximum order
 if ($_SESSION['cart']->show_total() > $_SESSION['customer_max_order']) {
 	oos_redirect(oos_href_link($aContents['info_max_order']));

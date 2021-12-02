@@ -130,6 +130,11 @@
 
 						<p><strong>{$lang.heading_shooping_card}</strong> <a href="{html_href_link content=$filename.shopping_cart}"><i class="fa fa-pencil" aria-hidden="true"></i> {$lang.text_edit}</a></p>
 
+<form name="checkout_confirmation" action="{$form_action_url}" method="POST">
+{if $mySystem.sed}
+    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+	<input type="hidden" name="formid" value="{$mySystem.formid}">
+{/if}
 							<div class="table-responsive bg-confirmation">
 								<table class="table table-success">
 									<thead>
@@ -160,20 +165,21 @@
 												<br><nobr><small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></small></nobr>
 											{/foreach}
 										{/if}
+										<input type="hidden" name="products_id[]" value="{$products.id}">
 
-										{if $product.old_electrical_equipment eq 1 }
+										{if $products.old_electrical_equipment eq 1 }
 											<h5>{$lang.text_free_redemption}</h5>
 											<p>{$lang.text_free_redemption_selection}</p>
 										
 
 											<!-- Inline radio buttons -->
 											<div class="custom-control custom-radio custom-control-inline">
-												<input class="custom-control-input" type="radio" id="ex-radio-{$product@iteration}" name="free_redemption[]" value="1" {if $product.return_free_of_charge eq 1}checked {/if}>
-												<label class="custom-control-label" for="ex-radio-{$product@iteration}">{$lang.text_yes}</label>
+												<input class="custom-control-input" type="radio" id="ex-radio-{$products@iteration}" name="free_redemption[]" value="1" {if $products.return_free_of_charge eq 1}checked {/if}>
+												<label class="custom-control-label" for="ex-radio-{$products@iteration}">{$lang.text_yes}</label>
 											</div>
 											<div class="custom-control custom-radio custom-control-inline">
-												<input class="custom-control-input" type="radio" id="ex-radio-{$product@iteration+1}" name="free_redemption[]" value="0" {if $product.return_free_of_charge eq 0}checked {/if}>
-												<label class="custom-control-label" for="ex-radio-{$product@iteration+1}">{$lang.text_no}</label>
+												<input class="custom-control-input" type="radio" id="ex-radio-{$products@iteration+1}" name="free_redemption[]" value="0" {if $products.return_free_of_charge eq 0}checked {/if}>
+												<label class="custom-control-label" for="ex-radio-{$products@iteration+1}">{$lang.text_no}</label>
 											</div>
 											<div class="clearfix mb-15"></div>		
 										{else}
@@ -198,28 +204,19 @@
  {/if}
 								</table>
 							</div>
-			
-			
-        <form name="checkout_confirmation" action="{$form_action_url}" method="POST">
-{if $mySystem.sed}
-    <input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-	<input type="hidden" name="formid" value="{$mySystem.formid}">
-{/if}
-		
+
 {if !empty($payment_modules_process_button) }
   {$payment_modules_process_button}
 {/if}
 
 
-						<div class="col-md-12">
-							<div class="clearfix" style="height: 35px;"></div>
+							<div class="clearfix"></div>
 							<div class="well well-lg clearfix">
 								<ul class="pager">
 									<li class="previous"><a href="{html_href_link content=$filename.checkout_payment}" class="btn btn-secondary btn-default float-left" role="button">{$lang.button_back}</a></li>
 									<li class="next"><button class="btn btn-danger btn-lg float-right" type="submit">{$lang.button_confirm_order}</button></li>
 								</ul>
 							</div>
-						</div>
 </form>
 				</div>
 			</div>

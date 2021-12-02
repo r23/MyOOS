@@ -343,7 +343,7 @@ class order {
                                         'final_price' => $products[$i]['price'] + $_SESSION['cart']->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
                                         'towlid' => $products[$i]['towlid'],
-										'old_electrical_equipment' => $products[$i]['products_old_electrical_equipment'],
+										'old_electrical_equipment' => $products[$i]['old_electrical_equipment'],
 										'return_free_of_charge' => $products[$i]['return_free_of_charge'],
                                         'id' => $products[$i]['id']);
 

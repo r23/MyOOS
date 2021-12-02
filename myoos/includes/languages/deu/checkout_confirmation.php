@@ -43,6 +43,11 @@ $aLang['heading_shooping_card'] = 'Bestellpositionen';
 $aLang['text_edit'] = 'Bearbeiten';
 $aLang['text_more'] = 'Detail ...';
 
+$aLang['text_free_redemption'] 				= 'Unentgeltliche Rücknahme';
+$aLang['text_free_redemption_selection']  	= 'Möchten Sie bei Auslieferung des neuen Gerätes ein Altgerät unentgeltlich zurückgeben?';
+$aLang['text_yes']           				= 'Ja';
+$aLang['text_no']            				= 'Nein';
+
 $aLang['heading_conditions_information'] = 'Widerrufsrecht nach dem Fernabsatzgesetz';
 $aLang['heading_conditions_text'] = 'Fügen Sie hier Ihren Text zum Widerrufsrecht ein.';
 

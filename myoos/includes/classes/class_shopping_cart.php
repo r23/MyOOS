@@ -756,7 +756,7 @@ class shoppingCart {
 				}
 
 				$final_price = $products_price + $this->attributes_price($products_id);
-			
+		
 				$aProducts[] = array('id' => $products_id,
                                     'name' => $products['products_name'],
 									'essential_characteristics' => $products['products_essential_characteristics'],
