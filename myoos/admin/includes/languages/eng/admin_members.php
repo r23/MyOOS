@@ -88,17 +88,17 @@ define('TEXT_INFO_DELETE_GROUPS_INTRO_NOT', 'You can not delete this groups!');
 define('TEXT_INFO_GROUPS_INTRO', 'Give an unique group name. Click next to submit.');
 
 define('TEXT_INFO_HEADING_GROUPS', 'New Group');
-define('TEXT_INFO_GROUPS_NAME', ' <b>Group Name:</b><br />Give an unique group name. Then, click next to submit.<br />');
+define('TEXT_INFO_GROUPS_NAME', ' <b>Group Name:</b><br>Give an unique group name. Then, click next to submit.<br>');
 define('TEXT_INFO_GROUPS_NAME_FALSE', '<font color="red"><b>ERROR:</b> At least the group name must have more than 5 character!</font>');
 define('TEXT_INFO_GROUPS_NAME_USED', '<font color="red"><b>ERROR:</b> Group name has already been used!</font>');
 define('TEXT_INFO_GROUPS_LEVEL', 'Group Level: ');
-define('TEXT_INFO_GROUPS_BOXES', '<b>Boxes Permission:</b><br />Give access to selected boxes.');
+define('TEXT_INFO_GROUPS_BOXES', '<b>Boxes Permission:</b><br>Give access to selected boxes.');
 define('TEXT_INFO_GROUPS_BOXES_INCLUDE', 'Include files stored in: ');
 
 define('TEXT_INFO_HEADING_DEFINE', 'Define Group');
 if (isset($_GET['gPath']) && ($_GET['gPath'] == 1)) {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />You can not change file permission for this group.<br /><br />');
+  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>You can not change file permission for this group.<br><br>');
 } else {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />Change permission for this group by selecting or unselecting boxes and files provided. Click <b>save</b> to save the changes.<br /><br />');
+  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>Change permission for this group by selecting or unselecting boxes and files provided. Click <b>save</b> to save the changes.<br><br>');
 }
 

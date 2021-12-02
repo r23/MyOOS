@@ -34,7 +34,7 @@ define('TEXT_COUNT_FILES', 'File(s): ');
 //categories access
 define('TEXT_INFO_HEADING_DEFAULT_BOXES', 'Boxes: ');
 
-define('TEXT_INFO_DEFAULT_BOXES_INTRO', 'Simply click the green button to install the box or the red button to uninstall it.<br /><br /><b>WARNING:</b> If you uninstall the box, all files stored in also will be remove!');
+define('TEXT_INFO_DEFAULT_BOXES_INTRO', 'Simply click the green button to install the box or the red button to uninstall it.<br><br><b>WARNING:</b> If you uninstall the box, all files stored in also will be remove!');
 define('TEXT_INFO_DEFAULT_BOXES_INSTALLED', ' installed');
 define('TEXT_INFO_DEFAULT_BOXES_NOT_INSTALLED', ' not installed');
 

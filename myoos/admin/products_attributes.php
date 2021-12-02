@@ -501,19 +501,19 @@ function go_option() {
                     <td colspan="3"><?php echo oos_black_line(); ?></td>
                   </tr>
                   <tr>
-                    <td colspan="3" class="main"><br /><?php echo TEXT_WARNING_OF_DELETE; ?></td>
+                    <td colspan="3" class="main"><br><?php echo TEXT_WARNING_OF_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td align="right" colspan="3" class="main"><br /><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
+                    <td align="right" colspan="3" class="main"><br><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
                   </tr>
 <?php
     } else {
 ?>
                   <tr>
-                    <td class="main" colspan="3"><br /><?php echo TEXT_OK_TO_DELETE; ?></td>
+                    <td class="main" colspan="3"><br><?php echo TEXT_OK_TO_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td class="main" align="right" colspan="3"><br /><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_option&option_id=' . intval($_GET['option_id'])) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
+                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_option&option_id=' . intval($_GET['option_id'])) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
                   </tr>
 <?php
     }
@@ -530,7 +530,7 @@ function go_option() {
 ?>
               <tr>
                 <td colspan="3" class="pageHeading">&nbsp;<?php echo HEADING_TITLE_OPT; ?>&nbsp;</td>
-                <td class="text-right"><br /><form name="option_order_by" action="<?php echo $aContents['products_attributes']; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') { echo ' checked="checked"'; } ?>><?php echo TEXT_OPTION_ID; ?></option><option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' checked="checked"'; } ?>><?php echo TEXT_OPTION_NAME; ?></option></select></form></td>
+                <td class="text-right"><br><form name="option_order_by" action="<?php echo $aContents['products_attributes']; ?>"><select name="selected" onChange="go_option()"><option value="products_options_id"<?php if ($option_order_by == 'products_options_id') { echo ' checked="checked"'; } ?>><?php echo TEXT_OPTION_ID; ?></option><option value="products_options_name"<?php if ($option_order_by == 'products_options_name') { echo ' checked="checked"'; } ?>><?php echo TEXT_OPTION_NAME; ?></option></select></form></td>
               </tr>
               <tr>
                 <td colspan="4" class="smallText">
@@ -604,7 +604,7 @@ function go_option() {
           $option_name = $dbconn->Execute("SELECT products_options_name FROM " . $oostable['products_options'] . " WHERE products_options_id = '" . $options_values['products_options_id'] . "' AND  products_options_languages_id = '" . $aLanguages[$i]['id'] . "'");
           $option_name = $option_name->fields;
 			if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
-          $inputs .= ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br />';
+          $inputs .= ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20" value="' . $option_name['products_options_name'] . '">&nbsp;<br>';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $options_values['products_options_id']; ?><input type="hidden" name="option_id" value="<?php echo $options_values['products_options_id']; ?>">&nbsp;</td>
@@ -645,7 +645,7 @@ function go_option() {
       $inputs = '';
       for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
 		if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
-        $inputs .= ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20">&nbsp;<br />';
+        $inputs .= ':&nbsp;<input type="text" name="option_name[' . $aLanguages[$i]['id'] . ']" size="20">&nbsp;<br>';
       }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $next_id; ?>&nbsp;</td>
@@ -715,19 +715,19 @@ function go_option() {
                     <td colspan="3"><?php echo oos_black_line(); ?></td>
                   </tr>
                   <tr>
-                    <td class="main" colspan="3"><br /><?php echo TEXT_WARNING_OF_DELETE; ?></td>
+                    <td class="main" colspan="3"><br><?php echo TEXT_WARNING_OF_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td class="main" align="right" colspan="3"><br /><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
+                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>&nbsp;</td>
                   </tr>
 <?php
     } else {
 ?>
                   <tr>
-                    <td class="main" colspan="3"><br /><?php echo TEXT_OK_TO_DELETE; ?></td>
+                    <td class="main" colspan="3"><br><?php echo TEXT_OK_TO_DELETE; ?></td>
                   </tr>
                   <tr>
-                    <td class="main" align="right" colspan="3"><br /><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_value&value_id=' . $_GET['value_id']) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
+                    <td class="main" align="right" colspan="3"><br><?php echo '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], 'action=delete_value&value_id=' . $_GET['value_id']) . '" role="button"><strong>' . BUTTON_DELETE . '</strong></a>'; ?>&nbsp;&nbsp;&nbsp;<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_attributes'], '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></a>&nbsp;</td>
                   </tr>
 <?php
     }
@@ -820,7 +820,7 @@ function go_option() {
           $value_name = $dbconn->Execute("SELECT products_options_values_name FROM $products_options_valuestable WHERE products_options_values_id = '" . $values_values['products_options_values_id'] . "' AND products_options_values_languages_id= '" . $aLanguages[$i]['id'] . "'");
           $value_name = $value_name->fields;
 			if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
-          $inputs .= ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br />';
+          $inputs .= ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15" value="' . $value_name['products_options_values_name'] . '">&nbsp;<br>';
         }
 ?>
                 <td align="center" class="smallText">&nbsp;<?php echo $values_values['products_options_values_id']; ?><input type="hidden" name="value_id" value="<?php echo $values_values['products_options_values_id']; ?>">&nbsp;</td>
@@ -889,7 +889,7 @@ function go_option() {
       $inputs = '';
       for ($i = 0, $n = count($aLanguages); $i < $n; $i ++) {
 		if ($nLanguages > 1) $inputs .= oos_flag_icon($aLanguages[$i]);
-        $inputs .= ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15">&nbsp;<br />';
+        $inputs .= ':&nbsp;<input type="text" name="value_name[' . $aLanguages[$i]['id'] . ']" size="15">&nbsp;<br>';
       }
 ?>
                 </select>&nbsp;</td>
@@ -1032,7 +1032,7 @@ function calcBasePriceFactor() {
             <td class="smallText">&nbsp;<?php echo $attributes_values['products_attributes_id']; ?><input type="hidden" name="attribute_id" value="<?php echo $attributes_values['products_attributes_id']; ?>">&nbsp;</td>
 			<td class="smallText">&nbsp;<?php echo product_info_image($attributes_values['options_values_image'], $products_name_only, 'small'); ?><br>&nbsp;<?php echo $attributes_values['options_values_image']; ?>&nbsp;
 			<?php if ($attributes_values['options_values_image'] != '') {  ?>
-			<br />&nbsp;<?php echo oos_draw_checkbox_field('remove_image', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE; ?><br />
+			<br>&nbsp;<?php echo oos_draw_checkbox_field('remove_image', 'yes') . TEXT_PRODUCTS_IMAGE_DELETE; ?><br>
 			<?php } ?>
 			<br><br>		
 			<?php echo '&nbsp;' . oos_draw_file_field('options_values_image') . oos_draw_hidden_field('products_previous_image',  $attributes_values['options_values_image']); ?></td>
@@ -1122,10 +1122,10 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
             <td class="main"><table border="0">
                 <tr>
-                  <td class="main"><br /><?php echo oos_draw_input_field('options_values_base_price', $attributes_values['options_values_base_price']); ?></td>
-                  <td class="main"><br /> <- </td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br />' . oos_draw_input_field('options_values_quantity', $attributes_values['options_values_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('options_values_base_quantity', $attributes_values['options_values_base_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><br><?php echo oos_draw_input_field('options_values_base_price', $attributes_values['options_values_base_price']); ?></td>
+                  <td class="main"><br> <- </td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', $attributes_values['options_values_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', $attributes_values['options_values_base_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                 </tr>
               </table>
             </td>
@@ -1342,10 +1342,10 @@ function calcBasePriceFactor() {
             <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
             <td class="main"><table border="0">
                 <tr>
-                  <td class="main"><br /><?php echo oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
-                  <td class="main"><br /> <- </td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br />' . oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br />' . oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><br><?php echo oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
+                  <td class="main"><br> <- </td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
                 </tr>
               </table>
             </td>

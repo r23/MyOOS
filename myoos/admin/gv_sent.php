@@ -153,11 +153,11 @@ require 'includes/header.php';
   $contents[] = array('text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $emailed_to);
   if ($redeemed=='Yes') {
     $redeem = $redeem_result->fields;
-    $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date']));
+    $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date']));
     $contents[] = array('text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']);
     $contents[] = array('text' => TEXT_INFO_CUSTOMERS_ID . ' ' . $redeem['customer_id']);
   } else {
-    $contents[] = array('text' => '<br />' . TEXT_INFO_NOT_REDEEMED);
+    $contents[] = array('text' => '<br>' . TEXT_INFO_NOT_REDEEMED);
   }
 
     if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {

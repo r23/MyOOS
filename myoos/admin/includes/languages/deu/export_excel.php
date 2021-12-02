@@ -35,7 +35,7 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_INFO_HEADING_NEW_BACKUP', 'Neue Sicherung');
 define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Lokal wiederherstellen');
 define('TEXT_INFO_NEW_BACKUP', 'Bitte den Sicherungsprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
-define('TEXT_INFO_UNPACK', '<br /><br />(nach dem die Dateien aus dem Archiv extrahiert wurden)');
+define('TEXT_INFO_UNPACK', '<br><br>(nach dem die Dateien aus dem Archiv extrahiert wurden)');
 define('TEXT_INFO_DATE', 'Datum:');
 define('TEXT_INFO_SIZE', 'Grösse:');
 define('TEXT_INFO_COMPRESSION', 'Komprimieren:');

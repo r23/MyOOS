@@ -169,28 +169,28 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_CUSTOMER; ?></b><br /><?php echo $mail_sent_to; ?></td>
+                <td class="smallText"><b><?php echo TEXT_CUSTOMER; ?></b><br><?php echo $mail_sent_to; ?></td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_name']), ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['from_name']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_mail']), ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['from_mail']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>  
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['subject']), ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['subject']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message'])), ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message'])), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
                 <td></td>

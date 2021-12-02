@@ -177,9 +177,9 @@ function oos_installed_payment($customers_payment = '') {
         $module = new $class;
 
         if (in_array ($file, $select_payment)) {
-          $install_payment .= oos_draw_checkbox_field('payment[]', $file, true) . $module->title . '<br />';
+          $install_payment .= oos_draw_checkbox_field('payment[]', $file, true) . $module->title . '<br>';
         } else {
-          $install_payment .= oos_draw_checkbox_field('payment[]', $file) . $module->title . '<br />';
+          $install_payment .= oos_draw_checkbox_field('payment[]', $file) . $module->title . '<br>';
         }
       }
     }
@@ -209,7 +209,7 @@ function oos_installed_payment($customers_payment = '') {
         $class = substr($file, 0, strrpos($file, '.'));
         if (oos_class_exits($class)) {
           $module = new $class;
-          $payment_title .= $module->title . '<br />';
+          $payment_title .= $module->title . '<br>';
         }
       }
     }

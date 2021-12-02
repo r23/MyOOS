@@ -35,7 +35,7 @@ function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL', 
 	$page = oos_output_string($page);
 
 	if ($page == '') {
-		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine the page link!<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
+		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine the page link!<br><br>Function used:<br><br>oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
 	}
 	$link = OOS_HTTPS_SERVER . OOS_SHOP . OOS_ADMIN;
 
@@ -66,7 +66,7 @@ function oos_catalog_link($page = '', $parameters = '') {
 	$page = oos_output_string($page);
 
 	if ($page == '') {
-		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine the page link!<br /><br />Function used:<br /><br />oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
+		die('<div class="alert alert-danger" role="alert"><strong>Error!</strong> Unable to determine the page link!<br><br>Function used:<br><br>oos_href_link_admin(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</div>');
 	}	  
 	  
 	$link = OOS_HTTPS_SERVER . OOS_SHOP;

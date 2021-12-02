@@ -309,18 +309,18 @@ if (!empty($action)) {
       $customers_status_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $customers_status_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']');
+        $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']');
       }
 
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_NAME . $customers_status_inputs_string);
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', $customers_status_public_array, ( isset($cInfo->customers_status_public) ) ? $cInfo->customers_status_public : '')); 
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', $customers_status_show_price_array, ( isset($cInfo->customers_status_show_price) ) ? $cInfo->customers_status_show_price : ''));  
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price_tax', $customers_status_show_price_tax_array, ( isset($cInfo->customers_status_show_price_tax) ) ? $cInfo->customers_status_show_price_tax : ''));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_OT_XMEMBER . '</b> ' . oos_draw_pull_down_menu('customers_status_ot_discount_flag', $customers_status_ot_discount_flag_array, ( isset($cInfo->customers_status_ot_discount_flag) ) ? $cInfo->customers_status_ot_discount_flag : '') . '<br />' . TEXT_INFO_CUSTOMERS_STATUS_MINIMUM_AMOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . '</b><br />' . oos_draw_input_field('customers_status_ot_minimum', ( isset($cInfo->customers_status_ot_minimum) ) ? $cInfo->customers_status_ot_minimum : '')  . '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '<br />' . oos_draw_input_field('customers_status_ot_discount', ( isset($cInfo->customers_status_ot_discount) ) ? $cInfo->customers_status_ot_discount : ''));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, ( isset($cInfo->customers_status_qty_discounts) ) ? $cInfo->customers_status_qty_discounts : '')); 
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br /> ' . oos_installed_payment(( isset($cInfo->customers_status_payment) ) ? $cInfo->customers_status_payment : ''));
-      $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_NAME . $customers_status_inputs_string);
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', $customers_status_public_array, ( isset($cInfo->customers_status_public) ) ? $cInfo->customers_status_public : '')); 
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', $customers_status_show_price_array, ( isset($cInfo->customers_status_show_price) ) ? $cInfo->customers_status_show_price : ''));  
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price_tax', $customers_status_show_price_tax_array, ( isset($cInfo->customers_status_show_price_tax) ) ? $cInfo->customers_status_show_price_tax : ''));
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_OT_XMEMBER . '</b> ' . oos_draw_pull_down_menu('customers_status_ot_discount_flag', $customers_status_ot_discount_flag_array, ( isset($cInfo->customers_status_ot_discount_flag) ) ? $cInfo->customers_status_ot_discount_flag : '') . '<br>' . TEXT_INFO_CUSTOMERS_STATUS_MINIMUM_AMOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . '</b><br>' . oos_draw_input_field('customers_status_ot_minimum', ( isset($cInfo->customers_status_ot_minimum) ) ? $cInfo->customers_status_ot_minimum : '')  . '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '<br>' . oos_draw_input_field('customers_status_ot_discount', ( isset($cInfo->customers_status_ot_discount) ) ? $cInfo->customers_status_ot_discount : ''));
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, ( isset($cInfo->customers_status_qty_discounts) ) ? $cInfo->customers_status_qty_discounts : '')); 
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br> ' . oos_installed_payment(( isset($cInfo->customers_status_payment) ) ? $cInfo->customers_status_payment : ''));
+      $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -331,17 +331,17 @@ if (!empty($action)) {
       $customers_status_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $customers_status_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']', oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']));
+        $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('customers_status_name[' . $languages[$i]['id'] . ']', oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']));
       }
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_NAME . $customers_status_inputs_string);
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', $customers_status_public_array, ( isset($cInfo->customers_status_public) ) ? $cInfo->customers_status_public : '')); 
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', $customers_status_show_price_array, ( isset($cInfo->customers_status_show_price) ) ? $cInfo->customers_status_show_price : ''));  
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price_tax', $customers_status_show_price_tax_array, ( isset($cInfo->customers_status_show_price_tax) ) ? $cInfo->customers_status_show_price_tax : ''));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_OT_XMEMBER . '</b> ' . oos_draw_pull_down_menu('customers_status_ot_discount_flag', $customers_status_ot_discount_flag_array, ( isset($cInfo->customers_status_ot_discount_flag) ) ? $cInfo->customers_status_ot_discount_flag : ''). '<br />' . TEXT_INFO_CUSTOMERS_STATUS_MINIMUM_AMOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . '</b><br />' . oos_draw_input_field('customers_status_ot_minimum', ( isset($cInfo->customers_status_ot_minimum) ) ? $cInfo->customers_status_ot_minimum : '') . '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '<br />' . oos_draw_input_field('customers_status_ot_discount', ( isset($cInfo->customers_status_ot_discount) ) ? $cInfo->customers_status_ot_discount : ''));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, ( isset($cInfo->customers_status_qty_discounts) ) ? $cInfo->customers_status_qty_discounts : '')); 
-      $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br />'.  oos_installed_payment(( isset($cInfo->customers_status_payment) ) ? $cInfo->customers_status_payment : ''));
-      if (DEFAULT_CUSTOMERS_STATUS_ID != $cInfo->customers_status_id) $contents[] = array('text' => '<br />' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_NAME . $customers_status_inputs_string);
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PUBLIC_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PUBLIC . '</b> ' . oos_draw_pull_down_menu('customers_status_public', $customers_status_public_array, ( isset($cInfo->customers_status_public) ) ? $cInfo->customers_status_public : '')); 
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_INTRO     . '<br><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price', $customers_status_show_price_array, ( isset($cInfo->customers_status_show_price) ) ? $cInfo->customers_status_show_price : ''));  
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_SHOW_PRICE_TAX_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_SHOW_PRICE_TAX . '</b> ' . oos_draw_pull_down_menu('customers_status_show_price_tax', $customers_status_show_price_tax_array, ( isset($cInfo->customers_status_show_price_tax) ) ? $cInfo->customers_status_show_price_tax : ''));
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_OT_XMEMBER . '</b> ' . oos_draw_pull_down_menu('customers_status_ot_discount_flag', $customers_status_ot_discount_flag_array, ( isset($cInfo->customers_status_ot_discount_flag) ) ? $cInfo->customers_status_ot_discount_flag : ''). '<br>' . TEXT_INFO_CUSTOMERS_STATUS_MINIMUM_AMOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . '</b><br>' . oos_draw_input_field('customers_status_ot_minimum', ( isset($cInfo->customers_status_ot_minimum) ) ? $cInfo->customers_status_ot_minimum : '') . '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_PRICE . '<br>' . oos_draw_input_field('customers_status_ot_discount', ( isset($cInfo->customers_status_ot_discount) ) ? $cInfo->customers_status_ot_discount : ''));
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br><b>' . ENTRY_STAFFELPREIS . '</b> ' . oos_draw_pull_down_menu('customers_status_qty_discounts', $customers_status_qty_discounts_array, ( isset($cInfo->customers_status_qty_discounts) ) ? $cInfo->customers_status_qty_discounts : '')); 
+      $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b><br>'.  oos_installed_payment(( isset($cInfo->customers_status_payment) ) ? $cInfo->customers_status_payment : ''));
+      if (DEFAULT_CUSTOMERS_STATUS_ID != $cInfo->customers_status_id) $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -350,8 +350,8 @@ if (!empty($action)) {
 
       $contents = array('form' => oos_draw_form('id', 'status', $aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id  . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
-      $contents[] = array('text' => '<br /><b>' . $cInfo->customers_status_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('text' => '<br><b>' . $cInfo->customers_status_name . '</b>');
+      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers_status'], 'page=' . $nPage . '&cID=' . $cInfo->customers_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -363,13 +363,13 @@ if (!empty($action)) {
         $customers_status_inputs_string = '';
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $customers_status_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']);
+          $customers_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_customer_status_name($cInfo->customers_status_id, $languages[$i]['id']);
         }
         $contents[] = array('text' => $customers_status_inputs_string);
-        $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br /><b>' . ENTRY_OT_XMEMBER . ' ' . $customers_status_ot_discount_flag_array[$cInfo->customers_status_ot_discount_flag]['text'] . ' (' . $cInfo->customers_status_ot_discount_flag . ')' . '</b><br />' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . ':<br /><b>' .  $currencies->format($cInfo->customers_status_ot_minimum) . ' - ' . $cInfo->customers_status_ot_discount . '%</b>');
-        $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br /><b>' . ENTRY_STAFFELPREIS . ' ' . $customers_status_qty_discounts_array[$cInfo->customers_status_qty_discounts]['text'] . ' (' . $cInfo->customers_status_qty_discounts . ')</b>' );
-        $contents[] = array('text' => '<br />' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br /><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b>' );
-        $contents[] = array('text' => '<br />'  . oos_customers_payment($cInfo->customers_status_payment));
+        $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_DISCOUNT_OT_XMEMBER_INTRO . '<br><b>' . ENTRY_OT_XMEMBER . ' ' . $customers_status_ot_discount_flag_array[$cInfo->customers_status_ot_discount_flag]['text'] . ' (' . $cInfo->customers_status_ot_discount_flag . ')' . '</b><br>' . ENTRY_MINIMUM_AMOUNT_OT_XMEMBER . ':<br><b>' .  $currencies->format($cInfo->customers_status_ot_minimum) . ' - ' . $cInfo->customers_status_ot_discount . '%</b>');
+        $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_STAFFELPREIS_INTRO . '<br><b>' . ENTRY_STAFFELPREIS . ' ' . $customers_status_qty_discounts_array[$cInfo->customers_status_qty_discounts]['text'] . ' (' . $cInfo->customers_status_qty_discounts . ')</b>' );
+        $contents[] = array('text' => '<br>' . TEXT_INFO_CUSTOMERS_STATUS_PAYMENT_INTRO . '<br><b>' . ENTRY_CUSTOMERS_STATUS_PAYMENT . '</b>' );
+        $contents[] = array('text' => '<br>'  . oos_customers_payment($cInfo->customers_status_payment));
       }
       break;
   }

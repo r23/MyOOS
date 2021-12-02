@@ -705,7 +705,7 @@ function oos_output_generated_category_path($id, $from = 'category') {
 		for ($j = 0, $k = count($calculated_category_path[$i]); $j < $k; $j++) {
 			$calculated_category_path_string .= $calculated_category_path[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
 		}
-		$calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br />';
+		$calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
 	}
 	$calculated_category_path_string = substr($calculated_category_path_string, 0, -6);
 

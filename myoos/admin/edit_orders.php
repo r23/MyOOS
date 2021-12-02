@@ -297,7 +297,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
             if($ot_class == "ot_tax")
             {
             $ot_value = $RunningTax;
-            // print "ot_value = $ot_value<br />\n";
+            // print "ot_value = $ot_value<br>\n";
             }
 
             if($ot_class == "ot_total")
@@ -739,7 +739,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
 	if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {	
       for ($j=0; $j < count($order->products[$i]['attributes']); $j++) {
         $orders_products_attributes_id = $order->products[$i]['attributes'][$j]['orders_products_attributes_id'];
-        echo '<br /><nobr><small>&nbsp;<i> - ' . "<input name='update_products[$orders_products_id][attributes][$orders_products_attributes_id][option]' size='6' value='" . $order->products[$i]['attributes'][$j]['option'] . "'>" . ': ' . "<input name='update_products[$orders_products_id][attributes][$orders_products_attributes_id][value]' size='10' value='" . $order->products[$i]['attributes'][$j]['value'] . "'>";
+        echo '<br><nobr><small>&nbsp;<i> - ' . "<input name='update_products[$orders_products_id][attributes][$orders_products_attributes_id][option]' size='6' value='" . $order->products[$i]['attributes'][$j]['option'] . "'>" . ': ' . "<input name='update_products[$orders_products_id][attributes][$orders_products_attributes_id][value]' size='10' value='" . $order->products[$i]['attributes'][$j]['value'] . "'>";
         echo '</i></small></nobr>';
       }
     }
@@ -759,7 +759,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       <td align="right" colspan="6">
         <table border="0" cellspacing="0" cellpadding="2" width="100%">
         <tr>
-        <td align='center' valign='top'><br /><a href="<?php print $_SERVER['PHP_SELF'] . "?oID=$oID&action=add_product&step=1"; ?>"><u><b><font size='3'><?php echo TEXT_DATE_ORDER_ADDNEW; ?> </font></b></u></a></td>
+        <td align='center' valign='top'><br><a href="<?php print $_SERVER['PHP_SELF'] . "?oID=$oID&action=add_product&step=1"; ?>"><u><b><font size='3'><?php echo TEXT_DATE_ORDER_ADDNEW; ?> </font></b></u></a></td>
         <td align='right'>
         <table border="0" cellspacing="0" cellpadding="2">
 <?php
@@ -869,7 +869,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       </tr>
 
       <tr>
-        <td class="main"><br /><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
+        <td class="main"><br><b><?php echo TABLE_HEADING_COMMENTS; ?></b></td>
       </tr>
       <tr>
         <td></td>
@@ -1028,7 +1028,7 @@ if($action == "add_product") {
           foreach ($OptionValues as $OptionValueID => $OptionValueName) {
             $OptionOption .= '<option value="'.$OptionValueID.'"> '.$OptionValueName."\n";
           }
-          $OptionOption .= '</select><br />'."\n";
+          $OptionOption .= '</select><br>'."\n";
 
           if (IsSet($add_product_options)) {
             $OptionOption = str_replace('value="' . $add_product_options[$OptionID] . '"','value="' . $add_product_options[$OptionID] . '" selected',$OptionOption);

@@ -25,7 +25,7 @@ define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('TEXT_FEATURED_PRODUCT', 'Product:');
-define('TEXT_FEATURED_EXPIRES_DATE', 'Expiry Date:<br /><small>(YYYY-MM-DD)</small>');
+define('TEXT_FEATURED_EXPIRES_DATE', 'Expiry Date:<br><small>(YYYY-MM-DD)</small>');
 
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');

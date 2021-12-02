@@ -314,7 +314,7 @@ if (!empty($action)) {
       $heading[] = array('text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>');
 
 		if  ($cID == 2 || $cID == 3 || $cID == 4) {
-			$value_field = oos_draw_file_field('site_image') . '<br />' . $cInfo->configuration_value;
+			$value_field = oos_draw_file_field('site_image') . '<br>' . $cInfo->configuration_value;
 		} else {
 			if ($cInfo->set_function) {
 				eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars($cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
@@ -325,8 +325,8 @@ if (!empty($action)) {
 
       $contents = array('form' => oos_draw_form('id', 'configuration', $aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=save', 'post', FALSE, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
-      $contents[] = array('text' => '<br /><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br />' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br />' . $value_field);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('text' => '<br><b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b><br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')) . '<br>' . $value_field);
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_UPDATE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
    default:
@@ -334,14 +334,14 @@ if (!empty($action)) {
         $heading[] = array('text' => '<b>' . constant(strtoupper($cInfo->configuration_key . '_TITLE')) . '</b>');
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $cInfo->configuration_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
 		if  ($cID == 2) {
-			$contents[] = array('text' => '<br />' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));		
+			$contents[] = array('text' => '<br>' . oos_info_image('logo/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));		
 		} elseif ($cID == 3) {
-			$contents[] = array('text' => '<br />' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value));		
+			$contents[] = array('text' => '<br>' . oos_info_image('ico/180x180/' . $cInfo->configuration_value, $cInfo->configuration_value));		
 		} elseif ($cID == 4) {
-			$contents[] = array('text' => '<br />' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));		
+			$contents[] = array('text' => '<br>' . oos_info_image('og/medium/' . $cInfo->configuration_value, $cInfo->configuration_value));		
 		}
-        $contents[] = array('text' => '<br />' . constant(strtoupper($cInfo->configuration_key . '_DESC')));
-        $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
+        $contents[] = array('text' => '<br>' . constant(strtoupper($cInfo->configuration_key . '_DESC')));
+        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
         if (oos_is_not_null($cInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified));
       }
       break;

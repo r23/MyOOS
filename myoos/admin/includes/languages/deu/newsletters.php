@@ -38,7 +38,7 @@ define('TEXT_NEWSLETTER_DATE_SENT', 'Datum gesendet:');
 
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie dieses Rundschreiben löschen möchten?');
 
-define('TEXT_PLEASE_WAIT', 'Bitte warten Sie .. eMails werden gesendet ..<br /><br />Bitte unterbrechen Sie diesen Prozess nicht!');
+define('TEXT_PLEASE_WAIT', 'Bitte warten Sie .. eMails werden gesendet ..<br><br>Bitte unterbrechen Sie diesen Prozess nicht!');
 define('TEXT_FINISHED_SENDING_EMAILS', 'eMails wurden versendet!');
 
 define('ERROR_NEWSLETTER_TITLE', 'Fehler: Ein Titel für das Rundschreiben ist erforderlich.');

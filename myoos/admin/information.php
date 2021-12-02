@@ -413,8 +413,8 @@ if ($action == 'new' || $action == 'edit') {
 
         $contents = array('form' => oos_draw_form('id', 'information', $aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=deleteconfirm', 'post', FALSE));
         $contents[] = array('text' => TEXT_DELETE_INTRO);
-        $contents[] = array('text' => '<br /><b>' . $iInfo->information_name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('text' => '<br><b>' . $iInfo->information_name . '</b>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       }
       break;
 
@@ -426,7 +426,7 @@ if ($action == 'new' || $action == 'edit') {
         } else {
           $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $iInfo->information_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>');
         }
-        $contents[] = array('text' => '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($iInfo->date_added));
+        $contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($iInfo->date_added));
         if (oos_is_not_null($iInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($iInfo->last_modified));
       }
       break;

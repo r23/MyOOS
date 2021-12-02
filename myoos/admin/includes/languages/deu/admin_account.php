@@ -41,8 +41,8 @@ define('TEXT_INFO_HEADING_CONFIRM_PASSWORD', 'Passwort Bestätigung ');
 define('TEXT_INFO_INTRO_CONFIRM_PASSWORD', 'Passwort:');
 define('TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR', '<font color="red"><b>FEHLER:</b> falsches Passwort!</font>');
 define('TEXT_INFO_INTRO_DEFAULT', 'Klicken Sie den <b>Bearbeiten Button</b> unten um das Konto zu ändern.');
-define('TEXT_INFO_INTRO_DEFAULT_FIRST_TIME', '<br /><b>WARNUNG:</b><br />Hallo <b>%s</b>, sie haben sich hier zum ersten mal angemeldet. Wir empfehlen Ihnen Ihr Passwort zu ändern!');
-define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br /><b>WARNUNG:</b><br />Hallo <b>%s</b>, wir empfehlen Ihnen Ihre E-Mail Adresse zu änderndern (<font color="red">admin@localhost</font>) und das Passwort!');
+define('TEXT_INFO_INTRO_DEFAULT_FIRST_TIME', '<br><b>WARNUNG:</b><br>Hallo <b>%s</b>, sie haben sich hier zum ersten mal angemeldet. Wir empfehlen Ihnen Ihr Passwort zu ändern!');
+define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br><b>WARNUNG:</b><br>Hallo <b>%s</b>, wir empfehlen Ihnen Ihre E-Mail Adresse zu änderndern (<font color="red">admin@localhost</font>) und das Passwort!');
 define('TEXT_INFO_INTRO_EDIT_PROCESS', 'Sämtliche Felder werden benötigt. Klicken sie sichern zur Datenbertragung.');
 
 define('JS_ALERT_FIRSTNAME',        '- Benötigt: Vorname \n');

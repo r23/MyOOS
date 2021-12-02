@@ -67,7 +67,7 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
    }
     echo "</table>\n";
 ?>
-<br />
+<br>
 <table width="550" border="0" cellspacing="1">
 <tr>
 <td align=middle><input type="button" value="Close Window" onClick="window.close()"></td>

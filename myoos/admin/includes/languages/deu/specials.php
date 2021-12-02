@@ -28,7 +28,7 @@ define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_SPECIALS_PRODUCT', 'Produkt:');
 define('TEXT_SPECIALS_SPECIAL_PRICE', 'Angebotspreis:');
-define('TEXT_SPECIALS_EXPIRES_DATE', 'Gültig bis:<br /><small>(YYYY-MM-DD)</small>');
+define('TEXT_SPECIALS_EXPIRES_DATE', 'Gültig bis:<br><small>(YYYY-MM-DD)</small>');
 define('TEXT_SPECIALS_PRICE_TIP', '<b>Bemerkung:</b><ul><li>Sie können im Feld Angebotspreis auch prozentuale Werte angeben, z.B.: <b>20%</b></li><li>Wenn Sie einen neuen Preis eingeben, müssen die Nachkommastellen mit einem \'.\' getrennt werden, z.B.: <b>49.99</b></li><li>Lassen Sie das Feld <b>\'Gültig bis\'</b> leer, wenn der Angebotspreis zeitlich unbegrenzt gelten soll.</li></ul>');
 
 define('TEXT_INFO_DATE_ADDED', 'hinzugefügt am:');

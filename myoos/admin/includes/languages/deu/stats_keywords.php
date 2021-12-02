@@ -30,7 +30,7 @@ define('KEYWORD_TITLE2', 'Suchzähler');
 define('SIDEBAR_HEADING', 'Suchwortoptionen');
 define('SIDEBAR_INFO_1', 'Benutzen Sie den Schalter unterhalb um ALLE neuen Daten in der Datenbank zu dieser Seite hinzuzufügen.');
 define('SIDEBAR_INFO_2', 'Um <b>ALLE</b> Suchworte aus der Datanebank zu löschen, klicken Sie auf den unteren Schalter');
-define('SIDEBAR_INFO_3', '<b>Ersetzen von Suchwörtern und Begriffen</b><br /><br />Klicken Sie hier um falsche Suchwörter anzuzeigen oder zu editieren:');
+define('SIDEBAR_INFO_3', '<b>Ersetzen von Suchwörtern und Begriffen</b><br><br>Klicken Sie hier um falsche Suchwörter anzuzeigen oder zu editieren:');
 
 # define('BUTTON_VIEW_WORD_LIST', 'Zeige Wortliste');
  define('BUTTON_VIEW_WORD_LIST', 'View word/phrase list');

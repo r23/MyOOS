@@ -301,22 +301,22 @@
     case 'edit':
       $keys = '';
       foreach ($pInfo->keys as $key => $value) {
-        $keys .= '<b>' . $value['title'] . '</b><br />' . $value['description'] . '<br />';
+        $keys .= '<b>' . $value['title'] . '</b><br>' . $value['description'] . '<br>';
 
         if ($value['set_function']) {
           eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
         } else {
           $keys .= oos_draw_input_field('configuration[' . $key . ']', $value['value']);
         }
-        $keys .= '<br /><br />';
+        $keys .= '<br><br>';
       }
-      $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
+      $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
 
       $heading[] = array('text' => '<b>' . $pInfo->name . '</b>');
 
       $contents = array('form' => oos_draw_form('id', 'plugins', $aContents['plugins'], 'plugin=' . $_GET['plugin'] . '&action=save', 'post',  FALSE));
       $contents[] = array('text' => $keys);
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $_GET['plugin']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
 
@@ -331,10 +331,10 @@
             $contents[] = array('align' => 'center', 'text' => ($pInfo->uninstallable ? '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '">' . oos_button('modules_remove', IMAGE_PLUGINS_REMOVE) . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>' : ''));
 
             if (isset($sInfo->config_item) && is_array($pInfo->config_item) && sizeof($pInfo->config_item) > 0) {
-              $keys = '<br />';
+              $keys = '<br>';
 
               foreach ($pInfo->config_item as $value) {
-                $keys .= '<b>' . $value['title'] . '</b><br />';
+                $keys .= '<b>' . $value['title'] . '</b><br>';
 
                 if ($value['use_function']) {
                   $use_function = $value['use_function'];
@@ -353,9 +353,9 @@
                 } else {
                   $keys .= $value['value'];
                 }
-                $keys .= '<br /><br />';
+                $keys .= '<br><br>';
               }
-              $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
+              $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
             }
           } else {
             $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=install') . '">' . oos_button('module_install', IMAGE_PLUGINS_INSTALL) . '</a>');
@@ -365,13 +365,13 @@
         $contents[] = array('text' => $pInfo->description);
 
         if (!empty($pInfo->preceeds)) {
-          $preceeds_string = '<u>Preceeds</u><br />';
+          $preceeds_string = '<u>Preceeds</u><br>';
 
           if (is_string($pInfo->preceeds)) {
             $preceeds_string .= $pInfo->preceeds;
           } else {
             foreach ($pInfo->preceeds as $preceeds) {
-              $preceeds_string .= $preceeds . '<br />';
+              $preceeds_string .= $preceeds . '<br>';
             }
           }
 

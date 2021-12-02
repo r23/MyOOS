@@ -36,7 +36,7 @@ define('TABLE_HEADING_ACTION', 'Action');
 define('TEXT_INFO_HEADING_NEW_BACKUP', 'New Backup');
 define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Restore Local');
 define('TEXT_INFO_NEW_BACKUP', 'Do not interrupt the backup process which might take a couple of minutes.');
-define('TEXT_INFO_UNPACK', '<br /><br />(after unpacking the file from the archive)');
+define('TEXT_INFO_UNPACK', '<br><br>(after unpacking the file from the archive)');
 define('TEXT_INFO_DATE', 'Date:');
 define('TEXT_INFO_SIZE', 'Size:');
 define('TEXT_INFO_COMPRESSION', 'Compression:');

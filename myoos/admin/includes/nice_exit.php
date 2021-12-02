@@ -24,9 +24,9 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 /*
   echo '<pre>';
   print_r($_SESSION);
-  echo '<br />';
+  echo '<br>';
   print_r($_GET);
-  echo '<br />';
+  echo '<br>';
   print_r($_POST);
   echo '</pre>';
 */

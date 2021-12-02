@@ -34,7 +34,7 @@ define('TEXT_COUNT_FILES', 'Datei(en): ');
 //categories access
 define('TEXT_INFO_HEADING_DEFAULT_BOXES', 'Bereiche: ');
 
-define('TEXT_INFO_DEFAULT_BOXES_INTRO', 'Einfach nur den grünen Button drücken um den Bereich zu aktivieren oder den roten Button um den Bereich zu deinstallieren.<br /><br /><b>WARNUNG:</b> Wenn Sie den Bereich deinstallieren, werden sämtliche darin befindliche Dateien mitgelöscht!');
+define('TEXT_INFO_DEFAULT_BOXES_INTRO', 'Einfach nur den grünen Button drücken um den Bereich zu aktivieren oder den roten Button um den Bereich zu deinstallieren.<br><br><b>WARNUNG:</b> Wenn Sie den Bereich deinstallieren, werden sämtliche darin befindliche Dateien mitgelöscht!');
 define('TEXT_INFO_DEFAULT_BOXES_INSTALLED', ' installiert');
 define('TEXT_INFO_DEFAULT_BOXES_NOT_INSTALLED', ' nicht installiert');
 

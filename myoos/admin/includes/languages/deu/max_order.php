@@ -24,5 +24,5 @@
 
 define('NAVBAR_TITLE', 'Maximaler Bestellwert');
 define('HEADING_TITLE', 'Maximaler Bestellwert');
-define('TEXT_INFORMATION', 'Sie sind '. $currencies->format ($cart->show_total() - (+$customer_max_order)) .' über Ihrem ' . $currencies->format($customer_max_order) . ' maximalen Bestellwert. <br />Bitte kontaktieren Sie unser Verkaufsteam, um Ihre Bestellung bestätigen zu lassen.');
+define('TEXT_INFORMATION', 'Sie sind '. $currencies->format ($cart->show_total() - (+$customer_max_order)) .' über Ihrem ' . $currencies->format($customer_max_order) . ' maximalen Bestellwert. <br>Bitte kontaktieren Sie unser Verkaufsteam, um Ihre Bestellung bestätigen zu lassen.');
 

@@ -169,7 +169,7 @@ function oos_get_all_get_params($exclude_array = '') {
 
  /**
   * ready operating system output
-  * <br />
+  * <br>
   * Gets a variable, cleaning it up such that any attempts
   * to access files outside of the scope of the PostNuke
   * system is not allowed
@@ -319,8 +319,8 @@ function oos_address_format($address_format_id, $address, $html, $boln, $eoln) {
       $HR = '<hr>';
       $hr = '<hr>';
       if ( ($boln == '') && ($eoln == "\n") ) { // Values not specified, use rational defaults
-        $CR = '<br />';
-        $cr = '<br />';
+        $CR = '<br>';
+        $cr = '<br>';
         $eoln = $cr;
       } else { // Use values supplied
         $CR = $eoln . $boln;

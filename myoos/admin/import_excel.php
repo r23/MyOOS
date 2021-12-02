@@ -119,10 +119,10 @@
     oos_get_copy_uploaded_file($usrfl, OOS_UPDATE_PATH);
 
     echo "<p class=smallText>";
-    echo 'File uploaded<br />';
-    echo 'Temporary filename:: ' . $usrfl['tmp_name'] . '<br />';
-    echo 'User filename: ' . $usrfl['name'] . '<br />';
-    echo 'Size: ' . $usrfl['size'] . '<br />';
+    echo 'File uploaded<br>';
+    echo 'Temporary filename:: ' . $usrfl['tmp_name'] . '<br>';
+    echo 'User filename: ' . $usrfl['name'] . '<br>';
+    echo 'Size: ' . $usrfl['size'] . '<br>';
     echo '<br><br>';
     echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_price';
     echo '<br><br>';
@@ -148,7 +148,7 @@
                   <INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="100000000">
                   <p></p>
                   <input name="usrfl" type="file" size="50">
-                  <input type="submit" name="buttoninsert" value="UPDATE" ><br />
+                  <input type="submit" name="buttoninsert" value="UPDATE" ><br>
                 </p>
               </div>
 

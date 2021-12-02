@@ -73,7 +73,7 @@ define('VOUCHER_NUMBER_USED', 'Zu benutzende Nummern');
 define('DATE_CREATED', 'Erstelldatum');
 define('DATE_MODIFIED', 'Änderungsdatum');
 define('TEXT_HEADING_NEW_COUPON', 'Erzeuge neuen Gutschein');
-define('TEXT_NEW_INTRO', 'Bitte geben Sie die folgenden Informationen ein, um einen neuen Gutschein zu erzeugen.<br />');
+define('TEXT_NEW_INTRO', 'Bitte geben Sie die folgenden Informationen ein, um einen neuen Gutschein zu erzeugen.<br>');
 
 define('ERROR_NO_COUPON_AMOUNT', 'Fehler: Kein Gutschein Wert festgelegt.');
 define('ERROR_NO_COUPON_NAME', 'Fehler: Kein Gutschein Name angegeben.');

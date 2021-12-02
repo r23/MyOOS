@@ -272,19 +272,19 @@ if (!empty($action)) {
       $block_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $block_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']');
+        $block_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']');
       }
-      $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_NAME . ':</b>' .$block_inputs_string);
-      $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_FUNCTION . ':</b><br />' . oos_draw_input_field('function'));
-      $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_CACHE . ':</b><br />' . oos_draw_input_field('block_cache'));
-      $contents[] = array('text' => '<br /><b>' . TABLE_HEADING_COLUMN . ':</b><br />' . oos_block_select_option(array('', 'sidebar'), 'block_side'));
-      $contents[] = array('text' => '<br /><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array));
-      $contents[] = array('text' => '<br /><b>'  . TEXT_BLOCK_LOGIN . '</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array));
-      $contents[] = array('text' => '<br /><b>'  . TEXT_BLOCK_PAGE . '</b><br />' . oos_select_block_to_page());
+      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_NAME . ':</b>' .$block_inputs_string);
+      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function'));
+      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_CACHE . ':</b><br>' . oos_draw_input_field('block_cache'));
+      $contents[] = array('text' => '<br><b>' . TABLE_HEADING_COLUMN . ':</b><br>' . oos_block_select_option(array('', 'sidebar'), 'block_side'));
+      $contents[] = array('text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array));
+      $contents[] = array('text' => '<br><b>'  . TEXT_BLOCK_LOGIN . '</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array));
+      $contents[] = array('text' => '<br><b>'  . TEXT_BLOCK_PAGE . '</b><br>' . oos_select_block_to_page());
 
-      $contents[] = array('text' => '<br /><b>' . TABLE_HEADING_SORT_ORDER . ':</b> ' . oos_draw_input_field('sort_order', '', 'size="2"'));
+      $contents[] = array('text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b> ' . oos_draw_input_field('sort_order', '', 'size="2"'));
 
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $_GET['bID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $_GET['bID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -297,21 +297,21 @@ if (!empty($action)) {
       $block_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $block_inputs_string .= '<br />' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']', oos_get_block_name($bInfo->block_id, $languages[$i]['id']));
+        $block_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']', oos_get_block_name($bInfo->block_id, $languages[$i]['id']));
       }
       eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars($bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
 
-      $contents[] = array('text' => '<br />' . TEXT_BLOCK_NAME . $block_inputs_string);
-      $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_FUNCTION . ':</b><br />' . oos_draw_input_field('function', $bInfo->block_file));
-      $contents[] = array('text' => '<br /><b>' . TEXT_BLOCK_CACHE . ':</b><br />' . oos_draw_input_field('block_cache', $bInfo->block_cache));
-      $contents[] = array('text' => '<br /><b>' . TABLE_HEADING_COLUMN . ':</b><br />' . $value_field);
-      $contents[] = array('text' => '<br /><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array, $bInfo->block_status));
-      $contents[] = array('text' => '<br /><b>'  . TEXT_BLOCK_LOGIN . ':</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array, $bInfo->block_login_flag));
-      $contents[] = array('text' => '<br /><b>'  . TEXT_BLOCK_PAGE . ':</b><br />' . oos_show_block_to_page($bInfo->block_id));
+      $contents[] = array('text' => '<br>' . TEXT_BLOCK_NAME . $block_inputs_string);
+      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function', $bInfo->block_file));
+      $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_CACHE . ':</b><br>' . oos_draw_input_field('block_cache', $bInfo->block_cache));
+      $contents[] = array('text' => '<br><b>' . TABLE_HEADING_COLUMN . ':</b><br>' . $value_field);
+      $contents[] = array('text' => '<br><b>'  . TABLE_HEADING_STATUS . ':</b> ' . oos_draw_pull_down_menu('block_status', $block_status_array, $bInfo->block_status));
+      $contents[] = array('text' => '<br><b>'  . TEXT_BLOCK_LOGIN . ':</b> ' . oos_draw_pull_down_menu('block_login_flag', $block_login_flag_array, $bInfo->block_login_flag));
+      $contents[] = array('text' => '<br><b>'  . TEXT_BLOCK_PAGE . ':</b><br>' . oos_show_block_to_page($bInfo->block_id));
 
-      $contents[] = array('text' => '<br /><b>' . TABLE_HEADING_SORT_ORDER . ':</b><br />' . oos_draw_input_field('sort_order', $bInfo->block_sort_order, 'size="2"'));
+      $contents[] = array('text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b><br>' . oos_draw_input_field('sort_order', $bInfo->block_sort_order, 'size="2"'));
 
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -320,9 +320,9 @@ if (!empty($action)) {
 
       $contents = array('form' => oos_draw_form('id', 'block', $aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=deleteconfirm', 'post', FALSE));
       $contents[] = array('text' => TEXT_DELETE_INTRO);
-      $contents[] = array('text' => '<br /><b>' . $bInfo->block_name . '</b>');
+      $contents[] = array('text' => '<br><b>' . $bInfo->block_name . '</b>');
 
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -331,9 +331,9 @@ if (!empty($action)) {
         $heading[] = array('text' => '<b>' . $bInfo->block_name . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-        $contents[] = array('text' => '<br />' . TEXT_DATE_ADDED . ' ' . oos_date_short($bInfo->date_added));
+        $contents[] = array('text' => '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($bInfo->date_added));
         if (oos_is_not_null($bInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($bInfo->last_modified));
-        $contents[] = array('align' => 'center', 'text' => '<br /><table border="0" width="100%" cellspacing="0" cellpadding="0"><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_FUNCTION . ':</b></td><td class="infoBoxContent">' . $bInfo->block_file . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_CACHE . ':</b></td><td class="infoBoxContent">' . $bInfo->block_cache . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_PAGE . ':</b></td><td class="infoBoxContent">' . oos_info_block_to_page($bInfo->block_id) . '</td></tr></table>');
+        $contents[] = array('align' => 'center', 'text' => '<br><table border="0" width="100%" cellspacing="0" cellpadding="0"><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_FUNCTION . ':</b></td><td class="infoBoxContent">' . $bInfo->block_file . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_CACHE . ':</b></td><td class="infoBoxContent">' . $bInfo->block_cache . '</td></tr><tr><td colspan="2">&nbsp;</td></tr><tr><td class="infoBoxContent" valign="top"><b>' . TEXT_BLOCK_PAGE . ':</b></td><td class="infoBoxContent">' . oos_info_block_to_page($bInfo->block_id) . '</td></tr></table>');
       }
       break;
   }

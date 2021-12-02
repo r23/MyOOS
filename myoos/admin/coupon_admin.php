@@ -457,34 +457,34 @@ case 'voucherreport':
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_CUSTOMER; ?></b><br /><?php echo $mail_sent_to; ?></td>
+                <td class="smallText"><b><?php echo TEXT_CUSTOMER; ?></b><br><?php echo $mail_sent_to; ?></td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_COUPON; ?></b><br /><?php echo $coupon_name['coupon_name']; ?></td>
+                <td class="smallText"><b><?php echo TEXT_COUPON; ?></b><br><?php echo $coupon_name['coupon_name']; ?></td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_name']), ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['from_name']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['from_mail']), ENT_QUOTES, 'UTF-8'); ?></td>
-              </tr>
-              <tr>
-                <td></td>
-              </tr>
-              <tr>
-                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br /><?php echo htmlspecialchars(stripslashes($_POST['subject']), ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['from_mail']), ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br /><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message']), ENT_QUOTES, 'UTF-8')); ?></td>
+                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['subject']), ENT_QUOTES, 'UTF-8'); ?></td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message']), ENT_QUOTES, 'UTF-8')); ?></td>
               </tr>
               <tr>
                 <td></td>
@@ -1119,10 +1119,10 @@ case 'voucherreport':
     case 'new':
 		$heading[] = array('text' => '<b>' . TEXT_HEADING_NEW_COUPON . '</b>');
 		$contents[] = array('text' => TEXT_NEW_INTRO);
-		$contents[] = array('text' => '<br />' . COUPON_NAME . '<br />' . oos_draw_input_field('name'));
-		$contents[] = array('text' => '<br />' . COUPON_AMOUNT . '<br />' . oos_draw_input_field('voucher_amount'));
-		$contents[] = array('text' => '<br />' . COUPON_CODE . '<br />' . oos_draw_input_field('voucher_code'));
-		$contents[] = array('text' => '<br />' . COUPON_USES_COUPON . '<br />' . oos_draw_input_field('voucher_number_of'));
+		$contents[] = array('text' => '<br>' . COUPON_NAME . '<br>' . oos_draw_input_field('name'));
+		$contents[] = array('text' => '<br>' . COUPON_AMOUNT . '<br>' . oos_draw_input_field('voucher_amount'));
+		$contents[] = array('text' => '<br>' . COUPON_CODE . '<br>' . oos_draw_input_field('voucher_code'));
+		$contents[] = array('text' => '<br>' . COUPON_USES_COUPON . '<br>' . oos_draw_input_field('voucher_number_of'));
 		break;
 
     default:
@@ -1164,20 +1164,20 @@ case 'voucherreport':
 			$coupon_name = $coupon_name_result->fields;
 			$coupon_name['coupon_name'] = isset($coupon_name['coupon_name']) ? $coupon_name['coupon_name'] : '';
 
-			$contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br />' .
-                     COUPON_AMOUNT . ':&nbsp;' . $amount . '<br />' .
-                     COUPON_STARTDATE . ':&nbsp;' . oos_date_short($coupon_start_date) . '<br />' .
-                     COUPON_FINISHDATE . ':&nbsp;' . oos_date_short($coupon_expire_date) . '<br />' .
-                     COUPON_USES_COUPON . '&nbsp;' . $uses_per_coupon . '<br />' .
-                     COUPON_USES_USER . '&nbsp;' . $uses_per_user . '<br />' .
-                     COUPON_PRODUCTS . ':&nbsp;' . $prod_details . '<br />' .
-                     COUPON_CATEGORIES . ':&nbsp;' . $cat_details . '<br />' .
-                     DATE_CREATED . ':&nbsp;' . oos_date_short($date_created) . '<br />' .
-                     DATE_MODIFIED . ':&nbsp;' . oos_date_short($date_modified) . '<br /><br />' .
+			$contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br>' .
+                     COUPON_AMOUNT . ':&nbsp;' . $amount . '<br>' .
+                     COUPON_STARTDATE . ':&nbsp;' . oos_date_short($coupon_start_date) . '<br>' .
+                     COUPON_FINISHDATE . ':&nbsp;' . oos_date_short($coupon_expire_date) . '<br>' .
+                     COUPON_USES_COUPON . '&nbsp;' . $uses_per_coupon . '<br>' .
+                     COUPON_USES_USER . '&nbsp;' . $uses_per_user . '<br>' .
+                     COUPON_PRODUCTS . ':&nbsp;' . $prod_details . '<br>' .
+                     COUPON_CATEGORIES . ':&nbsp;' . $cat_details . '<br>' .
+                     DATE_CREATED . ':&nbsp;' . oos_date_short($date_created) . '<br>' .
+                     DATE_MODIFIED . ':&nbsp;' . oos_date_short($date_modified) . '<br><br>' .
                      '<center><a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=email&cID='.$coupon_id).'">'.oos_button(BUTTON_EMAIL_VOUCHER).'</a>' .
                      '<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucheredit&cID='.$coupon_id).'">'.oos_button(BUTTON_EDIT_VOUCHER).'</a>' .
                      '<a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucherdelete&cID='.$coupon_id).'">'.oos_button(BUTTON_DELETE_VOUCHER).'</a>' .
-                     '<br /><a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucherreport&cID='.$coupon_id).'">'.oos_button(BUTTON_REPORT_VOUCHER).'</a></center>'
+                     '<br><a href="' . oos_href_link_admin($aContents['coupon_admin'],'action=voucherreport&cID='.$coupon_id).'">'.oos_button(BUTTON_REPORT_VOUCHER).'</a></center>'
                      );
 		}
         break;

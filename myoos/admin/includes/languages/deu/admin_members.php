@@ -53,7 +53,7 @@ define('TEXT_INFO_HEADING_EDIT', 'Editiere Kategorie / ');
 define('TEXT_INFO_HEADING_NEW', 'Neues Redaktionsmitglied ');
 
 define('TEXT_INFO_DEFAULT_INTRO', 'Mitarbeitergruppe');
-define('TEXT_INFO_DELETE_INTRO', 'Soll <nobr><b>%s</b></nobr> jetzt als Redaktionsmitglied<br /> gelöscht werden?');
+define('TEXT_INFO_DELETE_INTRO', 'Soll <nobr><b>%s</b></nobr> jetzt als Redaktionsmitglied<br> gelöscht werden?');
 define('TEXT_INFO_DELETE_INTRO_NOT', 'Sie können <nobr>%s Gruppe nicht Löschen !</nobr>');
 define('TEXT_INFO_EDIT_INTRO', 'Legen Sie hier die Erlaubnisstufe an: ');
 
@@ -90,17 +90,17 @@ define('TEXT_INFO_GROUPS_INTRO', 'Vergeben Sie einen einmaligen Gruppennamen. Kl
 define('TEXT_INFO_HEADING_GROUPS', 'Neue Gruppe');
 define('TEXT_INFO_HEADING_EDIT_GROUP', 'Gruppenname ändern');
 define('TEXT_INFO_EDIT_GROUP_INTRO', 'Geben Sie den neuen Gruppennamen ein.');
-define('TEXT_INFO_GROUPS_NAME', ' <b>Gruppenname:</b><br />Vergeben Sie einen einmaligen Gruppennamen. Dann klicken Sie Nächster zur Übermittlung.<br />');
+define('TEXT_INFO_GROUPS_NAME', ' <b>Gruppenname:</b><br>Vergeben Sie einen einmaligen Gruppennamen. Dann klicken Sie Nächster zur Übermittlung.<br>');
 define('TEXT_INFO_GROUPS_NAME_FALSE', '<font color="red"><b>FEHLER:</b> Der Gruppenname muss aus mindestens 5 Buchstaben bestehen!</font>');
 define('TEXT_INFO_GROUPS_NAME_USED', '<font color="red"><b>FEHLER:</b> Gruppenname wird schon verwendet!</font>');
 define('TEXT_INFO_GROUPS_LEVEL', 'Gruppenstufe: ');
-define('TEXT_INFO_GROUPS_BOXES', '<b>Bereichserlaubnis:</b><br />Zugriff auf die ausgewählten Bereiche vergeben.');
+define('TEXT_INFO_GROUPS_BOXES', '<b>Bereichserlaubnis:</b><br>Zugriff auf die ausgewählten Bereiche vergeben.');
 define('TEXT_INFO_GROUPS_BOXES_INCLUDE', 'Beinhaltet gespeicherte Daten in: ');
 
 define('TEXT_INFO_HEADING_DEFINE', 'Definiere Gruppe');
 if (isset($_GET['gPath']) && ($_GET['gPath'] == 1)) {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />Sie können nicht die Zugriffsberechtigungen für diese Gruppe vergeben.<br /><br />');
+  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>Sie können nicht die Zugriffsberechtigungen für diese Gruppe vergeben.<br><br>');
 } else {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br />ändern Sie die Zugriffsberechtigungen für diese Gruppe und die darin befindlichen Dateien, indem Sie die Bereiche auswählen/abwählen. Klicken Sie <b>speichern</b> um die Änderungen zu sichern.<br /><br />');
+  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>ändern Sie die Zugriffsberechtigungen für diese Gruppe und die darin befindlichen Dateien, indem Sie die Bereiche auswählen/abwählen. Klicken Sie <b>speichern</b> um die Änderungen zu sichern.<br><br>');
 }
 

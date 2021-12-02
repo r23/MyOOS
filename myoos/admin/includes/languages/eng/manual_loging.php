@@ -36,12 +36,12 @@ define('TABLE_HEADING_MANUAL_ENTRY_PROCESS', 'IMPORTANT: Read Manual Entry Proce
 define('TABLE_HEADING_EMAIL_PROCESS', 'Make sure to SET TO INACTIVE this flag as soon as you are done with manual entry');
 define('TEXT_CONTACT_CLASS', 'Contact Type Class');
 define('HEADING_LOGIN_ADMIN_EXPLAIN', 'If Client has already an account in the catalog, login here');
-define('HEADING_CREATE_ORDER_EXPLAIN', 'If you need to create a new account and enter a manual order , start here.<br />* Note: this order entry process will not send emails to client when account is created or order placed.');
+define('HEADING_CREATE_ORDER_EXPLAIN', 'If you need to create a new account and enter a manual order , start here.<br>* Note: this order entry process will not send emails to client when account is created or order placed.');
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
 define('TEXT_INFO_EXPIRES_DATE', 'Expires At:');
 define('TEXT_INFO_STATUS_CHANGE', 'Status Change:');
-define('HEADING_SET_FLAG', 'In order To Do a Manual Entry, set the flag status to active (Green).<br />For added security, set flag status to inactive (Red) when you are done with this utility');
+define('HEADING_SET_FLAG', 'In order To Do a Manual Entry, set the flag status to active (Green).<br>For added security, set flag status to inactive (Red) when you are done with this utility');
 define('MAN_LOGIN_ADMIN', 'Admin Login to Catalog');
 define('MAN_LOGIN_ADMIN_EXPLAIN', 'You can login now to the catalog under an admin account.');
 define('HEADING_LOGIN_ADMIN', 'Admin Login under Existing Account Name');

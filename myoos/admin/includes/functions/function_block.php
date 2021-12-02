@@ -30,7 +30,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 function oos_block_select_option($select_array, $key_value) {
     for ($i = 0, $n = count($select_array); $i < $n; $i++) {
       $name = 'block_side';
-      $string .= '<br /><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
+      $string .= '<br><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
       if ($key_value == $select_array[$i]) $string .= ' checked="checked"';
       $string .= '> ' . $select_array[$i];
     }
@@ -115,9 +115,9 @@ function oos_show_block_to_page($block_id = '', $language_id = '') {
 			$page = $type_array[$i]['id'];
 
 			if (in_array ($page, $block_to_page_array)) {
-				$select_page_type .= oos_draw_checkbox_field('page_type[]', $page, TRUE) . $type_array[$i]['text'] . '<br />';
+				$select_page_type .= oos_draw_checkbox_field('page_type[]', $page, TRUE) . $type_array[$i]['text'] . '<br>';
 			} else {
-				$select_page_type .= oos_draw_checkbox_field('page_type[]', $page) . $type_array[$i]['text'] . '<br />';
+				$select_page_type .= oos_draw_checkbox_field('page_type[]', $page) . $type_array[$i]['text'] . '<br>';
 			}
 		}
 
@@ -148,7 +148,7 @@ function oos_select_block_to_page($language_id = '') {
     $result = $dbconn->Execute($query);
 
     while ($type = $result->fields) {
-      $select_page_type .= oos_draw_checkbox_field('page_type[]', $type['page_type_id']) . $type['page_type_name'] . '<br />';
+      $select_page_type .= oos_draw_checkbox_field('page_type[]', $type['page_type_id']) . $type['page_type_name'] . '<br>';
 
       // Move that ADOdb pointer!
       $result->MoveNext();
@@ -187,7 +187,7 @@ function oos_info_block_to_page($block_id = '', $language_id = '') {
 		$result = $dbconn->Execute($query);
 
 		while ($block_info =  $result->fields) {
-			$info .= $block_info['page_type_name']. '<br />';
+			$info .= $block_info['page_type_name']. '<br>';
 
 			// Move that ADOdb pointer!
 			$result->MoveNext();

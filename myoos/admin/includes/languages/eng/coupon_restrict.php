@@ -67,7 +67,7 @@ define('VOUCHER_NUMBER_USED', 'Number Used');
 define('DATE_CREATED', 'Date Created');
 define('DATE_MODIFIED', 'Date Modified');
 define('TEXT_HEADING_NEW_COUPON', 'Create New Coupon');
-define('TEXT_NEW_INTRO', 'Please fill out the following information for the new coupon.<br />');
+define('TEXT_NEW_INTRO', 'Please fill out the following information for the new coupon.<br>');
 
 
 define('COUPON_NAME_HELP', 'A short name for the coupon');

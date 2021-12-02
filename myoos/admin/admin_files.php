@@ -319,9 +319,9 @@
       $contents = array('form' => oos_draw_form('id', 'store_file', $aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'] . '&action=file_store', 'post', FALSE, 'enctype="multipart/form-data"')); 
       $contents[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)) . '</b>');
       $contents[] = array('text' => TEXT_INFO_NEW_FILE_INTRO );
-      $contents[] = array('align' => 'left', 'text' => '<br />&nbsp;' . oos_draw_pull_down_menu('admin_files_name', $show, $show)); 
+      $contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . oos_draw_pull_down_menu('admin_files_name', $show, $show)); 
       $contents[] = array('text' => oos_draw_hidden_field('admin_files_to_boxes', $_GET['cPath']));
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
     
       break;
 
@@ -331,7 +331,7 @@
       $contents = array('form' => oos_draw_form('id', 'remove_file', $aContents['admin_files'], 'action=file_remove&cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'], 'post',  FALSE, 'enctype="multipart/form-data"')); 
       $contents[] = array('text' => oos_draw_hidden_field('admin_files_id', $_GET['fID']));
       $contents[] = array('text' =>  sprintf(TEXT_INFO_DELETE_FILE_INTRO, $fInfo->admin_files_name, ucfirst(substr_replace ($current_box['admin_box_name'], '', -4))) );    
-      $contents[] = array('align' => 'center', 'text' => '<br />' . oos_submit_button(IMAGE_CONFIRM) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_CONFIRM) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
     
       break;
 
@@ -339,21 +339,21 @@
       if (isset($cInfo) && is_object($cInfo)) {
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DEFAULT_BOXES . $cInfo->admin_boxes_name . '</b>');
         if ( substr($cInfo->admin_boxes_id, 0,1) == 'b') {
-          $contents[] = array('text' => '<b>' . $cInfo->admin_boxes_name . ' ' . TEXT_INFO_DEFAULT_BOXES_NOT_INSTALLED . '</b><br />&nbsp;');
+          $contents[] = array('text' => '<b>' . $cInfo->admin_boxes_name . ' ' . TEXT_INFO_DEFAULT_BOXES_NOT_INSTALLED . '</b><br>&nbsp;');
           $contents[] = array('text' => TEXT_INFO_DEFAULT_BOXES_INTRO);
         } else {
           $contents = array('form' => oos_draw_form('id', 'newfile', $aContents['admin_files'], 'cPath=' . $cInfo->admin_boxes_id . '&action=store_file', 'post',  FALSE, 'enctype="multipart/form-data"')); 
           $contents[] = array('align' => 'center', 'text' => oos_submit_button(BUTTON_INSERT_FILE) );
           $contents[] = array('text' => oos_draw_hidden_field('this_category', $cInfo->admin_boxes_id));
-          $contents[] = array('text' => '<br />' . TEXT_INFO_DEFAULT_BOXES_INTRO);
+          $contents[] = array('text' => '<br>' . TEXT_INFO_DEFAULT_BOXES_INTRO);
         }
-        $contents[] = array('text' => '<br />');
+        $contents[] = array('text' => '<br>');
       }
       if (isset($fInfo) && is_object($fInfo)) {
         $heading[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)) . '</b>');
 
         $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_button(BUTTON_INSERT_FILE) . '</a> <a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $fInfo->admin_files_id . '&action=remove_file') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-        $contents[] = array('text' => '<br />' . TEXT_INFO_DEFAULT_FILE_INTRO . ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)));
+        $contents[] = array('text' => '<br>' . TEXT_INFO_DEFAULT_FILE_INTRO . ucfirst(substr_replace ($current_box['admin_box_name'], '', -4)));
       }
   }
 

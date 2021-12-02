@@ -31,7 +31,7 @@ define('KEYWORD_TITLE2', 'Search Counts');
 define('SIDEBAR_HEADING', 'Keyword Options');
 define('SIDEBAR_INFO_1', 'Use the button below to ADD all new data in the DB to this page.');
 define('SIDEBAR_INFO_2', 'To delete <b>ALL</b> keyword data from the database, click the button below:');
-define('SIDEBAR_INFO_3', '<b>Replacement Words/Phrases</b><br /><br />Click here to view/edit the mis-spelt word/phrase data for search replacements:');
+define('SIDEBAR_INFO_3', '<b>Replacement Words/Phrases</b><br><br>Click here to view/edit the mis-spelt word/phrase data for search replacements:');
 
 define('BUTTON_VIEW_WORD_LIST', 'View word/phrase list');
 define('BUTTON_UPDATE_WORD_LIST', 'Update from Raw Data');
