@@ -39,7 +39,7 @@
         "ext-zlib": "*",
         "lib-libxml": "*",
 		"symfony/symfony": "~5.0",
-		"smarty/smarty": "~3.1",
+		"smarty/smarty": "~4.0",
 		"mobiledetect/mobiledetectlib": "^2.8",
 		"paypal/rest-api-sdk-php": "*",
 		"stripe/stripe-php": "^7.0",

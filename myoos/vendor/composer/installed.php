@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '2c9e4e825421a21d81aeea23c16bd864580da74e',
+        'reference' => '7f8fdc0cba15099b2753d16ad94fa4015bcd22c5',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '2c9e4e825421a21d81aeea23c16bd864580da74e',
+            'reference' => '7f8fdc0cba15099b2753d16ad94fa4015bcd22c5',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -431,12 +431,12 @@
             'dev_requirement' => false,
         ),
         'smarty/smarty' => array(
-            'pretty_version' => 'v3.1.40',
-            'version' => '3.1.40.0',
+            'pretty_version' => 'v4.0.0',
+            'version' => '4.0.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../smarty/smarty',
             'aliases' => array(),
-            'reference' => '9d4f8309ed49702e0d7152f9983c3a9c4b98eb9d',
+            'reference' => 'baebd59bb4da9fca89da382811b38c8313949c49',
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
