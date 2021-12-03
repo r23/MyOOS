@@ -19,11 +19,6 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/* ----------------------------------------------------------------------
-   If you made a translation, please send to
-      lang@oos-shop.de
-   the translated file.
-   ---------------------------------------------------------------------- */
 
 $aLang['email_text_subject'] = 'Order Process';
 $aLang['email_text_order_number'] = 'Order Number:';

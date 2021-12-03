@@ -46,6 +46,8 @@ $aLang['heading_comment'] = 'Comment';
 $aLang['text_no_comments_available'] = 'No comments available.';
 
 $aLang['serial'] = 'Serial #:';
+$aLang['text_yes'] = 'Yes, I would like to return an old device free of charge upon delivery of the new device.';
+$aLang['text_no'] = 'No, I do not want to return an old device free of charge when the new device is delivered.';
 
 $aLang['table_heading_download_date'] = 'Link expires: ';
 $aLang['table_heading_download_count'] = ' downloads remain.';

@@ -46,6 +46,8 @@ $aLang['heading_comment'] = 'Kommentar';
 $aLang['text_no_comments_available'] = 'Kein Kommentar vorhanden.';
 
 $aLang['serial'] = 'SN:';
+$aLang['text_yes'] = 'Ja, ich möchte bei Auslieferung des neuen Gerätes ein Altgerät unentgeltlich zurückgeben.';
+$aLang['text_no'] = 'Nein, ich möchte bei Auslieferung des neuen Gerätes kein Altgerät unentgeltlich zurückgeben.';
 
 $aLang['table_heading_download_date'] = 'herunterladen möglich bis:';
 $aLang['table_heading_download_count'] = 'max. Anz. Downloads';

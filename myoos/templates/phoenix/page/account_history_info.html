@@ -102,6 +102,15 @@
 														<br><nobr><span class="d-block g-color-gray-dark-v4 fs-13 mb-2">small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></span></small></nobr>
 													{/foreach}
 												{/if}
+												
+												{if ( $products.old_electrical_equipment gt 1 ) }
+												
+													{if ( $products.return_free_of_charge gt 1 ) }
+														<br>{$lang.text_yes} und
+													{elseif ( $products.return_free_of_charge gt 0 ) }
+														<br>{$lang.text_no}
+													{/if}											
+												{/if}												
 												<span class="d-block g-color-lightred mb-2">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty currency=$order->info.currency currency_value=$order->info.currency_value}</span>
 												<a class="btn btn-primary" href="{html_href_link content=$filename.account_history_info action=buy_now products_id=$products.id order_id=$products.orders_id page=$page}" role="button"><i class="fa fa-cart-plus" aria-hidden="true"></i> {$lang.button_buy_it_again}</a>
 											</div>
@@ -131,12 +140,22 @@
 											</div>
 
 											<div class="col-8 col-sm-9 g-mb-30">
-												<h4 class="h6 g-font-weight-400">{$products.name}{if !empty($products.serial_number) }&nbsp;&nbsp;({$lang.serial}{$products.serial_number}){/if}</h4>
+												<h4 class="h6 g-font-weight-400">dd {$products.name}{if !empty($products.serial_number) }&nbsp;&nbsp;({$lang.serial}{$products.serial_number}){/if}</h4>
 												{if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
 													{foreach item=attributes from=$products.attributes}
 														<br><nobr><span class="d-block g-color-gray-dark-v4 fs-13 mb-2">small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></span></small></nobr>
 													{/foreach}
 												{/if}
+
+												{if ($products.old_electrical_equipment gt 1) }
+												<b>JA</b>
+													{if ($products.return_free_of_charge gt 1) }
+														<br>{$lang.text_yes} und
+													{elseif ($products.return_free_of_charge gt 0) }
+														<br>{$lang.text_no}
+													{/if}											
+												{/if}												
+												
 												<span class="d-block g-color-lightred mb-2">{oos_display_price price=$products.final_price tax=$products.tax qty=$products.qty currency=$order->info.currency currency_value=$order->info.currency_value}</span>
 											</div>
 										</div>
