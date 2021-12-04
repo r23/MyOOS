@@ -36108,8 +36108,12 @@ function BlockStylesPreviewPanelFill(_ref2) {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Fill, {
     name: `BlockStylesPreviewPanel/${scope}`
   }, (0,external_wp_element_namespaceObject.createElement)("div", props, children));
-} // Block Styles component for the Settings Sidebar.
+} // Top position (in px) of the Block Styles container
+// relative to the editor pane.
+// The value is the equivalent of the container's right position.
 
+
+const DEFAULT_POSITION_TOP = 16; // Block Styles component for the Settings Sidebar.
 
 function BlockStyles(_ref3) {
   let {
@@ -36133,7 +36137,8 @@ function BlockStyles(_ref3) {
   const isMobileViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium', '<');
   (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
     const scrollContainer = document.querySelector('.interface-interface-skeleton__content');
-    setContainerScrollTop(scrollContainer.scrollTop + 16);
+    const scrollTop = (scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.scrollTop) || 0;
+    setContainerScrollTop(scrollTop + DEFAULT_POSITION_TOP);
   }, [hoveredStyle]);
 
   if (!stylesToRender || stylesToRender.length === 0) {
