@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-02 07:02:17+0000\n"
+"PO-Revision-Date: 2021-12-06 11:05:24+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,11 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - AMP - Stable (latest release)\n"
+
+#. translators: %s is the URL being redirected to.
+#: includes/validation/class-amp-validation-manager.php:1767
+msgid "Unable to validate a URL on another site. Attempted to validate: %s"
+msgstr "Die Überprüfung einer URL auf einer andere Website ist nicht möglich. Überprüfung versucht mit: %s"
 
 #: templates/header-bar.php:27
 msgid "Site icon"
@@ -25,7 +30,7 @@ msgid "Check your connection and open your browser console to see if there are a
 msgstr "Überprüfe deine Verbindung und öffne deine Browser-Konsole, um zu sehen, ob es irgendwelche Fehlermeldungen gibt. Diese kannst du im <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">Supportforum</a> teilen."
 
 #: src/LoadingError.php:37 assets/js/amp-onboarding-wizard.js:1
-#: assets/js/amp-settings.js:1
+#: assets/js/amp-settings.js:7
 msgid "Something went wrong."
 msgstr "Etwas ist schief gelaufen."
 
@@ -33,9 +38,8 @@ msgstr "Etwas ist schief gelaufen."
 msgid "Loading"
 msgstr "Lädt"
 
-#. translators: %s is the AMP support forum URL.
 #: src/DevTools/ErrorPage.php:277 src/LoadingError.php:47
-#: assets/js/amp-onboarding-wizard.js:2 assets/js/amp-settings.js:2
+#: assets/js/amp-onboarding-wizard.js:2 assets/js/amp-settings.js:8
 msgid "https://wordpress.org/support/plugin/amp/"
 msgstr "https://wordpress.org/support/plugin/amp/"
 
@@ -45,18 +49,18 @@ msgid "If you get stuck, you may want to share any details in a new topic on the
 msgstr "Wenn du nicht weiterkommst, kannst du alle Details in einem neuen Thema im <a href=\"%s\" target=\"_blank\" rel=\"noreferrer noopener\">Supportforum</a> des Plugins mitteilen."
 
 #. translators: %s is count of functions
-#: src/Admin/SiteHealth.php:264
+#: src/Admin/SiteHealth.php:266
 msgid "There is %s undefined cURL multi function"
 msgid_plural "There are %s undefined cURL multi functions"
 msgstr[0] "Es gibt %s undefinierte cURL-Multifuntion"
 msgstr[1] "Es gibt %s undefinierte cURL-Multifuntionen"
 
-#: src/Editor/EditorSupport.php:83
+#: src/Editor/EditorSupport.php:67
 msgid "AMP functionality is not available since your version of the Block Editor is too old. Please either update WordPress core to the latest version or activate the Gutenberg plugin."
 msgstr "Die AMP-Funktionalität ist nicht verfügbar, da deine Version des Block-Editors zu alt ist. Bitte aktualisiere entweder den WordPress-Core zur neuesten Version oder aktiviere das Gutenberg-Plugin."
 
 #: includes/templates/amp-enabled-classic-editor-toggle.php:32
-msgid "Your version of WordPress is too old manage whether AMP is enabled. Please upgrade."
+msgid "Your version of WordPress is too old to manage whether AMP is enabled. Please upgrade."
 msgstr "Deine Version von WordPress ist zu alt, um festzustellen, ob AMP aktiviert ist. Bitte führe ein Upgrade durch."
 
 #. translators: %1$s: the URL, %2$d: the HTTP status code, %3$s: the HTTP
@@ -123,30 +127,30 @@ msgid "WordPress core"
 msgstr "WordPress-Core"
 
 #. translators: %1$s is the value of the slug
-#: src/Admin/SiteHealth.php:215
+#: src/Admin/SiteHealth.php:217
 msgid "Your AMP slug (%s) is defined early so you're good to go!"
 msgstr "Deine AMP-Titelform (%s) wird früh definiert, sodass du startklar bist!"
 
 #. translators: %1$s is the value of the slug, %2$s is the constant name, %3$s
 #. is the filter name
-#: src/Admin/SiteHealth.php:206
+#: src/Admin/SiteHealth.php:208
 msgid "Your AMP slug (%1$s) is defined late, most likely in the theme via the %2$s filter or %3$s constant. Make sure this is being defined in a plugin at the top level so it happens before %4$s. While a late-defined AMP slug will still work, it requires extra work to make the slug available earlier in WordPress execution by storing it in an option."
 msgstr "Deine AMP-Titelform (%1$s) wird spät definiert, meistens in einem Theme über den Filter %2$s oder die Konstante %3$s. Stelle sicher, dass sie in einem Plugin zu Beginn definiert wird, bevor %4$s ausgeführt wird. Während eine spät definierte AMP-Titelform funktioniert, erfordert sie zusätzliche Arbeit, um die Titelform früher in der WordPress-Ausführung verfügbar zu machen, indem sie als Option gespeichert wird."
 
 #. translators: %s is 'plugins_loaded'
-#: src/Admin/SiteHealth.php:198
+#: src/Admin/SiteHealth.php:200
 msgid "For best results, the AMP slug (query var) should be available early in WordPress's execution flow, specifically before the %s action occurs (at priority 4). This slug is used to construct the paired AMP URLs."
 msgstr "Für die besten Ergebnisse sollte die AMP-Titelform (Abfrage-Variable) früh in der Ausführungsreihenfolge von WordPress verfügbar sein, speziell vor der Action %s (bei Priorität 4). Diese Titelform wird benutzt, um gepaarte AMP-URLs zu erstellen."
 
-#: src/Admin/SiteHealth.php:194
+#: src/Admin/SiteHealth.php:196
 msgid "The AMP slug (query var) was defined early"
 msgstr "Die AMP-Titelform (Abfrage-Variable) wurde früh definiert"
 
-#: src/Admin/SiteHealth.php:193
+#: src/Admin/SiteHealth.php:195
 msgid "The AMP slug (query var) was defined late"
 msgstr "Die AMP-Titelform (Abfrage-Variable) wurde spät definiert"
 
-#: src/Admin/SiteHealth.php:108
+#: src/Admin/SiteHealth.php:110
 msgid "AMP slug (query var) definition timing"
 msgstr "Definierungszeitpunkt der AMP-Titelform (Abfrage-Variable)"
 
@@ -163,7 +167,7 @@ msgstr "Die angeforderte URL ist keime AMP-Seite."
 msgid "The requested URL is not an AMP page. AMP may have been disabled for the URL. If so, you can forget the Validated URL."
 msgstr "Die angeforderte URL ist keime AMP-Seite. AMP wurde möglicherweise für die URL deaktiviert. Wenn dem so ist, kannst du die überprüfte URL vergessen."
 
-#: includes/class-amp-theme-support.php:1856
+#: includes/class-amp-theme-support.php:1866
 msgid "The requested URL did not result in an AMP page being rendered."
 msgstr "Die angeforderte URL führt nicht dazu, dass eine AMP-Seite gerendert wird."
 
@@ -179,7 +183,7 @@ msgstr "Mehr anzeigen"
 msgid "An easier path to great Page Experience for everyone. Powered by AMP."
 msgstr "Ein einfacherer Weg für eine großartige Seiten-Erfahrung für jeden. Angetrieben von AMP."
 
-#: includes/admin/class-amp-post-meta-box.php:436
+#: includes/admin/class-amp-post-meta-box.php:440
 msgid "The post data could not be successfully retrieved."
 msgstr "Die Beitragsdaten konnten nicht erfolgreich abgerufen werden."
 
@@ -263,15 +267,18 @@ msgid "All Validated URLs"
 msgstr "Alle überprüften URLs"
 
 #. translators: placeholder is the slug of the theme
+#. translators: placeholder is the slug of the theme
 #: includes/amp-helper-functions.php:411 src/DevTools/ErrorPage.php:315
 msgid "It appears the theme with slug %s is responsible; please contact the author."
 msgstr "Anscheinend ist das Theme mit der Titelform %s verantwortlich; wende dich an den Autor."
 
 #. translators: placeholder is the slug of the must-use plugin
+#. translators: placeholder is the slug of the must-use plugin
 #: includes/amp-helper-functions.php:407 src/DevTools/ErrorPage.php:311
 msgid "It appears the must-use plugin with slug %s is responsible; please contact the author."
 msgstr "Anscheinend ist das Must-Use-Plugin mit der Titelform %s verantwortlich; wende dich an den Autor."
 
+#. translators: placeholder is the slug of the plugin
 #. translators: placeholder is the slug of the plugin
 #: includes/amp-helper-functions.php:403 src/DevTools/ErrorPage.php:307
 msgid "It appears the plugin with slug %s is responsible; please contact the author."
@@ -285,15 +292,15 @@ msgstr "Die Lese-Standardthemes können nicht angezeigt werden, weil die Themes-
 msgid "The request for reader themes from WordPress.org resulted in an invalid response. Check your Site Health to confirm that your site can communicate with WordPress.org. Otherwise, please try again later or contact your host."
 msgstr "Die Anforderung von Lese-Themes von WordPress.org führte zu einer ungültigen Antwort. Prüfe den Zustand deiner Website, um zu bestätigen, dass deine Website mit WordPress.org kommunizieren kann. Versuche es ansonsten später noch einmal oder wende dich an deinen Host."
 
-#: includes/class-amp-theme-support.php:1715
+#: includes/class-amp-theme-support.php:1725
 msgid "Go to non-AMP version"
 msgstr "Zur Nicht-AMP-Version gehen"
 
-#: includes/class-amp-theme-support.php:1694
+#: includes/class-amp-theme-support.php:1704
 msgid "A PHP error occurred while trying to prepare the AMP response. This may not be caused by the AMP plugin but by some other active plugin or the current theme. You will need to review the error details to determine the source of the error."
 msgstr "Während versucht wurde, die AMP-Antwort zu erstellen, trat ein PHP-Fehler auf. Dieser wurde möglicherweise nicht vom AMP-Plugin ausgelöst, sondern von einem anderen Plugin oder dem aktuellen Theme. Du musst die Fehlerdetails überprüfen, um die Quelle des Fehlers zu erkennen."
 
-#: includes/class-amp-theme-support.php:1693
+#: includes/class-amp-theme-support.php:1703
 msgid "Failed to prepare AMP page"
 msgstr "AMP-Seite konnte nicht erstellt werden"
 
@@ -301,30 +308,30 @@ msgstr "AMP-Seite konnte nicht erstellt werden"
 msgid "The exact details of the error are hidden for security reasons. To learn more about this error, enable the WordPress debugging display (by setting both <code>WP_DEBUG</code> and <code>WP_DEBUG_DISPLAY</code> to <code>true</code>), or look into the PHP error log. Learn more about <a href=\"https://wordpress.org/support/article/debugging-in-wordpress/\">Debugging in WordPress</a>."
 msgstr "Die genauen Details des Fehlers sind aus Sicherheitsgründen versteckt. Um mehr über diesen Fehler zu erfahren, aktiviere den Debug-Modus von WordPress (durch das Setzen von <code>WP_DEBUG</code> und <code>WP_DEBUG_DISPLAY</code> auf <code>true</code>) oder schaue in das PHP-Fehlerprotokoll. Erfahre mehr über <a href=\"https://wordpress.org/support/article/debugging-in-wordpress/\">Debugging in WordPress (engl.)</a>."
 
-#: src/Admin/ReaderThemes.php:247 assets/js/amp-settings.js:2
+#: src/Admin/ReaderThemes.php:247 assets/js/amp-settings.js:16
 msgid "Error:"
 msgstr "Fehler:"
 
-#: includes/admin/class-amp-post-meta-box.php:584
+#: includes/admin/class-amp-post-meta-box.php:588
 msgid "The AMP enabled status failed to be updated."
 msgstr "Der AMP-Aktivierungsstatus konnte nicht aktualisiert werden."
 
-#: includes/admin/class-amp-post-meta-box.php:567
+#: includes/admin/class-amp-post-meta-box.php:571
 msgid "Insufficient permissions to change whether AMP is enabled."
 msgstr "Du hast nicht die erforderlichen Berechtigungen, um AMP zu aktivieren."
 
 #. translators: %s: The name of the post type.
-#: includes/admin/class-amp-post-meta-box.php:557
+#: includes/admin/class-amp-post-meta-box.php:561
 msgid "AMP is not supported for the \"%s\" post type."
 msgstr "AMP wird für den Beitragstyp „%s“ nicht unterstützt."
 
 #. translators: %s is a link to the AMP settings screen
-#: includes/admin/class-amp-post-meta-box.php:428
+#: includes/admin/class-amp-post-meta-box.php:432
 msgid "This post type is not <a href=\"%s\" target=\"_blank\">enabled</a>."
 msgstr "Dieser Beitragstyp ist nicht <a href=\"%s\" target=\"_blank\">aktiviert</a>."
 
 #. translators: %s is a link to the AMP settings screen
-#: includes/admin/class-amp-post-meta-box.php:421
+#: includes/admin/class-amp-post-meta-box.php:425
 msgid "There are no <a href=\"%s\" target=\"_blank\">supported templates</a>."
 msgstr "Es gibt keine <a href=\"%s\" target=\"_blank\">unterstützten Templates</a>."
 
@@ -352,15 +359,15 @@ msgid "While <a href=\"%1$s\" target=\"_blank\">AMP</a> works well on both deskt
 msgstr "Während <a href=\"%1$s\" target=\"_blank\">AMP</a> sowohl am Desktop als auch für mobile Seiten problemlos funktioniert, ist deine Website <a href=\"%2$s\" target=\"_blank\">aktuell im Lesemodus konfiguriert</a>, um mobilen Besuchern AMP-Seiten auszuliefern. Diese Einstellungen passen die Erfahrung für diese Benutzer an."
 
 #. translators: %s is WP_DEBUG_DISPLAY
-#: includes/validation/class-amp-validation-manager.php:2071
+#: includes/validation/class-amp-validation-manager.php:2094
 msgid "Alternatively, you may enable %s to show the error details below."
 msgstr "Alternativ kannst du %s aktivieren, um Fehlerdetails unten einzusehen."
 
-#: includes/validation/class-amp-validation-manager.php:2069
+#: includes/validation/class-amp-validation-manager.php:2092
 msgid "The error details appear below."
 msgstr "Die Fehlerdetails erscheinen unten."
 
-#: includes/validation/class-amp-validation-manager.php:2067
+#: includes/validation/class-amp-validation-manager.php:2090
 msgid "A PHP fatal error occurred while validating the URL. This may indicate either a bug in theme/plugin code or it may be due to an issue in the AMP plugin itself."
 msgstr "Ein fataler PHP-Fehler trat während der URL-Überprüfung auf. Dies deutet möglicherweise entweder auf einen Fehler innerhalb von Theme-/Plugin-Code hin oder ist ein Problem innerhalb des AMP-Plugins selbst."
 
@@ -518,7 +525,7 @@ msgstr "Überprüft"
 msgid "AMP DevTools"
 msgstr "AMP DevTools"
 
-#: includes/class-amp-theme-support.php:2082
+#: includes/class-amp-theme-support.php:2092
 msgid "Redirecting since AMP version not available."
 msgstr "Leite weiter, da die AMP-Version nicht verfügbar ist."
 
@@ -561,7 +568,7 @@ msgctxt "prefix for theme card in list"
 msgid "Reader:"
 msgstr "Lesemodus:"
 
-#: src/ReaderThemeLoader.php:240 assets/js/amp-onboarding-wizard.js:2
+#: src/ReaderThemeLoader.php:240 assets/js/amp-onboarding-wizard.js:16
 msgid "Customize"
 msgstr "Anpassen"
 
@@ -641,7 +648,7 @@ msgstr "AMP-Entwicklerwerkzeuge"
 msgid "Whether the user has enabled dev tools."
 msgstr "Ob der Benutzer Entwicklerwerkzeuge aktiviert hat."
 
-#: src/Admin/SiteHealth.php:556
+#: src/Admin/SiteHealth.php:558
 msgid "Additionally, AMP requires HTTPS for most components to work properly, including iframes and videos."
 msgstr "Zusätzlich erfordert AMP HTTPS für die meisten Komponenten, inklusive iframes und Videos, um korrekt zu arbeiten."
 
@@ -667,34 +674,34 @@ msgstr "Die im Plugin enthaltenen Original-Templates mit begrenzten Anpassungsm�
 msgid "AMP Legacy"
 msgstr "AMP Legacy"
 
-#: src/Admin/SiteHealth.php:413
+#: src/Admin/SiteHealth.php:415
 msgid "The operation failed, please reload the page and try again."
 msgstr "Der Vorgang ist fehlgeschlagen, bitte lade die Seite neu und versuche es noch einmal."
 
-#: src/Admin/SiteHealth.php:412
+#: src/Admin/SiteHealth.php:414
 msgid "Reload the page to refresh the diagnostic check."
 msgstr "Lade die Seite neu, um die Diagnoseprüfung zu aktualisieren."
 
-#: src/Admin/SiteHealth.php:411
+#: src/Admin/SiteHealth.php:413
 msgid "Re-enable transient caching"
 msgstr "Transient-Caching wieder aktivieren"
 
-#: src/Admin/SiteHealth.php:408
+#: src/Admin/SiteHealth.php:410
 msgid "If you have identified and eliminated the cause of the variable CSS, please re-enable transient caching to reduce the amount of CSS processing required to generate AMP pages."
 msgstr "Wenn du den Grund gefunden und behoben hast, der zu dem variablen CSS führt, aktiviere bitte wieder das Transient-Caching, um die Menge des verarbeiteten CSS zu verringern, das für das Generieren von AMP-Seiten erforderlich ist."
 
 #. translators: %1$s is wp_options table, %2$s is the
 #. amp_css_transient_monitoring_threshold filter, and %3$s is the
 #. amp_css_transient_monitoring_sampling_range filter
-#: src/Admin/SiteHealth.php:393
+#: src/Admin/SiteHealth.php:395
 msgid "On sites which have highly variable CSS and are not using a persistent object cache, the transient caching of parsed stylesheets may be automatically disabled in order to prevent a site from filling up its <code>%1$s</code> table with too many transients. Examples of highly variable CSS include dynamically-generated style rules with selectors referring to user IDs or elements being given randomized background colors. There are two filters which may be used to configure the CSS transient monitoring: <code>%2$s</code> and <code>%3$s</code>."
 msgstr "Auf Websites, die viel variables CSS besitzen und keinen persistenten Objekt-Cache benutzen, wird das Transient-Caching von geparseten Stylesheets möglicherweise automatisch deaktiviert, um die Website davor zu schützen, ihre <code>%1$s</code>-Tabelle mit zu vielen Transients zu befüllen. Beispiele von viel variablem CSS beinhaltet dynamisch generierte Stil-Regalen mit Selektoren, die Benutzer-IDs referenzieren oder Elemente, denen zufällige Hintergrundfarben gegeben wurden. Es gibt zwei Filter, die benutzt werden können, um das CSS-Transient-Monitoring zu konfigurieren: <code>%2$s</code> und <code>%3$s</code>."
 
-#: src/Admin/PairedBrowsing.php:118 src/Admin/PairedBrowsing.php:226
+#: src/Admin/PairedBrowsing.php:130 src/Admin/PairedBrowsing.php:238
 msgid "Paired Browsing"
 msgstr "Gepaartes Surfen"
 
-#: src/Admin/SiteHealth.php:525
+#: src/Admin/SiteHealth.php:527
 msgid "Calculated time series for monitoring the stylesheet caching"
 msgstr "Berechnete Zeitbereiche zur Überwachung des Stylesheet-Cachings"
 
@@ -707,40 +714,40 @@ msgstr "Nachricht"
 msgid "Failed to fetch: %1$s (%2$s)"
 msgstr "Abruf fehlgeschlagen: %1$s (%2$s)"
 
-#: src/Admin/PairedBrowsing.php:320
+#: src/Admin/PairedBrowsing.php:332
 msgid "AMP Paired Browsing:"
 msgstr "AMP gepaartes Surfen:"
 
-#: src/Admin/PairedBrowsing.php:285
+#: src/Admin/PairedBrowsing.php:297
 msgid "AMP Paired Browsing Unavailable"
 msgstr "AMP gepaartes Surfen nicht verfügbar"
 
-#: src/Admin/PairedBrowsing.php:284
+#: src/Admin/PairedBrowsing.php:296
 msgid "Paired browsing is only available when AMP dev mode is enabled (e.g. when logged-in and admin bar is showing)."
 msgstr "Gepaartes Browsing ist nur verfügbar, wenn der AMP-Entwicklungsmodus aktiv ist (beispielsweise wenn man angemeldet ist und die Adminleiste angezeigt wird)."
 
-#: includes/class-amp-theme-support.php:2056
+#: includes/class-amp-theme-support.php:2066
 msgid "AMP optimization could not be completed due to the following:"
 msgstr "AMP-Optimierung konnte aufgrund des folgenden nicht abgeschlossen werden:"
 
-#: includes/validation/class-amp-validation-manager.php:2087
+#: includes/validation/class-amp-validation-manager.php:2110
 msgid "URL validation failed due to unexpected JSON in AMP validation response."
 msgstr "URL-Überprüfung aufgrund eines nicht erwarteten JSON in der AMP-Überprüfungssantwort fehlgeschlagen."
 
-#: includes/validation/class-amp-validation-manager.php:2078
+#: includes/validation/class-amp-validation-manager.php:2101
 msgid "URL validation failed due to the AMP validation request not returning JSON data. This may be due to a PHP fatal error occurring."
 msgstr "URL-Überprüfung fehlgeschlagen, weil die AMP-Überprüfungsanfrage keine JSON-Daten zurückgegeben hat. Dies kann auf einen fatalen PHP-Fehler zurückzuführen sein."
 
-#: includes/validation/class-amp-validation-manager.php:2041
+#: includes/validation/class-amp-validation-manager.php:2064
 msgid "Unable to validate URL. A white screen of death was encountered which is likely due to a PHP fatal error."
 msgstr "URL konnte nicht überprüft werden. Ein White Screen of Death ist aufgetreten, was auf einen fatalen PHP-Fehler hindeutet."
 
 #. translators: %1$s is link to Debugging in WordPress, %2$s is WP_DEBUG_LOG
-#: includes/validation/class-amp-validation-manager.php:1988
+#: includes/validation/class-amp-validation-manager.php:2011
 msgid "Please check your server PHP error logs; to do this you may need to <a href=\"%1$s\" target=\"_blank\">enable</a> %2$s."
 msgstr "Bitte überprüfe deine Server-PHP-Logs. Um das zu tun, musst du möglicherweise %2$s <a href=\"%1$s\" target=\"_blank\">aktivieren (engl.)</a>."
 
-#: includes/validation/class-amp-validation-manager.php:1846
+#: includes/validation/class-amp-validation-manager.php:1869
 msgid "Too many redirects."
 msgstr "Zu viele Umleitungen."
 
@@ -1185,184 +1192,186 @@ msgstr "Wird geladen&#8230;"
 msgid "Large site detected. Deactivation will leave orphaned scheduled events behind."
 msgstr "Große Website erkannt. Deaktivierung wird einige verweiste geplante Ereignisse hinterlassen."
 
-#: src/Admin/SiteHealth.php:601
+#: src/Admin/SiteHealth.php:603
 msgid "This option does not apply to Reader mode."
 msgstr "Diese Option gilt nicht für den Lesemodus."
 
-#: src/Admin/SiteHealth.php:588
+#: src/Admin/SiteHealth.php:590
 msgid "No template supported"
 msgstr "Kein Template unterstützt"
 
-#: src/Admin/SiteHealth.php:520
+#: src/Admin/SiteHealth.php:522
 msgid "Number of stylesheet transient cache entries"
 msgstr "Anzahl der Stylesheet-Transient-Cache-Einträge"
 
-#: src/Admin/SiteHealth.php:515
+#: src/Admin/SiteHealth.php:517
 msgid "Sampling range for monitoring stylesheet caching"
 msgstr "Stichproben-Bereich für die Überwachung des Stylesheet-Cachings"
 
-#: src/Admin/SiteHealth.php:510
+#: src/Admin/SiteHealth.php:512
 msgid "Threshold for monitoring stylesheet caching"
 msgstr "Schwellenwert für die Überwachung des Stylesheet-Cachings"
 
-#: src/Admin/SiteHealth.php:505
+#: src/Admin/SiteHealth.php:507
 msgid "Transient caching for stylesheets disabled"
 msgstr "Transient-Caching für Stylesheets deaktiviert"
 
-#: src/Admin/SiteHealth.php:500
+#: src/Admin/SiteHealth.php:502
 msgid "Serve all templates as AMP?"
 msgstr "Alle Templates als AMP ausliefern?"
 
-#: src/Admin/SiteHealth.php:495
+#: src/Admin/SiteHealth.php:497
 msgid "Templates enabled"
 msgstr "Templates aktiviert"
 
-#: src/Admin/SiteHealth.php:472
+#: src/Admin/SiteHealth.php:474
 msgid "Debugging information for the Official AMP Plugin for WordPress."
 msgstr "Debugging-Informationen für das offizielle AMP-Plugin für WordPress."
 
-#: src/Admin/SiteHealth.php:445
+#: src/Admin/SiteHealth.php:447
 msgid "Your server currently does not have the Xdebug PHP extension loaded"
 msgstr "Dein Server hat aktuell die Xdebug-PHP-Erweiterung nicht geladen"
 
 #. translators: %s: the WP_DEBUG constant
-#: src/Admin/SiteHealth.php:442
+#: src/Admin/SiteHealth.php:444
 msgid "Please deactivate Xdebug to improve performance. Otherwise, you may enable %s to indicate that this site is currently under development or is undergoing debugging."
 msgstr "Bitte deaktiviere Xdebug, um die Leistung zu verbessern. Aktiviere andernfalls %s, um zu signalisieren, dass sich deine Website aktuell in Entwicklung befindet oder ein Debugging stattfindet."
 
 #. translators: %s: the WP_DEBUG constant
-#: src/Admin/SiteHealth.php:437
+#: src/Admin/SiteHealth.php:439
 msgid "Nevertheless, %s is enabled which suggests that this site is currently under development or is undergoing debugging."
 msgstr "Nichtsdestotrotz, %s ist aktiviert, was signalisiert, dass sich diese Website aktuell in Entwicklung befindet oder ein Debugging stattfindet."
 
-#: src/Admin/SiteHealth.php:434
+#: src/Admin/SiteHealth.php:436
 msgid "Your server currently has the Xdebug PHP extension loaded"
 msgstr "Dein Server hat aktuell die Xdebug-PHP-Erweiterung geladen"
 
-#: src/Admin/SiteHealth.php:431
+#: src/Admin/SiteHealth.php:433
 msgid "The Xdebug extension can cause some of the AMP plugin&#8217;s processes to time out depending on your system resources and configuration. It should not be enabled on a live site (production environment)."
 msgstr "Die Xdebug-Erweiterung kann manche Prozesse des AMP-Plugins in ein Timeout laufen lassen, je nach Systemressourcen und -konfiguration. Es sollte nicht auf einer Live-Website (Produktivumgebung) aktiviert sein."
 
-#: src/Admin/SiteHealth.php:382
+#: src/Admin/SiteHealth.php:384
 msgid "Transient caching of parsed stylesheets is enabled"
 msgstr "Transient-Caching von geparseten Stylesheets ist aktiviert"
 
-#: src/Admin/SiteHealth.php:378
+#: src/Admin/SiteHealth.php:380
 msgid "Transient caching of parsed stylesheets is disabled"
 msgstr "Transient-Caching von geparseten Stylesheets ist deaktiviert"
 
-#: src/Admin/SiteHealth.php:374
+#: src/Admin/SiteHealth.php:376
 msgid "Transient caching of parsed stylesheets is not used due to external object cache"
 msgstr "Transient-Caching von geparseten Stylesheets wird aufgrund externem Objekt-Cache nicht benutzt"
 
 #. translators: %s: the ICU version
-#: src/Admin/SiteHealth.php:351
+#: src/Admin/SiteHealth.php:353
 msgid "The version of ICU (v%s) looks good"
 msgstr "Die Version von ICU (v%s) sieht gut aus"
 
 #. translators: %s: the ICU version
-#: src/Admin/SiteHealth.php:347
+#: src/Admin/SiteHealth.php:349
 msgid "The version of ICU (v%s) is out of date"
 msgstr "Die Version von ICU (v%s) ist veraltet"
 
 #. translators: %s: the constant for the ICU version
-#: src/Admin/SiteHealth.php:343
+#: src/Admin/SiteHealth.php:345
 msgid "The ICU version is unknown, as the constant %s is not defined"
 msgstr "Die ICU-Version ist unbekannt, da die Konstante %s nicht definiert ist"
 
-#: src/Admin/SiteHealth.php:333
+#: src/Admin/SiteHealth.php:335
 msgid "Learn more about ICU"
 msgstr "Mehr über ICU erfahren"
 
 #. translators: %s: the minimum recommended ICU version
-#: src/Admin/SiteHealth.php:326
+#: src/Admin/SiteHealth.php:328
 msgid "The version of ICU can affect how the intl extension runs. This extension is used to derive AMP Cache URLs for internationalized domain names (IDNs). The minimum recommended version of ICU is v%s."
 msgstr "Die Version von ICU kann beeinflussen, wie die intl-Erweiterung läuft. Diese Erweiterung wird benutzt, um AMP-Cache-URLs für internationale Domain-Namen (IDNs) abzuleiten. Die finale empfohlene Version von ICU ist v%s."
 
-#: src/Admin/SiteHealth.php:303
+#: src/Admin/SiteHealth.php:305
 msgid "The cURL multi functions are defined"
 msgstr "Die cURL-Multifunktionen sind definiert"
 
 #. translators: %1$s: the count of functions, %2$s: the name(s) of the cURL
 #. multi PHP function(s)
-#: src/Admin/SiteHealth.php:276
+#: src/Admin/SiteHealth.php:278
 msgid "The following %1$s cURL multi function is not defined: %2$s."
 msgid_plural "The following %1$s cURL multi functions are not defined: %2$s."
 msgstr[0] "Die %1$s folgende cURL-Multifunktion ist nicht definiert: %2$s."
 msgstr[1] "Die %1$s folgenden cURL-Multifunktionen sind nicht definiert: %2$s."
 
-#: src/Admin/SiteHealth.php:249
+#: src/Admin/SiteHealth.php:251
 msgid "Learn more about these functions"
 msgstr "Mehr über diese Funktionen erfahren"
 
-#: src/Admin/SiteHealth.php:248
+#: src/Admin/SiteHealth.php:250
 msgid "https://www.php.net/manual/en/book.curl.php"
 msgstr "https://www.php.net/manual/de/book.curl.php"
 
-#: src/Admin/SiteHealth.php:245
+#: src/Admin/SiteHealth.php:247
 msgid "The AMP plugin is able to more efficiently determine the dimensions of images lacking width or height by making parallel requests via cURL multi."
 msgstr "Das AMP-Plugin kann Bildabmessungen mit fehlender Breite oder Höhe besser erkennen, wenn mehrere parallele Abfragen mit cURL Multi gemacht werden."
 
-#: src/Admin/SiteHealth.php:170
+#: src/Admin/SiteHealth.php:172
 msgid "Persistent object caching is not enabled"
 msgstr "Persistenter Objekt-Cache ist nicht aktiviert"
 
-#: src/Admin/SiteHealth.php:169
+#: src/Admin/SiteHealth.php:171
 msgid "Persistent object caching is enabled"
 msgstr "Persistenter Objekt-Cache ist aktiviert"
 
 #. translators: The accessibility text.
+#. translators: The accessibility text.
+#. translators: The accessibility text.
 #. translators: accessibility text
-#: src/Admin/SiteHealth.php:147 src/Admin/SiteHealth.php:251
-#: src/Admin/SiteHealth.php:335 assets/js/amp-block-editor.js:31
+#: src/Admin/SiteHealth.php:149 src/Admin/SiteHealth.php:253
+#: src/Admin/SiteHealth.php:337 assets/js/amp-block-editor.js:31
 msgid "(opens in a new tab)"
 msgstr "(öffnet in neuem Tab)"
 
-#: src/Admin/SiteHealth.php:145
+#: src/Admin/SiteHealth.php:147
 msgid "Learn more about persistent object caching"
 msgstr "Erfahre mehr über persistentes Objekt-Caching"
 
-#: src/Admin/SiteHealth.php:164
+#: src/Admin/SiteHealth.php:166
 msgid "The AMP plugin performs at its best when persistent object cache is enabled. Object caching is used to more effectively store image dimensions and parsed CSS."
 msgstr "Das AMP-Plugin funktioniert am besten, wenn ein persistenter Objekt-Cache aktiviert ist. Objekt-Caching wird benutzt, um Bildabmessungen und geparsetes CSS effizienter zu speichern."
 
-#: src/Admin/SiteHealth.php:129
+#: src/Admin/SiteHealth.php:131
 msgid "Xdebug extension"
 msgstr "Xdebug-Erweiterung"
 
-#: src/Admin/SiteHealth.php:125
+#: src/Admin/SiteHealth.php:127
 msgid "Transient caching of stylesheets"
 msgstr "Transient-Caching von Stylesheets"
 
-#: src/Admin/SiteHealth.php:119
+#: src/Admin/SiteHealth.php:121
 msgid "ICU version"
 msgstr "ICU-Version"
 
-#: src/Admin/SiteHealth.php:113
+#: src/Admin/SiteHealth.php:115
 msgid "cURL multi functions"
 msgstr "cURL-Multifunktionen"
 
-#: src/Admin/SiteHealth.php:103
+#: src/Admin/SiteHealth.php:105
 msgid "Persistent object cache"
 msgstr "Persistenter Objekt-Cache"
 
-#: includes/validation/class-amp-validation-manager.php:2032
+#: includes/validation/class-amp-validation-manager.php:2055
 msgid "Failed to fetch URL to validate."
 msgstr "URL zur Validierung konnte nicht abgerufen werden."
 
 #. translators: %s is the URL to Site Health Info.
-#: includes/validation/class-amp-validation-manager.php:2013
+#: includes/validation/class-amp-validation-manager.php:2036
 msgid "Please include your <a href=\"%s\">Site Health Info</a>."
 msgstr "Bitte gib auch deine <a href=\"%s\">Website-Zustand-Info</a> an."
 
 #. translators: %s is link to Site Health
-#: includes/validation/class-amp-validation-manager.php:2008
+#: includes/validation/class-amp-validation-manager.php:2031
 msgid "Please check your <a href=\"%s\">Site Health</a> to verify it can perform loopback requests."
 msgstr "Bitte überprüfe deinen <a href=\"%s\">Website-Zustand</a>, um zu verifizieren, dass Loopback-Anfragen durchgeführt werden können."
 
 #. translators: %1$s: Link to support forum. %2$s: Link to new topic form in
 #. support forum.
-#: includes/validation/class-amp-validation-manager.php:1999
+#: includes/validation/class-amp-validation-manager.php:2022
 msgid "If you are stuck, please search the <a href=\"%1$s\">support forum</a> for possible related topics, or otherwise start a <a href=\"%2$s\">new support topic</a> including the error message, the URL to your site, and your active theme/plugins."
 msgstr "Wenn du ein Problem hast, suche bitte im <a href=\"%1$s\">Supportforum</a> nach ähnlichen Problemen oder erstelle ein <a href=\"%2$s\">neues Thema</a> mit der Fehlermeldung, der URL zu deiner Website und deinem aktiven Theme bzw. aktiven Plugins."
 
@@ -1466,7 +1475,7 @@ msgid "Must-Use Plugin"
 msgstr "Must-Use-Plugin"
 
 #: includes/validation/class-amp-validation-error-taxonomy.php:2652
-#: assets/js/amp-settings.js:38
+#: assets/js/amp-settings.js:52
 msgid "Plugin"
 msgstr "Plugin"
 
@@ -1778,7 +1787,7 @@ msgid "Please update to PWA v0.2. Expected argument to be %s."
 msgstr "Bitte aktualisiere auf Version 0.2 des PWA-Plugins. Erwartete als Argument %s."
 
 #. translators: %s is error code
-#: includes/validation/class-amp-validation-manager.php:2096
+#: includes/validation/class-amp-validation-manager.php:2119
 msgid "URL validation failed. Error code: %s."
 msgstr "URL-Validierung ist fehlgeschlagen. Fehlercode: %s."
 
@@ -1797,11 +1806,13 @@ msgid "Use %1$s function which is already included from %2$s"
 msgstr "Benutze die Funktion %1$s, die bereits von %2$s bereitgestellt wird"
 
 #. translators: %s: the URL to the edit post screen.
+#. translators: %s: the URL to the edit post screen.
 #: includes/class-amp-theme-support.php:699
 #: includes/class-amp-theme-support.php:708
 msgid "Currently disabled at the <a href=\"%s\">page level</a>."
 msgstr "Aktuell auf <a href=\"%s\">Seitenebene</a> deaktiviert."
 
+#. translators: 1: embed handler. 2: AMP_Embed_Handler
 #. translators: 1: embed handler. 2: AMP_Embed_Handler
 #: includes/class-amp-theme-support.php:980
 #: includes/templates/class-amp-content.php:179
@@ -1926,11 +1937,11 @@ msgstr "Das Template \"%s\" hat einen ungültigen Callback."
 msgid "No WP_Query available."
 msgstr "Kein WP_Query verfügbar."
 
-#: includes/validation/class-amp-validation-manager.php:2058
+#: includes/validation/class-amp-validation-manager.php:2081
 msgid "An internal server error occurred when fetching the URL for validation."
 msgstr "Während dem Aufruf der URL zur Validierung ist ein interner Serverfehler aufgetreten."
 
-#: includes/validation/class-amp-validation-manager.php:2050
+#: includes/validation/class-amp-validation-manager.php:2073
 msgid "The fetched URL was not found. It may have been deleted. If so, you can trash this."
 msgstr "Die aufgerufene URL wurde nicht gefunden. Falls sie gelöscht wurde, kannst du das hier in den Papierkorb legen."
 
@@ -2105,6 +2116,7 @@ msgstr[0] "%s validierte URL wiederhergestellt."
 msgstr[1] "%s validierte URLs wiederhergestellt."
 
 #. translators: %s is the number of posts forgotten
+#. translators: %s is the number of posts forgotten
 #: includes/validation/class-amp-validated-url-post-type.php:3095
 #: includes/validation/class-amp-validated-url-post-type.php:3102
 msgid "%s validated URL forgotten."
@@ -2162,8 +2174,6 @@ msgstr "Änderungsvorschau"
 msgid "Last checked: <b>%s</b>"
 msgstr "Zuletzt geprüft: <b>%s</b>"
 
-#. translators: 1: number of errors being displayed. 2: total number of errors
-#. found.
 #: includes/sanitizers/class-amp-iframe-sanitizer.php:205
 #: assets/js/amp-validated-url-post-edit-screen.js:3
 msgid "Show all"
@@ -2253,7 +2263,7 @@ msgstr "Quellen"
 msgid "AMP disabled"
 msgstr "AMP deaktiviert"
 
-#: includes/admin/class-amp-post-meta-box.php:512
+#: includes/admin/class-amp-post-meta-box.php:516
 #: includes/validation/class-amp-validated-url-post-type.php:2181
 msgid "AMP enabled"
 msgstr "AMP aktiviert"
@@ -2308,6 +2318,8 @@ msgstr "Willkommen bei AMP für WordPress"
 msgid "Settings"
 msgstr "Einstellungen"
 
+#. translators: %s: the human-readable time difference.
+#. translators: %s: the human-readable time difference.
 #. translators: %s: the human-readable time difference.
 #: back-compat/templates-v0-3/meta-time.php:21
 #: includes/validation/class-amp-validation-error-taxonomy.php:1972
@@ -2384,7 +2396,7 @@ msgstr "j. M Y, G:i"
 
 #: includes/validation/class-amp-validated-url-post-type.php:1709
 #: includes/validation/class-amp-validated-url-post-type.php:2053
-#: assets/js/amp-settings.js:38
+#: assets/js/amp-settings.js:52
 msgid "Status"
 msgstr "Status"
 
@@ -2406,14 +2418,14 @@ msgid "--"
 msgstr "--"
 
 #. translators: %s is comma-separated list of one or more plugins
-#: includes/validation/class-amp-validation-manager.php:2146
+#: includes/validation/class-amp-validation-manager.php:2169
 msgid "Warning: The following plugin may be incompatible with AMP: %s."
 msgid_plural "Warning: The following plugins may be incompatible with AMP: %s."
 msgstr[0] "Achtung: Das folgende Plugin könnte mit AMP inkompatibel sein: %s"
 msgstr[1] "Achtung: Die folgenden Plugins könnten mit AMP inkompatibel sein: %s"
 
-#: includes/validation/class-amp-validation-manager.php:2138
-#: assets/js/amp-settings.js:38
+#: includes/validation/class-amp-validation-manager.php:2161
+#: assets/js/amp-settings.js:52
 msgid "More details"
 msgstr "Mehr Details"
 
@@ -2424,8 +2436,8 @@ msgstr "Keine Validierungsfehler gefunden."
 #: includes/validation/class-amp-validated-url-post-type.php:3018
 #: includes/validation/class-amp-validation-error-taxonomy.php:1698
 #: includes/validation/class-amp-validation-error-taxonomy.php:1718
-#: assets/js/amp-onboarding-wizard.js:2 assets/js/amp-settings.js:2
-#: assets/js/amp-settings.js:38
+#: assets/js/amp-onboarding-wizard.js:2 assets/js/amp-settings.js:8
+#: assets/js/amp-settings.js:52
 msgid "Details"
 msgstr "Details"
 
@@ -2471,11 +2483,11 @@ msgstr "Abbrechen"
 msgid "OK"
 msgstr "OK"
 
-#: includes/admin/class-amp-post-meta-box.php:439
+#: includes/admin/class-amp-post-meta-box.php:443
 msgid "Unavailable for an unknown reason."
 msgstr "Aus unbekannten Gründen nicht verfügbar."
 
-#: includes/admin/class-amp-post-meta-box.php:433
+#: includes/admin/class-amp-post-meta-box.php:437
 msgid "A plugin or theme has disabled AMP support."
 msgstr "Ein Plugin oder Theme hat Unterstützung für AMP deaktiviert."
 
@@ -2497,11 +2509,11 @@ msgstr "AMP:"
 msgid "AMP Settings"
 msgstr "AMP-Einstellungen"
 
-#: includes/admin/class-amp-post-meta-box.php:366
+#: includes/admin/class-amp-post-meta-box.php:370
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: includes/admin/class-amp-post-meta-box.php:365
+#: includes/admin/class-amp-post-meta-box.php:369
 msgid "Enabled"
 msgstr "Aktiviert"
 
@@ -2528,7 +2540,7 @@ msgstr "AMP ist für die aktuelle Seite nicht verfügbar."
 #: includes/validation/class-amp-validated-url-post-type.php:1600
 #: includes/validation/class-amp-validated-url-post-type.php:1631
 #: includes/validation/class-amp-validated-url-post-type.php:1653
-#: includes/validation/class-amp-validation-manager.php:2156
+#: includes/validation/class-amp-validation-manager.php:2179
 msgid "Dismiss this notice."
 msgstr "Hinweis ausblenden."
 
@@ -2538,7 +2550,7 @@ msgid "Delete"
 msgstr "Löschen"
 
 #: src/Admin/AnalyticsOptionsSubmenu.php:59
-#: src/Admin/AnalyticsOptionsSubmenu.php:60 assets/js/amp-settings.js:46
+#: src/Admin/AnalyticsOptionsSubmenu.php:60 assets/js/amp-settings.js:60
 msgid "Analytics"
 msgstr "Analytics"
 
@@ -2600,8 +2612,8 @@ msgstr "Schreibe einen Kommentar"
 #: includes/amp-helper-functions.php:1809
 #: includes/templates/amp-paired-browsing.php:31
 #: includes/validation/class-amp-validation-manager.php:366
-#: src/Admin/OptionsMenu.php:156 src/Admin/SiteHealth.php:92
-#: assets/js/amp-block-validation.js:21 assets/js/amp-onboarding-wizard.js:2
+#: src/Admin/OptionsMenu.php:156 src/Admin/SiteHealth.php:94
+#: assets/js/amp-block-validation.js:21 assets/js/amp-onboarding-wizard.js:16
 msgid "AMP"
 msgstr "AMP"
 
