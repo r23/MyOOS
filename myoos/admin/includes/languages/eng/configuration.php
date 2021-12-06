@@ -98,10 +98,11 @@ define('BASE_PRICE_DESC', 'Would you like to use products with a basic price?');
 define('TAKE_BACK_OBLIGATION_TITLE', 'Rücknahmepflicht für Elektroaltgeräte verwenden');
 define('TAKE_BACK_OBLIGATION_DESC', 'Sind Sie verpflichtet, bei bestimmten Geräten, Altgeräte bei Ablieferung des Neugerätes gleich mitzunehmen?');
 
+define('OFFER_B_WARE_TITLE', 'B-goods / used goods');
+define('OFFER_B_WARE_DESC', 'Do you offer B-goods / used goods in your online store?');
 
 define('MINIMUM_ORDER_VALUE_TITLE', 'Use minimum order value');
 define('MINIMUM_ORDER_VALUE_DESC', 'Set a minimum order value. A number without currency.');
-
 
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_TITLE', 'Sorting product options');
 define('PRODUCTS_OPTIONS_SORT_BY_PRICE_DESC', 'Would you like to sort the product opions according to prices?');

@@ -91,6 +91,8 @@ define('BASE_PRICE_DESC', 'Möchten Sie Produkte mit einem Grundpreis verwenden?
 define('TAKE_BACK_OBLIGATION_TITLE', 'Rücknahmepflicht für Elektroaltgeräte verwenden');
 define('TAKE_BACK_OBLIGATION_DESC', 'Sind Sie verpflichtet, bei bestimmten Geräten, Altgeräte bei Ablieferung des Neugerätes gleich mitzunehmen?');
 
+define('OFFER_B_WARE_TITLE', 'B-Ware / Gebrauchtware');
+define('OFFER_B_WARE_DESC', 'Bieten Sie in Ihrem Onlineshop B-Ware / Gebrauchtware an?');
 
 
 define('MINIMUM_ORDER_VALUE_TITLE', 'Mindestbestellwert verwenden');
