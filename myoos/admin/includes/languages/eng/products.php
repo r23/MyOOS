@@ -28,6 +28,8 @@ define('TEXT_PRODUCTS_INFORMATION_OBLIGATIONS', 'Information obligations');
 define('TEXT_HEADER_INFORMATION_OBLIGATIONS', 'Information obligations');
 define('TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS', 'Rücknahmepflicht für Elektroaltgeräte');
 define('TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS_NOTE', 'Note text about obligation to take back');
+define('TEXT_OFFER_B_WARE_INFO', 'Used goods (B-goods)');
+define('TEXT_OFFER_B_WARE_INFO_NOTE', 'Note text about used goods (B-goods)');
 
 define('TEXT_PRODUCTS_PRICE_INFO', 'Price:');
 define('TEXT_PRODUCTS_TAX_CLASS', 'Tax Class:');

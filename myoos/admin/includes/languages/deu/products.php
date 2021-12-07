@@ -27,6 +27,9 @@ define('TEXT_PRODUCTS_DATA', 'Artikeldaten');
 define('TEXT_PRODUCTS_INFORMATION_OBLIGATIONS', 'Informationspflichten');
 define('TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS', 'Rücknahmepflicht für Elektroaltgeräte');
 define('TEXT_OLD_ELECTRICAL_EQUIPMENT_OBLIGATIONS_NOTE', 'Hinweistext über Rücknahmepflicht');
+define('TEXT_OFFER_B_WARE_INFO', 'Gebrauchtware (B-Ware)');
+define('TEXT_OFFER_B_WARE_INFO_NOTE', 'Hinweistext über Gebrauchtware (B-Ware)');
+
 
 define('TEXT_HEADER_INFORMATION_OBLIGATIONS', 'Informationspflichten');
 define('TEXT_PRODUCTS_PRICE_INFO', 'Preis:');

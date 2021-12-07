@@ -1079,6 +1079,30 @@ updateWithTax();
 	}
 ?>
 
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_OFFER_B_WARE_INFO; ?></label>
+                              <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_old_electrical_equipment', '', (isset($pInfo->products_old_electrical_equipment) ? $pInfo->products_old_electrical_equipment : '0')); ?></div>
+                           </div>
+                        </fieldset>
+
+<?php
+	for ($i = 0, $n = $nLanguages; $i < $n; $i++) {
+?>
+					<fieldset>
+						<div class="form-group row">
+							<label class="col-lg-2 col-form-label"><?php if ($i == 0) echo TEXT_OFFER_B_WARE_INFO_NOTE; ?></label>
+							<?php if ($nLanguages > 1) echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>'; ?>
+							<div class="col-lg-9">
+								<?php echo oos_draw_textarea_field('products_used_goods_description_' . $aLanguages[$i]['id'], 'soft', '70', '4', (isset($_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) ? stripslashes($_POST['products_used_goods_description_' .$aLanguages[$i]['id']]) : oos_get_products_used_goods_description($pInfo->products_id, $aLanguages[$i]['id']))); ?>
+							</div>
+						</div>
+					</fieldset>
+<?php
+	}
+?>
+
+
 
 						
                      </div>
@@ -1469,33 +1493,33 @@ if ( $q1 < $q0 ) {
 
               <tr>
 <?php
-  echo '<td class="DiscountPrice" align="center">';
-  echo ( ($the_special==0) ? $currencies->format($pInfo->products_price) : $currencies->format($the_special) );
-  echo '</td>';
+	echo '<td class="DiscountPrice" align="center">';
+	echo ( ($the_special==0) ? $currencies->format($pInfo->products_price) : $currencies->format($the_special) );
+	echo '</td>';
 
-  if ( $q1 > 0 ) {
-    echo '<td class="DiscountPrice" align="center">';
-    echo $currencies->format($pInfo->products_discount1);
-    echo '</td>';
-  }
+	if ( $q1 > 0 ) {
+		echo '<td class="DiscountPrice" align="center">';
+		echo $currencies->format($pInfo->products_discount1);
+		echo '</td>';
+	}
 
-  if ( $q2 > 0 ) {
-    echo '<td class="DiscountPrice" align="center">';
-    echo $currencies->format($pInfo->products_discount2);
-    echo '</td>';
-  }
+	if ( $q2 > 0 ) {
+		echo '<td class="DiscountPrice" align="center">';
+		echo $currencies->format($pInfo->products_discount2);
+		echo '</td>';
+	}
 
-  if ( $q3 > 0 ) {
-    echo '<td class="DiscountPrice" align="center">';
-    echo $currencies->format($pInfo->products_discount3);
-    echo '</td>';
-  }
+	if ( $q3 > 0 ) {
+		echo '<td class="DiscountPrice" align="center">';
+		echo $currencies->format($pInfo->products_discount3);
+		echo '</td>';
+	}
 
-  if ( $q4 > 0 ) {
-    echo '<td class="DiscountPrice" align="center">';
-    echo $currencies->format($pInfo->products_discount4);
-    echo '</td>';
-  }
+	if ( $q4 > 0 ) {
+		echo '<td class="DiscountPrice" align="center">';
+		echo $currencies->format($pInfo->products_discount4);
+		echo '</td>';
+	}
 ?>
               </tr>
             </table>
@@ -1515,12 +1539,12 @@ if ( $q1 < $q0 ) {
       <tr>
         <td class="main">
 <?php
-       echo (($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '');
-      echo $pInfo->products_description;
+	echo (($products_image_name) ? oos_image(OOS_SHOP_IMAGES . $products_image_name, $pInfo->products_name, '', '80', 'align="right" hspace="5" vspace="5"') : '');
+	echo $pInfo->products_description;
 ?></td>
       </tr>
 <?php
-      if ($pInfo->products_url) {
+	if ($pInfo->products_url) {
 ?>
       <tr>
         <td></td>
@@ -1529,44 +1553,45 @@ if ( $q1 < $q0 ) {
         <td class="main"><?php echo sprintf(TEXT_PRODUCT_MORE_INFORMATION, $pInfo->products_url); ?></td>
       </tr>
 <?php
-      }
+	}
 ?>
 <?php
-      if ($pInfo->products_date_available > date('Y-m-d')) {
+	if ($pInfo->products_date_available > date('Y-m-d')) {
 ?>
       <tr>
         <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_AVAILABLE, oos_date_long($pInfo->products_date_available)); ?></td>
       </tr>
 <?php
-      } else {
+	} else {
 ?>
       <tr>
         <td align="center" class="smallText"><?php echo sprintf(TEXT_PRODUCT_DATE_ADDED, oos_date_long($pInfo->products_date_added)); ?></td>
       </tr>
 <?php
-      }
+	}
 ?>
       <tr>
         <td></td>
       </tr>
 <?php
 
-      if (isset($_GET['origin'])) {
-        $pos_params = strpos($_GET['origin'], '?', 0);
-        if ($pos_params != false) {
-          $back_url = substr($_GET['origin'], 0, $pos_params);
-          $back_url_params = substr($_GET['origin'], $pos_params + 1);
-        } else {
-          $back_url = $_GET['origin'];
-          $back_url_params = '';
-        }
-      } else {
-        $back_url = $aContents['categories'];
-        $back_url_params = 'cPath=' . $cPath;
-        if (oos_is_not_null($pInfo->products_id)) {
-          $back_url_params .= '&pID=' . $pInfo->products_id;
-        }
-      }
+	if (isset($_GET['origin'])) {
+		$sOrigin = oos_prepare_input($_GET['origin']);
+		$pos_params = strpos($sOrigin, '?', 0);
+		if ($pos_params != false) {
+			$back_url = substr($sOrigin, 0, $pos_params);
+			$back_url_params = substr($sOrigin, $pos_params + 1);
+		} else {
+			$back_url = $sOrigin;
+			$back_url_params = '';
+		}
+	} else {
+		$back_url = $aContents['categories'];
+		$back_url_params = 'cPath=' . $cPath;
+		if (oos_is_not_null($pInfo->products_id)) {
+			$back_url_params .= '&pID=' . $pInfo->products_id;
+		}
+	}
 ?>
       <tr>
         <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
