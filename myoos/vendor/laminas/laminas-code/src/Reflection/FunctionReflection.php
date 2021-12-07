@@ -3,6 +3,7 @@
 namespace Laminas\Code\Reflection;
 
 use ReflectionFunction;
+use ReturnTypeWillChange;
 
 use function array_shift;
 use function array_slice;
@@ -56,6 +57,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      * @param  bool $includeDocComment
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function getStartLine($includeDocComment = false)
     {
         if ($includeDocComment) {
@@ -129,13 +131,10 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      */
     public function getPrototype($format = self::PROTOTYPE_AS_ARRAY)
     {
-        $returnType = 'mixed';
-        $docBlock   = $this->getDocBlock();
-        if ($docBlock) {
-            $return      = $docBlock->getTag('return');
-            $returnTypes = $return->getTypes();
-            $returnType  = count($returnTypes) > 1 ? implode('|', $returnTypes) : $returnTypes[0];
-        }
+        $docBlock    = $this->getDocBlock();
+        $return      = $docBlock->getTag('return');
+        $returnTypes = $return->getTypes();
+        $returnType  = count($returnTypes) > 1 ? implode('|', $returnTypes) : $returnTypes[0];
 
         $prototype = [
             'namespace' => $this->getNamespaceName(),
@@ -180,6 +179,7 @@ class FunctionReflection extends ReflectionFunction implements ReflectionInterfa
      *
      * @return ParameterReflection[]
      */
+    #[ReturnTypeWillChange]
     public function getParameters()
     {
         $phpReflections     = parent::getParameters();
