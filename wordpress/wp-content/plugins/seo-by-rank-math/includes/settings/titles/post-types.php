@@ -127,6 +127,22 @@ if ( ( class_exists( 'WooCommerce' ) && 'product' === $post_type ) || ( class_ex
 		]
 	);
 
+} elseif( 'rank_math_locations' === $post_type ) {
+
+	$cmb->add_field(
+		[
+			'id'      => 'pt_' . $post_type . '_default_rich_snippet',
+			'type'    => 'radio_inline',
+			'name'    => esc_html__( 'Schema Type', 'rank-math' ),
+			/* translators: link to title setting screen */
+			'desc'    => __( 'Default rich snippet selected when creating a new location.', 'rank-math' ),
+			'options' => [
+				'off'     => esc_html__( 'None', 'rank-math' ),
+				'LocalBusiness' => esc_html__( 'Local Business', 'rank-math' ),
+			],
+			'default' => $this->do_filter( 'settings/snippet/type', 'LocalBusiness', $post_type ),
+		]
+	);
 } else {
 
 	$cmb->add_field(

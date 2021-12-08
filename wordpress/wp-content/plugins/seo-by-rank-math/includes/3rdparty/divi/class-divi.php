@@ -171,7 +171,6 @@ class Divi {
 			'wp-element',
 			'wp-hooks',
 			'wp-media-utils',
-			'tagify',
 			'rank-math-analyzer',
 		];
 
@@ -183,7 +182,6 @@ class Divi {
 		wp_enqueue_style( 'wp-components' );
 		wp_enqueue_style( 'rank-math-divi', rank_math()->plugin_url() . 'assets/admin/css/divi.css', [], rank_math()->version );
 
-		wp_register_script( 'tagify', rank_math()->plugin_url() . 'assets/vendor/tagify/tagify.min.js', null, '2.31.6', true );
 		wp_register_script( 'rank-math-analyzer', rank_math()->plugin_url() . 'assets/admin/js/analyzer.js', null, rank_math()->version, true );
 		wp_enqueue_script( 'rank-math-divi', rank_math()->plugin_url() . 'assets/admin/js/divi.js', $divi_deps, rank_math()->version, true );
 		wp_enqueue_script( 'rank-math-divi-iframe', rank_math()->plugin_url() . 'assets/admin/js/divi-iframe.js', [ 'jquery', 'lodash' ], rank_math()->version, true );
@@ -218,7 +216,6 @@ class Divi {
 			'rm-react-dom',
 			'lodash',
 			'moment',
-			'tagify',
 			'rank-math',
 			'rank-math-analyzer',
 			'rank-math-schema',

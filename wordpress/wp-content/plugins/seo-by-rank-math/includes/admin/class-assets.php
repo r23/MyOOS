@@ -69,9 +69,6 @@ class Assets implements Runner {
 		wp_register_style( 'select2-rm', $vendor . 'select2/select2.min.css', null, '4.0.6-rc.1' );
 		wp_register_script( 'select2-rm', $vendor . 'select2/select2.min.js', null, '4.0.6-rc.1', true );
 
-		// Tagify.
-		wp_register_script( 'tagify', $vendor . 'tagify/tagify.min.js', null, '2.31.6', true );
-
 		// Inline script for core admin page Settings > Permalinks.
 		wp_register_script( self::PREFIX . 'core-permalink-settings', '' ); // phpcs:ignore
 		wp_add_inline_script( self::PREFIX . 'core-permalink-settings', $this->get_permalinks_inline_script() );

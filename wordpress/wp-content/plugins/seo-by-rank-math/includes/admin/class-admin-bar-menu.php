@@ -138,7 +138,7 @@ class Admin_Bar_Menu {
 		if ( 'noindex' !== $what ) {
 			return $robots;
 		}
-		
+
 		if ( ! in_array( 'noindex', $robots, true ) ) {
 			$robots[] = ! in_array( 'index', $robots, true ) ? 'index' : '';
 			return $robots;
@@ -254,7 +254,8 @@ class Admin_Bar_Menu {
 	 */
 	private function add_taxonomy_menu() {
 		$term = get_queried_object();
-		if ( empty( $term ) ) {
+
+		if ( empty( $term ) || ! ( $term instanceof \WP_Term ) ) {
 			return;
 		}
 

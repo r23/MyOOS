@@ -114,7 +114,6 @@ class Metabox implements Runner {
 					'rank-math-common',
 					'rank-math-analyzer',
 					'rank-math-validate',
-					'tagify',
 					'wp-block-editor',
 				],
 				rank_math()->version,

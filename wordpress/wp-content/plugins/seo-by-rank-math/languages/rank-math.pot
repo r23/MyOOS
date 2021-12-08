@@ -4193,6 +4193,12 @@ msgstr ""
 msgid "Headline"
 msgstr ""
 
+msgid "Default rich snippet selected when creating a new location."
+msgstr ""
+
+msgid "Local Business"
+msgstr ""
+
 #. translators: post type name
 #. translators: post type name
 msgid "%s Robots Meta"

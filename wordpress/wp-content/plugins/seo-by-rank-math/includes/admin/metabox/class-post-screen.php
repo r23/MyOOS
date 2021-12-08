@@ -303,7 +303,6 @@ class Post_Screen implements IScreen {
 			rank_math()->plugin_url() . 'assets/admin/js/gutenberg.js',
 			[
 				'clipboard',
-				'tagify',
 				'wp-autop',
 				'wp-blocks',
 				'wp-components',

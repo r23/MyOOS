@@ -72,7 +72,6 @@ class Elementor {
 	 */
 	public function enqueue() {
 		$deps = [
-			'tagify',
 			'wp-core-data',
 			'wp-components',
 			'wp-block-editor',
