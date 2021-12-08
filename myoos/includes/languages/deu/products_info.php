@@ -38,6 +38,12 @@ $aLang['text_product_notifications'] = 'Ihre Produkt Benachrichtigungen';
 $aLang['text_product_notifications_introduction'] = 'Mit der Benachrichtigungsfunktion ermöglichen wir es Ihnen, über alle unsere Produkte informiert zu sein. Sie erhalten zeitnah die aktuellsten Informationen über unsere Produkte und Sonderangebote.';
 $aLang['text_test_it'] = 'Testen Sie es auf Ihrem mobilen Gerät!';
 
+
+$aLang['text_configurator'] = 'Konfigurator';
+$aLang['text_b_ware'] = 'B - Ware';
+$aLang['text_b_ware_agree'] = 'Akzeptieren Sie die Bedingungen und Konditionen';
+
+
 $aLang['table_heading_image'] = '';
 $aLang['table_heading_model'] = 'Artikel-Nr.';
 $aLang['table_heading_products'] = 'Produkte';

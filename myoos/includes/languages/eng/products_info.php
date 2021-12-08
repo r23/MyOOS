@@ -38,6 +38,12 @@ $aLang['text_product_notifications'] = 'My Product Notifications';
 $aLang['text_product_notifications_introduction'] = 'The product notification list allows you to stay up to date on the products we have available, which gives you the chance to take advantage of our products on special.';
 $aLang['text_test_it'] = 'Test it on your mobile device!';
 
+
+$aLang['text_configurator'] = 'Configurator';
+$aLang['text_b_ware'] = 'B - Ware';
+$aLang['text_b_ware_agree'] = 'Agree to terms and conditions';
+
+
 $aLang['table_heading_image'] = '';
 $aLang['table_heading_model'] = 'Model';
 $aLang['table_heading_products'] = 'Product Name';

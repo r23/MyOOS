@@ -102,6 +102,30 @@
 						</div>
 
 
+					{if $product_info.products_status eq 3}
+						<form name="cart_quantity" action="{html_get_link}" method="POST" enctype="multipart/form-data">
+							<input type="hidden" name="action" value="add_product">
+							<input type="hidden" name="content" value="{$page_file}">
+						{if $smarty.get.edit}
+							<input type="hidden" name="edit_product" value="{$smarty.get.products_id|escape}">
+						{/if}
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+							<input type="hidden" name="products_id" value="{$product_info.products_id}">
+					{/if}
+					
+					{if $product_info.products_used_goods eq 1}			
+						<div class="product-short-description mb-15">
+							<span class="badge badge-danger"> {$lang.text_b_ware} </span> {$product_info.products_used_goods_description}
+						</div>
+						<div class="custom-control custom-checkbox">
+							<input class="custom-control-input" type="checkbox" id="ex-check-1">
+							<label class="custom-control-label" for="ex-check-1">{$lang.text_b_ware_agree}</label>
+						</div>												
+					{/if}
+
 					{if !empty($product_info.products_short_description)}
 						<div class="product-short-description mb-15">			
 							{$product_info.products_short_description}
@@ -147,25 +171,14 @@
 						{/if}
 						</div>
 						
-					{if $product_info.products_status eq 3}
-						<form name="cart_quantity" action="{html_get_link}" method="POST" enctype="multipart/form-data">
-							<input type="hidden" name="action" value="add_product">
-							<input type="hidden" name="content" value="{$page_file}">
-						{if $smarty.get.edit}
-							<input type="hidden" name="edit_product" value="{$smarty.get.products_id|escape}">
-						{/if}
-						{if $mySystem.sed}
-							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-							<input type="hidden" name="formid" value="{$mySystem.formid}">
-						{/if}
-							<input type="hidden" name="products_id" value="{$product_info.products_id}">	
-	
 
+	
+					{if $product_info.products_status eq 3}
 
 						{if $selector_array}
 							<div class="clearfix mb-5">
 								<h6 class="font-weight-medium">
-											Configurator
+										{$lang.text_configurator}
 								</h6>
 
 								{foreach $selector_array as $i}	
