@@ -113,7 +113,8 @@ if (!empty($action)) {
                                     'products_setting' => oos_db_prepare_input($_POST['products_setting']),
                                     'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
                                     'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : DEFAULT_PRODUCTS_UNITS_ID),
-                                    'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? 1 : 0),									
+                                    'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? 1 : 0),
+                                    'products_used_goods' => (isset($_POST['products_used_goods']) ? 1 : 0),									
                                     'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
                                     'products_price_list' => oos_db_prepare_input($_POST['products_price_list']),
                                     'products_quantity_order_min' => oos_db_prepare_input($_POST['products_quantity_order_min']),
@@ -179,6 +180,9 @@ if (!empty($action)) {
 				$products_short_description = isset($_POST['products_short_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_short_description_' . $language_id]) : '';
 				$products_essential_characteristics  = isset($_POST['products_essential_characteristics_' . $language_id]) ? oos_db_prepare_input($_POST['products_essential_characteristics_' . $language_id]) : '';
 				$products_old_electrical_equipment_description = isset($_POST['products_old_electrical_equipment_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_old_electrical_equipment_description_' . $language_id]) : '';
+				$products_used_goods_description = isset($_POST['products_used_goods_description_' . $language_id]) ? oos_db_prepare_input($_POST['products_used_goods_description_' . $language_id]) : '';
+
+
 
 				$sql_data_array = array('products_name' => oos_db_prepare_input($_POST['products_name'][$language_id]),
 										'products_title' => oos_db_prepare_input($_POST['products_title'][$language_id]),
@@ -186,6 +190,7 @@ if (!empty($action)) {
 										'products_short_description' => $products_short_description,
 										'products_essential_characteristics' => $products_essential_characteristics,
 										'products_old_electrical_equipment_description' => $products_old_electrical_equipment_description,
+										'products_used_goods_description' => $products_used_goods_description,
 										'products_description_meta' => $products_description_meta,
 										'products_facebook_title' => $products_facebook_title,
 										'products_facebook_description' => $products_facebook_description,
@@ -383,7 +388,8 @@ if ($action == 'new_product') {
                        'products_status' => DEFAULT_PRODUTS_STATUS_ID,
                        'products_tax_class_id' => DEFAULT_TAX_CLASS_ID,
 					   'products_units_id' => DEFAULT_PRODUCTS_UNITS_ID,
-					   'products_old_electrical_equipment' => 0, 
+					   'products_old_electrical_equipment' => 0,
+					   'products_used_goods' => 0,
                        'manufacturers_id' => '');
 
     $pInfo = new objectInfo($parameters);	  
@@ -403,7 +409,7 @@ if ($action == 'new_product') {
                                                  p.products_weight, p.products_date_added, p.products_last_modified,
                                                  date_format(p.products_date_available, '%Y-%m-%d') AS products_date_available,
                                                  p.products_status, p.products_setting, p.products_tax_class_id, p.products_units_id,
-												 p.products_old_electrical_equipment, p.manufacturers_id, p.products_price_list,
+												 p.products_old_electrical_equipment, p.products_used_goods, p.manufacturers_id, p.products_price_list,
                                                  p.products_quantity_order_min, p.products_quantity_order_units, p.products_quantity_order_max,
                                                  p.products_discount1, p.products_discount2, p.products_discount3,
                                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty,
@@ -1082,7 +1088,7 @@ updateWithTax();
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_OFFER_B_WARE_INFO; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_old_electrical_equipment', '', (isset($pInfo->products_old_electrical_equipment) ? $pInfo->products_old_electrical_equipment : '0')); ?></div>
+                              <div class="col-lg-10"><?php echo oos_draw_checkbox_field('products_used_goods', '', (isset($pInfo->products_used_goods) ? $pInfo->products_used_goods : '0')); ?></div>
                            </div>
                         </fieldset>
 

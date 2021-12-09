@@ -308,7 +308,7 @@ if (!empty($action)) {
 
         //products_description		
         $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_essential_characteristics, 
-										pd.products_url, pd.products_description_meta,  pd.products_keywords
+													pd.products_old_electrical_equipment_description, pd.products_used_goods_description, pd.products_url, pd.products_description_meta,  pd.products_keywords
                                          FROM " . $oostable['products'] . " p LEFT JOIN
                                               " . $oostable['products_description'] . " pd
                                             ON p.products_id = pd.products_id
@@ -322,6 +322,8 @@ if (!empty($action)) {
                        products_description,
 					   products_short_description,
 					   products_essential_characteristics,
+					   products_old_electrical_equipment_description, 
+					   products_used_goods_description,
                        products_url,
 					   products_description_meta,
 					   products_keywords) 
@@ -332,6 +334,8 @@ if (!empty($action)) {
                                '" . oos_db_input($products['products_description']) . "',							   
 							   '" . oos_db_input($products['products_short_description']) . "',
 							   '" . oos_db_input($products['products_essential_characteristics']) . "',
+							   '" . oos_db_input($products['products_old_electrical_equipment_description']) . "',
+							   '" . oos_db_input($products['products_used_goods_description']) . "',							   
 							   '" . oos_db_input($products['products_url']) . "',
 							   '" . oos_db_input($products['products_description_meta']) . "',
                                '" . oos_db_input($products['products_keywords']) . "')");

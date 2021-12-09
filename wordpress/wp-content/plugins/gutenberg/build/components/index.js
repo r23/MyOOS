@@ -14609,7 +14609,7 @@ __webpack_require__.d(__webpack_exports__, {
   "MenuGroup": function() { return /* reexport */ menu_group; },
   "MenuItem": function() { return /* reexport */ menu_item; },
   "MenuItemsChoice": function() { return /* reexport */ MenuItemsChoice; },
-  "Modal": function() { return /* reexport */ Modal; },
+  "Modal": function() { return /* reexport */ modal; },
   "NavigableMenu": function() { return /* reexport */ navigable_container_menu; },
   "Notice": function() { return /* reexport */ build_module_notice; },
   "NoticeList": function() { return /* reexport */ list; },
@@ -14655,7 +14655,7 @@ __webpack_require__.d(__webpack_exports__, {
   "VisuallyHidden": function() { return /* reexport */ visually_hidden_component; },
   "__experimentalAlignmentMatrixControl": function() { return /* reexport */ AlignmentMatrixControl; },
   "__experimentalBoxControl": function() { return /* reexport */ BoxControl; },
-  "__experimentalColorEdit": function() { return /* reexport */ ColorEdit; },
+  "__experimentalConfirmDialog": function() { return /* reexport */ confirm_dialog_component; },
   "__experimentalDimensionControl": function() { return /* reexport */ dimension_control; },
   "__experimentalDivider": function() { return /* reexport */ divider_component; },
   "__experimentalElevation": function() { return /* reexport */ elevation_component; },
@@ -14674,6 +14674,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalNavigatorProvider": function() { return /* reexport */ navigator_provider_component; },
   "__experimentalNavigatorScreen": function() { return /* reexport */ navigator_screen_component; },
   "__experimentalNumberControl": function() { return /* reexport */ number_control; },
+  "__experimentalPaletteEdit": function() { return /* reexport */ PaletteEdit; },
   "__experimentalParseUnit": function() { return /* reexport */ parseUnit; },
   "__experimentalRadio": function() { return /* reexport */ build_module_radio; },
   "__experimentalRadioGroup": function() { return /* reexport */ radio_group; },
@@ -14781,7 +14782,6 @@ function extends_extends() {
 var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
-var external_lodash_default = /*#__PURE__*/__webpack_require__.n(external_lodash_namespaceObject);
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(4184);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
@@ -22020,7 +22020,7 @@ function computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect) {
   const {
     parentNode
   } = anchorRefFallback.current;
-  const rect = parentNode.getBoundingClientRect();
+  const rect = offsetIframe(parentNode.getBoundingClientRect(), parentNode.ownerDocument, container);
 
   if (shouldAnchorIncludePadding) {
     return rect;
@@ -22546,21 +22546,21 @@ const emitToChild = (children, eventName, event) => {
   }
 };
 
-function Tooltip(_ref4) {
-  let {
+function Tooltip(props) {
+  const {
     children,
     position,
     text,
     shortcut,
     delay = TOOLTIP_DELAY
-  } = _ref4;
-
+  } = props;
   /**
    * Whether a mouse is currently pressed, used in determining whether
    * to handle a focus event as displaying the tooltip immediately.
    *
    * @type {boolean}
    */
+
   const [isMouseDown, setIsMouseDown] = (0,external_wp_element_namespaceObject.useState)(false);
   const [isOver, setIsOver] = (0,external_wp_element_namespaceObject.useState)(false);
   const delayedSetIsOver = (0,external_wp_compose_namespaceObject.useDebounce)(setIsOver, delay);
@@ -35615,7 +35615,8 @@ const fontSizeStyles = _ref13 => {
   } = _ref13;
   const sizes = {
     default: '13px',
-    small: '11px'
+    small: '11px',
+    '__unstable-large': '13px'
   };
   const fontSize = sizes[size] || sizes.default;
   const fontSizeMobile = '16px';
@@ -35631,12 +35632,23 @@ const sizeStyles = _ref14 => {
     default: {
       height: 30,
       lineHeight: 1,
-      minHeight: 30
+      minHeight: 30,
+      paddingLeft: 8,
+      paddingRight: 8
     },
     small: {
       height: 24,
       lineHeight: 1,
-      minHeight: 24
+      minHeight: 24,
+      paddingLeft: 8,
+      paddingRight: 8
+    },
+    '__unstable-large': {
+      height: 40,
+      lineHeight: 1,
+      minHeight: 40,
+      paddingLeft: 16,
+      paddingRight: 16
     }
   };
   const style = sizes[size] || sizes.default;
@@ -35666,7 +35678,7 @@ const dragStyles = _ref15 => {
 
 const Input = emotion_styled_base_browser_esm("input",  true ? {
   target: "em5sgkm5"
-} : 0)("&&&{background-color:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.black, ";display:block;margin:0;outline:none;padding-left:8px;padding-right:8px;width:100%;", dragStyles, " ", disabledStyles, " ", fontSizeStyles, " ", sizeStyles, " &::-webkit-input-placeholder{line-height:normal;}}" + ( true ? "" : 0));
+} : 0)("&&&{background-color:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.black, ";display:block;margin:0;outline:none;width:100%;", dragStyles, " ", disabledStyles, " ", fontSizeStyles, " ", sizeStyles, " &::-webkit-input-placeholder{line-height:normal;}}" + ( true ? "" : 0));
 
 const labelPadding = _ref16 => {
   let {
@@ -35736,8 +35748,8 @@ const Prefix = emotion_styled_base_browser_esm("span",  true ? {
 const Suffix = emotion_styled_base_browser_esm("span",  true ? {
   target: "em5sgkm0"
 } : 0)( true ? {
-  name: "pvvbxf",
-  styles: "box-sizing:border-box;display:block"
+  name: "jgf79h",
+  styles: "align-items:center;align-self:stretch;box-sizing:border-box;display:flex"
 } : 0);
 //# sourceMappingURL=input-control-styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/backdrop.js
@@ -39823,11 +39835,13 @@ function AnglePickerControl(_ref) {
     max: 360,
     min: 0,
     onChange: handleOnNumberChange,
+    size: "__unstable-large",
     step: "1",
     value: value,
     hideHTMLArrows: true,
     suffix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
       as: text_component,
+      marginBottom: 0,
       marginRight: space(3),
       style: {
         color: 'var( --wp-admin-theme-color )'
@@ -40879,12 +40893,21 @@ const unit_control_styles_Root = emotion_styled_base_browser_esm("div",  true ? 
 
 const paddingStyles = _ref2 => {
   let {
-    disableUnits
+    disableUnits,
+    size
   } = _ref2;
-  const value = disableUnits ? 3 : 24;
-  return /*#__PURE__*/emotion_react_browser_esm_css(rtl({
-    paddingRight: value
-  })(), ";" + ( true ? "" : 0),  true ? "" : 0);
+  const paddings = {
+    default: {
+      paddingRight: 8
+    },
+    small: {
+      paddingRight: 8
+    },
+    '__unstable-large': {
+      paddingRight: disableUnits ? 16 : 8
+    }
+  };
+  return /*#__PURE__*/emotion_react_browser_esm_css(rtl(paddings[size])(), ";" + ( true ? "" : 0),  true ? "" : 0);
 };
 
 var unit_control_styles_ref =  true ? {
@@ -40905,43 +40928,16 @@ const arrowStyles = _ref3 => {
 const ValueInput = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
   target: "e1bagdl32"
 } : 0)("&&&{input{appearance:none;-moz-appearance:textfield;display:block;width:100%;", arrowStyles, ";", paddingStyles, ";}}" + ( true ? "" : 0));
-
-const unitSizeStyles = _ref4 => {
-  let {
-    selectSize
-  } = _ref4;
-  const sizes = {
-    default: {
-      height: 28,
-      lineHeight: '24px',
-      minHeight: 28,
-      top: 1
-    },
-    small: {
-      height: 22,
-      lineHeight: '18px',
-      minHeight: 22,
-      top: 1
-    }
-  };
-  return /*#__PURE__*/emotion_react_browser_esm_css(sizes[selectSize],  true ? "" : 0,  true ? "" : 0);
-};
-
-const baseUnitLabelStyles = props => {
-  return /*#__PURE__*/emotion_react_browser_esm_css("appearance:none;background:transparent;border-radius:2px;border:none;box-sizing:border-box;color:", COLORS.darkGray[500], ";display:block;font-size:8px;line-height:1;letter-spacing:-0.5px;outline:none;padding:2px 1px;position:absolute;text-align-last:center;text-transform:uppercase;width:20px;", rtl({
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0
-  })(), " ", rtl({
-    right: 0
-  })(), " ", unitSizeStyles(props), ";" + ( true ? "" : 0),  true ? "" : 0);
-};
-
+const baseUnitLabelStyles = /*#__PURE__*/emotion_react_browser_esm_css("appearance:none;background:transparent;border-radius:2px;border:none;box-sizing:border-box;color:", COLORS.darkGray[500], ";display:block;font-size:8px;letter-spacing:-0.5px;outline:none;padding:2px 1px;text-align-last:center;text-transform:uppercase;width:20px;", rtl({
+  borderTopLeftRadius: 0,
+  borderBottomLeftRadius: 0
+})(), ";" + ( true ? "" : 0),  true ? "" : 0);
 const UnitLabel = emotion_styled_base_browser_esm("div",  true ? {
   target: "e1bagdl31"
 } : 0)("&&&{pointer-events:none;", baseUnitLabelStyles, ";}" + ( true ? "" : 0));
 const UnitSelect = emotion_styled_base_browser_esm("select",  true ? {
   target: "e1bagdl30"
-} : 0)("&&&{", baseUnitLabelStyles, ";cursor:pointer;border:1px solid transparent;&:hover{background-color:", COLORS.lightGray[300], ";}&:focus{border-color:", COLORS.ui.borderFocus, ";outline:2px solid transparent;outline-offset:0;}&:disabled{cursor:initial;&:hover{background-color:transparent;}}}" + ( true ? "" : 0));
+} : 0)("&&&{", baseUnitLabelStyles, ";cursor:pointer;border:1px solid transparent;height:100%;&:hover{background-color:", COLORS.lightGray[300], ";}&:focus{border-color:", COLORS.ui.borderFocus, ";outline:2px solid transparent;outline-offset:0;}&:disabled{cursor:initial;&:hover{background-color:transparent;}}}" + ( true ? "" : 0));
 //# sourceMappingURL=unit-control-styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/unit-control/utils.js
 /**
@@ -43728,30 +43724,54 @@ var Separator = createComponent({
 
 
 
+const MARGIN_DIRECTIONS = {
+  vertical: {
+    start: 'marginLeft',
+    end: 'marginRight'
+  },
+  horizontal: {
+    start: 'marginTop',
+    end: 'marginBottom'
+  }
+}; // Renders the correct margins given the Divider's `orientation` and the writing direction.
+// When both the generic `margin` and the specific `marginStart|marginEnd` props are defined,
+// the latter will take priority.
 
 const renderMargin = _ref => {
   let {
+    'aria-orientation': orientation = 'horizontal',
     margin,
-    marginTop,
-    marginBottom
+    marginStart,
+    marginEnd
   } = _ref;
+  return /*#__PURE__*/emotion_react_browser_esm_css(rtl({
+    [MARGIN_DIRECTIONS[orientation].start]: space(marginStart !== null && marginStart !== void 0 ? marginStart : margin),
+    [MARGIN_DIRECTIONS[orientation].end]: space(marginEnd !== null && marginEnd !== void 0 ? marginEnd : margin)
+  })(),  true ? "" : 0,  true ? "" : 0);
+};
 
-  if (typeof margin !== 'undefined') {
-    return /*#__PURE__*/emotion_react_browser_esm_css({
-      marginBottom: space(margin),
-      marginTop: space(margin)
-    },  true ? "" : 0,  true ? "" : 0);
-  }
-
+const renderBorder = _ref2 => {
+  let {
+    'aria-orientation': orientation = 'horizontal'
+  } = _ref2;
   return /*#__PURE__*/emotion_react_browser_esm_css({
-    marginTop: space(marginTop),
-    marginBottom: space(marginBottom)
+    [orientation === 'vertical' ? 'borderRight' : 'borderBottom']: '1px solid currentColor'
+  },  true ? "" : 0,  true ? "" : 0);
+};
+
+const renderSize = _ref3 => {
+  let {
+    'aria-orientation': orientation = 'horizontal'
+  } = _ref3;
+  return /*#__PURE__*/emotion_react_browser_esm_css({
+    height: orientation === 'vertical' ? 'auto' : 0,
+    width: orientation === 'vertical' ? 0 : 'auto'
   },  true ? "" : 0,  true ? "" : 0);
 };
 
 const DividerView = emotion_styled_base_browser_esm("hr",  true ? {
   target: "e19on6iw0"
-} : 0)("border-color:", config_values.colorDivider, ";border-width:0 0 1px 0;height:0;margin:0;width:auto;", renderMargin, ";" + ( true ? "" : 0));
+} : 0)("border:0;margin:0;", renderBorder, " ", renderSize, " ", renderMargin, ";" + ( true ? "" : 0));
 //# sourceMappingURL=styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/divider/component.js
 
@@ -43783,17 +43803,18 @@ function component_Divider(props, forwardedRef) {
  * @example
  * ```js
  * import {
- *     __experimentalDivider as Divider,
- *     __experimentalText as Text }
- * from `@wordpress/components`;
+ * 		__experimentalDivider as Divider,
+ * 		__experimentalText as Text,
+ * 		__experimentalVStack as VStack,
+ * } from `@wordpress/components`;
  *
  * function Example() {
  * 	return (
- * 		<ListGroup>
- * 			<FormGroup>...</FormGroup>
+ * 		<VStack spacing={4}>
+ * 			<Text>Some text here</Text>
  * 			<Divider />
- * 			<FormGroup>...</FormGroup>
- * 		</ListGroup>
+ * 			<Text>Some more text here</Text>
+ * 		</VStack>
  * 	);
  * }
  * ```
@@ -44627,7 +44648,8 @@ const select_control_styles_fontSizeStyles = _ref2 => {
   } = _ref2;
   const sizes = {
     default: '13px',
-    small: '11px'
+    small: '11px',
+    '__unstable-large': '13px'
   };
   const fontSize = sizes[selectSize];
   const fontSizeMobile = '16px';
@@ -44649,20 +44671,43 @@ const select_control_styles_sizeStyles = _ref3 => {
       height: 24,
       lineHeight: 1,
       minHeight: 24
+    },
+    '__unstable-large': {
+      height: 40,
+      lineHeight: 1,
+      minHeight: 40
     }
   };
   const style = sizes[selectSize] || sizes.default;
   return /*#__PURE__*/emotion_react_browser_esm_css(style,  true ? "" : 0,  true ? "" : 0);
+};
+
+const sizePaddings = _ref4 => {
+  let {
+    selectSize = 'default'
+  } = _ref4;
+  const sizes = {
+    default: {
+      paddingLeft: 8,
+      paddingRight: 24
+    },
+    small: {
+      paddingLeft: 8,
+      paddingRight: 24
+    },
+    '__unstable-large': {
+      paddingLeft: 16,
+      paddingRight: 32
+    }
+  };
+  return rtl(sizes[selectSize]);
 }; // TODO: Resolve need to use &&& to increase specificity
 // https://github.com/WordPress/gutenberg/issues/18483
 
 
 const Select = emotion_styled_base_browser_esm("select",  true ? {
   target: "e1mv6sxx1"
-} : 0)("&&&{appearance:none;background:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.black, ";display:block;margin:0;width:100%;", select_control_styles_disabledStyles, ";", select_control_styles_fontSizeStyles, ";", select_control_styles_sizeStyles, ";", rtl({
-  paddingLeft: 8,
-  paddingRight: 24
-}), ";}" + ( true ? "" : 0));
+} : 0)("&&&{appearance:none;background:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.black, ";display:block;margin:0;width:100%;", select_control_styles_disabledStyles, ";", select_control_styles_fontSizeStyles, ";", select_control_styles_sizeStyles, ";", sizePaddings, ";}" + ( true ? "" : 0));
 const DownArrowWrapper = emotion_styled_base_browser_esm("div",  true ? {
   target: "e1mv6sxx0"
 } : 0)("align-items:center;bottom:0;box-sizing:border-box;display:flex;padding:0 4px;pointer-events:none;position:absolute;top:0;", rtl({
@@ -48676,6 +48721,7 @@ const ConnectedTooltip = contextConnect(component_Tooltip, 'Tooltip');
 
 
 
+
 const ValueDisplay = _ref => {
   let {
     values
@@ -48687,7 +48733,7 @@ const ValueDisplay = _ref => {
       isBlock: true,
       display: "flex"
     }, (0,external_wp_element_namespaceObject.createElement)(text_component, {
-      color: "blue"
+      color: COLORS.ui.theme
     }, abbreviation), (0,external_wp_element_namespaceObject.createElement)(text_component, null, value));
   }));
 };
@@ -48742,7 +48788,7 @@ const HexDisplay = _ref5 => {
   } = _ref5;
   const colorWithoutHash = color.toHex().slice(1).toUpperCase();
   return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(text_component, {
-    color: "blue"
+    color: COLORS.ui.theme
   }, "#"), (0,external_wp_element_namespaceObject.createElement)(text_component, null, colorWithoutHash));
 };
 
@@ -48835,6 +48881,7 @@ const ColorDisplay = _ref6 => {
 
 
 
+
 const InputWithSlider = _ref => {
   let {
     min,
@@ -48857,7 +48904,7 @@ const InputWithSlider = _ref => {
     prefix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
       as: text_component,
       paddingLeft: space(3.5),
-      color: "blue",
+      color: COLORS.ui.theme,
       lineHeight: 1
     }, abbreviation),
     hideHTMLArrows: true
@@ -49050,6 +49097,7 @@ const HslInput = _ref => {
 
 
 
+
 const HexInput = _ref => {
   let {
     color,
@@ -49067,7 +49115,7 @@ const HexInput = _ref => {
     prefix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
       as: text_component,
       marginLeft: space(3.5),
-      color: "blue",
+      color: COLORS.ui.theme,
       lineHeight: 1
     }, "#"),
     value: color.toHex().slice(1).toUpperCase(),
@@ -49153,6 +49201,47 @@ const Picker = _ref => {
   });
 };
 //# sourceMappingURL=picker.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-controlled-value.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Simplified and improved implementation of useControlledState.
+ *
+ * @param  props
+ * @param  props.defaultValue
+ * @param  props.value
+ * @param  props.onChange
+ * @return The controlled value and the value setter.
+ */
+function useControlledValue(_ref) {
+  let {
+    defaultValue,
+    onChange,
+    value: valueProp
+  } = _ref;
+  const hasValue = typeof valueProp !== 'undefined';
+  const initialValue = hasValue ? valueProp : defaultValue;
+  const [state, setState] = (0,external_wp_element_namespaceObject.useState)(initialValue);
+  const value = hasValue ? valueProp : state;
+  let setValue;
+
+  if (hasValue && typeof onChange === 'function') {
+    setValue = onChange;
+  } else if (!hasValue && typeof onChange === 'function') {
+    setValue = nextValue => {
+      onChange(nextValue);
+      setState(nextValue);
+    };
+  } else {
+    setValue = setState;
+  }
+
+  return [value, setValue];
+}
+//# sourceMappingURL=use-controlled-value.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/component.js
 
 
@@ -49171,9 +49260,11 @@ const Picker = _ref => {
 
 
 
+
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -49197,19 +49288,25 @@ const options = [{
 const ColorPicker = (props, forwardedRef) => {
   const {
     enableAlpha = false,
-    color,
+    color: colorProp,
     onChange,
     defaultValue = '#fff',
     copyFormat,
     ...divProps
   } = useContextSystem(props, 'ColorPicker'); // Use a safe default value for the color and remove the possibility of `undefined`.
 
+  const [color, setColor] = useControlledValue({
+    onChange,
+    value: colorProp,
+    defaultValue
+  });
   const safeColordColor = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return color ? w(color) : w(defaultValue);
-  }, [color, defaultValue]);
+    return w(color);
+  }, [color]);
+  const debouncedSetColor = (0,external_wp_compose_namespaceObject.useDebounce)(setColor);
   const handleChange = (0,external_React_.useCallback)(nextValue => {
-    onChange(nextValue.toHex());
-  }, [onChange]);
+    debouncedSetColor(nextValue.toHex());
+  }, [debouncedSetColor]);
   const [showInputs, setShowInputs] = (0,external_wp_element_namespaceObject.useState)(false);
   const [colorType, setColorType] = (0,external_wp_element_namespaceObject.useState)(copyFormat || 'hex');
   return (0,external_wp_element_namespaceObject.createElement)(ColorfulWrapper, extends_extends({
@@ -49539,9 +49636,6 @@ function VStack(props, forwardedRef) {
 const ConnectedVStack = contextConnect(VStack, 'VStack');
 /* harmony default export */ var v_stack_component = (ConnectedVStack);
 //# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
-var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/dropdown/index.js
 
 
@@ -49683,10 +49777,10 @@ function Option(_ref) {
   } = _ref;
   const optionButton = (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
     isPressed: isSelected,
-    className: classnames_default()(className, 'components-circular-option-picker__option')
+    className: "components-circular-option-picker__option"
   }, additionalProps));
   return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-circular-option-picker__option-wrapper"
+    className: classnames_default()(className, 'components-circular-option-picker__option-wrapper')
   }, tooltipText ? (0,external_wp_element_namespaceObject.createElement)(tooltip, {
     text: tooltipText
   }, optionButton) : optionButton, isSelected && (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, extends_extends({
@@ -49749,6 +49843,977 @@ function CircularOptionPicker(_ref5) {
 CircularOptionPicker.Option = Option;
 CircularOptionPicker.ButtonAction = ButtonAction;
 CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/constants.js
+const COLOR_POPOVER_PROPS = {
+  className: 'components-custom-gradient-picker__color-picker-popover',
+  position: 'top'
+};
+const GRADIENT_MARKERS_WIDTH = 16;
+const INSERT_POINT_WIDTH = 16;
+const MINIMUM_ABSOLUTE_LEFT_POSITION = 5;
+const MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_POINT = 10;
+const MINIMUM_DISTANCE_BETWEEN_POINTS = 0;
+const MINIMUM_SIGNIFICANT_MOVE = 5;
+const KEYBOARD_CONTROL_POINT_VARIATION = MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_POINT;
+const MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_MARKER = (INSERT_POINT_WIDTH + GRADIENT_MARKERS_WIDTH) / 2;
+//# sourceMappingURL=constants.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/utils.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Control point for the gradient bar.
+ *
+ * @typedef {Object} ControlPoint
+ * @property {string} color    Color of the control point.
+ * @property {number} position Integer position of the control point as a percentage.
+ */
+
+/**
+ * Color as parsed from the gradient by gradient-parser.
+ *
+ * @typedef {Object} Color
+ * @property {string} r   Red component.
+ * @property {string} g   Green component.
+ * @property {string} b   Green component.
+ * @property {string} [a] Optional alpha component.
+ */
+
+/**
+ * Clamps a number between 0 and 100.
+ *
+ * @param {number} value Value to clamp.
+ *
+ * @return {number} Value clamped between 0 and 100.
+ */
+
+function clampPercent(value) {
+  return Math.max(0, Math.min(100, value));
+}
+/**
+ * Check if a control point is overlapping with another.
+ *
+ * @param {ControlPoint[]} value        Array of control points.
+ * @param {number}         initialIndex Index of the position to test.
+ * @param {number}         newPosition  New position of the control point.
+ * @param {number}         minDistance  Distance considered to be overlapping.
+ *
+ * @return {boolean} True if the point is overlapping.
+ */
+
+function isOverlapping(value, initialIndex, newPosition) {
+  let minDistance = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : MINIMUM_DISTANCE_BETWEEN_POINTS;
+  const initialPosition = value[initialIndex].position;
+  const minPosition = Math.min(initialPosition, newPosition);
+  const maxPosition = Math.max(initialPosition, newPosition);
+  return value.some((_ref, index) => {
+    let {
+      position
+    } = _ref;
+    return index !== initialIndex && (Math.abs(position - newPosition) < minDistance || minPosition < position && position < maxPosition);
+  });
+}
+/**
+ * Adds a control point from an array and returns the new array.
+ *
+ * @param {ControlPoint[]} points   Array of control points.
+ * @param {number}         position Position to insert the new point.
+ * @param {Color}          color    Color to update the control point at index.
+ *
+ * @return {ControlPoint[]} New array of control points.
+ */
+
+function addControlPoint(points, position, color) {
+  const nextIndex = points.findIndex(point => point.position > position);
+  const newPoint = {
+    color,
+    position
+  };
+  const newPoints = points.slice();
+  newPoints.splice(nextIndex - 1, 0, newPoint);
+  return newPoints;
+}
+/**
+ * Removes a control point from an array and returns the new array.
+ *
+ * @param {ControlPoint[]} points Array of control points.
+ * @param {number}         index  Index to remove.
+ *
+ * @return {ControlPoint[]} New array of control points.
+ */
+
+function removeControlPoint(points, index) {
+  return points.filter((point, pointIndex) => {
+    return pointIndex !== index;
+  });
+}
+/**
+ * Updates a control point from an array and returns the new array.
+ *
+ * @param {ControlPoint[]} points   Array of control points.
+ * @param {number}         index    Index to update.
+ * @param {ControlPoint[]} newPoint New control point to replace the index.
+ *
+ * @return {ControlPoint[]} New array of control points.
+ */
+
+function updateControlPoint(points, index, newPoint) {
+  const newValue = points.slice();
+  newValue[index] = newPoint;
+  return newValue;
+}
+/**
+ * Updates the position of a control point from an array and returns the new array.
+ *
+ * @param {ControlPoint[]} points      Array of control points.
+ * @param {number}         index       Index to update.
+ * @param {number}         newPosition Position to move the control point at index.
+ *
+ * @return {ControlPoint[]} New array of control points.
+ */
+
+function updateControlPointPosition(points, index, newPosition) {
+  if (isOverlapping(points, index, newPosition)) {
+    return points;
+  }
+
+  const newPoint = { ...points[index],
+    position: newPosition
+  };
+  return updateControlPoint(points, index, newPoint);
+}
+/**
+ * Updates the position of a control point from an array and returns the new array.
+ *
+ * @param {ControlPoint[]} points   Array of control points.
+ * @param {number}         index    Index to update.
+ * @param {Color}          newColor Color to update the control point at index.
+ *
+ * @return {ControlPoint[]} New array of control points.
+ */
+
+function updateControlPointColor(points, index, newColor) {
+  const newPoint = { ...points[index],
+    color: newColor
+  };
+  return updateControlPoint(points, index, newPoint);
+}
+/**
+ * Updates the position of a control point from an array and returns the new array.
+ *
+ * @param {ControlPoint[]} points   Array of control points.
+ * @param {number}         position Position of the color stop.
+ * @param {string}         newColor Color to update the control point at index.
+ *
+ * @return {ControlPoint[]} New array of control points.
+ */
+
+function updateControlPointColorByPosition(points, position, newColor) {
+  const index = points.findIndex(point => point.position === position);
+  return updateControlPointColor(points, index, newColor);
+}
+/**
+ * Gets the horizontal coordinate when dragging a control point with the mouse.
+ *
+ * @param {number}  mouseXCoordinate       Horizontal coordinate of the mouse position.
+ * @param {Element} containerElement       Container for the gradient picker.
+ * @param {number}  positionedElementWidth Width of the positioned element.
+ *
+ * @return {number} Whole number percentage from the left.
+ */
+
+function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElement, positionedElementWidth) {
+  if (!containerElement) {
+    return;
+  }
+
+  const {
+    x,
+    width
+  } = containerElement.getBoundingClientRect();
+  const absolutePositionValue = mouseXCoordinate - x - MINIMUM_ABSOLUTE_LEFT_POSITION - positionedElementWidth / 2;
+  const availableWidth = width - MINIMUM_ABSOLUTE_LEFT_POSITION - INSERT_POINT_WIDTH;
+  return Math.round(clampPercent(absolutePositionValue * 100 / availableWidth));
+}
+//# sourceMappingURL=utils.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/control-points.js
+
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+function ControlPointButton(_ref) {
+  let {
+    isOpen,
+    position,
+    color,
+    ...additionalProps
+  } = _ref;
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(ControlPointButton);
+  const descriptionId = `components-custom-gradient-picker__control-point-button-description-${instanceId}`;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
+    "aria-label": (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1$s: gradient position e.g: 70, %2$s: gradient color code e.g: rgb(52,121,151).
+    (0,external_wp_i18n_namespaceObject.__)('Gradient control point at position %1$s%% with color code %2$s.'), position, color),
+    "aria-describedby": descriptionId,
+    "aria-haspopup": "true",
+    "aria-expanded": isOpen,
+    className: classnames_default()('components-custom-gradient-picker__control-point-button', {
+      'is-active': isOpen
+    }),
+    style: {
+      left: `${position}%`
+    }
+  }, additionalProps)), (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
+    id: descriptionId
+  }, (0,external_wp_i18n_namespaceObject.__)('Use your left or right arrow keys or drag and drop with the mouse to change the gradient position. Press the button to change the color or remove the control point.')));
+}
+
+function ControlPoints(_ref2) {
+  let {
+    disableRemove,
+    disableAlpha,
+    gradientPickerDomRef,
+    ignoreMarkerPosition,
+    value: controlPoints,
+    onChange,
+    onStartControlPointChange,
+    onStopControlPointChange
+  } = _ref2;
+  const controlPointMoveState = (0,external_wp_element_namespaceObject.useRef)();
+
+  const onMouseMove = event => {
+    const relativePosition = getHorizontalRelativeGradientPosition(event.clientX, gradientPickerDomRef.current, GRADIENT_MARKERS_WIDTH);
+    const {
+      initialPosition,
+      index,
+      significantMoveHappened
+    } = controlPointMoveState.current;
+
+    if (!significantMoveHappened && Math.abs(initialPosition - relativePosition) >= MINIMUM_SIGNIFICANT_MOVE) {
+      controlPointMoveState.current.significantMoveHappened = true;
+    }
+
+    onChange(updateControlPointPosition(controlPoints, index, relativePosition));
+  };
+
+  const cleanEventListeners = () => {
+    if (window && window.removeEventListener && controlPointMoveState.current && controlPointMoveState.current.listenersActivated) {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', cleanEventListeners);
+      onStopControlPointChange();
+      controlPointMoveState.current.listenersActivated = false;
+    }
+  };
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    return () => {
+      cleanEventListeners();
+    };
+  }, []);
+  return controlPoints.map((point, index) => {
+    const initialPosition = point === null || point === void 0 ? void 0 : point.position;
+    return ignoreMarkerPosition !== initialPosition && (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+      key: index,
+      onClose: onStopControlPointChange,
+      renderToggle: _ref3 => {
+        let {
+          isOpen,
+          onToggle
+        } = _ref3;
+        return (0,external_wp_element_namespaceObject.createElement)(ControlPointButton, {
+          key: index,
+          onClick: () => {
+            if (controlPointMoveState.current && controlPointMoveState.current.significantMoveHappened) {
+              return;
+            }
+
+            if (isOpen) {
+              onStopControlPointChange();
+            } else {
+              onStartControlPointChange();
+            }
+
+            onToggle();
+          },
+          onMouseDown: () => {
+            if (window && window.addEventListener) {
+              controlPointMoveState.current = {
+                initialPosition,
+                index,
+                significantMoveHappened: false,
+                listenersActivated: true
+              };
+              onStartControlPointChange();
+              window.addEventListener('mousemove', onMouseMove);
+              window.addEventListener('mouseup', cleanEventListeners);
+            }
+          },
+          onKeyDown: event => {
+            if (event.keyCode === external_wp_keycodes_namespaceObject.LEFT) {
+              // Stop propagation of the key press event to avoid focus moving
+              // to another editor area.
+              event.stopPropagation();
+              onChange(updateControlPointPosition(controlPoints, index, clampPercent(point.position - KEYBOARD_CONTROL_POINT_VARIATION)));
+            } else if (event.keyCode === external_wp_keycodes_namespaceObject.RIGHT) {
+              // Stop propagation of the key press event to avoid focus moving
+              // to another editor area.
+              event.stopPropagation();
+              onChange(updateControlPointPosition(controlPoints, index, clampPercent(point.position + KEYBOARD_CONTROL_POINT_VARIATION)));
+            }
+          },
+          isOpen: isOpen,
+          position: point.position,
+          color: point.color
+        });
+      },
+      renderContent: _ref4 => {
+        let {
+          onClose
+        } = _ref4;
+        return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+          enableAlpha: !disableAlpha,
+          color: point.color,
+          onChange: color => {
+            onChange(updateControlPointColor(controlPoints, index, w(color).toRgbString()));
+          }
+        }), !disableRemove && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+          className: "components-custom-gradient-picker__remove-control-point",
+          onClick: () => {
+            onChange(removeControlPoint(controlPoints, index));
+            onClose();
+          },
+          variant: "link"
+        }, (0,external_wp_i18n_namespaceObject.__)('Remove Control Point')));
+      },
+      popoverProps: COLOR_POPOVER_PROPS
+    });
+  });
+}
+
+function InsertPoint(_ref5) {
+  let {
+    value: controlPoints,
+    onChange,
+    onOpenInserter,
+    onCloseInserter,
+    insertPosition,
+    disableAlpha
+  } = _ref5;
+  const [alreadyInsertedPoint, setAlreadyInsertedPoint] = (0,external_wp_element_namespaceObject.useState)(false);
+  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+    className: "components-custom-gradient-picker__inserter",
+    onClose: () => {
+      onCloseInserter();
+    },
+    renderToggle: _ref6 => {
+      let {
+        isOpen,
+        onToggle
+      } = _ref6;
+      return (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+        "aria-expanded": isOpen,
+        "aria-haspopup": "true",
+        onClick: () => {
+          if (isOpen) {
+            onCloseInserter();
+          } else {
+            setAlreadyInsertedPoint(false);
+            onOpenInserter();
+          }
+
+          onToggle();
+        },
+        className: "components-custom-gradient-picker__insert-point",
+        icon: library_plus,
+        style: {
+          left: insertPosition !== null ? `${insertPosition}%` : undefined
+        }
+      });
+    },
+    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+      enableAlpha: !disableAlpha,
+      onChange: color => {
+        if (!alreadyInsertedPoint) {
+          onChange(addControlPoint(controlPoints, insertPosition, w(color).toRgbString()));
+          setAlreadyInsertedPoint(true);
+        } else {
+          onChange(updateControlPointColorByPosition(controlPoints, insertPosition, w(color).toRgbString()));
+        }
+      }
+    }),
+    popoverProps: COLOR_POPOVER_PROPS
+  });
+}
+
+ControlPoints.InsertPoint = InsertPoint;
+/* harmony default export */ var control_points = (ControlPoints);
+//# sourceMappingURL=control-points.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/index.js
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+function customGradientBarReducer(state, action) {
+  switch (action.type) {
+    case 'MOVE_INSERTER':
+      if (state.id === 'IDLE' || state.id === 'MOVING_INSERTER') {
+        return {
+          id: 'MOVING_INSERTER',
+          insertPosition: action.insertPosition
+        };
+      }
+
+      break;
+
+    case 'STOP_INSERTER_MOVE':
+      if (state.id === 'MOVING_INSERTER') {
+        return {
+          id: 'IDLE'
+        };
+      }
+
+      break;
+
+    case 'OPEN_INSERTER':
+      if (state.id === 'MOVING_INSERTER') {
+        return {
+          id: 'INSERTING_CONTROL_POINT',
+          insertPosition: state.insertPosition
+        };
+      }
+
+      break;
+
+    case 'CLOSE_INSERTER':
+      if (state.id === 'INSERTING_CONTROL_POINT') {
+        return {
+          id: 'IDLE'
+        };
+      }
+
+      break;
+
+    case 'START_CONTROL_CHANGE':
+      if (state.id === 'IDLE') {
+        return {
+          id: 'MOVING_CONTROL_POINT'
+        };
+      }
+
+      break;
+
+    case 'STOP_CONTROL_CHANGE':
+      if (state.id === 'MOVING_CONTROL_POINT') {
+        return {
+          id: 'IDLE'
+        };
+      }
+
+      break;
+  }
+
+  return state;
+}
+
+const customGradientBarReducerInitialState = {
+  id: 'IDLE'
+};
+function CustomGradientBar(_ref) {
+  let {
+    background,
+    hasGradient,
+    value: controlPoints,
+    onChange,
+    disableInserter = false,
+    disableAlpha = false
+  } = _ref;
+  const gradientPickerDomRef = (0,external_wp_element_namespaceObject.useRef)();
+  const [gradientBarState, gradientBarStateDispatch] = (0,external_wp_element_namespaceObject.useReducer)(customGradientBarReducer, customGradientBarReducerInitialState);
+
+  const onMouseEnterAndMove = event => {
+    const insertPosition = getHorizontalRelativeGradientPosition(event.clientX, gradientPickerDomRef.current, INSERT_POINT_WIDTH); // If the insert point is close to an existing control point don't show it.
+
+    if ((0,external_lodash_namespaceObject.some)(controlPoints, _ref2 => {
+      let {
+        position
+      } = _ref2;
+      return Math.abs(insertPosition - position) < MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_POINT;
+    })) {
+      if (gradientBarState.id === 'MOVING_INSERTER') {
+        gradientBarStateDispatch({
+          type: 'STOP_INSERTER_MOVE'
+        });
+      }
+
+      return;
+    }
+
+    gradientBarStateDispatch({
+      type: 'MOVE_INSERTER',
+      insertPosition
+    });
+  };
+
+  const onMouseLeave = () => {
+    gradientBarStateDispatch({
+      type: 'STOP_INSERTER_MOVE'
+    });
+  };
+
+  const isMovingInserter = gradientBarState.id === 'MOVING_INSERTER';
+  const isInsertingControlPoint = gradientBarState.id === 'INSERTING_CONTROL_POINT';
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    ref: gradientPickerDomRef,
+    className: classnames_default()('components-custom-gradient-picker__gradient-bar', {
+      'has-gradient': hasGradient
+    }),
+    onMouseEnter: onMouseEnterAndMove,
+    onMouseMove: onMouseEnterAndMove,
+    style: {
+      background
+    },
+    onMouseLeave: onMouseLeave
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-custom-gradient-picker__markers-container"
+  }, !disableInserter && (isMovingInserter || isInsertingControlPoint) && (0,external_wp_element_namespaceObject.createElement)(control_points.InsertPoint, {
+    disableAlpha: disableAlpha,
+    insertPosition: gradientBarState.insertPosition,
+    value: controlPoints,
+    onChange: onChange,
+    onOpenInserter: () => {
+      gradientBarStateDispatch({
+        type: 'OPEN_INSERTER'
+      });
+    },
+    onCloseInserter: () => {
+      gradientBarStateDispatch({
+        type: 'CLOSE_INSERTER'
+      });
+    }
+  }), (0,external_wp_element_namespaceObject.createElement)(control_points, {
+    disableAlpha: disableAlpha,
+    disableRemove: disableInserter,
+    gradientPickerDomRef: gradientPickerDomRef,
+    ignoreMarkerPosition: isInsertingControlPoint ? gradientBarState.insertPosition : undefined,
+    value: controlPoints,
+    onChange: onChange,
+    onStartControlPointChange: () => {
+      gradientBarStateDispatch({
+        type: 'START_CONTROL_CHANGE'
+      });
+    },
+    onStopControlPointChange: () => {
+      gradientBarStateDispatch({
+        type: 'STOP_CONTROL_CHANGE'
+      });
+    }
+  })));
+}
+//# sourceMappingURL=index.js.map
+// EXTERNAL MODULE: ./node_modules/gradient-parser/build/node.js
+var build_node = __webpack_require__(9948);
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/constants.js
+/**
+ * WordPress dependencies
+ */
+
+const DEFAULT_GRADIENT = 'linear-gradient(135deg, rgba(6, 147, 227, 1) 0%, rgb(155, 81, 224) 100%)';
+const DEFAULT_LINEAR_GRADIENT_ANGLE = 180;
+const HORIZONTAL_GRADIENT_ORIENTATION = {
+  type: 'angular',
+  value: 90
+};
+const GRADIENT_OPTIONS = [{
+  value: 'linear-gradient',
+  label: (0,external_wp_i18n_namespaceObject.__)('Linear')
+}, {
+  value: 'radial-gradient',
+  label: (0,external_wp_i18n_namespaceObject.__)('Radial')
+}];
+const DIRECTIONAL_ORIENTATION_ANGLE_MAP = {
+  top: 0,
+  'top right': 45,
+  'right top': 45,
+  right: 90,
+  'right bottom': 135,
+  'bottom right': 135,
+  bottom: 180,
+  'bottom left': 225,
+  'left bottom': 225,
+  left: 270,
+  'top left': 315,
+  'left top': 315
+};
+//# sourceMappingURL=constants.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/serializer.js
+/**
+ * External dependencies
+ */
+
+function serializeGradientColor(_ref) {
+  let {
+    type,
+    value
+  } = _ref;
+
+  if (type === 'literal') {
+    return value;
+  }
+
+  if (type === 'hex') {
+    return `#${value}`;
+  }
+
+  return `${type}(${value.join(',')})`;
+}
+function serializeGradientPosition(position) {
+  if (!position) {
+    return '';
+  }
+
+  const {
+    value,
+    type
+  } = position;
+  return `${value}${type}`;
+}
+function serializeGradientColorStop(_ref2) {
+  let {
+    type,
+    value,
+    length
+  } = _ref2;
+  return `${serializeGradientColor({
+    type,
+    value
+  })} ${serializeGradientPosition(length)}`;
+}
+function serializeGradientOrientation(orientation) {
+  if (!orientation || orientation.type !== 'angular') {
+    return;
+  }
+
+  return `${orientation.value}deg`;
+}
+function serializeGradient(_ref3) {
+  let {
+    type,
+    orientation,
+    colorStops
+  } = _ref3;
+  const serializedOrientation = serializeGradientOrientation(orientation);
+  const serializedColorStops = colorStops.sort((colorStop1, colorStop2) => {
+    return (0,external_lodash_namespaceObject.get)(colorStop1, ['length', 'value'], 0) - (0,external_lodash_namespaceObject.get)(colorStop2, ['length', 'value'], 0);
+  }).map(serializeGradientColorStop);
+  return `${type}(${(0,external_lodash_namespaceObject.compact)([serializedOrientation, ...serializedColorStops]).join(',')})`;
+}
+//# sourceMappingURL=serializer.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/utils.js
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+k([names]);
+function getLinearGradientRepresentation(gradientAST) {
+  return serializeGradient({
+    type: 'linear-gradient',
+    orientation: HORIZONTAL_GRADIENT_ORIENTATION,
+    colorStops: gradientAST.colorStops
+  });
+}
+
+function hasUnsupportedLength(item) {
+  return item.length === undefined || item.length.type !== '%';
+}
+
+function getGradientAstWithDefault(value) {
+  var _gradientAST$orientat;
+
+  // gradientAST will contain the gradient AST as parsed by gradient-parser npm module.
+  // More information of its structure available at https://www.npmjs.com/package/gradient-parser#ast.
+  let gradientAST;
+
+  try {
+    gradientAST = build_node.parse(value)[0];
+    gradientAST.value = value;
+  } catch (error) {
+    gradientAST = build_node.parse(DEFAULT_GRADIENT)[0];
+    gradientAST.value = DEFAULT_GRADIENT;
+  }
+
+  if (((_gradientAST$orientat = gradientAST.orientation) === null || _gradientAST$orientat === void 0 ? void 0 : _gradientAST$orientat.type) === 'directional') {
+    gradientAST.orientation.type = 'angular';
+    gradientAST.orientation.value = DIRECTIONAL_ORIENTATION_ANGLE_MAP[gradientAST.orientation.value].toString();
+  }
+
+  if (gradientAST.colorStops.some(hasUnsupportedLength)) {
+    const {
+      colorStops
+    } = gradientAST;
+    const step = 100 / (colorStops.length - 1);
+    colorStops.forEach((stop, index) => {
+      stop.length = {
+        value: step * index,
+        type: '%'
+      };
+    });
+    gradientAST.value = serializeGradient(gradientAST);
+  }
+
+  return gradientAST;
+}
+function getGradientAstWithControlPoints(gradientAST, newControlPoints) {
+  return { ...gradientAST,
+    colorStops: newControlPoints.map(_ref => {
+      let {
+        position,
+        color
+      } = _ref;
+      const {
+        r,
+        g,
+        b,
+        a
+      } = w(color).toRgb();
+      return {
+        length: {
+          type: '%',
+          value: position.toString()
+        },
+        type: a < 1 ? 'rgba' : 'rgb',
+        value: a < 1 ? [r, g, b, a] : [r, g, b]
+      };
+    })
+  };
+}
+function getStopCssColor(colorStop) {
+  switch (colorStop.type) {
+    case 'hex':
+      return `#${colorStop.value}`;
+
+    case 'literal':
+      return colorStop.value;
+
+    case 'rgb':
+    case 'rgba':
+      return `${colorStop.type}(${colorStop.value.join(',')})`;
+
+    default:
+      // Should be unreachable if passing an AST from gradient-parser.
+      // See https://github.com/rafaelcaricio/gradient-parser#ast.
+      return 'transparent';
+  }
+}
+//# sourceMappingURL=utils.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/styles/custom-gradient-picker-styles.js
+
+
+function custom_gradient_picker_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+const SelectWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block_component,  true ? {
+  target: "e99xvul1"
+} : 0)( true ? {
+  name: "1gvx10y",
+  styles: "flex-grow:5"
+} : 0);
+const AccessoryWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block_component,  true ? {
+  target: "e99xvul0"
+} : 0)( true ? {
+  name: "1gvx10y",
+  styles: "flex-grow:5"
+} : 0);
+//# sourceMappingURL=custom-gradient-picker-styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/index.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+
+
+const GradientAnglePicker = _ref => {
+  let {
+    gradientAST,
+    hasGradient,
+    onChange
+  } = _ref;
+  const angle = (0,external_lodash_namespaceObject.get)(gradientAST, ['orientation', 'value'], DEFAULT_LINEAR_GRADIENT_ANGLE);
+
+  const onAngleChange = newAngle => {
+    onChange(serializeGradient({ ...gradientAST,
+      orientation: {
+        type: 'angular',
+        value: newAngle
+      }
+    }));
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(AnglePickerControl, {
+    onChange: onAngleChange,
+    labelPosition: "top",
+    value: hasGradient ? angle : ''
+  });
+};
+
+const GradientTypePicker = _ref2 => {
+  let {
+    gradientAST,
+    hasGradient,
+    onChange
+  } = _ref2;
+  const {
+    type
+  } = gradientAST;
+
+  const onSetLinearGradient = () => {
+    onChange(serializeGradient({ ...gradientAST,
+      ...(gradientAST.orientation ? {} : {
+        orientation: HORIZONTAL_GRADIENT_ORIENTATION
+      }),
+      type: 'linear-gradient'
+    }));
+  };
+
+  const onSetRadialGradient = () => {
+    onChange(serializeGradient({ ...(0,external_lodash_namespaceObject.omit)(gradientAST, ['orientation']),
+      type: 'radial-gradient'
+    }));
+  };
+
+  const handleOnChange = next => {
+    if (next === 'linear-gradient') {
+      onSetLinearGradient();
+    }
+
+    if (next === 'radial-gradient') {
+      onSetRadialGradient();
+    }
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(select_control, {
+    className: "components-custom-gradient-picker__type-picker",
+    label: (0,external_wp_i18n_namespaceObject.__)('Type'),
+    labelPosition: "top",
+    onChange: handleOnChange,
+    options: GRADIENT_OPTIONS,
+    size: "__unstable-large",
+    value: hasGradient && type
+  });
+};
+
+function CustomGradientPicker(_ref3) {
+  let {
+    value,
+    onChange
+  } = _ref3;
+  const gradientAST = getGradientAstWithDefault(value); // On radial gradients the bar should display a linear gradient.
+  // On radial gradients the bar represents a slice of the gradient from the center until the outside.
+  // On liner gradients the bar represents the color stops from left to right independently of the angle.
+
+  const background = getLinearGradientRepresentation(gradientAST);
+  const hasGradient = gradientAST.value !== DEFAULT_GRADIENT; // Control points color option may be hex from presets, custom colors will be rgb.
+  // The position should always be a percentage.
+
+  const controlPoints = gradientAST.colorStops.map(colorStop => ({
+    color: getStopCssColor(colorStop),
+    position: parseInt(colorStop.length.value)
+  }));
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-custom-gradient-picker"
+  }, (0,external_wp_element_namespaceObject.createElement)(CustomGradientBar, {
+    background: background,
+    hasGradient: hasGradient,
+    value: controlPoints,
+    onChange: newControlPoints => {
+      onChange(serializeGradient(getGradientAstWithControlPoints(gradientAST, newControlPoints)));
+    }
+  }), (0,external_wp_element_namespaceObject.createElement)(flex_component, {
+    gap: 3,
+    className: "components-custom-gradient-picker__ui-line"
+  }, (0,external_wp_element_namespaceObject.createElement)(SelectWrapper, null, (0,external_wp_element_namespaceObject.createElement)(GradientTypePicker, {
+    gradientAST: gradientAST,
+    hasGradient: hasGradient,
+    onChange: onChange
+  })), (0,external_wp_element_namespaceObject.createElement)(AccessoryWrapper, null, gradientAST.type === 'linear-gradient' && (0,external_wp_element_namespaceObject.createElement)(GradientAnglePicker, {
+    gradientAST: gradientAST,
+    hasGradient: hasGradient,
+    onChange: onChange
+  }))));
+}
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/heading/hook.js
 /**
@@ -49845,12 +50910,141 @@ const ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_compon
   styles: "text-transform:uppercase;line-height:24px;font-weight:500;&&&{font-size:11px;margin-bottom:0;}"
 } : 0);
 //# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/gradient-picker/index.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+function SingleOrigin(_ref) {
+  let {
+    className,
+    clearGradient,
+    gradients,
+    onChange,
+    value,
+    actions,
+    content
+  } = _ref;
+  const gradientOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return (0,external_lodash_namespaceObject.map)(gradients, _ref2 => {
+      let {
+        gradient,
+        name
+      } = _ref2;
+      return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
+        key: gradient,
+        value: gradient,
+        isSelected: value === gradient,
+        tooltipText: name || // translators: %s: gradient code e.g: "linear-gradient(90deg, rgba(98,16,153,1) 0%, rgba(172,110,22,1) 100%);".
+        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Gradient code: %s'), gradient),
+        style: {
+          color: 'rgba( 0,0,0,0 )',
+          background: gradient
+        },
+        onClick: value === gradient ? clearGradient : () => onChange(gradient),
+        "aria-label": name ? // translators: %s: The name of the gradient e.g: "Angular red to blue".
+        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Gradient: %s'), name) : // translators: %s: gradient code e.g: "linear-gradient(90deg, rgba(98,16,153,1) 0%, rgba(172,110,22,1) 100%);".
+        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Gradient code: %s'), gradient)
+      });
+    });
+  }, [gradients, value, onChange, clearGradient]);
+  return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
+    className: className,
+    options: gradientOptions,
+    actions: actions
+  }, content);
+}
+
+function MultipleOrigin(_ref3) {
+  let {
+    className,
+    clearGradient,
+    gradients,
+    onChange,
+    value,
+    actions,
+    content
+  } = _ref3;
+  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: 3,
+    className: className
+  }, gradients.map((_ref4, index) => {
+    let {
+      name,
+      gradients: gradientSet
+    } = _ref4;
+    return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+      spacing: 2,
+      key: index
+    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, null, name), (0,external_wp_element_namespaceObject.createElement)(SingleOrigin, extends_extends({
+      clearGradient: clearGradient,
+      gradients: gradientSet,
+      onChange: onChange,
+      value: value
+    }, gradients.length === index + 1 ? {
+      actions,
+      content
+    } : {})));
+  }));
+}
+
+function GradientPicker(_ref5) {
+  let {
+    className,
+    gradients,
+    onChange,
+    value,
+    clearable = true,
+    disableCustomGradients = false,
+    __experimentalHasMultipleOrigins
+  } = _ref5;
+  const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
+  const Component = __experimentalHasMultipleOrigins ? MultipleOrigin : SingleOrigin;
+  return (0,external_wp_element_namespaceObject.createElement)(Component, {
+    className: className,
+    clearable: clearable,
+    clearGradient: clearGradient,
+    gradients: gradients,
+    onChange: onChange,
+    value: value,
+    actions: clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
+      onClick: clearGradient
+    }, (0,external_wp_i18n_namespaceObject.__)('Clear')),
+    content: !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
+      value: value,
+      onChange: onChange
+    })
+  });
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
+var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/index.js
 
 
 /**
  * External dependencies
  */
+
 
 
 
@@ -49953,7 +51147,8 @@ function ColorPalette(_ref5) {
     enableAlpha,
     onChange,
     value,
-    __experimentalHasMultipleOrigins = false
+    __experimentalHasMultipleOrigins = false,
+    __experimentalIsRenderedInSidebar = false
   } = _ref5;
   const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
   const Component = __experimentalHasMultipleOrigins ? MultiplePalettes : SinglePalette;
@@ -49968,6 +51163,9 @@ function ColorPalette(_ref5) {
     spacing: 3,
     className: className
   }, !disableCustomColors && (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+    contentClassName: classnames_default()('components-color-palette__custom-color-dropdown-content', {
+      'is-rendered-in-sidebar': __experimentalIsRenderedInSidebar
+    }),
     renderContent: renderCustomColorPicker,
     renderToggle: _ref6 => {
       let {
@@ -50402,31 +51600,6 @@ function DropdownMenu(dropdownMenuProps) {
 
 /* harmony default export */ var dropdown_menu = (DropdownMenu);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-indicator/index.js
-
-
-
-/**
- * External dependencies
- */
-
-
-const ColorIndicator = _ref => {
-  let {
-    className,
-    colorValue,
-    ...props
-  } = _ref;
-  return (0,external_wp_element_namespaceObject.createElement)("span", extends_extends({
-    className: classnames_default()('component-color-indicator', className),
-    style: {
-      background: colorValue
-    }
-  }, props));
-};
-
-/* harmony default export */ var color_indicator = (ColorIndicator);
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item/hook.js
 /**
  * External dependencies
@@ -50505,10 +51678,10 @@ function component_Item(props, forwardedRef) {
 
 /* harmony default export */ var item_component = (contextConnect(component_Item, 'Item'));
 //# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-edit/styles.js
+;// CONCATENATED MODULE: ./packages/components/build-module/palette-edit/styles.js
 
 
-function color_edit_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+function palette_edit_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
 /**
  * External dependencies
@@ -50527,41 +51700,41 @@ function color_edit_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have t
 
 
 
-const ColorIndicatorStyled = /*#__PURE__*/emotion_styled_base_browser_esm(color_indicator,  true ? {
-  target: "e3doru19"
-} : 0)("&&{display:block;border-radius:50%;border:0;height:", space(6), ";width:", space(6), ";margin-left:0;padding:0;}" + ( true ? "" : 0));
-const ColorNameInputControl = /*#__PURE__*/emotion_styled_base_browser_esm(input_control,  true ? {
-  target: "e3doru18"
+const IndicatorStyled = /*#__PURE__*/emotion_styled_base_browser_esm(CircularOptionPicker.Option,  true ? {
+  target: "e5bw3229"
+} : 0)("width:", space(6), ";height:", space(6), ";pointer-events:none;" + ( true ? "" : 0));
+const NameInputControl = /*#__PURE__*/emotion_styled_base_browser_esm(input_control,  true ? {
+  target: "e5bw3228"
 } : 0)(Container, "{background:", COLORS.gray[100], ";border-radius:2px;", Input, Input, Input, Input, "{height:", space(8), ";}", BackdropUI, BackdropUI, BackdropUI, "{border-color:transparent;box-shadow:none;}}" + ( true ? "" : 0));
-const ColorItem = /*#__PURE__*/emotion_styled_base_browser_esm(item_component,  true ? {
-  target: "e3doru17"
+const PaletteItem = /*#__PURE__*/emotion_styled_base_browser_esm(item_component,  true ? {
+  target: "e5bw3227"
 } : 0)("padding:3px 0 3px ", space(3), ";height:calc( 40px - ", config_values.borderWidth, " );" + ( true ? "" : 0));
-const ColorNameContainer = emotion_styled_base_browser_esm("span",  true ? {
-  target: "e3doru16"
-} : 0)("line-height:", space(8), ";margin-left:", space(2), ";" + ( true ? "" : 0));
-const styles_ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_component,  true ? {
-  target: "e3doru15"
+const NameContainer = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e5bw3226"
+} : 0)("line-height:", space(8), ";margin-left:", space(2), ";margin-right:", space(2), ";white-space:nowrap;overflow:hidden;" + ( true ? "" : 0));
+const PaletteHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_component,  true ? {
+  target: "e5bw3225"
 } : 0)("text-transform:uppercase;line-height:", space(6), ";font-weight:500;&&&{font-size:11px;margin-bottom:0;}" + ( true ? "" : 0));
-const ColorActionsContainer = /*#__PURE__*/emotion_styled_base_browser_esm(component,  true ? {
-  target: "e3doru14"
+const PaletteActionsContainer = /*#__PURE__*/emotion_styled_base_browser_esm(component,  true ? {
+  target: "e5bw3224"
 } : 0)("height:", space(6), ";display:flex;" + ( true ? "" : 0));
-const ColorHStackHeader = /*#__PURE__*/emotion_styled_base_browser_esm(h_stack_component,  true ? {
-  target: "e3doru13"
+const PaletteHStackHeader = /*#__PURE__*/emotion_styled_base_browser_esm(h_stack_component,  true ? {
+  target: "e5bw3223"
 } : 0)("margin-bottom:", space(2), ";" + ( true ? "" : 0));
-const ColorEditStyles = /*#__PURE__*/emotion_styled_base_browser_esm(component,  true ? {
-  target: "e3doru12"
+const PaletteEditStyles = /*#__PURE__*/emotion_styled_base_browser_esm(component,  true ? {
+  target: "e5bw3222"
 } : 0)( true ? {
   name: "u6wnko",
   styles: "&&&{.components-button.has-icon{min-width:0;padding:0;}}"
 } : 0);
 const DoneButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
-  target: "e3doru11"
+  target: "e5bw3221"
 } : 0)("&&{color:", COLORS.ui.theme, ";}" + ( true ? "" : 0));
 const RemoveButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
-  target: "e3doru10"
+  target: "e5bw3220"
 } : 0)("&&{margin-top:", space(1), ";}" + ( true ? "" : 0));
 //# sourceMappingURL=styles.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-edit/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/palette-edit/index.js
 
 
 
@@ -50593,85 +51766,105 @@ const RemoveButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_b
 
 
 
-function ColorNameInput(_ref) {
+
+
+
+function NameInput(_ref) {
   let {
     value,
-    onChange
+    onChange,
+    label
   } = _ref;
-  return (0,external_wp_element_namespaceObject.createElement)(ColorNameInputControl, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Color name'),
+  return (0,external_wp_element_namespaceObject.createElement)(NameInputControl, {
+    label: label,
     hideLabelFromVision: true,
     value: value,
     onChange: onChange
   });
 }
 
-function ColorOption(_ref2) {
+function palette_edit_Option(_ref2) {
   let {
-    color,
+    canOnlyChangeValues,
+    element,
     onChange,
     isEditing,
     onStartEditing,
     onRemove,
-    onStopEditing
+    onStopEditing,
+    slugPrefix,
+    isGradient
   } = _ref2;
   const focusOutsideProps = (0,external_wp_compose_namespaceObject.__experimentalUseFocusOutside)(onStopEditing);
-  return (0,external_wp_element_namespaceObject.createElement)(ColorItem, extends_extends({
+  const value = isGradient ? element.gradient : element.color;
+  return (0,external_wp_element_namespaceObject.createElement)(PaletteItem, extends_extends({
     as: "div",
     onClick: onStartEditing
   }, isEditing ? focusOutsideProps : {}), (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
     justify: "flex-start"
-  }, (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(ColorIndicatorStyled, {
-    colorValue: color.color
-  })), (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, isEditing ? (0,external_wp_element_namespaceObject.createElement)(ColorNameInput, {
-    value: color.name,
-    onChange: nextName => onChange({ ...color,
+  }, (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(IndicatorStyled, {
+    style: {
+      background: value,
+      color: 'transparent'
+    }
+  })), (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, isEditing && !canOnlyChangeValues ? (0,external_wp_element_namespaceObject.createElement)(NameInput, {
+    label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Gradient name') : (0,external_wp_i18n_namespaceObject.__)('Color name'),
+    value: element.name,
+    onChange: nextName => onChange({ ...element,
       name: nextName,
-      slug: external_lodash_default()(nextName)
+      slug: slugPrefix + (0,external_lodash_namespaceObject.kebabCase)(nextName)
     })
-  }) : (0,external_wp_element_namespaceObject.createElement)(ColorNameContainer, null, color.name)), isEditing && (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(RemoveButton, {
+  }) : (0,external_wp_element_namespaceObject.createElement)(NameContainer, null, element.name)), isEditing && !canOnlyChangeValues && (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(RemoveButton, {
     isSmall: true,
     icon: line_solid,
     label: (0,external_wp_i18n_namespaceObject.__)('Remove color'),
     onClick: onRemove
   }))), isEditing && (0,external_wp_element_namespaceObject.createElement)(popover, {
     position: "bottom left",
-    className: "components-color-edit__color-popover"
-  }, (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
-    color: color.color,
-    onChange: newColor => onChange({ ...color,
+    className: "components-palette-edit__popover"
+  }, !isGradient && (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+    color: value,
+    onChange: newColor => onChange({ ...element,
       color: newColor
+    })
+  }), isGradient && (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
+    value: value,
+    onChange: newGradient => onChange({ ...element,
+      gradient: newGradient
     })
   })));
 }
 
-function ColorPaletteEditListView(_ref3) {
+function PaletteEditListView(_ref3) {
   let {
-    colors,
+    elements,
     onChange,
-    editingColor,
-    setEditingColor
+    editingElement,
+    setEditingElement,
+    canOnlyChangeValues,
+    slugPrefix,
+    isGradient
   } = _ref3;
-  // When unmounting the component if there are empty colors (the user did not complete the insertion) clean them.
-  const colorReference = (0,external_wp_element_namespaceObject.useRef)();
+  // When unmounting the component if there are empty elements (the user did not complete the insertion) clean them.
+  const elementsReference = (0,external_wp_element_namespaceObject.useRef)();
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    colorReference.current = colors;
-  }, [colors]);
+    elementsReference.current = elements;
+  }, [elements]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     return () => {
-      if (colorReference.current.some(_ref4 => {
+      if (elementsReference.current.some(_ref4 => {
         let {
           slug
         } = _ref4;
         return !slug;
       })) {
-        const newColors = colorReference.current.filter(_ref5 => {
+        const newElements = elementsReference.current.filter(_ref5 => {
           let {
             slug
           } = _ref5;
           return slug;
         });
-        onChange(newColors.length ? newColors : undefined);
+        onChange(newElements.length ? newElements : undefined);
       }
     };
   }, []);
@@ -50680,84 +51873,102 @@ function ColorPaletteEditListView(_ref3) {
   }, (0,external_wp_element_namespaceObject.createElement)(item_group_component, {
     isBordered: true,
     isSeparated: true
-  }, colors.map((color, index) => (0,external_wp_element_namespaceObject.createElement)(ColorOption, {
+  }, elements.map((element, index) => (0,external_wp_element_namespaceObject.createElement)(palette_edit_Option, {
+    isGradient: isGradient,
+    canOnlyChangeValues: canOnlyChangeValues,
     key: index,
-    color: color,
+    element: element,
     onStartEditing: () => {
-      if (editingColor !== index) {
-        setEditingColor(index);
+      if (editingElement !== index) {
+        setEditingElement(index);
       }
     },
-    onChange: newColor => {
-      onChange(colors.map((currentColor, currentIndex) => {
+    onChange: newElement => {
+      onChange(elements.map((currentElement, currentIndex) => {
         if (currentIndex === index) {
-          return newColor;
+          return newElement;
         }
 
-        return currentColor;
+        return currentElement;
       }));
     },
     onRemove: () => {
-      setEditingColor(null);
-      const newColors = colors.filter((_currentColor, currentIndex) => {
+      setEditingElement(null);
+      const newElements = elements.filter((_currentElement, currentIndex) => {
         if (currentIndex === index) {
           return false;
         }
 
         return true;
       });
-      onChange(newColors.length ? newColors : undefined);
+      onChange(newElements.length ? newElements : undefined);
     },
-    isEditing: index === editingColor,
+    isEditing: index === editingElement,
     onStopEditing: () => {
-      if (index === editingColor) {
-        setEditingColor(null);
+      if (index === editingElement) {
+        setEditingElement(null);
       }
-    }
+    },
+    slugPrefix: slugPrefix
   }))));
 }
 
 const EMPTY_ARRAY = [];
-function ColorEdit(_ref6) {
+function PaletteEdit(_ref6) {
   let {
+    gradients,
     colors = EMPTY_ARRAY,
-    onChange
+    onChange,
+    paletteLabel,
+    emptyMessage,
+    canOnlyChangeValues,
+    canReset,
+    slugPrefix = ''
   } = _ref6;
+  const isGradient = !!gradients;
+  const elements = isGradient ? gradients : colors;
   const [isEditing, setIsEditing] = (0,external_wp_element_namespaceObject.useState)(false);
-  const [editingColor, setEditingColor] = (0,external_wp_element_namespaceObject.useState)(null);
-  const isAdding = isEditing && editingColor && colors[editingColor] && !colors[editingColor].slug;
-  const hasColors = colors.length > 0;
-  return (0,external_wp_element_namespaceObject.createElement)(ColorEditStyles, null, (0,external_wp_element_namespaceObject.createElement)(ColorHStackHeader, null, (0,external_wp_element_namespaceObject.createElement)(styles_ColorHeading, null, (0,external_wp_i18n_namespaceObject.__)('Custom')), (0,external_wp_element_namespaceObject.createElement)(ColorActionsContainer, null, isEditing && (0,external_wp_element_namespaceObject.createElement)(DoneButton, {
+  const [editingElement, setEditingElement] = (0,external_wp_element_namespaceObject.useState)(null);
+  const isAdding = isEditing && editingElement && elements[editingElement] && !elements[editingElement].slug;
+  const elementsLength = elements.length;
+  const hasElements = elementsLength > 0;
+  return (0,external_wp_element_namespaceObject.createElement)(PaletteEditStyles, null, (0,external_wp_element_namespaceObject.createElement)(PaletteHStackHeader, null, (0,external_wp_element_namespaceObject.createElement)(PaletteHeading, null, paletteLabel), (0,external_wp_element_namespaceObject.createElement)(PaletteActionsContainer, null, isEditing && (0,external_wp_element_namespaceObject.createElement)(DoneButton, {
     isSmall: true,
     onClick: () => {
       setIsEditing(false);
-      setEditingColor(null);
+      setEditingElement(null);
     }
-  }, (0,external_wp_i18n_namespaceObject.__)('Done')), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Done')), !canOnlyChangeValues && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     isSmall: true,
     isPressed: isAdding,
     icon: library_plus,
-    label: (0,external_wp_i18n_namespaceObject.__)('Add custom color'),
+    label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Add gradient') : (0,external_wp_i18n_namespaceObject.__)('Add color'),
     onClick: () => {
-      onChange([...colors, {
-        color: '#000',
-        name: '',
+      const tempOptionName = (0,external_wp_i18n_namespaceObject.sprintf)(
+      /* translators: %s: is a temporary id for a custom color */
+      (0,external_wp_i18n_namespaceObject.__)('Color %s '), elementsLength + 1);
+      onChange([...elements, { ...(isGradient ? {
+          gradient: DEFAULT_GRADIENT
+        } : {
+          color: '#000'
+        }),
+        name: tempOptionName,
         slug: ''
       }]);
       setIsEditing(true);
-      setEditingColor(colors.length);
+      setEditingElement(elements.length);
     }
   }), !isEditing && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    disabled: !hasColors,
+    disabled: !hasElements,
     isSmall: true,
     icon: more_vertical,
-    label: (0,external_wp_i18n_namespaceObject.__)('Edit colors'),
+    label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Edit gradients') : (0,external_wp_i18n_namespaceObject.__)('Edit colors'),
     onClick: () => {
       setIsEditing(true);
     }
-  }), isEditing && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
+  }), isEditing && (canReset || !canOnlyChangeValues) && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
     icon: more_vertical,
-    label: (0,external_wp_i18n_namespaceObject.__)('Custom color options'),
+    label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Gradient options') : (0,external_wp_i18n_namespaceObject.__)('Color options'),
     toggleProps: {
       isSmall: true
     }
@@ -50767,27 +51978,67 @@ function ColorEdit(_ref6) {
     } = _ref7;
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, {
       role: "menu"
-    }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    }, !canOnlyChangeValues && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
       variant: "tertiary",
       onClick: () => {
-        setEditingColor(null);
+        setEditingElement(null);
         setIsEditing(false);
         onChange();
         onClose();
       }
-    }, (0,external_wp_i18n_namespaceObject.__)('Remove all custom colors'))));
-  }))), hasColors && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isEditing && (0,external_wp_element_namespaceObject.createElement)(ColorPaletteEditListView, {
-    colors: colors,
+    }, isGradient ? (0,external_wp_i18n_namespaceObject.__)('Remove all gradients') : (0,external_wp_i18n_namespaceObject.__)('Remove all colors')), canReset && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+      variant: "tertiary",
+      onClick: () => {
+        setEditingElement(null);
+        onChange();
+        onClose();
+      }
+    }, isGradient ? (0,external_wp_i18n_namespaceObject.__)('Reset gradient') : (0,external_wp_i18n_namespaceObject.__)('Reset colors'))));
+  }))), hasElements && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isEditing && (0,external_wp_element_namespaceObject.createElement)(PaletteEditListView, {
+    canOnlyChangeValues: canOnlyChangeValues,
+    elements: elements,
     onChange: onChange,
-    editingColor: editingColor,
-    setEditingColor: setEditingColor
-  }), !isEditing && (0,external_wp_element_namespaceObject.createElement)(ColorPalette, {
+    editingElement: editingElement,
+    setEditingElement: setEditingElement,
+    slugPrefix: slugPrefix,
+    isGradient: isGradient
+  }), !isEditing && (isGradient ? (0,external_wp_element_namespaceObject.createElement)(GradientPicker, {
+    gradients: gradients,
+    onChange: () => {},
+    clearable: false,
+    disableCustomGradients: true
+  }) : (0,external_wp_element_namespaceObject.createElement)(ColorPalette, {
     colors: colors,
     onChange: () => {},
     clearable: false,
     disableCustomColors: true
-  })), !hasColors && (0,external_wp_i18n_namespaceObject.__)('Custom colors are empty! Add some colors to create your own color palette.'));
+  }))), !hasElements && emptyMessage);
 }
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-indicator/index.js
+
+
+
+/**
+ * External dependencies
+ */
+
+
+const ColorIndicator = _ref => {
+  let {
+    className,
+    colorValue,
+    ...props
+  } = _ref;
+  return (0,external_wp_element_namespaceObject.createElement)("span", extends_extends({
+    className: classnames_default()('component-color-indicator', className),
+    style: {
+      background: colorValue
+    }
+  }, props));
+};
+
+/* harmony default export */ var color_indicator = (ColorIndicator);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/close-small.js
 
@@ -51004,6 +52255,7 @@ SuggestionsList.defaultProps = {
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-focus-outside/index.js
 
 
+//@ts-nocheck
 
 /**
  * WordPress dependencies
@@ -51265,6 +52517,428 @@ function ComboboxControl(_ref) {
 
 /* harmony default export */ var combobox_control = (ComboboxControl);
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/modal/aria-helper.js
+//@ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+const LIVE_REGION_ARIA_ROLES = new Set(['alert', 'status', 'log', 'marquee', 'timer']);
+let hiddenElements = [],
+    isHidden = false;
+/**
+ * Hides all elements in the body element from screen-readers except
+ * the provided element and elements that should not be hidden from
+ * screen-readers.
+ *
+ * The reason we do this is because `aria-modal="true"` currently is bugged
+ * in Safari, and support is spotty in other browsers overall. In the future
+ * we should consider removing these helper functions in favor of
+ * `aria-modal="true"`.
+ *
+ * @param {Element} unhiddenElement The element that should not be hidden.
+ */
+
+function hideApp(unhiddenElement) {
+  if (isHidden) {
+    return;
+  }
+
+  const elements = document.body.children;
+  (0,external_lodash_namespaceObject.forEach)(elements, element => {
+    if (element === unhiddenElement) {
+      return;
+    }
+
+    if (elementShouldBeHidden(element)) {
+      element.setAttribute('aria-hidden', 'true');
+      hiddenElements.push(element);
+    }
+  });
+  isHidden = true;
+}
+/**
+ * Determines if the passed element should not be hidden from screen readers.
+ *
+ * @param {HTMLElement} element The element that should be checked.
+ *
+ * @return {boolean} Whether the element should not be hidden from screen-readers.
+ */
+
+function elementShouldBeHidden(element) {
+  const role = element.getAttribute('role');
+  return !(element.tagName === 'SCRIPT' || element.hasAttribute('aria-hidden') || element.hasAttribute('aria-live') || LIVE_REGION_ARIA_ROLES.has(role));
+}
+/**
+ * Makes all elements in the body that have been hidden by `hideApp`
+ * visible again to screen-readers.
+ */
+
+function showApp() {
+  if (!isHidden) {
+    return;
+  }
+
+  (0,external_lodash_namespaceObject.forEach)(hiddenElements, element => {
+    element.removeAttribute('aria-hidden');
+  });
+  hiddenElements = [];
+  isHidden = false;
+}
+//# sourceMappingURL=aria-helper.js.map
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
+// Unique ID creation requires a high quality random # generator. In the browser we therefore
+// require the crypto API and do not support built-in fallback to lower quality random number
+// generators (like Math.random()).
+// getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
+// find the complete implementation of crypto (msCrypto) on IE11.
+var getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
+var rnds8 = new Uint8Array(16);
+function rng() {
+  if (!getRandomValues) {
+    throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
+  }
+
+  return getRandomValues(rnds8);
+}
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/regex.js
+/* harmony default export */ var regex = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i);
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/validate.js
+
+
+function validate(uuid) {
+  return typeof uuid === 'string' && regex.test(uuid);
+}
+
+/* harmony default export */ var esm_browser_validate = (validate);
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/stringify.js
+
+/**
+ * Convert array of 16 byte values to UUID string format of the form:
+ * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+ */
+
+var byteToHex = [];
+
+for (var stringify_i = 0; stringify_i < 256; ++stringify_i) {
+  byteToHex.push((stringify_i + 0x100).toString(16).substr(1));
+}
+
+function stringify_stringify(arr) {
+  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  // Note: Be careful editing this code!  It's been tuned for performance
+  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
+  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
+  // of the following:
+  // - One or more input array values don't map to a hex octet (leading to
+  // "undefined" in the uuid)
+  // - Invalid input values for the RFC `version` or `variant` fields
+
+  if (!esm_browser_validate(uuid)) {
+    throw TypeError('Stringified UUID is invalid');
+  }
+
+  return uuid;
+}
+
+/* harmony default export */ var esm_browser_stringify = (stringify_stringify);
+;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/v4.js
+
+
+
+function v4(options, buf, offset) {
+  options = options || {};
+  var rnds = options.random || (options.rng || rng)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+
+  rnds[6] = rnds[6] & 0x0f | 0x40;
+  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
+
+  if (buf) {
+    offset = offset || 0;
+
+    for (var i = 0; i < 16; ++i) {
+      buf[offset + i] = rnds[i];
+    }
+
+    return buf;
+  }
+
+  return esm_browser_stringify(rnds);
+}
+
+/* harmony default export */ var esm_browser_v4 = (v4);
+;// CONCATENATED MODULE: ./packages/components/build-module/style-provider/index.js
+
+//@ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+
+
+
+const uuidCache = new Set();
+const memoizedCreateCacheWithContainer = memize_default()(container => {
+  // emotion only accepts alphabetical and hyphenated keys so we just strip the numbers from the UUID. It _should_ be fine.
+  let key = esm_browser_v4().replace(/[0-9]/g, '');
+
+  while (uuidCache.has(key)) {
+    key = esm_browser_v4().replace(/[0-9]/g, '');
+  }
+
+  uuidCache.add(key);
+  return emotion_cache_browser_esm({
+    container,
+    key
+  });
+});
+function StyleProvider(_ref) {
+  let {
+    children,
+    document
+  } = _ref;
+
+  if (!document) {
+    return null;
+  }
+
+  const cache = memoizedCreateCacheWithContainer(document.head);
+  return (0,external_wp_element_namespaceObject.createElement)(CacheProvider, {
+    value: cache
+  }, children);
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/modal/index.js
+
+
+//@ts-nocheck
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+ // Used to count the number of open modals.
+
+let openModalCount = 0;
+
+function Modal(props, forwardedRef) {
+  const {
+    bodyOpenClassName = 'modal-open',
+    role = 'dialog',
+    title = null,
+    focusOnMount = true,
+    shouldCloseOnEsc = true,
+    shouldCloseOnClickOutside = true,
+    isDismissable,
+    // Deprecated
+    isDismissible = isDismissable || true,
+
+    /* accessibility */
+    aria = {
+      labelledby: null,
+      describedby: null
+    },
+    onRequestClose,
+    icon,
+    closeButtonLabel,
+    children,
+    style,
+    overlayClassName,
+    className,
+    contentLabel,
+    onKeyDown,
+    isFullScreen = false,
+    __experimentalHideHeader = false
+  } = props;
+  const ref = (0,external_wp_element_namespaceObject.useRef)();
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(Modal);
+  const headingId = title ? `components-modal-header-${instanceId}` : aria.labelledby;
+  const focusOnMountRef = (0,external_wp_compose_namespaceObject.useFocusOnMount)(focusOnMount);
+  const constrainedTabbingRef = (0,external_wp_compose_namespaceObject.useConstrainedTabbing)();
+  const focusReturnRef = (0,external_wp_compose_namespaceObject.useFocusReturn)();
+  const focusOutsideProps = (0,external_wp_compose_namespaceObject.__experimentalUseFocusOutside)(onRequestClose);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    openModalCount++;
+
+    if (openModalCount === 1) {
+      hideApp(ref.current);
+      document.body.classList.add(bodyOpenClassName);
+    }
+
+    return () => {
+      openModalCount--;
+
+      if (openModalCount === 0) {
+        document.body.classList.remove(bodyOpenClassName);
+        showApp();
+      }
+    };
+  }, []);
+
+  if (isDismissable) {
+    external_wp_deprecated_default()('isDismissable prop of the Modal component', {
+      since: '5.4',
+      alternative: 'isDismissible prop (renamed) of the Modal component'
+    });
+  }
+
+  function handleEscapeKeyDown(event) {
+    if (shouldCloseOnEsc && event.keyCode === external_wp_keycodes_namespaceObject.ESCAPE && !event.defaultPrevented) {
+      event.preventDefault();
+
+      if (onRequestClose) {
+        onRequestClose(event);
+      }
+    }
+  }
+
+  return (0,external_wp_element_namespaceObject.createPortal)( // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+  (0,external_wp_element_namespaceObject.createElement)("div", {
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, forwardedRef]),
+    className: classnames_default()('components-modal__screen-overlay', overlayClassName),
+    onKeyDown: handleEscapeKeyDown
+  }, (0,external_wp_element_namespaceObject.createElement)(StyleProvider, {
+    document: document
+  }, (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
+    className: classnames_default()('components-modal__frame', className, {
+      'is-full-screen': isFullScreen
+    }),
+    style: style,
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([constrainedTabbingRef, focusReturnRef, focusOnMountRef]),
+    role: role,
+    "aria-label": contentLabel,
+    "aria-labelledby": contentLabel ? null : headingId,
+    "aria-describedby": aria.describedby,
+    tabIndex: "-1"
+  }, shouldCloseOnClickOutside ? focusOutsideProps : {}, {
+    onKeyDown: onKeyDown
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: classnames_default()('components-modal__content', {
+      'hide-header': __experimentalHideHeader
+    }),
+    role: "document"
+  }, !__experimentalHideHeader && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-modal__header"
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-modal__header-heading-container"
+  }, icon && (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: "components-modal__icon-container",
+    "aria-hidden": true
+  }, icon), title && (0,external_wp_element_namespaceObject.createElement)("h1", {
+    id: headingId,
+    className: "components-modal__header-heading"
+  }, title)), isDismissible && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    onClick: onRequestClose,
+    icon: close_small,
+    label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close dialog')
+  })), children)))), document.body);
+}
+
+/* harmony default export */ var modal = ((0,external_wp_element_namespaceObject.forwardRef)(Modal));
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/confirm-dialog/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+ // eslint-disable-next-line no-restricted-imports
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+
+function ConfirmDialog(props, forwardedRef) {
+  const {
+    isOpen: isOpenProp,
+    onConfirm,
+    onCancel,
+    children,
+    ...otherProps
+  } = useContextSystem(props, 'ConfirmDialog');
+  const [isOpen, setIsOpen] = (0,external_React_.useState)();
+  const [shouldSelfClose, setShouldSelfClose] = (0,external_React_.useState)();
+  (0,external_React_.useEffect)(() => {
+    // We only allow the dialog to close itself if `isOpenProp` is *not* set.
+    // If `isOpenProp` is set, then it (probably) means it's controlled by a
+    // parent component. In that case, `shouldSelfClose` might do more harm than
+    // good, so we disable it.
+    const isIsOpenSet = typeof isOpenProp !== 'undefined';
+    setIsOpen(isIsOpenSet ? isOpenProp : true);
+    setShouldSelfClose(!isIsOpenSet);
+  }, [isOpenProp]);
+  const handleEvent = (0,external_wp_element_namespaceObject.useCallback)(callback => event => {
+    callback === null || callback === void 0 ? void 0 : callback(event);
+
+    if (shouldSelfClose) {
+      setIsOpen(false);
+    }
+  }, [shouldSelfClose, setIsOpen]);
+  const handleEnter = (0,external_wp_element_namespaceObject.useCallback)(event => {
+    if (event.key === 'Enter') {
+      handleEvent(onConfirm)(event);
+    }
+  }, [handleEvent, onConfirm]);
+
+  const cancelLabel = (0,external_wp_i18n_namespaceObject.__)('Cancel');
+
+  const confirmLabel = (0,external_wp_i18n_namespaceObject.__)('OK');
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isOpen && (0,external_wp_element_namespaceObject.createElement)(modal, extends_extends({
+    onRequestClose: handleEvent(onCancel),
+    onKeyDown: handleEnter,
+    closeButtonLabel: cancelLabel,
+    isDismissible: true,
+    ref: forwardedRef,
+    __experimentalHideHeader: true
+  }, otherProps), (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: 8
+  }, (0,external_wp_element_namespaceObject.createElement)(text_component, null, children), (0,external_wp_element_namespaceObject.createElement)(flex_component, {
+    direction: "row",
+    justify: "flex-end"
+  }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    variant: "tertiary",
+    onClick: handleEvent(onCancel)
+  }, cancelLabel), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    variant: "primary",
+    onClick: handleEvent(onConfirm)
+  }, confirmLabel)))));
+}
+
+/* harmony default export */ var confirm_dialog_component = (contextConnect(ConfirmDialog, 'ConfirmDialog'));
+//# sourceMappingURL=component.js.map
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 function objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
@@ -55788,6 +57462,10 @@ const TimeZone = () => {
  */
 
 const time_TIMEZONELESS_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
+
+function from12hTo24h(hours, isPm) {
+  return isPm ? (hours % 12 + 12) % 24 : hours % 12;
+}
 /**
  * <UpdateOnBlurAsIntegerField>
  * A shared component to parse, validate, and handle remounting of the underlying form field element like <input> and <select>.
@@ -55797,6 +57475,7 @@ const time_TIMEZONELESS_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
  * @param {number|string} props.value    The default value of the component which will be parsed to integer.
  * @param {Function}      props.onUpdate Call back when blurred and validated.
  */
+
 
 function UpdateOnBlurAsIntegerField(_ref) {
   let {
@@ -55886,8 +57565,17 @@ function TimePicker(_ref2) {
   }
 
   function update(name, value) {
-    // Clone the date and call the specific setter function according to `name`.
-    const newDate = date.clone()[name](value);
+    // If the 12-hour format is being used and the 'PM' period is selected, then
+    // the incoming value (which ranges 1-12) should be increased by 12 to match
+    // the expected 24-hour format.
+    let adjustedValue = value;
+
+    if (name === 'hours' && is12Hour) {
+      adjustedValue = from12hTo24h(value, am === 'PM');
+    } // Clone the date and call the specific setter function according to `name`.
+
+
+    const newDate = date.clone()[name](adjustedValue);
     changeDate(newDate);
   }
 
@@ -55898,7 +57586,7 @@ function TimePicker(_ref2) {
       }
 
       const parsedHours = parseInt(hours, 10);
-      const newDate = date.clone().hours(value === 'PM' ? (parsedHours % 12 + 12) % 24 : parsedHours % 12);
+      const newDate = date.clone().hours(from12hTo24h(parsedHours, value === 'PM'));
       changeDate(newDate);
     };
   }
@@ -57197,7 +58885,7 @@ function DuotoneSwatch(_ref) {
 
 
 
-function color_list_picker_ColorOption(_ref) {
+function ColorOption(_ref) {
   let {
     label,
     value,
@@ -57235,7 +58923,7 @@ function ColorListPicker(_ref2) {
   } = _ref2;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-color-list-picker"
-  }, labels.map((label, index) => (0,external_wp_element_namespaceObject.createElement)(color_list_picker_ColorOption, {
+  }, labels.map((label, index) => (0,external_wp_element_namespaceObject.createElement)(ColorOption, {
     key: index,
     label: label,
     value: value[index],
@@ -57251,613 +58939,6 @@ function ColorListPicker(_ref2) {
 }
 
 /* harmony default export */ var color_list_picker = (ColorListPicker);
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/constants.js
-const COLOR_POPOVER_PROPS = {
-  className: 'components-custom-gradient-picker__color-picker-popover',
-  position: 'top'
-};
-const GRADIENT_MARKERS_WIDTH = 16;
-const INSERT_POINT_WIDTH = 16;
-const MINIMUM_ABSOLUTE_LEFT_POSITION = 5;
-const MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_POINT = 10;
-const MINIMUM_DISTANCE_BETWEEN_POINTS = 0;
-const MINIMUM_SIGNIFICANT_MOVE = 5;
-const KEYBOARD_CONTROL_POINT_VARIATION = MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_POINT;
-const MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_MARKER = (INSERT_POINT_WIDTH + GRADIENT_MARKERS_WIDTH) / 2;
-//# sourceMappingURL=constants.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/utils.js
-/**
- * Internal dependencies
- */
-
-/**
- * Control point for the gradient bar.
- *
- * @typedef {Object} ControlPoint
- * @property {string} color    Color of the control point.
- * @property {number} position Integer position of the control point as a percentage.
- */
-
-/**
- * Color as parsed from the gradient by gradient-parser.
- *
- * @typedef {Object} Color
- * @property {string} r   Red component.
- * @property {string} g   Green component.
- * @property {string} b   Green component.
- * @property {string} [a] Optional alpha component.
- */
-
-/**
- * Clamps a number between 0 and 100.
- *
- * @param {number} value Value to clamp.
- *
- * @return {number} Value clamped between 0 and 100.
- */
-
-function clampPercent(value) {
-  return Math.max(0, Math.min(100, value));
-}
-/**
- * Check if a control point is overlapping with another.
- *
- * @param {ControlPoint[]} value        Array of control points.
- * @param {number}         initialIndex Index of the position to test.
- * @param {number}         newPosition  New position of the control point.
- * @param {number}         minDistance  Distance considered to be overlapping.
- *
- * @return {boolean} True if the point is overlapping.
- */
-
-function isOverlapping(value, initialIndex, newPosition) {
-  let minDistance = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : MINIMUM_DISTANCE_BETWEEN_POINTS;
-  const initialPosition = value[initialIndex].position;
-  const minPosition = Math.min(initialPosition, newPosition);
-  const maxPosition = Math.max(initialPosition, newPosition);
-  return value.some((_ref, index) => {
-    let {
-      position
-    } = _ref;
-    return index !== initialIndex && (Math.abs(position - newPosition) < minDistance || minPosition < position && position < maxPosition);
-  });
-}
-/**
- * Adds a control point from an array and returns the new array.
- *
- * @param {ControlPoint[]} points   Array of control points.
- * @param {number}         position Position to insert the new point.
- * @param {Color}          color    Color to update the control point at index.
- *
- * @return {ControlPoint[]} New array of control points.
- */
-
-function addControlPoint(points, position, color) {
-  const nextIndex = points.findIndex(point => point.position > position);
-  const newPoint = {
-    color,
-    position
-  };
-  const newPoints = points.slice();
-  newPoints.splice(nextIndex - 1, 0, newPoint);
-  return newPoints;
-}
-/**
- * Removes a control point from an array and returns the new array.
- *
- * @param {ControlPoint[]} points Array of control points.
- * @param {number}         index  Index to remove.
- *
- * @return {ControlPoint[]} New array of control points.
- */
-
-function removeControlPoint(points, index) {
-  return points.filter((point, pointIndex) => {
-    return pointIndex !== index;
-  });
-}
-/**
- * Updates a control point from an array and returns the new array.
- *
- * @param {ControlPoint[]} points   Array of control points.
- * @param {number}         index    Index to update.
- * @param {ControlPoint[]} newPoint New control point to replace the index.
- *
- * @return {ControlPoint[]} New array of control points.
- */
-
-function updateControlPoint(points, index, newPoint) {
-  const newValue = points.slice();
-  newValue[index] = newPoint;
-  return newValue;
-}
-/**
- * Updates the position of a control point from an array and returns the new array.
- *
- * @param {ControlPoint[]} points      Array of control points.
- * @param {number}         index       Index to update.
- * @param {number}         newPosition Position to move the control point at index.
- *
- * @return {ControlPoint[]} New array of control points.
- */
-
-function updateControlPointPosition(points, index, newPosition) {
-  if (isOverlapping(points, index, newPosition)) {
-    return points;
-  }
-
-  const newPoint = { ...points[index],
-    position: newPosition
-  };
-  return updateControlPoint(points, index, newPoint);
-}
-/**
- * Updates the position of a control point from an array and returns the new array.
- *
- * @param {ControlPoint[]} points   Array of control points.
- * @param {number}         index    Index to update.
- * @param {Color}          newColor Color to update the control point at index.
- *
- * @return {ControlPoint[]} New array of control points.
- */
-
-function updateControlPointColor(points, index, newColor) {
-  const newPoint = { ...points[index],
-    color: newColor
-  };
-  return updateControlPoint(points, index, newPoint);
-}
-/**
- * Updates the position of a control point from an array and returns the new array.
- *
- * @param {ControlPoint[]} points   Array of control points.
- * @param {number}         position Position of the color stop.
- * @param {string}         newColor Color to update the control point at index.
- *
- * @return {ControlPoint[]} New array of control points.
- */
-
-function updateControlPointColorByPosition(points, position, newColor) {
-  const index = points.findIndex(point => point.position === position);
-  return updateControlPointColor(points, index, newColor);
-}
-/**
- * Gets the horizontal coordinate when dragging a control point with the mouse.
- *
- * @param {number}  mouseXCoordinate       Horizontal coordinate of the mouse position.
- * @param {Element} containerElement       Container for the gradient picker.
- * @param {number}  positionedElementWidth Width of the positioned element.
- *
- * @return {number} Whole number percentage from the left.
- */
-
-function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElement, positionedElementWidth) {
-  if (!containerElement) {
-    return;
-  }
-
-  const {
-    x,
-    width
-  } = containerElement.getBoundingClientRect();
-  const absolutePositionValue = mouseXCoordinate - x - MINIMUM_ABSOLUTE_LEFT_POSITION - positionedElementWidth / 2;
-  const availableWidth = width - MINIMUM_ABSOLUTE_LEFT_POSITION - INSERT_POINT_WIDTH;
-  return Math.round(clampPercent(absolutePositionValue * 100 / availableWidth));
-}
-//# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/control-points.js
-
-
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-
-
-function ControlPointButton(_ref) {
-  let {
-    isOpen,
-    position,
-    color,
-    ...additionalProps
-  } = _ref;
-  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(ControlPointButton);
-  const descriptionId = `components-custom-gradient-picker__control-point-button-description-${instanceId}`;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
-    "aria-label": (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1$s: gradient position e.g: 70, %2$s: gradient color code e.g: rgb(52,121,151).
-    (0,external_wp_i18n_namespaceObject.__)('Gradient control point at position %1$s%% with color code %2$s.'), position, color),
-    "aria-describedby": descriptionId,
-    "aria-haspopup": "true",
-    "aria-expanded": isOpen,
-    className: classnames_default()('components-custom-gradient-picker__control-point-button', {
-      'is-active': isOpen
-    }),
-    style: {
-      left: `${position}%`
-    }
-  }, additionalProps)), (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
-    id: descriptionId
-  }, (0,external_wp_i18n_namespaceObject.__)('Use your left or right arrow keys or drag and drop with the mouse to change the gradient position. Press the button to change the color or remove the control point.')));
-}
-
-function ControlPoints(_ref2) {
-  let {
-    disableRemove,
-    disableAlpha,
-    gradientPickerDomRef,
-    ignoreMarkerPosition,
-    value: controlPoints,
-    onChange,
-    onStartControlPointChange,
-    onStopControlPointChange
-  } = _ref2;
-  const controlPointMoveState = (0,external_wp_element_namespaceObject.useRef)();
-
-  const onMouseMove = event => {
-    const relativePosition = getHorizontalRelativeGradientPosition(event.clientX, gradientPickerDomRef.current, GRADIENT_MARKERS_WIDTH);
-    const {
-      initialPosition,
-      index,
-      significantMoveHappened
-    } = controlPointMoveState.current;
-
-    if (!significantMoveHappened && Math.abs(initialPosition - relativePosition) >= MINIMUM_SIGNIFICANT_MOVE) {
-      controlPointMoveState.current.significantMoveHappened = true;
-    }
-
-    onChange(updateControlPointPosition(controlPoints, index, relativePosition));
-  };
-
-  const cleanEventListeners = () => {
-    if (window && window.removeEventListener && controlPointMoveState.current && controlPointMoveState.current.listenersActivated) {
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('mouseup', cleanEventListeners);
-      onStopControlPointChange();
-      controlPointMoveState.current.listenersActivated = false;
-    }
-  };
-
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    return () => {
-      cleanEventListeners();
-    };
-  }, []);
-  return controlPoints.map((point, index) => {
-    const initialPosition = point === null || point === void 0 ? void 0 : point.position;
-    return ignoreMarkerPosition !== initialPosition && (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
-      key: index,
-      onClose: onStopControlPointChange,
-      renderToggle: _ref3 => {
-        let {
-          isOpen,
-          onToggle
-        } = _ref3;
-        return (0,external_wp_element_namespaceObject.createElement)(ControlPointButton, {
-          key: index,
-          onClick: () => {
-            if (controlPointMoveState.current && controlPointMoveState.current.significantMoveHappened) {
-              return;
-            }
-
-            if (isOpen) {
-              onStopControlPointChange();
-            } else {
-              onStartControlPointChange();
-            }
-
-            onToggle();
-          },
-          onMouseDown: () => {
-            if (window && window.addEventListener) {
-              controlPointMoveState.current = {
-                initialPosition,
-                index,
-                significantMoveHappened: false,
-                listenersActivated: true
-              };
-              onStartControlPointChange();
-              window.addEventListener('mousemove', onMouseMove);
-              window.addEventListener('mouseup', cleanEventListeners);
-            }
-          },
-          onKeyDown: event => {
-            if (event.keyCode === external_wp_keycodes_namespaceObject.LEFT) {
-              // Stop propagation of the key press event to avoid focus moving
-              // to another editor area.
-              event.stopPropagation();
-              onChange(updateControlPointPosition(controlPoints, index, clampPercent(point.position - KEYBOARD_CONTROL_POINT_VARIATION)));
-            } else if (event.keyCode === external_wp_keycodes_namespaceObject.RIGHT) {
-              // Stop propagation of the key press event to avoid focus moving
-              // to another editor area.
-              event.stopPropagation();
-              onChange(updateControlPointPosition(controlPoints, index, clampPercent(point.position + KEYBOARD_CONTROL_POINT_VARIATION)));
-            }
-          },
-          isOpen: isOpen,
-          position: point.position,
-          color: point.color
-        });
-      },
-      renderContent: _ref4 => {
-        let {
-          onClose
-        } = _ref4;
-        return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
-          enableAlpha: !disableAlpha,
-          color: point.color,
-          onChange: color => {
-            onChange(updateControlPointColor(controlPoints, index, w(color).toRgbString()));
-          }
-        }), !disableRemove && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-          className: "components-custom-gradient-picker__remove-control-point",
-          onClick: () => {
-            onChange(removeControlPoint(controlPoints, index));
-            onClose();
-          },
-          variant: "link"
-        }, (0,external_wp_i18n_namespaceObject.__)('Remove Control Point')));
-      },
-      popoverProps: COLOR_POPOVER_PROPS
-    });
-  });
-}
-
-function InsertPoint(_ref5) {
-  let {
-    value: controlPoints,
-    onChange,
-    onOpenInserter,
-    onCloseInserter,
-    insertPosition,
-    disableAlpha
-  } = _ref5;
-  const [alreadyInsertedPoint, setAlreadyInsertedPoint] = (0,external_wp_element_namespaceObject.useState)(false);
-  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
-    className: "components-custom-gradient-picker__inserter",
-    onClose: () => {
-      onCloseInserter();
-    },
-    renderToggle: _ref6 => {
-      let {
-        isOpen,
-        onToggle
-      } = _ref6;
-      return (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-        "aria-expanded": isOpen,
-        "aria-haspopup": "true",
-        onClick: () => {
-          if (isOpen) {
-            onCloseInserter();
-          } else {
-            setAlreadyInsertedPoint(false);
-            onOpenInserter();
-          }
-
-          onToggle();
-        },
-        className: "components-custom-gradient-picker__insert-point",
-        icon: library_plus,
-        style: {
-          left: insertPosition !== null ? `${insertPosition}%` : undefined
-        }
-      });
-    },
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
-      enableAlpha: !disableAlpha,
-      onChange: color => {
-        if (!alreadyInsertedPoint) {
-          onChange(addControlPoint(controlPoints, insertPosition, w(color).toRgbString()));
-          setAlreadyInsertedPoint(true);
-        } else {
-          onChange(updateControlPointColorByPosition(controlPoints, insertPosition, w(color).toRgbString()));
-        }
-      }
-    }),
-    popoverProps: COLOR_POPOVER_PROPS
-  });
-}
-
-ControlPoints.InsertPoint = InsertPoint;
-/* harmony default export */ var control_points = (ControlPoints);
-//# sourceMappingURL=control-points.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/index.js
-
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-function customGradientBarReducer(state, action) {
-  switch (action.type) {
-    case 'MOVE_INSERTER':
-      if (state.id === 'IDLE' || state.id === 'MOVING_INSERTER') {
-        return {
-          id: 'MOVING_INSERTER',
-          insertPosition: action.insertPosition
-        };
-      }
-
-      break;
-
-    case 'STOP_INSERTER_MOVE':
-      if (state.id === 'MOVING_INSERTER') {
-        return {
-          id: 'IDLE'
-        };
-      }
-
-      break;
-
-    case 'OPEN_INSERTER':
-      if (state.id === 'MOVING_INSERTER') {
-        return {
-          id: 'INSERTING_CONTROL_POINT',
-          insertPosition: state.insertPosition
-        };
-      }
-
-      break;
-
-    case 'CLOSE_INSERTER':
-      if (state.id === 'INSERTING_CONTROL_POINT') {
-        return {
-          id: 'IDLE'
-        };
-      }
-
-      break;
-
-    case 'START_CONTROL_CHANGE':
-      if (state.id === 'IDLE') {
-        return {
-          id: 'MOVING_CONTROL_POINT'
-        };
-      }
-
-      break;
-
-    case 'STOP_CONTROL_CHANGE':
-      if (state.id === 'MOVING_CONTROL_POINT') {
-        return {
-          id: 'IDLE'
-        };
-      }
-
-      break;
-  }
-
-  return state;
-}
-
-const customGradientBarReducerInitialState = {
-  id: 'IDLE'
-};
-function CustomGradientBar(_ref) {
-  let {
-    background,
-    hasGradient,
-    value: controlPoints,
-    onChange,
-    disableInserter = false,
-    disableAlpha = false
-  } = _ref;
-  const gradientPickerDomRef = (0,external_wp_element_namespaceObject.useRef)();
-  const [gradientBarState, gradientBarStateDispatch] = (0,external_wp_element_namespaceObject.useReducer)(customGradientBarReducer, customGradientBarReducerInitialState);
-
-  const onMouseEnterAndMove = event => {
-    const insertPosition = getHorizontalRelativeGradientPosition(event.clientX, gradientPickerDomRef.current, INSERT_POINT_WIDTH); // If the insert point is close to an existing control point don't show it.
-
-    if ((0,external_lodash_namespaceObject.some)(controlPoints, _ref2 => {
-      let {
-        position
-      } = _ref2;
-      return Math.abs(insertPosition - position) < MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_POINT;
-    })) {
-      if (gradientBarState.id === 'MOVING_INSERTER') {
-        gradientBarStateDispatch({
-          type: 'STOP_INSERTER_MOVE'
-        });
-      }
-
-      return;
-    }
-
-    gradientBarStateDispatch({
-      type: 'MOVE_INSERTER',
-      insertPosition
-    });
-  };
-
-  const onMouseLeave = () => {
-    gradientBarStateDispatch({
-      type: 'STOP_INSERTER_MOVE'
-    });
-  };
-
-  const isMovingInserter = gradientBarState.id === 'MOVING_INSERTER';
-  const isInsertingControlPoint = gradientBarState.id === 'INSERTING_CONTROL_POINT';
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: gradientPickerDomRef,
-    className: classnames_default()('components-custom-gradient-picker__gradient-bar', {
-      'has-gradient': hasGradient
-    }),
-    onMouseEnter: onMouseEnterAndMove,
-    onMouseMove: onMouseEnterAndMove,
-    style: {
-      background
-    },
-    onMouseLeave: onMouseLeave
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-custom-gradient-picker__markers-container"
-  }, !disableInserter && (isMovingInserter || isInsertingControlPoint) && (0,external_wp_element_namespaceObject.createElement)(control_points.InsertPoint, {
-    disableAlpha: disableAlpha,
-    insertPosition: gradientBarState.insertPosition,
-    value: controlPoints,
-    onChange: onChange,
-    onOpenInserter: () => {
-      gradientBarStateDispatch({
-        type: 'OPEN_INSERTER'
-      });
-    },
-    onCloseInserter: () => {
-      gradientBarStateDispatch({
-        type: 'CLOSE_INSERTER'
-      });
-    }
-  }), (0,external_wp_element_namespaceObject.createElement)(control_points, {
-    disableAlpha: disableAlpha,
-    disableRemove: disableInserter,
-    gradientPickerDomRef: gradientPickerDomRef,
-    ignoreMarkerPosition: isInsertingControlPoint ? gradientBarState.insertPosition : undefined,
-    value: controlPoints,
-    onChange: onChange,
-    onStartControlPointChange: () => {
-      gradientBarStateDispatch({
-        type: 'START_CONTROL_CHANGE'
-      });
-    },
-    onStopControlPointChange: () => {
-      gradientBarStateDispatch({
-        type: 'STOP_CONTROL_CHANGE'
-      });
-    }
-  })));
-}
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/duotone-picker/custom-duotone-bar.js
 
@@ -57913,6 +58994,7 @@ function CustomDuotoneBar(_ref) {
 
 function DuotonePicker(_ref) {
   let {
+    clearable = true,
     colorPalette,
     duotonePalette,
     disableCustomColors,
@@ -57949,7 +59031,7 @@ function DuotonePicker(_ref) {
         }
       });
     }),
-    actions: (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
+    actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
       onClick: () => onChange(undefined)
     }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
   }, !disableCustomColors && !disableCustomDuotone && (0,external_wp_element_namespaceObject.createElement)(CustomDuotoneBar, {
@@ -61138,15 +62220,31 @@ const medium = /*#__PURE__*/emotion_react_browser_esm_css("min-height:", config_
 
 
 
+
 const {
   ButtonContentView: component_ButtonContentView,
   LabelPlaceholderView: component_LabelPlaceholderView,
   LabelView: component_LabelView
 } = toggle_group_control_option_styles_namespaceObject;
 
-function ToggleGroupControlOption(props, forwardedRef) {
-  var _radioProps$ariaLabe;
+const WithToolTip = _ref => {
+  let {
+    showTooltip,
+    text,
+    children
+  } = _ref;
 
+  if (showTooltip && text) {
+    return (0,external_wp_element_namespaceObject.createElement)(tooltip, {
+      text: text,
+      position: "top center"
+    }, children);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, children);
+};
+
+function ToggleGroupControlOption(props, forwardedRef) {
   const toggleGroupControlContext = useToggleGroupControlContext();
   const id = (0,external_wp_compose_namespaceObject.useInstanceId)(ToggleGroupControlOption, toggleGroupControlContext.baseId || 'toggle-group-control-option');
   const buttonProps = useContextSystem({ ...props,
@@ -61157,6 +62255,7 @@ function ToggleGroupControlOption(props, forwardedRef) {
     isBlock = false,
     label,
     value,
+    showTooltip = false,
     ...radioProps
   } = { ...toggleGroupControlContext,
     ...buttonProps
@@ -61165,19 +62264,23 @@ function ToggleGroupControlOption(props, forwardedRef) {
   const cx = useCx();
   const labelViewClasses = cx(isBlock && labelBlock);
   const classes = cx(buttonView, className, isActive && buttonActive);
+  const optionLabel = !!radioProps['aria-label'] ? radioProps['aria-label'] : label;
   return (0,external_wp_element_namespaceObject.createElement)(component_LabelView, {
     className: labelViewClasses,
     "data-active": isActive
+  }, (0,external_wp_element_namespaceObject.createElement)(WithToolTip, {
+    showTooltip: showTooltip,
+    text: optionLabel
   }, (0,external_wp_element_namespaceObject.createElement)(Radio, extends_extends({}, radioProps, {
     as: "button",
-    "aria-label": (_radioProps$ariaLabe = radioProps['aria-label']) !== null && _radioProps$ariaLabe !== void 0 ? _radioProps$ariaLabe : label,
+    "aria-label": optionLabel,
     className: classes,
     "data-value": value,
     ref: forwardedRef,
     value: value
   }), (0,external_wp_element_namespaceObject.createElement)(component_ButtonContentView, null, label), (0,external_wp_element_namespaceObject.createElement)(component_LabelPlaceholderView, {
     "aria-hidden": true
-  }, label)));
+  }, label))));
 }
 /**
  * `ToggleGroupControlOption` is a form component and is meant to be used as a
@@ -61229,12 +62332,13 @@ const CUSTOM_FONT_SIZE_OPTION = {
  */
 
 function splitValueAndUnitFromSize(size) {
-  /**
-   * The first matched result is ignored as it's the left
-   * hand side of the capturing group in the regex.
-   */
-  const [, numericValue, unit] = size.split(/(\d+)/);
-  return [numericValue, unit];
+  const [numericValue, unit] = `${size}`.match(/[\d\.]+|\D+/g);
+
+  if (!isNaN(parseFloat(numericValue)) && isFinite(numericValue)) {
+    return [numericValue, unit];
+  }
+
+  return [];
 }
 /**
  * Some themes use css vars for their font sizes, so until we
@@ -61245,7 +62349,7 @@ function splitValueAndUnitFromSize(size) {
  */
 
 function isSimpleCssValue(value) {
-  const sizeRegex = /^(?!0)\d+(px|em|rem|vw|vh|%)?$/i;
+  const sizeRegex = /^[\d\.]+(px|em|rem|vw|vh|%)?$/i;
   return sizeRegex.test(value);
 }
 /**
@@ -61278,7 +62382,7 @@ function getSelectOptions(optionsArray, disableCustomFontSizes) {
       key: slug,
       name,
       size,
-      __experimentalHint: size && isSimpleCssValue(size) && parseInt(size)
+      __experimentalHint: size && isSimpleCssValue(size) && parseFloat(size)
     };
   });
 }
@@ -61456,7 +62560,8 @@ function FontSizePicker(_ref, ref) {
     key: option.key,
     value: option.value,
     label: option.label,
-    "aria-label": option.name
+    "aria-label": option.name,
+    showTooltip: true
   }))), !withSlider && !disableCustomFontSizes && showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(flex_component, {
     justify: "space-between",
     className: `${baseClassName}__custom-size-control`
@@ -62337,494 +63442,6 @@ FormTokenField.defaultProps = {
 };
 /* harmony default export */ var form_token_field = (with_spoken_messages((0,external_wp_compose_namespaceObject.withInstanceId)(FormTokenField)));
 //# sourceMappingURL=index.js.map
-// EXTERNAL MODULE: ./node_modules/gradient-parser/build/node.js
-var build_node = __webpack_require__(9948);
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/constants.js
-/**
- * WordPress dependencies
- */
-
-const DEFAULT_GRADIENT = 'linear-gradient(135deg, rgba(6, 147, 227, 1) 0%, rgb(155, 81, 224) 100%)';
-const DEFAULT_LINEAR_GRADIENT_ANGLE = 180;
-const HORIZONTAL_GRADIENT_ORIENTATION = {
-  type: 'angular',
-  value: 90
-};
-const GRADIENT_OPTIONS = [{
-  value: 'linear-gradient',
-  label: (0,external_wp_i18n_namespaceObject.__)('Linear')
-}, {
-  value: 'radial-gradient',
-  label: (0,external_wp_i18n_namespaceObject.__)('Radial')
-}];
-const DIRECTIONAL_ORIENTATION_ANGLE_MAP = {
-  top: 0,
-  'top right': 45,
-  'right top': 45,
-  right: 90,
-  'right bottom': 135,
-  'bottom right': 135,
-  bottom: 180,
-  'bottom left': 225,
-  'left bottom': 225,
-  left: 270,
-  'top left': 315,
-  'left top': 315
-};
-//# sourceMappingURL=constants.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/serializer.js
-/**
- * External dependencies
- */
-
-function serializeGradientColor(_ref) {
-  let {
-    type,
-    value
-  } = _ref;
-
-  if (type === 'literal') {
-    return value;
-  }
-
-  if (type === 'hex') {
-    return `#${value}`;
-  }
-
-  return `${type}(${value.join(',')})`;
-}
-function serializeGradientPosition(position) {
-  if (!position) {
-    return '';
-  }
-
-  const {
-    value,
-    type
-  } = position;
-  return `${value}${type}`;
-}
-function serializeGradientColorStop(_ref2) {
-  let {
-    type,
-    value,
-    length
-  } = _ref2;
-  return `${serializeGradientColor({
-    type,
-    value
-  })} ${serializeGradientPosition(length)}`;
-}
-function serializeGradientOrientation(orientation) {
-  if (!orientation || orientation.type !== 'angular') {
-    return;
-  }
-
-  return `${orientation.value}deg`;
-}
-function serializeGradient(_ref3) {
-  let {
-    type,
-    orientation,
-    colorStops
-  } = _ref3;
-  const serializedOrientation = serializeGradientOrientation(orientation);
-  const serializedColorStops = colorStops.sort((colorStop1, colorStop2) => {
-    return (0,external_lodash_namespaceObject.get)(colorStop1, ['length', 'value'], 0) - (0,external_lodash_namespaceObject.get)(colorStop2, ['length', 'value'], 0);
-  }).map(serializeGradientColorStop);
-  return `${type}(${(0,external_lodash_namespaceObject.compact)([serializedOrientation, ...serializedColorStops]).join(',')})`;
-}
-//# sourceMappingURL=serializer.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/utils.js
-/**
- * External dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-k([names]);
-function getLinearGradientRepresentation(gradientAST) {
-  return serializeGradient({
-    type: 'linear-gradient',
-    orientation: HORIZONTAL_GRADIENT_ORIENTATION,
-    colorStops: gradientAST.colorStops
-  });
-}
-
-function hasUnsupportedLength(item) {
-  return item.length === undefined || item.length.type !== '%';
-}
-
-function getGradientAstWithDefault(value) {
-  var _gradientAST$orientat;
-
-  // gradientAST will contain the gradient AST as parsed by gradient-parser npm module.
-  // More information of its structure available at https://www.npmjs.com/package/gradient-parser#ast.
-  let gradientAST;
-
-  try {
-    gradientAST = build_node.parse(value)[0];
-    gradientAST.value = value;
-  } catch (error) {
-    gradientAST = build_node.parse(DEFAULT_GRADIENT)[0];
-    gradientAST.value = DEFAULT_GRADIENT;
-  }
-
-  if (((_gradientAST$orientat = gradientAST.orientation) === null || _gradientAST$orientat === void 0 ? void 0 : _gradientAST$orientat.type) === 'directional') {
-    gradientAST.orientation.type = 'angular';
-    gradientAST.orientation.value = DIRECTIONAL_ORIENTATION_ANGLE_MAP[gradientAST.orientation.value].toString();
-  }
-
-  if (gradientAST.colorStops.some(hasUnsupportedLength)) {
-    const {
-      colorStops
-    } = gradientAST;
-    const step = 100 / (colorStops.length - 1);
-    colorStops.forEach((stop, index) => {
-      stop.length = {
-        value: step * index,
-        type: '%'
-      };
-    });
-    gradientAST.value = serializeGradient(gradientAST);
-  }
-
-  return gradientAST;
-}
-function getGradientAstWithControlPoints(gradientAST, newControlPoints) {
-  return { ...gradientAST,
-    colorStops: newControlPoints.map(_ref => {
-      let {
-        position,
-        color
-      } = _ref;
-      const {
-        r,
-        g,
-        b,
-        a
-      } = w(color).toRgb();
-      return {
-        length: {
-          type: '%',
-          value: position.toString()
-        },
-        type: a < 1 ? 'rgba' : 'rgb',
-        value: a < 1 ? [r, g, b, a] : [r, g, b]
-      };
-    })
-  };
-}
-function getStopCssColor(colorStop) {
-  switch (colorStop.type) {
-    case 'hex':
-      return `#${colorStop.value}`;
-
-    case 'literal':
-      return colorStop.value;
-
-    case 'rgb':
-    case 'rgba':
-      return `${colorStop.type}(${colorStop.value.join(',')})`;
-
-    default:
-      // Should be unreachable if passing an AST from gradient-parser.
-      // See https://github.com/rafaelcaricio/gradient-parser#ast.
-      return 'transparent';
-  }
-}
-//# sourceMappingURL=utils.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/styles/custom-gradient-picker-styles.js
-
-
-function custom_gradient_picker_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-const SelectWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block_component,  true ? {
-  target: "e99xvul1"
-} : 0)( true ? {
-  name: "1gvx10y",
-  styles: "flex-grow:5"
-} : 0);
-const AccessoryWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block_component,  true ? {
-  target: "e99xvul0"
-} : 0)( true ? {
-  name: "1gvx10y",
-  styles: "flex-grow:5"
-} : 0);
-//# sourceMappingURL=custom-gradient-picker-styles.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/index.js
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-
-
-
-
-const GradientAnglePicker = _ref => {
-  let {
-    gradientAST,
-    hasGradient,
-    onChange
-  } = _ref;
-  const angle = (0,external_lodash_namespaceObject.get)(gradientAST, ['orientation', 'value'], DEFAULT_LINEAR_GRADIENT_ANGLE);
-
-  const onAngleChange = newAngle => {
-    onChange(serializeGradient({ ...gradientAST,
-      orientation: {
-        type: 'angular',
-        value: newAngle
-      }
-    }));
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(AnglePickerControl, {
-    onChange: onAngleChange,
-    labelPosition: "top",
-    value: hasGradient ? angle : ''
-  });
-};
-
-const GradientTypePicker = _ref2 => {
-  let {
-    gradientAST,
-    hasGradient,
-    onChange
-  } = _ref2;
-  const {
-    type
-  } = gradientAST;
-
-  const onSetLinearGradient = () => {
-    onChange(serializeGradient({ ...gradientAST,
-      ...(gradientAST.orientation ? {} : {
-        orientation: HORIZONTAL_GRADIENT_ORIENTATION
-      }),
-      type: 'linear-gradient'
-    }));
-  };
-
-  const onSetRadialGradient = () => {
-    onChange(serializeGradient({ ...(0,external_lodash_namespaceObject.omit)(gradientAST, ['orientation']),
-      type: 'radial-gradient'
-    }));
-  };
-
-  const handleOnChange = next => {
-    if (next === 'linear-gradient') {
-      onSetLinearGradient();
-    }
-
-    if (next === 'radial-gradient') {
-      onSetRadialGradient();
-    }
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(select_control, {
-    className: "components-custom-gradient-picker__type-picker",
-    label: (0,external_wp_i18n_namespaceObject.__)('Type'),
-    labelPosition: "top",
-    onChange: handleOnChange,
-    options: GRADIENT_OPTIONS,
-    value: hasGradient && type
-  });
-};
-
-function CustomGradientPicker(_ref3) {
-  let {
-    value,
-    onChange
-  } = _ref3;
-  const gradientAST = getGradientAstWithDefault(value); // On radial gradients the bar should display a linear gradient.
-  // On radial gradients the bar represents a slice of the gradient from the center until the outside.
-  // On liner gradients the bar represents the color stops from left to right independently of the angle.
-
-  const background = getLinearGradientRepresentation(gradientAST);
-  const hasGradient = gradientAST.value !== DEFAULT_GRADIENT; // Control points color option may be hex from presets, custom colors will be rgb.
-  // The position should always be a percentage.
-
-  const controlPoints = gradientAST.colorStops.map(colorStop => ({
-    color: getStopCssColor(colorStop),
-    position: parseInt(colorStop.length.value)
-  }));
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-custom-gradient-picker"
-  }, (0,external_wp_element_namespaceObject.createElement)(CustomGradientBar, {
-    background: background,
-    hasGradient: hasGradient,
-    value: controlPoints,
-    onChange: newControlPoints => {
-      onChange(serializeGradient(getGradientAstWithControlPoints(gradientAST, newControlPoints)));
-    }
-  }), (0,external_wp_element_namespaceObject.createElement)(flex_component, {
-    gap: 3,
-    className: "components-custom-gradient-picker__ui-line"
-  }, (0,external_wp_element_namespaceObject.createElement)(SelectWrapper, null, (0,external_wp_element_namespaceObject.createElement)(GradientTypePicker, {
-    gradientAST: gradientAST,
-    hasGradient: hasGradient,
-    onChange: onChange
-  })), (0,external_wp_element_namespaceObject.createElement)(AccessoryWrapper, null, gradientAST.type === 'linear-gradient' && (0,external_wp_element_namespaceObject.createElement)(GradientAnglePicker, {
-    gradientAST: gradientAST,
-    hasGradient: hasGradient,
-    onChange: onChange
-  }))));
-}
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/gradient-picker/index.js
-
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-function SingleOrigin(_ref) {
-  let {
-    className,
-    clearGradient,
-    gradients,
-    onChange,
-    value,
-    actions,
-    content
-  } = _ref;
-  const gradientOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return (0,external_lodash_namespaceObject.map)(gradients, _ref2 => {
-      let {
-        gradient,
-        name
-      } = _ref2;
-      return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
-        key: gradient,
-        value: gradient,
-        isSelected: value === gradient,
-        tooltipText: name || // translators: %s: gradient code e.g: "linear-gradient(90deg, rgba(98,16,153,1) 0%, rgba(172,110,22,1) 100%);".
-        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Gradient code: %s'), gradient),
-        style: {
-          color: 'rgba( 0,0,0,0 )',
-          background: gradient
-        },
-        onClick: value === gradient ? clearGradient : () => onChange(gradient),
-        "aria-label": name ? // translators: %s: The name of the gradient e.g: "Angular red to blue".
-        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Gradient: %s'), name) : // translators: %s: gradient code e.g: "linear-gradient(90deg, rgba(98,16,153,1) 0%, rgba(172,110,22,1) 100%);".
-        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Gradient code: %s'), gradient)
-      });
-    });
-  }, [gradients, value, onChange, clearGradient]);
-  return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
-    className: className,
-    options: gradientOptions,
-    actions: actions
-  }, content);
-}
-
-function MultipleOrigin(_ref3) {
-  let {
-    className,
-    clearGradient,
-    gradients,
-    onChange,
-    value,
-    actions,
-    content
-  } = _ref3;
-  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
-    spacing: 3,
-    className: className
-  }, gradients.map((_ref4, index) => {
-    let {
-      name,
-      gradients: gradientSet
-    } = _ref4;
-    return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
-      spacing: 2,
-      key: index
-    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, null, name), (0,external_wp_element_namespaceObject.createElement)(SingleOrigin, extends_extends({
-      clearGradient: clearGradient,
-      gradients: gradientSet,
-      onChange: onChange,
-      value: value
-    }, gradients.length === index + 1 ? {
-      actions,
-      content
-    } : {})));
-  }));
-}
-
-function GradientPicker(_ref5) {
-  let {
-    className,
-    gradients,
-    onChange,
-    value,
-    clearable = true,
-    disableCustomGradients = false,
-    __experimentalHasMultipleOrigins
-  } = _ref5;
-  const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const Component = __experimentalHasMultipleOrigins ? MultipleOrigin : SingleOrigin;
-  return (0,external_wp_element_namespaceObject.createElement)(Component, {
-    className: className,
-    clearable: clearable,
-    clearGradient: clearGradient,
-    gradients: gradients,
-    onChange: onChange,
-    value: value,
-    actions: clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
-      onClick: clearGradient
-    }, (0,external_wp_i18n_namespaceObject.__)('Clear')),
-    content: !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
-      value: value,
-      onChange: onChange
-    })
-  });
-}
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/grid/utils.js
 const grid_utils_ALIGNMENTS = {
   bottom: {
@@ -62998,333 +63615,6 @@ function Grid(props, forwardedRef) {
 const ConnectedGrid = contextConnect(Grid, 'Grid');
 /* harmony default export */ var grid_component = (ConnectedGrid);
 //# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/modal/aria-helper.js
-/**
- * External dependencies
- */
-
-const LIVE_REGION_ARIA_ROLES = new Set(['alert', 'status', 'log', 'marquee', 'timer']);
-let hiddenElements = [],
-    isHidden = false;
-/**
- * Hides all elements in the body element from screen-readers except
- * the provided element and elements that should not be hidden from
- * screen-readers.
- *
- * The reason we do this is because `aria-modal="true"` currently is bugged
- * in Safari, and support is spotty in other browsers overall. In the future
- * we should consider removing these helper functions in favor of
- * `aria-modal="true"`.
- *
- * @param {Element} unhiddenElement The element that should not be hidden.
- */
-
-function hideApp(unhiddenElement) {
-  if (isHidden) {
-    return;
-  }
-
-  const elements = document.body.children;
-  (0,external_lodash_namespaceObject.forEach)(elements, element => {
-    if (element === unhiddenElement) {
-      return;
-    }
-
-    if (elementShouldBeHidden(element)) {
-      element.setAttribute('aria-hidden', 'true');
-      hiddenElements.push(element);
-    }
-  });
-  isHidden = true;
-}
-/**
- * Determines if the passed element should not be hidden from screen readers.
- *
- * @param {HTMLElement} element The element that should be checked.
- *
- * @return {boolean} Whether the element should not be hidden from screen-readers.
- */
-
-function elementShouldBeHidden(element) {
-  const role = element.getAttribute('role');
-  return !(element.tagName === 'SCRIPT' || element.hasAttribute('aria-hidden') || element.hasAttribute('aria-live') || LIVE_REGION_ARIA_ROLES.has(role));
-}
-/**
- * Makes all elements in the body that have been hidden by `hideApp`
- * visible again to screen-readers.
- */
-
-function showApp() {
-  if (!isHidden) {
-    return;
-  }
-
-  (0,external_lodash_namespaceObject.forEach)(hiddenElements, element => {
-    element.removeAttribute('aria-hidden');
-  });
-  hiddenElements = [];
-  isHidden = false;
-}
-//# sourceMappingURL=aria-helper.js.map
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
-// Unique ID creation requires a high quality random # generator. In the browser we therefore
-// require the crypto API and do not support built-in fallback to lower quality random number
-// generators (like Math.random()).
-// getRandomValues needs to be invoked in a context where "this" is a Crypto implementation. Also,
-// find the complete implementation of crypto (msCrypto) on IE11.
-var getRandomValues = typeof crypto !== 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || typeof msCrypto !== 'undefined' && typeof msCrypto.getRandomValues === 'function' && msCrypto.getRandomValues.bind(msCrypto);
-var rnds8 = new Uint8Array(16);
-function rng() {
-  if (!getRandomValues) {
-    throw new Error('crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported');
-  }
-
-  return getRandomValues(rnds8);
-}
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/regex.js
-/* harmony default export */ var regex = (/^(?:[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|00000000-0000-0000-0000-000000000000)$/i);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/validate.js
-
-
-function validate(uuid) {
-  return typeof uuid === 'string' && regex.test(uuid);
-}
-
-/* harmony default export */ var esm_browser_validate = (validate);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/stringify.js
-
-/**
- * Convert array of 16 byte values to UUID string format of the form:
- * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
- */
-
-var byteToHex = [];
-
-for (var stringify_i = 0; stringify_i < 256; ++stringify_i) {
-  byteToHex.push((stringify_i + 0x100).toString(16).substr(1));
-}
-
-function stringify_stringify(arr) {
-  var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  // Note: Be careful editing this code!  It's been tuned for performance
-  // and works in ways you may not expect. See https://github.com/uuidjs/uuid/pull/434
-  var uuid = (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + '-' + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + '-' + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + '-' + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + '-' + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase(); // Consistency check for valid UUID.  If this throws, it's likely due to one
-  // of the following:
-  // - One or more input array values don't map to a hex octet (leading to
-  // "undefined" in the uuid)
-  // - Invalid input values for the RFC `version` or `variant` fields
-
-  if (!esm_browser_validate(uuid)) {
-    throw TypeError('Stringified UUID is invalid');
-  }
-
-  return uuid;
-}
-
-/* harmony default export */ var esm_browser_stringify = (stringify_stringify);
-;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/v4.js
-
-
-
-function v4(options, buf, offset) {
-  options = options || {};
-  var rnds = options.random || (options.rng || rng)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
-
-  rnds[6] = rnds[6] & 0x0f | 0x40;
-  rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
-
-  if (buf) {
-    offset = offset || 0;
-
-    for (var i = 0; i < 16; ++i) {
-      buf[offset + i] = rnds[i];
-    }
-
-    return buf;
-  }
-
-  return esm_browser_stringify(rnds);
-}
-
-/* harmony default export */ var esm_browser_v4 = (v4);
-;// CONCATENATED MODULE: ./packages/components/build-module/style-provider/index.js
-
-
-/**
- * External dependencies
- */
-
-
-
-
-const uuidCache = new Set();
-const memoizedCreateCacheWithContainer = memize_default()(container => {
-  // emotion only accepts alphabetical and hyphenated keys so we just strip the numbers from the UUID. It _should_ be fine.
-  let key = esm_browser_v4().replace(/[0-9]/g, '');
-
-  while (uuidCache.has(key)) {
-    key = esm_browser_v4().replace(/[0-9]/g, '');
-  }
-
-  uuidCache.add(key);
-  return emotion_cache_browser_esm({
-    container,
-    key
-  });
-});
-function StyleProvider(_ref) {
-  let {
-    children,
-    document
-  } = _ref;
-
-  if (!document) {
-    return null;
-  }
-
-  const cache = memoizedCreateCacheWithContainer(document.head);
-  return (0,external_wp_element_namespaceObject.createElement)(CacheProvider, {
-    value: cache
-  }, children);
-}
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/modal/index.js
-
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
- // Used to count the number of open modals.
-
-let openModalCount = 0;
-function Modal(_ref) {
-  let {
-    bodyOpenClassName = 'modal-open',
-    role = 'dialog',
-    title = null,
-    focusOnMount = true,
-    shouldCloseOnEsc = true,
-    shouldCloseOnClickOutside = true,
-    isDismissable,
-    // Deprecated
-    isDismissible = isDismissable || true,
-
-    /* accessibility */
-    aria = {
-      labelledby: null,
-      describedby: null
-    },
-    onRequestClose,
-    icon,
-    closeButtonLabel,
-    children,
-    style,
-    overlayClassName,
-    className,
-    contentLabel,
-    onKeyDown,
-    isFullScreen = false
-  } = _ref;
-  const ref = (0,external_wp_element_namespaceObject.useRef)();
-  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(Modal);
-  const headingId = title ? `components-modal-header-${instanceId}` : aria.labelledby;
-  const focusOnMountRef = (0,external_wp_compose_namespaceObject.useFocusOnMount)(focusOnMount);
-  const constrainedTabbingRef = (0,external_wp_compose_namespaceObject.useConstrainedTabbing)();
-  const focusReturnRef = (0,external_wp_compose_namespaceObject.useFocusReturn)();
-  const focusOutsideProps = (0,external_wp_compose_namespaceObject.__experimentalUseFocusOutside)(onRequestClose);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    openModalCount++;
-
-    if (openModalCount === 1) {
-      hideApp(ref.current);
-      document.body.classList.add(bodyOpenClassName);
-    }
-
-    return () => {
-      openModalCount--;
-
-      if (openModalCount === 0) {
-        document.body.classList.remove(bodyOpenClassName);
-        showApp();
-      }
-    };
-  }, []);
-
-  if (isDismissable) {
-    external_wp_deprecated_default()('isDismissable prop of the Modal component', {
-      since: '5.4',
-      alternative: 'isDismissible prop (renamed) of the Modal component'
-    });
-  }
-
-  function handleEscapeKeyDown(event) {
-    if (shouldCloseOnEsc && event.keyCode === external_wp_keycodes_namespaceObject.ESCAPE && !event.defaultPrevented) {
-      event.preventDefault();
-
-      if (onRequestClose) {
-        onRequestClose(event);
-      }
-    }
-  }
-
-  return (0,external_wp_element_namespaceObject.createPortal)( // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-  (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: ref,
-    className: classnames_default()('components-modal__screen-overlay', overlayClassName),
-    onKeyDown: handleEscapeKeyDown
-  }, (0,external_wp_element_namespaceObject.createElement)(StyleProvider, {
-    document: document
-  }, (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
-    className: classnames_default()('components-modal__frame', className, {
-      'is-full-screen': isFullScreen
-    }),
-    style: style,
-    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([constrainedTabbingRef, focusReturnRef, focusOnMountRef]),
-    role: role,
-    "aria-label": contentLabel,
-    "aria-labelledby": contentLabel ? null : headingId,
-    "aria-describedby": aria.describedby,
-    tabIndex: "-1"
-  }, shouldCloseOnClickOutside ? focusOutsideProps : {}, {
-    onKeyDown: onKeyDown
-  }), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: 'components-modal__content',
-    role: "document"
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-modal__header"
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-modal__header-heading-container"
-  }, icon && (0,external_wp_element_namespaceObject.createElement)("span", {
-    className: "components-modal__icon-container",
-    "aria-hidden": true
-  }, icon), title && (0,external_wp_element_namespaceObject.createElement)("h1", {
-    id: headingId,
-    className: "components-modal__header-heading"
-  }, title)), isDismissible && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    onClick: onRequestClose,
-    icon: close_small,
-    label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close dialog')
-  })), children)))), document.body);
-}
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/icons.js
 
 
@@ -63494,7 +63784,7 @@ function Guide(_ref) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(Modal, {
+  return (0,external_wp_element_namespaceObject.createElement)(modal, {
     className: classnames_default()('components-guide', className),
     contentLabel: contentLabel,
     onRequestClose: onFinish,
@@ -64063,45 +64353,48 @@ function navigation_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have t
 
 
 const NavigationUI = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ejwewyf10"
+  target: "ejwewyf11"
 } : 0)("width:100%;box-sizing:border-box;padding:0 ", space(4), ";overflow:hidden;" + ( true ? "" : 0));
 const MenuUI = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ejwewyf9"
+  target: "ejwewyf10"
 } : 0)("margin-top:", space(6), ";margin-bottom:", space(6), ";display:flex;flex-direction:column;ul{padding:0;margin:0;list-style:none;}.components-navigation__back-button{margin-bottom:", space(6), ";}.components-navigation__group+.components-navigation__group{margin-top:", space(6), ";}" + ( true ? "" : 0));
 const MenuBackButtonUI = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
-  target: "ejwewyf8"
+  target: "ejwewyf9"
 } : 0)( true ? {
   name: "26l0q2",
   styles: "&.is-tertiary{color:inherit;opacity:0.7;&:hover:not( :disabled ){opacity:1;box-shadow:none;color:inherit;}&:active:not( :disabled ){background:transparent;opacity:1;color:inherit;}}"
 } : 0);
 const MenuTitleUI = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ejwewyf7"
+  target: "ejwewyf8"
 } : 0)( true ? {
   name: "1aubja5",
   styles: "overflow:hidden;width:100%"
 } : 0);
 const MenuTitleActionsUI = emotion_styled_base_browser_esm("span",  true ? {
-  target: "ejwewyf6"
+  target: "ejwewyf7"
 } : 0)("height:", space(6), ";.components-button.is-small{color:inherit;opacity:0.7;margin-right:", space(1), ";padding:0;&:active:not( :disabled ){background:none;opacity:1;color:inherit;}&:hover:not( :disabled ){box-shadow:none;opacity:1;color:inherit;}}" + ( true ? "" : 0));
 const MenuTitleSearchUI = /*#__PURE__*/emotion_styled_base_browser_esm(search_control,  true ? {
-  target: "ejwewyf5"
+  target: "ejwewyf6"
 } : 0)( true ? {
   name: "za3n3e",
   styles: "input[type='search'].components-search-control__input{margin:0;background:#303030;color:#fff;&:focus{background:#434343;color:#fff;}&::placeholder{color:rgba( 255, 255, 255, 0.6 );}}svg{fill:white;}.components-button.has-icon{padding:0;min-width:auto;}"
 } : 0);
 const GroupTitleUI = /*#__PURE__*/emotion_styled_base_browser_esm(heading_component,  true ? {
-  target: "ejwewyf4"
+  target: "ejwewyf5"
 } : 0)("min-height:", space(12), ";align-items:center;color:inherit;display:flex;justify-content:space-between;margin-bottom:", space(2), ";padding:", () => (0,external_wp_i18n_namespaceObject.isRTL)() ? `${space(1)} ${space(4)} ${space(1)} ${space(2)}` : `${space(1)} ${space(2)} ${space(1)} ${space(4)}`, ";" + ( true ? "" : 0));
 const ItemBaseUI = emotion_styled_base_browser_esm("li",  true ? {
-  target: "ejwewyf3"
+  target: "ejwewyf4"
 } : 0)("border-radius:2px;color:inherit;margin-bottom:0;>button,>a.components-button,>a{width:100%;color:inherit;opacity:0.7;padding:", space(2), " ", space(4), ";", rtl({
   textAlign: 'left'
 }, {
   textAlign: 'right'
 }), " &:hover,&:focus:not( [aria-disabled='true'] ):active,&:active:not( [aria-disabled='true'] ):active{color:inherit;opacity:1;}}&.is-active{background-color:", UI.theme, ";color:", BASE.white, ";>button,>a{color:", BASE.white, ";opacity:1;}}>svg path{color:", G2.lightGray.ui, ";}" + ( true ? "" : 0));
 const ItemUI = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ejwewyf2"
+  target: "ejwewyf3"
 } : 0)("display:flex;align-items:center;height:auto;min-height:40px;margin:0;padding:", space(1.5), " ", space(4), ";font-weight:400;line-height:20px;width:100%;color:inherit;opacity:0.7;" + ( true ? "" : 0));
+const ItemIconUI = emotion_styled_base_browser_esm("span",  true ? {
+  target: "ejwewyf2"
+} : 0)("display:flex;margin-right:", space(2), ";" + ( true ? "" : 0));
 const ItemBadgeUI = emotion_styled_base_browser_esm("span",  true ? {
   target: "ejwewyf1"
 } : 0)("margin-left:", () => (0,external_wp_i18n_namespaceObject.isRTL)() ? '0' : space(2), ";margin-right:", () => (0,external_wp_i18n_namespaceObject.isRTL)() ? space(2) : '0', ";display:inline-flex;padding:", space(1), " ", space(3), ";border-radius:2px;animation:fade-in 250ms ease-out;@keyframes fade-in{from{opacity:0;}to{opacity:1;}}", reduceMotion('animation'), ";" + ( true ? "" : 0));
@@ -64643,6 +64936,7 @@ function NavigationItem(props) {
     navigateToMenu,
     onClick = external_lodash_namespaceObject.noop,
     title,
+    icon,
     hideIfTargetMenuEmpty,
     isText,
     ...restProps
@@ -64661,8 +64955,9 @@ function NavigationItem(props) {
     return null;
   }
 
+  const isActive = item && activeItem === item;
   const classes = classnames_default()(className, {
-    'is-active': item && activeItem === item
+    'is-active': isActive
   });
 
   const onItemClick = event => {
@@ -64673,7 +64968,7 @@ function NavigationItem(props) {
     onClick(event);
   };
 
-  const icon = (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_left : chevron_right;
+  const navigationIcon = (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_left : chevron_right;
   const baseProps = children ? props : { ...props,
     onClick: undefined
   };
@@ -64681,15 +64976,18 @@ function NavigationItem(props) {
     as: build_module_button,
     href,
     onClick: onItemClick,
+    'aria-current': isActive ? 'page' : undefined,
     ...restProps
   };
   return (0,external_wp_element_namespaceObject.createElement)(NavigationItemBase, extends_extends({}, baseProps, {
     className: classes
-  }), children || (0,external_wp_element_namespaceObject.createElement)(ItemUI, itemProps, (0,external_wp_element_namespaceObject.createElement)(NavigationItemBaseContent, {
+  }), children || (0,external_wp_element_namespaceObject.createElement)(ItemUI, itemProps, icon && (0,external_wp_element_namespaceObject.createElement)(ItemIconUI, null, (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
+    icon: icon
+  })), (0,external_wp_element_namespaceObject.createElement)(NavigationItemBaseContent, {
     title: title,
     badge: badge
   }), navigateToMenu && (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
-    icon: icon
+    icon: navigationIcon
   })));
 }
 //# sourceMappingURL=index.js.map
@@ -69182,7 +69480,7 @@ const ToolsPanelHiddenInnerWrapper =  true ? {
   name: "huufmu",
   styles: ">div:not( :first-of-type ){display:none;}"
 } : 0;
-const ToolsPanelHeader = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, " gap:", space(2), ";.components-dropdown-menu{margin:", space(-1), " 0;}&&&& .components-dropdown-menu__toggle{padding:0;min-width:", space(6), ";}" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanelHeader = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, " gap:", space(2), ";.components-dropdown-menu{margin:", space(-1), " 0;line-height:0;}&&&& .components-dropdown-menu__toggle{padding:0;min-width:", space(6), ";}" + ( true ? "" : 0),  true ? "" : 0);
 const ToolsPanelHeading =  true ? {
   name: "1pmxm02",
   styles: "font-size:inherit;font-weight:500;line-height:normal;&&{margin:0;}"
@@ -69432,20 +69730,28 @@ const DEFAULT_COLUMNS = 2;
 const generateMenuItems = _ref => {
   let {
     panelItems,
-    shouldReset
+    shouldReset,
+    currentMenuItems
   } = _ref;
   const menuItems = {
     default: {},
     optional: {}
   };
   panelItems.forEach(_ref2 => {
+    var _currentMenuItems$gro;
+
     let {
       hasValue,
       isShownByDefault,
       label
     } = _ref2;
-    const group = isShownByDefault ? 'default' : 'optional';
-    menuItems[group][label] = shouldReset ? false : hasValue();
+    const group = isShownByDefault ? 'default' : 'optional'; // If a menu item for this label already exists, do not overwrite its value.
+    // This can cause default controls that have been flagged as customized to
+    // lose their value.
+
+    const existingItemValue = currentMenuItems === null || currentMenuItems === void 0 ? void 0 : (_currentMenuItems$gro = currentMenuItems[group]) === null || _currentMenuItems$gro === void 0 ? void 0 : _currentMenuItems$gro[label];
+    const value = existingItemValue !== undefined ? existingItemValue : hasValue();
+    menuItems[group][label] = shouldReset ? false : value;
   });
   return menuItems;
 };
@@ -69474,7 +69780,19 @@ function useToolsPanel(props) {
   const [panelItems, setPanelItems] = (0,external_wp_element_namespaceObject.useState)([]);
 
   const registerPanelItem = item => {
-    setPanelItems(items => [...items, item]);
+    setPanelItems(items => {
+      const newItems = [...items]; // If an item with this label is already registered, remove it first.
+      // This can happen when an item is moved between the default and optional
+      // groups.
+
+      const existingIndex = newItems.findIndex(oldItem => oldItem.label === item.label);
+
+      if (existingIndex !== -1) {
+        newItems.splice(existingIndex, 1);
+      }
+
+      return [...newItems, item];
+    });
   }; // Panels need to deregister on unmount to avoid orphans in menu state.
   // This is an issue when panel items are being injected via SlotFills.
 
@@ -69484,11 +69802,16 @@ function useToolsPanel(props) {
     // controls, e.g. both panels have a "padding" control, the
     // deregistration of the first panel doesn't occur until after the
     // registration of the next.
-    const index = panelItems.findIndex(item => item.label === label);
+    setPanelItems(items => {
+      const newItems = [...items];
+      const index = newItems.findIndex(item => item.label === label);
 
-    if (index !== -1) {
-      setPanelItems(items => items.splice(index, 1));
-    }
+      if (index !== -1) {
+        newItems.splice(index, 1);
+      }
+
+      return newItems;
+    });
   }; // Manage and share display state of menu items representing child controls.
 
 
@@ -69498,22 +69821,28 @@ function useToolsPanel(props) {
   }); // Setup menuItems state as panel items register themselves.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    const items = generateMenuItems({
-      panelItems,
-      shouldReset: false
+    setMenuItems(prevState => {
+      const items = generateMenuItems({
+        panelItems,
+        shouldReset: false,
+        currentMenuItems: prevState
+      });
+      return items;
     });
-    setMenuItems(items);
   }, [panelItems]); // Force a menu item to be checked.
   // This is intended for use with default panel items. They are displayed
   // separately to optional items and have different display states,
-  //.we need to update that when their value is customized.
+  // we need to update that when their value is customized.
 
   const flagItemCustomization = function (label) {
     let group = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
-    setMenuItems({ ...menuItems,
-      [group]: { ...menuItems[group],
-        [label]: true
-      }
+    setMenuItems(items => {
+      const newState = { ...items,
+        [group]: { ...items[group],
+          [label]: true
+        }
+      };
+      return newState;
     });
   }; // Whether all optional menu items are hidden or not must be tracked
   // in order to later determine if the panel display is empty and handle
@@ -69695,7 +70024,11 @@ function useToolsPanelItem(props) {
       });
     }
 
-    return () => deregisterPanelItem(label);
+    return () => {
+      if (currentPanelId === panelId) {
+        deregisterPanelItem(label);
+      }
+    };
   }, [currentPanelId, panelId, isShownByDefault, label, hasValueCallback, resetAllFilterCallback]);
   const isValueSet = hasValue();
   const wasValueSet = (0,external_wp_compose_namespaceObject.usePrevious)(isValueSet); // If this item represents a default control it will need to notify the
@@ -70270,6 +70603,11 @@ function z_stack_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have trie
  * External dependencies
  */
 
+
+/**
+ * Internal dependencies
+ */
+
 const ZStackView = emotion_styled_base_browser_esm("div",  true ? {
   target: "ebn2ljm1"
 } : 0)( true ? {
@@ -70283,11 +70621,11 @@ const ZStackChildView = emotion_styled_base_browser_esm("div",  true ? {
     isLayered,
     offsetAmount
   } = _ref;
-  return isLayered ? /*#__PURE__*/emotion_react_browser_esm_css({
+  return isLayered ? /*#__PURE__*/emotion_react_browser_esm_css(rtl({
     marginLeft: offsetAmount
-  },  true ? "" : 0,  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css({
+  })(),  true ? "" : 0,  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(rtl({
     right: offsetAmount * -1
-  },  true ? "" : 0,  true ? "" : 0);
+  })(),  true ? "" : 0,  true ? "" : 0);
 }, " ", _ref2 => {
   let {
     isLayered
@@ -70834,6 +71172,7 @@ const with_focus_return_Provider = _ref => {
 ;// CONCATENATED MODULE: ./packages/components/build-module/index.js
 // Primitives
  // Components
+
 
 
 

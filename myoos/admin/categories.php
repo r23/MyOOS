@@ -438,7 +438,8 @@ if (!empty($action)) {
 														products_price, products_base_price, products_base_unit,
                                                        products_date_available, products_weight, products_status,
 													   products_setting, products_tax_class_id,
-                                                       products_units_id, products_old_electrical_equipment, manufacturers_id, products_price_list,
+                                                       products_units_id, products_old_electrical_equipment, products_used_goods, 
+													   manufacturers_id, products_price_list,
                                                        products_quantity_order_min,  products_quantity_order_max,
                                                        products_quantity_order_units, products_discount1, products_discount2,
                                                        products_discount3, products_discount4, products_discount1_qty,
@@ -466,6 +467,7 @@ if (!empty($action)) {
                           products_tax_class_id,
                           products_units_id,
 						  products_old_electrical_equipment,
+						  products_used_goods,
                           manufacturers_id,
                           products_price_list,
                           products_quantity_order_min,
@@ -499,6 +501,7 @@ if (!empty($action)) {
                                   '" . $product['products_tax_class_id'] . "',
                                   '" . $product['products_units_id'] . "',
 								  '" . $product['products_old_electrical_equipment'] . "',
+								  '" . $product['products_used_goods'] . "',
                                   '" . $product['manufacturers_id'] . "',
                                   '" . $product['products_price_list'] . "',
                                   '" . $product['products_quantity_order_min'] . "',
@@ -516,7 +519,7 @@ if (!empty($action)) {
                                   '" . $product['products_slave_visible'] . "',
                                   '" . $product['products_sort_order'] . "')");
 				$dup_products_id = $dbconn->Insert_ID();
-				$description_result = $dbconn->Execute("SELECT products_languages_id, products_name, products_title, products_description, products_short_description, products_essential_characteristics, products_url, products_description_meta   FROM " . $oostable['products_description'] . " WHERE products_id = '" . oos_db_input($products_id) . "'");
+				$description_result = $dbconn->Execute("SELECT products_languages_id, products_name, products_title, products_description, products_short_description, products_essential_characteristics, products_old_electrical_equipment_description, products_used_goods_description, products_url, products_description_meta   FROM " . $oostable['products_description'] . " WHERE products_id = '" . oos_db_input($products_id) . "'");
 				while ($description = $description_result->fields) {
 					$dbconn->Execute("INSERT INTO " . $oostable['products_description'] . "
 									(products_id,
@@ -526,6 +529,8 @@ if (!empty($action)) {
 									products_description,
 									products_short_description,
 									products_essential_characteristics,
+									products_old_electrical_equipment_description,
+									products_used_goods_description,
 									products_url,
 									products_viewed,
 									products_description_meta)
@@ -536,6 +541,8 @@ if (!empty($action)) {
 											'" . oos_db_input($description['products_description']) . "',
 											'" . oos_db_input($description['products_short_description']) . "',
 											'" . oos_db_input($description['products_essential_characteristics']) . "',
+											'" . oos_db_input($description['products_old_electrical_equipment_description']) . "',
+											'" . oos_db_input($description['products_used_goods_description']) . "',
 											'" . oos_db_input($description['products_url']) . "',
 											'0',
 											'" . oos_db_input($description['products_description_meta']). "')");

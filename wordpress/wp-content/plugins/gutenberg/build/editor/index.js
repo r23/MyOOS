@@ -5702,7 +5702,10 @@ function EntitiesSavedStates(_ref) {
         saveEditedEntityRecord(kind, name, key);
       }
     });
-    saveSpecifiedEntityEdits('root', 'site', undefined, siteItemsToSave);
+
+    if (siteItemsToSave.length) {
+      saveSpecifiedEntityEdits('root', 'site', undefined, siteItemsToSave);
+    }
   }; // Explicitly define this with no argument passed.  Using `close` on
   // its own will use the event object in place of the expected saved entities.
 
@@ -10940,7 +10943,7 @@ function PostTrash(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     className: "editor-post-trash",
     isDestructive: true,
-    variant: "tertiary",
+    variant: "secondary",
     onClick: onClick
   }, (0,external_wp_i18n_namespaceObject.__)('Move to trash'));
 }

@@ -1359,7 +1359,8 @@ function InterfaceSkeleton(_ref, ref) {
   }), !!drawer && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__drawer",
     role: "region",
-    "aria-label": mergedLabels.drawer
+    "aria-label": mergedLabels.drawer,
+    tabIndex: "-1"
   }, drawer), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__editor"
   }, !!header && (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -3727,7 +3728,7 @@ function VisualEditor(_ref2) {
   }
 
   const ref = (0,external_wp_element_namespaceObject.useRef)();
-  const contentRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, (0,external_wp_blockEditor_namespaceObject.__unstableUseClipboardHandler)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseCanvasClickRedirect)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseTypewriter)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseTypingObserver)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseBlockSelectionClearer)()]);
+  const contentRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, (0,external_wp_blockEditor_namespaceObject.__unstableUseClipboardHandler)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseTypewriter)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseTypingObserver)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseBlockSelectionClearer)()]);
   const blockSelectionClearerRef = (0,external_wp_blockEditor_namespaceObject.__unstableUseBlockSelectionClearer)();
   const [, RecursionProvider] = (0,external_wp_blockEditor_namespaceObject.__experimentalUseNoRecursiveRenders)(wrapperUniqueId, wrapperBlockName);
   const layout = (0,external_wp_element_namespaceObject.useMemo)(() => {
@@ -4615,14 +4616,6 @@ function BlockTypesChecklist(_ref) {
 
 /* harmony default export */ var checklist = (BlockTypesChecklist);
 //# sourceMappingURL=checklist.js.map
-;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/edit-post-settings/index.js
-/**
- * WordPress dependencies
- */
-
-const EditPostSettings = (0,external_wp_element_namespaceObject.createContext)({});
-/* harmony default export */ var edit_post_settings = (EditPostSettings);
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/block-manager/category.js
 
 
@@ -4638,6 +4631,7 @@ const EditPostSettings = (0,external_wp_element_namespaceObject.createContext)({
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -4645,22 +4639,29 @@ const EditPostSettings = (0,external_wp_element_namespaceObject.createContext)({
 
 
 
-
 function BlockManagerCategory(_ref) {
   let {
-    instanceId,
     title,
-    blockTypes,
-    hiddenBlockTypes,
-    toggleVisible,
-    toggleAllVisible
+    blockTypes
   } = _ref;
-  const settings = (0,external_wp_element_namespaceObject.useContext)(edit_post_settings);
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(BlockManagerCategory);
   const {
-    allowedBlockTypes
-  } = settings;
+    defaultAllowedBlockTypes,
+    hiddenBlockTypes
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditorSettings
+    } = select(external_wp_editor_namespaceObject.store);
+    const {
+      getPreference
+    } = select(store_store);
+    return {
+      defaultAllowedBlockTypes: getEditorSettings().defaultAllowedBlockTypes,
+      hiddenBlockTypes: getPreference('hiddenBlockTypes')
+    };
+  }, []);
   const filteredBlockTypes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    if (allowedBlockTypes === true) {
+    if (defaultAllowedBlockTypes === true) {
       return blockTypes;
     }
 
@@ -4668,9 +4669,29 @@ function BlockManagerCategory(_ref) {
       let {
         name
       } = _ref2;
-      return (0,external_lodash_namespaceObject.includes)(allowedBlockTypes || [], name);
+      return (0,external_lodash_namespaceObject.includes)(defaultAllowedBlockTypes || [], name);
     });
-  }, [allowedBlockTypes, blockTypes]);
+  }, [defaultAllowedBlockTypes, blockTypes]);
+  const {
+    showBlockTypes,
+    hideBlockTypes
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const toggleVisible = (0,external_wp_element_namespaceObject.useCallback)((blockName, nextIsChecked) => {
+    if (nextIsChecked) {
+      showBlockTypes(blockName);
+    } else {
+      hideBlockTypes(blockName);
+    }
+  }, []);
+  const toggleAllVisible = (0,external_wp_element_namespaceObject.useCallback)(nextIsChecked => {
+    const blockNames = (0,external_lodash_namespaceObject.map)(blockTypes, 'name');
+
+    if (nextIsChecked) {
+      showBlockTypes(blockNames);
+    } else {
+      hideBlockTypes(blockNames);
+    }
+  }, [blockTypes]);
 
   if (!filteredBlockTypes.length) {
     return null;
@@ -4708,39 +4729,7 @@ function BlockManagerCategory(_ref) {
   }));
 }
 
-/* harmony default export */ var block_manager_category = ((0,external_wp_compose_namespaceObject.compose)([external_wp_compose_namespaceObject.withInstanceId, (0,external_wp_data_namespaceObject.withSelect)(select => {
-  const {
-    getPreference
-  } = select(store_store);
-  return {
-    hiddenBlockTypes: getPreference('hiddenBlockTypes')
-  };
-}), (0,external_wp_data_namespaceObject.withDispatch)((dispatch, ownProps) => {
-  const {
-    showBlockTypes,
-    hideBlockTypes
-  } = dispatch(store_store);
-  return {
-    toggleVisible(blockName, nextIsChecked) {
-      if (nextIsChecked) {
-        showBlockTypes(blockName);
-      } else {
-        hideBlockTypes(blockName);
-      }
-    },
-
-    toggleAllVisible(nextIsChecked) {
-      const blockNames = (0,external_lodash_namespaceObject.map)(ownProps.blockTypes, 'name');
-
-      if (nextIsChecked) {
-        showBlockTypes(blockNames);
-      } else {
-        hideBlockTypes(blockNames);
-      }
-    }
-
-  };
-})])(BlockManagerCategory));
+/* harmony default export */ var block_manager_category = (BlockManagerCategory);
 //# sourceMappingURL=category.js.map
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/block-manager/index.js
 
@@ -7876,7 +7865,9 @@ function PostTemplateActions() {
   }, (0,external_wp_i18n_namespaceObject.__)('Edit')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "link",
     onClick: () => setIsModalOpen(true)
-  }, (0,external_wp_i18n_namespaceObject.__)('New'))), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
+  },
+  /* translators: button to create a new template */
+  (0,external_wp_i18n_namespaceObject._x)('New', 'action'))), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
     title: (0,external_wp_i18n_namespaceObject.__)('Create custom template'),
     closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close'),
     onRequestClose: () => {
@@ -8954,7 +8945,6 @@ function EditorInitialization(_ref) {
 
 
 
-
 function Editor(_ref) {
   let {
     postId,
@@ -9045,7 +9035,10 @@ function Editor(_ref) {
       __experimentalLocalAutosaveInterval,
       // This is marked as experimental to give time for the quick inserter to mature.
       __experimentalSetIsInserterOpened: setIsInserterOpened,
-      keepCaretInsideBlock
+      keepCaretInsideBlock,
+      // Keep a reference of the `allowedBlockTypes` from the server to handle use cases
+      // where we need to differentiate if a block is disabled by the user or some plugin.
+      defaultAllowedBlockTypes: settings.allowedBlockTypes
     }; // Omit hidden block types if exists and non-empty.
 
     if ((0,external_lodash_namespaceObject.size)(hiddenBlockTypes) > 0) {
@@ -9076,9 +9069,7 @@ function Editor(_ref) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.StrictMode, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_keyboardShortcuts_namespaceObject.ShortcutProvider, null, (0,external_wp_element_namespaceObject.createElement)(edit_post_settings.Provider, {
-    value: settings
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SlotFillProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.EditorProvider, _extends({
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.StrictMode, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_keyboardShortcuts_namespaceObject.ShortcutProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SlotFillProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.EditorProvider, _extends({
     settings: editorSettings,
     post: post,
     initialEdits: initialEdits,
@@ -9092,7 +9083,7 @@ function Editor(_ref) {
     styles: styles
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.KeyboardShortcuts, {
     shortcuts: prevent_event_discovery
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostLockedModal, null))))));
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostLockedModal, null)))));
 }
 
 /* harmony default export */ var editor = (Editor);
