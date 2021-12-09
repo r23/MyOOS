@@ -126,7 +126,7 @@ class KernelBrowser extends HttpKernelBrowser
 
         $token = new TestBrowserToken($user->getRoles(), $user, $firewallContext);
         // @deprecated since Symfony 5.4
-        if (method_exists($token, 'isAuthenticated')) {
+        if (method_exists($token, 'setAuthenticated')) {
             $token->setAuthenticated(true, false);
         }
 

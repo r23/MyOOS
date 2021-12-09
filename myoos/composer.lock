@@ -2596,16 +2596,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.105.0",
+            "version": "v7.106.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "3a926610ca772aa7519fb132c88a6e7472788d90"
+                "reference": "87013b8b3b75daad59d0aa39cbbf0b5979f1a091"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/3a926610ca772aa7519fb132c88a6e7472788d90",
-                "reference": "3a926610ca772aa7519fb132c88a6e7472788d90",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/87013b8b3b75daad59d0aa39cbbf0b5979f1a091",
+                "reference": "87013b8b3b75daad59d0aa39cbbf0b5979f1a091",
                 "shasum": ""
             },
             "require": {
@@ -2650,9 +2650,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v7.105.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v7.106.0"
             },
-            "time": "2021-12-06T22:51:55+00:00"
+            "time": "2021-12-09T15:48:56+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -3651,16 +3651,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.0",
+            "version": "v5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "94eb8a9c657257360b65a6ec4a6a64fb0551fe6a"
+                "reference": "f70af8e1376522d784346a09d94a06e1474b42eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/94eb8a9c657257360b65a6ec4a6a64fb0551fe6a",
-                "reference": "94eb8a9c657257360b65a6ec4a6a64fb0551fe6a",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/f70af8e1376522d784346a09d94a06e1474b42eb",
+                "reference": "f70af8e1376522d784346a09d94a06e1474b42eb",
                 "shasum": ""
             },
             "require": {
@@ -3853,7 +3853,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.0"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.1"
             },
             "funding": [
                 {
@@ -3869,7 +3869,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-29T16:57:07+00:00"
+            "time": "2021-12-09T13:36:23+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
