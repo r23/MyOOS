@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-11-27 17:06:40+0000\n"
+"PO-Revision-Date: 2021-12-08 14:43:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+
+#: includes/settings/titles/post-types.php:141
+msgid "Local Business"
+msgstr "Lokales Unternehmen"
 
 #. Translators: placeholder is a link to "Read more".
 #: includes/settings/general/others.php:20
@@ -341,7 +345,7 @@ msgid "Spain"
 msgstr "Spanien"
 
 #: includes/settings/titles/author.php:125
-#: includes/settings/titles/post-types.php:316
+#: includes/settings/titles/post-types.php:332
 #: includes/settings/titles/taxonomies.php:113
 msgid "Add SEO Controls"
 msgstr "SEO-Steuerelemente hinzufügen"
@@ -642,7 +646,7 @@ msgid "Show SEO Score to Visitors"
 msgstr "SEO-Score für Besucher anzeigen"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:277
+#: includes/settings/titles/post-types.php:293
 msgid "Choose which taxonomy you want to use with the Primary Term feature. This will also be the taxonomy shown in the Breadcrumbs when a single %1$s is being viewed."
 msgstr "Wähle die Taxonomie, die du mit der Funktion \"Primärer Begriff\" verwenden möchtest. Dies wird auch die Taxonomie sein, die in den Brotkrumen angezeigt wird, wenn ein einzelner %1$s angezeigt wird."
 
@@ -1810,6 +1814,11 @@ msgstr "HTTP-Fehler %d."
 msgid "Analyze your site by %1$s linking your Rank Math account %2$s"
 msgstr "Analysiere deine Website durch %1$s Verbinden deines Rank Math-Kontos %2$s"
 
+#. translators: link to title setting screen
+#: includes/settings/titles/post-types.php:138
+msgid "Default rich snippet selected when creating a new location."
+msgstr "Standard-Rich-Snippet bei der Erstellung eines neuen Standorts ausgewählt."
+
 #: includes/settings/titles/post-types.php:20
 msgid "To configure attachment-related meta tags disable attachment redirection to parent."
 msgstr "Um eine Sitemap für Anhänge zu erstellen, deaktiviere die Weiterleitung von Anhängen an übergeordnete Elemente."
@@ -1895,7 +1904,7 @@ msgid "Custom values for robots meta tag on %s archives."
 msgstr "Benutzerdefinierte Werte für Robots-Meta-Tag in %s-Archiven."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:221
+#: includes/settings/titles/post-types.php:237
 msgid "Custom values for robots meta tag on %s."
 msgstr "Benutzerdefinierte Werte für Robots-Meta-Tag auf %s."
 
@@ -2500,7 +2509,7 @@ msgid "Schema Type for %s"
 msgstr "Schema-Typ für %s"
 
 #: includes/admin/importers/class-aio-rich-snippet.php:192
-#: includes/admin/importers/class-wp-schema-pro.php:586
+#: includes/admin/importers/class-wp-schema-pro.php:601
 msgid "Import Schemas"
 msgstr "Schemas importieren"
 
@@ -2511,6 +2520,7 @@ msgstr "On-Page Schema Einstellungen"
 #: includes/admin/wizard/class-schema-markup.php:58
 #: includes/settings/titles/post-types.php:119
 #: includes/settings/titles/post-types.php:136
+#: includes/settings/titles/post-types.php:152
 msgid "Schema Type"
 msgstr "Schema-Typ"
 
@@ -2673,16 +2683,16 @@ msgstr "Blog-Seite anzeigen"
 msgid "%s Archives Advanced Robots Meta"
 msgstr "%s Archive Erweiterte Roboter-Meta"
 
-#: includes/settings/titles/post-types.php:345
+#: includes/settings/titles/post-types.php:361
 msgid "List of custom fields name to include in the Page analysis. Add one per line."
 msgstr "Liste der benutzerdefinierten Feldnamen, die in die Seitenanalyse einbezogen werden sollen. Füge einen pro Zeile hinzu."
 
-#: includes/settings/titles/post-types.php:344
+#: includes/settings/titles/post-types.php:360
 msgid "Custom Fields"
 msgstr "Benutzerdefinierte Felder"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:235
+#: includes/settings/titles/post-types.php:251
 msgid "%s Advanced Robots Meta"
 msgstr "%s Erweiterte Roboter-Meta"
 
@@ -2698,7 +2708,7 @@ msgstr "Autor Erweiterte Roboter"
 msgid "Homepage Advanced Robots"
 msgstr "Homepage Erweiterte Roboter"
 
-#: includes/admin/class-assets.php:197
+#: includes/admin/class-assets.php:194
 msgid "Add <code>rel=\"sponsored\"</code>"
 msgstr "Füge <code>rel=\"sponsored\"</code> hinzu"
 
@@ -2919,19 +2929,19 @@ msgstr "Einstellungen zurücksetzen"
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: includes/admin/class-admin-bar-menu.php:398
+#: includes/admin/class-admin-bar-menu.php:399
 msgid "Google Rich Results Test - Googlebot Desktop"
 msgstr "Test für Google Rich-Suchergebnisse - Googlebot Desktop"
 
-#: includes/admin/class-admin-bar-menu.php:396
+#: includes/admin/class-admin-bar-menu.php:397
 msgid "Google Rich Results (Desktop)"
 msgstr "Google Rich-Suchergebnisse (Desktop)"
 
-#: includes/admin/class-admin-bar-menu.php:392
+#: includes/admin/class-admin-bar-menu.php:393
 msgid "Google Rich Results Test - Googlebot Smartphone"
 msgstr "Test für Google Rich-Suchergebnisse - Googlebot Smartphone"
 
-#: includes/admin/class-admin-bar-menu.php:390
+#: includes/admin/class-admin-bar-menu.php:391
 msgid "Google Rich Results (Mobile)"
 msgstr "Google Rich-Suchergebnisse (Mobile)"
 
@@ -3078,17 +3088,17 @@ msgid "bbPress"
 msgstr "bbPress"
 
 #: includes/3rdparty/divi/class-divi.php:142
-#: includes/admin/class-assets.php:129
+#: includes/admin/class-assets.php:126
 msgid "Please enter a valid URL."
 msgstr "Bitte gebe eine gültige URL ein."
 
 #: includes/3rdparty/divi/class-divi.php:141
-#: includes/admin/class-assets.php:128
+#: includes/admin/class-assets.php:125
 msgid "Please enter a valid email address."
 msgstr "Bitte gebe eine gültige E-Mail-Adresse ein."
 
 #: includes/3rdparty/divi/class-divi.php:139
-#: includes/admin/class-assets.php:126
+#: includes/admin/class-assets.php:123
 msgid "Please use the correct format."
 msgstr "Bitte nutze das korrekte Format."
 
@@ -3275,11 +3285,11 @@ msgstr "https://s.rankmath.com/home"
 msgid "Schema"
 msgstr "Schema"
 
-#: includes/settings/titles/post-types.php:290
+#: includes/settings/titles/post-types.php:306
 msgid "Image displayed when your page is shared on Facebook and other social networks. Use images that are at least 1200 x 630 pixels for the best display on high resolution devices."
 msgstr "Das Bild wird angezeigt, wenn deine Seite auf Facebook und anderen sozialen Netzwerken freigegeben wird. Verwende Bilder mit einer Auflösung von mindestens 1200x630px für die beste Darstellung auf hochauflösenden Geräten."
 
-#: includes/settings/titles/post-types.php:289
+#: includes/settings/titles/post-types.php:305
 msgid "Thumbnail for Facebook"
 msgstr "Vorschaubild für Facebook"
 
@@ -3496,54 +3506,54 @@ msgstr "Gib hier deine komplette Facebook-Seiten-URL ein. Beispiel:"
 msgid "Facebook Page URL"
 msgstr "URL der Facebook-Seite"
 
-#: includes/settings/titles/post-types.php:317
+#: includes/settings/titles/post-types.php:333
 msgid "Add SEO controls for the editor screen to customize SEO options for posts in this post type."
 msgstr "Füge SEO-Steuerelemente für den Editorbildschirm hinzu, um die SEO-Optionen für Beiträge in diesem Beitragstyp anzupassen."
 
-#: includes/settings/titles/post-types.php:305
-#: includes/settings/titles/post-types.php:332
+#: includes/settings/titles/post-types.php:321
+#: includes/settings/titles/post-types.php:348
 msgid "Read Only"
 msgstr "Nur lesen"
 
-#: includes/settings/titles/post-types.php:301
-#: includes/settings/titles/post-types.php:328
+#: includes/settings/titles/post-types.php:317
+#: includes/settings/titles/post-types.php:344
 msgid "Add bulk editing columns to the post listing screen."
 msgstr "Füge dem Bildschirm für die Beitragsliste Spalten zur Massenbearbeitung hinzu."
 
-#: includes/settings/titles/post-types.php:300
-#: includes/settings/titles/post-types.php:327
+#: includes/settings/titles/post-types.php:316
+#: includes/settings/titles/post-types.php:343
 msgid "Bulk Editing"
 msgstr "Massenbearbeitung"
 
-#: includes/settings/titles/post-types.php:275
+#: includes/settings/titles/post-types.php:291
 msgid "Primary Taxonomy"
 msgstr "Primäre Taxonomie"
 
-#: includes/settings/titles/post-types.php:260
+#: includes/settings/titles/post-types.php:276
 msgid "Titles"
 msgstr "Titel"
 
-#: includes/settings/titles/post-types.php:258
+#: includes/settings/titles/post-types.php:274
 msgid "Use the Focus Keyword as the default text for the links instead of the post titles."
 msgstr "Verwende das Fokus-Schlüsselwort als Standardtext für die Links anstelle der Beitrag-Titel."
 
-#: includes/settings/titles/post-types.php:257
+#: includes/settings/titles/post-types.php:273
 msgid "Link Suggestion Titles"
 msgstr "Linkvorschlag-Titel"
 
-#: includes/settings/titles/post-types.php:247
+#: includes/settings/titles/post-types.php:263
 msgid "Enable Link Suggestions meta box for this post type, along with the Pillar Content feature."
 msgstr "Aktiviere das Metafeld Linkvorschläge für diesen Beitragstyp zusammen mit der Funktion Säuleninhalt."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:204
+#: includes/settings/titles/post-types.php:220
 msgid "Select custom robots meta, such as <code>nofollow</code>, <code>noarchive</code>, etc. for single %s pages. Otherwise the default meta will be used, as set in the Global Meta tab."
 msgstr "Wähle benutzerdefinierte Roboter-Metas, wie z.B. <code>nofollow</code>, <code>noarchive</code>, etc. für einzelne %s-Seiten. Andernfalls wird die Standard-Meta verwendet, wie auf der Registerkarte Globale Meta eingestellt."
 
 #. translators: post type name
 #. translators: post type name
-#: includes/settings/titles/post-types.php:202
-#: includes/settings/titles/post-types.php:219
+#: includes/settings/titles/post-types.php:218
+#: includes/settings/titles/post-types.php:235
 msgid "%s Robots Meta"
 msgstr "%s Robots-Meta"
 
@@ -3686,7 +3696,7 @@ msgstr "Benutzerdefinierte Werte für Roboter-Meta Tag auf der Startseite."
 #: includes/modules/buddypress/views/options-titles.php:48
 #: includes/settings/titles/author.php:49
 #: includes/settings/titles/homepage.php:71
-#: includes/settings/titles/post-types.php:207
+#: includes/settings/titles/post-types.php:223
 #: includes/settings/titles/taxonomies.php:74
 msgid "Custom"
 msgstr "Benutzerdefiniert"
@@ -3694,7 +3704,7 @@ msgstr "Benutzerdefiniert"
 #: includes/modules/buddypress/views/options-titles.php:47
 #: includes/settings/titles/author.php:48
 #: includes/settings/titles/homepage.php:70
-#: includes/settings/titles/post-types.php:206
+#: includes/settings/titles/post-types.php:222
 #: includes/settings/titles/taxonomies.php:73
 msgid "Default"
 msgstr "Standard"
@@ -3777,14 +3787,14 @@ msgid "Author Base"
 msgstr "Autorenbasis"
 
 #: includes/settings/titles/author.php:23 includes/settings/titles/misc.php:27
-#: includes/settings/titles/post-types.php:304
-#: includes/settings/titles/post-types.php:331
+#: includes/settings/titles/post-types.php:320
+#: includes/settings/titles/post-types.php:347
 msgid "Enabled"
 msgstr "Aktiviert"
 
 #: includes/settings/titles/author.php:22 includes/settings/titles/misc.php:26
-#: includes/settings/titles/post-types.php:303
-#: includes/settings/titles/post-types.php:330
+#: includes/settings/titles/post-types.php:319
+#: includes/settings/titles/post-types.php:346
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -4498,7 +4508,7 @@ msgstr "Das Setzen von Fokus-Schlüsselwörter für Ihre Beiträge ermöglicht e
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:68
 #: includes/replace-variables/class-advanced-variables.php:55
-#: includes/settings/titles/post-types.php:261
+#: includes/settings/titles/post-types.php:277
 msgid "Focus Keywords"
 msgstr "Fokus-Schlüsselwörter"
 
@@ -4971,7 +4981,7 @@ msgstr "Autor"
 msgid "Url"
 msgstr "URL"
 
-#: includes/settings/titles/post-types.php:152
+#: includes/settings/titles/post-types.php:168
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Headline"
@@ -6600,72 +6610,72 @@ msgstr "Rank Math WordPress SEO Plugin"
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
 
-#: includes/admin/class-admin-bar-menu.php:410
+#: includes/admin/class-admin-bar-menu.php:411
 msgid "Facebook Sharing Debugger"
 msgstr "Facebook teilen Debugger"
 
-#: includes/admin/class-admin-bar-menu.php:408
+#: includes/admin/class-admin-bar-menu.php:409
 msgid "Facebook Debugger"
 msgstr "Facebook Fehlersuchprogramm"
 
-#: includes/admin/class-admin-bar-menu.php:404
+#: includes/admin/class-admin-bar-menu.php:405
 msgid "See Google's cached version of your site"
 msgstr "Sehe dir die von Google zwischengespeicherte Version deiner Website an"
 
-#: includes/admin/class-admin-bar-menu.php:402
+#: includes/admin/class-admin-bar-menu.php:403
 msgid "Google Cache"
 msgstr "Google Cache"
 
-#: includes/admin/class-admin-bar-menu.php:386
+#: includes/admin/class-admin-bar-menu.php:387
 msgid "Google Mobile-Friendly Test"
 msgstr "Google Mobile-Friendly Test"
 
-#: includes/admin/class-admin-bar-menu.php:384
+#: includes/admin/class-admin-bar-menu.php:385
 msgid "Google Mobile-Friendly"
 msgstr "Google Mobile-Friendly"
 
-#: includes/admin/class-admin-bar-menu.php:380
+#: includes/admin/class-admin-bar-menu.php:381
 msgid "Google PageSpeed Insights"
 msgstr "Google PageSpeed Insights"
 
-#: includes/admin/class-admin-bar-menu.php:378
+#: includes/admin/class-admin-bar-menu.php:379
 msgid "Google PageSpeed"
 msgstr "Google PageSpeed"
 
-#: includes/admin/class-admin-bar-menu.php:369
+#: includes/admin/class-admin-bar-menu.php:370
 msgid "External Tools"
 msgstr "Externe Werkzeuge"
 
-#: includes/admin/class-admin-bar-menu.php:353
+#: includes/admin/class-admin-bar-menu.php:354
 msgid "As NoFollow"
 msgstr "Als NoFollow"
 
-#: includes/admin/class-admin-bar-menu.php:342
+#: includes/admin/class-admin-bar-menu.php:343
 msgid "As NoIndex"
 msgstr "Als NoIndex"
 
-#: includes/admin/class-admin-bar-menu.php:328
+#: includes/admin/class-admin-bar-menu.php:329
 msgid "As Pillar Content"
 msgstr "Als Säuleninhalt"
 
-#: includes/admin/class-admin-bar-menu.php:311
+#: includes/admin/class-admin-bar-menu.php:312
 msgid "Mark this page"
 msgstr "Markiere diese Seite"
 
-#: includes/admin/class-admin-bar-menu.php:298
+#: includes/admin/class-admin-bar-menu.php:299
 msgid "Edit SEO settings for the search results page"
 msgstr "Bearbeite die SEO-Einstellungen für die Suchergebnisseite"
 
-#: includes/admin/class-admin-bar-menu.php:296
+#: includes/admin/class-admin-bar-menu.php:297
 msgid "SEO Settings for Search Page"
 msgstr "SEO-Einstellungen für Suchseite"
 
-#: includes/admin/class-admin-bar-menu.php:281
+#: includes/admin/class-admin-bar-menu.php:282
 msgid "SEO Settings for Date Archives"
 msgstr "SEO-Einstellungen für Datumsarchive"
 
-#: includes/admin/class-admin-bar-menu.php:268
-#: includes/admin/class-admin-bar-menu.php:283
+#: includes/admin/class-admin-bar-menu.php:269
+#: includes/admin/class-admin-bar-menu.php:284
 msgid "Edit SEO settings for this archive page"
 msgstr "SEO-Einstellungen für diese Archivseite bearbeiten"
 
@@ -6676,7 +6686,7 @@ msgstr "Bearbeite die Standard-SEO-Einstellungen für diesen Beitragstyp"
 #. translators: Post Type Singular Name
 #. translators: Taxonomy Singular Name
 #: includes/admin/class-admin-bar-menu.php:244
-#: includes/admin/class-admin-bar-menu.php:266
+#: includes/admin/class-admin-bar-menu.php:267
 msgid "SEO Settings for %s"
 msgstr "SEO-Einstellungen für %s"
 
@@ -7146,7 +7156,7 @@ msgstr "Einrichten von Rank Math"
 msgid "Next steps&hellip;"
 msgstr "Nächste Schritte&hellip;"
 
-#: includes/admin/importers/class-wp-schema-pro.php:585
+#: includes/admin/importers/class-wp-schema-pro.php:600
 msgid "Plugin settings and site-wide meta data."
 msgstr "Plugin-Einstellungen und seitenweite Metadaten."
 
@@ -7159,7 +7169,7 @@ msgid "Import AIO SEO plugin settings, global meta, sitemap settings, etc."
 msgstr "Importiere AIO SEO Plugin-Einstellungen, globale Meta- und Sitemap-Einstellungen etc."
 
 #: includes/admin/importers/class-aio-rich-snippet.php:192
-#: includes/admin/importers/class-wp-schema-pro.php:586
+#: includes/admin/importers/class-wp-schema-pro.php:601
 msgid "Import all Schema data for Posts, Pages, and custom post types."
 msgstr "Importiere alle Schema Daten für Beiträge, Seiten und benutzerdefinierte Beitragstypen."
 
@@ -7252,7 +7262,7 @@ msgstr "Importiere Plugin-Einstellungen, globale Meta- und Sitemap-Einstellungen
 
 #: includes/admin/importers/abstract-importer.php:127
 #: includes/admin/importers/class-aioseo.php:61
-#: includes/admin/importers/class-wp-schema-pro.php:585
+#: includes/admin/importers/class-wp-schema-pro.php:600
 #: includes/admin/views/import-export/import-export-panel.php:25
 msgid "Import Settings"
 msgstr "Importeinstellungen"
@@ -7292,26 +7302,26 @@ msgid "Requirements"
 msgstr "Anforderungen"
 
 #: includes/admin/wizard/class-schema-markup.php:84
-#: includes/settings/titles/post-types.php:189
+#: includes/settings/titles/post-types.php:205
 msgid "News Article"
 msgstr "Nachrichtenartikel"
 
 #: includes/admin/wizard/class-schema-markup.php:83
-#: includes/settings/titles/post-types.php:188
+#: includes/settings/titles/post-types.php:204
 msgid "Blog Post"
 msgstr "Blog Beitrag"
 
 #: includes/admin/wizard/class-schema-markup.php:82
 #: includes/helpers/class-choices.php:436 includes/helpers/class-schema.php:77
-#: includes/settings/titles/post-types.php:140
-#: includes/settings/titles/post-types.php:187
+#: includes/settings/titles/post-types.php:156
+#: includes/settings/titles/post-types.php:203
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Article"
 msgstr "Artikel"
 
 #: includes/admin/wizard/class-schema-markup.php:80
-#: includes/settings/titles/post-types.php:185
+#: includes/settings/titles/post-types.php:201
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Article Type"
@@ -7320,17 +7330,17 @@ msgstr "Artikel Type"
 #. translators: Google article snippet doc link
 #. translators: Google article snippet doc link
 #: includes/admin/wizard/class-schema-markup.php:75
-#: includes/settings/titles/post-types.php:180
+#: includes/settings/titles/post-types.php:196
 msgid "Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this <a href=\"%s\" target=\"_blank\">here</a>."
 msgstr "Google erlaubt Person nicht als Publisher für Artikel. Organisation wird stattdessen verwendet. Weitere Informationen zu diesem Thema findest du <a href=\"%s\" target=\"_blank\">hier</a>."
 
 #: includes/admin/wizard/class-schema-markup.php:174
-#: includes/settings/titles/post-types.php:141
+#: includes/settings/titles/post-types.php:157
 msgid "None (Click here to set one)"
 msgstr "Keine (Klicke hier, um eine einzustellen)"
 
 #: includes/admin/wizard/class-schema-markup.php:173
-#: includes/settings/titles/post-types.php:137
+#: includes/settings/titles/post-types.php:153
 msgid "Default rich snippet selected when creating a new post of this type. "
 msgstr "Standard Rich-Snippet, das beim Erstellen eines neuen Beitrag dieses Typs ausgewählt wurde. "
 
@@ -7701,7 +7711,7 @@ msgid "Rank Math Product Registration"
 msgstr "Rank Math Produkt-Registrierung"
 
 #: includes/3rdparty/divi/class-divi.php:140
-#: includes/admin/class-assets.php:127
+#: includes/admin/class-assets.php:124
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
 
@@ -7838,7 +7848,7 @@ msgstr "Allgemein"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
-#: includes/settings/titles/post-types.php:164 assets/admin/js/classic.js:1
+#: includes/settings/titles/post-types.php:180 assets/admin/js/classic.js:1
 #: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
 #: assets/admin/js/gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
@@ -7846,22 +7856,22 @@ msgstr "Allgemein"
 msgid "Description"
 msgstr "Beschreibung"
 
-#: includes/admin/metabox/class-metabox.php:263
+#: includes/admin/metabox/class-metabox.php:262
 msgid "We can't show any link suggestions for this post. Try selecting categories and tags for this post, and mark other posts as Pillar Content to make them show up here."
 msgstr "Wir können keine Linkvorschläge für diesen Beitrag machen. Versuche, Kategorien und Tags für diesen Beitrag auszuwählen, und markiere andere Beiträge als Säuleninhalt, damit sie hier angezeigt werden."
 
-#: includes/admin/metabox/class-metabox.php:254
+#: includes/admin/metabox/class-metabox.php:253
 msgid "Click on the button to copy URL or insert link in content. You can also drag and drop links in the post content."
 msgstr "Klicke auf die Schaltfläche, um die URL zu kopieren oder einen Link in den Inhalt einzufügen. Du kannst auch Links per Drag & Drop in den Inhalt des Beitrags ziehen."
 
-#: includes/admin/metabox/class-metabox.php:243
-#: includes/settings/titles/post-types.php:246
+#: includes/admin/metabox/class-metabox.php:242
+#: includes/settings/titles/post-types.php:262
 msgid "Link Suggestions"
 msgstr "Linkvorschläge"
 
 #. Plugin Name of the plugin
 #: includes/admin/class-admin-bar-menu.php:173
-#: includes/admin/metabox/class-metabox.php:327
+#: includes/admin/metabox/class-metabox.php:326
 msgid "Rank Math SEO"
 msgstr "Rank Math SEO"
 
@@ -7953,7 +7963,8 @@ msgstr "Bist du sicher, dass du die Einstellungen in Rank Math importieren möch
 #: includes/admin/wizard/class-schema-markup.php:161
 #: includes/helpers/class-taxonomy.php:152
 #: includes/settings/titles/post-types.php:123
-#: includes/settings/titles/post-types.php:139 assets/admin/js/blocks.js:1
+#: includes/settings/titles/post-types.php:140
+#: includes/settings/titles/post-types.php:155 assets/admin/js/blocks.js:1
 #: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
 #: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
 msgid "None"
@@ -7987,7 +7998,7 @@ msgid "The canonical URL you entered does not seem to be a valid URL. Please dou
 msgstr "Die von dir eingegebene kanonische URL scheint keine gültige URL zu sein. Bitte überprüfen diese noch einmal in der SEO-Meta-Box &raquo; Registerkarte Erweitert."
 
 #. translators: plugin url
-#: includes/admin/class-assets.php:173
+#: includes/admin/class-assets.php:170
 msgid "Thank you for using <a href=\"%s\" target=\"_blank\">Rank Math</a>"
 msgstr "Vielen Dank, dass du <a href=\"%s\" target=\"_blank\">Rank Math</a> verwendest"
 
@@ -8049,39 +8060,39 @@ msgstr "Hilfe und Support"
 msgid "Rank Math"
 msgstr "Rank Math"
 
-#: includes/admin/class-assets.php:198
+#: includes/admin/class-assets.php:195
 msgid "Link Title"
 msgstr "Link-Titel"
 
-#: includes/admin/class-assets.php:196
+#: includes/admin/class-assets.php:193
 msgid "Add <code>rel=\"nofollow\"</code>"
 msgstr "Füge <code>rel=\"nofollow\"</code> hinzu"
 
-#: includes/admin/class-assets.php:195 assets/admin/js/gutenberg-formats.js:1
+#: includes/admin/class-assets.php:192 assets/admin/js/gutenberg-formats.js:1
 msgid "Link inserted."
 msgstr "Link eingefügt."
 
-#: includes/admin/class-assets.php:194
+#: includes/admin/class-assets.php:191
 msgid "Link selected."
 msgstr "Link ausgewählt."
 
-#: includes/admin/class-assets.php:193
+#: includes/admin/class-assets.php:190
 msgid "No matches found."
 msgstr "Keine Treffer gefunden."
 
-#: includes/admin/class-assets.php:192
+#: includes/admin/class-assets.php:189
 msgid "(no title)"
 msgstr "(Kein Titel)"
 
-#: includes/admin/class-assets.php:191
+#: includes/admin/class-assets.php:188
 msgid "Add Link"
 msgstr "Link hinzufügen"
 
-#: includes/admin/class-assets.php:190
+#: includes/admin/class-assets.php:187
 #: includes/modules/redirections/class-form.php:41
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: includes/admin/class-assets.php:189
+#: includes/admin/class-assets.php:186
 msgid "Insert/edit link"
 msgstr "Link einfügen/bearbeiten"
