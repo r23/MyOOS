@@ -444,6 +444,9 @@ $aLang = [
 'error_products_units_invalid'             => 'Invalid Units: ',
 'error_product_has_attributes'				=> 'This product has variations. Please select the variation you want.',
 'error_product_information_obligation' 		=> 'With this product, you have the option of taking back your old device free of charge. You can find more information here in the product detials.',
+'error_product_information_used_goods' 		=> 'Please confirm that you have received the used goods (B-goods) notes.',
+
+
 
 // File upload ~/includes/classes/oos_upload.php
 'error_destination_does_not_exist'   => 'Error: Destination does not exist.',

@@ -1134,7 +1134,6 @@ function oos_has_product_attributes($sProductsId) {
   */
 function oos_has_product_information_obligation($sProductsId) {
 
-
 	if (TAKE_BACK_OBLIGATION != 'true') return false;	
 
     $nProductID = oos_get_product_id($sProductsId);
@@ -1149,6 +1148,37 @@ function oos_has_product_information_obligation($sProductsId) {
               WHERE products_id = '" . intval($nProductID) . "'";
     $result = $dbconn->Execute($query);
     if ($result->fields['products_old_electrical_equipment'] == 0) {
+		return false;
+    } else {
+		return true;
+    }
+}
+
+ /**
+  * Check if the product is B-ware
+  *
+  * @param $products_id
+  * @return boolean
+  */
+function oos_is_the_product_b_ware($sProductsId) {
+
+	if (OFFER_B_WARE != 'true') return false;	
+
+	if (isset($sProductsId) && is_numeric($sProductsId)) {
+		$nProductID = intval($sProductsId);
+    } else {
+		$nProductID = oos_get_product_id($sProductsId);
+    }
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+	$productstable = $oostable['products'];
+    $query = "SELECT products_used_goods
+              FROM $productstable
+              WHERE products_id = '" . intval($nProductID) . "'";
+    $result = $dbconn->Execute($query);
+    if ($result->fields['products_used_goods'] == 0) {
 		return false;
     } else {
 		return true;
