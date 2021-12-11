@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c11a5b1a68dd3b081a72d53f877c9ee8e3624f55',
+        'reference' => 'b214c3af4aa412df247bec715779bb6b4761bb10',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c11a5b1a68dd3b081a72d53f877c9ee8e3624f55',
+            'reference' => 'b214c3af4aa412df247bec715779bb6b4761bb10',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -422,12 +422,12 @@
             ),
         ),
         'sabberworm/php-css-parser' => array(
-            'pretty_version' => '8.3.1',
-            'version' => '8.3.1.0',
+            'pretty_version' => '8.4.0',
+            'version' => '8.4.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sabberworm/php-css-parser',
             'aliases' => array(),
-            'reference' => 'd217848e1396ef962fb1997cf3e2421acba7f796',
+            'reference' => 'e41d2140031d533348b2192a83f02d8dd8a71d30',
             'dev_requirement' => false,
         ),
         'smarty/smarty' => array(
