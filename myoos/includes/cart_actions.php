@@ -266,13 +266,10 @@ switch ($action) {
 
 			if (oos_has_product_attributes($sProductsId)) {
 				$oMessage->add_session('danger', $aLang['error_product_has_attributes']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));
 			} elseif (oos_has_product_information_obligation($sProductsId)) {
 				$oMessage->add_session('danger', $aLang['error_product_information_obligation']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));
 			} elseif (oos_is_the_product_b_ware($nProductsID)) {
 				$oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));
 			} else {
 			
 				if (isset($_GET['cart_quantity']) && is_numeric($_GET['cart_quantity'])) {
@@ -299,6 +296,7 @@ switch ($action) {
 					$oMessage->add_session('danger', $aLang['error_products_quantity_order_min_text'] . $aLang['error_products_quantity_invalid'] . $cart_quantity . ' - ' . $aLang['products_order_qty_min_text_info'] . ' ' . $products_order_min);
 				}
 			}
+
 			if ($oMessage->size('danger') == 0) {
 				oos_redirect(oos_href_link($goto_file, oos_get_all_get_parameters($parameters)));
 			} else {
@@ -326,10 +324,8 @@ switch ($action) {
 			
 			if (oos_has_product_attributes($slave_id)) {
 				$oMessage->add_session('danger', $aLang['error_product_has_attributes']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $slave_id));
 			} elseif (oos_has_product_information_obligation($slave_id)) {
-				$oMessage->add_session('danger', $aLang['error_product_information_obligation']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $slave_id));				
+				$oMessage->add_session('danger', $aLang['error_product_information_obligation']);		
 			} else {
 			
 				$cart_quantity = isset($_POST['cart_quantity']) && is_numeric($_POST['cart_quantity']) ? oos_prepare_input($_POST['cart_quantity']) : 1;
@@ -520,10 +516,8 @@ switch ($action) {
 
 			if (oos_has_product_information_obligation($sProductsId)) {
 				$oMessage->add_session('danger', $aLang['error_product_information_obligation']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));
 			} elseif (oos_is_the_product_b_ware($nProductsID)) {
 				$oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
-				oos_redirect(oos_href_link($aContents['product_info'], 'products_id=' . $sProductsId));
 			} else {
 
 				$cart_qty = $_SESSION['cart']->get_quantity(oos_get_uprid($sProductsId, $_POST['id']));
