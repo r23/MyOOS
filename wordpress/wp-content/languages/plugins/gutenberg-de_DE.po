@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-12-09 05:51:20+0000\n"
+"PO-Revision-Date: 2021-12-12 17:32:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,7 +14,7 @@ msgstr ""
 #: build/block-library/blocks/comments-pagination/block.json
 msgctxt "block description"
 msgid "Displays a paginated navigation to next/previous set of comments, when applicable."
-msgstr "Zeigt&nbsp;– falls verfügbar&nbsp;– eine seitenweise Navigation zum nächsten/vorherigen Satz von Kommentaren an."
+msgstr "Falls vorhanden, wird damit eine seitenweise Navigation zum nächsten/vorherigen Satz von Kommentaren angezeigt."
 
 #: build/block-library/blocks/comments-pagination/block.json
 msgctxt "block title"
