@@ -54,12 +54,6 @@ if ( (WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 't
     }
 }
 
-// todo remove
-if (isset($sInfoMessage) && !empty($sInfoMessage)) { 
-    $aInfoMessage[] = array('type' => 'info',
-                            'text' => $sInfoMessage );
-}
-
 
 if (isset($_SESSION)) {
 
