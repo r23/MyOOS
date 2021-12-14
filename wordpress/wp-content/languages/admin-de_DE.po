@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.8.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-12-13 09:05:45+0000\n"
+"PO-Revision-Date: 2021-12-13 18:04:42+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3342,13 +3342,13 @@ msgstr "Ein Standard-Theme zur Verfügung haben"
 #. theme. 3: The active theme's parent theme.
 #: wp-admin/includes/class-wp-site-health.php:656
 msgid "To enhance your site&#8217;s security, we recommend you remove any themes you&#8217;re not using. You should keep %1$s, the default WordPress theme, %2$s, your current theme, and %3$s, its parent theme."
-msgstr "Um die Sicherheit deiner Website zu verbessern, wird empfohlen, alle Themes zu entfernen, die du nicht benutzt. Du solltest %1$s, das WordPress-Standard-Theme, %2$s, dein aktives Theme und %3$s, das übergeordnete Theme, behalten."
+msgstr "Um die Sicherheit deiner Website zu verbessern, wird empfohlen, alle Themes zu entfernen, die du nicht benutzt. Du solltest %1$s, das WordPress-Standard-Theme, %2$s, dein aktuelles Theme und %3$s, das übergeordnete Theme, behalten."
 
 #. translators: 1: The currently active theme. 2: The active theme's parent
 #. theme.
 #: wp-admin/includes/class-wp-site-health.php:637
 msgid "To enhance your site&#8217;s security, we recommend you remove any themes you&#8217;re not using. You should keep your current theme, %1$s, and %2$s, its parent theme."
-msgstr "Um die Sicherheit deiner Website zu verbessern, wird empfohlen, alle Themes zu entfernen, die du nicht benutzt. Du solltest dein aktives Theme, %1$s und %2$s, das übergeordnete Theme, behalten."
+msgstr "Um die Sicherheit deiner Website zu verbessern, wird empfohlen, alle Themes zu entfernen, die du nicht benutzt. Du solltest dein aktuelles Theme, %1$s und %2$s, das übergeordnete Theme, behalten."
 
 #: wp-admin/includes/class-wp-site-health.php:457
 msgid "You should remove inactive plugins"
@@ -12631,7 +12631,7 @@ msgstr ""
 
 #: wp-admin/includes/theme.php:823 wp-admin/themes.php:939
 msgid "Current Theme"
-msgstr "Aktives Theme"
+msgstr "Aktuelles Theme"
 
 #: wp-admin/themes.php:276 wp-admin/network/themes.php:389
 msgid "Theme deleted."
