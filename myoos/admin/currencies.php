@@ -21,9 +21,6 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-// define our localization functions
-require 'includes/functions/function_localization.php';
-
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
@@ -82,21 +79,6 @@ if (!empty($action)) {
 			break;
 
 		case 'update':
-			$currency_result = $dbconn->Execute("SELECT currencies_id, code FROM " . $oostable['currencies']);
-			while ($currency = $currency_result->fields) {
-				$quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
-				$rate = $quote_function($currency['code']);
-
-				if (empty($rate) && (oos_is_not_null(CURRENCY_SERVER_BACKUP)) ) {
-					$quote_function = 'quote_' . CURRENCY_SERVER_BACKUP . '_currency';
-					$rate = $quote_function($currency['code']);
-				}
-				if (oos_is_not_null($rate)) {
-					$dbconn->Execute("UPDATE " . $oostable['currencies'] . " SET value = '" . oos_db_input($rate) . "', last_updated = now() WHERE currencies_id = '" . intval($currency['currencies_id']) . "'");
-				}
-				// Move that ADOdb pointer!
-				$currency_result->MoveNext();
-			}
 			oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $_GET['cID']));
 			break;
 
@@ -215,7 +197,7 @@ if (!empty($action)) {
   if (empty($action)) {
 ?>
                   <tr>
-                    <td><?php if (CURRENCY_SERVER_PRIMARY) { echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=update') . '">' . oos_button(IMAGE_UPDATE_CURRENCIES) . '</a>'; } ?></td>
+                    <td></td>
                     <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=new') . '">' . oos_button(IMAGE_NEW_CURRENCY) . '</a>'; ?></td>
                   </tr>
 <?php

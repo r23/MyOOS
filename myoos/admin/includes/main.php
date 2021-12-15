@@ -55,8 +55,9 @@ if (strlen(OOS_DB_TYPE) < 1) {
     }
 }
 
-
-require 'includes/define.php';
+if(!defined('MYOOS_INCLUDE_PATH')) {
+	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
+}
 
 use Symfony\Component\HttpFoundation\Request;
 
