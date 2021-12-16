@@ -4,6 +4,8 @@ namespace AmpProject;
 
 use AmpProject\Dom\Document;
 use AmpProject\Dom\Element;
+use AmpProject\Html\Attribute;
+use AmpProject\Html\Tag;
 use DOMNode;
 
 /**
@@ -13,6 +15,12 @@ use DOMNode;
  */
 final class Amp
 {
+    /**
+     * Attribute prefix for AMP-bind data attributes.
+     *
+     * @var string
+     */
+    const BIND_DATA_ATTR_PREFIX = 'data-amp-bind-';
 
     /**
      * List of AMP attribute tags that can be appended to the <html> element.
@@ -116,6 +124,13 @@ final class Amp
     const SIZER_ELEMENT              = 'i-amphtml-sizer';
     const INTRINSIC_SIZER_ELEMENT    = 'i-amphtml-intrinsic-sizer';
     const LAYOUT_AWAITING_SIZE_CLASS = 'i-amphtml-layout-awaiting-size';
+
+    /**
+     * Slot used by AMP for all service elements, like "i-amphtml-sizer" elements and similar.
+     *
+     * @var string
+     */
+    const SERVICE_SLOT = 'i-amphtml-svc';
 
     /**
      * Check if a given node is the AMP runtime script.

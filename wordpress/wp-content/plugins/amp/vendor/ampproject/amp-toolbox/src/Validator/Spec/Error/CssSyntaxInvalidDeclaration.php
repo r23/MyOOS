@@ -30,10 +30,10 @@ final class CssSyntaxInvalidDeclaration extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'CSS syntax error in tag \'%1\' - invalid declaration.',
-        SpecRule::SPECIFICITY => 63,
+        SpecRule::SPECIFICITY => 65,
     ];
 }

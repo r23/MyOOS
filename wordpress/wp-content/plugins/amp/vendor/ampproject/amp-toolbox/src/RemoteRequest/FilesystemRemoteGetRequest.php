@@ -17,7 +17,6 @@ use LogicException;
  */
 final class FilesystemRemoteGetRequest implements RemoteGetRequest
 {
-
     /**
      * Associative array of data for mapping between arguments and filepaths pointing to the results to return.
      *
@@ -39,12 +38,13 @@ final class FilesystemRemoteGetRequest implements RemoteGetRequest
     /**
      * Do a GET request to retrieve the contents of a remote URL.
      *
-     * @param string $url URL to get.
+     * @param string $url     URL to get.
+     * @param array  $headers Optional. Associative array of headers to send with the request. Defaults to empty array.
      * @return Response Response for the executed request.
      * @throws FailedToGetFromRemoteUrl If retrieving the contents from the URL failed.
      * @throws LogicException If invalid file path and/or invalid or non-readable file.
      */
-    public function get($url)
+    public function get($url, $headers = [])
     {
         if (! array_key_exists($url, $this->argumentMap)) {
             throw new LogicException("Trying to get a remote request from the filesystem for an unknown URL: {$url}.");

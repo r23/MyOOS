@@ -8,8 +8,8 @@
 namespace AmpProject\Validator\Spec\DescendantTagList;
 
 use AmpProject\Extension;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Internal;
-use AmpProject\Tag as Element;
 use AmpProject\Validator\Spec\DescendantTagList;
 use AmpProject\Validator\Spec\Identifiable;
 
@@ -30,7 +30,7 @@ final class AmpStoryCtaLayerAllowedDescendants extends DescendantTagList impleme
     /**
      * Array of descendant tags.
      *
-     * @var array<array>
+     * @var array<string>
      */
     const DESCENDANT_TAGS = [
         Element::A,
@@ -64,6 +64,7 @@ final class AmpStoryCtaLayerAllowedDescendants extends DescendantTagList impleme
         Element::EM,
         Element::FECOLORMATRIX,
         Element::FECOMPOSITE,
+        Element::FEBLEND,
         Element::FEFLOOD,
         Element::FEGAUSSIANBLUR,
         Element::FEMERGE,

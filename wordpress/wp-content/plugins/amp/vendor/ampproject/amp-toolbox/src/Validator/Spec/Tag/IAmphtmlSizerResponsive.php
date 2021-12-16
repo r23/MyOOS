@@ -7,8 +7,8 @@
 
 namespace AmpProject\Validator\Spec\Tag;
 
-use AmpProject\Attribute;
 use AmpProject\Format;
+use AmpProject\Html\Attribute;
 use AmpProject\Internal;
 use AmpProject\Validator\Spec\Identifiable;
 use AmpProject\Validator\Spec\SpecRule;
@@ -63,6 +63,11 @@ final class IAmphtmlSizerResponsive extends Tag implements Identifiable
             Attribute::I_AMPHTML_DISABLE_AR => [
                 SpecRule::VALUE => [
                     '',
+                ],
+            ],
+            Attribute::SLOT => [
+                SpecRule::VALUE => [
+                    'i-amphtml-svc',
                 ],
             ],
         ],

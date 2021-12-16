@@ -30,10 +30,10 @@ final class ImpliedLayoutInvalid extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'The implied layout \'%1\' is not supported by tag \'%2\'.',
-        SpecRule::SPECIFICITY => 47,
+        SpecRule::SPECIFICITY => 49,
     ];
 }

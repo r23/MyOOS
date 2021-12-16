@@ -30,10 +30,10 @@ final class CssSyntaxInvalidUrl extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'CSS syntax error in tag \'%1\' - invalid url \'%2\'.',
-        SpecRule::SPECIFICITY => 71,
+        SpecRule::SPECIFICITY => 73,
     ];
 }

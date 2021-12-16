@@ -30,10 +30,10 @@ final class DisallowedPropertyInAttrValue extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'The property \'%1\' in attribute \'%2\' in tag \'%3\' is disallowed.',
-        SpecRule::SPECIFICITY => 40,
+        SpecRule::SPECIFICITY => 42,
     ];
 }

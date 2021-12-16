@@ -2,7 +2,7 @@
 
 namespace AmpProject\Dom;
 
-use AmpProject\Attribute;
+use AmpProject\Html\Attribute;
 use AmpProject\Exception\MaxCssByteCountExceeded;
 use AmpProject\Optimizer\CssRule;
 use DOMAttr;
@@ -18,7 +18,6 @@ use DOMElement;
  */
 final class Element extends DOMElement
 {
-
     /**
      * Regular expression pattern to match events and actions within an 'on' attribute.
      *
@@ -72,6 +71,9 @@ final class Element extends DOMElement
      */
     public function setAttribute($name, $value)
     {
+        // Make sure $value is always a string and not null.
+        $value = strval($value);
+
         if (
             $name === Attribute::STYLE
             && $this->ownerDocument->isCssMaxByteCountEnforced()

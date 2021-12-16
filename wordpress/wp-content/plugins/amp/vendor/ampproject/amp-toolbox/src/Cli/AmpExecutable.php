@@ -11,7 +11,6 @@ use AmpProject\Exception\Cli\InvalidCommand;
  */
 final class AmpExecutable extends Executable
 {
-
     /**
      * Array of command classes to register.
      *
@@ -19,6 +18,7 @@ final class AmpExecutable extends Executable
      */
     const COMMAND_CLASSES = [
         Command\Optimize::class,
+        Command\Validate::class,
     ];
 
     /**
@@ -38,7 +38,7 @@ final class AmpExecutable extends Executable
     {
         foreach (self::COMMAND_CLASSES as $commandClass) {
             /** @var Command $command */
-            $command = new $commandClass();
+            $command = new $commandClass($this);
 
             $command->register($options);
 

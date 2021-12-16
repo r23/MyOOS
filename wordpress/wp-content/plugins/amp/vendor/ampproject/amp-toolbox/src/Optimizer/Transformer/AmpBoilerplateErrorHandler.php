@@ -2,11 +2,11 @@
 
 namespace AmpProject\Optimizer\Transformer;
 
-use AmpProject\Attribute;
+use AmpProject\Html\Attribute;
 use AmpProject\Dom\Document;
 use AmpProject\Optimizer\ErrorCollection;
 use AmpProject\Optimizer\Transformer;
-use AmpProject\Tag;
+use AmpProject\Html\Tag;
 
 /**
  * AmpBoilerplateErrorHandler - adds amp-onerror handler to disable boilerplate early on runtime error.
@@ -18,7 +18,6 @@ use AmpProject\Tag;
  */
 final class AmpBoilerplateErrorHandler implements Transformer
 {
-
     /**
      * XPath query to find an AMP runtime script using ES6 modules.
      *

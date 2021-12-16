@@ -27,7 +27,6 @@ use AmpProject\Validator\Spec\SpecRule;
  */
 final class TransformedIdentifier implements Transformer
 {
-
     /**
      * Attribute name of the "transformed" identifier.
      *
@@ -72,7 +71,12 @@ final class TransformedIdentifier implements Transformer
 
         // Ensure that the document uses the larges CSS byte limit for transformed documents,
         // as it would probably be set to the non-transformed limit at this point.
-        $document->enforceCssMaxByteCount(AmpTransformed::SPEC[SpecRule::MAX_BYTES]);
+        $enforced_max_byte_count = $this->configuration->get(
+            TransformedIdentifierConfiguration::ENFORCED_CSS_MAX_BYTE_COUNT
+        );
+        if ($enforced_max_byte_count !== false) {
+            $document->enforceCssMaxByteCount($enforced_max_byte_count);
+        }
     }
 
     /**

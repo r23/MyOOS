@@ -9,7 +9,6 @@ namespace AmpProject;
  */
 interface Extension
 {
-
     const ACCESS                                 = 'amp-access';
     const ACCESS_LATERPAY                        = 'amp-access-laterpay';
     const ACCESS_POOOL                           = 'amp-access-poool';
@@ -137,11 +136,14 @@ interface Extension
     const STORY_AUTO_ADS                         = 'amp-story-auto-ads';
     const STORY_AUTO_ANALYTICS                   = 'amp-story-auto-analytics';
     const STORY_BOOKEND                          = 'amp-story-bookend';
+    const STORY_CAPTIONS                         = 'amp-story-captions';
     const STORY_CONSENT                          = 'amp-story-consent';
     const STORY_CTA_LAYER                        = 'amp-story-cta-layer';
     const STORY_GRID_LAYER                       = 'amp-story-grid-layer';
     const STORY_INTERACTIVE                      = 'amp-story-interactive';
     const STORY_INTERACTIVE_BINARY_POLL          = 'amp-story-interactive-binary-poll';
+    const STORY_INTERACTIVE_IMG_POLL             = 'amp-story-interactive-img-poll';
+    const STORY_INTERACTIVE_IMG_QUIZ             = 'amp-story-interactive-img-quiz';
     const STORY_INTERACTIVE_POLL                 = 'amp-story-interactive-poll';
     const STORY_INTERACTIVE_QUIZ                 = 'amp-story-interactive-quiz';
     const STORY_INTERACTIVE_RESULTS              = 'amp-story-interactive-results';
@@ -150,10 +152,15 @@ interface Extension
     const STORY_PAGE_OUTLINK                     = 'amp-story-page-outlink';
     const STORY_PANNING_MEDIA                    = 'amp-story-panning-media';
     const STORY_PLAYER                           = 'amp-story-player';
+    const STORY_SHOPPING                         = 'amp-story-shopping';
+    const STORY_SHOPPING_ATTACHMENT              = 'amp-story-shopping-attachment';
+    const STORY_SHOPPING_CONFIG                  = 'amp-story-shopping-config';
+    const STORY_SHOPPING_TAG                     = 'amp-story-shopping-tag';
     const STORY_SOCIAL_SHARE                     = 'amp-story-social-share';
     const STREAM_GALLERY                         = 'amp-stream-gallery';
     const SUBSCRIPTIONS                          = 'amp-subscriptions';
     const SUBSCRIPTIONS_GOOGLE                   = 'amp-subscriptions-google';
+    const TIKTOK                                 = 'amp-tiktok';
     const TIMEAGO                                = 'amp-timeago';
     const TRUNCATE_TEXT                          = 'amp-truncate-text';
     const TWITTER                                = 'amp-twitter';
@@ -168,6 +175,7 @@ interface Extension
     const WEB_PUSH                               = 'amp-web-push';
     const WEB_PUSH_WIDGET                        = 'amp-web-push-widget';
     const WISTIA_PLAYER                          = 'amp-wistia-player';
+    const WORDPRESS_EMBED                        = 'amp-wordpress-embed';
     const YOTPO                                  = 'amp-yotpo';
     const YOUTUBE                                = 'amp-youtube';
     const _3D_GLTF                               = 'amp-3d-gltf';

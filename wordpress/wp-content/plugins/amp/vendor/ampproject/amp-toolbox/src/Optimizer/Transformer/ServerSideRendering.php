@@ -3,7 +3,7 @@
 namespace AmpProject\Optimizer\Transformer;
 
 use AmpProject\Amp;
-use AmpProject\Attribute;
+use AmpProject\Html\Attribute;
 use AmpProject\CssLength;
 use AmpProject\Dom\Document;
 use AmpProject\Dom\Element;
@@ -17,8 +17,8 @@ use AmpProject\Optimizer\ErrorCollection;
 use AmpProject\Optimizer\Exception\InvalidArgument;
 use AmpProject\Optimizer\Exception\InvalidHtmlAttribute;
 use AmpProject\Optimizer\Transformer;
-use AmpProject\Role;
-use AmpProject\Tag;
+use AmpProject\Html\Role;
+use AmpProject\Html\Tag;
 use DOMAttr;
 use Exception;
 
@@ -39,7 +39,6 @@ use Exception;
  */
 final class ServerSideRendering implements Transformer
 {
-
     /**
      * List of layouts that support server-side rendering.
      *
@@ -625,6 +624,7 @@ final class ServerSideRendering implements Transformer
         $style = empty($style) ? 'display:block' : "display:block;{$style}";
 
         $sizer = $document->createElement(Amp::SIZER_ELEMENT);
+        $sizer->setAttribute(Attribute::SLOT, AMP::SERVICE_SLOT);
         $sizer->addInlineStyle(sprintf($style, $paddingString));
 
         return $sizer;
@@ -644,6 +644,7 @@ final class ServerSideRendering implements Transformer
     private function createIntrinsicSizer(Document $document, CssLength $width, CssLength $height)
     {
         $sizer = $document->createElement(Amp::SIZER_ELEMENT);
+        $sizer->setAttribute(Attribute::SLOT, Amp::SERVICE_SLOT);
         $sizer->setAttribute(Attribute::CLASS_, Amp::SIZER_ELEMENT);
 
         $sizer_img = $document->createElement(Tag::IMG);

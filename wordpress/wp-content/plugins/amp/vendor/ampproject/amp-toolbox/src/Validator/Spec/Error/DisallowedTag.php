@@ -30,10 +30,10 @@ final class DisallowedTag extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'The tag \'%1\' is disallowed.',
-        SpecRule::SPECIFICITY => 22,
+        SpecRule::SPECIFICITY => 24,
     ];
 }

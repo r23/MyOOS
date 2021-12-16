@@ -7,9 +7,9 @@
 
 namespace AmpProject\Validator\Spec\Tag;
 
-use AmpProject\Attribute;
 use AmpProject\Format;
-use AmpProject\Tag as Element;
+use AmpProject\Html\Attribute;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Validator\Spec\AttributeList;
 use AmpProject\Validator\Spec\Identifiable;
 use AmpProject\Validator\Spec\SpecRule;
@@ -22,7 +22,6 @@ use AmpProject\Validator\Spec\Tag;
  *
  * @property-read string $tagName
  * @property-read string $specName
- * @property-read bool $mandatory
  * @property-read bool $unique
  * @property-read string $mandatoryParent
  * @property-read array<array> $attrs
@@ -31,7 +30,7 @@ use AmpProject\Validator\Spec\Tag;
  * @property-read array $cdata
  * @property-read string $mandatoryAncestor
  * @property-read array<string> $htmlFormat
- * @property-read array<string> $disabledBy
+ * @property-read array<string> $satisfies
  * @property-read string $descriptiveName
  */
 final class NoscriptStyleAmpBoilerplate extends Tag implements Identifiable
@@ -51,7 +50,6 @@ final class NoscriptStyleAmpBoilerplate extends Tag implements Identifiable
     const SPEC = [
         SpecRule::TAG_NAME => Element::STYLE,
         SpecRule::SPEC_NAME => 'noscript > style[amp-boilerplate]',
-        SpecRule::MANDATORY => true,
         SpecRule::UNIQUE => true,
         SpecRule::MANDATORY_PARENT => Element::NOSCRIPT,
         SpecRule::ATTRS => [
@@ -75,8 +73,8 @@ final class NoscriptStyleAmpBoilerplate extends Tag implements Identifiable
         SpecRule::HTML_FORMAT => [
             Format::AMP,
         ],
-        SpecRule::DISABLED_BY => [
-            Attribute::TRANSFORMED,
+        SpecRule::SATISFIES => [
+            'noscript > style[amp-boilerplate]',
         ],
         SpecRule::DESCRIPTIVE_NAME => 'noscript > style[amp-boilerplate]',
     ];

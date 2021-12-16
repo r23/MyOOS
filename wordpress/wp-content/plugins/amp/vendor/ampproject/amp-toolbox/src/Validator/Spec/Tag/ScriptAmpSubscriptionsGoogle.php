@@ -9,9 +9,8 @@ namespace AmpProject\Validator\Spec\Tag;
 
 use AmpProject\Extension;
 use AmpProject\Format;
-use AmpProject\Tag as Element;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Validator\Spec\AttributeList;
-use AmpProject\Validator\Spec\ExtensionSpec;
 use AmpProject\Validator\Spec\Identifiable;
 use AmpProject\Validator\Spec\SpecRule;
 use AmpProject\Validator\Spec\Tag;
@@ -28,10 +27,8 @@ use AmpProject\Validator\Spec\TagWithExtensionSpec;
  * @property-read string $extensionSpec
  * @property-read array<string> $requiresExtension
  */
-final class ScriptAmpSubscriptionsGoogle extends Tag implements Identifiable, TagWithExtensionSpec
+final class ScriptAmpSubscriptionsGoogle extends TagWithExtensionSpec implements Identifiable
 {
-    use ExtensionSpec;
-
     /**
      * ID of the tag.
      *
@@ -51,6 +48,25 @@ final class ScriptAmpSubscriptionsGoogle extends Tag implements Identifiable, Ta
             'latest',
         ],
         SpecRule::REQUIRES_USAGE => 'NONE',
+    ];
+
+    /**
+     * Latest version of the extension.
+     *
+     * @var string
+     */
+    const LATEST_VERSION = '0.1';
+
+    /**
+     * Meta data about the specific versions.
+     *
+     * @var array
+     */
+    const VERSIONS_META = [
+        '0.1' => [
+            'hasCss' => true,
+            'hasBento' => false,
+        ],
     ];
 
     /**

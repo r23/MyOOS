@@ -8,8 +8,8 @@
 namespace AmpProject\Validator\Spec\DescendantTagList;
 
 use AmpProject\Extension;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Internal;
-use AmpProject\Tag as Element;
 use AmpProject\Validator\Spec\DescendantTagList;
 use AmpProject\Validator\Spec\Identifiable;
 
@@ -30,7 +30,7 @@ final class AmpStoryPageAttachmentAllowedDescendants extends DescendantTagList i
     /**
      * Array of descendant tags.
      *
-     * @var array<array>
+     * @var array<string>
      */
     const DESCENDANT_TAGS = [
         Element::A,
@@ -84,8 +84,10 @@ final class AmpStoryPageAttachmentAllowedDescendants extends DescendantTagList i
         Extension::POWR_PLAYER,
         Extension::REACH_PLAYER,
         Extension::REDDIT,
+        Extension::RENDER,
         Extension::RIDDLE_QUIZ,
         Extension::SOUNDCLOUD,
+        Extension::SELECTOR,
         Extension::SPRINGBOARD_PLAYER,
         Extension::TIMEAGO,
         Extension::TWITTER,
@@ -114,6 +116,7 @@ final class AmpStoryPageAttachmentAllowedDescendants extends DescendantTagList i
         Element::COL,
         Element::COLGROUP,
         Element::DATA,
+        Element::DATALIST,
         Element::DD,
         Element::DEFS,
         Element::DEL,
@@ -126,14 +129,17 @@ final class AmpStoryPageAttachmentAllowedDescendants extends DescendantTagList i
         Element::EM,
         Element::FECOLORMATRIX,
         Element::FECOMPOSITE,
+        Element::FEBLEND,
         Element::FEFLOOD,
         Element::FEGAUSSIANBLUR,
         Element::FEMERGE,
         Element::FEMERGENODE,
         Element::FEOFFSET,
         Element::FIGCAPTION,
+        Element::FIELDSET,
         Element::FIGURE,
         Element::FILTER,
+        Element::FORM,
         Element::FOOTER,
         Element::G,
         Element::GLYPH,
@@ -151,9 +157,12 @@ final class AmpStoryPageAttachmentAllowedDescendants extends DescendantTagList i
         Element::I,
         Element::IMAGE,
         Element::IMG,
+        Element::INPUT,
         Internal::SIZER,
         Element::INS,
         Element::KBD,
+        Element::LABEL,
+        Element::LEGEND,
         Element::LI,
         Element::LINE,
         Element::LINEARGRADIENT,
@@ -162,14 +171,19 @@ final class AmpStoryPageAttachmentAllowedDescendants extends DescendantTagList i
         Element::MARKER,
         Element::MASK,
         Element::METADATA,
+        Element::METER,
         Element::NAV,
         Element::OL,
+        Element::OPTGROUP,
+        Element::OPTION,
+        Element::OUTPUT,
         Element::P,
         Element::PATH,
         Element::PATTERN,
         Element::POLYGON,
         Element::POLYLINE,
         Element::PRE,
+        Element::PROGRESS,
         Element::Q,
         Element::RADIALGRADIENT,
         Element::RECT,
@@ -180,6 +194,7 @@ final class AmpStoryPageAttachmentAllowedDescendants extends DescendantTagList i
         Element::S,
         Element::SAMP,
         Element::SECTION,
+        Element::SELECT,
         Element::SMALL,
         Element::SOLIDCOLOR,
         Element::SOURCE,
@@ -194,7 +209,9 @@ final class AmpStoryPageAttachmentAllowedDescendants extends DescendantTagList i
         Element::TABLE,
         Element::TBODY,
         Element::TD,
+        Element::TEMPLATE,
         Element::TEXT,
+        Element::TEXTAREA,
         Element::TEXTPATH,
         Element::TFOOT,
         Element::TH,

@@ -30,10 +30,10 @@ final class SpecifiedLayoutInvalid extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'The specified layout \'%1\' is not supported by tag \'%2\'.',
-        SpecRule::SPECIFICITY => 48,
+        SpecRule::SPECIFICITY => 50,
     ];
 }

@@ -7,9 +7,9 @@
 
 namespace AmpProject\Validator\Spec\Tag;
 
-use AmpProject\Attribute;
 use AmpProject\Extension;
 use AmpProject\Format;
+use AmpProject\Html\Attribute;
 use AmpProject\Layout;
 use AmpProject\Protocol;
 use AmpProject\Validator\Spec\AttributeList;
@@ -71,7 +71,7 @@ final class AmpAdWithTypeCustom extends Tag implements Identifiable
         SpecRule::ATTR_LISTS => [
             AttributeList\ExtendedAmpGlobal::ID,
         ],
-        SpecRule::SPEC_URL => 'https://github.com/ampproject/amphtml/blob/main/ads/custom.md',
+        SpecRule::SPEC_URL => 'https://github.com/ampproject/amphtml/blob/main/ads/vendors/custom.md',
         SpecRule::AMP_LAYOUT => [
             SpecRule::SUPPORTED_LAYOUTS => [
                 Layout::FILL,

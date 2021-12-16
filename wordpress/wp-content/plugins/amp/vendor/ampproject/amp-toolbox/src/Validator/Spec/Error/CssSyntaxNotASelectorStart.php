@@ -30,10 +30,10 @@ final class CssSyntaxNotASelectorStart extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'CSS syntax error in tag \'%1\' - not a selector start.',
-        SpecRule::SPECIFICITY => 67,
+        SpecRule::SPECIFICITY => 69,
     ];
 }

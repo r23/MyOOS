@@ -8,9 +8,8 @@
 namespace AmpProject\Validator\Spec\Tag;
 
 use AmpProject\Format;
-use AmpProject\Tag as Element;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Validator\Spec\AttributeList;
-use AmpProject\Validator\Spec\ExtensionSpec;
 use AmpProject\Validator\Spec\Identifiable;
 use AmpProject\Validator\Spec\SpecRule;
 use AmpProject\Validator\Spec\Tag;
@@ -27,10 +26,8 @@ use AmpProject\Validator\Spec\TagWithExtensionSpec;
  * @property-read array<string> $htmlFormat
  * @property-read string $extensionSpec
  */
-final class ScriptCustomElementAmpBindAmp4email extends Tag implements Identifiable, TagWithExtensionSpec
+final class ScriptCustomElementAmpBindAmp4email extends TagWithExtensionSpec implements Identifiable
 {
-    use ExtensionSpec;
-
     /**
      * ID of the tag.
      *
@@ -49,6 +46,25 @@ final class ScriptCustomElementAmpBindAmp4email extends Tag implements Identifia
             '0.1',
         ],
         SpecRule::REQUIRES_USAGE => 'NONE',
+    ];
+
+    /**
+     * Latest version of the extension.
+     *
+     * @var string
+     */
+    const LATEST_VERSION = '0.1';
+
+    /**
+     * Meta data about the specific versions.
+     *
+     * @var array
+     */
+    const VERSIONS_META = [
+        '0.1' => [
+            'hasCss' => false,
+            'hasBento' => false,
+        ],
     ];
 
     /**

@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: AMP
- * Description: An easier path to great Page Experience for everyone. Powered by AMP.
+ * Description: An easier path to great Page Experience for everyone. Powered by AMP. <em class="amp-deletion-notice"><strong>Uninstall Note:</strong> To control whether all data from this plugin is deleted at uninstallation, first activate the plugin, go to the Other section on the Settings screen, and set the “Delete plugin data at uninstall” toggle.</em>
  * Plugin URI: https://amp-wp.org
  * Author: AMP Project Contributors
  * Author URI: https://github.com/ampproject/amp-wp/graphs/contributors
- * Version: 2.1.4
+ * Version: 2.2.0
  * License: GPLv2 or later
  * Requires at least: 4.9
  * Requires PHP: 5.6
@@ -15,7 +15,7 @@
 
 define( 'AMP__FILE__', __FILE__ );
 define( 'AMP__DIR__', dirname( __FILE__ ) );
-define( 'AMP__VERSION', '2.1.4' );
+define( 'AMP__VERSION', '2.2.0' );
 
 /**
  * Errors encountered while loading the plugin.

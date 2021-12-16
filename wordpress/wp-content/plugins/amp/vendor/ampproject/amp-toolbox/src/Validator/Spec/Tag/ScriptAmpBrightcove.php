@@ -8,9 +8,8 @@
 namespace AmpProject\Validator\Spec\Tag;
 
 use AmpProject\Format;
-use AmpProject\Tag as Element;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Validator\Spec\AttributeList;
-use AmpProject\Validator\Spec\ExtensionSpec;
 use AmpProject\Validator\Spec\Identifiable;
 use AmpProject\Validator\Spec\SpecRule;
 use AmpProject\Validator\Spec\Tag;
@@ -24,12 +23,12 @@ use AmpProject\Validator\Spec\TagWithExtensionSpec;
  * @property-read string $tagName
  * @property-read array<string> $attrLists
  * @property-read array<string> $htmlFormat
+ * @property-read array<string> $satisfies
  * @property-read string $extensionSpec
+ * @property-read array<string> $excludes
  */
-final class ScriptAmpBrightcove extends Tag implements Identifiable, TagWithExtensionSpec
+final class ScriptAmpBrightcove extends TagWithExtensionSpec implements Identifiable
 {
-    use ExtensionSpec;
-
     /**
      * ID of the tag.
      *
@@ -45,11 +44,31 @@ final class ScriptAmpBrightcove extends Tag implements Identifiable, TagWithExte
     const EXTENSION_SPEC = [
         SpecRule::NAME => 'amp-brightcove',
         SpecRule::VERSION => [
-            '0.1',
-            'latest',
+            '1.0',
         ],
-        SpecRule::DEPRECATED_ALLOW_DUPLICATES => true,
-        SpecRule::REQUIRES_USAGE => 'EXEMPTED',
+        SpecRule::VERSION_NAME => 'v1.0',
+        SpecRule::BENTO_SUPPORTED_VERSION => [
+            '1.0',
+        ],
+    ];
+
+    /**
+     * Latest version of the extension.
+     *
+     * @var string
+     */
+    const LATEST_VERSION = '0.1';
+
+    /**
+     * Meta data about the specific versions.
+     *
+     * @var array
+     */
+    const VERSIONS_META = [
+        '1.0' => [
+            'hasCss' => true,
+            'hasBento' => false,
+        ],
     ];
 
     /**
@@ -65,6 +84,12 @@ final class ScriptAmpBrightcove extends Tag implements Identifiable, TagWithExte
         SpecRule::HTML_FORMAT => [
             Format::AMP,
         ],
+        SpecRule::SATISFIES => [
+            'amp-brightcove 1.0',
+        ],
         SpecRule::EXTENSION_SPEC => self::EXTENSION_SPEC,
+        SpecRule::EXCLUDES => [
+            'amp-brightcove 0.1',
+        ],
     ];
 }

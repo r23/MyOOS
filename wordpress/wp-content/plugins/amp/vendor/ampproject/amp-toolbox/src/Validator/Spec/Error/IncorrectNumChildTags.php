@@ -30,10 +30,10 @@ final class IncorrectNumChildTags extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'Tag \'%1\' must have %2 child tags - saw %3 child tags.',
-        SpecRule::SPECIFICITY => 74,
+        SpecRule::SPECIFICITY => 76,
     ];
 }

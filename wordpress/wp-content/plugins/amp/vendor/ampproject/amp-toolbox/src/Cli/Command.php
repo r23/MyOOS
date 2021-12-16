@@ -9,7 +9,6 @@ namespace AmpProject\Cli;
  */
 abstract class Command
 {
-
     /**
      * Name of the command.
      *
@@ -18,6 +17,23 @@ abstract class Command
      * @var string
      */
     const NAME = '<unknown>';
+
+    /**
+     * Instance of the CLI executable that the command belongs to.
+     *
+     * @var Executable
+     */
+    protected $cli;
+
+    /**
+     * Instantiate the command.
+     *
+     * @param Executable $cli Instance of the CLI executable that the command belongs to.
+     */
+    public function __construct(Executable $cli)
+    {
+        $this->cli = $cli;
+    }
 
     /**
      * Get the name of the command.

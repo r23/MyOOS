@@ -13,7 +13,6 @@ use IteratorAggregate;
  */
 final class ErrorCollection implements Countable, IteratorAggregate
 {
-
     /**
      * Internal storage for the errors that were added.
      *
@@ -54,6 +53,7 @@ final class ErrorCollection implements Countable, IteratorAggregate
      *
      * @return ArrayIterator Iterator for the contained errors.
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->errors);
@@ -64,6 +64,7 @@ final class ErrorCollection implements Countable, IteratorAggregate
      *
      * @return int Number of contained errors.
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->errors);

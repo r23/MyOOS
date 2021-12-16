@@ -8,8 +8,8 @@
 namespace AmpProject\Validator\Spec\DescendantTagList;
 
 use AmpProject\Extension;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Internal;
-use AmpProject\Tag as Element;
 use AmpProject\Validator\Spec\DescendantTagList;
 use AmpProject\Validator\Spec\Identifiable;
 
@@ -30,7 +30,7 @@ final class AmpStoryGridLayerAllowedDescendants extends DescendantTagList implem
     /**
      * Array of descendant tags.
      *
-     * @var array<array>
+     * @var array<string>
      */
     const DESCENDANT_TAGS = [
         Element::A,
@@ -49,10 +49,14 @@ final class AmpStoryGridLayerAllowedDescendants extends DescendantTagList implem
         Extension::LIST_,
         Extension::LIVE_LIST,
         Extension::PIXEL,
+        Extension::RENDER,
         Extension::STATE,
         Extension::STORY_360,
         Extension::STORY_AUTO_ANALYTICS,
+        Extension::STORY_CAPTIONS,
         Extension::STORY_INTERACTIVE_BINARY_POLL,
+        Extension::STORY_INTERACTIVE_IMG_POLL,
+        Extension::STORY_INTERACTIVE_IMG_QUIZ,
         Extension::STORY_INTERACTIVE_POLL,
         Extension::STORY_INTERACTIVE_QUIZ,
         Extension::STORY_INTERACTIVE_RESULTS,
@@ -87,6 +91,7 @@ final class AmpStoryGridLayerAllowedDescendants extends DescendantTagList implem
         Element::EM,
         Element::FECOLORMATRIX,
         Element::FECOMPOSITE,
+        Element::FEBLEND,
         Element::FEFLOOD,
         Element::FEGAUSSIANBLUR,
         Element::FEMERGE,

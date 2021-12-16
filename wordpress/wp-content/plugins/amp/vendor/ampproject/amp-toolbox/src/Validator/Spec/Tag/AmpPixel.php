@@ -7,9 +7,9 @@
 
 namespace AmpProject\Validator\Spec\Tag;
 
-use AmpProject\Attribute;
 use AmpProject\Extension;
 use AmpProject\Format;
+use AmpProject\Html\Attribute;
 use AmpProject\Layout;
 use AmpProject\Protocol;
 use AmpProject\Validator\Spec\AttributeList;
@@ -28,6 +28,7 @@ use AmpProject\Validator\Spec\Tag;
  * @property-read string $specUrl
  * @property-read array $ampLayout
  * @property-read array<string> $htmlFormat
+ * @property-read array<string> $requires
  */
 final class AmpPixel extends Tag implements Identifiable
 {
@@ -79,6 +80,9 @@ final class AmpPixel extends Tag implements Identifiable
         SpecRule::HTML_FORMAT => [
             Format::AMP,
             Format::AMP4ADS,
+        ],
+        SpecRule::REQUIRES => [
+            'amphtml javascript runtime (v0.js)',
         ],
     ];
 }

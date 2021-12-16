@@ -2,7 +2,7 @@
 
 namespace AmpProject\Optimizer\Transformer;
 
-use AmpProject\Attribute;
+use AmpProject\Html\Attribute;
 use AmpProject\Dom\Document;
 use AmpProject\Extension;
 use AmpProject\Optimizer\Configuration\OptimizeHeroImagesConfiguration;
@@ -37,7 +37,6 @@ use AmpProject\Optimizer\TransformerConfiguration;
  */
 final class PreloadHeroImage implements Transformer
 {
-
     /**
      * Class(es) to apply to a serverside-rendered image element.
      *

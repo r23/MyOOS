@@ -7,9 +7,9 @@
 
 namespace AmpProject\Validator\Spec\Tag;
 
-use AmpProject\Attribute;
 use AmpProject\Format;
-use AmpProject\Tag as Element;
+use AmpProject\Html\Attribute;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Validator\Spec\AttributeList;
 use AmpProject\Validator\Spec\Identifiable;
 use AmpProject\Validator\Spec\SpecRule;
@@ -46,6 +46,14 @@ final class InputTypeFile extends Tag implements Identifiable
         SpecRule::TAG_NAME => Element::INPUT,
         SpecRule::SPEC_NAME => 'INPUT [type=file]',
         SpecRule::ATTRS => [
+            Attribute::CAPTURE => [
+                SpecRule::VALUE => [
+                    '',
+                ],
+                SpecRule::DISABLED_BY => [
+                    Attribute::AMP4EMAIL,
+                ],
+            ],
             Attribute::NO_VERIFY => [
                 SpecRule::VALUE => [
                     '',

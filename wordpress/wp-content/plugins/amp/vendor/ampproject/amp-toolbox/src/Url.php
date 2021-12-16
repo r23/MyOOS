@@ -20,7 +20,6 @@ use AmpProject\Exception\FailedToParseUrl;
  */
 final class Url
 {
-
     const SCHEME   = 'scheme';
     const HOST     = 'host';
     const PORT     = 'port';
@@ -110,7 +109,16 @@ final class Url
     /**
      * Default URL parts to use when constructing an absolute URL out of a relative one.
      *
-     * @var string[]
+     * @var array{
+     *    scheme: string,
+     *    host: string,
+     *    port: null,
+     *    user: null,
+     *    pass: null,
+     *    path: null,
+     *    query: null,
+     *    fragment: null
+     * }
      */
     const URL_DEFAULT_PARTS = [
         self::SCHEME   => 'https',

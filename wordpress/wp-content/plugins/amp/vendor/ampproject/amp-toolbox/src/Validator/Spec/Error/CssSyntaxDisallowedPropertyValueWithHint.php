@@ -30,10 +30,10 @@ final class CssSyntaxDisallowedPropertyValueWithHint extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'CSS syntax error in tag \'%1\' - the property \'%2\' is set to the disallowed value \'%3\'. Allowed values: %4.',
-        SpecRule::SPECIFICITY => 84,
+        SpecRule::SPECIFICITY => 86,
     ];
 }

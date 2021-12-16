@@ -3,7 +3,7 @@
 namespace AmpProject\Optimizer\Transformer;
 
 use AmpProject\Amp;
-use AmpProject\Attribute;
+use AmpProject\Html\Attribute;
 use AmpProject\Dom\Document;
 use AmpProject\Dom\Element;
 use AmpProject\Dom\NodeWalker;
@@ -12,7 +12,7 @@ use AmpProject\Optimizer\Configuration\OptimizeAmpBindConfiguration;
 use AmpProject\Optimizer\ErrorCollection;
 use AmpProject\Optimizer\Transformer;
 use AmpProject\Optimizer\TransformerConfiguration;
-use AmpProject\Tag;
+use AmpProject\Html\Tag;
 use DOMAttr;
 
 /**
@@ -29,7 +29,6 @@ use DOMAttr;
  */
 final class OptimizeAmpBind implements Transformer
 {
-
     /**
      * Configuration store to use.
      *
@@ -78,7 +77,7 @@ final class OptimizeAmpBind implements Transformer
 
             /** @var DOMAttr $attribute */
             foreach ($node->attributes as $attribute) {
-                if (strpos($attribute->name, Document::AMP_BIND_DATA_ATTR_PREFIX) === 0) {
+                if (strpos($attribute->name, Amp::BIND_DATA_ATTR_PREFIX) === 0) {
                     $node->addBooleanAttribute(Attribute::I_AMPHTML_BINDING);
                     break;
                 }

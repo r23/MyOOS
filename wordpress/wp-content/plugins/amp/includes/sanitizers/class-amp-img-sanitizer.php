@@ -5,10 +5,11 @@
  * @package AMP
  */
 
-use AmpProject\Attribute;
+use AmpProject\AmpWP\ValidationExemption;
 use AmpProject\DevMode;
+use AmpProject\Html\Attribute;
+use AmpProject\Html\Tag;
 use AmpProject\Layout;
-use AmpProject\Tag;
 
 /**
  * Class AMP_Img_Sanitizer
@@ -54,6 +55,7 @@ class AMP_Img_Sanitizer extends AMP_Base_Sanitizer {
 	 */
 	protected $DEFAULT_ARGS = [
 		'add_noscript_fallback' => true,
+		'native_img_used'       => false,
 	];
 
 	/**
@@ -69,6 +71,9 @@ class AMP_Img_Sanitizer extends AMP_Base_Sanitizer {
 	 * @return array Mapping.
 	 */
 	public function get_selector_conversion_mapping() {
+		if ( $this->args['native_img_used'] ) {
+			return [];
+		}
 		return [
 			Tag::IMG => [
 				'amp-img',
@@ -98,7 +103,7 @@ class AMP_Img_Sanitizer extends AMP_Base_Sanitizer {
 			return;
 		}
 
-		if ( $this->args['add_noscript_fallback'] ) {
+		if ( $this->args['add_noscript_fallback'] && ! $this->args['native_img_used'] ) {
 			$this->initialize_noscript_allowed_attributes( self::$tag );
 		}
 
@@ -141,7 +146,9 @@ class AMP_Img_Sanitizer extends AMP_Base_Sanitizer {
 			if ( 'wp-smiley' === $node->getAttribute( Attribute::CLASS_ ) ) {
 				$node->setAttribute( Attribute::WIDTH, '72' );
 				$node->setAttribute( Attribute::HEIGHT, '72' );
-				$node->setAttribute( Attribute::NOLOADING, '' );
+				if ( ! $this->args['native_img_used'] ) {
+					$node->setAttribute( Attribute::NOLOADING, '' );
+				}
 			}
 
 			if ( $node->hasAttribute( 'data-amp-layout' ) ) {
@@ -320,7 +327,34 @@ class AMP_Img_Sanitizer extends AMP_Base_Sanitizer {
 	 *
 	 * @param DOMElement $node The img element to adjust and replace.
 	 */
-	private function adjust_and_replace_node( $node ) {
+	private function adjust_and_replace_node( DOMElement $node ) {
+		if ( $this->args['native_img_used'] ) {
+			$attributes = $this->maybe_add_lightbox_attributes( [], $node ); // @todo AMP doesn't support lightbox on <img> yet.
+
+			// Set decoding=async by default. See <https://core.trac.wordpress.org/ticket/53232>.
+			if ( ! $node->hasAttribute( Attribute::DECODING ) ) {
+				$attributes[ Attribute::DECODING ] = 'async';
+			}
+
+			// @todo This class should really only be added if we actually have to provide dimensions.
+			$attributes[ Attribute::CLASS_ ] = (string) $node->getAttribute( Attribute::CLASS_ );
+			if ( ! empty( $attributes[ Attribute::CLASS_ ] ) ) {
+				$attributes[ Attribute::CLASS_ ] .= ' ';
+			}
+			$attributes[ Attribute::CLASS_ ] .= 'amp-wp-enforced-sizes';
+
+			foreach ( $attributes as $name => $value ) {
+				$node->setAttribute( $name, $value );
+			}
+
+			// Mark element as PX-verified to prevent raising validation errors for an intentionally invalid <img>.
+			// It doesn't make sense to raise a validation error to allow the user to decide whether to convert from
+			// <img> to <amp-img> since the native_img_used arg is the opt-in to not do any such conversion.
+			// @todo Remove once https://github.com/ampproject/amphtml/issues/30442 lands.
+			ValidationExemption::mark_node_as_px_verified( $node );
+
+			return;
+		}
 
 		$amp_data       = $this->get_data_amp_attributes( $node );
 		$old_attributes = AMP_DOM_Utils::get_node_attributes_as_assoc_array( $node );
@@ -357,6 +391,11 @@ class AMP_Img_Sanitizer extends AMP_Base_Sanitizer {
 		} else {
 			$new_tag = 'amp-img';
 		}
+
+		// Remove ID since it would be a duplicate and because if it is not removed before replacing the element with
+		// another element that has the same ID, the removed element would still get returned by getElementById even
+		// when it is no longer in the Document.
+		$node->removeAttribute( Attribute::ID );
 
 		$img_node = AMP_DOM_Utils::create_node( $this->dom, $new_tag, $new_attributes );
 		$node->parentNode->replaceChild( $img_node, $node );

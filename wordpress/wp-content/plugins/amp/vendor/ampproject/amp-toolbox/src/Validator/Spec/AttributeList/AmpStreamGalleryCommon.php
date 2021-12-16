@@ -7,7 +7,7 @@
 
 namespace AmpProject\Validator\Spec\AttributeList;
 
-use AmpProject\Attribute;
+use AmpProject\Html\Attribute;
 use AmpProject\Validator\Spec\AttributeList;
 use AmpProject\Validator\Spec\Identifiable;
 use AmpProject\Validator\Spec\SpecRule;
@@ -64,7 +64,7 @@ final class AmpStreamGalleryCommon extends AttributeList implements Identifiable
             ],
         ],
         Attribute::LOOP => [
-            SpecRule::VALUE_REGEX => '([^,]+\s+(true|false),\s*)*(true|false)',
+            SpecRule::VALUE_REGEX => '([^,]+\s+(true|false),\s*)*(true|false|^$)',
         ],
         Attribute::MIN_VISIBLE_COUNT => [
             SpecRule::VALUE_REGEX => '([^,]+\s+(\d+(\.\d+)?),\s*)*(\d+(\.\d+)?)',

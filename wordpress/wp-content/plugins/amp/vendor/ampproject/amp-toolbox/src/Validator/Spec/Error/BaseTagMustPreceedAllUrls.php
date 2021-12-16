@@ -30,10 +30,10 @@ final class BaseTagMustPreceedAllUrls extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'The tag \'%1\', which contains URLs, was found earlier in the document than the BASE element.',
-        SpecRule::SPECIFICITY => 88,
+        SpecRule::SPECIFICITY => 90,
     ];
 }

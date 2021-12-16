@@ -8,7 +8,7 @@
 namespace AmpProject\Validator\Spec\DescendantTagList;
 
 use AmpProject\Extension;
-use AmpProject\Tag as Element;
+use AmpProject\Html\Tag as Element;
 use AmpProject\Validator\Spec\DescendantTagList;
 use AmpProject\Validator\Spec\Identifiable;
 
@@ -29,7 +29,7 @@ final class AmpNestedMenuAllowedDescendants extends DescendantTagList implements
     /**
      * Array of descendant tags.
      *
-     * @var array<array>
+     * @var array<string>
      */
     const DESCENDANT_TAGS = [
         Element::A,

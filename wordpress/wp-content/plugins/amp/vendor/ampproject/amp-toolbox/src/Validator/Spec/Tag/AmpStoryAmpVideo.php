@@ -7,9 +7,9 @@
 
 namespace AmpProject\Validator\Spec\Tag;
 
-use AmpProject\Attribute;
 use AmpProject\Extension;
 use AmpProject\Format;
+use AmpProject\Html\Attribute;
 use AmpProject\Layout;
 use AmpProject\Validator\Spec\AttributeList;
 use AmpProject\Validator\Spec\Identifiable;
@@ -73,6 +73,14 @@ final class AmpStoryAmpVideo extends Tag implements Identifiable
                 SpecRule::VALUE => [
                     'google',
                 ],
+            ],
+            Attribute::CAPTIONS_ID => [
+                SpecRule::REQUIRES_EXTENSION => [
+                    Extension::STORY_CAPTIONS,
+                ],
+            ],
+            Attribute::VOLUME => [
+                SpecRule::VALUE_REGEX => '^((0?\.[1-9]+)?|1(\.0*)?)$',
             ],
         ],
         SpecRule::ATTR_LISTS => [

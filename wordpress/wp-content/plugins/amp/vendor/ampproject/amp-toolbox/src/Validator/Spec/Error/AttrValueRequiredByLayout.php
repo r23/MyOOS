@@ -30,10 +30,10 @@ final class AttrValueRequiredByLayout extends Error
     /**
      * Array of spec data.
      *
-     * @var array<array>
+     * @var array{format: string, specificity?: int}
      */
     const SPEC = [
         SpecRule::FORMAT => 'Invalid value \'%1\' for attribute \'%2\' in tag \'%3\' - for layout \'%4\', set the attribute \'%2\' to value \'%5\'.',
-        SpecRule::SPECIFICITY => 26,
+        SpecRule::SPECIFICITY => 28,
     ];
 }
