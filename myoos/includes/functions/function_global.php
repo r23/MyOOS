@@ -213,3 +213,35 @@ function oos_create_random_value($length, $type = 'mixed') {
 	return $rand_value;
 }
 
+
+/**
+ * Return XML
+ *
+ * @param $url
+ * @return xml
+*/
+function oos_load_xml($url) {
+	if (empty($url)) {
+		return;
+	}
+
+	if (ini_get('allow_url_fopen')) {
+		return simplexml_load_file($url);
+	}
+
+	if (function_exists('curl_init')) {
+		// create a new cURL resource
+		// $curl is the handle of the resource
+		$curl = curl_init();		
+
+		// set the URL and other options
+		curl_setopt($curl, CURLOPT_URL, $url);
+		
+		//  return the response body
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_HEADER, false);
+
+		// execute and pass the result
+		return simplexml_load_string(curl_exec($curl));
+	}
+}

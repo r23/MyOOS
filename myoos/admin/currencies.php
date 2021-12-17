@@ -18,6 +18,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
+define('CURRENCY_SERVER', 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml');
+
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -78,8 +80,41 @@ if (!empty($action)) {
 			oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage));
 			break;
 
-		case 'update':
-			oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $_GET['cID']));
+		case 'update':	
+			$xml = oos_load_xml(CURRENCY_SERVER);	
+			$xml = json_decode(json_encode($xml), JSON_FORCE_OBJECT);
+			
+			$currency_result = $dbconn->Execute("SELECT currencies_id, code FROM " . $oostable['currencies']);
+			while ($currency = $currency_result->fields) {
+				$to[$currency['code']] = $currency['code'];
+				
+				// Move that ADOdb pointer!
+				$currency_result->MoveNext();
+			}
+
+			$from = DEFAULT_CURRENCY;
+
+			$ecb_currencies = ['EUR' => 1.0];
+			foreach ($xml as $a) {
+				foreach ($a['Cube']['Cube'] as $b) {
+					$ecb_currencies[$b['@attributes']['currency']] = $b['@attributes']['rate'];
+				}
+			}			
+
+			if ($from !== 'EUR') {
+				$exchange = $ecb_currencies[$from];
+				foreach ($ecb_currencies as $x => $y) {
+					$ecb_currencies[$x] = $y/$exchange;
+				}
+			}
+
+			$to_exchange = array_intersect_key($ecb_currencies, $to);		
+
+			foreach ($to_exchange as $k => $v) {
+				$rate = oos_db_prepare_input($v);
+				$dbconn->Execute("UPDATE " . $oostable['currencies'] . " SET value = '" . oos_db_input($rate) . "', last_updated = NOW() WHERE code = '" . oos_db_input($k) . "'");
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['currencies'], 'page=' . $nPage));
 			break;
 
       case 'delete':
@@ -197,7 +232,7 @@ if (!empty($action)) {
   if (empty($action)) {
 ?>
                   <tr>
-                    <td></td>
+                    <td><?php if (CURRENCY_SERVER) { echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=update') . '">' . oos_button(IMAGE_UPDATE_CURRENCIES) . '</a>'; } ?></td>
                     <td class="text-right"><?php echo '<a href="' . oos_href_link_admin($aContents['currencies'], 'page=' . $nPage . '&cID=' . $cInfo->currencies_id . '&action=new') . '">' . oos_button(IMAGE_NEW_CURRENCY) . '</a>'; ?></td>
                   </tr>
 <?php

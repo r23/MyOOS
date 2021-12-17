@@ -1560,9 +1560,6 @@ function oos_output_string($sStr, $aTranslate = null) {
 }
 
 
-
-
-
  /**
   * Return File Extension
   *
