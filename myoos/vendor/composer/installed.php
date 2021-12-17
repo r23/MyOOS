@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '315bf8997405a44bec6249d72b2066cd7383eae8',
+        'reference' => 'b870a6f68496fa793af242e6d360ea789840aeb0',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '315bf8997405a44bec6249d72b2066cd7383eae8',
+            'reference' => 'b870a6f68496fa793af242e6d360ea789840aeb0',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -233,12 +233,12 @@
             'dev_requirement' => false,
         ),
         'phenx/php-font-lib' => array(
-            'pretty_version' => '0.5.2',
-            'version' => '0.5.2.0',
+            'pretty_version' => '0.5.3',
+            'version' => '0.5.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-font-lib',
             'aliases' => array(),
-            'reference' => 'ca6ad461f032145fff5971b5985e5af9e7fa88d8',
+            'reference' => 'e359fc811c40ffd272b46c609a35934a5fc6316e',
             'dev_requirement' => false,
         ),
         'phenx/php-svg-lib' => array(
