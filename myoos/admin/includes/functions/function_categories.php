@@ -710,9 +710,9 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
                             AND c.categories_id = cd.categories_id
                             AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
 		$category_result = $dbconn->Execute($category_query);
-
 		$category = $category_result->fields;
 
+		if (!is_array($category)) $category = [];
 		$category['categories_name'] = isset($category['categories_name']) ? $category['categories_name'] : '';
 		$categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
 		if ( (isset($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
