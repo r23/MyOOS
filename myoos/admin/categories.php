@@ -1777,7 +1777,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
               $sDiscount4 = round($sDiscount4,TAX_DECIMAL_PLACES);
               $contents[] = array('text' => '&nbsp;&nbsp; ' . ($pInfo->products_discount4_qty < 10 ? '&nbsp;' : '') . $pInfo->products_discount4_qty . ' ' . $currencies->format($sDiscount4) . ' - ' . TEXT_TAX_INFO . $currencies->format($sDiscount4Netto));
             }
-            $contents[] = array('text' => '<br>' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
+            $contents[] = array('text' => '<br>' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . ((isset($pInfo->average_rating)) ? number_format($pInfo->average_rating, 2) . '%' : "" ) );
+
           }
         } else { // create category/product info
 		  $parent_categories_name = oos_output_generated_category_path($current_category_id);
