@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c0feec6800b41271f486e66052d0ee515d9eb8c3',
+        'reference' => 'bf72d0de8f3e31910adea772e0083c26c0599b6f',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -146,12 +146,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-code' => array(
-            'pretty_version' => '4.5.0',
-            'version' => '4.5.0.0',
+            'pretty_version' => '4.5.1',
+            'version' => '4.5.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-code',
             'aliases' => array(),
-            'reference' => 'c99ef8e5629c33bfaa3a8f1df773e916af564cd6',
+            'reference' => '6fd96d4d913571a2cd056a27b123fa28cb90ac4e',
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c0feec6800b41271f486e66052d0ee515d9eb8c3',
+            'reference' => 'bf72d0de8f3e31910adea772e0083c26c0599b6f',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
