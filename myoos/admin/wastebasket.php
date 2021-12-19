@@ -331,7 +331,8 @@ require 'includes/header.php';
             if (oos_is_not_null($pInfo->products_last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($pInfo->products_last_modified));
             if (date('Y-m-d') < $pInfo->products_date_available) $contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . oos_date_short($pInfo->products_date_available));
             $contents[] = array('text' => '<br>' . product_info_image($pInfo->products_image, $pInfo->products_name) . '<br>' . $pInfo->products_image);
-            $contents[] = array('text' => '<br>' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . number_format($pInfo->average_rating, 2) . '%');
+            $contents[] = array('text' => '<br>' . TEXT_PRODUCTS_AVERAGE_RATING . ' ' . ( (isset($pInfo->average_rating)) ? number_format($pInfo->average_rating, 2) . '%' : "" ));
+
           }
         } else { // create category/product info
 		  $parent_categories_name = oos_output_generated_category_path($current_category_id);
