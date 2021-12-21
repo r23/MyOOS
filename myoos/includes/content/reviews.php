@@ -89,6 +89,11 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $aReviews = array();
     while ($reviews = $reviews_result->fields) {
+
+		$format = 'Y-m-d H:i:s';
+		$date = DateTime::createFromFormat($format, $reviews['date_added']);
+		$date_long = $date->format('l, j. F Y');
+		
 		$aReviews[] = array('id' => $reviews['reviews_id'],
                           'products_id' => $reviews['products_id'],
                           'reviews_id' => $reviews['reviews_id'],
@@ -99,27 +104,10 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                           'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250), ENT_QUOTES, 'UTF-8') . '..',
                           'rating' => $reviews['reviews_rating'],
                           'word_count' => oosWordCount($reviews['reviews_text'], ' '),
-                          'date_added' => oos_date_long($reviews['date_added']));
+                          'date_added' => $date_long);
 		$reviews_result->MoveNext();
     }
 	
-echo 'Current time: ' . date('Y-m-d H:i:s') . "\n";
-
-$format = 'Y-m-d';
-$date = DateTime::createFromFormat($format, '2009-02-15');
-echo "Format: $format; " . $date->format('Y-m-d H:i:s') . "\n";
-
-$format = 'Y-m-d H:i:s';
-$date = DateTime::createFromFormat($format, '2009-02-15 15:16:17');
-echo "Format: $format; " . $date->format('Y-m-d H:i:s') . "\n";
-
-$format = 'Y-m-!d H:i:s';
-$date = DateTime::createFromFormat($format, '2009-02-15 15:16:17');
-echo "Format: $format; " . $date->format('Y-m-d H:i:s') . "\n";
-
-$format = '!d';
-$date = DateTime::createFromFormat($format, '15');
-echo "Format: $format; " . $date->format('Y-m-d H:i:s') . "\n";
 	// links breadcrumb
 	$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
 	
