@@ -102,7 +102,24 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                           'date_added' => oos_date_long($reviews['date_added']));
 		$reviews_result->MoveNext();
     }
+	
+echo 'Current time: ' . date('Y-m-d H:i:s') . "\n";
 
+$format = 'Y-m-d';
+$date = DateTime::createFromFormat($format, '2009-02-15');
+echo "Format: $format; " . $date->format('Y-m-d H:i:s') . "\n";
+
+$format = 'Y-m-d H:i:s';
+$date = DateTime::createFromFormat($format, '2009-02-15 15:16:17');
+echo "Format: $format; " . $date->format('Y-m-d H:i:s') . "\n";
+
+$format = 'Y-m-!d H:i:s';
+$date = DateTime::createFromFormat($format, '2009-02-15 15:16:17');
+echo "Format: $format; " . $date->format('Y-m-d H:i:s') . "\n";
+
+$format = '!d';
+$date = DateTime::createFromFormat($format, '15');
+echo "Format: $format; " . $date->format('Y-m-d H:i:s') . "\n";
 	// links breadcrumb
 	$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
 	

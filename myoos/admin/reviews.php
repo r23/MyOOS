@@ -276,7 +276,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $reviews_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $reviews_result_raw, $reviews_result_numrows);
     $reviews_result = $dbconn->Execute($reviews_result_raw);
     while ($reviews = $reviews_result->fields) {
-      if ( ((!$_GET['rID']) || ($_GET['rID'] == $reviews['reviews_id'])) && (!$rInfo) ) {
+		if ((!isset($_GET['rID']) || (isset($_GET['rID']) && ($_GET['rID'] == $reviews['reviews_id']))) && !isset($rInfo)) {		  
         $reviewstable = $oostable['reviews'];
         $reviews_descriptiontable = $oostable['reviews_description'];
         $reviews_text_result = $dbconn->Execute("SELECT r.reviews_read, r.customers_name, length(rd.reviews_text) as reviews_text_size FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . $reviews['reviews_id'] . "' AND r.reviews_id = rd.reviews_id");
