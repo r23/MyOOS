@@ -595,6 +595,6 @@ const shortcode = (0,external_lodash_namespaceObject.extend)(function (options) 
 /* harmony default export */ var build_module = (shortcode);
 //# sourceMappingURL=index.js.map
 }();
-(window.wp = window.wp || {}).shortcode = __webpack_exports__.default;
+(window.wp = window.wp || {}).shortcode = __webpack_exports__["default"];
 /******/ })()
 ;

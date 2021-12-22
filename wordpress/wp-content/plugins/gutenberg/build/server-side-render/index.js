@@ -350,6 +350,6 @@ if (window && window.wp && window.wp.components) {
 
 /* harmony default export */ var build_module = (ExportedServerSideRender);
 //# sourceMappingURL=index.js.map
-(window.wp = window.wp || {}).serverSideRender = __webpack_exports__.default;
+(window.wp = window.wp || {}).serverSideRender = __webpack_exports__["default"];
 /******/ })()
 ;

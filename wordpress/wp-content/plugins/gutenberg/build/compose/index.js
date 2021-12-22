@@ -2078,13 +2078,13 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
 /***/ 5464:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var e=__webpack_require__(3804),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
+var e=__webpack_require__(9196),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
 //# sourceMappingURL=index.js.map
 
 
 /***/ }),
 
-/***/ 3804:
+/***/ 9196:
 /***/ (function(module) {
 
 "use strict";
@@ -2170,6 +2170,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "__experimentalUseDialog": function() { return /* reexport */ use_dialog; },
+  "__experimentalUseDisabled": function() { return /* reexport */ useDisabled; },
   "__experimentalUseDragging": function() { return /* reexport */ useDragging; },
   "__experimentalUseDropZone": function() { return /* reexport */ useDropZone; },
   "__experimentalUseFixedWindowList": function() { return /* reexport */ useFixedWindowList; },
@@ -2690,6 +2691,7 @@ const withSafeTimeout = create_higher_order_component(OriginalComponent => {
 function withState() {
   let initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   external_wp_deprecated_default()('wp.compose.withState', {
+    since: '5.8',
     alternative: 'wp.element.useState'
   });
   return create_higher_order_component(OriginalComponent => {
@@ -2879,8 +2881,7 @@ function useCopyOnClick(ref, text) {
 
   /* eslint-enable jsdoc/no-undefined-types */
   external_wp_deprecated_default()('wp.compose.useCopyOnClick', {
-    since: '10.3',
-    plugin: 'Gutenberg',
+    since: '5.8',
     alternative: 'wp.compose.useCopyToClipboard'
   });
   /** @type {import('react').MutableRefObject<Clipboard | undefined>} */
@@ -3548,6 +3549,111 @@ function useDialog(options) {
 
 /* harmony default export */ var use_dialog = (useDialog);
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-disabled/index.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Names of control nodes which qualify for disabled behavior.
+ *
+ * See WHATWG HTML Standard: 4.10.18.5: "Enabling and disabling form controls: the disabled attribute".
+ *
+ * @see https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#enabling-and-disabling-form-controls:-the-disabled-attribute
+ *
+ * @type {string[]}
+ */
+
+const DISABLED_ELIGIBLE_NODE_NAMES = ['BUTTON', 'FIELDSET', 'INPUT', 'OPTGROUP', 'OPTION', 'SELECT', 'TEXTAREA'];
+/**
+ * In some circumstances, such as block previews, all focusable DOM elements
+ * (input fields, links, buttons, etc.) need to be disabled. This hook adds the
+ * behavior to disable nested DOM elements to the returned ref.
+ *
+ * @return {import('react').RefObject<HTMLElement>} Element Ref.
+ *
+ * @example
+ * ```js
+ * import { __experimentalUseDisabled as useDisabled } from '@wordpress/compose';
+ * const DisabledExample = () => {
+ * 	const disabledRef = useDisabled();
+ *	return (
+ *		<div ref={ disabledRef }>
+ *			<a href="#">This link will have tabindex set to -1</a>
+ *			<input placeholder="This input will have the disabled attribute added to it." type="text" />
+ *		</div>
+ *	);
+ * };
+ * ```
+ */
+
+function useDisabled() {
+  /** @type {import('react').RefObject<HTMLElement>} */
+  const node = (0,external_wp_element_namespaceObject.useRef)(null);
+
+  const disable = () => {
+    if (!node.current) {
+      return;
+    }
+
+    external_wp_dom_namespaceObject.focus.focusable.find(node.current).forEach(focusable => {
+      if ((0,external_lodash_namespaceObject.includes)(DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName)) {
+        focusable.setAttribute('disabled', '');
+      }
+
+      if (focusable.nodeName === 'A') {
+        focusable.setAttribute('tabindex', '-1');
+      }
+
+      const tabIndex = focusable.getAttribute('tabindex');
+
+      if (tabIndex !== null && tabIndex !== '-1') {
+        focusable.removeAttribute('tabindex');
+      }
+
+      if (focusable.hasAttribute('contenteditable')) {
+        focusable.setAttribute('contenteditable', 'false');
+      }
+    });
+  }; // Debounce re-disable since disabling process itself will incur
+  // additional mutations which should be ignored.
+
+
+  const debouncedDisable = (0,external_wp_element_namespaceObject.useCallback)((0,external_lodash_namespaceObject.debounce)(disable, undefined, {
+    leading: true
+  }), []);
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    disable();
+    /** @type {MutationObserver | undefined} */
+
+    let observer;
+
+    if (node.current) {
+      observer = new window.MutationObserver(debouncedDisable);
+      observer.observe(node.current, {
+        childList: true,
+        attributes: true,
+        subtree: true
+      });
+    }
+
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+
+      debouncedDisable.cancel();
+    };
+  }, []);
+  return node;
+}
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-isomorphic-layout-effect/index.js
 /**
  * WordPress dependencies
@@ -4077,7 +4183,7 @@ function useWarnOnChange(object) {
 /* harmony default export */ var use_warn_on_change = (useWarnOnChange);
 //# sourceMappingURL=index.js.map
 // EXTERNAL MODULE: external "React"
-var external_React_ = __webpack_require__(3804);
+var external_React_ = __webpack_require__(9196);
 ;// CONCATENATED MODULE: ./node_modules/use-memo-one/dist/use-memo-one.esm.js
 
 
@@ -4649,6 +4755,7 @@ function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
 
 
  // Hooks
+
 
 
 

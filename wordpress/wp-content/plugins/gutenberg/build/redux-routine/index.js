@@ -119,7 +119,7 @@ var subscribe = function subscribe(value, next) {
   return true;
 };
 
-exports.default = [promise, fork, join, race, subscribe];
+exports["default"] = [promise, fork, join, race, subscribe];
 
 /***/ }),
 
@@ -219,7 +219,7 @@ var iterator = exports.iterator = function iterator(value, next, rungen, yieldNe
   return true;
 };
 
-exports.default = [error, iterator, array, object, any];
+exports["default"] = [error, iterator, array, object, any];
 
 /***/ }),
 
@@ -261,7 +261,7 @@ var cps = exports.cps = function cps(value, next, rungen, yieldNext, raiseNext) 
   return true;
 };
 
-exports.default = [call, cps];
+exports["default"] = [call, cps];
 
 /***/ }),
 
@@ -346,7 +346,7 @@ var create = function create() {
   return runtime;
 };
 
-exports.default = create;
+exports["default"] = create;
 
 /***/ }),
 
@@ -420,7 +420,7 @@ var createDispatcher = function createDispatcher() {
   };
 };
 
-exports.default = createDispatcher;
+exports["default"] = createDispatcher;
 
 /***/ }),
 
@@ -624,7 +624,7 @@ var is = {
   }
 };
 
-exports.default = is;
+exports["default"] = is;
 
 /***/ }),
 
@@ -647,7 +647,7 @@ var keys = {
   subscribe: Symbol('subscribe')
 };
 
-exports.default = keys;
+exports["default"] = keys;
 
 /***/ })
 
@@ -860,6 +860,6 @@ function createMiddleware() {
 }
 //# sourceMappingURL=index.js.map
 }();
-(window.wp = window.wp || {}).reduxRoutine = __webpack_exports__.default;
+(window.wp = window.wp || {}).reduxRoutine = __webpack_exports__["default"];
 /******/ })()
 ;

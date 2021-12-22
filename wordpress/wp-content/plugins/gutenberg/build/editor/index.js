@@ -636,7 +636,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 exports.__esModule = true;
-var React = __webpack_require__(3804);
+var React = __webpack_require__(9196);
 var PropTypes = __webpack_require__(5697);
 var autosize = __webpack_require__(9367);
 var _getLineHeight = __webpack_require__(8303);
@@ -750,7 +750,7 @@ exports.Z = TextareaAutosize_1.TextareaAutosize;
 
 /***/ }),
 
-/***/ 3804:
+/***/ 9196:
 /***/ (function(module) {
 
 "use strict";
@@ -3033,8 +3033,7 @@ function getEditorSelectionStart(state) {
   var _getEditedPostAttribu;
 
   external_wp_deprecated_default()("select('core/editor').getEditorSelectionStart", {
-    since: '10.0',
-    plugin: 'Gutenberg',
+    since: '5.8',
     alternative: "select('core/editor').getEditorSelection"
   });
   return (_getEditedPostAttribu = getEditedPostAttribute(state, 'selection')) === null || _getEditedPostAttribu === void 0 ? void 0 : _getEditedPostAttribu.selectionStart;
@@ -3052,8 +3051,7 @@ function getEditorSelectionEnd(state) {
   var _getEditedPostAttribu2;
 
   external_wp_deprecated_default()("select('core/editor').getEditorSelectionStart", {
-    since: '10.0',
-    plugin: 'Gutenberg',
+    since: '5.8',
     alternative: "select('core/editor').getEditorSelection"
   });
   return (_getEditedPostAttribu2 = getEditedPostAttribute(state, 'selection')) === null || _getEditedPostAttribu2 === void 0 ? void 0 : _getEditedPostAttribu2.selectionEnd;
@@ -5425,12 +5423,15 @@ const close_close = (0,external_wp_element_namespaceObject.createElement)(extern
 }));
 /* harmony default export */ var library_close = (close_close);
 //# sourceMappingURL=close.js.map
+;// CONCATENATED MODULE: external ["wp","htmlEntities"]
+var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/entity-record-item.js
 
 
 /**
  * WordPress dependencies
  */
+
 
 
 
@@ -5490,7 +5491,7 @@ function EntityRecordItem(_ref) {
     closePanel();
   }, [parentBlockId]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
-    label: (0,external_wp_element_namespaceObject.createElement)("strong", null, entityRecordTitle || (0,external_wp_i18n_namespaceObject.__)('Untitled')),
+    label: (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(entityRecordTitle) || (0,external_wp_i18n_namespaceObject.__)('Untitled')),
     checked: checked,
     onChange: onChange
   }), parentBlockId ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
@@ -5587,6 +5588,8 @@ function EntityTypeList(_ref) {
 
 
 
+
+
 /**
  * Internal dependencies
  */
@@ -5636,7 +5639,14 @@ function EntitiesSavedStates(_ref) {
     editEntityRecord,
     saveEditedEntityRecord,
     __experimentalSaveSpecifiedEntityEdits: saveSpecifiedEntityEdits
-  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store); // To group entities by type.
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+  const {
+    __unstableMarkLastChangeAsPersistent
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  const {
+    createSuccessNotice,
+    createErrorNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store); // To group entities by type.
 
   const partitionedSavables = (0,external_lodash_namespaceObject.groupBy)(dirtyEntityRecords, 'name'); // Sort entity groups.
 
@@ -5682,6 +5692,7 @@ function EntitiesSavedStates(_ref) {
     });
     close(entitiesToSave);
     const siteItemsToSave = [];
+    const pendingSavedRecords = [];
     entitiesToSave.forEach(_ref4 => {
       let {
         kind,
@@ -5699,13 +5710,25 @@ function EntitiesSavedStates(_ref) {
           });
         }
 
-        saveEditedEntityRecord(kind, name, key);
+        pendingSavedRecords.push(saveEditedEntityRecord(kind, name, key));
       }
     });
 
     if (siteItemsToSave.length) {
-      saveSpecifiedEntityEdits('root', 'site', undefined, siteItemsToSave);
+      pendingSavedRecords.push(saveSpecifiedEntityEdits('root', 'site', undefined, siteItemsToSave));
     }
+
+    __unstableMarkLastChangeAsPersistent();
+
+    Promise.all(pendingSavedRecords).then(values => {
+      if (values.some(value => typeof value === 'undefined')) {
+        createErrorNotice((0,external_wp_i18n_namespaceObject.__)('Saving failed.'));
+      } else {
+        createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Site updated.'), {
+          type: 'snackbar'
+        });
+      }
+    }).catch(error => createErrorNotice(`${(0,external_wp_i18n_namespaceObject.__)('Saving failed.')} ${error}`));
   }; // Explicitly define this with no argument passed.  Using `close` on
   // its own will use the event object in place of the expected saved entities.
 
@@ -6194,8 +6217,6 @@ function PageAttributesOrderWithChecks(props) {
 
 }))])(PageAttributesOrderWithChecks));
 //# sourceMappingURL=order.js.map
-;// CONCATENATED MODULE: external ["wp","htmlEntities"]
-var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/utils/terms.js
 /**
  * External dependencies
@@ -11503,7 +11524,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
     return saveEntityRecord('postType', 'page', options);
   };
 
-  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock']),
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets']),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
     __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),

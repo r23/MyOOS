@@ -71,6 +71,6 @@ function domReady(callback) {
   document.addEventListener('DOMContentLoaded', callback);
 }
 //# sourceMappingURL=index.js.map
-(window.wp = window.wp || {}).domReady = __webpack_exports__.default;
+(window.wp = window.wp || {}).domReady = __webpack_exports__["default"];
 /******/ })()
 ;

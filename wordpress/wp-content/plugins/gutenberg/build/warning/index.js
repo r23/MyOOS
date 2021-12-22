@@ -89,6 +89,6 @@ function warning(message) {
   logged.add(message);
 }
 //# sourceMappingURL=index.js.map
-(window.wp = window.wp || {}).warning = __webpack_exports__.default;
+(window.wp = window.wp || {}).warning = __webpack_exports__["default"];
 /******/ })()
 ;

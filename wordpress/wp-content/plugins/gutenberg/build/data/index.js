@@ -625,6 +625,55 @@ function isPlainObject(obj) {
   return Object.getPrototypeOf(obj) === proto;
 }
 
+// Inlined / shortened version of `kindOf` from https://github.com/jonschlinkert/kind-of
+function miniKindOf(val) {
+  if (val === void 0) return 'undefined';
+  if (val === null) return 'null';
+  var type = typeof val;
+
+  switch (type) {
+    case 'boolean':
+    case 'string':
+    case 'number':
+    case 'symbol':
+    case 'function':
+      {
+        return type;
+      }
+  }
+
+  if (Array.isArray(val)) return 'array';
+  if (isDate(val)) return 'date';
+  if (isError(val)) return 'error';
+  var constructorName = ctorName(val);
+
+  switch (constructorName) {
+    case 'Symbol':
+    case 'Promise':
+    case 'WeakMap':
+    case 'WeakSet':
+    case 'Map':
+    case 'Set':
+      return constructorName;
+  } // other
+
+
+  return type.slice(8, -1).toLowerCase().replace(/\s/g, '');
+}
+
+function ctorName(val) {
+  return typeof val.constructor === 'function' ? val.constructor.name : null;
+}
+
+function isError(val) {
+  return val instanceof Error || typeof val.message === 'string' && val.constructor && typeof val.constructor.stackTraceLimit === 'number';
+}
+
+function isDate(val) {
+  if (val instanceof Date) return true;
+  return typeof val.toDateString === 'function' && typeof val.getDate === 'function' && typeof val.setDate === 'function';
+}
+
 function kindOf(val) {
   var typeOfVal = typeof val;
 
@@ -3337,6 +3386,9 @@ function useAsyncMode() {
 
 
 
+
+const noop = () => {};
+
 const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
 /** @typedef {import('../../types').StoreDescriptor} StoreDescriptor */
 
@@ -3346,20 +3398,20 @@ const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
  * In general, this custom React hook follows the
  * [rules of hooks](https://reactjs.org/docs/hooks-rules.html).
  *
- * @param {Function|StoreDescriptor|string} _mapSelect Function called on every state change. The
- *                                                     returned value is exposed to the component
- *                                                     implementing this hook. The function receives
- *                                                     the `registry.select` method on the first
- *                                                     argument and the `registry` on the second
- *                                                     argument.
- *                                                     When a store key is passed, all selectors for
- *                                                     the store will be returned. This is only meant
- *                                                     for usage of these selectors in event
- *                                                     callbacks, not for data needed to create the
- *                                                     element tree.
- * @param {Array}                           deps       If provided, this memoizes the mapSelect so the
- *                                                     same `mapSelect` is invoked on every state
- *                                                     change unless the dependencies change.
+ * @param {Function|StoreDescriptor|string} mapSelect Function called on every state change. The
+ *                                                    returned value is exposed to the component
+ *                                                    implementing this hook. The function receives
+ *                                                    the `registry.select` method on the first
+ *                                                    argument and the `registry` on the second
+ *                                                    argument.
+ *                                                    When a store key is passed, all selectors for
+ *                                                    the store will be returned. This is only meant
+ *                                                    for usage of these selectors in event
+ *                                                    callbacks, not for data needed to create the
+ *                                                    element tree.
+ * @param {Array}                           deps      If provided, this memoizes the mapSelect so the
+ *                                                    same `mapSelect` is invoked on every state
+ *                                                    change unless the dependencies change.
  *
  * @example
  * ```js
@@ -3408,14 +3460,24 @@ const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
  * @return {Function}  A custom react hook.
  */
 
-function useSelect(_mapSelect, deps) {
-  const isWithoutMapping = typeof _mapSelect !== 'function';
+function useSelect(mapSelect, deps) {
+  const hasMappingFunction = 'function' === typeof mapSelect; // If we're recalling a store by its name or by
+  // its descriptor then we won't be caching the
+  // calls to `mapSelect` because we won't be calling it.
 
-  if (isWithoutMapping) {
+  if (!hasMappingFunction) {
     deps = [];
-  }
+  } // Because of the "rule of hooks" we have to call `useCallback`
+  // on every invocation whether or not we have a real function
+  // for `mapSelect`. we'll create this intermediate variable to
+  // fulfill that need and then reference it with our "real"
+  // `_mapSelect` if we can.
 
-  const mapSelect = (0,external_wp_element_namespaceObject.useCallback)(_mapSelect, deps);
+
+  const callbackMapper = (0,external_wp_element_namespaceObject.useCallback)(hasMappingFunction ? mapSelect : noop, deps);
+
+  const _mapSelect = hasMappingFunction ? callbackMapper : null;
+
   const registry = useRegistry();
   const isAsync = useAsyncMode(); // React can sometimes clear the `useMemo` cache.
   // We use the cache-stable `useMemoOne` to avoid
@@ -3429,7 +3491,7 @@ function useSelect(_mapSelect, deps) {
   const latestIsAsync = (0,external_wp_element_namespaceObject.useRef)(isAsync);
   const latestMapOutput = (0,external_wp_element_namespaceObject.useRef)();
   const latestMapOutputError = (0,external_wp_element_namespaceObject.useRef)();
-  const isMountedAndNotUnsubscribing = (0,external_wp_element_namespaceObject.useRef)(); // Keep track of the stores being selected in the mapSelect function,
+  const isMountedAndNotUnsubscribing = (0,external_wp_element_namespaceObject.useRef)(); // Keep track of the stores being selected in the _mapSelect function,
   // and only subscribe to those stores later.
 
   const listeningStores = (0,external_wp_element_namespaceObject.useRef)([]);
@@ -3440,34 +3502,35 @@ function useSelect(_mapSelect, deps) {
   const depsChangedFlag = (0,external_wp_element_namespaceObject.useMemo)(() => ({}), deps || []);
   let mapOutput;
 
-  if (!isWithoutMapping) {
-    try {
-      if (latestMapSelect.current !== mapSelect || latestMapOutputError.current) {
-        mapOutput = trapSelect(() => mapSelect(registry.select, registry));
-      } else {
-        mapOutput = latestMapOutput.current;
+  if (_mapSelect) {
+    mapOutput = latestMapOutput.current;
+    const hasReplacedMapSelect = latestMapSelect.current !== _mapSelect;
+    const lastMapSelectFailed = !!latestMapOutputError.current;
+
+    if (hasReplacedMapSelect || lastMapSelectFailed) {
+      try {
+        mapOutput = trapSelect(() => _mapSelect(registry.select, registry));
+      } catch (error) {
+        let errorMessage = `An error occurred while running 'mapSelect': ${error.message}`;
+
+        if (latestMapOutputError.current) {
+          errorMessage += `\nThe error may be correlated with this previous error:\n`;
+          errorMessage += `${latestMapOutputError.current.stack}\n\n`;
+          errorMessage += 'Original stack trace:';
+        } // eslint-disable-next-line no-console
+
+
+        console.error(errorMessage);
       }
-    } catch (error) {
-      let errorMessage = `An error occurred while running 'mapSelect': ${error.message}`;
-
-      if (latestMapOutputError.current) {
-        errorMessage += `\nThe error may be correlated with this previous error:\n`;
-        errorMessage += `${latestMapOutputError.current.stack}\n\n`;
-        errorMessage += 'Original stack trace:';
-      } // eslint-disable-next-line no-console
-
-
-      console.error(errorMessage);
-      mapOutput = latestMapOutput.current;
     }
   }
 
   (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
-    if (isWithoutMapping) {
+    if (!hasMappingFunction) {
       return;
     }
 
-    latestMapSelect.current = mapSelect;
+    latestMapSelect.current = _mapSelect;
     latestMapOutput.current = mapOutput;
     latestMapOutputError.current = undefined;
     isMountedAndNotUnsubscribing.current = true; // This has to run after the other ref updates
@@ -3481,7 +3544,7 @@ function useSelect(_mapSelect, deps) {
     }
   });
   (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
-    if (isWithoutMapping) {
+    if (!hasMappingFunction) {
       return;
     }
 
@@ -3525,9 +3588,11 @@ function useSelect(_mapSelect, deps) {
 
       unsubscribers.forEach(unsubscribe => unsubscribe === null || unsubscribe === void 0 ? void 0 : unsubscribe());
       renderQueue.flush(queueContext);
-    };
-  }, [registry, trapSelect, depsChangedFlag, isWithoutMapping]);
-  return isWithoutMapping ? registry.select(_mapSelect) : mapOutput;
+    }; // If you're tempted to eliminate the spread dependencies below don't do it!
+    // We're passing these in from the calling function and want to make sure we're
+    // examining every individual value inside the `deps` array.
+  }, [registry, trapSelect, hasMappingFunction, depsChangedFlag]);
+  return hasMappingFunction ? mapOutput : registry.select(mapSelect);
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-select/index.js

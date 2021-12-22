@@ -764,6 +764,6 @@ apiFetch.fetchAllMiddleware = fetch_all_middleware;
 apiFetch.mediaUploadMiddleware = media_upload;
 /* harmony default export */ var build_module = (apiFetch);
 //# sourceMappingURL=index.js.map
-(window.wp = window.wp || {}).apiFetch = __webpack_exports__.default;
+(window.wp = window.wp || {}).apiFetch = __webpack_exports__["default"];
 /******/ })()
 ;

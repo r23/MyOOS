@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 7395:
+/***/ 3804:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10,7 +10,7 @@
 
 var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|inert|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
 
-var index = (0,_emotion_memoize__WEBPACK_IMPORTED_MODULE_0__/* .default */ .Z)(function (prop) {
+var index = (0,_emotion_memoize__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z)(function (prop) {
   return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111
   /* o */
   && prop.charCodeAt(1) === 110
@@ -4563,7 +4563,7 @@ if (hasSymbols) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isTouchDevice;
+exports["default"] = isTouchDevice;
 function isTouchDevice() {
   return !!(typeof window !== 'undefined' && ('ontouchstart' in window || window.DocumentTouch && typeof document !== 'undefined' && document instanceof window.DocumentTouch)) || !!(typeof navigator !== 'undefined' && (navigator.maxTouchPoints || navigator.msMaxTouchPoints));
 }
@@ -6171,7 +6171,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -6191,7 +6191,7 @@ var _airbnbPropTypes = __webpack_require__(8341);
 
 var _reactWithStyles = __webpack_require__(7224);
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -6452,7 +6452,7 @@ CalendarDay.propTypes = propTypes;
 CalendarDay.defaultProps = defaultProps;
 
 exports.PureCalendarDay = CalendarDay;
-exports.default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
   var _ref2$reactDates = _ref2.reactDates,
       color = _ref2$reactDates.color,
       font = _ref2$reactDates.font;
@@ -6653,7 +6653,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -6673,7 +6673,7 @@ var _airbnbPropTypes = __webpack_require__(8341);
 
 var _reactWithStyles = __webpack_require__(7224);
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -7001,7 +7001,7 @@ var CalendarMonth = function (_React$Component) {
 CalendarMonth.propTypes = propTypes;
 CalendarMonth.defaultProps = defaultProps;
 
-exports.default = (0, _reactWithStyles.withStyles)(function (_ref) {
+exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref) {
   var _ref$reactDates = _ref.reactDates,
       color = _ref$reactDates.color,
       font = _ref$reactDates.font,
@@ -7059,7 +7059,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -7079,7 +7079,7 @@ var _airbnbPropTypes = __webpack_require__(8341);
 
 var _reactWithStyles = __webpack_require__(7224);
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -7550,7 +7550,7 @@ var CalendarMonthGrid = function (_React$Component) {
 CalendarMonthGrid.propTypes = propTypes;
 CalendarMonthGrid.defaultProps = defaultProps;
 
-exports.default = (0, _reactWithStyles.withStyles)(function (_ref) {
+exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref) {
   var _ref$reactDates = _ref.reactDates,
       color = _ref$reactDates.color,
       noScrollBarOnVerticalScrollable = _ref$reactDates.noScrollBarOnVerticalScrollable,
@@ -7617,9 +7617,9 @@ exports.default = (0, _reactWithStyles.withStyles)(function (_ref) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = CalendarWeek;
+exports["default"] = CalendarWeek;
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -7663,7 +7663,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -7686,7 +7686,7 @@ var ChevronDown = function () {
 ChevronDown.defaultProps = {
   viewBox: '0 0 1000 1000'
 };
-exports.default = ChevronDown;
+exports["default"] = ChevronDown;
 
 /***/ }),
 
@@ -7700,7 +7700,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -7723,7 +7723,7 @@ var ChevronUp = function () {
 ChevronUp.defaultProps = {
   viewBox: '0 0 1000 1000'
 };
-exports.default = ChevronUp;
+exports["default"] = ChevronUp;
 
 /***/ }),
 
@@ -7737,7 +7737,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -7761,7 +7761,7 @@ var CloseButton = function () {
 CloseButton.defaultProps = {
   viewBox: '0 0 12 12'
 };
-exports.default = CloseButton;
+exports["default"] = CloseButton;
 
 /***/ }),
 
@@ -7784,7 +7784,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -7804,7 +7804,7 @@ var _airbnbPropTypes = __webpack_require__(8341);
 
 var _reactWithStyles = __webpack_require__(7224);
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -8254,7 +8254,7 @@ CustomizableCalendarDay.propTypes = propTypes;
 CustomizableCalendarDay.defaultProps = defaultProps;
 
 exports.PureCustomizableCalendarDay = CustomizableCalendarDay;
-exports.default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
   var font = _ref2.reactDates.font;
   return {
     CalendarDay: {
@@ -8295,7 +8295,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -8311,7 +8311,7 @@ var _airbnbPropTypes = __webpack_require__(8341);
 
 var _reactWithStyles = __webpack_require__(7224);
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -9724,7 +9724,7 @@ DayPicker.propTypes = propTypes;
 DayPicker.defaultProps = defaultProps;
 
 exports.PureDayPicker = DayPicker;
-exports.default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
   var _ref2$reactDates = _ref2.reactDates,
       color = _ref2$reactDates.color,
       font = _ref2$reactDates.font,
@@ -9878,7 +9878,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10231,7 +10231,7 @@ var DayPickerKeyboardShortcuts = function (_React$Component) {
 DayPickerKeyboardShortcuts.propTypes = propTypes;
 DayPickerKeyboardShortcuts.defaultProps = defaultProps;
 
-exports.default = (0, _reactWithStyles.withStyles)(function (_ref3) {
+exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref3) {
   var _ref3$reactDates = _ref3.reactDates,
       color = _ref3$reactDates.color,
       font = _ref3$reactDates.font,
@@ -10385,7 +10385,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10566,7 +10566,7 @@ function DayPickerNavigation(_ref) {
 DayPickerNavigation.propTypes = propTypes;
 DayPickerNavigation.defaultProps = defaultProps;
 
-exports.default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
   var _ref2$reactDates = _ref2.reactDates,
       color = _ref2$reactDates.color,
       zIndex = _ref2$reactDates.zIndex;
@@ -10698,7 +10698,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -10712,7 +10712,7 @@ var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
 
 var _airbnbPropTypes = __webpack_require__(8341);
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -11745,7 +11745,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -11803,7 +11803,7 @@ function KeyboardShortcutRow(_ref) {
 KeyboardShortcutRow.propTypes = propTypes;
 KeyboardShortcutRow.defaultProps = defaultProps;
 
-exports.default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
   var color = _ref2.reactDates.color;
   return {
     KeyboardShortcutRow: {
@@ -11855,7 +11855,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -11878,7 +11878,7 @@ var LeftArrow = function () {
 LeftArrow.defaultProps = {
   viewBox: '0 0 1000 1000'
 };
-exports.default = LeftArrow;
+exports["default"] = LeftArrow;
 
 /***/ }),
 
@@ -11892,7 +11892,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -11915,7 +11915,7 @@ var RightArrow = function () {
 RightArrow.defaultProps = {
   viewBox: '0 0 1000 1000'
 };
-exports.default = RightArrow;
+exports["default"] = RightArrow;
 
 /***/ }),
 
@@ -12021,7 +12021,7 @@ var dateIsSelected = function dateIsSelected(_ref5) {
   return 'Selected. ' + String(date);
 };
 
-exports.default = {
+exports["default"] = {
   calendarLabel: calendarLabel,
   closeDatePicker: closeDatePicker,
   focusStartDate: focusStartDate,
@@ -12219,7 +12219,7 @@ var _constants = __webpack_require__(5388);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = _propTypes2['default'].oneOf([_constants.INFO_POSITION_TOP, _constants.INFO_POSITION_BOTTOM, _constants.INFO_POSITION_BEFORE, _constants.INFO_POSITION_AFTER]);
+exports["default"] = _propTypes2['default'].oneOf([_constants.INFO_POSITION_TOP, _constants.INFO_POSITION_BOTTOM, _constants.INFO_POSITION_BEFORE, _constants.INFO_POSITION_AFTER]);
 
 /***/ }),
 
@@ -12241,7 +12241,7 @@ var _constants = __webpack_require__(5388);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = _propTypes2['default'].oneOf(_constants.WEEKDAYS);
+exports["default"] = _propTypes2['default'].oneOf(_constants.WEEKDAYS);
 
 /***/ }),
 
@@ -12267,7 +12267,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-exports.default = (0, _airbnbPropTypes.and)([_propTypes2['default'].instanceOf(Set), function () {
+exports["default"] = (0, _airbnbPropTypes.and)([_propTypes2['default'].instanceOf(Set), function () {
   function modifiers(props, propName) {
     for (var _len = arguments.length, rest = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
       rest[_key - 2] = arguments[_key];
@@ -12309,7 +12309,7 @@ var _constants = __webpack_require__(5388);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = _propTypes2['default'].oneOf([_constants.HORIZONTAL_ORIENTATION, _constants.VERTICAL_ORIENTATION, _constants.VERTICAL_SCROLLABLE]);
+exports["default"] = _propTypes2['default'].oneOf([_constants.HORIZONTAL_ORIENTATION, _constants.VERTICAL_ORIENTATION, _constants.VERTICAL_SCROLLABLE]);
 
 /***/ }),
 
@@ -12348,7 +12348,7 @@ var core = {
   yellow_dark: '#ffce71'
 };
 
-exports.default = {
+exports["default"] = {
   reactDates: {
     zIndex: 0,
     border: {
@@ -12529,7 +12529,7 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = calculateDimension;
+exports["default"] = calculateDimension;
 function calculateDimension(el, axis) {
   var borderBox = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
   var withMargin = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
@@ -12574,7 +12574,7 @@ function calculateDimension(el, axis) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getActiveElement;
+exports["default"] = getActiveElement;
 function getActiveElement() {
   return typeof document !== 'undefined' && document.activeElement;
 }
@@ -12590,7 +12590,7 @@ function getActiveElement() {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getCalendarDaySettings;
+exports["default"] = getCalendarDaySettings;
 
 var _getPhrase = __webpack_require__(4748);
 
@@ -12649,9 +12649,9 @@ function getCalendarDaySettings(day, ariaLabelFormat, daySize, modifiers, phrase
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getCalendarMonthWeeks;
+exports["default"] = getCalendarMonthWeeks;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -12714,7 +12714,7 @@ function getCalendarMonthWeeks(month, enableOutsideDays) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getCalendarMonthWidth;
+exports["default"] = getCalendarMonthWidth;
 function getCalendarMonthWidth(daySize, calendarMonthPadding) {
   return 7 * daySize + 2 * calendarMonthPadding + 1;
 }
@@ -12730,9 +12730,9 @@ function getCalendarMonthWidth(daySize, calendarMonthPadding) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getNumberOfCalendarMonthWeeks;
+exports["default"] = getNumberOfCalendarMonthWeeks;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -12762,7 +12762,7 @@ function getNumberOfCalendarMonthWeeks(month) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getPhrase;
+exports["default"] = getPhrase;
 function getPhrase(phrase, args) {
   if (typeof phrase === 'string') return phrase;
 
@@ -12784,7 +12784,7 @@ function getPhrase(phrase, args) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getPhrasePropTypes;
+exports["default"] = getPhrasePropTypes;
 
 var _object = __webpack_require__(3533);
 
@@ -12815,7 +12815,7 @@ function getPhrasePropTypes(defaultPhrases) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getTransformStyles;
+exports["default"] = getTransformStyles;
 function getTransformStyles(transformValue) {
   return {
     transform: transformValue,
@@ -12836,9 +12836,9 @@ function getTransformStyles(transformValue) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getVisibleDays;
+exports["default"] = getVisibleDays;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -12906,9 +12906,9 @@ function getVisibleDays(month, numberOfMonths, enableOutsideDays, withoutTransit
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isAfterDay;
+exports["default"] = isAfterDay;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -12938,9 +12938,9 @@ function isAfterDay(a, b) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isBeforeDay;
+exports["default"] = isBeforeDay;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -12974,7 +12974,7 @@ function isBeforeDay(a, b) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isDayVisible;
+exports["default"] = isDayVisible;
 
 var _isBeforeDay = __webpack_require__(2933);
 
@@ -13007,9 +13007,9 @@ function isDayVisible(day, month, numberOfMonths, enableOutsideDays) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isNextMonth;
+exports["default"] = isNextMonth;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -13035,9 +13035,9 @@ function isNextMonth(a, b) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isPrevMonth;
+exports["default"] = isPrevMonth;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -13063,9 +13063,9 @@ function isPrevMonth(a, b) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isSameDay;
+exports["default"] = isSameDay;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -13089,9 +13089,9 @@ function isSameDay(a, b) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isSameMonth;
+exports["default"] = isSameMonth;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -13115,7 +13115,7 @@ function isSameMonth(a, b) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = isTransitionEndSupported;
+exports["default"] = isTransitionEndSupported;
 function isTransitionEndSupported() {
   return !!(typeof window !== 'undefined' && 'TransitionEvent' in window);
 }
@@ -13131,7 +13131,7 @@ function isTransitionEndSupported() {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = registerCSSInterfaceWithDefaultTheme;
+exports["default"] = registerCSSInterfaceWithDefaultTheme;
 
 var _reactWithStylesInterfaceCss = __webpack_require__(5906);
 
@@ -13158,7 +13158,7 @@ function registerCSSInterfaceWithDefaultTheme() {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = registerInterfaceWithDefaultTheme;
+exports["default"] = registerInterfaceWithDefaultTheme;
 
 var _ThemedStyleSheet = __webpack_require__(4202);
 
@@ -13186,9 +13186,9 @@ function registerInterfaceWithDefaultTheme(reactWithStylesInterface) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = toISODateString;
+exports["default"] = toISODateString;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -13218,9 +13218,9 @@ function toISODateString(date, currentFormat) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = toISOMonthString;
+exports["default"] = toISOMonthString;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -13250,9 +13250,9 @@ function toISOMonthString(date, currentFormat) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = toMomentObject;
+exports["default"] = toMomentObject;
 
-var _moment = __webpack_require__(2470);
+var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
@@ -13434,7 +13434,7 @@ module.exports = {
 /***/ 2605:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var moment = __webpack_require__(2470);
+var moment = __webpack_require__(6292);
 var momentValidationWrapper = __webpack_require__(914);
 var core = __webpack_require__(8333);
 
@@ -13481,7 +13481,7 @@ module.exports = {
 /***/ 914:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var moment = __webpack_require__(2470);
+var moment = __webpack_require__(6292);
 
 function isValidMoment(testMoment) {
   if (typeof moment.isMoment === 'function' && !moment.isMoment(testMoment)) {
@@ -13517,7 +13517,7 @@ Object.defineProperty(exports, "__esModule", ({
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -13736,7 +13736,7 @@ var OutsideClickHandler = function (_React$Component) {
   return OutsideClickHandler;
 }(_react2['default'].Component);
 
-exports.default = OutsideClickHandler;
+exports["default"] = OutsideClickHandler;
 
 
 OutsideClickHandler.propTypes = propTypes;
@@ -13756,7 +13756,7 @@ module.exports = __webpack_require__(6428);
 /***/ 5464:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var e=__webpack_require__(3804),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
+var e=__webpack_require__(9196),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
 //# sourceMappingURL=index.js.map
 
 
@@ -13796,7 +13796,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.default = _propTypes2['default'].shape({
+exports["default"] = _propTypes2['default'].shape({
   getState: _propTypes2['default'].func,
   setState: _propTypes2['default'].func,
   subscribe: _propTypes2['default'].func
@@ -13881,7 +13881,7 @@ function resolve(stylesArray) {
   return result;
 }
 
-exports.default = { create: create, resolve: resolve };
+exports["default"] = { create: create, resolve: resolve };
 
 /***/ }),
 
@@ -13905,7 +13905,7 @@ exports.MAX_SPECIFICITY = MAX_SPECIFICITY;
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.default = getClassName;
+exports["default"] = getClassName;
 /**
  * Construct a class name.
  *
@@ -13966,7 +13966,7 @@ function separateStyles(stylesArray) {
   };
 }
 
-exports.default = separateStyles;
+exports["default"] = separateStyles;
 
 /***/ }),
 
@@ -13974,7 +13974,7 @@ exports.default = separateStyles;
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 // eslint-disable-next-line import/no-unresolved
-module.exports = __webpack_require__(8232).default;
+module.exports = __webpack_require__(8232)["default"];
 
 
 /***/ }),
@@ -14066,7 +14066,7 @@ function flush() {
   }
 }
 
-exports.default = {
+exports["default"] = {
   registerTheme: registerTheme,
   registerInterface: registerInterface,
   create: createLTR,
@@ -14102,7 +14102,7 @@ var _object = __webpack_require__(3533);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _react = __webpack_require__(3804);
+var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -14447,7 +14447,7 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
-/***/ 3804:
+/***/ 9196:
 /***/ (function(module) {
 
 "use strict";
@@ -14455,7 +14455,7 @@ module.exports = window["React"];
 
 /***/ }),
 
-/***/ 2470:
+/***/ 6292:
 /***/ (function(module) {
 
 "use strict";
@@ -14899,7 +14899,7 @@ function _createForOfIteratorHelperLoose(o, allowArrayLike) {
 
 
 // EXTERNAL MODULE: external "React"
-var external_React_ = __webpack_require__(3804);
+var external_React_ = __webpack_require__(9196);
 var external_React_default = /*#__PURE__*/__webpack_require__.n(external_React_);
 ;// CONCATENATED MODULE: ./node_modules/reakit-system/es/_rollupPluginBabelHelpers-0c84a174.js
 function _rollupPluginBabelHelpers_0c84a174_defineProperty(obj, key, value) {
@@ -17700,7 +17700,6 @@ function Icon(_ref) {
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: external ["wp","warning"]
 var external_wp_warning_namespaceObject = window["wp"]["warning"];
-var external_wp_warning_default = /*#__PURE__*/__webpack_require__.n(external_wp_warning_namespaceObject);
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/context/context-system-provider.js
 
 
@@ -17757,7 +17756,7 @@ function useContextSystemBridge(_ref) {
     if ( // objects are equivalent
     (0,external_lodash_namespaceObject.isEqual)(valueRef.current, value) && // but not the same reference
     valueRef.current !== value) {
-      typeof process !== "undefined" && process.env && "production" !== "production" ? external_wp_warning_default()(`Please memoize your context: ${JSON.stringify(value)}`) : void 0;
+      typeof process !== "undefined" && process.env && "production" !== "production" ? 0 : void 0;
     }
   }, [value]); // `parentContext` will always be memoized (i.e., the result of this hook itself)
   // or the default value from when the `ComponentsContext` was originally
@@ -17949,7 +17948,13 @@ var emotion_sheet_browser_esm_StyleSheet = /*#__PURE__*/function () {
       var before;
 
       if (_this.tags.length === 0) {
-        before = _this.prepend ? _this.container.firstChild : _this.before;
+        if (_this.insertionPoint) {
+          before = _this.insertionPoint.nextSibling;
+        } else if (_this.prepend) {
+          before = _this.container.firstChild;
+        } else {
+          before = _this.before;
+        }
       } else {
         before = _this.tags[_this.tags.length - 1].nextSibling;
       }
@@ -17967,6 +17972,7 @@ var emotion_sheet_browser_esm_StyleSheet = /*#__PURE__*/function () {
     this.key = options.key;
     this.container = options.container;
     this.prepend = options.prepend;
+    this.insertionPoint = options.insertionPoint;
     this.before = null;
   }
 
@@ -18008,7 +18014,7 @@ var emotion_sheet_browser_esm_StyleSheet = /*#__PURE__*/function () {
   _proto.flush = function flush() {
     // $FlowFixMe
     this.tags.forEach(function (tag) {
-      return tag.parentNode.removeChild(tag);
+      return tag.parentNode && tag.parentNode.removeChild(tag);
     });
     this.tags = [];
     this.ctr = 0;
@@ -18021,7 +18027,7 @@ var emotion_sheet_browser_esm_StyleSheet = /*#__PURE__*/function () {
 
 
 
-;// CONCATENATED MODULE: ./node_modules/stylis/src/Utility.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/cache/node_modules/stylis/src/Utility.js
 /**
  * @param {number}
  * @return {number}
@@ -18033,6 +18039,12 @@ var abs = Math.abs
  * @return {string}
  */
 var Utility_from = String.fromCharCode
+
+/**
+ * @param {object}
+ * @return {object}
+ */
+var Utility_assign = Object.assign
 
 /**
  * @param {string} value
@@ -18072,7 +18084,7 @@ function replace (value, pattern, replacement) {
 
 /**
  * @param {string} value
- * @param {string} value
+ * @param {string} search
  * @return {number}
  */
 function indexof (value, search) {
@@ -18132,7 +18144,7 @@ function Utility_combine (array, callback) {
 	return array.map(callback).join('')
 }
 
-;// CONCATENATED MODULE: ./node_modules/stylis/src/Tokenizer.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/cache/node_modules/stylis/src/Tokenizer.js
 
 
 var line = 1
@@ -18144,11 +18156,11 @@ var characters = ''
 
 /**
  * @param {string} value
- * @param {object} root
- * @param {object?} parent
+ * @param {object | null} root
+ * @param {object | null} parent
  * @param {string} type
- * @param {string[]} props
- * @param {object[]} children
+ * @param {string[] | string} props
+ * @param {object[] | string} children
  * @param {number} length
  */
 function node (value, root, parent, type, props, children, length) {
@@ -18156,12 +18168,12 @@ function node (value, root, parent, type, props, children, length) {
 }
 
 /**
- * @param {string} value
  * @param {object} root
- * @param {string} type
+ * @param {object} props
+ * @return {object}
  */
-function copy (value, root, type) {
-	return node(value, root.root, root.parent, type, root.props, root.children, 0)
+function copy (root, props) {
+	return Utility_assign(node('', null, null, '', null, null, 0), root, {length: -root.length}, props)
 }
 
 /**
@@ -18335,7 +18347,9 @@ function delimiter (type) {
 				return position
 			// " '
 			case 34: case 39:
-				return delimiter(type === 34 || type === 39 ? type : character)
+				if (type !== 34 && type !== 39)
+					delimiter(character)
+				break
 			// (
 			case 40:
 				if (type === 41)
@@ -18378,7 +18392,7 @@ function identifier (index) {
 	return slice(index, position)
 }
 
-;// CONCATENATED MODULE: ./node_modules/stylis/src/Enum.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/cache/node_modules/stylis/src/Enum.js
 var MS = '-ms-'
 var MOZ = '-moz-'
 var WEBKIT = '-webkit-'
@@ -18400,7 +18414,7 @@ var FONT_FACE = '@font-face'
 var COUNTER_STYLE = '@counter-style'
 var FONT_FEATURE_VALUES = '@font-feature-values'
 
-;// CONCATENATED MODULE: ./node_modules/stylis/src/Serializer.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/cache/node_modules/stylis/src/Serializer.js
 
 
 
@@ -18430,13 +18444,14 @@ function stringify (element, index, children, callback) {
 	switch (element.type) {
 		case IMPORT: case DECLARATION: return element.return = element.return || element.value
 		case COMMENT: return ''
+		case KEYFRAMES: return element.return = element.value + '{' + serialize(element.children, callback) + '}'
 		case Enum_RULESET: element.value = element.props.join(',')
 	}
 
 	return Utility_strlen(children = serialize(element.children, callback)) ? element.return = element.value + '{' + children + '}' : ''
 }
 
-;// CONCATENATED MODULE: ./node_modules/stylis/src/Prefixer.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/cache/node_modules/stylis/src/Prefixer.js
 
 
 
@@ -18557,7 +18572,7 @@ function prefix (value, length) {
 	return value
 }
 
-;// CONCATENATED MODULE: ./node_modules/stylis/src/Middleware.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/cache/node_modules/stylis/src/Middleware.js
 
 
 
@@ -18600,31 +18615,32 @@ function rulesheet (callback) {
  * @param {function} callback
  */
 function prefixer (element, index, children, callback) {
-	if (!element.return)
-		switch (element.type) {
-			case DECLARATION: element.return = prefix(element.value, element.length)
-				break
-			case KEYFRAMES:
-				return serialize([copy(replace(element.value, '@', '@' + WEBKIT), element, '')], callback)
-			case Enum_RULESET:
-				if (element.length)
-					return Utility_combine(element.props, function (value) {
-						switch (match(value, /(::plac\w+|:read-\w+)/)) {
-							// :read-(only|write)
-							case ':read-only': case ':read-write':
-								return serialize([copy(replace(value, /:(read-\w+)/, ':' + MOZ + '$1'), element, '')], callback)
-							// :placeholder
-							case '::placeholder':
-								return serialize([
-									copy(replace(value, /:(plac\w+)/, ':' + WEBKIT + 'input-$1'), element, ''),
-									copy(replace(value, /:(plac\w+)/, ':' + MOZ + '$1'), element, ''),
-									copy(replace(value, /:(plac\w+)/, MS + 'input-$1'), element, '')
-								], callback)
-						}
+	if (element.length > -1)
+		if (!element.return)
+			switch (element.type) {
+				case DECLARATION: element.return = prefix(element.value, element.length)
+					break
+				case KEYFRAMES:
+					return serialize([copy(element, {value: replace(element.value, '@', '@' + WEBKIT)})], callback)
+				case Enum_RULESET:
+					if (element.length)
+						return Utility_combine(element.props, function (value) {
+							switch (match(value, /(::plac\w+|:read-\w+)/)) {
+								// :read-(only|write)
+								case ':read-only': case ':read-write':
+									return serialize([copy(element, {props: [replace(value, /:(read-\w+)/, ':' + MOZ + '$1')]})], callback)
+								// :placeholder
+								case '::placeholder':
+									return serialize([
+										copy(element, {props: [replace(value, /:(plac\w+)/, ':' + WEBKIT + 'input-$1')]}),
+										copy(element, {props: [replace(value, /:(plac\w+)/, ':' + MOZ + '$1')]}),
+										copy(element, {props: [replace(value, /:(plac\w+)/, MS + 'input-$1')]})
+									], callback)
+							}
 
-						return ''
-					})
-		}
+							return ''
+						})
+			}
 }
 
 /**
@@ -18666,7 +18682,7 @@ function namespace (element) {
 	}
 }
 
-;// CONCATENATED MODULE: ./node_modules/stylis/src/Parser.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/cache/node_modules/stylis/src/Parser.js
 
 
 
@@ -18710,8 +18726,15 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 
 	while (scanning)
 		switch (previous = character, character = next()) {
-			// " ' [ (
-			case 34: case 39: case 91: case 40:
+			// (
+			case 40:
+				if (previous != 108 && characters.charCodeAt(length - 1) == 58) {
+					if (indexof(characters += replace(delimit(character), '&', '&\f'), '&\f') != -1)
+						ampersand = -1
+					break
+				}
+			// " ' [
+			case 34: case 39: case 91:
 				characters += delimit(character)
 				break
 			// \t \n \r \s
@@ -18761,7 +18784,7 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 										parse(value, reference, reference, rule && Utility_append(ruleset(value, reference, reference, 0, 0, rules, points, type, rules, props = [], length), children), rules, children, length, points, rule ? props : children)
 										break
 									default:
-										parse(characters, reference, reference, reference, [''], children, length, points, children)
+										parse(characters, reference, reference, reference, [''], children, 0, points, children)
 								}
 				}
 
@@ -18792,7 +18815,7 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 						if (peek() === 45)
 							characters += delimit(next())
 
-						atrule = peek(), offset = Utility_strlen(type = characters += identifier(caret())), character++
+						atrule = peek(), offset = length = Utility_strlen(type = characters += identifier(caret())), character++
 						break
 					// -
 					case 45:
@@ -18860,6 +18883,29 @@ function declaration (value, root, parent, length) {
 
 var last = function last(arr) {
   return arr.length ? arr[arr.length - 1] : null;
+}; // based on https://github.com/thysultan/stylis.js/blob/e6843c373ebcbbfade25ebcc23f540ed8508da0a/src/Tokenizer.js#L239-L244
+
+
+var identifierWithPointTracking = function identifierWithPointTracking(begin, points, index) {
+  var previous = 0;
+  var character = 0;
+
+  while (true) {
+    previous = character;
+    character = peek(); // &\f
+
+    if (previous === 38 && character === 12) {
+      points[index] = 1;
+    }
+
+    if (token(character)) {
+      break;
+    }
+
+    next();
+  }
+
+  return slice(begin, position);
 };
 
 var toRules = function toRules(parsed, points) {
@@ -18879,7 +18925,7 @@ var toRules = function toRules(parsed, points) {
           points[index] = 1;
         }
 
-        parsed[index] += identifier(position - 1);
+        parsed[index] += identifierWithPointTracking(position - 1, points, index);
         break;
 
       case 2:
@@ -18912,8 +18958,9 @@ var getRules = function getRules(value, points) {
 
 var fixedElements = /* #__PURE__ */new WeakMap();
 var compat = function compat(element) {
-  if (element.type !== 'rule' || !element.parent || // .length indicates if this rule contains pseudo or not
-  !element.length) {
+  if (element.type !== 'rule' || !element.parent || // positive .length indicates that this rule contains pseudo
+  // negative .length indicates that this rule has been already prefixed
+  element.length < 1) {
     return;
   }
 
@@ -19118,7 +19165,8 @@ var createCache = function createCache(options) {
       container: container,
       nonce: options.nonce,
       speedy: options.speedy,
-      prepend: options.prepend
+      prepend: options.prepend,
+      insertionPoint: options.insertionPoint
     }),
     nonce: options.nonce,
     inserted: inserted,
@@ -19242,7 +19290,7 @@ var unitlessKeys = {
 
 // EXTERNAL MODULE: ./node_modules/@emotion/memoize/dist/memoize.browser.esm.js
 var memoize_browser_esm = __webpack_require__(2717);
-;// CONCATENATED MODULE: ./node_modules/@emotion/react/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
 
 
 
@@ -19390,9 +19438,7 @@ function createStringFromObject(mergedProps, registered, obj) {
           string += processStyleName(_key) + ":" + processStyleValue(_key, value) + ";";
         }
       } else {
-        if (_key === 'NO_COMPONENT_SELECTOR' && "production" !== 'production') {
-          throw new Error('Component selectors can only be used in conjunction with @emotion/babel-plugin.');
-        }
+        if (_key === 'NO_COMPONENT_SELECTOR' && "production" !== 'production') {}
 
         if (Array.isArray(value) && typeof value[0] === 'string' && (registered == null || registered[value[0]] === undefined)) {
           for (var _i = 0; _i < value.length; _i++) {
@@ -19491,7 +19537,7 @@ var emotion_serialize_browser_esm_serializeStyles = function serializeStyles(arg
 
 
 
-;// CONCATENATED MODULE: ./node_modules/@emotion/react/dist/emotion-element-99289b21.browser.esm.js
+;// CONCATENATED MODULE: ./node_modules/@emotion/react/dist/emotion-element-699e6908.browser.esm.js
 
 
 
@@ -19500,7 +19546,7 @@ var emotion_serialize_browser_esm_serializeStyles = function serializeStyles(arg
 
 
 
-var emotion_element_99289b21_browser_esm_hasOwnProperty = Object.prototype.hasOwnProperty;
+var emotion_element_699e6908_browser_esm_hasOwnProperty = {}.hasOwnProperty;
 
 var EmotionCacheContext = /* #__PURE__ */(0,external_React_.createContext)( // we're doing this to avoid preconstruct's dead code elimination in this one case
 // because this module is primarily intended for the browser and node
@@ -19519,7 +19565,7 @@ var __unsafe_useEmotionCache = function useEmotionCache() {
   return (0,external_React_.useContext)(EmotionCacheContext);
 };
 
-var emotion_element_99289b21_browser_esm_withEmotionCache = function withEmotionCache(func) {
+var emotion_element_699e6908_browser_esm_withEmotionCache = function withEmotionCache(func) {
   // $FlowFixMe
   return /*#__PURE__*/(0,external_React_.forwardRef)(function (props, ref) {
     // the cache will never be null in the browser
@@ -19528,12 +19574,12 @@ var emotion_element_99289b21_browser_esm_withEmotionCache = function withEmotion
   });
 };
 
-var emotion_element_99289b21_browser_esm_ThemeContext = /* #__PURE__ */(0,external_React_.createContext)({});
+var emotion_element_699e6908_browser_esm_ThemeContext = /* #__PURE__ */(0,external_React_.createContext)({});
 
 if (false) {}
 
 var useTheme = function useTheme() {
-  return useContext(emotion_element_99289b21_browser_esm_ThemeContext);
+  return useContext(emotion_element_699e6908_browser_esm_ThemeContext);
 };
 
 var getTheme = function getTheme(outerTheme, theme) {
@@ -19556,13 +19602,13 @@ var createCacheWithTheme = /* #__PURE__ */(/* unused pure expression or super */
   });
 })));
 var ThemeProvider = function ThemeProvider(props) {
-  var theme = useContext(emotion_element_99289b21_browser_esm_ThemeContext);
+  var theme = useContext(emotion_element_699e6908_browser_esm_ThemeContext);
 
   if (props.theme !== theme) {
     theme = createCacheWithTheme(theme)(props.theme);
   }
 
-  return /*#__PURE__*/createElement(emotion_element_99289b21_browser_esm_ThemeContext.Provider, {
+  return /*#__PURE__*/createElement(emotion_element_699e6908_browser_esm_ThemeContext.Provider, {
     value: theme
   }, props.children);
 };
@@ -19570,7 +19616,7 @@ function withTheme(Component) {
   var componentName = Component.displayName || Component.name || 'Component';
 
   var render = function render(props, ref) {
-    var theme = useContext(emotion_element_99289b21_browser_esm_ThemeContext);
+    var theme = useContext(emotion_element_699e6908_browser_esm_ThemeContext);
     return /*#__PURE__*/createElement(Component, _extends({
       theme: theme,
       ref: ref
@@ -19583,32 +19629,74 @@ function withTheme(Component) {
   return hoistNonReactStatics(WithTheme, Component);
 }
 
-// thus we only need to replace what is a valid character for JS, but not for CSS
+var getFunctionNameFromStackTraceLine = function getFunctionNameFromStackTraceLine(line) {
+  // V8
+  var match = /^\s+at\s+([A-Za-z0-9$.]+)\s/.exec(line);
+
+  if (match) {
+    // The match may be something like 'Object.createEmotionProps'
+    var parts = match[1].split('.');
+    return parts[parts.length - 1];
+  } // Safari / Firefox
+
+
+  match = /^([A-Za-z0-9$.]+)@/.exec(line);
+  if (match) return match[1];
+  return undefined;
+};
+
+var internalReactFunctionNames = /* #__PURE__ */new Set(['renderWithHooks', 'processChild', 'finishClassComponent', 'renderToString']); // These identifiers come from error stacks, so they have to be valid JS
+// identifiers, thus we only need to replace what is a valid character for JS,
+// but not for CSS.
 
 var sanitizeIdentifier = function sanitizeIdentifier(identifier) {
   return identifier.replace(/\$/g, '-');
 };
 
+var getLabelFromStackTrace = function getLabelFromStackTrace(stackTrace) {
+  if (!stackTrace) return undefined;
+  var lines = stackTrace.split('\n');
+
+  for (var i = 0; i < lines.length; i++) {
+    var functionName = getFunctionNameFromStackTraceLine(lines[i]); // The first line of V8 stack traces is just "Error"
+
+    if (!functionName) continue; // If we reach one of these, we have gone too far and should quit
+
+    if (internalReactFunctionNames.has(functionName)) break; // The component name is the first function in the stack that starts with an
+    // uppercase letter
+
+    if (/^[A-Z]/.test(functionName)) return sanitizeIdentifier(functionName);
+  }
+
+  return undefined;
+};
+
 var typePropName = '__EMOTION_TYPE_PLEASE_DO_NOT_USE__';
 var labelPropName = '__EMOTION_LABEL_PLEASE_DO_NOT_USE__';
-var emotion_element_99289b21_browser_esm_createEmotionProps = function createEmotionProps(type, props) {
+var emotion_element_699e6908_browser_esm_createEmotionProps = function createEmotionProps(type, props) {
   if (false) {}
 
   var newProps = {};
 
   for (var key in props) {
-    if (emotion_element_99289b21_browser_esm_hasOwnProperty.call(props, key)) {
+    if (emotion_element_699e6908_browser_esm_hasOwnProperty.call(props, key)) {
       newProps[key] = props[key];
     }
   }
 
-  newProps[typePropName] = type;
+  newProps[typePropName] = type; // For performance, only call getLabelFromStackTrace in development and when
+  // the label hasn't already been computed
 
-  if (false) { var match, error; }
+  if (false) { var label; }
 
   return newProps;
 };
-var emotion_element_99289b21_browser_esm_Emotion = /* #__PURE__ */(/* unused pure expression or super */ null && (emotion_element_99289b21_browser_esm_withEmotionCache(function (props, cache, ref) {
+
+var Noop = function Noop() {
+  return null;
+};
+
+var emotion_element_699e6908_browser_esm_Emotion = /* #__PURE__ */(/* unused pure expression or super */ null && (emotion_element_699e6908_browser_esm_withEmotionCache(function (props, cache, ref) {
   var cssProp = props.css; // so that using `css` from `emotion` and passing the result to the css prop works
   // not passing the registered cache to serializeStyles because it would
   // make certain babel optimisations not possible
@@ -19627,7 +19715,7 @@ var emotion_element_99289b21_browser_esm_Emotion = /* #__PURE__ */(/* unused pur
     className = props.className + " ";
   }
 
-  var serialized = serializeStyles(registeredStyles, undefined, useContext(emotion_element_99289b21_browser_esm_ThemeContext));
+  var serialized = serializeStyles(registeredStyles, undefined, useContext(emotion_element_699e6908_browser_esm_ThemeContext));
 
   if (false) { var labelFromStack; }
 
@@ -19636,7 +19724,7 @@ var emotion_element_99289b21_browser_esm_Emotion = /* #__PURE__ */(/* unused pur
   var newProps = {};
 
   for (var key in props) {
-    if (emotion_element_99289b21_browser_esm_hasOwnProperty.call(props, key) && key !== 'css' && key !== typePropName && ( true || 0)) {
+    if (emotion_element_699e6908_browser_esm_hasOwnProperty.call(props, key) && key !== 'css' && key !== typePropName && ( true || 0)) {
       newProps[key] = props[key];
     }
   }
@@ -19644,8 +19732,10 @@ var emotion_element_99289b21_browser_esm_Emotion = /* #__PURE__ */(/* unused pur
   newProps.ref = ref;
   newProps.className = className;
   var ele = /*#__PURE__*/createElement(type, newProps);
+  var possiblyStyleElement = /*#__PURE__*/createElement(Noop, null);
 
-  return ele;
+
+  return /*#__PURE__*/createElement(Fragment, null, possiblyStyleElement, ele);
 })));
 
 if (false) {}
@@ -19694,266 +19784,6 @@ var emotion_utils_browser_esm_insertStyles = function insertStyles(cache, serial
 
 
 
-;// CONCATENATED MODULE: ./node_modules/@emotion/css/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js
-function memoize(fn) {
-  var cache = Object.create(null);
-  return function (arg) {
-    if (cache[arg] === undefined) cache[arg] = fn(arg);
-    return cache[arg];
-  };
-}
-
-/* harmony default export */ var emotion_memoize_browser_esm = (memoize);
-
-;// CONCATENATED MODULE: ./node_modules/@emotion/css/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
-
-
-
-
-var emotion_serialize_browser_esm_ILLEGAL_ESCAPE_SEQUENCE_ERROR = "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
-var emotion_serialize_browser_esm_UNDEFINED_AS_OBJECT_KEY_ERROR = "You have passed in falsy value as style object's key (can happen when in example you pass unexported component as computed key).";
-var emotion_serialize_browser_esm_hyphenateRegex = /[A-Z]|^ms/g;
-var emotion_serialize_browser_esm_animationRegex = /_EMO_([^_]+?)_([^]*?)_EMO_/g;
-
-var emotion_serialize_browser_esm_isCustomProperty = function isCustomProperty(property) {
-  return property.charCodeAt(1) === 45;
-};
-
-var emotion_serialize_browser_esm_isProcessableValue = function isProcessableValue(value) {
-  return value != null && typeof value !== 'boolean';
-};
-
-var emotion_serialize_browser_esm_processStyleName = /* #__PURE__ */emotion_memoize_browser_esm(function (styleName) {
-  return emotion_serialize_browser_esm_isCustomProperty(styleName) ? styleName : styleName.replace(emotion_serialize_browser_esm_hyphenateRegex, '-$&').toLowerCase();
-});
-
-var emotion_serialize_browser_esm_processStyleValue = function processStyleValue(key, value) {
-  switch (key) {
-    case 'animation':
-    case 'animationName':
-      {
-        if (typeof value === 'string') {
-          return value.replace(emotion_serialize_browser_esm_animationRegex, function (match, p1, p2) {
-            emotion_serialize_browser_esm_cursor = {
-              name: p1,
-              styles: p2,
-              next: emotion_serialize_browser_esm_cursor
-            };
-            return p1;
-          });
-        }
-      }
-  }
-
-  if (unitless_browser_esm[key] !== 1 && !emotion_serialize_browser_esm_isCustomProperty(key) && typeof value === 'number' && value !== 0) {
-    return value + 'px';
-  }
-
-  return value;
-};
-
-if (false) { var emotion_serialize_browser_esm_hyphenatedCache, emotion_serialize_browser_esm_hyphenPattern, emotion_serialize_browser_esm_msPattern, emotion_serialize_browser_esm_oldProcessStyleValue, emotion_serialize_browser_esm_contentValues, emotion_serialize_browser_esm_contentValuePattern; }
-
-function emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, interpolation) {
-  if (interpolation == null) {
-    return '';
-  }
-
-  if (interpolation.__emotion_styles !== undefined) {
-    if (false) {}
-
-    return interpolation;
-  }
-
-  switch (typeof interpolation) {
-    case 'boolean':
-      {
-        return '';
-      }
-
-    case 'object':
-      {
-        if (interpolation.anim === 1) {
-          emotion_serialize_browser_esm_cursor = {
-            name: interpolation.name,
-            styles: interpolation.styles,
-            next: emotion_serialize_browser_esm_cursor
-          };
-          return interpolation.name;
-        }
-
-        if (interpolation.styles !== undefined) {
-          var next = interpolation.next;
-
-          if (next !== undefined) {
-            // not the most efficient thing ever but this is a pretty rare case
-            // and there will be very few iterations of this generally
-            while (next !== undefined) {
-              emotion_serialize_browser_esm_cursor = {
-                name: next.name,
-                styles: next.styles,
-                next: emotion_serialize_browser_esm_cursor
-              };
-              next = next.next;
-            }
-          }
-
-          var styles = interpolation.styles + ";";
-
-          if (false) {}
-
-          return styles;
-        }
-
-        return emotion_serialize_browser_esm_createStringFromObject(mergedProps, registered, interpolation);
-      }
-
-    case 'function':
-      {
-        if (mergedProps !== undefined) {
-          var previousCursor = emotion_serialize_browser_esm_cursor;
-          var result = interpolation(mergedProps);
-          emotion_serialize_browser_esm_cursor = previousCursor;
-          return emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, result);
-        } else if (false) {}
-
-        break;
-      }
-
-    case 'string':
-      if (false) { var replaced, matched; }
-
-      break;
-  } // finalize string values (regular strings and functions interpolated into css calls)
-
-
-  if (registered == null) {
-    return interpolation;
-  }
-
-  var cached = registered[interpolation];
-  return cached !== undefined ? cached : interpolation;
-}
-
-function emotion_serialize_browser_esm_createStringFromObject(mergedProps, registered, obj) {
-  var string = '';
-
-  if (Array.isArray(obj)) {
-    for (var i = 0; i < obj.length; i++) {
-      string += emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, obj[i]) + ";";
-    }
-  } else {
-    for (var _key in obj) {
-      var value = obj[_key];
-
-      if (typeof value !== 'object') {
-        if (registered != null && registered[value] !== undefined) {
-          string += _key + "{" + registered[value] + "}";
-        } else if (emotion_serialize_browser_esm_isProcessableValue(value)) {
-          string += emotion_serialize_browser_esm_processStyleName(_key) + ":" + emotion_serialize_browser_esm_processStyleValue(_key, value) + ";";
-        }
-      } else {
-        if (_key === 'NO_COMPONENT_SELECTOR' && "production" !== 'production') {
-          throw new Error('Component selectors can only be used in conjunction with @emotion/babel-plugin.');
-        }
-
-        if (Array.isArray(value) && typeof value[0] === 'string' && (registered == null || registered[value[0]] === undefined)) {
-          for (var _i = 0; _i < value.length; _i++) {
-            if (emotion_serialize_browser_esm_isProcessableValue(value[_i])) {
-              string += emotion_serialize_browser_esm_processStyleName(_key) + ":" + emotion_serialize_browser_esm_processStyleValue(_key, value[_i]) + ";";
-            }
-          }
-        } else {
-          var interpolated = emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, value);
-
-          switch (_key) {
-            case 'animation':
-            case 'animationName':
-              {
-                string += emotion_serialize_browser_esm_processStyleName(_key) + ":" + interpolated + ";";
-                break;
-              }
-
-            default:
-              {
-                if (false) {}
-
-                string += _key + "{" + interpolated + "}";
-              }
-          }
-        }
-      }
-    }
-  }
-
-  return string;
-}
-
-var emotion_serialize_browser_esm_labelPattern = /label:\s*([^\s;\n{]+)\s*(;|$)/g;
-var emotion_serialize_browser_esm_sourceMapPattern;
-
-if (false) {} // this is the cursor for keyframes
-// keyframes are stored on the SerializedStyles object as a linked list
-
-
-var emotion_serialize_browser_esm_cursor;
-var dist_emotion_serialize_browser_esm_serializeStyles = function serializeStyles(args, registered, mergedProps) {
-  if (args.length === 1 && typeof args[0] === 'object' && args[0] !== null && args[0].styles !== undefined) {
-    return args[0];
-  }
-
-  var stringMode = true;
-  var styles = '';
-  emotion_serialize_browser_esm_cursor = undefined;
-  var strings = args[0];
-
-  if (strings == null || strings.raw === undefined) {
-    stringMode = false;
-    styles += emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, strings);
-  } else {
-    if (false) {}
-
-    styles += strings[0];
-  } // we start at 1 since we've already handled the first arg
-
-
-  for (var i = 1; i < args.length; i++) {
-    styles += emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, args[i]);
-
-    if (stringMode) {
-      if (false) {}
-
-      styles += strings[i];
-    }
-  }
-
-  var sourceMap;
-
-  if (false) {} // using a global regex with .exec is stateful so lastIndex has to be reset each time
-
-
-  emotion_serialize_browser_esm_labelPattern.lastIndex = 0;
-  var identifierName = '';
-  var match; // https://esbench.com/bench/5b809c2cf2949800a0f61fb5
-
-  while ((match = emotion_serialize_browser_esm_labelPattern.exec(styles)) !== null) {
-    identifierName += '-' + // $FlowFixMe we know it's not null
-    match[1];
-  }
-
-  var name = hash_browser_esm(styles) + identifierName;
-
-  if (false) {}
-
-  return {
-    name: name,
-    styles: styles,
-    next: emotion_serialize_browser_esm_cursor
-  };
-};
-
-
-
 ;// CONCATENATED MODULE: ./node_modules/@emotion/css/create-instance/dist/emotion-css-create-instance.esm.js
 
 
@@ -19992,7 +19822,7 @@ var createEmotion = function createEmotion(options) {
       args[_key] = arguments[_key];
     }
 
-    var serialized = dist_emotion_serialize_browser_esm_serializeStyles(args, cache.registered, undefined);
+    var serialized = emotion_serialize_browser_esm_serializeStyles(args, cache.registered, undefined);
     emotion_utils_browser_esm_insertStyles(cache, serialized, false);
     return cache.key + "-" + serialized.name;
   };
@@ -20002,7 +19832,7 @@ var createEmotion = function createEmotion(options) {
       args[_key2] = arguments[_key2];
     }
 
-    var serialized = dist_emotion_serialize_browser_esm_serializeStyles(args, cache.registered);
+    var serialized = emotion_serialize_browser_esm_serializeStyles(args, cache.registered);
     var animation = "animation-" + serialized.name;
     insertWithoutScoping(cache, {
       name: serialized.name,
@@ -20016,7 +19846,7 @@ var createEmotion = function createEmotion(options) {
       args[_key3] = arguments[_key3];
     }
 
-    var serialized = dist_emotion_serialize_browser_esm_serializeStyles(args, cache.registered);
+    var serialized = emotion_serialize_browser_esm_serializeStyles(args, cache.registered);
     insertWithoutScoping(cache, serialized);
   };
 
@@ -20213,7 +20043,7 @@ function useContextSystem(props, namespace) {
   const contextSystemProps = useComponentsContext();
 
   if (typeof namespace === 'undefined') {
-    typeof process !== "undefined" && process.env && "production" !== "production" ? external_wp_warning_default()('useContextSystem: Please provide a namespace') : void 0;
+    typeof process !== "undefined" && process.env && "production" !== "production" ? 0 : void 0;
   }
 
   const contextProps = (contextSystemProps === null || contextSystemProps === void 0 ? void 0 : contextSystemProps[namespace]) || {};
@@ -20303,7 +20133,7 @@ function contextConnect(Component, namespace) {
   }
 
   if (typeof namespace === 'undefined') {
-    typeof process !== "undefined" && process.env && "production" !== "production" ? external_wp_warning_default()('contextConnect: Please provide a namespace') : void 0;
+    typeof process !== "undefined" && process.env && "production" !== "production" ? 0 : void 0;
   } // @ts-ignore internal property
 
 
@@ -20390,23 +20220,12 @@ const visuallyHidden = {
   wordWrap: 'normal'
 };
 //# sourceMappingURL=styles.js.map
-;// CONCATENATED MODULE: ./node_modules/@emotion/styled/node_modules/@emotion/memoize/dist/emotion-memoize.browser.esm.js
-function emotion_memoize_browser_esm_memoize(fn) {
-  var cache = Object.create(null);
-  return function (arg) {
-    if (cache[arg] === undefined) cache[arg] = fn(arg);
-    return cache[arg];
-  };
-}
-
-/* harmony default export */ var dist_emotion_memoize_browser_esm = (emotion_memoize_browser_esm_memoize);
-
 ;// CONCATENATED MODULE: ./node_modules/@emotion/styled/node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
 
 
-var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
+var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|enterKeyHint|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|translate|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|incremental|fallback|inert|itemProp|itemScope|itemType|itemID|itemRef|on|option|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
 
-var isPropValid = /* #__PURE__ */dist_emotion_memoize_browser_esm(function (prop) {
+var isPropValid = /* #__PURE__ */(0,memoize_browser_esm/* default */.Z)(function (prop) {
   return reactPropsRegex.test(prop) || prop.charCodeAt(0) === 111
   /* o */
   && prop.charCodeAt(1) === 110
@@ -20417,255 +20236,6 @@ var isPropValid = /* #__PURE__ */dist_emotion_memoize_browser_esm(function (prop
 );
 
 /* harmony default export */ var emotion_is_prop_valid_browser_esm = (isPropValid);
-
-;// CONCATENATED MODULE: ./node_modules/@emotion/styled/node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
-
-
-
-
-var dist_emotion_serialize_browser_esm_ILLEGAL_ESCAPE_SEQUENCE_ERROR = "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
-var dist_emotion_serialize_browser_esm_UNDEFINED_AS_OBJECT_KEY_ERROR = "You have passed in falsy value as style object's key (can happen when in example you pass unexported component as computed key).";
-var dist_emotion_serialize_browser_esm_hyphenateRegex = /[A-Z]|^ms/g;
-var dist_emotion_serialize_browser_esm_animationRegex = /_EMO_([^_]+?)_([^]*?)_EMO_/g;
-
-var dist_emotion_serialize_browser_esm_isCustomProperty = function isCustomProperty(property) {
-  return property.charCodeAt(1) === 45;
-};
-
-var dist_emotion_serialize_browser_esm_isProcessableValue = function isProcessableValue(value) {
-  return value != null && typeof value !== 'boolean';
-};
-
-var dist_emotion_serialize_browser_esm_processStyleName = /* #__PURE__ */dist_emotion_memoize_browser_esm(function (styleName) {
-  return dist_emotion_serialize_browser_esm_isCustomProperty(styleName) ? styleName : styleName.replace(dist_emotion_serialize_browser_esm_hyphenateRegex, '-$&').toLowerCase();
-});
-
-var dist_emotion_serialize_browser_esm_processStyleValue = function processStyleValue(key, value) {
-  switch (key) {
-    case 'animation':
-    case 'animationName':
-      {
-        if (typeof value === 'string') {
-          return value.replace(dist_emotion_serialize_browser_esm_animationRegex, function (match, p1, p2) {
-            dist_emotion_serialize_browser_esm_cursor = {
-              name: p1,
-              styles: p2,
-              next: dist_emotion_serialize_browser_esm_cursor
-            };
-            return p1;
-          });
-        }
-      }
-  }
-
-  if (unitless_browser_esm[key] !== 1 && !dist_emotion_serialize_browser_esm_isCustomProperty(key) && typeof value === 'number' && value !== 0) {
-    return value + 'px';
-  }
-
-  return value;
-};
-
-if (false) { var dist_emotion_serialize_browser_esm_hyphenatedCache, dist_emotion_serialize_browser_esm_hyphenPattern, dist_emotion_serialize_browser_esm_msPattern, dist_emotion_serialize_browser_esm_oldProcessStyleValue, dist_emotion_serialize_browser_esm_contentValues, dist_emotion_serialize_browser_esm_contentValuePattern; }
-
-function dist_emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, interpolation) {
-  if (interpolation == null) {
-    return '';
-  }
-
-  if (interpolation.__emotion_styles !== undefined) {
-    if (false) {}
-
-    return interpolation;
-  }
-
-  switch (typeof interpolation) {
-    case 'boolean':
-      {
-        return '';
-      }
-
-    case 'object':
-      {
-        if (interpolation.anim === 1) {
-          dist_emotion_serialize_browser_esm_cursor = {
-            name: interpolation.name,
-            styles: interpolation.styles,
-            next: dist_emotion_serialize_browser_esm_cursor
-          };
-          return interpolation.name;
-        }
-
-        if (interpolation.styles !== undefined) {
-          var next = interpolation.next;
-
-          if (next !== undefined) {
-            // not the most efficient thing ever but this is a pretty rare case
-            // and there will be very few iterations of this generally
-            while (next !== undefined) {
-              dist_emotion_serialize_browser_esm_cursor = {
-                name: next.name,
-                styles: next.styles,
-                next: dist_emotion_serialize_browser_esm_cursor
-              };
-              next = next.next;
-            }
-          }
-
-          var styles = interpolation.styles + ";";
-
-          if (false) {}
-
-          return styles;
-        }
-
-        return dist_emotion_serialize_browser_esm_createStringFromObject(mergedProps, registered, interpolation);
-      }
-
-    case 'function':
-      {
-        if (mergedProps !== undefined) {
-          var previousCursor = dist_emotion_serialize_browser_esm_cursor;
-          var result = interpolation(mergedProps);
-          dist_emotion_serialize_browser_esm_cursor = previousCursor;
-          return dist_emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, result);
-        } else if (false) {}
-
-        break;
-      }
-
-    case 'string':
-      if (false) { var replaced, matched; }
-
-      break;
-  } // finalize string values (regular strings and functions interpolated into css calls)
-
-
-  if (registered == null) {
-    return interpolation;
-  }
-
-  var cached = registered[interpolation];
-  return cached !== undefined ? cached : interpolation;
-}
-
-function dist_emotion_serialize_browser_esm_createStringFromObject(mergedProps, registered, obj) {
-  var string = '';
-
-  if (Array.isArray(obj)) {
-    for (var i = 0; i < obj.length; i++) {
-      string += dist_emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, obj[i]) + ";";
-    }
-  } else {
-    for (var _key in obj) {
-      var value = obj[_key];
-
-      if (typeof value !== 'object') {
-        if (registered != null && registered[value] !== undefined) {
-          string += _key + "{" + registered[value] + "}";
-        } else if (dist_emotion_serialize_browser_esm_isProcessableValue(value)) {
-          string += dist_emotion_serialize_browser_esm_processStyleName(_key) + ":" + dist_emotion_serialize_browser_esm_processStyleValue(_key, value) + ";";
-        }
-      } else {
-        if (_key === 'NO_COMPONENT_SELECTOR' && "production" !== 'production') {
-          throw new Error('Component selectors can only be used in conjunction with @emotion/babel-plugin.');
-        }
-
-        if (Array.isArray(value) && typeof value[0] === 'string' && (registered == null || registered[value[0]] === undefined)) {
-          for (var _i = 0; _i < value.length; _i++) {
-            if (dist_emotion_serialize_browser_esm_isProcessableValue(value[_i])) {
-              string += dist_emotion_serialize_browser_esm_processStyleName(_key) + ":" + dist_emotion_serialize_browser_esm_processStyleValue(_key, value[_i]) + ";";
-            }
-          }
-        } else {
-          var interpolated = dist_emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, value);
-
-          switch (_key) {
-            case 'animation':
-            case 'animationName':
-              {
-                string += dist_emotion_serialize_browser_esm_processStyleName(_key) + ":" + interpolated + ";";
-                break;
-              }
-
-            default:
-              {
-                if (false) {}
-
-                string += _key + "{" + interpolated + "}";
-              }
-          }
-        }
-      }
-    }
-  }
-
-  return string;
-}
-
-var dist_emotion_serialize_browser_esm_labelPattern = /label:\s*([^\s;\n{]+)\s*(;|$)/g;
-var dist_emotion_serialize_browser_esm_sourceMapPattern;
-
-if (false) {} // this is the cursor for keyframes
-// keyframes are stored on the SerializedStyles object as a linked list
-
-
-var dist_emotion_serialize_browser_esm_cursor;
-var serialize_dist_emotion_serialize_browser_esm_serializeStyles = function serializeStyles(args, registered, mergedProps) {
-  if (args.length === 1 && typeof args[0] === 'object' && args[0] !== null && args[0].styles !== undefined) {
-    return args[0];
-  }
-
-  var stringMode = true;
-  var styles = '';
-  dist_emotion_serialize_browser_esm_cursor = undefined;
-  var strings = args[0];
-
-  if (strings == null || strings.raw === undefined) {
-    stringMode = false;
-    styles += dist_emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, strings);
-  } else {
-    if (false) {}
-
-    styles += strings[0];
-  } // we start at 1 since we've already handled the first arg
-
-
-  for (var i = 1; i < args.length; i++) {
-    styles += dist_emotion_serialize_browser_esm_handleInterpolation(mergedProps, registered, args[i]);
-
-    if (stringMode) {
-      if (false) {}
-
-      styles += strings[i];
-    }
-  }
-
-  var sourceMap;
-
-  if (false) {} // using a global regex with .exec is stateful so lastIndex has to be reset each time
-
-
-  dist_emotion_serialize_browser_esm_labelPattern.lastIndex = 0;
-  var identifierName = '';
-  var match; // https://esbench.com/bench/5b809c2cf2949800a0f61fb5
-
-  while ((match = dist_emotion_serialize_browser_esm_labelPattern.exec(styles)) !== null) {
-    identifierName += '-' + // $FlowFixMe we know it's not null
-    match[1];
-  }
-
-  var name = hash_browser_esm(styles) + identifierName;
-
-  if (false) {}
-
-  return {
-    name: name,
-    styles: styles,
-    next: dist_emotion_serialize_browser_esm_cursor
-  };
-};
-
-
 
 ;// CONCATENATED MODULE: ./node_modules/@emotion/styled/base/dist/emotion-styled-base.browser.esm.js
 
@@ -20705,6 +20275,10 @@ var composeShouldForwardProps = function composeShouldForwardProps(tag, options,
 };
 
 var emotion_styled_base_browser_esm_ILLEGAL_ESCAPE_SEQUENCE_ERROR = "You have illegal escape sequence in your template literal, most likely inside content's property value.\nBecause you write your CSS inside a JavaScript string you actually have to do double escaping, so for example \"content: '\\00d7';\" should become \"content: '\\\\00d7';\".\nYou can read more about this here:\nhttps://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#ES2018_revision_of_illegal_escape_sequences";
+
+var emotion_styled_base_browser_esm_Noop = function Noop() {
+  return null;
+};
 
 var createStyled = function createStyled(tag, options) {
   if (false) {}
@@ -20747,7 +20321,7 @@ var createStyled = function createStyled(tag, options) {
     } // $FlowFixMe: we need to cast StatelessFunctionalComponent to our PrivateStyledComponent class
 
 
-    var Styled = emotion_element_99289b21_browser_esm_withEmotionCache(function (props, cache, ref) {
+    var Styled = emotion_element_699e6908_browser_esm_withEmotionCache(function (props, cache, ref) {
       var finalTag = shouldUseAs && props.as || baseTag;
       var className = '';
       var classInterpolations = [];
@@ -20760,7 +20334,7 @@ var createStyled = function createStyled(tag, options) {
           mergedProps[key] = props[key];
         }
 
-        mergedProps.theme = (0,external_React_.useContext)(emotion_element_99289b21_browser_esm_ThemeContext);
+        mergedProps.theme = (0,external_React_.useContext)(emotion_element_699e6908_browser_esm_ThemeContext);
       }
 
       if (typeof props.className === 'string') {
@@ -20769,7 +20343,7 @@ var createStyled = function createStyled(tag, options) {
         className = props.className + " ";
       }
 
-      var serialized = serialize_dist_emotion_serialize_browser_esm_serializeStyles(styles.concat(classInterpolations), cache.registered, mergedProps);
+      var serialized = emotion_serialize_browser_esm_serializeStyles(styles.concat(classInterpolations), cache.registered, mergedProps);
       var rules = emotion_utils_browser_esm_insertStyles(cache, serialized, typeof finalTag === 'string');
       className += cache.key + "-" + serialized.name;
 
@@ -20792,8 +20366,10 @@ var createStyled = function createStyled(tag, options) {
       newProps.className = className;
       newProps.ref = ref;
       var ele = /*#__PURE__*/(0,external_React_.createElement)(finalTag, newProps);
+      var possiblyStyleElement = /*#__PURE__*/(0,external_React_.createElement)(emotion_styled_base_browser_esm_Noop, null);
 
-      return ele;
+
+      return /*#__PURE__*/(0,external_React_.createElement)(external_React_.Fragment, null, possiblyStyleElement, ele);
     });
     Styled.displayName = identifierName !== undefined ? identifierName : "Styled(" + (typeof baseTag === 'string' ? baseTag : baseTag.displayName || baseTag.name || 'Component') + ")";
     Styled.defaultProps = tag.defaultProps;
@@ -20803,9 +20379,7 @@ var createStyled = function createStyled(tag, options) {
     Styled.__emotion_forwardProp = shouldForwardProp;
     Object.defineProperty(Styled, 'toString', {
       value: function value() {
-        if (targetClassName === undefined && "production" !== 'production') {
-          return 'NO_COMPONENT_SELECTOR';
-        } // $FlowFixMe: coerce undefined to string
+        if (targetClassName === undefined && "production" !== 'production') {} // $FlowFixMe: coerce undefined to string
 
 
         return "." + targetClassName;
@@ -21402,7 +20976,7 @@ const slot_fill_context_SlotFillContext = (0,external_wp_element_namespaceObject
   slots: {},
   fills: {},
   registerSlot: () => {
-    typeof process !== "undefined" && process.env && "production" !== "production" ? external_wp_warning_default()('Components must be wrapped within `SlotFillProvider`. ' + 'See https://developer.wordpress.org/block-editor/components/slot-fill/') : void 0;
+    typeof process !== "undefined" && process.env && "production" !== "production" ? 0 : void 0;
   },
   updateSlot: () => {},
   unregisterSlot: () => {},
@@ -22763,7 +22337,7 @@ var hoist_non_react_statics_cjs = __webpack_require__(8679);
 
 var pkg = {
 	name: "@emotion/react",
-	version: "11.4.1",
+	version: "11.7.1",
 	main: "dist/emotion-react.cjs.js",
 	module: "dist/emotion-react.esm.js",
 	browser: {
@@ -22776,7 +22350,7 @@ var pkg = {
 		"dist",
 		"jsx-runtime",
 		"jsx-dev-runtime",
-		"isolated-hoist-non-react-statics-do-not-use-this-in-your-code",
+		"_isolated-hnrs",
 		"types/*.d.ts",
 		"macro.js",
 		"macro.d.ts",
@@ -22790,9 +22364,9 @@ var pkg = {
 	},
 	dependencies: {
 		"@babel/runtime": "^7.13.10",
-		"@emotion/cache": "^11.4.0",
+		"@emotion/cache": "^11.7.1",
 		"@emotion/serialize": "^1.0.2",
-		"@emotion/sheet": "^1.0.2",
+		"@emotion/sheet": "^1.1.0",
 		"@emotion/utils": "^1.0.0",
 		"@emotion/weak-memoize": "^0.2.5",
 		"hoist-non-react-statics": "^3.3.1"
@@ -22811,10 +22385,10 @@ var pkg = {
 	},
 	devDependencies: {
 		"@babel/core": "^7.13.10",
-		"@emotion/css": "11.1.3",
-		"@emotion/css-prettifier": "1.0.0",
+		"@emotion/css": "11.7.1",
+		"@emotion/css-prettifier": "1.0.1",
 		"@emotion/server": "11.4.0",
-		"@emotion/styled": "11.3.0",
+		"@emotion/styled": "11.6.0",
 		"@types/react": "^16.9.11",
 		dtslint: "^0.3.0",
 		"html-tag-names": "^1.1.2",
@@ -22831,7 +22405,7 @@ var pkg = {
 			"./index.js",
 			"./jsx-runtime.js",
 			"./jsx-dev-runtime.js",
-			"./isolated-hoist-non-react-statics-do-not-use-this-in-your-code.js"
+			"./_isolated-hnrs.js"
 		],
 		umdName: "emotionReact"
 	}
@@ -23012,13 +22586,15 @@ function emotion_react_browser_esm_merge(registered, css, className) {
   return rawClassName + css(registeredStyles);
 }
 
+var emotion_react_browser_esm_Noop = function Noop() {
+  return null;
+};
+
 var ClassNames = /* #__PURE__ */(/* unused pure expression or super */ null && (withEmotionCache(function (props, cache) {
   var hasRendered = false;
 
   var css = function css() {
-    if (hasRendered && "production" !== 'production') {
-      throw new Error('css can only be used during render');
-    }
+    if (hasRendered && "production" !== 'production') {}
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
@@ -23034,9 +22610,7 @@ var ClassNames = /* #__PURE__ */(/* unused pure expression or super */ null && (
   };
 
   var cx = function cx() {
-    if (hasRendered && "production" !== 'production') {
-      throw new Error('cx can only be used during render');
-    }
+    if (hasRendered && "production" !== 'production') {}
 
     for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
       args[_key2] = arguments[_key2];
@@ -23052,8 +22626,10 @@ var ClassNames = /* #__PURE__ */(/* unused pure expression or super */ null && (
   };
   var ele = props.children(content);
   hasRendered = true;
+  var possiblyStyleElement = /*#__PURE__*/createElement(emotion_react_browser_esm_Noop, null);
 
-  return ele;
+
+  return /*#__PURE__*/createElement(Fragment, null, possiblyStyleElement, ele);
 })));
 
 if (false) {}
@@ -26913,7 +26489,7 @@ var shouldForward = function (key) { return !isValidMotionProp(key); };
  * actually required.
  */
 try {
-    var emotionIsPropValid_1 = __webpack_require__(7395)/* .default */ .Z;
+    var emotionIsPropValid_1 = (__webpack_require__(3804)/* ["default"] */ .Z);
     shouldForward = function (key) {
         // Handle events explicitly as Emotion validates them all as true
         if (key.startsWith("on")) {
@@ -43123,11 +42699,15 @@ const borderless =  true ? {
   styles: "border:none"
 } : 0;
 const rounded = /*#__PURE__*/emotion_react_browser_esm_css("border-radius:", config_values.cardBorderRadius, ";" + ( true ? "" : 0),  true ? "" : 0);
+const xSmallCardPadding = /*#__PURE__*/emotion_react_browser_esm_css("padding:", config_values.cardPaddingXSmall, ";" + ( true ? "" : 0),  true ? "" : 0);
 const cardPaddings = {
   large: /*#__PURE__*/emotion_react_browser_esm_css("padding:", config_values.cardPaddingLarge, ";" + ( true ? "" : 0),  true ? "" : 0),
   medium: /*#__PURE__*/emotion_react_browser_esm_css("padding:", config_values.cardPaddingMedium, ";" + ( true ? "" : 0),  true ? "" : 0),
   small: /*#__PURE__*/emotion_react_browser_esm_css("padding:", config_values.cardPaddingSmall, ";" + ( true ? "" : 0),  true ? "" : 0),
-  xSmall: /*#__PURE__*/emotion_react_browser_esm_css("padding:", config_values.cardPaddingXSmall, ";" + ( true ? "" : 0),  true ? "" : 0)
+  xSmall: xSmallCardPadding,
+  // The `extraSmall` size is not officially documented, but the following styles
+  // are kept for legacy reasons to support older values of the `size` prop.
+  extraSmall: xSmallCardPadding
 };
 const shady = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", COLORS.lightGray[200], ";" + ( true ? "" : 0),  true ? "" : 0);
 //# sourceMappingURL=styles.js.map
@@ -44191,7 +43771,7 @@ function CheckboxControl(_ref) {
   if (heading) {
     external_wp_deprecated_default()('`heading` prop in `CheckboxControl`', {
       alternative: 'a separate element to implement a heading',
-      plugin: 'Gutenberg'
+      since: '5.8'
     });
   }
 
@@ -44256,8 +43836,7 @@ function ClipboardButton(_ref) {
     ...buttonProps
   } = _ref;
   external_wp_deprecated_default()('wp.components.ClipboardButton', {
-    since: '10.3',
-    plugin: 'Gutenberg',
+    since: '5.8',
     alternative: 'wp.compose.useCopyToClipboard'
   });
   const timeoutId = (0,external_wp_element_namespaceObject.useRef)();
@@ -47732,15 +47311,7 @@ function useDisclosureState(initialState) {
       };
     }
 
-    if (animated && animating && "production" === "development") {
-      var _timeout = setTimeout(function () {
-         false ? 0 : void 0;
-      }, 8000);
-
-      return function () {
-        clearTimeout(_timeout);
-      };
-    }
+    if (animated && animating && "production" === "development") { var _timeout; }
 
     return function () {};
   }, [animated, animating]);
@@ -49844,11 +49415,286 @@ CircularOptionPicker.Option = Option;
 CircularOptionPicker.ButtonAction = ButtonAction;
 CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
+var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/heading/hook.js
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function useHeading(props) {
+  const {
+    as: asProp,
+    level = 2,
+    ...otherProps
+  } = useContextSystem(props, 'Heading');
+  const as = asProp || `h${level}`;
+  const a11yProps = {};
+
+  if (typeof as === 'string' && as[0] !== 'h') {
+    // if not a semantic `h` element, add a11y props:
+    a11yProps.role = 'heading';
+    a11yProps['aria-level'] = typeof level === 'string' ? parseInt(level) : level;
+  }
+
+  const textProps = useText({
+    color: COLORS.darkGray.heading,
+    size: getHeadingFontSize(level),
+    isBlock: true,
+    weight: config_values.fontWeightHeading,
+    ...otherProps
+  });
+  return { ...textProps,
+    ...a11yProps,
+    as
+  };
+}
+//# sourceMappingURL=hook.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/heading/component.js
+
+
+
+/**
+ * External dependencies
+ */
+// eslint-disable-next-line no-restricted-imports
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function Heading(props, forwardedRef) {
+  const headerProps = useHeading(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, headerProps, {
+    ref: forwardedRef
+  }));
+}
+/**
+ * `Heading` renders headings and titles using the library's typography system.
+ *
+ * @example
+ * ```jsx
+ * import { Heading } from `@wordpress/components`
+ *
+ * function Example() {
+ *   return <Heading>Code is Poetry</Heading>;
+ * }
+ * ```
+ */
+
+
+const ConnectedHeading = contextConnect(Heading, 'Heading');
+/* harmony default export */ var heading_component = (ConnectedHeading);
+//# sourceMappingURL=component.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/styles.js
+
+
+function color_palette_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+const ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_component,  true ? {
+  target: "e1uu5br00"
+} : 0)( true ? {
+  name: "13lxv2o",
+  styles: "text-transform:uppercase;line-height:24px;font-weight:500;&&&{font-size:11px;margin-bottom:0;}"
+} : 0);
+//# sourceMappingURL=styles.js.map
+;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/index.js
+
+
+
+/**
+ * External dependencies
+ */
+
+
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+k([names, a11y]);
+
+function SinglePalette(_ref) {
+  let {
+    className,
+    clearColor,
+    colors,
+    onChange,
+    value,
+    actions
+  } = _ref;
+  const colorOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return (0,external_lodash_namespaceObject.map)(colors, _ref2 => {
+      let {
+        color,
+        name
+      } = _ref2;
+      const colordColor = w(color);
+      return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
+        key: color,
+        isSelected: value === color,
+        selectedIconProps: value === color ? {
+          fill: colordColor.contrast() > colordColor.contrast('#000') ? '#fff' : '#000'
+        } : {},
+        tooltipText: name || // translators: %s: color hex code e.g: "#f00".
+        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Color code: %s'), color),
+        style: {
+          backgroundColor: color,
+          color
+        },
+        onClick: value === color ? clearColor : () => onChange(color),
+        "aria-label": name ? // translators: %s: The name of the color e.g: "vivid red".
+        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Color: %s'), name) : // translators: %s: color hex code e.g: "#f00".
+        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Color code: %s'), color)
+      });
+    });
+  }, [colors, value, onChange, clearColor]);
+  return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
+    className: className,
+    options: colorOptions,
+    actions: actions
+  });
+}
+
+function MultiplePalettes(_ref3) {
+  let {
+    className,
+    clearColor,
+    colors,
+    onChange,
+    value,
+    actions
+  } = _ref3;
+  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: 3,
+    className: className
+  }, colors.map((_ref4, index) => {
+    let {
+      name,
+      colors: colorPalette
+    } = _ref4;
+    return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+      spacing: 2,
+      key: index
+    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, null, name), (0,external_wp_element_namespaceObject.createElement)(SinglePalette, {
+      clearColor: clearColor,
+      colors: colorPalette,
+      onChange: onChange,
+      value: value,
+      actions: colors.length === index + 1 ? actions : null
+    }));
+  }));
+}
+
+function CustomColorPickerDropdown(_ref5) {
+  let {
+    isRenderedInSidebar,
+    ...props
+  } = _ref5;
+  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, extends_extends({
+    contentClassName: classnames_default()('components-color-palette__custom-color-dropdown-content', {
+      'is-rendered-in-sidebar': isRenderedInSidebar
+    })
+  }, props));
+}
+function ColorPalette(_ref6) {
+  let {
+    clearable = true,
+    className,
+    colors,
+    disableCustomColors = false,
+    enableAlpha,
+    onChange,
+    value,
+    __experimentalHasMultipleOrigins = false,
+    __experimentalIsRenderedInSidebar = false
+  } = _ref6;
+  const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
+  const Component = __experimentalHasMultipleOrigins ? MultiplePalettes : SinglePalette;
+
+  const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+    color: value,
+    onChange: color => onChange(color),
+    enableAlpha: enableAlpha
+  });
+
+  let dropdownPosition;
+  let popoverProps;
+
+  if (__experimentalIsRenderedInSidebar) {
+    dropdownPosition = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
+    popoverProps = {
+      __unstableForcePosition: true
+    };
+  }
+
+  const colordColor = w(value);
+  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: 3,
+    className: className
+  }, !disableCustomColors && (0,external_wp_element_namespaceObject.createElement)(CustomColorPickerDropdown, {
+    position: dropdownPosition,
+    isRenderedInSidebar: __experimentalIsRenderedInSidebar,
+    renderContent: renderCustomColorPicker,
+    popoverProps: popoverProps,
+    renderToggle: _ref7 => {
+      let {
+        isOpen,
+        onToggle
+      } = _ref7;
+      return (0,external_wp_element_namespaceObject.createElement)("button", {
+        className: "components-color-palette__custom-color",
+        "aria-expanded": isOpen,
+        "aria-haspopup": "true",
+        onClick: onToggle,
+        "aria-label": (0,external_wp_i18n_namespaceObject.__)('Custom color picker'),
+        style: {
+          background: value,
+          color: colordColor.contrast() > colordColor.contrast('#000') ? '#fff' : '#000'
+        }
+      }, value);
+    }
+  }), (0,external_wp_element_namespaceObject.createElement)(Component, {
+    clearable: clearable,
+    clearColor: clearColor,
+    colors: colors,
+    onChange: onChange,
+    value: value,
+    actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
+      onClick: clearColor
+    }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
+  }));
+}
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/constants.js
-const COLOR_POPOVER_PROPS = {
-  className: 'components-custom-gradient-picker__color-picker-popover',
-  position: 'top'
-};
 const GRADIENT_MARKERS_WIDTH = 16;
 const INSERT_POINT_WIDTH = 16;
 const MINIMUM_ABSOLUTE_LEFT_POSITION = 5;
@@ -50093,7 +49939,33 @@ function ControlPointButton(_ref) {
   }, (0,external_wp_i18n_namespaceObject.__)('Use your left or right arrow keys or drag and drop with the mouse to change the gradient position. Press the button to change the color or remove the control point.')));
 }
 
-function ControlPoints(_ref2) {
+function GradientColorPickerDropdown(_ref2) {
+  let {
+    isRenderedInSidebar,
+    gradientPickerDomRef,
+    ...props
+  } = _ref2;
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const result = {
+      className: 'components-custom-gradient-picker__color-picker-popover',
+      position: 'top'
+    };
+
+    if (isRenderedInSidebar) {
+      result.anchorRef = gradientPickerDomRef.current;
+      result.position = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
+      result.__unstableForcePosition = true;
+    }
+
+    return result;
+  }, [gradientPickerDomRef.current, isRenderedInSidebar]);
+  return (0,external_wp_element_namespaceObject.createElement)(CustomColorPickerDropdown, extends_extends({
+    isRenderedInSidebar: isRenderedInSidebar,
+    popoverProps: popoverProps
+  }, props));
+}
+
+function ControlPoints(_ref3) {
   let {
     disableRemove,
     disableAlpha,
@@ -50102,8 +49974,9 @@ function ControlPoints(_ref2) {
     value: controlPoints,
     onChange,
     onStartControlPointChange,
-    onStopControlPointChange
-  } = _ref2;
+    onStopControlPointChange,
+    __experimentalIsRenderedInSidebar
+  } = _ref3;
   const controlPointMoveState = (0,external_wp_element_namespaceObject.useRef)();
 
   const onMouseMove = event => {
@@ -50137,14 +50010,16 @@ function ControlPoints(_ref2) {
   }, []);
   return controlPoints.map((point, index) => {
     const initialPosition = point === null || point === void 0 ? void 0 : point.position;
-    return ignoreMarkerPosition !== initialPosition && (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+    return ignoreMarkerPosition !== initialPosition && (0,external_wp_element_namespaceObject.createElement)(GradientColorPickerDropdown, {
+      gradientPickerDomRef: gradientPickerDomRef,
+      isRenderedInSidebar: __experimentalIsRenderedInSidebar,
       key: index,
       onClose: onStopControlPointChange,
-      renderToggle: _ref3 => {
+      renderToggle: _ref4 => {
         let {
           isOpen,
           onToggle
-        } = _ref3;
+        } = _ref4;
         return (0,external_wp_element_namespaceObject.createElement)(ControlPointButton, {
           key: index,
           onClick: () => {
@@ -50191,17 +50066,17 @@ function ControlPoints(_ref2) {
           color: point.color
         });
       },
-      renderContent: _ref4 => {
+      renderContent: _ref5 => {
         let {
           onClose
-        } = _ref4;
+        } = _ref5;
         return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
           enableAlpha: !disableAlpha,
           color: point.color,
           onChange: color => {
             onChange(updateControlPointColor(controlPoints, index, w(color).toRgbString()));
           }
-        }), !disableRemove && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+        }), !disableRemove && controlPoints.length > 2 && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
           className: "components-custom-gradient-picker__remove-control-point",
           onClick: () => {
             onChange(removeControlPoint(controlPoints, index));
@@ -50209,32 +50084,35 @@ function ControlPoints(_ref2) {
           },
           variant: "link"
         }, (0,external_wp_i18n_namespaceObject.__)('Remove Control Point')));
-      },
-      popoverProps: COLOR_POPOVER_PROPS
+      }
     });
   });
 }
 
-function InsertPoint(_ref5) {
+function InsertPoint(_ref6) {
   let {
     value: controlPoints,
     onChange,
     onOpenInserter,
     onCloseInserter,
     insertPosition,
-    disableAlpha
-  } = _ref5;
+    disableAlpha,
+    __experimentalIsRenderedInSidebar,
+    gradientPickerDomRef
+  } = _ref6;
   const [alreadyInsertedPoint, setAlreadyInsertedPoint] = (0,external_wp_element_namespaceObject.useState)(false);
-  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+  return (0,external_wp_element_namespaceObject.createElement)(GradientColorPickerDropdown, {
+    gradientPickerDomRef: gradientPickerDomRef,
+    isRenderedInSidebar: __experimentalIsRenderedInSidebar,
     className: "components-custom-gradient-picker__inserter",
     onClose: () => {
       onCloseInserter();
     },
-    renderToggle: _ref6 => {
+    renderToggle: _ref7 => {
       let {
         isOpen,
         onToggle
-      } = _ref6;
+      } = _ref7;
       return (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
         "aria-expanded": isOpen,
         "aria-haspopup": "true",
@@ -50265,8 +50143,7 @@ function InsertPoint(_ref5) {
           onChange(updateControlPointColorByPosition(controlPoints, insertPosition, w(color).toRgbString()));
         }
       }
-    }),
-    popoverProps: COLOR_POPOVER_PROPS
+    })
   });
 }
 
@@ -50366,7 +50243,8 @@ function CustomGradientBar(_ref) {
     value: controlPoints,
     onChange,
     disableInserter = false,
-    disableAlpha = false
+    disableAlpha = false,
+    __experimentalIsRenderedInSidebar
   } = _ref;
   const gradientPickerDomRef = (0,external_wp_element_namespaceObject.useRef)();
   const [gradientBarState, gradientBarStateDispatch] = (0,external_wp_element_namespaceObject.useReducer)(customGradientBarReducer, customGradientBarReducerInitialState);
@@ -50417,6 +50295,8 @@ function CustomGradientBar(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-custom-gradient-picker__markers-container"
   }, !disableInserter && (isMovingInserter || isInsertingControlPoint) && (0,external_wp_element_namespaceObject.createElement)(control_points.InsertPoint, {
+    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
+    gradientPickerDomRef: gradientPickerDomRef,
     disableAlpha: disableAlpha,
     insertPosition: gradientBarState.insertPosition,
     value: controlPoints,
@@ -50432,6 +50312,7 @@ function CustomGradientBar(_ref) {
       });
     }
   }), (0,external_wp_element_namespaceObject.createElement)(control_points, {
+    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
     disableAlpha: disableAlpha,
     disableRemove: disableInserter,
     gradientPickerDomRef: gradientPickerDomRef,
@@ -50778,7 +50659,8 @@ const GradientTypePicker = _ref2 => {
 function CustomGradientPicker(_ref3) {
   let {
     value,
-    onChange
+    onChange,
+    __experimentalIsRenderedInSidebar
   } = _ref3;
   const gradientAST = getGradientAstWithDefault(value); // On radial gradients the bar should display a linear gradient.
   // On radial gradients the bar represents a slice of the gradient from the center until the outside.
@@ -50795,6 +50677,7 @@ function CustomGradientPicker(_ref3) {
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-custom-gradient-picker"
   }, (0,external_wp_element_namespaceObject.createElement)(CustomGradientBar, {
+    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
     background: background,
     hasGradient: hasGradient,
     value: controlPoints,
@@ -50815,101 +50698,6 @@ function CustomGradientPicker(_ref3) {
   }))));
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/heading/hook.js
-/**
- * Internal dependencies
- */
-
-
-
-
-function useHeading(props) {
-  const {
-    as: asProp,
-    level = 2,
-    ...otherProps
-  } = useContextSystem(props, 'Heading');
-  const as = asProp || `h${level}`;
-  const a11yProps = {};
-
-  if (typeof as === 'string' && as[0] !== 'h') {
-    // if not a semantic `h` element, add a11y props:
-    a11yProps.role = 'heading';
-    a11yProps['aria-level'] = typeof level === 'string' ? parseInt(level) : level;
-  }
-
-  const textProps = useText({
-    color: COLORS.darkGray.heading,
-    size: getHeadingFontSize(level),
-    isBlock: true,
-    weight: config_values.fontWeightHeading,
-    ...otherProps
-  });
-  return { ...textProps,
-    ...a11yProps,
-    as
-  };
-}
-//# sourceMappingURL=hook.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/heading/component.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * Internal dependencies
- */
-
-
-
-
-function Heading(props, forwardedRef) {
-  const headerProps = useHeading(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, headerProps, {
-    ref: forwardedRef
-  }));
-}
-/**
- * `Heading` renders headings and titles using the library's typography system.
- *
- * @example
- * ```jsx
- * import { Heading } from `@wordpress/components`
- *
- * function Example() {
- *   return <Heading>Code is Poetry</Heading>;
- * }
- * ```
- */
-
-
-const ConnectedHeading = contextConnect(Heading, 'Heading');
-/* harmony default export */ var heading_component = (ConnectedHeading);
-//# sourceMappingURL=component.js.map
-;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/styles.js
-
-
-function color_palette_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-const ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_component,  true ? {
-  target: "e1uu5br00"
-} : 0)( true ? {
-  name: "13lxv2o",
-  styles: "text-transform:uppercase;line-height:24px;font-weight:500;&&&{font-size:11px;margin-bottom:0;}"
-} : 0);
-//# sourceMappingURL=styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/gradient-picker/index.js
 
 
@@ -51014,10 +50802,11 @@ function GradientPicker(_ref5) {
     value,
     clearable = true,
     disableCustomGradients = false,
-    __experimentalHasMultipleOrigins
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar
   } = _ref5;
   const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const Component = __experimentalHasMultipleOrigins ? MultipleOrigin : SingleOrigin;
+  const Component = __experimentalHasMultipleOrigins && gradients !== null && gradients !== void 0 && gradients.length ? MultipleOrigin : SingleOrigin;
   return (0,external_wp_element_namespaceObject.createElement)(Component, {
     className: className,
     clearable: clearable,
@@ -51025,174 +50814,15 @@ function GradientPicker(_ref5) {
     gradients: gradients,
     onChange: onChange,
     value: value,
-    actions: clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
+    actions: clearable && ((gradients === null || gradients === void 0 ? void 0 : gradients.length) || !disableCustomGradients) && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
       onClick: clearGradient
     }, (0,external_wp_i18n_namespaceObject.__)('Clear')),
     content: !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
+      __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
       value: value,
       onChange: onChange
     })
   });
-}
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
-var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/index.js
-
-
-/**
- * External dependencies
- */
-
-
-
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-k([names, a11y]);
-
-function SinglePalette(_ref) {
-  let {
-    className,
-    clearColor,
-    colors,
-    onChange,
-    value,
-    actions
-  } = _ref;
-  const colorOptions = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return (0,external_lodash_namespaceObject.map)(colors, _ref2 => {
-      let {
-        color,
-        name
-      } = _ref2;
-      const colordColor = w(color);
-      return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
-        key: color,
-        isSelected: value === color,
-        selectedIconProps: value === color ? {
-          fill: colordColor.contrast() > colordColor.contrast('#000') ? '#fff' : '#000'
-        } : {},
-        tooltipText: name || // translators: %s: color hex code e.g: "#f00".
-        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Color code: %s'), color),
-        style: {
-          backgroundColor: color,
-          color
-        },
-        onClick: value === color ? clearColor : () => onChange(color),
-        "aria-label": name ? // translators: %s: The name of the color e.g: "vivid red".
-        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Color: %s'), name) : // translators: %s: color hex code e.g: "#f00".
-        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('Color code: %s'), color)
-      });
-    });
-  }, [colors, value, onChange, clearColor]);
-  return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
-    className: className,
-    options: colorOptions,
-    actions: actions
-  });
-}
-
-function MultiplePalettes(_ref3) {
-  let {
-    className,
-    clearColor,
-    colors,
-    onChange,
-    value,
-    actions
-  } = _ref3;
-  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
-    spacing: 3,
-    className: className
-  }, colors.map((_ref4, index) => {
-    let {
-      name,
-      colors: colorPalette
-    } = _ref4;
-    return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
-      spacing: 2,
-      key: index
-    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, null, name), (0,external_wp_element_namespaceObject.createElement)(SinglePalette, {
-      clearColor: clearColor,
-      colors: colorPalette,
-      onChange: onChange,
-      value: value,
-      actions: colors.length === index + 1 ? actions : null
-    }));
-  }));
-}
-
-function ColorPalette(_ref5) {
-  let {
-    clearable = true,
-    className,
-    colors,
-    disableCustomColors = false,
-    enableAlpha,
-    onChange,
-    value,
-    __experimentalHasMultipleOrigins = false,
-    __experimentalIsRenderedInSidebar = false
-  } = _ref5;
-  const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const Component = __experimentalHasMultipleOrigins ? MultiplePalettes : SinglePalette;
-
-  const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
-    color: value,
-    onChange: color => onChange(color),
-    enableAlpha: enableAlpha
-  });
-
-  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
-    spacing: 3,
-    className: className
-  }, !disableCustomColors && (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
-    contentClassName: classnames_default()('components-color-palette__custom-color-dropdown-content', {
-      'is-rendered-in-sidebar': __experimentalIsRenderedInSidebar
-    }),
-    renderContent: renderCustomColorPicker,
-    renderToggle: _ref6 => {
-      let {
-        isOpen,
-        onToggle
-      } = _ref6;
-      return (0,external_wp_element_namespaceObject.createElement)("button", {
-        className: "components-color-palette__custom-color",
-        "aria-expanded": isOpen,
-        "aria-haspopup": "true",
-        onClick: onToggle,
-        "aria-label": (0,external_wp_i18n_namespaceObject.__)('Custom color picker'),
-        style: {
-          background: value
-        }
-      }, value);
-    }
-  }), (0,external_wp_element_namespaceObject.createElement)(Component, {
-    clearable: clearable,
-    clearColor: clearColor,
-    colors: colors,
-    onChange: onChange,
-    value: value,
-    actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
-      onClick: clearColor
-    }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
-  }));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/menu.js
@@ -51828,6 +51458,7 @@ function palette_edit_Option(_ref2) {
       color: newColor
     })
   }), isGradient && (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
+    __experimentalIsRenderedInSidebar: true,
     value: value,
     onChange: newGradient => onChange({ ...element,
       gradient: newGradient
@@ -51958,15 +51589,7 @@ function PaletteEdit(_ref6) {
       setIsEditing(true);
       setEditingElement(elements.length);
     }
-  }), !isEditing && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    disabled: !hasElements,
-    isSmall: true,
-    icon: more_vertical,
-    label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Edit gradients') : (0,external_wp_i18n_namespaceObject.__)('Edit colors'),
-    onClick: () => {
-      setIsEditing(true);
-    }
-  }), isEditing && (canReset || !canOnlyChangeValues) && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
+  }), hasElements && (canReset || !canOnlyChangeValues) && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
     icon: more_vertical,
     label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Gradient options') : (0,external_wp_i18n_namespaceObject.__)('Color options'),
     toggleProps: {
@@ -51978,14 +51601,23 @@ function PaletteEdit(_ref6) {
     } = _ref7;
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, {
       role: "menu"
-    }, !canOnlyChangeValues && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+      variant: "tertiary",
+      disabled: isEditing,
+      onClick: () => {
+        setIsEditing(true);
+        onClose();
+      },
+      className: "components-palette-edit__menu-button"
+    }, (0,external_wp_i18n_namespaceObject.__)('Edit custom colors')), !canOnlyChangeValues && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
       variant: "tertiary",
       onClick: () => {
         setEditingElement(null);
         setIsEditing(false);
         onChange();
         onClose();
-      }
+      },
+      className: "components-palette-edit__menu-button"
     }, isGradient ? (0,external_wp_i18n_namespaceObject.__)('Remove all gradients') : (0,external_wp_i18n_namespaceObject.__)('Remove all colors')), canReset && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
       variant: "tertiary",
       onClick: () => {
@@ -57189,10 +56821,31 @@ function CustomSelectControl(_ref3) {
 // EXTERNAL MODULE: ./node_modules/react-dates/initialize.js
 var initialize = __webpack_require__(6063);
 // EXTERNAL MODULE: external "moment"
-var external_moment_ = __webpack_require__(2470);
+var external_moment_ = __webpack_require__(6292);
 var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
 // EXTERNAL MODULE: ./node_modules/react-dates/lib/components/DayPickerSingleDateController.js
 var DayPickerSingleDateController = __webpack_require__(9368);
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/utils.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Create a Moment object from a date string. With no date supplied, default to a Moment
+ * object representing now. If a null value is passed, return a null value.
+ *
+ * @param {?string} date Date representing the currently selected date or null to signify no selection.
+ * @return {?moment.Moment} Moment object for selected date or null.
+ */
+
+const getMomentDate = date => {
+  if (null === date) {
+    return null;
+  }
+
+  return date ? external_moment_default()(date) : external_moment_default()();
+};
+//# sourceMappingURL=utils.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/date-time/date.js
 
 
@@ -57208,6 +56861,11 @@ var DayPickerSingleDateController = __webpack_require__(9368);
  * WordPress dependencies
  */
 
+
+
+/**
+ * Internal dependencies
+ */
 
 
 /**
@@ -57261,20 +56919,20 @@ function DatePickerDay(_ref) {
   }, day.format('D'));
 }
 
-class DatePicker extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.onChangeMoment = this.onChangeMoment.bind(this);
-    this.nodeRef = (0,external_wp_element_namespaceObject.createRef)();
-    this.onMonthPreviewedHandler = this.onMonthPreviewedHandler.bind(this);
-  }
+function DatePicker(_ref2) {
+  let {
+    currentDate,
+    onChange,
+    events,
+    isInvalidDate,
+    onMonthPreviewed
+  } = _ref2;
+  const nodeRef = (0,external_wp_element_namespaceObject.useRef)();
 
-  onMonthPreviewedHandler(newMonthDate) {
-    var _this$props$onMonthPr, _this$props;
-
-    (_this$props$onMonthPr = (_this$props = this.props).onMonthPreviewed) === null || _this$props$onMonthPr === void 0 ? void 0 : _this$props$onMonthPr.call(_this$props, newMonthDate.toISOString());
-    this.keepFocusInside();
-  }
+  const onMonthPreviewedHandler = newMonthDate => {
+    onMonthPreviewed === null || onMonthPreviewed === void 0 ? void 0 : onMonthPreviewed(newMonthDate.toISOString());
+    keepFocusInside();
+  };
   /*
    * Todo: We should remove this function ASAP.
    * It is kept because focus is lost when we click on the previous and next month buttons.
@@ -57283,21 +56941,21 @@ class DatePicker extends external_wp_element_namespaceObject.Component {
    */
 
 
-  keepFocusInside() {
-    if (!this.nodeRef.current) {
+  const keepFocusInside = () => {
+    if (!nodeRef.current) {
       return;
     }
 
     const {
       ownerDocument
-    } = this.nodeRef.current;
+    } = nodeRef.current;
     const {
       activeElement
     } = ownerDocument; // If focus was lost.
 
-    if (!activeElement || !this.nodeRef.current.contains(ownerDocument.activeElement)) {
+    if (!activeElement || !nodeRef.current.contains(ownerDocument.activeElement)) {
       // Retrieve the focus region div.
-      const focusRegion = this.nodeRef.current.querySelector('.DayPicker_focusRegion');
+      const focusRegion = nodeRef.current.querySelector('.DayPicker_focusRegion');
 
       if (!focusRegion) {
         return;
@@ -57306,14 +56964,10 @@ class DatePicker extends external_wp_element_namespaceObject.Component {
 
       focusRegion.focus();
     }
-  }
+  };
 
-  onChangeMoment(newDate) {
-    const {
-      currentDate,
-      onChange
-    } = this.props; // If currentDate is null, use now as momentTime to designate hours, minutes, seconds.
-
+  const onChangeMoment = newDate => {
+    // If currentDate is null, use now as momentTime to designate hours, minutes, seconds.
     const momentDate = currentDate ? external_moment_default()(currentDate) : external_moment_default()();
     const momentTime = {
       hours: momentDate.hours(),
@@ -57322,71 +56976,46 @@ class DatePicker extends external_wp_element_namespaceObject.Component {
     };
     onChange(newDate.set(momentTime).format(TIMEZONELESS_FORMAT)); // Keep focus on the date picker.
 
-    this.keepFocusInside();
-  }
-  /**
-   * Create a Moment object from a date string. With no currentDate supplied, default to a Moment
-   * object representing now. If a null value is passed, return a null value.
-   *
-   * @param {?string} currentDate Date representing the currently selected date or null to signify no selection.
-   * @return {?moment.Moment} Moment object for selected date or null.
-   */
+    keepFocusInside();
+  };
 
-
-  getMomentDate(currentDate) {
-    if (null === currentDate) {
-      return null;
-    }
-
-    return currentDate ? external_moment_default()(currentDate) : external_moment_default()();
-  }
-
-  getEventsPerDay(day) {
-    var _this$props$events;
-
-    if (!((_this$props$events = this.props.events) !== null && _this$props$events !== void 0 && _this$props$events.length)) {
+  const getEventsPerDay = day => {
+    if (!(events !== null && events !== void 0 && events.length)) {
       return [];
     }
 
-    return this.props.events.filter(eventDay => day.isSame(eventDay.date, 'day'));
-  }
+    return events.filter(eventDay => day.isSame(eventDay.date, 'day'));
+  };
 
-  render() {
-    const {
-      currentDate,
-      isInvalidDate
-    } = this.props;
-    const momentDate = this.getMomentDate(currentDate);
-    return (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "components-datetime__date",
-      ref: this.nodeRef
-    }, (0,external_wp_element_namespaceObject.createElement)(DayPickerSingleDateController/* default */.Z, {
-      date: momentDate,
-      daySize: 30,
-      focused: true,
-      hideKeyboardShortcutsPanel: true // This is a hack to force the calendar to update on month or year change
-      // https://github.com/airbnb/react-dates/issues/240#issuecomment-361776665
-      ,
-      key: `datepicker-controller-${momentDate ? momentDate.format('MM-YYYY') : 'null'}`,
-      noBorder: true,
-      numberOfMonths: 1,
-      onDateChange: this.onChangeMoment,
-      transitionDuration: 0,
-      weekDayFormat: "ddd",
-      dayAriaLabelFormat: ARIAL_LABEL_TIME_FORMAT,
-      isRTL: (0,external_wp_i18n_namespaceObject.isRTL)(),
-      isOutsideRange: date => {
-        return isInvalidDate && isInvalidDate(date.toDate());
-      },
-      onPrevMonthClick: this.onMonthPreviewedHandler,
-      onNextMonthClick: this.onMonthPreviewedHandler,
-      renderDayContents: day => (0,external_wp_element_namespaceObject.createElement)(DatePickerDay, {
-        day: day,
-        events: this.getEventsPerDay(day)
-      })
-    }));
-  }
-
+  const momentDate = getMomentDate(currentDate);
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-datetime__date",
+    ref: nodeRef
+  }, (0,external_wp_element_namespaceObject.createElement)(DayPickerSingleDateController/* default */.Z, {
+    date: momentDate,
+    daySize: 30,
+    focused: true,
+    hideKeyboardShortcutsPanel: true // This is a hack to force the calendar to update on month or year change
+    // https://github.com/airbnb/react-dates/issues/240#issuecomment-361776665
+    ,
+    key: `datepicker-controller-${momentDate ? momentDate.format('MM-YYYY') : 'null'}`,
+    noBorder: true,
+    numberOfMonths: 1,
+    onDateChange: onChangeMoment,
+    transitionDuration: 0,
+    weekDayFormat: "ddd",
+    dayAriaLabelFormat: ARIAL_LABEL_TIME_FORMAT,
+    isRTL: (0,external_wp_i18n_namespaceObject.isRTL)(),
+    isOutsideRange: date => {
+      return isInvalidDate && isInvalidDate(date.toDate());
+    },
+    onPrevMonthClick: onMonthPreviewedHandler,
+    onNextMonthClick: onMonthPreviewedHandler,
+    renderDayContents: day => (0,external_wp_element_namespaceObject.createElement)(DatePickerDay, {
+      day: day,
+      events: getEventsPerDay(day)
+    })
+  }));
 }
 
 /* harmony default export */ var date = (DatePicker);
@@ -58585,11 +58214,15 @@ function DropZoneComponent(_ref) {
     onDrop(event) {
       const files = (0,external_wp_dom_namespaceObject.getFilesFromDataTransfer)(event.dataTransfer);
       const html = event.dataTransfer.getData('text/html');
+      /**
+       * From Windows Chrome 96, the `event.dataTransfer` returns both file object and HTML.
+       * The order of the checks is important to recognise the HTML drop.
+       */
 
-      if (files.length && onFilesDrop) {
-        onFilesDrop(files);
-      } else if (html && onHTMLDrop) {
+      if (html && onHTMLDrop) {
         onHTMLDrop(html);
+      } else if (files.length && onFilesDrop) {
+        onFilesDrop(files);
       } else if (onDrop) {
         onDrop(event);
       }
@@ -58598,13 +58231,17 @@ function DropZoneComponent(_ref) {
     onDragStart(event) {
       setIsDraggingOverDocument(true);
       let _type = 'default';
+      /**
+       * From Windows Chrome 96, the `event.dataTransfer` returns both file object and HTML.
+       * The order of the checks is important to recognise the HTML drop.
+       */
 
-      if ( // Check for the types because sometimes the files themselves
+      if ((0,external_lodash_namespaceObject.includes)(event.dataTransfer.types, 'text/html')) {
+        _type = 'html';
+      } else if ( // Check for the types because sometimes the files themselves
       // are only available on drop.
       (0,external_lodash_namespaceObject.includes)(event.dataTransfer.types, 'Files') || (0,external_wp_dom_namespaceObject.getFilesFromDataTransfer)(event.dataTransfer).length > 0) {
         _type = 'file';
-      } else if ((0,external_lodash_namespaceObject.includes)(event.dataTransfer.types, 'text/html')) {
-        _type = 'html';
       }
 
       setType(_type);
@@ -58704,6 +58341,7 @@ function DropZoneProvider(_ref) {
     children
   } = _ref;
   external_wp_deprecated_default()('wp.components.DropZoneProvider', {
+    since: '5.8',
     hint: 'wp.component.DropZone no longer needs a provider. wp.components.DropZoneProvider is safe to remove from your code.'
   });
   return children;
@@ -61649,6 +61287,7 @@ function FocusableIframe(_ref) {
   } = _ref;
   const ref = (0,external_wp_compose_namespaceObject.useMergeRefs)([iframeRef, (0,external_wp_compose_namespaceObject.useFocusableIframe)()]);
   external_wp_deprecated_default()('wp.components.FocusableIframe', {
+    since: '5.9',
     alternative: 'wp.compose.useFocusableIframe'
   }); // Disable reason: The rendered iframe is a pass-through component,
   // assigning props inherited from the rendering parent. It's the
@@ -61822,26 +61461,37 @@ function ToggleGroupControlBackdrop(_ref) {
       return;
     }
 
-    const {
-      x: parentX
-    } = containerNode.getBoundingClientRect();
-    const {
-      width: offsetWidth,
-      x
-    } = targetNode.getBoundingClientRect();
-    const borderWidth = 1;
-    const offsetLeft = x - parentX - borderWidth;
-    setLeft(offsetLeft);
-    setWidth(offsetWidth);
-    let requestId;
+    const computeDimensions = () => {
+      const {
+        width: offsetWidth,
+        x
+      } = targetNode.getBoundingClientRect();
+      const {
+        x: parentX
+      } = containerNode.getBoundingClientRect();
+      const borderWidth = 1;
+      const offsetLeft = x - parentX - borderWidth;
+      setLeft(offsetLeft);
+      setWidth(offsetWidth);
+    }; // Fix to make the component appear as expected inside popovers.
+    // If the targetNode width is 0 it means the element was not yet rendered we should allow
+    // some time for the render to happen.
+    // requestAnimationFrame instead of setTimeout with a small time does not seems to work.
+
+
+    const dimensionsRequestId = window.setTimeout(computeDimensions, 100);
+    let animationRequestId;
 
     if (!canAnimate) {
-      requestId = window.requestAnimationFrame(() => {
+      animationRequestId = window.requestAnimationFrame(() => {
         setCanAnimate(true);
       });
     }
 
-    return () => window.cancelAnimationFrame(requestId);
+    return () => {
+      window.clearTimeout(dimensionsRequestId);
+      window.cancelAnimationFrame(animationRequestId);
+    };
   }, [canAnimate, containerRef, containerWidth, state, isAdaptiveWidth]);
 
   if (!renderBackdrop) {
@@ -61924,10 +61574,15 @@ function component_ToggleGroupControl(props, forwardedRef) {
   const radio = useRadioState({
     baseId,
     state: value
-  }); // Propagate radio.state change
+  });
+  const previousValue = (0,external_wp_compose_namespaceObject.usePrevious)(value); // Propagate radio.state change
 
   use_update_effect(() => {
-    onChange(radio.state);
+    // Avoid calling onChange if radio state changed
+    // from incoming value.
+    if (previousValue !== radio.state) {
+      onChange(radio.state);
+    }
   }, [radio.state]); // Sync incoming value with radio.state
 
   use_update_effect(() => {
@@ -62184,7 +61839,7 @@ const labelBlock =  true ? {
   styles: "flex:1"
 } : 0;
 const buttonView = /*#__PURE__*/emotion_react_browser_esm_css("align-items:center;appearance:none;background:transparent;border:none;border-radius:", config_values.controlBorderRadius, ";color:", COLORS.gray[700], ";cursor:pointer;display:flex;height:100%;justify-content:center;line-height:100%;outline:none;padding:0 12px;position:relative;text-align:center;transition:background ", config_values.transitionDurationFast, " linear,color ", config_values.transitionDurationFast, " linear,font-weight 60ms linear;", reduceMotion('transition'), " user-select:none;width:100%;z-index:2;&::-moz-focus-inner{border:0;}&:active{background:", config_values.toggleGroupControlBackgroundColor, ";}" + ( true ? "" : 0),  true ? "" : 0);
-const buttonActive = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.white, ";" + ( true ? "" : 0),  true ? "" : 0);
+const buttonActive = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.white, ";&:active{background:transparent;}" + ( true ? "" : 0),  true ? "" : 0);
 const ButtonContentView = emotion_styled_base_browser_esm("div",  true ? {
   target: "eu1cvm71"
 } : 0)("font-size:", config_values.fontSize, ";line-height:1;position:absolute;top:50%;left:50%;transform:translate( -50%, -50% );" + ( true ? "" : 0));
@@ -62324,6 +61979,15 @@ const CUSTOM_FONT_SIZE_OPTION = {
   name: (0,external_wp_i18n_namespaceObject.__)('Custom')
 };
 /**
+ * In case we have at most five font sizes, where at least one the them
+ * contain a complex css value(clamp, var, etc..) show a incremental sequence
+ * of numbers as a label of the font size. We do this because complex css values
+ * cannot be caluclated properly and the incremental sequence of numbers as labels
+ * can help the user better mentally map the different available font sizes.
+ */
+
+const FONT_SIZES_ALIASES = ['1', '2', '3', '4', '5'];
+/**
  * Helper util to split a font size to its numeric value
  * and its `unit`, if exists.
  *
@@ -62356,18 +62020,19 @@ function isSimpleCssValue(value) {
  * Return font size options in the proper format depending
  * on the currently used control (select, toggle group).
  *
- * @param {boolean}  useSelectControl       Whether to use a select control.
- * @param {Object[]} optionsArray           Array of available font sizes objects.
- * @param {*}        disableCustomFontSizes Flag that indicates if custom font sizes are disabled.
+ * @param {boolean}  useSelectControl               Whether to use a select control.
+ * @param {Object[]} optionsArray                   Array of available font sizes objects.
+ * @param {*}        disableCustomFontSizes         Flag that indicates if custom font sizes are disabled.
+ * @param {boolean}  optionsContainComplexCssValues Whether font sizes contain at least one complex css value(clamp, var, etc..).
  * @return {Object[]|null} Array of font sizes in proper format for the used control.
  */
 
-function getFontSizeOptions(useSelectControl, optionsArray, disableCustomFontSizes) {
+function getFontSizeOptions(useSelectControl, optionsArray, disableCustomFontSizes, optionsContainComplexCssValues) {
   if (disableCustomFontSizes && !optionsArray.length) {
     return null;
   }
 
-  return useSelectControl ? getSelectOptions(optionsArray, disableCustomFontSizes) : getToggleGroupOptions(optionsArray);
+  return useSelectControl ? getSelectOptions(optionsArray, disableCustomFontSizes) : getToggleGroupOptions(optionsArray, optionsContainComplexCssValues);
 }
 
 function getSelectOptions(optionsArray, disableCustomFontSizes) {
@@ -62387,16 +62052,16 @@ function getSelectOptions(optionsArray, disableCustomFontSizes) {
   });
 }
 
-function getToggleGroupOptions(optionsArray) {
-  return optionsArray.map(_ref2 => {
+function getToggleGroupOptions(optionsArray, optionsContainComplexCssValues) {
+  return optionsArray.map((_ref2, index) => {
     let {
       slug,
       size,
       name
     } = _ref2;
-    let label = size;
+    let label = optionsContainComplexCssValues ? FONT_SIZES_ALIASES[index] : size;
 
-    if (typeof size === 'string') {
+    if (!optionsContainComplexCssValues && typeof size === 'string') {
       const [numericValue] = splitValueAndUnitFromSize(size);
       label = numericValue;
     }
@@ -62458,19 +62123,20 @@ function FontSizePicker(_ref, ref) {
   const isPixelValue = typeof value === 'number' || (value === null || value === void 0 ? void 0 : (_value$endsWith = value.endsWith) === null || _value$endsWith === void 0 ? void 0 : _value$endsWith.call(value, 'px'));
   const units = useCustomUnits({
     availableUnits: ['px', 'em', 'rem']
-  }); // The main font size UI displays a toggle group when the presets are less
-  // than six and a select control when they are more.
-  //
-  // A select control is also used when the value of a preset cannot be
-  // immediately computed (eg. 'calc', 'var').
+  });
+  /**
+   * The main font size UI displays a toggle group when the presets are less
+   * than six and a select control when they are more.
+   */
 
-  const shouldUseSelectControl = fontSizes.length > 5 || fontSizes.some(_ref2 => {
+  const fontSizesContainComplexValues = fontSizes.some(_ref2 => {
     let {
       size
     } = _ref2;
     return !isSimpleCssValue(size);
   });
-  const options = (0,external_wp_element_namespaceObject.useMemo)(() => getFontSizeOptions(shouldUseSelectControl, fontSizes, disableCustomFontSizes), [shouldUseSelectControl, fontSizes, disableCustomFontSizes]);
+  const shouldUseSelectControl = fontSizes.length > 5;
+  const options = (0,external_wp_element_namespaceObject.useMemo)(() => getFontSizeOptions(shouldUseSelectControl, fontSizes, disableCustomFontSizes, fontSizesContainComplexValues), [shouldUseSelectControl, fontSizes, disableCustomFontSizes, fontSizesContainComplexValues]);
   const selectedOption = getSelectedOption(fontSizes, value);
   const isCustomValue = selectedOption.slug === CUSTOM_FONT_SIZE;
   const [showCustomValueControl, setShowCustomValueControl] = (0,external_wp_element_namespaceObject.useState)(!disableCustomFontSizes && isCustomValue);
@@ -62492,13 +62158,13 @@ function FontSizePicker(_ref, ref) {
 
     let hint = selectedOption.name;
 
-    if (typeof selectedOption.size === 'string') {
+    if (!fontSizesContainComplexValues && typeof selectedOption.size === 'string') {
       const [, unit] = splitValueAndUnitFromSize(selectedOption.size);
       hint += `(${unit})`;
     }
 
     return hint;
-  }, [showCustomValueControl, selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.slug, value, isCustomValue]);
+  }, [showCustomValueControl, selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.slug, value, isCustomValue, fontSizesContainComplexValues]);
 
   if (!options) {
     return null;
@@ -68207,7 +67873,7 @@ function Snackbar(_ref, ref) {
 
   if (actions && actions.length > 1) {
     // we need to inform developers that snackbar only accepts 1 action
-    typeof process !== "undefined" && process.env && "production" !== "production" ? external_wp_warning_default()('Snackbar can only have 1 action, use Notice if your message require many messages') : void 0; // return first element only while keeping it inside an array
+    typeof process !== "undefined" && process.env && "production" !== "production" ? 0 : void 0; // return first element only while keeping it inside an array
 
     actions = [actions[0]];
   }
@@ -68934,7 +68600,7 @@ function toolbar_item_ToolbarItem(_ref, ref) {
   const accessibleToolbarState = (0,external_wp_element_namespaceObject.useContext)(toolbar_context);
 
   if (typeof children !== 'function' && !Component) {
-    typeof process !== "undefined" && process.env && "production" !== "production" ? external_wp_warning_default()('`ToolbarItem` is a generic headless component. You must pass either a `children` prop as a function or an `as` prop as a component. ' + 'See https://developer.wordpress.org/block-editor/components/toolbar-item/') : void 0;
+    typeof process !== "undefined" && process.env && "production" !== "production" ? 0 : void 0;
     return null;
   }
 
@@ -69457,6 +69123,7 @@ function tools_panel_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have 
 
 
 
+
 const toolsPanelGrid = {
   spacing: /*#__PURE__*/emotion_react_browser_esm_css("column-gap:", space(4), ";row-gap:", space(6), ";" + ( true ? "" : 0),  true ? "" : 0),
   item: {
@@ -69485,7 +69152,7 @@ const ToolsPanelHeading =  true ? {
   name: "1pmxm02",
   styles: "font-size:inherit;font-weight:500;line-height:normal;&&{margin:0;}"
 } : 0;
-const ToolsPanelItem = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, "&>div,&>fieldset{padding-bottom:0;margin-bottom:0;max-width:100%;}&& ", base_control_styles_Wrapper, "{margin-bottom:0;", StyledField, ":last-child{margin-bottom:0;}}", StyledHelp, "{margin-bottom:0;}" + ( true ? "" : 0),  true ? "" : 0);
+const ToolsPanelItem = /*#__PURE__*/emotion_react_browser_esm_css(toolsPanelGrid.item.fullWidth, "&>div,&>fieldset{padding-bottom:0;margin-bottom:0;max-width:100%;}&& ", base_control_styles_Wrapper, "{margin-bottom:0;", StyledField, ":last-child{margin-bottom:0;}}", StyledHelp, "{margin-bottom:0;}&& ", LabelWrapper, "{label{margin-bottom:", space(2), ";padding-bottom:0;line-height:1.4em;}}.components-custom-select-control__label,", StyledLabel, "{line-height:1.4em;}" + ( true ? "" : 0),  true ? "" : 0);
 const ToolsPanelItemPlaceholder =  true ? {
   name: "eivff4",
   styles: "display:none"
