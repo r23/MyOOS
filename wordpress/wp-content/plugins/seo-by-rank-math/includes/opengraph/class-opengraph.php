@@ -199,6 +199,10 @@ class OpenGraph {
 			return Helper::get_term_meta( "{$network}_enable_image_overlay" ) ? Helper::get_term_meta( "{$network}_image_overlay" ) : '';
 		}
 
+		if ( is_author() ) {
+			return Helper::get_user_meta( "{$network}_enable_image_overlay" ) ? Helper::get_user_meta( "{$network}_image_overlay" ) : '';
+		}
+
 		return '';
 	}
 }

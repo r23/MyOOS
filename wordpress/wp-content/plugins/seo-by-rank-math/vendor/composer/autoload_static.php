@@ -186,6 +186,7 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\OpenGraph\\Facebook_Locale' => __DIR__ . '/../..' . '/includes/opengraph/class-facebook-locale.php',
         'RankMath\\OpenGraph\\Image' => __DIR__ . '/../..' . '/includes/opengraph/class-image.php',
         'RankMath\\OpenGraph\\OpenGraph' => __DIR__ . '/../..' . '/includes/opengraph/class-opengraph.php',
+        'RankMath\\OpenGraph\\Slack' => __DIR__ . '/../..' . '/includes/opengraph/class-slack.php',
         'RankMath\\OpenGraph\\Twitter' => __DIR__ . '/../..' . '/includes/opengraph/class-twitter.php',
         'RankMath\\Paper\\Archive' => __DIR__ . '/../..' . '/includes/frontend/paper/class-archive.php',
         'RankMath\\Paper\\Author' => __DIR__ . '/../..' . '/includes/frontend/paper/class-author.php',

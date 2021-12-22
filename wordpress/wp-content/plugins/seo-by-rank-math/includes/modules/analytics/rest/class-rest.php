@@ -203,10 +203,11 @@ class Rest extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function get_analytics_summary( WP_REST_Request $request ) { // phpcs:ignore
+		$post_type = sanitize_key( $request->get_param( 'postType' ) );
 		return rest_ensure_response(
 			[
-				'summary'      => Stats::get()->get_posts_summary(),
-				'optimization' => Stats::get()->get_optimization_summary(),
+				'summary'      => Stats::get()->get_posts_summary( $post_type ),
+				'optimization' => Stats::get()->get_optimization_summary( $post_type ),
 			]
 		);
 	}

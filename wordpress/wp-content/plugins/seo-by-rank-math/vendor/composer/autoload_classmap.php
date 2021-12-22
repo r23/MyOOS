@@ -156,6 +156,7 @@ return array(
     'RankMath\\OpenGraph\\Facebook_Locale' => $baseDir . '/includes/opengraph/class-facebook-locale.php',
     'RankMath\\OpenGraph\\Image' => $baseDir . '/includes/opengraph/class-image.php',
     'RankMath\\OpenGraph\\OpenGraph' => $baseDir . '/includes/opengraph/class-opengraph.php',
+    'RankMath\\OpenGraph\\Slack' => $baseDir . '/includes/opengraph/class-slack.php',
     'RankMath\\OpenGraph\\Twitter' => $baseDir . '/includes/opengraph/class-twitter.php',
     'RankMath\\Paper\\Archive' => $baseDir . '/includes/frontend/paper/class-archive.php',
     'RankMath\\Paper\\Author' => $baseDir . '/includes/frontend/paper/class-author.php',

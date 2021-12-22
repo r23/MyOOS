@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.78
+Stable tag: 1.0.79
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -581,13 +581,15 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.78 [Dec 08, 2021] =
-* Added: You can now use/select Rank Math variables in [Twitter/Facebook](https://rankmath.com/kb/meta-box-social-tab/) title & description fields
-* Improved: Moved Tagify library inside the vendors folder to reduce the plugin code
-* Improved: Prevent saving of the Classic Editor post when Enter key is pressed inside the [Content AI's focus keyword](https://rankmath.com/kb/how-to-use-content-ai/#research-focus-keywords) field
-* Fixed: Conflicts happening with other plugins which were modifying the `wp_query`
-* Fixed: Rating data was not getting imported from the [WP Schema PRO](https://rankmath.com/kb/import-schema-pro-data/) plugin
-* Fixed: ['Use Focus Keyword at the beginning of your content'](https://rankmath.com/kb/score-100-in-tests/#focus-keyword-at-the-beginning-of-the-content) test was not working well when special characters were used in the Focus Keyword
-* Fixed: ['At least one external link should be dofollow'](https://rankmath.com/kb/score-100-in-tests/#linking-to-external-content-with-a-followed-link) test was not working well after selecting the `Open in New tab` option from the Link modal
+= 1.0.79 [Dec 22, 2021] =
+* Added: [HUGE!] Enhanced [Sharing on Slack](https://rankmath.com/kb/slack-enhanced-sharing/)
+* Improved: Renamed `Exclude this Image from sitemap` label to make it more contextualized
+* Fixed: PHP warning when using the [`rank_math_contact_info` shortcode](https://rankmath.com/kb/local-seo/#contact-info-shortcode)
+* Fixed: [Thumbnail Overlay](https://rankmath.com/kb/meta-box-social-tab/#add-icon-overlay-to-thumbnails) was not working on the server where `allow_url_fopen` is not enabled
+* Fixed: SEO data was not updating on Classic editor when the `Enter` key is used to submit the form
+* Fixed: Saving a page with Firefox using Divi Backend editor was showing an error on some setups
+* Fixed: Editing a product made with Divi Backend editor was showing a popup
+* Fixed: Product short description was not updating after editing a product using Divi Backend editor
+* Fixed: Deleting [Focus keyword](https://rankmath.com/kb/general-tab/#the-focus-keyword-section) was not working after the last update
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

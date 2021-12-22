@@ -16,6 +16,7 @@ use RankMath\Paper\Paper;
 use RankMath\Traits\Hooker;
 use RankMath\OpenGraph\Twitter;
 use RankMath\OpenGraph\Facebook;
+use RankMath\OpenGraph\Slack;
 use RankMath\Frontend\Shortcodes;
 
 defined( 'ABSPATH' ) || exit;
@@ -102,6 +103,7 @@ class Frontend {
 		Paper::get();
 		new Facebook();
 		new Twitter();
+		new Slack();
 
 		// Leave this for backwards compatibility as AMP plugin uses head function. We can remove this in the future update.
 		rank_math()->head = new Head();

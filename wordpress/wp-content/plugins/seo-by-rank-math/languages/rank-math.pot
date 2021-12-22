@@ -1430,6 +1430,16 @@ msgstr ""
 msgid "NEW!"
 msgstr ""
 
+#. translators: %d: minutes
+#. translators: %s expands to a unit of time (e.g. 1 minute).
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Less than a minute"
+msgstr ""
+
 msgid "Post ID"
 msgstr ""
 
@@ -3389,7 +3399,7 @@ msgstr ""
 msgid "%s archives"
 msgstr ""
 
-msgid "Exclude this image from sitemap"
+msgid "Exclude this attachment from sitemap"
 msgstr ""
 
 #. translators: the placeholder is for the sitemap base url.
@@ -3972,6 +3982,12 @@ msgstr ""
 msgid "Author archive meta description. SEO options for specific author archives can be set with the meta box in the user profiles."
 msgstr ""
 
+msgid "Slack Enhanced Sharing"
+msgstr ""
+
+msgid "When the option is enabled and an author archive is shared on Slack, additional information will be shown (name & total number of posts)."
+msgstr ""
+
 msgid "Add SEO Controls"
 msgstr ""
 
@@ -4241,6 +4257,18 @@ msgstr ""
 msgid "Image displayed when your page is shared on Facebook and other social networks. Use images that are at least 1200 x 630 pixels for the best display on high resolution devices."
 msgstr ""
 
+msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price)."
+msgstr ""
+
+msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price & availability)."
+msgstr ""
+
+msgid "When the option is enabled and a page is shared on Slack, additional information will be shown (time to read)."
+msgstr ""
+
+msgid "When the option is enabled and a post is shared on Slack, additional information will be shown (author name & time to read)."
+msgstr ""
+
 msgid "Add SEO controls for the editor screen to customize SEO options for posts in this post type."
 msgstr ""
 
@@ -4329,6 +4357,9 @@ msgstr ""
 
 #. translators: taxonomy name
 msgid "%s Archives Advanced Robots Meta"
+msgstr ""
+
+msgid "When the option is enabled and a term from this taxonomy is shared on Slack, additional information will be shown (the total number of items with this term)."
 msgstr ""
 
 msgid "Add the SEO Controls for the term editor screen to customize SEO options for individual terms in this taxonomy."
@@ -5063,12 +5094,6 @@ msgstr[1] ""
 #. translators: %s expands to a unit of time (e.g. 1 hour).
 msgid "%d hour"
 msgid_plural "%d hours"
-msgstr[0] ""
-msgstr[1] ""
-
-#. translators: %s expands to a unit of time (e.g. 1 minute).
-msgid "%d minute"
-msgid_plural "%d minutes"
 msgstr[0] ""
 msgstr[1] ""
 

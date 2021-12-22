@@ -116,7 +116,7 @@ class Image {
 	 * @param array $image_meta Image metadata.
 	 */
 	private function image_tag( $image_meta ) {
-		$og_image = $this->opengraph->get_overlay_image() ? admin_url( "admin-ajax.php?action=rank_math_overlay_thumb&id={$image_meta['id']}&type={$this->opengraph->get_overlay_image()}" ) : $image_meta['url'];
+		$og_image = $this->opengraph->get_overlay_image() && ! empty( $image_meta['id'] ) ? admin_url( "admin-ajax.php?action=rank_math_overlay_thumb&id={$image_meta['id']}&type={$this->opengraph->get_overlay_image()}" ) : $image_meta['url'];
 		$this->opengraph->tag( 'og:image', esc_url_raw( $og_image ) );
 
 		// Add secure URL if detected. Not all services implement this, so the regular one also needs to be rendered.

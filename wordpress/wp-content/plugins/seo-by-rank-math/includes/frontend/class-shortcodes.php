@@ -270,13 +270,16 @@ class Shortcodes {
 	 */
 	private function display_phone() {
 		$phones = Helper::get_settings( 'titles.phone_numbers' );
-		if ( ! isset( $phones[0]['number'] ) ) {
+		if ( empty( $phones ) ) {
 			return;
 		}
 
 		$choices = Helper::choices_phone_types();
-
 		foreach ( $phones as $phone ) :
+			if ( empty( $phone['number'] ) ) {
+				continue;
+			}
+
 			$number = esc_html( $phone['number'] );
 			$label  = isset( $choices[ $phone['type'] ] ) ? $choices[ $phone['type'] ] : ''
 			?>

@@ -212,7 +212,7 @@ class Admin extends Base {
 	public function media_popup_fields( $form_fields, $post ) {
 		$exclude   = get_post_meta( $post->ID, 'rank_math_exclude_sitemap', true );
 		$checkbox  = '<label><input type="checkbox" name="attachments[' . $post->ID . '][rank_math_media_exclude_sitemap]" ' . checked( $exclude, true, 0 ) . ' /> ';
-		$checkbox .= esc_html__( 'Exclude this image from sitemap', 'rank-math' ) . '</label>';
+		$checkbox .= esc_html__( 'Exclude this attachment from sitemap', 'rank-math' ) . '</label>';
 
 		$form_fields['rank_math_exclude_sitemap'] = [ 'tr' => "\t\t<tr><td></td><td>$checkbox</td></tr>\n" ];
 

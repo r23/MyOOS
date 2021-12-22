@@ -44,7 +44,7 @@ class Common {
 		// Reorder categories listing: put primary at the beginning.
 		$this->filter( 'get_the_terms', 'reorder_the_terms', 10, 3 );
 
-		add_action( 'wp_ajax_nopriv_rank_math_overlay_thumb', [ $this, 'generate_overlay_thumbnail' ] );
+		$this->action( 'wp_ajax_nopriv_rank_math_overlay_thumb', 'generate_overlay_thumbnail' );
 
 		$this->filter( 'is_protected_meta', 'hide_rank_math_meta', 10, 2 );
 
@@ -121,12 +121,12 @@ class Common {
 		if ( ! isset( $choices[ $type ] ) ) {
 			die();
 		}
-		$overlay_image = $choices[ $type ]['url'];
-		$image         = wp_get_attachment_image_src( $thumbnail_id, 'large' );
+		$overlay_image = $choices[ $type ]['path'];
+		$image         = Helper::get_scaled_image_path( $thumbnail_id, 'large' );
 		$position      = $choices[ $type ]['position'];
 
 		if ( ! empty( $image ) ) {
-			$this->create_overlay_image( $image[0], $overlay_image, $position );
+			$this->create_overlay_image( $image, $overlay_image, $position );
 		}
 		die();
 	}

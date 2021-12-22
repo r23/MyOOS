@@ -120,6 +120,17 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
+		'id'      => 'author_slack_enhanced_sharing',
+		'type'    => 'toggle',
+		'name'    => esc_html__( 'Slack Enhanced Sharing', 'rank-math' ),
+		'desc'    => esc_html__( 'When the option is enabled and an author archive is shared on Slack, additional information will be shown (name & total number of posts).', 'rank-math' ),
+		'default' => 'on',
+		'classes' => 'rank-math-advanced-option',
+	]
+);
+
+$cmb->add_field(
+	[
 		'id'      => 'author_add_meta_box',
 		'type'    => 'toggle',
 		'name'    => esc_html__( 'Add SEO Controls', 'rank-math' ),

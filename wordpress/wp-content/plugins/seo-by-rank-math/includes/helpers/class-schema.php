@@ -44,10 +44,18 @@ trait Schema {
 		}
 
 		if ( 'article' === $schema ) {
+			/**
+			 * Filter: Allow changing the default schema type.
+			 *
+			 * @param string $schema    Schema type.
+			 * @param string $post_type Post type.
+			 * @param int    $post_id   Post ID.
+			 */
 			$schema = apply_filters(
 				'rank_math/schema/default_type',
 				Helper::get_settings( "titles.pt_{$post_type}_default_article_type" ),
-				$post_type
+				$post_type,
+				$post_id
 			);
 		}
 
