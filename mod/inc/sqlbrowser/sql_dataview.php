@@ -143,7 +143,7 @@ $sqltmp= $sql['sql_statement'] . $sql['order_statement'] . ( strpos(strtolower($
 
 
 if (!$skip_mysql_execution) $res=mod_query($sqltmp);
-$numrows=@mysqli_num_rows($res);
+$numrows = mysqli_num_rows($res);
 
 
 

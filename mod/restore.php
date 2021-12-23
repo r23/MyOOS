@@ -165,7 +165,7 @@ if ($restore['filehandle'])
 				else
 				{
 					// Bei MySQL-Fehlern sofort abbrechen und Info ausgeben
-					$meldung=@mysqli_error($config['dbconnection']);
+					$meldung = mysqli_error($config['dbconnection']);
 					if ($meldung!='')
 					{
 						if (strtolower(substr($meldung,0,15))=='duplicate entry')

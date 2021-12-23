@@ -287,7 +287,7 @@ function mod_mysqli_connect($encoding='utf8mb4', $keycheck_off=false, $actual_ta
 	if (!isset($config['mysql_standard_character_set']) || $config['mysql_standard_character_set'] == '') get_sql_encodings();
 
 	if ($config['mysql_standard_character_set'] != $encoding) {
-		$set_encoding=@mysqli_query($config['dbconnection'],'SET NAMES \''.$encoding.'\'');
+		$set_encoding = mysqli_query($config['dbconnection'],'SET NAMES \''.$encoding.'\'');
 		if ($set_encoding === false) $config['mysql_can_change_encoding'] =false;
 		else $config['mysql_can_change_encoding'] =true;
 	}
@@ -483,7 +483,7 @@ function getDBInfos()
 
 					// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 					$sql_2="SELECT count(*) as `count_records` FROM `" . $databases['Name'][$dump['dbindex']] . "`.`" . $row['Name'] . "`";
-					$res2=@mysqli_query($config['dbconnection'], $sql_2);
+					$res2 = mysqli_query($config['dbconnection'], $sql_2);
 					if ($res2 === false)
 					{
 						$read_error = mysqli_error($config['dbconnection']);
@@ -496,7 +496,7 @@ function getDBInfos()
 					}
 					else
 					{
-						$row2=@mysqli_fetch_array($res2);
+						$row2 = mysqli_fetch_array($res2);
 						$row['Rows'] = $row2['count_records'];
 						$dump['totalrecords']+= $row['Rows'];
 					}

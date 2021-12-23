@@ -656,7 +656,7 @@ function GetCollationArray()
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 
 	$res=mysqli_query($config['dbconnection'], "SHOW Collation");
-	$num=@mysqli_num_rows($res);
+	$num = mysqli_num_rows($res);
 	$r= [];
 	if (is_array($r))
 	{

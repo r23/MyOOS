@@ -118,7 +118,7 @@ if (isset($_GET['dbid']))
 	$dbid= $_GET['dbid'];
 
 	$numrows=0;
-	$res=@mysqli_query($config['dbconnection'], "SHOW TABLE STATUS FROM `".$databases['Name'][$dbid]."`");
+	$res = mysqli_query($config['dbconnection'], "SHOW TABLE STATUS FROM `".$databases['Name'][$dbid]."`");
 	mysqli_select_db($config['dbconnection'], $databases['Name'][$dbid]);
 	if ($res) $numrows=mysqli_num_rows($res);
 	$tpl->assign_vars(array(
@@ -140,7 +140,7 @@ if (isset($_GET['dbid']))
 			$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
 			// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 			$sql_2="SELECT count(*) as `count_records` FROM `".$databases['Name'][$dbid]."`.`".$row['Name']."`";
-			$res2=@mysqli_query($config['dbconnection'], $sql_2);
+			$res2 = mysqli_query($config['dbconnection'], $sql_2);
 			if ($res2===false)
 			{
 				$row['Rows'] =0;

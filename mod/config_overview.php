@@ -394,8 +394,7 @@ if (isset($_POST['save'])) {
 	$config['sftp_secret_passphrase_for_private_key'] = [];
 	$config['sftp_fingerprint'] = [];
 
-	for ($i = 0; $i < 3; $i++)
-	{
+	for ($i = 0; $i < 3; $i++) {
 		$checkFTP[$i] = '';
 		$config['sftp_transfer'][$i] = isset($_POST['sftp_transfer'][$i]) ? $_POST['sftp_transfer'][$i] : 0;
 		$config['sftp_timeout'][$i] = isset($_POST['sftp_timeout'][$i]) ? $_POST['sftp_timeout'][$i] : 30;
@@ -419,33 +418,29 @@ if (isset($_POST['save'])) {
 	$config['bb_textcolor'] = $_POST['bb_textcolor'];
 	$config['sql_limit'] = $_POST['sql_limit'];
 
-	if ($config['dbhost'] != $_POST['dbhost'] || $config['dbuser'] != $_POST['dbuser'] || $config['dbpass'] != $_POST['dbpass'] || $config['dbport'] != $_POST['dbport'] || $config['dbsocket'] != $_POST['dbsocket'])
-	{
-		//neue Verbindungsparameter
-		$show_VP=true;
+	if ($config['dbhost'] != $_POST['dbhost'] || $config['dbuser'] != $_POST['dbuser'] || $config['dbpass'] != $_POST['dbpass'] || $config['dbport'] != $_POST['dbport'] || $config['dbsocket'] != $_POST['dbsocket']) {
+		// new connection parameters
+		$show_VP = true;
 
-		//alte Parameter sichern
+		// Save old parameters
 		$old['dbhost'] = $config['dbhost'];
 		$old['dbuser'] = $config['dbuser'];
 		$old['dbpass'] = $config['dbpass'];
 		$old['dbport'] = $config['dbport'];
 		$old['dbsocket'] = $config['dbsocket'];
 
-		//neu setzen
+		//set new
 		$config['dbhost'] = $_POST['dbhost'];
 		$config['dbuser'] = $_POST['dbuser'];
 		$config['dbpass'] = $_POST['dbpass'];
 		$config['dbport'] = $_POST['dbport'];
 		$config['dbsocket'] = $_POST['dbsocket'];
-		if (mod_mysqli_connect())
-		{
-			// neue Verbindungsdaten wurden akzeptiert -> manuelle DB-Liste von anderem User löschen
+		if (mod_mysqli_connect()) {
+			// new connection data was accepted -> manually delete DB list from other user
 			SetDefault();
-			$msg.='<script>parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
-		}
-		else
-		{
-			//alte Werte holen
+			$msg .= '<script>parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
+		} else {
+			// Get old values
 			$config['dbhost'] = $old['dbhost'];
 			$config['dbuser'] = $old['dbuser'];
 			$config['dbpass'] = $old['dbpass'];
@@ -456,28 +451,22 @@ if (isset($_POST['save'])) {
 	}
 
 	// Manuelles hinzufügen einer Datenbank
-	if ($_POST['add_db_manual'] > '')
-	{
-		$to_add=trim($_POST['add_db_manual']);
-		$found=false;
-		// Prüfen, ob die DB bereits in der Liste vorhanden ist
-		if (isset($databases['Name'][0]))
-		{
-			foreach ($databases['Name'] as $existing_db)
-			{
-				if ($existing_db == $to_add) $found=true;
+	if ($_POST['add_db_manual'] > '') {
+		$to_add = trim($_POST['add_db_manual']);
+		$found = false;
+		// Check if the DB already exists in the list
+		if (isset($databases['Name'][0])) {
+			foreach ($databases['Name'] as $existing_db) {
+				if ($existing_db == $to_add) $found = true;
 			}
 		}
 		if ($found) $add_db_message=sprintf($lang['L_DB_IN_LIST'],$to_add);
-		else
-		{
-			if (mod_mysqli_connect())
-			{
-				$res=@mysqli_select_db($config['dbconnection'], $to_add);
-				if (!$res === false)
-				{
+		else {
+			if (mod_mysqli_connect()) {
+				$res = mysqli_select_db($config['dbconnection'], $to_add);
+				if (!$res === false) {
 					$databases['Name'][] = $to_add;
-					//Menü aktualisieren, damit die DB in der Selectliste erscheint
+					// Refresh menu so that the DB appears in the select list
 					echo '<script>parent.MyOOS_Dumper_menu.location.href="menu.php";</script>';
 				}
 				else
@@ -487,12 +476,9 @@ if (isset($_POST['save'])) {
 		}
 	}
 
-	//Nach einer Uebernahme einer neuen Configuration vor dem Schreiben ueberfluessige Indexe entfernen
-	$anzahl_datenbanken=sizeof($databases['Name']);
-	if (sizeof($databases['praefix']) > $anzahl_datenbanken)
-	{
-		for ($i=sizeof($databases['praefix']); $i >= $anzahl_datenbanken; $i--)
-		{
+	// After a transfer of a new configuration remove superfluous indexes before writing	$anzahl_datenbanken=sizeof($databases['Name']);
+	if (sizeof($databases['praefix']) > $anzahl_datenbanken) {
+		for ($i=sizeof($databases['praefix']); $i >= $anzahl_datenbanken; $i--) {
 			unset($databases['praefix'][$i]);
 			unset($databases['command_before_dump'][$i]);
 			unset($databases['command_after_dump'][$i]);
@@ -500,25 +486,23 @@ if (isset($_POST['save'])) {
 		if ($databases['db_selected_index'] >= $anzahl_datenbanken) $databases['db_selected_index'] =0;
 	}
 
-	// und wegschreiben
-	if ($save_config)
-	{
-		if (WriteParams(false) == true)
-		{
-			//neue Sprache? Dann Menue links auch aktualisieren
+	// and write away
+	if ($save_config) {
+		if (WriteParams(false) == true) {
+			// new language? Then also update menu on the left
 			if ($_SESSION['config']['language'] != $config['language'] || $_POST['scaption_old'] != $config['interface_server_caption'] || $oldtheme != $config['theme'] || $oldscposition != $config['interface_server_caption_position'])
 			{
-				$msg.='<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config='.urlencode($config['config_file']).'";</script>';
-				if (isset($_POST['cron_savepath_new']) && $_POST['cron_savepath_new'] > '') $msg.='<p class="success">'.$lang['L_SUCCESS_CONFIGFILE_CREATED'].'</p>';
+				$msg .= '<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config='.urlencode($config['config_file']).'";</script>';
+				if (isset($_POST['cron_savepath_new']) && $_POST['cron_savepath_new'] > '') $msg .= '<p class="success">'.$lang['L_SUCCESS_CONFIGFILE_CREATED'].'</p>';
 			}
-			//Parameter laden
+			// Load parameters
 			read_config($config['config_file']);
 			if ($config['logcompression'] != $oldlogcompression) DeleteLog();
-			$msg.='<p class="success">'.sprintf($lang['L_SAVE_SUCCESS'],$config['config_file']).'</p>';
-			$msg.='<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config='.$config['config_file'].'";</script>';
+			$msg .= '<p class="success">'.sprintf($lang['L_SAVE_SUCCESS'],$config['config_file']).'</p>';
+			$msg .= '<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config='.$config['config_file'].'";</script>';
 		}
 		else
-			$msg.='<p class="error">'.$lang['L_SAVE_ERROR'].'</p>';
+			$msg .= '<p class="error">'.$lang['L_SAVE_ERROR'].'</p>';
 	}
 
 }
@@ -616,13 +600,13 @@ function WriteMem()
 }
 </script>
 <?php
-if (!isset($config['email_maxsize1'])) $config['email_maxsize1'] =0;
-if (!isset($config['email_maxsize2'])) $config['email_maxsize2'] =1;
+if (!isset($config['email_maxsize1'])) $config['email_maxsize1'] = 0;
+if (!isset($config['email_maxsize2'])) $config['email_maxsize2'] = 1;
 if (!isset($databases['multisetting'])) $databases['multisetting'] = '';
-$databases['multi'] =explode(";",$databases['multisetting']);
+$databases['multi'] = explode(';',$databases['multisetting']);
 
 //Ausgabe-Teile
-$aus['formstart'] =headline($lang['L_CONFIG_HEADLINE'].': '.$config['config_file']);
+$aus['formstart'] = headline($lang['L_CONFIG_HEADLINE'].': '.$config['config_file']);
 $aus['formstart'] .= '<form name="frm_config" method="POST" action="config_overview.php"><input type="hidden" name="sel" id="sel" value="db">'.$nl;
 $aus['formstart'] .= '<div id="configleft">';
 $aus['formstart'] .= '<input type="Button" id="command1" onclick="show_pardivs(\'db\');" value="'.$lang['L_DBS'].'" class="ConfigButton"><br>'.$nl;
@@ -659,10 +643,8 @@ $i=0;
 $old_config= $config;
 $configs=get_config_filenames();
 
-if (sizeof($configs) > 0)
-{
-	foreach ($configs as $c)
-	{
+if (sizeof($configs) > 0) {
+	foreach ($configs as $c) {
 		$i++;
 		unset($databases);
 		read_config($c);
@@ -673,7 +655,7 @@ if (sizeof($configs) > 0)
 
 		$aus['conf'] .= '<td><a name="config'.sprintf("%03d",$i).'" style="text-decoration:none;">'.$i.'.</a></td>';
 
-		// Einstellungen
+		// Settings
 		$aus['conf'] .= '<td>';
 
 		$aus['conf'] .= '<table>';
@@ -694,10 +676,8 @@ if (sizeof($configs) > 0)
 		$aus['conf'] .= '<div id="show_db'.sprintf("%03d",$i).'" style="padding:0;margin:0;display:none;">';
 		$a=1;
 		$aus['conf'] .= '<table  class="bdr">';
-		if (isset($databases['Name']))
-		{
-			foreach ($databases['Name'] as $d)
-			{
+		if (isset($databases['Name'])) {
+			foreach ($databases['Name'] as $d) {
 				$aus['conf'] .= '<tr class="'.( ( $a % 2 ) ? 'dbrow' : 'dbrow1' ).'"><td style="text-align:right;">';
 				$aus['conf'] .= $a.'.&nbsp;</td><td>';
 				$aus['conf'] .= '<a href="sql.php?db='.urlencode($d).'">';
@@ -711,49 +691,42 @@ if (sizeof($configs) > 0)
 
 		$aus['conf'] .= '<td><table>';
 
-		// String aus Multidump-DBs aufbauen
+		// Build string from multidump DBs
 		$toolboxstring='';
 		$databases['multi'] = [];
 		if (isset($databases['multisetting'])) $databases['multi'] =explode(";",$databases['multisetting']);
-		$multi_praefixe= [];
+		$multi_praefixe = [];
 		if (isset($databases['multisetting_praefix'])) $multi_praefixe=explode(";",$databases['multisetting_praefix']);
-		if (is_array($databases['multi']))
-		{
-			for ($x=0; $x < sizeof($databases['multi']); $x++)
-			{
+		if (is_array($databases['multi'])) {
+			for ($x=0; $x < sizeof($databases['multi']); $x++) {
 				if ($x > 0) $toolboxstring.=', ';
 				$toolboxstring.= $databases['multi'][$x];
 				if (isset($multi_praefixe[$x]) && $multi_praefixe[$x] > '') $toolboxstring.=' (<i>\''.$multi_praefixe[$x].'\'</i>)';
 			}
 		}
 
-		// DB-Liste fuer PHP
+		// DB list for PHP
 		if ( isset($config['multi_dump']) && ($config['multi_dump'] == 1) ) // Multidump
 		{
 			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PHP'],$toolboxstring);
 		}
 		else
 		{
-			// aktuelle DB
+			// Current DB
 			$text = isset($databases['db_actual']) ? $databases['db_actual'] : '';
 			if (isset($databases['db_selected_index']) && isset($databases['praefix'][$databases['db_selected_index']]) && $databases['praefix'][$databases['db_selected_index']] > '') $text.=" ('<i>" . $databases['praefix'][$databases['db_selected_index']] . "</i>')";
 			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PHP'],$text);
 		}
 
-		// DB-Liste fuer Perl
-		// Fallback falls aus alten Konfigurationsdateien der Index noch nicht gesetzt ist -> alle DBs sichern
-		if (!isset($config['cron_dbindex'])) $config['cron_dbindex'] =-3;
-		if ($config['cron_dbindex'] == -2)
-		{
+		// DB list for Perl
+		// Fallback if index is not yet set from old configuration files -> save all DBs
+		if (!isset($config['cron_dbindex'])) $config['cron_dbindex'] = -3;
+		if ($config['cron_dbindex'] == -2) {
 			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PERL'],$toolboxstring);
-		}
-		elseif ($config['cron_dbindex'] == -3)
-		{
+		} elseif ($config['cron_dbindex'] == -3) {
 			$text = $lang['L_ALL'];
 			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PERL'],$text);
-		}
-		else
-		{
+		} else {
 			$text = isset($databases['Name'][$config['cron_dbindex']]) ? $databases['Name'][$config['cron_dbindex']] : '';
 			if (isset($databases['praefix'][$config['cron_dbindex']]) && $databases['praefix'][$config['cron_dbindex']] > '') $text.=" ('<i>" . $databases['praefix'][$config['cron_dbindex']] . "</i>')";
 			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PERL'],$text);
@@ -768,24 +741,21 @@ if (sizeof($configs) > 0)
 		{
 			$aus['conf'] .= table_output($lang['L_SEND_MAIL_FORM'],$lang['L_YES'] . ", " . $lang['L_EMAIL_ADRESS'] . ": " . $config['email_recipient']);
 			if ($config['email_recipient_cc'] > '') $aus['conf'] .= table_output($lang['L_EMAIL_CC'],$config['email_recipient_cc']);
-			$text= $lang['L_YES'] . ", " . $lang['L_MAX_UPLOAD_SIZE'] . ": ";
-			$bytes= $config['email_maxsize1'] * 1024;
+			$text = $lang['L_YES'] . ", " . $lang['L_MAX_UPLOAD_SIZE'] . ": ";
+			$bytes = $config['email_maxsize1'] * 1024;
 			if ($config['email_maxsize2'] == 2) $bytes= $bytes * 1024;
-			$text.=byte_output($bytes);
+			$text .=byte_output($bytes);
 			if ($config['send_mail_dump'] == 1) $aus['conf'] .= table_output($lang['L_SEND_MAIL_DUMP'],$text);
 
 		}
 
-		for ($x=0; $x < 3; $x++)
-		{
+		for ($x = 0; $x < 3; $x++) {
 			// FTP
-			if (isset($config['ftp_transfer'][$x]) && $config['ftp_transfer'][$x] > 0)
-			{
+			if (isset($config['ftp_transfer'][$x]) && $config['ftp_transfer'][$x] > 0) {
 				$aus['conf'] .= table_output($lang['L_FTP'],sprintf($lang['L_FTP_SEND_TO'],$config['ftp_server'][$x],$config['ftp_dir'][$x]));
 			}
 			// SFTP
-			if (isset($config['sftp_transfer'][$x]) && $config['sftp_transfer'][$x] > 0)
-			{
+			if (isset($config['sftp_transfer'][$x]) && $config['sftp_transfer'][$x] > 0) {
 				$aus['conf'] .= table_output($lang['L_SFTP'],sprintf($lang['L_SFTP_SEND_TO'],$config['sftp_server'][$x],$config['sftp_dir'][$x]));
 			}			
 			
@@ -810,8 +780,8 @@ read_config($configfile);
 $aus['conf'] .= '</table>';
 $aus['conf'] .= '</fieldset></div>'.$nl . $nl;
 
-// Zugangsdaten
-$aus['db'] ='<div id="db"><fieldset><legend>'.$lang['L_CONNECTIONPARS'].'</legend>'.$nl . $nl;
+// Access data
+$aus['db'] = '<div id="db"><fieldset><legend>'.$lang['L_CONNECTIONPARS'].'</legend>'.$nl . $nl;
 $aus['db'] .= '<div id="VP" style="display:none;"';
 $aus['db'] .= '><table><tr><td>Host / User / Passwort:</td>';
 $aus['db'] .= '<td><input class="text" type="text" name="dbhost" value="'.$config['dbhost'].'">&nbsp;&nbsp;/&nbsp;&nbsp;';
@@ -824,8 +794,7 @@ $aus['db'] .= '<input class="text" type="text" name="dbsocket" value="'.$config[
 $aus['db'] .= '<tr><td>'.$lang['L_ADD_DB_MANUALLY'].':</td>';
 $aus['db'] .= '<td><input class="text" type="text" name="add_db_manual" value=""></td></tr>';
 
-if (isset($add_db_message))
-{
+if (isset($add_db_message)) {
 	$aus['db'] .= '<tr><td colspan="2" class="error">'.$add_db_message;
 	$aus['db'] .= '</td></tr>';
 }
@@ -835,7 +804,7 @@ $aus['db'] .= '</table></div><div><a class="small" href="#" onclick="SwitchVP();
 
 $aus['db'] .= '<table>';
 
-//Wenn Datenbanken vorhanden sind
+// If databases are available
 if (isset($databases['Name'][0]) && $databases['Name'][0] > '') {
     if (!isset($databases['multi']) || (!is_array($databases['multi']) ))
         $databases['multi'] = array();

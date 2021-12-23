@@ -145,7 +145,7 @@ function DBDetailInfo($index)
 	{
 		mysqli_select_db($config['dbconnection'], $databases['Name'][$index]);
 		$databases['Detailinfo']['Name'] = $databases['Name'][$index];
-		$res=@mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$databases['Name'][$index].'`');
+		$res = mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$databases['Name'][$index].'`');
 		if ($res) $databases['Detailinfo']['tables'] =mysqli_num_rows($res);
 		if ($databases['Detailinfo']['tables']>0)
 		{

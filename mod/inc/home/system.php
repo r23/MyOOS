@@ -19,7 +19,7 @@
 if (!defined('MOD_VERSION')) die('No direct access.');
 $sysaction=(isset($_GET['dosys'])) ? $_GET['dosys'] : 0;
 $msg= '';
-$res=@mysqli_query($config['dbconnection'], "SHOW VARIABLES LIKE 'datadir'");
+$res = mysqli_query($config['dbconnection'], "SHOW VARIABLES LIKE 'datadir'");
 if ($res)
 {
 	$row=mysqli_fetch_array($res);
@@ -29,7 +29,7 @@ switch ($sysaction)
 {
 	case 1: //FLUSH PRIVILEGES
 		$msg="&gt; operating FLUSH PRIVILEGES<br>";
-		$res=@mysqli_query($config['dbconnection'], "FLUSH PRIVILEGES");
+		$res = mysqli_query($config['dbconnection'], "FLUSH PRIVILEGES");
 		$meldung=mysqli_error($config['dbconnection']);
 		if ($meldung!="")
 		{
@@ -42,7 +42,7 @@ switch ($sysaction)
 		break;
 	case 2: //FLUSH STATUS
 		$msg="&gt; operating FLUSH STATUS<br>";
-		$res=@mysqli_query($config['dbconnection'], "FLUSH STATUS");
+		$res = mysqli_query($config['dbconnection'], "FLUSH STATUS");
 		$meldung=mysqli_error($config['dbconnection']);
 		if ($meldung!="")
 		{
@@ -55,7 +55,7 @@ switch ($sysaction)
 		break;
 	case 3: //FLUSH HOSTS
 		$msg="&gt; operating FLUSH HOSTS<br>";
-		$res=@mysqli_query($config['dbconnection'], "FLUSH HOSTS");
+		$res = mysqli_query($config['dbconnection'], "FLUSH HOSTS");
 		$meldung=mysqli_error($config['dbconnection']);
 		if ($meldung!="")
 		{
@@ -69,7 +69,7 @@ switch ($sysaction)
 		break;
 	case 4: //SHOW MASTER LOGS
 		$msg="> operating SHOW MASTER LOGS<br>";
-		$res=@mysqli_query($config['dbconnection'],"SHOW MASTER LOGS");
+		$res = mysqli_query($config['dbconnection'],"SHOW MASTER LOGS");
 		$meldung=mysqli_error($config['dbconnection']);
 		if ($meldung!="")
 		{
@@ -95,7 +95,7 @@ switch ($sysaction)
 		break;
 	case 5: //RESET MASTER
 		$msg="&gt; operating RESET MASTER<br>";
-		$res=@mysqli_query($config['dbconnection'], "RESET MASTER");
+		$res = mysqli_query($config['dbconnection'], "RESET MASTER");
 		$meldung=mysqli_error($config['dbconnection']);
 		if ($meldung!="")
 		{

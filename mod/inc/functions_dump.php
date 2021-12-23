@@ -99,7 +99,7 @@ function GetStatusLine($kind="php")
 		$erg=mysqli_fetch_array($res);
 		// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 		$sql_2="SELECT count(*) as `count_records` FROM `".$databases['Name'][$dump['dbindex']]."`.`".$erg['Name']."`";
-		$res2=@mysqli_query($config['dbconnection'], $sql_2);
+		$res2 = mysqli_query($config['dbconnection'], $sql_2);
 		if ($res2===false)
 		{
 			// error reading table definition
@@ -151,7 +151,7 @@ function get_def($db,$table,$withdata=1)
 		$def.="DROP TABLE IF EXISTS `$table`;\n";
 	mysqli_select_db($config['dbconnection'], $db);
 	$result=mysqli_query($config['dbconnection'], 'SHOW CREATE TABLE `'.$table.'`');
-	$row=@mysqli_fetch_row($result);
+	$row = mysqli_fetch_row($result);
 	if ($row===false) return false;
 	$def.= $row[1].';'."\n\n";
 	if ($withdata==1)
@@ -176,7 +176,7 @@ function get_content($db,$table)
 	$query='SELECT * FROM `'.$table.'` LIMIT '.$dump['zeilen_offset'].','.($dump['restzeilen']+1);
 	mysqli_select_db($config['dbconnection'], $db);
 	$result=mysqli_query($config['dbconnection'], $query);
-	$ergebnisse=@mysqli_num_rows($result);
+	$ergebnisse = mysqli_num_rows($result);
 	if ($ergebnisse!==false)
 	{
 		// $num_felder=mysqli_field_count($result);
@@ -323,7 +323,7 @@ function ExecuteCommand($when)
 			{
 				if (trim($cad[$i])>'')
 				{
-					$result=@mysqli_query($config['dbconnection'], $cad[$i]);
+					$result = mysqli_query($config['dbconnection'], $cad[$i]);
 
 					if ($result===false)
 					{

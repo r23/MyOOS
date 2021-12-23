@@ -140,7 +140,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 		else
 			$sql='SELECT * FROM `'.$db.'`.`'.$tables[$tabelle].'` LIMIT '.$offset.','.$anzahl_ergebnisse;
 
-		$res=@mysqli_query($link, $sql);
+		$res = mysqli_query($link, $sql);
 		if (!$res===false)
 		{
 			while ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
