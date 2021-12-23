@@ -336,7 +336,7 @@ switch ($phase)
 		$ret=true;
 		if ($fp=fopen("config.php","wb"))
 		{
-			if (!fwrite($fp, implode('', $tmp))) $ret=false;
+			if (!fwrite($fp, implode('', $tmp))) $ret = false;
             @chmod("config.php",0644);
 		}
 		if (!$ret)
@@ -361,11 +361,11 @@ switch ($phase)
 			$ret=true;
 			if ($fp=fopen("config.php","wb"))
 			{
-				if (!fwrite($fp,stripslashes(stripslashes($_POST['configfile'])))) $ret=false;
-				if (!fclose($fp)) $ret=false;
+				if (!fwrite($fp,stripslashes(stripslashes($_POST['configfile'])))) $ret = false;
+				if (!fclose($fp)) $ret = false;
 			}
 			else
-				$ret=false;
+				$ret = false;
 
 			if ($ret == false)
 			{

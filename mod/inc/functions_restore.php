@@ -184,7 +184,7 @@ function get_sqlbefehl()
 						$do_it=true;
 						if (is_array($restore['tables_to_restore']))
 						{
-							$do_it=false;
+							$do_it = false;
 							if (in_array($restore['actual_table'],$restore['tables_to_restore']))
 							{
 								$do_it=true;

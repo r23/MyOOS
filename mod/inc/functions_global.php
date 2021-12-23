@@ -1278,7 +1278,7 @@ function convert_to_latin1($obj)
 function get_index($arr, $selected)
 {
 	
-	$ret=false; // return false if not found
+	$ret = false; // return false if not found
 	foreach ($arr as $key=>$val)
 	{
 		if (strtolower(substr($val,0,strlen($selected)))==strtolower($selected))
@@ -1299,7 +1299,7 @@ function get_index($arr, $selected)
 function read_config($file=false)
 {
 	global $config,$databases;
-	$ret=false;
+	$ret = false;
 	if (!$file) $file= $config['config_file'];
 	// protect from including external files
 	$search=array(':', 'http', 'ftp', ' ');

@@ -50,7 +50,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 {
 	global $tables,$config,$lang;
 
-	$ret=false;
+	$ret = false;
 	$link=mod_mysqli_connect();
 	if (sizeof($tables)>0)
 	{

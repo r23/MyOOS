@@ -346,7 +346,7 @@ function print_mem()
 
 
 
-function SQLError($sql, $error, $return_output=false)
+function SQLError($sql, $error, $return_output = false)
 {
 	global $lang;
 
@@ -364,7 +364,7 @@ function Highlight_SQL($sql)
 	global $sql_keywords;
 
 	$end='';
-	$tickstart=false;
+	$tickstart = false;
 	if (function_exists("token_get_all")) $a=@token_get_all("<?php $sql?>");
 	else return $sql;
 	foreach ($a as $token)
