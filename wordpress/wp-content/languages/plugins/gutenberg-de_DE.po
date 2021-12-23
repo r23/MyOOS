@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-12-12 17:32:43+0000\n"
+"PO-Revision-Date: 2021-12-22 14:15:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,43 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Gutenberg - Stable (latest release)\n"
+
+#: lib/compat/wordpress-5.9/theme.json
+msgctxt "Font size name"
+msgid "Extra Large"
+msgstr "Extra groß "
+
+#: build/block-library/blocks/query-pagination/block.json
+msgctxt "block title"
+msgid "Pagination"
+msgstr "Paginierung"
+
+#: build/block-library/blocks/query-pagination-previous/block.json
+msgctxt "block title"
+msgid "Previous Page"
+msgstr "Vorherige Seite"
+
+#: build/block-library/blocks/query-pagination-numbers/block.json
+msgctxt "block title"
+msgid "Page Numbers"
+msgstr "Seitenzahlen"
+
+#: build/block-library/blocks/query-pagination-next/block.json
+msgctxt "block title"
+msgid "Next Page"
+msgstr "Nächste Seite"
+
+#: build/block-library/blocks/comments-pagination-numbers/block.json
+msgctxt "block description"
+msgid "Displays a list of page numbers for comments pagination."
+msgstr "Zeigt eine Liste von Seitenzahlen für die Kommentarpaginierung an."
+
+#. translators: Accessibility text. %s: Parent page title.
+#. translators: Accessibility text. %s: Parent page title.
+#: build/block-library/blocks/navigation-submenu.php:193
+#: build/block-library/blocks/page-list.php:179
+msgid "%s submenu"
+msgstr "Untermenü von %s"
 
 #: build/block-library/blocks/comments-pagination/block.json
 msgctxt "block description"
@@ -45,71 +82,71 @@ msgstr "Quelle des angepassten Templates"
 msgid "Invalid author ID."
 msgstr "Ungültige Autoren-ID."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:921
+#: lib/compat/wordpress-5.9/block-template-utils.php:918
 msgid "Unable to open export file (archive) for writing."
 msgstr "Die Export-Datei (Archiv) kann nicht zum Schreiben geöffnet werden."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:913
+#: lib/compat/wordpress-5.9/block-template-utils.php:910
 msgid "Zip Export not supported."
 msgstr "Zip-Export wird nicht unterstützt."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:174
+#: lib/compat/wordpress-5.9/block-template-utils.php:173
 msgid "Displays when no content is found."
 msgstr "Wird angezeigt, wenn kein Inhalt gefunden wurde."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:170
+#: lib/compat/wordpress-5.9/block-template-utils.php:169
 msgid "Displays the privacy policy page."
 msgstr "Zeigt die Seite mit der Datenschutzerklärung an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:162
+#: lib/compat/wordpress-5.9/block-template-utils.php:161
 msgid "Displays individual media items or attachments."
 msgstr "Zeigt individuelle Medienelemente oder Anhänge an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:158
+#: lib/compat/wordpress-5.9/block-template-utils.php:157
 msgid "Displays latest posts with single post tag."
 msgstr "Zeigt die neuesten Beiträge für ein ausgewähltes Beitrags-Schlagwort an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:154
+#: lib/compat/wordpress-5.9/block-template-utils.php:153
 msgid "Displays posts from a specific date."
 msgstr "Zeigt Beiträge mit einem bestimmten Datum an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:150
+#: lib/compat/wordpress-5.9/block-template-utils.php:149
 msgid "Displays latest posts from a single post taxonomy."
 msgstr "Zeigt die neuesten Beiträge aus einer ausgewählten Taxonomie an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:146
+#: lib/compat/wordpress-5.9/block-template-utils.php:145
 msgid "Displays latest posts in single post category."
 msgstr "Zeigt die neuesten Beiträge in einer ausgewählten Beitragskategorie an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:142
+#: lib/compat/wordpress-5.9/block-template-utils.php:141
 msgid "Displays latest posts written by a single author."
 msgstr "Zeigt die neuesten Beiträge eines ausgewählten Autors an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:138
+#: lib/compat/wordpress-5.9/block-template-utils.php:137
 msgid "Displays post categories, tags, and other archives."
 msgstr "Zeigt Kategorie-, Schlagwort- und andere Archive von Beiträgen an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:134
+#: lib/compat/wordpress-5.9/block-template-utils.php:133
 msgid "Displays a single page."
 msgstr "Zeigt eine einzelne Seite an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:130
+#: lib/compat/wordpress-5.9/block-template-utils.php:129
 msgid "Displays a single post."
 msgstr "Zeigt einen einzelnen Beitrag an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:126
+#: lib/compat/wordpress-5.9/block-template-utils.php:125
 msgid "Displays a single post or page."
 msgstr "Zeigt einen einzelnen Beitrag oder eine einzelne Seite an."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:122
+#: lib/compat/wordpress-5.9/block-template-utils.php:121
 msgid "Displays as the site's home page."
 msgstr "Wird als Startseite der Website angezeigt."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:118
+#: lib/compat/wordpress-5.9/block-template-utils.php:117
 msgid "Displays as the site's home page, or as the Posts page when a static home page it set."
 msgstr "Wird als Startseite der Webseite angezeigt oder als Beitragsseite, wenn eine statische Startseite gesetzt ist."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:114
+#: lib/compat/wordpress-5.9/block-template-utils.php:113
 msgid "Displays posts."
 msgstr "Zeigt die Beiträge an."
 
@@ -118,18 +155,11 @@ msgstr "Zeigt die Beiträge an."
 msgid "Gutenberg requires WordPress %s or later in order to enable the &#8220;Correct invalidly nested XHTML automatically&#8221; option. Please upgrade WordPress before enabling."
 msgstr "Gutenberg benötigt WordPress&nbsp;%s oder neuer, um die Option &#8222;Ungültig verschachteltes XHTML automatisch korrigieren&#8220; zu aktivieren. Bitte aktualisiere WordPress vor der Aktivierung."
 
-#: build/block-library/blocks/navigation-submenu.php:229
-#: build/block-library/blocks/navigation-submenu.php:233
-#: build/block-library/blocks/page-list.php:181
-#: build/block-library/blocks/page-list.php:189
-msgid "submenu"
-msgstr "Untermenü"
-
-#: lib/full-site-editing/templates.php:25
+#: lib/compat/wordpress-5.9/templates.php:30
 msgid "View Templates"
 msgstr "Template anzeigen"
 
-#: lib/full-site-editing/template-parts.php:25
+#: lib/compat/wordpress-5.9/template-parts.php:30
 msgid "View Template Parts"
 msgstr "Template-Teile anzeigen"
 
@@ -241,16 +271,11 @@ msgctxt "block description"
 msgid "Add the avatar of this comment's author."
 msgstr "Den Autoren-Avatar dieses Kommentars hinzufügen."
 
-#: build/block-library/index.js:6830
+#: build/block-library/index.js:6847
 #: build/block-library/blocks/comment-author-avatar/block.json
 msgctxt "block title"
 msgid "Comment Author Avatar"
 msgstr "Kommentarautor-Avatar"
-
-#. translators: %s: the name of the menu, e.g. "Main Menu".
-#: lib/navigation.php:266
-msgid "Classic menu: %s"
-msgstr "Klassisches Menü: %s"
 
 #: lib/navigation.php:32
 msgid "Navigation Menus list"
@@ -327,7 +352,7 @@ msgstr "Navigationsmenüs"
 msgid "Editor %s"
 msgstr "Editor %s"
 
-#: lib/init.php:99
+#: lib/init.php:99 build/edit-site/index.js:9043
 msgid "Editor (beta)"
 msgstr "Editor (Beta)"
 
@@ -644,11 +669,6 @@ msgstr "Schwarz"
 
 #: lib/compat/wordpress-5.9/theme.json
 msgctxt "Font size name"
-msgid "Huge"
-msgstr "Sehr groß"
-
-#: lib/compat/wordpress-5.9/theme.json
-msgctxt "Font size name"
 msgid "Large"
 msgstr "Groß"
 
@@ -656,11 +676,6 @@ msgstr "Groß"
 msgctxt "Font size name"
 msgid "Medium"
 msgstr "Mittelgroß"
-
-#: lib/compat/wordpress-5.9/theme.json
-msgctxt "Font size name"
-msgid "Normal"
-msgstr "Normal"
 
 #: lib/compat/wordpress-5.9/theme.json
 msgctxt "Font size name"
@@ -1385,7 +1400,7 @@ msgstr "Favicon-Bild-Link des Elements <link rel=\"icon\"> aus der URL."
 
 #. translators: %1$s: Block type, %2$s: typography supports key e.g: fontSize,
 #. lineHeight etc...
-#: lib/blocks.php:557
+#: lib/blocks.php:559
 msgid "Block %1$s is declaring %2$s support on block.json under supports.%2$s. %2$s support is now declared under supports.typography.%2$s."
 msgstr "Block %1$s erklärt %2$s Unterstützung auf block.json unter supports.%2$s. %2$s-Unterstützung wird jetzt unter supports.typography.%2$s erklärt."
 
@@ -1393,13 +1408,13 @@ msgstr "Block %1$s erklärt %2$s Unterstützung auf block.json unter supports.%2
 msgid "(Home link, opens in a new tab)"
 msgstr "(Link zur Startseite, öffnet in einem neuen Tab)"
 
-#: build/block-library/blocks/navigation.php:427
-#: build/block-library/index.js:23902
+#: build/block-library/blocks/navigation.php:545
+#: build/block-library/index.js:24254
 msgid "Close menu"
 msgstr "Menü schließen"
 
-#: build/block-library/blocks/navigation.php:426
-#: build/block-library/index.js:23867
+#: build/block-library/blocks/navigation.php:544
+#: build/block-library/index.js:24219
 msgid "Open menu"
 msgstr "Menü öffnen"
 
@@ -1548,7 +1563,7 @@ msgstr "Beitragsformat-Link"
 
 #: build/block-library/blocks/latest-posts.php:139
 #: build/block-library/blocks/latest-posts.php:154
-#: build/block-library/index.js:29858
+#: build/block-library/index.js:30229
 msgid "This content is password protected."
 msgstr "Dieser Inhalt ist passwortgeschützt."
 
@@ -1599,7 +1614,7 @@ msgctxt "block category"
 msgid "Text"
 msgstr "Text"
 
-#: lib/blocks.php:505 lib/compat/wordpress-5.8/block-editor.php:46
+#: lib/blocks.php:507 lib/compat/wordpress-5.8/block-editor.php:46
 msgctxt "block category"
 msgid "Theme"
 msgstr "Theme"
@@ -1653,31 +1668,31 @@ msgctxt "Block pattern title"
 msgid "Offset"
 msgstr "Offset"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:129
+#: lib/compat/wordpress-5.9/block-template-utils.php:128
 msgctxt "Template name"
 msgid "Single Post"
 msgstr "Einzelner Beitrag"
 
-#: lib/full-site-editing/templates.php:272
+#: lib/compat/wordpress-5.9/templates.php:244
 msgid "Skip to content"
 msgstr "Direkt zum Inhalt wechseln"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:85
-#: build/block-library/index.js:42421
+#: lib/compat/wordpress-5.9/block-template-utils.php:84
+#: build/block-library/index.js:42832
 msgid "The Footer template defines a page area that typically contains site credits, social links, or any other combination of blocks."
 msgstr "Das Footer-Template definiert einen Seitenbereich, der typischerweise Impressum, Social Links oder jede andere Kombination von Blöcken enthält."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:75
-#: build/block-library/index.js:42412
+#: lib/compat/wordpress-5.9/block-template-utils.php:74
+#: build/block-library/index.js:42823
 msgid "The Header template defines a page area that typically contains a title, logo, and main navigation."
 msgstr "Das Header-Template definiert einen Seitenbereich, der typischerweise Titel, Logo und Hauptnavigation enthält."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:65
+#: lib/compat/wordpress-5.9/block-template-utils.php:64
 msgid "General templates often perform a specific role like displaying post content, and are not tied to any particular area."
 msgstr "Allgemeine Templates übernehmen oft eine spezifische Aufgabe wie das Darstellen von Betragsinhalt und sind an keinen bestimmten Bereich gebunden."
 
 #. translators: %s: Template title
-#: lib/full-site-editing/template-loader.php:71
+#: lib/compat/wordpress-5.9/block-template.php:71
 msgid "Empty template: %s"
 msgstr "Leeres Template: %s"
 
@@ -1715,43 +1730,43 @@ msgstr "Serialisierte Widget-Formulardaten zur Kodierung in Instanzen-Einstellun
 msgid "Current instance settings of the widget."
 msgstr "Aktuelle Instanz-Einstellungen des Widgets."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:166
+#: lib/compat/wordpress-5.9/block-template-utils.php:165
 msgid "Template used to display search results."
 msgstr "Template für die Anzeige von Suchergebnissen."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:165
+#: lib/compat/wordpress-5.9/block-template-utils.php:164
 msgctxt "Template name"
 msgid "Search"
 msgstr "Suche"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:157
+#: lib/compat/wordpress-5.9/block-template-utils.php:156
 msgctxt "Template name"
 msgid "Tag"
 msgstr "Schlagwort"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:153
+#: lib/compat/wordpress-5.9/block-template-utils.php:152
 msgctxt "Template name"
 msgid "Date"
 msgstr "Datum"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:149
+#: lib/compat/wordpress-5.9/block-template-utils.php:148
 msgctxt "Template name"
 msgid "Taxonomy"
 msgstr "Taxonomie"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:145
+#: lib/compat/wordpress-5.9/block-template-utils.php:144
 msgctxt "Template name"
 msgid "Category"
 msgstr "Kategorie"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:141
+#: lib/compat/wordpress-5.9/block-template-utils.php:140
 msgctxt "Template name"
 msgid "Author"
 msgstr "Autor"
 
 #. translators: %1$s: Template area type, %2$s: the uncategorized template area
 #. value.
-#: lib/compat/wordpress-5.9/block-template-utils.php:210
+#: lib/compat/wordpress-5.9/block-template-utils.php:209
 msgid "\"%1$s\" is not a supported wp_template_part area value and has been added as \"%2$s\"."
 msgstr "„%1$s“ ist ein nicht unterstützter wp_template_part-Bereichswert und wurde hinzugefügt als „%2$s“."
 
@@ -1769,11 +1784,11 @@ msgstr "Menschenlesbarer Name, der den Widget-Typ bezeichnet."
 msgid "The widget type id."
 msgstr "Die Widget-Typ-ID."
 
-#: lib/full-site-editing/template-parts.php:81
+#: lib/compat/wordpress-5.9/template-parts.php:82
 msgid "Template Part Area"
 msgstr "Templateteil-Bereich"
 
-#: lib/full-site-editing/template-parts.php:80
+#: lib/compat/wordpress-5.9/template-parts.php:81
 msgid "Template Part Areas"
 msgstr "Templateteil-Bereiche"
 
@@ -1829,35 +1844,25 @@ msgstr "Inhalte des <title>-Elements aus der URL."
 msgid "The URL to process."
 msgstr "Zu verarbeitende URL."
 
-#: build/block-library/blocks/query-pagination-previous.php:22
-#: build/block-library/index.js:34332
+#: build/block-library/blocks/query-pagination-previous.php:25
+#: build/block-library/index.js:34725
 msgid "Previous Page"
 msgstr "Vorherige Seite"
 
-#: build/block-library/blocks/query-pagination-previous/block.json
+#: build/block-library/blocks/comments-pagination-numbers/block.json
 msgctxt "block title"
-msgid "Query Pagination Previous"
-msgstr "Vorige Seitennummerierung abfragen"
+msgid "Comments Pagination Numbers"
+msgstr "Kommentar-Paginierungsnummern"
 
-#: build/block-library/blocks/query-pagination-numbers/block.json
-msgctxt "block title"
-msgid "Query Pagination Numbers"
-msgstr "Seitennummerierung abfragen"
-
-#: build/block-library/blocks/query-pagination-next.php:23
-#: build/block-library/index.js:34123
+#: build/block-library/blocks/query-pagination-next.php:25
+#: build/block-library/index.js:34539
 msgid "Next Page"
 msgstr "Nächste Seite"
 
-#: build/block-library/blocks/query-pagination-next/block.json
-msgctxt "block title"
-msgid "Query Pagination Next"
-msgstr "Nächste Seitennummerierung abfragen"
-
 #. translators: %s: Template part slug.
 #. translators: %s: Template part slug
-#: build/block-library/blocks/template-part.php:74
-#: build/block-library/index.js:42298
+#: build/block-library/blocks/template-part.php:113
+#: build/block-library/index.js:42709
 msgid "Template part has been deleted or is unavailable: %s"
 msgstr "Das Template-Teil wurde gelöscht oder ist nicht verfügbar: %s"
 
@@ -1910,7 +1915,7 @@ msgstr "Du bist leider nicht berechtigt, das lokale Blockvorlagenverzeichnis zu 
 #. a faulty block.
 #: build/block-library/blocks/block.php:35
 #: build/block-library/blocks/post-content.php:33
-#: build/block-library/blocks/template-part.php:87
+#: build/block-library/blocks/template-part.php:126
 msgid "[block rendering halted]"
 msgstr "[Block-Rendering wurde angehalten]"
 
@@ -1949,13 +1954,13 @@ msgctxt "block title"
 msgid "Post Comments"
 msgstr "Beitrags-Kommentare"
 
-#: build/block-library/index.js:7372
+#: build/block-library/index.js:7389
 #: build/block-library/blocks/comment-date/block.json
 msgctxt "block title"
 msgid "Comment Date"
 msgstr "Kommentar-Datum"
 
-#: build/block-library/index.js:7215
+#: build/block-library/index.js:7232
 #: build/block-library/blocks/comment-content/block.json
 msgctxt "block title"
 msgid "Comment Content"
@@ -1975,11 +1980,6 @@ msgstr "Beitragsinhalt"
 msgctxt "block title"
 msgid "Post Title"
 msgstr "Beitragstitel"
-
-#: build/block-library/blocks/query-pagination/block.json
-msgctxt "block title"
-msgid "Query Pagination"
-msgstr "Seitennummerierung für Abfragen"
 
 #: build/block-library/blocks/query/block.json
 msgctxt "block title"
@@ -2211,7 +2211,7 @@ msgctxt "block title"
 msgid "Paragraph"
 msgstr "Absatz"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:552
+#: lib/compat/wordpress-5.9/block-template-utils.php:549
 msgid "No theme is defined for this template."
 msgstr "Für dieses Template ist kein Theme definiert."
 
@@ -2274,57 +2274,49 @@ msgstr "Du bist leider nicht berechtigt, auf die Templates dieser Website zuzugr
 msgid "The id of a template"
 msgstr "Die ID eines Templates."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:125
+#: lib/compat/wordpress-5.9/block-template-utils.php:124
 msgctxt "Template name"
 msgid "Singular"
 msgstr "Singular"
 
-#: lib/full-site-editing/full-site-editing.php:93
+#: lib/compat/wordpress-5.9/admin-menu.php:74
 msgid "Edit site"
 msgstr "Website bearbeiten"
 
-#: lib/full-site-editing/templates.php:81 build/core-data/index.js:1940
+#: lib/compat/wordpress-5.9/templates.php:82 build/core-data/index.js:1940
 msgid "Themes"
 msgstr "Themes"
 
-#. translators: %s: Number of auto-draft posts.
-#: lib/full-site-editing/templates-utils.php:71
-msgctxt "Post status"
-msgid "Auto-Draft <span class=\"count\">(%s)</span>"
-msgid_plural "Auto-Drafts <span class=\"count\">(%s)</span>"
-msgstr[0] "Automatisch gespeicherter Entwurf <span class=\"count\">(%s)</span>"
-msgstr[1] "Automatisch gespeicherte Entwürfe <span class=\"count\">(%s)</span>"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:173
+#: lib/compat/wordpress-5.9/block-template-utils.php:172
 msgctxt "Template name"
 msgid "404"
 msgstr "404"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:169
+#: lib/compat/wordpress-5.9/block-template-utils.php:168
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:133
+#: lib/compat/wordpress-5.9/block-template-utils.php:132
 msgctxt "Template name"
 msgid "Page"
 msgstr "Seite"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:117
+#: lib/compat/wordpress-5.9/block-template-utils.php:116
 msgctxt "Template name"
 msgid "Home"
 msgstr "Startseite"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:113
+#: lib/compat/wordpress-5.9/block-template-utils.php:112
 msgctxt "Template name"
 msgid "Index"
 msgstr "Index"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:137
+#: lib/compat/wordpress-5.9/block-template-utils.php:136
 msgctxt "Template name"
 msgid "Archive"
 msgstr "Archiv"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:121
+#: lib/compat/wordpress-5.9/block-template-utils.php:120
 msgctxt "Template name"
 msgid "Front Page"
 msgstr "Startseite"
@@ -2450,16 +2442,11 @@ msgstr "Die ID der registrierten Seitenleiste"
 msgid "Gutenberg block."
 msgstr "Gutenberg-Block."
 
-#: lib/full-site-editing/templates-utils.php:15
-#: build/block-library/index.js:26278 build/block-library/index.js:27375
-msgid "Description"
-msgstr "Beschreibung"
-
-#: lib/full-site-editing/edit-site-page.php:261
+#: lib/full-site-editing/edit-site-page.php:223
 msgid "The ID of the page that should be displayed on the front page"
 msgstr "Die ID der Seite, die auf der Startseite angezeigt werden soll."
 
-#: lib/full-site-editing/edit-site-page.php:251
+#: lib/full-site-editing/edit-site-page.php:213
 msgid "What to show on the front page"
 msgstr "Was auf der Startseite angezeigt werden soll."
 
@@ -2584,7 +2571,7 @@ msgstr "Der Vorlagentitel in menschenlesbarem Format."
 #. translators: %s: the author.
 #. translators: byline. %s: current author.
 #: build/block-library/blocks/latest-posts.php:115
-#: build/block-library/blocks/rss.php:60 build/block-library/index.js:20321
+#: build/block-library/blocks/rss.php:60 build/block-library/index.js:20668
 msgid "by %s"
 msgstr "von %s"
 
@@ -2597,17 +2584,17 @@ msgid "Navigation menus."
 msgstr "Navigations-Menüs"
 
 #. translators: accessibility text for the content landmark region.
-#: lib/navigation-theme-opt-in.php:349 build/block-editor/index.js:9213
-#: build/edit-navigation/index.js:3001 build/edit-post/index.js:1339
-#: build/edit-site/index.js:1542 build/edit-widgets/index.js:1273
+#: lib/navigation-theme-opt-in.php:349 build/block-editor/index.js:9162
+#: build/edit-navigation/index.js:3001 build/edit-post/index.js:1341
+#: build/edit-site/index.js:1877 build/edit-widgets/index.js:1273
 msgid "Content"
 msgstr "Inhalt"
 
 #. translators: accessibility text for the top bar landmark region.
-#: lib/compat/wordpress-5.9/block-template-utils.php:74
-#: build/block-library/index.js:42411 build/edit-navigation/index.js:2998
-#: build/edit-post/index.js:1336 build/edit-site/index.js:1539
-#: build/edit-site/index.js:1649 build/edit-widgets/index.js:1270
+#: lib/compat/wordpress-5.9/block-template-utils.php:73
+#: build/block-library/index.js:42822 build/edit-navigation/index.js:2998
+#: build/edit-post/index.js:1338 build/edit-site/index.js:1874
+#: build/edit-widgets/index.js:1270
 msgid "Header"
 msgstr "Header"
 
@@ -2717,7 +2704,7 @@ msgid "Title required if menu item of type custom."
 msgstr "Bei individuellen Menüeinträgen ist ein Titel erforderlich."
 
 #: lib/class-wp-rest-menu-items-controller.php:508
-#: lib/full-site-editing/edit-site-page.php:92
+#: lib/full-site-editing/edit-site-page.php:97
 msgid "Invalid post type."
 msgstr "Ungültiger Inhaltstyp."
 
@@ -2832,18 +2819,17 @@ msgctxt "block keyword"
 msgid "links"
 msgstr "Links"
 
-#: lib/compat/wordpress-5.9/register-global-styles-cpt.php:16
+#: lib/compat/wordpress-5.9/register-global-styles-cpt.php:23
 #: build/core-data/index.js:1925
 msgid "Global Styles"
 msgstr "Globale Stile"
 
-#: lib/full-site-editing/template-loader.php:87
+#: lib/compat/wordpress-5.9/block-template.php:87
 msgid "No matching template found."
 msgstr "Kein passendes Template gefunden."
 
-#: lib/full-site-editing/templates-utils.php:16
-#: lib/full-site-editing/templates.php:82 build/blocks/index.js:5389
-#: build/edit-site/index.js:5752 build/edit-site/index.js:5813
+#: lib/compat/wordpress-5.9/templates.php:83 build/blocks/index.js:5389
+#: build/edit-site/index.js:5828 build/edit-site/index.js:5881
 msgid "Theme"
 msgstr "Theme"
 
@@ -2851,95 +2837,95 @@ msgstr "Theme"
 msgid "The block editor includes experimental features that are useable while they're in development. Select the ones you'd like to enable. These features are likely to change, so avoid using them in production."
 msgstr "Der Block-Editor enthält experimentelle Funktionen, die bereits während der Entwicklung nutzbar sind. Wähle die Funktionen aus, die du aktivieren möchtest. Diese Funktionen werden sich wahrscheinlich ändern, verwende sie daher nicht auf produktiven Seiten."
 
-#: lib/full-site-editing/template-parts.php:41
+#: lib/compat/wordpress-5.9/template-parts.php:46
 msgid "Template parts to include in your templates."
 msgstr "Template-Teile zum Einfügen in dein Template."
 
-#: lib/full-site-editing/template-parts.php:36
+#: lib/compat/wordpress-5.9/template-parts.php:41
 msgid "Template parts list"
 msgstr "Liste von Template-Teilen"
 
-#: lib/full-site-editing/template-parts.php:35
+#: lib/compat/wordpress-5.9/template-parts.php:40
 msgid "Template parts list navigation"
 msgstr "Listennavigation für Template-Teile"
 
-#: lib/full-site-editing/template-parts.php:34
+#: lib/compat/wordpress-5.9/template-parts.php:39
 msgid "Filter template parts list"
 msgstr "Liste von Template-Teilen filtern"
 
-#: lib/full-site-editing/template-parts.php:33
+#: lib/compat/wordpress-5.9/template-parts.php:38
 msgid "Uploaded to this template part"
 msgstr "Zu diesem Template-Teil hochgeladen"
 
-#: lib/full-site-editing/template-parts.php:32
+#: lib/compat/wordpress-5.9/template-parts.php:37
 msgid "Insert into template part"
 msgstr "In den Template-Teil einfügen"
 
-#: lib/full-site-editing/template-parts.php:31
+#: lib/compat/wordpress-5.9/template-parts.php:36
 msgid "Template part archives"
 msgstr "Template-Teil-Archive"
 
-#: lib/full-site-editing/template-parts.php:30
+#: lib/compat/wordpress-5.9/template-parts.php:35
 msgid "No template parts found in Trash."
 msgstr "Im Papierkorb wurden keine Template-Teile gefunden."
 
-#: lib/full-site-editing/template-parts.php:29
+#: lib/compat/wordpress-5.9/template-parts.php:34
 msgid "No template parts found."
 msgstr "Keine Template-Teile gefunden."
 
-#: lib/full-site-editing/template-parts.php:28
+#: lib/compat/wordpress-5.9/template-parts.php:33
 msgid "Parent Template Part:"
 msgstr "Übergeordnetes Template-Teil:"
 
-#: lib/full-site-editing/template-parts.php:27
+#: lib/compat/wordpress-5.9/template-parts.php:32
 msgid "Search Template Parts"
 msgstr "Template-Teil durchsuchen"
 
-#: lib/full-site-editing/template-parts.php:26
+#: lib/compat/wordpress-5.9/template-parts.php:31
 msgid "All Template Parts"
 msgstr "Alle Template-Teile"
 
-#: lib/full-site-editing/template-parts.php:24
+#: lib/compat/wordpress-5.9/template-parts.php:29
 msgid "View Template Part"
 msgstr "Template-Teil anzeigen"
 
-#: lib/full-site-editing/template-parts.php:23
+#: lib/compat/wordpress-5.9/template-parts.php:28
 msgid "Edit Template Part"
 msgstr "Template-Teil bearbeiten"
 
-#: lib/full-site-editing/template-parts.php:22
+#: lib/compat/wordpress-5.9/template-parts.php:27
 msgid "New Template Part"
 msgstr "Neues Template-Teil"
 
-#: lib/full-site-editing/template-parts.php:21
+#: lib/compat/wordpress-5.9/template-parts.php:26
 msgid "Add New Template Part"
 msgstr "Neues Template-Teil hinzufügen"
 
-#: lib/full-site-editing/template-parts.php:20
+#: lib/compat/wordpress-5.9/template-parts.php:25
 msgctxt "Template Part"
 msgid "Add New"
 msgstr "Hinzufügen"
 
-#: lib/full-site-editing/template-parts.php:19
+#: lib/compat/wordpress-5.9/template-parts.php:24
 msgctxt "Admin Menu text"
 msgid "Template Parts"
 msgstr "Template-Teile"
 
-#: lib/full-site-editing/template-parts.php:18
-#: build/block-library/index.js:41649 build/block-library/index.js:41993
-#: build/editor/index.js:5554
+#: lib/compat/wordpress-5.9/template-parts.php:23
+#: build/block-library/index.js:42055 build/block-library/index.js:42399
+#: build/editor/index.js:5555
 msgid "Template Part"
 msgid_plural "Template Parts"
 msgstr[0] "Template-Teil"
 msgstr[1] ""
 
-#: lib/full-site-editing/template-parts.php:17 build/edit-site/index.js:7066
+#: lib/compat/wordpress-5.9/template-parts.php:22 build/edit-site/index.js:7156
 msgid "Template Parts"
 msgstr "Template-Teile"
 
 #. translators: 'navigation' as in website navigation.
-#: lib/experiments-page.php:45 build/block-library/index.js:23590
-#: build/block-library/index.js:23794 build/edit-navigation/index.js:4487
+#: lib/experiments-page.php:45 build/block-library/index.js:23942
+#: build/block-library/index.js:24146 build/edit-navigation/index.js:4487
 #: build/edit-navigation/index.js:4496
 msgid "Navigation"
 msgstr "Navigation"
@@ -2948,95 +2934,95 @@ msgstr "Navigation"
 msgid "Navigation Menu"
 msgstr "Navigationsmenü"
 
-#: lib/full-site-editing/templates.php:36
+#: lib/compat/wordpress-5.9/templates.php:41
 msgid "Templates list"
 msgstr "Templates-Liste"
 
-#: lib/full-site-editing/templates.php:35
+#: lib/compat/wordpress-5.9/templates.php:40
 msgid "Templates list navigation"
 msgstr "Templates-Listen-Navigation"
 
-#: lib/full-site-editing/templates.php:34
+#: lib/compat/wordpress-5.9/templates.php:39
 msgid "Filter templates list"
 msgstr "Template-Liste filtern"
 
-#: lib/full-site-editing/templates.php:33
+#: lib/compat/wordpress-5.9/templates.php:38
 msgid "Uploaded to this template"
 msgstr "Zu diesem Template hochgeladen"
 
-#: lib/full-site-editing/templates.php:32
+#: lib/compat/wordpress-5.9/templates.php:37
 msgid "Insert into template"
 msgstr "In das Template einfügen"
 
-#: lib/full-site-editing/templates.php:31
+#: lib/compat/wordpress-5.9/templates.php:36
 msgid "Template archives"
 msgstr "Template-Archiv"
 
-#: lib/full-site-editing/templates.php:30
+#: lib/compat/wordpress-5.9/templates.php:35
 msgid "No templates found in Trash."
 msgstr "Kein Template im Papierkorb gefunden."
 
-#: lib/full-site-editing/templates.php:29
+#: lib/compat/wordpress-5.9/templates.php:34
 msgid "No templates found."
 msgstr "Kein Template gefunden."
 
-#: lib/full-site-editing/templates.php:28
+#: lib/compat/wordpress-5.9/templates.php:33
 msgid "Parent Template:"
 msgstr "Eltern-Template:"
 
-#: lib/full-site-editing/templates.php:27
+#: lib/compat/wordpress-5.9/templates.php:32
 msgid "Search Templates"
 msgstr "Template suchen"
 
-#: lib/full-site-editing/templates.php:26
+#: lib/compat/wordpress-5.9/templates.php:31
 msgid "All Templates"
 msgstr "Alle Templates"
 
-#: lib/full-site-editing/templates.php:24
+#: lib/compat/wordpress-5.9/templates.php:29
 msgid "View Template"
 msgstr "Template anzeigen"
 
-#: lib/full-site-editing/templates.php:23
+#: lib/compat/wordpress-5.9/templates.php:28
 msgid "Edit Template"
 msgstr "Template bearbeiten"
 
-#: lib/full-site-editing/templates.php:22
+#: lib/compat/wordpress-5.9/templates.php:27
 msgid "New Template"
 msgstr "Neues Template"
 
-#: lib/full-site-editing/templates.php:21
+#: lib/compat/wordpress-5.9/templates.php:26
 msgid "Add New Template"
 msgstr "Neues Template hinzufügen"
 
-#: lib/full-site-editing/templates.php:20
+#: lib/compat/wordpress-5.9/templates.php:25
 msgctxt "Template"
 msgid "Add New"
 msgstr "Hinzufügen"
 
-#: lib/full-site-editing/templates.php:19
+#: lib/compat/wordpress-5.9/templates.php:24
 msgctxt "Admin Menu text"
 msgid "Templates"
 msgstr "Templates"
 
 #. translators: ARIA label for the Template Settings Sidebar tab, not selected.
 #. translators: Text label for the Template Settings Sidebar tab.
-#: lib/full-site-editing/templates.php:18 build/edit-post/index.js:4969
-#: build/edit-post/index.js:6492 build/edit-post/index.js:6504
-#: build/edit-post/index.js:6505 build/edit-post/index.js:8013
-#: build/edit-site/index.js:6664 build/edit-site/index.js:6675
-#: build/edit-site/index.js:6677 build/edit-site/index.js:9758
+#: lib/compat/wordpress-5.9/templates.php:23 build/edit-post/index.js:4959
+#: build/edit-post/index.js:6488 build/edit-post/index.js:6500
+#: build/edit-post/index.js:6501 build/edit-post/index.js:8008
+#: build/edit-site/index.js:6750 build/edit-site/index.js:6761
+#: build/edit-site/index.js:6763 build/edit-site/index.js:9900
 msgid "Template"
 msgstr "Template"
 
-#: lib/full-site-editing/template-loader.php:169
+#: lib/compat/wordpress-5.9/block-template.php:210
 msgid "No matching template found"
 msgstr "Kein passendes Template gefunden"
 
-#: lib/full-site-editing/templates.php:41
+#: lib/compat/wordpress-5.9/templates.php:46
 msgid "Templates to include in your theme."
 msgstr "Templates, die in dein Theme eingefügt werden können."
 
-#: lib/full-site-editing/templates.php:17 build/edit-site/index.js:7058
+#: lib/compat/wordpress-5.9/templates.php:22 build/edit-site/index.js:7148
 msgid "Templates"
 msgstr "Templates"
 
@@ -3054,10 +3040,10 @@ msgid "Your site doesn&#8217;t have any %s, so there&#8217;s nothing to display 
 msgstr "Deine Website hat keine %s, also gibt es hier im Moment nichts zu sehen."
 
 #. translators: accessibility text for the footer landmark region.
-#: lib/compat/wordpress-5.9/block-template-utils.php:84
-#: build/block-library/index.js:42420 build/edit-navigation/index.js:3013
-#: build/edit-post/index.js:1351 build/edit-site/index.js:1554
-#: build/edit-site/index.js:1650 build/edit-widgets/index.js:1285
+#: lib/compat/wordpress-5.9/block-template-utils.php:83
+#: build/block-library/index.js:42831 build/edit-navigation/index.js:3013
+#: build/edit-post/index.js:1353 build/edit-site/index.js:1889
+#: build/edit-widgets/index.js:1285
 msgid "Footer"
 msgstr "Footer"
 
@@ -3071,23 +3057,23 @@ msgstr "RSS Fehler:"
 
 #: build/block-library/blocks/search.php:25
 #: build/block-library/blocks/search.php:26
-#: build/block-library/blocks/search.php:49 build/block-editor/index.js:20924
+#: build/block-library/blocks/search.php:48 build/block-editor/index.js:20924
 #: build/block-editor/index.js:21961 build/block-editor/index.js:22069
-#: build/block-library/index.js:36097 build/block-library/index.js:36098
+#: build/block-library/index.js:36492 build/block-library/index.js:36493
 msgid "Search"
 msgstr "Suchen"
 
 #: lib/compat/wordpress-5.8/block-editor.php:183
-#: build/block-editor/index.js:2631
+#: build/block-editor/index.js:2632
 msgid "Thumbnail"
 msgstr "Vorschaubild"
 
 #: lib/compat/wordpress-5.8/block-editor.php:186
-#: build/block-editor/index.js:2640
+#: build/block-editor/index.js:2641
 msgid "Full Size"
 msgstr "Vollständige Größe"
 
-#: build/block-library/index.js:10698
+#: build/block-library/index.js:10947
 #: build/block-library/blocks/embed/block.json
 msgctxt "block title"
 msgid "Embed"
@@ -3098,8 +3084,8 @@ msgctxt "block title"
 msgid "Classic"
 msgstr "Classic"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:161
-#: build/block-editor/index.js:41389 build/blocks/index.js:5380
+#: lib/compat/wordpress-5.9/block-template-utils.php:160
+#: build/block-editor/index.js:41470 build/blocks/index.js:5380
 #: build/core-data/index.js:1825
 msgid "Media"
 msgstr "Medien"
@@ -3114,8 +3100,8 @@ msgctxt "block description"
 msgid "Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content."
 msgstr "Führe neue Abschnitte ein und organisiere Inhalte, damit Besucher (und Suchmaschinen) die Struktur deiner Inhalte besser verstehen können."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:64
-#: build/edit-post/index.js:4910 build/edit-site/index.js:1652
+#: lib/compat/wordpress-5.9/block-template-utils.php:63
+#: build/edit-post/index.js:4900
 msgid "General"
 msgstr "Allgemein"
 
@@ -3123,12 +3109,12 @@ msgstr "Allgemein"
 #: build/block-library/blocks/site-title.php:38
 #: build/customize-widgets/index.js:1474 build/edit-navigation/index.js:4447
 #: build/edit-post/index.js:3441 build/edit-widgets/index.js:3954
-#: build/editor/index.js:7637
+#: build/editor/index.js:7658
 msgid "(opens in a new tab)"
 msgstr "(öffnet in neuem Tab)"
 
 #: lib/compat/wordpress-5.8/block-editor.php:184
-#: build/block-editor/index.js:2634 build/block-editor/index.js:30476
+#: build/block-editor/index.js:2635 build/block-editor/index.js:30547
 msgid "Medium"
 msgstr "Mittel"
 
@@ -3162,7 +3148,7 @@ msgstr "Falls du mehr darüber erfahren willst, wie zusätzliche Blöcke erstell
 msgid "The WordPress community"
 msgstr "Die WordPress-Community"
 
-#: post-content.php:159 build/block-library/index.js:17742
+#: post-content.php:159 build/block-library/index.js:18003
 msgid "Code is Poetry"
 msgstr "Code ist Poesie"
 
@@ -3350,7 +3336,7 @@ msgid "Archives"
 msgstr "Archive"
 
 #: lib/compat/wordpress-5.8/block-editor.php:185
-#: build/block-editor/index.js:2637 build/block-library/index.js:39063
+#: build/block-editor/index.js:2638 build/block-library/index.js:39464
 msgid "Large"
 msgstr "Groß"
 
@@ -3376,18 +3362,18 @@ msgstr "Füge einen Block hinzu, der Inhalte von anderen Websites wie Twitter od
 #: lib/class-wp-widget-block.php:49 lib/navigation-theme-opt-in.php:91
 #: lib/navigation-theme-opt-in.php:96 build/edit-navigation/index.js:3679
 #: build/edit-navigation/index.js:3694 build/edit-navigation/index.js:3696
-#: build/edit-post/index.js:6491 build/edit-post/index.js:6510
-#: build/edit-post/index.js:6512 build/edit-site/index.js:6667
-#: build/edit-site/index.js:6682 build/edit-site/index.js:6684
+#: build/edit-post/index.js:6487 build/edit-post/index.js:6506
+#: build/edit-post/index.js:6508 build/edit-site/index.js:6753
+#: build/edit-site/index.js:6768 build/edit-site/index.js:6770
 #: build/edit-widgets/index.js:3427
 msgid "Block"
 msgstr "Block"
 
 #: build/block-library/blocks/latest-comments.php:31
 #: build/block-library/blocks/latest-posts.php:103
-#: build/block-library/blocks/rss.php:31 build/block-library/index.js:20317
-#: build/core-data/index.js:5478 build/edit-navigation/index.js:1855
-#: build/edit-post/index.js:7752 build/editor/index.js:9384
+#: build/block-library/blocks/rss.php:31 build/block-library/index.js:20664
+#: build/core-data/index.js:5465 build/edit-navigation/index.js:1855
+#: build/edit-post/index.js:7747 build/editor/index.js:9405
 msgid "(no title)"
 msgstr "(kein Titel)"
 
@@ -3396,24 +3382,24 @@ msgid "Experiments"
 msgstr "Experimente"
 
 #: build/block-library/blocks/categories.php:34
-#: build/block-library/index.js:4793 build/block-library/index.js:4831
-#: build/block-library/index.js:33263
+#: build/block-library/index.js:4806 build/block-library/index.js:4844
+#: build/block-library/index.js:33679
 msgid "Categories"
 msgstr "Kategorien"
 
 #: build/block-library/blocks/comment-edit-link.php:42
-#: build/block-editor/index.js:40271 build/block-editor/index.js:41047
-#: build/block-editor/index.js:43501 build/block-library/index.js:7572
-#: build/block-library/index.js:28024 build/block-library/index.js:28026
-#: build/block-library/index.js:43440 build/edit-navigation/index.js:3950
-#: build/edit-post/index.js:7865
+#: build/block-editor/index.js:40349 build/block-editor/index.js:41127
+#: build/block-editor/index.js:43610 build/block-library/index.js:7589
+#: build/block-library/index.js:28395 build/block-library/index.js:28397
+#: build/block-library/index.js:43875 build/edit-navigation/index.js:3950
+#: build/edit-post/index.js:7860
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #: lib/init.php:39 lib/init.php:40 build/blocks/index.js:5386
 #: build/core-data/index.js:1856 build/customize-widgets/index.js:2554
 #: build/edit-widgets/index.js:4061 build/edit-widgets/index.js:4064
-#: build/edit-widgets/index.js:4516
+#: build/edit-widgets/index.js:4518
 msgid "Widgets"
 msgstr "Widgets"
 

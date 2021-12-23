@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-12-08 14:43:29+0000\n"
+"PO-Revision-Date: 2021-12-22 12:54:14+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,56 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+
+#: includes/settings/titles/taxonomies.php:114
+msgid "When the option is enabled and a term from this taxonomy is shared on Slack, additional information will be shown (the total number of items with this term)."
+msgstr "Wenn die Option aktiviert ist und ein Begriff aus dieser Taxonomie auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (die Gesamtzahl der Elemente mit diesem Begriff)."
+
+#: includes/settings/titles/post-types.php:367
+msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price)."
+msgstr "Wenn die Option aktiviert ist und ein Produkt auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Preis)."
+
+#: includes/settings/titles/post-types.php:356
+msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price & availability)."
+msgstr "Wenn die Option aktiviert ist und ein Produkt auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Preis und Verfügbarkeit)."
+
+#: includes/settings/titles/post-types.php:345
+msgid "When the option is enabled and a page is shared on Slack, additional information will be shown (time to read)."
+msgstr "Wenn die Option aktiviert ist und eine Seite auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Zeit zum Lesen)."
+
+#: includes/settings/titles/post-types.php:334
+msgid "When the option is enabled and a post is shared on Slack, additional information will be shown (author name & time to read)."
+msgstr "Wenn die Option aktiviert ist und ein Beitrag auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Name des Autors und Zeit bis zum Lesen)."
+
+#: includes/settings/titles/author.php:126
+msgid "When the option is enabled and an author archive is shared on Slack, additional information will be shown (name & total number of posts)."
+msgstr "Wenn die Option aktiviert ist und ein Autorenarchiv auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Name und Gesamtanzahl der Beiträge)."
+
+#: includes/settings/titles/author.php:125
+#: includes/settings/titles/post-types.php:333
+#: includes/settings/titles/post-types.php:344
+#: includes/settings/titles/post-types.php:355
+#: includes/settings/titles/post-types.php:366
+#: includes/settings/titles/taxonomies.php:113
+msgid "Slack Enhanced Sharing"
+msgstr "Slack Verbesserte Freigabe"
+
+#: includes/opengraph/class-slack.php:286
+msgid "Less than a minute"
+msgstr "Weniger als eine Minute"
+
+#: includes/opengraph/class-slack.php:245
+#: includes/opengraph/class-slack.php:259
+msgid "Time to read"
+msgstr "Zeit zum Lesen"
+
+#: includes/opengraph/class-slack.php:244
+msgid "Written by"
+msgstr "Verfasst von"
+
+#: includes/modules/sitemap/class-admin.php:215
+msgid "Exclude this attachment from sitemap"
+msgstr "Diesen Anhang von der Sitemap ausschließen"
 
 #: includes/settings/titles/post-types.php:141
 msgid "Local Business"
@@ -344,9 +394,9 @@ msgstr[1] "Blöcke in %d Stellen erfolgreich umgewandelt."
 msgid "Spain"
 msgstr "Spanien"
 
-#: includes/settings/titles/author.php:125
-#: includes/settings/titles/post-types.php:332
-#: includes/settings/titles/taxonomies.php:113
+#: includes/settings/titles/author.php:136
+#: includes/settings/titles/post-types.php:378
+#: includes/settings/titles/taxonomies.php:124
 msgid "Add SEO Controls"
 msgstr "SEO-Steuerelemente hinzufügen"
 
@@ -1120,6 +1170,10 @@ msgstr "Gibt an, wie oft deine Website in den Suchergbnissen angezeigt wurde."
 msgid "This is the number of pageviews carried out by visitors from Google."
 msgstr "Dies ist die Anzahl der Seiten, die Besucher von Google aufgerufen haben."
 
+#: includes/opengraph/class-slack.php:326
+msgid "Posts"
+msgstr "Beiträge"
+
 #: includes/modules/analytics/class-analytics.php:163
 msgid "Search Traffic"
 msgstr "Such-Traffic"
@@ -1669,14 +1723,14 @@ msgstr "Keine Beitrags-ID gefunden."
 msgid "Sorry, no preference found."
 msgstr "Keine Präferenz gefunden."
 
-#: includes/helpers/class-schema.php:85
+#: includes/helpers/class-schema.php:93
 #: includes/settings/titles/post-types.php:124
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "EDD Product"
 msgstr "EDD-Produkt"
 
-#: includes/helpers/class-schema.php:81
+#: includes/helpers/class-schema.php:89
 #: includes/settings/titles/post-types.php:124
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -1728,11 +1782,11 @@ msgstr "Orte importieren"
 msgid "You are using the recommended WordPress version."
 msgstr "Du verwendest die mindestens empfohlene WordPress-Version."
 
-#: includes/frontend/class-shortcodes.php:360
+#: includes/frontend/class-shortcodes.php:363
 msgid "Email:"
 msgstr "E-Mail:"
 
-#: includes/frontend/class-shortcodes.php:301
+#: includes/frontend/class-shortcodes.php:304
 msgid "Telephone"
 msgstr "Telefonnummer"
 
@@ -2264,7 +2318,7 @@ msgstr "Importiere und konvertiere alle kompatiblen Blöcke in Beitragsinhalten.
 msgid "Import Blocks"
 msgstr "Blöcke importieren"
 
-#: includes/admin/importers/class-yoast.php:1183
+#: includes/admin/importers/class-yoast.php:1194
 msgid "No post found."
 msgstr "Es wurden keine Beiträge gefunden."
 
@@ -2292,7 +2346,9 @@ msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
 #. translators: %s expands to a unit of time (e.g. 1 minute).
+#. translators: %d: minutes
 #: includes/modules/schema/blocks/class-block-howto.php:429
+#: includes/opengraph/class-slack.php:281
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d Minute"
@@ -2683,11 +2739,11 @@ msgstr "Blog-Seite anzeigen"
 msgid "%s Archives Advanced Robots Meta"
 msgstr "%s Archive Erweiterte Roboter-Meta"
 
-#: includes/settings/titles/post-types.php:361
+#: includes/settings/titles/post-types.php:407
 msgid "List of custom fields name to include in the Page analysis. Add one per line."
 msgstr "Liste der benutzerdefinierten Feldnamen, die in die Seitenanalyse einbezogen werden sollen. Füge einen pro Zeile hinzu."
 
-#: includes/settings/titles/post-types.php:360
+#: includes/settings/titles/post-types.php:406
 msgid "Custom Fields"
 msgstr "Benutzerdefinierte Felder"
 
@@ -3411,15 +3467,15 @@ msgid "Error: Nonce verification failed"
 msgstr "Fehler: Nonce-Verifizierung fehlgeschlagen"
 
 #. translators: taxonomy name
-#: includes/settings/titles/taxonomies.php:126
+#: includes/settings/titles/taxonomies.php:137
 msgid "Remove schema data from %s."
 msgstr "Schema Daten von %s entfernen."
 
-#: includes/settings/titles/taxonomies.php:124
+#: includes/settings/titles/taxonomies.php:135
 msgid "Remove Snippet Data"
 msgstr "Snippet-Daten entfernen"
 
-#: includes/settings/titles/taxonomies.php:114
+#: includes/settings/titles/taxonomies.php:125
 msgid "Add the SEO Controls for the term editor screen to customize SEO options for individual terms in this taxonomy."
 msgstr "Füge die SEO-Steuerelemente für den Term-Editor-Bildschirm hinzu, um die SEO-Optionen für einzelne Terme in dieser Taxonomie anzupassen."
 
@@ -3506,22 +3562,22 @@ msgstr "Gib hier deine komplette Facebook-Seiten-URL ein. Beispiel:"
 msgid "Facebook Page URL"
 msgstr "URL der Facebook-Seite"
 
-#: includes/settings/titles/post-types.php:333
+#: includes/settings/titles/post-types.php:379
 msgid "Add SEO controls for the editor screen to customize SEO options for posts in this post type."
 msgstr "Füge SEO-Steuerelemente für den Editorbildschirm hinzu, um die SEO-Optionen für Beiträge in diesem Beitragstyp anzupassen."
 
 #: includes/settings/titles/post-types.php:321
-#: includes/settings/titles/post-types.php:348
+#: includes/settings/titles/post-types.php:394
 msgid "Read Only"
 msgstr "Nur lesen"
 
 #: includes/settings/titles/post-types.php:317
-#: includes/settings/titles/post-types.php:344
+#: includes/settings/titles/post-types.php:390
 msgid "Add bulk editing columns to the post listing screen."
 msgstr "Füge dem Bildschirm für die Beitragsliste Spalten zur Massenbearbeitung hinzu."
 
 #: includes/settings/titles/post-types.php:316
-#: includes/settings/titles/post-types.php:343
+#: includes/settings/titles/post-types.php:389
 msgid "Bulk Editing"
 msgstr "Massenbearbeitung"
 
@@ -3758,7 +3814,7 @@ msgstr "Du kannst das Trennzeichen in Titeln verwenden, indem du <code>%separato
 msgid "Default values for robots meta tag. These can be changed for individual posts, taxonomies, etc."
 msgstr "Standardwerte für das Robots-Meta Tag. Diese können für einzelne Posts, Taxonomien usw. geändert werden."
 
-#: includes/settings/titles/author.php:126
+#: includes/settings/titles/author.php:137
 msgid "Add SEO Controls for user profile pages. Access to the Meta Box can be fine tuned with code, using a special filter hook."
 msgstr "Füge SEO-Steuerelemente für Benutzerprofilseiten hinzu. Der Zugriff auf die Meta Box kann mit Code fein abgestimmt werden, indem ein spezieller Filterhaken verwendet wird."
 
@@ -3788,13 +3844,13 @@ msgstr "Autorenbasis"
 
 #: includes/settings/titles/author.php:23 includes/settings/titles/misc.php:27
 #: includes/settings/titles/post-types.php:320
-#: includes/settings/titles/post-types.php:347
+#: includes/settings/titles/post-types.php:393
 msgid "Enabled"
 msgstr "Aktiviert"
 
 #: includes/settings/titles/author.php:22 includes/settings/titles/misc.php:26
 #: includes/settings/titles/post-types.php:319
-#: includes/settings/titles/post-types.php:346
+#: includes/settings/titles/post-types.php:392
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -4303,10 +4359,6 @@ msgstr "XML-Sitemap %1$s %2$s"
 #: includes/modules/sitemap/class-sitemap.php:134
 msgid "Rank Math has detected new post types: %1$s. You may want to check the settings of the <a href=\"%2$s\">Titles &amp; Meta page</a> and <a href=\"%3$s\">the Sitemap</a>."
 msgstr "Wir haben neue Beitrags-Typen (%1$s) entdeckt und du solltest die Einstellungen von <a href=\"%2$s\">Titel &amp; Meta Seite</a> und <a href=\"%3$s\">der Sitemap</a> überprüfen."
-
-#: includes/modules/sitemap/class-admin.php:215
-msgid "Exclude this image from sitemap"
-msgstr "Dieses Bild von der Sitemap ausschließen"
 
 #. translators: Taxonomy singular label
 #: includes/modules/sitemap/class-admin.php:184
@@ -4892,6 +4944,7 @@ msgid "Availability Starts"
 msgstr "Verfügbarkeit beginnt"
 
 #: includes/modules/schema/shortcode/event.php:137
+#: includes/opengraph/class-slack.php:199
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Availability"
@@ -5552,7 +5605,7 @@ msgstr "Ihr Name oder Firmenname"
 #: includes/modules/local-seo/views/titles-options.php:34
 #: includes/modules/schema/shortcode/book.php:36
 #: includes/modules/sitemap/sitemap-xsl.php:169
-#: includes/settings/titles/local.php:29
+#: includes/opengraph/class-slack.php:325 includes/settings/titles/local.php:29
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Name"
@@ -5899,7 +5952,7 @@ msgstr "302 Temporäre Umleitung"
 msgid "301 Permanent Move"
 msgstr "301 Permanente Umleitung"
 
-#: includes/helpers/class-choices.php:448 includes/helpers/class-schema.php:97
+#: includes/helpers/class-choices.php:448 includes/helpers/class-schema.php:105
 msgid "Software Application"
 msgstr "Softwareanwendungen"
 
@@ -5917,7 +5970,7 @@ msgstr "Service"
 msgid "Person"
 msgstr "Person"
 
-#: includes/helpers/class-choices.php:445 includes/helpers/class-schema.php:89
+#: includes/helpers/class-choices.php:445 includes/helpers/class-schema.php:97
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Video"
@@ -5935,13 +5988,13 @@ msgstr "Restaurant"
 msgid "Recipe"
 msgstr "Rezept"
 
-#: includes/helpers/class-choices.php:441 includes/helpers/class-schema.php:101
+#: includes/helpers/class-choices.php:441 includes/helpers/class-schema.php:109
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Music"
 msgstr "Musik"
 
-#: includes/helpers/class-choices.php:440 includes/helpers/class-schema.php:93
+#: includes/helpers/class-choices.php:440 includes/helpers/class-schema.php:101
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Job Posting"
@@ -7312,7 +7365,7 @@ msgid "Blog Post"
 msgstr "Blog Beitrag"
 
 #: includes/admin/wizard/class-schema-markup.php:82
-#: includes/helpers/class-choices.php:436 includes/helpers/class-schema.php:77
+#: includes/helpers/class-choices.php:436 includes/helpers/class-schema.php:85
 #: includes/settings/titles/post-types.php:156
 #: includes/settings/titles/post-types.php:203
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
@@ -7622,6 +7675,8 @@ msgstr "Preisspanne"
 #: includes/admin/class-serp-preview.php:319
 #: includes/modules/schema/shortcode/service.php:27
 #: includes/modules/schema/shortcode/softwareapplication.php:20
+#: includes/opengraph/class-slack.php:198
+#: includes/opengraph/class-slack.php:213
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Price"
@@ -7639,6 +7694,7 @@ msgstr "Bewertung: %s"
 
 #: includes/admin/class-serp-preview.php:435
 #: includes/admin/class-serp-preview.php:453
+#: includes/opengraph/class-slack.php:228
 msgid "In stock"
 msgstr "Auf Lager"
 
