@@ -461,7 +461,7 @@ function WriteCronScript($restore_values = false) {
 			$config[$i] = isset($config[$i]) ? intval($config[$i]) : 0;
 		}
 	}
-	if ($config['dbport'] == 0) $config['dbport'] =3 306;
+	if ($config['dbport'] == 0) $config['dbport'] = 3306;
 
 	$config['cron_sendmail'] = isset($config['cron_sendmail']) ? $config['cron_sendmail'] : '';
 	$config['cron_printout'] = isset($config['cron_printout']) ? $config['cron_printout'] : '';
@@ -672,7 +672,7 @@ function CreateDirsFTP()
 
 function ftp_mkdirs($config, $dirname) {
 	$path = '';
-	$dir =p reg_split('/\//', $dirname);
+	$dir = preg_split('/\//', $dirname);
 	for ($i = 0; $i < count($dir) - 1; $i++) {
 		$path.= $dir[$i] . "/";
 		@ftp_mkdir($config['dbconnection'],$path);

@@ -132,7 +132,7 @@ $checkSFTP	= [
 				'&nbsp;<br><br>&nbsp;<br>&nbsp;',
 				'&nbsp;<br><br>&nbsp;<br>&nbsp;',
 				'&nbsp;<br><br>&nbsp;<br>&nbsp;'
-);
+];
 $checkSFTP[$i]	= "";
 $sftptested 	= -1;
 if (( isset($_POST['testSFTP0']) ) || ( isset($_POST['testSFTP1']) ) || ( isset($_POST['testSFTP2']) )) {
