@@ -274,7 +274,7 @@ if (isset($_POST['save'])) {
 	if ($config['multipartgroesse1'] < 1 && $config['multipartgroesse2'] == 2) $config['multipartgroesse1'] = 1;
 
 	$config['logcompression'] = isset($config['logcompression']) ? $config['logcompression'] : 0;
-	$oldlogcompression= $config['logcompression'];
+	$oldlogcompression = $config['logcompression'];
 	$config['logcompression'] = (isset($_POST['logcompression']) && $_POST['logcompression'] == 1 ) ? 1 : 0;
 	if (isset($_POST['log_maxsize1']))	$config['log_maxsize1'] = $_POST['log_maxsize1'];
 	if ($config['log_maxsize1'] == '') $config['log_maxsize1'] = 0;
@@ -378,7 +378,7 @@ if (isset($_POST['save'])) {
 		$config['ftp_pass'][$i] = isset($_POST['ftp_pass'][$i]) ? $_POST['ftp_pass'][$i] : '';
 		$config['ftp_dir'][$i] = isset($_POST['ftp_dir'][$i]) ? stripslashes($_POST['ftp_dir'][$i]) : '';
 		if ($config['ftp_port'][$i] == 0) $config['ftp_port'][$i] =21;
-		if ($config['ftp_dir'][$i] == "" || ( strlen($config['ftp_dir'][$i]) > 1 && substr($config['ftp_dir'][$i],-1) != "/" )) $config['ftp_dir'][$i] .="/";
+		if ($config['ftp_dir'][$i] == '' || ( strlen($config['ftp_dir'][$i]) > 1 && substr($config['ftp_dir'][$i],-1) != '/' )) $config['ftp_dir'][$i] .= '/';
 	}
 
 	$config['sftp_transfer'] = [];
@@ -410,7 +410,7 @@ if (isset($_POST['save'])) {
 		$config['sftp_fingerprint'][$i] = (isset($_POST['sftp_fingerprint'][$i]) ) ? stripslashes($_POST['sftp_fingerprint'][$i]) : null;
 		
 		if ($config['sftp_port'][$i] == 0) $config['sftp_port'][$i] =22;
-		if ($config['sftp_dir'][$i] == "" || ( strlen($config['sftp_dir'][$i]) > 1 && substr($config['sftp_dir'][$i],-1) != "/" )) $config['sftp_dir'][$i] .="/";	
+		if ($config['sftp_dir'][$i] == '' || ( strlen($config['sftp_dir'][$i]) > 1 && substr($config['sftp_dir'][$i],-1) != '/' )) $config['sftp_dir'][$i] .= '/';	
 	}
 
 
@@ -709,9 +709,7 @@ if (sizeof($configs) > 0) {
 		if ( isset($config['multi_dump']) && ($config['multi_dump'] == 1) ) // Multidump
 		{
 			$aus['conf'] .= table_output($lang['L_BACKUP_DBS_PHP'],$toolboxstring);
-		}
-		else
-		{
+		} else {
 			// Current DB
 			$text = isset($databases['db_actual']) ? $databases['db_actual'] : '';
 			if (isset($databases['db_selected_index']) && isset($databases['praefix'][$databases['db_selected_index']]) && $databases['praefix'][$databases['db_selected_index']] > '') $text.=" ('<i>" . $databases['praefix'][$databases['db_selected_index']] . "</i>')";

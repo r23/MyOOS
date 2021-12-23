@@ -20,8 +20,8 @@ define('OOS_VALID_MOD', true);
 
 if (!@ob_start("ob_gzhandler")) @ob_start();
 
-$install_ftp_server= $install_ftp_user_name= $install_ftp_user_pass= $install_ftp_path= '';
-$dbhost= $dbuser= $dbpass= $dbport= $dbsocket= $manual_db='';
+$install_ftp_server	= $install_ftp_user_name = $install_ftp_user_pass = $install_ftp_path = '';
+$dbhost = $dbuser= $dbpass = $dbport = $dbsocket = $manual_db = '';
 foreach ($_GET as $getvar=>$getval)
 {
 	${$getvar}= $getval;
@@ -30,62 +30,58 @@ foreach ($_POST as $postvar=>$postval)
 {
 	${$postvar}= $postval;
 }
-include_once ( './inc/functions.php' );
-include_once ( './inc/mysqli.php' );
-include_once ( './inc/runtime.php' );
-if (!isset($language)) $language="en";
+include_once './inc/functions.php';
+include_once './inc/mysqli.php';
+include_once './inc/runtime.php';
+if (!isset($language)) $language = 'en';
 
 $config['language'] = $language;
-include ( './language/lang_list.php' );
-include ( 'language/'.$language.'/lang_install.php' );
-include ( 'language/'.$language.'/lang_main.php' );
-include ( 'language/'.$language.'/lang_config_overview.php' );
+include './language/lang_list.php';
+include 'language/'.$language.'/lang_install.php';
+include 'language/'.$language.'/lang_main.php';
+include 'language/'.$language.'/lang_config_overview.php';
 
-//Übergabe der Parameter über FORM
-if (isset($_POST['dbhost']))
-{
+// Passing the parameters via FORM
+if (isset($_POST['dbhost'])) {
 	$config['dbhost'] = $dbhost;
 	$config['dbuser'] = $dbuser;
 	$config['dbpass'] = $dbpass;
 	$config['dbport'] = $dbport;
 	$config['dbsocket'] = $dbsocket;
 	$config['manual_db'] = $manual_db;
-}
-else
-{
-	// Wenn Connection-String existiert -> Verbindungsdaten aus connstr auslesen
-	if (isset($connstr) && !empty($connstr))
-	{
-		$p=explode("|", $connstr);
-		$dbhost= $config['dbhost'] = $p[0];
-		$dbuser= $config['dbuser'] = $p[1];
-		$dbpass= $config['dbpass'] = $p[2];
-		$dbport= $config['dbport'] = $p[3];
-		$dbsocket= $config['dbsocket'] = $p[4];
-		$manual_db= $config['manual_db'] = $p[5];
-	}
-	else
+} else {
+	// If connection string exists -> read connection data from connstr
+	if (isset($connstr) && !empty($connstr)) {
+		$p			= explode("|", $connstr);
+		$dbhost		= $config['dbhost'] = $p[0];
+		$dbuser		= $config['dbuser'] = $p[1];
+		$dbpass		= $config['dbpass'] = $p[2];
+		$dbport		= $config['dbport'] = $p[3];
+		$dbsocket	= $config['dbsocket'] = $p[4];
+		$manual_db	= $config['manual_db'] = $p[5];
+	} else {
 		$connstr= '';
+	}
 }
 
 //Variabeln
 $phase = (isset($phase) ) ? $phase : 0;
 if (isset($_POST['manual_db'])) $manual_db=trim($_POST['manual_db']);
-$connstr = "$dbhost|$dbuser|$dbpass|$dbport|$dbsocket|$manual_db";
-$connection='';
-$delfiles= [];
+$connstr 	= "$dbhost|$dbuser|$dbpass|$dbport|$dbsocket|$manual_db";
+$connection = '';
+$delfiles 	= [];
 
-$config['files']['iconpath'] ='./css/mod/icons/';
-$img_ok='<img src="'.$config['files']['iconpath'].'ok.gif" width="16" height="16" alt="ok">';
-$img_failed='<img src="'.$config['files']['iconpath'].'notok.gif" width="16" height="16" alt="failed">';
-$href="install.php?language= $language&phase= $phase&connstr= $connstr";
+$config['files']['iconpath'] 	= './css/mod/icons/';
+$img_ok							= '<img src="'.$config['files']['iconpath'].'ok.gif" width="16" height="16" alt="ok">';
+$img_failed						= '<img src="'.$config['files']['iconpath'].'notok.gif" width="16" height="16" alt="failed">';
+$href							= "install.php?language=$language&phase=$phase&connstr=$connstr";
 header('content-type: text/html; charset=utf-8');
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="robots" content="noindex,nofollow" />
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex,nofollow">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="expires" content="0">
@@ -130,27 +126,23 @@ function show_tooldivs(lab) {
 </script>
 
 <?php
-if ($phase < 10)
-{
-	if ($phase == 0) $Anzeige= $lang['L_INSTALL'].' - '.$lang['L_INSTALLMENU'];
-	else $Anzeige= $lang['L_INSTALL'].' - '.$lang['L_STEP'].' '.( $phase );
-}
-elseif ($phase > 9 && $phase < 12)
-{
-	$Anzeige= $lang['L_INSTALL'].' - '.$lang['L_STEP'].' '.( $phase - 7 );
-}
-elseif ($phase > 19 && $phase < 100)
-{
-	$Anzeige= $lang['L_TOOLS'];
-}
-else
-{
-	$Anzeige= $lang['L_UNINSTALL'].' - '.$lang['L_STEP'].' '.( $phase - 99 );
+if ($phase < 10) {
+	if ($phase == 0) {
+		$content = $lang['L_INSTALL'].' - '.$lang['L_INSTALLMENU'];
+	} else {
+		$content = $lang['L_INSTALL'].' - '.$lang['L_STEP'].' '.($phase);
+	}
+} elseif ($phase > 9 && $phase < 12) {
+	$content = $lang['L_INSTALL'].' - '.$lang['L_STEP'].' '.($phase - 7);
+} elseif ($phase > 19 && $phase < 100) {
+	$content = $lang['L_TOOLS'];
+} else {
+	$content= $lang['L_UNINSTALL'].' - '.$lang['L_STEP'].' '.($phase - 99);
 }
 
 echo '<img src="css/mod/pics/h1_logo.gif" alt="'.$lang['L_INSTALL_TOMENU'].'">';
 echo '<div id="pagetitle"><p>
-'.$Anzeige.'
+'.$content.'
 </p></div>';
 
 echo '<div id="content" align="center"><p class="small"><strong>Version '.MOD_VERSION.'</strong><br></p>';
@@ -391,10 +383,10 @@ switch ($phase)
 
 		if ($msg > '') echo '<b>'.$msg.'</b>';
 
-		$iw[0] =IsWritable("work");
-		$iw[1] =IsWritable("work/config");
-		$iw[2] =IsWritable("work/log");
-		$iw[3] =IsWritable("work/backup");
+		$iw[0] = IsWritable("work");
+		$iw[1] = IsWritable("work/config");
+		$iw[2] = IsWritable("work/log");
+		$iw[3] = IsWritable("work/backup");
 
 		if ($iw[0] && $iw[1] && $iw[2] && $iw[3])
 		{
@@ -469,8 +461,7 @@ switch ($phase)
 //   -2 - Fehler beim Loeschen
 //   -3 - Ein Eintrag eines Verzeichnisses war keine Datei und kein Verzeichnis und
 //        kein Link
-function rec_rmdir($path)
-{
+function rec_rmdir($path) {
 	global $paths;
 	$paths[] = $path;
 	// schau' nach, ob das ueberhaupt ein Verzeichnis ist
@@ -487,8 +478,7 @@ function rec_rmdir($path)
 	}
 
 	// gehe durch das Verzeichnis
-	while ($entry=@readdir($dir))
-	{
+	while ($entry = @readdir($dir)) {
 		// wenn der Eintrag das aktuelle Verzeichnis oder das Elternverzeichnis
 		// ist, ignoriere es
 		if ($entry == '.' || $entry == '..') continue;
@@ -554,18 +544,18 @@ function rec_rmdir($path)
 	return 0;
 }
 
-function Rechte($file)
-{
+function Rechte($file) {
 	clearstatcache();
+
 	return @substr(decoct(fileperms($file)),-3);
 }
 
-function extractValue($s)
-{
-	$r=trim(substr($s,strpos($s,"=") + 1));
-	$r=substr($r,0,strlen($r) - 1);
-	if (substr($r,-1) == "'" || substr($r,-1) == '"') $r=substr($r,0,strlen($r) - 1);
-	if (substr($r,0,1) == "'" || substr($r,0,1) == '"') $r=substr($r,1);
+function extractValue($s) {
+	$r = trim(substr($s,strpos($s, '=') + 1));
+	$r = substr($r ,0, strlen($r) - 1);
+	if (substr($r, -1) == "'" || substr($r, -1) == '"') $r = substr($r, 0, strlen($r) - 1);
+	if (substr($r, 0, 1) == "'" || substr($r, 0, 1) == '"') $r = substr($r, 1);
+
 	return $r;
 }
 
