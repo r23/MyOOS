@@ -9,7 +9,7 @@ if (!$res===false)
 {
 	while ($row=mysqli_fetch_array($res,MYSQLI_NUM))
 	{
-		$tables[]=$row[0];
+		$tables[] = $row[0];
 	}
 }
 else
@@ -17,26 +17,26 @@ else
 
 // Suchkriterien aus Session holen oder aus POST-Umgebung
 // so bleiben die Suchkriterien auch erhalten wenn man zwischendurch woanders klickt
-if (isset($_POST['suchbegriffe'])) $_SESSION['mysql_search']['suchbegriffe']=$_POST['suchbegriffe'];
-if (!isset($_SESSION['mysql_search']['suchbegriffe'])) $_SESSION['mysql_search']['suchbegriffe']='';
-$suchbegriffe=$_SESSION['mysql_search']['suchbegriffe'];
+if (isset($_POST['suchbegriffe'])) $_SESSION['mysql_search']['suchbegriffe'] = $_POST['suchbegriffe'];
+if (!isset($_SESSION['mysql_search']['suchbegriffe'])) $_SESSION['mysql_search']['suchbegriffe'] ='';
+$suchbegriffe= $_SESSION['mysql_search']['suchbegriffe'];
 
-if (isset($_POST['suchart'])) $_SESSION['mysql_search']['suchart']=$_POST['suchart'];
-if (!isset($_SESSION['mysql_search']['suchart'])||strlen($_SESSION['mysql_search']['suchart'])<2) $_SESSION['mysql_search']['suchart']='AND';
-$suchart=$_SESSION['mysql_search']['suchart'];
+if (isset($_POST['suchart'])) $_SESSION['mysql_search']['suchart'] = $_POST['suchart'];
+if (!isset($_SESSION['mysql_search']['suchart'])||strlen($_SESSION['mysql_search']['suchart'])<2) $_SESSION['mysql_search']['suchart'] ='AND';
+$suchart= $_SESSION['mysql_search']['suchart'];
 
-if (isset($_POST['table_selected'])) $_SESSION['mysql_search']['table_selected']=$_POST['table_selected'];
-if (!isset($_SESSION['mysql_search']['table_selected'])) $_SESSION['mysql_search']['table_selected']=0;
-$table_selected=$_SESSION['mysql_search']['table_selected'];
+if (isset($_POST['table_selected'])) $_SESSION['mysql_search']['table_selected'] = $_POST['table_selected'];
+if (!isset($_SESSION['mysql_search']['table_selected'])) $_SESSION['mysql_search']['table_selected'] =0;
+$table_selected= $_SESSION['mysql_search']['table_selected'];
 // Falls zwischendurch Tabellen geloescht wurden und der Index nicht mehr existiert, zuruecksetzen
 if ($table_selected>count($tables)-1) $table_selected=0;
 
 $offset=(isset($_POST['offset'])) ? intval($_POST['offset']) : 0;
 
-$tablename=isset($_GET['tablename']) ? urldecode($_GET['tablename']) : '';
+$tablename = isset($_GET['tablename']) ? urldecode($_GET['tablename']) : '';
 
 // Delete
-if (isset($_GET['mode'])&&$_GET['mode']=="kill"&&$rk>'')
+if (isset($_GET['mode'])&&$_GET['mode'] =="kill"&&$rk>'')
 {
 	//echo "<br> RK ist: ".$rk."<br><br>";
 	$sqlk="DELETE FROM `$tablename` WHERE ".$rk." LIMIT 1";
@@ -60,7 +60,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 		{
 			// Leere Einträge (durch doppelte Leerzeichen) entfernen
 			$anzahl_suchworte=sizeof($suchworte);
-			for ($i=0; $i<$anzahl_suchworte; $i++)
+			for ($i = 0; $i<$anzahl_suchworte; $i++)
 			{
 				if (trim($suchworte[$i])=='') unset($suchworte[$i]);
 			}
@@ -77,7 +77,7 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 				// Felder der Tabelle ermitteln
 				while ($row=mysqli_fetch_object($res))
 				{
-					$felder[]=$row->Field;
+					$felder[] = $row->Field;
 				}
 			}
 
@@ -93,14 +93,14 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 					$where='';
 					foreach ($suchworte as $suchbegriff)
 					{
-						$where.=$concat.' LIKE \'%'.strtolower($suchbegriff).'%\' AND ';
+						$where.= $concat.' LIKE \'%'.strtolower($suchbegriff).'%\' AND ';
 					}
 					$where=substr($where,0,-4); // letztes AND entfernen
 					$sql='SELECT * FROM `'.$db.'`.`'.$tables[$tabelle].'` WHERE '.$where.' LIMIT '.$offset.','.$anzahl_ergebnisse;
 				}
 				else
 				{
-					$_SESSION['mysql_search']['suchbegriffe']='';
+					$_SESSION['mysql_search']['suchbegriffe'] ='';
 					die(sprintf($lang['L_ERROR_NO_FIELDS'], $tabelle));
 				}
 			}
@@ -123,14 +123,14 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 
 								$feld,
 								$suchbegriff);
-							$feldbedingung[]=str_replace($suchen,$ersetzen,$pattern);
+							$feldbedingung[] =str_replace($suchen,$ersetzen,$pattern);
 						}
-						$bedingung[]='('.implode(' '.$suchart.' ',$feldbedingung).') ';
+						$bedingung[] ='('.implode(' '.$suchart.' ',$feldbedingung).') ';
 					}
 				}
 				else
 				{
-					$_SESSION['mysql_search']['suchbegriffe']='';
+					$_SESSION['mysql_search']['suchbegriffe'] ='';
 					die(sprintf($lang['L_ERROR_NO_FIELDS'], $tabelle));
 				}
 				$where=implode(' OR ',$bedingung);
@@ -150,11 +150,11 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 				{
 					foreach ($suchworte as $suchbegriff)
 					{
-						$row[$key]=markiere_suchtreffer($suchbegriff,$row[$key]);
+						$row[$key] =markiere_suchtreffer($suchbegriff,$row[$key]);
 					}
-					$row[$key]=ersetze_suchtreffer($row[$key]);
+					$row[$key] =ersetze_suchtreffer($row[$key]);
 				}
-				$ret[]=$row;
+				$ret[] = $row;
 			}
 		}
 	}
@@ -177,7 +177,7 @@ function markiere_suchtreffer($suchbegriff, $suchstring)
 		//Wenn nur der erste Treffer markiert werden soll, so muss die Zeile so lauten
 		// 		while ( ($offset<=strlen($str)) || ($in_html==false) )
 		{
-			for ($offset=$trefferpos; $offset<=strlen($str); $offset++)
+			for ($offset= $trefferpos; $offset<=strlen($str); $offset++)
 			{
 				$start=strpos($str,$suchbegriff,$offset);
 				if ($start===false) $offset=strlen($str)+1;
@@ -188,7 +188,7 @@ function markiere_suchtreffer($suchbegriff, $suchstring)
 						//Treffer überprüfen
 						$in_html=false;
 						// Steht die Fundstelle zwischen < und > (also im HTML-Tag) ?
-						for ($position=$start; $position>=0; $position--)
+						for ($position= $start; $position>=0; $position--)
 						{
 							if (substr($str,$position,1)==">")
 							{
@@ -203,7 +203,7 @@ function markiere_suchtreffer($suchbegriff, $suchstring)
 						}
 						if ($in_html)
 						{
-							for ($position2=$start; $position2<strlen($str); $position2++)
+							for ($position2= $start; $position2<strlen($str); $position2++)
 							{
 								if (substr($str,$position2,1)=="<")
 								{
@@ -223,15 +223,15 @@ function markiere_suchtreffer($suchbegriff, $suchstring)
 							$str=substr($suchstring,0,$start);
 							$str.=chr(1).$ersetzen.chr(2);
 							$str.=substr($suchstring,($start+strlen($ersetzen)),(strlen($suchstring)-strlen($ersetzen)));
-							$suchstring=$str;
+							$suchstring= $str;
 						}
 						if ($in_html)
 						{
-							$trefferpos=$start+1;
-							$offset=$trefferpos;
+							$trefferpos= $start+1;
+							$offset= $trefferpos;
 						}
 					}
-					$offset=$start+1;
+					$offset= $start+1;
 				}
 			}
 		}
@@ -257,11 +257,11 @@ $suchbegriffe=trim($suchbegriffe); // Leerzeichen vorne und hinten wegschneiden
 if (isset($_POST['reset']))
 {
 	$suchbegriffe='';
-	$_SESSION['mysql_search']['suchbegriffe']='';
+	$_SESSION['mysql_search']['suchbegriffe'] ='';
 	$suchart='AND';
-	$_SESSION['mysql_search']['suchart']='AND';
+	$_SESSION['mysql_search']['suchart'] ='AND';
 	$table_selected=0;
-	$_SESSION['mysql_search']['table_selected']=0;
+	$_SESSION['mysql_search']['table_selected'] =0;
 }
 $showtables=0; // Anzeige der Tabellendaten im restlichen SQL-Browser ausschalten
 
@@ -274,15 +274,15 @@ $anzahl_tabellen=sizeof($tables);
 $table_options='';
 if ($anzahl_tabellen>0)
 {
-	for ($i=0; $i<$anzahl_tabellen; $i++)
+	for ($i = 0; $i<$anzahl_tabellen; $i++)
 	{
 		if (isset($tables[$i]))
 		{
 			$table_options.='<option value="'.$i.'"';
-			if (($i==$table_selected)||($tables[$i]==$tablename))
+			if (($i== $table_selected)||($tables[$i] == $tablename))
 			{
 				$table_options.=' selected';
-				$table_selected=$i;
+				$table_selected= $i;
 			}
 			$table_options.='>'.$tables[$i].'</option>'."\n";
 		}
@@ -324,7 +324,7 @@ if (is_array($treffer)&&isset($treffer[0]))
 		'LAST_OFFSET' => $offset-$max_treffer,
 		'BACK_BUTTON_DISABLED' => $offset>0 ? '' : ' disabled',
 		'NEXT_OFFSET' => $offset+$max_treffer,
-		'NEXT_BUTTON_DISABLED' => ($anzahl_treffer!=$max_treffer+1) ? ' disabled' : '',
+		'NEXT_BUTTON_DISABLED' => ($anzahl_treffer!= $max_treffer+1) ? ' disabled' : '',
 		'LANG_ACCESS_KEYS' => $lang['L_SEARCH_ACCESS_KEYS']));
 
 	// Ausgabe der Treffertabelle
@@ -340,13 +340,13 @@ if (is_array($treffer)&&isset($treffer[0]))
 
 	// Ausgabe der Daten
 	$zeige_treffer=sizeof($treffer);
-	if ($zeige_treffer==$max_treffer+1) $zeige_treffer=$max_treffer;
+	if ($zeige_treffer== $max_treffer+1) $zeige_treffer= $max_treffer;
 
 	// built key - does a primary key exist?
 	$fieldinfos=getExtendedFieldinfo($db,$tables[$table_selected]);
 	//v($fieldinfos);
 	// auf zusammengesetzte Schlüssel untersuchen
-	$table_keys=isset($fieldinfos['primary_keys']) ? $fieldinfos['primary_keys'] : '';
+	$table_keys = isset($fieldinfos['primary_keys']) ? $fieldinfos['primary_keys'] : '';
 
 	for ($a=0; $a<$zeige_treffer; $a++)
 	{
@@ -394,7 +394,7 @@ if (is_array($treffer)&&isset($treffer[0]))
 }
 else
 {
-	if (!isset($tables[$table_selected])) $tables[$table_selected]='';
+	if (!isset($tables[$table_selected])) $tables[$table_selected] ='';
 	if ($suchbegriffe=='') $tpl->assign_block_vars('NO_ENTRIES',array(
 
 		'LANG_NO_ENTRIES' => sprintf($lang['L_NO_ENTRIES'],$tables[$table_selected])));

@@ -22,7 +22,7 @@ if (!@ob_start("ob_gzhandler")) @ob_start();
 
 include_once ('./inc/header.php');
 include ('./inc/template.php');
-$lang_old=$config['language'];
+$lang_old= $config['language'];
 $config_refresh='';
 
 // define template
@@ -39,9 +39,9 @@ $tpl->assign_vars(array(
 
 if (isset($_POST['selected_config'])||isset($_GET['config']))
 {
-	if (isset($_POST['selected_config'])) $new_config=$_POST['selected_config'];
+	if (isset($_POST['selected_config'])) $new_config= $_POST['selected_config'];
 	// Configuration was switched in content frame?
-	if (isset($_GET['config'])) $new_config=$_GET['config'];
+	if (isset($_GET['config'])) $new_config= $_GET['config'];
 	// restore the last active menuitem
 	if (is_readable($config['paths']['config'].$new_config.'.php'))
 	{
@@ -50,8 +50,8 @@ if (isset($_POST['selected_config'])||isset($_GET['config']))
 		$databases=array();
 		if (read_config($new_config))
 		{
-			$config['config_file']=$new_config;
-			$_SESSION['config_file']=$new_config; //$config['config_file'];
+			$config['config_file'] = $new_config;
+			$_SESSION['config_file'] = $new_config; //$config['config_file'];
 			$config_refresh='
 			<script>
 			if (parent.MyOOS_Dumper_content.location.href.indexOf("config_overview.php")!=-1)
@@ -75,17 +75,17 @@ if ($config_refresh>'')
 }
 
 // changed language
-if ($config['language']!=$lang_old)
+if ($config['language']!= $lang_old)
 {
 	$tpl->assign_block_vars('CHANGED_LANGUAGE',array());
 }
 
 if (isset($_GET['action']))
 {
-	if ($_GET['action']=='dbrefresh')
+	if ($_GET['action'] =='dbrefresh')
 	{
 		// remember the name of the selected database
-		$old_dbname=isset($databases['Name'][$databases['db_selected_index']]) ? $databases['Name'][$databases['db_selected_index']] : '';
+		$old_dbname = isset($databases['Name'][$databases['db_selected_index']]) ? $databases['Name'][$databases['db_selected_index']] : '';
 		SetDefault();
 		// select old database if it still is there
 		SelectDB($old_dbname);
@@ -96,8 +96,8 @@ if (isset($_GET['action']))
 if (isset($_POST['dbindex']))
 {
 	$dbindex=intval($_POST['dbindex']);
-	$databases['db_selected_index']=$dbindex;
-	$databases['db_actual']=$databases['Name'][$dbindex];
+	$databases['db_selected_index'] = $dbindex;
+	$databases['db_actual'] = $databases['Name'][$dbindex];
 
 	SelectDB($dbindex);
 	WriteParams(0);
@@ -109,8 +109,8 @@ else
 if (isset($_GET['dbindex']))
 {
 	$dbindex=intval($_GET['dbindex']);
-	$databases['db_selected_index']=$dbindex;
-	$databases['db_actual']=$databases['Name'][$dbindex];
+	$databases['db_selected_index'] = $dbindex;
+	$databases['db_actual'] = $databases['Name'][$dbindex];
 	SelectDB($dbindex);
 	WriteParams(0);
 }
@@ -128,9 +128,9 @@ if (isset($databases['Name'])&&count($databases['Name'])>0)
 {
 	$tpl->assign_block_vars('DB_LIST',array());
 	$datenbanken=count($databases['Name']);
-	for ($i=0; $i<$datenbanken; $i++)
+	for ($i = 0; $i<$datenbanken; $i++)
 	{
-		$selected=($i==$databases['db_selected_index']) ? ' selected' : '';
+		$selected=($i== $databases['db_selected_index']) ? ' selected' : '';
 		$tpl->assign_block_vars('DB_LIST.DB_ROW',array(
 			'ID' => $i,
 			'NAME' => $databases['Name'][$i],

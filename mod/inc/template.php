@@ -99,7 +99,7 @@ class MODTemplate
 		{
 			return false;
 		}
-		$this->root=$dir;
+		$this->root= $dir;
 		return true;
 	}
 
@@ -117,7 +117,7 @@ class MODTemplate
 		reset($filename_array);
 		foreach($filename_array as $handle => $filename) 		
 		{
-			$this->files[$handle]=$this->make_filename($filename);
+			$this->files[$handle] = $this->make_filename($filename);
 		}
 
 		return true;
@@ -143,7 +143,7 @@ class MODTemplate
 		if (!isset($this->compiled_code[$handle]) || empty($this->compiled_code[$handle]))
 		{
 			// Actually compile the code now.
-			$this->compiled_code[$handle]=$this->compile($this->uncompiled_code[$handle]);
+			$this->compiled_code[$handle] = $this->compile($this->uncompiled_code[$handle]);
 		}
 
 		// Run the compiled code.
@@ -169,7 +169,7 @@ class MODTemplate
 
 		// Compile it, with the "no echo statements" option on.
 		$_str="";
-		$code=$this->compile($this->uncompiled_code[$handle],true,'_str');
+		$code= $this->compile($this->uncompiled_code[$handle],true,'_str');
 
 		// evaluate the variable assignment.
 		eval($code);
@@ -192,16 +192,16 @@ class MODTemplate
 			$blocks=explode('.',$blockname);
 			$blockcount=sizeof($blocks) - 1;
 			$str='$this->_tpldata';
-			for ($i=0; $i < $blockcount; $i++)
+			for ($i = 0; $i < $blockcount; $i++)
 			{
-				$str.='[\'' . $blocks[$i] . '.\']';
-				eval('$lastiteration = sizeof(' . $str . ') - 1;');
-				$str.='[' . $lastiteration . ']';
+				$str.='[\''.$blocks[$i].'.\']';
+				eval('$lastiteration = sizeof('.$str.') - 1;');
+				$str.='['.$lastiteration.']';
 			}
 			// Now we add the block that we're actually assigning to.
 			// We're adding a new iteration to this block with the given
 			// variable assignments.
-			$str.='[\'' . $blocks[$blockcount] . '.\'][] = $vararray;';
+			$str.='[\''.$blocks[$blockcount].'.\'][] = $vararray;';
 
 			// Now we evaluate this assignment we've built up.
 			eval($str);
@@ -211,7 +211,7 @@ class MODTemplate
 			// Top-level block.
 			// Add a new iteration to this block with the variable assignments
 			// we were given.
-			$this->_tpldata[$blockname . '.'][]=$vararray;
+			$this->_tpldata[$blockname.'.'][] = $vararray;
 		}
 
 		return true;
@@ -226,7 +226,7 @@ class MODTemplate
 		global $lang;
 		foreach($vararray as $key => $val) 			
 		{
-			$this->_tpldata['.'][0][$key]=$val;
+			$this->_tpldata['.'][0][$key] = $val;
 		}
 
 		return true;
@@ -238,7 +238,7 @@ class MODTemplate
 	 */
 	public function assign_var($varname, $varval)
 	{
-		$this->_tpldata['.'][0][$varname]=$varval;
+		$this->_tpldata['.'][0][$varname] = $varval;
 
 		return true;
 	}
@@ -254,7 +254,7 @@ class MODTemplate
 		/*
 		if (substr($filename, 0, 1) != '/')
 		{
-       		$filename = $this->root . '/' . $filename;
+       		$filename = $this->root.'/'.$filename;
 		}
 */
 		if (!file_exists($filename))
@@ -283,7 +283,7 @@ class MODTemplate
 			die("Template->loadfile(): No file specified for handle $handle");
 		}
 
-		$filename=$this->files[$handle];
+		$filename= $this->files[$handle];
 
 		$str=implode("",@file($filename));
 		if (empty($str))
@@ -291,7 +291,7 @@ class MODTemplate
 			die("Template->loadfile(): File $filename for handle $handle is empty");
 		}
 
-		$this->uncompiled_code[$handle]=$str;
+		$this->uncompiled_code[$handle] = $str;
 
 		return true;
 	}
@@ -317,46 +317,46 @@ class MODTemplate
 		$varrefs=array();
 		preg_match_all('#\{(([a-z0-9\-_]+?\.)+?)([a-z0-9\-_]+?)\}#is',$code,$varrefs);
 		$varcount=sizeof($varrefs[1]);
-		for ($i=0; $i < $varcount; $i++)
+		for ($i = 0; $i < $varcount; $i++)
 		{
-			$namespace=$varrefs[1][$i];
-			$varname=$varrefs[3][$i];
-			$new=$this->generate_block_varref($namespace,$varname);
+			$namespace= $varrefs[1][$i];
+			$varname= $varrefs[3][$i];
+			$new= $this->generate_block_varref($namespace,$varname);
 
 			$code=str_replace($varrefs[0][$i],$new,$code);
 		}
 
 		// This will handle the remaining root-level varrefs
-		$code=preg_replace('#\{([a-z0-9\-_]*?)\}#is','\' . ( ( isset($this->_tpldata[\'.\'][0][\'\1\']) ) ? $this->_tpldata[\'.\'][0][\'\1\'] : \'\' ) . \'',$code);
+		$code=preg_replace('#\{([a-z0-9\-_]*?)\}#is','\'.( ( isset($this->_tpldata[\'.\'][0][\'\1\']) ) ? $this->_tpldata[\'.\'][0][\'\1\'] : \'\' ) . \'',$code);
 
 		// Break it up into lines.
 		$code_lines=explode("\n",$code);
 
 		$block_nesting_level=0;
 		$block_names=array();
-		$block_names[0]=".";
+		$block_names[0] =".";
 
-		// Second: prepend echo ', append ' . "\n"; to each line.
+		// Second: prepend echo ', append '."\n"; to each line.
 		$line_count=sizeof($code_lines);
-		for ($i=0; $i < $line_count; $i++)
+		for ($i = 0; $i < $line_count; $i++)
 		{
-			$code_lines[$i]=chop($code_lines[$i]);
+			$code_lines[$i] =chop($code_lines[$i]);
 			if (preg_match('#<!-- BEGIN (.*?) -->#',$code_lines[$i],$m))
 			{
-				$n[0]=$m[0];
-				$n[1]=$m[1];
+				$n[0] = $m[0];
+				$n[1] = $m[1];
 
 				// Added: dougk_ff7-Keeps templates from bombing if begin is on the same line as end.. I think. :)
 				if (preg_match('#<!-- END (.*?) -->#',$code_lines[$i],$n))
 				{
 					$block_nesting_level++;
-					$block_names[$block_nesting_level]=$m[1];
+					$block_names[$block_nesting_level] = $m[1];
 					if ($block_nesting_level < 2)
 					{
 						// Block is not nested.
-						$code_lines[$i]='$_' . $n[1] . '_count = ( isset($this->_tpldata[\'' . $n[1] . '.\']) ) ?  sizeof($this->_tpldata[\'' . $n[1] . '.\']) : 0;';
-						$code_lines[$i].="\n" . 'for ($_' . $n[1] . '_i = 0; $_' . $n[1] . '_i < $_' . $n[1] . '_count; $_' . $n[1] . '_i++)';
-						$code_lines[$i].="\n" . '{';
+						$code_lines[$i] ='$_'.$n[1].'_count = ( isset($this->_tpldata[\''.$n[1].'.\']) ) ?  sizeof($this->_tpldata[\''.$n[1].'.\']) : 0;';
+						$code_lines[$i] .="\n".'for ($_'.$n[1].'_i = 0; $_'.$n[1].'_i < $_'.$n[1].'_count; $_'.$n[1].'_i++)';
+						$code_lines[$i] .="\n".'{';
 					}
 					else
 					{
@@ -369,31 +369,31 @@ class MODTemplate
 						$namespace=substr($namespace,2);
 						// Get a reference to the data array for this block that depends on the
 						// current indices of all parent blocks.
-						$varref=$this->generate_block_data_ref($namespace,false);
+						$varref= $this->generate_block_data_ref($namespace,false);
 						// Create the for loop code to iterate over this block.
-						$code_lines[$i]='$_' . $n[1] . '_count = ( isset(' . $varref . ') ) ? sizeof(' . $varref . ') : 0;';
-						$code_lines[$i].="\n" . 'for ($_' . $n[1] . '_i = 0; $_' . $n[1] . '_i < $_' . $n[1] . '_count; $_' . $n[1] . '_i++)';
-						$code_lines[$i].="\n" . '{';
+						$code_lines[$i] ='$_'.$n[1].'_count = ( isset('.$varref.') ) ? sizeof('.$varref.') : 0;';
+						$code_lines[$i] .="\n".'for ($_'.$n[1].'_i = 0; $_'.$n[1].'_i < $_'.$n[1].'_count; $_'.$n[1].'_i++)';
+						$code_lines[$i] .="\n".'{';
 					}
 
 					// We have the end of a block.
 					unset($block_names[$block_nesting_level]);
 					$block_nesting_level--;
-					$code_lines[$i].='} // END ' . $n[1];
-					$m[0]=$n[0];
-					$m[1]=$n[1];
+					$code_lines[$i] .= '} // END '.$n[1];
+					$m[0] = $n[0];
+					$m[1] = $n[1];
 				}
 				else
 				{
 					// We have the start of a block.
 					$block_nesting_level++;
-					$block_names[$block_nesting_level]=$m[1];
+					$block_names[$block_nesting_level] = $m[1];
 					if ($block_nesting_level < 2)
 					{
 						// Block is not nested.
-						$code_lines[$i]='$_' . $m[1] . '_count = ( isset($this->_tpldata[\'' . $m[1] . '.\']) ) ? sizeof($this->_tpldata[\'' . $m[1] . '.\']) : 0;';
-						$code_lines[$i].="\n" . 'for ($_' . $m[1] . '_i = 0; $_' . $m[1] . '_i < $_' . $m[1] . '_count; $_' . $m[1] . '_i++)';
-						$code_lines[$i].="\n" . '{';
+						$code_lines[$i] ='$_'.$m[1].'_count = ( isset($this->_tpldata[\''.$m[1].'.\']) ) ? sizeof($this->_tpldata[\''.$m[1].'.\']) : 0;';
+						$code_lines[$i] .="\n".'for ($_'.$m[1].'_i = 0; $_'.$m[1].'_i < $_'.$m[1].'_count; $_'.$m[1].'_i++)';
+						$code_lines[$i] .="\n".'{';
 					}
 					else
 					{
@@ -406,11 +406,11 @@ class MODTemplate
 						$namespace=substr($namespace,2);
 						// Get a reference to the data array for this block that depends on the
 						// current indices of all parent blocks.
-						$varref=$this->generate_block_data_ref($namespace,false);
+						$varref= $this->generate_block_data_ref($namespace,false);
 						// Create the for loop code to iterate over this block.
-						$code_lines[$i]='$_' . $m[1] . '_count = ( isset(' . $varref . ') ) ? sizeof(' . $varref . ') : 0;';
-						$code_lines[$i].="\n" . 'for ($_' . $m[1] . '_i = 0; $_' . $m[1] . '_i < $_' . $m[1] . '_count; $_' . $m[1] . '_i++)';
-						$code_lines[$i].="\n" . '{';
+						$code_lines[$i] ='$_'.$m[1].'_count = ( isset('.$varref.') ) ? sizeof('.$varref.') : 0;';
+						$code_lines[$i] .="\n".'for ($_'.$m[1].'_i = 0; $_'.$m[1].'_i < $_'.$m[1].'_count; $_'.$m[1].'_i++)';
+						$code_lines[$i] .="\n".'{';
 					}
 				}
 			}
@@ -419,18 +419,18 @@ class MODTemplate
 				// We have the end of a block.
 				unset($block_names[$block_nesting_level]);
 				$block_nesting_level--;
-				$code_lines[$i]='} // END ' . $m[1];
+				$code_lines[$i] ='} // END '.$m[1];
 			}
 			else
 			{
 				// We have an ordinary line of code.
 				if (!$do_not_echo)
 				{
-					$code_lines[$i]='echo \'' . $code_lines[$i] . '\' . "\\n";';
+					$code_lines[$i] ='echo \''.$code_lines[$i].'\'."\\n";';
 				}
 				else
 				{
-					$code_lines[$i]='$' . $retvar . '.= \'' . $code_lines[$i] . '\' . "\\n";';
+					$code_lines[$i] ='$'.$retvar.'.= \''.$code_lines[$i].'\'."\\n";';
 				}
 			}
 		}
@@ -444,7 +444,7 @@ class MODTemplate
 	/**
 	 * Generates a reference to the given variable inside the given (possibly nested)
 	 * block namespace. This is a string of the form:
-	 * ' . $this->_tpldata['parent'][$_parent_i]['$child1'][$_child1_i]['$child2'][$_child2_i]...['varname'] . '
+	 * '.$this->_tpldata['parent'][$_parent_i]['$child1'][$_child1_i]['$child2'][$_child2_i]...['varname'].'
 	 * It's ready to be inserted into an "echo" line in one of the templates.
 	 * NOTE: expects a trailing "." on the namespace.
 	 */
@@ -454,14 +454,14 @@ class MODTemplate
 		$namespace=substr($namespace,0,strlen($namespace) - 1);
 
 		// Get a reference to the data block for this namespace.
-		$varref=$this->generate_block_data_ref($namespace,true);
+		$varref= $this->generate_block_data_ref($namespace,true);
 		// Prepend the necessary code to stick this in an echo line.
 
 
 		// Append the variable reference.
-		$varref.='[\'' . $varname . '\']';
+		$varref.='[\''.$varname.'\']';
 
-		$varref='\' . ( ( isset(' . $varref . ') ) ? ' . $varref . ' : \'\' ) . \'';
+		$varref='\'.( ( isset('.$varref.') ) ? '.$varref.' : \'\' ) . \'';
 
 		return $varref;
 
@@ -482,16 +482,16 @@ class MODTemplate
 		$blockcount=sizeof($blocks) - 1;
 		$varref='$this->_tpldata';
 		// Build up the string with everything but the last child.
-		for ($i=0; $i < $blockcount; $i++)
+		for ($i = 0; $i < $blockcount; $i++)
 		{
-			$varref.='[\'' . $blocks[$i] . '.\'][$_' . $blocks[$i] . '_i]';
+			$varref.='[\''.$blocks[$i].'.\'][$_'.$blocks[$i].'_i]';
 		}
 		// Add the block reference for the last child.
-		$varref.='[\'' . $blocks[$blockcount] . '.\']';
+		$varref.='[\''.$blocks[$blockcount].'.\']';
 		// Add the iterator for the last child if requried.
 		if ($include_last_iterator)
 		{
-			$varref.='[$_' . $blocks[$blockcount] . '_i]';
+			$varref.='[$_'.$blocks[$blockcount].'_i]';
 		}
 
 		return $varref;

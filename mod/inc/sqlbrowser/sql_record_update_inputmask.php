@@ -36,14 +36,14 @@ $x=0;
 $fieldnames='';
 foreach ($record as $field=>$fieldvalue)
 {
-	$fieldnames.=$field.'|';
+	$fieldnames.= $field.'|';
 	$tpl->assign_block_vars('ROW',array(
 		'CLASS' => ($x%2) ? 1 : 2,
 		'FIELD_NAME' => $field,
 		'FIELD_VALUE' => my_quotes($fieldvalue),
 		'FIELD_ID' => correct_post_index($field)));
 
-	if ('YES'==$fields[$field]['null'])
+	if ('YES'== $fields[$field]['null'])
 	{
 		//field is nullable - precheck checkbox if value is null
 		$tpl->assign_block_vars('ROW.IS_NULLABLE',array(

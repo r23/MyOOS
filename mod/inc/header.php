@@ -16,7 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-$mod_path=realpath(dirname(__FILE__) . '/../') . '/';
+$mod_path=realpath(dirname(__FILE__).'/../').'/';
 if (!defined('MOD_PATH')) define('MOD_PATH',$mod_path);
 session_name('MyOOSDumperID');
 session_start();
@@ -28,14 +28,14 @@ if (!isset($download))
 	header("Cache-Control: post-check=0, pre-check=0",false);
 	header("Pragma: no-cache");
 }
-include ( MOD_PATH . 'inc/functions.php' );
-include ( MOD_PATH . 'inc/mysqli.php' );
+include ( MOD_PATH.'inc/functions.php' );
+include ( MOD_PATH.'inc/mysqli.php' );
 if (!defined('MOD_VERSION')) die('No direct access.');
 if (!file_exists($config['files']['parameter'])) $error=TestWorkDir();
 read_config($config['config_file']);
-include ( MOD_PATH . 'language/lang_list.php' );
-if (!isset($databases['db_selected_index'])) $databases['db_selected_index']=0;
+include ( MOD_PATH.'language/lang_list.php' );
+if (!isset($databases['db_selected_index'])) $databases['db_selected_index'] =0;
 SelectDB($databases['db_selected_index']);
 $config['theme'] = isset($config['theme']) ? $config['theme'] : 'mod';
-$config['files']['iconpath']='./css/' . $config['theme'] . '/icons/';
+$config['files']['iconpath'] ='./css/'.$config['theme'].'/icons/';
 if (isset($error)) echo $error;

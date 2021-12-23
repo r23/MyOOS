@@ -18,7 +18,7 @@
 
 
 if (!defined('MOD_VERSION')) die('No direct access.');
-$Sum_Files=$Sum_Size=0;
+$Sum_Files= $Sum_Size=0;
 $Last_BU=Array();
 $is_htaccess=(file_exists('./.htaccess'));
 $is_protected = IsAccessProtected();
@@ -29,15 +29,15 @@ while (false!==($filename=readdir($dh)))
 {
 	if ($filename!='.'&&$filename!='..'&&!is_dir($config['paths']['backup'].$filename))
 	{
-		$files[]=$filename;
+		$files[] = $filename;
 		$Sum_Files++;
 		$Sum_Size+=filesize($config['paths']['backup'].$filename);
 		$ft=filectime($config['paths']['backup'].$filename);
 		if (!isset($Last_BU[2])||(isset($Last_BU[2])&&$ft>$Last_BU[2]))
 		{
-			$Last_BU[0]=$filename;
-			$Last_BU[1]=date("d.m.Y H:i",$ft);
-			$Last_BU[2]=$ft;
+			$Last_BU[0] = $filename;
+			$Last_BU[1] =date("d.m.Y H:i",$ft);
+			$Last_BU[2] = $ft;
 		}
 	}
 }

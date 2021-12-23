@@ -18,7 +18,7 @@
 
 define('OOS_VALID_MOD', true);
 
-if (isset($_GET['action'])&&$_GET['action']=='dl') $download=true;
+if (isset($_GET['action'])&&$_GET['action'] =='dl') $download=true;
 include ('./inc/header.php');
 include_once ('./language/'.$config['language'].'/lang.php');
 include_once ('./language/'.$config['language'].'/lang_dump.php');
@@ -41,8 +41,8 @@ $compressed=(isset($_POST['compressed'])) ? $_POST['compressed'] : "";
 $dk=(isset($_POST['dumpKommentar'])) ?  $_POST['dumpKommentar'] : "";
 
 $dk=str_replace(':','|',$dk); // remove : because of statusline
-$dump['sel_dump_encoding']=(isset($_POST['sel_dump_encoding'])) ? $_POST['sel_dump_encoding'] : get_index($config['mysql_possible_character_sets'],$config['mysql_standard_character_set']);
-$dump['dump_encoding']=isset($config['mysql_possible_character_sets'][$dump['sel_dump_encoding']]) ? $config['mysql_possible_character_sets'][$dump['sel_dump_encoding']] : 0;
+$dump['sel_dump_encoding'] =(isset($_POST['sel_dump_encoding'])) ? $_POST['sel_dump_encoding'] : get_index($config['mysql_possible_character_sets'],$config['mysql_standard_character_set']);
+$dump['dump_encoding'] = isset($config['mysql_possible_character_sets'][$dump['sel_dump_encoding']]) ? $config['mysql_possible_character_sets'][$dump['sel_dump_encoding']] : 0;
 
 if ($action=='dl')
 {
@@ -77,25 +77,25 @@ if (!@ob_start("ob_gzhandler")) @ob_start();
 echo MODHeader();
 
 $toolboxstring='';
-$fpath=$config['paths']['backup'];
+$fpath= $config['paths']['backup'];
 $dbactiv=(isset($_GET['dbactiv'])) ? $_GET['dbactiv'] : $databases['db_actual'];
-$databases['multi']=Array();
-if ($databases['multisetting']=="")
+$databases['multi'] =Array();
+if ($databases['multisetting'] =="")
 {
-	$databases['multi'][0]=$databases['db_actual'];
+	$databases['multi'][0] = $databases['db_actual'];
 }
 else
 {
-	$databases['multi']=explode(";",$databases['multisetting']);
+	$databases['multi'] =explode(";",$databases['multisetting']);
 	$multi_praefixe=array();
 	$multi_praefixe=explode(";",$databases['multisetting_praefix']);
 	$toolboxstring='<br>';
 	if (is_array($databases['multi']))
 	{
-		for ($i=0; $i<sizeof($databases['multi']); $i++)
+		for ($i = 0; $i<sizeof($databases['multi']); $i++)
 		{
 			if ($i>0) $toolboxstring.=', ';
-			$toolboxstring.=$databases['multi'][$i];
+			$toolboxstring.= $databases['multi'][$i];
 			if ($multi_praefixe[$i]>'') $toolboxstring.=' (<i>\''.$multi_praefixe[$i].'\'</i>)';
 		}
 	}
@@ -106,9 +106,9 @@ if (isset($_POST['dump_tbl']))
 {
 	$check_dirs=TestWorkDir();
 	if (!$check_dirs===true) die($check_dirs);
-	$databases['db_actual_tableselected']=substr($_POST['tbl_array'],0,strlen($_POST['tbl_array'])-1);
+	$databases['db_actual_tableselected'] =substr($_POST['tbl_array'],0,strlen($_POST['tbl_array'])-1);
 	WriteParams();
-	$dump['fileoperations']=0;
+	$dump['fileoperations'] =0;
 	echo '<script>parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
 	exit();
 }
@@ -127,14 +127,14 @@ if (isset($_POST['dump']))
 	{
 		@$check_dir=TestWorkDir();
 		if (!$check_dir===true) die($check_dir);
-		$databases['db_actual_tableselected']="";
+		$databases['db_actual_tableselected'] ="";
 		WriteParams();
-		$dump['fileoperations']=0;
+		$dump['fileoperations'] =0;
 
 		$sUrl = 'dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']);
 		if ((isset($config['optimize_tables_beforedump']) && ($config['optimize_tables_beforedump'] == 1))) {
-			echo '<div id="pagetitle">' . $lang['L_DUMP_HEADLINE'] .'</div><div id="content"><p>';
-			echo '<br><br><p>' . sprintf($lang['L_DUMP_INFO'], $sUrl) . '</p></div>';
+			echo '<div id="pagetitle">'.$lang['L_DUMP_HEADLINE'] .'</div><div id="content"><p>';
+			echo '<br><br><p>'.sprintf($lang['L_DUMP_INFO'], $sUrl).'</p></div>';
 		}
 		echo '<script>parent.MyOOS_Dumper_content.location.href="dump.php?comment='.urlencode($dk).'&sel_dump_encoding='.$dump['sel_dump_encoding'].'&config='.urlencode($config['config_file']).'";</script></body></html>';
 		exit();
@@ -144,7 +144,7 @@ if (isset($_POST['dump']))
 //*** Abfrage ob Restore nach Tabellenaufruf ***
 if (isset($_POST['restore_tbl']))
 {
-	$databases['db_actual_tableselected']=substr($_POST['tbl_array'],0,strlen($_POST['tbl_array'])-1);
+	$databases['db_actual_tableselected'] =substr($_POST['tbl_array'],0,strlen($_POST['tbl_array'])-1);
 	WriteParams();
 	echo '<script>parent.MyOOS_Dumper_content.location.href="restore.php?filename='.urlencode($_POST['filename']).'";</script></body></html>';
 
@@ -166,13 +166,13 @@ if (isset($_POST['restore']))
 		}
 		else
 		{
-			$file=$_POST['file'][0];
+			$file= $_POST['file'][0];
 			$statusline=read_statusline_from_file($file);
 			if (isset($_POST['sel_dump_encoding_restore']))
 			{
-				$encodingstring=$config['mysql_possible_character_sets'][$_POST['sel_dump_encoding_restore']];
+				$encodingstring= $config['mysql_possible_character_sets'][$_POST['sel_dump_encoding_restore']];
 				$encoding=explode(' ',$encodingstring);
-				$dump_encoding=$encoding[0];
+				$dump_encoding= $encoding[0];
 			}
 			else
 			{
@@ -195,10 +195,10 @@ if (isset($_POST['restore']))
 					exit();
 				}
 				else
-					$dump_encoding=$statusline['charset'];
+					$dump_encoding= $statusline['charset'];
 			}
 
-			$databases['db_actual_tableselected']="";
+			$databases['db_actual_tableselected'] ="";
 			WriteParams();
 			echo '<script>parent.MyOOS_Dumper_content.location.href="restore.php?filename='.$file.'&dump_encoding='.$dump_encoding.'&kind='.$kind.'";</script></body></html>';
 			exit();
@@ -215,16 +215,16 @@ if (isset($_POST['delete']))
 	if (isset($_POST['file']))
 	{
 		$delfiles=Array();
-		for ($i=0; $i<count($_POST['file']); $i++)
+		for ($i = 0; $i<count($_POST['file']); $i++)
 		{
 			if (!strpos($_POST['file'][$i],"_part_")===false)
 			{
-				$delfiles[]=substr($_POST['file'][$i],0,strpos($_POST['file'][$i],"_part_")+6).'*';
+				$delfiles[] =substr($_POST['file'][$i],0,strpos($_POST['file'][$i],"_part_")+6).'*';
 			}
 			else
-				$delfiles[]=$_POST['file'][$i];
+				$delfiles[] = $_POST['file'][$i];
 		}
-		for ($i=0; $i<count($delfiles); $i++)
+		for ($i = 0; $i<count($delfiles); $i++)
 		{
 			$del=array_merge($del,DeleteFilesM($fpath,$delfiles[$i]));
 		}
@@ -257,14 +257,14 @@ if (is_array($del)&&sizeof($del)>0)
 		if ($success)
 		{
 			$msg.='<span class="small">';
-			$msg.=$lang['L_FM_DELETE1'].' \''.$filename.'\' '.$lang['L_FM_DELETE2'];
+			$msg.= $lang['L_FM_DELETE1'].' \''.$filename.'\' '.$lang['L_FM_DELETE2'];
 			WriteLog("deleted '$filename'.");
 			$msg.='</span><br>';
 		}
 		else
 		{
 			$msg.='<span class="small error">';
-			$msg.=$lang['L_FM_DELETE1'].' \''.$filename.'\' '.$lang['L_FM_DELETE3'];
+			$msg.= $lang['L_FM_DELETE1'].' \''.$filename.'\' '.$lang['L_FM_DELETE3'];
 			WriteLog("deleted '$filename'.");
 			$msg.='</span><br>';
 		}
@@ -288,7 +288,7 @@ if (isset($_POST['upload']))
 			if (!in_array($endung,$erlaubt))
 			{
 				$msg.="<font color=\"red\">".$lang['L_FM_UPLOADNOTALLOWED1']."<br>";
-				$msg.=$lang['L_FM_UPLOADNOTALLOWED2']."</font>";
+				$msg.= $lang['L_FM_UPLOADNOTALLOWED2']."</font>";
 			}
 			else
 			{
@@ -298,7 +298,7 @@ if (isset($_POST['upload']))
 					else
 						$error.="<font color=\"red\">".$lang['L_FM_UPLOADMOVEERROR']."<br>";
 				}
-				if ($error) $msg.=$error."<font color=\"red\">".$lang['L_FM_UPLOADFAILED']."</font><br>";
+				if ($error) $msg.= $error."<font color=\"red\">".$lang['L_FM_UPLOADFAILED']."</font><br>";
 			}
 		}
 		else
@@ -331,17 +331,17 @@ switch ($action)
             break;
         }
 		if (isset($config['multi_dump']) && ($config['multi_dump'] == 0)) DBDetailInfo($databases['db_selected_index']);
-		$cext = (isset($config['cron_extender']) && ($config['cron_extender']==0)) ? "pl" : "cgi";
+		$cext = (isset($config['cron_extender']) && ($config['cron_extender'] ==0)) ? "pl" : "cgi";
 		$actualUrl=substr($_SERVER['SCRIPT_NAME'],0,strrpos($_SERVER['SCRIPT_NAME'],"/")+1);
 		if (substr($actualUrl,-1)!="/") $actualUrl.="/";
 		if (substr($actualUrl,0,1)!="/") $actualUrl="/$actualUrl";
 		$refdir=(substr($config['cron_execution_path'],0,1)=="/") ? "" : $actualUrl;
-		$scriptdir=$config['cron_execution_path'].'crondump.'.$cext;
-		$sfile=$config['cron_execution_path']."perltest.$cext";
-		$simplefile=$config['cron_execution_path']."simpletest.$cext";
+		$scriptdir= $config['cron_execution_path'].'crondump.'.$cext;
+		$sfile= $config['cron_execution_path']."perltest.$cext";
+		$simplefile= $config['cron_execution_path']."simpletest.$cext";
 		$scriptentry=Realpfad("./").$config['paths']['config'];
 		$cronabsolute=(substr($config['cron_execution_path'],0,1)=="/") ? $_SERVER['DOCUMENT_ROOT'].$scriptdir : Realpfad("./").$scriptdir;
-		$confabsolute=$config['config_file'];
+		$confabsolute= $config['config_file'];
 		$scriptref=getServerProtocol().$_SERVER['SERVER_NAME'].$refdir.$config['cron_execution_path'].'crondump.'.$cext."?config=".$confabsolute;
 		$cronref="perl ".$cronabsolute." -config=".$confabsolute." -html_output=0";
 
@@ -417,7 +417,7 @@ switch ($action)
 
 		if (isset($config['send_mail']) && ($config['send_mail'] == 1 ))
 		{
-			$t=$config['email_recipient'].(($config['send_mail_dump'] == 1 ) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
+			$t= $config['email_recipient'].(($config['send_mail_dump'] == 1 ) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
 		}
 		echo '<tr><td>'.$lang['L_SEND_MAIL_FORM'].':</td><td><strong>'.((isset($config['send_mail']) && ($config['send_mail'] == 1 )) ? $t : $lang['L_NOT_ACTIVATED']);
 		echo '</strong></td></tr>';
@@ -449,12 +449,12 @@ switch ($action)
 
 		echo '<h6>'.$lang['L_FM_DUMPSETTINGS'].' (PERL)</h6>';
 
-		if ($config['cron_dbindex']==-3)
+		if ($config['cron_dbindex'] ==-3)
 		{
-			$cron_dbname=$lang['L_MULTIDUMPALL'];
+			$cron_dbname= $lang['L_MULTIDUMPALL'];
 			$cron_dbpraefix="";
 		}
-		elseif ($config['cron_dbindex']==-2)
+		elseif ($config['cron_dbindex'] ==-2)
 		{
 			//$cron_dbname='Multidump ('.count($databases['multi']).' '.$lang['L_DBS'].')';
 			$cron_dbname='Multidump ('.count($databases['multi']).' '.$lang['L_DBS'].')</strong>';
@@ -463,8 +463,8 @@ switch ($action)
 		}
 		else
 		{
-			$cron_dbname=$databases['Name'][$config['cron_dbindex']];
-			$cron_dbpraefix=$databases['praefix'][$config['cron_dbindex']];
+			$cron_dbname= $databases['Name'][$config['cron_dbindex']];
+			$cron_dbpraefix= $databases['praefix'][$config['cron_dbindex']];
 		}
 
 		echo '<table>';
@@ -490,7 +490,7 @@ switch ($action)
 
 		if (isset($config['send_mail']) && ($config['send_mail'] == 1 ))
 		{
-			$t=$config['email_recipient'].(($config['send_mail_dump'] == 1 ) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
+			$t= $config['email_recipient'].(($config['send_mail_dump'] == 1 ) ? $lang['L_WITHATTACH'] : $lang['L_WITHOUTATTACH']);
 		}
 		echo '<tr><td>'.$lang['L_SEND_MAIL_FORM'].':</td><td><strong>'.((isset($config['send_mail']) && ($config['send_mail'] == 1 )) ? $t : $lang['L_NOT_ACTIVATED']).'</strong></td></tr>';
 

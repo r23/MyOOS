@@ -20,36 +20,36 @@ define('OOS_VALID_MOD', true);
 
 if (!@ob_start("ob_gzhandler")) @ob_start();
 
-$install_ftp_server=$install_ftp_user_name=$install_ftp_user_pass=$install_ftp_path="";
-$dbhost=$dbuser=$dbpass=$dbport=$dbsocket=$manual_db='';
+$install_ftp_server= $install_ftp_user_name= $install_ftp_user_pass= $install_ftp_path="";
+$dbhost= $dbuser= $dbpass= $dbport= $dbsocket= $manual_db='';
 foreach ($_GET as $getvar=>$getval)
 {
-	${$getvar}=$getval;
+	${$getvar}= $getval;
 }
 foreach ($_POST as $postvar=>$postval)
 {
-	${$postvar}=$postval;
+	${$postvar}= $postval;
 }
 include_once ( './inc/functions.php' );
 include_once ( './inc/mysqli.php' );
 include_once ( './inc/runtime.php' );
 if (!isset($language)) $language="en";
 
-$config['language']=$language;
+$config['language'] = $language;
 include ( './language/lang_list.php' );
-include ( 'language/' . $language . '/lang_install.php' );
-include ( 'language/' . $language . '/lang_main.php' );
-include ( 'language/' . $language . '/lang_config_overview.php' );
+include ( 'language/'.$language.'/lang_install.php' );
+include ( 'language/'.$language.'/lang_main.php' );
+include ( 'language/'.$language.'/lang_config_overview.php' );
 
 //Übergabe der Parameter über FORM
 if (isset($_POST['dbhost']))
 {
-	$config['dbhost']=$dbhost;
-	$config['dbuser']=$dbuser;
-	$config['dbpass']=$dbpass;
-	$config['dbport']=$dbport;
-	$config['dbsocket']=$dbsocket;
-	$config['manual_db']=$manual_db;
+	$config['dbhost'] = $dbhost;
+	$config['dbuser'] = $dbuser;
+	$config['dbpass'] = $dbpass;
+	$config['dbport'] = $dbport;
+	$config['dbsocket'] = $dbsocket;
+	$config['manual_db'] = $manual_db;
 }
 else
 {
@@ -57,28 +57,28 @@ else
 	if (isset($connstr) && !empty($connstr))
 	{
 		$p=explode("|", $connstr);
-		$dbhost=$config['dbhost']=$p[0];
-		$dbuser=$config['dbuser']=$p[1];
-		$dbpass=$config['dbpass']=$p[2];
-		$dbport=$config['dbport']=$p[3];
-		$dbsocket=$config['dbsocket']=$p[4];
-		$manual_db=$config['manual_db']=$p[5];
+		$dbhost= $config['dbhost'] = $p[0];
+		$dbuser= $config['dbuser'] = $p[1];
+		$dbpass= $config['dbpass'] = $p[2];
+		$dbport= $config['dbport'] = $p[3];
+		$dbsocket= $config['dbsocket'] = $p[4];
+		$manual_db= $config['manual_db'] = $p[5];
 	}
 	else
 		$connstr="";
 }
 
 //Variabeln
-$phase=( isset($phase) ) ? $phase : 0;
+$phase = (isset($phase) ) ? $phase : 0;
 if (isset($_POST['manual_db'])) $manual_db=trim($_POST['manual_db']);
 $connstr = "$dbhost|$dbuser|$dbpass|$dbport|$dbsocket|$manual_db";
 $connection='';
 $delfiles=Array();
 
-$config['files']['iconpath']='./css/mod/icons/';
-$img_ok='<img src="' . $config['files']['iconpath'] . 'ok.gif" width="16" height="16" alt="ok">';
-$img_failed='<img src="' . $config['files']['iconpath'] . 'notok.gif" width="16" height="16" alt="failed">';
-$href="install.php?language=$language&phase=$phase&connstr=$connstr";
+$config['files']['iconpath'] ='./css/mod/icons/';
+$img_ok='<img src="'.$config['files']['iconpath'].'ok.gif" width="16" height="16" alt="ok">';
+$img_failed='<img src="'.$config['files']['iconpath'].'notok.gif" width="16" height="16" alt="failed">';
+$href="install.php?language= $language&phase= $phase&connstr= $connstr";
 header('content-type: text/html; charset=utf-8');
 ?>
 <!DOCTYPE HTML>
@@ -110,7 +110,7 @@ function hide_tooldivs() {
 	<?php
 	foreach ($lang['languages'] as $key)
 	{
-		echo 'document.getElementById("' . $key . '").style.display = \'none\';' . "\n";
+		echo 'document.getElementById("'.$key.'").style.display = \'none\';'."\n";
 	}
 	?>
 }
@@ -121,7 +121,7 @@ function show_tooldivs(lab) {
 		<?php
 		foreach ($lang['languages'] as $key)
 		{
-			echo 'case "' . $key . '":' . "\n" . 'document.getElementById("' . $key . '").style.display = \'block\';' . "\n" . 'break;' . "\n";
+			echo 'case "'.$key.'":'."\n".'document.getElementById("'.$key.'").style.display = \'block\';'."\n".'break;'."\n";
 		}
 		?>
 
@@ -132,28 +132,28 @@ function show_tooldivs(lab) {
 <?php
 if ($phase < 10)
 {
-	if ($phase == 0) $Anzeige=$lang['L_INSTALL'] . ' - ' . $lang['L_INSTALLMENU'];
-	else $Anzeige=$lang['L_INSTALL'] . ' - ' . $lang['L_STEP'] . ' ' . ( $phase );
+	if ($phase == 0) $Anzeige= $lang['L_INSTALL'].' - '.$lang['L_INSTALLMENU'];
+	else $Anzeige= $lang['L_INSTALL'].' - '.$lang['L_STEP'].' '.( $phase );
 }
 elseif ($phase > 9 && $phase < 12)
 {
-	$Anzeige=$lang['L_INSTALL'] . ' - ' . $lang['L_STEP'] . ' ' . ( $phase - 7 );
+	$Anzeige= $lang['L_INSTALL'].' - '.$lang['L_STEP'].' '.( $phase - 7 );
 }
 elseif ($phase > 19 && $phase < 100)
 {
-	$Anzeige=$lang['L_TOOLS'];
+	$Anzeige= $lang['L_TOOLS'];
 }
 else
 {
-	$Anzeige=$lang['L_UNINSTALL'] . ' - ' . $lang['L_STEP'] . ' ' . ( $phase - 99 );
+	$Anzeige= $lang['L_UNINSTALL'].' - '.$lang['L_STEP'].' '.( $phase - 99 );
 }
 
-echo '<img src="css/mod/pics/h1_logo.gif" alt="' . $lang['L_INSTALL_TOMENU'] . '">';
+echo '<img src="css/mod/pics/h1_logo.gif" alt="'.$lang['L_INSTALL_TOMENU'].'">';
 echo '<div id="pagetitle"><p>
-' . $Anzeige . '
+'.$Anzeige.'
 </p></div>';
 
-echo '<div id="content" align="center"><p class="small"><strong>Version ' . MOD_VERSION . '</strong><br></p>';
+echo '<div id="content" align="center"><p class="small"><strong>Version '.MOD_VERSION.'</strong><br></p>';
 
 switch ($phase)
 {
@@ -172,21 +172,21 @@ switch ($phase)
 
 		foreach ($lang['languages'] as $key)
 		{
-			echo ( "\n<div id=\"" . $key . '"><a href="install.php?language=' . $key . '&phase=100">' . $lang['L_TOOLS1'][$key] . '</a><br><br>' );
+			echo ( "\n<div id=\"" . $key.'"><a href="install.php?language='.$key.'&phase=100">'.$lang['L_TOOLS1'][$key].'</a><br><br>' );
 			echo ( "</div>" );
 		}
 
 		echo ( "\n</td></tr><tr><td colspan=\"2\" style=\"padding: 4px\"><input type=\"submit\" name=\"submit\" value=\"Installation\" class=\"Formbutton\"></td></tr></table></form>" );
-		echo '<script>show_tooldivs("' . $language . '");</script>';
+		echo '<script>show_tooldivs("'.$language.'");</script>';
 		break;
 	case 1: // checken
 		@chmod("config.php",0666);
-		echo '<h6>' . $lang['L_DBPARAMETER'] . '</h6>';
+		echo '<h6>'.$lang['L_DBPARAMETER'].'</h6>';
 		if (!is_writable("config.php"))
 		{
-			echo '<p class="warning">' . $lang['L_CONFIGNOTWRITABLE'] . '</p>';
-			echo '<a href="' . $href . '">' . $lang['L_TRYAGAIN'] . '</a>';
-			echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="install.php">' . $lang['L_INSTALL_TOMENU'] . '</a>';
+			echo '<p class="warning">'.$lang['L_CONFIGNOTWRITABLE'].'</p>';
+			echo '<a href="'.$href.'">'.$lang['L_TRYAGAIN'].'</a>';
+			echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="install.php">'.$lang['L_INSTALL_TOMENU'].'</a>';
 		}
 		else
 		{
@@ -197,79 +197,79 @@ switch ($phase)
 			if (!isset($_POST['dbconnect']))
 			{
 				// Erstaufruf - Daten aus config.php auslesen
-				for ($i=0; $i < count($tmp); $i++)
+				for ($i = 0; $i < count($tmp); $i++)
 				{
 
 					if (substr($tmp[$i],0,17) == '$config[\'dbhost\']')
 					{
-						$config['dbhost']=extractValue($tmp[$i]);
-						$dbhost=$config['dbhost'];
+						$config['dbhost'] =extractValue($tmp[$i]);
+						$dbhost= $config['dbhost'];
 						$stored++;
 					}
 					if (substr($tmp[$i],0,17) == '$config[\'dbport\']')
 					{
-						$config['dbport']=extractValue($tmp[$i]);
-						$dbport=$config['dbport'];
+						$config['dbport'] =extractValue($tmp[$i]);
+						$dbport= $config['dbport'];
 						$stored++;
 					}
 					if (substr($tmp[$i],0,19) == '$config[\'dbsocket\']')
 					{
-						$config['dbsocket']=extractValue($tmp[$i]);
-						$dbsocket=$config['dbsocket'];
+						$config['dbsocket'] =extractValue($tmp[$i]);
+						$dbsocket= $config['dbsocket'];
 						$stored++;
 					}
 					if (substr($tmp[$i],0,17) == '$config[\'dbuser\']')
 					{
-						$config['dbuser']=extractValue($tmp[$i]);
-						$dbuser=$config['dbuser'];
+						$config['dbuser'] =extractValue($tmp[$i]);
+						$dbuser= $config['dbuser'];
 						$stored++;
 					}
 					if (substr($tmp[$i],0,17) == '$config[\'dbpass\']')
 					{
-						$config['dbpass']=extractValue($tmp[$i]);
-						$dbpass=$config['dbpass'];
+						$config['dbpass'] =extractValue($tmp[$i]);
+						$dbpass= $config['dbpass'];
 						$stored++;
 					}
 					if (substr($tmp[$i],0,19) == '$config[\'language\']')
 					{
-						$config['language']=extractValue($tmp[$i]);
+						$config['language'] =extractValue($tmp[$i]);
 						$stored++;
 					}
 					if ($stored == 6) break;
 				}
 			}
 
-			if (!isset($config['dbport'])) $config['dbport']="";
-			if (!isset($config['dbsocket'])) $config['dbsocket']="";
+			if (!isset($config['dbport'])) $config['dbport'] ="";
+			if (!isset($config['dbsocket'])) $config['dbsocket'] ="";
 
-			echo '<form action="install.php?language=' . $language . '&phase=' . $phase . '" method="post">';
+			echo '<form action="install.php?language='.$language.'&phase='.$phase.'" method="post">';
 			echo '<table class="bdr" style="width:700px;">';
-			echo '<tr><td>' . $lang['L_DB_HOST'] . ':</td><td><input type="text" name="dbhost" value="' . $dbhost . '" size="60" maxlength="100"></td></tr>';
-			echo '<tr><td>' . $lang['L_DB_USER'] . ':</td><td><input type="text" name="dbuser" value="' . $dbuser . '" size="60" maxlength="100"></td></tr>';
-			echo '<tr><td>' . $lang['L_DB_PASS'] . ':</td><td><input type="password" name="dbpass" value="' . $dbpass . '" size="60" maxlength="100"></td></tr>';
-			echo '<tr><td>* ' . $lang['L_DB'] . ':<p class="small">('.$lang['L_ENTER_DB_INFO'].')</p></td><td><input type="text" name="manual_db" value="' . $manual_db . '" size="60" maxlength="100"></td></tr>';
+			echo '<tr><td>'.$lang['L_DB_HOST'].':</td><td><input type="text" name="dbhost" value="'.$dbhost.'" size="60" maxlength="100"></td></tr>';
+			echo '<tr><td>'.$lang['L_DB_USER'].':</td><td><input type="text" name="dbuser" value="'.$dbuser.'" size="60" maxlength="100"></td></tr>';
+			echo '<tr><td>'.$lang['L_DB_PASS'].':</td><td><input type="password" name="dbpass" value="'.$dbpass.'" size="60" maxlength="100"></td></tr>';
+			echo '<tr><td>* '.$lang['L_DB'].':<p class="small">('.$lang['L_ENTER_DB_INFO'].')</p></td><td><input type="text" name="manual_db" value="'.$manual_db.'" size="60" maxlength="100"></td></tr>';
 			echo '<tr><td>';
-			echo $lang['L_PORT'] . ':</td><td><input type="text" name="dbport" value="' . $dbport . '" size="5" maxlength="5">&nbsp;&nbsp;' . $lang['L_INSTALL_HELP_PORT'] . '</td></tr>';
-			echo '<tr><td>' . $lang['L_SOCKET'] . ':</td><td><input type="text" name="dbsocket" value="' . $dbsocket . '" size="30" maxlength="255">&nbsp;&nbsp;' . $lang['L_INSTALL_HELP_SOCKET'] . '</td></tr>';
+			echo $lang['L_PORT'].':</td><td><input type="text" name="dbport" value="'.$dbport.'" size="5" maxlength="5">&nbsp;&nbsp;'.$lang['L_INSTALL_HELP_PORT'].'</td></tr>';
+			echo '<tr><td>'.$lang['L_SOCKET'].':</td><td><input type="text" name="dbsocket" value="'.$dbsocket.'" size="30" maxlength="255">&nbsp;&nbsp;'.$lang['L_INSTALL_HELP_SOCKET'].'</td></tr>';
 
-			echo '<tr><td>' . $lang['L_TESTCONNECTION'] . ':</td><td><input type="submit" name="dbconnect" value="' . $lang['L_CONNECTTOMYSQL'] . '" class="Formbutton"></td></tr>';
+			echo '<tr><td>'.$lang['L_TESTCONNECTION'].':</td><td><input type="submit" name="dbconnect" value="'.$lang['L_CONNECTTOMYSQL'].'" class="Formbutton"></td></tr>';
 			if (isset($_POST['dbconnect']))
 			{
-				echo '<tr class="thead"><th colspan="2">' . $lang['L_DBCONNECTION'] . '</th></tr>';
+				echo '<tr class="thead"><th colspan="2">'.$lang['L_DBCONNECTION'].'</th></tr>';
 				echo '<tr><td colspan="2">';
 				$connection=mod_mysqli_connect();
 
 				if ($connection === false)
 				{
-					echo '<p class="error">' . $lang['L_CONNECTIONERROR'] . '</p><span>&nbsp;';
+					echo '<p class="error">'.$lang['L_CONNECTIONERROR'].'</p><span>&nbsp;';
 				}
 				else
 				{
 				    $databases = array();
-					echo '<p class="success">' . $lang['L_CONNECTION_OK'] . '</p><span class="ssmall">';
+					echo '<p class="success">'.$lang['L_CONNECTION_OK'].'</p><span class="ssmall">';
 					$connection="ok";
 					$connstr="$dbhost|$dbuser|$dbpass|$dbport|$dbsocket|$manual_db";
-					echo '<input type="hidden" name="connstr" value="' . $connstr . '">';
+					echo '<input type="hidden" name="connstr" value="'.$connstr.'">';
 					if ($manual_db > '') SearchDatabases(1,$manual_db);
 					else SearchDatabases(1);
 					if (!isset($databases['Name']) || !in_array($manual_db, $databases['Name'])) {
@@ -284,50 +284,50 @@ switch ($phase)
 
 			if ($connection == "ok")
 			{
-				if (!isset($databases['Name'][0])) echo '<br>' . $lang['L_NO_DB_FOUND_INFO'];
+				if (!isset($databases['Name'][0])) echo '<br>'.$lang['L_NO_DB_FOUND_INFO'];
 
-				echo '<form action="install.php?language=' . $language . '&phase=' . ( $phase + 1 ) . '" method="post">';
-				echo '<input type="hidden" name="dbhost" value="' . $config['dbhost'] . '">
-			<input type="hidden" name="dbuser" value="' . $config['dbuser'] . '">
-			<input type="hidden" name="dbpass" value="' . $config['dbpass'] . '">
-			<input type="hidden" name="manual_db" value="' . $manual_db . '">
-			<input type="hidden" name="dbport" value="' . $config['dbport'] . '">
-			<input type="hidden" name="dbsocket" value="' . $config['dbsocket'] . '">
-			<input type="hidden" name="connstr" value="' . $connstr . '">';
-				echo '<input type="submit" name="submit" value=" ' . $lang['L_SAVEANDCONTINUE'] . ' " class="Formbutton"></form>';
+				echo '<form action="install.php?language='.$language.'&phase='.( $phase + 1 ).'" method="post">';
+				echo '<input type="hidden" name="dbhost" value="'.$config['dbhost'].'">
+			<input type="hidden" name="dbuser" value="'.$config['dbuser'].'">
+			<input type="hidden" name="dbpass" value="'.$config['dbpass'].'">
+			<input type="hidden" name="manual_db" value="'.$manual_db.'">
+			<input type="hidden" name="dbport" value="'.$config['dbport'].'">
+			<input type="hidden" name="dbsocket" value="'.$config['dbsocket'].'">
+			<input type="hidden" name="connstr" value="'.$connstr.'">';
+				echo '<input type="submit" name="submit" value=" '.$lang['L_SAVEANDCONTINUE'].' " class="Formbutton"></form>';
 			}
 		}
 		break;
 
 	case 2: //
-		echo '<h6>MyOOS [Dumper] - ' . $lang['L_CONFBASIC'] . '</h6>';
+		echo '<h6>MyOOS [Dumper] - '.$lang['L_CONFBASIC'].'</h6>';
 		$tmp=@file("config.php");
 		$stored=0;
-		for ($i=0; $i < count($tmp); $i++)
+		for ($i = 0; $i < count($tmp); $i++)
 		{
 			if (substr($tmp[$i],0,17) == '$config[\'dbhost\']')
 			{
-				$tmp[$i]='$config[\'dbhost\'] = \'' . $dbhost . '\';' . "\n";
+				$tmp[$i] ='$config[\'dbhost\'] = \''.$dbhost.'\';'."\n";
 				$stored++;
 			}
 			if (substr($tmp[$i],0,17) == '$config[\'dbport\']')
 			{
-				$tmp[$i]='$config[\'dbport\'] = \'' . $dbport . '\';' . "\n";
+				$tmp[$i] ='$config[\'dbport\'] = \''.$dbport.'\';'."\n";
 				$stored++;
 			}
 			if (substr($tmp[$i],0,19) == '$config[\'dbsocket\']')
 			{
-				$tmp[$i]='$config[\'dbsocket\'] = \'' . $dbsocket . '\';' . "\n";
+				$tmp[$i] ='$config[\'dbsocket\'] = \''.$dbsocket.'\';'."\n";
 				$stored++;
 			}
 			if (substr($tmp[$i],0,17) == '$config[\'dbuser\']')
 			{
-				$tmp[$i]='$config[\'dbuser\'] = \'' . $dbuser . '\';' . "\n";
+				$tmp[$i] ='$config[\'dbuser\'] = \''.$dbuser.'\';'."\n";
 				$stored++;
 			}
 			if (substr($tmp[$i],0,17) == '$config[\'dbpass\']')
 			{
-				$tmp[$i]='$config[\'dbpass\'] = \'' . $dbpass . '\';' . "\n";
+				$tmp[$i] ='$config[\'dbpass\'] = \''.$dbpass.'\';'."\n";
 				$stored++;
 			}
 
@@ -341,13 +341,13 @@ switch ($phase)
 		}
 		if (!$ret)
 		{
-			echo '<p class="warnung">' . $lang['L_SAVE_ERROR'] . '</p>';
+			echo '<p class="warnung">'.$lang['L_SAVE_ERROR'].'</p>';
 		}
 		else
 		{
 			echo $lang['L_INSTALL_STEP2FINISHED'];
 			echo '<p>&nbsp;</p>';
-			echo '<form action="install.php?language=' . $language . '&phase=' . ($phase + 2) . '" method="post" name="continue"><input type="hidden" name="connstr" value="' . $connstr . '"><input class="Formbutton" style="width:360px;" type="submit" name="continue2" value=" ' . $lang['L_INSTALL_STEP2_1'] . ' "></form>';
+			echo '<form action="install.php?language='.$language.'&phase='.($phase + 2).'" method="post" name="continue"><input type="hidden" name="connstr" value="'.$connstr.'"><input class="Formbutton" style="width:360px;" type="submit" name="continue2" value=" '.$lang['L_INSTALL_STEP2_1'].' "></form>';
 			echo '<script>';
 			echo 'document.forms["continue"].submit();';
 			echo '</script>';
@@ -369,12 +369,12 @@ switch ($phase)
 
 			if ($ret == false)
 			{
-				echo '<br><strong>' . $lang['L_ERRORMAN'] . ' config.php ' . $lang['L_MANUELL'] . '.';
+				echo '<br><strong>'.$lang['L_ERRORMAN'].' config.php '.$lang['L_MANUELL'].'.';
 				die();
 			}
 		}
 
-		echo '<h6>' . $lang['L_CREATEDIRS'] . '</h6>';
+		echo '<h6>'.$lang['L_CREATEDIRS'].'</h6>';
 		$check_dirs= array (
 
 							"work/",
@@ -386,37 +386,37 @@ switch ($phase)
 		foreach ($check_dirs as $d)
 		{
 			$success=SetFileRechte($d,1,0777);
-			if ($success != 1) $msg.=$success . '<br>';
+			if ($success != 1) $msg.= $success.'<br>';
 		}
 
-		if ($msg > '') echo '<b>' . $msg . '</b>';
+		if ($msg > '') echo '<b>'.$msg.'</b>';
 
-		$iw[0]=IsWritable("work");
-		$iw[1]=IsWritable("work/config");
-		$iw[2]=IsWritable("work/log");
-		$iw[3]=IsWritable("work/backup");
+		$iw[0] =IsWritable("work");
+		$iw[1] =IsWritable("work/config");
+		$iw[2] =IsWritable("work/log");
+		$iw[3] =IsWritable("work/backup");
 
 		if ($iw[0] && $iw[1] && $iw[2] && $iw[3])
 		{
 			echo '<script>';
-			echo 'self.location.href=\'install.php?language=' . $language . '&phase=5&connstr=' . $connstr . '\'';
+			echo 'self.location.href=\'install.php?language='.$language.'&phase=5&connstr='.$connstr.'\'';
 			echo '</script>';
 		}
 
-		echo '<form action="install.php?language=' . $language . '&phase=4" method="post"><table class="bdr"><tr class="thead">';
-		echo '<th>' . $lang['L_DIR'] . '</th><th>' . $lang['L_RECHTE'] . '</th><th>' . $lang['L_STATUS'] . '</th></tr>';
-		echo '<tr><td><strong>work</strong></td><td>' . Rechte("work") . '</td><td>' . ( ( $iw[0] ) ? $img_ok : $img_failed ) . '</td></tr>';
-		echo '<tr><td><strong>work/config</strong></td><td>' . Rechte("work/config") . '</td><td>' . ( ( $iw[1] ) ? $img_ok : $img_failed ) . '</td></tr>';
-		echo '<tr><td><strong>work/log</strong></td><td>' . Rechte("work/log") . '</td><td>' . ( ( $iw[2] ) ? $img_ok : $img_failed ) . '</td></tr>';
-		echo '<tr><td><strong>work/backup</strong></td><td>' . Rechte("work/backup") . '</td><td>' . ( ( $iw[3] ) ? $img_ok : $img_failed ) . '</td></tr>';
-		echo '<tr><td colspan="3" align="right"><input type="hidden" name="connstr" value="' . $connstr . '"><input class="Formbutton" type="submit" name="dir_check" value=" ' . $lang['L_CHECK_DIRS'] . ' "></td></tr>';
-		if ($iw[0] && $iw[1] && $iw[2] && $iw[3]) echo '<tr><td colspan="2">' . $lang['L_DIRS_CREATED'] . '<br><br><input class="Formbutton" type="Button" value=" ' . $lang['L_INSTALL_CONTINUE'] . ' " onclick="location.href=\'install.php?language=' . $language . '&phase=5&connstr=' . $connstr . '\'"></td></tr>';
+		echo '<form action="install.php?language='.$language.'&phase=4" method="post"><table class="bdr"><tr class="thead">';
+		echo '<th>'.$lang['L_DIR'].'</th><th>'.$lang['L_RECHTE'].'</th><th>'.$lang['L_STATUS'].'</th></tr>';
+		echo '<tr><td><strong>work</strong></td><td>'.Rechte("work").'</td><td>'.( ( $iw[0] ) ? $img_ok : $img_failed ).'</td></tr>';
+		echo '<tr><td><strong>work/config</strong></td><td>'.Rechte("work/config").'</td><td>'.( ( $iw[1] ) ? $img_ok : $img_failed ).'</td></tr>';
+		echo '<tr><td><strong>work/log</strong></td><td>'.Rechte("work/log").'</td><td>'.( ( $iw[2] ) ? $img_ok : $img_failed ).'</td></tr>';
+		echo '<tr><td><strong>work/backup</strong></td><td>'.Rechte("work/backup").'</td><td>'.( ( $iw[3] ) ? $img_ok : $img_failed ).'</td></tr>';
+		echo '<tr><td colspan="3" align="right"><input type="hidden" name="connstr" value="'.$connstr.'"><input class="Formbutton" type="submit" name="dir_check" value=" '.$lang['L_CHECK_DIRS'].' "></td></tr>';
+		if ($iw[0] && $iw[1] && $iw[2] && $iw[3]) echo '<tr><td colspan="2">'.$lang['L_DIRS_CREATED'].'<br><br><input class="Formbutton" type="Button" value=" '.$lang['L_INSTALL_CONTINUE'].' " onclick="location.href=\'install.php?language='.$language.'&phase=5&connstr='.$connstr.'\'"></td></tr>';
 		echo '</table></form>';
 		break;
 	case 5:
-		echo '<h6>' . $lang['L_LASTSTEP'] . '</h6>';
+		echo '<h6>'.$lang['L_LASTSTEP'].'</h6>';
 
-		echo '<br><h4>' . $lang['L_INSTALLFINISHED'] . '</h4>';
+		echo '<br><h4>'.$lang['L_INSTALLFINISHED'].'</h4>';
 		SetDefault(1);
 		include ( "language/" . $language . "/lang_install.php" );
 
@@ -424,13 +424,13 @@ switch ($phase)
 		echo '<script>self.location.href=\'index.php\';</script>';
 		break;
 	case 100: //uninstall
-		echo '<h6>' . $lang['L_UI1'] . '</h6>';
-		echo '<h6>' . $lang['L_UI2'] . '</h6>';
-		echo '<a href="install.php">' . $lang['L_UI3'] . '</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-		echo '<a href="install.php?language=' . $language . '&phase=101">' . $lang['L_UI4'] . '</a>';
+		echo '<h6>'.$lang['L_UI1'].'</h6>';
+		echo '<h6>'.$lang['L_UI2'].'</h6>';
+		echo '<a href="install.php">'.$lang['L_UI3'].'</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+		echo '<a href="install.php?language='.$language.'&phase=101">'.$lang['L_UI4'].'</a>';
 		break;
 	case 101:
-		echo '<h6>' . $lang['L_UI5'] . '</h6>';
+		echo '<h6>'.$lang['L_UI5'].'</h6>';
 		$paths=Array();
 		$w=substr($config['paths']['work'],0,strlen($config['paths']['work']) - 1);
 		if (is_dir($w)) $res=rec_rmdir($w);
@@ -439,14 +439,14 @@ switch ($phase)
 		if ($res == 0)
 		{
 			// das Verzeichnis wurde korrekt gelöscht
-			echo '<p>' . $lang['L_UI6'] . '</p>';
+			echo '<p>'.$lang['L_UI6'].'</p>';
 			echo $lang['L_UI7'] . "<br>\"" . Realpfad("./") . "\"<br> " . $lang['L_MANUELL'] . ".<br><br>";
-			echo '<a href="../">' . $lang['L_UI8'] . '</a>';
+			echo '<a href="../">'.$lang['L_UI8'].'</a>';
 
 		}
 		else
 		{
-			echo '<p class="Warnung">' . $lang['L_UI9'] . '"' . $paths[count($paths) - 1] . '"';
+			echo '<p class="Warnung">'.$lang['L_UI9'].'"'.$paths[count($paths) - 1].'"';
 
 		}
 		break;
@@ -472,7 +472,7 @@ switch ($phase)
 function rec_rmdir($path)
 {
 	global $paths;
-	$paths[]=$path;
+	$paths[] = $path;
 	// schau' nach, ob das ueberhaupt ein Verzeichnis ist
 	if (!is_dir($path))
 	{
@@ -493,10 +493,10 @@ function rec_rmdir($path)
 		// ist, ignoriere es
 		if ($entry == '.' || $entry == '..') continue;
 		// wenn der Eintrag ein Verzeichnis ist, dann
-		if (is_dir($path . '/' . $entry))
+		if (is_dir($path.'/'.$entry))
 		{
 			// rufe mich selbst auf
-			$res=rec_rmdir($path . '/' . $entry);
+			$res=rec_rmdir($path.'/'.$entry);
 			// wenn ein Fehler aufgetreten ist
 			if ($res == -1)
 			{ // dies duerfte gar nicht passieren
@@ -519,10 +519,10 @@ function rec_rmdir($path)
 				return -2; // Fehler zurueck
 			}
 		}
-		elseif (is_file($path . '/' . $entry) || is_link($path . '/' . $entry))
+		elseif (is_file($path.'/'.$entry) || is_link($path.'/'.$entry))
 		{
 			// ansonsten loesche diese Datei / diesen Link
-			$res=@unlink($path . '/' . $entry);
+			$res=@unlink($path.'/'.$entry);
 			// Fehler?
 			if (!$res)
 			{

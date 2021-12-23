@@ -22,7 +22,7 @@ include ('./language/'.$config['language'].'/lang_sql.php');
 include ('./inc/home/apr1_md5/apr1_md5.php');
 use WhiteHat101\Crypt\APR1_MD5;
 
-$dba=$hta_dir=$Overwrite=$msg='';
+$dba= $hta_dir= $Overwrite= $msg='';
 $error=array();
 $is_htaccess=(file_exists('./.htaccess'));
 if ($is_htaccess)
@@ -53,8 +53,8 @@ $tpl->assign_vars(array(
 if (isset($_POST['username']))
 {
 	// Form submitted
-	if ($username=='') $error[]=$lang['L_HTACC_NO_USERNAME'];
-	if (($userpass1!=$userpass2)||($userpass1=='')) $error[]=$lang['L_PASSWORDS_UNEQUAL'];
+	if ($username=='') $error[] = $lang['L_HTACC_NO_USERNAME'];
+	if (($userpass1!= $userpass2)||($userpass1=='')) $error[] = $lang['L_PASSWORDS_UNEQUAL'];
 
 	if (sizeof($error)==0)
 	{
@@ -83,14 +83,14 @@ if (isset($_POST['username']))
 				break;
 			// SHA1
 			case 3:
-				$userpass = '{SHA}' . base64_encode(sha1($userpass1, true));
+				$userpass = '{SHA}'.base64_encode(sha1($userpass1, true));
 				break;
 			// BCRYPT
 			case 4:
 				$userpass = password_hash($userpass1, PASSWORD_BCRYPT);
 				break;
 		}
-		$htpasswd=$username.':'.$userpass;
+		$htpasswd= $username.':'.$userpass;
 		@chmod($config['paths']['root'],0777);
 
 		// save .htpasswd
@@ -103,7 +103,7 @@ if (isset($_POST['username']))
 			$saved=false;
 
 		// save .htaccess
-		if (false!==$saved)
+		if (false!== $saved)
 		{
 			$file_htaccess=@fopen('.htaccess','w');
 			if ($file_htaccess)
@@ -115,9 +115,9 @@ if (isset($_POST['username']))
 				$saved=false;
 		}
 
-		if (false!==$saved)
+		if (false!== $saved)
 		{
-		    $msg = '<span class="success">' . $lang['L_HTACC_CREATED'] . '</span>';
+		    $msg = '<span class="success">'.$lang['L_HTACC_CREATED'].'</span>';
 			$tpl->assign_block_vars('CREATE_SUCCESS', array(
 				'HTACCESS' => htmlspecialchars($htaccess),
 				'HTPASSWD' => htmlspecialchars($htpasswd),

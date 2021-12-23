@@ -23,11 +23,11 @@ function get_sqlbefehl()
 	global $restore,$config,$databases,$lang;
 
 	//Init
-	$restore['fileEOF']=false;
-	$restore['EOB']=false;
+	$restore['fileEOF'] =false;
+	$restore['EOB'] =false;
 	$complete_sql='';
 	$sqlparser_status=0;
-	if (!isset($restore['eintraege_ready'])) $restore['eintraege_ready']=0;
+	if (!isset($restore['eintraege_ready'])) $restore['eintraege_ready'] =0;
 
 	//Parsen
 	while ($sqlparser_status!=100&&!$restore['fileEOF']&&!$restore['EOB'])
@@ -54,7 +54,7 @@ function get_sqlbefehl()
 			if ($sub7=='INSERT ')
 			{
 				$sqlparser_status=3; //Datensatzaktion
-				$restore['actual_table']=get_tablename($zeile);
+				$restore['actual_table'] =get_tablename($zeile);
 			}
 
 			//Einfache Anweisung finden die mit Semikolon beendet werden
@@ -86,8 +86,8 @@ function get_sqlbefehl()
 			// Am Ende eines MySQLDumper-Backups angelangt?
 			elseif ($sub6=='-- EOB'||$sub4=='# EO')
 			{
-				$restore['EOB']=true;
-				$restore['fileEOF']=true;
+				$restore['EOB'] =true;
+				$restore['fileEOF'] =true;
 				$zeile='';
 				$zeile2='';
 				$sqlparser_status=100;
@@ -102,9 +102,9 @@ function get_sqlbefehl()
 			}
 
 			// Fortsetzung von erweiterten Inserts
-			if ($restore['flag']==1) $sqlparser_status=3;
+			if ($restore['flag'] ==1) $sqlparser_status=3;
 
-			if (($sqlparser_status==0)&&(trim($complete_sql)>'')&&($restore['flag']==-1))
+			if (($sqlparser_status==0)&&(trim($complete_sql)>'')&&($restore['flag'] ==-1))
 			{
 				// Unbekannten Befehl entdeckt
 				v($restore);
@@ -118,7 +118,7 @@ function get_sqlbefehl()
 		$last_char=substr(rtrim($zeile),-1);
 		// Zeilenumbrüche erhalten - sonst werden Schlüsselwörter zusammengefügt
 		// z.B. 'null' und in der nächsten Zeile 'check' wird zu 'nullcheck'
-		$complete_sql.=$zeile."\n";
+		$complete_sql.= $zeile."\n";
 
 		if ($sqlparser_status==3)
 		{
@@ -135,7 +135,7 @@ function get_sqlbefehl()
 				// letzter Ausdruck des erweiterten Inserts erreicht?
 				if (substr($complete_sql,-2)==');')
 				{
-					$restore['flag']=-1;
+					$restore['flag'] =-1;
 				}
 
 				// Wenn am Ende der Zeile ein Klammer Komma -> erweiterter Insert-Modus -> Steuerflag setzen
@@ -144,23 +144,23 @@ function get_sqlbefehl()
 					{
 						// letztes Komme gegen Semikolon tauschen
 						$complete_sql=substr($complete_sql,0,-1).';';
-						$restore['erweiterte_inserts']=1;
-						$restore['flag']=1;
+						$restore['erweiterte_inserts'] =1;
+						$restore['flag'] =1;
 					}
 
 				if (substr(strtoupper($complete_sql),0,7)!='INSERT ')
 				{
 					// wenn der Syntax aufgrund eines Reloads verloren ging - neu ermitteln
-					if (!isset($restore['insert_syntax'])) $restore['insert_syntax']=get_insert_syntax($restore['actual_table']);
-					$complete_sql=$restore['insert_syntax'].' VALUES '.$complete_sql.';';
+					if (!isset($restore['insert_syntax'])) $restore['insert_syntax'] =get_insert_syntax($restore['actual_table']);
+					$complete_sql= $restore['insert_syntax'].' VALUES '.$complete_sql.';';
 				}
 				else
 				{
 					// INSERT Syntax ermitteln und merken
 					$ipos=strpos(strtoupper($complete_sql),' VALUES');
-					if (!$ipos===false) $restore['insert_syntax']=substr($complete_sql,0,$ipos);
+					if (!$ipos===false) $restore['insert_syntax'] =substr($complete_sql,0,$ipos);
 					else
-						$restore['insert_syntax']='INSERT INTO `'.$restore['actual_table'].'`';
+						$restore['insert_syntax'] ='INSERT INTO `'.$restore['actual_table'].'`';
 				}
 			}
 		}
@@ -170,7 +170,7 @@ function get_sqlbefehl()
 			{
 				//Löschaktion
 				if ($last_char==';') $sqlparser_status=100; //Befehl komplett
-				$restore['actual_table']=get_tablename($complete_sql);
+				$restore['actual_table'] =get_tablename($complete_sql);
 			}
 
 			else
@@ -179,7 +179,7 @@ function get_sqlbefehl()
 					// Createanweisung ist beim Finden eines ; beendet
 					if ($last_char==';')
 					{
-						if ($config['minspeed']>0) $restore['anzahl_zeilen']=$config['minspeed'];
+						if ($config['minspeed']>0) $restore['anzahl_zeilen'] = $config['minspeed'];
 						// Soll die Tabelle hergestellt werden?
 						$do_it=true;
 						if (is_array($restore['tables_to_restore']))
@@ -193,7 +193,7 @@ function get_sqlbefehl()
 						if ($do_it)
 						{
 							$tablename=submit_create_action($complete_sql);
-							$restore['actual_table']=$tablename;
+							$restore['actual_table'] = $tablename;
 							$restore['table_ready']++;
 						}
 						// Zeile verwerfen, da CREATE jetzt bereits ausgefuehrt wurde und naechsten Befehl suchen
@@ -210,7 +210,7 @@ function get_sqlbefehl()
 						{
 							if ($config['minspeed']>0)
 							{
-								$restore['anzahl_zeilen']=$config['minspeed'];
+								$restore['anzahl_zeilen'] = $config['minspeed'];
 							}
 							$complete_sql=del_inline_comments($complete_sql);
 							$sqlparser_status=100;
@@ -224,7 +224,7 @@ function get_sqlbefehl()
 							$t=strrpos($zeile,'*/;');
 							if (!$t===false)
 							{
-								$restore['anzahl_zeilen']=$config['minspeed'];
+								$restore['anzahl_zeilen'] = $config['minspeed'];
 								$sqlparser_status=100;
 								if ($config['ignore_enable_keys'] &&
 								    strrpos($zeile, 'ENABLE KEYS ') !== false)
@@ -255,15 +255,15 @@ function get_sqlbefehl()
 									{
 										if ($config['minspeed']>0)
 										{
-											$restore['anzahl_zeilen']=$config['minspeed'];
+											$restore['anzahl_zeilen'] = $config['minspeed'];
 										}
 										$complete_sql='';
 										$sqlparser_status=0;
 									}
 								}
 
-		if (($restore['compressed'])&&(gzeof($restore['filehandle']))) $restore['fileEOF']=true;
-		if ((!$restore['compressed'])&&(feof($restore['filehandle']))) $restore['fileEOF']=true;
+		if (($restore['compressed'])&&(gzeof($restore['filehandle']))) $restore['fileEOF'] =true;
+		if ((!$restore['compressed'])&&(feof($restore['filehandle']))) $restore['fileEOF'] =true;
 	}
 	// wenn bestimmte Tabellen wiederhergestellt werden sollen -> pruefen
 	if (is_array($restore['tables_to_restore'])&&!(in_array($restore['actual_table'],$restore['tables_to_restore'])))
@@ -287,9 +287,9 @@ function submit_create_action($sql)
 		{
 			if (strtoupper(substr($parts[$i],0,8))=='DEFINER=')
 			{
-				$parts[$i]='DEFINER=`'.$config['dbuser'].'`@`'.$config['dbhost'].'`';
+				$parts[$i] ='DEFINER=`'.$config['dbuser'].'`@`'.$config['dbhost'].'`';
 				$sql=implode(' ',$parts);
-				$i=$count;
+				$i= $count;
 			}
 		}
 	}
@@ -378,7 +378,7 @@ function get_tablename($t)
 	$position=1;
 	while (!$found)
 	{
-		if (substr($t,$position,1)==$delimiter) $found=true;
+		if (substr($t,$position,1)== $delimiter) $found=true;
 		if ($position>=strlen($t)) $found=true;
 		$position++;
 	}

@@ -29,7 +29,7 @@ function FilelisteCombo($fpath,$selected)
 		if ($filename!="."&&$filename!=".."&&!is_dir($fpath.$filename))
 		{
 			$r.='<option value="'.$filename.'" ';
-			if ($filename==$selected) $r.=' SELECTED';
+			if ($filename== $selected) $r.=' SELECTED';
 			$r.='>'.$filename.'</option>'."\n";
 		}
 	}
@@ -40,11 +40,11 @@ function FilelisteCombo($fpath,$selected)
 function sortierdatum($datum)
 {
 	$p=explode(' ',$datum);
-	$uhrzeit=$p[1];
+	$uhrzeit= $p[1];
 	$p2=explode('.',$p[0]);
-	$day=$p2[0];
-	$month=$p2[1];
-	$year=$p2[2];
+	$day= $p2[0];
+	$month= $p2[1];
+	$year= $p2[2];
 	return $year.'.'.$month.'.'.$day.' '.$uhrzeit;
 }
 
@@ -54,7 +54,7 @@ function FileList($multi=0)
 
 	$files=Array();
 	//Backup-Dateien
-	$Theader=$lang['L_FM_FILES1'].' '.$lang['L_OF'].' "'.$dbactiv.'"';
+	$Theader= $lang['L_FM_FILES1'].' '.$lang['L_OF'].' "'.$dbactiv.'"';
 	$akind=1;
 	$Sum_Files=0;
 	$dh=opendir($fpath);
@@ -64,7 +64,7 @@ function FileList($multi=0)
 	{
 		if ($filename!='.'&&$filename!='..'&&!is_dir($fpath.$filename))
 		{
-			$files[$i]['name']=$filename;
+			$files[$i]['name'] = $filename;
 			$Sum_Files++;
 			$i++;
 		}
@@ -87,7 +87,7 @@ function FileList($multi=0)
 	<th>'.$lang['L_FM_FILESIZE'].'</th>
 	<th>'.$lang['L_ENCODING'].'</th></tr>';
 
-	$checkindex=$arrayindex=$gesamt=0;
+	$checkindex= $arrayindex= $gesamt=0;
 	$db_summary_anzahl=Array();
 	if (count($files)>0)
 	{
@@ -118,43 +118,43 @@ function FileList($multi=0)
 			$statusline=ReadStatusline($sline);
 
 			$but=ExtractBUT($files[$i]['name']);
-			if ($but=='') $but=$file_datum;
-			$dbn=$statusline['dbname'];
+			if ($but=='') $but= $file_datum;
+			$dbn= $statusline['dbname'];
 			if ($dbn=='unknown') $dbn='~unknown'; // needed for sorting - place unknown files at the end
 			//jetzt alle in ein Array packen
-			if ($statusline['part']=='MP_0'||$statusline['part']=='')
+			if ($statusline['part'] =='MP_0'||$statusline['part'] =='')
 			{
-				$db_backups[$arrayindex]['name']=$files[$i]['name'];
-				$db_backups[$arrayindex]['db']=$dbn;
-				$db_backups[$arrayindex]['size']=$size;
-				$db_backups[$arrayindex]['date']=$but;
-				$db_backups[$arrayindex]['sort']=sortierdatum($but);
-				$db_backups[$arrayindex]['tabellen']=$statusline['tables'];
-				$db_backups[$arrayindex]['eintraege']=$statusline['records'];
-				$db_backups[$arrayindex]['multipart']=0;
-				$db_backups[$arrayindex]['kommentar']=$statusline['comment'];
-				$db_backups[$arrayindex]['script']=($statusline['script']!='') ? $statusline['script'].'('.$statusline['scriptversion'].')':'';
-				$db_backups[$arrayindex]['charset']=$statusline['charset'];
+				$db_backups[$arrayindex]['name'] = $files[$i]['name'];
+				$db_backups[$arrayindex]['db'] = $dbn;
+				$db_backups[$arrayindex]['size'] = $size;
+				$db_backups[$arrayindex]['date'] = $but;
+				$db_backups[$arrayindex]['sort'] =sortierdatum($but);
+				$db_backups[$arrayindex]['tabellen'] = $statusline['tables'];
+				$db_backups[$arrayindex]['eintraege'] = $statusline['records'];
+				$db_backups[$arrayindex]['multipart'] =0;
+				$db_backups[$arrayindex]['kommentar'] = $statusline['comment'];
+				$db_backups[$arrayindex]['script'] =($statusline['script']!='') ? $statusline['script'].'('.$statusline['scriptversion'].')':'';
+				$db_backups[$arrayindex]['charset'] = $statusline['charset'];
 
-				if (!isset($db_summary_last[$dbn])) $db_summary_last[$dbn]=$but;
-				$db_summary_anzahl[$dbn]=(isset($db_summary_anzahl[$dbn])) ? $db_summary_anzahl[$dbn]+1:1;
-				$db_summary_size[$dbn]=(isset($db_summary_size[$dbn])) ? $db_summary_size[$dbn]+$size:$size;
-				if (sortierdatum($but)>sortierdatum($db_summary_last[$dbn])) $db_summary_last[$dbn]=$but;
+				if (!isset($db_summary_last[$dbn])) $db_summary_last[$dbn] = $but;
+				$db_summary_anzahl[$dbn] =(isset($db_summary_anzahl[$dbn])) ? $db_summary_anzahl[$dbn]+1:1;
+				$db_summary_size[$dbn] =(isset($db_summary_size[$dbn])) ? $db_summary_size[$dbn]+$size:$size;
+				if (sortierdatum($but)>sortierdatum($db_summary_last[$dbn])) $db_summary_last[$dbn] = $but;
 			}
 			else
 			{
 				//multipart nur einmal
 				$done=0;
-				if (!isset($db_summary_size[$dbn])) $db_summary_size[$dbn]=0;
+				if (!isset($db_summary_size[$dbn])) $db_summary_size[$dbn] =0;
 				for($j=0;$j<$arrayindex;$j++)
 				{
 					if (isset($db_backups[$j]))
 					{
-						if (($db_backups[$j]['date']==$but)&&($db_backups[$j]['db']==$dbn))
+						if (($db_backups[$j]['date'] == $but)&&($db_backups[$j]['db'] == $dbn))
 						{
 							$db_backups[$j]['multipart']++;
-							$db_backups[$j]['size']+=$size;
-							$db_summary_size[$dbn]+=$size;
+							$db_backups[$j]['size']+= $size;
+							$db_summary_size[$dbn]+= $size;
 							$done=1;
 							break;
 						}
@@ -165,28 +165,28 @@ function FileList($multi=0)
 				if ($done==0)
 				{
 					//Eintrag war noch nicht vorhanden
-					$db_backups[$arrayindex]['name']=$files[$i]['name'];
-					$db_backups[$arrayindex]['db']=$dbn;
-					$db_backups[$arrayindex]['size']=$size;
-					$db_backups[$arrayindex]['date']=$but;
-					$db_backups[$arrayindex]['sort']=sortierdatum($but);
-					$db_backups[$arrayindex]['tabellen']=$statusline['tables'];
-					$db_backups[$arrayindex]['eintraege']=$statusline['records'];
-					$db_backups[$arrayindex]['multipart']=1;
-					$db_backups[$arrayindex]['kommentar']=$statusline['comment'];
-					$db_backups[$arrayindex]['script']=($statusline['script']!="") ? $statusline['script']."(".$statusline['scriptversion'].")":"";
-					$db_backups[$arrayindex]['charset']=$statusline['charset'];
+					$db_backups[$arrayindex]['name'] = $files[$i]['name'];
+					$db_backups[$arrayindex]['db'] = $dbn;
+					$db_backups[$arrayindex]['size'] = $size;
+					$db_backups[$arrayindex]['date'] = $but;
+					$db_backups[$arrayindex]['sort'] =sortierdatum($but);
+					$db_backups[$arrayindex]['tabellen'] = $statusline['tables'];
+					$db_backups[$arrayindex]['eintraege'] = $statusline['records'];
+					$db_backups[$arrayindex]['multipart'] =1;
+					$db_backups[$arrayindex]['kommentar'] = $statusline['comment'];
+					$db_backups[$arrayindex]['script'] =($statusline['script']!="") ? $statusline['script']."(".$statusline['scriptversion'].")":"";
+					$db_backups[$arrayindex]['charset'] = $statusline['charset'];
 
-					if (!isset($db_summary_last[$dbn])) $db_summary_last[$dbn]=$but;
-					$db_summary_anzahl[$dbn]=(isset($db_summary_anzahl[$dbn])) ? $db_summary_anzahl[$dbn]+1:1;
-					$db_summary_size[$dbn]=(isset($db_summary_size[$dbn])) ? $db_summary_size[$dbn]+$size:$size;
-					if (sortierdatum($but)>sortierdatum($db_summary_last[$dbn])) $db_summary_last[$dbn]=$but;
+					if (!isset($db_summary_last[$dbn])) $db_summary_last[$dbn] = $but;
+					$db_summary_anzahl[$dbn] =(isset($db_summary_anzahl[$dbn])) ? $db_summary_anzahl[$dbn]+1:1;
+					$db_summary_size[$dbn] =(isset($db_summary_size[$dbn])) ? $db_summary_size[$dbn]+$size:$size;
+					if (sortierdatum($but)>sortierdatum($db_summary_last[$dbn])) $db_summary_last[$dbn] = $but;
 
 				}
 			}
 			// Gesamtgroesse aller Backupfiles
 			$arrayindex++;
-			$gesamt=$gesamt+$size;
+			$gesamt= $gesamt+$size;
 		}
 	}
 	//Schleife fertig - jetzt Ausgabe
@@ -196,9 +196,9 @@ function FileList($multi=0)
 	$rowclass=0;
 	if ($arrayindex>0)
 	{
-		for($i=$arrayindex;$i>=0;$i--)
+		for($i= $arrayindex;$i>=0;$i--)
 		{
-			if (isset($db_backups[$i]['db'])&&$db_backups[$i]['db']==$dbactiv)
+			if (isset($db_backups[$i]['db'])&&$db_backups[$i]['db'] == $dbactiv)
 			{
 				$cl=($rowclass%2) ? 'dbrow':'dbrow1';
 				$multi=($db_summary_anzahl[$dbactiv]>1&&$action=='files') ? 1:0;
@@ -209,7 +209,7 @@ function FileList($multi=0)
 				}
 				else
 				{
-					$dbn=$db_backups[$i]['name'];
+					$dbn= $db_backups[$i]['name'];
 				}
 				$fl.='<tr ';
 				$fl.='class="'.(($rowclass%2) ? 'dbrow"':'dbrow1"');
@@ -226,10 +226,10 @@ function FileList($multi=0)
 					$fl.='<input type="hidden" name="multipart[]" value="'.$db_backups[$i]['multipart'].'"><input name="file[]" type="checkbox" class="checkbox" value="'.$dbn.'" onClick="Check('.$checkindex++.',1);">';
 				}
 
-				if ($db_backups[$i]['multipart']==0)
+				if ($db_backups[$i]['multipart'] ==0)
 				{
 					$fl.='&nbsp;<a href="'.$fpath.urlencode($dbn).'" title="Backupfile: '.$dbn.'" style="font-size:8pt;" target="_blank">';
-					$fl.=(($db_backups[$i]['db']=='~unknown') ? $dbn:$db_backups[$i]['db']).'</a></td>';
+					$fl.=(($db_backups[$i]['db'] =='~unknown') ? $dbn:$db_backups[$i]['db']).'</a></td>';
 					$fl.='<td><a href="filemanagement.php?action=dl&amp;f='.urlencode($dbn).'" title="'.$lang['L_DOWNLOAD_FILE'].'" alt="'.$lang['L_DOWNLOAD_FILE'].'"><img src="'.$config['files']['iconpath'].'/openfile.gif"></a></td>';
 				}
 				else
@@ -242,7 +242,7 @@ function FileList($multi=0)
 
 				$fl.='<td class="sm" nowrap="nowrap">'.$db_backups[$i]['date'].'</td>';
 				$fl.='<td style="text-align:center">';
-				$fl.=($db_backups[$i]['multipart']==0) ? $lang['L_NO']:'<a style="font-size:11px;" href="filemanagement.php?action=files&amp;kind=0&amp;dbactiv='.$dbactiv.'&amp;expand='.$i.'">'.$db_backups[$i]['multipart'].' Files</a>'; //
+				$fl.=($db_backups[$i]['multipart'] ==0) ? $lang['L_NO']:'<a style="font-size:11px;" href="filemanagement.php?action=files&amp;kind=0&amp;dbactiv='.$dbactiv.'&amp;expand='.$i.'">'.$db_backups[$i]['multipart'].' Files</a>'; //
 				$fl.='</td><td  style="text-align:right;padding-right:12px;" nowrap="nowrap">';
 				$fl.=($db_backups[$i]['eintraege']!=-1) ? $db_backups[$i]['tabellen'].' / '.number_format($db_backups[$i]['eintraege'],0,",","."):$lang['L_FM_OLDBACKUP'];
 				$fl.='</td>';
@@ -250,9 +250,9 @@ function FileList($multi=0)
 				$fl.='<td style="font-size:8pt;text-align:right">'.$db_backups[$i]['charset'].'</td>';
 				$fl.='</tr>';
 
-				if ($expand==$i)
+				if ($expand== $i)
 				{
-					$fl.='<tr '.(($dbactiv==$databases['db_actual']) ? 'class="dbrowsel"':'class="'.$cl.'"').'>';
+					$fl.='<tr '.(($dbactiv== $databases['db_actual']) ? 'class="dbrowsel"':'class="'.$cl.'"').'>';
 					$fl.='<td class="sm" valign="top">All Parts:</td><td  class="sm" colspan="11" align="left">'.PartListe($db_backups[$i]['name'],$db_backups[$i]['multipart']).'</td>';
 				}
 				$rowclass++;
@@ -335,7 +335,7 @@ function PartListe($f,$nr)
 	$dateistamm=substr($f,0,strrpos($f,"part_"))."part_";
 	$dateiendung=(substr(strtolower($f),-2)=="gz") ? ".sql.gz":".sql";
 	$s="";
-	for($i=1;$i<=$nr;$i++)
+	for($i=1;$i<= $nr;$i++)
 	{
 		if ($i>1) $s.="<br>";
 		$s.='<a href="'.$fpath.urlencode($dateistamm.$i.$dateiendung).'">'.$dateistamm.$i.$dateiendung.'</a>&nbsp;&nbsp;&nbsp;'.byte_output(@filesize($config['paths']['backup'].$dateistamm.$i.$dateiendung));
@@ -363,7 +363,7 @@ function Converter($filesource,$filedestination,$cp)
 	($cp==1) ? gzwrite($z,$zeile):fwrite($z,$zeile);
 	$zeile='';
 
-	$insert=$mode="";
+	$insert= $mode="";
 	$n=0;
 	$eof=($cps==1) ? gzeof($f):feof($f);
 	$splitable=false; // can the file be splitted? Try to avoid splitting before a command is completed

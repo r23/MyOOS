@@ -270,8 +270,8 @@ function mod_mysqli_connect($encoding='utf8mb4', $keycheck_off=false, $actual_ta
         return $config['dbconnection'];
     }
 
-    $port = ( isset($config['dbport']) && !empty($config['dbport']) ) ? ':' . $config['dbport'] : '';
-    $socket = ( isset($config['dbsocket']) && !empty($config['dbsocket']) ) ? ':' . $config['dbsocket'] : '';
+    $port = ( isset($config['dbport']) && !empty($config['dbport']) ) ? ':'.$config['dbport'] : '';
+    $socket = ( isset($config['dbsocket']) && !empty($config['dbsocket']) ) ? ':'.$config['dbsocket'] : '';
 
 	// Forcing error reporting mode to OFF, which is no longer the default
 	// starting with PHP 8.1 
@@ -287,9 +287,9 @@ function mod_mysqli_connect($encoding='utf8mb4', $keycheck_off=false, $actual_ta
 	if (!isset($config['mysql_standard_character_set']) || $config['mysql_standard_character_set'] == '') get_sql_encodings();
 
 	if ($config['mysql_standard_character_set'] != $encoding) {
-		$set_encoding=@mysqli_query($config['dbconnection'],'SET NAMES \'' . $encoding . '\'');
-		if ($set_encoding === false) $config['mysql_can_change_encoding']=false;
-		else $config['mysql_can_change_encoding']=true;
+		$set_encoding=@mysqli_query($config['dbconnection'],'SET NAMES \''.$encoding.'\'');
+		if ($set_encoding === false) $config['mysql_can_change_encoding'] =false;
+		else $config['mysql_can_change_encoding'] =true;
 	}
 	if ($keycheck_off) {
 	    // only called with this param when restoring
@@ -308,7 +308,7 @@ function GetMySQLVersion()
 
 	$res=mod_query("SELECT VERSION()");
 	$row=mysqli_fetch_array($res);
-	$version=$row[0];
+	$version= $row[0];
 	if (!defined('MOD_MYSQL_VERSION')) define('MOD_MYSQL_VERSION',$version);
 	$versions=explode('.',$version);
 	$new=false;
@@ -324,7 +324,7 @@ function mod_query($query, $error_output=true)
 	global $config;
 	// print_mem();
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
-	// echo "<br>Query: ".htmlspecialchars($query) . '<br>';
+	// echo "<br>Query: ".htmlspecialchars($query).'<br>';
 	$res=mysqli_query($config['dbconnection'],$query);
 	// print_mem();
 	if (false === $res && $error_output) SQLError($query,mysqli_error($config['dbconnection']));
@@ -340,8 +340,8 @@ function print_mem()
    /* Peak memory usage */
    $mem_peak = memory_get_peak_usage();
 
-   echo 'The script is now using: <strong>' . round($mem_usage / 1024) . ' KB</strong> of memory.<br>';
-   echo 'Peak usage: <strong>' . round($mem_peak / 1024) . ' KB</strong> of memory.<br><br>';
+   echo 'The script is now using: <strong>'.round($mem_usage / 1024).' KB</strong> of memory.<br>';
+   echo 'Peak usage: <strong>'.round($mem_peak / 1024).' KB</strong> of memory.<br><br>';
 }
 
 
@@ -352,8 +352,8 @@ function SQLError($sql, $error, $return_output=false)
 
 	$ret='<div align="center"><table style="border:1px solid #ff0000" cellspacing="0">
 <tr bgcolor="#ff0000"><td style="color:white;font-size:16px;"><strong>MySQL-ERROR</strong></td></tr>
-<tr><td style="width:80%;overflow: auto;">' . $lang['L_SQL_ERROR2'] . '<br><span style="color:red;">' . $error . '</span></td></tr>
-<tr><td width="600"><br>' . $lang['L_SQL_ERROR1'] . '<br>' . Highlight_SQL($sql) . '</td></tr>
+<tr><td style="width:80%;overflow: auto;">'.$lang['L_SQL_ERROR2'].'<br><span style="color:red;">'.$error.'</span></td></tr>
+<tr><td width="600"><br>'.$lang['L_SQL_ERROR1'].'<br>'.Highlight_SQL($sql).'</td></tr>
 </table></div><br />';
 	if ($return_output) return $ret;
 	else echo $ret;
@@ -372,11 +372,11 @@ function Highlight_SQL($sql)
 		if (!is_array($token))
 		{
 			if ($token == '`') $tickstart=!$tickstart;
-			$end.=$token;
+			$end.= $token;
 		}
 		else
 		{
-			if ($tickstart) $end.=$token[1];
+			if ($tickstart) $end.= $token[1];
 			else
 			{
 				switch (token_name($token[0]))
@@ -397,7 +397,7 @@ function Highlight_SQL($sql)
 					case "T_OPEN_TAG":
 						break;
 					default:
-						$end.=$token[1];
+						$end.= $token[1];
 				}
 			}
 		}
@@ -413,12 +413,12 @@ function Fieldlist($db, $tbl)
 	if ($res)
 	{
 		$fl='(';
-		for ($i=0; $i < mysqli_num_rows($res); $i++)
+		for ($i = 0; $i < mysqli_num_rows($res); $i++)
 		{
 			$row=mysqli_fetch_row($res);
-			$fl.='`' . $row[0] . '`,';
+			$fl.='`'.$row[0].'`,';
 		}
-		$fl=substr($fl,0,strlen($fl) - 1) . ')';
+		$fl=substr($fl,0,strlen($fl) - 1).')';
 	}
 	return $fl;
 }
@@ -429,30 +429,30 @@ function getDBInfos()
 	global $databases,$dump,$config,$tbl_sel,$flipped;
 	for ($ii=0; $ii < count($databases['multi']); $ii++)
 	{
-		$dump['dbindex']=$flipped[$databases['multi'][$ii]];
-		$tabellen=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `' . $databases['Name'][$dump['dbindex']] . '`') or die('getDBInfos: ' . mysqli_error($config['dbconnection']));
+		$dump['dbindex'] = $flipped[$databases['multi'][$ii]];
+		$tabellen=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$databases['Name'][$dump['dbindex']].'`') or die('getDBInfos: '.mysqli_error($config['dbconnection']));
 		$num_tables=mysqli_num_rows($tabellen);
 		// Array mit den gewünschten Tabellen zusammenstellen... wenn Präfix angegeben, werden die anderen einfach nicht übernommen
 		if ($num_tables > 0)
 		{
-			for ($i=0; $i < $num_tables; $i++)
+			for ($i = 0; $i < $num_tables; $i++)
 			{
 				$row=mysqli_fetch_array($tabellen);
-				if (isset($row['Type'])) $row['Engine']=$row['Type'];
-				if (isset($row['Comment']) && substr(strtoupper($row['Comment']),0,4) == 'VIEW') $dump['table_types'][]='VIEW';
-				else $dump['table_types'][]=strtoupper($row['Engine']);
+				if (isset($row['Type'])) $row['Engine'] = $row['Type'];
+				if (isset($row['Comment']) && substr(strtoupper($row['Comment']),0,4) == 'VIEW') $dump['table_types'][] ='VIEW';
+				else $dump['table_types'][] =strtoupper($row['Engine']);
 				// check if data needs to be backed up
 				if (strtoupper($row['Comment']) == 'VIEW' || ( isset($row['Engine']) && in_array(strtoupper($row['Engine']),array(
                     'MEMORY'
 				)) ))
 				{
-					$dump['skip_data'][]=$databases['Name'][$dump['dbindex']] . '|' . $row['Name'];
+					$dump['skip_data'][] = $databases['Name'][$dump['dbindex']].'|'.$row['Name'];
 				}
                     if ((isset($config['optimize_tables_beforedump']) && ($config['optimize_tables_beforedump'] == 1)) && $dump['table_offset'] == -1
                         && $databases['Name'][$dump['dbindex']]!='information_schema') {
                         mysqli_select_db($config['dbconnection'], $databases['Name'][$dump['dbindex']]);
-                        $opt = 'OPTIMIZE TABLE `' . $row['Name'] . '`';
-                        $res = mysqli_query($config['dbconnection'], 'OPTIMIZE TABLE `' . $row['Name'] . '`');
+                        $opt = 'OPTIMIZE TABLE `'.$row['Name'].'`';
+                        $res = mysqli_query($config['dbconnection'], 'OPTIMIZE TABLE `'.$row['Name'].'`');
                         if ($res === false) {
                             die("Error in ".$opt." -> ".mysqli_error($config['dbconnection']));
                         }
@@ -462,24 +462,24 @@ function getDBInfos()
 				{
 					if (in_array($row['Name'],$dump['tblArray']))
 					{
-						$dump['tables'][]=$databases['Name'][$dump['dbindex']] . '|' . $row['Name'];
-						$dump['records'][]=$databases['Name'][$dump['dbindex']] . '|' . $row['Rows'];
-						$dump['totalrecords']+=$row['Rows'];
+						$dump['tables'][] = $databases['Name'][$dump['dbindex']].'|'.$row['Name'];
+						$dump['records'][] = $databases['Name'][$dump['dbindex']].'|'.$row['Rows'];
+						$dump['totalrecords']+= $row['Rows'];
 					}
 				}
 				elseif ($databases['praefix'][$dump['dbindex']] != '' && !isset($tbl_sel))
 				{
 					if (substr($row['Name'],0,strlen($databases['praefix'][$dump['dbindex']])) == $databases['praefix'][$dump['dbindex']])
 					{
-						$dump['tables'][]=$databases['Name'][$dump['dbindex']] . '|' . $row['Name'];
-						$dump['records'][]=$databases['Name'][$dump['dbindex']] . '|' . $row['Rows'];
-						$dump['totalrecords']+=$row['Rows'];
+						$dump['tables'][] = $databases['Name'][$dump['dbindex']].'|'.$row['Name'];
+						$dump['records'][] = $databases['Name'][$dump['dbindex']].'|'.$row['Rows'];
+						$dump['totalrecords']+= $row['Rows'];
 					}
 				}
 				else
 				{
-					$dump['tables'][]=$databases['Name'][$dump['dbindex']] . '|' . $row['Name'];
-					$dump['records'][]=$databases['Name'][$dump['dbindex']] . '|' . $row['Rows'];
+					$dump['tables'][] = $databases['Name'][$dump['dbindex']].'|'.$row['Name'];
+					$dump['records'][] = $databases['Name'][$dump['dbindex']].'|'.$row['Rows'];
 
 					// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
 					$sql_2="SELECT count(*) as `count_records` FROM `" . $databases['Name'][$dump['dbindex']] . "`.`" . $row['Name'] . "`";
@@ -497,8 +497,8 @@ function getDBInfos()
 					else
 					{
 						$row2=@mysqli_fetch_array($res2);
-						$row['Rows']=$row2['count_records'];
-						$dump['totalrecords']+=$row['Rows'];
+						$row['Rows'] = $row2['count_records'];
+						$dump['totalrecords']+= $row['Rows'];
 					}
 				}
 			}
@@ -513,13 +513,13 @@ function getDBInfos()
 				{
 					if ($dump['tables'][$a] == $skip_data)
 					{
-						$index=$a;
+						$index= $a;
 						$t=explode('|',$dump['records'][$a]);
-						$rekords_to_skip=$t[1];
+						$rekords_to_skip= $t[1];
 						break;
 					}
 				}
-				if ($index) $dump['totalrecords']-=$rekords_to_skip;
+				if ($index) $dump['totalrecords']-= $rekords_to_skip;
 			}
 		}
 	}
@@ -529,7 +529,7 @@ function getDBInfos()
 function getDBIndex($db, $table)
 {
 	global $dump;
-	$index=array_keys($dump['tables'],$db . '|' . $table);
+	$index=array_keys($dump['tables'],$db.'|'.$table);
 	return $index[0];
 }
 

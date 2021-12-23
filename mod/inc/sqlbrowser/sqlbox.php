@@ -22,7 +22,7 @@ $tpl=new MODTemplate();
 $tpl->set_filenames(array(
 	'show' => $config['paths']['root'].'./tpl/sqlbrowser/sqlbox.tpl'));
 
-if (isset($_GET['readfile'])&&$_GET['readfile']==1)
+if (isset($_GET['readfile'])&&$_GET['readfile'] ==1)
 {
 	$tpl->assign_block_vars('SQLUPLOAD',array(
 
@@ -40,7 +40,7 @@ if (isset($_POST['submit_openfile']))
 	if (!isset($_FILES['upfile']['name'])||empty($_FILES['upfile']['name'])) $aus.='<span class="error">'.$lang['L_FM_UPLOADFILEREQUEST'].'</span>';
 	else
 	{
-		$fn=$_FILES['upfile']['tmp_name'];
+		$fn= $_FILES['upfile']['tmp_name'];
 		if (strtolower(substr($_FILES['upfile']['name'],-3))==".gz") $read__user_sqlfile=gzfile($fn);
 		else
 			$read__user_sqlfile=file($fn);

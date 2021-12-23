@@ -21,9 +21,9 @@ class APR1_MD5 {
         $max = strlen($mdp);
         $context = $mdp.'$apr1$'.$salt;
         $binary = pack('H32', md5($mdp.$salt.$mdp));
-        for($i=$max; $i>0; $i-=16)
+        for($i= $max; $i>0; $i-=16)
             $context .= substr($binary, 0, min(16, $i));
-        for($i=$max; $i>0; $i>>=1)
+        for($i= $max; $i>0; $i>>=1)
             $context .= ($i & 1) ? chr(0) : $mdp[0];
         $binary = pack('H32', md5($context));
         for($i=0; $i<1000; $i++) {

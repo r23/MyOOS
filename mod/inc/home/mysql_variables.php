@@ -40,7 +40,7 @@ switch ($var)
 		else
 		{
 			echo '<table class="bdr"><tr class="thead"><th><strong>Name</strong></th><th><strong>'.$lang['L_INHALT'].'</strong></th></tr>';
-			for ($i=0; $i<$numrows; $i++)
+			for ($i = 0; $i<$numrows; $i++)
 			{
 				$row=mysqli_fetch_array($res);
 				$cl=($i%2) ? "dbrow" : "dbrow1";
@@ -59,7 +59,7 @@ switch ($var)
 		else
 		{
 			echo '<table class="bdr"><tr class="thead"><th>Name</th><th>'.$lang['L_INHALT'].'</th></tr>';
-			for ($i=0; $i<$numrows; $i++)
+			for ($i = 0; $i<$numrows; $i++)
 			{
 				$cl=($i%2) ? "dbrow" : "dbrow1";
 				$row=mysqli_fetch_array($res);
@@ -69,7 +69,7 @@ switch ($var)
 		echo '</table>';
 		break;
 	case "prozesse":
-		if ($config['processlist_refresh']<1000) $config['processlist_refresh']=2000;
+		if ($config['processlist_refresh']<1000) $config['processlist_refresh'] =2000;
 		if (isset($_GET['killid'])&&$_GET['killid']>0)
 		{
 			$killid=(isset($_GET['killid'])) ? $_GET['killid'] : 0;
@@ -93,7 +93,7 @@ switch ($var)
 
 		}
 
-		$killid=$wait=0;
+		$killid= $wait=0;
 		$res=@mysqli_query($config['dbconnection'], "SHOW FULL PROCESSLIST ");
 		if ($res) $numrows=mysqli_num_rows($res);
 		if ($numrows==0)
@@ -103,7 +103,7 @@ switch ($var)
 		else
 		{
 			echo '<table class="bdr" style="width:100%"><tr class="thead"><th>ID</th><th>User</th><th>Host</th><th>DB</th><th>Command</th><th>Time</th><th>State</th><th width="800">Info</th><th nowrap="nowrap">RT: '.round($config['processlist_refresh']/1000).' sec</th></tr>';
-			for ($i=0; $i<$numrows; $i++)
+			for ($i = 0; $i<$numrows; $i++)
 			{
 				$cl=($i%2) ? "dbrow" : "dbrow1";
 				$row=mysqli_fetch_array($res);
@@ -111,9 +111,9 @@ switch ($var)
 					<td>'.$row[2].'</td><td>'.$row[3].'</td><td>'.$row[4].'</td><td>'.$row[5].'</td>
 					<td>'.$row[6].'</td><td>'.$row[7].'</td>
 					<td><a href="main.php?action=vars&amp;var=prozesse&amp;killid='.$row[0].'">kill</a></td></tr>';
-				if ($row[0]==$killid&&$row[4]=="Killed")
+				if ($row[0] == $killid&&$row[4] =="Killed")
 				{
-					$wait=$killid=0;
+					$wait= $killid=0;
 				}
 			}
 		}

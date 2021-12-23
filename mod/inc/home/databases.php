@@ -21,7 +21,7 @@ include('./language/'.$config['language'].'/lang_sql.php');
 $checkit=(isset($_GET['checkit'])) ? urldecode($_GET['checkit']) : '';
 $repair=(isset($_GET['repair'])) ? $_GET['repair'] : 0;
 $enableKeys=(isset($_GET['enableKeys'])) ? $_GET['enableKeys'] : '';
-for ($i=0; $i<count($databases['Name']); $i++)
+for ($i = 0; $i<count($databases['Name']); $i++)
 {
 	if (isset($_POST['empty'.$i]))
 	{
@@ -51,18 +51,18 @@ for ($i=0; $i<count($databases['Name']); $i++)
 			$query="OPTIMIZE TABLE ".$tabellen;
 			$res=mysqli_query($config['dbconnection'], $query) or die(mysqli_error($config['dbconnection'])."");
 		}
-		$_GET['dbid']=$i;
+		$_GET['dbid'] = $i;
 		$dba='<p class="green">'.$lang['L_DB'].' <b>'.$databases['Name'][$i].'</b> '.$lang['L_INFO_OPTIMIZED'].'.</p>';
 		break;
 	}
 	if (isset($_POST['check'.$i]))
 	{
 		$checkit="ALL";
-		$_GET['dbid']=$i;
+		$_GET['dbid'] = $i;
 	}
 	if (isset($_POST['enableKeys'.$i])) {
 	    $enableKeys="ALL";
-        $_GET['dbid']=$i;
+        $_GET['dbid'] = $i;
 	}
 }
 
@@ -74,10 +74,10 @@ $tpl->assign_vars(array(
 	'ICONPATH' => $config['files']['iconpath']));
 
 if (!isset($config['dbconnection'])) mod_mysqli_connect();
-for ($i=0; $i<count($databases['Name']); $i++)
+for ($i = 0; $i<count($databases['Name']); $i++)
 {
 	$rowclass=($i%2) ? 'dbrow' : 'dbrow1';
-	if ($i==$databases['db_selected_index']) $rowclass="dbrowsel";
+	if ($i== $databases['db_selected_index']) $rowclass="dbrowsel";
 
 	//gibts die Datenbank überhaupt?
 	if (!mysqli_select_db($config['dbconnection'], $databases['Name'][$i]))
@@ -115,7 +115,7 @@ if (isset($_GET['dbid']))
 	$tpl=new MODTemplate();
 	$tpl->set_filenames(array(
 		'show' => 'tpl/home/databases_list_tables.tpl'));
-	$dbid=$_GET['dbid'];
+	$dbid= $_GET['dbid'];
 
 	$numrows=0;
 	$res=@mysqli_query($config['dbconnection'], "SHOW TABLE STATUS FROM `".$databases['Name'][$dbid]."`");
@@ -134,8 +134,8 @@ if (isset($_GET['dbid']))
 	if ($numrows>0)
 	{
 		$last_update="2000-01-01 00:00:00";
-		$sum_records=$sum_data_length=0;
-		for ($i=0; $i<$numrows; $i++)
+		$sum_records= $sum_data_length=0;
+		for ($i = 0; $i<$numrows; $i++)
 		{
 			$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
 			// Get nr of records -> need to do it this way because of incorrect returns when using InnoDBs
@@ -143,19 +143,19 @@ if (isset($_GET['dbid']))
 			$res2=@mysqli_query($config['dbconnection'], $sql_2);
 			if ($res2===false)
 			{
-				$row['Rows']=0;
+				$row['Rows'] =0;
 				$rowclass='dbrowsel';
 			}
 			else
 			{
 				$row2=mysqli_fetch_array($res2);
-				$row['Rows']=$row2['count_records'];
+				$row['Rows'] = $row2['count_records'];
 				$rowclass=($i%2) ? 'dbrow' : 'dbrow1';
 			}
 
-			if (isset($row['Update_time'])&&strtotime($row['Update_time'])>strtotime($last_update)) $last_update=$row['Update_time'];
-			$sum_records+=$row['Rows'];
-			$sum_data_length+=$row['Data_length']+$row['Index_length'];
+			if (isset($row['Update_time'])&&strtotime($row['Update_time'])>strtotime($last_update)) $last_update= $row['Update_time'];
+			$sum_records+= $row['Rows'];
+			$sum_data_length+= $row['Data_length']+$row['Index_length'];
 
 			$keys_disabled = false;
 			if ($row['Engine'] == "MyIsam") {
@@ -172,25 +172,25 @@ if (isset($_GET['dbid']))
 			));
 
 			// Otimize & Repair - only for MyISAM-Tables
-			if ($row['Engine']=='MyISAM')
+			if ($row['Engine'] =='MyISAM')
 			{
-				if ($row['Data_free']==0) $tpl->assign_block_vars('ROW.OPTIMIZED',array());
+				if ($row['Data_free'] ==0) $tpl->assign_block_vars('ROW.OPTIMIZED',array());
 				else
 					$tpl->assign_block_vars('ROW.NOT_OPTIMIZED',array());
 
-				if ($checkit==$row['Name']||$repair==1)
+				if ($checkit== $row['Name']||$repair==1)
 				{
 					$tmp_res=mysqli_query($config['dbconnection'], "REPAIR TABLE `".$row['Name']."`");
 				}
 
-				if (($checkit==$row['Name']||$checkit=='ALL'))
+				if (($checkit== $row['Name']||$checkit=='ALL'))
 				{
 					// table needs to be checked
 					$tmp_res=mysqli_query($config['dbconnection'], 'CHECK TABLE `'.$row['Name'].'`');
 					if ($tmp_res)
 					{
 						$tmp_row=mysqli_fetch_row($tmp_res);
-						if ($tmp_row[3]=='OK') $tpl->assign_block_vars('ROW.CHECK_TABLE_OK',array());
+						if ($tmp_row[3] =='OK') $tpl->assign_block_vars('ROW.CHECK_TABLE_OK',array());
 						else
 							$tpl->assign_block_vars('ROW.CHECK_TABLE_NOT_OK',array());
 					}
@@ -200,7 +200,7 @@ if (isset($_GET['dbid']))
 					// Show Check table link
 					$tpl->assign_block_vars('ROW.CHECK_TABLE',array());
 				}
-                if ($enableKeys==$row['Name'] || $enableKeys=="ALL")
+                if ($enableKeys== $row['Name'] || $enableKeys=="ALL")
                 {
                     $sSql= "ALTER TABLE `".$databases['Name'][$dbid]."`.`".$row['Name']."` ENABLE KEYS";
                     $tmp_res=mysqli_query($config['dbconnection'], $sSql);
@@ -208,7 +208,7 @@ if (isset($_GET['dbid']))
                 $res3=mysqli_query($config['dbconnection'], 'SHOW INDEX FROM `'.$databases['Name'][$dbid]."`.`".$row['Name']."`");
                 while ($row3 = mysqli_fetch_array($res3, MYSQLI_ASSOC))
                 {
-                    if ($row3['Comment']=="disabled") {
+                    if ($row3['Comment'] =="disabled") {
                         $keys_disabled = true;
                         $disabled_keys_found = true;
                     }

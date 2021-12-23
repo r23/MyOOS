@@ -25,18 +25,18 @@ $htaccessdontexist=0;
 
 if (isset($_POST['hta_dir'])&&isset($_POST['hta_file'])&&is_dir($_POST['hta_dir']))
 {
-	$hta_dir=$_POST['hta_dir'];
-	$hta_file=$_POST['hta_file'];
+	$hta_dir= $_POST['hta_dir'];
+	$hta_file= $_POST['hta_file'];
 }
 else
 {
-	$hta_dir=$config['paths']['root'];
+	$hta_dir= $config['paths']['root'];
 	$hta_file='.htaccess';
 }
 if ($hta_dir!=''&substr($hta_dir,-1)!='/') $hta_dir.='/';
-$hta_complete=$hta_dir.$hta_file;
+$hta_complete= $hta_dir.$hta_file;
 
-if ((isset($_GET['create'])&&$_GET['create']==1)||(isset($_POST['create'])&&$_POST['create']==1))
+if ((isset($_GET['create'])&&$_GET['create'] ==1)||(isset($_POST['create'])&&$_POST['create'] ==1))
 {
 	$fp=fopen($hta_complete,'w');
 	fwrite($fp,"# created by MySQLDumper ".MOD_VERSION."\n");
