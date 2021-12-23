@@ -18,7 +18,7 @@
 
 if (!defined('MOD_VERSION')) die('No direct access.');
 $sysaction=(isset($_GET['dosys'])) ? $_GET['dosys'] : 0;
-$msg="";
+$msg= '';
 $res=@mysqli_query($config['dbconnection'], "SHOW VARIABLES LIKE 'datadir'");
 if ($res)
 {

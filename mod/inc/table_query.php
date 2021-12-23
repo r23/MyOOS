@@ -116,7 +116,7 @@ else
 	}
 	else
 	{
-		$tabledata=array();
+		$tabledata= [];
 		$i=0;
 		//Tabellenfinos lesen
 		gzseek($fp,$offset);

@@ -172,8 +172,8 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 	//Datentabelle
 	echo '<table class="bdr" id="dataTable">';
 
-	$t= $d="";
-	$fdesc=Array();
+	$t= $d= '';
+	$fdesc= [];
 	$key=-1;
 	if ($numrows > 0)
 	{
@@ -185,7 +185,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 		$t.='&nbsp;&nbsp;&nbsp;'.$lang['L_SQL_QUERYENTRY'].' '.count($row).' '.$lang['L_SQL_COLUMNS'];
 		$t.='</td></tr><tr class="thead">';
 		$t.='<th>&nbsp;</th><th>#</th>';
-		$temp=array();
+		$temp= [];
 
 		for ($x=0; $x < count($row); $x++)
 		{
@@ -200,7 +200,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 		{
 			$str= $temp[$x]['data'];
 			$t.='<th align="left" nowrap="nowrap">';
-			$pic="";
+			$pic= '';
 			$fdesc[$temp[$x]['data']->name]['name'] = isset($str->name) ? $str->name : '';
 			$fdesc[$temp[$x]['data']->name]['table'] = isset($str->table) ? $str->table : '';
 			$fdesc[$temp[$x]['data']->name]['max_length'] = isset($str->max_length) ? $str->max_length : '';
@@ -244,7 +244,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 		}
 		unset($temp);
 
-		$temp=array();
+		$temp= [];
 		
 		//und jetzt Daten holen
 		mysqli_data_seek($res,0);
@@ -401,7 +401,7 @@ if ($numrowsabs > 0 && $Anzahl_SQLs <= 1)
 			if ($i == 0) echo '<tr>'.$t.'</tr>';
 			// Daten anzeigen
 			echo "\n\n".'<tr class="'.$cl.'">'.$d.'</tr>'."\n\n";
-			$d="";
+			$d= '';
 		}
 	}
 	echo '</table>';

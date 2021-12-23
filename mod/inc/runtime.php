@@ -25,8 +25,8 @@ if (function_exists("date_default_timezone_set")) date_default_timezone_set(@dat
 if (!defined('MOD_VERSION')) define('MOD_VERSION','5.0.14-dev');
 if (!defined('MOD_OS')) define('MOD_OS',PHP_OS);
 if (!defined('MOD_OS_EXT')) define('MOD_OS_EXT',@php_uname());
-if (!defined('config') || !is_array($config)) $config=array();
-if (!defined('databases') || !is_array($databases)) $databases=array();
+if (!defined('config') || !is_array($config)) $config= [];
+if (!defined('databases') || !is_array($databases)) $databases= [];
 
 //Pfade und Files
 $config['paths']['root'] =Realpfad('./');
@@ -54,7 +54,7 @@ $config['files']['parameter'] = $config['paths']['config'] . $config['config_fil
 
 // inti MySQL-Setting-Vars
 $config['mysql_standard_character_set'] ='';
-$config['mysql_possible_character_sets'] =array();
+$config['mysql_possible_character_sets'] = [];
 
 //Ini-Parameter
 $config['max_execution_time'] =get_cfg_var('max_execution_time');

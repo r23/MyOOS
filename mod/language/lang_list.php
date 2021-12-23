@@ -4,7 +4,7 @@
 // *****************************************************************************
 
 // Array initialization
-$lang=Array();
+$lang= [];
 
 // *****************************************************************************
 // Add language to array. Must match directory name of the language.

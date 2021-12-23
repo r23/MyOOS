@@ -58,19 +58,19 @@ class MODTemplate
 	// $this->_tpldata[block.][iteration#][child.][iteration#][child2.][iteration#][variablename] == value
 	// if it's a root-level variable, it'll be like this:
 	// $this->_tpldata[.][0][varname] == value
-	var $_tpldata=array();
+	var $_tpldata= [];
 
 	// Hash of filenames for each template handle.
-	var $files=array();
+	var $files= [];
 
 	// Root template directory.
-	var $root="";
+	var $root= '';
 
 	// this will hash handle names to the compiled code for that handle.
-	var $compiled_code=array();
+	var $compiled_code= [];
 
 	// This will hold the uncompiled code for that handle.
-	var $uncompiled_code=array();
+	var $uncompiled_code= [];
 
 	/**
 	 * Constructor. Simply sets the root dir.
@@ -87,7 +87,7 @@ class MODTemplate
 	 */
 	public function destroy()
 	{
-		$this->_tpldata=array();
+		$this->_tpldata= [];
 	}
 
 	/**
@@ -168,7 +168,7 @@ class MODTemplate
 		}
 
 		// Compile it, with the "no echo statements" option on.
-		$_str="";
+		$_str= '';
 		$code= $this->compile($this->uncompiled_code[$handle],true,'_str');
 
 		// evaluate the variable assignment.
@@ -314,7 +314,7 @@ class MODTemplate
 
 
 		// This one will handle varrefs WITH namespaces
-		$varrefs=array();
+		$varrefs= [];
 		preg_match_all('#\{(([a-z0-9\-_]+?\.)+?)([a-z0-9\-_]+?)\}#is',$code,$varrefs);
 		$varcount=sizeof($varrefs[1]);
 		for ($i = 0; $i < $varcount; $i++)
@@ -333,7 +333,7 @@ class MODTemplate
 		$code_lines=explode("\n",$code);
 
 		$block_nesting_level=0;
-		$block_names=array();
+		$block_names= [];
 		$block_names[0] =".";
 
 		// Second: prepend echo ', append '."\n"; to each line.

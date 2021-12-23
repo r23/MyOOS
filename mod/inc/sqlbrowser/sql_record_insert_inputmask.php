@@ -27,7 +27,7 @@ if ($res)
 {
 	$num=mysqli_num_rows($res);
 
-	$feldnamen="";
+	$feldnamen= '';
 	for ($x=0; $x<$num; $x++)
 	{
 		$row=mysqli_fetch_object($res);

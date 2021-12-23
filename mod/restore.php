@@ -91,7 +91,7 @@ else
 include ('./language/'.$config['language'].'/lang.php');
 include ('./language/'.$config['language'].'/lang_restore.php');
 $config['files']['iconpath'] ='./css/'.$config['theme'].'/icons/';
-$aus=Array();
+$aus= [];
 $pageheader=MODheader().headline($lang['L_RESTORE']);
 $aus1= $page_parameter='';
 $RestoreFertig= $eingetragen= $dauer= $filegroesse=0;
@@ -261,7 +261,7 @@ if ($restore['filehandle'])
 	{
 		// Uff, geschafft! Jetzt darf die Leitung wieder abkuehlen. :-)
 		unset($aus);
-		$aus=array();
+		$aus= [];
 		$restore['xtime'] =time()-$restore['xtime'];
 		WriteLog("Restore '".$restore['filename']."' finished in ".zeit_format($restore['xtime']).".");
 		$aus[] = $lang['L_RESTORE_TOTAL_COMPLETE']."<br>";
@@ -286,7 +286,7 @@ if ($restore['filehandle'])
 			{
 				$done=number_format($restore['eintraege_ready'],0,",",".");
 				$to_do=number_format($restore['anzahl_eintraege'],0,",",".");
-				$aus=array();
+				$aus= [];
 				$aus[] ='<h3>'.$lang['L_RESTORE'].'</h3>';
 				$aus[] =sprintf($lang['L_RESTORE_DB'],$databases['db_actual'],$config['dbhost']);
 				$aus[] ='<p class="error">'.$lang['L_MULTI_PART'].': '.$lang['L_FILE_MISSING'].' \''.$nextfile.'\' !</p>';

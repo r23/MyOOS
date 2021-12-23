@@ -65,9 +65,9 @@ function mysqli_search($db, $tabelle, $suchbegriffe, $suchart, $offset=0, $anzah
 				if (trim($suchworte[$i])=='') unset($suchworte[$i]);
 			}
 
-			$bedingung=array();
+			$bedingung= [];
 			$where='';
-			$felder=array();
+			$felder= [];
       
 			// Felder ermitteln
 			$sql='SHOW COLUMNS FROM `'.$db.'`.`'.$tables[$tabelle].'`';

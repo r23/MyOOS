@@ -30,7 +30,7 @@ if (isset($_POST['dbdosubmit']))
 	$db_index= $_POST['db_index'];
 	$db_action= $_POST['db_action'];
 	$changed=false;
-	$ausgabe= $out="";
+	$ausgabe= $out= '';
 	switch ($db_action)
 	{
 		case "drop":
@@ -87,7 +87,7 @@ if (isset($_POST['dbwantaction']))
 		if (!empty($newname))
 		{
 			$sqlc="CREATE DATABASE `$newname`";
-			$col=( MOD_NEW_VERSION ) ? $_POST['db_collate'] : "";
+			$col=( MOD_NEW_VERSION ) ? $_POST['db_collate'] : '';
 			if (isset($_POST['db_default_charset']) && intval(substr(MOD_NEW_VERSION,0,1)) > 3)
 			{
 				$db_default_charset_string= $config['mysql_possible_character_sets'][$_POST['db_default_charset']];
@@ -106,7 +106,7 @@ if (isset($_POST['dbwantaction']))
             }
 		}
 	}
-	$db_action= $newname="";
+	$db_action= $newname= '';
 	$db_index=-1;
 	for ($i = 0; $i < count($databases['Name']); $i++)
 	{
@@ -137,7 +137,7 @@ if (isset($_POST['dbwantaction']))
 				break;
 			case "rename":
 				echo '<strong>'.$lang['L_SQL_RENAMEDB'].' `'.$databases['Name'][$db_index].'` '.$lang['L_IN'].' `'.$newname.'`</strong><br><br>';
-                if ($newname == "") echo '<p class="error">'.$lang['L_SQL_NAMEDEST_MISSING'].'</p>';
+                if ($newname == '') echo '<p class="error">'.$lang['L_SQL_NAMEDEST_MISSING'].'</p>';
                 else
                 {
                     echo '<input type="submit" name="dbdosubmit" value="'.$lang['L_DO_NOW'].'" class="Formbutton">';
@@ -145,7 +145,7 @@ if (isset($_POST['dbwantaction']))
 				break;
 			case "copy":
 				echo '<strong>'.sprintf($lang['L_ASKDBCOPY'],$databases['Name'][$db_index],$newname).'</strong><br><br>';
-				if ($newname == "") echo '<p class="error">'.$lang['L_SQL_NAMEDEST_MISSING'].'</p>';
+				if ($newname == '') echo '<p class="error">'.$lang['L_SQL_NAMEDEST_MISSING'].'</p>';
 				else
 				{
 					echo '<input type="submit" name="dbdosubmit" value="'.$lang['L_DO_NOW'].'" class="Formbutton">';
@@ -153,7 +153,7 @@ if (isset($_POST['dbwantaction']))
 				break;
 			case "structure":
 				echo '<strong>'.$lang['L_FM_ASKDBCOPY1'].'`'.$databases['Name'][$db_index].'`'.$lang['L_FM_ASKDBCOPY2'].'`'.$newname.'`'.$lang['L_FM_ASKDBCOPY3'].'</strong><br><br>';
-				if ($newname == "") echo '<p class="error">'.$lang['L_SQL_NAMEDEST_MISSING'].'</p>';
+				if ($newname == '') echo '<p class="error">'.$lang['L_SQL_NAMEDEST_MISSING'].'</p>';
 				else
 				{
 					echo '<input type="submit" name="dbdosubmit" value="'.$lang['L_DO_NOW'].'" class="Formbutton">';

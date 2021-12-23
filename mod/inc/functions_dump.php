@@ -310,7 +310,7 @@ function ExecuteCommand($when)
 		//jetzt ausführen
 		if (substr(strtolower($cd),0,7)!='system:')
 		{
-			$cad=array();
+			$cad= [];
 			@mysqli_select_db($databases['Name'][$dump['dbindex']]);
 			if (strpos($cd,';'))
 			{
@@ -364,7 +364,7 @@ function DoEmail()
 {
 	global $config,$dump,$databases,$email,$lang,$out,$REMOTE_ADDR;
 
-	$header="";
+	$header= '';
 	if ($config['cron_use_sendmail'] ==1)
 	{
 		//sendmail
@@ -451,8 +451,8 @@ function DoEmail()
 		$header.="Content-Type: text/html; charset=utf-8";
 		$dateistamm=substr($dump['backupdatei'],0,strrpos($dump['backupdatei'],"part_"))."part_";
 		$dateiendung=($config['compression'] ==1) ? ".sql.gz":".sql";
-		$mpdatei=Array();
-		$mpfiles="";
+		$mpdatei= [];
+		$mpfiles= '';
 		for($i=1;$i<($dump['part']-$dump['part_offset']);$i++)
 		{
 			$mpdatei[$i-1] = $dateistamm.$i.$dateiendung;

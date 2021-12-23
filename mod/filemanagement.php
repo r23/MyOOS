@@ -28,17 +28,17 @@ include_once ('./language/'.$config['language'].'/lang_main.php');
 include_once ('./inc/functions_files.php');
 include_once ('./inc/functions_sql.php');
 $msg='';
-$dump=array();
+$dump= [];
 if (isset($config['auto_delete']) && ($config['auto_delete'] == 1)) $msg = AutoDelete();
 get_sql_encodings(); // get possible sql charsets and also get default charset
 //0=Datenbank  1=Struktur
 $action=(isset($_GET['action'])) ? $_GET['action'] : 'files';
 $kind=(isset($_GET['kind'])) ? $_GET['kind'] : 0;
 $expand=(isset($_GET['expand'])) ? $_GET['expand'] : -1;
-$selectfile=(isset($_POST['selectfile'])) ? $_POST['selectfile'] : "";
-$destfile=(isset($_POST['destfile'])) ? $_POST['destfile'] : "";
-$compressed=(isset($_POST['compressed'])) ? $_POST['compressed'] : "";
-$dk=(isset($_POST['dumpKommentar'])) ?  $_POST['dumpKommentar'] : "";
+$selectfile=(isset($_POST['selectfile'])) ? $_POST['selectfile'] : '';
+$destfile=(isset($_POST['destfile'])) ? $_POST['destfile'] : '';
+$compressed=(isset($_POST['compressed'])) ? $_POST['compressed'] : '';
+$dk=(isset($_POST['dumpKommentar'])) ?  $_POST['dumpKommentar'] : '';
 
 $dk=str_replace(':','|',$dk); // remove : because of statusline
 $dump['sel_dump_encoding'] =(isset($_POST['sel_dump_encoding'])) ? $_POST['sel_dump_encoding'] : get_index($config['mysql_possible_character_sets'],$config['mysql_standard_character_set']);
@@ -79,7 +79,7 @@ echo MODHeader();
 $toolboxstring='';
 $fpath= $config['paths']['backup'];
 $dbactiv=(isset($_GET['dbactiv'])) ? $_GET['dbactiv'] : $databases['db_actual'];
-$databases['multi'] =Array();
+$databases['multi'] = [];
 if ($databases['multisetting'] =="")
 {
 	$databases['multi'][0] = $databases['db_actual'];
@@ -87,7 +87,7 @@ if ($databases['multisetting'] =="")
 else
 {
 	$databases['multi'] =explode(";",$databases['multisetting']);
-	$multi_praefixe=array();
+	$multi_praefixe= [];
 	$multi_praefixe=explode(";",$databases['multisetting_praefix']);
 	$toolboxstring='<br>';
 	if (is_array($databases['multi']))
@@ -127,7 +127,7 @@ if (isset($_POST['dump']))
 	{
 		@$check_dir=TestWorkDir();
 		if (!$check_dir===true) die($check_dir);
-		$databases['db_actual_tableselected'] ="";
+		$databases['db_actual_tableselected'] = '';
 		WriteParams();
 		$dump['fileoperations'] =0;
 
@@ -198,7 +198,7 @@ if (isset($_POST['restore']))
 					$dump_encoding= $statusline['charset'];
 			}
 
-			$databases['db_actual_tableselected'] ="";
+			$databases['db_actual_tableselected'] = '';
 			WriteParams();
 			echo '<script>parent.MyOOS_Dumper_content.location.href="restore.php?filename='.$file.'&dump_encoding='.$dump_encoding.'&kind='.$kind.'";</script></body></html>';
 			exit();
@@ -209,12 +209,12 @@ if (isset($_POST['restore']))
 }
 
 //*** Abfrage ob Delete ***
-$del=array();
+$del= [];
 if (isset($_POST['delete']))
 {
 	if (isset($_POST['file']))
 	{
-		$delfiles=Array();
+		$delfiles= [];
 		for ($i = 0; $i<count($_POST['file']); $i++)
 		{
 			if (!strpos($_POST['file'][$i],"_part_")===false)
@@ -335,7 +335,7 @@ switch ($action)
 		$actualUrl=substr($_SERVER['SCRIPT_NAME'],0,strrpos($_SERVER['SCRIPT_NAME'],"/")+1);
 		if (substr($actualUrl,-1)!="/") $actualUrl.="/";
 		if (substr($actualUrl,0,1)!="/") $actualUrl="/$actualUrl";
-		$refdir=(substr($config['cron_execution_path'],0,1)=="/") ? "" : $actualUrl;
+		$refdir=(substr($config['cron_execution_path'],0,1)=="/") ? '' : $actualUrl;
 		$scriptdir= $config['cron_execution_path'].'crondump.'.$cext;
 		$sfile= $config['cron_execution_path']."perltest.$cext";
 		$simplefile= $config['cron_execution_path']."simpletest.$cext";
@@ -452,14 +452,14 @@ switch ($action)
 		if ($config['cron_dbindex'] ==-3)
 		{
 			$cron_dbname= $lang['L_MULTIDUMPALL'];
-			$cron_dbpraefix="";
+			$cron_dbpraefix= '';
 		}
 		elseif ($config['cron_dbindex'] ==-2)
 		{
 			//$cron_dbname='Multidump ('.count($databases['multi']).' '.$lang['L_DBS'].')';
 			$cron_dbname='Multidump ('.count($databases['multi']).' '.$lang['L_DBS'].')</strong>';
 			$cron_dbname.='<span class="small">'.$toolboxstring.'</span>';
-			$cron_dbpraefix="";
+			$cron_dbpraefix= '';
 		}
 		else
 		{

@@ -85,7 +85,7 @@ function Help($ToolTip, $Anker, $imgsize=12)
 
 function DeleteFilesM($dir, $pattern="*.*")
 {
-	$deleted=array();
+	$deleted= [];
 	$pattern=str_replace(array(
 
 								"\*",
@@ -120,7 +120,7 @@ function SetDefault($load_default=false)
 	{
 		if (file_exists($config['files']['parameter']) && ( is_readable($config['files']['parameter']) )) include ( $config['files']['parameter'] ); // alte Config lesen
 	}
-	$restore_values=array();
+	$restore_values= [];
 	$restore_values['cron_dbindex'] = isset($config['cron_dbindex']) ? $config['cron_dbindex'] : -3;
 	$restore_values['cron_dbpraefix_array'] = isset($config['cron_dbpraefix_array']) ? $config['cron_dbpraefix_array'] : '';
 	if ($restore_values['cron_dbindex'] >= 0 && isset($databases['Name'][$config['cron_dbindex']])) // eine bestimmte Db gewaehlt?
@@ -161,7 +161,7 @@ function SetDefault($load_default=false)
 	if (isset($databases['Name'])) {
 	    $oldDbArray = $databases['Name'];
 	}
-	$databases['Name'] =array();
+	$databases['Name'] = [];
 	$found_dbs = array();
 	//DB-Liste holen
 	mod_mysqli_connect();
@@ -186,9 +186,9 @@ function SetDefault($load_default=false)
 		{
 			if (isset($old_db) && $found_db == $old_db) $databases['db_selected_index'] = $a;
 			$databases['Name'][$a] = $found_db;
-			$databases['praefix'][$a] ="";
-			$databases['command_before_dump'][$a] ="";
-			$databases['command_after_dump'][$a] ="";
+			$databases['praefix'][$a] = '';
+			$databases['command_before_dump'][$a] = '';
+			$databases['command_after_dump'][$a] = '';
 			if (isset($oldVals[$found_db])) {
                 $databases['praefix'][$a] = $oldVals[$found_db]['praefix'];
                 $databases['command_before_dump'][$a] = $oldVals[$found_db]['command_before_dump'];
@@ -228,7 +228,7 @@ function WriteParams($as=0, $restore_values=false)
 			else
 			{
 				//den Index der konkreten Datenbank aus der alten Konfiguration ermitteln
-				$db_names=array();
+				$db_names= [];
 				$db_names=array_flip($databases['Name']);
 				if (isset($db_names[$restore_values['db_actual']]))
 				{
@@ -273,7 +273,7 @@ function WriteParams($as=0, $restore_values=false)
 		{
 			if (is_array($val))
 			{
-				$pars_all.='$config[\''.$var.'\'] =array();'.$nl;
+				$pars_all.='$config[\''.$var.'\'] = [];'.$nl;
 				foreach ($val as $var2=>$val2)
 				{
 					$pars_all.='$config[\''.$var.'\']['.( ( is_int($var2) ) ? $var2 : "'" . $var2 . "'" ).'] = \''.my_addslashes($val2) . "';$nl";
@@ -289,7 +289,7 @@ function WriteParams($as=0, $restore_values=false)
 	{
 		if (is_array($val))
 		{
-			$pars_all.='$databases[\''.$var.'\'] =array();'.$nl;
+			$pars_all.='$databases[\''.$var.'\'] = [];'.$nl;
 			foreach ($val as $var2=>$val2)
 			{
 				if ($as == 1)
@@ -374,9 +374,9 @@ function WriteCronScript($restore_values=false)
 	global $nl,$config,$databases,$cron_db_array,$cron_dbpraefix_array,$cron_db_cbd_array,$cron_db_cad_array, $dontBackupDatabases;
 
 	if (!isset($databases['db_selected_index'])) $databases['db_selected_index'] =0;
-	if (!isset($databases['command_before_dump'])) $databases['command_before_dump'] ="";
-	if (!isset($databases['command_after_dump'])) $databases['command_after_dump'] ="";
-	if (!isset($databases['praefix'][$databases['db_selected_index']])) $databases['praefix'][$databases['db_selected_index']] ="";
+	if (!isset($databases['command_before_dump'])) $databases['command_before_dump'] = '';
+	if (!isset($databases['command_after_dump'])) $databases['command_after_dump'] = '';
+	if (!isset($databases['praefix'][$databases['db_selected_index']])) $databases['praefix'][$databases['db_selected_index']] = '';
 	if (!isset($databases['db_actual_cronindex'])) $databases['db_actual_cronindex'] = $databases['db_selected_index'];
 	if (!isset($config['email_maxsize'])) $config['email_maxsize'] = $config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
 	$cron_dbname= $databases['db_actual'];
@@ -544,7 +544,7 @@ function WriteCronScript($restore_values=false)
 	$cronscript.='$log_maxsize='.$config['log_maxsize'].';'.$nl;
 	$cronscript.='$complete_log='.$config['cron_completelog'].';'.$nl;
 	$cronscript.='$my_comment="'.escape_specialchars(stripslashes($config['cron_comment'])).'";'.$nl;
-	$cronscript.="";
+	$cronscript.= '';
 
 	// Save config
 	$ret=true;
@@ -581,7 +581,7 @@ function LogFileInfo($logcompression)
 {
 	global $config;
 
-	$l=Array();
+	$l= [];
 	$sum= $s= $l['log_size'] = $l['perllog_size'] = $l['perllogcomplete_size'] = $l['errorlog_size'] = $l['log_totalsize'] =0;
 	if ((isset($config['logcompression']) && $config['logcompression'] == 1))
 	{
@@ -717,7 +717,7 @@ function SearchDatabases($printout, $db='')
 	global $databases,$config,$lang;
 
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
-	$db_list=array();
+	$db_list= [];
 	if ($db > '') {
 	    $db_list[] = $db; // DB wurde manuell angegeben
 	}

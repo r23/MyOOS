@@ -66,9 +66,9 @@ if (isset($_SESSION['dump'])&&!isset($_GET['config']))
 }
 else
 {
-	$dump['tables'] =array();
-	$dump['records'] =array();
-	$dump['skip_data'] =array();
+	$dump['tables'] = [];
+	$dump['records'] = [];
+	$dump['skip_data'] = [];
 	$dump['totalrecords'] =0;
 	$dump['dbindex'] =0;
 	//$_POST-Parameter lesen
@@ -114,7 +114,7 @@ if ($databases['db_actual_tableselected']!=''&&$config['multi_dump'] ==0)
 if (isset($config['multi_dump']) && ($config['multi_dump'] ==0))
 {
 	unset($databases['multi']);
-	$databases['multi'] =array();
+	$databases['multi'] = [];
 	$databases['multi'][0] = $databases['db_actual'];
 }
 else
@@ -409,7 +409,7 @@ else
 			$out.="\n".'<div class="backupmsg">'.$lang['L_FILE'].' <a href="'.$config['paths']['backup'].$dump['backupdatei'].'" class="smallblack">'.$dump['backupdatei'].' ('.byte_output(filesize($config['paths']['backup'].$dump['backupdatei'])).')'.'</a>'.$lang['L_DUMP_SUCCESSFUL'].'<br>';
 
 		$xtime=time()-$xtime;
-		$aus=array();
+		$aus= [];
 		$aus[] ='<br>'."\n";
 		if (isset($config['multi_dump']) && ($config['multi_dump'] ==1))
 		{
@@ -471,7 +471,7 @@ if ($DumpFertig!=1)
 }
 else
 {
-	$dump=array();
+	$dump= [];
 	$_SESSION['dump'] = $dump;
 	$pagefooter=MODFooter('',1);
 	$selbstaufruf='';

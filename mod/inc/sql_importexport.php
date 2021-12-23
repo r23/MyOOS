@@ -42,10 +42,10 @@ if ($import == 1)
 	$sql['import']['namefirstline'] = (isset($_POST['f_import_namefirstline']) ) ? $_POST['f_import_namefirstline'] : 0;
 	$sql['import']['emptydb'] = (isset($_POST['import_emptydb']) ) ? 1 : 0;
 	$sql['import']['createindex'] = (isset($_POST['import_createindex']) ) ? 1 : 0;
-	$sql['import']['table'] = (isset($_POST['import_table']) ) ? $_POST['import_table'] : "";
+	$sql['import']['table'] = (isset($_POST['import_table']) ) ? $_POST['import_table'] : '';
 	$sql['import']['import_source'] = isset($_POST['import_source']) ? $_POST['import_source'] : 0;
-	$sql['import']['text'] = isset($_POST['import_text']) ? $_POST['import_text'] : "";
-	$sql['import']['csv'] ="";
+	$sql['import']['text'] = isset($_POST['import_text']) ? $_POST['import_text'] : '';
+	$sql['import']['csv'] = '';
 
 	if (isset($_POST['do_import']))
 	{
@@ -56,7 +56,7 @@ if ($import == 1)
 			$sql['import']['table'] ="import_";
 			$sql['import']['tablecreate'] =1;
 		}
-		if ($sql['import']['table'] == "")
+		if ($sql['import']['table'] == '')
 		{
 			$aus.='<span class="error">'.$lang['L_IMPORT_NOTABLE'].'</span>';
 		}
@@ -142,13 +142,13 @@ else
 {
 	//EXPORT
 	$tables=0;
-	$tblstr="";
+	$tblstr= '';
 	$sql['export']['db'] = $db;
 
 	if (isset($_POST['f_export_submit']))
 	{
 		//echo '<pre>'.print_r($_POST,true).'</pre><hr>';
-		$sql['export']['header_sent'] ="";
+		$sql['export']['header_sent'] = '';
 		$sql['export']['lines'] =0;
 		$sql['export']['format'] = $_POST['f_export_format'];
 		$sql['export']['ztrenn'] = $_POST['f_export_csvztrenn'];
@@ -208,7 +208,7 @@ else
 		$sql['export']['sendfile'] = $_POST['f_export_sendresult'];
 		$sql['export']['compressed'] = (isset($_POST['f_export_compressed']) ) ? $_POST['f_export_compressed'] : 0;
 
-		$sql['export']['exportfile'] ="";
+		$sql['export']['exportfile'] = '';
 		$sql['export']['xmlstructure'] = (isset($_POST['f_export_xmlstructure']) ) ? $_POST['f_export_xmlstructure'] : 0;
 		$sql['export']['htmlstructure'] = (isset($_POST['f_export_htmlstructure']) ) ? $_POST['f_export_htmlstructure'] : 0;
 

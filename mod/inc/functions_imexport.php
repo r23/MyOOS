@@ -27,7 +27,7 @@ function CheckCSVOptions()
 	if (!isset($sql['export']['namefirstline'])) $sql['export']['namefirstline'] =0;
 	if (!isset($sql['export']['format'])) $sql['export']['format'] =0;
 	if (!isset($sql['export']['sendfile'])) $sql['export']['sendfile'] =0;
-	if (!isset($sql['export']['tables'])) $sql['export']['tables'] =Array();
+	if (!isset($sql['export']['tables'])) $sql['export']['tables'] = [];
 	if (!isset($sql['export']['compressed'])) $sql['export']['compressed'] =0;
 	if (!isset($sql['export']['htmlstructure'])) $sql['export']['htmlstructure'] =0;
 	if (!isset($sql['export']['xmlstructure'])) $sql['export']['xmlstructure'] =0;
@@ -45,7 +45,7 @@ function CheckCSVOptions()
 function ExportCSV()
 {
 	global $sql,$config;
-	$t="";
+	$t= '';
 	$time_start=time();
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	for ($table=0; $table < count($sql['export']['tables']); $table++)
@@ -94,11 +94,11 @@ function ExportCSV()
 				}
 				$t.= $sql['export']['endline'];
 				$sql['export']['lines']++;
-				if ($config['memory_limit'] == "") $config['memory_limit'] = 0;
+				if ($config['memory_limit'] == '') $config['memory_limit'] = 0;
 				if (strlen($t) > $config['memory_limit'])
 				{
 					CSVOutput($t);
-					$t="";
+					$t= '';
 				}
 				$time_now=time();
 				if ($time_start >= $time_now + 30)
@@ -122,7 +122,7 @@ function CSVOutput($str, $last=0)
 	}
 	else
 	{
-		if ($sql['export']['header_sent'] == "")
+		if ($sql['export']['header_sent'] == '')
 		{
 			if ($sql['export']['compressed'] == 1 & !function_exists('gzencode')) $sql['export']['compressed'] =0;
 			if ($sql['export']['format'] < 4)
@@ -182,14 +182,14 @@ function DoImport()
 	}
 	if ($ok == 1)
 	{
-		$insert="";
+		$insert= '';
 		if ($sql['import']['emptydb'] == 1 && $sql['import']['tablecreate'] == 0)
 		{
 			MOD_DoSQL("TRUNCATE " . $sql['import']['table'] . ";");
 		}
 		$sql['import']['lines_imported'] =0;
-		$enc=( $sql['import']['enc'] == "" ) ? "'" : "";
-		$zc="";
+		$enc=( $sql['import']['enc'] == "" ) ? "'" : '';
+		$zc= '';
 		for ($i= $sql['import']['namefirstline']; $i < $zeilen + $sql['import']['namefirstline']; $i++)
 		{
 			//Importieren
@@ -207,7 +207,7 @@ function DoImport()
 				}
 				MOD_DoSQL($insert);
 				$sql['import']['lines_imported']++;
-				$zc="";
+				$zc= '';
 			}
 
 		}
@@ -222,7 +222,7 @@ function DoImport()
 function ImportCreateTable()
 {
 	global $sql,$lang,$db,$config;
-	$tbl=Array();
+	$tbl= [];
 	$sql = "SHOW TABLES FROM $db";
 	$tabellen=mod_query($sql);
 	// while ($row = mysqli_fetch_row($num_tables))
@@ -312,11 +312,11 @@ function ExportXML()
 				}
 				$t.=str_repeat($tab,--$level) . "</row>\n";
 				$sql['export']['lines']++;
-				if ($config['memory_limit'] == "") $config['memory_limit'] = 0;
+				if ($config['memory_limit'] == '') $config['memory_limit'] = 0;
 				if (strlen($t) > $config['memory_limit'])
 				{
 					CSVOutput($t);
-					$t="";
+					$t= '';
 				}
 				$time_now=time();
 				if ($time_start >= $time_now + 30)
@@ -338,7 +338,7 @@ function ExportHTML()
 	global $sql,$config,$lang;
 	$header='<html><head><title>MOD Export</title></head>';
 	$footer="\n\n</body>\n</html>";
-	$content="";
+	$content= '';
 	$content.='<h1>'.$lang['L_DB'].' '.$sql['export']['db'].'</h1>';
 
 	$time_start=time();
@@ -353,7 +353,7 @@ function ExportHTML()
 		$res=mod_query($fsql);
 		if ($res)
 		{
-			$field= $fieldname= $fieldtyp=Array();
+			$field= $fieldname= $fieldtyp= [];
 			$structure="<table class=\"Table\">\n";
 			$numfields=mysqli_num_rows($res);
 			for ($feld=0; $feld < $numfields; $feld++)

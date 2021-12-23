@@ -19,7 +19,7 @@
 
 if (!defined('MOD_VERSION')) die('No direct access.');
 $Sum_Files= $Sum_Size=0;
-$Last_BU=Array();
+$Last_BU= [];
 $is_htaccess=(file_exists('./.htaccess'));
 $is_protected = IsAccessProtected();
 

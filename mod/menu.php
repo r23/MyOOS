@@ -47,7 +47,7 @@ if (isset($_POST['selected_config'])||isset($_GET['config']))
 	{
 		clearstatcache();
 		unset($databases);
-		$databases=array();
+		$databases= [];
 		if (read_config($new_config))
 		{
 			$config['config_file'] = $new_config;

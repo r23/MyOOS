@@ -20,7 +20,7 @@ define('OOS_VALID_MOD', true);
 
 if (!@ob_start("ob_gzhandler")) @ob_start();
 
-$install_ftp_server= $install_ftp_user_name= $install_ftp_user_pass= $install_ftp_path="";
+$install_ftp_server= $install_ftp_user_name= $install_ftp_user_pass= $install_ftp_path= '';
 $dbhost= $dbuser= $dbpass= $dbport= $dbsocket= $manual_db='';
 foreach ($_GET as $getvar=>$getval)
 {
@@ -65,7 +65,7 @@ else
 		$manual_db= $config['manual_db'] = $p[5];
 	}
 	else
-		$connstr="";
+		$connstr= '';
 }
 
 //Variabeln
@@ -73,7 +73,7 @@ $phase = (isset($phase) ) ? $phase : 0;
 if (isset($_POST['manual_db'])) $manual_db=trim($_POST['manual_db']);
 $connstr = "$dbhost|$dbuser|$dbpass|$dbport|$dbsocket|$manual_db";
 $connection='';
-$delfiles=Array();
+$delfiles= [];
 
 $config['files']['iconpath'] ='./css/mod/icons/';
 $img_ok='<img src="'.$config['files']['iconpath'].'ok.gif" width="16" height="16" alt="ok">';
@@ -239,8 +239,8 @@ switch ($phase)
 				}
 			}
 
-			if (!isset($config['dbport'])) $config['dbport'] ="";
-			if (!isset($config['dbsocket'])) $config['dbsocket'] ="";
+			if (!isset($config['dbport'])) $config['dbport'] = '';
+			if (!isset($config['dbsocket'])) $config['dbsocket'] = '';
 
 			echo '<form action="install.php?language='.$language.'&phase='.$phase.'" method="post">';
 			echo '<table class="bdr" style="width:700px;">';
@@ -431,7 +431,7 @@ switch ($phase)
 		break;
 	case 101:
 		echo '<h6>'.$lang['L_UI5'].'</h6>';
-		$paths=Array();
+		$paths= [];
 		$w=substr($config['paths']['work'],0,strlen($config['paths']['work']) - 1);
 		if (is_dir($w)) $res=rec_rmdir($w);
 		else $res=0;

@@ -60,8 +60,8 @@ if (isset($_GET['killPrimaryKey']))
 if (isset($_POST['setNewKeys']))
 {
 	$fields=getAllFields($databases['Name'][$dbid],$_GET['tablename']);
-	$newKeysArray=Array();
-	$newKeySizesArray=Array();
+	$newKeysArray= [];
+	$newKeySizesArray= [];
 	foreach ($fields as $index=>$field)
 	{
 		if ((isset($_POST["setNewKey".$index]))&&($_POST["setNewKey".$index]!=""))
@@ -219,7 +219,7 @@ else
 {
 	if (!isset($table_edit_name)||$table_edit_name=="")
 	{
-		$table_edit_name=(isset($_GET['tablename'])) ? $_GET['tablename'] : "";
+		$table_edit_name=(isset($_GET['tablename'])) ? $_GET['tablename'] : '';
 		if (isset($_POST['tableselect'])) $table_edit_name= $_POST['tableselect'];
 		if (isset($_POST['newtablesubmit'])) $table_edit_name= $_POST['newtablename'];
 	}
@@ -263,7 +263,7 @@ if (isset($_POST['newfield_posted']))
 			$sql_alter.=" ";
 		$sql_alter.= $_POST['f_attribut']." ";
 		$sql_alter.= $_POST['f_null']." ";
-		$sql_alter.=($_POST['f_default']!="") ? "DEFAULT '".addslashes($_POST['f_default'])."' " : "";
+		$sql_alter.=($_POST['f_default']!="") ? "DEFAULT '".addslashes($_POST['f_default'])."' " : '';
 
 		if (MOD_NEW_VERSION&&$_POST['f_collate']!="") $sql_alter.="COLLATE ".$_POST['f_collate']." ";
 
@@ -334,10 +334,10 @@ if ($table_edit_name!="")
 	else
 		$t_engine=(isset($fields_infos['_tableinfo_']['TYPE'])) ? $fields_infos['_tableinfo_']['TYPE'] : "MyISAM";
 
-	$t_charset=(isset($fields_infos['_tableinfo_']['DEFAULT CHARSET'])) ? $fields_infos['_tableinfo_']['DEFAULT CHARSET'] : "";
-	$t_collation = isset($row['Collation']) ? $row['Collation'] : ""; //(isset($fields_infos['_tableinfo_']['COLLATE'])) ? $fields_infos['_tableinfo_']['COLLATE'] : "";
-	$t_comment=(isset($fields_infos['_tableinfo_']['COMMENT'])) ? substr($fields_infos['_tableinfo_']['COMMENT'],1,strlen($fields_infos['_tableinfo_']['COMMENT'])-2) : "";
-	$t_rowformat=(isset($fields_infos['_tableinfo_']['ROW_FORMAT'])) ? $fields_infos['_tableinfo_']['ROW_FORMAT'] : "";
+	$t_charset=(isset($fields_infos['_tableinfo_']['DEFAULT CHARSET'])) ? $fields_infos['_tableinfo_']['DEFAULT CHARSET'] : '';
+	$t_collation = isset($row['Collation']) ? $row['Collation'] : ''; //(isset($fields_infos['_tableinfo_']['COLLATE'])) ? $fields_infos['_tableinfo_']['COLLATE'] : '';
+	$t_comment=(isset($fields_infos['_tableinfo_']['COMMENT'])) ? substr($fields_infos['_tableinfo_']['COMMENT'],1,strlen($fields_infos['_tableinfo_']['COMMENT'])-2) : '';
+	$t_rowformat=(isset($fields_infos['_tableinfo_']['ROW_FORMAT'])) ? $fields_infos['_tableinfo_']['ROW_FORMAT'] : '';
 	echo "<h6>".$lang['L_TABLE']." `$table_edit_name`</h6>";
 	$td='<td valign="top" nowrap="nowrap" class="small">';
 
@@ -363,11 +363,11 @@ if ($table_edit_name!="")
 	if (isset($_GET['newfield'])||isset($_GET['editfield'])||$field_fehler>0||isset($_POST['newfield_posted']))
 	{
 		if (isset($_GET['editfield'])) $id= $_GET['editfield'];
-		$d_name=(isset($_GET['editfield'])) ? $fields_infos[$id]['name'] : "";
-		$d_type=(isset($_GET['editfield'])) ? $fields_infos[$id]['type'] : "";
-		$d_size=(isset($_GET['editfield'])) ? $fields_infos[$id]['size'] : "";
-		$d_null=(isset($_GET['editfield'])) ? $fields_infos[$id]['null'] : "";
-		$d_attribute=(isset($_GET['editfield'])) ? $fields_infos[$id]['attributes'] : "";
+		$d_name=(isset($_GET['editfield'])) ? $fields_infos[$id]['name'] : '';
+		$d_type=(isset($_GET['editfield'])) ? $fields_infos[$id]['type'] : '';
+		$d_size=(isset($_GET['editfield'])) ? $fields_infos[$id]['size'] : '';
+		$d_null=(isset($_GET['editfield'])) ? $fields_infos[$id]['null'] : '';
+		$d_attribute=(isset($_GET['editfield'])) ? $fields_infos[$id]['attributes'] : '';
 
 		$d_default='';
 		if (isset($id)&&isset($fields_infos[$id])&&isset($fields_infos[$id]['default']))
@@ -376,15 +376,15 @@ if ($table_edit_name!="")
 			else
 				$d_default=substr($fields_infos[$id]['default'],1,strlen($fields_infos[$id]['default'])-2);
 		}
-		$d_extra=(isset($_GET['editfield'])) ? $fields_infos[$id]['extra'] : "";
+		$d_extra=(isset($_GET['editfield'])) ? $fields_infos[$id]['extra'] : '';
 
 		$d_primary= $d_unique= $d_index= $d_fulltext=0;
 		if (isset($id))
 		{
-			if (isset($fields_infos[$id]['collate'])) $d_collate=(isset($_GET['editfield'])) ? $fields_infos[$id]['collate'] : "";
-			if (isset($fields_infos[$id]['comment'])) $d_comment=(isset($_GET['editfield'])) ? $fields_infos[$id]['comment'] : "";
+			if (isset($fields_infos[$id]['collate'])) $d_collate=(isset($_GET['editfield'])) ? $fields_infos[$id]['collate'] : '';
+			if (isset($fields_infos[$id]['comment'])) $d_comment=(isset($_GET['editfield'])) ? $fields_infos[$id]['comment'] : '';
 		}
-		$d_privileges=(isset($_GET['editfield'])) ? $fields_infos[$id]['privileges'] : "";
+		$d_privileges=(isset($_GET['editfield'])) ? $fields_infos[$id]['privileges'] : '';
 		if (isset($_GET['editfield']))
 		{
 			$d_primary=(in_array($fields_infos[$id]['name'],$fields_infos['_primarykeys_'])) ? 1 : 0;
@@ -567,7 +567,7 @@ if ($table_edit_name!="")
     		echo '</table><br>';
 
     		//alle Felder holen
-			$feldArray=Array();
+			$feldArray= [];
             echo '<table class="bdr">';
     		echo '<tr class="thead"><th>#</th><th>'.$lang['L_PRIMARYKEY_FIELD'].'</th><th>'.$lang['L_INFO_SIZE'].'</th>';
 

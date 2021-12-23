@@ -39,7 +39,7 @@ else {
 	include_once './inc/header.php'; // language not changed, go on as usual
 }
 include_once './inc/runtime.php';
-include_once './inc/functions_sql.php' );
+include_once './inc/functions_sql.php';
 include_once './language/'.$config['language'].'/lang_help.php';
 include_once './language/'.$config['language'].'/lang_config_overview.php';
 include_once './language/'.$config['language'].'/lang_sql.php';
@@ -49,7 +49,7 @@ $sel = (isset($_POST['sel'])) ? $_POST['sel'] : 'db';
 
 if (isset($_GET['sel'])) $sel = $_GET['sel'];
 
-$old_config_file = $ config['config_file'];
+$old_config_file = $config['config_file'];
 if (isset($_GET['config'])) {
 	unset($databases);
 	$databases = [];
@@ -74,12 +74,12 @@ if (isset($_GET['config_delete'])) {
 		read_config($config['config_file']); // Load standard
 	}
 
-	$del = @unlink($config['paths']['config'] . $del_config.'.php');
-	if ($del) $del = @unlink($config['paths']['config'] . $del_config.'.conf.php');
+	$del = @unlink($config['paths']['config'].$del_config.'.php');
+	if ($del) $del = @unlink($config['paths']['config'].$del_config.'.conf.php');
 	if ($del === false) { 
-		$msg = '<p class="error">'.sprintf($lang['L_ERROR_DELETING_CONFIGFILE'],$del_config).'</p>';
+		$msg = '<p class="error">'.sprintf($lang['L_ERROR_DELETING_CONFIGFILE'], $del_config).'</p>';
 	} else {
-		$msg = '<p class="success">'.sprintf($lang['L_SUCCESS_DELETING_CONFIGFILE'],$del_config).'</p>'.'<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config='.$config['config_file'].'";</script>'; //refresh menu-frame
+		$msg = '<p class="success">'.sprintf($lang['L_SUCCESS_DELETING_CONFIGFILE'], $del_config).'</p>'.'<script>parent.MyOOS_Dumper_menu.location.href="menu.php?config='.$config['config_file'].'";</script>'; //refresh menu-frame
 	}
 	$sel = 'configs';
 }
@@ -202,13 +202,13 @@ if ($sftptested > -1) {
 	$sftp_dir[$sftptested]		= stripslashes($f[$sftptested]);
 	if ($sftp_dir[$sftptested] == '' || ( strlen($sftp_dir[$sftptested]) > 1 && substr($sftp_dir[$sftptested],-1) != '/' )) $sftp_dir[$sftptested] .= '/';	
 	
-	$sftp_path_to_private_key[$sftptested] = stripslashes($_POST['sftp_path_to_private_key'][$sftptested]);
-	$sftp_secret_passphrase_for_private_key[$sftptested] =stripslashes($_POST['sftp_secret_passphrase_for_private_key'][$sftptested]);
-	$sftp_fingerprint[$sftptested] =stripslashes( $_POST['sftp_fingerprint'][$sftptested]);
+	$sftp_path_to_private_key[$sftptested] 					= stripslashes($_POST['sftp_path_to_private_key'][$sftptested]);
+	$sftp_secret_passphrase_for_private_key[$sftptested] 	= stripslashes($_POST['sftp_secret_passphrase_for_private_key'][$sftptested]);
+	$sftp_fingerprint[$sftptested] 							= stripslashes($_POST['sftp_fingerprint'][$sftptested]);
 	
-	// Eingaben merken
-	$config['sftp_transfer'][$sftptested] = (isset($_POST['sftp_transfer'][$sftptested])) ? $_POST['sftp_transfer'][$sftptested] : 0;
-	$config['sftp_timeout'][$sftptested] = (isset($_POST['sftp_timeout'][$sftptested])) ? $_POST['sftp_timeout'][$sftptested] : 30;
+	// Remember inputs
+	$config['sftp_transfer'][$sftptested] 							= (isset($_POST['sftp_transfer'][$sftptested])) ? $_POST['sftp_transfer'][$sftptested] : 0;
+	$config['sftp_timeout'][$sftptested] 							= (isset($_POST['sftp_timeout'][$sftptested])) ? $_POST['sftp_timeout'][$sftptested] : 30;
 	$config['sftp_server'][$sftptested]								= $sftp_server[$sftptested];
 	$config['sftp_port'][$sftptested]								= $sftp_port[$sftptested];
 	$config['sftp_user'][$sftptested]								= $sftp_user[$sftptested];
@@ -220,8 +220,6 @@ if ($sftptested > -1) {
 
 	WriteParams();
 }
-
-
 
 
 echo MODHeader();
@@ -239,7 +237,7 @@ if (isset($_POST['save'])) {
 	$config['compression']							= $_POST['compression'] ?? 0;
 	$config['language']								= $_POST['language'];
 	$config['interface_server_caption'] 			= $_POST['server_caption'] ?? 0;
-	$config['interface_server_caption_position']	= isset($_POST['server_caption_position'])? $_POST['server_caption_position'] : 0;
+	$config['interface_server_caption_position']	= isset($_POST['server_caption_position']) ? $_POST['server_caption_position'] : 0;
 	$config['interface_sqlboxsize']					= $_POST['sqlboxsize'];
 	$config['theme']								= $_POST['theme'];
 	$config['interface_table_compact']				= (isset($_POST['interface_table_compact'])) ? $_POST['interface_table_compact'] : 1;
@@ -253,14 +251,14 @@ if (isset($_POST['save'])) {
 	$config['send_mail_dump']	= isset($_POST['send_mail_dump']) ? $_POST['send_mail_dump'] : 0;
 
 	if (isset($_POST['email_maxsize1'])) $config['email_maxsize1'] = $_POST['email_maxsize1'];
-	if ($config['email_maxsize1'] == "") $config['email_maxsize1'] =0;
+	if ($config['email_maxsize1'] == '') $config['email_maxsize1'] =0;
 	if (isset($_POST['email_maxsize2'])) $config['email_maxsize2'] = $_POST['email_maxsize2'];
-	$config['email_maxsize'] = $config['email_maxsize1'] * ( ( $config['email_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
+	$config['email_maxsize'] = $config['email_maxsize1'] * (( $config['email_maxsize2'] == 1) ? 1024 : 1024 * 1024);
 
 	if (isset($_POST['memory_limit'])) $config['memory_limit'] = $_POST['memory_limit'];
-	if ($config['memory_limit'] == "") $config['memory_limit'] =0;
+	if ($config['memory_limit'] == '') $config['memory_limit'] = 0;
 	if (isset($_POST['minspeed'])) $config['minspeed'] = $_POST['minspeed'];
-	if ($config['minspeed'] < 5) $config['minspeed'] =5;
+	if ($config['minspeed'] < 5) $config['minspeed'] = 5;
 	if (isset($_POST['maxspeed'])) $config['maxspeed'] = $_POST['maxspeed'];
 	if ($config['maxspeed'] < $config['minspeed']) $config['maxspeed'] = $config['minspeed'] * 2;
  	if (isset($_POST['stop_with_error'])) $config['stop_with_error'] = $_POST['stop_with_error'];
@@ -272,16 +270,16 @@ if (isset($_POST['save'])) {
 		$config['multipartgroesse1'] = isset($_POST['multipartgroesse1']) ? floatval(str_replace(',','.',$_POST['multipartgroesse1'])) : 0;
 		$config['multipartgroesse2'] = isset($_POST['multipartgroesse2']) ? intval($_POST['multipartgroesse2']) : 0;
 	}
-	if ($config['multipartgroesse1'] < 100 && $config['multipartgroesse2'] == 1) $config['multipartgroesse1'] =100;
-	if ($config['multipartgroesse1'] < 1 && $config['multipartgroesse2'] == 2) $config['multipartgroesse1'] =1;
+	if ($config['multipartgroesse1'] < 100 && $config['multipartgroesse2'] == 1) $config['multipartgroesse1'] = 100;
+	if ($config['multipartgroesse1'] < 1 && $config['multipartgroesse2'] == 2) $config['multipartgroesse1'] = 1;
 
 	$config['logcompression'] = isset($config['logcompression']) ? $config['logcompression'] : 0;
 	$oldlogcompression= $config['logcompression'];
 	$config['logcompression'] = (isset($_POST['logcompression']) && $_POST['logcompression'] == 1 ) ? 1 : 0;
 	if (isset($_POST['log_maxsize1']))	$config['log_maxsize1'] = $_POST['log_maxsize1'];
-	if ($config['log_maxsize1'] == "") $config['log_maxsize1'] =0;
+	if ($config['log_maxsize1'] == '') $config['log_maxsize1'] = 0;
 	if (isset($_POST['log_maxsize2']))	$config['log_maxsize2'] = $_POST['log_maxsize2'];
-	$config['log_maxsize'] = $config['log_maxsize1'] * ( ( $config['log_maxsize2'] == 1 ) ? 1024 : 1024 * 1024 );
+	$config['log_maxsize'] = $config['log_maxsize1'] * (( $config['log_maxsize2'] == 1) ? 1024 : 1024 * 1024 );
 
 	$config['auto_delete'] = isset($_POST['auto_delete']) ? $_POST['auto_delete'] : 0;
 	if (isset($_POST['max_backup_files'])) $config['max_backup_files'] = $_POST['max_backup_files'];
@@ -295,24 +293,20 @@ if (isset($_POST['save'])) {
 	if (isset($_POST['cron_extender'])) $config['cron_extender'] = $_POST['cron_extender'];
 	// cron_select_savepath/
 	if (!isset($_POST['cron_select_savepath'])) $_POST['cron_select_savepath'] = $config['config_file'];
-	if (isset($_POST['cron_savepath_new']) && !empty($_POST['cron_savepath_new']))
-	{
+	if (isset($_POST['cron_savepath_new']) && !empty($_POST['cron_savepath_new'])) {
 		$tmp_configfilename=utf8_decode(trim($_POST['cron_savepath_new']));
-		if (!preg_match("/^[a-z.-_]+$/i",$tmp_configfilename,$matches))
-		{
-			$save_config=false;
-			$msg.='<p class="error">'.sprintf($lang['L_ERROR_CONFIGFILE_NAME'],$_POST['cron_savepath_new']).'</p>';
-		}
-		else
-		{
-			$config['config_file'] = $_POST['cron_savepath_new'];
-			$config['cron_configurationfile'] = $_POST['cron_savepath_new'] . ".conf.php";
+		if (!preg_match('/^[a-z.-_]+$/i', $tmp_configfilename, $matches)){
+			$save_config = false;
+			$msg .= '<p class="error">'.sprintf($lang['L_ERROR_CONFIGFILE_NAME'],$_POST['cron_savepath_new']).'</p>';
+		} else {
+			$config['config_file'] 				= $_POST['cron_savepath_new'];
+			$config['cron_configurationfile']	= $_POST['cron_savepath_new'].'.conf.php';
 		}
 	}
 
 	if (isset($_POST['cron_execution_path'])) $config['cron_execution_path'] = $_POST['cron_execution_path'];
-	if ($config['cron_execution_path'] == "") $config['cron_execution_path'] ="mod_cron/";
-	if (strlen($config['cron_execution_path']) > 1 && substr($config['cron_execution_path'],-1) != "/") $config['cron_execution_path'] .="/";
+	if ($config['cron_execution_path'] == '') $config['cron_execution_path'] = 'mod_cron/';
+	if (strlen($config['cron_execution_path']) > 1 && substr($config['cron_execution_path'],-1) != '/') $config['cron_execution_path'] .= '/';
 
 	if (isset($_POST['cron_use_sendmail'])) $config['cron_use_sendmail'] = $_POST['cron_use_sendmail'];
 	if (isset($_POST['cron_sendmail'])) $config['cron_sendmail'] = $_POST['cron_sendmail'];
@@ -323,63 +317,56 @@ if (isset($_POST['save'])) {
 	$config['cron_compression'] = isset($_POST['compression']) ? $_POST['compression'] : 0;
 	if (isset($_POST['cron_completelog'])) $config['cron_completelog'] = $_POST['cron_completelog'];
 
-	$databases['multi'] =Array();
-	$databases['multi_praefix'] =Array();
-	$databases['multi_commandbeforedump'] =Array();
-	$databases['multi_commandafterdump'] =Array();
+	$databases['multi'] 					= [];
+	$databases['multi_praefix'] 			= [];
+	$databases['multi_commandbeforedump']	= [];
+	$databases['multi_commandafterdump'] 	= [];
 
-	if (isset($databases['Name'][0]) && $databases['Name'][0] > '')
-	{
-		for ($i = 0; $i < count($databases['Name']); $i++)
-		{
+	if (isset($databases['Name'][0]) && $databases['Name'][0] > '') {
+		for ($i = 0; $i < count($databases['Name']); $i++) {
 			$databases['praefix'][$i] = isset($_POST['dbpraefix_'.$i]) ? $_POST['dbpraefix_'.$i] : '';
-			$databases['command_before_dump'][$i] =( !isset($_POST['command_before_'.$i]) ) ? "" : $_POST['command_before_'.$i];
-			$databases['command_after_dump'][$i] =( !isset($_POST['command_after_'.$i]) ) ? "" : $_POST['command_after_'.$i];
-			if (isset($_POST['db_multidump_'.$i]) && $_POST['db_multidump_'.$i] == "db_multidump_$i")
-			{
-				$databases['multi'][] = $databases['Name'][$i];
-				$databases['multi_praefix'][] = $databases['praefix'][$i];
+			$databases['command_before_dump'][$i] = (!isset($_POST['command_before_'.$i])) ? '' : $_POST['command_before_'.$i];
+			$databases['command_after_dump'][$i] = (!isset($_POST['command_after_'.$i])) ? '' : $_POST['command_after_'.$i];
+			if (isset($_POST['db_multidump_'.$i]) && $_POST['db_multidump_'.$i] == "db_multidump_$i") {
+				$databases['multi'][] 					= $databases['Name'][$i];
+				$databases['multi_praefix'][] 			= $databases['praefix'][$i];
 				$databases['multi_commandbeforedump'][] = $databases['command_before_dump'][$i];
-				$databases['multi_commandafterdump'][] = $databases['command_after_dump'][$i];
+				$databases['multi_commandafterdump'][] 	= $databases['command_after_dump'][$i];
 			}
 		}
 	}
-	$databases['multisetting'] =( count($databases['multi']) > 0 ) ? implode(";",$databases['multi']) : "";
-	$databases['multisetting_praefix'] =( count($databases['multi']) > 0 ) ? implode(";",$databases['multi_praefix']) : "";
-	$databases['multisetting_commandbeforedump'] =( count($databases['multi']) > 0 ) ? implode(";",$databases['multi_commandbeforedump']) : "";
-	$databases['multisetting_commandafterdump'] =( count($databases['multi']) > 0 ) ? implode(";",$databases['multi_commandafterdump']) : "";
+	$databases['multisetting'] 						= (count($databases['multi']) > 0 ) ? implode(";",$databases['multi']) : '';
+	$databases['multisetting_praefix'] 				= (count($databases['multi']) > 0 ) ? implode(";",$databases['multi_praefix']) : '';
+	$databases['multisetting_commandbeforedump'] 	= (count($databases['multi']) > 0 ) ? implode(";",$databases['multi_commandbeforedump']) : '';
+	$databases['multisetting_commandafterdump'] 	= (count($databases['multi']) > 0 ) ? implode(";",$databases['multi_commandafterdump']) : '';
 
-	if ($config['cron_dbindex'] == -2)
-	{
+	if ($config['cron_dbindex'] == -2) {
 		$datenbanken=count($databases['Name']);
-		$cron_db_array=str_replace(";","|",$databases['multisetting']);
-		$cron_dbpraefix_array=str_replace(";","|",$databases['multisetting_praefix']);
-		$cron_db_cbd_array=str_replace(";","|",$databases['multisetting_commandbeforedump']);
-		$cron_db_cad_array=str_replace(";","|",$databases['multisetting_commandafterdump']);
+		$cron_db_array=str_replace(';', '|', $databases['multisetting']);
+		$cron_dbpraefix_array=str_replace(';', '|', $databases['multisetting_praefix']);
+		$cron_db_cbd_array=str_replace(';', '|', $databases['multisetting_commandbeforedump']);
+		$cron_db_cad_array=str_replace(';', '|', $databases['multisetting_commandafterdump']);
 
-	}
-	elseif ($config['cron_dbindex'] == -3)
-	{
-		$cron_db_array=implode("|",$databases['Name']);
-		$cron_dbpraefix_array=implode("|",$databases['praefix']);
-		$cron_db_cbd_array = isset($databases['command_before_dump']) && !empty($databases['command_before_dump']) ? implode("|",$databases['command_before_dump']) : "";
-		$cron_db_cad_array = isset($databases['command_after_dump']) && !empty($databases['command_after_dump']) ? implode("|",$databases['command_after_dump']) : "";
+	} elseif ($config['cron_dbindex'] == -3) {
+		$cron_db_array 			= implode("|",$databases['Name']);
+		$cron_dbpraefix_array	= implode("|",$databases['praefix']);
+		$cron_db_cbd_array 		= isset($databases['command_before_dump']) && !empty($databases['command_before_dump']) ? implode("|",$databases['command_before_dump']) : '';
+		$cron_db_cad_array 		= isset($databases['command_after_dump']) && !empty($databases['command_after_dump']) ? implode("|",$databases['command_after_dump']) : '';
 	}
 
-	$config['ftp_transfer'] =array();
-	$config['ftp_timeout'] =array();
-	$config['ftp_mode'] =array();
-	$config['ftp_useSSL'] =array();
+	$config['ftp_transfer'] = [];
+	$config['ftp_timeout'] = [];
+	$config['ftp_mode'] = [];
+	$config['ftp_useSSL'] = [];
 
-	$config['ftp_server'] =array();
-	$config['ftp_port'] =array();
-	$config['ftp_user'] =array();
-	$config['ftp_pass'] =array();
-	$config['ftp_dir'] =array();
+	$config['ftp_server'] = [];
+	$config['ftp_port'] = [];
+	$config['ftp_user'] = [];
+	$config['ftp_pass'] = [];
+	$config['ftp_dir'] = [];
 
-	for ($i = 0; $i < 3; $i++)
-	{
-		$checkFTP[$i] ="";
+	for ($i = 0; $i < 3; $i++) {
+		$checkFTP[$i] = '';
 		$config['ftp_transfer'][$i] = isset($_POST['ftp_transfer'][$i]) ? $_POST['ftp_transfer'][$i] : 0;
 		$config['ftp_timeout'][$i] = isset($_POST['ftp_timeout'][$i]) ? $_POST['ftp_timeout'][$i] : 30;
 		$config['ftp_useSSL'][$i] = isset($_POST['ftp_useSSL'][$i]) ? 1 : 0;
@@ -394,22 +381,22 @@ if (isset($_POST['save'])) {
 		if ($config['ftp_dir'][$i] == "" || ( strlen($config['ftp_dir'][$i]) > 1 && substr($config['ftp_dir'][$i],-1) != "/" )) $config['ftp_dir'][$i] .="/";
 	}
 
-	$config['sftp_transfer'] =array();
-	$config['sftp_timeout'] =array();
+	$config['sftp_transfer'] = [];
+	$config['sftp_timeout'] = [];
 
-	$config['sftp_server'] =array();
-	$config['sftp_port'] =array();
-	$config['sftp_user'] =array();
-	$config['sftp_pass'] =array();
-	$config['sftp_dir'] =array();
+	$config['sftp_server'] = [];
+	$config['sftp_port'] = [];
+	$config['sftp_user'] = [];
+	$config['sftp_pass'] = [];
+	$config['sftp_dir'] = [];
 
-	$config['sftp_path_to_private_key'] =array();
-	$config['sftp_secret_passphrase_for_private_key'] =array();
-	$config['sftp_fingerprint'] =array();
+	$config['sftp_path_to_private_key'] = [];
+	$config['sftp_secret_passphrase_for_private_key'] = [];
+	$config['sftp_fingerprint'] = [];
 
 	for ($i = 0; $i < 3; $i++)
 	{
-		$checkFTP[$i] ="";
+		$checkFTP[$i] = '';
 		$config['sftp_transfer'][$i] = isset($_POST['sftp_transfer'][$i]) ? $_POST['sftp_transfer'][$i] : 0;
 		$config['sftp_timeout'][$i] = isset($_POST['sftp_timeout'][$i]) ? $_POST['sftp_timeout'][$i] : 30;
 
@@ -631,7 +618,7 @@ function WriteMem()
 <?php
 if (!isset($config['email_maxsize1'])) $config['email_maxsize1'] =0;
 if (!isset($config['email_maxsize2'])) $config['email_maxsize2'] =1;
-if (!isset($databases['multisetting'])) $databases['multisetting'] ="";
+if (!isset($databases['multisetting'])) $databases['multisetting'] = '';
 $databases['multi'] =explode(";",$databases['multisetting']);
 
 //Ausgabe-Teile
@@ -726,9 +713,9 @@ if (sizeof($configs) > 0)
 
 		// String aus Multidump-DBs aufbauen
 		$toolboxstring='';
-		$databases['multi'] =array();
+		$databases['multi'] = [];
 		if (isset($databases['multisetting'])) $databases['multi'] =explode(";",$databases['multisetting']);
-		$multi_praefixe=array();
+		$multi_praefixe= [];
 		if (isset($databases['multisetting_praefix'])) $multi_praefixe=explode(";",$databases['multisetting_praefix']);
 		if (is_array($databases['multi']))
 		{
@@ -817,7 +804,7 @@ if (sizeof($configs) > 0)
 $configfile= $old_config['config_file'];
 $config= $old_config;
 unset($databases);
-$databases=array();
+$databases= [];
 read_config($configfile);
 
 $aus['conf'] .= '</table>';

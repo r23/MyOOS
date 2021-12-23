@@ -96,8 +96,8 @@ function FillMultiDBArrays()
 	// Nur füllen wenn überhaupt Datenbanken gefunden wurden
 	if ((isset($databases['Name']))&&(count($databases['Name'])>0))
 	{
-		$databases['multi'] =Array();
-		$databases['multi_praefix'] =Array();
+		$databases['multi'] = [];
+		$databases['multi_praefix'] = [];
 		if (!isset($databases['db_selected_index'])) $databases['db_selected_index'] =0;
 		if (!isset($databases['db_actual'])&&isset($databases['Name'])) $databases['db_actual'] = $databases['Name'][$databases['db_selected_index']];
 		if (!isset($databases['multisetting'])) $databases['multisetting'] ='';
@@ -453,7 +453,7 @@ function SelectDB($index)
 function EmptyDB($dbn)
 {
 	global $config;
-	$t_sql=array();
+	$t_sql= [];
 	@mysqli_query($config['dbconnection'], 'SET FOREIGN_KEY_CHECKS=0');
 	$res=mysqli_query($config['dbconnection'], 'SHOW TABLE STATUS FROM `'.$dbn.'`') or die('EmptyDB: '.mysqli_error($config['dbconnection']));
 	while ($row=mysqli_fetch_array($res,MYSQLI_ASSOC))
@@ -485,8 +485,8 @@ function AutoDelete()
 	{
 		//Files einlesen
 		$dh=opendir($config['paths']['backup']);
-		$dbbackups=array();
-		$files=array();
+		$dbbackups= [];
+		$files= [];
 
 		// Build assoc Array $db=>$timestamp=>$filenames
 		while (false!==($filename=readdir($dh)))
@@ -515,8 +515,8 @@ function AutoDelete()
 					$db_name= $statusline['dbname'];
 					$datum=substr($filename,strlen($db_name)+1);
 					$timestamp=substr($datum,0,16);
-					if (!isset($files[$db_name])) $files[$db_name] =array();
-					if (!isset($files[$db_name][$timestamp])) $files[$db_name][$timestamp] =array();
+					if (!isset($files[$db_name])) $files[$db_name] = [];
+					if (!isset($files[$db_name][$timestamp])) $files[$db_name][$timestamp] = [];
 					$files[$db_name][$timestamp][] = $filename;
 				}
 			}
@@ -590,7 +590,7 @@ function ReadStatusline($line)
 		(complete inserts)(extended inserts)(ignore inserts)(delayed inserts)(downgrade)(lock tables)(optimize tables)
 	*/
 	global $lang;
-	$statusline=Array();
+	$statusline= [];
 	if ((substr($line,0,8)!="# Status"&&substr($line,0,9)!="-- Status")||substr($line,0,10)=='-- StatusC')
 	{
 		//Fremdfile
@@ -932,7 +932,7 @@ function get_config_filelist()
 	$default= $config['config_file'];
 	clearstatcache();
 	$dh=opendir($config['paths']['config']);
-	$r="";
+	$r= '';
 	while (false!==($filename=readdir($dh)))
 	{
 		if ($filename!="."&&$filename!=".."&&!is_dir($config['paths']['config'].$filename)&&substr($filename,-9)==".conf.php")
@@ -951,7 +951,7 @@ function GetThemes()
 	global $config;
 	$default= $config['theme'];
 	$dh=opendir($config['paths']['root']."css/");
-	$r="";
+	$r= '';
 	while (false!==($filename=readdir($dh)))
 	{
 		if ($filename!="."&&$filename!=".."&&is_dir($config['paths']['root']."css/".$filename)&&substr($filename,0,1)!='.'&&substr($filename,0,1)!='_')
@@ -970,8 +970,8 @@ function GetLanguageCombo($k="op", $class="", $name="", $start="", $end="")
 	global $config,$lang;
 	$default= $config['language'];
 	$dh=opendir($config['paths']['root']."language/");
-	$r="";
-	$lang_files=array();
+	$r= '';
+	$lang_files= [];
 	while (false!==($filename=readdir($dh)))
 	{
 		if ($filename!="."&&$filename!='.svn'&&$filename!=".."&&$filename!="flags"&&is_dir($config['paths']['root']."language/".$filename))
@@ -1009,7 +1009,7 @@ function GetLanguageArray()
 	global $config,$lang;
 	$dh=opendir($config['paths']['root']."language/");
 	unset($lang['languages']);
-	$lang['languages'] =array();
+	$lang['languages'] = [];
 	while (false!==($filename=readdir($dh)))
 	{
 		if ($filename!="."&&$filename!='.svn'&&$filename!=".."&&$filename!="flags"&&is_dir($config['paths']['root']."language/".$filename))
@@ -1116,7 +1116,7 @@ function DownGrade($s, $show=true)
 			{
 				if (strtolower($tmp2[$j])=="collate")
 				{
-					$tmp2[$j] ="";
+					$tmp2[$j] = '';
 					$tmp2[$j+1] =save_bracket($tmp2[$j+1]);
 					$j++;
 				}
@@ -1132,13 +1132,13 @@ function DownGrade($s, $show=true)
 				if (substr(strtoupper($tmp2[$j]),0,7)=="ENGINE=") $tmp2[$j] ="TYPE=".substr($tmp2[$j],7,strlen($tmp2[$j])-7);
 				if (substr(strtoupper($tmp2[$j]),0,8)=="CHARSET=")
 				{
-					$tmp2[$j] ="";
+					$tmp2[$j] = '';
 					$tmp2[$j-1] =save_bracket($tmp2[$j-1]);
 				}
 				if (substr(strtoupper($tmp2[$j]),0,8)=="COLLATE=")
 				{
 					$tmp2[$j] =save_bracket($tmp2[$j]);
-					$tmp2[$j-1] ="";
+					$tmp2[$j-1] = '';
 				}
 			}
 			$tmp[$i] =implode(" ",$tmp2);
@@ -1169,7 +1169,7 @@ function DownGrade($s, $show=true)
 
 			for ($j=0; $j<count($tmp2); $j++)
 			{
-				if ($end) $tmp2[$j] ="";
+				if ($end) $tmp2[$j] = '';
 				if (strtolower($tmp2[$j])=="timestamp")
 				{
 					$tmp2[$j] ="TIMESTAMP(14)";
@@ -1329,7 +1329,7 @@ function read_config($file=false)
 function get_config_filenames()
 {
 	global $config;
-	$configs=array();
+	$configs= [];
 	$dh=opendir($config['paths']['config']."/");
 	while (false!==($filename=readdir($dh)))
 	{
@@ -1369,7 +1369,7 @@ function get_sql_encodings()
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
 	$erg=false;
 	$config['mysql_standard_character_set'] ='';
-	$config['mysql_possible_character_sets'] =array();
+	$config['mysql_possible_character_sets'] = [];
 
 	// MySQL-Version >= 4.1
 	$config['mysql_can_change_encoding'] =true;

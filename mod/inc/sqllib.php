@@ -22,8 +22,8 @@ include ( './language/'.$config['language'].'/lang_sql.php' );
 /*
 Template
 if $sqllib[$i]['sql'] =trenn, Then it is a Heading
-$sqllib[$i]['name'] ="";
-$sqllib[$i]['sql'] ="";
+$sqllib[$i]['name'] = '';
+$sqllib[$i]['sql'] = '';
 $i++;
 */
 $i=0;

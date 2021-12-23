@@ -338,7 +338,7 @@ function get_insert_syntax($table)
 function del_inline_comments($sql)
 {
 	//$sql=str_replace("\n",'<br>',$sql);
-	$array=array();
+	$array= [];
 	preg_match_all("/(\/\*(.+)\*\/)/U",$sql,$array);
 	if (is_array($array[0]))
 	{

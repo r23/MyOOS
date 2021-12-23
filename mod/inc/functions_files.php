@@ -52,13 +52,13 @@ function FileList($multi=0)
 {
 	global $config,$fpath,$lang,$databases,$href,$dbactiv,$action,$expand;
 
-	$files=Array();
+	$files= [];
 	//Backup-Dateien
 	$Theader= $lang['L_FM_FILES1'].' '.$lang['L_OF'].' "'.$dbactiv.'"';
 	$akind=1;
 	$Sum_Files=0;
 	$dh=opendir($fpath);
-	$fl="";
+	$fl= '';
 	$i=0;
 	while (false!==($filename=readdir($dh)))
 	{
@@ -88,7 +88,7 @@ function FileList($multi=0)
 	<th>'.$lang['L_ENCODING'].'</th></tr>';
 
 	$checkindex= $arrayindex= $gesamt=0;
-	$db_summary_anzahl=Array();
+	$db_summary_anzahl= [];
 	if (count($files)>0)
 	{
 		for($i=0;$i<sizeof($files);$i++)
@@ -334,7 +334,7 @@ function PartListe($f,$nr)
 	global $config,$lang,$fpath;
 	$dateistamm=substr($f,0,strrpos($f,"part_"))."part_";
 	$dateiendung=(substr(strtolower($f),-2)=="gz") ? ".sql.gz":".sql";
-	$s="";
+	$s= '';
 	for($i=1;$i<= $nr;$i++)
 	{
 		if ($i>1) $s.="<br>";
@@ -363,7 +363,7 @@ function Converter($filesource,$filedestination,$cp)
 	($cp==1) ? gzwrite($z,$zeile):fwrite($z,$zeile);
 	$zeile='';
 
-	$insert= $mode="";
+	$insert= $mode= '';
 	$n=0;
 	$eof=($cps==1) ? gzeof($f):feof($f);
 	$splitable=false; // can the file be splitted? Try to avoid splitting before a command is completed

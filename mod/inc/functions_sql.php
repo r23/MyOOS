@@ -46,7 +46,7 @@ function WriteSQL()
 {
 	global $SQL_ARRAY,$config;
 	$sf= $config['paths']['config'].'sql_statements';
-	$str="";
+	$str= '';
 	for ($i = 0; $i < count($SQL_ARRAY); $i++)
 	{
 		$str.= $SQL_ARRAY[$i];
@@ -153,7 +153,7 @@ function Table_Exists($db, $table)
 	$res=mod_query($sqlt);
 	if ($res)
 	{
-		$tables=array();
+		$tables= [];
 		while ($row=mysqli_fetch_row($res))
 		{
 			$tables[] = $row[0];
@@ -193,7 +193,7 @@ function getCountSQLStatements($sql)
 function splitSQLStatements2Array($sql)
 {
 	$z=0;
-	$sqlArr=array();
+	$sqlArr= [];
 	$tmp='';
 	$sql=str_replace("\n",'',$sql);
 	$l=strlen($sql);
@@ -217,7 +217,7 @@ function DB_Copy($source, $destination, $drop_source=0, $insert_data=1)
 {
 	global $config;
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
-	$SQL_Array= $t="";
+	$SQL_Array= $t= '';
     if (!DB_Exists($destination))
     {
         $res = MOD_DoSQL("CREATE DATABASE `$destination`;");
@@ -257,7 +257,7 @@ function Table_Copy($source, $destination, $insert_data, $destinationdb="")
 {
 	global $config;
 	if (!isset($config['dbconnection'])) mod_mysqli_connect();
-	$SQL_Array= $t="";
+	$SQL_Array= $t= '';
 	$sqlc="SHOW CREATE TABLE $source";
 	$res=mod_query($sqlc);
 	$row=mysqli_fetch_row($res);
@@ -310,7 +310,7 @@ function MOD_DoSQL($sqlcommands, $limit="")
 					$sql['parser']['sql_commands']++;
 					$out.=Stringformat(( $sql['parser']['sql_commands'] ),4).': '.$sqlcommand . "\n";
 					$result= $result && mod_query($sqlcommand);
-					$sqlcommand="";
+					$sqlcommand= '';
 				}
 			}
 		}
@@ -336,7 +336,7 @@ function SQLParser($command, $debug=0)
 	if (substr($s,0,1) == "#" || substr($s,0,2) == "--")
 	{
 		$sql['parser']['comment']++;
-		$s="";
+		$s= '';
 	}
 	elseif (strtoupper(substr($s,0,5)) == "DROP ")
 	{
@@ -632,7 +632,7 @@ function CharsetCombo($default="")
 		$res=mysqli_query($config['dbconnection'], "SHOW Charset");
 		$num=mysqli_num_rows($res);
 		$r='<option value="" '.( ( $default == "" ) ? ' selected="selected"' : '').'></option>';
-		$charsets=array();
+		$charsets= [];
 		for ($i = 0; $i < $num; $i++)
 		{
 			$charsets[] =mysqli_fetch_array($res);
@@ -657,7 +657,7 @@ function GetCollationArray()
 
 	$res=mysqli_query($config['dbconnection'], "SHOW Collation");
 	$num=@mysqli_num_rows($res);
-	$r=Array();
+	$r= [];
 	if (is_array($r))
 	{
 		for ($i = 0; $i < $num; $i++)
@@ -760,7 +760,7 @@ function ExtractTablenameFromSQL($q)
 	// check for SELECT-Statement to extract tablename after FROM
 	if (strtoupper(substr($p,0,7)) == 'SELECT ')
 	{
-		$parts=array();
+		$parts= [];
 		$p=substr($p,strpos(strtoupper($p),'FROM') + 5);
 		$parts=explode(' ',$p);
 		$p= $parts[0];
@@ -857,16 +857,16 @@ function make_options($arr, $selected)
 function getFieldinfos($db, $tabelle)
 {
 	global $config;
-	$fields_infos=Array();
+	$fields_infos= [];
 	$t=GetCreateTable($db,$tabelle);
 	$sqlf="SHOW FULL FIELDS FROM `$db`.`$tabelle`;";
 	$res=mod_query($sqlf);
 	$anz_fields=mysqli_num_rows($res);
 
-	$fields_infos['_primarykeys_'] =array();
-	$fields_infos['_key_'] =array();
-	$fields_infos['_uniquekey_'] =array();
-	$fields_infos['_fulltextkey_'] =array();
+	$fields_infos['_primarykeys_'] = [];
+	$fields_infos['_key_'] = [];
+	$fields_infos['_uniquekey_'] = [];
+	$fields_infos['_fulltextkey_'] = [];
 
 	$fields_infos['_tableinfo_'] =array(
 										'ENGINE' => 'MyISAM',
@@ -964,13 +964,13 @@ function getFieldinfos($db, $tabelle)
 function getExtendedFieldInfo($db, $table)
 {
 	global $config;
-	$fields_infos=Array();
+	$fields_infos= [];
 	$t=GetCreateTable($db,$table);
 	$sqlf="SHOW FULL FIELDS FROM `$db`.`$table`;";
 	$res=mod_query($sqlf);
 	$num_fields=mysqli_num_rows($res);
 
-	$f=array(); //will hold all info
+	$f= []; //will hold all info
 	for ($x=0; $x < $num_fields; $x++)
 	{
 		$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
@@ -987,7 +987,7 @@ function getExtendedFieldInfo($db, $table)
 		$f[$i]['default'] ='';
 		$f[$i]['extra'] ='';
 		$f[$i]['privileges'] ='';
-		$f[$i]['primary_keys'] =array();
+		$f[$i]['primary_keys'] = [];
 
 		if (isset($row['Collation'])) $f[$i]['collate'] = $row['Collation'];
 		if (isset($row['COLLATE'])) $f[$i]['collate'] = $row['COLLATE']; // MySQL <4.1
@@ -1099,7 +1099,7 @@ function build_where_from_record($data)
  */
 function getPrimaryKeys($db, $table)
 {
-	$keys=Array();
+	$keys= [];
 	$sqlk="SHOW KEYS FROM `" . $db . "`.`" . $table . "`;";
 	$res=mod_query($sqlk);
 	while ($row=mysqli_fetch_array($res))
@@ -1127,7 +1127,7 @@ function getPrimaryKeys($db, $table)
  */
 function getAllFields($db, $table)
 {
-	$fields=Array();
+	$fields= [];
 	$sqlk="DESCRIBE `" . $db . "`.`" . $table . "`;";
 	$res=mod_query($sqlk);
 	while ($row=mysqli_fetch_array($res))
@@ -1219,7 +1219,7 @@ function get_output_attribut_null($null)
 function get_attribut_size_from_type($type)
 {
 	$size='';
-	$matches=array();
+	$matches= [];
 	$pattern='/\((\d.*?)\)/msi';
 	preg_match($pattern,$type,$matches);
 	if (isset($matches[1])) $size= $matches[1];
