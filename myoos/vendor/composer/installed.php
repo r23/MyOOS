@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c3b66a3881be5231afa7cd1e215fe9ca0e0d31d7',
+        'reference' => '9ec9c71f81cbf4837763835f99c94ffddcf2edfe',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -119,12 +119,12 @@
             'dev_requirement' => false,
         ),
         'ezyang/htmlpurifier' => array(
-            'pretty_version' => 'v4.13.0',
-            'version' => '4.13.0.0',
+            'pretty_version' => 'v4.14.0',
+            'version' => '4.14.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ezyang/htmlpurifier',
             'aliases' => array(),
-            'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
+            'reference' => '12ab42bd6e742c70c0a52f7b82477fcd44e64b75',
             'dev_requirement' => false,
         ),
         'friendsofphp/proxy-manager-lts' => array(
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c3b66a3881be5231afa7cd1e215fe9ca0e0d31d7',
+            'reference' => '9ec9c71f81cbf4837763835f99c94ffddcf2edfe',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
