@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: newsletters.php,v 1.7 2002/03/11 14:13:05 harley_vb 
+   File: newsletters.php,v 1.7 2002/03/11 14:13:05 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -46,4 +46,3 @@ define('ERROR_NEWSLETTER_MODULE', 'Fehler: Das Newsletter Modul wird benötigt.'
 define('ERROR_REMOVE_UNLOCKED_NEWSLETTER', 'Fehler: Bitte sperren Sie das Rundschreiben bevor Sie es löschen.');
 define('ERROR_EDIT_UNLOCKED_NEWSLETTER', 'Fehler: Bitte sperren Sie das Rundschreiben bevor Sie es bearbeiten.');
 define('ERROR_SEND_UNLOCKED_NEWSLETTER', 'Fehler: Bitte sperren Sie das Rundschreiben bevor Sie es versenden.');
-

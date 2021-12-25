@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -28,4 +28,3 @@ $aLang['email_subject'] = 'Anfrage von ' . STORE_NAME;
 $aLang['entry_name'] = 'Vollständiger Name:';
 $aLang['entry_email'] = 'eMail-Adresse:';
 $aLang['entry_enquiry'] = 'Anfrage:';
-

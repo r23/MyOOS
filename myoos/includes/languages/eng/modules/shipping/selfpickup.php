@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: item.php,v 1.5 2002/11/19 01:48:08 dgw_ 
+   File: item.php,v 1.5 2002/11/19 01:48:08 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -31,4 +31,3 @@ define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_DESC', 'Sort order of display.');
 $aLang['module_shipping_selfpickup_text_title'] = 'Self Pickup';
 $aLang['module_shipping_selfpickup_text_description'] = 'Pickup By The Customer';
 $aLang['module_shipping_selfpickup_text_way'] = 'Self Pickup at our Company.';
-

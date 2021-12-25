@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: orders.php,v 1.24 2003/02/09 13:15:22 thomasamoulton 
+   File: orders.php,v 1.24 2003/02/09 13:15:22 thomasamoulton
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -102,4 +102,3 @@ define('TEXT_BANK_ERROR_5', 'Bankleitzahl nicht gefunden!');
 define('TEXT_BANK_ERROR_8', 'Keine Bankleitzahl angegeben!');
 define('TEXT_BANK_ERROR_9', 'Keine Kontonummer angegeben!');
 define('TEXT_BANK_ERRORCODE', 'Fehlercode:');
-

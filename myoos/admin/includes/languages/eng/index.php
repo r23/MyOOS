@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: index.php,v 1.2 2002/03/30 11:10:39 hpdl 
+   File: index.php,v 1.2 2002/03/30 11:10:39 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -41,4 +41,3 @@ define('REPORTS_ORDERS', 'Orders');
 define('TOOLS_BACKUP', 'Backup');
 define('TOOLS_BANNERS', 'Banners');
 define('TOOLS_FILES', 'Files');
-

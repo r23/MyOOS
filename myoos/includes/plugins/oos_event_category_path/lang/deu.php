@@ -12,4 +12,3 @@
 
 define('PLUGIN_EVENT_CATEGORY_PATH_NAME', 'Kategorie Pfad');
 define('PLUGIN_EVENT_CATEGORY_PATH_DESC', 'Analysiert den Kategorie Pfad.');
-

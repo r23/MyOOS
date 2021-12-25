@@ -64,5 +64,3 @@ define('ENTRY_CUSTOMERS_STATUS_PAYMENT', 'Zahlungsweise : ');
 define('ERROR_REMOVE_DEFAULT_CUSTOMER_STATUS', 'Fehler: Die Standardgruppe darf nicht gelöscht werden. Bitte definieren Sie eine neue Standardgruppe und wiederholen Sie den Vorgang.');
 define('ERROR_STATUS_USED_IN_CUSTOMERS', 'Fehler: Diese Kundengruppe wird zur Zeit bei Kunden verwendet.');
 define('ERROR_STATUS_USED_IN_HISTORY', 'Fehler: Diese Kundengruppe wird zur Zeit in der Bestellübersicht verwendet.');
-
-

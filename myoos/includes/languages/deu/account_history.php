@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -34,4 +34,3 @@ $aLang['text_order_cost'] = 'Summe:';
 $aLang['text_view_order'] = 'Bestellung ansehen';
 
 $aLang['text_no_purchases'] = 'Sie haben noch keine Bestellungen getätigt.';
-

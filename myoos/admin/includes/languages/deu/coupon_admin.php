@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: coupon_admin.php,v 1.1.2.2 2003/05/15 23:10:55 wilt 
+   File: coupon_admin.php,v 1.1.2.2 2003/05/15 23:10:55 wilt
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com

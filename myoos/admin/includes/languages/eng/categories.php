@@ -163,4 +163,3 @@ define('TEXT_DATA', 'Data');
 define('TEXT_IMAGES', 'Images');
 define('TEXT_UPLOAD', 'File Upload');
 define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image from this category?');
-

@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
@@ -33,7 +33,7 @@ $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products_new|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
@@ -41,19 +41,19 @@ $sCanonical = oos_href_link($aContents['products_new'], 'page='. $nPage, false, 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 
-if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
+    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
 
 
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
-	$productstable  = $oostable['products'];
+    $productstable  = $oostable['products'];
     $specialsstable = $oostable['specials'];
     $manufacturersstable = $oostable['manufacturers'];
     $products_descriptiontable = $oostable['products_description'];
@@ -78,91 +78,90 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $products_new_array = array();
     while ($products_new = $products_new_result->fields) {
+        $discount = null;
 
-		$discount = NULL;
-		
-		$new_product_price = NULL;
-		$new_product_price_list = NULL;
-		$new_product_special_price = NULL;
-		$new_product_discount_price = NULL;
-		$new_base_product_price = NULL;
-		$base_product_price = $products_new['products_price'];
+        $new_product_price = null;
+        $new_product_price_list = null;
+        $new_product_special_price = null;
+        $new_product_discount_price = null;
+        $new_base_product_price = null;
+        $base_product_price = $products_new['products_price'];
 
-		if ($aUser['show_price'] == 1 ) {
-			$new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-			$new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
+        if ($aUser['show_price'] == 1) {
+            $new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+            $new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
 
-            if ( $listing['products_discount4'] > 0 ) {
-				$discount = $listing['products_discount4'];
-            } elseif ( $listing['products_discount3'] > 0 ) {
-				$discount = $listing['products_discount3'];
-            } elseif ( $listing['products_discount2'] > 0 ) {
-				$discount = $listing['products_discount2'];
-            } elseif ( $listing['products_discount1'] > 0 ) {
-				$discount = $listing['products_discount1'];
+            if ($listing['products_discount4'] > 0) {
+                $discount = $listing['products_discount4'];
+            } elseif ($listing['products_discount3'] > 0) {
+                $discount = $listing['products_discount3'];
+            } elseif ($listing['products_discount2'] > 0) {
+                $discount = $listing['products_discount2'];
+            } elseif ($listing['products_discount1'] > 0) {
+                $discount = $listing['products_discount1'];
             }
 
-            if ( $discount > 0 ) {
-				$base_product_price = $discount;
-				$listing_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
-            } 
+            if ($discount > 0) {
+                $base_product_price = $discount;
+                $listing_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
+            }
 
-		
-			if (isset($products_new['specials_new_products_price'])) {
-				$base_product_price = $products_new['specials_new_products_price'];
-				$new_product_special_price = $oCurrencies->display_price($products_new['specials_new_products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-			} 
 
-			if ($products_new['products_base_price'] != 1) {
-				$new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-			}
-		}		
+            if (isset($products_new['specials_new_products_price'])) {
+                $base_product_price = $products_new['specials_new_products_price'];
+                $new_product_special_price = $oCurrencies->display_price($products_new['specials_new_products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+            }
 
-		$order_min = number_format($products_new['products_quantity_order_min']);
-		$order_max = number_format($products_new['products_quantity_order_max']);
-		
-		$products_new_array[] = array(
-									'id' => $products_new['products_id'],
-									'name' => $products_new['products_name'],
+            if ($products_new['products_base_price'] != 1) {
+                $new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+            }
+        }
+
+        $order_min = number_format($products_new['products_quantity_order_min']);
+        $order_max = number_format($products_new['products_quantity_order_max']);
+
+        $products_new_array[] = array(
+                                    'id' => $products_new['products_id'],
+                                    'name' => $products_new['products_name'],
                                     'image' => $products_new['products_image'],
-									'products_short_description' => $products_new['products_short_description'],
+                                    'products_short_description' => $products_new['products_short_description'],
                                     'new_product_price' => $new_product_price,
-									'new_product_price_list' => $new_product_price_list,
+                                    'new_product_price_list' => $new_product_price_list,
                                     'new_product_units' => $products_new['products_units_id'],
-									'new_product_quantity' => $products_new['products_product_quantity'],
-									'order_min' => $order_min,
-									'order_max' => $order_max,									
+                                    'new_product_quantity' => $products_new['products_product_quantity'],
+                                    'order_min' => $order_min,
+                                    'order_max' => $order_max,
                                     'new_product_special_price' => $new_product_special_price,
                                     'new_product_discount_price' => $new_product_discount_price,
                                     'new_base_product_price' => $new_base_product_price,
                                     'products_base_price' => $products_new['products_base_price'],
                                     'new_products_base_unit' => $products_new['products_base_unit'],
                                     'date_added' => $products_new['products_date_added'],
-									'manufacturers_id' => $products_new['manufacturers_id'],
+                                    'manufacturers_id' => $products_new['manufacturers_id'],
                                     'manufacturer' => $products_new['manufacturers_name']);
-		$products_new_result->MoveNext();
-	}
+        $products_new_result->MoveNext();
+    }
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
 
-	
+
     // assign Smarty variables;
     $smarty->assign(
         array(
            'breadcrumb'         => $oBreadcrumb->trail(),
            'heading_title'      => $aLang['heading_title'],
-		   'robots'				=> 'noindex,follow,noodp,noydir',
-		   'canonical'			=> $sCanonical,
+           'robots'				=> 'noindex,follow,noodp,noydir',
+           'canonical'			=> $sCanonical,
 
            'page_split'			=> $products_new_split->display_count($aLang['text_display_number_of_products_new']),
            'display_links'		=> $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-			'numrows' 			=> $products_new_split->number_of_rows,
-			'numpages' 			=> $products_new_split->number_of_pages,
-		
-			'page'				=> $nPage,
+            'numrows' 			=> $products_new_split->number_of_rows,
+            'numpages' 			=> $products_new_split->number_of_pages,
+
+            'page'				=> $nPage,
            'products_new' 		=> $products_new_array
-		)
+        )
     );
 }
 

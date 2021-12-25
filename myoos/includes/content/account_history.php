@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: account_history.php,v 1.58 2003/02/13 01:58:23 hpdl 
+   File: account_history.php,v 1.58 2003/02/13 01:58:23 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,27 +19,29 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-// cookie-notice 
-if ( $bNecessary === false ) {
-	oos_redirect(oos_href_link($aContents['home']));
+// cookie-notice
+if ($bNecessary === false) {
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 // start the session
-if ( $session->hasStarted() === false ) $session->start();
-  
+if ($session->hasStarted() === false) {
+    $session->start();
+}
+
 if (!isset($_SESSION['customer_id'])) {
-  	// navigation history
-	if (!isset($_SESSION['navigation'])) {
-		$_SESSION['navigation'] = new navigationHistory();
-	} 
+    // navigation history
+    if (!isset($_SESSION['navigation'])) {
+        $_SESSION['navigation'] = new navigationHistory();
+    }
     $_SESSION['navigation']->set_snapshot();
-	$_SESSION['guest_login'] = 'off';
+    $_SESSION['guest_login'] = 'off';
     oos_redirect(oos_href_link($aContents['login']));
 }
 
-$nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
+$nPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
@@ -64,21 +66,21 @@ $history_result = $dbconn->Execute($history_split->sql_query);
 
 $aHistory = array();
 if ($history_result->RecordCount()) {
-	while ($history = $history_result->fields) {
-		$orders_productstable = $oostable['orders_products'];
-		$sql = "SELECT COUNT(*) AS total
+    while ($history = $history_result->fields) {
+        $orders_productstable = $oostable['orders_products'];
+        $sql = "SELECT COUNT(*) AS total
               FROM $orders_productstable
               WHERE orders_id = '" . intval($history['orders_id']) . "'";
-		$products = $dbconn->Execute($sql);
-		$aHistory[] = array('orders_id' => $history['orders_id'],
+        $products = $dbconn->Execute($sql);
+        $aHistory[] = array('orders_id' => $history['orders_id'],
                           'orders_status_name' => $history['orders_status_name'],
                           'date_purchased' => $history['date_purchased'],
                           'delivery_name' =>  $history['delivery_name'],
                           'products_total' => $products->fields['total'],
                           'order_total' => strip_tags($history['order_total']));
-		// Move that ADOdb pointer!
-		$history_result->MoveNext();
-	}
+        // Move that ADOdb pointer!
+        $history_result->MoveNext();
+    }
 }
 
 // links breadcrumb
@@ -92,26 +94,26 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
-	array(
-		'breadcrumb'		=> $oBreadcrumb->trail(),
-		'heading_title'		=> $aLang['heading_title'],
-		'robots'			=> 'noindex,nofollow,noodp,noydir',
+    array(
+        'breadcrumb'		=> $oBreadcrumb->trail(),
+        'heading_title'		=> $aLang['heading_title'],
+        'robots'			=> 'noindex,nofollow,noodp,noydir',
 
-		'account_active'	=> 1,
-		'page_split'   		=> $history_split->display_count($aLang['text_display_number_of_orders']),
-		'display_links' 	=> $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-		'numrows' 			=> $history_split->number_of_rows,
-		'numpages' 			=> $history_split->number_of_pages,
+        'account_active'	=> 1,
+        'page_split'   		=> $history_split->display_count($aLang['text_display_number_of_orders']),
+        'display_links' 	=> $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+        'numrows' 			=> $history_split->number_of_rows,
+        'numpages' 			=> $history_split->number_of_pages,
 
-		'page'				=> $nPage,	
-		'history' 			=> $aHistory
-	)
+        'page'				=> $nPage,
+        'history' 			=> $aHistory
+    )
 );
 
 

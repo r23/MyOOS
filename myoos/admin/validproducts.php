@@ -54,16 +54,15 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
               AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
             ORDER BY pd.products_name";
     $result = $dbconn->Execute($sql);
-    while($row = $result->fields) {
+    while ($row = $result->fields) {
+        echo '<tr>' . "\n";
+        echo '<td>' . $row['products_id'] . '</td>' . "\n";
+        echo '<td>' . $row['products_name'] . '</td>' . "\n";
+        echo '<td>' . $row['products_model'] . '</td>' . "\n";
+        echo '</tr>' . "\n";
 
-      echo '<tr>' . "\n";
-      echo '<td>' . $row['products_id'] . '</td>' . "\n";
-      echo '<td>' . $row['products_name'] . '</td>' . "\n";
-      echo '<td>' . $row['products_model'] . '</td>' . "\n";
-      echo '</tr>' . "\n";
-
-      // Move that ADOdb pointer!
-      $result->MoveNext();
+        // Move that ADOdb pointer!
+        $result->MoveNext();
     }
 
     echo "</table>\n";

@@ -9,7 +9,7 @@
    Based on:
 
    File: logoff.php,v 1.1.2.2 2003/05/13 23:20:53 wilt Exp $
-   orig: logoff.php,v 1.12 2003/02/13 03:01:51 hpdl 
+   orig: logoff.php,v 1.12 2003/02/13 03:01:51 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -20,21 +20,23 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-// cookie-notice 
-if ( $bNecessary === false ) {
-	oos_redirect(oos_href_link($aContents['home']));
+// cookie-notice
+if ($bNecessary === false) {
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 
 // start the session
-if ( $session->hasStarted() === false ) $session->start();  
-  
+if ($session->hasStarted() === false) {
+    $session->start();
+}
+
 // if the customer is not logged on, redirect them to the login page
 if (!isset($_SESSION['customer_id'])) {
-	oos_redirect(oos_href_link($aContents['home']));
-}  
+    oos_redirect(oos_href_link($aContents['home']));
+}
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_logoff.php';
 
@@ -54,10 +56,10 @@ unset($_SESSION['cc_id']);
 unset($_SESSION['man_key']);
 
 if (ACCOUNT_VAT_ID == 'true') {
-	$_SESSION['customers_vat_id_status'] = 0;
+    $_SESSION['customers_vat_id_status'] = 0;
 }
 
-$_SESSION['cart']->reset(); 
+$_SESSION['cart']->reset();
 $_SESSION['user']->anonymous();
 $aUser = $oUser->group;
 
@@ -71,20 +73,20 @@ $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 
 // assign Smarty variables;
 $smarty->assign(
-	array(
-		'breadcrumb'	=> $oBreadcrumb->trail(),
-		'heading_title' => $aLang['heading_title'],
-		'robots'		=> 'noindex,follow,noodp,noydir',
-		'login_active'	=> 1,		
-		'canonical'		=> $sCanonical
-	)
+    array(
+        'breadcrumb'	=> $oBreadcrumb->trail(),
+        'heading_title' => $aLang['heading_title'],
+        'robots'		=> 'noindex,follow,noodp,noydir',
+        'login_active'	=> 1,
+        'canonical'		=> $sCanonical
+    )
 );
 
 // display the template

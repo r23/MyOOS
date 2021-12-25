@@ -4,17 +4,17 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: coupon_restrict.php,v 1.1.2.1 2003/05/10 16:10:21 wilt 
+   File: coupon_restrict.php,v 1.1.2.1 2003/05/10 16:10:21 wilt
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
- 
+
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
@@ -82,4 +82,3 @@ define('COUPON_USES_COUPON_HELP', 'The maximum number of times the coupon can be
 define('COUPON_USES_USER_HELP', 'Number of times a user can use the coupon, leave blank for no limit.');
 define('COUPON_PRODUCTS_HELP', 'A comma separated list of product_ids that this coupon can be used with. Leave blank for no restrictions.');
 define('COUPON_CATEGORIES_HELP', 'A comma separated list of cpaths that this coupon can be used with, leave blank for no restrictions.');
-

@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: tax_rates.php,v 1.27 2002/06/07 01:17:46 hpdl 
+   File: tax_rates.php,v 1.27 2002/06/07 01:17:46 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -28,31 +28,33 @@ require 'includes/main.php';
   * @param $selected
   * @return string
   */
-  function oosTaxClassesPullDown($parameters, $selected = '') {
+  function oosTaxClassesPullDown($parameters, $selected = '')
+  {
+      $select_string = '<select ' . $parameters . '>';
 
-    $select_string = '<select ' . $parameters . '>';
+      // Get database information
+      $dbconn =& oosDBGetConn();
+      $oostable =& oosDBGetTables();
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $tax_classtable = $oostable['tax_class'];
-    $classes_sql = "SELECT tax_class_id, tax_class_title
+      $tax_classtable = $oostable['tax_class'];
+      $classes_sql = "SELECT tax_class_id, tax_class_title
                     FROM $tax_classtable
                     ORDER BY tax_class_title";
-    $result = $dbconn->Execute($classes_sql);
-    while ($classes = $result->fields) {
-      $select_string .= '<option value="' . $classes['tax_class_id'] . '"';
-      if ($selected == $classes['tax_class_id']) $select_string .= ' selected="selected"';
-      $select_string .= '>' . $classes['tax_class_title'] . '</option>';
+      $result = $dbconn->Execute($classes_sql);
+      while ($classes = $result->fields) {
+          $select_string .= '<option value="' . $classes['tax_class_id'] . '"';
+          if ($selected == $classes['tax_class_id']) {
+              $select_string .= ' selected="selected"';
+          }
+          $select_string .= '>' . $classes['tax_class_title'] . '</option>';
 
-      // Move that ADOdb pointer!
-      $result->MoveNext();
-    }
+          // Move that ADOdb pointer!
+          $result->MoveNext();
+      }
 
-    $select_string .= '</select>';
+      $select_string .= '</select>';
 
-    return $select_string;
+      return $select_string;
   }
 
 
@@ -62,35 +64,37 @@ require 'includes/main.php';
   * @param $parameters
   * @param $selected
   * @return string
-  */ 
-  function oosGeoZonesPullDown($parameters, $selected = '') {
+  */
+  function oosGeoZonesPullDown($parameters, $selected = '')
+  {
+      $select_string = '<select ' . $parameters . '>';
 
-    $select_string = '<select ' . $parameters . '>';
+      // Get database information
+      $dbconn =& oosDBGetConn();
+      $oostable =& oosDBGetTables();
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
-
-    $geo_zonestable = $oostable['geo_zones'];
-    $zones_sql = "SELECT geo_zone_id, geo_zone_name
+      $geo_zonestable = $oostable['geo_zones'];
+      $zones_sql = "SELECT geo_zone_id, geo_zone_name
                   FROM $geo_zonestable
                   ORDER BY geo_zone_name";
-    $result = $dbconn->Execute($zones_sql);
-    while ($zones = $result->fields) {
-      $select_string .= '<option value="' . $zones['geo_zone_id'] . '"';
-      if ($selected == $zones['geo_zone_id']) $select_string .= ' selected="selected"';
-      $select_string .= '>' . $zones['geo_zone_name'] . '</option>';
+      $result = $dbconn->Execute($zones_sql);
+      while ($zones = $result->fields) {
+          $select_string .= '<option value="' . $zones['geo_zone_id'] . '"';
+          if ($selected == $zones['geo_zone_id']) {
+              $select_string .= ' selected="selected"';
+          }
+          $select_string .= '>' . $zones['geo_zone_name'] . '</option>';
 
-      // Move that ADOdb pointer!
-      $result->MoveNext();
-    }
+          // Move that ADOdb pointer!
+          $result->MoveNext();
+      }
 
-    $select_string .= '</select>';
+      $select_string .= '</select>';
 
-    return $select_string;
+      return $select_string;
   }
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
@@ -100,8 +104,8 @@ if (!empty($action)) {
         $tax_class_id = oos_db_prepare_input($_POST['tax_class_id']);
         $tax_rate = oos_db_prepare_input($_POST['tax_rate']);
         $tax_description = oos_db_prepare_input($_POST['tax_description']);
-        $tax_priority = oos_db_prepare_input($_POST['tax_priority']);	  
- 
+        $tax_priority = oos_db_prepare_input($_POST['tax_priority']);
+
         $tax_ratestable = $oostable['tax_rates'];
         $dbconn->Execute("INSERT INTO $tax_ratestable (tax_zone_id, tax_class_id, tax_rate, tax_description, tax_priority, date_added) VALUES ('" . oos_db_input($tax_zone_id) . "', '" . oos_db_input($tax_class_id) . "', '" . oos_db_input($tax_rate) . "', '" . oos_db_input($tax_description) . "', '" . oos_db_input($tax_priority) . "', now())");
 
@@ -115,7 +119,7 @@ if (!empty($action)) {
         $tax_class_id = oos_db_prepare_input($_POST['tax_class_id']);
         $tax_rate = oos_db_prepare_input($_POST['tax_rate']);
         $tax_description = oos_db_prepare_input($_POST['tax_description']);
-        $tax_priority = oos_db_prepare_input($_POST['tax_priority']);	 
+        $tax_priority = oos_db_prepare_input($_POST['tax_priority']);
 
         $tax_ratestable = $oostable['tax_rates'];
         $dbconn->Execute("UPDATE $tax_ratestable SET tax_rates_id = '" . oos_db_input($tax_rates_id) . "', tax_zone_id = '" . oos_db_input($tax_zone_id) . "', tax_class_id = '" . oos_db_input($tax_class_id) . "', tax_rate = '" . oos_db_input($tax_rate) . "', tax_description = '" . oos_db_input($tax_description) . "', tax_priority = '" . oos_db_input($tax_priority) . "', last_modified = now() WHERE tax_rates_id = '" . oos_db_input($tax_rates_id) . "'");
@@ -130,8 +134,8 @@ if (!empty($action)) {
         oos_redirect_admin(oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage));
         break;
     }
-  }
-  require 'includes/header.php'; 
+}
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -205,21 +209,24 @@ if (!empty($action)) {
   $rates_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $rates_result_raw, $rates_result_numrows);
   $rates_result = $dbconn->Execute($rates_result_raw);
   while ($rates = $rates_result->fields) {
-    if ((!isset($_GET['tID']) || (isset($_GET['tID']) && ($_GET['tID'] == $rates['tax_rates_id']))) && !isset($trInfo) && (substr($action, 0, 3) != 'new')) {
-      $trInfo = new objectInfo($rates);
-    }
+      if ((!isset($_GET['tID']) || (isset($_GET['tID']) && ($_GET['tID'] == $rates['tax_rates_id']))) && !isset($trInfo) && (substr($action, 0, 3) != 'new')) {
+          $trInfo = new objectInfo($rates);
+      }
 
-    if (isset($trInfo) && is_object($trInfo) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id) ) {
-      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '\'">' . "\n";
-    } else {
-      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id']) . '\'">' . "\n";
-    }
-?>
+      if (isset($trInfo) && is_object($trInfo) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id)) {
+          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '\'">' . "\n";
+      } else {
+          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id']) . '\'">' . "\n";
+      } ?>
                 <td><?php echo $rates['tax_priority']; ?></td>
                 <td><?php echo $rates['tax_class_title']; ?></td>
                 <td><?php echo $rates['geo_zone_name']; ?></td>
                 <td><?php echo oos_display_tax_value($rates['tax_rate']); ?>%</td>
-                <td class="text-right"><?php if (isset($trInfo) && is_object($trInfo) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($trInfo) && is_object($trInfo) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id)) {
+          echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+      } else {
+          echo '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $rates['tax_rates_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+      } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -234,7 +241,7 @@ if (!empty($action)) {
                   </tr>
 <?php
   if (empty($action)) {
-?>
+      ?>
                   <tr>
                     <td colspan="5" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAX_RATE) . '</a>'; ?></td>
                   </tr>
@@ -252,20 +259,20 @@ if (!empty($action)) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $nPage . '&action=insert', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $nPage . '&action=insert', 'post', false));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_TITLE . '<br>' . oosTaxClassesPullDown('name="tax_class_id" style="font-size:10px"'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_ZONE_NAME . '<br>' . oosGeoZonesPullDown('name="tax_zone_id" style="font-size:10px"'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_TAX_RATE . '<br>' . oos_draw_input_field('tax_rate'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_RATE_DESCRIPTION . '<br>' . oos_draw_input_field('tax_description'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_TAX_RATE_PRIORITY . '<br>' . oos_draw_input_field('tax_priority', $trInfo->tax_priority));	  
+      $contents[] = array('text' => '<br>' . TEXT_INFO_TAX_RATE_PRIORITY . '<br>' . oos_draw_input_field('tax_priority', $trInfo->tax_priority));
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id  . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id  . '&action=save', 'post', false));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_TITLE . '<br>' . oosTaxClassesPullDown('name="tax_class_id" style="font-size:10px"', $trInfo->tax_class_id));
       $contents[] = array('text' => '<br>' . TEXT_INFO_ZONE_NAME . '<br>' . oosGeoZonesPullDown('name="tax_zone_id" style="font-size:10px"', $trInfo->geo_zone_id));
@@ -278,7 +285,7 @@ if (!empty($action)) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_TAX_RATE . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'rates', $aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm', 'post', false));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br><b>' . $trInfo->tax_class_title . ' ' . number_format($trInfo->tax_rate, TAX_DECIMAL_PLACES) . '%</b>');
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
@@ -286,27 +293,26 @@ if (!empty($action)) {
 
     default:
       if (isset($trInfo) && is_object($trInfo)) {
-        $heading[] = array('text' => '<b>' . $trInfo->tax_class_title . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($trInfo->date_added));
-        $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($trInfo->last_modified));
-        $contents[] = array('text' => '<br>' . TEXT_INFO_RATE_DESCRIPTION . '<br>' . $trInfo->tax_description);
+          $heading[] = array('text' => '<b>' . $trInfo->tax_class_title . '</b>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage . '&tID=' . $trInfo->tax_rates_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($trInfo->date_added));
+          $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($trInfo->last_modified));
+          $contents[] = array('text' => '<br>' . TEXT_INFO_RATE_DESCRIPTION . '<br>' . $trInfo->tax_description);
       }
       break;
   }
 
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+        ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
+        $box = new box();
+        echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-  }
+    }
 ?>
           </tr>
         </table>
@@ -326,7 +332,7 @@ if (!empty($action)) {
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

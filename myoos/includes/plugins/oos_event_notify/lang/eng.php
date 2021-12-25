@@ -12,4 +12,3 @@
 
 define('PLUGIN_EVENT_NOTIFY_NAME', 'Notify of updates');
 define('PLUGIN_EVENT_NOTIFY_DESC', 'Notify of updates');
-

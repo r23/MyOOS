@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -26,4 +26,3 @@ $aLang['heading_title'] = 'New Products';
 $aLang['text_date_added'] = 'Date Added:';
 $aLang['text_manufacturer'] = 'Manufacturer:';
 $aLang['text_price'] = 'Price:';
-

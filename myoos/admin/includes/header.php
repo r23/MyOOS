@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: header.php,v 1.19 2002/04/13 16:11:52 hpdl 
+   File: header.php,v 1.19 2002/04/13 16:11:52 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
 ?><!DOCTYPE html>
@@ -51,7 +51,7 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
 <body>
 <?php
 if ($messageStack->size > 0) {
-	echo $messageStack->output();
+    echo $messageStack->output();
 }
 ?>
 

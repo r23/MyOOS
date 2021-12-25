@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -47,5 +47,3 @@ $aLang['owner_email_newsletter'] = 'Newsletter:';
 $aLang['owner_email_newsletter_yes'] = 'abonniert';
 $aLang['owner_email_newsletter_no'] = 'nicht abonniert';
 $aLang['email_separator'] = '------------------------------------------------------';
-
-

@@ -22,5 +22,3 @@ define('MAX_MANUFACTURERS_LIST_DESC', 'Used in manufacturers box; when this valu
 
 define('MAX_DISPLAY_MANUFACTURER_NAME_LEN_TITLE', 'Length of Manufacturers Name');
 define('MAX_DISPLAY_MANUFACTURER_NAME_LEN_DESC', 'Used in manufacturers box; maximum length of manufacturers name to display');
-
-

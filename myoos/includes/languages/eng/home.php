@@ -33,4 +33,3 @@ $aLang['text_news_score'] = 'Score:';
 $aLang['text_news_printer'] = 'Printer Friendly Page';
 $aLang['text_news_on'] = 'on';
 $aLang['text_news_readmore'] = 'Read More...';
-

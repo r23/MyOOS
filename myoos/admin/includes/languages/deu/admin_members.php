@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: admin_members.php,v 1.13 2002/08/19 01:45:58 hpdl 
+   File: admin_members.php,v 1.13 2002/08/19 01:45:58 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -20,11 +20,11 @@
    ---------------------------------------------------------------------- */
 
 if (isset($_GET['gID']) && ($_GET['gID'])) {
-  define('HEADING_TITLE', 'redaktionelle Gruppen');
+    define('HEADING_TITLE', 'redaktionelle Gruppen');
 } elseif (isset($_GET['gPath']) && ($_GET['gPath'])) {
-  define('HEADING_TITLE', 'Gruppe anlegen');
+    define('HEADING_TITLE', 'Gruppe anlegen');
 } else {
-  define('HEADING_TITLE', 'Redaktionsmitglieder');
+    define('HEADING_TITLE', 'Redaktionsmitglieder');
 }
 
 define('TEXT_COUNT_GROUPS', 'Gruppen: ');
@@ -77,7 +77,7 @@ define('JS_ALERT_EMAIL_USED', '- Email Adresse wird schon verwendet! \n');
 define('JS_ALERT_LEVEL', '- Benoetigt: Gruppenmitglied \n');
 
 define('ADMIN_EMAIL_SUBJECT', 'Neues Redaktionsmitglied');
-define('ADMIN_EMAIL_TEXT', 'Hallo %s,' . "\n\n" . 'Sie koennen auf den Redaktionsbereich mit dem folgenden Passwort ' . "\n" . 'zugreifen. Wenn Sie einmal auf den Redaktionsbereich zugegriffen haben,' . "\n" . ' aendern Sie bitte Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Bitte nicht auf diese Nachricht antworten, da sie automatisch generiert wurde und nur Ihrer Information dient.'); 
+define('ADMIN_EMAIL_TEXT', 'Hallo %s,' . "\n\n" . 'Sie koennen auf den Redaktionsbereich mit dem folgenden Passwort ' . "\n" . 'zugreifen. Wenn Sie einmal auf den Redaktionsbereich zugegriffen haben,' . "\n" . ' aendern Sie bitte Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Bitte nicht auf diese Nachricht antworten, da sie automatisch generiert wurde und nur Ihrer Information dient.');
 
 define('TEXT_INFO_HEADING_DEFAULT_GROUPS', 'Redaktionsgruppe ');
 define('TEXT_INFO_HEADING_DELETE_GROUPS', 'Lösche Gruppe ');
@@ -99,8 +99,7 @@ define('TEXT_INFO_GROUPS_BOXES_INCLUDE', 'Beinhaltet gespeicherte Daten in: ');
 
 define('TEXT_INFO_HEADING_DEFINE', 'Definiere Gruppe');
 if (isset($_GET['gPath']) && ($_GET['gPath'] == 1)) {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>Sie können nicht die Zugriffsberechtigungen für diese Gruppe vergeben.<br><br>');
+    define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>Sie können nicht die Zugriffsberechtigungen für diese Gruppe vergeben.<br><br>');
 } else {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>ändern Sie die Zugriffsberechtigungen für diese Gruppe und die darin befindlichen Dateien, indem Sie die Bereiche auswählen/abwählen. Klicken Sie <b>speichern</b> um die Änderungen zu sichern.<br><br>');
+    define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>ändern Sie die Zugriffsberechtigungen für diese Gruppe und die darin befindlichen Dateien, indem Sie die Bereiche auswählen/abwählen. Klicken Sie <b>speichern</b> um die Änderungen zu sichern.<br><br>');
 }
-

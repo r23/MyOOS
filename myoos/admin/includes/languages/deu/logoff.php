@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -17,9 +17,8 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-   
+
 define('HEADING_TITLE', 'Abmelden');
 define('NAVBAR_TITLE', 'Anmelden');
 define('TEXT_MAIN', 'Sie haben sich vom <b>Redaktionsbereich</b> abgemeldet. Es ist nun sicher den Computer zu verlassen. Klicken Sie "zurück" wenn Sie sich wieder anmelden wollen.');
 define('TEXT_RELOGIN', 'wieder anmelden');
-

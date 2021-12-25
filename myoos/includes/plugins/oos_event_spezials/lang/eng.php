@@ -24,4 +24,3 @@ define('MAX_RANDOM_SELECT_SPECIALS_DESC', 'How many records to select from to ch
 
 define('MAX_DISPLAY_SPECIAL_PRODUCTS_TITLE', 'Special Products');
 define('MAX_DISPLAY_SPECIAL_PRODUCTS_DESC', 'Maximum number of products on special to display');
-

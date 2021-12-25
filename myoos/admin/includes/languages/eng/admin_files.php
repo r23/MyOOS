@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: admin_categories.php,v 1.13 2002/08/19 01:45:58 hpdl 
+   File: admin_categories.php,v 1.13 2002/08/19 01:45:58 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -53,5 +53,3 @@ define('TEXT_INFO_DELETE_FILE_INTRO', 'Remove <font color="red"><b>%s</b></font>
 define('TEXT_INFO_NEW_FILE_INTRO', 'Check the <font color="red"><b>left menu</b></font> to make sure you store the right files.');
 
 define('TEXT_INFO_NEW_FILE_BOX', 'Current Box: ');
-
-

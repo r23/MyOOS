@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: currencies.php,v 1.14 2002/01/17 11:41:26 jan0815 
+   File: currencies.php,v 1.14 2002/01/17 11:41:26 jan0815
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -45,4 +45,3 @@ define('TEXT_INFO_HEADING_EDIT_CURRENCY', 'Währung bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'Währung löschen');
 define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (manuelles Aktualisieren der Wechselkurse erforderlich.)');
 define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Fehler: Die Standardwährung darf nicht gelöscht werden. Bitte definieren Sie eine neue Standardwährung und wiederholen Sie den Vorgang.');
-

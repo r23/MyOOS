@@ -25,20 +25,20 @@
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_LONG . ' %H:%M:%S');
 
-define('HTML_PARAMS','dir="LTR" lang="en"');
+define('HTML_PARAMS', 'dir="LTR" lang="en"');
 define('CHARSET', 'iso-8859-15');
 define('INSTALLATION', 'MyOOS [Shopsystem] Installation');
 
 define('BTN_CONTINUE', 'Further');
-define('BTN_NEXT' ,'Further');
+define('BTN_NEXT', 'Further');
 define('BTN_RECHECK', 'repeat');
 define('BTN_SET_LANGUAGE', 'Language specify');
-define('BTN_START','Start');
-define('BTN_SUBMIT','confirm');
+define('BTN_START', 'Start');
+define('BTN_SUBMIT', 'confirm');
 define('BTN_NEW_INSTALL', 'New installation');
 define('BTN_UPGARDE', 'Upgrade');
 define('BTN_CHANGE_INFO', 'Change info');
-define('BTN_LOGIN_SUBMIT','Admin install');
+define('BTN_LOGIN_SUBMIT', 'Admin install');
 define('BTN_SET_LOGIN', 'Further');
 define('BTN_FINISH', 'Finish');
 
@@ -186,10 +186,10 @@ define('MALE', 'Male');
 define('FEMALE', 'Female');
 define('ADMIN_FIRSTNAME', 'Admin Firstname');
 define('ADMIN_NAME', 'Admin Name');
-define('ADMIN_EMAIL','Admin E-Mail');
+define('ADMIN_EMAIL', 'Admin E-Mail');
 define('ADMIN_PHONE', 'Admin Phone');
-define('ADMIN_PASS','Admin Password');
-define('ADMIN_REPEATPASS','Password Repeat');
+define('ADMIN_PASS', 'Admin Password');
+define('ADMIN_REPEATPASS', 'Password Repeat');
 define('PASSWORD_HIDDEN', '--HIDDEN--');
 define('OWP_URL', 'Virtual Path (URL)');
 define('ROOT_DIR', 'Webserver Root Directory');
@@ -235,4 +235,3 @@ define('STEP_8', 'Finishied');
 
 define('LINK_BACK', 'Back');
 define('LINK_TOP', 'Top');
-

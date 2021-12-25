@@ -19,8 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'New Product');   
-   
+define('HEADING_TITLE', 'New Product');
+
 define('TEXT_NEW_PRODUCT', 'New Product in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Products');
 define('TEXT_PRODUCTS_DATA', 'Productsdata');
@@ -107,8 +107,8 @@ define('ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST', 'Error: Catalog images di
 define('ERROR_OUTOFSTOCK', 'Not enough items of this product in stock Available.');
 define('ERROR_REPLACEMENT', 'A replacement product was specified. The status has been changed to : No longer available/there is a replacement product.');
 
-define('TEXT_DISCOUNTS_TITLE','Quantity Discounts');
-define('TEXT_DISCOUNTS_BREAKS','Breaks');
-define('TEXT_DISCOUNTS_QTY','Quantity');
-define('TEXT_DISCOUNTS_PRICE','Price (Net)');
+define('TEXT_DISCOUNTS_TITLE', 'Quantity Discounts');
+define('TEXT_DISCOUNTS_BREAKS', 'Breaks');
+define('TEXT_DISCOUNTS_QTY', 'Quantity');
+define('TEXT_DISCOUNTS_PRICE', 'Price (Net)');
 define('TEXT_DISCOUNTS_PRICE_WITH_TAX', 'Price (Gross):');

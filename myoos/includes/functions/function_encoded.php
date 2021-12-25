@@ -10,7 +10,7 @@
    ---------------------------------------------------------------------- */
 
   /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
  /**
@@ -19,14 +19,15 @@
   * @param $sStr
   * @return string
   */
-  function oos_decode_special_chars($sStr){
-    $sStr = str_replace('&gt;', '>', $sStr);
-    $sStr = str_replace('&lt;', '<', $sStr);
-    $sStr = str_replace('&#039;', "'", $sStr);
-    $sStr = str_replace('&quot;', "\"", $sStr);
-    $sStr = str_replace('&amp;', '&', $sStr);
+  function oos_decode_special_chars($sStr)
+  {
+      $sStr = str_replace('&gt;', '>', $sStr);
+      $sStr = str_replace('&lt;', '<', $sStr);
+      $sStr = str_replace('&#039;', "'", $sStr);
+      $sStr = str_replace('&quot;', "\"", $sStr);
+      $sStr = str_replace('&amp;', '&', $sStr);
 
-    return $sStr;
+      return $sStr;
   }
 
 
@@ -36,9 +37,9 @@
   * @param $sStr
   * @return string
   */
-  function oos_make_filename($sStr) {
-
-    static $aFrom = array(
+  function oos_make_filename($sStr)
+  {
+      static $aFrom = array(
                      ' ',
 
                      'Ä',
@@ -81,7 +82,7 @@
 
                      'ý');
 
-    static $aTo   = array(
+      static $aTo   = array(
                      '-',
 
                      'AE',
@@ -123,54 +124,54 @@
                      'n',
 
                      'y');
-    // Replace international chars not detected by every locale
-    $sStr = str_replace($aFrom, $aTo, $sStr);
+      // Replace international chars not detected by every locale
+      $sStr = str_replace($aFrom, $aTo, $sStr);
 
-	$special_chars = array("?", 
-							"[", 
-							"]", 
-							"/", 
-							"\\", 
-							"=", 
-							"<", 
-							">", 
-							":", 
-							";", 
-							",", 
-							"'", 
-							"\"", 
-							"&", 
-							"$", 
-							"#", 
-							"*", 
-							"(", 
-							")", 
-							"|", 
-							"~", 
-							"`", 
-							"!", 
-							"{", 
-							"}", 
-							"%", 
-							"+", 
-							chr(0));
-    //strip html tags from text
-    $sStr = strip_tags($sStr);
+      $special_chars = array("?",
+                            "[",
+                            "]",
+                            "/",
+                            "\\",
+                            "=",
+                            "<",
+                            ">",
+                            ":",
+                            ";",
+                            ",",
+                            "'",
+                            "\"",
+                            "&",
+                            "$",
+                            "#",
+                            "*",
+                            "(",
+                            ")",
+                            "|",
+                            "~",
+                            "`",
+                            "!",
+                            "{",
+                            "}",
+                            "%",
+                            "+",
+                            chr(0));
+      //strip html tags from text
+      $sStr = strip_tags($sStr);
 
-    // Nuke chars not allowed in our URI
-    $sStr = preg_replace('#[^0-9a-z\.\_!;,\+\-]#i', '', $sStr);
+      // Nuke chars not allowed in our URI
+      $sStr = preg_replace('#[^0-9a-z\.\_!;,\+\-]#i', '', $sStr);
 
-    // Recover delimiters as spaces
-    $sStr = str_replace("\x01", " ", $sStr);
+      // Recover delimiters as spaces
+      $sStr = str_replace("\x01", " ", $sStr);
 
-	$sStr = preg_replace( "#\x{00a0}#siu", '', $sStr );
-	$sStr = str_replace( $special_chars, '', $sStr );
-	$sStr = str_replace( array( '%20', '+' ), '-', $sStr );
-	$sStr = preg_replace( '/[\r\n\t -]+/', '-', $sStr );
-	$sStr = trim( $sStr, '.-_' );
-	$sStr = strtolower($sStr);
+      $sStr = preg_replace("#\x{00a0}#siu", '', $sStr);
+      $sStr = str_replace($special_chars, '', $sStr);
+      $sStr = str_replace(array( '%20', '+' ), '-', $sStr);
+      $sStr = preg_replace('/[\r\n\t -]+/', '-', $sStr);
+      $sStr = trim($sStr, '.-_');
+      $sStr = strtolower($sStr);
 
-    return $sStr;
+      return $sStr;
   }
 
   /**
@@ -179,12 +180,13 @@
    * @param $sStr
    * @return string
   */
-  function oos_html_to_xml($sStr) {
+  function oos_html_to_xml($sStr)
+  {
 
      //Taken from Reverend's Jim feedparser
-     //http://revjim.net/code/feedParser/feedParser-0.5.phps
+      //http://revjim.net/code/feedParser/feedParser-0.5.phps
 
-    static $aEntities = array(
+      static $aEntities = array(
               '&nbsp'   => "&#160;",  '&iexcl'  => "&#161;",  '&cent'   => "&#162;",
               '&pound'  => "&#163;",  '&curren' => "&#164;",  '&yen'    => "&#165;",
               '&brvbar' => "&#166;",  '&sect'   => "&#167;",  '&uml'    => "&#168;",
@@ -218,8 +220,7 @@
               '&uacute' => "&#250;",  '&ucirc'  => "&#251;",  '&uuml'   => "&#252;",
               '&yacute' => "&#253;",  '&thorn'  => "&#254;",  '&yuml' =>   "&#255;"
      );
-     $sStr = strtr($sStr, $aEntities);
+      $sStr = strtr($sStr, $aEntities);
 
-    return $sStr;
- }
-
+      return $sStr;
+  }

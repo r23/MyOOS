@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_gv.php,v 1.0 2002/04/03 23:09:49 hpdl 
+   File: ot_gv.php,v 1.0 2002/04/03 23:09:49 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -44,4 +44,3 @@ $aLang['module_cmembers_title'] = 'Kundenrabatt nach Menge';
 $aLang['module_cmembers_description'] = 'Kundenrabatt nach Menge';
 $aLang['shipping_not_included'] = ' [Versandkosten nicht enthalten]';
 $aLang['tax_not_included'] = ' [MwSt. nicht enthalten]';
-

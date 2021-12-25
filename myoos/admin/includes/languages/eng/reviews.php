@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -52,4 +52,3 @@ define('TEXT_OF_5_STARS', '%s of 5 Stars!');
 define('TEXT_GOOD', '<small><font color="#ff0000"><b>GOOD</b></font></small>');
 define('TEXT_BAD', '<small><font color="#ff0000"><b>BAD</b></font></small>');
 define('TEXT_INFO_HEADING_DELETE_REVIEW', 'Delete Review');
-

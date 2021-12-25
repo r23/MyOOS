@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -22,4 +22,3 @@
 
 $aLang['navbar_title'] = 'Ihr Konto';
 $aLang['heading_title'] = 'Ihre persönliche Daten';
-

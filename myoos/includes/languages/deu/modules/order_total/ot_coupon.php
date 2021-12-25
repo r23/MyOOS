@@ -46,4 +46,3 @@ $aLang['redeemed_coupon'] = 'ein Gutschein über ';
 $aLang['redeemed_min_order'] = 'für Waren über ';
 $aLang['redeemed_restrictions'] = ' [Artikel / Kategorie Einschränkungen]';
 $aLang['text_enter_coupon_code'] = 'Gutscheincode&nbsp;&nbsp;';
-

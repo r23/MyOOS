@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: validations.php,v 1.11 2003/02/11 01:31:02 hpdl 
+   File: validations.php,v 1.11 2003/02/11 01:31:02 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,7 +19,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Valid e-Mail - Addresses
@@ -31,21 +31,24 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * @param $sEmail
  * @return boolean
  */
-function is_email($value) {
- 
-    if (!is_string($value)) return FALSE;
- 
+function is_email($value)
+{
+    if (!is_string($value)) {
+        return false;
+    }
+
     // in case value is several addresses separated by newlines
     $_addresses = preg_split('![\n\r]+!', $value);
 
-    foreach($_addresses as $_address) {
-		$_is_valid = !(preg_match('!@.*@|\.\.|\,|\;!', $_address) ||
-	        !preg_match('!^.+\@(\[?)[a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$!', $_address));
-        
-        if(!$_is_valid)
-            return FALSE;
+    foreach ($_addresses as $_address) {
+        $_is_valid = !(preg_match('!@.*@|\.\.|\,|\;!', $_address) ||
+            !preg_match('!^.+\@(\[?)[a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$!', $_address));
+
+        if (!$_is_valid) {
+            return false;
+        }
     }
-    return TRUE;
+    return true;
 }
 
 
@@ -54,11 +57,11 @@ function is_email($value) {
  *
  * @param string $sUrl the value being tested
  */
-function oos_validate_is_url($sUrl) {
-   if (strlen($sUrl) == 0) {
-     return FALSE;
-   }
+function oos_validate_is_url($sUrl)
+{
+    if (strlen($sUrl) == 0) {
+        return false;
+    }
 
-   return preg_match('!^http(s)?://[\w-]+\.[\w-]+(\S+)?$!i', $sUrl);
+    return preg_match('!^http(s)?://[\w-]+\.[\w-]+(\S+)?$!i', $sUrl);
 }
-

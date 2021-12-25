@@ -19,10 +19,14 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-if (!$oEvent->installed_plugin('spezials')) return false;
-if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) return false;
+if (!$oEvent->installed_plugin('spezials')) {
+    return false;
+}
+if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) {
+    return false;
+}
 
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
@@ -43,33 +47,31 @@ $new_spezials_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_NEW_SPEZILAS);
 if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
     $aSpezials = [];
     while ($new_spezials = $new_spezials_result->fields) {
+        $new_spezials_base_product_price = null;
+        $new_spezials_base_product_special_price = null;
 
-		$new_spezials_base_product_price = null;
-		$new_spezials_base_product_special_price = null;
+        if ($aUser['show_price'] == 1) {
+            $new_spezials_product_price = $oCurrencies->display_price($new_spezials['products_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
+            $new_spezials_product_special_price = $oCurrencies->display_price($new_spezials['specials_new_products_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
 
-		if ($aUser['show_price'] == 1 ) {
+            if ($new_spezials['products_base_price'] != 1) {
+                $new_spezials_base_product_price = $oCurrencies->display_price($new_spezials['products_price'] * $new_spezials['products_base_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
+                $new_spezials_base_product_special_price = $oCurrencies->display_price($new_spezials['specials_new_products_price'] * $new_spezials['products_base_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
+            }
+        }
 
-			$new_spezials_product_price = $oCurrencies->display_price($new_spezials['products_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
-			$new_spezials_product_special_price = $oCurrencies->display_price($new_spezials['specials_new_products_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
+        $order_min = number_format($new_spezials['products_quantity_order_min']);
+        $order_max = number_format($new_spezials['products_quantity_order_max']);
 
-			if ($new_spezials['products_base_price'] != 1) {
-				$new_spezials_base_product_price = $oCurrencies->display_price($new_spezials['products_price'] * $new_spezials['products_base_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
-				$new_spezials_base_product_special_price = $oCurrencies->display_price($new_spezials['specials_new_products_price'] * $new_spezials['products_base_price'], oos_get_tax_rate($new_spezials['products_tax_class_id']));
-			}
-		}
+        $aCategoryPath = [];
+        $aCategoryPath = oos_get_category_path($new_products['products_id']);
 
-		$order_min = number_format($new_spezials['products_quantity_order_min']);
-		$order_max = number_format($new_spezials['products_quantity_order_max']);
-
-		$aCategoryPath = [];
-		$aCategoryPath = oos_get_category_path($new_products['products_id']);
-		
-		$aSpezials[] = array('products_id' => $new_spezials['products_id'],
+        $aSpezials[] = array('products_id' => $new_spezials['products_id'],
                                     'products_image' => $new_spezials['products_image'],
                                     'products_name' => $new_spezials['products_name'],
                                     'products_short_description' => $new_spezials['products_short_description'],
-									'products_path' => $aCategoryPath['path'],
-									'categories_name' => $aCategoryPath['name'],										
+                                    'products_path' => $aCategoryPath['path'],
+                                    'categories_name' => $aCategoryPath['name'],
                                     'order_min' => $order_min,
                                     'order_max' => $order_max,
                                     'product_quantity' => $new_spezials['products_product_quantity'],
@@ -81,10 +83,9 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
                                     'base_product_price' => $new_spezials_base_product_price,
                                     'base_product_special_price' => $new_spezials_base_product_special_price);
 
-		// Move that ADOdb pointer!
-		$new_spezials_result->MoveNext();
+        // Move that ADOdb pointer!
+        $new_spezials_result->MoveNext();
     }
 
     $smarty->assign('spezials', $aSpezials);
 }
-

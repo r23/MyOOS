@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: login.php,v 1.11 2002/06/03 13:19:42 hpdl 
+   File: login.php,v 1.11 2002/06/03 13:19:42 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -36,6 +36,5 @@ define('TEXT_FORGOTTEN_ERROR', '<strong>Fehler:</strong> Vorname und Passwort si
 define('TEXT_FORGOTTEN_FAIL', 'Sie haben es mehr als 3x versucht. Aus Sicherheitsgrnden kontaktieren Sie bitte Ihren Administrator um ein neues Passwort zu erhalten.');
 define('TEXT_FORGOTTEN_SUCCESS', 'Das neue Passwort wurde an Ihre E-Mail-Adresse gesendet. Überprüfen Sie Ihren E-Mail-Eingang und klicken Sie zurück um sich anzumelden.');
 
-define('ADMIN_EMAIL_SUBJECT', 'Neues Passwort'); 
-define('ADMIN_EMAIL_TEXT', 'Hallo %s,' . "\n\n" . 'Sie können den redaktionellen Bereich mit folgenden Passwort betreten. Nach erfolgtem Login, ändern Sie bitte aus Sicherheitsgrnden Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Dies ist eine automatisierte Antwortmail. Bitte beantworten Sie diese nicht!'); 
-
+define('ADMIN_EMAIL_SUBJECT', 'Neues Passwort');
+define('ADMIN_EMAIL_TEXT', 'Hallo %s,' . "\n\n" . 'Sie können den redaktionellen Bereich mit folgenden Passwort betreten. Nach erfolgtem Login, ändern Sie bitte aus Sicherheitsgrnden Ihr Passwort!' . "\n\n" . 'Website : %s' . "\n" . 'Benutzername: %s' . "\n" . 'Passwort: %s' . "\n\n" . 'Danke!' . "\n" . '%s' . "\n\n" . 'Dies ist eine automatisierte Antwortmail. Bitte beantworten Sie diese nicht!');

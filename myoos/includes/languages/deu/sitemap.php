@@ -22,10 +22,9 @@ $aLang['heading_title'] = 'Sitemap';
 
 $aLang['heading_information'] = 'Informationen';
 $aLang['page_shopping_cart'] = 'Warenkorb';
-$aLang['page_checkout_shipping'] = 'Kasse'; 
+$aLang['page_checkout_shipping'] = 'Kasse';
 $aLang['page_advanced_search'] = 'Erweiterte Suche';
 $aLang['page_products_new'] = 'Neue Produkte';
 $aLang['page_specials'] = 'Angebote';
 $aLang['page_reviews'] = 'Meinungen';
 $aLang['page_service'] = 'Service';
-

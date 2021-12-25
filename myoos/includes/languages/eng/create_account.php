@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -36,14 +36,14 @@ $aLang['email_warning'] = '<strong>Note:</strong> This email address was given t
 $aLang['email_gv_incentive_header'] = 'As part of our welcome to new customers, we have sent you an e-Gift Voucher worth %s';
 $aLang['email_gv_redeem'] = 'The redeem code for is %s, you can enter the redeem code when checking out, after making a purchase';
 $aLang['email_gv_link'] = 'or by following this link ';
-$aLang['email_coupon_incentive_header'] = 'Congratulation, to make your first visit to our online shop a more rewarding experience' . "\n" . 
+$aLang['email_coupon_incentive_header'] = 'Congratulation, to make your first visit to our online shop a more rewarding experience' . "\n" .
                                         '  below are details of a Discount Coupon created just for you' . "\n\n";
-$aLang['email_coupon_redeem'] = 'To use the coupon enter the redeem code which is %s during checkout, ' . "\n" . 
+$aLang['email_coupon_redeem'] = 'To use the coupon enter the redeem code which is %s during checkout, ' . "\n" .
                                'after making a purchase';
 
 $aLang['email_password'] = 'Ihr Passwort fr \'' . STORE_NAME . '\' lautet:' . "\n\n" . '   %s' . "\n\n";
 
-                               
+
 $aLang['owner_email_subject'] = 'New Customer';
 $aLang['owner_email_date'] = 'Date:';
 $aLang['owner_email_company_info'] = 'Company Details';

@@ -18,101 +18,103 @@
    ---------------------------------------------------------------------- */
 
   /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-  class oos_event_breadcrumb {
+  class oos_event_breadcrumb
+  {
+      public $name;
+      public $description;
+      public $uninstallable;
+      public $depends;
+      public $preceeds;
+      public $author;
+      public $version;
+      public $requirements;
 
-    var $name;
-    var $description;
-    var $uninstallable;
-    var $depends;
-    var $preceeds;
-    var $author;
-    var $version;
-    var $requirements;
 
-
-   /**
-    *  class constructor
-    */
-    public function __construct() {
-
-      $this->name          = PLUGIN_EVENT_BREADCRUMB_NAME;
-      $this->description   = PLUGIN_EVENT_BREADCRUMB_DESC;
-      $this->uninstallable = false;
-      $this->author        = 'MyOOS Development Team';
-      $this->version       = '2.0';
-      $this->requirements  = array(
+      /**
+       *  class constructor
+       */
+      public function __construct()
+      {
+          $this->name          = PLUGIN_EVENT_BREADCRUMB_NAME;
+          $this->description   = PLUGIN_EVENT_BREADCRUMB_DESC;
+          $this->uninstallable = false;
+          $this->author        = 'MyOOS Development Team';
+          $this->version       = '2.0';
+          $this->requirements  = array(
                                'oos'         => '1.7.0',
                                'smarty'      => '2.6.9',
                                'adodb'       => '4.62',
                                'php'         => '5.9.0'
       );
-    }
+      }
 
-    static function create_plugin_instance() {
-      global $oBreadcrumb, $session, $aLang, $sCanonical, $aCategoryPath;
+      public static function create_plugin_instance()
+      {
+          global $oBreadcrumb, $session, $aLang, $sCanonical, $aCategoryPath;
 
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+          $dbconn =& oosDBGetConn();
+          $oostable =& oosDBGetTables();
 
-      $aContents = oos_get_content();
+          $aContents = oos_get_content();
 
-      // include the breadcrumb class and start the breadcrumb trail
-      include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_breadcrumb.php';
-      $oBreadcrumb = new breadcrumb();
+          // include the breadcrumb class and start the breadcrumb trail
+          include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_breadcrumb.php';
+          $oBreadcrumb = new breadcrumb();
 
-  
-      $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['home']));
-      $nPage = isset($_GET['page']) ? intval( $_GET['page'] ) : 1;
-	  
-      // add category names or the manufacturer name to the breadcrumb trail
-      if (isset($aCategoryPath) && (count($aCategoryPath) > 0)) {
-        $nLanguageID = isset($_SESSION['language_id']) ? intval( $_SESSION['language_id'] ) : DEFAULT_LANGUAGE_ID;
-		
-		$n = count($aCategoryPath);
-        for ($i = 0, $n; $i < $n; $i++) {
-          $categories_descriptiontable = $oostable['categories_description'];
-          $categories_sql = "SELECT categories_name
+
+          $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['home']));
+          $nPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+
+          // add category names or the manufacturer name to the breadcrumb trail
+          if (isset($aCategoryPath) && (count($aCategoryPath) > 0)) {
+              $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+
+              $n = count($aCategoryPath);
+              for ($i = 0, $n; $i < $n; $i++) {
+                  $categories_descriptiontable = $oostable['categories_description'];
+                  $categories_sql = "SELECT categories_name
                              FROM $categories_descriptiontable
                              WHERE categories_id = '" . intval($aCategoryPath[$i]) . "'
                              AND categories_languages_id = '" .  intval($nLanguageID) . "'";
-          $categories = $dbconn->Execute($categories_sql);
-          if ($categories->RecordCount() > 0) {
-            $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
-			$sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1))) . '&amp;page=' . $nPage, false, true);
-          } else {
-            break;
-          }
-        }
-      } elseif (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
-        $manufacturers_id = intval($_GET['manufacturers_id']);
-        $manufacturerstable = $oostable['manufacturers'];
-        $manufacturers_sql = "SELECT manufacturers_name
+                  $categories = $dbconn->Execute($categories_sql);
+                  if ($categories->RecordCount() > 0) {
+                      $oBreadcrumb->add($categories->fields['categories_name'], oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1)))));
+                      $sCanonical = oos_href_link($aContents['shop'], 'category=' . implode('_', array_slice($aCategoryPath, 0, ($i+1))) . '&amp;page=' . $nPage, false, true);
+                  } else {
+                      break;
+                  }
+              }
+          } elseif (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
+              $manufacturers_id = intval($_GET['manufacturers_id']);
+              $manufacturerstable = $oostable['manufacturers'];
+              $manufacturers_sql = "SELECT manufacturers_name
                               FROM $manufacturerstable
                               WHERE manufacturers_id = '" . intval($manufacturers_id) . "'";
-        $manufacturers = $dbconn->Execute($manufacturers_sql);
+              $manufacturers = $dbconn->Execute($manufacturers_sql);
 
-        if ($manufacturers->RecordCount() > 0) {
-          $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id));
-		  $sCanonical = oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id . '&amp;page=' . $nPage, false, true);
-        }
+              if ($manufacturers->RecordCount() > 0) {
+                  $oBreadcrumb->add($manufacturers->fields['manufacturers_name'], oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id));
+                  $sCanonical = oos_href_link($aContents['shop'], 'manufacturers_id=' . $manufacturers_id . '&amp;page=' . $nPage, false, true);
+              }
+          }
+
+          return true;
       }
 
-      return true;
-    }
+      public function install()
+      {
+          return false;
+      }
 
-    function install() {
-      return false;
-    }
+      public function remove()
+      {
+          return false;
+      }
 
-    function remove() {
-      return false;
-    }
-
-    function config_item() {
-      return false;
-    }
+      public function config_item()
+      {
+          return false;
+      }
   }
-
-

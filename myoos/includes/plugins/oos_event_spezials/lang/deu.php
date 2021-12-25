@@ -24,4 +24,3 @@ define('MAX_RANDOM_SELECT_SPECIALS_DESC', 'Die Menge der Sonderangebote, aus den
 
 define('MAX_DISPLAY_SPECIAL_PRODUCTS_TITLE', 'Sonderangebote');
 define('MAX_DISPLAY_SPECIAL_PRODUCTS_DESC', 'Maximale Anzahl von Sonderangeboten, die angezeigt werden.');
-

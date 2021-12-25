@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: backup.php,v 1.21 2002/06/15 11:02:56 harley_vb 
+   File: backup.php,v 1.21 2002/06/15 11:02:56 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -25,7 +25,7 @@
    the translated file.
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Datenbanksicherung'); 
+define('HEADING_TITLE', 'Datenbanksicherung');
 
 define('TABLE_HEADING_TITLE', 'Titel');
 define('TABLE_HEADING_FILE_DATE', 'Datum');
@@ -56,4 +56,3 @@ define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', '<strong>Fehler!</strong> Download 
 define('SUCCESS_DATABASE_SAVED', '<strong>Erfolg!</strong> Die Datenbank wurde gesichert.');
 define('SUCCESS_DATABASE_RESTORED', '<strong>Erfolg!</strong> Die Datenbank wurde wiederhergestellt.');
 define('SUCCESS_EXPORT_DELETED', '<strong>Erfolg!</strong> Die Sicherungsdatei wurde gelöscht.');
-

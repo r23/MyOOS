@@ -25,14 +25,14 @@
   $languages_array = [];
   $languages_selected = DEFAULT_LANGUAGE;
   for ($i = 0, $n = count($languages); $i < $n; $i++) {
-    $languages_array[] = array('id' => $languages[$i]['iso_639_2'],
+      $languages_array[] = array('id' => $languages[$i]['iso_639_2'],
                                'text' => $languages[$i]['name']);
-    if ($languages[$i]['iso_639_2'] == $_SESSION['language']) {
-      $languages_selected = $languages[$i]['iso_639_2'];
-    }
+      if ($languages[$i]['iso_639_2'] == $_SESSION['language']) {
+          $languages_selected = $languages[$i]['iso_639_2'];
+      }
   }
-  
-require 'includes/header.php'; 
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -74,7 +74,7 @@ require 'includes/header.php';
 						</div>
 						<div class="col-8 py-4 bg-info justify-content-center rounded-right">
 							<div class="text-center">
-								<?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', FALSE); ?>
+								<?php echo oos_draw_form('id', 'languages', 'index.php', '', 'get', false); ?>
 									<?php echo oos_draw_pull_down_menu('language', $languages_array, $languages_selected, 'onChange="this.form.submit();"'); ?> 
 								</form>								
 							</div>
@@ -90,11 +90,11 @@ require 'includes/header.php';
 
 
 <?php
-	$customers_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['customers']);
-	$customers = $customers_result->fields;
-	
-	$products_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['products'] . " WHERE products_status >= '1'");
-	$products = $products_result->fields;
+    $customers_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['customers']);
+    $customers = $customers_result->fields;
+
+    $products_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['products'] . " WHERE products_status >= '1'");
+    $products = $products_result->fields;
 
 ?>
 					<div class="row">
@@ -163,7 +163,7 @@ require 'includes/header.php';
 	</footer>
 </div>
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

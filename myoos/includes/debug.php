@@ -10,10 +10,10 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
- * For debugging purposes 
+ * For debugging purposes
  *
  * @package  core
  * @access   public
@@ -23,7 +23,7 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  */
 set_error_handler('oos_error_log_handler');
 
- 
+
 /**
  * Error log handler
  *
@@ -37,16 +37,17 @@ set_error_handler('oos_error_log_handler');
  * @author  r23 <info@r23.de>
  * @since   OOS 1.3.1
  */
-function oos_error_log_handler($sErrNo, $sErrMsg, $sErrFile, $sErrLine) {
-	if (substr($sErrMsg, 0, 4) == 'stat') {
-		return true;
-	}
+function oos_error_log_handler($sErrNo, $sErrMsg, $sErrFile, $sErrLine)
+{
+    if (substr($sErrMsg, 0, 4) == 'stat') {
+        return true;
+    }
 
 
     // define an assoc array of error string
     // in reality the only entries we should
     // consider are 2,8,256,512 and 1024
-    $errortype = array ( 1   =>  'Error',
+    $errortype = array( 1   =>  'Error',
                          2   =>  'Warning',
                          4   =>  'Parsing Error',
                          8   =>  'Notice',
@@ -59,23 +60,21 @@ function oos_error_log_handler($sErrNo, $sErrMsg, $sErrFile, $sErrLine) {
                          1024=>  'User Notice');
 
     // $aErrUser = array(E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE);
-	$aErrUser = array(E_USER_ERROR);
+    $aErrUser = array(E_USER_ERROR);
 
-	if (in_array($sErrNo, $aErrUser)) {
-		$sUserIP = oos_server_get_remote();
+    if (in_array($sErrNo, $aErrUser)) {
+        $sUserIP = oos_server_get_remote();
 
-		$sErr = '[' . date('D M j G:i:s Y') . ']'
-			.' [error]'
-			.' [client ' . $sUserIP . '] ';
+        $sErr = '[' . date('D M j G:i:s Y') . ']'
+            .' [error]'
+            .' [client ' . $sUserIP . '] ';
 
-		$sErr .= '(' . OOS_FULL_NAME . ')'
-			.' '. $errortype[$sErrNo]
-			.' '. $sErrMsg
-			.' in file '.$sErrFile
-			.' line '.$sErrLine . "\n";
+        $sErr .= '(' . OOS_FULL_NAME . ')'
+            .' '. $errortype[$sErrNo]
+            .' '. $sErrMsg
+            .' in file '.$sErrFile
+            .' line '.$sErrLine . "\n";
 
-		@error_log($sErr, 3, OOS_TEMP_PATH . 'logs/php_error.log');
-
-	}
+        @error_log($sErr, 3, OOS_TEMP_PATH . 'logs/php_error.log');
+    }
 }
-

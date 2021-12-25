@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: newsletters.php,v 1.15 2002/11/22 14:45:47 dgw_ 
+   File: newsletters.php,v 1.15 2002/11/22 14:45:47 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -21,7 +21,7 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $nID = (isset($_GET['nID']) ? intval($_GET['nID']) : '');
 
@@ -33,7 +33,7 @@ if (!empty($action)) {
         $status = (($action == 'lock') ? '1' : '0');
 
         $newsletterstable = $oostable['newsletters'];
-        $dbconn->Execute("UPDATE $newsletterstable SET locked = '" . $status . "' WHERE newsletters_id = '" . oos_db_input($nID ) . "'");
+        $dbconn->Execute("UPDATE $newsletterstable SET locked = '" . $status . "' WHERE newsletters_id = '" . oos_db_input($nID) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID));
         break;
@@ -41,50 +41,53 @@ if (!empty($action)) {
       case 'insert':
       case 'update':
         $module = oos_db_prepare_input($_POST['module']);
-		$title = oos_db_prepare_input($_POST['title']);
-		$content = oos_db_prepare_input($_POST['content']);
+        $title = oos_db_prepare_input($_POST['title']);
+        $content = oos_db_prepare_input($_POST['content']);
 
         $newsletter_error = false;
         if (empty($title)) {
-          $messageStack->add(ERROR_NEWSLETTER_TITLE, 'error');
-          $newsletter_error = true;
+            $messageStack->add(ERROR_NEWSLETTER_TITLE, 'error');
+            $newsletter_error = true;
         }
         if (empty($module)) {
-          $messageStack->add(ERROR_NEWSLETTER_MODULE, 'error');
-          $newsletter_error = true;
+            $messageStack->add(ERROR_NEWSLETTER_MODULE, 'error');
+            $newsletter_error = true;
         }
 
         if (!$newsletter_error) {
-          $sql_data_array = array('title' => $title,
+            $sql_data_array = array('title' => $title,
                                   'content' => $content,
                                   'module' => $module);
 
-          if ($action == 'insert') {
-            $sql_data_array['date_added'] = 'now()';
-            $sql_data_array['status'] = '0';
-            $sql_data_array['locked'] = '0';
+            if ($action == 'insert') {
+                $sql_data_array['date_added'] = 'now()';
+                $sql_data_array['status'] = '0';
+                $sql_data_array['locked'] = '0';
 
-            oos_db_perform($oostable['newsletters'], $sql_data_array);
-            $nID  = $dbconn->Insert_ID();
-          } elseif ($action == 'update') {
-            oos_db_perform($oostable['newsletters'], $sql_data_array, 'UPDATE', 'newsletters_id = \'' . oos_db_input($nID ) . '\'');
-          }
+                oos_db_perform($oostable['newsletters'], $sql_data_array);
+                $nID  = $dbconn->Insert_ID();
+            } elseif ($action == 'update') {
+                oos_db_perform($oostable['newsletters'], $sql_data_array, 'UPDATE', 'newsletters_id = \'' . oos_db_input($nID) . '\'');
+            }
 
-          oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID ));
+            oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID));
         } else {
-          $action = 'new';
+            $action = 'new';
         }
         break;
 
       case 'deleteconfirm':
         $newsletterstable = $oostable['newsletters'];
-        $dbconn->Execute("DELETE FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID ) . "'");
+        $dbconn->Execute("DELETE FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage));
         break;
 
       case 'delete':
-      case 'new': if (!isset($_GET['nID'])) break;
+      case 'new': if (!isset($_GET['nID'])) {
+          break;
+      }
+      // no break
       case 'send':
       case 'confirm_send':
         $newsletter_id = oos_db_prepare_input($nID);
@@ -94,20 +97,20 @@ if (!empty($action)) {
         $check = $check_result->fields;
 
         if ($check['locked'] < 1) {
-          switch ($action) {
+            switch ($action) {
             case 'delete': $error = ERROR_REMOVE_UNLOCKED_NEWSLETTER; break;
             case 'new': $error = ERROR_EDIT_UNLOCKED_NEWSLETTER; break;
             case 'send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; break;
             case 'confirm_send': $error = ERROR_SEND_UNLOCKED_NEWSLETTER; break;
           }
-          $messageStack->add_session($error, 'error');
-          oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID));
+            $messageStack->add_session($error, 'error');
+            oos_redirect_admin(oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID));
         }
         break;
     }
-  }
+}
 
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -154,63 +157,65 @@ if (!empty($action)) {
 
 <?php
   if ($action == 'new') {
-    $form_action = 'insert';
-    if (isset($_GET['nID'])) {
-      $form_action = 'update';
+      $form_action = 'insert';
+      if (isset($_GET['nID'])) {
+          $form_action = 'update';
 
-      $newsletterstable = $oostable['newsletters'];
-      $newsletter_result = $dbconn->Execute("SELECT title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
-      $newsletter = $newsletter_result->fields;
+          $newsletterstable = $oostable['newsletters'];
+          $newsletter_result = $dbconn->Execute("SELECT title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
+          $newsletter = $newsletter_result->fields;
 
-      $nInfo = new objectInfo($newsletter);
-    } elseif (oos_is_not_null($_POST)) {
-      $nInfo = new objectInfo($_POST);
-    } else {
-      $nInfo = new objectInfo(array());
-    }
-
-    $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-    $directory_array = [];
-    if ($dir = dir('includes/modules/newsletters/')) {
-      while ($file = $dir->read()) {
-        if (!is_dir('includes/modules/newsletters/' . $file)) {
-          if (substr($file, strrpos($file, '.')) == $file_extension) {
-            $directory_array[] = $file;
-          }
-        }
+          $nInfo = new objectInfo($newsletter);
+      } elseif (oos_is_not_null($_POST)) {
+          $nInfo = new objectInfo($_POST);
+      } else {
+          $nInfo = new objectInfo(array());
       }
-      sort($directory_array);
-      $dir->close();
-    }
 
-    for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
-      $modules_array[] = array('id' => substr($directory_array[$i], 0, strrpos($directory_array[$i], '.')), 'text' => substr($directory_array[$i], 0, strrpos($directory_array[$i], '.')));
-    }
-?>
+      $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      $directory_array = [];
+      if ($dir = dir('includes/modules/newsletters/')) {
+          while ($file = $dir->read()) {
+              if (!is_dir('includes/modules/newsletters/' . $file)) {
+                  if (substr($file, strrpos($file, '.')) == $file_extension) {
+                      $directory_array[] = $file;
+                  }
+              }
+          }
+          sort($directory_array);
+          $dir->close();
+      }
+
+      for ($i = 0, $n = count($directory_array); $i < $n; $i++) {
+          $modules_array[] = array('id' => substr($directory_array[$i], 0, strrpos($directory_array[$i], '.')), 'text' => substr($directory_array[$i], 0, strrpos($directory_array[$i], '.')));
+      } ?>
 <!-- body_text //-->
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td></td>
       </tr>
-      <tr><?php echo oos_draw_form('id', 'newsletter', $aContents['newsletters'], 'page=' . $nPage . '&action=' . $form_action, 'post', FALSE); if ($form_action == 'update') echo oos_draw_hidden_field('newsletter_id', $nID); ?>
+      <tr><?php echo oos_draw_form('id', 'newsletter', $aContents['newsletters'], 'page=' . $nPage . '&action=' . $form_action, 'post', false);
+      if ($form_action == 'update') {
+          echo oos_draw_hidden_field('newsletter_id', $nID);
+      } ?>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
             <td class="main"><?php echo TEXT_NEWSLETTER_MODULE; ?></td>
-            <td class="main"><?php echo oos_draw_pull_down_menu('module', $modules_array, ( isset($nInfo->module) ) ? $nInfo->module : ''); ?></td>
+            <td class="main"><?php echo oos_draw_pull_down_menu('module', $modules_array, (isset($nInfo->module)) ? $nInfo->module : ''); ?></td>
           </tr>
           <tr>
             <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main"><?php echo TEXT_NEWSLETTER_TITLE; ?></td>
-            <td class="main"><?php echo oos_draw_input_field('title', ( isset($nInfo->title) ) ? $nInfo->title : '', '', true); ?></td>
+            <td class="main"><?php echo oos_draw_input_field('title', (isset($nInfo->title)) ? $nInfo->title : '', '', true); ?></td>
           </tr>
           <tr>
             <td colspan="2"></td>
           </tr>
           <tr>
             <td class="main" valign="top"><?php echo TEXT_NEWSLETTER_CONTENT; ?></td>
-            <td class="main"><?php echo oos_draw_textarea_field('content', 'soft', '100%', '20', ( isset($nInfo->content) ) ? $nInfo->content : ''); ?></td>
+            <td class="main"><?php echo oos_draw_textarea_field('content', 'soft', '100%', '20', (isset($nInfo->content)) ? $nInfo->content : ''); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -220,20 +225,18 @@ if (!empty($action)) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main" align="right"><?php echo (($form_action == 'insert') ? oos_submit_button(IMAGE_SAVE) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+            <td class="main" align="right"><?php echo(($form_action == 'insert') ? oos_submit_button(IMAGE_SAVE) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>
 	 </table>
 <?php
   } elseif ($action == 'preview') {
+      $newsletterstable = $oostable['newsletters'];
+      $newsletter_result = $dbconn->Execute("SELECT title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
+      $newsletter = $newsletter_result->fields;
 
-    $newsletterstable = $oostable['newsletters'];
-    $newsletter_result = $dbconn->Execute("SELECT title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
-    $newsletter = $newsletter_result->fields;
-
-    $nInfo = new objectInfo($newsletter);
-?>
+      $nInfo = new objectInfo($newsletter); ?>
       <tr>
         <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
       </tr>
@@ -245,52 +248,50 @@ if (!empty($action)) {
       </tr>
 <?php
   } elseif ($action == 'send') {
+      $newsletterstable = $oostable['newsletters'];
+      $newsletter_result = $dbconn->Execute("SELECT title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
+      $newsletter = $newsletter_result->fields;
 
-    $newsletterstable = $oostable['newsletters'];
-    $newsletter_result = $dbconn->Execute("SELECT title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
-    $newsletter = $newsletter_result->fields;
+      $nInfo = new objectInfo($newsletter);
 
-    $nInfo = new objectInfo($newsletter);
-
-    include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-    include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-    $module_name = $nInfo->module;
-    $module = new $module_name($nInfo->title, $nInfo->content);
-?>
+      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      $module_name = $nInfo->module;
+      $module = new $module_name($nInfo->title, $nInfo->content); ?>
       <tr>
-        <td><?php if ($module->show_choose_audience) { echo $module->choose_audience(); } else { echo $module->confirm(); } ?></td>
+        <td><?php if ($module->show_choose_audience) {
+          echo $module->choose_audience();
+      } else {
+          echo $module->confirm();
+      } ?></td>
       </tr>
 <?php
   } elseif ($action == 'confirm') {
+      $newsletterstable = $oostable['newsletters'];
+      $newsletter_result = $dbconn->Execute("SELECT title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
+      $newsletter = $newsletter_result->fields;
 
-    $newsletterstable = $oostable['newsletters'];
-    $newsletter_result = $dbconn->Execute("SELECT title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
-    $newsletter = $newsletter_result->fields;
+      $nInfo = new objectInfo($newsletter);
 
-    $nInfo = new objectInfo($newsletter);
-
-    include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-    include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-    $module_name = $nInfo->module;
-    $module = new $module_name($nInfo->title, $nInfo->content);
-?>
+      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      $module_name = $nInfo->module;
+      $module = new $module_name($nInfo->title, $nInfo->content); ?>
       <tr>
         <td><?php echo $module->confirm(); ?></td>
       </tr>
 <?php
   } elseif ($action == 'confirm_send') {
+      $newsletterstable = $oostable['newsletters'];
+      $newsletter_result = $dbconn->Execute("SELECT newsletters_id, title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
+      $newsletter = $newsletter_result->fields;
 
-    $newsletterstable = $oostable['newsletters'];
-    $newsletter_result = $dbconn->Execute("SELECT newsletters_id, title, content, module FROM $newsletterstable WHERE newsletters_id = '" . oos_db_input($nID) . "'");
-    $newsletter = $newsletter_result->fields;
+      $nInfo = new objectInfo($newsletter);
 
-    $nInfo = new objectInfo($newsletter);
-
-    include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-    include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-    $module_name = $nInfo->module;
-    $module = new $module_name($nInfo->title, $nInfo->content);
-?>
+      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      $module_name = $nInfo->module;
+      $module = new $module_name($nInfo->title, $nInfo->content); ?>
       <tr>
         <td><table border="0" cellspacing="0" cellpadding="2">
           <tr>
@@ -301,8 +302,7 @@ if (!empty($action)) {
       </tr>
 <?php
   flush();
-  $module->send($nInfo->newsletters_id);
-?>
+      $module->send($nInfo->newsletters_id); ?>
       <tr>
         <td></td>
       </tr>
@@ -317,7 +317,7 @@ if (!empty($action)) {
       </tr>
 <?php
   } else {
-?>
+      ?>
 
 <!-- body_text //-->				
 	<div class="table-responsive">
@@ -337,35 +337,45 @@ if (!empty($action)) {
 					</thead>
 <?php
     $newsletterstable = $oostable['newsletters'];
-    $newsletters_result_raw = "SELECT newsletters_id, title, length(content) as content_length,
+      $newsletters_result_raw = "SELECT newsletters_id, title, length(content) as content_length,
                                       module, date_added, date_sent, status, locked
                               FROM $newsletterstable
                               ORDER BY date_added desc";
-    $newsletters_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $newsletters_result_raw, $newsletters_result_numrows);
-    $newsletters_result = $dbconn->Execute($newsletters_result_raw);
-    while ($newsletters = $newsletters_result->fields) {
-      if ((!isset($_GET['nID']) || (isset($_GET['nID']) && ($_GET['nID'] == $newsletters['newsletters_id']))) && !isset($nInfo) && (substr($action, 0, 3) != 'new')) {
-        $nInfo = new objectInfo($newsletters);
-      }
+      $newsletters_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $newsletters_result_raw, $newsletters_result_numrows);
+      $newsletters_result = $dbconn->Execute($newsletters_result_raw);
+      while ($newsletters = $newsletters_result->fields) {
+          if ((!isset($_GET['nID']) || (isset($_GET['nID']) && ($_GET['nID'] == $newsletters['newsletters_id']))) && !isset($nInfo) && (substr($action, 0, 3) != 'new')) {
+              $nInfo = new objectInfo($newsletters);
+          }
 
-      if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '\'">' . "\n";
-      } else {
-        echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '\'">' . "\n";
-      }
-?>
+          if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id)) {
+              echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '\'">' . "\n";
+          } else {
+              echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '\'">' . "\n";
+          } ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . $newsletters['title']; ?></td>
                 <td class="text-right"><?php echo number_format($newsletters['content_length']) . ' bytes'; ?></td>
                 <td class="text-right"><?php echo $newsletters['module']; ?></td>
-                <td class="text-center"><?php if ($newsletters['status'] == '1') { echo '<i class="fa fa-check" aria-hidden="true"></i>'; } else { echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS); } ?></td>
-                <td class="text-center"><?php if ($newsletters['locked'] > 0) { echo oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED); } else { echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED); } ?></td>
-                <td class="text-right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-center"><?php if ($newsletters['status'] == '1') {
+              echo '<i class="fa fa-check" aria-hidden="true"></i>';
+          } else {
+              echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS);
+          } ?></td>
+                <td class="text-center"><?php if ($newsletters['locked'] > 0) {
+              echo oos_image(OOS_IMAGES . 'icons/locked.gif', ICON_LOCKED);
+          } else {
+              echo oos_image(OOS_IMAGES . 'icons/unlocked.gif', ICON_UNLOCKED);
+          } ?></td>
+                <td class="text-right"><?php if (isset($nInfo) && is_object($nInfo) && ($newsletters['newsletters_id'] == $nInfo->newsletters_id)) {
+              echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+          } else {
+              echo '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $newsletters['newsletters_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+          } ?>&nbsp;</td>
               </tr>
 <?php
         // Move that ADOdb pointer!
        $newsletters_result->MoveNext();
-    }
-?>
+      } ?>
               <tr>
                 <td colspan="6"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -380,13 +390,13 @@ if (!empty($action)) {
             </table></td>
 <?php
   $heading = [];
-  $contents = [];
+      $contents = [];
 
-  switch ($action) {
+      switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . $nInfo->title . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'newsletters', $aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'newsletters', $aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=deleteconfirm', 'post', false));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br><b>' . $nInfo->title . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
@@ -394,32 +404,32 @@ if (!empty($action)) {
 
     default:
       if (isset($nInfo) && is_object($nInfo)) {
-        $heading[] = array('text' => '<b>' . $nInfo->title . '</b>');
+          $heading[] = array('text' => '<b>' . $nInfo->title . '</b>');
 
-        if ($nInfo->locked > 0) {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=new') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_button('preview', IMAGE_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=send') . '">' . oos_button(IMAGE_SEND) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=unlock') . '">' . oos_button('unlock', IMAGE_UNLOCK) . '</a>');
-        } else {
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_button(IMAGE_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=lock') . '">' . oos_button(IMAGE_LOCK) . '</a>');
-        }
-        $contents[] = array('text' => '<br>' . TEXT_NEWSLETTER_DATE_ADDED . ' ' . oos_date_short($nInfo->date_added));
-        if ($nInfo->status == '1') $contents[] = array('text' => TEXT_NEWSLETTER_DATE_SENT . ' ' . oos_date_short($nInfo->date_sent));
+          if ($nInfo->locked > 0) {
+              $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=new') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_button('preview', IMAGE_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=send') . '">' . oos_button(IMAGE_SEND) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=unlock') . '">' . oos_button('unlock', IMAGE_UNLOCK) . '</a>');
+          } else {
+              $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=preview') . '">' . oos_button(IMAGE_PREVIEW) . '</a> <a href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nInfo->newsletters_id . '&action=lock') . '">' . oos_button(IMAGE_LOCK) . '</a>');
+          }
+          $contents[] = array('text' => '<br>' . TEXT_NEWSLETTER_DATE_ADDED . ' ' . oos_date_short($nInfo->date_added));
+          if ($nInfo->status == '1') {
+              $contents[] = array('text' => TEXT_NEWSLETTER_DATE_SENT . ' ' . oos_date_short($nInfo->date_sent));
+          }
       }
       break;
   }
 
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+      if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+          ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
+        $box = new box();
+          echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-  }
-?>
+      } ?>
           </tr>
         </table>
 	</div>
@@ -440,7 +450,7 @@ if (!empty($action)) {
 	</footer>
 </div>
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

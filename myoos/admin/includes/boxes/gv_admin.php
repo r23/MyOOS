@@ -24,36 +24,35 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-$bActive = ($_SESSION['selected_box'] == 'gv_admin' ) ? TRUE : FALSE;
-  
+$bActive = ($_SESSION['selected_box'] == 'gv_admin') ? true : false;
+
 $aBlocks[] = array(
-	'heading' => BOX_HEADING_GV_ADMIN,
-	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=gv_admin'),
-	'icon' => 'fa fa-certificate',
-	'active' => $bActive,
-	'contents' => array(
-		array(
-			'code' => $aContents['coupon_admin'],
-			'title' => BOX_COUPON_ADMIN,
-			'link' => oos_admin_files_boxes('coupon_admin', 'selected_box=gv_admin')
-		),
-		array(
-			'code' => $aContents['gv_queue'],
-			'title' => BOX_GV_ADMIN_QUEUE,
-			'link' =>  oos_admin_files_boxes('gv_queue', 'selected_box=gv_admin')
-		),
-		array(
-			'code' => $aContents['gv_mail'],
-			'title' => BOX_GV_ADMIN_MAIL,
-			'link' => oos_admin_files_boxes('gv_mail', 'selected_box=gv_admin')
-		),
-		array(
-			'code' => $aContents['gv_sent'],
-			'title' => BOX_GV_ADMIN_SENT,
-			'link' => oos_admin_files_boxes('gv_sent', 'selected_box=gv_admin')
-		),
-	),
+    'heading' => BOX_HEADING_GV_ADMIN,
+    'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=gv_admin'),
+    'icon' => 'fa fa-certificate',
+    'active' => $bActive,
+    'contents' => array(
+        array(
+            'code' => $aContents['coupon_admin'],
+            'title' => BOX_COUPON_ADMIN,
+            'link' => oos_admin_files_boxes('coupon_admin', 'selected_box=gv_admin')
+        ),
+        array(
+            'code' => $aContents['gv_queue'],
+            'title' => BOX_GV_ADMIN_QUEUE,
+            'link' =>  oos_admin_files_boxes('gv_queue', 'selected_box=gv_admin')
+        ),
+        array(
+            'code' => $aContents['gv_mail'],
+            'title' => BOX_GV_ADMIN_MAIL,
+            'link' => oos_admin_files_boxes('gv_mail', 'selected_box=gv_admin')
+        ),
+        array(
+            'code' => $aContents['gv_sent'],
+            'title' => BOX_GV_ADMIN_SENT,
+            'link' => oos_admin_files_boxes('gv_sent', 'selected_box=gv_admin')
+        ),
+    ),
 );
-

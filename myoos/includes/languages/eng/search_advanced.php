@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: advanced_search.php,v 1.13 2002/05/27 13:57:38 hpdl 
+   File: advanced_search.php,v 1.13 2002/05/27 13:57:38 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -51,4 +51,3 @@ $aLang['js_price_from_must_be_num'] = '* Price From must be a number\n';
 $aLang['js_price_to_must_be_num'] = '* Price To must be a number\n';
 $aLang['js_price_to_less_than_price_from'] = '* Price To must be greater than or equal to Price From\n';
 $aLang['js_invalid_keywords'] = '* Invalid keywords\n';
-

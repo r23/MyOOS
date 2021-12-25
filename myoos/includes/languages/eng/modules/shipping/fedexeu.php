@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -68,7 +68,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_1_DESC', 'Tariff table for zone 1, base
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_TITLE', 'Increase surcharge up to 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_1_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_1_TITLE', 'Increase surcharge up to 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_1_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
@@ -86,7 +86,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_2_DESC', 'Tariff table for zone 2, base
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_TITLE', 'Increase surcharge up to 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_2_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_2_TITLE', 'Increase surcharge up to 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_2_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
@@ -104,7 +104,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_3_DESC', 'Tariff table for zone 3, base
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_TITLE', 'Increase surcharge up to 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_3_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_3_TITLE', 'Increase surcharge up to 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_3_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
@@ -122,7 +122,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_4_DESC', 'Tariff table for zone A, base
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_TITLE', 'Increase surcharge up to 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_4_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_4_TITLE', 'Increase surcharge up to 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_4_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
@@ -140,7 +140,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_5_DESC', 'Tariff table for zone B, base
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_TITLE', 'Increase surcharge up to 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_5_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_5_TITLE', 'Increase surcharge up to 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_5_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
@@ -158,7 +158,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_6_DESC', 'Tariff table for zone C, base
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_TITLE', 'Increase surcharge up to 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_6_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_6_TITLE', 'Increase surcharge up to 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_6_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
@@ -176,7 +176,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_7_DESC', 'Tariff table for zone D, base
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_TITLE', 'Increase surcharge up to 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_7_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_7_TITLE', 'Increase surcharge up to 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_7_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
@@ -194,7 +194,7 @@ define('MODULE_SHIPPING_FEDEXEU_COST_BOX_8_DESC', 'Tariff table for zone E, base
 
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_TITLE', 'Increase surcharge up to 20 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_20_8_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
- 
+
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_8_TITLE', 'Increase surcharge up to 40 kg BOX');
 define('MODULE_SHIPPING_FEDEXEU_SOOS_BOX_40_8_DESC', 'Increase surcharge per exceeding 0,50 kg in EUR');
 
@@ -208,4 +208,3 @@ $aLang['module_shipping_fedexeu_text_way'] = 'Dispatch to';
 $aLang['module_shipping_fedexeu_text_units'] = 'kg';
 $aLang['module_shipping_fedexeu_invalid_zone'] = 'Unfortunately it is not possible to dispatch into this country';
 $aLang['module_shipping_fedexeu_undefined_rate'] = 'Forwarding expenses cannot be calculated for the moment';
-

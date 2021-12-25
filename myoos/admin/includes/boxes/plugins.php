@@ -11,20 +11,20 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
-   
-$bActive = ($_SESSION['selected_box'] == 'plugins' ) ? TRUE : FALSE;
-  
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+
+$bActive = ($_SESSION['selected_box'] == 'plugins') ? true : false;
+
 $aBlocks[] = array(
-	'heading' => BOX_HEADING_PLUGINS,
-	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=plugins'),
-	'icon' => 'fa fa-plug',
-	'active' => $bActive,
-	'contents' => array(
-		array(
-			'code' => $aContents['plugins'],
-			'title' => BOX_PLUGINS_EVENT,
-			'link' => oos_href_link_admin($aContents['plugins'], 'selected_box=plugins')
-		),	
-	),
+    'heading' => BOX_HEADING_PLUGINS,
+    'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=plugins'),
+    'icon' => 'fa fa-plug',
+    'active' => $bActive,
+    'contents' => array(
+        array(
+            'code' => $aContents['plugins'],
+            'title' => BOX_PLUGINS_EVENT,
+            'link' => oos_href_link_admin($aContents['plugins'], 'selected_box=plugins')
+        ),
+    ),
 );

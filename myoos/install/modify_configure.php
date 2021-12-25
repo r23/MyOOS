@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: modify_configure.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
@@ -41,10 +41,11 @@
 // mod_file is general, give it a source file a destination.
 // an array of search patterns (Perl style) and replacement patterns
 // Returns a string which starts with "Err" if there's an error
-function modify_file($src, $reg_src, $reg_rep) {
+function modify_file($src, $reg_src, $reg_rep)
+{
     $in = @fopen($src, "r");
     if (!$in) {
-      return MODIFY_FILE_1. " $src";
+        return MODIFY_FILE_1. " $src";
     }
     $i = 0;
     while (!feof($in)) {
@@ -54,7 +55,7 @@ function modify_file($src, $reg_src, $reg_rep) {
 
     $lines = 0; // Keep track of the number of lines changed
 
-	foreach ($file_buff1 as $bline_num => $buffer) {		
+    foreach ($file_buff1 as $bline_num => $buffer) {
         $new = preg_replace($reg_src, $reg_rep, $buffer);
         if ($new != $buffer) {
             $lines++;
@@ -64,7 +65,7 @@ function modify_file($src, $reg_src, $reg_rep) {
 
     if ($lines == 0) {
         // Skip the rest - no lines changed
-      return MODIFY_FILE_3;
+        return MODIFY_FILE_3;
     }
 
     reset($file_buff1);
@@ -72,11 +73,11 @@ function modify_file($src, $reg_src, $reg_rep) {
     reset($file_buff2);
     $out_original = fopen($src, "w");
     if (! $out_original) {
-      return MODIFY_FILE_2. " $src";
+        return MODIFY_FILE_2. " $src";
     }
 
-	foreach ($file_buff2 as $bline_num => $buffer) {		
-        fputs($out_original,$buffer);
+    foreach ($file_buff2 as $bline_num => $buffer) {
+        fputs($out_original, $buffer);
     }
 
     fclose($out_original);
@@ -91,7 +92,8 @@ $reg_rep = array();
 
 // Setup various searches and replaces
 // Scott Kirkwood
-function add_src_rep($key, $rep) {
+function add_src_rep($key, $rep)
+{
     global $reg_src, $reg_rep;
 
     $reg_src[] = "/(define\()([\"'])(".$key.")\\2,\s*([\"'])(.*?)\\4\s*\)/";
@@ -99,13 +101,14 @@ function add_src_rep($key, $rep) {
 }
 
 
-function show_error_shop_info() {
+function show_error_shop_info()
+{
     global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype;
     global $oos_ssl_server, $oos_root_path, $oos_shop_path, $oos_shop_dir;
 
 
     echo '<br /><br /><b>'. SHOW_ERROR_INFO . ' <b>~/includes/configure.php</b><br /><br />';
-echo <<< EOT
+    echo <<< EOT
         <table><tr><td><font class="oos-normal">
         define('OOS_HTTPS_SERVER', '$oos_ssl_server');<br />
         define('OOS_SHOP', '$oos_shop_dir');<br />
@@ -119,12 +122,12 @@ echo <<< EOT
         define('OOS_ENCODED', '0');<br />
         </b></td></tr></table>
 EOT;
-
 }
 
 
 // Update the configure.php file with the database information.
-function oosUpdateConfigShop($db_prefs = false) {
+function oosUpdateConfigShop($db_prefs = false)
+{
     global $reg_src, $reg_rep;
     global $dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype;
     global $oos_ssl_server, $oos_root_path, $oos_shop_path, $oos_shop_dir;
@@ -147,6 +150,3 @@ function oosUpdateConfigShop($db_prefs = false) {
         show_error_shop_info();
     }
 }
-
-
-

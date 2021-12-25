@@ -20,11 +20,11 @@
    ---------------------------------------------------------------------- */
 
 if (!defined('MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME')) {
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', '----');
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', '----');
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', '----');
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_IBAN', '----');
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_IBAN', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC', '----');
 }
 
 
@@ -74,5 +74,3 @@ $aLang['module_payment_eu_banktransfer_email_footer'] = 'Please use the followin
                                                         'IBAN: ' . MODULE_PAYMENT_EU_BANKTRANSFER_IBAN . "\n" .
                                                         'BIC/SWIFT: ' . MODULE_PAYMENT_EU_BANKTRANSFER_BIC . "\n\n" .
                                                         'Your order will not ship until we receive payment in the above account.';
-
-

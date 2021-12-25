@@ -40,8 +40,8 @@ define('STORE_OWNER_DESC', 'Der Name des Shop-Betreibers');
 define('STORE_OWNER_EMAIL_ADDRESS_TITLE', 'E-Mail Adresse');
 define('STORE_OWNER_EMAIL_ADDRESS_DESC', 'Die E-Mail Adresse des Shop-Betreibers');
 
-define('STORE_OWNER_VAT_ID_TITLE' , 'Umsatzsteuer ID');
-define('STORE_OWNER_VAT_ID_DESC' , 'Die Umsatzsteuer ID Ihres Unternehmens');
+define('STORE_OWNER_VAT_ID_TITLE', 'Umsatzsteuer ID');
+define('STORE_OWNER_VAT_ID_DESC', 'Die Umsatzsteuer ID Ihres Unternehmens');
 
 define('STORE_ADDRESS_STREET_TITLE', 'Adressinformation: Straße des Shops');
 define('STORE_ADDRESS_STREET_DESC', 'Die Kontaktinformationen des Shops, welche sowohl in Dokumenten als auch Online ausgegeben werden');

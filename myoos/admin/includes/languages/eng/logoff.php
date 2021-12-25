@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -23,4 +23,3 @@ define('HEADING_TITLE', 'Log Off');
 define('NAVBAR_TITLE', 'Log Off');
 define('TEXT_MAIN', 'You have been logged-off from <b>Admin</b> area. It is safe to leave the computer now. Click back to relogin');
 define('TEXT_RELOGIN', 're-login');
-

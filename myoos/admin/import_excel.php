@@ -13,58 +13,57 @@
   require 'includes/main.php';
 
   if (!defined('OOS_UPDATE_PATH')) {
-    define('OOS_UPDATE_PATH', OOS_EXPORT_PATH );
+      define('OOS_UPDATE_PATH', OOS_EXPORT_PATH);
   }
 
 
-  function walk( $item1 ) {
+  function walk($item1)
+  {
+      $item1 = str_replace('	', '|', $item1);
+      $item1 = str_replace('"', '', $item1);
 
-   $item1 = str_replace('	','|',$item1);
-   $item1 = str_replace('"','',$item1);
+      $item1 = str_replace("\n", '', $item1);
+      $item1 = str_replace("\r", '', $item1);
 
-   $item1 = str_replace("\n",'',$item1);
-   $item1 = str_replace("\r",'',$item1);
+      //$item1 = str_replace("",'',$item1);
+      $item1 = str_replace('"', '\"', $item1);
+      $item1 = str_replace("'", '\"', $item1);
 
-   //$item1 = str_replace("",'',$item1);
-   $item1 = str_replace('"','\"',$item1);
-   $item1 = str_replace("'",'\"',$item1);
+      // echo $item1."<br>";
+      $item1 = chop($item1);
 
-   // echo $item1."<br>";
-   $item1 = chop($item1);
+      echo $item1."<br>";
+      $items = explode("|", $item1);
 
-   echo $item1."<br>";
-   $items = explode("|", $item1);
+      $products_id = $items[0];
+      $products_model = $items[1];
+      $products_name = $items[2];
+      $products_tax_class_id = $items[3];
+      $products_status = $items[4];
+      $products_price = $items[5];
 
-   $products_id = $items[0];
-   $products_model = $items[1];
-   $products_name = $items[2];
-   $products_tax_class_id = $items[3];
-   $products_status = $items[4];
-   $products_price = $items[5];
+      $dbconn =& oosDBGetConn();
+      $oostable =& oosDBGetTables();
 
-   $dbconn =& oosDBGetConn();
-   $oostable =& oosDBGetTables();
+      $tax_ratestable = $oostable['tax_rates'];
+      $query = "SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . intval($products_tax_class_id) . "'";
+      $tax = $dbconn->GetOne($query);
 
-   $tax_ratestable = $oostable['tax_rates'];
-   $query = "SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . intval($products_tax_class_id) . "'";
-   $tax = $dbconn->GetOne($query);
+      $price = ($products_price/($tax+100)*100);
 
-   $price = ($products_price/($tax+100)*100);
-
-   $productstable = $oostable['products'];
-   $dbconn->Execute("UPDATE $productstable set products_price = '" . $price . "', products_status = '" . intval($products_status) . "' where products_id = '" . intval($products_id) . "'");
-
+      $productstable = $oostable['products'];
+      $dbconn->Execute("UPDATE $productstable set products_price = '" . $price . "', products_status = '" . intval($products_status) . "' where products_id = '" . intval($products_id) . "'");
   }
 
   if (isset($_GET['split']) && !empty($_GET['split'])) {
-    $split = oos_db_prepare_input($_GET['split']);
+      $split = oos_db_prepare_input($_GET['split']);
   }
 
   if (isset($_FILES['usrfl']) && !empty($_FILES['usrfl'])) {
-    $usrfl = $_FILES['usrfl'];
+      $usrfl = $_FILES['usrfl'];
   }
 
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -115,31 +114,30 @@
 
 <?php
   if (is_uploaded_file($usrfl['tmp_name'])) {
+      oos_get_copy_uploaded_file($usrfl, OOS_UPDATE_PATH);
 
-    oos_get_copy_uploaded_file($usrfl, OOS_UPDATE_PATH);
+      echo "<p class=smallText>";
+      echo 'File uploaded<br>';
+      echo 'Temporary filename:: ' . $usrfl['tmp_name'] . '<br>';
+      echo 'User filename: ' . $usrfl['name'] . '<br>';
+      echo 'Size: ' . $usrfl['size'] . '<br>';
+      echo '<br><br>';
+      echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_price';
+      echo '<br><br>';
 
-    echo "<p class=smallText>";
-    echo 'File uploaded<br>';
-    echo 'Temporary filename:: ' . $usrfl['tmp_name'] . '<br>';
-    echo 'User filename: ' . $usrfl['name'] . '<br>';
-    echo 'Size: ' . $usrfl['size'] . '<br>';
-    echo '<br><br>';
-    echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_price';
-    echo '<br><br>';
+      // get the entire file into an array
+      $readed = file(OOS_UPDATE_PATH . $usrfl['name']);
 
-    // get the entire file into an array
-    $readed = file(OOS_UPDATE_PATH . $usrfl['name']);
-
-    foreach ($readed as $arr) {
-      walk($arr);
-      $Counter++;
-    }
-    echo '<br><br>';
-    echo "Total Records inserted......".$Counter."<br>";
+      foreach ($readed as $arr) {
+          walk($arr);
+          $Counter++;
+      }
+      echo '<br><br>';
+      echo "Total Records inserted......".$Counter."<br>";
   }
 ?>
 
-<?php echo oos_draw_form('id', 'update_product', $aContents['import_excel'], '&split=0', 'post', FALSE, 'enctype="multipart/form-data"'); ?>
+<?php echo oos_draw_form('id', 'update_product', $aContents['import_excel'], '&split=0', 'post', false, 'enctype="multipart/form-data"'); ?>
 
               <p>
                 <div align = "left">
@@ -173,7 +171,7 @@
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

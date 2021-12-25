@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: english.php,v 1.101 2002/11/11 13:30:16 project3000 
+   File: english.php,v 1.101 2002/11/11 13:30:16 project3000
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -48,16 +48,17 @@
   * @param $reverse
   * @return string
   */
-  function oos_date_raw($date, $reverse = FALSE) {
-    if ($reverse) {
-      return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
-    } else {
-      return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
-    }
+  function oos_date_raw($date, $reverse = false)
+  {
+      if ($reverse) {
+          return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
+      } else {
+          return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
+      }
   }
 
 // GLOBAL entries for the <html> tag
-define('HTML_PARAMS','lang="en"');
+define('HTML_PARAMS', 'lang="en"');
 
 // charset for emails
 define('CHARSET', 'utf-8');
@@ -308,7 +309,7 @@ define('IMAGE_WISHLIST', 'Wishlist');
 
 // coupon_admin
 define('BUTTON_CONFIRM_DELETE_VOUCHER', 'Confirm Delete Voucher');
-define('BUTTON_EMAIL_VOUCHER', 'Email Voucher'); 
+define('BUTTON_EMAIL_VOUCHER', 'Email Voucher');
 define('BUTTON_EDIT_VOUCHER', 'Edit Voucher');
 define('BUTTON_DELETE_VOUCHER', 'Delete Voucher');
 define('BUTTON_REPORT_VOUCHER', 'Report Voucher');
@@ -383,8 +384,8 @@ define('ENTRY_TAX_NO', 'No');
 define('ENTRY_ON', 'On');
 define('ENTRY_OFF', 'Off');
 
-define('ENTRY_YES','Yes');
-define('ENTRY_NO','No');
+define('ENTRY_YES', 'Yes');
+define('ENTRY_NO', 'No');
 
 $aLang['error_destination_does_not_exist'] = 'Error: Destination does not exist.';
 $aLang['error_destination_not_writeable'] = 'Error: Destination not writeable.';
@@ -399,7 +400,7 @@ define('BOX_HEADING_GV_ADMIN', 'Vouchers/Coupons');
 define('BOX_GV_ADMIN_QUEUE', 'Gift Voucher Queue');
 define('BOX_GV_ADMIN_MAIL', 'Mail Gift Voucher');
 define('BOX_GV_ADMIN_SENT', 'Gift Vouchers sent');
-define('BOX_COUPON_ADMIN','Coupon Admin');
+define('BOX_COUPON_ADMIN', 'Coupon Admin');
 
 define('IMAGE_RELEASE', 'Redeem Gift Voucher');
 

@@ -4,12 +4,12 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
-   Based on: 
-   
+   Based on:
+
    File: address_book.php,v 1.6 2002/05/23 22:56:20 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
@@ -31,4 +31,3 @@ $aLang['table_heading_location'] = 'Location';
 $aLang['text_no_entries_in_address_book'] = 'You have no entries in your address book!';
 $aLang['text_maximum_entries'] = '<strong>NOTE:</strong> A maximum of %s address book entries allowed.';
 $aLang['text_maximum_entries_reached'] = '<strong>NOTE:</strong> Maximum of %s address book entries reached.';
-

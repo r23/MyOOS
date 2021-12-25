@@ -98,4 +98,3 @@ define('TEXT_ADD_SLAVE_PRODUCT', 'Geben Sie in die Produkt-ID, die Sie als Zubeh
 define('IMAGE_SLAVE', 'Produktoptionen');
 define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Aktuelle Produktoptionen:</b>');
 define('BUTTON_DELETE_SLAVE', 'Lösche diese Produktoption');
-

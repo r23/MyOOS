@@ -43,7 +43,9 @@
 					authorURL: '<?php echo $model_info['models_author_url']; ?>',
 					cameraPos: new THREE.Vector3( <?php echo $model_info['models_camera_pos']; ?> ),
 					objectRotation: new THREE.Euler( <?php echo $model_info['models_object_rotation']; ?> ),
-					<?php if ($model_info['models_add_env_map'] == 'true') echo 'addEnvMap: true,'; ?>
+					<?php if ($model_info['models_add_env_map'] == 'true') {
+    echo 'addEnvMap: true,';
+} ?>
 					extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco' ]
 				},
 			};

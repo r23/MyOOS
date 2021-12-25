@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: products_expected.php,v 1.29 2002/03/17 17:52:23 harley_vb 
+   File: products_expected.php,v 1.29 2002/03/17 17:52:23 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -22,12 +22,12 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 require 'includes/functions/function_products.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 
   $productstable = $oostable['products'];
   $dbconn->Execute("UPDATE $productstable SET products_date_available = '' WHERE to_days(now()) > to_days(products_date_available)");
 
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -98,22 +98,20 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
   $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
   $products_result = $dbconn->Execute($products_result_raw);
   while ($products = $products_result->fields) {
-    if ((!isset($_GET['pID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)) {
-      $pInfo = new objectInfo($products);
-    }
+      if ((!isset($_GET['pID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)) {
+          $pInfo = new objectInfo($products);
+      }
 
-    if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id) ) {
-      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'pID=' . $products['products_id'] . '&action=new_product') . '\'">' . "\n";
-    } else {
-      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_expected'], 'page=' . $nPage . '&pID=' . $products['products_id']) . '\'">' . "\n";
-    }
-?>
+      if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
+          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'pID=' . $products['products_id'] . '&action=new_product') . '\'">' . "\n";
+      } else {
+          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_expected'], 'page=' . $nPage . '&pID=' . $products['products_id']) . '\'">' . "\n";
+      } ?>
                 <td><?php echo '<a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo $products['products_name']; ?></td>
                 <td class="text-center"><?php echo oos_date_short($products['products_date_available']); ?></td>
                 <td class="text-right"><?php echo
-							'<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fas fa-pencil-alt" title="' .  BUTTON_EDIT . '"></i></a>';
-			?>				
+                            '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fas fa-pencil-alt" title="' .  BUTTON_EDIT . '"></i></a>'; ?>				
 				
               </tr>
 <?php
@@ -149,7 +147,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

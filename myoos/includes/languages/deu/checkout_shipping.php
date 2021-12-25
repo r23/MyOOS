@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -38,4 +38,3 @@ $aLang['table_heading_comments'] = 'Fügen Sie hier Ihre Anmerkungen zu dieser B
 
 $aLang['title_continue_checkout_procedure'] = 'Fortsetzung des Bestellvorganges';
 $aLang['text_continue_checkout_procedure'] = 'zur Auswahl der gewünschten Zahlungsweise.';
-

@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: tax_classes.php,v 1.5 2002/01/28 00:48:18 harley_vb 
+   File: tax_classes.php,v 1.5 2002/01/28 00:48:18 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -35,4 +35,3 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Steuerklasse l
 define('TEXT_INFO_HEADING_NEW_TAX_CLASS', 'neue Steuerklasse');
 define('TEXT_INFO_HEADING_EDIT_TAX_CLASS', 'Steuerklasse bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_TAX_CLASS', 'Steuerklasse löschen');
-

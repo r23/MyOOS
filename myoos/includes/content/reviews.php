@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: reviews.php,v 1.47 2003/02/13 04:23:23 hpdl 
+   File: reviews.php,v 1.47 2003/02/13 04:23:23 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,15 +19,15 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('reviews')) {
     oos_redirect(oos_href_link($aContents['home']));
 }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';  
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews.php';
-  
+
 
 /**
  * Get the number of times a word/character is present in a string
@@ -36,10 +36,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
  * @param $sNeedle
  * @return number
  */
-function oosWordCount($sStr, $sNeedle = ' ') {
-	$aTemp = explode($sNeedle, $sStr);
+function oosWordCount($sStr, $sNeedle = ' ')
+{
+    $aTemp = explode($sNeedle, $sStr);
 
-	return count($aTemp);
+    return count($aTemp);
 }
 
 
@@ -49,7 +50,7 @@ $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $sGroup = trim($aUser['text']);
 $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
@@ -57,16 +58,15 @@ $sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, false, true
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
-if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
+    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
-
     $reviewstable  = $oostable['reviews'];
     $productstable = $oostable['products'];
     $reviews_descriptiontable  = $oostable['reviews_description'];
@@ -89,43 +89,42 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $aReviews = array();
     while ($reviews = $reviews_result->fields) {
+        $format = 'Y-m-d H:i:s';
+        $date = DateTime::createFromFormat($format, $reviews['date_added']);
+        $date_long = $date->format('l, j. F Y');
 
-		$format = 'Y-m-d H:i:s';
-		$date = DateTime::createFromFormat($format, $reviews['date_added']);
-		$date_long = $date->format('l, j. F Y');
-		
-		$aReviews[] = array('id' => $reviews['reviews_id'],
+        $aReviews[] = array('id' => $reviews['reviews_id'],
                           'products_id' => $reviews['products_id'],
                           'reviews_id' => $reviews['reviews_id'],
                           'products_name' => $reviews['products_name'],
                           'products_image' => $reviews['products_image'],
                           'authors_name' => $reviews['customers_name'],
-						  'reviews_headline' => $reviews['reviews_headline'],
+                          'reviews_headline' => $reviews['reviews_headline'],
                           'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250), ENT_QUOTES, 'UTF-8') . '..',
                           'rating' => $reviews['reviews_rating'],
                           'word_count' => oosWordCount($reviews['reviews_text'], ' '),
                           'date_added' => $date_long);
-		$reviews_result->MoveNext();
+        $reviews_result->MoveNext();
     }
-	
-	// links breadcrumb
-	$oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
-	
-	$smarty->assign(
+
+    // links breadcrumb
+    $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['reviews']));
+
+    $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
-			'canonical'		=> $sCanonical,
+            'canonical'		=> $sCanonical,
 
             'page_split'    => $reviews_split->display_count($aLang['text_display_number_of_reviews']),
             'display_links' => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-			'numrows' 		=> $reviews_split->number_of_rows,
-			'numpages' 		=> $reviews_split->number_of_pages,
-			'page'			=> $nPage,
+            'numrows' 		=> $reviews_split->number_of_rows,
+            'numpages' 		=> $reviews_split->number_of_pages,
+            'page'			=> $nPage,
             'reviews' 		=> $aReviews
         )
     );
-  }
+}
 
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $nContentCacheID));
 

@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: products_new.php,v 1.3 2002/04/17 15:57:07 harley_vb 
+   File: products_new.php,v 1.3 2002/04/17 15:57:07 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -26,4 +26,3 @@ $aLang['heading_title'] = 'Neue Produkte';
 $aLang['text_date_added'] = 'aufgenommen am: ';
 $aLang['text_manufacturer'] = 'Hersteller:';
 $aLang['text_price'] = 'Preis:';
-

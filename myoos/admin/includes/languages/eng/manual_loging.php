@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -17,8 +17,8 @@
    Copyright (c) 2002  - Oliver Baelde
    http://www.francecontacts.com
    dev@francecontacts.com
-   - eCommerce Solutions development and integration - 
-   
+   - eCommerce Solutions development and integration -
+
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
 
@@ -49,4 +49,3 @@ define('TEXT_EMAIL_ADDRESS', 'Select Customer');
 define('TEXT_SELECT_CUSTOMER', 'Select Customer');
 define('IMAGE_CREATE_ORDER', 'Create Order');
 define('HEADING_CREATE_ORDER_ADMIN', 'Create Order under NEW account name');
-

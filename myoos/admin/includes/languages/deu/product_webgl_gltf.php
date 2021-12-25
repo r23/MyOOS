@@ -20,8 +20,8 @@
    ---------------------------------------------------------------------- */
 
 
-define('HEADING_TITLE', '3D-Modell');   
-   
+define('HEADING_TITLE', '3D-Modell');
+
 define('TEXT_NEW_PRODUCT', '3D-Modell &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
 define('TEXT_MODELS_MODEL', '3D-Modell');
@@ -48,5 +48,3 @@ define('TEXT_CHOOSE_A_ZIP_FILE', 'Wählen Sie eine Zip-Datei zum Hochladen aus:'
 define('ERROR_NO_ZIP_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .zip-Datei. Bitte versuchen Sie es erneut.');
 define('TEXT_SUCCESSFULLY_UPLOADED', 'Ihre .zip-Datei wurde hochgeladen und entpackt.');
 define('ERROR_PROBLEM_WITH_ZIP_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
-
-

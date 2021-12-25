@@ -42,4 +42,3 @@ define('OOS_SMTPHOST_DESC', 'All hosts must be separated by a semicolon.  You ca
 
 define('OOS_SENDMAIL_TITLE', 'Sets the path of the sendmail program');
 define('OOS_SENDMAIL_DESC', '/var/qmail/bin/sendmail');
-

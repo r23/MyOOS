@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: step.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
@@ -93,22 +93,22 @@ $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
   include_once 'language.php';
 
   if (isset($_POST)) {
-    foreach ($_POST as $k=>$v) {
-      $$k = oos_prepare_input($v);
-    }
+      foreach ($_POST as $k=>$v) {
+          $$k = oos_prepare_input($v);
+      }
   }
 
   if (isset($alanguage)) {
-    $currentlang = $alanguage;
+      $currentlang = $alanguage;
   }
 
   if (isset($aupdate)) {
-    $update = $aupdate;
+      $update = $aupdate;
   }
 
   if (!empty($encoded)) {
-    $dbuname = base64_decode($dbuname);
-    $dbpass = base64_decode($dbpass);
+      $dbuname = base64_decode($dbuname);
+      $dbpass = base64_decode($dbpass);
   }
 
   installer_get_language();
@@ -127,7 +127,7 @@ $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
     case 'Set Login':
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-	  $update = isset($_POST['update']) ? oos_prepare_input($_POST['update']) : NULL;
+      $update = isset($_POST['update']) ? oos_prepare_input($_POST['update']) : null;
       oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $phone, $prefix_table, $update);
       oosUpdateConfigShop(true); // Scott - added
 
@@ -139,16 +139,16 @@ $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
       break;
 
     case 'Login':
-      if ( ($pwd == '') || ($email == '') || ($pwd != $repeatpwd) ) {
-        print_ChangeLogin();
+      if (($pwd == '') || ($email == '') || ($pwd != $repeatpwd)) {
+          print_ChangeLogin();
       } else {
-        print_Login();
+          print_Login();
       }
       break;
 
 
     case 'Start':
-	  $dbmake = isset($_POST['dbmake']) ? oos_prepare_input($_POST['dbmake']) : NULL;
+      $dbmake = isset($_POST['dbmake']) ? oos_prepare_input($_POST['dbmake']) : null;
       make_db($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype, $dbmake);
       print_Start();
       break;
@@ -191,10 +191,10 @@ $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
     case 'PHP_Check':
       if (isset($_POST['agreecheck'])) {
-			writeable_oosConfigure();
-			oosCheckPHP();
+          writeable_oosConfigure();
+          oosCheckPHP();
       } else {
-			print_select_language();
+          print_select_language();
       }
       break;
 
@@ -211,4 +211,3 @@ $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
       break;
   }
   include_once 'footer.php';
-

@@ -19,128 +19,140 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-class table {
-    var $code, $title, $description, $icon, $enabled = false;
+class table
+{
+    public $code;
+    public $title;
+    public $description;
+    public $icon;
+    public $enabled = false;
 
-// class constructor
-    public function __construct() {
-		global $oOrder, $aLang;
+    // class constructor
+    public function __construct()
+    {
+        global $oOrder, $aLang;
 
-		$this->code = 'table';
-		$this->title = $aLang['module_shipping_table_text_title'];
-		$this->description = $aLang['module_shipping_table_text_description'];
-		$this->sort_order = (defined('MODULE_SHIPPING_TABLE_SORT_ORDER') ? MODULE_SHIPPING_TABLE_SORT_ORDER : null);
-		$this->icon = '';
-		$this->enabled = (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true') ? true : false);
-
-
-		if (!is_object($oOrder)) {
-			$dest_country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
-		} else {
-			$dest_country = $oOrder->delivery['country']['id'];
-		}
+        $this->code = 'table';
+        $this->title = $aLang['module_shipping_table_text_title'];
+        $this->description = $aLang['module_shipping_table_text_description'];
+        $this->sort_order = (defined('MODULE_SHIPPING_TABLE_SORT_ORDER') ? MODULE_SHIPPING_TABLE_SORT_ORDER : null);
+        $this->icon = '';
+        $this->enabled = (defined('MODULE_SHIPPING_TABLE_STATUS') && (MODULE_SHIPPING_TABLE_STATUS == 'true') ? true : false);
 
 
-		if ( ($this->enabled == true) && ((int)MODULE_SHIPPING_TABLE_ZONE > 0) ) {
-			$check_flag = false;
+        if (!is_object($oOrder)) {
+            $dest_country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
+        } else {
+            $dest_country = $oOrder->delivery['country']['id'];
+        }
 
-			// Get database information
-			$dbconn =& oosDBGetConn();
-			$oostable =& oosDBGetTables();
 
-			$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-			$check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_TABLE_ZONE . "' AND zone_country_id = '" . intval($dest_country) . "' ORDER BY zone_id");
-			while ($check = $check_result->fields) {
-				if ($check['zone_id'] < 1) {
-					$check_flag = true;
-					break;
-				} elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-					$check_flag = true;
-					break;
-				}
+        if (($this->enabled == true) && ((int)MODULE_SHIPPING_TABLE_ZONE > 0)) {
+            $check_flag = false;
 
-				// Move that ADOdb pointer!
-				$check_result->MoveNext();
-			}
+            // Get database information
+            $dbconn =& oosDBGetConn();
+            $oostable =& oosDBGetTables();
 
-			if ($check_flag == false) {
-				$this->enabled = false;
-			}
-		}
-	}
+            $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
+            $check_result = $dbconn->Execute("SELECT zone_id FROM $zones_to_geo_zonestable WHERE geo_zone_id = '" . MODULE_SHIPPING_TABLE_ZONE . "' AND zone_country_id = '" . intval($dest_country) . "' ORDER BY zone_id");
+            while ($check = $check_result->fields) {
+                if ($check['zone_id'] < 1) {
+                    $check_flag = true;
+                    break;
+                } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
+                    $check_flag = true;
+                    break;
+                }
 
-// class methods
-	function quote($method = '') {
-		global $oOrder, $aLang, $shipping_weight, $shipping_num_boxes;
+                // Move that ADOdb pointer!
+                $check_result->MoveNext();
+            }
 
-		if (MODULE_SHIPPING_TABLE_MODE == 'price') {
-			$oOrder_total = $_SESSION['cart']->show_total();
-		} else {
-			$oOrder_total = $shipping_weight;
-		}
+            if ($check_flag == false) {
+                $this->enabled = false;
+            }
+        }
+    }
 
-		$table_cost = preg_split("/[:,]/" , MODULE_SHIPPING_TABLE_COST);
-		$size = count($table_cost);
-		for ($i=0, $n=$size; $i<$n; $i+=2) {
-			if ($oOrder_total <= $table_cost[$i]) {
-				$shipping = $table_cost[$i+1];
-				break;
-			}
-		}
+    // class methods
+    public function quote($method = '')
+    {
+        global $oOrder, $aLang, $shipping_weight, $shipping_num_boxes;
 
-		if (MODULE_SHIPPING_TABLE_MODE == 'weight') {
-			$shipping = $shipping * $shipping_num_boxes;
-		}
+        if (MODULE_SHIPPING_TABLE_MODE == 'price') {
+            $oOrder_total = $_SESSION['cart']->show_total();
+        } else {
+            $oOrder_total = $shipping_weight;
+        }
 
-		$this->quotes = array('id' => $this->code,
+        $table_cost = preg_split("/[:,]/", MODULE_SHIPPING_TABLE_COST);
+        $size = count($table_cost);
+        for ($i=0, $n=$size; $i<$n; $i+=2) {
+            if ($oOrder_total <= $table_cost[$i]) {
+                $shipping = $table_cost[$i+1];
+                break;
+            }
+        }
+
+        if (MODULE_SHIPPING_TABLE_MODE == 'weight') {
+            $shipping = $shipping * $shipping_num_boxes;
+        }
+
+        $this->quotes = array('id' => $this->code,
                             'module' =>$aLang['module_shipping_table_text_title'],
                             'methods' => array(array('id' => $this->code,
                                                      'title' => $aLang['module_shipping_table_text_way'],
                                                      'cost' => $shipping + MODULE_SHIPPING_TABLE_HANDLING)));
 
 
-		if (oos_is_not_null($this->icon)) $this->quotes['icon'] = oos_image($this->icon, $this->title);
+        if (oos_is_not_null($this->icon)) {
+            $this->quotes['icon'] = oos_image($this->icon, $this->title);
+        }
 
-		return $this->quotes;
-	}
+        return $this->quotes;
+    }
 
-    function check() {
-		if (!isset($this->_check)) {
-			$this->_check = defined('MODULE_SHIPPING_TABLE_STATUS');
-		}
-		return $this->_check;
+    public function check()
+    {
+        if (!isset($this->_check)) {
+            $this->_check = defined('MODULE_SHIPPING_TABLE_STATUS');
+        }
+        return $this->_check;
     }
 
 
-    function install() {
+    public function install()
+    {
 
-		// Get database information
-		$dbconn =& oosDBGetConn();
-		$oostable =& oosDBGetTables();
+        // Get database information
+        $dbconn =& oosDBGetConn();
+        $oostable =& oosDBGetTables();
 
-		$configurationtable = $oostable['configuration'];
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_TABLE_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_TABLE_COST', '25:8.50,50:5.50,10000:0.00', '6', '0', now())");
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_TABLE_MODE', 'weight', '6', '0', 'oos_cfg_select_option(array(\'weight\', \'price\'), ', now())");
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_SHIPPING_TABLE_HANDLING', '0', '6', '0', 'currencies->format', now())");
+        $configurationtable = $oostable['configuration'];
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_TABLE_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_TABLE_COST', '25:8.50,50:5.50,10000:0.00', '6', '0', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_TABLE_MODE', 'weight', '6', '0', 'oos_cfg_select_option(array(\'weight\', \'price\'), ', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_SHIPPING_TABLE_HANDLING', '0', '6', '0', 'currencies->format', now())");
 
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_TABLE_ZONE', 'DE,AT', '6', '0', now())");
-		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_TABLE_SORT_ORDER', '0', '6', '0', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_TABLE_ZONE', 'DE,AT', '6', '0', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_TABLE_SORT_ORDER', '0', '6', '0', now())");
     }
 
-    function remove() {
+    public function remove()
+    {
 
-		// Get database information
-		$dbconn =& oosDBGetConn();
-		$oostable =& oosDBGetTables();
+        // Get database information
+        $dbconn =& oosDBGetConn();
+        $oostable =& oosDBGetTables();
 
-		$configurationtable = $oostable['configuration'];
-		$dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
+        $configurationtable = $oostable['configuration'];
+        $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
     }
 
 
-	function keys() {
-		return array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_MODE', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_ZONE', 'MODULE_SHIPPING_TABLE_SORT_ORDER');
+    public function keys()
+    {
+        return array('MODULE_SHIPPING_TABLE_STATUS', 'MODULE_SHIPPING_TABLE_COST', 'MODULE_SHIPPING_TABLE_MODE', 'MODULE_SHIPPING_TABLE_HANDLING', 'MODULE_SHIPPING_TABLE_ZONE', 'MODULE_SHIPPING_TABLE_SORT_ORDER');
     }
 }
-

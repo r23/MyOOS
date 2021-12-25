@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: products_expected.php,v 1.8 2002/03/30 15:09:07 harley_vb 
+   File: products_expected.php,v 1.8 2002/03/30 15:09:07 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -27,4 +27,3 @@ define('TABLE_HEADING_DATE_EXPECTED', 'verfügbar ab:');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_INFO_DATE_EXPECTED', 'verfügbar ab:');
-

@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: account_check.js.php,v 1.8 2003/02/10 22:30:55 hpdl 
+   File: account_check.js.php,v 1.8 2003/02/10 22:30:55 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -22,7 +22,7 @@
 
 <?php
 if (substr(basename($_SERVER['PHP_SELF']), 0, 12) == 'admin_member') {
-?>
+    ?>
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -36,13 +36,13 @@ function validateForm() {
   if (adminName1 == '') { 
     errors+='<?php echo JS_ALERT_FIRSTNAME; ?>';
   } else if (adminName1.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) { 
-    errors+='- Firstname length must over  <?php echo (ENTRY_FIRST_NAME_MIN_LENGTH); ?>\n';
+    errors+='- Firstname length must over  <?php echo(ENTRY_FIRST_NAME_MIN_LENGTH); ?>\n';
   }
 
   if (adminName2 == '') { 
     errors+='<?php echo JS_ALERT_LASTNAME; ?>';
   } else if (adminName2.length < <?php echo ENTRY_FIRST_NAME_MIN_LENGTH; ?>) { 
-    errors+='- Lastname length must over  <?php echo (ENTRY_LAST_NAME_MIN_LENGTH);  ?>\n';
+    errors+='- Lastname length must over  <?php echo(ENTRY_LAST_NAME_MIN_LENGTH); ?>\n';
   }
 
   if (adminEmail == '') {
@@ -93,7 +93,7 @@ function checkSub(obj) {
 
 <?php
 } else {
-?>
+        ?>
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -115,7 +115,7 @@ function validateForm() {
   if (adminName2 == '') {
     errors+='<?php echo JS_ALERT_LASTNAME; ?>';
   } else if (adminName2.length < <?php echo ENTRY_LAST_NAME_MIN_LENGTH; ?>) {
-    errors+='<?php echo JS_ALERT_LASTNAME_LENGTH . ENTRY_LAST_NAME_MIN_LENGTH;  ?>\n';
+    errors+='<?php echo JS_ALERT_LASTNAME_LENGTH . ENTRY_LAST_NAME_MIN_LENGTH; ?>\n';
   }
 
   if (adminEmail == '') {
@@ -142,5 +142,5 @@ function validateForm() {
 </script>
 
 <?php
-}
+    }
 ?>

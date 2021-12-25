@@ -30,7 +30,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $sCustomer = isset($_GET['customer']) ? oos_prepare_input($_GET['customer']) : '';
 
 
-if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!$_POST['back_x']) ) {
+if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!$_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {
       case '***':
         $customerstable = $oostable['customers'];
@@ -51,165 +51,163 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
         $customerstable = $oostable['customers'];
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM $customerstable WHERE customers_email_address = '" . oos_db_input($customers_email_address) . "'");
         $mail_sent_to = oos_db_prepare_input($_POST['customers_email_address']);
-        if ( (isset($_POST['email_to'])) && (!empty($_POST['email_to'])) ) {
-          $mail_sent_to = oos_db_prepare_input($_POST['email_to']);
+        if ((isset($_POST['email_to'])) && (!empty($_POST['email_to']))) {
+            $mail_sent_to = oos_db_prepare_input($_POST['email_to']);
         }
         break;
     }
 
-    if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x']) ) {
-        
+    if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
+
         // (Re)create it, if it's gone missing.
-        if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
+        if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
             require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
             require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
             require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
-            $phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
+            $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
         }
-        
-        
-        
-      while ($mail = $mail_result->fields) {
-        $id1 = oos_create_coupon_code($mail['customers_email_address']);
-        $message =  oos_db_prepare_input($_POST['message']);
+
+
+
+        while ($mail = $mail_result->fields) {
+            $id1 = oos_create_coupon_code($mail['customers_email_address']);
+            $message =  oos_db_prepare_input($_POST['message']);
+            $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";
+            $message .= TEXT_TO_REDEEM;
+            $message .= TEXT_WHICH_IS . $id1 . TEXT_IN_CASE . "\n\n";
+            $message .= OOS_HTTPS_SERVER  . OOS_SHOP . 'index.php?content=' . $aCatalog['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
+            $message .= TEXT_OR_VISIT . OOS_HTTPS_SERVER  . OOS_SHOP . TEXT_ENTER_CODE;
+
+
+            #    $phpmailer::$validator = static function ( $to_email_address ) {
+            #         return (bool) is_email( $to_email_address );
+            #    };
+
+            // Empty out the values that may be set.
+            $phpmailer->clearAllRecipients();
+            $phpmailer->clearAttachments();
+            $phpmailer->clearCustomHeaders();
+            $phpmailer->clearReplyTos();
+
+            $phpmailer->IsMail();
+
+            $phpmailer->From = $from_mail ? $from_mail : STORE_OWNER_EMAIL_ADDRESS;
+            $phpmailer->FromName = $from_name ? $from_name : STORE_OWNER;
+            $phpmailer->Mailer = EMAIL_TRANSPORT;
+
+            // Add smtp values if needed
+            if (EMAIL_TRANSPORT == 'smtp') {
+                $phpmailer->IsSMTP(); // set mailer to use SMTP
+          $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+          $phpmailer->Username = OOS_SMTPUSER; // SMTP username
+          $phpmailer->Password = OOS_SMTPPASS; // SMTP password
+          $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
+            } elseif // Set sendmail path
+          (EMAIL_TRANSPORT == 'sendmail') {
+                if (!oos_empty(OOS_SENDMAIL)) {
+                    $phpmailer->Sendmail = OOS_SENDMAIL;
+                    $phpmailer->IsSendmail();
+                }
+            }
+
+            $phpmailer->Subject = $subject;
+            $phpmailer->Body = $message;
+            $phpmailer->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
+            $phpmailer->Send();
+            $phpmailer->ClearAddresses();
+            $phpmailer->ClearAttachments();
+
+            // Now create the coupon main and email entry
+            $couponstable = $oostable['coupons'];
+            $insert_result = $dbconn->Execute("INSERT INTO $couponstable (coupon_code, coupon_type, coupon_amount, date_created) VALUES ('" . $id1 . "', 'G', '" . oos_db_input($_POST['amount']) . "', now())");
+            $insert_id = $dbconn->Insert_ID();
+            $coupon_email_tracktable = $oostable['coupon_email_track'];
+            $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . $mail['customers_email_address'] . "', now() )");
+            // Move that ADOdb pointer!
+            $mail_result->MoveNext();
+        }
+    } elseif (isset($_POST['email_to']) && (!$_POST['back_x'])) {
+        $id1 = oos_create_coupon_code($_POST['email_to']);
+        $message = oos_db_prepare_input($_POST['message']);
         $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";
         $message .= TEXT_TO_REDEEM;
         $message .= TEXT_WHICH_IS . $id1 . TEXT_IN_CASE . "\n\n";
         $message .= OOS_HTTPS_SERVER  . OOS_SHOP . 'index.php?content=' . $aCatalog['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
-        $message .= TEXT_OR_VISIT . OOS_HTTPS_SERVER  . OOS_SHOP . TEXT_ENTER_CODE;
+        $message .= TEXT_OR_VISIT . OOS_HTTPS_SERVER  . OOS_SHOP  . TEXT_ENTER_CODE;
 
-        
-    #    $phpmailer::$validator = static function ( $to_email_address ) {
-    #         return (bool) is_email( $to_email_address );
-    #    };
-        
+        // (Re)create it, if it's gone missing.
+        if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
+            require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
+            require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
+            require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
+            $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
+
+            $phpmailer::$validator = static function ($to_email_address) {
+                return (bool) is_email($to_email_address);
+            };
+        }
+
         // Empty out the values that may be set.
         $phpmailer->clearAllRecipients();
         $phpmailer->clearAttachments();
         $phpmailer->clearCustomHeaders();
         $phpmailer->clearReplyTos();
-        
+
         $phpmailer->IsMail();
+
+
 
         $phpmailer->From = $from_mail ? $from_mail : STORE_OWNER_EMAIL_ADDRESS;
         $phpmailer->FromName = $from_name ? $from_name : STORE_OWNER;
         $phpmailer->Mailer = EMAIL_TRANSPORT;
 
         // Add smtp values if needed
-        if ( EMAIL_TRANSPORT == 'smtp' ) {
-          $phpmailer->IsSMTP(); // set mailer to use SMTP
-          $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-          $phpmailer->Username = OOS_SMTPUSER; // SMTP username
-          $phpmailer->Password = OOS_SMTPPASS; // SMTP password
-          $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
-        } else
-          // Set sendmail path
-          if ( EMAIL_TRANSPORT == 'sendmail' ) {
+        if (EMAIL_TRANSPORT == 'smtp') {
+            $phpmailer->IsSMTP(); // set mailer to use SMTP
+        $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+        $phpmailer->Username = OOS_SMTPUSER; // SMTP username
+        $phpmailer->Password = OOS_SMTPPASS; // SMTP password
+        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
+        } elseif // Set sendmail path
+        (EMAIL_TRANSPORT == 'sendmail') {
             if (!oos_empty(OOS_SENDMAIL)) {
-              $phpmailer->Sendmail = OOS_SENDMAIL;
-              $phpmailer->IsSendmail();
+                $phpmailer->Sendmail = OOS_SENDMAIL;
+                $phpmailer->IsSendmail();
             }
         }
 
         $phpmailer->Subject = $subject;
         $phpmailer->Body = $message;
-        $phpmailer->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
+        $phpmailer->AddAddress($_POST['email_to'], 'Friend');
         $phpmailer->Send();
         $phpmailer->ClearAddresses();
         $phpmailer->ClearAttachments();
 
-        // Now create the coupon main and email entry
+
+        // Now create the coupon email entry
         $couponstable = $oostable['coupons'];
-        $insert_result = $dbconn->Execute("INSERT INTO $couponstable (coupon_code, coupon_type, coupon_amount, date_created) VALUES ('" . $id1 . "', 'G', '" . oos_db_input($_POST['amount']) . "', now())");
+        $insert_result = $dbconn->Execute("INSERT INTO $couponstable (coupon_code, coupon_type, coupon_amount, date_created) VALUES ('" . oos_db_input($id1) . "', 'G', '" . oos_db_input($_POST['amount']) . "', now())");
         $insert_id = $dbconn->Insert_ID();
         $coupon_email_tracktable = $oostable['coupon_email_track'];
-        $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . $mail['customers_email_address'] . "', now() )");
-        // Move that ADOdb pointer!
-        $mail_result->MoveNext();
-      }
-    } elseif (isset($_POST['email_to']) && (!$_POST['back_x'])) {
-      $id1 = oos_create_coupon_code($_POST['email_to']);
-      $message = oos_db_prepare_input($_POST['message']);
-      $message .= "\n\n" . TEXT_GV_WORTH  . $currencies->format($_POST['amount']) . "\n\n";
-      $message .= TEXT_TO_REDEEM;
-      $message .= TEXT_WHICH_IS . $id1 . TEXT_IN_CASE . "\n\n";
-      $message .= OOS_HTTPS_SERVER  . OOS_SHOP . 'index.php?content=' . $aCatalog['gv_redeem'] . '&gv_no=' . $id1 . "\n\n";
-      $message .= TEXT_OR_VISIT . OOS_HTTPS_SERVER  . OOS_SHOP  . TEXT_ENTER_CODE;
-
-      // (Re)create it, if it's gone missing.
-      if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
-          require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
-          require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
-          require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
-          $phpmailer = new PHPMailer\PHPMailer\PHPMailer( true );
-          
-          $phpmailer::$validator = static function ( $to_email_address ) {
-              return (bool) is_email( $to_email_address );
-          };
-      }
-      
-      // Empty out the values that may be set.
-      $phpmailer->clearAllRecipients();
-      $phpmailer->clearAttachments();
-      $phpmailer->clearCustomHeaders();
-      $phpmailer->clearReplyTos();
-      
-      $phpmailer->IsMail();
-      
-      
-
-      $phpmailer->From = $from_mail ? $from_mail : STORE_OWNER_EMAIL_ADDRESS;
-      $phpmailer->FromName = $from_name ? $from_name : STORE_OWNER;
-      $phpmailer->Mailer = EMAIL_TRANSPORT;
-
-      // Add smtp values if needed
-      if ( EMAIL_TRANSPORT == 'smtp' ) {
-        $phpmailer->IsSMTP(); // set mailer to use SMTP
-        $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-        $phpmailer->Username = OOS_SMTPUSER; // SMTP username
-        $phpmailer->Password = OOS_SMTPPASS; // SMTP password
-        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
-      } else
-        // Set sendmail path
-        if ( EMAIL_TRANSPORT == 'sendmail' ) {
-          if (!oos_empty(OOS_SENDMAIL)) {
-            $phpmailer->Sendmail = OOS_SENDMAIL;
-            $phpmailer->IsSendmail();
-        }
-      }
-
-      $phpmailer->Subject = $subject;
-      $phpmailer->Body = $message;
-      $phpmailer->AddAddress($_POST['email_to'], 'Friend');
-      $phpmailer->Send();
-      $phpmailer->ClearAddresses();
-      $phpmailer->ClearAttachments();
-      
-      
-      // Now create the coupon email entry
-      $couponstable = $oostable['coupons'];
-      $insert_result = $dbconn->Execute("INSERT INTO $couponstable (coupon_code, coupon_type, coupon_amount, date_created) VALUES ('" . oos_db_input($id1) . "', 'G', '" . oos_db_input($_POST['amount']) . "', now())");
-      $insert_id = $dbconn->Insert_ID();
-      $coupon_email_tracktable = $oostable['coupon_email_track'];
-      $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . oos_db_input($_POST['email_to']) . "', now() )"); 
+        $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable (coupon_id, customer_id_sent, sent_firstname, emailed_to, date_sent) VALUES ('" . $insert_id ."', '0', 'Admin', '" . oos_db_input($_POST['email_to']) . "', now() )");
     }
 
     oos_redirect_admin(oos_href_link_admin($aContents['gv_mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
+}
+
+  if (($action == 'preview') && (!$_POST['customers_email_address']) && (!$_POST['email_to'])) {
+      $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
   }
 
-  if ( ($action == 'preview') && (!$_POST['customers_email_address']) && (!$_POST['email_to']) ) {
-    $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
-  }
-
-  if ( ($action == 'preview') && (!$_POST['amount']) ) {
-    $messageStack->add(ERROR_NO_AMOUNT_SELECTED, 'error');
+  if (($action == 'preview') && (!$_POST['amount'])) {
+      $messageStack->add(ERROR_NO_AMOUNT_SELECTED, 'error');
   }
 
   if (isset($_GET['mail_sent_to'])) {
-    $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
+      $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
   }
 
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -257,8 +255,8 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
 <div class="table-responsive">
 	<table class="table w-100">
 <?php
-  if ( ($action == 'preview') && ($_POST['customers_email_address'] || $_POST['email_to']) ) {
-    switch ($_POST['customers_email_address']) {
+  if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['email_to'])) {
+      switch ($_POST['customers_email_address']) {
       case '***':
         $mail_sent_to = TEXT_ALL_CUSTOMERS;
         break;
@@ -269,13 +267,12 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
 
       default:
         $mail_sent_to = oos_db_prepare_input($_POST['customers_email_address']);
-        if ( (isset($_POST['email_to'])) && (!empty($_POST['email_to'])) ) {
-          $mail_sent_to =  oos_db_prepare_input($_POST['email_to']);
+        if ((isset($_POST['email_to'])) && (!empty($_POST['email_to']))) {
+            $mail_sent_to =  oos_db_prepare_input($_POST['email_to']);
         }
         break;
-    }
-?>
-          <tr><?php echo oos_draw_form('id', 'mail', $aContents['gv_mail'], 'action=send_email_to_user', 'post', FALSE); ?>
+    } ?>
+          <tr><?php echo oos_draw_form('id', 'mail', $aContents['gv_mail'], 'action=send_email_to_user', 'post', false); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td></td>
@@ -318,12 +315,11 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
 <?php
 /* Re-Post all POST'ed variables */
     reset($_POST);
-    foreach ($_POST as $key => $value) {		
-      if (!is_array($_POST[$key])) {
-        echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
-      }
-    }
-?>
+      foreach ($_POST as $key => $value) {
+          if (!is_array($_POST[$key])) {
+              echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
+          }
+      } ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php echo oos_submit_button('back', BUTTON_BACK, 'name="back"'); ?></td>
@@ -335,31 +331,30 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
           </form></tr>
 <?php
   } else {
-?>
-          <tr><?php echo oos_draw_form('id', 'mail', $aContents['gv_mail'], 'action=preview', 'post', FALSE); ?>
+      ?>
+          <tr><?php echo oos_draw_form('id', 'mail', $aContents['gv_mail'], 'action=preview', 'post', false); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"></td>
               </tr>
 <?php
     $customers = [];
-    $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
-    $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
-    $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
+      $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
+      $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
+      $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
 
-    $customerstable = $oostable['customers'];
-    $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM $customerstable ORDER BY customers_lastname");
-    while($customers_values = $mail_result->fields) {
-      $customers[] = array('id' => $customers_values['customers_email_address'],
+      $customerstable = $oostable['customers'];
+      $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM $customerstable ORDER BY customers_lastname");
+      while ($customers_values = $mail_result->fields) {
+          $customers[] = array('id' => $customers_values['customers_email_address'],
                            'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
 
-      // Move that ADOdb pointer!
-      $mail_result->MoveNext();
-    }
-?>
+          // Move that ADOdb pointer!
+          $mail_result->MoveNext();
+      } ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
-                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer);?></td>
+                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer); ?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
@@ -377,7 +372,7 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_FROM_MAIL; ?></td>
-                <td><?php echo oos_draw_input_field('from_mail',STORE_OWNER_EMAIL_ADDRESS); ?></td></td>
+                <td><?php echo oos_draw_input_field('from_mail', STORE_OWNER_EMAIL_ADDRESS); ?></td></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
@@ -429,7 +424,7 @@ if ( ($action == 'send_email_to_user') && ($_POST['customers_email_address'] || 
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

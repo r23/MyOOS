@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: max_order.php v1.00 2003/04/27 JOHNSON   
+   File: max_order.php v1.00 2003/04/27 JOHNSON
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -24,5 +24,4 @@
 $aLang['navbar_title'] = 'Kreditlimit';
 $aLang['heading_title'] = 'Kreditlimit';
 
-$aLang['text_information'] = 'Sie sind '. $oCurrencies->format ($_SESSION['cart']->show_total() - (+$_SESSION['customer_max_order'])) .' über Ihrem ' . $oCurrencies->format($_SESSION['customer_max_order']) . ' Kreditlimit. <br />Bitte kontaktieren Sie unser Verkaufsteam, um Ihre Bestellung zu bestätigen!';
-
+$aLang['text_information'] = 'Sie sind '. $oCurrencies->format($_SESSION['cart']->show_total() - (+$_SESSION['customer_max_order'])) .' über Ihrem ' . $oCurrencies->format($_SESSION['customer_max_order']) . ' Kreditlimit. <br />Bitte kontaktieren Sie unser Verkaufsteam, um Ihre Bestellung zu bestätigen!';

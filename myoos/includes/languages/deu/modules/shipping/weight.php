@@ -45,4 +45,3 @@ $aLang['module_shipping_weight_text_description'] = 'Gewichtsabhängige Versandk
 $aLang['module_shipping_weight_text_way'] = 'Versandkosten';
 $aLang['module_shipping_weight_text_weight'] = 'Gewicht';
 $aLang['module_shipping_weight_text_amount'] = 'Menge';
-

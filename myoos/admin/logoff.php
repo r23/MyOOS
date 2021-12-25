@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: logoff.php,v 1.12 2003/02/13 03:01:51 hpdl 
+   File: logoff.php,v 1.12 2003/02/13 03:01:51 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -59,6 +59,6 @@ require 'includes/header.php';
 	</div>
 
 <?php
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

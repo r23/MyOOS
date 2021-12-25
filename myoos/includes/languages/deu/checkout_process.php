@@ -38,4 +38,3 @@ $aLang['email_text_no'] = 'Nein, ich möchte bei Auslieferung des neuen Gerätes
 
 $aLang['email_separator'] = '------------------------------------------------------';
 $aLang['text_email_via'] = 'durch';
-

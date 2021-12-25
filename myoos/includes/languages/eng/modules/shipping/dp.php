@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: dp.php,v 1.4 2003/02/18 03:33:00 harley_vb 
+   File: dp.php,v 1.4 2003/02/18 03:33:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -78,4 +78,3 @@ $aLang['module_shipping_dp_text_way'] = 'Dispatch to';
 $aLang['module_shipping_dp_text_units'] = 'kg';
 $aLang['module_shipping_dp_invalid_zone'] = 'Unfortunately it is not possible to dispatch into this country';
 $aLang['module_shipping_dp_undefined_rate'] = 'Forwarding expenses cannot be calculated for the moment';
-

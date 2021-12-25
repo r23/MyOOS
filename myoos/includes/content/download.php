@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: download.php,v 1.9 2003/02/13 03:01:48 hpdl 
+   File: download.php,v 1.9 2003/02/13 03:01:48 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,13 +19,15 @@
    ---------------------------------------------------------------------- */
 
   /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-  if (!isset($_SESSION['customer_id'])) die;
+  if (!isset($_SESSION['customer_id'])) {
+      die;
+  }
 
 // Check download.php was called with proper GET parameters
-  if ((isset($_GET['order']) && !is_numeric($_GET['order'])) || (isset($_GET['id']) && !is_numeric($_GET['id'])) ) {
-    die;
+  if ((isset($_GET['order']) && !is_numeric($_GET['order'])) || (isset($_GET['id']) && !is_numeric($_GET['id']))) {
+      die;
   }
 
 
@@ -36,17 +38,17 @@
    *
    * @return  string
    */
-   function oos_random_name() {
+   function oos_random_name()
+   {
+       $letters = 'abcdefghijklmnopqrstuvwxyz';
+       $dirname = '.';
+       $length = floor(oos_rand(16, 20));
+       for ($i = 1; $i <= $length; $i++) {
+           $q = floor(oos_rand(1, 26));
+           $dirname .= $letters[$q];
+       }
 
-     $letters = 'abcdefghijklmnopqrstuvwxyz';
-     $dirname = '.';
-     $length = floor(oos_rand(16,20));
-     for ($i = 1; $i <= $length; $i++) {
-       $q = floor(oos_rand(1,26));
-       $dirname .= $letters[$q];
-     }
-
-     return $dirname;
+       return $dirname;
    }
 
 
@@ -54,28 +56,35 @@
    * Unlinks all subdirectories and files in $dir
    * Works only on one subdir level, will not recurse
    */
-   function oos_unlink_temp_dir($dir) {
-     $h1 = opendir($dir);
+   function oos_unlink_temp_dir($dir)
+   {
+       $h1 = opendir($dir);
 
-     while ($subdir = readdir($h1)) {
-       // Ignore non directories
-       if (!is_dir($dir . $subdir)) continue;
+       while ($subdir = readdir($h1)) {
+           // Ignore non directories
+           if (!is_dir($dir . $subdir)) {
+               continue;
+           }
 
-       // Ignore . and .. and CVS
-       if ($subdir == '.' || $subdir == '..' || $subdir == 'CVS') continue;
+           // Ignore . and .. and CVS
+           if ($subdir == '.' || $subdir == '..' || $subdir == 'CVS') {
+               continue;
+           }
 
-       // Loop and unlink files in subdirectory
-       $h2 = opendir($dir . $subdir);
-       while ($file = readdir($h2)) {
-         if ($file == '.' || $file == '..') continue;
-         @unlink($dir . $subdir . '/' . $file);
+           // Loop and unlink files in subdirectory
+           $h2 = opendir($dir . $subdir);
+           while ($file = readdir($h2)) {
+               if ($file == '.' || $file == '..') {
+                   continue;
+               }
+               @unlink($dir . $subdir . '/' . $file);
+           }
+
+           closedir($h2);
+           @rmdir($dir . $subdir);
        }
 
-       closedir($h2); 
-       @rmdir($dir . $subdir);
-     }
-
-     closedir($h1);
+       closedir($h1);
    }
 
 
@@ -93,7 +102,9 @@
              AND opd.orders_products_download_id = '" . intval($_GET['id']) . "' 
              AND opd.orders_products_filename != ''";
   $downloads_result = $dbconn->Execute($sql);
-  if (!$downloads_result->RecordCount()) die;
+  if (!$downloads_result->RecordCount()) {
+      die;
+  }
   $downloads = $downloads_result->fields;
   // MySQL 3.22 does not have INTERVAL
   list($dt_year, $dt_month, $dt_day) = explode('-', $downloads['date_purchased_day']);
@@ -101,13 +112,19 @@
 
 
 // Die if time expired (maxdays = 0 means no time limit)
-  if (($downloads['download_maxdays'] != 0) && ($download_timestamp <= time())) die;
+  if (($downloads['download_maxdays'] != 0) && ($download_timestamp <= time())) {
+      die;
+  }
 
 // Die if remaining count is <=0
-  if ($downloads['download_count'] <= 0) die;
+  if ($downloads['download_count'] <= 0) {
+      die;
+  }
 
 // Die if file is not there
-  if (!file_exists(OOS_DOWNLOAD_PATH . $downloads['orders_products_filename'])) die;
+  if (!file_exists(OOS_DOWNLOAD_PATH . $downloads['orders_products_filename'])) {
+      die;
+  }
 
 
 // Now decrement counter
@@ -125,17 +142,15 @@
   header("Content-disposition: attachment; filename=" . $downloads['orders_products_filename']);
 
   if (DOWNLOAD_BY_REDIRECT == 'true') {
-    // This will work only on Unix/Linux hosts
-    oos_unlink_temp_dir(OOS_DOWNLOAD_PATH_PUBLIC);
-    $tempdir = oos_random_name();
-    umask(0000);
-    mkdir(OOS_DOWNLOAD_PATH_PUBLIC . $tempdir, 0777);
-    symlink(OOS_DOWNLOAD_PATH . $downloads['orders_products_filename'], OOS_DOWNLOAD_PATH_PUBLIC . $tempdir . '/' . $downloads['orders_products_filename']);
-    oos_redirect(OOS_DOWNLOAD . $tempdir . '/' . $downloads['orders_products_filename']);
+      // This will work only on Unix/Linux hosts
+      oos_unlink_temp_dir(OOS_DOWNLOAD_PATH_PUBLIC);
+      $tempdir = oos_random_name();
+      umask(0000);
+      mkdir(OOS_DOWNLOAD_PATH_PUBLIC . $tempdir, 0777);
+      symlink(OOS_DOWNLOAD_PATH . $downloads['orders_products_filename'], OOS_DOWNLOAD_PATH_PUBLIC . $tempdir . '/' . $downloads['orders_products_filename']);
+      oos_redirect(OOS_DOWNLOAD . $tempdir . '/' . $downloads['orders_products_filename']);
   } else {
-    // This will work on all systems, but will need considerable resources
-    // We could also loop with fread($fp, 4096) to save memory
-    readfile(OOS_DOWNLOAD_PATH . $downloads['orders_products_filename']);
+      // This will work on all systems, but will need considerable resources
+      // We could also loop with fread($fp, 4096) to save memory
+      readfile(OOS_DOWNLOAD_PATH . $downloads['orders_products_filename']);
   }
-
-

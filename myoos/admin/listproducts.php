@@ -49,7 +49,7 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
     echo "<tr><th>Product ID</th><th>Product Name</th><th>Product Size</th></tr><tr>";
     $pr_ids = preg_split("/[,]/", $get_result['restrict_to_products']);
     for ($i = 0; $i < count($pr_ids); $i++) {
-      $sql = "SELECT 
+        $sql = "SELECT 
                 p.products_id, p.products_model, p.products_status, pd.products_name
             FROM 
                 " . $oostable['products'] . " p, 
@@ -59,13 +59,13 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
                 pd.products_id = p.products_id AND
                 pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'
                 pd.products_id = '" . $pr_ids[$i] . "'";
-      $result = $dbconn->Execute($sql);
-      if ($row = $result->fields) {
+        $result = $dbconn->Execute($sql);
+        if ($row = $result->fields) {
             echo "<td>".$row["products_id"]."</td>\n";
             echo "<td>".$row["products_name"]."</td>\n";
             echo "<td>".$row["products_model"]."</td>\n";
             echo "</tr>\n";
-      }
+        }
     }
       echo "</table>\n";
 ?>

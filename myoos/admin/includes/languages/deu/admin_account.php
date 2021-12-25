@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: admin_members.php,v 1.13 2002/08/19 01:45:58 hpdl 
+   File: admin_members.php,v 1.13 2002/08/19 01:45:58 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -45,15 +45,13 @@ define('TEXT_INFO_INTRO_DEFAULT_FIRST_TIME', '<br><b>WARNUNG:</b><br>Hallo <b>%s
 define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br><b>WARNUNG:</b><br>Hallo <b>%s</b>, wir empfehlen Ihnen Ihre E-Mail Adresse zu änderndern (<font color="red">admin@localhost</font>) und das Passwort!');
 define('TEXT_INFO_INTRO_EDIT_PROCESS', 'Sämtliche Felder werden benötigt. Klicken sie sichern zur Datenbertragung.');
 
-define('JS_ALERT_FIRSTNAME',        '- Benötigt: Vorname \n');
-define('JS_ALERT_LASTNAME',         '- Benötigt: Nachname \n');
-define('JS_ALERT_EMAIL',            '- Benötigt: Email-Adresse \n');
-define('JS_ALERT_PASSWORD',         '- Benötigt: Passwort \n');
+define('JS_ALERT_FIRSTNAME', '- Benötigt: Vorname \n');
+define('JS_ALERT_LASTNAME', '- Benötigt: Nachname \n');
+define('JS_ALERT_EMAIL', '- Benötigt: Email-Adresse \n');
+define('JS_ALERT_PASSWORD', '- Benötigt: Passwort \n');
 define('JS_ALERT_FIRSTNAME_LENGTH', '- Die Länge des Vornamens muss über ');
-define('JS_ALERT_LASTNAME_LENGTH',  '- Die Länge des Nachnamens muss über ');
-define('JS_ALERT_PASSWORD_LENGTH',  '- Die Länge des Passwortes muss über  ');
-define('JS_ALERT_EMAIL_FORMAT',     '- Das Format der Email-Adresse ist ungültig! \n');
-define('JS_ALERT_EMAIL_USED',       '- Diese Email-Adresse wird schon verwendet! \n');
+define('JS_ALERT_LASTNAME_LENGTH', '- Die Länge des Nachnamens muss über ');
+define('JS_ALERT_PASSWORD_LENGTH', '- Die Länge des Passwortes muss über  ');
+define('JS_ALERT_EMAIL_FORMAT', '- Das Format der Email-Adresse ist ungültig! \n');
+define('JS_ALERT_EMAIL_USED', '- Diese Email-Adresse wird schon verwendet! \n');
 define('JS_ALERT_PASSWORD_CONFIRM', '- Im Passwort-Bestätigungsfeld ist keine Eintragung vorgenommen worden! \n');
-
-

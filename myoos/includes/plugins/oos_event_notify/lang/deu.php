@@ -12,4 +12,3 @@
 
 define('PLUGIN_EVENT_NOTIFY_NAME', 'Benachrichtigen');
 define('PLUGIN_EVENT_NOTIFY_DESC', 'Benachrichtigen');
-

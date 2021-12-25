@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -26,4 +26,3 @@ define('SUB_BAR_TITLE', 'Click the image below.  Your Gateway ID and Password ar
 
 define('CPANEL_URL', 'https://secure.itransact.com/support/login.html');
 define('CPANEL_URL_NAME', 'ctrlpan');
-

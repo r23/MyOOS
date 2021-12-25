@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_gv.php,v 1.0 2002/04/03 23:09:49 hpdl 
+   File: ot_gv.php,v 1.0 2002/04/03 23:09:49 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -39,4 +39,3 @@ $aLang['module_xmembers_title'] = 'Members Discount';
 $aLang['module_xmembers_description'] = 'Members Discount';
 $aLang['shipping_not_included'] = ' [Shipping not included]';
 $aLang['tax_not_included'] = ' [Tax not included]';
-

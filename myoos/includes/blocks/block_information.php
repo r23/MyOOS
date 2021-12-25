@@ -21,7 +21,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $informationtable = $oostable['information'];
 $information_descriptiontable = $oostable['information_description'];
@@ -34,4 +34,3 @@ $sql = "SELECT id.information_id, id.information_name, i.sort_order
          ORDER BY i.sort_order DESC";
 $smarty->assign('information', $dbconn->GetAll($sql));
 $smarty->assign('block_heading_information', $block_heading);
-

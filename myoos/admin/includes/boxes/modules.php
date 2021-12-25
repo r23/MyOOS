@@ -20,32 +20,31 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
-$bActive = ($_SESSION['selected_box'] == 'modules' ) ? TRUE : FALSE;
+$bActive = ($_SESSION['selected_box'] == 'modules') ? true : false;
 
 $aBlocks[] = array(
-	'heading' => BOX_HEADING_MODULES,
-	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=modules'),
-	'icon' => 'fa fa-edit',
-	'active' => $bActive,
-	'contents' => array(
-		array(
-			'code' => 'payment',
-			'title' => BOX_MODULES_PAYMENT,
-			'link' =>  oos_href_link_admin($aContents['modules'], 'selected_box=modules&amp;set=payment')
-		),
-		array(
-			'code' => 'shipping',
-			'title' => BOX_MODULES_SHIPPING,
-			'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&amp;set=shipping')
-		),
-		array(
-			'code' => 'ordertotal',
-			'title' => BOX_MODULES_ORDER_TOTAL,
-			'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&amp;set=ordertotal')
-		),	
-	),
+    'heading' => BOX_HEADING_MODULES,
+    'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=modules'),
+    'icon' => 'fa fa-edit',
+    'active' => $bActive,
+    'contents' => array(
+        array(
+            'code' => 'payment',
+            'title' => BOX_MODULES_PAYMENT,
+            'link' =>  oos_href_link_admin($aContents['modules'], 'selected_box=modules&amp;set=payment')
+        ),
+        array(
+            'code' => 'shipping',
+            'title' => BOX_MODULES_SHIPPING,
+            'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&amp;set=shipping')
+        ),
+        array(
+            'code' => 'ordertotal',
+            'title' => BOX_MODULES_ORDER_TOTAL,
+            'link' => oos_href_link_admin($aContents['modules'], 'selected_box=modules&amp;set=ordertotal')
+        ),
+    ),
 );
-

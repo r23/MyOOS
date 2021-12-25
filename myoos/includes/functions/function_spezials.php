@@ -9,7 +9,7 @@
    Based on:
 
    File: general.php,v 1.231 2003/07/09 01:15:48 hpdl
-         general.php,v 1.212 2003/02/17 07:55:54 hpdl 
+         general.php,v 1.212 2003/02/17 07:55:54 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
 /**
@@ -29,7 +29,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * @param $specials_id
  * @param $status
  */
-function oos_set_specials_status($nSpecialsId, $status) {
+function oos_set_specials_status($nSpecialsId, $status)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -46,7 +47,8 @@ function oos_set_specials_status($nSpecialsId, $status) {
 /**
  * Auto expire products on special
  */
-function oos_expire_spezials() {
+function oos_expire_spezials()
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -59,20 +61,20 @@ function oos_expire_spezials() {
                 AND now() >= expires_date
                 AND expires_date > 0";
     if (USE_CACHE == 'true') {
-		$result = $dbconn->CacheExecute(3600, $query);
+        $result = $dbconn->CacheExecute(3600, $query);
     } else {
-		$result = $dbconn->Execute($query);
+        $result = $dbconn->Execute($query);
     }
-    if (!$result) {return;}
+    if (!$result) {
+        return;
+    }
 
     if ($result->RecordCount() > 0) {
-		while ($specials = $result->fields) {
-			oos_set_specials_status($specials['specials_id'], '0');
+        while ($specials = $result->fields) {
+            oos_set_specials_status($specials['specials_id'], '0');
 
-			// Move that ADOdb pointer!
-			$result->MoveNext();
-		}
-
-	}
+            // Move that ADOdb pointer!
+            $result->MoveNext();
+        }
+    }
 }
-

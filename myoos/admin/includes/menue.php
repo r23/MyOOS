@@ -9,13 +9,13 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-   
+
 $orders_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['orders'] . " WHERE orders_status = '1'");
 $orders = $orders_result->fields;
 
 $reviews_result = $dbconn->Execute("SELECT COUNT(*) AS count FROM " . $oostable['reviews']  . " WHERE reviews_status = '0'");
-$reviews = $reviews_result->fields;   
-   
+$reviews = $reviews_result->fields;
+
 ?>
 <nav class="navbar topnavbar" role="navigation">
 	<!-- logo //-->

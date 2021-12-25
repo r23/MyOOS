@@ -27,4 +27,3 @@ define('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kle
 
 $aLang['module_order_total_netto_title'] = 'Netto-Betrag';
 $aLang['module_order_total_netto_description'] = 'Netto-Rechnungsbetrag';
-

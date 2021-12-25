@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: validations.php,v 1.11 2003/02/11 01:31:02 hpdl 
+   File: validations.php,v 1.11 2003/02/11 01:31:02 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -28,7 +28,7 @@
  */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Valid e-Mail - Addresses
@@ -36,15 +36,17 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
  * @param $value
  * @return boolean
  */
-function is_email($value) {
- 
-    if (!is_string($value)) return false;
+function is_email($value)
+{
+    if (!is_string($value)) {
+        return false;
+    }
 
-	//Reject line breaks in addresses; it's valid RFC5322, but not RFC5321
-	if (strpos($value, "\n") !== false or strpos($value, "\r") !== false) {
-		return false;
-	} 
-	return (boolean)filter_var($value, FILTER_VALIDATE_EMAIL);
+    //Reject line breaks in addresses; it's valid RFC5322, but not RFC5321
+    if (strpos($value, "\n") !== false or strpos($value, "\r") !== false) {
+        return false;
+    }
+    return (bool)filter_var($value, FILTER_VALIDATE_EMAIL);
 }
 
 
@@ -53,12 +55,11 @@ function is_email($value) {
  *
  * @param string $sUrl the value being tested
  */
-function oos_validate_is_url($sUrl) {
-   if (strlen($sUrl) == 0) {
-     return false;
-   }
+function oos_validate_is_url($sUrl)
+{
+    if (strlen($sUrl) == 0) {
+        return false;
+    }
 
-   return preg_match('!^http(s)?://[\w-]+\.[\w-]+(\S+)?$!i', $sUrl);
+    return preg_match('!^http(s)?://[\w-]+\.[\w-]+(\S+)?$!i', $sUrl);
 }
-
-

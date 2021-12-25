@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: reviews.php,v 1.6 2002/02/06 22:59:17 harley_vb 
+   File: reviews.php,v 1.6 2002/02/06 22:59:17 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -51,4 +51,3 @@ define('TEXT_OF_5_STARS', '%s von 5 Sternen!');
 define('TEXT_GOOD', '<small><font color="#ff0000"><b>GUT</b></font></small>');
 define('TEXT_BAD', '<small><font color="#ff0000"><b>SCHLECHT</b></font></small>');
 define('TEXT_INFO_HEADING_DELETE_REVIEW', 'Bewertung löschen');
-

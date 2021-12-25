@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Return a product's catagory
@@ -25,7 +25,8 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
  * @param $products_id
  * @return string  boolean
  */
-function oos_get_product_path($products_id) {
+function oos_get_product_path($products_id)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -37,9 +38,8 @@ function oos_get_product_path($products_id) {
             WHERE products_id = '" . intval($products_id) . "'";
     $cat_id_data = $dbconn->SelectLimit($sql, 1);
     if ($cat_id_data->RecordCount()) {
-		return $cat_id_data->fields['categories_id'];
+        return $cat_id_data->fields['categories_id'];
     }
 
-    return FALSE;
+    return false;
 }
-

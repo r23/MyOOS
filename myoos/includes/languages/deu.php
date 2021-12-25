@@ -43,16 +43,17 @@
   * @param $reverse
   * @return string
   */
-function oos_date_raw($date, $reverse = FALSE) {
-	if ($reverse) {
-		return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-	} else {
-		return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
-	}
+function oos_date_raw($date, $reverse = false)
+{
+    if ($reverse) {
+        return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+    } else {
+        return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
+    }
 }
 
 // Global entries for the <html> tag
-define('LANG','de');
+define('LANG', 'de');
 define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
 
 $aLang = [
@@ -103,7 +104,7 @@ $aLang = [
 'block_notifications_notify'        => 'Benachrichtigen Sie mich über Aktuelles zum Artikel <strong>%s</strong>',
 'block_notifications_notify_remove' => 'Benachrichtigen Sie mich nicht mehr zum Artikel <strong>%s</strong>',
 
-// wishlist 
+// wishlist
 'button_wishlist'             => 'Merkliste',
 'block_wishlist'              => 'Merkliste',
 'block_wishlist_empty'        => 'Sie haben keine Produkte auf Ihrem Merkzettel',
@@ -390,13 +391,13 @@ $aLang = [
 'voucher_balance'                 => 'Gutschein - Guthaben',
 'gv_faq'                          => 'Gutscheine, Fragen und Antworten',
 'error_redeemed_amount'           => 'Prima: Der Einlösewert wurde Ihrem Kundenkonto gutgeschrieben! ',
-'error_no_redeem_code'            => 'Sie haben keinen Gutschein-Code eingegeben!',  
-'error_no_invalid_redeem_gv'      => 'Fehler: Sie haben keinen gültigen Gutschein-Code eingegeben!', 
+'error_no_redeem_code'            => 'Sie haben keinen Gutschein-Code eingegeben!',
+'error_no_invalid_redeem_gv'      => 'Fehler: Sie haben keinen gültigen Gutschein-Code eingegeben!',
 'table_heading_credit'            => 'Guthaben',
 'gv_has_vouchera'                => 'Sie haben ein Gutschein - Guthaben auf Ihrem Kundenkonto. Möchten Sie einen Teil <br>
                          Ihres Guthabens per',
 'gv_has_voucherb'                => 'versenden?',
-'entry_amount_check_error'       => '&nbsp;Leider keine ausreichende Deckung auf Ihrem Kundenkonto!', 
+'entry_amount_check_error'       => '&nbsp;Leider keine ausreichende Deckung auf Ihrem Kundenkonto!',
 
 
 'voucher_redeemed'           => 'Voucher Redeemed',
@@ -468,7 +469,7 @@ $aLang = [
 'entry_receive_mail_text'             => 'Text only',
 'entry_receive_mail_html'             => 'HTML',
 'entry_receive_mail_pdf'              => 'PDF',
- 
+
 'table_heading_price_unit'       => 'pro Stk.Netto',
 'table_heading_discount'         => 'Rabatt',
 'table_heading_ot_discount'      => 'Pauschalrabatt',
@@ -496,10 +497,10 @@ $aLang = [
 'price_rrp'            => 'UVP',
 
 'in_stock' => 'sofort lieferbar',
-'out_of_stock' => 'später wieder lieferbar', 
-'available_from'	=> 'lieferbar ab ca. %s', 
+'out_of_stock' => 'später wieder lieferbar',
+'available_from'	=> 'lieferbar ab ca. %s',
 
-'text_info_minimum_order_value' => 'Bitte beachten Sie den Mindestbestellwert von %s', 
+'text_info_minimum_order_value' => 'Bitte beachten Sie den Mindestbestellwert von %s',
 'warning_minimum_order_value' => 'Der Mindestbestellwert von %s wurde noch nicht erreicht. Daher ist aktuell mit diesem Warenkorb keine Bestellung möglich.',
 
 

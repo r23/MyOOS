@@ -19,14 +19,16 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $prefix_filename = '';
-if (!$prefix_filename == '') $prefix_filename = $prefix_filename . '_';
+if (!$prefix_filename == '') {
+    $prefix_filename = $prefix_filename . '_';
+}
 
 $aContents = [];
 $aContents = [
-'conditions_download'             => $prefix_filename . 'conditions.pdf',     
+'conditions_download'             => $prefix_filename . 'conditions.pdf',
 //account
 'account_history'                 => $prefix_filename . 'account_history',
 'account_history_info'            => $prefix_filename . 'account_history_info',
@@ -73,7 +75,7 @@ $aContents = [
 //user
 'account'                         => $prefix_filename . 'account',
 'account_edit'                    => $prefix_filename . 'account_edit',
-'create_account'                  => $prefix_filename . 'create_account', 
+'create_account'                  => $prefix_filename . 'create_account',
 'create_account_success'          => $prefix_filename . 'create_account_success',
 'login'                           => $prefix_filename . 'login',
 'logoff'                          => $prefix_filename . 'logoff',

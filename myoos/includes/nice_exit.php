@@ -19,33 +19,32 @@
    --------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-	
+
 if ($debug == 1) {
-	echo '<pre>';
-	print_r($_SESSION);
-	echo '<br />';
-	print_r($_COOKIE);
-	echo '<br />';	
-	print_r($_GET);
-	echo '<br />';
-	print_r($_POST);
-	echo '<br />';
-	echo '</pre>';
+    echo '<pre>';
+    print_r($_SESSION);
+    echo '<br />';
+    print_r($_COOKIE);
+    echo '<br />';
+    print_r($_GET);
+    echo '<br />';
+    print_r($_POST);
+    echo '<br />';
+    echo '</pre>';
 
-	# echo "<p><pre>" . var_export($oObject, TRUE). "</pre></p>";	
+    # echo "<p><pre>" . var_export($oObject, TRUE). "</pre></p>";
 }
 
 
 
 if (isset($_SESSION)) {
-	// shopping_cart
-	if (isset($_SESSION['new_products_id_in_cart'])) {
-		unset($_SESSION['new_products_id_in_cart']);
-	}
-	if (isset($_SESSION['guest_login'])) {
-		unset($_SESSION['guest_login']);
-	}	
+    // shopping_cart
+    if (isset($_SESSION['new_products_id_in_cart'])) {
+        unset($_SESSION['new_products_id_in_cart']);
+    }
+    if (isset($_SESSION['guest_login'])) {
+        unset($_SESSION['guest_login']);
+    }
 }
-

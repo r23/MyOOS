@@ -20,8 +20,8 @@
    ---------------------------------------------------------------------- */
 
 
-define('HEADING_TITLE', 'Augmented Reality');   
-   
+define('HEADING_TITLE', 'Augmented Reality');
+
 define('TEXT_NEW_PRODUCT', 'Augmented Reality in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Products');
 define('TEXT_MODELS_MODEL', '3D Model');
@@ -51,4 +51,3 @@ define('ERROR_PROBLEM_WITH_GLB_FILE', 'There was a problem with the upload. Plea
 define('ERROR_NO_USDZ_FILE', 'The file you are trying to upload is not a .usdz file. Please try again.');
 define('TEXT_SUCCESSFULLY_UPLOADED_USDZ', 'Your .usdz file was uploaded.');
 define('ERROR_PROBLEM_WITH_USDZ_FILE', 'There was a problem with the .usdz file upload. Please try again.');
-

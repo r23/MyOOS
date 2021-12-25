@@ -30,14 +30,14 @@
  */
 error_reporting(E_ALL);
 // error_reporting(E_ALL & ~E_STRICT);
-   
+
 //setting basic configuration parameters
 if (function_exists('ini_set')) {
-	ini_set('session.use_trans_sid', 0);
-	ini_set('url_rewriter.tags', '');
-	ini_set('xdebug.show_exception_trace', 0);
-	ini_set('magic_quotes_runtime', 0);
-	// ini_set('display_errors', false);
+    ini_set('session.use_trans_sid', 0);
+    ini_set('url_rewriter.tags', '');
+    ini_set('xdebug.show_exception_trace', 0);
+    ini_set('magic_quotes_runtime', 0);
+    // ini_set('display_errors', false);
 }
 
 
@@ -46,16 +46,15 @@ use Symfony\Component\HttpFoundation\Request;
 $autoloader = require_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
-define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/'?'':dirname(__FILE__));
+define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/' ? '' : dirname(__FILE__));
 
 define('OOS_VALID_MOD', true);
 
 require_once MYOOS_INCLUDE_PATH . '/includes/main.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/snoopy/snoopy.class.php';
 
-class MyOOS_Utilities {
-
-
+class MyOOS_Utilities
+{
     /**
      * Opens a remote file using  Snoopy
      * @param $url The URL to open
@@ -66,24 +65,22 @@ class MyOOS_Utilities {
      */
     public static function RemoteOpen($url, $method = 'get', $postData = null, $timeout = 10)
     {
-				
         $oS = new Snoopy();
-			
+
         $oS->read_timeout = $timeout;
-			
+
         if ($method == 'get') {
             $oS->fetch($url);
         } else {
-            $oS->submit($url,$postData);
+            $oS->submit($url, $postData);
         }
-			
-        if ($oS->status != "200") {
-            trigger_error('Snoopy Web Request failed: Status: ' . $oS->status . "; Content: " . htmlspecialchars($oS->results),E_USER_NOTICE);
-        }
-			
-        return $oS->results;
-	}
 
+        if ($oS->status != "200") {
+            trigger_error('Snoopy Web Request failed: Status: ' . $oS->status . "; Content: " . htmlspecialchars($oS->results), E_USER_NOTICE);
+        }
+
+        return $oS->results;
+    }
 }
 
 
@@ -102,33 +99,33 @@ $prevent_result = $dbconn->Execute($sql);
 if ($prevent_result->RecordCount() > 0) {
     $prevent = $prevent_result->fields;
     if ($prevent['configuration_value'] == date("Ymd")) {
-		die('Halt! Already executed - should not execute more than once a day.');
-    } 
+        die('Halt! Already executed - should not execute more than once a day.');
+    }
 }
 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_googlesitemap.php';
 
-$oSitemap = new GoogleSitemap;
+$oSitemap = new GoogleSitemap();
 
 $submit = true;
 echo '<pre>';
 
-if ($oSitemap->GenerateProductSitemap()){
+if ($oSitemap->GenerateProductSitemap()) {
     echo 'Generated Google Product Sitemap Successfully' . "\n\n";
 } else {
     $submit = false;
     echo 'ERROR: Google Product Sitemap Generation FAILED!' . "\n\n";
 }
 
-if ($oSitemap->GenerateCategorySitemap()){
+if ($oSitemap->GenerateCategorySitemap()) {
     echo 'Generated Google Category Sitemap Successfully' . "\n\n";
 } else {
     $submit = false;
     echo 'ERROR: Google Category Sitemap Generation FAILED!' . "\n\n";
 }
 
-if ($oSitemap->GenerateSitemapIndex()){
+if ($oSitemap->GenerateSitemapIndex()) {
     echo 'Generated Google Sitemap Index Successfully' . "\n\n";
 } else {
     $submit = false;
@@ -136,8 +133,7 @@ if ($oSitemap->GenerateSitemapIndex()){
 }
 
 
-if ($submit){
-
+if ($submit) {
     if ($prevent_result->RecordCount() > 0) {
         $configurationtable = $oostable['configuration'];
         $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . date("Ymd") . "' WHERE configuration_key = 'CRON_GOOGLE_RUN'");
@@ -157,21 +153,19 @@ if ($submit){
     //Ping Google
     $sPingUrl = "http://www.google.com/webmasters/sitemaps/ping?sitemap=" . urlencode($pingUrl);
     $pingres = MyOOS_Utilities::RemoteOpen($sPingUrl);
-									  
-    if ($pingres == NULL || $pingres === false) {
-         trigger_error("Failed to ping Google: " . htmlspecialchars(strip_tags($pingres)),E_USER_NOTICE);
+
+    if ($pingres == null || $pingres === false) {
+        trigger_error("Failed to ping Google: " . htmlspecialchars(strip_tags($pingres)), E_USER_NOTICE);
     }
-				
+
     //Ping Bing
     $sPingUrl = "http://www.bing.com/webmaster/ping.aspx?siteMap=" . urlencode($pingUrl);
     $pingres = MyOOS_Utilities::RemoteOpen($sPingUrl);
-    if ($pingres==NULL || $pingres===false || strpos($pingres,"Thanks for submitting your sitemap")===false) {
-        trigger_error("Failed to ping Bing: " . htmlspecialchars(strip_tags($pingres)),E_USER_NOTICE);
+    if ($pingres==null || $pingres===false || strpos($pingres, "Thanks for submitting your sitemap")===false) {
+        trigger_error("Failed to ping Bing: " . htmlspecialchars(strip_tags($pingres)), E_USER_NOTICE);
     }
-	
 } else {
     print_r($oSitemap->debug);
 }
 echo '</pre>';
 require_once MYOOS_INCLUDE_PATH . '/includes/nice_exit.php';
-

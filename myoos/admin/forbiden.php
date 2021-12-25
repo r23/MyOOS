@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: admin_account.php,v 1.29 2002/03/17 17:52:23 harley_vb 
+   File: admin_account.php,v 1.29 2002/03/17 17:52:23 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com

@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -31,4 +31,3 @@ $aLang['table_heading_location'] = 'Wohnort';
 $aLang['text_no_entries_in_address_book'] = 'Sie haben noch keine Einträge in Ihrem Adressbuch!';
 $aLang['text_maximum_entries'] = '<strong>Hinweis:</strong> Ihnen stehen %s Adressbucheinträge zur Verfügung!';
 $aLang['text_maximum_entries_reached'] = '<strong>ACHTUNG:</strong> Sie haben die maximale Anzahl (%s) an Adressbucheinträgen erreicht!';
-

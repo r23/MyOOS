@@ -19,7 +19,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS_TITLE',  'Mindermengenzuschlag');
+define('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS_TITLE', 'Mindermengenzuschlag');
 define('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS_DESC', 'Möchten Sie sich den Mindermengenzuschlag ansehen?');
 
 define('MODULE_ORDER_TOTAL_LOWORDERFEE_SORT_ORDER_TITLE', 'Sortierreihenfolge');
@@ -42,4 +42,3 @@ define('MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS_DESC', 'Folgende Steuerklasse f
 
 $aLang['module_order_total_loworderfee_title'] = 'Mindermengenzuschlag';
 $aLang['module_order_total_loworderfee_description'] = 'Zuschlag bei Unterschreitung des Mindestbestellwertes';
-

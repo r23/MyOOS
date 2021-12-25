@@ -31,4 +31,3 @@ define('MODULE_SHIPPING_SELFPICKUP_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 $aLang['module_shipping_selfpickup_text_title'] = 'Selbstabholung';
 $aLang['module_shipping_selfpickup_text_description'] = 'Selbstabholung der Ware in unserer Geschäftsstelle.';
 $aLang['module_shipping_selfpickup_text_way'] = 'Selbstabholung der Ware in unserer Geschäftsstelle.';
-

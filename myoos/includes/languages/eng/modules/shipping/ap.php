@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -13,7 +13,7 @@
    File: ap.php,v 1.02 2003/02/18 03:33:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
-   http://www.oscommerce.com 
+   http://www.oscommerce.com
 
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
@@ -23,7 +23,7 @@
 *	Copyright (C) 2002 - 2003 TheMedia, Dipl.-Ing Thomas Pl�kers
 *       http://www.themedia.at & http://www.oscommerce.at
 *
-*                    All rights reserved. 
+*                    All rights reserved.
 *
 * This program is free software licensed under the GNU General Public License (GPL).
 *
@@ -115,4 +115,3 @@ $aLang['module_shipping_ap_text_way'] = 'Dispatch to';
 $aLang['module_shipping_ap_text_units'] = 'kg';
 $aLang['module_shipping_ap_invalid_zone'] = 'Unfortunately it is not possible to dispatch into this country';
 $aLang['module_shipping_ap_undefined_rate'] = 'Forwarding expenses cannot be calculated for the moment';
-

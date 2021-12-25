@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $aContentBlock = [];
 $blocktable = $oostable['block'];
@@ -34,64 +34,62 @@ $block_sql = "SELECT b.block_id, b.block_side, b.block_status, b.block_file, b.b
                   AND bi.block_languages_id = '" .  intval($nLanguageID) . "'
                   AND b2p.page_type_id = '" . intval($nPageType) . "'";
 if (isset($_SESSION['customer_id'])) {
-	$block_sql .= " AND ( b.block_login_flag = '0' OR b.block_login_flag = '1')";
+    $block_sql .= " AND ( b.block_login_flag = '0' OR b.block_login_flag = '1')";
 } else {
-	$block_sql .= " AND b.block_login_flag = '0'";
+    $block_sql .= " AND b.block_login_flag = '0'";
 }
 $block_sql .= " ORDER BY b.block_side, b.block_sort_order ASC";
 $block_result = $dbconn->GetAll($block_sql);
 foreach ($block_result as $block) {
-	$block_heading = $block['block_name'];
-	$block_file = trim($block['block_file']);
-	$block_side = $block['block_side'];
+    $block_heading = $block['block_name'];
+    $block_file = trim($block['block_file']);
+    $block_side = $block['block_side'];
 
-	if (empty($block_file)) {
-		continue;
-	}
-
-	if (!empty($block_side)) {
-        $block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
-    }	
-	
-    if ( (!empty($block['block_cache'])) && (!empty($block_side)) ) {
-		if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-			$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-		}
-		$bid = trim('oos_' . $block['block_cache'] . '_cache_id');
-		if (!$smarty->isCached($block_tpl, ${$bid})) {
-			include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
-		}
-
-		$block_content = $smarty->fetch($block_tpl, ${$bid});
-    } else {
-		include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
-		if (!empty($block_side)) {
-			$block_content = $smarty->fetch($block_tpl);
-		}
+    if (empty($block_file)) {
+        continue;
     }
-	if (!empty($block_content)) {
-		$aContentBlock[] = array(
-								'side' => $block_side,
-								'block_content' => $block_content
-							);
-	}
 
-  }
+    if (!empty($block_side)) {
+        $block_tpl = $sTheme . '/blocks/' . $block_file . '.html';
+    }
 
- 
+    if ((!empty($block['block_cache'])) && (!empty($block_side))) {
+        if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
+            $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+        }
+        $bid = trim('oos_' . $block['block_cache'] . '_cache_id');
+        if (!$smarty->isCached($block_tpl, ${$bid})) {
+            include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
+        }
+
+        $block_content = $smarty->fetch($block_tpl, ${$bid});
+    } else {
+        include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
+        if (!empty($block_side)) {
+            $block_content = $smarty->fetch($block_tpl);
+        }
+    }
+    if (!empty($block_content)) {
+        $aContentBlock[] = array(
+                                'side' => $block_side,
+                                'block_content' => $block_content
+                            );
+    }
+}
+
+
 $n = count($aContentBlock);
 for ($i = 0, $n; $i < $n; $i++) {
-	switch ($aContentBlock[$i]['side']) {
+    switch ($aContentBlock[$i]['side']) {
 
-		case 'sidebar':
-			$smarty->append('sidebar', array('content' => $aContentBlock[$i]['block_content']));
-			break;
-			
-		default:
-			break;
+        case 'sidebar':
+            $smarty->append('sidebar', array('content' => $aContentBlock[$i]['block_content']));
+            break;
 
-	}
+        default:
+            break;
+
+    }
 }
 
 $smarty->setCaching(false);
-

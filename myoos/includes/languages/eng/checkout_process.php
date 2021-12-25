@@ -38,4 +38,3 @@ $aLang['email_text_no'] = 'No, I do not want to return an old device free of cha
 
 $aLang['email_separator'] = '------------------------------------------------------';
 $aLang['text_email_via'] = 'via';
-

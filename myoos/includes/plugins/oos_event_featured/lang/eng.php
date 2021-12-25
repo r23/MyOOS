@@ -15,5 +15,3 @@ define('PLUGIN_EVENT_FEATURED_DESC', 'Set to true or false in order to display f
 
 define('MAX_DISPLAY_FEATURED_PRODUCTS_TITLE', 'Maximum Display of Featured');
 define('MAX_DISPLAY_FEATURED_PRODUCTS_DESC', 'This is the maximum amount of items to display on the front page.');
-
-

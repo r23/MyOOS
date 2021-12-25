@@ -28,7 +28,7 @@
   */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
  /**
   * The HTML href link wrapper function
@@ -40,61 +40,62 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
   * @param $search_engine_safe
   * @return string
   */
-function oos_href_link($page = '', $parameters = '', $add_session_id = true, $search_engine_safe = true) {
+function oos_href_link($page = '', $parameters = '', $add_session_id = true, $search_engine_safe = true)
+{
     global $session, $oEvent, $spider_flag;
 
-	$page = oos_output_string($page);	
+    $page = oos_output_string($page);
 
     $link = OOS_HTTPS_SERVER . OOS_SHOP;
 
     if (oos_is_not_null($parameters)) {
-      $link .= 'index.php?content=' . $page . '&amp;' . oos_output_string($parameters);
+        $link .= 'index.php?content=' . $page . '&amp;' . oos_output_string($parameters);
     } else {
-      $link .= 'index.php?content=' . $page;
+        $link .= 'index.php?content=' . $page;
     }
 
     $separator = '&amp;';
 
-    while ( (substr($link, -5) == '&amp;') || (substr($link, -1) == '?') ) {
-      if (substr($link, -1) == '?') {
-        $link = substr($link, 0, -1);
-      } else {
-        $link = substr($link, 0, -5);
-      }
+    while ((substr($link, -5) == '&amp;') || (substr($link, -1) == '?')) {
+        if (substr($link, -1) == '?') {
+            $link = substr($link, 0, -1);
+        } else {
+            $link = substr($link, 0, -5);
+        }
     }
 
     if (isset($_SESSION)) {
 
-		// Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
-		if ($add_session_id == true) {
-			$_sid = $session->getName() . '=' . $session->getId();
-		}
+        // Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
+        if ($add_session_id == true) {
+            $_sid = $session->getName() . '=' . $session->getId();
+        }
 
-		if ( $spider_flag === false) $_sid = null;
-		
-	}
-	
-	if (is_object($oEvent)) {
-		if ( ($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu') ) {
-			$link = str_replace(array('?', '&amp;', '='), '/', $link);
+        if ($spider_flag === false) {
+            $_sid = null;
+        }
+    }
 
-			$separator = '?';
+    if (is_object($oEvent)) {
+        if (($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu')) {
+            $link = str_replace(array('?', '&amp;', '='), '/', $link);
 
-			$pos = strpos ($link, 'action');
-			if ($pos === false) {
-				$url_rewrite = new url_rewrite;
-				$link = $url_rewrite->transform_uri($link);
-			}
+            $separator = '?';
 
-		}
-	}
+            $pos = strpos($link, 'action');
+            if ($pos === false) {
+                $url_rewrite = new url_rewrite();
+                $link = $url_rewrite->transform_uri($link);
+            }
+        }
+    }
 
     if (isset($_sid)) {
-		$link .= $separator . oos_output_string($_sid);
+        $link .= $separator . oos_output_string($_sid);
     }
 
     return $link;
-  }
+}
 
 
  /**
@@ -107,19 +108,20 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
   * @param $parameters
   * @return string
   */
-function oos_image($src, $title = null, $parameters = null) {
+function oos_image($src, $title = null, $parameters = null)
+{
     if (empty($src) || ($src == OOS_IMAGES)) {
-		return false;
+        return false;
     }
 
     $image = '<img class="img-fluid" src="' . oos_output_string($src) . '" alt="' . oos_output_string($title) . '"';
 
     if (!empty($title)) {
-		$image .= ' title="' . oos_output_string($title) . '"';
+        $image .= ' title="' . oos_output_string($title) . '"';
     }
 
     if (!empty($parameters)) {
-		$image .= ' ' . oos_output_string($parameters);
+        $image .= ' ' . oos_output_string($parameters);
     }
 
     $image .= '>';
@@ -139,25 +141,25 @@ function oos_image($src, $title = null, $parameters = null) {
   * @param $reinsert_value
   * @return string
   */
-function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true) {
-
+function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true)
+{
     $field = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
 
-    if ( ($reinsert_value == true) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
-		if (isset($_GET[$name]) && is_string($_GET[$name])) {
-			$value = stripslashes($_GET[$name]);
-		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
-			$value = stripslashes($_POST[$name]);
-		}
+    if (($reinsert_value == true) && ((isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])))) {
+        if (isset($_GET[$name]) && is_string($_GET[$name])) {
+            $value = stripslashes($_GET[$name]);
+        } elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
+            $value = stripslashes($_POST[$name]);
+        }
     }
-	
-	
+
+
     if (oos_is_not_null($value)) {
-		$field .= ' value="' . oos_output_string($value) . '"';
+        $field .= ' value="' . oos_output_string($value) . '"';
     }
 
     if (oos_is_not_null($parameters)) {
-		$field .= ' ' . $parameters;
+        $field .= ' ' . $parameters;
     }
 
     $field .= ' />';
@@ -179,18 +181,19 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'tex
  */
 function oos_draw_select_field($name, $type, $value = null, $checked = false, $parameters = null)
 {
-
     $selection = '<input type="' . oos_output_string($type) . '" name="' . oos_output_string($name) . '"';
 
-    if (!empty( $value )) $selection .= ' value="' . oos_output_string($value) . '"';
+    if (!empty($value)) {
+        $selection .= ' value="' . oos_output_string($value) . '"';
+    }
 
-    if ( ($checked == true) || (isset($_GET[$name]) && is_string($_GET[$name]) && (($_GET[$name] == 'on') || (stripslashes($_GET[$name]) == $value))) 
-		|| (isset($_POST[$name]) && is_string($_POST[$name]) && (($_POST[$name] == 'on') || (stripslashes($_POST[$name]) == $value)))
-	) {
-		$selection .= ' checked';
-    }	
+    if (($checked == true) || (isset($_GET[$name]) && is_string($_GET[$name]) && (($_GET[$name] == 'on') || (stripslashes($_GET[$name]) == $value)))
+        || (isset($_POST[$name]) && is_string($_POST[$name]) && (($_POST[$name] == 'on') || (stripslashes($_POST[$name]) == $value)))
+    ) {
+        $selection .= ' checked';
+    }
 
-    if (!empty( $parameters ) && is_string( $parameters ) ) {
+    if (!empty($parameters) && is_string($parameters)) {
         $selection .= ' ' . $parameters;
     }
 
@@ -198,9 +201,9 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
     $selection .= '>';
 
     return $selection;
-}  
-  
-  
+}
+
+
 
  /**
   * Output a form checkbox field
@@ -210,8 +213,9 @@ function oos_draw_select_field($name, $type, $value = null, $checked = false, $p
   * @param $checked
   * @param $parameters
   */
-function oos_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '') {
-	return oos_draw_select_field($name, 'checkbox', $value, $checked, $parameters);
+function oos_draw_checkbox_field($name, $value = '', $checked = false, $parameters = '')
+{
+    return oos_draw_select_field($name, 'checkbox', $value, $checked, $parameters);
 }
 
 
@@ -223,8 +227,9 @@ function oos_draw_checkbox_field($name, $value = '', $checked = false, $paramete
   * @param $checked
   * @param $parameters
   */
-function oos_draw_radio_field($name, $value = '', $checked = false, $parameters = '') {
-	return oos_draw_select_field($name, 'radio', $value, $checked, $parameters);
+function oos_draw_radio_field($name, $value = '', $checked = false, $parameters = '')
+{
+    return oos_draw_select_field($name, 'radio', $value, $checked, $parameters);
 }
 
 
@@ -239,20 +244,20 @@ function oos_draw_radio_field($name, $value = '', $checked = false, $parameters 
 function oos_draw_hidden_field($name, $value = '', $parameters = '')
 {
     $field = '<input type="hidden" name="' . oos_output_string($name) . '"';
-	
+
 
     if (strlen($value) > 0) {
-		$field .= ' value="' . oos_output_string($value) . '"';
-    } elseif ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) {
-		if ( (isset($_GET[$name]) && is_string($_GET[$name])) ) {
-			$field .= ' value="' . oos_output_string(stripslashes($_GET[$name])) . '"';
-		} elseif ( (isset($_POST[$name]) && is_string($_POST[$name])) ) {
-			$field .= ' value="' . oos_output_string(stripslashes($_POST[$name])) . '"';
-		}
+        $field .= ' value="' . oos_output_string($value) . '"';
+    } elseif ((isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name]))) {
+        if ((isset($_GET[$name]) && is_string($_GET[$name]))) {
+            $field .= ' value="' . oos_output_string(stripslashes($_GET[$name])) . '"';
+        } elseif ((isset($_POST[$name]) && is_string($_POST[$name]))) {
+            $field .= ' value="' . oos_output_string(stripslashes($_POST[$name])) . '"';
+        }
     }
 
     if (!empty($parameters)) {
-      $field .= ' ' . $parameters;
+        $field .= ' ' . $parameters;
     }
 
     $field .= '>';
@@ -273,24 +278,27 @@ function oos_draw_hidden_field($name, $value = '', $parameters = '')
  */
 function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = null, $required = false)
 {
-
     $field = '<select class="form-control custom-select" name="' . oos_output_string($name) . '"';
 
-    if (!empty( $parameters ) && is_string( $parameters ) ) $field .= ' ' . $parameters;
+    if (!empty($parameters) && is_string($parameters)) {
+        $field .= ' ' . $parameters;
+    }
 
-	if ($required == true) $field .= ' required';
+    if ($required == true) {
+        $field .= ' required';
+    }
 
     $field .= '>';
 
-    if (empty($default) && ( (isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])) ) ) {
-		if (isset($_GET[$name]) && is_string($_GET[$name])) {
-			$default = stripslashes($_GET[$name]);
-		} elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
-			$default = stripslashes($_POST[$name]);
-		}
-    }	
-	
-	
+    if (empty($default) && ((isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])))) {
+        if (isset($_GET[$name]) && is_string($_GET[$name])) {
+            $default = stripslashes($_GET[$name]);
+        } elseif (isset($_POST[$name]) && is_string($_POST[$name])) {
+            $default = stripslashes($_POST[$name]);
+        }
+    }
+
+
     for ($i=0, $n=count($values); $i<$n; $i++) {
         $field .= '<option value="' . oos_output_string($values[$i]['id']) . '"';
         if ($default == $values[$i]['id']) {
@@ -300,8 +308,10 @@ function oos_draw_pull_down_menu($name, $values, $default = null, $parameters = 
         $field .= '>' . oos_output_string($values[$i]['text']) . '</option>';
     }
     $field .= '</select>';
-	
-    if ($required == true) $field .= TEXT_FIELD_REQUIRED;
+
+    if ($required == true) {
+        $field .= TEXT_FIELD_REQUIRED;
+    }
 
     return $field;
 }

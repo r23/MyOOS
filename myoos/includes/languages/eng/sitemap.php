@@ -31,4 +31,3 @@ $aLang['page_specials'] = 'Specials';
 $aLang['page_reviews'] = 'Reviews';
 $aLang['page_affiliate'] = 'Affiliate';
 $aLang['page_service'] = 'Service';
-

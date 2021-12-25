@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: general.php,v 1.151 2003/02/07 21:46:49 dgw_ 
+   File: general.php,v 1.151 2003/02/07 21:46:49 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,83 +19,91 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-function oos_get_path($current_category_id = '') {
-	GLOBAL $cPath_array;
+function oos_get_path($current_category_id = '')
+{
+    global $cPath_array;
 
-	if (!is_array($cPath_array)) $cPath_array = array();
-	
-	if ($current_category_id == '') {
-		$cPath_new = implode('_', $cPath_array);
-	} else {
-		if (count($cPath_array) == 0) {
-			$cPath_new = $current_category_id;
-		} else {
-			$cPath_new = '';
+    if (!is_array($cPath_array)) {
+        $cPath_array = array();
+    }
 
-			// Get database information
-			$dbconn =& oosDBGetConn();
-			$oostable =& oosDBGetTables();
+    if ($current_category_id == '') {
+        $cPath_new = implode('_', $cPath_array);
+    } else {
+        if (count($cPath_array) == 0) {
+            $cPath_new = $current_category_id;
+        } else {
+            $cPath_new = '';
 
-			$categoriestable = $oostable['categories'];
-			$query = "SELECT parent_id
+            // Get database information
+            $dbconn =& oosDBGetConn();
+            $oostable =& oosDBGetTables();
+
+            $categoriestable = $oostable['categories'];
+            $query = "SELECT parent_id
                   FROM $categoriestable
                   WHERE categories_id = '" . intval($cPath_array[(count($cPath_array)-1)]) . "'";
-			$last_category_result = $dbconn->Execute($query);
-			$last_category = $last_category_result->fields;
+            $last_category_result = $dbconn->Execute($query);
+            $last_category = $last_category_result->fields;
 
-			$categoriestable = $oostable['categories'];
-			$query = "SELECT parent_id
+            $categoriestable = $oostable['categories'];
+            $query = "SELECT parent_id
                   FROM $categoriestable
                   WHERE categories_id = '" . intval($current_category_id) . "'";
-			$current_category_result = $dbconn->Execute($query);
+            $current_category_result = $dbconn->Execute($query);
 
-			$current_category = $current_category_result->fields;
-			if ($last_category['parent_id'] == $current_category['parent_id']) {
-				for ($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
-					$cPath_new .= '_' . $cPath_array[$i];
-				}
-			} else {
-				for ($i = 0, $n = count($cPath_array); $i < $n; $i++) {
-					$cPath_new .= '_' . $cPath_array[$i];
-				}
-			}
-			$cPath_new .= '_' . $current_category_id;
-			if (substr($cPath_new, 0, 1) == '_') {
-				$cPath_new = substr($cPath_new, 1);
-			}
-		}
-	}
+            $current_category = $current_category_result->fields;
+            if ($last_category['parent_id'] == $current_category['parent_id']) {
+                for ($i = 0, $n = count($cPath_array) - 1; $i < $n; $i++) {
+                    $cPath_new .= '_' . $cPath_array[$i];
+                }
+            } else {
+                for ($i = 0, $n = count($cPath_array); $i < $n; $i++) {
+                    $cPath_new .= '_' . $cPath_array[$i];
+                }
+            }
+            $cPath_new .= '_' . $current_category_id;
+            if (substr($cPath_new, 0, 1) == '_') {
+                $cPath_new = substr($cPath_new, 1);
+            }
+        }
+    }
 
     return 'cPath=' . $cPath_new;
 }
 
 
-function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $aCategoryTree = '', $include_itself = FALSE) {
+function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $aCategoryTree = '', $include_itself = false)
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
-	if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+    if (!is_array($aCategoryTree)) {
+        $aCategoryTree = array();
+    }
+    if ((count($aCategoryTree) < 1) && ($exclude != '0')) {
+        $aCategoryTree[] = array('id' => '0', 'text' => TEXT_TOP);
+    }
 
-    if (!is_array($aCategoryTree)) $aCategoryTree = array();
-    if ( (count($aCategoryTree) < 1) && ($exclude != '0') ) $aCategoryTree[] = array('id' => '0', 'text' => TEXT_TOP);
-	
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
     if ($include_itself) {
-
-		$categories_descriptiontable = $oostable['categories_description'];
-		$query = "SELECT cd.categories_name
+        $categories_descriptiontable = $oostable['categories_description'];
+        $query = "SELECT cd.categories_name
                 FROM $categories_descriptiontable cd
                 WHERE cd.categories_languages_id = '" . intval($language_id) . "'
                   AND cd.categories_id = '" . intval($parent_id) . "'";
-		$category_result = $dbconn->Execute($query);
-	
-		$category = $category_result->fields;
-		$aCategoryTree[] = array('id' => $parent_id, 'text' => $category['categories_name']);
-	}
-	
+        $category_result = $dbconn->Execute($query);
+
+        $category = $category_result->fields;
+        $aCategoryTree[] = array('id' => $parent_id, 'text' => $category['categories_name']);
+    }
+
     $categoriestable = $oostable['categories'];
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT c.categories_id, cd.categories_name, c.parent_id, c.sort_order
@@ -107,23 +115,27 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
                 AND cd.categories_languages_id = '" . intval($language_id) . "'              
            ORDER BY c.sort_order, cd.categories_name";
     $categories_result = $dbconn->Execute($query);
-	
-	while ($categories = $categories_result->fields) {
-		if ($exclude != $categories['categories_id']) $aCategoryTree[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
-				
-		$aCategoryTree = oos_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude, $aCategoryTree);
 
-		// Move that ADOdb pointer!
-		$categories_result->MoveNext();
+    while ($categories = $categories_result->fields) {
+        if ($exclude != $categories['categories_id']) {
+            $aCategoryTree[] = array('id' => $categories['categories_id'], 'text' => $spacing . $categories['categories_name']);
+        }
+
+        $aCategoryTree = oos_get_category_tree($categories['categories_id'], $spacing . '&nbsp;&nbsp;&nbsp;', $exclude, $aCategoryTree);
+
+        // Move that ADOdb pointer!
+        $categories_result->MoveNext();
     }
 
     return $aCategoryTree;
 }
 
 
-function oos_get_category_name($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_category_name($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -143,9 +155,11 @@ function oos_get_category_name($category_id, $language_id = '') {
 
 
 
-function oos_get_categories_page_title($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_categories_page_title($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -164,9 +178,11 @@ function oos_get_categories_page_title($category_id, $language_id = '') {
 }
 
 
-function oos_get_products_description($product_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_description($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -185,9 +201,11 @@ function oos_get_products_description($product_id, $language_id = '') {
 }
 
 
-function oos_get_products_short_description($product_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_short_description($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -208,9 +226,11 @@ function oos_get_products_short_description($product_id, $language_id = '') {
 
 
 
-function oos_get_products_essential_characteristicsn($product_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_essential_characteristicsn($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -230,9 +250,11 @@ function oos_get_products_essential_characteristicsn($product_id, $language_id =
 
 
 
-function oos_get_products_description_meta($product_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_description_meta($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -251,9 +273,11 @@ function oos_get_products_description_meta($product_id, $language_id = '') {
 }
 
 
-function oos_get_products_old_electrical_equipment_description($product_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_old_electrical_equipment_description($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -273,9 +297,11 @@ function oos_get_products_old_electrical_equipment_description($product_id, $lan
 
 
 
-function oos_get_products_used_goods_description($product_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_used_goods_description($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -297,9 +323,11 @@ function oos_get_products_used_goods_description($product_id, $language_id = '')
 
 
 
-function oos_get_products_facebook_title($product_id, $language_id) {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_facebook_title($product_id, $language_id)
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -317,10 +345,12 @@ function oos_get_products_facebook_title($product_id, $language_id) {
     return $products_facebook_title;
 }
 
-function oos_get_products_facebook_description($product_id, $language_id = '') {
+function oos_get_products_facebook_description($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
-	
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -337,9 +367,11 @@ function oos_get_products_facebook_description($product_id, $language_id = '') {
     return $products_facebook_description;
 }
 
-function oos_get_products_twitter_title($product_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_twitter_title($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -357,9 +389,11 @@ function oos_get_products_twitter_title($product_id, $language_id = '') {
     return $products_twitter_title;
 }
 
-function oos_get_products_twitter_description($product_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_twitter_description($product_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -383,9 +417,11 @@ function oos_get_products_twitter_description($product_id, $language_id = '') {
 
 
 
-function oos_get_categories_facebook_title($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_categories_facebook_title($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -404,14 +440,16 @@ function oos_get_categories_facebook_title($category_id, $language_id = '') {
 }
 
 
-function oos_get_categories_facebook_description($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_categories_facebook_description($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
-	
+
     $categories_descriptiontable = $oostable['categories_description'];
     $query = "SELECT categories_facebook_description
               FROM $categories_descriptiontable
@@ -425,9 +463,11 @@ function oos_get_categories_facebook_description($category_id, $language_id = ''
 }
 
 
-function oos_get_categories_twitter_title($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_categories_twitter_title($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -447,9 +487,11 @@ function oos_get_categories_twitter_title($category_id, $language_id = '') {
 }
 
 
-function oos_get_categories_twitter_description($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_categories_twitter_description($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -469,9 +511,11 @@ function oos_get_categories_twitter_description($category_id, $language_id = '')
 
 
 
-function oos_get_products_url($product_id, $language_id) {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_url($product_id, $language_id)
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -490,8 +534,8 @@ function oos_get_products_url($product_id, $language_id) {
 }
 
 
-function oos_products_in_category_count($categories_id, $include_deactivated = FALSE) {
-
+function oos_products_in_category_count($categories_id, $include_deactivated = false)
+{
     $products_count = 0;
 
     // Get database information
@@ -501,21 +545,20 @@ function oos_products_in_category_count($categories_id, $include_deactivated = F
     $productstable = $oostable['products'];
     $products_to_categoriestable = $oostable['products_to_categories'];
     if ($include_deactivated) {
-		$products_query = "SELECT COUNT(*) AS total
+        $products_query = "SELECT COUNT(*) AS total
                          FROM $productstable p,
                               $products_to_categoriestable p2c
                          WHERE p.products_id = p2c.products_id 
                            AND p2c.categories_id = '" . intval($categories_id) . "'";
-		$products_result = $dbconn->Execute($products_query);
-
+        $products_result = $dbconn->Execute($products_query);
     } else {
-		$products_query = "SELECT COUNT(*) AS total
+        $products_query = "SELECT COUNT(*) AS total
                          FROM $productstable p,
                               $products_to_categoriestable p2c
                          WHERE p.products_id = p2c.products_id 
                            AND p.products_status >= '1' 
                            AND p2c.categories_id = '" . intval($categories_id) . "'";
-		$products_result = $dbconn->Execute($products_query);
+        $products_result = $dbconn->Execute($products_query);
     }
 
     $products = $products_result->fields;
@@ -529,20 +572,20 @@ function oos_products_in_category_count($categories_id, $include_deactivated = F
     $childs_result = $dbconn->Execute($childs_query);
 
     if ($childs_result->RecordCount()) {
-		while ($childs = $childs_result->fields) {
-			$products_count += oos_products_in_category_count($childs['categories_id'], $include_deactivated);
+        while ($childs = $childs_result->fields) {
+            $products_count += oos_products_in_category_count($childs['categories_id'], $include_deactivated);
 
-			// Move that ADOdb pointer!
-			$childs_result->MoveNext();
-		}
-	}
+            // Move that ADOdb pointer!
+            $childs_result->MoveNext();
+        }
+    }
 
     return $products_count;
 }
 
 
-function oos_childs_in_category_count($categories_id) {
-
+function oos_childs_in_category_count($categories_id)
+{
     $categories_count = 0;
 
     // Get database information
@@ -556,18 +599,19 @@ function oos_childs_in_category_count($categories_id) {
     $result = $dbconn->Execute($query);
 
     while ($categories = $result->fields) {
-		$categories_count++;
-		$categories_count += oos_childs_in_category_count($categories['categories_id']);
+        $categories_count++;
+        $categories_count += oos_childs_in_category_count($categories['categories_id']);
 
-		// Move that ADOdb pointer!
-		$result->MoveNext();
+        // Move that ADOdb pointer!
+        $result->MoveNext();
     }
 
     return $categories_count;
 }
 
 
-function oos_set_categories_status($categories_id, $status) {
+function oos_set_categories_status($categories_id, $status)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -575,40 +619,40 @@ function oos_set_categories_status($categories_id, $status) {
 
     $categoriestable = $oostable['categories'];
     if ($status == '1') {
-		$query = "UPDATE $categoriestable
+        $query = "UPDATE $categoriestable
                 SET categories_status = '1',
 					last_modified = now()
                 WHERE categories_id = '" . intval($categories_id) . "'";
-		$result = $dbconn->Execute($query);
+        $result = $dbconn->Execute($query);
 
-		$categories_query = "SELECT categories_id
+        $categories_query = "SELECT categories_id
                            FROM $categoriestable
                             WHERE parent_id = '" . intval($categories_id) . "'";
-		$categories_result = $dbconn->Execute($categories_query);
+        $categories_result = $dbconn->Execute($categories_query);
 
-		while ($categories = $categories_result->fields) {
-			oos_set_categories_status($categories['categories_id'], 1);
-			// Move that ADOdb pointer!
-			$categories_result->MoveNext();
-		}
-		return;
+        while ($categories = $categories_result->fields) {
+            oos_set_categories_status($categories['categories_id'], 1);
+            // Move that ADOdb pointer!
+            $categories_result->MoveNext();
+        }
+        return;
     } elseif ($status == '2') {
-		$query = "UPDATE $categoriestable
+        $query = "UPDATE $categoriestable
                 SET categories_status = '2',
 					last_modified = now()
                 WHERE categories_id = '" . intval($categories_id) . "'";
-		$result = $dbconn->Execute($query);
+        $result = $dbconn->Execute($query);
 
-		return;
-	} else {
-		return FALSE;
-	}
-
+        return;
+    } else {
+        return false;
+    }
 }
 
 
-function oos_set_product_status($products_id, $status) {
-  
+function oos_set_product_status($products_id, $status)
+{
+
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -624,8 +668,9 @@ function oos_set_product_status($products_id, $status) {
 }
 
 
-function product_move_to_trash($products_id) {
-  
+function product_move_to_trash($products_id)
+{
+
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -641,27 +686,29 @@ function product_move_to_trash($products_id) {
 }
 
 
-function category_move_to_trash($categories_id) {
+function category_move_to_trash($categories_id)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
     $categoriestable = $oostable['categories'];
-	$query = "UPDATE $categoriestable
+    $query = "UPDATE $categoriestable
                 SET categories_status = '0',
 					last_modified = now()
                 WHERE categories_id = '" . intval($categories_id) . "'";
-	$result = $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
-	return;
-
+    return;
 }
 
 
-function oos_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0) {
-
-    if (!is_array($categories_array)) $categories_array = array();
+function oos_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0)
+{
+    if (!is_array($categories_array)) {
+        $categories_array = array();
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -672,116 +719,128 @@ function oos_generate_category_path($id, $from = 'category', $categories_array =
     $categories_descriptiontable = $oostable['categories_description'];
 
     if ($from == 'product') {
-		$categories_query = "SELECT categories_id
+        $categories_query = "SELECT categories_id
                            FROM $products_to_categoriestable
                            WHERE products_id = '" . intval($id) . "'";
-		$categories_result = $dbconn->Execute($categories_query);
+        $categories_result = $dbconn->Execute($categories_query);
 
-		while ($categories = $categories_result->fields) {
-			if ($categories['categories_id'] == '0') {
-				$categories_array[$index][] = array('id' => '0', 'text' => TEXT_TOP);
-			} else {
-				$category_query = "SELECT cd.categories_name, c.parent_id
+        while ($categories = $categories_result->fields) {
+            if ($categories['categories_id'] == '0') {
+                $categories_array[$index][] = array('id' => '0', 'text' => TEXT_TOP);
+            } else {
+                $category_query = "SELECT cd.categories_name, c.parent_id
                              FROM $categoriestable c,
                                   $categories_descriptiontable cd
                              WHERE c.categories_id = '" . intval($categories['categories_id']) . "'
                                AND c.categories_id = cd.categories_id
                                AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
-				$category_result = $dbconn->Execute($category_query);
+                $category_result = $dbconn->Execute($category_query);
 
-				$category = $category_result->fields;
+                $category = $category_result->fields;
 
-				$categories_array[$index][] = array('id' => $categories['categories_id'], 'text' => $category['categories_name']);
-				if ( (oos_is_not_null($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
-				$categories_array[$index] = array_reverse($categories_array[$index]);
-			}
-			$index++;
+                $categories_array[$index][] = array('id' => $categories['categories_id'], 'text' => $category['categories_name']);
+                if ((oos_is_not_null($category['parent_id'])) && ($category['parent_id'] != '0')) {
+                    $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
+                }
+                $categories_array[$index] = array_reverse($categories_array[$index]);
+            }
+            $index++;
 
-			// Move that ADOdb pointer!
-			$categories_result->MoveNext();
-		}
-
-	} elseif ($from == 'category') {
-
-		$category_query = "SELECT cd.categories_name, c.parent_id
+            // Move that ADOdb pointer!
+            $categories_result->MoveNext();
+        }
+    } elseif ($from == 'category') {
+        $category_query = "SELECT cd.categories_name, c.parent_id
                            FROM $categoriestable c,
                                 $categories_descriptiontable cd
                           WHERE c.categories_id = '" . intval($id) . "' 
                             AND c.categories_id = cd.categories_id
                             AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'";
-		$category_result = $dbconn->Execute($category_query);
-		$category = $category_result->fields;
+        $category_result = $dbconn->Execute($category_query);
+        $category = $category_result->fields;
 
-		if (!is_array($category)) $category = [];
-		$category['categories_name'] = isset($category['categories_name']) ? $category['categories_name'] : '';
-		$categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
-		if ( (isset($category['parent_id'])) && ($category['parent_id'] != '0') ) $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
-	}
+        if (!is_array($category)) {
+            $category = [];
+        }
+        $category['categories_name'] = isset($category['categories_name']) ? $category['categories_name'] : '';
+        $categories_array[$index][] = array('id' => $id, 'text' => $category['categories_name']);
+        if ((isset($category['parent_id'])) && ($category['parent_id'] != '0')) {
+            $categories_array = oos_generate_category_path($category['parent_id'], 'category', $categories_array, $index);
+        }
+    }
 
-	return $categories_array;
+    return $categories_array;
 }
 
 
-function oos_output_generated_category_path($id, $from = 'category') {
-	$calculated_category_path_string = '';
-	$calculated_category_path = oos_generate_category_path($id, $from);
-	for ($i = 0, $n = count($calculated_category_path); $i < $n; $i++) {
-		for ($j = 0, $k = count($calculated_category_path[$i]); $j < $k; $j++) {
-			$calculated_category_path_string .= $calculated_category_path[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
-		}
-		$calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
-	}
-	$calculated_category_path_string = substr($calculated_category_path_string, 0, -6);
+function oos_output_generated_category_path($id, $from = 'category')
+{
+    $calculated_category_path_string = '';
+    $calculated_category_path = oos_generate_category_path($id, $from);
+    for ($i = 0, $n = count($calculated_category_path); $i < $n; $i++) {
+        for ($j = 0, $k = count($calculated_category_path[$i]); $j < $k; $j++) {
+            $calculated_category_path_string .= $calculated_category_path[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
+        }
+        $calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
+    }
+    $calculated_category_path_string = substr($calculated_category_path_string, 0, -6);
 
-	if (strlen($calculated_category_path_string) < 1) $calculated_category_path_string = TEXT_TOP;
+    if (strlen($calculated_category_path_string) < 1) {
+        $calculated_category_path_string = TEXT_TOP;
+    }
 
-	return $calculated_category_path_string;
+    return $calculated_category_path_string;
 }
 
-function oos_remove_category_image($image) {
-	$sImage = oos_var_prep_for_os($image);
-	
-	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' .$sImage)) {
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/large/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/medium/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/small/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' .$sImage);
-	}
-}
+function oos_remove_category_image($image)
+{
+    $sImage = oos_var_prep_for_os($image);
 
-
-function oos_remove_category_banner($image) {
-	$sImage = oos_var_prep_for_os($image);
-	
-	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/originals/' .$sImage)) {
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/large/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/medium/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/originals/' .$sImage);
-	}
+    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' .$sImage)) {
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/large/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/medium/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/small/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'category/originals/' .$sImage);
+    }
 }
 
 
-function oos_remove_panorama_preview_image($image) {
-	$sImage = oos_var_prep_for_os($image);
-	
-	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage)) {
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/large/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/medium/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage);		
-	}
+function oos_remove_category_banner($image)
+{
+    $sImage = oos_var_prep_for_os($image);
+
+    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/originals/' .$sImage)) {
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/large/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/medium/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'banners/originals/' .$sImage);
+    }
 }
 
 
-function oos_remove_scene_image($image) {
-	$sImage = oos_var_prep_for_os($image);
-	
-	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/' .$sImage)) {
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage);		
-	}
+function oos_remove_panorama_preview_image($image)
+{
+    $sImage = oos_var_prep_for_os($image);
+
+    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage)) {
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/large/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/medium/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage);
+    }
 }
 
 
-function oos_remove_category($category_id) {
+function oos_remove_scene_image($image)
+{
+    $sImage = oos_var_prep_for_os($image);
+
+    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/' .$sImage)) {
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'panoramas/originals/' .$sImage);
+    }
+}
+
+
+function oos_remove_category($category_id)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -801,8 +860,8 @@ function oos_remove_category($category_id) {
     $duplicate_image = $duplicate_image_result->fields;
 
     if ($duplicate_image['total'] < 2) {
-		oos_remove_category_image($category_image['categories_image']);
-	}
+        oos_remove_category_image($category_image['categories_image']);
+    }
 
     $categories_imagestable = $oostable['categories_images'];
     $category_image_query = "SELECT categories_image
@@ -810,23 +869,22 @@ function oos_remove_category($category_id) {
                              WHERE categories_id = '" . intval($category_id) . "'";
     $category_image_result = $dbconn->Execute($category_image_query);
     while ($category_image = $category_image_result->fields) {
-
-		$duplicate_image = "SELECT COUNT(*) AS total
+        $duplicate_image = "SELECT COUNT(*) AS total
                               FROM $categories_imagestable
                               WHERE categories_image = '" . oos_db_input($category_image['categories_image']) . "'";
-		$duplicate_image_result = $dbconn->Execute($duplicate_image);
-		$duplicate_image = $duplicate_image_result->fields;
+        $duplicate_image_result = $dbconn->Execute($duplicate_image);
+        $duplicate_image = $duplicate_image_result->fields;
 
-		if ($duplicate_image['total'] < 2) {
-			oos_remove_category_image($category_image['categories_image']);
-		}
-		// Move that ADOdb pointer!
-		$category_image_result->MoveNext();
-	}
+        if ($duplicate_image['total'] < 2) {
+            oos_remove_category_image($category_image['categories_image']);
+        }
+        // Move that ADOdb pointer!
+        $category_image_result->MoveNext();
+    }
 
     $dbconn->Execute("DELETE FROM " . $oostable['categories'] . " WHERE categories_id = '" . intval($category_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_id = '" . intval($category_id) . "'");
-	$dbconn->Execute("DELETE FROM " . $oostable['categories_images'] . " WHERE categories_id = '" . intval($category_id) . "'");	
+    $dbconn->Execute("DELETE FROM " . $oostable['categories_images'] . " WHERE categories_id = '" . intval($category_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['products_to_categories'] . " WHERE categories_id = '" . intval($category_id) . "'");
 
     $categories_panoramatable = $oostable['categories_panorama'];
@@ -834,11 +892,11 @@ function oos_remove_category($category_id) {
                              FROM $categories_panoramatable
                              WHERE categories_id = '" . intval($category_id) . "'";
     $category_panorama_result = $dbconn->Execute($category_panorama_query);
-	if ($category_panorama_result->RecordCount()) {	
-		$category_panorama = $category_panorama_result->fields;
-		
-		oos_remove_panorama($category_panorama['panorama_id']);
-	}	
+    if ($category_panorama_result->RecordCount()) {
+        $category_panorama = $category_panorama_result->fields;
+
+        oos_remove_panorama($category_panorama['panorama_id']);
+    }
 }
 
 
@@ -847,9 +905,11 @@ function oos_remove_category($category_id) {
  * Author:   Brian Lowe <blowe@wpcusrgrp.org>
  * Date:     June 2002
  */
-function oos_get_category_heading_title($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_category_heading_title($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -867,9 +927,11 @@ function oos_get_category_heading_title($category_id, $language_id = '') {
     return $categories_heading_title;
 }
 
-function oos_get_category_description($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_category_description($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -888,9 +950,11 @@ function oos_get_category_description($category_id, $language_id = '') {
 }
 
 
-function oos_get_category_description_meta($category_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_category_description_meta($category_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -909,7 +973,8 @@ function oos_get_category_description_meta($category_id, $language_id = '') {
 }
 
 
-function oos_duplicate_product_image_check($image) {
+function oos_duplicate_product_image_check($image)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -921,31 +986,34 @@ function oos_duplicate_product_image_check($image) {
               WHERE  products_image = '" . oos_db_input($image) . "'";
     $result = $dbconn->Execute($query);
 
-	if ($result->fields['total'] == 1) {
-		return TRUE;
+    if ($result->fields['total'] == 1) {
+        return true;
     } else {
-		return FALSE;
+        return false;
     }
 }
 
 
-function oos_remove_product_image($image) {
-	$sImage = oos_var_prep_for_os($image);
-	
-	if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' .$sImage)) {
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' .$sImage);		
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' .$sImage);
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' .$sImage);		
-		@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' .$sImage);
-	}	
+function oos_remove_product_image($image)
+{
+    $sImage = oos_var_prep_for_os($image);
+
+    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' .$sImage)) {
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/large/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium_large/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/medium/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/small/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/min/' .$sImage);
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'product/originals/' .$sImage);
+    }
 }
 
-function oos_remove_products_model($model) {
-	
-	if (empty($model)) return;
-	
+function oos_remove_products_model($model)
+{
+    if (empty($model)) {
+        return;
+    }
+
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -954,28 +1022,30 @@ function oos_remove_products_model($model) {
     $product_models_query = "SELECT models_id
                             FROM $products_modelstable
                             WHERE models_webgl_gltf =  '" . oos_db_input($model) . "'";
-	$models_result = $dbconn->Execute($product_models_query);
-	if (!$models_result->RecordCount()) {
-		$products_model_viewertable = $oostable['products_model_viewer'];
-		$product_models_query = "SELECT model_viewer_id
+    $models_result = $dbconn->Execute($product_models_query);
+    if (!$models_result->RecordCount()) {
+        $products_model_viewertable = $oostable['products_model_viewer'];
+        $product_models_query = "SELECT model_viewer_id
                             FROM $products_model_viewertable
                             WHERE model_viewer_glb =  '" . oos_db_input($model) . "'";
-		$models_result = $dbconn->Execute($product_models_query);
-		if (!$models_result->RecordCount()) {		
-			$sName = oos_strip_suffix($model);
-			$dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($sName);
-			oos_remove($dir);
-		}
-	}
-	
-	return;
+        $models_result = $dbconn->Execute($product_models_query);
+        if (!$models_result->RecordCount()) {
+            $sName = oos_strip_suffix($model);
+            $dir = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/gltf/' . oos_var_prep_for_os($sName);
+            oos_remove($dir);
+        }
+    }
+
+    return;
 }
 
 
-function oos_remove_model_usds($model) {
-	
-	if (empty($model)) return;
-	
+function oos_remove_model_usds($model)
+{
+    if (empty($model)) {
+        return;
+    }
+
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -984,12 +1054,12 @@ function oos_remove_model_usds($model) {
     $product_models_query = "SELECT model_viewer_id
                             FROM $products_model_viewertable
                             WHERE model_viewer_usdz =  '" . oos_db_input($model) . "'";
-	$models_result = $dbconn->Execute($product_models_query);
-	if (!$models_result->RecordCount()) {
-		@unlink(OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/usdz/' .$model);	
-	}
-	
-	return;
+    $models_result = $dbconn->Execute($product_models_query);
+    if (!$models_result->RecordCount()) {
+        @unlink(OOS_ABSOLUTE_PATH . OOS_MEDIA . 'models/usdz/' .$model);
+    }
+
+    return;
 }
 
 
@@ -999,7 +1069,8 @@ function oos_remove_model_usds($model) {
  * @param $products_id
  * @return string
  */
-function oos_get_manufacturers_name($product_id) {
+function oos_get_manufacturers_name($product_id)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1029,7 +1100,8 @@ function oos_get_manufacturers_name($product_id) {
  * @param $nProductID
  * @return string
  */
-function oos_get_products_special_price($nProductID) {
+function oos_get_products_special_price($nProductID)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1052,9 +1124,11 @@ function oos_get_products_special_price($nProductID) {
  * @param $who_am_i
  * @return string
  */
-function oos_get_categories_name($who_am_i, $language_id = '') {
-
-	if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_categories_name($who_am_i, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1081,9 +1155,11 @@ function oos_get_categories_name($who_am_i, $language_id = '') {
   * @param $language
   * @return string
   */
-function oos_get_models_name($model_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_models_name($model_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1110,9 +1186,11 @@ function oos_get_models_name($model_id, $language_id = '') {
   * @param $language
   * @return string
   */
-function oos_get_models_title($model_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_models_title($model_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1132,13 +1210,16 @@ function oos_get_models_title($model_id, $language_id = '') {
 }
 
 
-function oos_get_models_description_meta($model_id, $language_id = '') {
+function oos_get_models_description_meta($model_id, $language_id = '')
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     $products_models_descriptiontable = $oostable['products_models_description'];
     $query = "SELECT models_description_meta
@@ -1161,9 +1242,11 @@ function oos_get_models_description_meta($model_id, $language_id = '') {
   * @param $language
   * @return string
   */
-function oos_get_panorama_name($panorama_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_panorama_name($panorama_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1190,9 +1273,11 @@ function oos_get_panorama_name($panorama_id, $language_id = '') {
   * @param $language
   * @return string
   */
-function oos_get_panorama_title($panorama_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_panorama_title($panorama_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1212,9 +1297,11 @@ function oos_get_panorama_title($panorama_id, $language_id = '') {
 
 
 
-function oos_get_panorama_description_meta($panorama_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_panorama_description_meta($panorama_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1234,17 +1321,21 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '') {
 
 
  /**
-  * Return 3D Model Page for ALT-TAG 
+  * Return 3D Model Page for ALT-TAG
   *
   * @param $model_viewer_id
   * @param $language
   * @return string
   */
-function oos_get_model_viewer_title($model_viewer_id, $language_id = '') {
+function oos_get_model_viewer_title($model_viewer_id, $language_id = '')
+{
+    if (empty($model_viewer_id) || !is_numeric($model_viewer_id)) {
+        return '';
+    }
 
-	if (empty($model_viewer_id) || !is_numeric($model_viewer_id)) return '';
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1263,9 +1354,11 @@ function oos_get_model_viewer_title($model_viewer_id, $language_id = '') {
 }
 
 
-function oos_get_model_viewer_description($model_viewer_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_model_viewer_description($model_viewer_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1292,9 +1385,11 @@ function oos_get_model_viewer_description($model_viewer_id, $language_id = '') {
   * @param $language
   * @return string
   */
-function oos_get_hotspot_text($hotspot_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_hotspot_text($hotspot_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1313,7 +1408,8 @@ function oos_get_hotspot_text($hotspot_id, $language_id = '') {
 }
 
 
-function oos_remove_panorama($panorama_id) {
+function oos_remove_panorama($panorama_id)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -1326,36 +1422,33 @@ function oos_remove_panorama($panorama_id) {
     $panorama_preview_result = $dbconn->Execute($panorama_preview_query);
     $panorama_preview = $panorama_preview_result->fields;
 
-	oos_remove_panorama_preview_image($panorama_preview['panorama_preview']);
+    oos_remove_panorama_preview_image($panorama_preview['panorama_preview']);
 
 
-	$categories_panorama_scenetable = $oostable['categories_panorama_scene'];
+    $categories_panorama_scenetable = $oostable['categories_panorama_scene'];
     $scene_image_query = "SELECT scene_image
                              FROM $categories_panorama_scenetable
                              WHERE panorama_id = '" . intval($panorama_id) . "'";
     $scene_image_result = $dbconn->Execute($scene_image_query);
-	$scene_image = $scene_image_result->fields;	
-	
-	oos_remove_scene_image($scene_image['scene_image']);
-	
-	$categories_panorama_scene_hotspot = $oostable['categories_panorama_scene_hotspot'];
-	$query = "SELECT hotspot_id
-              FROM $categories_panorama_scene_hotspot
-              WHERE panorama_id = '" . intval($panorama_id) . "'";			
-	$hotspot_result = $dbconn->Execute($query);	
-	while ($hotspot = $hotspot_result->fields) {
-	
-		$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot'] . " WHERE hotspot_id = '" . intval($hotspot['hotspot_text']) . "'");
-		$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_id = '" . intval($hotspot['hotspot_text']) . "'");	
-	
+    $scene_image = $scene_image_result->fields;
 
-		// Move that ADOdb pointer!
-		$hotspot_result->MoveNext();
-	}
+    oos_remove_scene_image($scene_image['scene_image']);
+
+    $categories_panorama_scene_hotspot = $oostable['categories_panorama_scene_hotspot'];
+    $query = "SELECT hotspot_id
+              FROM $categories_panorama_scene_hotspot
+              WHERE panorama_id = '" . intval($panorama_id) . "'";
+    $hotspot_result = $dbconn->Execute($query);
+    while ($hotspot = $hotspot_result->fields) {
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot'] . " WHERE hotspot_id = '" . intval($hotspot['hotspot_text']) . "'");
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_id = '" . intval($hotspot['hotspot_text']) . "'");
+
+
+        // Move that ADOdb pointer!
+        $hotspot_result->MoveNext();
+    }
 
     $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_description'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");
-	$dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");	
-
-	
+    $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");
 }

@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: stats_low_stock.php,v 1.10 2002/04/12 23:13:45 Mounir Ayari  
+   File: stats_low_stock.php,v 1.10 2002/04/12 23:13:45 Mounir Ayari
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -21,11 +21,11 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $rows = 0;
 
 
-require 'includes/header.php'; 
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -85,7 +85,9 @@ require 'includes/header.php';
 						</tr>	
 					</thead>	
 <?php
-  if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  if (isset($nPage) && ($nPage > 1)) {
+      $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  }
 
   $productstable = $oostable['products'];
   $products_descriptiontable = $oostable['products_description'];
@@ -100,12 +102,11 @@ require 'includes/header.php';
   $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_result_raw, $products_result_numrows);
   $products_result = $dbconn->Execute($products_result_raw);
   while ($products = $products_result->fields) {
-    $rows++;
+      $rows++;
 
-    if (strlen($rows) < 2) {
-      $rows = '0' . $rows;
-    }
-?>
+      if (strlen($rows) < 2) {
+          $rows = '0' . $rows;
+      } ?>
           <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage); ?>'">
             <td align="left" class="smallText">&nbsp;<?php echo $rows; ?>.&nbsp;</td>
             <td class="smallText">&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_low_stock'] . '?page=' . $nPage) . '" class="blacklink">' . $products['products_name'] . '</a>'; ?>&nbsp;</td>
@@ -143,7 +144,7 @@ require 'includes/header.php';
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: information.php,v 1.14 2003/02/16 02:09:20 harley_vb 
+   File: information.php,v 1.14 2003/02/16 02:09:20 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com

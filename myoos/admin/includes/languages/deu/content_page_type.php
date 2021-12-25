@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -32,4 +32,3 @@ define('TEXT_INFO_HEADING_EDIT_PAGE_TYPE', 'Seitentyp bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_PAGE_TYPE', 'Seitentyp löschen');
 
 define('ERROR_STATUS_USED_IN_ORDERS', 'Fehler: Dieser Seitentyp wird zur Zeit noch bei den Blöcken verwendet.');
-

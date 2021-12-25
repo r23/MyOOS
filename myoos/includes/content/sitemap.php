@@ -19,7 +19,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/sitemap.php';
 
@@ -33,29 +33,28 @@ $nContentCacheID = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
-if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
+    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
-
-    $oSitemap = new oosCategoryTree;
+    $oSitemap = new oosCategoryTree();
     $oSitemap->setShowCategoryProductCount(false);
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['sitemap']));
-	$sCanonical = oos_href_link($aContents['sitemap'], '', false, true);
-	
+    $sCanonical = oos_href_link($aContents['sitemap'], '', false, true);
+
     // assign Smarty variables;
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
-			'canonical'		=> $sCanonical
+            'canonical'		=> $sCanonical
         )
     );
 

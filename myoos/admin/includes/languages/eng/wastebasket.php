@@ -101,4 +101,3 @@ define('TEXT_ADD_SLAVE_PRODUCT', 'Enter in the Product ID to add this product as
 define('IMAGE_SLAVE', 'Slave Products');
 define('TEXT_CURRENT_SLAVE_PRODUCTS', 'Current Slave products:');
 define('BUTTON_DELETE_SLAVE', 'Delete this slave product');
-

@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: invoice.php,v 1.21 2003/02/19 02:10:00 harley_vb 
+   File: invoice.php,v 1.21 2003/02/19 02:10:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -34,4 +34,3 @@ define('MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID_DESC', 'Festlegung des Status fr 
 
 $aLang['module_payment_invoice_text_description'] = 'Invoice';
 $aLang['module_payment_invoice_text_title'] = 'Invoice';
-

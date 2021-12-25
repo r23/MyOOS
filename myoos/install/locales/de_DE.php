@@ -21,29 +21,29 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-if (strstr($_ENV["OS"],"Win")) {
-  @setlocale(LC_TIME, 'ge');
+if (strstr($_ENV["OS"], "Win")) {
+    @setlocale(LC_TIME, 'ge');
 } else {
-  @setlocale(LC_TIME, 'de_DE');
+    @setlocale(LC_TIME, 'de_DE');
 }
 
 define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
 define('DATE_TIME_FORMAT', DATE_FORMAT_LONG . ' %H:%M:%S');
 
-define('HTML_PARAMS','dir="LTR" lang="de"');
+define('HTML_PARAMS', 'dir="LTR" lang="de"');
 define('CHARSET', 'UTF-8');
 define('INSTALLATION', 'MyOOS [Shopsystem] Installation');
 
 define('BTN_CONTINUE', 'Weiter');
-define('BTN_NEXT' ,'Weiter');
+define('BTN_NEXT', 'Weiter');
 define('BTN_RECHECK', 'wiederholen');
 define('BTN_SET_LANGUAGE', 'Sprache festlegen');
-define('BTN_START','Start');
-define('BTN_SUBMIT','bestätigen');
+define('BTN_START', 'Start');
+define('BTN_SUBMIT', 'bestätigen');
 define('BTN_NEW_INSTALL', 'Neue Installation');
 define('BTN_UPGARDE', 'Upgrade');
 define('BTN_CHANGE_INFO', 'Info ändern');
-define('BTN_LOGIN_SUBMIT','Admin installieren');
+define('BTN_LOGIN_SUBMIT', 'Admin installieren');
 define('BTN_SET_LOGIN', 'Weiter');
 define('BTN_FINISH', 'Beenden');
 
@@ -195,10 +195,10 @@ define('FEMALE', 'Frau');
 
 define('ADMIN_FIRSTNAME', 'Admin Vorname');
 define('ADMIN_NAME', 'Admin Name');
-define('ADMIN_EMAIL','Admin E-Mail');
+define('ADMIN_EMAIL', 'Admin E-Mail');
 define('ADMIN_PHONE', 'Admin Telefon');
-define('ADMIN_PASS','Admin Passwort');
-define('ADMIN_REPEATPASS','Passwort bestätigen');
+define('ADMIN_PASS', 'Admin Passwort');
+define('ADMIN_REPEATPASS', 'Passwort bestätigen');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 define('OWP_URL', 'Virtual Path (URL)');
 define('ROOT_DIR', 'Webserver Root Directory');

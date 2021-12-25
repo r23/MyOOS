@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: orders_status.php,v 1.7 2002/01/30 11:10:08 harley_vb 
+   File: orders_status.php,v 1.7 2002/01/30 11:10:08 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -34,4 +34,3 @@ define('TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS', 'Produkteinheit löschen');
 
 define('ERROR_REMOVE_DEFAULT_PRODUCTS_UNITS', 'Fehler: Die Standard-Produkteinheit kann nicht gelöscht werden. Bitte definieren Sie einen neuen Standard-Produkteinheit und wiederholen Sie den Vorgang.');
 define('ERROR_STATUS_USED_IN_PRODUCTS', 'Fehler: Diese Produkteinheit wird zur Zeit noch bei den Produkten verwendet.');
-

@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: cod.php,v 1.7 2002/11/01 05:31:57 hpdl 
+   File: cod.php,v 1.7 2002/11/01 05:31:57 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -34,4 +34,3 @@ define('MODULE_PAYMENT_COD_ORDER_STATUS_ID_DESC', 'Set the status of orders made
 
 $aLang['module_payment_cod_text_title'] = 'Cash on Delivery';
 $aLang['module_payment_cod_text_description'] = 'Cash on Delivery';
-

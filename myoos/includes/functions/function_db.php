@@ -46,7 +46,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
  /**
@@ -72,7 +72,8 @@ defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowe
   * @global array oosDB_tables database tables used by MyOOS [Shopsystem]
   * @return bool true on success, false on failure
   */
-function oosDBInit() {
+function oosDBInit()
+{
     // Get database parameters
     $dbtype = OOS_DB_TYPE;
     $dbhost = OOS_DB_SERVER;
@@ -80,11 +81,11 @@ function oosDBInit() {
 
     // Decode encoded DB parameters
     if (OOS_ENCODED == '1') {
-		$dbuname = base64_decode(OOS_DB_USERNAME);
-		$dbpass = base64_decode(OOS_DB_PASSWORD);
+        $dbuname = base64_decode(OOS_DB_USERNAME);
+        $dbpass = base64_decode(OOS_DB_PASSWORD);
     } else {
-		$dbuname = OOS_DB_USERNAME;
-		$dbpass = OOS_DB_PASSWORD;
+        $dbuname = OOS_DB_USERNAME;
+        $dbpass = OOS_DB_PASSWORD;
     }
 
     // Start connection
@@ -93,15 +94,15 @@ function oosDBInit() {
 
 
     $dbconn = ADONewConnection($dbtype);
-	$dbconn->setConnectionParameter(MYSQLI_SET_CHARSET_NAME, 'utf8mb4');
-	
+    $dbconn->setConnectionParameter(MYSQLI_SET_CHARSET_NAME, 'utf8mb4');
+
     if (!$dbconn->Connect($dbhost, $dbuname, $dbpass, $dbname)) {
-		$dbpass = "****";
-		$dbuname = "****";
-		die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect " . $dbconn->ErrorMsg());
+        $dbpass = "****";
+        $dbuname = "****";
+        die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect " . $dbconn->ErrorMsg());
     }
 
-	// $dbconn->debug = true;
+    // $dbconn->debug = true;
 
     global $ADODB_FETCH_MODE;
     $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
@@ -109,8 +110,8 @@ function oosDBInit() {
     $GLOBALS['oosDB_connections'][0] = $dbconn;
     $GLOBALS['oosDB_tables'] = [];
 
-	$sql ="SET NAMES 'utf8mb4'";
-	$dbconn->execute($sql);
+    $sql ="SET NAMES 'utf8mb4'";
+    $dbconn->execute($sql);
 
     return true;
 }
@@ -122,11 +123,12 @@ function oosDBInit() {
   * @global array xarDB_connections array of database connection objects
   * @return array array of database connection objects
   */
-function &oosDBGetConn() {
+function &oosDBGetConn()
+{
 
     // we only want to return the first connection here
     // perhaps we'll add linked list capabilities to this soon
-	return $GLOBALS['oosDB_connections'][0];
+    return $GLOBALS['oosDB_connections'][0];
 }
 
   /**
@@ -136,8 +138,9 @@ function &oosDBGetConn() {
    * @global array oosDB_tables array of database tables
    * @return array array of database tables
    */
-function &oosDBGetTables() {
-	return $GLOBALS['oosDB_tables'];
+function &oosDBGetTables()
+{
+    return $GLOBALS['oosDB_tables'];
 }
 
   /**
@@ -146,35 +149,37 @@ function &oosDBGetTables() {
    * @access protected
    * @global oostable array
    */
-function oosDB_importTables($tables) {
+function oosDB_importTables($tables)
+{
     // assert('is_array($tables)');
     $GLOBALS['oosDB_tables'] = array_merge($GLOBALS['oosDB_tables'], $tables);
 }
 
-function oos_db_input($sStr) {
+function oos_db_input($sStr)
+{
+    if (function_exists('mysqli::escape_string ')) {
+        return mysqli::escape_string($sStr);
+    }
 
-	if (function_exists('mysqli::escape_string ')) {
-		return mysqli::escape_string ($sStr);
-	}
-
-	return addslashes($sStr);
+    return addslashes($sStr);
 }
 
-  function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '') {
+  function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
+  {
 
     // Get database information
-    $dbconn =& oosDBGetConn();
+      $dbconn =& oosDBGetConn();
 
-    reset($data);
-    if ($action == 'INSERT') {
-      $query = 'INSERT INTO ' . $table . ' (';
-      foreach ( array_keys($data) as $columns ) {	  
-        $query .= $columns . ', ';
-      }
-      $query = substr($query, 0, -2) . ') values (';
       reset($data);
-      foreach ($data as $value) {		  
-        switch ((string)$value) {
+      if ($action == 'INSERT') {
+          $query = 'INSERT INTO ' . $table . ' (';
+          foreach (array_keys($data) as $columns) {
+              $query .= $columns . ', ';
+          }
+          $query = substr($query, 0, -2) . ') values (';
+          reset($data);
+          foreach ($data as $value) {
+              switch ((string)$value) {
           case 'now()':
             $query .= 'now(), ';
             break;
@@ -187,12 +192,12 @@ function oos_db_input($sStr) {
             $query .= '\'' . oos_db_input($value) . '\', ';
             break;
         }
-      }
-      $query = substr($query, 0, -2) . ')';
-    } elseif ($action == 'UPDATE') {
-      $query = 'UPDATE ' . $table . ' set ';
-      foreach($data as $columns => $value) {		  
-        switch ((string)$value) {
+          }
+          $query = substr($query, 0, -2) . ')';
+      } elseif ($action == 'UPDATE') {
+          $query = 'UPDATE ' . $table . ' set ';
+          foreach ($data as $columns => $value) {
+              switch ((string)$value) {
           case 'now()':
             $query .= $columns . ' = now(), ';
             break;
@@ -205,52 +210,52 @@ function oos_db_input($sStr) {
             $query .= $columns . ' = \'' . oos_db_input($value) . '\', ';
             break;
         }
+          }
+          $query = substr($query, 0, -2) . ' where ' . $parameters;
       }
-      $query = substr($query, 0, -2) . ' where ' . $parameters;
-    }
-    return $dbconn->Execute($query);
+      return $dbconn->Execute($query);
   }
 
-  function oos_db_prepare_input($sStr) {
-    if (is_string($sStr)) {
-      return trim(stripslashes($sStr));
-    } elseif (is_array($sStr)) {
-      reset($sStr);
-      foreach($sStr as $key => $value) {		  
-		  
-        $sStr[$key] = oos_db_prepare_input($value);
+  function oos_db_prepare_input($sStr)
+  {
+      if (is_string($sStr)) {
+          return trim(stripslashes($sStr));
+      } elseif (is_array($sStr)) {
+          reset($sStr);
+          foreach ($sStr as $key => $value) {
+              $sStr[$key] = oos_db_prepare_input($value);
+          }
+          return $sStr;
+      } else {
+          return $sStr;
       }
-      return $sStr;
-    } else {
-      return $sStr;
-    }
   }
 
-function oosDBOutput($sStr) {
-	return mysqli::escape_string ($sStr);
+function oosDBOutput($sStr)
+{
+    return mysqli::escape_string($sStr);
 }
 
-function dosql($table, $flds) {
+function dosql($table, $flds)
+{
 
-	// Get database information
-	$dbconn =& oosDBGetConn();
-	$dict = NewDataDictionary($dbconn);
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $dict = NewDataDictionary($dbconn);
 
-	$taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
+    $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
 
-	$sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
-	$dict->executeSqlArray($sqlarray);
-
+    $sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
+    $dict->executeSqlArray($sqlarray);
 }
 
-function idxsql($idxname, $table, $idxflds) {
+function idxsql($idxname, $table, $idxflds)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $dict = NewDataDictionary($dbconn);
 
     $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
-	$dict->executeSqlArray($sqlarray);
+    $dict->executeSqlArray($sqlarray);
 }
-
-

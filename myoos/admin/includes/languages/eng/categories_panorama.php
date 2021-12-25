@@ -59,4 +59,3 @@ define('TEXT_SUCCESSFULLY_UPLOADED', 'Image successfully uploaded.');
 
 define('ERROR_NO_IMAGE_FILE', 'Invalid file extension. Only png, jpg, jpeg, webp and gif files are allowed.');
 define('ERROR_NO_PANORAMA', 'Please first upload the 360 degree panorama photo under the menu item Scene.');
-

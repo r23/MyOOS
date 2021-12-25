@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: languages.php,v 1.32 2002/03/17 17:37:51 harley_vb 
+   File: languages.php,v 1.32 2002/03/17 17:37:51 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -21,7 +21,7 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
@@ -30,11 +30,11 @@ if (!empty($action)) {
         $lID = oos_db_prepare_input($_GET['lID']);
 
         if (isset($_GET['flag']) && ($_GET['flag'] == '0')) {
-          $dbconn->Execute("UPDATE " . $oostable['languages'] . "
+            $dbconn->Execute("UPDATE " . $oostable['languages'] . "
                         SET status = '0'
                         WHERE languages_id = '" . intval($lID) . "'");
         } elseif (isset($_GET['flag']) && ($_GET['flag'] == '1')) {
-          $dbconn->Execute("UPDATE " . $oostable['languages'] . "
+            $dbconn->Execute("UPDATE " . $oostable['languages'] . "
                         SET status = '1'
                         WHERE languages_id = '" . intval($lID) . "'");
         }
@@ -47,7 +47,7 @@ if (!empty($action)) {
         $iso_639_1 = oos_db_prepare_input($_POST['iso_639_1']);
         $iso_3166_1 = oos_db_prepare_input($_POST['iso_3166_1']);
         $sort_order = (int)oos_db_prepare_input($_POST['sort_order']);
-		
+
         $sql = "INSERT INTO " . $oostable['languages'] . "
                 (name,
                  iso_639_2,
@@ -67,7 +67,7 @@ if (!empty($action)) {
                                            FROM " . $oostable['block_info'] . "
                                            WHERE block_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($block_info = $block_info_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['block_info'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['block_info'] . "
                       (block_id,
                        block_languages_id,
                        block_name)
@@ -75,8 +75,8 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($block_info['block_name']) . "')");
 
-          // Move that ADOdb pointer!
-          $block_info_result->MoveNext();
+            // Move that ADOdb pointer!
+            $block_info_result->MoveNext();
         }
         // create additional categories_description records
         $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, cd.categories_heading_title, cd.categories_description,
@@ -86,7 +86,7 @@ if (!empty($action)) {
                                              ON c.categories_id = cd.categories_id
                                           WHERE cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($categories = $categories_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['categories_description'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['categories_description'] . "
                       (categories_id,
                        categories_languages_id,
                        categories_name,
@@ -100,8 +100,8 @@ if (!empty($action)) {
                                '" . oos_db_input($categories['categories_description']) . "',
                                '" . oos_db_input($categories['categories_description_meta']) . "')");
 
-          // Move that ADOdb pointer!
-          $categories_result->MoveNext();
+            // Move that ADOdb pointer!
+            $categories_result->MoveNext();
         }
 
         // categories_images
@@ -110,8 +110,8 @@ if (!empty($action)) {
                                                " . $oostable['categories_images_description'] . " cid
                                              ON ci.categories_images_id = cid.categories_images_id
                                           WHERE cid.categories_images_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($categories_images = $categories_images_result->fields) {		
-          $dbconn->Execute("INSERT INTO " . $oostable['categories_images_description'] . "
+        while ($categories_images = $categories_images_result->fields) {
+            $dbconn->Execute("INSERT INTO " . $oostable['categories_images_description'] . "
                       (categories_images_id,
                        categories_images_languages_id,
                        categories_images_title,
@@ -123,8 +123,8 @@ if (!empty($action)) {
                                '" . oos_db_input($categories_images['categories_images_caption']) . "',
                                '" . oos_db_input($categories_images['categories_images_description']) . "')");
 
-          // Move that ADOdb pointer!
-          $categories_images_result->MoveNext();
+            // Move that ADOdb pointer!
+            $categories_images_result->MoveNext();
         }
 
         // categories_panorama
@@ -134,8 +134,8 @@ if (!empty($action)) {
                                                " . $oostable['categories_panorama_description'] . " cpd
                                              ON cp.panorama_id = cpd.panorama_id
                                           WHERE cpd.panorama_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($categories_panorama = $categories_panorama_result->fields) {		
-          $dbconn->Execute("INSERT INTO " . $oostable['categories_panorama_description'] . "
+        while ($categories_panorama = $categories_panorama_result->fields) {
+            $dbconn->Execute("INSERT INTO " . $oostable['categories_panorama_description'] . "
                       (panorama_id, 
 						panorama_languages_id,
 						panorama_name,
@@ -151,18 +151,18 @@ if (!empty($action)) {
 							   '" . oos_db_input($categories_panorama['panorama_description_meta']) . "',
                                '" . oos_db_input($categories_panorama['panorama_keywords']) . "')");
 
-          // Move that ADOdb pointer!
-          $categories_panorama_result->MoveNext();
+            // Move that ADOdb pointer!
+            $categories_panorama_result->MoveNext();
         }
-		
+
         // hotspot_text
         $scene_hotspot_result = $dbconn->Execute("SELECT sh.hotspot_id, sht.hotspot_text
                                           FROM " . $oostable['categories_panorama_scene_hotspot'] . " sh LEFT JOIN
                                                " . $oostable['categories_panorama_scene_hotspot_text'] . " sht
                                              ON sh.hotspot_id = sht.hotspot_id
                                           WHERE cpd.hotspot_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        while ($scene_hotspot = $scene_hotspot_result->fields) {		
-          $dbconn->Execute("INSERT INTO " . $oostable['categories_panorama_scene_hotspot_text'] . "
+        while ($scene_hotspot = $scene_hotspot_result->fields) {
+            $dbconn->Execute("INSERT INTO " . $oostable['categories_panorama_scene_hotspot_text'] . "
                       (hotspot_id, 
 						hotspot_languages_id,
 						hotspot_text) 
@@ -170,10 +170,10 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($scene_hotspot['hotspot_text']) . "')");
 
-          // Move that ADOdb pointer!
-          $scene_hotspot_result->MoveNext();
-        }		
-		
+            // Move that ADOdb pointer!
+            $scene_hotspot_result->MoveNext();
+        }
+
 
         //coupons_description
         $coupon_result = $dbconn->Execute("SELECT c.coupon_id, cd.coupon_name, cd.coupon_description
@@ -182,7 +182,7 @@ if (!empty($action)) {
                                           ON c.coupon_id = cd.coupon_id
                                       WHERE cd.coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($coupon = $coupon_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['coupons_description'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['coupons_description'] . "
                       (coupon_id,
                        coupon_languages_id,
                        coupon_name,
@@ -192,8 +192,8 @@ if (!empty($action)) {
                                '" . oos_db_input($coupon['coupon_name']) . "',
                                '" . oos_db_input($coupon['coupon_description']) . "')");
 
-          // Move that ADOdb pointer!
-          $coupon_result->MoveNext();
+            // Move that ADOdb pointer!
+            $coupon_result->MoveNext();
         }
         //customers_status
         $customers_status_result = $dbconn->Execute("SELECT customers_status_id, customers_status_name, customers_status_ot_discount_flag,
@@ -203,7 +203,7 @@ if (!empty($action)) {
                                                 FROM " . $oostable['customers_status'] . "
                                                 WHERE customers_status_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($customers_status = $customers_status_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['customers_status'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['customers_status'] . "
                       (customers_status_id,
                        customers_status_languages_id,
                        customers_status_name,
@@ -227,8 +227,8 @@ if (!empty($action)) {
                                '" . oos_db_input($customers_status['customers_status_qty_discounts']) . "',
                                '" . oos_db_input($customers_status['customers_status_payment']) . "')");
 
-           // Move that ADOdb pointer!
-           $customers_status_result->MoveNext();
+            // Move that ADOdb pointer!
+            $customers_status_result->MoveNext();
         }
 
         //information_description
@@ -238,7 +238,7 @@ if (!empty($action)) {
                                                on i.information_id = id.information_id
                                             WHERE id.information_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($information = $information_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['information_description'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['information_description'] . "
                       (information_id,
                        information_languages_id,
                        information_name,
@@ -248,8 +248,8 @@ if (!empty($action)) {
                                '" . oos_db_input($information['information_name']) . "',
                                '" . oos_db_input($information['information_description']) . "')");
 
-          // Move that ADOdb pointer!
-          $information_result->MoveNext();
+            // Move that ADOdb pointer!
+            $information_result->MoveNext();
         }
 
 
@@ -260,7 +260,7 @@ if (!empty($action)) {
                                                  ON m.manufacturers_id = mi.manufacturers_id
                                              WHERE mi.manufacturers_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($manufacturers = $manufacturers_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['manufacturers_info'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['manufacturers_info'] . "
                       (manufacturers_id, 
                        manufacturers_languages_id,
                        manufacturers_url) 
@@ -268,8 +268,8 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($manufacturers['manufacturers_url']) . "')");
 
-          // Move that ADOdb pointer!
-          $manufacturers_result->MoveNext();
+            // Move that ADOdb pointer!
+            $manufacturers_result->MoveNext();
         }
 
         // orders_status
@@ -277,7 +277,7 @@ if (!empty($action)) {
                                               FROM " . $oostable['orders_status'] . "
                                               WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($orders_status = $orders_status_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['orders_status'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['orders_status'] . "
                       (orders_status_id,
                        orders_languages_id,
                        orders_status_name)
@@ -285,8 +285,8 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($orders_status['orders_status_name']) . "')");
 
-          // Move that ADOdb pointer!
-          $orders_status_result->MoveNext();
+            // Move that ADOdb pointer!
+            $orders_status_result->MoveNext();
         }
 
         //page_type
@@ -294,7 +294,7 @@ if (!empty($action)) {
                                           FROM " . $oostable['page_type'] . "
                                           WHERE page_type_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($page_type = $page_type_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['page_type'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['page_type'] . "
                       (page_type_id,
                        page_type_languages_id,
                        page_type_name)
@@ -302,11 +302,11 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($page_type['page_type_name']) . "')");
 
-          // Move that ADOdb pointer!
-          $page_type_result->MoveNext();
+            // Move that ADOdb pointer!
+            $page_type_result->MoveNext();
         }
 
-        //products_description		
+        //products_description
         $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_essential_characteristics, 
 													pd.products_old_electrical_equipment_description, pd.products_used_goods_description, pd.products_url, pd.products_description_meta,  pd.products_keywords
                                          FROM " . $oostable['products'] . " p LEFT JOIN
@@ -314,7 +314,7 @@ if (!empty($action)) {
                                             ON p.products_id = pd.products_id
                                         WHERE pd.products_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($products = $products_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['products_description'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['products_description'] . "
                       (products_id,
                        products_languages_id,
                        products_name,
@@ -340,10 +340,10 @@ if (!empty($action)) {
 							   '" . oos_db_input($products['products_description_meta']) . "',
                                '" . oos_db_input($products['products_keywords']) . "')");
 
-           // Move that ADOdb pointer!
-           $products_result->MoveNext();
+            // Move that ADOdb pointer!
+            $products_result->MoveNext();
         }
-	
+
         //products_models_description
         $models_result = $dbconn->Execute("SELECT m.models_id, md.models_name, md.models_title, md.models_description_meta, md.models_keywords
                                          FROM " . $oostable['products_models'] . " m LEFT JOIN
@@ -351,7 +351,7 @@ if (!empty($action)) {
                                             ON m.models_id = md.models_id
                                         WHERE md.models_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($models = $models_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['products_models_description'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['products_models_description'] . "
                       (models_id,
                        models_languages_id,
                        models_name,
@@ -365,9 +365,9 @@ if (!empty($action)) {
 							   '" . oos_db_input($models['models_description_meta']) . "',
                                '" . oos_db_input($models['models_keywords']) . "')");
 
-           // Move that ADOdb pointer!
-           $models_result->MoveNext();
-        }		
+            // Move that ADOdb pointer!
+            $models_result->MoveNext();
+        }
 
 
         //products_model_viewer_description
@@ -377,7 +377,7 @@ if (!empty($action)) {
                                             ON m.model_viewer_id = md.model_viewer_id
                                         WHERE md.model_viewer_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($model_viewer = $products_model_viewer_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['products_model_viewer_description'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['products_model_viewer_description'] . "
                       (model_viewer_id,
                        model_viewer_languages_id,
                        model_viewer_title,
@@ -389,17 +389,17 @@ if (!empty($action)) {
 							   '" . oos_db_input($model_viewer['model_viewer_description']) . "',							   
                                '" . oos_db_input($model_viewer['model_viewer_keywords']) . "')");
 
-           // Move that ADOdb pointer!
-           $products_model_viewer_result->MoveNext();
+            // Move that ADOdb pointer!
+            $products_model_viewer_result->MoveNext();
         }
 
-		
+
          // products_options
         $products_options_result = $dbconn->Execute("SELECT products_options_id, products_options_name 
                                                  FROM " . $oostable['products_options'] . "
                                                 WHERE products_options_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($products_options = $products_options_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['products_options'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['products_options'] . "
                       (products_options_id,
                        products_options_languages_id,
                        products_options_name)
@@ -407,15 +407,15 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($products_options['products_options_name']) . "')");
 
-           // Move that ADOdb pointer!
-           $products_options_result->MoveNext();
+            // Move that ADOdb pointer!
+            $products_options_result->MoveNext();
         }
         //products_options_values
         $products_options_values_result = $dbconn->Execute("SELECT products_options_values_id, products_options_values_name 
                                                        FROM " . $oostable['products_options_values'] . "
                                                        WHERE products_options_values_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($products_options_values = $products_options_values_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['products_options_values'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['products_options_values'] . "
                       (products_options_values_id,
                        products_options_values_languages_id,
                        products_options_values_name)
@@ -423,8 +423,8 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($products_options_values['products_options_values_name']) . "')");
 
-          // Move that ADOdb pointer!
-          $products_options_values_result->MoveNext();
+            // Move that ADOdb pointer!
+            $products_options_values_result->MoveNext();
         }
 
         //products_options_values
@@ -432,7 +432,7 @@ if (!empty($action)) {
                                                        FROM " . $oostable['products_options_types'] . "
                                                        WHERE products_options_types_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($products_options_values = $products_options_values_result->fields) {
-          $dbconn->Execute("INSERT INTO " .$oostable['products_options_types'] . "
+            $dbconn->Execute("INSERT INTO " .$oostable['products_options_types'] . "
                       (products_options_types_id,
                        products_options_types_languages_id,
                        products_options_types_name)
@@ -440,8 +440,8 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($products_options_values['products_options_types_name']) . "')");
 
-          // Move that ADOdb pointer!
-          $products_options_values_result->MoveNext();
+            // Move that ADOdb pointer!
+            $products_options_values_result->MoveNext();
         }
 
         // products_status
@@ -449,7 +449,7 @@ if (!empty($action)) {
                                                 FROM " . $oostable['products_status'] . "
                                                 WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($products_status = $products_status_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['products_status'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['products_status'] . "
                       (products_status_id,
                        products_status_languages_id,
                        products_status_name)
@@ -457,8 +457,8 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($products_status['products_status_name']) . "')");
 
-          // Move that ADOdb pointer!
-          $products_status_result->MoveNext();
+            // Move that ADOdb pointer!
+            $products_status_result->MoveNext();
         }
 
         // setting
@@ -466,7 +466,7 @@ if (!empty($action)) {
                                               FROM " . $oostable['setting'] . "
                                               WHERE orders_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($setting = $setting_result->fields) {
-          $dbconn->Execute("INSERT INTO " . $oostable['setting'] . "
+            $dbconn->Execute("INSERT INTO " . $oostable['setting'] . "
                       (setting_id,
                        setting_languages_id,
                        setting_name)
@@ -474,8 +474,8 @@ if (!empty($action)) {
                                '" . intval($insert_id) . "',
                                '" . oos_db_input($setting['setting_name']) . "')");
 
-          // Move that ADOdb pointer!
-          $setting_result->MoveNext();
+            // Move that ADOdb pointer!
+            $setting_result->MoveNext();
         }
 
 
@@ -488,7 +488,7 @@ if (!empty($action)) {
         $iso_639_1 = oos_db_prepare_input($_POST['iso_639_1']);
         $iso_3166_1 = oos_db_prepare_input($_POST['iso_3166_1']);
         $sort_order = intval(oos_db_prepare_input($_POST['sort_order']));
-		
+
         $lID = oos_db_prepare_input($_GET['lID']);
 
         $dbconn->Execute("UPDATE " . $oostable['languages'] . "
@@ -500,13 +500,13 @@ if (!empty($action)) {
                       WHERE languages_id = '" . intval($lID) . "'");
 
         if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
-          $dbconn->Execute("UPDATE " . $oostable['configuration'] . " 
+            $dbconn->Execute("UPDATE " . $oostable['configuration'] . " 
                         SET configuration_value = '" . oos_db_input($iso_639_2) . "'
                         WHERE configuration_key = 'DEFAULT_LANGUAGE'");
-						
-			$dbconn->Execute("UPDATE " . $oostable['configuration'] . " 
+
+            $dbconn->Execute("UPDATE " . $oostable['configuration'] . " 
                         SET configuration_value = '" . intval($lID2) . "'
-                        WHERE configuration_key = 'DEFAULT_LANGUAGE_ID'");				
+                        WHERE configuration_key = 'DEFAULT_LANGUAGE_ID'");
         }
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $_GET['lID']));
         break;
@@ -516,20 +516,20 @@ if (!empty($action)) {
 
         $lng_result = $dbconn->Execute("SELECT iso_639_2 FROM " . $oostable['languages'] . " WHERE languages_id = '" . intval($lID) . "'");
         $lng = $lng_result->fields;
- 
+
         $remove_language = true;
         if ($lng['iso_639_2'] == DEFAULT_LANGUAGE) {
-			$remove_language = false;
-			$messageStack->add_session(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
-			oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage));
+            $remove_language = false;
+            $messageStack->add_session(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
+            oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage));
         }
 
         $dbconn->Execute("DELETE FROM " . $oostable['languages'] . " WHERE languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['block_info'] . " WHERE block_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['categories_description'] . " WHERE categories_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['categories_images_description'] . " WHERE categories_images_languages_id = '" . intval($lID) . "'");
-        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_description'] . " WHERE panorama_languages_id = '" . intval($lID) . "'");	
-        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_languages_id = '" . intval($lID) . "'");		
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_description'] . " WHERE panorama_languages_id = '" . intval($lID) . "'");
+        $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene_hotspot_text'] . " WHERE hotspot_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['coupons_description']  . " WHERE coupon_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status']  . " WHERE customers_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['information_description']  . " WHERE information_languages_id = '" . intval($lID) . "'");
@@ -537,8 +537,8 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['orders_status'] . " WHERE orders_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['page_type'] . " WHERE page_type_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_description'] . " WHERE products_languages_id = '" . intval($lID) . "'");
-		$dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_languages_id = '" . intval($lID) . "'");	
-		$dbconn->Execute("DELETE FROM " . $oostable['products_models_description'] . " WHERE models_languages_id = '" . intval($lID) . "'");		
+        $dbconn->Execute("DELETE FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_languages_id = '" . intval($lID) . "'");
+        $dbconn->Execute("DELETE FROM " . $oostable['products_models_description'] . " WHERE models_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options'] . " WHERE products_options_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_types'] . " WHERE products_options_types_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_values'] . " WHERE products_options_values_languages_id = '" . intval($lID) . "'");
@@ -556,15 +556,15 @@ if (!empty($action)) {
 
         $remove_language = true;
         if ($lng['iso_639_2'] == DEFAULT_LANGUAGE) {
-          $remove_language = false;
-          $messageStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
+            $remove_language = false;
+            $messageStack->add(ERROR_REMOVE_DEFAULT_LANGUAGE, 'error');
         }
         break;
     }
-  }
+}
   $lang_select_array = array(array('id' => '0', 'text' => TEXT_ALL_LANGUAGES),
                              array('id' => '1', 'text' => TEXT_ACTIVE_LANGUAGES));
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -634,35 +634,37 @@ if (!empty($action)) {
   $languages_result = $dbconn->Execute($languages_result_raw);
 
   while ($languages = $languages_result->fields) {
-    if ((!isset($_GET['lID']) || (isset($_GET['lID']) && ($_GET['lID'] == $languages['languages_id']))) && !isset($lInfo) && (substr($action, 0, 3) != 'new')) {
-      $lInfo = new objectInfo($languages);
-    }
+      if ((!isset($_GET['lID']) || (isset($_GET['lID']) && ($_GET['lID'] == $languages['languages_id']))) && !isset($lInfo) && (substr($action, 0, 3) != 'new')) {
+          $lInfo = new objectInfo($languages);
+      }
 
-    if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) {
-      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '\'">' . "\n";
-    } else {
-      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '\'">' . "\n";
-    }
+      if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id)) {
+          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '\'">' . "\n";
+      } else {
+          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '\'">' . "\n";
+      }
 
-    if (DEFAULT_LANGUAGE == $languages['iso_639_2']) {
-      echo '                <td><b>' . $languages['name'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
-    } else {
-      echo '                <td>' . $languages['name'] . '</td>' . "\n";
-    }
-?>
+      if (DEFAULT_LANGUAGE == $languages['iso_639_2']) {
+          echo '                <td><b>' . $languages['name'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
+      } else {
+          echo '                <td>' . $languages['name'] . '</td>' . "\n";
+      } ?>
                 <td class="text-center"><?php echo $languages['iso_639_2']; ?></td>
                 <td class="text-center"><?php echo $languages['iso_639_1']; ?></td>
 				<td class="text-center"><?php echo $languages['iso_3166_1']; ?></td>
                 <td class="text-center">
 <?php
   if ($languages['status'] == '1') {
-    echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=0&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+      echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=0&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
   } else {
-    echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=1&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
-  }
-?></td>
+      echo '<a href="' . oos_href_link_admin($aContents['languages'], 'action=setflag&flag=1&lID=' . $languages['languages_id'] . '&page=' . $nPage) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+  } ?></td>
 
-                <td class="text-right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id)) {
+      echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+  } else {
+      echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+  } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -677,7 +679,7 @@ if (!empty($action)) {
                   </tr>
 <?php
   if (empty($action)) {
-?>
+      ?>
                   <tr>
                     <td align="right" colspan="2"><?php echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=new') . '">' . oos_button(IMAGE_NEW_LANGUAGE) . '</a>'; ?></td>
                   </tr>
@@ -695,12 +697,12 @@ if (!empty($action)) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_LANGUAGE . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'languages', $aContents['languages'], 'action=insert', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'languages', $aContents['languages'], 'action=insert', 'post', false));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . '<br>' . oos_draw_input_field('name'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br>' . oos_draw_input_field('iso_639_2'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br>' . oos_draw_input_field('iso_639_1'));
-	  $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1'));
+      $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1'));
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $_GET['lID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
@@ -708,14 +710,16 @@ if (!empty($action)) {
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_LANGUAGE . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'languages', $aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'languages', $aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=save', 'post', false));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . '<br>' . oos_draw_input_field('name', $lInfo->name));
       $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_2 . '<br>' . oos_draw_input_field('iso_639_2', $lInfo->iso_639_2));
       $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_639_1 . '<br>' . oos_draw_input_field('iso_639_1', $lInfo->iso_639_1));
-	  $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1', $lInfo->iso_3166_1));
+      $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1', $lInfo->iso_3166_1));
       $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br>' . oos_draw_input_field('sort_order', $lInfo->sort_order));
-      if (DEFAULT_LANGUAGE != $lInfo->iso_639_2 && $lInfo->status == '1' ) $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+      if (DEFAULT_LANGUAGE != $lInfo->iso_639_2 && $lInfo->status == '1') {
+          $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+      }
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
@@ -731,33 +735,31 @@ if (!empty($action)) {
 
     default:
       if (isset($lInfo) && is_object($lInfo)) {
-        $heading[] = array('text' => '<b>' . $lInfo->name . '</b>');
+          $heading[] = array('text' => '<b>' . $lInfo->name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
-        $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
-        $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);
-		$contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . ' ' . $lInfo->iso_3166_1);
-        $contents[] = array('text' => '<div class="flag flag-icon flag-icon-' . $lInfo->iso_3166_1 . ' width-full"></div>');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br>' . OOS_SHOP . 'includes/languages/<b>' . $lInfo->iso_639_2 . '</b>');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
-
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+          $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
+          $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
+          $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);
+          $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . ' ' . $lInfo->iso_3166_1);
+          $contents[] = array('text' => '<div class="flag flag-icon flag-icon-' . $lInfo->iso_3166_1 . ' width-full"></div>');
+          $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br>' . OOS_SHOP . 'includes/languages/<b>' . $lInfo->iso_639_2 . '</b>');
+          $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
       }
       break;
   }
 
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+        ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
+        $box = new box();
+        echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-  }
+    }
 ?>
           </tr>
         </table>
@@ -777,7 +779,7 @@ if (!empty($action)) {
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

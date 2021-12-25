@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_cod_fee.php,v 1.01 2003/02/24 06:05:00 harley_vb 
+   File: ot_cod_fee.php,v 1.01 2003/02/24 06:05:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -42,7 +42,7 @@
    ---------------------------------------------------------------------- */
 
 
-define('MODULE_ORDER_TOTAL_COD_STATUS_TITLE',  'Nachnahmegebühr');
+define('MODULE_ORDER_TOTAL_COD_STATUS_TITLE', 'Nachnahmegebühr');
 define('MODULE_ORDER_TOTAL_COD_STATUS_DESC', 'Berechnung der Nachnahmegebühr');
 
 define('MODULE_ORDER_TOTAL_COD_SORT_ORDER_TITLE', 'Sortierreihenfolge');
@@ -76,5 +76,3 @@ define('MODULE_ORDER_TOTAL_COD_TAX_CLASS_DESC', 'Wählen Sie eine Steuerklasse.'
 
 $aLang['module_order_total_cod_title'] = 'Nachnahmegebühr';
 $aLang['module_order_total_cod_description'] = 'Nachnahmegebühr';
-
-

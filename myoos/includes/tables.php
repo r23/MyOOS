@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: application_top.php,v 1.155 2003/02/17 16:54:11 hpdl 
+   File: application_top.php,v 1.155 2003/02/17 16:54:11 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,11 +19,13 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $prefix_table = OOS_DB_PREFIX;
 
-if (!$prefix_table == '') $prefix_table = $prefix_table . '_';
+if (!$prefix_table == '') {
+    $prefix_table = $prefix_table . '_';
+}
 
 // Initialise table array
 $oostable = [];
@@ -61,7 +63,7 @@ $oostable['customers_basket_attributes'] = $prefix_table . 'customers_basket_att
 $oostable['customers_info'] = $prefix_table . 'customers_info';
 $oostable['customers_status'] = $prefix_table . 'customers_status';
 $oostable['customers_status_history'] = $prefix_table . 'customers_status_history';
-$oostable['customers_wishlist'] = $prefix_table . 'customers_wishlist'; 
+$oostable['customers_wishlist'] = $prefix_table . 'customers_wishlist';
 $oostable['customers_wishlist_attributes'] = $prefix_table . 'customers_wishlist_attributes';
 $oostable['featured'] = $prefix_table . 'featured';
 $oostable['files_uploaded'] = $prefix_table . 'files_uploaded';

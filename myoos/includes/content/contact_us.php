@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: contact_us.php,v 1.39 2003/02/14 05:51:15 hpdl 
+   File: contact_us.php,v 1.39 2003/02/14 05:51:15 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,41 +19,39 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/contact_us.php'; 
-  
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/contact_us.php';
+
 $bError = false;
 
-if ( isset($_POST['action']) && ($_POST['action'] == 'send')  ) { 
-	
-	$email_address = oos_prepare_input($_POST['email']);
-	$name = oos_prepare_input($_POST['name']);
-	$phone = oos_prepare_input($_POST['phone']);
-	$subject = oos_prepare_input($_POST['subject']);
-	$enquiry = oos_prepare_input($_POST['enquiry']);
+if (isset($_POST['action']) && ($_POST['action'] == 'send')) {
+    $email_address = oos_prepare_input($_POST['email']);
+    $name = oos_prepare_input($_POST['name']);
+    $phone = oos_prepare_input($_POST['phone']);
+    $subject = oos_prepare_input($_POST['subject']);
+    $enquiry = oos_prepare_input($_POST['enquiry']);
 
-	$email_address = strtolower($email_address);
-	
-	if (is_email(trim($email_address))) {
+    $email_address = strtolower($email_address);
 
-		if ( empty( $subject )) {
-			$subject = $aLang['email_subject'];
-		}	
+    if (is_email(trim($email_address))) {
+        if (empty($subject)) {
+            $subject = $aLang['email_subject'];
+        }
 
-		$email_text = "\n";
-		$email_text .= $aLang['entry_name'] . ' ' .  $name . "\n";
-		$email_text .= $aLang['entry_telephone_number'] . ' ' .  $phone . "\n";
-		$email_text .= $aLang['entry_email'] . ' ' .  $email_address . "\n";
-		$email_text .= "\n";
-		$email_text .= $aLang['entry_enquiry']  . ' ' . $enquiry . "\n";		
-		
-		oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $subject, $email_text, $email_text, $name, $email_address);	
-		oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
-	} else {
-		$oMessage->add('danger', $aLang['error_email_address']);
-		$bError = true;
-	}
+        $email_text = "\n";
+        $email_text .= $aLang['entry_name'] . ' ' .  $name . "\n";
+        $email_text .= $aLang['entry_telephone_number'] . ' ' .  $phone . "\n";
+        $email_text .= $aLang['entry_email'] . ' ' .  $email_address . "\n";
+        $email_text .= "\n";
+        $email_text .= $aLang['entry_enquiry']  . ' ' . $enquiry . "\n";
+
+        oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $subject, $email_text, $email_text, $name, $email_address);
+        oos_redirect(oos_href_link($aContents['contact_us'], 'action=success'));
+    } else {
+        $oMessage->add('danger', $aLang['error_email_address']);
+        $bError = true;
+    }
 }
 
 // links breadcrumb
@@ -67,19 +65,19 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
-		array(
-			'breadcrumb'	=> $oBreadcrumb->trail(),
-			'heading_title' => $aLang['heading_title'],
-			'canonical'		=> $sCanonical,
+    array(
+            'breadcrumb'	=> $oBreadcrumb->trail(),
+            'heading_title' => $aLang['heading_title'],
+            'canonical'		=> $sCanonical,
 
-			'error' => $bError
-		)
+            'error' => $bError
+        )
 );
 
 // display the template

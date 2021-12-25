@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: geo_zones.php,v 1.9 2002/02/18 13:07:51 harley_vb 
+   File: geo_zones.php,v 1.9 2002/02/18 13:07:51 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -53,5 +53,3 @@ define('TEXT_INFO_COUNTRY_ZONE', 'Bundesland:');
 define('TYPE_BELOW', 'Alle Bundesländer');
 define('PLEASE_SELECT', 'Alle Bundesländer');
 define('TEXT_ALL_COUNTRIES', 'Alle Länder');
-
-

@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: flat.php,v 1.5 2002/11/19 01:48:08 dgw_ 
+   File: flat.php,v 1.5 2002/11/19 01:48:08 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -35,4 +35,3 @@ define('MODULE_SHIPPING_FLAT_SORT_ORDER_DESC', 'Sort order of display.');
 $aLang['module_shipping_flat_text_title'] = 'Flat Rate';
 $aLang['module_shipping_flat_text_description'] = 'Flat Rate';
 $aLang['module_shipping_flat_text_way'] = 'Best Way';
-

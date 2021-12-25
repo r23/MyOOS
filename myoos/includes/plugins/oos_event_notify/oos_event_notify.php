@@ -18,55 +18,57 @@
    ---------------------------------------------------------------------- */
 
   /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-  class oos_event_notify {
+  class oos_event_notify
+  {
+      public $name;
+      public $description;
+      public $uninstallable;
+      public $depends;
+      public $preceeds = 'session';
+      public $author;
+      public $version;
+      public $requirements;
 
-    var $name;
-    var $description;
-    var $uninstallable;
-    var $depends;
-    var $preceeds = 'session';
-    var $author;
-    var $version;
-    var $requirements;
 
-
-   /**
-    *  class constructor
-    */
-    public function __construct() {
-
-      $this->name          = PLUGIN_EVENT_NOTIFY_NAME;
-      $this->description   = PLUGIN_EVENT_NOTIFY_DESC;
-      $this->uninstallable = true;
-      $this->preceeds      = 'session';
-      $this->author        = 'MyOOS Development Team';
-      $this->version       = '1.0';
-      $this->requirements  = array(
+      /**
+       *  class constructor
+       */
+      public function __construct()
+      {
+          $this->name          = PLUGIN_EVENT_NOTIFY_NAME;
+          $this->description   = PLUGIN_EVENT_NOTIFY_DESC;
+          $this->uninstallable = true;
+          $this->preceeds      = 'session';
+          $this->author        = 'MyOOS Development Team';
+          $this->version       = '1.0';
+          $this->requirements  = array(
                                'oos'         => '1.8.0',
                                'smarty'      => '2.6.9',
                                'adodb'       => '4.62',
                                'php'         => '5.9.0'
       );
-    }
+      }
 
-    static function create_plugin_instance() {
-      return true;
-    }
+      public static function create_plugin_instance()
+      {
+          return true;
+      }
 
 
-    function install() {
-      return true;
-    }
+      public function install()
+      {
+          return true;
+      }
 
-    function remove() {
-      return true;
-    }
+      public function remove()
+      {
+          return true;
+      }
 
-    function config_item() {
-      return false;
-    }
+      public function config_item()
+      {
+          return false;
+      }
   }
-
-

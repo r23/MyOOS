@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -35,4 +35,3 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Rechnungsland l√
 define('TEXT_INFO_HEADING_NEW_COUNTRY', 'neues Rechnungsland');
 define('TEXT_INFO_HEADING_EDIT_COUNTRY', 'Rechnungsland bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_COUNTRY', 'Rechnungsland l√∂schen');
-

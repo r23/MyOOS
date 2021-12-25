@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: ap.php,v 1.02 2003/02/18 03:25:00 harley_vb 
+   File: ap.php,v 1.02 2003/02/18 03:25:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -42,9 +42,9 @@
    ---------------------------------------------------------------------- */
 
 /* ----------------------------------------------------------------------
-   If you made a translation, please send to 
-      lang@oos-shop.de 
-   the translated file. 
+   If you made a translation, please send to
+      lang@oos-shop.de
+   the translated file.
    ---------------------------------------------------------------------- */
 
 
@@ -117,4 +117,3 @@ $aLang['module_shipping_ap_insured_text_way'] = 'Versand nach';
 $aLang['module_shipping_ap_insured_text_units'] = 'kg';
 $aLang['module_shipping_ap_insured_invalid_zone'] = 'Es ist leider kein Versand in dieses Land möglich';
 $aLang['module_shipping_ap_insured_undefined_rate'] = 'Die Versandkosten können im Moment nicht errechnet werden';
-

@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -26,4 +26,3 @@ define('HEADING_TITLE', 'Best Customer Orders-Total');
 define('TABLE_HEADING_NUMBER', 'No.');
 define('TABLE_HEADING_CUSTOMERS', 'Customers');
 define('TABLE_HEADING_TOTAL_PURCHASED', 'Total Purchased');
-

@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: specials.php,v 1.10 2002/01/31 01:17:51 harley_vb 
+   File: specials.php,v 1.10 2002/01/31 01:17:51 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -42,4 +42,3 @@ define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 
 define('TEXT_INFO_HEADING_DELETE_SPECIALS', 'Sonderangebot löschen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Sonderangebot löschen möchten?');
-

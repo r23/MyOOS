@@ -42,4 +42,3 @@ define('OOS_SMTPHOST_DESC', '[hostname:port]  (e.g. "smtp1.example.com:25;smtp2.
 
 define('OOS_SENDMAIL_TITLE', 'Pfade zu sendmail');
 define('OOS_SENDMAIL_DESC', '/var/qmail/bin/sendmail');
-

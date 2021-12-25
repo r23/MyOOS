@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: reviews.php,v 1.39 2002/03/17 17:49:46 harley_vb 
+   File: reviews.php,v 1.39 2002/03/17 17:49:46 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -22,18 +22,18 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
-    switch ($action) {
+      switch ($action) {
       case 'update':
         $reviews_id = oos_db_prepare_input($_GET['rID']);
-		
+
         $reviews_rating = oos_db_prepare_input($_POST['reviews_rating']);
         $reviews_text = oos_db_prepare_input($_POST['reviews_text']);
         $reviews_status = oos_db_prepare_input($_POST['reviews_status']);
-		
+
         $reviewstable = $oostable['reviews'];
         $dbconn->Execute("UPDATE $reviewstable SET reviews_rating = '" . oos_db_input($reviews_rating) . "', reviews_status = '" . oos_db_input($reviews_status) . "', last_modified = now() WHERE reviews_id = '" . oos_db_input($reviews_id) . "'");
         $reviews_descriptiontable = $oostable['reviews_description'];
@@ -52,19 +52,19 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
         oos_redirect_admin(oos_href_link_admin($aContents['reviews'], 'page=' . $nPage));
         break;
-		
+
       case 'setflag':
-		if ( ($_GET['flag'] == '0') || ($_GET['flag'] == '1') ) {
-			if (isset($_GET['rID']) && is_numeric($_GET['rID'])){
-				oos_set_review_status($_GET['rID'], $_GET['flag']);
-			}
-		}
-		
-		oos_redirect_admin(oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID']));
-        break;	
+        if (($_GET['flag'] == '0') || ($_GET['flag'] == '1')) {
+            if (isset($_GET['rID']) && is_numeric($_GET['rID'])) {
+                oos_set_review_status($_GET['rID'], $_GET['flag']);
+            }
+        }
+
+        oos_redirect_admin(oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID']));
+        break;
     }
   }
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -110,35 +110,33 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					<div class="col-lg-12">	
 <?php
   if ($action == 'edit') {
-    $rID = oos_db_prepare_input($_GET['rID']);
+      $rID = oos_db_prepare_input($_GET['rID']);
 
-    $reviewstable = $oostable['reviews'];
-    $reviews_descriptiontable = $oostable['reviews_description'];
-    $reviews_result = $dbconn->Execute("SELECT r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating, r.reviews_status FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . oos_db_input($rID) . "' AND r.reviews_id = rd.reviews_id");
-    $reviews = $reviews_result->fields;
+      $reviewstable = $oostable['reviews'];
+      $reviews_descriptiontable = $oostable['reviews_description'];
+      $reviews_result = $dbconn->Execute("SELECT r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating, r.reviews_status FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . oos_db_input($rID) . "' AND r.reviews_id = rd.reviews_id");
+      $reviews = $reviews_result->fields;
 
-    $productstable = $oostable['products'];
-    $products_result = $dbconn->Execute("SELECT products_image FROM $productstable WHERE products_id = '" . $reviews['products_id'] . "'");
-    $products = $products_result->fields;
+      $productstable = $oostable['products'];
+      $products_result = $dbconn->Execute("SELECT products_image FROM $productstable WHERE products_id = '" . $reviews['products_id'] . "'");
+      $products = $products_result->fields;
 
-    $products_descriptiontable = $oostable['products_description'];
-    $products_name_result = $dbconn->Execute("SELECT products_name FROM $products_descriptiontable WHERE products_id = '" . $reviews['products_id'] . "' AND products_languages_id = '" . intval($_SESSION['language_id']) . "'");
-    $products_name = $products_name_result->fields;
+      $products_descriptiontable = $oostable['products_description'];
+      $products_name_result = $dbconn->Execute("SELECT products_name FROM $products_descriptiontable WHERE products_id = '" . $reviews['products_id'] . "' AND products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+      $products_name = $products_name_result->fields;
 
-    $rInfo_array = array_merge($reviews, $products, $products_name);
-    $rInfo = new objectInfo($rInfo_array);
-	
-    switch ($rInfo->reviews_status) {
-      case '0': 
-		$in_status = FALSE; 
-		break;
+      $rInfo_array = array_merge($reviews, $products, $products_name);
+      $rInfo = new objectInfo($rInfo_array);
+
+      switch ($rInfo->reviews_status) {
+      case '0':
+        $in_status = false;
+        break;
       case '1':
-      default: $in_status = TRUE; 
-    }
-	
-?>
+      default: $in_status = true;
+    } ?>
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr><?php echo oos_draw_form('id', 'review', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID'] . '&action=preview', 'post', FALSE); ?>
+      <tr><?php echo oos_draw_form('id', 'review', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID'] . '&action=preview', 'post', false); ?>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main" valign="top"><b><?php echo ENTRY_PRODUCT; ?></b> <?php echo $rInfo->products_name; ?><br><b><?php echo ENTRY_FROM; ?></b> <?php echo $rInfo->customers_name; ?><br><br><b><?php echo ENTRY_DATE; ?></b> <?php echo oos_date_short($rInfo->date_added); ?></td>
@@ -164,7 +162,10 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td></td>
       </tr>
       <tr>
-        <td class="main"><b><?php echo ENTRY_RATING; ?></b>&nbsp;<?php echo TEXT_BAD; ?>&nbsp;<?php for ($i=1; $i<=5; $i++) echo oos_draw_radio_field('reviews_rating', $i, '', $rInfo->reviews_rating) . '&nbsp;'; echo TEXT_GOOD; ?></td>
+        <td class="main"><b><?php echo ENTRY_RATING; ?></b>&nbsp;<?php echo TEXT_BAD; ?>&nbsp;<?php for ($i=1; $i<=5; $i++) {
+        echo oos_draw_radio_field('reviews_rating', $i, '', $rInfo->reviews_rating) . '&nbsp;';
+    }
+      echo TEXT_GOOD; ?></td>
       </tr>
           <tr>
         <td></td>
@@ -176,28 +177,27 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       </form></tr>
 <?php
   } elseif ($action == 'preview') {
-    if (oos_is_not_null($_POST)) {
-      $rInfo = new objectInfo($_POST);
-    } else {
-      $reviewstable = $oostable['reviews'];
-      $reviews_descriptiontable = $oostable['reviews_description'];
-      $reviews_result = $dbconn->Execute("SELECT r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating, r.reviews_status FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . intval($_GET['rID']) . "' AND r.reviews_id = rd.reviews_id");
-      $reviews = $reviews_result->fields;
+      if (oos_is_not_null($_POST)) {
+          $rInfo = new objectInfo($_POST);
+      } else {
+          $reviewstable = $oostable['reviews'];
+          $reviews_descriptiontable = $oostable['reviews_description'];
+          $reviews_result = $dbconn->Execute("SELECT r.reviews_id, r.products_id, r.customers_name, r.date_added, r.last_modified, r.reviews_read, rd.reviews_text, r.reviews_rating, r.reviews_status FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . intval($_GET['rID']) . "' AND r.reviews_id = rd.reviews_id");
+          $reviews = $reviews_result->fields;
 
-      $productstable = $oostable['products'];
-      $products_result = $dbconn->Execute("SELECT products_image FROM $productstable WHERE products_id = '" . $reviews['products_id'] . "'");
-      $products = $products_result->fields;
+          $productstable = $oostable['products'];
+          $products_result = $dbconn->Execute("SELECT products_image FROM $productstable WHERE products_id = '" . $reviews['products_id'] . "'");
+          $products = $products_result->fields;
 
-      $products_descriptiontable = $oostable['products_description'];
-      $products_name_result = $dbconn->Execute("SELECT products_name FROM $products_descriptiontable WHERE products_id = '" . $reviews['products_id'] . "' AND products_languages_id = '" . intval($_SESSION['language_id']) . "'");
-      $products_name = $products_name_result->fields;
+          $products_descriptiontable = $oostable['products_description'];
+          $products_name_result = $dbconn->Execute("SELECT products_name FROM $products_descriptiontable WHERE products_id = '" . $reviews['products_id'] . "' AND products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+          $products_name = $products_name_result->fields;
 
-      $rInfo_array = array_merge($reviews, $products, $products_name);
-      $rInfo = new objectInfo($rInfo_array);
-    }
-?>
+          $rInfo_array = array_merge($reviews, $products, $products_name);
+          $rInfo = new objectInfo($rInfo_array);
+      } ?>
 	<table border="0" width="100%" cellspacing="0" cellpadding="2">
-      <tr><?php echo oos_draw_form('id', 'update', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID'] . '&action=update', 'post', TRUE, 'enctype="multipart/form-data"'); ?>
+      <tr><?php echo oos_draw_form('id', 'update', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $_GET['rID'] . '&action=update', 'post', true, 'enctype="multipart/form-data"'); ?>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
             <td class="main" valign="top"><b><?php echo ENTRY_PRODUCT; ?></b> <?php echo $rInfo->products_name; ?><br><b><?php echo ENTRY_FROM; ?></b> <?php echo $rInfo->customers_name; ?><br><br><b><?php echo ENTRY_DATE; ?></b> <?php echo oos_date_short($rInfo->date_added); ?></td>
@@ -222,36 +222,33 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         <td></td>
       </tr>
 <?php
-	if (oos_is_not_null($_POST)) {
-/* Re-Post all POST'ed variables */
-		reset($_POST);
-		foreach ($_POST as $key => $value) {     
-		  echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8') . '">';
-		}
-?>
+    if (oos_is_not_null($_POST)) {
+        /* Re-Post all POST'ed variables */
+        reset($_POST);
+        foreach ($_POST as $key => $value) {
+            echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8') . '">';
+        } ?>
       <tr>
         <td align="right" class="smallText"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> ' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </form></tr>
 <?php
     } else {
-      if (isset($_GET['origin'])) {
-        $back_url = $_GET['origin'];
-        $back_url_params = '';
-      } else {
-        $back_url = $aContents['reviews'];
-        $back_url_params = 'page=' . $nPage . '&rID=' . $rInfo->reviews_id;
-      }
-?>
+        if (isset($_GET['origin'])) {
+            $back_url = $_GET['origin'];
+            $back_url_params = '';
+        } else {
+            $back_url = $aContents['reviews'];
+            $back_url_params = 'page=' . $nPage . '&rID=' . $rInfo->reviews_id;
+        } ?>
       <tr>
         <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?></td>
       </tr>
 <?php
-    }
-?>
+    } ?>
     </table>
 <?php
   } else {
-?>
+      ?>
 
 	<div class="table-responsive">
 		<table class="table w-100">
@@ -270,59 +267,60 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 					</thead>
 <?php
     $reviewstable = $oostable['reviews'];
-    $reviews_result_raw = "SELECT reviews_id, products_id, date_added, last_modified, reviews_rating, reviews_status
+      $reviews_result_raw = "SELECT reviews_id, products_id, date_added, last_modified, reviews_rating, reviews_status
                            FROM $reviewstable
                            ORDER BY date_added DESC";
-    $reviews_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $reviews_result_raw, $reviews_result_numrows);
-    $reviews_result = $dbconn->Execute($reviews_result_raw);
-    while ($reviews = $reviews_result->fields) {
-		if ((!isset($_GET['rID']) || (isset($_GET['rID']) && ($_GET['rID'] == $reviews['reviews_id']))) && !isset($rInfo)) {		  
-        $reviewstable = $oostable['reviews'];
-        $reviews_descriptiontable = $oostable['reviews_description'];
-        $reviews_text_result = $dbconn->Execute("SELECT r.reviews_read, r.customers_name, length(rd.reviews_text) as reviews_text_size FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . $reviews['reviews_id'] . "' AND r.reviews_id = rd.reviews_id");
-        $reviews_text = $reviews_text_result->fields;
+      $reviews_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $reviews_result_raw, $reviews_result_numrows);
+      $reviews_result = $dbconn->Execute($reviews_result_raw);
+      while ($reviews = $reviews_result->fields) {
+          if ((!isset($_GET['rID']) || (isset($_GET['rID']) && ($_GET['rID'] == $reviews['reviews_id']))) && !isset($rInfo)) {
+              $reviewstable = $oostable['reviews'];
+              $reviews_descriptiontable = $oostable['reviews_description'];
+              $reviews_text_result = $dbconn->Execute("SELECT r.reviews_read, r.customers_name, length(rd.reviews_text) as reviews_text_size FROM $reviewstable r, $reviews_descriptiontable rd WHERE r.reviews_id = '" . $reviews['reviews_id'] . "' AND r.reviews_id = rd.reviews_id");
+              $reviews_text = $reviews_text_result->fields;
 
-        $productstable = $oostable['products'];
-        $products_image_result = $dbconn->Execute("SELECT products_image FROM $productstable WHERE products_id = '" . $reviews['products_id'] . "'");
-        $products_image = $products_image_result->fields;
+              $productstable = $oostable['products'];
+              $products_image_result = $dbconn->Execute("SELECT products_image FROM $productstable WHERE products_id = '" . $reviews['products_id'] . "'");
+              $products_image = $products_image_result->fields;
 
-        $products_descriptiontable = $oostable['products_description'];
-        $products_name_result = $dbconn->Execute("SELECT products_name FROM $products_descriptiontable WHERE products_id = '" . $reviews['products_id'] . "' AND products_languages_id = '" . intval($_SESSION['language_id']) . "'");
-        $products_name = $products_name_result->fields;
+              $products_descriptiontable = $oostable['products_description'];
+              $products_name_result = $dbconn->Execute("SELECT products_name FROM $products_descriptiontable WHERE products_id = '" . $reviews['products_id'] . "' AND products_languages_id = '" . intval($_SESSION['language_id']) . "'");
+              $products_name = $products_name_result->fields;
 
-        $reviewstable = $oostable['reviews'];
-        $reviews_average_result = $dbconn->Execute("SELECT (avg(reviews_rating) / 5 * 100) as average_rating FROM $reviewstable WHERE products_id = '" . $reviews['products_id'] . "'");
-        $reviews_average = $reviews_average_result->fields;
+              $reviewstable = $oostable['reviews'];
+              $reviews_average_result = $dbconn->Execute("SELECT (avg(reviews_rating) / 5 * 100) as average_rating FROM $reviewstable WHERE products_id = '" . $reviews['products_id'] . "'");
+              $reviews_average = $reviews_average_result->fields;
 
-        $review_info = array_merge($reviews_text, $reviews_average, $products_name);
-        $rInfo_array = array_merge($reviews, $review_info, $products_image);
-        $rInfo = new objectInfo($rInfo_array);
-      }
+              $review_info = array_merge($reviews_text, $reviews_average, $products_name);
+              $rInfo_array = array_merge($reviews, $review_info, $products_image);
+              $rInfo = new objectInfo($rInfo_array);
+          }
 
-      if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=preview') . '\'">' . "\n";
-      } else {
-        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '\'">' . "\n";
-      }
-?>
+          if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id)) {
+              echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=preview') . '\'">' . "\n";
+          } else {
+              echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '\'">' . "\n";
+          } ?>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id'] . '&action=preview') . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . oos_get_products_name($reviews['products_id']); ?></td>
                 <td class="text-right"><?php echo $reviews['reviews_rating']; ?></td>
                 <td class="text-center">
- <?php   
-		if ($reviews['reviews_status'] == '1') {
-			echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=0&rID=' . $reviews['reviews_id'] . '&page=' . $nPage) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
-		} else {
-			echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=1&rID=' . $reviews['reviews_id'] . '&page=' . $nPage). '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
-		}
-?></td>				
+ <?php
+        if ($reviews['reviews_status'] == '1') {
+            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=0&rID=' . $reviews['reviews_id'] . '&page=' . $nPage) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+        } else {
+            echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'action=setflag&flag=1&rID=' . $reviews['reviews_id'] . '&page=' . $nPage). '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+        } ?></td>				
                 <td class="text-right"><?php echo oos_date_short($reviews['date_added']); ?></td>
-                <td class="text-right"><?php if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($rInfo) && is_object($rInfo) && ($reviews['reviews_id'] == $rInfo->reviews_id)) {
+            echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+        } else {
+            echo '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $reviews['reviews_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+        } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
       $reviews_result->MoveNext();
-    }
-?>
+      } ?>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -334,13 +332,13 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             </table></td>
 <?php
     $heading = [];
-    $contents = [];
+      $contents = [];
 
-    switch ($action) {
+      switch ($action) {
       case 'delete':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_REVIEW . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'reviews', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=deleteconfirm', 'post',  FALSE));
+        $contents = array('form' => oos_draw_form('id', 'reviews', $aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=deleteconfirm', 'post', false));
         $contents[] = array('text' => TEXT_INFO_DELETE_REVIEW_INTRO);
         $contents[] = array('text' => '<br><b>' . $rInfo->products_name . '</b>');
         $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
@@ -348,34 +346,34 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
       default:
       if (isset($rInfo) && is_object($rInfo)) {
-        $heading[] = array('text' => '<b>' . $rInfo->products_name . '</b>');
+          $heading[] = array('text' => '<b>' . $rInfo->products_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=delete') . '">' . oos_button( BUTTON_DELETE) . '</a>');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($rInfo->date_added));
-        if (oos_is_not_null($rInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($rInfo->last_modified));
-        $contents[] = array('text' => '<br>' . product_info_image($rInfo->products_image, $rInfo->products_name));
-        $contents[] = array('text' => '<br>' . TEXT_INFO_REVIEW_AUTHOR . ' ' . $rInfo->customers_name);
-        $contents[] = array('text' => TEXT_INFO_REVIEW_RATING . ' ' . oos_image(OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'stars_' . $rInfo->reviews_rating . '.gif'));
-        $contents[] = array('text' => TEXT_INFO_REVIEW_READ . ' ' . $rInfo->reviews_read);
-        $contents[] = array('text' => '<br>' . TEXT_INFO_REVIEW_SIZE . ' ' . $rInfo->reviews_text_size . ' bytes');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_PRODUCTS_AVERAGE_RATING . ' ' . number_format($rInfo->average_rating, 2) . '%');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($rInfo->date_added));
+          if (oos_is_not_null($rInfo->last_modified)) {
+              $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($rInfo->last_modified));
+          }
+          $contents[] = array('text' => '<br>' . product_info_image($rInfo->products_image, $rInfo->products_name));
+          $contents[] = array('text' => '<br>' . TEXT_INFO_REVIEW_AUTHOR . ' ' . $rInfo->customers_name);
+          $contents[] = array('text' => TEXT_INFO_REVIEW_RATING . ' ' . oos_image(OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'stars_' . $rInfo->reviews_rating . '.gif'));
+          $contents[] = array('text' => TEXT_INFO_REVIEW_READ . ' ' . $rInfo->reviews_read);
+          $contents[] = array('text' => '<br>' . TEXT_INFO_REVIEW_SIZE . ' ' . $rInfo->reviews_text_size . ' bytes');
+          $contents[] = array('text' => '<br>' . TEXT_INFO_PRODUCTS_AVERAGE_RATING . ' ' . number_format($rInfo->average_rating, 2) . '%');
       }
         break;
     }
 
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+      if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+          ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
+        $box = new box();
+          echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-  }
-?>
+      } ?>
           </tr>
         </table>
 	</div>
@@ -396,7 +394,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 	</footer>
 </div>
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

@@ -4,18 +4,18 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: edit_orders.php,v 1.25 2003/08/07 00:28:44 jwh 
+   File: edit_orders.php,v 1.25 2003/08/07 00:28:44 jwh
    ----------------------------------------------------------------------
    Order Editor
-   
+
    Contribution based on:
-   
+
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
 
@@ -104,6 +104,3 @@ define('ADDPRODUCT_TEXT_OPTIONS_CONFIRM', 'OK');
 define('ADDPRODUCT_TEXT_OPTIONS_NOTEXIST', 'No Options: Skipped..');
 define('ADDPRODUCT_TEXT_CONFIRM_QUANTITY', 'Qty.');
 define('ADDPRODUCT_TEXT_CONFIRM_ADDNOW', 'Add now');
-
-
-

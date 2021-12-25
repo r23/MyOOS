@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: newtables.php,v 1.2 2007/06/26 21:35:03 r23 Exp $
 
@@ -47,27 +47,29 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-function dosql($table, $flds) {
-   GLOBAL $db;
+function dosql($table, $flds)
+{
+    global $db;
 
-   $dict = NewDataDictionary($db);
-   
-   // $dict->debug = 1;
-   $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
+    $dict = NewDataDictionary($db);
 
-   $sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
-   $dict->executeSqlArray($sqlarray);
+    // $dict->debug = 1;
+    $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
 
-   echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
+    $sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
+    $dict->executeSqlArray($sqlarray);
+
+    echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
 }
 
-function idxsql($idxname, $table, $idxflds) {
-   GLOBAL $db;
+function idxsql($idxname, $table, $idxflds)
+{
+    global $db;
 
-   $dict = NewDataDictionary($db);
+    $dict = NewDataDictionary($db);
 
-   $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
-   $dict->executeSqlArray($sqlarray);
+    $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
+    $dict->executeSqlArray($sqlarray);
 }
 
 
@@ -1308,4 +1310,3 @@ $flds = "
    date_added T
 ";
 dosql($table, $flds);
-

@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -36,4 +36,3 @@ define('TEXT_INFO_HEADING_DELETE_FEATURED', 'Top-Angebot löschen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Sonderangebot löschen möchten?');
 
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
-

@@ -12,4 +12,3 @@
 
 define('PLUGIN_EVENT_CATEGORY_PATH_NAME', 'Category Path');
 define('PLUGIN_EVENT_CATEGORY_PATH_DESC', 'Parses the category path.');
-

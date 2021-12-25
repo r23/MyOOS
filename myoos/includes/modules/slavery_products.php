@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // create column list
 $aDefineList = [];
@@ -36,22 +36,24 @@ asort($aDefineList);
 
 $column_list = [];
 reset($aDefineList);
-foreach($aDefineList as $column => $value) {	  
-	if ($value) $column_list[] = $column;
+foreach ($aDefineList as $column => $value) {
+    if ($value) {
+        $column_list[] = $column;
+    }
 }
 
   $select_column_list = '';
 
   for ($col=0, $n=count($column_list); $col<$n; $col++) {
-    if ( ($column_list[$col] == 'PRODUCT_SLAVE_BUY_NOW')
+      if (($column_list[$col] == 'PRODUCT_SLAVE_BUY_NOW')
         || ($column_list[$col] == 'PRODUCT_LIST_PRICE')) {
-      continue;
-    }
-    if (oos_is_not_null($select_column_list)) {
-      $select_column_list .= ', ';
-    }
+          continue;
+      }
+      if (oos_is_not_null($select_column_list)) {
+          $select_column_list .= ', ';
+      }
 
-    switch ($column_list[$col]) {
+      switch ($column_list[$col]) {
       case 'PRODUCT_LIST_MODEL':
         $select_column_list .= 'p.products_model';
         break;
@@ -84,10 +86,12 @@ foreach($aDefineList as $column => $value) {
   }
 
   if (oos_is_not_null($select_column_list)) {
-    $select_column_list .= ', ';
+      $select_column_list .= ', ';
   }
 
-  if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
+  if (!isset($nProductsID)) {
+      $nProductsID = oos_get_product_id($_GET['products_id']);
+  }
 
   $productstable = $oostable['products'];
   $products_to_mastertable = $oostable['products_to_master'];
@@ -115,20 +119,20 @@ foreach($aDefineList as $column => $value) {
                     AND p.products_id = pm.slave_id AND
                       pm.master_id = '" . intval($nProductsID) . "'";
 
-  if ( (!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list)) ) {
-    for ($col=0, $n=count($column_list); $col<$n; $col++) {
-      if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
-        $_GET['sort'] = $col+1 . 'a';
-        $listing_sql .= " ORDER BY pd.products_name";
-        break;
+  if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list))) {
+      for ($col=0, $n=count($column_list); $col<$n; $col++) {
+          if ($column_list[$col] == 'PRODUCT_LIST_NAME') {
+              $_GET['sort'] = $col+1 . 'a';
+              $listing_sql .= " ORDER BY pd.products_name";
+              break;
+          }
       }
-    }
   } else {
-    $sort_col = substr($_GET['sort'], 0 , 1);
-    $sort_order = substr($_GET['sort'], 1);
-    $listing_sql .= ' ORDER BY ';
+      $sort_col = substr($_GET['sort'], 0, 1);
+      $sort_order = substr($_GET['sort'], 1);
+      $listing_sql .= ' ORDER BY ';
 
-    switch ($column_list[$sort_col-1]) {
+      switch ($column_list[$sort_col-1]) {
       case 'PRODUCT_LIST_MODEL':
         $listing_sql .= "p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
         break;
@@ -164,12 +168,10 @@ foreach($aDefineList as $column => $value) {
     }
   }
 
-  
+
 $aOption['slavery_products'] = $sTheme . '/products/_slavery_product_listing.html';
 $aOption['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
 $smarty->assign('slavery_products', $smarty->fetch($aOption['slavery_products']));
-
-

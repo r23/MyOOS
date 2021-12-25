@@ -25,7 +25,7 @@
    the translated file.
    ---------------------------------------------------------------------- */
 
-   
+
  /**
   * look in your $PATH_LOCALE/locale directory for available locales..
   * on RedHat try 'de_DE'
@@ -49,16 +49,17 @@
   * @param $reverse
   * @return string
   */
-  function oos_date_raw($date, $reverse = FALSE) {
-    if ($reverse) {
-      return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-    } else {
-      return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
-    }
+  function oos_date_raw($date, $reverse = false)
+  {
+      if ($reverse) {
+          return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+      } else {
+          return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
+      }
   }
 
 // GLOBAL entries for the <html> tag
-define('HTML_PARAMS',' lang="de"');
+define('HTML_PARAMS', ' lang="de"');
 
 // charset for emails
 define('CHARSET', 'utf-8');
@@ -312,7 +313,7 @@ define('IMAGE_WISHLIST', 'Wunschzettel');
 
 // coupon_admin
 define('BUTTON_CONFIRM_DELETE_VOUCHER', 'Bestätigen: Gutschein löschen');
-define('BUTTON_EMAIL_VOUCHER', 'E-Mail-Gutschein'); 
+define('BUTTON_EMAIL_VOUCHER', 'E-Mail-Gutschein');
 define('BUTTON_EDIT_VOUCHER', 'Gutschein bearbeiten');
 define('BUTTON_DELETE_VOUCHER', 'Gutschein löschen');
 define('BUTTON_REPORT_VOUCHER', 'Gutschein Bericht');
@@ -342,7 +343,7 @@ define('TEXT_RESULT_PAGE', 'Seite %s von %d');
 define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Ländern)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Kunden)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Währungen)');
-define('TEXT_DISPLAY_NUMBER_OF_FEATURED',   'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Top-Angeboten)');
+define('TEXT_DISPLAY_NUMBER_OF_FEATURED', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Top-Angeboten)');
 define('TEXT_DISPLAY_NUMBER_OF_HTTP_REFERERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> HTTP Referers)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Sprachen)');
 define('TEXT_DISPLAY_NUMBER_OF_MANUFACTURERS', 'Angezeigt werden <b>%d</b> bis <b>%d</b> (von insgesamt <b>%d</b> Herstellern)');
@@ -382,11 +383,11 @@ define('TEXT_NONE', '--keine--');
 define('TEXT_TOP', 'Top');
 
 define('ENTRY_TAX_YES', 'incl. MwSt.');
-define('ENTRY_TAX_NO','excl. MwSt.');
+define('ENTRY_TAX_NO', 'excl. MwSt.');
 
 
-define('ENTRY_YES','ja');
-define('ENTRY_NO','nein');
+define('ENTRY_YES', 'ja');
+define('ENTRY_NO', 'nein');
 
 define('ENTRY_ON', 'An');
 define('ENTRY_OFF', 'Aus');
@@ -406,8 +407,8 @@ define('BOX_HEADING_GV_ADMIN', 'Gutscheine');
 define('BOX_GV_ADMIN_QUEUE', 'Gutschein Queue');
 define('BOX_GV_ADMIN_MAIL', 'Gutschein eMail');
 define('BOX_GV_ADMIN_SENT', 'Gutscheine versandt');
-define('BOX_HEADING_COUPON_ADMIN','Rabattkupons');
-define('BOX_COUPON_ADMIN','Kupon Administrator');
+define('BOX_HEADING_COUPON_ADMIN', 'Rabattkupons');
+define('BOX_COUPON_ADMIN', 'Kupon Administrator');
 
 define('IMAGE_RELEASE', 'Gutschein einl&ouml;sen');
 
@@ -465,4 +466,3 @@ define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Zeige an <b>%d</b> bis <b>%d</b> (von 
 
 
 define('PULL_DOWN_DEFAULT', 'Bitte auswählen');
-

@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: gv_sent.php,v 1.2.2.1 2003/04/18 16:17:14 wilt 
+   File: gv_sent.php,v 1.2.2.1 2003/04/18 16:17:14 wilt
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -28,10 +28,10 @@ require 'includes/main.php';
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 
 
-require 'includes/header.php'; 
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -102,20 +102,23 @@ require 'includes/header.php';
   $gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_raw, $gv_result_numrows);
   $gv_result = $dbconn->Execute($gv_result_raw);
   while ($gv_list = $gv_result->fields) {
-    if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['coupon_id']))) && !isset($gInfo)) {
-      $gInfo = new objectInfo($gv_list);
-    }
-    if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id) ) {
-      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->coupon_id . '&action=edit') . '\'">' . "\n";
-    } else {
-      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['coupon_id']) . '\'">' . "\n";
-    }
-?>
+      if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['coupon_id']))) && !isset($gInfo)) {
+          $gInfo = new objectInfo($gv_list);
+      }
+      if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
+          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->coupon_id . '&action=edit') . '\'">' . "\n";
+      } else {
+          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['coupon_id']) . '\'">' . "\n";
+      } ?>
                 <td><?php echo $gv_list['sent_firstname'] . ' ' . $gv_list['sent_lastname']; ?></td>
                 <td class="text-center"><?php echo $currencies->format($gv_list['coupon_amount']); ?></td>
                 <td class="text-center"><?php echo $gv_list['coupon_code']; ?></td>
                 <td class="text-right"><?php echo oos_date_short($gv_list['date_sent']); ?></td>
-                <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['gv_sent'], 'page=' . $nPage . '&gid=' . $gv_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
+          echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+      } else {
+          echo '<a href="' . oos_href_link_admin($aContents['gv_sent'], 'page=' . $nPage . '&gid=' . $gv_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+      } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -132,46 +135,47 @@ require 'includes/header.php';
               </tr>
             </table></td>
 <?php
-	$coupon_id = isset($gInfo->coupon_id) ? $gInfo->coupon_id : '';
-	$coupon_amount = isset($gInfo->coupon_amount) ? $gInfo->coupon_amount : 0;
-	$customer_id_sent = isset($gInfo->customer_id_sent) ? $gInfo->customer_id_sent : '';
-	$date_sent = isset($gInfo->date_sent) ? $gInfo->date_sent : '';
-	$coupon_code = isset($gInfo->coupon_code) ? $gInfo->coupon_code : '';
-	$emailed_to = isset($gInfo->emailed_to) ? $gInfo->emailed_to : '';
- 
+    $coupon_id = isset($gInfo->coupon_id) ? $gInfo->coupon_id : '';
+    $coupon_amount = isset($gInfo->coupon_amount) ? $gInfo->coupon_amount : 0;
+    $customer_id_sent = isset($gInfo->customer_id_sent) ? $gInfo->customer_id_sent : '';
+    $date_sent = isset($gInfo->date_sent) ? $gInfo->date_sent : '';
+    $coupon_code = isset($gInfo->coupon_code) ? $gInfo->coupon_code : '';
+    $emailed_to = isset($gInfo->emailed_to) ? $gInfo->emailed_to : '';
+
  $heading = [];
   $contents = [];
 
   $heading[] = array('text' => '[' . $coupon_id . '] ' . ' ' . $currencies->format($coupon_amount));
   $redeem_result = $dbconn->Execute("SELECT * FROM " . $oostable['coupon_redeem_track'] . " WHERE coupon_id = '" . intval($coupon_id) . "'");
   $redeemed = 'No';
-  if ($redeem_result->RecordCount() > 0) $redeemed = 'Yes';
+  if ($redeem_result->RecordCount() > 0) {
+      $redeemed = 'Yes';
+  }
   $contents[] = array('text' => TEXT_INFO_SENDERS_ID . ' ' . $customer_id_sent);
   $contents[] = array('text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($coupon_amount));
   $contents[] = array('text' => TEXT_INFO_DATE_SENT . ' ' . oos_date_short($date_sent));
   $contents[] = array('text' => TEXT_INFO_VOUCHER_CODE . ' ' . $coupon_code);
   $contents[] = array('text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $emailed_to);
   if ($redeemed=='Yes') {
-    $redeem = $redeem_result->fields;
-    $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date']));
-    $contents[] = array('text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']);
-    $contents[] = array('text' => TEXT_INFO_CUSTOMERS_ID . ' ' . $redeem['customer_id']);
+      $redeem = $redeem_result->fields;
+      $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date']));
+      $contents[] = array('text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']);
+      $contents[] = array('text' => TEXT_INFO_CUSTOMERS_ID . ' ' . $redeem['customer_id']);
   } else {
-    $contents[] = array('text' => '<br>' . TEXT_INFO_NOT_REDEEMED);
+      $contents[] = array('text' => '<br>' . TEXT_INFO_NOT_REDEEMED);
   }
 
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+        ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
+        $box = new box();
+        echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-  }
+    }
 ?>
           </tr>
         </table>
@@ -191,7 +195,7 @@ require 'includes/header.php';
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: upgrade.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
@@ -40,115 +40,123 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
 
-function oosDoUpgrade2312 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2312($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2312.php");
 }
 
-function oosDoUpgrade241 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade241($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos241.php");
 }
 
-function oosDoUpgrade243 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade243($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos243.php");
 }
 
-function oosDoUpgrade2416 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2416($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2416.php");
 }
 
-function oosDoUpgrade2420 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2420($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2420.php");
 }
 
-function oosDoUpgrade2426 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2426($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2426.php");
 }
 
 
-function oosDoUpgrade2433 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2433($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2433.php");
 }
 
-function oosDoUpgrade2434 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2434($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2434.php");
 }
 
-function oosDoUpgrade2438 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2438($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2438.php");
 }
 
-function oosDoUpgrade2439 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2439($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2439.php");
 }
 
 
-function oosDoUpgrade2440 ($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype) {
+function oosDoUpgrade2440($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
     global $db, $currentlang, $update;
     include("oos2440.php");
 }
 
-function print_SelectOOS() {
-  global $update;
+function print_SelectOOS()
+{
+    global $update;
 
-  echo '<font class="oos-title">' . OOSUPGRADE_1 . ':</font><br /><br />' . "\n" .
+    echo '<font class="oos-title">' . OOSUPGRADE_1 . ':</font><br /><br />' . "\n" .
        '<font class="oos-error">' . UPGRADE_INFO . '</font><br /><br />' . "\n" .
-       '<form name="oos updrade" action="update.php" method="post">' . "\n" .	   
-	   '<fieldset>' . "\n" .
- 	   '   <input type="radio" id="23" name="op" value="myOOS 2.3.12">' . "\n" .
-	   '    <label for="23"> myOOS 2.3.12</label> ' . "\n" .
-	   '    <input type="radio" id="241" name="op" value="myOOS 2.4.1" >' . "\n" .
- 	   '   <label for="241"> myOOS 2.4.1</label> ' . "\n" .
-	   '    <input type="radio" id="243" name="op" value="myOOS 2.4.3" >' . "\n" .
- 	   '   <label for="243"> myOOS 2.4.3</label> ' . "\n" .	 
-	   '    <input type="radio" id="2416" name="op" value="myOOS 2.4.16">' . "\n" .
- 	   '   <label for="2416"> myOOS 2.4.16</label> ' . "\n" .		 
-	   '    <input type="radio" id="2420" name="op" value="myOOS 2.4.20">' . "\n" .
- 	   '   <label for="2420"> myOOS 2.4.20</label> ' . "\n" .
-	   '    <input type="radio" id="2426" name="op" value="myOOS 2.4.26">' . "\n" .
- 	   '   <label for="2426"> myOOS 2.4.26</label> ' . "\n" .	  
-	   '    <input type="radio" id="2433" name="op" value="myOOS 2.4.33">' . "\n" .
- 	   '   <label for="2433"> myOOS 2.4.33</label> ' . "\n" .	   
-	   '    <input type="radio" id="2434" name="op" value="myOOS 2.4.34">' . "\n" .
- 	   '   <label for="2434"> myOOS 2.4.34</label> ' . "\n" .	 
-	   '    <input type="radio" id="2438" name="op" value="myOOS 2.4.38">' . "\n" .
- 	   '   <label for="2438"> myOOS 2.4.38</label> ' . "\n" .
-	   '    <input type="radio" id="2439" name="op" value="myOOS 2.4.39">' . "\n" .
- 	   '   <label for="2439"> myOOS 2.4.39</label> ' . "\n" .  
-	   '    <input type="radio" id="2440" name="op" value="myOOS 2.4.40">' . "\n" .
- 	   '   <label for="2439"> myOOS 2.4.40</label> ' . "\n" . 	   
- 	   ' </fieldset>' . "\n";
-  print_FormHidden();
-  echo '<table width="50%" align="center">' . "\n" .
+       '<form name="oos updrade" action="update.php" method="post">' . "\n" .
+       '<fieldset>' . "\n" .
+       '   <input type="radio" id="23" name="op" value="myOOS 2.3.12">' . "\n" .
+       '    <label for="23"> myOOS 2.3.12</label> ' . "\n" .
+       '    <input type="radio" id="241" name="op" value="myOOS 2.4.1" >' . "\n" .
+       '   <label for="241"> myOOS 2.4.1</label> ' . "\n" .
+       '    <input type="radio" id="243" name="op" value="myOOS 2.4.3" >' . "\n" .
+       '   <label for="243"> myOOS 2.4.3</label> ' . "\n" .
+       '    <input type="radio" id="2416" name="op" value="myOOS 2.4.16">' . "\n" .
+       '   <label for="2416"> myOOS 2.4.16</label> ' . "\n" .
+       '    <input type="radio" id="2420" name="op" value="myOOS 2.4.20">' . "\n" .
+       '   <label for="2420"> myOOS 2.4.20</label> ' . "\n" .
+       '    <input type="radio" id="2426" name="op" value="myOOS 2.4.26">' . "\n" .
+       '   <label for="2426"> myOOS 2.4.26</label> ' . "\n" .
+       '    <input type="radio" id="2433" name="op" value="myOOS 2.4.33">' . "\n" .
+       '   <label for="2433"> myOOS 2.4.33</label> ' . "\n" .
+       '    <input type="radio" id="2434" name="op" value="myOOS 2.4.34">' . "\n" .
+       '   <label for="2434"> myOOS 2.4.34</label> ' . "\n" .
+       '    <input type="radio" id="2438" name="op" value="myOOS 2.4.38">' . "\n" .
+       '   <label for="2438"> myOOS 2.4.38</label> ' . "\n" .
+       '    <input type="radio" id="2439" name="op" value="myOOS 2.4.39">' . "\n" .
+       '   <label for="2439"> myOOS 2.4.39</label> ' . "\n" .
+       '    <input type="radio" id="2440" name="op" value="myOOS 2.4.40">' . "\n" .
+       '   <label for="2439"> myOOS 2.4.40</label> ' . "\n" .
+       ' </fieldset>' . "\n";
+    print_FormHidden();
+    echo '<table width="50%" align="center">' . "\n" .
        ' <tr>' . "\n" .
        '  <td><input type="submit" value="' . BTN_CONTINUE . '"></td>' . "\n" .
        '</tr></table></form>' . "\n" .
        '<font class="oos-normal">' . OOSUPGRADE_5 . '</font><br /><br />' . "\n";
-
-
 }
 
 
-function print_Next() {
-   global $update;
+function print_Next()
+{
+    global $update;
 
-   echo '<form action="update.php" method="post"><center><table width="50%">' . "\n";
-   echo '<tr><td align=center><input type="hidden" name="op" value="Finish">' . "\n" .
+    echo '<form action="update.php" method="post"><center><table width="50%">' . "\n";
+    echo '<tr><td align=center><input type="hidden" name="op" value="Finish">' . "\n" .
         '<input type="submit" value="' . BTN_FINISH . '"></td></tr></table></center></form>' . "\n";
 }
-
-
-

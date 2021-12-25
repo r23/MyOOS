@@ -9,7 +9,7 @@
    Based on:
 
    File: default.php,v 1.2 2003/01/09 09:40:07 elarifr
-   orig: default.php,v 1.81 2003/02/13 04:23:23 hpdl 
+   orig: default.php,v 1.81 2003/02/13 04:23:23 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -20,7 +20,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/home.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
@@ -29,9 +29,15 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 $sCanonical = OOS_HTTPS_SERVER . OOS_SHOP;
 
 $aTemplate['page'] = $sTheme . '/page/home.html';
-if ($oEvent->installed_plugin('featured')) $aTemplate['featured'] = $sTheme . '/products/_featured.html';
-if ($oEvent->installed_plugin('spezials')) $aTemplate['spezials'] = $sTheme . '/products/_spezials.html';
-if ($oEvent->installed_plugin('manufacturers')) $aTemplate['mod_manufacturers'] = $sTheme . '/modules/manufacturers.html';
+if ($oEvent->installed_plugin('featured')) {
+    $aTemplate['featured'] = $sTheme . '/products/_featured.html';
+}
+if ($oEvent->installed_plugin('spezials')) {
+    $aTemplate['spezials'] = $sTheme . '/products/_spezials.html';
+}
+if ($oEvent->installed_plugin('manufacturers')) {
+    $aTemplate['mod_manufacturers'] = $sTheme . '/modules/manufacturers.html';
+}
 $aTemplate['new_products'] = $sTheme . '/products/_new_products.html';
 $aTemplate['upcoming_products'] = $sTheme . '/page/products/upcoming_products.html';
 
@@ -40,55 +46,55 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 
 // assign Smarty variables;
 $smarty->assign(
-	array(
-		'breadcrumb'	=> $oBreadcrumb->trail(),
-		'heading_title' => $aLang['heading_title'],
-		'home_active'	=> 1,	
-		'canonical'		=> $sCanonical
-	)
+    array(
+        'breadcrumb'	=> $oBreadcrumb->trail(),
+        'heading_title' => $aLang['heading_title'],
+        'home_active'	=> 1,
+        'canonical'		=> $sCanonical
+    )
 );
 
-if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
+    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
 
 if ($oEvent->installed_plugin('featured')) {
-	if (!$smarty->isCached($aTemplate['featured'], $sModulesCacheID)) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/modules/featured.php';
-	}
-	$smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $sModulesCacheID));
+    if (!$smarty->isCached($aTemplate['featured'], $sModulesCacheID)) {
+        require_once MYOOS_INCLUDE_PATH . '/includes/modules/featured.php';
+    }
+    $smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $sModulesCacheID));
 }
 
 if ($oEvent->installed_plugin('spezials')) {
-	if (!$smarty->isCached($aTemplate['spezials'], $sModulesCacheID)) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/modules/spezials.php';
-	}
-	$smarty->assign('spezials', $smarty->fetch($aTemplate['spezials'], $sModulesCacheID));
+    if (!$smarty->isCached($aTemplate['spezials'], $sModulesCacheID)) {
+        require_once MYOOS_INCLUDE_PATH . '/includes/modules/spezials.php';
+    }
+    $smarty->assign('spezials', $smarty->fetch($aTemplate['spezials'], $sModulesCacheID));
 }
 
 
 if (!$smarty->isCached($aTemplate['new_products'], $sModulesCacheID)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
 }
 $smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $sModulesCacheID));
 
 if ($oEvent->installed_plugin('manufacturers')) {
-	if (!$smarty->isCached($aTemplate['mod_manufacturers'], $sModulesCacheID)) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/modules/mod_manufacturers.php';
-	}
+    if (!$smarty->isCached($aTemplate['mod_manufacturers'], $sModulesCacheID)) {
+        require_once MYOOS_INCLUDE_PATH . '/includes/modules/mod_manufacturers.php';
+    }
     $smarty->assign('mod_manufacturers', $smarty->fetch($aTemplate['mod_manufacturers'], $sModulesCacheID));
 }
 
 if (!$smarty->isCached($aTemplate['upcoming_products'], $sModulesCacheID)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/modules/upcoming_products.php';
 }
 $smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $sModulesCacheID));
 

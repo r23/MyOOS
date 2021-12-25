@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -55,5 +55,3 @@ You can end the ordering process at any time by closing the browser window, or b
 $aLang['text_conditions'] = 'Please note our <a href="%s" target="_blank" rel="noopener"><strong>Terms and Conditions</strong></a> .<br>
 Please note our  <a href="%s" target="_blank" rel="noopener"><strong>Right of Recission and the Sample Revocation Form</strong></a>.<br>
 Please note our  <a href="%s" target="_blank" rel="noopener"><strong>data protection declaration</strong></a>.';
-
-

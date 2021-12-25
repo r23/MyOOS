@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: itransact.php,v 1.4 2002/03/30 15:15:49 harley_vb 
+   File: itransact.php,v 1.4 2002/03/30 15:15:49 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -25,4 +25,3 @@ define('SUB_BAR_TITLE', 'Klicken Sie auf das Bild unten.  Sie benötigen Ihr Gat
 
 define('CPANEL_URL', 'https://secure.itransact.com/support/login.html');
 define('CPANEL_URL_NAME', 'ctrlpan');
-

@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -44,4 +44,3 @@ define('TEXT_BLOCK_NAME', 'Block - Name');
 define('TEXT_BLOCK_PAGE', 'Seite');
 
 define('TEXT_DELETE_INTRO', 'Sind Sie sicher, dass Sie diesen Block löschen möchten?');
-

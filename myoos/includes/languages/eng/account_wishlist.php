@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: wishlist_help.php,v 1 2002/11/09 
+   File: wishlist_help.php,v 1 2002/11/09
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -33,4 +33,3 @@ $aLang['table_heading_model'] = 'Model';
 $aLang['table_heading_products'] = 'Product(s)';
 $aLang['table_heading_price'] = 'Price';
 $aLang['table_heading_total'] = 'Total';
-

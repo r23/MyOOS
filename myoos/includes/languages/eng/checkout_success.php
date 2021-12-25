@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -37,5 +37,3 @@ $aLang['heading_download'] = 'Download your products here:';
 $aLang['footer_download'] = 'You can also download your products at a later time at \'%s\'';
 
 $aLang['text_sincere_regards'] = 'Thank you very much for choosing us,';
-
-

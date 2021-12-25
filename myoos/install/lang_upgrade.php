@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: lang_upgrade.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
@@ -23,9 +23,9 @@ $result = $db->Execute("UPDATE " . $table . " SET block_language = '6' WHERE blo
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `block_language` `block_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -39,9 +39,9 @@ $result = $db->Execute("UPDATE " . $table . " SET categories_language = '6' WHER
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `categories_language` `categories_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -55,9 +55,9 @@ $result = $db->Execute("UPDATE " . $table . " SET coupon_language = '6' WHERE co
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `coupon_language` `coupon_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -71,9 +71,9 @@ $result = $db->Execute("UPDATE " . $table . " SET customers_status_language = '6
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `customers_status_language` `customers_status_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -87,9 +87,9 @@ $result = $db->Execute("UPDATE " . $table . " SET link_categories_language = '6'
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `link_categories_language` `link_categories_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -103,9 +103,9 @@ $result = $db->Execute("UPDATE " . $table . " SET links_language = '6' WHERE lin
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `links_language` `links_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -119,9 +119,9 @@ $result = $db->Execute("UPDATE " . $table . " SET links_status_language = '6' WH
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `links_status_language` `links_status_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -135,9 +135,9 @@ $result = $db->Execute("UPDATE " . $table . " SET manufacturers_language = '6' W
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `manufacturers_language` `manufacturers_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -149,9 +149,9 @@ $result = $db->Execute("UPDATE " . $table . " SET orders_language = '2' WHERE or
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `orders_language` `orders_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -161,9 +161,9 @@ $result = $db->Execute("UPDATE " . $table . " SET page_type_language = '2' WHERE
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `page_type_language` `page_type_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -173,9 +173,9 @@ $result = $db->Execute("UPDATE " . $table . " SET products_language = '2' WHERE 
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `products_language` `products_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -189,9 +189,9 @@ $result = $db->Execute("UPDATE " . $table . " SET products_options_language = '6
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `products_options_language` `products_options_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -205,9 +205,9 @@ $result = $db->Execute("UPDATE " . $table . " SET products_options_types_languag
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `products_options_types_language` `products_options_types_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -221,9 +221,9 @@ $result = $db->Execute("UPDATE " . $table . " SET products_options_values_langua
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `products_options_values_language` `products_options_values_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -237,9 +237,9 @@ $result = $db->Execute("UPDATE " . $table . " SET products_status_language = '6'
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `products_status_language` `products_status_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
@@ -253,38 +253,40 @@ $result = $db->Execute("UPDATE " . $table . " SET reviews_language = '6' WHERE r
 
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE `reviews_language` `reviews_languages_id` INT( 11 ) DEFAULT '1' NOT NULL");
 if ($result === false) {
-  echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle"><font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"><font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
 
 
 if (!function_exists('dosql')) {
-   function dosql($table, $flds) {
-     GLOBAL $db;
+    function dosql($table, $flds)
+    {
+        global $db;
 
-     $dict = NewDataDictionary($db);
+        $dict = NewDataDictionary($db);
 
-     $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
+        $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
 
-     $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
-     $dict->ExecuteSQLArray($sqlarray);
+        $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
+        $dict->ExecuteSQLArray($sqlarray);
 
-     echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
-   }
+        echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
+    }
 }
 
 
 if (!function_exists('idxsql')) {
-  function idxsql($idxname, $table, $idxflds) {
-     GLOBAL $db;
+    function idxsql($idxname, $table, $idxflds)
+    {
+        global $db;
 
-     $dict = NewDataDictionary($db);
+        $dict = NewDataDictionary($db);
 
-     $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
-     $dict->ExecuteSQLArray($sqlarray);
-   }
+        $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
+        $dict->ExecuteSQLArray($sqlarray);
+    }
 }
 
 
@@ -305,15 +307,12 @@ idxsql($idxname, $table, $idxflds);
 
 
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (1, 'Deutsch', 'deu', 'de', 1, 1)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (2, 'English', 'eng', 'en', 1, 2)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (3, 'Nederlands', 'nld', 'nl', 1, 3)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (4, 'Polski', 'pol', 'pl', 0, 4)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (5, 'Russian', 'rus', 'ru', 0, 5)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (6, 'Spanish', 'spa', 'es', 0, 6)") or die ("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (1, 'Deutsch', 'deu', 'de', 1, 1)") or die("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (2, 'English', 'eng', 'en', 1, 2)") or die("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (3, 'Nederlands', 'nld', 'nl', 1, 3)") or die("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (4, 'Polski', 'pol', 'pl', 0, 4)") or die("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (5, 'Russian', 'rus', 'ru', 0, 5)") or die("<b>".NOTUPDATED . $prefix_table . "languages</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "languages (languages_id, name, iso_639_2, iso_639_1, status, sort_order) VALUES (6, 'Spanish', 'spa', 'es', 0, 6)") or die("<b>".NOTUPDATED . $prefix_table . "languages</b>");
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "languages " . UPDATED .'</font>';
-
-
-

@@ -10,10 +10,10 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-if (isset($bForm) && ($bForm == TRUE)) {
-?>
+if (isset($bForm) && ($bForm == true)) {
+    ?>
 <!-- PARSLEY-->
 <script src="js/plugins/parsley/parsley.min.js"></script>
 <script src="js/plugins/parsley/i18n/<?php echo $_SESSION['iso_639_1']; ?>.js"></script>
@@ -21,7 +21,7 @@ if (isset($bForm) && ($bForm == TRUE)) {
 	window.Parsley.setLocale('<?php echo $_SESSION['iso_639_1']; ?>');
 </script>
 <?php
-} 
+}
 ?>
 <!-- JS GLOBAL Compulsory -->      
 <script src="js/jquery/jquery.min.js"></script>

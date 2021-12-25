@@ -55,13 +55,13 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
             ORDER BY categories_id";
     $result = $dbconn->Execute($sql);
     while ($row = $result->fields) {
-      echo '<tr>' . "\n";
-      echo '<td>' . $row['categories_id']. '</td>' . "\n";
-      echo '<td>' . $row['categories_name']. '</td>' . "\n";
-      echo '</tr>' . "\n";
+        echo '<tr>' . "\n";
+        echo '<td>' . $row['categories_id']. '</td>' . "\n";
+        echo '<td>' . $row['categories_name']. '</td>' . "\n";
+        echo '</tr>' . "\n";
 
-      // Move that ADOdb pointer!
-      $result->MoveNext();
+        // Move that ADOdb pointer!
+        $result->MoveNext();
     }
 ?>
 </table>

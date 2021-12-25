@@ -20,66 +20,66 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-$bActive = ($_SESSION['selected_box'] == 'catalog' )  ? TRUE : FALSE;
+$bActive = ($_SESSION['selected_box'] == 'catalog') ? true : false;
 
 $aBlocks[] = array(
-	'heading' => BOX_HEADING_CATALOG,
-	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=catalog'),
-	'icon' => 'fa fa-desktop',
-	'active' => $bActive,
-	'contents' => array(
-		array(
-			'code' => $aContents['categories'],
-			'title' => BOX_CATALOG_CATEGORIES_PRODUCTS,
-			'link' => oos_admin_files_boxes('categories', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['specials'],
-			'title' => BOX_CATALOG_SPECIALS,
-			'link' => oos_admin_files_boxes('specials', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['featured'],
-			'title' => BOX_CATALOG_PRODUCTS_FEATURED,
-			'link' => oos_admin_files_boxes('featured', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['products_expected'],
-			'title' => BOX_CATALOG_PRODUCTS_EXPECTED,
-			'link' => oos_admin_files_boxes('products_expected', 'selected_box=catalog')
-		),		
-		array(
-			'code' => $aContents['products_attributes'],
-			'title' => BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES,
-			'link' => oos_admin_files_boxes('products_attributes', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['products_status'],
-			'title' => BOX_CATALOG_PRODUCTS_STATUS,
-			'link' => oos_admin_files_boxes('products_status', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['products_units'],
-			'title' => BOX_CATALOG_PRODUCTS_UNITS,
-			'link' => oos_admin_files_boxes('products_units', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['manufacturers'],
-			'title' => BOX_CATALOG_MANUFACTURERS,
-			'link' => oos_admin_files_boxes('manufacturers', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['reviews'],
-			'title' => BOX_CATALOG_REVIEWS,
-			'link' => oos_admin_files_boxes('reviews', 'selected_box=catalog')
-		),
-		array(
-			'code' => $aContents['wastebasket'],
-			'title' => BOX_CATALOG_WASTEBASKET,
-			'link' => oos_admin_files_boxes('wastebasket', 'selected_box=catalog')
-		),		
-				
-	),
+    'heading' => BOX_HEADING_CATALOG,
+    'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=catalog'),
+    'icon' => 'fa fa-desktop',
+    'active' => $bActive,
+    'contents' => array(
+        array(
+            'code' => $aContents['categories'],
+            'title' => BOX_CATALOG_CATEGORIES_PRODUCTS,
+            'link' => oos_admin_files_boxes('categories', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['specials'],
+            'title' => BOX_CATALOG_SPECIALS,
+            'link' => oos_admin_files_boxes('specials', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['featured'],
+            'title' => BOX_CATALOG_PRODUCTS_FEATURED,
+            'link' => oos_admin_files_boxes('featured', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['products_expected'],
+            'title' => BOX_CATALOG_PRODUCTS_EXPECTED,
+            'link' => oos_admin_files_boxes('products_expected', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['products_attributes'],
+            'title' => BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES,
+            'link' => oos_admin_files_boxes('products_attributes', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['products_status'],
+            'title' => BOX_CATALOG_PRODUCTS_STATUS,
+            'link' => oos_admin_files_boxes('products_status', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['products_units'],
+            'title' => BOX_CATALOG_PRODUCTS_UNITS,
+            'link' => oos_admin_files_boxes('products_units', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['manufacturers'],
+            'title' => BOX_CATALOG_MANUFACTURERS,
+            'link' => oos_admin_files_boxes('manufacturers', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['reviews'],
+            'title' => BOX_CATALOG_REVIEWS,
+            'link' => oos_admin_files_boxes('reviews', 'selected_box=catalog')
+        ),
+        array(
+            'code' => $aContents['wastebasket'],
+            'title' => BOX_CATALOG_WASTEBASKET,
+            'link' => oos_admin_files_boxes('wastebasket', 'selected_box=catalog')
+        ),
+
+    ),
 );

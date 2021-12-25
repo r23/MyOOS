@@ -19,14 +19,14 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('reviews')) {
-	oos_redirect(oos_href_link($aContents['home']));
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 if (!isset($_GET['reviews_id'])) {
-	oos_redirect(oos_href_link($aContents['reviews']));
+    oos_redirect(oos_href_link($aContents['reviews']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/reviews_product_info.php';
@@ -50,9 +50,9 @@ $sql = "SELECT rd.reviews_headline, rd.reviews_text, r.reviews_rating, r.reviews
             AND p.products_id = pd.products_id
             AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
 $reviews_result = $dbconn->Execute($sql);
-if (!$reviews_result->RecordCount()){
-	// product reviews not found
-	oos_redirect(oos_href_link($aContents['reviews']));
+if (!$reviews_result->RecordCount()) {
+    // product reviews not found
+    oos_redirect(oos_href_link($aContents['reviews']));
 }
 $reviews = $reviews_result->fields;
 
@@ -73,17 +73,17 @@ $sPagetitle = sprintf($aLang['heading_title'], $reviews['products_name']) . ' ' 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 $smarty->assign(
-       array(
-			'breadcrumb'	=> $oBreadcrumb->trail(),
-			'heading_title'	=> sprintf($aLang['heading_title'], $reviews['products_name']),
-			'canonical'		=> $sCanonical,
-			
-			'reviews'		=> $reviews
+    array(
+            'breadcrumb'	=> $oBreadcrumb->trail(),
+            'heading_title'	=> sprintf($aLang['heading_title'], $reviews['products_name']),
+            'canonical'		=> $sCanonical,
+
+            'reviews'		=> $reviews
        )
 );
 

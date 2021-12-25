@@ -21,9 +21,9 @@
 
 
 /* ----------------------------------------------------------------------
-   If you made a translation, please send to 
-      lang@oos-shop.de 
-   the translated file. 
+   If you made a translation, please send to
+      lang@oos-shop.de
+   the translated file.
    ---------------------------------------------------------------------- */
 
  /**
@@ -49,12 +49,13 @@
   * @param $reverse
   * @return string
   */
-function oos_date_raw($date, $reverse = FALSE) {
-	if ($reverse) {
-		return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
-	} else {
-		return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
-	}
+function oos_date_raw($date, $reverse = false)
+{
+    if ($reverse) {
+        return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
+    } else {
+        return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
+    }
 }
 
 
@@ -121,7 +122,7 @@ $aLang = [
 'block_notifications_notify'  => 'Notify me of updates to <strong>%s</strong>',
 'block_notifications_notify_remove'  => 'Do not notify me of updates to <strong>%s</strong>',
 
-// wishlist 
+// wishlist
 'button_wishlist'        => 'Wishlist',
 'block_wishlist'         => 'Wishlist',
 'block_wishlist_empty'   => 'You have no items on your Wishlist',
@@ -407,13 +408,13 @@ $aLang = [
 'voucher_balance'   => 'Voucher Balance',
 'gv_faq'            => 'Gift Voucher FAQ',
 'error_redeemed_amount'           => 'Congratulations, you have redeemed ',
-'error_no_redeem_code'            => 'You did not enter a redeem code.',  
-'error_no_invalid_redeem_gv'      => 'Invalid Gift Voucher Code', 
+'error_no_redeem_code'            => 'You did not enter a redeem code.',
+'error_no_invalid_redeem_gv'      => 'Invalid Gift Voucher Code',
 'table_heading_credit'            => 'Credits Available',
 'gv_has_vouchera'                 => 'You have funds in your Gift Voucher Account. If you want <br>
-                         you can send those funds by',      
-'gv_has_voucherb'                 => 'to someone', 
-'entry_amount_check_error'        => 'You do not have enough funds to send this amount.', 
+                         you can send those funds by',
+'gv_has_voucherb'                 => 'to someone',
+'entry_amount_check_error'        => 'You do not have enough funds to send this amount.',
 
 'voucher_redeemed'               => 'Voucher Redeemed',
 'cart_coupon'                    => 'Coupon :',
@@ -515,12 +516,11 @@ $aLang = [
 
 'in_stock'             => 'In Stock',
 'out_of_stock'         => 'available again',
-'available_from'       => 'available from approx. %s', 
+'available_from'       => 'available from approx. %s',
 
 
-'text_info_minimum_order_value' => 'Please note the minimum order value of %s', 
+'text_info_minimum_order_value' => 'Please note the minimum order value of %s',
 'warning_minimum_order_value' => 'The minimum order value of %s has not been reached yet. Therefore, no order is currently possible with this shopping cart.',
 
 
 ];
-

@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: address_book.php,v 1.55 2003/02/13 01:58:23 hpdl 
+   File: address_book.php,v 1.55 2003/02/13 01:58:23 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,23 +19,25 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-// cookie-notice 
-if ( $bNecessary === false ) {
-	oos_redirect(oos_href_link($aContents['home']));
+// cookie-notice
+if ($bNecessary === false) {
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 // start the session
-if ( $session->hasStarted() === false ) $session->start();  
-  
+if ($session->hasStarted() === false) {
+    $session->start();
+}
+
 if (!isset($_SESSION['customer_id'])) {
-  	// navigation history
-	if (!isset($_SESSION['navigation'])) {
-		$_SESSION['navigation'] = new navigationHistory();
-	} 
+    // navigation history
+    if (!isset($_SESSION['navigation'])) {
+        $_SESSION['navigation'] = new navigationHistory();
+    }
     $_SESSION['navigation']->set_snapshot();
-	$_SESSION['guest_login'] = 'off';
+    $_SESSION['guest_login'] = 'off';
     oos_redirect(oos_href_link($aContents['login']));
 }
 
@@ -53,31 +55,31 @@ $address_book_result = $dbconn->Execute($sql);
 
 $aAddressBook = array();
 while ($address_book = $address_book_result->fields) {
-	$state = $address_book['entry_state'];
-	$country_id = $address_book['entry_country_id'];
-	$zone_id = $address_book['entry_zone_id'];
-	$country = oos_get_country_name($country_id);
+    $state = $address_book['entry_state'];
+    $country_id = $address_book['entry_country_id'];
+    $zone_id = $address_book['entry_zone_id'];
+    $country = oos_get_country_name($country_id);
 
-	if (ACCOUNT_STATE == 'true') {
-		$state = oos_get_zone_code($country_id, $zone_id, $state);
-	} 
-	  
+    if (ACCOUNT_STATE == 'true') {
+        $state = oos_get_zone_code($country_id, $zone_id, $state);
+    }
+
     $aAddressBook[] = array('address_book_id'	=> $address_book['address_book_id'],
-							'company' 			=> $address_book['entry_company'],
+                            'company' 			=> $address_book['entry_company'],
                             'firstname' 		=> $address_book['entry_firstname'],
                             'lastname' 			=> $address_book['entry_lastname'],
-							'street_address'	=> $address_book['entry_street_address'],
-							'postcode'			=> $address_book['entry_postcode'],
-							'city'				=> $address_book['entry_city'],
-							'country'			=> $country,
-							'state'				=> $state);
+                            'street_address'	=> $address_book['entry_street_address'],
+                            'postcode'			=> $address_book['entry_postcode'],
+                            'city'				=> $address_book['entry_city'],
+                            'country'			=> $country,
+                            'state'				=> $state);
     $address_book_result->MoveNext();
 }
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['account']));
 $oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['account_address_book']));
- 
+
 $aTemplate['page'] = $sTheme . '/page/address_book.html';
 
 $nPageType = OOS_PAGE_TYPE_ACCOUNT;
@@ -85,20 +87,20 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
-	array(
-		'breadcrumb'		=> $oBreadcrumb->trail(),
-		'heading_title'		=> $aLang['heading_title'],
-		'robots'			=> 'noindex,nofollow,noodp,noydir',
-		'account_active'	=> 1,
+    array(
+        'breadcrumb'		=> $oBreadcrumb->trail(),
+        'heading_title'		=> $aLang['heading_title'],
+        'robots'			=> 'noindex,nofollow,noodp,noydir',
+        'account_active'	=> 1,
 
-		'address_book' 		=> $aAddressBook
-	)
+        'address_book' 		=> $aAddressBook
+    )
 );
 
 

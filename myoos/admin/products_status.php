@@ -19,9 +19,11 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-function oos_get_products_status_name($products_status_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_products_status_name($products_status_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -34,8 +36,8 @@ function oos_get_products_status_name($products_status_id, $language_id = '') {
 }
 
 
-function oos_get_products_status() {
-
+function oos_get_products_status()
+{
     $products_status_array = [];
 
     // Get database information
@@ -45,19 +47,19 @@ function oos_get_products_status() {
     $products_statustable = $oostable['products_status'];
     $products_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM $products_statustable WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
     while ($products_status = $products_status_result->fields) {
-		$products_status_array[] = array('id' => $products_status['products_status_id'],
+        $products_status_array[] = array('id' => $products_status['products_status_id'],
                                        'text' => $products_status['products_status_name']
                                        );
 
-		// Move that ADOdb pointer!
-		$products_status_result->MoveNext();
+        // Move that ADOdb pointer!
+        $products_status_result->MoveNext();
     }
 
     return $products_status_array;
 }
 
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
@@ -68,32 +70,32 @@ if (!empty($action)) {
 
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $language_id = $languages[$i]['id'];
+            $language_id = $languages[$i]['id'];
 
-          $sql_data_array = array('products_status_name' => oos_db_prepare_input($_POST['products_status_name'][$language_id]));
+            $sql_data_array = array('products_status_name' => oos_db_prepare_input($_POST['products_status_name'][$language_id]));
 
-          if ($action == 'insert') {
-            if (oos_empty($products_status_id)) {
-              $products_statustable = $oostable['products_status'];
-              $next_id_result = $dbconn->Execute("SELECT max(products_status_id) as products_status_id FROM $products_statustable");
-              $next_id = $next_id_result->fields;
-              $products_status_id = $next_id['products_status_id'] + 1;
-            }
+            if ($action == 'insert') {
+                if (oos_empty($products_status_id)) {
+                    $products_statustable = $oostable['products_status'];
+                    $next_id_result = $dbconn->Execute("SELECT max(products_status_id) as products_status_id FROM $products_statustable");
+                    $next_id = $next_id_result->fields;
+                    $products_status_id = $next_id['products_status_id'] + 1;
+                }
 
-            $insert_sql_data = array('products_status_id' => $products_status_id,
+                $insert_sql_data = array('products_status_id' => $products_status_id,
                                      'products_status_languages_id' => $language_id);
 
-            $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
+                $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
-            oos_db_perform($oostable['products_status'], $sql_data_array);
-          } elseif ($action == 'save') {
-            oos_db_perform($oostable['products_status'], $sql_data_array, 'UPDATE', "products_status_id = '" . oos_db_input($products_status_id) . "' AND products_status_languages_id = '" . intval($language_id) . "'");
-          }
+                oos_db_perform($oostable['products_status'], $sql_data_array);
+            } elseif ($action == 'save') {
+                oos_db_perform($oostable['products_status'], $sql_data_array, 'UPDATE', "products_status_id = '" . oos_db_input($products_status_id) . "' AND products_status_languages_id = '" . intval($language_id) . "'");
+            }
         }
 
         if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
-          $configurationtable = $oostable['configuration'];
-          $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($products_status_id) . "' WHERE configuration_key = 'DEFAULT_PRODUTS_STATUS_ID'");
+            $configurationtable = $oostable['configuration'];
+            $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . oos_db_input($products_status_id) . "' WHERE configuration_key = 'DEFAULT_PRODUTS_STATUS_ID'");
         }
 
         oos_redirect_admin(oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $products_status_id));
@@ -115,8 +117,8 @@ if (!empty($action)) {
         oos_redirect_admin(oos_href_link_admin($aContents['products_status'], 'page=' . $nPage));
         break;
     }
-  }
-  require 'includes/header.php'; 
+}
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -181,23 +183,26 @@ if (!empty($action)) {
   $products_status_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_status_result_raw, $products_status_result_numrows);
   $products_status_result = $dbconn->Execute($products_status_result_raw);
   while ($products_status = $products_status_result->fields) {
-    if (((!isset($_GET['psID'])) || ($_GET['psID'] == $products_status['products_status_id'])) && (!isset($psInfo)) && (substr($action, 0, 3) != 'new')) {
-      $psInfo = new objectInfo($products_status);
-    }
+      if (((!isset($_GET['psID'])) || ($_GET['psID'] == $products_status['products_status_id'])) && (!isset($psInfo)) && (substr($action, 0, 3) != 'new')) {
+          $psInfo = new objectInfo($products_status);
+      }
 
-    if (isset($psInfo) && is_object($psInfo) && ($products_status['products_status_id'] == $psInfo->products_status_id) ) {
-      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=edit') . '\'">' . "\n";
-    } else {
-      echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $products_status['products_status_id']) . '\'">' . "\n";
-    }
+      if (isset($psInfo) && is_object($psInfo) && ($products_status['products_status_id'] == $psInfo->products_status_id)) {
+          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=edit') . '\'">' . "\n";
+      } else {
+          echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $products_status['products_status_id']) . '\'">' . "\n";
+      }
 
-    if (DEFAULT_PRODUTS_STATUS_ID == $products_status['products_status_id']) {
-      echo '                <td><b>' . $products_status['products_status_name'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
-    } else {
-      echo '                <td>' . $products_status['products_status_name'] . '</td>' . "\n";
-    }
-?>
-                <td class="text-right"><?php if (isset($psInfo) && is_object($psInfo) && ($products_status['products_status_id'] == $psInfo->products_status_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $products_status['products_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+      if (DEFAULT_PRODUTS_STATUS_ID == $products_status['products_status_id']) {
+          echo '                <td><b>' . $products_status['products_status_name'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
+      } else {
+          echo '                <td>' . $products_status['products_status_name'] . '</td>' . "\n";
+      } ?>
+                <td class="text-right"><?php if (isset($psInfo) && is_object($psInfo) && ($products_status['products_status_id'] == $psInfo->products_status_id)) {
+          echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+      } else {
+          echo '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $products_status['products_status_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+      } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -220,13 +225,13 @@ if (!empty($action)) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_PRODUCTS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $nPage . '&action=insert', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $nPage . '&action=insert', 'post', false));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
 
       $products_status_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $products_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']');
+          $products_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']');
       }
 
       $contents[] = array('text' => '<br>' . TEXT_INFO_PRODUCTS_STATUS_NAME . $products_status_inputs_string);
@@ -237,58 +242,61 @@ if (!empty($action)) {
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_PRODUCTS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id  . '&action=save', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id  . '&action=save', 'post', false));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
 
       $products_status_inputs_string = '';
       $languages = oos_get_languages();
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
-        $products_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']', oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']));
+          $products_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('products_status_name[' . $languages[$i]['id'] . ']', oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']));
       }
 
       $contents[] = array('text' => '<br>' . TEXT_INFO_PRODUCTS_STATUS_NAME . $products_status_inputs_string);
-      if (DEFAULT_PRODUTS_STATUS_ID != $psInfo->products_status_id) $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+      if (DEFAULT_PRODUTS_STATUS_ID != $psInfo->products_status_id) {
+          $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+      }
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCTS_STATUS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id  . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'status', $aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id  . '&action=deleteconfirm', 'post', false));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br><b>' . $psInfo->products_status_name . '</b>');
-      if ($remove_status) $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      if ($remove_status) {
+          $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      }
       break;
 
     default:
       if (isset($psInfo) && is_object($psInfo)) {
-        $heading[] = array('text' => '<b>' . $psInfo->products_status_name . '</b>');
+          $heading[] = array('text' => '<b>' . $psInfo->products_status_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&psID=' . $psInfo->products_status_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
 
-        $products_status_inputs_string = '';
-        $languages = oos_get_languages();
-        for ($i = 0, $n = count($languages); $i < $n; $i++) {
-          $products_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']);
-        }
+          $products_status_inputs_string = '';
+          $languages = oos_get_languages();
+          for ($i = 0, $n = count($languages); $i < $n; $i++) {
+              $products_status_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_get_products_status_name($psInfo->products_status_id, $languages[$i]['id']);
+          }
 
-        $contents[] = array('text' => $products_status_inputs_string);
+          $contents[] = array('text' => $products_status_inputs_string);
       }
       break;
   }
 
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+        ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
+        $box = new box();
+        echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-  }
+    }
 ?>
           </tr>
         </table>
@@ -307,7 +315,7 @@ if (!empty($action)) {
 	</footer>
 </div>
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

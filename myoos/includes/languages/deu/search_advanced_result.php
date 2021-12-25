@@ -35,4 +35,3 @@ $aLang['table_heading_product_sort'] = 'Sort';
 $aLang['text_no_products'] = '<h4>Ihre Suche - <strong>%s</strong> - hat keine Treffer ergeben.</h4><p>Einige Vorschläge:</p><ol><li>Prüfen Sie, ob alle Worte richtig geschrieben sind.</li><li>Versuchen Sie andere Suchbegriffe.</li><li>Versuchen Sie weniger Suchbegriffe.</li><li>Versuchen Sie allgemeinere Suchbegriffe.</li></ol>';
 $aLang['text_buy'] = '1 x \'';
 $aLang['text_now'] = '\' bestellen';
-

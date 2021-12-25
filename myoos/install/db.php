@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: db.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
@@ -38,17 +38,18 @@
    ---------------------------------------------------------------------- */
 
   /*** Connect to Database ***/
-  function oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype='mysql') {
-    global $db;
+  function oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype='mysql')
+  {
+      global $db;
 
-    $db = ADONewConnection($dbtype);
-    $dbh = $db->Connect($dbhost, $dbuname, $dbpass, $dbname);
-    if (!$dbh) {
-      $dbpass = "";
-      die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect" . $db->ErrorMsg());
-    }
-    global $ADODB_FETCH_MODE;
-    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+      $db = ADONewConnection($dbtype);
+      $dbh = $db->Connect($dbhost, $dbuname, $dbpass, $dbname);
+      if (!$dbh) {
+          $dbpass = "";
+          die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect" . $db->ErrorMsg());
+      }
+      global $ADODB_FETCH_MODE;
+      $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
-    return true;
+      return true;
   }

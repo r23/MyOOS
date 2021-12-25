@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: invoice.php,v 1.21 2003/02/19 02:10:00 harley_vb 
+   File: invoice.php,v 1.21 2003/02/19 02:10:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -33,4 +33,3 @@ define('MODULE_PAYMENT_INVOICE_ORDER_STATUS_ID_DESC', 'Bestellungen, welche mit 
 
 $aLang['module_payment_invoice_text_description'] = 'Rechnung';
 $aLang['module_payment_invoice_text_title'] = 'Rechnung';
-

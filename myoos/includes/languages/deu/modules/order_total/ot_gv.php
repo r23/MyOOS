@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_gv.php,v 1.1.2.1 2003/05/15 23:05:02 wilt 
+   File: ot_gv.php,v 1.1.2.1 2003/05/15 23:05:02 wilt
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -32,4 +32,3 @@ $aLang['module_order_total_gv_header'] = 'Gutschein';
 $aLang['module_order_total_gv_description'] = 'Gutschein';
 $aLang['module_order_total_gv_user_prompt'] = 'Möchten Sie mit Ihrem Gutschein-Guthaben bezahlen? ->&nbsp;';
 $aLang['text_enter_gv_code'] = 'Gutscheincode&nbsp;&nbsp;';
-

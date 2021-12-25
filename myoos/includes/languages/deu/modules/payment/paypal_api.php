@@ -25,14 +25,14 @@ define('MODULE_PAYMENT_PAYPAL_API_STATUS_DESC', 'Möchten Sie Zahlungen per PayP
 define('MODULE_PAYMENT_PAYPAL_API_ID_TITLE', 'eMail Adresse');
 define('MODULE_PAYMENT_PAYPAL_API_ID_DESC', 'eMail Adresse, welche für PayPal verwendet wird.');
 
-define('MODULE_PAYMENT_PAYPAL_API_CLIENTID_TITLE' , 'ClientId ID');
-define('MODULE_PAYMENT_PAYPAL_API_CLIENTID_DESC' , 'Diese Daten erhalten Sie von <a href="https://developer.paypal.com/developer/applications/">PayPal</a>');
+define('MODULE_PAYMENT_PAYPAL_API_CLIENTID_TITLE', 'ClientId ID');
+define('MODULE_PAYMENT_PAYPAL_API_CLIENTID_DESC', 'Diese Daten erhalten Sie von <a href="https://developer.paypal.com/developer/applications/">PayPal</a>');
 
-define('MODULE_PAYMENT_PAYPAL_API_SECURE_TITLE' , 'Security Key');
-define('MODULE_PAYMENT_PAYPAL_API_SECURE_DESC' , 'Diese Daten erhalten Sie von <a href="https://developer.paypal.com/developer/applications/">PayPal</a>');
+define('MODULE_PAYMENT_PAYPAL_API_SECURE_TITLE', 'Security Key');
+define('MODULE_PAYMENT_PAYPAL_API_SECURE_DESC', 'Diese Daten erhalten Sie von <a href="https://developer.paypal.com/developer/applications/">PayPal</a>');
 
-define('MODULE_PAYMENT_PAYPAL_API_MODE_TITLE' , 'Transaktionsserver');
-define('MODULE_PAYMENT_PAYPAL_API_MODE_DESC' , 'Verwenden Sie den Live- oder Test-Gatewayserver (Sandbox), um Transaktionen zu verarbeiten?');
+define('MODULE_PAYMENT_PAYPAL_API_MODE_TITLE', 'Transaktionsserver');
+define('MODULE_PAYMENT_PAYPAL_API_MODE_DESC', 'Verwenden Sie den Live- oder Test-Gatewayserver (Sandbox), um Transaktionen zu verarbeiten?');
 
 define('MODULE_PAYMENT_PAYPAL_API_CURRENCY_TITLE', 'Transaktionswährung');
 define('MODULE_PAYMENT_PAYPAL_API_CURRENCY_DESC', 'Währung, welche für Kreditkartentransaktionen verwendet wird.');
@@ -50,4 +50,3 @@ define('MODULE_PAYMENT_PAYPAL_API_ERROR', 'Es ist ein Fehler aufgetreten! Paypal
 
 $aLang['module_payment_paypal_api_text_title'] = 'PayPal';
 $aLang['module_payment_paypal_api_text_description'] = 'PayPal';
-

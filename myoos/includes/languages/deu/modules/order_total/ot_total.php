@@ -27,4 +27,3 @@ define('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kle
 
 $aLang['module_order_total_total_title'] = '<strong>Gesamtsumme inkl. MwSt.</strong>';
 $aLang['module_order_total_total_description'] = 'Summe der Bestellung';
-

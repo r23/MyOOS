@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: stats_customers.php,v 1.29 2002/05/16 15:32:22 hpdl 
+   File: stats_customers.php,v 1.29 2002/05/16 15:32:22 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -27,7 +27,7 @@ $currencies = new currencies();
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $rows = 0;
-	
+
 require 'includes/header.php';
 ?>
 <div class="wrapper">
@@ -87,7 +87,9 @@ require 'includes/header.php';
 					</thead>			
 			
 <?php
-  if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  if (isset($nPage) && ($nPage > 1)) {
+      $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  }
   $customerstable = $oostable['customers'];
   $orders_productstable = $oostable['orders_products'];
   $orderstable = $oostable['orders'];
@@ -110,12 +112,11 @@ require 'includes/header.php';
 
   $customers_result = $dbconn->Execute($customers_sql_raw);
   while ($customers = $customers_result->fields) {
-    $rows++;
+      $rows++;
 
-    if (strlen($rows) < 2) {
-      $rows = '0' . $rows;
-    }
-?>
+      if (strlen($rows) < 2) {
+          $rows = '0' . $rows;
+      } ?>
               <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']); ?>'">
                 <td><?php echo $rows; ?>.</td>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']) . '">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?></td>
@@ -153,7 +154,7 @@ require 'includes/header.php';
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

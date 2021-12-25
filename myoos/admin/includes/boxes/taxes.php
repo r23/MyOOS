@@ -20,41 +20,40 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-$bActive = ($_SESSION['selected_box'] == 'taxes' ) ? TRUE : FALSE;
+$bActive = ($_SESSION['selected_box'] == 'taxes') ? true : false;
 
 $aBlocks[] = array(
-	'heading' => BOX_HEADING_LOCATION_AND_TAXES,
-	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=taxes'),
-	'icon' => 'fa fa-globe',
-	'active' => $bActive,
-	'contents' => array(
-		array(
-			'code' => $aContents['countries'],
-			'title' => BOX_TAXES_COUNTRIES,
-			'link' => oos_admin_files_boxes('countries', 'selected_box=taxes')
-		),
-		array(
-			'code' => $aContents['zones'],
-			'title' => BOX_TAXES_ZONES,
-			'link' => oos_admin_files_boxes('zones', 'selected_box=taxes')
-		),
-		array(
-			'code' => $aContents['geo_zones'],
-			'title' => BOX_TAXES_GEO_ZONES,
-			'link' => oos_admin_files_boxes('geo_zones', 'selected_box=taxes')
-		),
-		array(
-			'code' => $aContents['tax_classes'],
-			'title' => BOX_TAXES_TAX_CLASSES,
-			'link' =>  oos_admin_files_boxes('tax_classes', 'selected_box=taxes')
-		),
-		array(
-			'code' => $aContents['tax_rates'],
-			'title' => BOX_TAXES_TAX_RATES,
-			'link' => oos_admin_files_boxes('tax_rates', 'selected_box=taxes')
-		),	
-	),
+    'heading' => BOX_HEADING_LOCATION_AND_TAXES,
+    'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=taxes'),
+    'icon' => 'fa fa-globe',
+    'active' => $bActive,
+    'contents' => array(
+        array(
+            'code' => $aContents['countries'],
+            'title' => BOX_TAXES_COUNTRIES,
+            'link' => oos_admin_files_boxes('countries', 'selected_box=taxes')
+        ),
+        array(
+            'code' => $aContents['zones'],
+            'title' => BOX_TAXES_ZONES,
+            'link' => oos_admin_files_boxes('zones', 'selected_box=taxes')
+        ),
+        array(
+            'code' => $aContents['geo_zones'],
+            'title' => BOX_TAXES_GEO_ZONES,
+            'link' => oos_admin_files_boxes('geo_zones', 'selected_box=taxes')
+        ),
+        array(
+            'code' => $aContents['tax_classes'],
+            'title' => BOX_TAXES_TAX_CLASSES,
+            'link' =>  oos_admin_files_boxes('tax_classes', 'selected_box=taxes')
+        ),
+        array(
+            'code' => $aContents['tax_rates'],
+            'title' => BOX_TAXES_TAX_RATES,
+            'link' => oos_admin_files_boxes('tax_rates', 'selected_box=taxes')
+        ),
+    ),
 );
-

@@ -20,8 +20,8 @@
    ---------------------------------------------------------------------- */
 
 
-define('HEADING_TITLE', '3D Model');   
-   
+define('HEADING_TITLE', '3D Model');
+
 define('TEXT_NEW_PRODUCT', '3D Model in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Products');
 define('TEXT_MODELS_MODEL', '3D Model');
@@ -49,4 +49,3 @@ define('TEXT_CHOOSE_A_ZIP_FILE', 'Choose a zip file to upload:');
 define('ERROR_NO_ZIP_FILE', 'The file you are trying to upload is not a .zip file. Please try again.');
 define('TEXT_SUCCESSFULLY_UPLOADED', 'Your .zip file was uploaded and unpacked.');
 define('ERROR_PROBLEM_WITH_ZIP_FILE', 'There was a problem with the upload. Please try again.');
-

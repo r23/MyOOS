@@ -19,8 +19,8 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Neuer Artikel');   
-   
+define('HEADING_TITLE', 'Neuer Artikel');
+
 define('TEXT_NEW_PRODUCT', 'Neuer Artikel in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
 define('TEXT_PRODUCTS_DATA', 'Artikeldaten');

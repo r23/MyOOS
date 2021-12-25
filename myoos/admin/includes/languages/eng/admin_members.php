@@ -4,12 +4,12 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-     
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: admin_members.php,v 1.13 2002/08/19 01:45:58 hpdl 
+   File: admin_members.php,v 1.13 2002/08/19 01:45:58 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -20,11 +20,11 @@
    ---------------------------------------------------------------------- */
 
 if (isset($_GET['gID']) && ($_GET['gID'])) {
-  define('HEADING_TITLE', 'Admin Groups');
+    define('HEADING_TITLE', 'Admin Groups');
 } elseif (isset($_GET['gPath']) && ($_GET['gPath'])) {
-  define('HEADING_TITLE', 'Define Groups');
+    define('HEADING_TITLE', 'Define Groups');
 } else {
-  define('HEADING_TITLE', 'Admin Members');
+    define('HEADING_TITLE', 'Admin Members');
 }
 
 define('TEXT_COUNT_GROUPS', 'Groups: ');
@@ -77,7 +77,7 @@ define('JS_ALERT_EMAIL_USED', '- Email address has already been used! \n');
 define('JS_ALERT_LEVEL', '- Required: Group Member \n');
 
 define('ADMIN_EMAIL_SUBJECT', 'New Admin Member');
-define('ADMIN_EMAIL_TEXT', 'Hi %s,' . "\n\n" . 'You can access the admin panel with the following password. Once you access the admin, please change your password!' . "\n\n" . 'Website : %s' . "\n" . 'Username: %s' . "\n" . 'Password: %s' . "\n\n" . 'Thanks!' . "\n" . '%s' . "\n\n" . 'This is an automated response, please do not reply!'); 
+define('ADMIN_EMAIL_TEXT', 'Hi %s,' . "\n\n" . 'You can access the admin panel with the following password. Once you access the admin, please change your password!' . "\n\n" . 'Website : %s' . "\n" . 'Username: %s' . "\n" . 'Password: %s' . "\n\n" . 'Thanks!' . "\n" . '%s' . "\n\n" . 'This is an automated response, please do not reply!');
 
 define('TEXT_INFO_HEADING_DEFAULT_GROUPS', 'Admin Group ');
 define('TEXT_INFO_HEADING_DELETE_GROUPS', 'Delete Group ');
@@ -97,8 +97,7 @@ define('TEXT_INFO_GROUPS_BOXES_INCLUDE', 'Include files stored in: ');
 
 define('TEXT_INFO_HEADING_DEFINE', 'Define Group');
 if (isset($_GET['gPath']) && ($_GET['gPath'] == 1)) {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>You can not change file permission for this group.<br><br>');
+    define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>You can not change file permission for this group.<br><br>');
 } else {
-  define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>Change permission for this group by selecting or unselecting boxes and files provided. Click <b>save</b> to save the changes.<br><br>');
+    define('TEXT_INFO_DEFINE_INTRO', '<b>%s :</b><br>Change permission for this group by selecting or unselecting boxes and files provided. Click <b>save</b> to save the changes.<br><br>');
 }
-

@@ -4,12 +4,12 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
-   
+
    WebMakers.com Added: Down for Maintenance No Store
    Written by Linda McGrath osCOMMERCE@WebMakers.com
    http://www.thewebmakerscorner.com
@@ -26,4 +26,3 @@ Diese Website befindet sich aktuell im Wartungsmodus.<br /><br />
 Vielen Dank für das Verständnis.<br />   
   <br /><br />
 ';
-

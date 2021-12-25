@@ -37,4 +37,3 @@ $aLang['text_global_product_notifications_description_enabled'] = 'Wenn Sie von 
 $aLang['text_product_notifications_list'] = 'Nachfolgend aufgeführt ist eine Liste mit Produkten, über die Sie aktuell informiert werden wollen. Wenn Sie ein oder mehrere Produkte von dieser Liste löschen wollen, so wählen Sie diese bitte aus und klicken anschliessend auf den Button \'Benachrichtigung löschen\'.';
 
 $aLang['text_enable_global_notifications'] = 'Bitte senden Sie mir aktuelle Nachrichten zu allen Produkten';
-

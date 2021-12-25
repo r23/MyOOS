@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: upcoming_products.php,v 1.23 2003/02/12 23:55:58 hpdl 
+   File: upcoming_products.php,v 1.23 2003/02/12 23:55:58 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,9 +19,11 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-if (!is_numeric(MAX_DISPLAY_UPCOMING_PRODUCTS)) return false;
+if (!is_numeric(MAX_DISPLAY_UPCOMING_PRODUCTS)) {
+    return false;
+}
 
 
 $productstable = $oostable['products'];
@@ -39,6 +41,5 @@ $sql = "SELECT p.products_id, pd.products_name, products_date_available AS date_
 
 $expected_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_UPCOMING_PRODUCTS);
 if ($expected_result->RecordCount() > 0) {
-	$smarty->assign('expected_array', $expected_result->GetArray());
+    $smarty->assign('expected_array', $expected_result->GetArray());
 }
-

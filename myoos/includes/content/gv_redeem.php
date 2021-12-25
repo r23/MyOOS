@@ -23,60 +23,61 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $b_gv_status = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
-if ( $b_gv_status === false ) {
-	oos_redirect(oos_href_link($aContents['home']));
+if ($b_gv_status === false) {
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
-// cookie-notice 
-if ( $bNecessary === false ) {
-	oos_redirect(oos_href_link($aContents['home']));
+// cookie-notice
+if ($bNecessary === false) {
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 // start the session
-if ( $session->hasStarted() === false ) $session->start();   
+if ($session->hasStarted() === false) {
+    $session->start();
+}
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_redeem.php';
 
 $bError = true;
 // check for a voucher number in the url
-if ( (isset($_GET['gv_no']) && !empty($_GET['gv_no'])) ) {
-	
+if ((isset($_GET['gv_no']) && !empty($_GET['gv_no']))) {
     $gv_no = oos_prepare_input($_GET['gv_no']);
-	
-    if ( empty( $gv_no ) || !is_string( $gv_no ) ) {
-        oos_redirect(oos_href_link($aContents['403']));
-    }	
 
-	$couponstable = $oostable['coupons'];
-	$coupon_email_tracktable = $oostable['coupon_email_track'];
+    if (empty($gv_no) || !is_string($gv_no)) {
+        oos_redirect(oos_href_link($aContents['403']));
+    }
+
+    $couponstable = $oostable['coupons'];
+    $coupon_email_tracktable = $oostable['coupon_email_track'];
     $sql = "SELECT c.coupon_id, c.coupon_amount
             FROM $couponstable c,
                  $coupon_email_tracktable et
             WHERE coupon_code = '" . oos_db_input($gv_no) . "'
               AND c.coupon_id = et.coupon_id";
-	$gv_result = $dbconn->Execute($sql);
-	
+    $gv_result = $dbconn->Execute($sql);
+
     if ($gv_result->RecordCount() >0) {
-		$coupon = $gv_result->fields;
-		$coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-		$sql = "SELECT coupon_id
+        $coupon = $gv_result->fields;
+        $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
+        $sql = "SELECT coupon_id
               FROM $coupon_redeem_tracktable
               WHERE coupon_id = '" . oos_db_input($coupon['coupon_id']) . "'";
-		$redeem_result = $dbconn->Execute($sql);
-		if ($redeem_result->RecordCount() == 0 ) {
-			$bError = false;
-		}
-	}
+        $redeem_result = $dbconn->Execute($sql);
+        if ($redeem_result->RecordCount() == 0) {
+            $bError = false;
+        }
+    }
 } else {
-	// todo error-message
-	oos_redirect(oos_href_link($aContents['home']));
+    // todo error-message
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
-if ( (!$bError) && (isset($_SESSION['customer_id'])) ) {
-// Update redeem status
+if ((!$bError) && (isset($_SESSION['customer_id']))) {
+    // Update redeem status
     $remote_addr = oos_server_get_remote();
     $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
     $gv_result = $dbconn->Execute("INSERT INTO $coupon_redeem_tracktable
@@ -102,7 +103,7 @@ $oBreadcrumb->add($aLang['navbar_title']);
 // so output a message.
 $sTextGiftVoucher = sprintf($aLang['text_valid_gv'], $oCurrencies->format($coupon['coupon_amount']));
 if ($bError) {
-	$sTextGiftVoucher =  sprintf($aLang['text_invalid_gv'], oos_href_link($aContents['contact_us']));
+    $sTextGiftVoucher =  sprintf($aLang['text_invalid_gv'], oos_href_link($aContents['contact_us']));
 }
 
 $aTemplate['page'] = $sTheme . '/page/redeem.html';
@@ -112,18 +113,18 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 $smarty->assign('text_information', sprintf($aLang['text_information'], oos_href_link($aContents['gv_faq'])));
 
 // assign Smarty variables;
 $smarty->assign(
-      array(
+    array(
           'breadcrumb'		=> $oBreadcrumb->trail(),
           'heading_title'	=> $aLang['heading_title'],
-		  'robots'			=> 'noindex,nofollow,noodp,noydir',
+          'robots'			=> 'noindex,nofollow,noodp,noydir',
 
           'text_gift_voucher'	=> $sTextGiftVoucher
       )
@@ -131,4 +132,3 @@ $smarty->assign(
 
 
 $smarty->display($aTemplate['page']);
-

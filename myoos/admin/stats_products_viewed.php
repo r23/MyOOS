@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: stats_products_viewed.php,v 1.27 2003/01/29 23:22:44 hpdl 
+   File: stats_products_viewed.php,v 1.27 2003/01/29 23:22:44 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -21,7 +21,7 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $rows = 0;
 
 if (isset($_GET['action']) && ($_GET['action'] == 'reset')) {
@@ -30,9 +30,9 @@ if (isset($_GET['action']) && ($_GET['action'] == 'reset')) {
     $dbconn->Execute($reset_sql);
     oos_redirect_admin(oos_href_link_admin($aContents['stats_products_viewed'], 'reset=1'));
 }
- 
+
 if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
-	$messageStack->add(TEXT_VIEWS_RESET, 'success');
+    $messageStack->add(TEXT_VIEWS_RESET, 'success');
 }
 
   require 'includes/header.php';
@@ -94,8 +94,10 @@ if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
 						</tr>	
 					</thead>	
 <?php
-  if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
- 
+  if (isset($nPage) && ($nPage > 1)) {
+      $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  }
+
   $productstable = $oostable['products'];
   $products_dscriptiontable = $oostable['products_description'];
   $languagestable = $oostable['languages'];
@@ -110,12 +112,11 @@ if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
   $products_result = $dbconn->Execute($products_sql_raw);
 
   while ($products = $products_result->fields) {
-    $rows++;
+      $rows++;
 
-    if (strlen($rows) < 2) {
-      $rows = '0' . $rows;
-    }
-?>
+      if (strlen($rows) < 2) {
+          $rows = '0' . $rows;
+      } ?>
               <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage); ?>'">
                 <td><?php echo $rows; ?>.</td>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage) . '">' . $products['products_name'] . '</a> (' . $products['name'] . ')'; ?></td>
@@ -139,7 +140,7 @@ if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
           <tr>
             <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="smallText" valign="top"><?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_viewed'],"action=reset") . '">' . oos_button('reset', BUTTON_RESET) . '</a>'; ?></td>
+                <td class="smallText" valign="top"><?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_viewed'], "action=reset") . '">' . oos_button('reset', BUTTON_RESET) . '</a>'; ?></td>
               </tr>
             </table></td>
           </tr>
@@ -160,7 +161,7 @@ if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

@@ -10,7 +10,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being require d by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Currently version.
@@ -20,4 +20,3 @@ define('OOS_VERSION', '2.4.42-dev');
 
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
-

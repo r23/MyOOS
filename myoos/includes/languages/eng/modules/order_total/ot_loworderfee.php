@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_loworderfee.php,v 1.1 2002/04/08 22:12:08 hpdl 
+   File: ot_loworderfee.php,v 1.1 2002/04/08 22:12:08 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -44,4 +44,3 @@ define('MODULE_ORDER_TOTAL_LOWORDERFEE_TAX_CLASS_DESC', 'Use the following tax c
 
 $aLang['module_order_total_loworderfee_title'] = 'Low Order Fee';
 $aLang['module_order_total_loworderfee_description'] = 'Low Order Fee';
-

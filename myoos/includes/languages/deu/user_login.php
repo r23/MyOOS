@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -21,11 +21,11 @@
    ---------------------------------------------------------------------- */
 
 if (isset($_GET['origin']) && ($_GET['origin'] == $aContents['checkout_payment'])) {
-  $aLang['navbar_title'] = 'Bestellen';
-  $aLang['heading_title'] = 'Eine Online-Bestellung ist einfach.';
+    $aLang['navbar_title'] = 'Bestellen';
+    $aLang['heading_title'] = 'Eine Online-Bestellung ist einfach.';
 } else {
-  $aLang['navbar_title'] = 'Anmelden';
-  $aLang['heading_title'] = 'Melden Sie sich an';
+    $aLang['navbar_title'] = 'Anmelden';
+    $aLang['heading_title'] = 'Melden Sie sich an';
 }
 
 $aLang['heading_new_customer'] = 'Neuer Kunde';
@@ -51,6 +51,3 @@ $aLang['sub_heading_title_3'] = 'Information';
 $aLang['sub_heading_text_1'] = 'Jeder Besucher unseres Online-Shops bekommt einen \'Besucherwarenkorb\'. Damit kann er seine ausgewählten Produkte sammeln. Sobald der Besucher den Online-Shop verlässt, verfällt dessen Inhalt.';
 $aLang['sub_heading_text_2'] = 'Jeder angemeldete Kunde verfügt über einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem späterem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin löscht.';
 $aLang['sub_heading_text_3'] = 'Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb übernommen.';
-
-
-

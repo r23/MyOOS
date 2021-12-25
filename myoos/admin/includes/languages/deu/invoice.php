@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: invoice.php,v 1.2 2002/06/15 12:45:05 harley_vb 
+   File: invoice.php,v 1.2 2002/06/15 12:45:05 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -39,4 +39,3 @@ define('ENTRY_SUB_TOTAL', 'Zwischensumme:');
 define('ENTRY_TAX', 'MwSt.:');
 define('ENTRY_SHIPPING', 'Versandkosten:');
 define('ENTRY_TOTAL', 'Gesamtsumme:');
-

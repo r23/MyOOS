@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: gv_sent.php,v 1.1 2003/02/18 00:18:50 wilt 
+   File: gv_sent.php,v 1.1 2003/02/18 00:18:50 wilt
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -41,4 +41,3 @@ define('TEXT_INFO_DATE_REDEEMED', 'Einlösedatum:');
 define('TEXT_INFO_IP_ADDRESS', 'IP Adresse:');
 define('TEXT_INFO_CUSTOMERS_ID', 'Kunden-Nr.:');
 define('TEXT_INFO_NOT_REDEEMED', 'Nicht eingelöst');
-

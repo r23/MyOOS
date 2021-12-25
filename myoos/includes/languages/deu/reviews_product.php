@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -28,4 +28,3 @@ $aLang['table_heading_rating'] = 'Bewertung';
 $aLang['table_heading_read'] = 'Gelesen';
 $aLang['table_heading_date_added'] = 'Datum';
 $aLang['text_of_5_stars'] = '%s von 5 Sternen!';
-

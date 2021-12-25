@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: mail.php,v 1.30 2002/03/16 01:07:28 hpdl 
+   File: mail.php,v 1.30 2002/03/16 01:07:28 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -25,7 +25,7 @@ $action = (isset($_GET['action']) ? oos_prepare_input($_GET['action']) : '');
 $sCustomer = isset($_GET['customer']) ? oos_prepare_input($_GET['customer']) : '';
 
 
-if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address']) && !isset($_POST['back_x']) ) {
+if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']) && !isset($_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {
       case '***':
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM " . $oostable['customers']);
@@ -51,7 +51,7 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
     $send_mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
 
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
-    $send_mail->SetLanguage( $sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/' );
+    $send_mail->SetLanguage($sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/');
 
     $send_mail->CharSet = CHARSET;
     $send_mail->IsMail();
@@ -61,45 +61,44 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
     $send_mail->Mailer = EMAIL_TRANSPORT;
 
     // Add smtp values if needed
-    if ( EMAIL_TRANSPORT == 'smtp' ) {
-      $send_mail->IsSMTP(); // set mailer to use SMTP
+    if (EMAIL_TRANSPORT == 'smtp') {
+        $send_mail->IsSMTP(); // set mailer to use SMTP
       $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
       $send_mail->Username = OOS_SMTPUSER; // SMTP username
       $send_mail->Password = OOS_SMTPPASS; // SMTP password
       $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
-    } else
-      // Set sendmail path
-      if ( EMAIL_TRANSPORT == 'sendmail' ) {
+    } elseif // Set sendmail path
+      (EMAIL_TRANSPORT == 'sendmail') {
         if (!oos_empty(OOS_SENDMAIL)) {
-          $send_mail->Sendmail = OOS_SENDMAIL;
-          $send_mail->IsSendmail();
+            $send_mail->Sendmail = OOS_SENDMAIL;
+            $send_mail->IsSendmail();
         }
     }
 
     $send_mail->Subject = $subject;
 
     while ($mail = $mail_result->fields) {
-      $send_mail->Body = $message;
-      $send_mail->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
-      $send_mail->Send();
-      $send_mail->ClearAddresses();
-      $send_mail->ClearAttachments();
+        $send_mail->Body = $message;
+        $send_mail->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
+        $send_mail->Send();
+        $send_mail->ClearAddresses();
+        $send_mail->ClearAttachments();
 
-      // Move that ADOdb pointer!
-      $mail_result->MoveNext();
+        // Move that ADOdb pointer!
+        $mail_result->MoveNext();
     }
     oos_redirect_admin(oos_href_link_admin($aContents['mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
-  }
+}
 
-  if ( ($action == 'preview') && !isset($_POST['customers_email_address']) ) {
-    $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
+  if (($action == 'preview') && !isset($_POST['customers_email_address'])) {
+      $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
   }
 
   if (isset($_GET['mail_sent_to'])) {
-    $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
+      $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
   }
 
-  require 'includes/header.php'; 
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -148,8 +147,8 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  if ( ($action == 'preview') && isset($_POST['customers_email_address']) ) {
-    switch ($_POST['customers_email_address']) {
+  if (($action == 'preview') && isset($_POST['customers_email_address'])) {
+      switch ($_POST['customers_email_address']) {
       case '***':
         $mail_sent_to = TEXT_ALL_CUSTOMERS;
         break;
@@ -161,9 +160,8 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
       default:
         $mail_sent_to =  oos_db_prepare_input($_POST['customers_email_address']);
         break;
-    }
-?>
-          <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=send_email_to_user', 'post', TRUE); ?>
+    } ?>
+          <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=send_email_to_user', 'post', true); ?>
             <td><table border="0" width="100%" cellpadding="0" cellspacing="2">
               <tr>
                 <td></td>
@@ -200,15 +198,14 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
 <?php
 /* Re-Post all POST'ed variables */
     reset($_POST);
-    foreach ($_POST as $key => $value) {		
-      if (!is_array($_POST[$key])) {
-        echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)), ENT_QUOTES, 'UTF-8');
-      }
-    }
-?>
+      foreach ($_POST as $key => $value) {
+          if (!is_array($_POST[$key])) {
+              echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)), ENT_QUOTES, 'UTF-8');
+          }
+      } ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
-                    <td><?php echo oos_submit_button( BUTTON_BACK); ?></td>
+                    <td><?php echo oos_submit_button(BUTTON_BACK); ?></td>
                     <td class="text-right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['mail']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>' . oos_submit_button(IMAGE_SEND_EMAIL); ?></td>
                   </tr>
                 </table></td>
@@ -217,29 +214,28 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
           </form></tr>
 <?php
   } else {
-?>
-          <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=preview', 'post', FALSE); ?>
+      ?>
+          <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=preview', 'post', false); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"></td>
               </tr>
 <?php
     $customers = [];
-    $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
-    $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
-    $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
-    $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
-    while($customers_values = $mail_result->fields) {
-      $customers[] = array('id' => $customers_values['customers_email_address'],
+      $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
+      $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
+      $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
+      $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
+      while ($customers_values = $mail_result->fields) {
+          $customers[] = array('id' => $customers_values['customers_email_address'],
                            'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
 
-      // Move that ADOdb pointer!
-      $mail_result->MoveNext();
-    }
-?>
+          // Move that ADOdb pointer!
+          $mail_result->MoveNext();
+      } ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
-                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer);?></td>
+                <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer); ?></td>
               </tr>
               <tr>
                 <td colspan="2"></td>
@@ -250,7 +246,7 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
               </tr>
               <tr>
                 <td class="main"><?php echo TEXT_FROM_MAIL; ?></td>
-                <td><?php echo oos_draw_input_field('from_mail',STORE_OWNER_EMAIL_ADDRESS); ?></td></td>
+                <td><?php echo oos_draw_input_field('from_mail', STORE_OWNER_EMAIL_ADDRESS); ?></td></td>
               </tr>  
               <tr>
                 <td colspan="2"></td>
@@ -294,7 +290,7 @@ if ( ($action == 'send_email_to_user') && isset($_POST['customers_email_address'
 	</footer>
 </div>
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

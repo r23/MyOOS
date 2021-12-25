@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: backup.php,v 1.21 2002/06/15 11:02:56 harley_vb 
+   File: backup.php,v 1.21 2002/06/15 11:02:56 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -25,5 +25,4 @@
    the translated file.
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Update Excel Preis'); 
-
+define('HEADING_TITLE', 'Update Excel Preis');

@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: weight.php,v 1.02 2003/02/18 03:33:00 harley_vb 
+   File: weight.php,v 1.02 2003/02/18 03:33:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -46,4 +46,3 @@ $aLang['module_shipping_weight_text_description'] = 'Weight-dependent Shipping C
 $aLang['module_shipping_weight_text_way'] = 'Shipping Cost';
 $aLang['module_shipping_weight_text_weight'] = 'Weight';
 $aLang['module_shipping_weight_text_amount'] = 'Amount';
-

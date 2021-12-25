@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: create_account_success.php,v 1.29 2003/02/13 02:27:56 hpdl 
+   File: create_account_success.php,v 1.29 2003/02/13 02:27:56 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,16 +19,18 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-// cookie-notice 
-if ( $bNecessary === false ) {
-	oos_redirect(oos_href_link($aContents['home']));
+// cookie-notice
+if ($bNecessary === false) {
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 // start the session
-if ( $session->hasStarted() === false ) $session->start();
-  
+if ($session->hasStarted() === false) {
+    $session->start();
+}
+
 if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login']));
 }
@@ -39,10 +41,10 @@ $oBreadcrumb->add($aLang['navbar_title_1']);
 $oBreadcrumb->add($aLang['navbar_title_2']);
 
 if (count($_SESSION['navigation']->snapshot) > 0) {
-	$origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
-	$_SESSION['navigation']->clear_snapshot();
+    $origin_href = oos_href_link($_SESSION['navigation']->snapshot['content'], $_SESSION['navigation']->snapshot['get']);
+    $_SESSION['navigation']->clear_snapshot();
 } else {
-	$origin_href = oos_href_link($aContents['home']);
+    $origin_href = oos_href_link($aContents['home']);
 }
 
 $aTemplate['page'] = $sTheme . '/page/create_account_success.html';
@@ -52,20 +54,20 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 $smarty->assign('thank_you', sprintf($aLang['text_main'], oos_href_link($aContents['contact_us']), oos_href_link($aContents['contact_us'])));
 
 // assign Smarty variables;
 $smarty->assign(
-	array(
-		'breadcrumb'    => $oBreadcrumb->trail(),
-		'heading_title' => $aLang['heading_title'],
-		'robots'		=> 'noindex,follow,noodp,noydir',
+    array(
+        'breadcrumb'    => $oBreadcrumb->trail(),
+        'heading_title' => $aLang['heading_title'],
+        'robots'		=> 'noindex,follow,noodp,noydir',
 
-		'origin_href' => $origin_href
+        'origin_href' => $origin_href
       )
 );
 

@@ -20,4 +20,3 @@
    ---------------------------------------------------------------------- */
 
 $aLang['text_model_not_found'] = '3-D Modell wurde nicht gefunden!';
-

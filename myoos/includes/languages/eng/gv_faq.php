@@ -80,5 +80,3 @@ validated and added to your Gift Voucher account. You Can then use the amount to
   <p>For any queries regarding the Gift Voucher System, please contact the store
   by email at '. STORE_OWNER_EMAIL_ADDRESS . '. Please make sure you give
   as much information as possible in the email.</p> ';
-
-

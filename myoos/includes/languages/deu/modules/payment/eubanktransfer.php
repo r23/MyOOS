@@ -20,11 +20,11 @@
    ---------------------------------------------------------------------- */
 
 if (!defined('MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME')) {
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', '----');
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', '----');
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', '----');
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_IBAN', '----');
-  define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_BANKNAME', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONAME', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_KONTONUM', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_IBAN', '----');
+    define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC', '----');
 }
 
 
@@ -47,7 +47,7 @@ define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC_TITLE', 'Your account BIC / SWIFT cod
 define('MODULE_PAYMENT_EU_BANKTRANSFER_BIC_DESC', 'International bank id.<br />(ask your bank if you don\'t know it)');
 
 define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_TITLE', 'Zahlungszone');
-define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_DESC',  'Wenn eine Zone ausgewählt ist, gilt die Zahlungsmethode nur für diese Zone.');
+define('MODULE_PAYMENT_EU_BANKTRANSFER_ZONE_DESC', 'Wenn eine Zone ausgewählt ist, gilt die Zahlungsmethode nur für diese Zone.');
 
 define('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
 define('MODULE_PAYMENT_EU_BANKTRANSFER_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. Kleinste Ziffer wird zuerst angezeigt.');
@@ -75,5 +75,3 @@ $aLang['module_payment_eu_banktransfer_email_footer'] = 'Die einfachste Zahlungs
                                                         'IBAN: ' . MODULE_PAYMENT_EU_BANKTRANSFER_IBAN . "\n" .
                                                         'BIC/SWIFT: ' . MODULE_PAYMENT_EU_BANKTRANSFER_BIC . "\n\n" .
                                                         'Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.';
-
-

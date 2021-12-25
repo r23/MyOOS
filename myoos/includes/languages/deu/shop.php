@@ -52,4 +52,3 @@ $aLang['text_news_printer'] = 'Druckbare Version';
 $aLang['text_news_on'] = 'am';
 $aLang['text_news_readmore'] = 'mehr...';
 $aLang['heading_title_nested'] = 'Kategorien';
-

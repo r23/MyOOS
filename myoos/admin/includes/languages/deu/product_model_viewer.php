@@ -20,8 +20,8 @@
    ---------------------------------------------------------------------- */
 
 
-define('HEADING_TITLE', 'Augmented Reality');   
-   
+define('HEADING_TITLE', 'Augmented Reality');
+
 define('TEXT_NEW_PRODUCT', 'Augmented Reality &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
 define('TEXT_MODELS_MODEL', '3D-Modell');

@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: product_notification.php,v 1.2 2002/03/11 14:15:44 harley_vb 
+   File: product_notification.php,v 1.2 2002/03/11 14:15:44 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -31,4 +31,3 @@ define('BUTTON_SELECT', '>>>');
 define('BUTTON_UNSELECT', '<<<');
 define('BUTTON_SUBMIT', 'Weiter');
 define('BUTTON_CANCEL', 'Abbrechen');
-

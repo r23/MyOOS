@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -53,5 +53,3 @@ define('TEXT_INFO_DELETE_FILE_INTRO', 'Entferne <font color="red"><b>%s</b></fon
 define('TEXT_INFO_NEW_FILE_INTRO', 'Überprüfen Sie das <font color="red"><b>linke Menü</b></font> um sicherzustellen das Sie die richtigen Dateien entfernt haben.');
 
 define('TEXT_INFO_NEW_FILE_BOX', 'Momentaner Bereich: ');
-
-

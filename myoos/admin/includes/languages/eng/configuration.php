@@ -46,8 +46,8 @@ define('STORE_OWNER_DESC', 'The name of my store owner');
 define('STORE_OWNER_EMAIL_ADDRESS_TITLE', 'E-Mail Address');
 define('STORE_OWNER_EMAIL_ADDRESS_DESC', 'The e-mail address of my store owner');
 
-define('STORE_OWNER_VAT_ID_TITLE' , 'VAT ID of Shop Owner');
-define('STORE_OWNER_VAT_ID_DESC' , 'The VAT ID of the Shop Owner');
+define('STORE_OWNER_VAT_ID_TITLE', 'VAT ID of Shop Owner');
+define('STORE_OWNER_VAT_ID_DESC', 'The VAT ID of the Shop Owner');
 
 define('STORE_ADDRESS_STREET_TITLE', 'Store Address: Street');
 define('STORE_ADDRESS_STREET_DESC', 'This is the Street used on printable documents and displayed online');
@@ -409,4 +409,3 @@ define('TWITTER_URL_DESC', 'URL of the Twitter page');
 
 define('DRIBBBLE_URL_TITLE', 'Dribbble');
 define('DRIBBBLE_URL_DESC', 'URL of the Dribbble page');
-

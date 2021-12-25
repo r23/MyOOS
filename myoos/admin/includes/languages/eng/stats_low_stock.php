@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: stats_low_stock.php  
+   File: stats_low_stock.php
    ----------------------------------------------------------------------
    The Exchange Project - Community Made Shopping!
    http://www.theexchangeproject.org
@@ -31,4 +31,3 @@ define('HEADING_TITLE', 'Products Below Re-Order Level');
 define('TABLE_HEADING_NUMBER', 'No.');
 define('TABLE_HEADING_PRODUCTS', 'Product Name');
 define('TABLE_HEADING_QTY_LEFT', 'Qty Available');
-

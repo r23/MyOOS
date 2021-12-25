@@ -28,4 +28,3 @@ define('MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER_DESC', 'Reihenfolge der Anzeige. 
 
 $aLang['module_order_total_subtotal_title'] = 'Zwischensumme';
 $aLang['module_order_total_subtotal_description'] = 'Zwischensumme einer Bestellung';
-

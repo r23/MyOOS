@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: products_attributes.php,v 1.9 2002/03/30 15:11:25 harley_vb 
+   File: products_attributes.php,v 1.9 2002/03/30 15:11:25 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -59,5 +59,4 @@ define('TEXT_PRODUCTS_BASE_QUANTITY', 'Basismenge:');
 define('TEXT_PRODUCTS_QUANTITY', 'Artikelmenge:');
 
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
-define('TEXT_PRODUCTS_IMAGE_DELETE',  '<b>Entfernen</b> des Bildes vom Artikel?');
-
+define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Entfernen</b> des Bildes vom Artikel?');

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: language.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
@@ -38,60 +38,62 @@
    ---------------------------------------------------------------------- */
 
 /** Loads the required language file for the installer **/
-function installer_get_language() {
-   global $currentlang;
+function installer_get_language()
+{
+    global $currentlang;
 
-   if (!isset($currentlang)) {
-     $currentlang = 'de_DE';
-   }
-   if (file_exists($file="locales/$currentlang.php")) {
-     @include $file;
-   }
+    if (!isset($currentlang)) {
+        $currentlang = 'de_DE';
+    }
+    if (file_exists($file="locales/$currentlang.php")) {
+        @include $file;
+    }
 }
 
 // Make common language selection dropdown (from Tim Litwiller)
-   function lang_dropdown() {
-      global $currentlang;
+   function lang_dropdown()
+   {
+       global $currentlang;
 
-      $locale_dir = './locales/';
-      $lang = languagelist();
-      $langlist = array();
+       $locale_dir = './locales/';
+       $lang = languagelist();
+       $langlist = array();
 
-      if (is_dir($locale_dir)) {
-        if ($dh = opendir($locale_dir)) {
-          while (($file = readdir($dh)) !== false) {
+       if (is_dir($locale_dir)) {
+           if ($dh = opendir($locale_dir)) {
+               while (($file = readdir($dh)) !== false) {
+                   if ($file == '.' || $file == '..' || $file == 'CVS' || filetype($locale_dir . $file) == 'dir') {
+                       continue;
+                   }
+                   $sContent = substr($file, 0, -4);
+                   if (is_file($locale_dir . $file) && @$lang[$sContent]) {
+                       $langlist[$sContent] = $lang[$sContent];
+                   }
+               }
+               closedir($dh);
+           }
+       }
+       asort($langlist);
 
-            if ($file == '.' || $file == '..' || $file == 'CVS' || filetype($locale_dir . $file) == 'dir' ) continue;
-			$sContent = substr($file, 0, -4);
-            if (is_file($locale_dir . $file) && @$lang[$sContent]) {
-              $langlist[$sContent] = $lang[$sContent];
-            }
-          }
-          closedir($dh);
-        }
-      }
-      asort($langlist);
+       $selection = '<select name="alanguage" class="ow-text">';
+       foreach ($langlist as $k=>$v) {
+           $selection .= '<option value="' . $k . '"';
+           if ($currentlang == $k) {
+               $selection .= ' selected';
+           }
+           $selection .= '>'. $v . '</option> ';
+       }
+       $selection .= '</select>';
 
-      $selection = '<select name="alanguage" class="ow-text">';
-      foreach ($langlist as $k=>$v) {
-        $selection .= '<option value="' . $k . '"';
-        if ( $currentlang == $k) {
-          $selection .= ' selected';
-         }
-        $selection .= '>'. $v . '</option> ';
-      }
-      $selection .= '</select>';
-
-      return $selection;
-
+       return $selection;
    }
 
 
 // list of all availabe languages (from Patrick Kellum <webmaster@ctarl-ctarl.com>)
-   function languagelist() {
-
-	$lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
-	$lang['de_DE'] = LANGUAGE_DEU . ' (de_DE)'; // German
+   function languagelist()
+   {
+       $lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
+    $lang['de_DE'] = LANGUAGE_DEU . ' (de_DE)'; // German
     /*
       $lang['nl_NL'] = LANGUAGE_NLD . ' (nl_NL)'; // Dutch
       $lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
@@ -107,7 +109,7 @@ function installer_get_language() {
       $lang['slv'] = LANGUAGE_SLV; // Slovenian
       $lang['spa'] = LANGUAGE_SPA; // Spanish
       $lang['swe'] = LANGUAGE_SWE; // Swedish
-	*/
+    */
 //    end of list
-      return $lang;
-}
+       return $lang;
+   }

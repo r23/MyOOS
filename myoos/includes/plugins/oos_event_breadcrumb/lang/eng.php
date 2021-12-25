@@ -12,4 +12,3 @@
 
 define('PLUGIN_EVENT_BREADCRUMB_NAME', 'Breadcrumb');
 define('PLUGIN_EVENT_BREADCRUMB_DESC', 'Breadcrumb builder for easy navigation.');
-

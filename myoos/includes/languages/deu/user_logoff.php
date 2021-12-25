@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -24,4 +24,3 @@ $aLang['heading_title'] = 'Abmeldung';
 $aLang['navbar_title'] = 'Abmeldung';
 $aLang['text_main'] = 'Sie wurden soeben sicher abgemeldet, so dass niemand mehr Ihre Daten einsehen kann.<br /><br />Ihr Warenkorb wurde zwischengespeichert und steht Ihnen nach der nächsten Anmeldung wieder zur Verfügung.';
 $aLang['text_back_to_home'] = 'Zurück zur Startseite!';
-

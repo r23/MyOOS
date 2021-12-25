@@ -34,4 +34,3 @@ define('MODULE_PAYMENT_COD_ORDER_STATUS_ID_DESC', 'Bestellungen, welche mit dies
 
 $aLang['module_payment_cod_text_title'] = 'Nachnahme';
 $aLang['module_payment_cod_text_description'] = 'Nachnahme';
-

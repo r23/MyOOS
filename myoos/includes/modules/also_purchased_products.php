@@ -19,17 +19,19 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $aPurchased = [];
 
 if (isset($_GET['products_id']) && is_numeric(MAX_DISPLAY_ALSO_PURCHASED)) {
-	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
-	
+    if (!isset($nProductsID)) {
+        $nProductsID = oos_get_product_id($_GET['products_id']);
+    }
+
     $orders_productstable = $oostable['orders_products'];
     $orderstable = $oostable['orders'];
     $productstable = $oostable['products'];
-	$products_descriptiontable = $oostable['products_description'];
+    $products_descriptiontable = $oostable['products_description'];
     $sql = "SELECT p.products_id, p.products_image, pd.products_name
             FROM $orders_productstable opa,
                  $orders_productstable opb,
@@ -45,18 +47,17 @@ if (isset($_GET['products_id']) && is_numeric(MAX_DISPLAY_ALSO_PURCHASED)) {
 			  AND pd.products_languages_id = '" . intval($nLanguageID) . "'
             GROUP BY p.products_id
             ORDER BY o.date_purchased DESC";
-	$orders_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_ALSO_PURCHASED);
+    $orders_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_ALSO_PURCHASED);
 
-	$num_products_ordered = $orders_result->RecordCount();
-	if ($num_products_ordered >= MIN_DISPLAY_ALSO_PURCHASED) {
-		while ($orders = $orders_result->fields) {
-			$aPurchased[] = array('products_name' => $orders['products_name'],
+    $num_products_ordered = $orders_result->RecordCount();
+    if ($num_products_ordered >= MIN_DISPLAY_ALSO_PURCHASED) {
+        while ($orders = $orders_result->fields) {
+            $aPurchased[] = array('products_name' => $orders['products_name'],
                               'products_id' => $orders['products_id'],
                               'products_image' => $orders['products_image']);
 
-			// Move that ADOdb pointer!
-			$orders_result->MoveNext();
-		}
-	}
+            // Move that ADOdb pointer!
+            $orders_result->MoveNext();
+        }
+    }
 }
-

@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -38,4 +38,3 @@ $aLang['text_global_product_notifications_description_enabled'] = 'If you no lon
 $aLang['text_product_notifications_list'] = 'Below is a list of products you selected to be notified on. If you wish to remove one or more products from the product notification list, please select the desired products and click on \'Remove Notifications\'.';
 
 $aLang['text_enable_global_notifications'] = 'Please send me notifications on all products';
-

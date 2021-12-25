@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_cod_fee.php,v 1.01 2003/02/24 06:05:00 harley_vb 
+   File: ot_cod_fee.php,v 1.01 2003/02/24 06:05:00 harley_vb
    ----------------------------------------------------------------------
    Copyright (C) 2001 - 2003 TheMedia, Dipl.-Ing Thomas Pl�kers
         http://www.themedia.at & http://www.oscommerce.at
@@ -73,5 +73,3 @@ define('MODULE_ORDER_TOTAL_COD_TAX_CLASS_DESC', 'Use the following tax class on 
 
 $aLang['module_order_total_cod_title'] = 'Cash on Delivery Fee';
 $aLang['module_order_total_cod_description'] = 'Cash on Delivery Fee';
-
-

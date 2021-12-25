@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -18,9 +18,7 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-   
+
 define('HEADING_TITLE', 'Zugriff verweigert!');
 define('NAVBAR_TITLE', 'Kein Zugriffsrecht');
 define('TEXT_MAIN', 'Bitte kontaktieren Sie Ihren <b>Web Administrator</b> um mehr Zugriffsrechte zu erhalten.');
-
-

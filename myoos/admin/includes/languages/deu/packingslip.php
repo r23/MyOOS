@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: packingslip.php,v 1.2 2002/06/15 13:01:56 harley_vb 
+   File: packingslip.php,v 1.2 2002/06/15 13:01:56 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -28,4 +28,3 @@ define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('ENTRY_SOLD_TO', 'Rechnungsanschrift:');
 define('ENTRY_SHIP_TO', 'Lieferanschrift:');
 define('ENTRY_PAYMENT_METHOD', 'Zahlungsweise:');
-

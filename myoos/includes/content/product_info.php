@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: product_info.php,v 1.92 2003/02/14 05:51:21 hpdl 
+   File: product_info.php,v 1.92 2003/02/14 05:51:21 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,7 +19,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being required by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\LabelAlignment;
@@ -27,9 +27,11 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Response\QrCodeResponse;
 
 if (isset($_GET['products_id'])) {
-	if (!isset($nProductsID)) $nProductsID = oos_get_product_id($_GET['products_id']);
+    if (!isset($nProductsID)) {
+        $nProductsID = oos_get_product_id($_GET['products_id']);
+    }
 } else {
-	oos_redirect(oos_href_link($aContents['home']));
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_info.php';
@@ -52,38 +54,36 @@ $product_info_sql = "SELECT p.products_id, pd.products_name, pd.products_title, 
                         WHERE p.products_setting = '2'
                           AND p.products_id = '" . intval($nProductsID) . "'
                           AND pd.products_id = p.products_id
-                          AND pd.products_languages_id = '" . intval($nLanguageID) . "'";			  
+                          AND pd.products_languages_id = '" . intval($nLanguageID) . "'";
 $product_info_result = $dbconn->Execute($product_info_sql);
 if (!$product_info_result->RecordCount()) {
-	// product not found
-	header('HTTP/1.0 404 Not Found');
+    // product not found
+    header('HTTP/1.0 404 Not Found');
     $aLang['text_information'] = $aLang['text_product_not_found'];
 
     $aTemplate['page'] = $sTheme . '/page/info.html';
 
     $nPageType = OOS_PAGE_TYPE_MAINPAGE;
-	$sPagetitle = '404 Not Found ' . OOS_META_TITLE;
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, false, true);	
+    $sPagetitle = '404 Not Found ' . OOS_META_TITLE;
+    $sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, false, true);
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
-	if (!isset($option)) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    if (!isset($option)) {
+        require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+        require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
-	
+
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['text_product_not_found'],
-			'robots'		=> 'noindex,follow,noodp,noydir',
-			'canonical'		=> $sCanonical	
+            'robots'		=> 'noindex,follow,noodp,noydir',
+            'canonical'		=> $sCanonical
         )
     );
-
 } else {
-
     $products_descriptiontable = $oostable['products_description'];
     $query = "UPDATE $products_descriptiontable"
         . " SET products_viewed = products_viewed+1"
@@ -93,17 +93,17 @@ if (!$product_info_result->RecordCount()) {
     $product_info = $product_info_result->fields;
 
     // Meta Tags
-    $sPagetitle = (empty($product_info['products_title']) ? $product_info['products_name'] : $product_info['products_title']); 
+    $sPagetitle = (empty($product_info['products_title']) ? $product_info['products_name'] : $product_info['products_title']);
     $sDescription = $product_info['products_description_meta'];
 
-	$facebook_title = $product_info['products_facebook_title'];
-	$twitter_title = $product_info['products_twitter_title'];
+    $facebook_title = $product_info['products_facebook_title'];
+    $twitter_title = $product_info['products_twitter_title'];
 
-	$sDescription = $product_info['products_description_meta'];
-	$facebook_description = $product_info['products_facebook_description'];
-	$twitter_description = $product_info['products_twitter_description'];
+    $sDescription = $product_info['products_description_meta'];
+    $facebook_description = $product_info['products_facebook_description'];
+    $twitter_description = $product_info['products_twitter_description'];
 
-	$og_image = isset($product_info['products_image']) ? OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'product/large/' . $product_info['products_image'] : '';
+    $og_image = isset($product_info['products_image']) ? OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'product/large/' . $product_info['products_image'] : '';
 
     $aTemplate['page'] = $sTheme . '/page/product_info.html';
     $aTemplate['also_purchased_products'] = $sTheme . '/products/_also_purchased_products.html';
@@ -111,40 +111,40 @@ if (!$product_info_result->RecordCount()) {
     $aTemplate['up_sell_products'] = $sTheme . '/products/up_sell_products.html';
     $aTemplate['page_heading'] = $sTheme . '/products/product_heading.html';
 
-	$aTemplate['slavery_products'] = $sTheme . '/products/_slavery_product_listing.html';
-	$aTemplate['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';	
-	
-	$sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, false, true);		
+    $aTemplate['slavery_products'] = $sTheme . '/products/_slavery_product_listing.html';
+    $aTemplate['slavery_page_navigation'] = $sTheme . '/system/_pagination.htm';
+
+    $sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, false, true);
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-		require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+        require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+        require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
     // breadcrumb
-	$oBreadcrumb->add($product_info['products_name']);
-	
+    $oBreadcrumb->add($product_info['products_name']);
+
     // products history
-	if (isset($_SESSION) && $bPersonalization == true) {
-		$_SESSION['products_history']->add_current_products($nProductsID);
-	}
+    if (isset($_SESSION) && $bPersonalization == true) {
+        $_SESSION['products_history']->add_current_products($nProductsID);
+    }
 
-    $info_product_price = NULL;
-    $info_product_special_price = NULL;
-    $info_base_product_price = NULL;
-    $info_product_price_list = NULL;
-	$schema_product_price = NULL;
-	$base_product_price = $product_info['products_price'];
+    $info_product_price = null;
+    $info_product_special_price = null;
+    $info_base_product_price = null;
+    $info_product_price_list = null;
+    $schema_product_price = null;
+    $base_product_price = $product_info['products_price'];
 
-	// Selector 
-	$bTypeRadio = false;
-	$aSelector = array();
+    // Selector
+    $bTypeRadio = false;
+    $aSelector = array();
 
-	$options = '';
-	$number_of_uploads = 0;
+    $options = '';
+    $number_of_uploads = 0;
 
     $products_optionstable = $oostable['products_options'];
     $products_attributestable = $oostable['products_attributes'];
@@ -156,165 +156,160 @@ if (!$product_info_result->RecordCount()) {
                          AND popt.products_options_languages_id = '" . intval($nLanguageID) . "'";
     $products_attributes = $dbconn->Execute($attributes_sql);
     if ($products_attributes->fields['total'] > 0) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
-	}
+        require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
+    }
 
-	$smarty->assign('selector_array', $aSelector);
-	
-	// Product gallery
-	$sImageLink = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, true, true);	
-	$smarty->assign('image_link', $sImageLink);
+    $smarty->assign('selector_array', $aSelector);
 
-	$info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
-	$schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
-	$calculate_price = $product_info['products_price'];
+    // Product gallery
+    $sImageLink = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, true, true);
+    $smarty->assign('image_link', $sImageLink);
 
-	if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
-		$calculate_price = $info_special_price;
-		$base_product_price = $info_special_price;
-		$info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
-	} 
-	
-	
-// Minimum Order Value
-	if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
-		$minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
+    $info_product_price = $oCurrencies->display_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+    $schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
+    $calculate_price = $product_info['products_price'];
 
-		$calculate_price = $oCurrencies->calculate_price($calculate_price, oos_get_tax_rate($product_info['products_tax_class_id']));
-
-		if ($calculate_price < $minimum_order_value) {
-			$smarty->assign('show_minimum_order_value', 1);
-		}
-	}
+    if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
+        $calculate_price = $info_special_price;
+        $base_product_price = $info_special_price;
+        $info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
+    }
 
 
+    // Minimum Order Value
+    if (defined('MINIMUM_ORDER_VALUE') && oos_is_not_null(MINIMUM_ORDER_VALUE)) {
+        $minimum_order_value = str_replace(',', '.', MINIMUM_ORDER_VALUE);
 
-	$discounts_price = false;
-    if ( (oos_empty($info_special_price)) && ( ($product_info['products_discount4_qty'] > 0 
-		|| $product_info['products_discount3_qty'] > 0 
-		|| $product_info['products_discount2_qty'] > 0 
-		|| $product_info['products_discount1_qty'] > 0 )) ) {
+        $calculate_price = $oCurrencies->calculate_price($calculate_price, oos_get_tax_rate($product_info['products_tax_class_id']));
 
-		if ( ($aUser['show_price'] == 1 ) && ($aUser['qty_discounts'] == 1) ) {
-			$discounts_price = true;
-			require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
+        if ($calculate_price < $minimum_order_value) {
+            $smarty->assign('show_minimum_order_value', 1);
+        }
+    }
 
-			if ( $product_info['products_discount4'] > 0 ) {
-				$price_discount = $product_info['products_discount4'];
-			} elseif ( $product_info['products_discount3'] > 0 ) {
-				$price_discount = $product_info['products_discount3'];
-			} elseif ( $product_info['products_discount2'] > 0 ) {
-				$price_discount = $product_info['products_discount2'];
-			} elseif ( $product_info['products_discount1'] > 0 ) {
-				$price_discount = $product_info['products_discount1'];
-			}
-			if (isset($price_discount)) {
-				$base_product_price = $price_discount;
-				$smarty->assign('price_discount', $oCurrencies->display_price($price_discount, oos_get_tax_rate($product_info['products_tax_class_id'])));
-			}
-		}
-	}
 
-	if ($product_info['products_base_price'] != 1) {	
+
+    $discounts_price = false;
+    if ((oos_empty($info_special_price)) && (($product_info['products_discount4_qty'] > 0
+        || $product_info['products_discount3_qty'] > 0
+        || $product_info['products_discount2_qty'] > 0
+        || $product_info['products_discount1_qty'] > 0))) {
+        if (($aUser['show_price'] == 1) && ($aUser['qty_discounts'] == 1)) {
+            $discounts_price = true;
+            require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
+
+            if ($product_info['products_discount4'] > 0) {
+                $price_discount = $product_info['products_discount4'];
+            } elseif ($product_info['products_discount3'] > 0) {
+                $price_discount = $product_info['products_discount3'];
+            } elseif ($product_info['products_discount2'] > 0) {
+                $price_discount = $product_info['products_discount2'];
+            } elseif ($product_info['products_discount1'] > 0) {
+                $price_discount = $product_info['products_discount1'];
+            }
+            if (isset($price_discount)) {
+                $base_product_price = $price_discount;
+                $smarty->assign('price_discount', $oCurrencies->display_price($price_discount, oos_get_tax_rate($product_info['products_tax_class_id'])));
+            }
+        }
+    }
+
+    if ($product_info['products_base_price'] != 1) {
         $info_base_product_price = $oCurrencies->display_price($base_product_price * $product_info['products_base_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
-	}
-	  
+    }
+
     // assign Smarty variables;
     $smarty->assign(
         array(
             'info_product_price'			=> $info_product_price,
-			'schema_product_price'			=> $schema_product_price, 
+            'schema_product_price'			=> $schema_product_price,
             'info_product_special_price'	=> $info_product_special_price,
             'info_base_product_price'		=> $info_base_product_price,
-			'discounts_price' 				=> $discounts_price
+            'discounts_price' 				=> $discounts_price
         )
     );
 
-	if ($product_info['products_price_list'] < 0) {
-		$info_product_price_list = $oCurrencies->display_price($product_info['products_price_list'], oos_get_tax_rate($product_info['products_tax_class_id']));
-	}
-	$smarty->assign('info_product_price_list', $info_product_price_list);
+    if ($product_info['products_price_list'] < 0) {
+        $info_product_price_list = $oCurrencies->display_price($product_info['products_price_list'], oos_get_tax_rate($product_info['products_tax_class_id']));
+    }
+    $smarty->assign('info_product_price_list', $info_product_price_list);
 
-	if ($oEvent->installed_plugin('manufacturers')) {
-		$manufacturerstable = $oostable['manufacturers'];
-		$manufacturers_infotable = $oostable['manufacturers_info'];
-		$query = "SELECT m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url 
+    if ($oEvent->installed_plugin('manufacturers')) {
+        $manufacturerstable = $oostable['manufacturers'];
+        $manufacturers_infotable = $oostable['manufacturers_info'];
+        $query = "SELECT m.manufacturers_id, m.manufacturers_name, m.manufacturers_image, mi.manufacturers_url 
               FROM $manufacturerstable m,
                    $manufacturers_infotable mi
                WHERE m.manufacturers_id = '" . intval($product_info['manufacturers_id']) . "'
 			     AND mi.manufacturers_id = m.manufacturers_id
 			     AND mi.manufacturers_languages_id = '" . intval($nLanguageID) . "'";
-		$manufacturers_result = $dbconn->Execute($query);
-		$manufacturers_info = $manufacturers_result->fields;
-		$smarty->assign('manufacturers_info', $manufacturers_info);
-	}
+        $manufacturers_result = $dbconn->Execute($query);
+        $manufacturers_info = $manufacturers_result->fields;
+        $smarty->assign('manufacturers_info', $manufacturers_info);
+    }
 
-	
+
     if ($oEvent->installed_plugin('reviews')) {
-		$reviewstable = $oostable['reviews'];
-		$reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
-		$reviews = $dbconn->Execute($reviews_sql);
-		$reviews_total = $reviews->fields['total'];
-		$smarty->assign('reviews_total', $reviews_total);
-	  
-		if ($reviews->RecordCount()) {
-			$reviews_average_result = $dbconn->Execute("SELECT avg(reviews_rating) as average_rating FROM $reviewstable WHERE products_id = '" .  intval($nProductsId) . "'");
-			$reviews_average = $reviews_average_result->fields;
-			$smarty->assign('average_rating', $reviews_average);		  
-		}
-    }	
+        $reviewstable = $oostable['reviews'];
+        $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
+        $reviews = $dbconn->Execute($reviews_sql);
+        $reviews_total = $reviews->fields['total'];
+        $smarty->assign('reviews_total', $reviews_total);
 
-	// more products images
-	$product_gallerytable = $oostable['products_gallery'];
-	$product_gallery_sql = "SELECT image_name, sort_order
+        if ($reviews->RecordCount()) {
+            $reviews_average_result = $dbconn->Execute("SELECT avg(reviews_rating) as average_rating FROM $reviewstable WHERE products_id = '" .  intval($nProductsId) . "'");
+            $reviews_average = $reviews_average_result->fields;
+            $smarty->assign('average_rating', $reviews_average);
+        }
+    }
+
+    // more products images
+    $product_gallerytable = $oostable['products_gallery'];
+    $product_gallery_sql = "SELECT image_name, sort_order
                         FROM $product_gallerytable
                         WHERE products_id = '" . intval($nProductsID) . "'
 						ORDER BY sort_order";
-	$product_gallery_result = $dbconn->Execute($product_gallery_sql);	
-	if ($product_gallery_result->RecordCount()) {
-		
-		$aProductsImages = array();
-		$aProductsImages[] = array('image' => $product_info['products_image']);
-		while ($product_gallery = $product_gallery_result->fields) {
+    $product_gallery_result = $dbconn->Execute($product_gallery_sql);
+    if ($product_gallery_result->RecordCount()) {
+        $aProductsImages = array();
+        $aProductsImages[] = array('image' => $product_info['products_image']);
+        while ($product_gallery = $product_gallery_result->fields) {
+            $aProductsImages[] = array('image' => $product_gallery['image_name']);
 
-			$aProductsImages[] = array('image' => $product_gallery['image_name']);
-			
-			// Move that ADOdb pointer!
-			$product_gallery_result->MoveNext();
-		}
+            // Move that ADOdb pointer!
+            $product_gallery_result->MoveNext();
+        }
 
-		$smarty->assign('product_gallery', $aProductsImages);
-	}
-					  
-	// 3-D Model
-	$products_modelstable = $oostable['products_models'];
-	$products_models_descriptiontable = $oostable['products_models_description'];
-	$products_models_sql = "SELECT pm.models_id, pmd.models_name
+        $smarty->assign('product_gallery', $aProductsImages);
+    }
+
+    // 3-D Model
+    $products_modelstable = $oostable['products_models'];
+    $products_models_descriptiontable = $oostable['products_models_description'];
+    $products_models_sql = "SELECT pm.models_id, pmd.models_name
 							FROM $products_modelstable pm,
 								$products_models_descriptiontable pmd
 							WHERE pm.products_id = '" . intval($nProductsID) . "'
 							AND pmd.models_id = pm.models_id
-							AND pmd.models_languages_id = '" . intval($nLanguageID) . "'";	
-	$products_models_result = $dbconn->Execute($products_models_sql);	
-	if ($products_models_result->RecordCount()) {
-		
-		$aProductsModels = array();
-		while ($products_models = $products_models_result->fields) {
+							AND pmd.models_languages_id = '" . intval($nLanguageID) . "'";
+    $products_models_result = $dbconn->Execute($products_models_sql);
+    if ($products_models_result->RecordCount()) {
+        $aProductsModels = array();
+        while ($products_models = $products_models_result->fields) {
+            $aProductsModels[] = array('models_id' => $products_models['models_id'],
+                                        'name' => $products_models['models_name'],
+                                        'products_id' => $products_models['products_id']);
+            // Move that ADOdb pointer!
+            $products_models_result->MoveNext();
+        }
 
-			$aProductsModels[] = array('models_id' => $products_models['models_id'],
-										'name' => $products_models['models_name'],
-										'products_id' => $products_models['products_id']);		
-			// Move that ADOdb pointer!
-			$products_models_result->MoveNext();
-		}
+        $smarty->assign('products_models_array', $aProductsModels);
+    }
 
-		$smarty->assign('products_models_array', $aProductsModels);
-	}
-
-	// AR  Model
-	$products_model_viewertable = $oostable['products_model_viewer'];
-	$products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
-	$products_model_viewer_sql = "SELECT m.model_viewer_id, m.products_id, m.model_viewer_glb,
+    // AR  Model
+    $products_model_viewertable = $oostable['products_model_viewer'];
+    $products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
+    $products_model_viewer_sql = "SELECT m.model_viewer_id, m.products_id, m.model_viewer_glb,
 										m.model_viewer_usdz, m.model_viewer_background_color, 
 										m.model_viewer_auto_rotate, m.model_viewer_scale, m.model_viewer_hdr,
 										md.model_viewer_title, md.model_viewer_description
@@ -322,149 +317,149 @@ if (!$product_info_result->RecordCount()) {
 										$products_model_viewer_descriptiontable md
 								WHERE m.products_id = '" . intval($nProductsID) . "'
 								AND m.model_viewer_id = md.model_viewer_id
-								AND md.model_viewer_languages_id = '" . intval($nLanguageID) . "'";							
-	$products_model_viewer_result = $dbconn->Execute($products_model_viewer_sql);	
-	if ($products_model_viewer_result->RecordCount()) {
-	
-		$aModelViewer = array();
-		while ($model_viewer = $products_model_viewer_result->fields) {
+								AND md.model_viewer_languages_id = '" . intval($nLanguageID) . "'";
+    $products_model_viewer_result = $dbconn->Execute($products_model_viewer_sql);
+    if ($products_model_viewer_result->RecordCount()) {
+        $aModelViewer = array();
+        while ($model_viewer = $products_model_viewer_result->fields) {
+            $products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
+            $query = "UPDATE $products_model_viewer_descriptiontable"
+                . " SET model_viewer_viewed = model_viewer_viewed+1"
+                . " WHERE model_viewer_id = ?"
+                . "   AND model_viewer_languages_id = ?";
+            $result = $dbconn->Execute($query, array((int)$model_viewer['model_viewer_id'], (int)$nLanguageID));
 
-			$products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
-			$query = "UPDATE $products_model_viewer_descriptiontable"
-				. " SET model_viewer_viewed = model_viewer_viewed+1"
-				. " WHERE model_viewer_id = ?"
-				. "   AND model_viewer_languages_id = ?";
-			$result = $dbconn->Execute($query, array((int)$model_viewer['model_viewer_id'], (int)$nLanguageID));
+            $name = oos_strip_suffix($model_viewer['model_viewer_glb']);
+            $url = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb'];
+            $url_glb = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb'];
 
-			$name = oos_strip_suffix($model_viewer['model_viewer_glb']);
-			$url = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb']; 
-			$url_glb = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb']; 
-
-			$aModelViewer[] = array('model_viewer_id' => $model_viewer['model_viewer_id'],
+            $aModelViewer[] = array('model_viewer_id' => $model_viewer['model_viewer_id'],
                            'model_viewer_glb' => $model_viewer['model_viewer_glb'],
-						   'url_glb' => $url,
+                           'url_glb' => $url,
                            'model_viewer_usdz' => $model_viewer['model_viewer_usdz'],
                            'model_viewer_background_color' => $model_viewer['model_viewer_background_color'],
-						   'model_viewer_scale' => $model_viewer['model_viewer_scale'],
-						   'model_viewer_auto_rotate' => $model_viewer['model_viewer_auto_rotate'],
-						   'model_viewer_hdr' => $model_viewer['model_viewer_hdr'],						   
-						   'model_viewer_title' => $model_viewer['model_viewer_title'],
+                           'model_viewer_scale' => $model_viewer['model_viewer_scale'],
+                           'model_viewer_auto_rotate' => $model_viewer['model_viewer_auto_rotate'],
+                           'model_viewer_hdr' => $model_viewer['model_viewer_hdr'],
+                           'model_viewer_title' => $model_viewer['model_viewer_title'],
                            'model_viewer_description' => $model_viewer['model_viewer_description']);
-						   
-			// Move that ADOdb pointer!
-			$products_model_viewer_result->MoveNext();
-		}
 
-		$smarty->assign('model_viewer_array', $aModelViewer);
-	
+            // Move that ADOdb pointer!
+            $products_model_viewer_result->MoveNext();
+        }
 
-		// QR - Code  
-		$detect = new Mobile_Detect;
-		if (isset($_SESSION)) {	
-			if(!$_SESSION['isMobile']){
-				$_SESSION['isMobile'] = $detect->isMobile();
-			}
-		}
+        $smarty->assign('model_viewer_array', $aModelViewer);
 
-		$isMobile = isset($_SESSION['isMobile']) ? oos_var_prep_for_os( $_SESSION['isMobile'] ) : $detect->isMobile();
-		
-		// Any mobile device (phones or tablets).
-		if (!$isMobile ) {
 
-			$name = hash('ripemd160', $product_info['products_name'] . $nProductsID);
-			$filename = $name . '.png';
-			$cache_file = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'qrcode/' . $filename;
-	
-			if (!file_exists($cache_file)) {	
+        // QR - Code
+        $detect = new Mobile_Detect();
+        if (isset($_SESSION)) {
+            if (!$_SESSION['isMobile']) {
+                $_SESSION['isMobile'] = $detect->isMobile();
+            }
+        }
 
-				$sUrl = $sCanonical;
-				if (strpos($sUrl, '&amp;') !== false) $sUrl = str_replace('&amp;', '&', $sUrl);
-				if (strpos($sUrl, '&&') !== false) $sUrl = str_replace('&&', '&', $sUrl);
+        $isMobile = isset($_SESSION['isMobile']) ? oos_var_prep_for_os($_SESSION['isMobile']) : $detect->isMobile();
 
-				// Create a basic QR code
-				$qrCode = new QrCode($sUrl);
-				$qrCode->setSize(110);
-				$qrCode->setMargin(10);
-				
-				// Set advanced options
-				$qrCode->setWriterByName('png');			
-				$qrCode->setEncoding('UTF-8');
-				$qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH());
-				$qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
-				$qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
-				$qrCode->setRoundBlockSize(true);
-				$qrCode->setValidateResult(false);
-				$qrCode->setWriterOptions(['exclude_xml_declaration' => true]);
+        // Any mobile device (phones or tablets).
+        if (!$isMobile) {
+            $name = hash('ripemd160', $product_info['products_name'] . $nProductsID);
+            $filename = $name . '.png';
+            $cache_file = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'qrcode/' . $filename;
 
-				// Save it to a file
-				$qrCode->writeFile($cache_file);
-			}
-			$smarty->assign('qrcode', $filename);
-		}
-	}
-	// End AR	
- 
+            if (!file_exists($cache_file)) {
+                $sUrl = $sCanonical;
+                if (strpos($sUrl, '&amp;') !== false) {
+                    $sUrl = str_replace('&amp;', '&', $sUrl);
+                }
+                if (strpos($sUrl, '&&') !== false) {
+                    $sUrl = str_replace('&&', '&', $sUrl);
+                }
+
+                // Create a basic QR code
+                $qrCode = new QrCode($sUrl);
+                $qrCode->setSize(110);
+                $qrCode->setMargin(10);
+
+                // Set advanced options
+                $qrCode->setWriterByName('png');
+                $qrCode->setEncoding('UTF-8');
+                $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH());
+                $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
+                $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
+                $qrCode->setRoundBlockSize(true);
+                $qrCode->setValidateResult(false);
+                $qrCode->setWriterOptions(['exclude_xml_declaration' => true]);
+
+                // Save it to a file
+                $qrCode->writeFile($cache_file);
+            }
+            $smarty->assign('qrcode', $filename);
+        }
+    }
+    // End AR
+
 
     // assign Smarty variables;
     $smarty->assign(
         array(
-			'breadcrumb' => $oBreadcrumb->trail(),
-			'canonical'		=> $sCanonical
-		)
-	);
+            'breadcrumb' => $oBreadcrumb->trail(),
+            'canonical'		=> $sCanonical
+        )
+    );
 
     if (!isset($block_get_parameters)) {
-		$block_get_parameters = oos_get_all_get_parameters(array('action'));
-		$block_get_parameters = oos_remove_trailing($block_get_parameters);
-		$smarty->assign('get_params', $block_get_parameters);
+        $block_get_parameters = oos_get_all_get_parameters(array('action'));
+        $block_get_parameters = oos_remove_trailing($block_get_parameters);
+        $smarty->assign('get_params', $block_get_parameters);
     }
 
-	$today = date("Y-m-d H:i:s");
-	$smarty->assign('today', $today);
+    $today = date("Y-m-d H:i:s");
+    $smarty->assign('today', $today);
 
     $smarty->assign('product_info', $product_info);
-	$smarty->assign('heading_title', $product_info['products_name']);
+    $smarty->assign('heading_title', $product_info['products_name']);
     $smarty->assign('options', $options);
 
     $smarty->assign('redirect', oos_href_link($aContents['redirect'], 'action=url&amp;goto=' . urlencode($product_info['products_url']), false, false));
 
-	
-	$notifications_block = false;
-	if ($oEvent->installed_plugin('notify')) {
-		$notifications_block = true;
 
-		if (isset($_SESSION['customer_id'])) {
-			$products_notificationstable = $oostable['products_notifications'];
-			$query = "SELECT COUNT(*) AS total
+    $notifications_block = false;
+    if ($oEvent->installed_plugin('notify')) {
+        $notifications_block = true;
+
+        if (isset($_SESSION['customer_id'])) {
+            $products_notificationstable = $oostable['products_notifications'];
+            $query = "SELECT COUNT(*) AS total
                 FROM $products_notificationstable
                 WHERE products_id = '" . intval($nProductsID) . "'
                   AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
-			$check = $dbconn->Execute($query);
-			$notification_exists = (($check->fields['total'] > 0) ? true : false);
-		} else {
-			$notification_exists = false;
-		}
-		$smarty->assign('notification_exists', $notification_exists);
-	}
-	$smarty->assign('notifications_block', $notifications_block);	
-	
-	
-	if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-		$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
-	}
+            $check = $dbconn->Execute($query);
+            $notification_exists = (($check->fields['total'] > 0) ? true : false);
+        } else {
+            $notification_exists = false;
+        }
+        $smarty->assign('notification_exists', $notification_exists);
+    }
+    $smarty->assign('notifications_block', $notifications_block);
 
-	if (!$smarty->isCached($aTemplate['slavery_products'], $sProductsInfoCacheID)) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
-	}
-	$smarty->assign('slavery_products', $smarty->fetch($aTemplate['slavery_products'], $sProductsInfoCacheID));
 
-	
-	// also purchased products
-	if (!$smarty->isCached($aTemplate['also_purchased_products'], $sProductsInfoCacheID)) {
-		require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
-		$smarty->assign('also_purchased', $aPurchased);
-	}
-	$smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $sProductsInfoCacheID));
+    if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
+        $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+    }
+
+    if (!$smarty->isCached($aTemplate['slavery_products'], $sProductsInfoCacheID)) {
+        require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
+    }
+    $smarty->assign('slavery_products', $smarty->fetch($aTemplate['slavery_products'], $sProductsInfoCacheID));
+
+
+    // also purchased products
+    if (!$smarty->isCached($aTemplate['also_purchased_products'], $sProductsInfoCacheID)) {
+        require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
+        $smarty->assign('also_purchased', $aPurchased);
+    }
+    $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $sProductsInfoCacheID));
 
     $smarty->setCaching(false);
 }

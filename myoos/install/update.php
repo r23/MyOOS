@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: update.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
@@ -64,8 +64,8 @@ if (is_readable('../includes/local/configure.php')) {
 }
 
 
-if(!defined('MYOOS_INCLUDE_PATH')) {
-	define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
+if (!defined('MYOOS_INCLUDE_PATH')) {
+    define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
 }
 
 $autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
@@ -87,17 +87,17 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 
   // Decode encoded DB parameters
   if (OOS_ENCODED == '1') {
-    $dbuname = base64_decode(OOS_DB_USERNAME);
-    $dbpass = base64_decode(OOS_DB_PASSWORD);
+      $dbuname = base64_decode(OOS_DB_USERNAME);
+      $dbpass = base64_decode(OOS_DB_PASSWORD);
   } else {
-    $dbuname = OOS_DB_USERNAME;
-    $dbpass = OOS_DB_PASSWORD;
+      $dbuname = OOS_DB_USERNAME;
+      $dbpass = OOS_DB_PASSWORD;
   }
 
   if (isset($_POST)) {
-    foreach ($_POST as $k=>$v) {
-      $$k = oos_prepare_input($v);
-    }
+      foreach ($_POST as $k=>$v) {
+          $$k = oos_prepare_input($v);
+      }
   }
 
   installer_get_language();
@@ -190,14 +190,14 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
 
     default:
 
-		$smarty = new myOOS_Smarty();
+        $smarty = new myOOS_Smarty();
 
-		$smarty->force_compile   = TRUE;
-		$smarty->clearAllCache();
-		$smarty->clearCompiledTemplate();
+        $smarty->force_compile   = true;
+        $smarty->clearAllCache();
+        $smarty->clearCompiledTemplate();
 
-		print_SelectOOS();
-		break;
+        print_SelectOOS();
+        break;
   }
 
 require 'footer.php';

@@ -74,4 +74,3 @@ $aLang['module_shipping_dp_text_way'] = 'Versand nach';
 $aLang['module_shipping_dp_text_units'] = 'kg';
 $aLang['module_shipping_dp_invalid_zone'] = 'Es ist leider kein Versand in dieses Land möglich';
 $aLang['module_shipping_dp_undefined_rate'] = 'Die Versandkosten können im Moment nicht errechnet werden';
-

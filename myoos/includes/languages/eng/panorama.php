@@ -22,4 +22,3 @@ $aLang['text_webgl_error'] = 'Due to iOS 8\'s broken WebGL implementation, only 
 $aLang['text_generic_webgl_error'] = 'Your browser does not have the necessary WebGL support to display this panorama.';
 $aLang['text_texture_size_error'] = 'This panorama is too big for your device! It\'s %spx wide, but your device only supports images up to %spx wide. Try another device. (If you\'re the author, try scaling down the image.)';
 $aLang['text_unknown_error'] = 'Unknown error. Check developer console.';
-

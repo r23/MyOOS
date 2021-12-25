@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -52,4 +52,3 @@ $aLang['text_no'] = 'No, I do not want to return an old device free of charge wh
 $aLang['table_heading_download_date'] = 'Link expires: ';
 $aLang['table_heading_download_count'] = ' downloads remain.';
 $aLang['heading_download'] = 'Download links';
-

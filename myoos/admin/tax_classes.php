@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: tax_classes.php,v 1.19 2002/03/17 18:04:54 harley_vb 
+   File: tax_classes.php,v 1.19 2002/03/17 18:04:54 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -21,15 +21,15 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
     switch ($action) {
       case 'insert':
-		$tax_class_title = oos_db_prepare_input($_POST['tax_class_title']);
+        $tax_class_title = oos_db_prepare_input($_POST['tax_class_title']);
         $tax_class_description = oos_db_prepare_input($_POST['tax_class_description']);
-	  
+
         $tax_classtable = $oostable['tax_class'];
         $dbconn->Execute("INSERT INTO $tax_classtable (tax_class_title, tax_class_description, date_added) VALUES ('" . oos_db_input($tax_class_title) . "', '" . oos_db_input($tax_class_description) . "', now())");
         oos_redirect_admin(oos_href_link_admin($aContents['tax_classes']));
@@ -53,8 +53,8 @@ if (!empty($action)) {
         oos_redirect_admin(oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage));
         break;
     }
-  }
-  require 'includes/header.php'; 
+}
+  require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -119,18 +119,21 @@ if (!empty($action)) {
   $classes_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $classes_result_raw, $classes_result_numrows);
   $classes_result = $dbconn->Execute($classes_result_raw);
   while ($classes = $classes_result->fields) {
-    if ((!isset($_GET['tID']) || (isset($_GET['tID']) && ($_GET['tID'] == $classes['tax_class_id']))) && !isset($tcInfo) && (substr($action, 0, 3) != 'new')) {
-      $tcInfo = new objectInfo($classes);
-    }
+      if ((!isset($_GET['tID']) || (isset($_GET['tID']) && ($_GET['tID'] == $classes['tax_class_id']))) && !isset($tcInfo) && (substr($action, 0, 3) != 'new')) {
+          $tcInfo = new objectInfo($classes);
+      }
 
-    if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id) ) {
-      echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit') . '\'">' . "\n";
-    } else {
-      echo'              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id']) . '\'">' . "\n";
-    }
-?>
+      if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id)) {
+          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit') . '\'">' . "\n";
+      } else {
+          echo'              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id']) . '\'">' . "\n";
+      } ?>
                 <td><?php echo $classes['tax_class_title']; ?></td>
-                <td class="text-right"><?php if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id)) {
+          echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+      } else {
+          echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+      } ?>&nbsp;</td>
               </tr>
 <?php
     // Move that ADOdb pointer!
@@ -147,7 +150,7 @@ if (!empty($action)) {
                   </tr>
 <?php
   if (empty($action)) {
-?>
+      ?>
                   <tr>
                     <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAX_CLASS) . '</a>'; ?></td>
                   </tr>
@@ -165,7 +168,7 @@ if (!empty($action)) {
     case 'new':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_TAX_CLASS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'classes', $aContents['tax_classes'], 'page=' . $nPage . '&action=insert', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'classes', $aContents['tax_classes'], 'page=' . $nPage . '&action=insert', 'post', false));
       $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
       $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_TITLE . '<br>' . oos_draw_input_field('tax_class_title'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_DESCRIPTION . '<br>' . oos_draw_input_field('tax_class_description'));
@@ -175,7 +178,7 @@ if (!empty($action)) {
     case 'edit':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_TAX_CLASS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'classes', $aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=save', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'classes', $aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=save', 'post', false));
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_TITLE . '<br>' . oos_draw_input_field('tax_class_title', $tcInfo->tax_class_title));
       $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_DESCRIPTION . '<br>' . oos_draw_input_field('tax_class_description', $tcInfo->tax_class_description));
@@ -185,7 +188,7 @@ if (!empty($action)) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_TAX_CLASS . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'classes', $aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=deleteconfirm', 'post',  FALSE));
+      $contents = array('form' => oos_draw_form('id', 'classes', $aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=deleteconfirm', 'post', false));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br><b>' . $tcInfo->tax_class_title . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
@@ -193,28 +196,27 @@ if (!empty($action)) {
 
     default:
       if (isset($tcInfo) && is_object($tcInfo)) {
-        $heading[] = array('text' => '<b>' . $tcInfo->tax_class_title . '</b>');
+          $heading[] = array('text' => '<b>' . $tcInfo->tax_class_title . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($tcInfo->date_added));
-        $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($tcInfo->last_modified));
-        $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_DESCRIPTION . '<br>' . $tcInfo->tax_class_description);
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($tcInfo->date_added));
+          $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($tcInfo->last_modified));
+          $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_DESCRIPTION . '<br>' . $tcInfo->tax_class_description);
       }
       break;
   }
-  
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+
+    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+        ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
+        $box = new box();
+        echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-  }
+    }
 ?>
           </tr>
         </table>
@@ -234,7 +236,7 @@ if (!empty($action)) {
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

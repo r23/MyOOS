@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: stats_low_stock.php,v 1.10 2002/04/12 23:13:45 Mounir Ayari  
+   File: stats_low_stock.php,v 1.10 2002/04/12 23:13:45 Mounir Ayari
    ----------------------------------------------------------------------
    The Exchange Project - Community Made Shopping!
    http://www.theexchangeproject.org
@@ -31,4 +31,3 @@ define('HEADING_TITLE', 'Unterschrittene Mindestmengen');
 define('TABLE_HEADING_NUMBER', 'Nr.');
 define('TABLE_HEADING_PRODUCTS', 'Produkt Name');
 define('TABLE_HEADING_QTY_LEFT', 'Anzahl');
-

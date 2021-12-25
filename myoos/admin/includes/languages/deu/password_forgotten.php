@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -25,4 +25,3 @@ define('ADMIN_PASSWORD_EMAIL_TEXT', '&Uumlber die Adresse ' . oos_server_get_var
 
 define('HEADING_PASSWORD_FORGOTTEN', 'Passwort vergessen');
 define('TEXT_PASSWORD_INFO', 'Bitte geben Sie Ihren Vornamen und Ihre E-Mail Adresse ein und klicken Sie auf Passwort senden. <br>In Kürze erhalten Sie ein neues Passwort. Verwenden Sie dieses Passwort, um sich anzumelden.');
-

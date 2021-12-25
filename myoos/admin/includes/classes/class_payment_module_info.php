@@ -18,32 +18,32 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-class paymentModuleInfo {
-    var $payment_code;
-    var $keys;
+class paymentModuleInfo
+{
+    public $payment_code;
+    public $keys;
 
-// class constructor
-	public function __construct($pmInfo_array) {
+    // class constructor
+    public function __construct($pmInfo_array)
+    {
+        $this->payment_code = $pmInfo_array['payment_code'];
 
-		$this->payment_code = $pmInfo_array['payment_code'];
+        // Get database information
+        $dbconn =& oosDBGetConn();
+        $oostable =& oosDBGetTables();
 
-		// Get database information
-		$dbconn =& oosDBGetConn();
-		$oostable =& oosDBGetTables();
-
-		for ($i = 0, $n = count($pmInfo_array) - 1; $i < $n; $i++) {
-
-			$query = "SELECT configuration_value 
+        for ($i = 0, $n = count($pmInfo_array) - 1; $i < $n; $i++) {
+            $query = "SELECT configuration_value 
                   FROM " . $oostable['configuration'] . " 
                   WHERE configuration_key = '" . oos_db_input($pmInfo_array[$i]) . "'";
-			$result = $dbconn->Execute($query);
-			$key_value = $result->fields;
+            $result = $dbconn->Execute($query);
+            $key_value = $result->fields;
 
-			$this->keys[$pmInfo_array[$i]]['title'] = constant(strtoupper($pmInfo_array[$i] . '_TITLE'));
-			$this->keys[$pmInfo_array[$i]]['value'] = $key_value['configuration_value'];
-			$this->keys[$pmInfo_array[$i]]['description'] = constant(strtoupper($pmInfo_array[$i] . '_DESC'));
-		}
+            $this->keys[$pmInfo_array[$i]]['title'] = constant(strtoupper($pmInfo_array[$i] . '_TITLE'));
+            $this->keys[$pmInfo_array[$i]]['value'] = $key_value['configuration_value'];
+            $this->keys[$pmInfo_array[$i]]['description'] = constant(strtoupper($pmInfo_array[$i] . '_DESC'));
+        }
     }
 }

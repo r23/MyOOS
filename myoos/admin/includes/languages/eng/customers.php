@@ -74,9 +74,7 @@ define('EMAIL_PASSWORD_BODY', 'Your password to \'' . STORE_NAME . '\' is:' . "\
 define('EMAIL_GV_INCENTIVE_HEADER', 'As part of our welcome to new customers, we have sent you an e-Gift Voucher worth %s');
 define('EMAIL_GV_REDEEM', 'The redeem code for is %s, you can enter the redeem code when checking out, after making a purchase');
 define('EMAIL_GV_LINK', 'or by following this link ');
-define('EMAIL_COUPON_INCENTIVE_HEADER', 'Congratulation, to make your first visit to our online shop a more rewarding experience' . "\n" . 
+define('EMAIL_COUPON_INCENTIVE_HEADER', 'Congratulation, to make your first visit to our online shop a more rewarding experience' . "\n" .
                                         '  below are details of a Discount Coupon created just for you' . "\n\n");
-define('EMAIL_COUPON_REDEEM', 'To use the coupon enter the redeem code which is %s during checkout, ' . "\n" . 
+define('EMAIL_COUPON_REDEEM', 'To use the coupon enter the redeem code which is %s during checkout, ' . "\n" .
                                'after making a purchase');
-
-

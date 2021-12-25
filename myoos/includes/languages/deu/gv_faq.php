@@ -80,5 +80,3 @@ $aLang['text_information'] = '
   möglich mit an! Vielen Dank!</p>
 
 ';
-
-

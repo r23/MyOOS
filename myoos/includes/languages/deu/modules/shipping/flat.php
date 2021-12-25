@@ -34,4 +34,3 @@ define('MODULE_SHIPPING_FLAT_SORT_ORDER_DESC', 'Reihenfolge der Anzeige');
 $aLang['module_shipping_flat_text_title'] = 'Pauschale Versandkosten';
 $aLang['module_shipping_flat_text_description'] = 'Pauschale Versandkosten';
 $aLang['module_shipping_flat_text_way'] = 'Versandkosten';
-

@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -23,4 +23,3 @@
 $aLang['navbar_title'] = 'Reviews';
 $aLang['heading_title'] = 'Read What Others Are Saying';
 $aLang['text_of_5_stars'] = '%s of 5 Stars!';
-

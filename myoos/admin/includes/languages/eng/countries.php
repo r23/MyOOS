@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -37,4 +37,3 @@ define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this billing c
 define('TEXT_INFO_HEADING_NEW_COUNTRY', 'New Billing Country');
 define('TEXT_INFO_HEADING_EDIT_COUNTRY', 'Edit Billing Country');
 define('TEXT_INFO_HEADING_DELETE_COUNTRY', 'Delete Billing Country');
-

@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: popup_coupon_help.php,v 1.1.2.4 2003/05/01 22:04:29 wilt 
+   File: popup_coupon_help.php,v 1.1.2.4 2003/05/01 22:04:29 wilt
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -32,4 +32,3 @@ $aLang['text_coupon_help_date'] = '<br /><br />The coupon is valid between %s an
 $aLang['text_coupon_help_restrict'] = '<br /><br />Product/Category Restrictions';
 $aLang['text_coupon_help_categories'] = 'Category';
 $aLang['text_coupon_help_products'] = 'Product';
-

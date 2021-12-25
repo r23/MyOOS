@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: orders_status.php,v 1.5 2002/01/29 14:43:00 hpdl 
+   File: orders_status.php,v 1.5 2002/01/29 14:43:00 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -34,4 +34,3 @@ define('TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS', 'Delete packing unit');
 
 define('ERROR_REMOVE_DEFAULT_ORDER_STATUS', 'Error: The default packing unit can not be removed. Please set another packing unit as default, and try again.');
 define('ERROR_STATUS_USED_IN_PRODUCTS', 'Error: This packing unit is currently used in products.');
-

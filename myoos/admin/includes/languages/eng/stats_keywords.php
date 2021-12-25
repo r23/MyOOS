@@ -4,15 +4,15 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
    File: stats_keywords.php
    ----------------------------------------------------------------------
-   by Cheng	
+   by Cheng
 
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -21,7 +21,7 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
-   
+
 define('HEADING_TITLE', 'Search Keyword: Statistics & Replacements');
 define('WORD_ENTRY_ORIGINAL', 'Original word/phrase:');
 define('WORD_ENTRY_REPLACEMENT', 'Replacement word/phrase:');
@@ -43,4 +43,3 @@ define('BUTTON_ADD_WORD', 'Add word/phrase to table');
 
 define('LINK_EDIT', 'Edit');
 define('LINK_DELETE', 'Delete');
-

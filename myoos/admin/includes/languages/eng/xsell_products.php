@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -13,9 +13,9 @@
    File:  xsell_products.php, v1  2002/09/11
    ----------------------------------------------------------------------
    Cross-Sell
-   
+
    Contribution based on:
-   
+
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
 
@@ -43,5 +43,3 @@ define('TEXT_MODEL', 'Model');
 define('TABLE_HEADING_PRODUCT_SORT', 'Sort Order');
 define('TEXT_IMAGE_NONEXISTENT', 'No Image');
 define('TEXT_CROSS_SELL', 'Cross-Sell');
-
-

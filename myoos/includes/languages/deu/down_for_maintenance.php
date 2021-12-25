@@ -4,12 +4,12 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
-   
+
    WebMakers.com Added: Down for Maintenance No Store
    Written by Linda McGrath osCOMMERCE@WebMakers.com
    http://www.thewebmakerscorner.com
@@ -28,4 +28,3 @@ $aLang['text_information'] = '
   Sie uns bitte in 1-2 Stunden wieder.
   <br /><br />
 ';
-

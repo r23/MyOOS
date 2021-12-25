@@ -21,4 +21,3 @@ define('MAX_RANDOM_SELECT_REVIEWS_DESC', 'How many records to select from to cho
 
 define('REVIEW_TEXT_MIN_LENGTH_TITLE', 'Review Text');
 define('REVIEW_TEXT_MIN_LENGTH_DESC', 'Minimum length of review text');
-

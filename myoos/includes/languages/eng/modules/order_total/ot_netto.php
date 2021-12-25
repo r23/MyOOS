@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
-  
-   File: ot_netto.php,v 1.0.0.0 2004/03/07 19:30:00 Stephan Hilchenbach 
+
+   File: ot_netto.php,v 1.0.0.0 2004/03/07 19:30:00 Stephan Hilchenbach
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -29,4 +29,3 @@ define('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER_DESC', 'Sort order of display.');
 
 $aLang['module_order_total_netto_title'] = 'net';
 $aLang['module_order_total_netto_description'] = 'net amount';
-

@@ -37,4 +37,3 @@ $aLang['table_heading_comments'] = 'Add Comments About Your Order';
 
 $aLang['title_continue_checkout_procedure'] = 'Continue Checkout Procedure';
 $aLang['text_continue_checkout_procedure'] = 'to select the preferred payment method.';
-

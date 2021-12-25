@@ -18,25 +18,25 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-$bActive = ($_SESSION['selected_box'] == 'content' ) ? TRUE : FALSE;
+$bActive = ($_SESSION['selected_box'] == 'content') ? true : false;
 
 $aBlocks[] = array(
-	'heading' => BOX_HEADING_CONTENT,
-	'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=content'),
-	'icon' => 'fas fa-object-ungroup',
-	'active' => $bActive,
-	'contents' => array(
-		array(
-			'code' => $aContents['content_block'],
-			'title' => BOX_CONTENT_BLOCK,
-			'link' => oos_admin_files_boxes('content_block', 'selected_box=content')
-		),
-		array(
-			'code' => $aContents['content_page_type'],
-			'title' => BOX_CONTENT_PAGE_TYPE,
-			'link' => oos_admin_files_boxes('content_page_type', 'selected_box=content')
-		),	
-	),
+    'heading' => BOX_HEADING_CONTENT,
+    'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=content'),
+    'icon' => 'fas fa-object-ungroup',
+    'active' => $bActive,
+    'contents' => array(
+        array(
+            'code' => $aContents['content_block'],
+            'title' => BOX_CONTENT_BLOCK,
+            'link' => oos_admin_files_boxes('content_block', 'selected_box=content')
+        ),
+        array(
+            'code' => $aContents['content_page_type'],
+            'title' => BOX_CONTENT_PAGE_TYPE,
+            'link' => oos_admin_files_boxes('content_page_type', 'selected_box=content')
+        ),
+    ),
 );

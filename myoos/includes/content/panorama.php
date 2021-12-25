@@ -10,13 +10,15 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
 if (isset($_GET['panorama_id'])) {
-	if (!isset($nPanoramaID)) $nPanoramaID = intval($_GET['panorama_id']);
+    if (!isset($nPanoramaID)) {
+        $nPanoramaID = intval($_GET['panorama_id']);
+    }
 } else {
-	oos_redirect(oos_href_link($aContents['home']));
+    oos_redirect(oos_href_link($aContents['home']));
 }
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/panorama.php';
@@ -37,51 +39,49 @@ $categories_panorama_sql = "SELECT c.panorama_id, c.categories_id, c.panorama_pr
 							WHERE c.panorama_id = '" . intval($nPanoramaID) . "'
 							AND	cd.panorama_id = c.panorama_id
 							AND	s.panorama_id = c.panorama_id
-							AND cd.panorama_languages_id = '" . intval($nLanguageID) . "'";		
+							AND cd.panorama_languages_id = '" . intval($nLanguageID) . "'";
 $categories_panorama_result = $dbconn->Execute($categories_panorama_sql);
 if (!$categories_panorama_result->RecordCount()) {
-	// product not found
-	header('HTTP/1.0 404 Not Found');
+    // product not found
+    header('HTTP/1.0 404 Not Found');
     $aLang['text_information'] = $aLang['text_model_not_found'];
 
     $aTemplate['page'] = $sTheme . '/webgl/model_not_found.html';
 
     $nPageType = OOS_PAGE_TYPE_MAINPAGE;
-	$sPagetitle = '404 Not Found ' . OOS_META_TITLE;
+    $sPagetitle = '404 Not Found ' . OOS_META_TITLE;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
-	
-	
+
+
     $smarty->assign(
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['text_model_not_found'],
-			'robots'		=> 'noindex,follow,noodp,noydir',
-			'canonical'		=> $sCanonical	
+            'robots'		=> 'noindex,follow,noodp,noydir',
+            'canonical'		=> $sCanonical
         )
     );
-
 } else {
-
     $categories_panorama_descriptiontable = $oostable['categories_panorama_description'];
     $query = "UPDATE $categories_panorama_descriptiontable"
         . " SET panorama_viewed = panorama_viewed+1"
         . " WHERE panorama_id = ?"
         . "   AND panorama_languages_id = ?";
     $result = $dbconn->Execute($query, array((int)$nPanoramaID, (int)$nLanguageID));
-	
-    $panorama_info = $categories_panorama_result->fields;	
+
+    $panorama_info = $categories_panorama_result->fields;
 
 
 
-	$html = "\n";
-	$html .= '"hotSpots": [' . "\n";
-	
-	$categories_panorama_scene_hotspot = $oostable['categories_panorama_scene_hotspot'];
-	$categories_panorama_scene_hotspot_texttable = $oostable['categories_panorama_scene_hotspot_text'];
-	$query = "SELECT h.hotspot_id, h.scene_id, h.hotspot_pitch, h.hotspot_yaw, h.hotspot_type,
+    $html = "\n";
+    $html .= '"hotSpots": [' . "\n";
+
+    $categories_panorama_scene_hotspot = $oostable['categories_panorama_scene_hotspot'];
+    $categories_panorama_scene_hotspot_texttable = $oostable['categories_panorama_scene_hotspot_text'];
+    $query = "SELECT h.hotspot_id, h.scene_id, h.hotspot_pitch, h.hotspot_yaw, h.hotspot_type,
                  h.hotspot_icon_class, h.products_id, h.categories_id, h.hotspot_url, 
 				 ht.hotspot_text
           FROM $categories_panorama_scene_hotspot h,
@@ -89,43 +89,46 @@ if (!$categories_panorama_result->RecordCount()) {
           WHERE h.scene_id = '" . intval($panorama_info['scene_id']) . "'
 			AND h.panorama_id = '" . intval($nPanoramaID) . "'
             AND h.hotspot_id = ht.hotspot_id
-            AND ht.hotspot_languages_id = '" . intval($nLanguageID) . "'";			
-	$hotspot_result = $dbconn->Execute($query);	
-	while ($hotspot = $hotspot_result->fields) {
-		
-		if (($hotspot['hotspot_pitch'] != 0) || ($hotspot['hotspot_yaw'] != 0)) {
-					$html .= '       {' . "\n";
-			$html .= '            "pitch": ' . $hotspot['hotspot_pitch'] . ',' . "\n";
-			$html .= '            "yaw": ' . $hotspot['hotspot_yaw'] . ',' . "\n";
-			$html .= '            "type": "' . $hotspot['hotspot_type'] . '",' . "\n";
-			if (!empty($hotspot['hotspot_text'])) $html .= '            "text": "' . $hotspot['hotspot_text'] . '",' . "\n";
-			if (!empty($hotspot['products_id'])) $html .= '            "URL":  "' .  oos_href_link($aContents['product_info'], 'products_id=' . $hotspot['products_id']) . '",' . "\n";
-			$html .= '        },' . "\n";
-		}
+            AND ht.hotspot_languages_id = '" . intval($nLanguageID) . "'";
+    $hotspot_result = $dbconn->Execute($query);
+    while ($hotspot = $hotspot_result->fields) {
+        if (($hotspot['hotspot_pitch'] != 0) || ($hotspot['hotspot_yaw'] != 0)) {
+            $html .= '       {' . "\n";
+            $html .= '            "pitch": ' . $hotspot['hotspot_pitch'] . ',' . "\n";
+            $html .= '            "yaw": ' . $hotspot['hotspot_yaw'] . ',' . "\n";
+            $html .= '            "type": "' . $hotspot['hotspot_type'] . '",' . "\n";
+            if (!empty($hotspot['hotspot_text'])) {
+                $html .= '            "text": "' . $hotspot['hotspot_text'] . '",' . "\n";
+            }
+            if (!empty($hotspot['products_id'])) {
+                $html .= '            "URL":  "' .  oos_href_link($aContents['product_info'], 'products_id=' . $hotspot['products_id']) . '",' . "\n";
+            }
+            $html .= '        },' . "\n";
+        }
 
-		// Move that ADOdb pointer!
-		$hotspot_result->MoveNext();
-	}
-	$html .= '],' . "\n";
+        // Move that ADOdb pointer!
+        $hotspot_result->MoveNext();
+    }
+    $html .= '],' . "\n";
 
-	ob_start();
-	require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/panorama.js.php';
-	$panorama = ob_get_contents();
-	ob_end_clean();		
-		
+    ob_start();
+    require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/panorama.js.php';
+    $panorama = ob_get_contents();
+    ob_end_clean();
+
 
     // Meta Tags
     $sPagetitle = $panorama_info['panorama_title'] . ' ' . OOS_META_TITLE;
-	$sDescription = $panorama_info['panorama_description_meta'];
+    $sDescription = $panorama_info['panorama_description_meta'];
 
-	$aTemplate['page'] = $sTheme . '/panorama/pannellum.html';
-	
+    $aTemplate['page'] = $sTheme . '/panorama/pannellum.html';
+
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
     require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
-	$smarty->assign('canonical', $sCanonical);
-	$smarty->assign('panorama', $panorama);
+    $smarty->assign('canonical', $sCanonical);
+    $smarty->assign('panorama', $panorama);
 
     $smarty->setCaching(false);
 }

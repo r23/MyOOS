@@ -10,16 +10,19 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
-function oos_get_informations_name($informations_id, $language_id = '') {
+function oos_get_informations_name($informations_id, $language_id = '')
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     $information_descriptiontable = $oostable['information_description'];
     $query = "SELECT information_name
@@ -36,9 +39,11 @@ function oos_get_informations_name($informations_id, $language_id = '') {
 
 
 
-function oos_get_informations_description($informations_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_informations_description($informations_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -57,9 +62,11 @@ function oos_get_informations_description($informations_id, $language_id = '') {
 }
 
 
-function oos_get_informations_heading_title($informations_id, $language_id = '') {
-
-    if (empty($language_id) || !is_numeric($language_id)) $language_id = intval($_SESSION['language_id']);
+function oos_get_informations_heading_title($informations_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
 
     // Get database information
     $dbconn =& oosDBGetConn();
@@ -76,4 +83,3 @@ function oos_get_informations_heading_title($informations_id, $language_id = '')
 
     return  $information_heading_title;
 }
-

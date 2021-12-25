@@ -21,4 +21,3 @@ define('MAX_DISPLAY_NEW_REVIEWS_DESC', 'H&ouml;chstanzahl der neuen anzuzeigende
 
 define('MAX_RANDOM_SELECT_REVIEWS_TITLE', 'Zuf&auml;llige Produktbewertungen');
 define('MAX_RANDOM_SELECT_REVIEWS_DESC', 'Die Menge der Produktbewertungen, aus denen per Zufall eine Produktbewertungen angezeigt wird');
-

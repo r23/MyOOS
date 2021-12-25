@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: invoice.php,v 1.1 2002/06/11 18:17:59 dgw_ 
+   File: invoice.php,v 1.1 2002/06/11 18:17:59 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -40,4 +40,3 @@ define('ENTRY_SUB_TOTAL', 'Sub-Total:');
 define('ENTRY_TAX', 'Tax:');
 define('ENTRY_SHIPPING', 'Shipping:');
 define('ENTRY_TOTAL', 'Total:');
-

@@ -19,13 +19,13 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('spezials')) {
     oos_redirect(oos_href_link($aContents['home']));
 }
 
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php'; 
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/products_specials.php';
 
 $aTemplate['page'] = $sTheme . '/page/specials.html';
@@ -35,7 +35,7 @@ $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 $sGroup = trim($aUser['text']);
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
 
 $sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, false, true);
@@ -43,16 +43,16 @@ $sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, false, true
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
-if ( (USE_CACHE == 'true') && (!isset($_SESSION)) ) {
-	$smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
+if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
+    $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
-	$productstable = $oostable['products'];
+    $productstable = $oostable['products'];
     $specialstable = $oostable['specials'];
     $products_descriptiontable = $oostable['products_description'];
     $specials_result_raw = "SELECT p.products_id, pd.products_name,  pd.products_short_description, p.products_image, p.products_price,
@@ -67,23 +67,23 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                              AND pd.products_languages_id = '" . intval($nLanguageID) . "'
                              AND s.status = '1'
                            ORDER BY s.specials_date_added DESC";
-	$specials_split = new splitPageResults($specials_result_raw, MAX_DISPLAY_SPECIAL_PRODUCTS);
-	$specials_result = $dbconn->Execute($specials_split->sql_query);
-	
-	$aSpecials = array();
-	while ($specials = $specials_result->fields) {
-		$specials_base_product_price = '';
-		$specials_base_product_special_price = '';
+    $specials_split = new splitPageResults($specials_result_raw, MAX_DISPLAY_SPECIAL_PRODUCTS);
+    $specials_result = $dbconn->Execute($specials_split->sql_query);
 
-		$specials_product_price = $oCurrencies->display_price($specials['products_price'], oos_get_tax_rate($specials['products_tax_class_id']));
-		$specials_product_special_price = $oCurrencies->display_price($specials['specials_new_products_price'], oos_get_tax_rate($specials['products_tax_class_id']));
+    $aSpecials = array();
+    while ($specials = $specials_result->fields) {
+        $specials_base_product_price = '';
+        $specials_base_product_special_price = '';
 
-		if ($specials['products_base_price'] != 1) {
-			$specials_base_product_price = $oCurrencies->display_price($specials['products_price'] * $specials['products_base_price'], oos_get_tax_rate($specials['products_tax_class_id']));
-			$specials_base_product_special_price = $oCurrencies->display_price($specials['specials_new_products_price'] * $specials['products_base_price'], oos_get_tax_rate($specials['products_tax_class_id']));
-		}
+        $specials_product_price = $oCurrencies->display_price($specials['products_price'], oos_get_tax_rate($specials['products_tax_class_id']));
+        $specials_product_special_price = $oCurrencies->display_price($specials['specials_new_products_price'], oos_get_tax_rate($specials['products_tax_class_id']));
 
-		$aSpecials[] = array(
+        if ($specials['products_base_price'] != 1) {
+            $specials_base_product_price = $oCurrencies->display_price($specials['products_price'] * $specials['products_base_price'], oos_get_tax_rate($specials['products_tax_class_id']));
+            $specials_base_product_special_price = $oCurrencies->display_price($specials['specials_new_products_price'] * $specials['products_base_price'], oos_get_tax_rate($specials['products_tax_class_id']));
+        }
+
+        $aSpecials[] = array(
                          'products_id'                => $specials['products_id'],
                          'products_image'             => $specials['products_image'],
                          'products_name'              => $specials['products_name'],
@@ -95,32 +95,32 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                          'base_product_price'         => $specials_base_product_price,
                          'base_product_special_price' => $specials_base_product_special_price
                      );
-		$specials_result->MoveNext();
-	}
+        $specials_result->MoveNext();
+    }
 
     // links breadcrumb
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['specials']));
-	
+
     // assign Smarty variables;
     $smarty->assign(
         array(
             'breadcrumb'		=> $oBreadcrumb->trail(),
             'heading_title'		=> $aLang['heading_title'],
-			'canonical'			=> $sCanonical,
+            'canonical'			=> $sCanonical,
 
             'page_split'		=> $specials_split->display_count($aLang['text_display_number_of_specials']),
             'display_links'		=> $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-			'numrows' 			=> $specials_split->number_of_rows,
-			'numpages' 			=> $specials_split->number_of_pages,
-			
-			'page'				=> $nPage,
+            'numrows' 			=> $specials_split->number_of_rows,
+            'numpages' 			=> $specials_split->number_of_pages,
+
+            'page'				=> $nPage,
             'specials'			=> $aSpecials
         )
     );
 }
-  
+
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $nContentCacheID));
- 
+
 
 // display the template
 $smarty->display($aTemplate['page']);

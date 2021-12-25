@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_netto.php,v 1.0.0.0 2004/03/07 19:30:00 Stephan Hilchenbach 
+   File: ot_netto.php,v 1.0.0.0 2004/03/07 19:30:00 Stephan Hilchenbach
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,99 +19,112 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  class ot_netto {
-    var $title, $output, $enabled = false;
+  class ot_netto
+  {
+      public $title;
+      public $output;
+      public $enabled = false;
 
-    public function __construct() {
-      global $aLang;
+      public function __construct()
+      {
+          global $aLang;
 
-      $this->code = 'ot_netto';
-      $this->title = $aLang['module_order_total_netto_title'];
-      $this->description = $aLang['module_order_total_netto_description'];
-      $this->enabled = (defined('MODULE_ORDER_TOTAL_NETTO_STATUS') && (MODULE_ORDER_TOTAL_NETTO_STATUS == 'true') ? true : false);
-      $this->sort_order = (defined('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER') ? MODULE_ORDER_TOTAL_NETTO_SORT_ORDER : null);
+          $this->code = 'ot_netto';
+          $this->title = $aLang['module_order_total_netto_title'];
+          $this->description = $aLang['module_order_total_netto_description'];
+          $this->enabled = (defined('MODULE_ORDER_TOTAL_NETTO_STATUS') && (MODULE_ORDER_TOTAL_NETTO_STATUS == 'true') ? true : false);
+          $this->sort_order = (defined('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER') ? MODULE_ORDER_TOTAL_NETTO_SORT_ORDER : null);
 
-      $this->output = array();
-    }
-
-    function process() {
-      global $oOrder, $oCurrencies, $aLang;
-
-      $tax_total = 0;
-
-      reset($oOrder->info['tax_groups']);
-      foreach($oOrder->info['tax_groups'] as $key => $value) {		  
-        // sum all tax values to calculate total tax:
-        if ($value > 0) $tax_total += $value;
+          $this->output = array();
       }
 
-      // subtract total tax from total invoice amount to calculate net amount:
-      $netto = $oOrder->info['total']-$tax_total;
+      public function process()
+      {
+          global $oOrder, $oCurrencies, $aLang;
 
-      // output net amount:
-      $this->output[] = array('title' => '(' . $this->title . ':',
+          $tax_total = 0;
+
+          reset($oOrder->info['tax_groups']);
+          foreach ($oOrder->info['tax_groups'] as $key => $value) {
+              // sum all tax values to calculate total tax:
+              if ($value > 0) {
+                  $tax_total += $value;
+              }
+          }
+
+          // subtract total tax from total invoice amount to calculate net amount:
+          $netto = $oOrder->info['total']-$tax_total;
+
+          // output net amount:
+          $this->output[] = array('title' => '(' . $this->title . ':',
                         'text' => $oCurrencies->format($netto, true, $oOrder->info['currency'], $oOrder->info['currency_value']) . ')',
-						'info' => '',
+                        'info' => '',
                         'value' => $netto);
-    }
-
-
-    function shopping_cart_process() {
-		global $oCurrencies, $aLang;
-
-		$tax_total = 0;
-
-		reset($_SESSION['cart']->info['tax_groups']);
-		foreach($_SESSION['cart']->info['tax_groups'] as $key => $value) {		  
-			// sum all tax values to calculate total tax:
-			if ($value > 0) $tax_total += $value;
-		}
-
-		// subtract total tax from total invoice amount to calculate net amount:
-		$netto = $_SESSION['cart']->info['total']-$tax_total;
-
-		// output net amount:
-		$currency = $_SESSION['currency'];
-		$currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
-		
-		$this->output[] = array('title' => '(' . $this->title . ':',
-								'text' => $oCurrencies->format($netto, true, $currency, $currency_value) . ')',
-								'info' => '',
-								'value' => $netto);
-    }
-
-
-    function check() {
-      if (!isset($this->_check)) {
-        $this->_check = defined('MODULE_ORDER_TOTAL_NETTO_STATUS');
       }
 
-      return $this->_check;
-    }
 
-    function keys() {
-      return array('MODULE_ORDER_TOTAL_NETTO_STATUS', 'MODULE_ORDER_TOTAL_NETTO_SORT_ORDER');
-    }
+      public function shopping_cart_process()
+      {
+          global $oCurrencies, $aLang;
 
-    function install() {
+          $tax_total = 0;
+
+          reset($_SESSION['cart']->info['tax_groups']);
+          foreach ($_SESSION['cart']->info['tax_groups'] as $key => $value) {
+              // sum all tax values to calculate total tax:
+              if ($value > 0) {
+                  $tax_total += $value;
+              }
+          }
+
+          // subtract total tax from total invoice amount to calculate net amount:
+          $netto = $_SESSION['cart']->info['total']-$tax_total;
+
+          // output net amount:
+          $currency = $_SESSION['currency'];
+          $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
+
+          $this->output[] = array('title' => '(' . $this->title . ':',
+                                'text' => $oCurrencies->format($netto, true, $currency, $currency_value) . ')',
+                                'info' => '',
+                                'value' => $netto);
+      }
+
+
+      public function check()
+      {
+          if (!isset($this->_check)) {
+              $this->_check = defined('MODULE_ORDER_TOTAL_NETTO_STATUS');
+          }
+
+          return $this->_check;
+      }
+
+      public function keys()
+      {
+          return array('MODULE_ORDER_TOTAL_NETTO_STATUS', 'MODULE_ORDER_TOTAL_NETTO_SORT_ORDER');
+      }
+
+      public function install()
+      {
 
       // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+          $dbconn =& oosDBGetConn();
+          $oostable =& oosDBGetTables();
 
-      $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_NETTO_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-      $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER', '10', '6', '10', now())");
-    }
+          $configurationtable = $oostable['configuration'];
+          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_NETTO_STATUS', 'true', '6', '1','oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_NETTO_SORT_ORDER', '10', '6', '10', now())");
+      }
 
-    function remove() {
+      public function remove()
+      {
 
       // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+          $dbconn =& oosDBGetConn();
+          $oostable =& oosDBGetTables();
 
-      $configurationtable = $oostable['configuration'];
-      $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
-    }
+          $configurationtable = $oostable['configuration'];
+          $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
+      }
   }
-

@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: cash.php,v 1.01 2003/02/19 01:53:00 harley_vb  
+   File: cash.php,v 1.01 2003/02/19 01:53:00 harley_vb
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -56,4 +56,3 @@ define('MODULE_PAYMENT_CASH_ORDER_STATUS_ID_DESC', 'Festlegung des Status fr Bes
 
 $aLang['module_payment_cash_text_description'] = 'Cash Payment';
 $aLang['module_payment_cash_text_title'] = 'Cash Payment';
-

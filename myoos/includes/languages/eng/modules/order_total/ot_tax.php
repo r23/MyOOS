@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: ot_tax.php,v 1.1 2002/04/03 23:09:49 hpdl 
+   File: ot_tax.php,v 1.1 2002/04/03 23:09:49 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -30,5 +30,4 @@ define('MODULE_ORDER_TOTAL_TAX_SORT_ORDER_DESC', 'Sort order of display.');
 $aLang['module_order_total_tax_title'] = 'Tax';
 $aLang['module_order_total_tax_description'] = 'Order Tax';
 $aLang['module_order_total_included_tax'] = 'inc ';
-$aLang['module_order_total_ex_tax'] = '+ ';  
-
+$aLang['module_order_total_ex_tax'] = '+ ';

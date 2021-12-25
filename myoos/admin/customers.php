@@ -8,19 +8,19 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: customers.php,v 1.74 2003/02/06 19:28:52 project3000 
+   File: customers.php,v 1.74 2003/02/06 19:28:52 project3000
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
 
    Copyright (c) 2003 osCommerce
 
-   Max Order - 2003/04/27 JOHNSON - Copyright (c) 2003 Matti Ressler - mattifinn@optusnet.com.au  
+   Max Order - 2003/04/27 JOHNSON - Copyright (c) 2003 Matti Ressler - mattifinn@optusnet.com.au
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
- 
+
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
@@ -32,45 +32,45 @@ $currencies = new currencies();
 
 $customers_statuses_array = oos_get_customers_statuses();
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
     switch ($action) {
        case 'setflag':
-        if ( ($_GET['loginflag'] == '0') || ($_GET['loginflag'] == '1') ) {
-          if (isset($_GET['cID'])) {
-            oos_set_customer_login($_GET['cID'], $_GET['loginflag']);
-            if (isset($_GET['loginflag']) && ($_GET['loginflag'] == '1')) {
-              $customerstable = $oostable['customers'];
-              $sql = "SELECT customers_firstname, customers_lastname, customers_gender, customers_email_address
+        if (($_GET['loginflag'] == '0') || ($_GET['loginflag'] == '1')) {
+            if (isset($_GET['cID'])) {
+                oos_set_customer_login($_GET['cID'], $_GET['loginflag']);
+                if (isset($_GET['loginflag']) && ($_GET['loginflag'] == '1')) {
+                    $customerstable = $oostable['customers'];
+                    $sql = "SELECT customers_firstname, customers_lastname, customers_gender, customers_email_address
                       FROM $customerstable
                       WHERE customers_id = '" . intval($_GET['cID']) . "'";
-               $check_customer = $dbconn->Execute($sql);
-               if ($check_customer->RecordCount()) {
-                 $check_customer_values = $check_customer->fields;
-                 // Crypted password mods - create a new password, update the database and mail it to them
-                 $newpass = oos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
-                 $crypted_password = oos_encrypt_password($newpass);
-                 $customerstable = $oostable['customers'];
-                 $dbconn->Execute("UPDATE $customerstable SET customers_password = '" . oos_db_input($crypted_password) . "' WHERE customers_id = '" . intval($_GET['cID']) . "'");
+                    $check_customer = $dbconn->Execute($sql);
+                    if ($check_customer->RecordCount()) {
+                        $check_customer_values = $check_customer->fields;
+                        // Crypted password mods - create a new password, update the database and mail it to them
+                        $newpass = oos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
+                        $crypted_password = oos_encrypt_password($newpass);
+                        $customerstable = $oostable['customers'];
+                        $dbconn->Execute("UPDATE $customerstable SET customers_password = '" . oos_db_input($crypted_password) . "' WHERE customers_id = '" . intval($_GET['cID']) . "'");
 
-                 $name = $check_customer_values['customers_firstname'] . " " . $check_customer_values['customers_lastname'];
-                 if (ACCOUNT_GENDER == 'true') {
-                   if ($check_customer_values['customers_gender'] == 'm') {
-                     $email_text = EMAIL_GREET_MR . $check_customer_values['customers_lastname'] . ',' . "\n\n";
-                   } else {
-                     $email_text = EMAIL_GREET_MS . $check_customer_values['customers_lastname'] . ',' . "\n\n";
-                   }
-                 } else {
-                   $email_text = EMAIL_GREET_NONE;
-                 }
-                 $email_text .= EMAIL_WELCOME;
-                 if (MODULE_ORDER_TOTAL_GV_STATUS == 'true') {
-                   if (NEW_SIGNUP_GIFT_VOUCHER_AMOUNT > 0) {
-                     $coupon_code = oos_create_coupon_code();
-                     $couponstable = $oostable['coupons'];
-                     $insert_result = $dbconn->Execute("INSERT INTO $couponstable
+                        $name = $check_customer_values['customers_firstname'] . " " . $check_customer_values['customers_lastname'];
+                        if (ACCOUNT_GENDER == 'true') {
+                            if ($check_customer_values['customers_gender'] == 'm') {
+                                $email_text = EMAIL_GREET_MR . $check_customer_values['customers_lastname'] . ',' . "\n\n";
+                            } else {
+                                $email_text = EMAIL_GREET_MS . $check_customer_values['customers_lastname'] . ',' . "\n\n";
+                            }
+                        } else {
+                            $email_text = EMAIL_GREET_NONE;
+                        }
+                        $email_text .= EMAIL_WELCOME;
+                        if (MODULE_ORDER_TOTAL_GV_STATUS == 'true') {
+                            if (NEW_SIGNUP_GIFT_VOUCHER_AMOUNT > 0) {
+                                $coupon_code = oos_create_coupon_code();
+                                $couponstable = $oostable['coupons'];
+                                $insert_result = $dbconn->Execute("INSERT INTO $couponstable
                                                    (coupon_code,
                                                     coupon_type,
                                                     coupon_amount,
@@ -78,10 +78,10 @@ if (!empty($action)) {
                                                                           'G',
                                                                           '" . NEW_SIGNUP_GIFT_VOUCHER_AMOUNT . "',
                                                                           now())");
-                     $insert_id = $dbconn->Insert_ID();
+                                $insert_id = $dbconn->Insert_ID();
 
-                     $coupon_email_tracktable = $oostable['coupon_email_track'];
-                     $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
+                                $coupon_email_tracktable = $oostable['coupon_email_track'];
+                                $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
                                                    (coupon_id,
                                                     customer_id_sent,
                                                     sent_firstname,
@@ -90,33 +90,33 @@ if (!empty($action)) {
                                                                        '0', 
                                                                        'Admin', 
                                                                        '" . oos_db_input($email_address) . "',
-                                                                       now() )"); 
+                                                                       now() )");
 
-                     $email_text .= sprintf(EMAIL_GV_INCENTIVE_HEADER, $currencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
+                                $email_text .= sprintf(EMAIL_GV_INCENTIVE_HEADER, $currencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
                                     sprintf(EMAIL_GV_REDEEM, $coupon_code) . "\n\n" .
-                                    EMAIL_GV_LINK . oos_catalog_link($aCatalog['gv_redeem'], 'gv_no=' . $coupon_code) . 
+                                    EMAIL_GV_LINK . oos_catalog_link($aCatalog['gv_redeem'], 'gv_no=' . $coupon_code) .
                                     "\n\n";
-                   }
-                   if (NEW_SIGNUP_DISCOUNT_COUPON != '') {
-                     $coupon_id = NEW_SIGNUP_DISCOUNT_COUPON;
+                            }
+                            if (NEW_SIGNUP_DISCOUNT_COUPON != '') {
+                                $coupon_id = NEW_SIGNUP_DISCOUNT_COUPON;
 
-                     $couponstable = $oostable['coupons'];
-                     $sql = "SELECT coupon_id coupon_type, coupon_code, coupon_amount
+                                $couponstable = $oostable['coupons'];
+                                $sql = "SELECT coupon_id coupon_type, coupon_code, coupon_amount
                              FROM $couponstable
                              WHERE coupon_id = '" . intval($coupon_id) . "'";
-                     $coupon_result = $dbconn->Execute($sql);
-                     $coupon = $coupon_result->fields;
+                                $coupon_result = $dbconn->Execute($sql);
+                                $coupon = $coupon_result->fields;
 
-                     $coupons_descriptiontable = $oostable['coupons_description'];
-                     $sql = "SELECT coupon_name, coupon_description
+                                $coupons_descriptiontable = $oostable['coupons_description'];
+                                $sql = "SELECT coupon_name, coupon_description
                              FROM $coupons_descriptiontable
                              WHERE coupon_id = '" . intval($coupon_id) . "' AND
                                    coupon_languages_id = '" . intval($_SESSION['language_id']) . "'";
-                     $coupon_desc_result = $dbconn->Execute($sql);
-                     $coupon_desc = $coupon_desc_result->fields;
+                                $coupon_desc_result = $dbconn->Execute($sql);
+                                $coupon_desc = $coupon_desc_result->fields;
 
-                     $coupon_email_tracktable = $oostable['coupon_email_track'];
-                     $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
+                                $coupon_email_tracktable = $oostable['coupon_email_track'];
+                                $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
                                                        (coupon_id,
                                                         customer_id_sent,
                                                         sent_firstname,
@@ -126,26 +126,26 @@ if (!empty($action)) {
                                                                            'Admin',
                                                                            '" . oos_db_input($email_address) . "',
                                                                            now() )");
-                     $email_text .= EMAIL_COUPON_INCENTIVE_HEADER .  "\n\n" .
+                                $email_text .= EMAIL_COUPON_INCENTIVE_HEADER .  "\n\n" .
                                     $coupon_desc['coupon_description'] .
                                     sprintf(EMAIL_COUPON_REDEEM, $coupon['coupon_code']) . "\n\n" .
                                     "\n\n";
-                   }
-                 }
-                 $email_text .= EMAIL_TEXT;
-                 $email_text .= sprintf(EMAIL_PASSWORD_BODY, $newpass);
-                 $email_text .= EMAIL_CONTACT;
-                 oos_mail($name, $check_customer_values['customers_email_address'], EMAIL_SUBJECT, nl2br($email_text), nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS); 
-                 oos_redirect_admin(oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&cID=' . $_GET['cID']));
-              }
+                            }
+                        }
+                        $email_text .= EMAIL_TEXT;
+                        $email_text .= sprintf(EMAIL_PASSWORD_BODY, $newpass);
+                        $email_text .= EMAIL_CONTACT;
+                        oos_mail($name, $check_customer_values['customers_email_address'], EMAIL_SUBJECT, nl2br($email_text), nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+                        oos_redirect_admin(oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&cID=' . $_GET['cID']));
+                    }
+                }
             }
-          }
         }
         break;
       case 'statusconfirm':
-		$customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
-		$pdm_status = isset($_POST['pdm_status']) ? intval($_POST['pdm_status']) : 1;
-		$customer_notified = isset($_POST['customer_notified']) ? intval($_POST['customer_notified']) : 0;	
+        $customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
+        $pdm_status = isset($_POST['pdm_status']) ? intval($_POST['pdm_status']) : 1;
+        $customer_notified = isset($_POST['customer_notified']) ? intval($_POST['customer_notified']) : 0;
 
 
         $customerstable = $oostable['customers'];
@@ -155,13 +155,13 @@ if (!empty($action)) {
         $customers_status = $dbconn->GetOne($check_status_sql);
 
         if ($customers_status != $pdm_status) {
-          $customerstable = $oostable['customers'];
-          $dbconn->Execute("UPDATE $customerstable
+            $customerstable = $oostable['customers'];
+            $dbconn->Execute("UPDATE $customerstable
                             SET customers_status = '" . intval($pdm_status) . "'
                             WHERE customers_id = '" . intval($customers_id) . "'");
 
-          $customers_status_historytable = $oostable['customers_status_history'];
-          $dbconn->Execute("INSERT INTO $customers_status_historytable
+            $customers_status_historytable = $oostable['customers_status_history'];
+            $dbconn->Execute("INSERT INTO $customers_status_historytable
                            (customers_id,
                             new_value,
                             old_value,
@@ -174,27 +174,27 @@ if (!empty($action)) {
         }
         break;
       case 'update':
-		$customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
+        $customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
 
-		$customers_firstname = isset($_POST['customers_firstname']) ? oos_db_prepare_input($_POST['customers_firstname']) : '';
+        $customers_firstname = isset($_POST['customers_firstname']) ? oos_db_prepare_input($_POST['customers_firstname']) : '';
         $customers_lastname = isset($_POST['customers_lastname']) ? oos_db_prepare_input($_POST['customers_lastname']) : '';
         $customers_email_address = isset($_POST['customers_email_address']) ? oos_db_prepare_input($_POST['customers_email_address']) : '';
-		$customers_telephone = isset($_POST['customers_telephone']) ? oos_db_prepare_input($_POST['customers_telephone']) : '';
-		$customers_max_order = isset($_POST['customers_max_order']) ? oos_db_prepare_input($_POST['customers_max_order']) : DEFAULT_MAX_ORDER;
+        $customers_telephone = isset($_POST['customers_telephone']) ? oos_db_prepare_input($_POST['customers_telephone']) : '';
+        $customers_max_order = isset($_POST['customers_max_order']) ? oos_db_prepare_input($_POST['customers_max_order']) : DEFAULT_MAX_ORDER;
 
-		$customers_gender = isset($_POST['customers_gender']) ? oos_db_prepare_input($_POST['customers_gender']) : '';
-		$customers_dob = isset($_POST['customers_dob']) ? oos_db_prepare_input($_POST['customers_dob']) : '';
-		$entry_street_address = isset($_POST['entry_street_address']) ? oos_db_prepare_input($_POST['entry_street_address']) : '';
-		$entry_postcode = isset($_POST['entry_postcode']) ? oos_db_prepare_input($_POST['entry_postcode']) : '';
-		$entry_city = isset($_POST['entry_city']) ? oos_db_prepare_input($_POST['entry_city']) : '';
-		$entry_country_id = isset($_POST['entry_country_id']) ? oos_db_prepare_input($_POST['entry_country_id']) : '';	
+        $customers_gender = isset($_POST['customers_gender']) ? oos_db_prepare_input($_POST['customers_gender']) : '';
+        $customers_dob = isset($_POST['customers_dob']) ? oos_db_prepare_input($_POST['customers_dob']) : '';
+        $entry_street_address = isset($_POST['entry_street_address']) ? oos_db_prepare_input($_POST['entry_street_address']) : '';
+        $entry_postcode = isset($_POST['entry_postcode']) ? oos_db_prepare_input($_POST['entry_postcode']) : '';
+        $entry_city = isset($_POST['entry_city']) ? oos_db_prepare_input($_POST['entry_city']) : '';
+        $entry_country_id = isset($_POST['entry_country_id']) ? oos_db_prepare_input($_POST['entry_country_id']) : '';
 
-		$entry_company = isset($_POST['entry_company']) ? oos_db_prepare_input($_POST['entry_company']) : '';
-		$entry_owner = isset($_POST['entry_owner']) ? oos_db_prepare_input($_POST['entry_owner']) : '';
-		$entry_vat_id = isset($_POST['entry_vat_id']) ? oos_db_prepare_input($_POST['entry_vat_id']) : '';
-		$entry_vat_id_status = isset($_POST['entry_vat_id_status']) ? intval($_POST['entry_vat_id_status']) : 0;
-		$default_address_id = isset($_POST['default_address_id']) ? intval($_POST['default_address_id']) : '';
-		$entry_zone_id = isset($_POST['entry_zone_id']) ? intval($_POST['entry_zone_id']) : '';
+        $entry_company = isset($_POST['entry_company']) ? oos_db_prepare_input($_POST['entry_company']) : '';
+        $entry_owner = isset($_POST['entry_owner']) ? oos_db_prepare_input($_POST['entry_owner']) : '';
+        $entry_vat_id = isset($_POST['entry_vat_id']) ? oos_db_prepare_input($_POST['entry_vat_id']) : '';
+        $entry_vat_id_status = isset($_POST['entry_vat_id_status']) ? intval($_POST['entry_vat_id_status']) : 0;
+        $default_address_id = isset($_POST['default_address_id']) ? intval($_POST['default_address_id']) : '';
+        $entry_zone_id = isset($_POST['entry_zone_id']) ? intval($_POST['entry_zone_id']) : '';
 
         $sql_data_array = array('customers_firstname' => $customers_firstname,
                                 'customers_lastname' => $customers_lastname,
@@ -202,15 +202,21 @@ if (!empty($action)) {
                                 'customers_telephone' => $customers_telephone,
                                 'customers_max_order' => $customers_max_order);
 
-        if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $customers_gender;
-        if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = oos_date_raw($customers_dob);
+        if (ACCOUNT_GENDER == 'true') {
+            $sql_data_array['customers_gender'] = $customers_gender;
+        }
+        if (ACCOUNT_DOB == 'true') {
+            $sql_data_array['customers_dob'] = oos_date_raw($customers_dob);
+        }
 
         oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($customers_id) . "'");
 
         $customers_infotable = $oostable['customers_info'];
         $dbconn->Execute("UPDATE $customers_infotable SET customers_info_date_account_last_modified = now() WHERE customers_info_id = '" . intval($customers_id) . "'");
 
-        if ($entry_zone_id > 0) $entry_state = '';
+        if ($entry_zone_id > 0) {
+            $entry_state = '';
+        }
 
         $sql_data_array = array('entry_firstname' => $customers_firstname,
                                 'entry_lastname' => $customers_lastname,
@@ -219,15 +225,19 @@ if (!empty($action)) {
                                 'entry_city' => $entry_city,
                                 'entry_country_id' => $entry_country_id);
 
-        if (ACCOUNT_COMPANY == 'true') $sql_data_array['entry_company'] = $entry_company;
-        if (ACCOUNT_OWNER == 'true') $sql_data_array['entry_owner'] = $entry_owner;
+        if (ACCOUNT_COMPANY == 'true') {
+            $sql_data_array['entry_company'] = $entry_company;
+        }
+        if (ACCOUNT_OWNER == 'true') {
+            $sql_data_array['entry_owner'] = $entry_owner;
+        }
         if (ACCOUNT_VAT_ID == 'true') {
-          $sql_data_array['entry_vat_id'] = $entry_vat_id;
-          $sql_data_array['entry_vat_id_status'] = $entry_vat_id_status;
+            $sql_data_array['entry_vat_id'] = $entry_vat_id;
+            $sql_data_array['entry_vat_id_status'] = $entry_vat_id_status;
         }
         if (ACCOUNT_STATE == 'true') {
-          $sql_data_array['entry_state'] = $entry_state;
-          $sql_data_array['entry_zone_id'] = $entry_zone_id;
+            $sql_data_array['entry_state'] = $entry_state;
+            $sql_data_array['entry_zone_id'] = $entry_zone_id;
         }
 
         oos_db_perform($oostable['address_book'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($customers_id) . "' and address_book_id = '" . oos_db_input($default_address_id) . "'");
@@ -238,18 +248,18 @@ if (!empty($action)) {
         $customers_id = oos_db_prepare_input($_GET['cID']);
 
         if (isset($_POST['delete_reviews']) && ($_POST['delete_reviews'] == 'on')) {
-          $reviewstable = $oostable['reviews'];
-          $reviews_result = $dbconn->Execute("SELECT reviews_id FROM $reviewstable WHERE customers_id = '" . intval($customers_id) . "'");
-          while ($reviews = $reviews_result->fields) {
-            $reviews_descriptiontable = $oostable['reviews_description'];
-            $dbconn->Execute("DELETE FROM $reviews_descriptiontable WHERE reviews_id = '" . intval($reviews['reviews_id']) . "'");
+            $reviewstable = $oostable['reviews'];
+            $reviews_result = $dbconn->Execute("SELECT reviews_id FROM $reviewstable WHERE customers_id = '" . intval($customers_id) . "'");
+            while ($reviews = $reviews_result->fields) {
+                $reviews_descriptiontable = $oostable['reviews_description'];
+                $dbconn->Execute("DELETE FROM $reviews_descriptiontable WHERE reviews_id = '" . intval($reviews['reviews_id']) . "'");
 
-            // Move that ADOdb pointer!
-            $reviews_result->MoveNext();
-          }
-          $dbconn->Execute("DELETE FROM " . $oostable['reviews'] . " WHERE customers_id = '" . intval($customers_id) . "'");
+                // Move that ADOdb pointer!
+                $reviews_result->MoveNext();
+            }
+            $dbconn->Execute("DELETE FROM " . $oostable['reviews'] . " WHERE customers_id = '" . intval($customers_id) . "'");
         } else {
-          $dbconn->Execute("UPDATE " . $oostable['reviews'] . " SET customers_id = null WHERE customers_id = '" . intval($customers_id) . "'");
+            $dbconn->Execute("UPDATE " . $oostable['reviews'] . " SET customers_id = null WHERE customers_id = '" . intval($customers_id) . "'");
         }
 
         $dbconn->Execute("DELETE FROM " . $oostable['address_book'] . " WHERE customers_id = '" . intval($customers_id) . "'");
@@ -261,14 +271,14 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['customers_wishlist_attributes'] . " WHERE customers_id = '" . intval($customers_id) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['customers_status_history'] . " WHERE customers_id = '" . intval($customers_id) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')))); 
+        oos_redirect_admin(oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action'))));
         break;
     }
-  }
+}
   require 'includes/header.php';
 
   if ($action == 'edit') {
-?>
+      ?>
 <script language="javascript"><!--
 function resetStateText(theForm) {
   theForm.entry_state.value = '';
@@ -308,10 +318,13 @@ function check_form() {
 
   var customers_firstname = document.customers.customers_firstname.value;
   var customers_lastname = document.customers.customers_lastname.value;
-<?php 
-  if (ACCOUNT_COMPANY == 'true') echo 'var entry_company = document.customers.entry_company.value;' . "\n"; 
-  if (ACCOUNT_DOB == 'true') echo 'var customers_dob = document.customers.customers_dob.value;' . "\n"; 
-?>
+<?php
+  if (ACCOUNT_COMPANY == 'true') {
+      echo 'var entry_company = document.customers.entry_company.value;' . "\n";
+  }
+      if (ACCOUNT_DOB == 'true') {
+          echo 'var customers_dob = document.customers.customers_dob.value;' . "\n";
+      } ?>
   var customers_email_address = document.customers.customers_email_address.value;  
   var entry_street_address = document.customers.entry_street_address.value;
   var entry_postcode = document.customers.entry_postcode.value;
@@ -417,9 +430,9 @@ function check_form() {
 
 <?php
   if ($action == 'edit') {
-    $customerstable = $oostable['customers'];
-    $address_booktable = $oostable['address_book'];
-    $customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
+      $customerstable = $oostable['customers'];
+      $address_booktable = $oostable['address_book'];
+      $customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
                                                  c.customers_dob, c.customers_email_address, c.customers_wishlist_link_id,
                                                  a.entry_company, a.entry_owner, a.entry_vat_id, a.entry_vat_id_status, 
 												 a.entry_street_address, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
@@ -430,12 +443,11 @@ function check_form() {
                                             ON c.customers_default_address_id = a.address_book_id
                                          WHERE a.customers_id = c.customers_id AND
                                                c.customers_id = '" .  intval($_GET['cID']) . "'");
-    $customers = $customers_result->fields;
-    $cInfo = new objectInfo($customers);
+      $customers = $customers_result->fields;
+      $cInfo = new objectInfo($customers);
 
-    $vat_id_status_array = array(array('id' => '1', 'text' => ENTRY_VAT_ID_STATUS_YES),
-                                 array('id' => '0', 'text' => ENTRY_VAT_ID_STATUS_NO));
-?>
+      $vat_id_status_array = array(array('id' => '1', 'text' => ENTRY_VAT_ID_STATUS_YES),
+                                 array('id' => '0', 'text' => ENTRY_VAT_ID_STATUS_NO)); ?>
 			<!-- Breadcrumbs //-->
 			<div class="content-heading">
 				<div class="col-lg-12">
@@ -467,8 +479,7 @@ function check_form() {
             <td class="main">
 <?php
    echo '<br>' . HEADING_TITLE_STATUS;
-   echo  $customers_statuses_array[$customers['customers_status']]['text'] . ' - ' . $customers_statuses_array[$customers['customers_status']]['cs_ot_discount_flag']; 
-?>
+      echo  $customers_statuses_array[$customers['customers_status']]['text'] . ' - ' . $customers_statuses_array[$customers['customers_status']]['cs_ot_discount_flag']; ?>
             </td>
             <td class="pageHeading" align="right"></td>
           </tr>
@@ -477,21 +488,20 @@ function check_form() {
       <tr>
         <td></td>
       </tr>
-      <tr><?php echo oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('action')) . 'action=update', 'post', TRUE, 'onSubmit="return check_form();"') . oos_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
+      <tr><?php echo oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('action')) . 'action=update', 'post', true, 'onSubmit="return check_form();"') . oos_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
         <td class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
       </tr>
       <tr>
         <td class="formArea"><table border="0" cellspacing="2" cellpadding="2">
 <?php
     if (ACCOUNT_GENDER == 'true') {
-?>
+        ?>
           <tr>
             <td class="main"><?php echo ENTRY_GENDER; ?></td>
             <td class="main"><?php echo oos_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . oos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE; ?></td>
           </tr>
 <?php
-    }
-?>
+    } ?>
           <tr>
             <td class="main"><?php echo ENTRY_FIRST_NAME; ?></td>
             <td class="main"><?php echo oos_draw_input_field('customers_firstname', $cInfo->customers_firstname, 'maxlength="32"', true); ?></td>
@@ -502,14 +512,13 @@ function check_form() {
           </tr>
 <?php
     if (ACCOUNT_DOB == 'true') {
-?>
+        ?>
           <tr>
             <td class="main"><?php echo ENTRY_DATE_OF_BIRTH; ?></td>
             <td class="main"><?php echo oos_draw_input_field('customers_dob', oos_date_short($cInfo->customers_dob), 'maxlength="10"', true); ?></td>
           </tr>
 <?php
-    }
-?>
+    } ?>
 
           <tr>
             <td class="main"><?php echo ENTRY_EMAIL_ADDRESS; ?></td>
@@ -519,7 +528,7 @@ function check_form() {
       </tr>
 <?php
     if (ACCOUNT_COMPANY == 'true') {
-?>
+        ?>
       <tr>
         <td></td>
       </tr>
@@ -534,18 +543,17 @@ function check_form() {
           </tr>
 <?php
       if (ACCOUNT_OWNER == 'true') {
-?>
+          ?>
           <tr>
             <td class="main"><?php echo ENTRY_OWNER; ?></td>
             <td class="main"><?php echo oos_draw_input_field('entry_owner', $cInfo->entry_owner, 'maxlength="32"'); ?></td>
           </tr>
 <?php
-      }
-?>
+      } ?>
 
 <?php
       if (ACCOUNT_VAT_ID == 'true') {
-?>
+          ?>
           <tr>
             <td class="main"><?php echo ENTRY_VAT_ID; ?></td>
             <td class="main"><?php echo oos_draw_input_field('entry_vat_id', $cInfo->entry_vat_id, 'maxlength="20"'); ?></td>
@@ -555,15 +563,13 @@ function check_form() {
             <td class="main"><?php echo oos_draw_pull_down_menu('entry_vat_id_status', $vat_id_status_array, $cInfo->entry_vat_id_status); ?></td>
           </tr>
 <?php
-      }
-?>
+      } ?>
 
 
         </table></td>
       </tr>
 <?php
-    }
-?>
+    } ?>
 
       <tr>
         <td></td>
@@ -606,7 +612,7 @@ function check_form() {
           </tr>
 <?php
     if (ACCOUNT_STATE == 'true') {
-?>
+        ?>
           <tr>
             <td class="main"><?php echo ENTRY_STATE; ?></td>
             <td class="main"><?php echo oos_draw_pull_down_menu('entry_zone_id', oos_prepare_country_zones_pull_down($cInfo->entry_country_id), $cInfo->entry_zone_id, 'onChange="resetStateText(this.form);"'); ?></td>
@@ -616,8 +622,7 @@ function check_form() {
             <td class="main"><?php echo oos_draw_input_field('entry_state', $cInfo->entry_state, 'maxlength="32" onChange="resetZoneSelected(this.form);"'); ?></td>
           </tr>
 <?php
-    }
-?>
+    } ?>
         </table></td>
       </tr>
       <tr>
@@ -641,7 +646,7 @@ function check_form() {
 	 <!-- body_text_eof //-->
 <?php
   } else {
-?>
+      ?>
 			<!-- Breadcrumbs //-->
 			<div class="content-heading">
 				<div class="col-lg-12">
@@ -666,13 +671,13 @@ function check_form() {
 				<div class="row">
 					<div class="col-sm-10"></div>
 					<div class="col-sm-2">
-						<?php echo oos_draw_form('id', 'search', $aContents['customers'], '', 'get', FALSE, 'class="form-inline"'); ?>
+						<?php echo oos_draw_form('id', 'search', $aContents['customers'], '', 'get', false, 'class="form-inline"'); ?>
 							<div id="DataTables_Table_0_filter" class="dataTables_filter">		
 								<label><?php echo HEADING_TITLE_SEARCH; ?></label>
 								<?php echo oos_draw_input_field('search'); ?>
 							</div>
 						</form>
-						<?php echo oos_draw_form('id', 'status', $aContents['customers'], '', 'get', FALSE, 'class="form-inline"'); ?>
+						<?php echo oos_draw_form('id', 'status', $aContents['customers'], '', 'get', false, 'class="form-inline"'); ?>
 							<div class="dataTables_filter">			
 								<label><?php echo HEADING_TITLE_STATUS; ?></label>
 								<?php echo oos_draw_pull_down_menu('status', array_merge(array(array('id' => '0', 'text' => TEXT_ALL_CUSTOMERS)), $customers_statuses_array), '0', 'onChange="this.form.submit();"'); ?>
@@ -704,18 +709,18 @@ function check_form() {
 					</thead>
 <?php
     $search = '';
-    if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
-      $keywords = oos_db_prepare_input($_GET['search']);
-      $search = "WHERE c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . oos_db_input($keywords) . "%' or c.customers_email_address like '%" . oos_db_input($keywords) . "'";
-    }
-    if (isset($_GET['status'])) {
-      $status = oos_db_prepare_input($_GET['status']);
-      $search ="WHERE c.customers_status = '". $status . "'";
-    }
+      if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
+          $keywords = oos_db_prepare_input($_GET['search']);
+          $search = "WHERE c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . oos_db_input($keywords) . "%' or c.customers_email_address like '%" . oos_db_input($keywords) . "'";
+      }
+      if (isset($_GET['status'])) {
+          $status = oos_db_prepare_input($_GET['status']);
+          $search ="WHERE c.customers_status = '". $status . "'";
+      }
 
-    $customerstable = $oostable['customers'];
-    $address_booktable = $oostable['address_book'];
-    $customers_result_raw = "SELECT c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address,
+      $customerstable = $oostable['customers'];
+      $address_booktable = $oostable['address_book'];
+      $customers_result_raw = "SELECT c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address,
                                     c.customers_wishlist_link_id, c.customers_status, c.customers_login, c.customers_max_order,  
                                     a.entry_country_id, a.entry_city
                              FROM $customerstable c LEFT JOIN
@@ -725,63 +730,63 @@ function check_form() {
                                   " . oos_db_input($search) . "
                              ORDER BY c.customers_lastname,
                                    c.customers_firstname";
-    $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_result_raw, $customers_result_numrows);
-    $customers_result = $dbconn->Execute($customers_result_raw);
-    while ($customers = $customers_result->fields) {
-      $customers_infotable = $oostable['customers_info'];
-      $info_result = $dbconn->Execute("SELECT customers_info_date_account_created AS date_account_created,
+      $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_result_raw, $customers_result_numrows);
+      $customers_result = $dbconn->Execute($customers_result_raw);
+      while ($customers = $customers_result->fields) {
+          $customers_infotable = $oostable['customers_info'];
+          $info_result = $dbconn->Execute("SELECT customers_info_date_account_created AS date_account_created,
                                               customers_info_date_account_last_modified AS date_account_last_modified,
                                               customers_info_date_of_last_logon AS date_last_logon,
                                               customers_info_number_of_logons AS number_of_logons
                                        FROM $customers_infotable
                                        WHERE customers_info_id = '" . intval($customers['customers_id']) . "'");
-      $info = $info_result->fields;
+          $info = $info_result->fields;
 
-      if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $customers['customers_id']))) && !isset($cInfo)) {
-        $countriestable = $oostable['countries'];
-        $country_result = $dbconn->Execute("SELECT countries_name
+          if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $customers['customers_id']))) && !isset($cInfo)) {
+              $countriestable = $oostable['countries'];
+              $country_result = $dbconn->Execute("SELECT countries_name
                                             FROM $countriestable
                                             WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");
-        $country = $country_result->fields;
+              $country = $country_result->fields;
 
-        $reviewstable = $oostable['reviews'];
-        $reviews_result = $dbconn->Execute("SELECT COUNT(*) AS number_of_reviews
+              $reviewstable = $oostable['reviews'];
+              $reviews_result = $dbconn->Execute("SELECT COUNT(*) AS number_of_reviews
                                             FROM $reviewstable
                                             WHERE customers_id = '" . intval($customers['customers_id']) . "'");
-        $reviews = $reviews_result->fields;
+              $reviews = $reviews_result->fields;
 
-        $customer_info = array_merge($country, $info, $reviews);
+              $customer_info = array_merge($country, $info, $reviews);
 
-        $cInfo_array = array_merge($customers, $customer_info);
-        $cInfo = new objectInfo($cInfo_array);
-      }
+              $cInfo_array = array_merge($customers, $customer_info);
+              $cInfo = new objectInfo($cInfo_array);
+          }
 
-      if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
-        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
-      } else {
-        echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
-      }
-?>
+          if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
+              echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '\'">' . "\n";
+          } else {
+              echo '          <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '\'">' . "\n";
+          } ?>
                 <td><?php echo $customers['customers_lastname']; ?></td>
                 <td><?php echo $customers['customers_firstname']; ?></td>
                 <td class="text-left"><?php echo $customers_statuses_array[$customers['customers_status']]['text'] . '(' . $customers['customers_status'] . ')' ; ?></td>
                 <td class="text-center">
 <?php
       if ($customers['customers_login'] == '1') {
-        echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
       } else {
-        echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
-      }
-?>
+          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
+      } ?>
                 <td class="text-right"><?php echo oos_date_short($info['date_account_created']); ?></td>
-                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+                <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
+          echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+      } else {
+          echo '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID')) . 'cID=' . $customers['customers_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+      } ?>&nbsp;</td>
               </tr>
 <?php
       // Move that ADOdb pointer!
       $customers_result->MoveNext();
-    }
-
-?>
+      } ?>
               <tr>
                 <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -790,105 +795,104 @@ function check_form() {
                   </tr>
 <?php
     if (isset($_GET['search'])) {
-?>
+        ?>
                   <tr>
                     <td align="right" colspan="7"><?php echo '<a href="' . oos_href_link_admin($aContents['customers']) . '">' . oos_button(BUTTON_RESET) . '</a>'; ?></td>
                   </tr>
 <?php
-    }
-?>
+    } ?>
                 </table></td>
               </tr>
             </table></td>
 <?php
   $heading = [];
-  $contents = [];
+      $contents = [];
 
-  switch ($action) {
+      switch ($action) {
     case 'confirm':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_CUSTOMER . '</b>');
 
-      $contents = array('form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=deleteconfirm', 'post', false));
       $contents[] = array('text' => TEXT_DELETE_INTRO . '<br><br><b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
-      if ($cInfo->number_of_reviews > 0) $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews));
+      if ($cInfo->number_of_reviews > 0) {
+          $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('delete_reviews', 'on', true) . ' ' . sprintf(TEXT_DELETE_REVIEWS, $cInfo->number_of_reviews));
+      }
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
     case 'editstatus':
-		$heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>');
-		$contents = array('form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm', 'post', FALSE));
-		$contents[] = array('text' => '<br>' . oos_draw_pull_down_menu('pdm_status', array_merge(array(array('id' => '0', 'text' => PULL_DOWN_DEFAULT)), $customers_statuses_array), $cInfo->customers_status) );
-		$contents[] = array('text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED );
+        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_STATUS_CUSTOMER . '</b>');
+        $contents = array('form' => oos_draw_form('id', 'customers', $aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=statusconfirm', 'post', false));
+        $contents[] = array('text' => '<br>' . oos_draw_pull_down_menu('pdm_status', array_merge(array(array('id' => '0', 'text' => PULL_DOWN_DEFAULT)), $customers_statuses_array), $cInfo->customers_status) );
+        $contents[] = array('text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED );
 
-		if (isset($_GET['cID'])) {
-			$customers_id = intval($_GET['cID']);
-			$customers_status_historytable = $oostable['customers_status_history'];
-			$customers_history_sql = "SELECT new_value, old_value, date_added, customer_notified 
+        if (isset($_GET['cID'])) {
+            $customers_id = intval($_GET['cID']);
+            $customers_status_historytable = $oostable['customers_status_history'];
+            $customers_history_sql = "SELECT new_value, old_value, date_added, customer_notified 
                                 FROM $customers_status_historytable
                                 WHERE customers_id = '" . intval($customers_id) . "'
                                 ORDER BY customers_status_history_id DESC";
-			$customers_history_result = $dbconn->Execute($customers_history_sql);
-			if ($customers_history_result->RecordCount()) {
-				while ($customers_history = $customers_history_result->fields) {
-					$contents[] = array('text' =>  $customers_statuses_array[$customers_history['new_value']]['text'] . '</td>' . "\n" . '<td class="smallText" align="center">' . oos_datetime_short($customers_history['date_added'])  . "\n");
+            $customers_history_result = $dbconn->Execute($customers_history_sql);
+            if ($customers_history_result->RecordCount()) {
+                while ($customers_history = $customers_history_result->fields) {
+                    $contents[] = array('text' =>  $customers_statuses_array[$customers_history['new_value']]['text'] . '</td>' . "\n" . '<td class="smallText" align="center">' . oos_datetime_short($customers_history['date_added'])  . "\n");
 
-					// Move that ADOdb pointer!
-					$customers_history_result->MoveNext();
-				}
-			} else {
-				$contents[] = array('text' => '<tr>' . "\n" . ' <td class="smallText" colspan="2">' . TEXT_NO_CUSTOMER_HISTORY . '</td>' . "\n" . ' </tr>' . "\n");
-			}
-		}
-		$contents[] = array('text' => '</table>');
-		$contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+                    // Move that ADOdb pointer!
+                    $customers_history_result->MoveNext();
+                }
+            } else {
+                $contents[] = array('text' => '<tr>' . "\n" . ' <td class="smallText" colspan="2">' . TEXT_NO_CUSTOMER_HISTORY . '</td>' . "\n" . ' </tr>' . "\n");
+            }
+        }
+        $contents[] = array('text' => '</table>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
     default:
 
       if (isset($cInfo) && is_object($cInfo)) {
-        $heading[] = array('text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
+          $heading[] = array('text' => '<b>' . $cInfo->customers_firstname . ' ' . $cInfo->customers_lastname . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_button(IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_button(IMAGE_EMAIL) . '</a>');
-        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_button(IMAGE_STATUS) . '</a>');       
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=confirm') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['orders'], 'cID=' . $cInfo->customers_id) . '">' . oos_button(IMAGE_ORDERS) . '</a> <a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools&customer=' . $cInfo->customers_email_address) . '">' . oos_button(IMAGE_EMAIL) . '</a>');
+          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id . '&action=editstatus') . '">' . oos_button(IMAGE_STATUS) . '</a>');
 
-        $manual_infotable = $oostable['manual_info'];
-        $sql = "SELECT man_info_id, man_key, status
+          $manual_infotable = $oostable['manual_info'];
+          $sql = "SELECT man_info_id, man_key, status
                 FROM $manual_infotable
                 WHERE man_info_id = '1'";
-        $login_result = $dbconn->Execute($sql);
-        $login = $login_result->fields;
-        if ($login['status'] != '0') {
-			$contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
-        }
-		
-		$customer_status = oos_get_customers_status ($cInfo->customers_id);	
-        $contents[] = array('text' => '<br>'  . oos_customers_payment($customer_status['customers_status_payment']));
-		
-        $contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created));
-        $contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . oos_date_short($cInfo->date_account_last_modified));
-        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_LAST_LOGON . ' '  . oos_date_short($cInfo->date_last_logon));
-        $contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_LOGONS . ' ' . $cInfo->number_of_logons);
-        $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY . ' ' . $cInfo->countries_name);
-        $contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_REVIEWS . ' ' . $cInfo->number_of_reviews);
+          $login_result = $dbconn->Execute($sql);
+          $login = $login_result->fields;
+          if ($login['status'] != '0') {
+              $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
+          }
+
+          $customer_status = oos_get_customers_status($cInfo->customers_id);
+          $contents[] = array('text' => '<br>'  . oos_customers_payment($customer_status['customers_status_payment']));
+
+          $contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_CREATED . ' ' . oos_date_short($cInfo->date_account_created));
+          $contents[] = array('text' => '<br>' . TEXT_DATE_ACCOUNT_LAST_MODIFIED . ' ' . oos_date_short($cInfo->date_account_last_modified));
+          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_LAST_LOGON . ' '  . oos_date_short($cInfo->date_last_logon));
+          $contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_LOGONS . ' ' . $cInfo->number_of_logons);
+          $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY . ' ' . $cInfo->countries_name);
+          $contents[] = array('text' => '<br>' . TEXT_INFO_NUMBER_OF_REVIEWS . ' ' . $cInfo->number_of_reviews);
       }
       break;
   }
 
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+      if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+          ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);  
-?>
+        $box = new box();
+          echo $box->infoBox($heading, $contents); ?>
 		</table> 
 	</td> 
 <?php
-  }
-?>
+      } ?>
           </tr>
         </table>
 	</div>
@@ -911,7 +915,7 @@ function check_form() {
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

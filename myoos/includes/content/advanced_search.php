@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: advanced_search.php,v 1.49 2003/02/13 04:23:22 hpdl 
+   File: advanced_search.php,v 1.49 2003/02/13 04:23:22 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -19,51 +19,53 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-function oos_get_manufacturers() {
+function oos_get_manufacturers()
+{
+    if (!is_array($aManufacturers)) {
+        $aManufacturers = array();
+    }
 
-	if (!is_array($aManufacturers)) $aManufacturers = array();
+    $dbconn =& oosDBGetConn();
+    $oostable = oosDBGetTables();
 
-	$dbconn =& oosDBGetConn();
-	$oostable = oosDBGetTables();
-
-	$manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM " . $oostable['manufacturers'] . " ORDER BY manufacturers_name");
-	while ($manufacturers = $manufacturers_result->fields) {
-		$aManufacturers[] = array('id' => $manufacturers['manufacturers_id'], 'text' => $manufacturers['manufacturers_name']);
-		$manufacturers_result->MoveNext();
-	}
-	return $aManufacturers;
+    $manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM " . $oostable['manufacturers'] . " ORDER BY manufacturers_name");
+    while ($manufacturers = $manufacturers_result->fields) {
+        $aManufacturers[] = array('id' => $manufacturers['manufacturers_id'], 'text' => $manufacturers['manufacturers_name']);
+        $manufacturers_result->MoveNext();
+    }
+    return $aManufacturers;
 }
 
-  
+
 require 'includes/languages/' . $sLanguage . '/search_advanced.php';
 
 $error = '';
 if (isset($_GET['errorno'])) {
-	if (($_GET['errorno'] & 1) == 1) {
-		$error .= str_replace('\n', '<br />', $aLang['js_at_least_one_input']);
-	}
+    if (($_GET['errorno'] & 1) == 1) {
+        $error .= str_replace('\n', '<br />', $aLang['js_at_least_one_input']);
+    }
     if (($_GET['errorno'] & 10) == 10) {
-		$error .= str_replace('\n', '<br />', $aLang['js_invalid_from_date']);
+        $error .= str_replace('\n', '<br />', $aLang['js_invalid_from_date']);
     }
     if (($_GET['errorno'] & 100) == 100) {
-		$error .= str_replace('\n', '<br />', $aLang['js_invalid_to_date']);
+        $error .= str_replace('\n', '<br />', $aLang['js_invalid_to_date']);
     }
     if (($_GET['errorno'] & 1000) == 1000) {
-		$error .= str_replace('\n', '<br />', $aLang['js_to_date_less_than_from_date']);
+        $error .= str_replace('\n', '<br />', $aLang['js_to_date_less_than_from_date']);
     }
     if (($_GET['errorno'] & 10000) == 10000) {
-		$error .= str_replace('\n', '<br />', $aLang['js_price_from_must_be_num']);
+        $error .= str_replace('\n', '<br />', $aLang['js_price_from_must_be_num']);
     }
     if (($_GET['errorno'] & 100000) == 100000) {
-		$error .= str_replace('\n', '<br />', $aLang['js_price_to_must_be_num']);
+        $error .= str_replace('\n', '<br />', $aLang['js_price_to_must_be_num']);
     }
     if (($_GET['errorno'] & 1000000) == 1000000) {
-		$error .= str_replace('\n', '<br />', $aLang['js_price_to_less_than_price_from']);
+        $error .= str_replace('\n', '<br />', $aLang['js_price_to_less_than_price_from']);
     }
     if (($_GET['errorno'] & 10000000) == 10000000) {
-		$error .= str_replace('\n', '<br />', $aLang['js_invalid_keywords']);
+        $error .= str_replace('\n', '<br />', $aLang['js_invalid_keywords']);
     }
 }
 
@@ -86,8 +88,8 @@ $aManufacturersID = oos_get_manufacturers(array(array('id' => '', 'text' => $aLa
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title']);
 $sCanonical = oos_href_link($aContents['advanced_search'], '', false, true);
-  
-  
+
+
 $aTemplate['page'] = $sTheme . '/page/advanced_search.html';
 
 $nPageType = OOS_PAGE_TYPE_CATALOG;
@@ -95,22 +97,22 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
-      array(
-		'breadcrumb'    	=> $oBreadcrumb->trail(),
-		'heading_title'	 	=> $aLang['heading_title'],
-		'canonical'			=> $sCanonical,
-		
-		'error'				=> $error,
-		'categoriesID'		=> $aCategoriesID,
-		'manufacturersID' 	=> $aManufacturersID
-	)
-); 
+    array(
+        'breadcrumb'    	=> $oBreadcrumb->trail(),
+        'heading_title'	 	=> $aLang['heading_title'],
+        'canonical'			=> $sCanonical,
+
+        'error'				=> $error,
+        'categoriesID'		=> $aCategoriesID,
+        'manufacturersID' 	=> $aManufacturersID
+    )
+);
 
 // display the template
 $smarty->display($aTemplate['page']);

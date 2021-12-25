@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: table.php,v 1.5 2002/11/19 01:48:08 dgw_ 
+   File: table.php,v 1.5 2002/11/19 01:48:08 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -43,4 +43,3 @@ $aLang['module_shipping_table_text_description'] = 'Table Rate';
 $aLang['module_shipping_table_text_way'] = 'Best Way';
 $aLang['module_shipping_table_text_weight'] = 'Weight';
 $aLang['module_shipping_table_text_amount'] = 'Amount';
-

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /* ----------------------------------------------------------------------
    $Id: oostables160.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
@@ -21,26 +21,28 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-function dosql($table, $flds) {
-   GLOBAL $db;
+function dosql($table, $flds)
+{
+    global $db;
 
-   $dict = NewDataDictionary($db);
+    $dict = NewDataDictionary($db);
 
-   $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
+    $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
 
-   $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
-   $dict->ExecuteSQLArray($sqlarray);
+    $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
+    $dict->ExecuteSQLArray($sqlarray);
 
-  echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
 }
 
-function idxsql($idxname, $table, $idxflds) {
-   GLOBAL $db;
+function idxsql($idxname, $table, $idxflds)
+{
+    global $db;
 
-   $dict = NewDataDictionary($db);
+    $dict = NewDataDictionary($db);
 
-   $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
-   $dict->ExecuteSQLArray($sqlarray);
+    $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
+    $dict->ExecuteSQLArray($sqlarray);
 }
 
 
@@ -63,4 +65,3 @@ $flds = "
   SESSDATA XL
 ";
 dosql($table, $flds);
-

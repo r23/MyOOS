@@ -29,4 +29,3 @@ $aLang['module_order_total_tax_title'] = 'MwSt.';
 $aLang['module_order_total_tax_description'] = 'Mehrwertsteuer';
 $aLang['module_order_total_included_tax'] = 'enthaltene ';
 $aLang['module_order_total_ex_tax'] = '+ ';
-

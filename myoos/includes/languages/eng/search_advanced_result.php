@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: advanced_search_result.php,v 1.10 2002/11/19 01:48:08 dgw_ 
+   File: advanced_search_result.php,v 1.10 2002/11/19 01:48:08 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -35,4 +35,3 @@ $aLang['table_heading_product_sort'] = 'Sort';
 $aLang['text_no_products'] = '<h4>Your search - <strong>%s</strong> - did not match any products.</h4><p>Some Suggestions:</p><ol><li>Check that your spelling was accurate.</li><li>Try using different keywords</li><li>Try using fewer keywords</li><li>Try using more general keywords</li></ol>';
 $aLang['text_buy'] = 'Buy 1 \'';
 $aLang['text_now'] = '\' now';
-

@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -52,4 +52,3 @@ $aLang['text_no'] = 'Nein, ich möchte bei Auslieferung des neuen Gerätes kein 
 $aLang['table_heading_download_date'] = 'herunterladen möglich bis:';
 $aLang['table_heading_download_count'] = 'max. Anz. Downloads';
 $aLang['heading_download'] = 'Artikel herunterladen:';
-

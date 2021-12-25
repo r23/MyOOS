@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: checkout_payment_address.php,v 1.1 2002/11/01 03:55:32 hpdl 
+   File: checkout_payment_address.php,v 1.1 2002/11/01 03:55:32 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -41,4 +41,3 @@ $aLang['text_new_payment_address_problem'] = 'Please check the new billing addre
 
 $aLang['title_continue_checkout_procedure'] = 'Continue Checkout Procedure';
 $aLang['text_continue_checkout_procedure'] = 'to select the preferred payment method.';
-

@@ -9,7 +9,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: message_stack.php,v 1.5 2002/11/22 18:45:46 dgw_ 
+   File: message_stack.php,v 1.5 2002/11/22 18:45:46 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
    Example usage:
 
    $messageStack = new messageStack();
@@ -27,68 +27,72 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-class messageStack {
-    var $size = 0;
+class messageStack
+{
+    public $size = 0;
 
-	public function __construct() {
+    public function __construct()
+    {
+        $this->errors = array();
 
-		$this->errors = array();
-
-		if (isset($_SESSION['messageToStack'])) {
-			for ($i = 0, $n = sizeof($_SESSION['messageToStack']); $i < $n; $i++) {
-			$this->add($_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
-		}
-		unset($_SESSION['messageToStack']);
-		}
-	}
-
-	public function add($message, $type = 'error') {
-	
-		if ($type == 'error') {
-			$this->errors[] = array('params' => 'alert-danger', 'text' => $message);
-		} elseif ($type == 'warning') {
-			$this->errors[] = array('params' => 'alert-warning', 'text' => $message);
-		} elseif ($type == 'success') {
-			$this->errors[] = array('params' => 'alert-success', 'text' =>  $message);
-		} else {
-			$this->errors[] = array('params' => 'alert-info', 'text' => $message);
-		}
-
-		$this->size++;
-	}
-
-    public function add_session($message, $type = 'error') {
-		if (!isset($_SESSION['messageToStack'])) {
-			$_SESSION['messageToStack'] = array();
-		}
-
-		$_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
-	}
-
-    public function reset() {
-      $this->errors = array();
-      $this->size = 0;
+        if (isset($_SESSION['messageToStack'])) {
+            for ($i = 0, $n = sizeof($_SESSION['messageToStack']); $i < $n; $i++) {
+                $this->add($_SESSION['messageToStack'][$i]['text'], $_SESSION['messageToStack'][$i]['type']);
+            }
+            unset($_SESSION['messageToStack']);
+        }
     }
 
-    public function output() {
-		$sMessageBox =	'';	
+    public function add($message, $type = 'error')
+    {
+        if ($type == 'error') {
+            $this->errors[] = array('params' => 'alert-danger', 'text' => $message);
+        } elseif ($type == 'warning') {
+            $this->errors[] = array('params' => 'alert-warning', 'text' => $message);
+        } elseif ($type == 'success') {
+            $this->errors[] = array('params' => 'alert-success', 'text' =>  $message);
+        } else {
+            $this->errors[] = array('params' => 'alert-info', 'text' => $message);
+        }
 
-		$aContents = $this->errors;
+        $this->size++;
+    }
 
-		for ($i = 0, $n = count($aContents); $i < $n; $i++) {
-			$sMessageBox .=	'<div class="alert';
-			if (isset($aContents[$i]['params']) && oos_is_not_null($aContents[$i]['params'])) {
-				$sMessageBox .= ' ' . $aContents[$i]['params'];
-			}
-			$sMessageBox .= '" role="alert">';
-			if (isset($aContents[$i]['text']) && oos_is_not_null($aContents[$i]['text'])) {			
-				$sMessageBox .= ' ' . $aContents[$i]['text'];
-			}
-			$sMessageBox .= '</div>' . "\n";
-		}
-			
-		return $sMessageBox;
+    public function add_session($message, $type = 'error')
+    {
+        if (!isset($_SESSION['messageToStack'])) {
+            $_SESSION['messageToStack'] = array();
+        }
+
+        $_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
+    }
+
+    public function reset()
+    {
+        $this->errors = array();
+        $this->size = 0;
+    }
+
+    public function output()
+    {
+        $sMessageBox =	'';
+
+        $aContents = $this->errors;
+
+        for ($i = 0, $n = count($aContents); $i < $n; $i++) {
+            $sMessageBox .=	'<div class="alert';
+            if (isset($aContents[$i]['params']) && oos_is_not_null($aContents[$i]['params'])) {
+                $sMessageBox .= ' ' . $aContents[$i]['params'];
+            }
+            $sMessageBox .= '" role="alert">';
+            if (isset($aContents[$i]['text']) && oos_is_not_null($aContents[$i]['text'])) {
+                $sMessageBox .= ' ' . $aContents[$i]['text'];
+            }
+            $sMessageBox .= '</div>' . "\n";
+        }
+
+        return $sMessageBox;
     }
 }

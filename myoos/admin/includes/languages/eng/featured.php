@@ -4,8 +4,8 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
@@ -36,4 +36,3 @@ define('TEXT_INFO_HEADING_DELETE_FEATURED', 'Delete Featured Product');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this featured product?');
 
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
-

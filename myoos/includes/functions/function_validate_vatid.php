@@ -18,7 +18,7 @@
    */
 
   /** ensure this file is being included by a parent file */
-  defined( 'OOS_VALID_MOD' ) OR die( 'Direct Access to this location is not allowed.' );
+  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
  /**
@@ -28,37 +28,38 @@
   * @param   string
   * @return  mixed
   */
-  function load_data($url){
-    $url = parse_url($url);
+  function load_data($url)
+  {
+      $url = parse_url($url);
 
-    if (!in_array($url['scheme'],array('','http'))) {
-      return false;
-    }
-
-    $fp = fsockopen ($url['host'], ($url['port'] > 0 ? $url['port'] : 80), $errno, $errstr, 2);
-    if (!$fp){
-      return false;
-    } else {
-      fputs ($fp, "GET ".$url['path']. (isSet($url['query']) ? '?'.$url['query'] : '')." HTTP/1.0\r\n");
-      fputs ($fp, "Host: ".$url['host']."\r\n");
-      fputs($fp, "Connection: close\r\n\r\n");
-
-      $data = '';
-      stream_set_blocking($fp,false);
-      stream_set_timeout($fp, 4);
-      $status = socket_get_status($fp);
-      while(!feof($fp) && !$status['timed_out']) {
-        $data .= fgets($fp, 1000);
-        $status = socket_get_status($fp);
+      if (!in_array($url['scheme'], array('','http'))) {
+          return false;
       }
 
-      if ( $status['timed_out'] ) {
-        return false;
-      }
-      fclose ($fp);
+      $fp = fsockopen($url['host'], ($url['port'] > 0 ? $url['port'] : 80), $errno, $errstr, 2);
+      if (!$fp) {
+          return false;
+      } else {
+          fputs($fp, "GET ".$url['path']. (isset($url['query']) ? '?'.$url['query'] : '')." HTTP/1.0\r\n");
+          fputs($fp, "Host: ".$url['host']."\r\n");
+          fputs($fp, "Connection: close\r\n\r\n");
 
-      return $data;
-    }
+          $data = '';
+          stream_set_blocking($fp, false);
+          stream_set_timeout($fp, 4);
+          $status = socket_get_status($fp);
+          while (!feof($fp) && !$status['timed_out']) {
+              $data .= fgets($fp, 1000);
+              $status = socket_get_status($fp);
+          }
+
+          if ($status['timed_out']) {
+              return false;
+          }
+          fclose($fp);
+
+          return $data;
+      }
   }
 
 
@@ -69,30 +70,30 @@
   * @param string
   * @return boolean
   */
-  function oos_validate_is_vatid($sVatno){
+  function oos_validate_is_vatid($sVatno)
+  {
+      $sVatno = trim($sVatno);
+      $sVatno = strtoupper($sVatno);
 
-    $sVatno = trim($sVatno);
-    $sVatno = strtoupper($sVatno);
+      $aRemove = array(' ', '-', '/', '.', ':', ',', ';', '#');
+      for ($i=0, $n=count($aRemove); $i<$n; $i++) {
+          $sVatno = str_replace($aRemove[$i], '', $sVatno);
+      }
 
-    $aRemove = array(' ', '-', '/', '.', ':', ',', ';', '#');
-    for ($i=0, $n=count($aRemove); $i<$n; $i++) {
-      $sVatno = str_replace($aRemove[$i], '', $sVatno);
-    }
+      $sViesMS = substr($sVatno, 0, 2);
+      $sVatno = substr($sVatno, 2);
 
-    $sViesMS = substr($sVatno, 0, 2);
-    $sVatno = substr($sVatno, 2);
+      $urlVies = 'http://ec.europa.eu/taxation_customs/vies/cgi-bin/viesquer/?VAT='. $sVatno . '&MS=' . $sViesMS . '&Lang=EN';
 
-    $urlVies = 'http://ec.europa.eu/taxation_customs/vies/cgi-bin/viesquer/?VAT='. $sVatno . '&MS=' . $sViesMS . '&Lang=EN';
+      $DataHTML = load_data($urlVies);
+      if (!$DataHTML) {
+          return false;
+      }
 
-    $DataHTML = load_data($urlVies);
-    if (!$DataHTML) return false;
+      $ViesOk = 'YES, VALID VAT NUMBER';
+      $ViesEr = 'NO, INVALID VAT NUMBER';
 
-    $ViesOk = 'YES, VALID VAT NUMBER';
-    $ViesEr = 'NO, INVALID VAT NUMBER';
+      $DataHTML = '#' . strtoupper($DataHTML);
 
-    $DataHTML = '#' . strtoupper($DataHTML);
-
-    return ((strPos($DataHTML,$ViesOk) > 0) ? true : false);
+      return ((strPos($DataHTML, $ViesOk) > 0) ? true : false);
   }
-
-

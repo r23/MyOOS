@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2021 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: geo_zones.php,v 1.6 2002/02/17 18:45:07 dgw_ 
+   File: geo_zones.php,v 1.6 2002/02/17 18:45:07 dgw_
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -55,4 +55,3 @@ define('TEXT_INFO_COUNTRY_ZONE', 'Zone:');
 define('TYPE_BELOW', 'All Zones');
 define('PLEASE_SELECT', 'All Zones');
 define('TEXT_ALL_COUNTRIES', 'All Countries');
-

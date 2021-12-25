@@ -54,5 +54,3 @@ $aLang['text_news_on'] = 'on';
 $aLang['text_news_readmore'] = 'Read More...';
 
 $aLang['heading_title_nested'] = 'Categories';
-
-

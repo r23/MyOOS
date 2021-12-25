@@ -54,35 +54,40 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 
-function RandomPassword( $passwordLength ) {
-	$newkey2 = "";
-	for ($index = 1; $index <= $passwordLength; $index++) {
-		// Pick random number between 1 and 62
-		$randomNumber = rand(1, 62);
-		// Select random character based on mapping.
-		if ($randomNumber < 11)
-			$newkey2 .= Chr($randomNumber + 48 - 1); // [ 1,10] => [0,9]
-		elseif ($randomNumber < 37)
-			$newkey2 .= Chr($randomNumber + 65 - 10); // [11,36] => [A,Z]
-		else
-			$newkey2 .= Chr($randomNumber + 97 - 36); // [37,62] => [a,z]
+function RandomPassword($passwordLength)
+{
+    $newkey2 = "";
+    for ($index = 1; $index <= $passwordLength; $index++) {
+        // Pick random number between 1 and 62
+        $randomNumber = rand(1, 62);
+        // Select random character based on mapping.
+        if ($randomNumber < 11) {
+            $newkey2 .= Chr($randomNumber + 48 - 1);
+        } // [ 1,10] => [0,9]
+        elseif ($randomNumber < 37) {
+            $newkey2 .= Chr($randomNumber + 65 - 10);
+        } // [11,36] => [A,Z]
+        else {
+            $newkey2 .= Chr($randomNumber + 97 - 36);
+        } // [37,62] => [a,z]
     }
-	return $newkey2;
+    return $newkey2;
 }
 
-function oos_set_login_status($man_info_id, $status) {
+function oos_set_login_status($man_info_id, $status)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable = oosDBGetTables();
 
-	$passwordLength = 24 ;
-	$newkey = RandomPassword($passwordLength);
-	$newkey2 = RandomPassword($passwordLength);
+    $passwordLength = 24 ;
+    $newkey = RandomPassword($passwordLength);
+    $newkey2 = RandomPassword($passwordLength);
     if ($status == '1') {
-		return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '1', man_key  = '" . oos_db_input($newkey) . "', man_key2  = '" . oos_db_input($newkey2) . "', expires_date = NULL, manual_last_modified = now(), date_status_change =now() WHERE man_info_id = '" . $man_info_id . "'");
+        return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '1', man_key  = '" . oos_db_input($newkey) . "', man_key2  = '" . oos_db_input($newkey2) . "', expires_date = NULL, manual_last_modified = now(), date_status_change =now() WHERE man_info_id = '" . $man_info_id . "'");
     } else {
-		return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '0', man_key = '', man_key2 = '', manual_last_modified = now() WHERE man_info_id = '" . $man_info_id . "'");
+        return $dbconn->Execute("UPDATE " . $oostable['manual_info'] . " SET status = '0', man_key = '', man_key2 = '', manual_last_modified = now() WHERE man_info_id = '" . $man_info_id . "'");
     }
 }
 
@@ -90,7 +95,7 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (!empty($action)) {
-    switch ($action) {
+      switch ($action) {
       case 'setflag':
         oos_set_login_status($_GET['id'], $_GET['flag']);
         oos_redirect_admin(oos_href_link_admin($aContents['manual_loging'], ''));
@@ -159,26 +164,28 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
     $payment_dai_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $payment_dai_result_raw, $payment_dai_result_numrows);
     $payment_dai_result = $dbconn->Execute($payment_dai_result_raw);
     while ($palm_doa = $payment_dai_result->fields) {
-      if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $palm_doa['man_info_id']))) && !isset($sInfo)) {
-        $sInfo = new objectInfo($palm_doa);
-      }
-?>
+        if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $palm_doa['man_info_id']))) && !isset($sInfo)) {
+            $sInfo = new objectInfo($palm_doa);
+        } ?>
 			<tr>
                 <td class="text-left"><?php echo $palm_doa['man_name']; ?></td>
                 <td class="text-center">
 <?php
       if ($palm_doa['status'] == '1') {
-        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=0&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '</a>';
+          echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=0&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '</a>';
       } else {
-        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10) . '</a>';
-      }
-?></td>
-                <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id) ) { echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>'; } else { echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>'; } ?>&nbsp;</td>
+          echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10) . '</a>';
+      } ?></td>
+                <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id)) {
+          echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+      } else {
+          echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+      } ?>&nbsp;</td>
       </tr>
 <?php
     // Move that ADOdb pointer!
     $payment_dai_result->MoveNext();
-  }
+    }
 ?>              <tr>
                 <td colspan="4"><table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
@@ -187,7 +194,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                   </tr>
 <?php
   if (empty($action)) {
-?>
+      ?>
                   <tr><td colspan="2" align="right">&nbsp;</td></tr>
 <?php
   }
@@ -201,7 +208,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   switch ($action) {
     case 'delete':
       $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_OVERSTOCK . '</b>');
-      $contents = array('form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', FALSE));
+      $contents = array('form' => oos_draw_form('id', 'palm_daily', $aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id . '&action=deleteconfirm', 'post', false));
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br><b>' . $sInfo->contact_info_name . '</b>');
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $sInfo->man_info_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
@@ -209,27 +216,26 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       break;
     default:
       if (isset($sInfo) && is_object($sInfo)) {
-        $heading[] = array('text' => '<b>' . $sInfo->man_name . '</b>');
-        $contents[] = array('align' => 'center', 'text' => '');
-        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->manual_date_added));
-        $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->manual_last_modified));
-        $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
+          $heading[] = array('text' => '<b>' . $sInfo->man_name . '</b>');
+          $contents[] = array('align' => 'center', 'text' => '');
+          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->manual_date_added));
+          $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->manual_last_modified));
+          $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
       }
       break;
   }
 
-    if ( (oos_is_not_null($heading)) && (oos_is_not_null($contents)) ) {
-?>
+    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+        ?>
 	<td class="w-25">
 		<table class="table table-striped">
 <?php
-		$box = new box;
-		echo $box->infoBox($heading, $contents);
-?>
+        $box = new box();
+        echo $box->infoBox($heading, $contents); ?>
 		</table>
 	</td>
 <?php
-  }
+    }
 ?>
           </tr>
         </table>
@@ -250,6 +256,6 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 </div>
 
 <?php
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

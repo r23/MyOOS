@@ -8,7 +8,7 @@
    ----------------------------------------------------------------------
    Based on:
 
-   File: stats_products_purchased.php,v 1.27 2002/11/18 15:10:23 project3000 
+   File: stats_products_purchased.php,v 1.27 2002/11/18 15:10:23 project3000
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -21,10 +21,10 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']); 
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $rows = 0;
 
-require 'includes/header.php'; 
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -84,7 +84,9 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
-  if (isset($nPage) && ($nPage > 1)) $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  if (isset($nPage) && ($nPage > 1)) {
+      $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+  }
 
   $productstable = $oostable['products'];
   $products_dscriptiontable = $oostable['products_description'];
@@ -99,12 +101,11 @@ require 'includes/header.php';
   $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_sql_raw, $products_numrows);
   $products_result = $dbconn->Execute($products_sql_raw);
   while ($products = $products_result->fields) {
-    $rows++;
+      $rows++;
 
-    if (strlen($rows) < 2) {
-      $rows = '0' . $rows;
-    }
-?>
+      if (strlen($rows) < 2) {
+          $rows = '0' . $rows;
+      } ?>
               <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage); ?>'">
                 <td class="dataTableContent"><?php echo $rows; ?>.</td>
                 <td class="dataTableContent"><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_purchased'] . '?page=' . $nPage) . '">' . $products['products_name'] . '</a>'; ?></td>
@@ -143,7 +144,7 @@ require 'includes/header.php';
 </div>
 
 
-<?php 
-	require 'includes/bottom.php';
-	require 'includes/nice_exit.php';
+<?php
+    require 'includes/bottom.php';
+    require 'includes/nice_exit.php';
 ?>

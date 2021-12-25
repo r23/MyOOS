@@ -17,7 +17,7 @@
    ---------------------------------------------------------------------- */
 
 /** ensure this file is being included by a parent file */
-defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowed.' );
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Return options name
@@ -25,15 +25,16 @@ defined( 'OOS_VALID_MOD' ) or die( 'Direct Access to this location is not allowe
  * @param $options_id
  * @return string
  */
-function oos_options_name($options_id) {
+function oos_options_name($options_id)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-	if (empty($options_id) || ($options_id == 0)) {
-		return '';
-	}
+    if (empty($options_id) || ($options_id == 0)) {
+        return '';
+    }
 
     $products_optionstable = $oostable['products_options'];
     $query = "SELECT products_options_name
@@ -54,15 +55,16 @@ function oos_options_name($options_id) {
   * @param $values_id
   * @return string
   */
-function oos_values_name($values_id) {
+function oos_values_name($values_id)
+{
 
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-	if (empty($values_id) || ($values_id == 0)) {
-		return '';
-	}
+    if (empty($values_id) || ($values_id == 0)) {
+        return '';
+    }
 
 
     $products_options_valuestable = $oostable['products_options_values'];
@@ -84,12 +86,13 @@ function oos_values_name($values_id) {
  * @param $name
  * @param $default
  */
-function oos_draw_option_type_pull_down_menu($name, $default = '') {
-    GLOBAL $products_options_types_list;
+function oos_draw_option_type_pull_down_menu($name, $default = '')
+{
+    global $products_options_types_list;
 
     $values = array();
     foreach ($products_options_types_list as $id => $text) {
-		$values[] = array('id' => $id, 'text' => $text);
+        $values[] = array('id' => $id, 'text' => $text);
     }
     return oos_draw_pull_down_menu($name, $values, $default);
 }
@@ -100,8 +103,9 @@ function oos_draw_option_type_pull_down_menu($name, $default = '') {
  *
  * @param $opt_type
  */
-function oos_options_type_name($opt_type) {
-    GLOBAL $products_options_types_list;
+function oos_options_type_name($opt_type)
+{
+    global $products_options_types_list;
 
     return isset($products_options_types_list[$opt_type]) ? $products_options_types_list[$opt_type] : 'Error ' . $opt_type;
 }
@@ -113,27 +117,27 @@ function oos_options_type_name($opt_type) {
 * 0 = not visible
 * 1 = visible
 */
-function oos_set_attributes_status($products_attributes_id, $status) {
+function oos_set_attributes_status($products_attributes_id, $status)
+{
 
-	// Get database information
-	$dbconn =& oosDBGetConn();
-	$oostable =& oosDBGetTables();
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-	$products_attributestable = $oostable['products_attributes'];
-	if ($status == 1) {
-		$query = "UPDATE $products_attributestable
+    $products_attributestable = $oostable['products_attributes'];
+    if ($status == 1) {
+        $query = "UPDATE $products_attributestable
 				SET options_values_status = '1'
 				WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
-		$result = $dbconn->Execute($query);
-		return;
-	} elseif ($status == '0') {
-		$query = "UPDATE $products_attributestable
+        $result = $dbconn->Execute($query);
+        return;
+    } elseif ($status == '0') {
+        $query = "UPDATE $products_attributestable
 				SET options_values_status = '0'
 				WHERE products_attributes_id = '" . intval($products_attributes_id) . "'";
-		$result =& $dbconn->Execute($query);
-		return;
-	} else {
-		return false;
-	}
-
+        $result =& $dbconn->Execute($query);
+        return;
+    } else {
+        return false;
+    }
 }
