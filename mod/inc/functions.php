@@ -355,17 +355,18 @@ function my_implode($arr, $mode = 0) // 0=String, 1=intval
 {
 	global $nl;
 	if (!is_array($arr)) return false;
-	foreach ($arr as $key=>$val) {
+	foreach ($arr as $key => $val) {
 		if ($mode == 0) {
 			$arr[$key] = escape_specialchars($val);
 		} else {
 			$arr[$key] = intval($val);
 		}
 	}
-	if ($mode == 0) {
-		$ret = '["'.implode('\',\'', $arr).'"];'.$nl;
-	} else { 
-		$ret = '['.implode(',', $arr).'];'.$nl;
+		
+	if ($mode == 0)	{
+		$ret='("' . implode('","',$arr) . '");' . $nl;
+	} else {
+		$ret='(' . implode(',',$arr) . ');' . $nl;		
 	}
 	return $ret;
 }
