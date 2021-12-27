@@ -111,7 +111,7 @@
       timeout = null,
       previous = 0,
       later = function () {
-        previous = getNow()
+        previous = Date.now()
         timeout = null
         result = func.apply(context, args)
         if (!timeout) {
@@ -121,7 +121,7 @@
       }
 
     return function () {
-      var now = getNow()
+      var now = Date.now()
 
       if (!previous) {
         previous = now
@@ -152,13 +152,6 @@
       return result
     }
   }
-
-  var getNow =
-    Date.now ||
-    function () {
-      /* istanbul ignore next */ // Not testable in PhantonJS
-      return new Date().getTime()
-    }
 
   function formatLogMsg(msg) {
     return msgID + '[' + myID + '] ' + msg
@@ -895,7 +888,7 @@
       elVal = 0,
       maxVal = 0,
       Side = capitalizeFirstLetter(side),
-      timer = getNow()
+      timer = Date.now()
 
     for (var i = 0; i < elementsLength; i++) {
       elVal =
@@ -906,7 +899,7 @@
       }
     }
 
-    timer = getNow() - timer
+    timer = Date.now() - timer
 
     log('Parsed ' + elementsLength + ' HTML elements')
     log('Element position calculated in ' + timer + 'ms')
@@ -952,7 +945,7 @@
       },
 
       offset: function () {
-        return getHeight.bodyOffset() // Backwards compatability
+        return getHeight.bodyOffset() // Backwards compatibility
       },
 
       bodyScroll: function getBodyScrollHeight() {
@@ -1220,7 +1213,7 @@
       },
       inPageLink: function inPageLinkF() {
         this.moveToAnchor()
-      }, // Backward compatability
+      }, // Backward compatibility
 
       pageInfo: function pageInfoFromParent() {
         var msgBody = getData()
@@ -1261,7 +1254,7 @@
 
     function isInitMsg() {
       // Test if this message is from a child below us. This is an ugly test, however, updating
-      // the message format would break backwards compatibity.
+      // the message format would break backwards compatibility.
       return event.data.split(':')[2] in { true: 1, false: 1 }
     }
 

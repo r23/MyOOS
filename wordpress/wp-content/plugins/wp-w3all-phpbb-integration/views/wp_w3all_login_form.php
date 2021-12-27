@@ -35,7 +35,9 @@ $w3all_loginform_style_li_class = 'w3all_li_widgetLogin';
      echo __('<strong>Notice: the specified username is currently inactive into our forum. Please contact an administrator.</strong>', 'wp-w3all-phpbb-integration');
     }
     // Remove/empty cookie 
-   setcookie ("w3all_set_cmsg", "", time() - 2592000, "/", "$w3cookie_domain");	
+    ob_start(); // avoid to output something
+     setcookie ("w3all_set_cmsg", "", time() - 2592000, "/", "$w3cookie_domain");	
+    ob_end_clean();
   }
 
 			if(isset($_REQUEST['reauth']) && $_REQUEST['reauth'] == 1){

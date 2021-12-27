@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.4.4
+Stable tag: 2.4.5
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.8
@@ -72,6 +72,20 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.4.5 =
+*Release Date - 26 Dec, 2021*
+
+* Fix: w3all_user_profile_update_errors() function
+* Fix: multisite user's email update: was impossible to update user's email in certain conditions for admins
+* Fix: secondary security bug in certain conditions
+* Add: phpBB WordPress Integration Common Task (phpBB extension) which you'll find from now on into /wp-content/plugins/wp-w3all-phpbb-integration/addons/phpBB_EXT folder
+* Install how to for the 'unchained integration' is here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1670
+* Remove phpBB mChat and WP Buddypress integration options
+* Remove option 'Retrieve phpBB avatars by using native phpBB file' into plugin Admin Config page (effectively not used anymore)
+* Iframe integration code (page-forum.php has been fixed and cleaned under some important aspect) has been updated
+* To completely update all to last version, you should follow the Update Procedure as explained: https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
+* Fix: several minor but important fixes and code cleanup all around (hints and options: some have been updated or removed, but the complete cleanup process will happen on next versions, step by step)
 
 = 2.4.4 =
 *Release Date - 2 Mar, 2021*

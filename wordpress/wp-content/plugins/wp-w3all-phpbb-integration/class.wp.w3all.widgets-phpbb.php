@@ -172,103 +172,10 @@ public function wp_w3all_phpbb_last_topics($post_text, $topics_number, $text_wor
 
 } // END CLASS
 
-
-class WP_w3all_widget_phpBB_mchat extends WP_Widget 
-{ 
-
-	function __construct() {
-		load_plugin_textdomain( 'wp-w3all-phpbb-integration' );
-		
-		parent::__construct(
-			'wp_w3all_widget_phpBB_mchat',
-			__( 'WP phpBB w3all mChat' , 'wp-w3all-phpbb-integration'),
-			array( 'description' => __( 'Display the phpBB mChat into a widget' , 'wp-w3all-phpbb-integration') )
-		);
-
-	}
-
-public function widget( $args, $instance ) {
-
-	if (defined('W3PHPBBUCAPABILITIES')) {
-    $user_caps = unserialize(W3PHPBBUCAPABILITIES);
-		if(in_array("u_mchat_view",$user_caps)){ // can view chat?
-			$ucan_view_chat = true;
-		 } else {
-			$ucan_view_chat = false;
-		}
-  }
-
-$display_mchat_only_logged = (! empty( $instance['display_mchat_only_logged'] )) ? $instance['display_mchat_only_logged'] : 0;
-	if( $display_mchat_only_logged > 0 && is_user_logged_in() === false OR isset($ucan_view_chat) && $ucan_view_chat === false ){
-		if(!defined("WPW3ALL_NOT_ULINKED")){
-		 return false;
-	  }
-	} 
-		
-		 echo $args['before_widget'];
-		if ( ! empty( $instance['title'] ) ) {
-	   echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ). $args['after_title'];
-	  }
-		 echo self::wp_w3all_widget_phpBB_mchat();
-		 echo $args['after_widget'];
-}
-
-public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'w3 mChat', 'wp-w3all-phpbb-integration' );
-		$display_mchat_only_logged = ! empty( $instance['display_mchat_only_logged'] ) ? $instance['display_mchat_only_logged'] : 0;
-		?>
-		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'wp-w3all-phpbb-integration' ); ?></label> 
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
-		</p>
-		<p>
-		<label for="<?php echo $this->get_field_id( 'display_phpbb_user_info' ); ?>"><?php _e( 'Display mChat only to logged in users?', 'wp-w3all-phpbb-integration'); ?></label> 
-	  <p><label""><input class="widefat" name="<?php echo $this->get_field_name( 'display_mchat_only_logged' ); ?>" id="<?php echo $this->get_field_id( 'post_text' ); ?>" type="radio" value="0" <?php if ( 0 == $display_mchat_only_logged ) echo 'checked="checked"'; ?> /> <?php esc_html_e('No', 'wp-w3all-phpbb-integration'); ?></label></p>
-    <p><label""><input class="widefat" name="<?php echo $this->get_field_name( 'display_mchat_only_logged' ); ?>" id="<?php echo $this->get_field_id( 'post_text' ); ?>" type="radio" value="1" <?php if ( 1 == $display_mchat_only_logged ) echo 'checked="checked"'; ?> /> <?php esc_html_e('Yes', 'wp-w3all-phpbb-integration'); ?></label></p>
- 		</p>
-		<?php 
-}
-
-public function wp_w3all_widget_phpBB_mchat() {
-
-global $w3all_url_to_cms, $w3all_custom_output_files;
-	    
-/*if ( is_user_logged_in() && defined("W3PHPBBUSESSION") ) {
- $phpbb_user_session = unserialize(W3PHPBBUSESSION);
-}*/
-
-$phpbb_conf = unserialize(W3PHPBBCONFIG);
-	$dd = $phpbb_conf['cookie_domain'];
-if(!empty($phpbb_conf['cookie_domain'])){
-  $p = strpos($phpbb_conf['cookie_domain'], '.');
-   if($p !== false && $p === 0){
-	  $document_domain = substr($phpbb_conf['cookie_domain'], 1);
-   } else {
-   	  $document_domain = $phpbb_conf['cookie_domain'];
-     }
-} else {
-	$document_domain = 'localhost';
-}	
-$phpbb_conf = '';
-
-if( $w3all_custom_output_files == 1 ) { // custom file
-	 $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/wp_w3all_phpbb_mchat.php';
-} else { // default plugin file
-	 $file = WPW3ALL_PLUGIN_DIR . 'views/wp_w3all_phpbb_mchat.php'; 	
- }
-include($file);
-}
-
-} // END CLASS
-
 function wp_w3all_register_widgets() {
-	global $w3all_phpbb_mchat_get_opt_yn;
 	register_widget( 'WP_w3all_widget_login' );
 	register_widget( 'WP_w3all_widget_last_topics' );
-	if ($w3all_phpbb_mchat_get_opt_yn == 1){
-	 register_widget( 'WP_w3all_widget_phpBB_mchat' );
-  }
-}	
+}
 if ( defined('PHPBB_INSTALLED') ){
 add_action( 'widgets_init', 'wp_w3all_register_widgets' );
 }

@@ -1,0 +1,20 @@
+services:
+
+    w3all.phpbbwordpressintegration.listener:
+        class: w3all\phpbbwordpressintegration\event\main_listener
+        arguments:
+            - '@config'
+            - '@user'
+            - '@request'
+            - '%core.root_path%'
+            - '@template'
+        tags:
+            - { name: event.listener }
+
+    w3all.phpbbwordpressintegration.acp_listener:
+        class: w3all\phpbbwordpressintegration\event\acp_listener
+        arguments:
+            - '@request'
+            - '%core.root_path%'
+        tags:
+            - { name: event.listener }

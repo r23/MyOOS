@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'ABSPATH' ) or die( 'forbidden' );
 global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_phpbb_link_yn,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 $w3allhomeurl = get_home_url();
 $current_user = wp_get_current_user();

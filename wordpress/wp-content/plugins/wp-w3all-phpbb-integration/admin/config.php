@@ -45,8 +45,6 @@ $w3all_config_avatars['w3all_get_phpbb_avatar_yn'] = isset($w3all_config_avatars
 $w3all_config_avatars['w3all_avatar_on_last_t_yn'] = isset($w3all_config_avatars['w3all_avatar_on_last_t_yn']) ? $w3all_config_avatars['w3all_avatar_on_last_t_yn'] : 0;
 $w3all_config_avatars['w3all_lasttopic_avatar_dim'] = isset($w3all_config_avatars['w3all_lasttopic_avatar_dim']) ? $w3all_config_avatars['w3all_lasttopic_avatar_dim'] : 50;
 $w3all_config_avatars['w3all_lasttopic_avatar_num'] = isset($w3all_config_avatars['w3all_lasttopic_avatar_num']) ? $w3all_config_avatars['w3all_lasttopic_avatar_num'] : 10;
-$w3all_config_avatars['w3all_avatar_replace_bp_yn'] = isset($w3all_config_avatars['w3all_avatar_replace_bp_yn']) ? $w3all_config_avatars['w3all_avatar_replace_bp_yn'] : 0;
-$w3all_config_avatars['w3all_avatar_via_phpbb_file_yn'] = isset($w3all_config_avatars['w3all_avatar_via_phpbb_file_yn']) ? $w3all_config_avatars['w3all_avatar_via_phpbb_file_yn'] : 0;
 
 $w3all_conf_pref['w3all_exclude_phpbb_forums'] = isset($w3all_conf_pref['w3all_exclude_phpbb_forums']) ? $w3all_conf_pref['w3all_exclude_phpbb_forums'] : '';
 $w3all_conf_pref['w3all_phpbb_user_deactivated_yn'] = isset($w3all_conf_pref['w3all_phpbb_user_deactivated_yn']) ? $w3all_conf_pref['w3all_phpbb_user_deactivated_yn'] : 0;
@@ -110,7 +108,7 @@ if(!defined('PHPBB_INSTALLED')){
 }
 ?>
 
-<div class="" style="border:1px solid #333;padding:0 10px 10px 10px;background-color:#e3d2e2;margin:0 20px 0 0">
+<div class="" style="border-top:2px solid #999;border-bottom:2px solid #999;padding:0 20px 20px 20px;background-color:#e3d2e2;margin:0 20px 0 0">
 
 <h1 style="<?php echo $style_warn;?>"><?php echo __('WP_w3all Path, Url, Password hash and Integration mode config', 'wp-w3all-phpbb-integration'); ?></h1>
 <form name="w3all_conf" id="w3all-conf" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
@@ -153,7 +151,7 @@ echo __('Choosing to hash passwords in phpBB mode, when/if integration disabled,
 </form>
 </div>
 
-<div class="" style="margin-top:4.0em;">
+<div class="" style="margin-top:4.0em;margin-right:1.0em;">
 <form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">	
 <h1 style="color:green">WP_w3all Preferences</h1>
 <hr />
@@ -242,8 +240,8 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <p><input type="radio" name="w3all_conf_pref[w3all_add_into_phpBB_after_confirm]" id="w3all_add_into_phpBB_after_confirm_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_add_into_phpBB_after_confirm']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_add_into_phpBB_after_confirm]" id="w3all_add_into_phpBB_after_confirm_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_add_into_phpBB_after_confirm']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <hr />
-<?php echo __('<h3>Force correct WordPress password reset (front end plugins)</h3>', 'wp-w3all-phpbb-integration'); ?>
-<?php echo __('If a frontend plugin bypass the default password reset process, so that this do not let update the new WordPress password at same time into phpBB, force the user\'s password update into phpBB when user login in WordPress<br /><br />Note: may activating this option, you\'ll have to allow user\'s logins as mandatory only into WordPress, or the user that try to login in phpBB, will fail until the phpBB password will not be updated, due to an explicit and successful login into WordPress<br /><br />Activate this option if using front-end plugins to manage user\'s password reset processes, you note that after a password reset and then a first successful login, if the user logout then try to re-login, will get password mismatch<br /><br />This option is may not required into default WordPress installations. Test your installation before to activate', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('<h3>Force WordPress password reset (front end plugins)</h3>', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('If a frontend plugin bypass the default password reset process, so that this do not let update the new WordPress password at same time into phpBB, force the user\'s password update into phpBB when user login in WordPress<br /><br />This option is may not required into default WordPress installations. Test your installation before to activate', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_push_new_pass_into_phpbb]" id="w3all_push_new_pass_into_phpbb_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_push_new_pass_into_phpbb']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_push_new_pass_into_phpbb]" id="w3all_push_new_pass_into_phpbb_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_push_new_pass_into_phpbb']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <hr />
@@ -286,14 +284,6 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <p><input type="radio" name="w3all_conf_pref[w3all_wp_phpbb_lrl_links_switch_yn]" id="w3all_wp_phpbb_lrl_links_switch_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_wp_phpbb_lrl_links_switch_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_wp_phpbb_lrl_links_switch_yn]" id="w3all_wp_phpbb_lrl_links_switch_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_wp_phpbb_lrl_links_switch_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <hr />
-<?php echo __('<h3 style="color:#da5252">Synchronize Buddypress/phpBB user\'s profile fields</h3>Note: do not activate if Buddypress is not active/installed into WordPress<br />Advanced. Before to activate this option (that is not mandatory and affect only if Buddypress is installed) read the <b>How To</b> here: <a target="_blank" href="https://www.axew3.com/w3/2017/09/wordpress-and-buddypress-phpbb-profile-fields-integration/">Buddypress/phpBB profile fields how to</a>', 'wp-w3all-phpbb-integration'); ?>
-<p><input type="radio" name="w3all_conf_pref[w3all_profile_sync_bp_yn]" id="w3all_profile_sync_bp_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_profile_sync_bp_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_pref[w3all_profile_sync_bp_yn]" id="w3all_profile_sync_bp_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_profile_sync_bp_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
-<hr />
-<?php echo __('<h3 style="color:#0077c0">phpBB mChat integration</h3>Advanced. Before to activate this option read the <b>How To</b> here: <a target="_blank" href="https://www.axew3.com/w3/2019/01/wordpress-phpbb-mchat-integration/">WordPress and phpBB mChat integration how to</a>.<br />Can be used as widget (available when option active), or as shortcode', 'wp-w3all-phpbb-integration'); ?>
-<p><input type="radio" name="w3all_conf_pref[w3all_phpbb_mchat_get_opt_yn]" id="w3all_phpbb_mchat_get_opt_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_phpbb_mchat_get_opt_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_pref[w3all_phpbb_mchat_get_opt_yn]" id="w3all_phpbb_mchat_get_opt_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_phpbb_mchat_get_opt_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
-<hr />
 <?php echo __('<h3 style="color:#003333">Activate [w3allcustomiframe] shortcode</h3>Advanced. This shortcode can (also) be used in <span style="color:#003333">Not Linked Users Mode</span>. Read <b>How To use</b> here: <a target="_blank" href="https://www.axew3.com/w3/2019/12/w3allcustomiframe-shortcode-how-to/">[w3allcustomiframe] shortcode how to</a>.<br />Activating this option, the iframe js resizer library will be added/loaded into WordPress header<br />to allow the javascript resizer code work properly on each WordPress page this shorcode will be added', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_custom_iframe_yn]" id="w3all_custom_iframe_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_custom_iframe_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_custom_iframe_yn]" id="w3all_custom_iframe_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_custom_iframe_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
@@ -304,14 +294,13 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 </div>
 
 
-<div style="margin-top:4.0em;">
+<div style="margin-top:4.0em;margin-right:1.0em;">
 <form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">	
 <h1 style="color:green">WP_w3all Avatars Options (1.0)</h1>
 <hr />
 <?php echo __('<h3>Use phpBB avatar to replace WordPress user\'s avatar</h3>If set to Yes, Gravatars profiles images on WordPress, are replaced by phpBB user\'s avatars images, where an avatar image is available in phpBB for the user. Return WP Gravatar of the user, if no avatar image has been found in phpBB (one single fast query to get avatars for all users).
 <br /><b>Note</b>: you can activate only this option, if you do not want to display user\'s avatars on WP_w3all Last Forum Topics Widgets, but only on WP posts.
 <br /><b>Note: if this option is set to No (not active) others avatar\'s options <i>Last Forums Topics widgets</i> here below, do not affect</b>.
-<br /><b>Note</b> about .htaccess: <b>"i\'ve setup avatar here, but avatar\'s images aren\'t displayed!" ... activate the option <b><i>Retrieve avatars by using native phpBB file.php</i></b> more below or: <a href="https://www.axew3.com/w3/2016/09/phpbb-htaccess-set-avatars-images-available-over-your-domain/" target="_blank">take a look to this <i>why and how to resolve</i> post</a></b> before you activate this feature.
 <br />Check that on <i>WordPress Admin -> Settings -> Discussion</i> the setting about avatars is enabled. Check also that it isn\'t set to BLANK this setting (if you do not want really it)', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_avatars[w3all_get_phpbb_avatar_yn]" id="w3all_conf_pref_avatar_1" value="1" <?php checked('1', $w3all_config_avatars['w3all_get_phpbb_avatar_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_avatars[w3all_get_phpbb_avatar_yn]" id="w3all_conf_pref_avatar_0" value="0" <?php checked('0', $w3all_config_avatars['w3all_get_phpbb_avatar_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
@@ -325,15 +314,6 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <hr />
 <?php echo __('<h3>Last Forums Topics number of users\'s avatars to retrieve</h3><strong><span style="color:red">Note:</span> if not set, 10 by default, but this value need to be set the same as is the most hight value of topic\'s numbers you choose to display on Last Topics Widgets OR last Topics shortcodes. Example:</strong> if activating different Last Forums Topics shortcodes/widgets, you choose to display 5 topics in one widget or shortcode instance, 15 into another, and 20 topics into another, then set 20 as value here.<br />Note: affect only if the above <i style="color:#869eff">Activate phpBB avatars on Last Forums Topics widgets</i> option is set to yes', 'wp-w3all-phpbb-integration'); ?>
 <p><input id="w3all_lasttopic_avatar_num" name="w3all_conf_avatars[w3all_lasttopic_avatar_num]" type="text" size="25" placeholder="10" value="<?php echo esc_attr( $w3all_config_avatars['w3all_lasttopic_avatar_num'] ); ?>"></p>
-<hr />
-<?php echo __('<h3 style="color:#da5252">Replace Buddypress profile avatar with phpBB user avatar (and vice versa)</h3><b>This option affect only if Buddypress is installed into your WordPress.</b> If activated, the Buddypress profile user\'s avatar will be replaced by the phpBB user\'s avatar, where available: if not, the default avatar of the user in WP will be retrieved.<br /><strong>Note</strong>: to have the uploaded Buddypress user\'s avatar shown into phpBB, phpBB need to have set to YES the option <b>"Enable remote avatars"</b> in order to this feature to work correctly<br /> ACP -> Board Configuration -> Avatar settings<br /><br />Note: activate in conjunction with option <i>Retrieve phpBB avatars by using native phpBB file.php</i> more below if this option active<br /><br />Note: affect only if the above <i style="color:#869eff">Use phpBB avatar to replace WordPress user\'s avatar</i> option is set to yes', 'wp-w3all-phpbb-integration'); ?>
-<p><input type="radio" name="w3all_conf_avatars[w3all_avatar_replace_bp_yn]" id="w3all_avatar_replace_bp_yn_1" value="1" <?php checked('1', $w3all_config_avatars['w3all_avatar_replace_bp_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_avatars[w3all_avatar_replace_bp_yn]" id="w3all_avatar_replace_bp_yn_0" value="0" <?php checked('0', $w3all_config_avatars['w3all_avatar_replace_bp_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
-<hr />
-<?php echo __('<h3>Retrieve phpBB avatars by using native phpBB <i>file.php</i></h3>Avoid to edit the <i>.htaccess</i> file for security reasons, or if phpBB <i>.htaccess</i> edited and still avatars not display due to server security permissions<br />activate this option to retrieve phpBB avatars and display by using native phpBB file.php', 'wp-w3all-phpbb-integration'); ?>
-<p><input type="radio" name="w3all_conf_avatars[w3all_avatar_via_phpbb_file_yn]" id="w3all_avatar_via_phpbb_file_yn_1" value="1" <?php checked('1', $w3all_config_avatars['w3all_avatar_via_phpbb_file_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_avatars[w3all_avatar_via_phpbb_file_yn]" id="w3all_avatar_via_phpbb_file_yn_0" value="0" <?php checked('0', $w3all_config_avatars['w3all_avatar_via_phpbb_file_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
-<hr />
 </div><!-- close <div style="padding:20px 35px -->
 <br />
 <input type="submit" name="submit" class="button button-primary" value="<?php echo __('Save WP_w3all Avatars Options', 'wp-w3all-phpbb-integration');?>">
@@ -341,7 +321,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 </form>
 </div>
 
-<div style="padding:20px 35px;margin-top:4.0em;background-color:#dcccff;border-top:2px solid #cbb3ff;border-bottom:2px solid #cbb3ff">
+<div style="padding:20px 35px;margin-top:4.0em;margin-right:1.0em;background-color:#dcccff;border-top:2px solid #cbb3ff;border-bottom:2px solid #cbb3ff">
 <form name="w3all_conf_pref_template_embed" id="w3all-conf-pref-template-embed" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">	
 <h1 style="color:green">WP_w3all phpBB embedded on WordPress Template</h1>
 <hr style="border-color:gray" />

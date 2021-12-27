@@ -1,7 +1,11 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' ); 
+
 //$phpbb_on_template_iframe = get_option( 'w3all_iframe_phpbb_link_yn' );
 global $w3all_iframe_custom_w3fancyurl,$w3all_iframe_phpbb_link_yn,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 
+if(empty($wp_w3all_forum_folder_wp) && $w3all_iframe_phpbb_link_yn == 1){
+	echo 'Notice: the forum\'s page name has not been setup and "Links for embedded phpBB iframe into WordPress (option)" is set to Yes. Links points to phpBB iframe into WP page. Change settings into the plugin admin page';
+}
 $w3all_avatars_yn = ( $w3all_get_phpbb_avatar_yn == 1 && $w3all_last_t_avatar_yn == 1 ) ? true : false; // avatars or not
 $w3all_lastopics_style_ul = 'list-style:none;margin:0px'; // change into whatever you need
 $w3all_lastopics_style_ul_class = 'w3all_ul_widgetLastTopics'; // declare this class .w3all_ul_widgetLastTopics into your css template and style ul element as needed 
@@ -42,21 +46,9 @@ if ( $countn < $topics_number ){ // instance topics number
 			    $wpu = get_user_by('login', $value->topic_last_poster_name); 
 			  }
 			  
-   if( ! $wpu && isset($phpbbUAVA) )
-   {
-   	
-      if(is_email( $phpbbUAVA ))
-      {
-      	$w3all_avatar_display = get_avatar($phpbbUAVA, $w3all_last_t_avatar_dim);
-      } elseif(!empty($phpbbUAVA))
-       {
-      	$w3all_avatar_display = '<img alt="" src="'.$phpbbUAVA.'" class="avatar" width="'.$w3all_last_t_avatar_dim.'" height="'.$w3all_last_t_avatar_dim.'">';
-       } else {
-      	$w3all_avatar_display = get_avatar(0, $w3all_last_t_avatar_dim);
-       }
-       
-  	} elseif ( ! $wpu && !isset($phpbbUAVA) ) 
-  	      {
+   if( ! $wpu && isset($phpbbUAVA) ){
+   		$w3all_avatar_display = ( is_email( $phpbbUAVA ) !== false ) ? get_avatar($phpbbUAVA, $w3all_last_t_avatar_dim) : '<img alt="" src="'.$phpbbUAVA.'" class="avatar" width="'.$w3all_last_t_avatar_dim.'" height="'.$w3all_last_t_avatar_dim.'">';
+  	} elseif ( ! $wpu && !isset($phpbbUAVA) ) {
      	      $w3all_avatar_display = get_avatar(0, $w3all_last_t_avatar_dim);
           } else {
      	      $w3all_avatar_display = get_avatar($wpu->ID, $w3all_last_t_avatar_dim);
@@ -125,9 +117,7 @@ if ( $countn < $topics_number ){ // instance topics number
      
     }
      
-  $phpbbUAVA = '';
   $countn++;
-
 }
 
 	   echo "</ul>";

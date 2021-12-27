@@ -3,7 +3,7 @@
    	die("<h2>Wp w3all miss phpBB configuration file: set the correct absolute path to phpBB by opening:<br /><br /> Settings -> WP w3all</h2>");
     } 
  global $w3all_add_into_spec_group;
- echo'<div><h3>NOTE: you\'re going to insert users into phpBB Group ID -> '.$w3all_add_into_spec_group.' <br /><br />Check that it exist. See it into WP w3all Config Page, and/or you can change this value where related option<br /><br /><i>"Add newly WordPress registered users into a specified phpBB group"</i></h4>';
+ echo'<div style="background-color:#FFF;padding:10px;"><h3>NOTE: you\'re going to insert users into phpBB Group ID -> '.$w3all_add_into_spec_group.' <br /><br />Check that it exist. See it into WP w3all Config Page, and/or you can change this value where related option<br /><br /><i>"Add newly WordPress registered users into a specified phpBB group"</i></h4>';
   $up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb';
  	global $w3all_config,$wpdb;
   $phpbb_config = unserialize(W3PHPBBCONFIG);
@@ -174,19 +174,50 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
  	$start_or_continue_msg = (!isset($_POST["start_select"])) ? 'Start transfer WP users to phpBB' : 'Continue to transfer WP users into phpBB';
   if(isset($socm)){ $start_or_continue_msg = $socm; }
  ?>
+ 
+ <?php
+ 
+   // transfer single wp user into phpBB
+  if (isset($_POST['w3ins_wu_to_phpbb'])){
+  	
+  	$_POST['w3ins_wu_to_phpbb'] = trim($_POST['w3ins_wu_to_phpbb']);
+  	
+  	 if(is_email($_POST['w3ins_wu_to_phpbb'])){
+  		$user = get_user_by( 'email', $_POST['w3ins_wu_to_phpbb'] );
+     } else {
+    	$user = get_user_by( 'login', $_POST['w3ins_wu_to_phpbb'] );
+     }
+    
+     if(empty($user)){
+    	$w3warn = '<h2 style="color:red">Error:</h2> '.$_POST['w3ins_wu_to_phpbb'].' <h2 style="color:red">do not exists into WordPress</h2>';
+     } elseif( isset($user->user_email) && $user->ID > 1 ) {
+       $phpBB_user_add = WP_w3all_phpbb::create_phpBB_user_res($user);
+       if($phpBB_user_add > 2){
+   	    $w3warn = '<h2 style="color:green">Notice:</h2> '.$_POST['w3ins_wu_to_phpbb'].' <h2 style="color:green">transferred into phpBB</h2>';
+       }  else {
+         $w3warn = '<h2 style="color:red">Error:</h2> '.$_POST['w3ins_wu_to_phpbb'].' <h2 style="color:red">has not been transferred into phpBB. Already existent? (check if the email or username exists in phpBB)</h2>';
+        }
+     } elseif( $user->ID == 1 )
+     	{
+         $w3warn = '<h2 style="color:red">Error:</h2> '.$_POST['w3ins_wu_to_phpbb'].' <h2 style="color:red">Do you try to transfer the user ID 1 in wordpress?</h2>';
+        }
+    
+    
+    
+  
+  } // END if (isset($_POST['w3ins_wu_to_phpbb'])){
+ 
+ ?>
 
 <div>
 	<hr style="background-color:#333;height:2px;" />
 <div class=""><h1>Transfer WordPress Users to phpBB forum ( raw w3_all )</h1></div>
-<h4><span style="color:red">Notice</span>: do not put so hight value for users to transfer each time. It is set by default to 20 users x time, but you can change the value.<br />Try out: maybe 50, 100 or also 1000 or more users to transfer x time is ok for your system/server resources.<br />If Php/server error come out due to max execution time, it is necessary to adjust to a lower value the number of users to transfer x time.<br />Refresh browser window: this will "reset the counter" of the transfer procedure.<br /> 
+<h4><span style="color:red">Notice</span>: do not put so hight value for users to transfer each time. It is set by default to 100 users x time, but you can change the value.<br />Try out: maybe 50, 100 or also 5000 or more users to transfer x time is ok for your system/server resources (6000 per time has been the max without errors i've ever try, without changing the php server execution time limit).<br />Let the task to run into same page after the process start. If Php/server error come out due to max execution time, it is necessary to adjust to a lower value the number of users to transfer x time.<br />Refresh browser window: this will "reset the counter" of the transfer procedure.<br /> 
  Repeat the process by setting a lower value for users to be added x time: continue adding users until a <span style="color:green">green message</span> will display that the transfer has been completed.<br />After this remember to Fix phpBB values about <i>Total</i> and <i>Newest Members</i> here below, or do these two steps directly on phpBB ACP.<br />If there is an existent same username on phpBB, his email address and password are overwrite by the email address and password of the transferred WP user. The process exclude both WP and phpBB default install admins. 
  All users are transferred on phpBB as registered users if they have a role on WP, as deactivated in phpBB if no roles on WP.<br />Note: if some modification to the default phpBB database user's tables structure, this procedure will return error and no user will be transferred into phpBB.
  <br /><br /><span style="color:red">Note important</span>: if there are users in phpBB using same email address and with different usernames, <span style="color:red">a warning</span> will appear for these users:<br />it is mandatory that you change the email address for these users in phpBB, as indicated on warning (if it show up).<br /><span style="color:red">It is mandatory that in phpBB do NOT exists users sharing the same email address</span> (because it is possible option in phpBB but not in Wordpress).<br />
- <br /><span style="color:red">Note important</span> this example: while transferring 500 users, at record 250 the log report duplicated email/username found: next 250 users on queue will not be transferred, and you'll have to restart the transfer to complete the transfer task or these users will results (obviusly because skipped) not added in WordPress.
- <br />The best way would be to check and adjust these possible old phpBB users created with same email, via phpBB ACP, before to start the transfer process. <br />But the transfer can be restarted any time you like, so you can adjust warnings and repeat the process from begin.
-	<br /><br />
-	Note: this procedure can be used to fix registration date for old transferred WordPress users into phpBB, that may were added with wrong registration date time<br />Just repeat/execute the transfer process, existent users will be overwritten in phpBB with actual email, password and registration date based on selected option
-		
+ May check if there are by running the related check option: <a href="<?php echo admin_url() . 'options-general.php?page=wp-w3all-users-check'; ?>">w3all users check -> List phpBB users with duplicated usernames or emails</a><br />
+ <br />The best way would be to check and adjust these possible old phpBB users created with same email, via phpBB ACP, before to start the transfer process. <br />But the transfer can be restarted any time you like, so you can adjust warnings and repeat the process from begin.	
 		</h4>
 
 <form name="w3all_conf_add_users_to_phpbb" id="w3all-conf-add-users-to-phpbb" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
@@ -203,6 +234,19 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
 <hr /><hr />
 
 
+<div style="margin:2.0em">
+<div class=""><h1>Transfer single WordPress User into phpBB</h1><h3>Insert a single WordPress username or email</h3>
+</div>
+<?php if(!empty($w3warn)){ echo $w3warn; } ?>
+<form name="w3all_conf_add_single_wpuser_to_phpbb" id="w3all-conf-add-single-wpuser-to-phpbb" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
+<p>
+ Transfer <input type="text" name="w3ins_wu_to_phpbb" value="" /> WordPress username/email into phpBB
+  <input type="hidden" name="w3Ins_phpbbU" value="1" /><br /><br />
+<input type="submit" name="submit" id="submit" class="button button-primary" value="Transfer single WordPress user into phpBB">
+</p></form>
+</div>
+
+<hr /><hr />
 
 
 	<div class=""><h1>Fix phpBB <i>Total Members and Newest Member</i> after users transfers complete</h1>
