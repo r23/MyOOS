@@ -158,3 +158,4 @@ nbproject
 r23_3d_model.zip
 /myoos/media/models/gltf/Perseverance/glTF-Binary/*.glb
 .php-cs-fixer.cache
+*.bak
