@@ -43,11 +43,11 @@ class shipping
                 } else {
                     $class = $module;
                 }
-                $include_modules[] = array('class' => $class, 'file' => $class . '.php');
+                $include_modules[] = ['class' => $class, 'file' => $class . '.php'];
             } else {
                 foreach ($this->modules as $value) {
                     $class = basename($value, '.php');
-                    $include_modules[] = array('class' => $class, 'file' => $value);
+                    $include_modules[] = ['class' => $class, 'file' => $value];
                 }
             }
 
@@ -124,9 +124,9 @@ class shipping
                     $size = count($quotes['methods']);
                     for ($i=0; $i<$size; $i++) {
                         if ($quotes['methods'][$i]['cost']) {
-                            $rates[] = array('id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],
+                            $rates[] = ['id' => $quotes['id'] . '_' . $quotes['methods'][$i]['id'],
                                             'title' => $quotes['module'] . ' (' . $quotes['methods'][$i]['title'] . ')',
-                                            'cost' => $quotes['methods'][$i]['cost']);
+                                            'cost' => $quotes['methods'][$i]['cost']];
                         }
                     }
                 }

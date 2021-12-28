@@ -78,7 +78,7 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
 
     if (is_object($oEvent)) {
         if (($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu')) {
-            $link = str_replace(array('?', '&amp;', '='), '/', $link);
+            $link = str_replace(['?', '&amp;', '='], '/', $link);
 
             $separator = '?';
 

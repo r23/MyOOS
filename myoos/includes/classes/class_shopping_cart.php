@@ -147,8 +147,8 @@ class shoppingCart
               WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
         $products_result = $dbconn->Execute($sql);
         while ($products = $products_result->fields) {
-            $this->contents[$products['products_id']] = array('qty' => $products['customers_basket_quantity'],
-                                                          'towlid' => $products['to_wishlist_id']);
+            $this->contents[$products['products_id']] = ['qty' => $products['customers_basket_quantity'],
+                                                          'towlid' => $products['to_wishlist_id']];
             // attributes
             $customers_basket_attributestable = $oostable['customers_basket_attributes'];
             $sql = "SELECT products_options_id, products_options_value_id, products_options_value_text
@@ -228,10 +228,10 @@ class shoppingCart
                 if ($this->in_cart($sProductsId)) {
                     $this->update_quantity($sProductsId, $nQuantity, $attributes, $free_redemption, $towlid);
                 } else {
-                    $this->contents[] = array($sProductsId);
-                    $this->contents[$sProductsId] = array('qty' => $nQuantity,
+                    $this->contents[] = [$sProductsId];
+                    $this->contents[$sProductsId] = ['qty' => $nQuantity,
                                                         'return_free_of_charge' => $free_redemption,
-                                                        'towlid' => $towlid);
+                                                        'towlid' => $towlid];
 
 
                     // insert into database
@@ -312,9 +312,9 @@ class shoppingCart
 
             $nQuantity = intval($nQuantity);
 
-            $this->contents[$sProductsId] = array(	'qty' => $nQuantity,
-                                                    'return_free_of_charge' => $free_redemption,
-                                                    'towlid' => $towlid);
+            $this->contents[$sProductsId] = ['qty' => $nQuantity,
+                                             'return_free_of_charge' => $free_redemption,
+                                             'towlid' => $towlid];
 
             if (isset($_SESSION['customer_id'])) {
                 $customers_baskettable = $oostable['customers_basket'];
@@ -771,7 +771,7 @@ class shoppingCart
 
                 $final_price = $products_price + $this->attributes_price($products_id);
 
-                $aProducts[] = array('id' => $products_id,
+                $aProducts[] = ['id' => $products_id,
                                     'name' => $products['products_name'],
                                     'essential_characteristics' => $products['products_essential_characteristics'],
                                     'model' => $model,
@@ -791,7 +791,7 @@ class shoppingCart
                                     'attributes_values' => (isset($this->contents[$products_id]['attributes_values']) ? $this->contents[$products_id]['attributes_values'] : ''),
                                     'old_electrical_equipment' => $products['products_old_electrical_equipment'],
                                     'return_free_of_charge' => (isset($this->contents[$products_id]['return_free_of_charge']) ? $this->contents[$products_id]['return_free_of_charge'] : ''),
-                                    'towlid' => $this->contents[$products_id]['towlid']);
+                                    'towlid' => $this->contents[$products_id]['towlid']];
             } else {
                 // product not found
                 // remove from database

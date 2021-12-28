@@ -39,7 +39,7 @@
   */
   function oos_make_filename($sStr)
   {
-      static $aFrom = array(
+      static $aFrom = [
                      ' ',
 
                      'Ä',
@@ -80,9 +80,9 @@
 
                      'ñ',
 
-                     'ý');
+                     'ý'];
 
-      static $aTo   = array(
+      static $aTo   = [
                      '-',
 
                      'AE',
@@ -123,11 +123,11 @@
 
                      'n',
 
-                     'y');
+                     'y'];
       // Replace international chars not detected by every locale
       $sStr = str_replace($aFrom, $aTo, $sStr);
 
-      $special_chars = array("?",
+      $special_chars = ["?",
                             "[",
                             "]",
                             "/",
@@ -154,7 +154,7 @@
                             "}",
                             "%",
                             "+",
-                            chr(0));
+                            chr(0)];
       //strip html tags from text
       $sStr = strip_tags($sStr);
 
@@ -166,7 +166,7 @@
 
       $sStr = preg_replace("#\x{00a0}#siu", '', $sStr);
       $sStr = str_replace($special_chars, '', $sStr);
-      $sStr = str_replace(array( '%20', '+' ), '-', $sStr);
+      $sStr = str_replace(['%20', '+'], '-', $sStr);
       $sStr = preg_replace('/[\r\n\t -]+/', '-', $sStr);
       $sStr = trim($sStr, '.-_');
       $sStr = strtolower($sStr);
@@ -186,7 +186,7 @@
      //Taken from Reverend's Jim feedparser
       //http://revjim.net/code/feedParser/feedParser-0.5.phps
 
-      static $aEntities = array(
+      static $aEntities = [
               '&nbsp'   => "&#160;",  '&iexcl'  => "&#161;",  '&cent'   => "&#162;",
               '&pound'  => "&#163;",  '&curren' => "&#164;",  '&yen'    => "&#165;",
               '&brvbar' => "&#166;",  '&sect'   => "&#167;",  '&uml'    => "&#168;",
@@ -219,7 +219,7 @@
               '&divide' => "&#247;",  '&oslash' => "&#248;",  '&ugrave' => "&#249;",
               '&uacute' => "&#250;",  '&ucirc'  => "&#251;",  '&uuml'   => "&#252;",
               '&yacute' => "&#253;",  '&thorn'  => "&#254;",  '&yuml' =>   "&#255;"
-     );
+     ];
       $sStr = strtr($sStr, $aEntities);
 
       return $sStr;

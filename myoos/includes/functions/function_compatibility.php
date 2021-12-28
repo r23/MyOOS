@@ -44,9 +44,9 @@ if ((int)ini_get('register_globals') > 0) {
         die('GLOBALS overwrite attempt detected');
     }
 
-    $noUnset = array('GLOBALS', '_GET', '_POST', '_COOKIE', '_REQUEST', '_SERVER', '_ENV', '_FILES');
+    $noUnset = ['GLOBALS', '_GET', '_POST', '_COOKIE', '_REQUEST', '_SERVER', '_ENV', '_FILES'];
 
-    $input = array_merge($_GET, $_POST, $_COOKIE, $_SERVER, $_ENV, $_FILES, isset($_SESSION) && is_array($_SESSION) ? $_SESSION : array());
+    $input = array_merge($_GET, $_POST, $_COOKIE, $_SERVER, $_ENV, $_FILES, isset($_SESSION) && is_array($_SESSION) ? $_SESSION : []);
 
     foreach ($input as $k => $v) {
         if (!in_array($k, $noUnset) && isset($GLOBALS[$k])) {

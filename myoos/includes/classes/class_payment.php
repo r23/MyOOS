@@ -41,11 +41,11 @@ class payment
             if ((oos_is_not_null($module))) {
                 $this->selected_module = $module;
 
-                $include_modules[] = array('class' => $module, 'file' => $module . '.php');
+                $include_modules[] = ['class' => $module, 'file' => $module . '.php'];
             } else {
                 foreach ($this->modules as $value) {
                     $class = basename($value, '.php');
-                    $include_modules[] = array('class' => $class, 'file' => $value);
+                    $include_modules[] = ['class' => $class, 'file' => $value];
                 }
             }
 

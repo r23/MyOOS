@@ -125,7 +125,7 @@ while ($new_products = $new_products_result->fields) {
     $aCategoryPath = [];
     $aCategoryPath = oos_get_category_path($new_products['products_id']);
 
-    $aNewProducts[] = array('products_id' => $new_products['products_id'],
+    $aNewProducts[] = ['products_id' => $new_products['products_id'],
                             'products_image' => $new_products['products_image'],
                             'products_name' => $new_products['products_name'],
                             'products_short_description' => $new_products['products_short_description'],
@@ -142,7 +142,7 @@ while ($new_products = $new_products_result->fields) {
                             'new_product_special_price' => $new_product_special_price,
                             'new_product_discount_price' => $new_product_discount_price,
                             'new_base_product_price' => $new_base_product_price,
-                            'new_special_price' => $new_special_price);
+                            'new_special_price' => $new_special_price];
 
     // Move that ADOdb pointer!
     $new_products_result->MoveNext();

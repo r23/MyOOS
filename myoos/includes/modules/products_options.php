@@ -145,7 +145,7 @@ while ($products_options_name = $products_options_name_result->fields) {
                 }
                 $change_model = $sModel;
 
-                $aSelector[] = array('name' => $sName,
+                $aSelector[] = ['name' => $sName,
                                      'value' => $sValue,
                                      'checked' => $sChecked,
                                      'image' => $change_image,
@@ -154,7 +154,7 @@ while ($products_options_name = $products_options_name_result->fields) {
                                     'option_base' => $option_base,
                                     'products_options_values_name' => $products_options_array['products_options_values_name'],
                                     'products_options_comment' => $products_options_name['products_options_comment'],
-                                    'status' => $products_options_array['options_values_status']);
+                                    'status' => $products_options_array['options_values_status']];
 
                 // Move that ADOdb pointer!
                 $products_options_result->MoveNext();

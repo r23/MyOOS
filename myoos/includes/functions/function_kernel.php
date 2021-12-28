@@ -112,8 +112,8 @@ function oos_prepare_input($sStr)
 
 function oos_sanitize_string($sStr)
 {
-    $aPatterns = array('/ +/','/[<>]/');
-    $aReplace = array(' ', '_');
+    $aPatterns = ['/ +/','/[<>]/'];
+    $aReplace = [' ', '_'];
     return preg_replace($aPatterns, $aReplace, trim($sStr));
 }
 
@@ -156,15 +156,15 @@ function oos_sanitize_string($sStr)
   */
 function oos_var_prep_for_os()
 {
-    static $search = array('!\.\./!si', // .. (directory traversal)
+    static $search = ['!\.\./!si', // .. (directory traversal)
                            '!^.*://!si', // .*:// (start of URL)
                            '!/!si',     // Forward slash (directory traversal)
-                           '!\\\\!si'); // Backslash (directory traversal)
+                           '!\\\\!si']; // Backslash (directory traversal)
 
-    static $replace = array('',
-                            '',
-                            '_',
-                            '_');
+    static $replace = ['',
+                       '',
+                       '_',
+                       '_'];
 
     $resarray = [];
     foreach (func_get_args() as $ourvar) {
@@ -495,7 +495,7 @@ function oos_get_products_status($nProductID)
       if (!is_array($aExclude)) {
           $aExclude = [];
       }
-      $aParameters = array('p', 'error', 'rewrite', 'c', 'm', 'content', 'infex.php', 'history_back', 'formid', 'gclid', 'x', 'y');
+      $aParameters = ['p', 'error', 'rewrite', 'c', 'm', 'content', 'infex.php', 'history_back', 'formid', 'gclid', 'x', 'y'];
 
       $urlValues = [];
       if (is_array($_GET)
@@ -540,7 +540,7 @@ function oos_get_products_status($nProductID)
           $aExclude = [];
       }
 
-      $aParameters = array('formid', 'content', 'x', 'y');
+      $aParameters = ['formid', 'content', 'x', 'y'];
 
       $sUrl = '';
       if (is_array($_POST) && (count($_POST) > 0)) {
@@ -856,8 +856,8 @@ function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '')
     $result = $dbconn->Execute($query);
 
     while ($categories = $result->fields) {
-        $aCategories[] = array('id' => $categories['categories_id'],
-                             'text' => $indent . $categories['categories_name']);
+        $aCategories[] = ['id' => $categories['categories_id'],
+                             'text' => $indent . $categories['categories_name']];
 
         if ($categories['categories_id'] != $parent_id) {
             $aCategories = oos_get_categories($aCategories, $categories['categories_id'], $indent . '&nbsp;&nbsp;');
@@ -1002,8 +1002,8 @@ function oos_get_category_path($nProductsId)
     $result = $dbconn->SelectLimit($query, 1);
     $result_data = $result->fields;
 
-    $aCategory = array('path' => $sCategory,
-                        'name' => $result_data['categories_name']);
+    $aCategory = ['path' => $sCategory,
+                  'name' => $result_data['categories_name']];
 
     return $aCategory;
 }
@@ -1325,7 +1325,7 @@ function rmdir_recursive($dir)
 function oos_output_string($sStr, $aTranslate = null)
 {
     if (empty($aTranslate)) {
-        $aTranslate = array('"' => '&quot;');
+        $aTranslate = ['"' => '&quot;'];
     }
 
     return strtr(trim($sStr), $aTranslate);
@@ -1614,7 +1614,7 @@ function oos_output_string($sStr, $aTranslate = null)
      // Check to see if the locale is a valid FB one, if not, use en_US as a fallback.
      if (! in_array($locale, $fb_valid_fb_locales, true)) {
          $locale = strtolower(substr($locale, 0, 2)) . '_' . strtoupper(substr($locale, 0, 2));
-         if (! in_array($locale, $fb_valid_fb_locales, true)) {
+         if (!in_array($locale, $fb_valid_fb_locales, true)) {
              $locale = 'en_US';
          }
      }
@@ -1683,7 +1683,7 @@ function oos_strip_all($sStr)
 /**
  * Mail function (uses phpMailer)
  */
-function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = array())
+function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = [])
 {
     global $oEvent;
 
@@ -1846,7 +1846,7 @@ function oos_newsletter_subscribe_mail($email_address)
         $smarty->caching = false;
 
         $smarty->assign(
-            array(
+				[
                     'shop_name'		=> STORE_NAME,
                     'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
                     'shop_logo'		=> STORE_LOGO,
@@ -1854,7 +1854,7 @@ function oos_newsletter_subscribe_mail($email_address)
                     'blog_url'		=> BLOG_URL,
                     'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', false, true),
                     'subscribe'		=> oos_href_link($aContents['newsletter'], 'action=lists&subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, false, true)
-                )
+                ]
         );
 
         // create mails

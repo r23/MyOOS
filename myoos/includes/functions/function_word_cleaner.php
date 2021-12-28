@@ -25,15 +25,14 @@
 
 function replace_word($sStr)
 {
-
     // replace target words
-    $word = array(
+    $word = [
       // duplicate the line below if you want to add new entry
       "Saint" => "St", // caution, first letter must be uppercase
       "Sainte" => "Ste", // plural of the word must be interpreted too in present case
       "Saints" => "Sts", // femenin of the word must be interpreted too in present case
       "Saintes" => "Stes", // femenin plural of the word must be interpreted too in present case
-    );
+    ];
     return strtr($sStr, $word);
 }
 

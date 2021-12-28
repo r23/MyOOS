@@ -92,7 +92,7 @@ if ($listing_split->number_of_rows > 0) {
         $order_min = number_format($listing['products_quantity_order_min']);
         $order_max = number_format($listing['products_quantity_order_max']);
 
-        $aListing[] = array('products_id' => $listing['products_id'],
+        $aListing[] = ['products_id' => $listing['products_id'],
                         'products_image' => $listing['products_image'],
                         'products_name' => $listing['products_name'],
                         'products_model' => $listing['products_model'],
@@ -109,7 +109,7 @@ if ($listing_split->number_of_rows > 0) {
                         'listing_product_price_list' => $listing_product_price_list,
                         'listing_discount_price' => $listing_discount_price,
                         'listing_product_special_price' => $listing_product_special_price,
-                        'listing_base_product_price' => $listing_base_product_price);
+                        'listing_base_product_price' => $listing_base_product_price];
 
 
         // Move that ADOdb pointer!
@@ -117,10 +117,10 @@ if ($listing_split->number_of_rows > 0) {
     }
 }
 
-$smarty->assign(array('page_split' 		=> $listing_split->display_count($aLang['text_display_number_of_products']),
+$smarty->assign(['page_split' 		=> $listing_split->display_count($aLang['text_display_number_of_products']),
                         'display_links' => $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
                         'numrows' 		=> $listing_split->number_of_rows,
-                        'numpages' 		=> $listing_split->number_of_pages));
+                        'numpages' 		=> $listing_split->number_of_pages]);
 
 $smarty->assign('get_params', $all_get_listing);
 $smarty->assign('listing', $aListing);

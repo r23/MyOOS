@@ -32,7 +32,7 @@
   {
       $url = parse_url($url);
 
-      if (!in_array($url['scheme'], array('','http'))) {
+      if (!in_array($url['scheme'], ['','http'])) {
           return false;
       }
 
@@ -75,7 +75,7 @@
       $sVatno = trim($sVatno);
       $sVatno = strtoupper($sVatno);
 
-      $aRemove = array(' ', '-', '/', '.', ':', ',', ';', '#');
+      $aRemove = [' ', '-', '/', '.', ':', ',', ';', '#'];
       for ($i=0, $n=count($aRemove); $i<$n; $i++) {
           $sVatno = str_replace($aRemove[$i], '', $sVatno);
       }

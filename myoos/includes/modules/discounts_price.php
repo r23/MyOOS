@@ -67,7 +67,7 @@
   $col3 = ($q4 > 0 ? (($q4-1) > $q3 ? $q3 . '-' . ($q4-1) : $q3) : $q3 . '+');
   $col4 = ($q4 > 0 ? $q4 . '+' : '');
 
-  $smarty->assign(array('discount_table' => $discount_table,
+  $smarty->assign(['discount_table' => $discount_table,
                         'colspan' => $col_cnt,
                         'q0' => $q0,
                         'q1' => $q1,
@@ -84,4 +84,4 @@
                         'td2' => $td2,
                         'td3' => $td3,
                         'td4' => $td4,
-                        'td5' => $td5));
+                        'td5' => $td5]);

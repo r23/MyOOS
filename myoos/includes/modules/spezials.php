@@ -66,7 +66,7 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
         $aCategoryPath = [];
         $aCategoryPath = oos_get_category_path($new_products['products_id']);
 
-        $aSpezials[] = array('products_id' => $new_spezials['products_id'],
+        $aSpezials[] = ['products_id' => $new_spezials['products_id'],
                                     'products_image' => $new_spezials['products_image'],
                                     'products_name' => $new_spezials['products_name'],
                                     'products_short_description' => $new_spezials['products_short_description'],
@@ -81,7 +81,7 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
                                     'products_price' => $new_spezials_product_price,
                                     'products_special_price' => $new_spezials_product_special_price,
                                     'base_product_price' => $new_spezials_base_product_price,
-                                    'base_product_special_price' => $new_spezials_base_product_special_price);
+                                    'base_product_special_price' => $new_spezials_base_product_special_price];
 
         // Move that ADOdb pointer!
         $new_spezials_result->MoveNext();
