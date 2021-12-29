@@ -94,18 +94,28 @@ class PostgreSqlStore implements BlockingSharedLockStoreInterface, BlockingStore
         // prevent concurrency within the same connection
         $this->getInternalStore()->save($key);
 
-        $sql = 'SELECT pg_try_advisory_lock(:key)';
-        $stmt = $this->getConnection()->prepare($sql);
-        $stmt->bindValue(':key', $this->getHashedKey($key));
-        $result = $stmt->execute();
+        $lockAcquired = false;
 
-        // Check if lock is acquired
-        if (true === $stmt->fetchColumn()) {
-            $key->markUnserializable();
-            // release sharedLock in case of promotion
-            $this->unlockShared($key);
+        try {
+            $sql = 'SELECT pg_try_advisory_lock(:key)';
+            $stmt = $this->getConnection()->prepare($sql);
+            $stmt->bindValue(':key', $this->getHashedKey($key));
+            $result = $stmt->execute();
 
-            return;
+            // Check if lock is acquired
+            if (true === $stmt->fetchColumn()) {
+                $key->markUnserializable();
+                // release sharedLock in case of promotion
+                $this->unlockShared($key);
+
+                $lockAcquired = true;
+
+                return;
+            }
+        } finally {
+            if (!$lockAcquired) {
+                $this->getInternalStore()->delete($key);
+            }
         }
 
         throw new LockConflictedException();
@@ -122,19 +132,29 @@ class PostgreSqlStore implements BlockingSharedLockStoreInterface, BlockingStore
         // prevent concurrency within the same connection
         $this->getInternalStore()->saveRead($key);
 
-        $sql = 'SELECT pg_try_advisory_lock_shared(:key)';
-        $stmt = $this->getConnection()->prepare($sql);
+        $lockAcquired = false;
 
-        $stmt->bindValue(':key', $this->getHashedKey($key));
-        $result = $stmt->execute();
+        try {
+            $sql = 'SELECT pg_try_advisory_lock_shared(:key)';
+            $stmt = $this->getConnection()->prepare($sql);
 
-        // Check if lock is acquired
-        if (true === $stmt->fetchColumn()) {
-            $key->markUnserializable();
-            // release lock in case of demotion
-            $this->unlock($key);
+            $stmt->bindValue(':key', $this->getHashedKey($key));
+            $result = $stmt->execute();
 
-            return;
+            // Check if lock is acquired
+            if (true === $stmt->fetchColumn()) {
+                $key->markUnserializable();
+                // release lock in case of demotion
+                $this->unlock($key);
+
+                $lockAcquired = true;
+
+                return;
+            }
+        } finally {
+            if (!$lockAcquired) {
+                $this->getInternalStore()->delete($key);
+            }
         }
 
         throw new LockConflictedException();
@@ -143,7 +163,7 @@ class PostgreSqlStore implements BlockingSharedLockStoreInterface, BlockingStore
     public function putOffExpiration(Key $key, float $ttl)
     {
         if (isset($this->dbalStore)) {
-            $this->dbalStore->putOffExpiration($key);
+            $this->dbalStore->putOffExpiration($key, $ttl);
 
             return;
         }

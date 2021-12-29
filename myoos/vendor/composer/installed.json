@@ -3770,17 +3770,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.1",
-            "version_normalized": "5.4.1.0",
+            "version": "v5.4.2",
+            "version_normalized": "5.4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "f70af8e1376522d784346a09d94a06e1474b42eb"
+                "reference": "3cbef8515f3a6db2b70651ccedf6e07cfeba6337"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/f70af8e1376522d784346a09d94a06e1474b42eb",
-                "reference": "f70af8e1376522d784346a09d94a06e1474b42eb",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/3cbef8515f3a6db2b70651ccedf6e07cfeba6337",
+                "reference": "3cbef8515f3a6db2b70651ccedf6e07cfeba6337",
                 "shasum": ""
             },
             "require": {
@@ -3790,7 +3790,7 @@
                 "friendsofphp/proxy-manager-lts": "^1.0.2",
                 "php": ">=7.2.5",
                 "psr/cache": "^1.0|^2.0",
-                "psr/container": "^1.0",
+                "psr/container": "^1.1.1",
                 "psr/event-dispatcher": "^1.0",
                 "psr/link": "^1.0",
                 "psr/log": "^1|^2",
@@ -3904,13 +3904,12 @@
                 "async-aws/sns": "^1.0",
                 "async-aws/sqs": "^1.0",
                 "cache/integration-tests": "dev-master",
-                "composer/package-versions-deprecated": "^1.8",
                 "doctrine/annotations": "^1.13.1",
                 "doctrine/cache": "^1.11|^2.0",
                 "doctrine/collections": "~1.0",
                 "doctrine/data-fixtures": "^1.1",
                 "doctrine/dbal": "^2.13.1|^3.0",
-                "doctrine/orm": "^2.7.3",
+                "doctrine/orm": "^2.7.4",
                 "egulias/email-validator": "^2.1.10|^3.1",
                 "guzzlehttp/promises": "^1.4",
                 "masterminds/html5": "^2.6",
@@ -3932,7 +3931,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2021-12-09T13:36:23+00:00",
+            "time": "2021-12-29T13:20:42+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3975,7 +3974,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.1"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.2"
             },
             "funding": [
                 {
