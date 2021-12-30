@@ -242,7 +242,7 @@ function oos_get_products_status($nProductID)
   * @param $length
   * @return string
   */
-  function oos_create_wishlist_code($salt="secret", $length = SECURITY_CODE_LENGTH)
+  function oos_create_wishlist_code($salt = "secret", $length = SECURITY_CODE_LENGTH)
   {
 
     // Get database information
@@ -408,7 +408,7 @@ function oos_get_products_status($nProductID)
   * @param $current_price
   * @return string
   */
-  function oos_get_products_price_quantity_discount($product_id, $qty, $current_price = false)
+  function oos_get_product_qty_dis_price($product_id, $qty, $current_price = false)
   {
 
     // Get database information
@@ -829,10 +829,8 @@ function oos_round($number, $precision)
 
 
 
-function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '')
+function oos_get_categories($aCategories = '', $parent_id = 0, $indent = '')
 {
-    $parent_id = oos_db_prepare_input($parent_id);
-
     if (!is_array($aCategories)) {
         $aCategories = [];
     }
@@ -849,7 +847,7 @@ function oos_get_categories($aCategories = '', $parent_id = '0', $indent = '')
               FROM $categoriestable c,
                    $categories_descriptiontable cd
               WHERE c.categories_status = '2'
-                AND c.parent_id = '" . oos_db_input($parent_id) . "'
+                AND c.parent_id = '" . intval($parent_id) . "'
                 AND c.categories_id = cd.categories_id
                 AND cd.categories_languages_id = '" .  intval($nLanguageID) . "'
               ORDER BY sort_order, cd.categories_name";
@@ -1147,7 +1145,7 @@ function oos_get_attributes($sProductsId)
  /**
   * Check if product has attributes
   *
-  * @param $products_id
+  * @param $sProductsId
   * @return boolean
   */
 function oos_has_product_attributes($sProductsId)
@@ -1173,7 +1171,7 @@ function oos_has_product_attributes($sProductsId)
  /**
   * Check if product has information obligation
   *
-  * @param $products_id
+  * @param $sProductsId
   * @return boolean
   */
 function oos_has_product_information_obligation($sProductsId)
@@ -1203,7 +1201,7 @@ function oos_has_product_information_obligation($sProductsId)
  /**
   * Check if the product is B-ware
   *
-  * @param $products_id
+  * @param $sProductsId
   * @return boolean
   */
 function oos_is_the_product_b_ware($sProductsId)
@@ -1237,7 +1235,7 @@ function oos_is_the_product_b_ware($sProductsId)
  /**
   * Check if product has attributes
   *
-  * @param $products_id
+  * @param $nProductsId
   * @return boolean
   */
 function get_options_values_price($nProductsId)
@@ -1338,10 +1336,10 @@ function oos_output_string($sStr, $aTranslate = null)
   * @param string
   * @return string
   */
-  function oos_remove_tags($source)
+  function oos_remove_tags($sStr)
   {
       $allowedTags = '<h1><strong><i><a><ul><li><pre><hr><br><blockquote><p>';
-      $source = strip_tags($source, $allowedTags);
+      $source = strip_tags($sStr, $allowedTags);
 
       return $source;
   }
@@ -1846,7 +1844,7 @@ function oos_newsletter_subscribe_mail($email_address)
         $smarty->caching = false;
 
         $smarty->assign(
-				[
+                [
                     'shop_name'		=> STORE_NAME,
                     'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
                     'shop_logo'		=> STORE_LOGO,
