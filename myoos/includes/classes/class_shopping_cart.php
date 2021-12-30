@@ -597,7 +597,7 @@ class shoppingCart
     {
         $new_price = $actual_price;
 
-        if ($new_discounts_price = oos_get_products_price_quantity_discount($product_id, $products_qty, $new_price)) {
+        if ($new_discounts_price = oos_get_product_qty_dis_price($product_id, $products_qty, $new_price)) {
             $new_price = $new_discounts_price;
         }
         return $new_price;
