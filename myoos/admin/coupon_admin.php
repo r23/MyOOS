@@ -1175,9 +1175,9 @@ case 'voucherreport':
 												WHERE coupon_id = '" . oos_db_input($coupon_id) . "' AND
 													coupon_languages_id = '" . intval($_SESSION['language_id']) . "'");
             $coupon_name = $coupon_name_result->fields;
-            $coupon_name['coupon_name'] = isset($coupon_name['coupon_name']) ? $coupon_name['coupon_name'] : '';
+            $name = isset($coupon_name['coupon_name']) ? $coupon_name['coupon_name'] : '';
 
-            $contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $coupon_name['coupon_name'] . '<br>' .
+            $contents[] = array('text'=>COUPON_NAME . ':&nbsp;' . $name . '<br>' .
                      COUPON_AMOUNT . ':&nbsp;' . $amount . '<br>' .
                      COUPON_STARTDATE . ':&nbsp;' . oos_date_short($coupon_start_date) . '<br>' .
                      COUPON_FINISHDATE . ':&nbsp;' . oos_date_short($coupon_expire_date) . '<br>' .
