@@ -20,7 +20,7 @@
  * global
  *
  * @package global
- * @copyright (C) 2016 by the MyOOS Development Team.
+ * @copyright (C) 2022 by the MyOOS Development Team.
  * @license GPL <http://www.gnu.org/licenses/gpl.html>
  * @link https://www.oos-shop.de
 */

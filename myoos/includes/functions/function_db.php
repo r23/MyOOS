@@ -53,7 +53,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
   * ADODB Database Abstraction Layer API Helpers
   *
   * @package database
-  * @copyright (C) 2013 by the MyOOS Development Team.
+  * @copyright (C) 2022 by the MyOOS Development Team.
   * @license GPL <http://www.gnu.org/licenses/gpl.html>
   * @link https://www.oos-shop.de
   * @subpackage adodb
