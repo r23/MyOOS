@@ -5,7 +5,7 @@
    OOS [OSIS Online Shop]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2021 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Google XML Sitemap Feed Cron Script
 
