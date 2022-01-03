@@ -237,14 +237,13 @@ function oos_datetime_short($raw_datetime)
         return false;
     }
 
-    $year = (int)substr($raw_datetime, 0, 4);
-    $month = (int)substr($raw_datetime, 5, 2);
-    $day = (int)substr($raw_datetime, 8, 2);
-    $hour = (int)substr($raw_datetime, 11, 2);
-    $minute = (int)substr($raw_datetime, 14, 2);
-    $second = (int)substr($raw_datetime, 17, 2);
+	$locale = THE_LOCALE;
+	$dateType = IntlDateFormatter::LONG; //type of date formatting
+	$timeType = IntlDateFormatter::SHORT; //type of time formatting setting to none, will give you date itself
+	$formatter = new IntlDateFormatter($locale, $dateType, $timeType);
+	$dateTime = new DateTime($raw_datetime);
 
-    return strftime(DATE_TIME_FORMAT, mktime($hour, $minute, $second, $month, $day, $year));
+    return $formatter->format($dateTime);
 }
 
 

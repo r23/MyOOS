@@ -31,7 +31,7 @@
   * on FreeBSD try 'en_US.ISO_8859-1'
   * on Windows try 'en', or 'English'
   */
-  @setlocale(LC_TIME, 'en_US');
+  define('THE_LOCALE', 'en_US');
   define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
   define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
   define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
