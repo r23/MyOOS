@@ -1,3 +1,14 @@
+# 3.3.6 (2022-01-03)
+
+* Only use Commonmark extensions if markdown enabled
+
+# 3.3.5 (2022-01-03)
+
+* Allow CommonMark extensions to easily be added
+* Allow null when Twig expects a string (for better 8.1 support)
+* Make some performance optimizations
+* Allow Symfony translation contract v3+
+
 # 3.3.4 (2021-11-25)
 
  * Bump minimum supported Symfony component versions
