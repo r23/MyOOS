@@ -43,12 +43,11 @@ function smarty_modifier_oos_date_long($raw_date)
 {
     if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
 
-    $year = (int)substr($raw_date, 0, 4);
-    $month = (int)substr($raw_date, 5, 2);
-    $day = (int)substr($raw_date, 8, 2);
-    $hour = (int)substr($raw_date, 11, 2);
-    $minute = (int)substr($raw_date, 14, 2);
-    $second = (int)substr($raw_date, 17, 2);
-
-    return strftime(DATE_FORMAT_LONG, mktime($hour,$minute,$second,$month,$day,$year));
+	$locale = THE_LOCALE;
+	$dateType = IntlDateFormatter::FULL;//type of date formatting
+	$timeType = IntlDateFormatter::NONE;//type of time formatting setting to none, will give you date itself
+	$formatter =new IntlDateFormatter($locale, $dateType, $timeType);
+	$dateTime = new DateTime($raw_date);
+	
+    return $formatter->format($dateTime);
 }

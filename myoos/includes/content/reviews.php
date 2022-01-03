@@ -89,9 +89,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $aReviews = array();
     while ($reviews = $reviews_result->fields) {
-        $format = 'Y-m-d H:i:s';
-        $date = DateTime::createFromFormat($format, $reviews['date_added']);
-        $date_long = $date->format('l, j. F Y');
+        $date_long = oos_date_long($reviews['date_added']);
 
         $aReviews[] = array('id' => $reviews['reviews_id'],
                           'products_id' => $reviews['products_id'],

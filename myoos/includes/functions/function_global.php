@@ -42,14 +42,13 @@ function oos_date_long($raw_date)
         return false;
     }
 
-    $year = intval(substr($raw_date, 0, 4));
-    $month = intval(substr($raw_date, 5, 2));
-    $day = intval(substr($raw_date, 8, 2));
-    $hour = intval(substr($raw_date, 11, 2));
-    $minute = intval(substr($raw_date, 14, 2));
-    $second = intval(substr($raw_date, 17, 2));
-
-    return strftime(DATE_FORMAT_LONG, mktime($hour, $minute, $second, $month, $day, $year));
+	$locale = THE_LOCALE;
+	$dateType = IntlDateFormatter::FULL;//type of date formatting
+	$timeType = IntlDateFormatter::NONE;//type of time formatting setting to none, will give you date itself
+	$formatter =new IntlDateFormatter($locale, $dateType, $timeType);
+	$dateTime = new DateTime($raw_date);
+	
+    return $formatter->format($dateTime);
 }
 
 
