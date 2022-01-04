@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '85f60a60c6ef4d7629ef6a36a7e5e22f61329475',
+        'reference' => '09ce5d27391fc93d28c1fcec130ec1765056d7da',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '85f60a60c6ef4d7629ef6a36a7e5e22f61329475',
+            'reference' => '09ce5d27391fc93d28c1fcec130ec1765056d7da',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -995,12 +995,12 @@
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
-            'pretty_version' => 'v3.3.6',
-            'version' => '3.3.6.0',
+            'pretty_version' => 'v3.3.7',
+            'version' => '3.3.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
-            'reference' => 'bb07a776206c245bc9cbde8e1cfcd47ffa298c23',
+            'reference' => '8f168c6ffa3ce76d1786b3cd52275424a3fc675b',
             'dev_requirement' => false,
         ),
         'videlalvaro/php-amqplib' => array(

@@ -1,3 +1,8 @@
+# 3.3.7 (2022-01-03)
+
+* Allow more null support when Twig expects a string (for better 8.1 support)
+* Only use Commonmark extensions if markdown enabled
+
 # 3.3.6 (2022-01-03)
 
 * Only use Commonmark extensions if markdown enabled
