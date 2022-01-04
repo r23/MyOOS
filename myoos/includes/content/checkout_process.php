@@ -345,17 +345,19 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
 $order_total_modules->apply_credit();
 
 // lets start with the email confirmation
+$formatter = new IntlDateFormatter(THE_LOCALE, IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+
 if ($_SESSION['guest_account'] == 1) {
     $email_order = STORE_NAME . "\n" .
                 $aLang['email_separator'] . "\n" .
                 $aLang['email_text_order_number'] . ' ' . $insert_id . "\n" .
-                $aLang['email_text_date_ordered'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
+                $aLang['email_text_date_ordered'] . ' ' . $formatter->format(time()) . "\n\n";
 } else {
     $email_order = STORE_NAME . "\n" .
                 $aLang['email_separator'] . "\n" .
                 $aLang['email_text_order_number'] . ' ' . $insert_id . "\n" .
                 $aLang['email_text_invoice_url'] . ' ' . oos_href_link($aContents['account_history_info'], 'order_id=' . $insert_id, false) . "\n" .
-                $aLang['email_text_date_ordered'] . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
+                $aLang['email_text_date_ordered'] . ' ' . $formatter->format(time()) . "\n\n";
 }
 
 
