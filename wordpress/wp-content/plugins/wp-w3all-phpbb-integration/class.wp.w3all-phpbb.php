@@ -84,20 +84,36 @@ private static function w3all_wp_logout($redirect = ''){
 
 private static function w3all_db_connect(){
 
- global $w3all_config;
- $w3all_config["dbhost"] = empty($w3all_config["dbport"]) ? $w3all_config["dbhost"] : $w3all_config["dbhost"] . ':' . $w3all_config["dbport"];
- $w3db_conn = new wpdb($w3all_config["dbuser"], $w3all_config["dbpasswd"], $w3all_config["dbname"], $w3all_config["dbhost"]);
+ if(defined('W3PHPBBDBCONN')){
+  $w3all_config_db = W3PHPBBDBCONN; // switch to W3PHPBBDBCONN only, on vers 2.6.0
+ } else { global $w3all_config_db; } // to be removed on vers 2.6.0
+
+ if(empty($w3all_config_db) OR defined('W3ALLCONNWRONGPARAMS')){ return; }
+
+ $w3all_config_db["dbhost"] = empty($w3all_config_db["dbport"]) ? $w3all_config_db["dbhost"] : $w3all_config_db["dbhost"] . ':' . $w3all_config_db["dbport"];
+ $w3db_conn = new wpdb($w3all_config_db["dbuser"], $w3all_config_db["dbpasswd"], $w3all_config_db["dbname"], $w3all_config_db["dbhost"]);
+
   if(!empty($w3db_conn->error)){
+      define('W3ALLCONNWRONGPARAMS',true); // to cut any other db loop request, if db connection values or table prefix are wrong
     if (!defined('WPW3ALL_NOT_ULINKED')){
       define('WPW3ALL_NOT_ULINKED', true);
     }
-      if($_GET['page'] == 'wp-w3all-options'){
-       echo __('<div class="" style="width:auto;background-color:#FFF;position:fixed;top:50;right:0;left:0;text-align:center;z-index:99999999;padding:20px"><h3 style="margin:0 10px 10px 10px"><span style="color:#FF0000;">WARNING</span></h3><strong>Error establishing a phpBB database connection.</strong><br />The w3all integration plugin will not work properly (widgets, shortcodes).<br /><span style="color:#FF0000">Integration Running as USERS NOT LINKED</span> until this message display.<br />Check db connection values into linked phpBB config.php file.</div><br />', 'wp-w3all-phpbb-integration');
+
+  if(!empty($w3db_conn->error->errors)){
+    foreach($w3db_conn->error->errors as $k => $v){
+     foreach($v as $vv){
+      $dberror = $vv;
+     }
+    }
+   }
+
+     if($_GET['page'] == 'wp-w3all-options' OR current_user_can('manage_options')){
+       echo __('<div class="" style="font-size:0.9em;margin:30px;width:50%;background-color:#F1F1F1;border:3px solid red;position:absolute;top:50;right:0;text-align:center;z-index:99999999;padding:20px;max-height:140px;overflow:scroll"><h3 style="margin:0 10px 10px 10px"><span style="color:#FF0000;">WARNING</span></h3><strong>phpBB database connection error.</strong><br /><span style="color:#FF0000">Integration Running as USERS NOT LINKED</span> until this message display.<br />Double check phpBB db connection values <span style="color:#FF0000">into the integration plugin admin page and <b>NOT the wp-config.php</span> (as may suggested on the message below).'.$dberror.'</div><br />', 'wp-w3all-phpbb-integration');
       }
+    return;
    }
 
   return $w3db_conn;
-
 }
 
 private static function w3all_get_phpbb_config(){
@@ -106,6 +122,10 @@ private static function w3all_get_phpbb_config(){
 
    global $w3all_config,$w3cookie_domain;
     $w3db_conn = self::w3all_db_connect();
+
+   if( ! $w3db_conn ){
+    return array();
+   }
 
    $a = $w3db_conn->get_results("SELECT * FROM ". $w3all_config["table_prefix"] ."config WHERE config_name IN('allow_autologin','avatar_gallery_path','avatar_path','avatar_salt','cookie_domain','cookie_name','default_dateformat','default_lang','load_online_time','max_autologin_time','newest_user_id','newest_username','num_posts','num_topics','num_users','rand_seed','rand_seed_last_update','script_path','session_length','version') ORDER BY config_name ASC");
 
@@ -140,6 +160,7 @@ private static function w3all_get_phpbb_config(){
 
   $res_c = serialize($res);
   define( "W3PHPBBCONFIG", $res_c );
+
   return $res;
 
 }
@@ -155,7 +176,9 @@ private static function verify_phpbb_credentials(){
    $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
 
         $phpbb_config = self::w3all_get_phpbb_config();
-        $phpbb_config = unserialize(W3PHPBBCONFIG);
+          if(defined("W3PHPBBCONFIG")){
+           $phpbb_config = unserialize(W3PHPBBCONFIG);
+          } else { return; }
 
       if( isset($_GET['action']) && $_GET['action'] == 'logout' ){
          self::w3all_wp_logout();
@@ -217,7 +240,7 @@ private static function verify_phpbb_credentials(){
   } elseif ( !empty( $phpbb_k ) ){ // remember me auto login
    $phpbb_user_session = $w3db_conn->get_results("SELECT *
     FROM ". $w3all_config["table_prefix"] ."sessions_keys
-    LEFT JOIN ". $w3all_config["table_prefix"] ."users  ON ". $w3all_config["table_prefix"] ."users.user_id = ".$w3all_config["table_prefix"] ."sessions_keys.user_id
+    JOIN ". $w3all_config["table_prefix"] ."users  ON ". $w3all_config["table_prefix"] ."users.user_id = ".$w3all_config["table_prefix"] ."sessions_keys.user_id
     AND ". $w3all_config["table_prefix"] ."sessions_keys.key_id = '".md5($phpbb_k)."'
     AND ". $w3all_config["table_prefix"] ."users.user_id = ". $phpbb_u ."
     JOIN ". $w3all_config["table_prefix"] ."groups ON ". $w3all_config["table_prefix"] ."groups.group_id = ". $w3all_config["table_prefix"] ."users.group_id
@@ -230,7 +253,6 @@ private static function verify_phpbb_credentials(){
   } else {
      $phpbb_user_session = '';
     }
-
 
   /*if( isset($get_phpbb_SU_info) )
   {
@@ -253,7 +275,7 @@ private static function verify_phpbb_credentials(){
     //if( is_multisite() && !empty($phpbb_user_session) && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user_session[0]->username) ){
     if( is_multisite() && !empty($phpbb_user_session) && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user_session[0]->username) ){
      setcookie ("w3all_set_cmsg", "phpbb_uname_chars_error", 0, "/", $w3cookie_domain, false);
-     echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: logged in username contains illegal characters forbidden in this system. Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
+     echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: logged in username contains illegal characters forbidden on this CMS. Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
      if (!defined('WPW3ALL_NOT_ULINKED')){
       define('WPW3ALL_NOT_ULINKED', true);
       return;
@@ -271,11 +293,12 @@ private static function verify_phpbb_credentials(){
      update_option( 'w3all_bruteblock_phpbbulist', $w3all_bruteblock_phpbbulist );
     }
 
+
     // Default trick: fire a fake 'not matching' login for this user, so Firewall plugins will also log this event and make their job
-   $randfpass = substr(str_shuffle(md5(time())), 0, rand(8,14));
+   $randfpass = substr(md5(time()), 0, rand(8,14));
    $phpbb_uck = !isset($phpbb_user->username) ? '' : $phpbb_user->username;
    $ulogF = wp_signon( array('user_login' => $phpbb_uck, 'user_password' => $randfpass, 'remember' => false), is_ssl() );
-    return;
+
   } // END // w3all Brute Force Prevention // record addition
 
   if ( empty( $phpbb_user_session ) && is_user_logged_in() ){
@@ -293,7 +316,10 @@ private static function verify_phpbb_credentials(){
      $wpdb->query("UPDATE $wpu_db_utab SET user_email = '".$phpbb_user_session[0]->user_email."' WHERE ID = '$current_user->ID'");
    }
     // !!! NOTE IMPORTANT !!!!
-    // !!! NOTE IMPORTANT !!!!
+    // BUT YOU CAN USE THE /wp-w3all-phpbb-integration/addons/phpBB_EXT
+    // SINCE 2.4.6>
+
+    // !!! NOTE IMPORTANT !!!! (if phpBB_EXT not installed)
     // loop if email changed in phpBB and username do not match on both phpBB and WP
     // running integration with mismatching usernames/pairs, it is required to allow registration/email update ONLY in WP
     // if email changed in phpBB, with mismatching usernames, it will cause a re-login on-fly for the user by the way
@@ -610,6 +636,8 @@ private static function last_forums_topics($ntopics = 10){
 
  global $w3all_config,$w3all_exclude_phpbb_forums,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num,$w3all_get_topics_x_ugroup;
  $w3db_conn = self::w3all_db_connect();
+
+ if(!$w3db_conn){ return; }
 
  $ntopics0 = $w3all_wlastopicspost_max > $w3all_lasttopic_avatar_num ? $w3all_wlastopicspost_max : $w3all_lasttopic_avatar_num;
  $ntopics =  $ntopics0 > $ntopics ? $ntopics0 : 10;
@@ -1276,6 +1304,8 @@ public static function check_phpbb_passw_match_on_wp_auth ( $user_email, $is_php
 
       $w3phpbb_conn = self::w3all_db_connect();
 
+      if( !$w3phpbb_conn ){ return; }
+
     if(empty($wpu)){
      $wpu = get_user_by('email', $user_email);
     }
@@ -1559,6 +1589,8 @@ public static function w3_check_phpbb_profile_wpnu($username){ // email/user_log
   $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
   $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
   $w3phpbb_conn = self::wp_w3all_phpbb_conn_init();
+
+  if(!$w3phpbb_conn){ return; }
 
   $username = esc_sql($username);
   //$db_eu = is_email($username) ? 'users.user_email) = \''.mb_strtolower($username,'UTF-8').'\'' : 'users.username) = \''.mb_strtolower($username,'UTF-8').'\'';
@@ -2565,7 +2597,10 @@ public static function w3all_get_phpbb_avatars_url( $w3unames ) {
   global $w3all_config, $w3all_avatar_via_phpbb_file,$w3all_url_to_cms;
   $w3db_conn = self::w3all_db_connect();
   $phpbb_config = self::w3all_get_phpbb_config();
-  $phpbb_config = unserialize(W3PHPBBCONFIG);
+  // if the database connection fail, at this point W3PHPBBCONFIG is not defined
+  if(defined("W3PHPBBCONFIG")){
+   $phpbb_config = unserialize(W3PHPBBCONFIG);
+  } else { return; }
 
   $uavatars = $w3db_conn->get_results( "SELECT user_id, username, user_avatar, user_avatar_type FROM ".$w3all_config["table_prefix"]."users WHERE user_email IN(".$w3unames.") ORDER BY user_id DESC" );
 

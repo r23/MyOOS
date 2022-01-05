@@ -1,4 +1,4 @@
-<?php defined( 'ABSPATH' ) or die( 'forbidden' ); 
+<?php defined( 'ABSPATH' ) or die( 'forbidden' );
 
 add_thickbox();
 $w3commonImgMimes = array('jpeg','jpg','gif','png','svg','bmp');
@@ -26,36 +26,36 @@ $w3TDSpacer_instyle = ' style="width:'.$wp_w3all_gap_columns.'%;border-width:0;"
 if( !empty($last_topics) ){
 
 echo '<table class="'.$w3LastopicsIMG_TABwrapper.'"'.$w3TABwrapper_instyle.'><tbody><tr>';
-// columns trick 
-$c0untn = 0; 
+// columns trick
+$c0untn = 0;
 $c1ount = 1;
 
-$countn = 0; 
+$countn = 0;
 foreach ($last_topics as $key => $w3topic) {
-	if ( $countn < $topics_number ){ 
+  if ( $countn < $topics_number ){
  if($w3all_phpbb_widget_FA_mark_yn > 0){ // Font Awesome to notify about read/unread
    $w3all_post_state_ru = (isset($phpbb_unread_topics) && is_array($phpbb_unread_topics) && array_key_exists($w3topic->topic_id, $phpbb_unread_topics)) ? $w3all_post_state_ru = ' &nbsp; <span style="color:#BC2A4D"><i class="fa fa-comment" aria-hidden="true"></i></span>' : '';
   } else { // No Fontawesome, &star; html entity for read/unread
    $w3all_post_state_ru = (isset($phpbb_unread_topics) && is_array($phpbb_unread_topics) && array_key_exists($w3topic->topic_id, $phpbb_unread_topics)) ? $w3all_post_state_ru = ' &nbsp; <span style="color:#BC2A4D">&star;</span>' : '';
   }
- 
-	$w3topic->topic_last_poster_name = (empty($w3topic->topic_last_poster_name)) ? __( 'Guest', 'wp-w3all-phpbb-integration' ) : $w3topic->topic_last_poster_name;
+
+  $w3topic->topic_last_poster_name = (empty($w3topic->topic_last_poster_name)) ? __( 'Guest', 'wp-w3all-phpbb-integration' ) : $w3topic->topic_last_poster_name;
  if ( $wp_w3all_post_text == 1 ){
    $w3topic->post_text = wp_w3all_remove_bbcode_tags($w3topic->post_text, $wp_w3all_text_words) . ' ...';
   } else {
    $w3topic->post_text = ''; // if not post with text
   }
-  
- if ( $w3all_iframe_phpbb_link_yn == 1 ){
-  	// see wp_w3all.php -> function w3all_widget_iframe_href(){
-  	$ih = get_home_url()."/index.php/$wp_w3all_forum_folder_wp/?forum_id=$w3topic->forum_id&amp;topic_id=$w3topic->topic_id&amp;post_id=$w3topic->post_id#p$w3topic->post_id";  
-  	$idsh = 'w3all' . $countn . mt_rand(999,500000); // guess (+- surely) to not build a duplicated ID for the 'a' element on page output, even with multiple widgets/shortcodes instances on same page ...
- 	// link (with js seo trick) to iframed phpBB in WP page
+
+/* if ( $w3all_iframe_phpbb_link_yn == 1 ){
+    // see wp_w3all.php -> function w3all_widget_iframe_href(){
+    $ih = get_home_url()."/index.php/$wp_w3all_forum_folder_wp/?forum_id=$w3topic->forum_id&amp;topic_id=$w3topic->topic_id&amp;post_id=$w3topic->post_id#p$w3topic->post_id";
+    $idsh = 'w3all' . $countn . mt_rand(999,500000); // guess (+- surely) to not build a duplicated ID for the 'a' element on page output, even with multiple widgets/shortcodes instances on same page ...
+  // link (with js seo trick) to iframed phpBB in WP page
   $titleLinkToPost = "<a id=\"".$idsh."\" onmouseover=\" w3allIframeHref('".$idsh."','".$ih."');\" href=\"$w3all_url_to_cms/viewtopic.php?f=$w3topic->forum_id&amp;t=$w3topic->topic_id&amp;p=$w3topic->post_id#p$w3topic->post_id\">$w3topic->topic_title</a> ".$w3all_post_state_ru."<br />";
- } else {
-	// direct link to phpBB
+ } else {*/
+  // direct link to phpBB
   $titleLinkToPost = '<a href="'.$w3all_url_to_cms.'/viewtopic.php?f='.$w3topic->forum_id.'&amp;t='.$w3topic->topic_id.'&amp;p='.$w3topic->post_id.'#p'.$w3topic->post_id.'">'.$w3topic->topic_title.'</a> '.$w3all_post_state_ru.'<br />';
- }
+// }
 
 /*
 // switch for zebra colors 'inline' maybe in this way
@@ -100,7 +100,7 @@ echo __( 'by ' , 'wp-w3all-phpbb-integration' ). $w3topic->topic_last_poster_nam
 if(  $c0untn == $wp_w3all_columns_number ){ echo '</tr>'; }
 $c0untn++;
 $countn++;
-if(  $c0untn == $wp_w3all_columns_number ){ $c0untn = 0; } 
+if(  $c0untn == $wp_w3all_columns_number ){ $c0untn = 0; }
  else {  echo '<td class="'.$w3TDSpacer.'"'.$w3TDSpacer_instyle.'></td>';  }
 
 } // END instance topics number

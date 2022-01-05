@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.8
@@ -72,6 +72,19 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.4.6 =
+*Release Date - 4 Jan, 2022*
+
+* Note: Php7 or better required since 2.4.6
+* Replace: phpBB config.php file inclusion. phpBB database connection values and integration mode are now all inside the new option into integration plugin admin page.
+* Note: active installations are automatically switched to the new configuration when: visit the WP_w3all plugin admin page after the plugin update. Check that all is in good order (GREEN BUTTON display).
+* Note: open plugin admin page to automatically activate the new config (that now work without including a phpBB config.php file). If the GREEN BUTTON display it is all ok: if you were using the custom config.php file inclusion, may remove/delete the file from the filesystem because it will not be used anymore
+* Fix function w3all_add_phpbb_user(). Was working fine, but it has been optimized to avoid waste of resources (when/if called) and minor cleanup
+* Optimize verify_credentials() main function
+* Fix: if integration active but db connection fail, and users have to login in WordPress, but the presented hash is a phpBB hash, the plugin will follow on recognize any presented hash and correctly login users without doing a password reset
+* Remove js onmouseover to switch links to the iframe mode. There is no need to take this and more code into widget and shourtcode files (due to js overall_header.html code): all files about have been shortened and cleaned up: old custom files will follow to work as before (because functions about have not been removed)
+* Logs 2.4.6 here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1672
 
 = 2.4.5 =
 *Release Date - 26 Dec, 2021*

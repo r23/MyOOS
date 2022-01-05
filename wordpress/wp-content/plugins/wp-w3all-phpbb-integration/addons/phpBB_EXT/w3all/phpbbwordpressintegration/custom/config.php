@@ -20,7 +20,7 @@ $wp_w3all_dbport = ''; // maybe required
 // If the following options are not activated
 // the extension will only work to UPDATE email, password and url fields into the linked WordPress, and can run as standalone.
 // Activating the options here below, may require that the WordPress phpBB integration plugin is installed and active into your WordPress
-// or only redirects will happen as expected (not users insertion into WordPress, as obvious may it is, because the cURL joke (without visible errors) will fail if the integration plugin is not installed in WP)
+// or only redirects will happen as expected (not users insertion into WordPress, as obvious may it is, because the cURL post (without visible errors) will fail if the integration plugin is not installed in WP)
 
 /**
     Setup User Addition in WordPress option using cURL or Redirect options.

@@ -1,15 +1,76 @@
-<?php defined( 'ABSPATH' ) or die( 'forbidden' ); 
-if ( defined('PHPBB_INSTALLED') ){
-	if (class_exists('WP_w3all_phpbb')) {
-	global $w3all_config;
+<?php defined( 'ABSPATH' ) or die( 'forbidden' );
+
+   if ( !current_user_can( 'manage_options' ) ) {
+      die('<h3>Forbidden</h3>');
+    }
+
+ /*if(isset($_POST['w3all_phpbb_dbconn']))
+  {
+    //global $w3all_phpbb_dbconn;
+   $w3all_phpbb_dbconn['w3all_phpbb_url'] = (!filter_var($_POST['w3all_phpbb_dbconn']['w3all_phpbb_url'], FILTER_VALIDATE_URL)) ? '' : $_POST['w3all_phpbb_dbconn']['w3all_phpbb_url'];
+   $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbhost'];
+   $w3all_phpbb_dbconn['w3all_phpbb_dbname'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbname'];
+   $w3all_phpbb_dbconn['w3all_phpbb_dbuser'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbuser'];
+   $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbpasswd'];
+   $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbtableprefix'];
+   $w3all_phpbb_dbconn['w3all_phpbb_dbport'] =  $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbport'];
+   $w3all_phpbb_dbconn['w3all_pass_hash_way'] = intval($_POST['w3all_phpbb_dbconn']['w3all_pass_hash_way']);
+   $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp'] = intval($_POST['w3all_phpbb_dbconn']['w3all_not_link_phpbb_wp']);
+    update_option('w3all_phpbb_dbconn',$w3all_phpbb_dbconn);
+  } else*/if ( defined('PHPBB_INSTALLED') && empty(get_option('w3all_phpbb_dbconn')) )
+   {
+
+    $config_file =  get_option( 'w3all_path_to_cms' ) . '/config.php';
+
+   if (file_exists($config_file))
+   {
+    ob_start();
+     include( $config_file );
+     if ( defined('WP_W3ALL_MANUAL_CONFIG') )
+     { // custom phpBB config
+        $phpbbc = array( 'dbhost' => $w3all_dbhost, 'dbport' => $w3all_dbport, 'dbname' => $w3all_dbname, 'dbuser'   => $w3all_dbuser, 'dbpasswd' => $w3all_dbpasswd, 'table_prefix' => $w3all_table_prefix );
+     } else
+       { // default phpBB config.php
+        $phpbbc = array( 'dbhost' => $dbhost, 'dbport' => $dbport, 'dbname' => $dbname, 'dbuser' => $dbuser, 'dbpasswd' => $dbpasswd, 'table_prefix' => $table_prefix );
+       }
+    ob_end_clean();
+   }
+
+    $w3all_phpbb_dbconn['w3all_phpbb_url'] = !empty(get_option('w3all_url_to_cms')) ? get_option('w3all_url_to_cms') : '';
+    $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] = isset($phpbbc['dbhost']) ? $phpbbc['dbhost'] : '';
+    $w3all_phpbb_dbconn['w3all_phpbb_dbname'] = isset($phpbbc['dbname']) ? $phpbbc['dbname'] : '';
+    $w3all_phpbb_dbconn['w3all_phpbb_dbuser'] = isset($phpbbc['dbuser']) ? $phpbbc['dbuser'] : '';
+    $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'] = isset($phpbbc['dbpasswd']) ? $phpbbc['dbpasswd'] : '';
+    $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] = isset($phpbbc['table_prefix']) ? $phpbbc['table_prefix'] : '';
+    $w3all_phpbb_dbconn['w3all_phpbb_dbport'] = isset($phpbbc['dbport']) ? $phpbbc['dbport'] : '';
+    $w3all_phpbb_dbconn['w3all_pass_hash_way'] = !empty(get_option('w3all_pass_hash_way')) ? get_option('w3all_pass_hash_way') : 0;
+    $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp'] = !empty(get_option('w3all_not_link_phpbb_wp')) ? get_option('w3all_not_link_phpbb_wp') : 0;
+     update_option('w3all_phpbb_dbconn',$w3all_phpbb_dbconn);
+   }
+    else {
+     $w3all_phpbb_dbconn = get_option('w3all_phpbb_dbconn');
+    }
+
+  if(empty($w3all_phpbb_dbconn)){
+    $colorwarn = 'red;';
+  } else { $colorwarn = 'green;'; }
+
    $w3db_conn = WP_w3all_phpbb::w3all_db_connect_res();
-   $phpBBgroups = $w3db_conn->get_results("SELECT * FROM ". $w3all_config["table_prefix"] ."groups");
-  }
-}
+   if( $w3db_conn !== null ){
+    $phpBBgroups = $w3db_conn->get_results("SELECT * FROM ". $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] ."groups");
+   } else { $colorwarn = 'red;'; }
+
+   if(empty($phpBBgroups)){ // presumably then, connection values are ok, but the table prefix is wrong
+    $colorwarn = 'red;';
+   }
+
+   if(empty($w3all_phpbb_dbconn['w3all_phpbb_url'])){
+    $colorwarn = 'red;';
+   }
 
 $w3_wp_roles = wp_roles();
 $w3wp_roles = isset($w3_wp_roles->role_names) ? $w3_wp_roles->role_names : array();
-
+$current_user = wp_get_current_user();
 ?>
 
 <div style="background-color:#FFF;margin:0 20px 0 0;display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;">
@@ -28,11 +89,12 @@ $w3wp_roles = isset($w3_wp_roles->role_names) ? $w3_wp_roles->role_names : array
 </div>
 
 <?php
-$config_file = get_option( 'w3all_path_to_cms' );
-$config_avatars = get_option( 'w3all_conf_avatars' );
+$config_file = get_option('w3all_path_to_cms');
+$config_avatars = get_option('w3all_conf_avatars');
 $w3all_config_avatars = unserialize($config_avatars);
-$w3all_conf_pref = get_option( 'w3all_conf_pref' );
+$w3all_conf_pref = get_option('w3all_conf_pref');
 $w3all_conf_pref = empty(trim($w3all_conf_pref)) ? array() : unserialize($w3all_conf_pref);
+$w3all_phpbb_dbconn = get_option('w3all_phpbb_dbconn');
 
 $w3all_iframe_phpbb_link = unserialize(get_option('w3all_conf_pref_template_embed_link'));
 $w3all_iframe_phpbb_link_yn = isset($w3all_iframe_phpbb_link["w3all_iframe_phpbb_link_yn"]) ? $w3all_iframe_phpbb_link["w3all_iframe_phpbb_link_yn"] : 0;
@@ -55,10 +117,10 @@ $w3all_conf_pref['w3all_transfer_phpbb_yn'] = isset($w3all_conf_pref['w3all_tran
 $w3all_conf_pref['w3all_phpbb_lang_switch_yn'] = isset($w3all_conf_pref['w3all_phpbb_lang_switch_yn']) ? $w3all_conf_pref['w3all_phpbb_lang_switch_yn'] : 0;
 $w3all_conf_pref['w3all_get_topics_x_ugroup'] = isset($w3all_conf_pref['w3all_get_topics_x_ugroup']) ? $w3all_conf_pref['w3all_get_topics_x_ugroup'] : 0;
 $w3all_conf_pref['w3all_custom_output_files'] = isset($w3all_conf_pref['w3all_custom_output_files']) ? $w3all_conf_pref['w3all_custom_output_files'] : 0;
-$w3all_conf_pref['w3all_profile_sync_bp_yn'] = isset($w3all_conf_pref['w3all_profile_sync_bp_yn']) ? $w3all_conf_pref['w3all_profile_sync_bp_yn'] : 0;
+//$w3all_conf_pref['w3all_profile_sync_bp_yn'] = isset($w3all_conf_pref['w3all_profile_sync_bp_yn']) ? $w3all_conf_pref['w3all_profile_sync_bp_yn'] : 0;
 $w3all_conf_pref['w3all_add_into_spec_group'] = isset($w3all_conf_pref['w3all_add_into_spec_group']) ? $w3all_conf_pref['w3all_add_into_spec_group'] : 2;
 $w3all_conf_pref['w3all_wp_phpbb_lrl_links_switch_yn'] = isset($w3all_conf_pref['w3all_wp_phpbb_lrl_links_switch_yn']) ? $w3all_conf_pref['w3all_wp_phpbb_lrl_links_switch_yn'] : 0;
-$w3all_conf_pref['w3all_phpbb_mchat_get_opt_yn'] = isset($w3all_conf_pref['w3all_phpbb_mchat_get_opt_yn']) ? $w3all_conf_pref['w3all_phpbb_mchat_get_opt_yn'] : 0;
+//$w3all_conf_pref['w3all_phpbb_mchat_get_opt_yn'] = isset($w3all_conf_pref['w3all_phpbb_mchat_get_opt_yn']) ? $w3all_conf_pref['w3all_phpbb_mchat_get_opt_yn'] : 0;
 $w3all_conf_pref['w3all_anti_brute_force_yn'] = isset($w3all_conf_pref['w3all_anti_brute_force_yn']) ? $w3all_conf_pref['w3all_anti_brute_force_yn'] : 1;
 $w3all_conf_pref['w3all_custom_iframe_yn'] = isset($w3all_conf_pref['w3all_custom_iframe_yn']) ? $w3all_conf_pref['w3all_custom_iframe_yn'] : 0;
 $w3all_conf_pref['w3all_add_into_wp_u_capability'] = isset($w3all_conf_pref['w3all_add_into_wp_u_capability']) ? $w3all_conf_pref['w3all_add_into_wp_u_capability'] : 'subscriber';
@@ -66,28 +128,25 @@ $w3all_conf_pref['w3all_wp_signup_fix_yn'] = isset($w3all_conf_pref['w3all_wp_si
 $w3all_conf_pref['w3all_add_into_phpBB_after_confirm'] = isset($w3all_conf_pref['w3all_add_into_phpBB_after_confirm']) ? $w3all_conf_pref['w3all_add_into_phpBB_after_confirm'] : 0;
 $w3all_conf_pref['w3all_push_new_pass_into_phpbb'] = isset($w3all_conf_pref['w3all_push_new_pass_into_phpbb']) ? $w3all_conf_pref['w3all_push_new_pass_into_phpbb'] : 0;
 
+$w3all_phpbb_dbconn['w3all_phpbb_url'] = isset($w3all_phpbb_dbconn['w3all_phpbb_url']) ? $w3all_phpbb_dbconn['w3all_phpbb_url'] : '';
+$w3all_phpbb_dbconn['w3all_phpbb_dbhost'] = isset($w3all_phpbb_dbconn['w3all_phpbb_dbhost']) ? $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] : '';
+$w3all_phpbb_dbconn['w3all_phpbb_dbname'] = isset($w3all_phpbb_dbconn['w3all_phpbb_dbname']) ? $w3all_phpbb_dbconn['w3all_phpbb_dbname'] : '';
+$w3all_phpbb_dbconn['w3all_phpbb_dbuser'] = isset($w3all_phpbb_dbconn['w3all_phpbb_dbuser']) ? $w3all_phpbb_dbconn['w3all_phpbb_dbuser'] : '';
+$w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'] = isset($w3all_phpbb_dbconn['w3all_phpbb_dbpasswd']) ? $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'] : '';
+$w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] = isset($w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix']) ? $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] : '';
+$w3all_phpbb_dbconn['w3all_phpbb_dbport'] = isset($w3all_phpbb_dbconn['w3all_phpbb_dbport']) ? $w3all_phpbb_dbconn['w3all_phpbb_dbport'] : '';
+$w3all_phpbb_dbconn['w3all_pass_hash_way'] = isset($w3all_phpbb_dbconn['w3all_pass_hash_way']) ? $w3all_phpbb_dbconn['w3all_pass_hash_way'] : 0;
+$w3all_phpbb_dbconn['w3all_not_link_phpbb_wp'] = isset($w3all_phpbb_dbconn['w3all_not_link_phpbb_wp']) ? $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp'] : 0;
+
 // reset the option, when/if disabled
- if($w3all_conf_pref['w3all_anti_brute_force_yn'] == 0){
-    	delete_option( 'w3all_bruteblock_phpbbulist');
+ if($w3all_conf_pref['w3all_anti_brute_force_yn'] < 1){
+      delete_option( 'w3all_bruteblock_phpbbulist');
   }
 
-if (!empty($config_file)){
- $config_file =  get_option( 'w3all_path_to_cms' ) . '/config.php';
- 	ob_start();
-	include_once( $config_file );
-  ob_end_clean(); 
-}
+ if(isset( $_POST["w3all_conf"]["w3all_path_to_cms"]  ) OR isset( $_POST["w3all_phpbb_dbconn"] )){
+  register_uninstall_hook( __FILE__, array( 'WP_w3all_admin', 'clean_up_on_plugin_off' ) );
+ }
 
- if (isset( $_POST["w3all_conf"]["w3all_path_to_cms"] ) ){
- $config_file =  $_POST["w3all_conf"]["w3all_path_to_cms"] . '/config.php';
-} 
-   
-    if ( !defined('PHPBB_INSTALLED') ){
-     echo __('<h3 style="color:#ff0000">Before to activate the integration by setting the path to a phpBB <i>config.php</i> file it is mandatory to<br /><br /> <a target="_blank" href="https://www.axew3.com/w3/2016/02/configure-phpbb-cookie-all-domain/">setup the correct cookie setting into phpBB</a> (and read the <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Install Help Page</a>)</h3>', 'wp-w3all-phpbb-integration');
-     echo __('<h4 style="color:#ff0000">Wp w3all miss phpBB configuration file (or you have the phpBB config.php not well configured).</h4>', 'wp-w3all-phpbb-integration');
-     echo __('<h4 style="color:#000">Set the correct full ABSOLUTE PATH that need to point to a folder containing a valid phpBB config.php file!</h4>', 'wp-w3all-phpbb-integration');
-    }
-    
 $up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-options';
 
 if (isset( $_POST["w3all_conf_pref_template_embed"]["w3all_forum_template_wppage"] ) ){
@@ -101,72 +160,99 @@ file_put_contents($w3all_page_td, $w3all_default_template);
 
 }
 
-if(!defined('PHPBB_INSTALLED')){
-	$style_warn = 'color:#FF0000;';
-} else {
-	$style_warn = 'color:green;';
-}
 ?>
 
-<div class="" style="border-top:2px solid #999;border-bottom:2px solid #999;padding:0 20px 20px 20px;background-color:#e3d2e2;margin:0 20px 0 0">
 
-<h1 style="<?php echo $style_warn;?>"><?php echo __('WP_w3all Path, Url, Password hash and Integration mode config', 'wp-w3all-phpbb-integration'); ?></h1>
-<form name="w3all_conf" id="w3all-conf" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
+
+<div class="" style="margin-top:4.0em;margin-right:1.0em;">
+<form name="w3all_phpbb_dbconn" id="w3all-phpbb-dbconn" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
+
+<h1 style="color:green">WP_w3all phpBB db connection values and integration main settings</h1>
 <hr />
 
-<?php echo __('<b>NOTE:</b> most important settings are here. The absolute path need to point to a phpBB <i>config.php</i> file, that can be the <b>root phpBB <i>config.php</i> file</b> or a <b>custom <i>config.php</i> file</b> on a custom folder. Once the path setting has been setup, the plugin become effectively active (the relative <span style="color:red">RED</span> text become <span style="color:green"><b>GREEN</b></span>).  
-<br /><b style="color:red">NOTE:</b> use the <a href="https://www.axew3.com/w3/2016/09/how-to-setup-wp_w3all-manual-phpbb-config-php-file-and-path/" target="_blank">custom config.php</b></a> file to get WP_w3all easy to be installed on subdomains, <b>and/or for compatibility with many plugins</b>: <b>it isn\'t strictly required most of the time</b>, but many plugins that instantiate new db connections in different order, will require to choose the custom config.php on WP_w3all, to make it all work as expected. 
-<br /><br /><b>Custom config.php and path setting to config.php file how to</b>: you can choose to use/include a <b>custom config.php file</b> OR the <b>phpBB root config.php</b> file. If you want to use/include the <a href="https://www.axew3.com/w3/2016/09/how-to-setup-wp_w3all-manual-phpbb-config-php-file-and-path/" target="_blank">custom <i>config.php</i></a>, set the correct path to it after you completed this procedure:
-<br /><b><a href="https://www.axew3.com/w3/2016/09/how-to-setup-wp_w3all-manual-phpbb-config-php-file-and-path/" target="_blank">How to setup phpBB custom config.php and related correct absolute path setting</a></b>
+<h3><?php echo __('Setup phpBB database connection, Url, Password hash and Integration mode config', 'wp-w3all-phpbb-integration');?></h3>
 
-<br /><br /><b>Skip custom config.php, setup path to the root phpBB config.php</b>: <b><a href="https://www.axew3.com/w3/index.php/forum/?viewforum=7&viewtopic=61" target="_blank">path config how to</a></b>
+<?php
+    if( !defined('W3PHPBBDBCONN') ){
+     echo __('<h3 style="color:#ff0000">Before to activate the integration by setting phpBB db connection values it is mandatory to<br /><br /> <a target="_blank" href="https://www.axew3.com/w3/2016/02/configure-phpbb-cookie-all-domain/">setup the correct cookie setting into phpBB</a> (and read the <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Install Help Page</a>)</h3>', 'wp-w3all-phpbb-integration');
+     echo __('<h4 style="color:#ff0000">Wp w3all miss phpBB db connection values.</h4>', 'wp-w3all-phpbb-integration');
+    }
+?>
 
-<br /><br />Path example for custom phpBB config.php: <i>/web/htdocs/home/wp-content/plugins/<b>wp-w3all-config</b></i>
-<br />Path example for config.php on phpBB root folder: <i>/web/htdocs/home/<b>phpBB</b></i>
-<br /><br />If you choose to include/use the custom <i>wp-content/plugins/wp-w3all-config/<b>config.php</b></i> file, <b>edit it</b> before to apply the path value to the file\'s folder here
-<br />', 'wp-w3all-phpbb-integration'); ?>
-<input id="w3all_path_to_cms" name="w3all_conf[w3all_path_to_cms]" type="text" size="35" value="<?php echo esc_attr( get_option('w3all_path_to_cms') ); ?>"> <b><span style="<?php echo $style_warn ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Path</b> - <b style="<?php echo $style_warn ?>"><?php echo __('Absolute path to Custom OR phpBB root folder config.php file</b> - NOTE: do NOT add final slash \'/\'', 'wp-w3all-phpbb-integration'); ?>
+<button id="w3all_config_b" class="button" style="background-color:<?php echo $colorwarn;?>color:#FFF">phpBB connection and main options</button>
 <br /><br />
-
-<input id="w3all_url_to_cms" name="w3all_conf[w3all_url_to_cms]" type="text" size="35" value="<?php echo esc_attr( get_option('w3all_url_to_cms') ); ?>"><?php echo __(' <b>(REQUIRED) </span> URL</b> &nbsp;- Real phpBB URL - NOTE: do NOT add final slash \'/\' <strong>Example</strong>: http://www.axew3.com/forum', 'wp-w3all-phpbb-integration'); ?>
-<hr />
-<?php 
-$current_user = wp_get_current_user();
-?>
+<div id="w3allconfigoption" style="padding:5px;margin:0 20px; 0 0">
+<script>
+jQuery('#w3allconfigoption').hide();
+jQuery( "#w3all_config_b" ).click(function(e) {
+ e.preventDefault();
+jQuery( "#w3allconfigoption" ).toggle();
+});
+</script>
+<?php echo __('<span style="color:red">NOTE</span> that <span style="color:red">if WordPress is running in debug mode</span>, failing on setting up db connection values here, lead WordPress to end up with a MySQL error warning and no way to update connection settings and get out by this situation (if not accessing db and changing related option values, or disabling the plugin etc).<br />Instead, open the <i>wp-config.php</i> file and temporarily <span style="color:red">disable the debug in WordPress</span><br />by commenting ( prepend with // ) the \'WP_DEBUG\' line &nbsp;&nbsp;&nbsp;<i> // define( \'WP_DEBUG\', true );</i><br />So WordPress will not end up with an error that stop any other WP code execution, when it is in DEBUG mode and a MySQL connection error occur'); ?>
+<br /><br />
+phpBB real URL: do NOT add final slash and set https or http, the same as WordPress<br /><br />
+<input id="w3all_phpbb_url" name="w3all_phpbb_dbconn[w3all_phpbb_url]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_url'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_url'])) {echo 'color:red';}else{echo 'display:none';} ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span></b> <?php echo __(' Real phpBB URL - NOTE: do NOT add final slash / &nbsp;&nbsp;Example: https://www.axew3.com/phpbb', 'wp-w3all-phpbb-integration'); ?>
+<br /><br /><br />
+phpBB database connection values<br /><br />
+<input id="w3all_phpbb_dbhost" name="w3all_phpbb_dbconn[w3all_phpbb_dbhost]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_dbhost'])) echo 'color:red'; ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Db host</b>
+<br /><br />
+<input id="w3all_phpbb_dbname" name="w3all_phpbb_dbconn[w3all_phpbb_dbname]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbname'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_dbname'])) echo 'color:red'; ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Db name</b>
+<br /><br />
+<input id="w3all_phpbb_dbuser" name="w3all_phpbb_dbconn[w3all_phpbb_dbuser]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbuser'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_dbuser'])) echo 'color:red'; ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Db user</b>
+<br /><br />
+<input id="w3all_phpbb_dbpasswd" name="w3all_phpbb_dbconn[w3all_phpbb_dbpasswd]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'])) echo 'color:red'; ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Db password</b>
+<br /><br />
+<input id="w3all_phpbb_dbtableprefix" name="w3all_phpbb_dbconn[w3all_phpbb_dbtableprefix]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix']) OR empty($phpBBgroups) && !defined('W3ALLCONNWRONGPARAMS') ) echo 'color:red'; ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Db table prefix</b>
+<br /><br />
+<input id="w3all_phpbb_dbport" name="w3all_phpbb_dbconn[w3all_phpbb_dbport]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbport'] ); ?>"> <b> Db port (if not default 3306, it is maybe required)</b>
+<br /><br />
 <h3><?php echo __('Password hash: WordPress or phpBB mode', 'wp-w3all-phpbb-integration');?></h3>
 <?php
 echo __('Choosing to hash passwords in phpBB mode, when/if integration disabled, WordPress users will have to reset their password to correctly login into WordPress (because maybe (maybe not) the password hash won\'t match). Choosing instead to hash passwords in the WordPress way, phpBB users will have to reset their password to log into phpBB correctly, once integration plugin disabled.<br /><br /><b>Important note: choosing the WordPress password hash, it is mandatory that you let your users log in AND update their password only in WordPress and not in phpBB.</b><br />By using phpBB hashes, users can login both in WordPress and phpBB, since WordPress with the integration plugin active will recognize any phpBB/wordpress hash, while phpBB will not recognize WordPress hashes (if you do not add an extension into phpBB that could do this). <b>phpBB hash password</b> is the default setting (that\'s the default setting since ever)', 'wp-w3all-phpbb-integration');
 ?>
-<p><label""><input type="radio" name="w3all_conf[w3all_pass_hash_way]" id="w3all_pass_hash_way_1" value="1" <?php checked('1', get_option('w3all_pass_hash_way')); ?> /> <?php echo __('<b>WordPress hash password</b> (user\'s log in and password update only in WordPress)', 'wp-w3all-phpbb-integration'); ?></label></p>
-<p><label""><input type="radio" name="w3all_conf[w3all_pass_hash_way]" id="w3all_pass_hash_way_0" value="0" <?php checked('0', get_option('w3all_pass_hash_way')); ?> /> <?php echo __('<b>phpBB hash password (default if not set)</b>', 'wp-w3all-phpbb-integration'); ?></label></p>
+<p><label""><input type="radio" name="w3all_phpbb_dbconn[w3all_pass_hash_way]" id="w3all_pass_hash_way_1" value="1" <?php checked('1', $w3all_phpbb_dbconn['w3all_pass_hash_way']); ?> /> <?php echo __('<b>WordPress hash password</b> (user\'s log in and password update only in WordPress)', 'wp-w3all-phpbb-integration'); ?></label></p>
+<p><label""><input type="radio" name="w3all_phpbb_dbconn[w3all_pass_hash_way]" id="w3all_pass_hash_way_0" value="0" <?php checked('0', $w3all_phpbb_dbconn['w3all_pass_hash_way']); ?> /> <?php echo __('<b>phpBB hash password (default if not set)</b>', 'wp-w3all-phpbb-integration'); ?></label></p>
 <hr />
 <h3><?php echo __('Activate integration without linking WordPress and phpBB users', 'wp-w3all-phpbb-integration');?></h3>
 <?php echo __('In <b><i>not linked users</i></b> mode it is possible to use transfers options and shortcodes or widgets<br />Hints: in <i>not linked users</i> mode you can use the iframe template integration also cross domain. You can also retrieve posts and topics from different domain'); ?>
-<p><label""><input type="radio" name="w3all_conf[w3all_not_link_phpbb_wp]" id="w3all_not_link_phpbb_wp_1" value="1" <?php checked('1', get_option('w3all_not_link_phpbb_wp')); ?> /> <?php echo __('<b>Do not</b> link phpBB and WordPress users', 'wp-w3all-phpbb-integration'); ?></label></p>
-<p><label""><input type="radio" name="w3all_conf[w3all_not_link_phpbb_wp]" id="w3all_not_link_phpbb_wp_0" value="0" <?php checked('0', get_option('w3all_not_link_phpbb_wp')); ?> /> <?php echo __('<b>Link phpBB and WordPress users (default if not set)', 'wp-w3all-phpbb-integration'); ?></label></p>
-
-
-<input type="submit" name="submit" class="button button-primary" value="<?php echo __('Save WP_w3all configuration', 'wp-w3all-phpbb-integration');?>">
-<?php wp_nonce_field( 'w3all_conf_nonce', 'w3all_conf_nonce_f' ); ?>
+<p><label""><input type="radio" name="w3all_phpbb_dbconn[w3all_not_link_phpbb_wp]" id="w3all_not_link_phpbb_wp_1" value="1" <?php checked('1', $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp']); ?> /> <?php echo __('<b>Do not</b> link phpBB and WordPress users', 'wp-w3all-phpbb-integration'); ?></label></p>
+<p><label""><input type="radio" name="w3all_phpbb_dbconn[w3all_not_link_phpbb_wp]" id="w3all_not_link_phpbb_wp_0" value="0" <?php checked('0', $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp']); ?> /> <?php echo __('<b>Link phpBB and WordPress users (default if not set)', 'wp-w3all-phpbb-integration'); ?></label></p>
+<br />
+<input type="submit" name="submit" class="button button-primary" value="<?php echo __('Save phpBB db connection and configuration values', 'wp-w3all-phpbb-integration');?>">
+<?php wp_nonce_field( 'w3all_phpbbdbconn_nonce', 'w3all_phpbbdbconn_nonce_f' ); ?>
 </form>
+</div><!-- close <div id="w3all_config_w" -->
+<hr />
 </div>
 
-<div class="" style="margin-top:4.0em;margin-right:1.0em;">
-<form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">	
+
+<div class="" style="margin-top:3.0em;margin-right:1.0em;padding:0 10px 0 0">
+<form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
 <h1 style="color:green">WP_w3all Preferences</h1>
 <hr />
 <strong><span style="color:#ff0000">NOTE: IT IS MANDATORY</span></strong>, to transfer existent WordPress users into phpBB when integration start<br /> and that all users must exists into both CMS with unique username/email pairs!<br />Use the <i>WP w3all check -> List phpBB users with duplicated usernames or emails</i> task<br /><br />
-<button id="w3ckoption">Users Transfer and Check options</button>
+<button id="w3ckoption" class="button">Users Transfer and Check options</button>
 <br /><br />
-<div id="w3all_ck_page" style="display:none;padding:5px;margin:0 20px; 0 0">
+<div id="w3all_ck_page" style="padding:5px;margin:0 20px; 0 0">
 <script>
+jQuery('#w3all_ck_page').hide();
 jQuery( "#w3ckoption" ).click(function(e) {
  e.preventDefault();
 jQuery( "#w3all_ck_page" ).toggle();
 });
 </script>
-<?php echo __('<h3>Activate WordPress to phpBB and phpBB to WP users transfer and/or the phpBB WP users check</h3><strong style="color:#FF0000">NOTE: IT IS MANDATORY</strong>, as explained on <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Help Install Page</a>, <strong style="color:#FF0000">to transfer existent WordPress users into phpBB when integration start!</strong><br />
-	While <strong>it is not mandatory</strong> to transfer phpBB users into WordPress when integration start.<br /><br />Note: this option will also activate the - WP w3all check - option, to check problems between linked phpBB and WP users.<br />You may would like to run these tasks before to start the integration or to check for user\'s problems time after time.<br /><br />Once activated all options will be visible in WordPress admin side menu under Settings Menu: when the transfer or the user\'s check finished, you can turn it off<br />and remove options items from Admin Side Settings Menu.', 'wp-w3all-phpbb-integration'); ?>
+
+
+
+<?php
+if($w3all_conf_pref['w3all_transfer_phpbb_yn'] == 1){
+ echo '<a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb">wp-w3all-users-to-phpbb</a><br />';
+ echo '<a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-to-wp">wp-w3all-users-to-wp</a><br />';
+ echo '<a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb">wp-w3all-users-check</a>';
+}
+echo __('<h3>Activate WordPress to phpBB and phpBB to WP users transfer and/or the phpBB WP users check</h3><strong style="color:#FF0000">NOTE: IT IS MANDATORY</strong>, as explained on <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Help Install Page</a>, <strong style="color:#FF0000">to transfer existent WordPress users into phpBB when integration start!</strong><br />
+  While <strong>it is not mandatory</strong> to transfer phpBB users into WordPress when integration start.<br /><br />Note: this option will also activate the - WP w3all check - option, to check problems between linked phpBB and WP users.<br />Run these tasks before to start the integration or to check for user\'s problems time after time.<br /><br />Once activated all options will be visible in WordPress admin side menu under Settings Menu (or here): when the transfer or the user\'s check finished, you can turn it off<br />and remove options items from Admin Side Settings Menu.', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_transfer_phpbb_yn]" id="w3all_transfer_phpbb_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_transfer_phpbb_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_transfer_phpbb_yn]" id="w3all_transfer_phpbb_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_transfer_phpbb_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 </div>
@@ -180,11 +266,11 @@ echo'<b>Exisitent phpBB groups IDs list:</b><br /><br />';
 
 $existentGroups = array();
 foreach($phpBBgroups as $k){
-	foreach($k as $kk => $v){
-	 if($kk == 'group_name'){ echo ' &harr; <b>Group Name</b> = ' . str_replace("_", " ", $v); }
-	 if($kk == 'group_id'){ echo '<b>Group ID</b> = <b style="color:#FF0000">' . $v . '</b>'; 
-	 	 $existentGroups[] = $v;
-	 	}
+  foreach($k as $kk => $v){
+   if($kk == 'group_name'){ echo ' &harr; <b>Group Name</b> = ' . str_replace("_", " ", $v); }
+   if($kk == 'group_id'){ echo '<b>Group ID</b> = <b style="color:#FF0000">' . $v . '</b>';
+     $existentGroups[] = $v;
+    }
  }
  echo '<br />';
 }
@@ -196,17 +282,17 @@ if (! in_array($w3all_conf_pref['w3all_add_into_spec_group'], $existentGroups)) 
 <p><input id="w3all_add_into_spec_group" name="w3all_conf_pref[w3all_add_into_spec_group]" type="text" size="10" value="<?php echo $w3all_conf_pref['w3all_add_into_spec_group']; ?>"> <?php echo __('Insert the ID value of the phpBB group where you want new WordPress registered users added (<b>one</b> single integer value allowed)<br />Set one single integer value, that need to be one of the IDs listed in <span style="color:#FF0000">red</span> here above (<b>only one allowed</b>) <b>Correct example: 2</b><br /><b>Note:</b> If not set, users are added by default into the phpBB Group with <b>ID 2</b>, which is the <i>Registered</i> Group ID into a default phpBB installation<br /><b>Note:</b> If the Group ID 2 or the one you go to setup here do not exist in phpBB, then the user in phpBB will result belong to no group at all, then may you\'ll have to add him manually to some existent phpBB Group via phpBB ACP. Be carefull and accurate on setup this setting. Just set as value one of the IDs listed above in <span style="color:#FF0000">red</span>', 'wp-w3all-phpbb-integration');?></p>
 
 <?php endif; // END if(isset($phpBBgroups) && !empty($phpBBgroups)):
-?> 
+?>
 
 <hr />
 
 <?php echo __('<h3>w3all sessions keys Brute Force countermeasure</h3><strong style="color:#FF0000">Note:</strong> do not deactivate/disable this option if you do not really know what it exactly mean</strong><br /><strong style="color:#FF0000">Note -> read this thread to know how a Secure Integration works:</strong> <a target="_blank" href="https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=80&p=320#p320">How to secure WP_w3all phpBB WordPress integration</a><br />Note: to reset/empty data of this option, set to NO and <i>Save WP_w3all Preferences</i>. If array of data will exceed 4000 records, a notice will display here', 'wp-w3all-phpbb-integration');
 
 if ( !empty($w3all_bruteblock_phpbbulist_count) && $w3all_bruteblock_phpbbulist_count > 4000 ){
-	echo __('<br /><br /><strong style="color:#FF0000;font-size:140%">Notice:</strong> the Brute Force list contain ', 'wp-w3all-phpbb-integration') . $w3all_bruteblock_phpbbulist_count . __(' records.<br />If you wish to empty/reset to 0 the list, disable the option and click <i>Save WP_w3all Preferences</i> button (then re-enable it)', 'wp-w3all-phpbb-integration');
+  echo __('<br /><br /><strong style="color:#FF0000;font-size:140%">Notice:</strong> the Brute Force list contain ', 'wp-w3all-phpbb-integration') . $w3all_bruteblock_phpbbulist_count . __(' records.<br />If you wish to empty/reset to 0 the list, disable the option and click <i>Save WP_w3all Preferences</i> button (then re-enable it)', 'wp-w3all-phpbb-integration');
  }
 ?>
-	
+
 <p><input type="radio" name="w3all_conf_pref[w3all_anti_brute_force_yn]" id="w3all_anti_brute_force_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_anti_brute_force_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_anti_brute_force_yn]" id="w3all_anti_brute_force_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_anti_brute_force_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 
@@ -232,7 +318,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 
 <?php endif; // END if(!empty($w3wp_roles)):
 ?>
- 
+
 <hr />
 
 <?php echo __('<h3>Add users in phpBB only after first successful login in WordPress</h3>', 'wp-w3all-phpbb-integration'); ?>
@@ -295,7 +381,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 
 
 <div style="margin-top:4.0em;margin-right:1.0em;">
-<form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">	
+<form name="w3all_conf_avatars" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
 <h1 style="color:green">WP_w3all Avatars Options (1.0)</h1>
 <hr />
 <?php echo __('<h3>Use phpBB avatar to replace WordPress user\'s avatar</h3>If set to Yes, Gravatars profiles images on WordPress, are replaced by phpBB user\'s avatars images, where an avatar image is available in phpBB for the user. Return WP Gravatar of the user, if no avatar image has been found in phpBB (one single fast query to get avatars for all users).
@@ -322,7 +408,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 </div>
 
 <div style="padding:20px 35px;margin-top:4.0em;margin-right:1.0em;background-color:#dcccff;border-top:2px solid #cbb3ff;border-bottom:2px solid #cbb3ff">
-<form name="w3all_conf_pref_template_embed" id="w3all-conf-pref-template-embed" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">	
+<form name="w3all_conf_pref_template_embed" id="w3all-conf-pref-template-embed" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
 <h1 style="color:green">WP_w3all phpBB embedded on WordPress Template</h1>
 <hr style="border-color:gray" />
 <?php echo __('<h4 style="color:#333">Before to activate this option, <b><a href="https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/" target="_blank">read this</a></b><br />it is necessary to edit the phpBB overall_footer.html template file, and to add the "iframeResizer.contentWindow.min.js" file into phpBB root folder.
@@ -343,9 +429,9 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 </div>
 <div style="margin-top:4.0em;">
 -->
-<form name="w3all_conf_pref_template_embed_link" id="w3all-conf-pref-template-embed-link" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">	
+<form name="w3all_conf_pref_template_embed_link" id="w3all-conf-pref-template-embed-link" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
 <h3><?php echo __('Links for embedded phpBB iframe into WordPress', 'wp-w3all-phpbb-integration'); ?></h3>
-<?php echo __('Change links for wp_w3all Last Topics Post widgets/shortcodes to point to the WP forum page:<br />if set to Yes, it changes links on <i>Last Topics Posts Widgets/shortcodes</i> that will points to the created WP page that contain the embedded phpBB forum iframe, if set to No it will link to the real phpbb URL/folder.<br /><br /><strong>Note:</strong> to point WordPress Registration, Login and Lost Password links to iframe, activate the option<br /><i>Swap WordPress default Login, Register and Lost Password links to point to phpBB related pages</i><br />more above into preferences options.<br/><br />Changing these settings, do NOT change/interferes the way Spiders will index phpBB Urls (real phpBB Urls)', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('Note important: if using the iframe mode and the phpBB JS overall_header.html code applied (that redirect any direct link to phpBB, to the WP page forum, where phpBB iframed display), there is no reason to activate this OBSOLETE option that will be soon removed.<br /><br />Change links for wp_w3all Last Topics Post widgets/shortcodes to point to the WP forum page:<br />if set to Yes, it changes links on <i>Last Topics Posts Widgets/shortcodes</i> that will points to the created WP page that contain the embedded phpBB forum iframe, if set to No it will link to the real phpbb URL/folder.<br /><br /><strong>Note:</strong> to point WordPress Registration, Login and Lost Password links to iframe, activate the option<br /><i>Swap WordPress default Login, Register and Lost Password links to point to phpBB related pages</i><br />more above into preferences options.<br/><br />Changing these settings, do NOT change/interferes the way Spiders will index phpBB Urls (real phpBB Urls)', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref_template_embed_link[w3all_iframe_phpbb_link_yn]" id="w3all_iframe_phpbb_link_1" value="1" <?php checked('1', $w3all_iframe_phpbb_link_yn); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref_template_embed_link[w3all_iframe_phpbb_link_yn]" id="w3all_iframe_phpbb_link_0" value="0" <?php checked('0', $w3all_iframe_phpbb_link_yn); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <h3><?php echo __('Fancy URL query string for the WordPress page forum that embed phpBB', 'wp-w3all-phpbb-integration'); ?></h3>

@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.4.5
+Version: 2.4.6
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -14,9 +14,15 @@ Text Domain: wp-w3all-phpbb-integration
 Domain Path: /languages/
 
 =====================================================================================
-Copyright (C) 2021 - axew3.com
+Copyright (C) 2022 - axew3.com
 =====================================================================================
 */
+
+// FORCE Deactivation WP_w3all plugin //
+// $w3deactivate_wp_w3all_plugin = 'true';
+
+// FORCE the reset of cookie domain
+// $w3reset_cookie_domain = '.mydomain.com';
 
 // Security
 defined( 'ABSPATH' ) or die( 'forbidden' );
@@ -25,25 +31,14 @@ if ( !function_exists( 'add_action' ) ) {
   exit;
 }
 
-if ( defined( 'W3PHPBBUSESSION' ) OR defined( 'W3PHPBBLASTOPICS' ) OR defined( 'W3PHPBBCONFIG' ) OR defined( 'W3UNREADTOPICS' ) OR defined( 'W3ALLPHPBBUAVA' ) OR defined("W3BANCKEXEC") ):
+if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3PHPBBLASTOPICS' ) OR defined( 'W3PHPBBCONFIG' ) OR defined( 'W3UNREADTOPICS' ) OR defined( 'W3ALLPHPBBUAVA' ) OR defined("W3BANCKEXEC") ):
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.4.5' );
+define( 'WPW3ALL_VERSION', '2.4.6' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-
-// Set the integration as 'Not Linked Users'
-if( get_option('w3all_not_link_phpbb_wp') == 1 ){
- define('WPW3ALL_NOT_ULINKED', true);
-}
-
-// FORCE Deactivation WP_w3all plugin //
-// $w3deactivate_wp_w3all_plugin = 'true';
-
-// FORCE the reset of cookie domain
-// $w3reset_cookie_domain = '.mydomain.com';
 
 $w3all_w_lastopicspost_max = get_option( 'widget_wp_w3all_widget_last_topics' );
 $config_avatars = get_option('w3all_conf_avatars');
@@ -51,13 +46,33 @@ $w3all_conf_pref = get_option('w3all_conf_pref');
 $w3cookie_domain = get_option('w3all_phpbb_cookie');
 $w3all_bruteblock_phpbbulist = empty(get_option('w3all_bruteblock_phpbbulist')) ? array() : get_option('w3all_bruteblock_phpbbulist');
 $w3all_path_to_cms = get_option('w3all_path_to_cms');
-$w3all_pass_hash_way = get_option('w3all_pass_hash_way'); // WP == 1
-$wp_w3all_forum_folder_wp = get_option( 'w3all_forum_template_wppage' );
-$w3all_url_to_cms = get_option( 'w3all_url_to_cms' );
+$w3all_pass_hash_way = get_option('w3all_pass_hash_way'); // WP == 1 / rewrited by $w3all_phpbb_dbconn['w3all_pass_hash_way']
+$wp_w3all_forum_folder_wp = get_option('w3all_forum_template_wppage');
+
+// rewrite old options vars
+$w3all_url_to_cms = get_option('w3all_url_to_cms');
+
+$w3all_phpbb_dbconn = empty(get_option('w3all_phpbb_dbconn')) ? array() : get_option('w3all_phpbb_dbconn');
+$w3all_phpbb_url = isset($w3all_phpbb_dbconn['w3all_phpbb_url']) ? $w3all_phpbb_dbconn['w3all_phpbb_url'] : '';
+
+if( !empty($w3all_phpbb_url) ){
+  $w3all_url_to_cms = $w3all_phpbb_url;
+}
+if( !empty($w3all_phpbb_dbconn['w3all_pass_hash_way']) ){
+  $w3all_pass_hash_way = $w3all_phpbb_dbconn['w3all_pass_hash_way']; // WP way == 1
+}
+// Set the integration as 'Not Linked users'
+if( !empty($w3all_phpbb_dbconn['w3all_not_link_phpbb_wp']) && $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp'] > 0 ){
+   define('WPW3ALL_NOT_ULINKED', true);
+} elseif ( get_option('w3all_not_link_phpbb_wp') == 1 ){ // to be removed
+ define('WPW3ALL_NOT_ULINKED', true);
+}
 
 $phpbb_on_template_iframe = get_option( 'w3all_iframe_phpbb_link_yn' ); // old way: leave this for custom files compatibility
-// changed: the name of the option should also change
+// changed into follow: the name of the option should also change
 $w3all_iframe_phpbb_link = unserialize(get_option('w3all_conf_pref_template_embed_link'));
+
+// $w3all_iframe_phpbb_link_yn need to be removed all over: no requirement since the overall_header.html js code in phpBB
 $w3all_iframe_phpbb_link_yn = isset($w3all_iframe_phpbb_link["w3all_iframe_phpbb_link_yn"]) ? $w3all_iframe_phpbb_link["w3all_iframe_phpbb_link_yn"] : 0;
 $w3all_iframe_custom_w3fancyurl = isset($w3all_iframe_phpbb_link["w3all_iframe_custom_w3fancyurl"]) ? $w3all_iframe_phpbb_link["w3all_iframe_custom_w3fancyurl"] : 'w3';
 $w3all_iframe_custom_top_gap = isset($w3all_iframe_phpbb_link["w3all_iframe_custom_top_gap"]) ? intval($w3all_iframe_phpbb_link["w3all_iframe_custom_top_gap"]) : '100';
@@ -106,64 +121,91 @@ if(isset($w3reset_cookie_domain)){
       $w3all_wlastopicspost_max = isset($w3all_wlastopicspost_max) && is_array($w3all_wlastopicspost_max) ? max($w3all_wlastopicspost_max) : 10;
     } else { $w3all_wlastopicspost_max = 10; }
 
-if ( defined( 'WP_ADMIN' ) ) {
 
- function w3all_VAR_IF_U_CAN(){
+if ( defined( 'WP_ADMIN' ) )
+{
 
-    if ( !current_user_can( 'manage_options' ) && isset( $_POST["w3all_conf"]["w3all_url_to_cms"]) OR !current_user_can( 'manage_options' ) && isset( $_POST["w3all_conf"]["w3all_path_to_cms"] ) ) {
-      die('<h3>forbidden</h3>');
+  function w3all_VAR_IF_U_CAN(){
+
+    if ( isset($_POST["w3all_phpbb_dbconn"]) && !current_user_can('manage_options') ) {
+      die('<h3>Forbidden</h3>');
     }
 
-     if ( isset($_POST["w3all_conf"]["w3all_url_to_cms"]) ){
-      $_POST["w3all_conf"]["w3all_url_to_cms"] = trim($_POST["w3all_conf"]["w3all_url_to_cms"]);
-     }
+    if( isset($_POST["w3all_phpbb_dbconn"]) && is_array($_POST['w3all_phpbb_dbconn']) ){
+      $_POST['w3all_phpbb_dbconn'] = array_map('trim',$_POST['w3all_phpbb_dbconn']);
+     } else { return; }
 
-     if ( isset($_POST["w3all_conf"]["w3all_path_to_cms"]) ){
-      register_uninstall_hook( __FILE__, array( 'WP_w3all_admin', 'clean_up_on_plugin_off' ) );
-      $_POST["w3all_conf"]["w3all_path_to_cms"] = trim($_POST["w3all_conf"]["w3all_path_to_cms"]);
+     $w3all_phpbb_dbconn = array();
+     $w3all_phpbb_dbconn['w3all_phpbb_url'] = (!filter_var($_POST['w3all_phpbb_dbconn']['w3all_phpbb_url'], FILTER_VALIDATE_URL)) ? '' : $_POST['w3all_phpbb_dbconn']['w3all_phpbb_url'];
+     $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbhost'];
+     $w3all_phpbb_dbconn['w3all_phpbb_dbname'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbname'];
+     $w3all_phpbb_dbconn['w3all_phpbb_dbuser'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbuser'];
+     $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbpasswd'];
+     $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbtableprefix'];
+     $w3all_phpbb_dbconn['w3all_phpbb_dbport'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbport'];
+     $w3all_phpbb_dbconn['w3all_pass_hash_way'] = intval($_POST['w3all_phpbb_dbconn']['w3all_pass_hash_way']);
+     $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp'] = intval($_POST['w3all_phpbb_dbconn']['w3all_not_link_phpbb_wp']);
+      update_option('w3all_phpbb_dbconn',$w3all_phpbb_dbconn);
+      $w3all_config_db = array( 'dbhost' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbhost'], 'dbport' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbport'], 'dbname' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbname'], 'dbuser' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbuser'], 'dbpasswd' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbpasswd'], 'table_prefix' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbtableprefix'] );
+      $w3all_config = array( 'table_prefix' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbtableprefix'] );
+      // if user can, then can be directly redirected to the admin page, isn't it?
       $up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-options';
-       wp_redirect( $up_conf_w3all_url );
-      $config_file = $_POST["w3all_conf"]["w3all_path_to_cms"] . '/config.php';
-       ob_start();
-        include_once( $config_file );
-       ob_end_clean();
-     }
+      wp_redirect($up_conf_w3all_url); exit();
+
   }
-   add_action( 'init', 'w3all_VAR_IF_U_CAN' );
+
+  add_action( 'init', 'w3all_VAR_IF_U_CAN', 1 );
+  
+  // phpBB file config inclusion, or not
+ if( !isset($_POST['w3all_phpbb_dbconn']) && empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) )
+ { // config file inclusion
 
     if(!empty($w3all_path_to_cms)){   // or may will search for some config file elsewhere instead
 
       $config_file = get_option( 'w3all_path_to_cms' ) . '/config.php';
       if (file_exists($config_file)) {
        ob_start();
-         include_once( $config_file );
+         include( $config_file );
        ob_end_clean();
       }
      }
 
-  if ( defined('PHPBB_INSTALLED') && !isset($w3deactivate_wp_w3all_plugin) )
+  if (defined('PHPBB_INSTALLED'))
   {
-
    if ( defined('WP_W3ALL_MANUAL_CONFIG') )
-   {
-      $w3all_config = array( 'dbhost' => $w3all_dbhost, 'dbport' => $w3all_dbport, 'dbname' => $w3all_dbname, 'dbuser'   => $w3all_dbuser, 'dbpasswd' => $w3all_dbpasswd, 'table_prefix' => $w3all_table_prefix );
+   { // custom phpBB config
+      $w3all_config_db = array( 'dbhost' => $w3all_dbhost, 'dbport' => $w3all_dbport, 'dbname' => $w3all_dbname, 'dbuser'   => $w3all_dbuser, 'dbpasswd' => $w3all_dbpasswd, 'table_prefix' => $w3all_table_prefix );
+      $w3all_config = array( 'table_prefix' => $w3all_table_prefix );
    } else
-     {
-      $w3all_config = array( 'dbhost' => $dbhost, 'dbport' => $dbport, 'dbname' => $dbname, 'dbuser' => $dbuser, 'dbpasswd' => $dbpasswd, 'table_prefix' => $table_prefix );
+     { // default phpBB config.php
+      $w3all_config_db = array( 'dbhost' => $dbhost, 'dbport' => $dbport, 'dbname' => $dbname, 'dbuser' => $dbuser, 'dbpasswd' => $dbpasswd, 'table_prefix' => $table_prefix );
+      $w3all_config = array( 'table_prefix' => $table_prefix );
      }
 
-      require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all-phpbb.php' );
-      add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 1); // before any other
+    define('W3PHPBBDBCONN', $w3all_config_db);
+    unset($w3all_config_db,$w3all_phpbb_dbconn);
   }
 
+   // go with $w3all_phpbb_dbconn values, no config.php inclusion
+ } elseif ( !isset($_POST['w3all_phpbb_dbconn']) && !empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) )
+   {
+      $w3all_config_db = array( 'dbhost' => $w3all_phpbb_dbconn['w3all_phpbb_dbhost'], 'dbport' => $w3all_phpbb_dbconn['w3all_phpbb_dbport'], 'dbname' => $w3all_phpbb_dbconn['w3all_phpbb_dbname'], 'dbuser'   => $w3all_phpbb_dbconn['w3all_phpbb_dbuser'], 'dbpasswd' => $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'], 'table_prefix' => $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] );
+      define('W3PHPBBDBCONN', $w3all_config_db);
+      $w3all_config = array( 'table_prefix' => $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] );
+      unset($w3all_config_db,$w3all_phpbb_dbconn);
+   }
+// $_POST['w3all_phpbb_dbconn'] isset, so
+// nothing above until here fired: let add_action( 'init', 'w3all_VAR_IF_U_CAN', 1 ); setup vars and redirect
+
+      require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all-phpbb.php' );
       require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all-admin.php' );
       require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all.widgets-phpbb.php' );
+
+      add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 2);
       add_action( 'init', array( 'WP_w3all_admin', 'wp_w3all_init' ) );
-
- if ( defined('PHPBB_INSTALLED') && !isset($w3deactivate_wp_w3all_plugin) ){
-
-      add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_conn_init' ), 2 );
       add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_init' ), 3 );
+
+   if ( defined('PHPBB_INSTALLED') && !isset($w3deactivate_wp_w3all_plugin) OR !empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) ){
 
     function wp_w3all_phpbb_registration_save( $user_id ) {
 
@@ -237,8 +279,10 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
 
 } // if defined phpbb installed end
 
-} else { // not in admin
+} else { // not in WP admin
 
+ if( empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) )
+ {
   // or will search for some config file elsewhere instead
   $w3all_path_to_cms = get_option( 'w3all_path_to_cms' );
   if(!empty($w3all_path_to_cms)){
@@ -250,23 +294,35 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
     }
    }
 
-  if ( defined('PHPBB_INSTALLED') && !isset($w3deactivate_wp_w3all_plugin) ){
+  if (defined('PHPBB_INSTALLED')){
 
-  if ( defined('WP_W3ALL_MANUAL_CONFIG') ){
+    if (defined('WP_W3ALL_MANUAL_CONFIG')){
+      $w3all_config_db = array( 'dbhost' => $w3all_dbhost,'dbport' => $w3all_dbport,'dbname' => $w3all_dbname,'dbuser' => $w3all_dbuser,'dbpasswd' => $w3all_dbpasswd,'table_prefix' => $w3all_table_prefix );
+      $w3all_config = array( 'table_prefix' => $w3all_table_prefix );
+    } else {
+      $w3all_config_db = array( 'dbhost' => $dbhost,'dbport' => $dbport,'dbname' => $dbname,'dbuser' => $dbuser,'dbpasswd' => $dbpasswd,'table_prefix' => $table_prefix );
+      $w3all_config = array( 'table_prefix' => $table_prefix );
+    }
+      define('W3PHPBBDBCONN', $w3all_config_db);
+      unset($w3all_config_db,$w3all_phpbb_dbconn);
+   }
+ }
+  elseif ( !empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) )
+   {  // go with $w3all_phpbb_dbconn values, no config.php inclusion
+      $w3all_config_db = array( 'dbhost' => $w3all_phpbb_dbconn['w3all_phpbb_dbhost'], 'dbport' => $w3all_phpbb_dbconn['w3all_phpbb_dbport'], 'dbname' => $w3all_phpbb_dbconn['w3all_phpbb_dbname'], 'dbuser'   => $w3all_phpbb_dbconn['w3all_phpbb_dbuser'], 'dbpasswd' => $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'], 'table_prefix' => $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] );
+      define('W3PHPBBDBCONN', $w3all_config_db);
+      $w3all_config = array( 'table_prefix' => $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] );
+      unset($w3all_config_db,$w3all_phpbb_dbconn);
+   }
 
-  $w3all_config = array( 'dbhost' => $w3all_dbhost,'dbport' => $w3all_dbport,'dbname' => $w3all_dbname,'dbuser' => $w3all_dbuser,'dbpasswd' => $w3all_dbpasswd,'table_prefix' => $w3all_table_prefix );
-
-  } else {
-
-  $w3all_config = array( 'dbhost' => $dbhost,'dbport' => $dbport,'dbname' => $dbname,'dbuser' => $dbuser,'dbpasswd' => $dbpasswd,'table_prefix' => $table_prefix );
-
-  }
+  // 1st of 2
+  if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) ){
 
      require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all-phpbb.php' );
      require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all.widgets-phpbb.php' );
 
-      add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 1); // before any other wp_w3all
-      add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_init'), 2);
+      add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 2);
+      add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_init'), 3);
 
      if(!empty($w3all_phpbb_wptoolbar_pm_yn)){
       add_action( 'admin_bar_menu', 'wp_w3all_toolbar_new_phpbbpm', 999 );  // notify about new phpBB pm
@@ -563,8 +619,9 @@ if( $w3all_iframe_phpbb_link_yn == 1 ){
 }
 
 function wp_w3all_add_phpbb_font_awesome(){
+  global $w3all_phpbb_url;
 // retrieve css font awesome from phpBB
- echo "<link rel=\"stylesheet\" href=\"" . get_option( 'w3all_url_to_cms' ) . "/assets/css/font-awesome.min.css\" />
+ echo "<link rel=\"stylesheet\" href=\"" . $w3all_phpbb_url . "/assets/css/font-awesome.min.css\" />
 ";
 }
 
@@ -630,7 +687,10 @@ function w3all_rememberme_long($expire) { // Set remember me wp cookie to expire
    } // end PHPBB_INSTALLED
 } // end not in admin
 
- if ( defined('PHPBB_INSTALLED') && !isset($w3deactivate_wp_w3all_plugin) ){
+
+// 2nd not in admin
+ if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) )
+ {
 
   if ( $w3all_phpbb_widget_mark_ru_yn == 1 ) {
    add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_unread_topics'), 9);
@@ -725,6 +785,7 @@ if(strpos($_SERVER['SCRIPT_NAME'],'wp-admin') === false){
 }
 
 if(! is_admin()){
+
 add_shortcode( 'w3allphpbbupm', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_upm_short' ) );
 add_shortcode( 'w3allforumpost', array( 'WP_w3all_phpbb', 'wp_w3all_get_phpbb_post_short' ) );
 add_shortcode( 'w3allastopics', array( 'WP_w3all_phpbb', 'wp_w3all_get_phpbb_lastopics_short' ) );
@@ -998,7 +1059,7 @@ function wp_w3all_remove_bbcode_tags($post_str, $words){
   foreach ($post_string as $post_st) {
 
     $i++;
-    if( $i < $b + 1 ){ // offset of 1
+    if( $i < $b + 1 ){
 
       $post_std .= $post_st . ' ';
     }
@@ -1235,14 +1296,6 @@ function w3all_add_phpbb_user() {
      } else {
         return; }
 
-   $email = sanitize_email($uemail);
-   if( is_email($email) ) {
-     $user = get_user_by( 'email', $email );
-   }
-
-     if( !isset($user) OR !empty($user) ) // existent user into wp, or something else goes wrong
-   { return; }
-
   // check that the presented token match or return
 
      $phpbb_config = WP_w3all_phpbb::w3all_get_phpbb_config_res();
@@ -1258,10 +1311,16 @@ function w3all_add_phpbb_user() {
        return;
       }
 
+   $email = sanitize_email($uemail);
+   if( is_email($email) ) {
+     $user = get_user_by( 'email', $email );
+   }
+
+     if( !isset($user) OR !empty($user) ) // existent user into wp, or something else goes wrong
+   { return; }
+
  // get phpBB user's data
- if(!isset($phpbb_user[0])){
    $phpbb_user = WP_w3all_phpbb::wp_w3all_get_phpbb_user_info_by_email($email);
-  }
 
  if(!isset($phpbb_user[0])){
    return;
@@ -1361,5 +1420,70 @@ function w3all_add_phpbb_user() {
    }
 
 } // END function w3all_add_phpbb_user()
+
+ if ( !defined('W3PHPBBDBCONN') )
+ {
+ 	
+ 	if ( ! function_exists( 'wp_check_password' ) ) :
+
+function wp_check_password($password, $hash, $user_id = '') {
+
+// wp do not allow char \ on password
+// phpBB allow \ char on password
+
+   global $wpdb,$wp_hasher;
+   $password = trim($password);
+   $check = false;
+   $hash_x_wp = $hash;
+
+     $wpu = get_user_by( 'ID', $user_id );
+
+    if( empty($wpu) OR empty($password) OR empty($hash) ){
+      return;
+    }
+
+ if(!empty($wpu)){
+
+   // If the hash still old md5
+    if ( $hash != null && strlen($hash) <= 32 ) {
+        $check = hash_equals( $hash, md5( $password ) );
+     }
+
+ // Argon2i and Argon2id password hash
+ if( substr($hash, 0, 8) == '$argon2i' ){
+  $password = stripslashes(htmlspecialchars($password, ENT_COMPAT)); // " do not need to be converted
+  $check = password_verify($password, $hash);
+  $HArgon2i = true;
+ }
+
+ if ( !isset($check) OR $check !== true && !isset($HArgon2i) ){ // check the default Wp pass: md5 check failed or not fired above
+   if ( empty($wp_hasher) ) {
+    require_once( ABSPATH . WPINC . '/class-phpass.php');
+    $wp_hasher = new PasswordHash(8, true); // 8 wp default
+   }
+    $check = $wp_hasher->CheckPassword($password, $hash_x_wp);
+  }
+
+ if ($check !== true && strlen($hash) > 32 && !isset($HArgon2i)){ // Wp check failed, check phpBB pass that's may not Argon2i
+    $password = stripslashes($password);
+    $password = htmlspecialchars($password, ENT_COMPAT);
+    $check = password_verify($password, $hash);
+  }
+
+     if ($check === true){
+     	return apply_filters( 'check_password', $check, $password, $hash, $user_id );
+      } else {
+      return apply_filters( 'check_password', false, $password, $hash, $user_id );
+        }
+
+ } else {
+      return apply_filters( 'check_password', false, $password, $hash, $user_id );
+     }
+}
+
+endif;
+ 	
+ }
+
 
 ?>

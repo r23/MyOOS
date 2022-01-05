@@ -1,8 +1,11 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
+   if ( !current_user_can( 'manage_options' ) ) {
+      die('<h3>Forbidden</h3>');
+    }
 // the check mess (that basically and by the way should work fine)
-if ( defined('PHPBB_INSTALLED') ){
+ 	 global $w3all_config,$wpdb,$w3all_phpbb_dbconn;
+if ( defined('W3PHPBBCONFIG') ){
 	if (class_exists('WP_w3all_phpbb')) {
-	 global $w3all_config,$wpdb;
 	 $wp_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
    $w3db_conn = WP_w3all_phpbb::w3all_db_connect_res();
    $ck_w3all_phpbb_url = admin_url() . 'options-general.php?page=wp-w3all-users-check';
@@ -15,8 +18,8 @@ if ( defined('PHPBB_INSTALLED') ){
      }
   }
 } else {
-	die("<h2>Wp w3all miss phpBB configuration file: set the correct absolute path to a phpBB <i>config.php</i> file on:<br /><br /> Settings -> WP w3all</h2>");
-}
+   	die("<h2>Wp w3all miss phpBB db configuration. Set phpBB connection values by opening:<br /><br /> Settings -> WP w3all</h2>");
+  }
 
 $act = array_keys($_POST);
 $action = '';
@@ -40,12 +43,12 @@ if(in_array('submit_w3all_phpbb_noallowed_usernames_chars',$act)){
  //$phpbb_unwanted_usernames_chars = $w3db_conn->get_results("SELECT username FROM ". $w3all_config["table_prefix"] ."users WHERE username REGEXP '[^-0-9A-Za-z _.@]' AND user_email != ''");
  // this works for all non latin
  $phpbb_unwanted_usernames_chars = $w3db_conn->get_results("SELECT username FROM ". $w3all_config["table_prefix"] ."users WHERE username REGEXP '[^-[:alnum:] _.@]' AND user_email != ''");
- 
+
  }
 
 $start_select = $limit_select = $start_select2 = $limit_select2 = $start_select3 = $limit_select3 = 0;
 
-if( $action == 'submit_w3all_phpbb_u_0posts' ){ 
+if( $action == 'submit_w3all_phpbb_u_0posts' ){
             $start_select = $_POST["start_select"] + $_POST["limit_select_prev"];
             $limit_select = $_POST["limit_select"];
 }
@@ -77,10 +80,10 @@ if( $action == 'submit_w3all_phpbb_u_0posts' ){
    	  $wpun .= "'".mb_strtolower($phpBBu->username,'UTF-8')."',";
      }
      $wpun = substr($wpun, 0, -1);
-   
+
     $wpuids = $wpdb->get_results("SELECT ID FROM $wp_db_utab WHERE LOWER(user_login) IN(".$wpun.")");
     $wpuids = array_values($wpuids);
-    
+
      $wpu_ids = '';
      foreach($wpuids as $wpuidss){
    	  $wpu_ids .= "'".$wpuidss->ID."',";
@@ -89,12 +92,12 @@ if( $action == 'submit_w3all_phpbb_u_0posts' ){
 
 if(strlen($wpu_ids) < 2){
  $wpu_with_posts = '';
-} else {    
- $wpu_with_posts = $wpdb->get_results("SELECT user_login FROM ". $wp_db_utab ." JOIN 
-  ". $wpp_db_utab ." ON ". $wpp_db_utab .".post_author = ". $wp_db_utab .".ID  
+} else {
+ $wpu_with_posts = $wpdb->get_results("SELECT user_login FROM ". $wp_db_utab ." JOIN
+  ". $wpp_db_utab ." ON ". $wpp_db_utab .".post_author = ". $wp_db_utab .".ID
   AND ". $wp_db_utab .".ID IN(".$wpu_ids.") group by ". $wp_db_utab .".ID");
-/* $wpu_with_posts = $wpdb->get_results("SELECT user_login FROM ". $wp_db_utab ." JOIN 
-  ". $wpp_db_utab ." ON ". $wpp_db_utab .".post_author = ". $wp_db_utab .".ID  
+/* $wpu_with_posts = $wpdb->get_results("SELECT user_login FROM ". $wp_db_utab ." JOIN
+  ". $wpp_db_utab ." ON ". $wpp_db_utab .".post_author = ". $wp_db_utab .".ID
    group by ". $wp_db_utab .".ID having ". $wp_db_utab .".ID IN(".$wpu_ids.")"); */
   }
  if(!empty($wpu_with_posts)){
@@ -113,18 +116,18 @@ if(strlen($wpu_ids) < 2){
     	'number'       => $limit_select2,
     	'offset'       => $start_select2,
     	'meta_query'   => array(),
-    	'date_query'   => array(),     
+    	'date_query'   => array(),
 	    'orderby'      => 'ID',
 	    'order'        => 'ASC',
     	'count_total'  => false
      );
 
-$phpBBuck = new WP_User_Query( $args ); 
+$phpBBuck = new WP_User_Query( $args );
 
     if(empty($phpBBuck->results)){
     	$t_end = true;
     }
-  }  
+  }
  if( $action == 'submit_w3all_wpu_notINphpBB_delete' ){
    // $phpBBuck = $w3db_conn->get_results("SELECT * FROM ". $w3all_config["table_prefix"] ."users WHERE group_id != 6 AND user_id > 2 LIMIT ". $start_select3 .", ". $limit_select3 ."");
   $args = array(
@@ -133,25 +136,25 @@ $phpBBuck = new WP_User_Query( $args );
     	'number'       => $limit_select3,
     	'offset'       => $start_select3,
     	'meta_query'   => array(),
-    	'date_query'   => array(),     
+    	'date_query'   => array(),
 	    'orderby'      => 'ID',
 	    'order'        => 'ASC',
     	'count_total'  => false
      );
 
-$phpBBuck = new WP_User_Query( $args ); 
+$phpBBuck = new WP_User_Query( $args );
 
     if(empty($phpBBuck->results)){
     	$t_end = true;
     }
-  
+
  }
-  
+
 
 // subsequents
 #### START // users with 0 posts
- if( isset($_POST['phpbb_uname_deact_wp_delete']) && count($_POST['phpbb_uname_deact_wp_delete']) > 0 && $action == 'submit_w3all_phpbb_u_0posts'){ 
-  
+ if( isset($_POST['phpbb_uname_deact_wp_delete']) && count($_POST['phpbb_uname_deact_wp_delete']) > 0 && $action == 'submit_w3all_phpbb_u_0posts'){
+
  	// ids to delete
     $unames = array_values($_POST['phpbb_uname_deact_wp_delete']);
     $unamexx = '';
@@ -161,8 +164,8 @@ $phpBBuck = new WP_User_Query( $args );
     $unamex = substr($unamexx, 0, -1);
     $wpuids = $wpdb->get_results("SELECT ID FROM $wp_db_utab WHERE LOWER(user_login) IN(".$unamex.")");
     $wpuids = array_values($wpuids);
-   
-   if(!empty($wpuids)){ 
+
+   if(!empty($wpuids)){
     foreach($wpuids as $wpuid){
    	 wp_delete_user( $wpuid->ID );
    	 if(is_multisite() == true){
@@ -174,17 +177,17 @@ $phpBBuck = new WP_User_Query( $args );
   if(isset($signup_yn)){
    $wpdb->query("DELETE FROM $wps_db_utab WHERE LOWER(user_login) IN(".$unamex.")");
   }
-   
+
  $w3db_conn->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(username) IN(".$unamex.")");
 }
-#### END // of $_POST['w3all_phpbb_u_0posts']   
-    
+#### END // of $_POST['w3all_phpbb_u_0posts']
+
 
 // START phpbb_uname_notinwp_wp_delete
 if( isset($_POST['phpbb_uname_notinwp_wp_delete']) && $action == 'submit_w3all_wpu_notINphpBB_delete' ){
 
  $unames = array_values($_POST['phpbb_uname_notinwp_wp_delete']);
- 
+
     $unamexx = '';
    foreach($unames as $uname){
    	 $unamexx .= "'".esc_sql(mb_strtolower($uname,'UTF-8'))."',";
@@ -192,8 +195,8 @@ if( isset($_POST['phpbb_uname_notinwp_wp_delete']) && $action == 'submit_w3all_w
     $unamex = substr($unamexx, 0, -1);
     $wpuids = $wpdb->get_results("SELECT ID FROM $wp_db_utab WHERE LOWER(user_login) IN(".$unamex.")");
     $wpuids = array_values($wpuids);
-  
-   if(!empty($wpuids)){ 
+
+   if(!empty($wpuids)){
     foreach($wpuids as $wpuid){
    	 wp_delete_user( $wpuid->ID );
    	 if(is_multisite() == true){
@@ -205,11 +208,11 @@ if( isset($_POST['phpbb_uname_notinwp_wp_delete']) && $action == 'submit_w3all_w
   if(isset($signup_yn)){
    $wpdb->query("DELETE FROM $wps_db_utab WHERE LOWER(user_login) IN(".$unamex.")");
   }
-   
+
  $w3db_conn->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(username) IN(".$unamex.")");
 
  } // END phpbb_uname_notinwp_wp_delete
- 
+
 // END
 
 echo '<script>function w3all_toggle(source) {
@@ -225,7 +228,7 @@ echo '<script>function w3all_toggle(source) {
 if($action != 'submit_w3all_phpbb_duplicated_usernames_emails' && $action != 'submit_w3all_phpbb_noallowed_usernames_chars'){
 echo __('<!-- wrapper --><div style="margin-top:4.0em;"><h2>WP_w3all phpBB WP users check (RAW WP_w3all)</h2>simply tasks to check problems between linked phpBB and WordPress users<br /><br /><hr />', 'wp-w3all-phpbb-integration');
 echo __('<div>
-<h4><span style="color:red">Notice</span>: do not put so hight value for users to check each time. It is set by default to 500 users x time, but you can change the value.<br />Try out: maybe 10000 or 20000 or more users to check x time is ok for your system/server resources.<br />If error come out due to max execution time, just adjust to a lower value the number of users to check x time.<br />Refresh manually the browser: this will "reset the counter".<br /> 
+<h4><span style="color:red">Notice</span>: do not put so hight value for users to check each time. It is set by default to 500 users x time, but you can change the value.<br />Try out: maybe 10000 or 20000 or more users to check x time is ok for your system/server resources.<br />If error come out due to max execution time, just adjust to a lower value the number of users to check x time.<br />Refresh manually the browser: this will "reset the counter".<br />
  Repeat the process by setting a lower value for users to check x time: continue to check users until a <span style="color:green">green message</span> will display that the check has been completed.<br /><br /></h4><hr /></div>', 'wp-w3all-phpbb-integration');
 } else { echo '<div>'; } // wrapper <div> if not echo above
 
@@ -248,9 +251,9 @@ foreach($phpBBuck as $phpbbu){
 
 echo'<br /><input type="checkbox" onclick="w3all_toggle(this);" /><strong>Check all</strong>';
 } elseif (isset($t_end) && $action == 'submit_w3all_phpbb_u_0posts'){
-	echo __('<h3><span style="color:green;font-weight:900">Check has been completed! To re-start the check reload this page</span></h3>', 'wp-w3all-phpbb-integration');  
+	echo __('<h3><span style="color:green;font-weight:900">Check has been completed! To re-start the check reload this page</span></h3>', 'wp-w3all-phpbb-integration');
 } elseif ($action == 'submit_w3all_phpbb_u_0posts' && count($phpBBuck) < 1){
-	echo __('<h3>No record match this criteria</h3>', 'wp-w3all-phpbb-integration');  
+	echo __('<h3>No record match this criteria</h3>', 'wp-w3all-phpbb-integration');
 }
 
 ?>
@@ -261,7 +264,7 @@ echo __('<h3><span style="color:red">List users with 0 posts in phpBB: delete in
 endif;
 if ( $action == 'submit_w3all_phpbb_u_0posts' && is_array($phpBBuck) && count($phpBBuck) > 1 ){
 echo __('<br /><span style="color:#FF0000;font-weight:900">WARNING:</span> selected users will be <b>deactivated in phpBB</b> (then will be possible to delete all those users in one click in phpBB ACP)<br />and <span style="color:#FF0000;font-weight:900">DELETED</span> in WordPress!', 'wp-w3all-phpbb-integration');
-} 
+}
 if( $action == 'submit_w3all_phpbb_u_0posts' OR empty($action) ):
 ?>
 <div>
@@ -293,7 +296,7 @@ echo '<input type="hidden" name="w3all_wpu_not_in_phpbb_mismatch_email" value="1
 $wpun = '';
 foreach ( $phpBBuck->results as $u ) {
    	 $wpun .= "'".esc_sql(mb_strtolower($u->user_login,'UTF-8'))."',";
- }   
+ }
  $wpun = substr($wpun, 0, -1);
  $phpbbusers = $w3db_conn->get_results("SELECT username, user_email FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(username) IN(".$wpun.")", ARRAY_A);
  $users_login_arr = array_column($phpbbusers, 'username');
@@ -301,41 +304,41 @@ foreach ( $phpBBuck->results as $u ) {
  $users_login_arr = array_map('mb_strtolower',$users_login_arr);
 
 foreach( $phpBBuck->results as $u ) {
-   	if (!in_array(mb_strtolower($u->user_login,'UTF-8'), $users_login_arr)) { 
-   			//echo $wpu_notin_phpbb = '<br /><span style="color:#FF0000;font-weight:900"> -> WARNING!</span> user <span style="color:#FF0000;font-weight:900">'. $u->user_login .'</span> exist in WordPress but not in phpBB!<br />Add same username <span style="color:#FF0000;font-weight:900">'. $u->user_login .'</span>  associated with same email address in phpBB or delete this user in WordPress!<br />'; 
-   	  	echo $wpu_notin_phpbb = '<br /><span style="color:#FF0000;font-weight:900"> -> WARNING!</span> username <span style="color:#FF0000;font-weight:900">'. $u->user_login .'</span> exist in WordPress but not in phpBB!<br />'; 
+   	if (!in_array(mb_strtolower($u->user_login,'UTF-8'), $users_login_arr)) {
+   			//echo $wpu_notin_phpbb = '<br /><span style="color:#FF0000;font-weight:900"> -> WARNING!</span> user <span style="color:#FF0000;font-weight:900">'. $u->user_login .'</span> exist in WordPress but not in phpBB!<br />Add same username <span style="color:#FF0000;font-weight:900">'. $u->user_login .'</span>  associated with same email address in phpBB or delete this user in WordPress!<br />';
+   	  	echo $wpu_notin_phpbb = '<br /><span style="color:#FF0000;font-weight:900"> -> WARNING!</span> username <span style="color:#FF0000;font-weight:900">'. $u->user_login .'</span> exist in WordPress but not in phpBB!<br />';
    	 $allOKNot = true;
    	}
-   	
+
   foreach($phpbbusers as $p){
-    if (in_array(strtolower($u->user_login), $p)) { 
+    if (in_array(strtolower($u->user_login), $p)) {
     	if(strtolower($p['user_email']) != strtolower($u->user_email)){
-       echo '<br /><span style="color:#85144b;font-weight:900"> -> WARNING!</span> username <span style="color:#FF0000;font-weight:900">'. $u->user_login .'</span> email mismatch in phpBB!<br />User\'s email in WordPress <span style="color:#FF0000;font-weight:900">'. $u->user_email .'</span> - user\'s email in phpBB <span style="color:#FF0000;font-weight:900">'. $p['user_email'] .'</span><br />'; 
+       echo '<br /><span style="color:#85144b;font-weight:900"> -> WARNING!</span> username <span style="color:#FF0000;font-weight:900">'. $u->user_login .'</span> email mismatch in phpBB!<br />User\'s email in WordPress <span style="color:#FF0000;font-weight:900">'. $u->user_email .'</span> - user\'s email in phpBB <span style="color:#FF0000;font-weight:900">'. $p['user_email'] .'</span><br />';
     	}
      }
    }
  }
- 
-  $allOKorNot = isset($allOKNot) ? '' : '<h2>processed users results OK, follow checking users ...</h2>';     
+
+  $allOKorNot = isset($allOKNot) ? '' : '<h2>processed users results OK, follow checking users ...</h2>';
   echo $allOKorNot;
   $start_or_continue_msg = 'Continue check phpBB/WordPress users';
 } elseif (isset($_POST['w3all_wpu_not_in_phpbb_mismatch_email']) && isset($t_end) && $action == 'submit_w3all_wpu_not_in_phpbb_mismatch_email' ){
-	echo __('<h3><span style="color:green;font-weight:900">Check has been completed! To re-start the check reload this page</span></h3>', 'wp-w3all-phpbb-integration');  
+	echo __('<h3><span style="color:green;font-weight:900">Check has been completed! To re-start the check reload this page</span></h3>', 'wp-w3all-phpbb-integration');
 } elseif (isset($_POST['w3all_wpu_not_in_phpbb_mismatch_email']) && is_countable($phpBBuck) && count($phpBBuck) < 1 && $action == 'submit_w3all_wpu_not_in_phpbb_mismatch_email' ){
-	echo __('<h3>No record match this criteria</h3>', 'wp-w3all-phpbb-integration');  
-} 
+	echo __('<h3>No record match this criteria</h3>', 'wp-w3all-phpbb-integration');
+}
 if( $action == 'submit_w3all_wpu_not_in_phpbb_mismatch_email' OR empty($action) ):
  echo '<form name="w3all_wpu_not_in_phpbb_mismatch_email" id="" action="'.esc_url( $ck_w3all_phpbb_url ).'" method="POST">';
 ?>
 <div>
-<p>Check <input type="text" name="limit_select2" value="500" /> users x time 
+<p>Check <input type="text" name="limit_select2" value="500" /> users x time
 	<input type="hidden" name="w3all_wpu_not_in_phpbb_mismatch_email" value="1" />
   <input type="hidden" name="limit_select_prev2" value="<?php echo $limit_select2; ?>" />
   <input type="hidden" name="start_select2" value="<?php echo $start_select2;?>" /><br /><br />
 <input type="submit" name="submit_w3all_wpu_not_in_phpbb_mismatch_email" id="submit2" class="button button-primary" value="<?php echo $start_or_continue_msg;?>">
 </p></div></form>
 <!-- END -->
-<?php 
+<?php
 endif; // END
 
 ///////////////////////////////////////////
@@ -368,24 +371,24 @@ echo __('<br /><span style="color:#FF0000;font-weight:900">User\'s list to be fi
   $start_or_continue_msg = 'Continue check phpBB/WordPress users';
 }
 
-echo '<br /><span style="color:#FF0000;font-weight:900">WARNING! selected users will be removed/deleted in WordPress at next submit!</span>'; 
+echo '<br /><span style="color:#FF0000;font-weight:900">WARNING! selected users will be removed/deleted in WordPress at next submit!</span>';
 echo '<br /><br /><input type="checkbox" onclick="w3all_toggle(this);" /><strong>Check all</strong><br /><br />';
- 
+
 foreach ( $phpBBuck->results as $u ) {
 
-   	if (!in_array(mb_strtolower($u->user_login,'UTF-8'), $users_login_arr)) { 
+   	if (!in_array(mb_strtolower($u->user_login,'UTF-8'), $users_login_arr)) {
 	echo '<input type="checkbox" name="phpbb_uname_notinwp_wp_delete[]" value="'.$u->user_login.'" /> ' . $u->user_login . ' - ' . $u->user_email . ' not existent in phpBB<br />';
    	 $allOKNot = true;
    	}
  }
- 
-  $allOKorNot = isset($allOKNot) ? '' : '<h2>processed users results OK, follow checking users ...</h2>';     
+
+  $allOKorNot = isset($allOKNot) ? '' : '<h2>processed users results OK, follow checking users ...</h2>';
   echo $allOKorNot;
 } elseif ($action == 'submit_w3all_wpu_notINphpBB_delete' && isset($t_end)){
-	echo __('<h3><span style="color:green;font-weight:900">Check has been completed! To re-start the check reload this page</span></h3>', 'wp-w3all-phpbb-integration');  
+	echo __('<h3><span style="color:green;font-weight:900">Check has been completed! To re-start the check reload this page</span></h3>', 'wp-w3all-phpbb-integration');
 } elseif ($action == 'submit_w3all_wpu_notINphpBB_delete' && is_countable($phpBBuck->results) && count($phpBBuck->results) < 1 ){
-	echo __('<h3>No record match this criteria</h3>', 'wp-w3all-phpbb-integration');  
-} 
+	echo __('<h3>No record match this criteria</h3>', 'wp-w3all-phpbb-integration');
+}
 if( $action == 'submit_w3all_wpu_notINphpBB_delete' OR empty($action) ):
 echo __('<hr /><br /><br /><hr /><h3><span style="color:red">List WordPress users that not exists in phpBB: delete WordPress users that not exists in phpBB</span></h3>', 'wp-w3all-phpbb-integration');
 endif;
@@ -399,7 +402,7 @@ if( $action == 'submit_w3all_wpu_notINphpBB_delete' OR empty($action) ):
 <input type="submit" name="submit_w3all_wpu_notINphpBB_delete" id="submit3" class="button button-primary" value="<?php echo $start_or_continue_msg;?>">
 </p></div></form>
 <!-- END -->
-<?php 
+<?php
 endif; // END
 
 if( $action == 'submit_w3all_phpbb_duplicated_usernames_emails' OR empty($action) ):
@@ -407,7 +410,7 @@ echo __('<hr /><br /><br /><hr /><h3><span style="color:red">List phpBB users wi
  echo '<form name="submit_w3all_phpbb_duplicated_usernames_emails" id="" action="'.esc_url( $ck_w3all_phpbb_url ).'" method="POST">';
 
 if(isset($phpbb_duplicated_usernames)){
-	
+
 	 	echo'<p>Check phpBB emails and usernames that are sharing same email address or same username into<br />
 	 	<strong><i>phpBB -> ACP -> TAB Users and Groups -> Manage users -></i> click into <span style="color:#C70039;font-size:120%;">Find a Member</span> link</strong><br />and insert username or email to find out users sharing same email address or having same username and then fix issues.<br />If all result ok (no duplicated usernames or emails found), <span style="color:#2f6e17">GREEN</span> message will display</p>';
 echo 'To return to the main WP users check page, reload this page or click <a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-check'.'">here</a><br /><br /><hr />';
@@ -427,7 +430,7 @@ echo 'To return to the main WP users check page, reload this page or click <a hr
   } elseif (isset($phpbb_duplicated_usernames) && empty($phpbb_duplicated_usernames)) {
   	echo '<h4 style="color:#2f6e17">All ok about <span style="color:#333">usernames</span>: there are no usernames shared between different users in phpBB</h4>';
   }
-  
+
  if(isset($phpbb_duplicated_emails) && !empty($phpbb_duplicated_emails)){
  	 	echo '<h4 style="color:#FF0000">Warning: there are users sharing same <span style="color:#333">email address</span> in phpBB:</h4>';
 
@@ -436,7 +439,7 @@ echo 'To return to the main WP users check page, reload this page or click <a hr
  			echo $vv . ' &nbsp;';
  			if(is_numeric($vv)){ echo'<br />'; }
  		}
- 	  } 
+ 	  }
  	} elseif(isset($phpbb_duplicated_emails) && empty($phpbb_duplicated_emails)) {
   	echo '<h4 style="color:#2f6e17">All ok about <span style="color:#333">emails</span>: there are no emails shared between different users in phpBB</h4>';
   }
@@ -447,7 +450,7 @@ echo 'To return to the main WP users check page, reload this page or click <a hr
 <input type="submit" name="submit_w3all_phpbb_duplicated_ue" id="submit4" class="button button-primary" value="Check duplicated phpBB Usernames or Emails" />
 </p></div></form>
 <!-- END -->
-<?php 
+<?php
 endif; // END
 
 if( $action == 'submit_w3all_phpbb_noallowed_usernames_chars' OR empty($action) ):
@@ -455,7 +458,7 @@ echo __('<hr /><br /><br /><hr /><h3><span style="color:red">List phpBB username
 echo '<form name="submit_w3all_phpbb_noallowed_usernames_chars" id="" action="'.esc_url( $ck_w3all_phpbb_url ).'" method="POST">';
 
 if(isset($phpbb_unwanted_usernames_chars)){
-	
+
 	 	echo'<p>Check phpBB usernames for not allowed characters in WordPress<br />
 	 	If all checked usernames will results ok, so not containing not allowed characters into WordPress, <span style="color:#2f6e17">GREEN</span> message will display</p>';
 echo 'To return to the main WP users check page, reload this page or click <a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-check'.'">here</a><br /><br /><hr />';
@@ -481,7 +484,7 @@ echo 'To return to the main WP users check page, reload this page or click <a hr
 <input type="submit" name="submit_w3all_phpbb_noallowed_uc" id="submit5" class="button button-primary" value="Check phpBB Usernames with not allowed charaters in WordPress" />
 </p></div></form>
 <!-- END -->
-<?php 
+<?php
 endif; // END
 
 
