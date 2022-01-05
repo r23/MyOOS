@@ -52,7 +52,8 @@
 		"dompdf/dompdf": "^1.0",
 		"phpoffice/phpspreadsheet": "^1.16",
 		"adodb/adodb-php": "^5.21",
-		"tecnickcom/tcpdf": "^6.4.1"
+		"tecnickcom/tcpdf": "^6.4.1",
+		"nesbot/carbon": "^2.55"
     }	
 
 }
